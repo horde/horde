@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: IMP H5 (6.3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-22 13:30+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -54,19 +54,19 @@ msgstr "%.0f%% a %.0f %s"
 msgid "%.2fMB"
 msgstr "%.2fMB"
 
-#: lib/Ajax/Application/ShowMessage.php:309
+#: lib/Ajax/Application/ShowMessage.php:307
 #, php-format
 msgid "%d Attachment"
 msgid_plural "%d Attachments"
 msgstr[0] "%d csatolmány"
 msgstr[1] "%d csatolmány"
 
-#: lib/Dynamic/Compose/Common.php:255
+#: lib/Dynamic/Compose/Common.php:262
 #, php-format
 msgid "%d Attachments"
 msgstr "%d csatolmány"
 
-#: lib/Basic/Thread.php:180 lib/Basic/Mailbox.php:397
+#: lib/Basic/Thread.php:181 lib/Basic/Mailbox.php:397
 #: lib/Basic/Mailbox.php:398
 #, php-format
 msgid "%d Messages"
@@ -135,7 +135,7 @@ msgstr[1] "%d új"
 msgid "%d of %d"
 msgstr "%d. oldal a %d-ből"
 
-#: lib/Dynamic/Compose/Common.php:258
+#: lib/Dynamic/Compose/Common.php:265
 #, php-format
 msgid "%d recipients"
 msgstr "%d címzettek"
@@ -326,7 +326,7 @@ msgid ""
 "recipient."
 msgstr "Az elküldött levélre visszajelzés érkezett a címzettől."
 
-#: lib/Compose.php:3332
+#: lib/Compose.php:3335
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -389,7 +389,7 @@ msgstr "Művelet"
 msgid "Actions"
 msgstr "Lehetőségek"
 
-#: lib/Message/Ui.php:255 lib/Message/Ui.php:284
+#: lib/Message/Ui.php:227 lib/Message/Ui.php:256
 #, php-format
 msgid "Add %s to my Address Book"
 msgstr "%s hozzáadása a címjegyzékemhez"
@@ -509,7 +509,7 @@ msgstr "Összetett keresés..."
 msgid "After '%s'"
 msgstr "\"%s\" után"
 
-#: templates/prefs/acl.html.php:44 templates/prefs/acl.html.php:79
+#: templates/prefs/acl.html.php:45 templates/prefs/acl.html.php:80
 msgid "All"
 msgstr "Mind"
 
@@ -529,7 +529,7 @@ msgstr ""
 "A következő mappa/mappák tartalma letölésre kerül egy standard mbox "
 "formátumú fájlba:"
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:97
+#: lib/LoginTasks/Task/PurgeSentmail.php:95
 #, php-format
 msgid ""
 "All messages in the mailbox \"%s\" older than %s days will be permanently "
@@ -550,7 +550,7 @@ msgstr ""
 "Minden üzenet letölthető a megadott formátumban. A mappa méretétől függően "
 "ez hosszabb időt is igénybe vehet."
 
-#: lib/LoginTasks/Task/PurgeSpam.php:81 lib/LoginTasks/Task/PurgeTrash.php:82
+#: lib/LoginTasks/Task/PurgeSpam.php:82 lib/LoginTasks/Task/PurgeTrash.php:82
 #, php-format
 msgid ""
 "All messages in your \"%s\" mailbox older than %s days will be permanently "
@@ -642,7 +642,7 @@ msgstr "Ismeretlen személy"
 msgid "Answered"
 msgstr "Megválaszolt"
 
-#: templates/prefs/acl.html.php:41 templates/prefs/acl.html.php:76
+#: templates/prefs/acl.html.php:42 templates/prefs/acl.html.php:77
 msgid "Append"
 msgstr "Hozzáfűzés"
 
@@ -667,7 +667,7 @@ msgstr "Biztos, hogy VÉGÉRVÉNYESEN törölni kívánja az összes csatolmány
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
 msgstr "Biztos, hogy VÉGÉRVÉNYESEN törölni kívánja ezeket a leveleket?"
 
-#: lib/Basic/Thread.php:175
+#: lib/Basic/Thread.php:176
 msgid "Are you sure you want to delete all messages in this thread?"
 msgstr "Biztos, hogy törölni szeretné az összes leveletet ebből a témából?"
 
@@ -776,7 +776,7 @@ msgstr "Növekvő"
 msgid "At least one attachment could not be deleted."
 msgstr "Legalább egy csatolmány törlése sikertelen volt."
 
-#: lib/Dynamic/Compose/Common.php:185
+#: lib/Dynamic/Compose/Common.php:192
 msgid "Attach Personal PGP Public Key"
 msgstr "A személyes nyilvános PGP kulcs csatolása"
 
@@ -784,7 +784,7 @@ msgstr "A személyes nyilvános PGP kulcs csatolása"
 msgid "Attach a copy of your PGP public key to the message?"
 msgstr "Az Ön PGP nyilvános kulcsának csatolása a levélhez"
 
-#: lib/Dynamic/Compose/Common.php:189
+#: lib/Dynamic/Compose/Common.php:196
 msgid "Attach contact information"
 msgstr "Saját névjegyem csatolása"
 
@@ -796,7 +796,7 @@ msgstr "Névjegye csatolása a levélhez?"
 msgid "Attach:"
 msgstr "Csatolás:"
 
-#: lib/Compose.php:3260
+#: lib/Compose.php:3263
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -804,7 +804,7 @@ msgstr ""
 "A csatolni kívánt \"%s\" állománnyal túllépné a mellékletek méretére "
 "vonatkozó korlátot. Az fájl csatolása NEM sikerült."
 
-#: lib/Compose.php:3260
+#: lib/Compose.php:3263
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
 "A csatolt állománnyal túllépi a mellékletek méretére vonatkozó korlátozást. "
@@ -840,7 +840,7 @@ msgstr "A csatolmány leválasztva: az eredeti csatolmány típusa"
 msgid "Attachment successfully stripped."
 msgstr "A csatolmány seikeresen feldarabolva"
 
-#: lib/Compose.php:2862 lib/Compose.php:2869 lib/Basic/Compose.php:909
+#: lib/Compose.php:2865 lib/Compose.php:2872 lib/Basic/Compose.php:909
 #: lib/Basic/Message.php:849 lib/Basic/Message.php:881
 #: templates/smartmobile/compose.html.php:75
 #: templates/basic/compose/compose.html.php:271
@@ -883,12 +883,12 @@ msgstr "Automatikusan generált levelek"
 msgid "Awaiting Response"
 msgstr "válaszra vár"
 
-#: lib/Basic/Thread.php:140 lib/Basic/Message.php:513
+#: lib/Basic/Thread.php:141 lib/Basic/Message.php:513
 #, php-format
 msgid "Bac_k to %s"
 msgstr "Vissz_a %s-hez"
 
-#: lib/Basic/Thread.php:132
+#: lib/Basic/Thread.php:133
 msgid "Back to Multiple Message View Index"
 msgstr "Vissza a levelek szokásos megjelenítéséhez"
 
@@ -985,7 +985,7 @@ msgstr "Mégse"
 msgid "Cancel Message"
 msgstr "Mégsem kell ez a levél"
 
-#: lib/Dynamic/Compose/Common.php:252
+#: lib/Dynamic/Compose/Common.php:259
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -1018,10 +1018,6 @@ msgstr ""
 "A levelek nem tehetők át a Szemetes mappába - nincs megadva Szemetes mappa a "
 "beállításokban."
 
-#: lib/Ajax/Imple/VcardImport.php:71
-msgid "Cannot retrieve Vcard data from message."
-msgstr "Nem sikerült a Vcard adatok letöltése az üzenetből."
-
 #: lib/Ajax/Imple/ItipRequest.php:71
 msgid "Cannot retrieve calendar data from message."
 msgstr "Nem sikerült az esemény adatainak letöltése az üzenetből."
@@ -1029,6 +1025,11 @@ msgstr "Nem sikerült az esemény adatainak letöltése az üzenetből."
 #: lib/Ajax/Imple/ImportEncryptKey.php:69
 msgid "Cannot retrieve public key from message."
 msgstr "Nem lehet letölteni nyilvános kulcsot a levélhez."
+
+#: lib/Ajax/Imple/VcardImport.php:71
+#, fuzzy
+msgid "Cannot retrieve vCard data from message."
+msgstr "Nem sikerült a Vcard adatok letöltése az üzenetből."
 
 #: lib/Basic/Compose.php:918
 #, php-format
@@ -1060,7 +1061,7 @@ msgstr "Másolat: "
 msgid "Chair Person"
 msgstr "Elnök"
 
-#: templates/prefs/acl.html.php:97
+#: templates/prefs/acl.html.php:95
 msgid "Change"
 msgstr "Módosít"
 
@@ -1149,7 +1150,7 @@ msgstr "Ha le szeretné tölteni, kattintson %s."
 msgid "Click %s to go to %s management page."
 msgstr "%s kattintson, ha %s menedzsment oldalára szeretne menni."
 
-#: lib/Basic/Message.php:792 lib/Ajax/Application/ShowMessage.php:282
+#: lib/Basic/Message.php:792 lib/Ajax/Application/ShowMessage.php:280
 #, php-format
 msgid "Click %s to send the notification message."
 msgstr "Kattintson ide %s az értesítés küldéséhez."
@@ -1264,7 +1265,7 @@ msgstr "Sablonok"
 msgid "Compose Templates mailbox:"
 msgstr "Sablonok mappája:"
 
-#: lib/Dynamic/Compose/Common.php:253
+#: lib/Dynamic/Compose/Common.php:260
 msgid "Compose action completed. You may now safely close this window."
 msgstr "A levélírás kész. Most biztonságosan bezárhatja ezt a böngészőablakot."
 
@@ -1357,7 +1358,7 @@ msgstr "Másolás a vágólapra"
 msgid "Copy/Move"
 msgstr "Másolás/Mozgatás"
 
-#: lib/Dynamic/Compose/Common.php:254
+#: lib/Dynamic/Compose/Common.php:261
 #, php-format
 msgid "Could not add %d file(s) to message: only images are supported."
 msgstr ""
@@ -1370,7 +1371,7 @@ msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr ""
 "Nem sikerült hozzáadni a \"%s\" felhasználó jogosultságát a \"%s\" mappához."
 
-#: lib/Compose.php:3118
+#: lib/Compose.php:3121
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr "%s csatolása a levélhez nem sikerült."
@@ -1423,7 +1424,7 @@ msgstr ""
 "A levelek nem tehetők át a spam mappába - nincs megadva spam mappa a "
 "beállításokban."
 
-#: lib/Ajax/Application/Handler/Common.php:676
+#: lib/Ajax/Application/Handler/Common.php:679
 msgid "Could not open mailbox."
 msgstr "A mappa nem nyitható meg."
 
@@ -1431,7 +1432,7 @@ msgstr "A mappa nem nyitható meg."
 msgid "Could not parse mailbox data."
 msgstr "Nem sikerült értelmezni a mappa adatait."
 
-#: lib/Dynamic/Compose/Common.php:257
+#: lib/Dynamic/Compose/Common.php:264
 msgid "Could not paste image as the clipboard data is invalid."
 msgstr ""
 "Nem sikerült a kép beillesztése, mert a vágólapon lévő tartalom érvénytelen."
@@ -1443,7 +1444,7 @@ msgstr ""
 "Nem távolíthatók el a \"%s\" felhasználó jogosultságai a \"%s\" mappából."
 
 #: lib/Compose.php:1814 lib/Compose.php:2185 lib/Minimal/Compose.php:531
-#: lib/Dynamic/Compose.php:279 lib/Basic/Compose.php:1104
+#: lib/Dynamic/Compose.php:277 lib/Basic/Compose.php:1104
 msgid "Could not retrieve message data from the mail server."
 msgstr "Nem sikerült a levél adatainak letöltése a szerverről."
 
@@ -1607,8 +1608,8 @@ msgstr "másnak átadva"
 
 #: lib/Imap/Acl.php:196 lib/Minimal/Message.php:224
 #: lib/Dynamic/Mailbox.php:325 lib/Dynamic/Mailbox.php:356
-#: lib/Dynamic/Compose/Common.php:179 templates/prefs/acl.html.php:43
-#: templates/prefs/acl.html.php:78 templates/prefs/pgppublickey.html.php:22
+#: lib/Dynamic/Compose/Common.php:186 templates/prefs/acl.html.php:44
+#: templates/prefs/acl.html.php:79 templates/prefs/pgppublickey.html.php:22
 #: templates/prefs/smimepublickey.html.php:24
 #: templates/smartmobile/mailbox.html.php:20
 #: templates/smartmobile/mailbox.html.php:28
@@ -1637,7 +1638,7 @@ msgstr "Személyes tanúsítványok törlése"
 msgid "Delete Selected Mailboxes"
 msgstr "A kiválasztott mappák törlése"
 
-#: lib/Basic/Thread.php:173
+#: lib/Basic/Thread.php:174
 msgid "Delete Thread"
 msgstr "Téma törlése"
 
@@ -1748,7 +1749,7 @@ msgstr "Az aláírás halványítása"
 msgid "Discard Draft"
 msgstr "Piszkozat elvetése"
 
-#: lib/Dynamic/Compose/Common.php:260
+#: lib/Dynamic/Compose/Common.php:267
 msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
@@ -1839,11 +1840,11 @@ msgstr "Letöltés MBOX fájlba"
 msgid "Download into a MBOX file (ZIP compressed)"
 msgstr "Letöltés MBOX fájlba (ZIP tömörítéssel)"
 
-#: lib/Compose.php:2889
+#: lib/Compose.php:2892
 msgid "Download link"
 msgstr "Letöltési link"
 
-#: lib/Compose.php:2882
+#: lib/Compose.php:2885
 #, php-format
 msgid "Download link: %s"
 msgstr "Letöltési linke: %s"
@@ -2375,7 +2376,7 @@ msgstr "Feladó"
 msgid "From Address"
 msgstr "A feladó címe"
 
-#: lib/Mailbox/Ui.php:91 templates/smartmobile/compose.html.php:17
+#: lib/Mailbox/Ui.php:88 templates/smartmobile/compose.html.php:17
 #: templates/minimal/compose.html.php:9
 msgid "From:"
 msgstr "Feladó:"
@@ -2398,7 +2399,7 @@ msgstr "Mehet"
 msgid "Go to Advanced Search Page..."
 msgstr "Ugrás a bővített kereséshez..."
 
-#: lib/Basic/Thread.php:139
+#: lib/Basic/Thread.php:140
 msgid "Go to Message"
 msgstr "A levélhez"
 
@@ -2415,7 +2416,7 @@ msgstr "Ugrás a bejövő levelekhez..."
 #: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Mdn.php:94
 #: lib/Mime/Viewer/Images.php:145 lib/Mime/Viewer/Appledouble.php:97
 #: lib/Mime/Viewer/Status.php:111 lib/Mime/Viewer/Status.php:123
-#: lib/Mime/Viewer/Status.php:134 lib/Ajax/Application/ShowMessage.php:282
+#: lib/Mime/Viewer/Status.php:134 lib/Ajax/Application/ShowMessage.php:280
 msgid "HERE"
 msgstr "ITT"
 
@@ -2451,7 +2452,7 @@ msgstr "Logikai nézetben rejtett"
 msgid "Hidden in Thread View and List Messages"
 msgstr "Rejtett témák és üzenetek listája"
 
-#: lib/Message/Ui.php:307 templates/dynamic/header.html.php:5
+#: lib/Message/Ui.php:279 templates/dynamic/header.html.php:5
 msgid "Hide Addresses"
 msgstr "Címek elrejtése"
 
@@ -2472,7 +2473,7 @@ msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr ""
 "A törölt levelek elrejtése annak ellenére, hogy Szemetes mappát használ?"
 
-#: lib/Dynamic/Compose/Common.php:220 lib/Basic/Compose.php:865
+#: lib/Dynamic/Compose/Common.php:227 lib/Basic/Compose.php:865
 #: lib/Basic/Message.php:306
 msgid "High"
 msgstr "nagy"
@@ -2672,7 +2673,7 @@ msgstr "Levél beszúrása"
 msgid "Invalid Action selected for this component."
 msgstr "Ez a lehetőség nem választható ebben az esetben."
 
-#: lib/Smartmobile.php:178 lib/Dynamic/Mailbox.php:518 lib/Mailbox/Ui.php:95
+#: lib/Smartmobile.php:178 lib/Dynamic/Mailbox.php:518 lib/Mailbox/Ui.php:92
 msgid "Invalid Address"
 msgstr "Hibás/elfogadhatatlan cím."
 
@@ -2815,7 +2816,7 @@ msgstr "Kijelentkezve: %s"
 msgid "Logging Out..."
 msgstr "Kijelentkezés..."
 
-#: lib/Dynamic/Compose/Common.php:229 lib/Basic/Compose.php:867
+#: lib/Dynamic/Compose/Common.php:236 lib/Basic/Compose.php:867
 #: lib/Basic/Message.php:311
 msgid "Low"
 msgstr "alacsony"
@@ -2843,7 +2844,7 @@ msgstr "Mappák"
 msgid "Mailbox \"%s\" already exists."
 msgstr "\"%s\" nevű mappa már létezik."
 
-#: lib/Ajax/Application/ListMessages.php:268
+#: lib/Ajax/Application/ListMessages.php:265
 #, php-format
 msgid "Mailbox %s does not exist."
 msgstr "%s mappa nem létezik."
@@ -2998,7 +2999,7 @@ msgstr "Menü"
 msgid "Message"
 msgstr "Levél"
 
-#: lib/Ajax/Application/Handler/Common.php:637
+#: lib/Ajax/Application/Handler/Common.php:640
 #, php-format
 msgid "Message \"%s\" redirected successfully."
 msgstr "A \"%s\" levél sikeresen átírányítva."
@@ -3055,7 +3056,7 @@ msgid "Message is Signed"
 msgstr "Digitálisan aláírt"
 
 #: lib/Minimal/Compose.php:242 lib/Basic/Compose.php:411
-#: lib/Basic/Compose.php:417 lib/Ajax/Application/Handler/Common.php:637
+#: lib/Basic/Compose.php:417 lib/Ajax/Application/Handler/Common.php:640
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully."
 msgstr[0] "A levél sikeresen átirányítva."
@@ -3152,7 +3153,7 @@ msgstr "Áthelyezés a Spam mappába"
 msgid "Multipart"
 msgstr "Több, alternatív részt tartalmaz"
 
-#: lib/Basic/Thread.php:202 templates/thread/thread.html.php:2
+#: lib/Basic/Thread.php:203 templates/thread/thread.html.php:2
 msgid "Multiple Message View"
 msgstr "A levelek szokásos nézete"
 
@@ -3193,7 +3194,7 @@ msgstr "Legalább egy címzett szükséges."
 msgid "Needs Action"
 msgstr "Választ vár"
 
-#: templates/prefs/acl.html.php:31
+#: templates/prefs/acl.html.php:32
 msgid "Negative Right"
 msgstr "Kizáró jog"
 
@@ -3224,7 +3225,7 @@ msgstr "Új levelek keresése"
 msgid "New Message"
 msgstr "Új levél"
 
-#: lib/Basic/Mailbox.php:941 lib/Message/Ui.php:245 lib/Message/Ui.php:274
+#: lib/Basic/Mailbox.php:941 lib/Message/Ui.php:217 lib/Message/Ui.php:246
 #, php-format
 msgid "New Message to %s"
 msgstr "Új levél %s részére"
@@ -3234,7 +3235,7 @@ msgstr "Új levél %s részére"
 msgid "New Search in %s"
 msgstr "Új keresés a %s-ben"
 
-#: templates/prefs/acl.html.php:58
+#: templates/prefs/acl.html.php:59
 msgid "New User"
 msgstr "Új felhasználó"
 
@@ -3384,7 +3385,7 @@ msgstr "Nincs távoli hozzáférés beállítva"
 msgid "No search criteria specified."
 msgstr "Nincs keresési feltétel megadva."
 
-#: lib/Dynamic/Compose/Common.php:259
+#: lib/Dynamic/Compose/Common.php:266
 msgid "No spelling errors found."
 msgstr "Nem található helyesírási hiba."
 
@@ -3398,15 +3399,15 @@ msgstr "Nem résztvevő"
 
 #: lib/Compose/Ui.php:223 lib/Mime/Viewer/Itip.php:388
 #: lib/Mime/Viewer/Itip.php:543 templates/prefs/drafts.html.php:7
-#: templates/prefs/sentmail.html.php:7 templates/prefs/acl.html.php:38
-#: templates/prefs/acl.html.php:73 templates/prefs/trash.html.php:7
+#: templates/prefs/sentmail.html.php:7 templates/prefs/acl.html.php:39
+#: templates/prefs/acl.html.php:74 templates/prefs/trash.html.php:7
 #: templates/prefs/spam.html.php:7 templates/prefs/composetemplates.html.php:7
 #: templates/basic/search/search-basic.html.php:14
 #: templates/basic/search/search-basic.html.php:31
 msgid "None"
 msgstr "Semmi"
 
-#: lib/Dynamic/Compose/Common.php:224 lib/Basic/Compose.php:866
+#: lib/Dynamic/Compose/Common.php:231 lib/Basic/Compose.php:866
 msgid "Normal"
 msgstr "közepes"
 
@@ -3590,7 +3591,7 @@ msgid "Page %d of %d"
 msgstr "%d. oldal a %d-ből"
 
 #: lib/Dynamic/Base.php:195 lib/Basic/Message.php:881
-#: lib/Ajax/Application/ShowMessage.php:308
+#: lib/Ajax/Application/ShowMessage.php:306
 msgid "Parts"
 msgstr "Rész(ek)"
 
@@ -3759,8 +3760,8 @@ msgstr "Portál"
 msgid "Possible Conflicts"
 msgstr "Lehetséges problémák"
 
-#: lib/Imap/Acl.php:180 templates/prefs/acl.html.php:40
-#: templates/prefs/acl.html.php:75
+#: lib/Imap/Acl.php:180 templates/prefs/acl.html.php:41
+#: templates/prefs/acl.html.php:76
 msgid "Post"
 msgstr "Beállítás"
 
@@ -3860,7 +3861,7 @@ msgstr "Ennyi napnál régebbi levelek törlése a Elküldött levelek mappábó
 msgid "Purge sent mail how often:"
 msgstr "Elküldött levelek mappa ürítésének gyakorisága:"
 
-#: lib/LoginTasks/Task/PurgeSpam.php:66
+#: lib/LoginTasks/Task/PurgeSpam.php:67
 #, php-format
 msgid "Purging %d message from Spam mailbox."
 msgid_plural "Purging %d messages from Spam mailbox."
@@ -3874,26 +3875,27 @@ msgid_plural "Purging %d messages from Trash mailbox."
 msgstr[0] "%d levél törlődik a Szemetes mappából."
 msgstr[1] "%d levél törlődik a Szemetes mappából."
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:74
+#: lib/LoginTasks/Task/PurgeSentmail.php:72
 #, php-format
 msgid "Purging %d messages from sent-mail mailbox."
 msgstr "%d levél törlődik az Elküldött levelek mappából."
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:72
+#: lib/LoginTasks/Task/PurgeSentmail.php:70
+#, php-format
 msgid "Purging 1 message from sent-mail mailbox %s."
-msgstr "1 levél törlődik az Elküldött levelek mappából."
+msgstr "1 levél törlődik a %s mappából."
 
 #: config/prefs.php:711
 #, php-format
 msgid "Quoting %f:"
 msgstr "Idézet (%f):"
 
-#: lib/Imap/Acl.php:164 templates/prefs/acl.html.php:39
-#: templates/prefs/acl.html.php:74
+#: lib/Imap/Acl.php:164 templates/prefs/acl.html.php:40
+#: templates/prefs/acl.html.php:75
 msgid "Read"
 msgstr "Olvasás"
 
-#: lib/Dynamic/Compose/Common.php:166
+#: lib/Dynamic/Compose/Common.php:173
 msgid "Read Receipt"
 msgstr "Olvasási visszaigazolás kérése"
 
@@ -4291,11 +4293,11 @@ msgstr "Men_tés mint"
 msgid "Save"
 msgstr "Mentés"
 
-#: lib/Ajax/Application/ShowMessage.php:311
+#: lib/Ajax/Application/ShowMessage.php:309
 msgid "Save All"
 msgstr "Mind menti"
 
-#: lib/Dynamic/Compose/Common.php:175
+#: lib/Dynamic/Compose/Common.php:182
 msgid "Save Attachments in Sent Mailbox"
 msgstr "Csatolmányok elmentése az Elküldött levelek mappába"
 
@@ -4543,7 +4545,7 @@ msgstr "Küldés"
 msgid "Send message without a Subject?"
 msgstr "Elküldés tárgy nélkül?"
 
-#: lib/Dynamic/Compose/Common.php:256
+#: lib/Dynamic/Compose/Common.php:263
 msgid "Send message without a subject?"
 msgstr "Elküldés tárgy nélkül?"
 
@@ -4620,7 +4622,7 @@ msgstr ""
 msgid "Should your PGP public key to be attached to your messages by default?"
 msgstr "Az Ön PGP nyilvános kulcsának elküldése csatolmányként minden levéllel"
 
-#: lib/Message/Ui.php:306 templates/dynamic/header.html.php:4
+#: lib/Message/Ui.php:278 templates/dynamic/header.html.php:4
 #, php-format
 msgid "Show Addresses (%d)"
 msgstr "Címzettek mutatása (%d)"
@@ -4954,8 +4956,8 @@ msgstr "További részletes hibaüzenet látható %s."
 msgid "Technical message details can be viewed %s."
 msgstr "Az üzenet további részletei láthatók %s."
 
-#: lib/Mailbox.php:1560 templates/prefs/acl.html.php:36
-#: templates/prefs/acl.html.php:71
+#: lib/Mailbox.php:1560 templates/prefs/acl.html.php:37
+#: templates/prefs/acl.html.php:72
 msgid "Templates"
 msgstr "Sablonok"
 
@@ -5175,7 +5177,7 @@ msgstr "Az éppen fogalmazott levél bezárodott."
 msgid "The message does not have a Subject entered."
 msgstr "A levél Tárgy mezője üresen maradt."
 
-#: lib/Dynamic/Compose/Common.php:256
+#: lib/Dynamic/Compose/Common.php:263
 msgid "The message does not have a subject entered."
 msgstr "A levél Tárgy mezője üresen maradt."
 
@@ -5228,7 +5230,7 @@ msgid ""
 "have read this message."
 msgstr "A feladó visszaigazolást kér arról, hogy Ön elolvasta ezt a levelet."
 
-#: lib/Ajax/Application/ShowMessage.php:281
+#: lib/Ajax/Application/ShowMessage.php:279
 msgid ""
 "The sender of this message is requesting notification from you when you have "
 "read this message."
@@ -5493,7 +5495,7 @@ msgstr "Téma"
 msgid "Thread Display"
 msgstr "Logikai nézet:"
 
-#: lib/Basic/Thread.php:126
+#: lib/Basic/Thread.php:127
 msgid "Thread List"
 msgstr "Téma lista"
 
@@ -5501,7 +5503,7 @@ msgstr "Téma lista"
 msgid "Thread Sort"
 msgstr "Téma sorrend"
 
-#: lib/Basic/Thread.php:201
+#: lib/Basic/Thread.php:202
 msgid "Thread View"
 msgstr "Logikai nézet"
 
@@ -5544,7 +5546,7 @@ msgstr "_Mindenkinek"
 msgid "To _List"
 msgstr "A listának"
 
-#: lib/Mailbox/Ui.php:78 lib/Basic/Thread.php:109 lib/Basic/Thread.php:110
+#: lib/Mailbox/Ui.php:75 lib/Basic/Thread.php:110 lib/Basic/Thread.php:111
 #: templates/smartmobile/compose.html.php:7
 #: templates/smartmobile/compose.html.php:25
 #: templates/dynamic/redirect.html.php:14
@@ -5555,7 +5557,7 @@ msgstr "Címzett:"
 msgid "To: "
 msgstr "Címzett:"
 
-#: lib/Message/Ui.php:171
+#: lib/Message/Date.php:124
 #, php-format
 msgid "Today, %s %s"
 msgstr "Ma, %s %s"
@@ -5599,8 +5601,8 @@ msgstr "Nem érhető el az előnézeti ablak a levélhez."
 msgid "Undelete"
 msgstr "Törlés vissza"
 
-#: lib/Mailbox/Ui.php:84 lib/Ajax/Application/ShowMessage.php:448
-#: lib/Message/Ui.php:299
+#: lib/Mailbox/Ui.php:81 lib/Ajax/Application/ShowMessage.php:446
+#: lib/Message/Ui.php:271
 msgid "Undisclosed Recipients"
 msgstr "A címzettek listája nem ismert"
 
@@ -5613,7 +5615,7 @@ msgstr "Ismeretlen típus: %s"
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: lib/Mailbox/Ui.php:133 lib/Mailbox/Ui.php:153
+#: lib/Message/Date.php:131
 msgid "Unknown Date"
 msgstr "Ismeretlen dátum"
 
@@ -5683,7 +5685,7 @@ msgstr "Feltöltés"
 msgid "Uploading attachments has been disabled on this server."
 msgstr "A melléketek feltöltése erre a szerverre nem támogatott."
 
-#: lib/Dynamic/Compose/Common.php:261
+#: lib/Dynamic/Compose/Common.php:268
 msgid "Uploading..."
 msgstr "Feltöltés..."
 
@@ -5716,7 +5718,7 @@ msgstr "Biztonságos kapcsolat használata"
 msgid "Use the charset of the original message when replying?"
 msgstr "Válaszoláskor az eredeti levél karakterkódolásának használata"
 
-#: templates/prefs/acl.html.php:12
+#: templates/prefs/acl.html.php:13
 msgid "User"
 msgstr "Felhasználói név"
 
@@ -5940,7 +5942,7 @@ msgstr "A levél megjelenített adatai:"
 msgid "Whitelist"
 msgstr "Engedélyezett címek"
 
-#: templates/prefs/acl.html.php:42 templates/prefs/acl.html.php:77
+#: templates/prefs/acl.html.php:43 templates/prefs/acl.html.php:78
 msgid "Write"
 msgstr "Írás"
 
@@ -5952,6 +5954,16 @@ msgstr "év"
 #: templates/basic/compose/compose.html.php:308
 msgid "Yes"
 msgstr "Igen"
+
+#: lib/Message/Date.php:146
+#, php-format
+msgid "Yesterday, %s"
+msgstr "Tegnap, %s"
+
+#: lib/Message/Date.php:107
+#, php-format
+msgid "Yesterday, %s %s"
+msgstr "Tegnap, %s %s"
 
 #: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:181
@@ -6064,7 +6076,7 @@ msgstr ""
 msgid "You have already submitted this page."
 msgstr "Ezt az oldalt már egyszer bejelentette."
 
-#: lib/Dynamic/Compose/Common.php:251 lib/Basic/Compose.php:741
+#: lib/Dynamic/Compose/Common.php:258 lib/Basic/Compose.php:741
 msgid ""
 "You have edited your signature. Change the identity and lose your changes?"
 msgstr "Az aláírás módosult. Azonosító váltáskor elvesznek a változások."
@@ -6125,8 +6137,12 @@ msgid "You must specify a recipient."
 msgstr "Meg kell adnia a címzettet."
 
 #: lib/Dynamic/Base.php:196
-msgid "You need to manually use the keyboard instead (Ctrl/Cmd + C)."
-msgstr "A (Ctrl/Cmd + C) billentyűk manuális használata szükséges."
+msgid ""
+"You need to either use the keyboard (Ctrl/Cmd + C) or right click on the "
+"selected address to access the Copy command."
+msgstr ""
+"Akár a billentyűzeten (Ctrl/Cmd + C), akár a kiválasztott címeken való jobb "
+"egérkattintással elérheti a Másolás parancsot."
 
 #: lib/Maillog/Log/Redirect.php:65
 #, php-format
@@ -6239,8 +6255,7 @@ msgstr ""
 
 #: lib/Dynamic/Base.php:196
 msgid ""
-"Your browser security settings don't permit the editor to copy to the "
-"clipboard."
+"Your browser security settings don't permit direct access to the clipboard."
 msgstr ""
 "A böngészőprogram biztonsági beállításai nem teszik lehetővé a vágólap "
 "használatát."
@@ -6300,14 +6315,14 @@ msgstr "Az Ön állandó aláírása:"
 msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
 msgstr "[A melléklet leválasztva: az eredeti melléklet típusa: %s, neve: %s]"
 
-#: lib/Compose.php:2535 lib/Minimal/Message.php:147 lib/Mailbox/Ui.php:183
+#: lib/Compose.php:2535 lib/Minimal/Message.php:147 lib/Mailbox/Ui.php:124
 #: lib/Basic/Message.php:298 lib/Prefs/AttribText.php:66
+#: lib/Ajax/Application/ShowMessage.php:243
 #: lib/Ajax/Application/ShowMessage.php:245
-#: lib/Ajax/Application/ShowMessage.php:247
 msgid "[No Subject]"
 msgstr "[Tárgy nélkül]"
 
-#: lib/Compose.php:2978
+#: lib/Compose.php:2981
 msgid "[Truncated Text]"
 msgstr "[Csonkolt szöveg]"
 
@@ -6397,7 +6412,7 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] "és %d további mappa"
 msgstr[1] "és %d további mappa"
 
-#: lib/Compose.php:3144
+#: lib/Compose.php:3147
 msgid "attachment"
 msgstr "csatolmány"
 
@@ -6435,7 +6450,7 @@ msgstr "mappába"
 msgid "key"
 msgstr "kulcs"
 
-#: lib/Compose.php:2859
+#: lib/Compose.php:2862
 #, php-format
 msgid "links will expire on %s"
 msgstr "A hivatkozások lejáratának dátuma: %s"
@@ -6445,6 +6460,7 @@ msgid "mailbox file"
 msgstr "mailbox fájl"
 
 #: templates/prefs/signaturehtml.html.php:2
+#, php-format
 msgid "maximum total image size is %s"
 msgstr "maximális képméret bájtban: %s"
 

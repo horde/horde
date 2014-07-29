@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith H5 (4.3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-22 13:30+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -312,7 +312,7 @@ msgstr "Hozzáadás"
 msgid "Add to attendees"
 msgstr "Hozzáadás a résztvevőkhöz"
 
-#: lib/Ajax/Application/Handler.php:959
+#: lib/Ajax/Application/Handler.php:960
 msgid "Added task list not found."
 msgstr "A hozzáadott feladatlista nem található."
 
@@ -788,10 +788,6 @@ msgstr "Vesszővel elválasztott értékek"
 msgid "Completed"
 msgstr "Befejezett"
 
-#: config/prefs.php:527
-msgid "Configured Horde Default"
-msgstr "Horde alapértelmezett"
-
 #: config/prefs.php:92
 msgid "Confirm deletion of events?"
 msgstr "Megerősítés események törlésekor"
@@ -1215,7 +1211,7 @@ msgstr "Nem sikerült megtudni %s időbeosztását: %s"
 msgid "Error retrieving your free/busy information: %s"
 msgstr "Nem sikerült megtudni az Ön időbeosztását: %s"
 
-#: lib/Ajax/Application/Handler.php:1402
+#: lib/Ajax/Application/Handler.php:1403
 #, php-format
 msgid "Error saving timeslice: %s"
 msgstr "Az időszelet mentése során hiba történt: %s"
@@ -1972,12 +1968,12 @@ msgstr "Módja"
 
 #: templates/dynamic/edit.inc:301 templates/delete/one.inc:22
 msgid "Permanently delete this event?"
-msgstr "Véglegesen töröljük ki ezt az eseményt?"
+msgstr "Az esemény végleges törlése?"
 
 #: lib/Kronolith.php:2660 lib/Kronolith.php:2668 lib/Kronolith.php:2674
 #: lib/Kronolith.php:2680 lib/Block/Summary.php:100 lib/Block/Monthlist.php:89
 #: lib/Block/Month.php:70 lib/Block/Prevmonthlist.php:82
-#: lib/Ajax/Application/Handler.php:1463
+#: lib/Ajax/Application/Handler.php:1464
 msgid "Permission Denied"
 msgstr "Önnek nincs ehhez elegendő jogosultsága"
 
@@ -2517,9 +2513,7 @@ msgstr "A kiválasztott címek"
 
 #: templates/delete/delete.inc:21 templates/delete/one.inc:19
 msgid "Send a cancel notification to all attendees when deleting this event?"
-msgstr ""
-"Az esemény törlése esetén küldjünk tájékoztatást annak elmaradásáról az "
-"összes résztvevőnek?"
+msgstr "Tájékozatás küldése az összes résztvevőnek az esemény törlése esetén?"
 
 #: templates/view/view.inc:178
 #, php-format
@@ -2536,9 +2530,7 @@ msgstr "Küldjünk meghívást az összes résztvevőnek?"
 
 #: templates/edit/edit.inc:436
 msgid "Send updates to all attendees?"
-msgstr ""
-"Küldjünk programváltozási információt az összes résztvevőnek ennek az "
-"eseménynek a módosításakor?"
+msgstr "Értesítő küldése változásról az összes résztvevőnek?"
 
 #: templates/dynamic/edit.inc:315
 msgid "Send updates to attendees?"
@@ -2730,7 +2722,7 @@ msgstr "Feliratkozás erre a feladatlistára"
 msgid "Subscription"
 msgstr "Feliratkozás"
 
-#: lib/Ajax/Application/Handler.php:1405
+#: lib/Ajax/Application/Handler.php:1406
 msgid "Successfully saved timeslice."
 msgstr "Az időszelet sikeresen elmentetve."
 
@@ -2842,23 +2834,23 @@ msgstr ""
 msgid "The authentication information you specified wasn't accepted."
 msgstr "A megadott hitelesítési információkat nem fogadták el."
 
-#: lib/Ajax/Application/Handler.php:912 calendars/create.php:31
+#: lib/Ajax/Application/Handler.php:913 calendars/create.php:31
 #: resources/create.php:31 resources/groups/create.php:27
 #, php-format
 msgid "The calendar \"%s\" has been created."
 msgstr "A \"%s\" naptár létrehozva."
 
-#: lib/Ajax/Application/Handler.php:1129 calendars/delete.php:44
+#: lib/Ajax/Application/Handler.php:1130 calendars/delete.php:44
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
 msgstr "A \"%s\" naptár törölve."
 
-#: lib/Ajax/Application/Handler.php:937 calendars/edit.php:47
+#: lib/Ajax/Application/Handler.php:938 calendars/edit.php:47
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "A \"%s\" naptár átnevezve erre: \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:939 lib/Ajax/Application/Handler.php:1030
+#: lib/Ajax/Application/Handler.php:940 lib/Ajax/Application/Handler.php:1031
 #: calendars/edit.php:49 calendars/remote_edit.php:46
 #, php-format
 msgid "The calendar \"%s\" has been saved."
@@ -2917,7 +2909,7 @@ msgstr "Az eseményt nem lehet frissíteni a távoli szerverre."
 #: lib/Kronolith.php:2025
 #, php-format
 msgid "The event notification to %s was successfully sent."
-msgstr "Az eseményről levelet küldtünk %s részére."
+msgstr "Az eseményről levél küldve %s részére."
 
 #: edit.php:73
 msgid "The exception has been removed."
@@ -2964,7 +2956,7 @@ msgstr ""
 "eseményre történő meghívás elfogadható vagy elutasítható legyen."
 
 #: lib/Ajax/Application/Handler.php:165 lib/Ajax/Application/Handler.php:250
-#: lib/Ajax/Application/Handler.php:382 lib/Ajax/Application/Handler.php:515
+#: lib/Ajax/Application/Handler.php:383 lib/Ajax/Application/Handler.php:516
 msgid "The requested event was not found."
 msgstr "A kívánt esemény nem található."
 
@@ -2973,11 +2965,11 @@ msgstr "A kívánt esemény nem található."
 msgid "The requested feed (%s) was not found on this server."
 msgstr "A kért RSS hírfolyam (%s) nem található a szerveren."
 
-#: lib/Ajax/Application/Handler.php:632
+#: lib/Ajax/Application/Handler.php:633
 msgid "The requested task was not found."
 msgstr "A kívánt feladat nem található."
 
-#: lib/Ajax/Application/Handler.php:1173 lib/Ajax/Application/Handler.php:1190
+#: lib/Ajax/Application/Handler.php:1174 lib/Ajax/Application/Handler.php:1191
 #: resources/delete.php:42
 #, php-format
 msgid "The resource \"%s\" has been deleted."
@@ -2988,7 +2980,7 @@ msgstr "A \"%s\" erőforrás törölve."
 msgid "The resource \"%s\" has been renamed to \"%s\"."
 msgstr "A \"%s\" erőforrás átnevezve erre: \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:1074 resources/edit.php:45
+#: lib/Ajax/Application/Handler.php:1075 resources/edit.php:45
 #, php-format
 msgid "The resource \"%s\" has been saved."
 msgstr "A \"%s\" erőforrás elmenteve."
@@ -3008,27 +3000,27 @@ msgstr "A \"%s\" erőforrás törölve."
 msgid "The resource group \"%s\" has been renamed to \"%s\"."
 msgstr "A \"%s\" erőforrás csoport átnevezve erre: \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:1100 resources/groups/edit.php:41
+#: lib/Ajax/Application/Handler.php:1101 resources/groups/edit.php:41
 #, php-format
 msgid "The resource group \"%s\" has been saved."
 msgstr "A \"%s\" erőforrás elmentve."
 
-#: lib/Ajax/Application/Handler.php:987
+#: lib/Ajax/Application/Handler.php:988
 #, php-format
 msgid "The task list \"%s\" has been created."
 msgstr "A \"%s\" feladatlista létrehozva."
 
-#: lib/Ajax/Application/Handler.php:1145
+#: lib/Ajax/Application/Handler.php:1146
 #, php-format
 msgid "The task list \"%s\" has been deleted."
 msgstr "A \"%s\" feladatlistáa törölve."
 
-#: lib/Ajax/Application/Handler.php:1012
+#: lib/Ajax/Application/Handler.php:1013
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
 msgstr "A \"%s\" feladatlista átnevezve erre: \"%s\"."
 
-#: lib/Ajax/Application/Handler.php:1014
+#: lib/Ajax/Application/Handler.php:1015
 #, php-format
 msgid "The task list \"%s\" has been saved."
 msgstr "A \"%s\" feladatlista elmentve."
@@ -3240,8 +3232,8 @@ msgid "URL"
 msgstr "URL"
 
 #: lib/Kronolith.php:1343 lib/Form/DeleteResourceGroup.php:62
-#: lib/Form/DeleteResource.php:61 lib/Ajax/Application/Handler.php:1126
-#: lib/Ajax/Application/Handler.php:1142
+#: lib/Form/DeleteResource.php:61 lib/Ajax/Application/Handler.php:1127
+#: lib/Ajax/Application/Handler.php:1143
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "\"%s\" törlése nem sikerült: %s"
@@ -3335,6 +3327,11 @@ msgstr "\"%s\" változásai elmentve."
 #, php-format
 msgid "Updated: %s."
 msgstr "%s módosult"
+
+#: config/prefs.php:527
+#, fuzzy
+msgid "Use Horde Default"
+msgstr "Rekord alapbeállítások"
 
 #: templates/edit/edit.inc:212
 msgid "Use custom notification method"
@@ -3468,7 +3465,7 @@ msgstr "Ön nem jogosult ezt az erőforrást módosítani."
 msgid "You are not allowed to create more than %d events."
 msgstr "Ön legfeljebb %d eseményt hozhat létre."
 
-#: lib/Ajax/Application/Handler.php:1049
+#: lib/Ajax/Application/Handler.php:1050
 msgid "You are not allowed to create new resources."
 msgstr "Ön nem jogosult új erőforrást létrehozni."
 
@@ -3480,16 +3477,16 @@ msgstr "Ön nem jogosult törölni ezt a naptárat."
 msgid "You are not allowed to delete this resource group."
 msgstr "Ön nem jogosult törölni ezt a csoportot."
 
-#: lib/Ajax/Application/Handler.php:1163 lib/Ajax/Application/Handler.php:1181
+#: lib/Ajax/Application/Handler.php:1164 lib/Ajax/Application/Handler.php:1182
 #: resources/delete.php:28
 msgid "You are not allowed to delete this resource."
 msgstr "Ön nem jogosult törölni ezt a erőforrást."
 
-#: lib/Ajax/Application/Handler.php:1136
+#: lib/Ajax/Application/Handler.php:1137
 msgid "You are not allowed to delete this task list."
 msgstr "Ön nem jogosult törölni ezt a feladat listát."
 
-#: lib/Ajax/Application/Handler.php:1058
+#: lib/Ajax/Application/Handler.php:1059
 msgid "You are not allowed to edit this resource."
 msgstr "Ön nem jogosult módosítani ezt a erőforrást."
 
@@ -3497,7 +3494,7 @@ msgstr "Ön nem jogosult módosítani ezt a erőforrást."
 msgid "You are not allowed to see this calendar."
 msgstr "Ön nem jogosult megjeleníteni ezt a naptárat."
 
-#: lib/Ajax/Application/Handler.php:1206 lib/Ajax/Application/Handler.php:1213
+#: lib/Ajax/Application/Handler.php:1207 lib/Ajax/Application/Handler.php:1214
 msgid "You are not allowed to view this calendar."
 msgstr "Ön nem jogosult megtekínteni ezt a naptárat."
 
@@ -3535,12 +3532,12 @@ msgstr "Önnek nincs jogosultsága eseményeket fölvenni ebbe a naptárba."
 msgid "You do not have permission to delegate events to this user."
 msgstr "Önnek nincs jogosultsága e felhasználó számára eseményeket rögzíteni."
 
-#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:468
+#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:469
 msgid "You do not have permission to delete this event."
 msgstr "Önnek nincs jogosultsága törölni ezt az eseményt."
 
 #: edit.php:65 edit.php:112 edit.php:176 lib/Ajax/Application/Handler.php:259
-#: lib/Ajax/Application/Handler.php:385
+#: lib/Ajax/Application/Handler.php:386
 msgid "You do not have permission to edit this event."
 msgstr "Önnek nincs jogosultsága módosítani ezt az eseményt."
 
@@ -3570,12 +3567,12 @@ msgstr ""
 "meg szeretné változtatni jelentkezzen be %slogin, és álítsa be a %s naptár "
 "beállításainál."
 
-#: lib/Ajax/Application/Handler.php:1032 calendars/remote_subscribe.php:34
+#: lib/Ajax/Application/Handler.php:1033 calendars/remote_subscribe.php:34
 #, php-format
 msgid "You have been subscribed to \"%s\" (%s)."
 msgstr "Sikerült használatba vennie (subscribe) \"%s\"-t (%s)."
 
-#: lib/Ajax/Application/Handler.php:1155 calendars/remote_unsubscribe.php:47
+#: lib/Ajax/Application/Handler.php:1156 calendars/remote_unsubscribe.php:47
 #, php-format
 msgid "You have been unsubscribed from \"%s\" (%s)."
 msgstr "Sikerült használaton kívülre helyeznie (unsubscribe) \"%s\"-t (%s)."

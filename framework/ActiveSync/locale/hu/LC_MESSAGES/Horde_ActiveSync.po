@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-07-14 11:26+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:614
+#: lib/Horde/ActiveSync/Imap/Message.php:618
 #, php-format
 msgid "%s part"
 msgstr "Üzenetrész: %s"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:593
+#: lib/Horde/ActiveSync/Imap/Message.php:597
 msgid "Audio part"
 msgstr "Audió üzenetrész"
 
@@ -56,11 +56,11 @@ msgstr "IMEI"
 msgid "Id"
 msgstr "Azonosító"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:596
+#: lib/Horde/ActiveSync/Imap/Message.php:600
 msgid "Image part"
 msgstr "Kép üzenetrész"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:600
+#: lib/Horde/ActiveSync/Imap/Message.php:604
 msgid "Message part"
 msgstr "Üzenetszöveg"
 
@@ -68,7 +68,7 @@ msgstr "Üzenetszöveg"
 msgid "Model"
 msgstr "Model"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:603
+#: lib/Horde/ActiveSync/Imap/Message.php:607
 msgid "Multipart part"
 msgstr "Többrészes üzenetrész"
 
@@ -96,7 +96,7 @@ msgstr "Viszontválasz"
 msgid "Subject"
 msgstr "Tárgy"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:606
+#: lib/Horde/ActiveSync/Imap/Message.php:610
 msgid "Text part"
 msgstr "Szöveges üzenetrész"
 
@@ -108,6 +108,6 @@ msgstr "Címzett"
 msgid "User Agent"
 msgstr "User Agent"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:609
+#: lib/Horde/ActiveSync/Imap/Message.php:613
 msgid "Video part"
 msgstr "Videó üzenetrész"

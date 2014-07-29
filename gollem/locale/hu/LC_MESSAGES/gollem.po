@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Gollem H5 (3.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"PO-Revision-Date: 2014-07-14 11:35+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -135,7 +135,7 @@ msgstr "Ellenőrizzük a kvótát"
 
 #: manager.php:590
 msgid "Check _All/None"
-msgstr "Jelöljük ki mind/egyiket sem"
+msgstr "Mind/egyik sem kijelölése"
 
 #: manager.php:83
 msgid "Chmod done: "
@@ -200,7 +200,7 @@ msgstr "Törlés"
 
 #: config/prefs.php:100
 msgid "Delete folders recursively?"
-msgstr "A mappákban levő mappákat is (rekurzívan) töröljük?"
+msgstr "A mappákban levő almappák rekurzív törlése?"
 
 #: config/prefs.php:69
 msgid "Descending"
@@ -468,18 +468,17 @@ msgid ""
 "To clear items from the clipboard, check the box next to the filename and "
 "click on &quot;Clear&quot;."
 msgstr ""
-"Úgy törölhetünk egyes állományokat a vágóasztalról, hogy kijelöljük a "
-"megfelelő állomány(ok) neve melletti ki négyzet(ek)et, majd a &quot;"
-"Törlés&quot;-re kattintunk."
+"Úgy törölhet egyes állományokat a vágóasztalról, hogy kijelöli a megfelelő "
+"állomány(ok) neve melletti ki négyzet(ek)et, majd a Törlés gombra kattint."
 
 #: templates/clipboard.html.php:16
 msgid ""
 "To paste items from the clipboard to the current directory, check the box "
 "next to the filename and click on &quot;Paste&quot;."
 msgstr ""
-"Úgy illeszthetünk be egyes állományokat a vágóasztalról a jelenleg érvényes "
-"alkönyvtárba, hogy kijelöljük a megfelelő állomány(ok) neve melletti ki "
-"négyzet(ek)et, majd a &quot;Beillesztés&quot;-re kattintunk."
+"Úgy illeszthet be egyes állományokat a vágóasztalról a jelenleg érvényes "
+"alkönyvtárba, hogy kijelöli a megfelelő állomány(ok) neve melletti kis "
+"négyzet(ek)et, majd a Beillesztés gombra kattint."
 
 #: manager.php:506
 msgid "Type"
