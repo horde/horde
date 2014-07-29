@@ -1119,7 +1119,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
 
         try {
-            $rid = $component->getAttribute('RECURRENCE-ID');
+            $component->getAttribute('RECURRENCE-ID');
             $this->_addiCalEvent($component, Kronolith::getDriver(null, $calendar), true);
         } catch (Horde_Icalendar_Exception $e) {
             $event->fromiCalendar($component);
