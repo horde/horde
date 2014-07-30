@@ -102,7 +102,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected function _initCache($current = false)
     {
         return parent::_initCache($current) &&
-               $this->capability->query('UIDL');
+               $this->_capability('UIDL');
     }
 
     /**
@@ -114,7 +114,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _capability()
+    protected function _initCapability()
     {
         $this->_connect();
 
@@ -199,7 +199,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
             if (($secure === 'tls') || $secure === true) {
                 // Switch over to a TLS connection.
-                if ($first_login && !$this->capability->query('STLS')) {
+                if ($first_login && !$this->_capability('STLS')) {
                     if ($secure === 'tls') {
                         throw new Horde_Imap_Client_Exception(
                             Horde_Imap_Client_Translation::r("Could not open secure connection to the POP3 server.") . ' ' . Horde_Imap_Client_Translation::r("Server does not support secure connections."),
@@ -233,7 +233,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if ($first_login) {
             /* At least one server (Dovecot 1.x) may return SASL capability
              * with no arguments. */
-            $auth_mech = $this->capability->getParams('SASL');
+            $auth_mech = $this->_capability()->getParams('SASL');
 
             if (isset($this->_temp['pop3timestamp'])) {
                 $auth_mech[] = 'APOP';
@@ -250,9 +250,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $this->_setInit('authmethod', $method);
 
                 if (!empty($this->_temp['no_capa']) ||
-                    !$this->capability->query('UIDL')) {
+                    !$this->_capability('UIDL')) {
                     $this->_setInit('capability');
-                    $this->capability;
                 }
 
                 return true;
@@ -425,7 +424,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _getID()
     {
-        return ($id = $this->capability->getParams('IMPLEMENTATION'))
+        return ($id = $this->_capability()->getParams('IMPLEMENTATION'))
             ? array('implementation' => reset($id))
             : array();
     }
@@ -537,7 +536,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDVALIDITY) {
-            $ret['uidvalidity'] = $this->capability->query('UIDL')
+            $ret['uidvalidity'] = $this->_capability('UIDL')
                 ? 1
                 : microtime(true);
         }
@@ -878,7 +877,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         case 'hdr':
         case 'top':
             $data = null;
-            if (($type == 'top') || $this->capability->query('TOP')) {
+            if (($type == 'top') || $this->_capability('TOP')) {
                 try {
                     $res = $this->_sendLine('TOP ' . $index . ' 0', array(
                         'multiline' => 'stream'
@@ -1205,7 +1204,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $respcode = null;
         if (isset($read[1]) &&
             isset($this->_init['capability']) &&
-            $this->capability->query('RESP-CODES')) {
+            $this->_capability('RESP-CODES')) {
             $respcode = $this->_parseResponseCode($read[1]);
         }
 
