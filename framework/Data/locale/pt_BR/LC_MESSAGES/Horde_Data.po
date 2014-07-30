@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2013-03-16 11:00-0300\n"
+"POT-Creation-Date: 2014-07-10 21:28-0300\n"
+"PO-Revision-Date: 2014-07-10 21:29-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Cannot open file."
 msgstr "Impossível abrir arquivo."
 
-#: lib/Horde/Data/Csv.php:227
+#: lib/Horde/Data/Csv.php:226
 msgid "Incorrect charset given for the data."
 msgstr "Conjunto de caracteres incorretos fornecidos para a informação."
 
@@ -29,15 +29,15 @@ msgstr "Conjunto de caracteres incorretos fornecidos para a informação."
 msgid "TSV file"
 msgstr "Arquivo TSV"
 
-#: lib/Horde/Data/Base.php:282
+#: lib/Horde/Data/Base.php:317
 msgid "The file contained no data."
 msgstr "O arquivo não contém dados."
 
-#: lib/Horde/Data/Base.php:343
+#: lib/Horde/Data/Base.php:378
 msgid "The uploaded data was lost since the previous step."
 msgstr "Os dados enviados foram perdidos desde a etapa anterior."
 
-#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:223
 msgid "The uploaded file could not be saved."
 msgstr "Não foi possível gravar o arquivo enviado."
 
@@ -45,7 +45,12 @@ msgstr "Não foi possível gravar o arquivo enviado."
 msgid "There was an error importing the iCalendar data."
 msgstr "Houve um erro ao importar os dados do iCalendar."
 
-#: lib/Horde/Data/Base.php:289
+#: lib/Horde/Data/Base.php:137
+#, php-format
+msgid "URL %s not found"
+msgstr "URL %s não encontrado"
+
+#: lib/Horde/Data/Base.php:324
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

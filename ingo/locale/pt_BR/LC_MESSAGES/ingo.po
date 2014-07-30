@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"POT-Creation-Date: 2014-07-10 20:08-0300\n"
 "PO-Revision-Date: 2014-04-26 19:16-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -42,7 +42,7 @@ msgstr "\"%s\" não é um e-mail válido."
 msgid "%d users with login %s found, one expected."
 msgstr "%d usuários com login %s encontrados, esperado apenas um."
 
-#: lib/Script/Util.php:48
+#: lib/Script/Util.php:51
 #, php-format
 msgid "%s The driver said: %s"
 msgstr "%s O driver disse: %s"
@@ -373,7 +373,7 @@ msgstr "Regra do Filtro"
 msgid "Filter Rules"
 msgstr "Regras de Filtro"
 
-#: lib/Basic/Script.php:108
+#: lib/Basic/Script.php:101
 msgid "Filter Script Display"
 msgstr "Exibição da Rotina do Filtro"
 
@@ -400,8 +400,8 @@ msgstr "Atividade do Filtro: %s mensagem(ns) movida(s) para a pasta \"%s\"."
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
-"Atividade do Filtro: %s mensagem(ns) que correspondeu(ram) a lista negra foi"
-"(ram) excluída(s)."
+"Atividade do Filtro: %s mensagem(ns) que correspondeu(ram) a lista negra "
+"foi(ram) excluída(s)."
 
 #: lib/Script/Imap.php:324
 #, php-format
@@ -863,16 +863,16 @@ msgstr "Atualizando Rotina"
 msgid "Script name:"
 msgstr "Nome do script:"
 
-#: lib/Script/Util.php:81
+#: lib/Script/Util.php:84
 #, php-format
 msgid "Script not updated: %s"
 msgstr "Script não atualizado: %s"
 
-#: lib/Script/Util.php:55
+#: lib/Script/Util.php:58
 msgid "Script successfully activated."
 msgstr "Rotina ativada com sucesso."
 
-#: lib/Script/Util.php:54
+#: lib/Script/Util.php:57
 msgid "Script successfully deactivated."
 msgstr "Rotina desativada com sucesso."
 
@@ -972,11 +972,11 @@ msgstr "O edereço \"%s\" foi adicionado a sua lista negra."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "O edereço \"%s\" foi adicionado a sua lista branca."
 
-#: lib/Script/Util.php:46
+#: lib/Script/Util.php:49
 msgid "There was an error activating the script."
 msgstr "Houve um erro ao ativar a rotina."
 
-#: lib/Script/Util.php:45
+#: lib/Script/Util.php:48
 msgid "There was an error deactivating the script."
 msgstr "Houve um erro ao desativar a rotina."
 

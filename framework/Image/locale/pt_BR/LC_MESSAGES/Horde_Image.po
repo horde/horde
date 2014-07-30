@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-07-10 21:28-0300\n"
 "PO-Revision-Date: 2012-03-27 21:56-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Image/Exif.php:180
+#: lib/Horde/Image/Exif.php:266
 #, php-format
 msgid "%4f sec"
 msgstr "%4f seg"
 
-#: lib/Horde/Image/Exif.php:272
+#: lib/Horde/Image/Exif.php:358
 #, php-format
 msgid "%d dots per unit"
 msgstr "%d pontos por unidade"
 
-#: lib/Horde/Image/Exif.php:354 lib/Horde/Image/Exif.php:356
+#: lib/Horde/Image/Exif.php:440 lib/Horde/Image/Exif.php:442
 #, php-format
 msgid "%d mm"
 msgstr "%d mm"
 
-#: lib/Horde/Image/Exif.php:274
+#: lib/Horde/Image/Exif.php:360
 #, php-format
 msgid "%d per unit"
 msgstr "%d por unidade"
 
-#: lib/Horde/Image/Exif.php:286
+#: lib/Horde/Image/Exif.php:372
 #, php-format
 msgid "%d pixels"
 msgstr "%d pixels"
 
-#: lib/Horde/Image/Exif.php:175
+#: lib/Horde/Image/Exif.php:261
 #, php-format
 msgid "%d sec"
 msgstr "%d sec"
 
-#: lib/Horde/Image/Exif.php:182
+#: lib/Horde/Image/Exif.php:268
 #, php-format
 msgid "%s / %s sec"
 msgstr "%s / %s seg"
@@ -96,19 +96,19 @@ msgstr "4x"
 msgid "9-area-focusing"
 msgstr "9-area-focusing"
 
-#: lib/Horde/Image/Exif.php:301
+#: lib/Horde/Image/Exif.php:387
 msgid "90 deg CCW"
 msgstr "90 deg CCW"
 
-#: lib/Horde/Image/Exif.php:303
+#: lib/Horde/Image/Exif.php:389
 msgid "90 deg CCW Mirrored"
 msgstr "90 deg CCW Mirrored"
 
-#: lib/Horde/Image/Exif.php:305
+#: lib/Horde/Image/Exif.php:391
 msgid "90 deg CW"
 msgstr "90 deg CW"
 
-#: lib/Horde/Image/Exif.php:299
+#: lib/Horde/Image/Exif.php:385
 msgid "90 deg CW Mirrored"
 msgstr "90 deg CW Mirrored"
 
@@ -128,15 +128,15 @@ msgstr "AI Focus"
 msgid "AI Servo"
 msgstr "AI Servo"
 
-#: lib/Horde/Image/Exif.php:262
+#: lib/Horde/Image/Exif.php:348
 msgid "Action"
 msgstr "Ação"
 
-#: lib/Horde/Image/Exif.php:105 lib/Horde/Image/Exif.php:128
+#: lib/Horde/Image/Exif.php:121 lib/Horde/Image/Exif.php:144
 msgid "Aperture"
 msgstr "Diafragma"
 
-#: lib/Horde/Image/Exif.php:259 lib/Horde/Image/Exif/Parser/Panasonic.php:263
+#: lib/Horde/Image/Exif.php:345 lib/Horde/Image/Exif/Parser/Panasonic.php:263
 msgid "Aperture Priority"
 msgstr "Aperture Priority"
 
@@ -144,11 +144,11 @@ msgstr "Aperture Priority"
 msgid "Aperture Prority AE"
 msgstr "Aperture Prority AE"
 
-#: lib/Horde/Image/Exif.php:119
+#: lib/Horde/Image/Exif.php:135
 msgid "Artist"
 msgstr "Artist"
 
-#: lib/Horde/Image/Exif.php:417 lib/Horde/Image/Exif/Parser/Canon.php:127
+#: lib/Horde/Image/Exif.php:503 lib/Horde/Image/Exif/Parser/Canon.php:127
 #: lib/Horde/Image/Exif/Parser/Canon.php:229
 #: lib/Horde/Image/Exif/Parser/Canon.php:258
 #: lib/Horde/Image/Exif/Parser/Canon.php:364
@@ -174,11 +174,11 @@ msgstr "Foco Automático Bom"
 msgid "Auto Selected"
 msgstr "Automático Selecionado"
 
-#: lib/Horde/Image/Exif.php:251
+#: lib/Horde/Image/Exif.php:337
 msgid "Auto bracket"
 msgstr "Auto bracket"
 
-#: lib/Horde/Image/Exif.php:249
+#: lib/Horde/Image/Exif.php:335
 msgid "Auto exposure"
 msgstr "Auto exposure"
 
@@ -198,7 +198,7 @@ msgstr "Auto-DEP"
 msgid "Av"
 msgstr "Av"
 
-#: lib/Horde/Image/Exif.php:379
+#: lib/Horde/Image/Exif.php:465
 msgid "Average"
 msgstr "Média"
 
@@ -223,27 +223,27 @@ msgstr "Brilho+"
 msgid "Bright-"
 msgstr "Brilho-"
 
-#: lib/Horde/Image/Exif.php:185
+#: lib/Horde/Image/Exif.php:271
 msgid "Bulb"
 msgstr "Bulb"
 
-#: lib/Horde/Image/Exif.php:73
+#: lib/Horde/Image/Exif.php:87
 msgid "By"
 msgstr "By"
 
-#: lib/Horde/Image/Exif.php:90
+#: lib/Horde/Image/Exif.php:106
 msgid "Camera Make"
 msgstr "Camera Make"
 
-#: lib/Horde/Image/Exif.php:91
+#: lib/Horde/Image/Exif.php:107
 msgid "Camera Model"
 msgstr "Modelo de Câmera"
 
-#: lib/Horde/Image/Exif.php:117
+#: lib/Horde/Image/Exif.php:133
 msgid "Camera Orientation"
 msgstr "Orientação de Câmera"
 
-#: lib/Horde/Image/Exif.php:75
+#: lib/Horde/Image/Exif.php:89
 msgid "Caption"
 msgstr "Caption"
 
@@ -253,7 +253,7 @@ msgstr "Caption"
 msgid "Center"
 msgstr "Centro"
 
-#: lib/Horde/Image/Exif.php:380
+#: lib/Horde/Image/Exif.php:466
 msgid "Center Weighted Average"
 msgstr "Center Weighted Average"
 
@@ -261,7 +261,7 @@ msgstr "Center Weighted Average"
 msgid "Center-weighted"
 msgstr "Center-weighted"
 
-#: lib/Horde/Image/Exif.php:280
+#: lib/Horde/Image/Exif.php:366
 msgid "Centimeter"
 msgstr "Centímetro"
 
@@ -290,7 +290,7 @@ msgstr "Close-up (Macro)"
 msgid "Cloudy"
 msgstr "Nebuloso"
 
-#: lib/Horde/Image/Exif.php:397
+#: lib/Horde/Image/Exif.php:483
 msgid "Cloudy weather"
 msgstr "Temp nublado"
 
@@ -298,28 +298,28 @@ msgstr "Temp nublado"
 msgid "Color"
 msgstr "Cor"
 
-#: lib/Horde/Image/Exif.php:467
+#: lib/Horde/Image/Exif.php:553
 msgid "Color Sequential Area Sensor"
 msgstr "Sensor de Área Sequencial Cor"
 
-#: lib/Horde/Image/Exif.php:469
+#: lib/Horde/Image/Exif.php:555
 msgid "Color Sequential Linear Sensor"
 msgstr "Sensor Linear Sequencial de Cor"
 
-#: lib/Horde/Image/Exif.php:114
+#: lib/Horde/Image/Exif.php:130
 msgid "Color Space"
 msgstr "Espaço de Cor"
 
-#: lib/Horde/Image/Exif.php:432
+#: lib/Horde/Image/Exif.php:518
 msgid "Compulsory Flash"
 msgstr "Flash Obrigatório"
 
-#: lib/Horde/Image/Exif.php:434
+#: lib/Horde/Image/Exif.php:520
 #, fuzzy
 msgid "Compulsory Flash, Return light detected"
 msgstr "Olho Vermelho, Flash Obrigatório, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:433
+#: lib/Horde/Image/Exif.php:519
 #, fuzzy
 msgid "Compulsory Flash, Return light not detected"
 msgstr "Olho Vermelho, Flash Obrigatório, Luz de retorno não detectada"
@@ -355,11 +355,11 @@ msgstr "Contraste-"
 msgid "Cool"
 msgstr "Frio"
 
-#: lib/Horde/Image/Exif.php:401
+#: lib/Horde/Image/Exif.php:487
 msgid "Cool white fluorescent"
 msgstr "Frio com florescência"
 
-#: lib/Horde/Image/Exif.php:74 lib/Horde/Image/Exif.php:118
+#: lib/Horde/Image/Exif.php:88 lib/Horde/Image/Exif.php:134
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Couldnt Find SubIFD"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:261
+#: lib/Horde/Image/Exif.php:347
 msgid "Creative"
 msgstr "Criativo"
 
@@ -384,32 +384,32 @@ msgstr "Criativo"
 msgid "Custom"
 msgstr "Personalizado"
 
-#: lib/Horde/Image/Exif.php:87
+#: lib/Horde/Image/Exif.php:103
 msgid "Date Photo Digitized"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:85
+#: lib/Horde/Image/Exif.php:101
 #, fuzzy
 msgid "Date Photo Modified"
 msgstr "Última Modificação"
 
-#: lib/Horde/Image/Exif.php:86
+#: lib/Horde/Image/Exif.php:102
 #, fuzzy
 msgid "Date Photo Taken"
 msgstr "Tipo de Foto"
 
-#: lib/Horde/Image/Exif.php:400
+#: lib/Horde/Image/Exif.php:486
 #, fuzzy
 msgid "Day white fluorescent"
 msgstr "Frio com florescência"
 
-#: lib/Horde/Image/Exif.php:392 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
+#: lib/Horde/Image/Exif.php:478 lib/Horde/Image/Exif/Parser/Fujifilm.php:125
 #: lib/Horde/Image/Exif/Parser/Nikon.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:161
 msgid "Daylight"
 msgstr "Luz do dia"
 
-#: lib/Horde/Image/Exif.php:399
+#: lib/Horde/Image/Exif.php:485
 #, fuzzy
 msgid "Daylight fluorescent"
 msgstr "Frio com florescência"
@@ -423,9 +423,13 @@ msgstr ""
 msgid "DaywhiteColor-fluorescence"
 msgstr "Frio com florescência"
 
-#: lib/Horde/Image/Exif.php:129
+#: lib/Horde/Image/Exif.php:145
 msgid "Depth of Field"
 msgstr "Profundidade do Campo"
+
+#: lib/Horde/Image/Exif.php:97
+msgid "Description"
+msgstr "Descrição"
 
 #: lib/Horde/Image/Exif/Parser/Nikon.php:269
 msgid "Did Not Fire"
@@ -440,21 +444,21 @@ msgstr ""
 msgid "Evaluative"
 msgstr "ativo"
 
-#: lib/Horde/Image/Exif.php:102
+#: lib/Horde/Image/Exif.php:118
 msgid "Exposure"
 msgstr "Exposição"
 
-#: lib/Horde/Image/Exif.php:108
+#: lib/Horde/Image/Exif.php:124
 #, fuzzy
 msgid "Exposure Bias"
 msgstr "Exposição"
 
-#: lib/Horde/Image/Exif.php:109
+#: lib/Horde/Image/Exif.php:125
 #, fuzzy
 msgid "Exposure Mode"
 msgstr "Exposição"
 
-#: lib/Horde/Image/Exif.php:110
+#: lib/Horde/Image/Exif.php:126
 #, fuzzy
 msgid "Exposure Program"
 msgstr "Exposição"
@@ -473,7 +477,7 @@ msgstr "Externo"
 msgid "External Flash"
 msgstr "Flash Interno"
 
-#: lib/Horde/Image/Exif.php:106
+#: lib/Horde/Image/Exif.php:122
 msgid "F-Number"
 msgstr "Número-F"
 
@@ -485,12 +489,12 @@ msgstr ""
 msgid "Fast Shutter"
 msgstr "Obturador Rápido"
 
-#: lib/Horde/Image/Exif.php:130
+#: lib/Horde/Image/Exif.php:146
 #, fuzzy
 msgid "Field of View"
 msgstr "Atualizar Visualização"
 
-#: lib/Horde/Image/Exif.php:95
+#: lib/Horde/Image/Exif.php:111
 msgid "File Size"
 msgstr "Tamnho do Arquivo"
 
@@ -498,7 +502,7 @@ msgstr "Tamnho do Arquivo"
 msgid "Fine"
 msgstr "Ótimo"
 
-#: lib/Horde/Image/Exif.php:396
+#: lib/Horde/Image/Exif.php:482
 msgid "Fine weather"
 msgstr "Clima bom"
 
@@ -510,7 +514,7 @@ msgstr ""
 msgid "Fisheye"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:395 lib/Horde/Image/Exif.php:429
+#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif.php:515
 #: lib/Horde/Image/Exif/Parser/Canon.php:369
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:173
 msgid "Flash"
@@ -525,31 +529,31 @@ msgstr "Não Disparou"
 msgid "Flash Fired"
 msgstr "Flash Disparado"
 
-#: lib/Horde/Image/Exif.php:112
+#: lib/Horde/Image/Exif.php:128
 msgid "Flash Setting"
 msgstr "Ajuste de Flash"
 
-#: lib/Horde/Image/Exif.php:437
+#: lib/Horde/Image/Exif.php:523
 #, fuzzy
 msgid "Flash, Auto-Mode"
 msgstr "Olho Vermelho, Modo-Automático"
 
-#: lib/Horde/Image/Exif.php:439
+#: lib/Horde/Image/Exif.php:525
 #, fuzzy
 msgid "Flash, Auto-Mode, Return light detected"
 msgstr "Olho Vermelho, Modo-Automático, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:438
+#: lib/Horde/Image/Exif.php:524
 #, fuzzy
 msgid "Flash, Auto-Mode, Return light not detected"
 msgstr "Olho Vermelho, Modo-Automático, Luz de retorno não detectada"
 
-#: lib/Horde/Image/Exif.php:431
+#: lib/Horde/Image/Exif.php:517
 #, fuzzy
 msgid "Flash, strobe return light detected"
 msgstr "Olho Vermelho, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:430
+#: lib/Horde/Image/Exif.php:516
 #, fuzzy
 msgid "Flash, strobe return light not detected"
 msgstr "Olho Vermelho, Luz de retorno não detectada"
@@ -558,15 +562,15 @@ msgstr "Olho Vermelho, Luz de retorno não detectada"
 msgid "Flourescence"
 msgstr "Florescência"
 
-#: lib/Horde/Image/Exif.php:393 lib/Horde/Image/Exif/Parser/Canon.php:368
+#: lib/Horde/Image/Exif.php:479 lib/Horde/Image/Exif/Parser/Canon.php:368
 msgid "Fluorescent"
 msgstr "Florescente"
 
-#: lib/Horde/Image/Exif.php:103
+#: lib/Horde/Image/Exif.php:119
 msgid "Focal Length"
 msgstr "Lente de Foco"
 
-#: lib/Horde/Image/Exif.php:104
+#: lib/Horde/Image/Exif.php:120
 #, fuzzy
 msgid "Focal Length (35mm equiv)"
 msgstr "Lente de Foco"
@@ -588,7 +592,7 @@ msgstr ""
 msgid "Hard"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:97
+#: lib/Horde/Image/Exif.php:113
 msgid "Height"
 msgstr "Altura"
 
@@ -610,11 +614,11 @@ msgstr "Alta Sensibilidade"
 msgid "Horizontal (normal)"
 msgstr "Horizontal (normal)"
 
-#: lib/Horde/Image/Exif.php:107
+#: lib/Horde/Image/Exif.php:123
 msgid "ISO Setting"
 msgstr "Ajuste ISO"
 
-#: lib/Horde/Image/Exif.php:410
+#: lib/Horde/Image/Exif.php:496
 msgid "ISO studio tungsten"
 msgstr ""
 
@@ -630,19 +634,19 @@ msgstr ""
 msgid "Illegal size for SubIFD"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:79
+#: lib/Horde/Image/Exif.php:93
 msgid "Image Creator"
 msgstr "Criador de Imagem"
 
-#: lib/Horde/Image/Exif.php:121
+#: lib/Horde/Image/Exif.php:137
 msgid "Image Stabilization"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:72
+#: lib/Horde/Image/Exif.php:86
 msgid "Image Title"
 msgstr "Título de Imagem"
 
-#: lib/Horde/Image/Exif.php:71
+#: lib/Horde/Image/Exif.php:85
 msgid "Image keywords"
 msgstr "Palavras-chaves de imagens"
 
@@ -651,7 +655,7 @@ msgstr "Palavras-chaves de imagens"
 msgid "Incandescense"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:279
+#: lib/Horde/Image/Exif.php:365
 msgid "Inch"
 msgstr ""
 
@@ -663,7 +667,7 @@ msgstr ""
 msgid "Internal Flash"
 msgstr "Flash Interno"
 
-#: lib/Horde/Image/Exif.php:264 lib/Horde/Image/Exif.php:482
+#: lib/Horde/Image/Exif.php:350 lib/Horde/Image/Exif.php:568
 #: lib/Horde/Image/Exif/Parser/Canon.php:174
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:199
 msgid "Landscape"
@@ -673,7 +677,7 @@ msgstr ""
 msgid "Large"
 msgstr "Grande"
 
-#: lib/Horde/Image/Exif.php:88
+#: lib/Horde/Image/Exif.php:104
 msgid "Latitude"
 msgstr "Latitude"
 
@@ -682,12 +686,12 @@ msgstr "Latitude"
 msgid "Left"
 msgstr "Esquerda"
 
-#: lib/Horde/Image/Exif.php:126
+#: lib/Horde/Image/Exif.php:142
 #, fuzzy
 msgid "Lens Id"
 msgstr "Lente"
 
-#: lib/Horde/Image/Exif.php:120
+#: lib/Horde/Image/Exif.php:136
 msgid "Light source"
 msgstr "Fonte leve"
 
@@ -695,7 +699,7 @@ msgstr "Fonte leve"
 msgid "Locked (Pan Mode)"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:89
+#: lib/Horde/Image/Exif.php:105
 msgid "Longitude"
 msgstr "Longitude"
 
@@ -720,7 +724,7 @@ msgstr ""
 msgid "Macro/Close-Up"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:257 lib/Horde/Image/Exif.php:418
+#: lib/Horde/Image/Exif.php:343 lib/Horde/Image/Exif.php:504
 #: lib/Horde/Image/Exif/Parser/Canon.php:173
 #: lib/Horde/Image/Exif/Parser/Canon.php:257
 #: lib/Horde/Image/Exif/Parser/Canon.php:280
@@ -745,7 +749,7 @@ msgstr "Exposição"
 msgid "Manual Focus"
 msgstr "Manual"
 
-#: lib/Horde/Image/Exif.php:250
+#: lib/Horde/Image/Exif.php:336
 #, fuzzy
 msgid "Manual exposure"
 msgstr "Auto exposure"
@@ -754,11 +758,11 @@ msgstr "Auto exposure"
 msgid "Medium"
 msgstr "médio"
 
-#: lib/Horde/Image/Exif.php:111
+#: lib/Horde/Image/Exif.php:127
 msgid "Metering Mode"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:293
+#: lib/Horde/Image/Exif.php:379
 msgid "Mirrored"
 msgstr "Espelhado"
 
@@ -774,11 +778,11 @@ msgstr "Modo 2"
 msgid "Monochrome"
 msgstr "Monocromático"
 
-#: lib/Horde/Image/Exif.php:383
+#: lib/Horde/Image/Exif.php:469
 msgid "Multi-Segment"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:382
+#: lib/Horde/Image/Exif.php:468
 msgid "Multi-Spot"
 msgstr ""
 
@@ -796,7 +800,7 @@ msgstr "Noite"
 msgid "Night Portrait"
 msgstr "Retrato"
 
-#: lib/Horde/Image/Exif.php:484
+#: lib/Horde/Image/Exif.php:570
 msgid "Night Scene"
 msgstr "Cena Noturna"
 
@@ -808,8 +812,8 @@ msgstr "Cenário Noturno"
 msgid "No"
 msgstr "Não"
 
-#: lib/Horde/Image/Exif.php:428 lib/Horde/Image/Exif.php:435
-#: lib/Horde/Image/Exif.php:436 lib/Horde/Image/Exif.php:440
+#: lib/Horde/Image/Exif.php:514 lib/Horde/Image/Exif.php:521
+#: lib/Horde/Image/Exif.php:522 lib/Horde/Image/Exif.php:526
 msgid "No Flash"
 msgstr "Nenhum Flash"
 
@@ -836,17 +840,17 @@ msgstr "Nenhuma"
 msgid "Normal"
 msgstr "Normal"
 
-#: lib/Horde/Image/Exif.php:291
+#: lib/Horde/Image/Exif.php:377
 #, fuzzy
 msgid "Normal (O deg)"
 msgstr "Normal"
 
-#: lib/Horde/Image/Exif.php:258
+#: lib/Horde/Image/Exif.php:344
 #, fuzzy
 msgid "Normal Program"
 msgstr "Normal"
 
-#: lib/Horde/Image/Exif.php:463
+#: lib/Horde/Image/Exif.php:549
 msgid "Not defined"
 msgstr "Não definido"
 
@@ -883,7 +887,7 @@ msgstr "Redução de Olho Vermelho"
 msgid "On Camera"
 msgstr "Camera Make"
 
-#: lib/Horde/Image/Exif.php:464
+#: lib/Horde/Image/Exif.php:550
 msgid "One Chip Color Area Sensor"
 msgstr ""
 
@@ -891,7 +895,7 @@ msgstr ""
 msgid "One-Shot"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:385
+#: lib/Horde/Image/Exif.php:471
 msgid "Other"
 msgstr "Outro"
 
@@ -924,7 +928,7 @@ msgstr ""
 "#-#-#-#-#  Horde_Image.po (Horde_Image)  #-#-#-#-#\n"
 "#-#-#-#-#  Horde_Image.po (Horde_Image)  #-#-#-#-#\n"
 
-#: lib/Horde/Image/Exif.php:384 lib/Horde/Image/Exif/Parser/Canon.php:250
+#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif/Parser/Canon.php:250
 msgid "Partial"
 msgstr "Parcial"
 
@@ -937,20 +941,20 @@ msgstr "Partes"
 msgid "Pet"
 msgstr "Animail de Estimação"
 
-#: lib/Horde/Image/Exif.php:94
+#: lib/Horde/Image/Exif.php:110
 msgid "Photo Description"
 msgstr "Descrição de Foto"
 
-#: lib/Horde/Image/Exif.php:93
+#: lib/Horde/Image/Exif.php:109
 msgid "Photo Type"
 msgstr "Tipo de Foto"
 
-#: lib/Horde/Image/Exif.php:278
+#: lib/Horde/Image/Exif.php:364
 #, fuzzy
 msgid "Pixels"
 msgstr "%d pixels"
 
-#: lib/Horde/Image/Exif.php:263 lib/Horde/Image/Exif.php:483
+#: lib/Horde/Image/Exif.php:349 lib/Horde/Image/Exif.php:569
 #: lib/Horde/Image/Exif/Parser/Canon.php:180
 #: lib/Horde/Image/Exif/Parser/Fujifilm.php:198
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:248
@@ -974,7 +978,7 @@ msgstr ""
 msgid "RAW"
 msgstr "PURO"
 
-#: lib/Horde/Image/Exif.php:441
+#: lib/Horde/Image/Exif.php:527
 msgid "Red Eye"
 msgstr "Olho Vermelho"
 
@@ -982,35 +986,35 @@ msgstr "Olho Vermelho"
 msgid "Red Eye Reduction"
 msgstr "Redução de Olho Vermelho"
 
-#: lib/Horde/Image/Exif.php:447
+#: lib/Horde/Image/Exif.php:533
 msgid "Red Eye, Auto-Mode"
 msgstr "Olho Vermelho, Modo-Automático"
 
-#: lib/Horde/Image/Exif.php:449
+#: lib/Horde/Image/Exif.php:535
 msgid "Red Eye, Auto-Mode, Return light detected"
 msgstr "Olho Vermelho, Modo-Automático, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:448
+#: lib/Horde/Image/Exif.php:534
 msgid "Red Eye, Auto-Mode, Return light not detected"
 msgstr "Olho Vermelho, Modo-Automático, Luz de retorno não detectada"
 
-#: lib/Horde/Image/Exif.php:444
+#: lib/Horde/Image/Exif.php:530
 msgid "Red Eye, Compulsory Flash"
 msgstr "Olho Vermelho, Flash Obrigatório"
 
-#: lib/Horde/Image/Exif.php:446
+#: lib/Horde/Image/Exif.php:532
 msgid "Red Eye, Compulsory Flash, Return light detected"
 msgstr "Olho Vermelho, Flash Obrigatório, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:445
+#: lib/Horde/Image/Exif.php:531
 msgid "Red Eye, Compulsory Flash, Return light not detected"
 msgstr "Olho Vermelho, Flash Obrigatório, Luz de retorno não detectada"
 
-#: lib/Horde/Image/Exif.php:443
+#: lib/Horde/Image/Exif.php:529
 msgid "Red Eye, Return light detected"
 msgstr "Olho Vermelho, Luz de retorno detectada"
 
-#: lib/Horde/Image/Exif.php:442
+#: lib/Horde/Image/Exif.php:528
 msgid "Red Eye, Return light not detected"
 msgstr "Olho Vermelho, Luz de retorno não detectada"
 
@@ -1018,7 +1022,7 @@ msgstr "Olho Vermelho, Luz de retorno não detectada"
 msgid "Red-Eye Reduction"
 msgstr "Redução de Olho-Vermelho"
 
-#: lib/Horde/Image/Exif.php:100
+#: lib/Horde/Image/Exif.php:116
 msgid "Resolution Unit"
 msgstr "Unidade de Resolução"
 
@@ -1027,7 +1031,7 @@ msgstr "Unidade de Resolução"
 msgid "Right"
 msgstr "Direito"
 
-#: lib/Horde/Image/Exif.php:80
+#: lib/Horde/Image/Exif.php:94
 msgid "Rights"
 msgstr "Direitos"
 
@@ -1054,7 +1058,7 @@ msgstr "VGA Ótimo"
 msgid "SXGA Normal"
 msgstr "VGA Normal"
 
-#: lib/Horde/Image/Exif.php:122
+#: lib/Horde/Image/Exif.php:138
 msgid "Scene Type"
 msgstr "Tipo de Cena"
 
@@ -1063,7 +1067,7 @@ msgstr "Tipo de Cena"
 msgid "Scenery"
 msgstr "Tipo de Cena"
 
-#: lib/Horde/Image/Exif.php:115
+#: lib/Horde/Image/Exif.php:131
 msgid "Sensing Method"
 msgstr "Métido de Sensibilidade"
 
@@ -1072,16 +1076,16 @@ msgstr "Métido de Sensibilidade"
 msgid "Sepia"
 msgstr "Sepia"
 
-#: lib/Horde/Image/Exif.php:398
+#: lib/Horde/Image/Exif.php:484
 msgid "Shade"
 msgstr "Sombra"
 
-#: lib/Horde/Image/Exif.php:260 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
+#: lib/Horde/Image/Exif.php:346 lib/Horde/Image/Exif/Parser/Fujifilm.php:204
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:266
 msgid "Shutter Priority"
 msgstr "Prioridade de Fechamento"
 
-#: lib/Horde/Image/Exif.php:101
+#: lib/Horde/Image/Exif.php:117
 msgid "Shutter Speed"
 msgstr "Velocidade do Obturador"
 
@@ -1119,7 +1123,7 @@ msgstr "Neve"
 msgid "Soft"
 msgstr "Macio"
 
-#: lib/Horde/Image/Exif.php:92
+#: lib/Horde/Image/Exif.php:108
 msgid "Software Version"
 msgstr "Versão de Software"
 
@@ -1136,7 +1140,7 @@ msgstr "Esporte"
 msgid "Sports"
 msgstr "Esportes"
 
-#: lib/Horde/Image/Exif.php:381
+#: lib/Horde/Image/Exif.php:467
 msgid "Spot"
 msgstr ""
 
@@ -1145,21 +1149,21 @@ msgstr ""
 msgid "Spot-focusing"
 msgstr "1-area-focusing"
 
-#: lib/Horde/Image/Exif.php:481 lib/Horde/Image/Exif/Parser/Panasonic.php:140
+#: lib/Horde/Image/Exif.php:567 lib/Horde/Image/Exif/Parser/Panasonic.php:140
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:384
 #: lib/Horde/Image/Exif/Parser/Panasonic.php:402
 msgid "Standard"
 msgstr "Padrão"
 
-#: lib/Horde/Image/Exif.php:403
+#: lib/Horde/Image/Exif.php:489
 msgid "Standard light A"
 msgstr "Luz padrão A"
 
-#: lib/Horde/Image/Exif.php:404
+#: lib/Horde/Image/Exif.php:490
 msgid "Standard light B"
 msgstr "Luz padrão B"
 
-#: lib/Horde/Image/Exif.php:405
+#: lib/Horde/Image/Exif.php:491
 msgid "Standard light C"
 msgstr "Luz padrão C"
 
@@ -1175,16 +1179,20 @@ msgstr ""
 msgid "The file could not be opened."
 msgstr "O arquivo não pôde ser aberto."
 
-#: lib/Horde/Image/Exif.php:466
+#: lib/Horde/Image/Exif.php:552
 msgid "Three Chip Color Area Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:468
+#: lib/Horde/Image/Exif.php:96
+msgid "Title"
+msgstr "Título"
+
+#: lib/Horde/Image/Exif.php:554
 #, fuzzy
 msgid "Trilinear Sensor"
 msgstr "Limpar Ordenação"
 
-#: lib/Horde/Image/Exif.php:394 lib/Horde/Image/Exif/Parser/Canon.php:367
+#: lib/Horde/Image/Exif.php:480 lib/Horde/Image/Exif/Parser/Canon.php:367
 msgid "Tungsten"
 msgstr ""
 
@@ -1192,11 +1200,11 @@ msgstr ""
 msgid "Tv"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:465
+#: lib/Horde/Image/Exif.php:551
 msgid "Two Chip Color Area Sensor"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:476
+#: lib/Horde/Image/Exif.php:562
 msgid "Uncalibrated"
 msgstr ""
 
@@ -1205,10 +1213,10 @@ msgstr ""
 msgid "Underwater"
 msgstr "Restaurar"
 
-#: lib/Horde/Image/Exif.php:252 lib/Horde/Image/Exif.php:265
-#: lib/Horde/Image/Exif.php:281 lib/Horde/Image/Exif.php:378
-#: lib/Horde/Image/Exif.php:412 lib/Horde/Image/Exif.php:419
-#: lib/Horde/Image/Exif.php:470 lib/Horde/Image/Exif.php:485
+#: lib/Horde/Image/Exif.php:338 lib/Horde/Image/Exif.php:351
+#: lib/Horde/Image/Exif.php:367 lib/Horde/Image/Exif.php:464
+#: lib/Horde/Image/Exif.php:498 lib/Horde/Image/Exif.php:505
+#: lib/Horde/Image/Exif.php:556 lib/Horde/Image/Exif.php:571
 #: lib/Horde/Image/Exif/Parser/Canon.php:107
 #: lib/Horde/Image/Exif/Parser/Canon.php:121
 #: lib/Horde/Image/Exif/Parser/Canon.php:134
@@ -1285,7 +1293,7 @@ msgstr "Desconhecido(%s)"
 msgid "Unknown: "
 msgstr "Desconhecido: "
 
-#: lib/Horde/Image/Exif.php:386
+#: lib/Horde/Image/Exif.php:472
 #, php-format
 msgid "Unknown: %s"
 msgstr "Desconhecido: %s"
@@ -1295,19 +1303,19 @@ msgstr "Desconhecido: %s"
 msgid "Unknown: (%s)"
 msgstr "Desconhecido: (%s)"
 
-#: lib/Horde/Image/Exif.php:295
+#: lib/Horde/Image/Exif.php:381
 msgid "Upsidedown"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:297
+#: lib/Horde/Image/Exif.php:383
 msgid "Upsidedown Mirrored"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:81
+#: lib/Horde/Image/Exif.php:95
 msgid "Usage Terms"
 msgstr "Termos de Uso"
 
-#: lib/Horde/Image/Exif.php:113
+#: lib/Horde/Image/Exif.php:129
 msgid "User Comment"
 msgstr "Comentário do Usuário"
 
@@ -1335,11 +1343,11 @@ msgstr "Quente"
 msgid "Warning"
 msgstr "Atenção"
 
-#: lib/Horde/Image/Exif.php:116
+#: lib/Horde/Image/Exif.php:132
 msgid "White Balance"
 msgstr ""
 
-#: lib/Horde/Image/Exif.php:402
+#: lib/Horde/Image/Exif.php:488
 #, fuzzy
 msgid "White fluorescent"
 msgstr "Frio com florescência"
@@ -1349,15 +1357,15 @@ msgstr "Frio com florescência"
 msgid "White-fluorescence"
 msgstr "Frio com florescência"
 
-#: lib/Horde/Image/Exif.php:96
+#: lib/Horde/Image/Exif.php:112
 msgid "Width"
 msgstr "Largura"
 
-#: lib/Horde/Image/Exif.php:98
+#: lib/Horde/Image/Exif.php:114
 msgid "X Resolution"
 msgstr "Resolução X"
 
-#: lib/Horde/Image/Exif.php:99
+#: lib/Horde/Image/Exif.php:115
 msgid "Y Resolution"
 msgstr "Resolução Y"
 
@@ -1365,11 +1373,11 @@ msgstr "Resolução Y"
 msgid "Yes"
 msgstr "Sim"
 
-#: lib/Horde/Image/Exif.php:411
+#: lib/Horde/Image/Exif.php:497
 msgid "other light source"
 msgstr "outra fonte de luz"
 
-#: lib/Horde/Image/Exif.php:475
+#: lib/Horde/Image/Exif.php:561
 msgid "sRGB"
 msgstr "sRGB"
 

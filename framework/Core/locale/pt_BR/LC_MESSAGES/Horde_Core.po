@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"POT-Creation-Date: 2014-07-10 21:28-0300\n"
 "PO-Revision-Date: 2014-04-26 18:27-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid " (Accesskey %s)"
 msgstr " (Tecla de Atalho %s)"
 
-#: lib/Horde/Registry.php:1294 lib/Horde/Registry.php:1986
+#: lib/Horde/Registry.php:1338 lib/Horde/Registry.php:2030
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" não está configurado no Registro do Horde."
@@ -35,7 +35,7 @@ msgstr[0] "%d contato foi adicionado com sucesso aos seus contatos."
 msgstr[1] ""
 "%d contatos foram adicionados com sucesso ao seu catálogo de endereços."
 
-#: lib/Horde/Core/Auth/Application.php:651
+#: lib/Horde/Core/Auth/Application.php:654
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
@@ -221,7 +221,7 @@ msgstr "Aniversário"
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Bloco \"%s\" da aplicação \"%s\" não encontrado."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:155
+#: lib/Horde/Core/ActiveSync/Driver.php:152
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Calendar"
 msgstr "Calendário"
@@ -274,7 +274,7 @@ msgstr "Empresa"
 msgid "Confirm new email address"
 msgstr "Confirmar novos endereços de e-mail"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:156
+#: lib/Horde/Core/ActiveSync/Driver.php:153
 msgid "Contacts"
 msgstr "Contatos"
 
@@ -378,7 +378,7 @@ msgstr "Endereço de email para confirmação não encontrado."
 msgid "Emoticons"
 msgstr "Emoticons"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2104
+#: lib/Horde/Core/ActiveSync/Mail.php:446
 msgid "End forwarded message"
 msgstr "Final da mensagem encaminhada"
 
@@ -418,11 +418,11 @@ msgstr "Taxa fixa"
 msgid "Flip"
 msgstr "Girar"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2102
+#: lib/Horde/Core/ActiveSync/Mail.php:444
 msgid "Forwarded message"
 msgstr "Mensagem encaminhada"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2102
+#: lib/Horde/Core/ActiveSync/Mail.php:444
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Mensagem encaminhada de %s"
@@ -472,7 +472,7 @@ msgstr "Endereço Residencial"
 msgid "Home Phone"
 msgstr "Fone Residencial"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3063
+#: lib/Horde/Core/ActiveSync/Driver.php:2802
 msgid "Inbox"
 msgstr "Entrada"
 
@@ -626,7 +626,7 @@ msgstr "Nenhum subordinado pode ser adicionado a esta permissão."
 msgid "No configuration information specified for %s."
 msgstr "Nenhuma informação de configuração especificada para %s."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2132
+#: lib/Horde/Core/ActiveSync/Mail.php:472
 msgid "No message body text"
 msgstr "Nenhum texto no corpo de mensagem"
 
@@ -646,7 +646,7 @@ msgstr "Sem valores"
 msgid "Not an admin"
 msgstr "Não administrador"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:158
+#: lib/Horde/Core/ActiveSync/Driver.php:155
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr "Anotações"
@@ -737,11 +737,11 @@ msgstr "Pré-visualização"
 msgid "Problem"
 msgstr "Problema"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2125
+#: lib/Horde/Core/ActiveSync/Mail.php:466
 msgid "Quoted"
 msgstr "Citado"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2125
+#: lib/Horde/Core/ActiveSync/Mail.php:466
 #, php-format
 msgid "Quoting %s"
 msgstr "Citando %s"
@@ -831,7 +831,7 @@ msgstr "Lista de endereços selecionada:"
 msgid "Send SMS"
 msgstr "Enviar SMS"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3058
+#: lib/Horde/Core/ActiveSync/Driver.php:2797
 msgid "Sent"
 msgstr "Enviado"
 
@@ -879,7 +879,7 @@ msgstr "%s gravado com sucesso"
 msgid "Sunday"
 msgstr "Domingo"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:157
+#: lib/Horde/Core/ActiveSync/Driver.php:154
 msgid "Tasks"
 msgstr "Tarefas"
 
@@ -918,7 +918,7 @@ msgstr "O arquivo %s deveria conter uma configuração de %s."
 msgid "The file %s should contain some %s settings."
 msgstr "O arquivo %s deveria conter algumas configurações de %s."
 
-#: lib/Horde/Registry.php:2587
+#: lib/Horde/Registry.php:2632
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr "A aplicação a seguir encontrou erros ao remover dados do usuários: %s"
@@ -1022,7 +1022,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Escolher Log de Alertas"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:3053
+#: lib/Horde/Core/ActiveSync/Driver.php:2792
 msgid "Trash"
 msgstr "Lixeira"
 
@@ -1114,11 +1114,11 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Você não pode criar mais do que %d bloco."
 msgstr[1] "Você não pode criar mais do que %d blocos."
 
-#: lib/Horde/Registry.php:2554
+#: lib/Horde/Registry.php:2599
 msgid "You are not allowed to remove user data."
 msgstr "Você não está autorizado a remover dados de usuário."
 
-#: lib/Horde/Core/Auth/Application.php:729
+#: lib/Horde/Core/Auth/Application.php:739
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
@@ -1162,17 +1162,17 @@ msgstr "Você deve configurar uma estrutura de VFS."
 msgid "You must provide a setting for \"%s\"."
 msgstr "Você deve fornecer uma configuração para \"%s\"."
 
-#: lib/Horde/Core/Auth/Application.php:696
+#: lib/Horde/Core/Auth/Application.php:706
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr "Seu navegador não suporta javascript. Usando modo mínimo."
 
-#: lib/Horde/Core/Auth/Application.php:704
+#: lib/Horde/Core/Auth/Application.php:714
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr "Seu navegador não suporta o modo dinâmico. Usando modo básico."
 
-#: lib/Horde/Core/Auth/Application.php:707
-#: lib/Horde/Core/Auth/Application.php:715
+#: lib/Horde/Core/Auth/Application.php:717
+#: lib/Horde/Core/Auth/Application.php:725
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr "Seu navegador não suporta o modo dinâmico. Usando o modo mínimo."
