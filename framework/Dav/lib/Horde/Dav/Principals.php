@@ -114,7 +114,7 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
         return array(
             'uri' => 'principals/' . $user,
             '{DAV:}displayname' => $identity->getName(),
-            '{http://sabredav.org/ns}email-address' => $identity->getDefaultFromAddress()
+            '{http://sabredav.org/ns}email-address' => (string)$identity->getDefaultFromAddress()
         );
     }
 
