@@ -288,6 +288,12 @@ implements Serializable, SplObserver
             ? new Horde_Imap_Client_Base_Debug($debug)
             : new Horde_Support_Stub();
 
+        // @todo: Remove (BC purposes)
+        if (isset($this->_init['capability']) &&
+            !is_object($this->_init['capability'])) {
+            $this->_setInit('capability');
+        }
+
         foreach (array('capability', 'search_charset') as $val) {
             if (isset($this->_init[$val])) {
                 $this->_init[$val]->attach($this);
@@ -355,9 +361,7 @@ implements Serializable, SplObserver
     {
         switch ($name) {
         case 'capability':
-            if (!isset($this->_init['capability']) ||
-                // @todo: Remove (BC purposes)
-                !is_object($this->_init['capability'])) {
+            if (!isset($this->_init['capability'])) {
                 $this->_capability();
             }
             return $this->_init['capability'];
