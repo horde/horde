@@ -138,7 +138,7 @@ class Kronolith_Block_Summary extends Horde_Core_Block
                 if ($event->end->compareDate($tomorrow) >= 0) {
                     $event->end = $tomorrow;
                 }
-                if ($event->end->compareDate($now) < 0) {
+                if ($event->end->compareDateTime($now) < 0) {
                     continue;
                 }
 
