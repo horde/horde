@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-21</date>
+ <date>2014-07-30</date>
  <version>
   <release>2.24.0</release>
   <api>2.24.0</api>
@@ -298,6 +298,10 @@
         <file name="remote3.txt" role="test" />
         <file name="remote4.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
+       <dir name="Live">
+        <file name="ImapTest.php" role="test" />
+        <file name="Pop3Test.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Live -->
        <dir name="Namespace">
         <file name="DataTest.php" role="test" />
         <file name="ListTest.php" role="test" />
@@ -317,8 +321,6 @@
        <file name="MailboxTest.php" role="test" />
        <file name="MapTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
-       <file name="RemoteImapServerTest.php" role="test" />
-       <file name="RemotePop3ServerTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -593,8 +595,6 @@
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
    <install as="Horde/Imap/Client/phpunit.xml" name="test/Horde/Imap/Client/phpunit.xml" />
-   <install as="Horde/Imap/Client/RemoteImapServerTest.php" name="test/Horde/Imap/Client/RemoteImapServerTest.php" />
-   <install as="Horde/Imap/Client/RemotePop3ServerTest.php" name="test/Horde/Imap/Client/RemotePop3ServerTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -632,6 +632,8 @@
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
+   <install as="Horde/Imap/Client/Live/ImapTest.php" name="test/Horde/Imap/Client/Live/ImapTest.php" />
+   <install as="Horde/Imap/Client/Live/Pop3Test.php" name="test/Horde/Imap/Client/Live/Pop3Test.php" />
    <install as="Horde/Imap/Client/Namespace/DataTest.php" name="test/Horde/Imap/Client/Namespace/DataTest.php" />
    <install as="Horde/Imap/Client/Namespace/ListTest.php" name="test/Horde/Imap/Client/Namespace/ListTest.php" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
@@ -2544,7 +2546,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-21</date>
+   <date>2014-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
