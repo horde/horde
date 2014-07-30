@@ -34,6 +34,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
+* [jan] Don&apos;t show today&apos;s events that are over in portal (Bug #13368).
 * [mjr] Fix exporting to ics file when event contains exceptions and an explicit timezone (Bug #13369).
 * [mjr] Fix importing iCalendar data that contains timezone parameters.
 * [mjr] Fix both importing and replacing text/calendar data via the API when recurrence exceptions are present (Bug #13399).
@@ -2428,6 +2429,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
+* [jan] Don&apos;t show today&apos;s events that are over in portal (Bug #13368).
 * [mjr] Fix exporting to ics file when event contains exceptions and an explicit timezone (Bug #13369).
 * [mjr] Fix importing iCalendar data that contains timezone parameters.
 * [mjr] Fix both importing and replacing text/calendar data via the API when recurrence exceptions are present (Bug #13399).
