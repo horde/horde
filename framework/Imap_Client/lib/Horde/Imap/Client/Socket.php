@@ -3013,6 +3013,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         while (($tag = $data->next()) !== false) {
             $tag = strtoupper($tag);
 
+            /* Catch equivalent RFC822 tags, in case server returns them
+             * (in error, since we only use BODY in FETCH requests). */
+            switch ($tag) {
+            case 'RFC822':
+                $tag = 'BODY[]';
+                break;
+
+            case 'RFC822.HEADER':
+                $tag = 'BODY[HEADER]';
+                break;
+
+            case 'RFC822.TEXT':
+                $tag = 'BODY[TEXT]';
+                break;
+            }
+
             switch ($tag) {
             case 'BODYSTRUCTURE':
                 $data->next();
