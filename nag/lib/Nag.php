@@ -731,9 +731,7 @@ class Nag
                 $url .= '/rpc.php/calendars/';
             }
             $url = Horde::url($url, true, -1)
-                . ($tasklist->get('owner')
-                   ? $tasklist->get('owner')
-                   : '-system-')
+                . $registry->getAuth()
                 . '/'
                 . $injector->getInstance('Horde_Dav_Storage')
                     ->getExternalCollectionId($tasklist->getName(), 'tasks')

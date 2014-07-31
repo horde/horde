@@ -128,24 +128,44 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
      */
     public function toHash()
     {
+        global $calendar_manager, $conf, $injector, $registry;
+
         $id = $this->_share->getName();
-        $owner = $GLOBALS['registry']->getAuth() &&
-            $this->owner() == $GLOBALS['registry']->getAuth();
+        $owner = $registry->getAuth() &&
+            $this->owner() == $registry->getAuth();
 
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
         $hash['users'] = Kronolith::listShareUsers($this->_share);
-        $hash['show']  = in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS));
+        $hash['show']  = in_array(
+            $id,
+            $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)
+        );
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
         try {
-            $hash['caldav']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/calendars/' : '/rpc.php/calendars/'), true, -1)
-                . ($this->owner() ? $this->owner() : '-system-') . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($id, 'calendar')
+            $hash['caldav'] = Horde::url(
+                $registry->get('webroot', 'horde')
+                    . ($conf['urls']['pretty'] == 'rewrite'
+                        ? '/rpc/calendars/'
+                        : '/rpc.php/calendars/'),
+                true,
+                -1
+            )
+                . $registry->getAuth() . '/'
+                . $injector->getInstance('Horde_Dav_Storage')
+                    ->getExternalCollectionId($id, 'calendar')
                 . '/';
         } catch (Horde_Exception $e) {
         }
-        $hash['sub']   = Horde::url($GLOBALS['registry']->get('webroot', 'horde') . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/kronolith/' : '/rpc.php/kronolith/'), true, -1)
+        $hash['sub'] = Horde::url(
+            $registry->get('webroot', 'horde')
+                . ($conf['urls']['pretty'] == 'rewrite'
+                    ? '/rpc/kronolith/'
+                    : '/rpc.php/kronolith/'),
+            true,
+            -1
+        )
             . ($this->owner() ? $this->owner() : '-system-') . '/'
             . $id . '.ics';
         $hash['feed']  = (string)Kronolith::feedUrl($id);
