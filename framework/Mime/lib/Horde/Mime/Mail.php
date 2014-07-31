@@ -484,7 +484,7 @@ class Horde_Mime_Mail
             );
         }
 
-        return $this->_headers->toString() . $this->_getBasePart->toString();
+        return $this->_headers->toString() . $this->getBasePart()->toString();
     }
 
     /**
