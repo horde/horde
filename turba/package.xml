@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Display correct address books in WebDAV folders.
+* [jan] Fix displayed CardDAV URLs for shared address books (Bug #12380).
 * [mms] Only include e-mail addresses that match the search string in the return from the search() API call (Request #12480).
 * [mjr] Fix exporting tags via vCard and ActiveSync (Bug #13393).
 * [mjr] Add EAS client created shares to the sync_books preference (Bug #13359).
@@ -1898,6 +1900,8 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Display correct address books in WebDAV folders.
+* [jan] Fix displayed CardDAV URLs for shared address books (Bug #12380).
 * [mms] Only include e-mail addresses that match the search string in the return from the search() API call (Request #12480).
 * [mjr] Fix exporting tags via vCard and ActiveSync (Bug #13393).
 * [mjr] Add EAS client created shares to the sync_books preference (Bug #13359).

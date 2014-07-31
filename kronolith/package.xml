@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
 * [mjr] Fix exporting to ics file when event contains exceptions and an explicit timezone (Bug #13369).
 * [mjr] Fix importing iCalendar data that contains timezone parameters.
 * [mjr] Fix both importing and replacing text/calendar data via the API when recurrence exceptions are present (Bug #13399).
@@ -2426,6 +2427,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
 * [mjr] Fix exporting to ics file when event contains exceptions and an explicit timezone (Bug #13369).
 * [mjr] Fix importing iCalendar data that contains timezone parameters.
 * [mjr] Fix both importing and replacing text/calendar data via the API when recurrence exceptions are present (Bug #13399).
