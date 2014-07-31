@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-30</date>
+ <date>2014-07-31</date>
  <version>
   <release>2.24.0</release>
   <api>2.24.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
 * [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
 * [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
 * [mms] IMAP extension enabled information is now stored within the capability object.
@@ -299,7 +300,9 @@
         <file name="remote4.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Live">
+        <file name="Imap.php" role="test" />
         <file name="ImapTest.php" role="test" />
+        <file name="Pop3.php" role="test" />
         <file name="Pop3Test.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Live -->
        <dir name="Namespace">
@@ -632,7 +635,9 @@
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
+   <install as="Horde/Imap/Client/Live/Imap.php" name="test/Horde/Imap/Client/Live/Imap.php" />
    <install as="Horde/Imap/Client/Live/ImapTest.php" name="test/Horde/Imap/Client/Live/ImapTest.php" />
+   <install as="Horde/Imap/Client/Live/Pop3.php" name="test/Horde/Imap/Client/Live/Pop3.php" />
    <install as="Horde/Imap/Client/Live/Pop3Test.php" name="test/Horde/Imap/Client/Live/Pop3Test.php" />
    <install as="Horde/Imap/Client/Namespace/DataTest.php" name="test/Horde/Imap/Client/Namespace/DataTest.php" />
    <install as="Horde/Imap/Client/Namespace/ListTest.php" name="test/Horde/Imap/Client/Namespace/ListTest.php" />
@@ -2546,9 +2551,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-30</date>
+   <date>2014-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
 * [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
 * [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
 * [mms] IMAP extension enabled information is now stored within the capability object.

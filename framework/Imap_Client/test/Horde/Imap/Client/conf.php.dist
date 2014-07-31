@@ -1,40 +1,46 @@
 <?php
 $conf['imapclient'] = array(
-    'enabled' => false,
+    // Add array entry for every IMAP client to test.
+    array(
+        'enabled' => false,
 
-    // Configuration for the remote IMAP server test.
-    'client_config' => array(
-        'username' => '',
-        'password' => '',
-        'hostspec' => '',
-        'port' => '',
-        'secure' => '', // empty, 'ssl', or 'tls'
-        'debug' => null, // e.g. 'php://output',
-        // Test for XOAUTH2
-        //'xoauth2_token' => ''
-    ),
-    'test_mbox' => 'TestMailboxTest',
-    'test_mbox_utf8' => 'TestMailboxTest1è',
+        // Configuration for the remote IMAP server test.
+        'client_config' => array(
+            'username' => '',
+            'password' => '',
+            'hostspec' => '',
+            'port' => '',
+            'secure' => '', // empty, 'ssl', or 'tls'
+            'debug' => null, // e.g. 'php://output',
+            // Test for XOAUTH2
+            //'xoauth2_token' => ''
+        ),
+        'test_mbox' => 'TestMailboxTest',
+        'test_mbox_utf8' => 'TestMailboxTest1è',
 
-    // Configuration for the Mongo cache driver test.
-    // Format: mongodb://[username:password@]host
-    'mongo' => null,
+        // Configuration for the Mongo cache driver test.
+        // Format: mongodb://[username:password@]host
+        'mongo' => null,
+    )
 );
 
 $conf['pop3client'] = array(
-    'enabled' => false,
+    // Add array entry for every POP3 client to test.
+    array(
+        'enabled' => false,
 
-    // Configuration for the remote POP3 server test.
-    'client_config' => array(
-        'username' => '',
-        'password' => '',
-        'hostspec' => '',
-        'port' => '',
-        'secure' => '', // empty, 'ssl', or 'tls'
-        'debug' => null // e.g. 'php://output'
-    ),
+        // Configuration for the remote POP3 server test.
+        'client_config' => array(
+            'username' => '',
+            'password' => '',
+            'hostspec' => '',
+            'port' => '',
+            'secure' => '', // empty, 'ssl', or 'tls'
+            'debug' => null // e.g. 'php://output'
+        ),
 
-    // Configuration for the Mongo cache driver test.
-    // Format: mongodb://[username:password@]host
-    'mongo' => null,
+        // Configuration for the Mongo cache driver test.
+        // Format: mongodb://[username:password@]host
+        'mongo' => null,
+    )
 );
