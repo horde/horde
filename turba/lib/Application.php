@@ -674,10 +674,30 @@ class Turba_Application extends Horde_Registry_Application
      */
     public function davGetCollections($user)
     {
-        $dav = $GLOBALS['injector']
-            ->getInstance('Horde_Dav_Storage');
+        global $injector, $registry;
+
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $factory = $injector->getInstance('Turba_Shares');
         $books = array();
         foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $book) {
+            // Ugly hack! There is currently no clean way to retrieve address
+            // books that the user "owns", or to find out if a SQL/LDAP/Kolab
+            // address book contains per-user or global contacts.
+            if ($book['type'] == 'share') {
+                $share = $factory->getShare($id);
+                if (($user == '-system-' && strlen($share->get('owner'))) ||
+                    ($user != '-system-' &&
+                     $user != $share->get('owner') &&
+                     $user != $registry->getAuth())) {
+                    continue;
+                }
+            }
+            if ($user == '-system-' &&
+                ($book['type'] == 'facebook' ||
+                 $book['type'] == 'favourites' ||
+                 $book['type'] == 'vbook')) {
+                continue;
+            }
             try {
                 $id = $dav->getExternalCollectionId($id, 'contacts') ?: $id;
             } catch (Horde_Dav_Exception $e) {
