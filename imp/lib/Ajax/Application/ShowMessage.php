@@ -192,7 +192,7 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         if (empty($result['reply-to']) ||
-            ($result['from']->addr[0]->b == $result['reply-to']->addr[0]->b)) {
+            ($result['from']['addr'][0]->b == $result['reply-to']['addr'][0]->b)) {
             unset($result['reply-to'], $headers['reply-to']);
         }
 
