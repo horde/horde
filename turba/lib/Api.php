@@ -190,7 +190,7 @@ class Turba_Api extends Horde_Registry_Api
     public function browse($path = '',
                           $properties = array('name', 'icon', 'browseable'))
     {
-        global $injector, $session;
+        global $injector, $registry, $session;
 
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
@@ -269,17 +269,14 @@ class Turba_Api extends Horde_Registry_Api
                     // No backends are configured to provide shares
                     return array();
                 }
-                $addressbooks = $injector->getInstance('Turba_Shares')->listShares($parts[0], array(
-                    'attributes' => $parts[0],
-                    'perm' => Horde_Perms::READ
-                ));
-
-                /* The last check returns all addressbooks for the requested
-                 * user, but that does not mean the requesting user has access
-                 * to them.
-                 * Filter out those address books for which the requesting
-                 * user has no access. */
-                $addressbooks = Turba::permissionsFilter($addressbooks);
+                $addressbooks = $injector->getInstance('Turba_Shares')
+                    ->listShares(
+                        $registry->getAuth(),
+                        array(
+                            'attributes' => $parts[0],
+                            'perm' => Horde_Perms::READ
+                        )
+                    );
             }
 
             $curpath = 'turba/' . $parts[0] . '/';
