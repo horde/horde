@@ -71,7 +71,7 @@ class IMP_Images
             return false;
         }
 
-        $res = $injector->getInstance('IMP_Contacts')->searchEmail($from->bare->addresses, array(
+        $res = $injector->getInstance('IMP_Contacts')->searchEmail($from[0]->bare_address, array(
             'email_exact' => true
         ));
 
