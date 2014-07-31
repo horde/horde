@@ -9,6 +9,7 @@ v4.3.0-git
 v4.2.1
 ------
 
+[jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
 [jan] Don't show today's events that are over in portal (Bug #13368).
 [mjr] Fix exporting to ics file when event contains exceptions and an explicit
       timezone (Bug #13369).

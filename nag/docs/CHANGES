@@ -7,11 +7,14 @@ v4.3.0-git
 v4.2.1
 ----------
 
+[jan] Don't include external tasks with WebDAV task list.
+[jan] Fix displayed CalDAV URLs for shared task lists (Bug #12380).
 [mjr] Fix remembering auto determined default share (Bug #13360).
 [mjr] Add EAS client created shares to the sync_lists preference (Bug #13359).
 [mjr] Add missing API support for searchTags API (Bug #13364).
 [mjr] Fix detecting task completion when sending task change notifications (Bug
       #13350, Alfonso Marín Marín <almarin@um.es>).
+
 
 ------
 v4.2.0
