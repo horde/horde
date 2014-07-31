@@ -24,7 +24,8 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_Stub_SocketClientSort extends Horde_Imap_Client_Socket_ClientSort
+class Horde_Imap_Client_Stub_SocketClientSort
+extends Horde_Imap_Client_Socket_ClientSort
 {
     public function clientSortProcess($res, $fetch_res, $sort)
     {

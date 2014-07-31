@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
 * [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
 * [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
 * [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
@@ -2554,6 +2555,7 @@
    <date>2014-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
 * [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
 * [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
 * [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.

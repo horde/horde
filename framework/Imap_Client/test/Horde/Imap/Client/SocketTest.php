@@ -368,6 +368,107 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($env->to);
     }
 
+    public function testClientSideThreadOrderedSubject()
+    {
+        $data = array(
+            array(
+                'Sat, 26 Jul 2008 21:10:00 -0500 (CDT)',
+                'Test e-mail 1'
+            ),
+            array(
+                'Sat, 26 Jul 2008 21:10:00 -0500 (CDT)',
+                'Test e-mail 2'
+            ),
+            array(
+                'Sat, 26 Jul 2008 22:29:20 -0500 (CDT)',
+                'Re: Test e-mail 2'
+            ),
+            array(
+                'Sat, 26 Jul 2008 21:10:00 -0500 (CDT)',
+                'Test e-mail 1'
+            ),
+        );
+        $results = new Horde_Imap_Client_Fetch_Results();
+
+        foreach ($data as $key => $val) {
+            $data = new Horde_Imap_Client_Data_Fetch();
+            $data->setEnvelope(
+                new Horde_Imap_Client_Data_Envelope(array(
+                    'date' => $val[0],
+                    'subject' => $val[1]
+                ))
+            );
+            $results[++$key] = $data;
+        }
+
+        $csort = new Horde_Imap_Client_Socket_ClientSort($this->test_ob);
+        $thread = $csort->threadOrderedSubject($results, true);
+
+        foreach (array(1, 4) as $val) {
+            $t = $thread->getThread($val);
+            $this->assertEquals(
+                array(1, 4),
+                array_keys($t)
+            );
+            $this->assertEquals(
+                1,
+                $t[1]->base
+            );
+            $this->assertEquals(
+                1,
+                $t[1]->last
+            );
+            $this->assertEquals(
+                0,
+                $t[1]->level
+            );
+            $this->assertEquals(
+                1,
+                $t[4]->base
+            );
+            $this->assertEquals(
+                1,
+                $t[4]->last
+            );
+            $this->assertEquals(
+                1,
+                $t[4]->level
+            );
+        }
+
+        foreach (array(2, 3) as $val) {
+            $t = $thread->getThread($val);
+            $this->assertEquals(
+                array(2, 3),
+                array_keys($t)
+            );
+            $this->assertEquals(
+                2,
+                $t[2]->base
+            );
+            $this->assertEquals(
+                1,
+                $t[2]->last
+            );
+            $this->assertEquals(
+                0,
+                $t[2]->level
+            );
+            $this->assertEquals(
+                2,
+                $t[3]->base
+            );
+            $this->assertEquals(
+                1,
+                $t[3]->last
+            );
+            $this->assertEquals(
+                1,
+                $t[3]->level
+            );
+        }
+    }
+
     protected function _serverResponse($data)
     {
         return Horde_Imap_Client_Interaction_Server::create(
