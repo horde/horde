@@ -64,7 +64,7 @@ class IMP_Contacts implements Serializable
             if (!isset($this->_fields)) {
                 $this->_init();
             }
-            return $this->_{$name};
+            return $this->{'_' . $name};
 
         case 'source_list':
             if ($registry->hasMethod('contacts/sources')) {
