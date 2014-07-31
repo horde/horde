@@ -350,12 +350,12 @@ class Nag_Api extends Horde_Registry_Api
                 throw new Nag_Exception(_("Invalid task list file requested."), 404);
             }
             $ical_data = $this->exportTasklist($tasklist, 'text/calendar');
-            $result = array('data'          => $ical_data,
+            return array(
+                'data'          => $ical_data,
                 'mimetype'      => 'text/calendar',
                 'contentlength' => strlen($ical_data),
-                'mtime'         => $_SERVER['REQUEST_TIME']);
-
-            return $result;
+                'mtime'         => $_SERVER['REQUEST_TIME']
+            );
 
         } elseif (count($parts) == 2) {
             //
@@ -1098,6 +1098,7 @@ class Nag_Api extends Horde_Registry_Api
         $tasks = Nag::listTasks(array(
             'tasklists' => array($tasklist),
             'completed' => Nag::VIEW_ALL,
+            'external' => false,
             'include_tags' => true));
 
         $version = '2.0';
