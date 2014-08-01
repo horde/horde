@@ -1135,7 +1135,7 @@ class Horde_Date_Recurrence
                     $until = new Horde_Date(
                         array('year' => $year,
                               'month' => $month,
-                              'mday' => $mday),
+                              'mday' => $mday + 1),
                         $this->start->timezone
                     );
                 }
