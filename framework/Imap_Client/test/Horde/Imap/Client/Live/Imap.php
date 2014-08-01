@@ -149,7 +149,9 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         );
 
         // Tack on namespace information to mailbox names.
-        $ns_prefix = strval($ns[0]);
+        $ns = iterator_to_array($ns);
+        $ns_prefix = strval(reset($ns));
+
         self::$test_mbox = $ns_prefix . self::$test_mbox;
         self::$test_mbox_utf8 = $ns_prefix . self::$test_mbox_utf8;
         self::$created = true;
