@@ -786,13 +786,20 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
             $complex_fetch->modseq();
         }
 
-        $res = self::$imap->fetch(
-            self::$test_mbox,
-            $complex_fetch,
-            array(
-                'ids' => new Horde_Imap_Client_Ids(3, true)
-            )
-        );
+        try {
+            $res = self::$imap->fetch(
+                self::$test_mbox,
+                $complex_fetch,
+                array(
+                    'ids' => new Horde_Imap_Client_Ids(3, true)
+                )
+            );
+        } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() === $e::MBOXNOMODSEQ) {
+                $this->markTestSkipped('Mailbox does not support MODSEQ.');
+            }
+            throw $e;
+        }
 
         $this->assertInstanceOf(
             'Horde_Imap_Client_Fetch_Results',
