@@ -841,10 +841,11 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
 
         $res = self::$imap->getMetadata(self::$test_mbox, '/shared/comment');
 
-        $this->assertArrayHasKey('/shared/comment', $res);
+        $this->assertArrayHasKey(self::$test_mbox, $res);
+        $this->assertArrayHasKey('/shared/comment', $res[self::$test_mbox]);
         $this->assertEquals(
             'test',
-            $res['/shared/comment']
+            $res[self::$test_mbox]['/shared/comment']
         );
     }
 
