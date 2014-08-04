@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix listing group members that contain colons in their IDs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1913,7 +1913,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix listing group members that contain colons in their IDs.
    </notes>
   </release>
  </changelog>
