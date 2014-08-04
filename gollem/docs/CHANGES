@@ -1,9 +1,15 @@
 ----------
-v3.0.2-git
+v3.0.3-git
 ----------
 
-[jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [jan] Make shares table compatible with Oracle.
+
+
+------
+v3.0.2
+------
+
+[jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 
 
 ------
