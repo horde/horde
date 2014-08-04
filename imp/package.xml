@@ -3716,5 +3716,18 @@
 * [mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug #13281).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>6.2.2</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
+   </notes>
+  </release>
  </changelog>
 </package>

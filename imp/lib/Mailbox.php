@@ -1088,7 +1088,7 @@ class IMP_Mailbox
         global $prefs;
 
         if (!$this->access_flags) {
-            return $this->is_imap;
+            return true;
         }
 
         if ($prefs->getValue('use_trash')) {
