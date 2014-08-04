@@ -18,7 +18,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>2.0.12</release>
+  <release>2.0.13</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix calculating recurrence end if UNTIL property of iCalendar data is DATE value (Bug #13401).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1013,6 +1013,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix calculating recurrence end if UNTIL property of iCalendar data is DATE value (Bug #13401).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.13</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
