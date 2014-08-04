@@ -588,7 +588,7 @@ class IMP_Mailbox
             return $injector->getInstance('IMP_Mbox_Size')->getSize($this);
 
         case 'sortob':
-            return $this->imp_imap->canSort()
+            return $this->imp_imap->access(IMP_Imap::ACCESS_SORT)
                 ? $injector->getInstance('IMP_Prefs_Sort')
                 : $injector->getInstance('IMP_Prefs_Sort_None');
 
@@ -1397,17 +1397,18 @@ class IMP_Mailbox
     static public function prefFrom($mbox)
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        if ($imp_imap->isImap()) {
+            $empty_ns = $imp_imap->getNamespace('');
 
-        $empty_ns = $imp_imap->getNamespace('');
-
-        if (!is_null($empty_ns) &&
-            (strpos($mbox, $empty_ns->delimiter) === 0)) {
-            /* Prefixed with delimiter => from empty namespace. */
-            return substr($mbox, strlen($empty_ns->delimiter));
-        } elseif ($imp_imap->getNamespace($mbox, true) === null) {
-            /* No namespace prefix => from personal namespace. */
-            $def_ns = $imp_imap->getNamespace($imp_imap::NS_DEFAULT);
-            return $def_ns->name . $mbox;
+            if (!is_null($empty_ns) &&
+                (strpos($mbox, $empty_ns->delimiter) === 0)) {
+                /* Prefixed with delimiter => from empty namespace. */
+                return substr($mbox, strlen($empty_ns->delimiter));
+            } elseif ($imp_imap->getNamespace($mbox, true) === null) {
+                /* No namespace prefix => from personal namespace. */
+                $def_ns = $imp_imap->getNamespace($imp_imap::NS_DEFAULT);
+                return $def_ns->name . $mbox;
+            }
         }
 
         return $mbox;

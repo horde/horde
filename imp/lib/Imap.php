@@ -56,6 +56,7 @@ class IMP_Imap implements Serializable
     const ACCESS_DRAFTS = 11;
     const ACCESS_REMOTE = 12;
     const ACCESS_IMPORT = 14;
+    const ACCESS_SORT = 15;
 
     /* Default namespace. */
     const NS_DEFAULT = "\0default";
@@ -218,17 +219,6 @@ class IMP_Imap implements Serializable
     {
         return ($this->init &&
                 ($this->_ob instanceof Horde_Imap_Client_Socket_Pop3));
-    }
-
-    /**
-     * Is mailbox sorting available?
-     *
-     * @return boolean  True if sorting is available.
-     */
-    public function canSort()
-    {
-        return ($this->config->sort_force ||
-                $this->_ob->queryCapability('SORT'));
     }
 
     /**
@@ -412,6 +402,10 @@ class IMP_Imap implements Serializable
 
         case self::ACCESS_REMOTE:
             return $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('allow_remote'));
+
+        case self::ACCESS_SORT:
+            return ($this->isImap() &&
+                    ($this->config->sort_force || $this->_ob->queryCapability('SORT')));
         }
 
         return false;
