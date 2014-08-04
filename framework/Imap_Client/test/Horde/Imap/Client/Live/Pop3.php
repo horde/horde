@@ -55,10 +55,6 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Imap_Client_Live_Base
             'Horde_Imap_Client_Data_Capability',
             $c
         );
-
-        if (!$c->query('USER')) {
-            $this->fail('Capability command failed.');
-        }
     }
 
     /**
