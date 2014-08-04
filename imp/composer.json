@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "6.2.0",
-    "time": "2014-07-08",
+    "version": "6.2.1",
+    "time": "2014-08-04",
     "repositories": [
         {
             "type": "pear",
@@ -54,6 +54,7 @@
         "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Nls": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Notification": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Pack": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_SpellChecker": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Stream": ">=1.4.0@stable,<=2.0.0alpha1@stable",

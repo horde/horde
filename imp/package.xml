@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-07-08</date>
+ <date>2014-08-04</date>
  <version>
   <release>6.2.1</release>
   <api>6.2.0</api>
@@ -3705,10 +3705,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix iTip handling  when recurrence exceptions are present (Bug #13399).
+* [mjr] Fix iTip handling when recurrence exceptions are present (Bug #13399).
 * [mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are defined.
 * [mms] Fix advanced search in all mailboxes if virtual folders or remote accounts exist (Bug #13384).
 * [mms] Fix regression in automatically expanding deeply nested mailboxes in the dynamic folder list.
