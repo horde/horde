@@ -24,7 +24,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>4.2.1</release>
+  <release>4.2.2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,12 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Don&apos;t include external tasks with WebDAV task list.
-* [jan] Fix displayed CalDAV URLs for shared task lists (Bug #12380).
-* [mjr] Fix remembering auto determined default share (Bug #13360).
-* [mjr] Add EAS client created shares to the sync_lists preference (Bug #13359).
-* [mjr] Add missing API support for searchTags API (Bug #13364).
-* [mjr] Fix detecting task completion when sending task change notifications (Alfonso Marín Marín &lt;almarin@um.es&gt;, Bug #13350).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1580,6 +1575,19 @@
 * [mjr] Add EAS client created shares to the sync_lists preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13364).
 * [mjr] Fix detecting task completion when sending task change notifications (Alfonso Marín Marín &lt;almarin@um.es&gt;, Bug #13350).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
