@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-23</date>
+ <date>2014-08-04</date>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -286,7 +286,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-23</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Remove Freecode support.
