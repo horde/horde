@@ -12,7 +12,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>2.24.0</release>
+  <release>2.24.1</release>
   <api>2.24.0</api>
  </version>
  <stability>
@@ -21,19 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Correctly expire internal cache in POP3 when messages are deleted.
-* [mms] Improved determination of a pseudo-UIDNEXT value for POP3 servers.
-* [mms] Fix sorting of POP3 IDs.
-* [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
-* [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
-* [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
-* [mms] Add support for the IMAP UTF-8 extension (RFC 6855).
-* [mms] Querying of valid search charsets is now handled by the Horde_Imap_Client_Data_SearchCharset object.
-* [mms] IMAP extension enabled information is now stored within the capability object.
-* [mms] Fix regression where authetication was attempted with a non-null, empty string password.
-* [mms] Improved debug logging during connection failures and authentication attempts.
-* [mms] Fix debug logging for certain IMAP authentication actions.
-* [mms] Internally handle capability querying via the new Horde_Imap_Client_Data_Capability object.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2578,6 +2566,19 @@
 * [mms] Improved debug logging during connection failures and authentication attempts.
 * [mms] Fix debug logging for certain IMAP authentication actions.
 * [mms] Internally handle capability querying via the new Horde_Imap_Client_Data_Capability object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.24.1</release>
+    <api>2.24.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
