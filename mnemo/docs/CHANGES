@@ -1,6 +1,6 @@
-----------
-v4.2.1-git
-----------
+------
+v4.2.1
+------
 
 [mjr] Ensure default share attribute is set when auto determining a default
       share.
