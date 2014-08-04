@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-07-08</date>
+ <date>2014-08-04</date>
  <version>
   <release>5.2.1</release>
   <api>5.2.0</api>
@@ -3950,7 +3950,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix cancelling remote wipe of EAS client from user prefs.
