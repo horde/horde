@@ -42,7 +42,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
     {
         global $injector, $notification, $prefs;
 
-        $iterator = new IMP_Imap_Ftree_IteratorFilter(
+        $iterator = new IMP_Ftree_IteratorFilter(
             $injector->getInstance('IMP_Ftree')
         );
         $iterator->add($iterator::CONTAINERS);
