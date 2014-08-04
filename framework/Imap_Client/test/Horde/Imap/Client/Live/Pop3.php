@@ -23,11 +23,9 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
+class Horde_Imap_Client_Live_Pop3 extends Horde_Imap_Client_Live_Base
 {
     static public $config;
-
-    static private $pop3;
 
     static public function setUpBeforeClass()
     {
@@ -42,19 +40,16 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
             );
         } catch (Exception $e) {}
 
-        self::$pop3 = new Horde_Imap_Client_Socket_Pop3(
+        self::$live = new Horde_Imap_Client_Socket_Pop3(
             $c['client_config']
         );
     }
 
-    static public function tearDownAfterClass()
-    {
-        self::$pop3 = null;
-    }
+    /* Tests */
 
     public function testPreLoginCommands()
     {
-        $c = self::$pop3->capability;
+        $c = self::$live->capability;
 
         $this->assertInstanceOf(
             'Horde_Imap_Client_Data_Capability',
@@ -73,7 +68,7 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
     {
         /* Throws exception on error, which will prevent all further testing
          * on this server. */
-        self::$pop3->login();
+        self::$live->login();
     }
 
     /**
@@ -90,9 +85,9 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
      */
     public function testOpenMailbox()
     {
-        self::$pop3->openMailbox('INBOX', Horde_Imap_Client::OPEN_READONLY);
-        self::$pop3->openMailbox('INBOX', Horde_Imap_Client::OPEN_READWRITE);
-        self::$pop3->openMailbox('INBOX', Horde_Imap_Client::OPEN_AUTO);
+        self::$live->openMailbox('INBOX', Horde_Imap_Client::OPEN_READONLY);
+        self::$live->openMailbox('INBOX', Horde_Imap_Client::OPEN_READWRITE);
+        self::$live->openMailbox('INBOX', Horde_Imap_Client::OPEN_AUTO);
     }
 
     /**
@@ -101,7 +96,7 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
     public function testListMailbox()
     {
         // Listing all mailboxes (flat format).
-        $l = self::$pop3->listMailboxes(
+        $l = self::$live->listMailboxes(
             '*',
             Horde_Imap_Client::MBOX_ALL,
             array('flat' => true)
@@ -115,7 +110,7 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Test_Case
      */
     public function testStatus()
     {
-        self::$pop3->status('INBOX', Horde_Imap_Client::STATUS_ALL);
+        self::$live->status('INBOX', Horde_Imap_Client::STATUS_ALL);
     }
 
 }

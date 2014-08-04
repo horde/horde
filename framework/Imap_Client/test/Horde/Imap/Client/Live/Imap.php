@@ -23,12 +23,11 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
+class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 {
-    static public $config = array();
+    static public $config;
 
     static private $created;
-    static private $imap;
     static private $test_mbox;
     static private $test_mbox_utf8;
 
@@ -49,7 +48,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
             );
         } catch (Exception $e) {}
 
-        self::$imap = new Horde_Imap_Client_Socket(
+        self::$live = new Horde_Imap_Client_Socket(
             $c['client_config']
         );
     }
@@ -59,17 +58,19 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         if (self::$created) {
             foreach (array(self::$test_mbox, self::$test_mbox_utf8) as $val) {
                 try {
-                    self::$imap->deleteMailbox($val);
+                    self::$live->deleteMailbox($val);
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
 
-        self::$imap = null;
+        parent::tearDownAfterClass();
     }
+
+    /* Tests */
 
     public function testPreLoginCommands()
     {
-        $c = self::$imap->capability;
+        $c = self::$live->capability;
 
         $this->assertInstanceOf(
             'Horde_Imap_Client_Data_Capability',
@@ -88,7 +89,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         /* Throws exception on error, which will prevent all further testing
          * on this server. */
-        self::$imap->login();
+        self::$live->login();
     }
 
     /**
@@ -106,7 +107,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testId()
     {
         try {
-            $id = self::$imap->getID();
+            $id = self::$live->getID();
         } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
             $this->markTestSkipped('No support for ID extension');
         }
@@ -120,7 +121,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testGetLanguage()
     {
         try {
-            $lang = self::$imap->getLanguage(true);
+            $lang = self::$live->getLanguage(true);
         } catch (Horde_Imap_Client_Exception_NoSupportExtension $e) {
             $this->markTestSkipped('No support for LANGUAGE extension');
         }
@@ -133,7 +134,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testGetComparator()
     {
-        self::$imap->getComparator();
+        self::$live->getComparator();
     }
 
     /**
@@ -141,7 +142,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testNamespaces()
     {
-        $ns = self::$imap->getNamespaces(array(), array('ob_return' => true));
+        $ns = self::$live->getNamespaces(array(), array('ob_return' => true));
 
         $this->assertInstanceOf(
             'Horde_Imap_Client_Namespace_List',
@@ -164,10 +165,10 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Delete test mailbox, if it exists.
         try {
-            self::$imap->deleteMailbox(self::$test_mbox);
+            self::$live->deleteMailbox(self::$test_mbox);
         } catch (Horde_Imap_Client_Exception $e) {}
 
-        self::$imap->createMailbox(self::$test_mbox);
+        self::$live->createMailbox(self::$test_mbox);
     }
 
     /**
@@ -175,15 +176,15 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testOpenMailbox()
     {
-        self::$imap->openMailbox(
+        self::$live->openMailbox(
             self::$test_mbox,
             Horde_Imap_Client::OPEN_READONLY
         );
-        self::$imap->openMailbox(
+        self::$live->openMailbox(
             self::$test_mbox,
             Horde_Imap_Client::OPEN_READWRITE
         );
-        self::$imap->openMailbox(
+        self::$live->openMailbox(
             self::$test_mbox,
             Horde_Imap_Client::OPEN_AUTO
         );
@@ -194,8 +195,8 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testSubscribeMailbox()
     {
-        self::$imap->subscribeMailbox(self::$test_mbox, true);
-        self::$imap->subscribeMailbox(self::$test_mbox, false);
+        self::$live->subscribeMailbox(self::$test_mbox, true);
+        self::$live->subscribeMailbox(self::$test_mbox, false);
     }
 
     /**
@@ -206,10 +207,10 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Delete test mailbox, if it exists.
         try {
-            self::$imap->deleteMailbox(self::$test_mbox_utf8);
+            self::$live->deleteMailbox(self::$test_mbox_utf8);
         } catch (Horde_Imap_Client_Exception $e) {}
 
-        self::$imap->renameMailbox(
+        self::$live->renameMailbox(
             self::$test_mbox,
             self::$test_mbox_utf8
         );
@@ -220,11 +221,11 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testDeleteMailbox()
     {
-        self::$imap->deleteMailbox(self::$test_mbox_utf8);
+        self::$live->deleteMailbox(self::$test_mbox_utf8);
 
         // Delete non-existent mailbox.
         try {
-            self::$imap->deleteMailbox(self::$test_mbox_utf8);
+            self::$live->deleteMailbox(self::$test_mbox_utf8);
         } catch (Horde_Imap_Client_Exception $e) {}
     }
 
@@ -234,7 +235,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testListMailbox()
     {
         // Listing all mailboxes in base level (flat format).
-        $l = self::$imap->listMailboxes(
+        $l = self::$live->listMailboxes(
             '%',
             Horde_Imap_Client::MBOX_ALL,
             array('flat' => true)
@@ -242,7 +243,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $l);
 
         // Listing all mailboxes (flat format).
-        $l = self::$imap->listMailboxes(
+        $l = self::$live->listMailboxes(
             '*',
             Horde_Imap_Client::MBOX_ALL,
             array('flat' => true)
@@ -250,7 +251,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $l);
 
         // Listing subscribed mailboxes (flat format).
-        $l = self::$imap->listMailboxes(
+        $l = self::$live->listMailboxes(
             '*',
             Horde_Imap_Client::MBOX_SUBSCRIBED,
             array('flat' => true)
@@ -259,7 +260,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
 
         // Listing unsubscribed mailboxes in base level (with attribute
         // information).
-        $l = self::$imap->listMailboxes(
+        $l = self::$live->listMailboxes(
             '%',
             Horde_Imap_Client::MBOX_UNSUBSCRIBED,
             array('attributes' => true)
@@ -275,8 +276,8 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         /* This method is mostly a placeholder to ensure that we create
          * the mailboxes for the tests that involve manipulation of the
          * contents of the mailbox. */
-        self::$imap->createMailbox(self::$test_mbox);
-        self::$imap->createMailbox(self::$test_mbox_utf8);
+        self::$live->createMailbox(self::$test_mbox);
+        self::$live->createMailbox(self::$test_mbox_utf8);
     }
 
     /**
@@ -285,14 +286,14 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testStatus()
     {
         // All status information for test mailbox.
-        $s = self::$imap->status(
+        $s = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_ALL
         );
         $this->assertInternalType('array', $s);
 
         // Only UIDNEXT status information for test mailbox.
-        $s = self::$imap->status(
+        $s = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_UIDNEXT
         );
@@ -300,7 +301,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
 
         // Only FIRSTUNSEEN, FLAGS, PERMFLAGS, HIGHESTMODSEQ, and UIDNOTSTICKY
         // status information for test mailbox.
-        $s = self::$imap->status(
+        $s = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS | Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDNOTSTICKY
         );
@@ -316,7 +317,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         // 3 via a stream (with internaldate), and 4 via a string:
         $handle = fopen(__DIR__ . '/../fixtures/remote2.txt', 'r');
         $handle2 = fopen(__DIR__ . '/../fixtures/remote3.txt', 'r');
-        $uid = self::$imap->append(self::$test_mbox, array(
+        $uid = self::$live->append(self::$test_mbox, array(
             array(
                 'data' => file_get_contents(__DIR__ . '/../fixtures/remote1.txt'),
                 'flags' => array(Horde_Imap_Client::FLAG_FLAGGED)
@@ -347,7 +348,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testCopyingEmailToUtf8Mailbox()
     {
-        $copy_uid = self::$imap->copy(
+        $copy_uid = self::$live->copy(
             self::$test_mbox,
             self::$test_mbox_utf8,
             array(
@@ -368,19 +369,19 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testDeletingMessageFromMailboxViaFlagAndExpunge()
     {
         // Flagging test e-mail 2 with the Deleted flag.
-        self::$imap->store(self::$test_mbox, array(
+        self::$live->store(self::$test_mbox, array(
             'add' => array(Horde_Imap_Client::FLAG_DELETED),
             'ids' => new Horde_Imap_Client_Ids(2, true)
         ));
 
         // Expunging mailbox by specifying non-deleted UID.
-        self::$imap->expunge(
+        self::$live->expunge(
             self::$test_mbox,
             array('ids' => new Horde_Imap_Client_Ids(1, true))
         );
 
         // Get status of test mailbox (should have 4 messages).
-        $status = self::$imap->status(
+        $status = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_MESSAGES
         );
@@ -391,10 +392,10 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         );
 
         // Expunging mailbox (should remove test e-mail 2)
-        self::$imap->expunge(self::$test_mbox);
+        self::$live->expunge(self::$test_mbox);
 
         // Get status of test mailbox (should have 3 messages).
-        $status = self::$imap->status(
+        $status = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_MESSAGES
         );
@@ -411,7 +412,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testMoveMessage()
     {
         // Move test e-mail 1 from utf-8 test mailbox to the test mailbox.
-        self::$imap->copy(
+        self::$live->copy(
             self::$test_mbox_utf8,
             self::$test_mbox,
             array(
@@ -427,7 +428,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testFlagMessageDeletedWithoutExpunging()
     {
         // Flagging test e-mail 3 with the Deleted flag.
-        self::$imap->store(
+        self::$live->store(
             self::$test_mbox,
             array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED),
@@ -436,10 +437,10 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         );
 
         // Closing test mailbox without expunging.
-        self::$imap->close();
+        self::$live->close();
 
         // Get status of test mailbox (should have 4 messages).
-        $status = self::$imap->status(
+        $status = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_MESSAGES
         );
@@ -459,7 +460,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         $all_query = new Horde_Imap_Client_Search_Query();
 
         // Search test mailbox for all messages (returning UIDs).
-        $res = self::$imap->search(self::$test_mbox, $all_query);
+        $res = self::$live->search(self::$test_mbox, $all_query);
 
         $this->assertEquals(
             4,
@@ -474,7 +475,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Searching test mailbox for all messages (returning message sequence
         // numbers).
-        $res = self::$imap->search(
+        $res = self::$live->search(
             self::$test_mbox,
             new Horde_Imap_Client_Search_Query(),
             array(
@@ -501,7 +502,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Searching test mailbox (should be optimized by using internal
         // status instead).
-        $res = self::$imap->search(
+        $res = self::$live->search(
             self::$test_mbox,
             new Horde_Imap_Client_Search_Query(),
             array(
@@ -517,7 +518,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         // No messages are recent
         $query = new Horde_Imap_Client_Search_Query();
         $query->flag(Horde_Imap_Client::FLAG_RECENT);
-        $res = self::$imap->search(
+        $res = self::$live->search(
             self::$test_mbox,
             $query,
             array(
@@ -533,7 +534,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         // All messages are unseen
         $query2 = new Horde_Imap_Client_Search_Query();
         $query2->flag(Horde_Imap_Client::FLAG_SEEN, false);
-        $res = self::$imap->search(
+        $res = self::$live->search(
             self::$test_mbox,
             $query2,
             array(
@@ -553,7 +554,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testMailboxSort()
     {
         // Sort test mailbox by from and reverse date for all messages.
-        $res = self::$imap->search(
+        $res = self::$live->search(
             self::$test_mbox,
             new Horde_Imap_Client_Search_Query(),
             array(
@@ -577,11 +578,11 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
      */
     public function testMailboxThreadByReferences()
     {
-        if (!self::$imap->capability->query('THREAD', 'REFERENCES')) {
+        if (!self::$live->capability->query('THREAD', 'REFERENCES')) {
             $this->markTestSkipped('Server does not support THREAD=REFERENCES');
         }
 
-        $res = self::$imap->thread(
+        $res = self::$live->thread(
             self::$test_mbox,
             array(
                 'criteria' => Horde_Imap_Client::THREAD_REFERENCES,
@@ -614,7 +615,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         // algorithm (UIDs).
         $ten_query = new Horde_Imap_Client_Search_Query();
         $ten_query->ids(new Horde_Imap_Client_Ids('1:2', true));
-        $res = self::$imap->thread(
+        $res = self::$live->thread(
             self::$test_mbox,
             array(
                 'criteria' => Horde_Imap_Client::THREAD_REFERENCES,
@@ -640,7 +641,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Sort test mailbox by thread - orderedsubject algorithm (sequence
         // numbers).
-        $res = self::$imap->thread(
+        $res = self::$live->thread(
             self::$test_mbox,
             array(
                 'criteria' => Horde_Imap_Client::THREAD_ORDEREDSUBJECT,
@@ -683,7 +684,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         $simple_fetch->flags();
 
         // Simple fetch example.
-        $res = self::$imap->fetch(
+        $res = self::$live->fetch(
             self::$test_mbox,
             $simple_fetch,
             array(
@@ -782,12 +783,12 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
         $complex_fetch->size();
         $complex_fetch->uid();
 
-        if (self::$imap->capability->query('CONDSTORE')) {
+        if (self::$live->capability->query('CONDSTORE')) {
             $complex_fetch->modseq();
         }
 
         try {
-            $res = self::$imap->fetch(
+            $res = self::$live->fetch(
                 self::$test_mbox,
                 $complex_fetch,
                 array(
@@ -831,7 +832,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testMetadata()
     {
         try {
-            self::$imap->setMetadata(
+            self::$live->setMetadata(
                 self::$test_mbox,
                 array('/shared/comment' => 'test')
             );
@@ -839,7 +840,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Server does not support METADATA.');
         }
 
-        $res = self::$imap->getMetadata(self::$test_mbox, '/shared/comment');
+        $res = self::$live->getMetadata(self::$test_mbox, '/shared/comment');
 
         $this->assertArrayHasKey(self::$test_mbox, $res);
         $this->assertArrayHasKey('/shared/comment', $res[self::$test_mbox]);
@@ -862,16 +863,16 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     public function testExpungeMessagesWhileClosing()
     {
         // Re-open test mailbox READ-WRITE.
-        self::$imap->openMailbox(
+        self::$live->openMailbox(
             self::$test_mbox,
             Horde_Imap_Client::OPEN_READWRITE
         );
 
         // Closing test mailbox while expunging.
-        self::$imap->close(array('expunge' => true));
+        self::$live->close(array('expunge' => true));
 
         // Get status of test mailbox (should have 3 messages).
-        $status = self::$imap->status(
+        $status = self::$live->status(
             self::$test_mbox,
             Horde_Imap_Client::STATUS_MESSAGES
         );
@@ -887,7 +888,7 @@ class Horde_Imap_Client_Live_Imap extends PHPUnit_Framework_TestCase
     {
         // Do a test append to a non-existent mailbox - this MUST fail (RFC
         // 3501 [6.3.11]).
-        self::$imap->append(
+        self::$live->append(
             self::$test_mbox . 'ABC',
             array(
                 array(

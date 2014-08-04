@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-31</date>
+ <date>2014-08-04</date>
  <version>
   <release>2.24.0</release>
   <api>2.24.0</api>
@@ -302,6 +302,7 @@
         <file name="remote4.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Live">
+        <file name="Base.php" role="test" />
         <file name="Imap.php" role="test" />
         <file name="ImapTest.php" role="test" />
         <file name="Pop3.php" role="test" />
@@ -637,6 +638,7 @@
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
+   <install as="Horde/Imap/Client/Live/Base.php" name="test/Horde/Imap/Client/Live/Base.php" />
    <install as="Horde/Imap/Client/Live/Imap.php" name="test/Horde/Imap/Client/Live/Imap.php" />
    <install as="Horde/Imap/Client/Live/ImapTest.php" name="test/Horde/Imap/Client/Live/ImapTest.php" />
    <install as="Horde/Imap/Client/Live/Pop3.php" name="test/Horde/Imap/Client/Live/Pop3.php" />
@@ -2553,7 +2555,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-31</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
