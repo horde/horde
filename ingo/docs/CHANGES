@@ -3,6 +3,15 @@ v3.3.0-git
 ----------
 
 
+
+------
+v3.2.1
+------
+
+[mms] Fix vacation in the maildrop driver (Bug #13415;
+      balestrieri@mag-data.com).
+
+
 ------
 v3.2.0
 ------

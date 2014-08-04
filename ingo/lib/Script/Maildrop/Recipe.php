@@ -158,7 +158,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
             // Rule : Start/End of vacation
             if (($start != 0) && ($end !== 0)) {
-                $this->_action[] = '  flock "vacationprocess.lock" {';
+                $this->_action[] = '  flock "$HOME/vacationprocess.lock" {';
                 $this->_action[] = '    current_time=time';
                 $this->_action[] = '      if ( \ ';
                 $this->_action[] = '        ($current_time >= ' . $start . ') && \ ';

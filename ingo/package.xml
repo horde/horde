@@ -1480,5 +1480,18 @@
 * 
    </notes>
   </release>
+  <release>
+   <version>
+    <release>3.2.1</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-07-08</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix vacation in the maildrop driver (Bug #13415; balestrieri@mag-data.com).
+   </notes>
+  </release>
  </changelog>
 </package>
