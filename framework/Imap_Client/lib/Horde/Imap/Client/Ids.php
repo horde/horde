@@ -221,14 +221,24 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     }
 
     /**
-     * Sorts the IDs numerically.
+     * Sorts the IDs.
      */
     public function sort()
     {
         if (!$this->_sorted && is_array($this->_ids)) {
-            sort($this->_ids, SORT_NUMERIC);
+            $this->_sort($this->_ids);
             $this->_sorted = true;
         }
+    }
+
+    /**
+     * Sorts the IDs numerically.
+     *
+     * @param array $ids  The array list.
+     */
+    protected function _sort(&$ids)
+    {
+        sort($ids, SORT_NUMERIC);
     }
 
     /**
@@ -296,7 +306,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         $in = $this->_ids;
 
         if ($sort && !$this->_sorted) {
-            sort($in, SORT_NUMERIC);
+            $this->_sort($in);
         }
 
         $first = $last = array_shift($in);

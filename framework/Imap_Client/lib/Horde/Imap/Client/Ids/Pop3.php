@@ -23,6 +23,15 @@
 class Horde_Imap_Client_Ids_Pop3 extends Horde_Imap_Client_Ids
 {
     /**
+     */
+    protected function _sort(&$ids)
+    {
+        /* There is no guarantee of POP3 UIDL order - IDs need to be unique,
+         * but there is no requirement they need be incrementing. RFC
+         * 1939[7] */
+    }
+
+    /**
      * Create a POP3 message sequence string.
      *
      * Index Format: UID1[SPACE]UID2...
@@ -33,6 +42,8 @@ class Horde_Imap_Client_Ids_Pop3 extends Horde_Imap_Client_Ids
      */
     protected function _toSequenceString($sort = true)
     {
+        /* $sort is ignored - see _sort(). */
+
         /* Use space as delimiter as it is the only printable ASCII character
          * that is not allowed as part of the UID (RFC 1939 [7]). */
         return implode(' ', count($this->_ids) > 25000 ? array_unique($this->_ids) : array_keys(array_flip($this->_ids)));

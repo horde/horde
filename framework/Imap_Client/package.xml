@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix sorting of POP3 IDs.
 * [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
 * [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
 * [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
@@ -301,6 +302,9 @@
         <file name="remote3.txt" role="test" />
         <file name="remote4.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
+       <dir name="Ids">
+        <file name="Pop3Test.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Ids -->
        <dir name="Live">
         <file name="Base.php" role="test" />
         <file name="Imap.php" role="test" />
@@ -638,6 +642,7 @@
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
+   <install as="Horde/Imap/Client/Ids/Pop3Test.php" name="test/Horde/Imap/Client/Ids/Pop3Test.php" />
    <install as="Horde/Imap/Client/Live/Base.php" name="test/Horde/Imap/Client/Live/Base.php" />
    <install as="Horde/Imap/Client/Live/Imap.php" name="test/Horde/Imap/Client/Live/Imap.php" />
    <install as="Horde/Imap/Client/Live/ImapTest.php" name="test/Horde/Imap/Client/Live/ImapTest.php" />
@@ -2558,6 +2563,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix sorting of POP3 IDs.
 * [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
 * [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
 * [mms] Allow multiple live IMAP/POP3 tests to be run in a single PHPUnit instance.
