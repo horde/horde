@@ -169,6 +169,7 @@ class IMP_Imap implements Serializable
             return $thread;
 
         case 'url':
+            /* @todo: This is available in Horde_Imap_Client 2.24.0 */
             $url = new Horde_Imap_Client_Url();
             if ($this->init) {
                 $url->hostspec = $this->getParam('hostspec');
