@@ -24,7 +24,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>4.2.1</release>
+  <release>4.2.2</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,14 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
-* [jan] Don&apos;t show today&apos;s events that are over in portal (Bug #13368).
-* [mjr] Fix exporting to ics file when event contains exceptions and an explicit timezone (Bug #13369).
-* [mjr] Fix importing iCalendar data that contains timezone parameters.
-* [mjr] Fix both importing and replacing text/calendar data via the API when recurrence exceptions are present (Bug #13399).
-* [mjr] Ensure default share attribute is set when auto determining a default share.
-* [mjr] Fix fatal error when calculating alarms on a recurring event that has completed.
-* [mjr] Fix catching minical clicks on browsers that return element names in uppercase (Jasper.Olbrich@students.uni-marburg.de, Bug #13370).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2436,6 +2429,19 @@
 * [mjr] Ensure default share attribute is set when auto determining a default share.
 * [mjr] Fix fatal error when calculating alarms on a recurring event that has completed.
 * [mjr] Fix catching minical clicks on browsers that return element names in uppercase (Jasper.Olbrich@students.uni-marburg.de, Bug #13370).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
