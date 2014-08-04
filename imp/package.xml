@@ -24,7 +24,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>6.2.1</release>
+  <release>6.2.2</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,16 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix iTip handling when recurrence exceptions are present (Bug #13399).
-* [mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are defined.
-* [mms] Fix advanced search in all mailboxes if virtual folders or remote accounts exist (Bug #13384).
-* [mms] Fix regression in automatically expanding deeply nested mailboxes in the dynamic folder list.
-* [mms] Fix regression where containers could not be moved via drag/drop in dynamic view.
-* [mms] Don&apos;t perform purge sentmail login task unless at least one sentmail mailbox exists.
-* [mms] Don&apos;t perform purge Spam login task unless Spam mailbox exists.
-* [mms] Fix dragging a mailbox to the base level in dynamic view.
-* [mms] Add ability to drag/drop text to dynamic HTML compose window on Chrome and IE.
-* [mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug #13281).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3718,6 +3709,19 @@
 * [mms] Fix dragging a mailbox to the base level in dynamic view.
 * [mms] Add ability to drag/drop text to dynamic HTML compose window on Chrome and IE.
 * [mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug #13281).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.2</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
