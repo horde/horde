@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3721,7 +3721,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
    </notes>
   </release>
  </changelog>
