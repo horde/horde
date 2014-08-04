@@ -30,7 +30,7 @@
  </lead>
  <date>2014-08-04</date>
  <version>
-  <release>4.2.1</release>
+  <release>4.2.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,13 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Display correct address books in WebDAV folders.
-* [jan] Fix displayed CardDAV URLs for shared address books (Bug #12380).
-* [mms] Only include e-mail addresses that match the search string in the return from the search() API call (Request #12480).
-* [mjr] Fix exporting tags via vCard and ActiveSync (Bug #13393).
-* [mjr] Add EAS client created shares to the sync_books preference (Bug #13359).
-* [mjr] Add missing API support for searchTags API (Bug #13362).
-* [mjr] Fix issue that caused contacts to be tagged with a broken username.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1907,6 +1901,19 @@
 * [mjr] Add EAS client created shares to the sync_books preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13362).
 * [mjr] Fix issue that caused contacts to be tagged with a broken username.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
