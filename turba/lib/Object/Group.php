@@ -167,17 +167,11 @@ class Turba_Object_Group extends Turba_Object
                 }
             } else {
                 list($sourceId, $contactId) = explode(':', $member, 2);
-                if (strpos($contactId, ':')) {
-                    list($owner, $contactId) = explode(':', $contactId, 2);
-                    $sourceId .= ':' . $owner;
-                }
-
                 try {
                     $driver = $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($sourceId);
                 } catch (Turba_Exception $e) {
                     continue;
                 }
-
                 try {
                     $contact = $driver->getObject($contactId);
                 } catch (Horde_Exception_NotFound $e) {
