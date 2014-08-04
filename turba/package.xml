@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-07-08</date>
+ <date>2014-08-04</date>
  <version>
   <release>4.2.1</release>
   <api>4.0.0</api>
@@ -1897,7 +1897,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Display correct address books in WebDAV folders.
