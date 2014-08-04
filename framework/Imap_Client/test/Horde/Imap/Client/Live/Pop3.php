@@ -106,7 +106,17 @@ class Horde_Imap_Client_Live_Pop3 extends Horde_Imap_Client_Live_Base
      */
     public function testStatus()
     {
-        self::$live->status('INBOX', Horde_Imap_Client::STATUS_ALL);
+        $s = self::$live->status('INBOX', Horde_Imap_Client::STATUS_ALL);
+
+        $this->assertInternalType('array', $s);
+
+        $this->assertArrayHasKey('messages', $s);
+        $this->assertArrayHasKey('recent', $s);
+        $this->assertEquals($s['messages'], $s['recent']);
+        $this->assertArrayHasKey('uidnext', $s);
+        $this->assertArrayHasKey('uidvalidity', $s);
+        $this->assertArrayHasKey('unseen', $s);
+        $this->assertEquals(0, $s['unseen']);
     }
 
 }

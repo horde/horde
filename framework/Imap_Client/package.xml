@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved determination of a pseudo-UIDNEXT value for POP3 servers.
 * [mms] Fix sorting of POP3 IDs.
 * [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
 * [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.
@@ -2563,6 +2564,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved determination of a pseudo-UIDNEXT value for POP3 servers.
 * [mms] Fix sorting of POP3 IDs.
 * [mms] Added the &apos;url&apos; property to Horde_Imap_Client_Base.
 * [mms] Fix thread sort order when using the client-side ordered subject algorithm and there are messages with identical dates.

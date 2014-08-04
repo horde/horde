@@ -545,13 +545,25 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         // No need for STATUS_UIDNEXT_FORCE handling since STATUS_UIDNEXT will
         // always return a value.
+        $uidl = $this->_capability('UIDL');
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
-            $res = $this->_pop3Cache('stat');
-            $ret['uidnext'] = $res['msgs'] + 1;
+            if ($uidl) {
+                $res = $this->_pop3Cache('uidl');
+                $res = end($res);
+                /* Increment the last character.  If it is 0x7f, then
+                 * add another character to UID. */
+                $ord = ord(substr($res, -1));
+                $ret['uidnext'] = (++$ord > 126)
+                    ? ($res . '!')
+                    : substr_replace($res, chr($ord), -1);
+            } else {
+                $res = $this->_pop3Cache('stat');
+                $ret['uidnext'] = $res['msgs'] + 1;
+            }
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDVALIDITY) {
-            $ret['uidvalidity'] = $this->_capability('UIDL')
+            $ret['uidvalidity'] = $uidl
                 ? 1
                 : microtime(true);
         }
