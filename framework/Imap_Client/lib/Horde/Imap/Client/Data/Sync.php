@@ -258,10 +258,9 @@ class Horde_Imap_Client_Data_Sync
         case 'flagsuids':
         case 'newmsgsuids':
         case 'vanisheduids':
-            $varname = '_' . $name;
-            return empty($this->$varname)
+            return empty($this->{'_' . $varname})
                 ? new Horde_Imap_Client_Ids()
-                : $this->$varname;
+                : $this->{'_' . $varname};
         }
     }
 
