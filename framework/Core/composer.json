@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.12.6",
-    "time": "2014-07-12",
+    "version": "2.13.0",
+    "time": "2014-08-04",
     "repositories": [
         {
             "type": "pear",
@@ -105,7 +105,7 @@
         "pear-pear.horde.org/Horde_SpellChecker": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Tree": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Vfs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Vfs": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.php.net/Net_DNS2": ">=1.3.0@stable",
         "pear-pear.php.net/Text_CAPTCHA": "*",
         "pear-pear.php.net/Text_Figlet": "*",
