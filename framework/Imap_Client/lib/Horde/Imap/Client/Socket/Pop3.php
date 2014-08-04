@@ -76,6 +76,10 @@
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
+    /* Internal key used to store mailbox level cache data. \1 is not a valid
+     * ID in POP3, so it should be safe to use. */
+    const MBOX_CACHE = "\1mbox";
+
     /**
      * The default ports to use for a connection.
      *
@@ -891,7 +895,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      *
      * @throws Horde_Imap_Client_Exception
      */
-    protected function _pop3Cache($type, $index = null, $data = null)
+    protected function _pop3Cache(
+        $type, $index = self::MBOX_CACHE, $data = null
+    )
     {
         if (isset($this->_temp['pop3cache'][$index][$type])) {
             if ($type == 'msg') {
@@ -1029,6 +1035,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 try {
                     $this->_sendLine('DELE ' . $id);
                     $this->_deleted[] = $id;
+
+                    unset(
+                        $this->_temp['pop3cache'][self::MBOX_CACHE],
+                        $this->_temp['pop3cache'][$id]
+                    );
                 } catch (Horde_Imap_Client_Exception $e) {}
             }
         }
