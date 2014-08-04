@@ -38,7 +38,7 @@
 * [mjr] Fix remembering auto determined default share (Bug #13360).
 * [mjr] Add EAS client created shares to the sync_lists preference (Bug #13359).
 * [mjr] Add missing API support for searchTags API (Bug #13364).
-* [mjr] Fix detecting task completion when sending task change notifications (Bug #13350, Alfonso Marín Marín &lt;almarin@um.es&gt;).
+* [mjr] Fix detecting task completion when sending task change notifications (Alfonso Marín Marín &lt;almarin@um.es&gt;, Bug #13350).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">

@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Gollem File
-Manager version H5 (3.0.1).
+Manager version H5 (3.0.3).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
@@ -18,8 +18,9 @@ http://www.horde.org/apps/gollem/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/gollem/docs/INSTALL
 
-The major changes compared to Gollem version H5 (3.0.0) are:
-    * Fixed saving column preferences.
+The major changes compared to Gollem version H5 (3.0.2) are:
+    * Added Oracle support.
+    * Update Polish translation.
 ML;
 
 $notes['name'] = 'Gollem';
