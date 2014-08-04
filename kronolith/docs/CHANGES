@@ -21,7 +21,7 @@ v4.2.1
 [mjr] Fix fatal error when calculating alarms on a recurring event that has
       completed.
 [mjr] Fix catching minical clicks on browsers that return element names in
-      uppercase (Bug #13370, Jasper.Olbrich@students.uni-marburg.de).
+      uppercase (Jasper.Olbrich@students.uni-marburg.de, Bug #13370).
 
 
 ------
