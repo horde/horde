@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.2.0.
+version 5.2.1.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks, notes, files, and
@@ -17,44 +17,27 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware 5.1 versions are:
+The major changes compared to the Horde Groupware version 5.2.0 are:
 
 General changes:
-    * Improved ActiveSync device administration.
-    * Warn about active Caps Lock key on login page.
-    * Distinguish application-specific from global login page.
-    * Added import scripts for Open-Xchange.
-    * Added Oracle support.
-    * Added configurations for new Horde Framework features.
-    * Added sending messages via LMTP.
+    * Fixed CalDAV/CardDAV URLs of shared collections.
     * Bugfixes and improvements.
 
 Address book changes:
-    * Replaced categories with tags.
-    * Synchronize multiple address books via ActiveSync.
+    * Tagging improvements.
 
 Calendar changes:
-    * Synchronize multiple calendars via ActiveSync.
-    * Synchronize shared calendars via CalDAV.
-    * Synchronize attendees via CalDAV.
-    * Improved free/busy display.
-    * Improved sorting of events in month view.
-    * Improved task interfaces.
-    * Improved ActiveSync synchronization of event resources.
-
-Tasks changes:
-    * Added recurrence controls.
-    * Organize task form fields into tabs.
-    * Synchronize multiple task lists via ActiveSync.
-    * Synchronize shared task lists via CalDAV.
-    * Separate sidebar section for system task lists.
-    * Don't require URL rewriting.
+    * Fixed several issues with event exceptions.
 
 Notes changes:
-    * Replaced categories with tags.
+    * Tagging improvements.
+
+File manager changes:
+    * Added Oracle support.
+    * Update Polish translation.
 
 Bookmarks changes:
-    * Added support for importing bookmarks from Mozilla's JSON format.
+    * Fixed a fatal error due to a botched merge.
 ML;
 
 $notes['name'] = 'Horde Groupware';

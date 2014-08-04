@@ -2,6 +2,146 @@
 v5.2.1-git
 ----------
 
+Horde Changes
+-------------
+[mjr] Fix cancelling remote wipe of EAS client from user prefs.
+[mms] Fix fatal error in signup confirmation script.
+[mjr] Fix removing ActiveSync device state from administrative interface when
+      multiple user accounts exist on the same device (Bug #13336).
+
+Mail Changes
+------------
+[mjr] Fix iTip handling when recurrence exceptions are present (Bug #13399).
+[mms] Fix displaying Sent mailbox label when multiple sent-mail mailboxes are
+      defined.
+[mms] Fix advanced search in all mailboxes if virtual folders or remote
+      accounts exist (Bug #13384).
+[mms] Fix regression in automatically expanding deeply nested mailboxes in the
+      dynamic folder list.
+[mms] Fix regression where containers could not be moved via drag/drop in
+      dynamic view.
+[mms] Don't perform purge sentmail login task unless at least one sentmail
+      mailbox exists.
+[mms] Don't perform purge Spam login task unless Spam mailbox exists.
+[mms] Fix dragging a mailbox to the base level in dynamic view.
+[mms] Add ability to drag/drop text to dynamic HTML compose window on Chrome
+      and IE.
+[mms] Re-enable drag/drop of text to dynamic plaintext compose window (Bug
+      #13281).
+
+Address Book Changes
+--------------------
+[jan] Display correct address books in WebDAV folders.
+[jan] Fix displayed CardDAV URLs for shared address books (Bug #12380).
+[mms] Only include e-mail addresses that match the search string in the return
+      from the search() API call (Request #12480).
+[mjr] Fix exporting tags via vCard and ActiveSync (Bug #13393).
+[mjr] Add EAS client created shares to the sync_books preference (Bug #13359).
+[mjr] Add missing API support for searchTags API (Bug #13362).
+[mjr] Fix issue that caused contacts to be tagged with a broken username.
+
+Calendar Changes
+----------------
+[jan] Fix displayed CalDAV URLs for shared calendars (Bug #12380).
+[jan] Don't show today's events that are over in portal (Bug #13368).
+[mjr] Fix exporting to ics file when event contains exceptions and an explicit
+      timezone (Bug #13369).
+[mjr] Fix importing iCalendar data that contains timezone parameters.
+[mjr] Fix both importing and replacing text/calendar data via the API when
+      recurrence exceptions are present (Bug #13399).
+[mjr] Ensure default share attribute is set when auto determining a default
+      share.
+[mjr] Fix fatal error when calculating alarms on a recurring event that has
+      completed.
+[mjr] Fix catching minical clicks on browsers that return element names in
+      uppercase (Jasper.Olbrich@students.uni-marburg.de, Bug #13370).
+
+Tasks Changes
+-------------
+[jan] Don't include external tasks with WebDAV task list.
+[jan] Fix displayed CalDAV URLs for shared task lists (Bug #12380).
+[mjr] Fix remembering auto determined default share (Bug #13360).
+[mjr] Add EAS client created shares to the sync_lists preference (Bug #13359).
+[mjr] Add missing API support for searchTags API (Bug #13364).
+[mjr] Fix detecting task completion when sending task change notifications
+      (Alfonso Marín Marín <almarin@um.es>, Bug #13350).
+
+Notes Changes
+-------------
+[mjr] Ensure default share attribute is set when auto determining a default
+      share.
+[mjr] Fix showing the notepad name in list view when show_notepad preference is
+      set (Bug #13352).
+[mjr] Add EAS client created shares to the sync_notpads preference (Bug
+      #13359).
+[mjr] Add missing API support for searchTags API (Bug #13361).
+[mjr] Fix issue that caused notes to be tagged with a broken username.
+
+File Manager Changes
+--------------------
+[jan] Update Polish translation (Maciej Uhlig <maciej.uhlig@us.edu.pl>).
+[jan] Make shares table compatible with Oracle.
+
+Bookmarks Changes
+-----------------
+[mjr] Fix fatal error due to botched merge.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Prevent another issue that could cause an error when attempting to update
+      a non-existent state (Bug #13338).
+[mjr] Prevent error caused by attempting to update a non-existent state (Bug
+      #13338).
+
+Core
+[mms] Add Horde_Core_Script_Package_Autocomplete.
+[mms] Fix broken parse_url() behavior for PHP < 5.3.6.
+[mms] Horde_Data now stores temporary data using Horde_Vfs to ensure data
+      persists and that it doesn't overload session storage (Request #11335).
+[mms] Add method to allow any code to register tasks to run on logout.
+[mjr] Ensure EAS client created collections are requested to be added to the
+      application's sync preference (Bug #13359).
+[mjr] Fix fatal error when executing a FOLDERDELETE command on certain
+      collections.
+[mjr] Fix regression in sending email via ActiveSync when no properly
+      configured identity exists (Bug #13346).
+[mjr] Fix broken CHANGEFOLDER functionality for ActiveSync NOTES collections
+      (Bug #13334).
+[mms] Better error handling when trying to load config files from the conf.d
+      subdirectory.
+
+CssMinify
+[mms] Fix Horde_CssMinify_CssParser#setOptions().
+
+Date
+[jan] Fix calculating recurrence end if UNTIL property of iCalendar data is
+      DATE value (Bug #13401).
+
+HashTable
+[mms] Add Horde_Vfs driver.
+
+Imap_Client
+[mms] Determination of approximate part size should be done at IMAP level, not
+      within Horde_Mime_Part.
+[mms] Fix regression in handling invalid DateTime data due to a BC-incompatible
+      change in PHP.
+
+Mail
+[mms] Added the 'noquote' option to Horde_Mail_Rfc822_Object#writeAddress().
+
+Mime
+[mms] Fix fatal error in Horde_Mime_Mail#getBasePart() (Thomas Müller
+      <thomas.mueller@tmit.eu>).
+[mms] Fix determination of part size when the part contains explicit sizing
+      information.
+
+Smtp
+[mms] Added support for sending internationalized header data (RFC 6531).
+
+SyncMl
+[mjr] Hotfix to deal with failure exporting non-contact data due to
+      inconsistency in export methods between applications (Bug #13394).
 
 
 ------
