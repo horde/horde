@@ -25,6 +25,8 @@
  *                A capability object. (@since 2.24.0)
  * @property-read Horde_Imap_Client_Data_SearchCharset $search_charset
  *                A search charset object. (@since 2.24.0)
+ * @property-read Horde_Imap_Client_Url $url  The URL object for the current
+ *                connection parameters (@since 2.24.0)
  */
 abstract class Horde_Imap_Client_Base
 implements Serializable, SplObserver
@@ -370,6 +372,13 @@ implements Serializable, SplObserver
             }
             $this->_init['search_charset']->setBaseOb($this);
             return $this->_init['search_charset'];
+
+        case 'url':
+            $url = new Horde_Imap_Client_Url();
+            $url->hostspec = $this->getParam('hostspec');
+            $url->port = $this->getParam('port');
+            $url->protocol = 'imap';
+            return $url;
         }
     }
 

@@ -20,7 +20,7 @@ Upgrading to 2.24.0
 
   - Horde_Imap_Client_Base
 
-    Added the $capability and $search_charset properties.
+    Added the $capability, $search_charset, and $url properties.
 
     - capability()
     - queryCapability()

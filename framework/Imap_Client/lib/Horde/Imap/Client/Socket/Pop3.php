@@ -99,6 +99,21 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
+    public function __get($name)
+    {
+        $out = parent::__get($name);
+
+        switch ($name) {
+        case 'url':
+            $url->protocol = 'pop3';
+            break;
+        }
+
+        return $out;
+    }
+
+    /**
+     */
     protected function _initCache($current = false)
     {
         return parent::_initCache($current) &&
