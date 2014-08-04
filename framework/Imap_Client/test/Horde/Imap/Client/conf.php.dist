@@ -10,7 +10,7 @@ $conf['imapclient'] = array(
             'password' => '',
             'hostspec' => '',
             'port' => '',
-            'secure' => '', // empty, 'ssl', or 'tls'
+            'secure' => true, // true, false, 'ssl', or 'tls'
             'debug' => null, // e.g. 'php://output',
             // Test for XOAUTH2
             //'xoauth2_token' => ''
@@ -35,7 +35,7 @@ $conf['pop3client'] = array(
             'password' => '',
             'hostspec' => '',
             'port' => '',
-            'secure' => '', // empty, 'ssl', or 'tls'
+            'secure' => true, // true, false, 'ssl', or 'tls'
             'debug' => null // e.g. 'php://output'
         ),
 
