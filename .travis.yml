@@ -8,6 +8,7 @@ env: ACTIVESYNC_SQL_MYSQL_TEST_CONFIG='{"activesync":{"sql":{"mysql":{"adapter":
 before_install:
   - sudo locale-gen cs_CZ.UTF-8 de_DE.UTF-8 tr_TR
   - sudo apt-get -qq install libwbxml2-utils aspell rcs cvs cvsps libimage-exiftool-perl
+  - mysql -e "create database IF NOT EXISTS test;" -uroot
 before_script:
   - phpenv config-add .travis.ini
   - pear install channel://pear.php.net/Net_DNS2
