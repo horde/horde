@@ -52,6 +52,9 @@ var DragHandler = {
 
     handleDrop: function(e)
     {
+        this.leave = true;
+        this.hide();
+
         if (this.isFileDrag(e)) {
             if (this.dropelt.hasClassName(this.hoverclass)) {
                 this.dropelt.fire('DragHandler:drop', e.dataTransfer.files);
@@ -60,9 +63,6 @@ var DragHandler = {
         } else if (!e.findElement('TEXTAREA') && !e.findElement('INPUT')) {
             e.stop();
         }
-
-        this.leave = true;
-        this.hide();
     },
 
     hide: function()

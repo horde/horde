@@ -252,7 +252,6 @@ class IMP_Dynamic_Compose_Common
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'compose_close' => _("Compose action completed. You may now safely close this window."),
             'dragdropimg_error' => _("Could not add %d file(s) to message: only images are supported."),
-            'multiple_atc' => _("%d Attachments"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'paste_error' => _("Could not paste image as the clipboard data is invalid."),
             'replyall' => _("%d recipients"),

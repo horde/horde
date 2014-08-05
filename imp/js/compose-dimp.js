@@ -267,30 +267,24 @@ var DimpCompose = {
 
         this.skip_spellcheck = false;
 
-        if (action == 'addAttachment') {
-            // We need a submit action here because browser security models
-            // won't let us access files on user's filesystem otherwise.
-            HordeCore.submit(c);
-        } else {
-            // Move HTML text to textarea field for submission.
-            if (ImpComposeBase.editor_on) {
-                this.rte.updateElement();
-                if (ImpComposeBase.rte_sig) {
-                    ImpComposeBase.rte_sig.updateElement();
-                }
+        // Move HTML text to textarea field for submission.
+        if (ImpComposeBase.editor_on) {
+            this.rte.updateElement();
+            if (ImpComposeBase.rte_sig) {
+                ImpComposeBase.rte_sig.updateElement();
             }
+        }
 
-            DimpCore.doAction(
-                action,
-                ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
-                { callback: this.uniqueSubmitCallback.bind(this) }
-            );
+        DimpCore.doAction(
+            action,
+            ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
+            { callback: this.uniqueSubmitCallback.bind(this) }
+        );
 
-            // Can't disable until we send the message - or else nothing
-            // will get POST'ed.
-            if (action != 'autoSaveDraft') {
-                this.setDisabled(true);
-            }
+        // Can't disable until we send the message - or else nothing
+        // will get POST'ed.
+        if (action != 'autoSaveDraft') {
+            this.setDisabled(true);
         }
     },
 
@@ -298,9 +292,7 @@ var DimpCompose = {
     {
         var base;
 
-        if (d.action == 'addAttachment') {
-            this.attachlist.addAttachmentEnd();
-        } else if (d.success) {
+        if (d.success) {
             switch (d.action) {
             case 'autoSaveDraft':
             case 'saveDraft':
@@ -1349,7 +1341,6 @@ var IMP_Compose_Attachlist = Class.create({
         this.compose = compose;
 
         /* Attach event handlers. */
-        document.observe('HordeCore:ajaxFailure', this.addAttachmentEnd.bind(this));
         document.observe('HordeCore:runTasks', this.tasksHandler.bindAsEventListener(this));
         if (Prototype.Browser.IE) {
             // IE doesn't bubble change events.
@@ -1367,7 +1358,7 @@ var IMP_Compose_Attachlist = Class.create({
 
     busy: function()
     {
-        return $('upload_wait').visible();
+        return !!($('attach_list').down('.attach_upload'));
     },
 
     // opts = (Object)
@@ -1382,6 +1373,7 @@ var IMP_Compose_Attachlist = Class.create({
     {
         var canvas, img,
             li = new Element('LI')
+                .addClassName('attach_file')
                 .store('atc_id', opts.num)
                 .store('atc_url', opts.url),
             span = new Element('SPAN')
@@ -1425,6 +1417,7 @@ var IMP_Compose_Attachlist = Class.create({
             return e.retrieve('atc_id') == id;
         });
     },
+
     // elt: (array | Element)
     removeAttach: function(elt, quiet)
     {
@@ -1481,39 +1474,25 @@ var IMP_Compose_Attachlist = Class.create({
         this.compose.resizeMsgArea();
     },
 
-    addAttachmentEnd: function()
+    uploadAttachWait: function(f, progress)
     {
-        var u = $('upload_wait');
+        var li = new Element('LI').addClassName('attach_upload');
 
-        if (u && u.visible()) {
-            u.hide();
-            this.initAttachList();
-        }
-    },
-
-    uploadAttachWait: function(f)
-    {
-        var t;
-
-        $('upload').up().hide();
-
-        if (Object.isElement(f)) {
-            if (f.files) {
-                f = f.files;
-            } else {
-                t = $F(f).escapeHTML();
-                f = null;
-            }
+        if (progress) {
+            li.addClassName('attach_upload_progress')
+                .setStyle({ backgroundPosition: '100% 0' })
+                .insert(f.name.escapeHTML());
+        } else {
+            li.insert(
+                DimpCore.text.uploading + ' (' +
+                (Object.isElement(f) ? $F(f) : f.name).escapeHTML() +
+                ')'
+            );
         }
 
-        if (f) {
-            t = (f.length > 1)
-                ? DimpCore.text.multiple_atc.sub('%d', f.length)
-                : f[0].name.escapeHTML();
-        }
+        $('attach_list').show().insert(li);
 
-        $('upload_wait').update(DimpCore.text.uploading + ' (' + t + ')')
-            .show();
+        return li;
     },
 
     // data: (Element | Event object | array)
@@ -1522,9 +1501,18 @@ var IMP_Compose_Attachlist = Class.create({
         var out = $H();
 
         if (Object.isElement(data)) {
-            this.compose.uniqueSubmit('addAttachment');
-            this.uploadAttachWait(data);
-            return;
+            if (!data.files) {
+                // We need a submit action here because browser security
+                // models won't let us access files on user's filesystem
+                // otherwise.
+                HordeCore.submit('compose', {
+                    callback: function(li) {
+                        li.remove();
+                    }.curry(this.uploadAttachWait(data))
+                });
+                return;
+            }
+            data = data.files;
         } else if (!Object.isArray(data)) {
             data = data.memo;
         }
@@ -1535,14 +1523,12 @@ var IMP_Compose_Attachlist = Class.create({
         });
         HordeCore.addRequestParams(params);
 
-        this.uploadAttachWait(data);
-
-        $A($R(0, data.length - 1)).each(function(i) {
-            var fd = new FormData();
+        $A(data).each(function(d) {
+            var fd = new FormData(), li;
 
             params.merge({
                 file_id: ++this.ajax_atc_id,
-                file_upload: data[i]
+                file_upload: d
             }).each(function(p) {
                 fd.append(p.key, p.value);
             });
@@ -1550,17 +1536,31 @@ var IMP_Compose_Attachlist = Class.create({
             HordeCore.doAction('addAttachment', {}, {
                 ajaxopts: {
                     postBody: fd,
-                    requestHeaders: { "Content-type": null }
+                    requestHeaders: { "Content-type": null },
+                    onComplete: function() {
+                        li.remove();
+                    },
+                    onCreate: function(e) {
+                        if (e.transport && e.transport.upload) {
+                            var u = e.transport.upload;
+                            li = this.uploadAttachWait(d, true),
+
+                            u.onprogress = function(e2) {
+                                if (e2.lengthComputable) {
+                                    li.setStyle({
+                                        backgroundPosition: parseInt(100 - (e2.loaded / e2.total * 100), 10) + "% 0"
+                                    });
+                                }
+                            };
+                        } else {
+                            li = this.uploadAttachWait(d);
+                        }
+                    }.bind(this)
                 },
-                callback: function(r) {
-                    if (callback) {
-                        callback(r);
-                    }
-                    this.addAttachmentEnd();
-                }.bind(this)
+                callback: callback || Prototype.emptyFunction
             });
 
-            out.set(this.ajax_atc_id, data[i]);
+            out.set(this.ajax_atc_id, d);
         }, this);
 
         return out;

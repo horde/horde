@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Add upload progress bar in dynamic compose screen when adding
+      attachments.
 [mms] Uniquely identify sent-mail mailboxes by identity in main folder tree
       (Request #12721).
 [mms] Don't send empty text part if a message contains attachments.
