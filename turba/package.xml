@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
  </notes>
  <contents>
@@ -787,7 +788,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1913,6 +1914,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
    </notes>
   </release>
