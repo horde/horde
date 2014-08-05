@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Allow multiple independent attachment actions on the dynamic compose
+      screen.
 [mms] Add upload progress bar in dynamic compose screen when adding
       attachments.
 [mms] Uniquely identify sent-mail mailboxes by identity in main folder tree

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow multiple independent attachment actions on the dynamic compose screen.
 * [mms] Add upload progress bar in dynamic compose screen when adding attachments.
 * [mms] Uniquely identify sent-mail mailboxes by identity in main folder tree (Request #12721).
 * [mms] Don&apos;t send empty text part if a message contains attachments.
