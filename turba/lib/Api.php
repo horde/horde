@@ -1264,13 +1264,13 @@ class Turba_Api extends Horde_Registry_Api
                                 ($attributes[$key]['type'] == 'email')) {
                                 $e_val = $ob->getValue($key);
 
-                                /* Bug #12480: Don't return email if it
+                                /* Ticket #12480: Don't return email if it
                                  * doesn't contain the search string, since
                                  * an entry can contain multiple e-mail
                                  * fields. Return all e-mails if it
                                  * occurrs in the name. */
-                                if ((stripos($e_val, $name) !== false) ||
-                                    (stripos($display_name, $name) !== false)) {
+                                if ((Horde_String::ipos($e_val, $name) !== false) ||
+                                    (Horde_String::ipos($display_name, $name) !== false)) {
                                     // Multiple addresses support
                                     $email->add($rfc822->parseAddressList($e_val, array(
                                         'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1

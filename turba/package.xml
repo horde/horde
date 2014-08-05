@@ -787,7 +787,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1905,7 +1905,7 @@
   </release>
   <release>
    <version>
-    <release>4.3.0</release>
+    <release>4.2.2</release>
     <api>4.0.0</api></version>
    <stability>
     <release>beta</release>
@@ -1913,7 +1913,8 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
+* [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
+* [jan] Fix listing group members that contain colons in their IDs.
    </notes>
   </release>
  </changelog>

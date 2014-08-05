@@ -7,6 +7,15 @@ v4.3.0-git
 
 
 ------
+v4.2.2
+------
+
+[mms] Make case-insensitive API e-mail search work on non-ASCII data (Request
+      #12480).
+[jan] Fix listing group members that contain colons in their IDs.
+
+
+------
 v4.2.1
 ------
 
