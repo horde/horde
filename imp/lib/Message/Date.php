@@ -151,7 +151,7 @@ class IMP_Message_Date
 
             /* Not today, use the date. */
             return ($format === self::DATE_FULL)
-                ? $this->_format('date_format', $udate) . ' [' . $time_str . ']'
+                ? $this->_format('date_format', $udate) . ' [' . $this->_format('time_format', $udate) . ']'
                 : $this->_format('date_format_mini', $udate);
         }
 

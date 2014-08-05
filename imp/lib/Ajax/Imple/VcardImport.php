@@ -75,7 +75,6 @@ class IMP_Ajax_Imple_VcardImport extends Horde_Core_Ajax_Imple
             $components = $iCal->getComponents();
         } catch (Exception $e) {
             $notification->push($e, 'horde.error');
-            $actions = array();
         }
 
         $import = !empty($vars->imple_submit->import)

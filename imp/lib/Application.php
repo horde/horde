@@ -484,8 +484,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector;
 
-        $out = array();
-
         $backends = array(
             'Horde_Imap_Client_Cache_Backend_Mongo' => function() use ($injector) {
                 $backend = $injector
@@ -501,15 +499,15 @@ class IMP_Application extends Horde_Registry_Application
                 return $injector->getInstance('IMP_Sentmail');
             },
         );
+        $out = array();
 
         foreach ($backends as $key => $func) {
             try {
                 $val = $func();
                 if ($val instanceof $key) {
-                    $drivers[] = $val;
+                    $out[] = $val;
                 }
-            } catch (Horde_Exception $e) {
-            }
+            } catch (Horde_Exception $e) {}
         }
 
         return $out;

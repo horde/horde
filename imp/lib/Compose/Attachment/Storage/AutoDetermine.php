@@ -73,7 +73,7 @@ extends IMP_Compose_Attachment_Storage
      */
     public function write($filename, Horde_Mime_Part $part)
     {
-        global $conf;
+        global $conf, $injector;
 
         if (filesize($filename) < intval($conf['compose']['link_attach_threshol'])) {
             $factory = $injector->getInstance('IMP_Factory_ComposeAtc');

@@ -64,7 +64,7 @@ class IMP_Ajax_Addresses
 
         foreach ($this->_addr->base_addresses as $ob) {
             if ($limit && ($this->_count > $limit)) {
-                $out['limit'] = count($addrlist);
+                $out['limit'] = count($this->_addr);
                 break;
             }
 

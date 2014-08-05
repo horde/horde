@@ -265,7 +265,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function deletePublicKey($email)
     {
-        $GLOBALS['registry']->call(
+        global $injector, $registry;
+
+        $registry->call(
             'contacts/deleteField',
             array(
                 $email,
