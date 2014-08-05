@@ -1333,12 +1333,15 @@ var DimpCompose = {
 var IMP_Compose_Attachlist = Class.create({
 
     // ajax_atc_id,
+    // curr_upload,
     // upload_limit,
 
     initialize: function(compose)
     {
-        this.ajax_atc_id = 0;
         this.compose = compose;
+
+        this.ajax_atc_id = 0;
+        this.curr_upload = 0;
 
         /* Attach event handlers. */
         document.observe('HordeCore:runTasks', this.tasksHandler.bindAsEventListener(this));
@@ -1352,13 +1355,14 @@ var IMP_Compose_Attachlist = Class.create({
 
     reset: function()
     {
-        this.upload_limit = false;
+        this.curr_upload = 0;
+        delete this.upload_limit;
         $('attach_list').hide().childElements().each(this.removeAttachRow, this);
     },
 
     busy: function()
     {
-        return !!($('attach_list').down('.attach_upload'));
+        return !!(this.curr_upload);
     },
 
     // opts = (Object)
@@ -1505,10 +1509,12 @@ var IMP_Compose_Attachlist = Class.create({
                 // We need a submit action here because browser security
                 // models won't let us access files on user's filesystem
                 // otherwise.
+                ++this.curr_upload;
                 HordeCore.submit('compose', {
                     callback: function(li) {
+                        --this.curr_upload;
                         li.remove();
-                    }.curry(this.uploadAttachWait(data))
+                    }.bind(this, this.uploadAttachWait(data))
                 });
                 return;
             }
@@ -1533,13 +1539,16 @@ var IMP_Compose_Attachlist = Class.create({
                 fd.append(p.key, p.value);
             });
 
+            ++this.curr_upload;
+
             HordeCore.doAction('addAttachment', {}, {
                 ajaxopts: {
                     postBody: fd,
                     requestHeaders: { "Content-type": null },
                     onComplete: function() {
+                        --this.curr_upload;
                         li.remove();
-                    },
+                    }.bind(this),
                     onCreate: function(e) {
                         if (e.transport && e.transport.upload) {
                             var u = e.transport.upload;
