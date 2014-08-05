@@ -365,26 +365,36 @@ class Horde_String
      *
      * @param string $haystack  The string to search through.
      * @param string $needle    The string to search for.
-     * @param integer $offset   Allows to specify which character in haystack
-     *                          to start searching.
-     * @param string $charset   The charset to use when searching for the
-     *                          $needle string.
+     * @param integer $offset   Character in $haystack to start searching at.
+     * @param string $charset   Charset of $needle.
      *
      * @return integer  The position of first occurrence.
      */
-    static public function pos($haystack, $needle, $offset = 0,
-                               $charset = 'UTF-8')
+    static public function pos(
+        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
+    )
     {
-        if (Horde_Util::extensionExists('mbstring')) {
-            $track_errors = ini_set('track_errors', 1);
-            $ret = @mb_strpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
-            ini_set('track_errors', $track_errors);
-            if (!isset($php_errormsg)) {
-                return $ret;
-            }
-        }
+        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strpos', 'strpos');
+    }
 
-        return strpos($haystack, $needle, $offset);
+    /**
+     * Returns the numeric position of the first case-insensitive occurrence
+     * of $needle in the $haystack string.
+     *
+     * @since 2.5.0
+     *
+     * @param string $haystack  The string to search through.
+     * @param string $needle    The string to search for.
+     * @param integer $offset   Character in $haystack to start searching at.
+     * @param string $charset   Charset of $needle.
+     *
+     * @return integer  The position of first case-insensitive occurrence.
+     */
+    static public function ipos(
+        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
+    )
+    {
+        return self::_pos($haystack, $needle, $offset, $charset, 'mb_stripos', 'stripos');
     }
 
     /**
@@ -393,26 +403,65 @@ class Horde_String
      *
      * @param string $haystack  The string to search through.
      * @param string $needle    The string to search for.
-     * @param integer $offset   Allows to specify which character in haystack
-     *                          to start searching.
-     * @param string $charset   The charset to use when searching for the
-     *                          $needle string.
+     * @param integer $offset   Character in $haystack to start searching at.
+     * @param string $charset   Charset of $needle.
      *
-     * @return integer  The position of first occurrence.
+     * @return integer  The position of last occurrence.
      */
-    static public function rpos($haystack, $needle, $offset = 0,
-                                $charset = 'UTF-8')
+    static public function rpos(
+        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
+    )
+    {
+        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strrpos', 'strrpos');
+    }
+
+    /**
+     * Returns the numeric position of the last case-insensitive occurrence of
+     * $needle in the $haystack string.
+     *
+     * @since 2.5.0
+     *
+     * @param string $haystack  The string to search through.
+     * @param string $needle    The string to search for.
+     * @param integer $offset   Character in $haystack to start searching at.
+     * @param string $charset   Charset of $needle.
+     *
+     * @return integer  The position of last case-insensitive occurrence.
+     */
+    static public function ripos(
+        $haystack, $needle, $offset = 0, $charset = 'UTF-8'
+    )
+    {
+        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strripos', 'strripos');
+    }
+
+    /**
+     * Perform string position searches.
+     *
+     * @param string $haystack  The string to search through.
+     * @param string $needle    The string to search for.
+     * @param integer $offset   Character in $haystack to start searching at.
+     * @param string $charset   Charset of $needle.
+     * @param string $mb_func   mb_* function to use.
+     * @param string $func      PHP string fallback function to use.
+     *
+     * @return integer  The position of occurrence.
+     *
+     */
+    static protected function _pos(
+        $haystack, $needle, $offset, $charset, $mb_func, $func
+    )
     {
         if (Horde_Util::extensionExists('mbstring')) {
             $track_errors = ini_set('track_errors', 1);
-            $ret = @mb_strrpos($haystack, $needle, $offset, self::_mbstringCharset($charset));
+            $ret = @$mb_func($haystack, $needle, $offset, self::_mbstringCharset($charset));
             ini_set('track_errors', $track_errors);
             if (!isset($php_errormsg)) {
                 return $ret;
             }
         }
 
-        return strrpos($haystack, $needle, $offset);
+        return $func($haystack, $needle, $offset);
     }
 
     /**

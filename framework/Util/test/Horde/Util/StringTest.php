@@ -213,7 +213,30 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
             array('Schöne Neue Welt', 'ö', 3),
             array('Schöne Neue Welt', 'N', 7),
             array('Schöne Neue Welt', 'e', 5),
-            array('Schöne Neue Welt', ' ', 6)
+            array('Schöne Neue Welt', ' ', 6),
+            array('Schöne Neue Welt', 'a', false)
+        );
+    }
+
+    /**
+     * @dataProvider iposProvider
+     */
+    public function testIpos($str, $search, $pos)
+    {
+        $this->assertEquals(
+            $pos,
+            Horde_String::ipos($str, $search)
+        );
+    }
+
+    public function iposProvider()
+    {
+        return array(
+            array('Schöne Neue Welt', 'Ö', 3),
+            array('Schöne Neue Welt', 'N', 4),
+            array('Schöne Neue Welt', 'E', 5),
+            array('Schöne Neue Welt', ' ', 6),
+            array('Schöne Neue Welt', 'a', false)
         );
     }
 
@@ -234,7 +257,30 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
             array('Schöne Neue Welt', 'ö', 3),
             array('Schöne Neue Welt', 'N', 7),
             array('Schöne Neue Welt', 'e', 13),
-            array('Schöne Neue Welt', ' ', 11)
+            array('Schöne Neue Welt', ' ', 11),
+            array('Schöne Neue Welt', 'a', false)
+        );
+    }
+
+    /**
+     * @dataProvider riposProvider
+     */
+    public function testRipos($str, $search, $pos)
+    {
+        $this->assertEquals(
+            $pos,
+            Horde_String::ripos($str, $search)
+        );
+    }
+
+    public function riposProvider()
+    {
+        return array(
+            array('Schöne Neue Welt', 'Ö', 3),
+            array('Schöne Neue Welt', 'N', 7),
+            array('Schöne Neue Welt', 'E', 13),
+            array('Schöne Neue Welt', ' ', 11),
+            array('Schöne Neue Welt', 'a', false)
         );
     }
 
