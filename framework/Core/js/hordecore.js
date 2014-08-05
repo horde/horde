@@ -72,8 +72,9 @@ var HordeCore = {
     {
         params = $H(params).clone();
         opts = opts || {};
+        opts.ajaxopts = opts.ajaxopts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {}),
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts),
             request;
 
         if (this.regenerate_sid) {
@@ -89,6 +90,9 @@ var HordeCore = {
         this.initLoading(opts.loading);
 
         ajaxopts.onSuccess = function(t) {
+            if (Object.isFunction(opts.ajaxopts.onSuccess)) {
+                opts.ajaxopts.onSuccess(t);
+            }
             this.doActionComplete(action, t, opts);
         }.bind(this);
 
@@ -107,12 +111,16 @@ var HordeCore = {
     submitForm: function(form, opts)
     {
         opts = opts || {};
+        opts.ajaxopts = opts.ajaxopts || {};
 
-        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts || {});
+        var ajaxopts = Object.extend(this.doActionOpts(), opts.ajaxopts);
 
         this.initLoading(opts.loading);
 
         ajaxopts.onSuccess = function(t) {
+            if (Object.isFunction(opts.ajaxopts.onSuccess)) {
+                opts.ajaxopts.onSuccess(t);
+            }
             this.doActionComplete(form, t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
