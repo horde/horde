@@ -56,17 +56,7 @@ var IMP_Ckeditor_Imagepoll = {};
             ids.push(s[1]);
         });
 
-        if (ids.size()) {
-            DimpCore.doAction(
-                'deleteAttach',
-                DimpCompose.actionParams({
-                    atc_indices: Object.toJSON(ids),
-                    quiet: 1
-                }, {
-                    callback: DimpCompose.removeAttachCallback.bind(DimpCompose)
-                })
-            );
-        }
+        DimpCompose.attachlist.removeAttach(ids);
     };
 
 }(IMP_Ckeditor_Imagepoll));
