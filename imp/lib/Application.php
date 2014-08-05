@@ -505,7 +505,7 @@ class IMP_Application extends Horde_Registry_Application
             try {
                 $val = $func();
                 if ($val instanceof $key) {
-                    $drivers[] = $val;
+                    $out[] = $val;
                 }
             } catch (Horde_Exception $e) {
             }
