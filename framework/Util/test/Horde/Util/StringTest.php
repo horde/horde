@@ -196,14 +196,46 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
             Horde_String::length('Я могу есть стекло, оно мне не вредит.', 'utf-8'));
     }
 
-    public function testPos()
+    /**
+     * @dataProvider posProvider
+     */
+    public function testPos($str, $search, $pos)
     {
-        $this->assertEquals(3, Horde_String::pos('Schöne Neue Welt', 'ö'));
-        $this->assertEquals(7, Horde_String::pos('Schöne Neue Welt', 'N'));
-        $this->assertEquals(6, Horde_String::pos('Schöne Neue Welt', ' '));
-        $this->assertEquals(3, Horde_String::rpos('Schöne Neue Welt', 'ö'));
-        $this->assertEquals(7, Horde_String::rpos('Schöne Neue Welt', 'N'));
-        $this->assertEquals(11, Horde_String::rpos('Schöne Neue Welt', ' '));
+        $this->assertEquals(
+            $pos,
+            Horde_String::pos($str, $search)
+        );
+    }
+
+    public function posProvider()
+    {
+        return array(
+            array('Schöne Neue Welt', 'ö', 3),
+            array('Schöne Neue Welt', 'N', 7),
+            array('Schöne Neue Welt', 'e', 5),
+            array('Schöne Neue Welt', ' ', 6)
+        );
+    }
+
+    /**
+     * @dataProvider rposProvider
+     */
+    public function testRpos($str, $search, $pos)
+    {
+        $this->assertEquals(
+            $pos,
+            Horde_String::rpos($str, $search)
+        );
+    }
+
+    public function rposProvider()
+    {
+        return array(
+            array('Schöne Neue Welt', 'ö', 3),
+            array('Schöne Neue Welt', 'N', 7),
+            array('Schöne Neue Welt', 'e', 13),
+            array('Schöne Neue Welt', ' ', 11)
+        );
     }
 
     public function testPad()
@@ -478,43 +510,66 @@ EOT
         Horde_String::validUtf8($string);
     }
 
-    public function testValidUtf8()
+    /**
+     * @dataProvider validUtf8Provider
+     */
+    public function testValidUtf8($in)
+    {
+        $this->assertTrue(Horde_String::validUtf8($in));
+    }
+
+    public function validUtf8Provider()
     {
         // Examples from:
         // http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
-        $valid = array(
-            'Valid ASCII' => "a",
-            'Valid 2 Octet Sequence' => "\xc3\xb1",
-            'Valid 3 Octet Sequence' => "\xe2\x82\xa1",
-            'Valid 4 Octet Sequence' => "\xf0\x90\x8c\xbc",
-            'Bug #11930' => 'ö ä ü ß\n\nMit freundlichen Grüßen',
-            'Bug #11930-2' => 'öäüß'
+        return array(
+            // Valid ASCII
+            array("a"),
+            // Valid 2 Octet Sequence
+            array("\xc3\xb1"),
+            // Valid 3 Octet Sequence
+            array("\xe2\x82\xa1"),
+            // Valid 4 Octet Sequence
+            array("\xf0\x90\x8c\xbc"),
+            // Bug #11930
+            array('ö ä ü ß\n\nMit freundlichen Grüßen'),
+            // Bug #11930-2
+            array('öäüß')
         );
-        $invalid = array(
-            'Invalid 2 Octet Sequence' => "\xc3\x28",
-            'Invalid Sequence Identifier' => "\xa0\xa1",
-            'Invalid 3 Octet Sequence (in 2nd Octet)' => "\xe2\x28\xa1",
-            'Invalid 3 Octet Sequence (in 3rd Octet)' => "\xe2\x82\x28",
-            'Invalid 4 Octet Sequence (in 2nd Octet)' => "\xf0\x28\x8c\xbc",
-            'Invalid 4 Octet Sequence (in 3rd Octet)' => "\xf0\x90\x28\xbc",
-            'Invalid 4 Octet Sequence (in 4th Octet)' => "\xf0\x28\x8c\x28",
-            'Valid 5 Octet Sequence (but not Unicode!)' => "\xf8\xa1\xa1\xa1\xa1",
-            'Valid 6 Octet Sequence (but not Unicode!)' => "\xfc\xa1\xa1\xa1\xa1\xa1"
+    }
+
+    /**
+     * @dataProvider invalidUtf8Provider
+     */
+    public function testInvalidUtf8($in)
+    {
+        $this->assertFalse(Horde_String::validUtf8($in));
+    }
+
+    public function invalidUtf8Provider()
+    {
+        // Examples from:
+        // http://www.php.net/manual/en/reference.pcre.pattern.modifiers.php#54805
+        return array(
+            // Invalid 2 Octet Sequence
+            array("\xc3\x28"),
+            // Invalid Sequence Identifier
+            array("\xa0\xa1"),
+            // Invalid 3 Octet Sequence (in 2nd Octet)
+            array("\xe2\x28\xa1"),
+            // Invalid 3 Octet Sequence (in 3rd Octet)
+            array("\xe2\x82\x28"),
+            // Invalid 4 Octet Sequence (in 2nd Octet)
+            array("\xf0\x28\x8c\xbc"),
+            // Invalid 4 Octet Sequence (in 3rd Octet)
+            array("\xf0\x90\x28\xbc"),
+            // Invalid 4 Octet Sequence (in 4th Octet)
+            array("\xf0\x28\x8c\x28"),
+            // Valid 5 Octet Sequence (but not Unicode!)
+            array("\xf8\xa1\xa1\xa1\xa1"),
+            // Valid 6 Octet Sequence (but not Unicode!)
+            array("\xfc\xa1\xa1\xa1\xa1\xa1")
         );
-
-        foreach ($valid as $val) {
-            $this->assertEquals(
-                true,
-                Horde_String::validUtf8($val)
-            );
-        }
-
-        foreach ($invalid as $val) {
-            $this->assertEquals(
-                false,
-                Horde_String::validUtf8($val)
-            );
-        }
     }
 
 }
