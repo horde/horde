@@ -1087,7 +1087,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
     public function _parseSyncOptions(&$collection)
     {
         $options = array();
+
+        // These can be sent in any order.
+        $escape = 0;
         while(1) {
+            // Protect against broken clients that send non-standard OPTIONS
+            if ($escape++ > 15) {
+                $this->_logger->err(sprintf('[%s] Unknown OPTIONS sent from client.', $this->_procid);
+                $this->_statusCode = self::STATUS_PROTERROR;
+                $this->_handleError($collection);
+                exit;
+            }
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
                 $options['filtertype'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
