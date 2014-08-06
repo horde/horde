@@ -1152,6 +1152,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // @todo This seems to no longer be supported by the specs? Probably
+            // a leftover from EAS 1 or 2.0. Remove in H6.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_RTFTRUNCATION)) {
                 $options['rtftruncation'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
