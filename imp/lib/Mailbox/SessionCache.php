@@ -354,21 +354,19 @@ class IMP_Mailbox_SessionCache implements Serializable
             case self::CACHE_LABEL:
             case self::CACHE_PREFTO:
             case self::CACHE_UIDVALIDITY:
-                if ($mbox) {
-                    $mbox = strval($mbox);
-                    if (($c = isset($this->_cache[$val][$mbox])) ||
-                        isset($this->_temp[$val][$mbox])) {
-                        if ($c) {
-                            $this->_changed = self::CHANGED_YES;
-                        }
-                        unset(
-                            $this->_cache[$val][$mbox],
-                            $this->_temp[$val][$mbox]
-                        );
+                $mbox = $mbox
+                    ? array(strval($mbox))
+                    : array_merge(array_keys($this->_cache), array_keys($this->_temp));
+                foreach ($mbox as $val2) {
+                    if (isset($this->_cache[$val2][$val])) {
+                        $this->_changed = self::CHANGED_YES;
                     }
-                    break;
+                    unset(
+                        $this->_cache[$val2][$val],
+                        $this->_temp[$val2][$val]
+                    );
                 }
-                // Fall-through
+                break;
 
             case self::CACHE_ICONHOOK:
             case self::CACHE_SPECIALMBOXES:

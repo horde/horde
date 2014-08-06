@@ -2,6 +2,8 @@
 v6.2.2-git
 ----------
 
+[mms] Fix expiring session cached mailbox data when mailbox information
+      changes.
 [mms] Fix updating viewport immediately after deleting messages on POP3
       servers.
 
