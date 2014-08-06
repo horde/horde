@@ -343,9 +343,15 @@ class IMP_Mailbox_SessionCache implements Serializable
                 self::CACHE_PREFTO,
                 self::CACHE_UIDVALIDITY
             );
+        } elseif (!is_array($entries)) {
+            $entries = array($entries);
         }
 
-        foreach ((is_array($entries) ? $entries : array($entries)) as $val) {
+        if (in_array(self::CACHE_DISPLAY, $entries)) {
+            $entries[] = self::CACHE_LABEL;
+        }
+
+        foreach ($entries as $val) {
             switch ($val) {
             case self::CACHE_ACL:
             case self::CACHE_DISPLAY:
@@ -354,10 +360,13 @@ class IMP_Mailbox_SessionCache implements Serializable
             case self::CACHE_LABEL:
             case self::CACHE_PREFTO:
             case self::CACHE_UIDVALIDITY:
-                $mbox = $mbox
-                    ? array(strval($mbox))
-                    : array_merge(array_keys($this->_cache), array_keys($this->_temp));
-                foreach ($mbox as $val2) {
+                if (!isset($mbox_list)) {
+                    $mbox_list = $mbox
+                        ? array(strval($mbox))
+                        : array_merge(array_keys($this->_cache), array_keys($this->_temp));
+                }
+
+                foreach ($mbox_list as $val2) {
                     if (isset($this->_cache[$val2][$val])) {
                         $this->_changed = self::CHANGED_YES;
                     }
