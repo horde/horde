@@ -166,6 +166,7 @@ var HordeCore = {
         form.submit();
     },
 
+    // @todo This should be handled entirely within submit()
     handleSubmit: function(form, opts)
     {
         form = $(form);
@@ -190,8 +191,8 @@ var HordeCore = {
     },
 
     // params: (Hash) URL parameters
-    // TODO: Put internal params (SID, token, regenerate_sid) into special
-    // container only accessible to base Ajax Application object.
+    // @todo: Put internal params (SID, token, regenerate_sid) into special
+    //        container only accessible to base Ajax Application object.
     addRequestParams: function(params)
     {
         var sid = this.sessionId();
@@ -563,7 +564,7 @@ var HordeCore = {
     },
 
     /**
-     * TODO: Remove for H6.
+     * @todo Remove for H6.
      */
     closePopup: function()
     {
