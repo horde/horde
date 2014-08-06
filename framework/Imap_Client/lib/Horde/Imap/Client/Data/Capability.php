@@ -116,9 +116,9 @@ implements Serializable, SplSubject
             return false;
         }
 
-        return (is_null($parameter) || !is_array($this->_data[$capability]))
-            ? true
-            : in_array(strtoupper($parameter), $this->_data[$capability]);
+        return is_null($parameter) ?:
+               (is_array($this->_data[$capability]) &&
+                in_array(strtoupper($parameter), $this->_data[$capability]));
     }
 
     /**
