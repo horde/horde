@@ -781,6 +781,14 @@ class Horde_ActiveSync_Wbxml
                 0x16 => 'TemplateDescription',
                 0x17 => 'ContentOwner',
                 0x18 => 'RemoveRightsManagementDistribution'
+            ),
+
+            // Windows Live
+            0xFE => array(
+                0x05 => 'Annotations',
+                0x06 => 'Annotation',
+                0x07 => 'Name',
+                0x08 => 'Value'
             )
         ),
 
@@ -810,6 +818,8 @@ class Horde_ActiveSync_Wbxml
               0x16 => 'POOMMAIL2',
               0x17 => 'Notes',
               0x18 => 'RightsManagement',
+              // Hotmail/Outlook.com WBXML extension.
+              0xFE => 'WindowsLive'
         )
     );
 
