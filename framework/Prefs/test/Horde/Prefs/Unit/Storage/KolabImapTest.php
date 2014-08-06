@@ -81,6 +81,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
         $p['a'] = 'c';
         $p->store();
         $this->assertContains('INBOX/Preferences', $storage->getList()->listFolders());
+        $p->cleanup(true);
     }
 
     public function testCreatePreferences()
@@ -100,6 +101,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             1, count($storage->getData('INBOX/Preferences')->getObjects())
         );
+        $p->cleanup(true);
     }
 
     public function testModifyPreferences()
@@ -120,6 +122,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
         $this->assertContains(
             'theme:YmFyYmll', $object['pref']
         );
+        $p->cleanup(true);
     }
 
     private function _createDefaultStorage()
