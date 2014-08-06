@@ -101,3 +101,7 @@ BC BREAKING (i.e., Horde 6).
 
 - Decouple the codepage definitions from the Encoder/Decoder class. Break them
   out into individual classes.
+
+- Pass the Horde_ActiveSync::FILTERTYPE_ constant directly to the driver, and
+  let the driver calculate the needed time slice if needed. Needed to correctly
+  deal with Horde_ActiveSync::FILTERTYPE_INCOMPLETETASKS.
