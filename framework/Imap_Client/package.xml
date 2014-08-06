@@ -12,7 +12,7 @@
  </lead>
  <date>2014-08-06</date>
  <version>
-  <release>2.24.1</release>
+  <release>2.24.2</release>
   <api>2.24.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in reporting capabilities (Bug #13421).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2579,6 +2579,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in reporting capabilities (Bug #13421).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.24.2</release>
+    <api>2.24.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
