@@ -1241,9 +1241,6 @@ var DimpCompose = {
         }.bind(this));
 
         HordeCore.initHandler('click');
-        HordeCore.handleSubmit($('compose'), {
-            callback: this.uniqueSubmitCallback.bind(this)
-        });
 
         this.attachlist = new IMP_Compose_Attachlist(this);
 
