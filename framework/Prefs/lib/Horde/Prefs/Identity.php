@@ -21,6 +21,7 @@
  * @package   Prefs
  */
 class Horde_Prefs_Identity
+implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * Array containing all the user's identities.
@@ -408,4 +409,60 @@ class Horde_Prefs_Identity
 
         return $ob;
     }
+
+    /* ArrayAccess methods. */
+
+    /**
+     * @since 2.7.0
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_identities[$offset]);
+    }
+
+    /**
+     * @since 2.7.0
+     */
+    public function offsetGet($offset)
+    {
+        return $this->get($offset);
+    }
+
+    /**
+     * @since 2.7.0
+     */
+    public function offsetSet($offset, $value)
+    {
+        // $value is ignored.
+        $this->set($offset);
+    }
+
+    /**
+     * @since 2.7.0
+     */
+    public function offsetUnset($offset)
+    {
+        $this->delete($offset);
+    }
+
+    /* Countable method. */
+
+    /**
+     * @since 2.7.0
+     */
+    public function count()
+    {
+        return count($this->_identities);
+    }
+
+    /* IteratorAggregate method. */
+
+    /**
+     * @since 2.7.0
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->_identities);
+    }
+
 }
