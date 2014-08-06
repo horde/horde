@@ -25,7 +25,7 @@
  </developer>
  <date>2014-08-06</date>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in Horde_String_Transliterate for PHP 5.3 (Bug #13419).
-* [mms] Added Horde_String::ipos() and Horde_String::ripos().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -687,6 +686,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [mms] Fix regression in Horde_String_Transliterate for PHP 5.3 (Bug #13419).
 * [mms] Added Horde_String::ipos() and Horde_String::ripos().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
