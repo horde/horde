@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-02</date>
+ <date>2014-08-06</date>
  <version>
   <release>2.6.1</release>
   <api>2.6.0</api>
@@ -375,6 +375,7 @@
         <file name="KolabImapLogTest.php" role="test" />
         <file name="KolabImapTest.php" role="test" />
        </dir> <!-- /test/Horde/Prefs/Unit/Storage -->
+       <file name="IdentityTest.php" role="test" />
       </dir> <!-- /test/Horde/Prefs/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
@@ -620,6 +621,7 @@
    <install as="Horde/Prefs/phpunit.xml" name="test/Horde/Prefs/phpunit.xml" />
    <install as="Horde/Prefs/fixtures/preferences.1" name="test/Horde/Prefs/fixtures/preferences.1" />
    <install as="Horde/Prefs/Stub/Storage.php" name="test/Horde/Prefs/Stub/Storage.php" />
+   <install as="Horde/Prefs/Unit/IdentityTest.php" name="test/Horde/Prefs/Unit/IdentityTest.php" />
    <install as="Horde/Prefs/Unit/Storage/FileTest.php" name="test/Horde/Prefs/Unit/Storage/FileTest.php" />
    <install as="Horde/Prefs/Unit/Storage/KolabImapLogTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapLogTest.php" />
    <install as="Horde/Prefs/Unit/Storage/KolabImapTest.php" name="test/Horde/Prefs/Unit/Storage/KolabImapTest.php" />
@@ -1120,7 +1122,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-02</date>
+   <date>2014-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

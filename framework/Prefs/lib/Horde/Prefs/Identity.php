@@ -155,7 +155,7 @@ class Horde_Prefs_Identity
      */
     public function get($identity = null)
     {
-        if (is_null($identity) || !isset($this->_identities[$identity])) {
+        if (is_null($identity)) {
             $identity = $this->_default;
         }
 
@@ -174,14 +174,17 @@ class Horde_Prefs_Identity
     public function delete($identity)
     {
         $deleted = array_splice($this->_identities, $identity, 1);
-        foreach (array_keys($this->_identities) as $id) {
-            if ($this->setDefault($id)) {
-                break;
-            }
-        }
-        $this->save();
 
-        return $deleted;
+        if (!empty($deleted)) {
+            foreach (array_keys($this->_identities) as $id) {
+                if ($this->setDefault($id)) {
+                    break;
+                }
+            }
+            $this->save();
+        }
+
+        return reset($deleted);
     }
 
     /**
