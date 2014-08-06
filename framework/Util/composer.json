@@ -21,8 +21,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.4.1",
-    "time": "2014-08-05",
+    "version": "2.5.0",
+    "time": "2014-08-06",
     "repositories": [
         {
             "type": "pear",
