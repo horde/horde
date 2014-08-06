@@ -79,12 +79,14 @@ extends PHPUnit_Framework_TestCase
         // Don't throw Exception
         $this->ob->verify();
         $this->ob2->verify();
+    }
 
-        // Expected exception
-        try {
-            $this->ob3->verify();
-            $this->fail();
-        } catch (Horde_Imap_Client_Data_Format_Exception $e) {}
+    /**
+     * @expectedException Horde_Imap_Client_Data_Format_Exception
+     */
+    public function testVerifyWithException()
+    {
+        $this->ob3->verify();
     }
 
 }
