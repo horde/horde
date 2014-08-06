@@ -1093,7 +1093,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         while(1) {
             // Protect against broken clients that send non-standard OPTIONS
             if ($escape++ > 15) {
-                $this->_logger->err(sprintf('[%s] Unknown OPTIONS sent from client.', $this->_procid);
+                $this->_logger->err(sprintf('[%s] Unknown OPTIONS sent from client.', $this->_procid));
                 $this->_statusCode = self::STATUS_PROTERROR;
                 $this->_handleError($collection);
                 exit;
