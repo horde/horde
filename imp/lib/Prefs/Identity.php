@@ -64,6 +64,24 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
     }
 
     /**
+     */
+    public function save()
+    {
+        global $injector;
+
+        parent::save();
+
+        /* Changing the ID may change the sent-mail names, so clear the
+         * display cache.
+         * @todo If identity ID is changed outside of Horde, this won't be
+         * caught. */
+        $sc = $injector->getInstance('IMP_Mailbox_SessionCache');
+        foreach ($this->getAllSentmail() as $val) {
+            $sc->expire(IMP_Mailbox_SessionCache::CACHE_DISPLAY, $val);
+        }
+    }
+
+    /**
      * Verifies and sanitizes all identity properties.
      *
      * @param integer $identity  The identity to verify.
