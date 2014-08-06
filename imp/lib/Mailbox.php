@@ -1573,12 +1573,12 @@ class IMP_Mailbox
                     /* Add identity information to label, if sent-mail mailbox
                      * is unique to an identity. */
                     $identity = $injector->getInstance('IMP_Identity');
-                    $sm = array_keys(
-                        $identity->getAllSentmail(false),
-                        $this->_mbox
-                    );
-                    if (count($sm) === 1) {
-                        $out .= ' (' . $identity->getValue('id', reset($sm)) . ')';
+                    $sm_all = $identity->getAllSentmail(false);
+                    if (count($sm_all) > 1) {
+                        $sm = array_keys($sm_all, $this->_mbox);
+                        if (count($sm) === 1) {
+                            $out .= ' (' . $identity->getValue('id', reset($sm)) . ')';
+                        }
                     }
                 }
                 break;
