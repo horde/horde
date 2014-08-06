@@ -35,6 +35,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertTrue($c->query('foo'));
 
         $this->assertFalse($c->query('BAR'));
+        $this->assertFalse($c->query('FOO', 'BAR'));
 
         $c->add('bar');
 
