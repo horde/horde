@@ -95,3 +95,9 @@ BC BREAKING (i.e., Horde 6).
   backend and the let the backend decide what to do with it. Since the SMS
   ability of EAS uses the device to actually send the SMS, I could foresee
   some added ability in IMP, or maybe a separate app, that allows managing this.
+
+- Break up Horde_ActiveSync_Driver::getMessage(). Add _getCalendarMessage() etc...
+  and move base logic for calling the correct method into the base class.
+
+- Decouple the codepage definitions from the Encoder/Decoder class. Break them
+  out into individual classes.
