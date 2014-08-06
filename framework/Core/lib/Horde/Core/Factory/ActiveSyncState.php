@@ -10,8 +10,9 @@ class Horde_Core_Factory_ActiveSyncState extends Horde_Core_Factory_Injector
         global $conf;
 
         if (!empty($conf['activesync']['enabled'])) {
-            $driver = $conf['activesync']['storage'];
-
+            $driver = !empty($conf['activesync']['storage']) ?
+                $conf['activesync']['storage'] :
+                'sql';
             switch (Horde_String::lower($driver)) {
             case 'nosql':
                 $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')->create('horde', 'activesync');
