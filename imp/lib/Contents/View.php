@@ -252,7 +252,7 @@ class IMP_Contents_View
             $user_identity = $injector->getInstance('IMP_Identity');
             $headers[] = array(
                 'header' => _("Printed By"),
-                'value' => $user_identity->getFullname() ? $user_identity->getFullname() : $registry->getAuth()
+                'value' => $user_identity->getFullname() ?: $registry->getAuth()
             );
         }
 

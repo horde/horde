@@ -110,7 +110,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
 
         $sent = array();
 
-        foreach (IMP_Mailbox::get($injector->getInstance('IMP_Identity')->getAllSentmail()) as $val) {
+        foreach ($injector->getInstance('IMP_Identity')->getAllSentmail() as $val) {
             if ($val->exists) {
                 $sent[] = $val;
             }

@@ -1142,11 +1142,8 @@ extends Horde_Core_Ajax_Application_Handler
         /* Check to make sure the sent-mail mailboxes are created; they need
          * to exist to show up in drop-down list. */
         $identity = $injector->getInstance('IMP_Identity');
-        foreach (array_keys($identity->getAll('id')) as $ident) {
-            $mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
-            if ($mbox instanceof IMP_Mailbox) {
-                $mbox->create();
-            }
+        foreach ($identity->getAllSentmail() as $mbox) {
+            $mbox->create();
         }
 
         $flist = array();

@@ -39,8 +39,8 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
         $identity = $injector->getInstance('IMP_Identity');
 
         $js = array();
-        foreach (array_keys($identity->getAll('id')) as $key) {
-            $js[$key] = $identity->getValue(IMP_Mailbox::MBOX_SENT, $key)->form_to;
+        foreach ($identity->getAllSentmail(false) as $key => $val) {
+            $js[$key] = $val->form_to;
         };
 
         $page_output->addInlineJsVars(array(

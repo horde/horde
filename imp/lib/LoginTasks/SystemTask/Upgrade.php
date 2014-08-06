@@ -543,7 +543,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         foreach ($imp_identity->getAll('sent_mail_folder') as $key => $val) {
             if (!is_null($val) && !Horde_Mime::is8bit($val, 'UTF-8')) {
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
-                $imp_identity->setValue('sent_mail_folder', $mbox, $key);
+                $imp_identity->setValue(IMP_Mailbox::MBOX_SENT, $mbox, $key);
             }
         }
     }

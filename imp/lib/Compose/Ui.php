@@ -110,7 +110,7 @@ class IMP_Compose_Ui
 
         $sigs = $identity->hasSignature(true);
 
-        foreach (array_keys($identity->getAll('id')) as $ident) {
+        foreach (array_keys(iterator_to_array($identity)) as $ident) {
             $sm = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
 
             $entry = array(
