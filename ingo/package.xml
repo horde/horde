@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Add support for a negative regex test to the Sieve driver (Request #12671; Pete Beardmore &lt;pete.beardmore@msn.com&gt;).
 * [mms] Fix vacation in the maildrop driver (Bug #13415; balestrieri@mag-data.com).
  </notes>
  <contents>
@@ -1490,6 +1491,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Add support for a negative regex test to the Sieve driver (Request #12671; Pete Beardmore &lt;pete.beardmore@msn.com&gt;).
 * [mms] Fix vacation in the maildrop driver (Bug #13415; balestrieri@mag-data.com).
    </notes>
   </release>
