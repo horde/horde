@@ -820,11 +820,6 @@ var DimpBase = {
                 sb = $('msgSplitPane').down('.vpScroll'),
                 s = sb.viewportOffset();
 
-            if (!sc) {
-                sc = new Element('DIV', { id: 'slider_count' });
-                $(document.body).insert(sc);
-            }
-
             this.updateSliderCount();
 
             sc.setStyle({
@@ -1573,20 +1568,12 @@ var DimpBase = {
             }, this);
 
             if (e.memo == 'ctx_flag') {
-                $(e.memo).insert(new Element('DIV', { className: 'sep' }))
-                    .insert(
-                        new Element('A', { id: 'ctx_flag_new' }).insert(
-                            new Element('DIV', { className: 'iconImg' })
-                        ) .insert(
-                            DimpCore.text.newflag
-                        )
-                    ).insert(
-                        new Element('A', { id: 'ctx_flag_edit' }).insert(
-                            new Element('DIV', { className: 'iconImg' })
-                        ) .insert(
-                            DimpCore.text.editflag
-                        )
-                    );
+                $(e.memo).insert(
+                    $('flag_newedit').down().clone(true)
+                        .down('A').writeAttribute('id', 'ctx_flag_new')
+                        .next('A').writeAttribute('id', 'ctx_flag_edit')
+                        .up('DIV')
+                );
             }
             break;
 
@@ -1606,25 +1593,18 @@ var DimpBase = {
 
     contextAddFlag: function(flag, f, id)
     {
-        var a = new Element('A', { className: 'ctxFlagRow' }),
-            style = {};
+        var a = $('flag_row').down().clone(true);
 
         if (id == 'ctx_flag') {
-            a.insert(new Element('DIV', { className: 'iconImg' }));
+            a.down('DIV').show();
         }
-
+        a.down('SPAN').addClassName(f.i ? f.i.escapeHTML() : f.c.escapeHTML());
         if (f.b && f.u) {
-            style.backgroundColor = f.b.escapeHTML();
+            a.down('SPAN').setStyle({ backgroundColor: f.b.escapeHTML() });
         }
+        a.insert(f.l.escapeHTML());
 
-        $(id).insert(
-            a.insert(
-                new Element('SPAN', { className: 'iconImg' }).addClassName(f.i ? f.i.escapeHTML() : f.c.escapeHTML()).setStyle(style)
-            ).insert(
-                f.l.escapeHTML()
-            )
-        );
-
+        $(id).insert(a);
         a.store('flag', flag);
     },
 
@@ -3515,11 +3495,7 @@ var DimpBase = {
     {
         var ed;
 
-        m.labelElement().update(
-            new Element('SPAN')
-                .addClassName('imp-sidebar-mbox-loading')
-                .update('[' + DimpCore.text.loading + ']')
-        );
+        m.labelElement().update($('sidebar_mbox_loading').down().clone(true));
 
         this._listMboxes({
             base: base,

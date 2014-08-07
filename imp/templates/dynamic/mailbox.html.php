@@ -275,3 +275,33 @@
   <?php echo _("Check mailbox for new mail?") ?>
  </div>
 </div>
+
+<div id="slider_count" style="display:none"></div>
+
+<div id="flag_newedit" style="display:none">
+ <div>
+  <div class="sep"></div>
+  <a>
+   <div class="iconImg"></div>
+   <?php echo _("Create New Flag...") ?>
+  </a>
+  <a>
+   <div class="iconImg"></div>
+   <?php echo _("Edit Flags...") ?>
+  </a>
+ </div>
+</div>
+
+<div id="flag_row" style="display:none">
+ <a class="ctxFlagRow">
+  <div class="iconImg" style="display:none"></div>
+  <span class="iconImg"></span>
+ </a>
+</div>
+
+<div id="sidebar_mbox_loading" style="display:none">
+ <span>
+  <span class="imp-sidebar-mbox-loading"></span>
+  <?php echo _("Loading...") ?>
+ </span>
+</div>
