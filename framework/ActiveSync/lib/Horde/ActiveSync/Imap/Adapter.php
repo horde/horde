@@ -298,6 +298,7 @@ class Horde_ActiveSync_Imap_Adapter
             serialize($status))
         );
         $flags = array();
+        $categories = array();
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         if ($modseq && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             $this->_logger->info(sprintf(
@@ -320,6 +321,10 @@ class Horde_ActiveSync_Imap_Adapter
             // $modseq sneak in yet (they will be caught on the next PING or
             // SYNC).
             $changes = array();
+
+            // Get custom flags to use as categories.
+            $msgFlags = $this->_getMsgFlags();
+
             foreach ($fetch_ret as $uid => $data) {
                 if ($options['sincedate']) {
                     $since = new Horde_Date($options['sincedate']);
@@ -345,9 +350,17 @@ class Horde_ActiveSync_Imap_Adapter
                     if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
+                    if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+                        $categories[$uid] = array();
+                        foreach ($data->getFlags() as $flag) {
+                            if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
+                                $categories[$uid][] = $msgFlags[$key];
+                            }
+                        }
+                    }
                 }
             }
-            $folder->setChanges($changes, $flags);
+            $folder->setChanges($changes, $flags, $categories);
             try {
                 $deleted = $imap->vanished(
                     $mbox,
@@ -771,6 +784,28 @@ class Horde_ActiveSync_Imap_Adapter
         }
     }
 
+    public function categoriesToFlags($mailbox, $categories, $uid)
+    {
+        $msgFlags = $this->_getMsgFlags();
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $options = array(
+            'ids' => new Horde_Imap_Client_Ids(array($uid)),
+            'add' => array()
+        );
+        foreach ($categories as $flag) {
+            if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
+                $options['add'][] = $msgFlags[$key];
+            }
+        }
+        $options['remove'] = array_map('strtolower', array_diff($msgFlags, $options['add']));
+        $imap = $this->_getImapOb();
+        try {
+            $imap->store($mbox, $options);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
     /**
      * Set the message's read status.
      *
@@ -1046,6 +1081,17 @@ class Horde_ActiveSync_Imap_Adapter
                     $eas_message->airsyncbasebody = $airsync_body;
                 }
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
+            }
+
+            if ($version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                $flags = array();
+                $msgFlags = $this->_getMsgFlags();
+                foreach ($imap_message->getFlags() as $flag) {
+                    if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
+                        $flags[] = $msgFlags[$key];
+                    }
+                }
+                $eas_message->categories = $flags;
             }
         }
 
@@ -1484,4 +1530,14 @@ class Horde_ActiveSync_Imap_Adapter
         return $data;
     }
 
+    protected function _getMsgFlags()
+    {
+        $msgFlags = array();
+        // @todo Horde_ActiveSync 3.0 remove method_exists check.
+        if (method_exists($this->_imap, 'getMsgFlags')) {
+            return $this->_imap->getMsgFlags();
+        }
+
+        return array();
+    }
 }

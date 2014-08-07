@@ -185,15 +185,21 @@ class Horde_ActiveSync_Connector_Importer
         }
         $stat['serverid'] = $this->_folderId;
 
-        // Record the state of the message
-        $this->_state->updateState(
-            ($message instanceof Horde_ActiveSync_Message_Mail
-                ? Horde_ActiveSync::CHANGE_TYPE_FLAGS
-                : Horde_ActiveSync::CHANGE_TYPE_CHANGE),
-            $stat,
-            Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-            $this->_as->driver->getUser(),
-            $clientid);
+        // Record the state of the message, but only if we aren't updating
+        // categories. @todo This should be fixed, but for now we can't
+        // differentiate between different flag changes. Note that categories
+        // only exists for email changes so for non email this will still
+        // work as before.
+        if (!array_key_exists('categories', $stat) || $stat['categories'] === false) {
+            $this->_state->updateState(
+                ($message instanceof Horde_ActiveSync_Message_Mail
+                    ? Horde_ActiveSync::CHANGE_TYPE_FLAGS
+                    : Horde_ActiveSync::CHANGE_TYPE_CHANGE),
+                $stat,
+                Horde_ActiveSync::CHANGE_ORIGIN_PIM,
+                $this->_as->driver->getUser(),
+                $clientid);
+        }
 
         return $stat['id'];
     }

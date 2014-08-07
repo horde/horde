@@ -256,6 +256,11 @@ class Horde_ActiveSync_Connector_Exporter
                             $message->flag = $flag;
                         }
 
+                        // Categories
+                        if (!empty($change['categories']) && $this->_as->device->version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                            $message->categories = $change['categories'];
+                        }
+
                         // Verbs
                         if ($this->_as->device->version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                             if (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE])) {

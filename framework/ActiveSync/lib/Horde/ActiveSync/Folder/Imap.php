@@ -93,12 +93,24 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     protected $_flags = array();
 
     /**
+     * Internal cache of custom message flags (i.e., categories). Should contain
+     * one entry for each UID listed in the $_changed array. An array keyed on
+     * message UID:
+     *   uid => array('TestOne', 'TestTwo')
+     *
+     * @var array
+     */
+    protected $_categories = array();
+
+    /**
      * Set message changes.
      *
-     * @param array $messages  An array of message UIDs.
-     * @param array $flags     A hash of message read flags, keyed by UID.
+     * @param array $messages    An array of message UIDs.
+     * @param array $flags       A hash of message read flags, keyed by UID.
+     * @param array $categories  A hash of custom message flags, keyed by UID.
+     *                           @since 2.17.0
      */
-    public function setChanges(array $messages, array $flags = array())
+    public function setChanges(array $messages, array $flags = array(), array $categories = array())
     {
         $uidnext = $this->uidnext();
         $minuid = $this->minuid();
@@ -128,6 +140,13 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 $this->_flags[$uid] += $data;
             } else {
                 $this->_flags[$uid] = $data;
+            }
+        }
+        foreach ($categories as $uid => $data) {
+            if (!empty($this->_categories[$uid])) {
+                $this->_categories[$uid] += $data;
+            } else {
+                $this->_categories[$uid] = $data;
             }
         }
     }
@@ -308,6 +327,16 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function flags()
     {
         return $this->_flags;
+    }
+
+    /**
+     * Return the internal message category cache.
+     *
+     * @return array  The array of message categories. @see self::$_categories
+     */
+    public function categories()
+    {
+        return $this->_categories;
     }
 
     /**
