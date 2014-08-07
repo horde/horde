@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Fix BC break when detecting the ActiveSync state driver.
  </notes>
  <contents>
@@ -3598,6 +3599,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Fix BC break when detecting the ActiveSync state driver.
    </notes>
   </release>
