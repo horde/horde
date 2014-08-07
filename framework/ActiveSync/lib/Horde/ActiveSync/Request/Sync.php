@@ -1190,25 +1190,23 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_decoder->getElementEndTag();
                 break;
             } elseif (!$haveElement) {
-                $escape = 0;
+                $depth = 0;
                 while (1) {
-                    // Protect against infinite loop.
-                    if ($escape++ > 5) {
-                        $this->_logger->err(sprintf('[%s] Unknown OPTIONS sent from client.', $this->_procid));
+                    $e = $this->_decoder->getElement();
+                    if ($e === false) {
+                        $this->_logger->err(sprintf('[%s] Unexpected end of stream.', $this->_procid));
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);
                         exit;
+                    } elseif ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
+                        $depth = $this->_decoder->isEmptyElement($e) ?
+                            $depth :
+                            $depth + 1;
+                    } elseif ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                        $depth--;
                     }
-                    $e = $this->_decoder->getElement();
-                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-                        while ($this->_decoder->getElementContent()) {
-                            // noop - read in any non-supported content.
-                        }
-                        $e = $this->_decoder->peek();
-                        if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                            $this->_decoder->getElementEndTag();
-                            break;
-                        }
+                    if ($depth == 0) {
+                        break;
                     }
                 }
             }
