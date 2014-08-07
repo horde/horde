@@ -1372,7 +1372,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
             foreach ($maps as $key) {
                 if (preg_match('/^\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
-                    if ($matches[1] == $guid && $matches[2] < ($n - 1)) {
+                    if ($matches[1] == $guid && $matches[2] < $n) {
                         $remove[] = $key;
                     }
                 }

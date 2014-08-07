@@ -1503,7 +1503,7 @@ EOT;
         function() {
             var p = /^\{([0-9A-Za-z-]+)\}([0-9]+)$/;
             var results = p.exec(this.sync_key);
-            if (results && (results[1] == "$guid") && (results[2] < $n)) {
+            if (results && (results[1] == "$guid") && (results[2] < ($n + 1))) {
                 return true;
             }
 
