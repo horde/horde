@@ -2,6 +2,7 @@
 v3.2.1-git
 ----------
 
+[mms] Add support for a negative regex test to the Maildrop driver.
 [mms] Add support for a negative regex test to the Sieve driver (Request
       #12671; Pete Beardmore <pete.beardmore@msn.com>).
 [mms] Fix vacation in the maildrop driver (Bug #13415;
