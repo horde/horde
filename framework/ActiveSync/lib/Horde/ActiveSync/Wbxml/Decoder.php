@@ -138,7 +138,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      * Returns either start, content or end, and auto-concatenates successive
      * content.
      *
-     * @return mixed  The element false on failure.
+     * @return array|boolean  The element structure or false on failure.
      */
     public function getElement()
     {
