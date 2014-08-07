@@ -811,7 +811,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *      The ActiveSync folder object to request changes for.
      * @param integer $from_ts     The starting timestamp
      * @param integer $to_ts       The ending timestamp
-     * @param integer $cutoffdate  The earliest date to retrieve back to. If
+     * @param integer $cutoffdate  The earliest date to retrieve back to.
      *
      * @param boolean $ping        If true, returned changeset may
      *                             not contain the full changeset, but rather
