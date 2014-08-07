@@ -1267,20 +1267,26 @@ class Turba_Api extends Horde_Registry_Api
                                 ($attributes[$key]['type'] == 'email')) {
                                 $e_val = $ob->getValue($key);
 
-                                /* Ticket #12480: Don't return email if it
-                                 * doesn't contain the search string, since
-                                 * an entry can contain multiple e-mail
-                                 * fields. Return all e-mails if it
-                                 * occurs in the name. */
-                                if (!isset($tname)) {
-                                    $tname = Horde_String_Transliterate::toAscii($name);
-                                }
-                                if (!isset($tdisplay_name)) {
-                                    $tdisplay_name = Horde_String_Transliterate::toAscii($display_name);
+                                if (strlen($trimname)) {
+                                    /* Ticket #12480: Don't return email if it
+                                     * doesn't contain the search string, since
+                                     * an entry can contain multiple e-mail
+                                     * fields. Return all e-mails if it
+                                     * occurs in the name. */
+                                    if (!isset($tname)) {
+                                        $tname = Horde_String_Transliterate::toAscii($name);
+                                    }
+                                    if (!isset($tdisplay_name)) {
+                                        $tdisplay_name = Horde_String_Transliterate::toAscii($display_name);
+                                    }
+
+                                    $add = ((Horde_String::ipos(Horde_String_Transliterate::toAscii($e_val), $tname) !== false) ||
+                                            (Horde_String::ipos($tdisplay_name, $tname) !== false));
+                                } else {
+                                    $add = true;
                                 }
 
-                                if ((Horde_String::ipos($tdisplay_name, $tname) !== false) ||
-                                    (Horde_String::ipos(Horde_String_Transliterate::toAscii($e_val), $tname) !== false)) {
+                                if ($add) {
                                     // Multiple addresses support
                                     $email->add($rfc822->parseAddressList($e_val, array(
                                         'limit' => (isset($attributes[$key]['params']) && is_array($attributes[$key]['params']) && !empty($attributes[$key]['params']['allow_multi'])) ? 0 : 1
