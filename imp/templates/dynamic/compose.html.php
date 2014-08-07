@@ -219,3 +219,8 @@
 <?php endif; ?>
  </div>
 </form>
+
+<div id="rteloading" style="display:none"></div>
+<span id="rteloadingtxt" style="display:none">
+ <?php echo _("Loading...") ?>
+</span>

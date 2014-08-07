@@ -461,14 +461,6 @@ var DimpCompose = {
     {
         var o;
 
-        if (!$('rteloading')) {
-            $(document.body).insert(
-                new Element('DIV', { id: 'rteloading' }).hide()
-            ).insert(
-                new Element('SPAN', { id: 'rteloadingtxt' }).hide().insert(DimpCore.text.loading)
-            );
-        }
-
         if (show) {
             $('rteloading').clonePosition('composeMessageParent').show();
             if (!notxt) {
@@ -833,7 +825,7 @@ var DimpCompose = {
 
         $('composeMessage').setStyle({ height: mah + 'px' });
 
-        if ($('rteloading') && $('rteloading').visible()) {
+        if ($('rteloading').visible()) {
             this.RTELoading(true);
         }
     },

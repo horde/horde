@@ -528,6 +528,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'import_mbox_loading' => _("Importing (this may take some time)..."),
             'listmsg_wait' => _("The server is still generating the message list."),
             'listmsg_timeout' => _("The server was unable to generate the message list."),
+            'loading' => _("Loading..."),
             'message_0' => _("No messages"),
             'message_1' => _("1 message"),
             'message_2' => _("%d messages"),
