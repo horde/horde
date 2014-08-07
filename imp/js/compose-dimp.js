@@ -1323,7 +1323,7 @@ var IMP_Compose_Attachlist = Class.create({
 
     // ajax_atc_id,
     // curr_upload,
-    // upload_limit,
+    // num_limit,
 
     initialize: function(compose)
     {
@@ -1345,7 +1345,7 @@ var IMP_Compose_Attachlist = Class.create({
     reset: function()
     {
         this.curr_upload = 0;
-        delete this.upload_limit;
+        delete this.num_limit;
         $('attach_list').hide().childElements().each(this.removeAttachRow, this);
     },
 
@@ -1452,7 +1452,7 @@ var IMP_Compose_Attachlist = Class.create({
         var al = $('attach_list'),
             u = $('upload');
 
-        if (this.upload_limit) {
+        if (this.num_limit === 0) {
             $('upload_limit').show();
             u.up().hide();
         } else {
@@ -1512,6 +1512,11 @@ var IMP_Compose_Attachlist = Class.create({
             data = data.memo;
         }
 
+        if ($A(data).size() > this.num_limit) {
+            HordeCore.notify(DimpCore.text.max_atc_num, 'horde.error');
+            return;
+        }
+
         /* First pass - check for size limitations. Do in groups, rather than
          * individually, since it is a UX nightmare if some files are attached
          * and others aren't. */
@@ -1540,6 +1545,9 @@ var IMP_Compose_Attachlist = Class.create({
             });
 
             ++this.curr_upload;
+            if (Object.isNumber(this.num_limit)) {
+                --this.num_limit;
+            }
 
             HordeCore.doAction('addAttachment', {}, {
                 ajaxopts: {
@@ -1591,7 +1599,7 @@ var IMP_Compose_Attachlist = Class.create({
         var t = e.memo.tasks || {};
 
         if (t['imp:compose']) {
-            this.upload_limit = t['imp:compose'].atclimit;
+            this.num_limit = t['imp:compose'].atclimit;
         }
 
         if (t['imp:compose-atc']) {
