@@ -222,6 +222,24 @@ class IMP_Api extends Horde_Registry_Api
     }
 
     /**
+     * Ensures a list of user-defined IMAP flag(s) for the current user exist.
+     * Silently ignores any flags that are already defined.
+     *
+     * @param array $flags  An array of user-defined flag names.
+     * @since 6.3.0
+     */
+    public function addFlags(array $flags)
+    {
+        $imp_flags = $GLOBALS['injector']->getInstance('IMP_Flags');
+        foreach ($flags as $flag) {
+            try {
+                $imp_flags->addFlag($flag);
+            } catch (IMP_Exception $e) {
+            }
+        }
+    }
+
+    /**
      * Perform a search query on the remote IMAP server.
      *
      * @param string $mailbox                        The name of the source
