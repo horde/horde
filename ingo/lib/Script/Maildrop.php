@@ -93,7 +93,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         'is', 'not is',
         'begins with','not begins with',
         'ends with', 'not ends with',
-        'regex',
+        'regex', 'not regex',
         'matches', 'not matches',
         'exists', 'not exist',
         'less than', 'less than or equal to',
