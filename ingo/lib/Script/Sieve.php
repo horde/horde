@@ -904,17 +904,6 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                         break;
 
                     case 'regex':
-                        $vals['match-type'] = ':regex';
-                        if ($use_address_test) {
-                            $tmp = new Ingo_Script_Sieve_Test_Address($vals);
-                        } elseif ($condition['field'] == 'Body') {
-                            $tmp = new Ingo_Script_Sieve_Test_Body($vals);
-                        } else {
-                            $tmp = new Ingo_Script_Sieve_Test_Header($vals);
-                        }
-                        $test->addTest($tmp);
-                        break;
-
                     case 'not regex':
                         $vals['match-type'] = ':regex';
                         if ($use_address_test) {
@@ -924,7 +913,10 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                         } else {
                             $tmp = new Ingo_Script_Sieve_Test_Header($vals);
                         }
-                        $test->addTest(new Ingo_Script_Sieve_Test_Not($tmp));
+                        if ($condition['match'] == 'not regex') {
+                            $tmp = new Ingo_Script_Sieve_Test_Not($tmp);
+                        }
+                        $test->addTest($tmp);
                         break;
 
                     case 'matches':
