@@ -1512,12 +1512,23 @@ var IMP_Compose_Attachlist = Class.create({
             data = data.memo;
         }
 
+        /* First pass - check for size limitations. Do in groups, rather than
+         * individually, since it is a UX nightmare if some files are attached
+         * and others aren't. */
+        if ($A(data).detect(function(d) {
+            return (~~d.size >= DimpCore.conf.max_atc_size);
+        })) {
+            HordeCore.notify(DimpCore.text.max_atc_size, 'horde.error');
+            return;
+        }
+
         params = $H(params).update({
             composeCache: $F(this.compose.getCacheElt()),
             json_return: 1
         });
         HordeCore.addRequestParams(params);
 
+        /* Second pass - actually send the files. */
         $A(data).each(function(d) {
             var fd = new FormData(), li;
 

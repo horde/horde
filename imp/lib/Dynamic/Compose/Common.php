@@ -192,8 +192,8 @@ class IMP_Dynamic_Compose_Common
         $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
-            'MAX_FILE_SIZE' => intval($session->get('imp', 'file_upload')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
+            'max_atc_size' => intval($session->get('imp', 'file_upload')),
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),
             'templates_mbox' => $templates_mbox ? $templates_mbox->form_to : null
@@ -253,12 +253,13 @@ class IMP_Dynamic_Compose_Common
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'compose_close' => _("Compose action completed. You may now safely close this window."),
             'dragdropimg_error' => _("Could not add %d file(s) to message: only images are supported."),
+            'max_atc_size' => _("Your attachment(s) are too large and cannot be uploaded."),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'paste_error' => _("Could not paste image as the clipboard data is invalid."),
             'replyall' => _("%d recipients"),
             'spell_noerror' => _("No spelling errors found."),
             'toggle_html' => _("Discard all text formatting information (by converting from HTML to plain text)? This conversion cannot be reversed."),
-            'uploading' => _("Uploading..."),
+            'uploading' => _("Uploading...")
         );
     }
 
