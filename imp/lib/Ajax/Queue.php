@@ -127,6 +127,8 @@ class IMP_Ajax_Queue
      * properties:
      *   - atclimit: (integer) If set, no further attachments are allowed.
      *   - cacheid: (string) Current cache ID of the compose message.
+     *   - hmac: (string) HMAC string used to validate draft in case of
+     *           session timeout.
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
@@ -150,8 +152,8 @@ class IMP_Ajax_Queue
      *
      * For mailbox data (key: 'mailbox'), an array with these keys:
      *   - a: (array) Mailboxes that were added (base64url encoded).
-     *   - all: (integer) TODO
-     *   - base: (string) TODO
+     *   - all: (integer) If true, all mailboxes should be shown.
+     *   - base: (string) Base mailbox (base64url encoded).
      *   - c: (array) Mailboxes that were changed (base64url encoded).
      *   - d: (array) Mailboxes that were deleted (base64url encoded).
      *   - expand: (integer) Expand subfolders on load.
