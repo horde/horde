@@ -55,7 +55,6 @@ var DimpBase = {
     // template,
     // uid,
     // view,
-    // viewaction,
     // viewport,
     // viewswitch,
 
@@ -928,34 +927,23 @@ var DimpBase = {
             break;
 
         case 'ctx_mbox_export':
-            this.viewaction = function(e2, e) {
-                HordeCore.download('', {
-                    actionID: 'download_mbox',
-                    mbox_list: Object.toJSON([ this.flist.getMbox(e).value() ]),
-                    type: e2.memo.findElement('FORM').down('[name=download_type]').getValue()
-                });
-            }.bindAsEventListener(this, e);
-
-            tmp = new Element('SELECT', { name: 'download_type' });
-            $H(DimpCore.conf.download_types).each(function(d) {
-                tmp.insert(new Element('OPTION', { value: d.key }).insert(d.value));
-            });
-            HordeDialog.display({
-                form: tmp,
-                form_id: 'dimpbase_confirm',
+            this.dialogDisplay({
+                form: $('mbox_export_redbox').down().clone(true),
+                onSuccess: function(h) {
+                    HordeCore.download('', {
+                        actionID: 'download_mbox',
+                        mbox_list: Object.toJSON([ this.flist.getMbox(e).value() ]),
+                        type: h.down('[name=download_type]').getValue()
+                    });
+                    HordeDialog.close();
+                }.bind(this),
                 text: DimpCore.text.download_mbox
             });
             break;
 
         case 'ctx_mbox_import':
-            HordeDialog.display({
-                form: new Element('DIV').insert(
-                          new Element('INPUT', { name: 'import_file', type: 'file' })
-                      ).insert(
-                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
-                      ).insert(
-                          new Element('INPUT', { name: 'import_mbox', value: this.flist.getMbox(e).value() }).hide()
-                      ),
+            this.dialogDisplay({
+                form: $('mbox_import_redbox').down().clone(true),
                 form_id: 'mbox_import',
                 form_opts: {
                     action: HordeCore.conf.URI_AJAX + 'importMailbox',
@@ -963,6 +951,21 @@ var DimpBase = {
                     enctype: 'multipart/form-data',
                     method: 'post'
                 },
+                onForm: function(h) {
+                    h.down('[name=import_mbox]').setValue(this.flist.getMbox(e).value());
+                }.bind(this),
+                onSuccess: function(h) {
+                    HordeCore.submit(h, {
+                        callback: function(r) {
+                            HordeDialog.close();
+                            if (r.action == 'importMailbox' &&
+                                r.mbox == this.view) {
+                                this.viewport.reload();
+                            }
+                        }.bind(this)
+                    });
+                    h.update(DimpCore.text.import_mbox_loading);
+                }.bind(this),
                 text: DimpCore.text.import_mbox
             });
             break;
@@ -996,7 +999,7 @@ var DimpBase = {
                 mbox: tmp.value()
             }, {
                 callback: function(r) {
-                    HordeDialog.display({
+                    this.dialogDisplay({
                         noform: true,
                         text: DimpCore.text.mboxsize.sub('%s', tmp.fullMboxDisplay()).sub('%s', r.size.escapeHTML())
                     });
@@ -1015,7 +1018,31 @@ var DimpBase = {
             break;
 
         case 'ctx_folderopts_new':
-            this._createMboxForm('', 'create', DimpCore.text.create_prompt);
+            this.dialogDisplay({
+                onForm: function(h) {
+                    if (DimpCore.conf.poll_alter) {
+                        h.down('INPUT').insert({
+                            after: $('poll_mbox_redbox').down().clone(true)
+                        });
+                    }
+                },
+                onSuccess: function(h) {
+                    var params,
+                        val = $F(h.down('INPUT'));
+
+                    if (val) {
+                        params = { mbox: val };
+                        val = h.down('INPUT[name=poll]');
+                        if (val && $F(val)) {
+                            params.create_poll = 1;
+                        }
+                        DimpCore.doAction('createMailbox', params);
+                    }
+
+                    HordeDialog.close();
+                },
+                text: DimpCore.text.create_prompt
+            });
             break;
 
         case 'ctx_folderopts_sub':
@@ -3012,13 +3039,35 @@ var DimpBase = {
                 e.memo.stop();
             } else if (elt.hasClassName('imp-sidebar-remote')) {
                 elt = this.flist.getMbox(elt);
-                HordeDialog.display({
-                    form: new Element('DIV').insert(
-                              new Element('INPUT', { name: 'remote_password', type: 'password' })
-                          ).insert(
-                              new Element('INPUT', { name: 'remote_id', value: elt.value() }).hide()
-                          ),
-                    form_id: 'remote_login',
+                this.dialogDisplay({
+                    form: $('sidebar_remote_redbox').down().clone(true),
+                    onForm: function(h) {
+                        h.down('[name=remote_id]').setValue(elt.value());
+                    },
+                    onSuccess: function(h) {
+                        DimpCore.doAction('remoteLogin', {
+                            // Base64 encode just to keep password data from
+                            // being plaintext. A trivial obfuscation, but
+                            // will prevent passwords from leaking in the
+                            // event of some sort of data dump.
+                            password: Base64.encode($F(h.down('INPUT[name="remote_password"]'))),
+                            password_base64: true,
+                            remoteid: $F(h.down('INPUT[name="remote_id"]')),
+                            unsub: ~~(!!this.showunsub)
+                        }, {
+                            callback: function(r) {
+                                if (r.success) {
+                                    this.flist.getMbox($F(h.down('INPUT[name="remote_id"]'))).element()
+                                        .removeClassName('imp-sidebar-remote')
+                                        .addClassName('imp-sidebar-container');
+                                    HordeDialog.close();
+                                } else {
+                                    h.enable().down('INPUT[name="remote_password"]').clear().focus();
+                                }
+                            }.bind(this)
+                        });
+                        h.disable();
+                    }.bind(this),
                     text: DimpCore.text.remote_password.sub('%s', elt.fullMboxDisplay())
                 });
                 e.memo.stop();
@@ -3039,69 +3088,7 @@ var DimpBase = {
 
     dialogClickHandler: function(e)
     {
-        var elt = e.element();
-
-        switch (elt.identify()) {
-        case 'dimpbase_confirm':
-            this.viewaction(e);
-            HordeDialog.close();
-            break;
-
-        case 'flag_new':
-            DimpCore.doAction('createFlag', this.addViewportParams().merge({
-                flagcolor: $F(elt.down('INPUT[name="flagcolor"]')),
-                flagname: $F(elt.down('INPUT[name="flagname"]'))
-            }), {
-                callback: function(r) {
-                    if (r.success) {
-                        HordeDialog.close();
-                    } else {
-                        this.displayFlagNew();
-                    }
-                }.bind(this),
-                uids: this.viewport.getSelected()
-            });
-            elt.update(DimpCore.text.newflag_wait);
-            break;
-
-        case 'mbox_import':
-            HordeCore.submit(elt, {
-                callback: function(r) {
-                    HordeDialog.close();
-                    if (r.action == 'importMailbox' &&
-                        r.mbox == this.view) {
-                        this.viewport.reload();
-                    }
-                }.bind(this)
-            });
-            elt.update(DimpCore.text.import_mbox_loading);
-            break;
-
-        case 'remote_login':
-            DimpCore.doAction('remoteLogin', {
-                // Base64 encode just to keep password data from being
-                // plaintext. A trivial obfuscation, but will prevent
-                // passwords from leaking in the event of some sort of data
-                // dump.
-                password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
-                password_base64: true,
-                remoteid: $F(elt.down('INPUT[name="remote_id"]')),
-                unsub: ~~(!!this.showunsub)
-            }, {
-                callback: function(r) {
-                    if (r.success) {
-                        this.flist.getMbox($F(elt.down('INPUT[name="remote_id"]'))).element()
-                            .removeClassName('imp-sidebar-remote')
-                            .addClassName('imp-sidebar-container');
-                        HordeDialog.close();
-                    } else {
-                        elt.enable().down('INPUT[name="remote_password"]').clear().focus();
-                    }
-                }.bind(this)
-            });
-            elt.disable();
-            break;
-        }
+        e.element().retrieve('onSuccess')();
     },
 
     dialogCloseHandler: function()
@@ -3135,7 +3122,31 @@ var DimpBase = {
         switch (type) {
         case 'create':
             if (r.result) {
-                this._createMboxForm(elt, 'createsub', DimpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay()));
+                this.dialogDisplay({
+                    onForm: function(h) {
+                        if (DimpCore.conf.poll_alter) {
+                            h.down('INPUT').insert({
+                                after: $('poll_mbox_redbox').down().clone(true)
+                            });
+                        }
+                    },
+                    onSuccess: function() {
+                        var params,
+                            val = $F(h.down('INPUT'));
+
+                        if (val) {
+                            params = { mbox: val, parent: elt.value() };
+                            val = h.down('INPUT[name=poll]');
+                            if (val && $F(val)) {
+                                params.create_poll = 1;
+                            }
+                            DimpCore.doAction('createMailbox', params);
+                        }
+
+                        HordeDialog.close();
+                    },
+                    text: DimpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay())
+                });
             } else {
                 RedBox.close();
             }
@@ -3143,20 +3154,16 @@ var DimpBase = {
 
         case 'delete':
             if (r.result) {
-                this.viewaction = function(e) {
-                    DimpCore.doAction('deleteMailbox', {
-                        container: ~~elt.isContainer(),
-                        mbox: elt.value(),
-                        subfolders: e.element().down('[name=delete_subfolders]').getValue()
-                    });
-                };
-                HordeDialog.display({
-                    form: new Element('DIV').insert(
-                        new Element('INPUT', { name: 'delete_subfolders', type: 'checkbox' })
-                    ).insert(
-                        DimpCore.text.delete_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
-                    ),
-                    form_id: 'dimpbase_confirm',
+                this.dialogDisplay({
+                    form: $('delete_mbox_redbox').down().clone(true),
+                    onSuccess: function(h) {
+                        DimpCore.doAction('deleteMailbox', {
+                            container: ~~elt.isContainer(),
+                            mbox: elt.value(),
+                            subfolders: h.down('[name=delete_subfolders]').getValue()
+                        });
+                        HordeDialog.close();
+                    },
                     text: elt.isContainer() ? null : DimpCore.text.delete_mbox.sub('%s', elt.fullMboxDisplay())
                 });
             } else {
@@ -3166,14 +3173,12 @@ var DimpBase = {
 
         case 'empty':
             if (r.result) {
-                this.viewaction = function() {
-                    DimpCore.doAction('emptyMailbox', {
-                        mbox: elt.value()
-                    });
-                };
-                HordeDialog.display({
-                    form_id: 'dimpbase_confirm',
+                this.dialogDisplay({
                     noinput: true,
+                    onSuccess: function() {
+                        DimpCore.doAction('emptyMailbox', { mbox: elt.value() });
+                        HordeDialog.close();
+                    },
                     text: DimpCore.text.empty_mbox.sub('%s', elt.fullMboxDisplay()).sub('%d', r.result)
                 });
             } else {
@@ -3183,120 +3188,61 @@ var DimpBase = {
 
         case 'rename':
             if (r.result) {
-                this._createMboxForm(elt, 'rename', DimpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay()), elt.label().unescapeHTML());
+                this.dialogDisplay({
+                    input_val: elt.label().unescapeHTML(),
+                    onSuccess: function(h) {
+                        var val = $F(h.down('INPUT'));
+                        if (val && elt.label() != val) {
+                            DimpCore.doAction('renameMailbox', {
+                                old_name: elt.value(),
+                                new_name: val
+                            });
+                        }
+                        HordeDialog.close();
+                    },
+                    text: DimpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay())
+                });
             } else {
                 RedBox.close();
             }
             break;
 
         case 'subscribe':
-            this.viewaction = function(e) {
-                DimpCore.doAction('subscribe', {
-                    mbox: elt.value(),
-                    sub: 1,
-                    subfolders: e.element().down('[name=subscribe_subfolders]').getValue()
-                });
-            };
-
-            HordeDialog.display({
-                form: new Element('DIV').insert(
-                    new Element('INPUT', { name: 'subscribe_subfolders', type: 'checkbox' })
-                ).insert(
-                    DimpCore.text.subscribe_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
-                ),
-                form_id: 'dimpbase_confirm',
-                text: elt.isContainer() ? null : DimpCore.text.subscribe_mbox.sub('%s', elt.fullMboxDisplay())
-            });
-            break;
-
         case 'unsubscribe':
-            this.viewaction = function(e) {
-                DimpCore.doAction('subscribe', {
-                    mbox: elt.value(),
-                    sub: 0,
-                    subfolders: e.element().down('[name=unsubscribe_subfolders]').getValue()
-                });
-            };
-
-            HordeDialog.display({
-                form: new Element('DIV').insert(
-                    new Element('INPUT', { name: 'unsubscribe_subfolders', type: 'checkbox' })
-                ).insert(
-                    DimpCore.text.unsubscribe_mbox_subfolders.sub('%s', elt.fullMboxDisplay())
-                ),
-                form_id: 'dimpbase_confirm',
-                text: elt.isContainer() ? null : DimpCore.text.unsubscribe_mbox.sub('%s', elt.fullMboxDisplay())
+            this.dialogDisplay({
+                form: $(type + '_mbox_redbox').down().clone(true),
+                onForm: function(h) {
+                    h.down('DIV').insert(DimpCore.text[type + '_mbox_subfolders'].sub('%s', elt.fullMboxDisplay()));
+                },
+                onSuccess: function(h) {
+                    DimpCore.doAction(type, {
+                        mbox: elt.value(),
+                        sub: ~~(type == 'subscribe'),
+                        subfolders: h.down('[name=' + type + '_subfolders]').getValue()
+                    });
+                    HordeDialog.close();
+                },
+                text: elt.isContainer() ? null : DimpCore.text[type + '_mbox'].sub('%s', elt.fullMboxDisplay())
             });
             break;
         }
     },
 
-    /* Handle create mailbox actions. */
-    _createMboxForm: function(mbox, mode, text, val)
+    dialogDisplay: function(opts)
     {
-        var opts = {
-            form_id: 'dimpbase_confirm',
-            text: text
-        };
+        var old = RedBox.showHtml;
+        opts = Object.extend({
+            onForm: Prototype.emptyFunction,
+            onSuccess: Prototype.emptyFunction
+        }, opts);
 
-        if (DimpCore.conf.poll_alter) {
-            opts.form = new Element('DIV').insert(
-                new Element('INPUT', { id: 'dialog_input', name: 'dialog_input', type: 'text', size: 15 }).setValue(val)
-            ).insert(
-                new Element('DIV').insert(
-                    new Element('INPUT', { name: 'poll', type: 'checkbox' })
-                ).insert(
-                    DimpCore.text.create_poll
-                )
-            );
-        } else {
-            opts.input_val = val;
-        }
-
-        this.viewaction = this._mboxAction.bindAsEventListener(this, mbox, mode);
-
+        RedBox.showHtml = RedBox.showHtml.wrap(function(orig, h) {
+            opts.onForm(h);
+            h.store('onSuccess', opts.onSuccess.curry(h));
+            orig(h);
+        });
         HordeDialog.display(opts);
-    },
-
-    // mbox: (Object:IMP_Flist_Mbox)
-    _mboxAction: function(e, mbox, mode)
-    {
-        var action, params, val,
-            form = e.findElement('form');
-        val = $F(form.down('input'));
-
-        if (val) {
-            switch (mode) {
-            case 'rename':
-                if (mbox.label() != val) {
-                    action = 'renameMailbox';
-                    params = {
-                        old_name: mbox.value(),
-                        new_name: val
-                    };
-                }
-                break;
-
-            case 'create':
-            case 'createsub':
-                action = 'createMailbox';
-                params = { mbox: val };
-
-                val = form.down('INPUT[name=poll]');
-                if (val && $F(val)) {
-                    params.create_poll = 1;
-                }
-
-                if (mode == 'createsub') {
-                    params.parent = mbox.value();
-                }
-                break;
-            }
-
-            if (action) {
-                DimpCore.doAction(action, params);
-            }
-        }
+        RedBox.showHtml = old;
     },
 
     /* Mailbox action callback functions. */
@@ -3404,9 +3350,24 @@ var DimpBase = {
 
     displayFlagNew: function()
     {
-        HordeDialog.display({
-            form: $('flagnewContainer').down().clone(true),
-            form_id: 'flag_new',
+        this.dialogDisplay({
+            form: $('flagnew_redbox').down().clone(true),
+            onSuccess: function(h) {
+                DimpCore.doAction('createFlag', this.addViewportParams().merge({
+                    flagcolor: $F(h.down('INPUT[name="flagcolor"]')),
+                    flagname: $F(h.down('INPUT[name="flagname"]'))
+                }), {
+                    callback: function(r) {
+                        if (r.success) {
+                            HordeDialog.close();
+                        } else {
+                            this.displayFlagNew();
+                        }
+                    }.bind(this),
+                    uids: this.viewport.getSelected()
+                });
+                h.update(DimpCore.text.newflag_wait);
+            }.bind(this),
             text: DimpCore.text.newflag_name
         });
     },

@@ -809,6 +809,10 @@ span.attachmentImg {
 #RB_window {
     max-width: 50%;
 }
+#RB_window input[type="text"], #RB_window select {
+    display: block;
+    margin: 2px 0;
+}
 .RB_Form {
     width: 20em;
     padding: 6px;
@@ -1075,12 +1079,6 @@ span.readonlyImg {
 }
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
-}
-
-/* Dialog */
-#dimpbase_confirm select {
-    display: block;
-    margin: 2px 0;
 }
 
 @media print {

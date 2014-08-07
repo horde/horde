@@ -156,7 +156,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _addComposeVars($base)
     {
-        global $browser, $conf, $injector, $prefs, $registry;
+        global $browser, $conf, $injector, $prefs, $registry, $session;
 
         /* Context menu definitions. */
         $base->js_context['ctx_other'] = new stdClass;
@@ -192,6 +192,7 @@ class IMP_Dynamic_Compose_Common
         $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
+            'MAX_FILE_SIZE' => intval($session->get('imp', 'file_upload')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
             'rte_avail' => intval($browser->hasFeature('rte')),
             'spellcheck' => intval($prefs->getValue('compose_spellcheck')),

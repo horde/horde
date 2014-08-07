@@ -26,7 +26,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $injector, $page_output, $registry;
+        global $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -111,6 +111,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->view->sidebar = $sidebar->render();
 
+        $this->view->max_fsize = intval($session->get('imp', 'file_upload'));
+
         $page_output->noDnsPrefetch();
 
         $this->_pages[] = 'mailbox';
@@ -155,10 +157,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
             // Other variables
             'acl' => $acl,
-            'download_types' => array(
-                'mbox' => _("Download into a MBOX file"),
-                'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
-            ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
             'from_link' => intval($prefs->getValue('from_link') == 0),
             'fsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_FILTERSEARCH),
@@ -520,7 +518,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'baselevel' => _("base level of the folder tree"),
             'check' => _("Checking..."),
             'copyto' => _("Copy %s to %s"),
-            'create_poll' => _("Check mailbox for new mail?"),
             'create_prompt' => _("Create mailbox:"),
             'createsub_prompt' => _("Create subfolder of %s:"),
             'delete_mbox' => _("Permanently delete %s?"),

@@ -220,7 +220,7 @@
 </div>
 
 <?php if ($this->picker_img): ?>
-<div id="flagnewContainer" style="display:none">
+<div id="flagnew_redbox" style="display:none">
  <div>
   <input name="flagname" />
   <input name="flagcolor" size="5" />
@@ -228,3 +228,50 @@
  </div>
 </div>
 <?php endif; ?>
+
+<div id="mbox_export_redbox" style="display:none">
+ <select name="download_type">
+  <option value="mbox"><?php echo _("Download into a MBOX file") ?></option>
+  <option value="mboxzip"><?php echo _("Download into a MBOX file (ZIP compressed)") ?></option>
+ </select>
+</div>
+
+<div id="mbox_import_redbox" style="display:none">
+ <div>
+  <input name="import_file" type="file"></input>
+  <input name="MAX_FILE_SIZE" type="hidden"><?php echo $this->max_size ?></input>
+  <input name="import_mbox" type="hidden"></input>
+ </div>
+</div>
+
+<div id="sidebar_remote_redbox" style="display:none">
+ <div>
+  <input name="remote_password" type="password"></input>
+  <input name="remote_id" type="hidden"></input>
+ </div>
+</div>
+
+<div id="delete_mbox_redbox" style="display:none">
+ <div>
+  <input name="delete_subfolders" type="checkbox"></input>
+ </div>
+</div>
+
+<div id="subscribe_mbox_redbox" style="display:none">
+ <div>
+  <input name="subscribe_subfolders" type="checkbox"></input>
+ </div>
+</div>
+
+<div id="unsubscribe_mbox_redbox" style="display:none">
+ <div>
+  <input name="unsubscribe_subfolders" type="checkbox"></input>
+ </div>
+</div>
+
+<div id="poll_mbox_redbox" style="display:none">
+ <div>
+  <input name="poll" type="checkbox"></input>
+  <?php echo _("Check mailbox for new mail?") ?>
+ </div>
+</div>
