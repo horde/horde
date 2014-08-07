@@ -781,6 +781,17 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
+     * Return all message flags.
+     *
+     * @return array  An array of message flags.
+     * @since 2.17.0
+     */
+    public function getFlags()
+    {
+        return $this->_flags;
+    }
+
+    /**
      * Return this message's content map
      *
      * @return array  The content map, with mime ids as keys and content type
