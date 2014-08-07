@@ -1093,14 +1093,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
         }
 
-        // For CLASS_EMAIL, all changes are a change in flags or softdelete.
+        // For CLASS_EMAIL, all changes are a change in flags, categories or
+        // softdelete.
         if ($folder->collectionClass() == Horde_ActiveSync::CLASS_EMAIL) {
             $flags = $folder->flags();
+            $categories = $folder->categories();
             foreach ($changes['modify'] as $uid) {
                 $results[] = array(
                     'id' => $uid,
                     'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS,
-                    'flags' => $flags[$uid]
+                    'flags' => $flags[$uid],
+                    'categories' => $categories[$uid]
                 );
             }
         } else {
@@ -1608,6 +1611,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *        @since 2.5.0
      *
      * @return array|boolean    A stat array if successful, otherwise false.
+     *   Contains the following keys:
+     *   - id: (mixed)  The UID of the message/item.
+     *   - mod: (mixed) A value to indicate the last modification.
+     *   - flags: (array) an empty array if no flag changes.
+     *   - categories: (array|boolean) false if no changes.
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
@@ -1737,7 +1745,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $stat = array(
                     'id' => $id,
                     'mod' => 0,
-                    'flags' => array()
+                    'flags' => array(),
+                    'categories' => false
                 );
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
@@ -1748,6 +1757,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     }
                     $this->_imap->setMessageFlag($folderid, $id, $message->flag);
                     $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
+                }
+                if ($message->propertyExists('categories')) {
+                    //$this->_connector->ensureMessageFlags($message->categories);
+                    $this->_imap->categoriesToFlags($folderid, $message->categories, $id);
+                    $stat['categories'] = $message->categories;
                 }
             } else {
                 $this->_endBuffer();

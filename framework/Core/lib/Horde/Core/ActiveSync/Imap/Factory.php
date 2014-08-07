@@ -125,4 +125,22 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         return $this->_specialMailboxlist;
     }
 
+    /**
+     * Return a list of user-defined flags.
+     *
+     * @return array  An array of flags.
+     */
+    public function getMsgFlags()
+    {
+        global $registry;
+
+        $msgFlags = array();
+        $flags = unserialize($registry->horde->getPreference($registry->hasInterface('mail'), 'msgflags'));
+        foreach ($flags as $flag) {
+            $msgFlags[] = $flag->imapflag;
+        }
+
+        return $msgFlags;
+    }
+
 }
