@@ -631,6 +631,11 @@ abstract class Horde_ActiveSync_State_Base
     */
     static protected function _getCutOffDate($restrict)
     {
+        // @todo Should just pass the filtertype to the driver instead
+        // of parsing it here, let the driver figure out what to do with it.
+        if ($restrict == Horde_ActiveSync::FILTERTYPE_INCOMPLETETASKS) {
+            return $restrict;
+        }
         switch($restrict) {
         case Horde_ActiveSync::FILTERTYPE_1DAY:
             $back = 86400;
