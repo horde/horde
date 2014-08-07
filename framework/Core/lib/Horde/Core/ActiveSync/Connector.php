@@ -901,6 +901,18 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Add any user-defined flags to IMP's preferences.
+     *
+     * @param  array  $flags An array of flags to add.
+     */
+    public function mail_ensureMessageFlags(array $flags)
+    {
+        if ($this->_registry->hasMethod('addFlags', $this->_registry->hasInterface('mail'))) {
+            $this->_registry->mail->addFlags($flags);
+        }
+    }
+
+    /**
      * Get all server changes for the specified collection
      *
      * @param string $collection  The collection type (a Horde interface name -

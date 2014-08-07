@@ -1759,7 +1759,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
                 }
                 if ($message->propertyExists('categories')) {
-                    //$this->_connector->ensureMessageFlags($message->categories);
+                    $this->_connector->mail_ensureMessageFlags($message->categories);
                     $this->_imap->categoriesToFlags($folderid, $message->categories, $id);
                     $stat['categories'] = $message->categories;
                 }
