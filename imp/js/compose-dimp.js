@@ -1324,6 +1324,7 @@ var IMP_Compose_Attachlist = Class.create({
     // ajax_atc_id,
     // curr_upload,
     // num_limit,
+    // size_limit
 
     initialize: function(compose)
     {
@@ -1521,8 +1522,8 @@ var IMP_Compose_Attachlist = Class.create({
          * individually, since it is a UX nightmare if some files are attached
          * and others aren't. */
         if ($A(data).detect(function(d) {
-            return (~~d.size >= DimpCore.conf.max_atc_size);
-        })) {
+            return (~~d.size >= this.size_limit);
+        }, this)) {
             HordeCore.notify(DimpCore.text.max_atc_size, 'horde.error');
             return;
         }
@@ -1600,6 +1601,7 @@ var IMP_Compose_Attachlist = Class.create({
 
         if (t['imp:compose']) {
             this.num_limit = t['imp:compose'].atclimit;
+            this.size_limit = t['imp:compose'].atcmax;
         }
 
         if (t['imp:compose-atc']) {

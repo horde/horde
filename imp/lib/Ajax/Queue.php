@@ -127,6 +127,7 @@ class IMP_Ajax_Queue
      * properties:
      *   - atclimit: (integer) If set, the number of further attachments
      *               that are allowed.
+     *   - atcmax: (integer) The maximum size (in bytes) of an attachment.
      *   - cacheid: (string) Current cache ID of the compose message.
      *   - hmac: (string) HMAC string used to validate draft in case of
      *           session timeout.
@@ -202,6 +203,7 @@ class IMP_Ajax_Queue
             if (($addl = $this->_compose->additionalAttachmentsAllowed()) !== true) {
                 $compose->atclimit = $addl;
             }
+            $compose->atcmax = $this->_compose->maxAttachmentSize();
             $compose->cacheid = $this->_compose->getCacheId();
             $compose->hmac = $this->_compose->getHmac();
 
