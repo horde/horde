@@ -29,7 +29,7 @@
    <configboolean name="use_vfs" desc="Should the Horde VFS system be used for
    storing uploaded attachments?">false</configboolean>
    <configswitch name="link_attachments" desc="Should attachments be sent as
-   web-accessible links?">true
+   web-accessible links?">false
     <case name="true" desc="Yes">
      <configboolean name="link_attachments_notify" desc="Send an e-mail
      notification to the sender when the first person attempts to download the
