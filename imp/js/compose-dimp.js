@@ -1562,7 +1562,7 @@ var IMP_Compose_Attachlist = Class.create({
                     onCreate: function(e) {
                         if (e.transport && e.transport.upload) {
                             var u = e.transport.upload;
-                            li = this.uploadAttachWait(d, true),
+                            li = this.uploadAttachWait(d, true);
 
                             u.onprogress = function(e2) {
                                 if (e2.lengthComputable) {
