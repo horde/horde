@@ -1,27 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Kronolith package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Kronolith Korean translation.
+# Copyright 2002 J.I Kim.
+# J.I Kim <aporie@netian.com>, 2002.
+# Deokgon Kim <dgkim@dgkim.net>, 2014.
+# Josh Kim <joshkkim@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Kronolith\n"
+"Project-Id-Version: Kronolith 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2014-07-12 00:34+0900\n"
+"POT-Creation-Date: 2014-03-17 16:47+0900\n"
+"PO-Revision-Date: 2014-03-17 16:00+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
-"Language-Team: Josh Kim <joshkkim@gmail.com>\n"
-"Language: ko\n"
+"Language-Team: Korean <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: feed/index.php:124
 msgid " to "
-msgstr ""
+msgstr "종료일:"
 
 #: templates/edit/edit.inc:283
 #, php-format
@@ -74,12 +71,12 @@ msgstr[0] "%d주"
 #: templates/chunks/permissions.inc:20
 #, php-format
 msgid "%s %sShare with the %s %sgroup%s and %sallow them to%s %s"
-msgstr ""
+msgstr "%s %s그룹%s%s과 공유%s 및 %s다음을 허용:%s %s"
 
 #: templates/chunks/permissions.inc:38
 #, php-format
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
-msgstr ""
+msgstr "%s %s사용자와 공유:%s %s 및 %s다음을 허용:%s %s"
 
 #: lib/Api.php:820 lib/Api.php:831
 #, php-format
@@ -97,11 +94,13 @@ msgid ""
 "%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly "
 "%s"
 msgstr ""
+"%s 반복하지 않음 %s 또는 다음 주기로 반복: %s 매일, %s 매주, %s 매월 %s 또는 "
+"%s 매년 %s"
 
 #: templates/dynamic/edit.inc:123
 #, php-format
 msgid "%s Don't set %s or %s set %s before the event %s"
-msgstr ""
+msgstr "%s 미설정 %s 또는 %s 일정 시작 %s 전에 설정 %s"
 
 #: templates/dynamic/edit.inc:90
 #, php-format
@@ -159,6 +158,8 @@ msgid ""
 "%s wants to share the calendar \"%s\" with you to grant you access to all "
 "events in this calendar."
 msgstr ""
+"%s이(가) \"%s\"을(를) 공유하여 이 달력의 모든 일정에 접근을 허용하길 원합니"
+"다."
 
 #: templates/share/notification.html.php:15
 #, php-format
@@ -166,6 +167,8 @@ msgid ""
 "%s wants to share the calendar %s with you to grant you access to all events "
 "in this calendar."
 msgstr ""
+"%s이(가) 달력 %s을(를) 공유하여 이 달력의 모든 일정에 접근을 허용하길 원합니"
+"다."
 
 #: lib/Kronolith.php:1933
 #, php-format
@@ -175,19 +178,19 @@ msgstr ""
 #: templates/chunks/permissions.inc:51
 #, php-format
 msgid "%sAdvanced sharing.%s You can also return to the %sstandard settings%s."
-msgstr ""
+msgstr "%s고급 공유.%s %s기본 설정%s으로 돌아갈 수도 있습니다."
 
 #: templates/chunks/permissions.inc:10
 #, php-format
 msgid ""
 "%sShare with everyone%s (public) and %s %smake it searchable%s by everyone "
 "too"
-msgstr ""
+msgstr "%s모든 사람과 공유%s(공개)하고 %s 모든 사람 또한 %s검색 가능%s"
 
 #: templates/chunks/permissions.inc:2
 #, php-format
 msgid "%sStandard sharing.%s You can also set %sadvanced sharing%s options."
-msgstr ""
+msgstr "%s일반 공유.%s %s고급 공유%s 옵션을 선택할 수도 있습니다."
 
 #: templates/chunks/calendar.php:151
 #, php-format
@@ -321,7 +324,7 @@ msgstr "고급 검색"
 #: templates/smartmobile/month.html.php:9
 #: templates/smartmobile/summary.html.php:9
 msgid "Agenda"
-msgstr "일정"
+msgstr "일정 목록"
 
 #: templates/edit/edit.inc:179 templates/view/view.inc:49
 msgid "Alarm"
@@ -382,7 +385,7 @@ msgstr "알림:"
 #: templates/dynamic/edit.inc:136 templates/dynamic/task.inc:91
 #, php-format
 msgid "Alert me %s as default %s or %s using:"
-msgstr ""
+msgstr "알림방식: %s 기본 설정 %s 또는 %s 다음을 사용:"
 
 #: templates/delete/delete.inc:27 templates/dynamic/agenda.inc:6
 #: templates/dynamic/tasks.inc:5 templates/edit/edit.inc:45
@@ -525,7 +528,7 @@ msgstr "자동으로"
 
 #: templates/dynamic/edit.inc:218 templates/dynamic/edit.inc:243
 msgid "Availability"
-msgstr ""
+msgstr "가능 여부"
 
 #: templates/search/search.inc:10
 msgid "Basic Search"
@@ -674,10 +677,11 @@ msgstr ""
 #: config/prefs.php:391
 msgid "Choose if you want to receive daily agenda email reminders:"
 msgstr ""
+"일정목록에 대해 매일마다 이메일로 미리 알림을 받길 원하는 경우 선택하세요:"
 
 #: config/prefs.php:410
 msgid "Choose if you want to receive reminders for events with alarms:"
-msgstr "알림이 있는 일정에 대한 미리 알림을 받고 싶으면 선택하세요:"
+msgstr "알림이 있는 일정에 대한 미리 알림을 받길 원하는 경우 선택하세요:"
 
 #: config/prefs.php:483
 msgid "Choose the calendars to include in the above Free/Busy URL:"
@@ -755,7 +759,7 @@ msgstr "쉼표로 구분된 값"
 
 #: templates/dynamic/tasks.inc:6
 msgid "Completed"
-msgstr "완료함"
+msgstr "완료"
 
 #: config/prefs.php:527
 msgid "Configured Horde Default"
@@ -1175,7 +1179,7 @@ msgstr "시간 구획을 저장하는 동안 오류가 발생했습니다: %s"
 
 #: templates/smartmobile/javascript_defs.php:134
 msgid "Error when communicating with the server."
-msgstr ""
+msgstr "서버와 통신하는 도중 오류가 발생했습니다."
 
 #: templates/smartmobile/event.html.php:2
 msgid "Event"
@@ -1309,7 +1313,7 @@ msgstr "금요일"
 
 #: templates/dynamic/edit.inc:35
 msgid "From"
-msgstr "시작"
+msgstr "시작일:"
 
 #: lib/Event.php:2226 lib/Event.php:2257
 #, php-format
@@ -1324,7 +1328,7 @@ msgstr "%s에 시작 %s에 종료"
 #: templates/delete/delete.inc:26 templates/dynamic/agenda.inc:8
 #: templates/dynamic/tasks.inc:8 templates/edit/edit.inc:44
 msgid "Future"
-msgstr ""
+msgstr "향후"
 
 #: templates/search/search_advanced.inc:18
 msgid "General"
@@ -1380,7 +1384,7 @@ msgstr "시간"
 
 #: config/prefs.php:182
 msgid "How long should the time slots on the day and week views be?"
-msgstr ""
+msgstr "일일 및 주간 화면의 시간대를 얼마나 길게 설정할까요?"
 
 #: config/prefs.php:430
 msgid "How many days of Free/Busy information should be generated?"
@@ -1391,6 +1395,8 @@ msgid ""
 "How many events should be displayed per day in the month view? Set to 0 to "
 "always show all events."
 msgstr ""
+"월간 화면에서 매일 몇 개의 일정을 표시할까요? 모든 일정을 항상 표시하려면 0으"
+"로 설정하세요."
 
 #: templates/dynamic/index.inc:7
 msgid "I.e. Dinner with John tomorrow 8pm"
@@ -1686,7 +1692,7 @@ msgstr "다음 주"
 
 #: templates/dynamic/sidebar.html.php:8
 msgid "Next month"
-msgstr "다음 달"
+msgstr "다음 월"
 
 #: templates/search/search.inc:56
 msgid "Next week"
@@ -1844,7 +1850,7 @@ msgstr ""
 
 #: lib/Kronolith.php:898
 msgid "Optional"
-msgstr "옵션"
+msgstr "선택적"
 
 #: lib/FreeBusy/View.php:158
 msgid "Optional Attendees"
@@ -1955,19 +1961,19 @@ msgstr "이전"
 
 #: lib/FreeBusy/View/Day.php:25
 msgid "Previous Day"
-msgstr "전일"
+msgstr "이전 일"
 
 #: lib/FreeBusy/View/Month.php:38
 msgid "Previous Month"
-msgstr "전월"
+msgstr "이전 월"
 
 #: lib/FreeBusy/View/Week.php:39
 msgid "Previous Week"
-msgstr "전주"
+msgstr "이전 주"
 
 #: templates/dynamic/sidebar.html.php:6
 msgid "Previous month"
-msgstr "전월"
+msgstr "이전 월"
 
 #: templates/dynamic/edit.inc:260 templates/dynamic/task.inc:158
 msgid "Previously used tags"
@@ -2070,7 +2076,7 @@ msgstr "반복 종료일"
 
 #: lib/Event.php:3343
 msgid "Recurrence End Day"
-msgstr "반복 종료일"
+msgstr "반복 종료 일"
 
 #: lib/Event.php:3329
 msgid "Recurrence End Month"
@@ -2090,7 +2096,7 @@ msgstr "반복 유형"
 
 #: lib/Kronolith.php:814 templates/smartmobile/javascript_defs.php:157
 msgid "Recurs daily"
-msgstr "매일 "
+msgstr "매일 반ㅂ"
 
 #: templates/smartmobile/javascript_defs.php:158
 #, php-format
@@ -2100,22 +2106,22 @@ msgstr "매 %s일 마다 반복"
 #: templates/smartmobile/javascript_defs.php:164
 #, php-format
 msgid "Recurs every %s months on the %s"
-msgstr ""
+msgstr "매 %s 번째 월 %s마다 반복"
 
 #: templates/smartmobile/javascript_defs.php:167
 #, php-format
 msgid "Recurs every %s months on the same weekday"
-msgstr ""
+msgstr "매 %s 번째 월 같은 요일에 반복"
 
 #: templates/smartmobile/javascript_defs.php:161
 #, php-format
 msgid "Recurs every %s weeks on %s"
-msgstr ""
+msgstr "매 %s 번째 주 %s에 반복"
 
 #: templates/smartmobile/javascript_defs.php:170
 #, php-format
 msgid "Recurs every %s years on %s"
-msgstr ""
+msgstr "매 %s년 %s마다 반복"
 
 #: templates/smartmobile/javascript_defs.php:173
 #, php-format
@@ -2142,12 +2148,12 @@ msgstr "매월 반복"
 #: templates/smartmobile/javascript_defs.php:163
 #, php-format
 msgid "Recurs on the %s of every month"
-msgstr ""
+msgstr "매월 %s에 반복"
 
 #: templates/smartmobile/javascript_defs.php:169
 #, php-format
 msgid "Recurs once a year, on %s"
-msgstr ""
+msgstr "일년에 한 번, %s에 반복"
 
 #: templates/smartmobile/javascript_defs.php:172
 msgid "Recurs once a year, on the same day"
@@ -2160,7 +2166,7 @@ msgstr "매주 반복"
 #: templates/smartmobile/javascript_defs.php:160
 #, php-format
 msgid "Recurs weekly on every %s"
-msgstr ""
+msgstr "매주 매 %s에 반복"
 
 #: lib/Kronolith.php:826
 msgid "Recurs yearly"
@@ -2198,7 +2204,7 @@ msgstr "반복"
 #: templates/dynamic/edit.inc:153 templates/dynamic/task.inc:108
 #, php-format
 msgid "Repeat %s every day %s or %s every %s days %s"
-msgstr ""
+msgstr "%s 매일 %s 반복 또는 %s매 %s 일 %s마다 반복"
 
 #: templates/dynamic/edit.inc:172 templates/dynamic/task.inc:127
 #, php-format
@@ -2292,6 +2298,8 @@ msgid ""
 "Restrict day and week views to these time slots, even if there <strong>are</"
 "strong> earlier or later events?"
 msgstr ""
+"이전 또는 이후에 일정이 <strong>존재</strong>할 경우에도 일일 및 주간 화면을 "
+"이 시간 범위로 제한할까요?"
 
 #: lib/Application.php:145
 msgid "Return to calendars"
@@ -2508,7 +2516,7 @@ msgstr "공유 과제 목록"
 
 #: templates/chunks/calendar.php:76 templates/chunks/calendar.php:200
 msgid "Sharing"
-msgstr "공유중"
+msgstr "공유"
 
 #: templates/chunks/permissions.inc:97 templates/chunks/permissions.inc:124
 #: templates/chunks/permissions.inc:152 templates/chunks/permissions.inc:205
@@ -2529,7 +2537,7 @@ msgstr "한가함/바쁨 범례를 표시할까요?"
 
 #: config/prefs.php:195
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
-msgstr ""
+msgstr "달력 화면에서 삭제, 알림 및 반복 아이콘을 표시할까요?"
 
 #: lib/Block/Monthlist.php:34 lib/Block/Prevmonthlist.php:32
 #: lib/Block/Summary.php:53
@@ -2542,11 +2550,11 @@ msgstr "공유 달력을 나란히 표시할까요?"
 
 #: config/prefs.php:85
 msgid "Show the dynamic view by default, if the browser supports it?"
-msgstr ""
+msgstr "브라우저가 지원할 경우 동적 화면을 기본으로 표시할까요?"
 
 #: config/prefs.php:119
 msgid "Show time of day between each day in week views?"
-msgstr ""
+msgstr "주간 화면에서 각 요일 사이에 시간을 표시할까요?"
 
 #: lib/Application.php:173
 msgid "Showing calendar:"
@@ -2610,7 +2618,7 @@ msgstr "상태"
 #: templates/dynamic/edit.inc:189 templates/dynamic/task.inc:144
 #, php-format
 msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
-msgstr ""
+msgstr "중단 %s 하지 않음 %s, %s 지정일: %s 또는 %s 지정 반복 횟수: %s 회 %s"
 
 #: lib/Block/Month.php:114 lib/Block/Month.php:116 lib/View/Year.php:56
 #: lib/View/Year.php:65 templates/edit/edit.inc:317
@@ -3605,7 +3613,7 @@ msgstr ""
 #: templates/dynamic/edit.inc:40 templates/dynamic/edit.inc:49
 #: templates/dynamic/task.inc:18
 msgid "at"
-msgstr ""
+msgstr "시간:"
 
 #: templates/edit/edit.inc:198
 msgid "before the event starts"
@@ -3613,7 +3621,7 @@ msgstr "일정 시작 전"
 
 #: templates/prefs/defaultalarm.html:15
 msgid "before the event starts. A value of \"0\" means no default alarms."
-msgstr ""
+msgstr "전(일정 시작 기준). \"0\" 값은 기본 알림 미설정을 의미합니다."
 
 #: lib/Event.php:2616 lib/Event/Resource/Sql.php:81
 msgid "busy"
@@ -3737,7 +3745,7 @@ msgstr "이메일 주소를 쉼표로 구분"
 
 #: templates/dynamic/edit.inc:44
 msgid "to"
-msgstr ""
+msgstr "종료일:"
 
 #: data.php:22 templates/data/import.inc:14
 msgid "vCalendar/iCalendar"
