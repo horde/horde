@@ -1492,7 +1492,7 @@ var IMP_Compose_Attachlist = Class.create({
     // data: (Element | Event object | array)
     uploadAttach: function(data, params, callback)
     {
-        var out = $H();
+        var li, out = $H();
 
         if (Object.isElement(data)) {
             if (!data.files) {
@@ -1500,11 +1500,12 @@ var IMP_Compose_Attachlist = Class.create({
                 // models won't let us access files on user's filesystem
                 // otherwise.
                 ++this.curr_upload;
+                li = this.uploadAttachWait(data);
                 HordeCore.submit('compose', {
-                    callback: function(li) {
+                    callback: function() {
                         --this.curr_upload;
                         li.remove();
-                    }.bind(this, this.uploadAttachWait(data))
+                    }.bind(this)
                 });
                 return;
             }
