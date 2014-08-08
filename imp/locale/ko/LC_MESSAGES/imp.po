@@ -1,23 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the IMP package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Korean translations for horde package
+# horde 패키지에 대한 한국어 번역문.
+# Copyright 2005-2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the horde package.
 #
+# Jinhyok Heo <novembre@ournature.org>, 2001
+# Deokgon Kim <dgkim@dgkim.net>, 2014
+# Josh Kim <joshkkim@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: IMP\n"
+"Project-Id-Version: IMP 4.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 12:12+0200\n"
-"PO-Revision-Date: 2014-07-13 19:22+0900\n"
+"POT-Creation-Date: 2014-03-17 16:46+0900\n"
+"PO-Revision-Date: 2014-04-21 16:20+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
-"Language-Team: Josh Kim <joshkkim@gmail.com>\n"
-"Language: ko\n"
+"Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:93
 msgid " and "
@@ -51,7 +51,7 @@ msgstr "%.0f %s"
 #: lib/Quota.php:50
 #, php-format
 msgid "%.0f%% of %.0f %s"
-msgstr ""
+msgstr "%.0f %s 중 %.0f%%"
 
 #: lib/Basic/Folders.php:302 lib/Basic/Folders.php:317 lib/Mbox/Size.php:51
 #, php-format
@@ -226,12 +226,12 @@ msgstr "%s이(가) \"%s\"에 출석을 요청합니다."
 #: lib/Dynamic/Mailbox.php:550
 #, php-format
 msgid "%s selected."
-msgstr "%s을(를) 선택했습니다."
+msgstr "%s를 선택했습니다."
 
 #: lib/Mime/Viewer/Itip.php:272
 #, php-format
 msgid "%s wants to notify you about changes in \"%s\"."
-msgstr ""
+msgstr "%s이(가)  \"%s\"의 변경사항에 대해 알리길 원합니다."
 
 #: lib/Message.php:449
 #, php-format
@@ -725,11 +725,11 @@ msgstr "정말로 이 메시지를 스팸으로 보고하시겠습니까?"
 
 #: lib/Dynamic/Mailbox.php:231
 msgid "Arrival Time"
-msgstr "도착시간"
+msgstr "도착 시간"
 
 #: config/prefs.php:1532
 msgid "Arrival time on server"
-msgstr "서버 도착시간"
+msgstr "서버에 도착한 시간"
 
 #: lib/Basic/Message.php:609 lib/Dynamic/Base.php:174
 msgid "As Attachment"
@@ -1506,39 +1506,39 @@ msgstr "날짜"
 #: lib/Dynamic/Mailbox.php:195 lib/Message/Ui.php:33
 #: templates/dynamic/mailbox.html.php:132
 msgid "Date"
-msgstr "일자"
+msgstr "날짜"
 
 #: lib/Dynamic/Mailbox.php:257
 msgid "Date (Arrival)"
-msgstr "일자(도착)"
+msgstr "날짜(도착)"
 
 #: lib/Dynamic/Mailbox.php:258
 msgid "Date (Message)"
-msgstr "일자(메시지)"
+msgstr "날짜(메시지)"
 
 #: lib/Search/Element/Date.php:67
 msgid "Date Equals"
-msgstr "일자가 다음과 일치함"
+msgstr "날짜가 다음과 일치함"
 
 #: lib/Basic/Search.php:493
 msgid "Date Reset"
-msgstr "일자 초기화"
+msgstr "날짜 초기화"
 
 #: lib/Basic/Search.php:494
 msgid "Date Selection"
-msgstr "일자 선택"
+msgstr "날짜 선택"
 
 #: lib/Search/Element/Date.php:75
 msgid "Date Since"
-msgstr "다음 일자부터"
+msgstr "다음 날짜부터"
 
 #: lib/Search/Element/Date.php:71
 msgid "Date Until"
-msgstr "다음 일자까지"
+msgstr "다음 날짜까지"
 
 #: config/prefs.php:1533
 msgid "Date in message headers"
-msgstr "메시지 머리글의 일자"
+msgstr "메시지 머리글의 날짜"
 
 #: templates/search/search.html.php:115
 msgid "Days"
@@ -2204,7 +2204,7 @@ msgstr "깃발 이름이 이미 존재합니다."
 
 #: lib/Flags.php:177
 msgid "Flag name must not be empty."
-msgstr "깃발 이름은 비어있으면 안됩니다."
+msgstr "깃발 이름은 비워둘 수 없습니다."
 
 #: lib/Basic/Search.php:495
 msgid "Flag:"
@@ -2212,7 +2212,7 @@ msgstr "깃발:"
 
 #: lib/Flag/Imap/Flagged.php:45
 msgid "Flagged for Followup"
-msgstr "후속조치를 위해 깃발 표시됨"
+msgstr "사후관리를 위해 깃발 표시함"
 
 #: config/prefs.php:1399
 msgid "Flags"
@@ -2975,7 +2975,7 @@ msgstr "메시지 작성"
 
 #: lib/Dynamic/Mailbox.php:232
 msgid "Message Date"
-msgstr "메시지 일자"
+msgstr "메시지 날짜"
 
 #: templates/dynamic/mailbox.html.php:165
 msgid "Message Log"
@@ -3137,7 +3137,7 @@ msgstr "이름: %s"
 
 #: lib/Basic/Search.php:498
 msgid "Need at least one date in the date range search."
-msgstr "일자 범위 기준으로 검색 시 최소 1개의 일자가 필요합니다."
+msgstr "날짜 범위 기준으로 검색 시 최소 1개의 일자가 필요합니다."
 
 #: lib/Compose.php:739
 msgid "Need at least one message recipient."
@@ -3410,7 +3410,7 @@ msgstr "다음 보다 오래됨"
 #: lib/Search/Element/Daterange.php:113
 #, php-format
 msgid "On '%s'"
-msgstr "'%s' 일자와 일치함"
+msgstr "'%s' 날짜와 일치함"
 
 #: lib/Block/Summary.php:52
 msgid "Only display mailboxes with unread messages in them?"
@@ -3794,15 +3794,15 @@ msgstr "메시지 비우기"
 
 #: config/prefs.php:1338
 msgid "Purge messages in Spam mailbox older than this amount of days."
-msgstr "스팸 편지함에서 다음 일자보다 오래된 메시지를 비웁니다."
+msgstr "스팸 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:1240
 msgid "Purge messages in Trash mailbox older than this amount of days."
-msgstr "지운 편지함에서 다음 일자보다 오래된 메시지를 비웁니다."
+msgstr "지운 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:876
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
-msgstr "보낸 편지함에서 다음 일자보다 오래된 메시지를 비웁니다."
+msgstr "보낸 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:866
 msgid "Purge sent mail how often:"
@@ -4696,7 +4696,7 @@ msgstr "정렬"
 
 #: lib/Basic/Mailbox.php:744
 msgid "Sort by Date"
-msgstr "일자 기준으로 정렬"
+msgstr "날짜 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:729
 msgid "Sort by From Address"
@@ -5542,7 +5542,7 @@ msgstr "알 수 없음"
 
 #: lib/Mailbox/Ui.php:133 lib/Mailbox/Ui.php:153
 msgid "Unknown Date"
-msgstr "알 수 없는 일자"
+msgstr "알 수 없는 날짜"
 
 #: lib/Mime/Viewer/Itip.php:387
 msgid "Unknown Meeting"
@@ -6301,8 +6301,7 @@ msgstr ""
 #, php-format
 msgid "and %d more mailbox"
 msgid_plural "and %d more mailboxes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "및 %d개의 추가 편지함"
 
 #: lib/Compose.php:3144
 msgid "attachment"
@@ -6332,11 +6331,11 @@ msgstr "깃발 표시된 flagged \"%s\""
 #: templates/contacts/contacts.html.php:15
 #: templates/dynamic/mailbox.html.php:89
 msgid "from"
-msgstr ""
+msgstr "보내는 사람:"
 
 #: templates/basic/folders/import.html.php:14
 msgid "into mailbox"
-msgstr ""
+msgstr "편지함으로"
 
 #: lib/Basic/Pgp.php:47 lib/Basic/Pgp.php:75 lib/Basic/Smime.php:209
 msgid "key"
@@ -6407,7 +6406,7 @@ msgstr "모두 회신"
 
 #: lib/Basic/Search.php:506
 msgid "to"
-msgstr ""
+msgstr "받는 사람:"
 
 #: lib/Search/Element/Within.php:84
 msgid "years"
