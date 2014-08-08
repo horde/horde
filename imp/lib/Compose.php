@@ -3300,10 +3300,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function sessionExpireDraft(Horde_Variables $vars)
     {
-        global $conf, $injector;
+        global $injector;
 
-        if (empty($conf['compose']['use_vfs']) ||
-            !isset($vars->composeCache) ||
+        if (!isset($vars->composeCache) ||
             !isset($vars->composeHmac) ||
             !isset($vars->user) ||
             ($this->getHmac($vars->composeCache, $vars->user) != $vars->composeHmac)) {
@@ -3331,11 +3330,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function recoverSessionExpireDraft()
     {
-        global $conf, $injector, $notification;
-
-        if (empty($conf['compose']['use_vfs'])) {
-            return;
-        }
+        global $injector, $notification;
 
         $filename = hash('sha1', $GLOBALS['registry']->getAuth());
 
