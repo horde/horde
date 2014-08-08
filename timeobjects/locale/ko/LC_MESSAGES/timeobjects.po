@@ -63,7 +63,7 @@ msgid ""
 "Sunset: %s\n"
 msgstr ""
 "일출: %s\n"
-"Sunset: %s\n"
+"일몰: %s\n"
 
 #: lib/Api.php:33
 msgid "Weather"
