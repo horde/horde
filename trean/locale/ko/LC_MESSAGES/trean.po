@@ -3,21 +3,20 @@
 # This file is distributed under the same license as the Trean package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2014-07-13 15:39+0900\n"
+"PO-Revision-Date: 2014-08-09 02:11+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
-"Language-Team: Josh Kim <joshkkim@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.6\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
 msgid "1 Line"
