@@ -58,7 +58,6 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
     {
         global $conf;
 
-
         if (($type == 'linked') ||
             (is_null($type) && !empty($conf['compose']['link_attachments']))) {
             $classname = empty($conf['compose']['link_attach_threshold'])
@@ -66,7 +65,7 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
                 : 'IMP_Compose_Attachment_Storage_AutoDetermine';
         } else {
             $classname = $this->classAtc;
-        }'IMP_Compose_Attachment_Storage_Temp';
+        }
 
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
