@@ -700,7 +700,7 @@ div.msgfullread span.messagePrintShow {
     margin-bottom: -4px;
     padding-right: 4px;
 }
-#attach_list li.attach_file {
+#attach_list li {
     padding-top: 7px;
 }
 #attach_list span.attachName, #attach_list span.attachNameNoview {
@@ -716,19 +716,27 @@ div.msgfullread span.messagePrintShow {
 }
 
 #attach_list li.attach_upload {
-    font-weight: bold;
-    overflow: hidden;
-    padding-top: 4px;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
     width: 500px;
 }
-#attach_list li.attach_upload_progress {
+#attach_list span.attach_upload_text {
+    display: inline-block;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#attach_list span.attach_upload_text_progress {
+    max-width: 290px;
+    margin-right: 10px;
+}
+#attach_list span.attach_upload_progress {
     background-image: url("../graphics/progress.png");
-    border: 1px inset #555;
-    margin: 5px 0 0;
-    padding: 2px 5px;
-    width: 240px;
+    border-radius: 10px;
+    height: 8px;
+    margin-top: 4px;
+    position: absolute;
+    width: 200px;
 }
 
 #upload_limit {

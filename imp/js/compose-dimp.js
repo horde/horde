@@ -1468,21 +1468,15 @@ var IMP_Compose_Attachlist = Class.create({
         this.compose.resizeMsgArea();
     },
 
-    uploadAttachWait: function(f, progress)
+    uploadAttachWait: function(f)
     {
-        var li = new Element('LI').addClassName('attach_upload');
-
-        if (progress) {
-            li.addClassName('attach_upload_progress')
-                .setStyle({ backgroundPosition: '100% 0' })
-                .insert(f.name.escapeHTML());
-        } else {
-            li.insert(
-                DimpCore.text.uploading + ' (' +
-                (Object.isElement(f) ? $F(f) : f.name).escapeHTML() +
-                ')'
+        var li = new Element('LI')
+            .addClassName('attach_upload')
+            .insert(
+                new Element('SPAN')
+                    .addClassName('attach_upload_text')
+                    .insert((Object.isElement(f) ? $F(f) : f.name).escapeHTML() + ' (' + DimpCore.text.uploading + ')')
             );
-        }
 
         $('attach_list').show().insert(li);
 
@@ -1561,14 +1555,21 @@ var IMP_Compose_Attachlist = Class.create({
                     }.bind(this),
                     onCreate: function(e) {
                         if (e.transport && e.transport.upload) {
-                            var u = e.transport.upload;
-                            li = this.uploadAttachWait(d, true);
+                            var p = new Element('SPAN')
+                                .addClassName('attach_upload_progress')
+                                .hide();
+                            li = this.uploadAttachWait(d);
+                            li.insert(p);
 
-                            u.onprogress = function(e2) {
+                            e.transport.upload.onprogress = function(e2) {
                                 if (e2.lengthComputable) {
-                                    li.setStyle({
+                                    p.setStyle({
                                         backgroundPosition: parseInt(100 - (e2.loaded / e2.total * 100), 10) + "% 0"
                                     });
+                                    if (!p.visible()) {
+                                        li.down('.attach_upload_text').addClassName('attach_upload_text_progress');
+                                        p.show();
+                                    }
                                 }
                             };
                         } else {
