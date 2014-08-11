@@ -88,9 +88,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             $accountUrl = Horde::url($accountUrl, true, -1)
                 . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
             $caldavUrl = Horde::url($caldavUrl, true, -1)
-                . ($calendar->get('owner')
-                   ? $calendar->get('owner')
-                   : '-system-')
+                . $GLOBALS['registry']->getAuth()
                     . '/'
                 . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
                 . '/';
