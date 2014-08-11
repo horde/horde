@@ -12,8 +12,8 @@
  </lead>
  <date>2014-08-11</date>
  <version>
-  <release>2.17.1</release>
-  <api>2.17.0</api>
+  <release>2.18.0</release>
+  <api>2.18.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
  </notes>
  <contents>
@@ -2310,14 +2311,15 @@
   </release>
   <release>
    <version>
-    <release>2.17.1</release>
-    <api>2.17.0</api></version>
+    <release>2.18.0</release>
+    <api>2.18.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-08-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
    </notes>
   </release>
