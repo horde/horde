@@ -73,6 +73,11 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
     /** EAS 14.1 **/
     const SETTINGS_PRIMARYSMTPADDRESS       = 'Settings:PrimarySmtpAddress';
+    const SETTINGS_ACCOUNTS                 = 'Settings:Accounts';
+    const SETTINGS_ACCOUNT                  = 'Settings:Account';
+    const SETTINGS_ACCOUNTID                = 'Settings:AccountId';
+    const SETTINGS_USERDISPLAYNAME          = 'Settings:UserDisplayName';
+
 
     /** Status codes **/
     const STATUS_SUCCESS                    = 1;
@@ -294,25 +299,49 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($result['get']['userinformation']['status']);
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->startTag(self::SETTINGS_GET);
-            $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
-            if (!empty($result['get']['userinformation']['emailaddresses'])) {
-                foreach($result['get']['userinformation']['emailaddresses'] as $value) {
-                    $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
-                    $this->_encoder->content($value);
-                    $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+
+            // @todo remove accounts existence check for H6.
+            if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                !empty($result['get']['userinformation']['accounts'])) {
+                $this->_encoder->startTag(self::SETTINGS_ACCOUNTS);
+                foreach ($result['get']['userinformation']['accounts'] as $account) {
+                    $this->_encoder->startTag(self::SETTINGS_ACCOUNT);
+
+                    $this->_encoder->startTag(self::SETTINGS_USERDISPLAYNAME);
+                    $this->_encoder->content($account['fullname']);
+                    $this->_encoder->endTag();
+
+                    $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
+
+                    $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
+                    $this->_encoder->content(array_pop($account['emailaddresses']));
+                    $this->_encoder->endTag();
+
+                    $this->_encoder->startTag(self::SETTINGS_ACCOUNTID);
+                    $this->_encoder->content(array_pop($account['id']));
+                    $this->_encoder->endTag();
+
+                    foreach($account['emailaddresses'] as $value) {
+                        $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
+                        $this->_encoder->content($value);
+                        $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+                    }
+
+                    $this->_encoder->endTag(); // SETTINGS_EMAILADDRESSES
+                    $this->_encoder->endTag(); // SETTINGS_ACCOUNT
                 }
+                $this->_encoder->endTag(); // SETTINGS_ACCOUNTS
+            } else {
+                $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
+                if (!empty($result['get']['userinformation']['emailaddresses'])) {
+                    foreach($result['get']['userinformation']['emailaddresses'] as $value) {
+                        $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
+                        $this->_encoder->content($value);
+                        $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+                    }
+                }
+                $this->_encoder->endTag(); // end self::SETTINGS_EMAILADDRESSES
             }
-
-            // Send primarysmtp address if we need to
-            if (!empty($result['get']['userinformation']['primarysmtpaddress']) &&
-                $this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-
-                $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
-                $this->_encoder->content($result['get']['userinformation']['primarysmtpaddress']);
-                $this->_encoder->endTag();
-            }
-
-            $this->_encoder->endTag(); // end self::SETTINGS_EMAILADDRESSES
             $this->_encoder->endTag(); // end self::SETTINGS_GET
             $this->_encoder->endTag(); // end self::SETTINGS_USERINFORMATION
         }
