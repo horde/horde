@@ -177,6 +177,22 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                 }
                 $itemoperations[] = $thisio;
                 $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_FETCH
+            } elseif ($reqtype == self::ITEMOPERATIONS_EMPTYFOLDERCONTENT) {
+                $thisio['type'] = 'empty';
+                while (($tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
+                          ($this->_decoder->getElementStartTag(self::ITEMOPERATIONS_OPTIONS) ? self::ITEMOPERATIONS_OPTIONS  : -1))) != -1) {
+
+                    if ($tag == Horde_ActiveSync::SYNC_FOLDERID) {
+                        $thisio['folderid'] = $this->_decoder->getElementContent();
+                    } elseif ($tag == self::ITEMOPERATIONS_OPTIONS) {
+                        $this->_decoder->getElementStartTag(self::ITEMOPERATIONS_DELETESUBFOLDERS);
+                        $thisio['delete_subfolders'] = $this->_decoder->getElementContent();
+                        $this->_decoder->getElementEndTag();
+                    }
+                    $this->_decoder->getElementEndTag();
+                }
+                $this->_decoder->getElementEndTag(); // SYNC_ITEMSOPERATIONS_EMPTYFOLDERCONTENT
+                $itemoperations[] = $thisio;
             }
         }
         $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
@@ -283,6 +299,28 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
                         $value['type'])
                     );
                     break;
+                }
+                break;
+            case 'empty':
+                // @todo remove check for H6.
+                if (method_exists($this->_driver, 'itemOperationsEmptyFolder')) {
+                    $map = array_flip($this->_state->getFolderUidToBackendIdMap());
+                    $value['folderid'] = $map[$value['folderid']];
+                    $this->_logger->info(sprintf(
+                        '[%s] Handling EMPTYFOLDERCONTENT for collection %s.',
+                        $this->_device->id,
+                        $value['folderid']));
+                    try {
+                        $this->_driver->itemOperationsEmptyFolder($value);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_status = self::STATUS_NOT_SUPPORTED;
+                    }
+                } else {
+                    $this->_logger->err(sprintf(
+                        '[%s] EMPTYFOLDERCONTENT not supported by driver.',
+                        $this->_device->id,
+                        $value['type'])
+                    );
                 }
                 break;
             default :
