@@ -2034,6 +2034,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param array $settings  An array of settings to return. Currently
      *                         supported:
      *  - oof: The out of office message information.
+     *     @todo
+     *  - userinformation:  UserInformation requests.
+     *     - emailaddresses: User's From email addresses.
+     *     - primarysmtpaddress: (@deprecated) The SMTP address used for the
+     *                           default account. Only supported in EAS >= 14.1
+     *                           using accounts.
+     *     - status: EAS status code.
+     *     - accounts: Array with each entry containing emailaddresses, fullname
+     *         for additional identities. The primary address should be the
+     *         first in the emailaddresses array.
      *
      * @param stdClass $device  The device to obtain settings for.
      *
@@ -2066,20 +2076,27 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 );
                 break;
             case 'userinformation':
-                $ident = $GLOBALS['injector']
+                $identities= $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Identity')
                     ->create($GLOBALS['registry']->getAuth());
 
-                $default_email = $ident->getValue('from_addr');
+                $default_email = $identities->getValue('from_addr');
+                $email_addresses = array($default_email);
+                $accounts = array();
                 if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-                    $email_addresses = array_keys(array_flip($ident->getAll('from_addr')));
-                } else {
-                    $email_addresses = array($default_email);
+                    // @TODO Do clients actually support multiple accounts?
+                    // Can't find one that does. For now, only return the
+                    // default identity.
+                    $ident = $identities->get();
+                    $emails = !empty($ident['alias_addr']) ? $ident['alias_addr'] : array();
+                    $emails[] = $ident['from_addr'];
+                    $accounts[] = array('fullname' => $ident['fullname'], 'emailaddresses' => array_reverse($emails));
                 }
                 $res['userinformation'] = array(
                     'emailaddresses' => $email_addresses,
                     'primarysmtpaddress' => $default_email,
-                    'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS
+                    'status' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
+                    'accounts' => $accounts
                 );
             }
         }
