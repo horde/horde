@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix returning session start time from session handler (Bug #13428).
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Fix BC break when detecting the ActiveSync state driver.
  </notes>
@@ -3599,6 +3600,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix returning session start time from session handler (Bug #13428).
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Fix BC break when detecting the ActiveSync state driver.
    </notes>
