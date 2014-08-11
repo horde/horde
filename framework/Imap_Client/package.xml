@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix typo in Horde_Imap_Client_Data_Sync (Bug #13430; Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2591,7 +2591,7 @@
    <date>2014-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix typo in Horde_Imap_Client_Data_Sync (Bug #13430; Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;).
    </notes>
   </release>
  </changelog>
