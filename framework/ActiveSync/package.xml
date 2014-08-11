@@ -12,7 +12,7 @@
  </lead>
  <date>2014-08-11</date>
  <version>
-  <release>2.17.0</release>
+  <release>2.17.1</release>
   <api>2.17.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Add unofficial WindowsLive codepage extensions.
-* [mjr] Fix yearly recurrences appearing on incorrect day in certain cases.
-* [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
-* [mjr] Prevent infinite loops due to broken clients sending invalid OPTIONS data (Bug #13405).
-* [mjr] Prevent fatal WBXML parsing error due to broken BlackBerry clients (Bug #13351).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2310,6 +2306,19 @@
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Prevent infinite loops due to broken clients sending invalid OPTIONS data (Bug #13405).
 * [mjr] Prevent fatal WBXML parsing error due to broken BlackBerry clients (Bug #13351).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.17.1</release>
+    <api>2.17.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
