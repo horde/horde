@@ -308,6 +308,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      *   - allday: (boolean) If true, this is an allday event.
      *
      * @throws InvalidArgumentException
+     * @deprecated Set individual properties manually from calling code.
      */
     public function setDatetime(array $datetime = array())
     {
