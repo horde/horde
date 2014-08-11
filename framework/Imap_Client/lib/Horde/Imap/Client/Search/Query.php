@@ -135,7 +135,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
             $exts = $tmp;
         } elseif (!is_null($exts)) {
             if ($exts instanceof Horde_Imap_Client_Base) {
-                $exts = $exts->capability;
+                $exts = $exts->capability();
             } elseif (!($exts instanceof Horde_Imap_Client_Data_Capability)) {
                 throw new InvalidArgumentException('Incorrect $exts parameter');
             }
