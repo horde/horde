@@ -325,7 +325,12 @@ var ImpCompose = {
         if (this.redirect) {
             ImpComposeBase.focus('to');
         } else {
-            ImpComposeBase.setSignature(ImpComposeBase.editor_on, $F('signature') ? $F('signature') : ImpComposeBase.identities[$F('last_identity')]);
+            ImpComposeBase.setSignature(
+                ImpComposeBase.editor_on,
+                ($('signature') && $F('signature'))
+                    ? $F('signature')
+                    : ImpComposeBase.identities[$F('last_identity')]
+            );
 
             handler = this.keyDownHandler.bindAsEventListener(this);
             /* Prevent Return from sending messages - it should bring us out
