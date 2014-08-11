@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-12</date>
+ <date>2014-08-11</date>
  <version>
   <release>2.17.0</release>
   <api>2.17.0</api>
@@ -2302,7 +2302,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-12</date>
+   <date>2014-08-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add unofficial WindowsLive codepage extensions.
