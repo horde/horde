@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add unofficial WindowsLive codepage extensions.
 * [mjr] Fix yearly recurrences appearing on incorrect day in certain cases.
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Prevent infinite loops due to broken clients sending invalid OPTIONS data (Bug #13405).
@@ -2304,6 +2305,7 @@
    <date>2014-07-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add unofficial WindowsLive codepage extensions.
 * [mjr] Fix yearly recurrences appearing on incorrect day in certain cases.
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Prevent infinite loops due to broken clients sending invalid OPTIONS data (Bug #13405).
