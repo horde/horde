@@ -1691,11 +1691,9 @@ abstract class Kronolith_Event
         }
 
         $message->setSubject($this->getTitle());
-        $message->setDatetime(array(
-            'start' => $this->start,
-            'end' => $this->end,
-            'allday' => $this->isAllDay())
-        );
+        $message->starttime = clone($this->start);
+        $message->endtime = clone($this->end);
+        $message->alldayevent = $this->isAllDay();
         $message->setTimezone($this->start);
 
         // Organizer
