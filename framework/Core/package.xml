@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
 * [jan] Catch exception from application in portal block (Bug #13427).
 * [jan] Fix returning session start time from session handler (Bug #13428).
@@ -1275,7 +1276,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.17.0</min>
+    <min>2.18.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3602,6 +3603,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
 * [jan] Catch exception from application in portal block (Bug #13427).
 * [jan] Fix returning session start time from session handler (Bug #13428).

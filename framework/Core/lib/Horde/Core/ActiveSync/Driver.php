@@ -1434,6 +1434,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Empty specified mailbox.
+     *
+     * @param array $params An array of parameters:
+     *   - folderid: The backend folderid of the mailbox to empty.
+     *   - subfolders: IGNORED for now.
+     *
+     * @throws Horde_ActiveSync_Exception
+     * @since 2.14.0
+     */
+    public function itemOperationsEmptyFolder($params)
+    {
+        $this->_imap->emptyMailbox($params['folderid']);
+    }
+
+    /**
      * Get message stat data
      *
      * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#statMessage($folderId, $id)
