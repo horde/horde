@@ -471,7 +471,11 @@ class Horde_Core_Block_Collection implements Serializable
      */
     public function isEditable($app, $block)
     {
-        $block = $this->getBlock($app, $block);
+        try {
+            $block = $this->getBlock($app, $block);
+        } catch (Horde_Exception $e) {
+            return false;
+        }
         return $block->updateable || $block->getParams();
     }
 
