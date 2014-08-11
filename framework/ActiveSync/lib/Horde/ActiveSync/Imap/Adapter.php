@@ -140,6 +140,25 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Completely empty specified mailbox.
+     *
+     * @param string $mbox  The mailbox to empty.
+     *
+     * @throws Horde_ActiveSync_Exception
+     * @since 2.18.0
+     */
+    public function emptyMailbox($mbox)
+    {
+        $imap = $this->_getImapOb();
+        $mbox = new Horde_Imap_Client_Mailbox($mbox);
+        try {
+            $imap->expunge($mbox, array('delete' => true));
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Permanently delete a mail message.
      *
      * @param array $uids       The message UIDs
