@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-11</date>
+ <date>2014-08-12</date>
  <version>
   <release>2.24.3</release>
   <api>2.24.0</api>
@@ -280,6 +280,7 @@
          <file name="NstringTest.php" role="test" />
          <file name="NumberTest.php" role="test" />
          <file name="StringTest.php" role="test" />
+         <file name="TestBase.php" role="test" />
         </dir> <!-- /test/Horde/Imap/Client/Data/Format -->
         <file name="CapabilityTest.php" role="test" />
         <file name="SearchCharsetTest.php" role="test" />
@@ -622,6 +623,7 @@
    <install as="Horde/Imap/Client/Data/Format/NstringTest.php" name="test/Horde/Imap/Client/Data/Format/NstringTest.php" />
    <install as="Horde/Imap/Client/Data/Format/NumberTest.php" name="test/Horde/Imap/Client/Data/Format/NumberTest.php" />
    <install as="Horde/Imap/Client/Data/Format/StringTest.php" name="test/Horde/Imap/Client/Data/Format/StringTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/TestBase.php" name="test/Horde/Imap/Client/Data/Format/TestBase.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/ListMailboxTest.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/ListMailboxTest.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/ListMailboxUtf8Test.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/ListMailboxUtf8Test.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/MailboxTest.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/MailboxTest.php" />
@@ -2601,7 +2603,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-11</date>
+   <date>2014-08-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

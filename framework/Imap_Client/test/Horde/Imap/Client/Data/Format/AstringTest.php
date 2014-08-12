@@ -24,124 +24,127 @@
  * @subpackage UnitTests
  */
 class Horde_Imap_Client_Data_Format_AstringTest
-extends PHPUnit_Framework_TestCase
+extends Horde_Imap_Client_Data_Format_TestBase
 {
-    private $ob;
-    private $ob2;
-    private $ob3;
-    private $ob4;
-
-    public function setUp()
+    protected function getTestObs()
     {
-        $this->ob = new Horde_Imap_Client_Data_Format_Astring('Foo');
-        $this->ob2 = new Horde_Imap_Client_Data_Format_Astring('Foo(');
-        /* This is an invalid atom, but valid (non-quoted) astring. */
-        $this->ob3 = new Horde_Imap_Client_Data_Format_Astring('Foo]');
-        $this->ob4 = new Horde_Imap_Client_Data_Format_Astring('');
+        return array(
+            new Horde_Imap_Client_Data_Format_Astring('Foo'),
+            new Horde_Imap_Client_Data_Format_Astring('Foo('),
+            /* This is an invalid atom, but valid (non-quoted) astring. */
+            new Horde_Imap_Client_Data_Format_Astring('Foo]'),
+            new Horde_Imap_Client_Data_Format_Astring('')
+        );
     }
 
-    public function testStringRepresentation()
+    /**
+     * @dataProvider stringRepresentationProvider
+     */
+    public function testStringRepresentation($ob, $expected)
     {
         $this->assertEquals(
-            'Foo',
-            strval($this->ob)
+            $expected,
+            strval($ob)
         );
+    }
 
-        $this->assertEquals(
+    public function stringRepresentationProvider()
+    {
+        return $this->createProviderArray(array(
+            'Foo',
             'Foo(',
-            strval($this->ob2)
-        );
-
-        $this->assertEquals(
             'Foo]',
-            strval($this->ob3)
-        );
-
-        $this->assertEquals(
-            '',
-            strval($this->ob4)
-        );
+            ''
+        ));
     }
 
-    public function testEscape()
+    /**
+     * @dataProvider escapeProvider
+     */
+    public function testEscape($ob, $expected)
     {
         $this->assertEquals(
-            'Foo',
-            $this->ob->escape()
-        );
-
-        // Require quoting
-        $this->assertEquals(
-            '"Foo("',
-            $this->ob2->escape()
-        );
-
-        $this->assertEquals(
-            'Foo]',
-            $this->ob3->escape()
-        );
-
-        /* Empty string should be quoted. */
-        $this->assertEquals(
-            '""',
-            $this->ob4->escape()
+            $expected,
+            $ob->escape()
         );
     }
 
-    public function testVerify()
+    public function escapeProvider()
+    {
+        return $this->createProviderArray(array(
+            'Foo',
+            '"Foo("',
+            'Foo]',
+            '""'
+        ));
+    }
+
+    /**
+     * @dataProvider obsProvider
+     */
+    public function testVerify($ob)
     {
         // Don't throw Exception
-        $this->ob->verify();
-        $this->ob2->verify();
-        $this->ob3->verify();
-        $this->ob4->verify();
+        $ob->verify();
     }
 
-    public function testBinary()
+    /**
+     * @dataProvider obsProvider
+     */
+    public function testBinary($ob)
     {
-        $this->assertFalse($this->ob->binary());
-        $this->assertFalse($this->ob2->binary());
-        $this->assertFalse($this->ob3->binary());
-        $this->assertFalse($this->ob4->binary());
+        $this->assertFalse($ob->binary());
     }
 
-    public function testLiteral()
+    /**
+     * @dataProvider obsProvider
+     */
+    public function testLiteral($ob)
     {
-        $this->assertFalse($this->ob->literal());
-        $this->assertFalse($this->ob2->literal());
-        $this->assertFalse($this->ob3->literal());
-        $this->assertFalse($this->ob4->literal());
+        $this->assertFalse($ob->literal());
     }
 
-    public function testQuoted()
+    /**
+     * @dataProvider quotedProvider
+     */
+    public function testQuoted($ob, $expected)
     {
-        $this->assertFalse($this->ob->quoted());
-        $this->assertTrue($this->ob2->quoted());
-        $this->assertFalse($this->ob3->quoted());
-        $this->assertTrue($this->ob4->quoted());
+        if ($expected) {
+            $this->assertTrue($ob->quoted());
+        } else {
+            $this->assertFalse($ob->quoted());
+        }
     }
 
-    public function testEscapeStream()
+    public function quotedProvider()
+    {
+        return $this->createProviderArray(array(
+            false,
+            true,
+            false,
+            true
+        ));
+    }
+
+    /**
+     * @dataProvider escapeStreamProvider
+     */
+    public function testEscapeStream($ob, $expected)
     {
         $this->assertEquals(
+            $expected,
+            stream_get_contents($ob->escapeStream(), -1, 0)
+        );
+    }
+
+    public function escapeStreamProvider()
+    {
+        return $this->createProviderArray(array(
             '"Foo"',
-            stream_get_contents($this->ob->escapeStream(), -1, 0)
-        );
-
-        $this->assertEquals(
             '"Foo("',
-            stream_get_contents($this->ob2->escapeStream(), -1, 0)
-        );
-
-        $this->assertEquals(
             '"Foo]"',
-            stream_get_contents($this->ob3->escapeStream(), -1, 0)
-        );
-
-        $this->assertEquals(
-            '""',
-            stream_get_contents($this->ob4->escapeStream(), -1, 0)
-        );
+            '""'
+        ));
     }
 
 }
