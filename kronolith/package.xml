@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix JavaScript error if not showing all events in month view (Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;, Bug #13433).
 * [jan] Fix displayed CalDAV URLs for shared calendars in basic view too (piper@hrz.uni-marburg.de, Bug #12380).
  </notes>
  <contents>
@@ -2441,6 +2442,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix JavaScript error if not showing all events in month view (Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;, Bug #13433).
 * [jan] Fix displayed CalDAV URLs for shared calendars in basic view too (piper@hrz.uni-marburg.de, Bug #12380).
    </notes>
   </release>
