@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version:  H5 (1.0.4-git)\n"
+"Project-Id-Version:  H5 (1.1.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-22 13:30+0200\n"
-"PO-Revision-Date: 2014-06-22 19:11+0200\n"
+"POT-Creation-Date: 2014-08-12 10:31+0200\n"
+"PO-Revision-Date: 2014-08-12 10:37+0200\n"
 "Last-Translator: Andras Galos <galosa@netinform.hu>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: hu\n"
@@ -98,7 +98,7 @@ msgstr "Mégse"
 msgid "Clicks"
 msgstr "Kattintások"
 
-#: lib/Api.php:130
+#: lib/Api.php:131
 msgid "Close"
 msgstr "Bezárás"
 
@@ -135,7 +135,7 @@ msgstr ""
 "Húzza egerével az alábbi \"Hozzáadás a könyvjelzőkhöz\" feliratot a "
 "böngészőprogram Kedvencek sávjára"
 
-#: templates/list.html.php:57
+#: templates/list.html.php:58
 msgid "Edit"
 msgstr "Módosítás"
 
@@ -274,6 +274,7 @@ msgid "Sort direction:"
 msgstr "A sorbarendezési irány:"
 
 #: app/controllers/BrowseByTag.php:23
+#, php-format
 msgid "Tagged with %s"
 msgstr "Címkézve: %s"
 
@@ -300,7 +301,7 @@ msgstr "A \"%s\" könyvjelző törlése során hiba lépett fel."
 msgid "There was an error adding the bookmark: %s"
 msgstr "A könyvjelző hozzáadása során hiba történt: %s"
 
-#: app/controllers/SaveBookmark.php:26
+#: app/controllers/SaveBookmark.php:25
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Hiba történt a könyvjelző elmentése során: %s"
