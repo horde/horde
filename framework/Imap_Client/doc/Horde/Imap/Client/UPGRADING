@@ -11,6 +11,21 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.25.0
+===================
+
+  - Horde_Imap_Client_Data_Format_Nstring_Nonascii
+  - Horde_Imap_Client_Data_Format_String_Nonascii
+
+    Extended base classes to indicate that IMAP data element supports
+    non-ASCII characters.
+
+  - Horde_Imap_Client_Data_Format_String_Support_Nonascii
+
+    Added interface to indicate which IMAP data string elements support
+    non-ASCII characters.
+
+
 Upgrading to 2.24.0
 ===================
 

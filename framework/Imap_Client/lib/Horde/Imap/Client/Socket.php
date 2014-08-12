@@ -1886,7 +1886,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      * @param mixed $data      Either a resource or a string.
      * @param integer &$asize  Total append size.
      *
-     * @return Horde_Imap_Client_Data_Format_String  The data object.
+     * @return Horde_Imap_Client_Data_Format_String_Nonascii  The data object.
      */
     protected function _appendData($data, &$asize)
     {
@@ -1894,7 +1894,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             rewind($data);
         }
 
-        $ob = new Horde_Imap_Client_Data_Format_String($data, array(
+        /* Since this is body text, with possible embedded charset
+         * information, non-ASCII characters are supported. */
+        $ob = new Horde_Imap_Client_Data_Format_String_Nonascii($data, array(
             'eol' => true,
             'skipscan' => true
         ));
@@ -3911,7 +3913,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             foreach ($data as $key => $value) {
                 $data_elts->add(array(
                     new Horde_Imap_Client_Data_Format_Astring($key),
-                    new Horde_Imap_Client_Data_Format_Nstring($value)
+                    /* METADATA supports literal8 - thus, it implicitly
+                     * supports non-ASCII characters in the data. */
+                    new Horde_Imap_Client_Data_Format_Nstring_Nonascii($value)
                 ));
             }
 
@@ -3936,7 +3940,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         new Horde_Imap_Client_Data_Format_String($entry),
                         new Horde_Imap_Client_Data_Format_List(array(
                             new Horde_Imap_Client_Data_Format_String($type),
-                            new Horde_Imap_Client_Data_Format_Nstring($value)
+                            /* ANNOTATEMORE supports literal8 - thus, it
+                             * implicitly supports non-ASCII characters in the
+                             * data. */
+                            new Horde_Imap_Client_Data_Format_Nstring_Nonascii($value)
                         ))
                     ))
                 );

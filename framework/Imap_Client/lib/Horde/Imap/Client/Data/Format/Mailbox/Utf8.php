@@ -23,6 +23,7 @@
  */
 class Horde_Imap_Client_Data_Format_Mailbox_Utf8
 extends Horde_Imap_Client_Data_Format_Mailbox
+implements Horde_Imap_Client_Data_Format_String_Support_Nonascii
 {
     /**
      */

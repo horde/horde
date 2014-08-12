@@ -30,6 +30,7 @@ class Horde_Imap_Client_Data_Format_Filter_String extends php_user_filter
     {
         $this->params->binary = false;
         $this->params->literal = false;
+        $this->params->nonascii = false;
         // no_quote_list is used below as a config option
         $this->params->quoted = false;
 
@@ -90,6 +91,7 @@ class Horde_Imap_Client_Data_Format_Filter_String extends php_user_filter
                             // CTL characters must be, at a minimum, quoted.
                             $p->quoted = true;
                         } elseif ($chr > 127) {
+                            $p->nonascii = true;
                             // 8-bit chars must be in a literal.
                             $p->literal = true;
                         }

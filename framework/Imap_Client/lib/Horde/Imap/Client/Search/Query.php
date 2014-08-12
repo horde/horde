@@ -147,9 +147,19 @@ class Horde_Imap_Client_Search_Query implements Serializable
             'exts_used' => array()
         );
         $cmds = &$temp['cmds'];
-        $charset = null;
+        $charset = $charset_cname = null;
         $exts_used = &$temp['exts_used'];
         $ptr = &$this->_search;
+
+        $charset_get = function($c) use (&$charset, &$charset_cname)
+        {
+            $charset = is_null($c)
+                ? 'US-ASCII'
+                : strval($c);
+            $charset_cname = ($charset === 'US-ASCII')
+                ? 'Horde_Imap_Client_Data_Format_Astring'
+                : 'Horde_Imap_Client_Data_Format_Astring_Nonascii';
+        };
 
         if (isset($ptr['new'])) {
             $this->_addFuzzy(!empty($ptr['newfuzzy']), $temp);
@@ -210,10 +220,11 @@ class Horde_Imap_Client_Search_Query implements Serializable
                         new Horde_Imap_Client_Data_Format_Astring($val['header'])
                     ));
                 }
-                $cmds->add(new Horde_Imap_Client_Data_Format_Astring(isset($val['text']) ? $val['text'] : ''));
-                $charset = is_null($this->_charset)
-                    ? 'US-ASCII'
-                    : $this->_charset;
+
+                $charset_get($this->_charset);
+                $cmds->add(
+                    new $charset_cname(isset($val['text']) ? $val['text'] : '')
+                );
             }
         }
 
@@ -224,15 +235,12 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 if (!empty($val['not'])) {
                     $cmds->add('NOT');
                 }
+
+                $charset_get($this->_charset);
                 $cmds->add(array(
                     $val['type'],
-                    new Horde_Imap_Client_Data_Format_Astring($val['text'])
+                    new $charset_cname($val['text'])
                 ));
-                if (is_null($charset)) {
-                    $charset = is_null($this->_charset)
-                        ? 'US-ASCII'
-                        : $this->_charset;
-                }
             }
         }
 

@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -69,6 +69,9 @@
          <file name="Pop3.php" role="php" />
         </dir> <!-- /lib/Horde/Imap/Client/Data/Fetch -->
         <dir name="Format">
+         <dir name="Astring">
+          <file name="Nonascii.php" role="php" />
+         </dir> <!-- /lib/Horde/Imap/Client/Data/Format/Astring -->
          <dir name="Filter">
           <file name="Quote.php" role="php" />
           <file name="String.php" role="php" />
@@ -79,6 +82,15 @@
          <dir name="Mailbox">
           <file name="Utf8.php" role="php" />
          </dir> <!-- /lib/Horde/Imap/Client/Data/Format/Mailbox -->
+         <dir name="Nstring">
+          <file name="Nonascii.php" role="php" />
+         </dir> <!-- /lib/Horde/Imap/Client/Data/Format/Nstring -->
+         <dir name="String">
+          <dir name="Support">
+           <file name="Nonascii.php" role="php" />
+          </dir> <!-- /lib/Horde/Imap/Client/Data/Format/String/Support -->
+          <file name="Nonascii.php" role="php" />
+         </dir> <!-- /lib/Horde/Imap/Client/Data/Format/String -->
          <file name="Astring.php" role="php" />
          <file name="Atom.php" role="php" />
          <file name="Date.php" role="php" />
@@ -533,10 +545,14 @@
    <install as="Horde/Imap/Client/Data/Format/Nstring.php" name="lib/Horde/Imap/Client/Data/Format/Nstring.php" />
    <install as="Horde/Imap/Client/Data/Format/Number.php" name="lib/Horde/Imap/Client/Data/Format/Number.php" />
    <install as="Horde/Imap/Client/Data/Format/String.php" name="lib/Horde/Imap/Client/Data/Format/String.php" />
+   <install as="Horde/Imap/Client/Data/Format/Astring/Nonascii.php" name="lib/Horde/Imap/Client/Data/Format/Astring/Nonascii.php" />
    <install as="Horde/Imap/Client/Data/Format/Filter/Quote.php" name="lib/Horde/Imap/Client/Data/Format/Filter/Quote.php" />
    <install as="Horde/Imap/Client/Data/Format/Filter/String.php" name="lib/Horde/Imap/Client/Data/Format/Filter/String.php" />
    <install as="Horde/Imap/Client/Data/Format/ListMailbox/Utf8.php" name="lib/Horde/Imap/Client/Data/Format/ListMailbox/Utf8.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/Utf8.php" name="lib/Horde/Imap/Client/Data/Format/Mailbox/Utf8.php" />
+   <install as="Horde/Imap/Client/Data/Format/Nstring/Nonascii.php" name="lib/Horde/Imap/Client/Data/Format/Nstring/Nonascii.php" />
+   <install as="Horde/Imap/Client/Data/Format/String/Nonascii.php" name="lib/Horde/Imap/Client/Data/Format/String/Nonascii.php" />
+   <install as="Horde/Imap/Client/Data/Format/String/Support/Nonascii.php" name="lib/Horde/Imap/Client/Data/Format/String/Support/Nonascii.php" />
    <install as="Horde/Imap/Client/Data/SearchCharset/Utf8.php" name="lib/Horde/Imap/Client/Data/SearchCharset/Utf8.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportExtension.php" name="lib/Horde/Imap/Client/Exception/NoSupportExtension.php" />
    <install as="Horde/Imap/Client/Exception/NoSupportPop3.php" name="lib/Horde/Imap/Client/Exception/NoSupportPop3.php" />
@@ -2606,7 +2622,7 @@
    <date>2014-08-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
    </notes>
   </release>
  </changelog>
