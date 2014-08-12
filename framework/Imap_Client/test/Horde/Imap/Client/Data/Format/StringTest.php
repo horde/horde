@@ -24,30 +24,21 @@
  * @subpackage UnitTests
  */
 class Horde_Imap_Client_Data_Format_StringTest
-extends Horde_Imap_Client_Data_Format_TestBase
+extends Horde_Imap_Client_Data_Format_String_TestBase
 {
+    protected $cname = 'Horde_Imap_Client_Data_Format_String';
+
     protected function getTestObs()
     {
         return array(
-            new Horde_Imap_Client_Data_Format_String('Foo'),
-            new Horde_Imap_Client_Data_Format_String('Foo('),
+            new $this->cname('Foo'),
+            new $this->cname('Foo('),
             /* This is an invalid atom, but valid string. */
-            new Horde_Imap_Client_Data_Format_String('Foo]'),
+            new $this->cname('Foo]'),
             /* This string requires a literal. */
-            new Horde_Imap_Client_Data_Format_String("Foo\n]"),
+            new $this->cname("Foo\n]"),
             /* This string requires a binary literal. */
-            new Horde_Imap_Client_Data_Format_String("12\x00\n3")
-        );
-    }
-
-    /**
-     * @dataProvider stringRepresentationProvider
-     */
-    public function testStringRepresentation($ob, $expected)
-    {
-        $this->assertEquals(
-            $expected,
-            strval($ob)
+            new $this->cname("12\x00\n3")
         );
     }
 
@@ -62,23 +53,6 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider escapeProvider
-     */
-    public function testEscape($ob, $expected)
-    {
-        try {
-            $this->assertEquals(
-                $expected,
-                $ob->escape()
-            );
-        } catch (Horde_Imap_Client_Data_Format_Exception $e) {
-            if ($expected !== false) {
-                $this->fail();
-            }
-        }
-    }
-
     public function escapeProvider()
     {
         return $this->createProviderArray(array(
@@ -90,25 +64,15 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider obsProvider
-     */
-    public function testVerify($ob)
+    public function verifyProvider()
     {
-        // Don't throw Exception
-        $ob->verify();
-    }
-
-    /**
-     * @dataProvider binaryProvider
-     */
-    public function testBinary($ob, $expected)
-    {
-        if ($expected) {
-            $this->assertTrue($ob->binary());
-        } else {
-            $this->assertFalse($ob->binary());
-        }
+        return $this->createProviderArray(array(
+            true,
+            true,
+            true,
+            true,
+            true
+        ));
     }
 
     public function binaryProvider()
@@ -122,18 +86,6 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider literalProvider
-     */
-    public function testLiteral($ob, $expected)
-    {
-        if ($expected) {
-            $this->assertTrue($ob->literal());
-        } else {
-            $this->assertFalse($ob->literal());
-        }
-    }
-
     public function literalProvider()
     {
         return $this->createProviderArray(array(
@@ -143,18 +95,6 @@ extends Horde_Imap_Client_Data_Format_TestBase
             true,
             true
         ));
-    }
-
-    /**
-     * @dataProvider quotedProvider
-     */
-    public function testQuoted($ob, $expected)
-    {
-        if ($expected) {
-            $this->assertTrue($ob->quoted());
-        } else {
-            $this->assertFalse($ob->quoted());
-        }
     }
 
     public function quotedProvider()
@@ -168,21 +108,16 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider escapeProvider
-     */
-    public function testEscapeStream($ob, $expected)
+    public function escapeStreamProvider()
     {
-        try {
-            $this->assertEquals(
-                $expected,
-                stream_get_contents($ob->escapeStream(), -1, 0)
-            );
-        } catch (Horde_Imap_Client_Data_Format_Exception $e) {
-            if ($expected !== false) {
-                $this->fail();
-            }
-        }
+        return $this->escapeProvider();
+    }
+
+    public function nonasciiInputProvider()
+    {
+        return array(
+            array(false)
+        );
     }
 
 }

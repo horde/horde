@@ -14,6 +14,7 @@ This lists the API changes between releases of the package.
 Upgrading to 2.25.0
 ===================
 
+  - Horde_Imap_Client_Data_Format_Astring_Nonascii
   - Horde_Imap_Client_Data_Format_Nstring_Nonascii
   - Horde_Imap_Client_Data_Format_String_Nonascii
 

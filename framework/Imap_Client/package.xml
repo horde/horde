@@ -276,6 +276,9 @@
          <file name="ImapTest.php" role="test" />
         </dir> <!-- /test/Horde/Imap/Client/Data/Capability -->
         <dir name="Format">
+         <dir name="Astring">
+          <file name="NonasciiTest.php" role="test" />
+         </dir> <!-- /test/Horde/Imap/Client/Data/Format/Astring -->
          <dir name="Mailbox">
           <file name="ListMailboxTest.php" role="test" />
           <file name="ListMailboxUtf8Test.php" role="test" />
@@ -283,6 +286,13 @@
           <file name="MailboxUtf8Test.php" role="test" />
           <file name="TestBase.php" role="test" />
          </dir> <!-- /test/Horde/Imap/Client/Data/Format/Mailbox -->
+         <dir name="Nstring">
+          <file name="NonasciiTest.php" role="test" />
+         </dir> <!-- /test/Horde/Imap/Client/Data/Format/Nstring -->
+         <dir name="String">
+          <file name="NonasciiTest.php" role="test" />
+          <file name="TestBase.php" role="test" />
+         </dir> <!-- /test/Horde/Imap/Client/Data/Format/String -->
          <file name="AstringTest.php" role="test" />
          <file name="AtomTest.php" role="test" />
          <file name="DateTest.php" role="test" />
@@ -640,11 +650,15 @@
    <install as="Horde/Imap/Client/Data/Format/NumberTest.php" name="test/Horde/Imap/Client/Data/Format/NumberTest.php" />
    <install as="Horde/Imap/Client/Data/Format/StringTest.php" name="test/Horde/Imap/Client/Data/Format/StringTest.php" />
    <install as="Horde/Imap/Client/Data/Format/TestBase.php" name="test/Horde/Imap/Client/Data/Format/TestBase.php" />
+   <install as="Horde/Imap/Client/Data/Format/Astring/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/Astring/NonasciiTest.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/ListMailboxTest.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/ListMailboxTest.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/ListMailboxUtf8Test.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/ListMailboxUtf8Test.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/MailboxTest.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/MailboxTest.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/MailboxUtf8Test.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/MailboxUtf8Test.php" />
    <install as="Horde/Imap/Client/Data/Format/Mailbox/TestBase.php" name="test/Horde/Imap/Client/Data/Format/Mailbox/TestBase.php" />
+   <install as="Horde/Imap/Client/Data/Format/Nstring/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/Nstring/NonasciiTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/String/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/String/NonasciiTest.php" />
+   <install as="Horde/Imap/Client/Data/Format/String/TestBase.php" name="test/Horde/Imap/Client/Data/Format/String/TestBase.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />

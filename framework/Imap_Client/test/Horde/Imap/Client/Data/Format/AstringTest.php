@@ -24,27 +24,18 @@
  * @subpackage UnitTests
  */
 class Horde_Imap_Client_Data_Format_AstringTest
-extends Horde_Imap_Client_Data_Format_TestBase
+extends Horde_Imap_Client_Data_Format_String_TestBase
 {
+    protected $cname = 'Horde_Imap_Client_Data_Format_Astring';
+
     protected function getTestObs()
     {
         return array(
-            new Horde_Imap_Client_Data_Format_Astring('Foo'),
-            new Horde_Imap_Client_Data_Format_Astring('Foo('),
+            new $this->cname('Foo'),
+            new $this->cname('Foo('),
             /* This is an invalid atom, but valid (non-quoted) astring. */
-            new Horde_Imap_Client_Data_Format_Astring('Foo]'),
-            new Horde_Imap_Client_Data_Format_Astring('')
-        );
-    }
-
-    /**
-     * @dataProvider stringRepresentationProvider
-     */
-    public function testStringRepresentation($ob, $expected)
-    {
-        $this->assertEquals(
-            $expected,
-            strval($ob)
+            new $this->cname('Foo]'),
+            new $this->cname('')
         );
     }
 
@@ -58,17 +49,6 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider escapeProvider
-     */
-    public function testEscape($ob, $expected)
-    {
-        $this->assertEquals(
-            $expected,
-            $ob->escape()
-        );
-    }
-
     public function escapeProvider()
     {
         return $this->createProviderArray(array(
@@ -79,41 +59,29 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider obsProvider
-     */
-    public function testVerify($ob)
+    public function verifyProvider()
     {
-        // Don't throw Exception
-        $ob->verify();
+        return $this->createProviderArray(array(
+            true,
+            true,
+            true,
+            true
+        ));
     }
 
-    /**
-     * @dataProvider obsProvider
-     */
-    public function testBinary($ob)
+    public function binaryProvider()
     {
-        $this->assertFalse($ob->binary());
+        return $this->createProviderArray(array(
+            false,
+            false,
+            false,
+            false
+        ));
     }
 
-    /**
-     * @dataProvider obsProvider
-     */
-    public function testLiteral($ob)
+    public function literalProvider()
     {
-        $this->assertFalse($ob->literal());
-    }
-
-    /**
-     * @dataProvider quotedProvider
-     */
-    public function testQuoted($ob, $expected)
-    {
-        if ($expected) {
-            $this->assertTrue($ob->quoted());
-        } else {
-            $this->assertFalse($ob->quoted());
-        }
+        return $this->binaryProvider();
     }
 
     public function quotedProvider()
@@ -126,17 +94,6 @@ extends Horde_Imap_Client_Data_Format_TestBase
         ));
     }
 
-    /**
-     * @dataProvider escapeStreamProvider
-     */
-    public function testEscapeStream($ob, $expected)
-    {
-        $this->assertEquals(
-            $expected,
-            stream_get_contents($ob->escapeStream(), -1, 0)
-        );
-    }
-
     public function escapeStreamProvider()
     {
         return $this->createProviderArray(array(
@@ -145,6 +102,13 @@ extends Horde_Imap_Client_Data_Format_TestBase
             '"Foo]"',
             '""'
         ));
+    }
+
+    public function nonasciiInputProvider()
+    {
+        return array(
+            array(false)
+        );
     }
 
 }
