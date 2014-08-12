@@ -1614,6 +1614,8 @@ KronolithCore = {
                                         // We don't want more than one all-day
                                         // event.
                                         var elm = allDays.pop();
+                                        // Remove element from events as well.
+                                        events = events.without(elm);
                                         elm.purge();
                                         elm.remove();
                                         insertBefore = this.findInsertBefore(events, event, date);
