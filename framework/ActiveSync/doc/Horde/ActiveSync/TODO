@@ -11,9 +11,6 @@ TODO
 
 - Email recurrence related properties for recurring meeting requests.
 
-- Support EMPTY_FOLDER commands in ITEMOPERATIONS requests. Need a client that
-  sends this request to implement properly.
-
 - SCHEMA support in ITEMOPERATIONS requests. Don't have client that supports
   currently.
 
