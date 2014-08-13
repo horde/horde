@@ -104,7 +104,7 @@ class Horde_Test_AllTests
             if ($file->isFile()) {
                 $pathname = $file->getPathname();
                 if ((preg_match('/Test.php$/', $file->getFilename())) &&
-                    (include $pathname)) {
+                    (include_once $pathname)) {
                     $class = str_replace(
                         DIRECTORY_SEPARATOR, '_',
                         preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
