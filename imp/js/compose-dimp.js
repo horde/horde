@@ -589,11 +589,6 @@ var DimpCompose = {
             return;
         }
 
-        switch (ob.type) {
-        case 'forward_redirect':
-            return;
-        }
-
         ob.opts = ob.opts || {};
 
         if (ob.addr) {
@@ -1209,11 +1204,8 @@ var DimpCompose = {
             $('composeContainer', 'redirect').invoke('show');
 
             this.doTasks();
+            ImpComposeBase.focus('redirect_to');
 
-            if (this.onload_show) {
-                this.fillForm(this.onload_show);
-                delete this.onload_show;
-            }
             return;
         }
 
