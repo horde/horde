@@ -3110,7 +3110,7 @@ var DimpBase = {
                             });
                         }
                     },
-                    onSuccess: function() {
+                    onSuccess: function(h) {
                         var params,
                             val = $F(h.down('INPUT'));
 
