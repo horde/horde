@@ -53,18 +53,25 @@ class IMP_Ajax_Addresses
      * @param integer $limit  Limit display to this many addresses. If null,
      *                        shows all addresses.
      *
-     * @return array  Output format:
-     *   - Group keys: 'a' (list of addresses); 'g' (group name)
-     *   - Address keys: 'b' (bare address); 'p' (personal part)
+     * @return object  Object with the following properties:
+     *   - addr: (array) Array of objects with 2 possible formats:
+     *     - Address keys: 'b' (bare address); 'p' (personal part)
+     *     - Group keys: 'a' (list of addresses); 'g' (group name)
+     *   - limit: (boolean) True if limit was reached.
+     *   - total: (integer) Total address count.
      */
     public function toArray($limit = null)
     {
-        $out = array();
+        $out = new stdClass;
+        $out->addr = array();
+        $out->limit = false;
+        $out->total = count($this->_addr);
+
         $this->_count = 0;
 
         foreach ($this->_addr->base_addresses as $ob) {
             if ($limit && ($this->_count > $limit)) {
-                $out['limit'] = count($this->_addr);
+                $out->limit = true;
                 break;
             }
 
@@ -85,7 +92,7 @@ class IMP_Ajax_Addresses
                 $tmp = $this->_addAddress($ob);
             }
 
-            $out[] = $tmp;
+            $out->addr[] = $tmp;
         }
 
         return $out;

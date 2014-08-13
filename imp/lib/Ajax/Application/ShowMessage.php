@@ -413,12 +413,12 @@ class IMP_Ajax_Application_ShowMessage
         $addr_array = $addr_ob->toArray($limit);
 
         $out = array();
-        if (!is_null($limit) && (($cnt = count($addrlist)) > $limit)) {
-            $out['limit'] = $cnt;
+        if ($addr_array->limit) {
+            $out['limit'] = $addr_array->total;
         }
 
-        if (!empty($addr_array)) {
-            $out['addr'] = $addr_array;
+        if (!empty($addr_array->addr)) {
+            $out['addr'] = $addr_array->addr;
         } elseif ($header == 'to') {
             $out['raw'] = _("Undisclosed Recipients");
         }
