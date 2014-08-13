@@ -1393,6 +1393,7 @@ var DimpCompose = {
                 this.fillForm(this.onload_show);
                 delete this.onload_show;
             }
+            ImpComposeBase.focus('redirect_to');
             return;
         }
 
