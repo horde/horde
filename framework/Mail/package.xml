@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-04</date>
+ <date>2014-08-14</date>
  <version>
-  <release>2.4.1</release>
-  <api>2.4.0</api>
+  <release>2.5.0</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Add Horde_Mail_Mbox_Parse.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -36,6 +36,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mail">
+      <dir name="Mbox">
+       <file name="Parse.php" role="php" />
+      </dir> <!-- /lib/Horde/Mail/Mbox -->
       <dir name="Rfc822">
        <file name="Address.php" role="php" />
        <file name="Group.php" role="php" />
@@ -56,13 +59,21 @@
       </dir> <!-- /lib/Horde/Mail/Transport -->
       <file name="Exception.php" role="php" />
       <file name="Rfc822.php" role="php" />
+      <file name="Translation.php" role="php" />
       <file name="Transport.php" role="php" />
      </dir> <!-- /lib/Horde/Mail -->
     </dir> <!-- /lib/Horde -->
    </dir> <!-- /lib -->
+   <dir name="locale">
+    <file name="Horde_Mail.pot" role="data" />
+   </dir> <!-- /locale -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Mail">
+      <dir name="fixtures">
+       <file name="test.eml" role="test" />
+       <file name="test.mbox" role="test" />
+      </dir> <!-- /test/Horde/Mail/fixtures -->
       <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -70,6 +81,7 @@
       <file name="IdentificationTest.php" role="test" />
       <file name="ListTest.php" role="test" />
       <file name="MatchTest.php" role="test" />
+      <file name="MboxParseTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
       <file name="ParseTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -150,7 +162,9 @@
    <install as="UPGRADING" name="doc/Horde/Mail/UPGRADING" />
    <install as="Horde/Mail/Exception.php" name="lib/Horde/Mail/Exception.php" />
    <install as="Horde/Mail/Rfc822.php" name="lib/Horde/Mail/Rfc822.php" />
+   <install as="Horde/Mail/Translation.php" name="lib/Horde/Mail/Translation.php" />
    <install as="Horde/Mail/Transport.php" name="lib/Horde/Mail/Transport.php" />
+   <install as="Horde/Mail/Mbox/Parse.php" name="lib/Horde/Mail/Mbox/Parse.php" />
    <install as="Horde/Mail/Rfc822/Address.php" name="lib/Horde/Mail/Rfc822/Address.php" />
    <install as="Horde/Mail/Rfc822/Group.php" name="lib/Horde/Mail/Rfc822/Group.php" />
    <install as="Horde/Mail/Rfc822/GroupList.php" name="lib/Horde/Mail/Rfc822/GroupList.php" />
@@ -165,6 +179,7 @@
    <install as="Horde/Mail/Transport/Smtp.php" name="lib/Horde/Mail/Transport/Smtp.php" />
    <install as="Horde/Mail/Transport/Smtphorde.php" name="lib/Horde/Mail/Transport/Smtphorde.php" />
    <install as="Horde/Mail/Transport/Smtpmx.php" name="lib/Horde/Mail/Transport/Smtpmx.php" />
+   <install as="locale/Horde_Mail.pot" name="locale/Horde_Mail.pot" />
    <install as="Horde/Mail/AddressTest.php" name="test/Horde/Mail/AddressTest.php" />
    <install as="Horde/Mail/AllTests.php" name="test/Horde/Mail/AllTests.php" />
    <install as="Horde/Mail/bootstrap.php" name="test/Horde/Mail/bootstrap.php" />
@@ -172,10 +187,13 @@
    <install as="Horde/Mail/IdentificationTest.php" name="test/Horde/Mail/IdentificationTest.php" />
    <install as="Horde/Mail/ListTest.php" name="test/Horde/Mail/ListTest.php" />
    <install as="Horde/Mail/MatchTest.php" name="test/Horde/Mail/MatchTest.php" />
+   <install as="Horde/Mail/MboxParseTest.php" name="test/Horde/Mail/MboxParseTest.php" />
    <install as="Horde/Mail/ObjectTest.php" name="test/Horde/Mail/ObjectTest.php" />
    <install as="Horde/Mail/ParseTest.php" name="test/Horde/Mail/ParseTest.php" />
    <install as="Horde/Mail/phpunit.xml" name="test/Horde/Mail/phpunit.xml" />
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
+   <install as="Horde/Mail/fixtures/test.eml" name="test/Horde/Mail/fixtures/test.eml" />
+   <install as="Horde/Mail/fixtures/test.mbox" name="test/Horde/Mail/fixtures/test.mbox" />
   </filelist>
  </phprelease>
  <changelog>
@@ -615,15 +633,15 @@
   </release>
   <release>
    <version>
-    <release>2.4.1</release>
-    <api>2.4.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-08-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Add Horde_Mail_Mbox_Parse.
    </notes>
   </release>
  </changelog>

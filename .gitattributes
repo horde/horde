@@ -9,5 +9,6 @@ framework/Icalendar/test/Horde/Icalendar/fixtures/*.ics           -crlf
 framework/Icalendar/test/Horde/Icalendar/fixtures/*.vcf           -crlf
 framework/Icalendar/test/Horde/Icalendar/fixtures/vTimezone/*.ics -crlf
 framework/Ldap/test/Horde/Ldap/fixtures/unsorted_w50_WIN.ldif     -crlf
+framework/Mail/test/Horde/Mail/fixtures/*                         -crlf
 kronolith/test/Kronolith/fixtures/*.ics                           -crlf
 turba/test/Turba/ToDo/importCRLF.ldif                             -crlf
