@@ -72,14 +72,22 @@ implements ArrayAccess, Countable, Iterator
 
         rewind($this->_data);
 
-        $curr = $last_line = null;
         $i = 0;
+        $last_line = null;
+        /* Is this a MBOX format file? */
+        $mbox = false;
 
         while (!feof($this->_data)) {
             $line = fgets($this->_data);
 
-            if ((substr($line, 0, 5) == 'From ') &&
-                (is_null($curr) || (trim($last_line) == ''))) {
+            if (substr($line, 0, 5) == 'From ') {
+                if (is_null($last_line)) {
+                    /* This file is in MBOX format. */
+                    $mbox = true;
+                } elseif (!$mbox || (trim($last_line) !== '')) {
+                    continue;
+                }
+
                 $this->_parsed[] = ftell($this->_data);
 
                 if ($limit && ($i++ > $limit)) {
@@ -96,6 +104,14 @@ implements ArrayAccess, Countable, Iterator
                     $this->_dates[] = new DateTime($from_line[2]);
                 } catch (Exception $e) {
                     $this->_dates[] = null;
+                }
+            }
+
+            /* Strip all empty lines before first data. */
+            if (is_null($last_line)) {
+                $start = ftell($this->_data);
+                if (trim($line) !== '') {
+                    continue;
                 }
             }
 
