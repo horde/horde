@@ -2,6 +2,7 @@
 v6.2.2-git
 ----------
 
+[mms] Fix menu actions on the minimal message page (Bug #13440).
 [jan] Fix switching to HTML editor in basic mode.
 [mms] Fix expiring session cached mailbox data when mailbox information
       changes.

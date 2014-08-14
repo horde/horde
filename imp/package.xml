@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix menu actions on the minimal message page (Bug #13440).
 * [jan] Fix switching to HTML editor in basic mode.
 * [mms] Fix expiring session cached mailbox data when mailbox information changes.
 * [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
@@ -3723,6 +3724,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix menu actions on the minimal message page (Bug #13440).
 * [jan] Fix switching to HTML editor in basic mode.
 * [mms] Fix expiring session cached mailbox data when mailbox information changes.
 * [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
