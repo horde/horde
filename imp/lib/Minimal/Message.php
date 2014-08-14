@@ -211,12 +211,6 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         $this->view->msg = nl2br($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($msg_text, 'space2html'));
 
-        $compose_params = array(
-            'buid' => $buid,
-            'identity' => $identity,
-            'mailbox' => $this->indices->mailbox
-        );
-
         $menu = array();
         if ($this->indices->mailbox->access_deletemsgs) {
             $menu[] = in_array(Horde_Imap_Client::FLAG_DELETED, $flags)
@@ -228,12 +222,14 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
          * Redirect, Edit as New). */
         if (IMP_Compose::canCompose()) {
             $clink_ob = new IMP_Compose_Link();
-            $clink = $clink_ob->link()->add($compose_params);
+            $clink_ob->args['buid'] = $buid;
+            $clink_ob->args['mailbox'] = $this->indices->mailbox;
+            $clink = $clink_ob->link()->add(array('identity' => $identity));
 
-            $menu[] = array(_("Reply"), $clink->add(array('a' => 'r')));
+            $menu[] = array(_("Reply"), $clink->copy()->add(array('a' => 'r')));
 
             if ($list_info['reply_list']) {
-                $menu[] = array(_("Reply to List"), $clink->add(array('a' => 'rl')));
+                $menu[] = array(_("Reply to List"), $clink->copy()->add(array('a' => 'rl')));
             }
 
             $addr_ob = clone($envelope->to);
@@ -241,12 +237,12 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
             if (count($addr_ob)) {
-                $menu[] = array(_("Reply All"), $clink->add(array('a' => 'ra')));
+                $menu[] = array(_("Reply All"), $clink->copy()->add(array('a' => 'ra')));
             }
 
-            $menu[] = array(_("Forward"), $clink->add(array('a' => 'f')));
-            $menu[] = array(_("Redirect"), $clink->add(array('a' => 'rc')));
-            $menu[] = array(_("Edit as New"), $clink->add(array('a' => 'en')));
+            $menu[] = array(_("Forward"), $clink->copy()->add(array('a' => 'f')));
+            $menu[] = array(_("Redirect"), $clink->copy()->add(array('a' => 'rc')));
+            $menu[] = array(_("Edit as New"), $clink->copy()->add(array('a' => 'en')));
         }
 
         /* Generate previous/next links. */
