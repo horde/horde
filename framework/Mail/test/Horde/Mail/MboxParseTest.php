@@ -53,9 +53,12 @@ class Horde_Mail_MboxParseTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function testEmlParse()
+    /**
+     * @dataProvider emlParseProvider
+     */
+    public function testEmlParse($data, $first_line)
     {
-        $parse = new Horde_Mail_Mbox_Parse(__DIR__ . '/fixtures/test.eml');
+        $parse = new Horde_Mail_Mbox_Parse($data);
 
         $this->assertEquals(
             1,
@@ -70,8 +73,22 @@ class Horde_Mail_MboxParseTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            "Return-Path: <bugs@horde.org>\r\n",
+            $first_line . "\r\n",
             fgets($val['data'])
+        );
+    }
+
+    public function emlParseProvider()
+    {
+        return array(
+            array(
+                __DIR__ . '/fixtures/test.eml',
+                'Return-Path: <bugs@horde.org>'
+            ),
+            array(
+                __DIR__ . '/fixtures/test2.eml',
+                'Return-Path: <test@example.com>'
+            )
         );
     }
 

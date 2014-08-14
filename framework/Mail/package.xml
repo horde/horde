@@ -73,6 +73,7 @@
       <dir name="fixtures">
        <file name="test.eml" role="test" />
        <file name="test.mbox" role="test" />
+       <file name="test2.eml" role="test" />
       </dir> <!-- /test/Horde/Mail/fixtures -->
       <file name="AddressTest.php" role="test" />
       <file name="AllTests.php" role="test" />
@@ -194,6 +195,7 @@
    <install as="Horde/Mail/SendTest.php" name="test/Horde/Mail/SendTest.php" />
    <install as="Horde/Mail/fixtures/test.eml" name="test/Horde/Mail/fixtures/test.eml" />
    <install as="Horde/Mail/fixtures/test.mbox" name="test/Horde/Mail/fixtures/test.mbox" />
+   <install as="Horde/Mail/fixtures/test2.eml" name="test/Horde/Mail/fixtures/test2.eml" />
   </filelist>
  </phprelease>
  <changelog>
