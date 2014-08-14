@@ -145,7 +145,7 @@ class IMP_Mbox_Import
             throw new IMP_Exception(_("The uploaded file cannot be opened."));
         }
 
-        $parsed = new IMP_Mbox_Parse(
+        $parsed = new Horde_Mail_Mbox_Parse(
             $fd,
             $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->import_limit
         );
