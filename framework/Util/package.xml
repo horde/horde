@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix another issue with older versions of PHP in Horde_String_Transliterate.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -698,7 +698,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2014-08-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix another issue with older versions of PHP in Horde_String_Transliterate.
    </notes>
   </release>
  </changelog>

@@ -59,7 +59,7 @@ class Horde_String_Transliterate
         );
 
         foreach ($methods as $val) {
-            if (($out = call_user_func(array(self, $val), $str)) !== false) {
+            if (($out = call_user_func(array(__CLASS__, $val), $str)) !== false) {
                 return $out;
             }
         }
