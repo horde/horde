@@ -35,14 +35,10 @@ implements ArrayAccess, Countable, Iterator
     protected $_data;
 
     /**
-     * Dates of parsed messages.
-     *
-     * @var array
-     */
-    protected $_dates = array();
-
-    /**
-     * Parsed boundaries.
+     * Parsed data. Each entry is an array containing 3 keys:
+     *   - date: (mixed) Date information, in DateTime object. Null if date
+     *           cannot be parsed. False if message is not MBOX data.
+     *   - start: (integer) Start boundary.
      *
      * @var array
      */
@@ -78,7 +74,15 @@ implements ArrayAccess, Countable, Iterator
         $mbox = false;
 
         while (!feof($this->_data)) {
+            if (is_null($last_line)) {
+                $start = ftell($this->_data);
+            }
+
             $line = fgets($this->_data);
+
+            if (is_null($last_line)) {
+                ltrim($line);
+            }
 
             if (substr($line, 0, 5) == 'From ') {
                 if (is_null($last_line)) {
@@ -87,8 +91,6 @@ implements ArrayAccess, Countable, Iterator
                 } elseif (!$mbox || (trim($last_line) !== '')) {
                     continue;
                 }
-
-                $this->_parsed[] = ftell($this->_data);
 
                 if ($limit && ($i++ > $limit)) {
                     throw new Horde_Mail_Exception(
@@ -101,21 +103,29 @@ implements ArrayAccess, Countable, Iterator
 
                 $from_line = explode(' ', $line, 3);
                 try {
-                    $this->_dates[] = new DateTime($from_line[2]);
+                    $date = new DateTime($from_line[2]);
                 } catch (Exception $e) {
-                    $this->_dates[] = null;
+                    $date = null;
                 }
+
+                $this->_parsed[] = array(
+                    'date' => $date,
+                    'start' => ftell($this->_data)
+                );
             }
 
             /* Strip all empty lines before first data. */
-            if (is_null($last_line)) {
-                $start = ftell($this->_data);
-                if (trim($line) !== '') {
-                    continue;
-                }
+            if (!is_null($last_line) || (trim($line) !== '')) {
+                $last_line = $line;
             }
+        }
 
-            $last_line = $line;
+        /* This was a single message, not a MBOX file. */
+        if (empty($this->_parsed)) {
+            $this->_parsed[] = array(
+                'date' => false,
+                'start' => $start
+            );
         }
     }
 
@@ -132,37 +142,34 @@ implements ArrayAccess, Countable, Iterator
      */
     public function offsetGet($offset)
     {
-        if (isset($this->_parsed[$offset])) {
-            $end = isset($this->_parsed[$offset + 1])
-                ? $this->_parsed[$offset + 1]
-                : null;
-            $fd = fopen('php://temp', 'w+');
-
-            fseek($this->_data, $this->_parsed[$offset]);
-            while (!feof($this->_data)) {
-                $line = fgets($this->_data);
-                if (ftell($this->_data) == $end) {
-                    break;
-                }
-
-                fwrite($fd, (substr($line, 0, 6) == '>From ') ? substr($line, 1) : $line);
-            }
-
-            $date = $this->_dates[$offset];
-        } elseif (($offset == 0) && !count($this)) {
-            $fd = fopen('php://temp', 'w+');
-            rewind($this->_data);
-            while (!feof($this->_data)) {
-                fwrite($fd, fgets($this->_data));
-            }
-            $date = null;
-        } else {
+        if (!isset($this->_parsed[$offset])) {
             return null;
+        }
+
+        $p = $this->_parsed[$offset];
+        $end = isset($this->_parsed[$offset + 1])
+            ? $this->_parsed[$offset + 1]['start']
+            : null;
+        $fd = fopen('php://temp', 'w+');
+
+        fseek($this->_data, $p['start']);
+        while (!feof($this->_data)) {
+            $line = fgets($this->_data);
+            if ($end && (ftell($this->_data) >= $end)) {
+                break;
+            }
+
+            fwrite(
+                $fd,
+                (($p['date'] !== false) && substr($line, 0, 6) == '>From ')
+                    ? substr($line, 1)
+                    : $line
+            );
         }
 
         $out = array(
             'data' => $fd,
-            'date' => $date,
+            'date' => ($p['date'] === false) ? null : $p['date'],
             'size' => intval(ftell($fd))
         );
         rewind($fd);

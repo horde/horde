@@ -58,7 +58,7 @@ class Horde_Mail_MboxParseTest extends PHPUnit_Framework_TestCase
         $parse = new Horde_Mail_Mbox_Parse(__DIR__ . '/fixtures/test.eml');
 
         $this->assertEquals(
-            0,
+            1,
             count($parse)
         );
 
