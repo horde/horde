@@ -375,7 +375,8 @@ implements ArrayAccess, Countable, Iterator, Serializable
         $sortpref = $this->_mailbox->getSort(true);
         $thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
 
-        if ($this->_mailbox->hideDeletedMsgs()) {
+        if ($this->_mailbox->access_search &&
+            $this->_mailbox->hideDeletedMsgs()) {
             $delete_query = new Horde_Imap_Client_Search_Query();
             $delete_query->flag(Horde_Imap_Client::FLAG_DELETED, false);
 
