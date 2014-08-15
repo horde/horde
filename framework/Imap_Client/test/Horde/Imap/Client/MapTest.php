@@ -42,11 +42,6 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
         $this->map = new Horde_Imap_Client_Ids_Map($this->lookup);
     }
 
-    public function tearDown()
-    {
-        unset($this->lookup, $this->map);
-    }
-
     public function testUpdate()
     {
         $map = new Horde_Imap_Client_Ids_Map();
