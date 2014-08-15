@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
 * [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
  </notes>
  <contents>
@@ -2636,6 +2637,7 @@
    <date>2014-08-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
 * [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
    </notes>
   </release>

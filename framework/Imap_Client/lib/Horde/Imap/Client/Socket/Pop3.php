@@ -552,14 +552,11 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $uidl = $this->_capability('UIDL');
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
             if ($uidl) {
-                $res = $this->_pop3Cache('uidl');
-                $res = end($res);
-                /* Increment the last character.  If it is 0x7f, then
-                 * add another character to UID. */
-                $ord = ord(substr($res, -1));
-                $ret['uidnext'] = (++$ord > 126)
-                    ? ($res . '!')
-                    : substr_replace($res, chr($ord), -1);
+                $ctx = hash_init((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1');
+                foreach ($this->_pop3Cache('uidl') as $key => $val) {
+                    hash_update($ctx, '|' . $key . '|' . $val);
+                }
+                $ret['uidnext'] = hash_final($ctx);
             } else {
                 $res = $this->_pop3Cache('stat');
                 $ret['uidnext'] = $res['msgs'] + 1;
