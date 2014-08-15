@@ -137,13 +137,26 @@ class IMP_Contacts implements Serializable
             return new Horde_Mail_Rfc822_List();
         }
 
+        $sources = empty($opts['sources'])
+            ? $this->sources
+            : $opts['sources'];
+
+        if (empty($opts['email_exact'])) {
+            $customStrict = array();
+            $fields = $this->fields;
+            $returnFields = array('email', 'name');
+        } else {
+            $customStrict = $returnFields = array('email');
+            $fields = array_fill_keys($sources, array('email'));
+        }
+
         try {
             $search = $registry->call('contacts/search', array($str, array(
-                'customStrict' => empty($opts['email_exact']) ? array() : array('email'),
-                'fields' => $this->fields,
-                'returnFields' => array('email', 'name'),
+                'customStrict' => $customStrict,
+                'fields' => $fields,
+                'returnFields' => $returnFields,
                 'rfc822Return' => true,
-                'sources' => empty($opts['sources']) ? $this->sources : $opts['sources']
+                'sources' => $sources
             )));
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
