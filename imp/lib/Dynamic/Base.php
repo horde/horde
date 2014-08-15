@@ -77,10 +77,7 @@ abstract class IMP_Dynamic_Base
 
         $this->_addBaseVars();
 
-        $page_output->addScriptFile('dimpcore.js');
-        $page_output->addScriptFile('viewport_utils.js');
-        $page_output->addScriptFile('contextsensitive.js', 'horde');
-        $page_output->addScriptFile('imple.js', 'horde');
+        $page_output->addScriptPackage('IMP_Script_Package_DynamicBase');
 
         $mimecss = new Horde_Themes_Element('mime.css');
         $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
