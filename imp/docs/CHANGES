@@ -22,6 +22,7 @@ v6.3.0-git
 v6.2.2
 ------
 
+[mms] Fix resuming draft from mailbox page in basic view.
 [mms] Fix displaying Virtual Trash mailbox (Bug #13418).
 [mms] Fix menu actions on the minimal message page (Bug #13440).
 [jan] Fix switching to HTML editor in basic mode if signature display is not

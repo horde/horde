@@ -875,10 +875,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
             /* Generate the target link. */
             if ($mailbox->drafts || $mailbox->templates) {
-                $target = $clink->copy()->add(array(
-                    'actionID' => ($mailbox->drafts ? 'draft' : 'template'),
-                    'buid' => $msg['buid'],
-                    'mailbox' => $mailbox
+                $clink_copy = clone $clink_ob;
+                $clink_copy->args['buid'] = $msg['buid'];
+                $clink_copy->args['mailbox'] = $mailbox;
+                $target = $clink_copy->link()->add(array(
+                    'actionID' => ($mailbox->drafts ? 'draft' : 'template')
                 ));
             } else {
                 $target = $mailbox->url('message', $msg['buid']);
