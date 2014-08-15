@@ -1,21 +1,59 @@
 #!/usr/bin/env php
 <?php
 /**
- * Usage: ./horde-git-split horde_component [temp_dir]
+ * Usage: ./horde-git-split horde_component [temp_dir] [-- list of branches]
  * horde_component = application -or- framework library directory
  */
 
-if (!isset($argv[1])) {
-    exit("Missing arguments.\n");
+$branch_keep_app = array(
+    'FRAMEWORK_4',
+    'FRAMEWORK_5_0',
+    'FRAMEWORK_5_1',
+    'FRAMEWORK_5_2'
+);
+$branch_keep = array('master');
+
+
+require_once 'Horde/Autoloader/Default.php';
+$parser = new Horde_Argv_Parser(
+    array(
+        'usage' => "%prog\n\t--component=component\n\t[--tmpdir=tmpdir]\n\t[list of branches to keep]",
+        'optionList' => array(
+            new Horde_Argv_Option('-c', '--component', array(
+                'action' => 'store',
+                'help' => 'Application or framework library base directory',
+                'dest' => 'component'
+            )),
+            new Horde_Argv_Option('-t', '--tmpdir', array(
+                'action' => 'store',
+                'help' => 'Temporary directory (memory FS) for git operations',
+                'dest' => 'tmpdir'
+            ))
+        )
+    )
+);
+list($options, $argv) = $parser->parseArgs();
+
+if (empty($options['component'])) {
+    die("Need to specify --component.\n");
 }
+$package = basename($options['component']);
+
+
+/* Add additional entries to branch keep list. */
+$branch_keep = array_merge($branch_keep, $argv);
 
 $base = dirname(realpath(dirname(__FILE__) . '/../'));
-
-$package = basename($argv[1]);
 $package_path = null;
-foreach (array('', 'framework/') as $val) {
+
+foreach (array('app' => '', 'lib' => 'framework/') as $key => $val) {
     $dir = $base . '/' . $val . $package . '/';
     if (is_dir($dir) && file_exists($dir . 'package.xml')) {
+        switch ($key) {
+        case 'app':
+            $branch_keep = array_merge($branch_keep, $branch_keep_app);
+        }
+
         $package_path = $val . $package;
         $tag_prefix = strtr(($val ? 'horde_' : '') . strtolower($package), '-', '_') . '-';
         break;
@@ -52,7 +90,7 @@ if (count($delete)) {
 $delete = array();
 foreach (array_filter(explode("\n", shell_exec('git branch --no-color'))) as $val) {
     $val = trim(preg_replace("/^\s*\*\s/", '', $val));
-    if ($val !== 'master') {
+    if (!in_array($val, $branch_keep)) {
         $delete[] = $val;
     }
 }
@@ -62,12 +100,12 @@ if (count($delete)) {
 
 /* Using tmpfs filesystem for filter-branch reportedly provides much faster
  * performance. */
-if (!isset($argv[2])) {
-    $argv[2] = $tmp;
-}
-$argv[2] .= '/' . mt_rand();
+$tmpfs = empty($options['tmpdir'])
+    ? $tmp
+    : $options['tmpdir'];
+$tmpfs .= '/' . mt_rand();
 
-passthru("git filter-branch -d " . escapeshellarg($argv[2]) . " --prune-empty --subdirectory-filter " . $package_path . " --tag-name-filter cat -- --all");
+passthru("git filter-branch -d " . escapeshellarg($tmpfs) . " --prune-empty --subdirectory-filter " . $package_path . " --tag-name-filter cat -- --all");
 passthru('git update-ref -d refs/original/refs/heads/master');
 passthru('git reflog expire --expire=now --all');
 chdir($tmp);
