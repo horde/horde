@@ -60,10 +60,18 @@ extends PHPUnit_Framework_TestCase
         $c = new Horde_Imap_Client_Data_Capability_Imap();
         $c->add('FOO');
 
+        $this->assertEquals(
+            array(),
+            $c->isEnabled()
+        );
         $this->assertFalse($c->isEnabled('FOO'));
 
         $c->enable('FOO');
 
+        $this->assertEquals(
+            array('FOO'),
+            $c->isEnabled()
+        );
         $this->assertTrue($c->isEnabled('FOO'));
     }
 

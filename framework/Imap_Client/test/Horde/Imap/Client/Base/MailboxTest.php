@@ -41,7 +41,7 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provider
+     * @dataProvider basicIntegerStatusPropertiesProvider
      */
     public function testBasicIntegerStatusProperties($property)
     {
@@ -64,13 +64,30 @@ class Horde_Imap_Client_Base_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function provider()
+    public function basicIntegerStatusPropertiesProvider()
     {
         return array(
             array(Horde_Imap_Client::STATUS_HIGHESTMODSEQ),
             array(Horde_Imap_Client::STATUS_MESSAGES),
             array(Horde_Imap_Client::STATUS_UIDNEXT),
             array(Horde_Imap_Client::STATUS_UIDVALIDITY)
+        );
+    }
+
+    /**
+     * @dataProvider defaultSyncPropertiesProvider
+     */
+    public function testDefaultSyncProperties($property)
+    {
+        $this->assertInternalType('array', $this->ob->getStatus($property));
+        $this->assertEmpty($this->ob->getStatus($property));
+    }
+
+    public function defaultSyncPropertiesProvider()
+    {
+        return array(
+            array(Horde_Imap_Client::STATUS_SYNCFLAGUIDS),
+            array(Horde_Imap_Client::STATUS_SYNCVANISHED)
         );
     }
 

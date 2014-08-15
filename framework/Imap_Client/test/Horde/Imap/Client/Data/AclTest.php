@@ -13,7 +13,7 @@
  */
 
 /**
- * Tests for the Imap Client ACL object(s).
+ * Tests for the Imap Client ACL data object.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -25,26 +25,41 @@
  */
 class Horde_Imap_Client_AclTest extends PHPUnit_Framework_TestCase
 {
-    public function testBug10079()
+    public function testIterator()
     {
-        // RFC 2086 rights string
-        $rights = 'lrswipcda';
+        $ob = new Horde_Imap_Client_Data_Acl('lrs');
 
+        $this->assertNotEmpty(count(iterator_to_array($ob)));
+    }
+
+    public function testSerialization()
+    {
+        $this->assertInstanceOf(
+            'Horde_Imap_Client_Data_Acl',
+            unserialize(serialize(new Horde_Imap_Client_Data_Acl('lrs')))
+        );
+    }
+
+    /**
+     * @dataProvider bug10079Provider
+     */
+    public function testBug10079($rights, $expected)
+    {
         $ob = new Horde_Imap_Client_Data_Acl($rights);
 
         $this->assertEquals(
-            'lrswipakxte',
+            $expected,
             strval($ob)
         );
+    }
 
-        // RFC 4314 rights string
-        $rights = 'lrswipakte';
-
-        $ob = new Horde_Imap_Client_Data_Acl($rights);
-
-        $this->assertEquals(
-            'lrswipakte',
-            strval($ob)
+    public function bug10079Provider()
+    {
+        return array(
+            // RFC 2086 rights string
+            array('lrswipcda', 'lrswipakxte'),
+            // RFC 4314 rights string
+            array('lrswipakte', 'lrswipakte')
         );
     }
 

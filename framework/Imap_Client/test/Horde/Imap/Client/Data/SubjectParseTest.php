@@ -25,29 +25,8 @@
  */
 class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
 {
-    public function provider()
-    {
-        // Format: Test string, Expected parse result
-        return array(
-            array('Test', 'Test'),
-            array('Re: Test', 'Test'),
-            array('re: Test', 'Test'),
-            array('Fwd: Test', 'Test'),
-            array('fwd: Test', 'Test'),
-            array('Fwd: Re: Test', 'Test'),
-            array('Fwd: Re: Test (fwd)', 'Test'),
-            array('  re    :   Test  (fwd)', 'Test'),
-            array('  re :   [foo]Test(Fwd)', 'Test'),
-            array("re \t: \tTest", 'Test'),
-            array('Re:', ''),
-            array(' RE :  ', ''),
-            array('Fwd:', ''),
-            array('  FWD  :   ', '')
-        );
-    }
-
     /**
-     * @dataProvider provider
+     * @dataProvider subjectParseProvider
      */
     public function testSubjectParse($subject, $expected)
     {
@@ -57,20 +36,31 @@ class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testUndefinedIndexError()
+    public function subjectParseProvider()
     {
-        // This used to throw an undefined index error.
-        $this->assertEquals(
-            'fwd',
-            strval(new Horde_Imap_Client_Data_BaseSubject('fwd'))
-        );
-    }
-
-    public function testSubjectParseTabs()
-    {
-        $this->assertEquals(
-            "Test",
-            strval(new Horde_Imap_Client_Data_BaseSubject("Re: re:re: fwd:[fwd: \t  Test]  (fwd)  (fwd)(fwd) "))
+        // Format: Test string, Expected parse result
+        return array(
+            array('Test', 'Test'),
+            array('Re: Test', 'Test'),
+            array('re: Test', 'Test'),
+            array('Fwd: Test', 'Test'),
+            array('fwd: Test', 'Test'),
+            array(' Fw: Test', 'Test'),
+            array('fw:  Test', 'Test'),
+            array('fwd [foo] :  Test', 'Test'),
+            array('Fwd: Re: Test', 'Test'),
+            array('Fwd: Re: Test (fwd)', 'Test'),
+            array('  re    :   Test  (fwd)', 'Test'),
+            array('  re :   [foo]Test(Fwd)', 'Test'),
+            array("re \t: \tTest", 'Test'),
+            array('Re:', ''),
+            array(' RE :  ', ''),
+            array('Fwd:', ''),
+            array('  FWD  :   ', ''),
+            // This used to throw an undefined index error.
+            array('fwd', 'fwd'),
+            // Tabs
+            array("Re: re:re: fwd:[fwd: \t  Test]  (fwd)  (fwd)(fwd) ", 'Test')
         );
     }
 

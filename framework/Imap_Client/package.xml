@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-12</date>
+ <date>2014-08-15</date>
  <version>
   <release>2.24.3</release>
   <api>2.24.0</api>
@@ -305,9 +305,11 @@
          <file name="StringTest.php" role="test" />
          <file name="TestBase.php" role="test" />
         </dir> <!-- /test/Horde/Imap/Client/Data/Format -->
+        <file name="AclTest.php" role="test" />
         <file name="CapabilityTest.php" role="test" />
         <file name="SearchCharsetTest.php" role="test" />
         <file name="SearchCharsetUtf8Test.php" role="test" />
+        <file name="SubjectParseTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Data -->
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
@@ -335,7 +337,6 @@
         <file name="Socket.php" role="test" />
         <file name="SocketClientSort.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
-       <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
@@ -348,7 +349,6 @@
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
-       <file name="SubjectParseTest.php" role="test" />
        <file name="TokenizeTest.php" role="test" />
        <file name="UrlParseTest.php" role="test" />
        <file name="Utf7ConvertTest.php" role="test" />
@@ -613,7 +613,6 @@
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="migration/1_horde_imap_client_base_tables.php" name="migration/Horde/Imap/Client/1_horde_imap_client_base_tables.php" />
    <install as="migration/2_horde_imap_client_change_column_name.php" name="migration/Horde/Imap/Client/2_horde_imap_client_change_column_name.php" />
-   <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/bootstrap.php" name="test/Horde/Imap/Client/bootstrap.php" />
@@ -626,7 +625,6 @@
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
-   <install as="Horde/Imap/Client/SubjectParseTest.php" name="test/Horde/Imap/Client/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
@@ -637,9 +635,11 @@
    <install as="Horde/Imap/Client/Cache/HashtableTest.php" name="test/Horde/Imap/Client/Cache/HashtableTest.php" />
    <install as="Horde/Imap/Client/Cache/MongoTest.php" name="test/Horde/Imap/Client/Cache/MongoTest.php" />
    <install as="Horde/Imap/Client/Cache/TestBase.php" name="test/Horde/Imap/Client/Cache/TestBase.php" />
+   <install as="Horde/Imap/Client/Data/AclTest.php" name="test/Horde/Imap/Client/Data/AclTest.php" />
    <install as="Horde/Imap/Client/Data/CapabilityTest.php" name="test/Horde/Imap/Client/Data/CapabilityTest.php" />
    <install as="Horde/Imap/Client/Data/SearchCharsetTest.php" name="test/Horde/Imap/Client/Data/SearchCharsetTest.php" />
    <install as="Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" name="test/Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" />
+   <install as="Horde/Imap/Client/Data/SubjectParseTest.php" name="test/Horde/Imap/Client/Data/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/Data/Capability/ImapTest.php" name="test/Horde/Imap/Client/Data/Capability/ImapTest.php" />
    <install as="Horde/Imap/Client/Data/Format/AstringTest.php" name="test/Horde/Imap/Client/Data/Format/AstringTest.php" />
    <install as="Horde/Imap/Client/Data/Format/AtomTest.php" name="test/Horde/Imap/Client/Data/Format/AtomTest.php" />
@@ -2634,7 +2634,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-12</date>
+   <date>2014-08-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.

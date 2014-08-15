@@ -276,4 +276,12 @@ abstract class Horde_Imap_Client_Cache_TestBase extends Horde_Test_Case
         );
     }
 
+    public function testSerialization()
+    {
+        $this->assertInstanceOf(
+            get_class($this->_cache),
+            unserialize(serialize($this->_cache))
+        );
+    }
+
 }
