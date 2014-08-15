@@ -3195,7 +3195,7 @@ var DimpBase = {
                     h.down('DIV').insert(DimpCore.text[type + '_mbox_subfolders'].sub('%s', elt.fullMboxDisplay()));
                 },
                 onSuccess: function(h) {
-                    DimpCore.doAction(type, {
+                    DimpCore.doAction('subscribe', {
                         mbox: elt.value(),
                         sub: ~~(type == 'subscribe'),
                         subfolders: h.down('[name=' + type + '_subfolders]').getValue()
