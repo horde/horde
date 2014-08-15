@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Don&apos;t store/retrieve message history data if the Message-ID is missing/invalid.
 * [mms] Fix resuming draft from mailbox page in basic view.
 * [mms] Fix displaying Virtual Trash mailbox (Bug #13418).
 * [mms] Fix menu actions on the minimal message page (Bug #13440).
@@ -3726,6 +3727,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Don&apos;t store/retrieve message history data if the Message-ID is missing/invalid.
 * [mms] Fix resuming draft from mailbox page in basic view.
 * [mms] Fix displaying Virtual Trash mailbox (Bug #13418).
 * [mms] Fix menu actions on the minimal message page (Bug #13440).

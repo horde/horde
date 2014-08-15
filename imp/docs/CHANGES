@@ -2,6 +2,8 @@
 v6.2.2-git
 ----------
 
+[mms] Don't store/retrieve message history data if the Message-ID is
+      missing/invalid.
 [mms] Fix resuming draft from mailbox page in basic view.
 [mms] Fix displaying Virtual Trash mailbox (Bug #13418).
 [mms] Fix menu actions on the minimal message page (Bug #13440).
