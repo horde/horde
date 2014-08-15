@@ -205,23 +205,23 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    b. A preferences container.
 
-      Horde applications can store user preferences in an SQL database, an
-      LDAP directory, an IMSP server, a Kolab server, or in PHP sessions.
+      Horde applications can store user preferences in a variety of backends.
+      Common storage backends include an SQL database, an LDAP directory, a
+      Kolab server, local files, a NoSQL database, or in PHP sessions.
 
       For SQL database preferences storage, Horde is thoroughly tested on
-      MySQL(i) (``--with-mysql(i)``) and PostgreSQL (``--with-pgsql``), and has
-      been reported to work with SQLite (enabled by default).
-
-      Preferences can also be stored via LDAP (``--with-ldap``), Kolab
-      (``--with-ldap``), and IMSP.
+      MySQL(i) (``--with-mysql(i)``), PostgreSQL (``--with-pgsql``), and
+      SQLite (enabled by default in PHP). LDAP and/or Kolab (``--with-ldap``)
+      is another common storage backend. NoSQL support is provided through
+      MongoDB.
 
       Alternatively, preferences can be stored in PHP sessions, which
       requires no external programs or configure options, but which will not
       maintain preferences between sessions.
 
-      While the LDAP, database, Kolab, or IMSP server need not be running on
-      the machine onto which you are installing Horde, the appropriate
-      client libraries to access the server must be available locally.
+      While the SQL, LDAP, or Kolab server need not be running on the machine
+      on which you are installing Horde, the appropriate client libraries to
+      access the server must be available locally.
 
       If a preference container is not configured, no preference options
       will be configurable via Horde's web interface - the default values
