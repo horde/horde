@@ -8,6 +8,8 @@ v3.3.0-git
 v3.2.1
 ------
 
+[mms] Fix performing more than one filter drag/drop action on a single page
+      (Bug #13434).
 [mms] Add support for a negative regex test to the Maildrop driver.
 [mms] Add support for a negative regex test to the Sieve driver (Request
       #12671; Pete Beardmore <pete.beardmore@msn.com>).
