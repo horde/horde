@@ -30,7 +30,7 @@ class IMP_Contacts_Flag_Host implements IMP_Contacts_Flag_Backend
         if ($flag = Horde_Core_Ui_FlagImage::getFlagImageObByHost($addr->host)) {
             return array(
                 'desc' => $flag['name'],
-                'url' => $flag['ob']->base64img
+                'url' => $flag['ob']
             );
         }
 
