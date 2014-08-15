@@ -25,20 +25,11 @@
  */
 class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
 {
-    public function testNumericComponentSorting()
+    /**
+     * @dataProvider numericComponentSortingProvider
+     */
+    public function testNumericComponentSorting($mboxes, $expected)
     {
-        $mboxes = array(
-            'Foo.002',
-            'Foo.00002',
-            'Foo.0002'
-        );
-
-        $expected = array(
-            'Foo.002',
-            'Foo.0002',
-            'Foo.00002'
-        );
-
         $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
         $list_ob->sort(array(
             'delimiter' => '.'
@@ -50,17 +41,45 @@ class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testInboxSort()
+    public function numericComponentSortingProvider()
     {
-        $mboxes = array(
-            'A',
-            'INBOX'
+        return array(
+            array(
+                array(
+                    '100',
+                    '1',
+                    '10000',
+                    '10',
+                    '1000'
+                ),
+                array(
+                    '1',
+                    '10',
+                    '100',
+                    '1000',
+                    '10000'
+                )
+            ),
+            array(
+                array(
+                    'Foo.002',
+                    'Foo.00002',
+                    'Foo.0002'
+                ),
+                array(
+                    'Foo.002',
+                    'Foo.0002',
+                    'Foo.00002'
+                )
+            )
         );
-        $expected = array(
-            'INBOX',
-            'A'
-        );
+    }
 
+    /**
+     * @dataProvider inboxSortProvider
+     */
+    public function testInboxSort($mboxes, $expected)
+    {
         $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
         $sorted = $list_ob->sort(array(
             'inbox' => true,
@@ -82,17 +101,31 @@ class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testIndexAssociation()
+    public function inboxSortProvider()
     {
-        $mboxes = array(
-            'Z' => 'Z',
-            'A' => 'A'
+        return array(
+            array(
+                array(
+                    'A',
+                    'Z',
+                    'INBOX',
+                    'C'
+                ),
+                array(
+                    'INBOX',
+                    'A',
+                    'C',
+                    'Z'
+                )
+            )
         );
-        $expected = array(
-            'A',
-            'Z'
-        );
+    }
 
+    /**
+     * @dataProvider indexAssociationProvider
+     */
+    public function testIndexAssociation($mboxes, $expected)
+    {
         $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
         $sorted = $list_ob->sort();
 
@@ -107,17 +140,27 @@ class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testNoUpdateOfListObject()
+    public function indexAssociationProvider()
     {
-        $mboxes = array(
-            'Z',
-            'A'
+        return array(
+            array(
+                array(
+                    'Z' => 'Z',
+                    'A' => 'A'
+                ),
+                array(
+                    'A',
+                    'Z'
+                )
+            )
         );
-        $expected = array(
-            'A',
-            'Z'
-        );
+    }
 
+    /**
+     * @dataProvider noUpdateOfListObjectProvider
+     */
+    public function testNoUpdateOfListObject($mboxes, $expected)
+    {
         $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
         $sorted = $list_ob->sort(array(
             'noupdate' => true
@@ -142,6 +185,22 @@ class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expected,
             array_values(iterator_to_array($list_ob))
+        );
+    }
+
+    public function noUpdateOfListObjectProvider()
+    {
+        return array(
+            array(
+                array(
+                    'Z',
+                    'A'
+                ),
+                array(
+                    'A',
+                    'Z'
+                )
+            )
         );
     }
 

@@ -25,98 +25,43 @@
  */
 class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 {
-    public function testBasicConversion()
+    /**
+     * @dataProvider conversionProvider
+     */
+    public function testConversion($orig, $expected = null)
     {
-        $orig = 'Envoyé';
+        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(
+            $orig,
+            !is_null($expected)
+        );
 
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
         $this->assertEquals(
-            'Envoy&AOk-',
+            $expected ?: $orig,
             $utf7_imap
         );
 
-        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
-        $this->assertEquals(
-            $orig,
-            $utf8
-        );
-
-        $orig = 'Töst-';
-
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
-        $this->assertEquals(
-            'T&APY-st-',
-            $utf7_imap
-        );
-
-        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
-        $this->assertEquals(
-            $orig,
-            $utf8
-        );
+        if ($expected) {
+            $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+            $this->assertEquals(
+                $orig,
+                $utf8
+            );
+        }
     }
 
-    public function testAmpersandConversion()
+    public function conversionProvider()
     {
-        $orig = '&';
-
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig);
-        $this->assertEquals(
-            '&-',
-            $utf7_imap
-        );
-
-        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
-        $this->assertEquals(
-            $orig,
-            $utf8
-        );
-
-        $orig = '&-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
-        $this->assertEquals(
-            '&-',
-            $utf7_imap
-        );
-
-        $orig = 'Envoy&AOk-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
-        $this->assertEquals(
-            'Envoy&AOk-',
-            $utf7_imap
-        );
-
-        $orig = 'T&APY-st-';
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
-        $this->assertEquals(
-            'T&APY-st-',
-            $utf7_imap
-        );
-
-        // Bug #10133
-        $orig = 'Entw&APw-rfe';
-
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($orig, false);
-        $this->assertEquals(
-            $orig,
-            $utf7_imap
-        );
-    }
-
-    public function testBug10093()
-    {
-        $orig = 'Foo&Bar-2011';
-
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(Horde_Imap_Client_Mailbox::get($orig));
-        $this->assertEquals(
-            'Foo&-Bar-2011',
-            $utf7_imap
-        );
-
-        $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
-        $this->assertEquals(
-            $orig,
-            $utf8
+        return array(
+            array('Envoyé', 'Envoy&AOk-'),
+            array('Töst-', 'T&APY-st-'),
+            array('&', '&-'),
+            array('&-'),
+            array('Envoy&AOk-'),
+            array('T&APY-st-'),
+            // Bug #10133
+            array('Entw&APw-rfe'),
+            // Bug #10093
+            array('Foo&Bar-2011', 'Foo&-Bar-2011')
         );
     }
 

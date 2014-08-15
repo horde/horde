@@ -25,37 +25,45 @@
  */
 class Horde_Imap_Client_Ids_Pop3Test extends PHPUnit_Framework_TestCase
 {
-    public function testPop3SequenceStringGenerate()
+    /**
+     * @dataProvider pop3SequenceStringGenerateProvider
+     */
+    public function testPop3SequenceStringGenerate($in, $expected)
     {
         $this->assertEquals(
-            'ABCDEFGHIJ ABCDE',
-            strval(new Horde_Imap_Client_Ids_Pop3(array('ABCDEFGHIJ', 'ABCDE')))
-        );
-
-        $this->assertEquals(
-            'ABCDEFGHIJ',
-            strval(new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ'))
+            $expected,
+            strval(new Horde_Imap_Client_Ids_Pop3($in))
         );
     }
 
-    public function testPop3SequenceStringParse()
+    public function pop3SequenceStringGenerateProvider()
     {
-        $ids = new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ ABCDE');
+        return array(
+            array(array('ABCDEFGHIJ', 'ABCDE'), 'ABCDEFGHIJ ABCDE'),
+            array('ABCDEFGHIJ', 'ABCDEFGHIJ')
+        );
+    }
+
+    /**
+     * @dataProvider pop3SequenceStringParseProvider
+     */
+    public function testPop3SequenceStringParse($in, $expected)
+    {
+        $ids = new Horde_Imap_Client_Ids_Pop3($in);
         $this->assertEquals(
-            array('ABCDEFGHIJ', 'ABCDE'),
+            $expected,
             $ids->ids
         );
+    }
 
-        $ids = new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ ABC ABCDE');
-        $this->assertEquals(
-            array('ABCDEFGHIJ', 'ABC', 'ABCDE'),
-            $ids->ids
-        );
-
-        $ids = new Horde_Imap_Client_Ids_Pop3('10:12');
-        $this->assertEquals(
-            array('10:12'),
-            $ids->ids
+    public function pop3SequenceStringParseProvider()
+    {
+        return array(
+            array('ABCDEFGHIJ ABCDE', array('ABCDEFGHIJ', 'ABCDE')),
+            array('ABCDEFGHIJ ABC ABCDE', array('ABCDEFGHIJ', 'ABC', 'ABCDE')),
+            array('ABCDEFGHIJ', array('ABCDEFGHIJ')),
+            // This is not a range in POP3 IDs
+            array('10:12', array('10:12'))
         );
     }
 
