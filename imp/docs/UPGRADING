@@ -53,6 +53,14 @@ The following options have been removed::
    $conf['compose']['use_vfs']
 
 
+Hooks (hooks.php)
+-----------------
+
+The following hooks have been added::
+
+   dynamic_prefs
+
+
 
 Upgrading IMP From 6.1.x To 6.2
 ===============================

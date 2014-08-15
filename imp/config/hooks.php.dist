@@ -608,6 +608,43 @@ class IMP_Hooks
 
 
     /**
+     * Default browser-based preference values for the dynamic view.
+     * Any value not returned here will use the default value (listed below).
+     *
+     * @return array  The list of pref keys / default values.
+     */
+    public function dynamic_prefs()
+    {
+        return array(
+            /* Preview pane. Valid values:
+             *   - 'horiz': Horizontal mode
+             *   - 'vert': Vertical mode
+             *   - [empty value]: No preview */
+            // 'preview' => 'horiz',
+
+            /* Quicksearch field (search box on mailbox page). Valid values:
+             *  - 'all': Search entire message (body & headers)
+             *  - 'body': Search message body
+             *  - 'from': Search from header
+             *  - 'recip': Search recipients (To/CC/BCC) headers
+             *  - 'subject': Search subject */
+            // qsearch_field: 'all',
+
+            /* Splitbar (horizontal) height. Value is number of messages to
+             * show. 0 means auto-determine default size. */
+            // splitbar_horiz: 0,
+
+            /* Splitbar (vertical) width. Value is width (in pixels) of the
+             * mailbox listing. 0 means auto-determine default size. */
+            // splitbar_vert: 0,
+
+            /* Toggle headers in preview. 1 to show headers, 0 to hide. */
+            // toggle_hdrs: 0,
+        );
+    }
+
+
+    /**
      * Dynamically disable composing messages.
      *
      * @return boolean  Is composing disabled?

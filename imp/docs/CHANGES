@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Add 'dynamic_prefs' hook to allow for changing of default values for
+      browser-based preferences in dynamic view.
 [mms] Removed compose 'use_vfs' configuration option.
 [mjr] Add IMP_Api::addFlags().
 [mms] Allow multiple independent attachment actions on the dynamic compose
