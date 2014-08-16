@@ -337,7 +337,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 $tagger->replaceTags(
                     $note['uid'],
                     $note['categories'],
-                    $this->_notepad,
+                    $GLOBALS['registry']->getAuth(),
                     'note'
                 );
             }
