@@ -180,7 +180,7 @@ abstract class Mnemo_Driver
 
         // Update tags.
         $GLOBALS['injector']->getInstance('Mnemo_Tagger')
-            ->replaceTags($uid, $tags, $this->_notepad, 'note');
+            ->replaceTags($uid, $tags, $GLOBALS['registry']->getAuth(), 'note');
 
         // Log the modification of this item in the history log.
         if ($uid) {
