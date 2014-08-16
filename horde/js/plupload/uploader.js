@@ -161,6 +161,9 @@ var Horde_Uploader = Class.create({
             chunk_size: false
         }, params);
         this.handlers = Object.extend(this.handlers, handlers);
+
+        // @todo Don't call _build here or attach handlers. Do this in the
+        // init method.
         this._build();
         var opts = {
             runtimes: 'html5, flash, silverlight, browserplus',
