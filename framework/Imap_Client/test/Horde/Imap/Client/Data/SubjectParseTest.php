@@ -23,7 +23,8 @@
  * @package    Imap_Client
  * @subpackage UnitTests
  */
-class Horde_Imap_Client_SubjectParseTest extends PHPUnit_Framework_TestCase
+class Horde_Imap_Client_Data_SubjectParseTest
+extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider subjectParseProvider
