@@ -271,7 +271,6 @@ var Horde_Uploader = Class.create({
             new Element('div', {'class': this._params['container_class'] })
                 .insert(header)
                 .insert(fileheader)
-                .insert(new Element('div', { 'class': 'clear' }))
                 .insert(filelist)
                 .insert(footer.insert(browse).insert(upload).insert(returnButton))
         );
