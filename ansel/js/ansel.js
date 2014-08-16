@@ -126,7 +126,7 @@ AnselCore =
         var locCap = loc.capitalize();
         switch (loc) {
         case 'me':
-        case 'groups':
+        case 'all':
         case 'subscribed':
         case 'upload':
             if (loc != 'upload' && subview != 'image') {
@@ -136,6 +136,7 @@ AnselCore =
             $('anselHeader').show();
             switch (loc) {
             case 'me':
+            case 'all':
                 this.view = loc;
                 this.subview = subview;
                 this.addHistory(fullloc);
@@ -203,6 +204,7 @@ AnselCore =
     {
         switch (view) {
         case 'me':
+        case 'all':
             switch (subview) {
             case 'images':
                 $('anselViewImages').observe('AnselLayout:scroll', this.onImageScroll.bindAsEventListener(this));
@@ -500,6 +502,10 @@ AnselCore =
 
             case 'anselNavMe':
                 this.go('me:images');
+                return;
+
+            case 'anselNavAll':
+                this.go('all:images');
                 return;
 
             }

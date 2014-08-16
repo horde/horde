@@ -7,11 +7,11 @@
     </div>
     <div class="horde-subnavi-point"><?php echo _("Me") ?></div>
   </div>
-  <div id="anselNavGroups" class="horde-subnavi">
+  <div id="anselNavAll" class="horde-subnavi">
     <div class="horde-subnavi-icon">
       <a class="icon"></a>
     </div>
-    <div class="horde-subnavi-point"><?php echo _("My Groups") ?></div>
+    <div class="horde-subnavi-point"><?php echo _("All") ?></div>
   </div>
   <div id="anselNavSubscribed" class="horde-subnavi">
     <div class="horde-subnavi-icon">
