@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug #13439).
 * [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
 * [jan] Catch exception from application in portal block (Bug #13427).
@@ -3603,6 +3604,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug #13439).
 * [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
 * [jan] Catch exception from application in portal block (Bug #13427).

@@ -99,7 +99,14 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             $this->_instances[$sig] = $this->create();
         } elseif (!isset($this->_instances[$sig])) {
             try {
-                $this->_instances[$sig] = $this->createDb($config);
+                $this->_instances[$sig] = $this->_createDb($config);
+                if (!isset($config['cache'])) {
+                    /* Need to add cache ob here, instead of createDb, or else
+                     * we enter infinite bootstrapping loop. Bug #13439 */
+                    $this->_instances[$sig]->setCache(
+                        $this->_injector->getInstance('Horde_Cache')
+                    );
+                }
             } catch (Horde_Exception $e) {}
         }
 
@@ -125,13 +132,24 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
      */
     public function createDb($config)
     {
+        $ob = $this->_createDb($config);
+        if (!isset($config['cache'])) {
+            $ob->setCache($this->_injector->getInstance('Horde_Cache'));
+        }
+        return $ob;
+    }
+
+    /**
+     */
+    protected function _createDb($config)
+    {
         // Split read?
         if (!empty($config['splitread'])) {
             $read_config = $config['read'];
             unset($config['read'], $config['splitread']);
             return new Horde_Db_Adapter_SplitRead(
-                $this->createDb(array_merge($config, $read_config)),
-                $this->createDb($config)
+                $this->_createDb(array_merge($config, $read_config)),
+                $this->_createDb($config)
             );
         }
 
@@ -169,28 +187,11 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
 
         $ob = new $class($config);
 
-        if (!isset($config['cache'])) {
-            $cacheFactory = $this->_injector->getInstance('Horde_Core_Factory_Cache');
-
-            switch ($cacheFactory->getDriverName()) {
-            case 'sql':
-                $injector = $this->_injector->createChildInjector();
-                $injector->setInstance('Horde_Db_Adapter', $ob);
-                $cache = $cacheFactory->create($injector);
-                break;
-
-            default:
-                $cache = $this->_injector->getInstance('Horde_Cache');
-                break;
-            }
-
-            $ob->setCache($cache);
-        }
-
         if (!isset($config['logger'])) {
             $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         }
 
         return $ob;
     }
+
 }
