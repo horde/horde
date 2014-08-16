@@ -745,16 +745,19 @@ class Ansel_Storage
             $galleries[] = $g->getId();
         }
 
-        $image_ids = $this->listImages(array(
-            'gallery_id' => $galleries,
-            'offset' => $from,
-            'limit' => $count));
+        if (!empty($galleries)) {
+            $image_ids = $this->listImages(array(
+                'gallery_id' => $galleries,
+                'offset' => $from,
+                'limit' => $count));
+        }
 
         if (empty($image_ids)) {
             // Reached the end of available images?
             //$GLOBALS['notification']->push('No more images');
             return array();
         }
+
         return $this->getImages(array('ids' => $image_ids));
     }
 
