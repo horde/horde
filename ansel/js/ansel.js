@@ -212,7 +212,7 @@ AnselCore =
                 this.addHistory(view + ':' + subview);
                 HordeCore.doAction(
                     'listImages',
-                    { view: 'me', start: 0, count: this.perPage },
+                    { view: view, start: 0, count: this.perPage },
                     { callback: this.listImagesCallback.bind(this) }
                 );
                 break;
@@ -281,7 +281,7 @@ AnselCore =
             this.inScrollHandler = true;
             HordeCore.doAction(
                 'listImages',
-                { view: 'me', start: e.memo.image, count: this.perPage },
+                { view: this.view, start: e.memo.image, count: this.perPage },
                 { callback: this.listImagesCallback.bind(this) }
             );
         }

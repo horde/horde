@@ -88,6 +88,20 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                 $return[] = $img->toJson();
             }
             return $return;
+        case Ansel_Ajax::VIEW_ALL:
+            $galleries = array();
+            $gallery_list = $storage->listGalleries(array('all_levels' => false));
+            foreach ($gallery_list as $gallery) {
+                $galleries[] = $gallery->id;
+            }
+            if (!empty($galleries)) {
+                $img_list = $storage->listImages(array('gallery_id' => $galleries, 'offset' => $this->vars->start, 'limit' => $this->vars->count));
+                $images = $storage->getImages(array('ids' => $img_list));
+                foreach ($images as $img) {
+                    $return[] = $img->toJson();
+                }
+            }
+            return $return;
         }
     }
 

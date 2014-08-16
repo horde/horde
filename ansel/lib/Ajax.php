@@ -15,6 +15,8 @@
 class Ansel_Ajax
 {
     const VIEW_ME = 'me';
+    const VIEW_GROUPS = 'groups';
+    const VIEW_ALL    = 'all';
 
     /**
      */
