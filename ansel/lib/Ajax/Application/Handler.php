@@ -42,9 +42,9 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             'all_levels' => false
         );
         $galleries = $GLOBALS['storage']->listGalleries($params);
-        $return = array();
+        $return = new stdClass();
         foreach ($galleries as $gallery) {
-            $return[$gallery->id] = $gallery->toJson();
+            $return->{$gallery->id} = $gallery->toJson();
         }
 
         return $return;
