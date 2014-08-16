@@ -1225,6 +1225,19 @@
   </release>
   <release>
    <version>
+    <release>4.2.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-16</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix replacing tags in existing notes (Bug# 13417).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.0.0</api></version>
    <stability>
