@@ -1,5 +1,15 @@
 <div id="horde-page" style="<?php echo ($GLOBALS['registry']->nlsconfig->curr_rtl ? 'right:' : 'left:') . $prefs->getValue('sidebar_width') ?>px">
 
+  <!-- Uploader view -->
+  <div id="anselViewUpload" style="display:none;">
+    <div class="header">
+    <?php echo _("Upload to: ") ?>
+    <select id="ansel-gallery-select"></select>
+    </div>
+    <div id="anseluploader"></div>
+  </div>
+  <!-- End Uploader -->
+
   <!-- begin header -->
   <div id="anselHeader">
       <!-- begin top bar -->
@@ -48,16 +58,6 @@
         <!-- Image view overlay -->
         <div id="anselViewImage" style="display:none;"></div>
         <!-- End Image View Overlay -->
-
-        <!-- Uploader view -->
-        <div id="anselViewUpload" style="display:none;">
-          <div class="header">
-          <?php echo _("Upload to: ") ?>
-          <select id="ansel-gallery-select"></select>
-          </div>
-          <div id="anseluploader"></div>
-        </div>
-        <!-- End Uploader -->
 
     </div>
     <!-- end body -->

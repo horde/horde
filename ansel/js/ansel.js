@@ -133,6 +133,7 @@ AnselCore =
                 $('anselNav' + locCap).addClassName('horde-subnavi-active');
                 $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
             }
+            $('anselHeader').show();
             switch (loc) {
             case 'me':
                 this.view = loc;
@@ -148,7 +149,9 @@ AnselCore =
                 });
                 //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
-
+            case 'upload':
+                $('anseluploader').update();
+                $('anselHeader').hide();
             default:
                 if (!$('anselView' + locCap)) {
                     break;
@@ -236,7 +239,6 @@ AnselCore =
 
         case 'upload':
             this.addHistory(view);
-            $('anseluploader').update();
             HordeCore.doAction(
                 'selectGalleries',
                 {},
