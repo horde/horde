@@ -43,17 +43,21 @@
         <div id="anselViewGalleries" style="display;none;">
             <div id="anselGalleriesMain"></div>
         </div>
-        <!-- End Images -->
+        <!-- End Galleries -->
 
         <!-- Image view overlay -->
-        <div id="anselViewImage" style="display:none;">
-<!--           <div class="ansel-imageview-main"></div>
-          <div class="ansel-imageview-bar">
-           Booooo<br />
-           <a href="#" class="ansel-imageview-close">&nbsp;</a>
-          </div> -->
-        </div>
+        <div id="anselViewImage" style="display:none;"></div>
         <!-- End Image View Overlay -->
+
+        <!-- Uploader view -->
+        <div id="anselViewUpload" style="display:none;">
+          <div class="header">
+          <?php echo _("Upload to: ") ?>
+          <select id="ansel-gallery-select"></select>
+          </div>
+          <div id="anseluploader"></div>
+        </div>
+        <!-- End Uploader -->
 
     </div>
     <!-- end body -->

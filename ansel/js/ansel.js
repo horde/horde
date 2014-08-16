@@ -128,7 +128,8 @@ AnselCore =
         case 'me':
         case 'groups':
         case 'subscribed':
-            if (subview != 'image') {
+        case 'upload':
+            if (loc != 'upload' && subview != 'image') {
                 $('anselNav' + locCap).addClassName('horde-subnavi-active');
                 $('anselMenu' + subview.capitalize()).up().addClassName('horde-active');
             }
@@ -147,16 +148,19 @@ AnselCore =
                 });
                 //$('anselLoading' + loc).insert($('anselLoading').remove());
                 break;
+
             default:
                 if (!$('anselView' + locCap)) {
                     break;
                 }
                 this.addHistory(fullloc);
                 this.view = loc;
+                this.subview = subview;
                 $('anselView' + locCap).appear({
                     duration: this.effectDur,
                     queue: 'end',
                     afterFinish: function() {
+                        this.updateView(loc, subview, data);
                         this.loadNextView();
                     }.bind(this) });
                 break;
@@ -214,7 +218,7 @@ AnselCore =
                     this.addHistory(view + ':' + subview + ':' + data);
                     this.loadGallery(data);
                 } else {
-                    this.addHistory(view + ':' + subview );
+                    this.addHistory(view + ':' + subview);
                     HordeCore.doAction('listGalleries', {}, { callback: this.listGalleriesCallback.bind(this) });
                 }
                 break;
@@ -226,8 +230,45 @@ AnselCore =
                 } else {
                     HordeCore.doAction('getImage', { id: data }, { callback: this.loadImageView.bind(this) });
                 }
+                break;
             }
+            break;
+
+        case 'upload':
+            this.addHistory(view);
+            $('anseluploader').update();
+            HordeCore.doAction(
+                'selectGalleries',
+                {},
+                { callback: this.uploaderListGalleriesCallback.bind(this) }
+            );
         }
+    } ,
+
+    // Callback responsible for displaying uploader
+    uploaderListGalleriesCallback: function(r)
+    {
+        $('ansel-gallery-select').update(r);
+        var uploader = new Horde_Uploader({
+            drop_target: 'filelist',
+            filelist_class: 'ansel-uploader-filelist',
+            container: 'anseluploader',
+            text: Ansel.text.uploader,
+            swf_path: Ansel.conf.jsuri + '/plupload/plupload.flash.swf',
+            xap_path: Ansel.conf.jsuri + '/plupload/plupload.silverlight.xap'
+        },
+        {
+            statechanged: function(up) {
+                if (up.state == plupload.STARTED) {
+                    up.settings.url = up.settings.page_url + '/img/upload.php?gallery=' + $('ansel-gallery-select').value;
+                }
+            },
+            'uploadcomplete': function(up, files) {
+                $('uploadimages').hide();
+                this.setReturnCallback(function(e) { AnselCore.go('me:galleries', $('ansel-gallery-select').value); e.stop(); });
+            }
+        });
+        uploader.init();
     },
 
     onImageScroll: function(e)
@@ -285,8 +326,6 @@ AnselCore =
      */
     closeView: function(loc, subview)
     {
-        console.log(loc);
-        console.log(subview);
         $w('Me Groups Subscribed').each(function(a) {
             a = $('anselNav' + a);
             if (a) {
@@ -299,20 +338,24 @@ AnselCore =
                 a.up().removeClassName('horde-active');
             }
         });
-
-        $('anselView' + this.subview.capitalize()).fade({
-            duration: this.effectDur,
-            queue: 'end',
-            afterFinish: function() {
-                if (subview == 'galleries') {
-                    this.galleryLayout.reset();
-                } else if (subview == 'images') {
-                    this.imagesLayout.reset();
-                }
-            }.bind(this)
-        });
-        if (this.subview == 'image') {
-            this.imageLayout.reset();
+        if (loc == 'upload') {
+            this.subview == 'upload';
+        }
+        if (this.subview) {
+            $('anselView' + this.subview.capitalize()).fade({
+                duration: this.effectDur,
+                queue: 'end',
+                afterFinish: function() {
+                    if (subview == 'galleries') {
+                        this.galleryLayout.reset();
+                    } else if (subview == 'images') {
+                        this.imagesLayout.reset();
+                    }
+                }.bind(this)
+            });
+            if (this.subview == 'image') {
+                this.imageLayout.reset();
+            }
         }
     },
 
@@ -449,6 +492,14 @@ AnselCore =
             case 'anselMenuGalleries':
                 this.go(this.view + ':galleries');
                 return;
+            case 'anselUpload':
+                this.go('upload:upload');
+                return;
+
+            case 'anselNavMe':
+                this.go('me:images');
+                return;
+
             }
 
             // Caution, this only works if the element has definitely only a

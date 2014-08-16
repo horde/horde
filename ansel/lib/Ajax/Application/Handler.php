@@ -50,6 +50,11 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         return $return;
     }
 
+    public function selectGalleries()
+    {
+        return Ansel::selectGalleries();
+    }
+
     /**
      * Return a single image object.
      *

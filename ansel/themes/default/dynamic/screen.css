@@ -177,3 +177,8 @@
 .ansel-image-desc {
     line-height: 18px;
 }
+
+.ansel-uploader-filelist {
+    overflow: auto;
+    height: 300px;
+}

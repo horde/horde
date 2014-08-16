@@ -28,6 +28,15 @@ class Ansel_Ajax
         $page_output->addScriptFile('layout.js');
         $page_output->addScriptFile('imageview.js');
         $page_output->addScriptPackage('Horde_Core_Script_Package_Datejs');
+
+        $page_output->addScriptFile('plupload/plupload.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.flash.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.silverlight.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.html5.js', 'horde');
+        $page_output->addScriptFile('plupload/plupload.browserplus.js', 'horde');
+        $page_output->addScriptFile('plupload/uploader.js', 'horde');
+
+
         $page_output->addInlineJsVars(array(
             'var Ansel' => $this->_addBaseVars()
         ), array('top' => true));
@@ -61,6 +70,7 @@ class Ansel_Ajax
             'images' => array(
                 //'alarm'     => strval(Horde_Themes::img('alarm-fff.png')),
             ),
+            'jsuri' =>  $registry->get('jsuri', 'horde'),
             'user' => $registry->convertUsername($auth_name, false),
             'name' => $identity->getName(),
             'email' => strval($identity->getDefaultFromAddress()),
@@ -97,6 +107,16 @@ class Ansel_Ajax
             'images' => _("Images"),
             'subgalleries' => _("Sub-galleries"),
             'taken' => _("Taken"),
+            'choose_gallery' => _("Choose gallery"),
+            'uploader' => array(
+                'start' => _("Upload"),
+                'add' => _("Add Images"),
+                'header' => _("Images to upload"),
+                'returnButton' => _("View Gallery"),
+                'subheader' => _("Add files to the upload queue and click the start button."),
+                'size' => _("File size error."),
+                'type' => _("File type error.")
+            ),
         );
 
         // Maps
