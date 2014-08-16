@@ -198,14 +198,22 @@ var Horde_Uploader = Class.create({
             this._puploader.start();
             e.stop();
         }.bindAsEventListener(this));
-        this.setReturnTarget(this._params['return_target']);
+        if (this._params['return_target']) {
+            this.setReturnTarget(this._params['return_target']);
+        }
         $(this._params['return_button']).hide();
         $(this._params['upload_button']).hide();
     },
 
+    // @deprecated use setReturnAction instead
     setReturnTarget: function(path)
     {
         $(this._params['return_button']).observe('click', function() { window.location = path });
+    },
+
+    setReturnCallback: function(js)
+    {
+        $(this._params['return_button']).observe('click', js.bindAsEventListener(this));
     },
 
     updateList: function()
