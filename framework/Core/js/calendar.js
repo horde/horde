@@ -185,9 +185,9 @@ var Horde_Calendar =
             }
 
             if (p.top + div.offsetHeight > vp.height) {
-                div.setStyle({ top: (vp.height - 10 - div.offsetHeight) + 'px' });
+                div.setStyle({ top: (window.pageYOffset + vp.height - 10 - div.offsetHeight) + 'px' });
             } else {
-                div.setStyle({ top: p.top + 'px' });
+                div.setStyle({ top: (window.pageYOffset + p.top) + 'px' });
             }
         }
 
