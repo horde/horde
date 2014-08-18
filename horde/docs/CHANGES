@@ -2,6 +2,8 @@
 v5.2.2-git
 ----------
 
+[jan] Add show_encryption setting to HTTP authentication configuration
+      (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
 
 
 ------

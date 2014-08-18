@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3966,7 +3966,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
    </notes>
   </release>
  </changelog>
