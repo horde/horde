@@ -201,7 +201,7 @@ class Horde_Imap_Client_Socket_ClientSort
                             : null;
                     }
 
-                    asort($sorted, SORT_LOCALE_STRING);
+                    $this->_sortString($sorted);
                     break;
 
                 case Horde_Imap_Client::SORT_CC:
@@ -221,7 +221,8 @@ class Horde_Imap_Client_Socket_ClientSort
                             ? $tmp[0]->mailbox
                             : null;
                     }
-                    asort($sorted, SORT_LOCALE_STRING);
+
+                    $this->_sortString($sorted);
                     break;
 
                 case Horde_Imap_Client::SORT_ARRIVAL:
@@ -240,7 +241,8 @@ class Horde_Imap_Client_Socket_ClientSort
                     foreach ($slice as $num) {
                         $sorted[$num] = strval(new Horde_Imap_Client_Data_BaseSubject($fetch_res[$num]->getEnvelope()->subject));
                     }
-                    asort($sorted, SORT_LOCALE_STRING);
+
+                    $this->_sortString($sorted);
                     break;
                 }
 
@@ -325,6 +327,23 @@ class Horde_Imap_Client_Socket_ClientSort
         array_walk($a, function(&$v, $k) { $v = array($v, $k); });
         asort($a);
         array_walk($a, function(&$v, $k) { $v = $v[0]; });
+    }
+
+    /**
+     * Sort an array of strings based on current locale.
+     *
+     * @param array &$sorted  Array of strings.
+     */
+    protected function _sortString(&$sorted)
+    {
+        if (class_exists('Collator')) {
+            if ($coll = new Collator(null)) {
+                $coll->asort($sorted, Collator::SORT_STRING);
+                return;
+            }
+        }
+
+        asort($sorted, SORT_LOCALE_STRING);
     }
 
 }
