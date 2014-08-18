@@ -84,6 +84,10 @@ class Horde_Imap_Client_Socket_ClientSort
                 $query->envelope();
                 break;
 
+            case Horde_Imap_Client::SORT_SEQUENCE:
+                $query->seq();
+                break;
+
             case Horde_Imap_Client::SORT_SIZE:
                 $query->size();
                 break;

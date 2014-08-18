@@ -91,6 +91,11 @@ extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
+                array(Horde_Imap_Client::SORT_SEQUENCE),
+                range(1, 9),
+                false
+            ),
+            array(
                 array(Horde_Imap_Client::SORT_ARRIVAL),
                 array(
                     5, // 02:30

@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix client-side sequence sorting, when that is the only sort criteria.
 * [mms] Use Collator class, if present, to sort string fields on the client side.
 * [mms] Fix client-side sorting of display addresses.
 * [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
@@ -2644,6 +2645,7 @@
    <date>2014-08-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix client-side sequence sorting, when that is the only sort criteria.
 * [mms] Use Collator class, if present, to sort string fields on the client side.
 * [mms] Fix client-side sorting of display addresses.
 * [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
