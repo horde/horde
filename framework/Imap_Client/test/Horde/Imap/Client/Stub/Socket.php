@@ -26,33 +26,7 @@
  */
 class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 {
-    public $sort_ob;
-
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
-
-        require_once __DIR__ . '/SocketClientSort.php';
-
-        $this->sort_ob = new Horde_Imap_Client_Stub_SocketClientSort($this);
-    }
-
-    public function getClientSort($data, $sort)
-    {
-        $ids = array();
-        $pipeline = $this->_pipeline();
-
-        foreach (array_filter($data) as $val) {
-            $token = new Horde_Imap_Client_Tokenize($val);
-            $token->rewind();
-            $token->next();
-            $ids[] = $token->next();
-
-            $this->doServerResponse($pipeline, $val);
-        }
-
-        return $this->sort_ob->clientSortProcess($ids, $pipeline->fetch, $sort);
-    }
+    public $fetch_results;
 
     public function getThreadSort($data)
     {
@@ -109,6 +83,16 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
             new Horde_Imap_Client_Tokenize($data)
         );
         $this->_responseCode($this->_pipeline(), $server);
+    }
+
+    public function pipeline($cmd = null)
+    {
+        return $this->_pipeline($cmd);
+    }
+
+    public function fetch($mailbox, $query, array $options = array())
+    {
+        return $this->fetch_results;
     }
 
 }

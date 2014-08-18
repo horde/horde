@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-15</date>
+ <date>2014-08-18</date>
  <version>
   <release>2.24.3</release>
   <api>2.24.0</api>
@@ -332,10 +332,12 @@
         <file name="DataTest.php" role="test" />
         <file name="ListTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Namespace -->
+       <dir name="Socket">
+        <file name="ClientSortTest.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Socket -->
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
         <file name="Socket.php" role="test" />
-        <file name="SocketClientSort.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
@@ -673,10 +675,10 @@
    <install as="Horde/Imap/Client/Live/Pop3Test.php" name="test/Horde/Imap/Client/Live/Pop3Test.php" />
    <install as="Horde/Imap/Client/Namespace/DataTest.php" name="test/Horde/Imap/Client/Namespace/DataTest.php" />
    <install as="Horde/Imap/Client/Namespace/ListTest.php" name="test/Horde/Imap/Client/Namespace/ListTest.php" />
+   <install as="Horde/Imap/Client/Socket/ClientSortTest.php" name="test/Horde/Imap/Client/Socket/ClientSortTest.php" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
-   <install as="Horde/Imap/Client/Stub/SocketClientSort.php" name="test/Horde/Imap/Client/Stub/SocketClientSort.php" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -2634,7 +2636,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-15</date>
+   <date>2014-08-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
