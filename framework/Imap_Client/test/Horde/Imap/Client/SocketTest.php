@@ -352,11 +352,4 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($env->to);
     }
 
-    protected function _serverResponse($data)
-    {
-        return Horde_Imap_Client_Interaction_Server::create(
-            new Horde_Imap_Client_Tokenize($data)
-        );
-    }
-
 }
