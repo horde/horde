@@ -26,6 +26,7 @@
 class Horde_Imap_Client_Socket_ClientSortTest
 extends PHPUnit_Framework_TestCase
 {
+    public $fetch_data;
     public $socket_ob;
     public $sort_ob;
 
@@ -40,19 +41,22 @@ extends PHPUnit_Framework_TestCase
         $this->sort_ob = new Horde_Imap_Client_Socket_ClientSort(
             $this->socket_ob
         );
+
+        // Test file is base64 encoded to obfuscate the data.
+        $this->fetch_data = array_filter(explode("\n", base64_decode(
+            file_get_contents(__DIR__ . '/../fixtures/clientsort.txt')
+        )));
     }
 
-    public function testBug10503()
+    /**
+     * @dataProvider clientSortProvider
+     */
+    public function testClientSortProvider($sort, $expected, $locale)
     {
-        // Test file is base64 encoded to obfuscate the data.
-        $fetch_data = explode("\n", base64_decode(
-            file_get_contents(__DIR__ . '/../fixtures/bug_10503.txt')
-        ));
-
         $ids = new Horde_Imap_Client_Ids();
         $pipeline = $this->socket_ob->pipeline();
 
-        foreach (array_filter($fetch_data) as $val) {
+        foreach ($this->fetch_data as $val) {
             $token = new Horde_Imap_Client_Tokenize($val);
             $token->rewind();
             $token->next();
@@ -66,13 +70,147 @@ extends PHPUnit_Framework_TestCase
         $sorted = $this->sort_ob->clientSort(
             $ids,
             array(
-                'sort' => array(Horde_Imap_Client::SORT_SUBJECT)
+                'sort' => $sort
             )
         );
 
         $this->assertEquals(
-            9,
+            count($expected),
             count($sorted)
+        );
+
+        if (!$locale || class_exists('Collator')) {
+            $this->assertEquals(
+                $expected,
+                array_values($sorted)
+            );
+        }
+    }
+
+    public function clientSortProvider()
+    {
+        return array(
+            array(
+                array(Horde_Imap_Client::SORT_ARRIVAL),
+                array(
+                    5, // 02:30
+                    6, // 03:30
+                    7, // 04:30
+                    8, // 05:30
+                    9, // 06:30
+                    1, // 07:30
+                    2, // 08:30
+                    3, // 09:30
+                    4  // 10:30
+                ),
+                false
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_DATE),
+                array(
+                    6, // Mon, 6 Feb 1993 02:53:47 -0800 (PST)
+                    9, // Wed, 08 Sep 1999 14:23:47 +0200
+                    8, // Tue, 20 Jun 2000 21:21:30 -0400
+                    1, // Thu, 02 May 2002 16:30:20 +0000
+                    2, // Sun, 12 May 2002 00:16:32 -0500
+                    3, // 24 May 2002 13:29:00 +0200
+                    5, // Sun, 26 May 2002 15:15:02 -0300
+                    4, // Mon, 3 Jun 2002 13:32:31 -0400
+                    7  // Sun, 9 Jun 2002 19:43:35 -0400
+                ),
+                false
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_FROM),
+                array(
+                    8, // chuck
+                    7, // hagendaz
+                    6, // mrc
+                    4, // NAVMSE-EXCHANGE1
+                    1, // pear-cvs-digest-help
+                    9, // philip.steeman
+                    5, // publicidade
+                    2, // quelatio
+                    3, // Timo.Tervo
+                ),
+                true
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_TO),
+                array(
+                    8, // chagenbu
+                    7, // chuck
+                    6, // MRC
+                    1, // pear-cvs
+                    2, // quelatio
+                    5, // slusarz
+                    4, // slusarz2
+                    9, // steeman
+                    3, // timo.tervo
+                ),
+                true
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_DISPLAYFROM),
+                array(
+                    8, // Chuck
+                    2, // Jesus
+                    6, // Mark
+                    4, // NAV
+                    1, // pear
+                    9, // Philip
+                    5, // publicidade
+                    3, // Tervo
+                    7  // Walt
+                ),
+                true
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_DISPLAYTO),
+                array(
+                    4, // '
+                    8, // chagenbu
+                    7, // Charles Hagenbuch
+                    6, // MRC
+                    1, // pear
+                    2, // quelatio
+                    5, // slusarz
+                    9, // steeman
+                    3, // Timo
+                ),
+                true
+            ),
+            /* Bug #10503 */
+            array(
+                array(Horde_Imap_Client::SORT_SUBJECT),
+                array(
+                    9, // excel
+                    5, // Hello
+                    2, // Interesante
+                    3, // Jatko
+                    6, // Multi
+                    4, // Norton
+                    8, // pdf
+                    1, // pear,
+                    7 // Photo
+                ),
+                true
+            ),
+            array(
+                array(Horde_Imap_Client::SORT_SIZE),
+                array(
+                    4, // 1762
+                    5, // 3259
+                    2, // 4967
+                    8, // 10471
+                    9, // 22262
+                    1, // 38751
+                    3, // 134123
+                    7, // 475569
+                    6  // 1845271
+                ),
+                false
+            ),
         );
     }
 
@@ -175,4 +313,5 @@ extends PHPUnit_Framework_TestCase
             );
         }
     }
+
 }
