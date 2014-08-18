@@ -195,16 +195,10 @@ class Horde_Imap_Client_Socket_ClientSort
                         : 'to';
 
                     foreach ($slice as $num) {
-                        $env = $fetch_res[$num]->getEnvelope();
-
-                        if (empty($env->$field)) {
-                            $sorted[$num] = null;
-                        } else {
-                            $addr_ob = reset($env->$field);
-                            if (is_null($sorted[$num] = $addr_ob->personal)) {
-                                $sorted[$num] = $addr_ob->mailbox;
-                            }
-                        }
+                        $ob = $fetch_res[$num]->getEnvelope()->$field;
+                        $sorted[$num] = ($addr_ob = $ob[0])
+                            ? $addr_ob->personal ?: $addr_ob->mailbox
+                            : null;
                     }
 
                     asort($sorted, SORT_LOCALE_STRING);
