@@ -24,24 +24,28 @@ $prefGroups['identities'] = array(
 
 $_prefs['replyto_addr'] = array(
     'value' => '',
+    'advanced' => true,
     'type' => 'text',
     'desc' => _("Your Reply-to: address: <em>(optional)</em>")
 );
 
 $_prefs['alias_addr'] = array(
     'value' => '',
+    'advanced' => true,
     'type' => 'textarea',
     'desc' => _("Your alias addresses: <em>(optional, enter each address on a new line)</em>")
 );
 
 $_prefs['tieto_addr'] = array(
     'value' => '',
+    'advanced' => true,
     'type' => 'textarea',
     'desc' => _("Addresses to explicitly tie to this identity: <em>(optional, enter each address on a new line)</em>")
 );
 
 $_prefs['bcc_addr'] = array(
     'value' => '',
+    'advanced' => true,
     'type' => 'textarea',
     'desc' => _("Addresses to BCC all messages: <em>(optional, enter each address on a new line)</em>")
 );
