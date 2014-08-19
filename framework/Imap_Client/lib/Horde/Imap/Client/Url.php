@@ -249,7 +249,8 @@ class Horde_Imap_Client_Url implements Serializable
                     $mbox = substr($mbox, 0, $pos);
                 }
                 $this->mailbox = urldecode($mbox);
-
+            } else {
+                $parts = array();
             }
 
             if (count($parts)) {
