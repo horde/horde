@@ -80,6 +80,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
      */
     protected function _renderInline()
     {
+        $GLOBALS['page_output']->growler = true;
         $data = $this->_mimepart->getContents();
         $mime_id = $this->_mimepart->getMimeId();
 
