@@ -726,6 +726,9 @@ div.msgfullread span.messagePrintShow {
     -o-text-overflow: ellipsis;
     white-space: nowrap;
 }
+#attach_list span.attach_upload_text span {
+    padding-left: 5px;
+}
 #attach_list span.attach_upload_text_progress {
     max-width: 290px;
     margin-right: 10px;

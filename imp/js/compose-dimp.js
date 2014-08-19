@@ -1467,7 +1467,8 @@ var IMP_Compose_Attachlist = Class.create({
             .insert(
                 new Element('SPAN')
                     .addClassName('attach_upload_text')
-                    .insert((Object.isElement(f) ? $F(f) : f.name).escapeHTML() + ' (' + DimpCore.text.uploading + ')')
+                    .insert((Object.isElement(f) ? $F(f) : f.name).escapeHTML())
+                    .insert(new Element('SPAN').insert('(' + DimpCore.text.uploading + ')'))
             );
 
         $('attach_list').show().insert(li);
@@ -1559,7 +1560,9 @@ var IMP_Compose_Attachlist = Class.create({
                                         backgroundPosition: parseInt(100 - (e2.loaded / e2.total * 100), 10) + "% 0"
                                     });
                                     if (!p.visible()) {
-                                        li.down('.attach_upload_text').addClassName('attach_upload_text_progress');
+                                        li.down('.attach_upload_text')
+                                            .addClassName('attach_upload_text_progress')
+                                            .down('SPAN').remove();
                                         p.show();
                                     }
                                 }
