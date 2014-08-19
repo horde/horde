@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix vCard MIME viewer.
 * [jan] Fix MIME viewer form actions in basic view (Bug #12677).
 * [mms] Don&apos;t store/retrieve message history data if the Message-ID is missing/invalid.
 * [mms] Fix resuming draft from mailbox page in basic view.
@@ -3728,6 +3729,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix vCard MIME viewer.
 * [jan] Fix MIME viewer form actions in basic view (Bug #12677).
 * [mms] Don&apos;t store/retrieve message history data if the Message-ID is missing/invalid.
 * [mms] Fix resuming draft from mailbox page in basic view.
