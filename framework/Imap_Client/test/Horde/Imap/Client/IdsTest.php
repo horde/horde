@@ -42,19 +42,30 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($ids->isEmpty());
     }
 
-    public function testIgnoreNullInput()
+    /**
+     * @dataProvider ignoreInvalidAddsProvider
+     */
+    public function testIgnoreInvalidAdds($in)
     {
-        $ids = new Horde_Imap_Client_Ids(null);
+        $ids = new Horde_Imap_Client_Ids($in);
         $this->assertEquals(
             0,
             count($ids)
         );
 
         $ids = new Horde_Imap_Client_Ids();
-        $ids->add(null);
+        $ids->add($in);
         $this->assertEquals(
             0,
             count($ids)
+        );
+    }
+
+    public function ignoreInvalidAddsProvider()
+    {
+        return array(
+            array(null),
+            array(new stdClass)
         );
     }
 
@@ -75,68 +86,53 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ids->isEmpty());
     }
 
-    public function testSequenceParsing()
+    /**
+     * @dataProvider sequenceParsingProvider
+     */
+    public function testSequenceParsing($in, $expected)
     {
-        $ids = new Horde_Imap_Client_Ids('12:10');
+        $ids = new Horde_Imap_Client_Ids($in);
 
         $this->assertEquals(
-            3,
+            count($expected),
             count($ids)
         );
 
         $this->assertEquals(
-            array(10, 11, 12),
+            $expected,
             iterator_to_array($ids)
-        );
-
-        $ids = new Horde_Imap_Client_Ids('12,11,10');
-
-        $this->assertEquals(
-            3,
-            count($ids)
-        );
-
-        $this->assertEquals(
-            array(12, 11, 10),
-            iterator_to_array($ids)
-        );
-
-        $ids = new Horde_Imap_Client_Ids('10:12,10,11,12,10:12');
-
-        $this->assertEquals(
-            3,
-            count($ids)
-        );
-
-        $ids = new Horde_Imap_Client_Ids('10:10');
-
-        $this->assertEquals(
-            1,
-            count($ids)
         );
     }
 
-    public function testRangeGeneration()
+    public function sequenceParsingProvider()
     {
-        $ids = new Horde_Imap_Client_Ids('100,300,200');
+        return array(
+            array('12:10', array(10, 11, 12)),
+            array('12,11,10', array(12, 11, 10)),
+            array('10:12,10,11,12,10:12', array(10, 11, 12)),
+            array('10', array(10))
+        );
+    }
+
+    /**
+     * @dataProvider rangeGenerationProvider
+     */
+    public function testRangeGeneration($in, $expected)
+    {
+        $ids = new Horde_Imap_Client_Ids($in);
 
         $this->assertEquals(
-            '100:300',
+            $expected,
             $ids->range_string
         );
+    }
 
-        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
-
-        $this->assertEquals(
-            '',
-            $ids->range_string
-        );
-
-        $ids = new Horde_Imap_Client_Ids('50');
-
-        $this->assertEquals(
-            '50',
-            $ids->range_string
+    public function rangeGenerationProvider()
+    {
+        return array(
+            array('100,300,200', '100:300'),
+            array(Horde_Imap_Client_Ids::ALL, ''),
+            array('50', '50')
         );
     }
 
