@@ -39,7 +39,9 @@ class Horde_Imap_Client_Url implements Serializable
     public $hostspec = null;
 
     /**
-     * The IMAP mailbox
+     * The IMAP mailbox.
+     *
+     * @todo Make this a Horde_Imap_Client_Mailbox object.
      *
      * @var string
      */
@@ -171,14 +173,14 @@ class Horde_Imap_Client_Url implements Serializable
         $url .= '/';
 
         if (is_null($this->protocol) || ($this->protocol == 'imap')) {
-            $url .= urlencode($this->mailbox);
+            $url .= rawurlencode($this->mailbox);
 
             if (!empty($this->uidvalidity)) {
                 $url .= ';UIDVALIDITY=' . $this->uidvalidity;
             }
 
             if (!is_null($this->search)) {
-                $url .= '?' . urlencode($this->search);
+                $url .= '?' . rawurlencode($this->search);
             } else {
                 if (!is_null($this->uid)) {
                     $url .= '/;UID=' . $this->uid;
@@ -260,7 +262,7 @@ class Horde_Imap_Client_Url implements Serializable
                     $this->uidvalidity = intval(substr($mbox, $pos + 13));
                     $mbox = substr($mbox, 0, $pos);
                 }
-                $this->mailbox = urldecode($mbox);
+                $this->mailbox = rawurldecode($mbox);
             } else {
                 $parts = array();
             }
@@ -272,7 +274,7 @@ class Horde_Imap_Client_Url implements Serializable
                     $this->$property = $v;
                 }
             } elseif (isset($data['query'])) {
-                $this->search = urldecode($data['query']);
+                $this->search = rawurldecode($data['query']);
             }
         }
     }
