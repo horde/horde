@@ -25,262 +25,400 @@
  */
 class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
 {
-    public function testFlagQuery()
+    /**
+     * @dataProvider flagQueryProvider
+     */
+    public function testFlagQuery($flags, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
 
-        /* System flag - set. */
-        $ob->flag('\\answered', true);
-        /* System flag - not set. */
-        $ob->flag('\\draft', false);
-        /* System flag - set. */
-        $ob->flag('foo', true);
-        /* System flag - not set. */
-        $ob->flag('bar', false);
-
-        $this->assertEquals(
-            'ANSWERED UNDRAFT KEYWORD FOO UNKEYWORD BAR',
-            strval($ob)
-        );
+        foreach ($flags as $val) {
+            $ob->flag($val[0], $val[1], array('fuzzy' => $fuzzy));
+        }
 
         $this->assertTrue($ob->flagSearch());
-
-        /* Test fuzzy. */
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->flag('foo', true, array('fuzzy' => true));
-
         $this->assertEquals(
-            'FUZZY KEYWORD FOO',
-            $this->_fuzzy($ob2)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
     }
 
-    public function testNewMsgsQuery()
+    public function flagQueryProvider()
     {
-        $ob = new Horde_Imap_Client_Search_Query();
-        $ob->newMsgs();
-
-        $this->assertEquals(
-            'NEW',
-            strval($ob)
-        );
-
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->newMsgs(false);
-
-        $this->assertEquals(
-            'OLD',
-            strval($ob2)
-        );
-
-        /* Test fuzzy. */
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->newMsgs(true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY NEW',
-            $this->_fuzzy($ob3)
+        return array(
+            array(
+                array(
+                    /* System flag - set. */
+                    array('\\answered', true),
+                    /* System flag - not set. */
+                    array('\\draft', false),
+                    /* System flag - set. */
+                    array('foo', true),
+                    /* System flag - not set. */
+                    array('bar', false)
+                ),
+                false,
+                'ANSWERED UNDRAFT KEYWORD FOO UNKEYWORD BAR'
+            ),
+            array(
+                array(
+                    array('foo', true)
+                ),
+                true,
+                'FUZZY KEYWORD FOO'
+            )
         );
     }
 
-    public function testHeaderTextQuery()
+    /**
+     * @dataProvider newMsgsQueryProvider
+     */
+    public function testNewMsgsQuery($newmsgs, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->headerText('Foo', 'Bar');
+        $ob->newMsgs($newmsgs, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'HEADER FOO Bar',
-            strval($ob)
-        );
-
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->headerText('Foo', 'Bar', true);
-
-        $this->assertEquals(
-            'NOT HEADER FOO Bar',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->headerText('Foo', 'Bar', true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY NOT HEADER FOO Bar',
-            $this->_fuzzy($ob3)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
     }
 
-    public function testTextQuery()
+    public function newMsgsQueryProvider()
     {
-        $ob = new Horde_Imap_Client_Search_Query();
-        $ob->text('foo');
-
-        $this->assertEquals(
-            'BODY foo',
-            strval($ob)
-        );
-
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->text('foo', false);
-
-        $this->assertEquals(
-            'TEXT foo',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->text('foo', true, true);
-
-        $this->assertEquals(
-            'NOT BODY foo',
-            strval($ob3)
-        );
-
-        $ob4 = new Horde_Imap_Client_Search_Query();
-        $ob4->text('foo', false, true);
-
-        $this->assertEquals(
-            'NOT TEXT foo',
-            strval($ob4)
-        );
-
-        $ob5 = new Horde_Imap_Client_Search_Query();
-        $ob5->text('foo', false, true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY NOT TEXT foo',
-            $this->_fuzzy($ob5)
+        return array(
+            array(true, false, 'NEW'),
+            array(false, false, 'OLD'),
+            array(true, true, 'FUZZY NEW'),
+            array(false, true, 'FUZZY OLD')
         );
     }
 
-    public function testSizeQuery()
+    /**
+     * @dataProvider headerTextQueryProvider
+     */
+    public function testHeaderTextQuery($not, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->size(100);
+        $ob->headerText('Foo', 'Bar', $not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'SMALLER 100',
-            strval($ob)
-        );
-
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->size(100, true);
-
-        $this->assertEquals(
-            'LARGER 100',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->size(100, false, true);
-
-        $this->assertEquals(
-            'NOT SMALLER 100',
-            strval($ob3)
-        );
-
-        $ob4 = new Horde_Imap_Client_Search_Query();
-        $ob4->size(100, true, true);
-
-        $this->assertEquals(
-            'NOT LARGER 100',
-            strval($ob4)
-        );
-
-        $ob5 = new Horde_Imap_Client_Search_Query();
-        $ob5->size(100, false, true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY NOT SMALLER 100',
-            $this->_fuzzy($ob5)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
     }
 
-    public function testIdsQuery()
+    public function headerTextQueryProvider()
+    {
+        return array(
+            array(false, false, 'HEADER FOO Bar'),
+            array(true, false, 'NOT HEADER FOO Bar'),
+            array(false, true, 'FUZZY HEADER FOO Bar'),
+            array(true, true, 'FUZZY NOT HEADER FOO Bar')
+        );
+    }
+
+    /**
+     * @dataProvider textQueryProvider
+     */
+    public function testTextQuery($body, $not, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->ids(new Horde_Imap_Client_Ids('1,2,3'));
+        $ob->text('foo', $body, $not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'UID 1:3',
-            strval($ob)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
+    }
 
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->ids(new Horde_Imap_Client_Ids('1:3'), true);
+    public function textQueryProvider()
+    {
+        return array(
+            array(true, false, false, 'BODY foo'),
+            array(false, false, false, 'TEXT foo'),
+            array(true, true, false, 'NOT BODY foo'),
+            array(false, true, false, 'NOT TEXT foo'),
+            array(true, false, true, 'FUZZY BODY foo'),
+            array(false, false, true, 'FUZZY TEXT foo'),
+            array(true, true, true, 'FUZZY NOT BODY foo'),
+            array(false, true, true, 'FUZZY NOT TEXT foo')
+        );
+    }
+
+    /**
+     * @dataProvider sizeQueryProvider
+     */
+    public function testSizeQuery($larger, $not, $fuzzy, $expected)
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->size(100, $larger, $not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'NOT UID 1:3',
-            strval($ob2)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
+    }
 
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->ids(new Horde_Imap_Client_Ids('1:3'), true, array(
-            'fuzzy' => true
+    public function sizeQueryProvider()
+    {
+        return array(
+            array(true, false, false, 'LARGER 100'),
+            array(false, false, false, 'SMALLER 100'),
+            array(true, true, false, 'NOT LARGER 100'),
+            array(false, true, false, 'NOT SMALLER 100'),
+            array(true, false, true, 'FUZZY LARGER 100'),
+            array(false, false, true, 'FUZZY SMALLER 100'),
+            array(true, true, true, 'FUZZY NOT LARGER 100'),
+            array(false, true, true, 'FUZZY NOT SMALLER 100')
+        );
+    }
+
+    /**
+     * @dataProvider idsQueryProvider
+     */
+    public function testIdsQuery($ids, $not, $fuzzy, $expected)
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->ids(new Horde_Imap_Client_Ids($ids), $not, array(
+            'fuzzy' => $fuzzy
         ));
 
         $this->assertEquals(
-            'FUZZY NOT UID 1:3',
-            $this->_fuzzy($ob3)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
     }
 
-    public function testDateSearchQuery()
+    public function idsQueryProvider()
+    {
+        return array(
+            array('1,2,3', false, false, 'UID 1:3'),
+            array('1:3', true, false, 'NOT UID 1:3'),
+            array('1,2,3', false, true, 'FUZZY UID 1:3'),
+            array('1:3', true, true, 'FUZZY NOT UID 1:3')
+        );
+    }
+
+    /**
+     * @dataProvider dateSearchQueryProvider
+     */
+    public function testDateSearchQuery(
+        $range, $header, $not, $fuzzy, $expected
+    )
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->dateSearch(
             new DateTime('January 1, 2010'),
-            $ob::DATE_ON
+            $range,
+            $header,
+            $not,
+            array('fuzzy' => $fuzzy)
         );
 
         $this->assertEquals(
-            'SENTON 1-Jan-2010',
-            strval($ob)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob) : strval($ob)
         );
     }
 
-    public function testIntervalSearchQuery()
+    public function dateSearchQueryProvider()
+    {
+        return array(
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                true,
+                false,
+                false,
+                'SENTBEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                false,
+                false,
+                false,
+                'BEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                true,
+                true,
+                false,
+                'NOT SENTBEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                false,
+                true,
+                false,
+                'NOT BEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                true,
+                true,
+                true,
+                'FUZZY NOT SENTBEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_BEFORE,
+                false,
+                true,
+                true,
+                'FUZZY NOT BEFORE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                true,
+                false,
+                false,
+                'SENTON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                false,
+                false,
+                false,
+                'ON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                true,
+                true,
+                false,
+                'NOT SENTON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                false,
+                true,
+                false,
+                'NOT ON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                true,
+                true,
+                true,
+                'FUZZY NOT SENTON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_ON,
+                false,
+                true,
+                true,
+                'FUZZY NOT ON 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                true,
+                false,
+                false,
+                'SENTSINCE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                false,
+                false,
+                false,
+                'SINCE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                true,
+                true,
+                false,
+                'NOT SENTSINCE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                false,
+                true,
+                false,
+                'NOT SINCE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                true,
+                true,
+                true,
+                'FUZZY NOT SENTSINCE 1-Jan-2010',
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::DATE_SINCE,
+                false,
+                true,
+                true,
+                'FUZZY NOT SINCE 1-Jan-2010',
+            )
+        );
+    }
+
+    /**
+     * @dataProvider intervalSearchQueryProvider
+     */
+    public function testIntervalSearchQuery($range, $not, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->intervalSearch(30, $ob::INTERVAL_OLDER);
+        $ob->intervalSearch(30, $range, $not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'OLDER 30',
-            strval($ob)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob, array('WITHIN')) : strval($ob)
         );
+    }
 
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->intervalSearch(30, $ob2::INTERVAL_YOUNGER);
-
-        $this->assertEquals(
-            'YOUNGER 30',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->intervalSearch(30, $ob3::INTERVAL_OLDER, true);
-
-        $this->assertEquals(
-            'NOT OLDER 30',
-            strval($ob3)
-        );
-
-        $ob4 = new Horde_Imap_Client_Search_Query();
-        $ob4->intervalSearch(30, $ob4::INTERVAL_YOUNGER, true);
-
-        $this->assertEquals(
-            'NOT YOUNGER 30',
-            strval($ob4)
-        );
-
-        $ob5 = new Horde_Imap_Client_Search_Query();
-        $ob5->intervalSearch(30, $ob4::INTERVAL_YOUNGER, true, array(
-            'fuzzy' => true
-        ));
-
-        $this->assertEquals(
-            'FUZZY NOT YOUNGER 30',
-            $this->_fuzzy($ob5, array('WITHIN'))
+    public function intervalSearchQueryProvider()
+    {
+        return array(
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_OLDER,
+                false,
+                false,
+                'OLDER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_OLDER,
+                true,
+                false,
+                'NOT OLDER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_OLDER,
+                false,
+                true,
+                'FUZZY OLDER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_OLDER,
+                true,
+                true,
+                'FUZZY NOT OLDER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER,
+                false,
+                false,
+                'YOUNGER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER,
+                true,
+                false,
+                'NOT YOUNGER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER,
+                false,
+                true,
+                'FUZZY YOUNGER 30'
+            ),
+            array(
+                Horde_Imap_Client_Search_Query::INTERVAL_YOUNGER,
+                true,
+                true,
+                'FUZZY NOT YOUNGER 30'
+            )
         );
     }
 
@@ -339,73 +477,67 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
          );
     }
 
-    public function testModseq()
+    /**
+     * @dataProvider modseqSearchQueryProvider
+     */
+    public function testModseq($name, $type, $not, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->modseq(123);
+        $ob->modseq(123, $name, $type, $not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'MODSEQ 123',
-            strval($ob)
-        );
-
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->modseq(123, 'foo');
-
-        $this->assertEquals(
-            'MODSEQ "foo" all 123',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->modseq(123, 'foo', 'shared');
-
-        $this->assertEquals(
-            'MODSEQ "foo" shared 123',
-            strval($ob3)
-        );
-
-        $ob4 = new Horde_Imap_Client_Search_Query();
-        $ob4->modseq(123, 'foo', 'shared', true);
-
-        $this->assertEquals(
-            'NOT MODSEQ "foo" shared 123',
-            strval($ob4)
-        );
-
-        $ob5 = new Horde_Imap_Client_Search_Query();
-        $ob5->modseq(123, 'foo', 'shared', true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY NOT MODSEQ "foo" shared 123',
-            $this->_fuzzy($ob5, array('CONDSTORE'))
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob, array('CONDSTORE')) : strval($ob)
         );
     }
 
-    public function testPreviousSearchQuery()
+    public function modseqSearchQueryProvider()
+    {
+        return array(
+            array(null, null, false, false, 'MODSEQ 123'),
+            array(null, null, true, false, 'NOT MODSEQ 123'),
+            array(null, null, false, true, 'FUZZY MODSEQ 123'),
+            array(null, null, true, true, 'FUZZY NOT MODSEQ 123'),
+            array('foo', null, false, false, 'MODSEQ "foo" all 123'),
+            array('foo', null, true, false, 'NOT MODSEQ "foo" all 123'),
+            array('foo', null, false, true, 'FUZZY MODSEQ "foo" all 123'),
+            array('foo', null, true, true, 'FUZZY NOT MODSEQ "foo" all 123'),
+            array('foo', 'all', false, false, 'MODSEQ "foo" all 123'),
+            array('foo', 'all', true, false, 'NOT MODSEQ "foo" all 123'),
+            array('foo', 'all', false, true, 'FUZZY MODSEQ "foo" all 123'),
+            array('foo', 'all', true, true, 'FUZZY NOT MODSEQ "foo" all 123'),
+            array('foo', 'shared', false, false, 'MODSEQ "foo" shared 123'),
+            array('foo', 'shared', true, false, 'NOT MODSEQ "foo" shared 123'),
+            array('foo', 'shared', false, true, 'FUZZY MODSEQ "foo" shared 123'),
+            array('foo', 'shared', true, true, 'FUZZY NOT MODSEQ "foo" shared 123'),
+            array('foo', 'priv', false, false, 'MODSEQ "foo" priv 123'),
+            array('foo', 'priv', true, false, 'NOT MODSEQ "foo" priv 123'),
+            array('foo', 'priv', false, true, 'FUZZY MODSEQ "foo" priv 123'),
+            array('foo', 'priv', true, true, 'FUZZY NOT MODSEQ "foo" priv 123')
+        );
+    }
+
+    /**
+     * @dataProvider previousSearchQueryProvider
+     */
+    public function testPreviousSearchQuery($not, $fuzzy, $expected)
     {
         $ob = new Horde_Imap_Client_Search_Query();
-        $ob->previousSearch();
+        $ob->previousSearch($not, array('fuzzy' => $fuzzy));
 
         $this->assertEquals(
-            'NOT $',
-            strval($ob)
+            $expected,
+            $fuzzy ? $this->_fuzzy($ob, array('ESEARCH', 'SEARCHRES')) : strval($ob)
         );
+    }
 
-        $ob2 = new Horde_Imap_Client_Search_Query();
-        $ob2->previousSearch(true);
-
-        $this->assertEquals(
-            '$',
-            strval($ob2)
-        );
-
-        $ob3 = new Horde_Imap_Client_Search_Query();
-        $ob3->previousSearch(true, array('fuzzy' => true));
-
-        $this->assertEquals(
-            'FUZZY $',
-            $this->_fuzzy($ob3, array('ESEARCH', 'SEARCHRES'))
+    public function previousSearchQueryProvider()
+    {
+        return array(
+            array(false, false, 'NOT $'),
+            array(true, false, '$'),
+            array(false, true, 'FUZZY NOT $'),
+            array(true, true, 'FUZZY $')
         );
     }
 
