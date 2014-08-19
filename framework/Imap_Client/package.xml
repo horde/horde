@@ -12,8 +12,8 @@
  </lead>
  <date>2014-08-18</date>
  <version>
-  <release>2.24.3</release>
-  <api>2.24.0</api>
+  <release>2.25.0</release>
+  <api>2.25.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -2637,8 +2637,8 @@
   </release>
   <release>
    <version>
-    <release>2.24.3</release>
-    <api>2.24.0</api></version>
+    <release>2.25.0</release>
+    <api>2.25.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
