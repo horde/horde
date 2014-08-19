@@ -96,6 +96,14 @@ extends PHPUnit_Framework_TestCase
                 false
             ),
             array(
+                array(
+                    Horde_Imap_Client::SORT_REVERSE,
+                    Horde_Imap_Client::SORT_SEQUENCE
+                ),
+                range(9, 1),
+                false
+            ),
+            array(
                 array(Horde_Imap_Client::SORT_ARRIVAL),
                 array(
                     5, // 02:30
@@ -107,6 +115,25 @@ extends PHPUnit_Framework_TestCase
                     2, // 08:30
                     3, // 09:30
                     4  // 10:30
+                ),
+                false
+            ),
+            array(
+                array(
+                    Horde_Imap_Client::SORT_REVERSE,
+                    Horde_Imap_Client::SORT_ARRIVAL
+                ),
+                array(
+                    4, // See SORT_ARRIVAL example above for non-reverse
+                       // results
+                    3,
+                    2,
+                    1,
+                    9,
+                    8,
+                    7,
+                    6,
+                    5
                 ),
                 false
             ),

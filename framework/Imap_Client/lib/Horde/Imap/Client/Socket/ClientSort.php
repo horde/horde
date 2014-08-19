@@ -172,10 +172,6 @@ class Horde_Imap_Client_Socket_ClientSort
             foreach ($slices_list as $slice_start => $slice) {
                 $sorted = array();
 
-                if ($reverse) {
-                    $slice = array_reverse($slice);
-                }
-
                 switch ($val) {
                 case Horde_Imap_Client::SORT_SEQUENCE:
                     /* There is no requirement that IDs be returned in
@@ -253,6 +249,10 @@ class Horde_Imap_Client_Socket_ClientSort
                 // At this point, keys of $sorted are sequence/UID and values
                 // are the sort strings
                 if (!empty($sorted)) {
+                    if ($reverse) {
+                        $sorted = array_reverse($sorted, true);
+                    }
+
                     if (count($sorted) === count($res)) {
                         $res = array_keys($sorted);
                     } else {
