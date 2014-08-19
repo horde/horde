@@ -27,7 +27,9 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
 {
     public function testMailboxSerialize()
     {
-        $mailbox = new Horde_Imap_Client_Mailbox('Envoyé');
+        $mailbox = unserialize(
+            serialize(new Horde_Imap_Client_Mailbox('Envoyé'))
+        );
 
         $this->assertEquals(
             'Envoyé',
@@ -36,18 +38,6 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Envoy&AOk-',
             $mailbox->utf7imap
-        );
-
-        $a = serialize($mailbox);
-        $b = unserialize($a);
-
-        $this->assertEquals(
-            'Envoyé',
-            $b->utf8
-        );
-        $this->assertEquals(
-            'Envoy&AOk-',
-            $b->utf7imap
         );
     }
 
@@ -61,7 +51,6 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
 
         $mailbox = new Horde_Imap_Client_Mailbox('A');
-
         $b = Horde_Imap_Client_Mailbox::get($mailbox);
 
         $this->assertEquals(
@@ -86,24 +75,24 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testListEscape()
+    /**
+     * @dataProvider listEscapeProvider
+     */
+    public function testListEscape($orig, $expected)
     {
-        $orig = '***Foo***';
-
         $mailbox = new Horde_Imap_Client_Mailbox($orig);
 
         $this->assertEquals(
-            '%Foo%',
+            $expected,
             $mailbox->list_escape
         );
+    }
 
-        $orig = 'IN.***Foo**.Bar.Test**';
-
-        $mailbox = new Horde_Imap_Client_Mailbox($orig);
-
-        $this->assertEquals(
-            'IN.%Foo%.Bar.Test%',
-            $mailbox->list_escape
+    public function listEscapeProvider()
+    {
+        return array(
+            array('***Foo***', '%Foo%'),
+            array('IN.***Foo**.Bar.Test**', 'IN.%Foo%.Bar.Test%')
         );
     }
 
