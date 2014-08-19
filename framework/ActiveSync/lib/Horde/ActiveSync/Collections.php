@@ -905,7 +905,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function save()
     {
-        $this->_cache->save();
+        // HOTFIX. Need to check the timestamp to see if we should reload the
+        // folder cache before saving to ensure it isn't overwritten. See
+        // Bug: 13273
+        if (!$this->_cache->validateCache()) {
+            $this->_logger->info(sprintf('[%s] Updating the foldercache before saving.', $this->_procid));
+            $this->_cache->refreshFolderCache();
+        }
     }
 
     /**
