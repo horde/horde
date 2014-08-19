@@ -308,4 +308,26 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider sequenceStringGenerationProvider
+     */
+    public function testSequenceStringGeneration($in, $expected)
+    {
+        $ids = new Horde_Imap_Client_Ids($in);
+
+        $this->assertEquals(
+            $expected,
+            strval($ids)
+        );
+    }
+
+    public function sequenceStringGenerationProvider()
+    {
+        return array(
+            array(array(1, 2, 3), '1:3'),
+            array(array(3, 2, 1), '3,2,1'),
+            array(array(1, 2, 3, 5), '1:3,5')
+        );
+    }
+
 }
