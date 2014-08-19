@@ -186,6 +186,7 @@ class Horde_Mail_ListTest extends PHPUnit_Framework_TestCase
 
         $res[0] = 'Test2 <test2@example.com>';
 
+        $this->assertTrue(isset($res[0]));
         $this->assertEquals(
             1,
             count($res)
@@ -489,6 +490,50 @@ class Horde_Mail_ListTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($res->contains('test@example.com'));
         $this->assertTrue($res->contains('foo2@example.com'));
         $this->assertFalse($res->contains('foo4@example.com'));
+    }
+
+    /**
+     * @dataProvider matchProvider
+     */
+    public function testMatch($compare, $result)
+    {
+        $ob = new Horde_Mail_Rfc822_List(array(
+            'foo@example.com',
+            'bar@example.com'
+        ));
+
+        if ($result) {
+            $this->assertTrue($ob->match($compare));
+        } else {
+            $this->assertFalse($ob->match($compare));
+        }
+    }
+
+    public function matchProvider()
+    {
+        return array(
+            array(array('foo@example.com'), false),
+            array(array('bar@example.com'), false),
+            array(array('foo@example.com', 'bar@example.com'), true),
+            array(array('bar@example.com', 'foo@example.com'), true)
+        );
+    }
+
+    public function testSerialization()
+    {
+        $ob = new Horde_Mail_Rfc822_List('foo@example.com');
+
+        $ob2 = unserialize(serialize($ob));
+
+        $this->assertEquals(
+            1,
+            count($ob2)
+        );
+
+        $this->assertEquals(
+            'foo',
+            $ob[0]->mailbox
+        );
     }
 
 }

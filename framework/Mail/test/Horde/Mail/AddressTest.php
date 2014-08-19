@@ -46,4 +46,46 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider labelProvider
+     */
+    public function testLabel($in, $expected)
+    {
+        $address = new Horde_Mail_Rfc822_Address($in);
+
+        $this->assertEquals(
+            $expected,
+            $address->label
+        );
+    }
+
+    public function labelProvider()
+    {
+        return array(
+            array('foo@example.com', 'foo@example.com'),
+            array('Foo <foo@example.com>', 'Foo')
+        );
+    }
+
+    /**
+     * @dataProvider personalEncodedProvider
+     */
+    public function testPersonalEncoded($in, $expected)
+    {
+        $address = new Horde_Mail_Rfc822_Address($in);
+
+        $this->assertEquals(
+            $expected,
+            $address->personal_encoded
+        );
+    }
+
+    public function personalEncodedProvider()
+    {
+        return array(
+            array('Foo <foo@example.com>', 'Foo'),
+            array('Aäb <bar@example.com>', '=?utf-8?b?QcOkYg==?=')
+        );
+    }
+
 }

@@ -31,12 +31,12 @@ class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
             'Fooã <test@example.com>',
             'foo@example.com'
         );
-        $groupname = 'Testing';
+        $groupname = 'Group "Foo"';
 
         $group_ob = new Horde_Mail_Rfc822_Group($groupname, $addresses);
 
         $this->assertEquals(
-            'Testing: =?utf-8?b?Rm9vw6M=?= <test@example.com>, foo@example.com;',
+            '"Group \"Foo\"": =?utf-8?b?Rm9vw6M=?= <test@example.com>, foo@example.com;',
             $group_ob->writeAddress(array('encode' => true))
         );
     }
@@ -61,13 +61,54 @@ class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testEncodingGroupname()
+    /**
+     * @dataProvider encodingGroupnameProvider
+     */
+    public function testEncodingGroupname($in, $expected)
     {
-        $group_ob = new Horde_Mail_Rfc822_Group('Group "Foo"');
+        $group_ob = new Horde_Mail_Rfc822_Group($in);
 
         $this->assertEquals(
-            '"Group \"Foo\"":;',
-            $group_ob->writeAddress(true)
+            $expected,
+            $group_ob->groupname_encoded
+        );
+    }
+
+    public function encodingGroupnameProvider()
+    {
+        return array(
+            array('Foo', 'Foo'),
+            array('Aäb', '=?utf-8?b?QcOkYg==?=')
+        );
+    }
+
+    /**
+     * @dataProvider matchProvider
+     */
+    public function testMatch($compare, $result)
+    {
+        $ob = new Horde_Mail_Rfc822_Group(
+            'Testing',
+            array(
+                'foo@example.com',
+                'bar@example.com'
+            )
+        );
+
+        if ($result) {
+            $this->assertTrue($ob->match($compare));
+        } else {
+            $this->assertFalse($ob->match($compare));
+        }
+    }
+
+    public function matchProvider()
+    {
+        return array(
+            array(array('foo@example.com'), false),
+            array(array('bar@example.com'), false),
+            array(array('foo@example.com', 'bar@example.com'), true),
+            array(array('bar@example.com', 'foo@example.com'), true)
         );
     }
 

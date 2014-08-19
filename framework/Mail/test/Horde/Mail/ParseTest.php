@@ -138,6 +138,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result[0] instanceof Horde_Mail_Rfc822_Group);
         $this->assertEquals($result[0]->groupname, 'My Group');
         $this->assertTrue($result[0]->addresses instanceof Horde_Mail_Rfc822_GroupList);
+        $this->assertEquals(0, $result[0]->addresses->groupCount());
 
         $this->assertInternalType('object', $result[0]->addresses[0]);
         $this->assertEquals($result[0]->addresses[0]->personal, 'Richard');
