@@ -225,6 +225,20 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDateSearchQuery()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->dateSearch(
+            new DateTime('January 1, 2010'),
+            $ob::DATE_ON
+        );
+
+        $this->assertEquals(
+            'SENTON 1-Jan-2010',
+            strval($ob)
+        );
+    }
+
     public function testIntervalSearchQuery()
     {
         $ob = new Horde_Imap_Client_Search_Query();
@@ -399,9 +413,11 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->ids(new Horde_Imap_Client_Ids('1:3'), true);
+        $ob->text('foo');
+        $ob->charset('US-ASCII', false);
 
         $this->assertEquals(
-            'NOT UID 1:3',
+            'BODY foo NOT UID 1:3',
             strval(unserialize(serialize($ob)))
         );
     }
