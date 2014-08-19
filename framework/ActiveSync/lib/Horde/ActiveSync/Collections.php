@@ -902,8 +902,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
 
     /**
      * Save the syncCache to storage.
+     *
+     * @param boolean $preserve_folders  If true, ensure the folder cache is not
+     *                                   overwritten. @since 2.18.0
+     * @todo Refactor this hack away. Requires a complete refactor of the cache.
      */
-    public function save()
+    public function save($preserve_folders = false)
     {
         // HOTFIX. Need to check the timestamp to see if we should reload the
         // folder cache before saving to ensure it isn't overwritten. See
@@ -912,6 +916,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $this->_logger->info(sprintf('[%s] Updating the foldercache before saving.', $this->_procid));
             $this->_cache->refreshFolderCache();
         }
+
+        $this->_cache->save();
     }
 
     /**

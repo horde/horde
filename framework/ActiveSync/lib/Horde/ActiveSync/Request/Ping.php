@@ -259,10 +259,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                 }
             } elseif ($changes) {
-                $collections->save();
+                $collections->save(true);
                 $this->_statusCode = self::STATUS_NEEDSYNC;
             } elseif ($forceCacheSave) {
-                $collections->save();
+                $collections->save(true);
             }
         }
 

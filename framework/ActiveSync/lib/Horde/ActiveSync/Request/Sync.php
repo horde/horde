@@ -141,7 +141,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
                     $this->_collections->shortSyncRequest = true;
                     $this->_collections->hangingSync = true;
-                    $this->_collections->save();
+                    $this->_collections->save(true);
                 }
             } else {
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
@@ -272,7 +272,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_collections->updateCache();
 
             // Save.
-            $this->_collections->save();
+            $this->_collections->save(true);
 
             $this->_logger->info(sprintf(
                 '[%s] All synckeys confirmed. Continuing with SYNC',
@@ -327,7 +327,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 '[%s] Sending an empty SYNC response.',
                 $this->_procid));
             $this->_collections->lastsyncendnormal = time();
-            $this->_collections->save();
+            $this->_collections->save(true);
             return true;
         }
 
@@ -659,10 +659,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return true;
             } else {
                 $this->_collections->lastsyncendnormal = time();
-                $this->_collections->save();
+                $this->_collections->save(true);
             }
         } else {
-            $this->_collections->save();
+            $this->_collections->save(true);
         }
 
         return true;
