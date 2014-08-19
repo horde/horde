@@ -151,8 +151,20 @@ class Horde_Imap_Client_Url implements Serializable
 
             $url .= $this->hostspec;
 
-            if (!is_null($this->port) && ($this->port != 143)) {
-                $url .= ':' . $this->port;
+            if (!is_null($this->port)) {
+                switch ($this->protocol) {
+                case 'imap':
+                    if ($this->port != 143) {
+                        $url .= ':' . $this->port;
+                    }
+                    break;
+
+                case 'pop':
+                    if ($this->port != 110) {
+                        $url .= ':' . $this->port;
+                    }
+                    break;
+                }
             }
         }
 
@@ -218,7 +230,7 @@ class Horde_Imap_Client_Url implements Serializable
             }
             $this->port = isset($data['port'])
                 ? $data['port']
-                : 143;
+                : (($protocol === 'imap') ? 143 : 110);
             $this->protocol = $protocol;
         }
 

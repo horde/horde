@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix setting default port for POP3 URLs.
 * [mms] Fix client-side reverse sorting.
 * [mms] Fix client-side sequence sorting, when that is the only sort criteria.
 * [mms] Use Collator class, if present, to sort string fields on the client side.
@@ -2648,6 +2649,7 @@
    <date>2014-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix setting default port for POP3 URLs.
 * [mms] Fix client-side reverse sorting.
 * [mms] Fix client-side sequence sorting, when that is the only sort criteria.
 * [mms] Use Collator class, if present, to sort string fields on the client side.
