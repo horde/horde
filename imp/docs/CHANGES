@@ -22,7 +22,7 @@ v6.3.0-git
 v6.2.2
 ------
 
-[jan] Fix iTip MIME viewer actions in basic view (Bug #12677).
+[jan] Fix MIME viewer form actions in basic view (Bug #12677).
 [mms] Don't store/retrieve message history data if the Message-ID is
       missing/invalid.
 [mms] Fix resuming draft from mailbox page in basic view.
