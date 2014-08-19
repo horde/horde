@@ -51,6 +51,6 @@
 <?php endif; ?>
 </div>
 
-<?php if ($this->isbottom): ?>
+<?php if (!$this->isbottom): ?>
 </form>
 <?php endif; ?>
