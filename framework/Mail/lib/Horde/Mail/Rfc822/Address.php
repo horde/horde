@@ -146,9 +146,6 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
 
         case 'valid':
             return (bool)strlen($this->mailbox);
-
-        default:
-            return null;
         }
     }
 

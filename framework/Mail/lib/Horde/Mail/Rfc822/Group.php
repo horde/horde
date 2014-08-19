@@ -94,9 +94,6 @@ class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Counta
 
         case 'valid':
             return (bool)strlen($this->_groupname);
-
-        default:
-            return null;
         }
     }
 
