@@ -301,4 +301,15 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testReverse()
+    {
+        $ids = new Horde_Imap_Client_Ids(array(1, 3, 5));
+        $ids->reverse();
+
+        $this->assertEquals(
+            array(5, 3, 1),
+            $ids->ids
+        );
+    }
+
 }
