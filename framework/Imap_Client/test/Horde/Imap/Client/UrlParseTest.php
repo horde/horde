@@ -136,35 +136,6 @@ class Horde_Imap_Client_UrlParseTest extends Horde_Test_Case
                 )
             ),
             array(
-                ';AUTH=PLAIN@test.example.com/',
-                array(
-                    'hostspec' => 'test.example.com',
-                    'port' => 143,
-                    'relative' => false,
-                    'auth' => 'PLAIN',
-                    'mailbox' => ''
-                )
-            ),
-            array(
-                ';AUTH=PLAIN@test.example.com:143/',
-                array(
-                    'hostspec' => 'test.example.com',
-                    'port' => 143,
-                    'relative' => false,
-                    'auth' => 'PLAIN',
-                    'mailbox' => ''
-                )
-            ),
-            array(
-                ';AUTH=*@test.example.com:143/',
-                array(
-                    'hostspec' => 'test.example.com',
-                    'port' => 143,
-                    'relative' => false,
-                    'mailbox' => ''
-                )
-            ),
-            array(
                 'testuser;AUTH=*@test.example.com:143/',
                 array(
                     'hostspec' => 'test.example.com',

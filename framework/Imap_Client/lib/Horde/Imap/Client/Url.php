@@ -143,11 +143,9 @@ class Horde_Imap_Client_Url implements Serializable
 
             if (!is_null($this->username)) {
                 $url .= $this->username;
-            }
-
-            if (!is_null($this->auth)) {
-                $url .= ';AUTH=' . $this->auth . '@';
-            } elseif (!is_null($this->username)) {
+                if (!is_null($this->auth)) {
+                    $url .= ';AUTH=' . $this->auth;
+                }
                 $url .= '@';
             }
 
