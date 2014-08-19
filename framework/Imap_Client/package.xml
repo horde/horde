@@ -345,6 +345,12 @@
         <file name="Socket.php" role="test" />
         <file name="Utf7imap.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
+       <dir name="Url">
+        <file name="BaseTest.php" role="test" />
+        <file name="ImapTest.php" role="test" />
+        <file name="Pop3Test.php" role="test" />
+        <file name="TestBase.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Url -->
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
@@ -358,7 +364,6 @@
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
        <file name="TokenizeTest.php" role="test" />
-       <file name="UrlParseTest.php" role="test" />
        <file name="Utf7ConvertTest.php" role="test" />
        <file name="Xoauth2Test.php" role="test" />
       </dir> <!-- /test/Horde/Imap/Client -->
@@ -637,7 +642,6 @@
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
    <install as="Horde/Imap/Client/TokenizeTest.php" name="test/Horde/Imap/Client/TokenizeTest.php" />
-   <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/Xoauth2Test.php" name="test/Horde/Imap/Client/Xoauth2Test.php" />
    <install as="Horde/Imap/Client/Base/MailboxTest.php" name="test/Horde/Imap/Client/Base/MailboxTest.php" />
@@ -688,6 +692,10 @@
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/Utf7imap.php" name="test/Horde/Imap/Client/Stub/Utf7imap.php" />
+   <install as="Horde/Imap/Client/Url/BaseTest.php" name="test/Horde/Imap/Client/Url/BaseTest.php" />
+   <install as="Horde/Imap/Client/Url/ImapTest.php" name="test/Horde/Imap/Client/Url/ImapTest.php" />
+   <install as="Horde/Imap/Client/Url/Pop3Test.php" name="test/Horde/Imap/Client/Url/Pop3Test.php" />
+   <install as="Horde/Imap/Client/Url/TestBase.php" name="test/Horde/Imap/Client/Url/TestBase.php" />
    </filelist>
  </phprelease>
  <changelog>
