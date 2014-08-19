@@ -25,12 +25,38 @@
  */
 class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 {
+    static public function setUpBeforeClass()
+    {
+        require_once __DIR__ . '/Stub/Utf7imap.php';
+    }
+
     /**
      * @dataProvider conversionProvider
      */
-    public function testConversion($orig, $expected = null)
+    public function testConversionWithMbstring($orig, $expected = null)
     {
-        $utf7_imap = Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap(
+        if (!extension_loaded('mbstring')) {
+            $this->markTestSkipped('mbstring extension not loaded');
+        }
+
+        Horde_Imap_Client_Stub_Utf7imap::setMbstring(true);
+
+        $this->_testConversion($orig, $expected);
+    }
+
+    /**
+     * @dataProvider conversionProvider
+     */
+    public function testConversionWithoutMbstring($orig, $expected = null)
+    {
+        Horde_Imap_Client_Stub_Utf7imap::setMbstring(false);
+
+        $this->_testConversion($orig, $expected);
+    }
+
+    protected function _testConversion($orig, $expected)
+    {
+        $utf7_imap = Horde_Imap_Client_Stub_Utf7imap::Utf8ToUtf7Imap(
             $orig,
             !is_null($expected)
         );
@@ -41,7 +67,7 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
         );
 
         if ($expected) {
-            $utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($utf7_imap);
+            $utf8 = Horde_Imap_Client_Stub_Utf7imap::Utf7ImapToUtf8($utf7_imap);
             $this->assertEquals(
                 $orig,
                 $utf8

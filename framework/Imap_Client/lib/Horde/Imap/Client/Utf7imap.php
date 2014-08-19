@@ -68,7 +68,7 @@ class Horde_Imap_Client_Utf7imap
      *
      * @var array
      */
-    private static $_mbstring = null;
+    protected static $_mbstring = null;
 
     /**
      * Convert a string from UTF7-IMAP to UTF-8.
