@@ -683,18 +683,6 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
-     * Refresh the folder cache from the backend.
-     *
-     * @since 2.18.0
-     */
-    public function refreshFolderCache()
-    {
-        $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        $this->_data['folders'] = $cache['folders'];
-        $this->_dirty['folders'] = false;
-    }
-
-    /**
      * Update a folder entry in the cache.
      *
      * @param Horde_ActiveSync_Message_Folder $folder  The folder object.
