@@ -118,14 +118,16 @@ extends Horde_Imap_Client_Url_TestBase
                 )
             ),
             array(
+                'imap://test.example.com:14300/INBOX;UIDVALIDITY=123/;UID=456?FLAGGED%20SINCE%201-Feb-1994%20NOT%20FROM%20%22Smith%22',
                 'imap://test.example.com:14300/INBOX;UIDVALIDITY=123?FLAGGED%20SINCE%201-Feb-1994%20NOT%20FROM%20%22Smith%22',
-                null,
                 array(
                     'hostspec' => 'test.example.com',
                     'port' => 14300,
                     'relative' => false,
                     'uidvalidity' => 123,
                     'mailbox' => 'INBOX',
+                    // Ignore extra data after UIDVALIDITY
+                    'uid' => '',
                     // Search example from RFC 3501 [6.4.4]
                     'search' => 'FLAGGED SINCE 1-Feb-1994 NOT FROM "Smith"',
                     'protocol' => 'imap'

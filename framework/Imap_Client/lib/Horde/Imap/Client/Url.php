@@ -263,6 +263,11 @@ class Horde_Imap_Client_Url implements Serializable
                     $mbox = substr($mbox, 0, $pos);
                 }
                 $this->mailbox = rawurldecode($mbox);
+
+                if (isset($data['query'])) {
+                    $this->search = rawurldecode($data['query']);
+                    $parts = array();
+                }
             } else {
                 $parts = array();
             }
@@ -273,8 +278,6 @@ class Horde_Imap_Client_Url implements Serializable
                     $property = strtolower($k);
                     $this->$property = $v;
                 }
-            } elseif (isset($data['query'])) {
-                $this->search = rawurldecode($data['query']);
             }
         }
     }

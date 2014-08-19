@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
 * [mms] Fix setting default port for POP3 URLs.
 * [mms] Fix client-side reverse sorting.
@@ -2658,6 +2659,7 @@
    <date>2014-08-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
 * [mms] Fix setting default port for POP3 URLs.
 * [mms] Fix client-side reverse sorting.
