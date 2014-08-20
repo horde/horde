@@ -40,6 +40,7 @@ var DimpCompose = {
             rr: 'request_read_receipt'
         })
     }),
+    classes: {},
     knl: {},
 
     getCacheElt: function()
@@ -1241,7 +1242,7 @@ var DimpCompose = {
 
         HordeCore.initHandler('click');
 
-        this.attachlist = new IMP_Compose_Attachlist(this);
+        this.attachlist = new this.classes.Attachlist(this);
 
         if ($H(DimpCore.context.ctx_atc).size()) {
             $('atcdrop').observe('DragHandler:drop', this.attachlist.uploadAttach.bindAsEventListener(this.attachlist));
@@ -1326,7 +1327,7 @@ var DimpCompose = {
 
 };
 
-var IMP_Compose_Attachlist = Class.create({
+DimpCompose.classes.Attachlist = Class.create({
 
     // ajax_atc_id,
     // curr_upload,
