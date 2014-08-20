@@ -8,12 +8,27 @@
 
 var DimpCompose = {
 
-    // Variables defaulting to empty/false:
-    //   attachlist, atc_context, auto_save_interval, compose_cursor,
-    //   disabled, drafts_mbox, fwdattach, hash_hdrs, hash_msg,
-    //   hash_msgOrig, hash_sig, hash_sigOrig, knl, last_identity,
-    //   onload_show, old_action, old_identity, sc_submit,
-    //   skip_spellcheck, spellcheck, tasks
+    // attachlist,
+    // atc_context,
+    // auto_save_interval,
+    // compose_cursor,
+    // disabled,
+    // drafts_mbox,
+    // fwdattach,
+    // hash_hdrs,
+    // hash_msg,
+    // hash_msgOrig,
+    // hash_sig,
+    // hash_sigOrig,
+    // knl,
+    // last_identity,
+    // onload_show,
+    // old_action,
+    // old_identity,
+    // sc_submit,
+    // skip_spellcheck,
+    // spellcheck,
+    // tasks
 
     checkbox_context: $H({
         ctx_atc: $H({
