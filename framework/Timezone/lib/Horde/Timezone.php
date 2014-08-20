@@ -261,7 +261,7 @@ class Horde_Timezone
             if (!strlen($line) || $line[0] == '#') {
                 continue;
             }
-            $column = preg_split('/\s+/', preg_replace('/#.*$/', '', $line));
+            $column = preg_split('/\s+/', preg_replace('/\s*#.*$/', '', $line));
             switch ($column[0]) {
             case 'Rule':
                 if (!isset($this->_rules[$column[1]])) {

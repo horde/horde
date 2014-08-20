@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-04-03</date>
+ <date>2014-08-20</date>
  <version>
   <release>1.0.7</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix "Undefined offset" notice (Bug #13455).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -56,6 +56,8 @@
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="IcalendarTest.php" role="test" />
+      <file name="Mock.php" role="test" />
+      <file name="ParseTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Timezone -->
     </dir> <!-- /test/Horde -->
@@ -114,6 +116,8 @@
    <install as="Horde/Timezone/AllTests.php" name="test/Horde/Timezone/AllTests.php" />
    <install as="Horde/Timezone/bootstrap.php" name="test/Horde/Timezone/bootstrap.php" />
    <install as="Horde/Timezone/IcalendarTest.php" name="test/Horde/Timezone/IcalendarTest.php" />
+   <install as="Horde/Timezone/Mock.php" name="test/Horde/Timezone/Mock.php" />
+   <install as="Horde/Timezone/ParseTest.php" name="test/Horde/Timezone/ParseTest.php" />
    <install as="Horde/Timezone/phpunit.xml" name="test/Horde/Timezone/phpunit.xml" />
    <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
@@ -241,10 +245,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-04-03</date>
+   <date>2014-08-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix "Undefined offset" notice (Bug #13455).
    </notes>
   </release>
  </changelog>
