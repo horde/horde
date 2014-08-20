@@ -15,46 +15,54 @@
  * @copyright  2008-2014 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
-var IMP_PrettyAutocompleter = Class.create({
+var IMP_Autocompleter = Class.create({
 
+    // ac,
+    // acTimeout,
     // box,
+    // cache,
+    // data,
     // dimg,
     // elt,
     // input,
-
-    itemid: 0,
-    lastinput: '',
+    // itemid,
+    // knl,
+    // lastinput,
+    // p,
 
     initialize: function(elt, params)
     {
-        var ac, active, p_clone;
+        var active;
 
+        this.cache = $H();
+        this.itemid = 0;
+        this.lastinput = '';
         this.p = Object.extend({
+            autocompleterParams: {},
             // Outer div/fake input box and CSS class
             // box (created below)
             boxClass: 'hordeACBox',
             boxClassFocus: '',
+            entryDelay: 0.4,
+            // CSS class for real input field
+            growingInputClass: 'hordeACTrigger',
+            // input, (created below)
             // <ul> CSS class
             listClass: 'hordeACList',
             listClassItem: 'hordeACListItem',
-            // input (created below)
-            // CSS class for real input field
-            growingInputClass: 'hordeACTrigger',
-            removeClass: 'hordeACItemRemove',
-            // Allow for a function that filters the display value
-            // This function should *always* return escaped HTML
-            displayFilter: function(t) { return t.escapeHTML(); },
-            filterCallback: this.filterChoices.bind(this),
             maxItemSize: 50,
-            onAdd: Prototype.K,
-            onRemove: Prototype.K,
-            processValueCallback: this.processValueCallback.bind(this),
+            minChars: 3,
+            onAdd: Prototype.emptyFunction,
+            processValueCallback: Prototype.emptyFunction,
+            removeClass: 'hordeACItemRemove',
             requireSelection: false
         }, params || {});
 
         // The original input element is transformed into the hidden input
-        // field that hold the text values.
+        // field that holds the return value (JSON encoded array of entry
+        // IDs -> values).
         this.elt = $(elt);
+        this.elt.writeAttribute('autocomplete', 'off');
 
         this.box = new Element('DIV', { className: this.p.boxClass });
 
@@ -75,7 +83,7 @@ var IMP_PrettyAutocompleter = Class.create({
         // Replace the single input element with the new structure and
         // move the old element into the structure while making sure it's
         // hidden.
-        active = (document.activeElement && (document.activeElement == this.elt));
+        active = this.checkActiveElt(this.elt);
         this.box.insert(this.elt.replace(this.box).hide());
         if (active) {
             this.focus();
@@ -92,15 +100,6 @@ var IMP_PrettyAutocompleter = Class.create({
 
         new PeriodicalExecuter(this.inputWatcher.bind(this), 0.25);
 
-        p_clone = $H(this.p).toObject();
-        p_clone.input = this.input;
-        p_clone.onSelect = this.updateElement.bind(this);
-        p_clone.tokens = [];
-
-        ac = new Ajax.IMP_Autocompleter(this.input, p_clone);
-
-        this.reset();
-
         document.observe('AutoComplete:focus', function(e) {
             if (e.memo == this.elt) {
                 this.focus();
@@ -109,6 +108,14 @@ var IMP_PrettyAutocompleter = Class.create({
         }.bindAsEventListener(this));
         document.observe('AutoComplete:reset', this.reset.bind(this));
         document.observe('AutoComplete:update', this.processInput.bind(this));
+
+        this.reset();
+    },
+
+    checkActiveElt: function(elt)
+    {
+        return (document.activeElement &&
+                (document.activeElement == elt));
     },
 
     focus: function()
@@ -124,99 +131,78 @@ var IMP_PrettyAutocompleter = Class.create({
 
     reset: function()
     {
+        this.data = [];
         this.currentEntries().invoke('remove');
         this.updateInput('');
-        this.addNewItem(this.processValue($F(this.elt)));
+        this.processValue($F(this.elt));
     },
 
     processInput: function()
     {
-        this.addNewItem($F(this.input));
+        this.addNewItems([ new IMP_Autocompleter_Elt($F(this.input)) ]);
         this.updateInput('');
     },
 
     processValue: function(val)
     {
-        if (this.p.requireSelection) {
-            return val;
-        }
+        var tmp;
 
-        return this.p.processValueCallback(this, val.replace(/^\s+/, ''));
-    },
-
-    processValueCallback: function(ob, val)
-    {
-        var chr, pos = 0;
-
-        chr = val.charAt(pos);
-        while (chr !== "") {
-            if (ob.p.tokens.indexOf(chr) === -1) {
-                ++pos;
-            } else {
-                if (!pos) {
-                    val = val.substr(1);
-                } else {
-                    ob.addNewItem(val.substr(0, pos));
-                    val = val.substr(pos + 2);
-                    pos = 0;
-                }
-            }
-
-            chr = val.charAt(pos);
-        }
-
-        return val.replace(/^\s+/, '');
-    },
-
-    // Used as the updateElement callback.
-    updateElement: function(item)
-    {
-        if (this.addNewItem(item)) {
-            this.updateInput('');
+        if (!this.p.requireSelection) {
+            tmp = this.p.processValueCallback(val.replace(/^\s+/, ''));
+            this.addNewItems(tmp[0]);
+            this.updateInput(tmp[1]);
         }
     },
 
-    /**
-     * Adds a new element to the UI, ignoring duplicates.
-     *
-     * @return boolean True on success, false on failure/duplicate.
-     */
-    addNewItem: function(value)
+    getEntryById: function(id)
     {
-        var displayValue;
+        return this.data.detect(function(v) {
+            return (v.id == id);
+        });
+    },
 
-        // Don't add if it's already present.
-        if (value.empty() || !this.filterChoices([ value ]).size()) {
+    addNewItems: function(value)
+    {
+        value = this.filterChoices(value);
+
+        if (!value.size()) {
             return false;
         }
 
-        displayValue = this.p.displayFilter(value.truncate(this.p.maxItemSize));
+        value.each(function(v) {
+            v.elt = new Element('LI', {
+                className: this.p.listClassItem,
+                title: v.label
+            });
+            v.id = ++this.itemid;
 
-        this.input.up('LI').insert({
-            before: new Element('LI', {
-                        className: this.p.listClassItem,
-                        title: value
-                    })
-                    .insert(displayValue)
+            this.input.up('LI').insert({ before:
+                v.elt
+                    .insert(v.label.truncate(this.p.maxItemSize).escapeHTML())
                     .insert(this.deleteImg().clone(true).show())
-                    .store('raw', value)
-                    .store('itemid', ++this.itemid)
-        });
+                    .store('itemid', v.id)
+            });
+
+            this.data.push(v);
+            this.p.onAdd(v);
+        }, this);
 
         // Add to hidden input field.
         this.updateHiddenInput();
 
-        this.p.onAdd(value);
+        if (this.knl) {
+            this.knl.hide();
+        }
 
         return true;
     },
 
     filterChoices: function(c)
     {
-        var cv = this.currentValues();
+        var cv = this.data.pluck('value');
 
-        return c.select(function(v) {
-            return !cv.include(v);
+        return c.findAll(function(v) {
+            return !cv.include(v.value);
         });
     },
 
@@ -225,25 +211,34 @@ var IMP_PrettyAutocompleter = Class.create({
         return this.input.up('UL').select('LI.' + this.p.listClassItem);
     },
 
-    currentValues: function()
-    {
-        return this.currentEntries().invoke('retrieve', 'raw');
-    },
-
     updateInput: function(input)
     {
         if (Object.isElement(input)) {
-            input = input.remove().retrieve('raw');
-            this.updateHiddenInput();
+            this.input.setValue(
+                this.getEntryById(input.retrieve('itemid')).value
+            );
+            this.removeInputItem(input);
+        } else {
+            this.input.setValue(input);
         }
 
-        this.input.setValue(input);
         this.resize();
+    },
+
+    removeInputItem: function(input)
+    {
+        input = input.remove();
+        this.data = this.data.findAll(function(v) {
+            return (v.id != input.retrieve('itemid'));
+        });
+        this.updateHiddenInput();
     },
 
     updateHiddenInput: function()
     {
-        this.elt.setValue(this.currentValues().join(', '));
+        this.elt.setValue(
+            Object.toJSON(this.data.pluck('value').zip(this.data.pluck('id')))
+        );
     },
 
     resize: function()
@@ -252,17 +247,6 @@ var IMP_PrettyAutocompleter = Class.create({
             width: Math.max(80, $F(this.input).length * 9) + 'px'
         });
         this.input.fire('AutoComplete:resize');
-    },
-
-    toObject: function(elt)
-    {
-        var ob = {};
-
-        this.currentEntries().each(function(c) {
-            ob[c.retrieve('itemid')] = elt ? c : c.retrieve('raw');
-        });
-
-        return ob;
     },
 
     deleteImg: function()
@@ -285,8 +269,7 @@ var IMP_PrettyAutocompleter = Class.create({
         var elt = e.element();
 
         if (elt.hasClassName(this.p.removeClass)) {
-            elt.up('LI').remove();
-            this.updateHiddenInput();
+            this.removeInputItem(elt.up('LI'));
         }
 
         this.focus();
@@ -297,7 +280,6 @@ var IMP_PrettyAutocompleter = Class.create({
         var elt = e.findElement('LI');
 
         if (elt && elt.hasClassName(this.p.listClassItem)) {
-            this.addNewItem($F(this.input));
             this.updateInput(elt);
         } else {
             this.focus();
@@ -327,45 +309,107 @@ var IMP_PrettyAutocompleter = Class.create({
         if (input != this.lastinput) {
             this.input.setValue(this.processValue(input));
             this.lastinput = $F(this.input);
+            if (this.acTimeout) {
+                window.clearTimeout(this.acTimeout);
+            }
+            this.acTimeout = this.doAutocomplete.bind(this, this.lastinput).delay(this.p.entryDelay);
             this.resize();
-            // Pre-load the delete image now.
-            this.deleteImg();
         }
-    }
-
-});
-
-Ajax.IMP_Autocompleter = Class.create(Autocompleter.Base, {
-
-    initialize: function(element, opts)
-    {
-        this.baseInitialize(element, opts);
-        this.cache = $H();
     },
 
-    getToken: function()
+    doAutocomplete: function(t)
     {
-        return $F(this.opts.input);
-    },
+        if (!this.checkActiveElt(this.input)) {
+            return;
+        }
 
-    getUpdatedChoices: function(t)
-    {
         var c = this.cache.get(t);
 
         if (c) {
-            this.updateChoices(c);
-        } else {
-            DimpCore.doAction('autocompleteSearch', {
-                search: t
-            }, {
-                callback: this._onComplete.bind(this)
-            });
+            this.updateAutocomplete(t, c);
+        } else if (t.length >= this.p.minChars) {
+            DimpCore.doAction(
+                'autocompleteSearch',
+                Object.extend(this.p.autocompleterParams, { search: t }),
+                {
+                    callback: function(r) {
+                        this.updateAutocomplete(t, this.cache.set(t, r.results));
+                    }.bind(this)
+                }
+            );
+
+            // Pre-load the delete image now.
+            this.deleteImg();
         }
     },
 
-    _onComplete: function(request)
+    updateAutocomplete: function(search, r)
     {
-        this.updateChoices(this.cache.set(this.getToken(), request));
+        var re,
+            c = [],
+            obs = [];
+
+        if (!this.checkActiveElt(this.input)) {
+            return;
+        }
+
+        r.each(function(e) {
+            obs.push(new IMP_Autocompleter_Elt(e.v, e.l));
+        });
+
+        obs = this.filterChoices(obs);
+        if (!obs.size()) {
+            if (this.knl) {
+                this.knl.hide();
+            }
+            return;
+        }
+
+        if (!this.knl) {
+            this.knl = new KeyNavList(this.input, {
+                onChoose: function(item) {
+                    if (this.addNewItems([ item ])) {
+                        this.updateInput('');
+                    }
+                }.bind(this)
+            });
+        }
+
+        re = new RegExp(search, "i");
+
+        obs.each(function(o) {
+            var l = o.label,
+                l2 = '';
+
+            (l.match(re) || []).each(function(m2) {
+                var idx = l.indexOf(m2);
+                l2 += l.substr(0, idx).escapeHTML() + "<strong>" + m2.escapeHTML() + "</strong>";
+                l = l.substr(idx + m2.length);
+            });
+
+            if (l.length) {
+                l2 += l.escapeHTML();
+            }
+
+            c.push({ l: l2, v: o });
+        });
+
+        this.knl.show(c);
+    }
+
+}),
+
+IMP_Autocompleter_Elt = Class.create({
+
+    // elt,
+    // id,
+    // label,
+    // value,
+
+    initialize: function(value, label)
+    {
+        this.value = value;
+        this.label = label || value;
     }
 
 });

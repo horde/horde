@@ -1271,17 +1271,39 @@ extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
-     * TODO
+     * AJAX Action: Do an autocomplete search.
+     *
+     * Variables used:
+     *   - search: (string) Search string.
+     *   - type: (string) Autocomplete search type.
+     *
+     * @return object  An object with the following properties:
+     *   - results: (array)
      */
     public function autocompleteSearch()
     {
-        return array_map(
-            'strval',
-            $GLOBALS['injector']->getInstance('IMP_Contacts')->searchEmail(
+        $out = new stdClass;
+        $out->results = array();
+
+        switch ($this->vars->type) {
+        case 'email':
+            $addr = $GLOBALS['injector']->getInstance('IMP_Contacts')->searchEmail(
                 $this->vars->search,
                 array('levenshtein' => true)
-            )->base_addresses
-        );
+            );
+
+            foreach ($addr as $val) {
+                $l = $val->writeAddress(array('noquote' => true));
+                $tmp = array('v' => strval($val));
+                if ($l !== $tmp['v']) {
+                    $tmp['l'] = $l;
+                }
+                $out->results[] = $tmp;
+            }
+            break;
+        }
+
+        return $out;
     }
 
 }

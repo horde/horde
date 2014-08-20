@@ -38,11 +38,14 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $injector, $page_output, $prefs;
+        global $injector, $page_output, $prefs, $registry;
 
         $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
-        $page_output->addScriptPackage('IMP_Script_Package_ContactAutocomplete');
+        if ($registry->hasMethod('contacts/search')) {
+            $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
+        }
+
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('draghandler.js');
         $page_output->addScriptFile('editor.js');

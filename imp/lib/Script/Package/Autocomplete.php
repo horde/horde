@@ -12,8 +12,8 @@
  */
 
 /**
- * This class identifies the javascript necessary to output the contact
- * autocompleter javascript to the browser.
+ * This class identifies the javascript necessary to output the autocompleter
+ * javascript to the browser.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -21,22 +21,18 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Script_Package_ContactAutocomplete
-extends Horde_Core_Script_Package_Autocomplete
+class IMP_Script_Package_Autocomplete
+extends Horde_Core_Script_Package_Keynavlist
 {
     /**
      * Constructor.
      */
     public function __construct()
     {
-        global $registry;
+        parent::__construct();
 
-        if ($registry->hasMethod('contacts/search')) {
-            parent::__construct();
-
-            $this->_files[] = new Horde_Script_File_JsDir('compose-base.js', 'imp');
-            $this->_files[] = new Horde_Script_File_JsDir('prettyautocomplete.js', 'imp');
-        }
+        $this->_files[] = new Horde_Script_File_JsDir('compose-base.js', 'imp');
+        $this->_files[] = new Horde_Script_File_JsDir('autocomplete.js', 'imp');
     }
 
 }

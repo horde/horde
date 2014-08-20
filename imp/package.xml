@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-19</date>
+ <date>2014-10-01</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -98,6 +98,7 @@
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
+    <file name="autocomplete.js" role="horde" />
     <file name="compose-base.js" role="horde" />
     <file name="compose-dimp.js" role="horde" />
     <file name="compose.js" role="horde" />
@@ -116,7 +117,6 @@
     <file name="message.js" role="horde" />
     <file name="passphrase.js" role="horde" />
     <file name="pgp.js" role="horde" />
-    <file name="prettyautocomplete.js" role="horde" />
     <file name="remoteprefs.js" role="horde" />
     <file name="search.js" role="horde" />
     <file name="searchesprefs.js" role="horde" />
@@ -492,8 +492,8 @@
     </dir> <!-- /lib/Remote -->
     <dir name="Script">
      <dir name="Package">
+      <file name="Autocomplete.php" role="horde" />
       <file name="ComposeBase.php" role="horde" />
-      <file name="ContactAutocomplete.php" role="horde" />
       <file name="DynamicBase.php" role="horde" />
       <file name="Editor.php" role="horde" />
       <file name="Imp.php" role="horde" />
@@ -1550,6 +1550,7 @@
    <install as="RFCS" name="docs/RFCS" />
    <install as="UPGRADING" name="docs/UPGRADING" />
    <install as="imp/js/acl.js" name="js/acl.js" />
+   <install as="imp/js/autocomplete.js" name="js/autocomplete.js" />
    <install as="imp/js/compose-base.js" name="js/compose-base.js" />
    <install as="imp/js/compose-dimp.js" name="js/compose-dimp.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
@@ -1568,7 +1569,6 @@
    <install as="imp/js/message.js" name="js/message.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
    <install as="imp/js/pgp.js" name="js/pgp.js" />
-   <install as="imp/js/prettyautocomplete.js" name="js/prettyautocomplete.js" />
    <install as="imp/js/remoteprefs.js" name="js/remoteprefs.js" />
    <install as="imp/js/search.js" name="js/search.js" />
    <install as="imp/js/searchesprefs.js" name="js/searchesprefs.js" />
@@ -1863,8 +1863,8 @@
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Remote/Account.php" name="lib/Remote/Account.php" />
+   <install as="imp/lib/Script/Package/Autocomplete.php" name="lib/Script/Package/Autocomplete.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
-   <install as="imp/lib/Script/Package/ContactAutocomplete.php" name="lib/Script/Package/ContactAutocomplete.php" />
    <install as="imp/lib/Script/Package/DynamicBase.php" name="lib/Script/Package/DynamicBase.php" />
    <install as="imp/lib/Script/Package/Editor.php" name="lib/Script/Package/Editor.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />

@@ -30,6 +30,7 @@ var DimpCompose = {
     // spellcheck,
     // tasks
 
+    ac: $H(),
     checkbox_context: $H({
         ctx_atc: $H({
             pgppubkey: 'pgp_attach_pubkey',
@@ -293,7 +294,7 @@ var DimpCompose = {
 
         DimpCore.doAction(
             action,
-            ImpComposeBase.sendParams(c.serialize(true), action == 'sendMessage'),
+            c.serialize(true),
             { callback: this.uniqueSubmitCallback.bind(this) }
         );
 
@@ -894,6 +895,60 @@ var DimpCompose = {
         window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=800,height=350,left=100,top=100');
     },
 
+    /* Autocomplete functions. */
+
+    autocompleteValue: function(val)
+    {
+        var ob = [],
+            pos = 0,
+            chr, in_group, in_quote, tmp;
+
+        chr = val.charAt(pos);
+        while (chr !== "") {
+            var orig_pos = pos;
+            ++pos;
+
+            if (!orig_pos || (val.charAt(orig_pos - 1) != '\\')) {
+                switch (chr) {
+                case ',':
+                    if (!orig_pos) {
+                        val = val.substr(1);
+                    } else if (!in_group && !in_quote) {
+                        ob.push(new IMP_Autocompleter_Elt(val.substr(0, orig_pos)));
+                        val = val.substr(orig_pos + 2);
+                        pos = 0;
+                    }
+                    break;
+
+                case '"':
+                    in_quote = !in_quote;
+                    break;
+
+                case ':':
+                    if (!in_quote) {
+                        in_group = true;
+                    }
+                    break;
+
+                case ';':
+                    if (!in_quote) {
+                        in_group = false;
+                    }
+                    break;
+                }
+            }
+
+            chr = val.charAt(pos);
+        }
+
+        return [ ob, val ];
+    },
+
+    autocompleteProcess: function(r)
+    {
+    // TODO
+    },
+
     /* Click observe handler. */
     clickHandler: function(e)
     {
@@ -1193,10 +1248,11 @@ var DimpCompose = {
         var tmp;
 
         /* Initialize autocompleters. */
-        $('to', 'cc', 'bcc', 'redirect_to').compact().each(function(a) {
-            ImpComposeBase.ac.set(
-                a.identify(),
-                new IMP_PrettyAutocompleter(a.identify(), {
+        $('to', 'cc', 'bcc', 'redirect_to').compact().invoke('identify').each(function(id) {
+            this.ac.set(
+                id,
+                new IMP_Autocompleter(id, {
+                    autocompleterParams: { type: 'email' },
                     boxClass: 'hordeACBox impACBox',
                     boxClassFocus: 'impACBoxFocus',
                     deleteIcon: DimpCore.conf.ac_delete,
@@ -1204,13 +1260,13 @@ var DimpCompose = {
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
                     minChars: DimpCore.conf.ac_minchars,
-                    processValueCallback: ImpComposeBase.autocompleteValue.bind(ImpComposeBase),
+                    processValueCallback: this.autocompleteValue.bind(this),
                     removeClass: 'hordeACItemRemove impACItemRemove',
-                    trigger: a.identify(),
+                    trigger: id,
                     triggerContainer: Math.random().toString()
                 })
             );
-        });
+        }, this);
 
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
@@ -1621,6 +1677,10 @@ DimpCompose.classes.Attachlist = Class.create({
         if (t['imp:compose']) {
             this.num_limit = t['imp:compose'].atclimit;
             this.size_limit = t['imp:compose'].atcmax;
+        }
+
+        if (t['imp:compose-addr']) {
+            this.autocompleteProcess(t['imp:compose-addr']);
         }
 
         if (t['imp:compose-atc']) {
