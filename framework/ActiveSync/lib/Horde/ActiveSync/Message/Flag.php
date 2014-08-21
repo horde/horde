@@ -86,7 +86,7 @@ class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
         Horde_ActiveSync_Message_Task::POOMTASKS_REMINDERTIME   => array(self::KEY_ATTRIBUTE => 'remindertime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         Horde_ActiveSync_Message_Task::POOMTASKS_SUBJECT        => array(self::KEY_ATTRIBUTE => 'subject'),
         Horde_ActiveSync_Message_Task::POOMTASKS_ORDINALDATE    => array(self::KEY_ATTRIBUTE => 'ordinaldate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-        Horde_ActiveSync_Message_Task::POOMTASKS_SUBORDINALDATE => array(self::KEY_ATTRIBUTE => 'subordinaldate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        Horde_ActiveSync_Message_Task::POOMTASKS_SUBORDINALDATE => array(self::KEY_ATTRIBUTE => 'subordinaldate'),
         self::POOMMAIL_COMPLETETIME    => array(self::KEY_ATTRIBUTE => 'completetime'),
     );
 
