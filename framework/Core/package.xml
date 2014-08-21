@@ -30,7 +30,7 @@
  </developer>
  <date>2014-08-21</date>
  <version>
-  <release>2.13.1</release>
+  <release>2.13.2</release>
   <api>2.13.0</api>
  </version>
  <stability>
@@ -39,14 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Ensure persistently stored data is not overwritten by another session.
-* [mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug #13439).
-* [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
-* [mjr] Fetch correct data for EAS ItemSettings requests.
-* [jan] Catch exception from application in portal block (Bug #13427).
-* [jan] Fix returning session start time from session handler (Bug #13428).
-* [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
-* [mjr] Fix BC break when detecting the ActiveSync state driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3613,6 +3606,19 @@
 * [jan] Fix returning session start time from session handler (Bug #13428).
 * [mjr] Add support for synchronizing user-defined IMAP flags as EAS Email categories.
 * [mjr] Fix BC break when detecting the ActiveSync state driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.13.2</release>
+    <api>2.13.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
