@@ -40,7 +40,12 @@ implements Horde_Registry_Logout_Task
      */
     public function __construct(array $params = array())
     {
-        parent::__construct(array('vfspath' => self::VFS_PATH));
+        global $session;
+
+        parent::__construct(array(
+            'prefix' => $session->getToken(),
+            'vfspath' => self::VFS_PATH
+        ));
 
         $this->gc(86400);
     }

@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure persistently stored data is not overwritten by another session.
 * [mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug #13439).
 * [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
@@ -3604,6 +3605,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure persistently stored data is not overwritten by another session.
 * [mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug #13439).
 * [mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
 * [mjr] Fetch correct data for EAS ItemSettings requests.
