@@ -12,7 +12,7 @@
  </lead>
  <date>2014-08-21</date>
  <version>
-  <release>2.18.0</release>
+  <release>2.18.1</release>
   <api>2.18.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
-* [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
-* [mjr] Fix sending ItemSettings responses for EAS 14.1.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2323,6 +2321,19 @@
 * [mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
 * [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.18.1</release>
+    <api>2.18.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
