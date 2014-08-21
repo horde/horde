@@ -3725,6 +3725,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Ensure that search/POP3 mailbox listings are saved even if there is an issue with the underlying cache backend.
 * [mms] Fix replying to non-UTF-8 messages when the &apos;reply_charset&apos; preference is true.
 * [jan] Fix vCard MIME viewer.
 * [jan] Fix MIME viewer form actions in basic view (Bug #12677).

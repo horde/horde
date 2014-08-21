@@ -28,11 +28,11 @@ implements Horde_Shutdown_Task
     const STORAGE_KEY = 'mboxlist';
 
     /**
-     * Cache instance.
+     * Cache instances.
      *
-     * @var Horde_Core_Cache_Session
+     * @var array
      */
-    private $_cacheOb;
+    private $_cache;
 
     /**
      * Instances.
@@ -40,21 +40,6 @@ implements Horde_Shutdown_Task
      * @var array
      */
     private $_instances = array();
-
-    /**
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        parent::__construct($injector);
-
-        $this->_cacheOb = new Horde_Core_Cache_Session(array(
-            'app' => 'imp',
-            'cache' => $injector->getInstance('Horde_Cache'),
-            'storage_key' => self::STORAGE_KEY
-        ));
-
-        Horde_Shutdown::add($this);
-    }
 
     /**
      * Return the mailbox list instance.
@@ -69,12 +54,13 @@ implements Horde_Shutdown_Task
         $key = strval($mailbox);
 
         if (!isset($this->_instances[$key])) {
-            if ($ob = $this->_cacheOb->get($key)) {
+            $mailbox = IMP_Mailbox::get($mailbox);
+
+            if ($ob = $this->_getCache($mailbox)->get($key)) {
                 $ob = @unserialize($ob);
             }
 
             if (!$ob) {
-                $mailbox = IMP_Mailbox::get($mailbox);
                 if ($mailbox->search) {
                     $ob = new IMP_Mailbox_List_Virtual($mailbox);
                 } else {
@@ -97,7 +83,7 @@ implements Horde_Shutdown_Task
     {
         foreach ($this->_instances as $key => $val) {
             if ($val->changed) {
-                $this->_cacheOb->set($key, serialize($val));
+                $this->_getCache(IMP_Mailbox::get($key))->set($key, serialize($val));
             }
         }
     }
@@ -107,8 +93,56 @@ implements Horde_Shutdown_Task
      */
     public function expireAll()
     {
-        $this->_cacheOb->clear();
+        foreach ($this->_cache as $val) {
+            $val->clear();
+        }
         $this->_instances = array();
+    }
+
+    /**
+     * Return the proper cache object based on the mailbox type.
+     *
+     * @param IMP_Mailbox $mbox  Mailbox object.
+     *
+     * @return Horde_Core_Cache_Session  Session cache object.
+     */
+    protected function _getCache(IMP_Mailbox $mbox)
+    {
+        global $injector;
+
+        $key = intval($mbox->search || !$mbox->is_imap);
+
+        if (!$this->_cache[$key]) {
+            if (empty($this->_cache)) {
+                Horde_Shutdown::add($this);
+            }
+
+            /* Need to treat search/POP3 mailboxes differently than IMAP
+             * mailboxes since BUIDs may NOT be the same if the mailbox is
+             * regenerated on a cache miss (they are unique generated within a
+             * session on-demand). */
+            if ($key) {
+                $cache = new Horde_Cache(
+                    new Horde_Cache_Storage_HashTable(array(
+                        'hashtable' => new Horde_Core_HashTable_PersistentSession()
+                    )),
+                    array(
+                        'compress' => true,
+                        'logger' => $injector->getInstance('Horde_Core_Log_Wrapper')
+                    )
+                );
+            } else {
+                $cache = $injector->getInstance('Horde_Cache');
+            }
+
+            $this->_cache[$key] = new Horde_Core_Cache_Session(array(
+                'app' => 'imp',
+                'cache' => $cache,
+                'storage_key' => self::STORAGE_KEY
+            ));
+        }
+
+        return $this->_cache[$key];
     }
 
 }
