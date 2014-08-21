@@ -225,7 +225,7 @@ AnselLayout = Class.create({
         return target;
     },
 
-    // Build a single image tile.
+    // Build a single gallery tile.
     buildGalleryTile: function(g, ratio, w, h)
     {
         var target, wrap, img, meta, sub;
