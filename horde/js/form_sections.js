@@ -25,7 +25,7 @@ function Horde_Form_Sections(instanceName, openSection)
         s = document.getElementById(this._instanceName + '_section_' + openSectionId);
         if (s) {
             s.style.display = 'none';
-            document.getElementById(this._instanceName + '_tab_' + openSectionId).className = null;
+            document.getElementById(this._instanceName + '_tab_' + openSectionId).className = '';
         }
 
         /* Get the newly opened section object. */
