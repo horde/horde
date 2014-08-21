@@ -45,19 +45,19 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
- * @property integer   $flagstatus
- * @property integer   $flagtype
+ * @property integer      $flagstatus
+ * @property integer      $flagtype
  * @property Horde_Date   $startdate
  * @property Horde_Date   $utcstartdate
  * @property Horde_Date   $duedate
  * @property Horde_Date   $utcduedate
  * @property Horde_Date   $datecompleted
- * @property integer   $reminderset
- * @property integer   $remindertime
- * @property string   $subject
+ * @property integer      $reminderset
+ * @property integer      $remindertime
+ * @property string       $subject
  * @property Horde_Date   $ordinaldate
- * @property Horde_Date   $subordinaldate
- * @property integer   $completetime
+ * @property string       $subordinaldate
+ * @property integer      $completetime
  */
 class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
 {
@@ -75,8 +75,8 @@ class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_mapping = array(
-        self::POOMMAIL_FLAGSTATUS      => array(self::KEY_ATTRIBUTE => 'flagstatus'),
-        self::POOMMAIL_FLAGTYPE        => array(self::KEY_ATTRIBUTE => 'flagtype'),
+        self::POOMMAIL_FLAGSTATUS                               => array(self::KEY_ATTRIBUTE => 'flagstatus'),
+        self::POOMMAIL_FLAGTYPE                                 => array(self::KEY_ATTRIBUTE => 'flagtype'),
         Horde_ActiveSync_Message_Task::POOMTASKS_STARTDATE      => array(self::KEY_ATTRIBUTE => 'startdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         Horde_ActiveSync_Message_Task::POOMTASKS_UTCSTARTDATE   => array(self::KEY_ATTRIBUTE => 'utcstartdate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         Horde_ActiveSync_Message_Task::POOMTASKS_DUEDATE        => array(self::KEY_ATTRIBUTE => 'duedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
@@ -87,7 +87,7 @@ class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
         Horde_ActiveSync_Message_Task::POOMTASKS_SUBJECT        => array(self::KEY_ATTRIBUTE => 'subject'),
         Horde_ActiveSync_Message_Task::POOMTASKS_ORDINALDATE    => array(self::KEY_ATTRIBUTE => 'ordinaldate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         Horde_ActiveSync_Message_Task::POOMTASKS_SUBORDINALDATE => array(self::KEY_ATTRIBUTE => 'subordinaldate'),
-        self::POOMMAIL_COMPLETETIME    => array(self::KEY_ATTRIBUTE => 'completetime'),
+        self::POOMMAIL_COMPLETETIME                             => array(self::KEY_ATTRIBUTE => 'completetime'),
     );
 
     /**
@@ -96,19 +96,19 @@ class Horde_ActiveSync_Message_Flag extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_properties = array(
-        'flagstatus' => false,
-        'flagtype' => false,
-        'startdate' => false,
-        'utcstartdate' => false,
-        'duedate' => false,
-        'utcduedate' => false,
-        'datecompleted' => false,
-        'reminderset' => false,
-        'remindertime' => false,
-        'subject' => false,
-        'ordinaldate' => false,
+        'flagstatus'     => false,
+        'flagtype'       => false,
+        'startdate'      => false,
+        'utcstartdate'   => false,
+        'duedate'        => false,
+        'utcduedate'     => false,
+        'datecompleted'  => false,
+        'reminderset'    => false,
+        'remindertime'   => false,
+        'subject'        => false,
+        'ordinaldate'    => false,
         'subordinaldate' => false,
-        'completetime' => false,
+        'completetime'   => false,
     );
 
     /**
