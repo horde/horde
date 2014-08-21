@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.13.0",
-    "time": "2014-08-04",
+    "version": "2.13.1",
+    "time": "2014-08-21",
     "repositories": [
         {
             "type": "pear",
@@ -78,7 +78,7 @@
         "ext-session": "*"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_ActiveSync": ">=2.14.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_ActiveSync": ">=2.18.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Crypt": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Dav": ">=1.0.0alpha1@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
