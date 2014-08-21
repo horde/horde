@@ -70,7 +70,17 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 
     public function testPreLoginCommands()
     {
-        $c = self::$live->capability;
+        try {
+            $c = self::$live->capability;
+        } catch (Horde_Imap_Client_Exception $e) {
+            switch ($e->getCode()) {
+            case $e::SERVER_CONNECT:
+                $this->markTestSkipped('Could not connect to server');
+                break;
+            }
+
+            throw $e;
+        }
 
         $this->assertInstanceOf(
             'Horde_Imap_Client_Data_Capability',
