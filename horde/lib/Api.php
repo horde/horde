@@ -65,6 +65,11 @@ class Horde_Api extends Horde_Registry_Api
                 'name' => _("_Alarms"),
                 'icon' => 'alarm'
             ),
+            'cache' => array(
+                'link' => '%application%/admin/cache.php',
+                'name' => _("Cache"),
+                'icon' => 'data'
+            ),
             'sessions' => array(
                 'link' => '%application%/admin/sessions.php',
                 'name' => _("Sessions"),
