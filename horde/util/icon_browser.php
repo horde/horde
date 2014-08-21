@@ -47,6 +47,7 @@ if (($app = basename($vars->app)) && in_array($app, $apps)) {
     }
 
     if (count($imgs)) {
+        natsort($imgs);
         foreach ($imgs as $img) {
             echo Horde_Themes_Image::tag(
                 Horde_Themes::img(
