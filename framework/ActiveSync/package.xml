@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
 * [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
  </notes>
@@ -2319,6 +2320,7 @@
    <date>2014-08-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
 * [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
    </notes>
