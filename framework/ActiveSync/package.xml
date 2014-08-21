@@ -2319,6 +2319,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
+* [mjr] Prevent folder cache from being overwritten (Bug #13273).
 * [mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
 * [mjr] Fix sending ItemSettings responses for EAS 14.1.
    </notes>
