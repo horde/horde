@@ -1441,7 +1441,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $body,
                 'Xss',
                 array(
-                    'charset' => $this->charset,
                     'return_dom' => true,
                     'strip_style_attributes' => false
                 )
