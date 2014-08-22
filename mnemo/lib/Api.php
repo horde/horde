@@ -47,6 +47,193 @@ class Mnemo_Api extends Horde_Registry_Api
     }
 
     /**
+     * Browse through Mnemo's object tree.
+     *
+     * @param string $path       The level of the tree to browse.
+     * @param array $properties  The item properties to return. Defaults to
+     *                           'name', 'icon', and 'browseable'.
+     *
+     * @return array  The contents of $path
+     */
+    public function browse($path = '', $properties = array())
+    {
+        global $registry;
+
+        // Default properties.
+        if (!$properties) {
+            $properties = array('name', 'icon', 'browseable');
+        }
+
+        if (substr($path, 0, 5) == 'mnemo') {
+            $path = substr($path, 5);
+        }
+        $path = trim($path, '/');
+        $parts = explode('/', $path);
+
+        if (empty($path)) {
+            // This request is for a list of all users who have notepads
+            // visible to the requesting user.
+            $notepads = Mnemo::listNotepads(false, Horde_Perms::READ);
+            $owners = array();
+            foreach ($notepads as $notepad) {
+                $owners[$notepad->get('owner') ? $notepad->get('owner') : '-system-'] = true;
+            }
+
+            $results = array();
+            foreach (array_keys($owners) as $owner) {
+                if (in_array('name', $properties)) {
+                    $results['mnemo/' . $owner]['name'] = $owner;
+                }
+                if (in_array('icon', $properties)) {
+                    $results['mnemo/' . $owner]['icon'] = Horde_Themes::img('user.png');
+                }
+                if (in_array('browseable', $properties)) {
+                    $results['mnemo/' . $owner]['browseable'] = true;
+                }
+                if (in_array('contenttype', $properties)) {
+                    $results['mnemo/' . $owner]['contenttype'] =
+                        'httpd/unix-directory';
+                }
+                if (in_array('contentlength', $properties)) {
+                    $results['mnemo/' . $owner]['contentlength'] = 0;
+                }
+                if (in_array('modified', $properties)) {
+                    $results['mnemo/' . $owner]['modified'] =
+                        $_SERVER['REQUEST_TIME'];
+                }
+                if (in_array('created', $properties)) {
+                    $results['mnemo/' . $owner]['created'] = 0;
+                }
+            }
+            return $results;
+
+        } elseif (count($parts) == 1) {
+            // This request is for all notepads owned by the requested user
+            $owner = $parts[0] == '-system-' ? '' : $parts[0];
+            $notepads = $GLOBALS['mnemo_shares']->listShares(
+                $GLOBALS['registry']->getAuth(),
+                array('perm' => Horde_Perms::SHOW,
+                      'attributes' => $owner));
+
+            $results = array();
+            foreach ($notepads as $notepadId => $notepad) {
+                if ($parts[0] == '-system-' && $notepad->get('owner')) {
+                    continue;
+                }
+                $retpath = 'mnemo/' . $parts[0] . '/' . $notepadId;
+                if (in_array('name', $properties)) {
+                    $results[$retpath]['name'] = sprintf(_("Notes from %s"), Mnemo::getLabel($notepad));
+                }
+                if (in_array('icon', $properties)) {
+                    $results[$retpath]['icon'] = Horde_Themes::img('mnemo.png');
+                }
+                if (in_array('browseable', $properties)) {
+                    $results[$retpath]['browseable'] = $notepad->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                }
+                if (in_array('contenttype', $properties)) {
+                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
+                }
+                if (in_array('contentlength', $properties)) {
+                    $results[$retpath]['contentlength'] = 0;
+                }
+                if (in_array('modified', $properties)) {
+                    // @TODO Find a way to get the actual modification times
+                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
+                }
+                if (in_array('created', $properties)) {
+                    // @TODO Find a way to get the actual creation times
+                    $results[$retpath]['created'] = 0;
+                }
+            }
+            return $results;
+
+        } elseif (count($parts) == 2) {
+            //
+            // This request is browsing into a specific notepad.  Generate the
+            // list of items and represent them as files within the directory.
+            //
+            if (!Mnemo::hasPermission($parts[1], Horde_Perms::READ)) {
+                throw new Mnemo_Exception(_("Invalid notepad requested."), 404);
+            }
+            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($parts[1]);
+            try {
+                $storage->retrieve();
+            } catch (Mnemo_Exception $e) {
+                throw new Mnemo_Exception($e->getMessage, 500);
+            }
+            $icon = Horde_Themes::img('mnemo.png');
+            $results = array();
+            foreach ($storage->listMemos() as $memo) {
+                $body = $memo['body'] instanceof Mnemo_Exception
+                    ? $memo['body']->getMessage()
+                    : $memo['body'];
+                $key = 'mnemo/' . $parts[0] . '/' . $parts[1] . '/' . $memo['memo_id'];
+                if (in_array('name', $properties)) {
+                    $results[$key]['name'] = $memo['desc'];
+                }
+                if (in_array('icon', $properties)) {
+                    $results[$key]['icon'] = $icon;
+                }
+                if (in_array('browseable', $properties)) {
+                    $results[$key]['browseable'] = false;
+                }
+                if (in_array('contenttype', $properties)) {
+                    $results[$key]['contenttype'] = 'text/plain';
+                }
+                if (in_array('contentlength', $properties)) {
+                    $results[$key]['contentlength'] = strlen($body);
+                }
+                if (in_array('modified', $properties)) {
+                    $results[$key]['modified'] = $this->_modified($memo);
+                }
+                if (in_array('created', $properties)) {
+                    $results[$key]['created'] = isset($memo['created']) ? $memo['created'] : 0;
+                }
+            }
+            return $results;
+        } else {
+            //
+            // The only valid request left is for a specific note.
+            //
+            if (count($parts) == 3 &&
+                Mnemo::hasPermission($parts[1], Horde_Perms::READ)) {
+                //
+                // This request is for a specific item within a given notepad.
+                //
+                /* Create a Mnemo storage instance. */
+                $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($parts[1]);
+                $storage->retrieve();
+                try {
+                    $memo = $storage->get($parts[2]);
+                } catch (Mnemo_Exception $e) {
+                    throw new Mnemo_Exception($e->getMessage(), 500);
+                }
+                $result = array(
+                    'data' => $memo['body'] instanceof Mnemo_Exception
+                        ? $memo['body']->getMessage()
+                        : $memo['body'],
+                    'mimetype' => 'text/plain');
+                $modified = $this->_modified($memo);
+                if (!empty($modified)) {
+                    $result['mtime'] = $modified;
+                }
+                return $result;
+            } elseif (count($parts) == 2 &&
+                substr($parts[1], -4) == '.txt' &&
+                Mnemo::hasPermission(substr($parts[1], 0, -4), Horde_Perms::READ)) {
+
+                // ??
+
+            } else {
+                //
+                // All other requests are a 404: Not Found
+                //
+                return false;
+            }
+        }
+    }
+
+    /**
      * Returns an array of UIDs for all notes that the current user is authorized
      * to see.
      *
@@ -630,6 +817,22 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         return $return;
+    }
+
+    /**
+     * Returns the last modification timestamp of a note.
+     *
+     * @param array $memo  The note to look in.
+     *
+     * @return integer  The timestamp for the last modification.
+     */
+    protected function _modified($memo)
+    {
+        return isset($memo['modified'])
+            ? $memo['modified']
+            : (isset($memo['created'])
+               ? $memo['created']
+               : null);
     }
 
 }
