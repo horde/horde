@@ -5858,7 +5858,7 @@ KronolithCore = {
 
         $('kronolithEventStartTime').setValue(ev.st);
         this.knl.kronolithEventStartTime.setSelected(ev.st);
-        this.updateFBDate(Date.parse(ev.sd, Kronolith.conf.date_format));
+        this.updateFBDate(Date.parseExact(ev.sd, Kronolith.conf.date_format));
         $('kronolithEventEndTime').setValue(ev.et);
         this.knl.kronolithEventEndTime.setSelected(ev.et);
         this.duration = Math.abs(Date.parse(ev.e).getTime() - Date.parse(ev.s).getTime()) / 60000;
@@ -6269,7 +6269,7 @@ KronolithCore = {
 
     fbStartDateHandler: function(start)
     {
-        this.updateFBDate(Date.parse(start, Kronolith.conf.date_format));
+        this.updateFBDate(Date.parseExact(start, Kronolith.conf.date_format));
         this.resetFBRows();
         // Need to check visisbility - multiple changes will break the display
         // due to the use of .defer() in insertFreeBusy().
