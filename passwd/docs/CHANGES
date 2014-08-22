@@ -2,6 +2,7 @@
 v5.0.2-git
 ----------
 
+[jan] Fix syntax error in HTTP driver (Bug #13464).
 [mms] Re-add 'userdn' hook.
 [jan] Update Danish translation (Erling Preben Hansen <erling@eph.dk>).
 [mms] Fix usage of 'query_lookup' and 'query_modify' backend parameters

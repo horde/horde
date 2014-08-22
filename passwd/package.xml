@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix syntax error in HTTP driver (Bug #13464).
 * [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
@@ -710,6 +711,7 @@
    <date>2013-08-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix syntax error in HTTP driver (Bug #13464).
 * [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
