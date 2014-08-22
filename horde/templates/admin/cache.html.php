@@ -4,7 +4,7 @@
 
 <div class="horde-content">
  <p>
-  <?php echo _("Driver") ?>: <em><?php echo $this->h($this->driver) ?></em>
+  <?php echo _("Driver") ?>: <strong><?php echo $this->h($this->driver) ?></strong>
  </p>
  <p>
   <?php echo _("Backend Read/Write Test") ?>:
