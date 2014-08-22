@@ -57,7 +57,7 @@ class Passwd_Driver_Http extends Passwd_Driver
         if (strpos($body, $this->_params['eval_results']['badUser'])) {
             throw new Passwd_Exception(_("The username could not be found."));
         }
-        if (!strpos(body, $this->_params['eval_results']['success'])) {
+        if (!strpos($body, $this->_params['eval_results']['success'])) {
             throw new Passwd_Exception(_("Your password could not be changed."));
         }
     }
