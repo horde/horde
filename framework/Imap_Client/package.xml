@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-19</date>
+ <date>2014-08-23</date>
  <version>
   <release>2.25.0</release>
   <api>2.25.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] IMAP/POP3 URL generation split into a more modular library structure.
 * [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
 * [mms] Fix setting default port for POP3 URLs.
@@ -180,6 +181,14 @@
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
+       <dir name="Url">
+        <dir name="Imap">
+         <file name="Relative.php" role="php" />
+        </dir> <!-- /lib/Horde/Imap/Client/Url/Imap -->
+        <file name="Base.php" role="php" />
+        <file name="Imap.php" role="php" />
+        <file name="Pop3.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Url -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="DateTime.php" role="php" />
@@ -349,7 +358,10 @@
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
        <dir name="Url">
         <file name="BaseTest.php" role="test" />
+        <file name="ImapDeprecatedTest.php" role="test" />
+        <file name="ImapRelativeTest.php" role="test" />
         <file name="ImapTest.php" role="test" />
+        <file name="Pop3DeprecatedTest.php" role="test" />
         <file name="Pop3Test.php" role="test" />
         <file name="TestBase.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Url -->
@@ -610,6 +622,10 @@
    <install as="Horde/Imap/Client/Socket/Connection/Base.php" name="lib/Horde/Imap/Client/Socket/Connection/Base.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Pop3.php" name="lib/Horde/Imap/Client/Socket/Connection/Pop3.php" />
    <install as="Horde/Imap/Client/Socket/Connection/Socket.php" name="lib/Horde/Imap/Client/Socket/Connection/Socket.php" />
+   <install as="Horde/Imap/Client/Url/Base.php" name="lib/Horde/Imap/Client/Url/Base.php" />
+   <install as="Horde/Imap/Client/Url/Imap.php" name="lib/Horde/Imap/Client/Url/Imap.php" />
+   <install as="Horde/Imap/Client/Url/Pop3.php" name="lib/Horde/Imap/Client/Url/Pop3.php" />
+   <install as="Horde/Imap/Client/Url/Imap/Relative.php" name="lib/Horde/Imap/Client/Url/Imap/Relative.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="locale/da/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/da/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/da/LC_MESSAGES/Horde_Imap_Client.po" name="locale/da/LC_MESSAGES/Horde_Imap_Client.po" />
@@ -695,7 +711,10 @@
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/Utf7imap.php" name="test/Horde/Imap/Client/Stub/Utf7imap.php" />
    <install as="Horde/Imap/Client/Url/BaseTest.php" name="test/Horde/Imap/Client/Url/BaseTest.php" />
+   <install as="Horde/Imap/Client/Url/ImapDeprecatedTest.php" name="test/Horde/Imap/Client/Url/ImapDeprecatedTest.php" />
+   <install as="Horde/Imap/Client/Url/ImapRelativeTest.php" name="test/Horde/Imap/Client/Url/ImapRelativeTest.php" />
    <install as="Horde/Imap/Client/Url/ImapTest.php" name="test/Horde/Imap/Client/Url/ImapTest.php" />
+   <install as="Horde/Imap/Client/Url/Pop3DeprecatedTest.php" name="test/Horde/Imap/Client/Url/Pop3DeprecatedTest.php" />
    <install as="Horde/Imap/Client/Url/Pop3Test.php" name="test/Horde/Imap/Client/Url/Pop3Test.php" />
    <install as="Horde/Imap/Client/Url/TestBase.php" name="test/Horde/Imap/Client/Url/TestBase.php" />
    </filelist>
@@ -2656,9 +2675,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-19</date>
+   <date>2014-08-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] IMAP/POP3 URL generation split into a more modular library structure.
 * [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
 * [mms] Fix setting default port for POP3 URLs.

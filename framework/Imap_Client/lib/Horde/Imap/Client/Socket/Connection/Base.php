@@ -41,10 +41,11 @@ class Horde_Imap_Client_Socket_Connection_Base extends Horde\Socket\Client
         if ($retries || !$this->_params['debug']->debug) {
             $timer = null;
         } else {
-            $url = new Horde_Imap_Client_Url();
-            $url->hostspec = $host;
+            $url = ($this->_protocol == 'imap')
+                ? new Horde_Imap_Client_Url_Imap()
+                : new Horde_Imap_Client_Url_Pop3();
+            $url->host = $host;
             $url->port = $port;
-            $url->protocol = $this->_protocol;
             $this->_params['debug']->info(sprintf(
                 'Connection to: %s',
                 strval($url)

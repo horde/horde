@@ -47,14 +47,14 @@ class Horde_Imap_Client_Socket_Catenate
     /**
      * Given an IMAP URL, fetches the corresponding part.
      *
-     * @param Horde_Imap_Client_Url $url  An IMAP URL.
+     * @param Horde_Imap_Client_Url_Imap $url  An IMAP URL.
      *
      * @return resource  The section contents in a stream. Returns null if
      *                   the part could not be found.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function fetchFromUrl(Horde_Imap_Client_Url $url)
+    public function fetchFromUrl(Horde_Imap_Client_Url_Imap $url)
     {
         $ids_ob = $this->_socket->getIdsOb($url->uid);
 

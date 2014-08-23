@@ -26,14 +26,14 @@
 abstract class Horde_Imap_Client_Url_TestBase
 extends PHPUnit_Framework_TestCase
 {
-    protected $protocol;
+    protected $classname;
 
     /**
      * @dataProvider testUrlProvider
      */
     public function testUrlParsing($in, $url, $expected)
     {
-        $ob = new Horde_Imap_Client_Url($in);
+        $ob = new $this->classname($in);
 
         foreach ($expected as $key => $val) {
             $this->assertEquals(
@@ -50,21 +50,20 @@ extends PHPUnit_Framework_TestCase
 
     abstract public function testUrlProvider();
 
-    public function testSerialize()
+    /**
+     * @dataProvider serializeProvider()
+     */
+    public function testSerialize($url)
     {
-        $url = unserialize(serialize(
-            new Horde_Imap_Client_Url($this->protocol . '://test.example.com/')
-        ));
+        $orig = new $this->classname($url);
+        $copy = unserialize(serialize($orig));
 
         $this->assertEquals(
-            $this->protocol,
-            $url->protocol
-        );
-
-        $this->assertEquals(
-            'test.example.com',
-            $url->hostspec
+            $orig,
+            $copy
         );
     }
+
+    abstract public function serializeProvider();
 
 }

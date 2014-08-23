@@ -26,14 +26,23 @@
 class Horde_Imap_Client_Url_BaseTest
 extends PHPUnit_Framework_TestCase
 {
-    public function testBadUrl()
+    /**
+     * @dataProvider badUrlProvider
+     */
+    public function testBadUrl($classname)
     {
-        $url = new Horde_Imap_Client_Url('NOT A VALID URL');
+        $url = new $classname('NOT A VALID URL');
 
-        $this->assertNotNull($url->mailbox);
-        $this->assertEquals(
-            'NOT A VALID URL',
-            $url->mailbox
+        $this->assertNull($url->hostspec);
+    }
+
+    public function badUrlProvider()
+    {
+        return array(
+            array('Horde_Imap_Client_Url'),
+            array('Horde_Imap_Client_Url_Imap'),
+            array('Horde_Imap_Client_Url_Imap_Relative'),
+            array('Horde_Imap_Client_Url_Pop3')
         );
     }
 

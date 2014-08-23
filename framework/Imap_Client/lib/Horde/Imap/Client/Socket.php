@@ -511,7 +511,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // Check for login referral (RFC 2221) response - can happen for
             // an OK, NO, or BYE response.
             if (isset($data['referral'])) {
-                foreach (array('hostspec', 'port', 'username') as $val) {
+                foreach (array('host', 'port', 'username') as $val) {
                     if (!is_null($data['referral']->$val)) {
                         $this->setParam($val, $data['referral']->$val);
                     }
@@ -1919,7 +1919,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _convertCatenateUrl($url)
     {
         $e = $part = null;
-        $url = new Horde_Imap_Client_Url($url);
+        $url = new Horde_Imap_Client_Url_Imap($url);
 
         if (!is_null($url->mailbox) && !is_null($url->uid)) {
             try {
@@ -4741,7 +4741,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'REFERRAL':
             // Defined by RFC 2221
-            $pipeline->data['referral'] = new Horde_Imap_Client_Url($rc->data[0]);
+            $pipeline->data['referral'] = new Horde_Imap_Client_Url_Imap($rc->data[0]);
             break;
 
         case 'UNKNOWN-CTE':

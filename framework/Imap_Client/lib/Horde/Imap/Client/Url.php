@@ -14,11 +14,12 @@
 /**
  * Object representation of a a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2008-2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Imap_Client
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2008-2014 Horde LLC
+ * @deprecated Use Horde_Imap_Client_Url_Base instead
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Imap_Client
  *
  * @property-read boolean $relative  Is this a relative URL?
  */
