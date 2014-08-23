@@ -34,12 +34,11 @@ class Horde_Pack_PackTest extends Horde_Test_Case
         serialize($pack);
     }
 
-    // Bug #13275
-    public function testNonUtf8Pack()
+    /**
+     * @dataProvider buggyDriverBackendsProvider
+     */
+    public function testBuggyDriverBackends($data)
     {
-        // ISO-8859-1 string
-        $data = base64_decode('VORzdA==');
-
         $pack = new Horde_Pack();
 
         $p = $pack->pack($data, array(
@@ -52,6 +51,17 @@ class Horde_Pack_PackTest extends Horde_Test_Case
         $this->assertEquals(
             $data,
             $pack->unpack($p)
+        );
+    }
+
+    public function buggyDriverBackendsProvider()
+    {
+        return array(
+            // Bug #13275
+            // ISO-8859-1 string
+            array(base64_decode('VORzdA==')),
+            // JSON-C does not correctly handle null characters
+            array(array("A\0B" => "A\0B"))
         );
     }
 

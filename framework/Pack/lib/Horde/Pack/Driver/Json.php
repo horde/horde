@@ -37,10 +37,28 @@ class Horde_Pack_Driver_Json extends Horde_Pack_Driver
      */
     public function pack($data)
     {
+        static $jsonc_bug = null;
+
         $d = json_encode($data);
         // TODO: JSON_ERROR_UTF8 = 5; available as of PHP 5.3.3
         if (json_last_error() === 5) {
-            throw new Horde_Pack_Exception('Non UTF-8 data cannot be JSON packed.');
+            throw new Horde_Pack_Exception(
+                'Non UTF-8 data cannot be JSON packed.'
+            );
+        }
+
+        if (is_null($jsonc_bug)) {
+            $orig = array("A\0B" => "A\0B");
+            $jsonc_bug = (json_decode(json_encode($orig), true) !== $orig);
+        }
+
+        /* JSON-C (used in, e.g., Debian/Ubuntu) is broken when it comes to
+         * handling null characters. If we detect the buggy behavior and
+         * we see a null character in the output, use a different packer. */
+        if ($jsonc_bug && (strpos($d, "\u0000") !== false)) {
+            throw new Horde_Pack_Exception(
+                'JSON decoder is broken (invalid handling of null chars).'
+            );
         }
 
         /* For JSON, we need to keep track whether the initial data was
