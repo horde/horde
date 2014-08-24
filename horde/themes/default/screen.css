@@ -783,7 +783,7 @@ div.prefsErrorDiv {
     padding: 2px;
 }
 
-div.prefsError, .cacheAdminError {
+div.prefsError, .cacheAdminError, .htAdminError {
     color: red;
 }
 
@@ -2257,7 +2257,7 @@ left.horde-point-right {
 .horde-admin-mobile {
     background-image: url("graphics/mobile.png");
 }
-.horde-admin-data, .horde-data {
+.horde-admin-data, .horde-admin-hashtable, .horde-data {
     background-image: url("graphics/data.png");
 }
 .horde-perms {

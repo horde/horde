@@ -70,6 +70,11 @@ class Horde_Api extends Horde_Registry_Api
                 'name' => _("Cache"),
                 'icon' => 'data'
             ),
+            'hashtable' => array(
+                'link' => '%application%/admin/hashtable.php',
+                'name' => _("Hashtable"),
+                'icon' => 'data'
+            ),
             'sessions' => array(
                 'link' => '%application%/admin/sessions.php',
                 'name' => _("Sessions"),
