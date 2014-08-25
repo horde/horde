@@ -873,6 +873,9 @@ class Horde_Core_ActiveSync_Connector
      */
     public function mail_logMaillog($action, $mid, $recipients = null)
     {
+        if (!empty($recipients)) {
+            $recipients = array('recipients' => $recipients);
+        }
         if ($this->_registry->hasMethod('logMaillog', $this->_registry->hasInterface('mail'))) {
             $this->_registry->mail->logMaillog($action, $mid, $recipients);
         }

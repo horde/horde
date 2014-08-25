@@ -1944,7 +1944,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_connector->mail_logMaillog(
                 $mailer->reply ? 'reply' : 'forward',
                 $mailer->imapMessage->getHeaders()->getValue('Message-ID'),
-                $mailer->forward ? array($mailer->headers->getValue('To')) : null);
+                $mailer->forward ? $mailer->headers->getValue('To') : null);
             $this->_imap->setImapFlag(
                 $mailer->parentFolder,
                 $mailer->id,
