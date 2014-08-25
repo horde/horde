@@ -2647,7 +2647,6 @@ class Horde_Registry implements Horde_Shutdown_Task
      *                 credentials.
      *   - remoteAddr: (string) The remote IP address of the user.
      *   - timestamp: (integer) The login time.
-     *                @deprecated: Use session begin value instead
      *   - userId: (string) The unique Horde username.
      */
     public function getAuthInfo()
