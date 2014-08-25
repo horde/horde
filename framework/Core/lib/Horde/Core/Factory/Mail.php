@@ -50,6 +50,10 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
         if (strcasecmp($transport, 'smtp') === 0) {
             if (empty($params['lmtp'])) {
                 $transport = 'Smtphorde';
+                /* Explicitly set secure parameter, if not set in config. */
+                if (!isset($params['secure'])) {
+                    $params['secure'] = true;
+                }
             } else {
                 unset($params['lmtp']);
                 $transport = 'Lmtphorde';
