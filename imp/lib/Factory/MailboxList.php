@@ -32,7 +32,7 @@ implements Horde_Shutdown_Task
      *
      * @var array
      */
-    private $_cache;
+    private $_cache = array();
 
     /**
      * Instances.
