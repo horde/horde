@@ -96,35 +96,8 @@ class Horde_Test_AllTests
     {
         $this->setup();
 
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . $this->_package);
-
-        $baseregexp = preg_quote($this->_dir . DIRECTORY_SEPARATOR, '/');
-
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir)) as $file) {
-            if ($file->isFile()) {
-                $pathname = $file->getPathname();
-                if ((preg_match('/Test.php$/', $file->getFilename())) &&
-                    (include_once $pathname)) {
-                    $class = str_replace(
-                        DIRECTORY_SEPARATOR, '_',
-                        preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
-                    try {
-                        $suite->addTestSuite($this->_package . '_' . $class);
-                    } catch (InvalidArgumentException $e) {
-                        throw new Horde_Test_Exception(
-                            sprintf(
-                                'Failed adding test suite "%s" from file "%s": %s',
-                                $this->_package . '_' . $class,
-                                $pathname,
-                                $e->getMessage()
-                            )
-                        );
-                    }
-                }
-            }
-        }
-
-        return $suite;
+        $runner = new Horde_Test_AllTests_TestRunner();
+        return $runner->getSuite($this->_package, $this->_dir);
     }
 
     /**
