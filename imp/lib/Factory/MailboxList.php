@@ -123,7 +123,7 @@ implements Horde_Shutdown_Task
              * session on-demand). */
             if ($key) {
                 $cache = new Horde_Cache(
-                    new Horde_Cache_Storage_HashTable(array(
+                    new Horde_Cache_Storage_Hashtable(array(
                         'hashtable' => new Horde_Core_HashTable_PersistentSession()
                     )),
                     array(
