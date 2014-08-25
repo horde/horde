@@ -87,14 +87,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-            $data['js'] = array(
-                'IMP_JS.iframeInject("' . $uid . '", ' . json_encode($data['data']) . ')'
-            );
-
-            if ($view == $registry::VIEW_SMARTMOBILE) {
-                $data['js'][] = '$("#imp-message-body a[href=\'#unblock-image\']").button()';
-            }
-
+            $data['metadata'] = array('html' => array($uid, $data['data']));
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;

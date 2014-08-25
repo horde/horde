@@ -1406,7 +1406,7 @@ class IMP_Contents
      * @return array  An array with the following keys:
      *   - atc_parts: (array) The list of attachment MIME IDs.
      *   - display_ids: (array) The list of display MIME IDs.
-     *   - js_onload: (array) A list of javascript code to run onload.
+     *   - metadata: (array) A list of metadata.
      *   - msgtext: (string) The rendered HTML code.
      *   - one_part: (boolean) If true, the message only consists of one part.
      */
@@ -1414,7 +1414,7 @@ class IMP_Contents
     {
         global $prefs, $registry;
 
-        $atc_parts = $display_ids = $msgtext = $js_onload = $wrap_ids = array();
+        $atc_parts = $display_ids = $metadata = $msgtext = $wrap_ids = array();
         $parts_list = $this->getContentTypeMap();
         $text_out = '';
         $view = $registry->getView();
@@ -1512,8 +1512,8 @@ class IMP_Contents
                     'wrap' => empty($info['wrap']) ? null : $info['wrap']
                 );
 
-                if (isset($info['js'])) {
-                    $js_onload = array_merge($js_onload, $info['js']);
+                if (isset($info['metadata'])) {
+                    $metadata = array_merge($metadata, $info['metadata']);
                 }
 
                 if ($no_inline_all) {
@@ -1555,7 +1555,7 @@ class IMP_Contents
         return array(
             'atc_parts' => $atc_parts,
             'display_ids' => array_keys($display_ids),
-            'js_onload' => $js_onload,
+            'metadata' => $metadata,
             'msgtext' => $text_out,
             'one_part' => (count($parts_list) == 1)
         );

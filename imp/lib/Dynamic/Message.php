@@ -95,6 +95,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
         $js_vars['DimpMessage.buid'] = $buid;
         $js_vars['DimpMessage.mbox'] = $this->indices->mailbox->form_to;
+        if (isset($msg_res['md'])) {
+            $js_vars['DimpMessage.msg_md'] = $msg_res['md'];
+        }
         $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 
         $page_output->addInlineJsVars($js_vars);

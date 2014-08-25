@@ -113,6 +113,7 @@ class IMP_Ajax_Application_ShowMessage
      *   - js: Javascript code to run on display
      *   - list_info (FULL): List information.
      *   - localdate (PREVIEW): The date formatted to the user's timezone
+     *   - md: Metadata
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
      *   - replyTo (FULL): The Reply-to addresses
@@ -130,10 +131,7 @@ class IMP_Ajax_Application_ShowMessage
         global $injector, $page_output, $prefs, $registry, $session;
 
         $preview = !empty($args['preview']);
-
-        $result = array(
-            'js' => array()
-        );
+        $result = array();
 
         $mime_headers = $this->_peek
             ? $this->_contents->getHeader()
@@ -301,7 +299,7 @@ class IMP_Ajax_Application_ShowMessage
         ));
         $session->start();
 
-        $result['js'] = array_merge($result['js'], $inlineout['js_onload']);
+        $result['md'] = $inlineout['metadata'];
         $result['msgtext'] .= $inlineout['msgtext'];
         if ($inlineout['one_part']) {
             $result['onepart'] = true;
@@ -361,7 +359,7 @@ class IMP_Ajax_Application_ShowMessage
             Horde::startBuffer();
             $page_output->outputInlineScript(true);
             if ($js_inline = Horde::endBuffer()) {
-                $result['js'][] = $js_inline;
+                $result['js'] = $js_inline;
             }
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
@@ -372,10 +370,6 @@ class IMP_Ajax_Application_ShowMessage
             }
         }
 
-        if (empty($result['js'])) {
-            unset($result['js']);
-        }
-
         /* Add changed flag information. */
         if (!$this->_peek && $mbox->is_imap) {
             $status = $mbox->imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
@@ -384,7 +378,7 @@ class IMP_Ajax_Application_ShowMessage
             }
         }
 
-        return $result;
+        return array_filter($result);
     }
 
     /**

@@ -177,6 +177,17 @@ var DimpCore = {
         }, this);
     },
 
+    msgMetadata: function(md)
+    {
+        $H(md).each(function(pair) {
+            switch (pair.key) {
+            case 'html':
+                IMP_JS.iframeInject(pair.value[0], pair.value[1]);
+                break;
+            }
+        });
+    },
+
     /* Add message log info to message view. */
     updateMsgLog: function(log)
     {

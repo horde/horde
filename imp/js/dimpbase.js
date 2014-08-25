@@ -1908,6 +1908,8 @@ var DimpBase = {
         $('previewPane').scrollTop = 0;
         pm.show();
 
+        DimpCore.msgMetadata(r.md);
+
         if (r.js) {
             eval(r.js.join(';'));
         }

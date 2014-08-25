@@ -807,6 +807,17 @@ var ImpMobile = {
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
 
+        if (data.md) {
+            $.each(data.md, function(k, md) {
+                switch (k) {
+                case 'html':
+                    IMP_JS.iframeInject(md[0], md[1]);
+                    $("#imp-message-body a[href='#unblock-image']").button();
+                    break;
+                }
+            });
+        }
+
         if (data.js) {
             $.each(data.js, function(k, js) {
                 $.globalEval(js);

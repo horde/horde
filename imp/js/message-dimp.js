@@ -8,7 +8,9 @@
 
 var DimpMessage = {
 
-    // Variables defaulting to empty/false: buid, mbox
+    // buid,
+    // mbox,
+    // msg_md
 
     quickreply: function(type)
     {
@@ -294,6 +296,9 @@ var DimpMessage = {
                 base.DimpBase.tasksHandler({ tasks: this.tasks });
             }
         }
+
+        DimpCore.msgMetadata(this.msg_md);
+        delete this.msg_md;
 
         $('dimpLoading').hide();
         $('msgData').show();

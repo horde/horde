@@ -895,7 +895,6 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Output message page now. */
         $page_output->addInlineJsVars($js_vars, array('top' => true));
-        $page_output->addInlineScript($inlineout['js_onload'], true);
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('message.js');
