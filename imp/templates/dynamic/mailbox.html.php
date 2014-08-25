@@ -254,6 +254,7 @@
 <div id="delete_mbox_redbox" style="display:none">
  <div>
   <input name="delete_subfolders" type="checkbox"></input>
+  <?php echo _("Delete all subfolders?") ?>
  </div>
 </div>
 

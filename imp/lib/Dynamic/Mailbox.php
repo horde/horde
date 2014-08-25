@@ -521,7 +521,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'create_prompt' => _("Create mailbox:"),
             'createsub_prompt' => _("Create subfolder of %s:"),
             'delete_mbox' => _("Permanently delete %s?"),
-            'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
             'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'import_mbox' => _("Mbox or .eml file:"),
