@@ -869,8 +869,7 @@ class Horde_Core_ActiveSync_Connector
      * @param string $action      The action to log. One of: 'forward', 'reply',
      *                            'reply_all'.
      * @param string $mid         The Message-ID to log.
-     * @param string $recipients  The recipients the mail was forwarded/replied
-     *                            to.
+     * @param string $recipients  The recipients the mail was forwarded to.
      */
     public function mail_logMaillog($action, $mid, $recipients = null)
     {
