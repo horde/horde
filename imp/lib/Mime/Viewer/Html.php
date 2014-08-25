@@ -371,7 +371,6 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         'id' => $id,
                         'imp_img_view' => 'data'
                     )));
-                    $node->setAttribute('src', $val);
                 }
 
                 /* Block images.*/
@@ -385,6 +384,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $node->setAttribute(self::IMGBLOCK, $url);
                     $node->setAttribute('src', $this->_imgBlockImg());
                     $this->_imptmp['imgblock'] = true;
+                } else {
+                    $node->removeAttribute('src');
+                    $node->setAttribute('data-src', $val);
                 }
             }
 

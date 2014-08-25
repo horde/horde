@@ -112,7 +112,7 @@
     </div>
    </div>
   </div>
-  <div class="messageBody allowTextSelection">
+  <div id="messageBody" class="messageBody allowTextSelection">
    <?php echo $this->msgtext ?>
   </div>
  </div>
