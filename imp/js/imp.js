@@ -159,7 +159,8 @@ var IMP_JS = {
     {
         var range_top, range_bottom,
             mb = $('messageBody'),
-            doc = this.iframeDoc(iframe);
+            doc = this.iframeDoc(iframe),
+            resize = this.iframeResize.bindAsEventListener(this, iframe);
 
         range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top;
         range_bottom = range_top + mb.getHeight();
@@ -167,7 +168,7 @@ var IMP_JS = {
         Prototype.Selector.select('IMG[data-src]', doc).each(function(img) {
             var co = Element.cumulativeOffset(img);
             if (co.top > range_top && co.top < range_bottom) {
-                src = Element.readAttribute(img, 'data-src');
+                img.onload = resize;
                 Element.writeAttribute(img, 'src', Element.readAttribute(img, 'data-src'));
                 Element.writeAttribute(img, 'data-src', null);
             }
