@@ -570,6 +570,8 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @return array  An array with the 0 element being the mbox
      * @throws Horde_Exception_NotFound, Horde_ActiveSync_Exception
+     *
+     * @deprecated This is unused and should be removed.
      */
     public function getUidFromMidInFolders($id, array $folders)
     {
