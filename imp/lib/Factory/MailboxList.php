@@ -112,7 +112,7 @@ implements Horde_Shutdown_Task
 
         $key = intval($mbox->search || !$mbox->is_imap);
 
-        if (!$this->_cache[$key]) {
+        if (!isset($this->_cache[$key])) {
             if (empty($this->_cache)) {
                 Horde_Shutdown::add($this);
             }
