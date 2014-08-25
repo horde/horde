@@ -159,7 +159,7 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
                 'apps' => $apps,
                 'browser' => $data['browser'],
                 'remoteAddr' => $data['remoteAddr'],
-                'timestamp' => $GLOBALS['session']->begin,
+                'timestamp' => $data['timestamp'],
                 'userid' => $data['userId']
             )
             : false;
