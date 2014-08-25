@@ -277,7 +277,6 @@ var DimpMessage = {
                 delete this[a];
             }
         }, this);
-        delete this.addr_limit;
 
         if ((base = DimpCore.baseAvailable())) {
             if (this.strip) {
