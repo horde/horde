@@ -1526,7 +1526,7 @@ DimpCompose.classes.Attachlist = Class.create({
          * individually, since it is a UX nightmare if some files are attached
          * and others aren't. */
         if ($A(data).detect(function(d) {
-            return (~~d.size >= this.size_limit);
+            return (parseInt(d.size, 10) >= this.size_limit);
         }, this)) {
             HordeCore.notify(DimpCore.text.max_atc_size, 'horde.error');
             return;
