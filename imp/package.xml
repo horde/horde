@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-08-15</date>
+ <date>2014-08-25</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Implement lazy loading for images in HTML messages in dynamic view.
+* [mms] Implement lazy loading for images in HTML messages.
 * [mms] Add &apos;dynamic_prefs&apos; hook to allow for changing of default values for browser-based preferences in dynamic view.
 * [mms] Removed compose &apos;use_vfs&apos; configuration option.
 * [mjr] Add IMP_Api::addFlags().
@@ -93,6 +93,7 @@
      <dir name="plugins">
       <file name="listviewtaphold.js" role="horde" />
       <file name="textchange.js" role="horde" />
+      <file name="unveil.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
     </dir> <!-- /js/jquery.mobile -->
     <file name="acl.js" role="horde" />
@@ -1581,6 +1582,7 @@
    <install as="imp/js/external/tinycon.js" name="js/external/tinycon.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
+   <install as="imp/js/jquery.mobile/plugins/unveil.js" name="js/jquery.mobile/plugins/unveil.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />

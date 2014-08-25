@@ -2,7 +2,7 @@
 v6.3.0-git
 ----------
 
-[mms] Implement lazy loading for images in HTML messages in dynamic view.
+[mms] Implement lazy loading for images in HTML messages.
 [mms] Add 'dynamic_prefs' hook to allow for changing of default values for
       browser-based preferences in dynamic view.
 [mms] Removed compose 'use_vfs' configuration option.

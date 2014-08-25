@@ -1733,7 +1733,12 @@ var IMP_JS = {
         var d = id.get(0).contentWindow.document;
 
         id.one('load', function() {
-            window.setTimeout(function() { IMP_JS.iframeResize(id); }, 0);
+            window.setTimeout(function() {
+                IMP_JS.iframeResize(id);
+                $(d).find('IMG[data-src]').unveil(0, function() {
+                    IMP_JS.iframeResize(id);
+                });
+            }, 0);
         });
 
         d.open();
