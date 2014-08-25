@@ -38,13 +38,10 @@ class IMP_Prefs_Special_HtmlSignature implements Horde_Core_Prefs_Ui_Special
         $page_output->addScriptFile('signaturehtml.js');
         $page_output->addScriptPackage('IMP_Script_Package_Editor');
 
-        $js = array_merge(
-            array(-1 => $prefs->getValue('signature_html')),
-            $injector->getInstance('IMP_Identity')->getAll('signature_html')
-        );
-
         $page_output->addInlineJsVars(array(
-            'ImpHtmlSignaturePrefs.sigs' => $js
+            'ImpHtmlSignaturePrefs.sigs' =>
+                array(-1 => $prefs->getValue('signature_html')) +
+                $injector->getInstance('IMP_Identity')->getAll('signature_html')
         ));
 
         $view = new Horde_View(array(
