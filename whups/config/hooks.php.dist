@@ -58,10 +58,10 @@ class Whups_Hooks
      */
 //    public function ticket_update($ticket, $changes)
 //    {
-//        // Example: If a comment has been added to a closed ticket, re-open
-//        //          the ticket and set the state to "assigned". You might
-//        //          want to use numeric ids for the 'to' item in a real life
-//        //          hook.
+//        // Example #1: If a comment has been added to a closed ticket,
+//        //             re-open the ticket and set the state to "assigned".
+//        //             You might want to use numeric ids for the 'to' item in
+//        //             a real life hook.
 //        /* We only want to change the ticket state if it is closed, a comment
 //         * has been added, and the state hasn't been changed already. */
 //        if (!empty($changes['comment']) &&
@@ -75,6 +75,12 @@ class Whups_Hooks
 //                'to' => key($states),
 //                'from' => $ticket->get('state'),
 //                'from_name' => $ticket->get('state_name'));
+//        }
+// 
+//        // Example #2: Simple spam check.
+//        if (isset($changes['comment']['to']) &&
+//            stripos($changes['comment']['to'], 'some spam text') !== false) {
+//            throw new Whups_Exception('Spammer!');
 //        }
 // 
 //        return $changes;
