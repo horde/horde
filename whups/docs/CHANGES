@@ -1,8 +1,8 @@
 ----------
-v3.0.1-git
+v3.1.0-git
 ----------
 
-[mms] Fix whups-mail-filter binary.
+[jan] Add ticket_create hook.
 
 
 ------

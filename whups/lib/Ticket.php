@@ -96,6 +96,12 @@ class Whups_Ticket
             }
         }
 
+        // Run hook.
+        try {
+            $info = Horde::callHook('ticket_create', array($info, $requester), 'whups');
+        } catch (Horde_Exception_HookNotSet $e) {
+        }
+
         $id = $whups_driver->addTicket($info, $requester);
         $details = $whups_driver->getTicketDetails($id, false);
         $ticket = new Whups_Ticket($id, $details);

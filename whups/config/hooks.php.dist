@@ -49,6 +49,25 @@ class Whups_Hooks
 //    }
 
     /**
+     * Intercept ticket creation.
+     *
+     * @param array $info        A hash with ticket information.
+     * @param string $requester  The user creating the ticket.
+     *
+     * @return array  The modified information.
+     */
+//    public function ticket_create($info, $requester)
+//    {
+//        // Example #2: Simple spam check.
+//        if (isset($info['comment']) &&
+//            stripos($info['comment'], 'some spam text') !== false) {
+//            throw new Whups_Exception('Spammer!');
+//        }
+// 
+//        return $changes;
+//    }
+
+    /**
      * Intercept ticket changes.
      *
      * @param Whups_Ticket $ticket  A ticket object.
