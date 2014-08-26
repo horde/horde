@@ -64,7 +64,7 @@ class Whups_Hooks
 //            throw new Whups_Exception('Spammer!');
 //        }
 // 
-//        return $changes;
+//        return $info;
 //    }
 
     /**
