@@ -8,41 +8,60 @@
  *
  * For more information please see the horde/config/hooks.php.dist file.
  */
-
 class Whups_Hooks
 {
     /**
-     * This is an example hook that customizes the grouping of ticket fields.
+     * Customize the order and grouping of ticket fields.
      *
-     * It splits all fields into two groups, one for custom attribute fields
-     * and one for the regular fields. Additionally, it moves the 'queue'
-     * field at the top of the regular fields list.
+     * @param string $type   A ticket type.
+     * @param array $fields  A list of field names.
+     *
+     * @return array  A one-dimensional array with field names, or a
+     *                two-dimensional array with header labels as keys and
+     *                field names as values.
      */
 //    public function group_fields($type, $fields)
 //    {
+//        // Example #1: Split all fields into two groups, one for custom
+//        //             attribute fields and one for the regular fields.
 //        $common_fields = $attributes = array();
 //        foreach ($fields as $field) {
 //            if (substr($field, 0, 10) == 'attribute_') {
 //                $attributes[] = $field;
-//            } elseif ($field == 'queue') {
-//                array_unshift($common_fields, $field);
 //            } else {
 //                $common_fields[] = $field;
 //            }
 //        }
 //        return array('Common Fields' => $common_fields,
 //                     'Attributes' => $attributes);
+//
+//        // Example #2: Move the 'queue' field at the top of the regular
+//        //             fields list.
+//        $new_fields = array();
+//        foreach ($fields as $field) {
+//            if ($field == 'queue') {
+//                array_unshift($new_fields, $field);
+//            } else {
+//                array_push($new_fields, $field);
+//            }
+//        }
+//        return $new_fields;
 //    }
 
     /**
-     * This is an example hook that intercepts ticket changes.
+     * Intercept ticket changes.
      *
-     * If a comment has been added to a closed ticket, it will re-open the
-     * ticket, setting the state to "assigned". You might want to use numeric
-     * ids for the 'to' item in a real life hook.
+     * @param Whups_Ticket $ticket  A ticket object.
+     * @param array $changes        A list of change hashes.
+     *
+     * @return array  The modified changes.
      */
 //    public function ticket_update($ticket, $changes)
 //    {
+//        // Example: If a comment has been added to a closed ticket, re-open
+//        //          the ticket and set the state to "assigned". You might
+//        //          want to use numeric ids for the 'to' item in a real life
+//        //          hook.
 //        /* We only want to change the ticket state if it is closed, a comment
 //         * has been added, and the state hasn't been changed already. */
 //        if (!empty($changes['comment']) &&
@@ -60,5 +79,4 @@ class Whups_Hooks
 // 
 //        return $changes;
 //    }
-
 }
