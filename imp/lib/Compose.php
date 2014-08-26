@@ -2094,14 +2094,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $from = $h->getOb('from');
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
+            $from_text = strval(new IMP_Prefs_AttribText($from, $h, '%f'));
+
             $msg_pre = '----- ' .
-                ($from ? sprintf(_("Message from %s"), $from) : _("Message")) .
+                ($from_text ? sprintf(_("Message from %s"), $from_text) : _("Message")) .
                 /* Extra '-'s line up with "End Message" below. */
                 " ---------\n" .
                 $this->_getMsgHeaders($h);
 
             $msg_post = "\n\n----- " .
-                ($from ? sprintf(_("End message from %s"), $from) : _("End message")) .
+                ($from_text ? sprintf(_("End message from %s"), $from_text) : _("End message")) .
                 " -----\n";
         } else {
             $msg_pre = strval(new IMP_Prefs_AttribText($from, $h));

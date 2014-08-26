@@ -34,76 +34,81 @@ class IMP_Prefs_AttribText
      *
      * @param string|Horde_Mail_Rfc822_Object $from  The email address of the
      *                                               original sender.
-     * @param Horde_Mime_Headers $h           The headers object for the
-     *                                        message.
+     * @param Horde_Mime_Headers $h                  The headers object for
+     *                                               the message.
+     * @param string $attrib                         Use this for the
+     *                                               attribution config
+     *                                               instead of the default
+     *                                               prefs version.
      */
-    public function __construct($from, Horde_Mime_Headers $h)
+    public function __construct($from, Horde_Mime_Headers $h, $attrib = null)
     {
         global $prefs;
 
-        $addressList = $nameList = array();
-        $addr_list = IMP::parseAddressList($from);
+        $this->_text = preg_replace_callback(
+            '/\%./',
+            function ($matches) use ($from, $h) {
+                switch ($matches[0]) {
+                case '%n': /* New line. */
+                    return "\n";
 
-        foreach ($addr_list as $addr) {
-            if (!is_null($addr->mailbox)) {
-                $addressList[] = $addr->bare_address;
-            }
+                case '%%': /* Percent character. */
+                    return '%';
 
-            if (!is_null($addr->personal)) {
-                $nameList[] = $addr->personal;
-            } elseif (!is_null($addr->mailbox)) {
-                $nameList[] = $addr->mailbox;
-            }
-        }
+                case '%f': /* Name and email address of original sender. */
+                    if ($from) {
+                        $from = new Horde_Mail_Rfc822_Address($from);
+                        return $from->writeAddress(array('noquote' => true));
+                    }
+                    return _("Unknown Sender");
 
-        /* Define the macros. */
-        if (is_array($message_id = $h->getValue('message_id'))) {
-            $message_id = reset($message_id);
-        }
-        if (!($subject = $h->getValue('subject'))) {
-            $subject = _("[No Subject]");
-        }
-        $udate = strtotime($h->getValue('date'));
+                case '%a': /* Senders email address(es). */
+                case '%p': /* Senders name(s). */
+                    $out = array();
+                    foreach (IMP::parseAddressList($from) as $addr) {
+                        if ($matches[0] == '%a') {
+                            if (!is_null($addr->mailbox)) {
+                                $out[] = $addr->bare_address;
+                            }
+                        } else {
+                            $out[] = $addr->label;
+                        }
+                    }
+                    return count($out)
+                        ? implode(', ', $out)
+                        : _("Unknown Sender");
 
-        $match = array(
-            /* New line. */
-            '/%n/' => "\n",
+                case '%r': /* RFC 822 date and time. */
+                    return $h->getValue('date');
 
-            /* The '%' character. */
-            '/%%/' => '%',
+                case '%d': /* Date as ddd, dd mmm yyyy. */
+                    return strftime(
+                        "%a, %d %b %Y",
+                        strtotime($h->getValue('date'))
+                    );
 
-            /* Name and email address of original sender. */
-            '/%f/' => $from->writeAddress(array('noquote' => true)),
+                case '%c': /* Date and time in locale's default. */
+                case '%x': /* Date in locale's default. */
+                    return strftime(
+                        $matches[0],
+                        strtotime($h->getValue('date'))
+                    );
 
-            /* Senders email address(es). */
-            '/%a/' => implode(', ', $addressList),
+                case '%m': /* Message-ID. */
+                    return is_array($message_id = $h->getValue('message-id'))
+                        ? reset($message_id)
+                        : $message_id;
 
-            /* Senders name(s). */
-            '/%p/' => implode(', ', $nameList),
+                case '%s': /* Message subject. */
+                    return strlen($subject = $h->getValue('subject'))
+                        ? $subject
+                        : _("[No Subject]");
 
-            /* RFC 822 date and time. */
-            '/%r/' => $h->getValue('date'),
-
-            /* Date as ddd, dd mmm yyyy. */
-            '/%d/' => strftime("%a, %d %b %Y", $udate),
-
-            /* Date in locale's default. */
-            '/%x/' => strftime("%x", $udate),
-
-            /* Date and time in locale's default. */
-            '/%c/' => strftime("%c", $udate),
-
-            /* Message-ID. */
-            '/%m/' => $message_id,
-
-            /* Message subject. */
-            '/%s/' => $subject
-        );
-
-        $this->_text = preg_replace(
-            array_keys($match),
-            array_values($match),
-            $prefs->getValue('attrib_text')
+                default:
+                    return '';
+                }
+            },
+            is_null($attrib) ? $prefs->getValue('attrib_text') : $attrib
         );
     }
 
