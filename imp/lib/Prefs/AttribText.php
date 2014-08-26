@@ -59,7 +59,7 @@ class IMP_Prefs_AttribText
         }
 
         /* Define the macros. */
-        if (is_array($message_id = $h->getValue('message_id'))) {
+        if (is_array($message_id = $h->getValue('message-id'))) {
             $message_id = reset($message_id);
         }
         if (!($subject = $h->getValue('subject'))) {
