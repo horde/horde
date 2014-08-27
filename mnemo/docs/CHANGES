@@ -4,15 +4,17 @@ v4.3.0-git
 
 [jan] Add browse() method to API to support WebDAV access.
 
-----------
+
+------
 v4.2.2
-----------
+------
 
 [mjr] Fix replacing tags in existing notes (Bug# 13417).
 
-----------
+
+------
 v4.2.1
-----------
+------
 
 [mjr] Ensure default share attribute is set when auto determining a default
       share.
@@ -22,6 +24,7 @@ v4.2.1
       #13359).
 [mjr] Add missing API support for searchTags API (Bug #13361).
 [mjr] Fix issue that caused notes to be tagged with a broken username.
+
 
 ------
 v4.2.0
