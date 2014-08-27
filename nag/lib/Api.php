@@ -464,29 +464,27 @@ class Nag_Api extends Horde_Registry_Api
 
         if (count($parts) == 2 &&
             substr($parts[1], -4) == '.ics') {
-
-                // Workaround for WebDAV clients that are not smart enough to send
-                // the right content type.  Assume text/calendar.
-                if ($content_type == 'application/octet-stream') {
-                    $content_type = 'text/calendar';
-                }
-                $tasklist = substr($parts[1], 0, -4);
-            } elseif (count($parts) == 3) {
-                $tasklist = $parts[1];
-
-                // Workaround for WebDAV clients that are not smart enough to send
-                // the right content type.  Assume the same format we send individual
-                // tasklist items: text/calendar
-                if ($content_type == 'application/octet-stream') {
-                    $content_type = 'text/calendar';
-                }
-            } else {
-                throw new Nag_Exception(_("Invalid task list name supplied."), 403);
+            // Workaround for WebDAV clients that are not smart enough to send
+            // the right content type.  Assume text/calendar.
+            if ($content_type == 'application/octet-stream') {
+                $content_type = 'text/calendar';
             }
+            $tasklist = substr($parts[1], 0, -4);
+        } elseif (count($parts) == 3) {
+            $tasklist = $parts[1];
+            // Workaround for WebDAV clients that are not smart enough to send
+            // the right content type.  Assume the same format we send
+            // individual tasklist items: text/calendar
+            if ($content_type == 'application/octet-stream') {
+                $content_type = 'text/calendar';
+            }
+        } else {
+            throw new Nag_Exception(_("Invalid task list name supplied."), 403);
+        }
 
         if (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
-            // FIXME: Should we attempt to create a tasklist based on the filename
-            // in the case that the requested tasklist does not exist?
+            // FIXME: Should we attempt to create a tasklist based on the
+            // filename in the case that the requested tasklist does not exist?
             throw new Nag_Exception(_("Task list does not exist or no permission to edit"), 403);
         }
 
@@ -613,9 +611,9 @@ class Nag_Api extends Horde_Registry_Api
 
         if (count($parts) == 2) {
             // @TODO Deny deleting of the entire tasklist for now.
-            // Allow users to delete tasklists but not create them via WebDAV will
-            // be more confusing than helpful.  They are, however, still able to
-            // delete individual task items within the tasklist folder.
+            // Allow users to delete tasklists but not create them via WebDAV
+            // will be more confusing than helpful.  They are, however, still
+            // able to delete individual task items within the tasklist folder.
             throw Nag_Exception(_("Deleting entire task lists is not supported."), 403);
             // To re-enable the functionality just remove this if {} block.
         }
