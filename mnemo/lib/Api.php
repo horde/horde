@@ -234,8 +234,82 @@ class Mnemo_Api extends Horde_Registry_Api
     }
 
     /**
-     * Returns an array of UIDs for all notes that the current user is authorized
-     * to see.
+     * Saves a file into the Mnemo tree.
+     *
+     * @param string $path          The path where to PUT the file.
+     * @param string $content       The file content.
+     * @param string $content_type  The file's content type.
+     *
+     * @return array  The note UIDs
+     */
+    public function put($path, $content, $content_type)
+    {
+        if (substr($path, 0, 5) == 'mnemo') {
+            $path = substr($path, 5);
+        }
+        $path = trim($path, '/');
+        $parts = explode('/', $path);
+
+        if (count($parts) != 3) {
+            throw new Mnemo_Exception(_("Invalid notepad name supplied."), 403);
+        }
+
+        $notepad = $parts[1];
+        $id = $parts[2];
+
+        // Workaround for WebDAV clients that are not smart enough to send the
+        // right content type.  Assume the same format we send individual
+        // notes: text/plain
+        if ($content_type == 'application/octet-stream') {
+            $content_type = 'text/plain';
+        }
+        if ($content_type != 'text/plain') {
+            throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"), $content_type), 400);
+        }
+
+        if (!Mnemo::hasPermission($notepad, Horde_Perms::EDIT)) {
+            // FIXME: Should we attempt to create a notepad based on the
+            // filename in the case that the requested notepad does not exist?
+            throw new Mnemo_Exception(_("Notepad does not exist or no permission to edit"), 403);
+        }
+
+        $storage = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Driver')
+            ->create($notepad);
+
+        try {
+            $memo = $storage->get($id);
+            if ($memo->encrypted) {
+                return array();
+            }
+            try {
+                $storage->modify(
+                    $id,
+                    $storage->getMemoDescription($content),
+                    $content,
+                    $memo['tags']
+                );
+            } catch (Mnemo_Exception $e) {
+                throw new Mnemo_Exception($e->getMessage(), 500);
+            }
+        } catch (Horde_Exception_NotFound $e) {
+            try {
+                $id = $storage->add(
+                    $storage->getMemoDescription($content),
+                    $content
+                );
+            } catch (Mnemo_Exception $e) {
+                throw new Mnemo_Exception($e->getMessage(), 500);
+            }
+            $memo = $storage->get($id);
+        }
+
+        return array($memo['uid']);
+    }
+
+    /**
+     * Returns an array of UIDs for all notes that the current user is
+     * authorized to see.
      *
      * @param array|string $notepads  The notepad(s) to list notes from.
      *

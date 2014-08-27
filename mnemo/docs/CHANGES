@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Add put() method to API to support WebDAV PUT requests.
 [jan] Add browse() method to API to support WebDAV access.
 
 
