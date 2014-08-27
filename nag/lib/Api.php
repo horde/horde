@@ -418,7 +418,7 @@ class Nag_Api extends Horde_Registry_Api
                 $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
                 $storage->retrieve();
                 try {
-                    $storage->get($parts[2]);
+                    $task = $storage->get($parts[2]);
                 } catch (Nag_Exception $e) {
                     throw new Nag_Exception($e->getMessage(), 500);
                 }
