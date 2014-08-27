@@ -1417,7 +1417,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix generation of Original-Message-ID header in MDN notification (Bug #13526).
-* [mms] Fix determination of user confirmation in certain instances.
+* [mms] Fix determination of MDN user confirmation in certain instances.
    </notes>
   </release>
   <release>
