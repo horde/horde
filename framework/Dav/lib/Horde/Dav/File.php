@@ -70,6 +70,25 @@ class Horde_Dav_File extends Sabre\DAV\File
     }
 
     /**
+     * Deletes the current node.
+     */
+    public function delete()
+    {
+        list($base) = explode('/', $this->_path);
+        try {
+            $this->_registry->callByPackage(
+                $base,
+                'path_delete',
+                array($this->_path)
+            );
+        } catch (Horde_Exception_NotFound $e) {
+            throw new DAV\Exception\NotFound($this->_path . ' not found');
+        } catch (Horde_Exception $e) {
+            throw new DAV\Exception($e);
+        }
+    }
+
+    /**
      * Returns the name of the node.
      *
      * This is used to generate the url.
