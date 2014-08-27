@@ -19,7 +19,7 @@
  <date>2014-05-05</date>
  <version>
   <release>4.3.0</release>
-  <api>4.0.0</api>
+  <api>4.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -1240,7 +1240,7 @@
   <release>
    <version>
     <release>4.3.0</release>
-    <api>4.0.0</api></version>
+    <api>4.1.0</api></version>
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
