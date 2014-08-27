@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-02</date>
+ <date>2014-08-27</date>
  <version>
   <release>2.4.5</release>
   <api>2.4.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix determination of user confirmation in certain instances.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1411,10 +1411,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-02</date>
+   <date>2014-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix determination of user confirmation in certain instances.
    </notes>
   </release>
  </changelog>

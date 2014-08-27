@@ -98,9 +98,7 @@ class Horde_Mime_Mdn
          * case-sensitive for the mailbox part and case-insensitive for the
          * host part. */
         $ret_ob = new Horde_Mail_Rfc822_Address($return_path);
-
-        return ($ret_ob->valid &&
-                ($addr_ob->bare_address == $ret_ob->bare_address));
+        return (!$ret_ob->valid || !$addr_ob->match($ret_ob));
     }
 
     /**
