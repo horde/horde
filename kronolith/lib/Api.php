@@ -184,6 +184,10 @@ class Kronolith_Api extends Horde_Registry_Api
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     $key = 'kronolith/' . $path . '/' . $event->id;
+                    if (in_array('modified', $properties) ||
+                        in_array('etag', $properties)) {
+                        $modified = $this->modified($event->uid);
+                    }
                     if (in_array('name', $properties)) {
                         $results[$key]['name'] = $event->getTitle();
                     }
@@ -207,10 +211,13 @@ class Kronolith_Api extends Horde_Registry_Api
                         $results[$key]['contentlength'] = 1;
                     }
                     if (in_array('modified', $properties)) {
-                        $results[$key]['modified'] = $this->modified($event->uid);
+                        $results[$key]['modified'] = $modified;
                     }
                     if (in_array('created', $properties)) {
                         $results[$key]['created'] = $this->getActionTimestamp($event->uid, 'add');
+                    }
+                    if (in_array('etag', $properties)) {
+                        $results[$key]['etag'] = '"' . md5($event->id . '|' . $modified) . '"';
                     }
                 }
             }

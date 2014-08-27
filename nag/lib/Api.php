@@ -376,6 +376,10 @@ class Nag_Api extends Horde_Registry_Api
             $storage->tasks->reset();
             while ($task = $storage->tasks->each()) {
                 $key = 'nag/' . $parts[0] . '/' . $parts[1] . '/' . $task->id;
+                if (in_array('modified', $properties) ||
+                    in_array('etag', $properties)) {
+                    $modified = $this->modified($task->uid, $parts[1]);
+                }
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = $task->name;
                 }
@@ -398,10 +402,13 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $this->modified($task->uid, $parts[1]);
+                    $results[$key]['modified'] = $modified;
                 }
                 if (in_array('created', $properties)) {
                     $results[$key]['created'] = $this->getActionTimestamp($task->uid, 'add', $parts[1]);
+                }
+                if (in_array('etag', $properties)) {
+                    $results[$key]['etag'] = '"' . md5($task->id . '|' . $modified) . '"';
                 }
             }
             return $results;

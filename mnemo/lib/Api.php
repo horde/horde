@@ -189,6 +189,9 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('created', $properties)) {
                     $results[$key]['created'] = isset($memo['created']) ? $memo['created'] : 0;
                 }
+                if (in_array('etag', $properties)) {
+                    $results[$key]['etag'] = '"' . md5($memo['memo_id'] . '|' . $this->_modified($memo)) . '"';
+                }
             }
             return $results;
         } else {

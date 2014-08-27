@@ -188,7 +188,7 @@ class Turba_Api extends Horde_Registry_Api
      * @throws Horde_Exception_NotFound
      */
     public function browse($path = '',
-                          $properties = array('name', 'icon', 'browseable'))
+                           $properties = array('name', 'icon', 'browseable'))
     {
         global $injector, $registry, $session;
 
@@ -360,10 +360,13 @@ class Turba_Api extends Horde_Registry_Api
                     $results[$key]['contentlength'] = strlen($data);
                 }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $this->_modified($contact->getValue('__uid'), $parts[1]);
+                    $results[$key]['modified'] = $contact->lastModification();
                 }
                 if (in_array('created', $properties)) {
                     $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add', $parts[1]);
+                }
+                if (in_array('etag', $properties)) {
+                    $results[$key]['etag'] = '"' . md5($contact->getValue('__key') . '|' . $contact->lastModification()) . '"';
                 }
             }
 

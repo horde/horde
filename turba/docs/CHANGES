@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Return ETags with browse() API method.
 [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request
       #11889).
 

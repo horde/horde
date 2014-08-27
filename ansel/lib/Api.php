@@ -153,13 +153,16 @@ class Ansel_Api extends Horde_Registry_Api
                     $results[$retpath]['contenttype'] = $image['type'];
                 }
                 if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
+                    $results[$retpath]['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
                     $results[$retpath]['modified'] = $image['uploaded'];
                 }
                 if (in_array('created', $properties)) {
                     $results[$retpath]['created'] = $image['uploaded'];
+                }
+                if (in_array('etag', $properties)) {
+                    $results[$retpath]['etag'] = '"' . md5($imageId . '|' . $image['uploaded']) . '"';
                 }
             }
             return $results;

@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Return ETags with browse() API method.
 * [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
  </notes>
  <contents>

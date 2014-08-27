@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Return ETags with browse() API method.
 * [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV access.
  </notes>
  <contents>
@@ -1246,6 +1247,7 @@
    <date>2014-05-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Return ETags with browse() API method.
 * [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV access.
    </notes>
   </release>
