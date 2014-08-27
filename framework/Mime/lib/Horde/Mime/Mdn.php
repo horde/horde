@@ -161,19 +161,6 @@ class Horde_Mime_Mdn
             $orig_recip = $orig_recip[0];
         }
 
-        $msg_id = $this->_headers->getValue('Message-ID');
-
-        /* Create the Disposition field now (RFC 3798 [3.2.6]). */
-        $dispo = 'Disposition: ' .
-                 (($action) ? 'manual-action' : 'automatic-action') .
-                 '/' .
-                 (($sending) ? 'MDN-sent-manually' : 'MDN-sent-automatically') .
-                 '; ' .
-                 $type;
-        if (!empty($mod)) {
-            $dispo .= '/' . implode(', ', $mod);
-        }
-
         /* Set up the mail headers. */
         $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
@@ -208,21 +195,36 @@ class Horde_Mime_Mdn
         /* The second part is a machine-parseable description. */
         $part_two = new Horde_Mime_Part();
         $part_two->setType('message/disposition-notification');
-        $part_two_text = array('Reporting-UA: ' . $name . '; ' . $ua . "\n");
+
+        $part_two_h = new Horde_Mime_Headers();
+        $part_two_h->addHeader('Reporting-UA', $name . '; ' . $ua);
         if (!empty($orig_recip)) {
-            $part_two_text[] = 'Original-Recipient: rfc822;' . $orig_recip . "\n";
+            $part_two_h->addHeader('Original-Recipient', 'rfc822;' . $orig_recip);
         }
         if ($opts['from_addr']) {
-            $part_two_text[] = 'Final-Recipient: rfc822;' . $opts['from_addr'] . "\n";
+            $part_two_h->addHeader('Final-Recipient', 'rfc822;' . $opts['from_addr']);
         }
-        if (!empty($msg_id)) {
-            $part_two_text[] = 'Original-Message-ID: rfc822;' . $msg_id . "\n";
+
+        if ($msg_id = $this->_headers->getValue('Message-ID')) {
+            $part_two_h->addHeader('Original-Message-ID', $msg_id);
         }
-        $part_two_text[] = $dispo . "\n";
+
+        /* Create the Disposition field now (RFC 3798 [3.2.6]). */
+        $dispo = (($action) ? 'manual-action' : 'automatic-action') .
+            '/' .
+            (($sending) ? 'MDN-sent-manually' : 'MDN-sent-automatically') .
+            '; ' .
+            $type;
+        if (!empty($mod)) {
+            $dispo .= '/' . implode(', ', $mod);
+        }
+        $part_two_h->addHeader('Disposition', $dispo);
+
         if (in_array('error', $mod) && isset($err['error'])) {
-            $part_two_text[] = 'Error: ' . $err['error'] . "\n";
+            $part_two_h->addHeader('Error', $err['error']);
         }
-        $part_two->setContents($part_two_text);
+
+        $part_two->setContents($part_two_h->toString());
         $msg->addPart($part_two);
 
         /* The third part is the text of the original message.  RFC 3798 [3]

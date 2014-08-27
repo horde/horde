@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix generation of Original-Message-ID header in MDN notification (Bug #13526).
 * [mms] Fix determination of user confirmation in certain instances.
  </notes>
  <contents>
@@ -345,6 +346,7 @@
       <file name="HeadersTest.php" role="test" />
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
+      <file name="MdnTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="PartTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -565,6 +567,7 @@
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
+   <install as="Horde/Mime/MdnTest.php" name="test/Horde/Mime/MdnTest.php" />
    <install as="Horde/Mime/MimeTest.php" name="test/Horde/Mime/MimeTest.php" />
    <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
@@ -1414,6 +1417,7 @@
    <date>2014-08-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix generation of Original-Message-ID header in MDN notification (Bug #13526).
 * [mms] Fix determination of user confirmation in certain instances.
    </notes>
   </release>
