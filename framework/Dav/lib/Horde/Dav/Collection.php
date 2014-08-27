@@ -119,7 +119,7 @@ class Horde_Dav_Collection extends DAV\Collection
                     'path' => $this->_path,
                     'properties' => array(
                         'name', 'browseable', 'contenttype', 'contentlength',
-                        'created', 'modified'
+                        'created', 'modified', 'etag'
                     )
                 )
             );

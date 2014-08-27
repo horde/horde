@@ -190,6 +190,16 @@ class Horde_Dav_File extends Sabre\DAV\File
     }
 
     /**
+     * Returns the ETag for a file.
+     *
+     * @return string|null
+     */
+    public function getETag()
+    {
+        return empty($this->_item['etag']) ? null : $this->_item['etag'];
+    }
+
+    /**
      * Returns the mime-type for a file
      *
      * If null is returned, we'll assume application/octet-stream
