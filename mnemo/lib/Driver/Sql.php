@@ -108,7 +108,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             throw new Mnemo_Exception($e->getMessage());
         }
 
-        if (!count($row)) {
+        if (!$row) {
             throw new Horde_Exception_NotFound();
         }
 
