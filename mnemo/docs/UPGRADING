@@ -42,6 +42,19 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Mnemo to 5.0.0
+========================
+
+API Changes
+-----------
+
+These API methods have been added::
+
+   - browse(): Browse through Mnemo's object tree.
+   - put(): Saves a file into the Mnemo tree.
+   - path_delete(): Deletes a file from the Mnemo tree.
+
+
 Upgrading Mnemo from 2.2.1 to 2.2.2
 ===================================
 
