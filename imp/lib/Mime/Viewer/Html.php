@@ -154,6 +154,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'cssblock' => false,
                 'cssbroken' => false,
                 'imgblock' => false,
+                'imgbroken' => false,
                 'inline' => $inline,
                 'style' => array()
             );
@@ -260,6 +261,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $tmp = new IMP_Mime_Status(array(
                         _("This message contains corrupt styling data so the message contents may not appear correctly below."),
                         $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
+                    ));
+                    $tmp->icon('mime/image.png');
+                    $status[] = $tmp;
+                }
+
+                if ($this->_imptmp['imgbroken']) {
+                    $tmp = new IMP_Mime_Status(array(
+                        _("This message contains images that cannot be loaded.")
                     ));
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
@@ -371,12 +380,26 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     if (Horde_Url_Data::isData($val)) {
                         $url = new Horde_Url_Data($val);
                     } else {
-                        $url = new Horde_Url($val);
-                        $url->setScheme();
+                        /* Check for relative URLs. These won't be loaded and
+                         * will cause unnecessary 404 hits to the local web
+                         * server. */
+                        $parsed_url = parse_url($val);
+                        if (isset($parsed_url['host'])) {
+                            $url = new Horde_Url($val);
+                            $url->setScheme();
+                        } else {
+                            $url = null;
+                        }
                     }
-                    $node->setAttribute(self::IMGBLOCK, $url);
-                    $node->setAttribute('src', $this->_imgBlockImg());
-                    $this->_imptmp['imgblock'] = true;
+
+                    if ($url) {
+                        $node->setAttribute(self::IMGBLOCK, $url);
+                        $node->setAttribute('src', $this->_imgBlockImg());
+                        $this->_imptmp['imgblock'] = true;
+                    } else {
+                        $node->parentNode->removeChild($node);
+                        $this->_imptmp['imgbroken'] = true;
+                    }
                 } else {
                     $node->removeAttribute('src');
                     $node->setAttribute('data-src', $val);

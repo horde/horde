@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Filter out relative image URLs in HTML message data.
 * [mms] Implement lazy loading for images in HTML messages.
 * [mms] Add &apos;dynamic_prefs&apos; hook to allow for changing of default values for browser-based preferences in dynamic view.
 * [mms] Removed compose &apos;use_vfs&apos; configuration option.
