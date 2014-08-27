@@ -1975,7 +1975,7 @@ KronolithCore = {
                 conflict = false,
                 // The conflict group where this event should go.
                 pos = this.dayGroups.length,
-                // The event below the current event fits.
+                // The event below that the current event fits.
                 placeFound = false,
                 // The minimum (virtual) duration of each event, defined by the
                 // minimum height of an event DIV.
@@ -1991,54 +1991,38 @@ KronolithCore = {
                 // visually overlap, even if they physically don't.
                 var minEnd = ev.start.clone().add(minMinutes).minutes(),
                     end = ev.end.isAfter(minEnd) ? ev.end : minEnd;
-                // If it doesn't conflict with the current event, rember it
-                // as a possible event below that we can put the current event
-                // and go ahead.
+
+                // If it doesn't conflict with the current event, go ahead.
                 if (!end.isAfter(event.value.start)) {
-                    placeFound = ev;
                     return;
                 }
 
-                if (!conflict) {
-                    // This is the first conflicting event.
-                    conflict = ev;
-                    for (var i = 0; i < this.dayGroups.length; i++) {
-                        // Find the conflict group of the conflicting event.
-                        if (this.dayGroups[i].indexOf(conflict) != -1) {
-                            // If our possible candidate "above" is a member of
-                            // this group, it's no longer a candidate.
-                            if (this.dayGroups[i].indexOf(placeFound) == -1) {
-                                placeFound = false;
+                // Found a conflicting event, now find its conflict group.
+                for (pos = 0; pos < this.dayGroups.length; pos++) {
+                    if (this.dayGroups[pos].indexOf(ev) != -1) {
+                        // Increase column for each conflicting event in this
+                        // group.
+                        this.dayGroups[pos].each(function(ce) {
+                            var minEnd = ce.start.clone().add(minMinutes).minutes(),
+                                end = ce.end.isAfter(minEnd) ? ce.end : minEnd;
+                            if (end.isAfter(event.value.start)) {
+                                column++;
                             }
-                            break;
-                        }
+                        });
+                        throw $break;
                     }
-                }
-                // We didn't find a place, put the event a column further right.
-                if (!placeFound) {
-                    column++;
                 }
             }, this);
-            event.value.column = column;
+            event.value.column = event.value.columns = column;
 
-            if (conflict) {
-                // We had a conflict, find the matching conflict group and add
-                // the current event there.
-                for (var i = 0; i < this.dayGroups.length; i++) {
-                    if (this.dayGroups[i].indexOf(conflict) != -1) {
-                        pos = i;
-                        break;
-                    }
-                }
-                // See if the current event had to add yet another column.
-                columns = Math.max(conflict.columns, column);
-            } else {
-                columns = column;
-            }
             if (Object.isUndefined(this.dayGroups[pos])) {
                 this.dayGroups[pos] = [];
             }
             this.dayGroups[pos].push(event.value);
+
+            // See if the current event had to add yet another column.
+            columns = Math.max(this.dayGroups[pos][0].columns, column);
+
             // Update the widths of all events in a conflict group.
             width = 100 / columns;
             this.dayGroups[pos].each(function(ev) {
