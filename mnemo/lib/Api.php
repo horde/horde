@@ -308,6 +308,41 @@ class Mnemo_Api extends Horde_Registry_Api
     }
 
     /**
+     * Deletes a file from the Mnemo tree.
+     *
+     * @param string $path  The path to the file.
+     *
+     * @return string  The note's UID
+     * @throws Mnemo_Exception
+     */
+    public function path_delete($path)
+    {
+        if (substr($path, 0, 5) == 'mnemo') {
+            $path = substr($path, 5);
+        }
+        $path = trim($path, '/');
+        $parts = explode('/', $path);
+
+        if (count($parts) != 3 ||
+            !Mnemo::hasPermission($parts[1], Horde_Perms::DELETE)) {
+
+            throw new Mnemo_Exception(_("Notepad does not exist or no permission to delete"), 403);
+        }
+        $notepadID = $parts[1];
+
+        /* Create a Mnemo storage instance. */
+        try {
+            $storage = $GLOBALS['injector']
+                ->getInstance('Mnemo_Factory_Driver')
+                ->create($notepadID);
+        } catch (Mnemo_Exception $e) {
+            throw new Mnemo_Exception(sprintf(_("Connection failed: %s"), $e->getMessage()), 500);
+        }
+
+        return $storage->delete($parts[2]);
+    }
+
+    /**
      * Returns an array of UIDs for all notes that the current user is
      * authorized to see.
      *
