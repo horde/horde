@@ -236,7 +236,6 @@ if ($search_mode != 'duplicate' && $session->get('turba', 'has_share')) {
 switch ($search_mode) {
 case 'basic':
     $title = _("Basic Search");
-    $page_output->addScriptFile('search.js');
     $page_output->addInlineScript(array(
         '$("val").focus()'
     ), true);
@@ -247,7 +246,6 @@ case 'basic':
 
 case 'advanced':
     $title = _("Advanced Search");
-    $page_output->addScriptFile('search.js');
     if (isset($results)) {
         $page_output->addInlineJsVars(array(
             'TurbaSearch.advanced' => true
@@ -263,6 +261,7 @@ case 'duplicate':
     break;
 }
 
+$page_output->addScriptFile('search.js');
 $page_output->addScriptFile('quickfinder.js', 'horde');
 $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
 $page_output->addScriptFile('redbox.js', 'horde');

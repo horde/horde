@@ -13,5 +13,3 @@
 <?php echo $this->h($this->addressBooks[key($this->addressBooks)]['title']) ?>
 <input type="hidden" name="source" value="<?php echo key($this->addressBooks) ?>" />
 <?php endif; ?>
-
-</form>
