@@ -4,9 +4,10 @@ v4.3.0-git
 
 [jan] Return ETags with browse() API method.
 
-----------
+
+------
 v4.2.1
-----------
+------
 
 [jan] Don't include external tasks with WebDAV task list.
 [jan] Fix displayed CalDAV URLs for shared task lists (Bug #12380).

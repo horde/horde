@@ -1579,6 +1579,19 @@
   </release>
   <release>
    <version>
+    <release>4.2.2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix retrieving individual tasks via WebDAV.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.2.0</api></version>
    <stability>

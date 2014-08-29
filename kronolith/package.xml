@@ -2434,6 +2434,22 @@
   </release>
   <release>
    <version>
+    <release>4.2.2</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Fix visual overlapping of certain events (Bug #13376).
+* [jan] Fix error editing events if using exotic date formats.
+* [jan] Fix JavaScript error if not showing all events in month view (Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;, Bug #13433).
+* [jan] Fix displayed CalDAV URLs for shared calendars in basic view too (piper@hrz.uni-marburg.de, Bug #12380).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.2.0</api></version>
    <stability>
