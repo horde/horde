@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Fix duplicate searching in address books without owner field.
+* [jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
 * [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
  </notes>
@@ -1914,6 +1916,8 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix duplicate searching in address books without owner field.
+* [jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
 * [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
    </notes>
