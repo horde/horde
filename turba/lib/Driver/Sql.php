@@ -304,22 +304,28 @@ class Turba_Driver_Sql extends Turba_Driver
         $duplicates = array();
         for ($i = 0; $i < count($joins); $i++) {
             /* Build up the full query. */
-            $query = sprintf('SELECT DISTINCT a1.%s,%s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE a1.%s = ? AND a2.%s = ? AND %s ORDER BY %s',
+            $values = array();
+            $query = sprintf('SELECT DISTINCT a1.%s, %s FROM %s a1 JOIN %s a2 ON %s AND a1.%s <> a2.%s WHERE',
                              $this->map['__key'],
                              $order[$i],
                              $this->_params['table'],
                              $this->_params['table'],
                              $joins[$i],
                              $this->map['__key'],
-                             $this->map['__key'],
-                             $this->map['__owner'],
-                             $this->map['__owner'],
-                             $where[$i],
-                             $order[$i]);
+                             $this->map['__key']);
+            if (isset($this->map['__owner'])) {
+                $query .= sprintf(' a1.%s = ? AND a2.%s = ? AND',
+                                 $this->map['__owner'],
+                                 $this->map['__owner']);
+                $values = array($owner, $owner);
+            }
+            $query .= sprintf(' %s ORDER BY %s',
+                              $where[$i],
+                              $order[$i]);
 
             /* Run query. */
             try {
-                $ids = $this->_db->selectValues($query, array($owner, $owner));
+                $ids = $this->_db->selectValues($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Turba_Exception(_("Server error when performing search."));
             }
