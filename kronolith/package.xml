@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix honoring resource_management permission (Bug #13049).
 * [jan] Fix visual overlapping of certain events (Bug #13376).
 * [jan] Fix error editing events if using exotic date formats.
 * [jan] Fix JavaScript error if not showing all events in month view (Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;, Bug #13433).
@@ -2444,6 +2445,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix honoring resource_management permission (Bug #13049).
 * [jan] Fix visual overlapping of certain events (Bug #13376).
 * [jan] Fix error editing events if using exotic date formats.
 * [jan] Fix JavaScript error if not showing all events in month view (Jasper Olbrich &lt;Jasper.Olbrich@students.uni-marburg.de&gt;, Bug #13433).

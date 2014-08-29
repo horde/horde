@@ -2,6 +2,7 @@
 v4.2.2-git
 ----------
 
+[mjr] Fix honoring resource_management permission (Bug #13049).
 [jan] Fix visual overlapping of certain events (Bug #13376).
 [jan] Fix error editing events if using exotic date formats.
 [jan] Fix JavaScript error if not showing all events in month view (Jasper
