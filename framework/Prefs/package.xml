@@ -24,7 +24,7 @@
  </lead>
  <date>2014-08-29</date>
  <version>
-  <release>2.7.0</release>
+  <release>2.7.1</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add ArrayAccess, Countable, and Iterator functionality to the Horde_Prefs_Identity object.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1126,6 +1126,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add ArrayAccess, Countable, and Iterator functionality to the Horde_Prefs_Identity object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.1</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
