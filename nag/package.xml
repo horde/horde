@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix retrieving individual tasks via WebDAV.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1587,7 +1587,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix retrieving individual tasks via WebDAV.
    </notes>
   </release>
  </changelog>
