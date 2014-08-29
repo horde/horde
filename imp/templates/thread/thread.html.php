@@ -1,4 +1,4 @@
-<h1 class="header">
+<h1 class="header variableLengthHeader">
  <?php echo ($this->thread ? _("Thread Display") : _("Multiple Message View")) ?>:
  <?php echo $this->subject ?>
 <?php if ($this->delete): ?>

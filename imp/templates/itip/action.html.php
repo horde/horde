@@ -1,5 +1,5 @@
 <?php if (strlen($this->desc)): ?>
-<h2 class="header"><?php echo $this->h($this->desc) ?></h2>
+<h2 class="header variableLengthHeader"><?php echo $this->h($this->desc) ?></h2>
 <?php endif; ?>
 <table class="horde-table imp-itip">
 <?php if (strlen($this->start)): ?>
