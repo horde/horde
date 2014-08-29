@@ -1914,8 +1914,26 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Fix duplicate searching in address books without owner field.
+* [jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
 * [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
+   </notes>
+  </release>
+  <release>
+   <date>2014-06-04</date>
+   <version>
+    <release>4.3.0</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Return ETags with browse() API method.
+* [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
    </notes>
   </release>
  </changelog>
