@@ -1046,7 +1046,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             if (!$calendar_id) {
                 // New resource
                 // @TODO: Groups.
-                if (!$GLOBALS['registry']->isAdmin()) {
+                if (!$GLOBALS['registry']->isAdmin() &&
+                    !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
                     $GLOBALS['notification']->push(_("You are not allowed to create new resources."), 'horde.error');
                     return $result;
                 }

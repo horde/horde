@@ -99,7 +99,8 @@ abstract class Kronolith_Resource_Base
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
         if (($permission & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
-            !$GLOBALS['registry']->isAdmin()) {
+            !$GLOBALS['registry']->isAdmin() &&
+            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
             return false;
         }
 
