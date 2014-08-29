@@ -18,7 +18,7 @@
  </lead>
  <date>2014-08-29</date>
  <version>
-  <release>2.4.3</release>
+  <release>2.4.4</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix determination of test cases using AllTests.php.
-* [mms] Fix AllTests.php when dealing with test cases that inherit from parent test cases.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2548,6 +2547,19 @@
    <notes>
 * [mms] Fix determination of test cases using AllTests.php.
 * [mms] Fix AllTests.php when dealing with test cases that inherit from parent test cases.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.4</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-08-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
