@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-06</date>
+ <date>2014-08-29</date>
  <version>
   <release>2.7.0</release>
   <api>2.7.0</api>
@@ -1122,7 +1122,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-06</date>
+   <date>2014-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add ArrayAccess, Countable, and Iterator functionality to the Horde_Prefs_Identity object.
