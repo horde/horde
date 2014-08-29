@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Improve positioning of date picker popup (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Really fix returning session start time from session handler (Bug #13428).
  </notes>
  <contents>
@@ -3618,6 +3619,7 @@
    <date>2014-08-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Improve positioning of date picker popup (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Really fix returning session start time from session handler (Bug #13428).
    </notes>
   </release>
