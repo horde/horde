@@ -1531,6 +1531,18 @@ EOT;
                     $original->save();
                 }
             }
+
+            // If this event recurs, we must add any bound exceptions to the
+            // results
+            if ($event->recurs()) {
+                $bound = $event->boundExceptions(false);
+                foreach ($bound as $day => &$exceptions) {
+                    foreach ($exceptions as &$exception) {
+                        $exception = $exception->toJson();
+                    }
+                }
+                Kronolith::mergeEvents($events, $bound);
+            }
             $result->events = count($events) ? $events : array();
         } catch (Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
