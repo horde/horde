@@ -399,6 +399,11 @@ class Kronolith_Driver
     {
         $event = $this->_move($eventId, $newCalendar);
 
+        /* Attempt to move any bound exceptions. */
+        foreach ($event->boundExceptions() as $exception) {
+            $this->move($exception->id, $newCalendar);
+        }
+
         /* Log the moving of this item in the history log. */
         $uid = $event->uid;
         if ($uid) {
