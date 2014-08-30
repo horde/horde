@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix moving recurring events with exceptions from one calendar to another (Bug #13524).
 * [mjr] Fix honoring resource_management permission (Bug #13049).
 * [jan] Fix visual overlapping of certain events (Bug #13376).
 * [jan] Fix error editing events if using exotic date formats.
@@ -2445,6 +2446,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix moving recurring events with exceptions from one calendar to another (Bug #13524).
 * [mjr] Fix honoring resource_management permission (Bug #13049).
 * [jan] Fix visual overlapping of certain events (Bug #13376).
 * [jan] Fix error editing events if using exotic date formats.
