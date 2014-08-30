@@ -5695,6 +5695,18 @@ KronolithCore = {
                     this.removeEvent(cal, eventid);
                 }
                 this.loadEventsCallback(r, false);
+                $H(r.events).each(function(d) {
+                    $H(d.value).each(function(evt) {
+                        if (evt.value.bid) {
+                            var cache = this.getCacheForDate(this.findEventDays(cal, evt.key, cal));
+                            cache.each(function(entry) {
+                                if (entry.value.bid == evt.value.bid) {
+                                    this.removeEvent(cal, entry.key);
+                                }
+                            }.bind(this));
+                        }
+                    }.bind(this))
+                }.bind(this));
                 if (r.events) {
                     this.resetMap();
                     this.closeRedBox();

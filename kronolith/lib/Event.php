@@ -2554,13 +2554,18 @@ abstract class Kronolith_Event
      * recurrence series, if any. If this event does not recur, an empty array
      * is returned.
      *
+     * @param boolean $flat  If true (the default), returns a flat array
+     *                       containing Kronolith_Event objects. If false,
+     *                       results are in the format of listEvents calls. @see
+     *                       Kronolith::listEvents().
+     *
      * @return array  An array of Kronolith_Event objects whose baseid property
      *                is equal to this event's uid. I.e., it is a bound
      *                exception.
      *
      * @since 4.2.2
      */
-    public function boundExceptions()
+    public function boundExceptions($flat = true)
     {
         if (!$this->recurrence) {
             return array();
@@ -2572,6 +2577,9 @@ abstract class Kronolith_Event
         $search->end = $this->recurrence->getRecurEnd();
         $search->baseid = $this->uid;
         $results = $kronolith_driver->search($search);
+        if (!$flat) {
+            return $results;
+        }
         foreach ($results as $days) {
             foreach ($days as $exception) {
                 $return[] = $exception;
