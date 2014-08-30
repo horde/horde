@@ -5689,12 +5689,13 @@ KronolithCore = {
                     this.removeEvent(cal, eventid);
                 }
                 this.loadEventsCallback(r, false);
+                var calendar = cal.split('|');
                 $H(r.events).each(function(d) {
                     $H(d.value).each(function(evt) {
                         if (evt.value.bid) {
                             var cache = this.getCacheForDate(this.findEventDays(cal, evt.key, cal));
                             cache.each(function(entry) {
-                                if (entry.value.bid == evt.value.bid) {
+                                if (entry.value.bid == evt.value.bid && evt.value.c != calendar[1]) {
                                     this.removeEvent(cal, entry.key);
                                 }
                             }.bind(this));
