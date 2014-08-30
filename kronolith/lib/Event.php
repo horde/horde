@@ -1755,67 +1755,60 @@ abstract class Kronolith_Event
              * Any dates left in this list when we are done, must represent
              * deleted instances of this recurring event.*/
             if (!empty($this->recurrence) && $exceptions = $this->recurrence->getExceptions()) {
-                $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-                $search = new StdClass();
-                $search->start = $this->recurrence->getRecurStart();
-                $search->end = $this->recurrence->getRecurEnd();
-                $search->baseid = $this->uid;
-                $results = $kronolith_driver->search($search);
-                foreach ($results as $days) {
-                    foreach ($days as $exception) {
-                        $e = new Horde_ActiveSync_Message_Exception(array(
-                            'protocolversion' => $options['protocolversion']));
-                        $e->setDateTime(array(
-                            'start' => $exception->start,
-                            'end' => $exception->end,
-                            'allday' => $exception->isAllDay()));
+                $results = $this->boundExceptions();
+                foreach ($results as $exception) {
+                    $e = new Horde_ActiveSync_Message_Exception(array(
+                        'protocolversion' => $options['protocolversion']));
+                    $e->setDateTime(array(
+                        'start' => $exception->start,
+                        'end' => $exception->end,
+                        'allday' => $exception->isAllDay()));
 
-                        // The start time of the *original* recurring event
-                        $e->setExceptionStartTime($exception->exceptionoriginaldate);
-                        $originaldate = $exception->exceptionoriginaldate->format('Ymd');
-                        $key = array_search($originaldate, $exceptions);
-                        if ($key !== false) {
-                            unset($exceptions[$key]);
-                        }
-
-                        // Remaining properties that could be different
-                        $e->setSubject($exception->getTitle());
-                        if (!$exception->isPrivate()) {
-                            $e->setLocation($exception->location);
-                            $e->setBody($exception->description);
-                        }
-
-                        $e->setSensitivity($exception->private ?
-                            Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
-                            Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
-                        $e->setReminder($exception->alarm);
-                        $e->setDTStamp($_SERVER['REQUEST_TIME']);
-
-                        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
-                            switch ($exception->status) {
-                            case Kronolith::STATUS_TENTATIVE;
-                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
-                                break;
-                            case Kronolith::STATUS_NONE:
-                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
-                                break;
-                            case Kronolith::STATUS_CONFIRMED:
-                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
-                                break;
-                            default:
-                                $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
-                            }
-                        }
-
-                        // Tags/Categories
-                        if (!$exception->isPrivate()) {
-                            foreach ($exception->tags as $tag) {
-                                $e->addCategory($tag);
-                            }
-                        }
-
-                        $message->addexception($e);
+                    // The start time of the *original* recurring event
+                    $e->setExceptionStartTime($exception->exceptionoriginaldate);
+                    $originaldate = $exception->exceptionoriginaldate->format('Ymd');
+                    $key = array_search($originaldate, $exceptions);
+                    if ($key !== false) {
+                        unset($exceptions[$key]);
                     }
+
+                    // Remaining properties that could be different
+                    $e->setSubject($exception->getTitle());
+                    if (!$exception->isPrivate()) {
+                        $e->setLocation($exception->location);
+                        $e->setBody($exception->description);
+                    }
+
+                    $e->setSensitivity($exception->private ?
+                        Horde_ActiveSync_Message_Appointment::SENSITIVITY_PRIVATE :
+                        Horde_ActiveSync_Message_Appointment::SENSITIVITY_NORMAL);
+                    $e->setReminder($exception->alarm);
+                    $e->setDTStamp($_SERVER['REQUEST_TIME']);
+
+                    if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+                        switch ($exception->status) {
+                        case Kronolith::STATUS_TENTATIVE;
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
+                            break;
+                        case Kronolith::STATUS_NONE:
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
+                            break;
+                        case Kronolith::STATUS_CONFIRMED:
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
+                            break;
+                        default:
+                            $e->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
+                        }
+                    }
+
+                    // Tags/Categories
+                    if (!$exception->isPrivate()) {
+                        foreach ($exception->tags as $tag) {
+                            $e->addCategory($tag);
+                        }
+                    }
+
+                    $message->addexception($e);
                 }
 
                 // Any dates left in $exceptions must be deleted exceptions
@@ -2554,6 +2547,38 @@ abstract class Kronolith_Event
         $exceptions = $this->recurrence->getExceptions();
         asort($exceptions);
         return implode(', ', array_map(array($this, 'exceptionLink'), $exceptions));
+    }
+
+    /**
+     * Returns a list of events that represent exceptions to this event's
+     * recurrence series, if any. If this event does not recur, an empty array
+     * is returned.
+     *
+     * @return array  An array of Kronolith_Event objects whose baseid property
+     *                is equal to this event's uid. I.e., it is a bound
+     *                exception.
+     *
+     * @since 4.2.2
+     */
+    public function boundExceptions()
+    {
+        if (!$this->recurrence) {
+            return array();
+        }
+        $return = array();
+        $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+        $search = new StdClass();
+        $search->start = $this->recurrence->getRecurStart();
+        $search->end = $this->recurrence->getRecurEnd();
+        $search->baseid = $this->uid;
+        $results = $kronolith_driver->search($search);
+        foreach ($results as $days) {
+            foreach ($days as $exception) {
+                $return[] = $exception;
+            }
+        }
+
+        return $return;
     }
 
     /**
