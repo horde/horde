@@ -372,7 +372,7 @@ class Horde_Core_ActiveSync_Connector
                 'office');
         }
         if (!empty($options['pictures'])) {
-            $fields[$gal][] = 'photo';
+            $return_fields[$gal][] = 'photo';
         }
         $opts = array(
             'matchBegin' => true,
