@@ -351,8 +351,19 @@ class Kronolith_Driver
     public function saveEvent(Kronolith_Event $event)
     {
         if ($event->stored || $event->exists()) {
+            // If this event recurs and has bound exceptions, we must make sure
+            // that the exceptionoriginaldate is updated in those exceptions as
+            // well. See Bug: 13512
+            if ($event->recurs()) {
+                foreach ($event->boundExceptions() as $bound) {
+                    $t = $event->start->strftime('%T');
+                    $bound->exceptionoriginaldate = new Horde_Date($bound->start->strftime('%Y-%m-%d') . 'T' . $t);
+                    $bound->save();
+                }
+            }
             return $this->_updateEvent($event);
         }
+
         return $this->_addEvent($event);
     }
 
