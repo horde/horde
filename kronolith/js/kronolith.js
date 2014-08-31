@@ -5789,8 +5789,8 @@ KronolithCore = {
                                 }
                             }.bind(this));
                         }
-                        if (!refreshed && evt.key == eventid && evt.value.rs) {
-                            this.refreshResources(evt.value.start.toString('yyyyMMdd'), cal, eventid, false);
+                        if (!refreshed && ((evt.key == eventid) || !eventid) && evt.value.rs) {
+                            this.refreshResources(null, cal, eventid, false, evt);
                             refreshed = true;
                         }
                     }.bind(this))
