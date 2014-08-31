@@ -164,10 +164,10 @@ abstract class Kronolith_Event
     /**
      * All resources of this event.
      *
-     * This is an associative array where keys are resource uids values are
+     * This is an associative array where keys are resource uids, values are
      * associative arrays with keys attendance and response.
      *
-     * @var unknown_type
+     * @var array
      */
     protected $_resources = array();
 
@@ -2304,6 +2304,7 @@ abstract class Kronolith_Event
     public function toJson($allDay = null, $full = false, $time_format = 'H:i')
     {
         $json = new stdClass;
+        $json->uid = $this->uid;
         $json->t = $this->getTitle();
         $json->c = $this->calendar;
         $json->s = $this->start->toJson();
@@ -2348,7 +2349,9 @@ abstract class Kronolith_Event
                 $json->eod = sprintf(_("%s at %s"), $this->exceptionoriginaldate->strftime($GLOBALS['prefs']->getValue('date_format')), $this->exceptionoriginaldate->strftime(($GLOBALS['prefs']->getValue('twentyFour') ? '%H:%M' : '%I:%M %p')));
             }
         }
-
+        if ($this->_resources) {
+            $json->rs = $this->_resources;
+        }
         if ($full) {
             $json->id = $this->id;
             $json->ty = $this->calendarType;
@@ -2385,9 +2388,6 @@ abstract class Kronolith_Event
                         $json->at = $attendees;
                     }
                 }
-            }
-            if ($this->_resources) {
-                $json->rs = $this->_resources;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
@@ -2707,7 +2707,8 @@ abstract class Kronolith_Event
         $this->_resources[$resource->getId()] = array(
             'attendance' => Kronolith::PART_REQUIRED,
             'response' => $response,
-            'name' => $resource->get('name')
+            'name' => $resource->get('name'),
+            'calendar' => $resource->get('calendar')
         );
     }
 
