@@ -4049,8 +4049,9 @@ KronolithCore = {
      *
      * @param string calendar  A calendar string or array.
      * @param string event     An event ID or empty if deleting the calendar.
+     * @param string day       A specific day to delete in yyyyMMdd form.
      */
-    deleteCache: function(calendar, event)
+    deleteCache: function(calendar, event, day)
     {
         if (Object.isString(calendar)) {
             calendar = calendar.split('|');
@@ -4063,6 +4064,8 @@ KronolithCore = {
             this.ecache.get(calendar[0]).get(calendar[1]).each(function(day) {
                 day.value.unset(event);
             });
+        } else if (day) {
+            this.ecache.get(calendar[0]).get(calendar[1]).unset(day);
         } else {
             this.ecache.get(calendar[0]).unset(calendar[1]);
         }
@@ -4107,6 +4110,7 @@ KronolithCore = {
                 !this.ecache.get(cals[0]).get(cals[1])) {
                 return $H();
             }
+            var x = this.ecache.get(cals[0]).get(cals[1]).get(date);
             return this.ecache.get(cals[0]).get(cals[1]).get(date);
         }
 
@@ -5288,6 +5292,7 @@ KronolithCore = {
               }, this);
           }
           this.loadEventsCallback(r, false);
+          this.refreshResources(newDate.toString('yyyyMMdd'), cal, eventid, lastDate.toString('yyyyMMdd'));
       }.bind(this);
 
       if (event.value.mt) {
@@ -5450,6 +5455,10 @@ KronolithCore = {
             // request.
             if (r.events &&
                 r.sig == this.eventsLoading[r.cal]) {
+                if (event.value.rs) {
+                    var d = new Date(event.value.s);
+                    this.refreshResources(d.toString('yyyyMMdd'), event.value.calendar, event.key)
+                }
                 this.removeEvent(event.value.calendar, event.key);
             }
             this.loadEventsCallback(r, false);
@@ -5471,6 +5480,57 @@ KronolithCore = {
         HordeCore.doAction('updateEvent', att, {
             callback: cb
         });
+    },
+
+    /**
+     * Refresh any resource calendars bound to the given just-updated event.
+     * Clears the old resource event from UI and cache, and clears the cache
+     * for the days of the new event, in order to allow listEvents to refresh
+     * the UI.
+     *
+     * @param  string dt       The current/new date for the event (yyyyMMdd).
+     * @param  string cal      The calendar the event exists in.
+     * @param  string eventid  The eventid that is changing.
+     * @param  string last_dt  The previous date for the event, if known. (yyyyMMdd).
+     *
+     */
+    refreshResources: function(dt, cal, eventid, last_dt)
+    {
+        var events = this.getCacheForDate(dt, cal),
+            event = events.find(function(e) { return e.key == eventid; }),
+            dates = this.viewDates(this.parseDate(dt), this.view),
+            update_cals = [], r_dates;
+
+        if (event) {
+            $H(event.value.rs).each(function(r) {
+                var r_cal = ['resource', r.value.calendar],
+                    r_events = this.getCacheForDate(last_dt, r_cal.join('|')),
+                    r_event, day;
+
+                if (r_events) {
+                    r_event = r_events.find(function(e) { return e.value.uid == event.value.uid });
+                    if (r_event) {
+                        this.removeEvent(r_cal, r_event.key);
+                        day = event.value.start.clone();
+                        end = event.value.end.clone().add(1).day();
+                        while (!day.isAfter(end)) {
+                            this.deleteCache(r_cal, null, day.toString('yyyyMMdd'));
+                            day.add(1).day();
+                        }
+                    } else {
+                        // Don't know the previous date/time so just nuke the cache.
+                       this.deleteCache(r_cal);
+                    }
+                } else {
+                    this.deleteCache(r_cal);
+                }
+                update_cals.push(r_cal);
+            }.bind(this));
+
+            if (update_cals.length) {
+                this.loadEvents(dates[0], dates[1], this.view, update_cals);
+            }
+        }
     },
 
     editEvent: function(calendar, id, date, title)
@@ -5689,7 +5749,9 @@ KronolithCore = {
                     this.removeEvent(cal, eventid);
                 }
                 this.loadEventsCallback(r, false);
-                var calendar = cal.split('|');
+
+                // Refresh bound exceptions
+                var calendar = cal.split('|'), refreshed = false;
                 $H(r.events).each(function(d) {
                     $H(d.value).each(function(evt) {
                         if (evt.value.bid) {
@@ -5700,8 +5762,13 @@ KronolithCore = {
                                 }
                             }.bind(this));
                         }
+                        if (!refreshed && evt.key == eventid && evt.value.rs) {
+                            this.refreshResources(evt.value.start.toString('yyyyMMdd'), cal, eventid, false);
+                            refreshed = true;
+                        }
                     }.bind(this))
                 }.bind(this));
+
                 if (r.events) {
                     this.resetMap();
                     this.closeRedBox();
