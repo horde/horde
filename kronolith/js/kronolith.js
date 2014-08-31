@@ -1794,7 +1794,14 @@ KronolithCore = {
                                                 Math.min(Math.max(y, minTop), maxTop - div.getHeight())];
                                     }
                                 };
-                            new Drag(event.value.nodeId, opts);
+                            var d = new Drag(event.value.nodeId, opts);
+                            div.store('drags', []);
+                            Object.extend(d, {
+                                event: event,
+                                innerDiv: new Element('div'),
+                                midnight: this.parseDate(date)
+                            });
+                            div.retrieve('drags').push(d);
                         }
                     }
                 }
@@ -5222,7 +5229,8 @@ KronolithCore = {
     },
 
     /**
-     * Handles moving an event to a different day in month view.
+     * Handles moving an event to a different day in month view and all day
+     * events in weekly/daily views.
      */
     onDrop: function(e)
     {
@@ -5340,10 +5348,15 @@ KronolithCore = {
         }
 
         var elt = e.element(),
-            drag = DragDrop.Drags.getDrag(elt),
-            event = drag.event.value,
+            drag = DragDrop.Drags.getDrag(elt);
             storage = this.view + 'Sizes',
             step = this[storage].height / 6;
+
+            if (!drag.event) {
+                return;
+            }
+
+        var event = drag.event.value;
 
         if (elt.hasClassName('kronolithDragger')) {
             // Resizing the event.
@@ -5410,8 +5423,13 @@ KronolithCore = {
 
         var div = e.element(),
             drag = DragDrop.Drags.getDrag(div),
-            event = drag.event,
-            date = drag.midnight,
+            event = drag.event;
+
+
+        if (event.value.al) {
+            return;
+        }
+        var date = drag.midnight,
             storage = this.view + 'Sizes',
             step = this[storage].height / 6,
             dates = this.viewDates(date, this.view),
