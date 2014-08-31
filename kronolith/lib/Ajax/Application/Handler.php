@@ -433,6 +433,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         if ($this->vars->u) {
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_REQUEST);
         }
+        Kronolith::notifyOfResourceRejection($event);
 
         return $result;
     }
