@@ -5303,7 +5303,13 @@ KronolithCore = {
               }, this);
           }
           this.loadEventsCallback(r, false);
-          this.refreshResources(newDate.toString('yyyyMMdd'), cal, eventid, lastDate.toString('yyyyMMdd'));
+          $H(r.events).each(function(days) {
+              $H(days.value).each(function(event) {
+                  if (event.key == eventid) {
+                      this.refreshResources(days.key, cal, eventid, lastDate.toString('yyyyMMdd'), event);
+                  }
+              }.bind(this))
+          }.bind(this));
       }.bind(this);
 
       if (event.value.mt) {
@@ -5525,21 +5531,28 @@ KronolithCore = {
             event = events.find(function(e) { return e.key == eventid; });
         }
         if (!dt) {
-            dt = event.value.start.toString('yyyyMMdd');
+            dt = new Date(event.value.s).toString('yyyyMMdd');
         }
         dates = this.viewDates(this.parseDate(dt), this.view);
         if (event) {
             $H(event.value.rs).each(function(r) {
                 var r_cal = ['resource', r.value.calendar],
                     r_events = this.getCacheForDate(last_dt, r_cal.join('|')),
-                    r_event, day;
+                    r_event, day, end;
 
                 if (r_events) {
                     r_event = r_events.find(function(e) { return e.value.uid == event.value.uid });
                     if (r_event) {
                         this.removeEvent(r_cal, r_event.key);
-                        day = event.value.start.clone();
-                        end = event.value.end.clone().add(1).day();
+                        day = new Date(r_event.value.s);
+                        end = new Date(r_event.value.s);
+                        while (!day.isAfter(end)) {
+                            this.deleteCache(r_cal, null, day.toString('yyyyMMdd'));
+                            day.add(1).day();
+                        }
+                        day = new Date(event.value.s);
+                        end = new Date(event.value.e);
+
                         while (!day.isAfter(end)) {
                             this.deleteCache(r_cal, null, day.toString('yyyyMMdd'));
                             day.add(1).day();
