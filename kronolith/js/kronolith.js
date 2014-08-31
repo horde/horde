@@ -5513,15 +5513,21 @@ KronolithCore = {
      * @param  string cal      The calendar the event exists in.
      * @param  string eventid  The eventid that is changing.
      * @param  string last_dt  The previous date for the event, if known. (yyyyMMdd).
+     * @param  object event    The event object (if a new event) dt is ignored.
      *
      */
-    refreshResources: function(dt, cal, eventid, last_dt)
+    refreshResources: function(dt, cal, eventid, last_dt, event)
     {
         var events = this.getCacheForDate(dt, cal),
-            event = events.find(function(e) { return e.key == eventid; }),
-            dates = this.viewDates(this.parseDate(dt), this.view),
             update_cals = [], r_dates;
 
+        if (!event) {
+            event = events.find(function(e) { return e.key == eventid; });
+        }
+        if (!dt) {
+            dt = event.value.start.toString('yyyyMMdd');
+        }
+        dates = this.viewDates(this.parseDate(dt), this.view);
         if (event) {
             $H(event.value.rs).each(function(r) {
                 var r_cal = ['resource', r.value.calendar],
