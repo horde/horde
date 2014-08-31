@@ -618,6 +618,12 @@ abstract class Kronolith_Event
                     $locks->clearLock($lock[$resource->getId()]);
                 }
 
+                if ($response == Kronolith::RESPONSE_DECLINED && $this->uid) {
+                    $r_driver = Kronolith::getDriver('Resource');
+                    $r_event = $r_driver->getByUID($this->uid, array($resource->get('calendar')));
+                    $r_driver->deleteEvent($r_event, true, true);
+                }
+
                 /* Add the resource to the event */
                 $this->addResource($resource, $response);
             }

@@ -191,18 +191,27 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * delete it, we must also make sure to remove it from the event that
      * it is attached to. Not sure if there is a better way to do this...
      *
-     * @see lib/Driver/Kronolith_Driver_Sql#deleteEvent($eventId, $silent)
+     * @param string|Kronolith_Event_Resource_Sql $eventId  The ID of the event
+     *                                                      to delete.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     * @param boolean $keep_bound  If true, does not remove the resource from
+     *                             the bound event. @since 4.2.2
+     *
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function deleteEvent($eventId, $silent = false)
+    public function deleteEvent($eventId, $silent = false, $keep_bound = false)
     {
-        $resource_event = new $this->_eventClass($this);
         if ($eventId instanceof Kronolith_Event_Resource_Sql) {
             $delete_event = $eventId;
             $eventId = $delete_event->id;
         } else {
             $delete_event = $this->getEvent($eventId);
+        }
+
+        if ($keep_bound) {
+            return;
         }
 
         $uid = $delete_event->uid;
