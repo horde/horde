@@ -2,6 +2,8 @@
 v4.2.2-git
 ----------
 
+[mjr] Fix refreshing resource events in the UI when the host event changes
+      (Bug #13465).
 [mjr] Fix updating the exceptionoriginaldate field when the base event changes
       (Bug #13512).
 [mjr] Fix moving recurring events with exceptions from one calendar to another
