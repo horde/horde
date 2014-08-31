@@ -5539,7 +5539,6 @@ KronolithCore = {
         if (!dt) {
             dt = new Date(event.value.s).toString('yyyyMMdd');
         }
-        dates = this.viewDates(this.parseDate(dt), this.view);
         if (event) {
             $H(event.value.rs).each(function(r) {
                 var r_cal = ['resource', r.value.calendar],
@@ -5574,6 +5573,7 @@ KronolithCore = {
             }.bind(this));
 
             if (update_cals.length) {
+                dates = this.viewDates(this.parseDate(dt), this.view);
                 this.loadEvents(dates[0], dates[1], this.view, update_cals);
             }
         }
