@@ -4612,6 +4612,9 @@ KronolithCore = {
                                 this.view == 'workweek' ||
                                 this.view == 'day') {
                                 days = this.findEventDays(cal, eventid);
+                                days.each(function(day) {
+                                    this.refreshResources(day, cal, eventid);
+                                }.bind(this));
                             }
                             this.removeEvent(cal, eventid);
                             if (r.uid) {
