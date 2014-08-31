@@ -5531,7 +5531,9 @@ KronolithCore = {
             event = events.find(function(e) { return e.key == eventid; });
         }
         if (!dt) {
-            dt = new Date(event.value.s).toString('yyyyMMdd');
+            dt = new Date(event.value.s);
+        } else {
+            dt = this.parseDate(dt);
         }
         if (event) {
             $H(event.value.rs).each(function(r) {
@@ -5567,7 +5569,15 @@ KronolithCore = {
             }.bind(this));
 
             if (update_cals.length) {
-                dates = this.viewDates(this.parseDate(dt), this.view);
+                dates = this.viewDates(dt, this.view);
+                // Ensure we also grab the full length of the events.
+                if (dates[0].isAfter(dt)) {
+                    dates[0] = dt;
+                }
+                var dt_end = new Date(event.value.e);
+                if (dt_end.isAfter(dates[1])) {
+                    dates[1] = dt_end;
+                }
                 this.loadEvents(dates[0], dates[1], this.view, update_cals);
             }
         }
