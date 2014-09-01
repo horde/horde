@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: horde 3\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-19 18:37+0900\n"
-"PO-Revision-Date: 2014-08-09 02:11+0900\n"
+"PO-Revision-Date: 2014-08-29 14:59+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "\"%s\"(은)는 잘못된 이메일 주소입니다."
 #: lib/Transport/Ispconfig.php:141
 #, php-format
 msgid "%d users with login %s found, one expected."
-msgstr "한명을 예상했으나 %s(으)로 로그인한 %d명의 사용자를 찾았습니다."
+msgstr "한 명을 예상했으나 %s(으)로 로그인한 %d명의 사용자를 찾았습니다."
 
 #: lib/Script/Util.php:48
 #, php-format
@@ -53,11 +53,13 @@ msgid "%s is not supported in the current filtering driver."
 msgstr "현재 필터링 드라이버가 %s(을)를 지원하지 않습니다."
 
 #: templates/basic/rule/rule.html.php:32
-msgid "ALL of the following"
+#, fuzzy
+msgid "All of the following"
 msgstr "다음 중 모두"
 
 #: templates/basic/rule/rule.html.php:34
-msgid "ANY of the following"
+#, fuzzy
+msgid "Any of the following"
 msgstr "다음 중 아무거나"
 
 #: templates/basic/blacklist/blacklist.html.php:13
@@ -73,7 +75,7 @@ msgstr "스크립트 "
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "\"%s\"에 대한 스크립트를 활성화하지 못했습니다: (%d) %s"
 
-#: templates/basic/filters/filters.html.php:82
+#: templates/basic/filters/filters.html.php:78
 msgid "Additional Settings"
 msgstr "추가 설정"
 
@@ -93,11 +95,11 @@ msgstr "고급 설정"
 msgid "Answered"
 msgstr "응답함"
 
-#: templates/basic/filters/filters.html.php:71
+#: templates/basic/filters/filters.html.php:67
 msgid "Apply Filters"
 msgstr "필터 적용"
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:262
 msgid "Are you sure you want to delete this rule?"
 msgstr "정말로 이 규칙을 삭제하시겠습니까?"
 
@@ -126,7 +128,7 @@ msgstr "다음으로 시작함"
 msgid "Bind failed: (%s) %s"
 msgstr "바인딩을 실패했습니다: (%s) %s"
 
-#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:200
+#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:197
 #: lib/Block/Overview.php:101 lib/Smartmobile.php:85
 #: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
@@ -137,7 +139,7 @@ msgid "Blacklist Edit"
 msgstr "수신 거부 목록 편집"
 
 #: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
-#: lib/Script/Sieve.php:236
+#: lib/Script/Sieve.php:230
 msgid "Blacklisted Addresses"
 msgstr "수신 거부된 주소"
 
@@ -170,7 +172,7 @@ msgstr "다음을 포함"
 msgid "Copy"
 msgstr "복사"
 
-#: lib/Basic/Filters.php:275
+#: lib/Basic/Filters.php:267
 #, php-format
 msgid "Copy %s"
 msgstr "%s 복사"
@@ -200,7 +202,7 @@ msgstr "스크립트 비활성화하기"
 msgid "Delete"
 msgstr "삭제"
 
-#: lib/Basic/Filters.php:270
+#: lib/Basic/Filters.php:262
 #, php-format
 msgid "Delete %s"
 msgstr "%s 삭제"
@@ -241,20 +243,20 @@ msgstr "설명"
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "목적지 (To, Cc, Bcc 등)"
 
-#: lib/Basic/Filters.php:282
+#: lib/Basic/Filters.php:274
 #, php-format
 msgid "Disable %s"
 msgstr "%s(을)를 비활성화하기"
 
 #: lib/Basic/Forward.php:86 lib/Basic/Spam.php:101 lib/Basic/Vacation.php:124
 #: templates/basic/blacklist/blacklist.html.php:8
-#: templates/basic/filters/filters.html.php:56
+#: templates/basic/filters/filters.html.php:52
 #: templates/basic/rule/rule.html.php:14
 #: templates/basic/whitelist/whitelist.html.php:8
 msgid "Disabled"
 msgstr "비활성화됨"
 
-#: templates/basic/filters/filters.html.php:88
+#: templates/basic/filters/filters.html.php:84
 msgid "Display detailed notification when each filter is applied?"
 msgstr "각 필터가 적용되면 상세 알림을 표시할까요?"
 
@@ -292,15 +294,19 @@ msgstr "다음과 일치하지 않음(개체 틀 포함)"
 msgid "Edit"
 msgstr "편집"
 
-#: lib/Basic/Filters.php:263 lib/Basic/Filters.php:265
+#: lib/Basic/Filters.php:255 lib/Basic/Filters.php:257
 #, php-format
 msgid "Edit %s"
 msgstr "%s 편집"
 
-#: lib/Basic/Filters.php:285
+#: lib/Basic/Filters.php:277
 #, php-format
 msgid "Enable %s"
 msgstr "%s 활성화하기"
+
+#: templates/basic/filters/filters.html.php:14
+msgid "Enabled"
+msgstr "활성화됨"
 
 #: lib/Form/Vacation.php:47
 msgid "End of vacation:"
@@ -320,7 +326,7 @@ msgstr "다음과 같음"
 msgid "Error retrieving current script: (%d) %s"
 msgstr "현재 스크립트를 검색하는 도중 오류가 발생했습니다: (%d) %s"
 
-#: templates/basic/filters/filters.html.php:22
+#: templates/basic/filters/filters.html.php:18
 msgid "Existing Rules"
 msgstr "기존 규칙"
 
@@ -349,19 +355,19 @@ msgstr "소켓에 기록할 수 없음: (연결이 끊김!)"
 msgid "Field"
 msgstr "피르"
 
-#: templates/basic/filters/filters.html.php:94
+#: templates/basic/filters/filters.html.php:90
 msgid "Filter All Messages"
 msgstr "모든 메시지에 필터 적용"
 
-#: templates/basic/filters/filters.html.php:96
+#: templates/basic/filters/filters.html.php:92
 msgid "Filter Only Seen Messages"
 msgstr "읽은 메시지에만 필터 적용"
 
-#: templates/basic/filters/filters.html.php:95
+#: templates/basic/filters/filters.html.php:91
 msgid "Filter Only Unseen Messages"
 msgstr "읽지 않은 메시지에만 필터 적용"
 
-#: templates/basic/filters/filters.html.php:92
+#: templates/basic/filters/filters.html.php:88
 msgid "Filter Options"
 msgstr "필터 옵션"
 
@@ -369,7 +375,7 @@ msgstr "필터 옵션"
 msgid "Filter Rule"
 msgstr "필터 규칙"
 
-#: lib/Basic/Filters.php:319
+#: lib/Basic/Filters.php:310
 msgid "Filter Rules"
 msgstr "필터 규칙"
 
@@ -381,27 +387,27 @@ msgstr "필터 스크립트 표시"
 msgid "Filter _Rules"
 msgstr "필터 규칙"
 
-#: lib/Script/Imap.php:331
+#: lib/Script/Imap.php:321
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "필터 활동: %s개의 메시지를 폴더 \"%s\"(으)로 복사했습니다."
 
-#: lib/Script/Imap.php:308
+#: lib/Script/Imap.php:298
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "필터 활동: %s개의 메시지를 삭제했습니다."
 
-#: lib/Script/Imap.php:283
+#: lib/Script/Imap.php:273
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "필터 활동: %s개의 메시지를 폴더 \"%s\"(으)로 이동했습니다."
 
-#: lib/Script/Imap.php:181
+#: lib/Script/Imap.php:171
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr "필터 활동: 수신 거부 목록과 일치한 %s개의 메시지를 삭제했습니다."
 
-#: lib/Script/Imap.php:324
+#: lib/Script/Imap.php:314
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -410,12 +416,12 @@ msgstr ""
 "필터 활동: 메시지 \"%s\"(보낸 사람 \"%s\")(을)를 폴더 \"%s\"(으)로 복사했습니"
 "다."
 
-#: lib/Script/Imap.php:302
+#: lib/Script/Imap.php:292
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "필터 활동: 메시지 \"%s\"(보낸 사람 \"%s\")(을)를 삭제했습니다."
 
-#: lib/Script/Imap.php:276
+#: lib/Script/Imap.php:266
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -440,14 +446,15 @@ msgstr "스팸이 저장될 폴더:"
 msgid "For an incoming message that matches:"
 msgstr "받은 메시지 중 다음과 일치함:"
 
-#: lib/Basic/Filters.php:227 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
+#: lib/Basic/Filters.php:224 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
 #: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "전달"
 
 #: lib/Script/Sieve.php:182
+#, fuzzy
 msgid "Forward Keep Action"
-msgstr ""
+msgstr "다음으로 전달"
 
 #: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
 #: lib/Script/Sieve.php:192
@@ -462,11 +469,11 @@ msgstr "전달 편집"
 msgid "From"
 msgstr "보낸 사람"
 
-#: lib/Script/Sieve/Action/Notify.php:61
+#: lib/Script/Sieve/Action/Notify.php:52
 msgid "From:"
 msgstr "보낸 사람:"
 
-#: lib/Script/Sieve.php:476
+#: lib/Script/Sieve.php:470
 msgid "Generated by Ingo"
 msgstr "Ingo에서 생성됨"
 
@@ -517,14 +524,14 @@ msgstr "다음보다 같거나 적음"
 
 #: config/fields.php:64
 msgid "List-ID"
-msgstr ""
+msgstr "List-ID"
 
 #: lib/Transport/Ispconfig.php:196
 #, php-format
 msgid "Login to %s failed."
 msgstr "%s에 로그인을 실패했습니다."
 
-#: lib/Basic/Filters.php:312
+#: lib/Basic/Filters.php:304
 msgid "Mailbox Search"
 msgstr "편지함 검색"
 
@@ -593,7 +600,7 @@ msgid ""
 "be treated as spam."
 msgstr "예상 스팸 점수가 다음 점수와 같거나 크면 스팸으로 간주됩니다."
 
-#: lib/Script/Sieve/Action/Notify.php:80
+#: lib/Script/Sieve/Action/Notify.php:66
 msgid "Missing address to notify"
 msgstr "통지할 주소가 "
 
@@ -613,12 +620,16 @@ msgstr "휴가 사유가 없습니다."
 msgid "Mobile"
 msgstr "모바일"
 
+#: templates/basic/filters/filters.html.php:16
+msgid "Move"
+msgstr "이동"
+
 #: lib/Form/Vacation.php:64
 msgid "My email addresses:"
 msgstr "내 이메일 주소:"
 
 #: lib/Application.php:194 lib/Storage/Filters.php:123
-#: templates/basic/filters/filters.html.php:29
+#: templates/basic/filters/filters.html.php:25
 msgid "New Rule"
 msgstr "새 규칙"
 
@@ -639,7 +650,7 @@ msgstr "이 호스트에 대한 도구가 구성되지 않음"
 msgid "No backends configured in backends.php"
 msgstr "backends.php에 백엔드가 구성되지 않았습니다"
 
-#: templates/basic/filters/filters.html.php:29
+#: templates/basic/filters/filters.html.php:25
 #, php-format
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "필터가 없습니다. \"%s\"(을)를 클릭해서 새로운 필터를 생성하세요."
@@ -744,22 +755,27 @@ msgstr "필터 목록으로 돌아가기"
 msgid "Return to Rules List"
 msgstr "규칙 목록으로 돌아가기"
 
-#: lib/Basic/Filters.php:111
+#: templates/basic/filters/filters.html.php:13
+#, fuzzy
+msgid "Rule"
+msgstr "규칙"
+
+#: lib/Basic/Filters.php:108
 #, php-format
 msgid "Rule \"%s\" copied."
 msgstr "규칙 \"%s\"(을)를 복사했습니다."
 
-#: lib/Basic/Filters.php:86
+#: lib/Basic/Filters.php:83
 #, php-format
 msgid "Rule \"%s\" deleted."
 msgstr "규칙 \"%s\"(을)를 삭제했습니다."
 
-#: lib/Basic/Filters.php:118
+#: lib/Basic/Filters.php:115
 #, php-format
 msgid "Rule \"%s\" disabled."
 msgstr "규칙 \"%s\"(이)가 비활성화됐습니다."
 
-#: lib/Basic/Filters.php:124
+#: lib/Basic/Filters.php:121
 #, php-format
 msgid "Rule \"%s\" enabled."
 msgstr "규칙 \"%s\"(이)가 활성화됐습니다."
@@ -788,7 +804,7 @@ msgstr "규칙 정렬이 저장되지 않았습니다."
 msgid "Rule sort saved successfully."
 msgstr "규칙 정렬이 성공적으로 저장됐습니다."
 
-#: lib/Script/Sieve/Action/Notify.php:63
+#: lib/Script/Sieve/Action/Notify.php:54
 msgid "Rule:"
 msgstr "규칙:"
 
@@ -797,15 +813,10 @@ msgstr "규칙:"
 msgid "Rules"
 msgstr "규칙"
 
-#: templates/basic/filters/filters.html.php:19
+#: templates/basic/filters/filters.html.php:16
 #, php-format
 msgid "Rules Containing Mailbox \"%s\""
 msgstr "편지함 \"%s\"(을)를 포함하는 규칙"
-
-#: templates/basic/filters/filters.html.php:17
-#, php-format
-msgid "Rules Matching Mailbox \"%s\""
-msgstr "편지함 \"%s\"(와)과 일치하는 규칙"
 
 #: lib/Application.php:206
 msgid "Ruleset"
@@ -820,14 +831,14 @@ msgstr "STARTTLS가 실패함: (%s) %s"
 msgid "S_pam"
 msgstr "스팸"
 
-#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:43
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:42
 #: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:42
 #: templates/basic/rule/rule.html.php:164
 #: templates/basic/whitelist/whitelist.html.php:21
 msgid "Save"
 msgstr "저장"
 
-#: templates/basic/filters/filters.html.php:102
+#: templates/basic/filters/filters.html.php:98
 msgid "Save Settings"
 msgstr "설정 저장"
 
@@ -894,7 +905,7 @@ msgstr "자가 정의 머리글"
 msgid "Sender"
 msgstr "보내는 사람"
 
-#: lib/Basic/Filters.php:144
+#: lib/Basic/Filters.php:141
 msgid "Settings successfully updated."
 msgstr "설정이 성공적으로 업데이트됐습니다."
 
@@ -914,8 +925,8 @@ msgstr "크기"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "소스(보내는 사람, 받는 사람 등)"
 
-#: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
-#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:403
+#: lib/Basic/Filters.php:233 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:397
 #: lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "스팸 필터"
@@ -948,7 +959,7 @@ msgstr "제목"
 msgid "Subject of vacation message:"
 msgstr "휴가 메시지의 제목:"
 
-#: lib/Script/Sieve/Action/Notify.php:62
+#: lib/Script/Sieve/Action/Notify.php:53
 msgid "Subject:"
 msgstr "제목:"
 
@@ -997,10 +1008,10 @@ msgstr "전송 드라이버 \"%s\"(을)를 불러올 수 없습니다."
 msgid "User header"
 msgstr "사용자 머리글"
 
-#: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
+#: lib/Basic/Filters.php:215 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
 #: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:292
-#: lib/Script/Sieve.php:376 lib/Smartmobile.php:95
+#: lib/Script/Sieve.php:370 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "휴가"
 
@@ -1028,7 +1039,7 @@ msgstr "규칙 보기"
 msgid "Wh_itelist addresses:"
 msgstr "수신 허용 주소:"
 
-#: lib/Basic/Filters.php:209 lib/Basic/Whitelist.php:33
+#: lib/Basic/Filters.php:206 lib/Basic/Whitelist.php:33
 #: lib/Block/Overview.php:90 lib/Smartmobile.php:90
 #: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"
@@ -1039,7 +1050,7 @@ msgid "Whitelist Edit"
 msgstr "수신 허용 편집"
 
 #: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
-#: lib/Script/Sieve.php:297
+#: lib/Script/Sieve.php:291
 msgid "Whitelisted Addresses"
 msgstr "수신 허용된 주소"
 
@@ -1059,12 +1070,12 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: lib/Basic/Filters.php:104 lib/Basic/Rule.php:356
+#: lib/Basic/Filters.php:101 lib/Basic/Rule.php:356
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "생성된 규칙은 %d개를 초과할 수 없습니다."
 
-#: lib/Basic/Filters.php:96 lib/Basic/Rule.php:38
+#: lib/Basic/Filters.php:93 lib/Basic/Rule.php:38
 msgid "You are not allowed to create or edit custom rules."
 msgstr "사용자 정의 규칙을 생성 또는 편집할 수 없습니다."
 
@@ -1081,16 +1092,16 @@ msgstr ""
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "비어있는 조건을 생성할 수 없습니다. \"%s\"에 값을 입력해주세요."
 
-#: lib/Basic/Filters.php:80
+#: lib/Basic/Filters.php:77
 msgid "You do not have permission to delete filter rules."
 msgstr "필터 규칙을 삭제할 권한이 없습니다."
 
-#: lib/Ajax/Application/Filters.php:38 lib/Basic/Filters.php:73
-#: lib/Basic/Filters.php:139 lib/Basic/Rule.php:44
+#: lib/Ajax/Application/Filters.php:38 lib/Basic/Filters.php:70
+#: lib/Basic/Filters.php:136 lib/Basic/Rule.php:44
 msgid "You do not have permission to edit filter rules."
 msgstr "필터 규칙을 편집할 권한이 없습니다."
 
-#: lib/Script/Sieve/Action/Notify.php:60
+#: lib/Script/Sieve/Action/Notify.php:51
 msgid "You have received a new message"
 msgstr "새 메시지를 받았습니다."
 
@@ -1098,11 +1109,11 @@ msgstr "새 메시지를 받았습니다."
 msgid "You need to select at least one field to match."
 msgstr "일치하기 위해 최소 하나 이상의 필드를 선택해야 합니다."
 
-#: lib/Script/Imap.php:278 lib/Script/Imap.php:304 lib/Script/Imap.php:326
+#: lib/Script/Imap.php:268 lib/Script/Imap.php:294 lib/Script/Imap.php:316
 msgid "[No Sender]"
 msgstr "[보내는 사람 없음]"
 
-#: lib/Script/Imap.php:277 lib/Script/Imap.php:303 lib/Script/Imap.php:325
+#: lib/Script/Imap.php:267 lib/Script/Imap.php:293 lib/Script/Imap.php:315
 msgid "[No Subject]"
 msgstr "[제목 없음]"
 
@@ -1150,6 +1161,10 @@ msgstr "사용 중"
 msgid "and"
 msgstr "그리고"
 
+#: templates/basic/filters/filters.html.php:49
+msgid "disabled - click to enable"
+msgstr "비활성화됨 - 활성화하려면 클릭"
+
 #: lib/Block/Overview.php:50
 msgid "inactive"
 msgstr "사용 중지"
@@ -1165,3 +1180,9 @@ msgstr "또는"
 #: lib/Script/Procmail.php:136
 msgid "procmail script generated by Ingo"
 msgstr "Ingo가 생성한 procmail 스크립트"
+
+#~ msgid "ANY of the following"
+#~ msgstr "다음 중 아무거나"
+
+#~ msgid "Rules Matching Mailbox \"%s\""
+#~ msgstr "편지함 \"%s\"(와)과 일치하는 규칙"
