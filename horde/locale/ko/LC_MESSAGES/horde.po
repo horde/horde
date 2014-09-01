@@ -11,13 +11,12 @@ msgstr ""
 "Project-Id-Version: Horde 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-13 11:19+0900\n"
-"PO-Revision-Date: 2014-08-06 14:22+0900\n"
+"PO-Revision-Date: 2014-08-29 14:29+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -106,8 +105,32 @@ msgstr "%s이(가) 트위터 계정과 상호 작용할 수 있습니다"
 msgid "%s cannot read information about your Facebook friends."
 msgstr "%s이(가) 페이스북 친구에 대한 정보를 읽을 수 없습니다."
 
-#: templates/prefs/facebook.html.php:34 templates/prefs/facebook.html.php:20
-#: services/logintasks.php:72 lib/Block/Metar.php:162 lib/Block/Metar.php:167
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s이(가) 담벼락 메시지 및 다양한 기타 페이스북 데이터 항목을 읽을 수 없습니"
+"다."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s이(가) 페이스북의 상태 메시지를 설정하거나 기타 컨텐츠를 게시할 수 없습니"
+"다."
+
+#: services/logintasks.php:72
+#, php-format
+msgid ""
+"%s is ready to perform the tasks below. Select each operation to run at this "
+"time."
+msgstr ""
+"%s(이)가 아래 확인된 과제를 수행할 준비가 됐습니다. 이 번에 실행할 개별 작업"
+"을 선택하세요."
+
+#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", 세찬 %s %s"
@@ -145,7 +168,7 @@ msgstr "24시간 형식"
 msgid "24 hours"
 msgstr "24시간"
 
-#: config/prefs.php:483 config/prefs.php:485
+#: config/prefs.php:492 config/prefs.php:494
 msgid "24-hour format"
 msgstr "24시간 형식"
 
@@ -166,9 +189,16 @@ msgstr ""
 msgid "A newer version (%s) exists."
 msgstr "새로운 버전(%s)이 존재합니다."
 
-#: lib/Prefs/Special/Activesync.php:95 templates/data/datetime.inc:110
-#: templates/data/time.inc:29
+#: lib/Prefs/Special/Activesync.php:90
 #, php-format
+msgid ""
+"A remote wipe for device id %s has been initiated. The device will be wiped "
+"during the next synchronisation."
+msgstr ""
+"장치 id %s에 대한 원격 초기화가 시작됐습니다. 장치는 다음 동기화 시도 시 초기"
+"화됩니다."
+
+#: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "AM/PM"
 
@@ -176,7 +206,7 @@ msgstr "AM/PM"
 msgid "Account Information"
 msgstr "계정 정보"
 
-#: config/prefs.php:325
+#: config/prefs.php:334
 msgid "Account Password"
 msgstr "계정 암호"
 
@@ -184,11 +214,11 @@ msgstr "계정 암호"
 msgid "Actions"
 msgstr "동작"
 
-#: config/prefs.php:732 lib/Application.php:200
+#: config/prefs.php:741 lib/Application.php:200
 msgid "ActiveSync"
 msgstr "액티브싱크"
 
-#: admin/activesync.php:100
+#: admin/activesync.php:94
 msgid "ActiveSync Administration"
 msgstr "액티브싱크 관리"
 
@@ -237,7 +267,16 @@ msgstr "새로운 페어(pair) 추가"
 msgid "Add user"
 msgstr "사용자 추가"
 
-#: admin/signup_confirm.php:82 admin/user.php:93 signup.php:47
+#: admin/signup_confirm.php:82 admin/user.php:93
+#, php-format
+msgid ""
+"Added \"%s\" to the system, but could not add additional signup information: "
+"%s."
+msgstr ""
+"\"%s\"을(를) 시스템에 추가했으나, 추가적인 가입 정보를 추가할 수 없었습니다: "
+"%s."
+
+#: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
 msgstr "\"%s\"을(를) 시스템에 추가했습니다 이제 로그인 할 수 있습니다."
@@ -250,7 +289,7 @@ msgstr "사용자 추가는 비활성화됐습니다."
 msgid "Address"
 msgstr "주소"
 
-#: config/registry.php:134
+#: config/registry.php:133
 msgid "Address Book"
 msgstr "주소록"
 
@@ -298,7 +337,15 @@ msgstr "모든 승인된 사용자"
 msgid "All policy keys successfully reset."
 msgstr "모든 정책 키가 성공적으로 초기화됐습니다."
 
-#: lib/Prefs/Special/Activesync.php:110 lib/Prefs/Special/Syncml.php:76
+#: lib/Prefs/Special/Activesync.php:105
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"ActiveSync 장치에 대한 모든 상태를 제거했습니다. 장치가 다음에 서버에 연결할 "
+"때 재동기화 합니다."
+
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
 msgstr "모든 동기화 세션이 삭제됐습니다."
 
@@ -318,15 +365,15 @@ msgstr "프로비저닝이 불가능한 장치 허용"
 msgid "Allow only numeric"
 msgstr "숫자만 허용"
 
-#: config/prefs.php:687
+#: config/prefs.php:696
 msgid "Alternate IMSP Login"
 msgstr "대체 IMSP 로그인"
 
-#: config/prefs.php:704
+#: config/prefs.php:713
 msgid "Alternate IMSP Password"
 msgstr "대체 IMSP 암호"
 
-#: config/prefs.php:698
+#: config/prefs.php:707
 msgid "Alternate IMSP Username"
 msgstr "대체 IMSP 사용자명"
 
@@ -418,7 +465,7 @@ msgid "Authenticated Applications"
 msgstr "승인된 응용 프로그램"
 
 #: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
-#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:62
 #: templates/prefs/twitter.html.php:18
 msgid "Authorize"
 msgstr "승인"
@@ -435,7 +482,7 @@ msgstr "게시 승인"
 msgid "Authorize Read"
 msgstr "읽음 승인"
 
-#: templates/login/login.inc:23 templates/login/smartmobile.html.php:31
+#: templates/login/login.inc:19 templates/login/smartmobile.html.php:31
 msgid "Automatic"
 msgstr "자동"
 
@@ -451,11 +498,11 @@ msgstr "BOFH Excuses"
 msgid "Baltic (ISO-8859-13)"
 msgstr "발트어 (ISO-8859-13)"
 
-#: templates/login/login.inc:25 templates/login/smartmobile.html.php:33
+#: templates/login/login.inc:21 templates/login/smartmobile.html.php:33
 msgid "Basic"
 msgstr "기본"
 
-#: templates/activesync/device_table.html.php:43
+#: templates/activesync/device_table.html.php:42
 msgid "Block"
 msgstr "블록"
 
@@ -471,7 +518,7 @@ msgstr "블록 유형"
 msgid "Bluetooth"
 msgstr "블루투스"
 
-#: config/registry.php:185
+#: config/registry.php:184
 msgid "Bookmarks"
 msgstr "북마크"
 
@@ -479,7 +526,7 @@ msgstr "북마크"
 msgid "Both"
 msgstr "모두"
 
-#: config/prefs.php:748
+#: config/prefs.php:762
 msgid "Bottom"
 msgstr "아래"
 
@@ -487,12 +534,7 @@ msgstr "아래"
 msgid "Browser"
 msgstr "브라우저"
 
-#: templates/activesync/device_table.html.php:29
-#: templates/prefs/activesync.html.php:56
-msgid "Cached Heartbeat (seconds)"
-msgstr "캐시된 하트비트(초)"
-
-#: config/registry.php:120
+#: config/registry.php:119
 msgid "Calendar"
 msgstr "달력"
 
@@ -509,7 +551,7 @@ msgstr "취소"
 msgid "Cancel Problem Report"
 msgstr "초기화 취소"
 
-#: templates/activesync/device_table.html.php:36
+#: templates/activesync/device_table.html.php:35
 #: templates/prefs/activesync.html.php:41
 msgid "Cancel Wipe"
 msgstr "원격 초기화 취소"
@@ -518,7 +560,7 @@ msgstr "원격 초기화 취소"
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "자동으로 재설정할 수 없음, 관리자에게 문의하세요."
 
-#: config/prefs.php:507
+#: config/prefs.php:516
 msgid "Categories and Labels"
 msgstr "범주 및 라벨"
 
@@ -542,7 +584,7 @@ msgstr "위치 변경"
 msgid "Change Your Password"
 msgstr "암호 변경"
 
-#: config/prefs.php:264
+#: config/prefs.php:273
 msgid "Change your personal information."
 msgstr "개인 정보를 변경합니다."
 
@@ -577,13 +619,32 @@ msgstr "중국어 번체 (Big5)"
 msgid "Choose %s"
 msgstr "%s 선택"
 
-#: config/prefs.php:475
+#: config/prefs.php:484
 msgid "Choose how to display dates (abbreviated format):"
 msgstr "날짜 표시 방식 선택하세요(간략 형식):"
 
-#: config/prefs.php:451
+#: config/prefs.php:460
 msgid "Choose how to display dates (full format):"
 msgstr "날짜 표시 방식을 선택하세요(전체 형식):"
+
+#: config/prefs.php:497
+msgid "Choose how to display times:"
+msgstr "시간 표시 방식을 선택하세요:"
+
+#: templates/admin/sqlshell.html.php:56
+#, fuzzy
+msgid "Clear Query"
+msgstr "검색어 지우기"
+
+#: templates/admin/user/clear.inc:7
+#, fuzzy, php-format
+msgid "Clear out user: %s"
+msgstr "사용자 지우기: %s"
+
+#: templates/admin/user/clear.inc:13
+#, fuzzy
+msgid "Clear user"
+msgstr "사용자 지우기"
 
 #: templates/admin/user/list.inc:35
 msgid "Clear user data"
@@ -625,7 +686,7 @@ msgstr "접기"
 msgid "Color Picker"
 msgstr "색상 선택자"
 
-#: config/registry.php:249
+#: config/registry.php:248
 msgid "Comics"
 msgstr "만화"
 
@@ -666,7 +727,7 @@ msgstr "구성"
 msgid "Configuration Differences"
 msgstr "구성 차이"
 
-#: config/prefs.php:714
+#: config/prefs.php:723
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
 msgstr "PDA, 스마트폰 및 아웃룩과의 동기화를 위한 구성입니다."
 
@@ -682,10 +743,6 @@ msgstr "사용 가능한 구성 업그레이드 스크립트가 존재함"
 #, php-format
 msgid "Configure %s"
 msgstr "%s 구성"
-
-#: lib/Prefs/Special/Activesync.php:64
-msgid "Configured Horde Default"
-msgstr "구성된 Horde 기본 값"
 
 #: templates/admin/user/update.inc:28
 msgid "Confirm Password"
@@ -713,13 +770,30 @@ msgstr "서버에 연결할 수 없습니다. 나중에 다시 시도하세요."
 msgid "Could not delete configuration upgrade script \"%s\"."
 msgstr "구성 업그레이드 스크립트 \"%s\"을(를) 삭제할 수 없습니다."
 
+#: templates/prefs/facebook.html.php:57
+#, fuzzy, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Facebook account."
+msgstr "페이스북 계정과 상호 작용하는 %s에 대한 인증을 찾을 수 없습니다."
+
 #: templates/prefs/twitter.html.php:15
 #, php-format
 msgid ""
 "Could not find authorization for %s to interact with your Twitter account"
 msgstr "트위터 계정과 상호 작용하는 %s에 대한 인증을 찾을 수 없습니다."
 
-#: services/resetpassword.php:104 admin/config/config.php:52
+#: services/resetpassword.php:104
+#, fuzzy
+msgid ""
+"Could not reset the password for the requested user. Some or all of the "
+"details are not correct. Try again or contact your administrator if you need "
+"further help."
+msgstr ""
+"요청한 사용자에 대한 암호를 재설정할 수 없습니다. 세부사항의 일부 또는 전체"
+"가 올바르지 않습니다. 재시도하거나 더 많은 도움이 필요할 경우 관리자에게 문의"
+"하세요."
+
+#: admin/config/config.php:52
 msgid "Could not revert configuration."
 msgstr "구성을 되돌릴 수 없습니다."
 
@@ -844,8 +918,8 @@ msgstr "날짜: %s; 시간: %s"
 msgid "Day"
 msgstr "일"
 
-#: config/prefs.php:379 config/prefs.php:400 config/prefs.php:413
-#: config/prefs.php:482 themes/default/info.php:2
+#: config/prefs.php:388 config/prefs.php:409 config/prefs.php:422
+#: config/prefs.php:491 themes/default/info.php:2
 msgid "Default"
 msgstr "기본"
 
@@ -857,11 +931,11 @@ msgstr "기본 색상"
 msgid "Default Shell"
 msgstr "기본 쉘"
 
-#: config/prefs.php:403
+#: config/prefs.php:412
 msgid "Default charset for sending e-mail messages:"
 msgstr "이메일 메시지를 보낼 때 사용될 기본 문자 집합:"
 
-#: config/prefs.php:296
+#: config/prefs.php:305
 msgid "Default location to use for location-aware features."
 msgstr "위치 인식 기능에 사용하는 기본 위치입니다."
 
@@ -909,7 +983,7 @@ msgstr "장치 \"%s\" 및 데이터베이스 \"%s\"에 대한 동기화 세션�
 msgid "Describe the Problem"
 msgstr "문제를 설명하세요"
 
-#: config/registry.php:209
+#: config/registry.php:208
 msgid "Development"
 msgstr "개발"
 
@@ -981,11 +1055,11 @@ msgstr "비활성화"
 msgid "Disable (not recommended)"
 msgstr "비활성화(비추천)"
 
-#: config/prefs.php:421
+#: config/prefs.php:430
 msgid "Display 24-hour times?"
 msgstr "24시간 형식으로 표시할까요?"
 
-#: config/prefs.php:532
+#: config/prefs.php:541
 msgid "Display Preferences"
 msgstr "화면 설정"
 
@@ -1003,7 +1077,7 @@ msgstr ""
 "첫 번째 행에 필드 이름이 포함되어 있습니까? 만일 그렇다면 이 확인란을 선택하"
 "세요:"
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:77
 msgid "Don't have an account? Sign up."
 msgstr "계정이 없습니까? 가입하세요."
 
@@ -1021,7 +1095,7 @@ msgstr "생성된 구성을 PHP 스크립트로 다운로드합니다."
 msgid "Drugs"
 msgstr "약제"
 
-#: templates/login/login.inc:26 templates/login/smartmobile.html.php:34
+#: templates/login/login.inc:22 templates/login/smartmobile.html.php:34
 msgid "Dynamic"
 msgstr "동적"
 
@@ -1081,7 +1155,7 @@ msgstr "영어"
 msgid "Enter a name for the new category:"
 msgstr "새로운 범주에 대한 이름을 입력하세요:"
 
-#: config/prefs.php:342
+#: config/prefs.php:351
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1133,23 +1207,23 @@ msgstr "인종"
 msgid "Event Invites:"
 msgstr "이벤트 참가자:"
 
-#: config/prefs.php:591 templates/portal/layout.inc:101
+#: config/prefs.php:600 templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "15분 마다"
 
-#: config/prefs.php:610
+#: config/prefs.php:619
 msgid "Every 2 minutes"
 msgstr "2분 마다"
 
-#: config/prefs.php:588 config/prefs.php:608 templates/portal/layout.inc:98
+#: config/prefs.php:597 config/prefs.php:617 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "30초 마다"
 
-#: config/prefs.php:590 config/prefs.php:611 templates/portal/layout.inc:100
+#: config/prefs.php:599 config/prefs.php:620 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "5분 마다"
 
-#: config/prefs.php:592 templates/portal/layout.inc:102
+#: config/prefs.php:601 templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "30분 마다"
 
@@ -1157,7 +1231,7 @@ msgstr "30분 마다"
 msgid "Every hour"
 msgstr "1시간 마다"
 
-#: config/prefs.php:589 config/prefs.php:609 templates/portal/layout.inc:99
+#: config/prefs.php:598 config/prefs.php:618 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "1분 마다"
 
@@ -1182,7 +1256,7 @@ msgstr "특대"
 msgid "FTP upload of configuration"
 msgstr "구성의 FTP 업로드"
 
-#: config/prefs.php:635
+#: config/prefs.php:644
 msgid "Facebook Integration"
 msgstr "페이스북 통합"
 
@@ -1210,7 +1284,7 @@ msgstr "체감온도:"
 msgid "Fields to search"
 msgstr "검색 대상 필드"
 
-#: config/registry.php:315
+#: config/registry.php:314
 msgid "File Manager"
 msgstr "파일 관리자"
 
@@ -1218,7 +1292,7 @@ msgstr "파일 관리자"
 msgid "Filter"
 msgstr "필터"
 
-#: config/registry.php:90
+#: config/registry.php:89
 msgid "Filters"
 msgstr "필터"
 
@@ -1246,11 +1320,11 @@ msgstr ""
 "예측 일수(반환된 예보는 낮과 밤 모두 반환합니다; 여기에 개수가 많으면 다양한 "
 "블록이 발생할 수 있습니다)"
 
-#: templates/login/login.inc:88
+#: templates/login/login.inc:84
 msgid "Forgot your password?"
 msgstr "암호를 잊으셨습니까?"
 
-#: config/registry.php:344
+#: config/registry.php:343
 msgid "Forms"
 msgstr "양식"
 
@@ -1270,7 +1344,7 @@ msgstr "명언"
 msgid "Fortunes 2"
 msgstr "명언 2"
 
-#: config/registry.php:338
+#: config/registry.php:337
 msgid "Forums"
 msgstr "포럼"
 
@@ -1402,7 +1476,7 @@ msgstr "결과 숨기기"
 msgid "Home Directory"
 msgstr "홈 디렉터리"
 
-#: config/registry.php:77
+#: config/registry.php:76
 msgid "Horde"
 msgstr "Horde"
 
@@ -1435,7 +1509,7 @@ msgstr "%s에 사용할 아이콘"
 msgid "Identity to use when sending email via ActiveSync."
 msgstr "액티브싱크를 통해 이메일을 보낼 때 사용할 신원입니다."
 
-#: config/prefs.php:274
+#: config/prefs.php:283
 msgid "Identity's name:"
 msgstr "신원의 이름:"
 
@@ -1481,7 +1555,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr "개별 사용자"
 
-#: config/registry.php:243
+#: config/registry.php:242
 msgid "Information"
 msgstr "정보"
 
@@ -1489,11 +1563,11 @@ msgstr "정보"
 msgid "Inherited Members"
 msgstr "상속된 구성원"
 
-#: config/prefs.php:354
+#: config/prefs.php:363
 msgid "Insert an email address to which you can receive the new password:"
 msgstr "새로운 암호를 받을 이메일 주소를 입력하세요:"
 
-#: config/prefs.php:348
+#: config/prefs.php:357
 msgid "Insert the required answer to the security question:"
 msgstr "보안 질문의 답변을 입력하세요:"
 
@@ -1518,7 +1592,7 @@ msgstr "잘못된 해시입니다."
 msgid "Invalid parent permission."
 msgstr "잘못된 상위 권한입니다."
 
-#: config/registry.php:296
+#: config/registry.php:295
 msgid "Inventory"
 msgstr "재고"
 
@@ -1526,7 +1600,7 @@ msgstr "재고"
 msgid "Japanese (ISO-2022-JP)"
 msgstr "일본어 (ISO-2022-JP)"
 
-#: login.php:167
+#: login.php:154
 msgid ""
 "JavaScript is either disabled or not available on your browser. You are "
 "restricted to the minimal view."
@@ -1550,7 +1624,7 @@ msgstr "키워드"
 msgid "Kids"
 msgstr "자녀"
 
-#: config/registry.php:304
+#: config/registry.php:303
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1558,7 +1632,7 @@ msgstr "Kolab"
 msgid "Korean (EUC-KR)"
 msgstr "한국어 (EUC-KR)"
 
-#: login.php:365 templates/login/login.inc:61
+#: login.php:344 templates/login/login.inc:57
 msgid "Language"
 msgstr "언어"
 
@@ -1659,10 +1733,10 @@ msgstr "문서"
 
 #: lib/Block/Weather.php:167
 #, php-format
-msgid "Local time: %s %s (UTC %s)"
-msgstr "현지 시간: %s %s(UTC %s)"
+msgid "Local time: %s %s"
+msgstr "현지 시간: %s %s"
 
-#: config/prefs.php:363
+#: config/prefs.php:372
 msgid "Locale and Time"
 msgstr "지역화 및 시간"
 
@@ -1678,7 +1752,7 @@ msgstr "사용자 잠금"
 msgid "Locks"
 msgstr "잠금"
 
-#: login.php:291 templates/login/login.inc:70
+#: login.php:271 templates/login/login.inc:66
 #: templates/topbar/_menubar.html.php:10
 msgid "Log in"
 msgstr "로그인"
@@ -1691,20 +1765,15 @@ msgstr "로그아웃"
 msgid "Logged in to Facebook"
 msgstr "페이스북에 로그인함"
 
-#: login.php:320
+#: login.php:300
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr "사용자명 또는 암호가 잘못 입력되어 로그인에 실패했습니다."
 
-#: login.php:316
+#: login.php:296
 msgid "Login failed."
 msgstr "로그인에 실패했습니다."
 
-#: login.php:399
-#, php-format
-msgid "Login to %s"
-msgstr "%s에 로그인"
-
-#: templates/prefs/facebook.html.php:62
+#: templates/prefs/facebook.html.php:61
 #, php-format
 msgid "Login to Facebook and authorize %s"
 msgstr "페이스북에 로그인하여 %s 승인"
@@ -1733,22 +1802,22 @@ msgstr "MM"
 msgid "Magic"
 msgstr "마술"
 
-#: config/registry.php:82
+#: config/registry.php:81
 msgid "Mail"
 msgstr "메일"
 
-#: config/registry.php:349
+#: config/registry.php:348
 msgid "Mail Admin"
 msgstr "메일 관리자"
 
-#: config/prefs.php:508
+#: config/prefs.php:517
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
 "라벨을 지정할 항목에 대한 범주의 목록과, 이 범주와 연관된 색상을 관리합니다."
 
-#: config/prefs.php:733
+#: config/prefs.php:742
 msgid "Manage your ActiveSync devices."
 msgstr "액티브싱크 장치를 관리합니다."
 
@@ -1828,15 +1897,15 @@ msgstr "기타"
 msgid "Missing configuration."
 msgstr "구성이 누락됐습니다."
 
-#: templates/login/login.inc:28 templates/login/smartmobile.html.php:36
+#: templates/login/login.inc:24 templates/login/smartmobile.html.php:36
 msgid "Mobile (Minimal)"
 msgstr "모바일(최소 표시)"
 
-#: templates/login/login.inc:29 templates/login/smartmobile.html.php:37
+#: templates/login/login.inc:25 templates/login/smartmobile.html.php:37
 msgid "Mobile (No JavaScript)"
 msgstr "모바일(자바스크립트 없음)"
 
-#: templates/login/login.inc:27 templates/login/smartmobile.html.php:35
+#: templates/login/login.inc:23 templates/login/smartmobile.html.php:35
 msgid "Mobile (Smartphone/Tablet)"
 msgstr "모바일(스마트폰/태블릿)"
 
@@ -1844,7 +1913,7 @@ msgstr "모바일(스마트폰/태블릿)"
 msgid "Mobile Optimized Apps"
 msgstr "모바일 최적화 응용 프로그램"
 
-#: templates/login/login.inc:20 templates/login/smartmobile.html.php:29
+#: templates/login/login.inc:16 templates/login/smartmobile.html.php:29
 msgid "Mode"
 msgstr "모드"
 
@@ -1857,7 +1926,7 @@ msgstr "모델"
 msgid "Module is up-to-date."
 msgstr "모듈이 최신입니다."
 
-#: config/prefs.php:496
+#: config/prefs.php:505
 msgid "Monday"
 msgstr "월요일"
 
@@ -1865,7 +1934,7 @@ msgstr "월요일"
 msgid "Moon Phases"
 msgstr "달의 위상"
 
-#: config/registry.php:309
+#: config/registry.php:308
 msgid "My Account"
 msgstr "내 계정"
 
@@ -1896,7 +1965,7 @@ msgid "NO, I Do NOT Agree"
 msgstr "아니오, 동의하지 않습니다"
 
 #: templates/admin/activesync.html.php:37
-#: templates/prefs/activesync.html.php:69
+#: templates/prefs/activesync.html.php:68
 msgid ""
 "NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
 "REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
@@ -1909,7 +1978,7 @@ msgstr ""
 msgid "Name"
 msgstr "이름"
 
-#: config/prefs.php:587 config/prefs.php:607 templates/portal/layout.inc:97
+#: config/prefs.php:596 config/prefs.php:616 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "없음"
 
@@ -1937,7 +2006,7 @@ msgstr "새로운 암호"
 msgid "New passwords don't match."
 msgstr "새로운 암호가 일치하지 않습니다."
 
-#: config/registry.php:254 lib/Block/Fortune.php:59
+#: config/registry.php:253 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "뉴스"
 
@@ -2016,10 +2085,15 @@ msgstr "NoSQL 인덱스가 준비됐습니다."
 msgid "NoSQL indices for %s"
 msgstr "%s에 대한 NoSQL 인덱스"
 
+#: admin/config/index.php:286
+#, fuzzy
+msgid "NoSQL indices out of date."
+msgstr "NoSQL 인덱스가 오래됐습니다."
+
 #: templates/activesync/device_table.html.php:23
 #: templates/admin/activesync.html.php:28
 #: templates/prefs/activesync.html.php:50
-#: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
+#: templates/prefs/activesync.html.php:62 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "없음"
 
@@ -2036,7 +2110,7 @@ msgstr "북반구"
 msgid "Not Provisioned"
 msgstr "프로비저닝 되지 않음"
 
-#: config/registry.php:169
+#: config/registry.php:168
 msgid "Notes"
 msgstr "메모"
 
@@ -2068,7 +2142,7 @@ msgstr "개체 생성자"
 msgid "Offense filter"
 msgstr "비속어 필터"
 
-#: config/registry.php:266
+#: config/registry.php:265
 msgid "Office"
 msgstr "사무실"
 
@@ -2104,8 +2178,8 @@ msgstr "운영체제"
 msgid "Or enter a user name:"
 msgstr "또는 사용자명을 입력하세요:"
 
-#: config/prefs.php:531 config/prefs.php:634 config/prefs.php:660
-#: config/prefs.php:686 config/prefs.php:712 config/prefs.php:731
+#: config/prefs.php:540 config/prefs.php:643 config/prefs.php:669
+#: config/prefs.php:695 config/prefs.php:721 config/prefs.php:740
 msgid "Other Information"
 msgstr "기타 정보"
 
@@ -2113,7 +2187,7 @@ msgstr "기타 정보"
 msgid "Other Options"
 msgstr "기타 옵션"
 
-#: config/registry.php:180
+#: config/registry.php:179
 msgid "Others"
 msgstr "기타"
 
@@ -2149,8 +2223,8 @@ msgstr "POSIX 확장자가 누락됐습니다."
 msgid "P_HP Shell"
 msgstr "PHP 쉘"
 
-#: login.php:211 admin/config/index.php:414 admin/user.php:39
-#: admin/user.php:53 config/registry.php:327
+#: login.php:191 admin/config/index.php:414 admin/user.php:39
+#: admin/user.php:53 config/registry.php:326
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "암호"
@@ -2167,7 +2241,7 @@ msgstr "암호가 성공적으로 변경됐습니다."
 msgid "Passwords must match."
 msgstr "암호는 일치해야 합니다."
 
-#: templates/admin/sqlshell.html.php:43
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "붙여넣기"
 
@@ -2197,7 +2271,7 @@ msgstr "권한"
 msgid "Permissions Administration"
 msgstr "권한 관리"
 
-#: config/prefs.php:263
+#: config/prefs.php:272
 msgid "Personal Information"
 msgstr "개인 정보"
 
@@ -2209,7 +2283,7 @@ msgstr "애완동물"
 msgid "Phone Number"
 msgstr "전화번호"
 
-#: config/registry.php:197
+#: config/registry.php:196
 msgid "Photos"
 msgstr "사진"
 
@@ -2217,11 +2291,11 @@ msgstr "사진"
 msgid "Platitudes"
 msgstr "진부한 이야기"
 
-#: login.php:217
+#: login.php:197
 msgid "Please enter a password."
 msgstr "암호를 입력해주세요."
 
-#: login.php:216
+#: login.php:196
 msgid "Please enter a username."
 msgstr "사용자명을 입력해주세요."
 
@@ -2244,7 +2318,7 @@ msgstr "콕 찌르기:"
 msgid "Politics"
 msgstr "정치"
 
-#: config/prefs.php:747
+#: config/prefs.php:761
 msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
@@ -2345,11 +2419,11 @@ msgstr ""
 "정말로 사용자 \"%s\"에 대한 사용자 데이터를 삭제하시겠습니까? 이 작업은 취소"
 "할 수 없습니다."
 
-#: config/prefs.php:613
+#: config/prefs.php:622
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "동적 메뉴 요소의 새로 고침 주기:"
 
-#: config/prefs.php:594
+#: config/prefs.php:603
 msgid "Refresh Portal View:"
 msgstr "포털 화면 새로 고침:"
 
@@ -2369,7 +2443,7 @@ msgstr "비고"
 msgid "Remote Host"
 msgstr "원격 호스트"
 
-#: templates/activesync/device_table.html.php:38
+#: templates/activesync/device_table.html.php:37
 #: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
 #: templates/admin/user/removequeued.inc:13
 #: templates/prefs/activesync.html.php:47
@@ -2419,7 +2493,14 @@ msgid "Reset Password"
 msgstr "암호 초기화"
 
 #: templates/admin/activesync.html.php:32
-#: templates/prefs/activesync.html.php:15 services/resetpassword.php:27
+#: templates/prefs/activesync.html.php:15
+#, fuzzy
+msgid "Reset all device state"
+msgstr ""
+"모든 장치 상태를 재설정하세요. 이 작업으로 인해 장치가 모든 아이템을 재동기화"
+"하게 됩니다."
+
+#: services/resetpassword.php:27
 msgid "Reset your password"
 msgstr "암호 재설정"
 
@@ -2458,7 +2539,7 @@ msgstr "구성 되돌리기"
 msgid "Riddles"
 msgstr "수수께끼"
 
-#: templates/admin/sqlshell.html.php:44
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "실행"
 
@@ -2587,11 +2668,11 @@ msgstr "시간 구분자를 선택하세요:"
 msgid "Select the time format:"
 msgstr "시간 형식을 선택하세요:"
 
-#: config/prefs.php:580
+#: config/prefs.php:589
 msgid "Select your color scheme."
 msgstr "색 구성표를 선택하세요."
 
-#: config/prefs.php:376
+#: config/prefs.php:385
 msgid "Select your preferred language:"
 msgstr "선호하는 언어를 선택하세요:"
 
@@ -2619,24 +2700,24 @@ msgstr "세션 날짜/시간 기록:"
 msgid "Sessions"
 msgstr "세션"
 
-#: config/prefs.php:326
+#: config/prefs.php:335
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr "암호를 잊어버린 경우 재설정할 수 있도록 설정합니다."
 
-#: config/prefs.php:636
+#: config/prefs.php:645
 msgid "Set up integration with your Facebook account."
 msgstr "페이스북 계정과의 통합을 설정합니다."
 
-#: config/prefs.php:662
+#: config/prefs.php:671
 msgid "Set up integration with your Twitter account."
 msgstr "트위터 계정과의 통합을 설정합니다."
 
-#: config/prefs.php:364
+#: config/prefs.php:373
 msgid "Set your preferred language, timezone and date preferences."
 msgstr "선호하는 언어, 시간대 및 날짜를 설정합니다."
 
-#: config/prefs.php:533
+#: config/prefs.php:542
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
@@ -2653,9 +2734,13 @@ msgstr "매개 변수에 사용 가능한 여러 위치: %s"
 msgid "Short Summary"
 msgstr "짧은 요약:"
 
-#: config/prefs.php:620
+#: config/prefs.php:629
 msgid "Should access keys be defined for most links?"
 msgstr "대부분의 링크에 대한 접근 키를 정의할까요?"
+
+#: config/prefs.php:756
+msgid "Should multiple collections be multiplexed?"
+msgstr ""
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
@@ -2685,7 +2770,7 @@ msgstr "현재 저장된 구성 및 새로 생성된 구성 간의 차이점을 
 msgid "Show extra detail?"
 msgstr "추가 세부사항을 표시할까요?"
 
-#: config/prefs.php:565
+#: config/prefs.php:574
 msgid "Show last login time when logging in?"
 msgstr "로그인 시 최근 로그인 시간을 표시할까요?"
 
@@ -2722,7 +2807,7 @@ msgstr "남유럽어 (ISO-8859-3)"
 msgid "Southern Hemisphere"
 msgstr "남반구"
 
-#: config/registry.php:106
+#: config/registry.php:105
 msgid "Spam"
 msgstr "스팸"
 
@@ -2824,7 +2909,7 @@ msgstr "일출"
 msgid "Sun Set"
 msgstr "일몰"
 
-#: config/prefs.php:495
+#: config/prefs.php:504
 msgid "Sunday"
 msgstr "일요일"
 
@@ -2844,7 +2929,7 @@ msgstr "일몰"
 msgid "Sync all"
 msgstr "모두 동기화"
 
-#: config/prefs.php:713
+#: config/prefs.php:722
 msgid "SyncML"
 msgstr "SyncML"
 
@@ -2856,7 +2941,7 @@ msgstr "신디케이션된 피드"
 msgid "Tag Cloud"
 msgstr "태그 클라우드"
 
-#: config/registry.php:155
+#: config/registry.php:154
 msgid "Tasks"
 msgstr "과제"
 
@@ -2885,7 +2970,7 @@ msgstr "일시적으로 트위터에 연결할 수 없습니다. 다시 시도�
 msgid "Thai (TIS-620)"
 msgstr "태국어 (TIS-620)"
 
-#: lib/Prefs/Special/Activesync.php:101
+#: lib/Prefs/Special/Activesync.php:96
 #, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
 msgstr "장치 id %s에 대한 원격 초기화가 취소됐습니다."
@@ -2907,7 +2992,7 @@ msgstr ""
 "%s에 대한 구성을 자동으로 업데이트 할 수 없습니다. 구성을 수동으로 업데이트 "
 "해주세요."
 
-#: config/prefs.php:290
+#: config/prefs.php:299
 msgid "The default e-mail address to use with this identity:"
 msgstr "이 신원에 사용할 기본 이메일 주소:"
 
@@ -2953,7 +3038,7 @@ msgstr "\"%s\"에 대한 가입 승인 요청이 제거됐습니다."
 msgid "The signup request for user \"%s\" has been removed."
 msgstr "사용자 \"%s\"에 대한 가입 승인 요청이 제거됐습니다."
 
-#: lib/Prefs/Special/Activesync.php:116
+#: lib/Prefs/Special/Activesync.php:111
 #, php-format
 msgid ""
 "The state for device id %s has been reset. It will resynchronize next time "
@@ -3000,7 +3085,7 @@ msgstr "\"%s\"을(를) 시스템에서 제거하는 동안 문제가 발생했�
 msgid "There was a problem updating \"%s\": %s"
 msgstr "\"%s\"을(를) 업데이트 하는 동안 문제가 발생했습니다: %s"
 
-#: lib/Prefs/Special/Activesync.php:119
+#: lib/Prefs/Special/Activesync.php:114
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr "액티브싱크 서버와 통신하는 동안 오류가 발생했습니다: %s"
@@ -3057,11 +3142,11 @@ msgstr "이 작업으로 인해  모든 장치가 모든 항목을 다시 동기
 msgid "This will cause your devices to resyncronize all items."
 msgstr "이 작업으로 인해 모든 장치가 모든 항목을  다시 동기화할 것입니다."
 
-#: config/registry.php:226
+#: config/registry.php:225
 msgid "Tickets"
 msgstr "티켓"
 
-#: config/registry.php:272
+#: config/registry.php:271
 msgid "Time Tracking"
 msgstr "시간 추적"
 
@@ -3104,7 +3189,7 @@ msgstr "오늘"
 msgid "Tomorrow"
 msgstr "내일"
 
-#: config/prefs.php:748
+#: config/prefs.php:762
 msgid "Top"
 msgstr "위"
 
@@ -3120,7 +3205,7 @@ msgstr "터키어 (ISO-8859-9)"
 msgid "Tweet"
 msgstr "트윗 보내기"
 
-#: config/prefs.php:661
+#: config/prefs.php:670
 msgid "Twitter Integration"
 msgstr "트위터 통합"
 
@@ -3154,11 +3239,7 @@ msgstr "'좋아요'를 설정할 수 없습니다."
 msgid "Unable to validate the request token. Please try your request again."
 msgstr "요청 토큰을 검증할 수 없습니다. 요청을 다시 시도해주세요."
 
-#: admin/activesync.php:90 lib/Prefs/Special/Activesync.php:54
-msgid "Unavailable"
-msgstr "사용할 수 없음"
-
-#: templates/activesync/device_table.html.php:41
+#: templates/activesync/device_table.html.php:40
 msgid "Unblock"
 msgstr "차단 해제"
 
@@ -3238,7 +3319,7 @@ msgstr "업로드"
 msgid "Uploaded all application configuration files to the server."
 msgstr "모든 응용 프로그램 구성파일을 서버로 업로드했습니다."
 
-#: config/prefs.php:688
+#: config/prefs.php:697
 msgid "Use if name/password is different for IMSP server."
 msgstr "사용자명/암호가 IMSP 서버와 다를 경우 사용합니다."
 
@@ -3280,7 +3361,7 @@ msgstr "사용자 계정을 찾을 수 없음"
 msgid "User to add:"
 msgstr "추가할 사용자:"
 
-#: login.php:206 admin/config/index.php:413 admin/user.php:36
+#: login.php:186 admin/config/index.php:413 admin/user.php:36
 #: admin/user.php:52 services/resetpassword.php:33
 #: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
@@ -3314,7 +3395,7 @@ msgstr "버전"
 msgid "Version Check"
 msgstr "버전 확인"
 
-#: config/registry.php:215
+#: config/registry.php:214
 msgid "Version Control"
 msgstr "버전 관리"
 
@@ -3334,7 +3415,7 @@ msgstr "공개여부"
 msgid "Warning"
 msgstr "경고"
 
-#: templates/login/login.inc:43
+#: templates/login/login.inc:39
 msgid "Warning: Your Caps Lock key is on!"
 msgstr "경고: Caps Lock 키가 켜져 있습니다!"
 
@@ -3346,7 +3427,7 @@ msgstr "날씨"
 msgid "Weather data provided by"
 msgstr "날씨 정보 제공자:"
 
-#: config/registry.php:332
+#: config/registry.php:331
 msgid "Web Site"
 msgstr "웹 사이트"
 
@@ -3371,7 +3452,7 @@ msgstr "서유럽어 (ISO-8859-1)"
 msgid "Western (ISO-8859-15)"
 msgstr "서유럽어 (ISO-8859-15)"
 
-#: config/prefs.php:545
+#: config/prefs.php:554
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "로그인한 후에 %s이(가) 어느 응용 프로그램을 표시할까요?"
@@ -3388,7 +3469,7 @@ msgstr "구분 문자는 무엇입니까?"
 msgid "What is the quote character?"
 msgstr "인용 부호는 무엇입니까?"
 
-#: config/prefs.php:498
+#: config/prefs.php:507
 msgid "Which day would you like to be displayed as the first day of the week?"
 msgstr "어느 요일을 한 주의 첫 번째 날로 표시하길 원하십니까?"
 
@@ -3396,7 +3477,7 @@ msgstr "어느 요일을 한 주의 첫 번째 날로 표시하길 원하십니�
 msgid "Which phases"
 msgstr "어느 단계"
 
-#: config/prefs.php:600
+#: config/prefs.php:609
 #, php-format
 msgid "Width of the %s menu on the left:"
 msgstr "%s 왼쪽 메뉴의 넓이:"
@@ -3405,7 +3486,7 @@ msgstr "%s 왼쪽 메뉴의 넓이:"
 msgid "Wifi"
 msgstr "와이파이"
 
-#: config/registry.php:203
+#: config/registry.php:202
 msgid "Wiki"
 msgstr "위키"
 
@@ -3420,6 +3501,12 @@ msgstr "풍속(노트 단위)"
 #: lib/Block/Metar.php:130
 msgid "Wind:"
 msgstr "바람:"
+
+#: templates/activesync/device_table.html.php:32
+#: templates/prefs/activesync.html.php:37
+#, fuzzy
+msgid "Wipe"
+msgstr "삭제"
 
 #: templates/activesync/device_table.html.php:12
 #: templates/prefs/activesync.html.php:40
@@ -3438,7 +3525,7 @@ msgstr "함께"
 msgid "Work"
 msgstr "직장"
 
-#: config/registry.php:238
+#: config/registry.php:237
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3525,7 +3612,7 @@ msgid ""
 "to login."
 msgstr "서비스 계약 약관에 동의하지 않았으므로, 로그인 할 수 없습니다."
 
-#: login.php:312
+#: login.php:292
 msgid "You have been logged out."
 msgstr "로그아웃 됐습니다."
 
@@ -3572,12 +3659,12 @@ msgstr "업데이트할 사용자명을 지정해야 합니다."
 msgid "Your Email Address"
 msgstr "이메일 주소"
 
-#: config/prefs.php:262 config/prefs.php:324 config/prefs.php:362
-#: config/prefs.php:506
+#: config/prefs.php:271 config/prefs.php:333 config/prefs.php:371
+#: config/prefs.php:515
 msgid "Your Information"
 msgstr "정보"
 
-#: login.php:300
+#: login.php:280
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3606,7 +3693,7 @@ msgstr ""
 "인증 백엔드가 사용자 목록 표시를 지원하지 않거나 다른 이유로 사용자 목록을 사"
 "용할 수 없습니다."
 
-#: login.php:304
+#: login.php:284
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
@@ -3618,15 +3705,15 @@ msgstr ""
 msgid "Your browser does not support this feature."
 msgstr "브라우저가 이 기능을 지원하지 않습니다."
 
-#: config/prefs.php:410
+#: config/prefs.php:419
 msgid "Your current time zone:"
 msgstr "현재 시간대:"
 
-#: config/prefs.php:282
+#: config/prefs.php:291
 msgid "Your full name:"
 msgstr "전체 이름:"
 
-#: login.php:324
+#: login.php:304
 msgid "Your login has expired."
 msgstr "로그인이 만료됐습니다."
 
@@ -3639,21 +3726,41 @@ msgstr "%s의 새로운 암호는 다음과 같습니다: %s"
 msgid "Your password has been reset"
 msgstr "암호가 재설정됐습니다"
 
-#: services/resetpassword.php:99 services/resetpassword.php:94
-#: services/changepassword.php:50 lib/Block/Account/Ldap.php:212
-#: lib/Block/Account/Ldap.php:224
+#: services/resetpassword.php:99
+msgid ""
+"Your password has been reset, but couldn't be sent to you. Please contact "
+"the administrator."
+msgstr ""
+"패스워드를 재설정했으나, 이메일을 보낼 수 없었습니다. 관리자에게 문의해주세"
+"요."
+
+#: services/resetpassword.php:94
+msgid ""
+"Your password has been reset, check your email and log in with your new "
+"password."
+msgstr " 재설정했습니다. 이메일을 확인하시고 새로운 암호로 로그인하세요."
+
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"암호를 성공적으로 변경되었습니다. 새 암호를 사용하여 시스템에 다시 로그인해"
+"야 합니다."
+
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
 msgstr "암호가 만료됐습니다"
 
-#: login.php:178
+#: login.php:165
 msgid "Your password has expired."
 msgstr "암호가 만료됐습니다."
 
-#: login.php:296
+#: login.php:276
 msgid "Your session has expired. Please login again."
 msgstr "세션이 만료됐습니다. 다시 로그인해주세요."
 
-#: login.php:308
+#: login.php:288
 msgid ""
 "Your session length has exceeded the maximum amount of time allowed. Please "
 "login again."
@@ -3735,6 +3842,18 @@ msgstr "확인을 위해 암호를 두 번 입력하세요"
 msgid "unified"
 msgstr "분류되지 않음"
 
-#: lib/Block/Weather.php:33
+#: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "날씨"
+
+#~ msgid "Cached Heartbeat (seconds)"
+#~ msgstr "캐시된 하트비트(초)"
+
+#~ msgid "Configured Horde Default"
+#~ msgstr "구성된 Horde 기본 값"
+
+#~ msgid "Login to %s"
+#~ msgstr "%s에 로그인"
+
+#~ msgid "Unavailable"
+#~ msgstr "사용할 수 없음"
