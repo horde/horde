@@ -11,15 +11,14 @@ msgstr ""
 "Project-Id-Version: Turba 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-17 16:48+0900\n"
-"PO-Revision-Date: 2014-08-09 02:11+0900\n"
+"PO-Revision-Date: 2014-04-21 16:20+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data.php:287
+#: data.php:292
 #, php-format
 msgid "\"%s\" already exists and was not imported."
 msgstr "\"%s\"(이)가 이미 존재하며 가져오지 않았습니다."
@@ -54,29 +53,29 @@ msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"성, 이름\" (예시: 홍, 길동)"
 
 #: lib/Driver.php:756
-#, php-format
+#, fuzzy, php-format
 msgid "%d. %s of %s"
-msgstr ""
+msgstr "%d %s 및 %s"
 
 #: lib/Form/AddContact.php:88
 #, php-format
 msgid "%s added."
 msgstr "%s(을)를 추가했습니다."
 
-#: data.php:319
+#: data.php:324
 #, php-format
 msgid "%s file successfully imported."
 msgstr "%s 파일을 성공적으로 가져왔습니다."
 
-#: lib/Api.php:1446
-#, php-format
+#: lib/Api.php:1441
+#, fuzzy, php-format
 msgid "%s in %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: templates/list/numPager.inc:6
-#, php-format
+#, fuzzy, php-format
 msgid "%s to %s of %s"
-msgstr ""
+msgstr "%s %s에 %s (%s)부터"
 
 #: templates/search/duplicate/contact_header.html.php:14
 msgid "<< Merge this into the first contact"
@@ -99,14 +98,14 @@ msgstr "파일 추가"
 msgid "Add to"
 msgstr "추가할 위치"
 
-#: lib/Api.php:1619
+#: lib/Api.php:1614
 #, php-format
 msgid "Added or updated %d contact, but at least one contact failed:"
 msgid_plural "Added or updated %d contacts, but at least one contact failed:"
 msgstr[0] ""
 "%d개의 연락처를 추가 또는 업데이트했으나, 하나 이상의 연락처를 실패했습니다:"
 
-#: lib/Driver.php:3014
+#: lib/Driver.php:3010
 msgid "Adding contacts is not available."
 msgstr "연락처 추가를 사용할 수 없습니다."
 
@@ -132,7 +131,7 @@ msgstr "주소록이 존재하지 않음"
 msgid "Address book of %s"
 msgstr "%s의 주소록"
 
-#: data.php:262
+#: data.php:267
 msgid "Address book successfully purged."
 msgstr "주소록을 성공적으로 제거했습니다."
 
@@ -367,7 +366,7 @@ msgstr "회사 전화"
 msgid "Connection failure"
 msgstr "연결 실패"
 
-#: lib/Smartmobile.php:119 templates/browse/row.inc:56
+#: lib/Smartmobile.php:119
 msgid "Contact List"
 msgstr "연락처 목록"
 
@@ -379,7 +378,7 @@ msgstr "연락처 목록 구성원"
 msgid "Contact Search"
 msgstr "연락처 검색"
 
-#: lib/Driver/Kolab.php:969
+#: lib/Driver/Kolab.php:965
 msgid "Contacts"
 msgstr "연락처"
 
@@ -430,7 +429,7 @@ msgstr "주소록 생성"
 msgid "Create a new Address Book"
 msgstr "새로운 주소록 생성"
 
-#: lib/View/List.php:495
+#: lib/View/List.php:494
 msgid "Create a new Contact List in:"
 msgstr "다음 위치에 새로운 연락처 목록 생성:"
 
@@ -477,7 +476,7 @@ msgstr "삭제를 실패했습니다: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "연락처를 삭제했습니다: %s"
 
-#: lib/Driver.php:3027
+#: lib/Driver.php:3023
 msgid "Deleting contacts is not available."
 msgstr "연락처를 삭제할 수 없습니다."
 
@@ -539,10 +538,15 @@ msgstr "\"%s\" 편집"
 msgid "Edit %s"
 msgstr "%s 편집"
 
-#: edit.php:87 lib/View/EditContact.php:27
+#: edit.php:87
 #, php-format
 msgid "Edit Contact List \"%s\""
 msgstr "연락처 목록 \"%s\" 편집"
+
+#: lib/View/EditContact.php:27
+#, php-format
+msgid "Edit Group \"%s\""
+msgstr "그룹 \"%s\" 편집"
 
 #: lib/Form/EditContact.php:124
 msgid "Edit/View Contact List Members"
@@ -643,7 +647,7 @@ msgstr "추가할 개체를 찾을 수 없음"
 msgid "Failed to search the address book"
 msgstr "주소록을 검색할 수 없음"
 
-#: lib/Application.php:538
+#: lib/Application.php:537
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "다음 디렉터리를 검색할 수 없음: %s"
@@ -685,6 +689,11 @@ msgstr "검색할 위치"
 #: config/attributes.php:530
 msgid "Gender"
 msgstr "성별"
+
+#: templates/browse/row.inc:56
+#, fuzzy
+msgid "Group"
+msgstr "그룹"
 
 #: config/attributes.php:148
 msgid "Home Address"
@@ -759,7 +768,7 @@ msgstr "IMSP"
 msgid "Import Address Book, Step %d"
 msgstr "주소록 가져오기, %d 번째 단계"
 
-#: data.php:338
+#: data.php:343
 msgid "Import/Export Address Books"
 msgstr "주소록 가져오기/내보내기"
 
@@ -780,7 +789,7 @@ msgstr "잘못된 ID"
 msgid "Invalid address book."
 msgstr "잘못된 주소록입니다."
 
-#: lib/Api.php:678 lib/Api.php:1629 lib/Api.php:2202
+#: lib/Api.php:678 lib/Api.php:1624 lib/Api.php:2200
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "잘못된 주소록: %s"
@@ -789,11 +798,11 @@ msgstr "잘못된 주소록: %s"
 msgid "Invalid contact unique ID"
 msgstr "잘못된 연락처 고유 ID"
 
-#: lib/Api.php:1633 lib/Api.php:1718 lib/Api.php:1789
+#: lib/Api.php:1628 lib/Api.php:1713 lib/Api.php:1784
 msgid "Invalid email"
 msgstr "잘못된 이메일"
 
-#: lib/Api.php:1641
+#: lib/Api.php:1636
 msgid "Invalid entry"
 msgstr "잘못된 입력내용"
 
@@ -801,7 +810,7 @@ msgstr "잘못된 입력내용"
 msgid "Invalid key specified."
 msgstr "잘못된 키가 지정됐습니다."
 
-#: lib/Api.php:1637
+#: lib/Api.php:1632
 msgid "Invalid name"
 msgstr "잘못된 이름"
 
@@ -916,7 +925,7 @@ msgstr "수정을 실패함: (%s) %s"
 msgid "More Options..."
 msgstr "추가 옵션..."
 
-#: lib/Api.php:1766
+#: lib/Api.php:1761
 msgid "More than 1 entry found"
 msgstr "1개 이상의 입력내용을 찾았음"
 
@@ -933,7 +942,7 @@ msgstr "Mulberry 주소록"
 msgid "Multiple contacts found with same unique ID %s."
 msgstr "동일한 고유 ID %s의 다중 연락처를 찾았습니다."
 
-#: lib/Api.php:1664
+#: lib/Api.php:1659
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
@@ -982,7 +991,7 @@ msgstr "다음"
 msgid "Nickname"
 msgstr "별칭"
 
-#: lib/Api.php:1769 lib/Api.php:1825
+#: lib/Api.php:1764 lib/Api.php:1820
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "%s에 대한 %s 입력내용을 찾을 수 없음"
@@ -1001,7 +1010,7 @@ msgstr "사용 가능한 주소록이 없습니다. 검색이 비활성화됐습
 msgid "No Name"
 msgstr "이름 없음"
 
-#: lib/Api.php:2196
+#: lib/Api.php:2194
 msgid "No address book specified"
 msgstr "지정한 주소록이 없음"
 
@@ -1021,7 +1030,7 @@ msgstr "현재 필터와 일치하는 연락처가 없음"
 msgid "No duplicates found."
 msgstr "중복된 연락처가 없습니다."
 
-#: lib/View/List.php:254
+#: lib/View/List.php:253
 msgid "No matching contacts"
 msgstr "일치하는 연락처가 없음"
 
@@ -1059,7 +1068,7 @@ msgstr "페이지 당 표시할 항목 개수"
 msgid "Object %s not found."
 msgstr "개체 %s(을) 찾을 수 없습니다."
 
-#: lib/Driver/Kolab.php:768
+#: lib/Driver/Kolab.php:766
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "UID %s의 개체가 존재하지 않습니다!"
@@ -1136,8 +1145,8 @@ msgstr "호출기"
 msgid "Permanently delete this contact?"
 msgstr "이 연락처를 영구적으로 삭제할까요?"
 
-#: deletefile.php:32 lib/Api.php:686 lib/Api.php:1647 lib/Driver.php:967
-#: lib/Driver/Share.php:328 lib/Driver/Sql.php:667
+#: deletefile.php:32 lib/Api.php:686 lib/Api.php:1642 lib/Driver.php:967
+#: lib/Driver/Share.php:328 lib/Driver/Sql.php:662
 msgid "Permission denied"
 msgstr "권한이 거부됨"
 
@@ -1192,7 +1201,7 @@ msgstr "무선 전화"
 msgid "Read failed: (%s) %s"
 msgstr "읽기를 실패함: (%s) %s"
 
-#: lib/Driver.php:3000
+#: lib/Driver.php:2996
 msgid "Reading contacts is not available."
 msgstr "연락처 읽기를 사용할 수 없습니다."
 
@@ -1205,7 +1214,7 @@ msgstr ""
 "정말로 주소록 \"%s\"(을)를 삭제하시겠습니까? 이 작업은 취소할 수 없으며 이 주"
 "소록의 모든 연락처가 영구적으로 삭제됩니다."
 
-#: lib/Driver.php:3052
+#: lib/Driver.php:3048
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1245,7 +1254,7 @@ msgstr "저장"
 msgid "Save search as a virtual address book?"
 msgstr "검색을 가상 주소록으로 저장할까요?"
 
-#: lib/Driver.php:3040
+#: lib/Driver.php:3036
 msgid "Saving contacts is not available."
 msgstr "연락처 저장을 사용할 수 없습니다."
 
@@ -1264,11 +1273,11 @@ msgstr "검색 조건이 숨겨짐 - 표시하려면 클릭"
 msgid "Search duplicates in:"
 msgstr "중복 연락처 검색 위치:"
 
-#: lib/Api.php:1413
+#: lib/Api.php:1408
 msgid "Search failed"
 msgstr "검색을 실패함"
 
-#: lib/Api.php:1653 lib/Api.php:1660 lib/Api.php:1670 lib/Api.php:1684
+#: lib/Api.php:1648 lib/Api.php:1655 lib/Api.php:1665 lib/Api.php:1679
 #, php-format
 msgid "Search failed: %s"
 msgstr "검색을 실패함: %s"
@@ -1277,7 +1286,7 @@ msgstr "검색을 실패함: %s"
 msgid "Search for: "
 msgstr "검색할 내용:"
 
-#: lib/Driver.php:2979
+#: lib/Driver.php:2975
 msgid "Searching is not available."
 msgstr "검색을 사용할 수 없습니다."
 
@@ -1340,27 +1349,6 @@ msgstr "이름을 표시할 형식을 선택합니다."
 msgid "Selected address book \"%s\"."
 msgstr "주소록 \"%s\"(을)를 선택했습니다."
 
-#: lib/Driver/Sql.php:426
-msgid "Server error when adding data."
-msgstr "데이터를 추가하는 도중 서버 오류가 발생했습니다."
-
-#: lib/Driver/Sql.php:472 lib/Driver/Sql.php:502 lib/Driver/Sql.php:511
-msgid "Server error when deleting data."
-msgstr "데이터를 삭제하는 도중 서버 오류가 발생했습니다."
-
-#: lib/Factory/Driver.php:82
-msgid "Server error when initializing database connection."
-msgstr "데이터베이스 연결을 초기화하는 도중 서버 오류가 발생했습니다."
-
-#: lib/Api.php:1916 lib/Api.php:1947 lib/Api.php:2013 lib/Api.php:2094
-#: lib/Driver/Sql.php:175 lib/Driver/Sql.php:324 lib/Driver/Sql.php:403
-msgid "Server error when performing search."
-msgstr "검색을 수행하는 도중 서버 오류가 발생했습니다."
-
-#: lib/Driver/Sql.php:544
-msgid "Server error when saving data."
-msgstr "데이터를 저장하는 도중 서버 오류가 발생했습니다."
-
 #: config/backends.php:228 config/backends.php:601 lib/Application.php:241
 msgid "Shared Address Books"
 msgstr "공유 주소록"
@@ -1381,7 +1369,7 @@ msgstr "연락처 표시"
 msgid "Show _Lists"
 msgstr "목록 표시"
 
-#: lib/View/List.php:333 lib/View/List.php:343
+#: lib/View/List.php:332 lib/View/List.php:342
 msgid "Sort Direction"
 msgstr "정렬 방향"
 
@@ -1444,7 +1432,8 @@ msgid "Successfully removed %d contact(s) from list."
 msgstr "%d개의 연락처를 목록에서 성공적으로 삭제했습니다."
 
 #: config/prefs.php:91
-msgid "Support separate address books?"
+#, fuzzy
+msgid "Support separate collections?"
 msgstr "개별 주소록을 지원할까요?"
 
 #: config/prefs.php:20
@@ -1475,7 +1464,7 @@ msgstr "대상 주소록"
 msgid "Target Contact List"
 msgstr "대상 연락처 목록"
 
-#: data.php:256
+#: data.php:261
 #, php-format
 msgid "The %s file didn't contain any contacts."
 msgstr "%s 파일이 아무 연락처도 포함하지 않았습니다."
@@ -1498,7 +1487,7 @@ msgstr "주소록 \"%s\"(이)가 존재하지 않습니다."
 msgid "The address book \"%s\" has been created."
 msgstr "주소록 \"%s\"(이)가 생성됐습니다."
 
-#: data.php:264
+#: data.php:269
 #, php-format
 msgid "The address book could not be purged: %s"
 msgstr "주소록을 제거할 수 없습니다: %s"
@@ -1531,7 +1520,7 @@ msgstr "요청한 연락처가 존재하지 않습니다."
 msgid "The file \"%s\" has been deleted."
 msgstr "파일 \"%s\"(이)가 삭제됐습니다."
 
-#: data.php:221
+#: data.php:225
 msgid "The import can be finished despite the warnings."
 msgstr "경고에 상관없이 가져오기를 완료할 수 있습니다."
 
@@ -1596,7 +1585,7 @@ msgstr "다음 연락처를 삭제하는 도중 오류가 발생했습니다: %s
 msgid "There was an error displaying the list"
 msgstr "목록을 표시하는 도중 오류가 발생했습니다"
 
-#: data.php:312
+#: data.php:317
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "데이터를 가져오는 도중 오류가 발생했습니다: %s"
@@ -1605,7 +1594,7 @@ msgstr "데이터를 가져오는 도중 오류가 발생했습니다: %s"
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar 데이터를 가져오는 도중 오류가 발생했습니다."
 
-#: lib/Application.php:805
+#: lib/Application.php:801
 msgid "There was an error importing the vCard data."
 msgstr "vCard 데이터를 가져오는 도중 오류가 발생했습니다."
 
@@ -1630,11 +1619,11 @@ msgstr "이 주소록을 삭제할 수 없습니다"
 msgid "This contact has been marked as your own."
 msgstr "이 연락처는 본인 연락처로 표시됐습니다."
 
-#: data.php:158
+#: data.php:208
 msgid "This file format is not supported."
 msgstr "이 파일 유형은 지원하지 않습니다."
 
-#: lib/Api.php:1674 lib/Api.php:1688
+#: lib/Api.php:1669 lib/Api.php:1683
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr "이 사람은 이미 주소록에 %s 입력내용이 존재합니다."
@@ -1756,7 +1745,7 @@ msgstr "직장 영상통화"
 msgid "Work Website URL"
 msgstr "직장 웹 사이트 URL"
 
-#: add.php:51 data.php:180 lib/View/Browse.php:149 lib/View/Browse.php:340
+#: add.php:51 data.php:153 lib/View/Browse.php:149 lib/View/Browse.php:340
 #, php-format
 msgid "You are not allowed to create more than %d contacts in \"%s\"."
 msgstr "\"%s\"에 %d개 이상의 연락처를 생성할 수 없습니다."
@@ -1769,7 +1758,7 @@ msgstr "이 주소록을 삭제할 수 없습니다."
 msgid "You are not allowed to see this addressbook."
 msgstr "이 주소록을 볼 수 없습니다."
 
-#: lib/Driver/Facebook.php:214
+#: lib/Driver/Facebook.php:204
 msgid ""
 "You are not connected to Facebook. Create a Facebook connection in the "
 "Global Preferences."
@@ -1880,29 +1869,29 @@ msgstr "오름차순"
 #: lib/Object.php:313
 #, php-format
 msgid "by %s"
-msgstr ""
+msgstr "%s이(가) 작성함"
 
 #: lib/Object.php:315
 msgid "by me"
-msgstr ""
+msgstr "내가 작성함"
 
 #: vcard.php:40
 msgid "contact"
 msgstr "연락처"
 
-#: lib/Application.php:585 lib/Application.php:589 templates/data/export.inc:1
+#: lib/Application.php:582 lib/Application.php:586 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "contacts.csv"
 
-#: lib/Application.php:607
+#: lib/Application.php:604
 msgid "contacts.ldif"
 msgstr "contacts.ldif"
 
-#: lib/Application.php:593
+#: lib/Application.php:590
 msgid "contacts.tsv"
 msgstr "contacts.tsv"
 
-#: lib/Application.php:598
+#: lib/Application.php:595
 msgid "contacts.vcf"
 msgstr "contacts.vcf"
 
@@ -1917,7 +1906,7 @@ msgstr "여성"
 #: lib/Application.php:431
 #, php-format
 msgid "in %s"
-msgstr ""
+msgstr "%s에서"
 
 #: config/attributes.php:533
 msgid "male"
@@ -1942,3 +1931,18 @@ msgstr "vCard"
 #: templates/data/export.inc:16
 msgid "vCard (3.0)"
 msgstr "vCard (3.0)"
+
+#~ msgid "Server error when adding data."
+#~ msgstr "데이터를 추가하는 도중 서버 오류가 발생했습니다."
+
+#~ msgid "Server error when deleting data."
+#~ msgstr "데이터를 삭제하는 도중 서버 오류가 발생했습니다."
+
+#~ msgid "Server error when initializing database connection."
+#~ msgstr "데이터베이스 연결을 초기화하는 도중 서버 오류가 발생했습니다."
+
+#~ msgid "Server error when performing search."
+#~ msgstr "검색을 수행하는 도중 서버 오류가 발생했습니다."
+
+#~ msgid "Server error when saving data."
+#~ msgstr "데이터를 저장하는 도중 서버 오류가 발생했습니다."
