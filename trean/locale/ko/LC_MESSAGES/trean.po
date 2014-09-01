@@ -1,0 +1,358 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Trean package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trean\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"PO-Revision-Date: 2014-08-09 02:11+0900\n"
+"Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+msgid "1 Line"
+msgstr "1줄"
+
+#: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+msgid "10 rows"
+msgstr "10행"
+
+#: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+msgid "15 rows"
+msgstr "15행"
+
+#: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+msgid "2 Line"
+msgstr "2줄"
+
+#: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+msgid "25 rows"
+msgstr "25행"
+
+#: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+msgid "3 Line"
+msgstr "3줄"
+
+#: templates/add.html.php:52
+msgid "Add"
+msgstr "추가"
+
+#: templates/bookmarklet.html.php:1
+msgid "Add to Bookmarks"
+msgstr "북마크에 추가"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "추가함"
+
+#: config/prefs.php:36
+msgid "Ascending (A to Z or oldest to newest)"
+msgstr "오름차순(A에서 Z까지 오래된 것에서 최신 것까지)"
+
+#: add.php:47
+msgid "Bookmark Added"
+msgstr "북마크를 추가함"
+
+#: edit.php:19
+#, php-format
+msgid "Bookmark not found: %s."
+msgstr "북마크를 발견하지 못했습니다: %s"
+
+#: config/prefs.php:26
+msgid "Bookmarked on"
+msgstr "북마크에 추가한 날짜"
+
+#: lib/Block/Bookmarks.php:19 lib/Block/Bookmarks.php:64
+#: lib/View/BookmarkList.php:119
+msgid "Bookmarks"
+msgstr "북마크"
+
+#: lib/Trean.php:71
+msgid "Bookmarks Feed"
+msgstr "북마크 피드"
+
+#: data.php:87
+msgid "Bookmarks successfully imported"
+msgstr "북마크를 성공적으로 가져왔음"
+
+#: browse.php:31
+msgid "Browse"
+msgstr "탐색"
+
+#: data.php:78
+msgid "Can't create a new bookmark."
+msgstr "새로운 북마크를 생성할 수 없습니다."
+
+#: templates/add.html.php:53 templates/edit.html.php:63
+msgid "Cancel"
+msgstr "취소"
+
+#: templates/list.html.php:14
+msgid "Clicks"
+msgstr "클릭"
+
+#: lib/Api.php:130
+msgid "Close"
+msgstr "닫기"
+
+#: app/controllers/DeleteBookmark.php:13
+msgid "Deleted bookmark: "
+msgstr "삭제한 북마크:"
+
+#: config/prefs.php:37
+msgid "Descending (9 to 1 or newest to oldest)"
+msgstr "내림차순(9에서 1까지 최신 것부터 오래된 것까지)"
+
+#: templates/add.html.php:25 templates/edit.html.php:34
+msgid "Description"
+msgstr "설명"
+
+#: config/prefs.php:13
+msgid "Display Preferences"
+msgstr "화면 설정"
+
+#: lib/Block/Bookmarks.php:37
+msgid "Display Rows"
+msgstr "행 표시"
+
+#: templates/add.html.php:64
+msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
+msgstr "아래 \"북마크에 추가\" 링크를  \"링크\" 바에 끌어다 놓으세요"
+
+#: templates/add.html.php:62
+msgid ""
+"Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
+msgstr "아래 \"북마크에 추가\" 링크를  \"개인 툴바\"에 끌어다 놓으세요."
+
+#: templates/list.html.php:57
+msgid "Edit"
+msgstr "편집"
+
+#: edit.php:42
+msgid "Edit Bookmark"
+msgstr "북마크 편집"
+
+#: data.php:16
+msgid "Firefox JSON"
+msgstr "파이어폭스 JSON"
+
+#: templates/add.html.php:61
+msgid "Firefox/Mozilla"
+msgstr "파이어폭스/모질라"
+
+#: templates/data/import.inc:23
+msgid "Import"
+msgstr "가져오기"
+
+#: data.php:93 templates/data/import.inc:7
+msgid "Import Bookmarks"
+msgstr "북마크 가져오기"
+
+#: templates/add.html.php:63
+msgid "Internet Explorer"
+msgstr "인터넷 익스플로러"
+
+#: templates/add.html.php:38 templates/edit.html.php:47
+msgid "Loading..."
+msgstr "불러오는 중..."
+
+#: lib/Application.php:76
+msgid "Maximum Number of Bookmarks"
+msgstr "북마크 최대 개수"
+
+#: config/prefs.php:25 lib/Block/Bookmarks.php:33
+msgid "Most Clicked"
+msgstr "가장 많이 클릭함"
+
+#: lib/Block/Mostclicked.php:19
+msgid "Most-clicked Bookmarks"
+msgstr "가장 많이 클릭한 북마크"
+
+#: add.php:78 templates/add.html.php:9
+msgid "New Bookmark"
+msgstr "새 북마크"
+
+#: search.php:43
+msgid "No bookmarks found"
+msgstr "북마크를 발견하지 못함"
+
+#: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+msgid "No bookmarks to display"
+msgstr "표시할 북마크가 없음"
+
+#: browse.php:18
+msgid "No bookmarks yet."
+msgstr "아직 북마크가 없습니다."
+
+#: search.php:50
+msgid "No search"
+msgstr ""
+
+#: templates/add.html.php:67
+msgid "Note:"
+msgstr "메모:"
+
+#: lib/Block/Mostclicked.php:28
+msgid "Number of bookmarks to show"
+msgstr "표시할 북마크 개수"
+
+#: templates/add.html.php:68
+#, php-format
+msgid ""
+"On newer versions of Internet Explorer, you may have to add %s://%s to your "
+"Trusted Zone for this to work."
+msgstr ""
+"최신 버전의 인터넷 익스플로러에서 제대로 작동하려면 %s://%s 을(를) 신뢰할 수 "
+"있는 영역에 추가해야 합니다."
+
+#: config/prefs.php:46
+msgid "Open links in a new window?"
+msgstr "링크를 새 창에서 열까요?"
+
+#: config/prefs.php:12
+msgid "Other Preferences"
+msgstr "기타 설정"
+
+#: templates/add.html.php:43 templates/edit.html.php:52
+msgid "Previously used tags"
+msgstr "이전에 사용했던 태그"
+
+#: lib/View/BookmarkList.php:213
+msgid "Remove from search"
+msgstr "검색에서 제거"
+
+#: templates/edit.html.php:62
+msgid "Save"
+msgstr "저장"
+
+#: search.php:36
+msgid "Search"
+msgstr "검색"
+
+#: search.php:47
+#, php-format
+msgid "Search results (%s)"
+msgstr "검색 결과(%s)"
+
+#: templates/add.html.php:41 templates/edit.html.php:50
+msgid "See previously used tags"
+msgstr "이전에 사용했던 태그 보기"
+
+#: templates/data/import.inc:18
+msgid "Select the file to import:"
+msgstr "가져올 파일을 선택하세요:"
+
+#: templates/data/import.inc:11
+msgid "Select the format of the source file:"
+msgstr "원본 파일의 형식을 선택하세요:"
+
+#: config/prefs.php:14
+msgid "Set how to display bookmark listings and how to open links."
+msgstr "북마크 목록을 표시하는 방식 및 링크를 여는 방식을 설정합니다."
+
+#: config/prefs.php:28
+msgid "Sort bookmarks by:"
+msgstr "북마크를 다음 기준으로 정렬합니다:"
+
+#: lib/Block/Bookmarks.php:28
+msgid "Sort by"
+msgstr "정렬 기준"
+
+#: config/prefs.php:38
+msgid "Sort direction:"
+msgstr "정렬 방향:"
+
+#: app/controllers/BrowseByTag.php:23
+#, php-format
+msgid "Tagged with %s"
+msgstr "%s(으)로 태그함"
+
+#: lib/Application.php:102 templates/add.html.php:30
+#: templates/edit.html.php:39
+msgid "Tags"
+msgstr "태그"
+
+#: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+msgid "Template"
+msgstr "서식"
+
+#: data.php:70
+msgid "The file didn't contain any bookmarks."
+msgstr "파일이 북마크를 포함하지 않습니다."
+
+#: app/controllers/DeleteBookmark.php:16
+#, php-format
+msgid "There was a problem deleting the bookmark: %s"
+msgstr "북마크를 삭제하는 도중 문제가 발생했습니다: %s"
+
+#: add.php:41
+#, php-format
+msgid "There was an error adding the bookmark: %s"
+msgstr "북마크를 추가하는 도중 오류가 발생했습니다: %s"
+
+#: app/controllers/SaveBookmark.php:26
+#, php-format
+msgid "There was an error saving the bookmark: %s"
+msgstr "북마크를 저장하는 도중 오류가 발생했습니다: %s"
+
+#: data.php:79
+#, php-format
+msgid "This is what the server said: %s"
+msgstr "서버가 다음과 같이 응답했습니다: %s"
+
+#: config/prefs.php:24 lib/Block/Bookmarks.php:32 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
+msgid "Title"
+msgstr "제목"
+
+#: templates/add.html.php:60
+msgid "To be able to quickly add bookmarks from your web browser:"
+msgstr "웹 브라우저에서 북마크를 빠르게 추가하려면:"
+
+#: templates/add.html.php:15 templates/edit.html.php:24
+msgid "URL"
+msgstr "URL"
+
+#: templates/add.html.php:65
+msgid ""
+"While browsing you will be able to bookmark the current page by clicking "
+"your new \"Add to Bookmarks\" shortcut."
+msgstr ""
+"브라우징하는 중에 새로운 \"북마크에 추가\" 바로가기를 클릭하여 현재 페이지를 "
+"북마크에 추가할 수 있습니다."
+
+#: add.php:25
+#, php-format
+msgid "You are not allowed to create more than %d bookmarks."
+msgstr "%d개 이상의 북마크를 생성할 수 없습니다."
+
+#: lib/Application.php:86
+msgid "_Browse"
+msgstr "탐색"
+
+#: lib/Application.php:87
+msgid "_Import"
+msgstr "가져오기"
+
+#: lib/Application.php:97
+msgid "_New Bookmark"
+msgstr "새 북마크"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "click"
+msgstr "클릭"
+
+#: templates/block/1line.inc:21 templates/block/2line.inc:24
+#: templates/block/standard.inc:22
+msgid "clicks"
+msgstr "클릭"

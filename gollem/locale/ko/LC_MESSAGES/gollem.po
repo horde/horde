@@ -1,82 +1,84 @@
 # Gollem Korean translation.
 # Copyright 2001 J.I Kim.
 # J.I Kim <aporie@netian.com>, 2001.
-#
+# Josh Kim <joshkkim@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: Gollem 0.0.1-cvs\n"
 "POT-Creation-Date: 2001-12-31 13:59+0900\n"
-"PO-Revision-Date: 2001-11-09 16:29+0900\n"
-"Last-Translator: J.I Kim <aporie@netian.com>\n"
+"PO-Revision-Date: 2014-08-29 14:51+0900\n"
+"Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Korean <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid " to: "
-msgstr "의 파일이름 변경:"
+msgstr ""
 
 #, c-format
 msgid "%d items in %s"
-msgstr "%d 항목 (%s)"
+msgstr "%s의 %d개의 항목"
 
 #, c-format
 msgid "%s renamed to %s"
-msgstr "%s는 %s로 이름 변경되었습니다."
+msgstr "%s의 이름을 %s(으)로 변경함"
 
 msgid "<b>Note:</b> These settings won't take effect until your next login."
-msgstr "<b>참조:</b> 이 설정값은 다음 로그인시에 반영됩니다."
+msgstr "<b>참고:</b> 이 설정 값은 다음에 로그인할 때까지 반영되지 않습니다."
 
 msgid "An illegal value was specified."
-msgstr "잘못된 값입니다."
+msgstr "잘못된 값이 지정됐습니다."
 
 msgid "Are you sure?"
-msgstr "확실합니까?"
+msgstr "정말입니까?"
 
 msgid "Ascending"
 msgstr "오름차순"
 
 #, c-format
 msgid "Cannot chmod %s"
-msgstr "%s의 접근설정을 변경할 수 없습니다."
+msgstr "%s을(를) chmod 할 수 없음"
 
 #, c-format
 msgid "Cannot delete %s"
-msgstr "%s를 삭제할 수 없습니다."
+msgstr "%s을(를) 삭제할 수 없음"
 
 msgid "Change your file sorting options."
-msgstr "파일 정렬 옵션 변경"
+msgstr "파일 정렬 옵션을 변경하세요."
 
+#, fuzzy
 msgid "Checkbox"
 msgstr "체크박스"
 
 msgid "Chmod Items"
-msgstr "접근설정값 변경"
+msgstr "Chmod 항목"
 
 msgid "Chmod done: "
-msgstr "접근설정값 변경 완료: "
+msgstr "Chmod가 완료됐습니다:"
 
 msgid "Choose Action:"
-msgstr "명령어 선택:"
+msgstr "동작 선택:"
 
 msgid "Create Folder"
-msgstr "새로운 폴더 만들기"
+msgstr "폴더 생성"
 
 msgid "Default sorting criteria:"
-msgstr "기본 정렬 범주:"
+msgstr "기본 정렬 기준:"
 
 msgid "Default sorting direction:"
 msgstr "기본 정렬 방향:"
 
 msgid "Delete Items"
-msgstr "파일 삭제"
+msgstr "항목 삭제"
 
 msgid "Descending"
 msgstr "내림차순"
 
 msgid "Directory removed: "
-msgstr "디렉토리 삭제: "
+msgstr "디렉터리를 제거함: "
 
+#, fuzzy
 msgid "Display Options"
 msgstr "화면 출력 옵션"
 
@@ -84,22 +86,23 @@ msgid ""
 "Either you have logged in incorrectly or your login has expired. Please "
 "login again."
 msgstr ""
-"정확하게 로그인하지 않았거나 로그인이 만료 되었습니다. 다시 로그인하세요."
+"정확하게 로그인하지 않았거나 로그인이 만료됐습니다. 다시 로그인해주세요."
 
 msgid "Error creating new folder: "
-msgstr "새로운 폴더 만들기 오류: "
+msgstr "새로운 폴더를 생성하는 도중 오류가 발생함: "
 
 msgid "Error renaming: "
-msgstr "파일 이름 변경 오류: "
+msgstr "파일명을 변경하는 도중 오류가 발생함: "
 
 msgid "Error uploading file: "
-msgstr "파일 업로드 오류: "
+msgstr "파일을 업로드하는 도중 오류가 발생함: "
 
+#, fuzzy
 msgid "Error"
-msgstr "오류"
+msgstr "오류 "
 
 msgid "File Modification Time"
-msgstr "파일 변경 시간"
+msgstr "파일 수정 시간"
 
 msgid "File Name"
 msgstr "파일 이름"
@@ -111,29 +114,32 @@ msgid "File Type"
 msgstr "파일 유형"
 
 msgid "File deleted: "
-msgstr "파일 삭제: "
+msgstr "파일을 삭제했습니다:"
 
 msgid "File received: "
-msgstr "파일 올리기: "
+msgstr "받은 파일: "
 
 msgid "Gollem is not properly configured"
-msgstr "Gollem이 정상 설정되지 않았습니다."
+msgstr "Gollem이 제대로 구성되지 않았습니다."
 
 msgid "Group"
 msgstr "그룹"
 
+#, fuzzy
 msgid "Help"
 msgstr "도움말"
 
+#, fuzzy
 msgid "Home"
-msgstr "홈"
+msgstr "집"
 
 msgid "Incorrect number of items."
-msgstr "잘못된 항목수"
+msgstr "정확하지  항목 수"
 
 msgid "Language"
 msgstr "언어"
 
+#, fuzzy
 msgid "Log in"
 msgstr "로그인"
 
@@ -141,152 +147,157 @@ msgid ""
 "Login failed for some reason. Most likely your username or password was "
 "entered incorrectly."
 msgstr ""
-"어떤 이유로 로그인이 실패했습니다. 대부분의 경우 사용자이름 또는 비밀번호가 "
-"올바르지 않기 때문입니다."
+"알 수 없는 사유로 인해 로그인에 실패했습니다. 사용자명 또는 암호가 올바르지 "
+"않을 가능성이 큽니다."
 
 msgid "Logout"
-msgstr "종료"
+msgstr "로그아웃"
 
 msgid "Message"
-msgstr "메세지"
+msgstr "메시지"
 
 msgid "Modified"
-msgstr "변경일자"
+msgstr "수정함"
 
 msgid "Name"
 msgstr "이름"
 
 msgid "New User Introduction"
-msgstr "새로운 사용자를 위한 도움말"
+msgstr "새로운 사용자를 위한 소개말"
 
 msgid "New folder created: "
-msgstr "새로운 폴더 생성: "
+msgstr "새로운 폴더를 생성했습니다:"
 
 msgid "No such directory: "
-msgstr "디렉토리가 없습니다: "
+msgstr "다음과 같은 디렉터리가 없음: "
 
 msgid "Options"
 msgstr "옵션"
 
 msgid "Other Options"
-msgstr "다른 옵션"
+msgstr "기타 옵션"
 
 msgid "Owner"
 msgstr "소유자"
 
 msgid "Password"
-msgstr "비밀 번호"
+msgstr "암호"
 
 msgid "Permission"
-msgstr "파일접근모드"
+msgstr "권한"
 
 msgid "Please enter the mode in numeric format:"
-msgstr "숫자형식으로 입력하세요:"
+msgstr "숫자 형식으로 모드를 입력해주세요:"
 
 msgid "Please enter the name of the new folder:"
-msgstr "새로운 폴더의 이름을 입력하세요:"
+msgstr "새로운 폴더의 이름을 입력해주세요:"
 
 msgid "Please provide your password."
-msgstr "비밀번호를 입력하세요."
+msgstr "암호를 입력해주세요."
 
 msgid "Please provide your username."
-msgstr "사용자이름을 입력하세요."
+msgstr "사용자명을 입력해주세요."
 
 msgid "Please select an item before this action."
-msgstr "실행할 항목을 선택하세요"
+msgstr "이 동작을 수행하기 전에 항목을 선택해주세요."
 
 msgid "Please specify a file to upload."
-msgstr "업로드할 파일을 선택하세요."
+msgstr "업로드 할 파일을 지정해주세요."
 
 msgid "Problem?"
-msgstr "문제?"
+msgstr "문제가 발생했습니까?"
 
 msgid "Refresh"
-msgstr "다시 읽기"
+msgstr "새로 고침"
 
 msgid "Rename "
-msgstr "이름 변경 "
+msgstr "이름 변경"
 
 msgid "Rename Items"
-msgstr "파일 이름 변경"
+msgstr "항목 이름 변경"
 
 msgid "Select your preferred language:"
-msgstr "자주 사용하는 언어를 선택하세요:"
+msgstr "선호하는 언어를 선택하세요:"
 
 msgid "Server"
 msgstr "서버"
 
 msgid "Set the language that menu items, explanations, and help are in."
-msgstr "메뉴, 설명, 도움말을 표시할 언어를 선택하세요."
+msgstr "메뉴, 설명 및 도움말에서 사용할 언어를 설정합니다."
 
 msgid "Size"
 msgstr "크기"
 
 msgid "Some of Gollem's configuration files are missing:"
-msgstr "일부 Gollem의 설정파일이 없습니다:"
+msgstr "Gollem의 설정파일의 일부를 찾을 수 없음:"
 
 msgid "Sort Direction"
-msgstr "정렬 순서"
+msgstr "정렬 방향"
 
 msgid "Success"
-msgstr "완료"
+msgstr "성공"
 
 msgid "The following items will be permenantly deleted: "
-msgstr "다음의 항목이 영구 삭제될것입니다:"
+msgstr "다음 항목이 영구적으로 삭제됩니다:"
 
 msgid "There are no files in this directory."
-msgstr "디렉토리에 파일이 없습니다."
+msgstr "이 디렉터리에 파일이 없습니다."
 
 msgid ""
 "This file controls the default preferences for Gollem, and also controls "
 "which preferences users can alter."
 msgstr ""
-"이파일은 Gollem의 기본 환경설정과 사용자가 변경할 수 있는 환경 설정을 제어합"
+"이 파일은 Gollem의 기본 환경설정과 사용자가 변경할 수 있는 환경설정을 제어합"
 "니다."
 
 msgid ""
 "This file controls the default settings for Gollem, and also defines the "
 "list of available servers if you are using the server list."
-msgstr "이파일은 Gollem의 기본 설정값과 사용가능한 서버 목록을 명시합니다."
+msgstr ""
+"이 파일은 Gollem에 대한 기본 설정과, 서버 목록을 사용할 경우 사용 가능한 서"
+"버 목록을 정의합니다."
 
 msgid ""
 "This is the main Gollem configuration file. It contains paths and options "
 "for the Gollem scripts."
 msgstr ""
-"이파일은 기본 Gollem환경설정 파일입니다. Gollem 스크립트의 경로와 옵션을 갖"
-"고 있습니다."
+"이 파일은 기본 Gollem 구성 파일입니다. Gollem 스크립트에 대한 경로 및 옵션을 "
+"포함합니다."
 
 msgid "This number must be at least one."
-msgstr "최소한 1이상의 값이어야 합니다."
+msgstr "최소 1 이상의 값이어야 합니다."
 
 msgid "This value must be a number."
-msgstr "숫자로 된 값이어야 합니다."
+msgstr "값은 숫자이어야 합니다."
 
 msgid "Type"
-msgstr "종류"
+msgstr "유형"
 
+#, fuzzy
 msgid "Up to parent"
 msgstr "상위로"
 
 msgid "Upload File"
-msgstr "파일 올리기"
+msgstr "파일 업로드"
 
+#, fuzzy
 msgid "User Preferences"
 msgstr "사용자 환경설정"
 
 msgid "Username"
-msgstr "사용자 이름"
+msgstr "사용자명"
 
+#, fuzzy
 msgid "Warning"
 msgstr "경고"
 
 #, c-format
 msgid "Warning: %s requires Javascript to perform certain functions."
-msgstr "경고: %s가 실행되기 위해서는 자바스크립트를 필요로 합니다."
+msgstr "경고:  %s이(가) 일부 기능을 실행하기 위해 자바스크립트가 필요합니다."
 
 #, c-format
 msgid "Welcome to %s"
-msgstr "환영합니다. %s 입니다."
+msgstr "%s에 오신 것을 환영합니다."
 
 msgid "Welcome"
 msgstr "환영합니다."
@@ -296,17 +307,18 @@ msgid ""
 "You have been logged out of %s. Thank you for using the system. If you wish "
 "to log in again, please use the form below."
 msgstr ""
-"%s에서 로그아웃하셨습니다. 이 시스템을 사용해주셔서 감사합니다. 다시 로그인하"
-"시려면, 아래의 폼을 사용하시기 바랍니다."
+"%s(으)로부터 로그아웃 했습니다. 이 시스템을 이용해주셔서 감사합니다. 다시 로"
+"그인하려면, 아래 양식을 사용해주세요."
 
+#, fuzzy
 msgid "Your Information"
 msgstr "사용자 정보"
 
 msgid "Your preferences have been updated."
-msgstr "환경설정이 저장되었습니다."
+msgstr "환경설정이 업데이트 됐습니다."
 
 msgid "Your preferred FTP server:"
-msgstr "자주 사용하는 FTP 서버:"
+msgstr "선호하는 FTP 서버:"
 
 msgid "[home]"
 msgstr "[홈]"
@@ -314,5 +326,264 @@ msgstr "[홈]"
 msgid "folder"
 msgstr "폴더"
 
+#, fuzzy
 msgid "symlink"
 msgstr "심볼 링크"
+
+#~ msgid "%.2fMB / %.2fMB  (%.2f%%)"
+#~ msgstr "%.2fMB / %.2fMB  (%.2f%%)"
+
+#~ msgid "%d item"
+#~ msgstr "%d개의 항목"
+
+#~ msgid "%s successfully saved."
+#~ msgstr "%s을(를) 성공적으로 저장했습니다."
+
+#~ msgid "%s was successfully pasted."
+#~ msgstr "%s을(를) 성공적으로 붙여넣었습니다."
+
+#~ msgid "Access denied to %s"
+#~ msgstr "%s의 접근을 거부함"
+
+#~ msgid "Access denied to folder \"%s\"."
+#~ msgstr "폴더 \"%s\"의 접근을 거부했습니다."
+
+#~ msgid "Add"
+#~ msgstr "추가"
+
+#~ msgid "All"
+#~ msgstr "모두"
+
+#~ msgid "Are you sure you wish to continue?"
+#~ msgstr "정말로 계속하시겠습니까?"
+
+#~ msgid "Ask"
+#~ msgstr "묻기"
+
+#~ msgid "Backend"
+#~ msgstr "백엔드"
+
+#~ msgid "Backends"
+#~ msgstr "백엔드"
+
+#~ msgid "Below is the current contents of your clipboard."
+#~ msgstr "아래는 클립보드의 현재 내용입니다."
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
+
+#~ msgid "Cannot copy items onto clipboard."
+#~ msgstr "항목을 클립보드로 복사할 수 없습니다."
+
+#~ msgid "Cannot create home directory: %s"
+#~ msgstr "홈 디렉터리를 생성할 수 없습니다: %s"
+
+#~ msgid "Cannot cut items onto clipboard."
+#~ msgstr "항목을 클립보드로 자를 수 없습니다."
+
+#~ msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
+#~ msgstr "\"%s\"을(를) 붙여넣을 수 없습니다(클립보드에서 파일을 제거함): %s"
+
+#~ msgid "Change Folder"
+#~ msgstr "폴더 변경"
+
+#~ msgid "Change Permissions"
+#~ msgstr "권한 변경"
+
+#~ msgid "Check _All/None"
+#~ msgstr "모두 선택/선택 취소"
+
+#~ msgid "Choose which columns to display, and in what order:"
+#~ msgstr "어느 열을 어떤 순서로 표시할지 선택하세요:"
+
+#~ msgid "Clear"
+#~ msgstr "초기화"
+
+#~ msgid "Clipboard"
+#~ msgstr "클립보드"
+
+#~ msgid "Close"
+#~ msgstr "닫기"
+
+#~ msgid "Columns that will not be displayed:"
+#~ msgstr "표시되지 않을 열:"
+
+#~ msgid "Copy"
+#~ msgstr "복사"
+
+#~ msgid ""
+#~ "Created empty permissions for \"%s\". You must explicitly grant access to "
+#~ "this backend now."
+#~ msgstr ""
+#~ "\"%s\"에 대한 비어있는 권한을 생성했습니다. 이제 이 백엔드의 접근을 명시적"
+#~ "으로 부여해야 합니다."
+
+#~ msgid "Cut"
+#~ msgstr "자르기"
+
+#~ msgid "Delete folders recursively?"
+#~ msgstr "폴더를 반복적으로 삭제할까요?"
+
+#~ msgid "Done"
+#~ msgstr "완료"
+
+#~ msgid "Download %s"
+#~ msgstr "%s 다운로드"
+
+#~ msgid "ERROR:"
+#~ msgstr "오류:"
+
+#~ msgid "Edit %s"
+#~ msgstr "%s 편집"
+
+#~ msgid "Execute"
+#~ msgstr "실행"
+
+#~ msgid "File"
+#~ msgstr "파일"
+
+#~ msgid "File Display"
+#~ msgstr "파일 표시"
+
+#~ msgid "File action settings."
+#~ msgstr "파일 동작 설정입니다."
+
+#~ msgid "File display preferences."
+#~ msgstr "파일 표시 설정"
+
+#~ msgid "Files must be written inside a VFS backend."
+#~ msgstr "파일은 VFS 백엔드에 기록해야 합니다."
+
+#~ msgid "Filter"
+#~ msgstr "필터"
+
+#~ msgid "Folders must be created inside a VFS backend."
+#~ msgstr "폴더는 VFS 백엔드에 기록해야 합니다."
+
+#~ msgid "Invalid backend requested: %s"
+#~ msgstr "잘못된 백엔드를 요청했습니다: %s"
+
+#~ msgid "Item copied to clipboard: %s"
+#~ msgstr "항목을 클립보드로 복사했습니다: %s"
+
+#~ msgid "Item cut to clipboard: %s"
+#~ msgstr "항목을 클립보드로 잘라냈습니다: %s"
+
+#~ msgid "Items per page"
+#~ msgstr "페이지 당 표시 개수"
+
+#~ msgid "List folders first?"
+#~ msgstr "먼저 폴더 목록을 표시할까요?"
+
+#~ msgid "No"
+#~ msgstr "아니오"
+
+#~ msgid "No quota found."
+#~ msgstr "제한 용량이 발견되지 않았습니다."
+
+#~ msgid "Paste"
+#~ msgstr "붙여넣기"
+
+#~ msgid "Permission denied to %s: %s"
+#~ msgstr "%s의 권한을 거부했습니다: %s"
+
+#~ msgid "Permission denied to folder \"%s\": %s"
+#~ msgstr "폴더 \"%s\"에 대한 권한을 거부했습니다: %s"
+
+#~ msgid "Permission denied to this backend."
+#~ msgstr "이 백엔드에 대한 권한을 거부했습니다."
+
+#~ msgid "Permissions"
+#~ msgstr "권한"
+
+#~ msgid "Quota Display"
+#~ msgstr "제한 용량 표시"
+
+#~ msgid "Read"
+#~ msgstr "읽기"
+
+#~ msgid "Renaming across backends is not supported."
+#~ msgstr "백엔드를 통해 이름을 변경하는 것을 지원하지 않습니다."
+
+#~ msgid "Renaming of backends is not allowed."
+#~ msgstr "백엔드의 이름을 변경할 수 없습니다."
+
+#~ msgid "Reset"
+#~ msgstr "초기화"
+
+#~ msgid "Save"
+#~ msgstr "저장"
+
+#~ msgid "Select All"
+#~ msgstr "모두 선택"
+
+#~ msgid "Select None"
+#~ msgstr "선택 취소"
+
+#~ msgid "Select a backend:"
+#~ msgstr "백엔드를 선택하세요:"
+
+#~ msgid "Share Folder"
+#~ msgstr "폴더 공유"
+
+#~ msgid "Shared Folder"
+#~ msgstr "공유 폴더"
+
+#~ msgid "Show dotfiles?"
+#~ msgstr "도트 파일을 표시할까요?"
+
+#~ msgid "Start Folder"
+#~ msgstr "시작 폴더"
+
+#~ msgid "The application folder can not be deleted."
+#~ msgstr "응용 프로그램 폴더를 삭제할 수 없습니다."
+
+#~ msgid "The following item(s) are folders:"
+#~ msgstr "다음 항목은 폴더입니다:"
+
+#~ msgid "The original opener window has been closed. Exiting."
+#~ msgstr "원본 오프터 창을 닫았습니다. 종료합니다."
+
+#~ msgid "These columns will display in this order:"
+#~ msgstr "이 열을 다음 순서로 표시합니다:"
+
+#~ msgid ""
+#~ "To clear items from the clipboard, check the box next to the filename and "
+#~ "click on &quot;Clear&quot;."
+#~ msgstr ""
+#~ "클립보드에 항목을 제거하려면, 파일 이름 옆의 확인란을 선택한 후 &quot;제거"
+#~ "&quot;를 클릭하세요."
+
+#~ msgid ""
+#~ "To paste items from the clipboard to the current directory, check the box "
+#~ "next to the filename and click on &quot;Paste&quot;."
+#~ msgstr ""
+#~ "클립보드에 항목을 현재 디렉터리에 붙여넣으려면, 파일 이름 옆의 확인란을 선"
+#~ "택한 후 &quot;붙여넣기&quot;를 클릭하세요."
+
+#~ msgid "Unable to create Gollem session"
+#~ msgstr "Gollem 세션을 생성할 수 없음"
+
+#~ msgid "Unable to create backend permission: %s"
+#~ msgstr "백엔드 권한을 생성할 수 없습니다: %s"
+
+#~ msgid "Unable to delete file %s: %s"
+#~ msgstr "파일 %s을(를) 삭제할 수 없습니다: %s"
+
+#~ msgid "Unable to delete folder %s: %s"
+#~ msgstr "폴더 %s을(를) 삭제할 수 없습니다: %s"
+
+#~ msgid "Write"
+#~ msgstr "쓰기"
+
+#~ msgid "Yes"
+#~ msgstr "예"
+
+#~ msgid "You are not allowed to share this folder"
+#~ msgstr "이 폴더를 공유할 권한이 없습니다"
+
+#~ msgid "You need at least one backend defined to set permissions."
+#~ msgstr "권한을 설정하려면 하나 인상의 백엔드를 정의해아 합니다."
+
+#~ msgid "_Permissions"
+#~ msgstr "권한"
