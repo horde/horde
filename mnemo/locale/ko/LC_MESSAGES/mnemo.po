@@ -4,20 +4,20 @@
 # Copyright 2014 Horde LLC (http://www.horde.org/)
 #
 # Deokgon Kim <dgkim@dgkim.net>, 2014
-# Josh Kim <joshkkim@gmail.com>, 2014
+# Josh Kim <joshkkim@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-17 16:15+0900\n"
-"PO-Revision-Date: 2014-08-09 02:11+0900\n"
+"PO-Revision-Date: 2014-08-29 15:06+0900\n"
 "Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Korean <i18n@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: memo.php:282
 #, php-format
@@ -206,11 +206,6 @@ msgstr "내보내기"
 msgid "Export Notes"
 msgstr "메모 내보내기"
 
-#: lib/Driver/Kolab.php:286
-#, php-format
-msgid "Failed retrieving Kolab data for notepad %s: %s"
-msgstr "메모장 %s에 대한 Kolab data를 검색하는데 실패했습니다: %s"
-
 #: lib/Form/Search.php:24
 msgid "For"
 msgstr "검색 내용"
@@ -303,6 +298,10 @@ msgstr "표시할 메모가 없음"
 #: list.php:97
 msgid "No_te"
 msgstr "메모"
+
+#: lib/Driver/Sql.php:112
+msgid "Not Found"
+msgstr "발견하지 못함"
 
 #: view.php:155
 msgid "Note Details"
@@ -429,8 +428,9 @@ msgid "Successfully saved \"%s\"."
 msgstr "\"%s\"(을)를 성공적으로 저장했습니다."
 
 #: config/prefs.php:161
-msgid "Support separate notepads?"
-msgstr "별도 메모장을 지원할까요?"
+#, fuzzy
+msgid "Support separate collections?"
+msgstr "개별 주소록을 지원할까요?"
 
 #: config/prefs.php:27
 msgid "Synchronization Preferences"
@@ -539,8 +539,8 @@ msgid ""
 msgstr "이 메모는 암호화됐으며, 보안 웹 연결 없이 해독할 수 없습니다."
 
 #: memo.php:29 view.php:69
-msgid "This note has been encrypted, please provide the password."
-msgstr "이 메모는 암호화됐습니다, 암호를 입력해주세요."
+msgid "This note has been encrypted, please provide the password below"
+msgstr "이 메모는 암호화됐습니다, 아래에 암호를 입력해주세요."
 
 #: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
@@ -649,3 +649,6 @@ msgstr "notes.csv"
 #: data.php:22 templates/data/import.inc:11
 msgid "vNote"
 msgstr "vNote"
+
+#~ msgid "Failed retrieving Kolab data for notepad %s: %s"
+#~ msgstr "메모장 %s에 대한 Kolab data를 검색하는데 실패했습니다: %s"
