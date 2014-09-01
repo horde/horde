@@ -176,10 +176,6 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             }
 
             $ob = new $class($config);
-
-            if (!isset($config['logger'])) {
-                $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
-            }
         }
 
         if ($sig) {
@@ -190,6 +186,12 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
             /* Need to add cache ob here, after it is stored as an instance,
              * or else we enter infinite bootstrapping loop. Bug #13439 */
             $ob->setCache($this->_injector->getInstance('Horde_Cache'));
+        }
+
+        /* Bug #13463: setting logger before cache causes intermittent issues
+         * with DB object during session shutdown. */
+        if (!isset($config['logger'])) {
+            $ob->setLogger($this->_injector->getInstance('Horde_Log_Logger'));
         }
 
         return $ob;
