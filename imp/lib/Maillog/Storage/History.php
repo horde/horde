@@ -146,10 +146,16 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
      */
     public function deleteLogs(array $msgs)
     {
-        $this->_history->removeByNames(array_map(
-            array($this, '_getUniqueHistoryId'),
-            $msgs
-        ));
+        $ids = array();
+        foreach ($msgs as $val) {
+            try {
+                $ids[] = $this->_getUniqueHistoryId($val);
+            } catch (RuntimeException $e) {
+                /* This is an invalid/missing Message-ID. Ignore. */
+            }
+        }
+
+        $this->_history->removeByNames($ids);
     }
 
     /**
