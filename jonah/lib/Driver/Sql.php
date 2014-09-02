@@ -389,33 +389,29 @@ class Jonah_Driver_Sql extends Jonah_Driver
 
         // Apply tag filtering
         if (isset($criteria['tags'])) {
-            $sql .= ' AND (';
-            $multiple = false;
+            $tagSql = array();
             foreach ($criteria['tags'] as $tag) {
                 if (!empty($criteria['tagIDs'][$tag])) {
-                    if ($multiple) {
-                        $sql .= ' OR ';
-                    }
-                    $sql .= 'tags.tag_id = ?';
+                    $tagSql[] = 'tags.tag_id = ?';
                     $values[] = $criteria['tagIDs'][$tag];
-                    $multiple = true;
                 }
             }
-            $sql .= ')';
+            if (count($tagSql)) {
+                $sql .= ' AND (' . implode(' OR ', $tagSql) . ')';
+            }
         }
 
         if (isset($criteria['alltags'])) {
-            $sql .= ' AND (';
-            $multiple = false;
+            $tagSql = array();
             foreach ($criteria['alltags'] as $tag) {
-                if ($multiple) {
-                    $sql .= ' AND ';
+                if (!empty($criteria['tagIDs'][$tag])) {
+                    $tagSql[] = 'tags.tag_id = ?';
+                    $values[] = $criteria['tagIDs'][$tag];
                 }
-                $sql .= 'tags.tag_id = ?';
-                $values[] = $criteria['tagIDs'][$tag];
-                $multiple = true;
             }
-            $sql .= ')';
+            if (count($tagSql)) {
+                $sql .= ' AND (' . implode(' AND ', $tagSql) . ')';
+            }
         }
 
         // Filter by story author
