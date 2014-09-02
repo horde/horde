@@ -855,7 +855,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     public function getTagNames($ids)
     {
-        $sql = 'SELECT t.tag_name FROM jonah_tags as t WHERE t.tag_id IN(' . str_repeat('?,', count($ids) - 1) . '?)';
+        if (empty($ids)) {
+            return array();
+        }
+
+        $sql = 'SELECT t.tag_name FROM jonah_tags as t WHERE t.tag_id IN (' . implode(',', array_map(function($v) { return '?'; }, $ids)) . ')';
         $tags = $this->_db->getCol($sql, 0, $ids);
         if ($tags instanceof PEAR_Error) {
             throw new Jonah_Exception($tags);
@@ -873,7 +877,11 @@ class Jonah_Driver_Sql extends Jonah_Driver
      */
     public function getTagIds($names)
     {
-        $sql = 'SELECT t.tag_name, t.tag_id FROM jonah_tags as t WHERE t.tag_name IN(' . str_repeat('?,', count($names) - 1) . '?)';
+        if (empty($names)) {
+            return array();
+        }
+
+        $sql = 'SELECT t.tag_name, t.tag_id FROM jonah_tags as t WHERE t.tag_name IN (' . implode(',', array_map(function($v) { return '?'; }, $names)) . ')';
         $tags = $this->_db->getAssoc($sql, false, $names);
         if ($tags instanceof PEAR_Error) {
             throw new Jonah_Exception($tags);
