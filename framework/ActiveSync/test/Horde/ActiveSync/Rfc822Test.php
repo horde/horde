@@ -64,4 +64,18 @@ class Horde_ActiveSync_Rfc822Test extends Horde_Test_Case
         $this->assertEquals(2, $mimepart->findBody('html'));
     }
 
+    /**
+     * See Bug #13456  Wnen we add the Message-Id/User-Agent headers, make sure
+     * we don't cause the subject header to no be MIME encoded.
+     */
+    public function testMIMEEncodingWhenStandardHeadersAreAdded()
+    {
+        $fixture = file_get_contents(__DIR__ . '/fixtures/mime_encoding.eml');
+        $rfc822 = new Horde_ActiveSync_Rfc822($fixture, true);
+
+        $hdrs = Horde_Mime_Headers::parseHeaders($rfc822->getString());
+        $hdr_array = $hdrs->toArray(array('charset' => 'UTF-8'));
+        $this->assertEquals('=?utf-8?b?w4PDhMOjw6s=?=', $hdr_array['Subject']);
+    }
+
 }
