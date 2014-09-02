@@ -24,7 +24,10 @@ if (!$criteria) {
         'limit' => 10,
     );
     if ($tag_id = Horde_Util::getFormData('tag_id')) {
-        $criteria['tags'] = explode(':', $tag_id);
+        $criteria['tags'] = $driver->getTagNames(explode(':', $tag_id));
+    }
+    if ($tag = Horde_Util::getFormData('tag')) {
+        $criteria['tags'] = explode(':', $tag);
     }
 }
 
