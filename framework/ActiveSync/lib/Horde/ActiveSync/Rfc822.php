@@ -150,7 +150,7 @@ class Horde_ActiveSync_Rfc822
             $updated = true;
         }
         if ($updated) {
-            $this->_header_text = $headers->toString();
+            $this->_header_text = $headers->toString(array('charset' => 'UTF-8'));
         }
     }
 

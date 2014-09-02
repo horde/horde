@@ -279,7 +279,7 @@ class Horde_Core_ActiveSync_Mail
     protected function _sendSmart()
     {
         $mime_message = $this->_raw->getMimeObject();
-        $mail = new Horde_Mime_Mail($this->_headers->toArray());
+        $mail = new Horde_Mime_Mail($this->_headers->toArray(array('charset' => 'UTF-8')));
         try {
             $this->_getImapMessage();
         } catch (Horde_Exception_NotFound $e) {
