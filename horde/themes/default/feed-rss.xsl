@@ -43,10 +43,6 @@
             <img src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif" alt="Add to My yahoo" />
           </a>
 
-          <a href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url={$resource}">
-            <img src="http://www.newsgator.com/images/ngsub1.gif" alt="Subscribe in NewsGator Online"/>
-          </a>
-
           <a href="http://www.bloglines.com/sub/{$resource}">
             <img src="http://www.bloglines.com/images/sub_modern5.gif" alt="Subscribe with Bloglines"/>
           </a>
