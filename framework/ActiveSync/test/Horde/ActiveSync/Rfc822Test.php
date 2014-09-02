@@ -66,7 +66,7 @@ class Horde_ActiveSync_Rfc822Test extends Horde_Test_Case
 
     /**
      * See Bug #13456  Wnen we add the Message-Id/User-Agent headers, make sure
-     * we don't cause the subject header to no be MIME encoded.
+     * we don't cause the subject header to not be MIME encoded.
      */
     public function testMIMEEncodingWhenStandardHeadersAreAdded()
     {
