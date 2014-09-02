@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issues with 8-bit characters in Subject header in some cases (Bug #13456).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2334,7 +2334,7 @@
    <date>2014-08-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issues with 8-bit characters in Subject header in some cases (Bug #13456).
    </notes>
   </release>
  </changelog>
