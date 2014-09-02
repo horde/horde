@@ -457,15 +457,19 @@ class Jonah_Driver_Sql extends Jonah_Driver
         if ($limit || $start != 0) {
             $results = array();
             $rows = $this->_db->limitQuery($sql, $start, $limit, $values);
+            if ($rows instanceof PEAR_Error) {
+                throw new Jonah_Exception($rows);
+            }
             while ($rows->fetchInto($row, DB_FETCHMODE_ASSOC)) {
                 $results[] = $row;
             }
         } else {
             $results = $this->_db->getAll($sql, $values, DB_FETCHMODE_ASSOC);
+            if ($results instanceof PEAR_Error) {
+                throw new Jonah_Exception($results);
+            }
         }
-        if ($results instanceof PEAR_Error) {
-            throw new Jonah_Exception($results);
-        }
+
         foreach ($results as &$row) {
             $row['tags'] = $this->readTags($row['id']);
         }
