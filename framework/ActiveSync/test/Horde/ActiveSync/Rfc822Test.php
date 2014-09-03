@@ -70,7 +70,6 @@ class Horde_ActiveSync_Rfc822Test extends Horde_Test_Case
      */
     public function testMIMEEncodingWhenStandardHeadersAreAdded()
     {
-        $this->markTestSkipped();
         $fixture = file_get_contents(__DIR__ . '/fixtures/mime_encoding.eml');
         $rfc822 = new Horde_ActiveSync_Rfc822($fixture, true);
 
