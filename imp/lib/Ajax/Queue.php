@@ -529,9 +529,13 @@ class IMP_Ajax_Queue
     public function quota($mailbox, $force = true)
     {
         if (!is_null($this->_quota)) {
-            $this->_quota = is_null($mailbox)
-                ? null
-                : array($mailbox, $force);
+            if (is_null($mailbox)) {
+                /* Disable quota output entirely. */
+                $this->_quota = null;
+            } elseif (!is_array($this->_quota) || !$this->_quota[1]) {
+                /* Don't change a previously issued force quota request. */
+                $this->_quota = array($mailbox, $force);
+            }
         }
     }
 
