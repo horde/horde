@@ -1928,7 +1928,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // available.
                 try {
                     $this->_imap->appendMessage($sf, $mailer->getSentMail(), $flags);
-                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                 }
             }
