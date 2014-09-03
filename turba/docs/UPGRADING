@@ -45,6 +45,13 @@ outdated.
 Upgrading Turba from 4.1 to 4.2
 ===============================
 
+Attribute Changes
+-----------------
+
+  - Categories have been replaced by Tags. As such, you **must** update any
+    local source definitions and remove the "Category" attribute.
+
+
 Configuration Options (conf.php)
 --------------------------------
 
