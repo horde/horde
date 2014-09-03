@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Re-enable igbinary driver (requires igbinary &gt;= 1.2.0).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -106,6 +106,7 @@
    <package>
     <name>igbinary</name>
     <channel>pecl.php.net</channel>
+    <min>1.2.0</min>
     <providesextension>igbinary</providesextension>
    </package>
    <package>
@@ -208,7 +209,7 @@
    <date>2014-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Re-enable igbinary driver (requires igbinary &gt;= 1.2.0).
    </notes>
   </release>
  </changelog>
