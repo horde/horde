@@ -142,6 +142,9 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                 $this->_createDb(array_merge($config, $read_config), null, false),
                 $this->_createDb($config, null, false)
             );
+
+            /* Don't attach logger to base split read object. */
+            $config['logger'] = true;
         } else {
             if (isset($config['adapter'])) {
                 $class = $this->_getDriverName($config['adapter'], 'Horde_Db_Adapter');
