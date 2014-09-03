@@ -306,15 +306,13 @@ class Horde_Core_ActiveSync_Mail
         if ($this->_forward) {
             foreach ($base_part->contentTypeMap() as $mid => $type) {
                 if ($this->imapMessage->isAttachment($mid, $type)) {
-                    $apart = $this->imapMessage->getMimePart($mid);
-                    $mail->addMimePart($apart);
+                    $mail->addMimePart($this->imapMessage->getMimePart($mid));
                 }
             }
         }
         foreach ($mime_message->contentTypeMap() as $mid => $type) {
             if ($mid != 0 && $mid != $mime_message->findBody('plain') && $mid != $mime_message->findBody('html')) {
-                $part = $mime_message->getPart($mid);
-                $mail->addMimePart($part);
+                $mail->addMimePart($mime_message->getPart($mid));
             }
         }
 
