@@ -24,7 +24,7 @@
  * @copyright 2008-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
- * @since     2.26.0
+ * @since     2.25.0
  *
  * @property Horde_Imap_Client_Mailbox $mailbox  IMAP Mailbox.
  * @property string $partial  Byte range for use with IMAP FETCH command.

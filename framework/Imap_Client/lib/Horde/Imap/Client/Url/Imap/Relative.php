@@ -19,7 +19,7 @@
  * @copyright 2008-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
- * @since     2.26.0
+ * @since     2.25.0
  */
 class Horde_Imap_Client_Url_Imap_Relative
 extends Horde_Imap_Client_Url_Imap

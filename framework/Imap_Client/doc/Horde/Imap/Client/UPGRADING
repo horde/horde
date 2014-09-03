@@ -11,15 +11,6 @@
 This lists the API changes between releases of the package.
 
 
-Upgrading to 2.26.0
-===================
-
-  - Horde_Imap_Client_Url
-
-    This object has been deprecated. Use the Horde_Imap_Client_Url_* objects
-    instead.
-
-
 Upgrading to 2.25.0
 ===================
 
@@ -34,6 +25,11 @@ Upgrading to 2.25.0
 
     Added interface to indicate which IMAP data string elements support
     non-ASCII characters.
+
+  - Horde_Imap_Client_Url
+
+    This object has been deprecated. Use the Horde_Imap_Client_Url_* objects
+    instead.
 
 
 Upgrading to 2.24.0
