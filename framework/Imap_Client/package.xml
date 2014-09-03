@@ -12,7 +12,7 @@
  </lead>
  <date>2014-09-03</date>
  <version>
-  <release>2.25.0</release>
+  <release>2.25.1</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,17 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add support for Gmail-specific WEBALERT response code.
-* [mms] IMAP/POP3 URL generation split into a more modular library structure.
-* [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
-* [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
-* [mms] Fix setting default port for POP3 URLs.
-* [mms] Fix client-side reverse sorting.
-* [mms] Fix client-side sequence sorting, when that is the only sort criteria.
-* [mms] Use Collator class, if present, to sort string fields on the client side.
-* [mms] Fix client-side sorting of display addresses.
-* [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
-* [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2690,6 +2680,19 @@
 * [mms] Fix client-side sorting of display addresses.
 * [mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
 * [mms] Improved sanity checking so that non-ASCII data is not sent to server in commands where it is not supported.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.1</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
