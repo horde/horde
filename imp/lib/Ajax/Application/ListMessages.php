@@ -174,7 +174,7 @@ class IMP_Ajax_Application_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
-            /* Load queue information on original request. */
+            /* Load quota information on original request. */
             $injector->getInstance('IMP_Ajax_Queue')->quota($mbox, true);
 
             if (!$mbox->is_imap) {
