@@ -4668,6 +4668,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'ALERT':
         // Defined by RFC 5530 [3] - Treat as an alert for now.
         case 'CONTACTADMIN':
+        // Used by Gmail - Treat as an alert for now.
+        // http://mailman13.u.washington.edu/pipermail/imap-protocol/2014-September/002324.html
+        case 'WEBALERT':
             if (!isset($this->_temp['alerts'])) {
                 $this->_temp['alerts'] = array();
             }

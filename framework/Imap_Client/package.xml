@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add support for Gmail-specific WEBALERT response code.
 * [mms] IMAP/POP3 URL generation split into a more modular library structure.
 * [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
@@ -2678,6 +2679,7 @@
    <date>2014-08-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add support for Gmail-specific WEBALERT response code.
 * [mms] IMAP/POP3 URL generation split into a more modular library structure.
 * [mms] Ignore message-specific URL parameters if a search query appears in an IMAP URL.
 * [mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
