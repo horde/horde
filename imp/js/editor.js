@@ -41,7 +41,9 @@ var IMP_Editor = Class.create({
     start: function()
     {
         if (!this.editor) {
-            this.config.height = Math.max($(this.id).getHeight(), 200) - 75;
+            if (Object.isUndefined(this.config.height)) {
+                this.config.height = Math.max($(this.id).getHeight(), 200) - 75;
+            }
             this.editor = CKEDITOR.replace(this.id, this.config);
         }
     },
