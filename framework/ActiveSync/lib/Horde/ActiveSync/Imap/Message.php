@@ -38,7 +38,7 @@ class Horde_ActiveSync_Imap_Message
     /**
      * Message structure.
      *
-     * @var Horde_Mime_Part
+     * @var Horde_ActiveSync_Mime
      */
     protected $_message;
 
@@ -85,13 +85,12 @@ class Horde_ActiveSync_Imap_Message
         Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
-        $this->_message = $data->getStructure();
+        $this->_message = new Horde_ActiveSync_Mime($data->getStructure());
         $this->_uid = $data->getUid();
         $this->_flags = $data->getFlags();
         $this->_mbox = $mbox;
         $this->_data = $data;
         $this->_envelope = $data->getEnvelope();
-
     }
 
     /**
@@ -186,7 +185,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getStructure()
     {
-        return $this->_message;
+        return $this->_message->base;
     }
 
     /**
@@ -812,37 +811,11 @@ class Horde_ActiveSync_Imap_Message
      * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
+     * @deprecated Will be removed in 3.0 (Only used in self::hasAttachments call).
      */
     public function isAttachment($id, $mime_type)
     {
-        switch ($mime_type) {
-        case 'text/plain':
-            if (!($this->_message->findBody('plain') == $id)) {
-                return true;
-            }
-            return false;
-        case 'text/html':
-            if (!($this->_message->findBody('html') == $id)) {
-                return true;
-            }
-            return false;
-        case 'application/pkcs7-signature':
-        case 'application/x-pkcs7-signature':
-            return false;
-        }
-
-        list($ptype,) = explode('/', $mime_type, 2);
-
-        switch ($ptype) {
-        case 'message':
-            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
-
-        case 'multipart':
-            return false;
-
-        default:
-            return true;
-        }
+        return $this->_message->isAttachment($id, $mime_type);
     }
 
     /**
@@ -852,16 +825,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function hasiCalendar()
     {
-        if (!$this->hasAttachments()) {
-            return false;
-        }
-        foreach ($this->contentTypeMap() as $id => $type) {
-            if ($type == 'text/calendar') {
-                return $this->getMimePart($id);
-            }
-        }
-
-        return false;
+        return $this->_message->hasiCalendar();
     }
 
     /**
@@ -871,19 +835,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function hasAttachments()
     {
-        if (isset($this->_hasAttachments)) {
-            return $this->_hasAttachments;
-        }
-
-        foreach ($this->contentTypeMap() as $id => $type) {
-            if ($this->isAttachment($id, $type)) {
-                $this->_hasAttachments = true;
-                return true;
-            }
-        }
-
-        $this->_hasAttachments = false;
-        return false;
+        return $this->_message->hasAttachments();
     }
 
     /**
@@ -895,30 +847,14 @@ class Horde_ActiveSync_Imap_Message
      * @return boolean True if message is S/MIME signed or encrypted,
      *                 false otherwise.
      */
-    public function isSigned($message = null)
+    public function isSigned(Horde_Mime_Part $message = null)
     {
-        if (empty($message)) {
-            $message = $this->_message;
-        }
-        if ($message->getType() == 'application/pkcs7-mime' ||
-            $message->getType() == 'application/x-pkcs7-mime') {
-            return true;
+        if (!empty($message)) {
+            $message = new Horde_ActiveSync_Mime($message);
+            return $message->isSigned();
         }
 
-        if ($message->getPrimaryType() == 'multipart') {
-            if ($message->getSubType() == 'signed') {
-                return true;
-            }
-
-            // Signed/encrypted part might be lower in the mime structure
-            foreach ($message->getParts() as $part) {
-                if ($this->isSigned($part)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return $this->_message->isSigned();
     }
 
 }
