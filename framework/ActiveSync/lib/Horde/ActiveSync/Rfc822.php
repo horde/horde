@@ -86,7 +86,12 @@ class Horde_ActiveSync_Rfc822
         }
     }
 
-    protected function _parseStream($stream)
+    /**
+     * Parse a Horde_Stream object to get the header and eol data.
+     *
+     * @param  Horde_Stream $stream  The stream object.
+     */
+    protected function _parseStream(Horde_Stream $stream)
     {
         $this->_stream = $stream;
         list($this->_hdr_pos, $this->_eol) = $this->_findHeader();
@@ -125,8 +130,8 @@ class Horde_ActiveSync_Rfc822
             $this->_stream->rewind();
             $hdr = $this->_stream->substring(0, $this->_hdr_pos);
         }
-        $new_stream = new Horde_Stream_Wrapper_Combine::getStream(array($hdr, $mime_stream));
-        $this->_parseStream($new_stream);
+        $new_stream = Horde_Stream_Wrapper_Combine::getStream(array($hdr, $mime_stream));
+        $this->_parseStream(new Horde_Stream_Existing(array('stream' => $new_stream)));
     }
 
     /**
