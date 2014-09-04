@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-02</date>
+ <date>2014-09-04</date>
  <version>
-  <release>2.18.2</release>
-  <api>2.18.0</api>
+  <release>2.19.0</release>
+  <api>2.19.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Added Horde_ActiveSync_Mime class.
+* [mjr] Added Horde_ActiveSync_Exception_EmailFatalFailure.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +47,7 @@
        <file name="MockConnector.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Driver -->
       <dir name="Exception">
+       <file name="EmailFatalFailure.php" role="php" />
        <file name="FolderExists.php" role="php" />
        <file name="FolderGone.php" role="php" />
        <file name="InvalidRequest.php" role="php" />
@@ -128,6 +130,7 @@
       <file name="Credentials.php" role="php" />
       <file name="Device.php" role="php" />
       <file name="Exception.php" role="php" />
+      <file name="Mime.php" role="php" />
       <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
       <file name="Status.php" role="php" />
@@ -233,6 +236,7 @@
        <file name="invitation_one.eml" role="test" />
        <file name="iOSMultipartAlternative.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
+       <file name="mime_encoding.eml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
@@ -400,6 +404,7 @@
    <install as="Horde/ActiveSync/Credentials.php" name="lib/Horde/ActiveSync/Credentials.php" />
    <install as="Horde/ActiveSync/Device.php" name="lib/Horde/ActiveSync/Device.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
+   <install as="Horde/ActiveSync/Mime.php" name="lib/Horde/ActiveSync/Mime.php" />
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
    <install as="Horde/ActiveSync/Status.php" name="lib/Horde/ActiveSync/Status.php" />
@@ -413,6 +418,7 @@
    <install as="Horde/ActiveSync/Driver/Base.php" name="lib/Horde/ActiveSync/Driver/Base.php" />
    <install as="Horde/ActiveSync/Driver/Mock.php" name="lib/Horde/ActiveSync/Driver/Mock.php" />
    <install as="Horde/ActiveSync/Driver/MockConnector.php" name="lib/Horde/ActiveSync/Driver/MockConnector.php" />
+   <install as="Horde/ActiveSync/Exception/EmailFatalFailure.php" name="lib/Horde/ActiveSync/Exception/EmailFatalFailure.php" />
    <install as="Horde/ActiveSync/Exception/FolderExists.php" name="lib/Horde/ActiveSync/Exception/FolderExists.php" />
    <install as="Horde/ActiveSync/Exception/FolderGone.php" name="lib/Horde/ActiveSync/Exception/FolderGone.php" />
    <install as="Horde/ActiveSync/Exception/InvalidRequest.php" name="lib/Horde/ActiveSync/Exception/InvalidRequest.php" />
@@ -536,6 +542,7 @@
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
    <install as="Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" name="test/Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/mime_encoding.eml" name="test/Horde/ActiveSync/fixtures/mime_encoding.eml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
    <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
@@ -2339,15 +2346,16 @@
   </release>
   <release>
    <version>
-    <release>2.18.2</release>
-    <api>2.18.0</api></version>
+    <release>2.19.0</release>
+    <api>2.19.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-01</date>
+   <date>2014-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Added Horde_ActiveSync_Mime class.
+* [mjr] Added Horde_ActiveSync_Exception_EmailFatalFailure.
    </notes>
   </release>
  </changelog>

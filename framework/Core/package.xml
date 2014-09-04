@@ -30,8 +30,8 @@
  </developer>
  <date>2014-08-21</date>
  <version>
-  <release>2.13.2</release>
-  <api>2.13.0</api>
+  <release>2.14.0</release>
+  <api>2.14.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add activesync_email_presend hook.
 * [mjr] Fix issue where replying or forwarding broken email messages would break ActiveSync synchronization when saving to Sent mail.
 * [mjr] Fix issues with 8-bit characters in Subject header when sending smart replies via ActiveSync (Bug #13456).
 * [mjr] Fix GAL searches returning all address book entries.
@@ -1275,7 +1276,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.18.0</min>
+    <min>2.19.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -3614,14 +3615,15 @@
   </release>
   <release>
    <version>
-    <release>2.13.2</release>
-    <api>2.13.0</api></version>
+    <release>2.14.0</release>
+    <api>2.14.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-08-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add activesync_email_presend hook.
 * [mjr] Fix issue where replying or forwarding broken email messages would break ActiveSync synchronization when saving to Sent mail.
 * [mjr] Fix issues with 8-bit characters in Subject header when sending smart replies via ActiveSync (Bug #13456).
 * [mjr] Fix GAL searches returning all address book entries.
