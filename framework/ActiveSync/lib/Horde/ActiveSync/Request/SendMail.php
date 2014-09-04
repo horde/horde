@@ -118,6 +118,21 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             $this->_handleError(
                 Horde_ActiveSync_Status::ITEM_NOT_FOUND,
                 $e[Horde_ActiveSync_Wbxml::EN_TAG]);
+        } catch (Horde_ActiveSync_Exception_EmailFatalFailure $ex) {
+            $this->_logger->err($ex->getMessage());
+            if ($this->_device->version < Horde_ActiveSync::VERSION_FOURTEEN) {
+                // For now, return false, which causes a HTTP 500 to be returned
+                // - the expected behavior prior to EAS 14.0. For 3.0, we will
+                // rework this stuff into a Response object.
+                $this->_logger->err(sprintf(
+                    '[%s] Returning HTTP 500, since EAS version < 14.0',
+                    $this->_procid)
+                );
+                return false;
+            }
+            $this->_handleError(
+                Horde_ActiveSync_Status::SERVER_ERROR,
+                $e[Horde_ActiveSync_Wbxml::EN_TAG]);
         } catch (Horde_ActiveSync_Exception $ex) {
             $this->_logger->err($ex->getMessage());
             if ($this->_device->version < Horde_ActiveSync::VERSION_FOURTEEN) {
