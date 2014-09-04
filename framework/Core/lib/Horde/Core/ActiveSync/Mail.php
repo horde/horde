@@ -137,7 +137,7 @@ class Horde_Core_ActiveSync_Mail
     {
         switch ($property) {
         case 'imapMessage':
-            if (isset($this->_getImapMessage)) {
+            if (!isset($this->_imapMessage)) {
                 $this->_getImapMessage();
             }
             return $this->_imapMessage;
@@ -280,11 +280,6 @@ class Horde_Core_ActiveSync_Mail
     {
         $mime_message = $this->_raw->getMimeObject();
         $mail = new Horde_Mime_Mail($this->_headers->toArray(array('charset' => 'UTF-8')));
-        try {
-            $this->_getImapMessage();
-        } catch (Horde_Exception_NotFound $e) {
-            throw new Horde_ActiveSync_Exception($e->getMessage());
-        }
         $base_part = $this->imapMessage->getStructure();
         $plain_id = $base_part->findBody('plain');
         $html_id = $base_part->findBody('html');
