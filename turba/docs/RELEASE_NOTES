@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Turba Contact
-Manager version H5 (4.2.1).
+Manager version H5 (4.2.2).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
@@ -19,10 +19,9 @@ http://www.horde.org/apps/turba/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/turba/docs/INSTALL
 
-The major changes compared to the Turba version H5 (4.2.0) are:
-    * Tagging improvements.
-    * Fixed CardDAV URLs of shared address books.
-    * Further bugfixes.
+The major changes compared to the Turba version H5 (4.2.1) are:
+    * Fixed duplicate searching.
+    * Small bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Turba';

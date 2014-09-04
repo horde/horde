@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Ingo Email
-Filter Rules Manager version H5 (3.2.0).
+Filter Rules Manager version H5 (3.2.1).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
@@ -18,14 +18,8 @@ http://www.horde.org/apps/ingo/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/ingo/docs/INSTALL
 
-The major changes compared to Ingo H5 (3.1) versions are:
-    * Sorting of rules via drag & drop.
-    * Allow searching of rules by folder name.
-    * Improved permission settings.
-    * Improved vacation addresses hook.
-    * Added enotify and imap4flags Sieve extensions.
-    * Added Oracle support.
-    * Further improvements.
+The major changes compared to Ingo version H5 (3.2.0) are:
+    * Small bugfixes and improvements.
 ML;
 
 $notes['name'] = 'Ingo';

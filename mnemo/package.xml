@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix replacing tags in existing notes (Bug# 13417).
+* [mjr] Fix replacing tags in existing notes (Bug #13417).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
