@@ -215,10 +215,28 @@ class Horde_Core_ActiveSync_Mail
         if (empty($this->_raw)) {
             throw new Horde_ActiveSync_Exception('No data set or received from EAS client.');
         }
+        $this->_callPreSendHook();
         if (!$this->_parentFolder || ($this->_parentFolder && $this->_replaceMime)) {
             $this->_sendRaw();
         } else {
             $this->_sendSmart();
+        }
+    }
+
+    protected function _callPreSendHook()
+    {
+        $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+        $params = array(
+            'raw' => $this->_raw,
+            'imap_msg' => $this->imapMessage,
+            'parent' => $this->_parentFolder,
+            'reply' => $this->_reply,
+            'forward' => $this->_forward);
+        try {
+            if (!$result = $hooks->callHook('activesync_email_presend', 'horde', array($params))) {
+                throw new Horde_ActiveSync_Exception('There was an issue running the activesync_email_presend hook.');
+            }
+        } catch (Horde_Exception_HookNotSet $e) {
         }
     }
 

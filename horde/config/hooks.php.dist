@@ -295,6 +295,28 @@
  *   [throw Horde_Exception] - Fatal error.
  *   [Horde_ActiveSync_Device]  The possibly modified device object.
  *
+ * activesync_email_presend
+ * ------------------------
+ * This hook gives the chance to perform content filering or other validation
+ * on an email sent from an EAS client. This can be used, for instance, to
+ * filter attachments for viruses.
+ *
+ * Parameters in:
+ *     $params (array): An array containing:
+ *       - raw:  (Horde_ActiveSync_Rfc822):  The email sent from the client.
+ *       - imap_msg: (Horde_ActiveSync_Imap_Message) The original IMAP message
+ *           if this is a SMART request.
+ *       - parent: (string)    The folder imap_msg is contained in.
+ *       - reply: (boolean)    If true, this is a SMART_REPLY.
+ *       - forward: (boolean)  If true, this is a SMART_FORWARD.
+ *
+ * The return values from this hook is as follows:
+ *   [throw Horde_ActiveSync_Exeption_EmailFatalFailure] The filter/verification
+ *       failed and the message will NOT be sent.
+ *
+ *   [boolean] - True if the validation passes, false for any other failure.
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$
@@ -1079,6 +1101,48 @@ class Horde_Hooks
   //     }
 
   //     return $device;
+  // }
+
+   /**
+    * Hook for filtering message data before sending from a EAS client.
+    *
+    * @param array $params  An array of parameters:
+    *     - raw: (Horde_ActiveSync_Rfc822) Raw message sent from the client.
+    *     - imap_msg: (Horde_ActiveSync_Imap_Message)  The IMAP message if this
+    *         is a SMART request.
+    *     - parent: (string)   The folder that imap_msg is contained in.
+    *     - reply: (boolean)   If true, this is a SMART_REPLY.
+    *     - forward: (boolean) If true, this is a SMART_FORWARD
+    *
+    * @return boolean
+    */
+  // public function activesync_email_presend(array $params)
+  // {
+  //       // Example for filtering any attachments for viruses.
+  //       // Tested with clamdscan 0.98.4 (though clamscan would work as well
+  //       // if the daemon is not configured).
+  //       // (requires Horde_ActiveSync >= 2.19.0)
+  //       $mime = new Horde_ActiveSync_Mime($options['raw']->getMimeObject());
+  //       foreach ($mime->contentTypeMap() as $id => $type) {
+  //           if ($mime->isAttachment($id, $type)) {
+  //               $tmp = Horde::getTempFile();
+  //               $stream = $mime->getPart($id)->getContents(array('stream' => true));
+  //               rewind($stream);
+  //               file_put_contents($tmp, $stream);
+  //               $clamscan = '/path/to/clamdscan';
+  //               exec($clamscan . ' --silent ' . escapeshellarg($tmp), $output, $return_var);
+  //               switch ($return_var) {
+  //               case 1:
+  //                   // Virus found.
+  //                   throw new Horde_ActiveSync_Exception_EmailFatalFailure('Virus found. Attachment will not be added to the compose message.');
+  //
+  //               case 2:
+  //                   return false;
+  //               }
+  //           }
+  //       }
+  //
+  //       return true;
   // }
 
 }
