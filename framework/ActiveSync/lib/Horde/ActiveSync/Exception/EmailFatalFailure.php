@@ -10,6 +10,7 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since 2.19.0
  */
 /**
  * Exception
@@ -22,6 +23,7 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since 2.19.0
  */
 class Horde_ActiveSync_Exception_EmailFatalFailure extends Horde_ActiveSync_Exception
 {

@@ -10,6 +10,7 @@
  * @copyright 2012-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since 2.19.0
  */
 /**
  * This class provides some base functionality for dealing with MIME objects in
@@ -23,6 +24,7 @@
  * @copyright 2012-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since 2.19.0
  */
 class Horde_ActiveSync_Mime
 {
