@@ -392,6 +392,9 @@ class Horde_Core_ActiveSync_Mail
      */
     protected function _getImapMessage()
     {
+        if (empty($this->_id) || empty($this->_parentFolder)) {
+            return;
+        }
         $this->_imapMessage = array_pop($this->_imap->getImapMessage($this->_parentFolder, $this->_id, array('headers' => true)));
         if (empty($this->_imapMessage)) {
             throw new Horde_Exception_NotFound('The forwarded/replied message was not found.');
