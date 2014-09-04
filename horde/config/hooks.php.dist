@@ -1122,7 +1122,7 @@ class Horde_Hooks
   //       // Tested with clamdscan 0.98.4 (though clamscan would work as well
   //       // if the daemon is not configured).
   //       // (requires Horde_ActiveSync >= 2.19.0)
-  //       $mime = new Horde_ActiveSync_Mime($options['raw']->getMimeObject());
+  //       $mime = new Horde_ActiveSync_Mime($params['raw']->getMimeObject());
   //       foreach ($mime->contentTypeMap() as $id => $type) {
   //           if ($mime->isAttachment($id, $type)) {
   //               $tmp = Horde::getTempFile();
