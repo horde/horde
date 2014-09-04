@@ -74,16 +74,22 @@ class Horde_ActiveSync_Rfc822
     public function __construct($rfc822, $auto_add_headers = true)
     {
         if (is_resource($rfc822)) {
-            $this->_stream = new Horde_Stream_Existing(array('stream' => $rfc822));
-            rewind($this->_stream->stream);
+            $stream = new Horde_Stream_Existing(array('stream' => $rfc822));
+            rewind($stream);
         } else {
-            $this->_stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
-            $this->_stream->add($rfc822, true);
+            $stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
+            $stream->add($rfc822, true);
         }
-        list($this->_hdr_pos, $this->_eol) = $this->_findHeader();
+        $this->_parseStream($stream);
         if ($auto_add_headers) {
             $this->addStandardHeaders();
         }
+    }
+
+    protected function _parseStream($stream)
+    {
+        $this->_stream = $stream;
+        list($this->_hdr_pos, $this->_eol) = $this->_findHeader();
     }
 
     /**
@@ -98,6 +104,29 @@ class Horde_ActiveSync_Rfc822
         $new_stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
         $new_stream->add($this->_stream, true);
         return $new_stream;
+    }
+
+    /**
+     * Replace the MIME part of the message sent from the client.
+     *
+     * @param  Horde_Mime_Part $part  The new MIME part.
+     * @since 2.19.0
+     */
+    public function replaceMime(Horde_Mime_Part $part)
+    {
+        $mime_stream = $part->toString(array(
+            'stream' => true,
+            'headers' => false)
+        );
+
+        if (!empty($this->_header_text)) {
+            $hdr = $this->_header_text;
+        } else {
+            $this->_stream->rewind();
+            $hdr = $this->_stream->substring(0, $this->_hdr_pos);
+        }
+        $new_stream = new Horde_Stream_Wrapper_Combine::getStream(array($hdr, $mime_stream));
+        $this->_parseStream($new_stream);
     }
 
     /**
