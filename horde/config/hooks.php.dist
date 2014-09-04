@@ -315,7 +315,8 @@
  *       failed and the message will NOT be sent.
  *
  *   [boolean] - True if the validation passes, false for any other failure.
- *
+ *   [Horde_ActiveSync_Mime] - Replaces the outgoing message with the contents
+ *       of this MIME object.
  *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
@@ -1114,7 +1115,7 @@ class Horde_Hooks
     *     - reply: (boolean)   If true, this is a SMART_REPLY.
     *     - forward: (boolean) If true, this is a SMART_FORWARD
     *
-    * @return boolean
+    * @return mixed boolean|Horde_ActiveSync_Mime
     */
   // public function activesync_email_presend(array $params)
   // {
@@ -1131,16 +1132,28 @@ class Horde_Hooks
   //               file_put_contents($tmp, $stream);
   //               $clamscan = '/path/to/clamdscan';
   //               exec($clamscan . ' --silent ' . escapeshellarg($tmp), $output, $return_var);
-  //               switch ($return_var) {
-  //               case 1:
-  //                   // Virus found.
-  //                   throw new Horde_ActiveSync_Exception_EmailFatalFailure('Virus found. Attachment will not be added to the compose message.');
+  //              switch ($return_var) {
+  //              case 1:
+  //                  // Virus found.
+  //                  // We can throw an exception to prevent the email from being
+  //                  // sent altogether, or we can return a Horde_ActiveSync_Mime
+  //                  // object with the offending attachment(s) removed.
+  //                  //throw new Horde_ActiveSync_Exception_EmailFatalFailure('Virus found. Attachment will not be added to the compose message.');
   //
-  //               case 2:
-  //                   return false;
-  //               }
-  //           }
-  //       }
+  //                  $updated = true;
+  //                  $part = new Horde_Mime_Part();
+  //                  $part->setType('text/plain');
+  //                  $part->setContents(sprintf(
+  //                      _("An attachment named %s was removed by Horde_ActiveSync due to a virus being detected."),
+  //                      $mime->getPart($id)->getName(true))
+  //                  );
+  //                  $mime->removePart($id);
+  //                  $mime->addPart($part);
+  //                  break;
+  //              case 2:
+  //                  return false;
+  //              }
+  //          }
   //
   //       return true;
   // }

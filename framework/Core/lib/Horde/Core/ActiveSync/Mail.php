@@ -236,6 +236,9 @@ class Horde_Core_ActiveSync_Mail
             if (!$result = $hooks->callHook('activesync_email_presend', 'horde', array($params))) {
                 throw new Horde_ActiveSync_Exception('There was an issue running the activesync_email_presend hook.');
             }
+            if ($result instanceof Horde_ActiveSync_Mime) {
+                $this->_raw->replaceMime($result->base);
+            }
         } catch (Horde_Exception_HookNotSet $e) {
         }
     }
