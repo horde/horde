@@ -142,7 +142,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             try {
                 $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
                 if ($ret === false) {
-                    throw new Horde_ActiveSync_Exception(sprintf(
+                    throw new Horde_Rpc_Exception(sprintf(
                         'Received FALSE while handling %s command.', $this->_get['Cmd']));
                 } elseif ($ret !== true) {
                     $this->_contentType = $ret;
