@@ -111,6 +111,10 @@ class Horde_Test_Stub_Registry
      */
     public function loadConfigFile($conf_file, $vars = null, $app = null)
     {
+        if ($conf_file == 'hooks.php') {
+            throw new Horde_Exception('Failed to import configuration file "hooks.php".');
+        }
+
         return new Horde_Test_Stub_Registry_Loadconfig(
                 $app,
                 $conf_file,

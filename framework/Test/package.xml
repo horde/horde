@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t report hooks loading as successful.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2559,7 +2559,7 @@
    <date>2014-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t report hooks loading as successful.
    </notes>
   </release>
  </changelog>
