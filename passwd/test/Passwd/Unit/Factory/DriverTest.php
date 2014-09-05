@@ -16,6 +16,7 @@ class Passwd_Unit_Factory_DriverTest extends Passwd_TestCase
 
     public function setUp()
     {
+        $this->markTestIncomplete('Factories with configuration files don\'t work out of the box.');
         $this->_backends = array(
             'null' => array(
                 'disabled' => false,

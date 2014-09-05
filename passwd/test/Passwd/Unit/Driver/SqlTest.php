@@ -13,6 +13,12 @@ class Passwd_Unit_Driver_SqlTest extends Passwd_TestCase
 {
     private $driver;
 
+    public static function setUpBeforeClass()
+    {
+        self::createBasicPasswdSetup(new Horde_Test_Setup());
+        parent::setUpBeforeClass();
+    }
+
     public function setUp()
     {
         $GLOBALS['injector'] = $this->getInjector();
@@ -28,19 +34,7 @@ class Passwd_Unit_Driver_SqlTest extends Passwd_TestCase
             user_hard_expiration_date INTEGER
         );");
 
-        $this->driver = $factory->create('Sqlite', array(
-            'driver' => 'Sql',
-            'params' => array(
-                'db' => $db
-            ),
-            'is_subdriver' => true
-        ));
-
-        $registry = $this->getMock('Horde_Registry', array(), array(), '', false);
-        $registry->expects($this->any())
-            ->method('get')
-            ->will($this->returnValue('foo'));
-        $GLOBALS['registry'] = $registry;
+        $this->driver = new Passwd_Driver_Sql(array('db' => $db));
     }
 
     public function testSetup()

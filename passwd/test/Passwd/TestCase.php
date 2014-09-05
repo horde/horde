@@ -15,4 +15,22 @@ class Passwd_TestCase extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
+    static protected function createBasicPasswdSetup(Horde_Test_Setup $setup)
+    {
+        $setup->setup(
+            array(
+                '_PARAMS' => array(
+                    'user' => 'test@example.com',
+                    'app' => 'passwd'
+                ),
+                'Horde_Registry' => 'Registry',
+            )
+        );
+        $setup->makeGlobal(
+            array(
+                'registry' => 'Horde_Registry',
+            )
+        );
+    }
+
 }
