@@ -18,7 +18,7 @@
  </lead>
  <date>2014-09-05</date>
  <version>
-  <release>5.0.2</release>
+  <release>5.0.3</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -27,10 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix syntax error in HTTP driver (Bug #13464).
-* [mms] Re-add &apos;userdn&apos; hook.
-* [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
-* [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -714,6 +711,19 @@
 * [mms] Re-add &apos;userdn&apos; hook.
 * [jan] Update Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
 * [mms] Fix usage of &apos;query_lookup&apos; and &apos;query_modify&apos; backend parameters (Michael Cramer &lt;michael@bigmichi1.de&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
