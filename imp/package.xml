@@ -24,7 +24,7 @@
  </lead>
  <date>2014-09-05</date>
  <version>
-  <release>6.2.2</release>
+  <release>6.2.3</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,17 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Ensure that search/POP3 mailbox listings are saved even if there is an issue with the underlying cache backend.
-* [mms] Fix replying to non-UTF-8 messages when the &apos;reply_charset&apos; preference is true.
-* [jan] Fix vCard MIME viewer.
-* [jan] Fix MIME viewer form actions in basic view (Bug #12677).
-* [mms] Don&apos;t store/retrieve message history data if the Message-ID is missing/invalid.
-* [mms] Fix resuming draft from mailbox page in basic view.
-* [mms] Fix displaying Virtual Trash mailbox (Bug #13418).
-* [mms] Fix menu actions on the minimal message page (Bug #13440).
-* [jan] Fix switching to HTML editor in basic mode if signature display is not active.
-* [mms] Fix expiring session cached mailbox data when mailbox information changes.
-* [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3742,6 +3732,19 @@
 * [jan] Fix switching to HTML editor in basic mode if signature display is not active.
 * [mms] Fix expiring session cached mailbox data when mailbox information changes.
 * [mms] Fix updating viewport immediately after deleting messages on POP3 servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.3</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
