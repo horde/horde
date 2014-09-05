@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-09-05</date>
  <version>
   <release>4.3.0</release>
   <api>4.0.0</api>
@@ -526,7 +526,10 @@
      <dir name="fixtures">
       <file name="az.png" role="test" />
       <file name="bug_6518.ldif" role="test" />
+      <file name="bug_9207.vcf" role="test" />
       <file name="export.ldif" role="test" />
+      <file name="export_21.vcf" role="test" />
+      <file name="export_30.vcf" role="test" />
       <file name="import.ldif" role="test" />
       <file name="importCRLF.ldif" role="test" />
      </dir> <!-- /test/Turba/fixtures -->
@@ -1116,7 +1119,10 @@
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
    <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
    <install as="Turba/fixtures/bug_6518.ldif" name="test/Turba/fixtures/bug_6518.ldif" />
+   <install as="Turba/fixtures/bug_9207.vcf" name="test/Turba/fixtures/bug_9207.vcf" />
    <install as="Turba/fixtures/export.ldif" name="test/Turba/fixtures/export.ldif" />
+   <install as="Turba/fixtures/export_21.vcf" name="test/Turba/fixtures/export_21.vcf" />
+   <install as="Turba/fixtures/export_30.vcf" name="test/Turba/fixtures/export_30.vcf" />
    <install as="Turba/fixtures/import.ldif" name="test/Turba/fixtures/import.ldif" />
    <install as="Turba/fixtures/importCRLF.ldif" name="test/Turba/fixtures/importCRLF.ldif" />
    <install as="Turba/Stub/Hooks.php" name="test/Turba/Stub/Hooks.php" />
@@ -1911,7 +1917,7 @@
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix duplicate searching in address books without owner field.

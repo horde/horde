@@ -56,82 +56,26 @@ class Turba_Unit_ExportTest extends Turba_TestCase
             'longitude' => '13.377778',
             'photo' => file_get_contents(__DIR__ . '/../fixtures/az.png'),
             'phototype' => 'image/png',
-            '__tags' => array('Foo', 'Foo,Bar', 'Foo;Bar', 'Bar'),
+            '__tags' => 'Foo,Foo;Bar,Bar',
         );
         $this->driver = new Turba_Driver();
-        $this->driver->map = array_fill_keys(array_keys($this->contact), true);
+        $this->driver->map = array_fill_keys(array_diff(array_keys($this->contact), array('__tags')), true);
         $this->object = new Turba_Object($this->driver, $this->contact);
     }
 
     public function testExportVcard21()
     {
         $vcard = $this->driver->tovCard($this->object, '2.1');
-        $this->assertEquals(
-'BEGIN:VCARD
-VERSION:2.1
-FN;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Jan Schneider=C3=B6
-EMAIL;INTERNET:jan@horde.org
-NICKNAME:yunosh
-X-EPOCSECONDNAME:yunosh
-LABEL;HOME;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:Sch=C3=B6nestr. 15=0D=0A=
- 33604 Bielefeld
-TEL;HOME;VOICE:+49 521 555123
-TEL;WORK;VOICE:+49 521 555456
-TEL;CELL;VOICE:+49 177 555123
-TEL;FAX:+49 521 555789
-TEL;PAGER:+49 123 555789
-BDAY:1971-10-01
-TITLE;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Senior Developer (=C3=A4=C3=B6=C3=BC)
-ROLE;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Developer (=C3=A4=C3=B6=C3=BC)
-NOTE;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:A German guy (=C3=A4=C3=B6=C3=BC)
-URL:http://janschneider.de
-TZ;VALUE=text:Europe/Berlin
-GEO:13.377778,52.516276
-PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABlJREFUeAFjAIMGBiZGAQhmYYFgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
-N;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Schneider=C3=B6;Jan;K.;Mr.;
-ORG;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:Horde Project;=C3=A4=C3=B6=C3=BC
-ADR;HOME;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;Sch=C3=B6nestr. 15=0D=0A=
- 33604 Bielefeld;;;;
-ADR;WORK;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:;;H=C3=BCbschestr. 19;K=C3=B6ln;Allg=C3=A4u;;Denmark
-END:VCARD
-',
+        $this->assertStringEqualsFile(
+            __DIR__ . '/../fixtures/export_21.vcf',
             $vcard->exportvCalendar());
     }
 
     public function testExportVcard30()
     {
         $vcard = $this->driver->tovCard($this->object, '3.0');
-        // Shouldn't only COMMAs escaped per RFC (CATEGORIES)?
-        $this->assertEquals(
-'BEGIN:VCARD
-VERSION:3.0
-FN:Jan Schneiderö
-EMAIL;TYPE=INTERNET:jan@horde.org
-NICKNAME:yunosh
-X-EPOCSECONDNAME:yunosh
-LABEL;TYPE=HOME:Schönestr. 15\n33604 Bielefeld
-TEL;TYPE=HOME,VOICE:+49 521 555123
-TEL;TYPE=WORK,VOICE:+49 521 555456
-TEL;TYPE=CELL,VOICE:+49 177 555123
-TEL;TYPE=FAX:+49 521 555789
-TEL;TYPE=PAGER:+49 123 555789
-BDAY:1971-10-01
-TITLE:Senior Developer (äöü)
-ROLE:Developer (äöü)
-NOTE:A German guy (äöü)
-URL:http://janschneider.de
-TZ;VALUE=text:Europe/Berlin
-GEO:52.516276;13.377778
-PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
- DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABlJREFUeAFjAIMGBiZGAQhmYY
- FgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
-CATEGORIES:Foo,Foo\,Bar,Foo\;Bar,Bar
-N:Schneiderö;Jan;K.;Mr.;
-ORG:Horde Project;äöü
-ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
-ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Denmark
-END:VCARD
-',
+        $this->assertStringEqualsFile(
+            __DIR__ . '/../fixtures/export_30.vcf',
             $vcard->exportvCalendar());
     }
 
@@ -147,41 +91,8 @@ END:VCARD
         unset($contact['name']);
         $object = new Turba_Object($driver, $contact);
         $vcard = $this->driver->tovCard($object, '3.0');
-        // Shouldn't only COMMAs escaped per RFC (CATEGORIES)?
-        $this->assertEquals(
-'BEGIN:VCARD
-VERSION:3.0
-FN:Mr. Jan K. Schneiderö
-EMAIL;TYPE=INTERNET:jan@horde.org
-NICKNAME:yunosh
-X-EPOCSECONDNAME:yunosh
-LABEL;TYPE=HOME:Schönestr. 15\n33604 Bielefeld
-TEL;TYPE=HOME,VOICE:+49 521 555123
-TEL;TYPE=WORK,VOICE:+49 521 555456
-TEL;TYPE=CELL,VOICE:+49 177 555123
-TEL;TYPE=FAX:+49 521 555789
-TEL;TYPE=PAGER:+49 123 555789
-BDAY:1971-10-01
-TITLE:Senior Developer (äöü)
-ROLE:Developer (äöü)
-NOTE:A German guy (äöü)
-URL:http://janschneider.de
-TZ;VALUE=text:Europe/Berlin
-GEO:52.516276;13.377778
-PHOTO;ENCODING=b;TYPE=image/png:iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJAgMAAACd/+6
- DAAAACVBMVEW6ABZmZmYAAACMtcxCAAAAAXRSTlMAQObYZgAAABlJREFUeAFjAIMGBiZGAQhmYY
- FgAUYwBgEAFWYA4dv5cHYAAAAASUVORK5CYII=
-CATEGORIES:Foo,Foo\,Bar,Foo\;Bar,Bar
-N:Schneiderö;Jan;K.;Mr.;
-ORG:Horde Project;äöü
-ADR;TYPE=HOME:;;Schönestr. 15\n33604 Bielefeld;;;;
-ADR;TYPE=WORK:;;Hübschestr. 19;Köln;Allgäu;;Denmark
-END:VCARD
-',
+        $this->assertStringEqualsFile(
+            __DIR__ . '/../fixtures/bug_9207.vcf',
             $vcard->exportvCalendar());
-    }
-
-    public function tearDown()
-    {
     }
 }
