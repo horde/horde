@@ -30,7 +30,7 @@
  </lead>
  <date>2014-09-05</date>
  <version>
-  <release>4.2.2</release>
+  <release>4.2.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix duplicate searching in address books without owner field.
-* [jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
-* [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
-* [jan] Fix listing group members that contain colons in their IDs.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1926,6 +1923,19 @@
 * [jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
 * [mms] Make case-insensitive API e-mail search work on non-ASCII data (Request #12480).
 * [jan] Fix listing group members that contain colons in their IDs.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
