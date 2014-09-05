@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-03</date>
+ <date>2014-09-05</date>
  <version>
   <release>2.25.1</release>
   <api>2.25.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -343,6 +343,7 @@
         <file name="ClientSortTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Socket -->
        <dir name="Stub">
+        <file name="ClientSort.php" role="test" />
         <file name="DigestMD5.php" role="test" />
         <file name="Socket.php" role="test" />
         <file name="Utf7imap.php" role="test" />
@@ -698,6 +699,7 @@
    <install as="Horde/Imap/Client/Namespace/DataTest.php" name="test/Horde/Imap/Client/Namespace/DataTest.php" />
    <install as="Horde/Imap/Client/Namespace/ListTest.php" name="test/Horde/Imap/Client/Namespace/ListTest.php" />
    <install as="Horde/Imap/Client/Socket/ClientSortTest.php" name="test/Horde/Imap/Client/Socket/ClientSortTest.php" />
+   <install as="Horde/Imap/Client/Stub/ClientSort.php" name="test/Horde/Imap/Client/Stub/ClientSort.php" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/Utf7imap.php" name="test/Horde/Imap/Client/Stub/Utf7imap.php" />
@@ -2689,10 +2691,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-03</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
    </notes>
   </release>
  </changelog>

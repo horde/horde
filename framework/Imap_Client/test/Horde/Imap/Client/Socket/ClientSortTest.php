@@ -32,13 +32,14 @@ extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        require_once __DIR__ . '/../Stub/ClientSort.php';
         require_once __DIR__ . '/../Stub/Socket.php';
 
         $this->socket_ob = new Horde_Imap_Client_Stub_Socket(array(
             'password' => 'foo',
             'username' => 'bar'
         ));
-        $this->sort_ob = new Horde_Imap_Client_Socket_ClientSort(
+        $this->sort_ob = new Horde_Imap_Client_Stub_ClientSort(
             $this->socket_ob
         );
 

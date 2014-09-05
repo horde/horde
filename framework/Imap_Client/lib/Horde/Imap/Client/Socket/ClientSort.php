@@ -28,6 +28,13 @@
 class Horde_Imap_Client_Socket_ClientSort
 {
     /**
+     * Collator object to use for sotring.
+     *
+     * @var Collator
+     */
+    protected $_collator;
+
+    /**
      * Socket object.
      *
      * @var Horde_Imap_Client_Socket
@@ -42,6 +49,10 @@ class Horde_Imap_Client_Socket_ClientSort
     public function __construct(Horde_Imap_Client_Socket $socket)
     {
         $this->_socket = $socket;
+
+        if (class_exists('Collator')) {
+            $this->_collator = new Collator(null);
+        }
     }
 
     /**
@@ -340,14 +351,11 @@ class Horde_Imap_Client_Socket_ClientSort
      */
     protected function _sortString(&$sorted)
     {
-        if (class_exists('Collator')) {
-            if ($coll = new Collator(null)) {
-                $coll->asort($sorted, Collator::SORT_STRING);
-                return;
-            }
+        if (empty($this->_collator)) {
+            asort($sorted, SORT_LOCALE_STRING);
+        } else {
+            $this->_collator->asort($sorted, Collator::SORT_STRING);
         }
-
-        asort($sorted, SORT_LOCALE_STRING);
     }
 
 }
