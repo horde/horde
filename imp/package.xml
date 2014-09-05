@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-08-04</date>
+ <date>2014-09-05</date>
  <version>
   <release>6.2.2</release>
   <api>6.2.0</api>
@@ -3728,7 +3728,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Ensure that search/POP3 mailbox listings are saved even if there is an issue with the underlying cache backend.

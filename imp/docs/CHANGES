@@ -1,6 +1,6 @@
-----------
-v6.2.2-git
-----------
+------
+v6.2.2
+------
 
 [mms] Ensure that search/POP3 mailbox listings are saved even if there is an
       issue with the underlying cache backend.
