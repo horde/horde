@@ -1,6 +1,6 @@
-----------
-v5.0.2-git
-----------
+------
+v5.0.2
+------
 
 [jan] Fix syntax error in HTTP driver (Bug #13464).
 [mms] Re-add 'userdn' hook.

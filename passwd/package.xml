@@ -16,8 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-08-27</date>
- <time>16:08:42</time>
+ <date>2014-09-05</date>
  <version>
   <release>5.0.2</release>
   <api>5.0.0</api>
@@ -708,7 +707,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix syntax error in HTTP driver (Bug #13464).
