@@ -165,7 +165,7 @@
 
   <configsection name="notepad">
    <configboolean name="use_notepad" desc="If Mnemo is installed on the local
-   system, it can be used to add the the details of mail messages to new
+   system, it can be used to add the details of mail messages to new
    notes. This feature will add to server load because the list of available
    note categories must be generated on every page load. Enable notepad
    support?">true</configboolean>
