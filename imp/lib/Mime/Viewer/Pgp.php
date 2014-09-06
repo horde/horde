@@ -504,7 +504,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     }
 
     /**
-     * Can this driver render the the data?
+     * Can this driver render the data?
      *
      * @param string $mode  See parent::canRender().
      *
