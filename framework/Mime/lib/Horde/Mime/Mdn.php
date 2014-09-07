@@ -165,6 +165,8 @@ class Horde_Mime_Mdn
         $msg_headers = new Horde_Mime_Headers();
         $msg_headers->addMessageIdHeader();
         $msg_headers->addUserAgentHeader($ua);
+        /* RFC 3834 [5.2] */
+        $msg_headers->addHeader('Auto-Submitted', 'auto-replied');
         $msg_headers->addHeader('Date', date('r'));
         if ($opts['from_addr']) {
             $msg_headers->addHeader('From', $opts['from_addr']);
