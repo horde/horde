@@ -20,24 +20,14 @@ http://www.horde.org/apps/groupware/docs/INSTALL
 The major changes compared to the Horde Groupware version 5.2.0 are:
 
 General changes:
-    * Fixed CalDAV/CardDAV URLs of shared collections.
-    * Bugfixes and improvements.
+    * Several bugfixes and improvements.
 
 Address book changes:
-    * Tagging improvements.
+    * Fixed duplicate searching.
 
 Calendar changes:
-    * Fixed several issues with event exceptions.
-
-Notes changes:
-    * Tagging improvements.
-
-File manager changes:
-    * Added Oracle support.
-    * Update Polish translation.
-
-Bookmarks changes:
-    * Fixed a fatal error due to a botched merge.
+    * Fixed error when navigating between month views.
+    * Fixed recurrence exceptions and resources when moving events.
 ML;
 
 $notes['name'] = 'Horde Groupware';

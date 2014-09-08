@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Update Turba and Kronolith.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -105,21 +105,21 @@
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>6.2.1</min>
+    <min>6.2.2</min>
     <max>7.0.0alpha1</max>
     <exclude>7.0.0alpha1</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>3.2.0</min>
+    <min>3.2.1</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.1</min>
+    <min>4.2.2</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -154,7 +154,7 @@
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.1</min>
+    <min>4.2.2</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>

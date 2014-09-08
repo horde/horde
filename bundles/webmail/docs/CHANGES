@@ -2,6 +2,154 @@
 v5.2.2-git
 ----------
 
+Mail Changes
+------------
+[mms] Ensure that search/POP3 mailbox listings are saved even if there is an
+      issue with the underlying cache backend.
+[mms] Fix replying to non-UTF-8 messages when the 'reply_charset' preference
+      is true.
+[jan] Fix vCard MIME viewer.
+[jan] Fix MIME viewer form actions in basic view (Bug #12677).
+[mms] Don't store/retrieve message history data if the Message-ID is
+      missing/invalid.
+[mms] Fix resuming draft from mailbox page in basic view.
+[mms] Fix displaying Virtual Trash mailbox (Bug #13418).
+[mms] Fix menu actions on the minimal message page (Bug #13440).
+[jan] Fix switching to HTML editor in basic mode if signature display is not
+      active.
+[mms] Fix expiring session cached mailbox data when mailbox information
+      changes.
+[mms] Fix updating viewport immediately after deleting messages on POP3
+      servers.
+
+Filters Changes
+---------------
+[mms] Fix performing more than one filter drag/drop action on a single page
+      (Bug #13434).
+[mms] Add support for a negative regex test to the Maildrop driver.
+[mms] Add support for a negative regex test to the Sieve driver (Pete Beardmore
+      <pete.beardmore@msn.com>, Request #12671).
+[mms] Fix vacation in the maildrop driver (balestrieri@mag-data.com, Bug
+      #13415).
+
+Address Book Changes
+--------------------
+[jan] Fix duplicate searching in address books without owner field.
+[jan] Fix duplicate search form (woe@gmx.de, Bug #13528).
+[mms] Make case-insensitive API e-mail search work on non-ASCII data (Request
+      #12480).
+[jan] Fix listing group members that contain colons in their IDs.
+
+Calendar Changes
+----------------
+[mjr] Fix removing resource event when editing the bound event causes the
+      resource to reject the event (Bug #13466).
+[mjr] Fix refreshing resource events in the UI when the host event changes
+      (Bug #13465).
+[mjr] Fix updating the exceptionoriginaldate field when the base event changes
+      (Bug #13512).
+[mjr] Fix moving recurring events with exceptions from one calendar to another
+      (Bug #13524).
+[mjr] Fix honoring resource_management permission (Bug #13049).
+[jan] Fix visual overlapping of certain events (Bug #13376).
+[jan] Fix error editing events if using exotic date formats.
+[jan] Fix JavaScript error if not showing all events in month view (Jasper
+      Olbrich <Jasper.Olbrich@students.uni-marburg.de>, Bug #13433).
+[jan] Fix displayed CalDAV URLs for shared calendars in basic view too
+      (piper@hrz.uni-marburg.de, Bug #12380).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Added Horde_ActiveSync_Rfc822::replaceMime().
+[mjr] Added Horde_ActiveSync_Mime class.
+[mjr] Added Horde_ActiveSync_Exception_EmailFatalFailure.
+[mjr] Fix issues with 8-bit characters in Subject header in some cases (Bug
+      #13456).
+[mjr] Fix POOMTASKS_SUBORDINALDATE parsing (Bug #13461).
+[mjr] Prevent folder cache from being overwritten (Bug #13273).
+[mjr] Add Horde_ActiveSync_Imap_Adapter::emptyMailbox().
+[mjr] Fix sending ItemSettings responses for EAS 14.1.
+[mjr] Add unofficial WindowsLive codepage extensions.
+[mjr] Fix yearly recurrences appearing on incorrect day in certain cases.
+[mjr] Add support for synchronizing user-defined IMAP flags as EAS Email
+      categories.
+[mjr] Prevent infinite loops due to broken clients sending invalid OPTIONS data
+      (Bug #13405).
+[mjr] Prevent fatal WBXML parsing error due to broken BlackBerry clients (Bug
+      #13351).
+
+Core
+[mjr] Fix dependency on Horde_HashTable (Bug #13549).
+[mjr] Add activesync_email_presend hook.
+[mjr] Fix issue where replying or forwarding broken email messages would break
+      ActiveSync synchronization when saving to Sent mail.
+[mjr] Fix issues with 8-bit characters in Subject header when sending smart
+      replies via ActiveSync (Bug #13456).
+[mjr] Fix GAL searches returning all address book entries.
+[jan] Improve positioning of date picker popup (Karim Geiger
+      <me@karim-geiger.de>).
+[jan] Really fix returning session start time from session handler (Bug
+      #13428).
+[mms] Ensure persistently stored data is not overwritten by another session.
+[mms] Fix boostrapping DB object when using SQL as the Horde cache driver (Bug
+      #13439).
+[mjr] Support ITEMOPERATIONS_EMPTYFOLDER requests via ActiveSync.
+[mjr] Fetch correct data for EAS ItemSettings requests.
+[jan] Catch exception from application in portal block (Bug #13427).
+[jan] Fix returning session start time from session handler (Bug #13428).
+[mjr] Add support for synchronizing user-defined IMAP flags as EAS Email
+      categories.
+[mjr] Fix BC break when detecting the ActiveSync state driver.
+
+Imap_Client
+[mms] Add support for Gmail-specific WEBALERT response code.
+[mms] IMAP/POP3 URL generation split into a more modular library structure.
+[mms] Ignore message-specific URL parameters if a search query appears in an
+      IMAP URL.
+[mms] Fix encoding/decoding URL elements in IMAP/POP3 URLs.
+[mms] Fix setting default port for POP3 URLs.
+[mms] Fix client-side reverse sorting.
+[mms] Fix client-side sequence sorting, when that is the only sort criteria.
+[mms] Use Collator class, if present, to sort string fields on the client side.
+[mms] Fix client-side sorting of display addresses.
+[mms] Even more improved pseudo-UIDNEXT value for POP3 servers.
+[mms] Improved sanity checking so that non-ASCII data is not sent to server in
+      commands where it is not supported.
+[mms] Fix typo in Horde_Imap_Client_Data_Sync (Bug #13430; Jasper Olbrich
+      <Jasper.Olbrich@students.uni-marburg.de>).
+[mms] Fix regression in reporting capabilities (Bug #13421).
+
+Kolab_Storage
+[jan] Fix tests including Horde_Mime_Part.
+
+Mime
+[mms] Fix generation of Original-Message-ID header in MDN notification (Bug
+      #13526).
+[mms] Fix determination of MDN user confirmation in certain instances.
+
+Pack
+[mms] Attempt to workaround broken JSON-C decoder regarding null characters.
+
+Prefs
+[mms] Add ArrayAccess, Countable, and Iterator functionality to the
+      Horde_Prefs_Identity object.
+
+Test
+[mms] Fix determination of test cases using AllTests.php.
+[mms] Fix AllTests.php when dealing with test cases that inherit from parent
+      test cases.
+
+Timezone
+[jan] Fix "Undefined offset" notice (Bug #13455).
+
+Util
+[mms] Fix another issue with older versions of PHP in
+      Horde_String_Transliterate.
+[mms] Fix regression in Horde_String_Transliterate for PHP 5.3 (Bug #13419).
+[mms] Added Horde_String::ipos() and Horde_String::ripos().
+[mms] Fallback to lesser priority transliterator driver when an error is
+      encountered.
 
 
 ------
