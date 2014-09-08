@@ -75,7 +75,7 @@ class Horde_ActiveSync_Rfc822
     {
         if (is_resource($rfc822)) {
             $stream = new Horde_Stream_Existing(array('stream' => $rfc822));
-            rewind($stream);
+            $stream->rewind();
         } else {
             $stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
             $stream->add($rfc822, true);
