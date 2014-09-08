@@ -3,6 +3,12 @@ v3.3.0-git
 ----------
 
 
+------
+v3.2.2
+------
+
+[mjr] Fix issues when preferred configuration contains an array (Bug #13548).
+
 
 ------
 v3.2.1

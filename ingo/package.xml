@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1477,7 +1477,7 @@
    <date>2014-07-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -1492,8 +1492,21 @@
    <notes>
 * [mms] Fix performing more than one filter drag/drop action on a single page (Bug #13434).
 * [mms] Add support for a negative regex test to the Maildrop driver.
-* [mms] Add support for a negative regex test to the Sieve driver (Request #12671; Pete Beardmore &lt;pete.beardmore@msn.com&gt;).
-* [mms] Fix vacation in the maildrop driver (Bug #13415; balestrieri@mag-data.com).
+* [mms] Add support for a negative regex test to the Sieve driver (Pete Beardmore &lt;pete.beardmore@msn.com&gt;, Request #12671).
+* [mms] Fix vacation in the maildrop driver (balestrieri@mag-data.com, Bug #13415).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.2</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-05</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
    </notes>
   </release>
  </changelog>
