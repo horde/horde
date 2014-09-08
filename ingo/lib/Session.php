@@ -123,10 +123,10 @@ class Ingo_Session
                 $backend = $val;
             } elseif (!empty($val['preferred'])) {
                 if (is_array($val['preferred'])) {
-                    foreach ($val['preferred'] as $val) {
-                        if (($val == $_SERVER['SERVER_NAME']) ||
-                            ($val == $_SERVER['HTTP_HOST'])) {
-                            $backend = $val;
+                    foreach ($val['preferred'] as $v) {
+                        if (($v == $_SERVER['SERVER_NAME']) ||
+                            ($v == $_SERVER['HTTP_HOST'])) {
+                            $backend = $v;
                         }
                     }
                 } elseif (($val['preferred'] == $_SERVER['SERVER_NAME']) ||
