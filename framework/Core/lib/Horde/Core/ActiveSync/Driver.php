@@ -3048,58 +3048,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return if the specified mime part has attachments.
-     *
-     * @param Horde_Mime_Part $mime_part  The mime part.
-     *
-     * @return boolean
-     */
-    protected function _hasAttachments(Horde_Mime_Part $mime_part)
-    {
-        foreach ($mime_part->contentTypeMap() as $type) {
-            if ($this->_isAttachment($type)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Determines if a MIME type is an attachment.
-     * For our purposes, an attachment is any MIME part that can be
-     * downloaded by itself (i.e. all the data needed to view the part is
-     * contained within the download data).
-     *
-     * @param string $mime_type  The MIME type.
-     *
-     * @return boolean  True if an attachment.
-     */
-    protected function _isAttachment($mime_type)
-    {
-        switch ($mime_type) {
-        case 'text/plain':
-        case 'application/ms-tnef':
-        case 'text/html':
-        case 'application/pkcs7-signature':
-            return false;
-        }
-
-        list($ptype,) = explode('/', $mime_type, 2);
-
-        switch ($ptype) {
-        case 'message':
-            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
-
-        case 'multipart':
-            return false;
-
-        default:
-            return true;
-        }
-    }
-
-    /**
      * Removes the beginning/ending delimiters from the certificate.
      *
      * @param string $cert  The certificate text.
