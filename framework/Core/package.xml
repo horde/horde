@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix dependency on Horde_HashTable (Bug #13549).
 * [mjr] Add activesync_email_presend hook.
 * [mjr] Fix issue where replying or forwarding broken email messages would break ActiveSync synchronization when saving to Sent mail.
 * [mjr] Fix issues with 8-bit characters in Subject header when sending smart replies via ActiveSync (Bug #13456).
@@ -3623,6 +3624,7 @@
    <date>2014-08-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix dependency on Horde_HashTable (Bug #13549).
 * [mjr] Add activesync_email_presend hook.
 * [mjr] Fix issue where replying or forwarding broken email messages would break ActiveSync synchronization when saving to Sent mail.
 * [mjr] Fix issues with 8-bit characters in Subject header when sending smart replies via ActiveSync (Bug #13456).
