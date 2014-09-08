@@ -29,16 +29,38 @@
 class Horde_ActiveSync_Mime
 {
 
+    /**
+     * The composited mime part.
+     *
+     * @var Horde_Mime_Part
+     */
     protected $_base;
 
+    /**
+     * Local cache of hasAttachments data.
+     *
+     * @var boolean
+     */
     protected $_hasAttachments;
 
 
+    /**
+     * Cont'r
+     *
+     * @param Horde_Mime_Part $mime The mime data.
+     */
     public function __construct(Horde_Mime_Part $mime)
     {
         $this->_base = $mime;
     }
 
+    /**
+     * Accessor
+     *
+     * @param string $property  The property name.
+     *
+     * @return mixed
+     */
     public function __get($property)
     {
         switch ($property) {
@@ -48,7 +70,15 @@ class Horde_ActiveSync_Mime
         return $this->_base->property;
     }
 
-    public function __call($method, $params)
+    /**
+     * Delegate calls to the composed MIME object.
+     *
+     * @param string $method  The method name.
+     * @param array $params   The parameters.
+     *
+     * @return mixed
+     */
+    public function __call($method, array $params)
     {
         if (is_callable(array($this->_base, $method))) {
             return call_user_func_array(array($this->_base, $method), $params);
