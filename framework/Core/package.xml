@@ -30,7 +30,7 @@
  </developer>
  <date>2014-09-08</date>
  <version>
-  <release>2.14.0</release>
+  <release>2.14.1</release>
   <api>2.14.0</api>
  </version>
  <stability>
@@ -39,13 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix dependency on Horde_HashTable (Bug #13549).
-* [mjr] Add activesync_email_presend hook.
-* [mjr] Fix issue where replying or forwarding broken email messages would break ActiveSync synchronization when saving to Sent mail.
-* [mjr] Fix issues with 8-bit characters in Subject header when sending smart replies via ActiveSync (Bug #13456).
-* [mjr] Fix GAL searches returning all address book entries.
-* [jan] Improve positioning of date picker popup (Karim Geiger &lt;me@karim-geiger.de&gt;).
-* [jan] Really fix returning session start time from session handler (Bug #13428).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3631,6 +3625,19 @@
 * [mjr] Fix GAL searches returning all address book entries.
 * [jan] Improve positioning of date picker popup (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Really fix returning session start time from session handler (Bug #13428).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.14.1</release>
+    <api>2.14.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
