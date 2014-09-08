@@ -164,7 +164,7 @@ class Horde_ActiveSync_Mime
         }
         foreach ($this->_base->contentTypeMap() as $id => $type) {
             if ($type == 'text/calendar') {
-                return $this->_base->getMimePart($id);
+                return $this->_base->getPart($id);
             }
         }
 
