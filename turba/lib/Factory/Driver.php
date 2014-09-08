@@ -37,18 +37,21 @@ class Turba_Factory_Driver extends Horde_Core_Factory_Base
     /**
      * Return the Turba_Driver:: instance.
      *
-     * @param mixed $name  Either a string containing the internal name of this
-     *                     source, or a config array describing the source.
+     * @param mixed $name    Either a string containing the internal name of
+     *                       this source, or a config array describing the
+     *                       source.
+     * @param string $name2  The internal name of this source if $name is an
+     *                       array.
      *
      * @return Turba_Driver  The singleton instance.
      * @throws Turba_Exception
      */
-    public function create($name)
+    public function create($name, $name2 = '')
     {
         if (is_array($name)) {
             ksort($name);
             $key = md5(serialize($name));
-            $srcName = '';
+            $srcName = $name2;
             $srcConfig = $name;
         } else {
             $key = $name;

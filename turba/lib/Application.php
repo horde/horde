@@ -335,13 +335,13 @@ class Turba_Application extends Horde_Registry_Application
     {
         /* We need a clean copy of the $cfgSources array here.*/
         $cfgSources = Turba::availableSources();
-        foreach ($cfgSources as $source) {
+        foreach ($cfgSources as $sourceId => $source) {
             if (empty($source['use_shares'])) {
                 // Shares not enabled for this source
                 try {
                     $driver = $GLOBALS['injector']
                         ->getInstance('Turba_Factory_Driver')
-                        ->create($source);
+                        ->create($source, $sourceId);
                 } catch (Turba_Exception $e) {
                     Horde::log($e, 'ERR');
                 }
@@ -373,7 +373,7 @@ class Turba_Application extends Horde_Registry_Application
             try {
                 $driver = $GLOBALS['injector']
                     ->getInstance('Turba_Factory_Driver')
-                    ->create($config);
+                    ->create($config, $share->getName());
             } catch (Turba_Exception $e) {
                 continue;
             }
