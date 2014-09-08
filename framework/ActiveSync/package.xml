@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Added Horde_ActiveSync_Rfc822::replaceMime().
 * [mjr] Added Horde_ActiveSync_Mime class.
 * [mjr] Added Horde_ActiveSync_Exception_EmailFatalFailure.
  </notes>
@@ -2354,6 +2355,7 @@
    <date>2014-09-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Added Horde_ActiveSync_Rfc822::replaceMime().
 * [mjr] Added Horde_ActiveSync_Mime class.
 * [mjr] Added Horde_ActiveSync_Exception_EmailFatalFailure.
    </notes>
