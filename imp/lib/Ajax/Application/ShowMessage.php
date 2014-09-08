@@ -359,7 +359,7 @@ class IMP_Ajax_Application_ShowMessage
             Horde::startBuffer();
             $page_output->outputInlineScript(true);
             if ($js_inline = Horde::endBuffer()) {
-                $result['js'] = $js_inline;
+                $result['js'] = array($js_inline);
             }
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
