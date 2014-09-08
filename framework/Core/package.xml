@@ -1097,6 +1097,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_HashTable</name>
+    <channel>pear.horde.org</channel>
+    <min>1.2.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1321,13 +1328,6 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_HashTable</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
