@@ -1,0 +1,63 @@
+Return-Path: <mrubinsk@horde.org>
+X-Original-To: mike@theupstairsroom.com
+Delivered-To: mike@theupstairsroom.com
+Received: from localhost (localhost [127.0.0.1])
+    by door.theupstairsroom.com (Postfix) with ESMTP id 44C2F5C1856
+    for <mike@theupstairsroom.com>; Mon,  8 Sep 2014 10:27:04 -0400 (EDT)
+Received: from door.theupstairsroom.com ([127.0.0.1])
+    by localhost (door.theupstairsroom.com [127.0.0.1]) (amavisd-new, port 10024)
+    with ESMTP id 8b8ipjifmJda for <mike@theupstairsroom.com>;
+    Mon,  8 Sep 2014 10:27:00 -0400 (EDT)
+Received: from lists.horde.org (lists.horde.org [200.46.208.138])
+    by door.theupstairsroom.com (Postfix) with ESMTP id 627185C0848
+    for <mike@theupstairsroom.com>; Mon,  8 Sep 2014 10:26:59 -0400 (EDT)
+Received: by lists.horde.org (Postfix)
+    id 0A16F9ED39C; Mon,  8 Sep 2014 14:26:59 +0000 (UTC)
+Delivered-To: mrubinsk@horde.org
+Received: from maia.hub.org (unknown [200.46.151.188])
+    by lists.horde.org (Postfix) with ESMTP id 89F189ED39D
+    for <mrubinsk@horde.org>; Mon,  8 Sep 2014 14:26:58 +0000 (UTC)
+Received: from lists.horde.org ([200.46.208.138])
+ by maia.hub.org (mx1.hub.org [200.46.151.188]) (amavisd-maia, port 10024)
+ with ESMTP id 84126-04 for <mrubinsk@horde.org>;
+ Mon,  8 Sep 2014 14:26:57 +0000 (UTC)
+X-Greylist: from auto-whitelisted by SQLgrey-1.8.0
+Received: from door.theupstairsroom.com (door.theupstairsroom.com [50.248.141.100])
+    by lists.horde.org (Postfix) with ESMTP id 1DFDE9ED39C
+    for <mrubinsk@horde.org>; Mon,  8 Sep 2014 14:26:55 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+    by door.theupstairsroom.com (Postfix) with ESMTP id 56BBB5C1804
+    for <mrubinsk@horde.org>; Mon,  8 Sep 2014 10:26:55 -0400 (EDT)
+Received: from door.theupstairsroom.com ([127.0.0.1])
+    by localhost (door.theupstairsroom.com [127.0.0.1]) (amavisd-new, port 10024)
+    with ESMTP id D6eD9fr0Rxpi for <mrubinsk@horde.org>;
+    Mon,  8 Sep 2014 10:26:50 -0400 (EDT)
+Received: from door (localhost [127.0.0.1])
+    (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+    (No client certificate requested)
+    by door.theupstairsroom.com (Postfix) with ESMTPS id 97FE05C0848
+    for <mrubinsk@horde.org>; Mon,  8 Sep 2014 10:26:50 -0400 (EDT)
+Received: from coffee.theupstairsroom.com (coffee.theupstairsroom.com
+ [50.248.141.99]) by h4.theupstairsroom.com (Horde Framework) with HTTP; Mon,
+ 08 Sep 2014 10:26:50 -0400
+Date: Mon, 08 Sep 2014 10:26:50 -0400
+Message-ID: <20140908102650.Horde.1eE5viMIP-X-AwWHvBqf6A9@h4.theupstairsroom.com>
+From: Michael J Rubinsky <mrubinsk@horde.org>
+To: mrubinsk@horde.org
+Subject: Subject
+Reply-to: mrubinsk@horde.org
+User-Agent: Internet Messaging Program (IMP) H5 (6.3.0-git)
+Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+MIME-Version: 1.0
+Content-Disposition: inline
+
+Foo
+
+
+--
+mike
+The Horde Project
+http://www.horde.org
+https://www.facebook.com/hordeproject
+https://www.twitter.com/hordeproject
+
