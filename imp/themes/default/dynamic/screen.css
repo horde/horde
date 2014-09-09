@@ -206,7 +206,7 @@ div.vpRowSelected .msgflags.flagDeleted {
 .msCheck {
     background-image: url("../graphics/checkbox_off.png");
 }
-div.vpRow .msCheck:hover {
+.msCheck:hover {
     background-image: url("../graphics/checkbox_over.png") !important;
 }
 .msCheckOn,
@@ -215,6 +215,9 @@ div.vpRowSelected .msCheck {
 }
 div.msgStatus .msCheck {
     margin-right: 1px;
+}
+.msCheckAll {
+    cursor: pointer;
 }
 
 /* Rows (vertical mode) */

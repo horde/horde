@@ -232,6 +232,13 @@ var DimpCore = {
 
     toggleCheck: function(elt, on)
     {
+        if (Object.isArray(elt)) {
+            elt.each(function(e) {
+                this.toggleCheck(e, on);
+            }, this);
+            return;
+        }
+
         if (on === null) {
             if (elt) {
                 elt.hide();

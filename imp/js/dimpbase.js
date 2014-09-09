@@ -106,8 +106,9 @@ var DimpBase = {
 
     selectAll: function()
     {
-        var tmp = $('msglistHeaderContainer').down('DIV.msCheckAll');
-        if (tmp.hasClassName('msCheckOn')) {
+        var tmp = $('msglistHeaderContainer').select('DIV.msCheckAll');
+
+        if (tmp.first().hasClassName('msCheckOn')) {
             this.resetSelected();
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
@@ -137,7 +138,7 @@ var DimpBase = {
 
     resetSelectAll: function()
     {
-        DimpCore.toggleCheck($('msglistHeaderContainer').down('DIV.msCheckAll'), false);
+        DimpCore.toggleCheck($('msglistHeaderContainer').select('DIV.msCheckAll'), false);
     },
 
     // num = (integer) See absolute.

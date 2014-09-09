@@ -21,6 +21,13 @@ v6.3.0-git
 
 
 ------
+v6.2.3
+------
+
+[mms] Fix toggling select all checkbox in both dynamic mailbox layouts.
+
+
+------
 v6.2.2
 ------
 
