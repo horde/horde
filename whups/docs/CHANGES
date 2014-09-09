@@ -2,6 +2,8 @@
 v3.1.0-git
 ----------
 
+[jan] Allow to set new due date through API (Karim Geiger
+      <me@karim-geiger.de>).
 [jan] Add ticket_create hook.
 
 

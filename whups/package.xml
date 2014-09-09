@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Allow to set new due date through API (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Add ticket_create hook.
  </notes>
  <contents>
@@ -1128,6 +1129,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Allow to set new due date through API (Karim Geiger &lt;me@karim-geiger.de&gt;).
 * [jan] Add ticket_create hook.
    </notes>
   </release>
