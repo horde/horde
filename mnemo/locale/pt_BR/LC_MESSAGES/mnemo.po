@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-04-25 22:27-0300\n"
+"POT-Creation-Date: 2014-09-06 20:59-0300\n"
 "PO-Revision-Date: 2014-04-26 19:25-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -171,7 +171,7 @@ msgstr "Preferências de Exibição"
 msgid "Do you want to confirm deleting entries?"
 msgstr "Você deseja confirmar a exclusão de registros?"
 
-#: list.php:120
+#: list.php:122
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Editar \"%s\""
@@ -190,7 +190,7 @@ msgstr "Editar Anotação"
 msgid "Edit: %s"
 msgstr "Editar: %s"
 
-#: lib/Block/Summary.php:85 list.php:139
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
 msgstr "Anotação em Branco"
 
@@ -210,7 +210,7 @@ msgstr "Exportar"
 msgid "Export Notes"
 msgstr "Exportar Anotações"
 
-#: lib/Driver/Kolab.php:286
+#: lib/Driver/Kolab.php:293
 #, php-format
 msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr "Falha ao obter informação Kolab para bloco de notas %s: %s"
@@ -553,7 +553,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr "Esta anotação foi criptografada, por favor forneça a senha."
 
-#: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
 msgstr "Esta anotação foi criptografada."
 
@@ -653,7 +653,7 @@ msgstr "por mim"
 msgid "in %s"
 msgstr "em %s"
 
-#: lib/Application.php:294 templates/data/export.inc:3
+#: lib/Application.php:295 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "anotacoes.csv"
 
