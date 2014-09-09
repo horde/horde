@@ -52,6 +52,3 @@ msgid ""
 msgstr ""
 "Você não mapeou nenhum campo do arquivo importado para os campos "
 "correspondentes."
-
-#~ msgid "URL %s not found"
-#~ msgstr "URL %s não encontrado"

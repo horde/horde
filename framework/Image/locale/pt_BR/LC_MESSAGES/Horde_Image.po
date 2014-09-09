@@ -1377,9 +1377,3 @@ msgstr "sRGB"
 #, php-format
 msgid "version %d"
 msgstr "versão %d"
-
-#~ msgid "Description"
-#~ msgstr "Descrição"
-
-#~ msgid "Title"
-#~ msgstr "Título"
