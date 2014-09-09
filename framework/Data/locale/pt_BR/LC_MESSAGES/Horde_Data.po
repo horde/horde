@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2013-03-16 11:00-0300\n"
+"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"PO-Revision-Date: 2014-07-10 21:29-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Cannot open file."
 msgstr "Impossível abrir arquivo."
 
-#: lib/Horde/Data/Csv.php:227
+#: lib/Horde/Data/Csv.php:226
 msgid "Incorrect charset given for the data."
 msgstr "Conjunto de caracteres incorretos fornecidos para a informação."
 
@@ -37,7 +37,7 @@ msgstr "O arquivo não contém dados."
 msgid "The uploaded data was lost since the previous step."
 msgstr "Os dados enviados foram perdidos desde a etapa anterior."
 
-#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:223
 msgid "The uploaded file could not be saved."
 msgstr "Não foi possível gravar o arquivo enviado."
 
@@ -52,3 +52,6 @@ msgid ""
 msgstr ""
 "Você não mapeou nenhum campo do arquivo importado para os campos "
 "correspondentes."
+
+#~ msgid "URL %s not found"
+#~ msgstr "URL %s não encontrado"
