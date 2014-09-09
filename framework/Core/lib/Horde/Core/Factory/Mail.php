@@ -99,9 +99,12 @@ class Horde_Core_Factory_Mail extends Horde_Core_Factory_Base
 
         /* Add username/password options now, regardless of current value of
          * 'auth'. Will remove in create() if final config doesn't require
-         * authentication. */
+         * authentication. Need isAuthenticated() check since we may be
+         * running from CLI with 'user_admin' registry flag, which sets
+         * the authentication name but not the credentials. */
         if (strcasecmp($transport, 'smtp') === 0) {
-            if ($auth = $registry->getAuth()) {
+            if ($registry->isAuthenticated() &&
+                strlen($auth = $registry->getAuth())) {
                 if (!empty($params['username_auth'])) {
                     $params['username'] = $auth;
                 }

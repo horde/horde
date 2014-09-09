@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix using master SMTP credentials when a CLI script uses the &apos;user_admin&apos; registry flag.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3637,7 +3637,7 @@
    <date>2014-09-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix using master SMTP credentials when a CLI script uses the &apos;user_admin&apos; registry flag.
    </notes>
   </release>
  </changelog>
