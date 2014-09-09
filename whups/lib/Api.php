@@ -246,6 +246,9 @@ class Whups_Api extends Horde_Registry_Api
         if (!empty($info['newcomment'])) {
             $ticket->change('comment', $info['newcomment']);
         }
+        if (!empty($info['due'])) {
+            $ticket->change('due', $info['due']);
+        }
 
         // Update attributes.
         $whups_driver->setAttributes($info, $ticket);
