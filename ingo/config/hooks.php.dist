@@ -32,8 +32,11 @@ class Ingo_Hooks
 //        switch ($driver) {
 //        case 'foo':
 //            // Example #1: Use full Horde username for password.
+//            // This is generally needed for sieve servers.
+//            $full_user = $GLOBALS['registry']->getAuth(null);
 //            return array(
-//                'username' => $GLOBALS['registry']->getAuth(null)
+//                'euser' => $full_user,
+//                'username' => $full_user
 //            );
 //
 //            // Example #2: Use IMP password/username.
