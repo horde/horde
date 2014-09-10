@@ -257,6 +257,11 @@ $backends['sieve'] = array(
         Ingo::RULE_ALL => array(
             'driver' => 'timsieved',
             'params' => array(
+                // NOTE: Ingo by default sends only the bare Horde username
+                // for authentication. Sieve servers generally need both the
+                // username and domain. See the 'transport_auth' hook for
+                // an example on how to change the Ingo default behavior.
+
                 // Hostname of the timsieved server
                 'hostspec' => 'localhost',
                 // Login type of the server
@@ -267,8 +272,8 @@ $backends['sieve'] = array(
                 'port' => 4190,
                 // Name of the sieve script
                 'scriptname' => 'ingo',
-                // Enable debugging. The sieve protocol communication is logged
-                // with the DEBUG level.
+                // Enable debugging. The sieve protocol communication is
+                // logged with the DEBUG level.
                 'debug' => false,
             ),
         ),
