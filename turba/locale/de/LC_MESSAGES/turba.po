@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2014-06-04 12:16+0200\n"
+"PO-Revision-Date: 2014-09-10 15:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -1184,7 +1184,7 @@ msgstr "Pine-Adressbuch"
 
 #: lib/Turba.php:706
 msgid "Please name the new contact list:"
-msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
+msgstr "Bitte einen Namen für die neue Kontaktliste angeben:"
 
 #: lib/Form/EditContactGroup.php:29 lib/Form/EditContactGroup.php:33
 #: lib/Form/EditContactGroup.php:87
