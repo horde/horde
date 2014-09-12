@@ -2,6 +2,8 @@
 v5.2.2-git
 ----------
 
+[jan] Hide weather portal block if weather configuration is disabled (Bug
+      #13559).
 [jan] Add show_encryption setting to HTTP authentication configuration
       (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
 
