@@ -27,11 +27,22 @@ class Horde_Block_Weather extends Horde_Core_Block
     public $autoUpdateMethod = 'refreshContent';
 
     /**
+     * @var Horde_Service_Weather_Base
+     */
+    protected $_weather;
+
+    /**
      */
     public function __construct($app, $params = array())
     {
-        // @TODO: Check config key etc...
+        global $injector;
+
         parent::__construct($app, $params);
+        try {
+            $this->_weather = $injector->getInstance('Horde_Weather');
+        } catch (Horde_Exception $e) {
+            $this->enabled = false;
+        }
         $this->_name = _("Weather");
     }
 
@@ -66,9 +77,7 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _params()
     {
-        $weather = $GLOBALS['injector']
-            ->getInstance('Horde_Weather');
-        $lengths = $weather->getSupportedForecastLengths();
+        $lengths = $this->_weather->getSupportedForecastLengths();
         return array(
             'location' => array(
                 'type' => 'text',
@@ -102,11 +111,8 @@ class Horde_Block_Weather extends Horde_Core_Block
      */
     protected function _content()
     {
-        $weather = $GLOBALS['injector']
-            ->getInstance('Horde_Weather');
-
         // Set the requested units.
-        $weather->units = $this->_params['units'];
+        $this->_weather->units = $this->_params['units'];
 
         if (!empty($this->_refreshParams) && !empty($this->_refreshParams->location)) {
             $location = $this->_refreshParams->location;
@@ -132,7 +138,7 @@ class Horde_Block_Weather extends Horde_Core_Block
 
         // Test location
         try {
-            $location = $weather->searchLocations($location);
+            $location = $this->_weather->searchLocations($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
@@ -150,15 +156,15 @@ class Horde_Block_Weather extends Horde_Core_Block
             return $html;
         }
         try {
-            $forecast = $weather->getForecast($location->code, $this->_params['days']);
-            $station = $weather->getStation();
-            $current = $weather->getCurrentConditions($location->code);
+            $forecast = $this->_weather->getForecast($location->code, $this->_params['days']);
+            $station = $this->_weather->getStation();
+            $current = $this->_weather->getCurrentConditions($location->code);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
 
         // Units to display as
-        $units = $weather->getUnits($weather->units);
+        $units = $this->_weather->getUnits($this->_weather->units);
 
         // Location and local time.
         $html .= '<div class="control">'
@@ -193,7 +199,7 @@ class Horde_Block_Weather extends Horde_Core_Block
         // Feels like temperature.
         // @TODO: Need to parse if wind chill/heat index etc..
         // $html .= ' <strong>' . _("Feels like: ") . '</strong>' .
-        //     round($weather['feltTemperature']) . '&deg;' . Horde_String::upper($units['temp']);
+        //     round($this->_weather['feltTemperature']) . '&deg;' . Horde_String::upper($units['temp']);
 
         // Pressure and trend.
         if ($current->pressure) {
@@ -343,21 +349,21 @@ class Horde_Block_Weather extends Horde_Core_Block
             $html .= '</table>';
         }
 
-        if ($weather->logo) {
+        if ($this->_weather->logo) {
             $html .= '<div class="rightAlign">'
                 . _("Weather data provided by") . ' '
                 . Horde::link(
-                    Horde::externalUrl($weather->link),
-                    $weather->title, '', '_blank', '', $weather->title)
-                . Horde_Themes_Image::tag($weather->logo)
+                    Horde::externalUrl($this->_weather->link),
+                    $this->_weather->title, '', '_blank', '', $this->_weather->title)
+                . Horde_Themes_Image::tag($this->_weather->logo)
                 . '</a></div>';
         } else {
             $html .= '<div class="rightAlign">'
                 . _("Weather data provided by") . ' '
                 . Horde::link(
-                    Horde::externalUrl($weather->link),
-                    $weather->title, '', '_blank', '', $weather->title)
-                . '<em>' . $weather->title . '</em>'
+                    Horde::externalUrl($this->_weather->link),
+                    $this->_weather->title, '', '_blank', '', $this->_weather->title)
+                . '<em>' . $this->_weather->title . '</em>'
                 . '</a></div>';
         }
 
