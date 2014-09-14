@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix broken EAS synchronization due to incorrect setting of the Categories field.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1935,7 +1935,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix broken EAS synchronization due to incorrect setting of the Categories field.
    </notes>
   </release>
  </changelog>
