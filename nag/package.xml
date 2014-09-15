@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix sidebar display of system task lists in basic view.
 * [jan] Fix retrieving individual tasks via WebDAV.
  </notes>
  <contents>
@@ -1587,6 +1588,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix sidebar display of system task lists in basic view.
 * [jan] Fix retrieving individual tasks via WebDAV.
    </notes>
   </release>
