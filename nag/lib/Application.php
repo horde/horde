@@ -183,7 +183,8 @@ class Nag_Application extends Horde_Registry_Application
                 'edit' => $edit->add('t', $tasklist->getName()),
                 'type' => 'checkbox',
             );
-            if (is_null($tasklist->get('owner'))) {
+            if ($GLOBALS['registry']->isAdmin() &&
+                is_null($tasklist->get('owner'))) {
                 $sidebar->addRow($row, 'system');
             } elseif ($tasklist->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
