@@ -745,10 +745,15 @@ class Ansel_Storage
         global $conf, $registry;
 
         // Need to get comment counts if comments are enabled
-        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
+        if (($conf['comments']['allow'] == 'all' ||
+             ($conf['comments']['allow'] == 'authenticated' &&
+              $GLOBALS['registry']->getAuth())) &&
             $registry->hasMethod('forums/numMessagesBatch')) {
+            try {
 
-            return $registry->call('forums/numMessagesBatch', array($ids, 'ansel'));
+                return $registry->call('forums/numMessagesBatch', array($ids, 'ansel'));
+            } catch (Horde_Exception $e) {
+            }
         }
 
         return array();
