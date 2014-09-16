@@ -2957,7 +2957,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* The FETCH command should be the only command issued by this library
-         * that should ever approach this limit.
+         * that should ever approach the command length limit.
          * @todo Move this check to a more centralized location (_command()?).
          * For simplification, assume that the UID list is the limiting factor
          * and split this list at a sequence comma delimiter if it exceeds
