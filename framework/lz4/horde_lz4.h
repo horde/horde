@@ -6,7 +6,7 @@ extern zend_module_entry horde_lz4_module_entry;
 
 extern char horde_lz4_headerid;
 
-#define HORDE_LZ4_EXT_VERSION "1.0.4"
+#define HORDE_LZ4_EXT_VERSION "1.0.7"
 
 #ifdef PHP_WIN32
 #   define PHP_HORDE_LZ4_API __declspec(dllexport)
