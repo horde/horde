@@ -354,6 +354,24 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
+     * @depends testStatus
+     */
+    public function testAppendMessagesToUtf8Mailbox()
+    {
+        // Appending test e-mail 1 (with Flagged), 2 via a stream (with Seen),
+        // 3 via a stream (with internaldate), and 4 via a string:
+        $uid = self::$live->append(self::$test_mbox_utf8, array(
+            array(
+                'data' => file_get_contents(__DIR__ . '/../fixtures/remote1.txt')
+            )
+        ));
+
+        if (!($uid instanceof Horde_Imap_Client_Ids)) {
+            $this->fail('Append successful but UIDs not properly returned.');
+        }
+    }
+
+    /**
      * @depends testAppendMessagesToMailbox
      */
     public function testCopyingEmailToUtf8Mailbox()
