@@ -2259,7 +2259,7 @@
        of the Wbxml stream along with some other activesync-related data. If you
        want to do this, set this to either Per Device or Single File and enter
        the appropriate path. If detailed debug logging is not needed, set this to
-       None.">None
+       None.">false
          <case name="false" desc="None" />
          <case name="perdevice" desc="Per Device">
            <configstring name="path" desc="Path to custom log directory." />
