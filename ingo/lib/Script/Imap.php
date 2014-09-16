@@ -142,8 +142,10 @@ class Ingo_Script_Imap extends Ingo_Script_Base
 
                 $query = $this->_getQuery();
                 $or_ob = new Horde_Imap_Client_Search_Query();
+
                 foreach ($addr->bare_addresses as $val) {
                     $ob = new Horde_Imap_Client_Search_Query();
+                    $ob->charset('UTF-8', false);
                     $ob->headerText('from', $val);
                     $or_ob->orSearch(array($ob));
                 }
@@ -199,13 +201,16 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         $ob->size($val['value'], ($val['match'] == 'greater than'));
                     } elseif (!empty($val['type']) &&
                               ($val['type'] == Ingo_Storage::TYPE_BODY)) {
+                        $ob->charset('UTF-8', false);
                         $ob->text($val['value'], true, ($val['match'] == 'not contain'));
                     } else {
                         if (strpos($val['field'], ',') == false) {
+                            $ob->charset('UTF-8', false);
                             $ob->headerText($val['field'], $val['value'], $val['match'] == 'not contain');
                         } else {
                             foreach (explode(',', $val['field']) as $header) {
                                 $hdr_ob = new Horde_Imap_Client_Search_Query();
+                                $hdr_ob->charset('UTF-8', false);
                                 $hdr_ob->headerText($header, $val['value'], $val['match'] == 'not contain');
                                 if ($val['match'] == 'contains') {
                                     $ob->orSearch(array($hdr_ob));
