@@ -3898,7 +3898,17 @@ implements Serializable, SplObserver
             return;
         }
 
-        $uids_ob = $this->getIdsOb($this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY)));
+        $uids_ob = $this->getIdsOb($this->_cache->get(
+            $this->_selected,
+            array(),
+            array(),
+            $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY)
+        ));
+
+        if (!count($uids_ob)) {
+            $mbox_ob->sync = true;
+            return;
+        }
 
         /* Are we caching flags? */
         if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
