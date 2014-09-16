@@ -1464,7 +1464,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $attr = null;
         $attr_raw = $data->flushIterator();
         $delimiter = $data->next();
-        $mbox = Horde_Imap_Client_Mailbox::get($data->next(), true);
+        $mbox = Horde_Imap_Client_Mailbox::get(
+            $data->next(),
+            !$this->_capability()->isEnabled('UTF8=ACCEPT')
+        );
         $ml = $pipeline->data['mailboxlist'];
 
         switch ($ml['mode']) {
