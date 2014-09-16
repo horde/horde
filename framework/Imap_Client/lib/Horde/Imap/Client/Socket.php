@@ -1333,10 +1333,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $select_opts->add('RECURSIVEMATCH');
             }
 
-            $cmd->add(array(
-                $select_opts,
-                ''
-            ));
+            if (!empty($select_opts)) {
+                $cmd->add($select_opts);
+            }
+
+            $cmd->add('');
 
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($pattern as $val) {
