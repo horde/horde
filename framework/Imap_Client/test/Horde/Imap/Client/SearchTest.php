@@ -118,6 +118,23 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testHeaderTextUtf8Query()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->headerText('Foo', 'EëE');
+
+        try {
+            $ob->build();
+            $this->fail();
+        } catch (Horde_Imap_Client_Data_Format_Exception $e) {
+            // Expected
+        }
+
+        $ob->charset('UTF-8', false);
+
+        $this->assertNotEmpty($ob->build());
+    }
+
     /**
      * @dataProvider textQueryProvider
      */
