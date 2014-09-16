@@ -275,6 +275,14 @@ class IMP_Imap_Config implements Serializable
             }
             break;
 
+        case 'port':
+            $out = 143;
+            break;
+
+        case 'protocol':
+            $out = 'imap';
+            break;
+
         case 'smtp':
             if (empty($out['horde_auth'])) {
                 if (!isset($out['username'])) {
