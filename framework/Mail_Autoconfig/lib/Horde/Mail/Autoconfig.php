@@ -164,7 +164,7 @@ class Horde_Mail_Autoconfig
             );
         }
 
-        $host = $alist[0]->host;
+        $host = $alist[0]->host_idn;
         if (!strlen($host)) {
             throw new Horde_Mail_Autoconfig_Exception(
                 'Could not determine domain name from e-mail address given.'

@@ -23,7 +23,7 @@
 abstract class Horde_Mail_Autoconfig_Server
 {
     /**
-     * The server hostname.
+     * The server hostname (IDN encoded).
      *
      * @var string
      */
