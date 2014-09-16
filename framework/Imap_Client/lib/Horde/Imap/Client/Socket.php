@@ -724,10 +724,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'LOGIN':
-            $username = new Horde_Imap_Client_Data_Format_Astring($username);
+            /* See, e.g., RFC 6855 [5] - LOGIN command does not support
+             * non-ASCII characters. If we reach this point, treat as an
+             * authentication failure. */
+            try {
+                $username = new Horde_Imap_Client_Data_Format_Astring($username);
+                $password = new Horde_Imap_Client_Data_Format_Astring($password);
+            } catch (Horde_Imap_Client_Data_Format_Exception $e) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+            }
+
             $cmd = $this->_command('LOGIN')->add(array(
                 $username,
-                new Horde_Imap_Client_Data_Format_Astring($password)
+                $password
             ));
             $cmd->debug = array(
                 sprintf('LOGIN %s [PASSWORD]', $username)
