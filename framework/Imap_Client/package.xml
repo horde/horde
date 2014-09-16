@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
 * [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
 * [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
  </notes>
@@ -2695,6 +2696,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
 * [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
 * [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
    </notes>
