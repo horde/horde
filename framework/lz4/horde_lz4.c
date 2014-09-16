@@ -150,7 +150,7 @@ PHP_FUNCTION(horde_lz4_uncompress)
         RETURN_FALSE;
     }
 
-    output_len = LZ4_uncompress(p + header_offset, output, data_len);
+    output_len = LZ4_decompress_fast(p + header_offset, output, data_len);
 
     if (output_len <= 0) {
         RETVAL_FALSE;
