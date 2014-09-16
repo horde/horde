@@ -3,7 +3,7 @@ dnl config.m4 for extension horde_lz4
 dnl Check PHP version:
 AC_MSG_CHECKING(PHP version)
 if test ! -z "$phpincludedir"; then
-    PHP_VERSION=`grep 'PHP_VERSION ' $phpincludedir/main/php_version.h | sed -e 's/.*"\([[0-9\.]]*\)".*/\1/g' 2>/dev/null`
+    PHP_VERSION=`grep 'PHP_VERSION ' $phpincludedir/main/php_version.h | sed -e 's/.*"\([[0-9\.]]*\).*".*/\1/g' 2>/dev/null`
 elif test ! -z "$PHP_CONFIG"; then
     PHP_VERSION=`$PHP_CONFIG --version 2>/dev/null`
 fi
