@@ -396,6 +396,17 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
      */
     public function testDeletingMessageFromMailboxViaFlagAndExpunge()
     {
+        // Get status of test mailbox (should have 4 messages).
+        $status = self::$live->status(
+            self::$test_mbox,
+            Horde_Imap_Client::STATUS_MESSAGES
+        );
+
+        $this->assertEquals(
+            4,
+            $status['messages']
+        );
+
         // Flagging test e-mail 2 with the Deleted flag.
         self::$live->store(self::$test_mbox, array(
             'add' => array(Horde_Imap_Client::FLAG_DELETED),
@@ -406,17 +417,6 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
         self::$live->expunge(
             self::$test_mbox,
             array('ids' => new Horde_Imap_Client_Ids(1, true))
-        );
-
-        // Get status of test mailbox (should have 4 messages).
-        $status = self::$live->status(
-            self::$test_mbox,
-            Horde_Imap_Client::STATUS_MESSAGES
-        );
-
-        $this->assertEquals(
-            4,
-            $status['messages']
         );
 
         // Expunging mailbox (should remove test e-mail 2)
