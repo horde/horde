@@ -179,7 +179,7 @@ var DimpCore = {
 
     msgMetadata: function(md)
     {
-        md.each(function(a) {
+        $A(md).each(function(a) {
             switch (a[0]) {
             case 'html':
                 IMP_JS.iframeInject(a[1], a[2]);
