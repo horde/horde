@@ -51,12 +51,14 @@ if test "$PHP_HORDE_LZ4" != "no"; then
       PHP_EVAL_INCLINE($LIBLZ4_INCLUDE)
       PHP_EVAL_LIBLINE($LIBLZ4_LIBRARY, HORDE_LZ4_SHARED_LIBADD)
     fi
+    PHP_NEW_EXTENSION(horde_lz4, $sources, $ext_shared)
+    PHP_SUBST(HORDE_LZ4_SHARED_LIBADD)
   else
-    PHP_ADD_INCLUDE([${srcdir}/lib])
     sources="$sources lib/lz4.c lib/lz4hc.c"
+    PHP_NEW_EXTENSION(horde_lz4, $sources, $ext_shared)
+    PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
+    PHP_ADD_INCLUDE([$ext_srcdir/lib])
   fi
-  PHP_NEW_EXTENSION(horde_lz4, $sources, $ext_shared)
-  PHP_SUBST(HORDE_LZ4_SHARED_LIBADD)
 
   ifdef([PHP_INSTALL_HEADERS],
   [
