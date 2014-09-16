@@ -4287,7 +4287,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* RFC 3516/4466: Send literal8 if we have binary data. */
                     if ($cmd->literal8 &&
                         $val->binary() &&
-                        ($c->query('BINARY') || $c->query('UTF8=ACCEPT'))) {
+                        ($c->query('BINARY') || $c->isEnabled('UTF8=ACCEPT'))) {
                         $binary = true;
                         $this->_connection->write('~');
                     } else {
