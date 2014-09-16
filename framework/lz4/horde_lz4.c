@@ -8,8 +8,8 @@
 #include "horde_lz4.h"
 
 /* lz4 */
-#include "lz4.h"
-#include "lz4hc.h"
+#include <lz4.h>
+#include <lz4hc.h>
 
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_horde_lz4_compress, 0, 0, 1)
@@ -150,7 +150,7 @@ PHP_FUNCTION(horde_lz4_uncompress)
         RETURN_FALSE;
     }
 
-    output_len = LZ4_uncompress(p + header_offset, output, data_len);
+    output_len = LZ4_decompress_fast(p + header_offset, output, data_len);
 
     if (output_len <= 0) {
         RETVAL_FALSE;

@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* add --with-liblz4 option to use system liblz4 (Remi)
  </notes>
  <contents>
   <dir name="/">
@@ -43,11 +43,13 @@
    <file name="horde_lz4.c" role="src" />
    <file name="horde_lz4.h" role="src" />
    <file name="LICENSE" role="doc" />
-   <file name="LICENSE.lz4" role="doc" />
-   <file name="lz4.c" role="src" />
-   <file name="lz4.h" role="src" />
-   <file name="lz4hc.c" role="src" />
-   <file name="lz4hc.h" role="src" />
+   <dir name="lib">
+    <file name="LICENSE" role="doc" />
+    <file name="lz4.c" role="src" />
+    <file name="lz4.h" role="src" />
+    <file name="lz4hc.c" role="src" />
+    <file name="lz4hc.h" role="src" />
+   </dir> <!-- /lib -->
    <file name="README.md" role="doc" />
   </dir> <!-- / -->
  </contents>
