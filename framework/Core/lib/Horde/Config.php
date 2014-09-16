@@ -301,10 +301,10 @@ class Horde_Config
             fwrite($fp, $php);
             fclose($fp);
             $GLOBALS['registry']->rebuild();
-            $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Successfully wrote %s"), $rp = Horde_Util::realPath($configFile)), 'horde.success');
             if (function_exists('opcache_invalidate')) {
                 /* Invalidate Zend OPcache to ensure saved version used */
-                opcache_invalidate($configFile, true);
+                opcache_invalidate($rp, true);
             }
             return true;
         }
