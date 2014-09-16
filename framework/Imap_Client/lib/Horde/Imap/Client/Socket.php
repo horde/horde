@@ -1774,7 +1774,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $tdata->forceBinary();
                                 $tmp->add(array(
                                     'UTF8',
-                                    $tdata
+                                    new Horde_Imap_Client_Data_Format_List($tdata)
                                 ));
                             } else {
                                 $tmp->add(array(
@@ -1818,7 +1818,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     $adata->forceBinary();
                     $cmd->add(array(
                         'UTF8',
-                        $adata
+                        new Horde_Imap_Client_Data_Format_List($adata)
                     ));
                 } else {
                     $cmd->add($adata);
