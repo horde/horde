@@ -26,7 +26,8 @@ PHP_ARG_ENABLE(horde_lz4, whether to enable horde_lz4 support,
 
 if test "$PHP_HORDE_LZ4" != "no"; then
 
-  PHP_NEW_EXTENSION(horde_lz4, horde_lz4.c lz4.c lz4hc.c, $ext_shared)
+  PHP_ADD_INCLUDE([${srcdir}/lib])
+  PHP_NEW_EXTENSION(horde_lz4, horde_lz4.c lib/lz4.c lib/lz4hc.c, $ext_shared)
 
   ifdef([PHP_INSTALL_HEADERS],
   [
