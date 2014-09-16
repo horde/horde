@@ -107,7 +107,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *
      * @param Horde_Imap_Client_Base $exts  The server object this query will
      *                                      be run on (@since 2.24.0), a
-     *                                      Hore_Imap_Client_Data_Capability
+     *                                      Horde_Imap_Client_Data_Capability
      *                                      object (@since 2.24.0), or the
      *                                      list of extensions present
      *                                      on the server (@deprecated).
@@ -122,6 +122,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      *   - query: (Horde_Imap_Client_Data_Format_List) The IMAP search
      *            command.
      *
+     * @throws Horde_Imap_Client_Data_Format_Exception
      * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function build($exts = array())
