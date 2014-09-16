@@ -808,10 +808,10 @@ var ImpMobile = {
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
 
         if (data.md) {
-            $.each(data.md, function(k, md) {
-                switch (k) {
+            $.each(data.md, function(undefined, md) {
+                switch (md[0]) {
                 case 'html':
-                    IMP_JS.iframeInject(md[0], md[1]);
+                    IMP_JS.iframeInject(md[1], md[2]);
                     $("#imp-message-body a[href='#unblock-image']").button();
                     break;
                 }

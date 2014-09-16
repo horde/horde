@@ -1513,6 +1513,7 @@ class IMP_Contents
                 );
 
                 if (isset($info['metadata'])) {
+                    /* Format: array(identifier, ...[data]...) */
                     $metadata = array_merge($metadata, $info['metadata']);
                 }
 
