@@ -8,8 +8,8 @@
 #include "horde_lz4.h"
 
 /* lz4 */
-#include "lz4.h"
-#include "lz4hc.h"
+#include <lz4.h>
+#include <lz4hc.h>
 
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_horde_lz4_compress, 0, 0, 1)

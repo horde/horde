@@ -24,9 +24,41 @@ fi
 PHP_ARG_ENABLE(horde_lz4, whether to enable horde_lz4 support,
 [  --enable-horde_lz4           Enable horde_lz4 support])
 
+PHP_ARG_WITH(liblz4, whether to use system liblz4,
+[  --with-liblz4                Use system liblz4], no, no)
+
 if test "$PHP_HORDE_LZ4" != "no"; then
 
-  PHP_NEW_EXTENSION(horde_lz4, horde_lz4.c lz4.c lz4hc.c, $ext_shared)
+  sources=horde_lz4.c
+
+  if test "$PHP_LIBLZ4" != "no"; then
+    AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+    AC_MSG_CHECKING(liblz4 version)
+    if test -x "$PKG_CONFIG" && $PKG_CONFIG --exists liblz4; then
+      LIBLZ4_INCLUDE=`$PKG_CONFIG liblz4 --cflags`
+      LIBLZ4_LIBRARY=`$PKG_CONFIG liblz4 --libs`
+      LIBLZ4_VERSION=`$PKG_CONFIG liblz4 --modversion`
+    fi
+
+    if test -z "$LIBLZ4_VERSION"; then
+      AC_MSG_RESULT(liblz4.pc not found)
+      AC_CHECK_HEADERS([lz4.h])
+      PHP_CHECK_LIBRARY(lz4, LZ4_decompress_fast,
+        [PHP_ADD_LIBRARY(lz4, 1, HORDE_LZ4_SHARED_LIBADD)],
+        [AC_MSG_ERROR(lz4 library not found)])
+    else
+      AC_MSG_RESULT($LIBLZ4_VERSION)
+      PHP_EVAL_INCLINE($LIBLZ4_INCLUDE)
+      PHP_EVAL_LIBLINE($LIBLZ4_LIBRARY, HORDE_LZ4_SHARED_LIBADD)
+    fi
+    PHP_NEW_EXTENSION(horde_lz4, $sources, $ext_shared)
+    PHP_SUBST(HORDE_LZ4_SHARED_LIBADD)
+  else
+    sources="$sources lib/lz4.c lib/lz4hc.c"
+    PHP_NEW_EXTENSION(horde_lz4, $sources, $ext_shared)
+    PHP_ADD_BUILD_DIR($ext_builddir/lib, 1)
+    PHP_ADD_INCLUDE([$ext_srcdir/lib])
+  fi
 
   ifdef([PHP_INSTALL_HEADERS],
   [
