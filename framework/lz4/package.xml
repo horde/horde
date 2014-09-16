@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* add --with-liblz4 option to use system liblz4 (Remi)
  </notes>
  <contents>
   <dir name="/">
