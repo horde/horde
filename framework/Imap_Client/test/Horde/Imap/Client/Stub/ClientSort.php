@@ -33,7 +33,7 @@ extends Horde_Imap_Client_Socket_ClientSort
         parent::__construct($socket);
 
         if (class_exists('Collator')) {
-            $this->_collator = new Collator('');
+            $this->_collator = new Collator('root');
         }
     }
 }
