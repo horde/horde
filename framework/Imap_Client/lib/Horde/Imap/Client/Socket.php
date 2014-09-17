@@ -2926,17 +2926,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* A UID FETCH will always return UID information (RFC 3501
                  * [6.4.8]). Don't add to query as it just creates a longer
                  * FETCH command. */
-                if ($sequence || (count($options['_query']) === 1)) {
+                if ($sequence) {
                     $fetch->add('UID');
                 }
                 break;
 
             case Horde_Imap_Client::FETCH_SEQ:
-                // Nothing we need to add to fetch request unless sequence is
-                // the only criteria.
-                if (count($options['_query']) === 1) {
-                    $fetch->add('UID');
-                }
+                /* Nothing we need to add to fetch request unless sequence is
+                 * the only criteria (see below). */
                 break;
 
             case Horde_Imap_Client::FETCH_MODSEQ:
@@ -2950,6 +2947,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        /* If empty fetch, add UID to make command valid. */
+        if (!count($fetch)) {
+            $fetch->add('UID');
+        }
+
         /* Add changedsince parameters. */
         if (empty($options['changedsince'])) {
             $fetch_cmd = $fetch;
@@ -2958,9 +2960,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * modseq. In that case, we don't have any other FETCH attributes,
              * but RFC 3501 requires at least one specified attribute. */
             $fetch_cmd = array(
-                count($fetch)
-                    ? $fetch
-                    : new Horde_Imap_Client_Data_Format_List('UID'),
+                $fetch,
                 new Horde_Imap_Client_Data_Format_List(array(
                     'CHANGEDSINCE',
                     new Horde_Imap_Client_Data_Format_Number($options['changedsince'])
