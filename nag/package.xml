@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add missing categories to EAS tasks.
 * [jan] Fix sidebar display of system task lists in basic view.
 * [jan] Fix retrieving individual tasks via WebDAV.
  </notes>
@@ -1588,6 +1589,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add missing categories to EAS tasks.
 * [jan] Fix sidebar display of system task lists in basic view.
 * [jan] Fix retrieving individual tasks via WebDAV.
    </notes>
