@@ -36,18 +36,30 @@ class Ingo_Perms
     {
         $this->_perms = array(
             'max_blacklist' => array(
+                'handle' => function($allowed, $opts) {
+                    return max(array_map('intval', $allowed));
+                },
                 'title' => _("Maximum number of blacklist addresses."),
                 'type' => 'int'
             ),
             'max_forward' => array(
+                'handle' => function($allowed, $opts) {
+                    return max(array_map('intval', $allowed));
+                },
                 'title' => _("Maximum number of forward addresses."),
                 'type' => 'int'
             ),
             'max_rules' => array(
+                'handle' => function($allowed, $opts) {
+                    return max(array_map('intval', $allowed));
+                },
                 'title' => _("Maximum number of rules (0 to disable rules editing)."),
                 'type' => 'int'
             ),
             'max_whitelist' => array(
+                'handle' => function($allowed, $opts) {
+                    return max(array_map('intval', $allowed));
+                },
                 'title' => _("Maximum number of whitelist addresses."),
                 'type' => 'int'
             )
@@ -92,16 +104,9 @@ class Ingo_Perms
             $permission = substr($permission, $pos + 1);
         }
 
-        switch ($permission) {
-        case 'max_blacklist':
-        case 'max_forward':
-        case 'max_rules':
-        case 'max_whitelist':
-            $allowed = max(array_map('intval', $allowed));
-            break;
-        }
-
-        return $allowed;
+        return isset($this->_perms[$permission]['handle'])
+            ? (bool)call_user_func($this->_perms[$permission]['handle'], $allowed, $opts)
+            : (bool)$allowed;
     }
 
     /**
