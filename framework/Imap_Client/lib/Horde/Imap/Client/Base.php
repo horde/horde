@@ -2533,13 +2533,22 @@ implements Serializable, SplObserver
             : clone $ret;
 
         /* Convert special searches to UID lists and create mapping. */
-        $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
+        $ids = $this->resolveIds(
+            $this->_selected,
+            $options['ids'],
+            empty($options['exists']) ? 1 : 2
+        );
 
         /* Add non-user settable cache fields. */
         $cache_array[Horde_Imap_Client::FETCH_DOWNGRADED] = self::CACHE_DOWNGRADED;
 
         /* Get the cached values. */
-        $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
+        $data = $this->_cache->get(
+            $this->_selected,
+            $ids->ids,
+            array_values($cache_array),
+            $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY)
+        );
 
         /* Build a list of what we still need. */
         $map = array_flip($mbox_ob->map->map);
