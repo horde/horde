@@ -6,6 +6,15 @@ v4.3.0-git
 
 
 ------
+v4.2.2
+------
+
+[mjr] Add missing categories to EAS tasks.
+[jan] Fix sidebar display of system task lists in basic view.
+[jan] Fix retrieving individual tasks via WebDAV.
+
+
+------
 v4.2.1
 ------
 
