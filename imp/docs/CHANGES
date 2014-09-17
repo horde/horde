@@ -24,6 +24,8 @@ v6.3.0-git
 v6.2.3
 ------
 
+[mms] Fix saving unique browser preferences for a specific backend in dynamic
+      view.
 [mms] Fix toggling select all checkbox in both dynamic mailbox layouts.
 
 
