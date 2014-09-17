@@ -8,6 +8,8 @@
 
 var IMP_JS = {
 
+    // lazyload_run,
+
     /**
      * Use DOM manipulation to un-block images.
      */
@@ -157,15 +159,34 @@ var IMP_JS = {
 
     iframeImgLazyLoad: function(iframe)
     {
-        var range_top, range_bottom,
-            mb = $('messageBody'),
-            doc = this.iframeDoc(iframe),
-            resize = this.iframeResize.bindAsEventListener(this, iframe);
+        if (!this.lazyload_run) {
+            this.lazyload_run = true;
+            this.iframeImgLazyLoadRun.bind(this, iframe).delay(0.1);
+        }
+    },
 
-        range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top;
-        range_bottom = range_top + mb.getHeight();
+    iframeImgLazyLoadRun: function(iframe)
+    {
+        var count, imgs, mb_height, mb_pad, range_top, range_bottom, resize,
+            mb = $('messageBody');
 
-        Prototype.Selector.select('IMG[data-src]', doc).each(function(img) {
+        resize = function() {
+            if (!(--count)) {
+                this.iframeResize(iframe);
+            }
+        }.bind(this);
+
+        mb_height = mb.getHeight();
+        /* Load messages within 10% of range boundaries. */
+        mb_pad = parseInt(mb_height * 0.1, 10);
+
+        range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top - mb_pad;
+        range_bottom = range_top + mb_height + mb_pad;
+
+        imgs = Prototype.Selector.select('IMG[data-src]', this.iframeDoc(iframe)).findAll(Element.visible);
+        count = imgs.size();
+
+        imgs.each(function(img) {
             var co = Element.cumulativeOffset(img);
             if (co.top > range_top && co.top < range_bottom) {
                 img.onload = resize;
@@ -173,6 +194,8 @@ var IMP_JS = {
                 Element.writeAttribute(img, 'data-src', null);
             }
         });
+
+        this.lazyload_run = false;
     },
 
     iframeDoc: function(i)
