@@ -1746,9 +1746,6 @@ var IMP_JS = {
         id.one('load', function() {
             window.setTimeout(function() {
                 IMP_JS.iframeResize(id);
-                $(d).find('IMG[data-src]').unveil(0, function() {
-                    IMP_JS.iframeResize(id);
-                });
             }, 0);
         });
 
@@ -1768,10 +1765,21 @@ var IMP_JS = {
         id.show().prev().remove();
     },
 
+    lazyLoad: function(id)
+    {
+        var d = $(id.get(0).contentWindow.document),
+            h = id.closest('BODY').height();
+
+        d.find('IMG[data-src]').unveil(parseInt(h * 0.1, 10), function() {
+            $(this).removeAttr('data-src');
+        });
+    },
+
     iframeResize: function(id)
     {
         id = $(id);
         id.height(id.contents().height());
+        IMP_JS.lazyLoad(id);
     },
 
     /**
@@ -1779,8 +1787,7 @@ var IMP_JS = {
      */
     unblockImages: function(iframe)
     {
-        var doc = $(iframe.get(0).contentWindow.document),
-            imgload = false;
+        var doc = $(iframe.get(0).contentWindow.document);
 
         $.each(doc.find('[htmlimgblocked]'), function(k, v) {
             v = $(v);
@@ -1788,9 +1795,7 @@ var IMP_JS = {
             v.removeAttr('htmlimgblocked');
 
             if (v.attr('src')) {
-                v.one('load', function() { IMP_JS.iframeResize(iframe); });
-                v.attr('src', src);
-                imgload = true;
+                v.attr('data-src', src);
             } else {
                 if (v.attr('background')) {
                     v.attr('background', src);
@@ -1816,9 +1821,7 @@ var IMP_JS = {
         doc.find('STYLE[type="text/x-imp-cssblocked"]')
             .attr('type', 'text/css');
 
-        if (!imgload) {
-            IMP_JS.iframeResize(iframe);
-        }
+        IMP_JS.iframeResize(iframe);
     }
 
 };
