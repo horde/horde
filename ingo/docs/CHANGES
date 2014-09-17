@@ -2,6 +2,7 @@
 v3.2.2-git
 ----------
 
+[jan] Disable forward rule by default.
 [mms] Fix checking the 'max_forward' permission (Bug #13568).
 [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don't
       restrict charset input at the UI level (Bug #13554).
