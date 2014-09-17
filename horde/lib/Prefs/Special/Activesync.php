@@ -44,6 +44,7 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $view->reset = $selfurl->copy()->add('reset', 1);
         $devs = array();
         $js = array();
+        $collections = array();
         foreach ($devices as $device) {
             $dev = $state->loadDeviceInfo($device['device_id'], $registry->getAuth());
             $js[$dev->id] = array(
@@ -55,8 +56,18 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
                 ? $syncCache->hbinterval
                 : ($syncCache->wait ? $syncCache->wait * 60 : _("Unavailable"));
             $devs[] = $dev;
+            $collection = array();
+            foreach ($syncCache->getCollections() as $id => $c) {
+                $collection[] = array(
+                    _("Collection id") => $id,
+                    _("Class") => $c['class'],
+                    _("Server Id") => $c['serverid'],
+                    _("Last synckey") => $c['lastsynckey']
+                );
+            }
+            $collections[] = $collection;
         }
-
+        $view->collections = $collections;
         // Identities
         if (!$prefs->isLocked('activesync_identity')) {
             $ident = $GLOBALS['injector']
