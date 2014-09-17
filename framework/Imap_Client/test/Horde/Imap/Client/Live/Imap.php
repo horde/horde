@@ -378,9 +378,12 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
      */
     public function testAppendMessagesToUtf8Mailbox()
     {
+        /* Use a different message than any currently living in test_mbox
+         * since some servers (Gmail) will de-duplicate and ignore the later
+         * move to that mailbox. */
         $uid = self::$live->append(self::$test_mbox_utf8, array(
             array(
-                'data' => file_get_contents(__DIR__ . '/../fixtures/remote1.txt')
+                'data' => file_get_contents(__DIR__ . '/../fixtures/remote5.txt')
             )
         ));
 
@@ -438,12 +441,12 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
      */
     public function testMoveMessage()
     {
-        // Move test e-mail 1 from utf-8 test mailbox to the test mailbox.
+        // Move test e-mail 2 from utf-8 test mailbox to the test mailbox.
         self::$live->copy(
             self::$test_mbox_utf8,
             self::$test_mbox,
             array(
-                'ids' => new Horde_Imap_Client_Ids(1, true),
+                'ids' => new Horde_Imap_Client_Ids(2, true),
                 'move' => true
             )
         );
@@ -466,22 +469,6 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 
         $this->assertEquals(
             4,
-            $res['count']
-        );
-
-        // No messages are recent
-        $query = new Horde_Imap_Client_Search_Query();
-        $query->flag(Horde_Imap_Client::FLAG_RECENT);
-        $res = self::$live->search(
-            self::$test_mbox,
-            $query,
-            array(
-                'results' => array(Horde_Imap_Client::SEARCH_RESULTS_COUNT)
-            )
-        );
-
-        $this->assertEquals(
-            1,
             $res['count']
         );
 

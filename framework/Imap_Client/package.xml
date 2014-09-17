@@ -325,6 +325,7 @@
         <file name="remote2.txt" role="test" />
         <file name="remote3.txt" role="test" />
         <file name="remote4.txt" role="test" />
+        <file name="remote5.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Ids">
         <file name="Pop3Test.php" role="test" />
@@ -692,6 +693,7 @@
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
+   <install as="Horde/Imap/Client/fixtures/remote5.txt" name="test/Horde/Imap/Client/fixtures/remote5.txt" />
    <install as="Horde/Imap/Client/Ids/Pop3Test.php" name="test/Horde/Imap/Client/Ids/Pop3Test.php" />
    <install as="Horde/Imap/Client/Live/Base.php" name="test/Horde/Imap/Client/Live/Base.php" />
    <install as="Horde/Imap/Client/Live/Imap.php" name="test/Horde/Imap/Client/Live/Imap.php" />
