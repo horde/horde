@@ -1291,6 +1291,9 @@ class Nag_Task
             $message->setRecurrence($this->recurrence);
         }
 
+        /* Categories */
+        $message->categories = $this->tags;
+
         return $message;
     }
 
@@ -1472,6 +1475,11 @@ class Nag_Task
         }
 
         $this->tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
+
+        /* Categories */
+        if (is_array($message->categories) && count($message->categories)) {
+            $this->tags = $message->categories;
+        }
     }
 
 }
