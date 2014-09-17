@@ -6,6 +6,14 @@ v4.3.0-git
 [jan] Add importing of calendar data from a URL.
 
 
+-------
+v4.2.3
+-------
+
+[mjr] Fix checking resource availability when adding multiple resources (Bug
+      #13561).
+
+
 ------
 v4.2.2
 ------
