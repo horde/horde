@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2462,7 +2462,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
    </notes>
   </release>
  </changelog>
