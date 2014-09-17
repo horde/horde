@@ -1414,7 +1414,7 @@ EOT;
      * before saving an event to give the user feedback.
      *
      * The following arguments are expected:
-     *   - r:  An array of resource identifiers.
+     *   - r:  A comma separated string of resource identifiers.
      *   - s:  The event start time to check.
      *   - e:  The event end time to check.
      *   - u:  The event uid, if not a new event.
@@ -1438,11 +1438,7 @@ EOT;
         $event->start->setTimezone(date_default_timezone_get());
         $event->end->setTimezone(date_default_timezone_get());
         $results = array();
-        $r = $this->vars->r;
-        if (!is_array($r)) {
-            $r = array($r);
-        }
-        foreach ($r as $id) {
+        foreach (explode(',', $this->vars->r) as $id) {
             $resource = Kronolith::getDriver('Resource')->getResource($id);
             $results[$id] = $resource->getResponse($event);
         }
