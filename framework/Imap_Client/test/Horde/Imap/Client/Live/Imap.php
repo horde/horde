@@ -354,24 +354,6 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
-     * @depends testStatus
-     */
-    public function testAppendMessagesToUtf8Mailbox()
-    {
-        // Appending test e-mail 1 (with Flagged), 2 via a stream (with Seen),
-        // 3 via a stream (with internaldate), and 4 via a string:
-        $uid = self::$live->append(self::$test_mbox_utf8, array(
-            array(
-                'data' => file_get_contents(__DIR__ . '/../fixtures/remote1.txt')
-            )
-        ));
-
-        if (!($uid instanceof Horde_Imap_Client_Ids)) {
-            $this->fail('Append successful but UIDs not properly returned.');
-        }
-    }
-
-    /**
      * @depends testAppendMessagesToMailbox
      */
     public function testCopyingEmailToUtf8Mailbox()
@@ -393,6 +375,23 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 
     /**
      * @depends testCopyingEmailToUtf8Mailbox
+     */
+    public function testAppendMessagesToUtf8Mailbox()
+    {
+        $uid = self::$live->append(self::$test_mbox_utf8, array(
+            array(
+                'data' => file_get_contents(__DIR__ . '/../fixtures/remote1.txt')
+            )
+        ));
+
+        if (!($uid instanceof Horde_Imap_Client_Ids)) {
+            $this->fail('Append successful but UIDs not properly returned.');
+        }
+    }
+
+
+    /**
+     * @depends testAppendMessagesToUtf8Mailbox
      */
     public function testDeletingMessageFromMailboxViaFlagAndExpunge()
     {
@@ -453,79 +452,6 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     /**
      * @depends testMoveMessage
      */
-    public function testFlagMessageDeletedWithoutExpunging()
-    {
-        // Flagging test e-mail 3 with the Deleted flag.
-        self::$live->store(
-            self::$test_mbox,
-            array(
-                'add' => array(Horde_Imap_Client::FLAG_DELETED),
-                'ids' => new Horde_Imap_Client_Ids(3, true)
-            )
-        );
-
-        // Closing test mailbox without expunging.
-        self::$live->close();
-
-        // Get status of test mailbox (should have 4 messages).
-        $status = self::$live->status(
-            self::$test_mbox,
-            Horde_Imap_Client::STATUS_MESSAGES
-        );
-
-        $this->assertEquals(
-            4,
-            $status['messages']
-        );
-    }
-
-    /**
-     * @depends testFlagMessageDeletedWithoutExpunging
-     */
-    public function testSimpleSearch()
-    {
-        // Create a simple 'ALL' search query
-        $all_query = new Horde_Imap_Client_Search_Query();
-
-        // Search test mailbox for all messages (returning UIDs).
-        $res = self::$live->search(self::$test_mbox, $all_query);
-
-        $this->assertEquals(
-            4,
-            $res['count']
-        );
-    }
-
-    /**
-     * @depends testFlagMessageDeletedWithoutExpunging
-     */
-    public function testSequenceNumberSearchReturn()
-    {
-        // Searching test mailbox for all messages (returning message sequence
-        // numbers).
-        $res = self::$live->search(
-            self::$test_mbox,
-            new Horde_Imap_Client_Search_Query(),
-            array(
-                'results' => array(
-                    Horde_Imap_Client::SEARCH_RESULTS_COUNT,
-                    Horde_Imap_Client::SEARCH_RESULTS_MATCH,
-                    Horde_Imap_Client::SEARCH_RESULTS_MAX,
-                    Horde_Imap_Client::SEARCH_RESULTS_MIN
-                ),
-                'sequence' => true
-            )
-        );
-
-        $this->assertEquals(
-            4,
-            $res['count']
-        );
-    }
-
-    /**
-     * @depends testFlagMessageDeletedWithoutExpunging
-     */
     public function testOptimizedSearches()
     {
         // Searching test mailbox (should be optimized by using internal
@@ -555,7 +481,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
         );
 
         $this->assertEquals(
-            0,
+            1,
             $res['count']
         );
 
@@ -576,8 +502,53 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
         );
     }
 
+
     /**
-     * @depends testFlagMessageDeletedWithoutExpunging
+     * @depends testOptimizedSearches
+     */
+    public function testSimpleSearch()
+    {
+        // Create a simple 'ALL' search query
+        $all_query = new Horde_Imap_Client_Search_Query();
+
+        // Search test mailbox for all messages (returning UIDs).
+        $res = self::$live->search(self::$test_mbox, $all_query);
+
+        $this->assertEquals(
+            4,
+            $res['count']
+        );
+    }
+
+    /**
+     * @depends testOptimizedSearches
+     */
+    public function testSequenceNumberSearchReturn()
+    {
+        // Searching test mailbox for all messages (returning message sequence
+        // numbers).
+        $res = self::$live->search(
+            self::$test_mbox,
+            new Horde_Imap_Client_Search_Query(),
+            array(
+                'results' => array(
+                    Horde_Imap_Client::SEARCH_RESULTS_COUNT,
+                    Horde_Imap_Client::SEARCH_RESULTS_MATCH,
+                    Horde_Imap_Client::SEARCH_RESULTS_MAX,
+                    Horde_Imap_Client::SEARCH_RESULTS_MIN
+                ),
+                'sequence' => true
+            )
+        );
+
+        $this->assertEquals(
+            4,
+            $res['count']
+        );
+    }
+
+    /**
+     * @depends testOptimizedSearches
      */
     public function testMailboxSort()
     {
@@ -606,7 +577,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
-     * @depends testFlagMessageDeletedWithoutExpunging
+     * @depends testOptimizedSearches
      */
     public function testMailboxThreadByReferences()
     {
@@ -667,7 +638,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
-     * @depends testFlagMessageDeletedWithoutExpunging
+     * @depends testOptimizedSearches
      */
     public function testMailboxThreadByOrderedSubject()
     {
@@ -708,7 +679,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
-     * @depends testFlagMessageDeletedWithoutExpunging
+     * @depends testOptimizedSearches
      */
     public function testSimpleFetch()
     {
@@ -745,7 +716,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     }
 
     /**
-     * @depends testFlagMessageDeletedWithoutExpunging
+     * @depends testOptimizedSearches
      */
     public function testComplexFetch()
     {
@@ -895,6 +866,46 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
      * @depends testMailboxThreadByOrderedSubject
      * @depends testSimpleFetch
      * @depends testComplexFetch
+     */
+    public function testFlagMessageDeletedWithoutExpunging()
+    {
+        // Flagging test e-mail 3 with the Deleted flag.
+        self::$live->store(
+            self::$test_mbox,
+            array(
+                'add' => array(Horde_Imap_Client::FLAG_DELETED),
+                'ids' => new Horde_Imap_Client_Ids(3, true)
+            )
+        );
+
+        // Get status of test mailbox (should have 4 messages).
+        // Gmail will auto-expunge, so skip the close() test.
+        $status = self::$live->status(
+            self::$test_mbox,
+            Horde_Imap_Client::STATUS_MESSAGES
+        );
+
+        if ($status['messages'] === 3) {
+            return;
+        }
+
+        // Closing test mailbox without expunging.
+        self::$live->close();
+
+        // Get status of test mailbox (should have 4 messages).
+        $status = self::$live->status(
+            self::$test_mbox,
+            Horde_Imap_Client::STATUS_MESSAGES
+        );
+
+        $this->assertEquals(
+            4,
+            $status['messages']
+        );
+    }
+
+    /**
+     * @depends testFlagMessageDeletedWithoutExpunging
      */
     public function testExpungeMessagesWhileClosing()
     {
