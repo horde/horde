@@ -172,7 +172,7 @@ var IMP_JS = {
 
         resize = function() {
             if (!(--count)) {
-                this.iframeResize(iframe);
+                this.iframeResize(null, iframe);
             }
         }.bind(this);
 
