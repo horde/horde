@@ -12,7 +12,7 @@
  </lead>
  <date>2014-09-17</date>
  <version>
-  <release>2.25.1</release>
+  <release>2.25.2</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,12 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix IMAP search results for recent and total messages when it is the only query and the mailbox is not selected.
-* [mms] Fix client-side message sorting when there are multiple sort criteria and at least one tie in the first sorting criteria.
-* [mms] Better error handling when attempting to authenticate via IMAP LOGIN command with non-ASCII credentials (Bug #13554).
-* [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
-* [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
-* [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2707,6 +2702,19 @@
 * [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
 * [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
 * [mms] Ensure client sorting tests work reproducibly across systems with varying default locales.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.2</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
