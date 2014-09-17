@@ -2153,11 +2153,11 @@ implements Serializable, SplObserver
             (reset($options['results']) == Horde_Imap_Client::SEARCH_RESULTS_COUNT)) {
             switch ($options['_query']['query']) {
             case 'ALL':
-                $ret = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES);
+                $ret = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 return array('count' => $ret['messages']);
 
             case 'RECENT':
-                $ret = $this->status($this->_selected, Horde_Imap_Client::STATUS_RECENT);
+                $ret = $this->status($mailbox, Horde_Imap_Client::STATUS_RECENT);
                 return array('count' => $ret['recent']);
             }
         }
