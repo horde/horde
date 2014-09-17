@@ -85,7 +85,7 @@ an admin needs to run the following script::
 The following permissions have been added::
 
    max_blacklist
-   max_forward_addresses
+   max_forward
    max_whitelist
 
 The following permissions have been removed::
