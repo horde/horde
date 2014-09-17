@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-05</date>
+ <date>2014-09-17</date>
  <version>
   <release>2.25.1</release>
   <api>2.25.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix client-side message sorting when there are multiple sort criteria and at least one tie in the first sorting criteria.
 * [mms] Better error handling when attempting to authenticate via IMAP LOGIN command with non-ASCII credentials (Bug #13554).
 * [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
 * [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
@@ -323,6 +324,7 @@
        </dir> <!-- /test/Horde/Imap/Client/Data -->
        <dir name="fixtures">
         <file name="clientsort.txt" role="test" />
+        <file name="clientsort2.txt" role="test" />
         <file name="remote1.txt" role="test" />
         <file name="remote2.txt" role="test" />
         <file name="remote3.txt" role="test" />
@@ -689,6 +691,7 @@
    <install as="Horde/Imap/Client/Data/Format/String/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/String/NonasciiTest.php" />
    <install as="Horde/Imap/Client/Data/Format/String/TestBase.php" name="test/Horde/Imap/Client/Data/Format/String/TestBase.php" />
    <install as="Horde/Imap/Client/fixtures/clientsort.txt" name="test/Horde/Imap/Client/fixtures/clientsort.txt" />
+   <install as="Horde/Imap/Client/fixtures/clientsort2.txt" name="test/Horde/Imap/Client/fixtures/clientsort2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
    <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
@@ -2694,9 +2697,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-09-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix client-side message sorting when there are multiple sort criteria and at least one tie in the first sorting criteria.
 * [mms] Better error handling when attempting to authenticate via IMAP LOGIN command with non-ASCII credentials (Bug #13554).
 * [mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
 * [mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
