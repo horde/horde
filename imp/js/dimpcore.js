@@ -195,23 +195,34 @@ var DimpCore = {
 
     getPref: function(k)
     {
-        return $.jStorage.get(
-            this.pref_prefix + k,
-            $.jStorage.get(
-                /* Fallback to non-prefixed storage. */
-                k,
-                this.prefs[k] ? this.prefs[k] : this.prefs_special(k)
-            )
-        );
+        var p = $.jStorage.get(this.conf.pref_prefix + k);
+
+        if (p === null) {
+            /* Bug in IMP < 6.2.3 resulted in prefix being "undefined". */
+            p = $.jStorage.get('undefined' + k);
+
+            if (p === null) {
+                p = $.jStorage.get(
+                    /* Fallback to non-prefixed storage. */
+                    k,
+                    this.prefs[k] ? this.prefs[k] : this.prefs_special(k)
+                );
+            } else {
+                $.jStorage.deleteKey('undefined' + k);
+                this.setPref(k, p);
+            }
+        }
+
+        return p;
     },
 
     setPref: function(k, v)
     {
         if (v === null) {
-            $.jStorage.deleteKey(this.pref_prefix + k);
+            $.jStorage.deleteKey(this.conf.pref_prefix + k);
             $.jStorage.deleteKey(k);
         } else {
-            $.jStorage.set(this.pref_prefix + k, v);
+            $.jStorage.set(this.conf.pref_prefix + k, v);
         }
     },
 
