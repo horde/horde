@@ -26,7 +26,6 @@
 class Horde_Imap_Client_Socket_ClientSortTest
 extends PHPUnit_Framework_TestCase
 {
-    public $fetch_data;
     public $socket_ob;
     public $sort_ob;
 
@@ -42,22 +41,18 @@ extends PHPUnit_Framework_TestCase
         $this->sort_ob = new Horde_Imap_Client_Stub_ClientSort(
             $this->socket_ob
         );
-
-        // Test file is base64 encoded to obfuscate the data.
-        $this->fetch_data = array_filter(explode("\n", base64_decode(
-            file_get_contents(__DIR__ . '/../fixtures/clientsort.txt')
-        )));
     }
 
     /**
      * @dataProvider clientSortProvider
      */
-    public function testClientSortProvider($sort, $expected, $locale)
+    public function testClientSortProvider($sort, $expected, $locale,
+                                           $fetch_data)
     {
         $ids = new Horde_Imap_Client_Ids();
         $pipeline = $this->socket_ob->pipeline();
 
-        foreach ($this->fetch_data as $val) {
+        foreach ($fetch_data as $val) {
             $token = new Horde_Imap_Client_Tokenize($val);
             $token->rewind();
             $token->next();
@@ -90,11 +85,20 @@ extends PHPUnit_Framework_TestCase
 
     public function clientSortProvider()
     {
+        // Test file is base64 encoded to obfuscate the data.
+        $fetch_data = array_filter(explode("\n", base64_decode(
+            file_get_contents(__DIR__ . '/../fixtures/clientsort.txt')
+        )));
+        $fetch_data2 = array_filter(explode("\n", base64_decode(
+            file_get_contents(__DIR__ . '/../fixtures/clientsort2.txt')
+        )));
+
         return array(
             array(
                 array(Horde_Imap_Client::SORT_SEQUENCE),
                 range(1, 9),
-                false
+                false,
+                $fetch_data
             ),
             array(
                 array(
@@ -102,7 +106,8 @@ extends PHPUnit_Framework_TestCase
                     Horde_Imap_Client::SORT_SEQUENCE
                 ),
                 range(9, 1),
-                false
+                false,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_ARRIVAL),
@@ -117,7 +122,8 @@ extends PHPUnit_Framework_TestCase
                     3, // 09:30
                     4  // 10:30
                 ),
-                false
+                false,
+                $fetch_data
             ),
             array(
                 array(
@@ -136,7 +142,8 @@ extends PHPUnit_Framework_TestCase
                     6,
                     5
                 ),
-                false
+                false,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_DATE),
@@ -151,7 +158,8 @@ extends PHPUnit_Framework_TestCase
                     4, // Mon, 3 Jun 2002 13:32:31 -0400
                     7  // Sun, 9 Jun 2002 19:43:35 -0400
                 ),
-                false
+                false,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_FROM),
@@ -166,7 +174,8 @@ extends PHPUnit_Framework_TestCase
                     2, // quelatio
                     3, // Timo.Tervo
                 ),
-                true
+                true,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_TO),
@@ -181,7 +190,8 @@ extends PHPUnit_Framework_TestCase
                     9, // steeman
                     3, // timo.tervo
                 ),
-                true
+                true,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_DISPLAYFROM),
@@ -196,7 +206,8 @@ extends PHPUnit_Framework_TestCase
                     3, // Tervo
                     7  // Walt
                 ),
-                true
+                true,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_DISPLAYTO),
@@ -211,7 +222,8 @@ extends PHPUnit_Framework_TestCase
                     9, // steeman
                     3, // Timo
                 ),
-                true
+                true,
+                $fetch_data
             ),
             /* Bug #10503 */
             array(
@@ -227,7 +239,8 @@ extends PHPUnit_Framework_TestCase
                     1, // pear,
                     7 // Photo
                 ),
-                true
+                true,
+                $fetch_data
             ),
             array(
                 array(Horde_Imap_Client::SORT_SIZE),
@@ -242,8 +255,22 @@ extends PHPUnit_Framework_TestCase
                     7, // 475569
                     6  // 1845271
                 ),
-                false
+                false,
+                $fetch_data
             ),
+            /* Test "ties" in data. */
+            array(
+                array(
+                    Horde_Imap_Client::SORT_SIZE,
+                    Horde_Imap_Client::SORT_DATE
+                ),
+                array(
+                    1,
+                    2
+                ),
+                false,
+                $fetch_data2
+            )
         );
     }
 

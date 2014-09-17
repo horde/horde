@@ -273,11 +273,13 @@ class Horde_Imap_Client_Socket_ClientSort
                     // Check for ties.
                     $last = $start = null;
                     $i = 0;
+                    $todo = array();
                     reset($sorted);
+
                     while (list($k, $v) = each($sorted)) {
                         if (is_null($last) || ($last != $v)) {
                             if ($i) {
-                                $slices[array_search($start, $res)] = array_slice($sorted, array_search($start, $sorted), $i + 1);
+                                $todo[] = array($start, $i);
                                 $i = 0;
                             }
                             $last = $v;
@@ -287,7 +289,18 @@ class Horde_Imap_Client_Socket_ClientSort
                         }
                     }
                     if ($i) {
-                        $slices[array_search($start, $res)] = array_slice($sorted, array_search($start, $sorted), $i + 1);
+                        $todo[] = array($start, $i);
+                    }
+
+                    foreach ($todo as $v) {
+                        $slices[array_search($v[0], $res)] = array_keys(
+                            array_slice(
+                                $sorted,
+                                array_search($v[0], $sorted),
+                                $v[1] + 1,
+                                true
+                            )
+                        );
                     }
                 }
             }
