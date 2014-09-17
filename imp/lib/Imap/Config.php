@@ -41,7 +41,7 @@
  * @property string $maildomain  The maildomain to use for outgoing mail.
  * @property string $name  Label for the backend.
  * @property array $namespace  Namespace overrides.
- * @property string $port  Port number of the backend.
+ * @property integer $port  Port number of the backend.
  * @property-write mixed $preferred  The preferred server(s).
  * @property-read array $preferred  The preferred servers list.
  * @property string $protocol  Either 'imap' or 'pop'.
@@ -276,11 +276,21 @@ class IMP_Imap_Config implements Serializable
             break;
 
         case 'port':
-            $out = 143;
+            if (is_null($out)) {
+                if ($this->protocol === 'imap') {
+                    $out = ($this->secure === 'ssl') ? 993 : 143;
+                } else {
+                    $out = ($this->secure === 'ssl') ? 995 : 110;
+                }
+            } else {
+                $out = intval($out);
+            }
             break;
 
         case 'protocol':
-            $out = 'imap';
+            if (is_null($out)) {
+                $out = 'imap';
+            }
             break;
 
         case 'smtp':
