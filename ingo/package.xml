@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Fix checking the &apos;max_forward&apos; permission (Bug #13568).
 * [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don&apos;t restrict charset input at the UI level (Bug #13554).
 * [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
  </notes>
@@ -1507,6 +1508,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix checking the &apos;max_forward&apos; permission (Bug #13568).
 * [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don&apos;t restrict charset input at the UI level (Bug #13554).
 * [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
    </notes>

@@ -94,6 +94,7 @@ class Ingo_Perms
 
         switch ($permission) {
         case 'max_blacklist':
+        case 'max_forward':
         case 'max_rules':
         case 'max_whitelist':
             $allowed = max(array_map('intval', $allowed));
