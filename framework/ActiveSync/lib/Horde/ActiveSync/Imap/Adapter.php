@@ -1553,7 +1553,6 @@ class Horde_ActiveSync_Imap_Adapter
 
     protected function _getMsgFlags()
     {
-        $msgFlags = array();
         // @todo Horde_ActiveSync 3.0 remove method_exists check.
         if (method_exists($this->_imap, 'getMsgFlags')) {
             return $this->_imap->getMsgFlags();
