@@ -188,7 +188,6 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
             }
         }
 
-
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::TAG_RESOLVERECIPIENTS);
 
