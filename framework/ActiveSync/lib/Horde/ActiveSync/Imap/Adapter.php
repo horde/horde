@@ -372,8 +372,8 @@ class Horde_ActiveSync_Imap_Adapter
                     if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
                         $categories[$uid] = array();
                         foreach ($data->getFlags() as $flag) {
-                            if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
-                                $categories[$uid][] = $msgFlags[$key];
+                            if (!empty($msgFlags[strtolower($flag)])) {
+                                $categories[$uid][] = $msgFlags[strtolower($flag)];
                             }
                         }
                     }
@@ -813,15 +813,18 @@ class Horde_ActiveSync_Imap_Adapter
             'ids' => new Horde_Imap_Client_Ids(array($uid)),
             'add' => array()
         );
-        foreach ($categories as $flag) {
-            if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
-                $options['add'][] = $msgFlags[$key];
+        foreach ($categories as $category) {
+            // Do our best to make sure the imap flag is a RFC 3501 compliant.
+            $atom = new Horde_Imap_Client_Data_Format_Atom(strtr(Horde_String_Transliterate::toAscii($category), ' ', '_'));
+            $imapflag = strtolower($atom->stripNonAtomCharacters());
+            if (!empty($msgFlags[$imapflag])) {
+                $options['add'][] = $imapflag;
+                unset($msgFlags[$imapflag]);
             }
         }
-        $options['remove'] = array_map('strtolower', array_diff($msgFlags, $options['add']));
-        $imap = $this->_getImapOb();
+        $options['remove'] = array_keys($msgFlags);
         try {
-            $imap->store($mbox, $options);
+            $this->_getImapOb()->store($mbox, $options);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1108,8 +1111,8 @@ class Horde_ActiveSync_Imap_Adapter
                 $flags = array();
                 $msgFlags = $this->_getMsgFlags();
                 foreach ($imap_message->getFlags() as $flag) {
-                    if (($key = array_search(strtolower($flag), array_map('strtolower', $msgFlags))) !== false) {
-                        $flags[] = $msgFlags[$key];
+                    if (!empty($msgFlags[strtolower($flag)])) {
+                        $flags[] = $msgFlags[strtolower($flag)];
                     }
                 }
                 $eas_message->categories = $flags;
