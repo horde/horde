@@ -366,6 +366,7 @@ class IMP_Api extends Horde_Registry_Api
      *                         what the mailbox allows (UTF-8).
      *
      * @return array  A list of IMP_Flag_Base objects.
+     * @since 6.3.0
      */
     public function flagList($mailbox = null)
     {
