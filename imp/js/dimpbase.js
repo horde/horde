@@ -2826,6 +2826,7 @@ var DimpBase = {
             break;
 
         case 'checkmaillink':
+        case 'viewport_error_refresh':
             this.poll(false);
             e.memo.stop();
             break;

@@ -65,6 +65,7 @@
     </div>
 
     <div id="viewport_error" style="display:none">
+     <span class="iconImg dimpactionRefresh" id="viewport_error_refresh" title="<?php echo _("Retry") ?>"></span>
      <div><?php echo _("Error loading message list.") ?></div>
     </div>
    </div>

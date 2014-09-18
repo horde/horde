@@ -805,7 +805,7 @@ span.attachmentImg {
     background-color: #ffa;
     padding: 8px 10px;
 }
-#search_close, #search_edit, #search_refresh {
+#search_close, #search_edit, #search_refresh, #viewport_error_refresh {
     cursor: pointer;
     float: right;
     margin-top: -1px;
@@ -820,7 +820,7 @@ span.attachmentImg {
 
 /* Viewport error */
 #viewport_error {
-    background-color: red;
+    background-color: #f03232;
     padding: 8px 10px;
 }
 #viewport_error div {
