@@ -51,7 +51,11 @@ var HordePopup = {
         }
         params.set('uniq', uniq);
 
-        win = window.open(url + '?' + params.toQueryString(), opts.name || uniq, 'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=0,top=0');
+        win = window.open(
+            url + '?' + params.toQueryString(),
+            opts.name || uniq,
+            'menubar=' + menu + ',toolbar=no,location=no,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=' + (window.screenLeft || window.screenX) + ',top=' + (window.screnTop || window.screenY)
+        );
 
         if (!win) {
             if (!opts.noalert) {
