@@ -540,7 +540,7 @@ var HordeCore = {
 
     // url: (string) TODO
     // params: (object) TODO
-    // opts: (object) 'name', 'onload'
+    // opts: (object) 'height', 'name', 'onload', 'width'
     popupWindow: function(url, params, opts)
     {
         opts = opts || {};
@@ -549,13 +549,13 @@ var HordeCore = {
         this.addRequestParams(params);
 
         var p = {
-            height: this.conf.popup_height,
+            height: opts.height || this.conf.popup_height,
             name: (opts.name || '_hordepopup').gsub(/\W/, '_'),
             noalert: true,
             onload: opts.onload,
             params: params,
             url: url,
-            width: this.conf.popup_width
+            width: opts.width || this.conf.popup_width
         };
 
         if (!HordePopup.popup(p)) {
