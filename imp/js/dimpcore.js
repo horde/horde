@@ -59,6 +59,7 @@ var DimpCore = {
         params.type = type;
 
         HordeCore.popupWindow(this.conf.URI_COMPOSE, params, {
+            height: Math.min(1000, HordeCore.conf.popup_height),
             name: 'compose' + new Date().getTime()
         });
     },
