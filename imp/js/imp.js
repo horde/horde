@@ -167,12 +167,13 @@ var IMP_JS = {
 
     iframeImgLazyLoadRun: function(iframe)
     {
-        var count, imgs, mb_height, mb_pad, range_top, range_bottom, resize,
+        var imgs, mb_height, mb_pad, range_top, range_bottom, resize,
+            count = 0,
             mb = $('messageBody');
 
-        resize = function() {
+        resize = function(e) {
             if (!(--count)) {
-                this.iframeResize(null, iframe);
+                this.iframeResize(e, iframe);
             }
         }.bind(this);
 
@@ -184,11 +185,10 @@ var IMP_JS = {
         range_bottom = range_top + mb_height + mb_pad;
 
         imgs = Prototype.Selector.select('IMG[data-src]', this.iframeDoc(iframe)).findAll(Element.visible);
-        count = imgs.size();
-
         imgs.each(function(img) {
             var co = Element.cumulativeOffset(img);
             if (co.top > range_top && co.top < range_bottom) {
+                ++count;
                 img.onload = resize;
                 Element.writeAttribute(img, 'src', Element.readAttribute(img, 'data-src'));
                 Element.writeAttribute(img, 'data-src', null);
