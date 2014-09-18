@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling of EAS categories containing spaces in the name.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2376,7 +2376,7 @@
    <date>2014-09-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix handling of EAS categories containing spaces in the name.
    </notes>
   </release>
  </changelog>
