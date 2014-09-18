@@ -72,13 +72,14 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     /**
      * Const'r
      *
-     * @param stream $output  The output stream
+     * @param stream $output      The output stream
+     * @param integer $log_level  The logging level
      *
      * @return Horde_ActiveSync_Wbxml_Encoder
      */
-    function __construct($output)
+    function __construct($output, $log_level = self::LOG_PROTOCOL)
     {
-        parent::__construct($output);
+        parent::__construct($output, $log_level);
 
         /* reverse-map the DTD */
         $dtd = array();
