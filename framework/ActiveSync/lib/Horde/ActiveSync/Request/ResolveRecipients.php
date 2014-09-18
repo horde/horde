@@ -250,10 +250,6 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     $this->_encoder->content(count($value['entries']));
                     $this->_encoder->endTag();
 
-                    $this->_encoder->startTag(self::TAG_RECIPIENTCOUNT);
-                    $this->_encoder->content(count($results[$item]));
-                    $this->_encoder->endTag();
-
                     switch ($options[self::TAG_CERTIFICATERETRIEVAL]) {
                     case self::CERT_RETRIEVAL_FULL:
                         foreach($value['entries'] as $cert) {
