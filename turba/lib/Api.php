@@ -1084,7 +1084,7 @@ class Turba_Api extends Horde_Registry_Api
      *   - customStrict: (array) An array of fields that must match exactly.
      *                   DEFAULT: None
      *   - fields: (array) The fields to search on.
-     *             DEFAULT: The 'name' field is searched.
+     *             DEFAULT: Search all configured search fields.
      *   - forceSource: (boolean) Whether to use the specified sources, even
      *                  if they have been disabled in the preferences?
      *                  DEFAULT: false
@@ -1177,7 +1177,7 @@ class Turba_Api extends Horde_Registry_Api
                         }
                     }
                     if (!count($criteria)) {
-                        $criteria['name'] = $trimname;
+                        $criteria = $cfgSources[$source]['search'];
                     }
                 }
 
