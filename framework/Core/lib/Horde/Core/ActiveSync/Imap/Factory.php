@@ -128,7 +128,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
     /**
      * Return a list of user-defined flags.
      *
-     * @return array  An array of flags.
+     * @return array  An array of flag arrays keyed by the RFC 3501 flag name.
      */
     public function getMsgFlags()
     {
@@ -137,7 +137,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         $msgFlags = array();
         $flags = unserialize($registry->horde->getPreference($registry->hasInterface('mail'), 'msgflags'));
         foreach ($flags as $flag) {
-            $msgFlags[] = $flag->imapflag;
+            $msgFlags[strtolower($flag->imapflag)] = $flag->label;
         }
 
         return $msgFlags;
