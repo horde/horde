@@ -2304,14 +2304,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $result = array(
                         'displayname' => $result['name'],
                         'emailaddress' => $result['email'],
-                        'entries' => array($this->_mungeCert($result['smimePublicKey'])),
+                        'entries' => !empty($result['smimePublicKey']) ? array($this->_mungeCert($result['smimePublicKey'])) : array(),
                         'type' => $result['source'] == $gal ? Horde_ActiveSync::RESOLVE_RESULT_GAL : Horde_ActiveSync::RESOLVE_RESULT_ADDRESSBOOK,
                         'picture' => !empty($picture) ? $picture : null
                     );
                     $return[] = $result;
                 }
             }
-
         } else {
             $options = array(
                 'maxcerts' => 0,
