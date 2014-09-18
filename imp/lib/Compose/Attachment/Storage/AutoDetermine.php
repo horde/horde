@@ -105,6 +105,20 @@ extends IMP_Compose_Attachment_Storage
 
     /**
      */
+    public function getMetadata()
+    {
+        return $this->_storage->getMetadata();
+    }
+
+    /**
+     */
+    public function saveMetadata($md = null)
+    {
+        return $this->_storage->saveMetadata($md);
+    }
+
+    /**
+     */
     public function gc()
     {
         $this->_storage->gc();
