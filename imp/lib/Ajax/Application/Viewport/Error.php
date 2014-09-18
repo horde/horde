@@ -48,6 +48,7 @@ class IMP_Ajax_Application_Viewport_Error
     {
         $ob = new stdClass;
         $ob->cacheid = strval(new Horde_Support_Randomid());
+        $ob->error = true;
         $ob->label = $this->_mbox->label;
         $ob->view = $this->_mbox->form_to;
 

@@ -2308,6 +2308,20 @@ var DimpBase = {
         }
     },
 
+    /* Handle viewport errors. */
+    showViewportError: function(show)
+    {
+        if ($('viewport_error').visible()) {
+            if (!show) {
+                $('viewport_error').hide();
+                this.viewport.onResize(true);
+            }
+        } else if (show) {
+            $('viewport_error').show();
+            this.viewport.onResize(true);
+        }
+    },
+
     /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
@@ -3783,6 +3797,7 @@ var DimpBase = {
         }
 
         if (this.viewport && t['imp:viewport']) {
+            this.showViewportError(t['imp:viewport'].error);
             t['imp:viewport'].requestid = e.response.request.rid;
             this.viewport.parseJSONResponse(t['imp:viewport']);
         }

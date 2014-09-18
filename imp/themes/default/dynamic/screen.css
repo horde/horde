@@ -818,6 +818,15 @@ span.attachmentImg {
     padding-right: 12px;
 }
 
+/* Viewport error */
+#viewport_error {
+    background-color: red;
+    padding: 8px 10px;
+}
+#viewport_error div {
+    font-weight: bold;
+}
+
 /* Redbox styles. */
 #RB_window {
     max-width: 50%;

@@ -63,6 +63,10 @@
      <span id="search_time_elapsed" style="display:none"></span>
      <div id="search_label"></div>
     </div>
+
+    <div id="viewport_error" style="display:none">
+     <div><?php echo _("Error loading message list.") ?></div>
+    </div>
    </div>
 
    <div id="msgSplitPane"></div>
