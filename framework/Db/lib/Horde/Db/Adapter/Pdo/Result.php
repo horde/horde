@@ -39,7 +39,11 @@ class Horde_Db_Adapter_Pdo_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _fetchArray()
     {
-        return $this->_result->fetch($this->_map[$this->_fetchMode]);
+        try {
+            return $this->_result->fetch($this->_map[$this->_fetchMode]);
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
     }
 
     /**
@@ -49,6 +53,10 @@ class Horde_Db_Adapter_Pdo_Result extends Horde_Db_Adapter_Base_Result
      */
     protected function _columnCount()
     {
-        return $this->_result->columnCount();
+        try {
+            return $this->_result->columnCount();
+        } catch (PDOException $e) {
+            throw new Horde_Db_Exception($e);
+        }
     }
 }
