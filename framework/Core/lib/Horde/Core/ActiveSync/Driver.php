@@ -1774,6 +1774,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $stat['flags'] = array_merge($stat['flags'], array('flagged' => $message->flag->flagstatus));
                 }
                 if ($message->propertyExists('categories')) {
+                    // We *try* to make sure the category is added as a custom
+                    // IMAP flag. This might fail in some edge cases, like e.g.
+                    // with non-ascii characters.
                     $this->_connector->mail_ensureMessageFlags($message->categories);
                     $this->_imap->categoriesToFlags($folderid, $message->categories, $id);
                     $stat['categories'] = $message->categories;
