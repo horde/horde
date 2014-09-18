@@ -30,7 +30,7 @@
  </developer>
  <date>2014-09-18</date>
  <version>
-  <release>2.14.1</release>
+  <release>2.14.2</release>
   <api>2.14.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix handling of EAS categories containing spaces in the name.
-* [jan] Catch exceptions if not being able to find an LDAP user DN (Bug #13571).
-* [mms] Fix using master SMTP credentials when a CLI script uses the &apos;user_admin&apos; registry flag.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3642,6 +3640,19 @@
 * [mjr] Fix handling of EAS categories containing spaces in the name.
 * [jan] Catch exceptions if not being able to find an LDAP user DN (Bug #13571).
 * [mms] Fix using master SMTP credentials when a CLI script uses the &apos;user_admin&apos; registry flag.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.14.2</release>
+    <api>2.14.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-09-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
