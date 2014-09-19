@@ -8,7 +8,10 @@
 
 var IMP_JS = {
 
+    // iframeresize_run,
     // lazyload_run,
+
+    resize_delay: 0.05,
 
     /**
      * Use DOM manipulation to un-block images.
@@ -126,6 +129,15 @@ var IMP_JS = {
 
     iframeResize: function(e, id)
     {
+        // IE (at a minimum) needs a slight delay to size properly
+        if (!this.iframeresize_run) {
+            this.iframeresize_run = true;
+            this.iframeResizeRun.bind(this, e, id).delay(this.resize_delay);
+        }
+    },
+
+    iframeResizeRun: function(e, id)
+    {
         var body, h, html;
 
         if (e) {
@@ -155,13 +167,16 @@ var IMP_JS = {
 
             this.iframeImgLazyLoad(id);
         }
+
+        this.iframeresize_run = false;
     },
 
     iframeImgLazyLoad: function(iframe)
     {
         if (!this.lazyload_run) {
             this.lazyload_run = true;
-            this.iframeImgLazyLoadRun.bind(this, iframe).delay(0.1);
+            this.iframeImgLazyLoadRun.bind(this, iframe)
+                .delay(this.resize_delay);
         }
     },
 
