@@ -72,7 +72,7 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             }
         }
 
-        if (!empty($this->_params['ad'])) {
+        if (!empty($params['ad'])) {
             $this->_capabilities['resetpassword'] = false;
         }
 
