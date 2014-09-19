@@ -209,7 +209,7 @@ class Turba_Driver_Facebook extends Turba_Driver
                 . 'SELECT uid2 FROM friend WHERE uid1=' . $this->_facebook->auth->getLoggedInUser() . ')';
             $results = $this->_facebook->fql->run($fql);
         } catch (Horde_Service_Facebook_Exception $e) {
-            Horde::log($e, 'ERR');
+            Horde::log($e, 'WARN');
             if ($e->getCode() == Horde_Service_Facebook_ErrorCodes::API_EC_PARAM_SESSION_KEY) {
                 throw new Turba_Exception(_("You are not connected to Facebook. Create a Facebook connection in the Global Preferences."));
             }
