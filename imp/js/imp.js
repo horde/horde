@@ -168,14 +168,9 @@ var IMP_JS = {
     iframeImgLazyLoadRun: function(iframe)
     {
         var imgs, mb_height, mb_pad, range_top, range_bottom, resize,
-            count = 0,
             mb = $('messageBody');
 
-        resize = function(e) {
-            if (!(--count)) {
-                this.iframeResize(e, iframe);
-            }
-        }.bind(this);
+        resize = this.iframeResize.bindAsEventListener(this, iframe);
 
         mb_height = mb.getHeight();
         /* Load messages within 10% of range boundaries. */
@@ -188,7 +183,6 @@ var IMP_JS = {
         imgs.each(function(img) {
             var co = Element.cumulativeOffset(img);
             if (co.top > range_top && co.top < range_bottom) {
-                ++count;
                 img.onload = resize;
                 Element.writeAttribute(img, 'src', Element.readAttribute(img, 'data-src'));
                 Element.writeAttribute(img, 'data-src', null);
