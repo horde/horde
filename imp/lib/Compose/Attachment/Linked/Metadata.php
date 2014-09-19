@@ -27,14 +27,8 @@
  * @property string $type  MIME type.
  */
 class IMP_Compose_Attachment_Linked_Metadata
+extends IMP_Compose_Attachment_Metadata
 {
-    /**
-     * Metadata.
-     *
-     * @var array
-     */
-    protected $_data = array();
-
     /**
      * Mapping from array keys -> property names.
      *
@@ -52,9 +46,6 @@ class IMP_Compose_Attachment_Linked_Metadata
     public function __get($name)
     {
         switch ($name) {
-        case 'data':
-            return array_filter($this->_data);
-
         case 'dtoken':
         case 'filename':
         case 'type':
@@ -70,23 +61,17 @@ class IMP_Compose_Attachment_Linked_Metadata
                 : 0;
         }
 
-        return null;
+        return parent::__get($name);
     }
 
     /**
      */
     public function __set($name, $value)
     {
-        switch ($name) {
-        case 'data':
-            $this->_data = $value;
-            break;
-
-        default:
-            if (($key = array_search($name, $this->_map)) !== false) {
-                $this->_data[$key] = $value;
-            }
-            break;
+        if (($key = array_search($name, $this->_map)) !== false) {
+            $this->_data[$key] = $value;
+        } else {
+            parent::__set($name, $value);
         }
     }
 

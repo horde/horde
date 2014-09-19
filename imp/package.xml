@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-08-25</date>
+ <date>2014-09-19</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -190,6 +190,7 @@
        <file name="VfsLinked.php" role="horde" />
       </dir> <!-- /lib/Compose/Attachment/Storage -->
       <file name="Linked.php" role="horde" />
+      <file name="Metadata.php" role="horde" />
       <file name="Storage.php" role="horde" />
      </dir> <!-- /lib/Compose/Attachment -->
      <dir name="Exception">
@@ -1657,6 +1658,7 @@
    <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
    <install as="imp/lib/Compose/Attachment/Linked.php" name="lib/Compose/Attachment/Linked.php" />
+   <install as="imp/lib/Compose/Attachment/Metadata.php" name="lib/Compose/Attachment/Metadata.php" />
    <install as="imp/lib/Compose/Attachment/Storage.php" name="lib/Compose/Attachment/Storage.php" />
    <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
    <install as="imp/lib/Compose/Attachment/Storage/AutoDetermine.php" name="lib/Compose/Attachment/Storage/AutoDetermine.php" />

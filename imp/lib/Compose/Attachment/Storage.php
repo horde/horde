@@ -158,6 +158,26 @@ abstract class IMP_Compose_Attachment_Storage
     abstract public function exists();
 
     /**
+     * Return metadata about attachment.
+     *
+     * @return IMP_Compose_Linked_Metadata  Metadata object.
+     */
+    public function getMetadata()
+    {
+        return new IMP_Compose_Linked_Metadata();
+    }
+
+    /**
+     * Save attachment metadata.
+     *
+     * @param IMP_Compose_Linked_Metadata $md  Metadata object. Null will
+     *                                         clear all metadata.
+     */
+    public function saveMetadata($md = null)
+    {
+    }
+
+    /**
      * Garbage collection.
      */
     public function gc()
