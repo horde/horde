@@ -4282,7 +4282,8 @@ var IMP_Flist_Mbox = Class.create({
                     return;
                 }
                 parent_e = tmp.subElement();
-            } else {
+            }
+            if (!parent_e) {
                 parent_e = $('imp-normalmboxes');
             }
 
