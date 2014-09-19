@@ -64,6 +64,7 @@
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
+ *   - RFC 6856: LANG
  * </pre>
  *
  * @author    Richard Heyes <richard@phpguru.org>
@@ -453,7 +454,21 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _setLanguage($langs)
     {
-        throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
+        // RFC 6856 [3]
+        if (!$this->_capability('LANG')) {
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
+        }
+
+        foreach ($langs as $val) {
+            try {
+                $this->_sendLine('LANG ' . $val);
+                $this->_temp['lang'] = $val;
+            } catch (Horde_Imap_Client_Exception $e) {
+                // Setting language failed - move on to next one.
+            }
+        }
+
+        return $this->_getLanguage(false);
     }
 
     /**
@@ -461,7 +476,34 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _getLanguage($list)
     {
-        throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
+        // RFC 6856 [3]
+        if (!$this->_capability('LANG')) {
+            throw new Horde_Imap_Client_Exception_NoSupportPop3('LANGUAGE extension');
+        }
+
+        if (!$list) {
+            return isset($this->_temp['lang'])
+                ? $this->_temp['lang']
+                : null;
+        }
+
+        $langs = array();
+
+        try {
+            $res = $this->_sendLine('LANG', array(
+                'multiline' => 'array'
+            ));
+
+            foreach ($res['data'] as $val) {
+                $parts = explode(' ', $val);
+                $langs[] = $parts[0];
+                // $parts[1] - lanuage description (not used)
+            }
+        } catch (Horde_Imap_Client_Exception $e) {
+            // Ignore: language listing might fail. RFC 6856 [3.3]
+        }
+
+        return $langs;
     }
 
     /**

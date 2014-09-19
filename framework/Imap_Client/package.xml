@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add support for LANG extension for POP3 servers (RFC 6856).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2716,7 +2716,7 @@
    <date>2014-09-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add support for LANG extension for POP3 servers (RFC 6856).
    </notes>
   </release>
  </changelog>
