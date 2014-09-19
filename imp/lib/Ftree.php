@@ -460,7 +460,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         $old_track = $this->eltdiff->track;
         $this->eltdiff->track = false;
         foreach ($this->_accounts as $val) {
-            array_map(array($this, '_insertElt'), $val->getList(null, $val::UNSUB));
+            array_map(array($this, '_insertElt'), $val->getList(array(), $val::UNSUB));
         }
         $this->eltdiff->track = $old_track;
     }
