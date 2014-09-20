@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add support for UTF8 extension for POP3 servers (RFC 6856).
 * [mms] Add support for LANG extension for POP3 servers (RFC 6856).
  </notes>
  <contents>
@@ -498,6 +499,13 @@
    </package>
    <package>
     <name>Horde_Pack</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stringprep</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>
@@ -2716,6 +2724,7 @@
    <date>2014-09-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add support for UTF8 extension for POP3 servers (RFC 6856).
 * [mms] Add support for LANG extension for POP3 servers (RFC 6856).
    </notes>
   </release>

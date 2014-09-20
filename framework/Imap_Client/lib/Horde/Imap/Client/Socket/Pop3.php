@@ -64,7 +64,7 @@
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
- *   - RFC 6856: LANG
+ *   - RFC 6856: UTF8, LANG
  * </pre>
  *
  * @author    Richard Heyes <richard@phpguru.org>
@@ -260,6 +260,18 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
 
             $auth_mech[] = 'USER';
+
+            /* Enable UTF-8 mode (RFC 6856). MUST occur after STLS is
+             * issued. */
+            if ($this->_capability('UTF8')) {
+                try {
+                    $this->_sendLine('UTF8');
+                    $this->_temp['utf8'] = true;
+                } catch (Horde_Imap_Client_Exception $e) {
+                    /* If server responds to UTF8 command with error,
+                     * fallback to legacy non-UTF8 behavior. */
+                }
+            }
         } else {
             $auth_mech = array($this->_init['authmethod']);
         }
@@ -399,11 +411,54 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             break;
 
         case 'APOP':
+            /* If UTF8 (+ USER) is active, and non-ASCII exists, need to apply
+             * SASLprep to username/password. RFC 6856[2.2]. Reject if
+             * UTF8 (+ USER) is not supported and 8-bit characters exist. */
+            if (Horde_Mime::is8bit($username) ||
+                Horde_Mime::is8bit($password)) {
+                if (empty($this->_temp['utf8']) ||
+                    !$this->_capability('UTF8', 'USER') ||
+                    !class_exists('Horde_Stringprep')) {
+                    $error = true;
+                } else {
+                    Horde_Stringprep::autoload();
+                    $saslprep = new Znerol\Component\Stringprep\Profile\SASLprep();
+
+                    try {
+                        $username = $saslprep->apply($username, 'UTF-8', self::MODE_QUERY);
+                        $password = $saslprep->apply($password, 'UTF-8', self::MODE_STORE);
+                        $error = false;
+                    } catch (Znerol\Component\Stringprep\ProfileException $e) {
+                        $error = true;
+                    }
+                }
+
+                if ($error) {
+                    throw new Horde_Imap_Client_Exception(
+                        Horde_Imap_Client_Translation::r("Authentication failed."),
+                        Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                    );
+                }
+            }
+
             // RFC 1939 [7]
-            $this->_sendLine('APOP ' . $username . ' ' . hash('md5', $this->_temp['pop3timestamp'] . $password));
+            $this->_sendLine('APOP ' . $username . ' ' .
+                hash('md5', $this->_temp['pop3timestamp'] . $password));
             break;
 
         case 'USER':
+            /* POP3 servers without UTF8 (+ USER) does not accept non-ASCII
+             * in USER/PASS. RFC 6856[2.2] */
+            if ((empty($this->_temp['utf8']) ||
+                 !$this->_capability('UTF8', 'USER')) &&
+                (Horde_Mime::is8bit($username) ||
+                 Horde_Mime::is8bit($password))) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+            }
+
             // RFC 1939 [7]
             $this->_sendLine('USER ' . $username);
             $this->_sendLine('PASS ' . $password, array(
@@ -1322,6 +1377,13 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     // RFC 3206 [5]
                     case 'AUTH':
                         $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
+                        break;
+
+                    // RFC 6856 [5]
+                    case 'UTF8':
+                        /* This code can only be issued if we (as client) are
+                         * broken, so no need to handle since we should never
+                         * be broken. */
                         break;
                     }
                 }
