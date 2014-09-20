@@ -640,72 +640,15 @@ class Horde_Mime
                 (strpos(strval($id), strval($base)) === 0));
     }
 
+    /* Deprecated methods. */
+
     /**
-     * Scans $input for uuencoded data and converts it to unencoded data.
-     *
-     * @param string $input  The input data
-     *
-     * @return array  A list of arrays, with each array corresponding to
-     *                a file in the input and containing the following keys:
-     *   - data: (string) Unencoded data.
-     *   - name: (string) Filename.
-     *   - perms: (string) Octal permissions.
+     * @deprecated  Use Horde_Mime_Uudecode instead.
      */
     static public function uudecode($input)
     {
-        $data = array();
-
-        /* Find all uuencoded sections. */
-        if (preg_match_all("/begin ([0-7]{3}) (.+)\r?\n(.+)\r?\nend/Us", $input, $matches, PREG_SET_ORDER)) {
-            reset($matches);
-            while (list(,$v) = each($matches)) {
-                $data[] = array(
-                    'data' => self::_uudecode($v[3]),
-                    'name' => $v[2],
-                    'perm' => $v[1]
-                );
-            }
-        }
-
-        return $data;
-    }
-
-    /**
-     * PHP 5's built-in convert_uudecode() is broken. Need this wrapper.
-     *
-     * @param string $input  UUencoded input.
-     *
-     * @return string  Decoded string.
-     */
-    static protected function _uudecode($input)
-    {
-        $decoded = '';
-
-        foreach (explode("\n", $input) as $line) {
-            $c = count($bytes = unpack('c*', substr(trim($line,"\r\n\t"), 1)));
-
-            while ($c % 4) {
-                $bytes[++$c] = 0;
-            }
-
-            foreach (array_chunk($bytes, 4) as $b) {
-                $b0 = ($b[0] == 0x60) ? 0 : $b[0] - 0x20;
-                $b1 = ($b[1] == 0x60) ? 0 : $b[1] - 0x20;
-                $b2 = ($b[2] == 0x60) ? 0 : $b[2] - 0x20;
-                $b3 = ($b[3] == 0x60) ? 0 : $b[3] - 0x20;
-
-                $b0 <<= 2;
-                $b0 |= ($b1 >> 4) & 0x03;
-                $b1 <<= 4;
-                $b1 |= ($b2 >> 2) & 0x0F;
-                $b2 <<= 6;
-                $b2 |= $b3 & 0x3F;
-
-                $decoded .= pack('c*', $b0, $b1, $b2);
-            }
-        }
-
-        return rtrim($decoded, "\0");
+        $uudecode = new Horde_Mime_Uudecode($input);
+        return iterator_to_array($input);
     }
 
 }

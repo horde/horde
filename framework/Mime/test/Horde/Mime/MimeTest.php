@@ -25,48 +25,6 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         Horde_Mime::$brokenRFC2231 = false;
     }
 
-    public function testUudecode()
-    {
-        $data = Horde_Mime::uudecode(file_get_contents(__DIR__ . '/fixtures/uudecode.txt'));
-
-        $this->assertEquals(
-            2,
-            count($data)
-        );
-
-        $this->assertArrayHasKey('data', $data[0]);
-        $this->assertEquals(
-            'Test string',
-            $data[0]['data']
-        );
-        $this->assertArrayHasKey('name', $data[0]);
-        $this->assertEquals(
-            'test.txt',
-            $data[0]['name']
-        );
-        $this->assertArrayHasKey('perm', $data[0]);
-        $this->assertEquals(
-            '644',
-            $data[0]['perm']
-        );
-
-        $this->assertArrayHasKey('data', $data[1]);
-        $this->assertEquals(
-            '2nd string',
-            $data[1]['data']
-        );
-        $this->assertArrayHasKey('name', $data[1]);
-        $this->assertEquals(
-            'test2.txt',
-            $data[1]['name']
-        );
-        $this->assertArrayHasKey('perm', $data[1]);
-        $this->assertEquals(
-            '755',
-            $data[1]['perm']
-        );
-    }
-
     public function testRfc2231()
     {
         // Horde_Mime RFC 2231 & workaround for broken MUA's

@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-27</date>
+ <date>2014-09-20</date>
  <version>
-  <release>2.4.6</release>
-  <api>2.4.0</api>
+  <release>2.5.0</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
  </notes>
  <contents>
@@ -54,6 +55,7 @@
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
       </file>
+      <file name="Uudecode.php" role="php" />
      </dir> <!-- /lib/Horde/Mime -->
      <file name="Mime.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -350,6 +352,7 @@
       <file name="PartTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RelatedTest.php" role="test" />
+      <file name="UudecodeTest.php" role="test" />
      </dir> <!-- /test/Horde/Mime -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -474,6 +477,7 @@
    <install as="Horde/Mime/Part.php" name="lib/Horde/Mime/Part.php" />
    <install as="Horde/Mime/Related.php" name="lib/Horde/Mime/Related.php" />
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
+   <install as="Horde/Mime/Uudecode.php" name="lib/Horde/Mime/Uudecode.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
@@ -571,6 +575,7 @@
    <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
+   <install as="Horde/Mime/UudecodeTest.php" name="test/Horde/Mime/UudecodeTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/blank_subject.txt" name="test/Horde/Mime/fixtures/blank_subject.txt" />
    <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
@@ -1422,14 +1427,15 @@
   </release>
   <release>
    <version>
-    <release>2.4.6</release>
-    <api>2.4.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-27</date>
+   <date>2014-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
    </notes>
   </release>
