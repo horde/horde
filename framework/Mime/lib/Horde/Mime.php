@@ -542,17 +542,6 @@ class Horde_Mime
     }
 
     /**
-     * Generates a Message-ID string conforming to RFC 2822 [3.6.4] and the
-     * standards outlined in 'draft-ietf-usefor-message-id-01.txt'.
-     *
-     * @param string  A message ID string.
-     */
-    static public function generateMessageId()
-    {
-        return '<' . strval(new Horde_Support_Guid(array('prefix' => 'Horde'))) . '>';
-    }
-
-    /**
      * Performs MIME ID "arithmetic" on a given ID.
      *
      * @param string $id      The MIME ID string.
@@ -641,6 +630,15 @@ class Horde_Mime
     }
 
     /* Deprecated methods. */
+
+    /**
+     * @deprecated  Use Horde_Mime_Headers#generateMessageId() instead.
+     */
+    static public function generateMessageId()
+    {
+        $hdr = new Horde_Mime_Headers();
+        return $hdr->generateMessageId();
+    }
 
     /**
      * @deprecated  Use Horde_Mime_Uudecode instead.

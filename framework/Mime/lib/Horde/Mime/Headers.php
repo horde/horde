@@ -285,10 +285,28 @@ class Horde_Mime_Headers implements Serializable
 
     /**
      * Generate the 'Message-ID' header.
+     *
+     * @todo All messages require Message-ID, so this should be done
+     *       automatically.
      */
     public function addMessageIdHeader()
     {
-        $this->addHeader('Message-ID', Horde_Mime::generateMessageId());
+        $this->addHeader('Message-ID', $this->generateMessageId());
+    }
+
+    /**
+     * Generates a Message-ID string conforming to RFC 2822 [3.6.4] and the
+     * standards outlined in 'draft-ietf-usefor-message-id-01.txt'.
+     *
+     * @since 2.5.0
+     *
+     * @param string $prefix  A unique prefix to use.
+     *
+     * @return string  A message ID.
+     */
+    public function generateMessageId($prefix = 'Horde')
+    {
+        return '<' . strval(new Horde_Support_Guid(array('prefix' => $prefix))) . '>';
     }
 
     /**

@@ -16,9 +16,20 @@ Upgrading to 2.5
 
   - Horde_Mime
 
+    - generateMessageId()
+
+      This method is deprecated. Use Horde_Mime_Headers#generateMessageId()
+      instead.
+
     - uudecode()
 
       This method is deprecated. Use the Horde_Mime_Uudecode() class instead.
+
+  - Horde_Mime_Headers
+
+    - generateMessageId()
+
+       This method was added.
 
   - Horde_Mime_Uudecode
 

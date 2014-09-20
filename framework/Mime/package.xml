@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
 * [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
  </notes>
@@ -1435,6 +1436,7 @@
    <date>2014-09-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
 * [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
    </notes>
