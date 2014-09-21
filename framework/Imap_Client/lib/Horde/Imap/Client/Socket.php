@@ -726,10 +726,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'LOGIN':
             /* See, e.g., RFC 6855 [5] - LOGIN command does not support
              * non-ASCII characters. If we reach this point, treat as an
-             * authentication failure. */
+             * authentication failure.
+             * #13590 -> imapproxy only supports LOGIN, but most imap
+             * server support non-ASCII characters using LOGIN. Hence,
+             * we allow non-ASCII characters for the password. */
             try {
                 $username = new Horde_Imap_Client_Data_Format_Astring($username);
-                $password = new Horde_Imap_Client_Data_Format_Astring($password);
+                $password = new Horde_Imap_Client_Data_Format_Astring_Nonascii($password);
             } catch (Horde_Imap_Client_Data_Format_Exception $e) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::r("Authentication failed."),
