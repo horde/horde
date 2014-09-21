@@ -93,8 +93,10 @@ implements Horde_Shutdown_Task
      */
     public function expireAll()
     {
-        foreach ($this->_cache as $val) {
-            $val->clear();
+        if (!empty($this->_cache)) {
+            foreach ($this->_cache as $val) {
+                $val->clear();
+            }
         }
         $this->_instances = array();
     }
