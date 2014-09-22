@@ -393,6 +393,55 @@ class Horde_ActiveSync_Device
     }
 
     /**
+     * Return the minor version number of the OS (or client app) as reported
+     * by the client.
+     *
+     * @return integer  The version number.
+     */
+    public function getMinorVersion()
+    {
+        switch (strtolower($this->clientType)) {
+            case self::TYPE_BLACKBERRY:
+                if (preg_match('/(.+)\/(.+)/', $this->userAgent, $matches)) {
+                    return $matches[2];
+                }
+                break;
+            case self::TYPE_IPOD:
+            case self::TYPE_IPAD:
+                if (preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
+                    return $matches[2];
+                }
+                break;
+            case self::TYPE_IPHONE:
+                if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[3];
+                }
+                break;
+            case self::TYPE_ANDROID:
+                // Most newer Android clients send self::OS, so check that first
+                if (!empty($this->properties[self::OS]) && preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
+                    return $matches[2];
+                }
+                // Some newer devices send userAgent like Android/4.3.3-EAS-1.3
+                if (preg_match('/Android\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[2];
+                }
+                // Older Android/0.3 type userAgent strings.
+                if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[3];
+                }
+                break;
+            case self::TYPE_TOUCHDOWN:
+                 if (preg_match('/(.+)\/(\d+)\.(\d+)/', $this->userAgent, $matches)) {
+                    return $matches[3];
+                }
+                break;
+        }
+
+        return 0;
+    }
+
+    /**
      * Return the number of hours to offset a POOMCONTACTS:BIRTHDAY
      * or ANNIVERSARY field in an attempt to work around a bug in the
      * protocol - which doesn't define a standard time for birthdays to occur.
@@ -418,7 +467,10 @@ class Horde_ActiveSync_Device
         // trusted at all. The best we can do here is transform the date to
         // midnight on date_default_timezone() converted to UTC.
         //
-        // Native Android 4 ALWAYS sends it as 08:00:00 UTC
+        // Native Android 4 ALWAYS sends it as 08:00:00 UTC. UPDATE: At some
+        // point, going back to at least 4.4.4, this was changed in Android to
+        // always send it as 00:00:00 UTC, like WP does. Could this be the start
+        // of some kind of consensus?!?!
         //
         // BB 10+ expects it at 12:00:00 UTC
         switch (strtolower($this->clientType)) {
@@ -433,8 +485,11 @@ class Horde_ActiveSync_Device
 
         case self::TYPE_ANDROID:
             if ($this->getMajorVersion() >= 4) {
+                $to_format = ($this->getMinorVersion() >= 4)
+                    ? 'Y-m-d'
+                    : 'Y-m-d 08:00:00';
                 if ($toEas) {
-                    return new Horde_Date($date->format('Y-m-d 08:00:00'), 'UTC');
+                    return new Horde_Date($date->format($to_format), 'UTC');
                 } else {
                     return new Horde_Date($date->format('Y-m-d'));
                 }
