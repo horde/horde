@@ -163,11 +163,16 @@ class Horde_Core_ActiveSync_Mail
 
         // Attempt to always use the identity's From address, but fall back
         // to the device's sent value if it's not present.
-        $from = $this->_getIdentityFromAddress();
-        if (!empty($from)) {
+        if ($from = $this->_getIdentityFromAddress()) {
             $this->_headers->removeHeader('From');
             $this->_headers->addHeader('From', $from);
         }
+
+        // Reply-To?
+        if ($replyto = $this->_getReplyToAddress()) {
+            $this->_headers->addHeader('Reply-To', $replyto);
+        }
+
         $this->_raw = $raw;
     }
 
@@ -423,7 +428,7 @@ class Horde_Core_ActiveSync_Mail
     }
 
     /**
-     * Return the current user's From/Reply_To address.
+     * Return the current user's From address.
      *
      * @return string  A RFC822 valid email string.
      */
@@ -443,6 +448,29 @@ class Horde_Core_ActiveSync_Mail
         }
         $rfc822 = new Horde_Mail_Rfc822_Address($from_addr);
         $rfc822->personal = $name;
+
+        return $rfc822->encoded;
+    }
+
+    /**
+     * Return the current user's ReplyTo address, if available.
+     *
+     * @return string A RFC822 valid email string.
+     */
+    protected function _getReplyToAddress()
+    {
+        global $prefs;
+
+        $ident = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Identity')
+            ->create($this->_user);
+
+        $as_ident = $prefs->getValue('activesync_identity');
+        $replyto_addr = $ident->getValue('replyto_addr', $as_ident == 'horde' ? $prefs->getValue('default_identity') : $prefs->getValue('activesync_identity'));
+        if (empty($replyto_addr)) {
+            return;
+        }
+        $rfc822 = new Horde_Mail_Rfc822_Address($replyto_addr);
 
         return $rfc822->encoded;
     }
