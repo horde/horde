@@ -343,6 +343,12 @@ class Horde_ActiveSync_Device
         $this->_dirty = array();
     }
 
+    /**
+     * Return the major version number of the OS (or client app) as reported
+     * by the client.
+     *
+     * @return integer  The version number.
+     */
     public function getMajorVersion()
     {
         switch (strtolower($this->clientType)) {
