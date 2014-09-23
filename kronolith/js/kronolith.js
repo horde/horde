@@ -6248,7 +6248,7 @@ KronolithCore = {
         var row = this.freeBusy.get(resource)[0];
         row.purge();
         row.remove();
-        delete this.resourceACCache.map.unset(resource);
+        this.resourceACCache.map.unset(resource);
         $('kronolithEventResourceIds').value = this.resourceACCache.map.values();
     },
 
