@@ -2184,7 +2184,6 @@ abstract class Kronolith_Event
         }
 
         $methods = !empty($this->methods) ? $this->methods : @unserialize($prefs->getValue('event_alarms'));
-        $start->min -= $this->alarm;
         if (isset($methods['notify'])) {
             $methods['notify']['show'] = array(
                 '__app' => $GLOBALS['registry']->getApp(),
@@ -2208,7 +2207,7 @@ abstract class Kronolith_Event
                     $methods['notify']['subtitle'] = sprintf(_("From %s to %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')) . '</strong>', '<strong>' . $end->strftime($prefs->getValue('date_format')) . '</strong>');
                 }
             } else {
-                $methods['notify']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>', '<strong>' . $end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>');
+                $methods['notify']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), '<strong>' . $start->strftime($prefs->getValue('date_format')), $start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>', '<strong>' . $end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia') . '</strong>');
             }
         }
         if (isset($methods['mail'])) {
@@ -2239,15 +2238,17 @@ abstract class Kronolith_Event
                     $methods['desktop']['subtitle'] = sprintf(_("From %s to %s"), $start->strftime($prefs->getValue('date_format')), $end->strftime($prefs->getValue('date_format')));
                 }
             } else {
-                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $start->strftime($prefs->getValue('date_format')), $this->start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
+                $methods['desktop']['subtitle'] = sprintf(_("From %s at %s to %s at %s"), $start->strftime($prefs->getValue('date_format')), $start->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'), $end->strftime($prefs->getValue('date_format')), $this->end->format($prefs->getValue('twentyFour') ? 'H:i' : 'h:ia'));
             }
             $methods['desktop']['url'] = strval($this->getViewUrl(array(), true, false));
         }
 
+        $alarmStart = clone $start;
+        $alarmStart->min -= $this->alarm;
         $alarm = array(
             'id' => $this->uid,
             'user' => $user,
-            'start' => $start,
+            'start' => $alarmStart,
             'end' => $end,
             'methods' => array_keys($methods),
             'params' => $methods,
