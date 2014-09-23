@@ -99,3 +99,7 @@ BC BREAKING (i.e., Horde 6).
 - Pass the Horde_ActiveSync::FILTERTYPE_ constant directly to the driver, and
   let the driver calculate the needed time slice if needed. Needed to correctly
   deal with Horde_ActiveSync::FILTERTYPE_INCOMPLETETASKS.
+
+- Introduce some sort of filter or similar data in the definitions of the wbxml
+  fields to allow for things like specifying the maximum size of a field allowed.
+

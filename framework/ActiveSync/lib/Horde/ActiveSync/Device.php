@@ -534,6 +534,12 @@ class Horde_ActiveSync_Device
      *
      * @return string  The client name, or self::TYPE_UNKNOWN if unable to
      *                 determine.
+     *
+     * @todo We need to return 'Android' for clients that identify themselves
+     *       as an Android OS, but don't identify themselves as a known
+     *       third party client (like 9Folders). Waiting until some of these TP
+     *       clients get back to me regarding adding identifying information
+     *       in the UserAgent string (again, like 9Folders).
      */
     protected function _getClientType()
     {
