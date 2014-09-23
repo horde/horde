@@ -303,7 +303,7 @@ Drag = Class.create({
 
     _mouseMove: function(e)
     {
-        var go, eo, po, xy, p, delta, int;
+        var go, eo, po, xy, p, delta;
 
         if (++this.move <= this.options.threshold) {
             return;
