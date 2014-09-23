@@ -104,6 +104,13 @@ class Horde_ActiveSync_Device
     protected $_multiplexSet = false;
 
     /**
+     * Local override/cache of detected clientType.
+     *
+     * @var string
+     */
+    protected $_clientType;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver.
@@ -131,8 +138,10 @@ class Horde_ActiveSync_Device
         case self::BLOCKED:
             return $this->_properties['properties'][$property];
         case 'clientType':
-            $type = $this->_getClientType();
-            return $type;
+            if (!isset($this->_clientType)) {
+                $this->_clientType = $this->_getClientType();
+            }
+            return $this->_clientType;
         case self::VERSION:
             if (isset($this->_properties['properties'][self::VERSION])) {
                 return $this->_properties['properties'][self::VERSION];
@@ -172,6 +181,9 @@ class Horde_ActiveSync_Device
             }
             $properties[$property] = $value;
             $this->setDeviceProperties($properties);
+            break;
+        case 'clientType':
+            $this->_clientType = $value;
             break;
         default:
             if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
