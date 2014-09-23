@@ -1,10 +1,5 @@
 <?php
 /**
- * The Horde_Mime:: class provides methods for dealing with various MIME (see,
- * e.g., RFC 2045-2049; 2183; 2231) standards.
- *
- * -----
- *
  * This file contains code adapted from PEAR's Mail_mimeDecode library (v1.5).
  *
  *   http://pear.php.net/package/Mail_mime
@@ -43,28 +38,27 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
  * THE POSSIBILITY OF SUCH DAMAGE.
  *
- * -----
- *
- * This file contains code adapted from PEAR's PHP_Compat library (v1.6.0a3).
- *
- *   http://pear.php.net/package/PHP_Compat
- *
- * This code appears in Horde_Mime::_uudecode().
- *
- * This code was originally released under the LGPL 2.1
- *
- * -----
- *
  * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Mime
+ * @category  Horde
+ * @copyright 1999-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
+ */
+
+/**
+ * The Horde_Mime:: class provides methods for dealing with various MIME (see,
+ * e.g., RFC 2045-2049; 2183; 2231) standards.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
  */
 class Horde_Mime
 {
