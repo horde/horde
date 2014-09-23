@@ -1338,18 +1338,22 @@ DimpCompose.classes.Attachlist = Class.create({
 
     initialize: function(compose)
     {
+        var tmp = $('upload');
+
         this.compose = compose;
 
         this.ajax_atc_id = 0;
         this.curr_upload = 0;
 
         /* Attach event handlers. */
-        document.observe('HordeCore:runTasks', this.tasksHandler.bindAsEventListener(this));
-        if (Prototype.Browser.IE) {
-            // IE doesn't bubble change events.
-            $('upload').observe('change', this.changeHandler.bindAsEventListener(this));
-        } else {
-            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        if (tmp) {
+            document.observe('HordeCore:runTasks', this.tasksHandler.bindAsEventListener(this));
+            if (Prototype.Browser.IE) {
+                // IE doesn't bubble change events.
+                tmp.observe('change', this.changeHandler.bindAsEventListener(this));
+            } else {
+                document.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
         }
     },
 
