@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix closue compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
  </notes>
  <contents>
@@ -2462,6 +2463,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix closue compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
    </notes>
   </release>
