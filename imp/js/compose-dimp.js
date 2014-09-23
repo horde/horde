@@ -1190,6 +1190,8 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
+        var tmp;
+
         /* Initialize autocompleters. */
         $('to', 'cc', 'bcc', 'redirect_to').compact().each(function(a) {
             ImpComposeBase.ac.set(
@@ -1244,9 +1246,9 @@ var DimpCompose = {
 
         this.attachlist = new this.classes.Attachlist(this);
 
-        if ($H(DimpCore.context.ctx_atc).size()) {
-            $('atcdrop').observe('DragHandler:drop', this.attachlist.uploadAttach.bindAsEventListener(this.attachlist));
-            DragHandler.dropelt = $('atcdrop');
+        if ((tmp = $('atcdrop'))) {
+            tmp.observe('DragHandler:drop', this.attachlist.uploadAttach.bindAsEventListener(this.attachlist));
+            DragHandler.dropelt = tmp;
             DragHandler.droptarget = $('atcdiv');
             DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
