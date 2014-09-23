@@ -256,7 +256,7 @@ var DimpCompose = {
         case 'saveDraft':
         case 'saveTemplate':
             // Don't send/save until uploading is completed.
-            if ($('upload_wait').visible()) {
+            if ($('upload_wait') && $('upload_wait').visible()) {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
                 return;
             }
