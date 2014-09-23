@@ -146,11 +146,24 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
             'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
-        // From Contacts API to Client.
         $date = new Horde_Date('1970-03-20');
         $bday = $device->normalizePoomContactsDates($date, true);
         $this->assertEquals('1970-03-20 00:00:00', (string)$bday);
 
         date_default_timezone_set($tz);
     }
+
+    public function testOverrideClientType()
+    {
+        $fixture = array(
+            'deviceType' => 'SAMSUNGSMN900V',
+            'userAgent' => 'SAMSUNG-SM-N900V/101.403',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
+        );
+        $device = new Horde_ActiveSync_Device($this->getMockSkipConstructor('Horde_ActiveSync_State_Base'), $fixture);
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_UNKNOWN, $device->clientType);
+        $device->clientType = 'Android';
+        $this->assertEquals('Android', $device->clientType);
+    }
+
 }
