@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix accessing dynamic compose page when file uploads are not available (Bug #13580).
 * [mms] Fix saving unique browser preferences for a specific backend in dynamic view.
 * [mms] Fix toggling select all checkbox in both dynamic mailbox layouts.
  </notes>
@@ -3745,6 +3746,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix accessing dynamic compose page when file uploads are not available (Bug #13580).
 * [mms] Fix saving unique browser preferences for a specific backend in dynamic view.
 * [mms] Fix toggling select all checkbox in both dynamic mailbox layouts.
    </notes>

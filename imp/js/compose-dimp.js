@@ -1378,6 +1378,8 @@ var DimpCompose = {
 
     onDomLoad: function()
     {
+        var tmp;
+
         /* Initialize redirect elements. */
         if (DimpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);
@@ -1417,11 +1419,11 @@ var DimpCompose = {
             callback: this.uniqueSubmitCallback.bind(this)
         });
 
-        if ($H(DimpCore.context.ctx_atc).size()) {
-            $('atcdrop').observe('DragHandler:drop', function(e) {
+        if ((tmp = $('atcdrop'))) {
+            tmp.observe('DragHandler:drop', function(e) {
                 this.uploadAttachmentAjax(e.memo);
             }.bindAsEventListener(this));
-            DragHandler.dropelt = $('atcdrop');
+            DragHandler.dropelt = tmp;
             DragHandler.droptarget = $('atcdiv');
             DragHandler.hoverclass = 'atcdrop_over';
             DimpCore.addPopdown($('upload'), 'atc', {
