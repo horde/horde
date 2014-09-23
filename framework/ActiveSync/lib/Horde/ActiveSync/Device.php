@@ -147,6 +147,11 @@ class Horde_ActiveSync_Device
                 return $this->_properties['properties'][self::VERSION];
             }
             break;
+        case self::OS:
+            if (isset($this->_properties['properties'][self::OS])) {
+                return $this->_properties['properties'][self::OS];
+            }
+            break;
         case 'properties':
             if (!isset($this->_properties['properties'])) {
                 $return = array();
@@ -175,6 +180,7 @@ class Horde_ActiveSync_Device
         case self::ANNOUNCED_VERSION:
         case self::BLOCKED:
         case self::VERSION:
+        case self::OS:
             $properties = $this->properties;
             if (empty($properties)) {
                 $properties = array();
@@ -185,6 +191,7 @@ class Horde_ActiveSync_Device
         case 'clientType':
             $this->_clientType = $value;
             break;
+
         default:
             if (!isset($this->_properties[$property]) || $value != $this->_properties[$property]) {
                 $this->_dirty[$property] = true;
