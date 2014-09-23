@@ -448,6 +448,7 @@ class Horde_ActiveSync_Device
      *
      * @param Horde_Date $date  The date.
      * @param boolean $toEas    Convert from local to device if true.
+     *                          DEFAULT: false
      *
      * @return Horde_Date  The date of the birthday/anniversary, in UTC, with
      *                     any fixes applied for the current device.
