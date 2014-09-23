@@ -138,12 +138,13 @@ class Horde_Mime_Headers implements Serializable
                         'idn' => true
                     ));
                 } elseif (in_array($header, $mime) && !empty($ob['p'])) {
-                    /* MIME encoded headers (RFC 2231). */
+                    /* MIME encoded parameters (RFC 2045/2183/2231). */
+                    $cp = new Horde_Mime_ContentParam($ob['p']);
+                    $cp_encode = $cp->encode(array('charset' => $charset));
+
                     $text = $val[$key];
-                    foreach ($ob['p'] as $name => $param) {
-                        foreach (Horde_Mime::encodeParam($name, $param, array('charset' => $charset, 'escape' => true)) as $name2 => $param2) {
-                            $text .= '; ' . $name2 . '=' . $param2;
-                        }
+                    foreach ($cp_encode as $key2 => $val2) {
+                        $text .= '; ' . $key2 . '=' . $val2;
                     }
                 } else {
                     $text = is_null($charset)
@@ -707,9 +708,9 @@ class Horde_Mime_Headers implements Serializable
             }
 
             if (in_array(Horde_String::lower($val[0]), $mime)) {
-                $res = Horde_Mime::decodeParam($val[0], $val[1]);
-                $headers->addHeader($val[0], $res['val'], array(
-                    'params' => $res['params'],
+                $cp = new Horde_Mime_ContentParam($val[1]);
+                $headers->addHeader($val[0], $cp->value, array(
+                    'params' => $cp->params,
                     'sanity_check' => true
                 ));
             } else {

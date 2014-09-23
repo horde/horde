@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-20</date>
+ <date>2014-09-24</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -28,6 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
+* [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
 * [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
 * [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
@@ -45,6 +47,10 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Mime">
+      <dir name="ContentParam">
+       <file name="Decode.php" role="php" />
+      </dir> <!-- /lib/Horde/Mime/ContentParam -->
+      <file name="ContentParam.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Magic.php" role="php" />
@@ -325,6 +331,9 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Mime">
+      <dir name="ContentParam">
+       <file name="DecodeTest.php" role="test" />
+      </dir> <!-- /test/Horde/Mime/ContentParam -->
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
        <file name="blank_subject.txt" role="test" />
@@ -345,6 +354,7 @@
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="ContentParamTest.php" role="test" />
       <file name="HeadersTest.php" role="test" />
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
@@ -469,6 +479,7 @@
    <install as="COPYING" name="doc/Horde/Mime/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Mime/UPGRADING" />
    <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
+   <install as="Horde/Mime/ContentParam.php" name="lib/Horde/Mime/ContentParam.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
    <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
    <install as="Horde/Mime/Magic.php" name="lib/Horde/Mime/Magic.php" />
@@ -479,6 +490,7 @@
    <install as="Horde/Mime/Related.php" name="lib/Horde/Mime/Related.php" />
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="Horde/Mime/Uudecode.php" name="lib/Horde/Mime/Uudecode.php" />
+   <install as="Horde/Mime/ContentParam/Decode.php" name="lib/Horde/Mime/ContentParam/Decode.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
@@ -568,6 +580,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
    <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
    <install as="Horde/Mime/bootstrap.php" name="test/Horde/Mime/bootstrap.php" />
+   <install as="Horde/Mime/ContentParamTest.php" name="test/Horde/Mime/ContentParamTest.php" />
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
@@ -577,6 +590,7 @@
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/UudecodeTest.php" name="test/Horde/Mime/UudecodeTest.php" />
+   <install as="Horde/Mime/ContentParam/DecodeTest.php" name="test/Horde/Mime/ContentParam/DecodeTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/blank_subject.txt" name="test/Horde/Mime/fixtures/blank_subject.txt" />
    <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
@@ -1433,9 +1447,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-20</date>
+   <date>2014-09-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
+* [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
 * [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
 * [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.

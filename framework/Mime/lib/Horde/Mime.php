@@ -1,43 +1,5 @@
 <?php
 /**
- * This file contains code adapted from PEAR's Mail_mimeDecode library (v1.5).
- *
- *   http://pear.php.net/package/Mail_mime
- *
- * This code appears in Horde_Mime::decodeParam().
- *
- * This code was originally released under this license:
- *
- * LICENSE: This LICENSE is in the BSD license style.
- * Copyright (c) 2002-2003, Richard Heyes <richard@phpguru.org>
- * Copyright (c) 2003-2006, PEAR <pear-group@php.net>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or
- * without modification, are permitted provided that the following
- * conditions are met:
- *
- * - Redistributions of source code must retain the above copyright
- *   notice, this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- * - Neither the name of the authors, nor the names of its contributors
- *   may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- *
  * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -68,26 +30,6 @@ class Horde_Mime
      * @var string
      */
     const EOL = "\r\n";
-
-    /**
-     * The list of characters required to be quoted in MIME parameters
-     * (regular expression).
-     *
-     * @since 2.1.0
-     *
-     * @var string
-     */
-    const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
-
-    /**
-     * Attempt to work around non RFC 2231-compliant MUAs by generating both
-     * a RFC 2047-like parameter name and also the correct RFC 2231
-     * parameter.  See:
-     * http://lists.horde.org/archives/dev/Week-of-Mon-20040426/014240.html
-     *
-     * @var boolean
-     */
-    static public $brokenRFC2231 = false;
 
     /**
      * Use windows-1252 charset when decoding ISO-8859-1 data?
@@ -320,222 +262,6 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
-     * (Content-Type and Content-Disposition headers).
-     *
-     * @param string $name  The parameter name.
-     * @param string $val   The parameter value (UTF-8).
-     * @param array $opts   Additional options:
-     *   - charset: (string) The charset to encode to.
-     *              DEFAULT: UTF-8
-     *   - lang: (string) The language to use when encoding.
-     *           DEFAULT: None specified
-     *
-     * @return array  The encoded parameter string (US-ASCII).
-     */
-    static public function encodeParam($name, $val, array $opts = array())
-    {
-        $curr = 0;
-        $encode = $wrap = false;
-        $output = array();
-
-        $charset = isset($opts['charset'])
-            ? $opts['charset']
-            : 'UTF-8';
-
-        // 2 = '=', ';'
-        $pre_len = strlen($name) + 2;
-
-        /* Several possibilities:
-         *   - String is ASCII. Output as ASCII (duh).
-         *   - Language information has been provided. We MUST encode output
-         *     to include this information.
-         *   - String is non-ASCII, but can losslessly translate to ASCII.
-         *     Output as ASCII (most efficient).
-         *   - String is in non-ASCII, but doesn't losslessly translate to
-         *     ASCII. MUST encode output (duh). */
-        if (empty($opts['lang']) && !self::is8bit($val, 'UTF-8')) {
-            $string = $val;
-        } else {
-            $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
-            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);
-            $encode = true;
-            /* Account for trailing '*'. */
-            ++$pre_len;
-        }
-
-        if (($pre_len + strlen($string)) > 75) {
-            /* Account for continuation '*'. */
-            ++$pre_len;
-            $wrap = true;
-
-            while ($string) {
-                $chunk = 75 - $pre_len - strlen($curr);
-                $pos = min($chunk, strlen($string) - 1);
-
-                /* Don't split in the middle of an encoded char. */
-                if (($chunk == $pos) && ($pos > 2)) {
-                    for ($i = 0; $i <= 2; ++$i) {
-                        if ($string[$pos - $i] == '%') {
-                            $pos -= $i + 1;
-                            break;
-                        }
-                    }
-                }
-
-                $lines[] = substr($string, 0, $pos + 1);
-                $string = substr($string, $pos + 1);
-                ++$curr;
-            }
-        } else {
-            $lines = array($string);
-        }
-
-        foreach ($lines as $i => $line) {
-            $output[$name . (($wrap) ? ('*' . $i) : '') . (($encode) ? '*' : '')] = $line;
-        }
-
-        if (self::$brokenRFC2231 && !isset($output[$name])) {
-            $output = array_merge(array(
-                $name => self::encode($val, $charset)
-            ), $output);
-        }
-
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]).
-         * Must be quoted-string if one of these exists.
-         * Forbidden: SPACE, CTLs, ()<>@,;:\"/[]?= */
-        foreach ($output as $k => $v) {
-            if (preg_match(self::MIME_PARAM_QUOTED, $v)) {
-                $output[$k] = '"' . addcslashes($v, '\\"') . '"';
-            }
-        }
-
-        return $output;
-    }
-
-    /**
-     * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
-     * (Content-Type and Content-Disposition headers).
-     *
-     * @param string $type  Either 'Content-Type' or 'Content-Disposition'
-     *                      (case-insensitive).
-     * @param mixed $data   The text of the header or an array of param name
-     *                      => param values.
-     *
-     * @return array  An array with the following entries (all strings in
-     *                UTF-8):
-     *   - params: (array) The header's parameter values.
-     *   - val: (string) The header's "base" value.
-     */
-    static public function decodeParam($type, $data)
-    {
-        $convert = array();
-        $ret = array('params' => array(), 'val' => '');
-        $splitRegex = '/([^;\'"]*[\'"]([^\'"]*([^\'"]*)*)[\'"][^;\'"]*|([^;]+))(;|$)/';
-        $type = Horde_String::lower($type);
-
-        if (is_array($data)) {
-            // Use dummy base values
-            $ret['val'] = ($type == 'content-type')
-                ? 'text/plain'
-                : 'attachment';
-            $params = $data;
-        } else {
-            /* This code was adapted from PEAR's Mail_mimeDecode::. */
-            if (($pos = strpos($data, ';')) === false) {
-                $ret['val'] = trim($data);
-                return $ret;
-            }
-
-            $ret['val'] = trim(substr($data, 0, $pos));
-            $data = trim(substr($data, ++$pos));
-            $params = $tmp = array();
-
-            if (strlen($data) > 0) {
-                /* This splits on a semi-colon, if there's no preceeding
-                 * backslash. */
-                preg_match_all($splitRegex, $data, $matches);
-
-                for ($i = 0, $cnt = count($matches[0]); $i < $cnt; ++$i) {
-                    $param = $matches[0][$i];
-                    while (substr($param, -2) == '\;') {
-                        $param .= $matches[0][++$i];
-                    }
-                    $tmp[] = $param;
-                }
-
-                for ($i = 0, $cnt = count($tmp); $i < $cnt; ++$i) {
-                    $pos = strpos($tmp[$i], '=');
-                    $p_name = trim(substr($tmp[$i], 0, $pos), "'\";\t\\ ");
-                    $p_val = trim(str_replace('\;', ';', substr($tmp[$i], $pos + 1)), "'\";\t\\ ");
-                    if (strlen($p_val) && ($p_val[0] == '"')) {
-                        $p_val = substr($p_val, 1, -1);
-                    }
-
-                    $params[$p_name] = $p_val;
-                }
-            }
-            /* End of code adapted from PEAR's Mail_mimeDecode::. */
-        }
-
-        /* Sort the params list. Prevents us from having to manually keep
-         * track of continuation values below. */
-        uksort($params, 'strnatcasecmp');
-
-        foreach ($params as $name => $val) {
-            /* Asterisk at end indicates encoded value. */
-            if (substr($name, -1) == '*') {
-                $name = substr($name, 0, -1);
-                $encode = true;
-            } else {
-                $encode = false;
-            }
-
-            /* This asterisk indicates continuation parameter. */
-            if (($pos = strrpos($name, '*')) !== false) {
-                $name = substr($name, 0, $pos);
-            }
-
-            if (!isset($ret['params'][$name]) ||
-                ($encode && !isset($convert[$name]))) {
-                $ret['params'][$name] = '';
-            }
-
-            $ret['params'][$name] .= $val;
-
-            if ($encode) {
-                $convert[$name] = true;
-            }
-        }
-
-        foreach (array_keys($convert) as $name) {
-            $val = $ret['params'][$name];
-            $quote = strpos($val, "'");
-            $orig_charset = substr($val, 0, $quote);
-            if (self::$decodeWindows1252 &&
-                (Horde_String::lower($orig_charset) == 'iso-8859-1')) {
-                $orig_charset = 'windows-1252';
-            }
-            /* Ignore language. */
-            $quote = strpos($val, "'", $quote + 1);
-            substr($val, $quote + 1);
-            $ret['params'][$name] = Horde_String::convertCharset(urldecode(substr($val, $quote + 1)), $orig_charset, 'UTF-8');
-        }
-
-        /* MIME parameters are supposed to be encoded via RFC 2231, but many
-         * mailers do RFC 2045 encoding instead. However, if we see at least
-         * one RFC 2231 encoding, then assume the sending mailer knew what
-         * it was doing. */
-        if (empty($convert)) {
-            foreach (array_diff(array_keys($ret['params']), array_keys($convert)) as $name) {
-                $ret['params'][$name] = self::decode($ret['params'][$name]);
-            }
-        }
-
-        return $ret;
-    }
-
-    /**
      * Performs MIME ID "arithmetic" on a given ID.
      *
      * @param string $id      The MIME ID string.
@@ -641,6 +367,48 @@ class Horde_Mime
     {
         $uudecode = new Horde_Mime_Uudecode($input);
         return iterator_to_array($input);
+    }
+
+    /**
+     * @deprecated
+     */
+    static public $brokenRFC2231 = false;
+
+    /**
+     * @deprecated
+     */
+    const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
+
+    /**
+     * @deprecated  Use Horde_Mime_ContentParam#encode() instead.
+     */
+    static public function encodeParam($name, $val, array $opts = array())
+    {
+        $cp = new Horde_Mime_ContentParam(array($name => $val));
+
+        return $cp->encode(array_merge(array(
+            'broken_rfc2231' => self::$brokenRFC2231
+        ), $opts));
+    }
+
+    /**
+     * @deprecated  Use Horde_Mime_ContentParam instead.
+     */
+    static public function decodeParam($type, $data)
+    {
+        $cp = new Horde_Mime_ContentParam();
+        $cp->decode($data);
+
+        if (!strlen($cp->value)) {
+            $cp->value = (Horde_String::lower($type) == 'content-type')
+                ? 'text/plain'
+                : 'attachment';
+        }
+
+        return array(
+            'params' => $cp->params,
+            'val' => $cp->value
+        );
     }
 
 }

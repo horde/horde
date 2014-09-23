@@ -16,6 +16,19 @@ Upgrading to 2.5
 
   - Horde_Mime
 
+    - $brokenRFC2231
+
+      This static property is deprecated. Use the 'broken_rfc2231' parameter
+      to Horde_Mime_ContentParam#encode() instead.
+
+    - decodeParam()
+
+      This method is deprecated. Use Horde_Mime_ContentParam#decode() instead.
+
+    - encodeParam()
+
+      This method is deprecated. Use Horde_Mime_ContentParam#encode() instead.
+
     - generateMessageId()
 
       This method is deprecated. Use Horde_Mime_Headers#generateMessageId()
@@ -31,9 +44,11 @@ Upgrading to 2.5
 
        This method was added.
 
+  - Horde_Mime_ContentParam
+  - Horde_Mime_ContentParam_Decode
   - Horde_Mime_Uudecode
 
-    This class was added.
+    These classes were added.
 
 
 Upgrading to 2.4
