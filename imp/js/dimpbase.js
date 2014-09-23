@@ -50,10 +50,10 @@ var DimpBase = {
     // searchbar_time,
     // searchbar_time_mins,
     // splitbar,
-    // showunsub,
     // sort_init,
     // template,
     // uid,
+    // unsub,
     // view,
     // viewaction,
     // viewport,
@@ -3087,7 +3087,7 @@ var DimpBase = {
                 password: Base64.encode($F(elt.down('INPUT[name="remote_password"]'))),
                 password_base64: true,
                 remoteid: $F(elt.down('INPUT[name="remote_id"]')),
-                unsub: ~~(!!this.showunsub)
+                unsub: this.showUnsub()
             }, {
                 callback: function(r) {
                     if (r.success) {
@@ -3298,7 +3298,7 @@ var DimpBase = {
 
         if (r.c) {
             r.c.each(function(m) {
-                if (!this.showunsub && m.un) {
+                if (m.un && !this.showUnsub()) {
                     this.flist.deleteMbox(m.m);
                     this.viewport.deleteView(m.m);
                 } else {
@@ -3563,7 +3563,7 @@ var DimpBase = {
         var m;
 
         params = params || {};
-        params.unsub = ~~(!!this.showunsub);
+        params.unsub = this.showUnsub();
         if (!Object.isArray(params.mboxes)) {
             params.mboxes = [ params.mboxes ];
         }
@@ -3586,7 +3586,7 @@ var DimpBase = {
             new Drop(e.memo.element(), this.mboxDropConfig);
         }
 
-        if (this.showunsub && e.memo.unsubscribed()) {
+        if (DimpCore.conf.subscribe && e.memo.unsubscribed()) {
             e.memo.element().addClassName('imp-sidebar-unsubmbox');
         }
 
@@ -3634,9 +3634,14 @@ var DimpBase = {
 
     toggleSubscribed: function()
     {
-        this.showunsub = !this.showunsub;
+        this.unsub = !this.unsub;
         $('ctx_folderopts_sub', 'ctx_folderopts_unsub').invoke('toggle');
         this._reloadFolders();
+    },
+
+    showUnsub: function()
+    {
+        return (!DimpCore.conf.subscribe || ~~(!!this.unsub));
     },
 
     _reloadFolders: function()

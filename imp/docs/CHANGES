@@ -2,6 +2,8 @@
 v6.2.3-git
 ----------
 
+[mms] Fix some folder display issues when not using IMAP subscriptions in
+      dynamic view (Bug #13553).
 
 [mms] Fix accessing dynamic compose page when file uploads are not available
       (Bug #13580).
