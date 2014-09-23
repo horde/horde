@@ -135,6 +135,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
 
+        $subscribe = $prefs->getValue('subscribe');
+
         $this->js_conf += array_filter(array(
             // URLs
             'URI_LISTINFO' => strval(IMP_Basic_Listinfo::url()->setRaw(true)),
@@ -209,7 +211,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                     't' => _("Size"),
                     'v' => Horde_Imap_Client::SORT_SIZE
                 )
-            )
+            ),
+            'subscribe' => intval($subscribe)
         ));
 
         $context = array(
@@ -291,7 +294,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             );
         }
 
-        $subscribe = $prefs->getValue('subscribe');
         if (!$subscribe) {
             unset(
                 $context['ctx_folderopts']['sub'],
