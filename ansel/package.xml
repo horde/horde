@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix closure compiler errors (Bug #13596).
 * [jan] Return ETags with browse() API method.
 * [mjr] Fix fatal divide by zero error due to incorrectly named variable.
 * [jan] Fix type of ansel_shares_users.user_uid column.
@@ -1350,6 +1351,7 @@
    <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix closure compiler errors (Bug #13596).
 * [jan] Return ETags with browse() API method.
 * [mjr] Fix fatal divide by zero error due to incorrectly named variable.
 * [jan] Fix type of ansel_shares_users.user_uid column.

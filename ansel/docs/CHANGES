@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[jan] Fix closure compiler errors (Bug #13596).
 [jan] Return ETags with browse() API method.
 [mjr] Fix fatal divide by zero error due to incorrectly named variable.
 [jan] Fix type of ansel_shares_users.user_uid column.
