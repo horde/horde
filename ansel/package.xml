@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix closure compiler errors (Bug #13596).
 * [jan] Fix type of ansel_shares_users.user_uid column.
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
@@ -1348,6 +1349,7 @@
    <date>2014-02-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix closure compiler errors (Bug #13596).
 * [jan] Fix type of ansel_shares_users.user_uid column.
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
