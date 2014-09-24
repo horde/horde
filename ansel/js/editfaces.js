@@ -3,7 +3,7 @@
  */
 var AnselEditFaces = {
 
-    delete: function(params)
+    remove: function(params)
     {
         HordeCore.doAction('deleteFaces', params);
         $('face' + params.face_id).remove();
