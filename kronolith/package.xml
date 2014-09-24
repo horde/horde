@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-05</date>
+ <date>2014-09-24</date>
  <version>
   <release>4.2.3</release>
   <api>4.2.0</api>
@@ -34,7 +34,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
-* [jan] Fix closue compiler errors (Bug #13593).
+* [jan] Fix closure compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
  </notes>
  <contents>
@@ -2461,11 +2461,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
-* [jan] Fix closue compiler errors (Bug #13593).
+* [jan] Fix closure compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
    </notes>
   </release>

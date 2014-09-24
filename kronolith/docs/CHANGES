@@ -4,7 +4,7 @@ v4.2.3-git
 
 [jan] Fix notification and alarm issues if alarm is longer than a day (Bug
       #13584).
-[jan] Fix closue compiler errors (Bug #13593).
+[jan] Fix closure compiler errors (Bug #13593).
 [mjr] Fix checking resource availability when adding multiple resources (Bug
       #13561).
 
