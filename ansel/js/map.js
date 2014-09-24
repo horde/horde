@@ -93,7 +93,7 @@
         } else {
             this._iLayer = map.createVectorLayer({
                 'markerLayerTitle': opts.imageLayerText,
-                'styleMap': style,
+                'styleMap': style
             });
             map.map.addLayers([this._iLayer]);
             map.addHighlightControl({
