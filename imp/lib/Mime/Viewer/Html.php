@@ -237,21 +237,21 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     $class .= ' noUnblockImageAdd';
                 }
 
+                $link = $text = null;
                 if ($this->_imptmp['imgblock']) {
+                    $text = _("Images have been blocked in this message part.");
+                    $link = _("Show Images?");
+                } elseif ($this->_imptmp['cssblock']) {
+                    $text = _("Message styling has been suppressed in this message part since the style data lives on a remote server.");
+                    $link = _("Load Styling?");
+                }
+
+                if (!is_null($link)) {
                     $tmp = new IMP_Mime_Status(array(
-                        _("Images have been blocked in this message part."),
+                        $text,
                         Horde::link('#', '', $class, '', '', '', '', array(
                             'muid' => strval($contents->getIndicesOb())
-                        )) . _("Show Images?") . '</a>'
-                    ));
-                    $tmp->icon('mime/image.png');
-                    $status[] = $tmp;
-                } elseif ($this->_imptmp['cssblock']) {
-                    /* This is a bit less intuitive for end users, so hide
-                     * within image blocking if possible. */
-                    $tmp = new IMP_Mime_Status(array(
-                        _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                        Horde::link('#', '', $class) . _("Load Styling?") . '</a>'
+                        )) . $link . '</a>'
                     ));
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
