@@ -257,7 +257,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                      * within image blocking if possible. */
                     $tmp = new IMP_Mime_Status(array(
                         _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                        Horde::link('#', '', $class) . _("Load Styling?") . '</a>'
+                        Horde::link('#', '', $class, '', '', '', '', array(
+                            'muid' => strval($contents->getIndicesOb())
+                        )) . _("Load Styling?") . '</a>'
                     ));
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
