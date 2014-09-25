@@ -2188,18 +2188,30 @@ class Kronolith
 
         }
         if (count($declined)) {
-            $GLOBALS['notification']->push(sprintf(ngettext("The following resource has declined your request: %s",
-                                                            "The following resources have declined your request: %s",
-                                                            count($declined)),
-                                                    implode(", ", $declined)),
-                                           'horde.error');
+            $GLOBALS['notification']->push(
+                sprintf(
+                    ngettext(
+                        "The following resource has declined your request: %s",
+                        "The following resources have declined your request: %s",
+                        count($declined)
+                    ),
+                    implode(", ", $declined)
+                ),
+                'horde.error'
+            );
         }
         if (count($accepted)) {
-             $GLOBALS['notification']->push(sprintf(ngettext("The following resource has accepted your request: %s",
-                                                            "The following resources have accepted your request: %s",
-                                                            count($accepted)),
-                                                    implode(", ", $accepted)),
-                                           'horde.success');
+             $GLOBALS['notification']->push(
+                 sprintf(
+                     ngettext(
+                         "The following resource has accepted your request: %s",
+                         "The following resources have accepted your request: %s",
+                         count($accepted)
+                     ),
+                     implode(", ", $accepted)
+                 ),
+                 'horde.success'
+             );
         }
     }
 
