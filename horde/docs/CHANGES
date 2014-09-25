@@ -10,6 +10,18 @@ v5.3.0-git
 
 
 ------
+v5.2.2
+------
+
+[mms] Fix display of Horde stylesheets not served from the local server (i.e.
+      via a CDN).
+[jan] Hide weather portal block if weather configuration is disabled (Bug
+      #13559).
+[jan] Add show_encryption setting to HTTP authentication configuration
+      (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
+
+
+------
 v5.2.1
 ------
 

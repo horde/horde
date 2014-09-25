@@ -3,7 +3,7 @@
  <head>
   <?php if (extension_loaded('newrelic')) echo newrelic_get_browser_timing_header() ?>
   <?php $this->pageOutput->outputMetaTags(); ?>
-  <?php $this->pageOutput->includeStylesheetFiles($this->stylesheetOpts); ?>
+  <?php $this->pageOutput->includeStylesheetFiles($this->stylesheetOpts, true); ?>
 <?php if (!$this->minimalView): ?>
   <?php $this->pageOutput->includeFavicon(); ?>
   <?php $this->pageOutput->outputLinkTags(); ?>
