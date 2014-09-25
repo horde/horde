@@ -2,6 +2,8 @@
 v4.2.3-git
 ----------
 
+[jan] Send iTip notifications even to attendees that are not required to attend
+      (Bug #13600).
 [jan] Fix notification and alarm issues if alarm is longer than a day (Bug
       #13584).
 [jan] Fix closure compiler errors (Bug #13593).
