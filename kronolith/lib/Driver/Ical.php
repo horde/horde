@@ -149,7 +149,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $hideExceptions = false
     )
     {
-        $ical = $this->getRemoteCalendar();
+        $events = $this->_getRemoteEvents();
 
         if (is_null($startDate)) {
             $startDate = new Horde_Date(array('mday' => 1,
@@ -170,7 +170,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $results = array();
         $this->_processComponents(
-            $results, $ical, $startDate, $endDate, $showRecurrence, $json,
+            $results, $events, $startDate, $endDate, $showRecurrence, $json,
             $coverDates, $hideExceptions
         );
 
@@ -274,8 +274,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 throw new Kronolith_Exception($e);
             }
             $this->_processComponents(
-                $results, $ical, $startDate, $endDate, $showRecurrence, $json,
-                $coverDates, $hideExceptions,
+                $results, $this->_convertEvents($ical), $startDate, $endDate,
+                $showRecurrence, $json, $coverDates, $hideExceptions,
                 trim(str_replace($path, '', $response->href), '/')
             );
         }
@@ -284,12 +284,32 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
+     * Converts all components of a Horde_Icalendar container into a
+     * Kronolith_Event list.
+     *
+     * @param Horde_Icalendar $ical  A Horde_Icalendar container.
+     *
+     * @return array  List of Kronolith_Event_Ical objects.
+     * @throws Kronolith_Exception
+     */
+    protected function _convertEvents($ical)
+    {
+        $events = array();
+        foreach ($ical->getComponents() as $component) {
+            if ($component->getType() == 'vEvent') {
+                $events[] = new Kronolith_Event_Ical($this, $component);
+            }
+        }
+        return $events;
+    }
+
+    /**
      * Processes the components of a Horde_Icalendar container into an event
      * list.
      *
      * @param array $results             Gets filled with the events in the
      *                                   given time range.
-     * @param Horde_Icalendar $ical      An Horde_Icalendar container.
+     * @param array $events              A list of Kronolith_Event_Ical objects.
      * @param Horde_Date $startInterval  Start of range date.
      * @param Horde_Date $endInterval    End of range date.
      * @param boolean $showRecurrence    Return every instance of a recurring
@@ -300,79 +320,69 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      *                                   toJson() method?
      * @param boolean $coverDates        Whether to add the events to all days
      *                                   that they cover.
-     * $param boolean $hideExceptions    Hide events that represent exceptions
+     * @param boolean $hideExceptions    Hide events that represent exceptions
      *                                   to a recurring event.
      * @param string $id                 Enforce a certain event id (not UID).
      *
      * @throws Kronolith_Exception
      */
     protected function _processComponents(
-        &$results, $ical, $startDate, $endDate, $showRecurrence, $json,
+        &$results, $events, $startDate, $endDate, $showRecurrence, $json,
         $coverDates, $hideExceptions, $id = null
     )
     {
-        $components = $ical->getComponents();
-        $events = array();
-        $count = count($components);
-        $exceptions = array();
-        for ($i = 0; $i < $count; $i++) {
-            $component = $components[$i];
-            if ($component->getType() == 'vEvent') {
-                $event = new Kronolith_Event_Ical($this, $component);
-                $event->permission = $this->getPermission();
-                // Force string so JSON encoding is consistent across drivers.
-                $event->id = $id ? $id : 'ical' . $i;
+        $processed = array();
+        foreach ($events as $event) {
+            $event->permission = $this->getPermission();
+            // Force string so JSON encoding is consistent across drivers.
+            $event->id = $id ? $id : 'ical' . $i;
 
-                /* Catch RECURRENCE-ID attributes which mark single recurrence
-                 * instances. */
-                try {
-                    $recurrence_id = $component->getAttribute('RECURRENCE-ID');
-                    if (is_int($recurrence_id) &&
-                        is_string($uid = $component->getAttribute('UID')) &&
-                        is_int($seq = $component->getAttribute('SEQUENCE'))) {
-                        $exceptions[$uid][$seq] = $recurrence_id;
-                        if ($hideExceptions) {
-                            continue;
-                        }
-                        $event->id .= '/' . $recurrence_id;
-                    }
-                } catch (Horde_Icalendar_Exception $e) {}
-
-                /* Ignore events out of the period. */
-                $recurs = $event->recurs();
-                if (
-                    /* Starts after the period. */
-                    ($endDate && $event->start->compareDateTime($endDate) > 0) ||
-                    /* End before the period and doesn't recur. */
-                    ($startDate && !$recurs &&
-                     $event->end->compareDateTime($startDate) < 0)) {
+            /* Catch RECURRENCE-ID attributes which mark single recurrence
+             * instances. */
+            if (isset($event->recurrenceid) &&
+                isset($event->uid) &&
+                isset($event->sequence)) {
+                $exceptions[$event->uid][$event->sequence] = $event->recurrenceid;
+                if ($hideExceptions) {
                     continue;
                 }
+                $event->id .= '/' . $event->recurrenceid;
+            }
 
-                if ($recurs && $startDate) {
-                    // Fixed end date? Check if end is before start period.
-                    if ($event->recurrence->hasRecurEnd() &&
-                        $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
+            /* Ignore events out of the period. */
+            $recurs = $event->recurs();
+            if (
+                /* Starts after the period. */
+                ($endDate && $event->start->compareDateTime($endDate) > 0) ||
+                /* End before the period and doesn't recur. */
+                ($startDate && !$recurs &&
+                 $event->end->compareDateTime($startDate) < 0)) {
+                continue;
+            }
+
+            if ($recurs && $startDate) {
+                // Fixed end date? Check if end is before start period.
+                if ($event->recurrence->hasRecurEnd() &&
+                    $event->recurrence->recurEnd->compareDateTime($startDate) < 0) {
+                    continue;
+                } elseif ($endDate) {
+                    $next = $event->recurrence->nextRecurrence($startDate);
+                    if ($next == false || $next->compareDateTime($endDate) > 0) {
                         continue;
-                    } elseif ($endDate) {
-                        $next = $event->recurrence->nextRecurrence($startDate);
-                        if ($next == false || $next->compareDateTime($endDate) > 0) {
-                            continue;
-                        }
                     }
                 }
-
-                $events[] = $event;
             }
+
+            $processed[] = $event;
         }
 
-        /* Loop through all explicitly defined recurrence intances and create
+        /* Loop through all explicitly defined recurrence instances and create
          * exceptions for those in the event with the matching recurrence. */
-        foreach ($events as $key => $event) {
+        foreach ($processed as $key => $event) {
             if ($event->recurs() &&
                 isset($exceptions[$event->uid][$event->sequence])) {
                 $timestamp = $exceptions[$event->uid][$event->sequence];
-                $events[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
+                $processed[$key]->recurrence->addException(date('Y', $timestamp), date('m', $timestamp), date('d', $timestamp));
             }
             Kronolith::addEvents($results, $event, $startDate, $endDate,
                                  $showRecurrence, $json, $coverDates);
@@ -410,8 +420,10 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                     throw new Kronolith_Exception($e);
                 }
                 $results = array();
-                $this->_processComponents($results, $ical, null, null, false,
-                                          false, false, $eventId);
+                $this->_processComponents(
+                    $results, $this->_convertEvents($ical), null, null, false,
+                    false, false, $eventId
+                );
                 $event = reset(reset($results));
                 if (!$event) {
                     throw new Horde_Exception_NotFound(_("Event not found"));
@@ -421,11 +433,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         $eventId = str_replace('ical', '', $eventId);
-        $ical = $this->getRemoteCalendar();
-        $components = $ical->getComponents();
-        if (isset($components[$eventId]) &&
-            $components[$eventId]->getType() == 'vEvent') {
-            $event = new Kronolith_Event_Ical($this, $components[$eventId]);
+        $events = $this->_getRemoteEvents();
+        if (isset($events[$eventId])) {
+            $event = $events[$eventId];
             $event->permission = $this->getPermission();
             $event->id = 'ical' . $eventId;
             return $event;
@@ -623,6 +633,31 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         return $ical;
+    }
+
+    /**
+     * Fetches a remote calendar and converts it to Kronolith_Event objects.
+     *
+     * The converted event objects will be cached for an hour.
+     *
+     * @return array  List of Kronolith_Event_Ical objects.
+     * @throws Kronolith_Exception
+     */
+    protected function _getRemoteEvents()
+    {
+        $cacheOb = $GLOBALS['injector']->getInstance('Horde_Cache');
+        $cacheVersion = 1;
+        $signature = 'kronolith_remote_events_'  . $cacheVersion . '_' . $url . '_' . serialize($this->_params);
+        $events = $cacheOb->get($signature, 3600);
+        if ($events) {
+            $events = unserialize($events);
+            if (is_array($events)) {
+                return $events;
+            }
+        }
+        $events = $this->_convertEvents($this->getRemoteCalendar(false));
+        $cacheOb->set($signature, serialize($events));
+        return $events;
     }
 
     /**

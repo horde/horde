@@ -50,6 +50,13 @@ abstract class Kronolith_Event
     public $sequence = null;
 
     /**
+     * The iCalendar RECURRENCE-ID for this event exception.
+     *
+     * @var integer
+     */
+    public $recurrenceid = null;
+
+    /**
      * The user id of the creator of the event.
      *
      * @var string
@@ -1450,17 +1457,19 @@ abstract class Kronolith_Event
 
         // RECURRENCE-ID indicates that this event represents an exception
         try {
-            $recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
+            $this->recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-            $originaldt = new Horde_Date($recurrenceid);
+            $originaldt = new Horde_Date($this->recurrenceid);
             $this->exceptionoriginaldate = $originaldt;
             $this->baseid = $this->uid;
             $this->uid = null;
             try {
                 $originalEvent = $kronolith_driver->getByUID($this->baseid);
-                $originalEvent->recurrence->addException($originaldt->format('Y'),
+                $originalEvent->recurrence->addException(
+                    $originaldt->format('Y'),
                     $originaldt->format('m'),
-                    $originaldt->format('d'));
+                    $originaldt->format('d')
+                );
                 $originalEvent->save();
             } catch (Horde_Exception_NotFound $e) {
                 throw new Kronolith_Exception(_("Unable to locate original event series."));
