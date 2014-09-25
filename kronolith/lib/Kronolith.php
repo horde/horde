@@ -1907,7 +1907,6 @@ class Kronolith
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
             if (strpos($email, '@') === false ||
-                $status['attendance'] == self::PART_NONE ||
                 $status['response'] == self::RESPONSE_DECLINED) {
                 continue;
             }
