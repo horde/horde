@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-24</date>
+ <date>2014-09-25</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
 * [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
 * [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
@@ -53,6 +54,7 @@
       <file name="ContentParam.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
+      <file name="Id.php" role="php" />
       <file name="Magic.php" role="php" />
       <file name="Mail.php" role="php" />
       <file name="Mdn.php" role="php" />
@@ -359,6 +361,7 @@
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
       <file name="MdnTest.php" role="test" />
+      <file name="MimeIdTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="PartTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -482,6 +485,7 @@
    <install as="Horde/Mime/ContentParam.php" name="lib/Horde/Mime/ContentParam.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
    <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
+   <install as="Horde/Mime/Id.php" name="lib/Horde/Mime/Id.php" />
    <install as="Horde/Mime/Magic.php" name="lib/Horde/Mime/Magic.php" />
    <install as="Horde/Mime/Mail.php" name="lib/Horde/Mime/Mail.php" />
    <install as="Horde/Mime/Mdn.php" name="lib/Horde/Mime/Mdn.php" />
@@ -585,6 +589,7 @@
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
    <install as="Horde/Mime/MdnTest.php" name="test/Horde/Mime/MdnTest.php" />
+   <install as="Horde/Mime/MimeIdTest.php" name="test/Horde/Mime/MimeIdTest.php" />
    <install as="Horde/Mime/MimeTest.php" name="test/Horde/Mime/MimeTest.php" />
    <install as="Horde/Mime/PartTest.php" name="test/Horde/Mime/PartTest.php" />
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
@@ -1447,9 +1452,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-24</date>
+   <date>2014-09-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
 * [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
 * [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.

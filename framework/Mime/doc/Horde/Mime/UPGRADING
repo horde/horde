@@ -34,6 +34,14 @@ Upgrading to 2.5
       This method is deprecated. Use Horde_Mime_Headers#generateMessageId()
       instead.
 
+    - isChild()
+
+      This method is deprecated. Use Horde_Mime_Id#isChild() instead.
+
+    - mimeIdArithmetic()
+
+      This method is deprecated. Use Horde_Mime_Id#idArithmetic() instead.
+
     - uudecode()
 
       This method is deprecated. Use the Horde_Mime_Uudecode() class instead.
@@ -46,6 +54,7 @@ Upgrading to 2.5
 
   - Horde_Mime_ContentParam
   - Horde_Mime_ContentParam_Decode
+  - Horde_Mime_Id
   - Horde_Mime_Uudecode
 
     These classes were added.

@@ -12,8 +12,7 @@
  */
 
 /**
- * The Horde_Mime:: class provides methods for dealing with various MIME (see,
- * e.g., RFC 2045-2049; 2183; 2231) standards.
+ * Provide methods for dealing with MIME encoding (RFC 2045-2049);
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
@@ -261,94 +260,6 @@ class Horde_Mime
         return $out . substr($string, $old_pos);
     }
 
-    /**
-     * Performs MIME ID "arithmetic" on a given ID.
-     *
-     * @param string $id      The MIME ID string.
-     * @param string $action  One of the following:
-     *   - down: ID of child. Note: down will first traverse to "$id.0" if
-     *           given an ID *NOT* of the form "$id.0". If given an ID of the
-     *           form "$id.0", down will traverse to "$id.1". This behavior
-     *           can be avoided if 'norfc822' option is set.
-     *   - next: ID of next sibling.
-     *   - prev: ID of previous sibling.
-     *   - up: ID of parent. Note: up will first traverse to "$id.0" if
-     *         given an ID *NOT* of the form "$id.0". If given an ID of the
-     *         form "$id.0", down will traverse to "$id". This behavior can be
-     *         avoided if 'norfc822' option is set.
-     * @param array $options  Additional options:
-     *   - count: (integer) How many levels to traverse.
-     *            DEFAULT: 1
-     *   - norfc822: (boolean) Don't traverse rfc822 sub-levels
-     *               DEFAULT: false
-     *
-     * @return mixed  The resulting ID string, or null if that ID can not
-     *                exist.
-     */
-    static public function mimeIdArithmetic($id, $action, $options = array())
-    {
-        $pos = strrpos($id, '.');
-        $end = ($pos === false) ? $id : substr($id, $pos + 1);
-
-        switch ($action) {
-        case 'down':
-            if ($end == '0') {
-                $id = ($pos === false) ? 1 : substr_replace($id, '1', $pos + 1);
-            } else {
-                $id .= empty($options['norfc822']) ? '.0' : '.1';
-            }
-            break;
-
-        case 'next':
-            ++$end;
-            $id = ($pos === false) ? $end : substr_replace($id, $end, $pos + 1);
-            break;
-
-        case 'prev':
-            if (($end == '0') ||
-                (empty($options['norfc822']) && ($end == '1'))) {
-                $id = null;
-            } elseif ($pos === false) {
-                $id = --$end;
-            } else {
-                $id = substr_replace($id, --$end, $pos + 1);
-            }
-            break;
-
-        case 'up':
-            if ($pos === false) {
-                $id = ($end == '0') ? null : '0';
-            } elseif (!empty($options['norfc822']) || ($end == '0')) {
-                $id = substr($id, 0, $pos);
-            } else {
-                $id = substr_replace($id, '0', $pos + 1);
-            }
-            break;
-        }
-
-        return (!is_null($id) && !empty($options['count']) && --$options['count'])
-            ? self::mimeIdArithmetic($id, $action, $options)
-            : $id;
-    }
-
-    /**
-     * Determines if a given MIME ID lives underneath a base ID.
-     *
-     * @param string $base  The base MIME ID.
-     * @param string $id    The MIME ID to query.
-     *
-     * @return boolean  Whether $id lives underneath $base.
-     */
-    static public function isChild($base, $id)
-    {
-        $base = (substr($base, -2) == '.0')
-            ? substr($base, 0, -1)
-            : rtrim($base, '.') . '.';
-
-        return ((($base == 0) && ($id != 0)) ||
-                (strpos(strval($id), strval($base)) === 0));
-    }
-
     /* Deprecated methods. */
 
     /**
@@ -409,6 +320,43 @@ class Horde_Mime
             'params' => $cp->params,
             'val' => $cp->value
         );
+    }
+
+    /**
+     * @deprecated  Use Horde_Mime_Id instead.
+     */
+    static public function mimeIdArithmetic($id, $action, $options = array())
+    {
+        $id_ob = new Horde_Mime_Id($id);
+
+        switch ($action) {
+        case 'down':
+            $action = $id_ob::ID_DOWN;
+            break;
+
+        case 'next':
+            $action = $id_ob::ID_NEXT;
+            break;
+
+        case 'prev':
+            $action = $id_ob::ID_PREV;
+            break;
+
+        case 'up':
+            $action = $id_ob::ID_UP;
+            break;
+        }
+
+        return $id_ob->idArithmetic($action, $options);
+    }
+
+    /**
+     * @deprecated  Use Horde_Mime_Id instead.
+     */
+    static public function isChild($base, $id)
+    {
+        $id_ob = new Horde_Mime_Id($base);
+        return $id_ob->isChild($id);
     }
 
 }
