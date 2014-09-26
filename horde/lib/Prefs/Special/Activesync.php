@@ -47,6 +47,10 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $collections = array();
         foreach ($devices as $device) {
             $dev = $state->loadDeviceInfo($device['device_id'], $registry->getAuth());
+            try {
+                $dev = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+                    ->callHook('activesync_device_modify', 'horde', array($dev));
+            } catch (Horde_Exception_HookNotSet $e) {}
             $js[$dev->id] = array(
                 'id' => $dev->id,
                 'user' => $dev->user

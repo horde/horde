@@ -87,6 +87,10 @@ $js = array();
 $collections = array();
 foreach ($devices as $key => $device) {
     $dev = $state->loadDeviceInfo($device['device_id'], $device['device_user']);
+    try {
+        $dev = $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
+            ->callHook('activesync_device_modify', 'horde', array($dev));
+    } catch (Horde_Exception_HookNotSet $e) {}
     $syncCache = new Horde_ActiveSync_SyncCache($state, $dev->id, $dev->user, $injector->getInstance('Horde_Log_Logger'));
     $dev->hbinterval = $syncCache->hbinterval
         ? $syncCache->hbinterval
