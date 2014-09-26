@@ -55,9 +55,9 @@ function doPrefsUpdate(column, sortDown)
                 }
             }
             $background = $share->get('color') ?: '#ddd';
-            $foreground = '#000';
+            $foreground = '000';
             if (Horde_Image::brightness($background) < 128) {
-                $foreground = '#fff';
+                $foreground = 'fff';
             }
             $locals = array(
               'style' => $style,

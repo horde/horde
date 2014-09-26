@@ -796,22 +796,32 @@ class Nag_Task
      */
     public function treeIcons()
     {
+        $foreground = '';
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+            $background = $share->get('color') ?: '#ddd';
+            if (Horde_Image::brightness($background) < 128) {
+                $foreground = '-fff';
+            }
+        } catch (Horde_Exception_NotFound $e) {
+        }
+
         $html = '';
 
         $parent = $this->parent;
         for ($i = 1; $i < $this->indent; ++$i) {
             if ($parent && $parent->lastChild) {
-                $html = Horde::img('tree/blank.png') . $html;
+                $html = Horde::img('tree/blank' . $foreground . '.png') . $html;
             } else {
-                $html = Horde::img('tree/line.png', '|') . $html;
+                $html = Horde::img('tree/line' . $foreground . '.png', '|') . $html;
             }
             $parent = $parent->parent;
         }
         if ($this->indent) {
             if ($this->lastChild) {
-                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-joinbottom.png' : 'tree/joinbottom.png', '\\');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-joinbottom' . $foreground . '.png' : 'tree/joinbottom' . $foreground . '.png', '\\');
             } else {
-                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-join.png' : 'tree/join.png', '+');
+                $html .= Horde::img($GLOBALS['registry']->nlsconfig->curr_rtl ? 'tree/rev-join' . $foreground . '.png' : 'tree/join' . $foreground . '.png', '+');
             }
         }
 
