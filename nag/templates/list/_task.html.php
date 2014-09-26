@@ -1,4 +1,4 @@
-<tr class="<?php echo $style ?>">
+<tr class="<?php echo $style ?>" style="background-color:<?php echo $background ?>; color: <?php echo $foreground ?>">
   <td>
     <?php
     if ($have_edit) {
@@ -54,7 +54,7 @@
         if ($this->smartShare) {
           $params['list'] = $this->smartShare->getName();
         }
-        echo Horde::linkTooltip($task->view_link->add($params), '', '', '', '', $task->desc)
+        echo Horde::linkTooltip($task->view_link->add($params), '', '', '', '', $task->desc, '', array('style' => 'color:' . $foreground))
             . $task_name . '</a>';
     } else {
         echo $task_name;

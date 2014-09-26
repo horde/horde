@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.
 * [jan] Import iCalendar 2.0 alarms.
 * [jan] Import and export recurrence rules to iCalendar.
@@ -1605,6 +1606,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.
 * [jan] Import iCalendar 2.0 alarms.
 * [jan] Import and export recurrence rules to iCalendar.
