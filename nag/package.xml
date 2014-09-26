@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Improve priority display in basic view.
 * [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.
 * [jan] Import iCalendar 2.0 alarms.
@@ -1606,6 +1607,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Improve priority display in basic view.
 * [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.
 * [jan] Import iCalendar 2.0 alarms.

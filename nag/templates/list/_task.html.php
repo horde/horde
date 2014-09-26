@@ -25,10 +25,10 @@
     ?>
   </td>
 
-<?php if (in_array('tasklist', $columns)): ?>
-  <td><?php echo htmlspecialchars($owner) ?></td>
-<?php endif; if (in_array('priority', $columns)): ?>
+<?php if (in_array('priority', $columns)): ?>
   <td><?php echo Nag::formatPriority($task->priority) ?></td>
+<?php endif; if (in_array('tasklist', $columns)): ?>
+  <td><?php echo htmlspecialchars($owner) ?></td>
 <?php endif; ?>
   <td>
     <?php

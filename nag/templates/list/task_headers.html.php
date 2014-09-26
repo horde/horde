@@ -3,13 +3,14 @@
   <th id="s<?php echo Nag::SORT_COMPLETION ?>"<?php if ($this->sortby == Nag::SORT_COMPLETION) echo ' class="' . $this->sortdirclass . '"' ?> width="2%">
    <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_COMPLETION, Horde::img('checkbox.png', _("Completed?"))) ?>
   </th>
+<?php if (in_array('priority', $this->columns)): ?>
+  <th id="s<?php echo Nag::SORT_PRIORITY ?>" class="horde-split-left<?php if ($this->sortby == Nag::SORT_PRIORITY) echo ' ' . $this->sortdirclass ?>" width="2%">
+   <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_PRIORITY, _("P_ri")) ?>
+  </th>
+<?php endif; ?>
 <?php if (in_array('tasklist', $this->columns)): ?>
   <th id="s<?php echo Nag::SORT_OWNER ?>" class="horde-split-left<?php if ($this->sortby == Nag::SORT_OWNER) echo ' ' . $this->sortdirclass ?>" width="2%">
    <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_OWNER, _("_Task List")) ?>
-  </th>
-<?php endif; if (in_array('priority', $this->columns)): ?>
-  <th id="s<?php echo Nag::SORT_PRIORITY ?>" class="horde-split-left<?php if ($this->sortby == Nag::SORT_PRIORITY) echo ' ' . $this->sortdirclass ?>" width="2%">
-   <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_PRIORITY, _("P_ri")) ?>
   </th>
 <?php endif; ?>
   <th width="2%" class="horde-split-left nosort">
