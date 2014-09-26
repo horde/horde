@@ -22,7 +22,7 @@
       <?php if ($this->isAdmin):?><td><b><?php echo $d->user?></b></td><?php endif?>
       <td><b><?php echo $d->deviceType ?></b></td>
       <?php $lst = $d->getLastSyncTimestamp() ? new Horde_Date($d->getLastSyncTimestamp(), 'UTC') : false; ?>
-      <?php if ($lst): $lst->setTimezone($GLOBALS['prefs']->getValue('timezone')); endif;?>
+      <?php if ($lst && $GLOBALS['prefs']->getValue('timezone')): $lst->setTimezone($GLOBALS['prefs']->getValue('timezone')); endif;?>
       <td><?php echo $lst ? strftime($GLOBALS['prefs']->getValue('date_format') . ' %H:%M', $lst->timestamp()) . ' ' . $lst->format('T') : _("None") ?></td>
       <td><?php echo $status ?></td>
       <td>
