@@ -396,10 +396,8 @@ class Whups_Api extends Horde_Registry_Api
 
                 $result['whups/' . $ticket['id']] = array(
                     'task_id'           => $ticket['id'],
-                    'priority'          => $ticket['priority_name'],
-                    'tasklist_id'       => '**EXTERNAL**',
                     'completed'         => ($ticket['state_category'] == 'resolved'),
-                    'name'              => '[#' . $ticket['id'] . '] ' . $ticket['summary'],
+                    'name'              => '[' . _("Ticket") . ' #' . $ticket['id'] . '] ' . $ticket['summary'],
                     'desc'              => null,
                     'due'               => null,
                     'category'          => null,
