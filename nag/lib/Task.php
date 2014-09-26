@@ -28,6 +28,15 @@ class Nag_Task
     public $tasklist;
 
     /**
+     * This task's tasklist name.
+     *
+     * Overrides the $tasklist's share name.
+     *
+     * @var string
+     */
+    public $tasklist_name;
+
+    /**
      * The task uid.
      *
      * @var string
