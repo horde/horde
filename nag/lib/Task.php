@@ -154,6 +154,15 @@ class Nag_Task
     public $methods;
 
     /**
+     * Snooze minutes for this event's alarm.
+     *
+     * @see Horde_Alarm::snooze()
+     *
+     * @var integer
+     */
+    public $snooze;
+
+    /**
      * Whether the task is private.
      *
      * @var boolean
@@ -1423,7 +1432,77 @@ class Nag_Task
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
-        // @TODO: vCalendar 2.0 alarms
+        // vCalendar 2.0 alarms
+        foreach ($vTodo->getComponents() as $alarm) {
+            if (!($alarm instanceof Horde_Icalendar_Valarm)) {
+                continue;
+            }
+            try {
+                if ($alarm->getAttribute('ACTION') == 'NONE') {
+                    continue;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+            try {
+                // @todo consider implementing different ACTION types.
+                // $action = $alarm->getAttribute('ACTION');
+                $trigger = $alarm->getAttribute('TRIGGER');
+                $triggerParams = $alarm->getAttribute('TRIGGER', true);
+            } catch (Horde_Icalendar_Exception $e) {
+                continue;
+            }
+            if (!is_array($triggerParams)) {
+                $triggerParams = array($triggerParams);
+            }
+            $haveTrigger = false;
+            foreach ($triggerParams as $tp) {
+                if (isset($tp['VALUE']) &&
+                    $tp['VALUE'] == 'DATE-TIME') {
+                    if (isset($tp['RELATED']) &&
+                        $tp['RELATED'] == 'END') {
+                        if ($this->due) {
+                            $this->alarm = intval(($this->due - $trigger) / 60);
+                            $haveTrigger = true;
+                            break;
+                        }
+                    } else {
+                        if ($this->start) {
+                            $this->alarm = intval(($this->start - $trigger) / 60);
+                            $haveTrigger = true;
+                            break;
+                        }
+                    }
+                } elseif (isset($tp['RELATED']) && $tp['RELATED'] == 'END' &&
+                          $this->due && $this->start) {
+                    $this->alarm = -intval($trigger / 60);
+                    $this->alarm -= ($this->due - $this->start);
+                    $haveTrigger = true;
+                    break;
+                }
+            }
+            if (!$haveTrigger) {
+                $this->alarm = -intval($trigger / 60);
+            }
+            break;
+        }
+
+        // Alarm snoozing/dismissal
+        if ($this->alarm) {
+            try {
+                // If X-MOZ-LASTACK is set, this task is either dismissed or
+                // snoozed.
+                $vTodo->getAttribute('X-MOZ-LASTACK');
+                try {
+                    // If X-MOZ-SNOOZE-TIME is set, this task is snoozed.
+                    $snooze = $vTodo->getAttribute('X-MOZ-SNOOZE-TIME');
+                    $this->snooze = intval(($snooze - time()) / 60);
+                } catch (Horde_Icalendar_Exception $e) {
+                    // If X-MOZ-SNOOZE-TIME is not set, this event is dismissed.
+                    $this->snooze = -1;
+                }
+            } catch (Horde_Icalendar_Exception $e) {
+            }
+        }
 
         try {
             $desc = $vTodo->getAttribute('DESCRIPTION');

@@ -162,7 +162,11 @@ abstract class Nag_Driver
         /* Add an alarm if necessary. */
         if (!empty($task->alarm) &&
             ($alarm = $task->toAlarm())) {
-            $GLOBALS['injector']->getInstance('Horde_Alarm')->set($alarm);
+            $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
+            $hordeAlarm->set($alarm);
+            if ($task->snooze) {
+                $hordeAlarm->snooze($task->uid, $GLOBALS['registry']->getAuth(), $task->snooze);
+            }
         }
 
         return array($taskId, $task->uid);
@@ -324,6 +328,9 @@ abstract class Nag_Driver
             if ($alarm) {
                 $alarm['start'] = new Horde_Date($alarm['start']);
                 $horde_alarm->set($alarm);
+                if ($task->snooze) {
+                    $hordeAlarm->snooze($task->uid, $GLOBALS['registry']->getAuth(), $task->snooze);
+                }
             }
         }
 

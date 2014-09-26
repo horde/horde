@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[jan] Import snooze information from iCalendar alarms.
+[jan] Import iCalendar 2.0 alarms.
 [jan] Import and export recurrence rules to iCalendar.
 [jan] Return ETags with browse() API method.
 
