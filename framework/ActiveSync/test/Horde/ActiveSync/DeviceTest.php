@@ -128,6 +128,21 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals('2003-09-24 00:00:00', (string)$bday);
         $this->assertEquals('America/New_York', $bday->timezone);
 
+        // iOS (Sends as 00:00:00 localtime converted to UTC).
+        $fixture = array(
+            'deviceType' => 'iPhone',
+            'userAgent' => 'Apple-iPhone4C1/1002.329',
+            'properties' => array(Horde_ActiveSync_Device::OS => ' iOS 6.1.3 10B329'));
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $date = new Horde_Date('1970-03-20');
+        $bday = $device->normalizePoomContactsDates($date, true);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$bday);
+
+        $date = new Horde_Date('1970-03-20T05:00:00.000Z');
+        $bday = $device->normalizePoomContactsDates($date);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$bday->setTimezone('America/New_York'));
+
+
         // Android
         date_default_timezone_set('Pacific/Honolulu');
         $fixture = array('deviceType' => 'android', 'userAgent' => 'Android/4.3.1-EAS-1.3');
