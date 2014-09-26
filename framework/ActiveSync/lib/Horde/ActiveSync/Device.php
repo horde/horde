@@ -610,6 +610,18 @@ class Horde_ActiveSync_Device
             // iOS seems to support multiple collections for everything except Notes.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
         } else if ($clientType == self::TYPE_ANDROID) {
+            // Special cases: Samsung's native EAS client doesn't support
+            // multiplex.
+            if (stripos($this->deviceType, 'samsung') === 0) {
+                $this->_properties['properties'][self::MULTIPLEX] =
+                    Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
+                    Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
+                    Horde_ActiveSync_Device::MULTIPLEX_NOTES |
+                    Horde_ActiveSync_Device::MULTIPLEX_TASKS;
+
+                return;
+            }
+
             // All android before 4.4 KitKat requires multiplex. KitKat supports
             // non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
