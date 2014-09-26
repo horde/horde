@@ -1027,7 +1027,7 @@ class Nag_Task
 
             try {
                 $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
-            } catch (Horde_Share_exception $e) {
+            } catch (Horde_Share_Exception $e) {
                 Horde::log($e->getMessage(), 'ERR');
                 throw new Nag_Exception($e);
             }
