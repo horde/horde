@@ -412,13 +412,63 @@ class Nag_Driver_Kolab extends Nag_Driver
                 $start = $t->start;
             }
 
-            if (($completed == Nag::VIEW_INCOMPLETE && ($complete || $start > $_SERVER['REQUEST_TIME'])) ||
-                ($completed == Nag::VIEW_COMPLETE && !$complete) ||
-                ($completed == Nag::VIEW_FUTURE &&
-                 ($complete || $start == 0 || $start < $_SERVER['REQUEST_TIME'])) ||
-                ($completed == Nag::VIEW_FUTURE_INCOMPLETE && $complete)) {
-                continue;
+            switch ($completed) {
+            case Nag::VIEW_INCOMPLETE:
+                if ($complete) {
+                    continue;
+                }
+                if ($start && $t->recurs() &&
+                    ($completions = $t->recurrence->getCompletions())) {
+                    sort($completions);
+                    list($year, $month, $mday) = sscanf(
+                        end($completions),
+                        '%04d%02d%02d'
+                    );
+                    $lastCompletion = new Horde_Date($year, $month, $mday);
+                    $recurrence = clone $t->recurrence;
+                    $recurrence->start = new Horde_Date($start);
+                    $start = $recurrence
+                        ->nextRecurrence($lastCompletion)
+                        ->timestamp();
+                    if ($start > $_SERVER['REQUEST_TIME']) {
+                        continue;
+                    }
+                }
+                break;
+            case Nag::VIEW_COMPLETE:
+                if (!$complete) {
+                    continue;
+                }
+                break;
+            case Nag::VIEW_FUTURE:
+                if ($complete || $start == 0) {
+                    continue;
+                }
+                if ($start && $t->recurs() &&
+                    ($completions = $t->recurrence->getCompletions())) {
+                    sort($completions);
+                    list($year, $month, $mday) = sscanf(
+                        end($completions),
+                        '%04d%02d%02d'
+                    );
+                    $lastCompletion = new Horde_Date($year, $month, $mday);
+                    $recurrence = clone $t->recurrence;
+                    $recurrence->start = new Horde_Date($start);
+                    $start = $recurrence
+                        ->nextRecurrence($lastCompletion)
+                        ->timestamp();
+                    if ($start < $_SERVER['REQUEST_TIME']) {
+                        continue;
+                    }
+                }
+                break;
+            case Nag::VIEW_FUTURE_INCOMPLETE:
+                if ($complete) {
+                    continue;
+                }
+                break;
             }
+
             if (empty($t->parent_id)) {
                 $this->tasks->add($t);
             } else {

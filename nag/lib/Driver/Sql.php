@@ -409,7 +409,7 @@ class Nag_Driver_Sql extends Nag_Driver
         $values = array($this->_tasklist);
         switch ($completed) {
         case Nag::VIEW_INCOMPLETE:
-            $query .= ' AND task_completed = 0 AND (task_start IS NULL OR task_start = 0 OR task_start < ?)';
+            $query .= ' AND task_completed = 0 AND (task_start IS NULL OR task_completions IS NOT NULL OR task_start = 0 OR task_start < ?)';
             $values[] = $_SERVER['REQUEST_TIME'];
             break;
 
@@ -418,7 +418,7 @@ class Nag_Driver_Sql extends Nag_Driver
             break;
 
         case Nag::VIEW_FUTURE:
-            $query .= ' AND task_completed = 0 AND task_start > ?';
+            $query .= ' AND task_completed = 0 AND (task_completions IS NOT NULL OR task_start > ?)';
             $values[] = $_SERVER['REQUEST_TIME'];
             break;
 
@@ -439,6 +439,30 @@ class Nag_Driver_Sql extends Nag_Driver
 
         foreach ($result as $row) {
             $task = new Nag_Task($this, $this->_buildTask($row, $include_history));
+            if (($completed == Nag::VIEW_INCOMPLETE ||
+                 $completed == Nag::VIEW_FUTURE) &&
+                $task->start &&
+                $task->recurs()) {
+                if ($completions = $task->recurrence->getCompletions()) {
+                    sort($completions);
+                    list($year, $month, $mday) = sscanf(
+                        end($completions),
+                        '%04d%02d%02d'
+                    );
+                    $lastCompletion = new Horde_Date($year, $month, $mday);
+                    $recurrence = clone $task->recurrence;
+                    $recurrence->start = new Horde_Date($task->start);
+                    $start = $recurrence->nextRecurrence($lastCompletion);
+                } else {
+                    $start = new Horde_Date($task->start);
+                }
+                if (($completed == Nag::VIEW_INCOMPLETE &&
+                     $start->after($_SERVER['REQUEST_TIME'])) ||
+                    ($completed == Nag::VIEW_FUTURE &&
+                     $start->before($_SERVER['REQUEST_TIME']))) {
+                    continue;
+                }
+            }
 
             /* Add task directly if it is a root task, otherwise store it in
              * the dictionary. */
