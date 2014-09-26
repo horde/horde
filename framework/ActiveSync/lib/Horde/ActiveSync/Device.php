@@ -349,7 +349,7 @@ class Horde_ActiveSync_Device
      * @param boolean $all  If true, save all properties (deviceInfo and
      *                      deviceProperties). Otherwise, just save dirty
      *                      deviceProperties. @since 2.16.0
-     * @todo For 3.0, make it clearer taht deviceInfo is per-user and
+     * @todo For 3.0, make it clearer that deviceInfo is per-user and
      *       deviceProperties is per-device.
      */
     public function save($all = true)
