@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Import and export recurrence rules to iCalendar.
 * [jan] Return ETags with browse() API method.
  </notes>
  <contents>
@@ -1602,6 +1603,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Import and export recurrence rules to iCalendar.
 * [jan] Return ETags with browse() API method.
    </notes>
   </release>

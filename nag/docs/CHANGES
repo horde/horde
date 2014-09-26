@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Import and export recurrence rules to iCalendar.
 [jan] Return ETags with browse() API method.
 
 

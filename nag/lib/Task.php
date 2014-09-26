@@ -1165,6 +1165,31 @@ class Nag_Task
             }
         }
 
+        // Recurrence.
+        // We may have to implicitely set DTSTART if not set explicitely, may
+        // some clients choke on missing DTSTART attributes while RRULE exists.
+        if ($this->recurs()) {
+            if ($v1) {
+                $rrule = $this->recurrence->toRRule10($calendar);
+            } else {
+                $rrule = $this->recurrence->toRRule20($calendar);
+            }
+            if (!empty($rrule)) {
+                $vTodo->setAttribute('RRULE', $rrule);
+            }
+
+            /* The completions represent deleted recurrences */
+            foreach ($this->recurrence->getCompletions() as $exception) {
+                if (!empty($exception)) {
+                    // Use multiple EXDATE attributes instead of EXDATE
+                    // attributes with multiple values to make Apple iCal
+                    // happy.
+                    list($year, $month, $mday) = sscanf($exception, '%04d%02d%02d');
+                    $vTodo->setAttribute('EXDATE', array(new Horde_Date($year, $month, $mday)), array('VALUE' => 'DATE'));
+                }
+            }
+        }
+
         if ($this->tags) {
             $vTodo->setAttribute('CATEGORIES', implode(', ', $this->tags));
         }
@@ -1356,6 +1381,33 @@ class Nag_Task
                 $this->due = mktime(0, 0, 0, (int)$due['month'], (int)$due['mday'], (int)$due['year']);
             } elseif (!empty($due)) {
                 $this->due = $due;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        // Recurrence.
+        try {
+            $rrule = $vTodo->getAttribute('RRULE');
+            if (!is_array($rrule)) {
+                $this->recurrence = new Horde_Date_Recurrence($this->due);
+                if (strpos($rrule, '=') !== false) {
+                    $this->recurrence->fromRRule20($rrule);
+                } else {
+                    $this->recurrence->fromRRule10($rrule);
+                }
+
+                // Completions. EXDATE represents completed tasks, just add the
+                // exception.
+                $exdates = $vTodo->getAttributeValues('EXDATE');
+                if (is_array($exdates)) {
+                    foreach ($exdates as $exdate) {
+                        if (is_array($exdate)) {
+                            $this->recurrence->addException(
+                                (int)$exdate['year'],
+                                (int)$exdate['month'],
+                                (int)$exdate['mday']);
+                        }
+                    }
+                }
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
