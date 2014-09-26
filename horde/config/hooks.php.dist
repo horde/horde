@@ -1076,31 +1076,48 @@ class Horde_Hooks
     */
   // public function activesync_device_modify(Horde_ActiveSync_Device $device)
   // {
-  //     // Example for forcing certain device to force multiplexed
+  //     // EXAMPLES for forcing certain device to force multiplexed
   //     // collections for collection types they don't support multiple
   //     // collections for. Note that this doesn't apply to email folders,
-  //     // which are NEVER sent multiplexed.
+  //     // which are NEVER sent multiplexed. Other device properties can also
+  //     // be set here as needed. Remember these are EXAMPLES and should not
+  //     // be blindly used without understanding what they do.
+  //     //
   //     // NOTE: The Horde_ActiveSync library already determines this based
   //     //       on some userAgent and version sniffing. You should only
   //     //       perform this here if it doesn't work for you, or you have
   //     //       discovered a device that doesn't fit the logic.
-
+         // THESE EXAMPLES ARE NO LONGER NECESSARY since Horde_ActiveSync 2.19.2
+         //
   //     // For android devices that don't advertise the android version we have
   //     // to manually set the multiplex flag if we want to force any. E.g.,
-  //     // the Galaxy Note 3 doesn't support multiple collections. EVEN on KK,
-  //     // since they use the same propriatary email app, and not Google's.
-  //     if (empty($device->multiplex)) {
-  //         switch (strtoupper($device->userAgent)) {
-  //         case 'SAMSUNG-SM-N900V/101.403': // 4.3
-  //         case 'SAMSUNG-SM-N900V/101.40402': // 4.4
-  //             // Note 3, Android 4.3
-  //             $device->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES |
-  //                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
-  //                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
-  //                 Horde_ActiveSync_Device::MULTIPLEX_TASKS;
-  //         }
-  //     }
+  //     // the Galaxy Note 3 doesn't support multiple collections.
+  //     // NOTE: You can use any device property you want to determine which
+  //     // device to alter. So E.g., if you wanted only specific devices you could
+  //     // use the IMEI value like $device->properties[Horde_ActiveSync_Device::IMEI]
+  //     switch (strtoupper($device->userAgent)) {
+  //     case 'SAMSUNG-SM-N900V/101.403':
+  //     case 'SAMSUNG-SM-N900V/101.40402':
+  //         // Note 3, Android 4.3 or 4.4
+  //         $device->multiplex = Horde_ActiveSync_Device::MULTIPLEX_NOTES |
+  //             Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
+  //             Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
+  //             Horde_ActiveSync_Device::MULTIPLEX_TASKS;
 
+  //         // We know it's an Android and can guess at the OS version.
+  //         $device->clientType = 'Android';
+  //         $device->{Horde_ActiveSync_Device::OS} = '4.4.2';
+  //         break;
+  //     case 'HLTEVZW/KOT49H':
+  //     case 'MYSID/JLS36I': // Nine on a Verizon Galaxy Nexus flashed with CM.
+  //         // This is from Nine running on a Verizon Note 3. The userAgent will
+  //         // likely be different for different carriers (at least until Nine
+  //         // identifies itself better) so use this section as a template for
+  //         // other carriers if needed.
+  //         $device->multiplex = 0;
+  //         $device->clientType = 'Android';
+  //         break;
+  //     }
   //     return $device;
   // }
 
