@@ -614,9 +614,9 @@ class Nag_Task
                 $this->recurrence->addCompletion($current->year,
                                                  $current->month,
                                                  $current->mday);
-                /* Advance this occurence by a day to indicate that we
-                 * want the following occurence (Recurrence uses days
-                 * as minimal time duration between occurrences). */
+                /* Advance this occurence by a day to indicate that we want the
+                 * following occurence (Recurrence uses days as minimal time
+                 * duration between occurrences). */
                 $current->mday++;
                 /* Only mark this due date completed if there is another
                  * occurence. */
@@ -1094,7 +1094,6 @@ class Nag_Task
                 $json->e = $this->estimate;
             }
             /*
-            $json->p = $this->parent_id;
             $json->o = $this->owner;
 
             if ($this->completed_date) {
@@ -1405,7 +1404,7 @@ class Nag_Task
         $message->setImportance($priority);
 
         /* Reminders */
-            if ($this->due && $this->alarm) {
+        if ($this->due && $this->alarm) {
             $message->setReminder(new Horde_Date($this->due - $this->alarm * 60));
         }
 
@@ -1503,12 +1502,16 @@ class Nag_Task
 
         try {
             $desc = $vTodo->getAttribute('DESCRIPTION');
-            if (!is_array($desc)) { $this->desc = $desc; }
+            if (!is_array($desc)) {
+                $this->desc = $desc;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
             $priority = $vTodo->getAttribute('PRIORITY');
-            if (!is_array($priority)) { $this->priority = $priority; }
+            if (!is_array($priority)) {
+                $this->priority = $priority;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
@@ -1520,7 +1523,9 @@ class Nag_Task
 
         try {
             $status = $vTodo->getAttribute('STATUS');
-            if (!is_array($status)) { $this->completed = !strcasecmp($status, 'COMPLETED'); }
+            if (!is_array($status)) {
+                $this->completed = !strcasecmp($status, 'COMPLETED');
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
