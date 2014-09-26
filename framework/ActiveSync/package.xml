@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Added ability to sniff out Nine and Samsung Android clients.
+* [mjr] Improvements to the workaround for broken POOMCONTACTS date field behavior.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2389,7 +2390,8 @@
    <date>2014-09-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Added ability to sniff out Nine and Samsung Android clients.
+* [mjr] Improvements to the workaround for broken POOMCONTACTS date field behavior.
    </notes>
   </release>
  </changelog>
