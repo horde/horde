@@ -2,6 +2,7 @@
 v5.3.0-git
 ----------
 
+[jan] Add inverse tree icons.
 [mms] Add Hashtable Administration page.
 [mms] Add Cache Administration page.
 [mms] Add the 'time_format_mini' preference.

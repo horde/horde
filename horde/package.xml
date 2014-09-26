@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2014-09-26</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
 * [mms] Add Cache Administration page.
 * [mms] Add the &apos;time_format_mini&apos; preference.
@@ -90,8 +91,10 @@
     </dir> <!-- /admin/perms -->
     <file name="activesync.php" role="horde" />
     <file name="alarms.php" role="horde" />
+    <file name="cache.php" role="horde" />
     <file name="cmdshell.php" role="horde" />
     <file name="groups.php" role="horde" />
+    <file name="hashtable.php" role="horde" />
     <file name="index.html" role="horde" />
     <file name="locks.php" role="horde" />
     <file name="phpshell.php" role="horde" />
@@ -709,7 +712,9 @@
       <file name="update.inc" role="horde" />
      </dir> <!-- /templates/admin/user -->
      <file name="activesync.html.php" role="horde" />
+     <file name="cache.html.php" role="horde" />
      <file name="cmdshell.html.php" role="horde" />
+     <file name="hashtable.html.php" role="horde" />
      <file name="menu.inc" role="horde" />
      <file name="phpshell.html.php" role="horde" />
      <file name="sessions.html.php" role="horde" />
@@ -1418,36 +1423,68 @@
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/nav -->
       <dir name="tree">
+       <file name="blank-fff.png" role="horde" />
        <file name="blank.png" role="horde" />
+       <file name="folder-fff.png" role="horde" />
        <file name="folder.png" role="horde" />
+       <file name="folderopen-fff.png" role="horde" />
        <file name="folderopen.png" role="horde" />
+       <file name="join-fff-fff.png" role="horde" />
+       <file name="join-fff.png" role="horde" />
        <file name="join.png" role="horde" />
+       <file name="joinbottom-down-fff.png" role="horde" />
        <file name="joinbottom-down.png" role="horde" />
+       <file name="joinbottom-fff.png" role="horde" />
        <file name="joinbottom.png" role="horde" />
+       <file name="leaf-fff.png" role="horde" />
        <file name="leaf.png" role="horde" />
+       <file name="line-fff.png" role="horde" />
        <file name="line.png" role="horde" />
+       <file name="minus-fff.png" role="horde" />
        <file name="minus.png" role="horde" />
+       <file name="minusbottom-fff.png" role="horde" />
        <file name="minusbottom.png" role="horde" />
+       <file name="minusonly-fff.png" role="horde" />
        <file name="minusonly.png" role="horde" />
+       <file name="minustop-fff.png" role="horde" />
        <file name="minustop.png" role="horde" />
+       <file name="nullonly-fff.png" role="horde" />
        <file name="nullonly.png" role="horde" />
+       <file name="plus-fff.png" role="horde" />
        <file name="plus.png" role="horde" />
+       <file name="plusbottom-fff.png" role="horde" />
        <file name="plusbottom.png" role="horde" />
+       <file name="plusonly-fff.png" role="horde" />
        <file name="plusonly.png" role="horde" />
+       <file name="plustop-fff.png" role="horde" />
        <file name="plustop.png" role="horde" />
+       <file name="rev-join-fff.png" role="horde" />
        <file name="rev-join.png" role="horde" />
+       <file name="rev-joinbottom-down-fff.png" role="horde" />
        <file name="rev-joinbottom-down.png" role="horde" />
+       <file name="rev-joinbottom-fff.png" role="horde" />
        <file name="rev-joinbottom.png" role="horde" />
+       <file name="rev-leaf-fff.png" role="horde" />
        <file name="rev-leaf.png" role="horde" />
+       <file name="rev-line-fff.png" role="horde" />
        <file name="rev-line.png" role="horde" />
+       <file name="rev-minus-fff.png" role="horde" />
        <file name="rev-minus.png" role="horde" />
+       <file name="rev-minusbottom-fff.png" role="horde" />
        <file name="rev-minusbottom.png" role="horde" />
+       <file name="rev-minusonly-fff.png" role="horde" />
        <file name="rev-minusonly.png" role="horde" />
+       <file name="rev-minustop-fff.png" role="horde" />
        <file name="rev-minustop.png" role="horde" />
+       <file name="rev-nullonly-fff.png" role="horde" />
        <file name="rev-nullonly.png" role="horde" />
+       <file name="rev-plus-fff.png" role="horde" />
        <file name="rev-plus.png" role="horde" />
+       <file name="rev-plusbottom-fff.png" role="horde" />
        <file name="rev-plusbottom.png" role="horde" />
+       <file name="rev-plusonly-fff.png" role="horde" />
        <file name="rev-plusonly.png" role="horde" />
+       <file name="rev-plustop-fff.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
       <file name="add_group.png" role="horde" />
@@ -1931,8 +1968,10 @@
   <filelist>
    <install as="admin/activesync.php" name="admin/activesync.php" />
    <install as="admin/alarms.php" name="admin/alarms.php" />
+   <install as="admin/cache.php" name="admin/cache.php" />
    <install as="admin/cmdshell.php" name="admin/cmdshell.php" />
    <install as="admin/groups.php" name="admin/groups.php" />
+   <install as="admin/hashtable.php" name="admin/hashtable.php" />
    <install as="admin/index.html" name="admin/index.html" />
    <install as="admin/locks.php" name="admin/locks.php" />
    <install as="admin/phpshell.php" name="admin/phpshell.php" />
@@ -2256,7 +2295,9 @@
    <install as="templates/.htaccess" name="templates/.htaccess" />
    <install as="templates/activesync/device_table.html.php" name="templates/activesync/device_table.html.php" />
    <install as="templates/admin/activesync.html.php" name="templates/admin/activesync.html.php" />
+   <install as="templates/admin/cache.html.php" name="templates/admin/cache.html.php" />
    <install as="templates/admin/cmdshell.html.php" name="templates/admin/cmdshell.html.php" />
+   <install as="templates/admin/hashtable.html.php" name="templates/admin/hashtable.html.php" />
    <install as="templates/admin/menu.inc" name="templates/admin/menu.inc" />
    <install as="templates/admin/phpshell.html.php" name="templates/admin/phpshell.html.php" />
    <install as="templates/admin/sessions.html.php" name="templates/admin/sessions.html.php" />
@@ -3042,36 +3083,68 @@
    <install as="themes/default/graphics/nav/top.png" name="themes/default/graphics/nav/top.png" />
    <install as="themes/default/graphics/nav/up-grey.png" name="themes/default/graphics/nav/up-grey.png" />
    <install as="themes/default/graphics/nav/up.png" name="themes/default/graphics/nav/up.png" />
+   <install as="themes/default/graphics/tree/blank-fff.png" name="themes/default/graphics/tree/blank-fff.png" />
    <install as="themes/default/graphics/tree/blank.png" name="themes/default/graphics/tree/blank.png" />
+   <install as="themes/default/graphics/tree/folder-fff.png" name="themes/default/graphics/tree/folder-fff.png" />
    <install as="themes/default/graphics/tree/folder.png" name="themes/default/graphics/tree/folder.png" />
+   <install as="themes/default/graphics/tree/folderopen-fff.png" name="themes/default/graphics/tree/folderopen-fff.png" />
    <install as="themes/default/graphics/tree/folderopen.png" name="themes/default/graphics/tree/folderopen.png" />
+   <install as="themes/default/graphics/tree/join-fff-fff.png" name="themes/default/graphics/tree/join-fff-fff.png" />
+   <install as="themes/default/graphics/tree/join-fff.png" name="themes/default/graphics/tree/join-fff.png" />
    <install as="themes/default/graphics/tree/join.png" name="themes/default/graphics/tree/join.png" />
+   <install as="themes/default/graphics/tree/joinbottom-down-fff.png" name="themes/default/graphics/tree/joinbottom-down-fff.png" />
    <install as="themes/default/graphics/tree/joinbottom-down.png" name="themes/default/graphics/tree/joinbottom-down.png" />
+   <install as="themes/default/graphics/tree/joinbottom-fff.png" name="themes/default/graphics/tree/joinbottom-fff.png" />
    <install as="themes/default/graphics/tree/joinbottom.png" name="themes/default/graphics/tree/joinbottom.png" />
+   <install as="themes/default/graphics/tree/leaf-fff.png" name="themes/default/graphics/tree/leaf-fff.png" />
    <install as="themes/default/graphics/tree/leaf.png" name="themes/default/graphics/tree/leaf.png" />
+   <install as="themes/default/graphics/tree/line-fff.png" name="themes/default/graphics/tree/line-fff.png" />
    <install as="themes/default/graphics/tree/line.png" name="themes/default/graphics/tree/line.png" />
+   <install as="themes/default/graphics/tree/minus-fff.png" name="themes/default/graphics/tree/minus-fff.png" />
    <install as="themes/default/graphics/tree/minus.png" name="themes/default/graphics/tree/minus.png" />
+   <install as="themes/default/graphics/tree/minusbottom-fff.png" name="themes/default/graphics/tree/minusbottom-fff.png" />
    <install as="themes/default/graphics/tree/minusbottom.png" name="themes/default/graphics/tree/minusbottom.png" />
+   <install as="themes/default/graphics/tree/minusonly-fff.png" name="themes/default/graphics/tree/minusonly-fff.png" />
    <install as="themes/default/graphics/tree/minusonly.png" name="themes/default/graphics/tree/minusonly.png" />
+   <install as="themes/default/graphics/tree/minustop-fff.png" name="themes/default/graphics/tree/minustop-fff.png" />
    <install as="themes/default/graphics/tree/minustop.png" name="themes/default/graphics/tree/minustop.png" />
+   <install as="themes/default/graphics/tree/nullonly-fff.png" name="themes/default/graphics/tree/nullonly-fff.png" />
    <install as="themes/default/graphics/tree/nullonly.png" name="themes/default/graphics/tree/nullonly.png" />
+   <install as="themes/default/graphics/tree/plus-fff.png" name="themes/default/graphics/tree/plus-fff.png" />
    <install as="themes/default/graphics/tree/plus.png" name="themes/default/graphics/tree/plus.png" />
+   <install as="themes/default/graphics/tree/plusbottom-fff.png" name="themes/default/graphics/tree/plusbottom-fff.png" />
    <install as="themes/default/graphics/tree/plusbottom.png" name="themes/default/graphics/tree/plusbottom.png" />
+   <install as="themes/default/graphics/tree/plusonly-fff.png" name="themes/default/graphics/tree/plusonly-fff.png" />
    <install as="themes/default/graphics/tree/plusonly.png" name="themes/default/graphics/tree/plusonly.png" />
+   <install as="themes/default/graphics/tree/plustop-fff.png" name="themes/default/graphics/tree/plustop-fff.png" />
    <install as="themes/default/graphics/tree/plustop.png" name="themes/default/graphics/tree/plustop.png" />
+   <install as="themes/default/graphics/tree/rev-join-fff.png" name="themes/default/graphics/tree/rev-join-fff.png" />
    <install as="themes/default/graphics/tree/rev-join.png" name="themes/default/graphics/tree/rev-join.png" />
+   <install as="themes/default/graphics/tree/rev-joinbottom-down-fff.png" name="themes/default/graphics/tree/rev-joinbottom-down-fff.png" />
    <install as="themes/default/graphics/tree/rev-joinbottom-down.png" name="themes/default/graphics/tree/rev-joinbottom-down.png" />
+   <install as="themes/default/graphics/tree/rev-joinbottom-fff.png" name="themes/default/graphics/tree/rev-joinbottom-fff.png" />
    <install as="themes/default/graphics/tree/rev-joinbottom.png" name="themes/default/graphics/tree/rev-joinbottom.png" />
+   <install as="themes/default/graphics/tree/rev-leaf-fff.png" name="themes/default/graphics/tree/rev-leaf-fff.png" />
    <install as="themes/default/graphics/tree/rev-leaf.png" name="themes/default/graphics/tree/rev-leaf.png" />
+   <install as="themes/default/graphics/tree/rev-line-fff.png" name="themes/default/graphics/tree/rev-line-fff.png" />
    <install as="themes/default/graphics/tree/rev-line.png" name="themes/default/graphics/tree/rev-line.png" />
+   <install as="themes/default/graphics/tree/rev-minus-fff.png" name="themes/default/graphics/tree/rev-minus-fff.png" />
    <install as="themes/default/graphics/tree/rev-minus.png" name="themes/default/graphics/tree/rev-minus.png" />
+   <install as="themes/default/graphics/tree/rev-minusbottom-fff.png" name="themes/default/graphics/tree/rev-minusbottom-fff.png" />
    <install as="themes/default/graphics/tree/rev-minusbottom.png" name="themes/default/graphics/tree/rev-minusbottom.png" />
+   <install as="themes/default/graphics/tree/rev-minusonly-fff.png" name="themes/default/graphics/tree/rev-minusonly-fff.png" />
    <install as="themes/default/graphics/tree/rev-minusonly.png" name="themes/default/graphics/tree/rev-minusonly.png" />
+   <install as="themes/default/graphics/tree/rev-minustop-fff.png" name="themes/default/graphics/tree/rev-minustop-fff.png" />
    <install as="themes/default/graphics/tree/rev-minustop.png" name="themes/default/graphics/tree/rev-minustop.png" />
+   <install as="themes/default/graphics/tree/rev-nullonly-fff.png" name="themes/default/graphics/tree/rev-nullonly-fff.png" />
    <install as="themes/default/graphics/tree/rev-nullonly.png" name="themes/default/graphics/tree/rev-nullonly.png" />
+   <install as="themes/default/graphics/tree/rev-plus-fff.png" name="themes/default/graphics/tree/rev-plus-fff.png" />
    <install as="themes/default/graphics/tree/rev-plus.png" name="themes/default/graphics/tree/rev-plus.png" />
+   <install as="themes/default/graphics/tree/rev-plusbottom-fff.png" name="themes/default/graphics/tree/rev-plusbottom-fff.png" />
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
+   <install as="themes/default/graphics/tree/rev-plusonly-fff.png" name="themes/default/graphics/tree/rev-plusonly-fff.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
+   <install as="themes/default/graphics/tree/rev-plustop-fff.png" name="themes/default/graphics/tree/rev-plustop-fff.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
    <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
@@ -3995,9 +4068,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-09-26</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
 * [mms] Add Cache Administration page.
 * [mms] Add the &apos;time_format_mini&apos; preference.
