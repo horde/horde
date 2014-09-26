@@ -278,6 +278,9 @@ class Nag
                 try {
                     $newtasks = $registry->callByPackage($app, 'listAs', array('taskHash'));
                     foreach ($newtasks as $task) {
+                        if (!isset($task['priority'])) {
+                            $task['priority'] = 3;
+                        }
                         $task['tasklist_id'] = '**EXTERNAL**';
                         $task['tasklist_name'] = $registry->get('name', $app);
                         $task = new Nag_Task(null, $task);
