@@ -74,6 +74,7 @@ class Horde_ActiveSync_Device
     const TYPE_WP              = 'windowsphone';
     const TYPE_TOUCHDOWN       = 'touchdown';
     const TYPE_UNKNOWN         = 'unknown';
+    const TYPE_NINE            = 'nine';
 
     /**
      * Device properties.
@@ -388,6 +389,7 @@ class Horde_ActiveSync_Device
                 }
                 break;
             case self::TYPE_ANDROID:
+            case self::TYPE_NINE:
                 // Most newer Android clients send self::OS, so check that first
                 if (!empty($this->properties[self::OS]) && preg_match('/(\d+)\.(\d+)/', $this->properties[self::OS], $matches)) {
                     return $matches[1];
@@ -571,15 +573,31 @@ class Horde_ActiveSync_Device
             // Moxier does not distinguish itself, so we can't sniff it.
             if (strpos($this->userAgent, 'TouchDown') !== false) {
                 return self::TYPE_TOUCHDOWN;
+            } else if ($this->_isNine()) {
+                return self::TYPE_NINE;
             } else if (stripos($this->userAgent, 'Android') !== false) {
                 return $this->deviceType;
             } else {
-                return self::TYPE_UNKNOWN;
+                return self::TYPE_ANDROID;
             }
        } else {
             return $this->deviceType;
        }
     }
+
+    /**
+     * Helper method to sniff out the 9Folders client, "Nine".
+     * @see https://ninefolders.plan.io/track/7048/46b213 for the discussion on
+     * how to sniff out the nine client. Not the best solution, but it's the one
+     * they decided to use.
+     *
+     * @return boolean  True if client is thought to be "Nine".
+     */
+    protected function _isNine()
+    {
+        return stripos(pack('H*', $this->id), 'nine') === 0;
+    }
+
 
     /**
      * Basic sniffing for determining if devices can support non-multiplexed
