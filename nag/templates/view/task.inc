@@ -7,7 +7,7 @@
 <?php if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'modify_task'), 'title' => _("_Edit"), 'class' => 'nag-edit')) ?></li>
 <?php endif ?>
-    <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('task.php', true)->add(array('actionID' => 'add_task', 'parent_task' => $task->id)), 'title' => _("Create Subtask"), 'class' => 'nag-new')) ?></li>
+    <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('task.php', true)->add(array('actionID' => 'add_task', 'tasklist_id' => $task->tasklist, 'parent_task' => $task->id)), 'title' => _("Create Subtask"), 'class' => 'nag-new')) ?></li>
 <?php endif ?>
 <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete"), 'class' => 'nag-delete')) ?></li>
