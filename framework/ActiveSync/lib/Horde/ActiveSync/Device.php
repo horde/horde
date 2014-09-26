@@ -526,7 +526,11 @@ class Horde_ActiveSync_Device
         case self::TYPE_IPOD:
             if ($this->getMajorVersion() >= 5) {
                 // iOS >= 5 handles it correctly more or less.
-                return $date;
+                if ($toEas) {
+                    return new Horde_Date($date->format('Y-m-d 00:00:00'));
+                } else {
+                    return $date;
+                }
             } else {
                 if ($toEas) {
                     return new Horde_Date($date->format('Y-m-d'), 'UTC');
@@ -534,6 +538,13 @@ class Horde_ActiveSync_Device
                     return new Horde_Date($date->format('Y-m-d'));
                 }
             }
+
+        case self::TYPE_NINE:
+                if ($toEas) {
+                    return new Horde_Date($date->format('Y-m-d 00:00:00'));
+                } else {
+                    return $date;
+                }
 
         case self::TYPE_BLACKBERRY:
             if ($toEas) {
