@@ -140,9 +140,9 @@ var IMP_JS = {
     {
         var body, h, html;
 
-        if (e) {
+        try {
             delete Event.element(e).onload;
-        }
+        } catch (error) {}
 
         id = $(id);
         if (id) {
