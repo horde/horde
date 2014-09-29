@@ -128,60 +128,6 @@ class Horde_Mime
     }
 
     /**
-     * Encodes a line via quoted-printable encoding.
-     *
-     * @param string $text   The text to encode (UTF-8).
-     * @param string $eol    The EOL sequence to use.
-     * @param integer $wrap  Wrap a line at this many characters.
-     *
-     * @return string  The quoted-printable encoded string.
-     */
-    static public function quotedPrintableEncode($text, $eol = self::EOL,
-                                                 $wrap = 76)
-    {
-        $curr_length = 0;
-        $output = '';
-
-        /* We need to go character by character through the data. */
-        for ($i = 0, $length = strlen($text); $i < $length; ++$i) {
-            $char = $text[$i];
-
-            /* If we have reached the end of the line, reset counters. */
-            if ($char == "\n") {
-                $output .= $eol;
-                $curr_length = 0;
-                continue;
-            } elseif ($char == "\r") {
-                continue;
-            }
-
-            /* Spaces or tabs at the end of the line are NOT allowed. Also,
-             * ASCII characters below 32 or above 126 AND 61 must be
-             * encoded. */
-            $ascii = ord($char);
-            if ((($ascii === 32) &&
-                 ($i + 1 != $length) &&
-                 (($text[$i + 1] == "\n") || ($text[$i + 1] == "\r"))) ||
-                (($ascii < 32) || ($ascii > 126) || ($ascii === 61))) {
-                $char_len = 3;
-                $char = '=' . Horde_String::upper(sprintf('%02s', dechex($ascii)));
-            } else {
-                $char_len = 1;
-            }
-
-            /* Lines must be $wrap characters or less. */
-            $curr_length += $char_len;
-            if ($curr_length > $wrap) {
-                $output .= '=' . $eol;
-                $curr_length = $char_len;
-            }
-            $output .= $char;
-        }
-
-        return $output;
-    }
-
-    /**
      * Decodes a MIME encoded (RFC 2047) string.
      *
      * @param string $string  The MIME encoded text.
@@ -356,6 +302,30 @@ class Horde_Mime
     {
         $id_ob = new Horde_Mime_Id($base);
         return $id_ob->isChild($id);
+    }
+
+    /**
+     * @deprecated  Use quoted_printable_encode() instead.
+     */
+    static public function quotedPrintableEncode($text, $eol = self::EOL,
+                                                 $wrap = 76)
+    {
+        $fp = fopen('php://temp', 'r+');
+        stream_filter_append(
+            $fp,
+            'convert.quoted-printable-encode',
+            STREAM_FILTER_WRITE,
+            array(
+                'line-break-chars' => self::EOL,
+                'line-length' => $wrap
+            )
+        );
+        fwrite($fp, $text);
+        rewind($fp);
+        $out = stream_get_contents($fp);
+        fclose($fp);
+
+        return $out;
     }
 
 }

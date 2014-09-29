@@ -42,6 +42,11 @@ Upgrading to 2.5
 
       This method is deprecated. Use Horde_Mime_Id#idArithmetic() instead.
 
+    - quotedPrintableEncode()
+
+      This method is deprecated. Use PHP's quoted_printable_encode() method
+      instead.
+
     - uudecode()
 
       This method is deprecated. Use the Horde_Mime_Uudecode() class instead.
