@@ -51,7 +51,7 @@ var IMP_JS = {
             );
         }
 
-        callback = this.iframeResize.bindAsEventListener(this, iframe);
+        callback = this.iframeResize.bind(this, iframe);
         doc = this.iframeDoc(iframe);
 
         Prototype.Selector.select('[htmlimgblocked]', doc).each(function(img) {
@@ -90,7 +90,7 @@ var IMP_JS = {
             style.setAttribute('type', 'text/css');
         });
 
-        this.iframeResize(null, iframe);
+        this.iframeResize(iframe);
     },
 
     iframeInject: function(id, data)
@@ -101,8 +101,8 @@ var IMP_JS = {
 
         var d = this.iframeDoc(id), ev;
 
-        id.onload = function(e) {
-            this.iframeResize(e, id);
+        id.onload = function() {
+            this.iframeResize(id);
             id.setStyle({ overflowY: '' });
         }.bind(this);
 
@@ -124,25 +124,21 @@ var IMP_JS = {
 
         id.setStyle({ overflowY: 'hidden' });
         id.show().previous().remove();
-        this.iframeResize(null, id);
+        this.iframeResize(id);
     },
 
-    iframeResize: function(e, id)
+    iframeResize: function(id)
     {
         // IE (at a minimum) needs a slight delay to size properly
         if (!this.iframeresize_run) {
             this.iframeresize_run = true;
-            this.iframeResizeRun.bind(this, e, id).delay(this.resize_delay);
+            this.iframeResizeRun.bind(this, id).delay(this.resize_delay);
         }
     },
 
-    iframeResizeRun: function(e, id)
+    iframeResizeRun: function(id)
     {
         var body, h, html;
-
-        try {
-            delete Event.element(e).onload;
-        } catch (error) {}
 
         id = $(id);
         if (id) {
@@ -185,7 +181,7 @@ var IMP_JS = {
         var imgs, mb_height, mb_pad, range_top, range_bottom, resize,
             mb = $('messageBody');
 
-        resize = this.iframeResize.bindAsEventListener(this, iframe);
+        resize = this.iframeResize.bind(this, iframe);
 
         mb_height = mb.getHeight();
         /* Load messages within 10% of range boundaries. */
