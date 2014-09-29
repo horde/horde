@@ -190,15 +190,17 @@ class Horde_Mime
      */
     static public function decode($string)
     {
-        /* Take out any spaces between multiple encoded words. */
-        $string = preg_replace('|\?=\s+=\?|', '?==?', $string);
-
-        $out = '';
         $old_pos = 0;
+        $out = '';
 
         while (($pos = strpos($string, '=?', $old_pos)) !== false) {
-            /* Save any preceding text. */
-            $out .= substr($string, $old_pos, $pos - $old_pos);
+            /* Save any preceding text, if it is not LWSP between two
+             * encoded words. */
+            $pre = substr($string, $old_pos, $pos - $old_pos);
+            if (!$old_pos ||
+                (strspn($pre, " \t\n\r") != strlen($pre))) {
+                $out .= $pre;
+            }
 
             /* Search for first delimiting question mark (charset). */
             if (($d1 = strpos($string, '?', $pos + 2)) === false) {
@@ -229,12 +231,9 @@ class Horde_Mime
             case 'Q':
             case 'q':
                 $out .= Horde_String::convertCharset(
-                    preg_replace_callback(
-                        '/=([0-9a-f]{2})/i',
-                        function($ord) {
-                            return chr(hexdec($ord[1]));
-                        },
-                        str_replace('_', ' ', $encoded_text)),
+                    quoted_printable_decode(
+                        str_replace('_', ' ', $encoded_text)
+                    ),
                     $orig_charset,
                     'UTF-8'
                 );
