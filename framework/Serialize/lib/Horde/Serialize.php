@@ -123,7 +123,6 @@ class Horde_Serialize
         case self::IMAPUTF7:
             return class_exists('Horde_Imap_Client');
 
-        case self::IMAP8:
         case self::IMAPUTF8:
             return class_exists('Horde_Mime');
 
@@ -138,6 +137,7 @@ class Horde_Serialize
         case self::NONE:
         case self::BASIC:
         case self::BASE64:
+        case self::IMAP8:
         case self::RAW:
         case self::URL:
         case self::UTF7:
@@ -186,7 +186,7 @@ class Horde_Serialize
             break;
 
         case self::IMAP8:
-            $data = Horde_Mime::quotedPrintableEncode($data);
+            $data = quoted_printable_encode($data);
             break;
 
         case self::IMAPUTF7:
