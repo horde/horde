@@ -1,6 +1,6 @@
 <?php
 
-class Horde_WrapperA_Translation extends Horde_Translation
+class Horde_WrapperA_Translation extends Horde_Translation_Autodetect
 {
-    static protected $_domain = 'Horde_WrapperA';
+    protected static $_domain = 'Horde_WrapperA';
 }
