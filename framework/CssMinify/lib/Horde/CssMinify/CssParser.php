@@ -105,9 +105,10 @@ class Horde_CssMinify_CssParser extends Horde_CssMinify
 
             foreach ($url as $val) {
                 $url_ob = $val->getURL();
-                $url_str = $url_ob->getString();
+                $url_str = ltrim($url_ob->getString());
 
-                if (!Horde_Url_Data::isData($url_str)) {
+                if ((stripos($url_str, 'http') !== 0) &&
+                    !Horde_Url_Data::isData($url_str)) {
                     $url_str = dirname($uri) . '/' . $url_str;
                     if (!empty($this->_opts['dataurl'])) {
                         $url_str = call_user_func($this->_opts['dataurl'], $url_str);

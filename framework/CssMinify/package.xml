@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Correctly handle full URLs in background-* properties.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -130,7 +130,7 @@
    <date>2014-07-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Correctly handle full URLs in background-* properties.
    </notes>
   </release>
  </changelog>
