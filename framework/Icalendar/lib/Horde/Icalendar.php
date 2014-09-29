@@ -1116,7 +1116,7 @@ class Horde_Icalendar
                 $result .= $name . $params_str . ':'
                     . preg_replace(array('/(?<!\r)\n/', '/(?<!=)\r\n/'),
                                    array("\r\n", "=0D=0A=\r\n "),
-                                   Horde_Mime::quotedPrintableEncode($value))
+                                   quoted_printable_encode($value))
                     . $this->_newline;
             } else {
                 $attr_string = $name . $params_str . ':' . $value;
