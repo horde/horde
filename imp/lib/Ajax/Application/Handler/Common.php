@@ -485,7 +485,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * See the list of variables needed for
      * IMP_Ajax_Application#composeSetup(). Additional variables used:
-     *   - addr_ac: (string) TODO
+     *   - addr_ac: (string) Autocompleter is active (to, cc, bcc fields are
+     *              encoded in autocomplete format).
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
@@ -618,6 +619,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * Redirect the message.
      *
      * Variables used:
+     *   - addr_ac: (string) Autocompleter is active (redirect_to field is
+     *              encoded in autocomplete format).
      *   - composeCache: (string) The IMP_Compose cache identifier.
      *   - redirect_to: (string) The address(es) to redirect to.
      *
@@ -627,13 +630,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function redirectMessage()
     {
-        $result = new stdClass;
-        $result->action = 'redirectMessage';
-        $result->success = 1;
-
         try {
-            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
-            $res = $imp_compose->sendRedirectMessage($this->vars->redirect_to);
+            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup('sendMessage');
+            if (!IMP_Compose::canCompose()) {
+                $result->success = 0;
+                return $result;
+            }
+
+            $res = $imp_compose->sendRedirectMessage($headers['redirect_to']);
 
             foreach ($res as $val) {
                 $subject = $val->headers->getValue('subject');
@@ -721,19 +725,20 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     {
         global $notification;
 
-        $addr_ac = $this->vars->addr_ac
-            ? json_decode($this->vars->addr_ac, true)
-            : array();
+        $fields = $this->_base->getAddrFields();
 
         foreach ($e as $val) {
             $addr = strval($val->address);
             $notification->push($val->error, 'horde.warning');
 
-            foreach ($addr_ac as $val2) {
-                if ($addr == $val2['addr']) {
+            foreach ($fields as $val2) {
+                if (!$val2['map']) {
+                    continue;
+                }
+
+                foreach (array_keys($val2['addr'], $addr) as $val3) {
                     $this->_base->queue->compose_addr(
-                        $val2['id'],
-                        $val2['itemid'],
+                        $val3,
                         ($val->level == $e::BAD) ? 'impACListItemBad' : 'impACListItemWarn'
                     );
                 }

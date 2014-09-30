@@ -334,12 +334,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $identity->setDefault($this->_vars->identity);
         }
 
-        /* Set up the From address based on the identity. */
+        $addr = $this->getAddrFields();
+
         $headers = array(
+            /* Set up the From address based on the identity. */
             'from' => strval($identity->getFromLine(null, $this->_vars->from)),
-            'to' => $this->_vars->to,
-            'cc' => $this->_vars->cc,
-            'bcc' => $this->_vars->bcc,
+            'to' => implode(',', $addr['to']['addr']),
+            'cc' => implode(',', $addr['cc']['addr']),
+            'bcc' => implode(',', $addr['bcc']['addr']),
+            'redirect_to' => implode(',', $addr['redirect_to']['addr']),
             'subject' => $this->_vars->subject
         );
 
@@ -350,6 +353,41 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);
+    }
+
+    /**
+     * Return address field data from the browser form.
+     *
+     * @return array  Keys are header names, values are arrays with two keys:
+     *   - addr: (array) List of addresses.
+     *   - map: (boolean) If true, addr keys are autocomplete IDs.
+     */
+    public function getAddrFields()
+    {
+        $out = array();
+
+        foreach (array('to', 'cc', 'bcc', 'redirect_to') as $val) {
+            $data = $this->_vars->get($val);
+            $tmp = array(
+                'addr' => array(),
+                'map' => false
+            );
+
+            if (strlen($data)) {
+                if ($this->_vars->addr_ac) {
+                    $tmp['map'] = true;
+                    foreach (json_decode($data, true) as $val2) {
+                        $tmp['addr'][$val2[1]] = $val2[0];
+                    }
+                } else {
+                    $tmp['addr'][] = $data;
+                }
+            }
+
+            $out[$val] = $tmp;
+        }
+
+        return $out;
     }
 
     /**
