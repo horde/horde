@@ -11,6 +11,7 @@ var IMP_JS = {
     // iframeresize_run,
     // lazyload_run,
 
+    lazyload_preload: 0.2,
     resize_delay: 0.05,
 
     /**
@@ -184,8 +185,8 @@ var IMP_JS = {
         resize = this.iframeResize.bind(this, iframe);
 
         mb_height = mb.getHeight();
-        /* Load messages within 10% of range boundaries. */
-        mb_pad = parseInt(mb_height * 0.1, 10);
+        /* Load messages within % of range boundaries. */
+        mb_pad = parseInt(mb_height * this.lazyload_preload, 10);
 
         range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top - mb_pad;
         range_bottom = range_top + mb_height + mb_pad;
