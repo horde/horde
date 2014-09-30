@@ -132,7 +132,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $this->_action[] = '    -i"Subject: Re: $SUBJECT" \\';
                 $this->_action[] = '    -i"Content-Transfer-Encoding: quoted-printable" \\';
                 $this->_action[] = '    -i"Content-Type: text/plain; charset=UTF-8" ; \\';
-                $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
+                $reason = Horde_Mime_QuotedPrintable::encode($reason);
             } else {
                 $this->_action[] = '    -i"Subject: Re: $SUBJECT" ; \\';
             }
@@ -200,7 +200,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                         $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" \\';
                         $this->_action[] = '       -i"Content-Transfer-Encoding: quoted-printable" \\';
                         $this->_action[] = '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
-                        $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
+                        $reason = Horde_Mime_QuotedPrintable::encode($reason);
                     } else {
                         $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" ; \\';
                     }
