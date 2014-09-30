@@ -179,7 +179,7 @@ var IMP_JS = {
     iframeImgLazyLoadRun: function(iframe)
     {
         var imgs, mb_height, mb_pad, range_top, range_bottom, resize,
-            mb = $('messageBody');
+            mb = this.messageBody();
 
         resize = this.iframeResize.bind(this, iframe);
 
@@ -206,6 +206,11 @@ var IMP_JS = {
     iframeDoc: function(i)
     {
         return i.contentDocument || i.contentWindow.document;
+    },
+
+    messageBody: function()
+    {
+        return $('previewPane') || $('messageBody');
     },
 
     printWindow: function(win)
@@ -250,7 +255,7 @@ var IMP_JS = {
 
     onDomLoad: function()
     {
-        var mb = $('messageBody');
+        var mb = this.messageBody();
 
         if (mb) {
             mb.observe('scroll', function() {
