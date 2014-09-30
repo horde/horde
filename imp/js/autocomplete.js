@@ -234,11 +234,12 @@ var IMP_Autocompleter = Class.create({
         this.updateHiddenInput();
     },
 
+    // Format: [ [ value, ID ], [ ... ], ... ]
     updateHiddenInput: function()
     {
-        this.elt.setValue(
-            Object.toJSON(this.data.pluck('value').zip(this.data.pluck('id')))
-        );
+        this.elt.setValue(Object.toJSON(
+            this.data.pluck('value').without('').zip(this.data.pluck('id'))
+        ));
     },
 
     resize: function()
