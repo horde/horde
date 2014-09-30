@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-25</date>
+ <date>2014-09-30</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -29,7 +29,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Improved MIME encoding.
-* [mms] Horde_Mime::quotedPrintableEncode() is deprecated.
+* [mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to Horde_Mime_QuotedPrintable.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
 * [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
@@ -62,6 +62,7 @@
       <file name="Mdn.php" role="php" />
       <file name="mime.mapping.php" role="php" />
       <file name="Part.php" role="php" />
+      <file name="QuotedPrintable.php" role="php" />
       <file name="Related.php" role="php" />
       <file name="Translation.php" role="php">
        <tasks:replace from="@data_dir@" to="data_dir" type="pear-config" />
@@ -493,6 +494,7 @@
    <install as="Horde/Mime/Mdn.php" name="lib/Horde/Mime/Mdn.php" />
    <install as="Horde/Mime/mime.mapping.php" name="lib/Horde/Mime/mime.mapping.php" />
    <install as="Horde/Mime/Part.php" name="lib/Horde/Mime/Part.php" />
+   <install as="Horde/Mime/QuotedPrintable.php" name="lib/Horde/Mime/QuotedPrintable.php" />
    <install as="Horde/Mime/Related.php" name="lib/Horde/Mime/Related.php" />
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="Horde/Mime/Uudecode.php" name="lib/Horde/Mime/Uudecode.php" />
@@ -1454,11 +1456,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-25</date>
+   <date>2014-09-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved MIME encoding.
-* [mms] Horde_Mime::quotedPrintableEncode() is deprecated.
+* [mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to Horde_Mime_QuotedPrintable.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
 * [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.

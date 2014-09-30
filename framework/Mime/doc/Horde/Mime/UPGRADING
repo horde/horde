@@ -45,7 +45,8 @@ Upgrading to 2.5
     - quotedPrintableEncode()
 
       This method is deprecated. Use PHP's quoted_printable_encode() method
-      instead.
+      instead (or, if you need to control EOL and/or wrapping length, use
+      Horde_Mime_QuotedPrintable::encode()).
 
     - uudecode()
 
@@ -60,6 +61,7 @@ Upgrading to 2.5
   - Horde_Mime_ContentParam
   - Horde_Mime_ContentParam_Decode
   - Horde_Mime_Id
+  - Horde_Mime_QuotedPrintable
   - Horde_Mime_Uudecode
 
     These classes were added.

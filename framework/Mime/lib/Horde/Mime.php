@@ -372,27 +372,12 @@ class Horde_Mime
     }
 
     /**
-     * @deprecated  Use quoted_printable_encode() instead.
+     * @deprecated  Use Horde_Mime_QuotedPrintable instead.
      */
     static public function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
-        $fp = fopen('php://temp', 'r+');
-        stream_filter_append(
-            $fp,
-            'convert.quoted-printable-encode',
-            STREAM_FILTER_WRITE,
-            array(
-                'line-break-chars' => self::EOL,
-                'line-length' => $wrap
-            )
-        );
-        fwrite($fp, $text);
-        rewind($fp);
-        $out = stream_get_contents($fp);
-        fclose($fp);
-
-        return $out;
+        return strval(new Horde_Mime_QuotedPrintable($text, $eol, $wrap));
     }
 
 }
