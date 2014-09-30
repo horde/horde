@@ -112,7 +112,9 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
             if (isset($subparts[$curr_id])) {
                 $disp_id = $curr_id;
             }
-            $curr_id = Horde_Mime::mimeIdArithmetic($curr_id, 'up');
+
+            $id_ob = new Horde_Mime_Id($curr_id);
+            $curr_id = $id_ob->idArithmetic($id_ob::ID_UP);
         }
 
         /* At this point, $ret contains stubs for all parts living in the base

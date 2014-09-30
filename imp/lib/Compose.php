@@ -2418,7 +2418,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $resent_headers->addHeader('Resent-Date', date('r'));
                 $resent_headers->addHeader('Resent-From', $from_addr);
                 $resent_headers->addHeader('Resent-To', $recip['header']['to']);
-                $resent_headers->addHeader('Resent-Message-ID', Horde_Mime::generateMessageId());
+                $resent_headers->addHeader('Resent-Message-ID', $headers->generateMessageId());
 
                 $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeader(IMP_Contents::HEADER_TEXT));
 
@@ -2959,7 +2959,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             case 'multipart':
                 if (($body_id != '1') &&
                     ($mime_message->getSubType() == 'mixed') &&
-                    !Horde_Mime::isChild('1', $body_id)) {
+                    ($id_ob = new Horde_Mime_Id('1')) &&
+                    !$id_ob->isChild($body_id)) {
                     $body_id = null;
                 } else {
                     $mode = 'html';
@@ -3243,9 +3244,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             ));
 
             if ($analyze) {
-                $analyze = Horde_Mime::decodeParam('Content-Type', $analyze);
-                $atc->setType($analyze['val']);
-                $atc->setCharset(isset($analyze['params']['charset']) ? $analyze['params']['charset'] : 'UTF-8');
+                $ctype = new Horde_Mime_ContentParam($analyze);
+                $atc->setType($ctype->value);
+                $atc->setCharset(isset($ctype->params['charset']) ? $ctype->params['charset'] : 'UTF-8');
             } else {
                 $atc->setCharset('UTF-8');
             }

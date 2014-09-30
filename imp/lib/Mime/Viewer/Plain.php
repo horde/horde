@@ -263,8 +263,8 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         $text = Horde_String::convertCharset($this->_mimepart->getContents(), $this->_mimepart->getCharset(), 'UTF-8');
 
-        $files = Horde_Mime::uudecode($text);
-        if (empty($files)) {
+        $files = new Horde_Mime_Uudecode($text);
+        if (!count($files)) {
             return null;
         }
 
@@ -277,8 +277,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
         $new_part->addPart($text_part);
 
-        reset($files);
-        while (list(,$file) = each($files)) {
+        foreach ($files as $file) {
             $uupart = new Horde_Mime_Part();
             $uupart->setType('application/octet-stream');
             $uupart->setContents($file['data']);

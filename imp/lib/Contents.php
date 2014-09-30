@@ -242,15 +242,15 @@ class IMP_Contents
                 return $ret;
             }
 
-            $base_id = $id;
-            while (!in_array($base_id, $this->_embedded, true)) {
-                $base_id = Horde_Mime::mimeIdArithmetic($base_id, 'up');
-                if (is_null($base_id)) {
+            $base_id = new Horde_Mime_Id($id);
+            while (!in_array($base_id->id, $this->_embedded, true)) {
+                $base_id->id = $base_id->idArithmetic($base_id::ID_UP);
+                if (is_null($base_id->id)) {
                     return $ret;
                 }
             }
 
-            $part = $this->getMIMEPart($base_id, array('nocontents' => true));
+            $part = $this->getMIMEPart($base_id->id, array('nocontents' => true));
             $txt = $part->addMimeHeaders()->toString() .
                 "\n" .
                 $part->getContents();
@@ -1298,7 +1298,9 @@ class IMP_Contents
     public function isEmbedded($mime_id)
     {
         foreach ($this->_embedded as $val) {
-            if (($mime_id == $val) || Horde_Mime::isChild($val, $mime_id)) {
+            if (($mime_id == $val) ||
+                (($id_ob = new Horde_Mime_Id($val)) &&
+                 $id_ob->isChild($mime_id))) {
                 return true;
             }
         }
@@ -1316,14 +1318,13 @@ class IMP_Contents
      */
     public function findMimeType($id, $type)
     {
-        $id = Horde_Mime::mimeIdArithmetic($id, 'up');
+        $id_ob = new Horde_Mime_Id($id);
 
-        while (!is_null($id)) {
-            if (($part = $this->getMIMEPart($id, array('nocontents' => true))) &&
+        while (($id_ob->id = $id_ob->idArithmetic($id_ob::ID_UP)) !== null) {
+            if (($part = $this->getMIMEPart($id_ob->id, array('nocontents' => true))) &&
                 ($part->getType() == $type)) {
                 return $part;
             }
-            $id = Horde_Mime::mimeIdArithmetic($id, 'up');
         }
 
         return null;
@@ -1529,8 +1530,11 @@ class IMP_Contents
 
         reset($msgtext);
         while (list($id, $part) = each($msgtext)) {
-            while (!empty($wrap_ids) &&
-                   !Horde_Mime::isChild(end($wrap_ids), $id)) {
+            while (!empty($wrap_ids)) {
+                $id_ob = new Horde_Mime_Id(end($wrap_ids));
+                if ($id_ob->isChild($id)) {
+                    break;
+                }
                 array_pop($wrap_ids);
                 $text_out .= '</div>';
             }

@@ -117,8 +117,10 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             $used = array_merge($used, $cids_used);
         }
 
+        $id_ob = new Horde_Mime_Id($id);
+
         foreach (array_diff(array_keys($ret), $used) as $val) {
-            if (($val !== $id) && !Horde_Mime::isChild($id, $val)) {
+            if (($val !== $id) && !$id_ob->isChild($val)) {
                 $summary = $this->getConfigParam('imp_contents')->getSummary(
                     $val,
                     IMP_Contents::SUMMARY_SIZE |

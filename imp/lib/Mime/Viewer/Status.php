@@ -81,8 +81,10 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
 
         reset($parts);
         $part1_id = next($parts);
-        $part2_id = Horde_Mime::mimeIdArithmetic($part1_id, 'next');
-        $part3_id = Horde_Mime::mimeIdArithmetic($part2_id, 'next');
+
+        $id_ob = new Horde_Mime_Id($part1_id);
+        $part2_id = $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
+        $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
         /* Get the action first - it appears in the second part. */
         $action = null;

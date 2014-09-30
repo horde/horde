@@ -257,7 +257,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $data_id = next($partlist);
-        $sig_id = Horde_Mime::mimeIdArithmetic($data_id, 'next');
+
+        $id_ob = new Horde_Mime_Id($data_id);
+        $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
         /* Initialize inline data. */
         $status = new IMP_Mime_Status(_("The data in this part has been digitally signed via S/MIME."));

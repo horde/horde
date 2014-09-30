@@ -180,7 +180,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $version_id = next($partlist);
-        $data_id = Horde_Mime::mimeIdArithmetic($version_id, 'next');
+
+        $id_ob = new Horde_Mime_Id($version_id);
+        $data_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
         $status = new IMP_Mime_Status();
         $status->icon('mime/encryption.png', 'PGP');
@@ -391,7 +393,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $signed_id = next($partlist);
-        $sig_id = Horde_Mime::mimeIdArithmetic($signed_id, 'next');
+
+        $id_ob = new Horde_Mime_Id($signed_id);
+        $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
         if (!$prefs->getValue('use_pgp') || empty($conf['gnupg']['path'])) {
             return array(

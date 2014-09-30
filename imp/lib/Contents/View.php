@@ -221,7 +221,8 @@ class IMP_Contents_View
         $part = reset($render);
 
         /* Directly render part if this is not an HTML part or it is empty. */
-        if (stripos($part['type'], 'text/html') !== 0 || !strlen($part['data'])) {
+        if ((stripos($part['type'], 'text/html')) !== 0 ||
+            !strlen($part['data'])) {
             return $part;
         }
 
@@ -229,8 +230,6 @@ class IMP_Contents_View
         $basic_headers = $injector->getInstance('IMP_Message_Ui')->basicHeaders();
         unset($basic_headers['bcc'], $basic_headers['reply-to']);
         $headerob = $this->_contents->getHeader();
-
-        $d_param = Horde_Mime::decodeParam('content-type', $part['type']);
 
         $headers = array();
         foreach ($basic_headers as $key => $val) {
@@ -263,7 +262,12 @@ class IMP_Contents_View
 
         $view->headers = $headers;
 
-        $header_dom = new Horde_Domhtml(Horde_String::convertCharset($view->render('headers'), 'UTF-8', $d_param['params']['charset']), $d_param['params']['charset']);
+        $ctype = new Horde_Mime_ContentParam($part['type']);
+
+        $header_dom = new Horde_Domhtml(
+            Horde_String::convertCharset($view->render('headers'), 'UTF-8', $ctype->params['charset']),
+            $ctype->params['charset']
+        );
         $elt = $header_dom->dom->getElementById('headerblock');
         $elt->removeAttribute('id');
 
