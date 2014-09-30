@@ -61,70 +61,137 @@ class Horde_Mime
      */
     static public function encode($text, $charset = 'UTF-8')
     {
-        /* The null character is valid US-ASCII, but was removed from the
-         * allowed e-mail header characters in RFC 2822. */
-        if (!self::is8bit($text, 'UTF-8') && (strpos($text, null) === false)) {
-            return $text;
-        }
-
         $charset = Horde_String::lower($charset);
         $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
-        /* Get the list of elements in the string. */
-        $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
-
-        $line = '';
-
-        /* Return if nothing needs to be encoded. */
-        foreach ($matches as $key => $val) {
-            if (self::is8bit($val[1], $charset)) {
-                if ((($key + 1) < $size) &&
-                    self::is8bit($matches[$key + 1][1], $charset)) {
-                    $line .= self::_encode($val[1] . $val[2], $charset) . ' ';
-                } else {
-                    $line .= self::_encode($val[1], $charset) . $val[2];
-                }
-            } else {
-                $line .= $val[1] . $val[2];
-            }
-        }
-
-        return rtrim($line);
-    }
-
-    /**
-     * Internal helper function to MIME encode a string.
-     *
-     * @param string $text     The text to encode.
-     * @param string $charset  The character set of the text.
-     *
-     * @return string  The MIME encoded text.
-     */
-    static protected function _encode($text, $charset)
-    {
-        $encoded = trim(base64_encode($text));
-        $c_size = strlen($charset) + 7;
-
-        if ((strlen($encoded) + $c_size) > 75) {
-            $parts = explode(self::EOL, rtrim(chunk_split($encoded, intval((75 - $c_size) / 4) * 4)));
-        } else {
-            $parts[] = $encoded;
-        }
-
-        $p_size = count($parts);
+        $encoded = $is_encoded = false;
+        $lwsp = $word = null;
         $out = '';
 
-        foreach ($parts as $key => $val) {
-            $out .= '=?' . $charset . '?b?' . $val . '?=';
-            if ($p_size > $key + 1) {
-                /* RFC 2047 [2]: no encoded word can be more than 75
-                 * characters long. If longer, you must split the word with
-                 * CRLF SPACE. */
-                $out .= self::EOL . ' ';
+        /* 0 = word unencoded
+         * 1 = word encoded
+         * 2 = spaces */
+        $parts = array();
+
+        /* Tokenize string. */
+        for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
+            switch ($text[$i]) {
+            case "\t":
+            case "\r":
+            case "\n":
+                if (!is_null($word)) {
+                    $parts[] = array(intval($encoded), $word, $i - $word);
+                    $word = null;
+                } elseif (!is_null($lwsp)) {
+                    $parts[] = array(2, $lwsp, $i - $lwsp);
+                    $lwsp = null;
+                }
+
+                $parts[] = array(0, $i, 1);
+                break;
+
+            case ' ':
+                if (!is_null($word)) {
+                    $parts[] = array(intval($encoded), $word, $i - $word);
+                    $word = null;
+                }
+                if (is_null($lwsp)) {
+                    $lwsp = $i;
+                }
+                break;
+
+            default:
+                if (is_null($word)) {
+                    $encoded = false;
+                    $word = $i;
+                    if (!is_null($lwsp)) {
+                        $parts[] = array(2, $lwsp, $i - $lwsp);
+                        $lwsp = null;
+                    }
+
+                    /* Check for MIME encoding delimiter. Encode it if
+                     * found. */
+                    if (($text[$i] === '=') &&
+                        (($i + 1) < $len) &&
+                        ($text[$i +1] === '?')) {
+                        ++$i;
+                        $encoded = $is_encoded = true;
+                    }
+                }
+
+                /* Check for 8-bit characters or control characters. */
+                if (!$encoded) {
+                    $c = ord($text[$i]);
+                    if ($encoded = (($c & 0x80) || ($c < 32))) {
+                        $is_encoded = true;
+                    }
+                }
+                break;
             }
         }
 
-        return $out;
+        if (!$is_encoded) {
+            return $text;
+        }
+
+        if (is_null($lwsp)) {
+            $parts[] = array(intval($encoded), $word, $len);
+        } else {
+            $parts[] = array(2, $lwsp, $len);
+        }
+
+        /* Combine parts into MIME encoded string. */
+        for ($i = 0, $cnt = count($parts); $i < $cnt; ++$i) {
+            $val = $parts[$i];
+
+            switch ($val[0]) {
+            case 0:
+            case 2:
+                $out .= substr($text, $val[1], $val[2]);
+                break;
+
+            case 1:
+                $j = $i;
+                for ($k = $i + 1; $k < $cnt; ++$k) {
+                    switch ($parts[$k][0]) {
+                    case 0:
+                        break 2;
+
+                    case 1:
+                        $i = $k;
+                        break;
+                    }
+                }
+
+                $encode = '';
+                for (; $j <= $i; ++$j) {
+                    $encode .= substr($text, $parts[$j][1], $parts[$j][2]);
+                }
+
+                $delim = '=?' . $charset . '?b?';
+                $e_parts = explode(
+                    self::EOL,
+                    rtrim(
+                        chunk_split(
+                            base64_encode($encode),
+                            /* strlen($delim) + 2 = space taken by MIME
+                             * delimiter */
+                            intval((75 - strlen($delim) + 2) / 4) * 4
+                        )
+                    )
+                );
+
+                $tmp = array();
+                foreach ($e_parts as $val) {
+                    $tmp[] = $delim . $val . '?=';
+                }
+
+                $out .= implode(' ', $tmp);
+                break;
+            }
+        }
+
+        return rtrim($out);
     }
 
     /**

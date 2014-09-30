@@ -87,6 +87,91 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
     public function encodeProvider()
     {
         return array(
+            /* Adapted from Dovecot's
+             * src/lib-mail/test-message-header-encode.c. */
+            array(
+                'a b',
+                'utf-8',
+                'a b'
+            ),
+            array(
+                'a bcäde f',
+                'utf-8',
+                'a =?utf-8?b?YmPDpGRl?= f'
+            ),
+            array(
+                'a ää ä b',
+                'utf-8',
+                'a =?utf-8?b?w6TDpCDDpA==?= b'
+            ),
+            array(
+                'ä a ä',
+                'utf-8',
+                '=?utf-8?b?w6Q=?= a =?utf-8?b?w6Q=?='
+            ),
+            array(
+                'ää a ä',
+                'utf-8',
+                // Dovecot: '=?utf-8?b?w6TDpCBhIMOk?='
+                '=?utf-8?b?w6TDpA==?= a =?utf-8?b?w6Q=?='
+            ),
+            array(
+                '=',
+                'utf-8',
+                '='
+            ),
+            array(
+                '?',
+                'utf-8',
+                '?'
+            ),
+            array(
+                'a=?',
+                'utf-8',
+                'a=?'
+            ),
+            array(
+                '=?',
+                'utf-8',
+                // Dovecot: '=?utf-8?q?=3D=3F?='
+                '=?utf-8?b?PT8=?='
+            ),
+            array(
+                '=?x',
+                'utf-8',
+                // Dovecot: '=?utf-8?q?=3D=3Fx?='
+                '=?utf-8?b?PT94?='
+            ),
+            array(
+                "a\n=?",
+                'utf-8',
+                // Dovecot: "a\n\t=?utf-8?q?=3D=3F?="
+                "a\n=?utf-8?b?PT8=?="
+            ),
+            array(
+                "a\t=?",
+                'utf-8',
+                // Dovecot: "a\t=?utf-8?q?=3D=3F?="
+                "a\t=?utf-8?b?PT8=?="
+            ),
+            array(
+                "a =?",
+                'utf-8',
+                // Dovecot: "a =?utf-8?q?=3D=3F?="
+                'a =?utf-8?b?PT8=?='
+            ),
+            array(
+                "foo\001bar",
+                'utf-8',
+                // Dovecot: "=?utf-8?q?foo=01bar?="
+                '=?utf-8?b?Zm9vAWJhcg==?='
+            ),
+            array(
+                "\x01\x02\x03\x04\x05\x06\x07\x08",
+                'utf-8',
+                "=?utf-8?b?AQIDBAUGBwg=?="
+            ),
+
             /* Null character in encode output. */
             array(
                 "\x00",

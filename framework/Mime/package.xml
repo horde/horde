@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved MIME encoding.
 * [mms] Horde_Mime::quotedPrintableEncode() is deprecated.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
@@ -1456,6 +1457,7 @@
    <date>2014-09-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved MIME encoding.
 * [mms] Horde_Mime::quotedPrintableEncode() is deprecated.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
 * [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
