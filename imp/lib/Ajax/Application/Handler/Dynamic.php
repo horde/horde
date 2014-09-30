@@ -1278,7 +1278,10 @@ extends Horde_Core_Ajax_Application_Handler
      *   - type: (string) Autocomplete search type.
      *
      * @return object  An object with the following properties:
-     *   - results: (array)
+     *   - results: (array) Array with the following keys for each result:
+     *     - l: (string) Full label.
+     *     - s: (string) Short display string.
+     *     - v: (string) Value.
      */
     public function autocompleteSearch()
     {
@@ -1293,11 +1296,18 @@ extends Horde_Core_Ajax_Application_Handler
             );
 
             foreach ($addr as $val) {
-                $l = $val->writeAddress(array('noquote' => true));
                 $tmp = array('v' => strval($val));
+
+                $l = $val->writeAddress(array('noquote' => true));
                 if ($l !== $tmp['v']) {
                     $tmp['l'] = $l;
                 }
+
+                $s = $val->label;
+                if ($s !== $tmp['v']) {
+                    $tmp['s'] = $s;
+                }
+
                 $out->results[] = $tmp;
             }
             break;

@@ -178,7 +178,7 @@ var IMP_Autocompleter = Class.create({
 
             this.input.up('LI').insert({ before:
                 v.elt
-                    .insert(v.label.truncate(this.p.maxItemSize).escapeHTML())
+                    .insert(v.short_d.truncate(this.p.maxItemSize).escapeHTML())
                     .insert(this.deleteImg().clone(true).show())
                     .store('itemid', v.id)
             });
@@ -354,7 +354,7 @@ var IMP_Autocompleter = Class.create({
         }
 
         r.each(function(e) {
-            obs.push(new IMP_Autocompleter_Elt(e.v, e.l));
+            obs.push(new IMP_Autocompleter_Elt(e.v, e.l, e.s));
         });
 
         obs = this.filterChoices(obs);
@@ -404,12 +404,14 @@ IMP_Autocompleter_Elt = Class.create({
     // elt,
     // id,
     // label,
+    // short_d,
     // value,
 
-    initialize: function(value, label)
+    initialize: function(value, label, short_d)
     {
         this.value = value;
         this.label = label || value;
+        this.short_d = short_d || value;
     }
 
 });
