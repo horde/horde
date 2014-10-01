@@ -9,35 +9,41 @@
 
 class Horde_Mail_GroupTest extends PHPUnit_Framework_TestCase
 {
-    public function testWriteAddress()
+    /**
+     * @dataProvider writeAddressProvider
+     */
+    public function testWriteAddress($addresses, $groupname, $encode,
+                                     $expected)
     {
-        $addresses = array(
-            'Test <test@example.com>',
-            'foo@example.com'
-        );
-        $groupname = 'Testing';
-
         $group_ob = new Horde_Mail_Rfc822_Group($groupname, $addresses);
 
         $this->assertEquals(
-            'Testing: Test <test@example.com>, foo@example.com;',
-            $group_ob->writeAddress()
+            $expected,
+            $group_ob->writeAddress(array('encode' => $encode))
         );
     }
 
-    public function testWriteAddressEncode()
+    public function writeAddressProvider()
     {
-        $addresses = array(
-            'Fooã <test@example.com>',
-            'foo@example.com'
-        );
-        $groupname = 'Group "Foo"';
-
-        $group_ob = new Horde_Mail_Rfc822_Group($groupname, $addresses);
-
-        $this->assertEquals(
-            '"Group \"Foo\"": =?utf-8?b?Rm9vw6M=?= <test@example.com>, foo@example.com;',
-            $group_ob->writeAddress(array('encode' => true))
+        return array(
+            array(
+                array(
+                    'Test <test@example.com>',
+                    'foo@example.com'
+                ),
+                'Testing',
+                false,
+                'Testing: Test <test@example.com>, foo@example.com;'
+            ),
+            array(
+                array(
+                    'Fooã <test@example.com>',
+                    'foo@example.com'
+                ),
+                'Group "Foo"',
+                true,
+                '"Group \"Foo\"": =?utf-8?b?Rm9vw6M=?= <test@example.com>, foo@example.com;'
+            )
         );
     }
 

@@ -9,40 +9,83 @@
 
 class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
 {
-    public function testDomainMatch()
+    /**
+     * @dataProvider domainMatchProvider
+     */
+    public function testDomainMatch($addr, $tests)
     {
-        $address = new Horde_Mail_Rfc822_Address('Test <test@example.com>');
+        $address = new Horde_Mail_Rfc822_Address($addr);
 
-        $this->assertTrue($address->matchDomain('example.com'));
-        $this->assertFalse($address->matchDomain('foo.example.com'));
-
-        $address2 = new Horde_Mail_Rfc822_Address('Test <test@foo.example.com>');
-        $this->assertTrue($address2->matchDomain('example.com'));
-        $this->assertTrue($address2->matchDomain('foo.example.com'));
-
-        $address3 = new Horde_Mail_Rfc822_Address('Test <test@example.co.uk>');
-        $this->assertTrue($address3->matchDomain('example.co.uk'));
-        $this->assertFalse($address3->matchDomain('foo.example.co.uk'));
-        $this->assertTrue($address3->matchDomain('co.uk'));
-
-        $address4 = new Horde_Mail_Rfc822_Address('Test <test@foo.example.co.uk>');
-        $this->assertTrue($address4->matchDomain('example.co.uk'));
-        $this->assertTrue($address4->matchDomain('foo.example.co.uk'));
-        $this->assertTrue($address4->matchDomain('co.uk'));
+        foreach ($tests as $val) {
+            $match = $address->matchDomain($val[0]);
+            if ($val[1]) {
+                $this->assertTrue($match);
+            } else {
+                $this->assertFalse($match);
+            }
+        }
     }
 
-    public function testPersonalIsSameAsEmail()
+    public function domainMatchProvider()
     {
-        $address = new Horde_Mail_Rfc822_Address('"test@example.com" <test@example.com>');
+        return array(
+            array(
+                'Test <test@example.com>',
+                array(
+                    array('example.com', true),
+                    array('foo.example.com', false)
+                )
+            ),
+            array(
+                'Test <test@foo.example.com>',
+                array(
+                    array('example.com', true),
+                    array('foo.example.com', true)
+                )
+            ),
+            array(
+                'Test <test@example.co.uk>',
+                array(
+                    array('example.co.uk', true),
+                    array('foo.example.co.uk', false),
+                    array('co.uk', true)
+                )
+            ),
+            array(
+                'Test <test@foo.example.co.uk>',
+                array(
+                    array('example.co.uk', true),
+                    array('foo.example.co.uk', true),
+                    array('co.uk', true)
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider personalIsSameAsEmailProvider
+     */
+    public function testPersonalIsSameAsEmail($addr, $expected)
+    {
+        $address = new Horde_Mail_Rfc822_Address($addr);
+
         $this->assertEquals(
-            'test@example.com',
+            $expected,
             strval($address)
         );
+    }
 
-        $address = new Horde_Mail_Rfc822_Address('"TEST@EXAMPLE.COM" <test@example.com>');
-        $this->assertEquals(
-            'test@example.com',
-            strval($address)
+    public function personalIsSameAsEmailProvider()
+    {
+        return array(
+            array(
+                '"test@example.com" <test@example.com>',
+                'test@example.com'
+            ),
+            array(
+                '"TEST@EXAMPLE.COM" <test@example.com>',
+                'test@example.com'
+            )
         );
     }
 
