@@ -307,27 +307,34 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                 foreach ($result['get']['userinformation']['accounts'] as $account) {
                     $this->_encoder->startTag(self::SETTINGS_ACCOUNT);
 
-                    $this->_encoder->startTag(self::SETTINGS_USERDISPLAYNAME);
-                    $this->_encoder->content($account['fullname']);
-                    $this->_encoder->endTag();
-
-                    $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
-
-                    $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
-                    $this->_encoder->content(array_pop($account['emailaddresses']));
-                    $this->_encoder->endTag();
-
-                    $this->_encoder->startTag(self::SETTINGS_ACCOUNTID);
-                    $this->_encoder->content(array_pop($account['id']));
-                    $this->_encoder->endTag();
-
-                    foreach($account['emailaddresses'] as $value) {
-                        $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
-                        $this->_encoder->content($value);
-                        $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+                    if (!empty($account['fullname'])) {
+                        $this->_encoder->startTag(self::SETTINGS_USERDISPLAYNAME);
+                        $this->_encoder->content($account['fullname']);
+                        $this->_encoder->endTag();
                     }
 
-                    $this->_encoder->endTag(); // SETTINGS_EMAILADDRESSES
+                    if (!empty($account['emailaddresses'])) {
+                        $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
+
+                        $this->_encoder->startTag(self::SETTINGS_PRIMARYSMTPADDRESS);
+                        $this->_encoder->content($account['emailaddresses'][0]);
+                        $this->_encoder->endTag();
+
+                        if (!empty($account['id'])) {
+                            $this->_encoder->startTag(self::SETTINGS_ACCOUNTID);
+                            $this->_encoder->content(array_pop($account['id']));
+                            $this->_encoder->endTag();
+                        }
+
+                        foreach($account['emailaddresses'] as $value) {
+                            $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
+                            $this->_encoder->content($value);
+                            $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+                        }
+
+                        $this->_encoder->endTag(); // SETTINGS_EMAILADDRESSES
+                    }
+
                     $this->_encoder->endTag(); // SETTINGS_ACCOUNT
                 }
                 $this->_encoder->endTag(); // SETTINGS_ACCOUNTS
