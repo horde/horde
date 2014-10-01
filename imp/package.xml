@@ -3706,7 +3706,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix iTip handling when recurrence exceptions are present (Bug #13399).
