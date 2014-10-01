@@ -184,7 +184,7 @@ $_prefs['default_download'] = array(
         'edit' => _("Users with edit permissions"),
         'authenticated' =>  _("Authenticated users")
     ),
-    'desc' => _("Who should be allowed to download original photos")
+    'desc' => _("When a new gallery is created, what should the default be for allowing users to download original photos?")
 );
 
 $_prefs['default_permissions'] = array(
