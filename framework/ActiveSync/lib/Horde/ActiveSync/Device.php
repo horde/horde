@@ -471,7 +471,7 @@ class Horde_ActiveSync_Device
      * @param boolean $toEas    Convert from local to device if true.
      *                          DEFAULT: false
      *
-     * @return Horde_Date  The date of the birthday/anniversary, in UTC, with
+     * @return Horde_Date  The date of the birthday/anniversary, with
      *                     any fixes applied for the current device.
      */
     public function normalizePoomContactsDates($date, $toEas = false)
@@ -502,7 +502,8 @@ class Horde_ActiveSync_Device
             if ($toEas) {
                 return new Horde_Date($date->format('Y-m-d'), 'UTC');
             } else {
-                return new Horde_Date($date->format('Y-m-d'));
+                $date = new Horde_Date($date->format('Y-m-d'));
+                return $date->setTimezone('UTC');
             }
 
         case self::TYPE_ANDROID:
@@ -513,7 +514,8 @@ class Horde_ActiveSync_Device
                         : 'Y-m-d 08:00:00';
                     return new Horde_Date($date->format($to_format), 'UTC');
                 } else {
-                    return new Horde_Date($date->format('Y-m-d'));
+                    $date = new Horde_Date($date->format('Y-m-d'));
+                    return $date->setTimezone('UTC');
                 }
             } else {
                 // POOMCONTACTS:BIRTHDAY not really supported in early Android
@@ -550,7 +552,8 @@ class Horde_ActiveSync_Device
             if ($toEas) {
                 return new Horde_Date($date->format('Y-m-d 12:00:00'), 'UTC');
             } else {
-                return new Horde_Date($date->format('Y-m-d'));
+                $date = new Horde_Date($date->format('Y-m-d'));
+                return $date->setTimezone('UTC');
             }
 
         case self::TYPE_TOUCHDOWN:
