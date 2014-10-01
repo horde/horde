@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Remove Yahoo related code from HordeMap API.
 * [mjr] Add Reply-To header to email sent via ActiveSync if available in identity (Ticket #13592).
 * [mjr] Prevent sending contact lists as results in GAL searches.
  </notes>
@@ -3653,6 +3654,7 @@
    <date>2014-09-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Remove Yahoo related code from HordeMap API.
 * [mjr] Add Reply-To header to email sent via ActiveSync if available in identity (Ticket #13592).
 * [mjr] Prevent sending contact lists as results in GAL searches.
    </notes>
