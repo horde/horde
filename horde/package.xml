@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Remove non-existent Yahoo Maps option for map tile provider.
 * [mms] Fix display of Horde stylesheets not served from the local server (i.e. via a CDN).
 * [jan] Hide weather portal block if weather configuration is disabled (Bug #13559).
 * [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
@@ -3968,6 +3969,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Remove non-existent Yahoo Maps option for map tile provider.
 * [mms] Fix display of Horde stylesheets not served from the local server (i.e. via a CDN).
 * [jan] Hide weather portal block if weather configuration is disabled (Bug #13559).
 * [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
