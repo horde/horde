@@ -64,10 +64,6 @@ class Horde_Core_HordeMap
                 $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
                 break;
 
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
-                break;
-
             case 'Cloudmade':
                 $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
                 break;
@@ -88,10 +84,6 @@ class Horde_Core_HordeMap
             switch ($params['geocoder']) {
             case 'Google':
                 $params['conf']['apikeys']['google'] = $conf['api']['googlemaps'];
-                break;
-
-            case 'Yahoo':
-                $params['conf']['apikeys']['yahoo'] = $conf['api']['yahoomaps'];
                 break;
 
             case 'Cloudmade':
