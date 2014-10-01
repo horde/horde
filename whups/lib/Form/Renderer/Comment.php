@@ -207,7 +207,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
  </tr>
 <?php if ($comment): ?>
  <tr><td colspan="4" class="<?php echo $class ?>_b">
-  <div class="comment-body">
+  <div class="comment-body fixed">
    <?php echo $comment ?>
   </div>
  </td></tr>
