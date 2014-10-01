@@ -83,7 +83,7 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base im
      */
     public function unserialize($data)
     {
-       $data = (array)@json_decode($data);
+       $data = @json_decode($data, true);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
             throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }

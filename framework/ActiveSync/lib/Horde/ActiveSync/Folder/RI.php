@@ -142,7 +142,7 @@ class Horde_ActiveSync_Folder_RI extends Horde_ActiveSync_Folder_Base implements
      */
     public function unserialize($data)
     {
-       $data = (array)@json_decode($data);
+       $data = @json_decode($data, true);
         if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
             throw new Horde_ActiveSync_Exception_StaleState('Cache version change');
         }
