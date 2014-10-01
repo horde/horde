@@ -336,7 +336,7 @@ class Horde_Core_ActiveSync_Connector
             $results = $this->_registry->mail->favouriteRecipients($max);
             $cache->set($cache_key, json_encode($results));
         } else {
-            $results = json_decode($cache->get($cache_key, 3600));
+            $results = json_decode($cache->get($cache_key, 3600), true);
         }
 
         return $results;
