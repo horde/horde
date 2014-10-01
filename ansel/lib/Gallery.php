@@ -166,10 +166,15 @@ class Ansel_Gallery implements Serializable
      */
     public function canDownload()
     {
-        if ($GLOBALS['registry']->getAuth() &&
-            ($GLOBALS['registry']->getAuth() == $this->get('owner') ||
-             $GLOBALS['registry']->isAdmin(array('permission' => 'ansel:admin')))) {
+        global $registry;
+
+        if ($registry->getAuth() &&
+            ($registry->getAuth() == $this->get('owner') ||
+             $registry->isAdmin(array('permission' => 'ansel:admin')))) {
             return true;
+        }
+        if (!$this->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+            return false;
         }
 
         switch ($this->_share->get('download')) {
