@@ -125,7 +125,6 @@ class Horde_Application extends Horde_Registry_Application
             return array(
                 'Google' => 'Google',
                 'Bing' => 'Bing',
-                'Yahoo' => 'Yahoo',
                 'Cloudmade' => 'CloudMade',
                 // @TODO: API has evidently changed somewhat. Disable until
                 // I can get an API key to fully test.
@@ -138,8 +137,7 @@ class Horde_Application extends Horde_Registry_Application
         case 'geocoders':
             return array(
                 'None' => null,
-                'Google' => 'Google',
-                'Yahoo' => 'Yahoo'
+                'Google' => 'Google'
             );
         }
     }
