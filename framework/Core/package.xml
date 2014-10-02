@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-09-18</date>
+ <date>2014-10-02</date>
  <version>
   <release>2.14.2</release>
   <api>2.14.0</api>
@@ -240,7 +240,6 @@
      <file name="OpenLayers-debug.js" role="horde" />
      <file name="OpenLayers.js" role="horde" />
      <file name="osm.js" role="horde" />
-     <file name="yahoo.js" role="horde" />
     </dir> <!-- /js/map -->
     <dir name="scriptaculous">
      <file name="builder.js" role="horde" />
@@ -1614,7 +1613,6 @@
    <install as="js/map/OpenLayers-debug.js" name="js/map/OpenLayers-debug.js" />
    <install as="js/map/OpenLayers.js" name="js/map/OpenLayers.js" />
    <install as="js/map/osm.js" name="js/map/osm.js" />
-   <install as="js/map/yahoo.js" name="js/map/yahoo.js" />
    <install as="js/map/img/blank.gif" name="js/map/img/blank.gif" />
    <install as="js/map/img/cloud-popup-relative.png" name="js/map/img/cloud-popup-relative.png" />
    <install as="js/map/img/drag-rectangle-off.png" name="js/map/img/drag-rectangle-off.png" />
@@ -3651,7 +3649,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-18</date>
+   <date>2014-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Remove Yahoo related code from HordeMap API.
