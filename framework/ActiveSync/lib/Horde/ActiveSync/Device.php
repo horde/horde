@@ -603,7 +603,7 @@ class Horde_ActiveSync_Device
              stripos($this->properties[self::OS], 'Android') !== false) ||
              strtolower($this->deviceType) == self::TYPE_ANDROID) {
 
-            // We can detect native android and TouchDown so far.
+            // We can detect native Android, TouchDown, and Nine.
             // Moxier does not distinguish itself, so we can't sniff it.
             if (strpos($this->userAgent, 'TouchDown') !== false) {
                 return self::TYPE_TOUCHDOWN;
@@ -622,7 +622,7 @@ class Horde_ActiveSync_Device
     /**
      * Helper method to sniff out the 9Folders client, "Nine".
      * @see https://ninefolders.plan.io/track/7048/46b213 for the discussion on
-     * how to sniff out the nine client. Not the best solution, but it's the one
+     * how to sniff out the Nine client. Not the best solution, but it's the one
      * they decided to use.
      *
      * @return boolean  True if client is thought to be "Nine".
