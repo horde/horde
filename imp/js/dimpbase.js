@@ -14,6 +14,7 @@ var DimpBase = {
     // flist,
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     // init,
+    // is_keydown,
     mboxDragConfig: {
         classname: 'mboxdrag',
         ghosting: true,
@@ -187,7 +188,7 @@ var DimpBase = {
             row_data = row.get('dataob').first();
             if (!curr_row || row_data.VP_id != curr_row.VP_id) {
                 this.viewport.scrollTo(row_data.VP_rownum, { bottom: bottom });
-                this.viewport.select(row, { delay: 0.5 });
+                this.viewport.select(row);
             }
         } else if (curr) {
             this.rownum = curr;
@@ -1731,7 +1732,8 @@ var DimpBase = {
         var curr, last, p, peek, pp_uid, rows, tmp,
             msgload = {};
 
-        if (!DimpCore.getPref('preview')) {
+        if (this.is_keydown ||
+            !DimpCore.getPref('preview')) {
             return;
         }
 
@@ -2584,6 +2586,8 @@ var DimpBase = {
 
         sel = this.viewport.getSelected();
 
+        this.is_keydown = true;
+
         switch (kc) {
         case Event.KEY_DELETE:
         case Event.KEY_BACKSPACE:
@@ -2756,6 +2760,29 @@ var DimpBase = {
                 }
                 e.stop();
             }
+            break;
+        }
+    },
+
+    keyupHandler: function(e)
+    {
+        if (!this.is_keydown) {
+            return;
+
+        }
+
+        this.is_keydown = false;
+
+        switch (e.keyCode || e.charCode) {
+        case Event.KEY_UP:
+        case Event.KEY_DOWN:
+        case Event.KEY_LEFT:
+        case Event.KEY_RIGHT:
+        case Event.KEY_PAGEUP:
+        case Event.KEY_PAGEDOWN:
+        case Event.KEY_HOME:
+        case Event.KEY_END:
+            this.initPreviewPane();
             break;
         }
     },
@@ -4450,6 +4477,7 @@ document.observe('dom:loaded', function() {
 
 /* Basic event handlers. */
 document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
+document.observe('keyup', DimpBase.keyupHandler.bindAsEventListener(DimpBase));
 Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
 
 /* Drag/drop listeners. */

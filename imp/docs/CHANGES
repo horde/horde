@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Throttle message list keypresses in dynamic view to prevent avalanche of
+      preview requests sent to server (Request #13574).
 [mms] Filter out relative image URLs in HTML message data.
 [mms] Implement lazy loading for images in HTML messages.
 [mms] Add 'dynamic_prefs' hook to allow for changing of default values for
