@@ -140,6 +140,10 @@ var IMP_Autocompleter = Class.create({
 
     reset: function()
     {
+        if (this.data && this.data.size()) {
+            return;
+        }
+
         this.data = [];
         this.currentEntries().invoke('remove');
         this.processValue($F(this.elt));
