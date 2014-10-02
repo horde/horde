@@ -2362,9 +2362,6 @@ KronolithCore = {
         }
 
         this.storeTasksCache(r.tasks || {}, r.type, r.list, createCache);
-        if (Object.isUndefined(r.tasks)) {
-            return;
-        }
 
         // Check if result is still valid for the current view.
         // There could be a rare race condition where two responses for the
