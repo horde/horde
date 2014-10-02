@@ -1496,10 +1496,22 @@ class IMP_Contents
                             $info['status'] = array($info['status']);
                         }
 
+                        $render_issues = array();
+
                         foreach ($info['status'] as $val) {
                             if (in_array($view, $val->views)) {
-                                $part_text .= strval($val);
+                                if ($val instanceof IMP_Mime_Status_RenderIssue) {
+                                    $render_issues[] = $val;
+                                } else {
+                                    $part_text .= strval($val);
+                                }
                             }
+                        }
+
+                        if (!empty($render_issues)) {
+                            $render_issues_ob = new IMP_Mime_Status_RenderIssue_Display();
+                            $render_issues_ob->addIssues($render_issues);
+                            $part_text .= strval($render_issues_ob);
                         }
                     }
 

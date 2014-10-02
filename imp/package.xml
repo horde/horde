@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-01</date>
+ <date>2014-10-02</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add class of message part rendering display errors that aren&apos;t show to the user by default.
 * [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
 * [mms] Filter out relative image URLs in HTML message data.
 * [mms] Implement lazy loading for images in HTML messages.
@@ -399,6 +400,12 @@
      <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Message -->
     <dir name="Mime">
+     <dir name="Status">
+      <dir name="RenderIssue">
+       <file name="Display.php" role="horde" />
+      </dir> <!-- /lib/Mime/Status/RenderIssue -->
+      <file name="RenderIssue.php" role="horde" />
+     </dir> <!-- /lib/Mime/Status -->
      <dir name="Viewer">
       <file name="Alternative.php" role="horde" />
       <file name="Appledouble.php" role="horde" />
@@ -1799,6 +1806,8 @@
    <install as="imp/lib/Message/Ui.php" name="lib/Message/Ui.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
+   <install as="imp/lib/Mime/Status/RenderIssue.php" name="lib/Mime/Status/RenderIssue.php" />
+   <install as="imp/lib/Mime/Status/RenderIssue/Display.php" name="lib/Mime/Status/RenderIssue/Display.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
    <install as="imp/lib/Mime/Viewer/Appledouble.php" name="lib/Mime/Viewer/Appledouble.php" />
    <install as="imp/lib/Mime/Viewer/Audio.php" name="lib/Mime/Viewer/Audio.php" />

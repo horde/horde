@@ -2,6 +2,8 @@
 v6.3.0-git
 ----------
 
+[mms] Add class of message part rendering display errors that aren't show to
+      the user by default.
 [mms] Throttle message list keypresses in dynamic view to prevent avalanche of
       preview requests sent to server (Request #13574).
 [mms] Filter out relative image URLs in HTML message data.

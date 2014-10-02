@@ -258,7 +258,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 if ($this->_imptmp['cssbroken']) {
-                    $tmp = new IMP_Mime_Status(array(
+                    $tmp = new IMP_Mime_Status_RenderIssue(array(
                         _("This message contains corrupt styling data so the message contents may not appear correctly below."),
                         $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
                     ));
@@ -267,7 +267,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 if ($this->_imptmp['imgbroken']) {
-                    $tmp = new IMP_Mime_Status(array(
+                    $tmp = new IMP_Mime_Status_RenderIssue(array(
                         _("This message contains images that cannot be loaded.")
                     ));
                     $tmp->icon('mime/image.png');

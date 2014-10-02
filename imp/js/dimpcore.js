@@ -289,8 +289,18 @@ var DimpCore = {
     {
         var elt = e.element(), tmp;
 
+        if (!elt.match('A')) {
+            return;
+        }
+
         if (elt.hasClassName('unblockImageLink')) {
             IMP_JS.unblockImages(e.memo);
+        } else if (elt.hasClassName('showRenderIssues')) {
+            if ((tmp = $(elt.readAttribute('domid')))) {
+                tmp.show();
+            }
+            elt.up('DIV').remove();
+            e.memo.stop();
         } else if (elt.hasClassName('largeaddrspan_active') &&
                    !e.memo.element().hasClassName('horde-button')) {
             if (e.memo.element().hasClassName('largeaddrlistlimit')) {
