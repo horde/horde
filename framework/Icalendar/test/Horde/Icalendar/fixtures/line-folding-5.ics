@@ -5,10 +5,10 @@ BEGIN:VEVENT
 UID:XXX
 DTSTART:20080101T000000
 DTSTAMP:20080101T000000
-DESCRIPTION;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:L=C3=B6remips=C3=BCmd=C3=B6l=C3=B6rsit=C3=A4met,c=C3=B6nsectet=C3=BCer=C3=A4=
-dipiscingelit.Aliq=C3=BC=C3=A4ms=C3=B6llicit=C3=BCdinf=C3=A4=C3=BCcib=C3=BCs=
-m=C3=A4=C3=BCris=C3=A4met. L=C3=B6remips=C3=BCmd=C3=B6l=C3=B6rsit=C3=A4met,c=
-=C3=B6nsectet=C3=BCer=C3=A4dipiscingelit.Aliq=C3=BC=C3=A4ms=C3=B6llicit=C3=
-=BCdinf=C3=A4=C3=BCcib=C3=BCsm=C3=A4=C3=BCris=C3=A4met.
+DESCRIPTION;CHARSET=UTF-8;ENCODING=QUOTED-PRINTABLE:L=C3=B6remips=C3=BCmd=C3=B6l=C3=B6rsit=C3=A4met,c=C3=B6nsectet=C3=BCer=
+=C3=A4dipiscingelit.Aliq=C3=BC=C3=A4ms=C3=B6llicit=C3=BCdinf=C3=A4=C3=BCcib=
+=C3=BCsm=C3=A4=C3=BCris=C3=A4met. L=C3=B6remips=C3=BCmd=C3=B6l=C3=B6rsit=
+=C3=A4met,c=C3=B6nsectet=C3=BCer=C3=A4dipiscingelit.Aliq=C3=BC=C3=A4ms=
+=C3=B6llicit=C3=BCdinf=C3=A4=C3=BCcib=C3=BCsm=C3=A4=C3=BCris=C3=A4met.
 END:VEVENT
 END:VCALENDAR
