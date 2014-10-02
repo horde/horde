@@ -1044,9 +1044,8 @@ class Nag_Task
         if ($this->due && ($due = $this->getNextDue())) {
             $json->du = $due->toJson();
         }
-        if ($this->start) {
-            $date = new Horde_Date($this->start);
-            $json->s = $date->toJson();
+        if ($this->start && ($start = $this->getNextStart())) {
+            $json->s = $start->toJson();
         }
         $json->pr = (int)$this->priority;
         if ($this->recurs()) {
