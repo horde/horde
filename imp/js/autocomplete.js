@@ -55,7 +55,8 @@ var IMP_Autocompleter = Class.create({
             onAdd: Prototype.emptyFunction,
             processValueCallback: Prototype.emptyFunction,
             removeClass: 'hordeACItemRemove',
-            requireSelection: false
+            requireSelection: false,
+            shortDisplayCallback: Prototype.K
         }, params || {});
 
         // The original input element is transformed into the hidden input
@@ -133,14 +134,18 @@ var IMP_Autocompleter = Class.create({
     {
         this.data = [];
         this.currentEntries().invoke('remove');
-        this.updateInput('');
         this.processValue($F(this.elt));
+        this.processInput();
     },
 
     processInput: function()
     {
-        this.addNewItems([ new IMP_Autocompleter_Elt($F(this.input)) ]);
-        this.updateInput('');
+        var tmp = $F(this.input);
+
+        if (!tmp.empty()) {
+            this.addNewItems([ new IMP_Autocompleter_Elt(tmp) ]);
+            this.updateInput('');
+        }
     },
 
     processValue: function(val)
@@ -152,6 +157,11 @@ var IMP_Autocompleter = Class.create({
             this.addNewItems(tmp[0]);
             this.updateInput(tmp[1]);
         }
+    },
+
+    getElts: function()
+    {
+        return this.data.pluck('elt');
     },
 
     getEntryById: function(id)
@@ -178,7 +188,7 @@ var IMP_Autocompleter = Class.create({
 
             this.input.up('LI').insert({ before:
                 v.elt
-                    .insert(v.short_d.truncate(this.p.maxItemSize).escapeHTML())
+                    .insert((v.short_d || this.p.shortDisplayCallback(v.label)).truncate(this.p.maxItemSize).escapeHTML())
                     .insert(this.deleteImg().clone(true).show())
                     .store('itemid', v.id)
             });
@@ -412,7 +422,9 @@ IMP_Autocompleter_Elt = Class.create({
     {
         this.value = value;
         this.label = label || value;
-        this.short_d = short_d || value;
+        if (short_d) {
+            this.short_d = short_d;
+        }
     }
 
 });

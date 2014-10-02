@@ -946,7 +946,22 @@ var DimpCompose = {
 
     autocompleteProcess: function(r)
     {
-    // TODO
+        /* Clear all existing flags. */
+        this.ac.each(function(pair) {
+            pair.value.getElts()
+                .invoke('removeClassName', 'impACListItemBad')
+                .invoke('removeClassName', 'impACListItemWarn');
+        });
+
+        $H(r).each(function(pair) {
+            var ac = this.ac.get(pair.key);
+            $H(pair.value).each(function(pair2) {
+                var entry = ac.getEntryById(pair2.key);
+                if (entry) {
+                    entry.elt.addClassName(pair2.value);
+                }
+            });
+        }, this);
     },
 
     /* Click observe handler. */
@@ -1262,6 +1277,9 @@ var DimpCompose = {
                     minChars: DimpCore.conf.ac_minchars,
                     processValueCallback: this.autocompleteValue.bind(this),
                     removeClass: 'hordeACItemRemove impACItemRemove',
+                    shortDisplayCallback: function(l) {
+                         return l.sub(/<[^>]*>$/, "").strip().escapeHTML();
+                    },
                     trigger: id,
                     triggerContainer: Math.random().toString()
                 })
@@ -1682,7 +1700,7 @@ DimpCompose.classes.Attachlist = Class.create({
         }
 
         if (t['imp:compose-addr']) {
-            this.autocompleteProcess(t['imp:compose-addr']);
+            this.compose.autocompleteProcess(t['imp:compose-addr']);
         }
 
         if (t['imp:compose-atc']) {

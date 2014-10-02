@@ -731,13 +731,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             $addr = strval($val->address);
             $notification->push($val->error, 'horde.warning');
 
-            foreach ($fields as $val2) {
+            foreach ($fields as $key2 => $val2) {
                 if (!$val2['map']) {
                     continue;
                 }
 
                 foreach (array_keys($val2['addr'], $addr) as $val3) {
                     $this->_base->queue->compose_addr(
+                        $key2,
                         $val3,
                         ($val->level == $e::BAD) ? 'impACListItemBad' : 'impACListItemWarn'
                     );
