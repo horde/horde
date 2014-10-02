@@ -12,7 +12,7 @@
  </lead>
  <date>2014-10-02</date>
  <version>
-  <release>2.19.2</release>
+  <release>2.19.3</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue with returning proper RI cache data in certain cases.
-* [mjr] Added ability to sniff out Nine and Samsung Android clients.
-* [mjr] Improvements to the workaround for broken POOMCONTACTS date field behavior.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2394,6 +2392,19 @@
 * [mjr] Fix issue with returning proper RI cache data in certain cases.
 * [mjr] Added ability to sniff out Nine and Samsung Android clients.
 * [mjr] Improvements to the workaround for broken POOMCONTACTS date field behavior.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.3</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
