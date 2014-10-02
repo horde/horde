@@ -39,7 +39,7 @@
     text-decoration: line-through;
 }
 
-.pri-1, .pri-2, .pri-3, .pri-4, .pri-5 {
+#tasks .pri-1, #tasks .pri-2, #tasks .pri-3, #tasks .pri-4, #tasks .pri-5 {
     background-color: #fff;
     padding: 2px 5px;
     border: 1px solid #000;
