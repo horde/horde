@@ -398,6 +398,12 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     protected function _parseDate($ts)
     {
         $date = parent::_parseDate($ts);
+        // Since some clients send the date as YYYY-MM-DD only, the best we can
+        // do is assume that it is in the same timezone as the user's default
+        // timezone - so convert it to UTC and be done with it.
+        if ($date->timezone != 'UTC') {
+            $date->setTimezone('UTC');
+        }
         // @todo: Remove this in H6.
         if (empty($this->_device)) {
             return $date;
