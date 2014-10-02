@@ -2,6 +2,7 @@
 v3.0.1-git
 ----------
 
+[jan] Prefix ticket number exported via tasks API.
 [mms] Fix whups-mail-filter binary.
 
 
