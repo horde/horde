@@ -539,10 +539,7 @@ class Horde_ActiveSync_Device
         case self::TYPE_ANDROID:
             if ($this->getMajorVersion() >= 4) {
                 if ($toEas) {
-                    $to_format = ($this->getMinorVersion() >= 4)
-                        ? 'Y-m-d'
-                        : 'Y-m-d 08:00:00';
-                    return new Horde_Date($date->format($to_format), 'UTC');
+                    return new Horde_Date($date->format('Y-m-d 08:00:00'), 'UTC');
                 } else {
                     $date = new Horde_Date($date->format('Y-m-d'));
                     return $date->setTimezone('UTC');
