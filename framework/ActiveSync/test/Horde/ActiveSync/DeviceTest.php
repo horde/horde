@@ -172,7 +172,6 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $bday = $device->normalizePoomContactsDates($date, true);
         $this->assertEquals('1970-03-20 00:00:00', (string)$bday);
 
-
         date_default_timezone_set($tz);
     }
 
