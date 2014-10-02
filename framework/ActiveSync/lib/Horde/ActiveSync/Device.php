@@ -479,20 +479,46 @@ class Horde_ActiveSync_Device
         // WP devices seem to send the birthdays at the entered date, with
         // a time of 00:00:00 UTC.
         //
-        // iOS seems different based on version. iOS 5+, at least seems to send
-        // the birthday as midnight at the entered date in the device's timezone
-        // then converted to UTC. Some minor issues with offsets being off an
-        // hour or two for some timezones though.
+        // iOS:
+        //   Seems different based on version. iOS 5+, at least seems to send
+        //   the birthday as midnight at the entered date in the device's timezone
+        //   then converted to UTC. Some minor issues with offsets being off an
+        //   hour or two for some timezones though.
         //
-        // iOS < 5 sends the birthday time part as the time the birthday
-        // was entered/edited on the device, converted to UTC, so it can't be
-        // trusted at all. The best we can do here is transform the date to
-        // midnight on date_default_timezone() converted to UTC.
+        //   iOS < 5 sends the birthday time part as the time the birthday
+        //   was entered/edited on the device, converted to UTC, so it can't be
+        //   trusted at all. The best we can do here is transform the date to
+        //   midnight on date_default_timezone() converted to UTC.
         //
-        // Native Android 4 ALWAYS sends it as 08:00:00 UTC. UPDATE: At some
-        // point, going back to at least 4.4.4, this was changed in Android to
-        // always send it as 00:00:00 UTC, like WP does. Could this be the start
-        // of some kind of consensus?!?!
+        // Android:
+        //   For contacts originating on the SERVER, the following is true:
+        //
+        //   Stock 4.3 Takes the incoming bday value which is assumed to be UTC,
+        //   does some magic to it (converts to milliseconds, creates a
+        //   gregorian calendar object, then converts to YYYY-MM-DD). When
+        //   sending the bday value up, it sends it as-is. No conversion to/from
+        //   UTC or local is done.
+        //
+        //   Stock 4.4.x does the above, but before sending the bday value,
+        //   validates that it's in a correct format for sending to the server.
+        //   This really only affects date data originally entered on the device
+        //   for non-stock android clients.
+        //
+        //   There is some strange bit of code in Android that adds 1 to the
+        //   DAY_OF_MONTH when HOUR_OF_DAY >= 12 in an attempt to "fix"
+        //   birthday handling for GMT+n users. See:
+        //   https://android.googlesource.com/platform/packages/apps/Exchange/+/32daacdd71b9de8fd5e3f59c37934e3e4a9fa972%5E!/exchange2/src/com/android/exchange/adapter/ContactsSyncAdapter.java
+        //   Not sure what to make of it, or why it's not just converted to
+        //   local tz when displaying but this probably breaks birthday handling
+        //   for people in a few timezones.
+        //
+        //   For contacts originating on the CLIENT, the datetime is sent as
+        //   08:00:00 UTC, and this seems to be regardless of the timezone set
+        //   in the Android system.
+        //
+        //   Given all of this, it makes sense to me to ALWAYS send birthday
+        //   data as occuring at 08:00:00 UTC for *native* Android clients.
+
         //
         // BB 10+ expects it at 12:00:00 UTC
         switch (strtolower($this->clientType)) {
