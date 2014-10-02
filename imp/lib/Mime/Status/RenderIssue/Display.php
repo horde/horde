@@ -62,7 +62,7 @@ class IMP_Mime_Status_RenderIssue_Display extends IMP_Mime_Status
             $this->_text = array(
                 Horde::link('#', '', 'showRenderIssues', '', '', '', '', array(
                     'domid' => $unique_id
-                )) . _("Click to display message part errors.") . '</a>'
+                )) . _("Click to show message part display errors.") . '</a>'
             );
 
             $out = parent::__toString();
