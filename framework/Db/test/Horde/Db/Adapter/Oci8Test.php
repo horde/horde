@@ -41,10 +41,10 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
                                                    'username' => '',
                                                    'password' => '',
                                                    'dbname' => 'test'));
-        if (isset($config['db']['adapter']['oci8']['test'])) {
+        if (isset($config['db']['adapter']['oci8']['test']) &&
+            is_array($config['db']['adapter']['oci8']['test'])) {
             $config = $config['db']['adapter']['oci8']['test'];
-        }
-        if (!is_array($config)) {
+        } else {
             self::$_skip = true;
             self::$_reason = 'No configuration for oci8 test';
             return;
