@@ -2491,12 +2491,22 @@ KronolithCore = {
      */
     insertTaskPosition: function(newRow, newTask)
     {
-        var rows = $('kronolithViewTasksBody').select('tr');
+        var rows = $('kronolithViewTasksBody').select('tr'),
+            rowTasklist, rowTaskId, rowTask, parentFound;
         // The first row is a template, ignoring.
         for (var i = 2; i < rows.length; i++) {
-            var rowTasklist = rows[i].retrieve('tasklist');
-            var rowTaskId = rows[i].retrieve('taskid');
-            var rowTask = this.tcache.inject(null, function(acc, list) {
+            rowTasklist = rows[i].retrieve('tasklist');
+            rowTaskId = rows[i].retrieve('taskid');
+            if (newTask.value.p) {
+                if (rowTaskId == newTask.value.p) {
+                    parentFound = true;
+                    continue;
+                }
+                if (!parentFound) {
+                    continue;
+                }
+            }
+            rowTask = this.tcache.inject(null, function(acc, list) {
                 if (acc) {
                     return acc;
                 }
@@ -2524,6 +2534,9 @@ KronolithCore = {
     isTaskAfter: function(taskA, taskB)
     {
         // TODO: Make all ordering system
+        if ((taskA.p || taskB.p) && taskA.p != taskB.p) {
+            return !taskA.p;
+        }
         return (taskA.pr >= taskB.pr);
     },
 
