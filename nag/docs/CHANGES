@@ -2,6 +2,7 @@
 v4.2.2-git
 ----------
 
+[jan] Pass current start date of recurring tasks to dynamic interface.
 [jan] Fix setting task list name for external tasks.
 [jan] Fix link to create sub-task from a task view.
 [jan] Fix listing of recurring tasks with start dates.

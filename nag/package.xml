@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
 * [jan] Fix link to create sub-task from a task view.
 * [jan] Fix listing of recurring tasks with start dates.
@@ -1592,6 +1593,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
 * [jan] Fix link to create sub-task from a task view.
 * [jan] Fix listing of recurring tasks with start dates.
