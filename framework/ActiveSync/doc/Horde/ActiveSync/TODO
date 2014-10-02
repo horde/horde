@@ -103,3 +103,8 @@ BC BREAKING (i.e., Horde 6).
 - Introduce some sort of filter or similar data in the definitions of the wbxml
   fields to allow for things like specifying the maximum size of a field allowed.
 
+- Move Horde_Core_ActiveSync_Mail into the Horde_ActiveSync library.
+  Horde_ActiveSync_Mailer (?). This is functionality that should be provided
+  out of the box from the library. Need to figure out the best way to inject the
+  Horde specific things, like the actual mailer and identity data.
+
