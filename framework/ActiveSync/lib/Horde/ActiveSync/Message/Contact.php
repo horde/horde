@@ -392,12 +392,19 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      * Override parent class so we can normalize the Date object before
      * returning it.
      *
-     * @param  [type] $ts [description]
-     * @return [type]     [description]
+     * @param string $ts  The timestamp
+     *
+     * @return Horde_Date  The Horde_Date object, in UTC.
      */
     protected function _parseDate($ts)
     {
         $date = parent::_parseDate($ts);
+        // Since some clients send the date as YYYY-MM-DD only, the best we can
+        // do is assume that it is in the same timezone as the user's default
+        // timezone - so convert it to UTC and be done with it.
+        if ($date->timezone != 'UTC') {
+            $date->setTimezone('UTC');
+        }
         // @todo: Remove this in H6.
         if (empty($this->_device)) {
             return $date;
@@ -406,6 +413,15 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         return $this->_device->normalizePoomContactsDates($date);
     }
 
+    /**
+     * Format a date string for sending to the EAS client.
+     *
+     * @param Horde_Date $dt  The Horde_Date object to format
+     *                        (should normally be in local tz).
+     * @param integer $type   The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
+     *
+     * @return string  The formatted date
+     */
     protected function _formatDate(Horde_Date $dt, $type)
     {
         if (empty($this->_device)) {

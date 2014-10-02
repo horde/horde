@@ -524,8 +524,10 @@ class Horde_ActiveSync_Message_Base
      * calendar items and emails. We could just always send one or the other,
      * but unfortunately nokia's 'Mail for exchange' depends on this quirk.
      * So we have to send a different date type depending on where it's used.
+     * Used when encoding a date value to send to the client.
      *
-     * @param Horde_Date $dt  The datetime to format (assumed to be in local tz)
+     * @param Horde_Date $dt  The Horde_Date object to format
+     *                        (should normally be in local tz).
      * @param integer $type   The type to format as (TYPE_DATE or TYPE_DATE_DASHES)
      *
      * @return string  The formatted date
@@ -541,6 +543,7 @@ class Horde_ActiveSync_Message_Base
 
     /**
      * Get a Horde_Date from a timestamp, ensuring it's in the correct format.
+     * Used when decoding an incoming date value from the client.
      *
      * @param string $ts  The timestamp
      *

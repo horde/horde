@@ -568,7 +568,7 @@ class Horde_Core_ActiveSync_Mail
 
     static public function html2text($msg)
     {
-        Horde_Text_Filter::filter($msg, 'Html2text');
+        return Horde_Text_Filter::filter($msg, 'Html2text');
     }
 
 }
