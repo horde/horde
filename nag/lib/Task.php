@@ -1033,6 +1033,7 @@ class Nag_Task
     {
         $json = new stdClass;
         $json->l = $this->tasklist;
+        $json->p = $this->parent_id;
         $json->i = $this->indent;
         $json->n = $this->name;
         if ($this->desc) {
@@ -1056,7 +1057,6 @@ class Nag_Task
         if ($full) {
             // @todo: do we really need all this?
             $json->id = $this->id;
-            $json->p = $this->parent_id;
             $json->de = $this->desc;
             if ($this->due) {
                 $date = new Horde_Date($this->due);
