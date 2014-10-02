@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.3",
-    "time": "2014-08-29",
+    "version": "1.0.4",
+    "time": "2014-10-02",
     "repositories": [
         {
             "type": "pear",
@@ -26,7 +26,7 @@
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pecl.php.net/igbinary": "*",
+        "pear-pecl.php.net/igbinary": ">=1.2.0@stable",
         "pear-pecl.php.net/msgpack": "*",
         "ext-json": "*"
     }
