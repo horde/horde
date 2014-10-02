@@ -593,6 +593,36 @@ class Nag_Task
     }
 
     /**
+     * Returns the next start date of this task.
+     *
+     * Takes recurring tasks into account.
+     *
+     * @return Horde_Date  The next start date.
+     */
+    public function getNextStart()
+    {
+        if (!$this->start) {
+            return null;
+        }
+
+        if (!$this->recurs() ||
+            !($completions = $this->recurrence->getCompletions())) {
+            return new Horde_Date($this->start);
+        }
+
+        sort($completions);
+        list($year, $month, $mday) = sscanf(
+            end($completions),
+            '%04d%02d%02d'
+        );
+        $lastCompletion = new Horde_Date($year, $month, $mday);
+        $recurrence = clone $this->recurrence;
+        $recurrence->start = new Horde_Date($this->start);
+
+        return $recurrence->nextRecurrence($lastCompletion);
+    }
+
+    /**
      * Returns the next due date of this task.
      *
      * Takes recurring tasks into account.

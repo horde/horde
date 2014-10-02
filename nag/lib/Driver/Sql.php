@@ -443,19 +443,7 @@ class Nag_Driver_Sql extends Nag_Driver
                  $completed == Nag::VIEW_FUTURE) &&
                 $task->start &&
                 $task->recurs()) {
-                if ($completions = $task->recurrence->getCompletions()) {
-                    sort($completions);
-                    list($year, $month, $mday) = sscanf(
-                        end($completions),
-                        '%04d%02d%02d'
-                    );
-                    $lastCompletion = new Horde_Date($year, $month, $mday);
-                    $recurrence = clone $task->recurrence;
-                    $recurrence->start = new Horde_Date($task->start);
-                    $start = $recurrence->nextRecurrence($lastCompletion);
-                } else {
-                    $start = new Horde_Date($task->start);
-                }
+                $start = $task->getNextStart();
                 if (($completed == Nag::VIEW_INCOMPLETE &&
                      $start->after($_SERVER['REQUEST_TIME'])) ||
                     ($completed == Nag::VIEW_FUTURE &&
