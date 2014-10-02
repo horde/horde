@@ -161,14 +161,16 @@ class Nag_Block_Summary extends Horde_Core_Block
             }
 
             if ($task->completed) {
-                $style = 'closed';
+                $class = 'closed';
             } elseif ($due && $due->before($_SERVER['REQUEST_TIME'])) {
-                $style = 'overdue';
+                $class = 'overdue';
             } else {
-                $style = '';
+                $class = '';
             }
+            $style = ' style="background-color:' . $task->backgroundColor()
+                . ';color:' . $task->foregroundColor() . '"';
 
-            $html .= '<tr class="' . $style . '">';
+            $html .= '<tr class="' . $class . '">';
 
             if (!empty($this->_params['show_actions'])) {
                 $taskurl = Horde::url('task.php', true)->add(array(
@@ -177,16 +179,16 @@ class Nag_Block_Summary extends Horde_Core_Block
                     'url' => Horde::selfUrl(true)
                 ));
                 $label = sprintf(_("Edit \"%s\""), $task->name);
-                $html .= '<td width="1%">'
+                $html .= '<td width="1%"' . $style . '>'
                     . $taskurl->copy()->add('actionID', 'modify_task')->link()
-                    . Horde::img('edit.png', $label)
+                    . Horde::img('edit-sidebar-' . substr($task->foregroundColor(), 1) . '.png', $label)
                     . '</a></td>';
                 if ($task->completed) {
-                    $html .= '<td width="1%">'
+                    $html .= '<td width="1%">' . $style . ''
                         . Horde::img('checked.png', _("Completed")) . '</td>';
                 } else {
                     $label = sprintf(_("Complete \"%s\""), $task->name);
-                    $html .= '<td width="1%">'
+                    $html .= '<td width="1%"' . $style . '>'
                         . Horde::url(
                             $conf['urls']['pretty'] == 'rewrite'
                                 ? 't/complete'
@@ -201,24 +203,24 @@ class Nag_Block_Summary extends Horde_Core_Block
             }
 
             if (!empty($this->_params['show_pri'])) {
-                $html .= '<td align="center">&nbsp;'
+                $html .= '<td align="center"' . $style . '>&nbsp;'
                     . Nag::formatPriority($task->priority) . '&nbsp;</td>';
             }
 
             if (!empty($this->_params['show_tasklist'])) {
-                $html .= '<td width="1%" class="nowrap">'
+                $html .= '<td width="1%" class="nowrap"' . $style . '>'
                     . htmlspecialchars(Nag::getLabel($GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create()->getShare($task->tasklist)))
                     . '&nbsp;</td>';
             }
 
-            $html .= '<td>';
+            $html .= '<td' . $style . '>';
 
             $viewurl = Horde::url('view.php', true)->add(array(
                 'task' => $task->id,
                 'tasklist' => $task->tasklist
             ));
             $html .= $task->treeIcons()
-                . $viewurl->link(array('title' => $task->desc))
+                . $viewurl->link(array('title' => $task->desc, 'style' => 'color:' . $task->foregroundColor()))
                 . (!empty($task->name)
                    ? htmlspecialchars($task->name) : _("[none]"))
                 . '</a>';
