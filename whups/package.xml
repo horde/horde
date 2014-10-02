@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix CSS styling of comment text.
 * [jan] Prefix ticket number exported via tasks API.
 * [mms] Fix whups-mail-filter binary.
  </notes>
@@ -1116,6 +1117,7 @@
    <date>2014-03-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix CSS styling of comment text.
 * [jan] Prefix ticket number exported via tasks API.
 * [mms] Fix whups-mail-filter binary.
    </notes>
