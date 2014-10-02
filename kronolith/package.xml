@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix ordering of sub-tasks.
 * [jan] Send iTip notifications even to attendees that are not required to attend (Bug #13600).
 * [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
 * [jan] Fix closure compiler errors (Bug #13593).
@@ -2465,6 +2466,7 @@
    <date>2014-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix ordering of sub-tasks.
 * [jan] Send iTip notifications even to attendees that are not required to attend (Bug #13600).
 * [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
 * [jan] Fix closure compiler errors (Bug #13593).
