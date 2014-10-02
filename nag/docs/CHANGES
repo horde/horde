@@ -2,6 +2,7 @@
 v4.2.2-git
 ----------
 
+[jan] Fix link to create sub-task from a task view.
 [jan] Fix listing of recurring tasks with start dates.
 [mjr] Add missing categories to EAS tasks.
 [jan] Fix sidebar display of system task lists in basic view.

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix link to create sub-task from a task view.
 * [jan] Fix listing of recurring tasks with start dates.
 * [mjr] Add missing categories to EAS tasks.
 * [jan] Fix sidebar display of system task lists in basic view.
@@ -1590,6 +1591,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix link to create sub-task from a task view.
 * [jan] Fix listing of recurring tasks with start dates.
 * [mjr] Add missing categories to EAS tasks.
 * [jan] Fix sidebar display of system task lists in basic view.
