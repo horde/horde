@@ -476,8 +476,12 @@ class Horde_ActiveSync_Device
      */
     public function normalizePoomContactsDates($date, $toEas = false)
     {
-        // WP devices seem to send the birthdays at the entered date, with
-        // a time of 00:00:00 UTC.
+        // WP:
+        //   Devices seem to send the birthdays at the entered date, with
+        //   a time of 00:00:00 UTC during standard time and with 01:00:00 UTC
+        //   during DST if the client's configured timezone observes it. No idea
+        //   what purpose this serves since no timezone data is transmitted for
+        //   birthday values.
         //
         // iOS:
         //   Seems different based on version. iOS 5+, at least seems to send
@@ -493,11 +497,11 @@ class Horde_ActiveSync_Device
         // Android:
         //   For contacts originating on the SERVER, the following is true:
         //
-        //   Stock 4.3 Takes the incoming bday value which is assumed to be UTC,
-        //   does some magic to it (converts to milliseconds, creates a
+        //   Stock 4.3 Takes the down-synched bday value which is assumed to be
+        //   UTC, does some magic to it (converts to milliseconds, creates a
         //   gregorian calendar object, then converts to YYYY-MM-DD). When
-        //   sending the bday value up, it sends it as-is. No conversion to/from
-        //   UTC or local is done.
+        //   sending the bday value up, it sends it up as-is. No conversion
+        //   to/from UTC or local is done.
         //
         //   Stock 4.4.x does the above, but before sending the bday value,
         //   validates that it's in a correct format for sending to the server.
@@ -518,9 +522,9 @@ class Horde_ActiveSync_Device
         //
         //   Given all of this, it makes sense to me to ALWAYS send birthday
         //   data as occuring at 08:00:00 UTC for *native* Android clients.
-
         //
         // BB 10+ expects it at 12:00:00 UTC
+
         switch (strtolower($this->clientType)) {
         case self::TYPE_WP:
         case 'wp8': // Legacy. Remove in H6.
