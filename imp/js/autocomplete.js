@@ -101,16 +101,24 @@ var IMP_Autocompleter = Class.create({
 
         new PeriodicalExecuter(this.inputWatcher.bind(this), 0.25);
 
-        document.observe('AutoComplete:focus', function(e) {
-            if (e.memo == this.elt) {
-                this.focus();
-                e.stop();
-            }
-        }.bindAsEventListener(this));
-        document.observe('AutoComplete:reset', this.reset.bind(this));
-        document.observe('AutoComplete:update', this.processInput.bind(this));
+        document.observe('AutoComplete:focus', this.triggerEvent.bindAsEventListener(this, this.focus.bind(this)));
+        document.observe('AutoComplete:reset', this.triggerEvent.bindAsEventListener(this, this.reset.bind(this)));
+        document.observe('AutoComplete:update', this.triggerEvent.bindAsEventListener(this, this.processInput.bind(this)));
 
         this.reset();
+    },
+
+    triggerEvent: function(e, func)
+    {
+        switch (e.element()) {
+        case this.elt:
+            e.stop();
+            /* falls through */
+
+        case document:
+            func();
+            break;
+        }
     },
 
     checkActiveElt: function(elt)
