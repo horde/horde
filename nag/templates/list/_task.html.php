@@ -1,4 +1,4 @@
-<tr class="<?php echo $style ?>" style="background-color:<?php echo $background ?>; color: #<?php echo $foreground ?>">
+<tr class="<?php echo $style ?>" style="background-color:<?php echo $task->backgroundColor() ?>;color:<?php echo $task->foregroundColor() ?>">
   <td>
     <?php
     if ($have_edit) {
@@ -39,7 +39,7 @@
         if ($this->smartShare) {
           $params['list'] = $this->smartShare->getName();
         }
-        echo Horde::link($task->edit_link->add($params), $label) . Horde::img('edit-sidebar-' . $foreground . '.png', $label) . '</a>';
+        echo Horde::link($task->edit_link->add($params), $label) . Horde::img('edit-sidebar-' . substr($task->foregroundColor(), 1) . '.png', $label) . '</a>';
     }
     ?>
   </td>
@@ -54,7 +54,7 @@
         if ($this->smartShare) {
           $params['list'] = $this->smartShare->getName();
         }
-        echo Horde::linkTooltip($task->view_link->add($params), '', '', '', '', $task->desc, '', array('style' => 'color:#' . $foreground))
+        echo Horde::linkTooltip($task->view_link->add($params), '', '', '', '', $task->desc, '', array('style' => 'color:' . $task->foregroundColor()))
             . $task_name . '</a>';
     } else {
         echo $task_name;

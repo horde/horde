@@ -54,15 +54,8 @@ function doPrefsUpdate(column, sortDown)
                     $owner = $task->tasklist;
                 }
             }
-            $background = $share->get('color') ?: '#ddd';
-            $foreground = '000';
-            if (Horde_Image::brightness($background) < 128) {
-                $foreground = 'fff';
-            }
             $locals = array(
               'style' => $style,
-              'background' => $background,
-              'foreground' => $foreground,
               'have_read' => $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ),
               'have_edit' => $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
               'owner' => $owner,

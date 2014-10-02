@@ -789,6 +789,33 @@ class Nag_Task
     }
 
     /**
+     * Returns the background color.
+     *
+     * @return string  A HTML color code.
+     */
+    public function backgroundColor()
+    {
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+            return $share->get('color') ?: '#ddd';
+        } catch (Horde_Exception_NotFound $e) {
+        }
+        return '#ddd';
+    }
+
+    /**
+     * Returns the foreground color.
+     *
+     * @return string  A HTML color code.
+     */
+    public function foregroundColor($calendar)
+    {
+        return Horde_Image::brightness($this->backgroundColor()) < 128
+            ? '#fff'
+            : '#000';
+    }
+
+    /**
      * Returns the HTML code for any tree icons, when displaying this task in
      * a tree view.
      *
@@ -796,16 +823,7 @@ class Nag_Task
      */
     public function treeIcons()
     {
-        $foreground = '';
-        try {
-            $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
-            $background = $share->get('color') ?: '#ddd';
-            if (Horde_Image::brightness($background) < 128) {
-                $foreground = '-fff';
-            }
-        } catch (Horde_Exception_NotFound $e) {
-        }
-
+        $foreground = $this->foregroundColor() == '#fff' ? '-fff' : '';
         $html = '';
 
         $parent = $this->parent;
