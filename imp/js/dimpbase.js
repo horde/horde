@@ -2774,6 +2774,8 @@ var DimpBase = {
         this.is_keydown = false;
 
         switch (e.keyCode || e.charCode) {
+        case Event.KEY_DELETE:
+        case Event.KEY_BACKSPACE:
         case Event.KEY_UP:
         case Event.KEY_DOWN:
         case Event.KEY_LEFT:
