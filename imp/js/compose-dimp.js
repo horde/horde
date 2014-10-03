@@ -944,6 +944,16 @@ var DimpCompose = {
         return [ ob, val ];
     },
 
+    autocompleteShortDisplay: function(l)
+    {
+        l = l.sub(/<[^>]*>$/, "").strip();
+        if (l.startsWith('"') && l.endsWith('"')) {
+            l = l.slice(1, -1).gsub(/\\/, "");
+        }
+
+        return l.escapeHTML();
+    },
+
     autocompleteProcess: function(r)
     {
         /* Clear all existing flags. */
@@ -1277,9 +1287,7 @@ var DimpCompose = {
                     minChars: DimpCore.conf.ac_minchars,
                     processValueCallback: this.autocompleteValue.bind(this),
                     removeClass: 'hordeACItemRemove impACItemRemove',
-                    shortDisplayCallback: function(l) {
-                         return l.sub(/<[^>]*>$/, "").strip().escapeHTML();
-                    },
+                    shortDisplayCallback: this.autocompleteShortDisplay.bind(this),
                     trigger: id,
                     triggerContainer: Math.random().toString()
                 })
