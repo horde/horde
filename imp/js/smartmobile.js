@@ -1772,6 +1772,7 @@ var IMP_JS = {
 
         d.find('IMG[data-src]').unveil(parseInt(h * 0.1, 10), function() {
             $(this).removeAttr('data-src');
+            id.height(id.contents().height());
         });
     },
 
