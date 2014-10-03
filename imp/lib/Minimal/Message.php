@@ -202,7 +202,8 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         }
 
         /* Create the body of the message. */
-        $inlineout = $imp_contents->getInlineOutput(array(
+        $inline_ob = new IMP_Contents_InlineOutput();
+        $inlineout = $inline_ob->getInlineOutput($imp_contents, array(
             'display_mask' => IMP_Contents::RENDER_INLINE,
             'no_inline_all' => true
         ));

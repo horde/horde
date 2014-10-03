@@ -795,7 +795,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Build body text. This needs to be done before we build the
          * attachment list that lives in the header. */
-        $inlineout = $imp_contents->getInlineOutput(array(
+        $inline_ob = new IMP_Contents_InlineOutput();
+        $inlineout = $inline_ob->getInlineOutput($imp_contents, array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts

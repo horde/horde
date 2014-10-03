@@ -292,7 +292,8 @@ class IMP_Ajax_Application_ShowMessage
         /* Build body text. This needs to be done before we build the
          * attachment list. */
         $session->close();
-        $inlineout = $this->_contents->getInlineOutput(array(
+        $inline_ob = new IMP_Contents_InlineOutput();
+        $inlineout = $inline_ob->getInlineOutput($this->_contents, array(
             'mask' => $contents_mask,
             'part_info_display' => $part_info_display,
             'show_parts' => $show_parts

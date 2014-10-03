@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-02</date>
+ <date>2014-10-03</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -220,6 +220,7 @@
      <file name="Image.php" role="horde" />
     </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
+     <file name="InlineOutput.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
     <dir name="Crypt">
@@ -1680,6 +1681,7 @@
    <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
    <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
+   <install as="imp/lib/Contents/InlineOutput.php" name="lib/Contents/InlineOutput.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
