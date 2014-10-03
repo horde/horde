@@ -35,8 +35,6 @@ abstract class Horde_Translation
     /**
      * The relative path to the translations for the default gettext handler.
      *
-     * This path is relative to the
-     *
      * @var string
      */
     protected static $_directory;
@@ -57,10 +55,10 @@ abstract class Horde_Translation
      */
     public static function loadHandler($handlerClass)
     {
-        if (!self::$_domain || !self::$_directory) {
+        if (!static::$_domain || !static::$_directory) {
             throw new Horde_Translation_Exception('The domain and directory properties must be set by the class that extends Horde_Translation.');
         }
-        self::setHandler(self::$_domain, new $handlerClass(self::$_domain, self::$_directory));
+        static::setHandler(static::$_domain, new $handlerClass(static::$_domain, static::$_directory));
     }
 
     /**
@@ -78,7 +76,7 @@ abstract class Horde_Translation
      */
     public static function setHandler($domain, $handler)
     {
-        self::$_handlers[$domain] = $handler;
+        static::$_handlers[$domain] = $handler;
     }
 
     /**
@@ -91,10 +89,10 @@ abstract class Horde_Translation
      */
     public static function t($message)
     {
-        if (!isset(self::$_handlers[self::$_domain])) {
-            self::loadHandler('Horde_Translation_Handler_Gettext');
+        if (!isset(static::$_handlers[static::$_domain])) {
+            static::loadHandler('Horde_Translation_Handler_Gettext');
         }
-        return self::$_handlers[self::$_domain]->t($message);
+        return static::$_handlers[static::$_domain]->t($message);
     }
 
     /**
@@ -109,10 +107,10 @@ abstract class Horde_Translation
      */
     public static function ngettext($singular, $plural, $number)
     {
-        if (!isset(self::$_handlers[self::$_domain])) {
-            self::loadHandler('Horde_Translation_Handler_Gettext');
+        if (!isset(static::$_handlers[static::$_domain])) {
+            static::loadHandler('Horde_Translation_Handler_Gettext');
         }
-        return self::$_handlers[self::$_domain]->ngettext($singular, $plural, $number);
+        return static::$_handlers[static::$_domain]->ngettext($singular, $plural, $number);
     }
 
     /**

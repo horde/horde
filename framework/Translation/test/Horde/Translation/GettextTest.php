@@ -11,28 +11,29 @@ require_once __DIR__ . '/TestBase.php';
  */
 class Horde_Translation_GettextTest extends Horde_Translation_TestBase
 {
-    private $_dict;
-    private $_otherDict;
+    private $_dictA;
+    private $_dictB;
 
     public function setUp()
     {
         parent::setUp();
-        $this->_dict = new Horde_Translation_Handler_Gettext('Horde_Translation', __DIR__ . '/locale');
-        $this->_otherDict = new Horde_Translation_Handler_Gettext('Horde_Other', __DIR__ . '/locale');
+        $baseDir = dirname(dirname(__DIR__));
+        $this->_dictA = new Horde_Translation_Handler_Gettext('Horde_WrapperA', $baseDir . '/WrapperA/locale');
+        $this->_dictB = new Horde_Translation_Handler_Gettext('Horde_WrapperB', $baseDir . '/WrapperB/locale');
     }
 
     public function testGettext()
     {
-        $this->assertEquals('Heute', $this->_dict->t('Today'));
-        $this->assertEquals('Schön', $this->_dict->t('Beautiful'));
-        $this->assertEquals('2 Tage', sprintf($this->_dict->t('%d days'), 2));
-        $this->assertEquals('Morgen', $this->_otherDict->t('Tomorrow'));
+        $this->assertEquals('Heute', $this->_dictA->t('Today'));
+        $this->assertEquals('Schön', $this->_dictA->t('Beautiful'));
+        $this->assertEquals('2 Tage', sprintf($this->_dictA->t('%d days'), 2));
+        $this->assertEquals('Morgen', $this->_dictB->t('Tomorrow'));
     }
 
     public function testNgettext()
     {
-        $this->assertEquals('1 Woche', sprintf($this->_dict->ngettext('%d week', '%d weeks', 1), 1));
-        $this->assertEquals('2 Wochen', sprintf($this->_dict->ngettext('%d week', '%d weeks', 2), 2));
+        $this->assertEquals('1 Woche', sprintf($this->_dictA->ngettext('%d week', '%d weeks', 1), 1));
+        $this->assertEquals('2 Wochen', sprintf($this->_dictA->ngettext('%d week', '%d weeks', 2), 2));
     }
 
     public function testInvalidConstruction()
