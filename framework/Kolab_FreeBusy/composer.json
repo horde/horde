@@ -26,7 +26,7 @@
         "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Icalendar": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Date": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Translation": ">=2.0.0,<=3.0.0alpha1"
+        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Test": ">=2.1.0,<=3.0.0alpha1"
