@@ -141,6 +141,12 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $bday = $device->normalizePoomContactsDates($date);
         $this->assertEquals('1970-03-20 00:00:00', (string)$bday->setTimezone('America/New_York'));
 
+        // Try a positive UTC offset timezone
+        date_default_timezone_set('Europe/Berlin');
+        $date = new Horde_Date('1966-07-22T23:00:00.000Z');
+        $bday = $device->normalizePoomContactsDates($date);
+        $bday->setTimezone(date_default_timezone_get());
+        $this->assertEquals('1966-07-23', $bday->format('Y-m-d'));
 
         // Android
         date_default_timezone_set('Pacific/Honolulu');
