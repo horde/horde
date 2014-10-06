@@ -157,7 +157,7 @@ class Horde_Timezone_Rule
                         $last->mday--;
                     }
                     $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THIs') . 'Z';
+                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
                 }
                 $component->setAttribute(
                     'RRULE',
@@ -196,7 +196,7 @@ class Horde_Timezone_Rule
                         $last->mday++;
                     }
                     $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THIs') . 'Z';
+                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
                 }
                 for ($days = array(), $i = $day, $lastDay = min(Horde_Date_Utils::daysInMonth($month, $rule[2]), $i + 6);
                      $day > 1 && $i <= $lastDay;
@@ -241,7 +241,7 @@ class Horde_Timezone_Rule
                         $last->mday--;
                     }
                     $last->setTimezone('UTC');
-                    $until = ';UNTIL=' . $last->format('Ymd\THIs') . 'Z';
+                    $until = ';UNTIL=' . $last->format('Ymd\THis') . 'Z';
                 }
                 for ($days = array(), $i = 1; $i <= $day; $i++) {
                     $days[] = $i;
