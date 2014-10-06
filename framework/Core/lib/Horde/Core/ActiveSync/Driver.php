@@ -1610,7 +1610,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         ob_start();
-        switch ($folder_id) {
+        switch ($folder_class) {
         case self::APPOINTMENTS_FOLDER_UID:
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
