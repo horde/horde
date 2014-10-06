@@ -2,6 +2,8 @@
 v5.2.2-git
 ----------
 
+[jan] Don't show password reset preferences if disabled in configuration (Bug
+      #13618).
 [mjr] Remove non-existent Yahoo Maps option for map tile provider.
 [mms] Fix display of Horde stylesheets not served from the local server (i.e.
       via a CDN).
