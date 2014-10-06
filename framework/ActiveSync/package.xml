@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Some fixes for POOMCONTACT date fields on Samsung Android clients.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2404,7 +2404,7 @@
    <date>2014-10-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Some fixes for POOMCONTACT date fields on Samsung Android clients.
    </notes>
   </release>
  </changelog>
