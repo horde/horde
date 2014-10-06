@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add entries for Tasks and Agenda to top menu.
 * [mjr] Add Kronolith_Api::move().
 * [jan] Return ETags with browse() API method.
 * [jan] Add importing of calendar data from a URL.
@@ -2477,6 +2478,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add entries for Tasks and Agenda to top menu.
 * [mjr] Add Kronolith_Api::move().
 * [jan] Return ETags with browse() API method.
 * [jan] Add importing of calendar data from a URL.

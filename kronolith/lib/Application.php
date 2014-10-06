@@ -450,6 +450,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 array('month', _("Month"), 'monthview.png', Horde::url('month.php')),
                 array('year', _("Year"), 'yearview.png', Horde::url('year.php'))
             );
+            if (Kronolith::showAjaxView()) {
+                if (Kronolith::hasApiPermission('tasks')) {
+                    $menus[] = array('tasks', _("Tasks"), 'tasks.png', $GLOBALS['registry']->get('webroot') . '#tasks');
+                }
+                $menus[] = array('agenda', _("Agenda"), 'agenda.png', $GLOBALS['registry']->get('webroot') . '#agenda');
+            }
             // Dynamic view has no dedicated search page.
             if (!Kronolith::showAjaxView()) {
                 $menus[] = array('search', _("Search"), 'search.png', Horde::url('search.php'));

@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Add entries for Tasks and Agenda to top menu.
 [mjr] Add Kronolith_Api::move().
 [jan] Return ETags with browse() API method.
 [jan] Add importing of calendar data from a URL.
