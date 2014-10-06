@@ -168,7 +168,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
     public function getViewerCallback(Horde_Mime_Viewer_Base $viewer,
                                       Horde_Mime_Part $mime, $type)
     {
-        return $this->getViewer($mime, array('type' => $type));
+        return $this->create($mime, array('type' => $type));
     }
 
     /**
