@@ -1611,10 +1611,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         ob_start();
         switch ($folder_class) {
-        case self::APPOINTMENTS_FOLDER_UID:
-        case self::CONTACTS_FOLDER_UID:
-        case self::TASKS_FOLDER_UID:
-        case self::NOTES_FOLDER_UID:
+        case Horde_ActiveSync::CLASS_CALENDAR:
+        case Horde_ActiveSync::CLASS_CONTACTS:
+        case Horde_ActiveSync::CLASS_TASKS:
+        case Horde_ActiveSync::CLASS_NOTES:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Not supported');
         default:
