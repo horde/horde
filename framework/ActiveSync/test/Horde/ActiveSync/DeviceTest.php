@@ -89,11 +89,12 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $fixture = array(
             'deviceType' => 'SAMSUNGSMN900V',
             'userAgent' => 'SAMSUNG-SM-N900V/101.403',
-            'properties' => array(Horde_ActiveSync_Device::OS => 'Android 4.4.2.N900VVRUCNC4')
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
         );
         $device = new Horde_ActiveSync_Device($state, $fixture);
-        $this->assertEquals(4, $device->getMajorVersion());
-        $this->assertEquals(4, $device->getMinorVersion());
+        // These are useless values, but still tests the reliability of the code
+        $this->assertEquals(101, $device->getMajorVersion());
+        $this->assertEquals(403, $device->getMinorVersion());
         $this->assertEquals('samsungsmn900v', strtolower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
@@ -131,7 +132,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $fixture = array(
             'deviceType' => 'iPhone',
             'userAgent' => 'Apple-iPhone4C1/1002.329',
-            'properties' => array(Horde_ActiveSync_Device::OS => ' iOS 6.1.3 10B329'));
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 6.1.3 10B329'));
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $date = new Horde_Date('1970-03-20');
         $bday = $device->normalizePoomContactsDates($date, true);
@@ -143,6 +144,11 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
 
         // Try a positive UTC offset timezone
         date_default_timezone_set('Europe/Berlin');
+        $fixture = array(
+            'deviceType' => 'iPhone',
+            'userAgent' => 'Apple-iPhone4C1/1104.201',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'iOS 7.1.1 11D201'));
+        $device = new Horde_ActiveSync_Device($state, $fixture);
         $date = new Horde_Date('1966-07-22T23:00:00.000Z');
         $bday = $device->normalizePoomContactsDates($date);
         $bday->setTimezone(date_default_timezone_get());
@@ -156,6 +162,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $bday = $device->normalizePoomContactsDates($date);
         $this->assertEquals('2003-09-24', $bday->setTimezone('Pacific/Honolulu')->format('Y-m-d'));
 
+        // Note 3
         date_default_timezone_set('America/Chicago');
         $fixture = array(
             'deviceType' => 'SAMSUNGSMN900V',
@@ -165,7 +172,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $date = new Horde_Date('1970-03-20');
         $bday = $device->normalizePoomContactsDates($date, true);
-        $this->assertEquals('1970-03-20 08:00:00', (string)$bday);
+        $this->assertEquals('1970-03-20 00:00:00', (string)$bday);
 
         $fixture = array(
             'deviceType' => 'Android',
