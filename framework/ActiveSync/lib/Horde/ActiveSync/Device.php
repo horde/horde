@@ -543,7 +543,18 @@ class Horde_ActiveSync_Device
             }
 
         case self::TYPE_ANDROID:
-            if ($this->getMajorVersion() >= 4) {
+            // Need to protect against clients that don't send the actual Android
+            // version in the OS field.
+            if (stripos($this->deviceType, 'samsung') === 0) {
+                // Samsung's native Contacts app works differently than stock
+                // Android, always sending as 00:00:00
+                if ($toEas) {
+                    return new Horde_Date($date->format('Y-m-d'), 'UTC');
+                }
+                $date = new Horde_Date($date->format('Y-m-d'));
+                return $date->setTimezone('UTC');
+            }
+            if ($this->getMajorVersion() >= 4 && $this->getMajorVersion() <= 10) {
                 if ($toEas) {
                     return new Horde_Date($date->format('Y-m-d 08:00:00'), 'UTC');
                 } else {
