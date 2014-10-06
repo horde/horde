@@ -328,6 +328,9 @@ $prefGroups['forgotpass'] = array(
         'security_question', 'security_answer', 'alternate_email'
     ),
     'suppress' => function() {
+        if (!$GLOBALS['conf']['auth']['resetpassword']) {
+            return true;
+        }
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create()->hasCapability('update');
             return false;
