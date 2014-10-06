@@ -1589,7 +1589,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $newfolderid  The new folder id to move to.
      *
      * @return array  An array of successfully moved messages.
-     * @throws Horde_Exception
+     * @throws Horde_ActiveSync_Exception
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
