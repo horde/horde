@@ -1599,8 +1599,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             implode(',', $ids),
             $newfolderid));
+
+        $parts = $this->_parseFolderId($folderid);
+        if (is_array($parts)) {
+            $class = $parts[self::FOLDER_PART_CLASS];
+            $folder_id = $parts[self::FOLDER_PART_ID];
+        } else {
+            $class = $parts;
+            $folder_id = null;
+        }
+
         ob_start();
-        switch ($folderid) {
+        switch ($folder_id) {
         case self::APPOINTMENTS_FOLDER_UID:
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
