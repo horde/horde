@@ -1602,10 +1602,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
         $parts = $this->_parseFolderId($folderid);
         if (is_array($parts)) {
-            $class = $parts[self::FOLDER_PART_CLASS];
+            $folder_class = $parts[self::FOLDER_PART_CLASS];
             $folder_id = $parts[self::FOLDER_PART_ID];
         } else {
-            $class = $parts;
+            $folder_class = $parts;
             $folder_id = null;
         }
 
