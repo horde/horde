@@ -1719,7 +1719,7 @@ a.horde-mainnavi-active:active {
 .horde-point-arrow-active {
     background-image: url("graphics/navi-arrow-active.png");
 }
-left.horde-point-right {
+.horde-point-right {
     float: left;
     width: 10px;
     height: 34px;
