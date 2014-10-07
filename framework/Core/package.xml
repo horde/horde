@@ -30,8 +30,8 @@
  </developer>
  <date>2014-10-02</date>
  <version>
-  <release>2.14.3</release>
-  <api>2.14.0</api>
+  <release>2.15.0</release>
+  <api>2.15.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -3658,8 +3658,8 @@
   </release>
   <release>
    <version>
-    <release>2.14.3</release>
-    <api>2.14.0</api></version>
+    <release>2.15.0</release>
+    <api>2.15.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
