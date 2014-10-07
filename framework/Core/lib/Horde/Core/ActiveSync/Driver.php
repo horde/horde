@@ -1628,7 +1628,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::CLASS_TASKS:
         case Horde_ActiveSync::CLASS_NOTES:
             $this->_endBuffer();
-            throw new Horde_ActiveSync_Exception('Not supported');
+            // Not supported, so just drop through to return the empty array.
+            break;
         default:
             $move_res = $this->_imap->moveMessage($folderid, $ids, $newfolderid);
         }
