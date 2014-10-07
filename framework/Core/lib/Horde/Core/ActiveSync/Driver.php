@@ -1612,12 +1612,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder_class = $parts;
             $folder_id = null;
         }
-
         $move_res = array();
         ob_start();
         switch ($folder_class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
-            if ($res = $this->_connector->calendar_move()) {
+            $parts = $this->_parseFolderId($newfolderid);
+            if (is_array($parts)) {
+                $newfolderid = $parts[self::FOLDER_PART_ID];
+            }
+            if ($res = $this->_connector->calendar_move(array_pop($ids), $folder_id, $newfolderid)) {
                 $move_res[$res] = $res;
             }
             break;
