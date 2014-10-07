@@ -1585,10 +1585,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Move message
      *
      * @param string $folderid     Existing folder id.
-     * @param array $ids           Message UIDs to move.
+     * @param array $ids           Message UIDs to move. @todo For H6 this
+     *                             should take a single id. We can't bulk
+     *                             move them for other reasons.
      * @param string $newfolderid  The new folder id to move to.
      *
-     * @return array  An array of successfully moved messages.
+     * @return array  An array of successfully moved messages with
+     *                the old UIDs as keys and new UIDs as values.
+     *
      * @throws Horde_ActiveSync_Exception
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
@@ -1609,9 +1613,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder_id = null;
         }
 
+        $move_res = array();
         ob_start();
         switch ($folder_class) {
         case Horde_ActiveSync::CLASS_CALENDAR:
+            if ($res = $this->_connector->calendar_move()) {
+                $move_res[$res] = $res;
+            }
+            break;
         case Horde_ActiveSync::CLASS_CONTACTS:
         case Horde_ActiveSync::CLASS_TASKS:
         case Horde_ActiveSync::CLASS_NOTES:

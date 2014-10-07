@@ -233,6 +233,31 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Move a calendar event.
+     *
+     * @param  string $uid     The event UID.
+     * @param  string $source  The source calendar's id.
+     * @param  string $target  The target calendar's id.
+     *
+     * @return string|boolean  The UID if successfully moved otherwise false.
+     * @since 2.15.0
+     */
+    public function calendar_move($uid, $source, $target)
+    {
+        if (!$this->_registry->hasMethod('move', $this->_registry->hasInterface('calendar'))) {
+            return false;
+        }
+
+        try {
+            $this->_registry->calendar->move($uid, $source, $target);
+        } catch (Horde_Exception $e) {
+            return false;
+        }
+
+        return $uid;
+    }
+
+    /**
      * Get a list of all contacts a user can see
      *
      * @param string $source  The source to list. If null, use multiplex.
