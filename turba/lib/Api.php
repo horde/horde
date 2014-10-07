@@ -1163,6 +1163,9 @@ class Turba_Api extends Horde_Registry_Api
                 continue;
             }
 
+            if (empty($opts['fields'][$source])) {
+                $opts['fields'][$source] = $GLOBALS['cfgSources'][$source]['search'];
+            }
             $sdriver = $driver->create($source);
 
             foreach ($names as $name) {
@@ -1175,9 +1178,6 @@ class Turba_Api extends Horde_Registry_Api
                         foreach ($opts['fields'][$source] as $field) {
                             $criteria[$field] = $trimname;
                         }
-                    }
-                    if (!count($criteria)) {
-                        $criteria = $cfgSources[$source]['search'];
                     }
                 }
 
