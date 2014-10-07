@@ -1061,6 +1061,38 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
+     * Move an event.
+     *
+     * @param  string $uid     The event UID.
+     * @param  string $source  The source calendar's id.
+     * @param  string $target  The target calendar's id.
+     *
+     * @since 4.3.0
+     */
+    public function move($uid, $source, $target)
+    {
+        global $registry;
+
+        $kronolith_driver = Kronolith::getDriver(null, $source);
+        $event = $kronolith_driver->getByUID($uid);
+        if (!$event->hasPermission(Horde_Perms::EDIT) ||
+            ($event->private && $event->creator != $registry->getAuth())) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        $sourceShare = Kronolith::getInternalCalendar($kronolith_driver->calendar);
+        $share = Kronolith::getInternalCalendar($target);
+        if ($sourceShare->hasPermission($registry->getAuth(), Horde_Perms::DELETE) &&
+            (($user == $registry->getAuth() &&
+              $share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) ||
+             ($user != $registry->getAuth() &&
+              $share->hasPermission($registry->getAuth(), Kronolith::PERMS_DELEGATE)))) {
+
+            $kronolith_driver->move($event->id, $target);
+        }
+    }
+
+    /**
      * Replaces the event identified by UID with the content represented in the
      * specified contentType.
      *
