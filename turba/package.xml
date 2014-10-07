@@ -1936,6 +1936,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix defaulting to the defined search fields when searching via the API.
 * [mjr] Fix broken EAS synchronization due to incorrect setting of the Categories field.
    </notes>
   </release>

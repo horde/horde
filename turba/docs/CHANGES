@@ -11,6 +11,8 @@ v4.3.0-git
 v4.2.3
 ------
 
+=======
+[mjr] Fix defaulting to the defined search fields when searching via the API.
 [mjr] Fix broken EAS synchronization due to incorrect setting of the
       Categories field.
 
