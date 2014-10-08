@@ -24,6 +24,7 @@ var IMP_Autocompleter = Class.create({
     // data,
     // dimg,
     // elt,
+    // elt_ac,
     // input,
     // itemid,
     // knl,
@@ -59,11 +60,18 @@ var IMP_Autocompleter = Class.create({
             shortDisplayCallback: Prototype.K
         }, params || {});
 
-        // The original input element is transformed into the hidden input
-        // field that holds the return value (JSON encoded array of entry
-        // IDs -> values).
+        // The original input element is transformed into a hidden input
+        // field that holds the raw return value.
         this.elt = $(elt);
         this.elt.writeAttribute('autocomplete', 'off');
+
+        // Create an autocomplete input element that holds the JSON encoded
+        // return value.
+        this.elt_ac = new Element('INPUT', {
+            name: this.elt.identify() + '_ac',
+            type: 'hidden'
+        });
+        this.elt.insert({ after: this.elt_ac });
 
         this.box = new Element('DIV', { className: this.p.boxClass });
 
@@ -252,12 +260,14 @@ var IMP_Autocompleter = Class.create({
         this.updateHiddenInput();
     },
 
-    // Format: [ [ value, ID ], [ ... ], ... ]
+    // Format: value [, value [, ...]]
+    // AC Format: [ [ value, ID ], [ ... ], ... ]
     updateHiddenInput: function()
     {
-        this.elt.setValue(Object.toJSON(
-            this.data.pluck('value').without('').zip(this.data.pluck('id'))
-        ));
+        var val = this.data.pluck('value').without('');
+
+        this.elt.setValue(val.join());
+        this.elt_ac.setValue(Object.toJSON(val.zip(this.data.pluck('id'))));
     },
 
     resize: function()

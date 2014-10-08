@@ -308,9 +308,19 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      * Setup environment for compose actions.
      *
      * Variables used:
+     *   - bcc: (string) Bcc address to use.
+     *   - bcc_ac: (string) Bcc address to use (autocompleter JSON data).
+     *   - cc: (string) Cc address to use.
+     *   - cc_ac: (string) Cc address to use (autocompleter JSON data).
      *   - composeCache: (string) The IMP_Compose cache identifier.
      *   - from: (string) From address to use.
+     *   - from_ac: (string) From address to use (autocompleter JSON data).
      *   - identity: (integer) The identity to use
+     *   - redirect_to: (string) To address to use (for redirect).
+     *   - redirect_to_ac: (string) To address to use (for redirect)
+     *                     (autocompleter JSON data).
+     *   - to: (string) To address to use.
+     *   - to_ac: (string) To address to use (autocompleter JSON data).
      *
      * @param string $action  AJAX action.
      *
@@ -368,15 +378,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         foreach (array('to', 'cc', 'bcc', 'redirect_to') as $val) {
             $data = $this->_vars->get($val);
+            $data_ac = $this->_vars->get($val . '_ac');
             $tmp = array(
                 'addr' => array(),
                 'map' => false
             );
 
             if (strlen($data)) {
-                if ($this->_vars->addr_ac) {
+                if (strlen($data_ac)) {
                     $tmp['map'] = true;
-                    foreach (json_decode($data, true) as $val2) {
+                    foreach (json_decode($data_ac, true) as $val2) {
                         $tmp['addr'][$val2[1]] = $val2[0];
                     }
                 } else {

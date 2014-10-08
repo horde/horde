@@ -1292,8 +1292,6 @@ var DimpCompose = {
                     triggerContainer: Math.random().toString()
                 })
             );
-
-            $('addr_ac').setValue(1);
         }, this);
 
         /* Initialize redirect elements. */

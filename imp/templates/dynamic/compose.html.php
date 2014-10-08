@@ -1,6 +1,5 @@
 <form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo $this->compose_link ?>" method="post" style="display:none">
  <?php echo $this->hiddenFieldTag('html', intval($this->rte && $this->compose_html)) ?>
- <?php echo $this->hiddenFieldTag('addr_ac') ?>
  <?php echo $this->hiddenFieldTag('composeCache') ?>
  <?php echo $this->hiddenFieldTag('composeHmac') ?>
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>

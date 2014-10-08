@@ -485,8 +485,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * See the list of variables needed for
      * IMP_Ajax_Application#composeSetup(). Additional variables used:
-     *   - addr_ac: (string) Autocompleter is active (to, cc, bcc fields are
-     *              encoded in autocomplete format).
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
@@ -618,11 +616,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     /**
      * Redirect the message.
      *
-     * Variables used:
-     *   - addr_ac: (string) Autocompleter is active (redirect_to field is
-     *              encoded in autocomplete format).
-     *   - composeCache: (string) The IMP_Compose cache identifier.
-     *   - redirect_to: (string) The address(es) to redirect to.
+     * Variables used: See the list of variables needed for
+     * IMP_Ajax_Application#composeSetup().
      *
      * @return object  An object with the following entries:
      *   - action: (string) 'redirectMessage'.
