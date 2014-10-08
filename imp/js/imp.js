@@ -8,10 +8,9 @@
 
 var IMP_JS = {
 
-    // iframeresize_run,
-    // lazyload_run,
-
+    iframeresize_run: {},
     lazyload_preload: 0.2,
+    lazyload_run: {},
     resize_delay: 0.05,
 
     /**
@@ -128,12 +127,15 @@ var IMP_JS = {
         this.iframeResize(id);
     },
 
-    iframeResize: function(id)
+    // iframe = (Element)
+    iframeResize: function(iframe)
     {
+        var id = iframe.identify();
+
         // IE (at a minimum) needs a slight delay to size properly
-        if (!this.iframeresize_run) {
-            this.iframeresize_run = true;
-            this.iframeResizeRun.bind(this, id).delay(this.resize_delay);
+        if (!this.iframeresize_run[id]) {
+            this.iframeresize_run[id] = true;
+            this.iframeResizeRun.bind(this, iframe).delay(this.resize_delay);
         }
     },
 
@@ -141,37 +143,36 @@ var IMP_JS = {
     {
         var body, h, html;
 
-        id = $(id);
-        if (id) {
-            body = this.iframeDoc(id).body;
-            html = body.parentNode;
+        body = this.iframeDoc(id).body;
+        html = body.parentNode;
 
-            Element.setStyle(body, { height: null });
+        Element.setStyle(body, { height: null });
 
-            h = Math.max(
-                body.offsetHeight,
-                // IE 8 only
-                (Prototype.Browser.IE && !document.addEventListener) ? body.scrollHeight : 0,
-                html.offsetHeight,
-                html.scrollHeight
-            );
+        h = Math.max(
+            body.offsetHeight,
+            // IE 8 only
+            (Prototype.Browser.IE && !document.addEventListener) ? body.scrollHeight : 0,
+            html.offsetHeight,
+            html.scrollHeight
+        );
 
-            if (html.scrollHeight != html.clientHeight) {
-                h += 25;
-            }
+         if (html.scrollHeight != html.clientHeight) {
+             h += 25;
+         }
 
-            id.setStyle({ height: h + 'px' });
+        id.setStyle({ height: h + 'px' });
 
-            this.iframeImgLazyLoad(id);
-        }
+        this.iframeImgLazyLoad(id);
 
-        this.iframeresize_run = false;
+        this.iframeresize_run[id.identify()] = false;
     },
 
     iframeImgLazyLoad: function(iframe)
     {
-        if (!this.lazyload_run) {
-            this.lazyload_run = true;
+        var id = iframe.identify();
+
+        if (!this.lazyload_run[id]) {
+            this.lazyload_run[id] = true;
             this.iframeImgLazyLoadRun.bind(this, iframe)
                 .delay(this.resize_delay);
         }
@@ -201,7 +202,7 @@ var IMP_JS = {
             }
         });
 
-        this.lazyload_run = false;
+        this.lazyload_run[iframe.identify()] = false;
     },
 
     iframeDoc: function(i)
