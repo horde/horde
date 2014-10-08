@@ -1103,6 +1103,14 @@ span.readonlyImg {
     background-image: url("../graphics/forwarded.png");
 }
 
+/* Autocomplete styles. */
+.impACGroupExpand {
+    background: lightgrey;
+    color: blue;
+    margin-left: 5px;
+}
+
+
 @media print {
     /* Hide UI elements when printing message in popup window. */
     div.msgfullread div.dimpOptions,

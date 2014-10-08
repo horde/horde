@@ -974,6 +974,36 @@ var DimpCompose = {
         }, this);
     },
 
+    autocompleteServerSuggestion: function(e, elt)
+    {
+        if (e.g) {
+            elt.group = e.g;
+        }
+    },
+
+    autocompleteOnAdd: function(v)
+    {
+        if (v.group) {
+            v.elt.down('IMG').insert({ before:
+                new Element('A', { className: 'impACGroupExpand' })
+                    .insert(DimpCore.text.group_expand)
+            });
+        }
+    },
+
+    autocompleteOnEntryClick: function(ob)
+    {
+        if (ob.elt.hasClassName('impACGroupExpand')) {
+            ob.ac.getEntryByElt(ob.entry).group.each(function(v) {
+                ob.ac.addNewItems([ new IMP_Autocompleter_Elt(v.v, v.l, v.s) ]);
+            });
+            ob.ac.removeEntry(ob.entry);
+            return true;
+        }
+
+        return false;
+    },
+
     /* Click observe handler. */
     clickHandler: function(e)
     {
@@ -1285,6 +1315,9 @@ var DimpCompose = {
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
                     minChars: DimpCore.conf.ac_minchars,
+                    onAdd: this.autocompleteOnAdd.bind(this),
+                    onEntryClick: this.autocompleteOnEntryClick.bind(this),
+                    onServerSuggestion: this.autocompleteServerSuggestion.bind(this),
                     processValueCallback: this.autocompleteValue.bind(this),
                     removeClass: 'hordeACItemRemove impACItemRemove',
                     shortDisplayCallback: this.autocompleteShortDisplay.bind(this),

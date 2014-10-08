@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
 * [mms] Add class of message part rendering display errors that aren&apos;t show to the user by default.
 * [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
 * [mms] Filter out relative image URLs in HTML message data.

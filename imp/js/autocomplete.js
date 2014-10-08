@@ -7,7 +7,7 @@
  *   - AutoComplete:reset
  *   - AutoComplete:update
  *
- * Events triggered by this class:
+ * Events triggered by this class (on input element):
  *   - AutoComplete:resize
  *
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -54,6 +54,8 @@ var IMP_Autocompleter = Class.create({
             maxItemSize: 50,
             minChars: 3,
             onAdd: Prototype.emptyFunction,
+            onEntryClick: Prototype.emptyFunction,
+            onServerSuggestion: Prototype.emptyFunction,
             processValueCallback: Prototype.emptyFunction,
             removeClass: 'hordeACItemRemove',
             requireSelection: false,
@@ -180,6 +182,15 @@ var IMP_Autocompleter = Class.create({
         return this.data.pluck('elt');
     },
 
+    getEntryByElt: function(elt)
+    {
+        var itemid = elt.retrieve('itemid');
+
+        return this.data.detect(function(v) {
+            return (v.id == itemid);
+        });
+    },
+
     getEntryById: function(id)
     {
         return this.data.detect(function(v) {
@@ -243,7 +254,7 @@ var IMP_Autocompleter = Class.create({
             this.input.setValue(
                 this.getEntryById(input.retrieve('itemid')).value
             );
-            this.removeInputItem(input);
+            this.removeEntry(input);
         } else {
             this.input.setValue(input);
         }
@@ -251,7 +262,7 @@ var IMP_Autocompleter = Class.create({
         this.resize();
     },
 
-    removeInputItem: function(input)
+    removeEntry: function(input)
     {
         input = input.remove();
         this.data = this.data.findAll(function(v) {
@@ -295,10 +306,13 @@ var IMP_Autocompleter = Class.create({
 
     clickHandler: function(e)
     {
-        var elt = e.element();
+        var elt = e.element(),
+            li = elt.up('LI');
 
-        if (elt.hasClassName(this.p.removeClass)) {
-            this.removeInputItem(elt.up('LI'));
+        if (!this.p.onEntryClick({ ac: this, elt: elt, entry: li })) {
+            if (elt.hasClassName(this.p.removeClass)) {
+                this.removeEntry(li);
+            }
         }
 
         this.focus();
@@ -383,8 +397,10 @@ var IMP_Autocompleter = Class.create({
         }
 
         r.each(function(e) {
-            obs.push(new IMP_Autocompleter_Elt(e.v, e.l, e.s));
-        });
+            var elt = new IMP_Autocompleter_Elt(e.v, e.l, e.s);
+            this.p.onServerSuggestion(e, elt);
+            obs.push(elt);
+        }, this);
 
         obs = this.filterChoices(obs);
         if (!obs.size()) {

@@ -1277,8 +1277,12 @@ extends Horde_Core_Ajax_Application_Handler
      *   - search: (string) Search string.
      *   - type: (string) Autocomplete search type.
      *
-     * @return object  An object with the following properties:
-     *   - results: (array) Array with the following keys for each result:
+     * @return object  An object with a single property: 'results'.
+     *                 The format of 'results' depends on the search type.
+     *   - type = 'email'
+     *     Results is an array with the following keys for each result:
+     *     - g: (array) List of addresses in the group (in same 'results'
+     *          format as type = 'email').
      *     - l: (string) Full label.
      *     - s: (string) Short display string.
      *     - v: (string) Value.
@@ -1295,28 +1299,45 @@ extends Horde_Core_Ajax_Application_Handler
                 array('levenshtein' => true)
             );
 
-            foreach ($addr as $val) {
-                $tmp = array('v' => strval($val));
-                $l = $val->writeAddress(array('noquote' => true));
-                $s = $val->label;
-
-                if ($l !== $tmp['v']) {
-                    $tmp['l'] = $l;
-                }
-
-                if ($val instanceof Horde_Mail_Rfc822_Group) {
-                    $tmp['s'] = sprintf(
-                        _("%s [Group; %d addresses]"),
-                        $s,
-                        count($val)
-                    );
-                } elseif ($s !== $tmp['v']) {
-                    $tmp['s'] = $s;
-                }
-
-                $out->results[] = $tmp;
-            }
+            $out->results = $this->_autocompleteSearchEmail($addr);
             break;
+        }
+
+        return $out;
+    }
+
+    /**
+     * Creates the output list for the 'email' autocomplete search.
+     *
+     * @param Horde_Mail_Rfc822_List $alist  Address list.
+     *
+     * @return array  See autocompleteSearch().
+     */
+    protected function _autocompleteSearchEmail(Horde_Mail_Rfc822_List $alist)
+    {
+        $out = array();
+
+        foreach ($alist as $val) {
+            $tmp = array('v' => strval($val));
+            $l = $val->writeAddress(array('noquote' => true));
+            $s = $val->label;
+
+            if ($l !== $tmp['v']) {
+                $tmp['l'] = $l;
+            }
+
+            if ($val instanceof Horde_Mail_Rfc822_Group) {
+                $tmp['g'] = $this->_autocompleteSearchEmail($val->addresses);
+                $tmp['s'] = sprintf(
+                    _("%s [%d addresses]"),
+                    $s,
+                    count($val)
+                );
+            } elseif ($s !== $tmp['v']) {
+                $tmp['s'] = $s;
+            }
+
+            $out[] = $tmp;
         }
 
         return $out;
