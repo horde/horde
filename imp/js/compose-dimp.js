@@ -31,6 +31,7 @@ var DimpCompose = {
     // tasks
 
     ac: $H(),
+    ac_limit: 20,
     checkbox_context: $H({
         ctx_atc: $H({
             pgppubkey: 'pgp_attach_pubkey',
@@ -1307,7 +1308,10 @@ var DimpCompose = {
             this.ac.set(
                 id,
                 new IMP_Autocompleter(id, {
-                    autocompleterParams: { type: 'email' },
+                    autocompleterParams: {
+                        limit: this.ac_limit,
+                        type: 'email'
+                    },
                     boxClass: 'hordeACBox impACBox',
                     boxClassFocus: 'impACBoxFocus',
                     deleteIcon: DimpCore.conf.ac_delete,

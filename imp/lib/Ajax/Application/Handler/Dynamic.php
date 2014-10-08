@@ -1274,6 +1274,7 @@ extends Horde_Core_Ajax_Application_Handler
      * AJAX Action: Do an autocomplete search.
      *
      * Variables used:
+     *   - limit: (integer) If set, limits to this many results.
      *   - search: (string) Search string.
      *   - type: (string) Autocomplete search type.
      *
@@ -1299,7 +1300,10 @@ extends Horde_Core_Ajax_Application_Handler
                 array('levenshtein' => true)
             );
 
-            $out->results = $this->_autocompleteSearchEmail($addr);
+            $out->results = $this->_autocompleteSearchEmail(
+                $addr,
+                $this->vars->limit
+            );
             break;
         }
 
@@ -1310,11 +1314,16 @@ extends Horde_Core_Ajax_Application_Handler
      * Creates the output list for the 'email' autocomplete search.
      *
      * @param Horde_Mail_Rfc822_List $alist  Address list.
+     * @param integer $limit                 Limit to this many entries.
      *
      * @return array  See autocompleteSearch().
      */
-    protected function _autocompleteSearchEmail(Horde_Mail_Rfc822_List $alist)
+    protected function _autocompleteSearchEmail(
+        Horde_Mail_Rfc822_List $alist, $limit = 0
+    )
     {
+        $i = 0;
+        $limit = intval($limit);
         $out = array();
 
         foreach ($alist as $val) {
@@ -1338,6 +1347,10 @@ extends Horde_Core_Ajax_Application_Handler
             }
 
             $out[] = $tmp;
+
+            if ($limit && (++$i > $limit)) {
+                break;
+            }
         }
 
         return $out;
