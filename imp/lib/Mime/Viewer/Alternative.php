@@ -68,8 +68,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
 
         $display_ids = $ret = array();
 
-        $prefer_plain = (($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL) ||
-                         ($GLOBALS['prefs']->getValue('alternative_display') == 'text'));
+        $prefer_plain = ($GLOBALS['prefs']->getValue('alternative_display') == 'text');
 
         /* Look for a displayable part. RFC: show the LAST choice that can be
          * displayed inline. If an alternative is itself a multipart, the user

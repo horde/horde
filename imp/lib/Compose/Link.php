@@ -98,15 +98,12 @@ class IMP_Compose_Link
                 : IMP_Basic_Compose::url();
             $raw = true;
             $callback = array($this, 'composeLinkSimpleCallback');
-        } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
-                  $prefs->getValue('compose_popup') &&
+        } elseif ($prefs->getValue('compose_popup') &&
                   $browser->hasFeature('javascript')) {
             $url = IMP_Basic_Compose::url();
             $callback = array($this, 'composeLinkJsCallback');
         } else {
-            $url = ($view == Horde_Registry::VIEW_MINIMAL)
-                ? IMP_Minimal_Compose::url()
-                : IMP_Basic_Compose::url();
+            $url = IMP_Basic_Compose::url();
         }
 
         if (isset($args['mailbox'])) {

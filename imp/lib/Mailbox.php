@@ -1179,20 +1179,6 @@ class IMP_Mailbox
             return Horde::url('index.php')->setAnchor($anchor);
 
         case Horde_Registry::VIEW_MINIMAL:
-            switch ($page) {
-            case 'message':
-                return IMP_Minimal_Message::url(array(
-                    'buid' => $buid,
-                    'mailbox' => $this->_mbox
-                ))->setRaw(!$encode);
-
-            case 'mailbox':
-                return IMP_Minimal_Mailbox::url(array(
-                    'mailbox' => $this->_mbox
-                ))->setRaw(!$encode);
-            }
-            break;
-
         case Horde_Registry::VIEW_SMARTMOBILE:
             $url = Horde::url('smartmobile.php');
             $anchor = is_null($buid)

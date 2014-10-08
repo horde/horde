@@ -100,25 +100,6 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         $text = IMP::filterText($text);
 
-        /* Done processing if in minimal mode. */
-        if ($registry->getView() == Horde_Registry::VIEW_MINIMAL) {
-            $filters = array(
-                'text2html' => array(
-                    'charset' => $charset,
-                    'parselevel' => Horde_Text_Filter_Text2html::NOHTML_NOBREAK
-                )
-            );
-
-            $text = $this->_textFilter($text, array_keys($filters), array_values($filters));
-
-            return array(
-                $mime_id => array(
-                    'data' => $text,
-                    'type' => $type
-                )
-            );
-        }
-
         // Build filter stack. Starts with HTML markup and tab expansion.
         $filters = array(
             'text2html' => array(

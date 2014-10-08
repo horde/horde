@@ -65,12 +65,6 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
      */
     protected function _renderInfo()
     {
-        global $registry;
-
-        if ($registry->getView() == $registry::VIEW_MINIMAL) {
-            return array();
-        }
-
         $status = array();
 
         $mime_id = $this->_mimepart->getMimeId();

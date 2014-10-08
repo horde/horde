@@ -256,6 +256,7 @@ class IMP_Ajax_Application_ShowMessage
         $show_parts = $prefs->getValue('parts_display');
 
         switch ($registry->getView()) {
+        case $registry::VIEW_MINIMAL:
         case $registry::VIEW_SMARTMOBILE:
             $contents_mask = 0;
             break;

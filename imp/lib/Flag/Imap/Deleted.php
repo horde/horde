@@ -24,10 +24,6 @@ class IMP_Flag_Imap_Deleted extends IMP_Flag_Imap
 {
     /**
      */
-    protected $_abbreviation = 'D';
-
-    /**
-     */
     protected $_bgcolor = '#999';
 
     /**

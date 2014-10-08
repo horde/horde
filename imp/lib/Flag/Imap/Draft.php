@@ -24,10 +24,6 @@ class IMP_Flag_Imap_Draft extends IMP_Flag_Imap
 {
     /**
      */
-    protected $_abbreviation = 'd';
-
-    /**
-     */
     protected $_bgcolor = '#9fff25';
 
     /**

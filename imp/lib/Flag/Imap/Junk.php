@@ -25,10 +25,6 @@ class IMP_Flag_Imap_Junk extends IMP_Flag_Imap
 {
     /**
      */
-    protected $_abbreviation = 'J';
-
-    /**
-     */
     protected $_css = 'flagJunk';
 
     /**

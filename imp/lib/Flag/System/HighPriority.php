@@ -24,10 +24,6 @@ class IMP_Flag_System_HighPriority extends IMP_Flag_System_Match_Header
 {
     /**
      */
-    protected $_abbreviation = '!';
-
-    /**
-     */
     protected $_bgcolor = '#fcc';
 
     /**

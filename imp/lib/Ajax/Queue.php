@@ -220,6 +220,7 @@ class IMP_Ajax_Queue
         /* Add flag configuration. */
         switch ($this->_flagconfig) {
         case Horde_Registry::VIEW_DYNAMIC:
+        case Horde_Registry::VIEW_MINIMAL:
         case Horde_Registry::VIEW_SMARTMOBILE:
             $flags = array();
             foreach ($injector->getInstance('IMP_Flags')->getList() as $val) {

@@ -2,6 +2,7 @@
 v6.3.0-git
 ----------
 
+[mms] Removed minimal view.
 [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose
       page.
 [mms] Add class of message part rendering display errors that aren't show to

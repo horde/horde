@@ -1020,19 +1020,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                 $elt_parent = $this[self::BASE_ELT];
                 break;
 
-            case 'IMP_Tree_Simplehtml':
-                $is_open = $val->open;
-                if ($tree->shouldToggle($mbox_ob->form_to)) {
-                    if ($is_open) {
-                        $this->collapse($val);
-                    } else {
-                        $this->expand($val);
-                    }
-                    $is_open = !$is_open;
-                }
-                $label = htmlspecialchars(Horde_String::abbreviate($mbox_ob->abbrev_label, 30 - ($val->level * 2)));
-                break;
-
             case 'Javascript':
                 $is_open = $val->open;
                 $label = empty($opts['basename'])
@@ -1064,10 +1051,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                 $params['container'] = true;
             } else {
                 switch ($view) {
-                case $registry::VIEW_MINIMAL:
-                    $params['url'] = IMP_Minimal_Mailbox::url(array('mailbox' => $mbox_ob));
-                    break;
-
                 case $registry::VIEW_SMARTMOBILE:
                     $url = new Horde_Core_Smartmobile_Url();
                     $url->add('mbox', $mbox_ob->form_to);

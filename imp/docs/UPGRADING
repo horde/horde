@@ -42,8 +42,11 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
-Upgrading IMP From 6.2.x To x.x
+Upgrading IMP From 6.2.x To 7.x
 ===============================
+
+The minimal view has been removed.
+
 
 Configuration Options (conf.php)
 --------------------------------

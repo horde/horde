@@ -35,8 +35,7 @@ class IMP_Mime_Status
      */
     public $views = array(
         Horde_Registry::VIEW_BASIC,
-        Horde_Registry::VIEW_DYNAMIC,
-        Horde_Registry::VIEW_MINIMAL
+        Horde_Registry::VIEW_DYNAMIC
     );
 
     /**

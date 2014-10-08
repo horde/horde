@@ -40,10 +40,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             case Horde_Registry::VIEW_DYNAMIC:
                 IMP_Dynamic_Compose::url()->add($_GET)->redirect();
                 exit;
-
-            case Horde_Registry::VIEW_MINIMAL:
-                IMP_Minimal_Compose::url()->add($_GET)->redirect();
-                exit;
             }
         }
 

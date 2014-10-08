@@ -177,11 +177,6 @@ class IMP
             break;
 
         case Horde_Registry::VIEW_MINIMAL:
-            $result->url = is_null($mbox)
-                ? IMP_Minimal_Folders::url()
-                : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
-            break;
-
         case Horde_Registry::VIEW_SMARTMOBILE:
             $result->url = is_null($mbox)
                 ? Horde::url('smartmobile.php', true)

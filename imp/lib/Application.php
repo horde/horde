@@ -44,7 +44,6 @@ require_once HORDE_BASE . '/lib/core.php';
  */
 class IMP_Application extends Horde_Registry_Application
 {
-
     /**
      */
     public $auth = array(
@@ -59,7 +58,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public $features = array(
         'dynamicView' => true,
-        'minimalView' => true,
         'notificationHandler' => true,
         'smartmobileView' => true
     );

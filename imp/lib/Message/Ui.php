@@ -191,7 +191,6 @@ class IMP_Message_Ui
 
         $add_link = null;
         $addr_array = array();
-        $minimal = ($registry->getView() == Horde_Registry::VIEW_MINIMAL);
 
         /* Set up the add address icon link if contact manager is
          * available. */
@@ -208,13 +207,11 @@ class IMP_Message_Ui
             if ($ob instanceof Horde_Mail_Rfc822_Group) {
                 $group_array = array();
                 foreach ($ob->addresses as $ad) {
-                    $ret = $minimal
-                        ? strval($ad)
-                        : htmlspecialchars(strval($ad));
+                    $ret = htmlspecialchars(strval($ad));
 
                     if ($link) {
                         $clink = new IMP_Compose_Link(array('to' => strval($ad)));
-                        $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ad))) . htmlspecialchars(strval($ad)) . '</a>';
+                        $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ad))) . $ret . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
@@ -231,19 +228,15 @@ class IMP_Message_Ui
                     $group_array[] = $ret;
                 }
 
-                $groupname = $minimal
-                    ? $ob->groupname
-                    : htmlspecialchars($ob->groupname);
-
-                $addr_array[] = $groupname . ':' . (count($group_array) ? ' ' . implode(', ', $group_array) : '');
+                $addr_array[] = htmlspecialchars($ob->groupname) . ':' .
+                    (count($group_array) ? ' ' .
+                    implode(', ', $group_array) : '');
             } else {
-                $ret = $minimal
-                    ? strval($ob)
-                    : htmlspecialchars(strval($ob));
+                $ret = htmlspecialchars(strval($ob));
 
                 if ($link) {
                     $clink = new IMP_Compose_Link(array('to' => strval($ob)));
-                    $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';
+                    $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ob))) . $ret . '</a>';
                 }
 
                 /* Append the add address icon to every address if contact
@@ -259,10 +252,6 @@ class IMP_Message_Ui
 
                 $addr_array[] = $ret;
             }
-        }
-
-        if ($minimal) {
-            return implode(', ', $addr_array);
         }
 
         /* If left with an empty address list ($ret), inform the user that the

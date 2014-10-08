@@ -70,28 +70,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInline()
     {
-        global $page_output, $registry;
+        global $page_output;
 
         $data = $this->_IMPrender(true);
+        $uid = strval(new Horde_Support_Randomid());
 
-        switch ($view = $registry->getView()) {
-        case $registry::VIEW_MINIMAL:
-            $data['status'] = new IMP_Mime_Status(array(
-                _("This message part contains HTML data, but this data can not be displayed inline."),
-                $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
-            ));
-            break;
+        $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-        default:
-            $uid = strval(new Horde_Support_Randomid());
-
-            $page_output->addScriptPackage('IMP_Script_Package_Imp');
-
-            $data['metadata'] = array(array('html', $uid, $data['data']));
-            $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
-            $data['type'] = 'text/html; charset=UTF-8';
-            break;
-        }
+        $data['metadata'] = array(array('html', $uid, $data['data']));
+        $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
+        $data['type'] = 'text/html; charset=UTF-8';
 
         return array(
             $this->_mimepart->getMimeId() => $data
@@ -141,11 +129,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $view = $registry->getView();
 
         $contents = $this->getConfigParam('imp_contents');
-        $convert_text = ($view == $registry::VIEW_MINIMAL) ||
-                        $injector->getInstance('Horde_Variables')->convert_text;
+        $convert_text = $injector->getInstance('Horde_Variables')->convert_text;
 
-        /* Don't do IMP DOM processing if in mimp mode or converting to
-         * text. */
+        /* Don't do IMP DOM processing if converting to text. */
         $this->_imptmp = array();
         if ($inline && !$convert_text) {
             $this->_imptmp += array(
@@ -168,7 +154,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Sanitize the HTML. */
         $data = $this->_cleanHTML($data, array(
-            'noprefetch' => ($inline && ($view != Horde_Registry::VIEW_MINIMAL)),
+            'noprefetch' => $inline,
             'phishing' => $inline
         ));
 
@@ -196,8 +182,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             ));
         }
 
-        /* We are done processing if in mimp mode, or we are converting to
-         * text. */
+        /* We are done processing if converting to text. */
         if ($convert_text) {
             $data = $this->_textFilter($data, 'Html2text', array(
                 'wrap' => false

@@ -38,7 +38,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     public function canRender($mode)
     {
-        global $browser, $registry;
+        global $browser;
 
         switch ($mode) {
         case 'full':
@@ -46,14 +46,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             /* Only display raw images we know the browser supports, and we
              * know can't cause any sort of security issue. */
             if ($browser->isViewable($this->_getType())) {
-                return true;
-            }
-            break;
-
-        case 'inline':
-            /* For minimal view: allow rendering of attachments inline (on the
-             * view parts page). */
-            if ($registry->getView() == $registry::VIEW_MINIMAL) {
                 return true;
             }
             break;
@@ -109,9 +101,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
                 $showimg = $GLOBALS['injector']->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
-                /* For minimal view - allow rendering of attachments inline
-                 * (on the view parts page). */
-                $showimg = ($GLOBALS['registry']->getView() == Horde_Registry::VIEW_MINIMAL);
+                $showimg = false;
             }
 
             if (!$showimg) {
@@ -133,19 +123,11 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $status = new IMP_Mime_Status(_("Your browser does not support inline display of this image type."));
 
         /* See if we can convert to an inline browser viewable form. */
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_MINIMAL:
-            // Do nothing.
-            break;
-
-        default:
-            $img = $this->_getHordeImageOb(false);
-            if ($img &&
-                $GLOBALS['browser']->isViewable($img->getContentType())) {
-                $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
-                $status->addText(sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link));
-            }
-            break;
+        $img = $this->_getHordeImageOb(false);
+        if ($img &&
+            $GLOBALS['browser']->isViewable($img->getContentType())) {
+            $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
+            $status->addText(sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link));
         }
 
         return array(
@@ -171,15 +153,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         $status = new IMP_Mime_Status(_("This is a thumbnail of an image attachment."));
         $status->icon('mime/image.png');
-
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_MINIMAL:
-            $status->addText(Horde::link($this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach')) . $this->_outputImgTag('view_thumbnail', _("View Attachment")) . '</a>');
-            break;
-
-        default:
-            $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
-        }
+        $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
 
         return array(
             $this->_mimepart->getMimeId() => array(

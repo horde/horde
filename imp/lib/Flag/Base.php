@@ -20,8 +20,6 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read string $abbreviation  The abbreviation to use in the minimal
- *                                      view.
  * @property string $bgcolor  The background color.
  * @property-read boolean $bgdefault  Is the background color the default?
  * @property-read boolean $canset  Can this flag be set by the user?
@@ -41,13 +39,6 @@ abstract class IMP_Flag_Base implements Serializable
 {
     /* Default background color. */
     const DEFAULT_BG = '#fff';
-
-    /**
-     * The abbreviation.
-     *
-     * @var string
-     */
-    protected $_abbreviation = '';
 
     /**
      * The background color.
@@ -89,9 +80,6 @@ abstract class IMP_Flag_Base implements Serializable
     public function __get($name)
     {
         switch ($name) {
-        case 'abbreviation':
-            return $this->_abbreviation;
-
         case 'bgcolor':
             return $this->_bgcolor
                 ? $this->_bgcolor

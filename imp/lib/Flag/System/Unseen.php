@@ -26,10 +26,6 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
 {
     /**
      */
-    protected $_abbreviation = 'U';
-
-    /**
-     */
     protected $_bgcolor = '#eef';
 
     /**

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-03</date>
+ <date>2014-10-08</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Removed minimal view.
 * [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
 * [mms] Add class of message part rendering display errors that aren&apos;t show to the user by default.
 * [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
@@ -434,16 +435,6 @@
      <file name="Headers.php" role="horde" />
      <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
-    <dir name="Minimal">
-     <file name="Base.php" role="horde" />
-     <file name="Compose.php" role="horde" />
-     <file name="Error.php" role="horde" />
-     <file name="Folders.php" role="horde" />
-     <file name="Mailbox.php" role="horde" />
-     <file name="Message.php" role="horde" />
-     <file name="Messagepart.php" role="horde" />
-     <file name="Search.php" role="horde" />
-    </dir> <!-- /lib/Minimal -->
     <dir name="Notification">
      <dir name="Event">
       <file name="Status.php" role="horde" />
@@ -561,7 +552,6 @@
     <dir name="Tree">
      <file name="Flist.php" role="horde" />
      <file name="Jquerymobile.php" role="horde" />
-     <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="View">
      <file name="Subinfo.php" role="horde" />
@@ -960,17 +950,6 @@
     <dir name="listinfo">
      <file name="listinfo.html.php" role="horde" />
     </dir> <!-- /templates/listinfo -->
-    <dir name="minimal">
-     <file name="compose.html.php" role="horde" />
-     <file name="folders.html.php" role="horde" />
-     <file name="header.html.php" role="horde" />
-     <file name="mailbox.html.php" role="horde" />
-     <file name="menu.html.php" role="horde" />
-     <file name="message.html.php" role="horde" />
-     <file name="messagepart.html.php" role="horde" />
-     <file name="redirect.html.php" role="horde" />
-     <file name="search.html.php" role="horde" />
-    </dir> <!-- /templates/minimal -->
     <dir name="pgp">
      <file name="import_key.html.php" role="horde" />
     </dir> <!-- /templates/pgp -->
@@ -1202,9 +1181,6 @@
       <file name="warning.png" role="horde" />
       <file name="whitelist.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <dir name="minimal">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/default/minimal -->
      <dir name="smartmobile">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
@@ -1218,7 +1194,6 @@
    <file name="COPYING" role="doc" />
    <file name="dynamic.php" role="horde" />
    <file name="index.php" role="horde" />
-   <file name="minimal.php" role="horde" />
    <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
@@ -1832,14 +1807,6 @@
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
    <install as="imp/lib/Mime/Viewer/Video.php" name="lib/Mime/Viewer/Video.php" />
    <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
-   <install as="imp/lib/Minimal/Base.php" name="lib/Minimal/Base.php" />
-   <install as="imp/lib/Minimal/Compose.php" name="lib/Minimal/Compose.php" />
-   <install as="imp/lib/Minimal/Error.php" name="lib/Minimal/Error.php" />
-   <install as="imp/lib/Minimal/Folders.php" name="lib/Minimal/Folders.php" />
-   <install as="imp/lib/Minimal/Mailbox.php" name="lib/Minimal/Mailbox.php" />
-   <install as="imp/lib/Minimal/Message.php" name="lib/Minimal/Message.php" />
-   <install as="imp/lib/Minimal/Messagepart.php" name="lib/Minimal/Messagepart.php" />
-   <install as="imp/lib/Minimal/Search.php" name="lib/Minimal/Search.php" />
    <install as="imp/lib/Notification/Event/Status.php" name="lib/Notification/Event/Status.php" />
    <install as="imp/lib/Notification/Handler/Decorator/ImapAlerts.php" name="lib/Notification/Handler/Decorator/ImapAlerts.php" />
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
@@ -1920,7 +1887,6 @@
    <install as="imp/lib/Spam/Program.php" name="lib/Spam/Program.php" />
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
-   <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />
@@ -2085,15 +2051,6 @@
    <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
    <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
    <install as="imp/templates/listinfo/listinfo.html.php" name="templates/listinfo/listinfo.html.php" />
-   <install as="imp/templates/minimal/compose.html.php" name="templates/minimal/compose.html.php" />
-   <install as="imp/templates/minimal/folders.html.php" name="templates/minimal/folders.html.php" />
-   <install as="imp/templates/minimal/header.html.php" name="templates/minimal/header.html.php" />
-   <install as="imp/templates/minimal/mailbox.html.php" name="templates/minimal/mailbox.html.php" />
-   <install as="imp/templates/minimal/menu.html.php" name="templates/minimal/menu.html.php" />
-   <install as="imp/templates/minimal/message.html.php" name="templates/minimal/message.html.php" />
-   <install as="imp/templates/minimal/messagepart.html.php" name="templates/minimal/messagepart.html.php" />
-   <install as="imp/templates/minimal/redirect.html.php" name="templates/minimal/redirect.html.php" />
-   <install as="imp/templates/minimal/search.html.php" name="templates/minimal/search.html.php" />
    <install as="imp/templates/pgp/import_key.html.php" name="templates/pgp/import_key.html.php" />
    <install as="imp/templates/prefs/acl.html.php" name="templates/prefs/acl.html.php" />
    <install as="imp/templates/prefs/composetemplates.html.php" name="templates/prefs/composetemplates.html.php" />
@@ -2276,14 +2233,12 @@
    <install as="imp/themes/default/graphics/nav/left.png" name="themes/default/graphics/nav/left.png" />
    <install as="imp/themes/default/graphics/nav/right-grey.png" name="themes/default/graphics/nav/right-grey.png" />
    <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
-   <install as="imp/themes/default/minimal/screen.css" name="themes/default/minimal/screen.css" />
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="imp/attachment.php" name="attachment.php" />
    <install as="imp/basic.php" name="basic.php" />
    <install as="COPYING" name="COPYING" />
    <install as="imp/dynamic.php" name="dynamic.php" />
    <install as="imp/index.php" name="index.php" />
-   <install as="imp/minimal.php" name="minimal.php" />
    <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
