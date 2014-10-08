@@ -25,9 +25,9 @@
  */
 class Horde_Imap_Client_Live_Pop3 extends Horde_Imap_Client_Live_Base
 {
-    static public $config;
+    public static $config;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         $c = array_shift(self::$config);
 

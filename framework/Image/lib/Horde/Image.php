@@ -23,7 +23,7 @@ class Horde_Image
      *
      * @return string  A modified HTML color.
      */
-    static public function modifyColor($color, $factor = 0x11)
+    public static function modifyColor($color, $factor = 0x11)
     {
         list($r, $g, $b) = self::getColor($color);
 
@@ -42,7 +42,7 @@ class Horde_Image
      *
      * @return string  A more intense HTML color.
      */
-    static public function moreIntenseColor($color, $factor = 0x11)
+    public static function moreIntenseColor($color, $factor = 0x11)
     {
         list($r, $g, $b) = self::getColor($color);
 
@@ -83,7 +83,7 @@ class Horde_Image
      *
      * @return integer  The brightness on a scale of 0 to 255.
      */
-    static public function brightness($color)
+    public static function brightness($color)
     {
         list($r, $g, $b) = self::getColor($color);
 
@@ -93,7 +93,7 @@ class Horde_Image
     /**
      * @TODO
      */
-    static public function grayscaleValue($r, $g, $b)
+    public static function grayscaleValue($r, $g, $b)
     {
         return round(($r * 0.30) + ($g * 0.59) + ($b * 0.11));
     }
@@ -101,7 +101,7 @@ class Horde_Image
     /**
      * @TODO
      */
-    static public function grayscalePixel($originalPixel)
+    public static function grayscalePixel($originalPixel)
     {
         $gray = Horde_Image::grayscaleValue($originalPixel['red'], $originalPixel['green'], $originalPixel['blue']);
         return array('red'=>$gray, 'green'=>$gray, 'blue'=>$gray);
@@ -114,7 +114,7 @@ class Horde_Image
      *
      * @return array  Array with three elements: red, green, and blue.
      */
-    static public function getColor($color)
+    public static function getColor($color)
     {
         if ($color[0] == '#') {
             $color = substr($color, 1);
@@ -140,7 +140,7 @@ class Horde_Image
      *
      * @return array  An array of RGB values.
      */
-    static public function getRGB($colorname)
+    public static function getRGB($colorname)
     {
         require_once __DIR__ . '/Image/rgb.php';
         return isset($GLOBALS['horde_image_rgb_colors'][$colorname]) ?
@@ -155,7 +155,7 @@ class Horde_Image
      *
      * @return string  The hex representation of the color.
      */
-    static public function getHexColor($colorname)
+    public static function getHexColor($colorname)
     {
         require_once __DIR__ . '/Image/rgb.php';
         if (isset($GLOBALS['horde_image_rgb_colors'][$colorname])) {
@@ -176,7 +176,7 @@ class Horde_Image
      *
      * @return array  (x coordinate, y coordinate) of the point.
      */
-    static public function circlePoint($degrees, $diameter)
+    public static function circlePoint($degrees, $diameter)
     {
         // Avoid problems with doubles.
         $degrees += 0.0001;
@@ -197,7 +197,7 @@ class Horde_Image
      *
      * @return array  The start point, end point, and anchor point.
      */
-    static public function arcPoints($r, $start, $end)
+    public static function arcPoints($r, $start, $end)
     {
         // Start point.
         $pts['x1'] = $r * cos(deg2rad($start));
@@ -219,7 +219,7 @@ class Horde_Image
     /**
      * Return point size for font
      */
-    static public function getFontSize($fontsize)
+    public static function getFontSize($fontsize)
     {
         switch ($fontsize) {
         case 'medium':

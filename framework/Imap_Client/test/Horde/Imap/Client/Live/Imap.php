@@ -25,13 +25,13 @@
  */
 class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 {
-    static public $config;
+    public static $config;
 
-    static private $created;
-    static private $test_mbox;
-    static private $test_mbox_utf8;
+    private static $created;
+    private static $test_mbox;
+    private static $test_mbox_utf8;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         $c = array_shift(self::$config);
 
@@ -53,7 +53,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
         );
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         if (self::$created) {
             foreach (array(self::$test_mbox, self::$test_mbox_utf8) as $val) {

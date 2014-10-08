@@ -21,7 +21,7 @@ class Horde_Notification
      *
      * @var Horde_Notification
      */
-    static protected $_instances = array();
+    protected static $_instances = array();
 
     /**
      * Returns a reference to the global notification handler, only
@@ -34,7 +34,7 @@ class Horde_Notification
      *
      * return Horde_Notification_Handler  The Horde Notification handler.
      */
-    static public function singleton($stack = 'horde_notification_stacks')
+    public static function singleton($stack = 'horde_notification_stacks')
     {
         if (!isset(self::$_instances[$stack])) {
             self::$_instances[$stack] = new Horde_Notification_Handler(new Horde_Notification_Storage_Session($stack));

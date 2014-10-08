@@ -30,7 +30,7 @@ abstract class Horde_Translation
      *
      * @var string
      */
-    static protected $_domain;
+    protected static $_domain;
 
     /**
      * The relative path to the translations for the default gettext handler.
@@ -39,14 +39,14 @@ abstract class Horde_Translation
      *
      * @var string
      */
-    static protected $_directory;
+    protected static $_directory;
 
     /**
      * The handlers providing the actual translations.
      *
      * @var array
      */
-    static protected $_handlers = array();
+    protected static $_handlers = array();
 
     /**
      * Loads a translation handler class pointing to the library's translations
@@ -55,7 +55,7 @@ abstract class Horde_Translation
      * @param string $handlerClass  The name of a class implementing the
      *                              Horde_Translation_Handler interface.
      */
-    static public function loadHandler($handlerClass)
+    public static function loadHandler($handlerClass)
     {
         if (!self::$_domain || !self::$_directory) {
             throw new Horde_Translation_Exception('The domain and directory properties must be set by the class that extends Horde_Translation.');
@@ -76,7 +76,7 @@ abstract class Horde_Translation
      *                                            Horde_Translation_Handler
      *                                            interface.
      */
-    static public function setHandler($domain, $handler)
+    public static function setHandler($domain, $handler)
     {
         self::$_handlers[$domain] = $handler;
     }
@@ -89,7 +89,7 @@ abstract class Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    static public function t($message)
+    public static function t($message)
     {
         if (!isset(self::$_handlers[self::$_domain])) {
             self::loadHandler('Horde_Translation_Handler_Gettext');
@@ -107,7 +107,7 @@ abstract class Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    static public function ngettext($singular, $plural, $number)
+    public static function ngettext($singular, $plural, $number)
     {
         if (!isset(self::$_handlers[self::$_domain])) {
             self::loadHandler('Horde_Translation_Handler_Gettext');
@@ -126,7 +126,7 @@ abstract class Horde_Translation
      *
      * @return string  The raw string.
      */
-    static public function r($message)
+    public static function r($message)
     {
         return $message;
     }

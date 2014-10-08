@@ -160,7 +160,7 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         if (!extension_loaded('ssh2')) {
             self::$reason = 'No ssh2 extension';
@@ -174,7 +174,7 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
         }
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         if (self::$vfs) {
             try {

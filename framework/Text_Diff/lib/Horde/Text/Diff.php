@@ -193,7 +193,7 @@ class Horde_Text_Diff
      * @param string $line  The line to trim.
      * @param integer $key  The index of the line in the array. Not used.
      */
-    static public function trimNewlines(&$line, $key)
+    public static function trimNewlines(&$line, $key)
     {
         $line = str_replace(array("\n", "\r"), '', $line);
     }

@@ -56,7 +56,7 @@ class Folks {
      * @param string $view       View type
      * @param boolean $full      Generate a full URL.
      */
-    static public function getImageUrl($user, $view = 'small', $full = false)
+    public static function getImageUrl($user, $view = 'small', $full = false)
     {
         if (empty($GLOBALS['conf']['images']['direct'])) {
             return Horde::url('view.php', $full)->add(array('view' => $view, 'id' => $user))->setRaw(true);
@@ -109,7 +109,7 @@ class Folks {
     /**
      * Calculate user age
      */
-    static public function calcAge($birthday)
+    public static function calcAge($birthday)
     {
         if (substr($birthday, 0, 4) == '0000') {
             return array('age' => '', 'sign' => '');
@@ -189,7 +189,7 @@ class Folks {
     /**
      * Returns a new or the current CAPTCHA string.
      */
-    static public function getCAPTCHA($new = false)
+    public static function getCAPTCHA($new = false)
     {
         global $session;
 
@@ -231,7 +231,7 @@ class Folks {
      *
      * @return true on succes, PEAR_Error on failure
      */
-    static public function sendMail($to, $subject, $body, $attaches = array())
+    public static function sendMail($to, $subject, $body, $attaches = array())
     {
         $mail = new Horde_Mime_Mail(array(
             'body' => $body,
@@ -258,7 +258,7 @@ class Folks {
      *
      * @return email on succes, PEAR_Error on failure
      */
-    static public function getUserEmail($user)
+    public static function getUserEmail($user)
     {
         // We should always realy on registration data
         // $prefs = Horde_Prefs::singleton($GLOBALS['conf']['prefs']['driver'], 'horde', $registry->convertUsername($user, true), '', null, false);

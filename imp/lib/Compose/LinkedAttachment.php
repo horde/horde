@@ -243,7 +243,7 @@ class IMP_Compose_LinkedAttachment
      * @return integer|null  UNIX timestamp, or null if attachments are not
      *                       pruned.
      */
-    static public function keepDate($past = true)
+    public static function keepDate($past = true)
     {
         return ($damk = $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'))
             ? mktime(0, 0, 0, date('n') + ($past ? ($damk * -1) : ($damk + 1)), 1, date('Y'))

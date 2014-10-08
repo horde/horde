@@ -50,7 +50,7 @@ class IMP
      *
      * @return string  The filtered text (if requested).
      */
-    static public function filterText($text)
+    public static function filterText($text)
     {
         global $injector, $prefs;
 
@@ -73,7 +73,7 @@ class IMP
      *
      * @return string  A formatted size string.
      */
-    static public function sizeFormat($size)
+    public static function sizeFormat($size)
     {
         return ($size >= 1048576)
             ? sprintf(_("%s MB"), self::numberFormat($size / 1048576, 1))
@@ -88,7 +88,7 @@ class IMP
      *
      * @return string  See number_format().
      */
-    static public function numberFormat($number, $decimals)
+    public static function numberFormat($number, $decimals)
     {
         $localeinfo = Horde_Nls::getLocaleInfo();
 
@@ -110,7 +110,7 @@ class IMP
      *
      * @throws Horde_Mail_Exception
      */
-    static public function parseAddressList($in, array $opts = array())
+    public static function parseAddressList($in, array $opts = array())
     {
         $md = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
 
@@ -141,7 +141,7 @@ class IMP
      *   - mbox (IMP_Mailbox)
      *   - url (Horde_Url)
      */
-    static public function getInitialPage()
+    public static function getInitialPage()
     {
         global $injector, $prefs, $registry;
 

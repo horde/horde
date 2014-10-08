@@ -37,7 +37,7 @@ class Horde_Kolab_Storage_List_Tools
     const QUERY_SHARE = 'Share';
 
     /** The collection of list queries currently supported */
-    static private $_supported_queries = array(
+    private static $_supported_queries = array(
         self::QUERY_BASE,
         self::QUERY_ACL,
         self::QUERY_SHARE

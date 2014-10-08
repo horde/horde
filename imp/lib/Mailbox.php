@@ -181,7 +181,7 @@ class IMP_Mailbox
      *
      * @return mixed  The IMP_Mailbox object(s).
      */
-    static public function get($mbox)
+    public static function get($mbox)
     {
         if (is_array($mbox)) {
             return array_filter(array_map(array(__CLASS__, 'get'), $mbox));
@@ -207,7 +207,7 @@ class IMP_Mailbox
      *
      * @return mixed  The Horde_Imap_Client_Mailbox object(s).
      */
-    static public function getImapMboxOb($mbox)
+    public static function getImapMboxOb($mbox)
     {
         if (is_array($mbox)) {
             return array_filter(array_map(array(__CLASS__, 'getImapMboxOb'), $mbox));
@@ -229,7 +229,7 @@ class IMP_Mailbox
      *
      * @return IMP_Mailbox  The IMP_Mailbox object.
      */
-    static public function getPref($pref)
+    public static function getPref($pref)
     {
         return self::get(self::prefFrom($GLOBALS['prefs']->getValue($pref)));
     }
@@ -1318,7 +1318,7 @@ class IMP_Mailbox
      *
      * @return mixed  The mailbox object(s).
      */
-    static public function formFrom($mbox)
+    public static function formFrom($mbox)
     {
         return is_array($mbox)
             ? array_filter(array_map(array(__CLASS__, 'formFrom'), $mbox))
@@ -1335,7 +1335,7 @@ class IMP_Mailbox
      *
      * @return mixed  The converted mailbox string(s).
      */
-    static public function formTo($mbox)
+    public static function formTo($mbox)
     {
         return is_array($mbox)
             ? array_filter(array_map(array(__CLASS__, 'formTo'), $mbox))
@@ -1351,7 +1351,7 @@ class IMP_Mailbox
      *                null if the mailbox doesn't exist (self::SPECIAL_SENT
      *                contains an array of objects).
      */
-    static public function getSpecialMailboxes()
+    public static function getSpecialMailboxes()
     {
         global $injector;
 
@@ -1364,7 +1364,7 @@ class IMP_Mailbox
      * @return array  The list of sorted special mailboxes (IMP_Mailbox
      *                objects).
      */
-    static public function getSpecialMailboxesSort()
+    public static function getSpecialMailboxesSort()
     {
         $out = array();
 
@@ -1392,7 +1392,7 @@ class IMP_Mailbox
      *
      * @return string  The full IMAP mailbox name (UTF-8).
      */
-    static public function prefFrom($mbox)
+    public static function prefFrom($mbox)
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->isImap()) {
@@ -1419,7 +1419,7 @@ class IMP_Mailbox
      *
      * @return string  The value to store in a preference.
      */
-    static public function prefTo($mbox)
+    public static function prefTo($mbox)
     {
         global $injector;
 

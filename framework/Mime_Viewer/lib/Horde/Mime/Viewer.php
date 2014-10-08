@@ -35,7 +35,7 @@ class Horde_Mime_Viewer
      * @return Horde_Mime_Viewer_Base  The newly created concrete instance.
      * @throws Horde_Mime_Viewer_Exception
      */
-    static public function factory($driver, $part, array $params = array())
+    public static function factory($driver, $part, array $params = array())
     {
         $params['_driver'] = $driver;
 

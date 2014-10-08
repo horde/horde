@@ -181,7 +181,7 @@ class Horde_Vfs_MongoTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         if (($config = self::getConfig('VFS_MONGO_TEST_CONFIG', __DIR__)) &&
             isset($config['vfs']['mongo']['hostspec'])) {
@@ -201,7 +201,7 @@ class Horde_Vfs_MongoTest extends Horde_Vfs_TestBase
         }
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         if (!empty(self::$_mongo)) {
             self::$_mongo->selectDB(null)->drop();

@@ -46,14 +46,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @var string
      */
-    static public $defaultCharset = 'us-ascii';
+    public static $defaultCharset = 'us-ascii';
 
     /**
      * Valid encoding types.
      *
      * @var array
      */
-    static public $encodingTypes = array(
+    public static $encodingTypes = array(
         '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
         // Non-RFC types, but old mailers may still use
         'uuencode', 'x-uuencode', 'x-uue'
@@ -64,14 +64,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @var integer
      */
-    static public $memoryLimit = 2097152;
+    public static $memoryLimit = 2097152;
 
     /**
      * Valid MIME types.
      *
      * @var array
      */
-    static public $mimeTypes = array(
+    public static $mimeTypes = array(
         'text', 'multipart', 'message', 'application', 'audio', 'image',
         'video', 'model'
     );
@@ -1972,7 +1972,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception
      */
-    static public function parseMessage($text, array $opts = array())
+    public static function parseMessage($text, array $opts = array())
     {
         /* Mini-hack to get a blank Horde_Mime part so we can call
          * replaceEOL(). Convert to EOL, since that is the expected EOL for
@@ -2006,7 +2006,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @return Horde_Mime_Part  The MIME part object.
      */
-    static protected function _getStructure($header, $body,
+    protected static function _getStructure($header, $body,
                                             array $opts = array())
     {
         $opts = array_merge(array(
@@ -2134,7 +2134,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @return string  The raw text.
      * @throws Horde_Mime_Exception
      */
-    static public function getRawPartText($text, $type, $id)
+    public static function getRawPartText($text, $type, $id)
     {
         /* Mini-hack to get a blank Horde_Mime part so we can call
          * replaceEOL(). From an API perspective, getRawPartText() should be
@@ -2202,7 +2202,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @return integer  Header position.
      */
-    static protected function _findHeader($text, $eol)
+    protected static function _findHeader($text, $eol)
     {
         $hdr_pos = strpos($text, $eol . $eol);
         return ($hdr_pos === false)
@@ -2222,7 +2222,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @return array  Keys are the boundary number, values are an array with
      *                two elements: 'start' and 'length'.
      */
-    static protected function _findBoundary($text, $pos, $boundary,
+    protected static function _findBoundary($text, $pos, $boundary,
                                             $end = null)
     {
         $i = 0;

@@ -19,7 +19,7 @@ class Horde_Core_Prefs_Ui_Widgets
     /**
      * Code to run on init.
      */
-    static public function sourceInit()
+    public static function sourceInit()
     {
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('sourceselect.js', 'horde');
     }
@@ -42,7 +42,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @return string  HTML UI code.
      */
-    static public function source($data)
+    public static function source($data)
     {
         $t = $GLOBALS['injector']->createInstance('Horde_Template');
 
@@ -115,7 +115,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *                arrays; each subarray contains the source name and the
      *                list of selected values (JSON encoded).
      */
-    static public function sourceUpdate($ui)
+    public static function sourceUpdate($ui)
     {
         $out = array();
 
@@ -132,7 +132,7 @@ class Horde_Core_Prefs_Ui_Widgets
     /**
      * Code to run on init for addressbook selection.
      */
-    static public function addressbooksInit()
+    public static function addressbooksInit()
     {
         self::sourceInit();
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('addressbooksprefs.js', 'horde');
@@ -150,7 +150,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @return string  HTML UI code.
      */
-    static public function addressbooks($data)
+    public static function addressbooks($data)
     {
         global $registry;
 
@@ -248,7 +248,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *                encoded). Fields contains a hash containing sources as
      *                keys and an array of search fields as the value.
      */
-    static public function addressbooksUpdate($ui)
+    public static function addressbooksUpdate($ui)
     {
         $out = self::sourceUpdate($ui);
 
@@ -268,7 +268,7 @@ class Horde_Core_Prefs_Ui_Widgets
     /**
      * Code to run on init for alarms selection.
      */
-    static public function alarmInit()
+    public static function alarmInit()
     {
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addScriptFile('alarmprefs.js', 'horde');
     }
@@ -284,7 +284,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @return string  HTML UI code.
      */
-    static public function alarm($data)
+    public static function alarm($data)
     {
         $pref = $data['pref'];
 
@@ -382,7 +382,7 @@ class Horde_Core_Prefs_Ui_Widgets
      *
      * @return array  TODO
      */
-    static public function alarmUpdate($ui, $data)
+    public static function alarmUpdate($ui, $data)
     {
         $pref = $data['pref'];
         $methods = $GLOBALS['injector']->getInstance('Horde_Alarm')->handlers();

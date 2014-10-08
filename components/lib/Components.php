@@ -46,7 +46,7 @@ class Components
      *     'class'  - (string) The class name of the parser to use.
      * </pre>
      */
-    static public function main(array $parameters = array())
+    public static function main(array $parameters = array())
     {
         $dependencies = self::_prepareDependencies($parameters);
         $modular = self::_prepareModular($dependencies, $parameters);
@@ -79,7 +79,7 @@ class Components
         }
     }
 
-    static private function _prepareModular(
+    private static function _prepareModular(
         Components_Dependencies $dependencies, array $parameters = array()
     ) {
         $modular = new Horde_Cli_Modular(
@@ -121,7 +121,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return Components_Dependencies The dependency handler.
      */
-    static private function _prepareDependencies($parameters)
+    private static function _prepareDependencies($parameters)
     {
         if (isset($parameters['dependencies'])
             && $parameters['dependencies'] instanceOf Components_Dependencies) {
@@ -131,7 +131,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
         }
     }
 
-    static private function _prepareConfig(Horde_Argv_Parser $parser)
+    private static function _prepareConfig(Horde_Argv_Parser $parser)
     {
         $config = new Components_Configs();
         $config->addConfigurationType(
@@ -154,7 +154,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return NULL
      */
-    static private function _getActionArguments(Horde_Cli_Modular $modular)
+    private static function _getActionArguments(Horde_Cli_Modular $modular)
     {
         $actions = array();
         foreach ($modular->getModules() as $module) {
@@ -174,7 +174,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
      *
      * @return NULL
      */
-    static private function _identifyComponent(
+    private static function _identifyComponent(
         Components_Config $config,
         $actions,
         Components_Dependencies $dependencies

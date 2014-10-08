@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_DOMAIN,
         ),

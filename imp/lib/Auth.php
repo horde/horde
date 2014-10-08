@@ -35,7 +35,7 @@ class IMP_Auth
      *
      * @throws Horde_Auth_Exception
      */
-    static public function authenticate($credentials = array())
+    public static function authenticate($credentials = array())
     {
         global $injector, $registry;
 
@@ -85,7 +85,7 @@ class IMP_Auth
      *
      * @return boolean  True on successful transparent authentication.
      */
-    static public function transparent($auth_ob)
+    public static function transparent($auth_ob)
     {
         $credentials = $auth_ob->getCredential('credentials');
 
@@ -121,7 +121,7 @@ class IMP_Auth
      * @param boolean $status    True on success, false on failure.
      * @param IMP_Imap $imap_ob  The IMP_Imap object to use.
      */
-    static protected function _log($status, $imap_ob)
+    protected static function _log($status, $imap_ob)
     {
         $msg = $status
             ? 'Login success'
@@ -150,7 +150,7 @@ class IMP_Auth
      *
      * @return string  The server key, or null if none available.
      */
-    static public function getAutoLoginServer()
+    public static function getAutoLoginServer()
     {
         if (($servers = IMP_Imap::loadServerConfig()) === false) {
             return null;
@@ -187,7 +187,7 @@ class IMP_Auth
      * @return array  The credentials needed to login ('userId', 'password',
      *                 'server') or false if autologin not available.
      */
-    static protected function _canAutoLogin($server_key = null, $force = false)
+    protected static function _canAutoLogin($server_key = null, $force = false)
     {
         global $injector, $registry;
 
@@ -225,7 +225,7 @@ class IMP_Auth
      *
      * @throws Horde_Exception
      */
-    static public function authenticateCallback()
+    public static function authenticateCallback()
     {
         global $browser, $injector, $session;
 

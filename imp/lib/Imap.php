@@ -66,7 +66,7 @@ class IMP_Imap implements Serializable
      *
      * @var array
      */
-    static protected $_backends = array();
+    protected static $_backends = array();
 
     /**
      * Has this object changed?
@@ -910,7 +910,7 @@ class IMP_Imap implements Serializable
      * @return mixed  If $server is set return this entry; else, return the
      *                entire servers array. Returns false on error.
      */
-    static public function loadServerConfig($server = null)
+    public static function loadServerConfig($server = null)
     {
         global $registry;
 

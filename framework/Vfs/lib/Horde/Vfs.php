@@ -32,7 +32,7 @@ class Horde_Vfs
      * @return VFS  The newly created concrete VFS instance.
      * @throws Horde_Vfs_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         $class = 'Horde_Vfs_' . basename(Horde_String::ucfirst($driver));
 

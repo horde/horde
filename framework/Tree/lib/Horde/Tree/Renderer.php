@@ -38,7 +38,7 @@ class Horde_Tree_Renderer
      * @return Horde_Tree  The newly created concrete instance.
      * @throws Horde_Tree_Exception
      */
-    static public function factory($renderer, $params = array())
+    public static function factory($renderer, $params = array())
     {
         if (!isset($params['tree']) && !isset($params['name'])) {
             throw new BadFunctionCallException('Either "name" or "tree" parameters must be specified.');

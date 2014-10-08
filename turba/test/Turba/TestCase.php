@@ -36,7 +36,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    static protected function createBasicTurbaSetup(Horde_Test_Setup $setup)
+    protected static function createBasicTurbaSetup(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -63,7 +63,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         putenv('HORDE_UNIT_TEST=1');
     }
 
-    static protected function tearDownBasicTurbaSetup()
+    protected static function tearDownBasicTurbaSetup()
     {
         unset(
             $GLOBALS['session'],
@@ -74,7 +74,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
-    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
+    protected static function createSqlPdoSqlite(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -91,7 +91,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
-    static protected function createSqlShares(Horde_Test_Setup $setup)
+    protected static function createSqlShares(Horde_Test_Setup $setup)
     {
         $setup->getInjector()->setInstance(
             'Horde_Core_Factory_Db',
@@ -109,7 +109,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         $GLOBALS['cfgSources']['test']['map'] = self::_getSqlMap();
     }
 
-    static protected function createKolabShares(Horde_Test_Setup $setup)
+    protected static function createKolabShares(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -136,21 +136,21 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         $GLOBALS['cfgSources']['test']['map'] = self::_getKolabMap();
     }
 
-    static protected function tearDownShares()
+    protected static function tearDownShares()
     {
         unset(
             $GLOBALS['cfgSources']
         );
     }
 
-    static protected function getKolabDriver()
+    protected static function getKolabDriver()
     {
         $setup = new Horde_Test_Setup();
         self::createBasicTurbaSetup($setup);
         return self::createKolabDriverWithShares();
     }
 
-    static protected function createKolabDriverWithShares($setup)
+    protected static function createKolabDriverWithShares($setup)
     {
         self::createKolabShares($setup);
         list($share, $other_share) = self::_createDefaultShares();
@@ -162,7 +162,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             ->create($share->getName());
     }
 
-    static protected function createSqlDriverWithShares($setup)
+    protected static function createSqlDriverWithShares($setup)
     {
         self::createSqlShares($setup);
         list($share, $other_share) = self::_createDefaultShares();
@@ -175,7 +175,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
             ->create($share->getName());
     }
 
-    static protected function _createDefaultShares()
+    protected static function _createDefaultShares()
     {
         $share = self::_createShare(
             'Address book of Tester', 'test@example.com'
@@ -186,7 +186,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         return array($share, $other_share);
     }
 
-    static private function _createShare($name, $owner)
+    private static function _createShare($name, $owner)
     {
         $turba_shares = $GLOBALS['injector']->getInstance('Turba_Shares');
         $share = $turba_shares->newShare(
@@ -196,7 +196,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         return $share;
     }
 
-    static private function _getKolabMap()
+    private static function _getKolabMap()
     {
         return array(
             '__key' => 'uid',
@@ -277,7 +277,7 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
         );
     }
 
-    static private function _getSqlMap()
+    private static function _getSqlMap()
     {
         return array(
             '__key' => 'object_id',

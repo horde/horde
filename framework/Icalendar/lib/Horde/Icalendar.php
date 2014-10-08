@@ -92,7 +92,7 @@ class Horde_Icalendar
      *
      * @return object  Reference to a Horde_Icalendar_* object as specified.
      */
-    static public function newComponent($type, $container)
+    public static function newComponent($type, $container)
     {
         $type = Horde_String::lower($type);
         $class = __CLASS__ . '_' . Horde_String::ucfirst($type);

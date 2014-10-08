@@ -58,7 +58,7 @@ class Horde_Kolab_Server_Object_Organizationalperson extends Horde_Kolab_Server_
      *
      * @var array
      */
-/*     static public $init_attributes = array( */
+/*     public static $init_attributes = array( */
 /*         'defined' => array( */
 /*             self::ATTRIBUTE_JOBTITLE, */
 /*             self::ATTRIBUTE_STREET, */

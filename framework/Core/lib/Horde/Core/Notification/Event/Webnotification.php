@@ -38,7 +38,7 @@ extends Horde_Notification_Event
      *   - icon: (string) URL to icon to display.
      *   - text: (string) Extra content to display within notification.
      */
-    static public function createEvent($title, array $opts = array())
+    public static function createEvent($title, array $opts = array())
     {
         $ob = new self($title, 'webnotification');
         $ob->webnotify = $opts;

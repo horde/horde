@@ -160,7 +160,7 @@ class Horde_Themes_Element
      *
      * @return Horde_Themes_Element  A theme element object.
      */
-    static public function fromUri($uri)
+    public static function fromUri($uri)
     {
         global $registry;
 

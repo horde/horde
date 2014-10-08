@@ -251,7 +251,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
     /**
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return Horde::url('dynamic.php')->add('page', 'compose');
     }

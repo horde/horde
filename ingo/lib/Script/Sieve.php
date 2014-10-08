@@ -126,7 +126,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
      *
      * @return string  The escaped string.
      */
-    static public function escapeString($string, $regexmode = false)
+    public static function escapeString($string, $regexmode = false)
     {
         /* Remove any backslashes in front of commas. */
         $string = str_replace('\,', ',', $string);

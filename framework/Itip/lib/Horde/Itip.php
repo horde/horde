@@ -149,7 +149,7 @@ class Horde_Itip
      *
      * @return Horde_Itip_Response The prepared response.
      */
-    static public function prepareResponse(
+    public static function prepareResponse(
         Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
     )
@@ -170,7 +170,7 @@ class Horde_Itip
      *
      * @return Horde_Itip The iTip handler.
      */
-    static public function factory(
+    public static function factory(
         Horde_Icalendar_Vevent $vevent,
         Horde_Itip_Resource $resource
     )

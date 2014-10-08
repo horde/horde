@@ -62,7 +62,7 @@ class Ingo
      *
      * @return string  The current user.
      */
-    static public function getUser($full = true)
+    public static function getUser($full = true)
     {
         global $injector, $registry, $session;
 
@@ -80,7 +80,7 @@ class Ingo
      *
      * @return string  The current user's domain name.
      */
-    static public function getDomain()
+    public static function getDomain()
     {
         $user = self::getUser(true);
         $pos = strpos($user, '@');
@@ -97,7 +97,7 @@ class Ingo
      *
      * @return boolean  True if user has permission.
      */
-    static public function hasSharePermission($mask = null)
+    public static function hasSharePermission($mask = null)
     {
         global $injector, $registry, $session;
 
@@ -117,7 +117,7 @@ class Ingo
      *
      * @return Horde_Storage_Rule  The filter object.
      */
-    static public function updateListFilter($addresses, $type)
+    public static function updateListFilter($addresses, $type)
     {
         global $injector;
 
@@ -168,7 +168,7 @@ class Ingo
      * @return array  Configuration data.
      * @throws Horde_Exception
      */
-    static public function loadBackends()
+    public static function loadBackends()
     {
         global $registry;
 
@@ -193,7 +193,7 @@ class Ingo
      *
      * @return Horde_Url  URL object.
      */
-    static public function getInitialPage()
+    public static function getInitialPage()
     {
         global $registry;
 

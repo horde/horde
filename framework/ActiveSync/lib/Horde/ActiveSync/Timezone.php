@@ -77,7 +77,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return array  Hash of offset information
      */
-    static public function getOffsetsFromSyncTZ($data)
+    public static function getOffsetsFromSyncTZ($data)
     {
         if (PHP_MINOR_VERSION >= 5) {
             $format = 'lbias/Z64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/'
@@ -109,7 +109,7 @@ class Horde_ActiveSync_Timezone
      * @return string  A base64_encoded ActiveSync Timezone structure suitable
      *                 for transmitting via wbxml.
      */
-    static public function getSyncTZFromOffsets(array $offsets)
+    public static function getSyncTZFromOffsets(array $offsets)
     {
         if (!self::_isLittleEndian()) {
             $offsets['bias'] = self::_chbo($offsets['bias']);
@@ -133,7 +133,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return array  An offset hash.
      */
-    static public function getOffsetsFromDate(Horde_Date $date)
+    public static function getOffsetsFromDate(Horde_Date $date)
     {
         $offsets = array(
             'bias' => 0,
@@ -184,7 +184,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return array  An array containing the the STD and DST transitions
      */
-    static protected function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
+    protected static function _getTransitions(DateTimeZone $timezone, Horde_Date $date)
     {
 
         $std = $dst = array();
@@ -227,7 +227,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return array  A populated offset hash
      */
-    static protected function _generateOffsetsForTransition(array $offsets, array $transition, $type)
+    protected static function _generateOffsetsForTransition(array $offsets, array $transition, $type)
     {
         // We can't use Horde_Date directly here, since it is unable to
         // properly convert to UTC from local ON the exact hour of a std -> dst
@@ -408,7 +408,7 @@ class Horde_ActiveSync_Timezone
      *                            not occur 5 times
      * @return boolean
      */
-    static protected function _isNthOcurrenceOfWeekdayInMonth($timestamp, $occurence)
+    protected static function _isNthOcurrenceOfWeekdayInMonth($timestamp, $occurence)
     {
         $original = new Horde_Date($timestamp);
         $original->setTimezone('UTC');
@@ -429,7 +429,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return boolean  True if endianness is little endian, otherwise false.
      */
-    static protected function _isLittleEndian() {
+    protected static function _isLittleEndian() {
         $testint = 0x00FF;
         $p = pack('S', $testint);
 
@@ -444,7 +444,7 @@ class Horde_ActiveSync_Timezone
      *
      * @return integer  The number, in the reverse byte order.
      */
-    static protected function _chbo($num) {
+    protected static function _chbo($num) {
         $u = unpack('l', strrev(pack('l', $num)));
 
         return $u[1];

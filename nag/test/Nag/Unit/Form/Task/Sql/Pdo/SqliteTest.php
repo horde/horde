@@ -31,7 +31,7 @@ class Nag_Unit_Form_Task_Sql_Pdo_SqliteTest extends Nag_Unit_Form_Task_Sql_Base
 {
     protected $backupGlobals = false;
 
-    static protected function getDb()
+    protected static function getDb()
     {
         self::createSqlPdoSqlite(self::$setup);
     }

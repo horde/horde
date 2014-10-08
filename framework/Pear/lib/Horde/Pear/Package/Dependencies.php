@@ -37,7 +37,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return NULL
      */
-    static public function addDependency($input, $type, $optional, &$result)
+    public static function addDependency($input, $type, $optional, &$result)
     {
         switch ($type) {
         case 'php':
@@ -70,7 +70,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return NULL
      */
-    static public function addPhp($input, &$result)
+    public static function addPhp($input, &$result)
     {
         $element = array(
             'type' => 'php',
@@ -87,7 +87,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return NULL
      */
-    static public function addPear($input, &$result)
+    public static function addPear($input, &$result)
     {
         $element = array(
             'type' => 'pkg',
@@ -106,7 +106,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return NULL
      */
-    static public function addOther($input, $type, $optional, &$result)
+    public static function addOther($input, $type, $optional, &$result)
     {
         if (isset($input['conflicts'])) {
             return;
@@ -126,7 +126,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return NULL
      */
-    static public function completeVersions($input, &$element, &$result)
+    public static function completeVersions($input, &$element, &$result)
     {
         $added = false;
         if (self::_completeMin($input, $element)) {
@@ -150,7 +150,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return boolean True if the was "min" information available.
      */
-    static private function _completeMin($input, &$element)
+    private static function _completeMin($input, &$element)
     {
         if (isset($input['min'])) {
             $element['rel'] = 'ge';
@@ -168,7 +168,7 @@ class Horde_Pear_Package_Dependencies
      *
      * @return boolean True if the was "max" information available.
      */
-    static private function _completeMax($input, &$element)
+    private static function _completeMax($input, &$element)
     {
         if (isset($input['max'])) {
             $element['rel'] = 'le';

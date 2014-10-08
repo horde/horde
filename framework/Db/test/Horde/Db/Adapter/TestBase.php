@@ -36,7 +36,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     protected $_conn;
 
-    static protected function _getConnection($overrides = array())
+    protected static function _getConnection($overrides = array())
     {
         throw new LogicException('_getConnection() must be implemented in a sub-class.');
     }

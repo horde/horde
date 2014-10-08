@@ -28,7 +28,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @var string
      */
-    static public $defaultCharset = 'us-ascii';
+    public static $defaultCharset = 'us-ascii';
 
     /**
      * The internal headers array.
@@ -513,7 +513,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return array  The list of headers, in lowercase.
      */
-    static public function addressFields()
+    public static function addressFields()
     {
         return array(
             'from', 'to', 'cc', 'bcc', 'reply-to', 'resent-to', 'resent-cc',
@@ -542,7 +542,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return array  The list of headers, in lowercase.
      */
-    static public function mimeParamFields()
+    public static function mimeParamFields()
     {
         return array('content-type', 'content-disposition');
     }
@@ -554,7 +554,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return array  The list of valid mailing list headers.
      */
-    static public function listHeaders()
+    public static function listHeaders()
     {
         return array(
             /* RFC 2369 */
@@ -662,7 +662,7 @@ class Horde_Mime_Headers implements Serializable
      *
      * @return Horde_Mime_Headers  A new Horde_Mime_Headers object.
      */
-    static public function parseHeaders($text)
+    public static function parseHeaders($text)
     {
         $currheader = $currtext = null;
         $mime = self::mimeParamFields();

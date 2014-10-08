@@ -49,7 +49,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_VISIBILITY,
             self::ATTRIBUTE_MAIL,
@@ -159,7 +159,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @return array An array of supported search operations.
      */
-    static public function getSearchOperations()
+    public static function getSearchOperations()
     {
         $searches = array(
 /*             'gidForMail', */
@@ -179,7 +179,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    static public function gidForMail($server, $mail,
+    public static function gidForMail($server, $mail,
                                       $restrict = 0)
     {
         $criteria = array('AND' => array(array('field' => self::ATTRIBUTE_MAIL,
@@ -200,7 +200,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    static public function memberOfGroupAddress($server, $uid, $mail)
+    public static function memberOfGroupAddress($server, $uid, $mail)
     {
         $criteria = array('AND' =>
                           array(
@@ -228,7 +228,7 @@ class Horde_Kolab_Server_Object_Kolabgroupofnames extends Horde_Kolab_Server_Obj
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    static public function getGroupAddresses($server, $uid)
+    public static function getGroupAddresses($server, $uid)
     {
         $criteria = array('AND' =>
                           array(

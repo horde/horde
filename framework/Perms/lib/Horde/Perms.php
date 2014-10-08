@@ -53,14 +53,14 @@ class Horde_Perms
      *
      * @var array
      */
-    static protected $_itaCache = array();
+    protected static $_itaCache = array();
 
     /**
      * Returns an hash of the available permissions.
      *
      * @return array  The available permissions as a hash.
      */
-    static public function getPermsArray()
+    public static function getPermsArray()
     {
         return array(
             self::SHOW => Horde_Perms_Translation::t("Show"),
@@ -78,7 +78,7 @@ class Horde_Perms
      *
      * @return TODO
      */
-    static public function integerToArray($int)
+    public static function integerToArray($int)
     {
         if (isset(self::$_itaCache[$int])) {
             return self::$_itaCache[$int];

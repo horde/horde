@@ -56,7 +56,7 @@ class Property extends Node {
      *
      * @var array
      */
-    static public $classMap = array(
+    public static $classMap = array(
         'COMPLETED'     => 'Sabre\\VObject\\Property\\DateTime',
         'CREATED'       => 'Sabre\\VObject\\Property\\DateTime',
         'DTEND'         => 'Sabre\\VObject\\Property\\DateTime',
@@ -87,7 +87,7 @@ class Property extends Node {
      * @param array $parameters
      * @return Property
      */
-    static public function create($name, $value = null, array $parameters = array()) {
+    public static function create($name, $value = null, array $parameters = array()) {
 
         $name = strtoupper($name);
         $shortName = $name;

@@ -111,7 +111,7 @@ class ResourceType extends DAV\Property {
      * @param \DOMElement $dom
      * @return DAV\Property\ResourceType
      */
-    static public function unserialize(\DOMElement $dom) {
+    public static function unserialize(\DOMElement $dom) {
 
         $value = array();
         foreach($dom->childNodes as $child) {

@@ -147,7 +147,7 @@ class Server {
      *
      * @var bool
      */
-    static public $exposeVersion = true;
+    public static $exposeVersion = true;
 
     /**
      * Sets up the server

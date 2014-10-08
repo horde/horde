@@ -23,17 +23,17 @@
  */
 class Horde_Util_Mock_Transliterate extends Horde_String_Transliterate
 {
-    static public function testIntl($str)
+    public static function testIntl($str)
     {
         return self::_intlToAscii($str);
     }
 
-    static public function testIconv($str)
+    public static function testIconv($str)
     {
         return self::_iconvToAscii($str);
     }
 
-    static public function testFallback($str)
+    public static function testFallback($str)
     {
         return self::_fallbackToAscii($str);
     }

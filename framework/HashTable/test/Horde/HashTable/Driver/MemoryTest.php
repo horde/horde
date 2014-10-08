@@ -25,7 +25,7 @@
  */
 class Horde_HashTable_Driver_MemoryTest extends Horde_HashTable_Driver_TestBase
 {
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$_driver = new Horde_HashTable_Memory();
     }

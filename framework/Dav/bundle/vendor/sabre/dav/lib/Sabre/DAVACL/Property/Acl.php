@@ -87,7 +87,7 @@ class Acl extends DAV\Property {
      * @param \DOMElement $dom
      * @return Acl
      */
-    static public function unserialize(\DOMElement $dom) {
+    public static function unserialize(\DOMElement $dom) {
 
         $privileges = array();
         $xaces = $dom->getElementsByTagNameNS('urn:DAV','ace');

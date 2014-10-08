@@ -34,7 +34,7 @@ class Horde_Pack_Driver_Msgpackserialize extends Horde_Pack_Driver
 
     /**
      */
-    static public function supported()
+    public static function supported()
     {
         return extension_loaded('msgpack');
     }

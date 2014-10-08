@@ -58,7 +58,7 @@ class Horde_Image_Effect
         $this->_logger = $logger;
     }
 
-    static public function factory($type, $driver, $params)
+    public static function factory($type, $driver, $params)
     {
         if (is_array($type)) {
             list($app, $type) = $type;

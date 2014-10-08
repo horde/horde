@@ -37,7 +37,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      *
      * @var array
      */
-    static public $attributes = array(
+    public static $attributes = array(
         'alias', 'kolabHomeServer', 'kolabFreebusyHost'
 /*         'kolabDelegate', 'kolabDeleteFlag', 'kolabFreeBusyFuture', */
 /*         , , 'kolabImapServer', */
@@ -60,7 +60,7 @@ class Horde_Kolab_Server_Object_Kolabinetorgperson extends Horde_Kolab_Server_Ob
      *
      * @var array
      */
-/*     static public $init_attributes = array( */
+/*     public static $init_attributes = array( */
 /*         'defined' => array( */
 /*             self::ATTRIBUTE_DELEGATE, */
 /*             self::ATTRIBUTE_DELETED, */

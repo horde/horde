@@ -25,9 +25,9 @@
  */
 class Horde_Imap_Client_Live_Base extends PHPUnit_Framework_TestCase
 {
-    static public $live;
+    public static $live;
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         self::$live = null;
     }

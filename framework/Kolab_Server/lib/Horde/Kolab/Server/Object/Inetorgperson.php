@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @var array
      */
-    static public $attributes = array(
+    public static $attributes = array(
         'uid', 'mail','Firstnamelastname',
 /*         'Organization', 'Businesscategory', 'Homephone', 'Mobile', */
 /*         'Photo', 'Jpegphoto', 'Givenname', 'Middlenames', */
@@ -48,7 +48,7 @@ class Horde_Kolab_Server_Object_Inetorgperson extends Horde_Kolab_Server_Object_
      *
      * @var array
      */
-/*     static public $init_attributes = array( */
+/*     public static $init_attributes = array( */
 /*         'defined' => array( */
 /*             self::ATTRIBUTE_SID, */
 /*             self::ATTRIBUTE_GIVENNAME, */

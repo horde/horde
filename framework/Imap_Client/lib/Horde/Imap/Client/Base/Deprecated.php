@@ -46,7 +46,7 @@ class Horde_Imap_Client_Base_Deprecated
      *
      * @throws Horde_Imap_Client_Exception
      */
-    static public function getCacheId($base_ob, $mailbox, $condstore,
+    public static function getCacheId($base_ob, $mailbox, $condstore,
                                       array $addl = array())
     {
         $query = Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
@@ -87,7 +87,7 @@ class Horde_Imap_Client_Base_Deprecated
      *   - uidnext: (integer)
      *   - uidvalidity: (integer) Always present
      */
-    static public function parseCacheId($id)
+    public static function parseCacheId($id)
     {
         $data = array(
             'H' => 'highestmodseq',

@@ -36,7 +36,7 @@ class Ingo_Flist
      *
      * @return string  The HTML to render the field.
      */
-    static public function select($value = null, $tagname = 'actionvalue')
+    public static function select($value = null, $tagname = 'actionvalue')
     {
         global $injector, $page_output, $registry;
 

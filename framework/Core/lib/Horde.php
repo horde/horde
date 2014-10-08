@@ -20,42 +20,42 @@ class Horde
      *
      * @var integer
      */
-    static protected $_bufferLevel = 0;
+    protected static $_bufferLevel = 0;
 
     /**
      * Has content been sent at the base buffer level?
      *
      * @var boolean
      */
-    static protected $_contentSent = false;
+    protected static $_contentSent = false;
 
     /**
      * The labels already used in this page.
      *
      * @var array
      */
-    static protected $_labels = array();
+    protected static $_labels = array();
 
     /**
      * Are accesskeys supported on this system.
      *
      * @var boolean
      */
-    static protected $_noAccessKey;
+    protected static $_noAccessKey;
 
     /**
      * The access keys already used in this page.
      *
      * @var array
      */
-    static protected $_used = array();
+    protected static $_used = array();
 
     /**
      * Shortcut to logging method.
      *
      * @see Horde_Core_Log_Logger
      */
-    static public function log($event, $priority = null,
+    public static function log($event, $priority = null,
                                array $options = array())
     {
         $options['trace'] = isset($options['trace'])
@@ -79,7 +79,7 @@ class Horde
      * @deprecated Use log() instead
      * @see log()
      */
-    static public function logMessage($event, $priority = null,
+    public static function logMessage($event, $priority = null,
                                       array $options = array())
     {
         $options['trace'] = isset($options['trace'])
@@ -98,7 +98,7 @@ class Horde
      *                            directory.
      * @param boolean $backtrace  Include backtrace information?
      */
-    static public function debug($event = null, $fname = null,
+    public static function debug($event = null, $fname = null,
                                  $backtrace = true)
     {
         if (is_null($fname)) {
@@ -147,7 +147,7 @@ class Horde
      *
      * @return mixed  The signed query string (or Horde_Url object).
      */
-    static public function signQueryString($queryString, $now = null)
+    public static function signQueryString($queryString, $now = null)
     {
         if (!isset($GLOBALS['conf']['secret_key'])) {
             return $queryString;
@@ -177,7 +177,7 @@ class Horde
      *
      * @return boolean  Whether or not the string was valid.
      */
-    static public function verifySignedQueryString($data, $now = null)
+    public static function verifySignedQueryString($data, $now = null)
     {
         if (is_null($now)) {
             $now = time();
@@ -214,7 +214,7 @@ class Horde
      *
      * @return string  The escaped string.
      */
-    static public function escapeJson($data, array $options = array())
+    public static function escapeJson($data, array $options = array())
     {
         $json = Horde_Serialize::serialize($data, Horde_Serialize::JSON);
         if (empty($options['nodelimit'])) {
@@ -232,7 +232,7 @@ class Horde
      *
      * @return boolean
      */
-    static public function isConnectionSecure()
+    public static function isConnectionSecure()
     {
         if ($GLOBALS['browser']->usingSSLConnection()) {
             return true;
@@ -267,7 +267,7 @@ class Horde
      *
      * @throws Horde_Exception
      */
-    static public function requireSecureConnection()
+    public static function requireSecureConnection()
     {
         if (!self::isConnectionSecure()) {
             throw new Horde_Exception(Horde_Core_Translation::t("The encryption features require a secure web connection."));
@@ -287,7 +287,7 @@ class Horde
      *
      * @return array  The connection parameters.
      */
-    static public function getDriverConfig($backend, $type = 'sql')
+    public static function getDriverConfig($backend, $type = 'sql')
     {
         global $conf;
 
@@ -333,7 +333,7 @@ class Horde
      *
      * @throws Horde_Exception
      */
-    static public function assertDriverConfig($params, $driver, $fields,
+    public static function assertDriverConfig($params, $driver, $fields,
                                               $name = null,
                                               $file = 'conf.php',
                                               $variable = '$conf')
@@ -387,7 +387,7 @@ class Horde
      *
      * @return Horde_Url  The URL with the session id appended (if needed).
      */
-    static public function url($uri, $full = false, $opts = array())
+    public static function url($uri, $full = false, $opts = array())
     {
         if (is_array($opts)) {
             $append_session = isset($opts['append_session'])
@@ -508,7 +508,7 @@ class Horde
      *
      * @return string  The link to the dereferrer script.
      */
-    static public function externalUrl($url, $tag = false)
+    public static function externalUrl($url, $tag = false)
     {
         if (!isset($_GET[session_name()]) ||
             Horde_String::substr($url, 0, 1) == '#' ||
@@ -543,7 +543,7 @@ class Horde
      *
      * @return string  The full <a href> tag.
      */
-    static public function link($url = '', $title = '', $class = '',
+    public static function link($url = '', $title = '', $class = '',
                                 $target = '', $onclick = '', $title2 = '',
                                 $accesskey = '', $attributes = array(),
                                 $escape = true)
@@ -598,7 +598,7 @@ class Horde
      *
      * @return string  The full <a href> tag.
      */
-    static public function linkTooltip($url, $status = '', $class = '',
+    public static function linkTooltip($url, $status = '', $class = '',
                                        $target = '', $onclick = '',
                                        $title = '', $accesskey = '',
                                        $attributes = array())
@@ -626,7 +626,7 @@ class Horde
      *
      * @return string  The full <a href>Title</a> sequence.
      */
-    static public function widget($params)
+    public static function widget($params)
     {
         $params = array_merge(
             array(
@@ -665,7 +665,7 @@ class Horde
      *
      * @return Horde_Url  The requested URL.
      */
-    static public function selfUrl($script_params = false, $nocache = true,
+    public static function selfUrl($script_params = false, $nocache = true,
                                    $full = false, $force_ssl = false)
     {
         if (!strncmp(PHP_SAPI, 'cgi', 3)) {
@@ -724,7 +724,7 @@ class Horde
      *
      * @return Horde_Url  The self URL.
      */
-    static public function selfUrlParams(array $opts = array())
+    public static function selfUrlParams(array $opts = array())
     {
         $vars = isset($opts['vars'])
             ? $opts['vars']
@@ -751,7 +751,7 @@ class Horde
      * @return string  A directory name that can be used for temp files.
      *                 Returns false if one could not be found.
      */
-    static public function getTempDir()
+    public static function getTempDir()
     {
         global $conf;
 
@@ -790,7 +790,7 @@ class Horde
      * @return string   Returns the full path-name to the temporary file or
      *                  false if a temporary file could not be created.
      */
-    static public function getTempFile($prefix = 'Horde', $delete = true,
+    public static function getTempFile($prefix = 'Horde', $delete = true,
                                        $dir = '', $secure = false,
                                        $session_remove = false)
     {
@@ -814,7 +814,7 @@ class Horde
      * @return string  A web server identification string.
      * @see php_sapi_name()
      */
-    static public function webServerID()
+    public static function webServerID()
     {
         switch (PHP_SAPI) {
         case 'apache':
@@ -839,7 +839,7 @@ class Horde
      * @return string  A single lower case character access key or empty
      *                 string if none can be found
      */
-    static public function getAccessKey($label, $nocheck = false,
+    public static function getAccessKey($label, $nocheck = false,
                                         $shutdown = false)
     {
         /* Shutdown call for translators? */
@@ -892,7 +892,7 @@ class Horde
      *
      * @return string  The label with the access key being stripped.
      */
-    static public function stripAccessKey($label)
+    public static function stripAccessKey($label)
     {
         return preg_replace('/_([A-Za-z])/', $GLOBALS['registry']->nlsconfig->curr_multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1', $label);
     }
@@ -906,7 +906,7 @@ class Horde
      * @return string  The HTML version of the label with the access key
      *                 highlighted.
      */
-    static public function highlightAccessKey($label, $accessKey)
+    public static function highlightAccessKey($label, $accessKey)
     {
         $stripped_label = self::stripAccessKey($label);
 
@@ -937,7 +937,7 @@ class Horde
      * @return string  The title, and if appropriate, the accesskey attributes
      *                 for the element.
      */
-    static public function getAccessKeyAndTitle($label, $nocheck = false,
+    public static function getAccessKeyAndTitle($label, $nocheck = false,
                                                 $return_array = false)
     {
         $ak = self::getAccessKey($label, $nocheck);
@@ -969,7 +969,7 @@ class Horde
      *
      * @return string  The html code for the label element.
      */
-    static public function label($for, $label, $ak = null)
+    public static function label($for, $label, $ak = null)
     {
         if (is_null($ak)) {
             $ak = self::getAccessKey($label, 1);
@@ -988,7 +988,7 @@ class Horde
      *
      * @param string $url  The URL to redirect to.
      */
-    static public function redirect($url)
+    public static function redirect($url)
     {
         if ($GLOBALS['browser']->isBrowser('msie') &&
             ($GLOBALS['conf']['use_ssl'] == 3) &&
@@ -1009,7 +1009,7 @@ class Horde
      * @return string  The script with the necessary HTML javascript tags
      *                 appended.
      */
-    static public function wrapInlineScript($script)
+    public static function wrapInlineScript($script)
     {
         return '<script type="text/javascript">//<![CDATA[' . "\n" . implode('', $script) . "\n//]]></script>\n";
     }
@@ -1032,7 +1032,7 @@ class Horde
      *
      * @return Horde_Url  The URL to the cache page.
      */
-    static public function getCacheUrl($type, $params = array())
+    public static function getCacheUrl($type, $params = array())
     {
         $url = $GLOBALS['registry']
             ->getserviceLink('cache', 'horde')
@@ -1065,7 +1065,7 @@ class Horde
      *
      * @return string  The javascript needed to call the popup code.
      */
-    static public function popupJs($url, $options = array())
+    public static function popupJs($url, $options = array())
     {
         $GLOBALS['page_output']->addScriptPackage('Horde_Core_Script_Package_Popup');
 
@@ -1100,7 +1100,7 @@ class Horde
     /**
      * Start buffering output.
      */
-    static public function startBuffer()
+    public static function startBuffer()
     {
         if (!self::$_bufferLevel) {
             self::$_contentSent = self::contentSent();
@@ -1115,7 +1115,7 @@ class Horde
      *
      * @return string  The buffered output.
      */
-    static public function endBuffer()
+    public static function endBuffer()
     {
         if (self::$_bufferLevel) {
             --self::$_bufferLevel;
@@ -1130,7 +1130,7 @@ class Horde
      *
      * @return boolean  True if content has been sent.
      */
-    static public function contentSent()
+    public static function contentSent()
     {
         return ((self::$_bufferLevel && self::$_contentSent) ||
                 (!self::$_bufferLevel && (ob_get_length() || headers_sent())));
@@ -1144,7 +1144,7 @@ class Horde
      *
      * @return Horve_View_Sidebar  The sidebar.
      */
-    static public function sidebar($app = null)
+    public static function sidebar($app = null)
     {
         global $registry;
 
@@ -1173,7 +1173,7 @@ class Horde
      * @param string $error  An error message to output via the notification
      *                       system.
      */
-    static public function permissionDeniedError($app, $perm, $error = null)
+    public static function permissionDeniedError($app, $perm, $error = null)
     {
         try {
             $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
@@ -1188,7 +1188,7 @@ class Horde
     /**
      * Handle deprecated methods (located in Horde_Deprecated).
      */
-    static public function __callStatic($name, $arguments)
+    public static function __callStatic($name, $arguments)
     {
         return call_user_func_array(
             array('Horde_Deprecated', $name),

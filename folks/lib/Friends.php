@@ -17,7 +17,7 @@ class Folks_Friends {
     /**
      * Friends instances
      */
-    static private $instances = array();
+    private static $instances = array();
 
     /**
      * Hash containing connection parameters.
@@ -88,7 +88,7 @@ class Folks_Friends {
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      */
-    static public function singleton($driver = null, $params = null)
+    public static function singleton($driver = null, $params = null)
     {
         if (empty($params['user'])) {
             $params['user'] = $GLOBALS['registry']->getAuth();

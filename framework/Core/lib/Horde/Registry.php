@@ -218,7 +218,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      * @return Horde_Registry_Application  The application object.
      * @throws Horde_Exception
      */
-    static public function appInit($app, array $args = array())
+    public static function appInit($app, array $args = array())
     {
         if (isset($GLOBALS['registry'])) {
             return $GLOBALS['registry']->getApiInstance($app, 'application');

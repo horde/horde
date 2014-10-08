@@ -565,7 +565,7 @@ class Horde_ActiveSync_Message_Base
      *
      * @return string  The binary data
      */
-    static private function hex2bin($data)
+    private static function hex2bin($data)
     {
         $len = strlen($data);
         $newdata = '';

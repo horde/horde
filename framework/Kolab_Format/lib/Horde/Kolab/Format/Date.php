@@ -38,7 +38,7 @@ class Horde_Kolab_Format_Date
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readUtcDateTime($date_time)
+    public static function readUtcDateTime($date_time)
     {
         return self::readDateTime($date_time);
     }
@@ -53,7 +53,7 @@ class Horde_Kolab_Format_Date
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readDate($date, $timezone = null)
+    public static function readDate($date, $timezone = null)
     {
         if (empty($date)) {
             return false;
@@ -74,7 +74,7 @@ class Horde_Kolab_Format_Date
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readDateTime($date_time, $timezone = null)
+    public static function readDateTime($date_time, $timezone = null)
     {
         if (empty($date_time)) {
             return false;
@@ -99,7 +99,7 @@ class Horde_Kolab_Format_Date
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readDateOrDateTime($date, $timezone = null)
+    public static function readDateOrDateTime($date, $timezone = null)
     {
         if (empty($date)) {
             return null;
@@ -120,7 +120,7 @@ class Horde_Kolab_Format_Date
      *
      * @return string The Kolab format UTC date-time string.
      */
-    static public function writeUtcDateTime(DateTime $date_time)
+    public static function writeUtcDateTime(DateTime $date_time)
     {
         return self::writeDateTime($date_time);
     }
@@ -133,7 +133,7 @@ class Horde_Kolab_Format_Date
      *
      * @return string The Kolab format date-time string.
      */
-    static public function writeDateTime(DateTime $date_time)
+    public static function writeDateTime(DateTime $date_time)
     {
         $date_time->setTimezone(new DateTimeZone('UTC'));
         return $date_time->format('Y-m-d\TH:i:s\Z');
@@ -147,7 +147,7 @@ class Horde_Kolab_Format_Date
      *
      * @return string The Kolab format UTC date string.
      */
-    static public function writeDate(DateTime $date)
+    public static function writeDate(DateTime $date)
     {
         return $date->format('Y-m-d');
     }

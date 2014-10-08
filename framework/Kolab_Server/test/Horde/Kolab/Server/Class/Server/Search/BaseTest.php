@@ -132,7 +132,7 @@ extends Horde_Kolab_Server_TestCase
 
 class Object_Dummy
 {
-    static public function getSearchOperations()
+    public static function getSearchOperations()
     {
         return array('Object_Search');
     }
@@ -140,17 +140,17 @@ class Object_Dummy
 
 class Object_Search
 {
-    static public $calls = 0;
+    public static $calls = 0;
 
-    static public $last_call;
+    public static $last_call;
 
-    static public function call()
+    public static function call()
     {
         self::$last_call = func_get_args();
         return ++self::$calls;
     }
 
-    static public function reset()
+    public static function reset()
     {
         self::$calls = 0;
     }

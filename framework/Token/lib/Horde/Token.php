@@ -23,7 +23,7 @@ class Horde_Token
      *
      * @return string  The generated id string.
      */
-    static public function generateId($seed = '')
+    public static function generateId($seed = '')
     {
         return Horde_Url::uriB64Encode(pack('H*', hash('sha1', uniqid(mt_rand()) . $seed . (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : ''))));
     }

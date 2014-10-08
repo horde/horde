@@ -183,14 +183,14 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->assertFileNotExists($path);
     }
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$vfs = Horde_Vfs::factory('File', array(
             'vfsroot' => sys_get_temp_dir() . '/vfsfiletest'
         ));
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         system('rm -r ' . sys_get_temp_dir() . '/vfsfiletest');
         parent::tearDownAfterClass();

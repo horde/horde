@@ -30,14 +30,14 @@ class Gollem
      *
      * @var array
      */
-    static public $backend;
+    public static $backend;
 
     /**
      * Cache for display columns.
      *
      * @var array
      */
-    static protected $_columns;
+    protected static $_columns;
 
     /**
      * Changes the current directory of the Gollem session to the supplied
@@ -47,7 +47,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function setDir($dir)
+    public static function setDir($dir)
     {
         $dir = Horde_Util::realPath($dir);
 
@@ -66,7 +66,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function changeDir()
+    public static function changeDir()
     {
         $dir = Horde_Util::getFormData('dir');
         if (is_null($dir)) {
@@ -82,7 +82,7 @@ class Gollem
     /**
      * Set the lable to use for the current page.
      */
-    static protected function _setLabel()
+    protected static function _setLabel()
     {
         self::$backend['label'] = self::getDisplayPath(self::$backend['dir']);
         if (empty(self::$backend['label'])) {
@@ -93,7 +93,7 @@ class Gollem
     /**
      * Internal helper to sort directories first if pref set.
      */
-    static protected function _sortDirs($a, $b)
+    protected static function _sortDirs($a, $b)
     {
         /* Sort symlinks to dirs as dirs */
         $dira = ($a['type'] === '**dir') ||
@@ -114,7 +114,7 @@ class Gollem
     /**
      * Internal sorting function for 'date'.
      */
-    static public function sortDate($a, $b)
+    public static function sortDate($a, $b)
     {
         $dirs = self::_sortDirs($a, $b);
         if ($dirs) {
@@ -133,7 +133,7 @@ class Gollem
     /**
      * Internal sorting function for 'size'.
      */
-    static public function sortSize($a, $b)
+    public static function sortSize($a, $b)
     {
         $dirs = self::_sortDirs($a, $b);
         if ($dirs) {
@@ -152,7 +152,7 @@ class Gollem
     /**
      * Internal sorting function for 'type'.
      */
-    static public function sortType($a, $b)
+    public static function sortType($a, $b)
     {
         $dirs = self::_sortDirs($a, $b);
         if ($dirs) {
@@ -174,7 +174,7 @@ class Gollem
     /**
      * Internal sorting function for 'name'.
      */
-    static public function sortName($a, $b)
+    public static function sortName($a, $b)
     {
         $dirs = self::_sortDirs($a, $b);
         if ($dirs) {
@@ -193,7 +193,7 @@ class Gollem
      * @return array  The sorted list of files.
      * @throws Gollem_Exception
      */
-    static public function listFolder($dir)
+    public static function listFolder($dir)
     {
         global $conf;
 
@@ -241,7 +241,7 @@ class Gollem
      *
      * @param string $dir  The directory name.
      */
-    static protected function _getCacheID($dir)
+    protected static function _getCacheID($dir)
     {
         return implode('|', array($GLOBALS['registry']->getAuth(),
                                   $GLOBALS['session']->get('gollem', 'backend_key'),
@@ -257,7 +257,7 @@ class Gollem
      *
      * @param string $dir  The directory name.
      */
-    static public function expireCache($dir)
+    public static function expireCache($dir)
     {
         global $conf;
 
@@ -277,7 +277,7 @@ class Gollem
      *
      * @return string  The correct subdirectoy string.
      */
-    static public function subdirectory($base, $dir)
+    public static function subdirectory($base, $dir)
     {
         if (empty($base)) {
             return $dir;
@@ -299,7 +299,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function createFolder($dir, $name, $gollem_vfs = null)
+    public static function createFolder($dir, $name, $gollem_vfs = null)
     {
         $totalpath = Horde_Util::realPath($dir . '/' . $name);
         if (!self::verifyDir($totalpath)) {
@@ -337,7 +337,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function renameItem($oldDir, $old, $newDir, $new)
+    public static function renameItem($oldDir, $old, $newDir, $new)
     {
         try {
             $GLOBALS['injector']
@@ -367,7 +367,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function deleteFolder($dir, $name)
+    public static function deleteFolder($dir, $name)
     {
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
@@ -404,7 +404,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function deleteFile($dir, $name)
+    public static function deleteFile($dir, $name)
     {
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
@@ -427,7 +427,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function changePermissions($dir, $name, $permission)
+    public static function changePermissions($dir, $name, $permission)
     {
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
@@ -450,7 +450,7 @@ class Gollem
      *
      * @thows Gollem_Exception
      */
-    static public function writeFile($dir, $name, $filename)
+    public static function writeFile($dir, $name, $filename)
     {
         $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
         try {
@@ -474,7 +474,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function moveFile($backend_f, $dir, $name, $backend_t,
+    public static function moveFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
         self::_copyFile('move', $backend_f, $dir, $name, $backend_t, $newdir);
@@ -491,7 +491,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static public function copyFile($backend_f, $dir, $name, $backend_t,
+    public static function copyFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
     {
         self::_copyFile('copy', $backend_f, $dir, $name, $backend_t, $newdir);
@@ -502,7 +502,7 @@ class Gollem
      *
      * @throws Gollem_Exception
      */
-    static protected function _copyFile($mode, $backend_f, $dir, $name,
+    protected static function _copyFile($mode, $backend_f, $dir, $name,
                                         $backend_t, $newdir)
     {
         $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
@@ -568,7 +568,7 @@ class Gollem
      *
      * @return boolean  True if the directory is below the root.
      */
-    static public function verifyDir($dir)
+    public static function verifyDir($dir)
     {
         return Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length(self::$backend['root'])) == self::$backend['root'];
     }
@@ -578,7 +578,7 @@ class Gollem
      *
      * @return array  The list of columns to be displayed.
      */
-    static public function getColumns($backend)
+    public static function getColumns($backend)
     {
         if (!isset(self::$_columns)) {
             self::$_columns = array();
@@ -608,7 +608,7 @@ class Gollem
      *
      * @return boolean  Returns true if the user has permission.
      */
-    static public function checkPermissions($filter,
+    public static function checkPermissions($filter,
                                             $permission = Horde_Perms::READ,
                                             $resource = null)
     {
@@ -672,7 +672,7 @@ class Gollem
      *
      * @return string  The directory navigation string.
      */
-    static public function directoryNavLink($currdir, $url)
+    public static function directoryNavLink($currdir, $url)
     {
         $label = array();
         $root_dir_name = self::$backend['name'];
@@ -711,7 +711,7 @@ class Gollem
      *
      * @return string  The display path.
      */
-    static public function getDisplayPath($path)
+    public static function getDisplayPath($path)
     {
         $path = Horde_Util::realPath($path);
         if (self::$backend['root'] != '/' &&
@@ -734,7 +734,7 @@ class Gollem
      *
      * @return string  Cleaned path as described above.
      */
-    static public function stripAPIPath($path)
+    public static function stripAPIPath($path)
     {
         return trim(preg_replace('|/?gollem|', '', $path), '/');
     }
@@ -748,7 +748,7 @@ class Gollem
      *
      * @return string  URL-encoded string with '/' preserved.
      */
-    static public function pathEncode($path)
+    public static function pathEncode($path)
     {
         return str_ireplace(array('%2F', '%2f'), '/', rawurlencode($path));
     }
@@ -761,7 +761,7 @@ class Gollem
      *
      * @return array  Array of ($path, $name)
      */
-    static public function getVFSPath($fullpath)
+    public static function getVFSPath($fullpath)
     {
         // Convert the path into VFS's ($path, $name) convention
         $i = strrpos($fullpath, '/');

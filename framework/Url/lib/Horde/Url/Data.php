@@ -50,7 +50,7 @@ class Horde_Url_Data
      * @param string $data     The data.
      * @param boolean $base64  Should data be base64 encoded?
      */
-    static public function create($type = null, $data = null, $base64 = true)
+    public static function create($type = null, $data = null, $base64 = true)
     {
         $ob = new self();
 
@@ -76,7 +76,7 @@ class Horde_Url_Data
      *
      * @return boolean  True if the input contains RFC 2397 compliant data.
      */
-    static public function isData($input)
+    public static function isData($input)
     {
         if (is_object($input)) {
             return ($input instanceof self);

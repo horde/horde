@@ -25,7 +25,7 @@
  */
 abstract class Horde_HashTable_Driver_TestBase extends Horde_Test_Case
 {
-    static protected $_driver;
+    protected static $_driver;
 
     public function testSet()
     {

@@ -32,7 +32,7 @@ class Horde_ActiveSync_Utils
      *
      * @return array  The decoded request
      */
-    static public function decodeBase64($uri)
+    public static function decodeBase64($uri)
     {
         $commandMap = array(
                 0  => 'Sync',
@@ -141,7 +141,7 @@ class Horde_ActiveSync_Utils
      * @return string  The UID
      * @deprecated  Will be removed in H6. Use Horde_Mapi::getUidFromGoid
      */
-    static public function getUidFromGoid($goid)
+    public static function getUidFromGoid($goid)
     {
         $goid = base64_decode($goid);
 
@@ -174,7 +174,7 @@ class Horde_ActiveSync_Utils
      * @return string  A Base64 encoded GOID
      * @deprecated  Will be removed in H6. Use Horde_Mapi::createGoid
      */
-    static public function createGoid($uid, $options = array())
+    public static function createGoid($uid, $options = array())
     {
         // Bytes 1 - 16 MUST be equal to the GOID identifier:
         $arrayid = '040000008200E00074C5B7101A82E008';
@@ -219,7 +219,7 @@ class Horde_ActiveSync_Utils
      *
      * @return string  A valid UTF-8 encoded string.
      */
-    static public function ensureUtf8($data, $from_charset)
+    public static function ensureUtf8($data, $from_charset)
     {
         $text = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
         if (!Horde_String::validUtf8($text)) {
@@ -262,7 +262,7 @@ class Horde_ActiveSync_Utils
      *
      * @return string|boolean  The stripped string, or false if failed.
      */
-    static protected function _stripNon7BitChars($text)
+    protected static function _stripNon7BitChars($text)
     {
         return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
     }

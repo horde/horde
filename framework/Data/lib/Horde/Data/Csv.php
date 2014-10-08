@@ -305,7 +305,7 @@ class Horde_Data_Csv extends Horde_Data_Base
      * @return array|boolean  A row from the CSV file or false on error or end
      *                        of file.
      */
-    static public function getCsv($file, array $params = array())
+    public static function getCsv($file, array $params = array())
     {
         $params += array(
             'escape' => '\\',

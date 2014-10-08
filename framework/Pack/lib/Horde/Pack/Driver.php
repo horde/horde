@@ -45,7 +45,7 @@ abstract class Horde_Pack_Driver
      *
      * @return boolean  True if supported.
      */
-    static public function supported()
+    public static function supported()
     {
         return true;
     }

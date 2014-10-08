@@ -29,7 +29,7 @@ class Horde_Test_Bootstrap
      * @param boolean $no_autoload  Don't run default Horde_Test autoload
      *                              tasks.
      */
-    static public function bootstrap($dir, $no_autoload = false)
+    public static function bootstrap($dir, $no_autoload = false)
     {
         if (self::$_runonce) {
             return;

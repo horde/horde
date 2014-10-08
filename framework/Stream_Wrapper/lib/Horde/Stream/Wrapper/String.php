@@ -52,7 +52,7 @@ class Horde_Stream_Wrapper_String
      *
      * @var integer
      */
-    static private $_id = 0;
+    private static $_id = 0;
 
     /**
      * Create a stream from a PHP string.
@@ -63,7 +63,7 @@ class Horde_Stream_Wrapper_String
      *
      * @return resource  A PHP stream pointing to the variable.
      */
-    static public function getStream(&$string)
+    public static function getStream(&$string)
     {
         if (!self::$_id) {
             stream_wrapper_register(self::WRAPPER_NAME, __CLASS__);

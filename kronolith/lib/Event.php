@@ -3078,7 +3078,7 @@ abstract class Kronolith_Event
         $this->initialized = true;
     }
 
-    static public function readRecurrenceForm($start, $timezone,
+    public static function readRecurrenceForm($start, $timezone,
                                               $recurrence = null)
     {
         $recur = Horde_Util::getFormData('recur');

@@ -33,7 +33,7 @@ class Horde_Deprecated
      * @param string $ct   The content-type to send the data with.  Either
      *                     'json', 'js-json', 'html', 'plain', and 'xml'.
      */
-    static public function sendHTTPResponse($data, $ct)
+    public static function sendHTTPResponse($data, $ct)
     {
         // Output headers and encoded response.
         switch ($ct) {
@@ -91,7 +91,7 @@ class Horde_Deprecated
      *   - msgs: (array) [OPTIONAL] List of notification messages.
      *   - response: (mixed) The response data for the request.
      */
-    static public function prepareResponse($data = null, $notify = false)
+    public static function prepareResponse($data = null, $notify = false)
     {
         $response = new stdClass();
         $response->response = $data;
@@ -120,7 +120,7 @@ class Horde_Deprecated
      *
      * @return string  The full image tag.
      */
-    static public function img($src, $alt = '', $attr = '')
+    public static function img($src, $alt = '', $attr = '')
     {
         return Horde_Themes_Image::tag($src, array(
             'alt' => $alt,
@@ -136,7 +136,7 @@ class Horde_Deprecated
      * @deprecated  Use Horde_Themes_Image::tag()
      * @see img()
      */
-    static public function fullSrcImg($src, array $opts = array())
+    public static function fullSrcImg($src, array $opts = array())
     {
         return Horde_Themes_Image::tag($src, array_filter(array(
             'attr' => isset($opts['attr']) ? $opts['attr'] : null,
@@ -159,7 +159,7 @@ class Horde_Deprecated
      *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    static public function base64ImgData($in, $limit = null)
+    public static function base64ImgData($in, $limit = null)
     {
         return Horde_Themes_Image::base64ImgData($in, $limit);
     }
@@ -182,7 +182,7 @@ class Horde_Deprecated
      * @throws Horde_Exception  Thrown on error from hook code.
      * @throws Horde_Exception_HookNotSet  Thrown if hook is not active.
      */
-    static public function callHook($hook, $args = array(), $app = 'horde')
+    public static function callHook($hook, $args = array(), $app = 'horde')
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
             ->callHook($hook, $app, $args);
@@ -201,7 +201,7 @@ class Horde_Deprecated
      *
      * @return boolean  True if the hook exists.
      */
-    static public function hookExists($hook, $app = 'horde')
+    public static function hookExists($hook, $app = 'horde')
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Hooks')
             ->hookExists($hook, $app);
@@ -226,7 +226,7 @@ class Horde_Deprecated
      *                $var_names is an array.
      * @throws Horde_Exception
      */
-    static public function loadConfiguration($config_file, $var_names = null,
+    public static function loadConfiguration($config_file, $var_names = null,
                                              $app = null, $show_output = false)
     {
         global $registry;
@@ -253,7 +253,7 @@ class Horde_Deprecated
      *
      * @param array $params
      */
-    static public function initMap(array $params = array())
+    public static function initMap(array $params = array())
     {
         Horde_Core_HordeMap::init();
     }

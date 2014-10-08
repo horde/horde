@@ -17,7 +17,7 @@ class Horde_Prefs_CategoryManager
     /**
      * Get all categories.
      */
-    static public function get()
+    public static function get()
     {
         $string = $GLOBALS['prefs']->getValue('categories');
         if (empty($string)) {
@@ -33,7 +33,7 @@ class Horde_Prefs_CategoryManager
     /**
      * TODO
      */
-    static public function getSelect($id, $current = null)
+    public static function getSelect($id, $current = null)
     {
         $categories = self::get();
         $colors = self::colors();
@@ -77,7 +77,7 @@ class Horde_Prefs_CategoryManager
     /**
      * TODO
      */
-    static public function getJavaScript($formname, $elementname)
+    public static function getJavaScript($formname, $elementname)
     {
         $prompt = addslashes(Horde_Prefs_Translation::t("Please type the new category name:"));
         $error = addslashes(Horde_Prefs_Translation::t("You must type a new category name."));
@@ -114,7 +114,7 @@ JAVASCRIPT;
      *
      * @return mixed  False on failure, or the new category's name.
      */
-    static public function add($category)
+    public static function add($category)
     {
         if ($GLOBALS['prefs']->isLocked('categories') || empty($category)) {
             return false;
@@ -138,7 +138,7 @@ JAVASCRIPT;
      *
      * @return boolean  True on success, false on failure.
      */
-    static public function remove($category)
+    public static function remove($category)
     {
         if ($GLOBALS['prefs']->isLocked('categories')) {
             return false;
@@ -168,7 +168,7 @@ JAVASCRIPT;
      * @return array  A list of colors, key is the category name, value is the
      *                HTML color code.
      */
-    static public function colors()
+    public static function colors()
     {
         /* Default values that can be overridden but must always be
          * present. */
@@ -194,7 +194,7 @@ JAVASCRIPT;
      * @return array  A list of colors, key is the category name, value is the
      *                HTML color code.
      */
-    static public function fgColors()
+    public static function fgColors()
     {
         $colors = self::colors();
         $fgcolors = array();
@@ -208,7 +208,7 @@ JAVASCRIPT;
     /**
      * TODO
      */
-    static public function setColor($category, $color)
+    public static function setColor($category, $color)
     {
         $colors = self::colors();
         $colors[$category] = $color;
@@ -218,7 +218,7 @@ JAVASCRIPT;
     /**
      * TODO
      */
-    static public function setColors($colors)
+    public static function setColors($colors)
     {
         $pairs = array();
         foreach ($colors as $category => $color) {

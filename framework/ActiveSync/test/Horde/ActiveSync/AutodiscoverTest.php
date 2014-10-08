@@ -9,10 +9,10 @@
 class Horde_ActiveSync_AutoDiscoverTest extends Horde_Test_Case
 {
 
-    static protected $_server;
-    static protected $_input;
-    static protected $_driver;
-    static protected $_request;
+    protected static $_server;
+    protected static $_input;
+    protected static $_driver;
+    protected static $_request;
 
     public function setup()
     {

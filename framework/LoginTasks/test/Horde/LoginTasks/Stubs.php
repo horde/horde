@@ -2,7 +2,7 @@
 
 class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
 {
-    static public $lastRun;
+    public static $lastRun;
 
     private $_tasklist;
     private $_tasklistCache = false;
@@ -61,7 +61,7 @@ class Horde_LoginTasks_Stub_Backend extends Horde_LoginTasks_Backend
 class Horde_LoginTasks_Stub_Task
 extends Horde_LoginTasks_Task
 {
-    static public $executed;
+    public static $executed;
 
     public $interval = Horde_LoginTasks::EVERY;
     public $display = Horde_LoginTasks::DISPLAY_NONE;

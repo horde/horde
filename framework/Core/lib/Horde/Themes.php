@@ -40,7 +40,7 @@ class Horde_Themes
      * @return Horde_Themes_Image  An object which contains the URI
      *                             and filesystem location of the image.
      */
-    static public function img($name = null, $options = array())
+    public static function img($name = null, $options = array())
     {
         if (is_string($options)) {
             $options = array('app' => $options);
@@ -67,7 +67,7 @@ class Horde_Themes
      * @return Horde_Themes_Sound  An object which contains the URI
      *                             and filesystem location of the sound.
      */
-    static public function sound($name = null, $options = array())
+    public static function sound($name = null, $options = array())
     {
         if (is_string($options)) {
             $options = array('app' => $options);
@@ -82,7 +82,7 @@ class Horde_Themes
      * @return array  Keys are theme names, values are theme descriptions.
      * @throws UnexpectedValueException
      */
-    static public function themeList()
+    public static function themeList()
     {
         $out = array();
 
@@ -113,7 +113,7 @@ class Horde_Themes
      * @return array  An array of Horde_Themes_Sound objects. Keys are the
      *                base filenames.
      */
-    static public function soundList($app = null, $theme = null)
+    public static function soundList($app = null, $theme = null)
     {
         if (is_null($app)) {
             $app = $GLOBALS['registry']->getApp();
@@ -144,7 +144,7 @@ class Horde_Themes
      *
      * @return string  Path to the feed file.
      */
-    static public function getFeedXsl()
+    public static function getFeedXsl()
     {
          return $GLOBALS['registry']->get('themesuri', 'horde') . '/default/feed-rss.xsl';
     }
@@ -158,7 +158,7 @@ class Horde_Themes
      *
      * @return string  The directory prefix.
      */
-    static public function viewDir($view)
+    public static function viewDir($view)
     {
         global $registry;
 

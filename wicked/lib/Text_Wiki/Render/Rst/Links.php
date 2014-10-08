@@ -28,7 +28,7 @@
  */
 class Text_Wiki_Render_Rst_Links
 {
-    static public function append()
+    public static function append()
     {
         $result = '';
         $links = array_merge(

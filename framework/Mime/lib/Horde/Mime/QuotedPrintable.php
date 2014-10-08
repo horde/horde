@@ -30,7 +30,7 @@ class Horde_Mime_QuotedPrintable
      *
      * @return string  The decoded text.
      */
-    static public function decode($data)
+    public static function decode($data)
     {
         return quoted_printable_decode($data);
     }
@@ -44,7 +44,7 @@ class Horde_Mime_QuotedPrintable
      *
      * @return string  The quoted-printable encoded string.
      */
-    static public function encode($text, $eol = "\n", $wrap = 76)
+    public static function encode($text, $eol = "\n", $wrap = 76)
     {
         $fp = fopen('php://temp', 'r+');
         stream_filter_append(

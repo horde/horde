@@ -42,7 +42,7 @@ class Whups_Ticket
      *
      * @return Whups_Ticket Whups_Ticket object
      */
-    static public function makeTicket($id)
+    public static function makeTicket($id)
     {
         global $whups_driver;
 
@@ -63,7 +63,7 @@ class Whups_Ticket
      *
      * @return Whups_Ticket  Whups_Ticket object.
      */
-    static public function newTicket($info, $requester)
+    public static function newTicket($info, $requester)
     {
         global $whups_driver;
 
@@ -614,7 +614,7 @@ class Whups_Ticket
      *
      * @return integer  The permission id.
      */
-    static public function addCommentPerms($commentId, $group)
+    public static function addCommentPerms($commentId, $group)
     {
         if (!empty($group)) {
             $perms = $GLOBALS['injector']

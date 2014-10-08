@@ -472,7 +472,7 @@ class Horde_Cli
      *
      * @return Horde_Cli  A Horde_Cli instance.
      */
-    static public function init()
+    public static function init()
     {
         /* Run constructor now because it requires $_SERVER['SERVER_NAME'] to
          * be empty if called with a CGI SAPI. */
@@ -514,7 +514,7 @@ class Horde_Cli
      *
      * @return boolean  True if we are, false otherwise.
      */
-    static public function runningFromCLI()
+    public static function runningFromCLI()
     {
         return (PHP_SAPI == 'cli') ||
                (((PHP_SAPI == 'cgi') || (PHP_SAPI == 'cgi-fcgi')) &&

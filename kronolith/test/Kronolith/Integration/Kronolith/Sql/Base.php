@@ -31,14 +31,14 @@ class Kronolith_Integration_Kronolith_Sql_Base extends Kronolith_Integration_Kro
 {
     static $callback;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
         self::getDb();
         self::createSqlShares(self::$setup);
     }
 
-    static protected function getDb()
+    protected static function getDb()
     {
         call_user_func_array(self::$callback, array());
     }

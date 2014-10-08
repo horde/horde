@@ -39,7 +39,7 @@ class Horde_Test_AllTests
      *
      * @return Horde_Test_AllTests  Test object.
      */
-    static public function init($file)
+    public static function init($file)
     {
         $file = dirname($file);
 

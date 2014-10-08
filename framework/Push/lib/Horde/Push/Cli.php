@@ -32,7 +32,7 @@ class Horde_Push_Cli
      *
      * @param array $parameters A list of named configuration parameters.
      */
-    static public function main(array $parameters = array())
+    public static function main(array $parameters = array())
     {
         $parser = new Horde_Argv_Parser(
             array('usage' => '%prog [OPTIONS] [SOURCE://ID]')

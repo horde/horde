@@ -117,7 +117,7 @@ class Horde_Service_Twitter
      *                                immediately to update and receive
      *                                statuses etc.
      */
-    static public function create($params)
+    public static function create($params)
     {
         if (!isset($params['oauth'])) {
             throw new Horde_Service_Twitter_Exception('Only OAuth authentication is supported.');

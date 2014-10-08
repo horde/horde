@@ -24,7 +24,7 @@ class Agora_ViewComments {
      *
      * @return string  The HTML code of the thread view.
      */
-    static public function render($forum_name, $scope = 'agora', $base_url = null, $template_file = false)
+    public static function render($forum_name, $scope = 'agora', $base_url = null, $template_file = false)
     {
         $forums = $GLOBALS['injector']->getInstance('Agora_Factory_Driver')->create($scope);
         $forum_id = $forums->getForumId($forum_name);

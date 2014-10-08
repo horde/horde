@@ -540,7 +540,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *
      * @return void
      */
-    static public function frameImage(&$image, $color, $width, $height)
+    public static function frameImage(&$image, $color, $width, $height)
     {
         // Need to jump through these hoops in order to preserve any
         // transparency.

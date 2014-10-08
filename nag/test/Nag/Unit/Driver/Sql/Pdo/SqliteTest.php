@@ -31,13 +31,13 @@ class Nag_Unit_Driver_Sql_Pdo_SqliteTest extends Nag_Unit_Driver_Sql_Base
 {
     protected $backupGlobals = false;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$callback = array(__CLASS__, 'getDb');
         parent::setUpBeforeClass();
     }
 
-    static protected function getDb()
+    protected static function getDb()
     {
         self::createSqlPdoSqlite(self::$setup);
     }

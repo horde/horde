@@ -15,7 +15,7 @@ class Folks_Notification {
     /**
      * Instances
      */
-    static private $instances = array();
+    private static $instances = array();
 
     /**
      * Driver parameters
@@ -236,7 +236,7 @@ class Folks_Notification {
      * @return Folks_Notification  The newly created concrete Folks_Notification
      *                          instance, or false on an error.
      */
-    static protected function factory($driver, $params = null)
+    protected static function factory($driver, $params = null)
     {
         include_once FOLKS_BASE . '/lib/Notification/' . $driver . '.php';
 
@@ -263,7 +263,7 @@ class Folks_Notification {
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
      */
-    static public function singleton($driver, $params = null)
+    public static function singleton($driver, $params = null)
     {
         if (!array_key_exists($driver, self::$instances)) {
             self::$instances[$driver] = self::factory($driver, $params);

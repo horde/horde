@@ -14,7 +14,7 @@ class Foo{function foo(){}
     /**
      * @param Foobar $foobar
      */
-    static public function foobar(Foobar $foobar)
+    public static function foobar(Foobar $foobar)
     {
     }
 

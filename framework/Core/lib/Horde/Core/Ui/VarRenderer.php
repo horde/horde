@@ -45,7 +45,7 @@ class Horde_Core_Ui_VarRenderer
      * @return Horde_Core_Ui_VarRenderer  A subclass instance.
      * @throws Horde_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         if (is_array($driver)) {
             $app = $driver[0];

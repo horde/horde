@@ -531,7 +531,7 @@ class Mnemo
      *
      * @return array  An array of notepad ids.
      */
-    static public function getSyncNotepads($prune = false)
+    public static function getSyncNotepads($prune = false)
     {
         $haveRemoved = false;
         $cs = unserialize($GLOBALS['prefs']->getValue('sync_notepads'));

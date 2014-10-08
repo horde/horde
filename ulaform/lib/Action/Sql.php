@@ -109,7 +109,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    static public function getInfo()
+    public static function getInfo()
     {
         $info['name'] = _("SQL");
         $info['desc'] = _("This driver allows to insertion of form results into a database.");
@@ -123,7 +123,7 @@ class Ulaform_Action_Sql extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    static public function getParams()
+    public static function getParams()
     {
         $params = array();
         $params['table'] = array('label' => _("Table"), 'type' => 'text');

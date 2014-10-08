@@ -32,7 +32,7 @@ class Horde_Core_Factory_ImspAuth
      *
      * @var array
      */
-    static protected $_instances = array();
+    protected static $_instances = array();
 
     /**
      *
@@ -60,7 +60,7 @@ class Horde_Core_Factory_ImspAuth
      *
      * @return Horde_Imsp_Auth
      */
-    static public function create($driver, array $params = array())
+    public static function create($driver, array $params = array())
     {
         //@TODO: Fix this.
         /* Check for any imtest driver instances and kill them.
@@ -90,7 +90,7 @@ class Horde_Core_Factory_ImspAuth
      * @return mixed  The created Horde_Imsp_Auth subclass.
      * @throws Horde_Exception
      */
-    static protected function _factory($driver, array $params = array())
+    protected static function _factory($driver, array $params = array())
     {
         $driver = basename($driver);
         $class = 'Horde_Imsp_Auth_' . $driver;

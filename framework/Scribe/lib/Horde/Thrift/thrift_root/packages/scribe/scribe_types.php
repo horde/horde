@@ -16,7 +16,7 @@ $GLOBALS['E_ResultCode'] = array(
 final class ResultCode {
   const OK = 0;
   const TRY_LATER = 1;
-  static public $__names = array(
+  public static $__names = array(
     0 => 'OK',
     1 => 'TRY_LATER',
   );

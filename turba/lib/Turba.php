@@ -33,14 +33,14 @@ class Turba
      *
      * @var string
      */
-    static public $source;
+    public static $source;
 
     /**
      * Cached data.
      *
      * @var array
      */
-    static protected $_cache = array();
+    protected static $_cache = array();
 
     /**
      * Returns the source entries from config/backends.php that have been
@@ -49,7 +49,7 @@ class Turba
      * @return array  List of available sources.
      * @throws Horde_Exception
      */
-    static public function availableSources()
+    public static function availableSources()
     {
         global $registry;
 
@@ -74,7 +74,7 @@ class Turba
      *
      * @return array  The filtered, ordered $cfgSources entries.
      */
-    static public function getAddressBooks($permission = Horde_Perms::READ,
+    public static function getAddressBooks($permission = Horde_Perms::READ,
                                            array $options = array())
     {
         return self::permissionsFilter(
@@ -89,7 +89,7 @@ class Turba
      *
      * @return string  The default address book name.
      */
-    static public function getDefaultAddressbook()
+    public static function getDefaultAddressbook()
     {
         /* In case of shares select first user owned address book as default */
         if (!empty($_SESSION['turba']['has_share'])) {
@@ -110,7 +110,7 @@ class Turba
      *
      * @return array  TODO
      */
-    static public function getPreferredSortOrder()
+    public static function getPreferredSortOrder()
     {
         return @unserialize($GLOBALS['prefs']->getValue('sortorder'));
     }
@@ -121,7 +121,7 @@ class Turba
      * @param Horde_Variables $vars  Variables object.
      * @param string $source         Source.
      */
-    static public function setPreferredSortOrder(Horde_Variables $vars,
+    public static function setPreferredSortOrder(Horde_Variables $vars,
                                                  $source)
     {
         if (!strlen($sortby = $vars->get('sortby'))) {
@@ -167,7 +167,7 @@ class Turba
      *
      * @return string  TODO
      */
-    static public function getColumnName($i, $columns)
+    public static function getColumnName($i, $columns)
     {
         return (($i == 0) || !isset($columns[$i - 1]))
             ? 'name'
@@ -177,7 +177,7 @@ class Turba
     /**
      * TODO
      */
-    static public function getColumns()
+    public static function getColumns()
     {
         $columns = array();
         $lines = explode("\n", $GLOBALS['prefs']->getValue('columns'));
@@ -210,7 +210,7 @@ class Turba
      *
      * @return string  The formatted composite field.
      */
-    static public function formatCompositeField($format, $fields)
+    public static function formatCompositeField($format, $fields)
     {
         return preg_replace('/ +/', ' ', trim(vsprintf($format, $fields), " \t\n\r\0\x0B,"));
     }
@@ -222,7 +222,7 @@ class Turba
      *
      * @return string  String containing the last name.
      */
-    static public function guessLastname($name)
+    public static function guessLastname($name)
     {
         $name = trim(preg_replace('|\s|', ' ', $name));
         if (!empty($name)) {
@@ -266,7 +266,7 @@ class Turba
      *                 or "Lastname, Firstname" depending on $name_format or
      *                 the user's preference.
      */
-    static public function formatName(Turba_Object $ob, $name_format = null)
+    public static function formatName(Turba_Object $ob, $name_format = null)
     {
         if (!$name_format) {
             if (!isset(self::$_cache['defaultFormat'])) {
@@ -315,7 +315,7 @@ class Turba
      * @return mixed  Either the formatted address or an array of formatted
      *                addresses.
      */
-    static public function formatEmailAddresses($data, $name)
+    public static function formatEmailAddresses($data, $name)
     {
         if (!isset(self::$_cache['useRegistry'])) {
             self::$_cache['useRegistry'] = $GLOBALS['registry']->hasMethod('mail/batchCompose');
@@ -359,7 +359,7 @@ class Turba
      *
      * @return string  The user's full, real name.
      */
-    static public function getUserName($uid)
+    public static function getUserName($uid)
     {
         if (!isset(self::$_cache['names'])) {
             self::$_cache['names'] = array();
@@ -387,7 +387,7 @@ class Turba
      * @return mixed  The requested extended permissions value, or true if it
      *                doesn't exist.
      */
-    static public function getExtendedPermission(Turba_Driver $addressBook,
+    public static function getExtendedPermission(Turba_Driver $addressBook,
                                                  $permission)
     {
         // We want to check the base source as extended permissions
@@ -422,7 +422,7 @@ class Turba
      *
      * @return array  The filtered data.
      */
-    static public function permissionsFilter(array $in,
+    public static function permissionsFilter(array $in,
                                              $permission = Horde_Perms::READ,
                                              array $options = array())
     {
@@ -458,7 +458,7 @@ class Turba
      *
      * @return array  The $cfgSources array.
      */
-    static public function getConfigFromShares(array $sources, $owner = false)
+    public static function getConfigFromShares(array $sources, $owner = false)
     {
         try {
             $shares = self::listShares($owner);
@@ -601,7 +601,7 @@ class Turba
      *
      * @return array  The $cfgSource entry for this share source.
      */
-    static public function getSourceFromShare(Horde_Share $share)
+    public static function getSourceFromShare(Horde_Share $share)
     {
         // Require a fresh config file.
         $cfgSources = self::availableSources();
@@ -627,7 +627,7 @@ class Turba
      *
      * @return array  Shares the user has the requested permissions to.
      */
-    static public function listShares($owneronly = false,
+    public static function listShares($owneronly = false,
                                       $permission = Horde_Perms::READ)
     {
         if (!$GLOBALS['session']->get('turba', 'has_share') ||
@@ -658,7 +658,7 @@ class Turba
      * @return Horde_Share  The new share object.
      * @throws Turba_Exception
      */
-    static public function createShare($share_name, $params)
+    public static function createShare($share_name, $params)
     {
         if (isset($params['name'])) {
             $name = $params['name'];
@@ -694,7 +694,7 @@ class Turba
     /**
      * Add browse.js javascript to page.
      */
-    static public function addBrowseJs()
+    public static function addBrowseJs()
     {
         global $page_output;
 

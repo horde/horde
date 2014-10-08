@@ -40,7 +40,7 @@ class Horde_Crypt
      * @return Horde_Crypt  The newly created concrete instance.
      * @throws Horde_Crypt_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         /* Return a base Horde_Crypt object if no driver is specified. */
         if (empty($driver) || (strcasecmp($driver, 'none') == 0)) {

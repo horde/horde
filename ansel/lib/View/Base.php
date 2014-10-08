@@ -176,7 +176,7 @@ abstract class Ansel_View_Base
      *
      * @return string  A serialized JSON array.
      */
-    static public function json(Ansel_Gallery $gallery, $params = array())
+    public static function json(Ansel_Gallery $gallery, $params = array())
     {
         global $conf, $prefs;
 

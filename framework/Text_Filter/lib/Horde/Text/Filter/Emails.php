@@ -122,7 +122,7 @@ EOR;
      *
      * @return string  The decoded text.
      */
-    static public function decode($text)
+    public static function decode($text)
     {
         return preg_replace_callback(
             '/\01\01\01([\w=+\/]*)\01\01\01/',

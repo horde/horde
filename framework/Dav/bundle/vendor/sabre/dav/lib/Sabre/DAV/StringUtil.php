@@ -24,7 +24,7 @@ class StringUtil {
      * @param string $matchType
      * @return bool
      */
-    static public function textMatch($haystack, $needle, $collation, $matchType = 'contains') {
+    public static function textMatch($haystack, $needle, $collation, $matchType = 'contains') {
 
         switch($collation) {
 
@@ -76,7 +76,7 @@ class StringUtil {
      * @param string $input
      * @return string
      */
-    static public function ensureUTF8($input) {
+    public static function ensureUTF8($input) {
 
         $encoding = mb_detect_encoding($input , array('UTF-8','ISO-8859-1'), true);
 

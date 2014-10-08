@@ -110,7 +110,7 @@ class Ansel_ImageGenerator
      * @return Ansel_ImageGenerator
      * @throws Ansel_Exception
      */
-    static public function factory($type, $params = array())
+    public static function factory($type, $params = array())
     {
         $type = basename($type);
         $class = 'Ansel_ImageGenerator_' . $type;

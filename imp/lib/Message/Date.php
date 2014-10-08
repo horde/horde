@@ -31,7 +31,7 @@ class IMP_Message_Date
      *
      * @var array
      */
-    static private $_cache = array();
+    private static $_cache = array();
 
     /**
      * The date object.

@@ -253,7 +253,7 @@ abstract class Kronolith_FreeBusy_View
      * @return mixed  The newly created concrete Kronolith_FreeBusy_View
      *                instance, or false on an error.
      */
-    static public function factory($view)
+    public static function factory($view)
     {
         $driver = basename($view);
         $class = 'Kronolith_FreeBusy_View_' . $driver;
@@ -279,7 +279,7 @@ abstract class Kronolith_FreeBusy_View
      * @return mixed  The created concrete Kronolith_FreeBusy_View instance, or
      *                false on an error.
      */
-    static public function &singleton($view)
+    public static function &singleton($view)
     {
         static $instances = array();
 

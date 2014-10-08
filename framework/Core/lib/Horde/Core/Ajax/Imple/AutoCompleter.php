@@ -19,7 +19,7 @@ abstract class Horde_Core_Ajax_Imple_AutoCompleter extends Horde_Core_Ajax_Imple
      *
      * @var boolean
      */
-    static protected $_initAc = false;
+    protected static $_initAc = false;
 
     /**
      */

@@ -37,7 +37,7 @@ extends Horde_Exception_Pear
      *
      * @throws Horde_Exception_Pear In case the result was a PEAR_Error.
      */
-    static public function catchError($result)
+    public static function catchError($result)
     {
         self::$_class = __CLASS__;
         return parent::catchError($result);

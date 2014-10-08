@@ -38,7 +38,7 @@ class Ingo_Session
      *
      * @throws Ingo_Exception
      */
-    static public function create()
+    public static function create()
     {
         global $injector, $prefs, $registry, $session;
 
@@ -112,7 +112,7 @@ class Ingo_Session
      * @return array  The backend entry.
      * @throws Ingo_Exception
      */
-    static protected function _getBackend()
+    protected static function _getBackend()
     {
         $backend = null;
 

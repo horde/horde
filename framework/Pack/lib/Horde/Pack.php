@@ -34,14 +34,14 @@ class Horde_Pack
      *
      * @var Horde_Compress_Fast
      */
-    static protected $_compress;
+    protected static $_compress;
 
     /**
      * Drivers. Shared between all instances.
      *
      * @var array
      */
-    static protected $_drivers = array();
+    protected static $_drivers = array();
 
     /**
      * Constructor.

@@ -184,7 +184,7 @@ class Horde_Menu
      *
      * @return boolean  Whether the given URL is the current location.
      */
-    static public function isSelected($url)
+    public static function isSelected($url)
     {
         $server_url = parse_url($_SERVER['PHP_SELF']);
         $check_url = parse_url($url);

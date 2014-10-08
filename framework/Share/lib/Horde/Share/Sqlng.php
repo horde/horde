@@ -252,7 +252,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
      *
      * @return array  The bit mask as an array.
      */
-    static public function convertBitmaskToArray($perm)
+    public static function convertBitmaskToArray($perm)
     {
         $perms = array();
         for ($bit = 1; $perm; $bit *= 2, $perm >>= 1) {

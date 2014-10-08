@@ -576,7 +576,7 @@ abstract class Horde_ActiveSync_State_Base
      * @return string  The new synckey
      * @throws Horde_ActiveSync_Exception
      */
-    static public function getNewSyncKey($syncKey)
+    public static function getNewSyncKey($syncKey)
     {
         if (empty($syncKey)) {
             return '{' . new Horde_Support_Uuid() . '}' . '1';
@@ -598,7 +598,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return mixed integer|boolean  The increment counter or false if failed.
      */
-    static public function getSyncKeyCounter($syncKey)
+    public static function getSyncKeyCounter($syncKey)
     {
        if (preg_match('/^\{([a-fA-F0-9-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             $n = $matches[2];
@@ -615,7 +615,7 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @return string  The UID.
      */
-    static public function getSyncKeyUid($syncKey)
+    public static function getSyncKeyUid($syncKey)
     {
        if (preg_match('/^(\{[a-fA-F0-9-]+\})([0-9]+)$/', $syncKey, $matches)) {
             return $matches[1];
@@ -629,7 +629,7 @@ abstract class Horde_ActiveSync_State_Base
     *
     * @return integer
     */
-    static protected function _getCutOffDate($restrict)
+    protected static function _getCutOffDate($restrict)
     {
         // @todo Should just pass the filtertype to the driver instead
         // of parsing it here, let the driver figure out what to do with it.
@@ -756,7 +756,7 @@ abstract class Horde_ActiveSync_State_Base
      * @param $b
      * @return unknown_type
      */
-    static public function RowCmp($a, $b)
+    public static function RowCmp($a, $b)
     {
         return $a['id'] < $b['id'] ? 1 : -1;
     }

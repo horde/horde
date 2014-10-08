@@ -73,7 +73,7 @@ class Horde_Stream_Wrapper_Combine
      *
      * @var integer
      */
-    static private $_id = 0;
+    private static $_id = 0;
 
     /**
      * Create a stream from multiple data sources.
@@ -85,7 +85,7 @@ class Horde_Stream_Wrapper_Combine
      *
      * @return resource  A PHP stream.
      */
-    static public function getStream($data)
+    public static function getStream($data)
     {
         if (!self::$_id) {
             stream_wrapper_register(self::WRAPPER_NAME, __CLASS__);

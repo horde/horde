@@ -54,7 +54,7 @@ class SM_Horde_Convert
     /**
      * Print usage and exit.
      */
-    static public function usage()
+    public static function usage()
     {
         global $cli;
 

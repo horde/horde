@@ -20,7 +20,7 @@ class Horde_Vfs_Gc
      * @param integer $secs  The minimum amount of time (in seconds) required
      *                       before a file is removed.
      */
-    static public function gc($vfs, $path, $secs = 345600)
+    public static function gc($vfs, $path, $secs = 345600)
     {
         /* A 0.1% chance we will run garbage collection during a call. */
         if (substr(time(), -3) !== '000') {

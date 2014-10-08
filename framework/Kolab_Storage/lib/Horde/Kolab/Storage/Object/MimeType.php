@@ -59,7 +59,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return string The mime type associated to the object type.
      */
-    static public function getMimeTypeFromObjectType($type)
+    public static function getMimeTypeFromObjectType($type)
     {
         if (isset(self::$_object_types[$type])) {
             return self::$_object_types[$type];
@@ -78,7 +78,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return string|boolean The MIME ID of the message part carrying the object of the specified type or false if such a part was not identified within the message.
      */
-    static public function matchMimePartToObjectType(Horde_Mime_Part $structure, $type)
+    public static function matchMimePartToObjectType(Horde_Mime_Part $structure, $type)
     {
         return array_search(
             self::getMimeTypeFromObjectType($type),
@@ -93,7 +93,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return array The mime types associated to the folder type.
      */
-    static public function getMimeTypesFromFolderType($type)
+    public static function getMimeTypesFromFolderType($type)
     {
         if (isset(self::$_folder_types[$type])) {
             return self::$_folder_types[$type];
@@ -117,7 +117,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *                        type or false if such a part was not identified
      *                        within the message.
      */
-    static public function matchMimePartToFolderType(Horde_Mime_Part $structure,
+    public static function matchMimePartToFolderType(Horde_Mime_Part $structure,
                                                      $type)
     {
         $mime_types = self::getMimeTypesFromFolderType($type);
@@ -144,7 +144,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return string|boolean The MIME ID of the message part carrying an object matching the message headers or false if such a part was not identified within the message.
      */
-    static public function matchMimePartToHeaderType(Horde_Mime_Part $structure, Horde_Mime_Headers $headers)
+    public static function matchMimePartToHeaderType(Horde_Mime_Part $structure, Horde_Mime_Headers $headers)
     {
         $mime_type = $headers->getValue('X-Kolab-Type');
         if ($mime_type === null) {
@@ -164,7 +164,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return string|boolean The object type or false if no matching object type was found.
      */
-    static public function getObjectTypeFromMimePart(Horde_Mime_Part $structure, $id)
+    public static function getObjectTypeFromMimePart(Horde_Mime_Part $structure, $id)
     {
         return self::getObjectTypeFromMimeType($structure->getPart($id)->getType());
     }    
@@ -176,7 +176,7 @@ class Horde_Kolab_Storage_Object_MimeType
      *
      * @return string|boolean The object type or false if no matching object type was found.
      */
-    static public function getObjectTypeFromMimeType($mime_type)
+    public static function getObjectTypeFromMimeType($mime_type)
     {
         return array_search($mime_type, self::$_object_types);
     }    

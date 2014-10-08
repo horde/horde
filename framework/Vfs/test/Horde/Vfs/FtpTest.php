@@ -160,7 +160,7 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         if (!extension_loaded('ftp')) {
             self::$reason = 'No ftp extension';
@@ -174,7 +174,7 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
         }
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         if (self::$vfs) {
             try {

@@ -24,7 +24,7 @@ class Horde_Compress_Fast_Lz4 extends Horde_Compress_Fast_Base
 {
     /**
      */
-    static public function supported()
+    public static function supported()
     {
         return extension_loaded('horde_lz4');
     }

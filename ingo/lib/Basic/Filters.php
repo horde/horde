@@ -328,7 +328,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
      *                         of exact match.
      * </pre>
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         $url = Horde::url('basic.php')->add('page', 'filters');
 

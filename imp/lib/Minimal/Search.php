@@ -40,7 +40,7 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
      * @param array $opts  Options:
      *   - mailbox: (string) The mailbox to search. Defaults to INBOX.
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         $opts = array_merge(array('mailbox' => 'INBOX'), $opts);
 

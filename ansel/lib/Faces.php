@@ -22,7 +22,7 @@ class Ansel_Faces
      *
      * @throws Ansel_Exception
      */
-    static public function delete(Ansel_Image $image, $face = null)
+    public static function delete(Ansel_Image $image, $face = null)
     {
         if ($image->facesCount == 0) {
             return true;
@@ -87,7 +87,7 @@ class Ansel_Faces
      *
      * @param integer $image Image ID to get
      */
-    static public function getVFSPath($image)
+    public static function getVFSPath($image)
     {
         return '.horde/ansel/' . substr(str_pad($image, 2, 0, STR_PAD_LEFT), -2) . '/';
     }
@@ -96,7 +96,7 @@ class Ansel_Faces
      * Get filename extension
      *
      */
-    static public function getExtension()
+    public static function getExtension()
     {
         if ($GLOBALS['conf']['image']['type'] == 'jpeg') {
             return '.jpg';
@@ -112,7 +112,7 @@ class Ansel_Faces
      *
      * @return string  The url for the image this face belongs to.
      */
-    static public function getLink(array $face)
+    public static function getLink(array $face)
     {
         return Ansel::getUrlFor(
             'view',
@@ -128,7 +128,7 @@ class Ansel_Faces
      *
      * @return string  The generated HTML
      */
-    static public function getFaceTile($face)
+    public static function getFaceTile($face)
     {
         $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
         if (!is_array($face)) {

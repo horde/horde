@@ -21,14 +21,14 @@ class Horde_Mime_Magic
      *
      * @var array
      */
-    static protected $_map = null;
+    protected static $_map = null;
 
     /**
      * Returns a copy of the MIME extension map.
      *
      * @return array  The MIME extension map.
      */
-    static protected function _getMimeExtensionMap()
+    protected static function _getMimeExtensionMap()
     {
         if (is_null(self::$_map)) {
             require __DIR__ . '/mime.mapping.php';
@@ -50,7 +50,7 @@ class Horde_Mime_Magic
      *
      * @return string  The MIME type of the file extension.
      */
-    static public function extToMime($ext)
+    public static function extToMime($ext)
     {
         if (empty($ext)) {
             return 'application/octet-stream';
@@ -83,7 +83,7 @@ class Horde_Mime_Magic
      *
      * @return string  The MIME type of the filename.
      */
-    static public function filenameToMime($filename, $unknown = true)
+    public static function filenameToMime($filename, $unknown = true)
     {
         $pos = strlen($filename) + 1;
         $type = '';
@@ -114,7 +114,7 @@ class Horde_Mime_Magic
      *
      * @return string  The file extension of the MIME type.
      */
-    static public function mimeToExt($type)
+    public static function mimeToExt($type)
     {
         if (empty($type)) {
             return false;
@@ -147,7 +147,7 @@ class Horde_Mime_Magic
      * @return mixed  The MIME type of the file. Returns false if the file
      *                type can not be determined.
      */
-    static public function analyzeFile($path, $magic_db = null,
+    public static function analyzeFile($path, $magic_db = null,
                                        $opts = array())
     {
         if (Horde_Util::extensionExists('fileinfo')) {
@@ -192,7 +192,7 @@ class Horde_Mime_Magic
      * @return mixed  The MIME type of the file. Returns false if the file
      *                type can not be determined.
      */
-    static public function analyzeData($data, $magic_db = null,
+    public static function analyzeData($data, $magic_db = null,
                                        $opts = array())
     {
         /* If the PHP Mimetype extension is available, use that. */

@@ -36,7 +36,7 @@ class Horde_Imap_Client_Data_Sync
      *
      * @var array
      */
-    static public $map = array(
+    public static $map = array(
         'H' => 'highestmodseq',
         'M' => 'messages',
         'U' => 'uidnext',

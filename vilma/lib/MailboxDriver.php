@@ -74,7 +74,7 @@ abstract class Vilma_MailboxDriver
      * @return Vilma_MailboxDriver  The new driver instance.
      * @throws Vilma_Exception
      */
-    static public function factory($driver = null, $params = null)
+    public static function factory($driver = null, $params = null)
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['mailboxes']['driver'];

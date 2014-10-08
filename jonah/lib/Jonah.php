@@ -37,7 +37,7 @@ class Jonah
      *
      * @param string $url  The url to get the list of the channel's stories.
      */
-    static public function readURL($url)
+    public static function readURL($url)
     {
         global $conf;
 
@@ -67,7 +67,7 @@ class Jonah
     /**
      * @deprecated Remove when external channels moved to hippo.
      */
-    static public function getChannelTypeLabel($type)
+    public static function getChannelTypeLabel($type)
     {
         switch ($type) {
         case Jonah::INTERNAL_CHANNEL:
@@ -84,7 +84,7 @@ class Jonah
      *
      * @return mixed  An array of results or a single boolean?
      */
-    static public function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
+    public static function checkPermissions($filter, $permission = Horde_Perms::READ, $in = null)
     {
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'jonah:admin', 'permlevel' =>  $permission))) {
             if (empty($in)) {
@@ -141,7 +141,7 @@ class Jonah
      *
      * @return string  The string representation of the channel type.
      */
-    static public function typeToPermName($type)
+    public static function typeToPermName($type)
     {
         if ($type == Jonah::INTERNAL_CHANNEL) {
             return 'internal_channels';
@@ -153,7 +153,7 @@ class Jonah
      *
      * @return array  An array of body types.
      */
-    static public function getBodyTypes()
+    public static function getBodyTypes()
     {
         static $types = array();
         if (!empty($types)) {
@@ -180,7 +180,7 @@ class Jonah
      *
      * @return string  A default type.
      */
-    static public function getDefaultBodyType()
+    public static function getDefaultBodyType()
     {
         $types = Jonah::getBodyTypes();
         if (isset($types['text'])) {
@@ -199,7 +199,7 @@ class Jonah
      *
      * @return array  The available news channel types.
      */
-    static public function getAvailableTypes()
+    public static function getAvailableTypes()
     {
         $types = array();
 

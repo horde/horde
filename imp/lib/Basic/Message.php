@@ -931,7 +931,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
      *   - buid: (string) BUID of message.
      *   - mailbox: (string) Mailbox of message.
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return IMP_Mailbox::get($opts['mailbox'])->url('basic')->add(array(
             'buid' => $opts['buid'],

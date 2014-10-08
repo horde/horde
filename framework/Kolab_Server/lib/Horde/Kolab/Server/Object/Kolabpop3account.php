@@ -73,7 +73,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_SERVER,
             self::ATTRIBUTE_LOGINNAME,
@@ -167,7 +167,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
      *
      * @return array An array of supported search operations.
      */
-    static public function getSearchOperations()
+    public static function getSearchOperations()
     {
         $searches = array(
 /*             'pop3AccountsForMail', */
@@ -186,7 +186,7 @@ class Horde_Kolab_Server_Object_Kolabpop3account extends Horde_Kolab_Server_Obje
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    static public function pop3AccountsForMail($server, $mail)
+    public static function pop3AccountsForMail($server, $mail)
     {
         $uid = $server->uidForMail($mail, Horde_Kolab_Server_Object::RESULT_SINGLE);
         return self::objectsForUid($server, $uid, self::OBJECTCLASS_KOLABEXTERNALPOP3ACCOUNT);

@@ -170,7 +170,7 @@ class DateTime extends VObject\Property {
      *                                              property we're parsing.
      * @return array
      */
-    static public function parseData($propertyValue, VObject\Property $property = null) {
+    public static function parseData($propertyValue, VObject\Property $property = null) {
 
         if (is_null($propertyValue)) {
             return array(null, null);

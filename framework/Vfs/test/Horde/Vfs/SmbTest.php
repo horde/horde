@@ -15,7 +15,7 @@
  */
 class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
 {
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['smb'])) {
@@ -29,7 +29,7 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
         }
     }
 
-    static public function tearDownAfterClass()
+    public static function tearDownAfterClass()
     {
         if (self::$vfs) {
             try {

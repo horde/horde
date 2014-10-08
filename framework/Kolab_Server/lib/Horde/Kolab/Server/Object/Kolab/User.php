@@ -48,7 +48,7 @@ class Horde_Kolab_Server_Object_Kolab_User extends Horde_Kolab_Server_Object_Kol
      *
      * @var array
      */
-/*     static public $init_attributes = array( */
+/*     public static $init_attributes = array( */
 /*         'derived' => array( */
 /*             self::ATTRIBUTE_USERTYPE => array(), */
 /*             self::ATTRIBUTE_FN => array(), */

@@ -26,7 +26,7 @@ extends Horde_Translation
 {
     /**
      */
-    static public function t($message)
+    public static function t($message)
     {
         self::$_domain = 'Horde_Mail';
         self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mail/locale';
@@ -35,7 +35,7 @@ extends Horde_Translation
 
     /**
      */
-    static public function ngettext($singular, $plural, $number)
+    public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Mail';
         self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mail/locale';

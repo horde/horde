@@ -39,7 +39,7 @@ final class TTypeTag {
   const T_LIST = 15;
   const T_ENUM = 101;
   const T_NOT_REFLECTED = 102;
-  static public $__names = array(
+  public static $__names = array(
     1 => 'T_VOID',
     2 => 'T_BOOL',
     3 => 'T_BYTE',

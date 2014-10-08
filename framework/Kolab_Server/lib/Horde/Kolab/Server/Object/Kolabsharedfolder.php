@@ -47,7 +47,7 @@ class Horde_Kolab_Server_Object_Kolabsharedfolder extends Horde_Kolab_Server_Obj
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_HOMESERVER,

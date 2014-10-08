@@ -36,7 +36,7 @@ class Components_Component_Match
      *
      * @return boolen True if the component matches.
      */
-    static public function matches($c_name, $c_channel, $selector)
+    public static function matches($c_name, $c_channel, $selector)
     {
         $selectors = split(',', $selector);
         if (in_array('ALL', $selectors)) {

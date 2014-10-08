@@ -28,7 +28,7 @@ class Horde_Text_Filter
      * @return Horde_Text_Filter_Base  The newly created concrete instance.
      * @throws Horde_Text_Filter_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         /* Base drivers (in Filter/ directory). */
         $class = __CLASS__ . '_' . ucfirst(basename($driver));
@@ -55,7 +55,7 @@ class Horde_Text_Filter
      * @return string  The transformed text.
      * @throws Horde_Text_Filter_Exception
      */
-    static public function filter($text, $filters = array(), $params = array())
+    public static function filter($text, $filters = array(), $params = array())
     {
         if (!is_array($filters)) {
             $filters = array($filters);

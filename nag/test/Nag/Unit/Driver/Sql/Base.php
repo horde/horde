@@ -31,7 +31,7 @@ class Nag_Unit_Driver_Sql_Base extends Nag_Unit_Driver_Base
 {
     static $callback;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         return;
 
@@ -44,7 +44,7 @@ class Nag_Unit_Driver_Sql_Base extends Nag_Unit_Driver_Base
         );
     }
 
-    static protected function getDb()
+    protected static function getDb()
     {
         call_user_func_array(self::$callback, array());
     }

@@ -454,7 +454,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
     /**
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return Horde::url('minimal.php')->add('page', 'compose')->unique();
     }

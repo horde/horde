@@ -37,7 +37,7 @@ class Horde_Crypt_Blowfish_Mcrypt extends Horde_Crypt_Blowfish_Base
 
     /**
      */
-    static public function supported()
+    public static function supported()
     {
         return extension_loaded('mcrypt');
     }

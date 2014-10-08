@@ -132,7 +132,7 @@ class Turba_Driver implements Countable
      *
      * @var array
      */
-    static protected $_asMap = array(
+    protected static $_asMap = array(
         'name' => 'fileas',
         'lastname' => 'lastname',
         'firstname' => 'firstname',

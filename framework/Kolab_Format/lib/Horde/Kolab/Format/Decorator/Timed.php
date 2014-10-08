@@ -48,7 +48,7 @@ extends Horde_Kolab_Format_Decorator_Base
      *
      * @var float
      */
-    static private $_spent = 0.0;
+    private static $_spent = 0.0;
 
     /**
      * Constructor.

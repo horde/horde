@@ -20,7 +20,7 @@ class Horde_Core_Ui_Language {
      *
      * @return string  The HTML selection box.
      */
-    static public function render()
+    public static function render()
     {
         global $prefs, $registry, $session;
 

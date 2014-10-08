@@ -30,7 +30,7 @@ class Whups
      * @see sortBy()
      * @var string
      */
-    static protected $_sortBy;
+    protected static $_sortBy;
 
     /**
      * The current sort direction.
@@ -38,7 +38,7 @@ class Whups
      * @see sortDir()
      * @var integer
      */
-    static protected $_sortDir;
+    protected static $_sortDir;
 
     /**
      * Cached list of user information.
@@ -46,7 +46,7 @@ class Whups
      * @see getUserAttributes()
      * @var array
      */
-    static protected $_users = array();
+    protected static $_users = array();
 
     /**
      * All available form field types including all type information
@@ -55,7 +55,7 @@ class Whups
      * @see fieldTypes()
      * @var array
      */
-    static protected $_fieldTypes = array();
+    protected static $_fieldTypes = array();
 
     /**
      * URL factory.
@@ -69,7 +69,7 @@ class Whups
      *
      * @return Horde_Url  The generated URL.
      */
-    static public function urlFor($controller, $data, $full = false,
+    public static function urlFor($controller, $data, $full = false,
                                   $append_session = 0)
     {
         $rewrite = isset($GLOBALS['conf']['urls']['pretty']) &&
@@ -167,7 +167,7 @@ class Whups
      * @param string $dir     The direction to sort. If omitted, obtain from
      *                        preferences.
      */
-    static public function sortTickets(&$tickets, $by = null, $dir = null)
+    public static function sortTickets(&$tickets, $by = null, $dir = null)
     {
         if (is_null($by)) {
             $by = $GLOBALS['prefs']->getValue('sortby');
@@ -192,7 +192,7 @@ class Whups
      *
      * @return string  If $b is null, returns the previously set value.
      */
-    static public function sortBy($b = null)
+    public static function sortBy($b = null)
     {
         if (!is_null($b)) {
             self::$_sortBy = $b;
@@ -208,7 +208,7 @@ class Whups
      *
      * @return integer  If $d is null, returns the previously set value.
      */
-    static public function sortDir($d = null)
+    public static function sortDir($d = null)
     {
         if (!is_null($d)) {
             self::$_sortDir = $d;
@@ -227,7 +227,7 @@ class Whups
      *
      * @return array  The altered $ticket array
      */
-    static protected function _prepareSort(array $ticket)
+    protected static function _prepareSort(array $ticket)
     {
         $by = self::sortBy();
         $ticket['sort_by'] = array();
@@ -266,7 +266,7 @@ class Whups
      *
      * @return integer
      */
-    static protected function _sort($a, $b, $sortby = null, $sortdir = null)
+    protected static function _sort($a, $b, $sortby = null, $sortdir = null)
     {
         if (is_null($sortby)) {
             $sortby = self::$_sortBy;
@@ -329,7 +329,7 @@ class Whups
      *
      * @return string  A CAPTCHA string.
      */
-    static public function getCAPTCHA($new = false)
+    public static function getCAPTCHA($new = false)
     {
         global $session;
 
@@ -352,7 +352,7 @@ class Whups
      *
      * @return array  All templates of the requested type.
      */
-    static public function listTemplates($type)
+    public static function listTemplates($type)
     {
         $templates = array();
 
@@ -375,7 +375,7 @@ class Whups
      *
      * @return Whups_Ticket  The current ticket.
      */
-    static public function getCurrentTicket()
+    public static function getCurrentTicket()
     {
         $default = Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
         $id = Horde_Util::getFormData('searchfield');
@@ -405,7 +405,7 @@ class Whups
     /**
      * Adds topbar search to page
      */
-    static public function addTopbarSearch() {
+    public static function addTopbarSearch() {
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = true;
         $topbar->searchAction = Horde::url('ticket');
@@ -415,7 +415,7 @@ class Whups
     /**
      * Returns the tabs for navigating between ticket actions.
      */
-    static public function getTicketTabs(&$vars, $id)
+    public static function getTicketTabs(&$vars, $id)
     {
         $tabs = new Horde_Core_Ui_Tabs(null, $vars);
         $queue = Whups_Ticket::makeTicket($id)->get('queue');
@@ -466,7 +466,7 @@ class Whups
      *
      * @return boolean  True if the user has the specified permission.
      */
-    static public function hasPermission($in, $filter, $permission, $user = null)
+    public static function hasPermission($in, $filter, $permission, $user = null)
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
@@ -541,7 +541,7 @@ class Whups
      *
      * @return array  The list of resources matching the permission criteria.
      */
-    static public function permissionsFilter($in, $filter,
+    public static function permissionsFilter($in, $filter,
                                              $permission = Horde_Perms::READ,
                                              $user = null, $creator = null)
     {
@@ -643,7 +643,7 @@ class Whups
      *
      * @return array  A list of criteria that would match the user.
      */
-    static public function getOwnerCriteria($user)
+    public static function getOwnerCriteria($user)
     {
         $criteria = array('user:' . $user);
         $mygroups = $GLOBALS['injector']
@@ -663,7 +663,7 @@ class Whups
      * @return array  An information hash with 'user', 'name', 'email', and
      *                'type' values.
      */
-    static public function getUserAttributes($user = null)
+    public static function getUserAttributes($user = null)
     {
         if (is_null($user)) {
             $user = $GLOBALS['registry']->getAuth();
@@ -758,7 +758,7 @@ class Whups
      *                            escaped for HTML output, and a group icon
      *                            might be added.
      */
-    static public function formatUser($user = null, $showemail = true,
+    public static function formatUser($user = null, $showemail = true,
                                       $showname = true, $html = false)
     {
         if (!is_null($user) && empty($user)) {
@@ -812,7 +812,7 @@ class Whups
      *
      * @return string  The formatted property.
      */
-    static public function formatColumn($info, $value)
+    public static function formatColumn($info, $value)
     {
         $url = self::urlFor('ticket', $info['id']);
         $thevalue = isset($info[$value]) ? $info[$value] : '';
@@ -849,7 +849,7 @@ class Whups
      * @param array $columns        The columns to return, overriding the
      *                              defaults for some $search_type.
      */
-    static public function getSearchResultColumns($search_type = null,
+    public static function getSearchResultColumns($search_type = null,
                                                   $columns = null)
     {
         $all = array(
@@ -900,7 +900,7 @@ class Whups
      *
      * @throws Whups_Exception
      */
-    static public function sendReminders($vars)
+    public static function sendReminders($vars)
     {
         global $whups_driver;
 
@@ -977,7 +977,7 @@ class Whups
      *
      * @throws Whups_Exception if the VFS object cannot be created.
      */
-    static public function getAttachments($ticket, $name = null)
+    public static function getAttachments($ticket, $name = null)
     {
         if (empty($GLOBALS['conf']['vfs']['type'])) {
             return;
@@ -1017,7 +1017,7 @@ class Whups
      *
      * @return array  List of URLs.
      */
-    static public function attachmentUrl($ticket, $file, $queue)
+    public static function attachmentUrl($ticket, $file, $queue)
     {
         global $injector, $registry;
 
@@ -1094,7 +1094,7 @@ class Whups
      *
      * @return string  The formatted owner string.
      */
-    static public function getOwners($ticket, $showemail = true,
+    public static function getOwners($ticket, $showemail = true,
                                      $showname = true, $owners = null)
     {
         if (is_null($owners)) {
@@ -1118,7 +1118,7 @@ class Whups
      *
      * @return array  The full field types array.
      */
-    static public function fieldTypes()
+    public static function fieldTypes()
     {
         if (!empty(self::$_fieldTypes)) {
             return self::$_fieldTypes;
@@ -1151,7 +1151,7 @@ class Whups
      *
      * @return array  A hash The with available field types and names.
      */
-    static public function fieldTypeNames()
+    public static function fieldTypeNames()
     {
         /* Fetch the field type information from the Horde_Form classes. */
         $fields = self::fieldTypes();
@@ -1175,7 +1175,7 @@ class Whups
      *
      * @return array  A list of field type parameters.
      */
-    static public function fieldTypeParams($field_type)
+    public static function fieldTypeParams($field_type)
     {
         $fields = self::fieldTypes();
 
@@ -1189,7 +1189,7 @@ class Whups
      *
      * @return array  An array with two keys: 'sources' and 'fields'.
      */
-    static public function getAddressbookSearchParams()
+    public static function getAddressbookSearchParams()
     {
         $src = json_decode($GLOBALS['prefs']->getValue('search_sources'));
         if (!is_array($src)) {
@@ -1207,7 +1207,7 @@ class Whups
         );
     }
 
-    static public function addFeedLink()
+    public static function addFeedLink()
     {
         $GLOBALS['page_output']->addLinkTag(array(
             'href' => Horde::url('opensearch.php', true, -1),

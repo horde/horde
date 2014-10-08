@@ -84,7 +84,7 @@ class Reader {
      * @param int $options See the OPTIONS constants.
      * @return Node
      */
-    static private function readLine(&$lines, $options = 0) {
+    private static function readLine(&$lines, $options = 0) {
 
         $line = current($lines);
         $lineNr = key($lines);
@@ -176,7 +176,7 @@ class Reader {
      * @param string $parameters
      * @return array
      */
-    static private function readParameters($parameters) {
+    private static function readParameters($parameters) {
 
         $token = '[A-Z0-9-]+';
 

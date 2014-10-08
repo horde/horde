@@ -25,7 +25,7 @@ class Sam
      * @return array  The backend entry.
      * @throws Sam_Exception
      */
-    static public function getPreferredBackend()
+    public static function getPreferredBackend()
     {
         $backends = Horde::loadConfiguration('backends.php', 'backends');
 
@@ -78,7 +78,7 @@ class Sam
      *
      * @return array  The attributes list.
      */
-    static public function getAttributes()
+    public static function getAttributes()
     {
         static $_attributes;
 
@@ -97,7 +97,7 @@ class Sam
      * @return boolean  Returns true if the given type is known to be
      *                  informational only.
      */
-    static public function infoAttribute($type = '')
+    public static function infoAttribute($type = '')
     {
         return in_array(
             $type,
@@ -117,7 +117,7 @@ class Sam
      *
      * @return string   The converted username.
      */
-    static public function mapUser($hordeauth)
+    public static function mapUser($hordeauth)
     {
         $uid = $GLOBALS['registry']->getAuth($hordeauth === 'full' ? null : 'bare');
         try {

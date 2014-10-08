@@ -54,7 +54,7 @@ class Horde_Kolab_Format_Xml_Type_Base
      *
      * @var array
      */
-    static private $_xml_types;
+    private static $_xml_types;
 
     /**
      * Constructor

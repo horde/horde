@@ -375,7 +375,7 @@ class IMP_Contents_View
      *
      * @return Horde_Url  The download URL.
      */
-    static public function downloadUrl($filename, array $params = array())
+    public static function downloadUrl($filename, array $params = array())
     {
         global $registry;
 
@@ -389,7 +389,7 @@ class IMP_Contents_View
      *
      * @return array  Parameter list with token added.
      */
-    static public function addToken(array $params = array())
+    public static function addToken(array $params = array())
     {
         global $session;
 

@@ -60,7 +60,7 @@ class Horde_Themes_Image extends Horde_Themes_Element
      *
      * @return string  The full image tag.
      */
-    static public function tag($src, array $opts = array())
+    public static function tag($src, array $opts = array())
     {
         global $browser, $conf;
 
@@ -119,7 +119,7 @@ class Horde_Themes_Image extends Horde_Themes_Element
      *                 the image data if the browser supports, or the URI
      *                 if not.
      */
-    static public function base64ImgData($in, $limit = null)
+    public static function base64ImgData($in, $limit = null)
     {
         if (!($dataurl = $GLOBALS['browser']->hasFeature('dataurl'))) {
             return $in;

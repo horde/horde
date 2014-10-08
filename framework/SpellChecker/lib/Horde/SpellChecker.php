@@ -54,7 +54,7 @@ abstract class Horde_SpellChecker
      * @return Horde_SpellChecker  The newly created instance.
      * @throws Horde_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         $class = 'Horde_SpellChecker_' . Horde_String::ucfirst(basename($driver));
         if (class_exists($class)) {

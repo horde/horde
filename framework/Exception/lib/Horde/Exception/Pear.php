@@ -17,7 +17,7 @@ class Horde_Exception_Pear extends Horde_Exception
      *
      * @var string
      */
-    static protected $_class = __CLASS__;
+    protected static $_class = __CLASS__;
 
     /**
      * Exception constructor.
@@ -73,7 +73,7 @@ class Horde_Exception_Pear extends Horde_Exception
      *
      * @throws Horde_Exception_Pear In case the result was a PEAR_Error.
      */
-    static public function catchError($result)
+    public static function catchError($result)
     {
         if ($result instanceOf PEAR_Error) {
             throw new self::$_class($result);

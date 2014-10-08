@@ -19,7 +19,7 @@ abstract class Horde_Core_Ajax_Imple
      *
      * @var integer
      */
-    static protected $_domid = 0;
+    protected static $_domid = 0;
 
     /**
      * Does this imple require authentication?

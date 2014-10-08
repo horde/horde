@@ -34,19 +34,19 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
      *
      * @var Horde_Test_Setup
      */
-    static protected $setup;
+    protected static $setup;
 
     /**
      * @static Kronolith_Driver
      */
-    static protected $driver;
+    protected static $driver;
 
     /**
      * Event type to be used (depends on driver).
      *
      * @static string
      */
-    static protected $type;
+    protected static $type;
 
     /**
      * List of tasks added during the test.

@@ -29,7 +29,7 @@ class Gollem_Auth
      *                Otherwise returns false.
      * @throws Horde_Auth_Exception
      */
-    static public function authenticate($credentials = array())
+    public static function authenticate($credentials = array())
     {
         $result = false;
 
@@ -167,7 +167,7 @@ class Gollem_Auth
      *                exists, an array of data to add to the session.
      *                Otherwise returns false.
      */
-    static public function transparent($auth_ob)
+    public static function transparent($auth_ob)
     {
         $credentials = $auth_ob->getCredential('credentials');
 
@@ -198,7 +198,7 @@ class Gollem_Auth
      * @return mixed  If $backend is set return this entry; else, return the
      *                entire backends array. Returns false on error.
      */
-    static public function getBackend($backend = null)
+    public static function getBackend($backend = null)
     {
         if (!($backends = self::_getBackends())) {
             try {
@@ -240,7 +240,7 @@ class Gollem_Auth
      *
      * @return string  The preferred backend key.
      */
-    static public function getPreferredBackend()
+    public static function getPreferredBackend()
     {
         if ($backend_key = $GLOBALS['session']->get('gollem', 'backend_key')) {
             return $backend_key;
@@ -274,7 +274,7 @@ class Gollem_Auth
      *
      * @return string  The ID string to use for logins.
      */
-    static public function getAutologinID($backend)
+    public static function getAutologinID($backend)
     {
         $config = self::getBackend($backend);
         return (!empty($config['hordeauth']) &&
@@ -291,7 +291,7 @@ class Gollem_Auth
      * @return array  The credentials needed to login ('userId', 'password',
      *                'backend') or false if autologin not available.
      */
-    static public function canAutoLogin($key = null)
+    public static function canAutoLogin($key = null)
     {
         if (is_null($key)) {
             $key = self::getPreferredBackend();
@@ -317,7 +317,7 @@ class Gollem_Auth
      *
      * @param string $key  The ID of the backend to set as active.
      */
-    static public function changeBackend($key)
+    public static function changeBackend($key)
     {
         $GLOBALS['session']->set('gollem', 'backend_key', $key);
         Gollem::$backend = self::getBackend($key);
@@ -328,7 +328,7 @@ class Gollem_Auth
      *
      * @return array  Backend configuration list.
      */
-    static protected function _getBackends()
+    protected static function _getBackends()
     {
         global $session;
 
@@ -349,7 +349,7 @@ class Gollem_Auth
      *
      * @param array $backends  Backend configuration list.
      */
-    static protected function _setBackends($backends)
+    protected static function _setBackends($backends)
     {
         global $session;
 

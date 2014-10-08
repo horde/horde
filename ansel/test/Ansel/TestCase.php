@@ -30,7 +30,7 @@
 class Ansel_TestCase
 extends PHPUnit_Framework_TestCase
 {
-    static protected function createBasicAnselSetup(Horde_Test_Setup $setup)
+    protected static function createBasicAnselSetup(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -62,7 +62,7 @@ extends PHPUnit_Framework_TestCase
        $GLOBALS['conf']['exif']['driver'] = 'Bundled';
    }
 
-   static protected function createTestVFS(Horde_Test_Setup $setup)
+   protected static function createTestVFS(Horde_Test_Setup $setup)
     {
         $setup->getInjector()->setInstance(
             'Ansel_Vfs',

@@ -25,7 +25,7 @@ class DateTimeParser {
      * @param DateTimeZone $tz
      * @return DateTime
      */
-    static public function parseDateTime($dt,\DateTimeZone $tz = null) {
+    public static function parseDateTime($dt,\DateTimeZone $tz = null) {
 
         // Format is YYYYMMDD + "T" + hhmmss
         $result = preg_match('/^([1-4][0-9]{3})([0-1][0-9])([0-3][0-9])T([0-2][0-9])([0-5][0-9])([0-5][0-9])([Z]?)$/',$dt,$matches);
@@ -51,7 +51,7 @@ class DateTimeParser {
      * @param string $date
      * @return DateTime
      */
-    static public function parseDate($date) {
+    public static function parseDate($date) {
 
         // Format is YYYYMMDD
         $result = preg_match('/^([1-4][0-9]{3})([0-1][0-9])([0-3][0-9])$/',$date,$matches);
@@ -75,7 +75,7 @@ class DateTimeParser {
      * @param bool $asString
      * @return DateInterval|string
      */
-    static public function parseDuration($duration, $asString = false) {
+    public static function parseDuration($duration, $asString = false) {
 
         $result = preg_match('/^(?P<plusminus>\+|-)?P((?P<week>\d+)W)?((?P<day>\d+)D)?(T((?P<hour>\d+)H)?((?P<minute>\d+)M)?((?P<second>\d+)S)?)?$/', $duration, $matches);
         if (!$result) {
@@ -165,7 +165,7 @@ class DateTimeParser {
      * @param DateTimeZone|string $referenceTZ
      * @return DateTime|DateInterval
      */
-    static public function parse($date, $referenceTZ = null) {
+    public static function parse($date, $referenceTZ = null) {
 
         if ($date[0]==='P' || ($date[0]==='-' && $date[1]==='P')) {
             return self::parseDuration($date);

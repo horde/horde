@@ -98,7 +98,7 @@ class Horde_Util_UtilTest extends PHPUnit_Framework_TestCase
  */
 class Horde_Util_Test extends Horde_Util
 {
-    static public function setMagicQuotes($set)
+    public static function setMagicQuotes($set)
     {
         self::$_magicquotes = $set;
     }

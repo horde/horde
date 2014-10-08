@@ -172,7 +172,7 @@ END_OF_REGEX;
      *
      * @return string  The decoded text.
      */
-    static public function decode($text)
+    public static function decode($text)
     {
         return preg_replace_callback(
             '/\00\00\00([\w=+\/]*)\00\00\00/',

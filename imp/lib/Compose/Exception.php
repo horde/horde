@@ -50,7 +50,7 @@ class IMP_Compose_Exception extends IMP_Exception
      *
      * @return IMP_Compose_Exception  Exception argument.
      */
-    static public function createAndLog()
+    public static function createAndLog()
     {
         $e = new self(func_get_arg(1), func_num_args() == 3 ? func_get_arg(2) : null);
         $e->log(func_get_arg(0));

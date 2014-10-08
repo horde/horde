@@ -28,7 +28,7 @@ class Greet
 
 class Factory
 {
-    static public function getGreeter(Horde_Injector $injector)
+    public static function getGreeter(Horde_Injector $injector)
     {
         return new Greet($injector->getInstance('Person'));
     }

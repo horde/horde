@@ -50,7 +50,7 @@ class Horde_Serialize
      * @return string  The serialized data.
      * @throws Horde_Serialize_Exception
      */
-    static public function serialize($data, $mode = array(self::BASIC),
+    public static function serialize($data, $mode = array(self::BASIC),
                                      $params = null)
     {
         if (!is_array($mode)) {
@@ -85,7 +85,7 @@ class Horde_Serialize
      * @return string  The unserialized data.
      * @throws Horde_Serialize_Exception
      */
-    static public function unserialize($data, $mode = self::BASIC,
+    public static function unserialize($data, $mode = self::BASIC,
                                        $params = null)
     {
         if (!is_array($mode)) {
@@ -111,7 +111,7 @@ class Horde_Serialize
      *
      * @return boolean  True if supported, false if not.
      */
-    static public function hasCapability($mode)
+    public static function hasCapability($mode)
     {
         switch ($mode) {
         case self::BZIP:
@@ -164,7 +164,7 @@ class Horde_Serialize
      * @return string  A serialized string.
      * @throws Horde_Serialize_Exception
      */
-    static protected function _serialize($data, $mode, $params = null)
+    protected static function _serialize($data, $mode, $params = null)
     {
         switch ($mode) {
         case self::NONE:
@@ -274,7 +274,7 @@ class Horde_Serialize
      * @return mixed  Unserialized data.
      * @throws Horde_Serialize_Exception
      */
-    static protected function _unserialize(&$data, $mode, $params = null)
+    protected static function _unserialize(&$data, $mode, $params = null)
     {
         switch ($mode) {
         case self::NONE:

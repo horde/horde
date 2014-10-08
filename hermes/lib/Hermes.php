@@ -596,7 +596,7 @@ class Hermes
      * @return Horde_Date  The parsed date.
      * @throws Horde_Date_Exception
      */
-    static public function parseDate($date)
+    public static function parseDate($date)
     {
         // strptime() is not available on Windows.
         if (!function_exists('strptime')) {

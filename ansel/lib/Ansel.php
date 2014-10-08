@@ -36,7 +36,7 @@ class Ansel
      *
      * @return string  The HTML to display the option list.
      */
-    static public function selectGalleries($params = array())
+    public static function selectGalleries($params = array())
     {
         $galleries = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
@@ -84,7 +84,7 @@ class Ansel
      *
      * @return string  The image path.
      */
-    static public function getErrorImage($view = 'screen')
+    public static function getErrorImage($view = 'screen')
     {
         return Horde_Themes::img($view . '-error.png');
     }
@@ -100,7 +100,7 @@ class Ansel
      *
      * @return Horde_Url The generated URL
      */
-    static public function getUrlFor($controller, $data, $full = false, $append_session = 0)
+    public static function getUrlFor($controller, $data, $full = false, $append_session = 0)
     {
         global $prefs;
 
@@ -338,7 +338,7 @@ class Ansel
      *
      * @return Horde_Url The image path.
      */
-    static public function getImageUrl(
+    public static function getImageUrl(
         $imageId, $view = 'screen', $full = false, Ansel_Style $style = null)
     {
         global $conf;
@@ -412,7 +412,7 @@ class Ansel
      *
      * @return Horde_Image object
      */
-    static public function getImageObject($params = array())
+    public static function getImageObject($params = array())
     {
         return $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Image')
@@ -428,7 +428,7 @@ class Ansel
      * @return array  The image data of the file as an array
      * @throws Horde_Exception_NotFound
      */
-    static public function getImageFromFile($file, $override = array())
+    public static function getImageFromFile($file, $override = array())
     {
         if (!file_exists($file)) {
             throw new Horde_Exception_NotFound(
@@ -468,7 +468,7 @@ class Ansel
      *
      * @return boolean  True if the function is available.
      */
-    static public function isAvailable($feature)
+    public static function isAvailable($feature)
     {
         static $capabilities;
 
@@ -499,7 +499,7 @@ class Ansel
      *
      * @return string
      */
-    static public function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
+    public static function getBreadCrumbs($gallery = null, $separator = ' &raquo; ')
     {
         global $prefs;
 
@@ -651,7 +651,7 @@ class Ansel
      *
      * @return string  The HTML for the <select> element.
      */
-    static public function getStyleSelect($element_name, $selected = '')
+    public static function getStyleSelect($element_name, $selected = '')
     {
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
 
@@ -685,7 +685,7 @@ class Ansel
      *                       available, otherwise, the ansel_default style is
      *                       returned.
      */
-    static public function getStyleDefinition($style)
+    public static function getStyleDefinition($style)
     {
         if ($style instanceof Ansel_Style) {
             return $style;
@@ -708,7 +708,7 @@ class Ansel
      *
      * @return array A trimmed down (if necessary) date parts array.
      */
-    static public function getDateParameter($date = array())
+    public static function getDateParameter($date = array())
     {
         if (!count($date)) {
             $date = array(
@@ -732,7 +732,7 @@ class Ansel
      * @param Ansel_Gallery $gallery  The galleries to download
      * @param array $images           The images to download
      */
-    static public function downloadImagesAsZip($gallery = null, $images = array())
+    public static function downloadImagesAsZip($gallery = null, $images = array())
     {
         global $session;
 
@@ -819,7 +819,7 @@ class Ansel
      *
      * @return string  The javascript code
      */
-    static public function embedCode($options)
+    public static function embedCode($options)
     {
         if (empty($options['container'])) {
             $domid = uniqid();
@@ -846,7 +846,7 @@ class Ansel
      *
      * @return string  The URL for this tag and action
      */
-    static public function getTagLinks($tags, $action = 'add', $owner = null)
+    public static function getTagLinks($tags, $action = 'add', $owner = null)
     {
 
         $results = array();
@@ -869,7 +869,7 @@ class Ansel
     /**
      * Simple helper to output initial Ansel JS.
      */
-    static public function initJSVariables()
+    public static function initJSVariables()
     {
         if (!$GLOBALS['browser']->isMobile()) {
             $code['conf'] = array(
@@ -902,7 +902,7 @@ class Ansel
      *
      * @return string
      */
-    static public function point2Deg($value, $lat = false)
+    public static function point2Deg($value, $lat = false)
     {
         $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
         $value = abs($value);
@@ -919,7 +919,7 @@ class Ansel
      * @param string $filename  The full file path of the file to send.
      * @param string $type      The MIME type of the file.
      */
-    static public function doSendfile($filename, $type)
+    public static function doSendfile($filename, $type)
     {
         header('Content-Type: ' . $type);
         if (strpos($_SERVER['SERVER_SOFTWARE'], 'nginx') !== false) {

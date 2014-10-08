@@ -34,7 +34,7 @@ class Horde_Core_Ui_FlagImage
      *
      * @return string  An HTML IMG tag (or empty if host is not found).
      */
-    static public function generateFlagImageByHost($host)
+    public static function generateFlagImageByHost($host)
     {
         if (($data = self::getFlagImageObByHost($host)) === false) {
             return '';
@@ -63,7 +63,7 @@ class Horde_Core_Ui_FlagImage
      *   - ob: (Horde_Themes_Image) Image object.
      * </pre>
      */
-    static public function getFlagImageObByHost($host)
+    public static function getFlagImageObByHost($host)
     {
         global $conf;
 

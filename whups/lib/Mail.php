@@ -32,7 +32,7 @@ class Whups_Mail
      *
      * @return Whups_Ticket  Ticket.
      */
-    static public function processMail($text, array $info, $auth_user = null)
+    public static function processMail($text, array $info, $auth_user = null)
     {
         global $conf;
 
@@ -234,7 +234,7 @@ class Whups_Mail
      * @return integer  The ticket number if has been passed in the subject,
      *                  false otherwise.
      */
-    static protected function _findTicket(array $info)
+    protected static function _findTicket(array $info)
     {
         if (!empty($info['ticket'])) {
             $ticketnum = $info['ticket'];
@@ -261,7 +261,7 @@ class Whups_Mail
      *                 address or null if the users can't be listed or no
      *                 match has been found.
      */
-    static protected function _findAuthUser($from)
+    protected static function _findAuthUser($from)
     {
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 

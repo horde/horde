@@ -36,7 +36,7 @@ class Horde_Kolab_Resource_Freebusy
      *
      * @var array
      */
-    static protected $_instances = array();
+    protected static $_instances = array();
 
     /**
      * Class parameters.
@@ -70,7 +70,7 @@ class Horde_Kolab_Resource_Freebusy
      *                                          Horde_Kolab_Resource_Getfreebusy
      *                                          instance, or false an error.
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         $driver = ucfirst(basename($driver));
         $class  = ($driver == 'None')
@@ -105,7 +105,7 @@ class Horde_Kolab_Resource_Freebusy
      * @return Horde_Token The concrete Horde_Kolab_Resource_Getfreebusy
      *                      reference, or false on error.
      */
-    static public function singleton($driver = null, $params = array())
+    public static function singleton($driver = null, $params = array())
     {
         global $conf;
 

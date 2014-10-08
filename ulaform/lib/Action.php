@@ -34,7 +34,7 @@ class Ulaform_Action {
      *
      * @return array  An array of available drivers.
      */
-    static public function getDrivers()
+    public static function getDrivers()
     {
         static $drivers = array();
         if (!empty($drivers)) {

@@ -24,7 +24,7 @@ class Horde_Icalendar_Translation extends Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    static public function t($message)
+    public static function t($message)
     {
         self::$_domain = 'Horde_Icalendar';
         self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Icalendar/locale';
@@ -41,7 +41,7 @@ class Horde_Icalendar_Translation extends Horde_Translation
      * @return string  The string translation, or the original string if no
      *                 translation exists.
      */
-    static public function ngettext($singular, $plural, $number)
+    public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Icalendar';
         self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Icalendar/locale';

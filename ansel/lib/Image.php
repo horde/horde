@@ -356,7 +356,7 @@ class Ansel_Image Implements Iterator
      *
      * @return mixed  False if image does not exists | string vfs name
      */
-    static public function viewExists($id, $view, Ansel_Style $style)
+    public static function viewExists($id, $view, Ansel_Style $style)
     {
         // We cannot check empty styles since we cannot get the hash
         if (empty($style)) {

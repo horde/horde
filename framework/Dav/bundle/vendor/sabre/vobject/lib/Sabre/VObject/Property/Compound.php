@@ -35,7 +35,7 @@ class Compound extends VObject\Property {
      *
      * @var array
      */
-    static public $delimiterMap = array(
+    public static $delimiterMap = array(
         'N'           =>    ';',
         'ADR'         =>    ';',
         'ORG'         =>    ';',

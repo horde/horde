@@ -258,7 +258,7 @@ class Turba_Driver_Facebook extends Turba_Driver
         return array_map(array($this, '_prepareCallback'), $fields);
     }
 
-    static public function _prepareCallback($field)
+    public static function _prepareCallback($field)
     {
         if (strpos($field, '.') === false) {
             return $field;

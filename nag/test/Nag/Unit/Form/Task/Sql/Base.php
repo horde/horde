@@ -29,7 +29,7 @@
  */
 abstract class Nag_Unit_Form_Task_Sql_Base extends Nag_Unit_Form_Task_Base
 {
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         return;
 
@@ -39,7 +39,7 @@ abstract class Nag_Unit_Form_Task_Sql_Base extends Nag_Unit_Form_Task_Base
         list($share, $other_share) = self::_createDefaultShares();
     }
 
-    /*abstract*/ static protected function getDb()
+    /*abstract*/ protected static function getDb()
     {
         throw new Exception('This method must be extended by the sub-class.');
     }

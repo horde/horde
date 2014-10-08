@@ -30,7 +30,7 @@ class Horde_Scheduler
      * @return Horde_Scheduler  The newly created concrete instance.
      * @throws Horde_Scheduler_Exception
      */
-    static public function factory($driver, $params = null)
+    public static function factory($driver, $params = null)
     {
         $driver = basename($driver);
         $class = 'Horde_Scheduler_' . $driver;

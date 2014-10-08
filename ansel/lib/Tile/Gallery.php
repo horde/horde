@@ -26,7 +26,7 @@ class Ansel_Tile_Gallery
      *
      * @return  Outputs the HTML for the tile.
      */
-    static public function getTile(
+    public static function getTile(
         Ansel_Gallery $gallery, Ansel_Style $style = null, $mini = false, array $params = array())
     {
         global $prefs, $registry, $injector;

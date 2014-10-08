@@ -36,7 +36,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function validatePear($version)
+    public static function validatePear($version)
     {
         if (!preg_match('/^(\d+\.\d+\.\d+)(-git|alpha\d*|beta\d*|RC\d+)?$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
@@ -55,7 +55,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function validateReleaseStability($version, $stability)
+    public static function validateReleaseStability($version, $stability)
     {
         preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
         if (!isset($match[2]) && $stability != 'stable') {
@@ -95,7 +95,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function validateApiStability($version, $stability)
+    public static function validateApiStability($version, $stability)
     {
         preg_match('/^(\d+\.\d+\.\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match);
         if (!isset($match[2]) && $stability != 'stable') {
@@ -119,7 +119,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function pearToTicketDescription($version)
+    public static function pearToTicketDescription($version)
     {
         preg_match('/([.\d]+)(.*)/', $version, $matches);
         if (!empty($matches[2]) && !preg_match('/^pl\d/', $matches[2])) {
@@ -151,7 +151,7 @@ class Components_Helper_Version
      *
      * @return string The Horde style version.
      */
-    static public function pearToHordeWithBranch($version, $branch)
+    public static function pearToHordeWithBranch($version, $branch)
     {
         if (empty($branch)) {
             return $version;
@@ -171,7 +171,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function nextVersion($version)
+    public static function nextVersion($version)
     {
         if (!preg_match('/^(\d+\.\d+\.)(\d+)(alpha|beta|RC|dev)?\d*$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);
@@ -194,7 +194,7 @@ class Components_Helper_Version
      *
      * @throws Components_Exception on invalid version string.
      */
-    static public function nextPearVersion($version)
+    public static function nextPearVersion($version)
     {
         if (!preg_match('/^(\d+\.\d+\.)(\d+)(alpha|beta|RC|dev)?(\d*)$/', $version, $match)) {
             throw new Components_Exception('Invalid version number ' . $version);

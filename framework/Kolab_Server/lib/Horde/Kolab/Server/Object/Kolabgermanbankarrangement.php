@@ -56,7 +56,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_NUMBER,
             self::ATTRIBUTE_BANKCODE,
@@ -163,7 +163,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
      *
      * @return array An array of supported search operations.
      */
-    static public function getSearchOperations()
+    public static function getSearchOperations()
     {
         $searches = array(
 /*             'accountsForMail', */
@@ -182,7 +182,7 @@ class Horde_Kolab_Server_Object_Kolabgermanbankarrangement extends Horde_Kolab_S
      *
      * @throws Horde_Kolab_Server_Exception
      */
-    static public function accountsForMail($server, $mail)
+    public static function accountsForMail($server, $mail)
     {
         $uid = $server->uidForMail($mail, Horde_Kolab_Server_Object::RESULT_SINGLE);
         return self::objectsForUid($server, $uid, self::OBJECTCLASS_KOLABGERMANBANKARRANGEMENT);

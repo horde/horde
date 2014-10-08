@@ -24,7 +24,7 @@ class Ansel_Widget
      * @return Ansel_Widget object
      * @throws Ansel_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         $driver = basename($driver);
         $class = 'Ansel_Widget_' . $driver;

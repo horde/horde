@@ -270,7 +270,7 @@ class Horde_LoginTasks
      *
      * @return array  A mapping of constant to gettext string.
      */
-    static public function getLabels()
+    public static function getLabels()
     {
         return array(
             self::YEARLY => Horde_LoginTasks_Translation::t("Yearly"),

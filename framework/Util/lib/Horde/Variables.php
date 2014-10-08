@@ -52,7 +52,7 @@ class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return Horde_Variables  Variables object.
      */
-    static public function getDefaultVariables($sanitize = false)
+    public static function getDefaultVariables($sanitize = false)
     {
         return new self(null, $sanitize);
     }

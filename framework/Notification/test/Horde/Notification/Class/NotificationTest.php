@@ -47,7 +47,7 @@ class Horde_Notification_Class_NotificationTest extends Horde_Test_Case
 
 class Horde_Notification_Instance extends Horde_Notification
 {
-    static public function newInstance($stack)
+    public static function newInstance($stack)
     {
         $storage = new Horde_Notification_Storage_Session($stack);
         return new Horde_Notification_Handler($storage);

@@ -20,7 +20,7 @@ class Horde_ErrorHandler
      * @param mixed $error  Either a string or an object with a getMessage()
      *                      method (e.g. PEAR_Error, Exception).
      */
-    static public function fatal($error)
+    public static function fatal($error)
     {
         global $registry;
 
@@ -141,7 +141,7 @@ HTML;
      * @param integer $errline   See set_error_handler().
      * @param array $errcontext  See set_error_handler().
      */
-    static public function errorHandler($errno, $errstr, $errfile, $errline,
+    public static function errorHandler($errno, $errstr, $errfile, $errline,
                                         $errcontext)
     {
         $er = error_reporting();
@@ -185,7 +185,7 @@ HTML;
     /**
      * Catch fatal errors.
      */
-    static public function catchFatalError()
+    public static function catchFatalError()
     {
         $error = error_get_last();
         if ($error['type'] == E_ERROR) {

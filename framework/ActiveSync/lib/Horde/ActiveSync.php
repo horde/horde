@@ -303,7 +303,7 @@ class Horde_ActiveSync
      *
      * @var Horde_Log_Logger
      */
-    static protected $_logger;
+    protected static $_logger;
 
     /**
      * Provisioning support
@@ -324,7 +324,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    static protected $_version;
+    protected static $_version;
 
     /**
      * Multipart support?
@@ -358,7 +358,7 @@ class Horde_ActiveSync
      *
      * @var Horde_ActiveSync_Device
      */
-    static protected $_device;
+    protected static $_device;
 
     /**
      * Wbxml encoder
@@ -400,7 +400,7 @@ class Horde_ActiveSync
      *
      * @var array
      */
-    static protected $_supportedVersions = array(
+    protected static $_supportedVersions = array(
         self::VERSION_TWOFIVE,
         self::VERSION_TWELVE,
         self::VERSION_TWELVEONE,
@@ -417,7 +417,7 @@ class Horde_ActiveSync
      * @return Horde_ActiveSync_Message_Base   The concrete message object.
      * @todo For H6, move to Horde_ActiveSync_Message_Base::factory()
      */
-    static public function messageFactory($message)
+    public static function messageFactory($message)
     {
         $class = 'Horde_ActiveSync_Message_' . $message;
         if (!class_exists($class)) {
@@ -1109,7 +1109,7 @@ class Horde_ActiveSync
      * @return integer|boolean  Either the size, in bytes, to truncate or
      *                          falso if no truncation.
      */
-    static public function getTruncSize($truncation)
+    public static function getTruncSize($truncation)
     {
         switch($truncation) {
         case Horde_ActiveSync::TRUNCATION_ALL:

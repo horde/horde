@@ -72,7 +72,7 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
      *   - full: (boolean) Full URL?
      *   - mailbox: (string) Mailbox of message.
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         $url = Horde::url('basic.php')
             ->add('page', 'listinfo')

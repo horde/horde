@@ -143,7 +143,7 @@ class IMP_Filter
      *
      * @return voolean  True if appliable filters are available.
      */
-    static public function canApplyFilters()
+    public static function canApplyFilters()
     {
         global $registry, $session;
 

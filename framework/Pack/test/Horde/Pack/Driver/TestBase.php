@@ -25,12 +25,12 @@
  */
 abstract class Horde_Pack_Driver_TestBase extends Horde_Test_Case
 {
-    static protected $pack;
-    static protected $sampleob;
+    protected static $pack;
+    protected static $sampleob;
 
     protected $drivername;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$pack = new Horde_Pack();
         self::$sampleob = new Horde_Pack_Autodetermine(true);

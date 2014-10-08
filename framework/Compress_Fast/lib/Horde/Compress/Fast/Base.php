@@ -27,7 +27,7 @@ abstract class Horde_Compress_Fast_Base
      *
      * @return boolean  True if supported.
      */
-    static public function supported()
+    public static function supported()
     {
         return true;
     }

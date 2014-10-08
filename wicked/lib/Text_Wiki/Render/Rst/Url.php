@@ -33,7 +33,7 @@ class Text_Wiki_Render_Rst_Url extends Text_Wiki_Render
      *
      * @var array
      */
-    static public $paragraph_links = array();
+    public static $paragraph_links = array();
 
     /**
      * Renders a token into text matching the requested format.

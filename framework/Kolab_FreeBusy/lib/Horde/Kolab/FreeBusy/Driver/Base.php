@@ -66,7 +66,7 @@ class Horde_Kolab_FreeBusy_Driver_Base
      *
      * @return Horde_Kolab_FreeBusy_Driver_Base The new driver.
      */
-    static public function factory($provider)
+    public static function factory($provider)
     {
         $class       = 'Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab';
         $callee      = isset($provider->callee) ? $provider->callee : null;

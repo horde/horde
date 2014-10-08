@@ -42,7 +42,7 @@ class Shout
      *
      * @return boolean the effective permissions for the user.
      */
-    static public function checkRights($permname, $permmask = null, $numparents = 0)
+    public static function checkRights($permname, $permmask = null, $numparents = 0)
     {
         if ($GLOBALS['registry']->isAdmin()) {
             return true;
@@ -98,7 +98,7 @@ class Shout
      *
      * @return array  Array of (string $deviceID, string $devicePassword)
      */
-    static public function genDeviceAuth($account)
+    public static function genDeviceAuth($account)
     {
         $devid = $account . substr(uniqid(), 6);
 
@@ -125,7 +125,7 @@ class Shout
         return array($devid, $password);
     }
 
-    static public function getMenuActions()
+    public static function getMenuActions()
     {
         $shout = $GLOBALS['registry']->getApiInstance('shout', 'application');
         $account = $GLOBALS['session']->get('shout', 'curaccount_code');
@@ -205,7 +205,7 @@ class Shout
         );
     }
 
-    static public function getNames($array)
+    public static function getNames($array)
     {
         $res = array();
         foreach ($array as $id => $info) {
@@ -214,7 +214,7 @@ class Shout
         return $res;
     }
 
-    static public function getAdminTabs()
+    public static function getAdminTabs()
     {
         $tabname = Horde_Util::getFormData('view');
         $tabs = new Horde_Core_Ui_Tabs('view', Horde_Variables::getDefaultVariables());

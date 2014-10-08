@@ -243,7 +243,7 @@ class Horde_Help
      *
      * @return string  The HTML to create the help link.
      */
-    static public function link($module, $topic)
+    public static function link($module, $topic)
     {
         if (!$GLOBALS['registry']->showService('help')) {
             return '';

@@ -15,7 +15,7 @@ require_once dirname(__FILE__) . '/Base.php';
  */
 class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storage_Base
 {
-    static public $reason;
+    public static $reason;
 
     public function testWrite()
     {

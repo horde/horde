@@ -24,14 +24,14 @@ class Horde_Translation_WrapperTest extends Horde_Translation_TestBase
 
 class Horde_Translation_TestWrapperA extends Horde_Translation
 {
-    static public function t($message)
+    public static function t($message)
     {
         self::$_domain = 'Horde_Translation';
         self::$_directory = __DIR__ . '/locale';
         return parent::t($message);
     }
 
-    static public function ngettext($singular, $plural, $number)
+    public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Translation';
         self::$_directory = __DIR__ . '/locale';
@@ -41,14 +41,14 @@ class Horde_Translation_TestWrapperA extends Horde_Translation
 
 class Horde_Translation_TestWrapperB extends Horde_Translation
 {
-    static public function t($message)
+    public static function t($message)
     {
         self::$_domain = 'Horde_Other';
         self::$_directory = __DIR__ . '/locale';
         return parent::t($message);
     }
 
-    static public function ngettext($singular, $plural, $number)
+    public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Other';
         self::$_directory = __DIR__ . '/locale';

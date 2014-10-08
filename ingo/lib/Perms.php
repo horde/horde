@@ -116,7 +116,7 @@ class Ingo_Perms
      *
      * @return string  The full (backend-specific) permission name.
      */
-    static public function getPerm($perm)
+    public static function getPerm($perm)
     {
         return 'backends:' . $GLOBALS['session']->get('ingo', 'backend/id') . ':' . $perm;
     }

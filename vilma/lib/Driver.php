@@ -523,7 +523,7 @@ abstract class Vilma_Driver
      * @return Vilma_Driver  The newly created concrete Vilma_Driver instance.
      * @throws Vilma_Exception
      */
-    static public function factory($driver = null, $params = null)
+    public static function factory($driver = null, $params = null)
     {
         if (is_null($driver)) {
             $driver = $GLOBALS['conf']['storage']['driver'];

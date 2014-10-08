@@ -27,7 +27,7 @@ class Horde_Mail_Autoconfig
      *
      * @var array
      */
-    static protected $_driverlist;
+    protected static $_driverlist;
 
     /**
      * Driver list.
@@ -41,7 +41,7 @@ class Horde_Mail_Autoconfig
      *
      * @return array
      */
-    static public function getDrivers()
+    public static function getDrivers()
     {
         if (isset(self::$_driverlist)) {
             return self::$_driverlist;

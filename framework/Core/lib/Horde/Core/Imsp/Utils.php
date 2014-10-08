@@ -34,7 +34,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return array  Information about all the address books or PEAR_Error.
      */
-    static public function getAllBooks(array $serverInfo)
+    public static function getAllBooks(array $serverInfo)
     {
         $foundDefault = false;
         $results = array();
@@ -75,7 +75,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return mixed  true on success or PEAR_Error on failure.
      */
-    static public function createBook(array $source, $newName)
+    public static function createBook(array $source, $newName)
     {
         $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $source['params']);
 
@@ -185,7 +185,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return mixed  True | PEAR_Error
      */
-    static protected function _createShare($share_obj, array $params, array $shareparams)
+    protected static function _createShare($share_obj, array $params, array $shareparams)
     {
         $share = $share_obj->newShare($GLOBALS['registry']->getAuth(), $params['uid'], $params['name']);
         if (is_a($share, 'PEAR_Error')) {
@@ -206,7 +206,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return boolean  True if $user is owner, otherwise false.
      */
-    static protected function _isOwner($bookName, $username, $acl)
+    protected static function _isOwner($bookName, $username, $acl)
     {
         if (strpos($bookName, $username) === 0) {
             return true;
@@ -222,7 +222,7 @@ class Horde_Core_Imsp_Utils
      * @param Horde_Share_Object $share  The share to assign perms to
      * @param string $acl                The IMSP acl string.
      */
-    static protected function _setPerms(&$share, $acl)
+    protected static function _setPerms(&$share, $acl)
     {
          $hPerms = 0;
          if (strpos($acl, 'w') !== false) {
@@ -247,7 +247,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return string   An IMSP acl string
      */
-    static public function permsToACL($perms)
+    public static function permsToACL($perms)
     {
         $acl = '';
 
@@ -275,7 +275,7 @@ class Horde_Core_Imsp_Utils
      *
      * @return mixed  True | Pear_Error
      */
-    static public function setACL($params, $book, $name, $acl)
+    public static function setACL($params, $book, $name, $acl)
     {
         $imsp = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imsp')->create('Book', $params);
         return $imsp->setACL($book, $name, $acl);

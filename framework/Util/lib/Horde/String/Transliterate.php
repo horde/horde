@@ -29,14 +29,14 @@ class Horde_String_Transliterate
      *
      * @var array
      */
-    static protected $_map;
+    protected static $_map;
 
     /**
      * Transliterator instance.
      *
      * @var Transliterator
      */
-    static protected $_transliterator;
+    protected static $_transliterator;
 
     /**
      * Transliterates an UTF-8 string to ASCII, replacing non-English
@@ -50,7 +50,7 @@ class Horde_String_Transliterate
      *
      * @return string  Transliterated string (UTF-8).
      */
-    static public function toAscii($str)
+    public static function toAscii($str)
     {
         $methods = array(
             '_intlToAscii',
@@ -74,7 +74,7 @@ class Horde_String_Transliterate
      *
      * @return mixed  Transliterated string (UTF-8), or false on error.
      */
-    static protected function _intlToAscii($str)
+    protected static function _intlToAscii($str)
     {
         if (class_exists('Transliterator')) {
             if (!isset(self::$_transliterator)) {
@@ -99,7 +99,7 @@ class Horde_String_Transliterate
      *
      * @return mixed  Transliterated string (UTF-8), or false on error.
      */
-    static protected function _iconvToAscii($str)
+    protected static function _iconvToAscii($str)
     {
         return extension_loaded('iconv')
             /* Returns false on error. */
@@ -114,7 +114,7 @@ class Horde_String_Transliterate
      *
      * @return string  Transliterated string (UTF-8).
      */
-    static protected function _fallbackToAscii($str)
+    protected static function _fallbackToAscii($str)
     {
         if (!isset(self::$_map)) {
             self::$_map = array(

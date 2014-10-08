@@ -59,7 +59,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    static public function getInfo()
+    public static function getInfo()
     {
         $info['name'] = _("Mailto");
         $info['desc'] = _("This driver allows the sending of form results via email to one or more recipients.");
@@ -73,7 +73,7 @@ class Ulaform_Action_Mailto extends Ulaform_Action {
      *
      * @return array  Array of required parameters.
      */
-    static public function getParams()
+    public static function getParams()
     {
         $params = array();
         $params['subject'] = array('label' => _("Subject"), 'type' => 'text');

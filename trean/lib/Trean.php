@@ -59,7 +59,7 @@ class Trean
         }
     }
 
-    static public function addFeedLink()
+    public static function addFeedLink()
     {
         $rss = Horde::url('rss.php', true, -1);
         if ($label = Horde_Util::getFormData('label')) {
@@ -72,7 +72,7 @@ class Trean
         ));
     }
 
-    static public function bookmarkletLink()
+    public static function bookmarkletLink()
     {
         $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->url = Horde::url('add.php', true, array('append_session' => -1))

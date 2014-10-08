@@ -24,14 +24,14 @@ class Horde_Nls
      *
      * @var Net_DNS2_Resolver
      */
-    static public $dnsResolver;
+    public static $dnsResolver;
 
     /**
      * Cached values.
      *
      * @var array
      */
-    static protected $_cache = array();
+    protected static $_cache = array();
 
     /**
      * Check to see if character set is valid for htmlspecialchars() calls.
@@ -40,7 +40,7 @@ class Horde_Nls
      *
      * @return boolean  Is charset valid for the current system?
      */
-    static public function checkCharset($charset)
+    public static function checkCharset($charset)
     {
         if (is_null($charset) || empty($charset)) {
             return false;
@@ -63,7 +63,7 @@ class Horde_Nls
      *
      * @return array  List of timezones.
      */
-    static public function getTimezones()
+    public static function getTimezones()
     {
         $timezones = DateTimeZone::listIdentifiers();
         return array_combine($timezones, $timezones);
@@ -75,7 +75,7 @@ class Horde_Nls
      *
      * @return array  The results of localeconv().
      */
-    static public function getLocaleInfo()
+    public static function getLocaleInfo()
     {
         if (!isset(self::$_cache['lc_info'])) {
             self::$_cache['lc_info'] = localeconv();
@@ -92,7 +92,7 @@ class Horde_Nls
      *
      * @return array  The results of nl_langinfo().
      */
-    static public function getLangInfo($item)
+    public static function getLangInfo($item)
     {
         if (!function_exists('nl_langinfo')) {
             return false;
@@ -121,7 +121,7 @@ class Horde_Nls
      *                'name'  =>  Country Name
      *                On failure, return false.
      */
-    static public function getCountryByHost($host, $datafile = null)
+    public static function getCountryByHost($host, $datafile = null)
     {
         /* List of generic domains that we know is not in the country TLD
            list. See: http://www.iana.org/gtld/gtld.htm */
@@ -180,7 +180,7 @@ class Horde_Nls
      *
      * @return mixed  The localized country name, or null if not found.
      */
-    static public function tldLookup($code)
+    public static function tldLookup($code)
     {
         if (!isset(self::$_cache['tld'])) {
             include __DIR__ . '/Nls/Tld.php';
@@ -203,7 +203,7 @@ class Horde_Nls
      *                corresponding country name. If empty will return an
      *                array of all the country codes and their names.
      */
-    static public function getCountryISO($code = null)
+    public static function getCountryISO($code = null)
     {
         if (!isset(self::$_cache['iso3166'])) {
             include __DIR__ . '/Nls/Countries.php';
@@ -231,7 +231,7 @@ class Horde_Nls
      *                array of all the language codes (keys) and their names
      *                (values).
      */
-    static public function getLanguageISO($code = null)
+    public static function getLanguageISO($code = null)
     {
         if (!isset(self::$_cache['iso639'])) {
             include __DIR__ . '/Nls/Languages.php';

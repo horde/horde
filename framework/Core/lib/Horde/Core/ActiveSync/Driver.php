@@ -2377,7 +2377,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @return string   The EAS freebusy string.
      * @since 2.4.0
      */
-    static public function buildFbString($fb, Horde_Date $start, Horde_Date $end)
+    public static function buildFbString($fb, Horde_Date $start, Horde_Date $end)
     {
         if (empty($fb)) {
             return false;

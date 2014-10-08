@@ -15,7 +15,7 @@ class Passwd_TestCase extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    static protected function createBasicPasswdSetup(Horde_Test_Setup $setup)
+    protected static function createBasicPasswdSetup(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(

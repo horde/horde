@@ -36,7 +36,7 @@ class Component extends Node {
      *
      * @var array
      */
-    static public $classMap = array(
+    public static $classMap = array(
         'VALARM'        => 'Sabre\\VObject\\Component\\VAlarm',
         'VCALENDAR'     => 'Sabre\\VObject\\Component\\VCalendar',
         'VCARD'         => 'Sabre\\VObject\\Component\\VCard',
@@ -54,7 +54,7 @@ class Component extends Node {
      * @param string $value
      * @return Component
      */
-    static public function create($name, $value = null) {
+    public static function create($name, $value = null) {
 
         $name = strtoupper($name);
 

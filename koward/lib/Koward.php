@@ -20,11 +20,11 @@ class Koward {
      *
      * @var Koward
      */
-    static protected $instance = null;
+    protected static $instance = null;
 
-    static protected $server = null;
+    protected static $server = null;
 
-    static protected $map_class_type = null;
+    protected static $map_class_type = null;
 
     public $objectconf;
 
@@ -186,7 +186,7 @@ class Koward {
         }
     }
 
-    static public function singleton()
+    public static function singleton()
     {
         if (!isset(self::$instance)) {
             self::$instance = new Koward();

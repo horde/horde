@@ -35,7 +35,7 @@ class LockDiscovery extends DAV\Property {
      * It was reported that showing the lockroot in the response can break
      * Office 2000 compatibility.
      */
-    static public $hideLockRoot = false;
+    public static $hideLockRoot = false;
 
     /**
      * __construct

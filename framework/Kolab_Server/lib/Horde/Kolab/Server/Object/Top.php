@@ -39,13 +39,13 @@ implements Horde_Kolab_Server_Object_Searches
      *
      * @var array
      */
-    static public $attributes = array(
+    public static $attributes = array(
         'objectClass', 'Openldapaci', 'Guid', 'Id',
         'Createtimestamp', 'Modifytimestamp', 
         'Createtimestampdate', 'Modifytimestampdate',
     );
 
-    static public $object_classes = array(
+    public static $object_classes = array(
         self::OBJECTCLASS_TOP,
     );
 

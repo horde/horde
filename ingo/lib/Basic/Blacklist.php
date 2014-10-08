@@ -117,7 +117,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
 
     /**
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return Horde::url('basic.php')->add('page', 'blacklist');
     }

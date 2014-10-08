@@ -27,7 +27,7 @@ class Horde_Compress
      * @return Horde_Compress_Base  The newly created concrete instance.
      * @throws Horde_Compress_Exception
      */
-    static public function factory($driver, $params = null)
+    public static function factory($driver, $params = null)
     {
         /* Base drivers (in Compress/ directory). */
         $class = __CLASS__ . '_' . ucfirst($driver);

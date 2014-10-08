@@ -494,16 +494,16 @@ namespace CalendarCrawl
 {
   public class CalendarCrawler
   {
-    static private Application app = new Application();
+    private static Application app = new Application();
 
-    static private StreamReader getXaml()
+    private static StreamReader getXaml()
     {
     StreamReader sr = new StreamReader("WPF.xaml");
     return sr;
     }
 
     [STAThread]
-    static public void Main(string[] args)
+    public static void Main(string[] args)
     {
         Window win = new Window();
         win.WindowStyle = WindowStyle.None;           // go fullscreen
@@ -520,7 +520,7 @@ namespace CalendarCrawl
         app.Run(win);
     }
 
-    static private void eventHandler(Object sender, EventArgs args)
+    private static void eventHandler(Object sender, EventArgs args)
     {
         app.Windows[0].Content = XamlReader.Load((getXaml().BaseStream));
     }

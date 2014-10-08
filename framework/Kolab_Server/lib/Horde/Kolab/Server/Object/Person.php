@@ -35,7 +35,7 @@ class Horde_Kolab_Server_Object_Person extends Horde_Kolab_Server_Object_Top
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'Cn', 'Sn', 'Userpassword', 'Userpasswordraw',
 /*         'Telephonenumber' */
 

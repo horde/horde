@@ -32,7 +32,7 @@ class Horde_ActiveSync_Rfc822
      *
      * @var integer
      */
-    static public $memoryLimit = 2097152;
+    public static $memoryLimit = 2097152;
 
     /**
      * Position of end of headers.

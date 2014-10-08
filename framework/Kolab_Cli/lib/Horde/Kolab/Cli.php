@@ -38,7 +38,7 @@ class Horde_Kolab_Cli
      * 'output'   - (Horde_Cli) The output handler.
      * </pre>
      */
-    static public function main(array $parameters = array())
+    public static function main(array $parameters = array())
     {
         $modular = self::_prepareModular($parameters);
         if (empty($parameters['output'])) {
@@ -105,7 +105,7 @@ class Horde_Kolab_Cli
         }
     }
 
-    static private function _prepareModular(array $parameters = array())
+    private static function _prepareModular(array $parameters = array())
     {
         return new Horde_Cli_Modular(
             array(

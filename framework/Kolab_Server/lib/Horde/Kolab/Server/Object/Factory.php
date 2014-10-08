@@ -40,7 +40,7 @@ class Horde_Kolab_Server_Object_Factory
      * @return Horde_Kolab_Server_Object|PEAR_Error The newly created concrete
      *                                 Horde_Kolab_Server_Object instance.
      */
-    static public function factory(
+    public static function factory(
         $type, $uid,
         Horde_Kolab_Server_Composite $storage,
         $data = null
@@ -66,7 +66,7 @@ class Horde_Kolab_Server_Object_Factory
      *
      * @return true|PEAR_Error True if successfull.
      */
-    static public function loadClass($type)
+    public static function loadClass($type)
     {
         if (!class_exists($type)) {
             throw new Horde_Kolab_Server_Exception('Class definition of ' . $type . ' not found.');

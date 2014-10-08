@@ -11,7 +11,7 @@ class Horde_Vcs_TestBase extends Horde_Test_Case
 {
     static $conf;
 
-    static public function setUpBeforeClass()
+    public static function setUpBeforeClass()
     {
         self::$conf = self::getConfig('VCS_TEST_CONFIG');
     }

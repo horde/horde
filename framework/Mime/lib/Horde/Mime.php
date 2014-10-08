@@ -35,7 +35,7 @@ class Horde_Mime
      *
      * @var boolean
      */
-    static public $decodeWindows1252 = false;
+    public static $decodeWindows1252 = false;
 
     /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.
@@ -46,7 +46,7 @@ class Horde_Mime
      *
      * @return boolean  True if string contains non US-ASCII characters.
      */
-    static public function is8bit($string, $charset = null)
+    public static function is8bit($string, $charset = null)
     {
         return ($string != Horde_String::convertCharset($string, $charset, 'US-ASCII'));
     }
@@ -59,7 +59,7 @@ class Horde_Mime
      *
      * @return string  The MIME encoded string (US-ASCII).
      */
-    static public function encode($text, $charset = 'UTF-8')
+    public static function encode($text, $charset = 'UTF-8')
     {
         $charset = Horde_String::lower($charset);
         $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
@@ -201,7 +201,7 @@ class Horde_Mime
      *
      * @return string  The decoded text.
      */
-    static public function decode($string)
+    public static function decode($string)
     {
         $old_pos = 0;
         $out = '';
@@ -277,7 +277,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_Headers#generateMessageId() instead.
      */
-    static public function generateMessageId()
+    public static function generateMessageId()
     {
         $hdr = new Horde_Mime_Headers();
         return $hdr->generateMessageId();
@@ -286,7 +286,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_Uudecode instead.
      */
-    static public function uudecode($input)
+    public static function uudecode($input)
     {
         $uudecode = new Horde_Mime_Uudecode($input);
         return iterator_to_array($input);
@@ -295,7 +295,7 @@ class Horde_Mime
     /**
      * @deprecated
      */
-    static public $brokenRFC2231 = false;
+    public static $brokenRFC2231 = false;
 
     /**
      * @deprecated
@@ -305,7 +305,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_ContentParam#encode() instead.
      */
-    static public function encodeParam($name, $val, array $opts = array())
+    public static function encodeParam($name, $val, array $opts = array())
     {
         $cp = new Horde_Mime_ContentParam(array($name => $val));
 
@@ -317,7 +317,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_ContentParam instead.
      */
-    static public function decodeParam($type, $data)
+    public static function decodeParam($type, $data)
     {
         $cp = new Horde_Mime_ContentParam();
         $cp->decode($data);
@@ -337,7 +337,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_Id instead.
      */
-    static public function mimeIdArithmetic($id, $action, $options = array())
+    public static function mimeIdArithmetic($id, $action, $options = array())
     {
         $id_ob = new Horde_Mime_Id($id);
 
@@ -365,7 +365,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_Id instead.
      */
-    static public function isChild($base, $id)
+    public static function isChild($base, $id)
     {
         $id_ob = new Horde_Mime_Id($base);
         return $id_ob->isChild($id);
@@ -374,7 +374,7 @@ class Horde_Mime
     /**
      * @deprecated  Use Horde_Mime_QuotedPrintable instead.
      */
-    static public function quotedPrintableEncode($text, $eol = self::EOL,
+    public static function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
         return strval(new Horde_Mime_QuotedPrintable($text, $eol, $wrap));

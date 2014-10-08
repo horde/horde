@@ -18,28 +18,28 @@ class Chora
      *
      * @var array
      */
-    static public $restricted;
+    public static $restricted;
 
     /**
      * Cached data for readableTime().
      *
      * @var array
      */
-    static public $rtcache;
+    public static $rtcache;
 
     /**
      * Cached data for formatDate().
      *
      * @var string
      */
-    static public $fdcache;
+    public static $fdcache;
 
     /**
      * Generates and prints the page header.
      *
      * @param string $title  The page title.
      */
-    static public function header($title)
+    public static function header($title)
     {
         global $notification, $page_output;
 
@@ -62,7 +62,7 @@ class Chora
      *
      * @return string  The directory string.
      */
-    static public function whereMenu($where, $onb = null)
+    public static function whereMenu($where, $onb = null)
     {
         $bar = '';
         $dirs = explode('/', $where);
@@ -93,7 +93,7 @@ class Chora
      * @param string $code     The HTTP error number (and optional text), for
      *                         sending 404s or other codes if appropriate.
      */
-    static public function fatal($message, $code = null)
+    public static function fatal($message, $code = null)
     {
         global $notification, $page_output, $registry;
 
@@ -127,7 +127,7 @@ class Chora
      *
      * @return string  The URL, with session information if necessary.
      */
-    static public function url($script, $uri = '', $args = array(),
+    public static function url($script, $uri = '', $args = array(),
                                $anchor = '')
     {
         $arglist = self::_getArgList($GLOBALS['acts'],
@@ -172,7 +172,7 @@ class Chora
      *
      * @return string  The form fields, with session information if necessary.
      */
-    static public function formInputs()
+    public static function formInputs()
     {
         $arglist = self::_getArgList($GLOBALS['acts'], $GLOBALS['defaultActs'], array());
 
@@ -187,7 +187,7 @@ class Chora
     /**
      * TODO
      */
-    static protected function _getArgList($acts, $defaultActs, $args)
+    protected static function _getArgList($acts, $defaultActs, $args)
     {
         $differing = array();
 
@@ -203,7 +203,7 @@ class Chora
     /**
      * TODO
      */
-    static public function checkPerms($key)
+    public static function checkPerms($key)
     {
         return (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('chora:sourceroots:' . $key) ||
                 $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('chora:sourceroots:' . $key, $GLOBALS['registry']->getAuth(), Horde_Perms::READ | Horde_Perms::SHOW));
@@ -215,7 +215,7 @@ class Chora
      *
      * @return array  The sourceroots that the current user has access to.
      */
-    static public function sourceroots()
+    public static function sourceroots()
     {
         $arr = array();
 
@@ -238,7 +238,7 @@ class Chora
      * @return mixed  The Horde_Mime_Viewer object which can be rendered or
      *                false on failure.
      */
-    static public function pretty($mime_type, $fp)
+    public static function pretty($mime_type, $fp)
     {
         $lns = '';
         while ($ln = fread($fp, 8192)) {
@@ -259,7 +259,7 @@ class Chora
      *
      * @return boolean  Is item allowed to be displayed?
      */
-    static public function isRestricted($where)
+    public static function isRestricted($where)
     {
         // First check if the current user has access to this repository.
         if (!self::checkPerms($GLOBALS['sourceroot'])) {
@@ -304,7 +304,7 @@ class Chora
      *
      * @return array  An array of file view links.
      */
-    static public function getHistoryViews($where)
+    public static function getHistoryViews($where)
     {
         global $injector;
 
@@ -360,7 +360,7 @@ class Chora
      *
      * @return array  An array of file view links.
      */
-    static public function getFileViews($where, $rev)
+    public static function getFileViews($where, $rev)
     {
         global $injector, $VC;
 
@@ -405,7 +405,7 @@ class Chora
      *
      * @return array  An array of linked tags.
      */
-    static public function getTags($lg, $where)
+    public static function getTags($lg, $where)
     {
         $tags = array();
 
@@ -429,7 +429,7 @@ class Chora
      *
      * @return string  The human-readable date.
      */
-    static public function readableTime($date, $long = false)
+    public static function readableTime($date, $long = false)
     {
         /* Initialize popular variables. */
         if (!isset(self::$rtcache)) {
@@ -483,7 +483,7 @@ class Chora
      *
      * @return string  The transformed name.
      */
-    static public function showAuthorName($name, $fullname = false)
+    public static function showAuthorName($name, $fullname = false)
     {
         try {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
@@ -502,7 +502,7 @@ class Chora
         return htmlspecialchars($name);
     }
 
-    static public function getAuthorEmail($name)
+    public static function getAuthorEmail($name)
     {
         try {
             $users = $GLOBALS['VC']->getUsers($GLOBALS['chora_conf']['cvsusers']);
@@ -536,7 +536,7 @@ class Chora
      *
      * @return string  The date formatted pursuant to Horde prefs.
      */
-    static public function formatDate($date)
+    public static function formatDate($date)
     {
         if (!isset(self::$fdcache)) {
             self::$fdcache = $GLOBALS['prefs']->getValue('date_format') .
@@ -555,7 +555,7 @@ class Chora
      *
      * @return string  The formatted message.
      */
-    static public function formatLogMessage($log)
+    public static function formatLogMessage($log)
     {
         $log = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($log, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
 

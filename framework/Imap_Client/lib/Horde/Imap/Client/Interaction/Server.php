@@ -70,7 +70,7 @@ class Horde_Imap_Client_Interaction_Server
      *
      * @return Horde_Imap_Client_Interaction_Server  A server response object.
      */
-    static public function create(Horde_Imap_Client_Tokenize $t)
+    public static function create(Horde_Imap_Client_Tokenize $t)
     {
         $t->rewind();
         $tag = $t->next();

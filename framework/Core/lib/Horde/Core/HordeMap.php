@@ -34,7 +34,7 @@ class Horde_Core_HordeMap
      *
      * @param array $params
      */
-    static public function init(array $params = array())
+    public static function init(array $params = array())
     {
         global $browser, $conf, $language, $page_output, $registry;
 

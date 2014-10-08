@@ -47,7 +47,7 @@ class Horde_Kolab_Server_Object_Kolab extends Horde_Kolab_Server_Object_Groupofn
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'defined' => array(
             self::ATTRIBUTE_K,
             self::ATTRIBUTE_FBPAST,

@@ -28,7 +28,7 @@
 class Horde_Kolab_Server_Object_Kolab_Adminrole extends Horde_Kolab_Server_Object_Kolabinetorgperson
 {
 
-    static public $init_attributes = array(
+    public static $init_attributes = array(
     );
 
     /**

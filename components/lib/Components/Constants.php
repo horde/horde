@@ -35,7 +35,7 @@ class Components_Constants
      *
      * @return string Path to the directory holding data files.
      */
-    static public function getDataDirectory()
+    public static function getDataDirectory()
     {
         if (strpos(self::DATA_DIR, '@data_dir') === 0) {
             return __DIR__ . '/../../data';
@@ -48,7 +48,7 @@ class Components_Constants
      *
      * @return string Path to the default configuration file.
      */
-    static public function getConfigFile()
+    public static function getConfigFile()
     {
         if (strpos(self::CFG_DIR, '@cfg_dir') === 0) {
             return __DIR__ . '/../../config/conf.php';

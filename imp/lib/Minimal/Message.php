@@ -332,7 +332,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
      *   - buid: (string) BUID of message.
      *   - mailbox: (string) Mailbox of message.
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return IMP_Mailbox::get($opts['mailbox'])->url('minimal', $opts['buid'])->add('page', 'message');
     }

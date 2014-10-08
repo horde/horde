@@ -15,14 +15,14 @@
  */
 class Horde_Image_Exif
 {
-    static protected $_titleFields = array(
+    protected static $_titleFields = array(
         'IPTC' => array('ObjectName'),
         'XMP'  => array('Title'),
         'EXIF' => array(),
         'COMPOSITE' => array()
     );
 
-    static protected $_descriptionFields = array(
+    protected static $_descriptionFields = array(
         'IPTC' => array('Caption-Abstract'),
         'XMP'  => array('Description'),
         'EXIF' => array('ImageDescription'),
@@ -37,7 +37,7 @@ class Horde_Image_Exif
      *
      * @return Horde_Image_Exif
      */
-    static public function factory($driver = null, $params = array())
+    public static function factory($driver = null, $params = array())
     {
         if (empty($driver) && function_exists('exif_read_data')) {
             $driver = 'Php';
@@ -60,7 +60,7 @@ class Horde_Image_Exif
      *
      * @return
      */
-    static public function intel2Moto($intel)
+    public static function intel2Moto($intel)
     {
         $len  = strlen($intel);
         $moto = '';
@@ -78,7 +78,7 @@ class Horde_Image_Exif
      *
      * @return array
      */
-    static public function getCategories()
+    public static function getCategories()
     {
         return array(
             'IPTC' => array(
@@ -157,7 +157,7 @@ class Horde_Image_Exif
      * @return array  An array of metadata field name hashes.
      * @since 2.1.0
      */
-    static public function getTitleFields($driver = null)
+    public static function getTitleFields($driver = null)
     {
         if (!is_null($driver) && is_array($driver)) {
             $driver = self::factory($driver[0], $driver[1]);
@@ -190,7 +190,7 @@ class Horde_Image_Exif
      * @return array  An array of metadata field hashes.
      * @since 2.1.0
      */
-    static public function getDescriptionFields($driver = null)
+    public static function getDescriptionFields($driver = null)
     {
         $map = self::getCategories();
         if (!is_null($driver) && is_array($driver)) {
@@ -224,7 +224,7 @@ class Horde_Image_Exif
      *
      * @return array
      */
-    static public function getFields($driver = null, $description_only = false)
+    public static function getFields($driver = null, $description_only = false)
     {
         if (!is_null($driver) && is_array($driver)) {
             $driver = self::factory($driver[0], $driver[1]);
@@ -254,7 +254,7 @@ class Horde_Image_Exif
     /**
      * More human friendly exposure formatting.
      */
-    static protected function _formatExposure($data)
+    protected static function _formatExposure($data)
     {
         if ($data > 0) {
             if ($data > 1) {
@@ -278,7 +278,7 @@ class Horde_Image_Exif
      *
      * (Ported from the Exifer library).
      */
-    static protected function _convertToFraction($v, &$n, &$d)
+    protected static function _convertToFraction($v, &$n, &$d)
     {
         $MaxTerms = 15;         // Limit to prevent infinite loop
         $MinDivisor = 0.000001; // Limit to prevent divide by zero
@@ -327,7 +327,7 @@ class Horde_Image_Exif
      *
      * @return string  The converted data.
      */
-    static public function getHumanReadable($field, $data)
+    public static function getHumanReadable($field, $data)
     {
         switch ($field) {
         case 'ExposureMode':

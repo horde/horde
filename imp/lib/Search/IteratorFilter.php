@@ -43,7 +43,7 @@ class IMP_Search_IteratorFilter extends FilterIterator
      *
      * @return IMP_Search_IteratorFilter  Iterator.
      */
-    static public function create($mask = 0)
+    public static function create($mask = 0)
     {
         global $injector;
 

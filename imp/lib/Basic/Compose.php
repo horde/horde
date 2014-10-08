@@ -1071,7 +1071,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
      * @param array $opts
      *   - full: (boolean) If true, output full URL.
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return Horde::url('basic.php', !empty($opts['full']))->add('page', 'compose')->unique();
     }

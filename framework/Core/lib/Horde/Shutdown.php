@@ -35,7 +35,7 @@ class Horde_Shutdown
      *
      * @param Horde_Shutdown_Task $task  Task to add.
      */
-    static public function add(Horde_Shutdown_Task $task)
+    public static function add(Horde_Shutdown_Task $task)
     {
         $GLOBALS['injector']->getInstance('Horde_Shutdown')->addTask($task);
     }

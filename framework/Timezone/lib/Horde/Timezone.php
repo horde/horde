@@ -62,7 +62,7 @@ class Horde_Timezone
      *
      * @var array
      */
-    static protected $_months = array('Jan' => 1,
+    protected static $_months = array('Jan' => 1,
                                       'Feb' => 2,
                                       'Mar' => 3,
                                       'Apr' => 4,
@@ -105,7 +105,7 @@ class Horde_Timezone
      *
      * @return integer  The month's number.
      */
-    static public function getMonth($month)
+    public static function getMonth($month)
     {
         return self::$_months[substr($month, 0, 3)];
     }

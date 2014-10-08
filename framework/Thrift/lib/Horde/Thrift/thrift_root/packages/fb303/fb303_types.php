@@ -24,7 +24,7 @@ final class fb_status {
   const STOPPING = 3;
   const STOPPED = 4;
   const WARNING = 5;
-  static public $__names = array(
+  public static $__names = array(
     0 => 'DEAD',
     1 => 'STARTING',
     2 => 'ALIVE',

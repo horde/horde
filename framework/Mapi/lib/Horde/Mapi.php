@@ -27,7 +27,7 @@ class Horde_Mapi
      *
      * @return boolean  True if endianness is little endian, otherwise false.
      */
-    static public function isLittleEndian()
+    public static function isLittleEndian()
     {
         $testint = 0x00FF;
         $p = pack('S', $testint);
@@ -43,7 +43,7 @@ class Horde_Mapi
      *
      * @return integer  The number, in the reverse byte order.
      */
-    static public function chbo($num)
+    public static function chbo($num)
     {
         $u = unpack('l', strrev(pack('l', $num)));
 
@@ -59,7 +59,7 @@ class Horde_Mapi
      *
      * @return string  The UID
      */
-    static public function getUidFromGoid($goid)
+    public static function getUidFromGoid($goid)
     {
         $goid = base64_decode($goid);
 
@@ -91,7 +91,7 @@ class Horde_Mapi
      *
      * @return string  A Base64 encoded GOID
      */
-    static public function createGoid($uid, $options = array())
+    public static function createGoid($uid, $options = array())
     {
         // Bytes 1 - 16 MUST be equal to the GOID identifier:
         $arrayid = '040000008200E00074C5B7101A82E008';
@@ -135,7 +135,7 @@ class Horde_Mapi
      * @return integer  The unix timestamp.
      * @throws Horde_Mapi_Exception
      */
-    static public function filetimeToUnixtime($ft)
+    public static function filetimeToUnixtime($ft)
     {
         $ft = bin2hex($ft);
         $dtval = substr($ft, 0, 16);        // clip overlength string
@@ -146,7 +146,7 @@ class Horde_Mapi
     }
 
     // swap little-endian to big-endian
-    static protected function _flipEndian($str)
+    protected static function _flipEndian($str)
     {
         // make sure #digits is even
         if ( strlen($str) & 1 )
@@ -160,7 +160,7 @@ class Horde_Mapi
     }
 
     // convert hex string to BC-int
-    static protected function _hexToBcint($str)
+    protected static function _hexToBcint($str)
     {
         if (!extension_loaded('bcmath')) {
             throw new Horde_Mapi_Exception('bcmath extension not loaded.');
@@ -185,7 +185,7 @@ class Horde_Mapi
         return $bci;
     }
 
-    static protected function _win64ToUnix($bci)
+    protected static function _win64ToUnix($bci)
     {
         if (!extension_loaded('bcmath')) {
             throw new Horde_Mapi_Exception('bcmath extension not loaded.');

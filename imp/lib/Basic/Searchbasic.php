@@ -123,7 +123,7 @@ class IMP_Basic_Searchbasic extends IMP_Basic_Base
 
     /**
      */
-    static public function url(array $opts = array())
+    public static function url(array $opts = array())
     {
         return Horde::url('basic.php')->add('page', 'searchbasic');
     }

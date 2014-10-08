@@ -43,7 +43,7 @@ class Horde_Kolab_Server_Object_Groupofnames extends Horde_Kolab_Server_Object_T
      *
      * @var array
      */
-    static public $init_attributes = array(
+    public static $init_attributes = array(
         'required' => array(
             self::ATTRIBUTE_CN,
             self::ATTRIBUTE_MEMBER,

@@ -92,7 +92,7 @@ class CurrentUserPrivilegeSet extends DAV\Property {
      * @param DOMElement $node
      * @return CurrentUserPrivilegeSet
      */
-    static public function unserialize(\DOMElement $node) {
+    public static function unserialize(\DOMElement $node) {
 
         $result = array();
 

@@ -435,7 +435,7 @@ class TimeZoneUtil {
      * @param Sabre\VObject\Component $vcalendar
      * @return DateTimeZone
      */
-    static public function getTimeZone($tzid, Component $vcalendar = null, $failIfUncertain = false) {
+    public static function getTimeZone($tzid, Component $vcalendar = null, $failIfUncertain = false) {
 
         // First we will just see if the tzid is a support timezone identifier.
         //

@@ -52,7 +52,7 @@ class Horde_Imap_Client_Mailbox implements Serializable
      *
      * @return Horde_Imap_Client_Mailbox  A mailbox object.
      */
-    static public function get($mbox, $utf7imap = false)
+    public static function get($mbox, $utf7imap = false)
     {
         return ($mbox instanceof Horde_Imap_Client_Mailbox)
             ? $mbox

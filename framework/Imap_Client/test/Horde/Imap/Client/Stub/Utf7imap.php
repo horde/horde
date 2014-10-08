@@ -26,7 +26,7 @@
  */
 class Horde_Imap_Client_Stub_Utf7imap extends Horde_Imap_Client_Utf7imap
 {
-    static public function setMbstring($val)
+    public static function setMbstring($val)
     {
         self::$_mbstring = (bool)$val;
     }

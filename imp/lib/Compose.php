@@ -3407,7 +3407,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @return boolean  True if compose allowed.
      * @throws Horde_Exception
      */
-    static public function canCompose()
+    public static function canCompose()
     {
         try {
             return !$GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook('disable_compose', 'imp');
@@ -3421,7 +3421,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return boolean  True if attachments can be uploaded.
      */
-    static public function canUploadAttachment()
+    public static function canUploadAttachment()
     {
         return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
     }
@@ -3433,7 +3433,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @return string  HTML text.
      */
-    static public function text2html($msg)
+    public static function text2html($msg)
     {
         return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
             'always_mailto' => true,

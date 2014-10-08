@@ -28,7 +28,7 @@ class Horde_Imap_Client_Live_ImapTest extends Horde_Test_Case
     /**
      * Add the tests to the current test runner.
      */
-    static public function suite()
+    public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite;
 

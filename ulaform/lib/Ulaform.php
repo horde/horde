@@ -14,7 +14,7 @@
  */
 class Ulaform {
 
-    static public function getActionInfo($action)
+    public static function getActionInfo($action)
     {
         static $info = array();
         if (isset($info[$action])) {
@@ -27,7 +27,7 @@ class Ulaform {
         return $info[$action];
     }
 
-    static public function getActionParams($action)
+    public static function getActionParams($action)
     {
         static $params = array();
         if (isset($params[$action])) {
@@ -45,7 +45,7 @@ class Ulaform {
      *
      * @return array  The available field types.
      */
-    static public function getFieldTypes()
+    public static function getFieldTypes()
     {
         static $available_fields = array();
         if (!empty($available_fields)) {
@@ -71,7 +71,7 @@ class Ulaform {
      *
      * @return array  The full field types array.
      */
-    static public function getFieldTypesArray()
+    public static function getFieldTypesArray()
     {
         static $fields_array = array();
         if (!empty($fields_array)) {
@@ -97,7 +97,7 @@ class Ulaform {
         return $fields_array;
     }
 
-    static public function getFieldParams($field_type)
+    public static function getFieldParams($field_type)
     {
         $fields = self::getFieldTypesArray();
 
@@ -109,7 +109,7 @@ class Ulaform {
         return $fields[$field_type]['params'];
     }
 
-    static public function getStringlistArray($string)
+    public static function getStringlistArray($string)
     {
         $string = str_replace("'", "\'", $string);
         $values = explode(',', $string);
@@ -135,7 +135,7 @@ class Ulaform {
      *                to indicate permission for that form, or a filtered out
      *                array of form_id's.
      */
-    static public function checkPermissions($in, $filter, $permission = Horde_Perms::READ, $key = null)
+    public static function checkPermissions($in, $filter, $permission = Horde_Perms::READ, $key = null)
     {
         static $permsCache;
 

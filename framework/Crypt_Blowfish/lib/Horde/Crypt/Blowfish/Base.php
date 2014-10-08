@@ -48,7 +48,7 @@ abstract class Horde_Crypt_Blowfish_Base
      *
      * @return boolean  True if supported.
      */
-    static public function supported()
+    public static function supported()
     {
         return true;
     }

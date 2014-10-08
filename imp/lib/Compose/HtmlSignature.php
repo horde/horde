@@ -85,7 +85,7 @@ class IMP_Compose_HtmlSignature
      *
      * @return boolean  True if node contains image data.
      */
-    static public function isSigImage(DOMNode $node, $strip = false)
+    public static function isSigImage(DOMNode $node, $strip = false)
     {
         if ((strcasecmp($node->tagName, 'IMG') === 0) &&
             $node->hasAttribute(self::HTMLSIG_ATTR)) {

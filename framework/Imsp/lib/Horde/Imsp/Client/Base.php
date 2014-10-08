@@ -122,7 +122,7 @@ abstract class Horde_Imsp_Client_Base
      *
      * @return string Original string, quoted if needed.
      */
-    static public function quoteSpacedString($string)
+    public static function quoteSpacedString($string)
     {
         if (strpos($string, ' ') !== false ||
             preg_match(self::MUST_QUOTE, $string)) {

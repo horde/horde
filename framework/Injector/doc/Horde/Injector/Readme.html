@@ -129,7 +129,7 @@ determine that there is no concrete instance for 'constructed' yet. It then look
 
 class </span><span style="color: #0000BB">Factory
 </span><span style="color: #007700">{
-    static public function </span><span style="color: #0000BB">getGreeter</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">)
+    public static function </span><span style="color: #0000BB">getGreeter</span><span style="color: #007700">(</span><span style="color: #0000BB">Horde_Injector $injector</span><span style="color: #007700">)
     {
         return new </span><span style="color: #0000BB">Greet</span><span style="color: #007700">(</span><span style="color: #0000BB">$injector</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">getInstance</span><span style="color: #007700">(</span><span style="color: #DD0000">'Person'</span><span style="color: #007700">));
     }
@@ -219,7 +219,7 @@ class </span><span style="color: #0000BB">Hello </span><span style="color: #0077
      *
      * @var Horde_X
      */
-    </span><span style="color: #007700">static protected </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+    </span><span style="color: #007700">protected static </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
 
     </span><span style="color: #FF8000">/**
      * Pointer to a DB instance.
@@ -234,7 +234,7 @@ class </span><span style="color: #0000BB">Hello </span><span style="color: #0077
      * @return Horde_X  The concrete Horde_X reference.
      * @throws Horde_Exception
      */
-    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+    </span><span style="color: #007700">public static function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
     {
         if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
             </span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance </span><span style="color: #007700">= new </span><span style="color: #0000BB">Horde_X</span><span style="color: #007700">();
@@ -281,7 +281,7 @@ class </span><span style="color: #0000BB">Hello </span><span style="color: #0077
 <p>We could keep the following singleton method:</p>
 
 <p>
-<pre><code><span style="color:#0000BB">    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+<pre><code><span style="color:#0000BB">    </span><span style="color: #007700">public static function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
     {
         if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
             global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;
@@ -306,7 +306,7 @@ class </span><span style="color: #0000BB">Hello </span><span style="color: #0077
      *
      * @var Horde_X
      */
-    </span><span style="color: #007700">static protected </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
+    </span><span style="color: #007700">protected static </span><span style="color: #0000BB">$_instance</span><span style="color: #007700">;
 
     </span><span style="color: #FF8000">/**
      * Pointer to a DB instance.
@@ -320,7 +320,7 @@ class </span><span style="color: #0000BB">Hello </span><span style="color: #0077
      *
      * @return Horde_X  The concrete Horde_X reference.
      */
-    </span><span style="color: #007700">static public function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
+    </span><span style="color: #007700">public static function </span><span style="color: #0000BB">singleton</span><span style="color: #007700">()
     {
         if (!isset(</span><span style="color: #0000BB">self</span><span style="color: #007700">::</span><span style="color: #0000BB">$_instance</span><span style="color: #007700">)) {
             global </span><span style="color: #0000BB">$conf</span><span style="color: #007700">;

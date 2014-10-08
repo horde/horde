@@ -48,7 +48,7 @@ class Horde_Db_SearchParser
      * @return string  The query expression.
      * @throws Horde_Db_Exception
      */
-    static public function parse($column, $expr)
+    public static function parse($column, $expr)
     {
         /* First pass - scan the string for tokens.  Bare words are tokens, or
          * the user can quote strings to have embedded spaces, keywords, or
@@ -101,7 +101,7 @@ class Horde_Db_SearchParser
         return self::_parseKeywords1($column, $tokens);
     }
 
-    static protected function _parseKeywords1($column, &$tokens)
+    protected static function _parseKeywords1($column, &$tokens)
     {
         if (count($tokens) == 0) {
             throw new Horde_Db_Exception('Empty search terms');
@@ -115,7 +115,7 @@ class Horde_Db_SearchParser
         return "($lhs OR $rhs)";
     }
 
-    static protected function _parseKeywords2($column, &$tokens)
+    protected static function _parseKeywords2($column, &$tokens)
     {
         $lhs = self::_parseKeywords3($column, $tokens);
         if (sizeof($tokens) == 0 || $tokens[0] == '!)' || $tokens[0] == '!OR') {
@@ -125,7 +125,7 @@ class Horde_Db_SearchParser
         return "($lhs AND $rhs)";
     }
 
-    static protected function _parseKeywords3($column, &$tokens)
+    protected static function _parseKeywords3($column, &$tokens)
     {
         if ($tokens[0] == '!NOT') {
             array_shift($tokens);
@@ -138,7 +138,7 @@ class Horde_Db_SearchParser
         return self::_parseKeywords4($column, $tokens);
     }
 
-    static protected function _parseKeywords4($column, &$tokens)
+    protected static function _parseKeywords4($column, &$tokens)
     {
         if ($tokens[0] == '!(') {
             array_shift($tokens);

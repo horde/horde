@@ -19,14 +19,14 @@ class Horde_String
      *
      * @var array
      */
-    static protected $_lowers = array();
+    protected static $_lowers = array();
 
     /**
      * upper() cache.
      *
      * @var array
      */
-    static protected $_uppers = array();
+    protected static $_uppers = array();
 
     /**
      * Converts a string from one charset to another.
@@ -44,7 +44,7 @@ class Horde_String
      *
      * @return mixed  The converted input data.
      */
-    static public function convertCharset($input, $from, $to, $force = false)
+    public static function convertCharset($input, $from, $to, $force = false)
     {
         /* Don't bother converting numbers. */
         if (is_numeric($input)) {
@@ -103,7 +103,7 @@ class Horde_String
      *
      * @return string  The converted string.
      */
-    static protected function _convertCharset($input, $from, $to)
+    protected static function _convertCharset($input, $from, $to)
     {
         /* Use utf8_[en|de]code() if possible and if the string isn't too
          * large (less than 16 MB = 16 * 1024 * 1024 = 16777216 bytes) - these
@@ -175,7 +175,7 @@ class Horde_String
      *
      * @return string  The string with lowercase characters.
      */
-    static public function lower($string, $locale = false, $charset = null)
+    public static function lower($string, $locale = false, $charset = null)
     {
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
@@ -211,7 +211,7 @@ class Horde_String
      *
      * @return string  The string with uppercase characters.
      */
-    static public function upper($string, $locale = false, $charset = null)
+    public static function upper($string, $locale = false, $charset = null)
     {
         if ($locale) {
             if (Horde_Util::extensionExists('mbstring')) {
@@ -247,7 +247,7 @@ class Horde_String
      *
      * @return string  The capitalized string.
      */
-    static public function ucfirst($string, $locale = false, $charset = null)
+    public static function ucfirst($string, $locale = false, $charset = null)
     {
         if ($locale) {
             if (is_null($charset)) {
@@ -277,7 +277,7 @@ class Horde_String
      *
      * @return string  The capitalized string.
      */
-    static public function ucwords($string, $locale = false, $charset = null)
+    public static function ucwords($string, $locale = false, $charset = null)
     {
         $words = preg_split('/(\s+)/', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
         for ($i = 0, $c = count($words); $i < $c; $i += 2) {
@@ -298,7 +298,7 @@ class Horde_String
      *
      * @return string  The string's part.
      */
-    static public function substr($string, $start, $length = null,
+    public static function substr($string, $start, $length = null,
                                   $charset = 'UTF-8')
     {
         if (is_null($length)) {
@@ -341,7 +341,7 @@ class Horde_String
      *
      * @return integer  The string's length.
      */
-    static public function length($string, $charset = 'UTF-8')
+    public static function length($string, $charset = 'UTF-8')
     {
         $charset = self::lower($charset);
 
@@ -370,7 +370,7 @@ class Horde_String
      *
      * @return integer  The position of first occurrence.
      */
-    static public function pos(
+    public static function pos(
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
@@ -390,7 +390,7 @@ class Horde_String
      *
      * @return integer  The position of first case-insensitive occurrence.
      */
-    static public function ipos(
+    public static function ipos(
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
@@ -408,7 +408,7 @@ class Horde_String
      *
      * @return integer  The position of last occurrence.
      */
-    static public function rpos(
+    public static function rpos(
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
@@ -428,7 +428,7 @@ class Horde_String
      *
      * @return integer  The position of last case-insensitive occurrence.
      */
-    static public function ripos(
+    public static function ripos(
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
@@ -448,7 +448,7 @@ class Horde_String
      * @return integer  The position of occurrence.
      *
      */
-    static protected function _pos(
+    protected static function _pos(
         $haystack, $needle, $offset, $charset, $mb_func, $func
     )
     {
@@ -479,7 +479,7 @@ class Horde_String
      *
      * @return string  The padded string.
      */
-    static public function pad($input, $length, $pad = ' ',
+    public static function pad($input, $length, $pad = ' ',
                                $type = STR_PAD_RIGHT, $charset = 'UTF-8')
     {
         $mb_length = self::length($input, $charset);
@@ -535,7 +535,7 @@ class Horde_String
      *
      * @return string  String containing the wrapped text.
      */
-    static public function wordwrap($string, $width = 75, $break = "\n",
+    public static function wordwrap($string, $width = 75, $break = "\n",
                                     $cut = false, $line_folding = false)
     {
         $wrapped = '';
@@ -603,7 +603,7 @@ class Horde_String
      *
      * @return string  String containing the wrapped text.
      */
-    static public function wrap($text, $length = 80, $break_char = "\n",
+    public static function wrap($text, $length = 80, $break_char = "\n",
                                 $quote = false)
     {
         $paragraphs = array();
@@ -635,7 +635,7 @@ class Horde_String
      *
      * @return string  The truncated string, if longer than $length.
      */
-    static public function truncate($text, $length = 100)
+    public static function truncate($text, $length = 100)
     {
         return (self::length($text) > $length)
             ? rtrim(self::substr($text, 0, $length - 3)) . '...'
@@ -651,7 +651,7 @@ class Horde_String
      *
      * @return string  The abbreviated string, if longer than $length.
      */
-    static public function abbreviate($text, $length = 20)
+    public static function abbreviate($text, $length = 20)
     {
         return (self::length($text) > $length)
             ? rtrim(self::substr($text, 0, round(($length - 3) / 2))) . '...' . ltrim(self::substr($text, (($length - 3) / 2) * -1))
@@ -666,7 +666,7 @@ class Horde_String
      *
      * @return string  The start of $str1 and $str2 that is identical in both.
      */
-    static public function common($str1, $str2)
+    public static function common($str1, $str2)
     {
         for ($result = '', $i = 0;
              isset($str1[$i]) && isset($str2[$i]) && $str1[$i] == $str2[$i];
@@ -685,7 +685,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was alphabetic only.
      */
-    static public function isAlpha($string, $charset)
+    public static function isAlpha($string, $charset)
     {
         if (!Horde_Util::extensionExists('mbstring')) {
             return ctype_alpha($string);
@@ -714,7 +714,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was lowercase.
      */
-    static public function isLower($string, $charset)
+    public static function isLower($string, $charset)
     {
         return ((self::lower($string, true, $charset) === $string) &&
                 self::isAlpha($string, $charset));
@@ -729,7 +729,7 @@ class Horde_String
      *
      * @return boolean  True if the parameter was uppercase.
      */
-    static public function isUpper($string, $charset)
+    public static function isUpper($string, $charset)
     {
         return ((self::upper($string, true, $charset) === $string) &&
                 self::isAlpha($string, $charset));
@@ -745,7 +745,7 @@ class Horde_String
      *
      * @return array  The matches array from the first regex that matches.
      */
-    static public function regexMatch($text, $regex, $charset = null)
+    public static function regexMatch($text, $regex, $charset = null)
     {
         if (!empty($charset)) {
             $regex = self::convertCharset($regex, $charset, 'utf-8');
@@ -773,7 +773,7 @@ class Horde_String
      *
      * @return boolean  True if valid UTF-8.
      */
-    static public function validUtf8($text)
+    public static function validUtf8($text)
     {
         $text = strval($text);
 
@@ -817,7 +817,7 @@ class Horde_String
      *
      * @return string  The charset to use with mbstring functions.
      */
-    static protected function _mbstringCharset($charset)
+    protected static function _mbstringCharset($charset)
     {
         /* mbstring functions do not handle the 'ks_c_5601-1987' &
          * 'ks_c_5601-1989' charsets. However, these charsets are used, for
@@ -836,7 +836,7 @@ class Horde_String
      *
      * @return string  Stripped string (UTF-8).
      */
-    static public function trimUtf8Bom($str)
+    public static function trimUtf8Bom($str)
     {
         return (substr($str, 0, 3) == pack('CCC', 239, 187, 191))
             ? substr($str, 3)

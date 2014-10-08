@@ -199,7 +199,7 @@ class Wicked_Page
      * @return Wicked_Page  The current page.
      * @throws Wicked_Exception
      */
-    static public function getCurrentPage()
+    public static function getCurrentPage()
     {
         return Wicked_Page::getPage(rtrim(Horde_Util::getFormData('page'), '/'),
                                     Horde_Util::getFormData('version'),
@@ -212,7 +212,7 @@ class Wicked_Page
      * @return Wicked_Page  The requested page.
      * @throws Wicked_Exception
      */
-    static public function getPage($pagename, $pagever = null, $referrer = null)
+    public static function getPage($pagename, $pagever = null, $referrer = null)
     {
         global $conf, $notification, $wicked;
 

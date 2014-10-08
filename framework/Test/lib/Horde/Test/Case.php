@@ -54,7 +54,7 @@ class Horde_Test_Case extends PHPUnit_Framework_TestCase
      * @return mixed  The value of the configuration file's $conf variable, or
      *                null.
      */
-    static public function getConfig($env, $path = null, $default = array())
+    public static function getConfig($env, $path = null, $default = array())
     {
         $config = getenv($env);
         if ($config) {

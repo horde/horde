@@ -384,7 +384,7 @@ class Horde_Url
      *
      * @return string  URL-safe, base64 encoded data.
      */
-    static public function uriB64Encode($string)
+    public static function uriB64Encode($string)
     {
         return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($string));
     }
@@ -396,7 +396,7 @@ class Horde_Url
      *
      * @return string  Decoded data.
      */
-    static public function uriB64Decode($string)
+    public static function uriB64Decode($string)
     {
         $data = str_replace(array('-', '_'), array('+', '/'), $string);
         $mod4 = strlen($data) % 4;

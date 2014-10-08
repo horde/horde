@@ -23,7 +23,7 @@ class Vilma
      *
      * @return boolean  True if the user has the requested permission.
      */
-    static public function hasPermission($domain = null, $permmask = null)
+    public static function hasPermission($domain = null, $permmask = null)
     {
         if ($GLOBALS['registry']->isAdmin()) {
             return true;
@@ -45,7 +45,7 @@ class Vilma
         return false;
     }
 
-    static public function getUserMgrTypes()
+    public static function getUserMgrTypes()
     {
         return array(
             'all' => array(
@@ -70,7 +70,7 @@ class Vilma
      *
      * @return Horde_Core_Ui_Tabs
      */
-    static public function getUserMgrTabs(Variables $vars)
+    public static function getUserMgrTabs(Variables $vars)
     {
         $url = Horde::url('users/index.php');
         $tabs = new Horde_Core_Ui_Tabs('section', $vars);
@@ -83,7 +83,7 @@ class Vilma
     /**
      * Set the current domain.
      */
-    static public function setCurDomain($domain = null)
+    public static function setCurDomain($domain = null)
     {
         $GLOBALS['session']->set('vilma', 'domain', $domain);
     }
@@ -95,7 +95,7 @@ class Vilma
      *
      * @return string  User name portion of the email address.
      */
-    static public function stripUser($email)
+    public static function stripUser($email)
     {
         list($user, $domain) = explode('@', $email);
         return $user;
@@ -108,7 +108,7 @@ class Vilma
      *
      * @return string  Domain portion of the email address.
      */
-    static public function stripDomain($email)
+    public static function stripDomain($email)
     {
         $parts = explode('@', $email);
         if (count($parts) == 2) {

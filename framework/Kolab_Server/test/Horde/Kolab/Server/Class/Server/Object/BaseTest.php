@@ -313,7 +313,7 @@ class Horde_Kolab_Server_Class_Server_Object_BaseTest extends Horde_Kolab_Server
 class Object_Mock extends Horde_Kolab_Server_Object_Base
 {
     public function getActions() {}
-    static public function getFilter() {}
+    public static function getFilter() {}
     public function generateId(array &$info) {}
     public function prepareObjectInformation(array &$info) {}
 }

@@ -31,7 +31,7 @@ class Ingo_Script_Util
      *
      * @throws Ingo_Exception
      */
-    static public function activate($scripts, $deactivate = false)
+    public static function activate($scripts, $deactivate = false)
     {
         global $injector, $notification;
 
@@ -66,7 +66,7 @@ class Ingo_Script_Util
      *
      * @throws Ingo_Exception
      */
-    static public function update($auto_update = true)
+    public static function update($auto_update = true)
     {
         global $injector, $prefs;
 
@@ -98,7 +98,7 @@ class Ingo_Script_Util
      * @return string  The vacation reason suitable for usage in the filter
      *                 scripts.
      */
-    static public function vacationReason($reason, $start, $end)
+    public static function vacationReason($reason, $start, $end)
     {
         global $injector, $prefs;
 

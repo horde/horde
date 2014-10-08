@@ -20,7 +20,7 @@ class Horde_Core_Ui_JsCalendar
      *
      * @var boolean
      */
-    static protected $_initRun = false;
+    protected static $_initRun = false;
 
     /**
      * Output the necessary javascript code to allow display of the calendar
@@ -42,7 +42,7 @@ class Horde_Core_Ui_JsCalendar
      *                    DEFAULT: false
      * </pre>
      */
-    static public function init(array $params = array())
+    public static function init(array $params = array())
     {
         if (self::$_initRun) {
             return;
@@ -86,7 +86,7 @@ class Horde_Core_Ui_JsCalendar
      *
      * @return array  Abbreviated weekdays.
      */
-    static public function weekdays()
+    public static function weekdays()
     {
         return array(
             Horde_Core_Translation::t("Su"),
@@ -104,7 +104,7 @@ class Horde_Core_Ui_JsCalendar
      *
      * @return array  Full weekday names.
      */
-    static public function fullWeekdays()
+    public static function fullWeekdays()
     {
         return array(
             Horde_Core_Translation::t("Sunday"),
@@ -122,7 +122,7 @@ class Horde_Core_Ui_JsCalendar
      *
      * @return array  Month list.
      */
-    static public function months()
+    public static function months()
     {
         return array(
             Horde_Core_Translation::t("January"),

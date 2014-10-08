@@ -71,7 +71,7 @@ class Horde_Auth
      * @return Horde_Auth_Base  The newly created concrete instance.
      * @throws Horde_Auth_Exception
      */
-    static public function factory($driver, $params = null)
+    public static function factory($driver, $params = null)
     {
         /* Base drivers (in Auth/ directory). */
         $class = __CLASS__ . '_' . ucfirst($driver);
@@ -103,7 +103,7 @@ class Horde_Auth
      *
      * @return string  The encrypted password.
      */
-    static public function getCryptedPassword($plaintext, $salt = '',
+    public static function getCryptedPassword($plaintext, $salt = '',
                                               $encryption = 'md5-hex',
                                               $show_encrypt = false)
     {
@@ -218,7 +218,7 @@ class Horde_Auth
      *
      * @return string  The generated or extracted salt.
      */
-    static public function getSalt($encryption = 'md5-hex', $seed = '',
+    public static function getSalt($encryption = 'md5-hex', $seed = '',
                                    $plaintext = '')
     {
         switch ($encryption) {
@@ -293,7 +293,7 @@ class Horde_Auth
      *
      * @return string  $value converted to the 64 MD5 characters.
      */
-    static protected function _toAPRMD5($value, $count)
+    protected static function _toAPRMD5($value, $count)
     {
         $aprmd5 = '';
         $count = abs($count);
@@ -313,7 +313,7 @@ class Horde_Auth
      *
      * @return string A random password
      */
-    static public function genRandomPassword()
+    public static function genRandomPassword()
     {
         /* Alternate consonant and vowel random chars with two random numbers
          * at the end. This should produce a fairly pronounceable password. */
@@ -363,7 +363,7 @@ class Horde_Auth
      *
      * @throws Horde_Auth_Exception if the password does not match the policy.
      */
-    static public function checkPasswordPolicy($password, array $policy)
+    public static function checkPasswordPolicy($password, array $policy)
     {
         // Check max/min lengths if specified in the policy.
         if (isset($policy['minLength']) &&
@@ -436,7 +436,7 @@ class Horde_Auth
      *
      * @throws Horde_Auth_Exception if the password is too similar.
      */
-    static public function checkPasswordSimilarity($password, array $dict,
+    public static function checkPasswordSimilarity($password, array $dict,
                                                    $max = 80)
     {
         // Check for pass == dict, simple reverse strings, etc.

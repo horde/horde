@@ -36,7 +36,7 @@ class Horde_Vcs
      * @return Horde_Vcs  The newly created concrete instance.
      * @throws Horde_Vcs_Exception
      */
-    static public function factory($driver, $params = array())
+    public static function factory($driver, $params = array())
     {
         $class = 'Horde_Vcs_' . $driver;
         if (class_exists($class)) {

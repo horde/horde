@@ -35,12 +35,12 @@ extends PHPUnit_Framework_TestCase
         $this->markTestIncomplete('Needs some love');
     }
 
-    static protected function getInjector()
+    protected static function getInjector()
     {
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    static protected function createSqlPdoSqlite(Horde_Test_Setup $setup)
+    protected static function createSqlPdoSqlite(Horde_Test_Setup $setup)
     {
         return;
 
@@ -59,7 +59,7 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    static protected function createBasicNagSetup(Horde_Test_Setup $setup)
+    protected static function createBasicNagSetup(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -86,7 +86,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
     }
 
-    static protected function createSqlShares(Horde_Test_Setup $setup)
+    protected static function createSqlShares(Horde_Test_Setup $setup)
     {
         return;
 
@@ -110,7 +110,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['tasklists']['driver'] = 'default';
     }
 
-    static protected function createKolabShares(Horde_Test_Setup $setup)
+    protected static function createKolabShares(Horde_Test_Setup $setup)
     {
         $setup->setup(
             array(
@@ -135,7 +135,7 @@ extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['tasklists']['driver'] = 'kolab';
     }
 
-    static protected function createKolabSetup()
+    protected static function createKolabSetup()
     {
         $setup = new Horde_Test_Setup();
         self::createBasicNagSetup($setup);
@@ -145,7 +145,7 @@ extends PHPUnit_Framework_TestCase
         return $setup;
     }
 
-    static protected function _createDefaultShares()
+    protected static function _createDefaultShares()
     {
         $share = self::_createShare(
             'Tasklist of Tester', 'test@example.com'
@@ -156,7 +156,7 @@ extends PHPUnit_Framework_TestCase
         return array($share, $other_share);
     }
 
-    static private function _createShare($name, $owner)
+    private static function _createShare($name, $owner)
     {
         $share = $GLOBALS['nag_shares']->newShare(
             $owner, strval(new Horde_Support_Randomid()), $name
