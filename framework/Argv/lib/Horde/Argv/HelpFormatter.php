@@ -119,9 +119,9 @@ abstract class Horde_Argv_HelpFormatter
         $this->level -= 1;
     }
 
-    public abstract function formatUsage($usage);
+    abstract public function formatUsage($usage);
 
-    public abstract function formatHeading($heading);
+    abstract public function formatHeading($heading);
 
     /**
      * Format a paragraph of free-form text for inclusion in the

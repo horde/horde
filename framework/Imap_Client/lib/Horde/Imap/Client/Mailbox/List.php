@@ -94,7 +94,7 @@ class Horde_Imap_Client_Mailbox_List implements Countable, IteratorAggregate
      *
      * @return integer  See usort().
      */
-    protected final function _mboxCompare($a, $b)
+    final protected function _mboxCompare($a, $b)
     {
         /* Always return INBOX as "smaller". */
         if ($this->_sortinbox) {
