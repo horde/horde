@@ -2,11 +2,20 @@
  Horde Coding Standards
 ========================
 
-:Authors:       Jon Parise, Chuck Hagenbuch
 :Contact:       dev@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
+
+
+Basics
+======
+
+Horde Coding Standards are following PSR-0, PSR-1 and PSR-2 of the `PHP
+Framework Interop Group`_
+
+.. _`PHP Framework Interop Group`: http://www.php-fig.org/
+
 
 Indenting/Whitespace
 ====================
