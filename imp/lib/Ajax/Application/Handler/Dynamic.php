@@ -1297,14 +1297,20 @@ extends Horde_Core_Ajax_Application_Handler
 
             foreach ($addr as $val) {
                 $tmp = array('v' => strval($val));
-
                 $l = $val->writeAddress(array('noquote' => true));
+                $s = $val->label;
+
                 if ($l !== $tmp['v']) {
                     $tmp['l'] = $l;
                 }
 
-                $s = $val->label;
-                if ($s !== $tmp['v']) {
+                if ($val instanceof Horde_Mail_Rfc822_Group) {
+                    $tmp['s'] = sprintf(
+                        _("%s [Group; %d addresses]"),
+                        $s,
+                        count($val)
+                    );
+                } elseif ($s !== $tmp['v']) {
                     $tmp['s'] = $s;
                 }
 
