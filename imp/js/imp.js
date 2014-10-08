@@ -11,7 +11,7 @@ var IMP_JS = {
     iframeresize_run: {},
     lazyload_preload: 0.2,
     lazyload_run: {},
-    resize_delay: 0.05,
+    resize_delay: 0.01,
 
     /**
      * Use DOM manipulation to un-block images.
@@ -141,26 +141,29 @@ var IMP_JS = {
 
     iframeResizeRun: function(id)
     {
-        var body, h, html;
+        var body, h1, h2, html, iHeight;
 
         body = this.iframeDoc(id).body;
         html = body.parentNode;
+        iHeight = function() {
+            return Math.max(
+                body.offsetHeight,
+                // IE 8 only
+                (Prototype.Browser.IE && !document.addEventListener) ? body.scrollHeight : 0,
+                html.offsetHeight,
+                html.scrollHeight
+            );
+        };
 
         Element.setStyle(body, { height: null });
 
-        h = Math.max(
-            body.offsetHeight,
-            // IE 8 only
-            (Prototype.Browser.IE && !document.addEventListener) ? body.scrollHeight : 0,
-            html.offsetHeight,
-            html.scrollHeight
-        );
+        h1 = iHeight();
+        id.setStyle({ height: h1 + 'px' });
 
-         if (html.scrollHeight != html.clientHeight) {
-             h += 25;
-         }
-
-        id.setStyle({ height: h + 'px' });
+        h2 = iHeight();
+        if (h2 > h1) {
+            id.setStyle({ height: h2 + 'px' });
+        }
 
         this.iframeImgLazyLoad(id);
 
