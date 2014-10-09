@@ -289,7 +289,7 @@ class Horde_Mime
     public static function uudecode($input)
     {
         $uudecode = new Horde_Mime_Uudecode($input);
-        return iterator_to_array($input);
+        return iterator_to_array($uudecode);
     }
 
     /**
