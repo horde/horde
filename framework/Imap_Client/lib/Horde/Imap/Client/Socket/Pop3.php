@@ -110,7 +110,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($name) {
         case 'url':
-            $url->protocol = 'pop3';
+            $out->protocol = 'pop3';
             break;
         }
 
