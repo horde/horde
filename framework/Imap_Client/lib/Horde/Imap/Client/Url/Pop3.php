@@ -49,7 +49,7 @@ class Horde_Imap_Client_Url_Pop3 extends Horde_Imap_Client_Url_Base
         $url = 'pop://' . parent::__toString();
 
         if (($port = $this->port) != 110) {
-            $url .= ':' . $this->port;
+            $url .= ':' . $port;
         }
 
         return $url . '/';

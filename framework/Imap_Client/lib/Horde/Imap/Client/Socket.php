@@ -4697,7 +4697,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             /* Store valid search charsets if returned by server. */
             $s = $this->search_charset;
             foreach ($rc->data[0] as $val) {
-                $this->search_charset->setValid($val, true);
+                $s->setValid($val, true);
             }
 
             throw new Horde_Imap_Client_Exception_ServerResponse(
