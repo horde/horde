@@ -35,6 +35,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Translation">
+      <file name="Autodetect.php" role="php" />
       <dir name="Handler">
        <file name="Gettext.php" role="php" />
       </dir> <!-- /lib/Horde/Translation/Handler -->
