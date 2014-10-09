@@ -272,8 +272,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             array(
                 $email,
                 self::PUBKEY_FIELD,
-                $injector->getInstance('IMP_Contacts')->sources,
-                $params['sources']
+                $injector->getInstance('IMP_Contacts')->sources
             )
         );
     }
