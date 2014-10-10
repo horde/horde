@@ -131,4 +131,30 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider eaiAddressesProvider
+     */
+    public function testEaiAddresses($in, $personal, $email)
+    {
+        $address = new Horde_Mail_Rfc822_Address($in);
+
+        $this->assertEquals(
+            $personal,
+            $address->personal,
+            $address->bare_address
+        );
+    }
+
+    public function eaiAddressesProvider()
+    {
+        return array(
+            /* Example from https://github.com/arnt/eai-test-messages */
+            array(
+                'Jøran Øygårdvær <jøran@example.com>',
+                'Jøran Øygårdvær',
+                'jøran@example.com'
+            )
+        );
+    }
+
 }
