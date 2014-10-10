@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
 * [mjr] Fix replacing tags in existing notes (Bug #13417).
  </notes>
  <contents>
@@ -1233,7 +1234,8 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [mjr] Fix replacing tags in existing notes (Bug# 13417).
+* [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
+* [mjr] Fix replacing tags in existing notes (Bug #13417).
    </notes>
   </release>
  </changelog>

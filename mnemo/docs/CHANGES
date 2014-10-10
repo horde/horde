@@ -2,6 +2,7 @@
 v4.2.2-git
 ----------
 
+[jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
 [mjr] Fix replacing tags in existing notes (Bug #13417).
 
 
