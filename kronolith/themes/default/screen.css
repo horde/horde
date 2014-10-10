@@ -124,6 +124,7 @@ table.kronolith-view.kronolith-sidebyside .kronolith-all-day td.kronolith-first-
     display: block;
     margin-top: 10px;
     white-space: nowrap;
+    transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
 }
