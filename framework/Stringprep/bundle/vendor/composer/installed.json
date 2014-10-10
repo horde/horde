@@ -1,0 +1,41 @@
+[
+    {
+        "name": "znerol/php-stringprep",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "target-dir": "Znerol/Component/Stringprep",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/znerol/Stringprep.git",
+            "reference": "79ebd996eb9a569786ead9afbc270c195cc40205"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/znerol/Stringprep/zipball/79ebd996eb9a569786ead9afbc270c195cc40205",
+            "reference": "79ebd996eb9a569786ead9afbc270c195cc40205",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2012-11-10 08:51:47",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Znerol\\Component\\Stringprep\\": ""
+            }
+        },
+        "authors": [
+            {
+                "name": "Lorenz Schori",
+                "email": "lo@znerol.ch"
+            }
+        ],
+        "description": "Implementation of RFC 3454 Preparation of Internationalized Strings (\"stringprep\")",
+        "support": {
+            "source": "https://github.com/znerol/Stringprep/tree/master",
+            "issues": "https://github.com/znerol/Stringprep/issues"
+        }
+    }
+]

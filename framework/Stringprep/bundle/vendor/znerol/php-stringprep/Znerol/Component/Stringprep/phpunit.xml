@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://phpunit.de/phpunit.xsd"
+         bootstrap="Tests/bootstrap.php"
+         backupGlobals="false"
+         verbose="true">
+
+  <testsuites>
+    <testsuite name="Stringprep Test Suite">
+      <directory suffix="Test.php">Tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <php>
+    <const name="PHPUNIT_TESTSUITE" value="true"/>
+  </php>
+</phpunit>

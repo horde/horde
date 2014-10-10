@@ -1,0 +1,12 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/znerol/Stringprep"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "znerol/php-stringprep": "*"
+    }
+}

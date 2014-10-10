@@ -1,0 +1,54 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "23c2f5d00e200eb061bfaadfd88bea9e",
+    "packages": [],
+    "packages-dev": [
+        {
+            "name": "znerol/php-stringprep",
+            "version": "dev-master",
+            "target-dir": "Znerol/Component/Stringprep",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/znerol/Stringprep.git",
+                "reference": "79ebd996eb9a569786ead9afbc270c195cc40205"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/znerol/Stringprep/zipball/79ebd996eb9a569786ead9afbc270c195cc40205",
+                "reference": "79ebd996eb9a569786ead9afbc270c195cc40205",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Znerol\\Component\\Stringprep\\": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "Lorenz Schori",
+                    "email": "lo@znerol.ch"
+                }
+            ],
+            "description": "Implementation of RFC 3454 Preparation of Internationalized Strings (\"stringprep\")",
+            "support": {
+                "source": "https://github.com/znerol/Stringprep/tree/master",
+                "issues": "https://github.com/znerol/Stringprep/issues"
+            },
+            "time": "2012-11-10 08:51:47"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "platform": [],
+    "platform-dev": []
+}
