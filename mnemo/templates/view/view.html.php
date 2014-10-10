@@ -1,6 +1,8 @@
 <div class="horde-buttonbar">
  <ul>
+<?php if (class_exists('Horde_Pdf_Writer')): ?>
   <li class="horde-icon"><?php echo Horde::widget(array('url' => $this->pdfurl, 'title' => _("Save as PDF"), 'class' => 'mnemo-pdf')) ?></li>
+<?php endif ?>
 <?php if ($this->edit): ?>
   <li class="horde-icon"><?php echo $this->edit ?></li>
 <?php endif ?>
