@@ -69,24 +69,34 @@ abstract class Horde_Translation_Autodetect extends Horde_Translation
             }
         }
 
-        $className = get_called_class();
-        $class = new ReflectionClass($className);
-        $basedir = dirname($class->getFilename());
-        $depth = substr_count($className, '_');
-
-        $scan = array(
-            /* Composer */
-            $basedir . str_repeat('/..', $depth) . '/data/locale',
-            /* Source */
-            $basedir . str_repeat('/..', $depth + 1) . '/locale'
-        );
-        foreach ($scan as $directory) {
+        $directories = static::_getSearchDirectories();
+        foreach ($directories as $directory) {
             if (file_exists($directory)) {
                 return $directory;
             }
         }
 
         return false;
+    }
+
+    /**
+     * Get potential locations for the locale directory.
+     *
+     * @var array List of directories
+     */
+    protected static function _getSearchDirectories()
+    {
+        $className = get_called_class();
+        $class = new ReflectionClass($className);
+        $basedir = dirname($class->getFilename());
+        $depth = substr_count($className, '_');
+
+        return array(
+            /* Composer */
+            $basedir . str_repeat('/..', $depth) . '/data/locale',
+            /* Source */
+            $basedir . str_repeat('/..', $depth + 1) . '/locale'
+        );
     }
 
 }
