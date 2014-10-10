@@ -2,6 +2,7 @@
 v4.2.3-git
 ----------
 
+[jan] Support time label rotation in week and day views on IE 11.
 [jan] Fix updating of task list view if no tasks are returned from server.
 [jan] Fix ordering of sub-tasks.
 [jan] Send iTip notifications even to attendees that are not required to attend
