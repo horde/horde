@@ -72,6 +72,7 @@ The following POP3 extensions/features are supported
 :RFC 2595/RFC 4616: PLAIN authentication
 :RFC 3206:          The SYS and AUTH POP Response Codes
 :RFC 5034:          POP3 SASL
+:RFC 6856:          Post Office Protocol Version 3 (POP3) Support for UTF-8
 
 
 Mail Messages
