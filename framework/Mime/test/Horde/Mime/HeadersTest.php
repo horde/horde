@@ -135,10 +135,10 @@ To: recipient2@example.com"
     public function testUnencodedMimeHeader()
     {
         // The header is base64 encoded to preserve charset data.
-        $hdr = 'RnJvbTogqSBWSUFHUkEgriBPZmZpY2lhbCBTaXRlIDxzbHVzYXJza2lAZ29sZGVud2FyZS5jb20+DQo=';
+        $hdr = 'RnJvbTogwqkgVklBR1JBIMKuIE9mZmljaWFsIFNpdGUgPGZvb0BleGFtcGxlLmNvbT4=';
         $hdrs = Horde_Mime_Headers::parseHeaders(base64_decode($hdr));
         $this->assertEquals(
-            '© VIAGRA ® Official Site <slusarski@goldenware.com>',
+            '© VIAGRA ® Official Site <foo@example.com>',
             $hdrs->getValue('from')
         );
     }
