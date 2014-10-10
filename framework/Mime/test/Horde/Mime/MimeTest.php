@@ -1,7 +1,5 @@
 <?php
 /**
- * Tests for the Horde_Mime class.
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -12,6 +10,8 @@
  */
 
 /**
+ * Tests for the Horde_Mime class.
+ *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -20,6 +20,36 @@
  */
 class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @dataProvider is8bitProvider
+     */
+    public function testIs8bit($data, $expected)
+    {
+        $this->assertEquals(
+            $expected,
+            Horde_Mime::is8bit($data)
+        );
+    }
+
+    public function is8bitProvider()
+    {
+        return array(
+            array('A', false),
+            array('a', false),
+            array('1', false),
+            array('!', false),
+            array("\0", false),
+            array("\10", false),
+            array("\127", false),
+            array("\x80", true),
+            array('ä', true),
+            array('A©B', true),
+            array(' ® ', true),
+            // This string is in Windows-1252
+            array(base64_decode('UnVubmVyc5IgQWxlcnQh='), true)
+        );
+    }
+
     /**
      * @dataProvider decodeProvider
      */
