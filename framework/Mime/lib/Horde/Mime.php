@@ -42,13 +42,20 @@ class Horde_Mime
      *
      * @param string $string   The string to check.
      * @param string $charset  The charset of the string. Defaults to
-     *                         US-ASCII.
+     *                         US-ASCII. (@deprecated)
      *
-     * @return boolean  True if string contains non US-ASCII characters.
+     * @return boolean  True if string contains non 7-bit characters.
      */
     public static function is8bit($string, $charset = null)
     {
-        return ($string != Horde_String::convertCharset($string, $charset, 'US-ASCII'));
+        $string = strval($string);
+        for ($i = 0, $len = strlen($string); $i < $len; ++$i) {
+            if (ord($string[$i]) > 127) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

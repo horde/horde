@@ -34,6 +34,10 @@ Upgrading to 2.5
       This method is deprecated. Use Horde_Mime_Headers#generateMessageId()
       instead.
 
+    - is8bit()
+
+      The 2nd parameter ($charset) is no longer needed/used.
+
     - isChild()
 
       This method is deprecated. Use Horde_Mime_Id#isChild() instead.

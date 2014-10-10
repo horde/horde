@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
 * [mms] Improved MIME encoding.
 * [mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to Horde_Mime_QuotedPrintable.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
@@ -1459,6 +1460,7 @@
    <date>2014-09-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
 * [mms] Improved MIME encoding.
 * [mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to Horde_Mime_QuotedPrintable.
 * [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
