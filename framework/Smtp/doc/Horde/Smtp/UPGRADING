@@ -16,9 +16,17 @@ Upgrading to 1.7.0
 
   - Horde_Smtp
 
+    Added the $data_binary property.
+
     - Constructor
 
       Added the 'chunk_size' parameter.
+
+    - send()
+
+      Added the 'body' option.
+      Deprecated the '8bit' option. Use 'body' with Horde_Smtp::BODY_8BIT
+      argument instead.
 
 
 Upgrading to 1.6.0
@@ -26,7 +34,7 @@ Upgrading to 1.6.0
 
   - Horde_Smtp
 
-    Added the $data_intl parameter.
+    Added the $data_intl property.
 
     - send()
 

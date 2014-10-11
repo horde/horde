@@ -22,7 +22,8 @@
  *   - RFC 2595/4616: TLS & PLAIN (SASL Authentication)
  *   - RFC 2831: DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
  *   - RFC 2920/STD 60: Pipelining
- *   - RFC 3030: CHUNKING
+ *   - RFC 3030: SMTP Service Extensions for Transmission of Large and Binary
+ *               MIME Messages
  *   - RFC 3207: Secure SMTP over TLS
  *   - RFC 3463: Enhanced Mail System Status Codes
  *   - RFC 4422: SASL Authentication (for DIGEST-MD5)
@@ -39,7 +40,6 @@
  * <pre>
  *   - RFC 1845: CHECKPOINT
  *   - RFC 2852: DELIVERYBY
- *   - RFC 3030: BINARYMIME
  *   - RFC 3461: DSN
  *   - RFC 3865: NO-SOLICITING
  *   - RFC 3885: MTRK
@@ -59,6 +59,8 @@
  *
  * @property-read boolean $data_8bit  Does server support sending 8-bit MIME
  *                                    data?
+ * @property-read boolean $data_binary  Does server support sending binary
+ *                                      MIME data? (@since 1.7.0)
  * @property-read boolean $data_intl  Does server support sending
  *                                    internationalized (UTF-8) header data?
  *                                    (@since 1.6.0)
@@ -67,6 +69,12 @@
  */
 class Horde_Smtp implements Serializable
 {
+    const BODY_7BIT = 1;
+    const BODY_8BIT = 2;
+    const BODY_BINARY = 3;
+
+    const CHUNK_DEFAULT = 1048576;
+
     /**
      * Connection to the SMTP server.
      *
@@ -174,7 +182,7 @@ class Horde_Smtp implements Serializable
     {
         // Default values.
         $params = array_merge(array(
-            'chunk_size' => 1048576,
+            'chunk_size' => self::CHUNK_DEFAULT,
             'host' => 'localhost',
             'port' => 587,
             'secure' => true,
@@ -254,6 +262,10 @@ class Horde_Smtp implements Serializable
         case 'data_8bit':
             // RFC 6152
             return $this->queryExtension('8BITMIME');
+
+        case 'data_binary':
+            // RFC 3030
+            return $this->queryExtension('BINARYMIME');
 
         case 'data_intl':
             // RFC 6531
@@ -492,9 +504,11 @@ class Horde_Smtp implements Serializable
      * @param mixed $data  The data to send. Either a stream or a string.
      * @param array $opts  Additional options:
      * <pre>
-     *   - 8bit: (boolean) If true, $data is a MIME message with arbitrary
-     *           octet content (i.e. 8-bit encoding).
-     *           DEFAULT: false
+     *   - body: (integer) The encoding type of the message data. (@since
+     *           1.7.0) One of:
+     *           - Horde_Smtp::BODY_7BIT (Default)
+     *           - Horde_Smtp::BODY_8BIT
+     *           - Horde_Smtp::BODY_BINARY
      *   - intl: (boolean) If true, $data contains internationalized header
      *           content (UTF-8). (@since 1.6.0)
      *           DEFAULT: false
@@ -512,6 +526,13 @@ class Horde_Smtp implements Serializable
      */
     public function send($from, $to, $data, array $opts = array())
     {
+        /* BC: support '8bit' option. */
+        if (!isset($opts['body'])) {
+            $opts['body'] = empty($opts['8bit'])
+                ? self::BODY_7BIT
+                : self::BODY_8BIT;
+        }
+
         $this->login();
 
         if (!($from instanceof Horde_Mail_Rfc822_Address)) {
@@ -527,14 +548,7 @@ class Horde_Smtp implements Serializable
             }
 
             /* RFC 6531[1.2] requires 8BITMIME to be available. */
-            $opts['8bit'] = true;
-        }
-
-        /* RFC 6152[3] */
-        if (!empty($opts['8bit']) && !$this->data_8bit) {
-            throw new InvalidArgumentException(
-                'Server does not support sending 8-bit data.'
-            );
+            $opts['body'] = self::BODY_8BIT;
         }
 
         $mailcmd = 'MAIL FROM:<' .
@@ -542,7 +556,10 @@ class Horde_Smtp implements Serializable
             '>';
 
         $size = $this->queryExtension('SIZE');
+
         $chunking = $this->queryExtension('CHUNKING');
+        $chunk_force = false;
+        $chunk_size = $this->getParam('chunk_size');
 
         // RFC 1870[6]
         if ($size || $chunking) {
@@ -563,13 +580,41 @@ class Horde_Smtp implements Serializable
             $mailcmd .= ' SMTPUTF8';
         }
 
-        // RFC 6152[3]
-        if (!empty($opts['8bit'])) {
+        switch ($opts['body']) {
+        case self::BODY_BINARY:
+            // RFC 3030[3]
+            if (!$this->data_binary) {
+                throw new InvalidArgumentException(
+                    'Server does not support binary message data.'
+                );
+            }
+            $mailcmd .= ' BODY=BINARYMIME';
+
+            /* BINARYMIME requires CHUNKING. */
+            $chunking = $chunk_force = true;
+            if (!$chunk_size) {
+                $chunk_size = self::CHUNK_DEFAULT;
+            }
+            break;
+
+        case self::BODY_8BIT:
+            // RFC 6152[3]
+            if (!$this->data_8bit) {
+                throw new InvalidArgumentException(
+                    'Server does not support 8-bit message data.'
+                );
+            }
             $mailcmd .= ' BODY=8BITMIME';
-        } elseif ($this->_debug->active && $this->data_8bit) {
-            /* Only output extended 7bit command if debug is active (it is
-             * default and does not need to be explicitly declared). */
-            $mailcmd .= ' BODY=7BIT';
+            break;
+
+        case self::BODY_7BIT:
+        default:
+            if ($this->_debug->active && $this->data_8bit) {
+                /* Only output extended 7bit command if debug is active (it is
+                 * default and does not need to be explicitly declared). */
+                $mailcmd .= ' BODY=7BIT';
+            }
+            break;
         }
 
         $cmds = array($mailcmd);
@@ -613,9 +658,8 @@ class Horde_Smtp implements Serializable
         }
 
         /* CHUNKING support. RFC 3030[2] */
-        if ($chunking &&
-            ($chunk_size = $this->getParam('chunk_size')) &&
-            ($size > $chunk_size)) {
+        if ($chunking && $chunk_size &&
+            ($chunk_force || ($size > $chunk_size))) {
             list($data2, $res) = $this->_prepareData($data);
 
             /* Since we need exact size for chunking purposes, we need to
