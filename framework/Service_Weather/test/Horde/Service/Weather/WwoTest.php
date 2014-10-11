@@ -31,7 +31,7 @@ class Horde_Service_Weather_WwoTest extends Horde_Test_Case
         $this->assertEquals(Horde_Service_Weather_Translation::t("Partly Cloudy"), $conditions->condition);
 
         // Humidity
-        $this->assertEquals('88', $conditions->humidity);
+        $this->assertEquals('88%', $conditions->humidity);
 
         // Temp (F), Wind Speed (MPH), Visibility (Miles), Pressure (inches)
         $weather->units = Horde_Service_Weather::UNITS_STANDARD;
