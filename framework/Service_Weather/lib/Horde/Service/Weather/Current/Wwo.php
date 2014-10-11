@@ -87,6 +87,8 @@
                 str_replace('.png', '', basename($this->_properties->weatherIconUrl[0]->value))
             ];
 
+        case 'humidity':
+            return $this->_properties->humidity . '%';
         default:
             if (empty($this->_map[$property])) {
                 throw new Horde_Service_Weather_Exception_InvalidProperty();
