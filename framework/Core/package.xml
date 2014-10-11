@@ -30,7 +30,7 @@
  </developer>
  <date>2014-10-11</date>
  <version>
-  <release>2.15.0</release>
+  <release>2.15.1</release>
   <api>2.15.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix fatal error viewing certain MIME parts due to incorrect method name in the MimeViewer factory.
-* [mjr] Add support for moving calendar items on EAS clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3669,6 +3668,19 @@
    <notes>
 * [mjr] Fix fatal error viewing certain MIME parts due to incorrect method name in the MimeViewer factory.
 * [mjr] Add support for moving calendar items on EAS clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.15.1</release>
+    <api>2.15.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
