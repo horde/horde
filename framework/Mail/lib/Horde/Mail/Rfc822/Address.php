@@ -43,7 +43,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     public $comment = array();
 
     /**
-     * Local-part of the address.
+     * Local-part of the address (UTF-8).
      *
      * @var string
      */
