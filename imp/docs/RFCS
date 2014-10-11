@@ -96,18 +96,22 @@ SMTP
 The following SMTP extensions/features are supported
 
 :STD 10/RFC 1870: Message Size Declaration
+:RFC 1985:        SMTP Service Extension for Remote Message Queue Starting
 :RFC 2033:        Local Mail Transfer Protocol (LMTP)
 :RFC 2034:        Enhanced-Status-Codes
 :RFC 2195:        CRAM-MD5 (SASL Authentication)
 :RFC 2595/4616:   TLS & PLAIN (SASL Authentication)
 :RFC 2831:        DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
 :STD 60/RFC 2920: Pipelining
+:RFC 3030:        SMTP Service Extensions for Transmission of Large and Binary
+                  MIME Messages
 :RFC 3207:        Secure SMTP over TLS
 :RFC 3463:        Enhanced Mail System Status Codes
 :RFC 4422:        SASL Authentication (for DIGEST-MD5)
 :RFC 4954:        SMTP Authentication
 :STD 71/RFC 6152: 8bit-MIMEtransport
 :STD 72/RFC 6409: Message Submission for Mail
+:RFC 6531:        Internationalized Email
 
 
 MIME
