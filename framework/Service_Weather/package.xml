@@ -12,7 +12,7 @@
  </lead>
  <date>2014-10-11</date>
  <version>
-  <release>2.1.4</release>
+  <release>2.1.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Add missing percent sign for humidity when using WWO.
-* [mjr] Fix detected errors returned from WWO.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -781,6 +780,19 @@
    <notes>
 * [mjr] Add missing percent sign for humidity when using WWO.
 * [mjr] Fix detected errors returned from WWO.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
