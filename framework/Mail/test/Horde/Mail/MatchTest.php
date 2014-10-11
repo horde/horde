@@ -25,6 +25,7 @@ class Horde_Mail_MatchTest extends PHPUnit_Framework_TestCase
     public function matchProvider()
     {
         $test1 = 'Test <test@example.com>';
+        $test2 = 'Test <täst@example.com>';
 
         return array(
             array(
@@ -41,6 +42,16 @@ class Horde_Mail_MatchTest extends PHPUnit_Framework_TestCase
                 $test1,
                 'Foo <Test@example.com>',
                 false
+            ),
+            array(
+                $test2,
+                'Foo <test@example.com>',
+                false
+            ),
+            array(
+                $test2,
+                'täst@example.com',
+                true
             )
         );
     }
@@ -61,6 +72,7 @@ class Horde_Mail_MatchTest extends PHPUnit_Framework_TestCase
     public function insensitiveMatchProvider()
     {
         $test1 = 'Test <test@example.com>';
+        $test2 = 'Test <täst@example.com>';
 
         return array(
             array(
@@ -82,6 +94,11 @@ class Horde_Mail_MatchTest extends PHPUnit_Framework_TestCase
                 $test1,
                 'test1@example.com',
                 false
+            ),
+            array(
+                $test2,
+                'TäST@EXAMPLE.cOm',
+                true
             )
         );
     }
