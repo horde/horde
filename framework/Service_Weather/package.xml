@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-01</date>
+ <date>2014-10-11</date>
  <version>
   <release>2.1.4</release>
   <api>1.2.0</api>
@@ -776,7 +776,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-01</date>
+   <date>2014-10-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Add missing percent sign for humidity when using WWO.
