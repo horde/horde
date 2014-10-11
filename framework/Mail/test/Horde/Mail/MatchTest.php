@@ -9,22 +9,81 @@
 
 class Horde_Mail_MatchTest extends PHPUnit_Framework_TestCase
 {
-    public function testMatch()
+    /**
+     * @dataProvider matchProvider
+     */
+    public function testMatch($in, $match, $expected)
     {
-        $address = new Horde_Mail_Rfc822_Address('Test <test@example.com>');
+        $address = new Horde_Mail_Rfc822_Address($in);
 
-        $this->assertTrue($address->match('Foo <test@example.com>'));
-        $this->assertTrue($address->match('Foo <test@EXAMPLE.COM>'));
-        $this->assertFalse($address->match('Foo <Test@example.com>'));
+        $this->assertEquals(
+            $expected,
+            $address->match($match)
+        );
     }
 
-    public function testInsensitiveMatch()
+    public function matchProvider()
     {
-        $address = new Horde_Mail_Rfc822_Address('Test <test@example.com>');
+        $test1 = 'Test <test@example.com>';
 
-        $this->assertTrue($address->matchInsensitive('Foo <test@example.com>'));
-        $this->assertTrue($address->matchInsensitive('Foo <test@EXAMPLE.COM>'));
-        $this->assertTrue($address->matchInsensitive('Foo <Test@example.com>'));
+        return array(
+            array(
+                $test1,
+                'Foo <test@example.com>',
+                true
+            ),
+            array(
+                $test1,
+                'Foo <test@EXAMPLE.COM>',
+                true
+            ),
+            array(
+                $test1,
+                'Foo <Test@example.com>',
+                false
+            )
+        );
+    }
+
+    /**
+     * @dataProvider insensitiveMatchProvider
+     */
+    public function testInsensitiveMatch($in, $match, $expected)
+    {
+        $address = new Horde_Mail_Rfc822_Address($in);
+
+        $this->assertEquals(
+            $expected,
+            $address->matchInsensitive($match)
+        );
+    }
+
+    public function insensitiveMatchProvider()
+    {
+        $test1 = 'Test <test@example.com>';
+
+        return array(
+            array(
+                $test1,
+                'Foo <test@example.com>',
+                true
+            ),
+            array(
+                $test1,
+                'Foo <test@EXAMPLE.COM>',
+                true
+            ),
+            array(
+                $test1,
+                'Foo <Test@example.com>',
+                true
+            ),
+            array(
+                $test1,
+                'test1@example.com',
+                false
+            )
+        );
     }
 
 }
