@@ -22,6 +22,7 @@
  *   - RFC 2595/4616: TLS & PLAIN (SASL Authentication)
  *   - RFC 2831: DIGEST-MD5 authentication mechanism (obsoleted by RFC 6331)
  *   - RFC 2920/STD 60: Pipelining
+ *   - RFC 3030: CHUNKING
  *   - RFC 3207: Secure SMTP over TLS
  *   - RFC 3463: Enhanced Mail System Status Codes
  *   - RFC 4422: SASL Authentication (for DIGEST-MD5)
@@ -38,7 +39,7 @@
  * <pre>
  *   - RFC 1845: CHECKPOINT
  *   - RFC 2852: DELIVERYBY
- *   - RFC 3030: BINARYMIME/CHUNKING
+ *   - RFC 3030: BINARYMIME
  *   - RFC 3461: DSN
  *   - RFC 3865: NO-SOLICITING
  *   - RFC 3885: MTRK
@@ -115,6 +116,11 @@ class Horde_Smtp implements Serializable
      * @param array $params   Configuration parameters:
      * <ul>
      *  <li>
+     *   chunk_size: (integer) If CHUNKING is supported on the server, the
+     *               chunk size (in octets) to send. 0 will disable chunking.
+     *               @since 1.7.0
+     *  </li>
+     *  <li>
      *   debug: (string) If set, will output debug information to the stream
      *          provided. The value can be any PHP supported wrapper that
      *          can be opened via fopen().
@@ -168,6 +174,7 @@ class Horde_Smtp implements Serializable
     {
         // Default values.
         $params = array_merge(array(
+            'chunk_size' => 1048576,
             'host' => 'localhost',
             'port' => 587,
             'secure' => true,
@@ -534,8 +541,11 @@ class Horde_Smtp implements Serializable
             (empty($opts['intl']) ? $from->bare_address_idn : $from->bare_address) .
             '>';
 
+        $size = $this->queryExtension('SIZE');
+        $chunking = $this->queryExtension('CHUNKING');
+
         // RFC 1870[6]
-        if ($this->queryExtension('SIZE')) {
+        if ($size || $chunking) {
             if (is_resource($data)) {
                 fseek($data, 0, SEEK_END);
                 $size = ftell($data);
@@ -543,7 +553,9 @@ class Horde_Smtp implements Serializable
                 $size = strlen($data);
             }
 
-            $mailcmd .= ' SIZE=' . intval($size);
+            if ($size) {
+                $mailcmd .= ' SIZE=' . intval($size);
+            }
         }
 
         // RFC 6531[3.4]
@@ -600,42 +612,71 @@ class Horde_Smtp implements Serializable
             }
         }
 
-        $this->_connection->write('DATA');
+        /* CHUNKING support. RFC 3030[2] */
+        if ($chunking &&
+            ($chunk_size = $this->getParam('chunk_size')) &&
+            ($size > $chunk_size)) {
+            list($data2, $res) = $this->_prepareData($data);
 
-        try {
-            $this->_getResponse(354, 'reset');
-        } catch (Horde_Smtp_Exception $e) {
-            /* This is the place where a STARTTLS 530 error would occur. If
-             * so, explicitly use STARTTLS and try again. */
-            switch ($e->getSmtpCode()) {
-            case 530:
-                if (!$this->isSecureConnection()) {
-                    $this->logout();
-                    $this->setParam('secure', 'tls');
-                    $this->send($from, $to, $data, $opts);
-                    return;
+            /* Since we need exact size for chunking purposes, we need to
+             * pre-create data stream. */
+            $data3 = fopen('php://temp', 'r+');
+            while (!feof($data2)) {
+                fwrite($data3, fread($data2, 65536));
+            }
+            $size = ftell($data3);
+            rewind($data3);
+
+            if (!is_resource($data)) {
+                fclose($data2);
+            }
+            stream_filter_remove($res);
+
+            while ($size) {
+                $c = min($chunk_size, $size);
+                $size -= $c;
+
+                $this->_connection->write(
+                    'BDAT ' . $c . ($size ? '' : ' LAST')
+                );
+                $this->_connection->write($data3, $c);
+                if ($size) {
+                    $this->_getResponse(250, 'reset');
                 }
-                break;
             }
 
-            throw $e;
+            fclose($data3);
+        } else {
+            $this->_connection->write('DATA');
+
+            try {
+                $this->_getResponse(354, 'reset');
+            } catch (Horde_Smtp_Exception $e) {
+                /* This is the place where a STARTTLS 530 error would occur.
+                 * If so, explicitly use STARTTLS and try again. */
+                switch ($e->getSmtpCode()) {
+                case 530:
+                    if (!$this->isSecureConnection()) {
+                        $this->logout();
+                        $this->setParam('secure', 'tls');
+                        $this->send($from, $to, $data, $opts);
+                        return;
+                    }
+                    break;
+                }
+
+                throw $e;
+            }
+
+            list($data2, $res) = $this->_prepareData($data);
+            $this->_connection->write($data2);
+            $this->_connection->write('.');
+
+            stream_filter_remove($res);
+            if (!is_resource($data)) {
+                fclose($data2);
+            }
         }
-
-        if (!is_resource($data)) {
-            $stream = fopen('php://temp', 'r+');
-            fwrite($stream, $data);
-            $data = $stream;
-        }
-        rewind($data);
-
-        // Add SMTP escape filter.
-        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
-
-        $this->_connection->write($data);
-        stream_filter_remove($res);
-
-        $this->_connection->write('.');
 
         return $this->_processData($recipients);
     }
@@ -934,6 +975,29 @@ class Horde_Smtp implements Serializable
         }
 
         throw $e;
+    }
+
+    /**
+     * Prepare message data for delivery to SMTP server.
+     *
+     * @param mixed $data  Message data. Either string or stream.
+     *
+     * @return array  2-element array: data stream and stream_filter resource.
+     */
+    protected function _prepareData($data)
+    {
+        if (!is_resource($data)) {
+            $stream = fopen('php://temp', 'r+');
+            fwrite($stream, $data);
+            $data = $stream;
+        }
+        rewind($data);
+
+        // Add SMTP escape filter.
+        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
+        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
+
+        return array($data, $res);
     }
 
     /**

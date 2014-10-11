@@ -14,9 +14,6 @@
 /**
  * An interface to an LMTP server (RFC 2033).
  *
- * @todo  If/when CHUNKING is supported in base driver, RFC 2033 [4.3] (BDAT
- *        command) needs to be implemented here.
- *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2014 Horde LLC
@@ -61,7 +58,7 @@ class Horde_Smtp_Lmtp extends Horde_Smtp
      */
     protected function _processData($recipients)
     {
-        /* RFC 2033 [4.2]: there is one response for each successful
+        /* RFC 2033 [4.2/4.3]: there is one response for each successful
          * recipient, so need to iterate through the array. If no successful
          * recipients found, throw an exception. */
         $out = array();

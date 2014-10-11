@@ -32,16 +32,24 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
      *
      * @param mixed $data  String data (or array of string data), or a
      *                     resource.
+     * @param mixed $size  If set, the maximum number of octets to send.
      *
      * @throws Horde_Smtp_Exception
      */
-    public function write($data)
+    public function write($data, $size = null)
     {
         if (is_resource($data)) {
             $this->_params['debug']->client('', false);
 
-            while (!feof($data)) {
-                $chunk = fread($data, 8192);
+            while (!feof($data) && (is_null($size) || ($size > 0))) {
+                if (is_null($size)) {
+                    $c_size = 65536;
+                } else {
+                    $c_size = min($size, 65536);
+                    $size -= $c_size;
+                }
+
+                $chunk = fread($data, $c_size);
                 $this->_params['debug']->raw($chunk);
 
                 try {
@@ -63,7 +71,12 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
                 $this->_params['debug']->client($val);
             }
 
-            $this->_write(implode("\r\n", $data) . "\r\n");
+            $chunk = implode("\r\n", $data);
+            if (!is_null($size)) {
+                $chunk = substr($chunk, 0, $size);
+            }
+
+            $this->_write($chunk . "\r\n");
         }
     }
 
