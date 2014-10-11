@@ -9,7 +9,7 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Mnemo
-s */
+ */
 
 require_once __DIR__ . '/../lib/Mnemo.php';
 
