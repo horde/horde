@@ -329,8 +329,8 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 
     protected function _parseSearchLocations($response)
     {
-        if (!empty($response->error)) {
-            throw new Horde_Service_Weather_Exception($response->error->msg);
+        if (!empty($response->results->error)) {
+            throw new Horde_Service_Weather_Exception($response->results->error->message);
         }
 
         // Wwo's location search is pretty useless. It *always* returns multiple
