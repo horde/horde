@@ -63,7 +63,7 @@ class Horde_Block_Moon extends Horde_Core_Block
             '<tr><td colspan="4" class="control"><strong>' . $location . '</strong></td></tr>' .
             '<tr height="100%"><td width="25%" align="center">' .
             Horde_Themes_Image::tag('block/moon/newmoon.png', array('alt' => _("New Moon"))) .
-            '<br />' . strftime('%d %b', $dates[0]) .
+            '<br />' . strftime($GLOBALS['prefs']->getValue('date_format_mini'), $dates[0]) .
             '</td>';
 
         $html .= '<td width="25%" align="center">';
@@ -73,11 +73,11 @@ class Horde_Block_Moon extends Horde_Core_Block
         } else {
             $html .= Horde_Themes_Image::tag('block/moon/firstquarter.png', array('alt' => _("First Quarter")));
         }
-        $html .= '<br />' . strftime('%d %b', $dates[1]) . '</td>';
+        $html .= '<br />' . strftime($GLOBALS['prefs']->getValue('date_format_mini'), $dates[1]) . '</td>';
 
         $html .= '<td width="25%" align="center">' .
             Horde_Themes_Image::tag('block/moon/fullmoon.png', array('alt' => _("Full Moon"))) .
-            '<br />' . strftime('%d %b', $dates[2]) . '</td>';
+            '<br />' . strftime($GLOBALS['prefs']->getValue('date_format_mini'), $dates[2]) . '</td>';
 
         $html .= '<td width="25%" align="center">';
         if (isset($this->_params['hemisphere']) &&
@@ -86,7 +86,7 @@ class Horde_Block_Moon extends Horde_Core_Block
         } else {
             $html .= Horde_Themes_Image::tag('block/moon/lastquarter.png', array('alt' => _("Last Quarter")));
         }
-        $html .= '<br />' . strftime('%d %b', $dates[3]) . '</td></tr></table>';
+        $html .= '<br />' . strftime($GLOBALS['prefs']->getValue('date_format_mini'), $dates[3]) . '</td></tr></table>';
 
         return $html;
     }
