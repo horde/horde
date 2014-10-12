@@ -70,6 +70,15 @@ class Horde_Smtp_RemoteServerTest extends Horde_Test_Case
         );
     }
 
+    public function testBinaryMime()
+    {
+        $this->_createSmtp();
+        $this->assertEquals(
+            $this->smtp->queryExtension('BINARYMIME'),
+            $this->smtp->data_binary
+        );
+    }
+
     public function testSize()
     {
         $this->_createSmtp();
@@ -77,6 +86,18 @@ class Horde_Smtp_RemoteServerTest extends Horde_Test_Case
             $this->smtp->queryExtension('SIZE'),
             $this->smtp->size
         );
+    }
+
+    public function testNoop()
+    {
+        $this->_createSmtp();
+        $this->smtp->noop();
+    }
+
+    public function testProcessQueue()
+    {
+        $this->_createSmtp();
+        $this->smtp->processQueue();
     }
 
     protected function _createSmtp()
