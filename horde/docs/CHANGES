@@ -2,6 +2,7 @@
 v5.2.2-git
 ----------
 
+[mjr] Honor date_format_mini in Moon block (Bug #13628).
 [jan] Fix spacing in top menu (Bug #13617).
 [jan] Don't show password reset preferences if disabled in configuration (Bug
       #13618).
