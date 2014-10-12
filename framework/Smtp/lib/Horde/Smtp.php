@@ -17,6 +17,7 @@
  * Implements the following SMTP-related RFCs:
  * <pre>
  *   - RFC 1870/STD 10: Message Size Declaration
+ *   - RFC 1985: SMTP Service Extension for Remote Message Queue Starting
  *   - RFC 2034: Enhanced-Status-Codes
  *   - RFC 2195: CRAM-MD5 (SASL Authentication)
  *   - RFC 2595/4616: TLS & PLAIN (SASL Authentication)
@@ -757,6 +758,32 @@ class Horde_Smtp implements Serializable
             $this->_connection->write('NOOP');
             $this->_getResponse(250);
         }
+    }
+
+    /**
+     * Send request to process the remote queue.
+     *
+     * @param string $host  The specific host ro request queue processing for.
+     *
+     * @throws Horde_Smtp_Exception
+     */
+    public function processQueue($host = null)
+    {
+        $this->login();
+
+        if (!$this->queryExtension('ETRN')) {
+            return;
+        }
+
+        if (is_null($host)) {
+            $host = gethostname();
+            if ($host === false) {
+                return;
+            }
+        }
+
+        $this->_connection->write('ETRN ' . $host);
+        $this->_getResponse(array(250, 251, 252, 253));
     }
 
     /* Internal methods. */

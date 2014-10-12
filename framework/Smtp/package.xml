@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
 * [mms] Add support for CHUNKING extension (RFC 3030).
  </notes>
@@ -445,6 +446,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
 * [mms] Add support for CHUNKING extension (RFC 3030).
    </notes>
