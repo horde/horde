@@ -14,6 +14,10 @@ v5.3.0-git
 v5.2.2
 ------
 
+[mjr] Honor date_format_mini in Moon block (Bug #13628).
+[jan] Fix spacing in top menu (Bug #13617).
+[jan] Don't show password reset preferences if disabled in configuration (Bug
+      #13618).
 [mjr] Remove non-existent Yahoo Maps option for map tile provider.
 [mms] Fix display of Horde stylesheets not served from the local server (i.e.
       via a CDN).
