@@ -17,10 +17,11 @@ error_reporting(error_reporting() & ~E_STRICT);
 /* Get any arguments. */
 require_once 'Console/Getopt.php';
 $args = Console_Getopt::readPHPArgv();
-$options = Console_Getopt::getopt($args, 'b:d:c:p:', array('base-dir=', 'install-dir=', 'config=', 'packages='));
+$options = Console_Getopt::getopt($args, 'ab:d:c:p:', array('all', 'base-dir=', 'install-dir=', 'config=', 'packages='));
 if (is_a($options, 'PEAR_Error')) {
     echo <<<USAGE
-Usage: pear_batch_install [[-b|--base-dir] DIRECTORY]
+Usage: pear_batch_install [-a|--all]
+                          [-b|--base-dir] DIRECTORY]
                           [[-d|--install-dir] DIRECTORY]
                           [[-c|--config] CONFIGFILE]
                           [[-p|--packages] PACKAGE1,PACKAGE2[,...]]
@@ -30,11 +31,17 @@ USAGE;
 }
 
 /* Set these options to empty by default. */
+$alldeps = false;
 $config_file = $install_dir = '';
 
 $dir = dirname(__DIR__);
 foreach ($options[0] as $option) {
     switch ($option[0]) {
+    case 'a':
+    case '--alldeps':
+        $alldeps = true;
+        break;
+
     case 'b':
     case '--base-dir':
         $dir = $option[1];
@@ -80,7 +87,12 @@ if (strpos($channels, 'pear.horde.org') == false) {
 
 /* Overwrite old files, ignore dependancies (for ease of ordering),
  * upgrade if already installed, etc. */
-$pear = 'pear' . $config_file . $install_dir . ' install --force --nodeps';
+$pear = 'pear' . $config_file . $install_dir . ' install --force';
+if ($alldeps) {
+    $pear .= '-a';
+} else {
+    $pear .= '--nodeps';
+}
 
 if (!empty($packages)) {
     /* Installing only specific packages. */
