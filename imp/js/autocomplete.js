@@ -375,8 +375,11 @@ var IMP_Autocompleter = Class.create({
                 'autocompleteSearch',
                 Object.extend(this.p.autocompleterParams, { search: t }),
                 {
-                    callback: function(r) {
-                        this.updateAutocomplete(t, this.cache.set(t, r.results));
+                    callback: function(r, ajax) {
+                        this.cache.set(t, r.results);
+                        if (ajax.request.parameters.search == $F(this.input)) {
+                            this.updateAutocomplete(t, r.results);
+                        }
                     }.bind(this)
                 }
             );
