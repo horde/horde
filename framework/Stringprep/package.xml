@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-10</date>
+ <date>2014-10-14</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -40,64 +40,6 @@
        <dir name="Znerol">
         <dir name="Component">
          <dir name="Stringprep">
-          <dir name=".git">
-           <dir name="hooks">
-            <file name="applypatch-msg.sample" role="php" />
-            <file name="commit-msg.sample" role="php" />
-            <file name="post-update.sample" role="php" />
-            <file name="pre-applypatch.sample" role="php" />
-            <file name="pre-commit.sample" role="php" />
-            <file name="pre-push.sample" role="php" />
-            <file name="pre-rebase.sample" role="php" />
-            <file name="prepare-commit-msg.sample" role="php" />
-            <file name="update.sample" role="php" />
-           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks -->
-           <dir name="info">
-            <file name="exclude" role="php" />
-           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/info -->
-           <dir name="logs">
-            <dir name="refs">
-             <dir name="heads">
-              <file name="master" role="php" />
-             </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/heads -->
-             <dir name="remotes">
-              <dir name="composer">
-               <file name="master" role="php" />
-              </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/composer -->
-              <dir name="origin">
-               <file name="HEAD" role="php" />
-              </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/origin -->
-             </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes -->
-            </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs -->
-            <file name="HEAD" role="php" />
-           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs -->
-           <dir name="objects">
-            <dir name="pack">
-             <file name="pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.idx" role="php" />
-             <file name="pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.pack" role="php" />
-            </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects/pack -->
-           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects -->
-           <dir name="refs">
-            <dir name="heads">
-             <file name="master" role="php" />
-            </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/heads -->
-            <dir name="remotes">
-             <dir name="composer">
-              <file name="master" role="php" />
-             </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/composer -->
-             <dir name="origin">
-              <file name="HEAD" role="php" />
-             </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/origin -->
-            </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes -->
-           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs -->
-           <file name="config" role="php" />
-           <file name="description" role="php" />
-           <file name="FETCH_HEAD" role="php" />
-           <file name="HEAD" role="php" />
-           <file name="index" role="php" />
-           <file name="ORIG_HEAD" role="php" />
-           <file name="packed-refs" role="php" />
-          </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git -->
           <dir name="doc">
            <file name="rfc3454.txt" role="php" />
           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/doc -->
@@ -137,7 +79,6 @@
            <file name="ProfileTest.php" role="php" />
            <file name="UnicodeUtilTest.php" role="php" />
           </dir> <!-- /bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Tests -->
-          <file name=".gitignore" role="php" />
           <file name="phpunit.xml" role="php" />
           <file name="Profile.php" role="php" />
           <file name="ProfileException.php" role="php" />
@@ -192,38 +133,11 @@
    <install as="Horde/Stringprep/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
    <install as="Horde/Stringprep/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
    <install as="Horde/Stringprep/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.gitignore" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.gitignore" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/phpunit.xml" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/phpunit.xml" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile.php" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/ProfileException.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/ProfileException.php" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/README.md" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/README.md" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/UnicodeUtil.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/UnicodeUtil.php" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/config" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/config" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/description" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/description" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/FETCH_HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/FETCH_HEAD" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/HEAD" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/index" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/index" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/ORIG_HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/ORIG_HEAD" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/packed-refs" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/packed-refs" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/applypatch-msg.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/applypatch-msg.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/commit-msg.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/commit-msg.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/post-update.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/post-update.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-applypatch.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-applypatch.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-commit.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-commit.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-push.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-push.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-rebase.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/pre-rebase.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/prepare-commit-msg.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/prepare-commit-msg.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/update.sample" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/hooks/update.sample" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/info/exclude" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/info/exclude" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/HEAD" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/heads/master" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/heads/master" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/composer/master" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/composer/master" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/origin/HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/logs/refs/remotes/origin/HEAD" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects/pack/pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.idx" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects/pack/pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.idx" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects/pack/pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.pack" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/objects/pack/pack-73c7b136f5a1f7d1a772d8c0d95a98244821e789.pack" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/heads/master" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/heads/master" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/composer/master" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/composer/master" />
-   <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/origin/HEAD" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/.git/refs/remotes/origin/HEAD" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/doc/rfc3454.txt" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/doc/rfc3454.txt" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile/ISCSI.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile/ISCSI.php" />
    <install as="Horde/Stringprep/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile/Nameprep.php" name="bundle/vendor/znerol/php-stringprep/Znerol/Component/Stringprep/Profile/Nameprep.php" />
