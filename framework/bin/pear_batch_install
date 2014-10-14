@@ -56,15 +56,18 @@ foreach ($options[0] as $option) {
                        ' -d data_dir=' . $option[1] . '/data' .
                        ' -d bin_dir=' . $option[1] . '/bin';
         break;
+
     case 'c':
     case '--config':
         /* Alternate config file requested. */
         $config_file = ' -c ' . $option[1];
         break;
+
     case 'p':
     case '--packages':
         /* Only these specific packages will be installed. */
         $packages = explode(',', $option[1]);
+        break;
     }
 }
 
@@ -87,32 +90,33 @@ if (strpos($channels, 'pear.horde.org') == false) {
 
 /* Overwrite old files, ignore dependancies (for ease of ordering),
  * upgrade if already installed, etc. */
-$pear = 'pear' . $config_file . $install_dir . ' install --force';
+$pear = 'yes "" 2>/dev/null | pear' . $config_file . $install_dir . ' install --force';
 if ($alldeps) {
-    $pear .= '-a';
+    $pear .= ' -a';
 } else {
-    $pear .= '--nodeps';
+    $pear .= ' --nodeps';
 }
 
-if (!empty($packages)) {
-    /* Installing only specific packages. */
-    foreach ($packages as $entry) {
-        $package = $dir . '/' . $entry . '/' . 'package.xml';
-        if (file_exists($package)) {
-            echo "Installing $entry:\n";
-            system("$pear \"$package\"");
-            echo "\n\n";
-        }
-    }
-} else {
+$pear_install = '';
+
+if (empty($packages)) {
     /* Installing everything. */
     require_once __DIR__ . '/lib/pear_package_parse.php';
     $pkg_ob = new PEAR_Package_Parse();
     $pkgs = $pkg_ob->getPackages(array($dir));
-
     foreach ($pkgs as $key => $val) {
-        echo "Installing $key:\n";
-        system("$pear \"$val\"");
-        echo "\n\n";
+        $pkgs[$key] = $val . '/package.xml';
+    }
+} else {
+    /* Installing only specific packages. */
+    $pkgs = array();
+    foreach ($packages as $entry) {
+        $package = $dir . '/' . $entry . '/package.xml';
+        if (file_exists($package)) {
+            $pkgs[$entry] = $package;
+        }
     }
 }
+
+print "Installing: " . implode(', ', array_keys($pkgs)) . "\n";
+system($pear . ' ' . implode(' ', array_map('escapeshellarg', array_values($pkgs))));
