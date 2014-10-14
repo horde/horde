@@ -12,7 +12,7 @@
  </lead>
  <date>2014-10-14</date>
  <version>
-  <release>2.25.2</release>
+  <release>2.25.3</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add support for UTF8 extension for POP3 servers (RFC 6856).
-* [mms] Add support for LANG extension for POP3 servers (RFC 6856).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2726,6 +2725,19 @@
    <notes>
 * [mms] Add support for UTF8 extension for POP3 servers (RFC 6856).
 * [mms] Add support for LANG extension for POP3 servers (RFC 6856).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.3</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
