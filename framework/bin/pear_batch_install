@@ -33,8 +33,8 @@ USAGE;
 /* Set these options to empty by default. */
 $alldeps = false;
 $config_file = $install_dir = '';
-
 $dir = dirname(__DIR__);
+
 foreach ($options[0] as $option) {
     switch ($option[0]) {
     case 'a':
@@ -97,25 +97,20 @@ if ($alldeps) {
     $pear .= ' --nodeps';
 }
 
-$pear_install = '';
-
 if (empty($packages)) {
-    /* Installing everything. */
-    require_once __DIR__ . '/lib/pear_package_parse.php';
-    $pkg_ob = new PEAR_Package_Parse();
-    $pkgs = $pkg_ob->getPackages(array($dir));
-    foreach ($pkgs as $key => $val) {
-        $pkgs[$key] = $val . '/package.xml';
-    }
+    $pdir = array($dir);
 } else {
-    /* Installing only specific packages. */
-    $pkgs = array();
-    foreach ($packages as $entry) {
-        $package = $dir . '/' . $entry . '/package.xml';
-        if (file_exists($package)) {
-            $pkgs[$entry] = $package;
-        }
+    $pdir = array();
+    foreach ($packages as $val) {
+        $pdir[] = $dir . '/' . $val;
     }
+}
+
+require_once __DIR__ . '/lib/pear_package_parse.php';
+$pkg_ob = new PEAR_Package_Parse();
+$pkgs = $pkg_ob->getPackages(array_filter($pdir));
+foreach ($pkgs as $key => $val) {
+    $pkgs[$key] = $val . '/package.xml';
 }
 
 print "Installing: " . implode(', ', array_keys($pkgs)) . "\n";
