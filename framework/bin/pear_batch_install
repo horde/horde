@@ -94,18 +94,13 @@ if (!empty($packages)) {
     }
 } else {
     /* Installing everything. */
-    $dh = opendir($dir);
-    while (($entry = readdir($dh)) !== false) {
-        if ($entry == '.' || $entry == '..' || !is_dir($dir . '/' . $entry)) {
-            continue;
-        }
+    require_once __DIR__ . '/lib/pear_package_parse.php';
+    $pkg_ob = new PEAR_Package_Parse();
+    $pkgs = $pkg_ob->getPackages(array($dir));
 
-        $package = $dir . '/' . $entry . '/' . 'package.xml';
-        if (file_exists($package)) {
-            echo "Installing $entry:\n";
-            system("$pear \"$package\"");
-            echo "\n\n";
-        }
+    foreach ($pkgs as $key => $val) {
+        echo "Installing $key:\n";
+        system("$pear \"$val\"");
+        echo "\n\n";
     }
-    closedir($dh);
 }

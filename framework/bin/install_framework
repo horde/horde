@@ -24,9 +24,6 @@ $debug = $dryrun = false;
 // Default to copying if this is run on Windows.
 $copy = strncasecmp(PHP_OS, 'WIN', 3) ? false : true;
 
-// All packages by default.
-$pkg = null;
-
 for ($i = 1; $i < count($argv); ++$i) {
     switch ($argv[$i]) {
     case '--copy':
@@ -75,11 +72,7 @@ for ($i = 1; $i < count($argv); ++$i) {
         break;
 
     case '--pkg':
-        $pkg = $argv[++$i];
-        if (!is_dir($pkg) || !file_exists($pkg . '/package.xml')) {
-            exit("$pkg is not a valid package directory.\n");
-        }
-        $pkg = preg_replace('|/+$|', '', $pkg);
+        $srcDir = preg_replace('|/+$|', '', $argv[++$i]);
         break;
 
     default:
@@ -93,7 +86,7 @@ if (is_null($hordeDir)) {
 
 // Try to auto-detect the source and dest dirs.
 $cwd = getcwd();
-if (is_null($srcDir) && is_null($pkg)) {
+if (is_null($srcDir)) {
     $srcDir = is_dir($cwd . '/framework')
         ? $cwd . DIRECTORY_SEPARATOR . 'framework'
         : __DIR__ . '/..';
@@ -102,7 +95,7 @@ if (is_null($destDir) && is_dir($cwd . '/lib')) {
     $destDir = $cwd . DIRECTORY_SEPARATOR . 'lib';
 }
 
-if ((is_null($srcDir) && is_null($pkg)) || is_null($destDir)) {
+if (is_null($srcDir) || is_null($destDir)) {
     print_usage('Failed to auto-detect source and destination directories,');
 }
 
@@ -157,41 +150,12 @@ $cli->message('Framework destination directory: ' . $destDir);
 $cli->message('Horde directory: ' . $hordeDir);
 $cli->message('Create symbolic links: ' . ($copy ? 'NO' : 'Yes'));
 
-// Create the local PEAR config.
-if (!(@include_once 'PEAR/Config.php') ||
-    !(@include_once 'PEAR/PackageFile.php')) {
-    print_usage('PEAR libraries are not in the PHP include_path.');
-}
-
-/* We are heavily relying on the PEAR libraries which are not clean with regard
- * to E_STRICT. */
-if (defined('E_DEPRECATED')) {
-    error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
-} else {
-    error_reporting(E_ALL & ~E_STRICT);
-}
-
-$pear_config = PEAR_Config::singleton();
-$pear_pkg = new PEAR_PackageFile($pear_config);
-
-if ($pkg) {
-    $pkgs = array(basename($pkg) => realpath($pkg));
-} else {
-    $di = new DirectoryIterator($srcDir);
-    $pkgs = array();
-    foreach ($di as $val) {
-        $pathname = $val->getPathname();
-        if ($val->isDir() &&
-            !$di->isDot() &&
-            file_exists($pathname . '/package.xml')) {
-            $pkgs[basename($val)] = $pathname;
-        }
-    }
-    asort($pkgs);
-}
+require_once __DIR__ . '/lib/pear_package_parse.php';
+$pkg_ob = new PEAR_Package_Parse();
+$pkgs = $pkg_ob->getPackages(array($srcDir));
 
 $cli->writeLn();
-$cli->message('Package(s) to install: ' . ($pkg ? $pkg : 'ALL (' . count($pkgs) . ' packages)'));
+$cli->message('Package(s) to install: ' . ((count($pkgs) === 1) ? reset($pkg) : 'ALL (' . count($pkgs) . ' packages)'));
 
 foreach ($pkgs as $key => $val) {
     if ($debug) {
@@ -199,12 +163,12 @@ foreach ($pkgs as $key => $val) {
     }
     $cli->message('Installing package ' . $key);
 
-    $pkg_ob = $pear_pkg->fromPackageFile($val . '/package.xml', 0);
-    if ($pkg_ob instanceof PEAR_Error) {
-        $cli->message('Could not install package ' . $key . ': ' . $pkg_ob->getMessage(), 'cli.error');
+    $pkg = $pkg_ob->pear_pkg->fromPackageFile($val . '/package.xml', 0);
+    if ($pkg instanceof PEAR_Error) {
+        $cli->message('Could not install package ' . $key . ': ' . $pkg->getMessage(), 'cli.error');
         continue;
     }
-    foreach ($pkg_ob->getInstallationFilelist() as $file) {
+    foreach ($pkg->getInstallationFilelist() as $file) {
         if (!isset($file['attribs']['name'])) {
             $cli->message('Invalid <install> entry: ' . print_r($file['attribs'], true), 'cli.error');
             continue;
