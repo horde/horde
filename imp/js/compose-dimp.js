@@ -975,6 +975,28 @@ var DimpCompose = {
         }, this);
     },
 
+    autocompleteServerRequest: function(t, data)
+    {
+        var d, i, re;
+
+        for (i = t.length - 1; i > 0; --i) {
+            d = data.get(t.substr(0, i));
+            if (d) {
+                if (d.size() >= this.ac_limit) {
+                    return false;
+                }
+
+                re = new RegExp(latinize(t), "i");
+
+                return d.findAll(function(a) {
+                    return latinize(a.v).match(re);
+                });
+            }
+        }
+
+        return false;
+    },
+
     autocompleteServerSuggestion: function(e, elt)
     {
         if (e.g) {
@@ -1320,6 +1342,7 @@ var DimpCompose = {
                     listClass: 'hordeACList impACList',
                     minChars: DimpCore.conf.ac_minchars,
                     onAdd: this.autocompleteOnAdd.bind(this),
+                    onBeforeServerRequest: this.autocompleteServerRequest.bind(this),
                     onEntryClick: this.autocompleteOnEntryClick.bind(this),
                     onServerSuggestion: this.autocompleteServerSuggestion.bind(this),
                     processValueCallback: this.autocompleteValue.bind(this),

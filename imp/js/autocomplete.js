@@ -54,6 +54,7 @@ var IMP_Autocompleter = Class.create({
             maxItemSize: 50,
             minChars: 3,
             onAdd: Prototype.emptyFunction,
+            onBeforeServerRequest: Prototype.emptyFunction,
             onEntryClick: Prototype.emptyFunction,
             onServerSuggestion: Prototype.emptyFunction,
             processValueCallback: Prototype.emptyFunction,
@@ -366,11 +367,18 @@ var IMP_Autocompleter = Class.create({
             return;
         }
 
-        var c = this.cache.get(t);
+        var c = this.cache.get(t), tmp;
 
         if (c) {
             this.updateAutocomplete(t, c);
         } else if (t.length >= this.p.minChars) {
+            tmp = this.p.onBeforeServerRequest(t, this.cache);
+            if (tmp) {
+                this.cache.set(t, tmp);
+                this.updateAutocomplete(t, tmp);
+                return;
+            }
+
             DimpCore.doAction(
                 'autocompleteSearch',
                 Object.extend(this.p.autocompleterParams, { search: t }),

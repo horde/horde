@@ -33,6 +33,7 @@ extends Horde_Core_Script_Package_Keynavlist
 
         $this->_files[] = new Horde_Script_File_JsDir('compose-base.js', 'imp');
         $this->_files[] = new Horde_Script_File_JsDir('autocomplete.js', 'imp');
+        $this->_files[] = new Horde_Script_File_JsDir('latinize.js', 'imp');
     }
 
 }

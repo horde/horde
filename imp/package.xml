@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-08</date>
+ <date>2014-10-14</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
 * [mms] Removed minimal view.
 * [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
 * [mms] Add class of message part rendering display errors that aren&apos;t show to the user by default.
@@ -115,6 +116,7 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
+    <file name="latinize.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
@@ -1548,6 +1550,7 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
+   <install as="imp/js/latinize.js" name="js/latinize.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
