@@ -172,5 +172,20 @@
   </filelist>
  </phprelease>
  <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2014-10-14</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
  </changelog>
 </package>
