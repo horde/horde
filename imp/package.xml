@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix handling authentication errors when they take place during an attempt to determine a mailbox&apos;s namespace.
 * [mms] Fix some folder display issues when not using IMAP subscriptions in dynamic view (Bug #13553).
 * [mms] Fix accessing dynamic compose page when file uploads are not available (Bug #13580).
 * [mms] Fix saving unique browser preferences for a specific backend in dynamic view.
@@ -3747,6 +3748,7 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix handling authentication errors when they take place during an attempt to determine a mailbox&apos;s namespace.
 * [mms] Fix some folder display issues when not using IMAP subscriptions in dynamic view (Bug #13553).
 * [mms] Fix accessing dynamic compose page when file uploads are not available (Bug #13580).
 * [mms] Fix saving unique browser preferences for a specific backend in dynamic view.

@@ -2,6 +2,8 @@
 v6.2.3-git
 ----------
 
+[mms] Fix handling authentication errors when they take place during an attempt
+      to determine a mailbox's namespace.
 [mms] Fix some folder display issues when not using IMAP subscriptions in
       dynamic view (Bug #13553).
 

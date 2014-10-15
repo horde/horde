@@ -717,9 +717,13 @@ class IMP_Imap implements Serializable
         try {
             $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
-            switch ($method) {
-            case 'getNamespaces':
-                return new Horde_Imap_Client_Namespace_List();
+            $error = new IMP_Imap_Exception($e);
+
+            if (!$error->authError()) {
+                switch ($method) {
+                case 'getNamespaces':
+                    return new Horde_Imap_Client_Namespace_List();
+                }
             }
 
             Horde::log(
@@ -730,10 +734,8 @@ class IMP_Imap implements Serializable
                 ),
                 'WARN'
             );
-            $error = new IMP_Imap_Exception($e);
-            throw ($auth_e = $error->authException(false))
-                ? $auth_e
-                : $error;
+
+            throw $error;
         }
 
         /* Special handling for various methods. */
