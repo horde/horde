@@ -79,6 +79,10 @@ class Horde_Core_Block_Layout_View extends Horde_Core_Block_Layout
                     $rowspan = $colspan = 1;
                     try {
                         $block = $bc->getBlock($item['app'], $item['params']['type2'], $item['params']['params']);
+
+                        if (!$block->enabled) {
+                            throw new Horde_Exception('Block not enabled.');
+                        }
                         $rowspan = $item['height'];
                         $colspan = $item['width'];
                         for ($i = 0; $i < $item['height']; $i++) {
