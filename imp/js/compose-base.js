@@ -111,7 +111,7 @@ var ImpComposeBase = {
             // IE 8 requires try/catch to silence a warning.
             elt.focus();
         } catch (e) {}
-        $(document).fire('AutoComplete:focus', elt);
+        elt.fire('AutoComplete:focus');
     }
 
 };
