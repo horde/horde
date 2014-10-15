@@ -486,6 +486,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     Horde_Imap_Client_Exception::LOGIN_NOAUTHMETHOD
                 );
             }
+
+            $auth_mech = array_unique($auth_mech);
         } else {
             $auth_mech = array($this->_init['authmethod']);
         }

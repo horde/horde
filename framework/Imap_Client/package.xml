@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Ensure we don&apos;t use the same authentication method multiple times when logging into IMAP server.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2737,7 +2737,7 @@
    <date>2014-10-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Ensure we don&apos;t use the same authentication method multiple times when logging into IMAP server.
    </notes>
   </release>
  </changelog>
