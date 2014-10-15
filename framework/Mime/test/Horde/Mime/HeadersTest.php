@@ -143,6 +143,22 @@ To: recipient2@example.com"
         );
     }
 
+    public function testParseContentDispositionHeaderWithUtf8Data()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $cd_params = $hdrs->getValue(
+            'content-disposition',
+            $hdrs::VALUE_PARAMS
+        );
+
+        $this->assertEquals(
+            'blåbærsyltetøy',
+            $cd_params['filename']
+        );
+    }
+
     public function testUndisclosedHeaderParsing()
     {
         $hdrs = new Horde_Mime_Headers();

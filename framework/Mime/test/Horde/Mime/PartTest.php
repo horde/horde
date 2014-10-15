@@ -107,6 +107,17 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $test_part->getPart(1)->getDisposition());
     }
 
+    public function testParsingMimeMessageWithUtf8ContentDispositionParameter()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            'blåbærsyltetøy',
+            $part->getDispositionParameter('filename')
+        );
+    }
+
     public function testAddingSizeToContentDisposition()
     {
         $part = new Horde_Mime_Part();
