@@ -33,6 +33,8 @@ v6.3.0-git
 v6.2.3
 ------
 
+[mms] Fix handling authentication errors when they take place during an attempt
+      to determine a mailbox's namespace.
 [mms] Fix some folder display issues when not using IMAP subscriptions in
       dynamic view (Bug #13553).
 [mms] Fix accessing dynamic compose page when file uploads are not available
