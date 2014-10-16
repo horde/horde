@@ -661,21 +661,21 @@ class Horde_Smtp implements Serializable
         /* CHUNKING support. RFC 3030[2] */
         if ($chunking && $chunk_size &&
             ($chunk_force || ($size > $chunk_size))) {
-            list($data2, $res) = $this->_prepareData($data);
+            $pdata = $this->_prepareData($data);
 
             /* Since we need exact size for chunking purposes, we need to
              * pre-create data stream. */
-            $data3 = fopen('php://temp', 'r+');
-            while (!feof($data2)) {
-                fwrite($data3, fread($data2, 65536));
+            $data2 = fopen('php://temp', 'r+');
+            while (!feof($pdata->data)) {
+                fwrite($data2, fread($pdata->data, 65536));
             }
-            $size = ftell($data3);
-            rewind($data3);
+            $size = ftell($data2);
+            rewind($data2);
 
-            if (!is_resource($data)) {
-                fclose($data2);
+            stream_filter_remove($pdata->filter);
+            if ($pdata->data_new) {
+                fclose($pdata->data);
             }
-            stream_filter_remove($res);
 
             while ($size) {
                 $c = min($chunk_size, $size);
@@ -684,13 +684,13 @@ class Horde_Smtp implements Serializable
                 $this->_connection->write(
                     'BDAT ' . $c . ($size ? '' : ' LAST')
                 );
-                $this->_connection->write($data3, $c);
+                $this->_connection->write($data2, $c);
                 if ($size) {
                     $this->_getResponse(250, 'reset');
                 }
             }
 
-            fclose($data3);
+            fclose($data2);
         } else {
             $this->_connection->write('DATA');
 
@@ -713,13 +713,13 @@ class Horde_Smtp implements Serializable
                 throw $e;
             }
 
-            list($data2, $res) = $this->_prepareData($data);
-            $this->_connection->write($data2);
+            $pdata = $this->_prepareData($data);
+            $this->_connection->write($pdata->data);
             $this->_connection->write('.');
 
-            stream_filter_remove($res);
-            if (!is_resource($data)) {
-                fclose($data2);
+            stream_filter_remove($pdata->filter);
+            if ($pdata->data_new) {
+                fclose($pdata->data);
             }
         }
 
@@ -1053,22 +1053,35 @@ class Horde_Smtp implements Serializable
      *
      * @param mixed $data  Message data. Either string or stream.
      *
-     * @return array  2-element array: data stream and stream_filter resource.
+     * @return object  Object with these properties:
+     *   - data: (resource) Data stream.
+     *   - data_new: (boolean) If true, data stream was created from original
+     *               data.
+     *   - filter: (resource) Stream filter added to data stream.
      */
     protected function _prepareData($data)
     {
-        if (!is_resource($data)) {
-            $stream = fopen('php://temp', 'r+');
-            fwrite($stream, $data);
-            $data = $stream;
+        $out = new stdClass;
+
+        if (is_resource($data)) {
+            $out->data = $data;
+            $out->data_new = false;
+        } else {
+            $out->data = fopen('php://temp', 'r+');
+            fwrite($out->data, $data);
+            $out->data_new = true;
         }
-        rewind($data);
+        rewind($out->data);
 
         // Add SMTP escape filter.
         stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
+        $out->filter = stream_filter_append(
+            $out->data,
+            'horde_smtp_data',
+            STREAM_FILTER_READ
+        );
 
-        return array($data, $res);
+        return $out;
     }
 
     /**
