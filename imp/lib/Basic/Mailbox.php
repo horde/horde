@@ -317,28 +317,6 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             }
         }
 
-        /* Generate RSS link. */
-        if ($mailbox->inbox) {
-            $rss_box = '';
-        } else {
-            $ns_info = $mailbox->namespace_info;
-            if (is_null($ns_info)) {
-                $rss_box = null;
-            } else {
-                $rss_box = str_replace(
-                    rawurlencode($ns_info->delimiter),
-                    '/',
-                    rawurlencode($ns_info->delimiter . (($ns_info->type == $ns_info::NS_PERSONAL) ? $ns_info->stripNamespace($mailbox) : $mailbox))
-                );
-            }
-        }
-
-        if (!is_null($rss_box)) {
-            $page_output->addLinkTag(array(
-                'href' => Horde::url('rss.php', true, -1) . $rss_box
-            ));
-        }
-
         /* If user wants the mailbox to be refreshed, set time here. */
         $refresh_url = $mailbox_imp_url->copy()->add('mpage', $pageOb['page']);
         if (isset($filter_url)) {
