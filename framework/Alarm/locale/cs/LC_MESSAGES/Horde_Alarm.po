@@ -1,39 +1,39 @@
 # Czech translations for Horde_Alarm module.
 # Copyright 2010-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Alarm module.
-# Automatically generated, 2010.
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2014-10-16 14:16+0100\n"
+"Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: lib/Horde/Alarm/Handler/Desktop.php:86
 msgid "Desktop notification (with certain browsers)"
-msgstr ""
+msgstr "Desktopovou notifikaci (vyžaduje podporovaný prohlížeč)"
 
 #: lib/Horde/Alarm/Handler/Mail.php:118
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: lib/Horde/Alarm/Handler/Mail.php:138
-#, fuzzy
 msgid "Email address (optional)"
-msgstr "Emailová adresa"
+msgstr "Emailová adresa (nepovinná)"
 
 #: lib/Horde/Alarm/Handler/Notify.php:81
-#, fuzzy
 msgid "Inline"
-msgstr "v řadě"
+msgstr "Aplikaci Horde"
 
 #: lib/Horde/Alarm/Handler/Notify.php:101
 msgid "Play a sound?"
-msgstr ""
+msgstr "Přehrát zvuk?"
