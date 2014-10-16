@@ -1158,14 +1158,6 @@ class IMP_Mailbox
 
         switch ($GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
-            switch ($page) {
-            case 'mailbox':
-                return IMP_Basic_Mailbox::url(array(
-                    'mailbox' => $this->_mbox
-                ))->setRaw(!$encode);
-            }
-            break;
-
         case Horde_Registry::VIEW_DYNAMIC:
             $anchor = is_null($buid)
                 ? ('mbox:' . $this->form_to)

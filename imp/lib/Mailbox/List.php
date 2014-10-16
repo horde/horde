@@ -57,13 +57,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
     protected $_cacheid = null;
 
     /**
-     * The location in the sorted array we are at.
-     *
-     * @var integer
-     */
-    protected $_index = null;
-
-    /**
      * The mailbox to work with.
      *
      * @var IMP_Mailbox
@@ -628,10 +621,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
             unset($this->_thread[strval($ob->mbox)], $this->_threadui[strval($ob->mbox)]);
         }
 
-        if (!is_null($this->_index)) {
-            $this->setIndex(0);
-        }
-
         return true;
     }
 
@@ -773,62 +762,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
             'm' => $this->_mailbox,
             'u' => intval($buid)
         );
-    }
-
-    /* Tracking related methods. */
-
-    /**
-     * Returns the current message array index. If the array index has
-     * run off the end of the message array, will return the first index.
-     *
-     * @return integer  The message array index.
-     */
-    public function getIndex()
-    {
-        return $this->isValidIndex()
-            ? ($this->_index + 1)
-            : 1;
-    }
-
-    /**
-     * Checks to see if the current index is valid.
-     *
-     * @return boolean  True if index is valid, false if not.
-     */
-    public function isValidIndex()
-    {
-        return !is_null($this->_index);
-    }
-
-    /**
-     * Updates the message array index.
-     *
-     * @param mixed $data  If an integer, the number of messages to increase
-     *                     the array index by. If an indices object, sets
-     *                     array index to the index value.
-     */
-    public function setIndex($data)
-    {
-        if ($data instanceof IMP_Indices) {
-            list($mailbox, $uid) = $data->getSingle();
-            $this->_index = $this->getArrayIndex($uid, $mailbox);
-            if (is_null($this->_index)) {
-                $this->rebuild();
-                $this->_index = $this->getArrayIndex($uid, $mailbox);
-            }
-        } else {
-            $index = $this->_index += $data;
-            if (isset($this->_sorted[$this->_index])) {
-                if (!isset($this->_sorted[$this->_index + 1])) {
-                    $this->rebuild();
-                }
-            } else {
-                $this->rebuild();
-                $this->_index = isset($this->_sorted[$index])
-                    ? $index
-                    : null;
-            }
-        }
     }
 
     /* ArrayAccess methods. */

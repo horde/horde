@@ -63,6 +63,10 @@ The following hooks have been added::
 
    dynamic_prefs
 
+The following hooks have been removed::
+
+   mbox_redirect
+
 
 Preferences (prefs.php)
 -----------------------

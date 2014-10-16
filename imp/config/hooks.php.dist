@@ -399,63 +399,6 @@ class IMP_Hooks
 
 
     /**
-     * When a mailbox is opened in IMP, allow redirection based on the mailbox
-     * name.
-     *
-     * @param string $mailbox  The mailbox which the user has opened.
-     *
-     * @return string  A valid page within a Horde application which will be
-     *                 placed in a "Location" header to redirect the client.
-     *                 Return an empty string if the user is not to be
-     *                 redirected.
-     */
-//    public function mbox_redirect($mailbox)
-//    {
-//        // Example #1: Redirect to various Horde apps based on the mailbox
-//        // name.
-//        if ((stripos($mailbox, "INBOX/Calendar") !== false) ||
-//            preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'kronolith'));
-//        } elseif ((stripos($mailbox, "INBOX/Tasks") !== false) ||
-//                  preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'nag'));
-//        } elseif ((strpos($mailbox, "INBOX/Notes") !== false) ||
-//                  preg_match("!^user/[^/]+/Notes!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'mnemo'));
-//        } elseif ((strpos($mailbox, "INBOX/Contacts") !== false) ||
-//                  preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'turba'));
-//        }
-//
-//        return '';
-//
-//
-//        // Example #2: Kolab defaults.
-//        $type = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getFolder($mailbox)->getType();
-//        switch ($type) {
-//        case 'event':
-//            return Horde::url('', false, array('app' => 'kronolith'));
-//
-//        case 'task':
-//            return Horde::url('', false, array('app' => 'nag'));
-//
-//        case 'note':
-//            return Horde::url('', false, array('app' => 'mnemo'));
-//
-//        case 'contact':
-//            return Horde::url('', false, array('app' => 'turba'));
-//
-//        case 'prefs':
-//            return $GLOBALS['registry']->getServiceLink('prefs', 'horde');
-//
-//        default:
-//            return '';
-//        }
-//    }
-
-
-    /**
      * Allow a custom mailbox icon to be specified for "standard" mailboxes
      * ("Standard" means all mailboxes except the INBOX, sent-mail, and
      * trash mailboxes.)
