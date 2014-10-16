@@ -763,7 +763,7 @@ class Horde_Smtp implements Serializable
     /**
      * Send request to process the remote queue.
      *
-     * @param string $host  The specific host ro request queue processing for.
+     * @param string $host  The specific host to request queue processing for.
      *
      * @throws Horde_Smtp_Exception
      */
