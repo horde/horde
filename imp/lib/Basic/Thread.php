@@ -135,13 +135,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     break;
                 }
 
-                switch ($registry->getView()) {
-                case $registry::VIEW_BASIC:
-                    $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('message', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
-                        ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('mailbox')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
-                    break;
-                }
-
                 $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
                 $msgs[] = $curr_msg;
@@ -161,22 +154,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         if ($mode == 'thread') {
             $view->subject = $subject;
             $view->thread = true;
-
-            switch ($registry->getView()) {
-            case $registry::VIEW_BASIC:
-                $uid_list = $imp_indices[strval($this->indices->mailbox)];
-                $delete_link = $this->indices->mailbox->url('mailbox')->add(array(
-                    'actionID' => 'delete_messages',
-                    'indices' => strval($imp_indices),
-                    'token' => $session->getToken(),
-                    'start' => $imp_mailbox->getArrayIndex(end($uid_list))
-                ));
-                $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
-                $page_output->addInlineScript(array(
-                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete all messages in this thread?")) . ')) { e.stop(); } })'
-                ), true);
-                break;
-            }
         } else {
             $view->subject = sprintf(_("%d Messages"), count($msgs));
         }
@@ -189,14 +166,10 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
         $this->output = $view->render('thread');
 
-        switch ($registry->getView()) {
-        case $registry::VIEW_DYNAMIC:
-            $page_output->topbar = $page_output->sidebar = false;
-            $this->header_params = array(
-                'html_id' => 'htmlAllowScroll'
-            );
-            break;
-        }
+        $page_output->topbar = $page_output->sidebar = false;
+        $this->header_params = array(
+            'html_id' => 'htmlAllowScroll'
+        );
 
         $this->title = ($mode == 'thread')
             ? _("Thread View")
@@ -207,11 +180,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     public function status()
     {
-        global $registry;
-
-        return ($registry->getView() == $registry::VIEW_DYNAMIC)
-            ? ''
-            : parent::status();
+        return '';
     }
 
     /**

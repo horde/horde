@@ -44,20 +44,13 @@ class IMP_Compose_Ui
             return true;
         }
 
-        if ($registry->getView() == Horde_Registry::VIEW_BASIC) {
-            $spell_img = '<span class="iconImg spellcheckImg"></span>';
-            $br = '<br />';
-        } else {
-            $spell_img = $br = '';
-        }
-
         $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
             'id' => 'spellcheck',
             'states' => array(
-                'CheckSpelling' => $spell_img . $br . _("Check Spelling"),
-                'Checking' => $spell_img . $br . _("Checking..."),
-                'Error' => $spell_img . $br . _("Spell Check Failed"),
-                'ResumeEdit' => $spell_img . $br . _("Resume Editing")
+                'CheckSpelling' => _("Check Spelling"),
+                'Checking' => _("Checking..."),
+                'Error' => _("Spell Check Failed"),
+                'ResumeEdit' => _("Resume Editing")
             ),
             'targetId' => 'composeMessage'
         ));

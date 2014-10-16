@@ -26,7 +26,6 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
     const MBOX_PREFIX = "impsearch\0";
 
     /* The special search mailbox names. */
-    const BASIC_SEARCH = 'impbsearch';
     const DIMP_FILTERSEARCH = 'dimpfsearch';
     const DIMP_QUICKSEARCH = 'dimpqsearch';
 
@@ -377,7 +376,7 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
     public function isSystemQuery($id)
     {
         return (isset($this->_search['query'][$this->_strip($id)]) &&
-                in_array($this[$id]->id, array(self::BASIC_SEARCH, self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH)));
+                in_array($this[$id]->id, array(self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH)));
     }
 
     /**
@@ -389,24 +388,14 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
      */
     public function editUrl($id)
     {
-        global $registry;
-
         $mbox = IMP_Mailbox::get($this->createSearchId($id));
 
-        switch ($registry->getView()) {
-        case $registry::VIEW_BASIC:
-            return $mbox->url(IMP_Basic_Search::url())->add(array(
-                'edit_query' => 1
-            ));
-
-        case $registry::VIEW_DYNAMIC:
-            return IMP_Dynamic_Mailbox::url()->setAnchor(
-                'search:' . json_encode(array(
-                    'edit_query' => 1,
-                    'mailbox' => $mbox->form_to
-                ))
-            );
-        }
+        return IMP_Dynamic_Mailbox::url()->setAnchor(
+            'search:' . json_encode(array(
+                'edit_query' => 1,
+                'mailbox' => $mbox->form_to
+            ))
+        );
     }
 
     /**

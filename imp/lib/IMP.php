@@ -165,11 +165,6 @@ class IMP
 
         switch ($registry->getView()) {
         case Horde_Registry::VIEW_BASIC:
-            $result->url = is_null($mbox)
-                ? IMP_Basic_Folders::url()
-                : $mbox->url('mailbox');
-            break;
-
         case Horde_Registry::VIEW_DYNAMIC:
             $result->url = IMP_Dynamic_Mailbox::url(array(
                 'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
