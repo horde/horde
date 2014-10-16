@@ -33,7 +33,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             throw new IMP_Exception(_("No message index given."));
         }
 
-        $page_output->addScriptFile('message-dimp.js');
+        $page_output->addScriptFile('message.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
 
@@ -48,7 +48,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                     $this->indices->mailbox,
                     $injector->getInstance('IMP_Message')->stripPart($this->indices, $this->vars->id)
                 );
-                $js_vars['-DimpMessage.strip'] = 1;
+                $js_vars['-ImpMessage.strip'] = 1;
                 $notification->push(_("Attachment successfully stripped."), 'horde.success');
             } catch (IMP_Exception $e) {
                 $notification->push($e);
@@ -79,11 +79,11 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
             if (!empty($msg_res[$val])) {
-                $js_vars['DimpMessage.' . $val] = $msg_res[$val];
+                $js_vars['ImpMessage.' . $val] = $msg_res[$val];
             }
         }
         if (!empty($msg_res['list_info']['exists'])) {
-            $js_vars['DimpMessage.reply_list'] = true;
+            $js_vars['ImpMessage.reply_list'] = true;
             $this->view->listinfo = Horde::popupJs(
                 IMP_Basic_Listinfo::url(array(
                     'buid' => $buid,
@@ -93,12 +93,12 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                 )
             );
         }
-        $js_vars['DimpMessage.buid'] = $buid;
-        $js_vars['DimpMessage.mbox'] = $this->indices->mailbox->form_to;
+        $js_vars['ImpMessage.buid'] = $buid;
+        $js_vars['ImpMessage.mbox'] = $this->indices->mailbox->form_to;
         if (isset($msg_res['md'])) {
-            $js_vars['DimpMessage.msg_md'] = $msg_res['md'];
+            $js_vars['ImpMessage.msg_md'] = $msg_res['md'];
         }
-        $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
+        $js_vars['ImpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 
         $page_output->addInlineJsVars($js_vars);
         if (isset($msg_res['js'])) {

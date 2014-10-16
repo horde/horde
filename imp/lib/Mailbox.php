@@ -1159,12 +1159,6 @@ class IMP_Mailbox
         switch ($GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
             switch ($page) {
-            case 'message':
-                return IMP_Basic_Message::url(array(
-                    'buid' => $buid,
-                    'mailbox' => $this->_mbox
-                ))->setRaw(!$encode);
-
             case 'mailbox':
                 return IMP_Basic_Mailbox::url(array(
                     'mailbox' => $this->_mbox
