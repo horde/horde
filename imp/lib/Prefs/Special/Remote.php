@@ -37,7 +37,7 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
         $ui->nobuttons = true;
 
         $page_output->addScriptFile('external/base64.js');
-        $page_output->addScriptFile('remoteprefs.js');
+        $page_output->addScriptFile('prefs/remote.js');
         $page_output->addInlineJsVars(array(
             'ImpRemotePrefs.confirm_delete' => _("Are you sure you want to delete this account?"),
             'ImpRemotePrefs.empty_email' => _("The e-mail field cannot be empty."),

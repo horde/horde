@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
     {
         global $injector, $page_output;
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.drafts' => _("Enter the name for your new drafts mailbox.")
         ));

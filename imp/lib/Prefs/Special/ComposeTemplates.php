@@ -40,7 +40,7 @@ implements Horde_Core_Prefs_Ui_Special
             return '';
         }
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
         ));

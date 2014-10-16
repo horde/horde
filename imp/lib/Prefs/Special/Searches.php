@@ -35,7 +35,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         global $injector, $page_output, $prefs;
 
         $page_output->addScriptFile('hordecore.js', 'horde');
-        $page_output->addScriptFile('searchesprefs.js');
+        $page_output->addScriptFile('prefs/searches.js');
 
         $imp_search = $injector->getInstance('IMP_Search');
         $fout = $vout = array();

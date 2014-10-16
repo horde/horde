@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
     {
         global $injector, $page_output, $prefs;
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.trash' => _("Enter the name for your new trash mailbox.")
         ));

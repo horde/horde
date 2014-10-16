@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
     {
         global $injector, $page_output;
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
 
         $identity = $injector->getInstance('IMP_Identity');
 

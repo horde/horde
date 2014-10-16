@@ -76,7 +76,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")) . ')) { e.stop(); } })'
                 ), true);
             } else {
-                $page_output->addScriptFile('pgp.js');
+                $page_output->addScriptFile('prefs/pgp.js');
                 Horde_Core_Ui_JsCalendar::init();
                 $page_output->addInlineJsVars(array(
                     'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
