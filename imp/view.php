@@ -84,7 +84,7 @@ $browser->downloadHeaders(
 if (is_resource($res['data'])) {
     rewind($res['data']);
     while (!feof($res['data'])) {
-        echo fread($res['data'], 8192);
+        echo fread($res['data'], 65536);
     }
     fclose($res['data']);
 } else {

@@ -137,7 +137,7 @@ abstract class IMP_Compose_Attachment_Storage
         $fd = fopen($tmp, 'w+');
 
         while (!$stream->eof()) {
-            fwrite($fd, $stream->substring(0, 8192));
+            fwrite($fd, $stream->substring(0, 65536));
         }
         fclose($fd);
         $stream->close();

@@ -585,7 +585,7 @@ class IMP_Contents
             !is_null($contents = $mime_part->getContents(array('stream' => true)))) {
             rewind($contents);
             while (!feof($contents)) {
-                fwrite($fp, fread($contents, 8192));
+                fwrite($fp, fread($contents, 65536));
             }
             fclose($fp);
 
