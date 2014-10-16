@@ -75,35 +75,29 @@ class IMP_Compose_Link
     /**
      * Returns the appropriate link to call the message composition script.
      *
-     * @param string $simplejs  Use simple JS (instead of HordePopup JS)?
-     *
      * @return Horde_Url  The link to the message composition script.
      */
-    public function link($simplejs = false)
+    public function link()
     {
         global $browser, $prefs, $registry;
 
         $args = $this->args;
         $callback = $raw = false;
-        $view = $registry->getView();
 
-        if ($view == Horde_Registry::VIEW_SMARTMOBILE) {
+        switch ($registry->getView()) {
+        case Horde_Registry::VIEW_MINIMAL:
+        case Horde_Registry::VIEW_SMARTMOBILE:
             $url = new Horde_Core_Smartmobile_Url(Horde::url('smartmobile.php'));
             $url->setAnchor('compose');
-        } elseif ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
+            break;
+
+        default:
             $args['popup'] = 1;
 
-            $url = ($view == Horde_Registry::VIEW_DYNAMIC)
-                ? IMP_Dynamic_Compose::url()
-                : IMP_Basic_Compose::url();
+            $url = IMP_Dynamic_Compose::url();
             $raw = true;
             $callback = array($this, 'composeLinkSimpleCallback');
-        } elseif ($prefs->getValue('compose_popup') &&
-                  $browser->hasFeature('javascript')) {
-            $url = IMP_Basic_Compose::url();
-            $callback = array($this, 'composeLinkJsCallback');
-        } else {
-            $url = IMP_Basic_Compose::url();
+            break;
         }
 
         if (isset($args['mailbox'])) {

@@ -58,7 +58,7 @@ var DimpMessage = {
             view: this.mbox
         }, {
             callback: function(r) {
-                DimpCompose.fillForm(r);
+                ImpCompose.fillForm(r);
                 $(document).fire('AutoComplete:reset');
             },
             uids: [ this.buid ]
@@ -172,7 +172,7 @@ var DimpMessage = {
 
         case 'qreply':
             if (e.memo.element().match('DIV.headercloseimg IMG')) {
-                DimpCompose.confirmCancel();
+                ImpCompose.confirmCancel();
             }
             break;
 

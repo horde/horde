@@ -296,7 +296,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - opts: (array) Additional options needed for ImpCompose.fillForm().
      *   - subject: (string) Subject value.
      *   - type: (string) The input 'type' value.
      */
@@ -341,7 +341,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - opts: (array) Additional options needed for ImpCompose.fillForm().
      *   - type: (string) The input 'type' value.
      */
     public function getForwardData()

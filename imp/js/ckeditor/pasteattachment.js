@@ -28,7 +28,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         function uploadAtc(files)
         {
-            DimpCompose.attachlist.uploadAttach(
+            ImpCompose.attachlist.uploadAttach(
                 files,
                 { img_data: 1 },
                 attachCallback

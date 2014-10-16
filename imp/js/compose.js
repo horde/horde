@@ -1,452 +1,1925 @@
 /**
- * Basic compose view.
+ * Dynamic compose view.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2014 Horde LLC
+ * @copyright  2005-2014 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
 var ImpCompose = {
 
-    // Variables defined in PHP code:
-    //   cancel_url, cursor_pos, discard_url, last_identity,
-    //   last_msg, last_sig, max_attachments, popup, redirect, reloaded, rte,
-    //   sc_submit, sm_check, skip_spellcheck, spellcheck, text
+    // attachlist,
+    // atc_context,
+    // auto_save_interval,
+    // compose_cursor,
+    // disabled,
+    // drafts_mbox,
+    // editor_on
+    // fwdattach,
+    // hash_hdrs,
+    // hash_msg,
+    // hash_msgOrig,
+    // hash_sig,
+    // hash_sigOrig,
+    // identities
+    // knl,
+    // last_identity,
+    // onload_show,
+    // old_action,
+    // old_identity,
+    // rte_sig,
+    // sc_submit,
+    // skip_spellcheck,
+    // spellcheck,
+    // tasks
 
-    display_unload_warning: true,
+    ac: $H(),
+    ac_limit: 20,
+    checkbox_context: $H({
+        ctx_atc: $H({
+            pgppubkey: 'pgp_attach_pubkey',
+            save: 'save_attachments_select',
+            vcard: 'vcard_attach'
+        }),
+        ctx_other: $H({
+            rr: 'request_read_receipt'
+        })
+    }),
+    classes: {},
+    knl: {},
 
-    confirmCancel: function(discard, e)
+    getCacheElt: function()
     {
-        e.stop();
+        var r = $('redirect');
+        return (r && r.visible())
+            ? $('composeCacheRedirect')
+            : $('composeCache');
+    },
 
-        if (window.confirm(this.text.cancel)) {
-            this.display_unload_warning = false;
+    actionParams: function(p)
+    {
+        p.imp_compose = $F(this.getCacheElt());
+        return p;
+    },
 
-            if (this.popup) {
-                if (this.cancel_url) {
-                    self.location = (discard ? this.discard_url : this.cancel_url);
-                } else {
-                    self.close();
-                }
-            } else {
-                window.location = (discard ? this.discard_url : this.cancel_url);
+    confirmCancel: function(discard)
+    {
+        var base;
+
+        if (window.confirm(DimpCore.text.compose_cancel)) {
+            if (!DimpCore.conf.qreply &&
+                (base = DimpCore.baseAvailable())) {
+                base.focus();
             }
+
+            DimpCore.doAction('cancelCompose', this.actionParams({
+                discard: ~~(!!discard)
+            }));
+            this.updateDraftsMailbox();
+            return this.closeCompose();
         }
     },
 
-    changeIdentity: function(elt)
+    updateDraftsMailbox: function()
     {
-        var id = $F(elt),
-            last = ImpComposeBase.identities[$F('last_identity')],
-            next = ImpComposeBase.identities[id],
-            bcc = $('bcc'),
-            save = $('ssm'),
-            sm = $('sent_mail'),
-            re, cur_sig;
+        var base;
 
-        cur_sig = this.sigHash();
-        if (this.last_sig &&
-            this.last_sig != cur_sig &&
-            !window.confirm(this.text.change_identity)) {
+        if ((base = DimpCore.baseAvailable()) &&
+            base.DimpBase.view == DimpCore.conf.drafts_mbox) {
+            base.DimpBase.poll();
+        }
+    },
+
+    closeCompose: function()
+    {
+        if (DimpCore.conf.qreply) {
+            this.closeQReply();
+        } else if (HordeCore.baseWindow() != window) {
+            // We are only checking whether window.close can be done, not the
+            // current status of the opening window.
+            window.close();
+        } else {
+            // Sanity checking: if popup cannot be manually closed, output
+            // information message without allowing further actions on the
+            // page.
+            $$('body')[0].update(DimpCore.text.compose_close);
+        }
+    },
+
+    closeQReply: function()
+    {
+        this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
+
+        this.attachlist.reset();
+        this.getCacheElt().clear();
+        $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
+        $('noticerow').down('UL.notices').childElements().invoke('hide');
+        $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
+        if (this.editor_on) {
+            this.toggleHtmlEditor();
+        }
+        $('compose').reset();
+
+        this.setDisabled(false);
+
+        // Disable auto-save-drafts now.
+        if (this.auto_save_interval) {
+            this.auto_save_interval.stop();
+        }
+    },
+
+    changeIdentity: function()
+    {
+        if (!Object.isUndefined(this.hash_sigOrig) &&
+            this.hash_sigOrig != this.sigHash() &&
+            !window.confirm(DimpCore.text.change_identity)) {
             return false;
         }
-        this.last_sig = cur_sig;
 
-        if (this.sm_check) {
-            sm.setValue(next.sm_name);
-        } else {
-            sm.update(next.sm_display);
-        }
+        var identity = this.identities[$F('identity')];
 
-        if (save) {
-            save.setValue(next.sm_save);
-        }
-        if (bcc) {
-            bccval = $F(bcc);
-
-            if (last.bcc) {
-                re = new RegExp(last.bcc + ",? ?", 'gi');
-                bccval = bccval.replace(re, "");
-                if (bccval) {
-                    bccval = bccval.replace(/, ?$/, "");
-                }
+        this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
+            opts: {
+                input: 'save_sent_mail_mbox',
+                label: 'sent_mail_label'
             }
-
-            if (next.bcc) {
-                if (bccval) {
-                    bccval += ', ';
-                }
-                bccval += next.bcc;
-            }
-
-            bcc.setValue(bccval);
+        });
+        if (identity.bcc) {
+            $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc);
+            this.toggleCC('bcc');
         }
-        ImpComposeBase.setSignature(ImpComposeBase.editor_on, next);
+        this.setSaveSentMail(identity.sm_save);
+        this.setSignature(this.editor_on, identity);
         this.last_identity = $F('identity');
 
         return true;
     },
 
-    uniqSubmit: function(actionID, e)
+    setSignature: function(rte, identity)
     {
-        var cur_msg, form, sc;
+        var config, s = $('signature');
 
-        if (!Object.isUndefined(e)) {
-            e.stop();
+        if (!s) {
+            this.setSignatureHash();
+            return;
         }
 
-        switch (actionID) {
-        case 'redirect':
-            if ($F('to').empty()) {
-                alert(this.text.recipient);
-                ImpComposeBase.focus('to');
+        if (rte) {
+            s.setValue(Object.isString(identity) ? identity : identity.hsig);
+
+            if (this.rte_sig) {
+                this.rte_sig.setData($F('signature'));
+            } else {
+                config = Object.clone(IMP.ckeditor_config);
+                config.removePlugins = 'toolbar,elementspath';
+                config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
+                config.height = ($('signatureBorder') ? $('signatureBorder') : $('signature')).getLayout().get('height');
+                this.rte_sig = new IMP_Editor('signature', config);
+            }
+        } else {
+            if (this.rte_sig) {
+                this.rte_sig.destroy();
+                delete this.rte_sig;
+            }
+            s.setValue(Object.isString(identity) ? identity : identity.sig);
+        }
+
+        this.setSignatureHash();
+    },
+
+    setSignatureHash: function()
+    {
+        if (this.rte_sig && this.rte_sig.busy()) {
+            this.setSignatureHash.bind(this).delay(0.1);
+        } else {
+            this.hash_sigOrig = this.sigHash();
+        }
+    },
+
+    setSaveSentMail: function(set)
+    {
+        var ssm = $('save_sent_mail');
+
+        if (ssm) {
+            ssm.setValue(set);
+        }
+    },
+
+    createPopdown: function(id, opts)
+    {
+        this.knl[id] = {
+            knl: new KeyNavList(opts.base, {
+                esc: true,
+                list: opts.data,
+                onChoose: this.setPopdownLabel.bind(this, id)
+            }),
+            opts: opts
+        };
+
+        $(opts.label).insert({ after:
+            new Element('SPAN', { className: 'iconImg horde-popdown' }).store('popdown_id', id)
+        });
+    },
+
+    setPopdownLabel: function(id, s, l, k)
+    {
+        var input;
+
+        if (!k) {
+            k = this.knl[id];
+            if (!k) {
+                return;
+            }
+        }
+
+        input = $(k.opts.input);
+        if (!input) {
+            return;
+        }
+
+        if (!l) {
+            l = k.opts.data.find(function(f) {
+                return f.v == s;
+            });
+
+            if (!l) {
                 return;
             }
 
-            form = $('redirect');
-            break;
+            l = (id == 'sm')
+                ? (l.f || l.v)
+                : l.l;
+        }
 
-        case 'send_message':
-            sc = ImpComposeBase.getSpellChecker();
+        input.setValue(s);
+        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
 
-            if (sc &&
-                !this.skip_spellcheck &&
-                this.spellcheck &&
+        if (k.knl) {
+            k.knl.setSelected(s);
+        }
+    },
+
+    retrySubmit: function(action)
+    {
+        if (this.old_action) {
+            this.uniqueSubmit(this.old_action);
+            delete this.old_action;
+        }
+    },
+
+    uniqueSubmit: function(action)
+    {
+        var c = (action == 'redirectMessage') ? $('redirect') : $('compose'),
+            sc = this.getSpellChecker();
+
+        if (sc && sc.isActive()) {
+            sc.resume();
+            this.skip_spellcheck = true;
+        }
+
+        if (this.rte && this.rte.busy()) {
+            return this.uniqueSubmit.bind(this, action).delay(0.1);
+        }
+
+        switch (action) {
+        case 'sendMessage':
+            if (!this.skip_spellcheck &&
+                DimpCore.conf.spellcheck &&
+                sc &&
                 !sc.isActive()) {
-                this.sc_submit = { a: actionID, e: e };
+                this.sc_submit = action;
                 sc.spellCheck();
                 return;
             }
 
             if ($F('subject').empty() &&
-                !window.confirm(this.text.nosubject)) {
+                !window.confirm(DimpCore.text.nosubject)) {
                 return;
             }
+            // Fall-through
 
-            this.skip_spellcheck = false;
-
-            if (sc) {
-                sc.resume();
+        case 'saveDraft':
+        case 'saveTemplate':
+            // Don't send/save until uploading is completed.
+            if (this.attachlist.busy()) {
+                (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
+                return;
             }
-            // fall through
+            // Fall-through
 
-        case 'add_attachment':
-        case 'replyall_revert':
-        case 'replylist_revert':
-        case 'save_draft':
-        case 'save_template':
-            form = $('compose');
-            $('actionID').setValue(actionID);
+        case 'redirectMessage':
+            $(document).fire('AutoComplete:update');
             break;
+        }
 
-        case 'auto_save_draft':
-            // Move HTML text to textarea field for submission.
-            if (this.rte) {
-                this.rte.updateElement();
+        this.skip_spellcheck = false;
+
+        // Move HTML text to textarea field for submission.
+        if (this.editor_on) {
+            this.rte.updateElement();
+            if (this.rte_sig) {
+                this.rte_sig.updateElement();
+            }
+        }
+
+        DimpCore.doAction(
+            action,
+            c.serialize(true),
+            { callback: this.uniqueSubmitCallback.bind(this) }
+        );
+
+        // Can't disable until we send the message - or else nothing
+        // will get POST'ed.
+        if (action != 'autoSaveDraft') {
+            this.setDisabled(true);
+        }
+    },
+
+    uniqueSubmitCallback: function(d)
+    {
+        var base;
+
+        if (d.success) {
+            switch (d.action) {
+            case 'autoSaveDraft':
+            case 'saveDraft':
+                this.updateDraftsMailbox();
+
+                if (d.action == 'saveDraft') {
+                    if (!DimpCore.conf.qreply &&
+                        (base = DimpCore.baseAvailable())) {
+                        HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
+                    }
+                    if (DimpCore.conf.close_draft) {
+                        $('attach_list').childElements().invoke('remove');
+                        return this.closeCompose();
+                    }
+                }
+                break;
+
+            case 'saveTemplate':
+                if ((base = DimpCore.baseAvailable()) &&
+                    base.DimpBase.view == DimpCore.conf.templates_mbox) {
+                    base.DimpBase.poll();
+                }
+                return this.closeCompose();
+
+            case 'sendMessage':
+                if ((base = DimpCore.baseAvailable())) {
+                    if (d.draft_delete) {
+                        base.DimpBase.poll();
+                    }
+
+                    if (!DimpCore.conf.qreply) {
+                        HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
+                    }
+                }
+
+                $('attach_list').childElements().invoke('remove');
+                return this.closeCompose();
+
+            case 'redirectMessage':
+                if (!DimpCore.conf.qreply &&
+                    (base = DimpCore.baseAvailable())) {
+                    HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
+                }
+
+                return this.closeCompose();
+            }
+        } else {
+            if (!Object.isUndefined(d.identity)) {
+                this.old_identity = $F('identity');
+                $('identity').setValue(d.identity);
+                this.changeIdentity();
+                $('noticerow', 'identitychecknotice').invoke('show');
+                this.resizeMsgArea();
             }
 
-            cur_msg = IMP_JS.fnv_1a(
-                $('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage')
-            );
-            if (this.last_msg && curr_hash != this.last_msg) {
-                // Use an AJAX submit here so that the page doesn't reload.
-                $('actionID').setValue(actionID);
-                HordeCore.submitForm('compose', {
-                    callback: this._autoSaveDraftCallback.bind(this)
-                });
+            if (!Object.isUndefined(d.encryptjs)) {
+                this.old_action = d.action;
+                eval(d.encryptjs.join(';'));
             }
-            this.last_msg = cur_msg;
-            return;
+        }
 
-        case 'toggle_editor':
-            form = $('compose');
-            break;
+        this.setDisabled(false);
+    },
 
-        default:
+    setDisabled: function(disable)
+    {
+        var redirect = $('redirect'), sc;
+
+        this.disabled = disable;
+
+        if (redirect && redirect.visible()) {
+            HordeCore.loadingImg('sendingImg', 'redirect', disable);
+            DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
+            redirect.setStyle({ cursor: disable ? 'wait': null });
+        } else {
+            HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
+            DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+            [ $('compose') ].invoke(disable ? 'disable' : 'enable');
+            if ((sc = this.getSpellChecker())) {
+                sc.disable(disable);
+            }
+            if (this.editor_on) {
+                this.RTELoading(disable, true);
+            }
+
+            $('compose').setStyle({ cursor: disable ? 'wait' : null });
+        }
+    },
+
+    toggleHtmlEditor: function(noupdate)
+    {
+        var action, changed, sc, tmp,
+            active = this.editor_on,
+            params = $H();
+
+        if (!DimpCore.conf.rte_avail) {
             return;
         }
 
-        $(document).fire('AutoComplete:update');
+        noupdate = noupdate || false;
+        if ((sc = this.getSpellChecker()) && sc.isActive()) {
+            sc.resume();
+        }
+
+        this.RTELoading(true);
 
         if (this.rte && this.rte.busy()) {
-            return this.uniqSubmit.bind(this, actionID, e).delay(0.1);
+            return this.toggleHtmlEditor.bind(this, noupdate).delay(0.1);
         }
 
-        // Ticket #6727; this breaks on WebKit w/FCKeditor.
-        if (!Prototype.Browser.WebKit) {
-            form.setStyle({ cursor: 'wait' });
+        if (active) {
+            action = 'html2Text',
+            changed = ~~(this.msgHash() != this.hash_msgOrig);
+
+            params.set('body', {
+                changed: changed,
+                text: this.rte.getData()
+            });
+
+            if ($('signature') && (this.sigHash() != this.hash_sigOrig)) {
+                params.set('sig', {
+                    changed: 1,
+                    text: this.rte_sig.getData()
+                });
+            }
+        } else if (!noupdate) {
+            action = 'text2Html';
+
+            tmp = $F('composeMessage');
+            if (!tmp.blank()) {
+                changed = ~~(this.msgHash() != this.hash_msgOrig);
+                params.set('body', {
+                    changed: changed,
+                    text: tmp
+                });
+            }
+
+            if ($('signature')) {
+                tmp = $F('signature');
+                if (!tmp.blank() && (this.sigHash() != this.hash_sigOrig)) {
+                    params.set('sig', {
+                        changed: 1,
+                        text: tmp
+                    });
+                }
+            }
         }
 
-        this.display_unload_warning = false;
-        form.submit();
+        if (params.size()) {
+            DimpCore.doAction(action, this.actionParams({
+                data: Object.toJSON(params)
+            }), {
+                ajaxopts: { asynchronous: false },
+                callback: this.setMessageText.bind(this, {
+                    changed: changed,
+                    rte: !active
+                })
+            });
+        } else {
+            this.rteInit(!active);
+            this.setSignature(!active, this.identities[$F('identity')]);
+        }
     },
 
-    _autoSaveDraftCallback: function(r)
+    RTELoading: function(show, notxt)
     {
-        $('compose_formToken').setValue(r.formToken);
-        $('compose_requestToken').setValue(r.requestToken);
+        var o;
+
+        if (show) {
+            $('rteloading').clonePosition('composeMessageParent').show();
+            if (!notxt) {
+                o = $('rteloading').viewportOffset();
+                $('rteloadingtxt').setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).show();
+            }
+        } else {
+            $('rteloading', 'rteloadingtxt').invoke('hide');
+        }
     },
 
-    attachmentChanged: function()
+    getSpellChecker: function()
     {
-        var fields = [],
-            usedFields = 0,
-            input, lastRow, newRow, td;
+        return (HordeImple.SpellChecker && HordeImple.SpellChecker.spellcheck)
+            ? HordeImple.SpellChecker.spellcheck
+            : null;
+    },
 
-        $('upload_atc').select('input[type="file"]').each(function(i) {
-            fields[fields.length] = i;
-        });
+    _onSpellCheckAfter: function()
+    {
+        if (this.editor_on) {
+            this.setBodyText({ body: $F('composeMessage') });
+            $('composeMessage').next().show();
+            this.RTELoading(false);
+        }
+        this.sc_submit = false;
+    },
 
-        if (this.max_attachments !== null &&
-            fields.length == this.max_attachments) {
+    _onSpellCheckBefore: function()
+    {
+        this.getSpellChecker().htmlAreaParent = this.editor_on
+            ? 'composeMessageParent'
+            : null;
+
+        if (this.editor_on) {
+            this.rte.updateElement();
+            this.RTELoading(true, true);
+            $('composeMessage').next().hide();
+        }
+    },
+
+    _onSpellCheckError: function()
+    {
+        if (this.editor_on) {
+            this.RTELoading(false);
+        }
+    },
+
+    _onSpellCheckNoError: function()
+    {
+        if (this.sc_submit) {
+            this.skip_spellcheck = true;
+            this.uniqueSubmit(this.sc_submit);
+        } else {
+            HordeCore.notify(DimpCore.text.spell_noerror, 'horde.message');
+            this._onSpellCheckAfter();
+        }
+    },
+
+    setMessageText: function(opts, r)
+    {
+        var ta = $('composeMessage');
+        if (!ta) {
+            $('composeMessageParent').insert(
+                new Element('TEXTAREA', {
+                    id: 'composeMessage',
+                    name: 'message',
+                    style: 'width:100%'
+                })
+            );
+        }
+
+        this.rteInit(opts.rte);
+
+        if (this.rte && opts.rte) {
+            if (this.rte.busy()) {
+                this.setMessageText.bind(this, opts, r).delay(0.1);
+                return;
+            }
+            this.rte.setData(r.text.body);
+        } else {
+            ta.setValue(r.text.body);
+        }
+
+        this.RTELoading(false);
+
+        this.setSignature(opts.rte, r.text.sig ? r.text.sig : this.identities[$F('identity')]);
+
+        this.resizeMsgArea();
+
+        if (!opts.changed) {
+            delete this.hash_msgOrig;
+        }
+
+        this.fillFormHash();
+    },
+
+    rteInit: function(rte)
+    {
+        var config;
+
+        if (rte && !this.rte) {
+            config = Object.clone(IMP.ckeditor_config);
+            config.extraPlugins = 'pasteattachment';
+            this.rte = new IMP_Editor('composeMessage', config);
+
+            this.rte.editor.on('getData', function(evt) {
+                var elt = new Element('SPAN').insert(evt.data.dataValue),
+                    elts = elt.select('IMG[dropatc_id]');
+                if (elts.size()) {
+                    elts.invoke('writeAttribute', 'dropatc_id', null);
+                    elts.invoke('writeAttribute', 'src', null);
+                    evt.data.dataValue = elt.innerHTML;
+                }
+            });
+        } else if (!rte && this.rte) {
+            this.rte.destroy();
+            delete this.rte;
+        }
+
+        this.editor_on = rte;
+        $('htmlcheckbox').setValue(rte);
+        $('html').setValue(~~rte);
+    },
+
+    // ob = addr, body, format, identity, opts, subject, type
+    // ob.opts = auto, focus, fwd_list, noupdate, priority, readreceipt,
+    //           reply_lang, reply_recip, reply_list_id, show_editor
+    fillForm: function(ob)
+    {
+        if (!document.loaded || $('dimpLoading').visible()) {
+            this.fillForm.bind(this, ob).delay(0.1);
             return;
         }
 
-        fields.each(function(i) {
-            if (i.value.length > 0) {
-                usedFields++;
+        ob.opts = ob.opts || {};
+
+        if (ob.addr) {
+            $('to').setValue(ob.addr.to.join(', '))
+                .fire('AutoComplete:reset');
+            if (ob.addr.cc.size()) {
+                this.toggleCC('cc');
+                $('cc').setValue(ob.addr.cc.join(', '))
+                    .fire('AutoComplete:reset');
             }
-        });
-
-        if (usedFields == fields.length) {
-            lastRow = $('attachment_row_' + usedFields);
-            if (lastRow) {
-                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;');
-
-                input = new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 });
-                if (Prototype.Browser.IE) {
-                    input.observe('change', this.changeHandler.bindAsEventListener(this));
-                }
-                td.insert(input);
-
-                newRow = new Element('TR', { id: 'attachment_row_' + (usedFields + 1) }).insert(td);
-
-                lastRow.parentNode.insertBefore(newRow, lastRow.nextSibling);
+            if (ob.addr.bcc.size()) {
+                this.toggleCC('bcc');
+                $('bcc').setValue(ob.addr.bcc.join(', '))
+                    .fire('AutoComplete:reset');
             }
         }
+
+        $('identity').setValue(ob.identity);
+        this.changeIdentity();
+
+        $('subject').setValue(ob.subject);
+
+        if (DimpCore.conf.priority && ob.opts.priority) {
+            this.setPopdownLabel('p', ob.opts.priority);
+        }
+
+        if (ob.opts.readreceipt && $('request_read_receipt')) {
+            $('request_read_receipt').setValue(true);
+        }
+
+        switch (ob.opts.auto) {
+        case 'forward_attach':
+            $('noticerow', 'fwdattachnotice').invoke('show');
+            this.fwdattach = true;
+            break;
+
+        case 'forward_body':
+            $('noticerow', 'fwdbodynotice').invoke('show');
+            break;
+
+        case 'reply_all':
+            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DimpCore.text.replyall.sub('%d', ob.opts.reply_recip));
+            $('noticerow', 'replyallnotice').invoke('show');
+            break;
+
+        case 'reply_list':
+            $('replylistnotice').down('SPAN.replyListNoticeId').setText(ob.opts.reply_list_id ? (' (' + ob.opts.reply_list_id + ')') : '');
+            $('noticerow', 'replylistnotice').invoke('show');
+            break;
+        }
+
+        if (ob.opts.reply_lang) {
+            $('langnotice').down('SPAN.langNoticeList').setText(ob.opts.reply_lang.join(', '));
+            $('noticerow', 'langnotice').invoke('show');
+        }
+
+        this.setBodyText(ob);
+        this.resizeMsgArea();
+
+        this.focus(ob.opts.focus || 'to');
+
+        this.fillFormHash();
+    },
+
+    fillFormHash: function()
+    {
+        if (this.rte && this.rte.busy()) {
+            this.fillFormHash.bind(this).delay(0.1);
+            return;
+        }
+
+        // This value is used to determine if the text has changed when
+        // swapping compose modes.
+        if (!this.hash_msgOrig) {
+            this.hash_msgOrig = this.msgHash();
+        }
+
+        // Set auto-save-drafts now if not already active. Only need if
+        // compose template is output on current page (redirect doesn't
+        // need autosave).
+        if (DimpCore.conf.auto_save_interval_val &&
+            !this.auto_save_interval &&
+            $('compose')) {
+            this.auto_save_interval = new PeriodicalExecuter(
+                this.autoSaveDraft.bind(this),
+                DimpCore.conf.auto_save_interval_val * 60
+            );
+
+            /* Immediately execute to get hash of headers. */
+            this.auto_save_interval.execute();
+        }
+    },
+
+    focus: function(elt)
+    {
+        elt = $(elt);
+        try {
+            // IE 8 requires try/catch to silence a warning.
+            elt.focus();
+        } catch (e) {}
+        elt.fire('AutoComplete:focus');
+    },
+
+    autoSaveDraft: function()
+    {
+        var hdrs, msg, sig;
+
+        if (!$('compose').visible()) {
+            return;
+        }
+
+        hdrs = IMP_JS.fnv_1a(
+            [$('to', 'cc', 'bcc', 'subject').compact().invoke('getValue'),
+             $('attach_list').select('SPAN.attachName').pluck('textContent')
+            ].flatten().join('\0')
+        );
+
+        if (Object.isUndefined(this.hash_hdrs)) {
+            msg = this.hash_msgOrig;
+            sig = this.hash_sigOrig;
+        } else {
+            msg = this.msgHash();
+            sig = this.sigHash();
+            if (this.hash_hdrs != hdrs ||
+                this.hash_msg != msg ||
+                this.hash_sig != sig) {
+                this.uniqueSubmit('autoSaveDraft');
+            }
+        }
+
+        this.hash_hdrs = hdrs;
+        this.hash_msg = msg;
+        this.hash_sig = sig;
+    },
+
+    msgHash: function()
+    {
+        return IMP_JS.fnv_1a(
+            this.editor_on ? this.rte.getData() : $F('composeMessage')
+        );
     },
 
     sigHash: function()
     {
         return $('signature')
-            ? IMP_JS.fnv_1a(this.rte ? this.rte.getData() : $F('signature'))
+            ? IMP_JS.fnv_1a(this.rte_sig ? this.rte_sig.getData() : $F('signature'))
             : 0;
     },
 
-    updateSigHash: function()
+    fadeNotice: function(elt)
     {
-        if (this.rte && this.rte.busy()) {
-            this.updateSigHash.bind(this).delay(0.1);
+        elt = $(elt);
+
+        elt.fade({
+            afterFinish: function() {
+                if (!elt.siblings().any(Element.visible)) {
+                    elt.up('TR').hide();
+                    this.resizeMsgArea();
+                }
+            }.bind(this),
+            duration: 0.4
+        });
+    },
+
+    setBodyText: function(ob)
+    {
+        if (this.rte) {
+            this.rte.setData(ob.body);
         } else {
-            this.last_sig = this.sigHash();
+            $('composeMessage').setValue(ob.body);
+            this.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
+        }
+
+        if (ob.format == 'html') {
+            if (!this.editor_on) {
+                this.toggleHtmlEditor(true);
+            }
+            if (ob.opts &&
+                ob.opts.focus &&
+                (ob.opts.focus == 'composeMessage')) {
+                this.rte.focus();
+            }
         }
     },
 
-    clickHandler: function(e)
+    setCursorPosition: function(input, type)
     {
-        var name,
-            elt = e.element(),
-            id = elt.readAttribute('id');
+        var pos, range;
 
-        switch (id) {
-        case 'addressbook_popup':
-            window.open(this.contacts_url, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
+        if (!(input = $(input))) {
+            return;
+        }
+
+        switch (type) {
+        case 'top':
+            pos = 0;
+            input.setValue('\n' + $F(input));
             break;
 
-        case 'redirect_abook':
-            window.open(this.redirect_contacts, "contacts", "toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=550,height=300,left=100,top=100");
-            break;
-
-        case 'rte_toggle':
-            $('rtemode').setValue(~~(!ImpComposeBase.editor_on));
-            this.uniqSubmit('toggle_editor');
+        case 'bottom':
+            pos = $F(input).length;
             break;
 
         default:
-            if (elt.match('INPUT[type=submit]')) {
-                name = elt.readAttribute('name');
-                switch (name) {
-                case 'btn_add_attachment':
-                case 'btn_redirect':
-                case 'btn_replyall_revert':
-                case 'btn_replylist_revert':
-                case 'btn_save_draft':
-                case 'btn_save_template':
-                case 'btn_send_message':
-                    this.uniqSubmit(name.substring(4), e.memo);
+            return;
+        }
+
+        if (input.setSelectionRange) {
+            /* This works in Mozilla. */
+            Field.focus(input);
+            input.setSelectionRange(pos, pos);
+            if (pos) {
+                (function() { input.scrollTop = input.scrollHeight - input.offsetHeight; }).delay(0.1);
+            }
+        } else if (input.createTextRange) {
+            /* This works in IE */
+            range = input.createTextRange();
+            range.collapse(true);
+            range.moveStart('character', pos);
+            range.moveEnd('character', 0);
+            Field.select(range);
+            range.scrollIntoView(true);
+        }
+    },
+
+    swapToAddressCallback: function(r)
+    {
+        if (r.addr) {
+            $('to').setValue(r.addr.to.join(', '))
+                .fire('AutoComplete:reset');
+            [ 'cc', 'bcc' ].each(function(t) {
+                if (r.addr[t].size() || $('send' + t).visible()) {
+                    if (!$('send' + t).visible()) {
+                        this.toggleCC(t);
+                    }
+                    $(t).setValue(r.addr[t].join(', '))
+                        .fire('AutoComplete:reset');
+                }
+            }, this);
+        }
+        $('to_loading_img').hide();
+    },
+
+    resizeMsgArea: function(e)
+    {
+        if (!document.loaded || $('dimpLoading').visible()) {
+            return;
+        }
+
+        // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
+        if (e && Prototype.Browser.IE && !document.addEventListener) {
+            this.resizeMsgArea.bind(this).delay(0.1);
+            return;
+        }
+
+        var mah,
+            cmp = $('composeMessageParent'),
+            sp = $('signatureParent'),
+            qreply = $('qreply');
+
+        if (!cmp || (qreply && !qreply.visible())) {
+            return;
+        }
+
+        cmp = cmp.getLayout();
+
+        try {
+            mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
+        } catch (ex) {
+            return;
+        }
+        if (sp) {
+            mah -= sp.getHeight();
+        }
+
+        if (this.rte) {
+            this.rte.resize('99%', mah - 1);
+        }
+
+        $('composeMessage').setStyle({ height: mah + 'px' });
+
+        if ($('rteloading').visible()) {
+            this.RTELoading(true);
+        }
+    },
+
+    toggleCC: function(type)
+    {
+        var t = $('toggle' + type),
+            s = t.siblings().first();
+
+        $('send' + type).show();
+        if (s && s.visible()) {
+            t.hide();
+        } else {
+            t.up('TR').hide();
+        }
+
+        this.resizeMsgArea();
+
+        this.focus(type);
+    },
+
+    sentMailListCallback: function(r)
+    {
+        $('save_sent_mail_load').remove();
+        this.createPopdown('sm', {
+            base: 'save_sent_mail',
+            data: r.flist,
+            input: 'save_sent_mail_mbox',
+            label: 'sent_mail_label'
+        });
+        this.knl.sm.knl.setSelected($F('save_sent_mail_mbox'));
+        this.knl.sm.knl.show();
+    },
+
+    doTasks: function()
+    {
+        if (this.tasks) {
+            document.fire('HordeCore:runTasks', {
+                response: {},
+                tasks: this.tasks
+            });
+            delete this.tasks;
+        }
+    },
+
+    /* Open the addressbook window. */
+    openAddressbook: function(params)
+    {
+        var uri = DimpCore.conf.URI_ABOOK;
+
+        if (params) {
+            uri = HordeCore.addURLParam(uri, params);
+        }
+
+        window.open(uri, 'contacts', 'toolbar=no,location=no,status=no,scrollbars=yes,resizable=yes,width=800,height=350,left=100,top=100');
+    },
+
+    /* Autocomplete functions. */
+
+    autocompleteValue: function(val)
+    {
+        var ob = [],
+            pos = 0,
+            chr, in_group, in_quote, tmp;
+
+        chr = val.charAt(pos);
+        while (chr !== "") {
+            var orig_pos = pos;
+            ++pos;
+
+            if (!orig_pos || (val.charAt(orig_pos - 1) != '\\')) {
+                switch (chr) {
+                case ',':
+                    if (!orig_pos) {
+                        val = val.substr(1);
+                    } else if (!in_group && !in_quote) {
+                        ob.push(new IMP_Autocompleter_Elt(val.substr(0, orig_pos)));
+                        val = val.substr(orig_pos + 2);
+                        pos = 0;
+                    }
                     break;
 
-                case 'btn_cancel_compose':
-                case 'btn_discard_compose':
-                    this.confirmCancel(name == 'btn_discard_compose', e.memo);
+                case '"':
+                    in_quote = !in_quote;
+                    break;
+
+                case ':':
+                    if (!in_quote) {
+                        in_group = true;
+                    }
+                    break;
+
+                case ';':
+                    if (!in_quote) {
+                        in_group = false;
+                    }
                     break;
                 }
             }
+
+            chr = val.charAt(pos);
+        }
+
+        return [ ob, val ];
+    },
+
+    autocompleteShortDisplay: function(l)
+    {
+        l = l.sub(/<[^>]*>$/, "").strip();
+        if (l.startsWith('"') && l.endsWith('"')) {
+            l = l.slice(1, -1).gsub(/\\/, "");
+        }
+
+        return l.escapeHTML();
+    },
+
+    autocompleteProcess: function(r)
+    {
+        /* Clear all existing flags. */
+        this.ac.each(function(pair) {
+            pair.value.getElts()
+                .invoke('removeClassName', 'impACListItemBad')
+                .invoke('removeClassName', 'impACListItemWarn');
+        });
+
+        $H(r).each(function(pair) {
+            var ac = this.ac.get(pair.key);
+            $H(pair.value).each(function(pair2) {
+                var entry = ac.getEntryById(pair2.key);
+                if (entry) {
+                    entry.elt.addClassName(pair2.value);
+                }
+            });
+        }, this);
+    },
+
+    autocompleteServerRequest: function(t, data)
+    {
+        var d, i, re;
+
+        for (i = t.length - 1; i > 0; --i) {
+            d = data.get(t.substr(0, i));
+            if (d) {
+                if (d.size() >= this.ac_limit) {
+                    return false;
+                }
+
+                re = new RegExp(latinize(t), "i");
+
+                return d.findAll(function(a) {
+                    return latinize(a.v).match(re);
+                });
+            }
+        }
+
+        return false;
+    },
+
+    autocompleteServerSuggestion: function(e, elt)
+    {
+        if (e.g) {
+            elt.group = e.g;
+        }
+    },
+
+    autocompleteOnAdd: function(v)
+    {
+        if (v.group) {
+            v.elt.down('IMG').insert({ before:
+                new Element('A', { className: 'impACGroupExpand' })
+                    .insert(DimpCore.text.group_expand)
+            });
+        }
+    },
+
+    autocompleteOnEntryClick: function(ob)
+    {
+        if (ob.elt.hasClassName('impACGroupExpand')) {
+            ob.ac.getEntryByElt(ob.entry).group.each(function(v) {
+                ob.ac.addNewItems([ new IMP_Autocompleter_Elt(v.v, v.l, v.s) ]);
+            });
+            ob.ac.removeEntry(ob.entry);
+            return true;
+        }
+
+        return false;
+    },
+
+    /* Click observe handler. */
+    clickHandler: function(e)
+    {
+        var elt = e.memo.element(), tmp;
+
+        /* Needed because reply/forward buttons need to be of type="submit"
+         * for FF to correctly size. */
+        if ((elt.readAttribute('type') == 'submit') &&
+            (elt.descendantOf('compose') || elt.descendantOf('redirect'))) {
+            e.memo.hordecore_stop = true;
+            return;
+        }
+
+        switch (e.element().readAttribute('id')) {
+        case 'togglebcc':
+            this.toggleCC('bcc');
+            this.resizeMsgArea();
+            break;
+
+        case 'togglecc':
+            this.toggleCC('cc');
+            this.resizeMsgArea();
+            break;
+
+        case 'signatureToggle':
+            if ($('signatureBorder').visible()) {
+                $('signatureToggle').removeClassName('signatureExpanded');
+                $('signatureBorder').hide();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 0
+                });
+            } else {
+                $('signatureToggle').addClassName('signatureExpanded');
+                $('signatureBorder').show();
+                HordeCore.doAction('setPrefValue', {
+                    pref: 'signature_expanded',
+                    value: 1
+                });
+            }
+            this.resizeMsgArea();
+            break;
+
+        case 'compose_close':
+        case 'redirect_close':
+            this.confirmCancel();
+            break;
+
+        case 'discard_button':
+            this.confirmCancel(true);
+            break;
+
+        case 'draft_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('saveDraft');
+            }
+            break;
+
+        case 'template_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('saveTemplate');
+            }
+            break;
+
+        case 'send_button':
+            if (!this.disabled) {
+                this.uniqueSubmit('sendMessage');
+            }
+            break;
+
+        case 'send_button_redirect':
+            if (!this.disabled) {
+                this.uniqueSubmit('redirectMessage');
+            }
+            break;
+
+        case 'htmlcheckbox':
+            e.memo.stop();
+            break;
+
+        case 'redirect_sendto':
+            if (elt.match('TD.label SPAN')) {
+                this.openAddressbook({
+                    to_only: 1
+                });
+            }
+            break;
+
+        case 'sendcc':
+        case 'sendbcc':
+        case 'sendto':
+            if (DimpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
+                this.openAddressbook();
+            }
+            break;
+
+        case 'attach_list':
+            if (elt.match('SPAN.attachName')) {
+                HordeCore.popupWindow(elt.up('LI').retrieve('atc_url'));
+            }
+            break;
+
+        case 'save_sent_mail':
+            this.setSaveSentMail($F(e.element()));
+            break;
+
+        case 'compose_upload_add':
+            // This is no longer needed as of Firefox 22.
+            if (Prototype.Browser.Gecko && Object.isUndefined(Object.is)) {
+                $('upload').click();
+            }
+            break;
+
+        case 'fwdattachnotice':
+            this.fadeNotice(e.element());
+            DimpCore.doAction('getForwardData', this.actionParams({
+                dataonly: 1,
+                type: 'forward_body'
+            }), {
+                callback: this.setBodyText.bind(this)
+            });
+            this.fwdattach = false;
+            e.memo.stop();
+            break;
+
+        case 'fwdbodynotice':
+            this.fadeNotice(e.element());
+            DimpCore.doAction('getForwardData', this.actionParams({
+                dataonly: 1,
+                type: 'forward_attach'
+            }));
+            this.fwdattach = false;
+            e.memo.stop();
+            break;
+
+        case 'identitychecknotice':
+            this.fadeNotice(e.element());
+            $('identity').setValue(this.old_identity);
+            this.changeIdentity();
+            e.memo.stop();
+            break;
+
+        case 'replyall_revert':
+        case 'replylist_revert':
+            this.fadeNotice(e.element().up('LI'));
+            $('to_loading_img').show();
+            DimpCore.doAction('getReplyData', this.actionParams({
+                headeronly: 1,
+                type: 'reply'
+            }), {
+                callback: this.swapToAddressCallback.bind(this)
+            });
+            e.memo.stop();
+            break;
+
+        case 'writemsg':
+            if (!this.disabled && elt.hasClassName('horde-popdown')) {
+                tmp = elt.retrieve('popdown_id');
+                if (tmp && this.knl[tmp]) {
+                    this.knl[tmp].knl.show();
+                    this.knl[tmp].knl.ignoreClick(e.memo);
+                    e.memo.stop();
+                }
+            }
+            break;
+
+        case 'save_sent_mail_load':
+            DimpCore.doAction('sentMailList', {}, {
+                callback: this.sentMailListCallback.bind(this)
+            });
+            break;
+        }
+    },
+
+    keydownHandler: function(e, fade)
+    {
+        switch (e.keyCode || e.charCode) {
+        case Event.KEY_ESC:
+            this.confirmCancel();
+            break;
+
+        case Event.KEY_RETURN:
+            if (!this.disabled && e.ctrlKey) {
+                this.uniqueSubmit('sendMessage');
+            }
+            break;
+        }
+
+        if (this.fwdattach &&
+            (fade || e.element() == $('composeMessage'))) {
+            this.fadeNotice('fwdattachnotice');
         }
     },
 
     changeHandler: function(e)
     {
-        var elt = e.element(),
-            id = elt.identify();
-
-        switch (id) {
+        switch (e.element().readAttribute('id')) {
         case 'identity':
-            if (!this.changeIdentity(elt)) {
+            if (!this.changeIdentity()) {
                 $('identity').setValue(this.last_identity);
-            }
-            break;
-
-        case 'sent_mail':
-            $('ssm').writeAttribute('checked', 'checked');
-            break;
-
-        default:
-            if (id.substring(0, 7) == 'upload_') {
-                this.attachmentChanged();
             }
             break;
         }
     },
 
-    keyDownHandler: function(e)
+    contextOnClick: function(e)
     {
-        if (e.keyCode == 10 || e.keyCode == Event.KEY_RETURN) {
-            e.stop();
+        var id = e.memo.elt.identify();
+
+        switch (id) {
+        case 'ctx_atcfile_delete':
+            this.attachlist.removeAttach(this.atc_context);
+            break;
+
+        default:
+            this.checkbox_context.each(function(pair) {
+                if (id.startsWith(pair.key + '_')) {
+                    var t = pair.value.get(id.substring(pair.key.length + 1));
+                    if (t) {
+                        $(t).setValue(~~(!(~~$F(t))));
+                    }
+                }
+            });
+            break;
+        }
+    },
+
+    contextOnShow: function(e)
+    {
+        var tmp = this.checkbox_context.get(e.memo);
+
+        if (tmp) {
+            tmp.each(function(pair) {
+                var t = $(e.memo + '_' + pair.key);
+                if (t) {
+                    DimpCore.toggleCheck(t.down('SPAN'), ~~$F(pair.value));
+                }
+            });
+        }
+
+        if (e.element().up('#attach_list')) {
+            this.atc_context = e.element().up('LI');
+        } else {
+            delete this.atc_context;
+        }
+    },
+
+    onContactsUpdate: function(e)
+    {
+        var elt = $(e.memo.field),
+            v = $F(elt).strip(),
+            pos = v.lastIndexOf(',');
+
+        switch (e.memo.field) {
+        case 'bcc':
+        case 'cc':
+            if (!$('send' + e.memo.field).visible()) {
+                this.toggleCC(e.memo.field);
+            }
+            break;
+
+        case 'to':
+            if (DimpCore.conf.redirect) {
+                e.memo.field = 'redirect_to';
+            }
+            break;
+        }
+
+        if (v.empty()) {
+            v = '';
+        } else if (pos != (v.length - 1)) {
+            v += ', ';
+        } else {
+            v += ' ';
+        }
+
+        elt.setValue(v + e.memo.value + ', ');
+        document.fire('AutoComplete:reset');
+    },
+
+    tasksHandler: function(e)
+    {
+        var base = DimpCore.baseAvailable(),
+            t = e.tasks || {};
+
+        if (t['imp:compose']) {
+            this.getCacheElt().setValue(t['imp:compose'].cacheid);
+            if ($('composeCache')) {
+                $('composeHmac').setValue(t['imp:compose'].hmac);
+            }
+        }
+
+        if (base) {
+            if (t['imp:flag']) {
+                base.DimpBase.flagCallback(t['imp:flag']);
+            }
+
+            if (t['imp:mailbox']) {
+                base.DimpBase.mailboxCallback(t['imp:mailbox']);
+            }
+
+            if (t['imp:maillog']) {
+                base.DimpBase.maillogCallback(t['imp:maillog']);
+            }
         }
     },
 
     onDomLoad: function()
     {
-        var config, handler;
+        var tmp;
+
+        /* Initialize autocompleters. */
+        $('to', 'cc', 'bcc', 'redirect_to').compact().invoke('identify').each(function(id) {
+            this.ac.set(
+                id,
+                new IMP_Autocompleter(id, {
+                    autocompleterParams: {
+                        limit: this.ac_limit,
+                        type: 'email'
+                    },
+                    boxClass: 'hordeACBox impACBox',
+                    boxClassFocus: 'impACBoxFocus',
+                    deleteIcon: DimpCore.conf.ac_delete,
+                    displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
+                    growingInputClass: 'hordeACTrigger impACTrigger',
+                    listClass: 'hordeACList impACList',
+                    minChars: DimpCore.conf.ac_minchars,
+                    onAdd: this.autocompleteOnAdd.bind(this),
+                    onBeforeServerRequest: this.autocompleteServerRequest.bind(this),
+                    onEntryClick: this.autocompleteOnEntryClick.bind(this),
+                    onServerSuggestion: this.autocompleteServerSuggestion.bind(this),
+                    processValueCallback: this.autocompleteValue.bind(this),
+                    removeClass: 'hordeACItemRemove impACItemRemove',
+                    shortDisplayCallback: this.autocompleteShortDisplay.bind(this),
+                    trigger: id,
+                    triggerContainer: Math.random().toString()
+                })
+            );
+        }, this);
+
+        /* Initialize redirect elements. */
+        if (DimpCore.conf.redirect) {
+            $('redirect').observe('submit', Event.stop);
+            if (DimpCore.conf.URI_ABOOK) {
+                $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
+            }
+            $('dimpLoading').hide();
+            $('composeContainer', 'redirect').invoke('show');
+
+            this.doTasks();
+            this.focus('redirect_to');
+
+            return;
+        }
+
+        /* Attach event handlers. */
+        if (Prototype.Browser.IE) {
+            // IE doesn't bubble change events.
+            $('identity').observe('change', this.changeHandler.bindAsEventListener(this));
+        } else {
+            document.observe('change', this.changeHandler.bindAsEventListener(this));
+        }
+        $('compose').observe('submit', Event.stop);
+        $('htmlcheckbox').up('LABEL').observe('mouseup', function() {
+            if (!this.editor_on ||
+                window.confirm(DimpCore.text.toggle_html)) {
+                this.toggleHtmlEditor();
+            }
+        }.bind(this));
 
         HordeCore.initHandler('click');
 
-        if (this.redirect) {
-            ImpComposeBase.focus('to');
-        } else {
-            ImpComposeBase.setSignature(
-                ImpComposeBase.editor_on,
-                ($('signature') && $F('signature'))
-                    ? $F('signature')
-                    : ImpComposeBase.identities[$F('last_identity')]
-            );
+        this.attachlist = new this.classes.Attachlist(this);
 
-            handler = this.keyDownHandler.bindAsEventListener(this);
-            /* Prevent Return from sending messages - it should bring us out
-             * of autocomplete, not submit the whole form. */
-            $('compose').select('INPUT').each(function(i) {
-                /* Attach to everything but button and submit elements. */
-                if (i.type != 'submit' && i.type != 'button') {
-                    i.observe('keydown', handler);
-                }
+        if ((tmp = $('atcdrop'))) {
+            tmp.observe('DragHandler:drop', this.attachlist.uploadAttach.bindAsEventListener(this.attachlist));
+            DragHandler.dropelt = tmp;
+            DragHandler.droptarget = $('atcdiv');
+            DragHandler.hoverclass = 'atcdrop_over';
+            DimpCore.addPopdown($('upload'), 'atc', {
+                no_offset: true
             });
-
-            ImpComposeBase.setCursorPosition('composeMessage', this.cursor_pos);
-
-            if (Prototype.Browser.IE) {
-                $('subject').observe('keydown', function(e) {
-                    if (e.keyCode == Event.KEY_TAB && !e.shiftKey) {
-                        e.stop();
-                        ImpComposeBase.focus('composeMessage');
-                    }
-                });
-            }
-
-            if (ImpComposeBase.editor_on) {
-                config = Object.clone(IMP.ckeditor_config);
-                config.extraPlugins = 'pasteignore';
-                this.rte = new IMP_Editor('composeMessage', config);
-
-                document.observe('SpellChecker:after', this._onAfterSpellCheck.bind(this));
-                document.observe('SpellChecker:before', this._onBeforeSpellCheck.bind(this));
-            }
-
-            if ($('to') && !$F('to')) {
-                ImpComposeBase.focus('to');
-            } else if (!$F('subject')) {
-                ImpComposeBase.focus(this.rte ? 'subject' : 'composeMessage');
-            }
-
-            document.observe('SpellChecker:noerror', this._onNoErrorSpellCheck.bind(this));
-
-            if (Prototype.Browser.IE) {
-                $('identity', 'sent_mail', 'upload_1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
-            } else {
-                document.observe('change', this.changeHandler.bindAsEventListener(this));
-            }
-
-            if (this.auto_save) {
-                /* Immediately execute to get MD5 hash of empty message. */
-                new PeriodicalExecuter(this.uniqSubmit.bind(this, 'auto_save_draft'), this.auto_save * 60).execute();
-            }
-            this.last_identity = $F('identity');
-            this.updateSigHash();
         }
 
-        this.resize.bind(this).delay(0.25);
-    },
-
-    _onAfterSpellCheck: function()
-    {
-        this.rte.setData($F('composeMessage'));
-        $('composeMessage').next().show();
-        delete this.sc_submit;
-    },
-
-    _onBeforeSpellCheck: function()
-    {
-        ImpComposeBase.getSpellChecker().htmlAreaParent = 'composeMessageParent';
-        $('composeMessage').next().hide();
-        this.rte.updateElement();
-    },
-
-    _onNoErrorSpellCheck: function()
-    {
-        if (this.sc_submit) {
-            this.skip_spellcheck = true;
-            this.uniqSubmit(this.sc_submit.a, this.sc_submit.e);
-        } else if (ImpComposeBase.editor_on) {
-            this._onAfterSpellCheck();
+        if ($H(DimpCore.context.ctx_other).size()) {
+            DimpCore.addPopdown($('other_options').down('A'), 'other', {
+                trigger: true
+            });
         } else {
-            delete this.sc_submit;
+            $('other_options').hide();
+        }
+
+        /* Create sent-mail list. */
+        if ($('save_sent_mail_mbox')) {
+            this.changeIdentity();
+        }
+
+        /* Create priority list. */
+        if (DimpCore.conf.priority) {
+            this.createPopdown('p', {
+                base: 'priority_label',
+                data: DimpCore.conf.priority,
+                input: 'priority',
+                label: 'priority_label'
+            });
+            this.setPopdownLabel('p', $F('priority'));
+        }
+
+        /* Create encryption list. */
+        if (DimpCore.conf.encrypt) {
+            this.createPopdown('e', {
+                base: $('encrypt_label').up(),
+                data: DimpCore.conf.encrypt,
+                input: 'encrypt',
+                label: 'encrypt_label'
+            });
+            this.setPopdownLabel('e', $F('encrypt'));
+        }
+
+        /* Add addressbook link formatting. */
+        if (DimpCore.conf.URI_ABOOK) {
+            $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
+                a.down('TD.label SPAN').addClassName('composeAddrbook');
+            });
+        }
+
+        $('dimpLoading').hide();
+        $('composeContainer', 'compose').compact().invoke('show');
+
+        this.doTasks();
+
+        if (this.onload_show) {
+            this.fillForm(this.onload_show);
+            delete this.onload_show;
+        } else {
+            this.resizeMsgArea();
         }
     },
 
-    resize: function()
+    onAjaxFailure: function(e)
     {
-        var d, e = this.redirect ? $('redirect') : $('compose');
-
-        if (this.popup && !this.reloaded) {
-            e = e.getHeight();
-            if (!e) {
-                return this.resize.bind(this).delay(0.1);
+        switch (e.memo[0].request.action) {
+        case 'redirectMessage':
+        case 'saveDraft':
+        case 'saveTemplate':
+        case 'sendMessage':
+            if (this.disabled) {
+                this.setDisabled(false);
             }
-            d = Math.min(e, screen.height - 50) - document.viewport.getHeight();
-            if (d > 0) {
-                window.resizeBy(0, d);
-            }
+            break;
         }
-    },
 
-    onBeforeUnload: function()
-    {
-        if (this.display_unload_warning) {
-            return this.text.discard;
-        }
+        this.RTELoading(false);
     }
 
 };
 
-/* Code to run on window load. */
-document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
+ImpCompose.classes.Attachlist = Class.create({
 
-/* Warn before closing the window. */
-Event.observe(window, 'beforeunload', ImpCompose.onBeforeUnload.bind(ImpCompose));
+    // ajax_atc_id,
+    // curr_upload,
+    // num_limit,
+    // size_limit
+
+    initialize: function(compose)
+    {
+        var tmp = $('upload');
+
+        this.compose = compose;
+
+        this.ajax_atc_id = 0;
+        this.curr_upload = 0;
+
+        /* Attach event handlers. */
+        if (tmp) {
+            document.observe('HordeCore:runTasks', this.tasksHandler.bindAsEventListener(this));
+            if (Prototype.Browser.IE) {
+                // IE doesn't bubble change events.
+                tmp.observe('change', this.changeHandler.bindAsEventListener(this));
+            } else {
+                document.observe('change', this.changeHandler.bindAsEventListener(this));
+            }
+        }
+    },
+
+    reset: function()
+    {
+        this.curr_upload = 0;
+        delete this.num_limit;
+        $('attach_list').hide().childElements().each(this.removeAttachRow, this);
+    },
+
+    busy: function()
+    {
+        return !!(this.curr_upload);
+    },
+
+    // opts = (Object)
+    //   icon: (string) Data url of icon data
+    //   name: (string) Attachment name
+    //   num: (integer) Attachment number
+    //   size: (string) Size.
+    //   type: (string) MIME type
+    //   url: (string) Data view URL
+    //   view: (boolean) Link to attachment preview page
+    addAttach: function(opts)
+    {
+        var canvas, img,
+            li = new Element('LI')
+                .addClassName('attach_file')
+                .store('atc_id', opts.num)
+                .store('atc_url', opts.url),
+            span = new Element('SPAN')
+                .addClassName(opts.view ? 'attachName' : 'attachNameNoview')
+                .insert(opts.name.escapeHTML());
+
+        if (opts.icon) {
+            canvas = new Element('CANVAS', { height: '16px', width: '16px' });
+            // IE8 doesn't support canvas
+            if (canvas.getContext) {
+                li.insert(canvas);
+                img = new Image();
+                img.onload = function() {
+                    canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
+                };
+                img.src = opts.icon;
+            }
+        }
+
+        li.insert(span);
+
+        canvas.writeAttribute('title', opts.type);
+        li.insert(
+            new Element('SPAN')
+                .addClassName('attachSize')
+                .insert('(' + opts.size + ')')
+        );
+
+        $('attach_list').insert(li).show();
+
+        DimpCore.addPopdown(li.down(':last'), 'atcfile', {
+            no_offset: true
+        });
+
+        this.compose.resizeMsgArea();
+    },
+
+    getAttach: function(id)
+    {
+        return $('attach_list').childElements().detect(function(e) {
+            return e.retrieve('atc_id') == id;
+        });
+    },
+
+    // elt: (array | Element)
+    removeAttach: function(elt, quiet)
+    {
+        if (Object.isElement(elt)) {
+            elt = [ elt.retrieve('atc_id') ];
+        }
+
+        if (elt.size()) {
+            DimpCore.doAction('deleteAttach', this.compose.actionParams({
+                atc_indices: Object.toJSON(elt),
+                quiet: ~~(!!quiet)
+            }), {
+                callback: this.removeAttachCallback.bind(this)
+            });
+        }
+    },
+
+    removeAttachCallback: function(r)
+    {
+        r.collect(this.getAttach, this).compact().each(function(elt) {
+            elt.fade({
+                afterFinish: function() {
+                    this.removeAttachRow(elt);
+                    this.initAttachList();
+                }.bind(this),
+                duration: 0.4
+            });
+        }, this);
+    },
+
+    removeAttachRow: function(elt)
+    {
+        DimpCore.DMenu.removeElement(elt.down('.horde-popdown').identify());
+        elt.remove();
+    },
+
+    initAttachList: function()
+    {
+        var al = $('attach_list'),
+            u = $('upload');
+
+        if (this.num_limit === 0) {
+            $('upload_limit').show();
+            u.up().hide();
+        } else {
+            $('upload_limit').hide();
+            u.up().show();
+        }
+
+        if (!al.childElements().size()) {
+            al.hide();
+        }
+
+        this.compose.resizeMsgArea();
+    },
+
+    uploadAttachWait: function(f)
+    {
+        var li = new Element('LI')
+            .addClassName('attach_upload')
+            .insert(
+                new Element('SPAN')
+                    .addClassName('attach_upload_text')
+                    .insert((Object.isElement(f) ? $F(f) : f.name).escapeHTML())
+                    .insert(new Element('SPAN').insert('(' + DimpCore.text.uploading + ')'))
+            );
+
+        $('attach_list').show().insert(li);
+
+        return li;
+    },
+
+    // data: (Element | Event object | array)
+    uploadAttach: function(data, params, callback)
+    {
+        var li, out = $H();
+
+        if (Object.isElement(data)) {
+            if (!data.files) {
+                // We need a submit action here because browser security
+                // models won't let us access files on user's filesystem
+                // otherwise.
+                ++this.curr_upload;
+                li = this.uploadAttachWait(data);
+                HordeCore.submit('compose', {
+                    callback: function() {
+                        --this.curr_upload;
+                        li.remove();
+                    }.bind(this)
+                });
+                return;
+            }
+            data = data.files;
+        } else if (!Object.isArray(data)) {
+            data = data.memo;
+        }
+
+        if ($A(data).size() > this.num_limit) {
+            HordeCore.notify(DimpCore.text.max_atc_num, 'horde.error');
+            return;
+        }
+
+        /* First pass - check for size limitations. Do in groups, rather than
+         * individually, since it is a UX nightmare if some files are attached
+         * and others aren't. */
+        if ($A(data).detect(function(d) {
+            return (parseInt(d.size, 10) >= this.size_limit);
+        }, this)) {
+            HordeCore.notify(DimpCore.text.max_atc_size, 'horde.error');
+            return;
+        }
+
+        params = $H(params).update({
+            composeCache: $F(this.compose.getCacheElt()),
+            json_return: 1
+        });
+        HordeCore.addRequestParams(params);
+
+        /* Second pass - actually send the files. */
+        $A(data).each(function(d) {
+            var fd = new FormData(), li;
+
+            params.merge({
+                file_id: ++this.ajax_atc_id,
+                file_upload: d
+            }).each(function(p) {
+                fd.append(p.key, p.value);
+            });
+
+            ++this.curr_upload;
+            if (Object.isNumber(this.num_limit)) {
+                --this.num_limit;
+            }
+
+            HordeCore.doAction('addAttachment', {}, {
+                ajaxopts: {
+                    postBody: fd,
+                    requestHeaders: { "Content-type": null },
+                    onComplete: function() {
+                        --this.curr_upload;
+                        li.remove();
+                    }.bind(this),
+                    onCreate: function(e) {
+                        if (e.transport && e.transport.upload) {
+                            var p = new Element('SPAN')
+                                .addClassName('attach_upload_progress')
+                                .hide();
+                            li = this.uploadAttachWait(d);
+                            li.insert(p);
+
+                            e.transport.upload.onprogress = function(e2) {
+                                if (e2.lengthComputable) {
+                                    p.setStyle({
+                                        backgroundPosition: parseInt(100 - (e2.loaded / e2.total * 100), 10) + "% 0"
+                                    });
+                                    if (!p.visible()) {
+                                        li.down('.attach_upload_text')
+                                            .addClassName('attach_upload_text_progress')
+                                            .down('SPAN').remove();
+                                        p.show();
+                                    }
+                                }
+                            };
+                        } else {
+                            li = this.uploadAttachWait(d);
+                        }
+                    }.bind(this)
+                },
+                callback: callback || Prototype.emptyFunction
+            });
+
+            out.set(this.ajax_atc_id, d);
+        }, this);
+
+        return out;
+    },
+
+    /* Event observers. */
+
+    changeHandler: function(e)
+    {
+        switch (e.element().readAttribute('id')) {
+        case 'upload':
+            this.uploadAttach($('upload'));
+            break;
+        }
+    },
+
+    tasksHandler: function(e)
+    {
+        var t = e.memo.tasks || {};
+
+        if (t['imp:compose']) {
+            this.num_limit = t['imp:compose'].atclimit;
+            this.size_limit = t['imp:compose'].atcmax;
+        }
+
+        if (t['imp:compose-addr']) {
+            this.compose.autocompleteProcess(t['imp:compose-addr']);
+        }
+
+        if (t['imp:compose-atc']) {
+            t['imp:compose-atc'].each(this.addAttach, this);
+        }
+    }
+
+});
 
 /* Attach event handlers. */
+document.observe('dom:loaded', ImpCompose.onDomLoad.bind(ImpCompose));
 document.observe('HordeCore:click', ImpCompose.clickHandler.bindAsEventListener(ImpCompose));
-document.observe('ImpContacts:update', ImpComposeBase.updateAddressField.bindAsEventListener(ImpComposeBase));
+document.observe('keydown', ImpCompose.keydownHandler.bindAsEventListener(ImpCompose));
+Event.observe(window, 'resize', ImpCompose.resizeMsgArea.bindAsEventListener(ImpCompose));
+
+/* Other UI event handlers. */
+document.observe('AutoComplete:resize', ImpCompose.resizeMsgArea.bind(ImpCompose));
+document.observe('ImpContacts:update', ImpCompose.onContactsUpdate.bindAsEventListener(ImpCompose));
+
+/* ContextSensitive functions. */
+document.observe('ContextSensitive:click', ImpCompose.contextOnClick.bindAsEventListener(ImpCompose));
+document.observe('ContextSensitive:show', ImpCompose.contextOnShow.bindAsEventListener(ImpCompose));
+
+/* Initialize spellchecker. */
+document.observe('SpellChecker:after', ImpCompose._onSpellCheckAfter.bind(ImpCompose));
+document.observe('SpellChecker:before', ImpCompose._onSpellCheckBefore.bind(ImpCompose));
+document.observe('SpellChecker:error', ImpCompose._onSpellCheckError.bind(ImpCompose));
+document.observe('SpellChecker:noerror', ImpCompose._onSpellCheckNoError.bind(ImpCompose));
 
 /* Catch dialog actions. */
-document.observe('ImpPassphraseDialog:success', ImpCompose.uniqSubmit.bind(ImpCompose, 'send_message'));
+document.observe('ImpPassphraseDialog:success', ImpCompose.retrySubmit.bind(ImpCompose));
+
+/* Catch tasks. */
+document.observe('HordeCore:runTasks', function(e) {
+    ImpCompose.tasksHandler(e.memo);
+});
+
+/* AJAX related events. */
+document.observe('HordeCore:ajaxFailure', ImpCompose.onAjaxFailure.bindAsEventListener(ImpCompose));
+
+/* IMP Editor events. */
+document.observe('IMP_Editor:ready', function(e) {
+    if (e.memo.name == 'composeMessage') {
+        new CKEDITOR.dom.document(
+            e.memo.getThemeSpace('contents').$.down('IFRAME').contentWindow.document)
+        .on('keydown', function(evt) {
+            this.keydownHandler(Event.extend(evt.data.$), true);
+        }.bind(this));
+    }
+}.bindAsEventListener(ImpCompose));
+document.observe('IMP_Editor:dataReady', function(e) {
+    if (e.memo.name == 'composeMessage') {
+        this.RTELoading(false);
+        e.memo.focus();
+        this.resizeMsgArea();
+    }
+}.bindAsEventListener(ImpCompose));

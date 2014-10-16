@@ -236,8 +236,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, $compose_opts);
 
         $page_output->addInlineJsVars(array(
-            'DimpCompose.onload_show' => $onload,
-            'DimpCompose.tasks' => $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks()
+            'ImpCompose.onload_show' => $onload,
+            'ImpCompose.tasks' => $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks()
         ));
 
         Horde::startBuffer();

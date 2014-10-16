@@ -144,7 +144,7 @@ class IMP_Compose_Ui
         }
 
         $page_output->addInlineJsVars(array(
-            'ImpComposeBase.identities' => $identities
+            'ImpCompose.identities' => $identities
         ));
     }
 
