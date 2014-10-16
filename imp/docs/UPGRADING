@@ -45,7 +45,7 @@ outdated.
 Upgrading IMP From 6.2.x To 7.x
 ===============================
 
-The minimal view has been removed.
+The basic and minimal views have been removed.
 
 
 Configuration Options (conf.php)
@@ -62,6 +62,24 @@ Hooks (hooks.php)
 The following hooks have been added::
 
    dynamic_prefs
+
+
+Preferences (prefs.php)
+-----------------------
+
+The following preferences have been removed::
+
+   compose_confirm
+   compose_popup
+   empty_spam_menu
+   empty_trash_menu
+   filter_menuitem
+   max_msgs
+   preview_enabled
+   preview_maxlen
+   preview_show_tooltip
+   preview_show_unread
+   preview_strip_nl
 
 
 

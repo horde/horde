@@ -579,13 +579,11 @@ class IMP_Hooks
     /**
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
-     *   basic: imp/templates/basic/mailbox/mailbox.html
-     *   dynamic: imp/templates/dynamic/msglist_[horiz|vert].html
      *
-     * If you are going to add new columns, you also have to update these
-     * fields:
-     *   basic: imp/lib/Basic/Mailbox.php to specify the column width.
-     *   dynamic: imp/themes/dynamic/screen.css to specify the column width.
+     *   imp/templates/dynamic/msglist_[horiz|vert].html
+     *
+     * If you are going to add new columns, you also have to update the
+     * fields in imp/themes/dynamic/screen.css to specify the column width.
      *
      * @param array $msgs  The mailbox data.
      *
