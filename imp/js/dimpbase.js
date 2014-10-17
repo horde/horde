@@ -1873,9 +1873,6 @@ var DimpBase = {
                             new Element('TD').insert(a.download)
                         )
                     );
-                    if (a.download_zip) {
-                        tmp.down('TD:last').insert(a.download_zip);
-                    }
                 });
             }
         } else {

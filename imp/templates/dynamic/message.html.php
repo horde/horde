@@ -99,7 +99,7 @@
            <tr>
             <td><?php echo $val['icon'] ?></td>
             <td><?php echo $val['description'] ?> (<?php echo $val['size'] ?>)</td>
-            <td><?php echo $val['download'] ?> <?php if (!empty($val['download_zip'])) { echo $val['download_zip']; } ?></td>
+            <td><?php echo $val['download'] ?></td>
            </tr>
 <?php endforeach ?>
           </table>

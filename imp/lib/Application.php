@@ -437,7 +437,7 @@ class IMP_Application extends Horde_Registry_Application
         case 'download_attach':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             $view_ob->checkToken($vars);
-            return $view_ob->downloadAttach($vars->id, $vars->zip);
+            return $view_ob->downloadAttach($vars->id);
 
         case 'download_mbox':
             $mlist = IMP_Mailbox::formFrom($vars->mbox_list);

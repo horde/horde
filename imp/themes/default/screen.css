@@ -518,14 +518,11 @@ span.mimePartInfoSize {
 }
 
 /* Other images. */
-.downloadAtc, .downloadZipAtc, .saveImgAtc {
+.downloadAtc, .saveImgAtc {
     margin-left: 1px;
 }
 .downloadAtc, .saveAsImg {
     background-image: url("graphics/download.png");
-}
-.downloadZipAtc {
-    background-image: url("graphics/mime/compressed.png");
 }
 .printAtc {
     background-image: url("graphics/print.png");
