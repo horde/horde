@@ -284,22 +284,6 @@ class IMP_Flags implements ArrayAccess, Serializable
     }
 
     /**
-     * Process a flag ID formatted for use in form data.
-     *
-     * @param string $id  The ID from form data.
-     *
-     * @return array  Two element array:
-     *   - flag: (string) The flag name.
-     *   - set: (boolean) Whether the flag should be set or not.
-     */
-    public function parseFormId($id)
-    {
-        return (strpos($id, '0\\') === 0)
-            ? array('flag' => substr($id, 2), 'set' => false)
-            : array('flag' => $id, 'set' => true);
-    }
-
-    /**
      * Returns a list of flags that have changed due to IMAP flag changes.
      *
      * @param array $flags  The list of IMAP flags added/removed.

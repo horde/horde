@@ -264,7 +264,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
 
                 case 'flag':
                     /* Flag search. */
-                    $formdata = $imp_flags->parseFormId(rawurldecode($val->v));
+                    $formdata = (strpos($id, '0\\') === 0)
+                        ? array('flag' => substr($id, 2), 'set' => false)
+                        : array('flag' => $id, 'set' => true);
                     $c_list[] = new IMP_Search_Element_Flag(
                         $formdata['flag'],
                         ($formdata['set'] && !$val->n)

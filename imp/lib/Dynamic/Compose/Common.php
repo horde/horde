@@ -23,6 +23,13 @@
 class IMP_Dynamic_Compose_Common
 {
     /**
+     * True if spellchecker has been attached.
+     *
+     * @var boolean
+     */
+    protected $_spellInit = false;
+
+    /**
      * Create content needed to output the compose page.
      *
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
@@ -59,7 +66,7 @@ class IMP_Dynamic_Compose_Common
             return $view->render('redirect');
         }
 
-        $view->spellcheck = $injector->getInstance('IMP_Compose_Ui')->attachSpellChecker();
+        $view->spellcheck = $this->_attachSpellChecker();
 
         $this->_compose($base, $view, $args);
         return $view->render('compose') . (isset($args['redirect']) ? '' : $view->render('redirect'));
@@ -78,7 +85,7 @@ class IMP_Dynamic_Compose_Common
         $selected_identity = intval($identity->getDefault());
 
         /* Generate identities list. */
-        $injector->getInstance('IMP_Compose_Ui')->addIdentityJs();
+        $this->_addIdentityJs();
 
         if ($session->get('imp', 'rteavail')) {
             $view->compose_html = !empty($args['show_editor']);
@@ -254,6 +261,86 @@ class IMP_Dynamic_Compose_Common
             'toggle_html' => _("Discard all text formatting information (by converting from HTML to plain text)? This conversion cannot be reversed."),
             'uploading' => _("Uploading...")
         );
+    }
+
+    /**
+     * Attach the spellchecker to the current compose form.
+     *
+     * @return boolean  True if spellchecker is active.
+     */
+    protected function _attachSpellChecker()
+    {
+        global $conf, $injector;
+
+        if (empty($conf['spell']['driver'])) {
+            return false;
+        } elseif ($this->_spellInit) {
+            return true;
+        }
+
+        $injector->getInstance('Horde_Core_Factory_Imple')->create('SpellChecker', array(
+            'id' => 'spellcheck',
+            'states' => array(
+                'CheckSpelling' => _("Check Spelling"),
+                'Checking' => _("Checking..."),
+                'Error' => _("Spell Check Failed"),
+                'ResumeEdit' => _("Resume Editing")
+            ),
+            'targetId' => 'composeMessage'
+        ));
+
+        $this->_spellInit = true;
+
+        return true;
+    }
+
+    /**
+     */
+    public function addIdentityJs()
+    {
+        global $injector, $page_output;
+
+        $identities = array();
+        $identity = $injector->getInstance('IMP_Identity');
+
+        $sigs = $identity->hasSignature(true);
+
+        foreach (array_keys(iterator_to_array($identity)) as $ident) {
+            $sm = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
+
+            $entry = array(
+                // Sent mail mailbox name
+                'sm_name' => $sm ? $sm->form_to : '',
+                // Save in sent mail mailbox by default?
+                'sm_save' => (bool)$identity->saveSentmail($ident),
+                // Sent mail display name
+                'sm_display' => $sm ? $sm->display_html : '',
+                // Bcc addresses to add
+                'bcc' => strval($identity->getBccAddresses($ident))
+            );
+
+            if ($sigs) {
+                $sig = $identity->getSignature('text', $ident);
+                $html_sig = $identity->getSignature('html', $ident);
+                if (!strlen($html_sig) && strlen($sig)) {
+                    $html_sig = IMP_Compose::text2html($sig);
+                }
+                $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
+                $html_sig = '';
+                foreach ($sig_dom->getBody()->childNodes as $child) {
+                    $html_sig .= $sig_dom->dom->saveXml($child);
+                }
+
+                $entry['sig'] = trim($sig);
+                $entry['hsig'] = $html_sig;
+            }
+
+            $identities[] = $entry;
+        }
+
+        $page_output->addInlineJsVars(array(
+            'ImpCompose.identities' => $identities
+        ));
     }
 
 }

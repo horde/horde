@@ -510,7 +510,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function sendMessage()
     {
-        global $injector, $notification, $page_output, $prefs;
+        global $notification, $page_output, $prefs;
 
         try {
             list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup('sendMessage');
@@ -569,18 +569,17 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
 
             if ($e->encrypt) {
-                $imp_ui = $injector->getInstance('IMP_Compose_Ui');
                 switch ($e->encrypt) {
                 case 'pgp_symmetric_passphrase_dialog':
-                    $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
+                    $this->_passphraseDialog('pgp_symm', $imp_compose->getCacheId());
                     break;
 
                 case 'pgp_passphrase_dialog':
-                    $imp_ui->passphraseDialog('pgp');
+                    $this->_passphraseDialog('pgp');
                     break;
 
                 case 'smime_passphrase_dialog':
-                    $imp_ui->passphraseDialog('smime');
+                    $this->_passphraseDialog('smime');
                     break;
                 }
 
@@ -740,6 +739,38 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 }
             }
         }
+    }
+
+    /**
+     * Outputs the script necessary to generate the passphrase dialog box.
+     *
+     * @param string $type     Either 'pgp', 'pgp_symm', or 'smime'.
+     * @param string $cacheid  Compose cache ID (only needed for 'pgp_symm').
+     */
+    protected function _passphraseDialog($type, $cacheid = null)
+    {
+        $params = array('onload' => true);
+
+        switch ($type) {
+        case 'pgp':
+            $type = 'pgpPersonal';
+            break;
+
+        case 'pgp_symm':
+            $params = array('symmetricid' => 'imp_compose_' . $cacheid);
+            $type = 'pgpSymmetric';
+            break;
+
+        case 'smime':
+            $type = 'smimePersonal';
+            break;
+        }
+
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_PassphraseDialog', array(
+            'onload' => true,
+            'params' => $params,
+            'type' => $type
+        ));
     }
 
 }
