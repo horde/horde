@@ -1418,7 +1418,7 @@ $_prefs['initialpageselect'] = array(
 );
 
 // The initial page to display. Either:
-//   - IMP::INITIAL_FOLDERS (display folders page)
+//   - IMP::INITIAL_FOLDERS (display folders page; smartmobile only)
 //   - mailbox name (defaults to INBOX)
 $_prefs['initial_page'] = array(
     'value' => ''

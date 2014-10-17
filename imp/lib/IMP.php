@@ -68,6 +68,7 @@ class IMP
     }
 
     /**
+     * Get size display information.
      *
      * @param integer $size  The byte size of data.
      *
