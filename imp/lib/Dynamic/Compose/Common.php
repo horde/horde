@@ -296,7 +296,7 @@ class IMP_Dynamic_Compose_Common
 
     /**
      */
-    public function addIdentityJs()
+    protected function _addIdentityJs()
     {
         global $injector, $page_output;
 
