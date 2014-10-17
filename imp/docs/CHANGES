@@ -2,6 +2,7 @@
 v6.3.0-git
 ----------
 
+[mms] Removed basic view.
 [mms] Do autocomplete search on browser, if sufficient data exists, to save
       calls to contacts backend.
 [mms] Removed minimal view.
