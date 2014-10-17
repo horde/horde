@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-16</date>
+ <date>2014-10-17</date>
  <version>
   <release>6.3.0</release>
   <api>6.2.0</api>
@@ -990,9 +990,6 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
-     <dir name="basic">
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /themes/default/basic -->
      <dir name="block">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/block -->
@@ -1088,8 +1085,6 @@
       <file name="download.png" role="horde" />
       <file name="drafts.png" role="horde" />
       <file name="edit.png" role="horde" />
-      <file name="empty_spam.png" role="horde" />
-      <file name="empty_trash.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="fetchmail.png" role="horde" />
       <file name="filters.png" role="horde" />
@@ -2023,7 +2018,6 @@
    <install as="imp/themes/default/mime.css" name="themes/default/mime.css" />
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
-   <install as="imp/themes/default/basic/screen.css" name="themes/default/basic/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
@@ -2052,8 +2046,6 @@
    <install as="imp/themes/default/graphics/download.png" name="themes/default/graphics/download.png" />
    <install as="imp/themes/default/graphics/drafts.png" name="themes/default/graphics/drafts.png" />
    <install as="imp/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
-   <install as="imp/themes/default/graphics/empty_spam.png" name="themes/default/graphics/empty_spam.png" />
-   <install as="imp/themes/default/graphics/empty_trash.png" name="themes/default/graphics/empty_trash.png" />
    <install as="imp/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="imp/themes/default/graphics/fetchmail.png" name="themes/default/graphics/fetchmail.png" />
    <install as="imp/themes/default/graphics/filters.png" name="themes/default/graphics/filters.png" />

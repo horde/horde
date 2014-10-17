@@ -559,18 +559,6 @@ span.mimePartInfoSize {
 .addrbookaddImg {
     background-image: url("graphics/add_contact.png");
 }
-.spellcheckImg {
-    background-image: url("graphics/spellcheck.png");
-}
-.emptytrashImg {
-    background-image: url("graphics/empty_trash.png");
-}
-.filtersIcon {
-    background-image: url("graphics/filters.png");
-}
-.refreshIcon {
-    background-image: url("graphics/reload.png");
-}
 
 /* Autocomplete styles. */
 .impACBox {
