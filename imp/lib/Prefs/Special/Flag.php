@@ -45,6 +45,9 @@ class IMP_Prefs_Special_Flag implements Horde_Core_Prefs_Ui_Special
             $page_output->addScriptFile('prefs/flag.js');
         }
 
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $page_output->addInlineJsVars(array(
             'ImpFlagPrefs.new_prompt' => _("Please enter the label for the new flag:"),
             'ImpFlagPrefs.confirm_delete' => _("Are you sure you want to delete this flag?")

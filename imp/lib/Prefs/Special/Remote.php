@@ -46,6 +46,9 @@ class IMP_Prefs_Special_Remote implements Horde_Core_Prefs_Ui_Special
             'ImpRemotePrefs.wait' => _("Please wait...")
         ));
 
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));

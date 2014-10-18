@@ -36,6 +36,9 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));
