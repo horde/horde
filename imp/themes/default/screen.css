@@ -177,20 +177,6 @@ span.iconImg.flagDeleted {
     font-weight:bold;
 }
 
-/* Contacts styles. */
-#contactstable #search {
-    width: 35%;
-}
-#contactstable #search_results, #contactstable #selected_addresses {
-    width: 100%;
-}
-.contactsButtons {
-    text-align: center;
-}
-.contactsButtons input {
-    width: 60px;
-}
-
 /* Large addresslist display. */
 .largeaddrlist,
 .largeaddrlistlimit {
