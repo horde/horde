@@ -163,6 +163,9 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
         $page_output->noDnsPrefetch();
 
+        $t_css = new Horde_Themes_Element('thread.css');
+        $page_output->addStylesheet($t_css->fs, $t_css->uri);
+
         $this->output = $view->render('thread');
 
         $page_output->topbar = $page_output->sidebar = false;
