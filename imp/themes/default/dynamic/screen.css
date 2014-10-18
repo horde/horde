@@ -396,9 +396,6 @@ div.vpRowVert div.msgSubject {
 .msgHeaders a {
     color: #000;
 }
-.msgfullread .msgHeaders {
-    cursor: default;
-}
 
 .msgHeaders table thead td.label {
     display: block;
@@ -407,18 +404,11 @@ div.vpRowVert div.msgSubject {
     text-align: right;
     white-space: nowrap;
 }
-.msgfullread .msgHeaders table thead td.label {
-    padding-left: 3px;
-}
 .msgHeaders .subject {
     font-weight: bold;
 }
 #msgHeaderAtc td.label {
     display: table-cell;
-}
-#msgHeaderAtc td.label a {
-    font-weight: normal;
-    padding-right: 2px;
 }
 
 .atcLabel, .msgLogLabel {
@@ -473,21 +463,6 @@ div.vpRowVert div.msgSubject {
 /* Message body formatting. */
 .messageBody {
     padding: 10px;
-}
-.msgfullread div.messageBody {
-    overflow: auto;
-}
-.msgfullread div.subject {
-    font-size: 120%;
-    font-weight: bold;
-    max-height: 50px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 5px;
-}
-
-div.msgfullread span.messagePrintShow {
-    display: none;
 }
 
 /* Context Menus */
@@ -823,22 +798,4 @@ span.readonlyImg {
 }
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
-}
-
-@media print {
-    /* Hide UI elements when printing message in popup window. */
-    div.msgfullread div.dimpOptions,
-    div.msgfullread div.mimePartInfo a.iconImg,
-    div.msgfullread span.messagePrintNoShow {
-        display: none;
-    }
-
-    div.msgfullread span.messagePrintShow {
-        display: inline;
-    }
-
-    div.msgfullread div.messageBody{
-        height: auto !important;
-        overflow: visible;
-    }
 }

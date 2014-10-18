@@ -997,6 +997,7 @@
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
       <file name="compose.css" role="horde" />
+      <file name="message.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -2025,6 +2026,7 @@
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="imp/themes/default/dynamic/compose.css" name="themes/default/dynamic/compose.css" />
+   <install as="imp/themes/default/dynamic/message.css" name="themes/default/dynamic/message.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
