@@ -13,333 +13,8 @@ input {
 .nojserror {
     color: red;
 }
-
-/* Splitbar styles. */
-#msgSplitPane {
-    border-bottom: 1px solid #d0d0d0;
-    overflow: hidden;
-}
-.horde-splitbar-horiz {
-    height: 7px;
-    background-position: center -1px;
-}
-
-/* Message List */
-.horde-buttonbar,
-#msglistHeaderHoriz .msgSize {
+.horde-buttonbar {
     padding-right: 12px;
-}
-#msglistHeaderHoriz {
-    border-bottom: 0;
-}
-
-#msglistHeaderVert {
-    white-space: nowrap;
-}
-
-#msglistHeaderContainer .horde-popdown {
-    display: inline-block;
-    float: none;
-    margin-bottom: -8px;
-    margin-top: -4px;
-}
-#msglistHeaderContainer .sortup,
-#msglistHeaderContainer .sortdown {
-    margin-top: 3px;
-    padding-top: 0;
-}
-
-.horde-table-header .horde-split-left {
-    width: 2px;
-    height: 22px;
-    margin: 0 5px 0 -6px;
-    top: 0;
-}
-
-/* Columns */
-div.msgStatus {
-    /* Ignore white-space in element. */
-    font-size: 0;
-    margin-top: 1px;
-    padding-left: 8px;
-    width: 70px;
-}
-div.msgFrom {
-    left: 85px;
-    width: 150px;
-}
-div.msgFrom a {
-    color: inherit;
-}
-div.msgSubject {
-    left: 240px;
-    right: 225px;
-}
-div.msgDate {
-    text-align: right;
-    right: 88px;
-    width: 130px;
-}
-div.msgSize {
-    text-align: right;
-    right: 18px;
-    width: 50px;
-}
-div.msgSort {
-    float: right;
-    padding-top: 2px;
-}
-
-/* Message ViewPort */
-span.vpEmpty {
-    display: block;
-    padding: 15px 80px 10px 35px;
-    background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
-    color: #a0a0a0;
-    line-height: 18px;
-}
-
-/* Rows */
-div.vpRow {
-    border-bottom: 1px solid #d0d0d0;
-    cursor: pointer;
-    height: 21px;
-    overflow: hidden;
-}
-div.vpRow div {
-    overflow: hidden;
-    padding-top: 4px;
-    position: absolute;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    white-space: nowrap;
-}
-div.vpRow div.iconImg {
-    position: relative;
-    margin-top: -3px;
-    width: 16px;
-}
-div.vpRow div.horde-popdown {
-    position: relative;
-    width: 16px;
-    margin-top: -4px;
-}
-div.vpRowSelected {
-    background-color: #36525d !important;
-    color: #fff;
-}
-div.vpRowHoriz div.sep {
-    padding-left: 5px;
-}
-
-/* Rows: flags. */
-div.flagLowpriority {
-    font-weight: normal !important;
-}
-div.flagUnseen {
-    font-weight: bold;
-}
-div.flagDeleted * {
-    text-decoration: line-through;
-}
-div.vpRowSelected .msgflags.flagPersonal {
-    background-image: url("../graphics/flags/personal-inv.png");
-}
-div.vpRowSelected .msgflags.flagHighpriority {
-    background-image: url("../graphics/flags/priority_high-inv.png");
-}
-div.vpRowSelected .msgflags.flagLowpriority {
-    background-image: url("../graphics/flags/priority_low-inv.png");
-}
-div.vpRowSelected .msgflags.flagSignedmsg {
-    background-image: url("../graphics/flags/signed-inv.png");
-}
-div.vpRowSelected .msgflags.flagEncryptmsg {
-    background-image: url("../graphics/flags/encrypted-inv.png");
-}
-div.vpRowSelected .msgflags.flagAttachmsg {
-    background-image: url("../graphics/flags/attachment-inv.png");
-}
-div.vpRowSelected .msgflags.flagList {
-    background-image: url("../graphics/flags/group-inv.png");
-}
-div.vpRowSelected .msgflags.flagJunk {
-    background-image: url("../graphics/flags/spam-inv.png");
-}
-div.vpRowSelected .msgflags.flagNotJunk {
-    background-image: url("../graphics/flags/innocent-inv.png");
-}
-div.vpRowSelected .msgflags.flagUnseen {
-    background-image: url("../graphics/flags/unseen-inv.png");
-}
-div.vpRowSelected .msgflags.flagAnswered {
-    background-image: url("../graphics/flags/answered-inv.png");
-}
-div.vpRowSelected .msgflags.flagDraft {
-    background-image: url("../graphics/flags/draft-inv.png");
-}
-div.vpRowSelected .msgflags.flagForwarded {
-    background-image: url("../graphics/flags/forwarded-inv.png");
-}
-div.vpRowSelected .msgflags.flagFlagged {
-    background-image: url("../graphics/flags/flagged-inv.png");
-}
-div.vpRowSelected .msgflags.flagDeleted {
-    background-image: url("../graphics/flags/deleted-inv.png");
-}
-
-/* Checkbox images */
-.msCheck {
-    background-image: url("../graphics/checkbox_off.png");
-}
-.msCheck:hover {
-    background-image: url("../graphics/checkbox_over.png") !important;
-}
-.msCheckOn,
-div.vpRowSelected .msCheck {
-    background-image: url("../graphics/checkbox_on.png");
-}
-div.msgStatus .msCheck {
-    margin-right: 1px;
-}
-.msCheckAll {
-    cursor: pointer;
-}
-
-/* Rows (vertical mode) */
-div.vpRowVert {
-    height: auto;
-    padding-top: 4px;
-}
-div.vpRowVert div {
-    height: 20px;
-    padding-top: 0;
-    position: relative;
-}
-div.vpRowVert div.msgStatus {
-    float: left;
-    height: 24px;
-    margin-right: 2px;
-    padding-top: 16px;
-    width: 15%;
-}
-div.vpRowVert div.msgFrom {
-    left: auto;
-    width: auto;
-}
-div.vpRowVert div.msgDate {
-    float: right;
-    right: auto;
-    padding-right: 5px;
-    width: auto;
-}
-div.vpRowVert div.msgSubject {
-    left: auto;
-    right: auto;
-    color: gray;
-    padding-right: 5px;
-}
-
-/* ViewPort - scroller */
-.vpScroll {
-    background: url("../graphics/scroller_back.png") repeat-y;
-}
-.vpScrollCursor {
-    background: url("../graphics/scroller.png") repeat-y;
-    border-left: 1px solid silver;
-    width: 13px;
-}
-.vpScrollDown, .vpScrollUp {
-    border-left: 1px solid silver;
-    height: 16px;
-    width: 13px;
-}
-.vpScrollUp {
-    background-image: url("../graphics/sbcursor_top.png");
-}
-.vpScrollDown {
-    background-image: url("../graphics/sbcursor_bottom.png");
-    border-bottom: 1px solid #d0d0d0;
-}
-#slider_count {
-    background-color: #ECEFF0;
-    font-weight: bold;
-    padding: 2px;
-    position: absolute;
-    opacity: 0.85;
-}
-
-/* IFRAMEs */
-#dimpmain_iframe iframe {
-    border: 0;
-    width: 100%;
-}
-
-/* Sidebar */
-#foldersLoading {
-    padding: 10px;
-}
-#horde-sidebar .horde-info {
-    display: none;
-}
-#ctx_mbox_sub span.iconImg,
-#ctx_mbox_unsub span.iconImg,
-#ctx_folderopts_sub span.iconImg,
-#ctx_folderopts_unsub span.iconImg,
-.folderoptsImg {
-    background-image: url("../graphics/folders/folder.png");
-}
-.horde-subnavi-icon.col,
-#ctx_folderopts_collapse span.iconImg,
-#ctx_container_collapse span.iconImg,
-#ctx_mbox_collapse span.iconImg {
-    background-image: url("../graphics/folders/minus.png");
-}
-.horde-subnavi-icon.exp,
-#ctx_folderopts_expand span.iconImg,
-#ctx_container_expand span.iconImg,
-#ctx_mbox_expand span.iconImg {
-    background-image: url("../graphics/folders/plus.png");
-}
-#imp-normalmboxes {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-#imp-normalmboxes div.imp-sidebar-unsubmbox {
-    font-style: italic;
-}
-.imp-sidebar-container:hover {
-    background: none;
-}
-.imp-sidebar-container a:hover {
-    cursor: default;
-    text-decoration: none;
-}
-.imp-sidebar-container a,
-.imp-sidebar-mbox-loading {
-    color: #555 !important;
-}
-.horde-subnavi-icon.col,
-.horde-subnavi-icon.exp {
-    cursor: pointer;
-}
-
-#dropbase a {
-    display: inline !important;
-    padding-right: 1px;
-}
-#dropbase:hover {
-    font-weight: normal !important;
-}
-
-#foldersSidebar .horde-popdown,
-.dimpOptions .horde-popdown,
-.atcrow .horde-popdown {
-    display: inline-block;
-    float: none;
-    height: 16px;
-    margin-top: -3px;
-    width: 16px;
 }
 
 /* Message options. */
@@ -365,23 +40,12 @@ div.vpRowVert div.msgSubject {
 }
 .dimpOptions .horde-popdown,
 .atcrow .horde-popdown {
+    display: inline-block;
+    float: none;
+    height: 16px;
+    margin-top: -3px;
     padding-left: 4px;
-}
-
-/* Actions */
-#button_compose {
-    display: none;
-}
-
-/* Preview pane styles. */
-#previewPane {
-    overflow: auto;
-}
-#previewInfo {
-    background: transparent url("../graphics/ico_message_off.png") no-repeat scroll 10px 15px;
-    color: #a0a0a0;
-    line-height: 18px;
-    padding: 15px 80px 10px 40px;
+    width: 16px;
 }
 
 /* Headers styles. */
@@ -435,26 +99,6 @@ div.vpRowVert div.msgSubject {
     cursor: pointer;
 }
 
-/* Preview small header */
-#msgHeadersColl {
-    line-height: 20px;
-}
-#msgHeadersColl ul {
-    list-style: none;
-    overflow: hidden;
-    white-space: nowrap;
-}
-#msgHeadersColl li {
-    float: left;
-}
-#msgHeadersColl .date {
-    margin-left: 5px;
-}
-#msgHeadersColl .from .horde-button {
-    line-height: 16px !important;
-    margin: 0;
-}
-
 /* Message body formatting. */
 .messageBody {
     padding: 10px;
@@ -483,90 +127,9 @@ div.vpRowVert div.msgSubject {
     padding: 4px 2px 3px;
 }
 
-/* Drag and drop styles. */
-.drag, .dragdrop, .mboxdrag, .msgdrag {
-    background: #eee;
-    border: 1px solid #ccc;
-    font-size: 12px;
-    overflow: hidden;
-    z-index: 999;
-}
-.dragdrop {
-    color: red;
-}
-.dragdrop, .mboxdrag, .msgdrag {
-    padding: 2px;
-}
-.imp-sidebar-mbox.mboxdrag {
-    height: auto !important;
-}
-
-/* Search-related styles */
-.qsearchMatch {
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-#searchbar {
-    background-color: #ffa;
-    padding: 8px 10px;
-}
-#search_close, #search_edit, #search_refresh, #viewport_error_refresh {
-    cursor: pointer;
-    float: right;
-    margin-top: -1px;
-}
-#searchbar #search_label {
-    font-weight: bold;
-}
-#searchbar #search_time_elapsed {
-    float: right;
-    padding-right: 12px;
-}
-
-/* Viewport error */
-#viewport_error {
-    background-color: #f03232;
-    padding: 8px 10px;
-}
-#viewport_error div {
-    font-weight: bold;
-}
-
-/* Redbox styles. */
-#RB_window {
-    max-width: 50%;
-}
-#RB_window input[type="text"], #RB_window select {
-    display: block;
-    margin: 2px 0;
-}
-.RB_Form {
-    width: 20em;
-    padding: 6px;
-    border: 1px solid #ccc;
-}
-.RB_Form input {
-    margin: .2em;
-}
-#mbox_import {
-    overflow: hidden;
-}
-
 /* Images */
 span.iconImg {
     margin-right: 4px;
-}
-
-/* Sidebar images. */
-span.infoIcon {
-    background-image: url("../graphics/info_icon.png");
-}
-span.prefsIcon {
-    background-image: url("../graphics/prefs.png");
-}
-span.logoutIcon {
-    background-image: url("../graphics/logout.png");
 }
 
 /* Dimp action images. */
@@ -582,32 +145,11 @@ span.logoutIcon {
 .dimpactionInnocent {
     background-image: url("../graphics/innocent.png");
 }
-.dimpactionCompose {
-    background-image: url("../graphics/compose.png");
-}
-.dimpactionCheckmail {
-    background-image: url("../graphics/checkmail.png");
-}
-.dimpactionRefresh {
-    background-image: url("../graphics/reload.png");
-}
-.imp-loading {
-    background-image: url("../graphics/reload.gif");
-}
 .dimpactionDelete {
     background-image: url("../graphics/delete.png");
 }
-.dimpactionOther, .dimpactionSort {
-    background-image: url("../graphics/plus.png");
-}
-.dimpactionEditsearch {
-    background-image: url("../graphics/edit.png");
-}
 .dimpactionResume {
     background-image: url("../graphics/drafts.png");
-}
-.dimpactionFilter {
-    background-image: url("../graphics/filters.png");
 }
 
 /* Context menu images */
@@ -740,49 +282,6 @@ span.logoutIcon {
     background-color: inherit;
     background-position: center;
     padding: 0;
-}
-
-div.vpRow div.msgSubject span.flagUser {
-    font-size: 90%;
-    font-weight: normal;
-    margin-right: 3px;
-    padding: 1px;
-    position: relative;
-    top: -2px;
-}
-
-/* Thread images */
-div.msgSubject span.horde-tree-image {
-    margin-top: -3px;
-    margin-right: 1px;
-}
-
-/* Other images */
-#msg_newwin_options span.iconImg {
-    background-image: url("../graphics/newwin.png");
-}
-#preview_other span.iconImg {
-    background-image: url("../graphics/plus.png");
-    cursor: pointer;
-    margin: 0 0 0 4px;
-}
-#th_expand, #partlist_col, #msgloglist_col {
-    background-image: url("../graphics/arrow_collapsed.png");
-    cursor: pointer;
-    margin: 3px 0 -3px;
-}
-#th_collapse, #partlist_exp, #msgloglist_exp {
-    background-image: url("../graphics/arrow_expanded.png");
-    cursor: pointer;
-    margin: 3px 0 -3px;
-}
-#th_collapse {
-    margin: 4px 0 -2px;
-}
-
-span.readonlyImg {
-    background-image: url("../graphics/locked-inv.png");
-    margin: -1px 0 0 3px;
 }
 
 /* Growler notification styles. */
