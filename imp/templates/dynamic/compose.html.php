@@ -21,7 +21,7 @@
 <?php if (!$this->is_template): ?>
   <ul>
    <li class="horde-icon">
-    <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+    <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Send', 'id' => 'send_button', 'title' => _("Send"))) ?>
    </li>
 <?php endif; ?>
 <?php endif; ?>

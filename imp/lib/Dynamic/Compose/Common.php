@@ -53,6 +53,8 @@ class IMP_Dynamic_Compose_Common
             $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
         }
 
+        $page_output->addThemeStylesheet('compose.css');
+
         $this->_addComposeVars($base);
 
         $view = $base->getEmptyView();

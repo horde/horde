@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-17</date>
+ <date>2014-10-18</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -166,6 +166,7 @@
     <dir name="Basic">
      <file name="Base.php" role="horde" />
      <file name="Contacts.php" role="horde" />
+     <file name="Error.php" role="horde" />
      <file name="Listinfo.php" role="horde" />
      <file name="Pgp.php" role="horde" />
      <file name="Saveimage.php" role="horde" />
@@ -995,6 +996,7 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
+      <file name="compose.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -1144,6 +1146,7 @@
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
+   <file name="basic.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="dynamic.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -1569,6 +1572,7 @@
    <install as="imp/lib/Ajax/Imple/VcardImport.php" name="lib/Ajax/Imple/VcardImport.php" />
    <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
+   <install as="imp/lib/Basic/Error.php" name="lib/Basic/Error.php" />
    <install as="imp/lib/Basic/Listinfo.php" name="lib/Basic/Listinfo.php" />
    <install as="imp/lib/Basic/Pgp.php" name="lib/Basic/Pgp.php" />
    <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
@@ -2020,6 +2024,7 @@
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
+   <install as="imp/themes/default/dynamic/compose.css" name="themes/default/dynamic/compose.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
@@ -2151,6 +2156,7 @@
    <install as="imp/themes/default/graphics/nav/right.png" name="themes/default/graphics/nav/right.png" />
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="imp/attachment.php" name="attachment.php" />
+   <install as="imp/basic.php" name="basic.php" />
    <install as="COPYING" name="COPYING" />
    <install as="imp/dynamic.php" name="dynamic.php" />
    <install as="imp/index.php" name="index.php" />

@@ -14,20 +14,6 @@ input {
     color: red;
 }
 
-/* SpellChecker styles. */
-.spellcheckChecking,
-.spellcheckIncorrect {
-    color: red;
-}
-.spellcheckCorrected {
-    color: #090;
-}
-.spellcheckIncorrect,
-.spellcheckCorrected {
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 /* Splitbar styles. */
 #msgSplitPane {
     border-bottom: 1px solid #d0d0d0;
@@ -504,257 +490,6 @@ div.msgfullread span.messagePrintShow {
     display: none;
 }
 
-/* Message Composition. */
-.composeAddrbook, #togglebcc, #togglecc {
-    color: #36525d;
-    cursor: pointer;
-}
-#togglebcc, #togglecc {
-    padding-right: 5px;
-}
-.composeAddrbook:hover, #togglebcc:hover, #togglecc:hover {
-    text-decoration: underline;
-}
-
-#writemsg input.checkbox {
-    margin-right: 2px;
-}
-
-#priority_label, #encrypt_label {
-    margin-left: 2px;
-}
-
-#composeContainer .header, #qreply .header {
-    background-color: #eceff0;
-    border-bottom: 1px solid #d0d0d0;
-    padding: 10px;
-}
-.msgwrite {
-    background-color: #eceff0;
-    border-bottom: 1px solid #d0d0d0;
-    cursor: default;
-    padding: 10px;
-}
-.msgwrite .dimpOptions {
-    padding: 8px 8px 0 0;
-}
-.msgwrite .dimpOptions label {
-    cursor: pointer;
-}
-.msgwrite .dimpOptions input {
-    min-height: 0px;
-}
-.msgwrite .dimpOptions .horde-popdown {
-    height: 18px;
-    margin-top: -6px;
-}
-.msgwrite #other_options .horde-popdown {
-    height: 16px;
-}
-#noticerow li span.closeImg {
-    float: right;
-    margin: -1px 0 0;
-    padding-left: 3px;
-}
-.msgwrite tr {
-    vertical-align: top;
-}
-.msgwrite td.label {
-    white-space: nowrap;
-    text-align: right;
-    padding: 4px 4px 0 4px;
-    font-weight: bold;
-}
-.msgwrite span.loadingImg {
-    float: right;
-    margin-top: auto;
-    padding: 2px;
-    position: relative;
-    right: 8px;
-    filter: alpha(opacity=75);
-    -moz-opacity: .75;
-    opacity: .75;
-}
-
-#compose_upload_add {
-    color: #36525d;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    margin-top: 4px;
-}
-#compose_upload_add:hover {
-    text-decoration: underline;
-}
-#upload {
-    position: absolute;
-    top: -5000px;
-}
-.atcrow .horde-popdown {
-    padding-left: 0;
-}
-
-.atcrow td {
-    border-collapse: collapse;
-}
-#atcdrop {
-    border: 1px dashed #999;
-    display: table-cell;
-    color: #999;
-    font-size: 110%;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
-}
-.atcdrop_over {
-    border-color: #111 !important;
-    color: #111 !important;
-}
-
-#noticerow .notices li {
-    display: inline-block;
-    padding: 3px;
-}
-
-#composeMessageParent {
-    padding: 5px;
-}
-#composeMessage {
-    background-color: #fff;
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-#signatureParent {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #eceff0;
-    border-top: 1px solid #d0d0d0;
-    cursor: default;
-    padding: 6px;
-}
-#signatureBorder {
-    height: 4.4em;
-    margin-top: 4px;
-}
-#signatureParent .label {
-    white-space: nowrap;
-    font-weight: bold;
-    line-height: 12px;
-}
-#signature {
-    height: 100%;
-    width: 100%;
-    border: 0;
-    background-color: #fff;
-}
-#signatureToggle {
-    cursor: pointer;
-    float: left;
-    height: 14px;
-    width: 12px;
-}
-#signatureToggle {
-    background-image: url("../graphics/arrow_collapsed.png");
-}
-#signatureToggle.signatureExpanded {
-    background-image: url("../graphics/arrow_expanded.png");
-}
-
-#rteloading {
-    position: absolute;
-    z-index: 100;
-    background-color: #000;
-    filter: alpha(opacity=35);
-    -moz-opacity: .35;
-    opacity: .35;
-}
-#rteloadingtxt {
-    position: absolute;
-    background-color: #fff;
-    z-index: 101;
-}
-
-#encrypt_label,
-#priority_label,
-#sent_mail_label {
-    cursor: default;
-    font-weight: bold;
-}
-
-#save_sent_mail_load {
-    padding-left: 0;
-}
-
-/* Attachment file list */
-#attach_list {
-    list-style: none;
-    max-height: 125px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 0 0 2px;
-    width: 500px;
-}
-#attach_list canvas {
-    margin-bottom: -4px;
-    padding-right: 4px;
-}
-#attach_list li {
-    padding-top: 7px;
-}
-#attach_list span.attachName, #attach_list span.attachNameNoview {
-    padding-right: 3px;
-}
-#attach_list span.attachName {
-    color: #36525d;
-    cursor: pointer;
-    text-decoration: underline;
-}
-#attach_list span.attachName:hover {
-    color: red;
-}
-
-#attach_list li.attach_upload {
-    width: 500px;
-}
-#attach_list span.attach_upload_text {
-    display: inline-block;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    white-space: nowrap;
-}
-#attach_list span.attach_upload_text span {
-    padding-left: 5px;
-}
-#attach_list span.attach_upload_text_progress {
-    max-width: 290px;
-    margin-right: 10px;
-}
-#attach_list span.attach_upload_progress {
-    background-image: url("../graphics/progress.png");
-    border-radius: 10px;
-    height: 8px;
-    margin-top: 4px;
-    position: absolute;
-    width: 200px;
-}
-
-#upload_limit {
-    color: darkred;
-    display: inline-block;
-    margin-top: 4px;
-}
-
-span.attachmentImg {
-    background-image: url("../graphics/attachment.png");
-}
-
 /* Context Menus */
 .context div.contactAddr, .context div.mboxName {
     font-style: italic;
@@ -847,13 +582,6 @@ span.attachmentImg {
     overflow: hidden;
 }
 
-/* Popup message styling. */
-.headercloseimg {
-    float: right !important;
-    cursor: pointer;
-    margin-top: 6px;
-}
-
 /* Images */
 span.iconImg {
     margin-right: 4px;
@@ -900,12 +628,6 @@ span.logoutIcon {
 }
 .dimpactionOther, .dimpactionSort {
     background-image: url("../graphics/plus.png");
-}
-.dimpactionDrafts, .dimpactionTemplates {
-    background-image: url("../graphics/drafts.png");
-}
-.dimpactionSpellcheck {
-    background-image: url("../graphics/spellcheck.png");
 }
 .dimpactionEditsearch {
     background-image: url("../graphics/edit.png");
@@ -1102,14 +824,6 @@ span.readonlyImg {
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
 }
-
-/* Autocomplete styles. */
-.impACGroupExpand {
-    background: lightgrey;
-    color: blue;
-    margin-left: 5px;
-}
-
 
 @media print {
     /* Hide UI elements when printing message in popup window. */
