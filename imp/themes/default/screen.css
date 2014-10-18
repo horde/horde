@@ -8,11 +8,6 @@
     margin-left: 20px;
 }
 
-.mboxheader {
-    font-size: 110%;
-    text-align: left;
-}
-
 /* Attachment tree styling. */
 div.partsTreeDiv {
     min-height: 0;
@@ -143,10 +138,6 @@ div.partsTreeDiv {
  * For background color, see config/prefs.php [msgflags preference]. */
 .msgflags {
     margin-right: 1px;
-}
-
-.mboxheader .msgflags {
-    vertical-align: sub;
 }
 
 .msgflags.iconImg {
@@ -502,16 +493,8 @@ span.mimePartInfoSize {
 .closeImg {
     background-image: url("graphics/close.png");
 }
-.reloadImg {
-    background-image: url("graphics/reload.png");
-}
 .editImg {
     background-image: url("graphics/edit.png");
-}
-.searchImg {
-    background-image: url("graphics/search.png");
-    background-position: left center;
-    background-repeat: no-repeat;
 }
 .readonlyImg, .horde-buttonbar li.readonlyImg {
     background-image: url("graphics/locked.png");
