@@ -159,6 +159,17 @@ To: recipient2@example.com"
         );
     }
 
+    public function testParseEaiAddress()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8_2.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs->getValue('from')
+        );
+    }
+
     public function testUndisclosedHeaderParsing()
     {
         $hdrs = new Horde_Mime_Headers();
