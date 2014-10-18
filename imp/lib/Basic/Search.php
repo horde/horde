@@ -475,6 +475,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('search.js');
 
+        $s_css = new Horde_Themes_Element('search.css');
+        $page_output->addStylesheet($s_css->fs, $s_css->uri);
+
         $page_output->addInlineJsVars(array_merge($js_vars, array(
             /* Javascript data for this page. */
             'ImpSearch.data' => array(
