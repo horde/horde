@@ -396,7 +396,6 @@ div.vpRowVert div.msgSubject {
 .msgHeaders a {
     color: #000;
 }
-
 .msgHeaders table thead td.label {
     display: block;
     font-weight: bold;
@@ -410,31 +409,27 @@ div.vpRowVert div.msgSubject {
 #msgHeaderAtc td.label {
     display: table-cell;
 }
-
-.atcLabel, .msgLogLabel {
+.atcLabel,
+.msgLogLabel {
     font-weight: bold;
     line-height: 20px;
     padding-right: 5px;
 }
-
 #partlist {
     padding-top: 2px;
 }
 #partlist .horde-tree-image {
     padding-right: 1px;
 }
-
 #partlist_toggle span.attachmentImg {
     margin-right: 0;
 }
-
 #msgloglist {
     list-style-type: none;
 }
 #msgloglist li {
     padding-top: 4px;
 }
-
 #msgloglist_toggle,
 #partlist_toggle {
     cursor: pointer;
@@ -466,7 +461,8 @@ div.vpRowVert div.msgSubject {
 }
 
 /* Context Menus */
-.context div.contactAddr, .context div.mboxName {
+.context div.contactAddr,
+.context div.mboxName {
     font-style: italic;
     padding: 0 2px;
     text-align: center;

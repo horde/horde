@@ -31,7 +31,8 @@ div.partsTreeDiv {
 .folderopenImg {
     background-image: url("graphics/folders/open.png");
 }
-.draftsImg, .composetemplatesImg {
+.composetemplatesImg,
+.draftsImg {
     background-image: url("graphics/folders/drafts.png");
 }
 .inboxImg {
@@ -49,7 +50,6 @@ div.partsTreeDiv {
 .remoteImg {
     background-image: url("graphics/shared.png");
 }
-
 .mboxunsub {
     background: #bbb;
     font-style: italic;
@@ -66,7 +66,6 @@ div.partsTreeDiv {
 .msgflags {
     margin-right: 1px;
 }
-
 .msgflags.iconImg {
     width: 16px;
 }
@@ -91,28 +90,35 @@ div.partsTreeDiv {
 .msgflags.flagList {
     background-image: url("graphics/flags/group.png");
 }
-.msgflags.flagJunk, span.iconImg.flagJunk {
+.msgflags.flagJunk,
+span.iconImg.flagJunk {
     background-image: url("graphics/flags/spam.png");
 }
-.msgflags.flagNotJunk, span.iconImg.flagNotJunk {
+.msgflags.flagNotJunk,
+span.iconImg.flagNotJunk {
     background-image: url("graphics/flags/innocent.png");
 }
-.msgflags.flagUnseen, span.iconImg.flagUnseen {
+.msgflags.flagUnseen,
+span.iconImg.flagUnseen {
     background-image: url("graphics/flags/unseen.png");
 }
-.msgflags.flagAnswered, span.iconImg.flagAnswered {
+.msgflags.flagAnswered,
+span.iconImg.flagAnswered {
     background-image: url("graphics/flags/answered.png");
 }
-.msgflags.flagDraft, span.iconImg.flagDraft {
+.msgflags.flagDraft,
+span.iconImg.flagDraft {
     background-image: url("graphics/flags/draft.png");
 }
-.msgflags.flagForwarded, span.iconImg.flagForwarded {
+.msgflags.flagForwarded,
+span.iconImg.flagForwarded {
     background-image: url("graphics/flags/forwarded.png");
 }
 .msgflags.flagFlagged {
     background-image: url("graphics/flags/flagged.png");
 }
-.msgflags.flagDeleted, span.iconImg.flagDeleted {
+.msgflags.flagDeleted,
+span.iconImg.flagDeleted {
     background-image: url("graphics/flags/deleted.png");
 }
 .selectedRow .msgflags.flagPersonal {
@@ -284,14 +290,16 @@ table.remotemanagement td.noneconfigured {
 }
 
 /* Large addresslist display. */
-.largeaddrlist, .largeaddrlistlimit {
+.largeaddrlist,
+.largeaddrlistlimit {
     color: #36525d;
     cursor: pointer;
     font-weight: bold;
     margin-right: 5px;
     padding: 1px;
 }
-.largeaddrlist:hover, .largeaddrlistlimit:hover {
+.largeaddrlist:hover,
+.largeaddrlistlimit:hover {
     text-decoration: underline;
 }
 
@@ -402,10 +410,12 @@ span.mimePartInfoSize {
 }
 
 /* Other images. */
-.downloadAtc, .saveImgAtc {
+.downloadAtc,
+.saveImgAtc {
     margin-left: 1px;
 }
-.downloadAtc, .saveAsImg {
+.downloadAtc,
+.saveAsImg {
     background-image: url("graphics/download.png");
 }
 .printAtc {
@@ -423,7 +433,8 @@ span.mimePartInfoSize {
 .editImg {
     background-image: url("graphics/edit.png");
 }
-.readonlyImg, .horde-buttonbar li.readonlyImg {
+.readonlyImg,
+.horde-buttonbar li.readonlyImg {
     background-image: url("graphics/locked.png");
 }
 .horde-buttonbar li.readonlyImg {
