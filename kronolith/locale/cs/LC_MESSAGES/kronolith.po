@@ -2,233 +2,529 @@
 # Copyright 2004-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2004-12-22 10:04-0800\n"
-"PO-Revision-Date:  2001-07-26 14:56-0900\n"
-"Last-Translator: Pavel Chytil <pavel@chytil.tk>\n"
+"POT-Creation-Date: 2014-10-14 14:39+0200\n"
+"PO-Revision-Date: 2014-10-16 14:17+0100\n"
+"Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.6.9\n"
 
-#: templates/search/header.inc:8
+#: feed/index.php:124
+msgid " to "
+msgstr ""
+
+#: templates/edit/edit.inc:283
+#, php-format
+msgid " until %s"
+msgstr ""
+
+#: templates/edit/edit.inc:283
+msgid " without end"
+msgstr ""
+
+#: templates/edit/edit.inc:173
+#, fuzzy, php-format
+msgid "%d %s before the event starts"
+msgstr "před začátkem události"
+
+#: lib/Event.php:2343
+#, fuzzy, php-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "1 den"
+msgstr[1] "1 den"
+msgstr[2] "1 den"
+
+#: templates/search/header.inc:4
 #, php-format
 msgid "%d events"
 msgstr "%d událostí"
 
-#: templates/edit/edit_timespan.inc:127
+#: lib/Event.php:2346
+#, fuzzy, php-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d hodina"
+msgstr[1] "%d hodina"
+msgstr[2] "%d hodina"
+
+#: lib/Event.php:2349
+#, fuzzy, php-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minuta"
+msgstr[1] "%d minuta"
+msgstr[2] "%d minuta"
+
+#: templates/view/view.inc:129
+#, fuzzy, php-format
+msgid "%d times"
+msgstr "bez časového údaje"
+
+#: lib/Event.php:2340
+#, fuzzy, php-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] "týden"
+msgstr[1] "týden"
+msgstr[2] "týden"
+
+#: templates/chunks/permissions.inc:20
+#, php-format
+msgid "%s %sShare with the %s %sgroup%s and %sallow them to%s %s"
+msgstr ""
+
+#: templates/chunks/permissions.inc:38
+#, php-format
+msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
+msgstr ""
+
+#: lib/Api.php:820 lib/Api.php:833
+#, fuzzy, php-format
+msgid "%s Already Exists"
+msgstr "Již existuje"
+
+#: templates/edit/edit_timespan.inc:110
 #, php-format
 msgid "%s Day(s) %s Hour(s) %s Minutes"
 msgstr "%s Dnů(Den) %s Hodin(a) %s Minut"
 
-#: lib/Driver.php:1687
+#: templates/dynamic/edit.inc:145 templates/dynamic/task.inc:100
 #, php-format
-msgid "%s attendees"
-msgstr "%s účastníků"
+msgid ""
+"%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly "
+"%s"
+msgstr ""
+"%s Neopakovat %s nebo opakovat %s denně, %s týdně, %s měsíčně %s nebo %s "
+"ročně %s"
 
-#: data.php:236
+#: templates/dynamic/edit.inc:123
+#, php-format
+msgid "%s Don't set %s or %s set %s before the event %s"
+msgstr "%s Nenastavovat %s nebo %s nastavit %s před událostí %s"
+
+#: templates/dynamic/edit.inc:90
+#, php-format
+msgid "%s Private %s &mdash; hides details if calendar is public %s"
+msgstr "%s Soukromná %s &mdash; skryje detaily jestli je kalendář veřejný %s"
+
+#: lib/Event.php:2357
+#, php-format
+msgid "%s at %s"
+msgstr "%s na %s"
+
+#: templates/dynamic/task.inc:78
+#, php-format
+msgid "%s don't set %s or %s set %s before due date %s"
+msgstr ""
+
+#: data.php:210
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s soubor úspěšně importován"
 
-#: calendars.php:97 lib/base.php:126
+#: templates/share/notification.plain.php:5
 #, php-format
-msgid "%s's Calendar"
-msgstr "%s - Kalendář"
+msgid "%s has assigned the ownership of the calendar \"%s\" to you."
+msgstr ""
 
-#: templates/contacts/contacts.inc:166
+#: templates/share/notification.html.php:13
+#, php-format
+msgid "%s has assigned the ownership of the calendar %s to you."
+msgstr ""
+
+#: lib/Kronolith.php:1923
+#, php-format
+msgid "%s has cancelled \"%s\"."
+msgstr "%s zrušil(a) \"%s\"."
+
+#: lib/Kronolith.php:1925
+#, php-format
+msgid "%s has cancelled an instance of the recurring \"%s\"."
+msgstr "%s zrušil(a) instanci vracejícího se \"%s\"."
+
+#: lib/Driver/Sql.php:522
+#, fuzzy, php-format
+msgid "%s not found"
+msgstr "Úkol nebyl nalezen."
+
+#: lib/Kronolith.php:1941
+#, php-format
+msgid "%s wants to notify you about changes of \"%s\"."
+msgstr "%s si Vás přeje upozornit na změny \"%s\"."
+
+#: templates/share/notification.plain.php:7
+#, php-format
+msgid ""
+"%s wants to share the calendar \"%s\" with you to grant you access to all "
+"events in this calendar."
+msgstr ""
+
+#: templates/share/notification.html.php:15
+#, php-format
+msgid ""
+"%s wants to share the calendar %s with you to grant you access to all events "
+"in this calendar."
+msgstr ""
+
+#: lib/Kronolith.php:1936
+#, php-format
+msgid "%s wishes to make you aware of \"%s\"."
+msgstr "%s si Vás přeje upozornit na \"%s\"."
+
+#: templates/chunks/permissions.inc:51
+#, php-format
+msgid "%sAdvanced sharing.%s You can also return to the %sstandard settings%s."
+msgstr ""
+
+#: templates/chunks/permissions.inc:10
+#, php-format
+msgid ""
+"%sShare with everyone%s (public) and %s %smake it searchable%s by everyone "
+"too"
+msgstr ""
+
+#: templates/chunks/permissions.inc:2
+#, php-format
+msgid "%sStandard sharing.%s You can also set %sadvanced sharing%s options."
+msgstr ""
+
+#: templates/chunks/calendar.php:151
+#, php-format
+msgid "%sWarning:%s also %sdeletes all events%s currently in the calendar."
+msgstr ""
+
+#: templates/contacts/contacts.inc:178
 msgid "* Add these by clicking Add *"
 msgstr "* Přidat tyto kliknutím na Přidat *"
 
-#: templates/contacts/contacts.inc:152
+#: templates/contacts/contacts.inc:163
 msgid "* Please select address(es) *"
 msgstr "* Prosím vyberte emailovou(é) adresu(y) *"
 
-#: lib/Driver.php:1687
-msgid "1 attendee"
-msgstr "1 účastník"
+#: templates/edit/edit.inc:283
+#, php-format
+msgid ", %d times"
+msgstr ""
 
-#: templates/search/header.inc:8
+#: templates/search/header.inc:4
 msgid "1 event"
 msgstr "1 událost"
 
-#: templates/edit/edit.inc:159
-msgid "<b>Attendees</b> (optional)"
-msgstr "<b>Účastníci</b> (nepovinné)"
+#: config/prefs.php:187
+msgid "1 hour"
+msgstr "1 hodina"
 
-#: templates/edit/edit.inc:137
-msgid "<b>Descri_ption</b> (optional)"
-msgstr "<b>Popi_s</b> (nepovinné)"
+#: config/prefs.php:184
+msgid "15 minutes"
+msgstr "15 minut"
 
-#: templates/edit/edit.inc:261
-msgid "<b>Keywords</b> (optional)"
-msgstr "<b>Klíčová slova</b> (nepovinné)"
+#: config/prefs.php:185
+#, fuzzy
+msgid "20 minutes"
+msgstr "5 minut"
 
-#: templates/edit/edit.inc:179
-msgid "<b>Recurrence</b> (optional)"
-msgstr "<b>Opakování</b> (nepovinné)"
+#: config/prefs.php:186
+#, fuzzy
+msgid "30 minutes"
+msgstr "5 minut"
 
-#: templates/data/export.inc:105 templates/data/export.inc:185
+#: templates/data/export.inc:118 templates/data/export.inc:203
 msgid "AM"
 msgstr "AM"
 
-#: lib/Kronolith.php:520
+#: lib/Kronolith.php:870
 msgid "Accepted"
 msgstr "Přijato"
 
-#: templates/search/search.inc:10
+#: lib/Kronolith.php:1550
+#, fuzzy
+msgid "Access permissions"
+msgstr "Práva hostů"
+
+#: templates/search/search.inc:8
 msgid "Ad_vanced Search"
 msgstr "Hl_edat Důkladněji"
 
-#: templates/contacts/contacts.inc:163 templates/contacts/contacts.inc:192
+#: templates/chunks/permissions.inc:201 templates/chunks/permissions.inc:248
+#: templates/contacts/contacts.inc:172
 msgid "Add"
 msgstr "Přidat"
 
-#: templates/edit/edit.inc:25
+#: templates/edit/edit.inc:30
 msgid "Add Event"
 msgstr "Přidat Událost"
 
-#: templates/prefs/remote_cal_management.inc:35
-msgid "Add a new Remote Calendar"
-msgstr "Přidat nový Vzdálený Kalendář"
+#: templates/dynamic/sidebar.html.php:132
+msgid "Add Holidays"
+msgstr ""
 
-#: addevent.php:50
+#: templates/dynamic/sidebar.html.php:119
+msgid "Add Remote Calendar"
+msgstr "Přidat vzdálený kalendář"
+
+#: templates/dynamic/sidebar.html.php:87
+#, fuzzy
+msgid "Add Resource"
+msgstr "Přidat:"
+
+#: templates/dynamic/sidebar.html.php:102
+msgid "Add Resource Group"
+msgstr "Přidat skupinu zdrojů"
+
+#: new.php:87
 msgid "Add a new event"
 msgstr "Přidat novou událost"
 
-#: templates/attendees/attendees.inc:82
+#: templates/attendees/attendees.inc:126
 msgid "Add attendees"
 msgstr "Přidat účastníky"
 
-#: templates/attendees/attendees.inc:86
-msgid "Add people from my Address Book"
-msgstr "Přidat účastníky z mých Kontaktů"
+#: templates/dynamic/edit.inc:209
+msgid "Add attendees e-mail addresses"
+msgstr "Přidejte e-mailové adresy účastníků"
 
-#: templates/attendees/attendees.inc:90
-msgid "Add these people"
-msgstr "Přidat tyto účastníky"
+#: templates/dynamic/edit.inc:86
+msgid "Add event to"
+msgstr "Přidat událost do"
 
-#: contacts.php:85 templates/contacts/contacts.inc:122
+#: templates/attendees/attendees.inc:137
+msgid "Add resource"
+msgstr "Přidat zdroj"
+
+#: templates/dynamic/edit.inc:234
+msgid "Add resources"
+msgstr "Přidat zdroje"
+
+#: templates/dynamic/index.inc:8 templates/dynamic/task.inc:25
+msgid "Add to"
+msgstr "Přidat do"
+
+#: templates/contacts/contacts.inc:198
+#, fuzzy
+msgid "Add to attendees"
+msgstr "Přidat účastníky"
+
+#: lib/Ajax/Application/Handler.php:960
+#, fuzzy
+msgid "Added task list not found."
+msgstr "Úkol nebyl nalezen."
+
+#: contacts.php:74 templates/attendees/attendees.inc:132
+#: templates/contacts/contacts.inc:139
 msgid "Address Book"
 msgstr "Kontakty"
 
-#: config/prefs.php.dist:50
+#: config/prefs.php:73
 msgid "Address Books"
 msgstr "Kontakty"
 
-#: templates/search/search.inc:10 templates/search/search_advanced.inc:7
+#: templates/search/search_advanced.inc:10
 msgid "Advanced Search"
 msgstr "Hledat Důkladněji"
 
-#: templates/view/view.inc:61 templates/edit/edit.inc:96
+#: templates/dynamic/index.inc:40 templates/smartmobile/day.html.php:9
+#: templates/smartmobile/month.html.php:9
+#: templates/smartmobile/summary.html.php:9
+#, fuzzy
+msgid "Agenda"
+msgstr "Účast"
+
+#: templates/edit/edit.inc:179 templates/view/view.inc:49
 msgid "Alarm"
 msgstr "Alarm"
 
-#: lib/Driver.php:1667
-#, php-format
-msgid "Alarm %d days before"
-msgstr "Alarm %d dnů před"
+#: lib/Event.php:3487
+#, fuzzy, php-format
+msgid "Alarm %d day before"
+msgid_plural "Alarm %d days before"
+msgstr[0] "Alarm %d dnů před"
+msgstr[1] "Alarm %d dnů před"
+msgstr[2] "Alarm %d dnů před"
 
-#: lib/Driver.php:1672
-#, php-format
-msgid "Alarm %d hours before"
-msgstr "Alarm %d hodin před"
+#: lib/Event.php:3490
+#, fuzzy, php-format
+msgid "Alarm %d hour before"
+msgid_plural "Alarm %d hours before"
+msgstr[0] "Alarm %d hodin před"
+msgstr[1] "Alarm %d hodin před"
+msgstr[2] "Alarm %d hodin před"
 
-#: lib/Driver.php:1677
-#, php-format
-msgid "Alarm %d minutes before"
-msgstr "Alarm %d minut před"
+#: lib/Event.php:3493
+#, fuzzy, php-format
+msgid "Alarm %d minute before"
+msgid_plural "Alarm %d minutes before"
+msgstr[0] "Alarm %d minut před"
+msgstr[1] "Alarm %d minut před"
+msgstr[2] "Alarm %d minut před"
 
-#: lib/Driver.php:1662
-#, php-format
-msgid "Alarm %d weeks before"
-msgstr "Alarn %d týdnů před"
+#: lib/Event.php:3484
+#, fuzzy, php-format
+msgid "Alarm %d week before"
+msgid_plural "Alarm %d weeks before"
+msgstr[0] "Alarn %d týdnů před"
+msgstr[1] "Alarn %d týdnů před"
+msgstr[2] "Alarn %d týdnů před"
 
-#: lib/Driver.php:1666
-msgid "Alarm 1 day before"
-msgstr "Alarm 1 den před"
-
-#: lib/Driver.php:1671
-msgid "Alarm 1 hour before"
-msgstr "Alarm 1 hodinu před"
-
-#: lib/Driver.php:1676
-msgid "Alarm 1 minute before"
-msgstr "Alarm 1 minutu před"
-
-#: lib/Driver.php:1661
-msgid "Alarm 1 week before"
-msgstr "Alarm 1 týden před"
-
-#: data.php:50
+#: data.php:54
 msgid "Alarm Date"
 msgstr "Datum Alarmu"
 
-#: data.php:49
+#: data.php:53
 msgid "Alarm Span (minutes)"
 msgstr "Vyměření Alarmu (v minutách)"
 
-#: data.php:51
+#: data.php:55
 msgid "Alarm Time"
 msgstr "Čas Alarmu"
 
-#: templates/delete/delete.inc:43
+#: templates/edit/edit.inc:191 templates/prefs/defaultalarm.html:8
+#, fuzzy
+msgid "Alarm Unit"
+msgstr "Název upozornění"
+
+#: templates/edit/edit.inc:189 templates/prefs/defaultalarm.html:6
+#, fuzzy
+msgid "Alarm Value"
+msgstr "Datum Alarmu"
+
+#: templates/edit/edit.inc:184
+#, fuzzy
+msgid "Alarm enabled"
+msgstr "Konec upozornění"
+
+#: lib/Ajax.php:134
+#, fuzzy
+msgid "Alarm:"
+msgstr "Alarm"
+
+#: templates/dynamic/edit.inc:136 templates/dynamic/task.inc:91
+#, php-format
+msgid "Alert me %s as default %s or %s using:"
+msgstr "Upozorni mě %s standardně %s nebo %s skrz:"
+
+#: templates/delete/delete.inc:27 templates/dynamic/agenda.inc:6
+#: templates/dynamic/tasks.inc:5 templates/edit/edit.inc:45
 msgid "All"
 msgstr "Vše"
 
-#: lib/FBView.php:119 lib/FBView.php:122 lib/FBView.php:125
+#: lib/FreeBusy/View.php:196 lib/FreeBusy/View.php:199
+#: lib/FreeBusy/View.php:202
 msgid "All Attendees"
 msgstr "Všichni Účastníci"
 
-#: templates/search/search.inc:58
+#: templates/chunks/permissions.inc:94 templates/perms/perms.inc:54
+msgid "All Authenticated Users"
+msgstr "Všichni ověření uživatelé"
+
+#: lib/Block/Month.php:40
+#, fuzzy
+msgid "All Calendars"
+msgstr "Kalendáře"
+
+#: templates/search/search.inc:57
 msgid "All Future"
-msgstr "Všechny v Budoucnosti"
+msgstr "Všechny budoucí"
 
-#: templates/search/search.inc:52
+#: templates/search/search.inc:51
 msgid "All Past"
-msgstr "Všechny Minulé"
+msgstr "Všechny minulé"
 
-#: lib/Block/month.php:24 lib/Block/monthlist.php:27
-#: lib/Block/prevmonthlist.php:27 lib/Block/summary.php:25
+#: lib/Block/Month.php:28 lib/Block/Monthlist.php:40
+#: lib/Block/Prevmonthlist.php:38 lib/Block/Summary.php:59
 msgid "All Visible"
 msgstr "Všechny Viditelné"
 
-#: templates/edit/edit_timespan.inc:126 lib/DayView.php:88 lib/DayView.php:90
-#: lib/Driver.php:1591 lib/Driver.php:1617 lib/WeekView.php:110
-#: lib/WeekView.php:120
+#: lib/Ajax.php:136 lib/Block/Month.php:177 lib/Block/Summary.php:179
+#: lib/Event.php:3605 lib/View/Day.php:94 lib/View/Day.php:97
+#: lib/View/Week.php:123 lib/View/Week.php:148 lib/View/Year.php:135
+#: templates/agenda/notification.html.php:24
+#: templates/agenda/notification.plain.php:6 templates/dynamic/day.inc:14
+#: templates/dynamic/week.inc:17 templates/dynamic/workweek.inc:15
+#: templates/edit/edit_timespan.inc:109
+#: templates/smartmobile/javascript_defs.php:135
 msgid "All day"
 msgstr "Celý den"
 
-#: lib/Block/monthlist.php:156 lib/Block/prevmonthlist.php:154
-#: lib/Block/summary.php:148
+#: templates/view/view.inc:36
 msgid "All day event"
 msgstr "Událost na celý den"
 
-#: templates/data/export.inc:25
+#: templates/data/export.inc:33
 msgid "All events"
 msgstr "Všechny Události"
 
-#: templates/search/search_advanced.inc:48
-#: templates/search/search_advanced.inc:70 lib/Kronolith.php:610
+#: lib/LoginTasks/Task/PurgeEvents.php:91
+#, fuzzy, php-format
+msgid "All of your events older than %d days will be permanently deleted."
+msgstr ""
+"Všechny zprávy ve Vaší složce \"%s\" starší než %s dní budou trvale vymazány."
+
+#: config/prefs.php:313
+#, fuzzy
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Všechny stavy odstraněny pro Vaše ActiveSync zařízení. Budou "
+"resynchronizovány při příštím připojení na server.\n"
+"#-#-#-#-#  turba.po (Turba 2.0.5)  #-#-#-#-#\n"
+"Veškeré stavy  pro Vaše ActiveSync zařízení odstraněny. Budou "
+"resynchronizovány při příštím připojení k serveru."
+
+#: templates/dynamic/edit.inc:55
+msgid "All-day event"
+msgstr "Celodenní událost"
+
+#: lib/Form/CreateResource.php:28 lib/Form/EditResource.php:36
+#: templates/chunks/calendar.php:369
+#, fuzzy
+msgid "Always Accept"
+msgstr "Vždy vyzývat"
+
+#: lib/Form/CreateResource.php:29 lib/Form/EditResource.php:37
+#: templates/chunks/calendar.php:370
+#, fuzzy
+msgid "Always Decline"
+msgstr "Zamítnut"
+
+#: lib/Kronolith.php:964 templates/search/search_advanced.inc:36
 msgid "Any"
 msgstr "Jakákoliv"
 
-#: templates/javascript/goto.inc:71
-msgid "April"
-msgstr "Duben"
+#: lib/Ajax.php:137
+#, fuzzy
+msgid "Are you sure you want to delete this calendar and all the events in it?"
+msgstr "Skutečně chcete vymazat tuto virtuální složku?"
 
-#: templates/edit/edit_timespan.inc:95 templates/data/export.inc:74
-#: templates/data/export.inc:160
+#: lib/Ajax.php:138
+#, fuzzy
+msgid "Are you sure you want to delete this task list and all the tasks in it?"
+msgstr "Skutečně chcete vymazat tuto virtuální složku?"
+
+#: templates/dynamic/task.inc:49
+msgid "Assignee"
+msgstr "Řešitel"
+
+#: templates/data/export.inc:85 templates/data/export.inc:176
+#: templates/edit/edit_timespan.inc:32 templates/edit/edit_timespan.inc:80
 msgid "At"
 msgstr "V"
 
-#: lib/Kronolith.php:966
+#: templates/itip/notification.html.php:74
+#: templates/itip/notification.plain.php:22
 msgid ""
 "Attached is an iCalendar file with more information about the event. If your "
 "mail client supports iTip requests you can use this file to easily update "
@@ -238,1055 +534,2752 @@ msgstr ""
 "klient podporuje iTip žádosti, můžete použít tento soubor pro jednoduší "
 "aktualizaci lokálního kalendáře."
 
-#: templates/view/view.inc:181 templates/attendees/attendees.inc:46
+#: perms.php:64
+msgid "Attempt to edit a non-existent share."
+msgstr "Pokus o editaci neexistujícího sdíleného objektu."
+
+#: templates/attendees/attendees.inc:49 templates/attendees/attendees.inc:61
+#: templates/attendees/attendees.inc:86 templates/attendees/attendees.inc:98
+#: templates/view/view.inc:173 templates/view/view.inc:191
 msgid "Attendance"
 msgstr "Účast"
 
-#: templates/view/view.inc:177
+#: templates/attendees/attendees.inc:48 templates/view/view.inc:172
+msgid "Attendee"
+msgstr "Účastník"
+
+#: templates/dynamic/edit.inc:99 templates/view/view.inc:169
 msgid "Attendees"
 msgstr "Účastníci"
 
-#: templates/javascript/goto.inc:75
-msgid "August"
-msgstr "Srpen"
+#: templates/edit/edit.inc:263
+msgid "Attendees and Resources"
+msgstr "Účastíci a zdroje"
 
-#: templates/calendars/calendars.inc:126
-msgid "Back to Calendar Options"
-msgstr "Zpět do Možností pro Kalendář"
+#: templates/alarm/mail.html.php:33 templates/itip/notification.html.php:42
+#: templates/itip/notification.plain.php:10
+msgid "Attendees:"
+msgstr "Účastníci:"
 
-#: templates/search/search.inc:7 templates/search/search_advanced.inc:10
+#: templates/chunks/calendar.php:368
+msgid "Auto"
+msgstr "Automaticky"
+
+#: lib/Form/CreateResource.php:30 lib/Form/EditResource.php:38
+msgid "Automatically"
+msgstr "Automaticky"
+
+#: templates/dynamic/edit.inc:218 templates/dynamic/edit.inc:243
+msgid "Availability"
+msgstr "Dostupnost"
+
+#: templates/search/search.inc:10
 msgid "Basic Search"
 msgstr "Vyhledat"
 
-#: config/keywords.php.dist:17
-msgid "Birthday"
-msgstr "Narozeniny"
-
-#: templates/fbview/legend.inc:3 lib/FBView.php:85 lib/FBView.php:104
+#: lib/FreeBusy/View.php:129 lib/FreeBusy/View.php:150
+#: lib/FreeBusy/View.php:172 lib/FreeBusy/View.php:180
+#: templates/fbview/legend.html:9
 msgid "Busy"
 msgstr "Zaneprázněný"
 
-#: templates/search/search_advanced.inc:43
+#: templates/search/search_advanced.inc:32
 msgid "C_alendar"
 msgstr "K_alendář"
 
-#: templates/edit/edit.inc:48
+#: lib/Form/EditCalendar.php:105 templates/chunks/calendar.php:114
+#: templates/chunks/calendar.php:227
+msgid "CalDAV Account URL"
+msgstr ""
+
+#: lib/Form/EditCalendar.php:96 templates/chunks/calendar.php:109
+#: templates/chunks/calendar.php:222
+#, fuzzy
+msgid "CalDAV Subscription URL"
+msgstr "Popis Kalendáře"
+
+#: templates/edit/edit.inc:73
 msgid "Cal_endar"
 msgstr "Kal_endář"
 
-#: lib/Block/month.php:21 lib/Block/monthlist.php:21
-#: lib/Block/prevmonthlist.php:21 lib/Block/summary.php:22
+#: lib/Block/Month.php:22 lib/Block/Monthlist.php:22
+#: lib/Block/Prevmonthlist.php:22 lib/Block/Summary.php:26
+#: lib/Calendars/Kolab.php:41
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: templates/calendars/calendars.inc:113
-msgid "Calendar Description"
-msgstr "Popis Kalendáře"
-
-#: templates/calendars/calendars.inc:97
-msgid "Calendar Name"
+#: templates/chunks/calendar.php:159 templates/chunks/calendar.php:396
+#, fuzzy
+msgid "Calendar ICS file"
 msgstr "Název Kalendáře"
 
-#: lib/Block/summary.php:3
+#: lib/Block/Summary.php:17
 msgid "Calendar Summary"
-msgstr "Shrnutí Kalendáře"
+msgstr "Shrnutí kalendáře"
 
-#: calendars.php:109 config/prefs.php.dist:34 config/prefs.php.dist:41
-#: config/prefs.php.dist:49
+#: lib/Api.php:405 lib/Application.php:880
+#, fuzzy
+msgid "Calendar does not exist or no permission to delete"
+msgstr "Nedostatečná práva pro smazání této události."
+
+#: lib/Api.php:292 lib/Application.php:720 lib/Application.php:761
+#: lib/Application.php:807
+#, fuzzy
+msgid "Calendar does not exist or no permission to edit"
+msgstr "Nedostatečná práva pro vložení položek."
+
+#: lib/Block/Month.php:48 lib/Block/Month.php:67 lib/Block/Monthlist.php:86
+#: lib/Block/Prevmonthlist.php:79 lib/Block/Summary.php:97
+#, fuzzy
+msgid "Calendar not found"
+msgstr "Filtrovací pravidla nebyli nalezeny."
+
+#: lib/Calendars/Default.php:45
+#, php-format
+msgid "Calendar of %s"
+msgstr "Kalendář uživatele %s"
+
+#: templates/chunks/permissions.inc:59
+msgid "Calendar owner"
+msgstr "Vlastník kalendáře"
+
+#: data.php:134
+#, fuzzy
+msgid "Calendar successfully purged."
+msgstr "Kontakty byly úspěšně vyčistěny."
+
+#: templates/chunks/calendar.php:55
+msgid "Calendar title"
+msgstr "Název kalendáře"
+
+#: config/prefs.php:25 config/prefs.php:32 config/prefs.php:65
 msgid "Calendars"
 msgstr "Kalendáře"
 
-#: calendars.php:27
-msgid "Calendars must have a name."
-msgstr "Kalendáře musí mít jméno."
+#: templates/calendar_titles.inc:9
+#, fuzzy
+msgid "Calendars Printed: "
+msgstr "Kalendáře"
 
-#: data.php:211
+#: data.php:154
 msgid "Can't create a new event."
 msgstr "Nelze vytvořit novou událost."
 
-#: templates/edit/edit.inc:32 templates/edit/edit.inc:292
-#: templates/delete/delete.inc:44 templates/delete/one.inc:42
-#: templates/contacts/contacts.inc:193
+#: lib/Form/DeleteCalendar.php:35 lib/Form/DeleteCalendar.php:44
+#: lib/Form/DeleteResource.php:38 lib/Form/DeleteResource.php:48
+#: lib/Form/DeleteResourceGroup.php:40 lib/Form/DeleteResourceGroup.php:49
+#: lib/Form/EditCalendar.php:171 lib/Form/EditCalendar.php:193
+#: lib/Form/EditRemoteCalendar.php:36 lib/Form/EditRemoteCalendar.php:58
+#: lib/Form/EditResource.php:74 lib/Form/EditResource.php:139
+#: lib/Form/EditResourceGroup.php:50 lib/Form/EditResourceGroup.php:80
+#: lib/Form/UnsubscribeRemoteCalendar.php:29
+#: lib/Form/UnsubscribeRemoteCalendar.php:38 templates/chunks/calendar.php:168
+#: templates/chunks/calendar.php:255 templates/chunks/calendar.php:282
+#: templates/chunks/calendar.php:303 templates/chunks/calendar.php:323
+#: templates/chunks/calendar.php:347 templates/chunks/calendar.php:402
+#: templates/chunks/calendar.php:437 templates/delete/delete.inc:28
+#: templates/delete/one.inc:25 templates/dynamic/edit.inc:296
+#: templates/dynamic/edit.inc:311 templates/dynamic/index.inc:14
+#: templates/dynamic/task.inc:166 templates/dynamic/task.inc:180
+#: templates/edit/edit.inc:58 templates/edit/edit.inc:444
 msgid "Cancel"
 msgstr "Storno"
 
-#: lib/Kronolith.php:499
+#: lib/Kronolith.php:846 templates/dynamic/edit.inc:73
 msgid "Cancelled"
 msgstr "Stornováno"
 
-#: lib/Kronolith.php:943
+#: lib/Kronolith.php:1921
 #, php-format
 msgid "Cancelled: %s"
 msgstr "Stornováno: %s"
 
-#: templates/search/search_advanced.inc:63 templates/edit/edit.inc:68
-msgid "Categor_y"
-msgstr "Kategor_ie"
+#: lib/Driver/Ical.php:539
+#, fuzzy
+msgid "Cannot delete exceptions (yet)."
+msgstr "Nelze smazat '%s': %s"
 
-#: data.php:53 templates/view/view.inc:21 templates/search/event_headers.inc:4
-msgid "Category"
-msgstr "Kategorie"
+#: lib/Kronolith.php:715
+#, php-format
+msgid "Cannot parse event description \"%s\""
+msgstr ""
 
-#: templates/calendars/calendars.inc:22 templates/calendars/calendars.inc:123
-msgid "Change"
-msgstr "Změnit"
+#: lib/Form/EditCalendar.php:157
+msgid "Change Permissions"
+msgstr "Změnit Práva"
 
-#: templates/prefs/search_abook_select.inc:17 config/prefs.php.dist:288
-msgid "Choose the address books to search for free/busy URLs:"
-msgstr "Vybrat Kontakty pro hledání free/busy URL:"
-
-#: templates/calendars/calendars.inc:138
+#: config/prefs.php:57
 msgid ""
-"Choose the calendars that you want to be included in your Free/Busy listings:"
+"Choose how you want to be notified about event changes, event alarms and "
+"upcoming events."
+msgstr ""
+
+#: lib/Prefs/Special/EventAlarms.php:29
+msgid "Choose how you want to receive reminders for events with alarms:"
+msgstr ""
+
+#: config/prefs.php:378
+msgid ""
+"Choose if you want to be notified of new, edited, and deleted events by "
+"email:"
+msgstr ""
+
+#: config/prefs.php:391
+msgid "Choose if you want to receive daily agenda email reminders:"
+msgstr ""
+
+#: config/prefs.php:410
+msgid "Choose if you want to receive reminders for events with alarms:"
+msgstr ""
+
+#: config/prefs.php:483
+#, fuzzy
+msgid "Choose the calendars to include in the above Free/Busy URL:"
 msgstr "Zvolit kalendáře, které si přejete použít pro výpis seznamu Free/Busy:"
 
-#: config/prefs.php.dist:36
+#: config/prefs.php:34
+#, fuzzy
+msgid "Choose the calendars to use for synchronization with external devices."
+msgstr ""
+"Vyberte adresáře, které mají být použity pro synchronizaci s externími "
+"zařízeními:"
+
+#: config/prefs.php:528
+msgid ""
+"Choose the identity to use for ActiveSync. This determines the email address "
+"used as the ORGANIZER for events you create."
+msgstr ""
+
+#: config/prefs.php:217
+msgid "Choose the views to show event locations in:"
+msgstr ""
+
+#: config/prefs.php:206
+msgid "Choose the views to show event start and end times in:"
+msgstr ""
+
+#: config/prefs.php:27
 msgid "Choose your default calendar."
 msgstr "Zvolit implicitní kalendář"
 
-#: templates/search/search.inc:68 templates/search/search_advanced.inc:116
-msgid "Clear Form"
-msgstr "Vyčistit Formulář"
+#: templates/attendees/attendees.inc:154
+#, fuzzy
+msgid "Clear all"
+msgstr "Vyčistit vyhledávání"
 
-#: templates/attendees/attendees.inc:73
-msgid "Clear all attandees"
-msgstr "Smazat všechny účastníky"
+#: lib/Form/EditResource.php:66
+msgid "Click or copy this URL to display the calendar of this resource"
+msgstr ""
 
-#: data.php:28 templates/data/import.inc:21
+#: lib/Form/EditCalendar.php:70
+msgid "Click or copy this URL to display this calendar"
+msgstr ""
+
+#: templates/dynamic/edit.inc:281
+#, fuzzy
+msgid "Client"
+msgstr "Kotva klienta"
+
+#: templates/javascript_defs.php:21
+msgid "Close"
+msgstr "Zavřít"
+
+#: templates/perms/perms.inc:10
+msgid "Close Window"
+msgstr "Zavřít okno"
+
+#: templates/contacts/contacts.inc:199
+#, fuzzy
+msgid "Close window"
+msgstr "Zavřít okno"
+
+#: templates/dynamic/sidebar.html.php:35 templates/dynamic/sidebar.html.php:47
+msgid "Collapse"
+msgstr "Sbalit"
+
+#: lib/Form/CreateCalendar.php:25 lib/Form/EditCalendar.php:55
+#: lib/Form/EditRemoteCalendar.php:30 lib/Form/SubscribeRemoteCalendar.php:25
+#: templates/chunks/calendar.php:61 templates/chunks/calendar.php:186
+#: templates/chunks/calendar.php:273
+msgid "Color"
+msgstr "Barva"
+
+#: templates/chunks/calendar.php:63 templates/chunks/calendar.php:188
+#: templates/chunks/calendar.php:275
+#, fuzzy
+msgid "Color Picker"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Výběr barev\n"
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Kapátko barev"
+
+#: data.php:21 templates/data/import.inc:13
 msgid "Comma separated values"
 msgstr "Čárkou oddělené hodnoty"
 
-#: config/prefs.php.dist:142
+#: templates/dynamic/tasks.inc:6
+msgid "Completed"
+msgstr "Dokončené"
+
+#: config/prefs.php:92
 msgid "Confirm deletion of events?"
 msgstr "Potvrdit smazání událostí?"
 
-#: lib/Kronolith.php:496
+#: lib/Kronolith.php:843 templates/dynamic/edit.inc:72
 msgid "Confirmed"
 msgstr "Potvrzeno"
 
-#: templates/calendars/calendars.inc:151
-msgid "Copy the URL below for use wherever you need your Free/Busy URL:"
+#: templates/chunks/calendar.php:280 templates/chunks/calendar.php:302
+msgid "Continue"
+msgstr "Pokračovat"
+
+#: config/prefs.php:474
+#, fuzzy
+msgid "Copy this URL for use wherever you need your Free/Busy URL:"
 msgstr "Zkopírovat níže uvedenou URL pro použití s Vaší Free/Busy URL:"
 
-#: lib/Kronolith.php:158
-#, php-format
-msgid "Could not open %s."
+#: lib/Form/EditCalendar.php:109
+msgid "Copy this URL to a CalDAV client to subscribe to all your calendars"
+msgstr ""
+
+#: lib/Form/EditCalendar.php:100
+msgid "Copy this URL to a CalDAV client to subscribe to this calendar"
+msgstr ""
+
+#: lib/Form/EditCalendar.php:125
+msgid "Copy this URL to a WebDAV or ICS client to subscribe to this calendar"
+msgstr ""
+
+#: lib/Form/EditCalendar.php:137
+msgid "Copy this URL to a news feed reader to subscribe to this calendar"
+msgstr ""
+
+#: lib/Driver/Ical.php:595
+#, fuzzy, php-format
+msgid "Could not open %s: %s"
 msgstr "Nelze otevřít %s."
 
-#: templates/calendars/calendars.inc:17 templates/calendars/calendars.inc:123
-#: templates/calendars/calendars.inc:125
+#: lib/Form/CreateCalendar.php:33 lib/Form/CreateResource.php:49
+#: lib/Form/CreateResourceGroup.php:36 templates/dynamic/task.inc:178
 msgid "Create"
 msgstr "Vytvořit"
 
-#: month.php:152 month.php:153 templates/week/head.inc:20
-#: templates/week/head.inc:21 templates/week/head_side_by_side.inc:20
-#: templates/week/head_side_by_side.inc:21 templates/day/row.inc:6
-#: lib/DayView.php:88 lib/DayView.php:186
+#: lib/Form/CreateCalendar.php:22
+msgid "Create Calendar"
+msgstr "Vytvořit kalendář"
+
+#: lib/Form/CreateResource.php:26
+#, fuzzy
+msgid "Create Resource"
+msgstr "Vytvořit klíče"
+
+#: lib/Form/CreateResourceGroup.php:26
+msgid "Create Resource Group"
+msgstr "Vytvořit skupinu zdrojů"
+
+#: lib/View/Day.php:93 lib/View/Day.php:231 lib/View/Month.php:199
+#: templates/week/head.inc:20
 msgid "Create a New Event"
 msgstr "Vytvořit Novou Událost"
 
-#: templates/view/view.inc:88
+#: lib/Application.php:202
+#, fuzzy
+msgid "Create a new Local Calendar"
+msgstr "Vytvořit novou složku"
+
+#: lib/Application.php:276
+#, fuzzy
+msgid "Create a new Resource"
+msgstr "Vytvořit nový adresář"
+
+#: lib/Application.php:264
+msgid "Create a new Resource Group"
+msgstr "Vytvořit novou skupinu zdrojů"
+
+#: lib/Application.php:215
+#, fuzzy
+msgid "Create a new System Calendar"
+msgstr "Vytvořit novou složku odeslané pošty"
+
+#: templates/view/view.inc:76
 msgid "Created"
 msgstr "Vytvořeno"
 
-#: templates/delete/delete.inc:41
+#: templates/delete/delete.inc:25 templates/edit/edit.inc:43
 msgid "Current"
 msgstr "Současný"
 
-#: templates/view/view.inc:122 templates/edit/edit.inc:194
+#: config/prefs.php:48
+#, php-format
+msgid "Customize tasks to run upon logon to %s."
+msgstr ""
+
+#: templates/edit/edit.inc:302 templates/view/view.inc:100
 msgid "Daily: Recurs every"
 msgstr "Denně: Rekurzívně každý"
 
-#: attendees.php:106 lib/Kronolith.php:1039 lib/Block/tree_menu.php:21
-#: config/prefs.php.dist:63
+#: templates/alarm/mail.html.php:13
+#, fuzzy
+msgid "Date and time:"
+msgstr "Lokalizace a čas"
+
+#: templates/alarm/mail.plain.php:10
+#, fuzzy
+msgid "Date:"
+msgstr "Datum"
+
+#: attendees.php:187 config/prefs.php:100 lib/Application.php:447
+#: lib/Kronolith.php:2423 templates/dynamic/index.inc:32
+#: templates/smartmobile/day.html.php:2 templates/smartmobile/day.html.php:7
+#: templates/smartmobile/month.html.php:7
+#: templates/smartmobile/summary.html.php:7
 msgid "Day"
 msgstr "Den"
 
-#: templates/view/view.inc:70 templates/edit/edit.inc:127
+#: templates/edit/edit.inc:152 templates/edit/edit.inc:195
+#: templates/view/view.inc:58 templates/prefs/defaultalarm.html:12
 msgid "Day(s)"
 msgstr "Den(Dny)"
 
-#: viewevent.php:103
+#: lib/Kronolith.php:2490
 msgid "De_lete"
 msgstr "Sm_zat"
 
-#: templates/javascript/goto.inc:79
-msgid "December"
-msgstr "Prosinec"
-
-#: lib/Kronolith.php:523
+#: lib/Kronolith.php:873
 msgid "Declined"
 msgstr "Zamítnut"
 
-#: config/prefs.php.dist:35
+#: templates/dynamic/edit.inc:60
+msgid "Default"
+msgstr "Implicitní"
+
+#: templates/prefs/defaultalarm.html:2
+#, fuzzy
+msgid "Default Alarm Setting:"
+msgstr ""
+"#-#-#-#-#  gollem.po (Gollem)  #-#-#-#-#\n"
+"Implicitní směr třídění:\n"
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Výchozí směr třídění:\n"
+"#-#-#-#-#  mnemo.po (Mnemo 2.0-cvs)  #-#-#-#-#\n"
+"Implicitní směr třídění:"
+
+#: config/prefs.php:26
 msgid "Default Calendar"
 msgstr "Implicitní Kalendář"
 
-#: templates/prefs/remote_cal_management.inc:23 templates/delete/one.inc:41
-#: templates/contacts/contacts.inc:183 templates/calendars/calendars.inc:124
-#: lib/Driver.php:1707
+#: templates/chunks/permissions.inc:85
+#, fuzzy
+msgid "Default users"
+msgstr "Implicitní"
+
+#: templates/chunks/permissions.inc:114 templates/chunks/permissions.inc:141
+#: templates/chunks/permissions.inc:169 templates/chunks/permissions.inc:222
+#: templates/chunks/permissions.inc:269 templates/perms/perms.inc:60
+#: templates/perms/perms.inc:84 templates/perms/perms.inc:101
+#: templates/perms/perms.inc:125 templates/perms/perms.inc:143
+#: templates/perms/perms.inc:167 templates/perms/perms.inc:184
+#: templates/perms/perms.inc:212 templates/perms/perms.inc:252
+#: templates/perms/perms.inc:283 templates/perms/perms.inc:301
+#: templates/perms/perms.inc:330 templates/perms/perms.inc:364
+#, fuzzy
+msgid "Delegate"
+msgstr "Přiděleno"
+
+#: lib/Event.php:2543 lib/Event.php:3550 lib/Form/DeleteCalendar.php:34
+#: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
+#: lib/Form/EditCalendar.php:170 lib/Form/EditCalendar.php:188
+#: lib/Form/EditResource.php:73 lib/Form/EditResource.php:133
+#: lib/Form/EditResourceGroup.php:49 lib/Form/EditResourceGroup.php:74
+#: templates/chunks/calendar.php:165 templates/chunks/calendar.php:252
+#: templates/chunks/calendar.php:281 templates/chunks/calendar.php:322
+#: templates/chunks/calendar.php:346 templates/chunks/calendar.php:401
+#: templates/chunks/calendar.php:436 templates/chunks/permissions.inc:109
+#: templates/chunks/permissions.inc:136 templates/chunks/permissions.inc:164
+#: templates/chunks/permissions.inc:217 templates/chunks/permissions.inc:264
+#: templates/delete/one.inc:24 templates/dynamic/edit.inc:294
+#: templates/dynamic/edit.inc:309 templates/dynamic/task.inc:165
+#: templates/perms/perms.inc:59 templates/perms/perms.inc:80
+#: templates/perms/perms.inc:100 templates/perms/perms.inc:121
+#: templates/perms/perms.inc:142 templates/perms/perms.inc:163
+#: templates/perms/perms.inc:183 templates/perms/perms.inc:208
+#: templates/perms/perms.inc:248 templates/perms/perms.inc:279
+#: templates/perms/perms.inc:300 templates/perms/perms.inc:326
+#: templates/perms/perms.inc:360
 msgid "Delete"
 msgstr "Smazat"
 
-#: delevent.php:40 templates/delete/delete.inc:21 templates/delete/one.inc:21
-#: lib/Driver.php:1707
+#: lib/Event.php:3547 lib/Form/DeleteCalendar.php:28
+#: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
+#: lib/View/DeleteEvent.php:43
 #, php-format
 msgid "Delete %s"
 msgstr "Smazat %s"
 
-#: viewevent.php:103
-#, php-format
-msgid "Delete '%s'"
-msgstr "Smazat '%s'"
+#: templates/dynamic/edit.inc:304
+#, fuzzy
+msgid "Delete All"
+msgstr "Smazat"
 
-#: editevent.php:61
-msgid "Delete Event"
+#: templates/dynamic/edit.inc:305
+#, fuzzy
+msgid "Delete This Event Only"
 msgstr "Smazat Událost"
 
-#: templates/delete/delete.inc:35
-msgid ""
-"Delete the current event only, this occurrence and all future occurences, or "
-"all occurences?"
+#: templates/dynamic/edit.inc:306
+msgid "Delete This and Future Events"
 msgstr ""
-"Smazat pouze současnou událost, tento výskyt a všechny výskyty v budoucnu, "
-"nebo všechny výskyty?"
 
-#: templates/search/search.inc:27 templates/search/search_advanced.inc:103
+#: lib/Event.php:2542
+#, php-format
+msgid "Delete exception on %s"
+msgstr ""
+
+#: lib/LoginTasks/Task/PurgeEvents.php:80
+#, php-format
+msgid "Deleted %d event older than %d days."
+msgid_plural "Deleted %d events older than %d days."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: lib/Driver/Ical.php:535
+#, fuzzy
+msgid "Deleting events is not supported with this remote calendar."
+msgstr "Nelze použít Bílou listinu se současným driverem pro filtraci."
+
+#: templates/edit/edit.inc:232 templates/search/search.inc:26
+#: templates/search/search_advanced.inc:75
 msgid "Descri_ption"
 msgstr "Popi_s"
 
-#: data.php:52 templates/view/view.inc:105
+#: data.php:56 lib/Form/CreateCalendar.php:30 lib/Form/CreateResource.php:44
+#: lib/Form/CreateResourceGroup.php:34 lib/Form/EditCalendar.php:59
+#: lib/Form/EditRemoteCalendar.php:31 lib/Form/EditResource.php:54
+#: lib/Form/EditResourceGroup.php:44 lib/Form/SubscribeRemoteCalendar.php:32
+#: templates/chunks/calendar.php:69 templates/chunks/calendar.php:194
+#: templates/chunks/calendar.php:315 templates/chunks/calendar.php:379
+#: templates/chunks/calendar.php:417 templates/dynamic/edit.inc:95
+#: templates/dynamic/task.inc:64 templates/view/view.inc:154
 msgid "Description"
 msgstr "Popis"
 
-#: templates/attendees/attendees.inc:103
-msgid "Dismiss"
-msgstr "Pominout"
+#: templates/alarm/mail.html.php:53 templates/itip/notification.html.php:62
+msgid "Description:"
+msgstr "Popis:"
 
-#: templates/contacts/contacts.inc:175
+#: templates/contacts/contacts.inc:187
 msgid "Display"
 msgstr "Zobrazit"
 
-#: config/prefs.php.dist:9 config/prefs.php.dist:18 config/prefs.php.dist:26
-msgid "Display Options"
-msgstr "Možnosti Zobrazení"
+#: config/prefs.php:12
+msgid "Display Preferences"
+msgstr "Nastavení zobrazení"
 
-#: config/prefs.php.dist:28
-msgid "Do you want to show tasks which are due on your calendar?"
-msgstr "Přejete si zobrazit úkoly, které jsou požadovány, na Vašem kalendáři?"
+#: lib/Form/EditCalendar.php:66 lib/Form/EditResource.php:62
+msgid "Display URL"
+msgstr "Zobrazit URL"
 
-#: lib/Kronolith.php:466
+#: lib/Kronolith.php:811
 msgid "Does not recur"
 msgstr "Bez opakování"
 
-#: lib/Kronolith.php:312
-#, php-format
-msgid "Due: %s"
-msgstr "Požadovaný: %s"
+#: config/prefs.php:397
+#, fuzzy
+msgid ""
+"Don't send me a notification if I've added, changed or deleted the event?"
+msgstr ""
+"Zaslat zprávu o zrušení události všem účastníkům, když se událost smazává"
 
-#: templates/edit/edit_timespan.inc:62
+#: templates/chunks/permissions.inc:5
+msgid "Don't share this calendar"
+msgstr "Nesdílet tento kalendář"
+
+#: templates/chunks/permissions.inc:5
+msgid "Don't share this task list"
+msgstr "Nesdílet tento seznam úkolů"
+
+#: templates/dynamic/task.inc:13
+msgid "Due date"
+msgstr "Termín dokončení"
+
+#: templates/edit/edit_timespan.inc:102
 msgid "Duration"
 msgstr "Délka Trvání"
 
-#: lib/Driver.php:1701
+#: lib/Event.php:3311
+#, fuzzy
+msgid "Duration Day"
+msgstr "Délka Trvání"
+
+#: lib/Event.php:3322
+#, fuzzy
+msgid "Duration Hour"
+msgstr "Délka Trvání"
+
+#: lib/Event.php:3332
+#, fuzzy
+msgid "Duration Minute"
+msgstr "Délka Trvání"
+
+#: lib/Event.php:3535 templates/chunks/permissions.inc:105
+#: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
+#: templates/chunks/permissions.inc:213 templates/chunks/permissions.inc:260
+#: templates/dynamic/edit.inc:205 templates/perms/perms.inc:58
+#: templates/perms/perms.inc:76 templates/perms/perms.inc:99
+#: templates/perms/perms.inc:117 templates/perms/perms.inc:141
+#: templates/perms/perms.inc:159 templates/perms/perms.inc:182
+#: templates/perms/perms.inc:204 templates/perms/perms.inc:244
+#: templates/perms/perms.inc:275 templates/perms/perms.inc:299
+#: templates/perms/perms.inc:322 templates/perms/perms.inc:356
 msgid "Edit"
 msgstr "Upravit"
 
-#: editevent.php:33 templates/edit/edit.inc:25 lib/Driver.php:1701
+#: lib/Event.php:3532 lib/Form/EditCalendar.php:36
+#: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
+#: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:44
+#: templates/attendees/attendees.inc:58
 #, php-format
 msgid "Edit %s"
 msgstr "Upravit %s"
 
-#: viewevent.php:122
-#, php-format
-msgid "Edit '%s'"
-msgstr "Upravit '%s'"
-
-#: templates/edit/edit.inc:172
-msgid "Edit Attendees"
+#: templates/edit/edit.inc:272
+#, fuzzy
+msgid "Edit Attendees and Resources"
 msgstr "Upravit Účastníky"
 
-#: config/prefs.php.dist:223
-msgid "Edit Remote Calendars"
-msgstr "Upravit Vzdálené Kalendáře"
+#: templates/attendees/attendees.inc:126
+#, fuzzy
+msgid "Edit attendee"
+msgstr "Upravit ůčastníky"
 
-#: attendees.php:146
+#: attendees.php:270
 msgid "Edit attendees"
 msgstr "Upravit ůčastníky"
 
-#: templates/category_legend.inc:25
-msgid "Edit categories and colors"
-msgstr "Upravit kategorie a barvy"
+#: perms.php:98
+msgid "Edit permissions"
+msgstr "Upravit práva"
 
-#: templates/view/view.inc:180 templates/contacts/contacts.inc:178
-#: templates/attendees/attendees.inc:45
+#: perms.php:97
+#, php-format
+msgid "Edit permissions for \"%s\""
+msgstr "Upravit práva pro \"%s\""
+
+#: templates/perms/perms.inc:12
+#, fuzzy, php-format
+msgid "Edit permissions for %s"
+msgstr "Upravit práva pro \"%s\""
+
+#: templates/dynamic/edit.inc:20
+#, php-format
+msgid ""
+"Edit the %s Entire Series %s, the %s Current Event %s or this and all %s "
+"Future Events %s?"
+msgstr ""
+
+#: lib/Form/CreateResource.php:45 lib/Form/EditResource.php:53
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/contacts/contacts.inc:190
 msgid "Email Address"
-msgstr "Emailová Adresa"
+msgstr "E-mailová adresa"
 
-#: data.php:47
+#: templates/chunks/calendar.php:129
+#, fuzzy
+msgid "Embed Script"
+msgstr "Skript"
+
+#: templates/chunks/calendar.php:130
+#, fuzzy
+msgid "Embed calendar on external website"
+msgstr "Zobrazit externí webstránku"
+
+#: lib/Form/EditCalendar.php:144
+msgid "Embed code"
+msgstr ""
+
+#: templates/edit/edit_timespan.inc:53
+msgid "En_d"
+msgstr ""
+
+#: data.php:51
 msgid "End Date"
 msgstr "Datum Ukončení"
 
-#: templates/view/view.inc:55 templates/search/event_headers.inc:8
-#: templates/edit/edit_timespan.inc:67 templates/data/export.inc:112
+#: lib/Event.php:3284 templates/data/export.inc:161
+#, fuzzy
+msgid "End Day"
+msgstr "Datum Ukončení"
+
+#: lib/Event.php:3296 templates/data/export.inc:178
+msgid "End Hour"
+msgstr ""
+
+#: lib/Event.php:3306 templates/data/export.inc:190
+#, fuzzy
+msgid "End Minute"
+msgstr "%d minuta"
+
+#: lib/Event.php:3276 templates/data/export.inc:148
+#, fuzzy
+msgid "End Month"
+msgstr "Měsíc"
+
+#: templates/data/export.inc:125 templates/search/event_headers.inc:7
+#: templates/view/view.inc:42
 msgid "End On"
 msgstr "Konec v"
 
-#: data.php:48
+#: data.php:52
 msgid "End Time"
 msgstr "Čas Ukončení"
 
-#: attendees.php:120 attendees.php:131 attendees.php:138
+#: lib/Event.php:3266 templates/data/export.inc:134
+#, fuzzy
+msgid "End Year"
+msgstr "Konec zprávy"
+
+#: templates/itip/notification.html.php:23
+msgid "End:"
+msgstr "Konec:"
+
+#: templates/dynamic/task.inc:175
+msgid ""
+"Enter one task per line. Create child tasks by indenting them below their "
+"parent task. Include due dates like \"laundry tomorrow\" or \"get dry "
+"cleaning next Thursday\"."
+msgstr ""
+
+#: attendees.php:235 attendees.php:255
 #, php-format
 msgid "Error retrieving free/busy information for %s: %s"
 msgstr "Nastala chyba při výběru %s informace o free/busy: %s"
 
-#: lib/Driver.php:925
-#, php-format
-msgid "Event from %s to %s"
-msgstr "Událost od %s do %s"
+#: attendees.php:213
+#, fuzzy, php-format
+msgid "Error retrieving your free/busy information: %s"
+msgstr "Nastala chyba při výběru %s informace o free/busy: %s"
 
-#: templates/data/export.inc:191
+#: lib/Ajax/Application/Handler.php:1404
+#, fuzzy, php-format
+msgid "Error saving timeslice: %s"
+msgstr "Nastala chyba při zasílání odpovědi: %s."
+
+#: templates/smartmobile/javascript_defs.php:134
+msgid "Error when communicating with the server."
+msgstr "Nastala chyba při komunikaci se serverem."
+
+#: templates/smartmobile/event.html.php:2
+msgid "Event"
+msgstr "Událost"
+
+#: config/prefs.php:40
+#, fuzzy
+msgid "Event Defaults"
+msgstr "Požadavek události"
+
+#: templates/dynamic/edit.inc:272
+msgid "Event ICS file"
+msgstr "Soubor události ICS"
+
+#: feed/index.php:140
+msgid "Event Status:"
+msgstr "Stav událostí:"
+
+#: lib/Kronolith.php:2130
+msgid "Event added:"
+msgstr "Událost přidána:"
+
+#: lib/Kronolith.php:2140
+msgid "Event deleted:"
+msgstr "Událost smazána:"
+
+#: lib/Kronolith.php:2135
+msgid "Event edited:"
+msgstr "Událost změněna:"
+
+#: lib/Driver/Horde.php:182 lib/Driver/Ical.php:417 lib/Driver/Ical.php:434
+#: lib/Driver/Sql.php:480 lib/View/DeleteEvent.php:54
+#: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
+msgid "Event not found"
+msgstr "Událost nebyla nalezena"
+
+#: lib/Driver/Kolab.php:317 lib/Driver/Kolab.php:357
+#, php-format
+msgid "Event not found: %s"
+msgstr "Událost nebyla nalezena: %s"
+
+#: templates/dynamic/edit.inc:28
+msgid "Event title"
+msgstr "Název události"
+
+#: config/prefs.php:39 config/prefs.php:46 config/prefs.php:55
+msgid "Events"
+msgstr "Události"
+
+#: templates/day/head.inc:4 templates/dynamic/day.inc:9
+msgid "Events for this day"
+msgstr "Události pro tento den"
+
+#: lib/Api.php:135
+#, php-format
+msgid "Events from %s"
+msgstr "Události od %s"
+
+#: lib/Ajax.php:151
+#, php-format
+msgid "Events matching \"%s\""
+msgstr "Události splňující \"%s\""
+
+#: lib/Event.php:1985
+msgid "Events must have a start date."
+msgstr "Události musí mít datum začátku."
+
+#: lib/Event.php:1955
+msgid "Events must have a title."
+msgstr "Události musí mít název."
+
+#: lib/Ajax.php:171 lib/Event.php:2515 lib/Event.php:3502
+#: templates/smartmobile/javascript_defs.php:178
+msgid "Exception"
+msgstr "Výjimka"
+
+#: templates/edit/edit.inc:395 templates/view/view.inc:135
+msgid "Exceptions"
+msgstr "Výjimky"
+
+#: templates/dynamic/sidebar.html.php:58 templates/dynamic/sidebar.html.php:72
+#: templates/dynamic/sidebar.html.php:89
+#: templates/dynamic/sidebar.html.php:104
+#: templates/dynamic/sidebar.html.php:120
+#: templates/dynamic/sidebar.html.php:133
+msgid "Expand"
+msgstr "Rozvinout"
+
+#: lib/Kronolith.php:2497 templates/chunks/calendar.php:88
+#: templates/chunks/calendar.php:210 templates/chunks/calendar.php:384
+#: templates/data/export.inc:212 templates/dynamic/edit.inc:111
 msgid "Export"
 msgstr "Exportovat"
 
-#: templates/data/export.inc:9
+#: templates/data/export.inc:8
 msgid "Export Calendar"
-msgstr "Exportovat Kalendář"
+msgstr "Exportovat kalendář"
 
-#: templates/javascript/goto.inc:69
-msgid "February"
-msgstr "Únor"
+#: templates/chunks/calendar.php:158 templates/chunks/calendar.php:245
+#: templates/chunks/calendar.php:395 templates/dynamic/edit.inc:271
+msgid "Export ICS file"
+msgstr "Exportovat ICS soubor"
 
-#: templates/contacts/contacts.inc:130
+#: lib/Form/EditCalendar.php:133 templates/chunks/calendar.php:124
+#, fuzzy
+msgid "Feed URL"
+msgstr "Volná/Obsazená URL"
+
+#: templates/contacts/contacts.inc:144
 msgid "Find"
 msgstr "Vyhledat"
 
-#: templates/javascript/goto.inc:63 templates/edit/edit.inc:207
-#: lib/Block/month.php:109
+#: templates/dynamic/edit.inc:80
+msgid "Find in Maps"
+msgstr ""
+
+#: lib/Block/Month.php:112 lib/View/Year.php:62 templates/edit/edit.inc:315
 msgid "Fr"
 msgstr "Pá"
 
-#: templates/view/view.inc:130 templates/month/head.inc:20
-#: templates/edit/javascript.inc:72
+#: lib/Kronolith.php:849 templates/dynamic/edit.inc:70
+msgid "Free"
+msgstr "Volno"
+
+#: config/prefs.php:66
+#, fuzzy
+msgid "Free/Busy Information"
+msgstr "Vaše informace"
+
+#: templates/dynamic/edit.inc:167 templates/dynamic/task.inc:122
+#: templates/month/head.inc:12 templates/view/view.inc:107
 msgid "Friday"
 msgstr "Pátek"
 
-#: templates/delete/delete.inc:42
+#: templates/dynamic/edit.inc:35
+msgid "From"
+msgstr "Od"
+
+#: lib/Event.php:2213 lib/Event.php:2244
+#, fuzzy, php-format
+msgid "From %s at %s to %s at %s"
+msgstr "Od %s do %s %s"
+
+#: lib/Event.php:2210 lib/Event.php:2241
+#, php-format
+msgid "From %s to %s"
+msgstr "Z %s do %s"
+
+#: templates/delete/delete.inc:26 templates/dynamic/agenda.inc:8
+#: templates/dynamic/tasks.inc:8 templates/edit/edit.inc:44
 msgid "Future"
-msgstr "Budoucnost"
+msgstr "Budoucí"
 
-#: config/keywords.php.dist:17
-msgid "Game"
-msgstr "Hra"
-
-#: templates/search/search_advanced.inc:22
+#: templates/search/search_advanced.inc:18
 msgid "General"
 msgstr "Všeobecně"
 
-#: lib/Block/summary.php:127
+#: lib/Block/Summary.php:169
 #, php-format
 msgid "Goto %s"
 msgstr "Jít na %s"
 
-#: templates/view/view.inc:73 templates/edit/edit.inc:126
+#: lib/Form/CreateResource.php:48 lib/Form/EditResource.php:56
+#: templates/chunks/permissions.inc:234 templates/perms/perms.inc:295
+msgid "Groups"
+msgstr "Skupiny"
+
+#: templates/chunks/permissions.inc:121 templates/perms/perms.inc:95
+msgid "Guest Permissions"
+msgstr "Práva hostů"
+
+#: templates/edit/edit.inc:7
+msgid "Hide"
+msgstr "Skrýt"
+
+#: lib/Ajax.php:142
+msgid "Hide Notifications"
+msgstr "Skrýt upozornění"
+
+#: templates/dynamic/task.inc:33
+msgid "High"
+msgstr "Vysoká"
+
+#: templates/dynamic/task.inc:33
+msgid "Highest"
+msgstr "Nejvyšší"
+
+#: lib/Application.php:365 templates/chunks/calendar.php:338
+#: templates/dynamic/sidebar.html.php:133
+msgid "Holidays"
+msgstr "Svátky"
+
+#: lib/Factory/Driver.php:100
+msgid "Holidays are disabled"
+msgstr "Svátky jsou zakázaný"
+
+#: search.php:91
+msgid "Holidays:"
+msgstr "Svátky:"
+
+#: templates/edit/edit.inc:156 templates/edit/edit.inc:194
+#: templates/view/view.inc:61 templates/prefs/defaultalarm.html:11
 msgid "Hour(s)"
 msgstr "Hodin(a)"
 
-#: config/prefs.php.dist:197
-msgid ""
-"How many days into the future should we generate free/busy information for?"
-msgstr "Kolik dní dopředu máme generovat informaci free/busy?"
+#: config/prefs.php:182
+#, fuzzy
+msgid "How long should the time slots on the day and week views be?"
+msgstr "Zobrazit půlhodinové úseky v denním a týdenním zobrazení?"
 
-#: templates/data/import.inc:9
+#: config/prefs.php:430
+msgid "How many days of Free/Busy information should be generated?"
+msgstr ""
+
+#: config/prefs.php:112
+msgid ""
+"How many events should be displayed per day in the month view? Set to 0 to "
+"always show all events."
+msgstr ""
+
+#: templates/dynamic/index.inc:7
+msgid "I.e. Dinner with John tomorrow 8pm"
+msgstr "Například Večeře s Karlem zítra 18:00"
+
+#: templates/itip/notification.plain.php:25
+msgid ""
+"If your email client doesn't support iTip requests you can use one of the "
+"following links to accept or decline the event."
+msgstr ""
+
+#: templates/itip/notification.html.php:76
+#, php-format
+msgid ""
+"If your email client doesn't support iTip requests you can use the following "
+"links to: %saccept%s, %saccept tentatively%s or %sdecline%s the event."
+msgstr ""
+
+#: templates/chunks/calendar.php:87
+msgid "Import"
+msgstr "Importovat"
+
+#: templates/data/import.inc:7
 #, php-format
 msgid "Import Calendar, Step %d"
 msgstr "Importovat Kalendář, Krok %d"
 
-#: data.php:281
+#: templates/chunks/calendar.php:144
+msgid "Import ICS file"
+msgstr "Importovat soubor ICS"
+
+#: data.php:233
 msgid "Import/Export Calendar"
-msgstr "Importovat/Exportovat Kalendář"
+msgstr "Importovat/Exportovat kalendář"
 
-#: templates/javascript/goto.inc:68
-msgid "January"
-msgstr "Leden"
+#: lib/Ajax.php:143
+msgid "Importing calendar data. This may take a while..."
+msgstr ""
 
-#: templates/javascript/goto.inc:74
-msgid "July"
-msgstr "Červenec"
+#: templates/chunks/calendar.php:148
+#, php-format
+msgid "Importing should %s %sreplace this calendar%s."
+msgstr ""
 
-#: templates/javascript/goto.inc:73
-msgid "June"
-msgstr "Červen"
+#: templates/dynamic/tasks.inc:7
+msgid "Incomplete"
+msgstr "Nedokončené"
 
-#: data.php:55 templates/view/view.inc:155
-msgid "Keywords"
-msgstr "Klíčová slova"
+#: templates/perms/perms.inc:178
+msgid "Individual Users"
+msgstr "Jednotliví uživatelé"
 
-#: templates/search/search.inc:54
+#: lib/Api.php:285
+#, fuzzy
+msgid "Invalid calendar data supplied."
+msgstr "Data v kalendáři jsou neplatná"
+
+#: templates/share/notification.plain.php:1
+#, php-format
+msgid "Invitation from %s to the calendar \"%s\""
+msgstr ""
+
+#: templates/share/notification.html.php:1
+#, php-format
+msgid "Invitation from %s to the calendar %s"
+msgstr ""
+
+#: templates/dynamic/edit.inc:275
+#, fuzzy
+msgid "Job type"
+msgstr "Název úlohy"
+
+#: templates/search/search.inc:53
 msgid "Last 24 hours"
 msgstr "Posledních 24 hodin"
 
-#: templates/view/view.inc:95
+#: templates/view/view.inc:83
 msgid "Last Modified"
 msgstr "Naposledy Změněno"
 
-#: templates/month/head.inc:4 templates/month/head_side_by_side.inc:4
-#: templates/month/head_side_by_side.inc:10
-#: templates/month/head_side_by_side.inc:16
-msgid "Last Month"
-msgstr "Minulý Měsíc"
-
-#: templates/week/head.inc:4 templates/week/head_side_by_side.inc:4
-#: templates/search/search.inc:53
+#: templates/search/search.inc:52
 msgid "Last week"
 msgstr "Minulý týden"
 
-#: templates/edit/edit_timespan.inc:122
-msgid "Lasts"
-msgstr "Trvá"
+#: templates/chunks/calendar.php:132
+msgid "Learn how to embed other calendar views."
+msgstr ""
 
-#: templates/data/export.inc:21
+#: templates/chunks/calendar.php:108
+msgid "Learn how to subscribe via CalDAV from calendar clients."
+msgstr ""
+
+#: templates/data/export.inc:29
 msgid "Limit the time span to export:"
 msgstr "Limitovat časové rozpětí pro exportování:"
 
-#: templates/search/search_advanced.inc:85 templates/edit/edit.inc:75
+#: config/prefs.php:439
+msgid ""
+"List all contacts when loading the contacts screen? (if disabled, you will "
+"only see contacts that you search for explicitly)"
+msgstr ""
+"Zobrazit seznam všech kontaktů po otevření kontaktů? (pokud není aktivováno, "
+"uvidíte pouze kontakty, které jste zadali pro vyhledání)"
+
+#: templates/edit/edit.inc:114 templates/search/search_advanced.inc:55
 msgid "Lo_cation"
 msgstr "Mí_sto"
 
-#: data.php:54 templates/view/view.inc:29 templates/search/event_headers.inc:5
-#: templates/prefs/remote_cal_management.inc:18
-#: templates/prefs/remote_cal_management.inc:52
+#: templates/javascript_defs.php:23
+msgid "Loading ..."
+msgstr "Nahráva se ..."
+
+#: templates/dynamic/sidebar.html.php:27
+msgid "Loading calendars..."
+msgstr "Načítám kalendáře..."
+
+#: lib/Ui/VarRenderer/Kronolith.php:33 templates/attendees/attendees.inc:129
+#: templates/chunks/calendar.php:101 templates/dynamic/edit.inc:80
+#: templates/dynamic/edit.inc:211 templates/dynamic/edit.inc:236
+#: templates/dynamic/edit.inc:261 templates/dynamic/task.inc:159
+#: templates/edit/edit.inc:422
+msgid "Loading..."
+msgstr "Nahrává se..."
+
+#: data.php:57 lib/Event.php:3587 templates/dynamic/edit.inc:76
+#: templates/search/event_headers.inc:4 templates/view/view.inc:6
 msgid "Location"
 msgstr "Místo"
 
-#: config/prefs.php.dist:43
-msgid "Manage remote calendars."
-msgstr "Ovládání pro vzdálené kalendáře"
+#: templates/alarm/mail.html.php:22 templates/alarm/mail.plain.php:7
+#: templates/itip/notification.html.php:32
+#: templates/itip/notification.plain.php:5
+#, fuzzy
+msgid "Location:"
+msgstr "Místo"
 
-#: templates/javascript/goto.inc:70
-msgid "March"
-msgstr "Březen"
+#: config/prefs.php:47
+#, fuzzy
+msgid "Login Tasks"
+msgstr "Spustit úkoly prováděné při přihlášení"
 
-#: templates/javascript/goto.inc:72
-msgid "May"
+#: feed/index.php:57
+#, php-format
+msgid "Login required for the requested feed (%s)."
+msgstr ""
+
+#: templates/dynamic/task.inc:33
+msgid "Low"
+msgstr "Nizká"
+
+#: templates/dynamic/task.inc:33
+msgid "Lowest"
+msgstr "Nejnižší"
+
+#: lib/Form/CreateResource.php:31 lib/Form/EditResource.php:39
+#: templates/chunks/calendar.php:371
+#, fuzzy
+msgid "Manual"
+msgstr "Leden"
+
+#: templates/dynamic/edit.inc:105
+#, fuzzy
+msgid "Map"
 msgstr "Květen"
 
-#: config/keywords.php.dist:17
+#: templates/dynamic/task.inc:57
+msgid "Mark task as"
+msgstr "Označit úkol jako"
+
+#: lib/Application.php:96
+#, fuzzy
+msgid "Maximum Number of Events"
+msgstr "Maximální počet kontaktů"
+
+#: lib/Block/Monthlist.php:30 lib/Block/Summary.php:48
+#, fuzzy
+msgid "Maximum number of events to display (0 = no limit)"
+msgstr "Maximální počet položek k zobrazení"
+
+#: lib/Event.php:3583
+#, fuzzy
+msgid "Me"
+msgstr "Menu"
+
+#: lib/Event.php:3512
 msgid "Meeting"
 msgstr "Schůze"
 
-#: lib/Block/tree_menu.php:3
-msgid "Menu List"
-msgstr "Menu Seznam"
-
-#: templates/view/view.inc:76 templates/edit/edit.inc:125
+#: templates/edit/edit.inc:160 templates/edit/edit.inc:193
+#: templates/view/view.inc:64 templates/prefs/defaultalarm.html:10
 msgid "Minute(s)"
 msgstr "Minut(a)"
 
-#: lib/Block/prevmonthlist.php:44
-msgid "Missed Events List"
-msgstr "Výpis Zmeškaných Událostí"
-
-#: templates/javascript/goto.inc:59 templates/edit/edit.inc:203
-#: lib/Block/month.php:109
+#: lib/Block/Month.php:112 lib/View/Year.php:58 templates/edit/edit.inc:311
 msgid "Mo"
 msgstr "Po"
 
-#: templates/view/view.inc:126 templates/month/head.inc:16
-#: templates/edit/javascript.inc:68 config/prefs.php.dist:87
+#: config/prefs.php:129 templates/dynamic/edit.inc:163
+#: templates/dynamic/task.inc:118 templates/month/head.inc:8
+#: templates/view/view.inc:103
 msgid "Monday"
 msgstr "Pondělí"
 
-#: lib/Kronolith.php:1042 lib/Block/tree_menu.php:24 config/prefs.php.dist:66
+#: attendees.php:190 config/prefs.php:103 lib/Application.php:450
+#: lib/Kronolith.php:2441 templates/dynamic/index.inc:35
+#: templates/smartmobile/day.html.php:8 templates/smartmobile/month.html.php:2
+#: templates/smartmobile/month.html.php:8
+#: templates/smartmobile/summary.html.php:8
 msgid "Month"
 msgstr "Měsíc"
 
-#: lib/Block/month.php:3
-msgid "Month View"
-msgstr "Zobrazit Měsíc"
+#: config/prefs.php:203 config/prefs.php:214
+msgid "Month, Week, and Day Views"
+msgstr ""
 
-#: lib/Block/monthlist.php:3 lib/Block/monthlist.php:44
-msgid "Monthly Events List"
-msgstr "Měsíční Výpis Událostí"
-
-#: templates/view/view.inc:136 templates/view/view.inc:138
-#: templates/edit/edit.inc:214 templates/edit/edit.inc:220
+#: templates/edit/edit.inc:322 templates/edit/edit.inc:328
+#: templates/view/view.inc:112 templates/view/view.inc:114
 msgid "Monthly: Recurs every"
 msgstr "Měsíčně: Rekurzívně každý"
 
-#: lib/Block/monthlist.php:24
+#: lib/Block/Monthlist.php:26
 msgid "Months Ahead"
 msgstr "Měsíce Dopředu"
 
-#: lib/Block/prevmonthlist.php:24
+#: lib/Block/Prevmonthlist.php:27
 msgid "Months Before"
 msgstr "Před Měsíci"
 
-#: lib/api.php:172 lib/api.php:344
+#: lib/Api.php:1104
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr ""
 "Bylo nalezeno několik částí iCalendar. Je možno použít jen jeden vEvent."
 
-#: templates/calendars/calendars.inc:84
+#: smartmobile.php:18
+msgid "My Calendar"
+msgstr "Můj kalendář"
+
+#: lib/Application.php:195 templates/dynamic/sidebar.html.php:35
 msgid "My Calendars"
-msgstr "Kalendáře"
+msgstr "Moje kalendáře"
 
-#: templates/menu.inc:36
+#: search.php:75
 msgid "My Calendars:"
-msgstr "Kalendáře:"
+msgstr "Moje kalendáře:"
 
-#: templates/calendars/calendars.inc:132
+#: config/prefs.php:474
 msgid "My Free/Busy URL"
-msgstr "Free/Busy URL"
+msgstr "Moje Free/Busy URL"
 
-#: templates/prefs/remote_cal_management.inc:17
-#: templates/prefs/remote_cal_management.inc:44
-#: templates/contacts/contacts.inc:177
+#: templates/dynamic/sidebar.html.php:47
+msgid "My Task Lists"
+msgstr "Moje seznamy úkolů"
+
+#: lib/Form/CreateCalendar.php:24 lib/Form/CreateResource.php:43
+#: lib/Form/CreateResourceGroup.php:33 lib/Form/EditCalendar.php:41
+#: lib/Form/EditRemoteCalendar.php:25 lib/Form/EditResource.php:52
+#: lib/Form/EditResourceGroup.php:43 lib/Form/SubscribeRemoteCalendar.php:24
+#: templates/chunks/calendar.php:180 templates/chunks/calendar.php:309
+#: templates/chunks/calendar.php:360 templates/chunks/calendar.php:412
+#: templates/contacts/contacts.inc:189
 msgid "Name"
 msgstr "Název"
 
-#: lib/Block/month.php:43 lib/Block/monthlist.php:45 lib/Block/summary.php:43
-#: lib/Block/tree_menu.php:20
-msgid "New Event"
-msgstr "Nová Událost"
+#: templates/dynamic/sidebar.html.php:33
+msgid "New Calendar"
+msgstr "Nový kalendář"
 
-#: templates/data/import.inc:39
+#: lib/Application.php:446
+msgid "New Event"
+msgstr "Nová událost"
+
+#: templates/dynamic/sidebar.html.php:45
+msgid "New Task List"
+msgstr "Nový seznam úkolů"
+
+#: lib/CalendarsManager.php:408
+#, php-format
+msgid ""
+"New calendar created and automatically shared with the following group(s): "
+"%s."
+msgstr ""
+
+#: templates/buttonbar.html.php:8 templates/data/import.inc:35
+#: templates/dynamic/index.inc:31 templates/smartmobile/day.html.php:17
+#: templates/smartmobile/month.html.php:17
 msgid "Next"
 msgstr "Další"
 
-#: templates/search/search.inc:56
+#: templates/search/search.inc:55
 msgid "Next 24 hours"
 msgstr "Dalších 24 hodin"
 
-#: lib/FBView/day.php:78
+#: lib/FreeBusy/View/Day.php:29
 msgid "Next Day"
 msgstr "Další Den"
 
-#: templates/month/head.inc:6 templates/month/head_side_by_side.inc:6
-#: templates/month/head_side_by_side.inc:12
-#: templates/month/head_side_by_side.inc:18
+#: lib/FreeBusy/View/Month.php:42
 msgid "Next Month"
 msgstr "Další Měsíc"
 
-#: lib/FBView/week.php:32
+#: lib/FreeBusy/View/Week.php:44
 msgid "Next Week"
 msgstr "Další Týden"
 
-#: templates/day/head.inc:7 templates/day/head_side_by_side.inc:7
-msgid "Next day"
-msgstr "Další den"
+#: templates/dynamic/sidebar.html.php:8
+#, fuzzy
+msgid "Next month"
+msgstr "Další Měsíc"
 
-#: templates/week/head.inc:6 templates/week/head_side_by_side.inc:6
-#: templates/search/search.inc:57
+#: templates/search/search.inc:56
 msgid "Next week"
 msgstr "Další týden"
 
-#: templates/fbview/legend.inc:7
+#: config/prefs.php:373 config/prefs.php:386 config/prefs.php:405
+#: templates/dynamic/edit.inc:318 templates/dynamic/edit.inc:325
+#: templates/dynamic/edit.inc:332
+msgid "No"
+msgstr "Ne"
+
+#: templates/fbview/legend.html:13
 msgid "No Information"
 msgstr "Bez Informace"
 
-#: templates/attendees/attendees.inc:53
+#: index.php:63 index.php:65
+#, fuzzy
+msgid "No Sound"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Žádný zvuk\n"
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Bez Zvuku"
+
+#: templates/edit/edit.inc:188 templates/view/view.inc:69
+#, fuzzy
+msgid "No alarm"
+msgstr "Alarm"
+
+#: templates/attendees/attendees.inc:55 templates/attendees/attendees.inc:92
 msgid "No attendees"
 msgstr "Bez účastníků"
 
-#: lib/Kronolith.php:1063
+#: lib/Api.php:1250
+msgid ""
+"No attendees have been updated because none of the provided email addresses "
+"have been found in the event's attendees list."
+msgstr ""
+
+#: lib/Application.php:114
 msgid "No calendars are available to guests."
 msgstr "Žádný z Kalendářů není dostupný pro hosty."
 
-#: templates/view/view.inc:148 templates/edit/edit.inc:240
+#: lib/Driver/Sql.php:510
+#, fuzzy
+msgid "No calendars to search"
+msgstr "Pole pro vyhledávání"
+
+#: templates/edit/edit.inc:360 templates/view/view.inc:129
 msgid "No end date"
 msgstr "Bez dne ukončení"
 
-#: lib/Block/monthlist.php:197 lib/Block/prevmonthlist.php:195
-#: lib/Block/summary.php:196
+#: lib/Block/Monthlist.php:209 lib/Block/Prevmonthlist.php:168
+#: lib/Block/Summary.php:205 templates/smartmobile/javascript_defs.php:136
 msgid "No events to display"
 msgstr "Žádné události k zobrazení"
 
-#: lib/Storage/kolab.php:44
-#, php-format
-msgid "No free/busy information is available for %s"
+#: lib/FreeBusy.php:227
+#, fuzzy, php-format
+msgid "No free/busy information found at the free/busy url of %s."
 msgstr "Žádná free/busy informace není dostupná pro %s"
 
-#: lib/api.php:162 lib/api.php:334
+#: lib/FreeBusy.php:229
+#, fuzzy, php-format
+msgid "No free/busy url found for %s."
+msgstr "Žádná položka %s nebyla nalezena pro %s"
+
+#: lib/Api.php:761 lib/Api.php:781 lib/Api.php:1111
 msgid "No iCalendar data was found."
 msgstr "Nebyla nalezena žádná data pro iCalendar."
 
-#: lib/Kronolith.php:836
+#: templates/dynamic/agenda.inc:22 templates/dynamic/tasks.inc:22
+msgid "No items"
+msgstr "Žádné položky"
+
+#: templates/dynamic/sidebar.html.php:62 templates/dynamic/sidebar.html.php:76
+#: templates/dynamic/sidebar.html.php:93
+#: templates/dynamic/sidebar.html.php:108
+#: templates/dynamic/sidebar.html.php:124
+#: templates/dynamic/sidebar.html.php:137
+msgid "No items to display"
+msgstr "Žádné položky k zobrazení"
+
+#: lib/Ajax.php:147 templates/dynamic/task.inc:44
+msgid "No parent task"
+msgstr "Žádný nadřazený úkol"
+
+#: lib/Event.php:2513 templates/edit/edit.inc:297
+msgid "No recurrence"
+msgstr "Bez opakování"
+
+#: lib/Event.php:3039
+msgid "No resources from this group were available"
+msgstr ""
+
+#: lib/FreeBusy.php:168
 msgid "No valid email address found"
 msgstr "Nebyla nalezena žádná platná e-mailová adresa"
 
-#: templates/view/view.inc:81 templates/edit/edit.inc:121
-#: templates/edit/edit.inc:189 lib/Kronolith.php:530 lib/Kronolith.php:550
+#: lib/Ajax.php:145 lib/Form/CreateResource.php:32
+#: lib/Form/EditResource.php:40 lib/Kronolith.php:880 lib/Kronolith.php:901
+#: templates/chunks/calendar.php:367 templates/dynamic/task.inc:51
 msgid "None"
 msgstr "Žádná"
 
-#: lib/Storage/sql.php:127
-msgid "Not found"
+#: templates/dynamic/task.inc:33
+msgid "Normal"
+msgstr "Normální"
+
+#: lib/View/DeleteEvent.php:38 lib/View/EditEvent.php:39 lib/View/Event.php:38
+msgid "Not Found"
 msgstr "Nenalezeno"
 
-#: templates/data/import.inc:17
-msgid ""
-"Notice: Importing is not possible with this configuration due to a bug in "
-"the underlying calendar driver."
-msgstr ""
-"Upozornění: Není možno importovat, protože driver pro kalendář obsahuje "
-"chyby."
+#: templates/edit/edit.inc:203
+#, fuzzy
+msgid "Notification"
+msgstr "Zobrazit upozornění"
 
-#: templates/javascript/goto.inc:78
-msgid "November"
-msgstr "Listopad"
+#: config/prefs.php:56 lib/Ajax.php:135
+#, fuzzy
+msgid "Notifications"
+msgstr "Zobrazit upozornění"
 
-#: templates/search/search.inc:55
+#: templates/search/search.inc:54
 msgid "Now"
 msgstr "Nyní"
 
-#: templates/javascript/goto.inc:77
-msgid "October"
-msgstr "Říjen"
+#: templates/chunks/permissions.inc:149 templates/perms/perms.inc:137
+msgid "Object Creator"
+msgstr "Vytvářeč objektů"
 
-#: lib/Kronolith.php:547
+#: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:58
+msgid "On"
+msgstr ""
+
+#: lib/Event.php:2208 lib/Event.php:2239
+#, fuzzy, php-format
+msgid "On %s"
+msgstr "v %s"
+
+#: config/prefs.php:376
+msgid "On all calendars I have explicitly read access to"
+msgstr ""
+
+#: config/prefs.php:389 config/prefs.php:408
+msgid "On all calendars I have read access to"
+msgstr ""
+
+#: config/prefs.php:375 config/prefs.php:388 config/prefs.php:407
+#, fuzzy
+msgid "On all shown calendars"
+msgstr "Ovládání pro vzdálené kalendáře"
+
+#: config/prefs.php:374 config/prefs.php:387 config/prefs.php:406
+#, fuzzy
+msgid "On my calendars only"
+msgstr "Aktualizovat v mém kalendáři"
+
+#: lib/Kronolith.php:1427
+msgid ""
+"Only the owner or system administrator may change ownership or owner "
+"permissions for a share"
+msgstr ""
+"Pouze vlastník nebo administrátor může změnit vlastnicví nebo práva pro "
+"sdílený objekt"
+
+#: lib/Kronolith.php:898
 msgid "Optional"
 msgstr "Nepovinný"
 
-#: lib/FBView.php:112
-msgid "Optional to attend"
+#: lib/FreeBusy/View.php:158
+#, fuzzy
+msgid "Optional Attendees"
 msgstr "Účast nepovinná"
 
-#: templates/view/view.inc:42
+#: templates/perms/perms.inc:260
+msgid "Or enter a user name:"
+msgstr "Nebo uveďte uživatelské jméno:"
+
+#: config/prefs.php:72
+#, fuzzy
+msgid "Other Preferences"
+msgstr "Předvolby"
+
+#: lib/Ajax.php:139 lib/Application.php:315
+#, fuzzy
+msgid "Other events"
+msgstr "Ostatní uživatelé"
+
+#: lib/FreeBusy/View.php:233
+#, fuzzy
+msgid "Overview"
+msgstr "Náhled"
+
+#: lib/Form/EditCalendar.php:44 templates/perms/perms.inc:26
+#: templates/view/view.inc:28
 msgid "Owner"
 msgstr "Vlastník"
 
-#: templates/data/export.inc:106 templates/data/export.inc:186
+#: templates/perms/perms.inc:32 templates/perms/perms.inc:41
+msgid "Owner:"
+msgstr "Vlastník:"
+
+#: lib/Event.php:3582
+#, fuzzy, php-format
+msgid "Owner: %s"
+msgstr "Vlastník:"
+
+#: lib/Kronolith.php:1440
+msgid "Ownership assignment"
+msgstr ""
+
+#: templates/data/export.inc:119 templates/data/export.inc:204
 msgid "PM"
-msgstr "PM"
+msgstr "odp."
 
-#: data.php:29 templates/data/import.inc:22
-msgid "Palm DateBook"
-msgstr "Palm DateBook"
+#: templates/dynamic/task.inc:42
+msgid "Parent task"
+msgstr "Nadřazený úkol"
 
-#: lib/Block/prevmonthlist.php:3
-msgid "Past Events List"
-msgstr "Výpis prošlích událostí"
+#: lib/Form/EditRemoteCalendar.php:29 lib/Form/SubscribeRemoteCalendar.php:34
+#: templates/chunks/calendar.php:296
+msgid "Password"
+msgstr "Heslo"
 
-#: templates/view/view.inc:119 templates/edit/edit.inc:183
+#: templates/dynamic/agenda.inc:7
+msgid "Past"
+msgstr "Minulé"
+
+#: templates/edit/edit.inc:292 templates/view/view.inc:95
 msgid "Pattern"
 msgstr "Vzor"
 
-#: templates/delete/one.inc:35
+#: templates/delete/one.inc:22 templates/dynamic/edit.inc:301
 msgid "Permanently delete this event?"
 msgstr "Permanentně smazat tuto událost?"
 
-#: lib/api.php:143 lib/api.php:219 lib/api.php:286 lib/api.php:316
-#: lib/api.php:399 lib/api.php:433
+#: lib/Ajax/Application/Handler.php:1465 lib/Block/Month.php:70
+#: lib/Block/Monthlist.php:89 lib/Block/Prevmonthlist.php:82
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2663 lib/Kronolith.php:2671
+#: lib/Kronolith.php:2677 lib/Kronolith.php:2683
 msgid "Permission Denied"
 msgstr "Nepovolený přístup"
 
-#: templates/calendars/calendars.inc:107
+#: lib/Api.php:506
+#, php-format
+msgid "Permission Denied or Calendar Not Found: %s - skipping."
+msgstr ""
+
+#: lib/Form/DeleteResource.php:54 lib/Form/DeleteResourceGroup.php:55
+msgid "Permission denied"
+msgstr "Nepovolený přístup"
+
+#: feed/index.php:38
+#, fuzzy, php-format
+msgid "Permission denied for the requested feed (%s)."
+msgstr "Nepovolený přístup k %s: %s"
+
+#: templates/chunks/permissions.inc:86 templates/chunks/permissions.inc:182
+#: templates/chunks/permissions.inc:235
 msgid "Permissions"
 msgstr "Práva"
 
-#: config/prefs.php.dist:19
-msgid "Portal Options"
-msgstr "Možnosti Portálu"
+#: lib/Ajax.php:140
+#, fuzzy
+msgid "Please enter correct values in the form first."
+msgstr "Prosím zadejte název nové složky:"
 
-#: templates/fbview/legend.inc:5
+#: templates/fbview/legend.html:11
 msgid "Possible Meeting Time"
 msgstr "Možný Čas Schůze"
 
-#: lib/FBView.php:141
-msgid "Possible Meeting Times"
-msgstr "Možné Časy Schůze"
+#: lib/Ajax.php:150
+msgid "Preferences"
+msgstr "Předvolby"
 
-#: lib/FBView/day.php:74
+#: templates/buttonbar.html.php:6 templates/dynamic/index.inc:29
+#: templates/smartmobile/day.html.php:15
+#: templates/smartmobile/month.html.php:15
+msgid "Previous"
+msgstr "Předchozí"
+
+#: lib/FreeBusy/View/Day.php:25
 msgid "Previous Day"
 msgstr "Předchozí Den"
 
-#: lib/FBView/week.php:26
+#: lib/FreeBusy/View/Month.php:38
+msgid "Previous Month"
+msgstr "Předchozí měsíc"
+
+#: lib/FreeBusy/View/Week.php:39
 msgid "Previous Week"
 msgstr "Předchozí Týden"
 
-#: templates/day/head.inc:5 templates/day/head_side_by_side.inc:5
-msgid "Previous day"
-msgstr "Předchozí den"
+#: templates/dynamic/sidebar.html.php:6
+msgid "Previous month"
+msgstr "Předchozí měsíc"
 
-#: templates/view/view.inc:147 templates/edit/edit.inc:237
+#: templates/dynamic/edit.inc:260 templates/dynamic/task.inc:158
+msgid "Previously used tags"
+msgstr "Naposledy použité štítky"
+
+#: config/prefs.php:204 config/prefs.php:215
+#, fuzzy
+msgid "Print Views"
+msgstr "Zobrazit Měsíc"
+
+#: lib/Block/Prevmonthlist.php:13
+msgid "Prior Events"
+msgstr "Minulé události"
+
+#: templates/dynamic/task.inc:31
+msgid "Priority"
+msgstr "Důležitost"
+
+#: lib/Event.php:3507
+msgid "Private event"
+msgstr "Soukromná událost"
+
+#: templates/edit/edit.inc:133
+msgid "Private?"
+msgstr "Soukromná?"
+
+#: config/prefs.php:504
+#, fuzzy
+msgid "Purge old events from your calendar?"
+msgstr "Smazat z mého kalendáře"
+
+#: config/prefs.php:511
+#, fuzzy
+msgid "Purge old events how often:"
+msgstr "Jak často vyprazdňovat složku Odeslaná pošta:"
+
+#: config/prefs.php:517
+#, fuzzy
+msgid "Purge old events older than this amount of days."
+msgstr "Vyčistit zprávy ze složky SPAM, které jsou starší než tento počet dní."
+
+#: templates/dynamic/index.inc:4
+msgid "Quick Event Creation"
+msgstr "Rychlé vytvoření události"
+
+#: templates/dynamic/task.inc:173
+msgid "Quick Task Creation"
+msgstr "Rychlé vytvoření úkolu"
+
+#: lib/View/Sidebar.php:40
+msgid "Quick _insert"
+msgstr ""
+
+#: templates/chunks/permissions.inc:101 templates/chunks/permissions.inc:128
+#: templates/chunks/permissions.inc:156 templates/chunks/permissions.inc:209
+#: templates/chunks/permissions.inc:256 templates/perms/perms.inc:57
+#: templates/perms/perms.inc:72 templates/perms/perms.inc:98
+#: templates/perms/perms.inc:113 templates/perms/perms.inc:140
+#: templates/perms/perms.inc:155 templates/perms/perms.inc:181
+#: templates/perms/perms.inc:200 templates/perms/perms.inc:240
+#: templates/perms/perms.inc:271 templates/perms/perms.inc:298
+#: templates/perms/perms.inc:318 templates/perms/perms.inc:352
+#, fuzzy
+msgid "Read"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Přečíst\n"
+"#-#-#-#-#  gollem.po (Gollem)  #-#-#-#-#\n"
+"Čtecí\n"
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Číst"
+
+#: lib/Form/DeleteCalendar.php:31
+#, fuzzy, php-format
+msgid ""
+"Really delete the calendar \"%s\"? This cannot be undone and all data on "
+"this calendar will be permanently removed."
+msgstr ""
+"Opravdu smazat adresář \"%s\"? Tato operace nemůže být vrácena zpět a "
+"všechny kontakty v tomto adresáři budou ztraceny."
+
+#: lib/Form/DeleteResource.php:34 lib/Form/DeleteResourceGroup.php:35
+#, fuzzy, php-format
+msgid ""
+"Really delete the resource \"%s\"? This cannot be undone and all data on "
+"this resource will be permanently removed."
+msgstr ""
+"Opravdu smazat adresář \"%s\"? Tato operace nemůže být vrácena zpět a "
+"všechny kontakty v tomto adresáři budou ztraceny."
+
+#: lib/Form/UnsubscribeRemoteCalendar.php:25
+#, php-format
+msgid "Really unsubscribe from the calendar \"%s\" (%s)?"
+msgstr ""
+
+#: templates/edit/edit.inc:357 templates/view/view.inc:128
 msgid "Recur Until"
 msgstr "Rekurzívně až do"
 
-#: templates/view/view.inc:116
+#: templates/edit/edit.inc:282 templates/view/view.inc:92
 msgid "Recurrence"
 msgstr "Opakování"
 
-#: data.php:59
+#: data.php:61
 msgid "Recurrence Data"
 msgstr "Opakování Dat"
 
-#: data.php:57
+#: data.php:59
 msgid "Recurrence End Date"
 msgstr "Datum Opakovaní do"
 
-#: data.php:58
+#: lib/Event.php:3373
+msgid "Recurrence End Day"
+msgstr "Poslední den opakování"
+
+#: lib/Event.php:3359
+msgid "Recurrence End Month"
+msgstr "Poslední měsíc opakování"
+
+#: lib/Event.php:3343
+msgid "Recurrence End Year"
+msgstr "Poslední rok opakování"
+
+#: data.php:60
 msgid "Recurrence Interval"
 msgstr "Opakovací Interval"
 
-#: data.php:56
+#: data.php:58
 msgid "Recurrence Type"
 msgstr "Opakovací Typ"
 
-#: lib/Kronolith.php:469
+#: lib/Kronolith.php:814 templates/smartmobile/javascript_defs.php:157
 msgid "Recurs daily"
 msgstr "Opakovat denně"
 
-#: lib/Kronolith.php:476
+#: templates/smartmobile/javascript_defs.php:158
+#, php-format
+msgid "Recurs every %s days"
+msgstr "Opakuje se každé %s dny"
+
+#: templates/smartmobile/javascript_defs.php:164
+#, php-format
+msgid "Recurs every %s months on the %s"
+msgstr "Opakuje se každé %s měsíce %s."
+
+#: templates/smartmobile/javascript_defs.php:167
+#, php-format
+msgid "Recurs every %s months on the same weekday"
+msgstr "Opakuje se každé %s měsíce ve stejném dnu v týdnu"
+
+#: templates/smartmobile/javascript_defs.php:161
+#, php-format
+msgid "Recurs every %s weeks on %s"
+msgstr "Opakuje se každé %s týdny v %s"
+
+#: templates/smartmobile/javascript_defs.php:170
+#, php-format
+msgid "Recurs every %s years on %s"
+msgstr "Opakuje se každé %s roky %s"
+
+#: templates/smartmobile/javascript_defs.php:173
+#, php-format
+msgid "Recurs every %s years on the same day"
+msgstr "Opakuje se každé %s roky v ten samý den"
+
+#: templates/smartmobile/javascript_defs.php:176
+#, php-format
+msgid "Recurs every %s years on the same weekday"
+msgstr "Opakuje sa každých %s let ve stejném dnu v týdnu"
+
+#: templates/smartmobile/javascript_defs.php:166
+msgid "Recurs every month on the same weekday"
+msgstr "Opakuje sa každý měsíc ve stejném dnu v týdnu"
+
+#: templates/smartmobile/javascript_defs.php:175
+msgid "Recurs every year on the same weekday"
+msgstr "Opakuje sa každý rok ve stejném dnu v týdnu"
+
+#: lib/Kronolith.php:821
 msgid "Recurs monthly"
 msgstr "Opakovat mesíčně"
 
-#: lib/Kronolith.php:472
-msgid "Recurs weekly"
-msgstr "Opakovat týdně"
+#: templates/smartmobile/javascript_defs.php:163
+#, php-format
+msgid "Recurs on the %s of every month"
+msgstr "Opekuje se %s každý měsíc"
 
-#: lib/Kronolith.php:479
+#: templates/smartmobile/javascript_defs.php:169
+#, php-format
+msgid "Recurs once a year, on %s"
+msgstr "Opakuje se jednou rožne, %s"
+
+#: templates/smartmobile/javascript_defs.php:172
+msgid "Recurs once a year, on the same day"
+msgstr "Opakuje se jednou ročně v ten samý den"
+
+#: lib/Kronolith.php:817
+msgid "Recurs weekly"
+msgstr "Opakuje se týdně"
+
+#: templates/smartmobile/javascript_defs.php:160
+#, php-format
+msgid "Recurs weekly on every %s"
+msgstr "Opakuje se týdně každý %s"
+
+#: lib/Kronolith.php:826
 msgid "Recurs yearly"
 msgstr "Opakovat ročně"
 
-#: lib/Scheduler/kronolith.php:166
-#, php-format
-msgid "Reminder: %s"
-msgstr "Upomínka: %s"
+#: templates/dynamic/edit.inc:96 templates/dynamic/task.inc:65
+msgid "Reminder"
+msgstr "Upomínka"
 
-#: config/prefs.php.dist:42
+#: lib/Application.php:340 templates/dynamic/sidebar.html.php:120
 msgid "Remote Calendars"
-msgstr "Vzdálené Kalendáře"
+msgstr "Vzdálené kalendáře"
 
-#: templates/menu.inc:48
+#: search.php:88
 msgid "Remote Calendars:"
-msgstr "Vzdálené Kalendáře:"
+msgstr "Vzdálené kalendáře:"
 
-#: templates/attendees/attendees.inc:57
+#: templates/contacts/contacts.inc:173
+msgid "Remove"
+msgstr "Odstranit"
+
+#: templates/attendees/attendees.inc:58 templates/attendees/attendees.inc:95
 #, php-format
 msgid "Remove %s"
 msgstr "Odstranit %s"
 
-#: attendees.php:37
+#: attendees.php:181
 msgid "Remove Attendee"
 msgstr "Odstranit Účastníka"
 
-#: lib/Kronolith.php:554
+#: templates/dynamic/edit.inc:97 templates/dynamic/task.inc:66
+msgid "Repeat"
+msgstr "Opakování"
+
+#: templates/dynamic/edit.inc:153 templates/dynamic/task.inc:108
+#, php-format
+msgid "Repeat %s every day %s or %s every %s days %s"
+msgstr "Opakovat %s každý den %s nebo %s každé %s dny %s"
+
+#: templates/dynamic/edit.inc:172 templates/dynamic/task.inc:127
+#, php-format
+msgid ""
+"Repeat %s every month %s or %s every %s months, %s on the same %s date %s or "
+"%s weekday %s"
+msgstr ""
+"Opakovat %s každý měsíc %s nebo %s každé %s měsíce %s v ten samý %s datum %s "
+"nebo %s den v týdnu %s"
+
+#: templates/dynamic/edit.inc:159 templates/dynamic/task.inc:114
+#, php-format
+msgid "Repeat %s every week %s or %s every %s weeks %s On %s"
+msgstr "Opakovat %s každý týden %s nebo %s každé %s týdny %s v %s"
+
+#: templates/dynamic/edit.inc:180 templates/dynamic/task.inc:135
+#, php-format
+msgid ""
+"Repeat %s every year %s or %s every %s years %s on the same %s date %s day "
+"of the year %s month and weekday %s"
+msgstr ""
+"Opakovat %s každý rok %s nebo %s každé %s roky %s v to samé %s datum %s den "
+"v roku %s měsíc a den v týdnu %s"
+
+#: templates/data/import.inc:31
+#, fuzzy
+msgid ""
+"Replace existing calendar with the imported one? <strong>Warning: This "
+"deletes all entries in your current calendar.</strong>"
+msgstr ""
+"Přepsat existující adresář importovaným adresářem? <strong>Varování: toto "
+"vymaže všechny položky ve Vašem aktuálním adresáři.</strong>"
+
+#: lib/Kronolith.php:905
 msgid "Required"
 msgstr "Povinné"
 
-#: lib/FBView.php:130 lib/FBView.php:133 lib/FBView.php:136
+#: lib/FreeBusy/View.php:137 lib/FreeBusy/View.php:207
+#: lib/FreeBusy/View.php:210 lib/FreeBusy/View.php:213
 msgid "Required Attendees"
 msgstr "Povinní Účastníci"
 
-#: lib/FBView.php:93
-msgid "Required to attend"
-msgstr "Povinná účast"
+#: lib/FreeBusy/View.php:187
+#, fuzzy
+msgid "Required Resources"
+msgstr "Povinní Účastníci"
 
-#: templates/calendars/calendars.inc:125
-msgid "Reset"
-msgstr "Smazat"
+#: lib/Event/Resource/Sql.php:77
+#, php-format
+msgid "Reserved by: %s"
+msgstr "Rezervoval: %s"
 
-#: templates/edit/edit.inc:33 templates/edit/edit.inc:293
+#: templates/edit/edit.inc:57 templates/edit/edit.inc:443
 msgid "Reset to Defaults"
 msgstr "Resetovat na Implicitní Nastavení"
 
-#: templates/view/view.inc:182 templates/attendees/attendees.inc:47
+#: templates/attendees/attendees.inc:85 templates/view/view.inc:190
+msgid "Resource"
+msgstr "Zdroj"
+
+#: lib/Application.php:260 templates/dynamic/sidebar.html.php:104
+msgid "Resource Groups"
+msgstr "Skupiny zdrojů"
+
+#: lib/Application.php:100
+msgid "Resource Management"
+msgstr "Správce zdrojú"
+
+#: templates/chunks/calendar.php:365
+#, fuzzy
+msgid "Resource Response Type"
+msgstr "Opakovací Typ"
+
+#: lib/Driver/Resource/Sql.php:305
+msgid "Resource not valid."
+msgstr ""
+
+#: lib/Application.php:272 lib/Form/CreateResourceGroup.php:35
+#: lib/Form/EditResourceGroup.php:45 templates/chunks/calendar.php:422
+#: templates/dynamic/edit.inc:101 templates/dynamic/sidebar.html.php:89
+#: templates/view/view.inc:187
+msgid "Resources"
+msgstr "Zdroje"
+
+#: lib/Factory/Driver.php:74
+#, fuzzy
+msgid "Resources are disabled"
+msgstr "Pravidlo bylo Deaktivováno"
+
+#: templates/attendees/attendees.inc:50 templates/attendees/attendees.inc:87
+#: templates/view/view.inc:174 templates/view/view.inc:192
 msgid "Response"
 msgstr "Odpověď"
 
-#: viewevent.php:120
-#, php-format
-msgid "S_ave '%s' As New"
-msgstr "U_ložit '%s' Jako Novou"
+#: lib/Form/CreateResource.php:46 lib/Form/EditResource.php:55
+#, fuzzy
+msgid "Response type"
+msgstr "Odpověď"
 
-#: templates/javascript/goto.inc:64 templates/edit/edit.inc:208
-#: lib/Block/month.php:109
+#: config/prefs.php:175
+#, fuzzy
+msgid ""
+"Restrict day and week views to these time slots, even if there <strong>are</"
+"strong> earlier or later events?"
+msgstr ""
+"Kdy má časové zobrazeni dne a týdne začít, pokud neobsahují časné události?"
+
+#: lib/Application.php:145
+#, fuzzy
+msgid "Return to calendars"
+msgstr "Návrat ke složkám"
+
+#: lib/Application.php:144
+#, fuzzy
+msgid "Return to my calendars"
+msgstr "Přidat do kalendáře"
+
+#: lib/Block/Month.php:112 lib/View/Year.php:63 templates/edit/edit.inc:316
 msgid "Sa"
 msgstr "So"
 
-#: templates/view/view.inc:131 templates/month/head.inc:21
-#: templates/edit/javascript.inc:73
+#: templates/dynamic/edit.inc:168 templates/dynamic/task.inc:123
+#: templates/month/head.inc:13 templates/view/view.inc:108
 msgid "Saturday"
 msgstr "Sobota"
 
-#: editevent.php:44 editevent.php:48 viewevent.php:120
+#: lib/Form/EditCalendar.php:169 lib/Form/EditCalendar.php:181
+#: lib/Form/EditRemoteCalendar.php:34 lib/Form/EditRemoteCalendar.php:46
+#: lib/Form/EditResource.php:72 lib/Form/EditResource.php:84
+#: lib/Form/EditResourceGroup.php:48 lib/Form/EditResourceGroup.php:60
+#: templates/chunks/calendar.php:164 templates/chunks/calendar.php:251
+#: templates/chunks/calendar.php:321 templates/chunks/calendar.php:345
+#: templates/chunks/calendar.php:400 templates/chunks/calendar.php:435
+#: templates/dynamic/edit.inc:292 templates/dynamic/index.inc:12
+#: templates/dynamic/task.inc:164
+msgid "Save"
+msgstr "Uložit"
+
+#: templates/perms/perms.inc:375
+#, php-format
+msgid "Save %s"
+msgstr "Uložit \"%s\""
+
+#: lib/Kronolith.php:2482 lib/View/EditEvent.php:98 lib/View/EditEvent.php:107
+#: templates/dynamic/edit.inc:293 templates/edit/edit.inc:46
 msgid "Save As New"
-msgstr "Uložit Jako Novou"
+msgstr "Uložit jako novou"
 
-#: addevent.php:41 editevent.php:46
+#: lib/View/EditEvent.php:101 new.php:69
 msgid "Save Event"
-msgstr "Uložit Událost"
+msgstr "Uložit událost"
 
-#: search.php:14 templates/search/search.inc:67
-#: templates/search/search_advanced.inc:115
-#: templates/contacts/contacts.inc:142 lib/Block/tree_menu.php:25
+#: templates/attendees/attendees.inc:152 templates/perms/perms.inc:376
+msgid "Save and Finish"
+msgstr "Uložit a ukončit"
+
+#: templates/dynamic/edit.inc:287
+msgid "Save time"
+msgstr "Čas uložení"
+
+#: lib/Application.php:455 search.php:109 templates/contacts/contacts.inc:156
+#: templates/search/search.inc:66 templates/search/search_advanced.inc:88
 msgid "Search"
 msgstr "Vyhledat"
 
-#: templates/calendars/calendars.inc:86
-msgid "Select a calendar"
-msgstr "Vybrat kalendář"
+#: templates/search/header.inc:6
+#, fuzzy
+msgid "Search Results"
+msgstr ""
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Výsledky vyhledávání\n"
+"#-#-#-#-#  mnemo.po (Mnemo 2.0-cvs)  #-#-#-#-#\n"
+"Výsledky Vyhledávání\n"
+"#-#-#-#-#  nag.po (Nag 2.0-cvs)  #-#-#-#-#\n"
+"Výsledky Vyhledávání"
 
-#: templates/edit/edit.inc:253 templates/edit/edit_timespan.inc:30
-#: templates/edit/edit_timespan.inc:85
-msgid "Select a date"
-msgstr "Vybrat datum"
+#: templates/contacts/contacts.inc:161
+#, fuzzy
+msgid "Search results"
+msgstr ""
+"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
+"Výsledky vyhledávání\n"
+"#-#-#-#-#  mnemo.po (Mnemo 2.0-cvs)  #-#-#-#-#\n"
+"Výsledky Vyhledávání\n"
+"#-#-#-#-#  nag.po (Nag 2.0-cvs)  #-#-#-#-#\n"
+"Výsledky Vyhledávání"
 
-#: config/prefs.php.dist:51
-msgid "Select address book sources for searching for addresses."
-msgstr "Vybrat zdroj Kontaktů pro vyhledávání adres."
+#: lib/Geo/Sql.php:117
+#, fuzzy
+msgid "Searching requires a GIS enabled database."
+msgstr "Uložená vyhledávání musí mít název."
 
-#: config/prefs.php.dist:11
+#: templates/chunks/permissions.inc:243
+#, fuzzy
+msgid "Select a group"
+msgstr "Vybrat skupinu pro přidání:"
+
+#: templates/perms/perms.inc:340
+#, fuzzy
+msgid "Select a group to add"
+msgstr "Vybrat skupinu pro přidání:"
+
+#: templates/chunks/permissions.inc:241 templates/perms/perms.inc:338
+msgid "Select a group to add:"
+msgstr "Vybrat skupinu pro přidání:"
+
+#: templates/chunks/permissions.inc:67 templates/perms/perms.inc:34
+msgid "Select a new owner:"
+msgstr "Vybrat nového vlastníka:"
+
+#: templates/chunks/permissions.inc:191
+#, fuzzy
+msgid "Select a user"
+msgstr "Vybrat server"
+
+#: templates/perms/perms.inc:222 templates/perms/perms.inc:224
+msgid "Select a user to add:"
+msgstr "Vybrat uživatele pro přidání:"
+
+#: config/prefs.php:74
+msgid "Select address book sources for adding and searching for addresses."
+msgstr "Vybrat zdroj kontaktů pro přidávaní a vyhledávání adres."
+
+#: config/prefs.php:14
+#, fuzzy
 msgid ""
-"Select confirmation options, how to display the different views and choose "
-"default view."
+"Select confirmation preferences, how to display the different views and "
+"choose default view."
 msgstr ""
 "Vybrat možnosti potvrzení, různé zobrazení a vyberat implicitní zobrazení."
 
-#: templates/data/import.inc:27
+#: templates/attendees/attendees.inc:140
+#, fuzzy
+msgid "Select resource"
+msgstr "Vybrat server"
+
+#: templates/data/import.inc:18
 msgid "Select the calendar to import to:"
 msgstr "Vybrat kalendář pro importování:"
 
-#: templates/data/export.inc:16
+#: templates/data/export.inc:19
+#, fuzzy
+msgid "Select the calendar(s) to export from"
+msgstr "Vybrat kalendář pro importování:"
+
+#: config/prefs.php:273
+#, fuzzy
+msgid ""
+"Select the calendars that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
+"zařízeními:"
+
+#: templates/data/export.inc:12
 msgid "Select the export format:"
 msgstr "Vybrat formát exportu:"
 
-#: templates/data/import.inc:36
+#: templates/data/import.inc:27
 msgid "Select the file to import:"
 msgstr "Vybrat soubor k importování:"
 
-#: config/prefs.php.dist:85
+#: config/prefs.php:126
 msgid "Select the first weekday:"
 msgstr "Vybrat první den týdne:"
 
-#: templates/data/import.inc:19
+#: templates/data/import.inc:11
 msgid "Select the format of the source file:"
 msgstr "Vybrat formát zdrojového souboru:"
 
-#: config/prefs.php.dist:96
-msgid "Select the time span to show:"
-msgstr "Vybrat časové rozpětí k zobrazení:"
-
-#: config/prefs.php.dist:67
+#: config/prefs.php:105
 msgid "Select the view to display on startup:"
 msgstr "Vybrat zobrazení po přihlašení se: "
 
-#: config/prefs.php.dist:20
-msgid "Select which events to show in the portal."
-msgstr "Vybrat jaké události se mají zobrazit v portálu."
+#: templates/contacts/contacts.inc:176
+#, fuzzy
+msgid "Selected addresses"
+msgstr "Vybrané adresy:"
 
-#: templates/delete/delete.inc:28 templates/delete/one.inc:28
-msgid "Send a cancel notification to all attendees when deleting this event"
+#: templates/delete/delete.inc:21 templates/delete/one.inc:19
+#, fuzzy
+msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr ""
 "Zaslat zprávu o zrušení události všem účastníkům, když se událost smazává"
 
-#: templates/view/view.inc:186 templates/attendees/attendees.inc:60
+#: templates/view/view.inc:178
 #, php-format
 msgid "Send an email to %s"
 msgstr "Zaslat email %s"
 
-#: templates/edit/edit.inc:166
-msgid "Send updates/invitations to all attendees when saving this event"
+#: templates/dynamic/edit.inc:322
+msgid "Send cancellation notice to attendees?"
+msgstr ""
+
+#: templates/edit/edit.inc:436
+#, fuzzy
+msgid "Send invitations to all attendees?"
 msgstr "Zaslat aktualizaci/pozvánku všem účastníkům, když se událost ukládá"
 
-#: templates/javascript/goto.inc:76
-msgid "September"
-msgstr "Září"
+#: templates/edit/edit.inc:436
+#, fuzzy
+msgid "Send updates to all attendees?"
+msgstr "Zaslat aktualizaci/pozvánku všem účastníkům, když se událost ukládá"
 
-#: templates/edit/edit_timespan.inc:85
+#: templates/dynamic/edit.inc:315
+#, fuzzy
+msgid "Send updates to attendees?"
+msgstr "Přidat účastníky"
+
+#: config/prefs.php:41
+#, fuzzy
+msgid "Set default values for new events."
+msgstr "Nelze vytvořit novou událost."
+
+#: templates/dynamic/task.inc:15
+msgid "Set due date"
+msgstr "Nastavit termín dokončení"
+
+#: templates/dynamic/edit.inc:46 templates/dynamic/edit.inc:193
+#: templates/dynamic/task.inc:148 templates/edit/edit_timespan.inc:70
 msgid "Set end date"
 msgstr "Nastavit konečný datum"
 
-#: templates/edit/edit.inc:253
+#: templates/edit/edit.inc:375
 msgid "Set recurrence end date"
 msgstr "Konečný datum opakovaní"
 
-#: templates/edit/edit_timespan.inc:30
+#: templates/dynamic/edit.inc:37 templates/edit/edit_timespan.inc:24
 msgid "Set start date"
 msgstr "Nastavit datum začátku"
 
-#: templates/menu.inc:42
-msgid "Shared Calendars:"
-msgstr "Sdílené Kalendáře:"
-
-#: config/prefs.php.dist:133
+#: config/prefs.php:67
 msgid ""
-"Should tasks be shown with their category color, or with no background color?"
-msgstr "Zobrazit úkoly s jejich barevným označením, nebo bez barvy pozadí?"
+"Set your Free/Busy calendars and your own and other users' Free/Busy "
+"preferences."
+msgstr ""
 
-#: config/prefs.php.dist:258
-msgid "Show category legend?"
-msgstr "Zobrazit legendu kategorií?"
+#: lib/Ajax.php:152
+msgid "Shared"
+msgstr "Sdílené"
 
-#: config/prefs.php.dist:214
+#: lib/Application.php:221 templates/dynamic/sidebar.html.php:58
+msgid "Shared Calendars"
+msgstr "Sdílené kalendáře"
+
+#: search.php:77
+msgid "Shared Calendars:"
+msgstr "Sdílené kalendáře:"
+
+#: templates/dynamic/sidebar.html.php:72
+msgid "Shared Task Lists"
+msgstr "Sdílené úkoly"
+
+#: templates/chunks/calendar.php:76 templates/chunks/calendar.php:200
+msgid "Sharing"
+msgstr "Sdílení"
+
+#: templates/chunks/permissions.inc:97 templates/chunks/permissions.inc:124
+#: templates/chunks/permissions.inc:152 templates/chunks/permissions.inc:205
+#: templates/chunks/permissions.inc:252 templates/edit/edit.inc:6
+#: templates/perms/perms.inc:56 templates/perms/perms.inc:68
+#: templates/perms/perms.inc:97 templates/perms/perms.inc:109
+#: templates/perms/perms.inc:139 templates/perms/perms.inc:151
+#: templates/perms/perms.inc:180 templates/perms/perms.inc:196
+#: templates/perms/perms.inc:236 templates/perms/perms.inc:267
+#: templates/perms/perms.inc:297 templates/perms/perms.inc:314
+#: templates/perms/perms.inc:348
+#, fuzzy
+msgid "Show"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Ukázat\n"
+"#-#-#-#-#  mnemo.po (Mnemo 2.0-cvs)  #-#-#-#-#\n"
+"Zobrazit\n"
+"#-#-#-#-#  nag.po (Nag 2.0-cvs)  #-#-#-#-#\n"
+"Zobrazit"
+
+#: config/prefs.php:225
+#, fuzzy
+msgid "Show Free/Busy legend?"
+msgstr "Zobrazit legendu pro free/busy?"
+
+#: config/prefs.php:195
 msgid "Show delete, alarm, and recurrence icons in calendar views?"
 msgstr ""
 "Zobrazit ikonky pro smazání, alarm a opakování při zobrazování kalendáře?"
 
-#: config/prefs.php.dist:124
-msgid "Show due tasks in the calendar?"
-msgstr "Zobrazit očekávané udalosti v kalendáři?"
-
-#: config/prefs.php.dist:268
-msgid "Show free/busy legend?"
-msgstr "Zobrazit legendu pro free/busy?"
-
-#: config/prefs.php.dist:76
-msgid "Show half hour slots in day and week views?"
-msgstr "Zobrazit půlhodinové úseky v denním a týdenním zobrazení?"
-
-#: config/prefs.php.dist:115
+#: lib/Block/Monthlist.php:34 lib/Block/Prevmonthlist.php:32
+#: lib/Block/Summary.php:53
 msgid "Show only events that have an alarm set?"
 msgstr "Mají se ukázat pouze události s alarmem?"
 
-#: config/prefs.php.dist:248
-msgid "Show shared calendars side-by-side"
+#: config/prefs.php:232
+#, fuzzy
+msgid "Show shared calendars side-by-side?"
 msgstr "Zobrazit sdílené kalendáře vedle sebe?"
 
-#: config/prefs.php.dist:277
+#: config/prefs.php:85
+msgid "Show the dynamic view by default, if the browser supports it?"
+msgstr ""
+"Zobrazit  jako výchozí dynamické zobrazení pokud to prohlížeč podporuje?"
+
+#: config/prefs.php:119
 msgid "Show time of day between each day in week views?"
 msgstr "Zobrazit čas mezi každým dnem v týdenním zobrazení?"
 
+#: lib/Application.php:173
+#, fuzzy
+msgid "Showing calendar:"
+msgid_plural "Showing calendars:"
+msgstr[0] "Sdílené Kalendáře:"
+msgstr[1] "Sdílené Kalendáře:"
+msgstr[2] "Sdílené Kalendáře:"
+
+#: templates/dynamic/edit.inc:329
+msgid "Some resources have scheduling conflicts, save anyway?"
+msgstr ""
+
 #: templates/edit/edit_timespan.inc:11
-msgid "Sta_rt On"
+#, fuzzy
+msgid "Sta_rt"
 msgstr "Zač_íná V"
 
-#: data.php:45
+#: data.php:49
 msgid "Start Date"
 msgstr "Datum Začátku"
 
-#: templates/view/view.inc:49 templates/search/event_headers.inc:7
-#: templates/data/export.inc:29
+#: lib/Event.php:3243 templates/data/export.inc:68
+#, fuzzy
+msgid "Start Day"
+msgstr "Datum Začátku"
+
+#: lib/Event.php:3253 templates/data/export.inc:87
+#, fuzzy
+msgid "Start Hour"
+msgstr "Začíná V"
+
+#: lib/Event.php:3262 templates/data/export.inc:102
+#, fuzzy
+msgid "Start Minute"
+msgstr "Datum Začátku"
+
+#: lib/Event.php:3235 templates/data/export.inc:54
+#, fuzzy
+msgid "Start Month"
+msgstr "Minulý Měsíc"
+
+#: templates/data/export.inc:37 templates/search/event_headers.inc:6
+#: templates/view/view.inc:35
 msgid "Start On"
 msgstr "Začíná V"
 
-#: data.php:46
+#: data.php:50
 msgid "Start Time"
-msgstr "Čas Začátku"
+msgstr "Čas začátku"
 
-#: templates/search/search_advanced.inc:94 templates/edit/edit.inc:84
+#: lib/Event.php:3225 templates/data/export.inc:39
+#, fuzzy
+msgid "Start Year"
+msgstr "Datum Začátku"
+
+#: templates/itip/notification.html.php:16
+msgid "Start:"
+msgstr "Začátek:"
+
+#: templates/edit/edit.inc:123 templates/search/search_advanced.inc:65
 msgid "Stat_us"
 msgstr "Sta_v"
 
-#: templates/view/view.inc:35 templates/search/event_headers.inc:6
+#: templates/dynamic/edit.inc:68 templates/search/event_headers.inc:5
+#: templates/view/view.inc:21
 msgid "Status"
 msgstr "Stav"
 
-#: templates/javascript/goto.inc:65 templates/edit/edit.inc:209
-#: lib/Block/month.php:111 lib/Block/month.php:113
+#: templates/dynamic/edit.inc:189 templates/dynamic/task.inc:144
+#, php-format
+msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
+msgstr "Ukončit %s nikdy%s, %s dne %s nebo %s po %s opakováních %s"
+
+#: lib/Block/Month.php:114 lib/Block/Month.php:116 lib/View/Year.php:56
+#: lib/View/Year.php:65 templates/edit/edit.inc:317
 msgid "Su"
 msgstr "Ne"
 
-#: templates/view/view.inc:132 templates/month/head.inc:14
-#: templates/month/head.inc:23 templates/edit/javascript.inc:67
-#: config/prefs.php.dist:86
+#: lib/Form/SubscribeRemoteCalendar.php:36 templates/chunks/calendar.php:166
+#: templates/chunks/calendar.php:253
+msgid "Subscribe"
+msgstr "Podepsat"
+
+#: templates/chunks/calendar.php:125
+msgid "Subscribe from a feed reader"
+msgstr ""
+
+#: lib/Application.php:344 lib/Form/SubscribeRemoteCalendar.php:22
+#, fuzzy
+msgid "Subscribe to a Remote Calendar"
+msgstr "Upravit Vzdálené Kalendáře"
+
+#: templates/chunks/calendar.php:115 templates/chunks/calendar.php:228
+msgid "Subscribe to all your calendars from another calendar program"
+msgstr ""
+
+#: templates/chunks/calendar.php:110 templates/chunks/calendar.php:120
+msgid "Subscribe to this calendar from another calendar program"
+msgstr ""
+
+#: templates/chunks/calendar.php:223 templates/chunks/calendar.php:233
+msgid "Subscribe to this task list from another calendar program"
+msgstr ""
+
+#: templates/chunks/calendar.php:83 templates/chunks/calendar.php:207
+#, fuzzy
+msgid "Subscription"
+msgstr "Popis"
+
+#: lib/Ajax/Application/Handler.php:1407
+#, fuzzy
+msgid "Successfully saved timeslice."
+msgstr "'%s' úspěšně uloženo."
+
+#: templates/smartmobile/summary.html.php:2
+msgid "Summary"
+msgstr "Shrnutí"
+
+#: config/prefs.php:128 templates/dynamic/edit.inc:169
+#: templates/dynamic/task.inc:124 templates/month/head.inc:6
+#: templates/month/head.inc:15 templates/view/view.inc:109
 msgid "Sunday"
 msgstr "Neděle"
 
-#: config/prefs.php.dist:27
-msgid "Tasks"
-msgstr "Události"
+#: config/prefs.php:325
+#, fuzzy
+msgid "Support separate calendars?"
+msgstr "Váš implicitní kalendář"
 
-#: lib/Kronolith.php:503 lib/Kronolith.php:526
+#: config/prefs.php:33
+msgid "Synchronization Preferences"
+msgstr "Nastavení synchronizace"
+
+#: lib/Form/EditCalendar.php:52
+msgid "System"
+msgstr ""
+
+#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:57
+#, fuzzy
+msgid "System Calendar"
+msgstr "Kalendáře"
+
+#: lib/Application.php:209
+#, fuzzy
+msgid "System Calendars"
+msgstr "Kalendáře"
+
+#: lib/Form/CreateCalendar.php:28 lib/Form/EditCalendar.php:57
+msgid ""
+"System calendars don't have an owner. Only administrators can change the "
+"calendar settings and permissions."
+msgstr ""
+
+#: lib/Form/CreateCalendar.php:31 lib/Form/EditCalendar.php:60
+#: templates/chunks/calendar.php:70 templates/dynamic/edit.inc:103
+#: templates/dynamic/task.inc:67 templates/edit/edit.inc:412
+#: templates/edit/edit.inc:418 templates/view/view.inc:144
+msgid "Tags"
+msgstr "Štítky"
+
+#: templates/chunks/calendar.php:246
+msgid "Task list ICS file"
+msgstr ""
+
+#: templates/chunks/permissions.inc:59
+msgid "Task list owner"
+msgstr "Vlastník seznamu úkolů"
+
+#: templates/dynamic/task.inc:7
+msgid "Task title"
+msgstr "Název úkolu"
+
+#: lib/Ajax.php:153 templates/dynamic/index.inc:38
+msgid "Tasks"
+msgstr "Úkoly"
+
+#: lib/Kronolith.php:853 lib/Kronolith.php:876 templates/dynamic/edit.inc:71
 msgid "Tentative"
 msgstr "Předběžný"
 
-#: templates/javascript/goto.inc:62 templates/edit/edit.inc:206
-#: lib/Block/month.php:109
+#: lib/Block/Month.php:112 lib/View/Year.php:61 templates/edit/edit.inc:314
 msgid "Th"
 msgstr "Čt"
 
-#: templates/contacts/contacts.inc:73
+#: data.php:126
+#, fuzzy, php-format
+msgid "The %s file didn't contain any events."
+msgstr "Soubor %s neobsahoval žádné kontakty."
+
+#: lib/Driver.php:65
+#, fuzzy
+msgid "The Calendar backend is not currently available."
+msgstr "Služba je momentálně nedostupná. Zkuste prosím znovu později."
+
+#: lib/Factory/Driver.php:116
+#, php-format
+msgid "The Calendar backend is not currently available: %s"
+msgstr ""
+
+#: lib/Application.php:66
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
+msgstr ""
+
+#: templates/contacts/contacts.inc:72
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr "Stránka s Upravou Účastníků již není. Končím."
 
-#: calendars.php:66
-#, php-format
-msgid "The calendar \"%s\" cannot be deleted."
-msgstr "Nelze smazat kalendář \"%s\"."
+#: lib/Api.php:1270
+msgid ""
+"The attendee hasn't been updated because the update was not sent from the "
+"attendee."
+msgstr ""
 
-#: calendars.php:80
+#: lib/Ajax.php:155
+msgid "The authentication information you specified wasn't accepted."
+msgstr ""
+
+#: calendars/create.php:31 lib/Ajax/Application/Handler.php:913
+#: resources/create.php:31 resources/groups/create.php:27
+#, fuzzy, php-format
+msgid "The calendar \"%s\" has been created."
+msgstr "Kalendář \"%s\" byl smazán."
+
+#: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1131
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
 msgstr "Kalendář \"%s\" byl smazán."
 
-#: calendars.php:49
+#: calendars/edit.php:47 lib/Ajax/Application/Handler.php:938
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
 
-#: calendars.php:58
+#: calendars/edit.php:49 calendars/remote_edit.php:46
+#: lib/Ajax/Application/Handler.php:940 lib/Ajax/Application/Handler.php:1031
 #, php-format
 msgid "The calendar \"%s\" has been saved."
 msgstr "Kalendář \"%s\" byl uložen."
 
-#: templates/edit/javascript.inc:151
+#: lib/Kronolith.php:1089
+#, fuzzy, php-format
+msgid "The calendar %s returned the error: %s"
+msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+
+#: data.php:136
+#, fuzzy, php-format
+msgid "The calendar could not be purged: %s"
+msgstr "Nelze vyčistit kontakty: %s"
+
+#: lib/Ajax.php:146
+msgid "The calendar title must not be empty."
+msgstr "Název kalendáře nesmí být prázdný."
+
+#: templates/javascript_defs.php:22
 msgid "The end date must be later than the start date."
 msgstr "Datum konce musí být po datu začátku."
 
-#: lib/Kronolith.php:1003
+#: lib/Kronolith.php:2131
+#, fuzzy, php-format
+msgid ""
+"The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
+msgstr "Událost byla přidána do Vašeho kalendáře."
+
+#: lib/Kronolith.php:2141
+#, php-format
+msgid ""
+"The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
+"%s."
+msgstr ""
+
+#: lib/Kronolith.php:2136
+#, php-format
+msgid ""
+"The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
+msgstr ""
+
+#: lib/Driver/Ical.php:479
+#, fuzzy
+msgid "The event could not be added to the remote server."
+msgstr "Objekt nemůže být odstraněn neboť již neexistuje."
+
+#: lib/Driver/Ical.php:552
+#, fuzzy
+msgid "The event could not be deleted from the remote server."
+msgstr "Objekt nemůže být odstraněn neboť již neexistuje."
+
+#: lib/Driver/Ical.php:452
+#, fuzzy
+msgid "The event could not be updated on the remote server."
+msgstr "Objekt nemůže být odstraněn neboť již neexistuje."
+
+#: lib/Kronolith.php:2028
 #, php-format
 msgid "The event notification to %s was successfully sent."
 msgstr "Upozornění o události bylo úspěšně zasláno pro %s."
 
-#: lib/Kronolith.php:964
+#: edit.php:73
+#, fuzzy
+msgid "The exception has been removed."
+msgstr "Zámek odstraněn."
+
+#: templates/itip/notification.plain.php:15
 msgid "The following is a more detailed description of the event:"
 msgstr "Následuje podrobnější popis události:"
 
-#: templates/search/empty.inc:4
+#: lib/Kronolith.php:2198
+#, php-format
+msgid "The following resource has accepted your request: %s"
+msgid_plural "The following resources have accepted your request: %s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: lib/Kronolith.php:2191
+#, fuzzy, php-format
+msgid "The following resource has declined your request: %s"
+msgid_plural "The following resources have declined your request: %s"
+msgstr[0] "Následuje podrobnější popis události:"
+msgstr[1] "Následuje podrobnější popis události:"
+msgstr[2] "Následuje podrobnější popis události:"
+
+#: lib/FreeBusy.php:184
+#, fuzzy, php-format
+msgid "The free/busy url for %s cannot be retrieved."
+msgstr "Složka \"%s\" nemůže být vyprázdněna."
+
+#: calendars/remote_edit.php:37 calendars/remote_unsubscribe.php:38
+#: lib/Kronolith.php:1729
+#, fuzzy
+msgid "The remote calendar was not found."
+msgstr "Požadovaný kontakt nebyl nalezen."
+
+#: lib/Driver/Ical.php:677
+msgid "The remote server URL does not point to a CalDAV directory."
+msgstr ""
+
+#: attend.php:43
+msgid ""
+"The request was incomplete. Some parameters that are necessary to accept or "
+"decline an event are missing."
+msgstr ""
+
+#: lib/Ajax/Application/Handler.php:165 lib/Ajax/Application/Handler.php:250
+#: lib/Ajax/Application/Handler.php:383 lib/Ajax/Application/Handler.php:516
+#, fuzzy
+msgid "The requested event was not found."
+msgstr "Požadovaný kontakt nebyl nalezen."
+
+#: feed/index.php:32
+#, fuzzy, php-format
+msgid "The requested feed (%s) was not found on this server."
+msgstr "Požadovaný kontakt nebyl nalezen."
+
+#: lib/Ajax/Application/Handler.php:633
+#, fuzzy
+msgid "The requested task was not found."
+msgstr "Požadovaný kontakt nebyl nalezen."
+
+#: lib/Ajax/Application/Handler.php:1175 lib/Ajax/Application/Handler.php:1192
+#: resources/delete.php:42
+#, fuzzy, php-format
+msgid "The resource \"%s\" has been deleted."
+msgstr "Server \"%s\" byl vymazán."
+
+#: resources/edit.php:43
+#, fuzzy, php-format
+msgid "The resource \"%s\" has been renamed to \"%s\"."
+msgstr "Adresář \"%s\" přejmenován na \"%s\"."
+
+#: lib/Ajax/Application/Handler.php:1076 resources/edit.php:45
+#, fuzzy, php-format
+msgid "The resource \"%s\" has been saved."
+msgstr "Server \"%s\" byl uložen."
+
+#: lib/Event.php:608
+#, fuzzy, php-format
+msgid "The resource \"%s\" was locked. Please try again."
+msgstr "Vzdálený server je kaput. Prosíme zkuste to znovu později."
+
+#: resources/groups/delete.php:38
+#, fuzzy, php-format
+msgid "The resource group \"%s\" has been deleted."
+msgstr "Server \"%s\" byl vymazán."
+
+#: resources/groups/edit.php:39
+#, fuzzy, php-format
+msgid "The resource group \"%s\" has been renamed to \"%s\"."
+msgstr "Adresář \"%s\" přejmenován na \"%s\"."
+
+#: lib/Ajax/Application/Handler.php:1102 resources/groups/edit.php:41
+#, fuzzy, php-format
+msgid "The resource group \"%s\" has been saved."
+msgstr "Server \"%s\" byl uložen."
+
+#: lib/Ajax/Application/Handler.php:988
+#, php-format
+msgid "The task list \"%s\" has been created."
+msgstr "Byl vytvořen seznam úkolů \"%s\"."
+
+#: lib/Ajax/Application/Handler.php:1147
+#, php-format
+msgid "The task list \"%s\" has been deleted."
+msgstr "Byl´smazán seznam úkolů \"%s\"."
+
+#: lib/Ajax/Application/Handler.php:1013
+#, fuzzy, php-format
+msgid "The task list \"%s\" has been renamed to \"%s\"."
+msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+
+#: lib/Ajax/Application/Handler.php:1015
+#, php-format
+msgid "The task list \"%s\" has been saved."
+msgstr "Byl uložen seznam úkolů \"%s\"."
+
+#: lib/Ajax.php:148
+#, fuzzy
+msgid "The task list title must not be empty."
+msgstr "Byl vytvořen seznam úkolů \"%s\"."
+
+#: lib/Block/Summary.php:31
+#, fuzzy
+msgid "The time span to show"
+msgstr "Vybrat časové rozpětí k zobrazení:"
+
+#: lib/Kronolith.php:1429 lib/Kronolith.php:1563
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "Uživatel \"%s\" neexistuje."
+
+#: templates/search/empty.inc:3
 msgid "There are no events matching the current criteria."
 msgstr "Žádné události se neshodují se současným kritériem."
 
-#: addeventaction.php:18 editeventaction.php:35
+#: add.php:83 edit.php:75 edit.php:229
 #, php-format
 msgid "There was an error accessing the calendar: %s"
 msgstr "Nastala chyba při přístupu ke kalendáři: %s"
 
-#: addeventaction.php:33
+#: add.php:80
 #, php-format
 msgid "There was an error adding the event: %s"
 msgstr "Nastala chyba při přidávání události: %s"
 
-#: editeventaction.php:73
+#: config/prefs.php:315
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Nastala chyba při komunikaci s ActiveSync serverem: %s"
+
+#: edit.php:20
 #, php-format
 msgid "There was an error editing the event: %s"
 msgstr "Nastala chyba při úpravě události: %s"
 
-#: lib/api.php:156 lib/api.php:328
+#: lib/Api.php:306 lib/Api.php:753 lib/Api.php:1096 lib/Application.php:812
 msgid "There was an error importing the iCalendar data."
 msgstr "Při importování iCalendar dat došlo k chybě."
 
-#: editeventaction.php:54
+#: edit.php:213 lib/Ajax/Application/Handler.php:239
 #, php-format
 msgid "There was an error moving the event: %s"
 msgstr "Nastala chyba při posunu události: %s"
 
-#: lib/Kronolith.php:1008
+#: lib/Application.php:432
+#, fuzzy, php-format
+msgid "There was an error removing calendars for %s. Details have been logged."
+msgstr ""
+"Vyskytla se chyba odstraňování globálních dat pro %s. Detaily byly "
+"zalogovány."
+
+#: lib/Kronolith.php:2033
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
 msgstr "Nastala chyba při zasílíní oznámení o události pro %s: %s"
 
-#: data.php:95
-msgid "There were no events to export."
-msgstr "Žádné události k exportování."
+#: lib/Block/Month.php:13
+msgid "This Month"
+msgstr "Tento měsíc"
 
-#: data.php:173
+#: templates/chunks/calendar.php:287
+msgid "This calendar requires to specify a user name and password."
+msgstr ""
+
+#: templates/dynamic/edit.inc:274
+msgid "This event can be saved as a timeslice in your timesheet."
+msgstr ""
+
+#: data.php:108
 msgid "This file format is not supported."
 msgstr "Tento formát souboru nelze použít."
 
-#: data.php:213
+#: templates/dynamic/edit.inc:18
+#, fuzzy
+msgid "This is a recurring event"
+msgstr "Nastala chyba při mazání události:"
+
+#: templates/delete/delete.inc:18
+#, fuzzy
+msgid ""
+"This is a recurring event. Delete the current event only, this<br /"
+">occurrence and all future occurences, or all occurences?"
+msgstr ""
+"Smazat pouze současnou událost, tento výskyt a všechny výskyty v budoucnu, "
+"nebo všechny výskyty?"
+
+#: templates/edit/edit.inc:42
+#, fuzzy
+msgid ""
+"This is a recurring event. Edit the current event only, this occurrence<br /"
+">and all future occurences, all occurences, or save this event as new?"
+msgstr ""
+"Smazat pouze současnou událost, tento výskyt a všechny výskyty v budoucnu, "
+"nebo všechny výskyty?"
+
+#: templates/dynamic/edit.inc:199
+#, php-format
+msgid "This is an exception to a recurring event originally scheduled on %s"
+msgstr ""
+
+#: templates/edit/edit.inc:290 templates/view/view.inc:98
+#, php-format
+msgid ""
+"This is an exception to a recurring event originally scheduled on %s at %s"
+msgstr ""
+
+#: data.php:155
 #, php-format
 msgid "This is what the server said: %s"
 msgstr "Toto je zpráva ze serveru: %s"
 
-#: templates/view/view.inc:129 templates/month/head.inc:19
-#: templates/edit/javascript.inc:71
+#: templates/dynamic/edit.inc:166 templates/dynamic/task.inc:121
+#: templates/month/head.inc:11 templates/view/view.inc:106
 msgid "Thursday"
 msgstr "Čtvrtek"
 
-#: templates/search/search.inc:36
+#: templates/search/search.inc:35
 msgid "Time Sp_an"
 msgstr "Časové Roz_pětí"
 
@@ -1294,309 +3287,752 @@ msgstr "Časové Roz_pětí"
 msgid "Time span"
 msgstr "Časové Rozpětí "
 
-#: templates/search/search_advanced.inc:35 templates/edit/edit.inc:39
+#: templates/alarm/mail.plain.php:12
+#, fuzzy
+msgid "Time:"
+msgstr "Čas Ukončení"
+
+#: templates/dynamic/edit.inc:58
+msgid "Timezone"
+msgstr "Časové pásmo"
+
+#: templates/edit/edit.inc:64 templates/search/search_advanced.inc:23
 msgid "Tit_le"
 msgstr "Tit_ul"
 
-#: data.php:44 templates/search/event_headers.inc:3
-#: templates/search/search.inc:19
+#: data.php:48 templates/search/event_headers.inc:3
+#: templates/search/search.inc:18
 msgid "Title"
 msgstr "Titul"
 
-#: lib/Block/monthlist.php:127 lib/Block/prevmonthlist.php:125
-#: lib/Block/summary.php:117
+#: templates/itip/notification.plain.php:33
+msgid "To accept the event tentatively:"
+msgstr ""
+
+#: templates/itip/notification.plain.php:28
+msgid "To accept the event:"
+msgstr ""
+
+#: templates/itip/notification.plain.php:38
+#, fuzzy
+msgid "To decline the event:"
+msgstr "Nastala chyba při mazání události:"
+
+#: lib/Form/EditCalendar.php:145
+msgid "To embed this calendar in another website, use the code above."
+msgstr ""
+
+#: templates/dynamic/edit.inc:258
+msgid ""
+"To make it easier to find, you can enter comma separated tags related to the "
+"event subject."
+msgstr ""
+"Sem můžete vložit čárkou oddělené štítky, aby byla táto událost lépe "
+"dohledatelná."
+
+#: templates/dynamic/task.inc:156
+msgid ""
+"To make it easier to find, you can enter comma separated tags related to the "
+"task subject."
+msgstr ""
+"Sem můžete vložit čárkou oddělené štítky, aby byl tento úkol lépe "
+"dohledatelný."
+
+#: templates/share/notification.html.php:17
+#: templates/share/notification.plain.php:9
+msgid "To subscribe to this calendar, you need to click the following link:"
+msgstr ""
+
+#: lib/Block/Monthlist.php:163 lib/Block/Prevmonthlist.php:135
+#: lib/Block/Summary.php:154 lib/Kronolith.php:2418
+#: templates/smartmobile/javascript_defs.php:138
 msgid "Today"
 msgstr "Dnes"
 
-#: lib/Block/month.php:184
-#, php-format
-msgid "Today is %s"
-msgstr "Dnes je %s"
-
-#: lib/Block/monthlist.php:129 lib/Block/prevmonthlist.php:127
-#: lib/Block/summary.php:119
+#: lib/Block/Monthlist.php:165 lib/Block/Monthlist.php:173
+#: lib/Block/Prevmonthlist.php:137 lib/Block/Summary.php:156
+#: templates/smartmobile/javascript_defs.php:139
 msgid "Tomorrow"
 msgstr "Zítra"
 
-#: templates/javascript/goto.inc:60 templates/edit/edit.inc:204
-#: lib/Block/month.php:109
+#: lib/Block/Month.php:112 lib/View/Year.php:59 templates/edit/edit.inc:312
 msgid "Tu"
 msgstr "Út"
 
-#: templates/view/view.inc:127 templates/month/head.inc:17
-#: templates/edit/javascript.inc:69
+#: templates/dynamic/edit.inc:164 templates/dynamic/task.inc:119
+#: templates/month/head.inc:9 templates/view/view.inc:104
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: config/keywords.php.dist:17
-msgid "Type"
-msgstr "Typ"
+#: lib/Form/EditRemoteCalendar.php:26 lib/Form/SubscribeRemoteCalendar.php:31
+#: templates/chunks/calendar.php:267 templates/dynamic/edit.inc:98
+#: templates/edit/edit.inc:247 templates/edit/edit.inc:252
+#: templates/view/view.inc:14
+msgid "URL"
+msgstr "URL"
 
-#: lib/Storage/sql.php:54
-msgid "Unable to connect to SQL server."
-msgstr "Nelze se připojit na SQL server."
-
-#: calendars.php:76
+#: lib/Ajax/Application/Handler.php:1128 lib/Ajax/Application/Handler.php:1144
+#: lib/Form/DeleteResource.php:61 lib/Form/DeleteResourceGroup.php:62
+#: lib/Kronolith.php:1346
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "Nelze smazat \"%s\": %s."
 
-#: lib/Driver/mcal.php:135
-#, php-format
-msgid "Unable to delete %s."
-msgstr "Nelze smazat %s."
+#: lib/Api.php:420
+#, fuzzy, php-format
+msgid "Unable to delete calendar \"%s\": %s"
+msgstr "Nelze smazat \"%s\": %s."
 
-#: lib/Driver.php:174
+#: lib/Api.php:1050
+msgid ""
+"Unable to delete event. An exception date was provided but the event does "
+"not seem to be recurring."
+msgstr ""
+
+#: lib/Factory/Driver.php:119 lib/Factory/Storage.php:44
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Definice %s není dostupná."
 
-#: calendars.php:47
-#, php-format
-msgid "Unable to rename \"%s\": %s"
+#: lib/Event.php:1466
+#, fuzzy
+msgid "Unable to locate original event series."
+msgstr "Nelze se připojit na SQL server."
+
+#: lib/Ajax.php:141
+msgid "Unable to locate requested address"
+msgstr ""
+
+#: lib/Event.php:1001
+#, fuzzy
+msgid "Unable to parse event."
+msgstr "Nelze nastavit jako."
+
+#: lib/Kronolith.php:1808
+#, fuzzy, php-format
+msgid "Unable to recognize \"%s\" as an email address."
 msgstr "Nelze přejměnovat \"%s\": %s"
 
-#: lib/Storage/kolab.php:35
+#: lib/Kronolith.php:1319
+#, fuzzy, php-format
+msgid "Unable to save calendar \"%s\": %s"
+msgstr "Nelze uložit adresář \"%s\": %s"
+
+#: lib/Form/EditResource.php:128 lib/Form/EditResourceGroup.php:69
+#, fuzzy, php-format
+msgid "Unable to save resource \"%s\": %s"
+msgstr "Nelze uložit adresář \"%s\": %s"
+
+#: lib/Driver/Ical.php:744
+#, fuzzy
+msgid "Unexpected response from remote server."
+msgstr "Neočekávané odpojení od poštovního serveru."
+
+#: lib/Api.php:1349 lib/Api.php:1366
+msgid "Unknown calendar protocol"
+msgstr ""
+
+#: lib/Ajax.php:154
+#, fuzzy
+msgid "Unknown resource."
+msgstr "Neznámá schůzka"
+
+#: lib/Form/EditRemoteCalendar.php:35 lib/Form/EditRemoteCalendar.php:53
+#: lib/Form/UnsubscribeRemoteCalendar.php:28 templates/chunks/calendar.php:167
+#: templates/chunks/calendar.php:254
+msgid "Unsubscribe"
+msgstr "Odregistrovat"
+
+#: lib/Form/UnsubscribeRemoteCalendar.php:22
+#, fuzzy, php-format
+msgid "Unsubscribe from %s"
+msgstr "Odregistrovat"
+
+#: lib/Api.php:370 lib/Api.php:798 lib/Api.php:912 lib/Api.php:966
+#: lib/Api.php:1117
 #, php-format
-msgid "Unable to retrieve free/busy information for %s"
-msgstr "Nelze zjistit informací free/busy pr %s"
+msgid "Unsupported Content-Type: %s"
+msgstr "Nepodporovaný typ obsahu: %s"
 
-#: templates/view/view.inc:23
-#: scripts/upgrades/2004-05-19_convert_categories_to_strings.php:53
-msgid "Unfiled"
-msgstr "Nevyplněno"
+#: lib/Block/Monthlist.php:13 lib/Block/Monthlist.php:57
+msgid "Upcoming Events"
+msgstr "Budoucí události"
 
-#: lib/FBView/day.php:48 lib/FBView/day.php:58
-msgid "Unknown"
-msgstr "Neznámí"
+#: templates/attendees/attendees.inc:153
+msgid "Update"
+msgstr "Aktualizovat"
 
-#: lib/api.php:182 lib/api.php:250 lib/api.php:353
-msgid "Unsupported Content-Type."
-msgstr "Nepodporovaný Typ Obsahu (Content-Type)."
+#: perms.php:87
+#, php-format
+msgid "Updated \"%s\"."
+msgstr "Aktualizovaný \"%s\"."
 
-#: lib/Kronolith.php:956
+#: lib/Kronolith.php:1940
 #, php-format
 msgid "Updated: %s."
 msgstr "Aktualizovánio: %s."
 
-#: config/prefs.php.dist:10
+#: config/prefs.php:527
+#, fuzzy
+msgid "Use Horde Default"
+msgstr "Resetovat na Implicitní Nastavení"
+
+#: templates/edit/edit.inc:212
+#, fuzzy
+msgid "Use custom notification method"
+msgstr "Toto je log upozornění"
+
+#: templates/edit/edit.inc:211
+#, fuzzy
+msgid "Use default notification method"
+msgstr "Toto je log upozornění"
+
+#: config/prefs.php:13
 msgid "User Interface"
 msgstr "Uživatelské Rozhraní"
 
-#: lib/Block/month.php:163 lib/Block/month.php:166
+#: templates/chunks/permissions.inc:188
+#, fuzzy
+msgid "User to add"
+msgstr "Vybrat uživatele pro přidání:"
+
+#: templates/perms/perms.inc:262
+msgid "User to add:"
+msgstr "Vybrat uživatele pro přidání:"
+
+#: lib/Form/EditRemoteCalendar.php:28 lib/Form/SubscribeRemoteCalendar.php:33
+#: templates/chunks/calendar.php:290
+#, fuzzy
+msgid "Username"
+msgstr ""
+"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
+"Uživatelské jméno\n"
+"#-#-#-#-#  gollem.po (Gollem)  #-#-#-#-#\n"
+"Uživatelské Jméno"
+
+#: templates/chunks/permissions.inc:181
+msgid "Users"
+msgstr "Uživatelé"
+
+#: lib/Block/Month.php:170 lib/Block/Month.php:186 lib/View/Year.php:144
+#: lib/View/Year.php:147
 msgid "View Day"
 msgstr "Zobrazit Den"
 
-#: templates/javascript/goto.inc:61 templates/edit/edit.inc:205
-#: lib/Block/month.php:109
+#: lib/Block/Month.php:112 lib/View/Year.php:60 templates/edit/edit.inc:313
 msgid "We"
 msgstr "St"
 
-#: templates/view/view.inc:128 templates/month/head.inc:18
-#: templates/edit/javascript.inc:70
+#: templates/alarm/mail.plain.php:1
+msgid "We would like to remind you of this upcoming event."
+msgstr ""
+
+#: lib/Form/EditCalendar.php:121 templates/chunks/calendar.php:119
+#: templates/chunks/calendar.php:232
+msgid "WebDAV/ICS Subscription URL"
+msgstr ""
+
+#: templates/dynamic/edit.inc:165 templates/dynamic/task.inc:120
+#: templates/month/head.inc:10 templates/view/view.inc:105
 msgid "Wednesday"
 msgstr "Středa"
 
-#: attendees.php:108 lib/Kronolith.php:1041 lib/Block/tree_menu.php:23
-#: config/prefs.php.dist:64
+#: attendees.php:189 config/prefs.php:101 lib/Application.php:449
+#: lib/Kronolith.php:2435 templates/dynamic/index.inc:34
 msgid "Week"
 msgstr "Týden"
 
-#: month.php:164 week.php:31 workweek.php:24
+#: lib/View/Month.php:165 week.php:26 workweek.php:27
 #, php-format
 msgid "Week %d"
 msgstr "Týden %d"
 
-#: templates/view/view.inc:67 templates/edit/edit.inc:128
+#: templates/edit/edit.inc:148 templates/edit/edit.inc:196
+#: templates/view/view.inc:55 templates/prefs/defaultalarm.html:13
 msgid "Week(s)"
 msgstr "Týden(y)"
 
-#: templates/view/view.inc:134 templates/edit/edit.inc:200
+#: templates/edit/edit.inc:308 templates/view/view.inc:110
 msgid "Weekly: Recurs every"
 msgstr "Týdně: Rekurzívně každý"
 
-#: config/prefs.php.dist:160
+#: config/prefs.php:158
 msgid ""
 "What time should day and week views end, when there are no later events?"
 msgstr ""
 "Kdy má časové zobrazeni dne a týdne končit, pokud neobsahují pozdni události?"
 
-#: config/prefs.php.dist:151
+#: config/prefs.php:139
 msgid ""
 "What time should day and week views start, when there are no earlier events?"
 msgstr ""
 "Kdy má časové zobrazeni dne a týdne začít, pokud neobsahují časné události?"
 
-#: attendees.php:107 lib/Kronolith.php:1040 lib/Block/tree_menu.php:22
-#: config/prefs.php.dist:65
+#: feed/index.php:124
+#, fuzzy
+msgid "When:"
+msgstr "Pak:"
+
+#: feed/index.php:137
+msgid "Where:"
+msgstr ""
+
+#: feed/index.php:134
+msgid "Who:"
+msgstr ""
+
+#: attendees.php:188 config/prefs.php:102 lib/Application.php:448
+#: lib/Kronolith.php:2429 templates/dynamic/index.inc:33
 msgid "Work Week"
 msgstr "Pracovní Týden"
 
-#: templates/view/view.inc:140 templates/edit/edit.inc:226
+#: lib/Application.php:451 lib/Kronolith.php:2447
+#: templates/dynamic/index.inc:36
+msgid "Year"
+msgstr "Rok"
+
+#: templates/edit/edit.inc:334 templates/edit/edit.inc:340
+#: templates/edit/edit.inc:346 templates/view/view.inc:116
+#: templates/view/view.inc:118 templates/view/view.inc:120
 msgid "Yearly: Recurs every"
 msgstr "Ročně: Rekurzívně každý"
 
-#: templates/contacts/contacts.inc:79
+#: templates/dynamic/edit.inc:317 templates/dynamic/edit.inc:324
+#: templates/dynamic/edit.inc:331
+msgid "Yes"
+msgstr "Ano"
+
+#: templates/smartmobile/javascript_defs.php:137
+msgid "Yesterday"
+msgstr ""
+
+#: lib/Kronolith.php:1308
+#, fuzzy
+msgid "You are not allowed to change this calendar."
+msgstr "Nemáte oprávnění změnit tento adresář."
+
+#: resources/edit.php:28 resources/groups/edit.php:24
+#, fuzzy
+msgid "You are not allowed to change this resource."
+msgstr "Nemáte oprávnění změnit tento adresář."
+
+#: add.php:62 data.php:37 data.php:147 edit.php:34
+#: lib/Ajax/Application/Handler.php:209 new.php:29
+#, fuzzy, php-format
+msgid "You are not allowed to create more than %d events."
+msgstr "Nejste oprávněn(a) vytvářet více než %d složek."
+
+#: lib/Ajax/Application/Handler.php:1051
+#, fuzzy
+msgid "You are not allowed to create new resources."
+msgstr "Nejste oprávněn(a) vytvářet složky."
+
+#: calendars/delete.php:35 lib/Kronolith.php:1339
+#, fuzzy
+msgid "You are not allowed to delete this calendar."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: resources/groups/delete.php:24
+#, fuzzy
+msgid "You are not allowed to delete this resource group."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: lib/Ajax/Application/Handler.php:1165 lib/Ajax/Application/Handler.php:1183
+#: resources/delete.php:28
+#, fuzzy
+msgid "You are not allowed to delete this resource."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: lib/Ajax/Application/Handler.php:1138
+#, fuzzy
+msgid "You are not allowed to delete this task list."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: lib/Ajax/Application/Handler.php:1060
+#, fuzzy
+msgid "You are not allowed to edit this resource."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: calendars/edit.php:36
+#, fuzzy
+msgid "You are not allowed to see this calendar."
+msgstr "Nemáte oprávnění smazat tento adresář."
+
+#: lib/Ajax/Application/Handler.php:1208 lib/Ajax/Application/Handler.php:1215
+#, fuzzy
+msgid "You are not allowed to view this calendar."
+msgstr "Nemáte oprávnění změnit tento adresář."
+
+#: attend.php:53
+#, fuzzy
+msgid "You are not an attendee of the specified event."
+msgstr "Nemáte oprávnění posílat zprávy více než %d příjemcům."
+
+#: templates/dynamic/edit.inc:122 templates/dynamic/task.inc:77
+#, php-format
+msgid "You can change the default settings in the %sNotification options%s"
+msgstr "Výchozí nastaveni můžete upravit v %smožnostech upomínek%s"
+
+#: templates/contacts/contacts.inc:78
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr "Tento formulář lze pouze použít ze stránky Úpravy Účastníků."
 
-#: lib/Kronolith.php:920
+#: lib/Kronolith.php:1890
+#, fuzzy, php-format
 msgid ""
-"You do not have an email address configured in your identity preferences. "
-"You must set one before event notifications can be sent."
+"You do not have an email address configured in your Personal Information "
+"Preferences. You must set one %shere%s before event notifications can be "
+"sent."
 msgstr ""
 "Neudali jste emailovou adresu v nastavení identity. Alespoň jedna musí být "
 "zadána."
 
-#: addeventaction.php:20
-#, php-format
-msgid "You do not have permission to add events to %s."
-msgstr "Nedostatečná práva pro přidání událostí do %s."
-
-#: data.php:183
-msgid "You do not have permission to add events to the selected calendar."
+#: add.php:48
+#, fuzzy
+msgid "You do not have permission to add events to this calendar."
 msgstr "Nedostatečná práva pro přidání událostí do vybraného kalendáře."
 
-#: deleventaction.php:26
+#: add.php:53 edit.php:181
+#, fuzzy
+msgid "You do not have permission to delegate events to this user."
+msgstr "Nedostatečná práva pro přidání událostí do %s."
+
+#: delete.php:40 delete.php:47 lib/Ajax/Application/Handler.php:469
 msgid "You do not have permission to delete this event."
 msgstr "Nedostatečná práva pro smazání této události."
 
-#: editeventaction.php:68
+#: edit.php:65 edit.php:112 edit.php:176 lib/Ajax/Application/Handler.php:259
+#: lib/Ajax/Application/Handler.php:386
 msgid "You do not have permission to edit this event."
 msgstr "Nedostatečná práva pro úpravu této události."
 
-#: data.php:178
-msgid "You have specified an invalid calendar."
-msgstr "Byl zadán neiplatný kalendář."
+#: edit.php:203
+#, fuzzy
+msgid "You do not have permission to move this event."
+msgstr "Nedostatečná práva pro úpravu této události."
 
-#: calendars.php:83
-msgid "You must select a calendar to be deleted."
-msgstr "Musíte vybrat kalendář, který bude smazán."
+#: templates/agenda/notification.html.php:58
+#, php-format
+msgid ""
+"You get this message because your calendar is configured to send you a daily "
+"agenda. You can change this if you %slogin to the calendar%s and change your "
+"preferences."
+msgstr ""
 
-#: templates/contacts/contacts.inc:57
+#: templates/alarm/mail.html.php:66
+#, php-format
+msgid ""
+"You get this message because your calendar is configured to send you "
+"reminders of events with alarms. You can change this if you %slogin to the "
+"calendar%s and change your preferences."
+msgstr ""
+
+#: calendars/remote_subscribe.php:34 lib/Ajax/Application/Handler.php:1033
+#, fuzzy, php-format
+msgid "You have been subscribed to \"%s\" (%s)."
+msgstr "Úspěšně jste se registrovali pro \"%s\""
+
+#: calendars/remote_unsubscribe.php:47 lib/Ajax/Application/Handler.php:1157
+#, fuzzy, php-format
+msgid "You have been unsubscribed from \"%s\" (%s)."
+msgstr "Nemůžete se odhlásit  z \"%s\"."
+
+#: data.php:88
+#, fuzzy
+msgid ""
+"You have specified an invalid calendar or you do not have permission to add "
+"events to the selected calendar."
+msgstr "Nedostatečná práva pro přidání událostí do vybraného kalendáře."
+
+#: attend.php:23
+msgid "You have successfully accepted attendence to this event."
+msgstr ""
+
+#: attend.php:28
+#, fuzzy
+msgid "You have successfully declined attendence to this event."
+msgstr "Nedostatečná práva pro smazání této události."
+
+#: attend.php:33
+#, fuzzy
+msgid "You have tentatively accepted attendence to this event."
+msgstr "Nedostatečná práva pro smazání této události."
+
+#: templates/contacts/contacts.inc:54
 msgid "You must select an address first."
 msgstr "Musíte nejdříve vybrat emailovou adresu."
 
-#: lib/Scheduler/kronolith.php:168
-#, php-format
-msgid "You requested to be reminded about %s, which is at %s."
-msgstr "Žádali jste o připomenutí události %s, která je v %s."
+#: lib/Ajax.php:149
+#, fuzzy
+msgid "You must specify a URL."
+msgstr "Musíte zadat příjemce."
 
-#: templates/prefs/shareselect.inc:10
-msgid "Your default calendar"
+#: lib/Kronolith.php:1673
+#, fuzzy
+msgid "You must specify a name and a URL."
+msgstr "Musíte vybrat uživatelské jméno, které bude smazáno."
+
+#: lib/Kronolith.php:2131
+#, fuzzy
+msgid "You requested to be notified when events are added to your calendars."
+msgstr "Událost byla přidána do Vašeho kalendáře."
+
+#: lib/Kronolith.php:2141
+msgid ""
+"You requested to be notified when events are deleted from your calendars."
+msgstr ""
+
+#: lib/Kronolith.php:2136
+#, fuzzy
+msgid "You requested to be notified when events are edited in your calendars."
+msgstr "Událost ve Vašem kalendáři byla aktualizována."
+
+#: lib/Ajax.php:156
+#, php-format
+msgid ""
+"You used an unknown date format \"%s\". Please try something like \"%s\"."
+msgstr ""
+
+#: lib/Ajax.php:157
+#, php-format
+msgid ""
+"You used an unknown time format \"%s\". Please try something like \"%s\"."
+msgstr ""
+
+#: templates/agenda/notification.html.php:1
+#, fuzzy
+msgid "Your daily agenda"
 msgstr "Váš implicitní kalendář"
 
-#: lib/Driver.php:913 lib/Driver.php:922
+#: templates/agenda/notification.plain.php:1
+#, fuzzy, php-format
+msgid "Your daily agenda for %s"
+msgstr "Váš implicitní kalendář"
+
+#: config/prefs.php:241
+#, fuzzy
+msgid "Your default calendar:"
+msgstr "Váš implicitní kalendář"
+
+#: lib/Event.php:2646 lib/Event/Horde.php:276 lib/Event/Ical.php:73
 msgid "[Unnamed event]"
 msgstr "[Událost bez názvu]"
 
-#: templates/edit/edit_timespan.inc:38
-msgid "_At"
-msgstr "_V"
+#: lib/Event/Resource/Sql.php:82
+#, fuzzy, php-format
+msgid "[Unnamed event] %s"
+msgstr "[Událost bez názvu]"
 
-#: templates/search/search_advanced.inc:10
+#: templates/edit/edit.inc:172
+#, fuzzy
+msgid "_Alarm"
+msgstr "_Upozornění"
+
+#: templates/search/search_advanced.inc:8
 msgid "_Basic Search"
 msgstr "_Vyhledat"
 
-#: viewevent.php:122
+#: lib/Kronolith.php:2482
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: lib/Kronolith.php:1076
+#: lib/Application.php:131
 msgid "_Goto"
 msgstr "_Jít na"
 
-#: lib/Kronolith.php:1086
+#: lib/Application.php:138
 msgid "_Import/Export"
 msgstr "_Importovat/Exportovat"
 
-#: lib/Kronolith.php:1081
-msgid "_My Calendars"
-msgstr "_Kalendáře"
-
-#: lib/Kronolith.php:1072
+#: lib/Application.php:165 lib/View/Sidebar.php:33
 msgid "_New Event"
 msgstr "_Nová Událost"
 
-#: lib/Kronolith.php:1091
-msgid "_Print"
-msgstr "_Tisk"
+#: lib/View/SidebarTasks.php:29
+msgid "_New Task"
+msgstr "_Nový Úkol"
 
-#: lib/Kronolith.php:1078
+#: lib/Application.php:133
 msgid "_Search"
 msgstr "_Vyhledat"
 
-#: templates/menu.inc:21
-msgid "_Show"
-msgstr "_Zobrazit"
-
-#: lib/Kronolith.php:1069
+#: lib/Kronolith.php:2417 templates/dynamic/index.inc:25
 msgid "_Today"
 msgstr "_Dnes"
 
-#: templates/edit/edit.inc:130
+#: templates/edit/edit.inc:82
+#, fuzzy, php-format
+msgid "as %s"
+msgstr "Dnes je %s"
+
+#: templates/dynamic/edit.inc:40 templates/dynamic/edit.inc:49
+#: templates/dynamic/task.inc:18
+msgid "at"
+msgstr "v"
+
+#: templates/edit/edit.inc:198
 msgid "before the event starts"
 msgstr "před začátkem události"
 
-#: config/prefs.php.dist:97
+#: templates/prefs/defaultalarm.html:15
+msgid "before the event starts. A value of \"0\" means no default alarms."
+msgstr ""
+
+#: lib/Event.php:2645 lib/Event/Resource/Sql.php:81
+msgid "busy"
+msgstr ""
+
+#: lib/Event.php:403 lib/Event.php:416
+#, php-format
+msgid "by %s"
+msgstr "s %s"
+
+#: lib/Event.php:405 lib/Event.php:418
+msgid "by me"
+msgstr "mnou"
+
+#: templates/dynamic/task.inc:59
+msgid "completed"
+msgstr "dokončeno"
+
+#: lib/Block/Summary.php:35
 msgid "day"
 msgstr "den"
 
-#: templates/view/view.inc:122 templates/edit/edit.inc:195
+#: templates/edit/edit.inc:303 templates/view/view.inc:100
 msgid "day(s)"
 msgstr "den(dny)"
 
-#: config/prefs.php.dist:98 config/prefs.php.dist:99 config/prefs.php.dist:100
-#: config/prefs.php.dist:101 config/prefs.php.dist:102
+#: lib/Block/Summary.php:36 lib/Block/Summary.php:37 lib/Block/Summary.php:38
+#: lib/Block/Summary.php:39 lib/Block/Summary.php:40
+#: templates/dynamic/edit.inc:130 templates/dynamic/task.inc:85
 msgid "days"
 msgstr "dny"
 
-#: data.php:137 templates/data/export.inc:1
+#: lib/Application.php:632 templates/data/export.inc:1
 msgid "events.csv"
 msgstr "události.cvs"
 
-#: data.php:158
+#: lib/Application.php:652
 msgid "events.ics"
 msgstr "udílosti.ics"
 
-#: templates/contacts/contacts.inc:133
-msgid "from"
-msgstr "od"
+#: templates/dynamic/edit.inc:129 templates/dynamic/task.inc:84
+msgid "hours"
+msgstr "hodin"
 
-#: templates/view/view.inc:136 templates/view/view.inc:138
-#: templates/edit/edit.inc:215 templates/edit/edit.inc:221
+#: templates/chunks/calendar.php:142 templates/chunks/calendar.php:156
+#: templates/chunks/calendar.php:243 templates/chunks/calendar.php:393
+#: templates/dynamic/edit.inc:270
+msgid ""
+"iCalendar is a computer file format which allows internet users to send "
+"meeting requests and tasks to other internet users, via email, or sharing "
+"files with an extension of .ics."
+msgstr ""
+"iCalendar je souborový formát, který umožňuje posílat jiným uživatelům "
+"informace o událostech a úkolech. Používa příponu *.ics."
+
+#: templates/contacts/contacts.inc:147
+msgid "in"
+msgstr "v"
+
+#: templates/dynamic/edit.inc:128 templates/dynamic/task.inc:83
+msgid "minutes"
+msgstr "minut"
+
+#: templates/edit/edit.inc:323 templates/edit/edit.inc:329
+#: templates/view/view.inc:112 templates/view/view.inc:114
 msgid "month(s)"
 msgstr "měsíc(e)"
 
-#: templates/view/view.inc:136 templates/edit/edit.inc:215
+#: lib/Ajax.php:144
+msgid "more..."
+msgstr "více..."
+
+#: templates/itip/notification.plain.php:1
+#, php-format
+msgid "on %s at %s"
+msgstr "dne %s v %s"
+
+#: templates/edit/edit.inc:323 templates/view/view.inc:112
 msgid "on the same date"
 msgstr "ve stejném dnu"
 
-#: templates/view/view.inc:138 templates/edit/edit.inc:221
+#: templates/edit/edit.inc:329 templates/view/view.inc:114
 msgid "on the same weekday"
 msgstr "ve stejném týdnu"
 
-#: data.php:30 templates/data/import.inc:23
+#: templates/chunks/calendar.php:168 templates/chunks/calendar.php:255
+#: templates/chunks/calendar.php:282 templates/chunks/calendar.php:303
+#: templates/chunks/calendar.php:323 templates/chunks/calendar.php:347
+#: templates/chunks/calendar.php:402 templates/chunks/calendar.php:437
+#: templates/dynamic/edit.inc:295 templates/dynamic/edit.inc:311
+#: templates/dynamic/index.inc:13 templates/dynamic/task.inc:166
+#: templates/dynamic/task.inc:179
+msgid "or"
+msgstr "nebo"
+
+#: templates/chunks/permissions.inc:31 templates/chunks/permissions.inc:45
+#, fuzzy
+msgid "read and edit the events"
+msgstr "Nastala chyba při úpravě události: %s"
+
+#: templates/chunks/permissions.inc:31 templates/chunks/permissions.inc:45
+#, fuzzy
+msgid "read and edit the tasks"
+msgstr "Nastala chyba při importování úkolu:"
+
+#: templates/chunks/permissions.inc:30 templates/chunks/permissions.inc:44
+#, fuzzy
+msgid "read the events"
+msgstr "před začátkem události"
+
+#: templates/chunks/permissions.inc:30 templates/chunks/permissions.inc:44
+#, fuzzy
+msgid "read the tasks"
+msgstr "Dokončit úkoly"
+
+#: templates/edit/edit.inc:384
+msgid "recurrences"
+msgstr "opakování"
+
+#: templates/edit/edit.inc:99
+msgid "resource"
+msgstr "zdroj"
+
+#: templates/dynamic/edit.inc:209
+msgid "separate e-mail addresses with a comma"
+msgstr "jednotlivé adresy oddělte čárkou"
+
+#: templates/dynamic/edit.inc:44
+msgid "to"
+msgstr "do"
+
+#: data.php:22 templates/data/import.inc:14
 msgid "vCalendar/iCalendar"
 msgstr "vCalendar/iCalendar"
 
-#: lib/api.php:167 lib/api.php:339
-msgid "vEvent not found."
-msgstr "vEvent nebyl nalezen."
-
-#: config/prefs.php.dist:103
+#: lib/Block/Summary.php:41
 msgid "week"
 msgstr "týden"
 
-#: templates/view/view.inc:134 templates/edit/edit.inc:202
+#: templates/edit/edit.inc:310 templates/view/view.inc:110
 msgid "week(s) on:"
 msgstr "týden(týdny) v:"
 
-#: config/prefs.php.dist:104 config/prefs.php.dist:105
-#: config/prefs.php.dist:106
+#: lib/Block/Summary.php:42 lib/Block/Summary.php:43 lib/Block/Summary.php:44
+#: templates/dynamic/edit.inc:131 templates/dynamic/task.inc:86
 msgid "weeks"
 msgstr "týdny"
 
-#: templates/view/view.inc:140 templates/edit/edit.inc:227
-msgid "year(s)"
-msgstr "rok(y)"
+#: templates/edit/edit.inc:335 templates/view/view.inc:116
+msgid "year(s) on the same date"
+msgstr "rok(let) ve stejném datu"
+
+#: templates/edit/edit.inc:341 templates/view/view.inc:118
+msgid "year(s) on the same day of the year"
+msgstr "rok(let) ve stejném dnu v roku"
+
+#: templates/edit/edit.inc:347 templates/view/view.inc:120
+msgid "year(s) on the same weekday and month of the year"
+msgstr "rok(let) ve stejný měsíc a den v týdnu"
