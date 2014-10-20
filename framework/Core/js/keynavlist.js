@@ -96,6 +96,7 @@ var KeyNavList = Class.create({
     update: function(list)
     {
         var df = document.createDocumentFragment();
+        this.selected = null;
 
         list.each(function(v) {
             var li;
