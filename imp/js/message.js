@@ -177,12 +177,13 @@ var ImpMessage = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {}, {
+            DimpCore.doAction('sendMDN', {
+                view: this.mbox
+            }, {
                 callback: function(r) {
                     $('sendMdnMessage').up(1).fade({ duration: 0.2 });
                 },
-                uids: [ this.buid ],
-                view: this.mbox
+                uids: [ this.buid ]
             });
             e.memo.stop();
             break;
