@@ -40,6 +40,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $page_output->addThemeStylesheet('message.css');
+        $page_output->addThemeStylesheet('message_view.css');
 
         $js_vars = array();
 

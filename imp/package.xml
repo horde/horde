@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-18</date>
+ <date>2014-10-20</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -997,7 +997,9 @@
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
       <file name="compose.css" role="horde" />
+      <file name="mailbox.css" role="horde" />
       <file name="message.css" role="horde" />
+      <file name="message_view.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -1079,7 +1081,6 @@
       <file name="checkbox_off.png" role="horde" />
       <file name="checkbox_on.png" role="horde" />
       <file name="checkbox_over.png" role="horde" />
-      <file name="checkmail.png" role="horde" />
       <file name="clearflag.png" role="horde" />
       <file name="clipboard.png" role="horde" />
       <file name="close.png" role="horde" />
@@ -1141,9 +1142,12 @@
      <dir name="smartmobile">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
+     <file name="contacts.css" role="horde" />
      <file name="mime.css" role="horde" />
-     <file name="rtl.css" role="horde" />
+     <file name="prefs.css" role="horde" />
      <file name="screen.css" role="horde" />
+     <file name="search.css" role="horde" />
+     <file name="thread.css" role="horde" />
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
@@ -2021,12 +2025,17 @@
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
+   <install as="imp/themes/default/contacts.css" name="themes/default/contacts.css" />
    <install as="imp/themes/default/mime.css" name="themes/default/mime.css" />
-   <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
+   <install as="imp/themes/default/prefs.css" name="themes/default/prefs.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="imp/themes/default/search.css" name="themes/default/search.css" />
+   <install as="imp/themes/default/thread.css" name="themes/default/thread.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="imp/themes/default/dynamic/compose.css" name="themes/default/dynamic/compose.css" />
+   <install as="imp/themes/default/dynamic/mailbox.css" name="themes/default/dynamic/mailbox.css" />
    <install as="imp/themes/default/dynamic/message.css" name="themes/default/dynamic/message.css" />
+   <install as="imp/themes/default/dynamic/message_view.css" name="themes/default/dynamic/message_view.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
@@ -2044,7 +2053,6 @@
    <install as="imp/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
    <install as="imp/themes/default/graphics/checkbox_on.png" name="themes/default/graphics/checkbox_on.png" />
    <install as="imp/themes/default/graphics/checkbox_over.png" name="themes/default/graphics/checkbox_over.png" />
-   <install as="imp/themes/default/graphics/checkmail.png" name="themes/default/graphics/checkmail.png" />
    <install as="imp/themes/default/graphics/clearflag.png" name="themes/default/graphics/clearflag.png" />
    <install as="imp/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
    <install as="imp/themes/default/graphics/close.png" name="themes/default/graphics/close.png" />

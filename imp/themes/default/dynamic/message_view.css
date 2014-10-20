@@ -1,0 +1,104 @@
+/* Headers styles. */
+.msgHeaders {
+    padding: 10px 6px 10px 4px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.msgHeaders a {
+    color: #000;
+}
+.msgHeaders table thead td.label {
+    display: block;
+    font-weight: bold;
+    padding-right: 4px;
+    text-align: right;
+    white-space: nowrap;
+}
+.msgHeaders .subject {
+    font-weight: bold;
+}
+#msgHeaderAtc td.label {
+    display: table-cell;
+}
+.atcLabel,
+.msgLogLabel {
+    font-weight: bold;
+    line-height: 20px;
+    padding-right: 5px;
+}
+#partlist {
+    padding-top: 2px;
+}
+#partlist .horde-tree-image {
+    padding-right: 1px;
+}
+#partlist_toggle span.attachmentImg {
+    margin-right: 0;
+}
+#msgloglist {
+    list-style-type: none;
+}
+#msgloglist li {
+    padding-top: 4px;
+}
+#msgloglist_toggle,
+#partlist_toggle {
+    cursor: pointer;
+}
+
+/* Message body formatting. */
+.messageBody {
+    padding: 10px;
+}
+
+/* Context Menus */
+.context div.contactAddr,
+.context div.mboxName {
+    font-style: italic;
+    padding: 0 2px;
+    text-align: center;
+}
+
+/* Email Addresses. */
+.msgHeaders .horde-button {
+    padding: 1px 3px;
+    margin: -1px 1px 2px 0;
+}
+.msgHeaders a.addrgroup-name {
+    font-weight: bold;
+}
+.msgHeaders div.addrgroup-div {
+    background-color: #aaa;
+    display: inline-block;
+    margin: 1px;
+    padding: 4px 2px 3px;
+}
+
+/* Action images. */
+.dimpactionReply {
+    background-image: url("../graphics/reply.png");
+}
+.dimpactionForward {
+    background-image: url("../graphics/forward.png");
+}
+.dimpactionSpam {
+    background-image: url("../graphics/spam.png");
+}
+.dimpactionInnocent {
+    background-image: url("../graphics/innocent.png");
+}
+.dimpactionDelete {
+    background-image: url("../graphics/delete.png");
+}
+.dimpactionResume {
+    background-image: url("../graphics/drafts.png");
+}
+
+/* Thread images */
+div.msgSubject span.horde-tree-image {
+    margin-top: -3px;
+    margin-right: 1px;
+}
