@@ -161,7 +161,10 @@ span.iconImg.flagNotJunk {
     background-image: url("../graphics/flags/innocent.png");
 }
 .msgflags.flagUnseen,
-span.iconImg.flagUnseen {
+span.iconImg.flagUnseen,
+#ctx_mbox_flag_unseen span.iconImg,
+#ctx_mbox_nopoll span.iconImg,
+#ctx_mbox_poll span.iconImg {
     background-image: url("../graphics/flags/unseen.png");
 }
 .msgflags.flagAnswered,
@@ -176,7 +179,11 @@ span.iconImg.flagDraft {
 span.iconImg.flagForwarded {
     background-image: url("../graphics/flags/forwarded.png");
 }
-.msgflags.flagFlagged {
+.msgflags.flagFlagged,
+span.iconImg.flagFlagged,
+#ctx_mbox_setflag span.iconImg,
+#ctx_message_setflag span.iconImg,
+#ctx_oa_setflag span.iconImg {
     background-image: url("../graphics/flags/flagged.png");
 }
 .msgflags.flagDeleted,
@@ -503,7 +510,8 @@ div.vpRow div.msgSubject span.flagUser {
 }
 
 /* Sidebar/subinfo images. */
-span.infoIcon {
+span.infoIcon,
+#ctx_mbox_size span.iconImg {
     background-image: url("../graphics/info_icon.png");
 }
 span.prefsIcon {
@@ -518,10 +526,14 @@ span.readonlyImg {
 }
 
 /* Action images. */
-.dimpactionCompose {
+.dimpactionCompose,
+#ctx_contacts_new span.iconImg,
+#ctx_forward_editasnew span.iconImg,
+#ctx_message_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");
 }
-.dimpactionRefresh {
+.dimpactionRefresh,
+#ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
 .imp-loading {
@@ -531,10 +543,14 @@ span.readonlyImg {
 .dimpactionSort {
     background-image: url("../graphics/plus.png");
 }
-.dimpactionEditsearch {
+.dimpactionEditsearch,
+#ctx_mbox_acl span.iconImg {
     background-image: url("../graphics/edit.png");
 }
-.dimpactionFilter {
+.dimpactionFilter,
+#ctx_contacts_addfilter span.iconImg,
+#ctx_message_addfilter span.iconImg,
+#ctx_filteropts_applyfilters span.iconImg {
     background-image: url("../graphics/filters.png");
 }
 
@@ -563,4 +579,100 @@ span.readonlyImg {
 }
 #th_collapse {
     margin: 4px 0 -2px;
+}
+
+/* Context menus */
+#ctx_mbox_empty span.iconImg,
+#ctx_message_delete span.iconImg,
+#ctx_oa_purge_deleted span.iconImg {
+    background-image: url("../graphics/delete.png");
+}
+#ctx_message_undelete span.iconImg,
+#ctx_oa_undelete span.iconImg {
+    background-image: url("../graphics/undelete.png");
+}
+span.iconImg.flagSeen,
+#ctx_message_view span.iconImg,
+#ctx_mbox_flag_seen span.iconImg {
+    background-image: url("../graphics/seen.png");
+}
+#ctx_message_unsetflag span.iconImg,
+#ctx_oa_unsetflag span.iconImg {
+    background-image: url("../graphics/clearflag.png");
+}
+#ctx_message_resume span.iconImg,
+#ctx_message_template span.iconImg,
+#ctx_message_template_edit span.iconImg,
+#ctx_template_new span.iconImg,
+#ctx_template_edit span.iconImg,
+#msg_resume_draft span.iconImg,
+#msg_template span.iconImg {
+    background-image: url("../graphics/drafts.png");
+}
+#ctx_oa_preview_hide span.iconImg,
+#ctx_oa_preview_show span.iconImg {
+    background-image: url("../graphics/preview.png");
+}
+#ctx_oa_layout_horiz span.iconImg {
+    background-image: url("../graphics/application_tile_vertical.png");
+}
+#ctx_oa_layout_vert span.iconImg {
+    background-image: url("../graphics/application_tile_horizontal.png");
+}
+#ctx_container_create span.iconImg,
+#ctx_folderopts_new span.iconImg,
+#ctx_mbox_create span.iconImg,
+#ctx_remoteauth_create span.iconImg {
+    background-image: url("../graphics/folders/create.png");
+}
+#ctx_container_rename span.iconImg,
+#ctx_mbox_rename span.iconImg,
+#ctx_vcontainer_edit span.iconImg,
+#ctx_vfolder_edit span.iconImg {
+    background-image: url("../graphics/folders/edit.png");
+}
+#ctx_container_search span.iconImg,
+#ctx_container_searchsub span.iconImg,
+#ctx_mbox_search span.iconImg,
+#ctx_mbox_searchsub span.iconImg {
+    background-image: url("../graphics/search.png");
+}
+#ctx_container_delete span.iconImg,
+#ctx_mbox_delete span.iconImg,
+#ctx_vfolder_delete span.iconImg {
+    background-image: url("../graphics/folders/trash.png");
+}
+#ctx_mbox_export span.iconImg,
+#ctx_mbox_import span.iconImg,
+#ctx_preview_save span.iconImg {
+    background-image: url("../graphics/download.png");
+}
+#ctx_message_spam span.iconImg {
+    background-image: url("../graphics/spam.png");
+}
+#ctx_message_innocent span.iconImg {
+    background-image: url("../graphics/innocent.png");
+}
+#ctx_message_blacklist span.iconImg,
+#ctx_oa_blacklist span.iconImg {
+    background-image: url("../graphics/blacklist.png");
+}
+#ctx_message_whitelist span.iconImg,
+#ctx_oa_whitelist span.iconImg {
+    background-image: url("../graphics/whitelist.png");
+}
+#ctx_preview_thread span.iconImg {
+    background-image: url("../graphics/thread.png");
+}
+#ctx_flag span.iconImg.flagUser,
+#ctx_flag_search span.iconImg.flagUser {
+    border: 1px black solid;
+    height: 17px;
+    width: 17px;
+}
+#ctx_sortopts span.iconImg.sortup,
+#ctx_sortopts span.iconImg.sortdown {
+    background-color: inherit;
+    background-position: center;
+    padding: 0;
 }

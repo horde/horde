@@ -61,6 +61,34 @@
     padding: 0 2px;
     text-align: center;
 }
+#ctx_reply_reply span.iconImg,
+#ctx_message_reply span.iconImg {
+    background-image: url("../graphics/reply.png");
+}
+#ctx_reply_reply_all span.iconImg,
+#ctx_reply_reply_list span.iconImg {
+    background-image: url("../graphics/replyall.png");
+}
+#ctx_forward_attach span.iconImg,
+#ctx_preview_allparts span.iconImg,
+#msg_all_parts span.iconImg {
+    background-image: url("../graphics/attachment.png");
+}
+#ctx_message_forward span.iconImg,
+#ctx_forward_body span.iconImg,
+#ctx_forward_both span.iconImg,
+#ctx_forward_redirect span.iconImg {
+    background-image: url("../graphics/forward.png");
+}
+#ctx_message_source span.iconImg,
+#ctx_preview_viewsource span.iconImg,
+#msg_view_source span.iconImg {
+    background-image: url("../graphics/message_source.png");
+}
+#ctx_preview_listinfo span.iconImg,
+#msg_listinfo span.iconImg {
+    background-image: url("../graphics/group.png");
+}
 
 /* Email Addresses. */
 .msgHeaders .horde-button {

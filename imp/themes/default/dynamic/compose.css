@@ -331,3 +331,8 @@ span.attachmentImg {
     color: blue;
     margin-left: 5px;
 }
+
+/* Context menus */
+#ctx_atcfile_delete span.iconImg {
+    background-image: url("../graphics/delete.png");
+}
