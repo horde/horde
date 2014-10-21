@@ -1299,6 +1299,8 @@ class Nag_Task
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
             $message->startdate = new Horde_Date($this->start, 'UTC');
+        } elseif ($this->recurs()) {
+            $message->startdate = new Horde_Date(time());
         }
 
         /* Priority */
