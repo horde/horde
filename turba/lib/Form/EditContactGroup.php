@@ -26,12 +26,12 @@ class Turba_Form_EditContactGroup extends Turba_Form_EditContact
             $this->appendButtons(_("Finish"));
         } elseif ($source . ':' . $key == $objectkeys[count($objectkeys) - 1]) {
             /* Last contact */
-            $this->setButtons(array(array('value' => _("Previous"), 'class' => 'horde-button')));
-            $this->appendButtons(array(array('value' => _("Finish"), 'class' => 'horde-default')));
+            $this->setButtons(_("Previous"));
+            $this->appendButtons(_("Finish"));
         } else {
             /* In between */
-            $this->setButtons(array(array('value' => _("Previous"), 'class' => 'horde-button')));
-            $this->appendButtons(array(array('value' => _("Next"), 'class' => 'horde-default')));
+            $this->setButtons(_("Previous"));
+            $this->appendButtons(_("Next"));
             $this->appendButtons(_("Finish"));
         }
     }
