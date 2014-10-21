@@ -2403,7 +2403,7 @@ class Turba_Driver implements Countable
 
             case 'BDAY':
                 if (empty($item['value'])) {
-                    $hash['birthday'] = '';
+                    $hash['birthday'] = null;
                 } else {
                     $hash['birthday'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' .  $item['value']['mday'];
                 }
@@ -2450,7 +2450,7 @@ class Turba_Driver implements Countable
 
             case 'X-ANNIVERSARY':
                 if (empty($item['value'])) {
-                    $hash['anniversary'] = '';
+                    $hash['anniversary'] = null;
                 } else {
                     $hash['anniversary'] = $item['value']['year'] . '-' . $item['value']['month'] . '-' . $item['value']['mday'];
                 }
