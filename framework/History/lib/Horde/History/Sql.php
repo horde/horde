@@ -53,7 +53,7 @@ class Horde_History_Sql extends Horde_History
     public function getActionTimestamp($guid, $action)
     {
         if (!is_string($guid) || !is_string($action)) {
-            throw new Horde_History_Exception('$guid and $action need to be strings!');
+            throw new InvalidArgumentException('$guid and $action need to be strings!');
         }
 
         try {
@@ -162,7 +162,11 @@ class Horde_History_Sql extends Horde_History
      */
     public function _getHistory($guid)
     {
-        $rows = $this->_db->selectAll('SELECT * FROM horde_histories WHERE object_uid = ?', array($guid));
+        try {
+            $rows = $this->_db->selectAll('SELECT * FROM horde_histories WHERE object_uid = ?', array($guid));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
         return new Horde_History_Log($guid, $rows);
     }
 
@@ -257,17 +261,21 @@ class Horde_History_Sql extends Horde_History
         );
 
         // Add additional filters, if there are any.
-        if ($filters) {
-            foreach ($filters as $filter) {
-                $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+        try {
+            if ($filters) {
+                foreach ($filters as $filter) {
+                    $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+                }
             }
-        }
 
-        if ($parent) {
-            $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
-        }
+            if ($parent) {
+                $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
+            }
 
-        return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+            return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
     }
 
     /**
@@ -284,14 +292,18 @@ class Horde_History_Sql extends Horde_History
         }
 
         $ids = array();
-        foreach ($names as $name) {
-            $ids[] = $this->_db->quote($name);
-            if ($this->_cache) {
-                $this->_cache->expire('horde:history:' . $name);
+        try {
+            foreach ($names as $name) {
+                $ids[] = $this->_db->quote($name);
+                if ($this->_cache) {
+                    $this->_cache->expire('horde:history:' . $name);
+                }
             }
-        }
 
-        $this->_db->delete('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
+            $this->_db->delete('DELETE FROM horde_histories WHERE object_uid IN (' . implode(',', $ids) . ')');
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
     }
 
     /**
@@ -310,31 +322,26 @@ class Horde_History_Sql extends Horde_History
      */
     public function getHighestModSeq($parent = null)
     {
-        $sql = 'SELECT history_modseq FROM horde_histories';
-        if (!empty($parent)) {
-            $sql .= ' WHERE object_uid LIKE ' . $this->_db->quote($parent . ':%');
-        }
-        $sql .= ' ORDER BY history_modseq DESC';
-        $sql = $this->_db->addLimitOffset($sql, array('limit' => 1));
-
         try {
+            $sql = 'SELECT history_modseq FROM horde_histories';
+            if (!empty($parent)) {
+                $sql .= ' WHERE object_uid LIKE ' . $this->_db->quote($parent . ':%');
+            }
+            $sql .= ' ORDER BY history_modseq DESC';
+            $sql = $this->_db->addLimitOffset($sql, array('limit' => 1));
+
             $modseq = $this->_db->selectValue($sql);
+            if (is_null($modseq) || $modseq === false) {
+                $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
+                if (!empty($modseq)) {
+                    return $modseq;
+                } else {
+                    return false;
+                }
+            }
         } catch (Horde_Db_Exception $e) {
             throw new Horde_History_Exception($e);
         }
-        if (is_null($modseq) || $modseq === false) {
-            try {
-                $modseq = $this->_db->selectValue('SELECT MAX(history_modseq) FROM horde_histories_modseq');
-            } catch (Horde_Db_Exception $e) {
-                throw new Horde_History_Exception($e);
-            }
-            if (!empty($modseq)) {
-                return $modseq;
-            } else {
-                return false;
-            }
-        }
-
         return $modseq;
     }
 
@@ -381,9 +388,13 @@ class Horde_History_Sql extends Horde_History
         }
         $query .= 'DESC LIMIT 1';
 
-        $row = $this->_db->selectOne($query, array($guid));
-        if (empty($row['history_id'])) {
-            return false;
+        try {
+            $row = $this->_db->selectOne($query, array($guid));
+            if (empty($row['history_id'])) {
+                return false;
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
         }
 
         $log = new Horde_History_Log($guid, array($row));
