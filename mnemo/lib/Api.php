@@ -496,7 +496,7 @@ class Mnemo_Api extends Horde_Registry_Api
      * @return string  The new notepad's id.
      * @since 4.2.0
      */
-    public function addNotpad($name, array $params = array())
+    public function addNotepad($name, array $params = array())
     {
         if ($GLOBALS['prefs']->isLocked('default_notepad')) {
             throw new Horde_Exception_PermissionDenied();
