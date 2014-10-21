@@ -288,7 +288,8 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             $r->until = $recurrence->getRecurEnd();
         }
 
-        $r->start = clone $this->startdate;
+        // Set the start of the recurrence series.
+        $r->start = clone $this->duedate;
 
         $this->_properties['recurrence'] = $r;
     }
