@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix adding new tasklists from EAS client (Bug #13642).
 * [mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
  </notes>
  <contents>
@@ -2417,6 +2418,7 @@
    <date>2014-10-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix adding new tasklists from EAS client (Bug #13642).
 * [mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
    </notes>
   </release>
