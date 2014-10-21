@@ -158,9 +158,9 @@ class Nag_Api extends Horde_Registry_Api
 
         $name = $tasklist->getName();
         if (!empty($params['synchronize'])) {
-            $sync = @unserialize($prefs->getValue('sync_lists'));
+            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
             $sync[] = $name;
-            $prefs->setValue('sync_lists', serialize($sync));
+            $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
         }
 
         return $name;
