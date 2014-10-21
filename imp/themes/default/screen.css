@@ -62,6 +62,21 @@ table.mailinglistinfo {
     font-size: 12px;
 }
 
+/* Checkbox images */
+.msCheck {
+    background-image: url("graphics/checkbox_off.png");
+}
+.msCheck:hover {
+    background-image: url("graphics/checkbox_over.png") !important;
+}
+.msCheckOn,
+div.vpRowSelected .msCheck {
+    background-image: url("graphics/checkbox_on.png");
+}
+div.msgStatus .msCheck {
+    margin-right: 1px;
+}
+
 /* Other images. */
 .deleteImg {
     background-image: url("graphics/delete.png");

@@ -237,19 +237,6 @@ div.vpRowSelected .msgflags.flagDeleted {
 }
 
 /* Checkbox images */
-.msCheck {
-    background-image: url("../graphics/checkbox_off.png");
-}
-.msCheck:hover {
-    background-image: url("../graphics/checkbox_over.png") !important;
-}
-.msCheckOn,
-div.vpRowSelected .msCheck {
-    background-image: url("../graphics/checkbox_on.png");
-}
-div.msgStatus .msCheck {
-    margin-right: 1px;
-}
 .msCheckAll {
     cursor: pointer;
 }
