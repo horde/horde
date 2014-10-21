@@ -701,9 +701,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         if (!$old_name) {
             try {
                 $id = $this->_connector->createFolder($class, $new_name);
-            } catch (Horde_ActiveSync_Exception $e) {
+            } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw $e;
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             if (empty($parts)) {
@@ -716,9 +716,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             try {
                 $this->_connector->changeFolder($class, $id, $new_name);
-            } catch (Horde_ActiveSync_Exception $e) {
+            } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw $e;
+                throw new Horde_ActiveSync_Exception($e);
             }
         }
 
