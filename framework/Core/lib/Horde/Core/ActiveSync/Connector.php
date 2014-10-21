@@ -1197,7 +1197,7 @@ class Horde_Core_ActiveSync_Connector
                     Horde_ActiveSync_Exception::UNSUPPORTED
                 );
             }
-            return $this->_registry->tasks->addTasklist($foldername, array('synchronize' => true));
+            return $this->_registry->tasks->addTasklist($foldername, '', '', array('synchronize' => true));
         }
     }
 
