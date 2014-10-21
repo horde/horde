@@ -1,20 +1,5 @@
 <?php
 /**
- * A SQL based history driver.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  History
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=History
- */
-
-/**
- * The Horde_History_Sql:: class provides a method of tracking changes in
- * Horde objects, stored in a SQL table.
- *
  * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -24,7 +9,16 @@
  * @package  History
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=History
+ */
+
+/**
+ * The Horde_History_Sql class provides a method of tracking changes in Horde
+ * objects, stored in a SQL table.
+ *
+ * @category Horde
+ * @package  History
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_History_Sql extends Horde_History
 {
@@ -48,14 +42,13 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Gets the timestamp of the most recent change to $guid.
+     * Returns the timestamp of the most recent change to $guid.
      *
-     * @param string $guid   The name of the history entry to retrieve.
-     * @param string $action An action: 'add', 'modify', 'delete', etc.
+     * @param string $guid    The name of the history entry to retrieve.
+     * @param string $action  An action: 'add', 'modify', 'delete', etc.
      *
      * @return integer  The timestamp, or 0 if no matching entry is found.
-     *
-     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @throws Horde_History_Exception
      */
     public function getActionTimestamp($guid, $action)
     {
@@ -73,17 +66,17 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Logs an event to an item's history log. Any other details about the
-     * event are passed in $attributes.
+     * Logs an event to an item's history log.
      *
-     * @param Horde_History_Log $history       The history item to add to.
-     * @param array             $attributes    The hash of name => value
-     *                                         entries that describe this
-     *                                         event.
-     * @param boolean           $replaceAction If $attributes['action'] is
-     *                                         already present in the item's
-     *                                         history log, update that entry
-     *                                         instead of creating a new one.
+     * Any other details about the event are passed in $attributes.
+     *
+     * @param Horde_History_Log $history  The history item to add to.
+     * @param array $attributes           The hash of name => value entries
+     *                                    that describe this event.
+     * @param boolean $replaceAction      If $attributes['action'] is already
+     *                                    present in the item's history log,
+     *                                    update that entry instead of creating
+     *                                    a new one.
      *
      * @throws Horde_History_Exception
      */
@@ -162,10 +155,9 @@ class Horde_History_Sql extends Horde_History
      * Returns a Horde_History_Log corresponding to the named history entry,
      * with the data retrieved appropriately.
      *
-     * @param string $guid The name of the history entry to retrieve.
+     * @param string $guid  The name of the history entry to retrieve.
      *
      * @return Horde_History_Log  A Horde_History_Log object.
-     *
      * @throws Horde_History_Exception
      */
     public function _getHistory($guid)
@@ -175,33 +167,32 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Finds history objects by timestamp, and optionally filter on other
+     * Finds history objects by timestamp, and optionally filtered on other
      * fields as well.
-     *
-     * @param string  $cmp     The comparison operator (<, >, <=, >=, or =) to
-     *                         check the timestamps with.
-     * @param integer $ts      The timestamp to compare against.
-     * @param array   $filters An array of additional (ANDed) criteria.
-     *                         Each array value should be an array with 3
-     *                         entries:
-     *                         - field: the history field being compared (i.e.
-     *                           'action').
-     *                         - op: the operator to compare this field with.
-     *                         - value: the value to check for (i.e. 'add').
-     * @param string  $parent  The parent history to start searching at. If
-     *                         non-empty, will be searched for with a LIKE
-     *                         '$parent:%' clause.
-     *
-     * @return array  An array of history object ids that have had at least one
-     *                match for the given $filters. Will return empty array if
-     *                none matched the criteria. If the same GUID has multiple
-     *                matches withing the range requested, there is no guarantee
-     *                which entry will be returned.
      *
      * Note: For BC reasons, the results are returned keyed by the object UID,
      *       with a (fairly useless) history_id as the value. @todo This
      *       should be changed for Horde 6.
      *
+     * @param string $cmp     The comparison operator (<, >, <=, >=, or =) to
+     *                        check the timestamps with.
+     * @param integer $ts     The timestamp to compare against.
+     * @param array $filters  An array of additional (ANDed) criteria.
+     *                        Each array value should be an array with 3
+     *                        entries:
+     *                        - field: the history field being compared (i.e.
+     *                          'action').
+     *                        - op: the operator to compare this field with.
+     *                        - value: the value to check for (i.e. 'add').
+     * @param string $parent  The parent history to start searching at. If
+     *                        non-empty, will be searched for with a LIKE
+     *                        '$parent:%' clause.
+     *
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no
+     *                guarantee which entry will be returned.
      * @throws Horde_History_Exception
      */
     public function _getByTimestamp($cmp, $ts, array $filters = array(),
@@ -211,45 +202,49 @@ class Horde_History_Sql extends Horde_History
         $where = array("history_ts $cmp $ts");
 
         /* Add additional filters, if there are any. */
-        if ($filters) {
-            foreach ($filters as $filter) {
-                $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+        try {
+            if ($filters) {
+                foreach ($filters as $filter) {
+                    $where[] = 'history_' . $filter['field'] . ' ' . $filter['op'] . ' ' . $this->_db->quote($filter['value']);
+                }
             }
-        }
 
-        if ($parent) {
-            $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
-        }
+            if ($parent) {
+                $where[] = 'object_uid LIKE ' . $this->_db->quote($parent . ':%');
+            }
 
-        return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+            return $this->_db->selectAssoc('SELECT DISTINCT object_uid, history_id FROM horde_histories WHERE ' . implode(' AND ', $where));
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_History_Exception($e);
+        }
     }
 
     /**
-     * Return history objects with changes during a modseq interval, and
+     * Returns history objects with changes during a modseq interval, and
      * optionally filtered on other fields as well.
-     *
-     * @param integer $start   The (exclusive) start of the modseq range.
-     * @param integer $end     The (inclusive) end of the modseq range.
-     * @param array   $filters An array of additional (ANDed) criteria.
-     *                         Each array value should be an array with 3
-     *                         entries:
-     *                         - field: the history field being compared (i.e.
-     *                           'action').
-     *                         - op: the operator to compare this field with.
-     *                         - value: the value to check for (i.e. 'add').
-     * @param string  $parent  The parent history to start searching at. If
-     *                         non-empty, will be searched for with a LIKE
-     *                         '$parent:%' clause.
-     *
-     * @return array  An array of history object ids that have had at least one
-     *                match for the given $filters. Will return empty array if
-     *                none matched the criteria. If the same GUID has multiple
-     *                matches withing the range requested, there is no guarantee
-     *                which entry will be returned.
      *
      * Note: For BC reasons, the results are returned keyed by the object UID,
      *       with a (fairly useless) history_id as the value. @todo This
      *       should be changed for Horde 6.
+     *
+     * @param integer $start  The (exclusive) start of the modseq range.
+     * @param integer $end    The (inclusive) end of the modseq range.
+     * @param array $filters  An array of additional (ANDed) criteria.
+     *                        Each array value should be an array with 3
+     *                        entries:
+     *                        - field: the history field being compared (i.e.
+     *                          'action').
+     *                        - op: the operator to compare this field with.
+     *                        - value: the value to check for (i.e. 'add').
+     * @param string $parent  The parent history to start searching at. If
+     *                        non-empty, will be searched for with a LIKE
+     *                        '$parent:%' clause.
+     *
+     * @return array  An array of history object ids that have had at least one
+     *                match for the given $filters. Will return empty array if
+     *                none matched the criteria. If the same GUID has multiple
+     *                matches withing the range requested, there is no
+     *                guarantee which entry will be returned.
      */
     protected function _getByModSeq($start, $end, $filters = array(), $parent = null)
     {
@@ -300,15 +295,18 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     *  Return the current value of the modseq. We take the MAX of the
-     *  horde_histories table instead of the value of the horde_histories_modseq
-     *  table to ensure we never miss an entry if we query the history system
-     *  between the time we call nextModSeq() and the time the new entry is
-     *  written.
+     * Returns the current value of the modseq.
+     *
+     * We take the MAX of the horde_histories table instead of the value of the
+     * horde_histories_modseq table to ensure we never miss an entry if we
+     * query the history system between the time we call nextModSeq() and the
+     * time the new entry is written.
      *
      * @param string $parent  Restrict to entries a specific parent.
      *
-     * @return integer|boolean  The highest used modseq value, false if no history.
+     * @return integer|boolean  The highest used modseq value, false if no
+     *                          history.
+     * @throws Horde_History_Exception
      */
     public function getHighestModSeq($parent = null)
     {
@@ -341,9 +339,10 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Increment, and return, the modseq value.
+     * Increments, and returns, the modseq value.
      *
      * @return integer  The new modseq value.
+     * @throws Horde_History_Exception
      */
     protected function _nextModSeq()
     {
@@ -358,17 +357,18 @@ class Horde_History_Sql extends Horde_History
     }
 
     /**
-     * Gets the latest entry of $guid
+     * Returns the latest entry of $guid.
      *
-     * @param string   $guid    The name of the history entry to retrieve.
-     * @param boolean  $use_ts  If false we use the 'modseq' field to determine
-     *                          the latest entry. If true we use the timestamp
-     *                          instead of modseq to determine the latest entry.
-     *                          Note: Only 'modseq' can give a definitive answer.
+     * @param string  $guid    The name of the history entry to retrieve.
+     * @param boolean $use_ts  If false we use the 'modseq' field to determine
+     *                         the latest entry. If true we use the timestamp
+     *                         instead of modseq to determine the latest entry.
+     *                         Note: Only 'modseq' can give a definitive
+     *                         answer.
      *
-     * @return array|boolean    The latest history entry, or false if $guid does not exist.
-     *
-     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @return array|boolean  The latest history entry, or false if $guid does
+     *                        not exist.
+     * @throws Horde_History_Exception
      * @since 2.2.0
      */
     public function getLatestEntry($guid, $use_ts = false)
