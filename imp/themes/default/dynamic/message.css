@@ -27,6 +27,9 @@ div.msgfullread span.messagePrintShow {
     float: right !important;
     margin-top: 6px;
 }
+.saveAsImg {
+    background-image: url("../graphics/download.png");
+}
 
 @media print {
     /* Hide UI elements when printing message in popup window. */

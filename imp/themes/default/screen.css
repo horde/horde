@@ -8,22 +8,6 @@
     margin-left: 20px;
 }
 
-/* Attachment tree styling. */
-div.partsTreeDiv {
-    min-height: 0;
-}
-
-/* Message body styling. */
-.messageBody div.mimePartData {
-    line-height: 1.3em;
-    margin-bottom: 8px;
-}
-
-/* Calendar image. */
-.calendarImg {
-    background-image: url("graphics/calendar.png");
-}
-
 /* Folder images. */
 .folderImg {
     background-image: url("graphics/folders/folder.png");
@@ -55,12 +39,6 @@ div.partsTreeDiv {
     font-style: italic;
 }
 
-/* Style for HTML data iframe. */
-.htmlMsgData {
-    margin: 2px 0;
-    width: 100%;
-}
-
 /* Quota styles. */
 .quotawarn {
     color: yellow;
@@ -71,86 +49,11 @@ div.partsTreeDiv {
     font-weight:bold;
 }
 
-/* Large addresslist display. */
-.largeaddrlist,
-.largeaddrlistlimit {
-    color: #36525d;
-    cursor: pointer;
-    font-weight: bold;
-    margin-right: 5px;
-    padding: 1px;
-}
-.largeaddrlist:hover,
-.largeaddrlistlimit:hover {
-    text-decoration: underline;
-}
-
 /* Mailing list info page */
 table.mailinglistinfo {
     border: 1px solid #d0d0d0;
     border-bottom: 0;
     margin: 8px;
-}
-
-/* Inline display (Horde_Mime_Viewer) styles. */
-.mimeStatusMessageTable {
-    margin-bottom: 3px;
-}
-.mimeStatusMessageTable {
-    background: #ffc;
-    border: 1px solid #fff760;
-    color: #000;
-    display: inline-block;
-    margin-bottom: 3px;
-    padding: 4px;
-}
-.mimeStatusIcon {
-    width: 22px;
-}
-div.mimeStatusMessage, div.mimePartInfo {
-    margin-bottom: 7px;
-}
-.mimePartInfo div {
-    background-color: #ebeff0;
-    border: 1px solid #d0d0d0;
-    margin: 0;
-    padding: 5px;
-    /* For FF2 */
-    display: table-cell;
-    display: inline-block;
-}
-.mimePartInfo div > img {
-    vertical-align: top;
-}
-.mimePartInfoAtc div {
-    border: 1px dashed;
-    background-image: url("graphics/attachment.png");
-    background-position: 2px 50%;
-    background-repeat: no-repeat;
-    padding-left: 35px;
-}
-span.mimePartInfoSize {
-    color: #666;
-}
-
-.mimeStatusMessageTable td {
-    padding: 0;
-}
-.mimeStatusMessageTable td table td {
-    padding-right: 2px;
-    white-space: nowrap;
-}
-
-.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
-    border: 1px solid #d0d0d0;
-    margin: 2px 0;
-    padding: 10px;
-}
-.mimePartWrapValid {
-    border-color: #cfc;
-}
-.mimePartWrapInvalid {
-    border-color: #ffd0af;
 }
 
 .mimeHeadersPrint {
@@ -160,33 +63,9 @@ span.mimePartInfoSize {
 }
 
 /* Other images. */
-.downloadAtc,
-.saveImgAtc {
-    margin-left: 1px;
-}
-.downloadAtc,
-.saveAsImg {
-    background-image: url("graphics/download.png");
-}
-.printAtc {
-    background-image: url("graphics/print.png");
-}
-.saveImgAtc {
-    background-image: url("graphics/gallery.png");
-}
 .deleteImg {
     background-image: url("graphics/delete.png");
 }
 .closeImg {
     background-image: url("graphics/close.png");
-}
-.reloadImg {
-    background-image: url("graphics/reload.png");
-}
-.readonlyImg,
-.horde-buttonbar li.readonlyImg {
-    background-image: url("graphics/locked.png");
-}
-.horde-buttonbar li.readonlyImg {
-    margin-right: -5px;
 }

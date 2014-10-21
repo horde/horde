@@ -71,6 +71,9 @@ table.remotemanagement td.noneconfigured {
     color: red;
     padding: 5px 10px;
 }
+.calendarImg {
+    background-image: url("graphics/calendar.png");
+}
 
 /* ACL */
 .prefsAclTable {

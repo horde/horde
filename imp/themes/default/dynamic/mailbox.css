@@ -526,12 +526,6 @@ span.readonlyImg {
 }
 
 /* Action images. */
-.dimpactionCompose,
-#ctx_contacts_new span.iconImg,
-#ctx_forward_editasnew span.iconImg,
-#ctx_message_editasnew span.iconImg {
-    background-image: url("../graphics/compose.png");
-}
 .dimpactionRefresh,
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
@@ -546,12 +540,6 @@ span.readonlyImg {
 .dimpactionEditsearch,
 #ctx_mbox_acl span.iconImg {
     background-image: url("../graphics/edit.png");
-}
-.dimpactionFilter,
-#ctx_contacts_addfilter span.iconImg,
-#ctx_message_addfilter span.iconImg,
-#ctx_filteropts_applyfilters span.iconImg {
-    background-image: url("../graphics/filters.png");
 }
 
 /* Other images */

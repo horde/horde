@@ -67,7 +67,10 @@
 .searchElement span.endDate {
     margin-left: 6px;
 }
-.searchElement .calendarImg,
+.searchElement .calendarImg {
+    background-image: url("graphics/calendar.png");
+    margin-right: 0;
+}
 .searchElement .closeImg {
     margin-right: 0;
 }

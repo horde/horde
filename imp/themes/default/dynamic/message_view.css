@@ -62,7 +62,8 @@
     text-align: center;
 }
 #ctx_reply_reply span.iconImg,
-#ctx_message_reply span.iconImg {
+#ctx_message_reply span.iconImg,
+.dimpactionReply {
     background-image: url("../graphics/reply.png");
 }
 #ctx_reply_reply_all span.iconImg,
@@ -71,13 +72,15 @@
 }
 #ctx_forward_attach span.iconImg,
 #ctx_preview_allparts span.iconImg,
-#msg_all_parts span.iconImg {
+#msg_all_parts span.iconImg,
+.mimePartInfoAtc div {
     background-image: url("../graphics/attachment.png");
 }
 #ctx_message_forward span.iconImg,
 #ctx_forward_body span.iconImg,
 #ctx_forward_both span.iconImg,
-#ctx_forward_redirect span.iconImg {
+#ctx_forward_redirect span.iconImg,
+.dimpactionForward {
     background-image: url("../graphics/forward.png");
 }
 #ctx_message_source span.iconImg,
@@ -88,6 +91,18 @@
 #ctx_preview_listinfo span.iconImg,
 #msg_listinfo span.iconImg {
     background-image: url("../graphics/group.png");
+}
+.dimpactionCompose,
+#ctx_contacts_new span.iconImg,
+#ctx_forward_editasnew span.iconImg,
+#ctx_message_editasnew span.iconImg {
+    background-image: url("../graphics/compose.png");
+}
+.dimpactionFilter,
+#ctx_contacts_addfilter span.iconImg,
+#ctx_message_addfilter span.iconImg,
+#ctx_filteropts_applyfilters span.iconImg {
+    background-image: url("../graphics/filters.png");
 }
 
 /* Email Addresses. */
@@ -106,12 +121,6 @@
 }
 
 /* Action images. */
-.dimpactionReply {
-    background-image: url("../graphics/reply.png");
-}
-.dimpactionForward {
-    background-image: url("../graphics/forward.png");
-}
 .dimpactionSpam {
     background-image: url("../graphics/spam.png");
 }
@@ -129,4 +138,97 @@
 div.msgSubject span.horde-tree-image {
     margin-top: -3px;
     margin-right: 1px;
+}
+
+/* IMP_Contents styles */
+div.partsTreeDiv {
+    min-height: 0;
+}
+.messageBody div.mimePartData {
+    line-height: 1.3em;
+    margin-bottom: 8px;
+}
+.htmlMsgData {
+    margin: 2px 0;
+    width: 100%;
+}
+.mimeStatusMessageTable {
+    background: #ffc;
+    border: 1px solid #fff760;
+    color: #000;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 4px;
+}
+.mimeStatusIcon {
+    width: 22px;
+}
+div.mimeStatusMessage, div.mimePartInfo {
+    margin-bottom: 7px;
+}
+.mimePartInfo div {
+    background-color: #ebeff0;
+    border: 1px solid #d0d0d0;
+    margin: 0;
+    padding: 5px;
+    /* For FF2 */
+    display: table-cell;
+    display: inline-block;
+}
+.mimePartInfo div > img {
+    vertical-align: top;
+}
+.mimePartInfoAtc div {
+    border: 1px dashed;
+    background-position: 2px 50%;
+    background-repeat: no-repeat;
+    padding-left: 35px;
+}
+span.mimePartInfoSize {
+    color: #666;
+}
+.mimeStatusMessageTable td {
+    padding: 0;
+}
+.mimeStatusMessageTable td table td {
+    padding-right: 2px;
+    white-space: nowrap;
+}
+.mimePartWrap,
+.mimePartWrapValid,
+.mimePartWrapInvalid {
+    border: 1px solid #d0d0d0;
+    margin: 2px 0;
+    padding: 10px;
+}
+.mimePartWrapValid {
+    border-color: #cfc;
+}
+.mimePartWrapInvalid {
+    border-color: #ffd0af;
+}
+.downloadAtc {
+    background-image: url("../graphics/download.png");
+    margin-left: 1px;
+}
+.saveImgAtc {
+    background-image: url("../graphics/gallery.png");
+    margin-left: 1px;
+}
+.printAtc {
+    background-image: url("../graphics/print.png");
+}
+
+/* Large addresslist display. */
+.largeaddrlist,
+.largeaddrlistlimit {
+    color: #36525d;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 5px;
+    padding: 1px;
+}
+.largeaddrlist:hover,
+.largeaddrlistlimit:hover {
+    text-decoration: underline;
 }

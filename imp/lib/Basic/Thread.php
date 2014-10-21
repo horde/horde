@@ -165,6 +165,8 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
         $t_css = new Horde_Themes_Element('thread.css');
         $page_output->addStylesheet($t_css->fs, $t_css->uri);
+        $v_css = new Horde_Themes_Element('dynamic/message_view.css');
+        $page_output->addStylesheet($v_css->fs, $v_css->uri);
 
         $this->output = $view->render('thread');
 
