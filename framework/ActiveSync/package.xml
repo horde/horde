@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix some issues relating to synchronizing recurring tasks (Bug #13636).
+* [mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2417,7 +2417,7 @@
    <date>2014-10-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mjr] Fix some issues relating to synchronizing recurring tasks (Bug #13636).
+* [mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
    </notes>
   </release>
  </changelog>
