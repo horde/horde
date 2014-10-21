@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-06-04</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.10</release>
   <api>1.1.0</api>
@@ -123,12 +123,6 @@
       <file name="Horde_Icalendar.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Icalendar.mo" role="data" />
-      <file name="Horde_Icalendar.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Icalendar.mo" role="data" />
@@ -519,8 +513,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Icalendar.po" name="locale/de/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Icalendar.mo" name="locale/el/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Icalendar.po" name="locale/el/LC_MESSAGES/Horde_Icalendar.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Icalendar.mo" name="locale/en/LC_MESSAGES/Horde_Icalendar.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Icalendar.po" name="locale/en/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Icalendar.mo" name="locale/es/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Icalendar.po" name="locale/es/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Icalendar.mo" name="locale/et/LC_MESSAGES/Horde_Icalendar.mo" />
@@ -1143,7 +1135,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

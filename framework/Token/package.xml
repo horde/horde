@@ -16,7 +16,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2014-05-21</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.6</release>
   <api>1.0.0</api>
@@ -108,12 +108,6 @@
       <file name="Horde_Token.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Token.mo" role="data" />
-      <file name="Horde_Token.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Token.mo" role="data" />
@@ -443,8 +437,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Token.po" name="locale/de/LC_MESSAGES/Horde_Token.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Token.mo" name="locale/el/LC_MESSAGES/Horde_Token.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Token.po" name="locale/el/LC_MESSAGES/Horde_Token.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Token.mo" name="locale/en/LC_MESSAGES/Horde_Token.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Token.po" name="locale/en/LC_MESSAGES/Horde_Token.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Token.mo" name="locale/es/LC_MESSAGES/Horde_Token.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Token.po" name="locale/es/LC_MESSAGES/Horde_Token.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Token.mo" name="locale/et/LC_MESSAGES/Horde_Token.mo" />
@@ -915,7 +907,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-21</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

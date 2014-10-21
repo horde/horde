@@ -16,7 +16,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-05-02</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.8</release>
   <api>1.0.0</api>
@@ -98,12 +98,6 @@
       <file name="Horde_Browser.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Browser.mo" role="data" />
-      <file name="Horde_Browser.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Browser.mo" role="data" />
@@ -361,8 +355,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Browser.po" name="locale/de/LC_MESSAGES/Horde_Browser.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Browser.mo" name="locale/el/LC_MESSAGES/Horde_Browser.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Browser.po" name="locale/el/LC_MESSAGES/Horde_Browser.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Browser.mo" name="locale/en/LC_MESSAGES/Horde_Browser.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Browser.po" name="locale/en/LC_MESSAGES/Horde_Browser.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Browser.mo" name="locale/es/LC_MESSAGES/Horde_Browser.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Browser.po" name="locale/es/LC_MESSAGES/Horde_Browser.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Browser.mo" name="locale/et/LC_MESSAGES/Horde_Browser.mo" />
@@ -835,7 +827,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-02</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

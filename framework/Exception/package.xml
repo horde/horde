@@ -22,8 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-08-27</date>
- <time>12:20:42</time>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -109,12 +108,6 @@
       <file name="Horde_Exception.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Exception.mo" role="data" />
-      <file name="Horde_Exception.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Exception.mo" role="data" />
@@ -391,8 +384,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Exception.po" name="locale/de/LC_MESSAGES/Horde_Exception.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Exception.mo" name="locale/el/LC_MESSAGES/Horde_Exception.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Exception.po" name="locale/el/LC_MESSAGES/Horde_Exception.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Exception.mo" name="locale/en/LC_MESSAGES/Horde_Exception.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Exception.po" name="locale/en/LC_MESSAGES/Horde_Exception.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Exception.mo" name="locale/es/LC_MESSAGES/Horde_Exception.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Exception.po" name="locale/es/LC_MESSAGES/Horde_Exception.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Exception.mo" name="locale/et/LC_MESSAGES/Horde_Exception.mo" />
@@ -778,7 +769,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-08-27</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

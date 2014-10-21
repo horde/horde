@@ -10,8 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-13</date>
- <time>22:07:20</time>
+ <date>2014-10-21</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -107,12 +106,6 @@
       <file name="Horde_Kolab_Resource.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Kolab_Resource.mo" role="data" />
-      <file name="Horde_Kolab_Resource.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Kolab_Resource.mo" role="data" />
@@ -422,8 +415,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/de/LC_MESSAGES/Horde_Kolab_Resource.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Kolab_Resource.mo" name="locale/el/LC_MESSAGES/Horde_Kolab_Resource.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/el/LC_MESSAGES/Horde_Kolab_Resource.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Resource.mo" name="locale/en/LC_MESSAGES/Horde_Kolab_Resource.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/en/LC_MESSAGES/Horde_Kolab_Resource.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Kolab_Resource.mo" name="locale/es/LC_MESSAGES/Horde_Kolab_Resource.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Kolab_Resource.po" name="locale/es/LC_MESSAGES/Horde_Kolab_Resource.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Kolab_Resource.mo" name="locale/et/LC_MESSAGES/Horde_Kolab_Resource.mo" />
@@ -509,7 +500,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-11-13</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).

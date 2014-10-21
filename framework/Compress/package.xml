@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-05-21</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.9</release>
   <api>1.0.0</api>
@@ -117,12 +117,6 @@
       <file name="Horde_Compress.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Compress.mo" role="data" />
-      <file name="Horde_Compress.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Compress.mo" role="data" />
@@ -444,8 +438,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Compress.po" name="locale/de/LC_MESSAGES/Horde_Compress.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Compress.mo" name="locale/el/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Compress.po" name="locale/el/LC_MESSAGES/Horde_Compress.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Compress.mo" name="locale/en/LC_MESSAGES/Horde_Compress.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Compress.po" name="locale/en/LC_MESSAGES/Horde_Compress.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Compress.mo" name="locale/es/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Compress.po" name="locale/es/LC_MESSAGES/Horde_Compress.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Compress.mo" name="locale/et/LC_MESSAGES/Horde_Compress.mo" />
@@ -906,7 +898,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-21</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

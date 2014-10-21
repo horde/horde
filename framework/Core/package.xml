@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-10-11</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.15.1</release>
   <api>2.15.0</api>
@@ -751,12 +751,6 @@
       <file name="Horde_Core.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Core.mo" role="data" />
-      <file name="Horde_Core.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Core.mo" role="data" />
@@ -1989,8 +1983,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Core.po" name="locale/de/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Core.mo" name="locale/el/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Core.po" name="locale/el/LC_MESSAGES/Horde_Core.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Core.mo" name="locale/en/LC_MESSAGES/Horde_Core.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Core.po" name="locale/en/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Core.mo" name="locale/es/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Core.po" name="locale/es/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Core.mo" name="locale/et/LC_MESSAGES/Horde_Core.mo" />
@@ -3677,7 +3669,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-11</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).

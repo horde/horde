@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-18</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -122,12 +122,6 @@
       <file name="Horde_Mime.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Mime.mo" role="data" />
-      <file name="Horde_Mime.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Mime.mo" role="data" />
@@ -519,8 +513,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Mime.po" name="locale/de/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Mime.mo" name="locale/el/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Mime.po" name="locale/el/LC_MESSAGES/Horde_Mime.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Mime.mo" name="locale/en/LC_MESSAGES/Horde_Mime.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Mime.po" name="locale/en/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Mime.mo" name="locale/es/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Mime.po" name="locale/es/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Mime.mo" name="locale/et/LC_MESSAGES/Horde_Mime.mo" />
@@ -1461,7 +1453,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-18</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
