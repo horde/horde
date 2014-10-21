@@ -260,6 +260,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY;
+            $r->dayofmonth = $recurrence->start->mday;
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH;
@@ -286,6 +287,8 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         } elseif ($recurrence->hasRecurEnd()) {
             $r->until = $recurrence->getRecurEnd();
         }
+
+        $r->start = clone $this->startdate;
 
         $this->_properties['recurrence'] = $r;
     }
