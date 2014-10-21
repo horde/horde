@@ -67,10 +67,12 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
             } catch (Exception $e) {
                 // This indicates an unserialize() error.  This is fatal, so
                 // logout.
-                throw new Horde_Exception_AuthenticationFailure(
+                $failure = new Horde_Exception_AuthenticationFailure(
                     'Cached IMP session data has become invalid; expiring session.',
                     Horde_Auth::REASON_SESSION
                 );
+                $failure->application = 'imp';
+                throw $failure;
             }
 
             if (!is_object($ob)) {
