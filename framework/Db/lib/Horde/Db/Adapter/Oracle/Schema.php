@@ -496,27 +496,42 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         if ($type == 'binary' && $column->getType() != 'binary') {
             $this->beginDbTransaction();
             $this->addColumn($tableName, $columnName . '_tmp', $type, $options);
+            $this->execute('
+CREATE OR REPLACE FUNCTION CLOB_TO_BLOB (p_clob CLOB) RETURN BLOB
+AS
+    l_blob          BLOB;
+    l_dest_offset   INTEGER := 1;
+    l_source_offset INTEGER := 1;
+    l_lang_context  INTEGER := DBMS_LOB.DEFAULT_LANG_CTX;
+    l_warning       INTEGER := DBMS_LOB.WARN_INCONVERTIBLE_CHAR;
+BEGIN
+    DBMS_LOB.CREATETEMPORARY(l_blob, TRUE);
+    DBMS_LOB.CONVERTTOBLOB
+    (
+        dest_lob     => l_blob,
+        src_clob     => p_clob,
+        amount       => DBMS_LOB.LOBMAXSIZE,
+        dest_offset  => l_dest_offset,
+        src_offset   => l_source_offset,
+        blob_csid    => DBMS_LOB.DEFAULT_CSID,
+        lang_context => l_lang_context,
+        warning      => l_warning
+    );
+    RETURN l_blob;
+END;
+            ');
             $this->update(sprintf(
-                'UPDATE %s SET %s = UTL_RAW.CAST_TO_RAW(%s) WHERE LENGTH(%3$s) <= 2000',
+                'UPDATE %s SET %s = CLOB_TO_BLOB(%s) WHERE %s IS NOT NULL',
+                $this->quoteTableName($tableName),
+                $this->quoteColumnName($columnName . '_tmp'),
+                $this->quoteColumnName($columnName),
+                $this->quoteColumnName($columnName)
+            ));
+            $this->update(sprintf(
+                'UPDATE %s SET %s = NULL WHERE %s IS NULL',
                 $this->quoteTableName($tableName),
                 $this->quoteColumnName($columnName . '_tmp'),
                 $this->quoteColumnName($columnName)
-            ));
-            $this->execute(sprintf(
-                'DECLARE CURSOR cur IS SELECT %s, %s FROM %s WHERE LENGTH(%s) > 2000 FOR UPDATE; new blob; old %s; BEGIN OPEN cur; IF cur%%ISOPEN THEN LOOP FETCH cur INTO old, new; EXIT WHEN cur%%NOTFOUND; DBMS_LOB.WRITE(new, LENGTH(old), 1, UTL_RAW.CAST_TO_RAW(SUBSTR(old, 1, LENGTH(old)))); END LOOP; CLOSE cur; END IF; END;',
-                $this->quoteColumnName($columnName),
-                $this->quoteColumnName($columnName . '_tmp'),
-                $this->quoteTableName($tableName),
-                $this->quoteColumnName($columnName),
-                $this->typeToSql(
-                    $column->getType(),
-                    $column->getType() == 'integer' || $column->getType() == 'text'
-                        ? null
-                        : $column->getLimit(),
-                    $column->precision(),
-                    $column->scale(),
-                    $column->isUnsigned()
-                )
             ));
             $this->removeColumn($tableName, $columnName);
             $this->renameColumn($tableName, $columnName . '_tmp', $columnName);
