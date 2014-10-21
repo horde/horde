@@ -26,6 +26,9 @@ TODO
   some sort of top-like application to monitor EAS usage. Make it easier to
   find troublesome devices etc....
 
+- Work out / more fully test Task recurrence. Especially completion of a single
+  instance using DEADRECUR etc... (most work is in Nag, but put here to keep
+  sync todos together).
 
 BC BREAKING (i.e., Horde 6).
 ============================
