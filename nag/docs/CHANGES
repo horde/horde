@@ -2,6 +2,7 @@
 v4.2.2-git
 ----------
 
+[mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 [mjr] Fix missing startdate field for recurring tasks synchronized via
       ActiveSync (Bug #13636).
 [jan] Pass current start date of recurring tasks to dynamic interface.

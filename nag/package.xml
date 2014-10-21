@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [mjr] Fix missing startdate field for recurring tasks synchronized via ActiveSync (Bug #13636).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
@@ -1594,6 +1595,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [mjr] Fix missing startdate field for recurring tasks synchronized via ActiveSync (Bug #13636).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
