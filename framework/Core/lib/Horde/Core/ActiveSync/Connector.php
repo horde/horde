@@ -1119,7 +1119,7 @@ class Horde_Core_ActiveSync_Connector
 
             case Horde_ActiveSync::CLASS_NOTES:
                 if ($this->_registry->hasMethod('notes/sources') &&
-                    $this->_registry->horde->getPreference($this->_registry->hasInterface('calendar'), 'activesync_no_multiplex') &&
+                    $this->_registry->horde->getPreference($this->_registry->hasInterface('notes'), 'activesync_no_multiplex') &&
                     !($multiplex & Horde_ActiveSync_Device::MULTIPLEX_NOTES)) {
 
                     $folders = $this->_registry->notes->sources(true, true);
