@@ -33,14 +33,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix missing startdate field for recurring tasks synchronized via ActiveSync (Bug #13636).
-* [jan] Pass current start date of recurring tasks to dynamic interface.
-* [jan] Fix setting task list name for external tasks.
-* [jan] Fix link to create sub-task from a task view.
-* [jan] Fix listing of recurring tasks with start dates.
-* [mjr] Add missing categories to EAS tasks.
-* [jan] Fix sidebar display of system task lists in basic view.
-* [jan] Fix retrieving individual tasks via WebDAV.
+* [jan] Improve priority display in basic view.
+* [jan] Display task list background color in basic view.
+* [jan] Import snooze information from iCalendar alarms.
+* [jan] Import iCalendar 2.0 alarms.
+* [jan] Import and export recurrence rules to iCalendar.
+* [jan] Return ETags with browse() API method.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1594,6 +1592,7 @@
    <date>2014-08-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [mjr] Fix missing startdate field for recurring tasks synchronized via ActiveSync (Bug #13636).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
