@@ -25,7 +25,7 @@
  </lead>
  <date>2014-10-23</date>
  <version>
-  <release>2.1.5</release>
+  <release>2.1.6</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix migrating NULL values to BLOB on Oracle.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -827,6 +827,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix migrating NULL values to BLOB on Oracle.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-23</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
