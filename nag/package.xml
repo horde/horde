@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-08-04</date>
+ <date>2014-10-23</date>
  <version>
   <release>4.2.2</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
@@ -416,6 +417,7 @@
     <file name="11_nag_upgrade_smartlists.php" role="horde" />
     <file name="12_nag_fix_smartlists.php" role="horde" />
     <file name="13_nag_upgrade_parents.php" role="horde" />
+    <file name="14_nag_upgrade_search.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -942,6 +944,7 @@
    <install as="nag/migration/11_nag_upgrade_smartlists.php" name="migration/11_nag_upgrade_smartlists.php" />
    <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
+   <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
@@ -1591,9 +1594,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
 * [jan] Fix setting task list name for external tasks.
