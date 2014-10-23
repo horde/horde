@@ -345,7 +345,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $style = $node->hasAttribute('style')
                 ? (rtrim($node->getAttribute('style'), ';') . ';')
                 : '';
-            $node->setAttribute('style', $style . 'width:auto !important');
+            $node->setAttribute('style', $style . 'overflow-y:hidden;width:auto !important');
             break;
 
         case 'img':
