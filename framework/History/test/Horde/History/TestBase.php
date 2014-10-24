@@ -75,7 +75,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         try {
             self::$history->getHistory(array());
             $this->fail('No exception!');
-        } catch (Horde_History_Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
@@ -111,7 +111,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         try {
             self::$history->getByTimestamp(array(), 1);
             $this->fail('No exception!');
-        } catch (Horde_History_Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
@@ -120,7 +120,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         try {
             self::$history->getByTimestamp('>', 'hello');
             $this->fail('No exception!');
-        } catch (Horde_History_Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
@@ -187,7 +187,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         try {
             self::$history->getActionTimestamp(array(), 'test');
             $this->fail('No exception!');
-        } catch (Horde_History_Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
@@ -196,7 +196,7 @@ class Horde_History_TestBase extends Horde_Test_Case
         try {
             self::$history->getActionTimestamp('test', array());
             $this->fail('No exception!');
-        } catch (Horde_History_Exception $e) {
+        } catch (InvalidArgumentException $e) {
         }
     }
 
