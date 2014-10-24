@@ -96,7 +96,7 @@ implements Horde_Mongo_Collection_Index
     public function getActionTimestamp($guid, $action)
     {
         if (!is_string($guid) || !is_string($action)) {
-            throw new Horde_History_Exception(
+            throw new InvalidArgumentException(
                 '$guid and $action need to be strings!'
             );
         }

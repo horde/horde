@@ -159,7 +159,7 @@ abstract class Horde_History
     public function getHistory($guid)
     {
         if (!is_string($guid)) {
-            throw new Horde_History_Exception('The guid needs to be a string!');
+            throw new InvalidArgumentException('The guid needs to be a string!');
         }
 
         if ($this->_cache &&
@@ -214,10 +214,10 @@ abstract class Horde_History
                                    $parent = null)
     {
         if (!is_string($cmp)) {
-            throw new Horde_History_Exception('The comparison operator needs to be a string!');
+            throw new InvalidArgumentException('The comparison operator needs to be a string!');
         }
         if (!is_integer($ts)) {
-            throw new Horde_History_Exception('The timestamp needs to be an integer!');
+            throw new InvalidArgumentException('The timestamp needs to be an integer!');
         }
         return $this->_getByTimestamp($cmp, $ts, $filters, $parent);
     }
@@ -245,7 +245,7 @@ abstract class Horde_History
     public function getByModSeq($start, $end, $filters = array(), $parent = null)
     {
         if (!is_integer($start) || !is_integer($end)) {
-            throw new Horde_History_Exception('The modseq values must be integers!');
+            throw new InvalidArgumentException('The modseq values must be integers!');
         }
 
         // Exit early if there is no range.
@@ -293,12 +293,12 @@ abstract class Horde_History
      *
      * @return integer  The timestamp, or 0 if no matching entry is found.
      *
-     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @throws Horde_History_Exception
      */
     public function getActionTimestamp($guid, $action)
     {
         if (!is_string($guid) || !is_string($action)) {
-            throw new Horde_History_Exception('$guid and $action need to be strings!');
+            throw new InvalidArgumentException('$guid and $action need to be strings!');
         }
 
         try {
@@ -367,14 +367,14 @@ abstract class Horde_History
      *
      * @return integer  The modseq, or 0 if no matching entry is found.
      *
-     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @throws Horde_History_Exception
      * @since 2.1.0
      * @todo  Make abstract in H6.
      */
     public function getActionModSeq($guid, $action)
     {
         if (!is_string($guid) || !is_string($action)) {
-            throw new Horde_History_Exception('$guid and $action need to be strings!');
+            throw new InvalidArgumentException('$guid and $action need to be strings!');
         }
 
         try {
@@ -404,7 +404,7 @@ abstract class Horde_History
      *
      * @return array|boolean    The latest history entry, or false if $guid does not exist.
      *
-     * @throws Horde_History_Exception If the input parameters are not of type string.
+     * @throws Horde_History_Exception
      * @since 2.2.0
      */
     public function getLatestEntry($guid, $use_ts = false)

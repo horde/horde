@@ -192,7 +192,7 @@ class Horde_History_Mock extends Horde_History
                 };
                 break;
             default:
-                throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $cmp));
+                throw new InvalidArgumentException(sprintf("Comparison %s not implemented!", $cmp));
             }
 
             if ($ignore) {
@@ -203,7 +203,7 @@ class Horde_History_Mock extends Horde_History
             if ($filters) {
                 foreach ($filters as $filter) {
                     if ($filter['op'] != '=') {
-                        throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
+                        throw new InvalidArgumentException(sprintf("Comparison %s not implemented!", $filter['op']));
                     }
                     if ($element['history_' . $filter['field']] != $filter['value']) {
                         $ignore = true;
@@ -258,7 +258,7 @@ class Horde_History_Mock extends Horde_History
             if (!empty($filters)) {
                 foreach ($filters as $filter) {
                     if ($filter['op'] != '=') {
-                        throw new Horde_History_Exception(sprintf("Comparison %s not implemented!", $filter['op']));
+                        throw new InvalidArgumentException(sprintf("Comparison %s not implemented!", $filter['op']));
                     }
                     if ($element['history_' . $filter['field']] != $filter['value']) {
                         $ignore = true;
