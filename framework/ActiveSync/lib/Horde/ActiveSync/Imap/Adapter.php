@@ -997,7 +997,7 @@ class Horde_ActiveSync_Imap_Adapter
                 // email is signed (or encrypted for that matter) we can't
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
-                if (!$imap_message->isSigned()) {
+                if (!$imap_message->isSigned() && !$imap_message->isEncrypted()) {
                     // Sending a non-signed MIME message, start building the
                     // UTF-8 converted structure.
                     $mime = new Horde_Mime_Part();
@@ -1046,7 +1046,9 @@ class Horde_ActiveSync_Imap_Adapter
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
-                    $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
+                    $eas_message->messageclass = $imap_message->isSigned()
+                        ? 'IPM.Note.SMIME.MultipartSigned'
+                        : 'IPM.Note.SMIME';
 
                     // Might not know if we have attachments, but take a best
                     // guess.
