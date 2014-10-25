@@ -14,6 +14,16 @@ This lists the API changes between releases of the package.
 Upgrading to 2.5
 ================
 
+  - Horde_Mail_Rfc822
+
+    - ATEXT
+
+      This constant is deprecated.
+
+    - parseAddressList()
+
+      Added the 'eai' option to the 'validate' optional parameter.
+
   - Horde_Mail_Mbox_Parse
 
     Added object to parse mbox format mailbox data.
