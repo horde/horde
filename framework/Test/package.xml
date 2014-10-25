@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Raise priority of Horde_Test autoloader.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2572,7 +2572,7 @@
    <date>2014-10-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Raise priority of Horde_Test autoloader.
    </notes>
   </release>
  </changelog>
