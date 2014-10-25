@@ -29,25 +29,6 @@ class Components_Qc_Task_Md
 extends Components_Qc_Task_Base
 {
     /**
-     * Constructor.
-     *
-     * @param Components_Config   $config The configuration for the current job.
-     * @param Components_Qc_Tasks $tasks  The task handler.
-     * @param Components_Output   $output Accepts output.
-     */
-    public function __construct(Components_Config $config,
-                                Components_Qc_Tasks $tasks,
-                                Components_Output $output)
-    {
-        parent::__construct($config, $tasks, $output);
-        if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-            require __DIR__ . '/../vendor/autoload.php';
-        } else {
-            require __DIR__ . '/../../../../bundle/vendor/autoload.php';
-        }
-    }
-
-    /**
      * Get the name of this task.
      *
      * @return string The task name.

@@ -11,6 +11,9 @@
  * @link     http://pear.horde.org/index.php?package=Components
  */
 
+use SebastianBergmann\PHPCPD;
+use SebastianBergmann\FinderFacade\FinderFacade;
+
 /**
  * Components_Qc_Task_Cpd:: runs a copy/paste check on the component.
  *
@@ -48,9 +51,8 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        return array('PHPCPD has changed interfaces, QC task needs updating.');
         if (!class_exists('SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
-            return array('PHP CPD is not available!');
+            return array('PHPCPD is not available!');
         }
     }
 
@@ -63,23 +65,78 @@ extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
-        require 'SebastianBergmann/PHPCPD/autoload.php';
-
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        $factory = new File_Iterator_Factory();
-        $files = array_keys(iterator_to_array($factory->getFileIterator(
-            $lib, 'php'
-        )));
+        $finder = new FinderFacade(
+            array($lib),
+            array(null),
+            array('*.php'),
+            array(null)
+        );
+        $files = $finder->findFiles();
 
-        $detector = new SebastianBergmann\PHPCPD\Detector\Detector(new SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy());
+        $detector = new PHPCPD\Detector\Detector(
+            new PHPCPD\Detector\Strategy\DefaultStrategy()
+        );
         $clones   = $detector->copyPasteDetection(
             $files, 5, 70
         );
 
-        $printer = new SebastianBergmann\PHPCPD\TextUI\ResultPrinter;
-        $printer->printResult($clones, $lib, true);
+        $this->_printResult($clones);
 
         return count($clones);
+    }
+
+    /**
+     * Prints a result set from Detector::copyPasteDetection().
+     *
+     * @param CodeCloneMap    $clones
+     */
+    protected function _printResult(PHPCPD\CodeCloneMap $clones)
+    {
+        $numClones = count($clones);
+
+        if ($numClones > 0) {
+            $buffer = '';
+            $files  = array();
+            $lines  = 0;
+
+            foreach ($clones as $clone) {
+                foreach ($clone->getFiles() as $file) {
+                    $filename = $file->getName();
+
+                    if (!isset($files[$filename])) {
+                        $files[$filename] = true;
+                    }
+                }
+
+                $lines  += $clone->getSize() * (count($clone->getFiles()) - 1);
+                $buffer .= "\n  -";
+
+                foreach ($clone->getFiles() as $file) {
+                    $buffer .= sprintf(
+                        "\t%s:%d-%d\n ",
+                        $file->getName(),
+                        $file->getStartLine(),
+                        $file->getStartLine() + $clone->getSize()
+                    );
+                }
+            }
+
+            printf(
+                "Found %d exact clones with %d duplicated lines in %d files:\n%s",
+                $numClones,
+                $lines,
+                count($files),
+                $buffer
+            );
+        }
+
+        printf(
+            "%s%s duplicated lines out of %d total lines of code.\n\n",
+            $numClones > 0 ? "\n" : '',
+            $clones->getPercentage(),
+            $clones->getNumLines()
+        );
     }
 }
