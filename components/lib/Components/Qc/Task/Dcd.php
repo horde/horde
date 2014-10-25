@@ -60,10 +60,7 @@ class Components_Qc_Task_Dcd extends Components_Qc_Task_Base
     public function run(&$options)
     {
         $finder = new FinderFacade(
-            array(realpath($this->_config->getPath() . '/lib')),
-            array(null),
-            array('*.php'),
-            array(null)
+            array(realpath($this->_config->getPath() . '/lib'))
         );
         $files = $finder->findFiles();
 

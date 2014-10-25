@@ -65,13 +65,8 @@ extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
-        $lib = realpath($this->_config->getPath() . '/lib');
-
         $finder = new FinderFacade(
-            array($lib),
-            array(null),
-            array('*.php'),
-            array(null)
+            array(realpath($this->_config->getPath() . '/lib'))
         );
         $files = $finder->findFiles();
 
