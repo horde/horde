@@ -11,6 +11,9 @@
  * @package   Components
  */
 
+use SebastianBergmann\PHPDCD;
+use SebastianBergmann\FinderFacade\FinderFacade;
+
 /**
  * PHP dead code detection.
  *
@@ -42,7 +45,7 @@ class Components_Qc_Task_Dcd extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHPDCD_Detector')) {
+        if (!class_exists('SebastianBergmann\\PHPDCD\\Detector')) {
             return array('PHPDCD is not available!');
         }
     }
@@ -56,24 +59,35 @@ class Components_Qc_Task_Dcd extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
-        require 'PHPDCD/Autoload.php';
-
-        $facade = new File_Iterator_Facade;
-        $result = $facade->getFilesAsArray(
-            array(realpath($this->_config->getPath())),
-            array('php'),
-            array(),
-            array(),
-            true
+        $finder = new FinderFacade(
+            array(realpath($this->_config->getPath() . '/lib')),
+            array(null),
+            array('*.php'),
+            array(null)
         );
+        $files = $finder->findFiles();
 
-        $files      = $result['files'];
-        $commonPath = $result['commonPath'];
-
-        $detector = new PHPDCD_Detector(new \ezcConsoleOutput);
+        $detector = new PHPDCD\Detector();
         $result   = $detector->detectDeadCode($files, true);
 
-        $printer = new PHPDCD_TextUI_ResultPrinter;
-        $printer->printResult($result, $commonPath);
+        $this->_printResult($result);
+    }
+
+    /**
+     * Prints a result set from PHPDCD_Detector::detectDeadCode().
+     *
+     * @param array  $result
+     */
+    protected function _printResult(array $result)
+    {
+        foreach ($result as $name => $source) {
+            printf(
+                "  - %s()\n    LOC: %d, declared in %s:%d\n",
+                $name,
+                $source['loc'],
+                $source['file'],
+                $source['line']
+            );
+        }
     }
 }

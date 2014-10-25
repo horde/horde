@@ -1,6 +1,8 @@
 {
     "require-dev": {
         "phpmd/phpmd" : "@stable",
-        "sebastian/phpcpd": "*"
+        "sebastian/phpcpd": "*",
+        "sebastian/phpdcd": "*",
+        "sebastian/phploc": "*"
     }
 }

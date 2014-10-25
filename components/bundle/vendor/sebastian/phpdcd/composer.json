@@ -1,0 +1,40 @@
+{
+    "name": "sebastian/phpdcd",
+    "description": "Dead Code Detector (DCD) for PHP code.",
+    "homepage": "https://github.com/sebastianbergmann/phpdcd",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Sebastian Bergmann",
+            "email": "sebastian@phpunit.de",
+            "role": "lead"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sebastianbergmann/phpdcd/issues"
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "sebastian/finder-facade": ">=1.1.0",
+        "sebastian/version": ">=1.0.3",
+        "symfony/console": ">=2.2.0",
+        "phpunit/php-timer": ">=1.0.4",
+        "phpunit/php-token-stream": ">=1.1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "bin": [
+        "phpdcd"
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
