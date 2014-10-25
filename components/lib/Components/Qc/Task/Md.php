@@ -29,6 +29,25 @@ class Components_Qc_Task_Md
 extends Components_Qc_Task_Base
 {
     /**
+     * Constructor.
+     *
+     * @param Components_Config   $config The configuration for the current job.
+     * @param Components_Qc_Tasks $tasks  The task handler.
+     * @param Components_Output   $output Accepts output.
+     */
+    public function __construct(Components_Config $config,
+                                Components_Qc_Tasks $tasks,
+                                Components_Output $output)
+    {
+        parent::__construct($config, $tasks, $output);
+        if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+            require __DIR__ . '/../vendor/autoload.php';
+        } else {
+            require __DIR__ . '/../../../../bundle/vendor/autoload.php';
+        }
+    }
+
+    /**
      * Get the name of this task.
      *
      * @return string The task name.
@@ -48,8 +67,8 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHP_PMD')) {
-            return array('PHP PMD is not available!');
+        if (!class_exists('\\PHPMD\\PHPMD')) {
+            return array('PHPMD is not available!');
         }
     }
 
@@ -64,13 +83,13 @@ extends Components_Qc_Task_Base
     {
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        $renderer = new PHP_PMD_Renderer_TextRenderer();
-        $renderer->setWriter(new PHP_PMD_Writer_Stream(STDOUT));
+        $renderer = new PHPMD\Renderer\TextRenderer();
+        $renderer->setWriter(new PHPMD\Writer\StreamWriter(STDOUT));
 
-        $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        $ruleSetFactory->setMinimumPriority(PHP_PMD_AbstractRule::LOWEST_PRIORITY);
+        $ruleSetFactory = new PHPMD\RuleSetFactory();
+        $ruleSetFactory->setMinimumPriority(PHPMD\AbstractRule::LOWEST_PRIORITY);
 
-        $phpmd = new PHP_PMD();
+        $phpmd = new PHPMD\PHPMD();
 
         $phpmd->processFiles(
             $lib,
