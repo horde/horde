@@ -988,7 +988,7 @@ class Horde_ActiveSync_Imap_Adapter
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
-                  $imap_message->isSigned()))) {
+                  ($imap_message->isSigned() || $imap_message->isEncrypted())))) {
 
                 $this->_logger->info(sprintf(
                     '[%s] Sending MIME Message.', $this->_procid));
@@ -1046,9 +1046,9 @@ class Horde_ActiveSync_Imap_Adapter
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
-                    $eas_message->messageclass = $imap_message->isSigned()
-                        ? 'IPM.Note.SMIME.MultipartSigned'
-                        : 'IPM.Note.SMIME';
+                    $eas_message->messageclass = $imap_message->isEncrypted()
+                        ? 'IPM.Note.SMIME'
+                        : 'IPM.Note.SMIME.MultipartSigned';
 
                     // Might not know if we have attachments, but take a best
                     // guess.
