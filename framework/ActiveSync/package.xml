@@ -12,8 +12,8 @@
  </lead>
  <date>2014-10-21</date>
  <version>
-  <release>2.19.5</release>
-  <api>2.19.0</api>
+  <release>2.20.0</release>
+  <api>2.20.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2423,15 +2423,15 @@
   </release>
   <release>
    <version>
-    <release>2.19.5</release>
-    <api>2.19.0</api></version>
+    <release>2.20.0</release>
+    <api>2.20.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
    </notes>
   </release>
  </changelog>

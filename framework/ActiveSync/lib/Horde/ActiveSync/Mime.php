@@ -28,7 +28,6 @@
  */
 class Horde_ActiveSync_Mime
 {
-
     /**
      * The composited mime part.
      *
@@ -42,7 +41,6 @@ class Horde_ActiveSync_Mime
      * @var boolean
      */
     protected $_hasAttachments;
-
 
     /**
      * Cont'r
@@ -174,18 +172,14 @@ class Horde_ActiveSync_Mime
     /**
      * Return the S/MIME status of this message (RFC2633)
      *
-     * @return boolean True if message is S/MIME signed or encrypted,
-     *                 false otherwise.
+     * @param Horde_Mime_Part  The part to test. If omitted, uses self::$_base
+     *
+     * @return boolean  True if message is S/MIME signed, otherwise false.
      */
     public function isSigned(Horde_Mime_Part $mime = null)
     {
         if (empty($mime)) {
             $mime = $this->_base;
-        }
-
-        if ($mime->getType() == 'application/pkcs7-mime' ||
-            $mime->getType() == 'application/x-pkcs7-mime') {
-            return true;
         }
 
         if ($mime->getPrimaryType() == 'multipart') {
@@ -202,6 +196,35 @@ class Horde_ActiveSync_Mime
         }
 
         return false;
+    }
+
+    /**
+     * Return the S/MIME encryption status of this message.
+     *
+     * @param Horde_Mime_Part  The part to test. If omitted, uses self::$_base
+     *
+     * @return boolean  True if message is S/MIME encrypted, otherwise false.
+     * @since 2.20.0
+     * @todo For 3.0, combine into one method with self::isSigned() and return
+     *       a bitmask result.
+     */
+    public function isEncrypted(Horde_Mime_Part $mime = null)
+    {
+        if (empty($mime)) {
+            $mime = $this->_base;
+        }
+
+        if ($mime->getType() == 'application/pkcs7-mime' ||
+            $mime->getType() == 'application/x-pkcs7-mime') {
+            return true;
+        }
+
+        // Signed/encrypted part might be lower in the mime structure
+        foreach ($mime->getParts() as $part) {
+            if ($this->isEncrypted($part)) {
+                return true;
+            }
+        }
     }
 
 }

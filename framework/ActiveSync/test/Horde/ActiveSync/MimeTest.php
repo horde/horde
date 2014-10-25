@@ -31,6 +31,21 @@ class Horde_ActiveSync_MimeTest extends Horde_Test_Case
         $this->assertEquals(false, $mime->hasAttachments());
         $this->assertEquals(true, $mime->isSigned());
         $this->assertEquals(false, $mime->hasiCalendar());
+
+       $fixture = file_get_contents(__DIR__ . '/fixtures/encrypted.eml');
+       $mime = new Horde_ActiveSync_Mime(Horde_Mime_Part::parseMessage($fixture));
+       $this->assertEquals(false, $mime->isSigned());
+   }
+
+   public function testIsEncrypted()
+   {
+       $fixture = file_get_contents(__DIR__ . '/fixtures/encrypted.eml');
+       $mime = new Horde_ActiveSync_Mime(Horde_Mime_Part::parseMessage($fixture));
+       $this->assertEquals(true, $mime->isEncrypted());
+
+       $fixture = file_get_contents(__DIR__ . '/fixtures/email_signed.eml');
+       $mime = new Horde_ActiveSync_Mime(Horde_Mime_Part::parseMessage($fixture));
+       $this->assertEquals(false, $mime->isEncrypted());
    }
 
    public function testHasAttachmentsWithAttachment()

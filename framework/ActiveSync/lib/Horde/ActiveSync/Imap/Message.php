@@ -839,13 +839,12 @@ class Horde_ActiveSync_Imap_Message
     }
 
     /**
-     * Return the S/MIME status of this message (RFC2633)
+     * Return the S/MIME signature status of this message (RFC2633)
      *
      * @param Horde_Mime_Part $message  A mime part to check. If omitted, use
-     *                                  $this->_message.
+     *                                  self::$_message.
      *
-     * @return boolean True if message is S/MIME signed or encrypted,
-     *                 false otherwise.
+     * @return boolean True if message is S/MIME signed, false otherwise.
      */
     public function isSigned(Horde_Mime_Part $message = null)
     {
@@ -855,6 +854,25 @@ class Horde_ActiveSync_Imap_Message
         }
 
         return $this->_message->isSigned();
+    }
+
+    /**
+     * Return the S/MIME encryption status of this message (RFC2633)
+     *
+     * @param Horde_Mime_Part $message  A mime part to check. If omitted, use
+     *                                  self::$_message.
+     *
+     * @return boolean True if message is S/MIME signed or encrypted,
+     *                 false otherwise.
+     */
+    public function isEncrypted(Horde_Mime_Part $message = null)
+    {
+        if (!empty($message)) {
+            $message = new Horde_ActiveSync_Mime($message);
+            return $message->isEncrypted();
+        }
+
+        return $this->_message->isEncrypted();
     }
 
 }

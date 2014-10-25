@@ -9,7 +9,7 @@
 var IMP_JS = {
 
     iframeresize_run: {},
-    lazyload_preload: 0.2,
+    iframe_y: {},
     lazyload_run: {},
     resize_delay: 0.01,
 
@@ -103,7 +103,7 @@ var IMP_JS = {
 
         id.onload = function() {
             this.iframeResize(id);
-            id.setStyle({ overflowY: '' });
+            this.iframeOverflowY(id, true);
         }.bind(this);
 
         d.open();
@@ -122,7 +122,7 @@ var IMP_JS = {
             d.attachEvent('onkeydown', ev.curry('htmliframe_keydown'));
         }
 
-        id.setStyle({ overflowY: 'hidden' });
+        this.iframeOverflowY(id, false);
         id.show().previous().remove();
         this.iframeResize(id);
     },
@@ -183,27 +183,37 @@ var IMP_JS = {
 
     iframeImgLazyLoadRun: function(iframe)
     {
-        var imgs, mb_height, mb_pad, range_top, range_bottom, resize,
+        var error, imgs, mb_height, range_top, range_bottom, resize,
             mb = this.messageBody();
 
-        resize = this.iframeResize.bind(this, iframe);
-
         mb_height = mb.getHeight();
-        /* Load messages within % of range boundaries. */
-        mb_pad = parseInt(mb_height * this.lazyload_preload, 10);
 
-        range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top - mb_pad;
-        range_bottom = range_top + mb_height + mb_pad;
+        /* Load messages within 1 scrolled page of range boundaries. */
+        range_top = mb.scrollTop + mb.cumulativeOffset().top - iframe.cumulativeOffset().top - mb_height;
+        range_bottom = range_top + mb_height + mb_height;
 
         imgs = Prototype.Selector.select('IMG[data-src]', this.iframeDoc(iframe)).findAll(Element.visible);
-        imgs.each(function(img) {
-            var co = Element.cumulativeOffset(img);
-            if (co.top > range_top && co.top < range_bottom) {
-                img.onload = resize;
-                Element.writeAttribute(img, 'src', Element.readAttribute(img, 'data-src'));
-                Element.writeAttribute(img, 'data-src', null);
-            }
-        });
+
+        if (imgs.size()) {
+            iframe.setStyle({ overflowY: 'hidden' });
+
+            error = this.iframeOverflowY.bind(this, iframe);
+            resize = function() {
+                this.iframeResize(iframe);
+                this.iframeOverflowY(iframe, true);
+            }.bind(this);
+
+            imgs.each(function(img) {
+                var co = Element.cumulativeOffset(img);
+                if (co.top > range_top && co.top < range_bottom) {
+                    this.iframeOverflowY(iframe, false);
+                    img.onerror = error;
+                    img.onload = resize;
+                    Element.writeAttribute(img, 'src', Element.readAttribute(img, 'data-src'));
+                    Element.writeAttribute(img, 'data-src', null);
+                }
+            }, this);
+        }
 
         this.lazyload_run[iframe.identify()] = false;
     },
@@ -211,6 +221,25 @@ var IMP_JS = {
     iframeDoc: function(i)
     {
         return i.contentDocument || i.contentWindow.document;
+    },
+
+    iframeOverflowY: function(id, show)
+    {
+        var key = id.identify();
+
+        if (show) {
+            if (this.iframe_y[key] && !(--this.iframe_y[key])) {
+                id.setStyle({ overflowY: '' });
+                delete this.iframe_y[key];
+            }
+        } else {
+            if (this.iframe_y[key]) {
+                ++this.iframe_y[key];
+            } else {
+                id.setStyle({ overflowY: 'hidden' });
+                this.iframe_y[key] = 1;
+            }
+        }
     },
 
     messageBody: function()
