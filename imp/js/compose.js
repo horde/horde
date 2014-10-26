@@ -1440,7 +1440,7 @@ var ImpCompose = {
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
                     loadingText: DimpCore.text.loading,
-                    loadingTextClass: 'hordeACLoadingText impACLoadingText',
+                    loadingTextClass: 'impACLoadingText',
                     minChars: DimpCore.conf.ac_minchars,
                     onAdd: this.autocompleteOnAdd.bind(this),
                     onBeforeServerRequest: this.autocompleteServerRequest.bind(this),

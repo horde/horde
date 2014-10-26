@@ -28,8 +28,8 @@ var IMP_Autocompleter = Class.create({
     // input,
     // itemid,
     // knl,
+    // knl_status,
     // lastinput,
-    // loading,
     // p,
 
     initialize: function(elt, params)
@@ -52,8 +52,8 @@ var IMP_Autocompleter = Class.create({
             // <ul> CSS class
             listClass: 'hordeACList',
             listClassItem: 'hordeACListItem',
-            // loadingText,
-            loadingTextClass: 'hordeACLoadingText',
+            loadingText: 'Loading...',
+            loadingTextClass: '',
             maxItemSize: 50,
             minChars: 3,
             onAdd: Prototype.emptyFunction,
@@ -383,7 +383,7 @@ var IMP_Autocompleter = Class.create({
             }
 
             this.initKnl();
-            this.loading = true;
+            this.knl_status = 'loading';
             this.knl.show([]);
 
             DimpCore.doAction(
@@ -448,7 +448,7 @@ var IMP_Autocompleter = Class.create({
         });
 
         this.initKnl();
-        this.loading = false;
+        this.knl_status = false;
         this.knl.show(c);
     },
 
@@ -462,12 +462,14 @@ var IMP_Autocompleter = Class.create({
                     }
                 }.bind(this),
                 onShow: function(elt) {
-                    if (this.loading && this.p.loadingText) {
+                    switch (this.knl_status) {
+                    case 'loading':
                         elt.down().insert(
                             new Element('LI').insert(
                                 this.p.loadingText.escapeHTML()
                             ).addClassName(this.p.loadingTextClass)
                         );
+                        break;
                     }
                 }.bind(this)
             });
