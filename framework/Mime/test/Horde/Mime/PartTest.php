@@ -130,6 +130,43 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testParsingMultipartMimeMessageWithMultipleEaiComponents()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_3.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            2,
+            count($part->getParts())
+        );
+
+        $part1 = $part->getPart(1);
+        $this->assertEquals(
+            'text/plain',
+            $part1->getType()
+        );
+        $this->assertEquals(
+            'flowed',
+            $part1->getContentTypeParameter('format')
+        );
+        $this->assertEquals(
+            'abstürzen',
+            $part1->getContentTypeParameter('x-eai-please-do-not')
+        );
+        $this->assertNull($part1->getContentTypeParameter('filename'));
+
+        $part1 = $part->getPart(2);
+        $this->assertEquals(
+            'text/plain',
+            $part1->getType()
+        );
+        $this->assertEquals(
+            'blåbærsyltetøy',
+            $part1->getDispositionParameter('filename')
+        );
+        $this->assertNull($part1->getContentTypeParameter('filename'));
+    }
+
     public function testAddingSizeToContentDisposition()
     {
         $part = new Horde_Mime_Part();
