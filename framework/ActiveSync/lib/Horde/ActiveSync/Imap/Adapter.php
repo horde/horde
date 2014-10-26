@@ -1046,12 +1046,6 @@ class Horde_ActiveSync_Imap_Adapter
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
-                    $eas_message->messageclass = $imap_message->isEncrypted()
-                        ? 'IPM.Note.SMIME'
-                        : 'IPM.Note.SMIME.MultipartSigned';
-
-                    // Might not know if we have attachments, but take a best
-                    // guess.
                     $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
                 }
 
@@ -1129,6 +1123,11 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for special message types.
+        if ($imap_message->isEncrypted()) {
+            $eas_message->messageclass = 'IPM.Note.SMIME';
+        } elseif ($imap_message->isSigned()) {
+            $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
+        }
         $part = $imap_message->getStructure();
         if ($part->getType() == 'multipart/report') {
             $ids = array_keys($imap_message->contentTypeMap());
