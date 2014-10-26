@@ -28,6 +28,16 @@ Upgrading to 2.5
 
     Added object to parse mbox format mailbox data.
 
+  - Horde_Mail_Transport
+
+    Added 'eai' property.
+
+  - Horde_Mail_Transport_Smtp
+  - Horde_Mail_Transport_Smtpmx
+
+    These Transport drivers are deprecated. Use Horde_Mail_Transport_Hordesmtp
+    instead.
+
 
 Upgrading to 2.4
 ================

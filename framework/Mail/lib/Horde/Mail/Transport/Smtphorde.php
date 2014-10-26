@@ -113,6 +113,19 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 
     /**
      */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'eai':
+            $this->getSMTPObject();
+            return $this->_smtp->data_intl;
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     */
     public function send($recipients, array $headers, $body)
     {
         /* If we don't already have an SMTP object, create one. */

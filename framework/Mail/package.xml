@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Transport driver now indicates whether it handles EAI data.
 * [mms] Support validation of EAI addresses (RFC 6532).
 * [mms] Add Horde_Mail_Mbox_Parse.
  </notes>
@@ -129,7 +130,7 @@
    <package>
     <name>Horde_Smtp</name>
     <channel>pear.horde.org</channel>
-    <min>1.5.0</min>
+    <min>1.6.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
@@ -644,6 +645,7 @@
    <date>2014-08-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Transport driver now indicates whether it handles EAI data.
 * [mms] Support validation of EAI addresses (RFC 6532).
 * [mms] Add Horde_Mail_Mbox_Parse.
    </notes>
