@@ -109,7 +109,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
     public function testParsingMimeMessageWithEaiAddress()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8_2.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_2.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         /* If we reach this point, there was no Exception. */
@@ -121,7 +121,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
     public function testParsingMimeMessageWithUtf8ContentDispositionParameter()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $this->assertEquals(

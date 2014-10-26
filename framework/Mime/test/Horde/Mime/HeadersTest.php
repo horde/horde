@@ -145,7 +145,7 @@ To: recipient2@example.com"
 
     public function testParseContentDispositionHeaderWithUtf8Data()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
         $cd_params = $hdrs->getValue(
@@ -161,7 +161,7 @@ To: recipient2@example.com"
 
     public function testParseEaiAddress()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8_2.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_2.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
         $this->assertEquals(
