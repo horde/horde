@@ -257,6 +257,7 @@ class IMP_Dynamic_Compose_Common
             'loading' => _("Loading..."),
             'max_atc_size' => _("Your attachment(s) are too large and cannot be uploaded."),
             'max_atc_num' => _("You have reached the limit for the number of attachments in this message."),
+            'noresults' => _("No Results Found"),
             'nosubject' => _("The message does not have a subject entered.") . "\n" . _("Send message without a subject?"),
             'paste_error' => _("Could not paste image as the clipboard data is invalid."),
             'replyall' => _("%d recipients"),

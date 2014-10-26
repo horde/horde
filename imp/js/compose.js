@@ -1442,6 +1442,8 @@ var ImpCompose = {
                     loadingText: DimpCore.text.loading,
                     loadingTextClass: 'impACLoadingText',
                     minChars: DimpCore.conf.ac_minchars,
+                    noResultsText: DimpCore.text.noresults,
+                    noResultsTextClass: 'impACNoResultsText',
                     onAdd: this.autocompleteOnAdd.bind(this),
                     onBeforeServerRequest: this.autocompleteServerRequest.bind(this),
                     onEntryClick: this.autocompleteOnEntryClick.bind(this),

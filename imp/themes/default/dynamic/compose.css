@@ -328,7 +328,8 @@ span.attachmentImg {
     background-color: #ff6347;
     border: 1px solid darkred;
 }
-.impACLoadingText {
+.impACLoadingText,
+.impACNoResultsText {
     font-style: italic;
 }
 .impACTrigger {

@@ -56,6 +56,8 @@ var IMP_Autocompleter = Class.create({
             loadingTextClass: '',
             maxItemSize: 50,
             minChars: 3,
+            noResultsText: 'No Results Found',
+            noResultsTextClass: '',
             onAdd: Prototype.emptyFunction,
             onBeforeServerRequest: Prototype.emptyFunction,
             onEntryClick: Prototype.emptyFunction,
@@ -204,6 +206,10 @@ var IMP_Autocompleter = Class.create({
 
     addNewItems: function(value)
     {
+        if (this.knl_status) {
+            return false;
+        }
+
         value = this.filterChoices(value);
 
         if (!value.size()) {
@@ -421,34 +427,32 @@ var IMP_Autocompleter = Class.create({
         }, this);
 
         obs = this.filterChoices(obs);
-        if (!obs.size()) {
-            if (this.knl) {
-                this.knl.hide();
-            }
-            return;
-        }
+        if (obs.size()) {
+            re = new RegExp(search, "i");
 
-        re = new RegExp(search, "i");
+            obs.each(function(o) {
+                var l = o.label,
+                    l2 = '';
 
-        obs.each(function(o) {
-            var l = o.label,
-                l2 = '';
+                (l.match(re) || []).each(function(m2) {
+                    var idx = l.indexOf(m2);
+                    l2 += l.substr(0, idx).escapeHTML() + "<strong>" + m2.escapeHTML() + "</strong>";
+                    l = l.substr(idx + m2.length);
+                });
 
-            (l.match(re) || []).each(function(m2) {
-                var idx = l.indexOf(m2);
-                l2 += l.substr(0, idx).escapeHTML() + "<strong>" + m2.escapeHTML() + "</strong>";
-                l = l.substr(idx + m2.length);
+                if (l.length) {
+                    l2 += l.escapeHTML();
+                }
+
+                c.push({ l: l2, v: o });
             });
 
-            if (l.length) {
-                l2 += l.escapeHTML();
-            }
-
-            c.push({ l: l2, v: o });
-        });
+            this.knl_status = false;
+        } else {
+            this.knl_status = 'noresults';
+        }
 
         this.initKnl();
-        this.knl_status = false;
         this.knl.show(c);
     },
 
@@ -468,6 +472,14 @@ var IMP_Autocompleter = Class.create({
                             new Element('LI').insert(
                                 this.p.loadingText.escapeHTML()
                             ).addClassName(this.p.loadingTextClass)
+                        );
+                        break;
+
+                    case 'noresults':
+                        elt.down().insert(
+                            new Element('LI').insert(
+                                this.p.noResultsText.escapeHTML()
+                            ).addClassName(this.p.noResultsTextClass)
                         );
                         break;
                     }
