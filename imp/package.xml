@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-20</date>
+ <date>2014-10-26</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -95,6 +95,7 @@
     </dir> <!-- /js/ckeditor -->
     <dir name="external">
      <file name="base64.js" role="horde" />
+     <file name="latinize.js" role="horde" />
      <file name="tinycon.js" role="horde" />
     </dir> <!-- /js/external -->
     <dir name="jquery.mobile">
@@ -121,7 +122,6 @@
     <file name="draghandler.js" role="horde" />
     <file name="editor.js" role="horde" />
     <file name="imp.js" role="horde" />
-    <file name="latinize.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="message.js" role="horde" />
     <file name="passphrase.js" role="horde" />
@@ -1503,7 +1503,6 @@
    <install as="imp/js/draghandler.js" name="js/draghandler.js" />
    <install as="imp/js/editor.js" name="js/editor.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
-   <install as="imp/js/latinize.js" name="js/latinize.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/message.js" name="js/message.js" />
    <install as="imp/js/passphrase.js" name="js/passphrase.js" />
@@ -1516,6 +1515,7 @@
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
    <install as="imp/js/external/base64.js" name="js/external/base64.js" />
+   <install as="imp/js/external/latinize.js" name="js/external/latinize.js" />
    <install as="imp/js/external/tinycon.js" name="js/external/tinycon.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />
