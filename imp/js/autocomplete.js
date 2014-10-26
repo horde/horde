@@ -29,6 +29,7 @@ var IMP_Autocompleter = Class.create({
     // itemid,
     // knl,
     // lastinput,
+    // loading,
     // p,
 
     initialize: function(elt, params)
@@ -51,6 +52,8 @@ var IMP_Autocompleter = Class.create({
             // <ul> CSS class
             listClass: 'hordeACList',
             listClassItem: 'hordeACListItem',
+            // loadingText,
+            loadingTextClass: 'hordeACLoadingText',
             maxItemSize: 50,
             minChars: 3,
             onAdd: Prototype.emptyFunction,
@@ -379,6 +382,10 @@ var IMP_Autocompleter = Class.create({
                 return;
             }
 
+            this.initKnl();
+            this.loading = true;
+            this.knl.show([]);
+
             DimpCore.doAction(
                 'autocompleteSearch',
                 Object.extend(this.p.autocompleterParams, { search: t }),
@@ -421,16 +428,6 @@ var IMP_Autocompleter = Class.create({
             return;
         }
 
-        if (!this.knl) {
-            this.knl = new KeyNavList(this.input, {
-                onChoose: function(item) {
-                    if (this.addNewItems([ item ])) {
-                        this.updateInput('');
-                    }
-                }.bind(this)
-            });
-        }
-
         re = new RegExp(search, "i");
 
         obs.each(function(o) {
@@ -450,7 +447,31 @@ var IMP_Autocompleter = Class.create({
             c.push({ l: l2, v: o });
         });
 
+        this.initKnl();
+        this.loading = false;
         this.knl.show(c);
+    },
+
+    initKnl: function()
+    {
+        if (!this.knl) {
+            this.knl = new KeyNavList(this.input, {
+                onChoose: function(item) {
+                    if (this.addNewItems([ item ])) {
+                        this.updateInput('');
+                    }
+                }.bind(this),
+                onShow: function(elt) {
+                    if (this.loading && this.p.loadingText) {
+                        elt.down().insert(
+                            new Element('LI').insert(
+                                this.p.loadingText.escapeHTML()
+                            ).addClassName(this.p.loadingTextClass)
+                        );
+                    }
+                }.bind(this)
+            });
+        }
     }
 
 }),

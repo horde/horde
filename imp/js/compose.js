@@ -1439,6 +1439,8 @@ var ImpCompose = {
                     displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
+                    loadingText: DimpCore.text.loading,
+                    loadingTextClass: 'hordeACLoadingText impACLoadingText',
                     minChars: DimpCore.conf.ac_minchars,
                     onAdd: this.autocompleteOnAdd.bind(this),
                     onBeforeServerRequest: this.autocompleteServerRequest.bind(this),

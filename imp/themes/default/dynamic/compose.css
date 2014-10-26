@@ -312,6 +312,14 @@ span.attachmentImg {
 .impACBoxFocus {
     background-color: #fff;
 }
+.impACGroupExpand {
+    background: lightgrey;
+    color: blue;
+    margin-left: 5px;
+}
+.impACItemRemove {
+    padding-left: 3px;
+}
 .impACList li.hordeACListItem {
     font-size: 100%;
     margin-bottom: 1px;
@@ -320,16 +328,11 @@ span.attachmentImg {
     background-color: #ff6347;
     border: 1px solid darkred;
 }
-.impACItemRemove {
-    padding-left: 3px;
+.impACLoadingText {
+    font-style: italic;
 }
 .impACTrigger {
     padding: 0;
-}
-.impACGroupExpand {
-    background: lightgrey;
-    color: blue;
-    margin-left: 5px;
 }
 
 /* Context menus */
