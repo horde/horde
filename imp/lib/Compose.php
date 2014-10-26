@@ -725,7 +725,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $body, $header, IMP_Prefs_Identity $identity, array $opts = array()
     )
     {
-        global $conf, $injector, $notification, $prefs, $registry, $session;
+        global $conf, $injector, $prefs, $registry, $session;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -961,62 +961,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'INFO'
         );
 
-        /* Should we save this message in the sent mail mailbox? */
-        if (!empty($opts['sent_mail']) &&
-            ((!$prefs->isLocked('save_sent_mail') &&
-              !empty($opts['save_sent'])) ||
-             ($prefs->isLocked('save_sent_mail') &&
-              $prefs->getValue('save_sent_mail')))) {
-            /* Keep Bcc: headers on saved messages. */
-            if (count($header['bcc'])) {
-                $headers->addHeader('Bcc', $header['bcc']);
-            }
-
-            /* Strip attachments if requested. */
-            if (!empty($opts['strip_attachments'])) {
-                $save_msg->buildMimeIds();
-
-                /* Don't strip any part if this is a text message with both
-                 * plaintext and HTML representation. */
-                if ($save_msg->getType() != 'multipart/alternative') {
-                    for ($i = 2; ; ++$i) {
-                        if (!($oldPart = $save_msg->getPart($i))) {
-                            break;
-                        }
-
-                        $replace_part = new Horde_Mime_Part();
-                        $replace_part->setType('text/plain');
-                        $replace_part->setCharset($this->charset);
-                        $replace_part->setLanguage($GLOBALS['language']);
-                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                        $save_msg->alterPart($i, $replace_part);
-                    }
-                }
-            }
-
-            /* Generate the message string. */
-            $fcc = $save_msg->toString(array(
-                'defserver' => $imp_imap->config->maildomain,
-                'headers' => $headers,
-                'stream' => true
-            ));
-
-            /* Make sure sent mailbox is created. */
-            $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
-            $sent_mail->create();
-
-            $flags = array(
-                Horde_Imap_Client::FLAG_SEEN,
-                /* RFC 3503 [3.3] - MUST set MDNSent flag on sent message. */
-                Horde_Imap_Client::FLAG_MDNSENT
-            );
-
-            try {
-                $imp_imap->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
-            } catch (IMP_Imap_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
-            }
-        }
+        /* Save message to the sent mail mailbox. */
+        $this->_saveToSentMail($header, $headers, $save_msg, $opts);
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
@@ -1032,6 +978,78 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 array($save_msg['msg'], $headers)
             );
         } catch (Horde_Exception_HookNotSet $e) {}
+    }
+
+    /**
+     * Save message to sent-mail mailbox, if configured to do so.
+     *
+     * @param array $header                See buildAndSendMessage().
+     * @param Horde_Mime_Headers $headers  Headers object.
+     * @param Horde_Mime_Part $save_msg    Message data to save.
+     * @param array $opts                  See buildAndSendMessage()
+     */
+    protected function _saveToSentMail($header, $headers, $save_msg, $opts)
+    {
+        global $injector, $language, $notification, $prefs;
+
+        if (empty($opts['sent_mail']) ||
+            ($prefs->isLocked('save_sent_mail') &&
+             !$prefs->getValue('save_sent_mail')) ||
+            (!$prefs->isLocked('save_sent_mail') &&
+             empty($opts['save_sent']))) {
+            return;
+        }
+
+        /* Keep Bcc: headers on saved messages. */
+        if (count($header['bcc'])) {
+            $headers->addHeader('Bcc', $header['bcc']);
+        }
+
+        /* Strip attachments if requested. */
+        if (!empty($opts['strip_attachments'])) {
+            $save_msg->buildMimeIds();
+
+            /* Don't strip any part if this is a text message with both
+             * plaintext and HTML representation. */
+            if ($save_msg->getType() != 'multipart/alternative') {
+                for ($i = 2; ; ++$i) {
+                    if (!($oldPart = $save_msg->getPart($i))) {
+                        break;
+                    }
+
+                    $replace_part = new Horde_Mime_Part();
+                    $replace_part->setType('text/plain');
+                    $replace_part->setCharset($this->charset);
+                    $replace_part->setLanguage($language);
+                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
+                    $save_msg->alterPart($i, $replace_part);
+                }
+            }
+        }
+
+        /* Generate the message string. */
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $fcc = $save_msg->toString(array(
+            'defserver' => $imp_imap->config->maildomain,
+            'headers' => $headers,
+            'stream' => true
+        ));
+
+        /* Make sure sent mailbox is created. */
+        $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
+        $sent_mail->create();
+
+        $flags = array(
+            Horde_Imap_Client::FLAG_SEEN,
+            /* RFC 3503 [3.3] - MUST set MDNSent flag on sent message. */
+            Horde_Imap_Client::FLAG_MDNSENT
+        );
+
+        try {
+            $imp_imap->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
+        } catch (IMP_Imap_Exception $e) {
+            $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
+        }
     }
 
     /**
