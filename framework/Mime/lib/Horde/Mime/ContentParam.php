@@ -24,13 +24,6 @@
 class Horde_Mime_ContentParam
 {
     /**
-     * Valid atext but not tspecials characters.
-     *
-     * See RFC 2045 [5.1]
-     */
-     const ATEXT_NON_TSPECIAL = '!#$%&\'*+-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~';
-
-    /**
      * Content-Type parameters.
      *
      * @var array
@@ -161,12 +154,14 @@ class Horde_Mime_ContentParam
             ), $out);
         }
 
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]).
-         * Must be quoted-string if one of these exists.
-         * Forbidden: SPACE, CTLs, ()<>@,;:\"/[]?= */
+        /* Escape characters in params (See RFC 2045 [Appendix A]).
+         * Must be quoted-string if one of these exists. */
         foreach ($out as $k => $v) {
-            if (strlen($v) !== strspn($v, self::ATEXT_NON_TSPECIAL)) {
-                $out[$k] = '"' . addcslashes($v, '\\"') . '"';
+            foreach (str_split($v) as $c) {
+                if (!self::isAtextNonTspecial($c)) {
+                    $out[$k] = '"' . addcslashes($v, '\\"') . '"';
+                    break;
+                }
             }
         }
 
@@ -274,6 +269,41 @@ class Horde_Mime_ContentParam
 
         if (empty($this->params) && is_string($data)) {
             $this->value = trim($parts[0]);
+        }
+    }
+
+    /**
+     * Determine if character is a non-escaped element in MIME parameter data
+     * (See RFC 2045 [Appendix A]).
+     *
+     * @param string $c  Character to test.
+     *
+     * @return boolean  True if non-escaped character.
+     */
+    public static function isAtextNonTspecial($c)
+    {
+        switch ($ord = ord($c)) {
+        case 34:
+        case 40:
+        case 41:
+        case 44:
+        case 47:
+        case 58:
+        case 59:
+        case 60:
+        case 61:
+        case 62:
+        case 63:
+        case 64:
+        case 91:
+        case 92:
+        case 93:
+            /* "(),/:;<=>?@[\] */
+            return false;
+
+        default:
+            /* CTLs, SPACE, DEL, non-ASCII */
+            return (($ord > 32) && ($ord < 127));
         }
     }
 
