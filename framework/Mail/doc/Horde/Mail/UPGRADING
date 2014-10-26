@@ -24,6 +24,10 @@ Upgrading to 2.5
 
       Added the 'eai' option to the 'validate' optional parameter.
 
+  - Horde_Mail_Rfc822_Address
+
+    Added the 'eai' property.
+
   - Horde_Mail_Mbox_Parse
 
     Added object to parse mbox format mailbox data.
