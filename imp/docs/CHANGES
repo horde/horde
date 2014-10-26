@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Auto-detect EAI support on mail backends and provide validation feedback
+      without the need to submit to the backend.
 [mms] Removed basic view.
 [mms] Do autocomplete search on browser, if sufficient data exists, to save
       calls to contacts backend.

@@ -533,20 +533,9 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             /* Validate Reply-To, Alias, Tie-to, and BCC addresses. */
-            $ob = IMP::parseAddressList($val, array(
+            $val = IMP::parseAddressList($val, array(
                 'limit' => ($val == 'replyto_addr') ? 1 : 0
-            ));
-
-            foreach ($ob as $address) {
-                try {
-                    IMP::parseAddressList($address, array(
-                        'validate' => true
-                    ));
-                } catch (Horde_Mail_Exception $e) {
-                    throw new Horde_Prefs_Exception(sprintf(_("\"%s\" is not a valid email address.", strval($address))));
-                }
-            }
-            $val = $ob->addresses;
+            ))->addresses;
             break;
 
         case IMP_Mailbox::MBOX_SENT:

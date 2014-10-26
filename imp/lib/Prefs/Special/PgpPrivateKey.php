@@ -122,9 +122,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                   !empty($conf['pgp']['keylength'])) {
             /* Sanity checking for email address. */
             try {
-                $email = IMP::parseAddressList($ui->vars->generate_email, array(
-                    'validate' => true
-                ));
+                $email = IMP::parseAddressList($ui->vars->generate_email);
             } catch (Horde_Mail_Exception $e) {
                 $notification->push($e);
                 return false;

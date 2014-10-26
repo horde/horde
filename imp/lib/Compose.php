@@ -231,7 +231,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _saveDraftMsg($headers, $message, $opts)
     {
-        $has_session = (bool)$GLOBALS['registry']->getAuth();
+        global $injector, $registry;
+
+        $has_session = (bool)$registry->getAuth();
 
         /* Set up the base message now. */
         $base = $this->_createMimeMessage(new Horde_Mail_Rfc822_List(), $message, array(
@@ -241,12 +243,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         ));
         $base->isBasePart(true);
 
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
         $recip_list = $this->recipientList($headers);
         if (!empty($opts['verify_email'])) {
             foreach ($recip_list['list'] as $val) {
                 try {
+                    /* For draft messages, the key is whether the IMAP server
+                     * supports EAI addresses. */
+                    $utf8 = $imp_imap->client_ob->capability->query(
+                        'UTF8', 'ACCEPT'
+                    );
                     IMP::parseAddressList($val->writeAddress(true), array(
-                        'validate' => true
+                        'validate' => $utf8 ? 'eai' : true
                     ));
                 } catch (Horde_Mail_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(
@@ -264,7 +273,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($this->_replytype) {
             try {
                 $indices = $this->getMetadata('indices');
@@ -983,12 +991,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Save message to sent-mail mailbox, if configured to do so.
      *
-     * @param array $header                See buildAndSendMessage().
-     * @param Horde_Mime_Headers $headers  Headers object.
-     * @param Horde_Mime_Part $save_msg    Message data to save.
-     * @param array $opts                  See buildAndSendMessage()
+     * @param array $header                   See buildAndSendMessage().
+     * @param Horde_Mime_Headers $headers     Headers object.
+     * @param Horde_Mime_Part $save_msg       Message data to save.
+     * @param Horde_Mail_Rfc822_List $recips  Recipient list.
+     * @param array $opts                     See buildAndSendMessage()
      */
-    protected function _saveToSentMail($header, $headers, $save_msg, $opts)
+    protected function _saveToSentMail($header,
+        Horde_Mime_Headers $headers,
+        Horde_Mime_Part $save_msg,
+        Horde_Mail_Rfc822_List $recips,
+        $opts
+    )
     {
         global $injector, $language, $notification, $prefs;
 
@@ -998,6 +1012,24 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             (!$prefs->isLocked('save_sent_mail') &&
              empty($opts['save_sent']))) {
             return;
+        }
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        /* If message contains EAI addresses, we need to verify that the IMAP
+         * server can handle this data in order to save. */
+        foreach ($recips as $val) {
+            if ($val->eai) {
+                if ($imp_imap->client_ob->capability->query('UTF8', 'ACCEPT')) {
+                    break;
+                }
+
+                $notification->push(sprintf(
+                    _("Message sent successfully, but not saved to %s."),
+                    $sent_mail->display
+                ));
+                return;
+            }
         }
 
         /* Keep Bcc: headers on saved messages. */
@@ -1028,7 +1060,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Generate the message string. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         $fcc = $save_msg->toString(array(
             'defserver' => $imp_imap->config->maildomain,
             'headers' => $headers,
@@ -1288,9 +1319,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             try {
                 /* We have written address, but it still may not be valid.
-                 * So double-check. */
+                 * So double-check. Key here is MTA server support for
+                 * UTF-8. */
+                $utf8 = $injector->getInstance('IMP_Mail')->eai;
                 $alist = IMP::parseAddressList($tmp, array(
-                    'validate' => true
+                    'validate' => $utf8 ? 'eai' : true
                 ));
 
                 $error = null;

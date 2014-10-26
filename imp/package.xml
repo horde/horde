@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
 * [mms] Removed basic view.
 * [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
 * [mms] Removed minimal view.
