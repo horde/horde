@@ -2765,7 +2765,6 @@ var DimpBase = {
     {
         if (!this.is_keydown) {
             return;
-
         }
 
         this.is_keydown = false;
