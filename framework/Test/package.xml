@@ -18,7 +18,7 @@
  </lead>
  <date>2014-10-27</date>
  <version>
-  <release>2.4.5</release>
+  <release>2.4.6</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update to PHPUnit 4.3.4 and dependencies.
-* [jan] Raise priority of Horde_Test autoloader.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2809,6 +2808,19 @@
    <notes>
 * [jan] Update to PHPUnit 4.3.4 and dependencies.
 * [jan] Raise priority of Horde_Test autoloader.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.6</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
