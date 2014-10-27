@@ -49,11 +49,10 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
     const ELT_NOT_POLLED = 128;
     const ELT_VFOLDER = 256;
     const ELT_NONIMAP = 512;
-    const ELT_INVISIBLE = 1024;
-    const ELT_NEED_SORT = 2048;
-    const ELT_REMOTE = 4096;
-    const ELT_REMOTE_AUTH = 8192;
-    const ELT_REMOTE_MBOX = 16384;
+    const ELT_NEED_SORT = 1024;
+    const ELT_REMOTE = 2048;
+    const ELT_REMOTE_AUTH = 4096;
+    const ELT_REMOTE_MBOX = 8192;
 
     /* The string used to indicate the base of the tree. This must include
      * null since this is the only 7-bit character not allowed in IMAP
@@ -489,10 +488,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
             $attr = self::ELT_NOSELECT;
             break;
 
-        case 'invisible':
-            $attr = self::ELT_INVISIBLE;
-            break;
-
         case 'namespace_other':
             $attr = self::ELT_NAMESPACE_OTHER;
             break;
@@ -580,11 +575,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         switch ($type) {
         case 'container':
             $attr = self::ELT_NOSELECT;
-            $this->eltdiff->change($elt);
-            break;
-
-        case 'invisible':
-            $attr = self::ELT_INVISIBLE;
             $this->eltdiff->change($elt);
             break;
 
@@ -796,22 +786,6 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
 
         /* Check for expanded status. */
         $this->setAttribute('open', $name, $this->expanded[$name]);
-
-        if (empty($this->_temp['nohook'])) {
-            try {
-                $this->setAttribute(
-                    'invisible',
-                    $name,
-                    !$GLOBALS['injector']->getInstance('Horde_Core_Hooks')->callHook(
-                        'display_folder',
-                        'imp',
-                        array($name)
-                    )
-                );
-            } catch (Horde_Exception_HookNotSet $e) {
-                $this->_temp['nohook'] = true;
-            }
-        }
 
         /* Make sure we are sorted correctly. */
         $this->setAttribute('needsort', $p_elt, true);

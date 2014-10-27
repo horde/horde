@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-26</date>
+ <date>2014-10-27</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Remove &apos;display_folder&apos; hook.
 * [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
 * [mms] Removed basic view.
 * [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
@@ -307,7 +308,6 @@
       <file name="Children.php" role="horde" />
       <file name="Containers.php" role="horde" />
       <file name="Expanded.php" role="horde" />
-      <file name="Invisible.php" role="horde" />
       <file name="Mailboxes.php" role="horde" />
       <file name="Nonimap.php" role="horde" />
       <file name="Polled.php" role="horde" />
@@ -1680,7 +1680,6 @@
    <install as="imp/lib/Ftree/IteratorFilter/Children.php" name="lib/Ftree/IteratorFilter/Children.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Containers.php" name="lib/Ftree/IteratorFilter/Containers.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Expanded.php" name="lib/Ftree/IteratorFilter/Expanded.php" />
-   <install as="imp/lib/Ftree/IteratorFilter/Invisible.php" name="lib/Ftree/IteratorFilter/Invisible.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Mailboxes.php" name="lib/Ftree/IteratorFilter/Mailboxes.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Nonimap.php" name="lib/Ftree/IteratorFilter/Nonimap.php" />
    <install as="imp/lib/Ftree/IteratorFilter/Polled.php" name="lib/Ftree/IteratorFilter/Polled.php" />

@@ -395,6 +395,13 @@ class IMP_Hooks
 //                $acl[Horde_Imap_Client::ACL_WRITE]
 //            );
 //        }
+//
+//
+//        // Example #3: Make the 'Example' mailbox not appear in folder
+//        // lists.
+//        if ($mailbox == 'Example') {
+//            unset($acl[Horde_Imap_Client::ACL_LOOKUP]);
+//        }
 //    }
 
 
@@ -594,26 +601,6 @@ class IMP_Hooks
 //    {
 //        // Example #1: Entirely disable composition.
 //        return false;
-//    }
-
-
-    /**
-     * Hide IMAP mailboxes in folder listings.
-     *
-     * @param string $mailbox  The mailbox name.
-     *
-     * @return boolean  If false, do not display the mailbox.
-     */
-//    public function display_folder($mailbox)
-//    {
-//        // Example #1: Do not display the mailbox 'Foo'.
-//        return ($mailbox != 'Foo');
-//
-//
-//        // Example #2: Kolab default
-//        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->getQuery()->listTypes();
-//        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 
 

@@ -71,7 +71,6 @@
  * @property-read boolean $inbox  Is this the INBOX?
  * @property-read boolean $innocent_show  Show the innocent action in this
  *                                        mailbox?
- * @property-read boolean $invisible  Is this mailbox invisible?
  * @property-read boolean $is_imap  Is this an IMAP mailbox?
  * @property-read boolean $is_open  Is this level expanded?
  * @property-read string $label  The mailbox label. Essentially is $display
@@ -417,9 +416,6 @@ class IMP_Mailbox
             $p = $this->imp_imap->config->innocent_params;
             return (!empty($p) &&
                     ((isset($p['display']) && empty($p['display'])) || $this->spam));
-
-        case 'invisible':
-            return (($elt = $this->tree_elt) && $elt->invisible);
 
         case 'is_imap':
             return $this->imp_imap->isImap();

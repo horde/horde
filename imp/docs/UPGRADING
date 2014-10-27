@@ -65,6 +65,7 @@ The following hooks have been added::
 
 The following hooks have been removed::
 
+   display_folder (use IMAP ACLs and/or 'mbox_acl' hook)
    mbox_redirect
 
 
