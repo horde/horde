@@ -675,6 +675,7 @@ class IMP_Hooks
      */
 //    public function smime_key($address)
 //    {
+//        // Example #1: Retrieve S/MIME key from an LDAP backend.
 //        $ldapServer = 'localhost';
 //        $ldapPort = 389;
 //        $searchBase = 'ou=users,dc=example,dc=com';
@@ -719,6 +720,7 @@ class IMP_Hooks
      */
 //    public function pgp_key($address, $keyid)
 //    {
+//        // Example #1: Retrieve PGP key from an LDAP backend.
 //        $ldapServer = 'localhost';
 //        $ldapPort = 389;
 //        $searchBase = 'ou=users,dc=example,dc=com';
