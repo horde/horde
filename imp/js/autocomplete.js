@@ -206,10 +206,6 @@ var IMP_Autocompleter = Class.create({
 
     addNewItems: function(value)
     {
-        if (this.knl_status) {
-            return false;
-        }
-
         value = this.filterChoices(value);
 
         if (!value.size()) {
@@ -461,7 +457,7 @@ var IMP_Autocompleter = Class.create({
         if (!this.knl) {
             this.knl = new KeyNavList(this.input, {
                 onChoose: function(item) {
-                    if (this.addNewItems([ item ])) {
+                    if (!this.knl_status && this.addNewItems([ item ])) {
                         this.updateInput('');
                     }
                 }.bind(this),
