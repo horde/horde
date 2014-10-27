@@ -297,7 +297,7 @@ class Horde_History_Mock extends Horde_History
         }
         $last = 0;
         if (!empty($this->_data) && !empty($parent)) {
-            foreach ($this->_data as $id => $element) {
+            foreach ($this->_data as $element) {
                 if (strpos($element['history_uid'], $parent . ':') === 0 && $element['history_modseq'] > $last) {
                     $last = $element['history_modseq'];
                 }
