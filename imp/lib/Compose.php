@@ -970,7 +970,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         );
 
         /* Save message to the sent mail mailbox. */
-        $this->_saveToSentMail($header, $headers, $save_msg, $opts);
+        $this->_saveToSentMail($header, $headers, $save_msg, $recip['list'], $opts);
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
