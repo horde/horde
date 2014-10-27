@@ -28,6 +28,9 @@ Horde_Registry::appInit('imp', array(
 
 $class = 'IMP_Basic_' . Horde_String::ucfirst($vars->page);
 if (!class_exists($class)) {
+    if ($class == 'IMP_Basic_Compose') {
+        IMP_Dynamic_Compose::url()->add($_GET)->redirect();
+    }
     throw new IMP_Exception('Page not found: ' . $vars->page);
 }
 
