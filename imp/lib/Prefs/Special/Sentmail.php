@@ -58,7 +58,10 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
         $iterator = new IMP_Ftree_IteratorFilter(
             $injector->getInstance('IMP_Ftree')
         );
-        $iterator->add($iterator::NONIMAP);
+        $iterator->add(array(
+            $iterator::NONIMAP,
+            $iterator::REMOTE
+        ));
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(
