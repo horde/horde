@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mms] Remove 'mailboxarray' hook.
 [mms] Remove 'display_folder' hook.
 [mms] Auto-detect EAI support on mail backends and provide validation feedback
       without the need to submit to the backend.

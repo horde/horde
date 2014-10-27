@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Remove &apos;mailboxarray&apos; hook.
 * [mms] Remove &apos;display_folder&apos; hook.
 * [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
 * [mms] Removed basic view.
