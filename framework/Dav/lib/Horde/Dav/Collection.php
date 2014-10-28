@@ -56,12 +56,10 @@ class Horde_Dav_Collection extends DAV\Collection
     /**
      * Constructor.
      *
-     * @param string $path                                  The path to this
-     *                                                      collection.
-     * @param array $item                                   Collection details.
-     * @param Horde_Registry $registry                      A registry object.
-     * @param string $mimedb                                Location of a MIME
-     *                                                      magic database.
+     * @param string $path              The path to this collection.
+     * @param array $item               Collection details.
+     * @param Horde_Registry $registry  A registry object.
+     * @param string $mimedb            Location of a MIME magic database.
      */
     public function __construct($path = null,
                                 array $item = array(),
