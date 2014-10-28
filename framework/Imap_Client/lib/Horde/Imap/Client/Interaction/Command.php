@@ -104,15 +104,7 @@ extends Horde_Imap_Client_Data_Format_List
     {
         switch ($name) {
         case 'continuation':
-            foreach ($this as $val) {
-                if (($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) ||
-                    (($val instanceof Horde_Imap_Client_Data_Format_String) &&
-                     $val->literal())) {
-
-                    return true;
-                }
-            }
-            return false;
+            return $this->_continuationCheck($this);
         }
     }
 
@@ -146,6 +138,27 @@ extends Horde_Imap_Client_Data_Format_List
         return $this->_timer
             ? round($this->_timer->pop(), 4)
             : null;
+    }
+
+    /**
+     * Recursive check for continuation functions.
+     */
+    protected function _continuationCheck($list)
+    {
+        foreach ($list as $val) {
+            if (($val instanceof Horde_Imap_Client_Interaction_Command_Continuation) ||
+                (($val instanceof Horde_Imap_Client_Data_Format_String) &&
+                 $val->literal())) {
+                return true;
+            }
+
+            if (($val instanceof Horde_Imap_Client_Data_Format_List) &&
+                $this->_continuationCheck($val)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
