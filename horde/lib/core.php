@@ -55,7 +55,7 @@ $__autoloader->addClassPathMapper(
 /* Sanity checking - if we can't even load the Horde_ErrorHandler file, then
  * the installation is all sorts of busted. */
 if (!class_exists('Horde_ErrorHandler')) {
-    exit('Cannot find base Horde directories. Please reinstall Horde and/or correctly configure the install paths.');
+    exit('Cannot autoload Horde Core libraries. Please reinstall Horde and/or correctly configure the install paths. If you are using an autoloader cache, try to clear it.');
 }
 
 /* Default exception handler for uncaught exceptions. The default fatal
