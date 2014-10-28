@@ -1748,8 +1748,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             case '8bit':
                 if ($mailer instanceof Horde_Mail_Transport_Smtp) {
                     $mailer->addServiceExtensionParameter('BODY', '8BITMIME');
-                } elseif ($mailer instanceof Horde_Mail_Transport_Smtphorde) {
-                    $mailer->send8bit = true;
                 }
                 break;
             }
