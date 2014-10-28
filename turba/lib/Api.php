@@ -216,7 +216,10 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach (array_keys($owners) as $owner) {
                 if (in_array('name', $properties)) {
-                    $results['turba/' . $owner]['name'] = $owner;
+                    $results['turba/' . $owner]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results['turba/' . $owner]['icon'] = Horde_Themes::img('turba.png');
@@ -271,14 +274,15 @@ class Turba_Api extends Horde_Registry_Api
             $curpath = 'turba/' . $parts[0] . '/';
 
             foreach ($addressbooks as $addressbook => $info) {
+                $label = ($info instanceof Horde_Share_Object)
+                    ? $info->get('name')
+                    : $info['title'];
                 if (in_array('name', $properties)) {
                     $results[$curpath . $addressbook]['name'] =
-                        sprintf(
-                            _("Contacts from %s"),
-                            ($info instanceof Horde_Share_Object)
-                                ? $info->get('name')
-                                : $info['title']
-                        );
+                        sprintf(_("Contacts from %s"), $label);
+                }
+                if (in_array('displayname', $properties)) {
+                    $results[$curpath . $addressbook]['displayname'] = $label;
                 }
                 if (in_array('owner', $properties)) {
                     $results[$curpath . $addressbook]['owner'] = ($info instanceof Horde_Share_Object)

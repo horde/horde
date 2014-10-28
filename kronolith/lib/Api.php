@@ -84,7 +84,10 @@ class Kronolith_Api extends Horde_Registry_Api
             foreach (array_keys($owners) as $owner) {
                 $path = 'kronolith/' . $owner;
                 if (in_array('name', $properties)) {
-                    $results[$path]['name'] = $owner;
+                    $results[$path]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results[$path]['icon'] = Horde_Themes::img('user.png');
