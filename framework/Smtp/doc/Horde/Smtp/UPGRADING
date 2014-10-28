@@ -24,9 +24,8 @@ Upgrading to 1.7.0
 
     - send()
 
-      Added the 'body' option.
-      Deprecated the '8bit' option. Use 'body' with Horde_Smtp::BODY_8BIT
-      argument instead.
+      Deprecated the '8bit' option. The correct encoding mode to use is now
+      automatically determined.
 
 
 Upgrading to 1.6.0
