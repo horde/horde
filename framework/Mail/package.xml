@@ -131,7 +131,7 @@
    <package>
     <name>Horde_Smtp</name>
     <channel>pear.horde.org</channel>
-    <min>1.6.0</min>
+    <min>1.7.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>

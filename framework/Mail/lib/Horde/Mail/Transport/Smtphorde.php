@@ -46,9 +46,7 @@
 class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 {
     /**
-     * Send the message as 8bit?
-     *
-     * @var boolean
+     * @deprecated
      */
     public $send8bit = false;
 
@@ -142,9 +140,7 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
         ));
 
         try {
-            $this->_smtp->send($from, $recipients, $combine, array(
-                '8bit' => $this->send8bit
-            ));
+            $this->_smtp->send($from, $recipients, $combine);
         } catch (Horde_Smtp_Exception $e) {
             throw new Horde_Mail_Exception($e);
         }
