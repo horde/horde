@@ -90,19 +90,6 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['mnemo/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['mnemo/' . $owner]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['mnemo/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results['mnemo/' . $owner]['modified'] =
-                        $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results['mnemo/' . $owner]['created'] = 0;
                 }
             }
             return $results;
@@ -130,19 +117,6 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $notepad->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO Find a way to get the actual modification times
-                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Find a way to get the actual creation times
-                    $results[$retpath]['created'] = 0;
                 }
             }
             return $results;
@@ -221,12 +195,6 @@ class Mnemo_Api extends Horde_Registry_Api
                     $result['mtime'] = $modified;
                 }
                 return $result;
-            } elseif (count($parts) == 2 &&
-                substr($parts[1], -4) == '.txt' &&
-                Mnemo::hasPermission(substr($parts[1], 0, -4), Horde_Perms::READ)) {
-
-                // ??
-
             } else {
                 //
                 // All other requests are a 404: Not Found

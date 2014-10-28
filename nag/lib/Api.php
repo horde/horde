@@ -277,20 +277,6 @@ class Nag_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['nag/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['nag/' . $owner]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['nag/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results['nag/' . $owner]['modified'] =
-                        $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results['nag/' . $owner]['created'] = 0;
-                }
             }
             return $results;
 
@@ -321,22 +307,7 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
                 if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
                     $results[$retpath . '.ics']['contenttype'] = 'text/calendar';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                    $results[$retpath . '.ics']['contentlength'] = strlen($this->exportTasklist($tasklistId, 'text/calendar'));
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO Find a way to get the actual modification times
-                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
-                    $results[$retpath . '.ics']['modified'] = $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Find a way to get the actual creation times
-                    $results[$retpath]['created'] = 0;
-                    $results[$retpath . '.ics']['created'] = 0;
                 }
             }
             return $results;
@@ -392,15 +363,6 @@ class Nag_Api extends Horde_Registry_Api
                 if (in_array('contenttype', $properties)) {
                     $results[$key]['contenttype'] = 'text/calendar';
                 }
-                if (in_array('contentlength', $properties)) {
-                    // FIXME:  This is a hack.  If the content length is longer
-                    // than the actual data then some WebDAV clients will report
-                    // an error when the file EOF is received.  Ideally we should
-                    // determine the actual size of the data and report it here, but
-                    // the performance hit may be prohibitive.  This requires
-                    // further investigation.
-                    $results[$key]['contentlength'] = 1;
-                }
                 if (in_array('modified', $properties)) {
                     $results[$key]['modified'] = $modified;
                 }
@@ -437,12 +399,6 @@ class Nag_Api extends Horde_Registry_Api
                     $result['mtime'] = $modified;
                 }
                 return $result;
-            } elseif (count($parts) == 2 &&
-                substr($parts[1], -4) == '.ics' &&
-                Nag::hasPermission(substr($parts[1], 0, -4), Horde_Perms::READ)) {
-
-                // ??
-
             } else {
                 //
                 // All other requests are a 404: Not Found

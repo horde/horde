@@ -224,20 +224,6 @@ class Turba_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['turba/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['turba/' . $owner]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['turba/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO: Get a real modification date
-                    $results['turba/' . $owner]['modified'] = $now;
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Get a real creation date
-                    $results['turba/' . $owner]['created'] = 0;
-                }
             }
 
             return $results;
@@ -280,7 +266,6 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $curpath = 'turba/' . $parts[0] . '/';
-            $now = time();
 
             foreach ($addressbooks as $addressbook => $info) {
                 if (in_array('name', $properties)) {
@@ -297,20 +282,6 @@ class Turba_Api extends Horde_Registry_Api
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$curpath . $addressbook]['browseable'] = true;
-                }
-                if (in_array('contenttype', $properties)) {
-                    $results[$curpath . $addressbook]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$curpath . $addressbook]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO: Get a real modification date
-                    $results[$curpath . $addressbook]['modified'] = $now;
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Get a real creation date
-                    $results[$curpath . $addressbook]['created'] = 0;
                 }
             }
 
@@ -350,14 +321,6 @@ class Turba_Api extends Horde_Registry_Api
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$key]['contenttype'] = 'text/x-vcard';
-                }
-                if (in_array('contentlength', $properties)) {
-                    try {
-                        $data = $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true));
-                    } catch (Turba_Exception $e) {
-                        $data = '';
-                    }
-                    $results[$key]['contentlength'] = strlen($data);
                 }
                 if (in_array('modified', $properties)) {
                     $results[$key]['modified'] = $contact->lastModification();
