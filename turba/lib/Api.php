@@ -347,7 +347,7 @@ class Turba_Api extends Horde_Registry_Api
             $contact = $driver->getObject($parts[2]);
 
             $result = array(
-                'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true)),
+                'data' => $driver->tovCard($contact, '2.1', null, true)->exportVcalendar(),
                 'mimetype' => 'text/x-vcard'
             );
             $modified = $this->_modified($contact->getValue('__uid'), $parts[1]);
