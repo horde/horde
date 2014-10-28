@@ -43,6 +43,25 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
         );
     }
 
+   /**
+    * Do any mailing list headers exist?
+    *
+    * @since 1.2.0
+    *
+    * @param Horde_Mime_Headers $ob  Headers object.
+    *
+    * @return boolean  True if any mailing list headers exist.
+    */
+    public function listHeadersExist(Horde_Mime_Headers $ob)
+    {
+        return (bool)count(
+            array_intersect(
+                array_keys($this->headers()),
+                array_keys(iterator_to_array($ob))
+            )
+        );
+    }
+
     /**
      * Parse a list header.
      *
