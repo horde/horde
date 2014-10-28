@@ -270,7 +270,10 @@ class Nag_Api extends Horde_Registry_Api
             $results = array();
             foreach (array_keys($owners) as $owner) {
                 if (in_array('name', $properties)) {
-                    $results['nag/' . $owner]['name'] = $owner;
+                    $results['nag/' . $owner]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results['nag/' . $owner]['icon'] = Horde_Themes::img('user.png');
@@ -301,6 +304,10 @@ class Nag_Api extends Horde_Registry_Api
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = sprintf(_("Tasks from %s"), Nag::getLabel($tasklist));
                     $results[$retpath . '.ics']['name'] = Nag::getLabel($tasklist);
+                }
+                if (in_array('displayname', $properties)) {
+                    $results[$retpath]['displayname'] = Nag::getLabel($tasklist);
+                    $results[$retpath . '.ics']['displayname'] = Nag::getLabel($tasklist) . '.ics';
                 }
                 if (in_array('owner', $properties)) {
                     $results[$retpath]['owner'] = $tasklist->get('owner') ?: '-system-';

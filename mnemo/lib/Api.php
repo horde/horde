@@ -83,7 +83,10 @@ class Mnemo_Api extends Horde_Registry_Api
             $results = array();
             foreach (array_keys($owners) as $owner) {
                 if (in_array('name', $properties)) {
-                    $results['mnemo/' . $owner]['name'] = $owner;
+                    $results['mnemo/' . $owner]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results['mnemo/' . $owner]['icon'] = Horde_Themes::img('user.png');
@@ -114,6 +117,9 @@ class Mnemo_Api extends Horde_Registry_Api
                 $retpath = 'mnemo/' . $parts[0] . '/' . $notepadId;
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = sprintf(_("Notes from %s"), Mnemo::getLabel($notepad));
+                }
+                if (in_array('displayname', $properties)) {
+                    $results[$retpath]['displayname'] = Mnemo::getLabel($notepad);
                 }
                 if (in_array('owner', $properties)) {
                     $results[$retpath]['owner'] = $notepad->get('owner') ?: '-system-';
