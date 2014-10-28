@@ -2,6 +2,77 @@
 v5.2.3-git
 ----------
 
+Horde Changes
+-------------
+[mjr] Honor date_format_mini in Moon block (Bug #13628).
+[jan] Fix spacing in top menu (Bug #13617).
+[jan] Don't show password reset preferences if disabled in configuration (Bug
+      #13618).
+[mjr] Remove non-existent Yahoo Maps option for map tile provider.
+[mms] Fix display of Horde stylesheets not served from the local server (i.e.
+      via a CDN).
+[jan] Hide weather portal block if weather configuration is disabled (Bug
+      #13559).
+[jan] Add show_encryption setting to HTTP authentication configuration
+      (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
+
+Mail Changes
+------------
+[mms] Fix handling authentication errors when they take place during an attempt
+      to determine a mailbox's namespace.
+[mms] Fix some folder display issues when not using IMAP subscriptions in
+      dynamic view (Bug #13553).
+[mms] Fix accessing dynamic compose page when file uploads are not available
+      (Bug #13580).
+[mms] Fix saving unique browser preferences for a specific backend in dynamic
+      view.
+[mms] Fix toggling select all checkbox in both dynamic mailbox layouts.
+
+Filters Changes
+---------------
+[jan] Disable forward rule by default.
+[mms] Fix checking the 'max_forward' permission (Bug #13568).
+[mms] IMAP driver needs to explicitly search for UTF-8 text, since we don't
+      restrict charset input at the UI level (Bug #13554).
+[mjr] Fix issues when preferred configuration contains an array (Bug #13548).
+
+Address Book Changes
+--------------------
+[jan] Fix importing empty birthdays/anniversaries from vCard.
+[mjr] Fix defaulting to the defined search fields when searching via the API.
+[mjr] Fix broken EAS synchronization due to incorrect setting of the
+      Categories field.
+
+Calendar Changes
+----------------
+[jan] Support time label rotation in week and day views on IE 11.
+[jan] Fix updating of task list view if no tasks are returned from server.
+[jan] Fix ordering of sub-tasks.
+[jan] Send iTip notifications even to attendees that are not required to attend
+      (Bug #13600).
+[jan] Fix notification and alarm issues if alarm is longer than a day (Bug
+      #13584).
+[jan] Fix closure compiler errors (Bug #13593).
+[mjr] Fix checking resource availability when adding multiple resources (Bug
+      #13561).
+
+Tasks Changes
+-------------
+[jan] Fix search attribute of SQL shares on Oracle.
+[mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
+[jan] Pass current start date of recurring tasks to dynamic interface.
+[jan] Fix setting task list name for external tasks.
+[jan] Fix link to create sub-task from a task view.
+[jan] Fix listing of recurring tasks with start dates.
+[mjr] Add missing categories to EAS tasks.
+[jan] Fix sidebar display of system task lists in basic view.
+[jan] Fix retrieving individual tasks via WebDAV.
+
+Notes Changes
+-------------
+[mjr] Fix adding new notepads via the API.
+[jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
+[mjr] Fix replacing tags in existing notes (Bug #13417).
 
 
 ------
