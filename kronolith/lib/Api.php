@@ -32,14 +32,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * Returns the last modification timestamp for the given uid.
      *
      * @param string $uid      The uid to look for.
+     * @param string $calendar The calendar to search in.
      *
      * @return integer  The timestamp for the last modification of $uid.
      */
-    public function modified($uid)
+    public function modified($uid, $calendar = null)
     {
-        $modified = $this->getActionTimestamp($uid, 'modify');
+        $modified = $this->getActionTimestamp($uid, 'modify', $calendar);
         if (empty($modified)) {
-            $modified = $this->getActionTimestamp($uid, 'add');
+            $modified = $this->getActionTimestamp($uid, 'add', $calendar);
         }
         return $modified;
     }
@@ -207,7 +208,7 @@ class Kronolith_Api extends Horde_Registry_Api
                         $results[$key]['contentlength'] = 1;
                     }
                     if (in_array('modified', $properties)) {
-                        $results[$key]['modified'] = $this->modified($event->uid);
+                        $results[$key]['modified'] = $this->modified($event->uid, $parts[1]);
                     }
                     if (in_array('created', $properties)) {
                         $results[$key]['created'] = $this->getActionTimestamp($event->uid, 'add');
@@ -226,7 +227,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 $result = array(
                     'data' => $this->export($event->uid, 'text/calendar'),
                     'mimetype' => 'text/calendar');
-                $modified = $this->modified($event->uid);
+                $modified = $this->modified($event->uid, $parts[1]);
                 if (!empty($modified)) {
                     $result['mtime'] = $modified;
                 }
