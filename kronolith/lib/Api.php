@@ -57,6 +57,8 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
+        global $injector, $registry;
+
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -67,6 +69,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
+        $currentUser = $registry->getAuth();
 
         if (empty($path)) {
             // This request is for a list of all users who have calendars
@@ -95,10 +98,12 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
             $owner = $parts[0] == '-system-' ? '' : $parts[0];
-            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $owner));
+            $calendars = $injector->getInstance('Kronolith_Shares')
+                ->listShares(
+                    $currentUser,
+                    array('perm' => Horde_Perms::SHOW,
+                          'attributes' => $owner)
+                );
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
                 if ($parts[0] == '-system-' && $calendar->get('owner')) {
@@ -110,16 +115,22 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['name'] = Kronolith::getLabel($calendar);
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode(Kronolith::getLabel($calendar));
-                    $results[$retpath . '.ics']['displayname'] = rawurlencode(Kronolith::getLabel($calendar)) . '.ics';
+                    $results[$retpath]['displayname'] = Kronolith::getLabel($calendar);
+                    $results[$retpath . '.ics']['displayname'] = Kronolith::getLabel($calendar) . '.ics';
+                }
+                if (in_array('owner', $properties)) {
+                    $results[$retpath]['owner'] = $results[$retpath . '.ics']['owner'] = $calendar->get('owner') ?: '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');
                     $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $calendar->hasPermission($currentUser, Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
+                }
+                if (in_array('read-only', $properties)) {
+                    $results[$retpath]['read-only'] = $results[$retpath . '.ics']['read-only'] = !$calendar->hasPermission($currentUser, Horde_Perms::EDIT);
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$retpath . '.ics']['contenttype'] = 'text/calendar';
@@ -132,6 +143,14 @@ class Kronolith_Api extends Horde_Registry_Api
             // This request is browsing into a specific calendar.  Generate
             // the list of items and represent them as files within the
             // directory.
+            try {
+                $calendar = $injector->getInstance('Kronolith_Shares')
+                    ->getShare($parts[1]);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Kronolith_Exception(_("Invalid calendar requested."), 404);
+            } catch (Horde_Share_Exception $e) {
+                throw new Kronolith_Exception($e->getMessage, 500);
+            }
             $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
             $events = $kronolith_driver->listEvents();
             $icon = Horde_Themes::img('mime/icalendar.png');
@@ -181,12 +200,12 @@ class Kronolith_Api extends Horde_Registry_Api
                       array_key_exists(substr($parts[1], 0, -4), Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
                 // This request is for an entire calendar (calendar.ics).
                 $ical_data = $this->exportCalendar(substr($parts[1], 0, -4), 'text/calendar');
-                $result = array('data'          => $ical_data,
-                                'mimetype'      => 'text/calendar',
-                                'contentlength' => strlen($ical_data),
-                                'mtime'         => $_SERVER['REQUEST_TIME']);
-
-                return $result;
+                return array(
+                    'data'          => $ical_data,
+                    'mimetype'      => 'text/calendar',
+                    'contentlength' => strlen($ical_data),
+                    'mtime'         => $_SERVER['REQUEST_TIME']
+                );
             } else {
                 // All other requests are a 404: Not Found
                 return false;
@@ -271,7 +290,7 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $created = $modified = null;
                         try {
-                            $history = $GLOBALS['injector']->getInstance('Horde_History');
+                            $history = $injector->getInstance('Horde_History');
                             $created = $history->getActionTimestamp(
                                 'kronolith:' . $calendar . ':' . $uid, 'add');
                             $modified = $history->getActionTimestamp(
