@@ -57,7 +57,7 @@ class Mnemo_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        global $registry;
+        global $injector, $mnemo_shares, $registry;
 
         // Default properties.
         if (!$properties) {
@@ -69,6 +69,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
+        $currentUser = $registry->getAuth();
 
         if (empty($path)) {
             // This request is for a list of all users who have notepads
@@ -90,6 +91,8 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['mnemo/' . $owner]['browseable'] = true;
                 }
+                if (in_array('read-only', $properties)) {
+                    $results['mnemo/' . $owner]['read-only'] = true;
                 }
             }
             return $results;
@@ -97,10 +100,11 @@ class Mnemo_Api extends Horde_Registry_Api
         } elseif (count($parts) == 1) {
             // This request is for all notepads owned by the requested user
             $owner = $parts[0] == '-system-' ? '' : $parts[0];
-            $notepads = $GLOBALS['mnemo_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
+            $notepads = $mnemo_shares->listShares(
+                $currentUser,
                 array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $owner));
+                      'attributes' => $owner)
+            );
 
             $results = array();
             foreach ($notepads as $notepadId => $notepad) {
@@ -111,12 +115,17 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = sprintf(_("Notes from %s"), Mnemo::getLabel($notepad));
                 }
+                if (in_array('owner', $properties)) {
+                    $results[$retpath]['owner'] = $notepad->get('owner') ?: '-system-';
+                }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('mnemo.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $notepad->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $notepad->hasPermission($currentUser, Horde_Perms::READ);
                 }
+                if (in_array('read-only', $properties)) {
+                    $results[$retpath]['read-only'] = !$notepad->hasPermission($currentUser, Horde_Perms::EDIT);
                 }
             }
             return $results;
@@ -126,10 +135,17 @@ class Mnemo_Api extends Horde_Registry_Api
             // This request is browsing into a specific notepad.  Generate the
             // list of items and represent them as files within the directory.
             //
-            if (!Mnemo::hasPermission($parts[1], Horde_Perms::READ)) {
+            try {
+                $notepad = $mnemo_shares->getShare($parts[1]);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Mnemo_Exception(_("Invalid notepad requested."), 404);
+            } catch (Horde_Share_Exception $e) {
+                throw new Mnemo_Exception($e->getMessage, 500);
+            }
+            if (!$notepad->hasPermission($currentUser, Horde_Perms::READ)) {
                 throw new Mnemo_Exception(_("Invalid notepad requested."), 404);
             }
-            $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($parts[1]);
+            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($parts[1]);
             try {
                 $storage->retrieve();
             } catch (Mnemo_Exception $e) {
@@ -145,11 +161,17 @@ class Mnemo_Api extends Horde_Registry_Api
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = $memo['desc'];
                 }
+                if (in_array('owner', $properties)) {
+                    $results[$key]['owner'] = $notepad->get('owner') ?: '-system-';
+                }
                 if (in_array('icon', $properties)) {
                     $results[$key]['icon'] = $icon;
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$key]['browseable'] = false;
+                }
+                if (in_array('read-only', $properties)) {
+                    $results[$key]['read-only'] = !$notepad->hasPermission($currentUser, Horde_Perms::EDIT);
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$key]['contenttype'] = 'text/plain';
@@ -178,7 +200,8 @@ class Mnemo_Api extends Horde_Registry_Api
                 // This request is for a specific item within a given notepad.
                 //
                 /* Create a Mnemo storage instance. */
-                $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($parts[1]);
+                $storage = $injector->getInstance('Mnemo_Factory_Driver')
+                    ->create($parts[1]);
                 $storage->retrieve();
                 try {
                     $memo = $storage->get($parts[2]);
