@@ -89,33 +89,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results[$path]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results[$path]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$path]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results[$path]['modified'] =
-                        $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results[$path]['created'] = 0;
-                }
-
-                // CalDAV Properties from RFC 4791 and
-                // draft-desruisseaux-caldav-sched-03
-                $caldavns = 'urn:ietf:params:xml:ns:caldav';
-                $kronolith_rpc_base = $GLOBALS['registry']->get('webroot', 'horde') . '/rpc/kronolith/';
-                if (in_array($caldavns . ':calendar-home-set', $properties)) {
-                    $results[$path][$caldavns . ':calendar-home-set'] =  Horde::url($kronolith_rpc_base . urlencode($owner), true);
-                }
-
-                if (in_array($caldavns . ':calendar-user-address-set', $properties)) {
-                    // FIXME: Add the calendar owner's email address from
-                    // their Horde Identity
-                }
             }
             return $results;
 
@@ -149,26 +122,7 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
                 if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
                     $results[$retpath . '.ics']['contenttype'] = 'text/calendar';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                    // FIXME: This is a hack.  If the content length is longer
-                    // than the actual data then some WebDAV clients will
-                    // report an error when the file EOF is received.  Ideally
-                    // we should determine the actual size of the .ics and
-                    // report it here, but the performance hit may be
-                    // prohibitive.  This requires further investigation.
-                    $results[$retpath . '.ics']['contentlength'] = 1;
-                }
-                if (in_array('modified', $properties)) {
-                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
-                    $results[$retpath . '.ics']['modified'] = $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results[$retpath]['created'] = 0;
-                    $results[$retpath . '.ics']['created'] = 0;
                 }
             }
             return $results;
@@ -196,16 +150,6 @@ class Kronolith_Api extends Horde_Registry_Api
                     }
                     if (in_array('contenttype', $properties)) {
                         $results[$key]['contenttype'] = 'text/calendar';
-                    }
-                    if (in_array('contentlength', $properties)) {
-                        // FIXME: This is a hack.  If the content length is
-                        // longer than the actual data then some WebDAV
-                        // clients will report an error when the file EOF is
-                        // received.  Ideally we should determine the actual
-                        // size of the data and report it here, but the
-                        // performance hit may be prohibitive.  This requires
-                        // further investigation.
-                        $results[$key]['contentlength'] = 1;
                     }
                     if (in_array('modified', $properties)) {
                         $results[$key]['modified'] = $this->modified($event->uid, $parts[1]);
