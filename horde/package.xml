@@ -30,7 +30,7 @@
  </lead>
  <date>2014-10-29</date>
  <version>
-  <release>5.2.2</release>
+  <release>5.2.3</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,13 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Honor date_format_mini in Moon block (Bug #13628).
-* [jan] Fix spacing in top menu (Bug #13617).
-* [jan] Don&apos;t show password reset preferences if disabled in configuration (Bug #13618).
-* [mjr] Remove non-existent Yahoo Maps option for map tile provider.
-* [mms] Fix display of Horde stylesheets not served from the local server (i.e. via a CDN).
-* [jan] Hide weather portal block if weather configuration is disabled (Bug #13559).
-* [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3979,6 +3973,19 @@
 * [mms] Fix display of Horde stylesheets not served from the local server (i.e. via a CDN).
 * [jan] Hide weather portal block if weather configuration is disabled (Bug #13559).
 * [jan] Add show_encryption setting to HTTP authentication configuration (Jasper.Olbrich@students.uni-marburg.de, Bug #13444).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.3</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
