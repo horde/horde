@@ -32,6 +32,7 @@ class Wicked_Unit_RstTest extends Wicked_TestCase
 {
     public function setUp()
     {
+        $this->markTestIncomplete();
         $this->unstrictPearTestingMode();
     }
 
