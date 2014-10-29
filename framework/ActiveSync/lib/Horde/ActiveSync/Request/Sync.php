@@ -676,6 +676,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
     {
         while ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
             $collection = $this->_collections->getNewCollection();
+            $haveOptions = false;
             while (($folder_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
@@ -796,6 +797,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 case Horde_ActiveSync::SYNC_OPTIONS:
                     if (!$this->_decoder->isEmptyElement($this->_decoder->getLastStartElement())) {
                         $this->_parseSyncOptions($collection);
+                        $haveOptions = true;
                     }
                     break;
 
@@ -804,6 +806,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         return false;
                     }
                 }
+            }
+            if (!$haveOptions) {
+                $this->_collections->getDefaultOptions($collection);
             }
 
             if (!$this->_decoder->getElementEndTag()) {

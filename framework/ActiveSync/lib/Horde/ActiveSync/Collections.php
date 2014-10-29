@@ -257,16 +257,29 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getNewCollection()
     {
         return array(
-            'truncation' => Horde_ActiveSync::TRUNCATION_ALL,
             'clientids' => array(),
             'fetchids' => array(),
-            'windowsize' => 100,
-            'conflict' => Horde_ActiveSync::CONFLICT_OVERWRITE_PIM,
-            'bodyprefs' => array(),
-            'mimesupport' => Horde_ActiveSync::MIME_SUPPORT_NONE,
-            'mimetruncation' => Horde_ActiveSync::TRUNCATION_8,
+            'windowsize' => 100
         );
     }
+
+    /**
+     * Populate default OPTIONS values.
+     *
+     * @param  array  $collection  The collection array.
+     * @since 2.20.0
+     */
+    public function getDefaultOptions(array &$collection)
+    {
+        $this->_logger->info(sprintf(
+            '[%s] Loading default OPTIONS for collection.', $this->_procid));
+        $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+        $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
+        $collection['mimesupport'] = Horde_ActiveSync::MIME_SUPPORT_NONE;
+        $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
+        $collection['bodyprefs'] = array();
+    }
+
 
     /**
      * Add a new populated collection array to the sync cache.
