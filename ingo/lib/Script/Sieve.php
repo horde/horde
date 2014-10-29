@@ -339,8 +339,8 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
         $action[] = new Ingo_Script_Sieve_Action_Vacation($vals);
 
         if ($vacation->getVacationIgnorelist()) {
-            $mime_headers = new Horde_Mime_Headers();
-            $headers = $mime_headers->listHeaders();
+            $lheaders = new Horde_ListHeaders();
+            $headers = $lheaders->headers();
             $headers['Mailing-List'] = null;
             foreach (array_keys($headers) as $h) {
                 $tests[] = new Ingo_Script_Sieve_Test_Not(

@@ -624,6 +624,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_ListHeaders</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
