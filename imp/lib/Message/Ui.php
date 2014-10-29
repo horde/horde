@@ -152,15 +152,16 @@ class IMP_Message_Ui
      */
     public function getListInformation($headers)
     {
+        $lh = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
         $ret = array('exists' => false, 'reply_list' => null);
 
-        if ($headers->listHeadersExist()) {
+        if ($lh->listHeadersExist($headers)) {
             $ret['exists'] = true;
 
             /* See if the List-Post header provides an e-mail address for the
              * list. */
-            if ($val = $headers->getValue('list-post')) {
-                foreach ($GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-post', $val) as $val2) {
+            if ($val = $headers['List-Post']) {
+                foreach ($lh->parse('list-post', $val) as $val2) {
                     if ($val2 instanceof Horde_ListHeaders_NoPost) {
                         break;
                     } elseif (stripos($val2->url, 'mailto:') === 0) {

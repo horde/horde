@@ -235,7 +235,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
             $data = new Horde_Stream_Temp();
             $data->add(
-                'From:' . $hdrs->getValue('from') . "\n" .
+                'From:' . $hdrs['From'] . "\n" .
                 $decrypted_data
             );
 

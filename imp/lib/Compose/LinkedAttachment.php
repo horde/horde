@@ -199,13 +199,15 @@ class IMP_Compose_LinkedAttachment
             }
 
             $h = new Horde_Mime_Headers();
-            $h->addReceivedHeader(array(
-                'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-                'server' => $conf['server']['name']
-            ));
-            $h->addMessageIdHeader();
-            $h->addUserAgentHeader();
-            $h->addHeader('Date', date('r'));
+            $h->addHeaderOb(
+                Horde_Mime_Headers_Received::createHordeHop(array(
+                    'dns' => $injector->getInstance('Net_DNS2_Resolver'),
+                    'server' => $conf['server']['name']
+                ))
+            );
+            $h->addHeaderOb(Horde_Mime_Headers_MessageId::create());
+            $h->addHeaderOb(Horde_Mime_Headers_UserAgent::create());
+            $h->addHeaderOb(Horde_Mime_Headers_Date::create());
             $h->addHeader('From', $address_full);
             $h->addHeader('To', $address_full);
             $h->addHeader('Subject', _("Notification: Linked attachment downloaded"));

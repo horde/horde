@@ -147,7 +147,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 try {
                     $imp_pgp->generatePersonalKeys(
                         $ui->vars->generate_realname,
-                        $email[0]->bare_address_idn,
+                        $email->first()->bare_address_idn,
                         $ui->vars->generate_passphrase1,
                         $ui->vars->generate_comment,
                         $conf['pgp']['keylength'],

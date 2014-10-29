@@ -482,16 +482,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if ($draft_url = $headers->getValue(self::DRAFT_REPLY)) {
             if (is_null($type) &&
-                !($type = $headers->getValue(self::DRAFT_REPLY_TYPE))) {
+                !($type = $headers[self::DRAFT_REPLY_TYPE])) {
                 $type = self::REPLY;
             }
             $imp_draft = self::REPLY;
-        } elseif ($draft_url = $headers->getValue(self::DRAFT_FWD)) {
+        } elseif ($draft_url = $headers[self::DRAFT_FWD]) {
             $imp_draft = self::FORWARD;
             if (is_null($type)) {
                 $type = self::FORWARD;
             }
-        } elseif ($headers->getValue(self::DRAFT_HDR)) {
+        } elseif ($headers[self::DRAFT_HDR]) {
             $imp_draft = self::COMPOSE;
         }
 
@@ -580,16 +580,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         if ($type != self::EDITASNEW) {
             foreach (array('to', 'cc', 'bcc') as $val) {
-                if ($tmp = $headers->getOb($val)) {
-                    $addr[$val] = $tmp;
+                if ($h = $headers[$val]) {
+                    $addr[$val] = $h->getAddressList(true);
                 }
             }
 
-            if ($val = $headers->getValue('references')) {
-                $ref_ob = new Horde_Mail_Rfc822_Identification($val);
-                $this->_setMetadata('references', $ref_ob->ids);
+            if ($val = $headers['References']) {
+                $this->_setMetadata('references', $val->getIdentificationOb()->ids);
 
-                if ($val = $headers->getValue('in-reply-to')) {
+                if ($val = $headers['In-Reply-To']) {
                     $this->_setMetadata('in_reply_to', $val);
                 }
             }
@@ -633,7 +632,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'identity' => $this->_getMatchingIdentity($headers, array('from')),
             'priority' => $injector->getInstance('IMP_Mime_Headers')->getPriority($headers),
             'readreceipt' => $readreceipt,
-            'subject' => $headers->getValue('subject'),
+            'subject' => $headers['Subject'],
             'type' => $type
         );
     }
@@ -824,10 +823,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = $this->_prepareHeaders($header, $opts);
 
         /* Add a Received header for the hop from browser to server. */
-        $headers->addReceivedHeader(array(
-            'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-            'server' => $conf['server']['name']
-        ));
+        $headers->addHeaderOb(
+            Horde_Mime_Headers_Received::createHordeHop(array(
+                'dns' => $injector->getInstance('Net_DNS2_Resolver'),
+                'server' => $conf['server']['name']
+            ))
+        );
 
         /* Add Reply-To header. */
         if (!empty($header['replyto']) &&
@@ -836,12 +837,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Add the 'User-Agent' header. */
-        if (empty($opts['useragent'])) {
-            $headers->setUserAgent('Internet Messaging Program (IMP) ' . $registry->getVersion());
-        } else {
-            $headers->setUserAgent($opts['useragent']);
-        }
-        $headers->addUserAgentHeader();
+        $headers->addHeaderOb(Horde_Mime_Headers_UserAgent::create(
+            empty($opts['useragent'])
+                ? 'Internet Messaging Program (IMP) ' . $registry->getVersion()
+                : $opts['useragent']
+        ));
 
         /* Add preferred reply language(s). */
         if ($lang = @unserialize($prefs->getValue('reply_lang'))) {
@@ -875,12 +875,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->sendMessage($val['recipients'], $headers, $val['base']);
 
                 /* Store history information. */
-                $msg_id = new Horde_Mail_Rfc822_Identification(
-                    $headers->getValue('message-id')
-                );
                 $sentmail->log(
                     $senttype,
-                    reset($msg_id->ids),
+                    reset($headers['Message-ID']->getIdentificationOb()->ids),
                     $val['recipients'],
                     true
                 );
@@ -889,12 +886,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             } catch (IMP_Compose_Exception $e) {
                 /* Unsuccessful send. */
                 if ($e->log()) {
-                    $msg_id = new Horde_Mail_Rfc822_Identification(
-                        $headers->getValue('message-id')
-                    );
                     $sentmail->log(
                         $senttype,
-                        reset($msg_id->ids),
+                        reset($headers['Message-ID']->getIdentificationOb()->ids),
                         $val['recipients'],
                         false
                     );
@@ -1106,8 +1100,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $ob = new Horde_Mime_Headers();
 
-        $ob->addHeader('Date', date('r'));
-        $ob->addMessageIdHeader();
+        $ob->addHeaderOb(Horde_Mime_Headers_Date::create());
+        $ob->addHeaderOb(Horde_Mime_Headers_MessageId::create());
 
         if (isset($headers['from']) && strlen($headers['from'])) {
             $ob->addHeader('From', $headers['from']);
@@ -1160,9 +1154,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Add Return Receipt Headers. */
-        if (!empty($opts['readreceipt'])) {
-            $from = $ob->getOb('from');
-            $from = $from[0];
+        if (!empty($opts['readreceipt']) && ($h = $ob['from'])) {
+            $from = $h->getAddressList(true);
             if (is_null($from->host)) {
                 $from->host = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->config->maildomain;
             }
@@ -1901,20 +1894,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->_setMetadata('indices', $contents->getIndicesOb());
 
             /* Set the Message-ID related headers (RFC 5322 [3.6.4]). */
-            $msg_id = new Horde_Mail_Rfc822_Identification(
-                $h->getValue('message-id')
-            );
+            $msg_id = $h['Message-ID']->getIdentificationOb();
             if (count($msg_id->ids)) {
                 $this->_setMetadata('in_reply_to', reset($msg_id->ids));
             }
 
-            $ref_ob = new Horde_Mail_Rfc822_Identification(
-                $h->getValue('references')
-            );
+            $ref_ob = $h['References']->getIdentificationOb();
             if (!count($ref_ob->ids)) {
-                $ref_ob = new Horde_Mail_Rfc822_Identification(
-                    $h->getValue('in-reply-to')
-                );
+                $ref_ob = $h['In-Reply-To']->getIdentificationOb();
                 if (count($ref_ob->ids) > 1) {
                     $ref_ob->ids = array();
                 }
@@ -1928,7 +1915,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $subject = strlen($s = $h->getValue('subject'))
+        $subject = strlen($s = $h['Subject'])
             ? 'Re: ' . strval(new Horde_Imap_Client_Data_BaseSubject($s, array('keepblob' => true)))
             : 'Re: ';
 
@@ -1937,11 +1924,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if (isset($opts['to'])) {
                 $addr['to']->add($opts['to']);
                 $force = true;
-            } elseif ($tmp = $h->getOb('reply-to')) {
-                $addr['to']->add($tmp);
+            } elseif ($tmp = $h['reply-to']) {
+                $addr['to']->add($tmp->getAddressList());
                 $force = true;
-            } else {
-                $addr['to']->add($h->getOb('from'));
+            } elseif ($tmp = $h['from']) {
+                $addr['to']->add($tmp->getAddressList());
             }
         }
 
@@ -1980,9 +1967,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 /* If either a reply-to or $to is present, we use this address
                  * INSTEAD of the from address. */
                 if (($force && ($val == 'from')) ||
-                    !($ob = $h->getOb($val))) {
+                    !($tmp = $h[$val])) {
                     continue;
                 }
+
+                $ob = $tmp->getAddressList(true);
 
                 /* For From: need to check if at least one of the addresses is
                  * personal. */
@@ -2021,9 +2010,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                             /* If from/reply-to doesn't have personal
                              * information, check from address. */
                             if (is_null($hdr_ob->personal) &&
-                                ($to_ob = $h->getOb('from')) &&
-                                !is_null($to_ob[0]->personal) &&
-                                ($hdr_ob->match($to_ob[0]))) {
+                                ($tmp = $h['from']) &&
+                                ($to_ob = $h->getAddressList(true)->first()) &&
+                                !is_null($to_ob->personal) &&
+                                ($hdr_ob->match($to_ob))) {
                                 $addr['to']->add($to_ob);
                             } else {
                                 $addr['to']->add($hdr_ob);
@@ -2050,7 +2040,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             /* Build the Bcc: header. */
-            if ($bcc = $h->getOb('bcc')) {
+            if ($tmp = $h['bcc']) {
+                $bcc = $tmp->getAddressList(true);
                 $bcc->add($identity->getBccAddresses());
                 $bcc->setIteratorFilter(0, $all_addrs);
                 foreach ($bcc as $val) {
@@ -2086,7 +2077,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 break;
 
             case self::REPLY_LIST:
-                if (($list_parse = $injector->getInstance('Horde_ListHeaders')->parse('list-id', $h->getValue('list-id'))) &&
+                if (($list_parse = $injector->getInstance('Horde_ListHeaders')->parse('list-id', $h['List-Id'])) &&
                     !is_null($list_parse->label)) {
                     $ret['reply_list_id'] = $list_parse->label;
                 }
@@ -2094,8 +2085,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        if (($lang = $h->getValue('accept-language')) ||
-            ($lang = $h->getValue('x-accept-language'))) {
+        if (($lang = $h['Accept-Language']) ||
+            ($lang = $h['X-Accept-Language'])) {
             $langs = array();
             foreach (explode(',', $lang) as $val) {
                 if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
@@ -2148,7 +2139,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         $h = $contents->getHeader();
 
-        $from = $h->getOb('from');
+        $from = $h->getHeader('from')->getAddressList(true);
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $from_text = strval(new IMP_Prefs_AttribText($from, $h, '%f'));
@@ -2286,7 +2277,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $this->_replytype = $type;
         $this->_setMetadata('indices', $contents->getIndicesOb());
 
-        if (strlen($s = $h->getValue('subject'))) {
+        if (strlen($s = $h['Subject'])) {
             $s = strval(new Horde_Imap_Client_Data_BaseSubject($s, array(
                 'keepblob' => true
             )));
@@ -2344,7 +2335,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $h = $contents->getHeader();
 
-        $from = strval($h->getOb('from'));
+        $from = strval($h['from']);
 
         $msg_pre = "\n----- " .
             ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message")) .
@@ -2475,7 +2466,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $resent_headers->addHeader('Resent-Date', date('r'));
                 $resent_headers->addHeader('Resent-From', $from_addr);
                 $resent_headers->addHeader('Resent-To', $recip['header']['to']);
-                $resent_headers->addHeader('Resent-Message-ID', $headers->generateMessageId());
+                $resent_headers->addHeader(
+                    'Resent-Message-ID',
+                    Horde_Mime_Headers_MessageId::create()
+                );
 
                 $header_text = trim($resent_headers->toString(array('encode' => 'UTF-8'))) . "\n" . trim($contents->getHeader(IMP_Contents::HEADER_TEXT));
 
@@ -2496,10 +2490,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 if ($log) {
                     /* Store history information. */
-                    $msg_id = new Horde_Mail_Rfc822_Identification(
-                        $headers->getValue('message-id')
-                    );
-
                     $injector->getInstance('IMP_Maillog')->log(
                         new IMP_Maillog_Message(reset($msg_id->ids)),
                         new IMP_Maillog_Log_Redirect($recipients)
@@ -2507,7 +2497,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                     $injector->getInstance('IMP_Sentmail')->log(
                         IMP_Sentmail::REDIRECT,
-                        reset($msg_id->ids),
+                        reset($headers['Message-ID']->getIdentificationOb()->ids),
                         $recipients
                     );
                 }
@@ -2548,7 +2538,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         foreach ($only as $val) {
-            $msgAddresses[] = $h->getValue($val);
+            $msgAddresses[] = $h[$val];
         }
 
         $match = $identity->getMatchingIdentity($msgAddresses);
@@ -2602,7 +2592,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return 'Fwd: ' . sprintf(_("%u Forwarded Messages"), $attached);
         }
 
-        if ($name = $headerob->getValue('subject')) {
+        if ($name = $headerob['Subject']) {
             $name = Horde_String::truncate($name, 80);
         } else {
             $name = _("[No Subject]");
@@ -2622,27 +2612,27 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $tmp = array();
 
-        if (($ob = $h->getValue('date'))) {
-            $tmp[_("Date")] = $ob;
+        if ($ob = $h['date']) {
+            $tmp[_("Date")] = $ob->value;
         }
 
-        if (($ob = strval($h->getOb('from')))) {
+        if ($ob = strval($h['from'])) {
             $tmp[_("From")] = $ob;
         }
 
-        if (($ob = strval($h->getOb('reply-to')))) {
+        if ($ob = strval($h['reply-to'])) {
             $tmp[_("Reply-To")] = $ob;
         }
 
-        if (($ob = $h->getValue('subject'))) {
-            $tmp[_("Subject")] = $ob;
+        if ($ob = $h['subject']) {
+            $tmp[_("Subject")] = $ob->value;
         }
 
-        if (($ob = strval($h->getOb('to')))) {
+        if ($ob = strval($h['to'])) {
             $tmp[_("To")] = $ob;
         }
 
-        if (($ob = strval($h->getOb('cc')))) {
+        if ($ob = strval($h['cc'])) {
             $tmp[_("Cc")] = $ob;
         }
 
@@ -3301,7 +3291,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             ));
 
             if ($analyze) {
-                $ctype = new Horde_Mime_ContentParam($analyze);
+                $ctype = new Horde_Mime_Headers_ContentParam($analyze);
                 $atc->setType($ctype->value);
                 $atc->setCharset(isset($ctype->params['charset']) ? $ctype->params['charset'] : 'UTF-8');
             } else {

@@ -79,28 +79,26 @@ class IMP_Prefs_AttribText
                         : _("Unknown Sender");
 
                 case '%r': /* RFC 822 date and time. */
-                    return $h->getValue('date');
+                    return $h['Date'];
 
                 case '%d': /* Date as ddd, dd mmm yyyy. */
                     return strftime(
                         "%a, %d %b %Y",
-                        strtotime($h->getValue('date'))
+                        strtotime($h['Date'])
                     );
 
                 case '%c': /* Date and time in locale's default. */
                 case '%x': /* Date in locale's default. */
                     return strftime(
                         $matches[0],
-                        strtotime($h->getValue('date'))
+                        strtotime($h['Date'])
                     );
 
                 case '%m': /* Message-ID. */
-                    return is_array($message_id = $h->getValue('message-id'))
-                        ? reset($message_id)
-                        : $message_id;
+                    return strval($h['Message-Id']);
 
                 case '%s': /* Message subject. */
-                    return strlen($subject = $h->getValue('subject'))
+                    return strlen($subject = $h['Subject'])
                         ? $subject
                         : _("[No Subject]");
 

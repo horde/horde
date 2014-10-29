@@ -497,9 +497,8 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected function _getSender()
     {
         if (is_null($this->_sender)) {
-            $headers = $this->getConfigParam('imp_contents')->getHeader();
-            $tmp = $headers->getOb('from');
-            $this->_sender = $tmp[0];
+            $this->_sender = $this->getConfigParam('imp_contents')->getHeader()
+                ->getHeader('from')->getAddressList(true)->first();
         }
 
         return $this->_sender;

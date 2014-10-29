@@ -174,7 +174,7 @@ class IMP_Ajax_Application_ShowMessage
 
         /* Build the rest of the headers. */
         foreach ($headers_list as $head => $str) {
-            if ($val = $mime_headers->getValue($head)) {
+            if ($val = $mime_headers[$head]) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
                     $date_ob = new IMP_Message_Date($this->_envelope->date);
@@ -218,7 +218,7 @@ class IMP_Ajax_Application_ShowMessage
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {
-                $user_val = $mime_headers->getValue($user_hdr);
+                $user_val = $mime_headers[$user_hdr];
                 if (!empty($user_val)) {
                     if (!is_array($user_val)) {
                         $user_val = array($user_val);
@@ -235,7 +235,7 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Process the subject. */
-        $subject = $mime_headers->getValue('subject');
+        $subject = $mime_headers['Subject'];
         if ($subject) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));

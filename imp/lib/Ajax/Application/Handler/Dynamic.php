@@ -631,10 +631,9 @@ extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $notification;
 
-        $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        $ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr)->first();
 
         // TODO: Currently supports only a single, non-group contact.
-        $ob = $addr_ob[0];
         if (!$ob) {
             return false;
         } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
@@ -1230,7 +1229,7 @@ extends Horde_Core_Ajax_Application_Handler
         global $injector, $notification, $registry;
 
         if (isset($this->vars->addr)) {
-            $addr_ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+            $ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr)->first();
         } else {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
@@ -1241,11 +1240,10 @@ extends Horde_Core_Ajax_Application_Handler
                 'ids' => $imp_imap->getIdsOb($uid)
             ));
 
-            $addr_ob = $ret[$uid]->getEnvelope()->from;
+            $ob = $ret[$uid]->getEnvelope()->from->first();
         }
 
         // TODO: Currently supports only a single, non-group contact.
-        $ob = $addr_ob[0];
         if (!$ob) {
             return false;
         } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {

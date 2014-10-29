@@ -42,10 +42,9 @@ class IMP_Flag_System_Encrypted extends IMP_Flag_System_Match_Header
      */
     public function match($data)
     {
-        $ctype = $data->getValue('content-type', Horde_Mime_Headers::VALUE_BASE);
-
-        return (($ctype == 'application/pkcs7-mime') ||
-                ($ctype == 'multipart/encrypted'));
+        return (($ctype = $data['Content-Type']) &&
+                (($ctype->value == 'application/pkcs7-mime') ||
+                 ($ctype->value == 'multipart/encrypted')));
     }
 
 }

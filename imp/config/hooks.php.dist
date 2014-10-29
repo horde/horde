@@ -521,8 +521,12 @@ class IMP_Hooks
 //        // someone within the same domain (NOTE: this does no checking on
 //        // spoofed e-mail addresses; further verification should probably
 //        // be done before automatically sending out a MDN).
-//        $from = $headers->getOb('from');
-//        return (strcasecmp($from['host'], 'example.com') !== 0);
+//        if ($h = $headers['from']) {
+//            $from = $h->getAddressList(true)->first();
+//            return (strcasecmp($from->host, 'example.com') !== 0);
+//        }
+//
+//        return false;
 //    }
 
 

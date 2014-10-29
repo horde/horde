@@ -107,12 +107,12 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     $curr_msg['addr_to'] = true;
                     $curr_msg['addr'] = _("To:") . ' ' .
                         $this->_buildAddressLinks($envelope->to, Horde::selfUrlParams());
-                    $addr = _("To:") . ' ' . htmlspecialchars($envelope->to[0]->label, ENT_COMPAT, 'UTF-8');
+                    $addr = _("To:") . ' ' . htmlspecialchars($envelope->to->first()->label, ENT_COMPAT, 'UTF-8');
                 } else {
                     $from = $envelope->from;
                     $curr_msg['addr_to'] = false;
                     $curr_msg['addr'] = $this->_buildAddressLinks($from, Horde::selfUrlParams());
-                    $addr = htmlspecialchars($from[0]->label, ENT_COMPAT, 'UTF-8');
+                    $addr = htmlspecialchars($from->first()->label, ENT_COMPAT, 'UTF-8');
                 }
 
                 $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, 'UTF-8');

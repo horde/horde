@@ -340,7 +340,7 @@ class IMP_Message
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeader();
-                $subject = $imp_headers->getValue('subject');
+                $subject = $imp_headers['Subject'];
 
                 /* Re-flow the message for prettier formatting. */
                 $body_part = $imp_contents->getMIMEPart($imp_contents->findBody());

@@ -117,10 +117,10 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        $from = $contents->getHeader()->getOb('from');
+                        $from = $contents->getHeader()->geHeader('from')->getAddressList(true)->first();
                         $registry->call('calendar/updateAttendee', array(
                             $components[$key],
-                            $from[0]->bare_address
+                            $from->bare_address
                         ));
                         $notification->push(_("Respondent Status Updated."), 'horde.success');
                         $result = true;
@@ -315,11 +315,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     $identity = $injector->getInstance('IMP_Identity');
                     $email = $identity->getFromAddress();
 
-                    // Build the reply.
-                    $msg_headers = new Horde_Mime_Headers();
-
                     $vCal = new Horde_Icalendar();
-                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . $msg_headers->getUserAgent() . '//EN');
+                    $vCal->setAttribute('PRODID', '-//The Horde Project//' . strval(Horde_Mime_Headers_UserAgent::create()) . '//EN');
                     $vCal->setAttribute('METHOD', 'REPLY');
                     $vCal->addComponent($vfb_reply);
 
@@ -341,12 +338,19 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     $mime->addPart($ics);
 
                     // Build the reply headers.
-                    $msg_headers->addReceivedHeader(array(
-                        'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-                        'server' => $conf['server']['name']
-                    ));
-                    $msg_headers->addMessageIdHeader();
-                    $msg_headers->addHeader('Date', date('r'));
+                    $msg_headers = new Horde_Mime_Headers();
+                    $msg_headers->addHeaderOb(
+                        Horde_Mime_Headers_Received::createHordeHop(array(
+                            'dns' => $injector->getInstance('Net_DNS2_Resolver'),
+                            'server' => $conf['server']['name']
+                        ))
+                    );
+                    $msg_headers->addHeaderOb(
+                        Horde_Mime_Headers_MessageId::create()
+                    );
+                    $msg_headers->addHeaderOb(
+                        Horde_Mime_Headers_Date::create()
+                    );
                     $msg_headers->addHeader('From', $email);
                     $msg_headers->addHeader('To', $organizerFullEmail);
 

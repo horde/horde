@@ -121,7 +121,10 @@ class IMP_Filter
 
             foreach ($ob->uids as $idx) {
                 /* Get the list of from addresses. */
-                $addr->add($GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx))->getHeader()->getOb('from'));
+                $h = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx))->getHeader();
+                if ($f = $h['from']) {
+                    $addr->add($f->getAddressList());
+                }
             }
         }
 

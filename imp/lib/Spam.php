@@ -116,9 +116,9 @@ class IMP_Spam
         /* Report what we've done. */
         if ($report_count == 1) {
             $hdrs = $contents->getHeader();
-            if ($subject = $hdrs->getValue('subject')) {
+            if ($subject = $hdrs['Subject']) {
                 $subject = Horde_String::truncate($subject, 30);
-            } elseif ($from = $hdrs->getValue('from')) {
+            } elseif ($from = $hdrs['From']) {
                 $from = Horde_String::truncate($from, 30);
             } else {
                 $subject = '[' . _("No Subject") . ']';

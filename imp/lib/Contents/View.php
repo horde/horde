@@ -48,7 +48,7 @@ class IMP_Contents_View
         global $page_output, $session;
 
         $headers = $this->_contents->getHeader();
-        $zipfile = trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $headers->getValue('subject')), ' _');
+        $zipfile = trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $headers['Subject']), ' _');
         if (empty($zipfile)) {
             $zipfile = _("attachments.zip");
         } else {
@@ -174,7 +174,7 @@ class IMP_Contents_View
 
         $session->close();
 
-        $name = ($subject = $this->_contents->getHeader()->getValue('subject'))
+        $name = ($subject = $this->_contents->getHeader()->getHeader('Subject'))
             ? trim(preg_replace('/[^\pL\pN-+_. ]/u', '_', $subject), ' _')
             : 'saved_message';
 
@@ -213,7 +213,7 @@ class IMP_Contents_View
 
         $headers = array();
         foreach ($basic_headers as $key => $val) {
-            if ($hdr_val = $headerob->getValue($key)) {
+            if ($hdr_val = $headerob[$key]) {
                 /* Format date string. */
                 if ($key == 'date') {
                     $date_ob = new IMP_Message_Date($hdr_val);
@@ -242,7 +242,7 @@ class IMP_Contents_View
 
         $view->headers = $headers;
 
-        $ctype = new Horde_Mime_ContentParam($part['type']);
+        $ctype = new Horde_Mime_Headers_ContentParam($part['type']);
 
         $header_dom = new Horde_Domhtml(
             Horde_String::convertCharset($view->render('headers'), 'UTF-8', $ctype->params['charset']),
@@ -320,7 +320,7 @@ class IMP_Contents_View
         foreach ($headelt->getElementsByTagName('title') as $node) {
             $headelt->removeChild($node);
         }
-        $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headerob->getValue('subject')))));
+        $headelt->appendChild($doc->dom->createElement('title', htmlspecialchars($imp_ui_mbox->getSubject($headerob['Subject']))));
 
         return array(
             'data' => $doc->returnHtml(),

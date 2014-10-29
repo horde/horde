@@ -49,7 +49,7 @@ class IMP_Mime_Viewer_Audio extends Horde_Mime_Viewer_Audio
             'stream' => true
         ))->data);
 
-        if (($duration = $headers->getValue('content-duration')) === null) {
+        if (($duration = $headers['Content-Duration']) === null) {
             return array();
         }
 

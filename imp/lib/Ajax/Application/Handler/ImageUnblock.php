@@ -33,7 +33,12 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
     {
         global $injector, $notification;
 
-        $address = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars))->getHeader()->getOb('from')->bare_addresses[0];
+        $h = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars))->getHeader();
+        if (!($f = $h['from'])) {
+             return true;
+        }
+
+        $address = $f->getAddressList(true)->first()->bare_address;
 
         if ($injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList($address)) {
             $notification->push(sprintf(_("Always showing images in messages sent by %s."), $address), 'horde.success');

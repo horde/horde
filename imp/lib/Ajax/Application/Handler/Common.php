@@ -634,7 +634,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             $res = $imp_compose->sendRedirectMessage($headers['redirect_to']);
 
             foreach ($res as $val) {
-                $subject = $val->headers->getValue('subject');
+                $subject = $val->headers['Subject'];
                 $GLOBALS['notification']->push(empty($subject) ? _("Message redirected successfully.") : sprintf(_("Message \"%s\" redirected successfully."), Horde_String::truncate($subject)), 'horde.success');
 
                 $this->_base->queue->maillog(

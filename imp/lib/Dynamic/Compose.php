@@ -190,7 +190,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
         case 'new_to':
             $h = $this->_getContents()->getHeader();
-            $addr['to'] = $h->getOb('reply-to') ?: $h->getOb('from');
+            $f = $h['reply-to'] ?: $h['from'];
+            $addr['to'] = $f->getAddressList(true);
             // Fall-through
 
         case 'new':

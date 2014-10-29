@@ -31,14 +31,14 @@ class IMP_Mime_Headers
      */
     public function getPriority($header)
     {
-        if (($xpriority = $header->getValue('x-priority')) &&
+        if (($xpriority = $header['X-Priority']) &&
             (preg_match('/\s*(\d+)\s*/', $xpriority, $matches))) {
             if (in_array($matches[1], array(1, 2))) {
                 return 'high';
             } elseif (in_array($matches[1], array(4, 5))) {
                 return 'low';
             }
-        } elseif (($importance = $header->getValue('importance')) &&
+        } elseif (($importance = $header['Importance']) &&
                   preg_match('/:\s*(\w+)\s*/', $importance, $matches)) {
             if (strcasecmp($matches[1], 'high') === 0) {
                 return 'high';

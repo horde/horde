@@ -42,11 +42,11 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
      */
     public function match($data)
     {
-        if (!($ctype = $data->getValue('content-type', Horde_Mime_Headers::VALUE_BASE))) {
+        if (!($ctype = $data['Content-Type'])) {
             return false;
         }
 
-        @list($primary, $sub) = explode('/', $ctype, 2);
+        @list($primary, $sub) = explode('/', $ctype->value, 2);
         return (($primary == 'multipart') &&
             !in_array($sub, array('alternative', 'encrypt', 'related', 'signed')));
     }

@@ -74,7 +74,7 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
             'stream' => true
         ))->data);
 
-        if (($duration = $headers->getValue('content-duration')) !== null) {
+        if (($duration = $headers['Content-Duration']) !== null) {
             $text = array();
 
             if ($minutes = floor($duration / 60)) {

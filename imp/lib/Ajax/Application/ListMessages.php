@@ -467,7 +467,7 @@ class IMP_Ajax_Application_ListMessages
              * check for 'List-Post' information because that is the header
              * that gives the e-mail address to reply to, which is all we
              * care about. */
-            if ($ob['headers']->getValue('list-post')) {
+            if ($ob['headers']['List-Post']) {
                 $msg['listmsg'] = 1;
             }
 

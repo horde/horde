@@ -67,11 +67,12 @@ class IMP_Images
         }
 
         if (!$contents ||
-            !($from = $contents->getHeader()->getOb('from'))) {
+            !($tmp = $contents->getHeader()->getHeader('from')) ||
+            !($from = $tmp->getAddressList(true))) {
             return false;
         }
 
-        $res = $injector->getInstance('IMP_Contacts')->searchEmail($from[0]->bare_address, array(
+        $res = $injector->getInstance('IMP_Contacts')->searchEmail($from->first()->bare_address, array(
             'email_exact' => true
         ));
 

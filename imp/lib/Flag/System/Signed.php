@@ -42,7 +42,8 @@ class IMP_Flag_System_Signed extends IMP_Flag_System_Match_Header
      */
     public function match($data)
     {
-        return ($data->getValue('content-type', Horde_Mime_Headers::VALUE_BASE) == 'multipart/signed');
+        return (($ctype = $data['Content-Type']) &&
+                ($ctype->value == 'multipart/signed'));
     }
 
 }
