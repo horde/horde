@@ -202,7 +202,7 @@
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [mms] Allow extension to be built with system lz4 library (Remi Collet &lt;fedora@famillecollet.com&gt;).
-* add --with-liblz4 option to use system liblz4 (Remi)
+* [mms] Add --with-liblz4 option to use system liblz4 (Remi)
    </notes>
   </release>
   <release>
