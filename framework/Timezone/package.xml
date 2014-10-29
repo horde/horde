@@ -261,7 +261,7 @@
    <date>2014-10-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix format of UNTIL attribute when exporting to iCalendar (Joerg Pulz &lt;Joerg.Pulz@frm2.tum.de&gt;).
    </notes>
   </release>
   <release>
