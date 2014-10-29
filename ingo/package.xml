@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-05</date>
+ <date>2014-10-29</date>
  <version>
   <release>3.2.2</release>
   <api>3.2.0</api>
@@ -1506,7 +1506,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Disable forward rule by default.
