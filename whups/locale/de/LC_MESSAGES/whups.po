@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: 2013-10-14 14:33+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -230,7 +230,7 @@ msgstr "Aufsteigend"
 msgid "Assign"
 msgstr "Zuweisen"
 
-#: config/prefs.php:57 lib/Api.php:668 lib/Driver.php:270
+#: config/prefs.php:57 lib/Api.php:665 lib/Driver.php:270
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:866
 msgid "Assigned"
@@ -461,7 +461,7 @@ msgstr "Ticket erstellen - Schritt 3"
 msgid "Create Ticket - Step 4"
 msgstr "Ticket erstellen - Schritt 4"
 
-#: config/prefs.php:56 lib/Api.php:673 lib/Form/Renderer/Query.php:149
+#: config/prefs.php:56 lib/Api.php:670 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:864
 msgid "Created"
 msgstr "Erstellt"
@@ -647,7 +647,7 @@ msgstr "Herunterladen"
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
-#: lib/Api.php:677 lib/Form/Renderer/Query.php:169
+#: lib/Api.php:674 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:675 lib/Ticket.php:867
 #: lib/Whups.php:867
 msgid "Due"
@@ -822,7 +822,7 @@ msgstr "E-Mail-Adresse benachrichtigen"
 msgid "Email address to remove"
 msgstr "E-Mail-Adresse entfernen"
 
-#: lib/Api.php:324
+#: lib/Api.php:323
 msgid "Empty attachment"
 msgstr "Leerer Anhang"
 
@@ -939,15 +939,15 @@ msgstr "ODER einfügen"
 msgid "Invalid Queue"
 msgstr "Ungültige Warteschlange"
 
-#: lib/Api.php:319 lib/Whups.php:387
+#: lib/Api.php:318 lib/Whups.php:387
 msgid "Invalid Ticket Id"
 msgstr "Ungültige Ticket-ID"
 
-#: lib/Api.php:354
+#: lib/Api.php:353
 msgid "Invalid argument: Missing attribute name or value."
 msgstr "Ungültiges Argument: Attributname oder -wert fehlen."
 
-#: lib/Api.php:346
+#: lib/Api.php:345
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 "Ungültige Argumente: Eine Ticketnummer und neue Attribute müssen angegeben "
@@ -961,7 +961,7 @@ msgstr "Ungültige Warteschlange"
 msgid "Invalid search"
 msgstr "Ungültige Suche"
 
-#: lib/Api.php:239
+#: lib/Api.php:238
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr "Ungültige Ticketdaten eingegeben: %s"
@@ -1061,19 +1061,19 @@ msgstr "Meine Anfragen"
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
-#: lib/Api.php:640
+#: lib/Api.php:637
 msgid "My tickets by assignment date"
 msgstr "Meine Tickets nach Zuweisungsdatum"
 
-#: lib/Api.php:639
+#: lib/Api.php:636
 msgid "My tickets by creation date"
 msgstr "Meine Tickets nach Erstelldatum"
 
-#: lib/Api.php:641
+#: lib/Api.php:638
 msgid "My tickets by due date"
 msgstr "Meine Tickets nach Fälligkeitsdatum"
 
-#: lib/Api.php:642
+#: lib/Api.php:639
 msgid "My tickets by resolution date"
 msgstr "Meine Tickets nach Erledigungsdatum"
 
@@ -1516,7 +1516,7 @@ msgstr "Anfrager"
 msgid "Required Attribute?"
 msgstr "Notwendiges Attribute?"
 
-#: config/prefs.php:58 lib/Api.php:682 lib/Driver.php:271
+#: config/prefs.php:58 lib/Api.php:679 lib/Driver.php:271
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:868
 msgid "Resolved"
@@ -2186,7 +2186,7 @@ msgstr ""
 "keine Versionen zugeordnet. Solange keine Versionen erzeugt worden sind, "
 "können Sie keine Tickets anlegen."
 
-#: lib/Ticket.php:702 lib/Ticket.php:879
+#: lib/Api.php:397 lib/Ticket.php:702 lib/Ticket.php:879
 msgid "Ticket"
 msgstr "Ticket"
 
@@ -2208,7 +2208,7 @@ msgstr "Das Ticket %d wurde gelöscht."
 msgid "Ticket %d not found."
 msgstr "Ticket %d nicht gefunden."
 
-#: lib/Api.php:608
+#: lib/Api.php:605
 #, php-format
 msgid "Ticket %s - %s"
 msgstr "Ticket %s - %s"
@@ -2248,11 +2248,11 @@ msgstr "Ticket-URL: %s"
 msgid "Ticket Updated"
 msgstr "Ticket aktualisiert"
 
-#: lib/Api.php:627
+#: lib/Api.php:624
 msgid "Tickets"
 msgstr "Tickets"
 
-#: lib/Api.php:57
+#: lib/Api.php:56
 #, php-format
 msgid "Tickets from %s"
 msgstr "Tickets aus %s"
@@ -2429,7 +2429,7 @@ msgstr "Sie haben keine Berechtigung das Ticket %d anzuzeigen."
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "Sie haben nicht genügend Rechte, um dieses Ticket (%s) anzuzeigen."
 
-#: lib/Api.php:217
+#: lib/Api.php:216
 msgid "You do not have permission to update this ticket."
 msgstr "Sie haben nicht genügend Rechte, um dieses Ticket zu aktualisieren."
 
@@ -2568,7 +2568,7 @@ msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung beachtet)"
 msgid "contains the word"
 msgstr "enthält das Wort"
 
-#: lib/Api.php:614
+#: lib/Api.php:611
 msgid "estimated time"
 msgstr "geschätzte Zeit"
 

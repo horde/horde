@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:51+0100\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: 2013-01-29 11:53+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -45,7 +45,7 @@ msgstr "Eigenschaft hinzufügen"
 msgid "Administration"
 msgstr "Administration"
 
-#: config/prefs.php:39
+#: config/prefs.php:34
 msgid "Ascending"
 msgstr "Aufsteigend"
 
@@ -70,7 +70,7 @@ msgstr "Kategorie"
 msgid "Category Name"
 msgstr "Kategoriebezeichnung"
 
-#: config/prefs.php:19
+#: config/prefs.php:14
 msgid "Change your inventory sorting and display options."
 msgstr "Ändern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
 
@@ -115,11 +115,11 @@ msgstr "Eigenschaft konnte nicht geändert werden."
 msgid "Data Type"
 msgstr "Datentyp"
 
-#: config/prefs.php:31
+#: config/prefs.php:26
 msgid "Default sorting criteria:"
 msgstr "Sortierreihenfolge:"
 
-#: config/prefs.php:41
+#: config/prefs.php:36
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
@@ -145,7 +145,7 @@ msgstr "Eigenschaft löschen"
 msgid "Delete Property \"%s\""
 msgstr "Eigenschaft \"%s\" löschen"
 
-#: config/prefs.php:40
+#: config/prefs.php:35
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -153,7 +153,7 @@ msgstr "Absteigend"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php:18
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr "Anzeige-Einstellungen"
 
@@ -189,7 +189,7 @@ msgstr "Eigenschaft bearbeiten"
 msgid "For this value"
 msgstr "Nach diesem Wert"
 
-#: config/prefs.php:17
+#: config/prefs.php:12
 msgid "General Options"
 msgstr "Allgemeine Einstellungen"
 
@@ -197,7 +197,7 @@ msgstr "Allgemeine Einstellungen"
 msgid "Inventory List"
 msgstr "Inventarliste"
 
-#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:106
+#: config/prefs.php:24 lib/Form/Search.php:32 lib/View/List.php:106
 msgid "Item Name"
 msgstr "Artikelname"
 
@@ -210,7 +210,7 @@ msgstr "Bemerkungen"
 msgid "Item number %d was successfully deleted"
 msgstr "Der Artikel \"%d\" wurde erfolgreich gelöscht."
 
-#: config/prefs.php:50
+#: config/prefs.php:45
 msgid "List"
 msgstr "Liste"
 
@@ -276,7 +276,7 @@ msgstr ""
 "Es sind noch keine Eigenschaften angelegt. Fügen Sie welche über das "
 "Formular unten hinzu."
 
-#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:120
+#: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:120
 msgid "Note"
 msgstr "Notiz"
 
@@ -324,7 +324,7 @@ msgstr "Artikel speichern"
 msgid "Save Property"
 msgstr "Eigenschaft Speichern"
 
-#: config/prefs.php:51 lib/Form/Search.php:26
+#: config/prefs.php:46 lib/Form/Search.php:26
 msgid "Search"
 msgstr "Suche"
 
@@ -344,7 +344,7 @@ msgstr "Inventar durchsuchen"
 msgid "Search these properties"
 msgstr "Diese Eigenschaften durchsuchen"
 
-#: config/prefs.php:64
+#: config/prefs.php:59
 msgid ""
 "Select properties that you would like to see in the list view. All other "
 "properties are only shown on individual item screens:"
@@ -353,7 +353,7 @@ msgstr ""
 "Alle anderen Eigenschaften werden nur in der Detailansicht der Artikel "
 "angezeigt."
 
-#: config/prefs.php:54
+#: config/prefs.php:49
 msgid "Select the view to display after login:"
 msgstr ""
 "Wählen Sie die Standardansicht aus, die nach dem Anmelden angezeigt werden "
@@ -384,11 +384,11 @@ msgstr "Sortieren nach Bemerkung"
 msgid "Sort by stock ID"
 msgstr "Sortieren nach Artikelnummer"
 
-#: config/prefs.php:52
+#: config/prefs.php:47
 msgid "Stock"
 msgstr "Bestand"
 
-#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
+#: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
 #: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
 #: list.php:31 search.php:20 stock.php:23
 msgid "Stock ID"

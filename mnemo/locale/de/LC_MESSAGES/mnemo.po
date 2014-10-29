@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-07-01 14:24+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: 2014-06-04 11:46+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -110,7 +110,7 @@ msgstr "Notizblock erstellen"
 msgid "Create a new Notepad"
 msgstr "Neuen Notizblock erstellen"
 
-#: templates/view/view.html.php:28
+#: templates/view/view.html.php:30
 msgid "Created"
 msgstr "Erstellt"
 
@@ -118,7 +118,7 @@ msgstr "Erstellt"
 msgid "Date"
 msgstr "Datum"
 
-#: templates/memo/memo.html.php:13 templates/view/view.html.php:56
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
 msgid "Decrypt"
 msgstr "Entschlüsseln"
 
@@ -168,7 +168,7 @@ msgstr "Anzeige-Einstellungen"
 msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
-#: list.php:120
+#: list.php:122
 #, php-format
 msgid "Edit \"%s\""
 msgstr "\"%s\" bearbeiten"
@@ -187,7 +187,7 @@ msgstr "Notiz bearbeiten"
 msgid "Edit: %s"
 msgstr "Bearbeiten: %s"
 
-#: lib/Block/Summary.php:85 list.php:139
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
 msgstr "Leere Notiz"
 
@@ -233,7 +233,7 @@ msgstr "Notizen Import/Export"
 msgid "In"
 msgstr "In"
 
-#: templates/view/view.html.php:38
+#: templates/view/view.html.php:40
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
@@ -374,7 +374,7 @@ msgstr "Diese Notiz wirklich löschen?"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/view/view.html.php:3
+#: templates/view/view.html.php:4
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
@@ -450,7 +450,7 @@ msgstr "System"
 msgid "T_ags:"
 msgstr "T_ags:"
 
-#: data.php:43 templates/view/view.html.php:21
+#: data.php:43 templates/view/view.html.php:23
 msgid "Tags"
 msgstr "Tags"
 
@@ -622,7 +622,7 @@ msgstr "Notizen _anzeigen"
 msgid "_New Note"
 msgstr "_Neue Notiz"
 
-#: templates/memo/memo.html.php:11 templates/view/view.html.php:54
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
 msgid "_Password"
 msgstr "_Passwort"
 

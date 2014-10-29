@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-07-08 17:44+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: 2014-06-04 11:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -99,7 +99,7 @@ msgstr "Abbrechen"
 msgid "Clicks"
 msgstr "Klicks"
 
-#: lib/Api.php:130
+#: lib/Api.php:131
 msgid "Close"
 msgstr "Schließen"
 
@@ -304,7 +304,7 @@ msgstr "Beim Löschen des Lesezeichens ist ein Fehler aufgetreten: %s"
 msgid "There was an error adding the bookmark: %s"
 msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
 
-#: app/controllers/SaveBookmark.php:26
+#: app/controllers/SaveBookmark.php:25
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
