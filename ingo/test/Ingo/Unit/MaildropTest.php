@@ -51,9 +51,8 @@ class Ingo_Unit_MaildropTest extends Ingo_Unit_TestBase
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
-
         $this->storage->store($forward);
-
+        $this->_enableRule(Ingo_Storage::ACTION_FORWARD);
         $this->_assertScript('if( \
 /^From:\s*.*/:h \
 )
@@ -68,9 +67,8 @@ to "${DEFAULT}"
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
-
         $this->storage->store($forward);
-
+        $this->_enableRule(Ingo_Storage::ACTION_FORWARD);
         $this->_assertScript('if( \
 /^From:\s*.*/:h \
 )
@@ -85,9 +83,7 @@ exit
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder('Junk');
-
         $this->storage->store($bl);
-
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
@@ -101,9 +97,7 @@ to Junk
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
-
         $this->storage->store($bl);
-
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
@@ -117,9 +111,7 @@ to ++DELETE++
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(null);
-
         $this->storage->store($bl);
-
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
@@ -132,9 +124,7 @@ exit
     {
         $wl = new Ingo_Storage_Whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
-
         $this->storage->store($wl);
-
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
 )
@@ -142,5 +132,4 @@ exception {
 to "${DEFAULT}"
 }');
     }
-
 }

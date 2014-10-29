@@ -30,7 +30,6 @@ class Ingo_Unit_ProcmailTest extends Ingo_Unit_TestBase
     public function setUp()
     {
         parent::setUp();
-
         $this->script = new Ingo_Script_Procmail(array(
             'path_style' => 'mbox',
             'skip' => array(),
@@ -51,9 +50,8 @@ class Ingo_Unit_ProcmailTest extends Ingo_Unit_TestBase
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(true);
-
         $this->storage->store($forward);
-
+        $this->_enableRule(Ingo_Storage::ACTION_FORWARD);
         $this->_assertScript(':0 c
 {
 :0
@@ -84,9 +82,8 @@ $DEFAULT
         $forward = new Ingo_Storage_Forward();
         $forward->setForwardAddresses('joefabetes@example.com');
         $forward->setForwardKeep(false);
-
         $this->storage->store($forward);
-
+        $this->_enableRule(Ingo_Storage::ACTION_FORWARD);
         $this->_assertScript(':0
 {
 :0
@@ -117,9 +114,7 @@ $DEFAULT
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder('Junk');
-
         $this->storage->store($bl);
-
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
 Junk');
@@ -130,7 +125,6 @@ Junk');
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
-
         $this->storage->store($bl);
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
@@ -142,7 +136,6 @@ Junk');
         $bl = new Ingo_Storage_Blacklist(3);
         $bl->setBlacklist(array('spammer@example.com'));
         $bl->setBlacklistFolder(null);
-
         $this->storage->store($bl);
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
@@ -153,7 +146,6 @@ Junk');
     {
         $wl = new Ingo_Storage_Whitelist(3);
         $wl->setWhitelist(array('spammer@example.com'));
-
         $this->storage->store($wl);
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
@@ -166,7 +158,6 @@ $DEFAULT');
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
-
         $this->storage->store($vacation);
         $this->_assertScript('');
     }
@@ -177,10 +168,8 @@ $DEFAULT');
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
-
         $this->storage->store($vacation);
         $this->_enableRule(Ingo_Storage::ACTION_VACATION);
-
         $this->_assertScript(':0
 {
 :0
@@ -210,5 +199,4 @@ echo -e "Because I don\'t like working!" \
 }
 }');
     }
-
 }
