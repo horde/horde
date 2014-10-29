@@ -530,12 +530,19 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (!empty($collection['importfailures'])) {
                         foreach ($collection['importfailures'] as $id => $reason) {
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+                            $this->_encoder->content($collection['class']);
+                            $this->_encoder->endTag();
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
                             $this->_encoder->content($id);
                             $this->_encoder->endTag();
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                             $this->_encoder->content($reason);
                             $this->_encoder->endTag();
+
                             $this->_encoder->endTag();
                             // If we have a conflict, ensure we send the new server
                             // data in the response, if possible. Some android
@@ -544,7 +551,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 $ensure_sent[] = $id;
                             }
                         }
-
                     }
 
                     if (!empty($collection['fetchids'])) {
