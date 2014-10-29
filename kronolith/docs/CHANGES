@@ -1,6 +1,6 @@
-----------
-v4.2.3-git
-----------
+------
+v4.2.3
+------
 
 [jan] Export nicer display names for users and resources via WebDAV.
 [jan] Export custom owner and read-only properties via WebDAV.
