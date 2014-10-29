@@ -24,7 +24,7 @@
  </lead>
  <date>2014-10-29</date>
  <version>
-  <release>4.2.2</release>
+  <release>4.2.3</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,17 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Export nicer display names for users and resources via WebDAV.
-* [jan] Export custom owner and read-only properties via WebDAV.
-* [jan] Fix search attribute of SQL shares on Oracle.
-* [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
-* [jan] Pass current start date of recurring tasks to dynamic interface.
-* [jan] Fix setting task list name for external tasks.
-* [jan] Fix link to create sub-task from a task view.
-* [jan] Fix listing of recurring tasks with start dates.
-* [mjr] Add missing categories to EAS tasks.
-* [jan] Fix sidebar display of system task lists in basic view.
-* [jan] Fix retrieving individual tasks via WebDAV.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1610,6 +1600,19 @@
 * [mjr] Add missing categories to EAS tasks.
 * [jan] Fix sidebar display of system task lists in basic view.
 * [jan] Fix retrieving individual tasks via WebDAV.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.3</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
