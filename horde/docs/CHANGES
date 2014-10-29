@@ -1,6 +1,6 @@
-----------
-v5.2.2-git
-----------
+------
+v5.2.2
+------
 
 [mjr] Honor date_format_mini in Moon block (Bug #13628).
 [jan] Fix spacing in top menu (Bug #13617).

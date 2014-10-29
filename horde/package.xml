@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-08-04</date>
+ <date>2014-10-29</date>
  <version>
   <release>5.2.2</release>
   <api>5.2.0</api>
@@ -3969,7 +3969,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Honor date_format_mini in Moon block (Bug #13628).
