@@ -1812,7 +1812,7 @@ implements Serializable, SplObserver
 
             $uids->add($this->_getUidByMessageId(
                 $mailbox,
-                Horde_Mime_Headers::parseHeaders($val['data'])->getValue('message-id')
+                Horde_Mime_Headers::parseHeaders($val['data'])->getHeader('Message-ID')
             ));
         }
 

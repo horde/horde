@@ -914,12 +914,12 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                             $tmp2 = $tmp->toArray(array('nowrap' => true));
                             foreach (array_keys($tmp2) as $hdr) {
                                 if (!in_array($hdr, $val['headers'])) {
-                                    $tmp->removeHeader($hdr);
+                                    unset($tmp[$hdr]);
                                 }
                             }
                         } else {
                             foreach ($val['headers'] as $hdr) {
-                                $tmp->removeHeader($hdr);
+                                unset($tmp[$hdr]);
                             }
                         }
 
@@ -942,16 +942,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
                     $results->get($lookup[$id])->setEnvelope(array(
-                        'date' => $tmp->getValue('date'),
-                        'subject' => $tmp->getValue('subject'),
-                        'from' => $tmp->getOb('from'),
-                        'sender' => $tmp->getOb('sender'),
-                        'reply_to' => $tmp->getOb('reply-to'),
-                        'to' => $tmp->getOb('to'),
-                        'cc' => $tmp->getOb('cc'),
-                        'bcc' => $tmp->getOb('bcc'),
-                        'in_reply_to' => $tmp->getValue('in-reply-to'),
-                        'message_id' => $tmp->getValue('message-id')
+                        'date' => $tmp['Date'],
+                        'subject' => $tmp['Subject'],
+                        'from' => ($h = $tmp['From']) ? $h->getAddressList(true) : null,
+                        'sender' => ($h = $tmp['Sender']) ? $h->getAddressList(true) : null,
+                        'reply_to' => ($h = $tmp['Reply-to']) ? $h->getAddressList(true) : null,
+                        'to' => ($h = $tmp['To']) ? $h->getAddressList(true) : null,
+                        'cc' => ($h = $tmp['Cc']) ? $h->getAddressList(true) : null,
+                        'bcc' => ($h = $tmp['Bcc']) ? $h->getAddressList(true) : null,
+                        'in_reply_to' => $tmp['In-Reply-To'],
+                        'message_id' => $tmp['Message-ID']
                     ));
                 }
                 break;
@@ -959,7 +959,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             case Horde_Imap_Client::FETCH_IMAPDATE:
                 foreach ($seq_ids as $id) {
                     $tmp = $this->_pop3Cache('hdrob', $id);
-                    $results->get($lookup[$id])->setImapDate($tmp->getValue('date'));
+                    $results->get($lookup[$id])->setImapDate($tmp['Date']);
                 }
                 break;
 

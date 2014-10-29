@@ -410,7 +410,7 @@
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.3.0</min>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>

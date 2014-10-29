@@ -3246,7 +3246,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (($tmp = $data->next()) === false) {
                 return $ob;
             } elseif ($tmp === true) {
-                foreach ($this->_parseStructureParams($data, 'content-type') as $key => $val) {
+                foreach ($this->_parseStructureParams($data) as $key => $val) {
                     $ob->setContentTypeParameter($key, $val);
                 }
             }
@@ -3254,7 +3254,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $ob->setType($entry . '/' . $data->next());
 
             if ($data->next() === true) {
-                foreach ($this->_parseStructureParams($data, 'content-type') as $key => $val) {
+                foreach ($this->_parseStructureParams($data) as $key => $val) {
                     $ob->setContentTypeParameter($key, $val);
                 }
             }
@@ -3321,7 +3321,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $ob->setDisposition($data->next());
 
             if ($data->next() === true) {
-                foreach ($this->_parseStructureParams($data, 'content-disposition') as $key => $val) {
+                foreach ($this->_parseStructureParams($data) as $key => $val) {
                     $ob->setDispositionParameter($key, $val);
                 }
             }
@@ -3345,13 +3345,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Helper function to parse a parameters-like tokenized array.
      *
-     * @param mixed $data   Message data. Either a Horde_Imap_Client_Tokenize
-     *                      object or null.
-     * @param string $type  The header name.
+     * @param mixed $data  Message data. Either a Horde_Imap_Client_Tokenize
+     *                     object or null.
      *
      * @return array  The parameter array.
      */
-    protected function _parseStructureParams($data, $type)
+    protected function _parseStructureParams($data)
     {
         $params = array();
 
@@ -3363,9 +3362,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $params[strtolower($name)] = $data->next();
         }
 
-        $ret = Horde_Mime::decodeParam($type, $params);
+        $cp = new Horde_Mime_Headers_ContentParam('Unused', $params);
 
-        return $ret['params'];
+        return $cp->params;
     }
 
     /**
