@@ -74,6 +74,99 @@ Notes Changes
 [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
 [mjr] Fix replacing tags in existing notes (Bug #13417).
 
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix adding new tasklists from EAS client (Bug #13642).
+[mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
+[mjr] Some fixes for POOMCONTACT date fields on Samsung Android clients.
+[mjr] Fix issue with returning proper RI cache data in certain cases.
+[mjr] Added ability to sniff out Nine and Samsung Android clients.
+[mjr] Improvements to the workaround for broken POOMCONTACTS date field
+      behavior.
+[mjr] Fix handling of EAS categories containing spaces in the name.
+
+Alarm
+[jan] Update Czech translation (Michael Grafnetter
+      <michael.grafnetter@outlook.com>).
+
+Core
+[mjr] Fix fatal error viewing certain MIME parts due to incorrect method name
+      in the MimeViewer factory.
+[mjr] Add support for moving calendar items on EAS clients.
+[mjr] Fix generating reply text from EAS clients that only reply in HTML (Bug
+      #13615).
+[mjr] Remove Yahoo related code from HordeMap API.
+[mjr] Add Reply-To header to email sent via ActiveSync if available in identity
+      (Ticket #13592).
+[mjr] Prevent sending contact lists as results in GAL searches.
+[mjr] Fix handling of EAS categories containing spaces in the name.
+[jan] Catch exceptions if not being able to find an LDAP user DN (Bug #13571).
+[mms] Fix using master SMTP credentials when a CLI script uses the 'user_admin'
+      registry flag.
+
+CssMinify
+[mms] Correctly handle full URLs in background-* properties.
+
+Dav
+[jan] Support returning of custom WebDAV properties.
+[jan] Return ETags with WebDAV requests.
+[jan] Support for WebDAV DELETE requests.
+
+Db
+[jan] Fix migrating NULL values to BLOB on Oracle.
+[jan] Catch exceptions from PDO result set methods.
+
+History
+[jan] Fix catching exceptions from Horde_Db.
+
+Imap_Client
+[mms] Add support for UTF8 extension for POP3 servers (RFC 6856).
+[mms] Add support for LANG extension for POP3 servers (RFC 6856).
+[mms] Fix IMAP search results for recent and total messages when it is the only
+      query and the mailbox is not selected.
+[mms] Fix client-side message sorting when there are multiple sort criteria and
+      at least one tie in the first sorting criteria.
+[mms] Better error handling when attempting to authenticate via IMAP LOGIN
+      command with non-ASCII credentials (Bug #13554).
+[mms] Fix sending IMAP APPEND data when the UTF-8 capability is enabled.
+[mms] Fix parsing IMAP mailbox list requests when UTF-8 mode is enabled.
+[mms] Ensure client sorting tests work reproducibly across systems with varying
+      default locales.
+
+Mail_Autoconfig
+[mms] Support IDN hostnames in e-mail address queries.
+
+Pack
+[mms] Re-enable igbinary driver (requires igbinary >= 1.2.0).
+
+Secret
+[jan] Revert: Only store keys in cookie if cookies are in use
+      (thomas.jarosch@intra2net.com, Bug #13284).
+
+Service_Weather
+[mjr] Add missing percent sign for humidity when using WWO.
+[mjr] Fix detected errors returned from WWO.
+
+Stringprep
+[mms] Initial release.
+
+Test
+[jan] Update to PHPUnit 4.3.4 and dependencies.
+[jan] Raise priority of Horde_Test autoloader.
+[jan] Don't report hooks loading as successful.
+
+Timezone
+[jan] Fix format of UNTIL attribute when exporting to iCalendar (Joerg Pulz
+      <Joerg.Pulz@frm2.tum.de>).
+
+Extensions
+----------
+horde_lz4
+[mms] Allow extension to be built with system lz4 library (Remi Collet
+      <fedora@famillecollet.com>).
+[mms] Add --with-liblz4 option to use system liblz4 (Remi)
+
 
 ------
 v5.2.2
