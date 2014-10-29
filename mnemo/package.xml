@@ -18,7 +18,7 @@
  </lead>
  <date>2014-10-29</date>
  <version>
-  <release>4.2.2</release>
+  <release>4.2.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix adding new notepads via the API.
-* [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
-* [mjr] Fix replacing tags in existing notes (Bug #13417).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1238,6 +1236,19 @@
 * [mjr] Fix adding new notepads via the API.
 * [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
 * [mjr] Fix replacing tags in existing notes (Bug #13417).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
