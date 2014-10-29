@@ -152,7 +152,7 @@ class Horde_Itip_Response
         $from = $this->_resource->getFrom();
         $reply_to = $this->_resource->getReplyTo();
         $headers = new Horde_Mime_Headers();
-        $headers->addHeader('Date', date('r'));
+        $headers->addHeaderOb(Horde_Mime_Headers_Date::create());
         $headers->addHeader('From', $from);
         $headers->addHeader('To', $this->_request->getOrganizer());
         if (!empty($reply_to) && $reply_to != $from) {

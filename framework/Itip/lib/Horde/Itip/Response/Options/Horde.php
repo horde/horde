@@ -66,8 +66,12 @@ extends Horde_Itip_Response_Options_Base
      */
     public function prepareResponseMimeHeaders(Horde_Mime_Headers $headers)
     {
-        $headers->addReceivedHeader($this->_received_options);
-        $headers->addMessageIdHeader();
+        $headers->addHeaderOb(
+            Horde_Mime_Headers_Received::createHordeHop(
+                $this->_received_options
+            )
+        );
+        $headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
     }
 
     /**
@@ -87,7 +91,6 @@ extends Horde_Itip_Response_Options_Base
      */
     public function getProductId()
     {
-        $headers = new Horde_Mime_Headers();
-        return '-//The Horde Project//' . $headers->getUserAgent() . '//EN';
+        return '-//The Horde Project//' . strval(Horde_Mime_Headers_UserAgent::create()) . '//EN';
     }
 }
