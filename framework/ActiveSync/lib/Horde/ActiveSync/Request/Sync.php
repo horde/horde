@@ -476,6 +476,40 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
             $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
+
+                // Send server changes to PIM
+                if ($statusCode == self::STATUS_SUCCESS &&
+                    empty($forceChanges) &&
+                    (!empty($collection['getchanges']) ||
+                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
+
+                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
+                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
+
+                        $this->_logger->info(sprintf(
+                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
+                            $this->_procid, $changecount, $cnt_global));
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
+                    }
+
+                    if (!empty($changecount)) {
+                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
+                        $cnt_collection = 0;
+                        while ($cnt_collection < $collection['windowsize'] &&
+                               $cnt_global < $this->_collections->getDefaultWindowSize() &&
+                               $progress = $exporter->sendNextChange()) {
+
+                            if ($progress === true) {
+                                ++$cnt_collection;
+                                ++$cnt_global;
+                            }
+                        }
+
+                        $this->_encoder->endTag();
+                    }
+                }
+
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
                     || !empty($collection['missing']) || !empty($collection['importfailures'])) {
 
@@ -588,39 +622,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     $this->_encoder->endTag();
-                }
-
-                // Send server changes to PIM
-                if ($statusCode == self::STATUS_SUCCESS &&
-                    empty($forceChanges) &&
-                    (!empty($collection['getchanges']) ||
-                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
-
-                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
-                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
-
-                        $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
-                            $this->_procid, $changecount, $cnt_global));
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
-                    }
-
-                    if (!empty($changecount)) {
-                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                        $cnt_collection = 0;
-                        while ($cnt_collection < $collection['windowsize'] &&
-                               $cnt_global < $this->_collections->getDefaultWindowSize() &&
-                               $progress = $exporter->sendNextChange()) {
-
-                            if ($progress === true) {
-                                ++$cnt_collection;
-                                ++$cnt_global;
-                            }
-                        }
-
-                        $this->_encoder->endTag();
-                    }
                 }
 
                 // Save the sync state for the next time
