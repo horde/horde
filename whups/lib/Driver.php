@@ -595,7 +595,7 @@ abstract class Whups_Driver
 
             $mail->setBody($body);
 
-            $mail->addHeader('Message-ID', Horde_Mime::generateMessageId());
+            $mail->addHeaderOb(Horde_Mime_Headers_MessageId::create());
             if ($opts['ticket']) {
                 $message_id = '<whups-' . $opts['ticket']->getId() . '-'
                     . md5($user) . '@' . $conf['server']['name'] . '>';
