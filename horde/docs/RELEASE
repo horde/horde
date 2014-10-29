@@ -45,7 +45,8 @@ The steps to use when cutting a new release
 
 7. Update the web site (``horde-web`` Git repository):
 
-   - Edit ``config/versions.php`` to update the version information.
+   - Push changes to ``config/versions.sqlite`` to update the version
+     information.
 
 8. Add new version to bugs.horde.org if not added automatically by the release
    script.
