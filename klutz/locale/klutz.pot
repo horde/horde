@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Klutz H5 (2.0-git)\n"
+"Project-Id-Version: Klutz\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: config/prefs.php:9
+#: config/prefs.php:14
 msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
@@ -72,7 +72,7 @@ msgstr ""
 msgid "Could not find any comics to display."
 msgstr ""
 
-#: config/prefs.php:51
+#: config/prefs.php:56
 msgid "Default gallery to use when saving comics:"
 msgstr ""
 
@@ -88,7 +88,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: config/prefs.php:8
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Maintenance Functions"
 msgstr ""
 
-#: config/prefs.php:7
+#: config/prefs.php:12
 msgid "Other Options"
 msgstr ""
 
@@ -182,11 +182,11 @@ msgstr ""
 msgid "Select the gallery to save the comic to."
 msgstr ""
 
-#: config/prefs.php:44
+#: config/prefs.php:49
 msgid "Show all of your selected comics on the summary page?"
 msgstr ""
 
-#: config/prefs.php:36
+#: config/prefs.php:41
 msgid "Show comics you haven't selected on the browse page?"
 msgstr ""
 

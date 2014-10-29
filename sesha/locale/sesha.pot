@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Sesha H5 (1.0.0-git)\n"
+"Project-Id-Version: Sesha\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:51+0100\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: config/prefs.php:39
+#: config/prefs.php:34
 msgid "Ascending"
 msgstr ""
 
@@ -70,7 +70,7 @@ msgstr ""
 msgid "Category Name"
 msgstr ""
 
-#: config/prefs.php:19
+#: config/prefs.php:14
 msgid "Change your inventory sorting and display options."
 msgstr ""
 
@@ -115,11 +115,11 @@ msgstr ""
 msgid "Data Type"
 msgstr ""
 
-#: config/prefs.php:31
+#: config/prefs.php:26
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php:41
+#: config/prefs.php:36
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -145,7 +145,7 @@ msgstr ""
 msgid "Delete Property \"%s\""
 msgstr ""
 
-#: config/prefs.php:40
+#: config/prefs.php:35
 msgid "Descending"
 msgstr ""
 
@@ -153,7 +153,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: config/prefs.php:18
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "For this value"
 msgstr ""
 
-#: config/prefs.php:17
+#: config/prefs.php:12
 msgid "General Options"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Inventory List"
 msgstr ""
 
-#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:106
+#: config/prefs.php:24 lib/Form/Search.php:32 lib/View/List.php:106
 msgid "Item Name"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Item number %d was successfully deleted"
 msgstr ""
 
-#: config/prefs.php:50
+#: config/prefs.php:45
 msgid "List"
 msgstr ""
 
@@ -268,7 +268,7 @@ msgstr ""
 msgid "No properties are currently configured. Use the form below to add one."
 msgstr ""
 
-#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:120
+#: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:120
 msgid "Note"
 msgstr ""
 
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Save Property"
 msgstr ""
 
-#: config/prefs.php:51 lib/Form/Search.php:26
+#: config/prefs.php:46 lib/Form/Search.php:26
 msgid "Search"
 msgstr ""
 
@@ -336,13 +336,13 @@ msgstr ""
 msgid "Search these properties"
 msgstr ""
 
-#: config/prefs.php:64
+#: config/prefs.php:59
 msgid ""
 "Select properties that you would like to see in the list view. All other "
 "properties are only shown on individual item screens:"
 msgstr ""
 
-#: config/prefs.php:54
+#: config/prefs.php:49
 msgid "Select the view to display after login:"
 msgstr ""
 
@@ -371,11 +371,11 @@ msgstr ""
 msgid "Sort by stock ID"
 msgstr ""
 
-#: config/prefs.php:52
+#: config/prefs.php:47
 msgid "Stock"
 msgstr ""
 
-#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
+#: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
 #: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
 #: list.php:31 search.php:20 stock.php:23
 msgid "Stock ID"

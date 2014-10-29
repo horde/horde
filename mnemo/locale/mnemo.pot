@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-07-01 14:24+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -107,7 +107,7 @@ msgstr ""
 msgid "Create a new Notepad"
 msgstr ""
 
-#: templates/view/view.html.php:28
+#: templates/view/view.html.php:30
 msgid "Created"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: templates/memo/memo.html.php:13 templates/view/view.html.php:56
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
 msgid "Decrypt"
 msgstr ""
 
@@ -165,7 +165,7 @@ msgstr ""
 msgid "Do you want to confirm deleting entries?"
 msgstr ""
 
-#: list.php:120
+#: list.php:122
 #, php-format
 msgid "Edit \"%s\""
 msgstr ""
@@ -184,7 +184,7 @@ msgstr ""
 msgid "Edit: %s"
 msgstr ""
 
-#: lib/Block/Summary.php:85 list.php:139
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 msgid "In"
 msgstr ""
 
-#: templates/view/view.html.php:38
+#: templates/view/view.html.php:40
 msgid "Last Modified"
 msgstr ""
 
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: templates/view/view.html.php:3
+#: templates/view/view.html.php:4
 msgid "Save as PDF"
 msgstr ""
 
@@ -437,7 +437,7 @@ msgstr ""
 msgid "T_ags:"
 msgstr ""
 
-#: data.php:43 templates/view/view.html.php:21
+#: data.php:43 templates/view/view.html.php:23
 msgid "Tags"
 msgstr ""
 
@@ -602,7 +602,7 @@ msgstr ""
 msgid "_New Note"
 msgstr ""
 
-#: templates/memo/memo.html.php:11 templates/view/view.html.php:54
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
 msgid "_Password"
 msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Assign"
 msgstr ""
 
-#: config/prefs.php:57 lib/Api.php:668 lib/Driver.php:270
+#: config/prefs.php:57 lib/Api.php:665 lib/Driver.php:270
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:866
 msgid "Assigned"
@@ -454,7 +454,7 @@ msgstr ""
 msgid "Create Ticket - Step 4"
 msgstr ""
 
-#: config/prefs.php:56 lib/Api.php:673 lib/Form/Renderer/Query.php:149
+#: config/prefs.php:56 lib/Api.php:670 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:864
 msgid "Created"
 msgstr ""
@@ -638,7 +638,7 @@ msgstr ""
 msgid "Download these results as: "
 msgstr ""
 
-#: lib/Api.php:677 lib/Form/Renderer/Query.php:169
+#: lib/Api.php:674 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:675 lib/Ticket.php:867
 #: lib/Whups.php:867
 msgid "Due"
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Email address to remove"
 msgstr ""
 
-#: lib/Api.php:324
+#: lib/Api.php:323
 msgid "Empty attachment"
 msgstr ""
 
@@ -927,15 +927,15 @@ msgstr ""
 msgid "Invalid Queue"
 msgstr ""
 
-#: lib/Api.php:319 lib/Whups.php:387
+#: lib/Api.php:318 lib/Whups.php:387
 msgid "Invalid Ticket Id"
 msgstr ""
 
-#: lib/Api.php:354
+#: lib/Api.php:353
 msgid "Invalid argument: Missing attribute name or value."
 msgstr ""
 
-#: lib/Api.php:346
+#: lib/Api.php:345
 msgid "Invalid arguments: Must supply a ticket number and new attributes."
 msgstr ""
 
@@ -947,7 +947,7 @@ msgstr ""
 msgid "Invalid search"
 msgstr ""
 
-#: lib/Api.php:239
+#: lib/Api.php:238
 #, php-format
 msgid "Invalid ticket data supplied: %s"
 msgstr ""
@@ -1046,19 +1046,19 @@ msgstr ""
 msgid "My Tickets"
 msgstr ""
 
-#: lib/Api.php:640
+#: lib/Api.php:637
 msgid "My tickets by assignment date"
 msgstr ""
 
-#: lib/Api.php:639
+#: lib/Api.php:636
 msgid "My tickets by creation date"
 msgstr ""
 
-#: lib/Api.php:641
+#: lib/Api.php:638
 msgid "My tickets by due date"
 msgstr ""
 
-#: lib/Api.php:642
+#: lib/Api.php:639
 msgid "My tickets by resolution date"
 msgstr ""
 
@@ -1479,7 +1479,7 @@ msgstr ""
 msgid "Required Attribute?"
 msgstr ""
 
-#: config/prefs.php:58 lib/Api.php:682 lib/Driver.php:271
+#: config/prefs.php:58 lib/Api.php:679 lib/Driver.php:271
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:868
 msgid "Resolved"
@@ -2126,7 +2126,7 @@ msgid ""
 "be able to create tickets."
 msgstr ""
 
-#: lib/Ticket.php:702 lib/Ticket.php:879
+#: lib/Api.php:397 lib/Ticket.php:702 lib/Ticket.php:879
 msgid "Ticket"
 msgstr ""
 
@@ -2148,7 +2148,7 @@ msgstr ""
 msgid "Ticket %d not found."
 msgstr ""
 
-#: lib/Api.php:608
+#: lib/Api.php:605
 #, php-format
 msgid "Ticket %s - %s"
 msgstr ""
@@ -2188,11 +2188,11 @@ msgstr ""
 msgid "Ticket Updated"
 msgstr ""
 
-#: lib/Api.php:627
+#: lib/Api.php:624
 msgid "Tickets"
 msgstr ""
 
-#: lib/Api.php:57
+#: lib/Api.php:56
 #, php-format
 msgid "Tickets from %s"
 msgstr ""
@@ -2369,7 +2369,7 @@ msgstr ""
 msgid "You do not have permission to access this ticket (%s)."
 msgstr ""
 
-#: lib/Api.php:217
+#: lib/Api.php:216
 msgid "You do not have permission to update this ticket."
 msgstr ""
 
@@ -2505,7 +2505,7 @@ msgstr ""
 msgid "contains the word"
 msgstr ""
 
-#: lib/Api.php:614
+#: lib/Api.php:611
 msgid "estimated time"
 msgstr ""
 

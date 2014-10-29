@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,7 +130,7 @@ msgstr ""
 msgid "A Lightbox Inspired Style (White Background)"
 msgstr ""
 
-#: lib/Api.php:343
+#: lib/Api.php:315
 msgid "A gallery to add this photo to is required."
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Access denied adding a sub gallery to this gallery."
 msgstr ""
 
-#: lib/Api.php:201 lib/Api.php:353 xppublish.php:178
+#: lib/Api.php:173 lib/Api.php:325 xppublish.php:178
 msgid "Access denied adding photos to this gallery."
 msgstr ""
 
@@ -154,23 +154,23 @@ msgstr ""
 msgid "Access denied copying photos to this gallery."
 msgstr ""
 
-#: lib/Api.php:460
+#: lib/Api.php:432
 msgid "Access denied creating new galleries."
 msgstr ""
 
-#: lib/Api.php:420 lib/Api.php:506
+#: lib/Api.php:392 lib/Api.php:478
 msgid "Access denied deleting galleries."
 msgstr ""
 
-#: lib/ActionHandler.php:122 lib/Api.php:431
+#: lib/ActionHandler.php:122 lib/Api.php:403
 msgid "Access denied deleting photos from this gallery."
 msgstr ""
 
-#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:518
+#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:490
 msgid "Access denied deleting this gallery."
 msgstr ""
 
-#: lib/Api.php:666
+#: lib/Api.php:638
 msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 msgid "File %s"
 msgstr ""
 
-#: lib/Api.php:102 lib/Api.php:169
+#: lib/Api.php:89 lib/Api.php:141
 msgid "File not found."
 msgstr ""
 
@@ -1055,7 +1055,7 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: lib/Api.php:659 lib/View/Gallery.php:78 lib/View/Image.php:141
+#: lib/Api.php:631 lib/View/Gallery.php:78 lib/View/Image.php:141
 msgid "Locked galleries are not viewable via the api."
 msgstr ""
 
@@ -1395,7 +1395,7 @@ msgstr ""
 msgid "Photos by %s"
 msgstr ""
 
-#: lib/Api.php:110
+#: lib/Api.php:97
 #, php-format
 msgid "Photos from %s"
 msgstr ""
@@ -1932,7 +1932,7 @@ msgstr ""
 msgid "The file \"%s\" doesn't exist."
 msgstr ""
 
-#: lib/ActionHandler.php:374 lib/Api.php:340 lib/View/Upload.php:219
+#: lib/ActionHandler.php:374 lib/Api.php:312 lib/View/Upload.php:219
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 
@@ -2357,7 +2357,7 @@ msgstr ""
 msgid "_New Gallery"
 msgstr ""
 
-#: lib/Api.php:1026
+#: lib/Api.php:998
 msgid "from"
 msgstr ""
 
