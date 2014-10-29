@@ -12,7 +12,8 @@
  */
 
 /**
- * Handle MIME content parameters (RFC 2045; 2183; 2231).
+ * This class represents a header element that contains MIME content
+ * parameters (RFCs 2045, 2183, 2231).
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,39 +21,97 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  * @since     2.5.0
+ *
+ * @property-read array $params  Content parameters.
  */
-class Horde_Mime_ContentParam
+class Horde_Mime_Headers_ContentParam
+    extends Horde_Mime_Headers_Element_Single
+    implements ArrayAccess, Serializable
 {
     /**
-     * Content-Type parameters.
+     * Content parameters.
      *
-     * @var array
+     * @var Horde_Support_CaseInsensitiveArray
      */
-    public $params = array();
+    protected $_params;
 
     /**
-     * Content-Type value.
-     *
-     * @var string
      */
-    public $value;
-
-    /**
-     * Constructor.
-     *
-     * @param mixed $data  Either an array (interpreted as a list of
-     *                     parameters) or a string (interpreted as a RFC
-     *                     encoded parameter list).
-     */
-    public function __construct($data = null)
+    public function __get($name)
     {
-        if (!is_null($data)) {
-            if (is_array($data)) {
-                $this->params = $data;
-            } else {
-                $this->decode($data);
+        switch ($name) {
+        case 'full_value':
+            $tmp = $this->value;
+            foreach ($this->_escapeParams($this->_params) as $key => $val) {
+                $tmp .= '; ' . $key . '=' . $val;
             }
+            return $tmp;
+
+        case 'params':
+            return $this->_params->getArrayCopy();
         }
+
+        return parent::__get($name);
+    }
+
+    /**
+     * @param mixed $data  Either an array (interpreted as a list of
+     *                     parameters), a string (interpreted as a RFC
+     *                     encoded parameter list), an object with two
+     *                     properties: value and params, or a
+     *                     Horde_Mime_Headers_ContentParam object.
+     */
+    protected function _setValue($data)
+    {
+        if (!$this->_params) {
+            $this->_params = new Horde_Support_CaseInsensitiveArray();
+        }
+
+        if ($data instanceof Horde_Mime_Headers_ContentParam) {
+            if (empty($this->_values)) {
+                $this->_values = array($data->value);
+            }
+            $data = $data->params;
+        }
+
+        if (is_object($data)) {
+            $this->_values = array($data->value);
+            $data = $data->params;
+        }
+
+        if (is_array($data)) {
+            foreach ($data as $key => $val) {
+                $this->_params[$key] = $val;
+            }
+        } else {
+            $this->decode($data);
+        }
+    }
+
+    /**
+     * @param array $opts  See encode().
+     */
+    protected function _sendEncode($opts)
+    {
+        $out = $this->value;
+
+        foreach ($this->encode($opts) as $key => $val) {
+            $out .= '; ' . $key . '=' . $val;
+        }
+
+        return array($out);
+    }
+
+    /**
+     */
+    public static function getHandles()
+    {
+        return array(
+            // MIME: RFC 2045
+            'content-type',
+            // MIME: RFC 2183
+            'content-disposition'
+        );
     }
 
     /**
@@ -80,7 +139,7 @@ class Horde_Mime_ContentParam
 
         $out = array();
 
-        foreach ($this->params as $key => $val) {
+        foreach ($this->_params as $key => $val) {
             $out = array_merge($out, $this->_encode($key, $val, $opts));
         }
 
@@ -156,16 +215,28 @@ class Horde_Mime_ContentParam
 
         /* Escape characters in params (See RFC 2045 [Appendix A]).
          * Must be quoted-string if one of these exists. */
-        foreach ($out as $k => $v) {
+        return $this->_escapeParams($out);
+    }
+
+    /**
+     * Escape the parameter array.
+     *
+     * @param array $params  Parameter array.
+     *
+     * @return array  Escaped parameter array.
+     */
+    protected function _escapeParams($params)
+    {
+        foreach ($params as $k => $v) {
             foreach (str_split($v) as $c) {
-                if (!self::isAtextNonTspecial($c)) {
-                    $out[$k] = '"' . addcslashes($v, '\\"') . '"';
+                if (!Horde_Mime_ContentParam_Decode::isAtextNonTspecial($c)) {
+                    $params[$k] = '"' . addcslashes($v, '\\"') . '"';
                     break;
                 }
             }
         }
 
-        return $out;
+        return $params;
     }
 
     /**
@@ -180,8 +251,8 @@ class Horde_Mime_ContentParam
     {
         $convert = array();
 
-        $this->params = array();
-        $this->value = null;
+        $this->_params = new Horde_Support_CaseInsensitiveArray();
+        $this->_values = array();
 
         if (is_array($data)) {
             $params = $data;
@@ -193,8 +264,8 @@ class Horde_Mime_ContentParam
                 $value = trim($parts[0]);
                 if (strlen($value)) {
                     $this->decode($parts[0]);
-                    if (empty($this->params)) {
-                        $this->value = $value;
+                    if (!count($this->_params)) {
+                        $this->_values = array($value);
                     }
                 }
                 $param = $parts[1];
@@ -223,10 +294,10 @@ class Horde_Mime_ContentParam
                 $name = substr($name, 0, $pos);
             }
 
-            if (isset($this->params[$name])) {
-                $this->params[$name] .= $val;
+            if (isset($this->_params[$name])) {
+                $this->_params[$name] .= $val;
             } else {
-                $this->params[$name] = $val;
+                $this->_params[$name] = $val;
             }
 
             if ($encoded) {
@@ -235,11 +306,11 @@ class Horde_Mime_ContentParam
         }
 
         foreach (array_keys($convert) as $name) {
-            $val = $this->params[$name];
+            $val = $this->_params[$name];
             $quote = strpos($val, "'");
 
             if ($quote === false) {
-                $this->params[$name] = urldecode($val);
+                $this->_params[$name] = urldecode($val);
             } else {
                 $orig_charset = substr($val, 0, $quote);
                 if (Horde_String::lower($orig_charset) == 'iso-8859-1') {
@@ -249,7 +320,7 @@ class Horde_Mime_ContentParam
                 /* Ignore language. */
                 $quote = strpos($val, "'", $quote + 1);
                 substr($val, $quote + 1);
-                $this->params[$name] = Horde_String::convertCharset(
+                $this->_params[$name] = Horde_String::convertCharset(
                     urldecode(substr($val, $quote + 1)),
                     $orig_charset,
                     'UTF-8'
@@ -262,49 +333,69 @@ class Horde_Mime_ContentParam
          * one RFC 2231 encoding, then assume the sending mailer knew what
          * it was doing and didn't send any parameters RFC 2045 encoded. */
         if (empty($convert)) {
-            foreach ($this->params as $key => $val) {
-                $this->params[$key] = Horde_Mime::decode($val);
+            foreach ($this->_params as $key => $val) {
+                $this->_params[$key] = Horde_Mime::decode($val);
             }
         }
 
-        if (empty($this->params) && is_string($data)) {
-            $this->value = trim($parts[0]);
+        if (!count($this->_params) && is_string($data)) {
+            $this->_values = array(trim($parts[0]));
         }
     }
 
-    /**
-     * Determine if character is a non-escaped element in MIME parameter data
-     * (See RFC 2045 [Appendix A]).
-     *
-     * @param string $c  Character to test.
-     *
-     * @return boolean  True if non-escaped character.
-     */
-    public static function isAtextNonTspecial($c)
-    {
-        switch ($ord = ord($c)) {
-        case 34:
-        case 40:
-        case 41:
-        case 44:
-        case 47:
-        case 58:
-        case 59:
-        case 60:
-        case 61:
-        case 62:
-        case 63:
-        case 64:
-        case 91:
-        case 92:
-        case 93:
-            /* "(),/:;<=>?@[\] */
-            return false;
+    /* ArrayAccess methods */
 
-        default:
-            /* CTLs, SPACE, DEL, non-ASCII */
-            return (($ord > 32) && ($ord < 127));
+    /**
+     */
+    public function offsetExists($offset)
+    {
+        return isset($this->_params[$offset]);
+    }
+
+    /**
+     */
+    public function offsetGet($offset)
+    {
+        return $this->_params[$offset];
+    }
+
+    /**
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->_params[$offset] = $value;
+    }
+
+    /**
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->_params[$offset]);
+    }
+
+    /* Serializable methods */
+
+    /**
+     */
+    public function serialize()
+    {
+        $this->_params = $this->params;
+        return serialize(get_object_vars($this));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $data = unserialize($data);
+
+        foreach (unserialize($data) as $key => $val) {
+            if ($key != '_params') {
+                $this->$key = $val;
+            }
         }
+
+        $this->_setValue($data['_params']);
     }
 
 }

@@ -86,11 +86,46 @@ class Horde_Mime_ContentParam_Decode extends Horde_Mail_Rfc822
     }
 
     /**
+     * Determine if character is a non-escaped element in MIME parameter data
+     * (See RFC 2045 [Appendix A]).
+     *
+     * @param string $c  Character to test.
+     *
+     * @return boolean  True if non-escaped character.
+     */
+    public static function isAtextNonTspecial($c)
+    {
+        switch ($ord = ord($c)) {
+        case 34:
+        case 40:
+        case 41:
+        case 44:
+        case 47:
+        case 58:
+        case 59:
+        case 60:
+        case 61:
+        case 62:
+        case 63:
+        case 64:
+        case 91:
+        case 92:
+        case 93:
+            /* "(),/:;<=>?@[\] */
+            return false;
+
+        default:
+            /* CTLs, SPACE, DEL, non-ASCII */
+            return (($ord > 32) && ($ord < 127));
+        }
+    }
+
+    /**
      */
     protected function _rfc822ParseMimeToken(&$str)
     {
         for ($i = $this->_ptr, $size = strlen($this->_data); $i < $size; ++$i) {
-            if (!Horde_Mime_ContentParam::isAtextNonTspecial($this->_data[$i])) {
+            if (!self::isAtextNonTspecial($this->_data[$i])) {
                 break;
             }
         }

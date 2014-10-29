@@ -52,7 +52,7 @@ class Horde_Mime_Mdn
     {
         /* RFC 3798 [2.1] requires the Disposition-Notification-To header
          * for an MDN to be created. */
-        return $this->_headers->getValue(self::MDN_HEADER);
+        return strval($this->_headers[self::MDN_HEADER]);
     }
 
     /**
@@ -64,13 +64,13 @@ class Horde_Mime_Mdn
      */
     public function userConfirmationNeeded()
     {
-        $return_path = $this->_headers->getValue('Return-Path');
+        $return_path = $this->_headers['Return-Path'];
 
         /* RFC 3798 [2.1]: Explicit confirmation is needed if there is no
          * Return-Path in the header. Also, "if the message contains more
          * than one Return-Path header, the implementation may [] treat the
          * situation as a failure of the comparison." */
-        if (empty($return_path) || is_array($return_path)) {
+        if (!$return_path || (count($return_path->value) > 1)) {
             return true;
         }
 
@@ -97,7 +97,7 @@ class Horde_Mime_Mdn
          * from the address in the Return-Path header." This comparison is
          * case-sensitive for the mailbox part and case-insensitive for the
          * host part. */
-        $ret_ob = new Horde_Mail_Rfc822_Address($return_path);
+        $ret_ob = new Horde_Mail_Rfc822_Address($return_path->value);
         return (!$ret_ob->valid || !$addr_ob->match($ret_ob));
     }
 
@@ -154,20 +154,20 @@ class Horde_Mime_Mdn
         ), $opts);
 
         $to = $this->getMdnReturnAddr();
-        $ua = $this->_headers->getUserAgent();
+        $ua = Horde_Mime_Headers_UserAgent::create();
 
-        $orig_recip = $this->_headers->getValue('Original-Recipient');
-        if (!empty($orig_recip) && is_array($orig_recip)) {
-            $orig_recip = $orig_recip[0];
+        if (!($orig_recip = $this->_headers['Original-Recipient']) ||
+            is_array($orig_recip->value)) {
+            $orig_recip = reset($orig_recip->value);
         }
 
         /* Set up the mail headers. */
         $msg_headers = new Horde_Mime_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addUserAgentHeader($ua);
+        $msg_headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
+        $msg_headers->addHeaderOb($ua);
         /* RFC 3834 [5.2] */
         $msg_headers->addHeader('Auto-Submitted', 'auto-replied');
-        $msg_headers->addHeader('Date', date('r'));
+        $msg_headers->addHeaderOb(Horde_Mime_Headers_Date::create());
         if ($opts['from_addr']) {
             $msg_headers->addHeader('From', $opts['from_addr']);
         }
@@ -184,7 +184,12 @@ class Horde_Mime_Mdn
         $part_one->setType('text/plain');
         $part_one->setCharset($opts['charset']);
         if ($type == 'displayed') {
-            $contents = sprintf(Horde_Mime_Translation::t("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."), $this->_headers->getValue('Date'), $this->_headers->getValue('To'), $this->_headers->getValue('Subject'));
+            $contents = sprintf(
+                Horde_Mime_Translation::t("The message sent on %s to %s with subject \"%s\" has been displayed.\n\nThis is no guarantee that the message has been read or understood."),
+                $this->_headers['Date'],
+                $this->_headers['To'],
+                $this->_headers['Subject']
+            );
             $flowed = new Horde_Text_Flowed($contents, $opts['charset']);
             $flowed->setDelSp(true);
             $part_one->setContentTypeParameter('format', 'flowed');
@@ -207,8 +212,8 @@ class Horde_Mime_Mdn
             $part_two_h->addHeader('Final-Recipient', 'rfc822;' . $opts['from_addr']);
         }
 
-        if ($msg_id = $this->_headers->getValue('Message-ID')) {
-            $part_two_h->addHeader('Original-Message-ID', $msg_id);
+        if ($msg_id = $this->_headers['Message-ID']) {
+            $part_two_h->addHeader('Original-Message-ID', strval($msg_id));
         }
 
         /* Create the Disposition field now (RFC 3798 [3.2.6]). */

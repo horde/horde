@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-28</date>
+ <date>2014-11-04</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Horde_Mime_Headers has been rewritten.
 * [mms] Correctly handle content parameters in a case-insensitive manner.
 * [mms] Correctly pass the &apos;no_body&apos; parameter to parts embedded in a message/rfc822 part in Horde_Mime_Part#parseMessage().
 * [mms] Fix parsing a base MIME-compliant message with no Content-Type information.
@@ -57,7 +58,25 @@
       <dir name="ContentParam">
        <file name="Decode.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/ContentParam -->
-      <file name="ContentParam.php" role="php" />
+      <dir name="Headers">
+       <dir name="Element">
+        <file name="Address.php" role="php" />
+        <file name="Multiple.php" role="php" />
+        <file name="Single.php" role="php" />
+       </dir> <!-- /lib/Horde/Mime/Headers/Element -->
+       <file name="Addresses.php" role="php" />
+       <file name="AddressesMulti.php" role="php" />
+       <file name="ContentParam.php" role="php" />
+       <file name="Date.php" role="php" />
+       <file name="Deprecated.php" role="php" />
+       <file name="Element.php" role="php" />
+       <file name="Identification.php" role="php" />
+       <file name="MessageId.php" role="php" />
+       <file name="MimeVersion.php" role="php" />
+       <file name="Received.php" role="php" />
+       <file name="Subject.php" role="php" />
+       <file name="UserAgent.php" role="php" />
+      </dir> <!-- /lib/Horde/Mime/Headers -->
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Id.php" role="php" />
@@ -395,6 +414,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_ListHeaders</name>
+    <channel>pear.horde.org</channel>
+    <min>1.2.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
     <min>2.5.0</min>
@@ -487,7 +513,6 @@
    <install as="COPYING" name="doc/Horde/Mime/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Mime/UPGRADING" />
    <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
-   <install as="Horde/Mime/ContentParam.php" name="lib/Horde/Mime/ContentParam.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
    <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
    <install as="Horde/Mime/Id.php" name="lib/Horde/Mime/Id.php" />
@@ -501,6 +526,21 @@
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="Horde/Mime/Uudecode.php" name="lib/Horde/Mime/Uudecode.php" />
    <install as="Horde/Mime/ContentParam/Decode.php" name="lib/Horde/Mime/ContentParam/Decode.php" />
+   <install as="Horde/Mime/Headers/Addresses.php" name="lib/Horde/Mime/Headers/Addresses.php" />
+   <install as="Horde/Mime/Headers/AddressesMulti.php" name="lib/Horde/Mime/Headers/AddressesMulti.php" />
+   <install as="Horde/Mime/Headers/ContentParam.php" name="lib/Horde/Mime/Headers/ContentParam.php" />
+   <install as="Horde/Mime/Headers/Date.php" name="lib/Horde/Mime/Headers/Date.php" />
+   <install as="Horde/Mime/Headers/Deprecated.php" name="lib/Horde/Mime/Headers/Deprecated.php" />
+   <install as="Horde/Mime/Headers/Element.php" name="lib/Horde/Mime/Headers/Element.php" />
+   <install as="Horde/Mime/Headers/Identification.php" name="lib/Horde/Mime/Headers/Identification.php" />
+   <install as="Horde/Mime/Headers/MessageId.php" name="lib/Horde/Mime/Headers/MessageId.php" />
+   <install as="Horde/Mime/Headers/MimeVersion.php" name="lib/Horde/Mime/Headers/MimeVersion.php" />
+   <install as="Horde/Mime/Headers/Received.php" name="lib/Horde/Mime/Headers/Received.php" />
+   <install as="Horde/Mime/Headers/Subject.php" name="lib/Horde/Mime/Headers/Subject.php" />
+   <install as="Horde/Mime/Headers/UserAgent.php" name="lib/Horde/Mime/Headers/UserAgent.php" />
+   <install as="Horde/Mime/Headers/Element/Address.php" name="lib/Horde/Mime/Headers/Element/Address.php" />
+   <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
+   <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
@@ -1460,9 +1500,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-28</date>
+   <date>2014-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Horde_Mime_Headers has been rewritten.
 * [mms] Correctly handle content parameters in a case-insensitive manner.
 * [mms] Correctly pass the &apos;no_body&apos; parameter to parts embedded in a message/rfc822 part in Horde_Mime_Part#parseMessage().
 * [mms] Fix parsing a base MIME-compliant message with no Content-Type information.

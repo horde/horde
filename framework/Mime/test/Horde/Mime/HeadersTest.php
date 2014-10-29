@@ -20,66 +20,149 @@
  */
 class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
 {
-    public function testSerialize()
+    /**
+     * @dataProvider serializeProvider
+     */
+    public function testSerialize($header, $value)
     {
         $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('Subject', 'My Subject');
-        $hdrs->addHeader('To', 'recipient@example.com');
-        $hdrs->addHeader('Cc', 'null@example.com');
-        $hdrs->addHeader('Bcc', 'invisible@example.com');
-        $hdrs->addHeader('From', 'sender@example.com');
+        $hdrs->addHeader($header, $value);
 
-        $stored = serialize($hdrs);
-        $hdrs2 = unserialize($stored);
+        $hdrs2 = unserialize(serialize($hdrs));
 
+        /* @deprecated */
         $this->assertEquals(
-            'null@example.com',
-            $hdrs2->getValue('cc')
+            $value,
+            $hdrs2->getValue($header)
+        );
+
+        $this->assertequals(
+            $value,
+            strval($hdrs2[$header])
         );
     }
 
-    public function testHeaderDecode()
+    public function serializeProvider()
     {
-        $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader(
-            'Test',
-            '=?iso-8859-15?b?VmVyc2nzbg==?=',
+        return array(
             array(
-                'decode' => true
+                'Subject', 'My Subject'
+            ),
+            array(
+                'To', 'recipient@example.com'
+            ),
+            array(
+                'Cc', 'null@example.com'
+            ),
+            array(
+                'Bcc', 'invisible@example.com'
+            ),
+            array(
+                'From', 'sender@example.com'
             )
         );
-
-        $this->assertEquals(
-            'Versión',
-            $hdrs->getValue('Test')
-        );
     }
 
-    public function testHeaderAutoDetectCharset()
-    {
-        $hdrs = Horde_Mime_Headers::parseHeaders(
-            // This string is in Windows-1252
-            'Test: ' . base64_decode('UnVubmVyc5IgQWxlcnQh=')
-        );
-
-        $this->assertEquals(
-            'Runners’ Alert!',
-            $hdrs->getValue('Test')
-        );
-    }
-
-    public function testHeaderCharsetConversion()
+    /**
+     * @dataProvider headerDecodeProvider
+     */
+    public function testHeaderDecode($header, $value, $decoded)
     {
         $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('To', 'Empfänger <recipient@example.com>');
+        $hdrs->addHeader($header, $value);
 
-        $hdr_array = $hdrs->toArray(array(
-            'charset' => 'iso-8859-1'
+        /* @deprecated */
+        $this->assertEquals(
+            $decoded,
+            $hdrs->getValue($header)
+        );
+
+        $this->assertEquals(
+            $decoded,
+            $hdrs[$header]->value_single
+        );
+    }
+
+    public function headerDecodeProvider()
+    {
+        return array(
+            array(
+                'Test',
+                '=?iso-8859-15?b?VmVyc2nzbg==?=',
+                'Versión'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider headerAutoDetectCharsetProvider
+     */
+    public function testHeaderAutoDetectCharset($header, $value, $decoded)
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders($value);
+
+        /* @deprecated */
+        $this->assertEquals(
+            $decoded,
+            $hdrs->getValue($header)
+        );
+
+        $this->assertEquals(
+            $decoded,
+            $hdrs[$header]->value_single
+        );
+    }
+
+    public function headerAutoDetectCharsetProvider()
+    {
+        return array(
+            array(
+                'Test',
+                // This string is in Windows-1252
+                'Test: ' . base64_decode('UnVubmVyc5IgQWxlcnQh='),
+                'Runners’ Alert!'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider headerCharsetConversionProvider
+     */
+    public function testHeaderCharsetConversion(
+        $header, $value, $charset, $encoded
+    )
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader($header, $value);
+
+        $hdr_encode = $hdrs[$header]->sendEncode(array(
+            'charset' => $charset
         ));
 
         $this->assertEquals(
-            '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
-            $hdr_array['To']
+            $encoded,
+            reset($hdr_encode)
+        );
+
+        $hdr_array = $hdrs->toArray(array(
+            'charset' => $charset
+        ));
+
+        $this->assertEquals(
+            $encoded,
+            $hdr_array[$header]
+        );
+    }
+
+    public function headerCharsetConversionProvider()
+    {
+        return array(
+            array(
+                'To',
+                'Empfänger <recipient@example.com>',
+                'iso-8859-1',
+                '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>'
+            )
         );
     }
 
@@ -90,72 +173,153 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
             "Content-Type: multipart/mixed\n"
         );
 
+        /* @deprecated */
         $this->assertInternalType(
             'string',
             $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE)
         );
-    }
 
-    public function testMultivalueHeaders()
-    {
-        $hdrs = Horde_Mime_Headers::parseHeaders(
-"To: recipient1@example.com, recipient2@example.com"
-        );
-        $this->assertEquals(
-            'recipient1@example.com, recipient2@example.com',
-            $hdrs->getValue('to')
-        );
-
-        $hdrs = Horde_Mime_Headers::parseHeaders(
-"To: recipient1@example.com
-To: recipient2@example.com"
-        );
-        $this->assertEquals(
-            'recipient1@example.com, recipient2@example.com',
-            $hdrs->getValue('to')
+        $this->assertInternalType(
+            'string',
+            $hdrs['content-type']->value
         );
     }
 
-    public function testAddHeaderWithGroup()
+    /**
+     * @dataProvider multivalueHeadersProvider
+     */
+    public function testMultivalueHeaders($header, $in, $expected)
     {
-        $email = 'Test: foo@example.com, bar@example.com;';
+        $hdrs = Horde_Mime_Headers::parseHeaders($in);
 
+        /* @deprecated */
+        $this->assertEquals(
+            $expected,
+            $hdrs->getValue($header)
+        );
+
+        $this->assertEquals(
+            $expected,
+            $hdrs['to']->value
+        );
+    }
+
+    public function multivalueHeadersProvider()
+    {
+        $expected = 'recipient1@example.com, recipient2@example.com';
+
+        return array(
+            array(
+                'To',
+                'To: recipient1@example.com, recipient2@example.com',
+                $expected
+            ),
+            array(
+                'To',
+                "To: recipient1@example.com\nTo: recipient2@example.com",
+                $expected
+            )
+        );
+    }
+
+    /**
+     * @dataProvider addHeaderWithGroupProvider
+     */
+    public function testAddHeaderWithGroup($header, $email)
+    {
         $rfc822 = new Horde_Mail_Rfc822();
         $ob = $rfc822->parseAddressList($email);
 
         $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('To', $ob);
+        $hdrs->addHeader($header, $ob);
+
+        /* @deprecated */
+        $this->assertEquals(
+            $email,
+            $hdrs->getValue($header)
+        );
 
         $this->assertEquals(
             $email,
-            $hdrs->getValue('to')
+            $hdrs[$header]->value
         );
     }
 
-    public function testUnencodedMimeHeader()
+    public function addHeaderWithGroupProvider()
     {
-        // The header is base64 encoded to preserve charset data.
-        $hdr = 'RnJvbTogwqkgVklBR1JBIMKuIE9mZmljaWFsIFNpdGUgPGZvb0BleGFtcGxlLmNvbT4=';
-        $hdrs = Horde_Mime_Headers::parseHeaders(base64_decode($hdr));
+        return array(
+            array(
+                'To',
+                'Test: foo@example.com, bar@example.com;'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider uuencodeMimeHeaderProvider
+     */
+    public function testUnencodedMimeHeader($header, $in, $decoded)
+    {
+        $hdrs = Horde_Mime_Headers::parseHeaders($in);
+
+        /* @deprecated */
         $this->assertEquals(
-            '© VIAGRA ® Official Site <foo@example.com>',
-            $hdrs->getValue('from')
+            $decoded,
+            $hdrs->getValue($header)
+        );
+
+        $this->assertEquals(
+            $decoded,
+            $hdrs[$header]->value
         );
     }
 
-    public function testParseContentDispositionHeaderWithUtf8Data()
+    public function uuencodeMimeHeaderProvider()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt');
+        return array(
+            array(
+                'From',
+                // The header is base64 encoded to preserve charset data.
+                base64_decode('RnJvbTogwqkgVklBR1JBIMKuIE9mZmljaWFsIFNpdGUgPGZvb0BleGFtcGxlLmNvbT4='),
+                '© VIAGRA ® Official Site <foo@example.com>'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider parseContentDispositionHeaderWithUtf8DataProvider
+     */
+    public function testParseContentDispositionHeaderWithUtf8Data(
+        $header, $parameter, $msg, $value
+    )
+    {
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
+        /* @deprecated */
         $cd_params = $hdrs->getValue(
-            'content-disposition',
+            $header,
             $hdrs::VALUE_PARAMS
+        );
+        $this->assertEquals(
+            $value,
+            $cd_params[$parameter]
         );
 
         $this->assertEquals(
-            'blåbærsyltetøy',
-            $cd_params['filename']
+            $value,
+            $hdrs[$header]->params[$parameter]
+        );
+    }
+
+    public function parseContentDispositionHeaderWithUtf8DataProvider()
+    {
+        return array(
+            array(
+                'content-disposition',
+                'filename',
+                file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt'),
+                'blåbærsyltetøy'
+            )
         );
     }
 
@@ -164,6 +328,7 @@ To: recipient2@example.com"
         $hdr = 'Content-Type: multipart/mixed; BOUNDARY="foo"';
         $hdrs = Horde_Mime_Headers::parseHeaders($hdr);
 
+        /* @deprecated */
         $c_params =  $hdrs->getValue(
             'Content-Type',
             $hdrs::VALUE_PARAMS
@@ -171,6 +336,11 @@ To: recipient2@example.com"
         $this->assertEquals(
             'foo',
             $c_params['boundary']
+        );
+
+        $this->assertEquals(
+            'foo',
+            $hdrs['content-type']['boundary']
         );
     }
 
@@ -180,9 +350,15 @@ To: recipient2@example.com"
         $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_2.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
+        /* @deprecated */
         $this->assertEquals(
             'Jøran Øygårdvær <jøran@example.com>',
             $hdrs->getValue('from')
+        );
+
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs['from']->value
         );
 
         /* Message with EAI addresses in 2 fields, and another header that
@@ -190,6 +366,7 @@ To: recipient2@example.com"
         $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_4.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
+        /* @deprecated */
         $this->assertEquals(
             'Jøran Øygårdvær <jøran@example.com>',
             $hdrs->getValue('from')
@@ -202,29 +379,47 @@ To: recipient2@example.com"
             'Jøran Øygårdvær <jøran@example.com>',
             $hdrs->getValue('signed-off-by')
         );
+
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs['from']->value
+        );
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs['cc']->value
+        );
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs['signed-off-by']->value_single
+        );
     }
 
-    public function testUndisclosedHeaderParsing()
+    /**
+     * @dataProvider undisclosedHeaderParsingProvider
+     */
+    public function testUndisclosedHeaderParsing($header, $value)
     {
         $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('To', 'undisclosed-recipients');
+        $hdrs->addHeader($header, $value);
+
+        /* @deprecated */
         $this->assertEquals(
             '',
-            $hdrs->getValue('To')
+            $hdrs->getValue($header)
         );
 
-        $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('To', 'undisclosed-recipients:');
         $this->assertEquals(
             '',
-            $hdrs->getValue('To')
+            $hdrs[$header]->value
         );
+    }
 
-        $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader('To', 'undisclosed-recipients:;');
-        $this->assertEquals(
-            '',
-            $hdrs->getValue('To')
+    public function undisclosedHeaderParsingProvider()
+    {
+        return array(
+            array('To', 'undisclosed-recipients'),
+            array('To', 'undisclosed-recipients:'),
+            array('To', 'undisclosed-recipients:;')
         );
     }
 
@@ -233,7 +428,10 @@ To: recipient2@example.com"
         $msg = file_get_contents(__DIR__ . '/fixtures/multiple_to.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
+        /* @deprecated */
         $this->assertNotEmpty($hdrs->getValue('To'));
+
+        $this->assertNotEmpty($hdrs['To']->value);
     }
 
     public function testBug12189()
@@ -241,7 +439,10 @@ To: recipient2@example.com"
         $msg = file_get_contents(__DIR__ . '/fixtures/header_trailing_ws.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
+        /* @deprecated */
         $this->assertNotNull($hdrs->getValue('From'));
+
+        $this->assertNotNull($hdrs['From']->value);
     }
 
     public function testParseHeadersGivingStreamResource()
@@ -250,7 +451,10 @@ To: recipient2@example.com"
         $hdrs = Horde_Mime_Headers::parseHeaders($fp);
         fclose($fp);
 
+        /* @deprecated */
         $this->assertNotEmpty($hdrs->getValue('To'));
+
+        $this->assertNotEmpty($hdrs['To']->value);
     }
 
     public function testParseHeadersGivingHordeStreamObject()
@@ -260,7 +464,10 @@ To: recipient2@example.com"
         ));
         $hdrs = Horde_Mime_Headers::parseHeaders($stream);
 
+        /* @deprecated */
         $this->assertNotEmpty($hdrs->getValue('To'));
+
+        $this->assertNotEmpty($hdrs['To']);
     }
 
     public function testParseHeadersBlankSubject()
@@ -270,37 +477,53 @@ To: recipient2@example.com"
         ));
         $hdrs = Horde_Mime_Headers::parseHeaders($stream);
 
+        /* @deprecated */
         $this->assertNotEmpty($hdrs->getValue('To'));
+
+        $this->assertNotEmpty($hdrs['To']);
     }
 
-    public function testMultiplePriorityHeaders()
+    /**
+     * @dataProvider multiplePriorityHeadersProvider
+     */
+    public function testMultiplePriorityHeaders($header, $data, $value)
     {
-        $hdrs = Horde_Mime_Headers::parseHeaders(
-            "Importance: High\n" .
-            "Importance: Low\n"
+        $hdrs = Horde_Mime_Headers::parseHeaders($data);
+
+        /* @deprecated */
+        $this->assertInternalType(
+            'string',
+            $hdrs->getValue($header, Horde_Mime_Headers::VALUE_BASE)
+        );
+        $this->assertEquals(
+            $value,
+            $hdrs->getValue($header)
         );
 
         $this->assertInternalType(
             'string',
-            $hdrs->getValue('importance', Horde_Mime_Headers::VALUE_BASE)
+            $hdrs[$header]->value_single
         );
         $this->assertEquals(
-            'High',
-            $hdrs->getValue('importance')
+            $value,
+            $hdrs[$header]->value_single
         );
 
-        $hdrs = Horde_Mime_Headers::parseHeaders(
-            "X-Priority: 1\n" .
-            "X-priority: 5\n"
-        );
+    }
 
-        $this->assertInternalType(
-            'string',
-            $hdrs->getValue('x-priority', Horde_Mime_Headers::VALUE_BASE)
-        );
-        $this->assertEquals(
-            '1',
-            $hdrs->getValue('x-priority')
+    public function multiplePriorityHeadersProvider()
+    {
+        return array(
+            array(
+                'Importance',
+                "Importance: High\nImportance: Low\n",
+                'High'
+            ),
+            array(
+                'X-priority',
+                "X-Priority: 1\nX-priority: 5\n",
+                '1'
+            )
         );
     }
 

@@ -1060,26 +1060,33 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if ($ptype != 'text') {
             unset($c_params['charset']);
         }
-        $headers->replaceHeader('Content-Type', $this->getType(), array('params' => $c_params));
+
+        $ct = new stdClass;
+        $ct->value = $this->getType();
+        $ct->params = $c_params;
+
+        $headers->addHeaderOb(
+            new Horde_Mime_Headers_ContentParam('Content-Type', $ct)
+        );
 
         /* Add the language(s), if set. (RFC 3282 [2]) */
         if ($langs = $this->getLanguage()) {
-            $headers->replaceHeader('Content-Language', implode(',', $langs));
+            $headers->addHeader('Content-Language', implode(',', $langs));
         }
 
         /* Get the description, if any. */
         if (($descrip = $this->getDescription())) {
-            $headers->replaceHeader('Content-Description', $descrip);
+            $headers->addHeader('Content-Description', $descrip);
         }
 
         /* Set the duration, if it exists. (RFC 3803) */
         if (($duration = $this->getDuration()) !== null) {
-            $headers->replaceHeader('Content-Duration', $duration);
+            $headers->addHeader('Content-Duration', $duration);
         }
 
-        /* Per RFC 2046 [4], this MUST appear in the base message headers. */
+        /* Per RFC 2046[4], this MUST appear in the base message headers. */
         if ($this->_basepart) {
-            $headers->replaceHeader('MIME-Version', '1.0');
+            $headers->addHeaderOb(Horde_Mime_Headers_MimeVersion::create());
         }
 
         /* message/* parts require no additional header information. */
@@ -1092,17 +1099,25 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
          * If there is a name, but no disposition, default to 'attachment'.
          * RFC 2183 [2] indicates that default is no requested disposition -
          * the receiving MUA is responsible for display choice. */
-        $disposition = $this->getDisposition();
-        $disp_params = $this->getAllDispositionParameters();
+        $cd = new stdClass;
+        $cd->params = $this->getAllDispositionParameters();
+        $cd->value = $this->getDisposition();
         $name = $this->getName();
-        if ($disposition || !empty($name) || !empty($disp_params)) {
-            if (!$disposition) {
-                $disposition = 'attachment';
+
+        if ($cd->value || !empty($name) || !empty($cd->params)) {
+            if (!$cd->value) {
+                $cd->value = 'attachment';
             }
             if ($name) {
-                $disp_params['filename'] = $name;
+                $cd->params['filename'] = $name;
             }
-            $headers->replaceHeader('Content-Disposition', $disposition, array('params' => $disp_params));
+
+            $headers->addHeaderOb(
+                new Horde_Mime_Headers_ContentParam(
+                    'Content-Disposition',
+                    $cd
+                )
+            );
         } else {
             $headers->removeHeader('Content-Disposition');
         }
@@ -1113,12 +1128,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if ($encoding == '7bit') {
             $headers->removeHeader('Content-Transfer-Encoding');
         } else {
-            $headers->replaceHeader('Content-Transfer-Encoding', $encoding);
+            $headers->addHeader('Content-Transfer-Encoding', $encoding);
         }
 
         /* Add content ID information. */
         if (!is_null($this->_contentid)) {
-            $headers->replaceHeader('Content-ID', '<' . $this->_contentid . '>');
+            $headers->addHeader('Content-ID', '<' . $this->_contentid . '>');
         }
 
         return $headers;
@@ -1261,12 +1276,21 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             if (is_string($headers)) {
                 array_unshift($parts, $headers);
             } elseif ($headers) {
-                $hdr_ob = $this->addMimeHeaders(array('encode' => $options['encode'], 'headers' => ($headers === true) ? null : $headers));
-                $hdr_ob->setEOL($eol);
+                $hdr_ob = $this->addMimeHeaders(array(
+                    'encode' => $options['encode'],
+                    'headers' => ($headers === true) ? null : $headers
+                ));
                 if (!empty($this->_temp['toString'])) {
-                    $hdr_ob->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+                    $hdr_ob->addHeader(
+                        'Content-Transfer-Encoding',
+                        $this->_temp['toString']
+                    );
                 }
-                array_unshift($parts, $hdr_ob->toString(array('charset' => $this->getHeaderCharset(), 'defserver' => $options['defserver'])));
+                array_unshift($parts, $hdr_ob->toString(array(
+                    'canonical' => ($eol == self::RFC_EOL),
+                    'charset' => $this->getHeaderCharset(),
+                    'defserver' => $options['defserver']
+                )));
             }
         }
 
@@ -1732,12 +1756,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         ));
 
         /* Add MIME Headers if they don't already exist. */
-        if (!$headers->getValue('MIME-Version')) {
-            $headers = $this->addMimeHeaders(array('encode' => $encode, 'headers' => $headers));
+        if (!isset($headers['MIME-Version'])) {
+            $headers = $this->addMimeHeaders(array(
+                'encode' => $encode,
+                'headers' => $headers
+            ));
         }
 
         if (!empty($this->_temp['toString'])) {
-            $headers->replaceHeader('Content-Transfer-Encoding', $this->_temp['toString']);
+            $headers->addHeader(
+                'Content-Transfer-Encoding',
+                $this->_temp['toString']
+            );
             switch ($this->_temp['toString']) {
             case '8bit':
                 if ($mailer instanceof Horde_Mail_Transport_Smtp) {
@@ -2014,7 +2044,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $ob = new Horde_Mime_Part();
 
         /* This is not a MIME message. */
-        if (!$opts['forcemime'] && !$hdrs->getValue('mime-version')) {
+        if (!$opts['forcemime'] && !isset($hdrs['MIME-Version'])) {
             $ob->setType('text/plain');
 
             if ($len = strlen($body)) {
@@ -2029,11 +2059,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Content type. */
-        if ($tmp = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_BASE)) {
-            $ob->setType($tmp);
-
-            $ctype_params = $hdrs->getValue('content-type', Horde_Mime_Headers::VALUE_PARAMS);
-            foreach ($ctype_params as $key => $val) {
+        if ($tmp = $hdrs['Content-Type']) {
+            $ob->setType($tmp->value);
+            foreach ($tmp->params as $key => $val) {
                 $ob->setContentTypeParameter($key, $val);
             }
         } else {
@@ -2041,31 +2069,31 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Content transfer encoding. */
-        if ($tmp = $hdrs->getValue('content-transfer-encoding')) {
-            $ob->setTransferEncoding($tmp);
+        if ($tmp = $hdrs['Content-Transfer-Encoding']) {
+            $ob->setTransferEncoding(strval($tmp));
         }
 
         /* Content-Description. */
-        if ($tmp = $hdrs->getValue('content-description')) {
-            $ob->setDescription($tmp);
+        if ($tmp = $hdrs['Content-Description']) {
+            $ob->setDescription(strval($tmp));
         }
 
         /* Content-Disposition. */
-        if ($tmp = $hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_BASE)) {
-            $ob->setDisposition($tmp);
-            foreach ($hdrs->getValue('content-disposition', Horde_Mime_Headers::VALUE_PARAMS) as $key => $val) {
+        if ($tmp = $hdrs['Content-Disposition']) {
+            $ob->setDisposition($tmp->value);
+            foreach ($tmp->params as $key => $val) {
                 $ob->setDispositionParameter($key, $val);
             }
         }
 
         /* Content-Duration */
-        if ($tmp = $hdrs->getValue('content-duration')) {
-            $ob->setDuration($tmp);
+        if ($tmp = $hdrs['Content-Duration']) {
+            $ob->setDuration(strval($tmp));
         }
 
         /* Content-ID. */
-        if ($tmp = $hdrs->getValue('content-id')) {
-            $ob->setContentId($tmp);
+        if ($tmp = $hdrs['Content-Id']) {
+            $ob->setContentId(strval($tmp));
         }
 
         if (($len = strlen($body)) && ($ob->getPrimaryType() != 'multipart')) {
@@ -2156,7 +2184,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* If this is a message/rfc822, pass the body into the next loop.
          * Don't decrement the ID here. */
-        if ($hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_BASE) == 'message/rfc822') {
+        if (($ct = $hdr_ob['Content-Type']) && ($ct == 'message/rfc822')) {
             return self::getRawPartText(
                 substr($rawtext, $curr_pos + 1),
                 $type,
@@ -2175,8 +2203,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $id = 0;
         }
 
-        $params = $hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_PARAMS);
-        if (!isset($params['boundary'])) {
+        if ($ct && !isset($ct->params['boundary'])) {
             if ($orig_id == '1') {
                 return substr($rawtext, $curr_pos + 1);
             }
@@ -2184,7 +2211,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        $b_find = self::_findBoundary($rawtext, $curr_pos, $params['boundary'], $base_pos);
+        $b_find = self::_findBoundary(
+            $rawtext,
+            $curr_pos,
+            $ct->params['boundary'],
+            $base_pos
+        );
 
         if (!isset($b_find[$base_pos])) {
             throw new Horde_Mime_Exception('Could not find MIME part.');

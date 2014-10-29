@@ -10,7 +10,7 @@
  */
 
 /**
- * Tests for the Horde_Mime_ContentParam class.
+ * Tests for the Horde_Mime_Headers_ContentParam class.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -27,7 +27,7 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
      */
     public function testEncode($params, $opts, $expected)
     {
-        $cp = new Horde_Mime_ContentParam($params);
+        $cp = new Horde_Mime_Headers_ContentParam('NOT_USED', $params);
 
         $this->assertEquals(
             $expected,
@@ -111,7 +111,7 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
      */
     public function testDecode($in, $val_expected, $params_expected)
     {
-        $cp = new Horde_Mime_ContentParam($in);
+        $cp = new Horde_Mime_Headers_ContentParam('NOT_USED', $in);
 
         $this->assertEquals(
             $val_expected,

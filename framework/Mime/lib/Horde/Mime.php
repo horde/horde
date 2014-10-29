@@ -310,11 +310,14 @@ class Horde_Mime
     const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
 
     /**
-     * @deprecated  Use Horde_Mime_ContentParam#encode() instead.
+     * @deprecated  Use Horde_Mime_Headers_ContentParam#encode() instead.
      */
     public static function encodeParam($name, $val, array $opts = array())
     {
-        $cp = new Horde_Mime_ContentParam(array($name => $val));
+        $cp = new Horde_Mime_Headers_ContentParam(
+            'UNUSED',
+            array($name => $val)
+        );
 
         return $cp->encode(array_merge(array(
             'broken_rfc2231' => self::$brokenRFC2231
@@ -322,22 +325,26 @@ class Horde_Mime
     }
 
     /**
-     * @deprecated  Use Horde_Mime_ContentParam instead.
+     * @deprecated  Use Horde_Mime_Headers_ELement_ContentParam instead.
      */
     public static function decodeParam($type, $data)
     {
-        $cp = new Horde_Mime_ContentParam();
-        $cp->decode($data);
+        $cp = new Horde_Mime_Headers_ContentParam(
+            'UNUSED',
+            $data
+        );
 
-        if (!strlen($cp->value)) {
-            $cp->value = (Horde_String::lower($type) == 'content-type')
+        if (strlen($cp->value)) {
+            $val = $cp->value;
+        } else {
+            $val = (Horde_String::lower($type) == 'content-type')
                 ? 'text/plain'
                 : 'attachment';
         }
 
         return array(
             'params' => $cp->params,
-            'val' => $cp->value
+            'val' => $val
         );
     }
 

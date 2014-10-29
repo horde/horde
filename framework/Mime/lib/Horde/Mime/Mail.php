@@ -382,22 +382,18 @@ class Horde_Mime_Mail
     public function send($mailer, $resend = false, $flowed = true)
     {
         /* Add mandatory headers if missing. */
-        $has_header = $this->_headers->getValue('Message-ID');
-        if (!$resend || !$has_header) {
-            if ($has_header) {
-                $this->_headers->removeHeader('Message-ID');
-            }
-            $this->_headers->addMessageIdHeader();
+        if (!$resend || !isset($this->_headers['Message-ID'])) {
+            $this->_headers->addHeaderOb(
+                Horde_Mime_Headers_MessageId::create()
+            );
         }
-        if (!$this->_headers->getValue('User-Agent')) {
-            $this->_headers->addUserAgentHeader();
+        if (!isset($this->_headers['User-Agent'])) {
+            $this->_headers->addHeaderOb(
+                Horde_Mime_Headers_UserAgent::create()
+            );
         }
-        $has_header = $this->_headers->getValue('Date');
-        if (!$resend || !$has_header) {
-            if ($has_header) {
-                $this->_headers->removeHeader('Date');
-            }
-            $this->_headers->addHeader('Date', date('r'));
+        if (!$resend || !isset($this->_headers['Date'])) {
+            $this->_headers->addHeaderOb(Horde_Mime_Headers_Date::create());
         }
 
         if (isset($this->_base)) {
@@ -445,7 +441,9 @@ class Horde_Mime_Mail
         /* Build recipients. */
         $recipients = clone $this->_recipients;
         foreach (array('to', 'cc') as $header) {
-            $recipients->add($this->_headers->getOb($header));
+            if ($h = $this->_headers[$header]) {
+                $recipients->add($h->getAddressList());
+            }
         }
         if ($this->_bcc) {
             $recipients->add($this->_bcc);

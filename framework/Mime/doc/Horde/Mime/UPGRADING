@@ -19,19 +19,21 @@ Upgrading to 2.5
     - $brokenRFC2231
 
       This static property is deprecated. Use the 'broken_rfc2231' parameter
-      to Horde_Mime_ContentParam#encode() instead.
+      to Horde_Mime_Headers_ContentParam#encode() instead.
 
     - decodeParam()
 
-      This method is deprecated. Use Horde_Mime_ContentParam#decode() instead.
+      This method is deprecated. Use Horde_Mime_Headers_ContentParam#decode()
+      instead.
 
     - encodeParam()
 
-      This method is deprecated. Use Horde_Mime_ContentParam#encode() instead.
+      This method is deprecated. Use Horde_Mime_Headers_ContentParam#encode()
+      instead.
 
     - generateMessageId()
 
-      This method is deprecated. Use Horde_Mime_Headers#generateMessageId()
+      This method is deprecated. Use Horde_Mime_Headers_Messageid::create()
       instead.
 
     - is8bit()
@@ -58,11 +60,77 @@ Upgrading to 2.5
 
   - Horde_Mime_Headers
 
-    - generateMessageId()
+    Headers are now internally stored in a list of Horde_Mime_Headers_Element
+    objects.
 
-       This method was added.
+    - addHeader()
 
-  - Horde_Mime_ContentParam
+      Deprecate the 'decode' and 'params' optional parameters.
+      To indicate distinct value and parameter data, use the
+      Horde_Mime_Headers_ContentParam object to add the data.
+      MIME decoding is now done automatically, based on the header name.
+
+    - addHeaderOb()
+
+      This method has been added.
+
+    - addMessageIdHeader()
+
+      This method is deprecated. Add a Horde_Mime_Headers_MessageId object via
+      Horde_Mime_Headers#addHeaderOb() instead.
+
+    - addReceivedHeader()
+
+      This method is deprecated. Create an object using
+      Horde_Mime_Headers_Received::createHordeHop() and add to the headers
+      object via Horde_Mime_Headers#addHeaderOb().
+
+    - addUserAgentHeader()
+
+      This method is deprecated. Add a Horde_Mime_Headers_UserAgent object via
+      Horde_Mime_Headers#addHeaderOb() instead.
+
+    - getEOL()
+
+      This method is deprecated.
+
+    - getUserAgent()
+
+      This method is deprecated. Get the default user agent via
+      strval(Horde_Mime_Headers_UserAgent::create()) instead.
+
+    - listHeadersExist()
+
+      This method is deprecated. Use Horde_ListHeaders#listHeadersExist()
+      instead.
+
+    - getOb()
+
+      This method is deprecated. Directly obtain the header element that
+      implements Horde_Mime_Headers_Element_Address and call
+      getAddressList() on it.
+
+    - getString()
+
+      This method is deprecated. Directly obtain the header element and query
+      its 'name' property instead.
+
+    - replaceHeader()
+
+      This method is deprecated. Use Horde_Mime_Headers#removeHeader()
+      followed by Horde_Mime_Headers#addHeader[Ob]() instead.
+
+    - setEOL()
+
+      This method is deprecated. EOLs are only needed for
+      Horde_Mime_Headers#toString(), where the 'canonical' parameter already
+      exists for the same purpose.
+
+    - setUserAgent()
+
+      This method is deprecated. Set the user agent via
+      Horde_Mime_Headers#addHeaderOb() instead.
+
   - Horde_Mime_ContentParam_Decode
   - Horde_Mime_Id
   - Horde_Mime_QuotedPrintable
