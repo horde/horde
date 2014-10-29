@@ -280,7 +280,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $collection['bodyprefs'] = array();
     }
 
-
     /**
      * Add a new populated collection array to the sync cache.
      *
