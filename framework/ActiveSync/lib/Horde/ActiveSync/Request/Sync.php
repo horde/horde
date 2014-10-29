@@ -474,11 +474,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_encoder->content($statusCode);
             $this->_encoder->endTag();
 
-            // Check the mimesupport because we need it for advanced emails
-            if (!isset($collection['mimesupport'])) {
-                $collection['mimesupport'] = 0;
-            }
-
             $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
