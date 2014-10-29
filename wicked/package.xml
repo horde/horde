@@ -18,7 +18,7 @@
  </lead>
  <date>2014-10-29</date>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
-* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1041,6 +1040,19 @@
    <notes>
 * [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
