@@ -214,9 +214,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Preparation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-
                 // These are not allowed in the same request.
                 if ($this->_collections->hbinterval !== false &&
                     $this->_collections->wait !== false) {
@@ -229,9 +227,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return true;
                 }
 
-                // Fill in missing information from cache.
+                // Fill in missing sticky data from cache.
                 $this->_collections->validateFromCache();
             }
+
+            // Ensure we have OPTIONS values.
+            $this->_collections->ensureOptions();
 
             // Full or partial sync request?
             if ($partial === true) {
