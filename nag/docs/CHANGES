@@ -2,6 +2,8 @@
 v4.2.2-git
 ----------
 
+[jan] Export nicer display names for users and resources via WebDAV.
+[jan] Export custom owner and read-only properties via WebDAV.
 [jan] Fix search attribute of SQL shares on Oracle.
 [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 [jan] Pass current start date of recurring tasks to dynamic interface.

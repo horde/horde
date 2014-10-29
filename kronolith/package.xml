@@ -33,6 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix finding modification times of shared calendars via WebDAV.
 * [jan] Support time label rotation in week and day views on IE 11.
 * [jan] Fix updating of task list view if no tasks are returned from server.
 * [jan] Fix ordering of sub-tasks.
@@ -2468,6 +2471,9 @@
    <date>2014-09-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
+* [jan] Fix finding modification times of shared calendars via WebDAV.
 * [jan] Support time label rotation in week and day views on IE 11.
 * [jan] Fix updating of task list view if no tasks are returned from server.
 * [jan] Fix ordering of sub-tasks.

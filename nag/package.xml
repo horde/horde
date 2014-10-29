@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
 * [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
@@ -1597,6 +1599,8 @@
    <date>2014-10-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Export nicer display names for users and resources via WebDAV.
+* [jan] Export custom owner and read-only properties via WebDAV.
 * [jan] Fix search attribute of SQL shares on Oracle.
 * [mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
 * [jan] Pass current start date of recurring tasks to dynamic interface.
