@@ -1,6 +1,6 @@
-----------
-v4.2.2-git
-----------
+------
+v4.2.2
+------
 
 [mjr] Fix adding new notepads via the API.
 [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
