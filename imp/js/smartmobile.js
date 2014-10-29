@@ -1599,7 +1599,7 @@ var ImpMobile = {
         $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
-        $('#compose').on('popupbeforeposition', function() {
+        $('#compose').on('popupbeforeposition', function(r) {
             switch ($(r.target).attr('id')) {
             case 'compose-more':
                 ImpMobile.morePopup('compose-more', ImpMobile.composeMorePopup);
