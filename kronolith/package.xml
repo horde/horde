@@ -24,7 +24,7 @@
  </lead>
  <date>2014-10-29</date>
  <version>
-  <release>4.2.3</release>
+  <release>4.2.4</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,16 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Export nicer display names for users and resources via WebDAV.
-* [jan] Export custom owner and read-only properties via WebDAV.
-* [jan] Fix finding modification times of shared calendars via WebDAV.
-* [jan] Support time label rotation in week and day views on IE 11.
-* [jan] Fix updating of task list view if no tasks are returned from server.
-* [jan] Fix ordering of sub-tasks.
-* [jan] Send iTip notifications even to attendees that are not required to attend (Bug #13600).
-* [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
-* [jan] Fix closure compiler errors (Bug #13593).
-* [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2481,6 +2472,19 @@
 * [jan] Fix notification and alarm issues if alarm is longer than a day (Bug #13584).
 * [jan] Fix closure compiler errors (Bug #13593).
 * [mjr] Fix checking resource availability when adding multiple resources (Bug #13561).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
