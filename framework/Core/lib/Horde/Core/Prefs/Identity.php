@@ -66,9 +66,9 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
         );
 
         $msg_headers = new Horde_Mime_Headers();
-        $msg_headers->addMessageIdHeader();
-        $msg_headers->addUserAgentHeader();
-        $msg_headers->addHeader('Date', date('r'));
+        $msg_headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
+        $msg_headers->addHeaderOb(Horde_Mime_Headers_UserAgent::create());
+        $msg_headers->addHeaderOb(Horde_Mime_Headers_Date::create());
         $msg_headers->addHeader('To', $new_addr);
         $msg_headers->addHeader('From', $old_addr);
         $msg_headers->addHeader('Subject', Horde_Core_Translation::t("Confirm new email address"));
