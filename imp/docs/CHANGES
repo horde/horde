@@ -1,6 +1,6 @@
-----------
-v6.2.3-git
-----------
+------
+v6.2.3
+------
 
 [mms] Fix handling authentication errors when they take place during an attempt
       to determine a mailbox's namespace.
