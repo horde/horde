@@ -481,17 +481,30 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
-                    // Output any errors from missing messages in REMOVE requests.
-                    if (!empty($collection['missing'])) {
-                        foreach ($collection['missing'] as $uid) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                            $this->_encoder->content($uid);
+                    // Output any SYNC_MODIFY failures
+                    if (!empty($collection['importfailures'])) {
+                        foreach ($collection['importfailures'] as $id => $reason) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+                            $this->_encoder->content($collection['class']);
                             $this->_encoder->endTag();
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                            $this->_encoder->content($id);
+                            $this->_encoder->endTag();
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(self::STATUS_NOTFOUND);
+                            $this->_encoder->content($reason);
                             $this->_encoder->endTag();
+
                             $this->_encoder->endTag();
+                            // If we have a conflict, ensure we send the new server
+                            // data in the response, if possible. Some android
+                            // clients require this, or never accept the response.
+                            if ($reason == self::STATUS_CONFLICT) {
+                                $ensure_sent[] = $id;
+                            }
                         }
                     }
 
@@ -526,30 +539,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output any SYNC_MODIFY failures
-                    if (!empty($collection['importfailures'])) {
-                        foreach ($collection['importfailures'] as $id => $reason) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
-                            $this->_encoder->content($collection['class']);
+                    // Output any errors from missing messages in REMOVE requests.
+                    if (!empty($collection['missing'])) {
+                        foreach ($collection['missing'] as $uid) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+                            $this->_encoder->content($uid);
                             $this->_encoder->endTag();
-
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($id);
-                            $this->_encoder->endTag();
-
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content($reason);
+                            $this->_encoder->content(self::STATUS_NOTFOUND);
                             $this->_encoder->endTag();
-
                             $this->_encoder->endTag();
-                            // If we have a conflict, ensure we send the new server
-                            // data in the response, if possible. Some android
-                            // clients require this, or never accept the response.
-                            if ($reason == self::STATUS_CONFLICT) {
-                                $ensure_sent[] = $id;
-                            }
                         }
                     }
 
