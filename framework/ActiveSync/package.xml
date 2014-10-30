@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix handling of MIME truncation in certain cases.
 * [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
 * [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
 * [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
@@ -2433,6 +2434,7 @@
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix handling of MIME truncation in certain cases.
 * [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
 * [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
 * [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
