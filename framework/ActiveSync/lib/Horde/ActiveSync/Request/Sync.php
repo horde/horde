@@ -1134,9 +1134,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_mimeSupport($options);
             }
 
+            // SYNC_MIMETRUNCATION is used when no SYNC_BODYPREFS element is sent.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
                 $haveElement = true;
-                $options['mimetruncation'] = $this->_decoder->getElementContent();
+                $options['mimetruncation'] = Horde_ActiveSync::getTruncSize($this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1144,9 +1145,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // SYNC_TRUNCATION only applies to the body of non-email collections
+            // or the BODY element of an Email in EAS 2.5.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
                 $haveElement = true;
-                $options['truncation'] = $this->_decoder->getElementContent();
+                $options['truncation'] = Horde_ActiveSync::getTruncSize($this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);

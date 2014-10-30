@@ -526,9 +526,6 @@ class Horde_ActiveSync_Imap_Adapter
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
         $ret = array();
-        if (!empty($options['truncation'])) {
-            $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
-        }
         foreach ($results as $data) {
             if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
                 try {
