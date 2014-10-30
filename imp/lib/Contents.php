@@ -1142,6 +1142,9 @@ class IMP_Contents
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
         }
+        if (!$part) {
+            return 0;
+        }
         $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
 
         if ($mask & self::RENDER_INLINE_AUTO) {
