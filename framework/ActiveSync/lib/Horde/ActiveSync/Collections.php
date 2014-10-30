@@ -279,7 +279,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
             }
             if (!isset($collection['mimetruncation'])) {
-                $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
+                $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_ALL;
             }
             if (!isset($collection['mimesupport'])) {
                 $collection['mimesupport'] = Horde_ActiveSync::MIME_SUPPORT_NONE;
