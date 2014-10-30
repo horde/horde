@@ -35,6 +35,13 @@ v7.0.0-git
 
 
 ------
+v6.2.4
+------
+
+[mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
+
+
+------
 v6.2.3
 ------
 
