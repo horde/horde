@@ -232,7 +232,8 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Obtain a message from the backend.
+     * Obtain the FULL message from the backend, regardless of any truncation
+     * options.
      *
      * @param string $folderid   Folder id containing data to fetch.
      * @param string $id         Server id of data to fetch.
