@@ -619,7 +619,7 @@ class Horde_Smtp implements Serializable
             $mailcmd .= ' BODY=7BIT';
         }
 
-        $mailcmd = 'MAIL FROM:<' . $from->bare_address_idn . '>';
+        $mailcmd = 'MAIL FROM:<' . ($eai ? $from->bare_address : $from->bare_address_idn) . '>';
 
         // RFC 1870[6]
         if ($this->queryExtension('SIZE')) {
@@ -637,7 +637,9 @@ class Horde_Smtp implements Serializable
 
         $cmds = array($mailcmd);
 
-        $recipients = $to->bare_addresses_idn;
+        $recipients = $eai
+            ? $to->bare_addresses
+            : $to->bare_addresses_idn;
         foreach ($recipients as $val) {
             $cmds[] = 'RCPT TO:<' . $val . '>';
         }
