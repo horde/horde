@@ -44,6 +44,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
 
+    /* Draft mail metadata headers. */
+    const DRAFT_HDR = 'X-IMP-Draft';
+    const DRAFT_REPLY = 'X-IMP-Draft-Reply';
+    const DRAFT_REPLY_TYPE = 'X-IMP-Draft-Reply-Type';
+    const DRAFT_FWD = 'X-IMP-Forward';
+
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -294,17 +300,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 switch ($this->replyType(true)) {
                 case self::FORWARD:
-                    $draft_headers->addHeader('X-IMP-Draft-Forward', implode(', ', $urls));
+                    $draft_headers->addHeader(self::DRAFT_FWD, implode(', ', $urls));
                     break;
 
                 case self::REPLY:
-                    $draft_headers->addHeader('X-IMP-Draft-Reply', implode(', ', $urls));
-                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->_replytype);
+                    $draft_headers->addHeader(self::DRAFT_REPLY, implode(', ', $urls));
+                    $draft_headers->addHeader(self::DRAFT_REPLY_TYPE, $this->_replytype);
                     break;
                 }
             } catch (Horde_Exception $e) {}
         } else {
-            $draft_headers->addHeader('X-IMP-Draft', 'Yes');
+            $draft_headers->addHeader(self::DRAFT_HDR, 'Yes');
         }
 
         return $base->toString(array(
@@ -474,18 +480,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = $contents->getHeader();
         $imp_draft = false;
 
-        if ($draft_url = $headers->getValue('x-imp-draft-reply')) {
+        if ($draft_url = $headers[self::DRAFT_REPLY]) {
             if (is_null($type) &&
-                !($type = $headers->getValue('x-imp-draft-reply-type'))) {
+                !($type = $headers->getValue(self::DRAFT_REPLY_TYPE))) {
                 $type = self::REPLY;
             }
             $imp_draft = self::REPLY;
-        } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
+        } elseif ($draft_url = $headers->getValue(self::DRAFT_FWD)) {
             $imp_draft = self::FORWARD;
             if (is_null($type)) {
                 $type = self::FORWARD;
             }
-        } elseif ($headers->getValue('x-imp-draft')) {
+        } elseif ($headers->getValue(self::DRAFT_HDR)) {
             $imp_draft = self::COMPOSE;
         }
 
