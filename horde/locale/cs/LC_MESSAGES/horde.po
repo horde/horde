@@ -596,6 +596,10 @@ msgstr "Keltský (ISO-8859-14)"
 msgid "Central European (ISO-8859-2)"
 msgstr "Středoevropský (ISO-8859-2)"
 
+#: config/nls.php:173
+msgid "Central European (windows-1250)"
+msgstr "Středoevropský (windows-1250)"
+
 #: templates/prefs/rpc.html:33
 msgid "Change"
 msgstr "Změnit"
@@ -963,7 +967,7 @@ msgstr "Výchozí shell"
 
 #: config/prefs.php:403
 msgid "Default charset for sending e-mail messages:"
-msgstr "Výchozí font pro posílání e-mailových zpráv:"
+msgstr "Výchozí znaková sada posílaných e-mailových zpráv:"
 
 #: config/prefs.php:296
 msgid "Default location to use for location-aware features."
@@ -1153,7 +1157,7 @@ msgstr "Upravit \"%s\""
 
 #: templates/prefs/app.html:6
 msgid "Edit Preferences for"
-msgstr "Editovat nastavení pro"
+msgstr "Upravit nastavení pro"
 
 #: services/shares/edit.php:249
 msgid "Edit permissions"
@@ -1307,11 +1311,11 @@ msgstr "Zapsat"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr "Zásobník"
+msgstr "RSS kanál"
 
 #: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Adresa zásobníku"
+msgstr "Adresa RSS kanálu"
 
 #: lib/Block/Metar.php:194
 msgid "Feels Like"
@@ -1524,7 +1528,7 @@ msgstr "Kolik je tam polí (sloupců)?"
 
 #: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
-msgstr "Kolik sekund předem zkontrolujeme nové články?"
+msgstr "Po kolika sekundách se mají kontrolovat nové články?"
 
 #: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
@@ -1545,7 +1549,7 @@ msgstr "Ikony pro %s"
 
 #: templates/prefs/activesync.html.php:2
 msgid "Identity to use when sending email via ActiveSync."
-msgstr ""
+msgstr "Identita, která se použije při odesílání e-mailů přes ActiveSync."
 
 #: config/prefs.php:274
 msgid "Identity's name:"
@@ -1898,7 +1902,7 @@ msgstr "Maximální počet zařízení"
 
 #: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
-msgstr "Maximální počet položek k zobrazení"
+msgstr "Maximální počet zobrayených položek"
 
 #: lib/Block/Fortune.php:57
 msgid "Medicine"
@@ -2068,7 +2072,7 @@ msgstr "Další 4 fáze"
 
 #: templates/prefs/alarm.html:32
 msgid "No Sound"
-msgstr "Žádný zvuk"
+msgstr "Bez zvuku"
 
 #: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
@@ -2238,7 +2242,6 @@ msgid "Other Options"
 msgstr "Další Možnosti"
 
 #: config/registry.php:180
-#, fuzzy
 msgid "Others"
 msgstr "Ostatní"
 
@@ -2331,9 +2334,8 @@ msgid "Pets"
 msgstr "Domácí zvířata"
 
 #: templates/admin/activesync.html.php:19
-#, fuzzy
 msgid "Phone Number"
-msgstr "Fonetické příjmení"
+msgstr "Telefonní číslo"
 
 #: config/registry.php:197
 msgid "Photos"
@@ -2376,6 +2378,8 @@ msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
 msgstr ""
+"Umístění textu odpovědi při odepisování na mobilním zařízení. Poznámka: "
+"Některá zařízení vždy umístí citaci na konec zprávy."
 
 #: lib/Block/FbStream.php:143
 msgid "Post"
@@ -2798,7 +2802,7 @@ msgstr "Krátké shrnutí"
 
 #: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
-msgstr "Měly by být přístupové klíče definovány pro většinu odkazů?"
+msgstr "Mají být klávesové zkratky definovány pro většinu odkazů?"
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
@@ -2815,9 +2819,8 @@ msgid "Show Advanced Preferences"
 msgstr "Zobrazit pokročilé nastavení"
 
 #: templates/prefs/end.html:8
-#, fuzzy
 msgid "Show All Preferences Groups"
-msgstr "Zobrazit pokročilé nastavení"
+msgstr "Zobrazit všechny skupiny nastavení"
 
 #: admin/config/index.php:385
 msgid ""
@@ -2827,7 +2830,7 @@ msgstr "Zobrazit odlišnosti mezi současnou a předchozí konfigurací."
 
 #: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr "Ukázat extra detail?"
+msgstr "Zobrazit popisky článků?"
 
 #: config/prefs.php:565
 msgid "Show last login time when logging in?"
@@ -3255,7 +3258,7 @@ msgstr "Zítra"
 
 #: config/prefs.php:748
 msgid "Top"
-msgstr "Nahoru"
+msgstr "Nahoře"
 
 #: lib/Block/Fortune.php:70
 msgid "Translations"
@@ -3495,7 +3498,7 @@ msgstr "Upozornění"
 
 #: templates/login/login.inc:43
 msgid "Warning: Your Caps Lock key is on!"
-msgstr ""
+msgstr "Upozornění: Máte zapnutý Caps Lock!"
 
 #: lib/Block/Weather.php:35 lib/Block/Weather.php:62
 msgid "Weather"
@@ -3879,7 +3882,7 @@ msgstr "_Skupiny"
 
 #: lib/Api.php:60
 msgid "_Locks"
-msgstr "_zámky"
+msgstr "_Zámky"
 
 #: lib/Api.php:55
 msgid "_Permissions"

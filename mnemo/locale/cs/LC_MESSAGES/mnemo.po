@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Mnemo 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:02+0200\n"
-"PO-Revision-Date: 2014-10-16 14:16+0100\n"
+"PO-Revision-Date: 2014-11-03 16:51+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: memo.php:282
 #, php-format
@@ -69,7 +69,7 @@ msgstr "Vzestupně"
 
 #: lib/Form/Search.php:27
 msgid "Body"
-msgstr "Tělo"
+msgstr "Celém textu"
 
 #: data.php:21 templates/data/import.inc:10
 msgid "CSV"
@@ -85,20 +85,18 @@ msgid "Change Permissions"
 msgstr "Změnit práva"
 
 #: config/prefs.php:14
-#, fuzzy
 msgid "Change your note sorting and display preferences."
-msgstr "Změň možnosti třídení a zobrazení."
+msgstr "Změnit nastavení třídení a zobrazení poznámek."
 
 #: config/prefs.php:28
-#, fuzzy
 msgid "Choose the Notepads to use for synchronization with external devices."
 msgstr ""
-"Vyberte adresáře, které mají být použity pro synchronizaci s externími "
-"zařízeními:"
+"Vyberte zápisníky, které mají být použity pro synchronizaci s externími "
+"zařízeními."
 
 #: config/prefs.php:21
 msgid "Choose your default Notepad."
-msgstr "Zvolit výchozí zápisník:"
+msgstr "Zvolit výchozí zápisník."
 
 #: templates/list/header.html.php:8
 msgid "Close Search"
@@ -130,7 +128,7 @@ msgstr "Dešifrovat"
 
 #: config/prefs.php:20
 msgid "Default Notepad"
-msgstr "Výchozí zápisník:"
+msgstr "Výchozí zápisník"
 
 #: config/prefs.php:56
 msgid "Default sorting criteria:"
@@ -186,7 +184,7 @@ msgstr "Upravit %s"
 
 #: lib/Block/Summary.php:67 lib/Block/Summary.php:68 list.php:78
 msgid "Edit Note"
-msgstr "Upravit Poznámku"
+msgstr "Upravit poznámku"
 
 #: memo.php:125 memo.php:161
 #, php-format
@@ -210,7 +208,7 @@ msgstr "Exportovat"
 
 #: templates/data/export.inc:1
 msgid "Export Notes"
-msgstr "Exportovat Poznámky"
+msgstr "Exportovat poznámky"
 
 #: lib/Driver/Kolab.php:293
 #, php-format
@@ -218,27 +216,25 @@ msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr ""
 
 #: lib/Form/Search.php:24
-#, fuzzy
 msgid "For"
-msgstr "Pá"
+msgstr "Hledaný výraz"
 
 #: config/prefs.php:12 config/prefs.php:33
-#, fuzzy
 msgid "General Preferences"
-msgstr "Globální nastavení"
+msgstr "Obecná nastavení"
 
 #: templates/data/import.inc:1
 #, php-format
 msgid "Import Notes, Step %d"
-msgstr "Importovat Poznámku, Krok %d"
+msgstr "Importovat poznámky, Krok %d"
 
 #: data.php:156
 msgid "Import/Export Notes"
-msgstr "Importovat/Exportovat Poznámky"
+msgstr "Importovat/Exportovat poznámky"
 
 #: lib/Form/Search.php:26
 msgid "In"
-msgstr "V"
+msgstr "Hledat v"
 
 #: templates/view/view.html.php:38
 msgid "Last Modified"
@@ -254,7 +250,7 @@ msgstr "Maximální počet poznámek"
 
 #: data.php:42
 msgid "Memo Text"
-msgstr "Text Poznámky"
+msgstr "Text poznámky"
 
 #: config/prefs.php:54
 msgid "Modification Date"
@@ -279,7 +275,7 @@ msgstr "Moje poznámky"
 
 #: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:39
 msgid "Name"
-msgstr "Jméno"
+msgstr "Název"
 
 #: lib/Application.php:186 memo.php:102 memo.php:153
 msgid "New Note"
@@ -307,23 +303,23 @@ msgstr "Žádné poznámky se neshodují se současným kritériem."
 
 #: lib/Block/Summary.php:94
 msgid "No notes to display"
-msgstr "Žádné poznámky pro zobrazení"
+msgstr "Žádné poznámky k zobrazení"
 
 #: list.php:97
 msgid "No_te"
-msgstr "Po_známka"
+msgstr "_Poznámka"
 
 #: view.php:155
 msgid "Note Details"
-msgstr "Detaily pro Poznámku"
+msgstr "Detail poznámky"
 
 #: config/prefs.php:52
 msgid "Note Text"
-msgstr "Text Poznámky"
+msgstr "Text poznámky"
 
 #: templates/memo/memo.html.php:26
 msgid "Note _Text"
-msgstr "_Text Poznámky"
+msgstr "_Text poznámky"
 
 #: memo.php:113 memo.php:158 note/pdf.php:52 view.php:55
 msgid "Note not found."
@@ -406,24 +402,20 @@ msgid "Select the format of the source file:"
 msgstr "Vybrat formát zdrojového souboru:"
 
 #: config/prefs.php:109
-#, fuzzy
 msgid ""
 "Select the notepads that, in addition to the default, should be used for "
 "synchronization with external devices:"
 msgstr ""
-"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
-"zařízeními:"
+"Vyberte zápisníky, které mají být používané pro synchronizaci s externími "
+"zařízeními, kromě výchozího:"
 
 #: lib/Application.php:133
 msgid "Shared Notepads"
 msgstr "Sdílené zápisníky"
 
 #: config/prefs.php:44
-#, fuzzy
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr ""
-"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
-"zařízeními:"
+msgstr "Má být zápisník zobrazen v samostatném sloupci ve výpisu poznámek?"
 
 #: lib/Block/Summary.php:36
 msgid "Show action buttons?"
@@ -443,9 +435,8 @@ msgid "Successfully saved \"%s\"."
 msgstr "\"%s\" úspěšně uloženo."
 
 #: config/prefs.php:161
-#, fuzzy
 msgid "Support separate notepads?"
-msgstr "Váš implicitní kalendář"
+msgstr "Podporovat samostatné zápisníky?"
 
 #: config/prefs.php:27
 msgid "Synchronization Preferences"
@@ -476,7 +467,7 @@ msgstr ""
 
 #: memo.php:252
 msgid "The note was deleted."
-msgstr "Poznámka byla vymazána."
+msgstr "Poznámka byla smazána."
 
 #: notepads/create.php:29
 #, php-format
@@ -562,7 +553,7 @@ msgstr "Tato poznámka je zašifrována."
 
 #: lib/Form/Search.php:27
 msgid "Title"
-msgstr "Titul"
+msgstr "Titulku"
 
 #: lib/Api.php:304 lib/Api.php:356 lib/Api.php:445
 #, php-format
@@ -575,7 +566,7 @@ msgstr "Zobrazit poznámku"
 
 #: templates/data/import.inc:15
 msgid "Which Notepad should the notes be added to?"
-msgstr "Do kterého zápisníku se mají poznámky ukládat?"
+msgstr "Do kterého zápisníku se mají poznámky uložit?"
 
 #: data.php:34 data.php:87 memo.php:73
 #, php-format

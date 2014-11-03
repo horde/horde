@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.0.5\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-10-16 14:16+0100\n"
+"PO-Revision-Date: 2014-11-03 16:51+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: data.php:287
 #, php-format
@@ -141,9 +141,8 @@ msgid "Address book successfully purged."
 msgstr "Kontakty byly úspěšně vyčistěny."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:45
-#, fuzzy
 msgid "Addressbook entry could not be loaded."
-msgstr "Adresáře, které se nezobrazí:"
+msgstr "Záznam se nepodařilo načíst."
 
 #: search.php:204 search.php:248
 msgid "Advanced Search"
@@ -290,7 +289,7 @@ msgstr ""
 
 #: config/prefs.php:14
 msgid "Choose which address books to use."
-msgstr "Vyberte adresář, který se má použít."
+msgstr "Vyberte adresář, který se má používat."
 
 #: templates/prefs/column.html:7
 msgid ""
@@ -310,7 +309,7 @@ msgstr "Zavřít vyhledávání"
 
 #: config/prefs.php:27
 msgid "Column Preferences"
-msgstr "Nastavení sloupce"
+msgstr "Nastavení sloupců"
 
 #: templates/data/export.inc:12 templates/data/import.inc:13
 msgid "Comma separated values"
@@ -504,7 +503,7 @@ msgstr "Popis"
 
 #: config/prefs.php:34
 msgid "Display"
-msgstr "Zobrazit"
+msgstr "Zobrazení"
 
 #: config/prefs.php:26 config/prefs.php:33 config/prefs.php:40
 msgid "Display Preferences"
@@ -1268,7 +1267,7 @@ msgstr "Ukládání kontaktů není možné."
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:21
 #: templates/search/duplicate.html.php:11
 msgid "Search"
-msgstr "Hledat"
+msgstr "Vyhledat"
 
 #: templates/search/header.html.php:3
 msgid "Search Criteria Hidden - Click to Display"
@@ -1333,11 +1332,11 @@ msgstr "Vyberte formát zdrojového souboru:"
 
 #: config/prefs.php:144
 msgid "Select the format used to <em>display</em> names:"
-msgstr "Vyberte formát používaný k <em>display</em> jmen:"
+msgstr "Vyberte formát používaný k <em>zobrazení</em> jmen:"
 
 #: config/prefs.php:156
 msgid "Select the format used to <em>sort</em> names:"
-msgstr "Vyberte formát používaný k<em>sort</em> jmen:"
+msgstr "Vyberte formát používaný k <em>setřídění</em> jmen:"
 
 #: config/prefs.php:35
 msgid "Select view to display by default and paging preferences."
@@ -1391,13 +1390,12 @@ msgid "Show Both"
 msgstr "Zobrazit obojí"
 
 #: templates/browse/actions.inc:48
-#, fuzzy
 msgid "Show _Contacts"
-msgstr "Zobrazit kontakty"
+msgstr "Zobrazit _kontakty"
 
 #: templates/browse/actions.inc:47
 msgid "Show _Lists"
-msgstr "Zobrazit _Skupiny"
+msgstr "Zobrazit _skupiny"
 
 #: lib/View/List.php:333 lib/View/List.php:343
 msgid "Sort Direction"
@@ -1464,9 +1462,8 @@ msgid "Successfully removed %d contact(s) from list."
 msgstr "Úspěšně odebrán(y) %d kontakt(y) ze skupiny."
 
 #: config/prefs.php:91
-#, fuzzy
 msgid "Support separate address books?"
-msgstr "Váš implicitní kalendář"
+msgstr "Podporovat samostatné adresáře?"
 
 #: config/prefs.php:20
 msgid "Synchronization Preferences"
@@ -1952,7 +1949,7 @@ msgstr "muž"
 
 #: config/prefs.php:148 config/prefs.php:160
 msgid "no formatting"
-msgstr "bez formátování"
+msgstr "žádné formátování"
 
 #: templates/browse/actions.inc:31
 msgid "to a Contact List"

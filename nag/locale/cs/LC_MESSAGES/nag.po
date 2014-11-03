@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Nag 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-10-16 14:14+0100\n"
+"PO-Revision-Date: 2014-11-03 16:51+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: templates/view/task.inc:58
 #, php-format
@@ -88,12 +88,12 @@ msgstr "%s požadováno nyní."
 #: lib/CompleteTask.php:30
 #, php-format
 msgid "%s is now incomplete."
-msgstr ""
+msgstr "%s je nyní dokončen."
 
 #: lib/CompleteTask.php:27
 #, php-format
 msgid "%s is still incomplete."
-msgstr ""
+msgstr "%s je stále nedokončen."
 
 #: data.php:163
 #, php-format
@@ -122,14 +122,12 @@ msgid "Access denied completing this task."
 msgstr "Zamezen přístup pro dokončení úkolu %s."
 
 #: app/controllers/SaveTask.php:34
-#, fuzzy
 msgid "Access denied deleting task"
-msgstr "Zamezen přístup pro smazání úkolu %s."
+msgstr "Zamezen přístup pro smazání úkolu"
 
 #: task.php:23
-#, fuzzy
 msgid "Access denied deleting task."
-msgstr "Zamezen přístup pro smazání úkolu %s."
+msgstr "Zamezen přístup pro smazání úkolu."
 
 #: app/controllers/SaveTask.php:30
 #, fuzzy, php-format
@@ -266,9 +264,8 @@ msgid "Change Permissions"
 msgstr "Změnit Práva"
 
 #: config/prefs.php:14
-#, fuzzy
 msgid "Change your task sorting and display preferences."
-msgstr "Změň možnosti třídení a zobrazení."
+msgstr "Změňit nastavení třídení a zobrazení úkolů."
 
 #: lib/Nag.php:1199
 #, fuzzy, php-format
@@ -331,27 +328,29 @@ msgstr ""
 
 #: lib/Prefs/Special/TaskAlarms.php:29
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr ""
+msgstr "Vyberte způsob, jakým chcete dostávat upozornění na úkoly:"
 
 #: config/prefs.php:185
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
 msgstr ""
+"Vyberte, jestli chcete dostávat e-mailové notifikace o nových, upravených a "
+"smazaných úkolech:"
 
 #: config/prefs.php:49
 msgid "Choose if you want to be notified of task changes and task alarms."
 msgstr ""
+"Vyberte si, jestli chcete být upozorňen(a) na změny úkolů a na termíny."
 
 #: config/prefs.php:42
-#, fuzzy
 msgid "Choose the task lists to use for synchronization with external devices."
 msgstr ""
-"Vyberte adresáře, které mají být použity pro synchronizaci s externími "
-"zařízeními:"
+"Vyberte si seznamy úkolů, které mají být použity pro synchronizaci s "
+"externími zařízeními."
 
 #: config/prefs.php:35
 msgid "Choose your default task list."
-msgstr "Zvolit implicitní seznam úkolů."
+msgstr "Vyberte si Váš výchozí seznam úkolů."
 
 #: lib/Form/EditTaskList.php:79
 msgid "Click or copy this URL to display this task list"
@@ -435,9 +434,8 @@ msgid "Create Subtask"
 msgstr "Vytvořit podúkol"
 
 #: lib/Form/CreateTaskList.php:21
-#, fuzzy
 msgid "Create Task List"
-msgstr "Implicitní Seznam Úkolů"
+msgstr "Vytvořit seznam úkolů"
 
 #: lib/Application.php:161
 msgid "Create a new System Task List"
@@ -473,12 +471,11 @@ msgstr "Den(Dny)"
 
 #: config/prefs.php:34
 msgid "Default Task List"
-msgstr "Implicitní Seznam Úkolů"
+msgstr "Výchozí seznam úkolů"
 
 #: config/prefs.php:28
-#, fuzzy
 msgid "Defaults for new tasks"
-msgstr "Nelze vytvořit novou událost."
+msgstr "Nastavení výchozích vlastností nově vytvářených úkolů."
 
 #: lib/Form/Task.php:125
 msgid "Delay Start Until"
@@ -500,9 +497,8 @@ msgid "Delete Smart List"
 msgstr "Smazat virtuální seznam"
 
 #: config/prefs.php:21
-#, fuzzy
 msgid "Delete behaviour"
-msgstr "Smazat vzor"
+msgstr "Nastavení mazání úkolů"
 
 #: task.php:34
 #, php-format
@@ -510,14 +506,12 @@ msgid "Deleted %s."
 msgstr "Smazat %s."
 
 #: config/prefs.php:20
-#, fuzzy
 msgid "Deleting Tasks"
-msgstr "Implicitní Seznam Úkolů"
+msgstr "Mazání úkolů"
 
 #: lib/Api.php:619
-#, fuzzy
 msgid "Deleting entire task lists is not supported."
-msgstr "Tento formát souboru nelze použít."
+msgstr "Mazání celých seznamů úkolů není podporováno."
 
 #: config/prefs.php:115
 msgid "Descending"
@@ -543,14 +537,12 @@ msgstr "Odkaz"
 
 #: config/prefs.php:124
 msgid "Do you want to confirm deleting entries?"
-msgstr ""
+msgstr "Chcete potvrzovat mazání položek?"
 
 #: config/prefs.php:192
-#, fuzzy
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
-msgstr ""
-"Zaslat zprávu o zrušení události všem účastníkům, když se událost smazává"
+msgstr "Neposílat mi e-mail, jestli jsem změnu udělal já sám?"
 
 #: data.php:50 lib/Form/Task.php:123 templates/view/task.inc:45
 msgid "Due By"
@@ -646,9 +638,8 @@ msgid "General"
 msgstr "Všeobecně"
 
 #: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
-#, fuzzy
 msgid "General Preferences"
-msgstr "Globální nastavení"
+msgstr "Obecná nastavení"
 
 #: templates/smartmobile/taskform.html.php:41
 msgid "Highest"
@@ -661,11 +652,11 @@ msgstr "Hodin(a)"
 #: templates/data/import.inc:7
 #, php-format
 msgid "Import Tasks, Step %d"
-msgstr "Importovat Úkoly, Krok %d"
+msgstr "Importovat úkoly, Krok %d"
 
 #: data.php:176
 msgid "Import/Export Tasks"
-msgstr "Importovat/Exportovat Úkoly"
+msgstr "Importovat/Exportovat úkoly"
 
 #: lib/View/List.php:104
 msgid "Incom_plete tasks"
@@ -790,7 +781,7 @@ msgstr "Nový"
 #: app/controllers/SaveTask.php:12 lib/Application.php:319
 #: lib/Smartmobile.php:122 task.php:84
 msgid "New Task"
-msgstr "Nový Úkol"
+msgstr "Nový úkol"
 
 #: templates/data/import.inc:42
 msgid "Next"
@@ -865,21 +856,19 @@ msgstr "Způsob upozornění"
 
 #: config/prefs.php:48
 msgid "Notifications"
-msgstr "Způsoby upozornění"
+msgstr "Způsob upozornění"
 
 #: config/prefs.php:182
-#, fuzzy
 msgid "On all shown task lists"
-msgstr "Ovládání pro vzdálené kalendáře"
+msgstr "Ze všech zobrazených seznamů úkolů"
 
 #: config/prefs.php:183
 msgid "On all task lists I have read access to"
-msgstr ""
+msgstr "Ze všech seznamů úkolů, ke kterým mám přístup"
 
 #: config/prefs.php:181
-#, fuzzy
 msgid "On my task lists only"
-msgstr "Aktualizovat v mém kalendáři"
+msgstr "Jenom z mých seznamů úkolů"
 
 #: lib/Form/EditTaskList.php:51
 msgid "Owner"
@@ -912,14 +901,12 @@ msgid "Private?"
 msgstr "Soukromný?"
 
 #: config/prefs.php:132
-#, fuzzy
 msgid "Purge completed tasks how often:"
-msgstr "Jak často vyprazdňovat složku Odeslaná pošta:"
+msgstr "Interval mazání dokončených úkolů:"
 
 #: config/prefs.php:138
-#, fuzzy
 msgid "Purge completed tasks older than this amount of days."
-msgstr "Vyčistit zprávy ze složky SPAM, které jsou starší než tento počet dní."
+msgstr "Mazat dokončené úkoly starší než tento počet dní:"
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:66
 #, fuzzy, php-format
@@ -943,9 +930,8 @@ msgstr ""
 "všechny kontakty v tomto adresáři budou ztraceny."
 
 #: templates/view/task.inc:13
-#, fuzzy
 msgid "Really delete this task?"
-msgstr "Trvale odstranit tento kontakt?"
+msgstr "Trvale odstranit tento úkol?"
 
 #: lib/Ui/VarRenderer/Nag.php:344
 msgid "Recur Until"
@@ -983,7 +969,7 @@ msgstr "Uložit"
 
 #: templates/smartmobile/taskform.html.php:61
 msgid "Save Task"
-msgstr "Uložit Úkol"
+msgstr "Uložit úkol"
 
 #: lib/Form/Task.php:155
 msgid "Save and New"
@@ -1026,11 +1012,8 @@ msgid "Search: Results for"
 msgstr "Vyhledávání: Výsledky pro dotaz"
 
 #: config/prefs.php:72
-#, fuzzy
 msgid "Select the columns that should be shown in the list view:"
-msgstr ""
-"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
-"zařízeními:"
+msgstr "Vyberte sloupce, které mají být zobrazeny ve výpisu úkolů:"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
@@ -1050,13 +1033,12 @@ msgid "Select the task list(s) to export from:"
 msgstr "Vybrat kalendář pro importování:"
 
 #: config/prefs.php:276
-#, fuzzy
 msgid ""
 "Select the task lists that, in addition to the default, should be used for "
 "synchronization with external devices:"
 msgstr ""
-"Vyberte adresáře, které mají být používané pro synchronizaci s externími "
-"zařízeními:"
+"Vyberte seznamy úkolů, které mají být používané pro synchronizaci s "
+"externími zařízeními:"
 
 #: templates/data/export.inc:32
 #, fuzzy
@@ -1100,7 +1082,6 @@ msgid "Show task alarms?"
 msgstr "Zobrazit upozornění pro úkoly?"
 
 #: lib/Block/Summary.php:61
-#, fuzzy
 msgid "Show task list name?"
 msgstr "Zobrazit název seznamu úkolů?"
 
@@ -1124,16 +1105,15 @@ msgstr "Název virtuálniho seznamu:"
 
 #: config/prefs.php:117
 msgid "Sort direction:"
-msgstr "Směr Třídění:"
+msgstr "Směr třídění:"
 
 #: config/prefs.php:89
 msgid "Sort tasks by:"
-msgstr "Třídění Úkolů podle:"
+msgstr "Třídit úkoly podle:"
 
 #: data.php:52
-#, fuzzy
 msgid "Start"
-msgstr "Začátek:"
+msgstr "Začátek"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
 #: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:41
@@ -1150,14 +1130,12 @@ msgid "Su"
 msgstr "Ne"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:115
-#, fuzzy
 msgid "Successfully deleted"
-msgstr "Úspěšně odstraněno \"%s\"."
+msgstr "Úspěšně odstraněno"
 
 #: config/prefs.php:328
-#, fuzzy
 msgid "Support separate task lists?"
-msgstr "Váš implicitní kalendář"
+msgstr "Podporovat samostatné seznamy úkolů?"
 
 #: config/prefs.php:41
 msgid "Synchronization Preferences"
@@ -1199,14 +1177,13 @@ msgid "Task Alarm?"
 msgstr "Upozornění na úkol?"
 
 #: config/prefs.php:27
-#, fuzzy
 msgid "Task Defaults"
-msgstr "Detaily Úkolu"
+msgstr "Výchozí vlastnosti"
 
 #: config/prefs.php:65 config/prefs.php:87 config/prefs.php:104
 #: lib/Form/Task.php:66
 msgid "Task List"
-msgstr "Seznam Úkolů"
+msgstr "Seznam úkolů"
 
 #: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
 #: config/prefs.php:54
@@ -1216,15 +1193,15 @@ msgstr "Seznam Úkolů a Možnosti Sdílení"
 
 #: config/prefs.php:81 config/prefs.php:98
 msgid "Task Name"
-msgstr "Název Úkolu"
+msgstr "Název úkolu"
 
 #: templates/list/_task.html.php:66
 msgid "Task Note"
-msgstr "Poznámka Úkolu"
+msgstr "Poznámka úkolu"
 
 #: templates/list/task_headers.html.php:21
 msgid "Task Note?"
-msgstr "Poznámku Úkolu?"
+msgstr "Poznámku úkolu?"
 
 #: lib/Nag.php:1125
 #, fuzzy
@@ -1308,7 +1285,7 @@ msgstr "Služba je momentálně nedostupná. Zkuste prosím znovu později."
 
 #: config/prefs.php:163
 msgid "The current hour"
-msgstr ""
+msgstr "Aktuální hodina"
 
 #: lib/Nag.php:1129
 #, fuzzy, php-format
@@ -1353,7 +1330,7 @@ msgstr "Byl uložen seznam úkolů \"%s\"."
 
 #: config/prefs.php:106
 msgid "Then:"
-msgstr "Pak:"
+msgstr "A pak dle:"
 
 #: templates/list.html.php:30
 msgid "There are no tasks matching the current criteria."
@@ -1478,22 +1455,23 @@ msgstr "Týdně: Opakuj každý"
 
 #: config/prefs.php:161
 msgid "What do you want to be the default due time for tasks?"
-msgstr ""
+msgstr "Jaký má být výchozí čas dokončení úkolů?"
 
 #: config/prefs.php:153
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
 msgstr ""
+"Kolik dní do budoucna má být nastaven termín dokončení nově vytvářených "
+"úkolů? (0 znamená dnes)?"
 
 #: config/prefs.php:145
 msgid "When creating a new task, should it default to having a due date?"
-msgstr ""
+msgstr "Mají mít nově vytvářené úkoly ve výchozím nastaven termín dokončení?"
 
 #: templates/data/import.inc:21
-#, fuzzy
 msgid "Which task list should the tasks be added to?"
-msgstr "Do kterého Seznamu Úkolů se mají úkoly ukládat?"
+msgstr "Do kterého seznamu úkolů se mají úkoly uložit?"
 
 #: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
 #: lib/Ui/VarRenderer/Nag.php:327
@@ -1561,7 +1539,7 @@ msgstr "Událost ve Vašem kalendáři byla aktualizována."
 
 #: config/prefs.php:238
 msgid "Your default task list:"
-msgstr "Implicitní seznam úkolů"
+msgstr "Výchozí seznam úkolů"
 
 #: lib/Block/Summary.php:115 lib/Block/Summary.php:223
 #: templates/list/_task.html.php:51

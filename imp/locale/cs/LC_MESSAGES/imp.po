@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.1.4\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-10-16 14:17+0100\n"
+"PO-Revision-Date: 2014-11-03 17:17+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:93
 msgid " and "
@@ -38,12 +38,12 @@ msgstr "Na začátku měsíce bude schránka %s přejmenována."
 #: lib/Ajax/Application/Handler/Dynamic.php:485
 #, php-format
 msgid "\"%s\" mailbox no longer polled for new mail."
-msgstr "\"%s\" schránka již nevyužívána pro zjištění nových zpráv."
+msgstr "Složka \"%s\" již není využívána pro zjištění nových zpráv."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:482
 #, php-format
 msgid "\"%s\" mailbox now polled for new mail."
-msgstr "\"%s\" schránka právě použita pro zjištění nových zpráv."
+msgstr "Složka \"%s\" je používaná pro zjištění nových zpráv."
 
 #: lib/Quota.php:49
 #, php-format
@@ -154,7 +154,7 @@ msgstr "%d příjemců"
 #: lib/Mime/Viewer/Audio.php:67 lib/Mime/Viewer/Video.php:95
 #, php-format
 msgid "%d second"
-msgstr ""
+msgstr "%d sekunda"
 
 #: lib/Mime/Viewer/Audio.php:67 lib/Mime/Viewer/Video.php:95
 #, php-format
@@ -222,9 +222,9 @@ msgid "%s has sent you free/busy information."
 msgstr "%s zaslal(a) informaci o volném čase."
 
 #: lib/Dynamic/Mailbox.php:537
-#, fuzzy, php-format
+#, php-format
 msgid "%s is: %s."
-msgstr "%s v %s"
+msgstr "%s je: %s."
 
 #: lib/Spam/Email.php:98
 #, php-format
@@ -350,12 +350,12 @@ msgstr ""
 #: lib/Prefs/Special/Acl.php:171
 #, php-format
 msgid "ACL for \"%s\" successfully created for the mailbox \"%s\"."
-msgstr "ACL pro \"%s\" úspěšně vytvořeno pro schránku \"%s\"."
+msgstr "ACL pro \"%s\" úspěšně vytvořeno pro složku \"%s\"."
 
 #: lib/Prefs/Special/Acl.php:196
 #, php-format
 msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
-msgstr "ACL práva pro \"%s\" aktualizována pro schránku \"%s\"."
+msgstr "ACL práva pro \"%s\" aktualizována pro složku \"%s\"."
 
 #: lib/Mime/Viewer/Itip.php:302
 msgid "Accept and add to my calendar"
@@ -375,12 +375,11 @@ msgstr "Přijato"
 
 #: templates/dynamic/compose.html.php:24
 msgid "Accesskey Ctrl-Enter"
-msgstr ""
+msgstr "Klávesová zkratka Ctrl-Enter"
 
 #: templates/dynamic/compose.html.php:19
-#, fuzzy
 msgid "Accesskey Esc"
-msgstr " (Přístupová klávesa %s)"
+msgstr "Klávesová zkratka Esc"
 
 #: lib/Prefs/Special/Remote.php:136
 #, php-format
@@ -428,9 +427,8 @@ msgid "Add OR clause"
 msgstr "Přidat klauzuli NEBO"
 
 #: config/prefs.php:1426
-#, fuzzy
 msgid "Add a \"Printed By\" header to the top of printed messages?"
-msgstr "Nastavit při vytváření zpráv prioritní hlavičku?"
+msgstr "Přidat hlavičku \"Vytiskl\" na začátek vytištěné zprávy?"
 
 #: templates/search/search.html.php:34
 msgid "Add search criteria"
@@ -500,14 +498,14 @@ msgid ""
 "line)</em>"
 msgstr ""
 "Emailové adresy, na které se budou zasílány skryté kopie (BCC) všech zpráv: "
-"<em>(nepovinné, vložit každou hlavičku na nový řádek)</em>"
+"<em>(nepovinné, vložte každou hlavičku na nový řádek)</em>"
 
 #: config/prefs.php:40
 msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
 msgstr ""
-"Emailové adresy patřící této identitě: <i>(nepovinné, vložit každou hlavičku "
+"Emailové adresy patřící této identitě: <i>(nepovinné, vložte každou adresu "
 "na nový řádek)</i>"
 
 #: lib/Imap/Acl.php:184
@@ -516,7 +514,7 @@ msgstr "Spravovat"
 
 #: lib/Dynamic/Mailbox.php:493
 msgid "Advanced Search..."
-msgstr "Pokročilé vyhledávání"
+msgstr "Pokročilé vyhledávání..."
 
 #: lib/Search/Element/Daterange.php:99
 #, fuzzy, php-format
@@ -529,7 +527,7 @@ msgstr "Vše"
 
 #: lib/Search/Query.php:281 templates/search/search-all.html.php:2
 msgid "All Mailboxes"
-msgstr "Všechny schránky"
+msgstr "Všechny složky"
 
 #: lib/Dynamic/Mailbox.php:463
 #, fuzzy
@@ -595,13 +593,12 @@ msgid "All rights on mailbox \"%s\" successfully removed for \"%s\"."
 msgstr "Všechna práva pro složku \"%s\" byla úspěšně odstraněna pro \"%s\"."
 
 #: config/prefs.php:997
-#, fuzzy
 msgid "Allow attachments to be stripped from messages?"
-msgstr "Zobrazit ikonku pro odstranění příloh ze zpráv?"
+msgstr "Povolit odstranění příloh ze zpráv?"
 
 #: config/prefs.php:283
 msgid "Allow filter rules to be applied in any mailbox?"
-msgstr "Dovolit použití filtrovacích pravidel na jakoukoliv složku?"
+msgstr "Povolit použití filtrovacích pravidel na jakoukoliv složku?"
 
 #: lib/Perms.php:40
 #, fuzzy
@@ -609,13 +606,12 @@ msgid "Allow folder navigation?"
 msgstr "Dovolit vytváření složek?"
 
 #: lib/Perms.php:50
-#, fuzzy
 msgid "Allow mailbox creation?"
-msgstr "Dovolit vytváření složek?"
+msgstr "Povolit vytváření složek?"
 
 #: lib/Perms.php:45
 msgid "Allow remote account access?"
-msgstr ""
+msgstr "Povolit přístup k externím účtům?"
 
 #: config/prefs.php:1105
 msgid "Always prompt"
@@ -658,7 +654,7 @@ msgstr "Neznámá osoba"
 
 #: lib/Flag/Imap/Answered.php:41
 msgid "Answered"
-msgstr "Zodpovězené"
+msgstr "Zodpovězena"
 
 #: templates/prefs/acl.html.php:41 templates/prefs/acl.html.php:76
 msgid "Append"
@@ -693,9 +689,8 @@ msgid "Are you sure you want to delete this Virtual Folder Definition?"
 msgstr "Skutečně chcete vymazat tuto virtuální složku?"
 
 #: lib/Prefs/Special/Remote.php:42
-#, fuzzy
 msgid "Are you sure you want to delete this account?"
-msgstr "Skutečně chcete odstranit tuto značku?"
+msgstr "Skutečně chcete odstranit tento účet?"
 
 #: lib/Prefs/Special/Searches.php:106
 msgid "Are you sure you want to delete this filter?"
@@ -743,15 +738,13 @@ msgstr "Skutečně chcete trvale smazat tuto přílohu?"
 
 #: lib/Basic/Mailbox.php:362
 msgid "Are you sure you wish to delete all mail in this mailbox?"
-msgstr "Skutečně chcete vymazat všechny zprávy v této schránce?"
+msgstr "Skutečně chcete vymazat všechny zprávy v této složce?"
 
 #: lib/Application.php:227
-#, fuzzy
 msgid "Are you sure you wish to empty your spam mailbox?"
 msgstr "Skutečně chcete vyprázdnit složku nevyžádané pošty?"
 
 #: lib/Application.php:214
-#, fuzzy
 msgid "Are you sure you wish to empty your trash mailbox?"
 msgstr "Skutečně chcete vyprázdnit koš?"
 
@@ -779,7 +772,7 @@ msgstr "Jako Příloha"
 
 #: config/prefs.php:746
 msgid "As attachment"
-msgstr "jako příloa"
+msgstr "Jako příloha"
 
 #: config/prefs.php:748
 msgid "As both body text and an attachment"
@@ -790,9 +783,8 @@ msgid "Ascending"
 msgstr "Vzestupně"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:782
-#, fuzzy
 msgid "At least one attachment could not be deleted."
-msgstr "Nejméně jedno databázové schéma není aktuální."
+msgstr "Nejméně jedna příloha nemohla být smazána."
 
 #: lib/Dynamic/Compose/Common.php:192
 #, fuzzy
@@ -849,9 +841,8 @@ msgid "Attachment and Body Text"
 msgstr "Příloha a text zprávy"
 
 #: attachment.php:55
-#, fuzzy
 msgid "Attachment doesn't exist."
-msgstr "Příloha a text zprávy"
+msgstr "Příloha neexistuje."
 
 #: lib/Compose.php:993
 msgid "Attachment stripped: Original attachment type"
@@ -879,9 +870,8 @@ msgid "Attendees"
 msgstr "Účastníci"
 
 #: lib/Contents.php:1369
-#, fuzzy
 msgid "Audio"
-msgstr "Audio část"
+msgstr "Audio"
 
 #: lib/Ajax/Application/Handler/RemotePrefs.php:78
 msgid ""
@@ -889,10 +879,12 @@ msgid ""
 "otherwise use the Advanced Setup to manually enter the remote server "
 "configuration."
 msgstr ""
+"Automatická konfigurace účtu selhala. Zkontrolujte prosím nastavení nebo "
+"použijte pokročilé nastavení pro ruční zadání konfigurace vzdáleného serveru."
 
 #: lib/Ajax/Application/Handler/RemotePrefs.php:70
 msgid "Automatic configuration of the account was successful."
-msgstr ""
+msgstr "Automatická konfigurace účtu bzla úspěšná."
 
 #: lib/Search/Element/Autogenerated.php:61
 #: lib/Search/Filter/Autogenerated.php:30
@@ -920,7 +912,7 @@ msgstr "Backendy"
 #: config/prefs.php:1135 config/prefs.php:1200 config/prefs.php:1302
 #: config/prefs.php:1525 config/prefs.php:1554
 msgid "Basic view only"
-msgstr ""
+msgstr "Jenom v základním pohledu"
 
 #: lib/Basic/Search.php:73 lib/Message/Ui.php:37
 #: templates/contacts/contacts.html.php:43
@@ -930,14 +922,14 @@ msgid "Bcc"
 msgstr "Skrytá kopie"
 
 #: lib/Search/Element/Daterange.php:106
-#, fuzzy, php-format
+#, php-format
 msgid "Before '%s'"
-msgstr "%s pro '%s'"
+msgstr "Před '%s'"
 
 #: lib/Search/Element/Daterange.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "Between '%s' and '%s'"
-msgstr "%d %s a %s"
+msgstr "Mezi '%s' a '%s'"
 
 #: lib/Mime/Viewer/Html.php:200
 #, fuzzy
@@ -954,10 +946,9 @@ msgid "Blacklist"
 msgstr "Černá listina"
 
 #: config/prefs.php:1018
-#, fuzzy
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
-msgstr "Blokovat obrázky ve zprávách, pokud nejsou specificky vyžádány?"
+msgstr "Blokovat obrázky ve zprávách, dokud není jejich načtení vyžádáno?"
 
 #: lib/Basic/Search.php:85 lib/Dynamic/Mailbox.php:488
 #: templates/smartmobile/search.html.php:10
@@ -1030,11 +1021,11 @@ msgid ""
 "current mailbox."
 msgstr ""
 "Nelze zobrazit zprávu - bylo nalezeno pouze %s z %s částí této zprávy v "
-"aktuální schránce."
+"aktuální složce."
 
 #: lib/Mime/Viewer/Plain.php:187
 msgid "Cannot display message text."
-msgstr ""
+msgstr "Nemůžu zobrazit text zprávy."
 
 #: lib/Message.php:158
 msgid "Cannot move messages to Trash - no Trash mailbox set in preferences."
@@ -1060,12 +1051,12 @@ msgstr "Není možné získat veřejný klíč ze zprávy."
 #, php-format
 msgid "Cannot save sent-mail message to \"%s\" as that mailbox is read-only."
 msgstr ""
-"Nelze uložit odeslanou zprávu do \"%s\" , protože schránka je pouze ke čtení."
+"Nelze uložit odeslanou zprávu do \"%s\" , protože složka je pouze ke čtení."
 
 #: lib/Message.php:487
 msgid "Cannot strip the MIME part as the mailbox is read-only."
 msgstr ""
-"Není možné odloučit MIME část z důvodu toho, že schránka je nyní pouze ke "
+"Není možné odloučit MIME část z důvodu toho, že složka je nyní pouze ke "
 "čtení."
 
 #: lib/Basic/Search.php:69 lib/Compose.php:2572 lib/Message/Ui.php:36
@@ -1094,7 +1085,7 @@ msgstr "Změnit"
 #: config/prefs.php:1436
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
-msgstr ""
+msgstr "Změnit předvolby zobrazení seznamu zpráv ve složce."
 
 #: config/prefs.php:1602
 msgid "Change folder navigation display preferences."
@@ -1197,7 +1188,7 @@ msgstr "Klikněte SEM pro zobrazení zprávy v novém okně."
 #: templates/prefs/mailto.html.php:3
 #, php-format
 msgid "Click here to open all mailto: links using %s."
-msgstr "Klikněte sem pro otevření všech mailto: odkazů použitím %s"
+msgstr "Klikněte sem pro otevírání všech mailto: odkazů použitím %s."
 
 #: lib/Compose/LinkedAttachment.php:224
 #, fuzzy
@@ -1236,7 +1227,6 @@ msgid "Close"
 msgstr "Zavřít"
 
 #: config/prefs.php:792
-#, fuzzy
 msgid "Close the compose window after saving a draft?"
 msgstr "Má se okno pro vytvoření zprávy uzavřít po uložení rozepsané zprávy?"
 
@@ -1284,13 +1274,12 @@ msgid "Compose Message"
 msgstr "Vytvořit zprávu"
 
 #: config/prefs.php:630
-#, fuzzy
 msgid "Compose Templates"
-msgstr "Vytvořit zprávu"
+msgstr "Šablony zpráv"
 
 #: templates/prefs/composetemplates.html.php:3
 msgid "Compose Templates mailbox:"
-msgstr ""
+msgstr "Složka šablon:"
 
 #: lib/Dynamic/Compose/Common.php:260
 msgid "Compose action completed. You may now safely close this window."
@@ -1338,14 +1327,12 @@ msgid "Configure how you send mail."
 msgstr "Nastavit, jak posílat zprávy."
 
 #: config/prefs.php:1418
-#, fuzzy
 msgid "Configure message printing."
-msgstr "Nastavit ohlašování spamu."
+msgstr "Nastavit tisk zpráv."
 
 #: config/prefs.php:137
-#, fuzzy
 msgid "Configure remote mail accounts to display."
-msgstr "Nastavit, jak budou zprávy zobrazovány."
+msgstr "Nastavit, které externí účty budou zobrazovány."
 
 #: config/prefs.php:1245
 msgid "Configure spam reporting."
@@ -1397,7 +1384,7 @@ msgstr ""
 #: lib/Imap/Acl.php:100
 #, php-format
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
-msgstr "Není možné přidat práva pro uživatele \"%s\" ke schránce \"%s\"."
+msgstr "Není možné přidat práva pro uživatele \"%s\" ke složce \"%s\"."
 
 #: lib/Compose.php:3120
 #, php-format
@@ -1421,21 +1408,19 @@ msgstr "Nelze smazat virtuální složku \"%s\"."
 #: lib/Message.php:824
 #, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
-msgstr "Nelze smazat zprávy z %s. Tato schránka je pouze ke čtení."
+msgstr "Nelze smazat zprávy z %s. Tato složka je pouze ke čtení."
 
 #: lib/Compose/View.php:39 lib/Compose/View.php:54
 msgid "Could not display attachment data."
 msgstr "Nelze zobrazitt data přílohy."
 
 #: lib/Ajax/Application/Handler/Remote.php:48
-#, fuzzy
 msgid "Could not find remote server configuration."
-msgstr "Nelze přepnout konfiguraci."
+msgstr "Nepodařilo se najít konfiguraci vzdáleného serveru."
 
 #: lib/Basic/Listinfo.php:36 lib/Basic/Thread.php:48
-#, fuzzy
 msgid "Could not load message."
-msgstr "Nelze přiložit %s do zprávy."
+msgstr "Nelze načíst zprávu."
 
 #: lib/Imap.php:900
 #, fuzzy
@@ -1456,7 +1441,7 @@ msgstr ""
 
 #: lib/Ajax/Application/Handler/Common.php:679
 msgid "Could not open mailbox."
-msgstr "Nelze otevřít schránku."
+msgstr "Nelze otevřít složku."
 
 #: lib/Mbox/Parse.php:66
 #, fuzzy
@@ -1470,7 +1455,7 @@ msgstr ""
 #: lib/Imap/Acl.php:131
 #, php-format
 msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
-msgstr "Nelze odebra práva pro uživatele \"%s\" ke schránce \"%s\"."
+msgstr "Nelze odebra práva pro uživatele \"%s\" ke složce \"%s\"."
 
 #: lib/Basic/Compose.php:1104 lib/Compose.php:1813 lib/Compose.php:2184
 #: lib/Dynamic/Compose.php:277 lib/Minimal/Compose.php:531
@@ -1501,14 +1486,12 @@ msgid "Create Mailbox"
 msgstr "Vytvořit novou složku"
 
 #: lib/Dynamic/Mailbox.php:539
-#, fuzzy
 msgid "Create New Flag..."
-msgstr "Vytvořit nový mailbox"
+msgstr "Vytvořit nový štítek..."
 
 #: lib/Basic/Mailbox.php:654 lib/Dynamic/Mailbox.php:268
-#, fuzzy
 msgid "Create New Template"
-msgstr "Vytvořit Novou Událost"
+msgstr "Vytvořit novou šablonu"
 
 #: lib/Imap/Acl.php:188
 #, fuzzy
@@ -1516,12 +1499,10 @@ msgid "Create Subfolders/Rename Mailbox"
 msgstr "Vytvořit podsložky"
 
 #: lib/Prefs/Special/Sentmail.php:47
-#, fuzzy
 msgid "Create a new sent-mail mailbox"
 msgstr "Vytvořit novou složku odeslané pošty"
 
 #: config/prefs.php:199
-#, fuzzy
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into "
 "mailboxes, and delete spam."
@@ -1534,9 +1515,8 @@ msgid "Create mailbox:"
 msgstr "Vytvořit složku:"
 
 #: config/prefs.php:649
-#, fuzzy
 msgid "Create new Template"
-msgstr "Vytvořit novou složku"
+msgstr "Vytvořit novou šablonu"
 
 #: lib/Dynamic/Mailbox.php:221 lib/Dynamic/Mailbox.php:353
 msgid "Create subfolder"
@@ -1548,13 +1528,12 @@ msgid "Create subfolder of %s:"
 msgstr "Vytvořit podsložku složky %s:"
 
 #: lib/Imap/Acl.php:187
-#, fuzzy
 msgid "Create subfolders and rename mailbox"
-msgstr "Vytvořit podsložky"
+msgstr "Vytvořit podsložky a přejmenovat složky"
 
 #: lib/Dynamic/Mailbox.php:541
 msgid "Creating New Flag..."
-msgstr ""
+msgstr "Vytvářím novou značku..."
 
 #: config/prefs.php:1519
 msgid "Criteria to use when sorting by date:"
@@ -1635,7 +1614,7 @@ msgstr "Výchozí metoda vytváření zpráv"
 
 #: config/prefs.php:1489
 msgid "Default sorting criteria:"
-msgstr "Výchozí třídící kritéria:"
+msgstr "Výchozí třídíci kritérium:"
 
 #: config/prefs.php:1499
 msgid "Default sorting direction:"
@@ -1685,23 +1664,21 @@ msgid "Delete Virtual Folder"
 msgstr "Smazat virtuální složku"
 
 #: lib/Dynamic/Mailbox.php:526
-#, fuzzy, php-format
+#, php-format
 msgid "Delete all subfolders of %s?"
-msgstr "Smazat podsložky"
+msgstr "Smazat všechny podsložky složky %s?"
 
 #: lib/Imap/Acl.php:191
-#, fuzzy
 msgid "Delete and rename mailbox"
-msgstr "a %d schránka navíc"
+msgstr "Smazat a přejmenovat složku"
 
 #: lib/Mime/Viewer/Itip.php:363
 msgid "Delete from my calendar"
 msgstr "Smazat z mého kalendáře"
 
 #: config/prefs.php:563
-#, fuzzy
 msgid "Delete linked attachments after this many months (0 to never delete):"
-msgstr "Odstranit staré přílohy po tolika měsících (0 nemazat nikdy)?"
+msgstr "Odstranit staré přílohy po tolika měsících (0 nemazat nikdy):"
 
 #: config/prefs.php:1276
 msgid "Delete message"
@@ -1712,20 +1689,18 @@ msgid "Delete messages"
 msgstr "Smazat zprávy"
 
 #: config/prefs.php:855
-#, fuzzy
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete):"
 msgstr ""
-"Vymazat staré složky odeslané pošty po tolika měsících (0 nemazat nikdy)?"
+"Smazat staré složky odeslané pošty po tolika měsících (0 nemazat nikdy):"
 
 #: lib/Dynamic/Mailbox.php:223
 msgid "Delete subfolders"
 msgstr "Smazat podsložky"
 
 #: lib/Imap/Acl.php:192
-#, fuzzy
 msgid "Delete/Rename Mailbox"
-msgstr "Vytvořit nový mailbox"
+msgstr "Smazat/Přejmenovat složku"
 
 #: templates/basic/compose/compose.html.php:348
 msgid "Delete?"
@@ -1733,7 +1708,7 @@ msgstr "Smazat?"
 
 #: lib/Flag/Imap/Deleted.php:45
 msgid "Deleted"
-msgstr "Smazané"
+msgstr "Smazaná"
 
 #: lib/Mailbox.php:814
 #, php-format
@@ -1752,7 +1727,7 @@ msgstr "Smazaná značka \"%s\"."
 
 #: config/prefs.php:1123
 msgid "Deleting and Moving Messages"
-msgstr "Smazání a přesouvání zpráv"
+msgstr "Mazání a přesouvání zpráv"
 
 #: lib/Mime/Viewer/Itip.php:308
 msgid "Deny request"
@@ -1797,11 +1772,11 @@ msgstr "Opravdu chcete zrušit veškeré formátování? Tato operace je nevratn
 
 #: config/prefs.php:605
 msgid "Display confirmation in popup window after sending a message?"
-msgstr "Zobrazit potvrzení v PopUp okně po odeslání zprávy?"
+msgstr "Zobrazit potvrzení v dialogovém okně po odeslání zprávy?"
 
 #: config/prefs.php:1361
 msgid "Display notification when new mail arrives?"
-msgstr "Zobrazit upozornění o nové zprávě?"
+msgstr "Zobrazit upozornění na novou zprávu?"
 
 #: config/prefs.php:1302
 msgid "Display the \"Empty Spam\" link in the menubar?"
@@ -1826,9 +1801,8 @@ msgid "Do Not Check for New Mail"
 msgstr "Nekontrolovat Novou Poštu"
 
 #: config/prefs.php:835
-#, fuzzy
 msgid "Do not save attachments"
-msgstr "Stáhnout přílohu"
+msgstr "Neukládat přílohy"
 
 #: config/prefs.php:1084
 msgid "Do not show parts"
@@ -1869,9 +1843,8 @@ msgid "Download Attachment"
 msgstr "Stáhnout přílohu"
 
 #: templates/minimal/messagepart.html.php:5
-#, fuzzy
 msgid "Download attachment:"
-msgstr "Stáhnout přílohu"
+msgstr "Stáhnout přílohu:"
 
 #: lib/Dynamic/Mailbox.php:159
 msgid "Download into a MBOX file"
@@ -1904,9 +1877,8 @@ msgid "Drafts"
 msgstr "Koncepty"
 
 #: templates/prefs/drafts.html.php:3
-#, fuzzy
 msgid "Drafts mailbox:"
-msgstr "Cílový mailbox:"
+msgstr "Složka konceptů:"
 
 #: templates/dynamic/compose.html.php:159
 msgid "Drop file(s) here to attach."
@@ -1970,15 +1942,15 @@ msgstr "Upravit virtuální složky"
 #: config/prefs.php:749 lib/Basic/Message.php:632 lib/Dynamic/Base.php:178
 #: lib/Minimal/Message.php:245
 msgid "Edit as New"
-msgstr "Editovat jako Novou"
+msgstr "Upravit jako novou"
 
 #: config/prefs.php:631
 msgid "Edit compose templates."
-msgstr ""
+msgstr "Upravit šablony zpráv."
 
 #: config/prefs.php:228
 msgid "Edit your Blacklist"
-msgstr "Upravit listinu nežádoucích (blacklist)"
+msgstr "Upravit Vaši černou listinu"
 
 #: config/prefs.php:210
 msgid "Edit your Filter Rules"
@@ -2008,7 +1980,7 @@ msgstr "Vyprázdnit"
 
 #: templates/basic/mailbox/header.html.php:33
 msgid "Empty Mailbox"
-msgstr "Vyprázdnit schránku"
+msgstr "Vyprázdnit složku"
 
 #: templates/basic/folders/folders_confirm.html.php:26
 msgid "Empty Selected Mailboxes"
@@ -2069,24 +2041,20 @@ msgid "Enter Passphrase"
 msgstr "Vložte heslo"
 
 #: lib/Prefs/Special/ComposeTemplates.php:45
-#, fuzzy
 msgid "Enter the name for your new compose templates mailbox."
-msgstr "Zadejte jméno pro Vaši novou složku s nevyžádanou poštou"
+msgstr "Zadejte jméno pro Vaši novou složku šablon."
 
 #: lib/Prefs/Special/Drafts.php:39
-#, fuzzy
 msgid "Enter the name for your new drafts mailbox."
-msgstr "Vložte jméno nové složky pro rozepsané zprávy."
+msgstr "Zadejte jméno nové složky pro rozepsané zprávy."
 
 #: lib/Prefs/Special/Spam.php:39
-#, fuzzy
 msgid "Enter the name for your new spam mailbox."
-msgstr "Zadejte jméno pro Vaši novou složku s nevyžádanou poštou"
+msgstr "Zadejte jméno pro Vaši novou složku s nevyžádanou poštou."
 
 #: lib/Prefs/Special/Trash.php:39
-#, fuzzy
 msgid "Enter the name for your new trash mailbox."
-msgstr "Vložte jméno nové složky koše"
+msgstr "Zadejte jméno nové složky koše."
 
 #: lib/Ajax/Imple/PassphraseDialog.php:62
 msgid "Enter the passphrase used to encrypt this message."
@@ -2152,7 +2120,7 @@ msgstr "Chyba! Tato zpráva vyžatuje zapnutí javascriptu ve Vašem prohlíže�
 
 #: config/prefs.php:303
 msgid "Event Requests"
-msgstr "Požadavek události"
+msgstr "Pozvánky na události"
 
 #: lib/Ajax/Imple/ItipRequest.php:106
 msgid "Event successfully deleted."
@@ -2346,7 +2314,7 @@ msgstr "Zobrazení složky"
 
 #: lib/Basic/Folders.php:338 templates/prefs/initialpage.html.php:7
 msgid "Folder Navigator"
-msgstr "Prohlížeč složek"
+msgstr "Výběr složky"
 
 #: lib/Minimal/Base.php:93 lib/Minimal/Folders.php:66 lib/Smartmobile.php:171
 #: templates/smartmobile/folders.html.php:2
@@ -2373,7 +2341,7 @@ msgstr "Přeposlat"
 
 #: lib/Flag/Imap/Forwarded.php:40
 msgid "Forwarded"
-msgstr "Přeposlané"
+msgstr "Přeposlaná"
 
 #: lib/Compose.php:2513
 msgid "Forwarded Message"
@@ -2425,7 +2393,7 @@ msgstr "Od"
 
 #: config/prefs.php:1483
 msgid "From Address"
-msgstr "Z adresy"
+msgstr "Adresa odesilatele"
 
 #: lib/Mailbox/Ui.php:91 templates/minimal/compose.html.php:9
 #: templates/smartmobile/compose.html.php:17
@@ -2448,7 +2416,7 @@ msgstr "Jdi na"
 
 #: templates/basic/search/search-basic.html.php:43
 msgid "Go to Advanced Search Page..."
-msgstr "Přejít na pokročilé vyhledávání"
+msgstr "Přejít na pokročilé vyhledávání..."
 
 #: lib/Basic/Thread.php:139
 msgid "Go to Message"
@@ -2538,13 +2506,12 @@ msgid "Horizontal Layout"
 msgstr "Horizontální zobrazení"
 
 #: config/prefs.php:1062
-#, fuzzy
 msgid ""
 "How should large blocks of quoted text be shown by default? (Toggling the "
 "block will always be available)."
 msgstr ""
-"Měly by být velké bloky citovaního textu skryté nebo zobrazené? Lze "
-"jednoduše přepnout při prohlížení zprávy bez ohledu na výběr zde."
+"Měly by být velké bloky citovaního textu skryté nebo zobrazené? (Lze "
+"jednoduše přepnout při prohlížení zprávy bez ohledu na výběr zde.)"
 
 #: config/prefs.php:751
 msgid "How should messages be forwarded by default?"
@@ -2555,9 +2522,8 @@ msgid "How should namespaces be displayed in the folder tree view?"
 msgstr "Jak mají být jmenná místa zobrazena z pohledu stromu složky?"
 
 #: config/prefs.php:714
-#, fuzzy
 msgid "How to attribute quoted lines in a reply?"
-msgstr "Jak označit citace v odpovědích"
+msgstr "Jak uvést citace v odpovědi na zprávu?"
 
 #: lib/Mime/Viewer/Pgp.php:270
 msgid ""
@@ -2566,7 +2532,7 @@ msgstr "Žádný osobní klíč není definován, zprávu nelze dešifrovat."
 
 #: templates/prefs/remote.html.php:48
 msgid "IMAP"
-msgstr ""
+msgstr "IMAP"
 
 #: templates/prefs/flags.html.php:7
 msgid "Icon"
@@ -2655,7 +2621,7 @@ msgstr ""
 
 #: lib/Basic/Message.php:614 lib/Dynamic/Base.php:175
 msgid "In Body Text"
-msgstr "Text v těle zprávy"
+msgstr "V textu zprávy"
 
 #: lib/Mime/Viewer/Itip.php:749
 msgid "In Process"
@@ -2671,18 +2637,16 @@ msgid "Inbox"
 msgstr "Doručené zprávy"
 
 #: config/prefs.php:698
-#, fuzzy
 msgid "Include a brief summary of the original message's header in a reply?"
-msgstr "Zahrnout stručné shrnutí hlaviček do Vaší odpovědi?"
+msgstr "Zahrnout stručné shrnutí hlaviček původní zprávy do Vaší odpovědi?"
 
 #: config/prefs.php:707
 msgid "Include original message in a reply?"
 msgstr "Zahrnout původní zprávu do Vaší odpovědi?"
 
 #: config/prefs.php:1545
-#, fuzzy
 msgid "Indicate whether attachments exist in a message in the mailbox listing?"
-msgstr "Zobrazit informaci o příloze zprávy v seznamu schránky?"
+msgstr "Zobrazit informaci o přílohách v seznamu zpráv?"
 
 #: lib/Mime/Viewer/Mdn.php:70
 msgid "Info"
@@ -2744,14 +2708,13 @@ msgid "Invalid Subject"
 msgstr "Neplatný předmět"
 
 #: lib/Compose.php:1295
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid e-mail address (%s)."
-msgstr "Neplatná e-mailová adresa: %s."
+msgstr "Neplatná e-mailová adresa (%s)."
 
 #: lib/Compose.php:737
-#, fuzzy
 msgid "Invalid e-mail address."
-msgstr "Neplatná e-mailová adresa: %s."
+msgstr "Neplatná e-mailová adresa."
 
 #: lib/Basic/Smime.php:190
 msgid "Invalid key"
@@ -2764,7 +2727,7 @@ msgstr "Vloženo nesprávné heslo."
 
 #: lib/Flag/Imap/Junk.php:42
 msgid "Junk"
-msgstr "Nežádoucí"
+msgstr "Nevyžádaná"
 
 #: templates/basic/compose/compose.html.php:332
 msgid "KB"
@@ -2822,8 +2785,8 @@ msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"Zobrazit seznam všech kontaktů po otevření kontaktů? (pokud není aktivováno, "
-"uvidíte pouze kontakty, které jste zadali pro vyhledání)"
+"Zobrazit seznam všech kontaktů po otevření kontaktů? (Pokud není aktivováno, "
+"uvidíte pouze kontakty, které jste zadali pro vyhledání.)"
 
 #: templates/dynamic/header.html.php:8
 #, fuzzy
@@ -2861,9 +2824,8 @@ msgid "Location"
 msgstr "Místo"
 
 #: lib/Dynamic/Mailbox.php:250
-#, fuzzy
 msgid "Log Out"
-msgstr "_Odhlásit"
+msgstr "Odhlásit se"
 
 #: lib/Minimal/Base.php:96
 msgid "Log out"
@@ -2904,16 +2866,16 @@ msgstr "Složka"
 #: lib/Ajax/Application/Handler/Dynamic.php:82 lib/Basic/Folders.php:152
 #, php-format
 msgid "Mailbox \"%s\" already exists."
-msgstr "Schránka \"%s\" již existuje."
+msgstr "Složka \"%s\" již existuje."
 
 #: lib/Ajax/Application/ListMessages.php:268
 #, php-format
 msgid "Mailbox %s does not exist."
-msgstr "Schránka %s neexistuje."
+msgstr "Složka %s neexistuje."
 
 #: config/prefs.php:1435
 msgid "Mailbox Display"
-msgstr "Zobrazení schránky"
+msgstr "Zobrazení složky"
 
 #: lib/Dynamic/Mailbox.php:375
 msgid "Mailbox Size"
@@ -2936,9 +2898,8 @@ msgid "Mailboxes"
 msgstr "Složky"
 
 #: lib/Basic/Listinfo.php:54 templates/listinfo/listinfo.html.php:2
-#, fuzzy
 msgid "Mailing List Information"
-msgstr "Zobrazit informace o konferenci"
+msgstr "Informace o konferenci"
 
 #: lib/Flag/System/List.php:37
 msgid "Mailing List Message"
@@ -2947,29 +2908,27 @@ msgstr "Zpráva v seznamu zpráv"
 #: lib/Basic/Search.php:126 lib/Search/Element/Mailinglist.php:52
 #: lib/Search/Filter/Mailinglist.php:30
 msgid "Mailing List Messages"
-msgstr "Zprávy v seznamu zpráv"
+msgstr "E-mailová konference"
 
 #: lib/Dynamic/Mailbox.php:511
-#, fuzzy
 msgid "Manage Remote Accounts"
-msgstr "Ovládání pro vzdálené kalendáře"
+msgstr "Spravovat externí účty"
 
 #: config/prefs.php:768
 msgid "Manage message drafts."
-msgstr "Pravovat koncepty."
+msgstr "Spravovat koncepty."
 
 #: config/prefs.php:822
-#, fuzzy
 msgid "Manage sent mail."
-msgstr "Spravovat složku odeslané pošty."
+msgstr "Spravovat odeslanou poštu."
 
 #: config/prefs.php:163
 msgid "Manage your saved searches"
-msgstr "Spravovat vámi uložené vahledávání"
+msgstr "Spravovat Vaše uložená vyhledávání"
 
 #: lib/Imap/Acl.php:172
 msgid "Mark (Other)"
-msgstr "Značka (jiný)"
+msgstr "Značka (jiná)"
 
 #: lib/Imap/Acl.php:168
 msgid "Mark (Seen)"
@@ -3011,7 +2970,6 @@ msgid "Mark different levels of quoting with different colors?"
 msgstr "Označit různé úrovně citací různými barvami?"
 
 #: config/prefs.php:1142
-#, fuzzy
 msgid "Mark messages as seen when deleting?"
 msgstr "Označit zprávy jako přečtené při smazání?"
 
@@ -3032,9 +2990,8 @@ msgid "Maximum Attachment Size"
 msgstr "Maximální velikost přílohy"
 
 #: lib/Perms.php:98
-#, fuzzy
 msgid "Maximum Number of Mailboxes"
-msgstr "Maximální počet stran"
+msgstr "Maximální počet složek"
 
 #: lib/Perms.php:70
 msgid "Maximum Number of Recipients per Message"
@@ -3102,9 +3059,8 @@ msgid "Message Source"
 msgstr "Zdrojový kód zprávy"
 
 #: lib/Basic/Compose.php:1139
-#, fuzzy
 msgid "Message Successfully Sent"
-msgstr "Zpráva byla úspěšně odeslána."
+msgstr "Zpráva byla úspěšně odeslána"
 
 #: lib/Compose.php:2083
 #, php-format
@@ -3165,7 +3121,7 @@ msgstr "Zpráva od osobních kontaktů"
 
 #: config/prefs.php:1525
 msgid "Messages per page in the mailbox view."
-msgstr "Zpráv na stránku v pohledu složky."
+msgstr "Počet zpráv na stránku v pohledu složky."
 
 #: lib/Basic/Mailbox.php:251
 msgid "Messages to"
@@ -3176,9 +3132,9 @@ msgid "Messages with Attachments"
 msgstr "Zprávy s přílohami"
 
 #: config/prefs.php:311
-#, fuzzy
 msgid "Minutes needed to consider a event as non-conflicting in iTip"
-msgstr "Minuty potřebné ke zvážení nekonfliktnosti události v iTip"
+msgstr ""
+"Minuty potřebné k tomu, aby byla událost v iTip považována za nekonfliktnou:"
 
 #: templates/search/search.html.php:116
 msgid "Months"
@@ -3200,12 +3156,12 @@ msgid "Move %s to %s"
 msgstr "Přesunout %s do %s"
 
 #: config/prefs.php:1148
-#, fuzzy
 msgid ""
 "Move deleted messages to your Trash mailbox instead of marking them as "
 "deleted in the current mailbox?"
 msgstr ""
-"Při mazání zpráv přesunout zprávy do koše místo označení jako vymazané?"
+"Při mazání zpráv přesunout zprávy do koše místo označení jako vymazané v "
+"aktuální složce?"
 
 #: lib/Dynamic/Mailbox.php:97
 msgid "Move to Base Level"
@@ -3216,9 +3172,8 @@ msgid "Move to Inbox"
 msgstr "Přesunout do složky Doručená pošta"
 
 #: config/prefs.php:1279
-#, fuzzy
 msgid "Move to Spam mailbox"
-msgstr "Přesunout do spam složky"
+msgstr "Přesunout do složky nevyžádané pošty"
 
 #: lib/Contents.php:1380
 #, fuzzy
@@ -3239,7 +3194,7 @@ msgstr ""
 
 #: config/prefs.php:1481
 msgid "NONE"
-msgstr "ŽÁDNÝ"
+msgstr "ŽÁDNÉ"
 
 #: templates/itip/action.html.php:67
 msgid "Name"
@@ -3287,7 +3242,7 @@ msgstr "Nová značka"
 
 #: config/prefs.php:1336
 msgid "New Mail"
-msgstr "Nová zpráva"
+msgstr "Nová pošta"
 
 #: lib/Application.php:430 lib/Basic/Compose.php:207
 #: lib/Basic/Compose.php:1152 lib/Compose.php:2200 lib/Dynamic/Base.php:157
@@ -3316,7 +3271,7 @@ msgstr "Nový uživatel"
 
 #: config/prefs.php:1355
 msgid "New mail poll interval on mailbox page:"
-msgstr ""
+msgstr "Frekvence kontroly nové pošty:"
 
 #: templates/smartmobile/copymove.html.php:16
 msgid "New mailbox name:"
@@ -3390,7 +3345,7 @@ msgstr "Řazení"
 
 #: templates/prefs/newmailaudio.html.php:9
 msgid "No Sound"
-msgstr "Bez Zvuku"
+msgstr "Bez zvuku"
 
 #: lib/Spam.php:124
 msgid "No Subject"
@@ -3406,7 +3361,7 @@ msgstr "Ve veřejném klíči nebyly nalezeny žádné informace o emailu."
 
 #: lib/Quota/Ui.php:110
 msgid "No limit"
-msgstr "Bez Limitu"
+msgstr "Bez limitu"
 
 #: lib/Basic/Folders.php:193
 #, fuzzy
@@ -3458,9 +3413,8 @@ msgid "No personal private key exists so the data is unable to be decrypted."
 msgstr "Žádný osobní klíč neexistuje, zprávu nelze dešifrovat."
 
 #: templates/prefs/remote.html.php:105
-#, fuzzy
 msgid "No remote accounts configured"
-msgstr "DB přístup není nastaven."
+msgstr "Zádné externí účtz nejsou nakonfigurovány"
 
 #: lib/Basic/Searchbasic.php:81
 msgid "No search criteria specified."
@@ -3487,7 +3441,7 @@ msgstr "Není účastníkem"
 #: templates/prefs/drafts.html.php:7 templates/prefs/sentmail.html.php:7
 #: templates/prefs/spam.html.php:7 templates/prefs/trash.html.php:7
 msgid "None"
-msgstr "Nic"
+msgstr "Žádný"
 
 #: lib/Basic/Compose.php:866 lib/Dynamic/Compose/Common.php:231
 msgid "Normal"
@@ -3500,7 +3454,7 @@ msgstr "Není %s"
 
 #: lib/Flag/Imap/NotJunk.php:38
 msgid "Not Junk"
-msgstr "Není Nežádoucí"
+msgstr "Není nevyžádaná"
 
 #: lib/Crypt/Pgp.php:151 lib/Crypt/Smime.php:159
 msgid "Not a valid public key."
@@ -3529,7 +3483,6 @@ msgid "OR"
 msgstr "NEBO"
 
 #: lib/LoginTasks/Task/DeleteSentmailMonthly.php:72
-#, fuzzy
 msgid "Old sent-mail mailboxes being purged."
 msgstr "Staré složky s odeslanými zprávami se vyprazdňují."
 
@@ -3543,12 +3496,10 @@ msgid "On '%s'"
 msgstr "Upravit '%s'"
 
 #: lib/Block/Summary.php:52
-#, fuzzy
 msgid "Only display mailboxes with unread messages in them?"
 msgstr "Zobrazit pouze složky obsahující nepřečtené zprávy?"
 
 #: lib/Basic/Folders.php:56
-#, fuzzy
 msgid "Only one mailbox should be selected for this action."
 msgstr "Tuto operaci lze provést pouze s jednou složkou."
 
@@ -3660,12 +3611,11 @@ msgstr "PGP: Je potřeba heslo pro zakódování Vaší zprávy."
 
 #: templates/prefs/remote.html.php:49
 msgid "POP3"
-msgstr ""
+msgstr "POP3"
 
 #: templates/basic/mailbox/navbar.html.php:17
-#, fuzzy
 msgid "Page"
-msgstr "Stránka:"
+msgstr "Strana"
 
 #: lib/Basic/Mailbox.php:397
 #, php-format
@@ -3794,7 +3744,6 @@ msgid "Please choose a mail server."
 msgstr "Vybrat poštovní server:"
 
 #: lib/Basic/Mailbox.php:366 lib/Basic/Message.php:403
-#, fuzzy
 msgid "Please enter a name for the new mailbox:"
 msgstr "Prosím zadejte název nové složky:"
 
@@ -3803,7 +3752,6 @@ msgid "Please enter the label for the new flag:"
 msgstr "Prosím zadejte název nové značky:"
 
 #: lib/Basic/Folders.php:61 lib/Basic/Folders.php:62
-#, fuzzy
 msgid "Please enter the name of the new mailbox:"
 msgstr "Prosím zadejte název nové složky:"
 
@@ -3812,12 +3760,10 @@ msgid "Please enter the new name:"
 msgstr "Prosím zadejte nové jméno:"
 
 #: lib/Basic/Folders.php:59
-#, fuzzy
 msgid "Please select a mailbox before you perform this action."
 msgstr "Prosím nejdříve vyberte složku a pak proveďte akci."
 
 #: lib/Basic/Search.php:499
-#, fuzzy
 msgid "Please select at least one mailbox to search."
 msgstr "Prosím vyberte nejméně jednu složku k prohledání."
 
@@ -3827,7 +3773,7 @@ msgstr "Prosím vyberte nejméně jedno vyhledávací kritérium."
 
 #: lib/Prefs/Special/Remote.php:46
 msgid "Please wait..."
-msgstr ""
+msgstr "Čekejte prosím..."
 
 #: config/prefs.php:1659
 #, fuzzy
@@ -3835,9 +3781,8 @@ msgid "Poll all mailboxes for new mail?"
 msgstr "Zkontrolovat novou poštu ve všechn složkách?"
 
 #: templates/prefs/remote.html.php:69
-#, fuzzy
 msgid "Port"
-msgstr "Portál"
+msgstr "Port"
 
 #: lib/Dynamic/Mailbox.php:543
 msgid "Portal"
@@ -3854,7 +3799,7 @@ msgstr "Pošta"
 
 #: lib/Imap/Acl.php:179
 msgid "Post to this mailbox (not enforced by IMAP)"
-msgstr "Příspěvek do této schránky (ne vynucený IMAPem)"
+msgstr "Příspěvek do této složky (ne vynucený IMAPem)"
 
 #: config/prefs.php:58
 msgid "Precede your text signature with dashes ('-- ')?"
@@ -3882,10 +3827,9 @@ msgstr "Tisk"
 
 #: lib/Contents/View.php:254
 msgid "Printed By"
-msgstr "Vytištěno"
+msgstr "Vytiskl"
 
 #: config/prefs.php:1417
-#, fuzzy
 msgid "Printing"
 msgstr "Tisk"
 
@@ -3896,9 +3840,8 @@ msgid "Priority"
 msgstr "Důležitost"
 
 #: templates/smime/import_key.html.php:66
-#, fuzzy
 msgid "Private Key Password"
-msgstr "Heslo osobního klíče:"
+msgstr "Heslo privátního klíče"
 
 #: config/prefs.php:1110
 msgid ""
@@ -3925,9 +3868,8 @@ msgid "Purge Deleted"
 msgstr "Vyčistit smazané"
 
 #: config/prefs.php:1312
-#, fuzzy
 msgid "Purge Spam mailbox how often:"
-msgstr "Jak často vyprazdňovat složku SPAM:"
+msgstr "Jak často vyprazdňovat složku nevyžádané pošty:"
 
 #: config/prefs.php:1212
 msgid "Purge Trash how often:"
@@ -4079,14 +4021,12 @@ msgid "Remember the last view"
 msgstr "Zapamatovat si poslední zobrazení"
 
 #: lib/Mailbox.php:1635
-#, fuzzy
 msgid "Remote Account"
-msgstr "Vzdálený hostitel:"
+msgstr "Externí účet"
 
 #: config/prefs.php:136 lib/Mailbox.php:1520
-#, fuzzy
 msgid "Remote Accounts"
-msgstr "Vzdálený hostitel:"
+msgstr "Externí účty"
 
 #: templates/contacts/contacts.html.php:59
 msgid "Remove"
@@ -4103,9 +4043,8 @@ msgid "Rename %s to:"
 msgstr "Přejmenovat %s na:"
 
 #: config/prefs.php:844
-#, fuzzy
 msgid "Rename sent mail mailbox at beginning of month?"
-msgstr "Přejmenovat složku odeslaných zprávi na začátku měsíce?"
+msgstr "Přejmenovat složku odeslaných zpráv na začátku měsíce?"
 
 #: lib/Mailbox.php:883
 #, php-format
@@ -4232,7 +4171,7 @@ msgstr "Žádná zpráva nebyla nalezena."
 
 #: templates/prefs/remote.html.php:33
 msgid "Required"
-msgstr "Povinné"
+msgstr "Povinně"
 
 #: lib/Mime/Viewer/Itip.php:791
 msgid "Required Participant"
@@ -4420,16 +4359,14 @@ msgid "Save Image in Gallery"
 msgstr "Ulořit obrázek do galerie"
 
 #: templates/search/search.html.php:74
-#, fuzzy
 msgid "Save Search"
-msgstr "Uložená vyhledávání"
+msgstr "Uložit vyhledávání"
 
 #: templates/basic/compose/compose.html.php:27
 #: templates/basic/compose/compose.html.php:228
 #: templates/dynamic/compose.html.php:30
-#, fuzzy
 msgid "Save Template"
-msgstr "Uložit obrázek"
+msgstr "Uložit šablonu"
 
 #: templates/basic/compose/compose.html.php:24
 #: templates/basic/compose/compose.html.php:225
@@ -4441,17 +4378,14 @@ msgid "Save as Draft"
 msgstr "Uložit jako koncept"
 
 #: config/prefs.php:834
-#, fuzzy
 msgid "Save attachments"
-msgstr "Nikdy neukládat přílohy"
+msgstr "Ukládat přílohy"
 
 #: config/prefs.php:837
-#, fuzzy
 msgid "Save attachments in the sent-mail message?"
 msgstr "Uložit přílohy se zprávou ve složce pro odeslanou poštu?"
 
 #: lib/Basic/Compose.php:1016
-#, fuzzy
 msgid "Save attachments with message in sent-mail mailbox?"
 msgstr "Uložit přílohy se zprávou ve složce pro odeslanou poštu?"
 
@@ -4469,21 +4403,19 @@ msgstr "Uložit do"
 
 #: config/prefs.php:905
 msgid "Save recipients automatically to the default address book?"
-msgstr "Uložit automaticky příjemce do kontaktů?"
+msgstr "Uložit příjemce automaticky do kontaktů?"
 
 #: templates/dynamic/compose.html.php:74
-#, fuzzy
 msgid "Save sent mail"
-msgstr "Uložit odeslanou poštu?"
+msgstr "Uložit odeslanou poštu"
 
 #: config/prefs.php:86
 msgid "Save sent mail?"
 msgstr "Uložit odeslanou poštu?"
 
 #: lib/Mime/Viewer/Smime.php:342
-#, fuzzy
 msgid "Save the certificate to your Address Book."
-msgstr "Uložit Certifikát do kontaktů"
+msgstr "Uložit Certifikát do kontaktů."
 
 #: lib/Mime/Viewer/Pgp.php:369
 msgid "Save the key to your address book."
@@ -4556,7 +4488,7 @@ msgstr "Vyhledat (%s)"
 
 #: lib/Basic/Search.php:503
 msgid "Search All Mailboxes"
-msgstr "Prohledat všechny schránky"
+msgstr "Prohledat všechny složky"
 
 #: templates/search/search.html.php:25
 msgid "Search Criteria"
@@ -4602,7 +4534,7 @@ msgstr "Vyhledávání není dostupné."
 
 #: lib/Dynamic/Mailbox.php:238 lib/Flag/Imap/Seen.php:42
 msgid "Seen"
-msgstr "Přečtené"
+msgstr "Přečtena"
 
 #: templates/itip/action.html.php:113
 msgid "Select"
@@ -4614,14 +4546,12 @@ msgid "Select All"
 msgstr "Vybrat vše"
 
 #: config/prefs.php:891
-#, fuzzy
 msgid "Select address book sources for adding/searching."
-msgstr "Vybrat zdroj kontaktů pro přidávaní a vyhledávání adres."
+msgstr "Vybrat adresáře pro přidávání a vyhledávání kontaktů."
 
 #: templates/contacts/contacts.html.php:33
-#, fuzzy
 msgid "Select address(es)"
-msgstr "Vybrané adresy:"
+msgstr "Vybrat adresu(y)"
 
 #: templates/saveimage/saveimage.html.php:8
 msgid "Select the gallery to save the image in."
@@ -4706,14 +4636,12 @@ msgid "Set preferences for what happens when you move and delete messages."
 msgstr "Nastavit akce prováděné při přesouvání a mazání zpráv."
 
 #: config/prefs.php:110
-#, fuzzy
 msgid "Share Mailboxes"
-msgstr "Prohledat všechny schránky"
+msgstr "Sdílení složek"
 
 #: config/prefs.php:111
-#, fuzzy
 msgid "Share your mailboxes with other users."
-msgstr "Sdílet poštovní složky s jinými uživateli."
+msgstr "Sdílet složky s jinými uživateli."
 
 #: lib/Mailbox.php:1526
 msgid "Shared"
@@ -4739,7 +4667,6 @@ msgid "Show Addresses (%d)"
 msgstr "Zobrazit adresy - %d příjemců"
 
 #: templates/prefs/remote.html.php:42
-#, fuzzy
 msgid "Show Advanced Setup"
 msgstr "Zobrazit pokročilé nastavení"
 
@@ -4753,9 +4680,8 @@ msgid "Show All Headers"
 msgstr "Zobrazit všechny hlavičky"
 
 #: lib/Dynamic/Mailbox.php:288 lib/Minimal/Folders.php:61
-#, fuzzy
 msgid "Show All Mailboxes"
-msgstr "Prohledat všechny schránky"
+msgstr "Zobrazit všechny složky"
 
 #: lib/Basic/Message.php:810
 #, fuzzy
@@ -4845,9 +4771,8 @@ msgid "Show the filter icon on the menubar?"
 msgstr "Zobrazit ikonku filtrování v nabídkové liště?"
 
 #: config/prefs.php:80
-#, fuzzy
 msgid "Show the signature on the compose screen?"
-msgstr "Zobrazit %s menu nalevo?"
+msgstr "Zobrazit podpis při psaní zprávy?"
 
 #: config/prefs.php:1056
 msgid "Shown"
@@ -4859,9 +4784,8 @@ msgstr "Vel."
 
 #: templates/basic/compose/compose.html.php:207
 #: templates/dynamic/compose.html.php:214
-#, fuzzy
 msgid "Signature"
-msgstr "Před podpisem"
+msgstr "Podpis"
 
 #: lib/Dynamic/Mailbox.php:211 lib/Dynamic/Mailbox.php:259
 #: templates/basic/compose/compose.html.php:331
@@ -4926,9 +4850,8 @@ msgid "Spam Reporting"
 msgstr "Ohlašování spamu"
 
 #: templates/prefs/spam.html.php:3
-#, fuzzy
 msgid "Spam mailbox:"
-msgstr "Cílový mailbox:"
+msgstr "Složka nevyžádané pošty:"
 
 #: lib/Compose/Ui.php:79
 msgid "Spell Check Failed"
@@ -4961,7 +4884,7 @@ msgstr "Odstranit konce řádek v náhledu?"
 
 #: config/prefs.php:720
 msgid "Strip the sender's signature from plaintext replies?"
-msgstr ""
+msgstr "Odstranit podpis odesilatele z odpovědí v prostém textu?"
 
 #: lib/Basic/Mailbox.php:740
 msgid "Sub_ject"
@@ -5043,9 +4966,8 @@ msgid "Switch to plain text composition"
 msgstr "Přepnout na textovou kompozici"
 
 #: templates/basic/message/navbar_navigate.html.php:44
-#, fuzzy
 msgid "Target Mailbox"
-msgstr "Cílový mailbox:"
+msgstr "Cílová složka:"
 
 #: templates/basic/mailbox/navbar.html.php:95
 msgid "Target Mailbox:"
@@ -5098,13 +5020,12 @@ msgid "Text"
 msgstr "Text"
 
 #: templates/smartmobile/compose.html.php:42
-#, fuzzy
 msgid "Text:"
-msgstr "Text"
+msgstr "Text:"
 
 #: config/prefs.php:1535
 msgid "The From: column of the message should be linked:"
-msgstr "Sloupec od: by měl být linkován:"
+msgstr "Sloupec Od: by měl být linkován:"
 
 #: lib/Mime/Viewer/Appledouble.php:97
 msgid "The Macintosh resource fork"
@@ -5190,9 +5111,8 @@ msgid "The draft was not successfully saved."
 msgstr "Koncept úspěšně uložen."
 
 #: lib/Prefs/Special/Remote.php:43
-#, fuzzy
 msgid "The e-mail field cannot be empty."
-msgstr "Nelze nechat jméno a/nebo email prázdný"
+msgstr "Pole e-mailová adresa nelze nechat prázdné."
 
 #: lib/Ajax/Imple/ItipRequest.php:438
 msgid "The event was added to your calendar."
@@ -5225,61 +5145,61 @@ msgid "The links that caused this warning have this background color:"
 msgstr "Odkazy, které byly příčinou tohoto varování mají tuto barvu pozadí:"
 
 #: templates/prefs/imagereplacement.html.php:2
-#, fuzzy
 msgid ""
 "The list of addresses that will NOT have their images blocked by default "
 "(enter each address on a new line)"
-msgstr "Vaše aliasy: <em>(nepovinné, vložit jednu adresu na řádek)</em>"
+msgstr ""
+"Seznam adres, ze kterých nebudou blokovány obrázky (vložte každou adresu na "
+"samostatný řádek)"
 
 #: lib/Imap.php:767
-#, fuzzy
 msgid "The mail server is not currently avaliable."
-msgstr "Služba je momentálně nedostupná. Zkuste prosím znovu později."
+msgstr "Poštovní server je momentálně nedostupný."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" is already empty."
-msgstr "Složka %s je již prázdná."
+msgstr "Složka \"%s\" je již prázdná."
 
 #: lib/Basic/Folders.php:241 lib/Mailbox.php:834
 #, php-format
 msgid "The mailbox \"%s\" may not be deleted."
-msgstr "Schránka \"%s\" nemůže být smazána."
+msgstr "Složka \"%s\" nemůže být smazána."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:199 lib/Basic/Folders.php:248
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" may not be emptied."
-msgstr "Schránka \"%s\" nemůže být smazána."
+msgstr "Složka \"%s\" nemůže být vyprázdněna."
 
 #: lib/Mailbox.php:873
 #, php-format
 msgid "The mailbox \"%s\" may not be renamed."
-msgstr "Schránka \"%s\" nemůže být přejmenována."
+msgstr "Složka \"%s\" nemůže být přejmenována."
 
 #: lib/Mailbox.php:773
 #, php-format
 msgid "The mailbox \"%s\" was not created. This is what the server said"
-msgstr "Schránka \"%s\" nebyla vytvořena. Toto je zpráva ze serveru"
+msgstr "Složka \"%s\" nebyla vytvořena. Toto je zpráva ze serveru"
 
 #: lib/Mailbox.php:843
 #, php-format
 msgid "The mailbox \"%s\" was not deleted. This is what the server said"
-msgstr "Schránka \"%s\" nebyla smazána. Toto je zpráva ze serveru"
+msgstr "Složka \"%s\" nebyla smazána. Toto je zpráva ze serveru"
 
 #: lib/Mailbox.php:777
 #, php-format
 msgid "The mailbox \"%s\" was successfully created."
-msgstr "Schránka \"%s\" byla úspěšně vytvořena."
+msgstr "Složka \"%s\" byla úspěšně vytvořena."
 
 #: lib/Mailbox.php:840
 #, php-format
 msgid "The mailbox \"%s\" was successfully deleted."
-msgstr "Schránka \"%s\" byla úspěšně smazána."
+msgstr "Složka \"%s\" byla úspěšně smazána."
 
 #: lib/Mailbox.php:887
 #, php-format
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
-msgstr "Schránka \"%s\" byla úspěšně přejmenována na \"%s\"."
+msgstr "Složka \"%s\" byla úspěšně přejmenována na \"%s\"."
 
 #: lib/Message.php:840
 #, php-format
@@ -5305,7 +5225,6 @@ msgid "The message does not have a Subject entered."
 msgstr "Zpráva nemá předmět."
 
 #: lib/Dynamic/Compose/Common.php:263
-#, fuzzy
 msgid "The message does not have a subject entered."
 msgstr "Zpráva nemá předmět."
 
@@ -5385,14 +5304,12 @@ msgid "The task has been added to your tasklist."
 msgstr "Úkol byl přidán do Vašeho seznamu úkolů."
 
 #: lib/Compose.php:679
-#, fuzzy
 msgid "The template has been saved."
-msgstr "Upozornění bylo uloženo."
+msgstr "Šablona byla uložena."
 
 #: lib/Compose.php:676
-#, fuzzy
 msgid "The template was not successfully saved."
-msgstr "Koncept úspěšně uložen."
+msgstr "Šablona nebyla uložena."
 
 #: lib/Mime/Viewer/Status.php:127
 msgid "The text of the message"
@@ -5428,7 +5345,6 @@ msgid ""
 msgstr ""
 
 #: lib/Mbox/Import.php:145
-#, fuzzy
 msgid "The uploaded file cannot be opened."
 msgstr "Nahraný soubor nelze otevřít."
 
@@ -5653,7 +5569,7 @@ msgstr "Komu%s"
 
 #: config/prefs.php:1484
 msgid "To Address"
-msgstr "Na adresu"
+msgstr "Adresa příjemce"
 
 #: lib/Dynamic/Base.php:163
 msgid "To All"
@@ -5693,7 +5609,7 @@ msgstr "Dnes, %s %s"
 
 #: config/prefs.php:540
 msgid "Top"
-msgstr "Nahoru"
+msgstr "Nahorě"
 
 #: lib/Block/Summary.php:107
 msgid "Total"
@@ -5704,9 +5620,8 @@ msgid "Trash"
 msgstr "Koš"
 
 #: templates/prefs/trash.html.php:3
-#, fuzzy
 msgid "Trash mailbox:"
-msgstr "Cílový mailbox:"
+msgstr "Složka koše:"
 
 #: templates/prefs/remote.html.php:45 templates/search/search.html.php:86
 msgid "Type"
@@ -5774,7 +5689,7 @@ msgstr "Odznačit jako:"
 #: lib/Block/Summary.php:107 lib/Dynamic/Mailbox.php:239
 #: lib/Flag/System/Unseen.php:47
 msgid "Unseen"
-msgstr "Nepřečtené"
+msgstr "Nepřečtena"
 
 #: lib/Dynamic/Mailbox.php:363 templates/basic/folders/actions.html.php:33
 msgid "Unsubscribe"
@@ -5822,7 +5737,7 @@ msgstr "Nahrává se ..."
 
 #: templates/prefs/sentmail.html.php:8
 msgid "Use Default Value"
-msgstr "Použít implicitní hodnotu"
+msgstr "Použít výchozí hodnotu"
 
 #: config/prefs.php:1612
 #, fuzzy
@@ -5831,27 +5746,24 @@ msgstr "Používat přihlašování složek IMAP?"
 
 #: lib/Dynamic/Mailbox.php:308 templates/dynamic/mailbox.html.php:48
 #: templates/dynamic/mailbox.html.php:111
-#, fuzzy
 msgid "Use Template"
-msgstr "Teplota"
+msgstr "Použít šablonu"
 
 #: templates/prefs/trash.html.php:9
 msgid "Use Virtual Trash"
 msgstr "Použít virtuální koš"
 
 #: templates/prefs/remote.html.php:34
-#, fuzzy
 msgid "Use if available"
-msgstr "Žádné akce nejsou dostupné"
+msgstr "Když je dostupné"
 
 #: templates/prefs/remote.html.php:30
 msgid "Use secure connection?"
-msgstr ""
+msgstr "Používat zabezpečené spojení?"
 
 #: config/prefs.php:691
-#, fuzzy
 msgid "Use the charset of the original message when replying?"
-msgstr "Zahrnout původní zprávu do Vaší odpovědi?"
+msgstr "Použít v odpovědi znakovou sadu původní zprávy?"
 
 #: templates/prefs/acl.html.php:12
 msgid "User"
@@ -5863,21 +5775,15 @@ msgstr "Uživatelské možnosti"
 
 #: lib/Imap/Acl.php:159
 msgid "User can see the mailbox"
-msgstr "Uživatel může vidět schránku"
+msgstr "Uživatel může vidět složku"
 
 #: lib/Application.php:531
-#, fuzzy
 msgid "User is not authenticated."
-msgstr "Použití složek není aktivováno."
+msgstr "Uživatel není autentizován."
 
 #: templates/prefs/remote.html.php:62 templates/prefs/remote.html.php:86
-#, fuzzy
 msgid "Username"
-msgstr ""
-"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
-"Uživatelské jméno\n"
-"#-#-#-#-#  gollem.po (Gollem)  #-#-#-#-#\n"
-"Uživatelské Jméno"
+msgstr "Uživatelské jméno"
 
 #: lib/Dynamic/Base.php:199
 msgid "Verifying..."
@@ -5888,9 +5794,8 @@ msgid "Vertical Layout"
 msgstr "Vertikální zobrazení"
 
 #: lib/Contents.php:1386
-#, fuzzy
 msgid "Video"
-msgstr "Videočást"
+msgstr "Video"
 
 #: templates/minimal/message.html.php:19
 #: templates/prefs/pgpprivatekey.html.php:21
@@ -5987,7 +5892,7 @@ msgstr "Zobrazit zprávy v %s"
 
 #: templates/prefs/initialpage.html.php:3
 msgid "View or mailbox to display after login:"
-msgstr "Zobrazení schránek nebo příchozí pošty po přihlášení do systému:"
+msgstr "Po přihlášení do systému zobrazit tuto složku nebo pohled:"
 
 #: lib/Ajax/Imple/ItipRequest.php:185 lib/Ajax/Imple/ItipRequest.php:186
 msgid "View task"
@@ -6037,7 +5942,7 @@ msgstr "Virtuální koš"
 
 #: lib/Mime/Viewer/Html.php:199
 msgid "WARNING"
-msgstr ""
+msgstr "VAROVÁNÍ"
 
 #: lib/Contents.php:616 lib/Mime/Status.php:92
 msgid "Warning"
@@ -6052,33 +5957,28 @@ msgstr ""
 "Ctrl při kliknutí na přidávání více jazyků)"
 
 #: config/prefs.php:1292
-#, fuzzy
 msgid "What to do with messages after they have been reported as innocent?"
 msgstr "Co se má provést se zprávami označenými jako vyžádané?"
 
 #: config/prefs.php:1271
-#, fuzzy
 msgid "What to do with messages after they have been reported as spam?"
-msgstr "Co se má provést se zprávami označenými jako nevyžádané - spam?"
+msgstr "Co se má provést se zprávami označenými jako nevyžádané (spam)?"
 
 #: config/prefs.php:758
-#, fuzzy
 msgid ""
 "When forwarding a message in the body text, should the same format as the "
 "original message be used?"
 msgstr ""
-"Pokud se přeposílá zpráva v těle zprávy odesílané, má se použít ten samý "
+"Pokud se přeposílá zpráva v textu odesílané zprávy, má se použít ten samý "
 "formát jako u původní zprávy?"
 
 #: config/prefs.php:1471
 msgid "When opening a mailbox for the first time, where do you want to start?"
-msgstr "Pokud se poprvé otevírá schránka, kde chcete začít?"
+msgstr "Pokud se poprvé otevírá složka, kde chcete začít?"
 
 #: config/prefs.php:687
-#, fuzzy
 msgid "When replying, use the same format as the original message?"
-msgstr ""
-"Pokud se na zprávu, má se použít ten samý formát jako u původní zprávy?"
+msgstr "Použít při odpovědi ten samý formát, jaký má původní zpráva?"
 
 #: config/prefs.php:543
 msgid "Where should the cursor be located in the compose text area by default?"
@@ -6335,7 +6235,7 @@ msgstr "Úspěšně jste se registrovali pro \"%s\""
 msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
 msgstr "Úspěšně jste odregistrovali od \"%s\""
 
-#: lib/Mailbox.php:945
+#: lib/Mailbox.php:945[5~
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "Úspěšně jste odregistrovali od \"%s\""
@@ -6374,7 +6274,9 @@ msgstr "Váš veřejný klíč:"
 
 #: config/prefs.php:28
 msgid "Your Reply-to: address: <em>(optional)</em>"
-msgstr "Vaše Reply-to: adresa: <i>(nepovinné)</i>"
+msgstr ""
+"Adresa, na kterou se mají zasílat odpovědi na Vaše e-maily: <i>(nepovinné)</"
+"i>"
 
 #: templates/prefs/smimeprivatekey.html.php:4
 #, fuzzy
@@ -6384,7 +6286,7 @@ msgstr "Importovat soukromý certifikát"
 #: config/prefs.php:34
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
-msgstr "Vaše aliasy: <em>(nepovinné, vložit jednu adresu na řádek)</em>"
+msgstr "Vaše aliasy: <em>(nepovinné, vložte jednu adresu na řádek)</em>"
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:57
 #: lib/Ajax/Application/Handler/Dynamic.php:1046
@@ -6404,7 +6306,7 @@ msgstr ""
 
 #: templates/prefs/encrypt.html.php:3
 msgid "Your default encryption method for sending messages:"
-msgstr "Váše implicitní metoda šifrování pro odesílání zpráv:"
+msgstr "Váše výchozí metoda šifrování pro odesílání zpráv:"
 
 #: templates/dynamic/compose.html.php:195
 msgid ""
@@ -6439,13 +6341,12 @@ msgid "Your message was successfully delivered."
 msgstr "Vaše zpráva byla úspěšně doručena."
 
 #: templates/prefs/signaturehtml.html.php:2
-#, fuzzy
 msgid ""
 "Your signature to use when composing with the HTML editor (if empty, the "
 "text signature will be used)"
 msgstr ""
 "Váš podpis pro použití při vytváření HTML editorem (pokud je prázdný, bude "
-"použit textový podpis):"
+"použit textový podpis)"
 
 #: config/prefs.php:52
 msgid "Your signature:"
@@ -6551,9 +6452,9 @@ msgstr "a"
 #, php-format
 msgid "and %d more mailbox"
 msgid_plural "and %d more mailboxes"
-msgstr[0] "a %d schránka navíc"
-msgstr[1] "a %d schránky navíc"
-msgstr[2] "a %d schránek navíc"
+msgstr[0] "a %d složka navíc"
+msgstr[1] "a %d složek navíc"
+msgstr[2] "a %d složek navíc"
 
 #: lib/Compose.php:3146
 msgid "attachment"
@@ -6603,9 +6504,9 @@ msgid "mailbox file"
 msgstr "soubor složky"
 
 #: templates/prefs/signaturehtml.html.php:2
-#, fuzzy, php-format
+#, php-format
 msgid "maximum total image size is %s"
-msgstr "Byla dosažena maximální velikost příloh."
+msgstr "maximální celková velikost obrázků je %s"
 
 #: templates/basic/folders/folders_confirm.html.php:21
 msgid "messages"

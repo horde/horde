@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ingo 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-10-16 14:17+0100\n"
+"PO-Revision-Date: 2014-11-03 16:51+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: lib/Storage.php:348
 msgid " and"
@@ -103,9 +103,8 @@ msgid "Are you sure you want to delete this rule?"
 msgstr "Jste si jistí, že chcete vymazat toto pravidlo?"
 
 #: config/prefs.php:29
-#, fuzzy
 msgid "Automatically activate the script after each change?"
-msgstr "Obnovte skript automaticky po každé změně?"
+msgstr "Automaticky aktivovat skript po každé změně?"
 
 #: lib/Perms.php:64
 msgid "Backends"
