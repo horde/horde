@@ -126,7 +126,7 @@ class Ingo_Session
                     foreach ($val['preferred'] as $v) {
                         if (($v == $_SERVER['SERVER_NAME']) ||
                             ($v == $_SERVER['HTTP_HOST'])) {
-                            $backend = $v;
+                            $backend = $val;
                         }
                     }
                 } elseif (($val['preferred'] == $_SERVER['SERVER_NAME']) ||

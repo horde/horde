@@ -33,7 +33,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1509,6 +1508,19 @@
 * [mms] Fix checking the &apos;max_forward&apos; permission (Bug #13568).
 * [mms] IMAP driver needs to explicitly search for UTF-8 text, since we don&apos;t restrict charset input at the UI level (Bug #13554).
 * [mjr] Fix issues when preferred configuration contains an array (Bug #13548).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.3</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-29</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Fix determination of preferred backend (Bug #13548).
    </notes>
   </release>
  </changelog>

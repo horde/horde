@@ -5,6 +5,13 @@ v3.3.0-git
 
 
 ------
+v3.2.3
+------
+
+[mms] Fix determination of preferred backend (Bug #13548).
+
+
+------
 v3.2.2
 ------
 
