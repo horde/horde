@@ -124,21 +124,32 @@ class Kronolith_CalendarsManager
      *  - displayRemote
      *  - displayExternal
      *  - displayHolidays
+     *
+     * @param string $user  The user to initialize for, if not the current.
+     *                      @since 4.2.4
      */
-    public function __construct()
+    public function __construct($user = null)
     {
+        $emptyUser = false;
+        if (empty($user)) {
+            $user = $GLOBALS['registry']->getAuth();
+            $emptyUser = true;
+        }
         // Always perform the display related checks.
         $this->_checkDisplayCals();
         $this->_checkToggleCalendars();
 
         // Check that all selected shares still exist.
-        foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
+        foreach (Kronolith::listInternalCalendars(false, Horde_Perms::SHOW, $user) as $id => $calendar) {
             $this->_allCalendars[$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
         }
         $this->_displayCalendars = array_intersect($this->_displayCalendars, array_keys($this->_allCalendars));
 
-        // Check that the user owns a calendar.
-        $this->_checkForOwnedCalendar();
+        // Check that the user owns a calendar if we aren't loading a different
+        // user.
+        if ($emptyUser) {
+            $this->_checkForOwnedCalendar();
+        }
     }
 
     /**
