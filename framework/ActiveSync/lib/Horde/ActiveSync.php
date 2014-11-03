@@ -51,7 +51,8 @@ class Horde_ActiveSync
     const TRUNCATION_6                          = 6;
     const TRUNCATION_7                          = 7;
     const TRUNCATION_8                          = 8;
-    const TRUNCATION_NONE                       = 9;
+    const TRUNCATION_9                          = 9;
+    const TRUNCATION_NONE                       = 9; // @deprecated
 
     /* FOLDERHIERARCHY */
     const FOLDERHIERARCHY_FOLDERS               = 'FolderHierarchy:Folders';
@@ -1102,14 +1103,15 @@ class Horde_ActiveSync
 
     /**
      * Return the number of bytes corresponding to the requested trunction
-     * constant.
+     * constant. This applies to MIMETRUNCATION only.
      *
      * @param integer $truncation  The constant.
      *
      * @return integer|boolean  Either the size, in bytes, to truncate or
      *                          falso if no truncation.
+     * @since 2.20.0
      */
-    public static function getTruncSize($truncation)
+    public static function getMIMETruncSize($truncation)
     {
         switch($truncation) {
         case Horde_ActiveSync::TRUNCATION_ALL:
@@ -1129,7 +1131,45 @@ class Horde_ActiveSync
         case Horde_ActiveSync::TRUNCATION_7:
             return 102400;
         case Horde_ActiveSync::TRUNCATION_8:
-        case Horde_ActiveSync::TRUNCATION_NONE:
+            return false;
+        default:
+            return 1024; // Default to 1Kb
+        }
+    }
+
+    /**
+     * Return the number of bytes corresponding to the requested trunction
+     * constant.
+     *
+     * @param integer $truncation  The constant.
+     *
+     * @return integer|boolean  Either the size, in bytes, to truncate or
+     *                          falso if no truncation.
+     *
+     */
+    public function getTruncSize($truncation)
+    {
+        switch($truncation) {
+        case Horde_ActiveSync::TRUNCATION_ALL:
+            return 0;
+        case Horde_ActiveSync::TRUNCATION_1:
+            return 512;
+        case Horde_ActiveSync::TRUNCATION_2:
+            return 1024;
+        case Horde_ActiveSync::TRUNCATION_3:
+            return 2048;
+        case Horde_ActiveSync::TRUNCATION_4:
+            return 5120;
+        case Horde_ActiveSync::TRUNCATION_5:
+            return 10240;
+        case Horde_ActiveSync::TRUNCATION_6:
+            return 20480;
+        case Horde_ActiveSync::TRUNCATION_7:
+            return 51200;
+        case Horde_ActiveSync::TRUNCATION_8:
+            return 102400;
+        case Horde_ActiveSync::TRUNCATION_9:
+        case Horde_ActiveSync::TRUNCATION_NONE: // @deprecated
             return false;
         default:
             return 1024; // Default to 1Kb

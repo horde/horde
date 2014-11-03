@@ -1137,7 +1137,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // SYNC_MIMETRUNCATION is used when no SYNC_BODYPREFS element is sent.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
                 $haveElement = true;
-                $options['mimetruncation'] = Horde_ActiveSync::getTruncSize($this->_decoder->getElementContent());
+                $options['mimetruncation'] = Horde_ActiveSync::getMIMETruncSize($this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
