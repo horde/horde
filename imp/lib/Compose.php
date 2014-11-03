@@ -480,7 +480,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = $contents->getHeader();
         $imp_draft = false;
 
-        if ($draft_url = $headers[self::DRAFT_REPLY]) {
+        if ($draft_url = $headers->getValue(self::DRAFT_REPLY)) {
             if (is_null($type) &&
                 !($type = $headers->getValue(self::DRAFT_REPLY_TYPE))) {
                 $type = self::REPLY;
