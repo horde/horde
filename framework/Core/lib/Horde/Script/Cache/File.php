@@ -132,10 +132,10 @@ class Horde_Script_Cache_File extends Horde_Script_Cache
         $sourcemap_url = $js_url . '.map';
         $jsmin = $this->_compress->getMinifier($scripts, $sourcemap_url);
 
-        if (!file_put_contents($js_path, $jsmin->minify())) {
+        if (!file_put_contents($js_path, $jsmin->minify(), LOCK_EX)) {
             Horde::log('Could not write cached JS file to disk.', Horde_Log::EMERG);
         } elseif ($this->_compress->sourcemap_support) {
-            file_put_contents($js_path . '.map', $jsmin->sourcemap());
+            file_put_contents($js_path . '.map', $jsmin->sourcemap(), LOCK_EX);
         }
         unlink($js_path . '.lock');
 

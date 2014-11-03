@@ -47,7 +47,7 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
 
         if (!file_exists($path)) {
             $compress = new Horde_Themes_Css_Compress();
-            if (!file_put_contents($path, $compress->compress($css))) {
+            if (!file_put_contents($path, $compress->compress($css), LOCK_EX)) {
                 Horde::log('Could not write cached CSS file to disk.', 'EMERG');
                 return array();
             }
