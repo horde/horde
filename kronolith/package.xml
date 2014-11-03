@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2484,7 +2484,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
    </notes>
   </release>
  </changelog>
