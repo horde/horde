@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix using non-deprecated Content-Type for encrypted messages (Bug #13659).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1037,7 +1037,7 @@ Initial release as a PEAR package
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix using non-deprecated Content-Type for encrypted messages (Bug #13659).
    </notes>
   </release>
  </changelog>
