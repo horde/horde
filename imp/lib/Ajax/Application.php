@@ -377,15 +377,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 'map' => false
             );
 
-            if (strlen($data)) {
-                if (strlen($data_ac)) {
-                    $tmp['map'] = true;
-                    foreach (json_decode($data_ac, true) as $val2) {
-                        $tmp['addr'][$val2[1]] = $val2[0];
-                    }
-                } else {
-                    $tmp['addr'][] = $data;
+            if (strlen($data_ac)) {
+                $tmp['map'] = true;
+                foreach (json_decode($data_ac, true) as $val2) {
+                    $tmp['addr'][$val2[1]] = $val2[0];
                 }
+            } else {
+                $tmp['addr'] += is_array($data)
+                    ? array_values($data)
+                    : array($data);
             }
 
             $out[$val] = $tmp;
