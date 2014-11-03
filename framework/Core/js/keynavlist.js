@@ -116,6 +116,8 @@ var KeyNavList = Class.create({
 
         this.div.down().childElements().invoke('remove');
         this.div.down().appendChild(df);
+
+        this.markNext();
     },
 
     updateBase: function(base)
