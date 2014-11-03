@@ -987,14 +987,21 @@ class Kronolith
      * @param boolean $owneronly   Only return calenders that this user owns?
      *                             Defaults to false.
      * @param integer $permission  The permission to filter calendars by.
+     * @param string  $user        The user to list calendars for, if not
+     *                             the current.
      *
      * @return array  The calendar list.
      */
-    static public function listInternalCalendars($owneronly = false,
-                                                 $permission = Horde_Perms::SHOW)
+    public static function listInternalCalendars($owneronly = false,
+                                                 $permission = Horde_Perms::SHOW,
+                                                 $user = null)
     {
         if ($owneronly && !$GLOBALS['registry']->getAuth()) {
             return array();
+        }
+
+        if (empty($user)) {
+            $user = $GLOBALS['registry']->getAuth();
         }
 
         $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
@@ -1002,9 +1009,9 @@ class Kronolith
         if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
             try {
                 $calendars = $kronolith_shares->listShares(
-                    $GLOBALS['registry']->getAuth(),
+                    $user,
                     array('perm' => $permission,
-                          'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null,
+                          'attributes' => $owneronly ? $user : null,
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
                 Horde::log($e);
@@ -1015,7 +1022,7 @@ class Kronolith
                 $calendars = $kronolith_shares->listShares(
                     $GLOBALS['registry']->getAuth(),
                     array('perm' => $permission,
-                          'attributes' => $GLOBALS['registry']->getAuth(),
+                          'attributes' => $user,
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
                 Horde::log($e);
@@ -1026,7 +1033,7 @@ class Kronolith
                 foreach ($display_calendars as $id) {
                     try {
                         $calendar = $kronolith_shares->getShare($id);
-                        if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), $permission)) {
+                        if ($calendar->hasPermission($user, $permission)) {
                             $calendars[$id] = $calendar;
                         }
                     } catch (Horde_Exception_NotFound $e) {
