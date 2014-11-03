@@ -266,6 +266,7 @@ var IMP_Autocompleter = Class.create({
         }
 
         this.resize();
+        this.focus();
     },
 
     removeEntry: function(input)
@@ -327,6 +328,8 @@ var IMP_Autocompleter = Class.create({
     dblclickHandler: function(e)
     {
         var elt = e.findElement('LI');
+
+        this.processInput();
 
         if (elt && elt.hasClassName(this.p.listClassItem)) {
             this.updateInput(elt);
