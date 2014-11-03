@@ -2,6 +2,7 @@
 v3.2.3-git
 ----------
 
+[mms] Fix determination of preferred backend (Bug #13548).
 
 
 ------

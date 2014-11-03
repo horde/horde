@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] Fix determination of preferred backend (Bug #13548).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1522,7 +1522,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mms] Fix determination of preferred backend (Bug #13548).
    </notes>
   </release>
  </changelog>
