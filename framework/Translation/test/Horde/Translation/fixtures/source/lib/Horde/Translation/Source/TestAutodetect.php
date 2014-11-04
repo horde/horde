@@ -6,8 +6,8 @@
  * @package    Translation
  * @subpackage UnitTests
  */
-class Horde_Translation_TestAutodetectPear extends Horde_Translation_Autodetect
+class Horde_Translation_Source_TestAutodetect extends Horde_Translation_Autodetect
 {
-    protected static $_domain = 'Horde_Translation';
-    protected static $_pearDirectory = '../../../data';
+    protected static $_domain = 'Horde_Translation_Source';
+    protected static $_pearDirectory = '@data_dir@';
 }

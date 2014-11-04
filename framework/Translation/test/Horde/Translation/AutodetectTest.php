@@ -10,19 +10,19 @@ class Horde_Translation_AutodetectTest extends Horde_Translation_TestBase
 {
     public function testAutodetectSource()
     {
-        require __DIR__ . '/fixtures/source/lib/Horde/Translation/TestAutodetectSource.php';
+        require __DIR__ . '/fixtures/source/lib/Horde/Translation/Source/TestAutodetect.php';
         $this->assertEquals(
             'Heute',
-            Horde_Translation_TestAutodetectSource::t('Today')
+            Horde_Translation_Source_TestAutodetect::t('Today')
         );
         $this->assertEquals(
             'Today',
-            Horde_Translation_TestAutodetectSource::r('Today')
+            Horde_Translation_Source_TestAutodetect::r('Today')
         );
         $this->assertEquals(
             '1 Woche',
             sprintf(
-                Horde_Translation_TestAutodetectSource::ngettext(
+                Horde_Translation_Source_TestAutodetect::ngettext(
                     '%d week',
                     '%d weeks',
                     1),
@@ -33,19 +33,20 @@ class Horde_Translation_AutodetectTest extends Horde_Translation_TestBase
 
     public function testAutodetectPear()
     {
-        require __DIR__ . '/fixtures/pear/php/Horde/Translation/TestAutodetectPear.php';
+        require __DIR__ . '/fixtures/pear/php/Horde/Translation/Pear/TestAutodetect.php';
+        Horde_Translation_Pear_TestAutodetect::init();
         $this->assertEquals(
             'Heute',
-            Horde_Translation_TestAutodetectPear::t('Today')
+            Horde_Translation_Pear_TestAutodetect::t('Today')
         );
         $this->assertEquals(
             'Today',
-            Horde_Translation_TestAutodetectPear::r('Today')
+            Horde_Translation_Pear_TestAutodetect::r('Today')
         );
         $this->assertEquals(
             '1 Woche',
             sprintf(
-                Horde_Translation_TestAutodetectPear::ngettext(
+                Horde_Translation_Pear_TestAutodetect::ngettext(
                     '%d week',
                     '%d weeks',
                     1),
@@ -56,19 +57,19 @@ class Horde_Translation_AutodetectTest extends Horde_Translation_TestBase
 
     public function testAutodetectComposer()
     {
-        require __DIR__ . '/fixtures/composer/Horde/Translation/TestAutodetectComposer.php';
+        require __DIR__ . '/fixtures/composer/Horde/Translation/Composer/TestAutodetect.php';
         $this->assertEquals(
             'Heute',
-            Horde_Translation_TestAutodetectComposer::t('Today')
+            Horde_Translation_Composer_TestAutodetect::t('Today')
         );
         $this->assertEquals(
             'Today',
-            Horde_Translation_TestAutodetectComposer::r('Today')
+            Horde_Translation_Composer_TestAutodetect::r('Today')
         );
         $this->assertEquals(
             '1 Woche',
             sprintf(
-                Horde_Translation_TestAutodetectComposer::ngettext(
+                Horde_Translation_Composer_TestAutodetect::ngettext(
                     '%d week',
                     '%d weeks',
                     1),
