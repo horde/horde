@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Add the activesync_provisioning_check hook.
 * [mjr] Fix determining multiplex settting for EAS notes (Bug #13637).
 * [mjr] Fix adding new tasklists from EAS (Bug #13642).
 * [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).
@@ -3674,6 +3675,7 @@
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Add the activesync_provisioning_check hook.
 * [mjr] Fix determining multiplex settting for EAS notes (Bug #13637).
 * [mjr] Fix adding new tasklists from EAS (Bug #13642).
 * [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).
