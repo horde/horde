@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Translation_Autodetect to support loading translations from Composer-installed packages (Renan Gonçalves &lt;renan.saddam@gmail.com&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
