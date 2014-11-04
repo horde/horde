@@ -324,6 +324,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Translation</name>
+    <channel>pear.horde.org</channel>
+    <min>2.2.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>

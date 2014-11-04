@@ -28,7 +28,7 @@
         "pear-pear.horde.org/Horde_Stream": ">=1.4.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Secret": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Stream_Filter": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Translation": ">=2.1.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "ext-hash": "*",
         "ext-json": "*"

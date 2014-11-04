@@ -26,7 +26,8 @@
         "pear-pear.horde.org/Horde_Cli_Modular": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Imap_Client": ">=2.0.0,<=3.0.0alpha1",
         "pear-pear.horde.org/Horde_Kolab_Storage": ">=2.0.0,<=3.0.0alpha1",
-        "pear-pear.horde.org/Horde_Log": ">=2.0.0,<=3.0.0alpha1"
+        "pear-pear.horde.org/Horde_Log": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Support": ">=2.0.0,<=3.0.0alpha1",

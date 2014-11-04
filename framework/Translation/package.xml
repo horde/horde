@@ -12,8 +12,8 @@
  </lead>
  <date>2014-02-11</date>
  <version>
-  <release>2.1.1</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,6 +35,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Translation">
+      <file name="Autodetect.php" role="php" />
       <dir name="Handler">
        <file name="Gettext.php" role="php" />
       </dir> <!-- /lib/Horde/Translation/Handler -->
@@ -58,6 +59,7 @@
        </dir> <!-- /test/Horde/Translation/locale/de -->
       </dir> <!-- /test/Horde/Translation/locale -->
       <file name="AllTests.php" role="test" />
+      <file name="AutodetectTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="GettextTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -96,10 +98,12 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Translation/COPYING" />
    <install as="Horde/Translation.php" name="lib/Horde/Translation.php" />
+   <install as="Horde/Translation/Autodetect.php" name="lib/Horde/Translation/Autodetect.php" />
    <install as="Horde/Translation/Exception.php" name="lib/Horde/Translation/Exception.php" />
    <install as="Horde/Translation/Handler.php" name="lib/Horde/Translation/Handler.php" />
    <install as="Horde/Translation/Handler/Gettext.php" name="lib/Horde/Translation/Handler/Gettext.php" />
    <install as="Horde/Translation/AllTests.php" name="test/Horde/Translation/AllTests.php" />
+   <install as="Horde/Translation/AutodetectTest.php" name="test/Horde/Translation/AutodetectTest.php" />
    <install as="Horde/Translation/bootstrap.php" name="test/Horde/Translation/bootstrap.php" />
    <install as="Horde/Translation/GettextTest.php" name="test/Horde/Translation/GettextTest.php" />
    <install as="Horde/Translation/phpunit.xml" name="test/Horde/Translation/phpunit.xml" />

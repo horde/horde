@@ -21,25 +21,19 @@
  * @package   Mail
  * @since     2.5.0
  */
-class Horde_Mail_Translation
-extends Horde_Translation
+class Horde_Mail_Translation extends Horde_Translation_Autodetect
 {
     /**
+     * The translation domain
+     *
+     * @var string
      */
-    public static function t($message)
-    {
-        self::$_domain = 'Horde_Mail';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mail/locale';
-        return parent::t($message);
-    }
+    protected static $_domain = 'Horde_Mail';
 
     /**
+     * The absolute PEAR path to the translations for the default gettext handler.
+     *
+     * @var string
      */
-    public static function ngettext($singular, $plural, $number)
-    {
-        self::$_domain = 'Horde_Mail';
-        self::$_directory = '@data_dir@' == '@'.'data_dir'.'@' ? __DIR__ . '/../../../locale' : '@data_dir@/Horde_Mail/locale';
-        return parent::ngettext($singular, $plural, $number);
-    }
-
+    protected static $_pearDirectory = '@data_dir@';
 }
