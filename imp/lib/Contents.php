@@ -31,11 +31,10 @@ class IMP_Contents
     const SUMMARY_DESCRIP = 8;
     const SUMMARY_DESCRIP_LINK = 16;
     const SUMMARY_DOWNLOAD = 32;
-    const SUMMARY_DOWNLOAD_ZIP = 64;
-    const SUMMARY_IMAGE_SAVE = 128;
-    const SUMMARY_PRINT = 256;
-    const SUMMARY_PRINT_STUB = 512;
-    const SUMMARY_STRIP = 1024;
+    const SUMMARY_IMAGE_SAVE = 64;
+    const SUMMARY_PRINT = 128;
+    const SUMMARY_PRINT_STUB = 256;
+    const SUMMARY_STRIP = 512;
 
     /* Rendering mask entries. */
     const RENDER_FULL = 1;
@@ -585,7 +584,7 @@ class IMP_Contents
             !is_null($contents = $mime_part->getContents(array('stream' => true)))) {
             rewind($contents);
             while (!feof($contents)) {
-                fwrite($fp, fread($contents, 8192));
+                fwrite($fp, fread($contents, 65536));
             }
             fclose($fp);
 
@@ -764,9 +763,6 @@ class IMP_Contents
      * IMP_Contents::SUMMARY_DOWNLOAD
      *   Output: parts = 'download', 'download_url'
      *
-     * IMP_Contents::SUMMARY_DOWNLOAD_ZIP
-     *   Output: parts = 'download_zip'
-     *
      * IMP_Contents::SUMMARY_IMAGE_SAVE
      *   Output: parts = 'img_save'
      *
@@ -783,7 +779,6 @@ class IMP_Contents
     public function getSummary($id, $mask = 0)
     {
         $autodetect_link = false;
-        $download_zip = (($mask & self::SUMMARY_DOWNLOAD_ZIP) && Horde_Util::extensionExists('zlib'));
         $param_array = array();
 
         $this->_buildMessage();
@@ -792,7 +787,6 @@ class IMP_Contents
             'bytes' => null,
             'download' => null,
             'download_url' => null,
-            'download_zip' => null,
             'id' => $id,
             'img_save' => null,
             'size' => null,
@@ -821,7 +815,6 @@ class IMP_Contents
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
-            $download_zip ||
             ($mask & self::SUMMARY_SIZE)) {
             $part['bytes'] = $size = $mime_part->getBytes();
             $part['size'] = ($size > 1048576)
@@ -867,17 +860,6 @@ class IMP_Contents
             (is_null($part['bytes']) || $part['bytes'])) {
             $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
             $part['download_url'] = $this->urlView($mime_part, 'download_attach');
-        }
-
-        /* Display the compressed download link only if size is greater
-         * than 200 KB. */
-        if ($is_atc &&
-            $download_zip &&
-            ($part['bytes'] > 204800)) {
-            $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($mime_part, array('contents' => $this, 'type' => $mime_type));
-            if (!$viewer->getMetadata('compressed')) {
-                $part['download_zip'] = $this->linkView($mime_part, 'download_attach', null, array('class' => 'iconImg downloadZipAtc', 'jstext' => sprintf(_("Download %s in .zip Format"), $description), 'params' => array('zip' => 1)));
-            }
         }
 
         /* Display the image save link if the required registry calls are
@@ -1139,6 +1121,9 @@ class IMP_Contents
     {
         if (!is_object($part)) {
             $part = $this->getMIMEPart($part, array('nocontents' => true));
+        }
+        if (!$part) {
+            return 0;
         }
         $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
 

@@ -1234,7 +1234,9 @@
    <date>2014-08-16</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* [mjr] Fix replacing tags in existing notes (Bug# 13417).
+* [mjr] Fix adding new notepads via the API.
+* [jan] Hide PDF button if Horde_Pdf_Writer is not installed (Bug #13624).
+* [mjr] Fix replacing tags in existing notes (Bug #13417).
    </notes>
   </release>
   <release>

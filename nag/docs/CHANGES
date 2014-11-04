@@ -14,6 +14,11 @@ v4.3.0-git
 v4.2.2
 ------
 
+[mjr] Fix adding a new tasklist to the syncronized tasklists (Bug #13642).
+[jan] Pass current start date of recurring tasks to dynamic interface.
+[jan] Fix setting task list name for external tasks.
+[jan] Fix link to create sub-task from a task view.
+[jan] Fix listing of recurring tasks with start dates.
 [mjr] Add missing categories to EAS tasks.
 [jan] Fix sidebar display of system task lists in basic view.
 [jan] Fix retrieving individual tasks via WebDAV.

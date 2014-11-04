@@ -56,7 +56,7 @@ var IMP_Ckeditor_Imagepoll = {};
             ids.push(s[1]);
         });
 
-        DimpCompose.attachlist.removeAttach(ids);
+        ImpCompose.attachlist.removeAttach(ids);
     };
 
 }(IMP_Ckeditor_Imagepoll));

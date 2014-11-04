@@ -526,9 +526,6 @@ class Horde_ActiveSync_Imap_Adapter
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
         $ret = array();
-        if (!empty($options['truncation'])) {
-            $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
-        }
         foreach ($results as $data) {
             if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
                 try {
@@ -988,7 +985,7 @@ class Horde_ActiveSync_Imap_Adapter
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
                  ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_SMIME &&
-                  $imap_message->isSigned()))) {
+                  ($imap_message->isSigned() || $imap_message->isEncrypted())))) {
 
                 $this->_logger->info(sprintf(
                     '[%s] Sending MIME Message.', $this->_procid));
@@ -997,7 +994,7 @@ class Horde_ActiveSync_Imap_Adapter
                 // email is signed (or encrypted for that matter) we can't
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
-                if (!$imap_message->isSigned()) {
+                if (!$imap_message->isSigned() && !$imap_message->isEncrypted()) {
                     // Sending a non-signed MIME message, start building the
                     // UTF-8 converted structure.
                     $mime = new Horde_Mime_Part();
@@ -1046,23 +1043,25 @@ class Horde_ActiveSync_Imap_Adapter
                     $raw = new Horde_ActiveSync_Rfc822($imap_message->getFullMsg(true), false);
                     $airsync_body->estimateddatasize = $raw->getBytes();
                     $airsync_body->data = $raw->getString();
-                    $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
-
-                    // Might not know if we have attachments, but take a best
-                    // guess.
                     $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
                 }
 
-                // MIME Truncation
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
+
+                // MIME Truncation
+                $mime_truncation = isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])
+                    ? $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']
+                    : $options['truncation'];
+
                 $this->_logger->info(sprintf(
                     '[%s] Checking MIMETRUNCATION: %s, ServerData: %s',
                     $this->_procid,
-                    $options['truncation'],
+                    $mime_truncation,
                     $airsync_body->estimateddatasize));
-                if (!empty($options['truncation']) &&
-                    $airsync_body->estimateddatasize > $options['truncation']) {
-                    ftruncate($airsync_body->data, $options['truncation']);
+
+                if (!empty($mime_truncation) &&
+                    $airsync_body->estimateddatasize > $mime_truncation) {
+                    ftruncate($airsync_body->data, $mime_truncation);
                     $airsync_body->truncated = '1';
                 } else {
                     $airsync_body->truncated = '0';
@@ -1127,6 +1126,11 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for special message types.
+        if ($imap_message->isEncrypted()) {
+            $eas_message->messageclass = 'IPM.Note.SMIME';
+        } elseif ($imap_message->isSigned()) {
+            $eas_message->messageclass = 'IPM.Note.SMIME.MultipartSigned';
+        }
         $part = $imap_message->getStructure();
         if ($part->getType() == 'multipart/report') {
             $ids = array_keys($imap_message->contentTypeMap());

@@ -44,6 +44,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /* Related part attribute name. */
     const RELATED_ATTR = 'imp_related_attr';
 
+    /* Draft mail metadata headers. */
+    const DRAFT_HDR = 'X-IMP-Draft';
+    const DRAFT_REPLY = 'X-IMP-Draft-Reply';
+    const DRAFT_REPLY_TYPE = 'X-IMP-Draft-Reply-Type';
+    const DRAFT_FWD = 'X-IMP-Forward';
+
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -231,7 +237,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _saveDraftMsg($headers, $message, $opts)
     {
-        $has_session = (bool)$GLOBALS['registry']->getAuth();
+        global $injector, $registry;
+
+        $has_session = (bool)$registry->getAuth();
 
         /* Set up the base message now. */
         $base = $this->_createMimeMessage(new Horde_Mail_Rfc822_List(), $message, array(
@@ -241,12 +249,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         ));
         $base->isBasePart(true);
 
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
         $recip_list = $this->recipientList($headers);
         if (!empty($opts['verify_email'])) {
             foreach ($recip_list['list'] as $val) {
                 try {
+                    /* For draft messages, the key is whether the IMAP server
+                     * supports EAI addresses. */
+                    $utf8 = $imp_imap->client_ob->capability->query(
+                        'UTF8', 'ACCEPT'
+                    );
                     IMP::parseAddressList($val->writeAddress(true), array(
-                        'validate' => true
+                        'validate' => $utf8 ? 'eai' : true
                     ));
                 } catch (Horde_Mail_Exception $e) {
                     throw new IMP_Compose_Exception(sprintf(
@@ -264,7 +279,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         if ($this->_replytype) {
             try {
                 $indices = $this->getMetadata('indices');
@@ -286,17 +300,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 switch ($this->replyType(true)) {
                 case self::FORWARD:
-                    $draft_headers->addHeader('X-IMP-Draft-Forward', implode(', ', $urls));
+                    $draft_headers->addHeader(self::DRAFT_FWD, implode(', ', $urls));
                     break;
 
                 case self::REPLY:
-                    $draft_headers->addHeader('X-IMP-Draft-Reply', implode(', ', $urls));
-                    $draft_headers->addHeader('X-IMP-Draft-Reply-Type', $this->_replytype);
+                    $draft_headers->addHeader(self::DRAFT_REPLY, implode(', ', $urls));
+                    $draft_headers->addHeader(self::DRAFT_REPLY_TYPE, $this->_replytype);
                     break;
                 }
             } catch (Horde_Exception $e) {}
         } else {
-            $draft_headers->addHeader('X-IMP-Draft', 'Yes');
+            $draft_headers->addHeader(self::DRAFT_HDR, 'Yes');
         }
 
         return $base->toString(array(
@@ -466,18 +480,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = $contents->getHeader();
         $imp_draft = false;
 
-        if ($draft_url = $headers->getValue('x-imp-draft-reply')) {
+        if ($draft_url = $headers->getValue(self::DRAFT_REPLY)) {
             if (is_null($type) &&
-                !($type = $headers->getValue('x-imp-draft-reply-type'))) {
+                !($type = $headers->getValue(self::DRAFT_REPLY_TYPE))) {
                 $type = self::REPLY;
             }
             $imp_draft = self::REPLY;
-        } elseif ($draft_url = $headers->getValue('x-imp-draft-forward')) {
+        } elseif ($draft_url = $headers->getValue(self::DRAFT_FWD)) {
             $imp_draft = self::FORWARD;
             if (is_null($type)) {
                 $type = self::FORWARD;
             }
-        } elseif ($headers->getValue('x-imp-draft')) {
+        } elseif ($headers->getValue(self::DRAFT_HDR)) {
             $imp_draft = self::COMPOSE;
         }
 
@@ -725,7 +739,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $body, $header, IMP_Prefs_Identity $identity, array $opts = array()
     )
     {
-        global $conf, $injector, $notification, $prefs, $registry, $session;
+        global $conf, $injector, $prefs, $registry, $session;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -961,62 +975,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'INFO'
         );
 
-        /* Should we save this message in the sent mail mailbox? */
-        if (!empty($opts['sent_mail']) &&
-            ((!$prefs->isLocked('save_sent_mail') &&
-              !empty($opts['save_sent'])) ||
-             ($prefs->isLocked('save_sent_mail') &&
-              $prefs->getValue('save_sent_mail')))) {
-            /* Keep Bcc: headers on saved messages. */
-            if (count($header['bcc'])) {
-                $headers->addHeader('Bcc', $header['bcc']);
-            }
-
-            /* Strip attachments if requested. */
-            if (!empty($opts['strip_attachments'])) {
-                $save_msg->buildMimeIds();
-
-                /* Don't strip any part if this is a text message with both
-                 * plaintext and HTML representation. */
-                if ($save_msg->getType() != 'multipart/alternative') {
-                    for ($i = 2; ; ++$i) {
-                        if (!($oldPart = $save_msg->getPart($i))) {
-                            break;
-                        }
-
-                        $replace_part = new Horde_Mime_Part();
-                        $replace_part->setType('text/plain');
-                        $replace_part->setCharset($this->charset);
-                        $replace_part->setLanguage($GLOBALS['language']);
-                        $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                        $save_msg->alterPart($i, $replace_part);
-                    }
-                }
-            }
-
-            /* Generate the message string. */
-            $fcc = $save_msg->toString(array(
-                'defserver' => $imp_imap->config->maildomain,
-                'headers' => $headers,
-                'stream' => true
-            ));
-
-            /* Make sure sent mailbox is created. */
-            $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
-            $sent_mail->create();
-
-            $flags = array(
-                Horde_Imap_Client::FLAG_SEEN,
-                /* RFC 3503 [3.3] - MUST set MDNSent flag on sent message. */
-                Horde_Imap_Client::FLAG_MDNSENT
-            );
-
-            try {
-                $imp_imap->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
-            } catch (IMP_Imap_Exception $e) {
-                $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
-            }
-        }
+        /* Save message to the sent mail mailbox. */
+        $this->_saveToSentMail($header, $headers, $save_msg, $recip['list'], $opts);
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
@@ -1032,6 +992,101 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 array($save_msg['msg'], $headers)
             );
         } catch (Horde_Exception_HookNotSet $e) {}
+    }
+
+    /**
+     * Save message to sent-mail mailbox, if configured to do so.
+     *
+     * @param array $header                   See buildAndSendMessage().
+     * @param Horde_Mime_Headers $headers     Headers object.
+     * @param Horde_Mime_Part $save_msg       Message data to save.
+     * @param Horde_Mail_Rfc822_List $recips  Recipient list.
+     * @param array $opts                     See buildAndSendMessage()
+     */
+    protected function _saveToSentMail($header,
+        Horde_Mime_Headers $headers,
+        Horde_Mime_Part $save_msg,
+        Horde_Mail_Rfc822_List $recips,
+        $opts
+    )
+    {
+        global $injector, $language, $notification, $prefs;
+
+        if (empty($opts['sent_mail']) ||
+            ($prefs->isLocked('save_sent_mail') &&
+             !$prefs->getValue('save_sent_mail')) ||
+            (!$prefs->isLocked('save_sent_mail') &&
+             empty($opts['save_sent']))) {
+            return;
+        }
+
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+
+        /* If message contains EAI addresses, we need to verify that the IMAP
+         * server can handle this data in order to save. */
+        foreach ($recips as $val) {
+            if ($val->eai) {
+                if ($imp_imap->client_ob->capability->query('UTF8', 'ACCEPT')) {
+                    break;
+                }
+
+                $notification->push(sprintf(
+                    _("Message sent successfully, but not saved to %s."),
+                    $sent_mail->display
+                ));
+                return;
+            }
+        }
+
+        /* Keep Bcc: headers on saved messages. */
+        if (count($header['bcc'])) {
+            $headers->addHeader('Bcc', $header['bcc']);
+        }
+
+        /* Strip attachments if requested. */
+        if (!empty($opts['strip_attachments'])) {
+            $save_msg->buildMimeIds();
+
+            /* Don't strip any part if this is a text message with both
+             * plaintext and HTML representation. */
+            if ($save_msg->getType() != 'multipart/alternative') {
+                for ($i = 2; ; ++$i) {
+                    if (!($oldPart = $save_msg->getPart($i))) {
+                        break;
+                    }
+
+                    $replace_part = new Horde_Mime_Part();
+                    $replace_part->setType('text/plain');
+                    $replace_part->setCharset($this->charset);
+                    $replace_part->setLanguage($language);
+                    $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
+                    $save_msg->alterPart($i, $replace_part);
+                }
+            }
+        }
+
+        /* Generate the message string. */
+        $fcc = $save_msg->toString(array(
+            'defserver' => $imp_imap->config->maildomain,
+            'headers' => $headers,
+            'stream' => true
+        ));
+
+        /* Make sure sent mailbox is created. */
+        $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
+        $sent_mail->create();
+
+        $flags = array(
+            Horde_Imap_Client::FLAG_SEEN,
+            /* RFC 3503 [3.3] - MUST set MDNSent flag on sent message. */
+            Horde_Imap_Client::FLAG_MDNSENT
+        );
+
+        try {
+            $imp_imap->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
+        } catch (IMP_Imap_Exception $e) {
+            $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
+        }
     }
 
     /**
@@ -1270,9 +1325,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             try {
                 /* We have written address, but it still may not be valid.
-                 * So double-check. */
+                 * So double-check. Key here is MTA server support for
+                 * UTF-8. */
+                $utf8 = $injector->getInstance('IMP_Mail')->eai;
                 $alist = IMP::parseAddressList($tmp, array(
-                    'validate' => true
+                    'validate' => $utf8 ? 'eai' : true
                 ));
 
                 $error = null;

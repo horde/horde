@@ -179,7 +179,13 @@ class Horde_Pack
             }
 
             if (isset(self::$_drivers[$mask])) {
-                return self::$_drivers[$mask]->unpack($data);
+                try {
+                    return self::$_drivers[$mask]->unpack($data);
+                } catch (Horde_Pack_Exception $e) {
+                    throw $e;
+                } catch (Exception $e) {
+                    /* Unknown exceptions are handled with the throw below. */
+                }
             }
         }
 

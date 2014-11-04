@@ -47,6 +47,9 @@
  * @copyright 2002-2007 Richard Heyes
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
+ *
+ * @property-read boolean $eai  Does the transport driver support EAI (RFC
+ *                              6532) headers? (@since 2.5.0)
  */
 abstract class Horde_Mail_Transport
 {
@@ -63,6 +66,16 @@ abstract class Horde_Mail_Transport
      * @var array
      */
     protected $_params = array();
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'eai':
+            return false;
+        }
+    }
 
     /**
      * Send a message.

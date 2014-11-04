@@ -158,9 +158,9 @@ class Nag_Api extends Horde_Registry_Api
 
         $name = $tasklist->getName();
         if (!empty($params['synchronize'])) {
-            $sync = @unserialize($prefs->getValue('sync_lists'));
+            $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
             $sync[] = $name;
-            $prefs->setValue('sync_lists', serialize($sync));
+            $GLOBALS['prefs']->setValue('sync_lists', serialize($sync));
         }
 
         return $name;
@@ -244,7 +244,7 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
-        global $registry;
+        global $injector, $nag_shares, $registry;
 
         // Default properties.
         if (!$properties) {
@@ -256,6 +256,7 @@ class Nag_Api extends Horde_Registry_Api
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
+        $currentUser = $registry->getAuth();
 
         if (empty($path)) {
             // This request is for a list of all users who have tasklists
@@ -269,7 +270,10 @@ class Nag_Api extends Horde_Registry_Api
             $results = array();
             foreach (array_keys($owners) as $owner) {
                 if (in_array('name', $properties)) {
-                    $results['nag/' . $owner]['name'] = $owner;
+                    $results['nag/' . $owner]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results['nag/' . $owner]['icon'] = Horde_Themes::img('user.png');
@@ -277,19 +281,8 @@ class Nag_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['nag/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['nag/' . $owner]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['nag/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results['nag/' . $owner]['modified'] =
-                        $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results['nag/' . $owner]['created'] = 0;
+                if (in_array('read-only', $properties)) {
+                    $results['nag/' . $owner]['read-only'] = true;
                 }
             }
             return $results;
@@ -297,8 +290,8 @@ class Nag_Api extends Horde_Registry_Api
         } elseif (count($parts) == 1) {
             // This request is for all tasklists owned by the requested user
             $owner = $parts[0] == '-system-' ? '' : $parts[0];
-            $tasklists = $GLOBALS['nag_shares']->listShares(
-                $GLOBALS['registry']->getAuth(),
+            $tasklists = $nag_shares->listShares(
+                $currentUser,
                 array('perm' => Horde_Perms::SHOW,
                       'attributes' => $owner));
 
@@ -312,31 +305,27 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$retpath]['name'] = sprintf(_("Tasks from %s"), Nag::getLabel($tasklist));
                     $results[$retpath . '.ics']['name'] = Nag::getLabel($tasklist);
                 }
+                if (in_array('displayname', $properties)) {
+                    $results[$retpath]['displayname'] = Nag::getLabel($tasklist);
+                    $results[$retpath . '.ics']['displayname'] = Nag::getLabel($tasklist) . '.ics';
+                }
+                if (in_array('owner', $properties)) {
+                    $results[$retpath]['owner'] = $tasklist->get('owner') ?: '-system-';
+                    $results[$retpath . '.ics']['owner'] = $tasklist->get('owner') ?: '-system-';
+                }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('nag.png');
                     $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $tasklist->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $tasklist->hasPermission($currentUser, Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
+                if (in_array('read-only', $properties)) {
+                    $results[$retpath]['read-only'] = $results[$retpath . '.ics']['read-only'] = !$tasklist->hasPermission($currentUser, Horde_Perms::EDIT);
+                }
                 if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
                     $results[$retpath . '.ics']['contenttype'] = 'text/calendar';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                    $results[$retpath . '.ics']['contentlength'] = strlen($this->exportTasklist($tasklistId, 'text/calendar'));
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO Find a way to get the actual modification times
-                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
-                    $results[$retpath . '.ics']['modified'] = $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Find a way to get the actual creation times
-                    $results[$retpath]['created'] = 0;
-                    $results[$retpath . '.ics']['created'] = 0;
                 }
             }
             return $results;
@@ -359,13 +348,20 @@ class Nag_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 2) {
             //
-            // This request is browsing into a specific tasklist.  Generate the list
-            // of items and represent them as files within the directory.
+            // This request is browsing into a specific tasklist.  Generate the
+            // list of items and represent them as files within the directory.
             //
-            if (!Nag::hasPermission($parts[1], Horde_Perms::READ)) {
+            try {
+                $tasklist = $nag_shares->getShare($parts[1]);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Nag_Exception(_("Invalid task list requested."), 404);
+            } catch (Horde_Share_Exception $e) {
+                throw new Nag_Exception($e->getMessage, 500);
+            }
+            if (!$tasklist->hasPermission($currentUser, Horde_Perms::READ)) {
                 throw new Nag_Exception(_("Invalid task list requested."), 404);
             }
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
+            $storage = $injector->getInstance('Nag_Factory_Driver')->create($parts[1]);
             try {
                 $storage->retrieve();
             } catch (Nag_Exception $e) {
@@ -383,23 +379,20 @@ class Nag_Api extends Horde_Registry_Api
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = $task->name;
                 }
+                if (in_array('owner', $properties)) {
+                    $results[$key]['owner'] = $tasklist->get('owner') ?: '-system-';
+                }
                 if (in_array('icon', $properties)) {
                     $results[$key]['icon'] = $icon;
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$key]['browseable'] = false;
                 }
+                if (in_array('read-only', $properties)) {
+                    $results[$key]['read-only'] = !$tasklist->hasPermission($currentUser, Horde_Perms::EDIT);
+                }
                 if (in_array('contenttype', $properties)) {
                     $results[$key]['contenttype'] = 'text/calendar';
-                }
-                if (in_array('contentlength', $properties)) {
-                    // FIXME:  This is a hack.  If the content length is longer
-                    // than the actual data then some WebDAV clients will report
-                    // an error when the file EOF is received.  Ideally we should
-                    // determine the actual size of the data and report it here, but
-                    // the performance hit may be prohibitive.  This requires
-                    // further investigation.
-                    $results[$key]['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
                     $results[$key]['modified'] = $modified;
@@ -422,7 +415,8 @@ class Nag_Api extends Horde_Registry_Api
                 // This request is for a specific item within a given task list.
                 //
                 /* Create a Nag storage instance. */
-                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($parts[1]);
+                $storage = $injector->getInstance('Nag_Factory_Driver')
+                    ->create($parts[1]);
                 $storage->retrieve();
                 try {
                     $task = $storage->get($parts[2]);
@@ -437,12 +431,6 @@ class Nag_Api extends Horde_Registry_Api
                     $result['mtime'] = $modified;
                 }
                 return $result;
-            } elseif (count($parts) == 2 &&
-                substr($parts[1], -4) == '.ics' &&
-                Nag::hasPermission(substr($parts[1], 0, -4), Horde_Perms::READ)) {
-
-                // ??
-
             } else {
                 //
                 // All other requests are a 404: Not Found

@@ -10,7 +10,7 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  IMP
+ * @package  ListHeaders
  */
 
 /**
@@ -19,7 +19,7 @@
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  IMP
+ * @package  ListHeaders
  */
 class Horde_ListHeaders extends Horde_Mail_Rfc822
 {
@@ -40,6 +40,25 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
             'list-archive'      =>  Horde_ListHeaders_Translation::t("Archive"),
             /* RFC 2919 */
             'list-id'           =>  Horde_ListHeaders_Translation::t("Identification")
+        );
+    }
+
+   /**
+    * Do any mailing list headers exist?
+    *
+    * @since 1.2.0
+    *
+    * @param Horde_Mime_Headers $ob  Headers object.
+    *
+    * @return boolean  True if any mailing list headers exist.
+    */
+    public function listHeadersExist(Horde_Mime_Headers $ob)
+    {
+        return (bool)count(
+            array_intersect(
+                array_keys($this->headers()),
+                array_keys(iterator_to_array($ob))
+            )
         );
     }
 

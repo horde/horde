@@ -388,7 +388,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      */
     protected function _outputPGPSigned()
     {
-        global $conf, $injector, $prefs, $registry, $session;
+        global $conf, $injector, $prefs, $session;
 
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
@@ -467,15 +467,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             )));
             $ret[$base_id]['status'][] = $status2;
         } else {
-            switch ($registry->getView()) {
-            case Horde_Registry::VIEW_BASIC:
-                $status->addText(Horde::link(Horde::selfUrlParams()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
-                break;
-
-            case Horde_Registry::VIEW_DYNAMIC:
-                $status->addText(Horde::link('#', '', 'pgpVerifyMsg') . _("Click HERE to verify the message.") . '</a>');
-                break;
-            }
+            $status->addText(Horde::link('#', '', 'pgpVerifyMsg') . _("Click HERE to verify the message.") . '</a>');
         }
 
         return $ret;

@@ -85,38 +85,18 @@ class IMP_Contents_View
 
     /**
      */
-    public function downloadAttach($id, $zip = false)
+    public function downloadAttach($id)
     {
-        global $page_output, $session;
+        global $session;
 
         $session->close();
 
         $mime = $this->_getRawDownloadPart($id);
-        $name = $this->_contents->getPartName($mime);
-
-        /* Compress output? */
-        if ($zip) {
-            $data = Horde_Compress::factory('Zip')->compress(array(
-                array(
-                    'data' => $mime->getContents(),
-                    'name' => $name
-                )
-            ), array(
-                'stream' => true
-            ));
-            $name .= '.zip';
-            $type = 'application/zip';
-
-            $page_output->disableCompression();
-        } else {
-            $data = $mime->getContents(array('stream' => true));
-            $type = $mime->getType(true);
-        }
 
         return array(
-            'data' => $data,
-            'name' => $name,
-            'type' => $type
+            'data' => $mime->getContents(array('stream' => true)),
+            'name' => $this->_contents->getPartName($mime),
+            'type' => $mime->getType(true)
         );
     }
 

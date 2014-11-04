@@ -1001,9 +1001,21 @@ extends Horde_Core_Ajax_Application_Handler
                 }
             }
 
-            $result->text[$key] = is_null($tmp)
-                ? $injector->getInstance('IMP_Compose_Ui')->convertComposeText($val['text'], $mode)
-                : $tmp;
+            if (is_null($tmp)) {
+                switch ($mode) {
+                case 'html':
+                    $tmp = IMP_Compose::text2html($val['text']);
+                    break;
+
+                case 'text':
+                    $tmp = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($val['text'], 'Html2text', array(
+                        'wrap' => false
+                    ));
+                    break;
+                }
+            }
+
+            $result->text[$key] = $tmp;
         }
 
         return $result;
@@ -1079,7 +1091,6 @@ extends Horde_Core_Ajax_Application_Handler
         $result = new stdClass;
         $result->fixed = !(IMP_Mailbox::formFrom($this->vars->mbox)->access_deletembox);
         return $result;
-
     }
 
     /**

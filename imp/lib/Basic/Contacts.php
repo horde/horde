@@ -109,6 +109,9 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
             )
         ));
 
+        $c_css = new Horde_Themes_Element('contacts.css');
+        $page_output->addStylesheet($c_css->fs, $c_css->uri);
+
         $page_output->topbar = $page_output->sidebar = false;
 
         $this->header = _("Address Book");

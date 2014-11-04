@@ -105,7 +105,7 @@ class Horde_History_Composite extends Horde_History
                     }
 
                     if (!empty($extra)) {
-                        $tmp['history_extra'] = $row['history_extra'];
+                        $tmp['history_extra'] = $extra;
                     }
 
                     $data[] = $tmp;

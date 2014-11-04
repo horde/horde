@@ -56,14 +56,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
-            $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
-            $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
-            $this->addHandler('IMP_Ajax_Application_Handler_Search');
-            if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_REMOTE)) {
-                $this->addHandler('IMP_Ajax_Application_Handler_RemotePrefs');
-            }
-            break;
-
         case $registry::VIEW_DYNAMIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
             $this->addHandler('IMP_Ajax_Application_Handler_ComposeAttach');
@@ -385,15 +377,15 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
                 'map' => false
             );
 
-            if (strlen($data)) {
-                if (strlen($data_ac)) {
-                    $tmp['map'] = true;
-                    foreach (json_decode($data_ac, true) as $val2) {
-                        $tmp['addr'][$val2[1]] = $val2[0];
-                    }
-                } else {
-                    $tmp['addr'][] = $data;
+            if (strlen($data_ac)) {
+                $tmp['map'] = true;
+                foreach (json_decode($data_ac, true) as $val2) {
+                    $tmp['addr'][$val2[1]] = $val2[0];
                 }
+            } else {
+                $tmp['addr'] += is_array($data)
+                    ? array_values($data)
+                    : array($data);
             }
 
             $out[$val] = $tmp;

@@ -1,0 +1,24 @@
+{
+    "name": "phpmd/phpmd",
+    "description": "Official version of PHPMD handled with Composer.",
+    "license": "BSD-3-Clause",
+
+    "minimum-stability" : "stable",
+
+    "require": {
+        "php": ">=5.3.0",
+        "pdepend/pdepend": "2.0.*",
+
+        "symfony/dependency-injection": "2.5.*",
+        "symfony/filesystem": "2.5.*",
+        "symfony/config": "2.5.*"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "PHPMD\\": "src/main/php"
+        }
+    },
+
+    "bin": ["src/bin/phpmd"]
+}

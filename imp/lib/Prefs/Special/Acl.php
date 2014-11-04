@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $notification, $page_output;
 
-        $page_output->addScriptFile('acl.js');
+        $page_output->addScriptFile('prefs/acl.js');
 
         $acl = $injector->getInstance('IMP_Imap_Acl');
 

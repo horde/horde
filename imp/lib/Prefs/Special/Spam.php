@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
     {
         global $injector, $page_output;
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.spam' => _("Enter the name for your new spam mailbox.")
         ));
@@ -49,7 +49,10 @@ class IMP_Prefs_Special_Spam extends IMP_Prefs_Special_SpecialMboxes implements 
         $iterator = new IMP_Ftree_IteratorFilter(
             $injector->getInstance('IMP_Ftree')
         );
-        $iterator->add($iterator::NONIMAP);
+        $iterator->add(array(
+            $iterator::NONIMAP,
+            $iterator::REMOTE
+        ));
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(

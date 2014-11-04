@@ -17,7 +17,7 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2014-05-21</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.10</release>
   <api>1.0.0</api>
@@ -116,12 +116,6 @@
       <file name="Horde_Argv.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Argv.mo" role="data" />
-      <file name="Horde_Argv.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Argv.mo" role="data" />
@@ -448,8 +442,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Argv.po" name="locale/de/LC_MESSAGES/Horde_Argv.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Argv.mo" name="locale/el/LC_MESSAGES/Horde_Argv.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Argv.po" name="locale/el/LC_MESSAGES/Horde_Argv.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Argv.mo" name="locale/en/LC_MESSAGES/Horde_Argv.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Argv.po" name="locale/en/LC_MESSAGES/Horde_Argv.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Argv.mo" name="locale/es/LC_MESSAGES/Horde_Argv.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Argv.po" name="locale/es/LC_MESSAGES/Horde_Argv.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Argv.mo" name="locale/et/LC_MESSAGES/Horde_Argv.mo" />
@@ -877,7 +869,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-21</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

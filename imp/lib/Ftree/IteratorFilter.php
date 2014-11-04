@@ -27,7 +27,6 @@ class IMP_Ftree_IteratorFilter implements Iterator
      *   - CHILDREN: Don't include child elements.
      *   - CONTAINERS: Don't include container elements.
      *   - EXPANDED: Don't include unexpanded mailboxes.
-     *   - INVISIBLE: Don't include invisible elements.
      *   - NONIMAP: Don't include non-IMAP elements.
      *   - POLLED: Don't include non-polled elements.
      *   - REMOTE: Don't include remote accounts.
@@ -38,13 +37,12 @@ class IMP_Ftree_IteratorFilter implements Iterator
     const CHILDREN = 1;
     const CONTAINERS = 2;
     const EXPANDED = 4;
-    const INVISIBLE = 8;
-    const NONIMAP = 16;
-    const POLLED = 32;
-    const REMOTE = 64;
-    const SPECIALMBOXES = 128;
-    const UNSUB = 256;
-    const VFOLDER = 1024;
+    const NONIMAP = 8;
+    const POLLED = 16;
+    const REMOTE = 32;
+    const SPECIALMBOXES = 64;
+    const UNSUB = 128;
+    const VFOLDER = 256;
 
     /**
      * Master iterator object.
@@ -84,7 +82,7 @@ class IMP_Ftree_IteratorFilter implements Iterator
         $this->iterator = $i;
 
         $this->_filter = new EmptyIterator();
-        $this->_mask = (self::INVISIBLE | self::UNSUB);
+        $this->_mask = self::UNSUB;
     }
 
     /**
@@ -168,7 +166,6 @@ class IMP_Ftree_IteratorFilter implements Iterator
         /* Now we can add regular FilterIterators. */
         $filters = array(
             self::CONTAINERS => 'IMP_Ftree_IteratorFilter_Containers',
-            self::INVISIBLE => 'IMP_Ftree_IteratorFilter_Invisible',
             self::NONIMAP => 'IMP_Ftree_IteratorFilter_Nonimap',
             self::POLLED => 'IMP_Ftree_IteratorFilter_Polled',
             self::SPECIALMBOXES => 'IMP_Ftree_IteratorFilter_Special',

@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-04</date>
+ <date>2014-10-28</date>
  <version>
   <release>1.7.0</release>
   <api>1.7.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Determine EAI and Body transport information by analyzing the message data, instead of requiring a parameter.
 * [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
 * [mms] Add support for CHUNKING extension (RFC 3030).
@@ -39,6 +40,7 @@
     <dir name="Horde">
      <dir name="Smtp">
       <dir name="Filter">
+       <file name="Body.php" role="php" />
        <file name="Data.php" role="php" />
       </dir> <!-- /lib/Horde/Smtp/Filter -->
       <dir name="Password">
@@ -89,6 +91,7 @@
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
+      <file name="FilterBodyTest.php" role="test" />
       <file name="FilterDataTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RemoteServerTest.php" role="test" />
@@ -179,6 +182,7 @@
    <install as="Horde/Smtp/Lmtp.php" name="lib/Horde/Smtp/Lmtp.php" />
    <install as="Horde/Smtp/Password.php" name="lib/Horde/Smtp/Password.php" />
    <install as="Horde/Smtp/Translation.php" name="lib/Horde/Smtp/Translation.php" />
+   <install as="Horde/Smtp/Filter/Body.php" name="lib/Horde/Smtp/Filter/Body.php" />
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
    <install as="Horde/Smtp/Password/Xoauth2.php" name="lib/Horde/Smtp/Password/Xoauth2.php" />
    <install as="locale/Horde_Smtp.pot" name="locale/Horde_Smtp.pot" />
@@ -193,6 +197,7 @@
    <install as="Horde/Smtp/AllTests.php" name="test/Horde/Smtp/AllTests.php" />
    <install as="Horde/Smtp/bootstrap.php" name="test/Horde/Smtp/bootstrap.php" />
    <install as="Horde/Smtp/conf.php.dist" name="test/Horde/Smtp/conf.php.dist" />
+   <install as="Horde/Smtp/FilterBodyTest.php" name="test/Horde/Smtp/FilterBodyTest.php" />
    <install as="Horde/Smtp/FilterDataTest.php" name="test/Horde/Smtp/FilterDataTest.php" />
    <install as="Horde/Smtp/phpunit.xml" name="test/Horde/Smtp/phpunit.xml" />
    <install as="Horde/Smtp/RemoteServerTest.php" name="test/Horde/Smtp/RemoteServerTest.php" />
@@ -443,9 +448,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-04</date>
+   <date>2014-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Determine EAI and Body transport information by analyzing the message data, instead of requiring a parameter.
 * [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
 * [mms] Add support for CHUNKING extension (RFC 3030).

@@ -1,0 +1,79 @@
+#search_form div.item {
+    padding: 1px 0 1px 0;
+}
+#search_form em.join {
+    font-weight: bold;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#search_form em.joinOr {
+    display: inline-block;
+    padding: 5px;
+}
+#search_form #show_unsub {
+    padding-left: 5px;
+}
+#recent_searches_div {
+    padding: 10px;
+}
+#no_search_criteria,
+#no_search_mboxes {
+    font-weight: bold;
+    padding: 3px;
+}
+.searchAdd {
+    display: inline-block;
+    padding: 3px;
+}
+.searchElement {
+    background-color: lightblue;
+    border: 1px solid gray;
+    display: inline-block;
+    margin: 2px;
+    padding: 4px;
+}
+.searchElement em {
+    font-style: normal;
+    font-weight: bold;
+}
+.searchElement span.searchFlag {
+    padding-left: 3px;
+}
+.searchElement span.notMatch,
+.searchElement .searchuiDelete,
+.searchElement span.subfolders {
+    margin-left: 10px;
+}
+.searchElement input.checkbox {
+    margin-right: 3px;
+    vertical-align: sub;
+}
+#search_label,
+#search_type {
+    margin-left: 5px;
+}
+.searchElement span.beginDate,
+.searchElement span.endDate {
+    border: 1px grey dotted;
+    padding: 1px 2px;
+}
+.searchElement span.beginDate > span,
+.searchElement span.endDate > span {
+    padding-right: 4px;
+}
+.searchElement span.beginDate {
+    margin-right: 6px;
+}
+.searchElement span.endDate {
+    margin-left: 6px;
+}
+.searchElement .calendarImg {
+    background-image: url("graphics/calendar.png");
+    margin-right: 0;
+}
+.searchElement .closeImg {
+    margin-right: 0;
+}
+.searchuiDelete {
+    background-image: url("graphics/delete.png");
+}

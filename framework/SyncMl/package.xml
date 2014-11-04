@@ -11,7 +11,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-24</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -131,12 +131,6 @@
       <file name="Horde_SyncMl.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_SyncMl.mo" role="data" />
-      <file name="Horde_SyncMl.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_SyncMl.mo" role="data" />
@@ -706,8 +700,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_SyncMl.po" name="locale/de/LC_MESSAGES/Horde_SyncMl.po" />
    <install as="locale/el/LC_MESSAGES/Horde_SyncMl.mo" name="locale/el/LC_MESSAGES/Horde_SyncMl.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_SyncMl.po" name="locale/el/LC_MESSAGES/Horde_SyncMl.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_SyncMl.mo" name="locale/en/LC_MESSAGES/Horde_SyncMl.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_SyncMl.po" name="locale/en/LC_MESSAGES/Horde_SyncMl.po" />
    <install as="locale/es/LC_MESSAGES/Horde_SyncMl.mo" name="locale/es/LC_MESSAGES/Horde_SyncMl.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_SyncMl.po" name="locale/es/LC_MESSAGES/Horde_SyncMl.po" />
    <install as="locale/et/LC_MESSAGES/Horde_SyncMl.mo" name="locale/et/LC_MESSAGES/Horde_SyncMl.mo" />
@@ -1327,7 +1319,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-24</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

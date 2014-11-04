@@ -287,7 +287,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
             if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
                 $result = file_get_contents($output);
                 if (!empty($result)) {
-                    return $this->_fixContentType($result, 'encrypt');
+                    return $this->_fixContentType($result, 'message');
                 }
             }
         }

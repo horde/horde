@@ -203,8 +203,7 @@ $prefGroups['filters'] = array(
     'desc' => _("Create filtering rules to organize your incoming mail, sort it into mailboxes, and delete spam."),
     'members' => array(
         'filters_link', 'filters_blacklist_link', 'filters_whitelist_link',
-        'filter_on_login', 'filter_on_display', 'filter_any_mailbox',
-        'filter_menuitem'
+        'filter_on_login', 'filter_on_display', 'filter_any_mailbox'
     )
 );
 
@@ -289,13 +288,6 @@ $_prefs['filter_any_mailbox'] = array(
     'suppress' => function() {
         return !IMP_Filter::canApplyFilters();
     }
-);
-
-$_prefs['filter_menuitem'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Show the filter icon on the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
-    'help' => 'filter-menuitem'
 );
 
 
@@ -483,8 +475,7 @@ $prefGroups['compose'] = array(
         'mailto_handler', 'compose_spellcheck', 'set_priority',
         'compose_html', 'compose_html_font_family', 'compose_html_font_size',
         'compose_cursor', 'signature_show_compose', 'encryptselect',
-        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
-        'compose_popup', 'compose_confirm'
+        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang'
     )
 );
 
@@ -595,19 +586,6 @@ $_prefs['reply_lang'] = array(
         asort($enum);
         $ui->prefs['reply_lang']['enum'] = $enum;
     },
-);
-
-$_prefs['compose_popup'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?") . ' (<em>' . _("Basic view only") . '</em>)'
-);
-
-$_prefs['compose_confirm'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?") . ' (<em>' . _("Basic view only") . '</em>)',
-    'requires' => array('compose_popup')
 );
 
 // The list of buttons to show in CKeditor
@@ -1134,15 +1112,14 @@ $prefGroups['delmove'] = array(
     'desc' => _("Set preferences for what happens when you move and delete messages."),
     'members' => array(
         'mailbox_return', 'delete_mark_seen', 'use_trash', 'trashselect',
-        'delhide_trash', 'empty_trash_menu', 'purge_trash_interval',
-        'purge_trash_keep'
+        'delhide_trash', 'purge_trash_interval', 'purge_trash_keep'
     )
 );
 
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Basic view only") . '</em>)'
+    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Mobile view only") . '</em>)'
 );
 
 $_prefs['delete_mark_seen'] = array(
@@ -1204,17 +1181,6 @@ $_prefs['delhide_trash'] = array(
     'desc' => _("Hide deleted messages even if using the Trash mailbox?")
 );
 
-$_prefs['empty_trash_menu'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Trash\" link in the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
-    'requires' => array('use_trash'),
-    'requires_nolock' => array('use_trash'),
-    'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH);
-    }
-);
-
 $_prefs['purge_trash_interval'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1255,7 +1221,7 @@ $prefGroups['spamreport'] = array(
     'desc' => _("Configure spam reporting."),
     'members' => array(
         'spamselect', 'delete_spam_after_report', 'move_innocent_after_report',
-        'empty_spam_menu', 'purge_spam_interval', 'purge_spam_keep'
+        'purge_spam_interval', 'purge_spam_keep'
     )
 );
 
@@ -1301,15 +1267,6 @@ $_prefs['move_innocent_after_report'] = array(
     ),
     'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
-    'suppress' => function() {
-        return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
-    }
-);
-
-$_prefs['empty_spam_menu'] = array(
-    'value' => 0,
-    'type' => 'checkbox',
-    'desc' => _("Display the \"Empty Spam\" link in the menubar?") . ' (<em>' . _("Basic view only") . '</em>)',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
     }
@@ -1446,9 +1403,7 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'preview_enabled',
-        'preview_maxlen', 'preview_strip_nl', 'preview_show_unread',
-        'preview_show_tooltip'
+        'from_link', 'atc_flag'
     )
 );
 
@@ -1463,7 +1418,7 @@ $_prefs['initialpageselect'] = array(
 );
 
 // The initial page to display. Either:
-//   - IMP::INITIAL_FOLDERS (display folders page)
+//   - IMP::INITIAL_FOLDERS (display folders page; smartmobile only)
 //   - mailbox name (defaults to INBOX)
 $_prefs['initial_page'] = array(
     'value' => ''
@@ -1529,12 +1484,6 @@ $_prefs['sortdate'] = array(
     'desc' => _("Criteria to use when sorting by date:")
 );
 
-$_prefs['max_msgs'] = array(
-    'value' => 30,
-    'type' => 'number',
-    'desc' => _("Messages per page in the mailbox view.") . ' (<em>' . _("Basic view only") . '</em>)'
-);
-
 $_prefs['from_link'] = array(
     'value' => 1,
     'type' => 'enum',
@@ -1553,53 +1502,6 @@ $_prefs['atc_flag'] = array(
     'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Indicate whether attachments exist in a message in the mailbox listing?")
-);
-
-$_prefs['preview_enabled'] = array(
-    // Disabled and locked by default: previews can be performance intensive,
-    // especially without caching.
-    'value' => 0,
-    'locked' => true,
-    'type' => 'checkbox',
-    'desc' => _("Enable message previews?") . ' (<em>' . _("Basic view only") . '</em>)'
-);
-
-$_prefs['preview_maxlen'] = array(
-    'value' => 250,
-    'advanced' => true,
-    'type' => 'enum',
-    'enum' => array(
-        100 => _("100 characters"),
-        250 => _("250 characters"),
-        500 => _("500 characters"),
-        1000 => _("1000 characters")
-    ),
-    'desc' => _("Characters to display in preview:"),
-    'requires' => array('preview_enabled')
-);
-
-$_prefs['preview_strip_nl'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Strip linebreaks in preview?"),
-    'requires' => array('preview_enabled')
-);
-
-$_prefs['preview_show_unread'] = array(
-    'value' => 1,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show previews for unread messages only?"),
-    'requires' => array('preview_enabled')
-);
-
-$_prefs['preview_show_tooltip'] = array(
-    'value' => 0,
-    'advanced' => true,
-    'type' => 'checkbox',
-    'desc' => _("Show previews in tooltips?"),
-    'requires' => array('preview_enabled')
 );
 
 

@@ -1,0 +1,121 @@
+/* Flags */
+table.flagmanagement thead td {
+    font-weight: bold;
+    text-decoration: underline;
+}
+table.flagmanagement div.flagUser {
+    border: 1px solid gray;
+    margin-right: 2px;
+}
+table.flagmanagement tbody td.flagicon {
+    text-align: center;
+}
+
+/* Searches */
+table.searchesmanagement {
+    border-bottom: 1px solid gray;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+table.searchesmanagement td,
+table.searchesmanagement th {
+    border: 1px solid gray;
+    border-right-color: lightgray;
+    border-bottom-width: 0;
+}
+table.searchesmanagement td:last-child,
+table.searchesmanagement th:last-child {
+    border-right-color: gray;
+}
+table.searchesmanagement th {
+    text-align: left;
+}
+table.searchesmanagement td.searchdescription {
+    background-color: #ffa;
+    border-top-color: lightgray;
+    width: 500px;
+}
+.editImg {
+    background-image: url("graphics/edit.png");
+}
+
+/* Remote accounts */
+div.remotemanagement table {
+    width: auto;
+}
+table.remotemanagement {
+    margin-bottom: 10px;
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+}
+table.remotemanagement td.required {
+    color: red;
+}
+table.remotemanagement td.noneconfigured {
+    font-style: italic;
+}
+
+/* PGP/SMIME */
+.prefsPgpContainer,
+.prefsSmimeContainer {
+    border: 1px solid black;
+    margin: 5px 0;
+    padding: 4px;
+}
+.prefsPgpHeader,
+.prefsSmimeHeader {
+    margin-bottom: 5px;
+}
+.prefsPgpWarning,
+.prefsSmimeWarning {
+    color: red;
+    padding: 5px 10px;
+}
+.calendarImg {
+    background-image: url("graphics/calendar.png");
+}
+
+/* ACL */
+.prefsAclTable {
+    padding-bottom: 8px;
+    width: 100%;
+}
+.prefsAclHeader {
+    border-bottom: 1px dashed #999;
+    cursor: help;
+}
+.prefsAclNegative {
+    text-decoration: line-through;
+}
+.prefsAclNegativeLabel {
+    border: 1px dotted red;
+    color: red;
+    padding: 1px;
+}
+
+/* Newmail */
+.sound-list li {
+    height: auto;
+}
+.sound-list audio {
+    margin-left: 8px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+}
+
+/* Key import */
+.importKeyTable {
+    border-collapse: collapse;
+    width: 100%;
+}
+.importKeyHowto {
+    padding: 8px;
+}
+.importKeyOr {
+    color: red !important;
+    font-weight: bold;
+}
+.importKeyText,
+.importKeyUpload {
+    font-weight: bold;
+}

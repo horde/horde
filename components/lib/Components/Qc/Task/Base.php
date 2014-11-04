@@ -76,6 +76,11 @@ class Components_Qc_Task_Base
         $this->_config = $config;
         $this->_tasks = $tasks;
         $this->_output = $output;
+        if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+            require __DIR__ . '/../vendor/autoload.php';
+        } else {
+            require __DIR__ . '/../../../../bundle/vendor/autoload.php';
+        }
     }
 
     /**

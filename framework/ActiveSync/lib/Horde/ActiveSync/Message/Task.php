@@ -89,6 +89,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     // EAS 14
     const POOMTASKS_CALENDARTYPE   = 'POOMTASKS:CalendarType';
     const POOMTASKS_ISLEAPMONTH    = 'POOMTASKS:IsLeapMonth';
+    const POOMTASKS_FIRSTDAYOFWEEK = 'POOMTASKS::FirstDayOfWeek';
 
     const TASK_COMPLETE_TRUE      = 1;
     const TASK_COMPLETE_FALSE     = 0;
@@ -127,8 +128,6 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         self::POOMTASKS_UTCDUEDATE    => array (self::KEY_ATTRIBUTE => 'utcduedate', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_IMPORTANCE    => array (self::KEY_ATTRIBUTE => 'importance'),
         self::POOMTASKS_RECURRENCE    => array (self::KEY_ATTRIBUTE => 'recurrence', self::KEY_TYPE => 'Horde_ActiveSync_Message_TaskRecurrence'),
-        self::POOMTASKS_REGENERATE    => array (self::KEY_ATTRIBUTE => 'regenerate'),
-        self::POOMTASKS_DEADOCCUR     => array (self::KEY_ATTRIBUTE => 'deadoccur'),
         self::POOMTASKS_REMINDERSET   => array (self::KEY_ATTRIBUTE => 'reminderset'),
         self::POOMTASKS_REMINDERTIME  => array (self::KEY_ATTRIBUTE => 'remindertime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::POOMTASKS_SENSITIVITY   => array (self::KEY_ATTRIBUTE => 'sensitiviy'),
@@ -190,17 +189,6 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             $this->_properties += array(
                 'airsyncbasebody' => false,
             );
-
-            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
-                $this->_mapping += array(
-                    self::POOMTASKS_CALENDARTYPE => array(self::KEY_ATTRIBUTE => 'calendartype'),
-                    self::POOMTASKS_ISLEAPMONTH  => array(self::KEY_ATTRIBUTE => 'isleapmonth')
-                );
-                $this->_properties += array(
-                    'calendartype' => false,
-                    'isleapmonth' => false
-                );
-            }
         }
     }
 
@@ -272,6 +260,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY;
+            $r->dayofmonth = $recurrence->start->mday;
             break;
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY;
             $r->type = Horde_ActiveSync_Message_Recurrence::TYPE_MONTHLY_NTH;
@@ -298,6 +287,9 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         } elseif ($recurrence->hasRecurEnd()) {
             $r->until = $recurrence->getRecurEnd();
         }
+
+        // Set the start of the recurrence series.
+        $r->start = clone $this->duedate;
 
         $this->_properties['recurrence'] = $r;
     }

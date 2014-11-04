@@ -54,7 +54,9 @@ class Horde_Test_Autoload
                 $old_err = error_reporting($err_mask);
                 include "$filename.php";
                 error_reporting($old_err);
-            }
+            },
+            true,
+            true
         );
 
         self::$_runonce = true;

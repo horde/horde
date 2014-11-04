@@ -236,7 +236,7 @@ class Horde_ActiveSync_Utils
                 }
             }
             // Invalid UTF-8 still found. Strip out non 7-bit characters, or if
-            // that fails, force a conersion to UTF-8 as a last resort. Need
+            // that fails, force a conversion to UTF-8 as a last resort. Need
             // to break string into smaller chunks to avoid hitting
             // https://bugs.php.net/bug.php?id=37793
             $chunk_size = 4000;

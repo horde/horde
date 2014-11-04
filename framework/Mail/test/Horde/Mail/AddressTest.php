@@ -121,6 +121,8 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
             $expected,
             $address->personal_encoded
         );
+
+        $this->assertFalse($address->eai);
     }
 
     public function personalEncodedProvider()
@@ -140,9 +142,13 @@ class Horde_Mail_AddressTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $personal,
-            $address->personal,
+            $address->personal
+        );
+        $this->assertEquals(
+            $email,
             $address->bare_address
         );
+        $this->assertTrue($address->eai);
     }
 
     public function eaiAddressesProvider()

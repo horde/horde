@@ -79,7 +79,7 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         $filter = $injector->createInstance('Horde_Text_Filter');
 
         $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/basic/flist'
+            'templatePath' => IMP_TEMPLATES . '/flist'
         ));
         $view->addHelper('FormTag');
         $view->addHelper('Tag');

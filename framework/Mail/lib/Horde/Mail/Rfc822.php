@@ -61,6 +61,7 @@ class Horde_Mail_Rfc822
     /**
      * Valid atext characters.
      *
+     * @deprecated
      * @since 2.0.3
      */
     const ATEXT = '!#$%&\'*+-./0123456789=?ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`abcdefghijklmnopqrstuvwxyz{|}~';
@@ -128,11 +129,13 @@ class Horde_Mail_Rfc822
      *            DEFAULT: false
      *   - limit: (integer) Stop processing after this many addresses.
      *            DEFAULT: No limit (0)
-     *   - validate: (boolean) Strict validation of personal part data? If
-     *               true, throws an Exception on error. If false, attempts
-     *               to allow non-ASCII characters and non-quoted strings in
-     *               the personal data, and will silently abort if an
-     *               unparseable address is found.
+     *   - validate: (mixed) Strict validation of personal part data? If
+     *               false, attempts to allow non-ASCII characters and
+     *               non-quoted strings in the personal data, and will
+     *               silently abort if an unparseable address is found.
+     *               If true, does strict RFC 5322 (ASCII-only) parsing. If
+     *               'eai' (@since 2.5.0), allows RFC 6532 (EAI/UTF-8)
+     *               addresses.
      *               DEFAULT: false
      *
      * @return Horde_Mail_Rfc822_List  A list object.
@@ -584,7 +587,8 @@ class Horde_Mail_Rfc822
      *
      * atext           = ; Any character except controls, SP, and specials.
      *
-     * For RFC-822 compatibility allow LWSP around '.'
+     * For RFC-822 compatibility allow LWSP around '.'.
+     *
      *
      * @param string &$str      The atom/dot data.
      * @param string $validate  Use these characters as delimiter.
@@ -593,17 +597,13 @@ class Horde_Mail_Rfc822
      */
     protected function _rfc822ParseDotAtom(&$str, $validate = null)
     {
-        $is_validate = $this->_params['validate'];
         $valid = false;
 
         while ($this->_ptr < $this->_datalen) {
             $chr = $this->_data[$this->_ptr];
 
-            /* $this->_rfc822IsAtext($chr, $validate);
-             * Optimization: Function would be called excessively in this
-             * loop, so eliminate function call overhead. */
-            if (($is_validate && !strcspn($chr, self::ATEXT)) ||
-                (!$is_validate && strcspn($chr, $validate))) {
+            /* TODO: Optimize by duplicating rfc822IsAtext code here */
+            if ($this->_rfc822IsAtext($chr, $validate)) {
                 $str .= $chr;
                 ++$this->_ptr;
             } elseif (!$valid) {
@@ -635,18 +635,13 @@ class Horde_Mail_Rfc822
      */
     protected function _rfc822ParseAtomOrDot(&$str)
     {
-        $validate = $this->_params['validate'];
-
         while ($this->_ptr < $this->_datalen) {
             $chr = $this->_data[$this->_ptr];
             if (($chr != '.') &&
-                /* !$this->_rfc822IsAtext($chr, ',<:');
-                 * Optimization: Function would be called excessively in this
-                 * loop, so eliminate function call overhead. */
-                !(($validate && !strcspn($chr, self::ATEXT)) ||
-                  (!$validate && strcspn($chr, ',<:')))) {
+                /* TODO: Optimize by duplicating rfc822IsAtext code here */
+                !$this->_rfc822IsAtext($chr, ',<:')) {
                 $this->_rfc822SkipLwsp();
-                if (!$validate) {
+                if (!$this->_params['validate']) {
                     $str = trim($str);
                 }
                 return;
@@ -793,13 +788,47 @@ class Horde_Mail_Rfc822
      * @param string $validate  If in non-validate mode, use these characters
      *                          as the non-atom delimiters.
      *
-     * @return boolean  True if an atom.
+     * @return boolean  True if a valid atom.
      */
     protected function _rfc822IsAtext($chr, $validate = null)
     {
-        return (!$this->_params['validate'] && !is_null($validate))
-            ? strcspn($chr, $validate)
-            : !strcspn($chr, self::ATEXT);
+        if (!$this->_params['validate'] && !is_null($validate)) {
+            return strcspn($chr, $validate);
+        }
+
+        $ord = ord($chr);
+
+        /* UTF-8 characters check. */
+        if ($ord > 127) {
+            return ($this->_params['validate'] === 'eai');
+        }
+
+        /* Check for DISALLOWED characters under both RFCs 5322 and 6532. */
+
+        /* Unprintable characters && [SPACE] */
+        if ($ord <= 32) {
+            return false;
+        }
+
+        /* "(),:;<>@[\] [DEL] */
+        switch ($ord) {
+        case 34:
+        case 40:
+        case 41:
+        case 44:
+        case 58:
+        case 59:
+        case 60:
+        case 62:
+        case 64:
+        case 91:
+        case 92:
+        case 93:
+        case 127:
+            return false;
+        }
+
+        return true;
     }
 
     /* Helper methods. */

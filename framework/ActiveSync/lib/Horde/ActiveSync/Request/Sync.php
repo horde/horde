@@ -214,9 +214,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
-            // Preparation for EAS >= 12.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
-
                 // These are not allowed in the same request.
                 if ($this->_collections->hbinterval !== false &&
                     $this->_collections->wait !== false) {
@@ -229,9 +227,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     return true;
                 }
 
-                // Fill in missing information from cache.
+                // Fill in missing sticky data from cache.
                 $this->_collections->validateFromCache();
             }
+
+            // Ensure we have OPTIONS values.
+            $this->_collections->ensureOptions();
 
             // Full or partial sync request?
             if ($partial === true) {
@@ -474,29 +475,71 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_encoder->content($statusCode);
             $this->_encoder->endTag();
 
-            // Check the mimesupport because we need it for advanced emails
-            if (!isset($collection['mimesupport'])) {
-                $collection['mimesupport'] = 0;
-            }
-
             $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
+
+                // Send server changes to PIM
+                if ($statusCode == self::STATUS_SUCCESS &&
+                    empty($forceChanges) &&
+                    (!empty($collection['getchanges']) ||
+                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
+
+                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
+                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
+
+                        $this->_logger->info(sprintf(
+                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
+                            $this->_procid, $changecount, $cnt_global));
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
+                    }
+
+                    if (!empty($changecount)) {
+                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
+                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
+                        $cnt_collection = 0;
+                        while ($cnt_collection < $collection['windowsize'] &&
+                               $cnt_global < $this->_collections->getDefaultWindowSize() &&
+                               $progress = $exporter->sendNextChange()) {
+
+                            if ($progress === true) {
+                                ++$cnt_collection;
+                                ++$cnt_global;
+                            }
+                        }
+
+                        $this->_encoder->endTag();
+                    }
+                }
+
                 if (!empty($collection['clientids']) || !empty($collection['fetchids'])
                     || !empty($collection['missing']) || !empty($collection['importfailures'])) {
 
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
-                    // Output any errors from missing messages in REMOVE requests.
-                    if (!empty($collection['missing'])) {
-                        foreach ($collection['missing'] as $uid) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                            $this->_encoder->content($uid);
+                    // Output any SYNC_MODIFY failures
+                    if (!empty($collection['importfailures'])) {
+                        foreach ($collection['importfailures'] as $id => $reason) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+                            $this->_encoder->content($collection['class']);
                             $this->_encoder->endTag();
+
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                            $this->_encoder->content($id);
+                            $this->_encoder->endTag();
+
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(self::STATUS_NOTFOUND);
+                            $this->_encoder->content($reason);
                             $this->_encoder->endTag();
+
                             $this->_encoder->endTag();
+                            // If we have a conflict, ensure we send the new server
+                            // data in the response, if possible. Some android
+                            // clients require this, or never accept the response.
+                            if ($reason == self::STATUS_CONFLICT) {
+                                $ensure_sent[] = $id;
+                            }
                         }
                     }
 
@@ -531,25 +574,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output any SYNC_MODIFY failures
-                    if (!empty($collection['importfailures'])) {
-                        foreach ($collection['importfailures'] as $id => $reason) {
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($id);
+                    // Output any errors from missing messages in REMOVE requests.
+                    if (!empty($collection['missing'])) {
+                        foreach ($collection['missing'] as $uid) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+                            $this->_encoder->content($uid);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content($reason);
+                            $this->_encoder->content(self::STATUS_NOTFOUND);
                             $this->_encoder->endTag();
                             $this->_encoder->endTag();
-                            // If we have a conflict, ensure we send the new server
-                            // data in the response, if possible. Some android
-                            // clients require this, or never accept the response.
-                            if ($reason == self::STATUS_CONFLICT) {
-                                $ensure_sent[] = $id;
-                            }
                         }
-
                     }
 
                     if (!empty($collection['fetchids'])) {
@@ -587,39 +623,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     $this->_encoder->endTag();
-                }
-
-                // Send server changes to PIM
-                if ($statusCode == self::STATUS_SUCCESS &&
-                    empty($forceChanges) &&
-                    (!empty($collection['getchanges']) ||
-                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
-
-                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
-                        ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
-
-                        $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
-                            $this->_procid, $changecount, $cnt_global));
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
-                    }
-
-                    if (!empty($changecount)) {
-                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
-                        $cnt_collection = 0;
-                        while ($cnt_collection < $collection['windowsize'] &&
-                               $cnt_global < $this->_collections->getDefaultWindowSize() &&
-                               $progress = $exporter->sendNextChange()) {
-
-                            if ($progress === true) {
-                                ++$cnt_collection;
-                                ++$cnt_global;
-                            }
-                        }
-
-                        $this->_encoder->endTag();
-                    }
                 }
 
                 // Save the sync state for the next time
@@ -1131,9 +1134,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_mimeSupport($options);
             }
 
+            // SYNC_MIMETRUNCATION is used when no SYNC_BODYPREFS element is sent.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
                 $haveElement = true;
-                $options['mimetruncation'] = $this->_decoder->getElementContent();
+                $options['mimetruncation'] = Horde_ActiveSync::getMIMETruncSize($this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);
@@ -1141,9 +1145,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
 
+            // SYNC_TRUNCATION only applies to the body of non-email collections
+            // or the BODY element of an Email in EAS 2.5.
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_TRUNCATION)) {
                 $haveElement = true;
-                $options['truncation'] = $this->_decoder->getElementContent();
+                $options['truncation'] = Horde_ActiveSync::getTruncSize($this->_decoder->getElementContent());
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
                     $this->_handleError($collection);

@@ -42,11 +42,12 @@ var KeyNavList = Class.create({
         this.base = $(base);
 
         this.opts = Object.extend({
+            domParent: null,
+            fadeDuration: 0.1,
+            keydownObserver: document,
             onChoose: Prototype.emptyFunction,
             onHide: Prototype.emptyFunction,
-            onShow: Prototype.emptyFunction,
-            domParent: null,
-            keydownObserver: document
+            onShow: Prototype.emptyFunction
         }, opts || {});
 
         this.div = new Element('DIV', { className: 'KeyNavList' }).hide().insert(new Element('UL'));
@@ -96,6 +97,7 @@ var KeyNavList = Class.create({
     update: function(list)
     {
         var df = document.createDocumentFragment();
+        this.selected = null;
 
         list.each(function(v) {
             var li;
@@ -114,6 +116,8 @@ var KeyNavList = Class.create({
 
         this.div.down().childElements().invoke('remove');
         this.div.down().appendChild(df);
+
+        this.markNext();
     },
 
     updateBase: function(base)
@@ -152,7 +156,7 @@ var KeyNavList = Class.create({
                     }
                 }.bind(this),
                 afterSetup: this._sizeDiv.bind(this),
-                duration: 0.15
+                duration: this.opts.fadeDuration
             });
         }
     },
@@ -191,7 +195,7 @@ var KeyNavList = Class.create({
         if (this.div.visible()) {
             this.active = false;
             this.opts.onHide(this.div);
-            this.div.fade({ duration: 0.15 });
+            this.div.fade({ duration: this.opts.fadeDuration });
             if (this.iefix) {
                 this.iefix.hide();
             }

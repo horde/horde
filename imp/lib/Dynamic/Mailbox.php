@@ -40,6 +40,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
+        $page_output->addThemeStylesheet('mailbox.css');
+        $page_output->addThemeStylesheet('message_view.css');
+
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {

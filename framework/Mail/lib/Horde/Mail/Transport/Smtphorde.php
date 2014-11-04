@@ -46,9 +46,7 @@
 class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 {
     /**
-     * Send the message as 8bit?
-     *
-     * @var boolean
+     * @deprecated
      */
     public $send8bit = false;
 
@@ -113,6 +111,19 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
 
     /**
      */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'eai':
+            $this->getSMTPObject();
+            return $this->_smtp->data_intl;
+        }
+
+        return parent::__get($name);
+    }
+
+    /**
+     */
     public function send($recipients, array $headers, $body)
     {
         /* If we don't already have an SMTP object, create one. */
@@ -129,9 +140,7 @@ class Horde_Mail_Transport_Smtphorde extends Horde_Mail_Transport
         ));
 
         try {
-            $this->_smtp->send($from, $recipients, $combine, array(
-                '8bit' => $this->send8bit
-            ));
+            $this->_smtp->send($from, $recipients, $combine);
         } catch (Horde_Smtp_Exception $e) {
             throw new Horde_Mail_Exception($e);
         }

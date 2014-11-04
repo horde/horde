@@ -36,6 +36,9 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
 
         /* Get list of Public Keys on keyring. */

@@ -65,8 +65,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $subject = '';
         $page_label = $this->indices->mailbox->label;
 
-        $imp_ui = $injector->getInstance('IMP_Message_Ui');
-
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
 
@@ -107,12 +105,13 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
                 if ($this->indices->mailbox->special_outgoing) {
                     $curr_msg['addr_to'] = true;
-                    $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrlParams());
+                    $curr_msg['addr'] = _("To:") . ' ' .
+                        $this->_buildAddressLinks($envelope->to, Horde::selfUrlParams());
                     $addr = _("To:") . ' ' . htmlspecialchars($envelope->to[0]->label, ENT_COMPAT, 'UTF-8');
                 } else {
                     $from = $envelope->from;
                     $curr_msg['addr_to'] = false;
-                    $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrlParams());
+                    $curr_msg['addr'] = $this->_buildAddressLinks($from, Horde::selfUrlParams());
                     $addr = htmlspecialchars($from[0]->label, ENT_COMPAT, 'UTF-8');
                 }
 
@@ -135,13 +134,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                     break;
                 }
 
-                switch ($registry->getView()) {
-                case $registry::VIEW_BASIC:
-                    $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('message', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
-                        ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('mailbox')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
-                    break;
-                }
-
                 $curr_tree['subject'] .= Horde::link('#i' . $idx) . Horde_String::truncate($subject_header, 60) . '</a> (' . $addr . ')';
 
                 $msgs[] = $curr_msg;
@@ -161,22 +153,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         if ($mode == 'thread') {
             $view->subject = $subject;
             $view->thread = true;
-
-            switch ($registry->getView()) {
-            case $registry::VIEW_BASIC:
-                $uid_list = $imp_indices[strval($this->indices->mailbox)];
-                $delete_link = $this->indices->mailbox->url('mailbox')->add(array(
-                    'actionID' => 'delete_messages',
-                    'indices' => strval($imp_indices),
-                    'token' => $session->getToken(),
-                    'start' => $imp_mailbox->getArrayIndex(end($uid_list))
-                ));
-                $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
-                $page_output->addInlineScript(array(
-                    '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete all messages in this thread?")) . ')) { e.stop(); } })'
-                ), true);
-                break;
-            }
         } else {
             $view->subject = sprintf(_("%d Messages"), count($msgs));
         }
@@ -187,16 +163,17 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
         $page_output->noDnsPrefetch();
 
+        $t_css = new Horde_Themes_Element('thread.css');
+        $page_output->addStylesheet($t_css->fs, $t_css->uri);
+        $v_css = new Horde_Themes_Element('dynamic/message_view.css');
+        $page_output->addStylesheet($v_css->fs, $v_css->uri);
+
         $this->output = $view->render('thread');
 
-        switch ($registry->getView()) {
-        case $registry::VIEW_DYNAMIC:
-            $page_output->topbar = $page_output->sidebar = false;
-            $this->header_params = array(
-                'html_id' => 'htmlAllowScroll'
-            );
-            break;
-        }
+        $page_output->topbar = $page_output->sidebar = false;
+        $this->header_params = array(
+            'html_id' => 'htmlAllowScroll'
+        );
 
         $this->title = ($mode == 'thread')
             ? _("Thread View")
@@ -207,11 +184,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     public function status()
     {
-        global $registry;
-
-        return ($registry->getView() == $registry::VIEW_DYNAMIC)
-            ? ''
-            : parent::status();
+        return '';
     }
 
     /**
@@ -222,6 +195,106 @@ class IMP_Basic_Thread extends IMP_Basic_Base
             ->add('page', 'thread')
             ->unique()
             ->setRaw(!empty($opts['full']));
+    }
+
+    /**
+     * Builds a string containing a list of addresses.
+     *
+     * @param Horde_Mail_Rfc822_List $addrlist  An address list.
+     * @param Horde_Url $addURL                 The self URL.
+     * @param boolean $link                     Link each address to the
+     *                                          compose screen?
+     *
+     * @return string  String containing the formatted address list.
+     */
+    protected function _buildAddressLinks(Horde_Mail_Rfc822_List $addrlist,
+                                          $addURL = null, $link = true)
+    {
+        global $prefs, $registry;
+
+        $add_link = null;
+        $addr_array = array();
+
+        /* Set up the add address icon link if contact manager is
+         * available. */
+        if (!is_null($addURL) && $link && $prefs->getValue('add_source')) {
+            try {
+                $add_link = $registry->hasMethod('contacts/import')
+                    ? $addURL->copy()->add('actionID', 'add_address')
+                    : null;
+            } catch (Horde_Exception $e) {}
+        }
+
+        $addrlist->setIteratorFilter();
+        foreach ($addrlist->base_addresses as $ob) {
+            if ($ob instanceof Horde_Mail_Rfc822_Group) {
+                $group_array = array();
+                foreach ($ob->addresses as $ad) {
+                    $ret = htmlspecialchars(strval($ad));
+
+                    if ($link) {
+                        $clink = new IMP_Compose_Link(array('to' => strval($ad)));
+                        $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ad))) . $ret . '</a>';
+                    }
+
+                    /* Append the add address icon to every address if contact
+                     * manager is available. */
+                    if ($add_link) {
+                        $curr_link = $add_link->copy()->add(array(
+                            'address' => $ad->bare_address,
+                            'name' => $ad->personal
+                        ));
+                        $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ad->bare_address)) .
+                            '<span class="iconImg addrbookaddImg"></span></a>';
+                    }
+
+                    $group_array[] = $ret;
+                }
+
+                $addr_array[] = htmlspecialchars($ob->groupname) . ':' .
+                    (count($group_array) ? ' ' .
+                    implode(', ', $group_array) : '');
+            } else {
+                $ret = htmlspecialchars(strval($ob));
+
+                if ($link) {
+                    $clink = new IMP_Compose_Link(array('to' => strval($ob)));
+                    $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ob))) . $ret . '</a>';
+                }
+
+                /* Append the add address icon to every address if contact
+                 * manager is available. */
+                if ($add_link) {
+                    $curr_link = $add_link->copy()->add(array(
+                        'address' => $ob->bare_address,
+                        'name' => $ob->personal
+                    ));
+                    $ret .= Horde::link($curr_link, sprintf(_("Add %s to my Address Book"), $ob->bare_address)) .
+                        '<span class="iconImg addrbookaddImg"></span></a>';
+                }
+
+                $addr_array[] = $ret;
+            }
+        }
+
+        /* If left with an empty address list ($ret), inform the user that the
+         * recipient list is purposely "undisclosed". */
+        if (empty($addr_array)) {
+            $ret = _("Undisclosed Recipients");
+        } else {
+            /* Build the address line. */
+            $addr_count = count($addr_array);
+            $ret = '<span class="nowrap">' . implode(',</span> <span class="nowrap">', $addr_array) . '</span>';
+            if ($link && $addr_count > 15) {
+                $ret = '<span>' .
+                    '<span onclick="[ this, this.next(), this.next(1) ].invoke(\'toggle\')" class="widget largeaddrlist">' . sprintf(_("Show Addresses (%d)"), $addr_count) . '</span>' .
+                    '<span onclick="[ this, this.previous(), this.next() ].invoke(\'toggle\')" class="widget largeaddrlist" style="display:none">' . _("Hide Addresses") . '</span>' .
+                    '<span style="display:none">' .
+                    $ret . '</span></span>';
+            }
+        }
+
+        return $ret;
     }
 
 }

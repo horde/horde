@@ -170,9 +170,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             return $this->_base->validateAuth();
         }
 
-        return $this->hasCapability('validate')
-            ? $GLOBALS['registry']->callAppMethod($this->_app, 'authValidate', array('noperms' => true))
-            : parent::validateAuth();
+        try {
+            return $this->hasCapability('validate')
+                ? $GLOBALS['registry']->callAppMethod($this->_app, 'authValidate', array('noperms' => true))
+                : parent::validateAuth();
+        } catch (Horde_Exception_AuthenticationFailure $e) {
+            return false;
+        }
     }
 
     /**

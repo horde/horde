@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-10-15</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.1.2</release>
   <api>1.0.0</api>
@@ -120,12 +120,6 @@
       <file name="Horde_Rpc.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Rpc.mo" role="data" />
-      <file name="Horde_Rpc.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Rpc.mo" role="data" />
@@ -483,8 +477,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Rpc.po" name="locale/de/LC_MESSAGES/Horde_Rpc.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Rpc.mo" name="locale/el/LC_MESSAGES/Horde_Rpc.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Rpc.po" name="locale/el/LC_MESSAGES/Horde_Rpc.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Rpc.mo" name="locale/en/LC_MESSAGES/Horde_Rpc.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Rpc.po" name="locale/en/LC_MESSAGES/Horde_Rpc.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Rpc.mo" name="locale/es/LC_MESSAGES/Horde_Rpc.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Rpc.po" name="locale/es/LC_MESSAGES/Horde_Rpc.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Rpc.mo" name="locale/et/LC_MESSAGES/Horde_Rpc.mo" />
@@ -852,7 +844,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-10-15</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

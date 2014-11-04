@@ -88,6 +88,9 @@ function send_agendas()
             continue;
         }
 
+        // Initialize the CalendarsManager for this user.
+        $GLOBALS['calendar_manager'] = new Kronolith_CalendarsManager($user);
+
         // Try to find an email address for the user.
         $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
         $email = $identity->getDefaultFromAddress(true);
@@ -137,7 +140,7 @@ function send_agendas()
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     // The event list contains events starting at 12am.
-                    if ($event->start->compareDate($runtime)) {
+                    if ($event->start->compareDate($runtime) || $event->isPrivate($user)) {
                         continue;
                     }
                     $eventlist[] = $event;

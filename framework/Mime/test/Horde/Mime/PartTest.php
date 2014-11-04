@@ -107,15 +107,64 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('', $test_part->getPart(1)->getDisposition());
     }
 
+    public function testParsingMimeMessageWithEaiAddress()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_2.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        /* If we reach this point, there was no Exception. */
+        $this->assertEquals(
+            "asdf",
+            trim($part->getContents())
+        );
+    }
+
     public function testParsingMimeMessageWithUtf8ContentDispositionParameter()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt');
         $part = Horde_Mime_Part::parseMessage($msg);
 
         $this->assertEquals(
             'blåbærsyltetøy',
             $part->getDispositionParameter('filename')
         );
+    }
+
+    public function testParsingMultipartMimeMessageWithMultipleEaiComponents()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_3.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            2,
+            count($part->getParts())
+        );
+
+        $part1 = $part->getPart(1);
+        $this->assertEquals(
+            'text/plain',
+            $part1->getType()
+        );
+        $this->assertEquals(
+            'flowed',
+            $part1->getContentTypeParameter('format')
+        );
+        $this->assertEquals(
+            'abstürzen',
+            $part1->getContentTypeParameter('x-eai-please-do-not')
+        );
+        $this->assertNull($part1->getContentTypeParameter('filename'));
+
+        $part1 = $part->getPart(2);
+        $this->assertEquals(
+            'text/plain',
+            $part1->getType()
+        );
+        $this->assertEquals(
+            'blåbærsyltetøy',
+            $part1->getDispositionParameter('filename')
+        );
+        $this->assertNull($part1->getContentTypeParameter('filename'));
     }
 
     public function testAddingSizeToContentDisposition()

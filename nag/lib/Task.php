@@ -838,7 +838,7 @@ class Nag_Task
      *
      * @return string  A HTML color code.
      */
-    public function foregroundColor($calendar)
+    public function foregroundColor()
     {
         return Horde_Image::brightness($this->backgroundColor()) < 128
             ? '#fff'

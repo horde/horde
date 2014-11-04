@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-15</date>
+ <date>2014-10-28</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -122,12 +122,6 @@
       <file name="Horde_Mime.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Mime.mo" role="data" />
-      <file name="Horde_Mime.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Mime.mo" role="data" />
@@ -356,7 +350,10 @@
        <file name="sample_msg.txt" role="test" />
        <file name="sample_msg2.txt" role="test" />
        <file name="sample_msg3.txt" role="test" />
-       <file name="sample_msg_utf8.txt" role="test" />
+       <file name="sample_msg_eai.txt" role="test" />
+       <file name="sample_msg_eai_2.txt" role="test" />
+       <file name="sample_msg_eai_3.txt" role="test" />
+       <file name="sample_msg_eai_4.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
@@ -397,7 +394,7 @@
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.1.1</min>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -518,8 +515,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Mime.po" name="locale/de/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Mime.mo" name="locale/el/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Mime.po" name="locale/el/LC_MESSAGES/Horde_Mime.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Mime.mo" name="locale/en/LC_MESSAGES/Horde_Mime.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Mime.po" name="locale/en/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Mime.mo" name="locale/es/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Mime.po" name="locale/es/LC_MESSAGES/Horde_Mime.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Mime.mo" name="locale/et/LC_MESSAGES/Horde_Mime.mo" />
@@ -617,7 +612,10 @@
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg2.txt" name="test/Horde/Mime/fixtures/sample_msg2.txt" />
    <install as="Horde/Mime/fixtures/sample_msg3.txt" name="test/Horde/Mime/fixtures/sample_msg3.txt" />
-   <install as="Horde/Mime/fixtures/sample_msg_utf8.txt" name="test/Horde/Mime/fixtures/sample_msg_utf8.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg_eai.txt" name="test/Horde/Mime/fixtures/sample_msg_eai.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg_eai_2.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_2.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg_eai_3.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_3.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg_eai_4.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_4.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
  </phprelease>
@@ -1459,7 +1457,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-15</date>
+   <date>2014-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Mime::is8bit() no longer requires the charset parameter.

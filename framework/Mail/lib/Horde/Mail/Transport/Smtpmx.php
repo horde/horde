@@ -39,13 +39,14 @@
 /**
  * SMTP MX implementation.
  *
- * @author    Gerd Schaufelberger <gerd@php-tools.net>
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2010-2014 Horde LLC
- * @copyright 2010 Gerd Schaufelberger
- * @license   http://www.horde.org/licenses/bsd New BSD License
- * @package   Mail
+ * @author     Gerd Schaufelberger <gerd@php-tools.net>
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2010-2014 Horde LLC
+ * @copyright  2010 Gerd Schaufelberger
+ * @deprecated Use Horde_Mail_Transport_Hordesmtp instead
+ * @license    http://www.horde.org/licenses/bsd New BSD License
+ * @package    Mail
  */
 class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
 {

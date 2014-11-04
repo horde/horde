@@ -36,13 +36,12 @@ Horde_Registry::appInit('horde', array(
 // Parse command line arguments.
 $parser = new Horde_Argv_Parser(
     array(
-        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[(application|directory) [(up|down|version)]]",
+        'usage' => "%prog\n\t[--config=filename]\n\t[--debug]\n\t[--halt-on-error]\n\t[(application|directory) [(up|down|version)]]",
         'optionList' => array(
             new Horde_Argv_Option(
                 '-c',
                 '--config',
                 array(
-                      //'action' => 'store_true',
                     'help'   => 'Path to PEAR configuration file.'
                 )
             ),
@@ -52,6 +51,14 @@ $parser = new Horde_Argv_Parser(
                 array(
                     'action' => 'store_true',
                     'help'   => 'Provide full debugging output.'
+                )
+            ),
+            new Horde_Argv_Option(
+                '-s',
+                '--halt-on-error',
+                array(
+                    'action' => 'store_true',
+                    'help'   => 'Halt migration immediately on error.'
                 )
             ),
         )
@@ -155,7 +162,11 @@ foreach ($apps as $app) {
         }
     } catch (Exception $e) {
         echo $e->getMessage() . "\n";
-        continue;
+        if (empty($options['halt-on-error'])) {
+            continue;
+        } else {
+            exit(1);
+        }
     }
 
     $cli->message("Ending $app schema version: " . $migrator->getCurrentVersion());

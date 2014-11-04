@@ -23,6 +23,9 @@
  * @property-read string $bare_address  The bare mailbox@host address.
  * @property-read string $bare_address_idn  The bare mailbox@host address (IDN
  *                                          encoded). (@since 2.1.0)
+ * @property-read boolean $eai  Returns true if the local (mailbox) address
+ *                              part requires EAI (UTF-8) support.
+ *                              (@since 2.5.0)
  * @property-read string $encoded  The full MIME/IDN encoded address (UTF-8).
  * @property string $host  Returns the host part (UTF-8).
  * @property-read string $host_idn  Returns the IDN encoded host part.
@@ -119,6 +122,11 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             $res = $this->encoded;
             $this->_personal = $personal;
             return $res;
+
+        case 'eai':
+            return is_null($this->mailbox)
+                ? false
+                : Horde_Mime::is8bit($this->mailbox);
 
         case 'encoded':
             return $this->writeAddress(true);

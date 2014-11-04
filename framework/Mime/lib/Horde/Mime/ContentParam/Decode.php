@@ -89,14 +89,18 @@ class Horde_Mime_ContentParam_Decode extends Horde_Mail_Rfc822
      */
     protected function _rfc822ParseMimeToken(&$str)
     {
-        $length = strspn($this->_data, Horde_Mime_ContentParam::ATEXT_NON_TSPECIAL, $this->_ptr);
+        for ($i = $this->_ptr, $size = strlen($this->_data); $i < $size; ++$i) {
+            if (!Horde_Mime_ContentParam::isAtextNonTspecial($this->_data[$i])) {
+                break;
+            }
+        }
 
-        if ($length) {
-            $str = substr($this->_data, $this->_ptr, $length);
-            $this->_ptr += $length;
-            $this->_rfc822SkipLwsp();
-        } else {
+        if ($i === $this->_ptr) {
             $str = null;
+        } else {
+            $str = substr($this->_data, $this->_ptr, $i - $this->_ptr);
+            $this->_ptr += ($i - $this->_ptr);
+            $this->_rfc822SkipLwsp();
         }
     }
 

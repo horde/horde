@@ -395,62 +395,12 @@ class IMP_Hooks
 //                $acl[Horde_Imap_Client::ACL_WRITE]
 //            );
 //        }
-//    }
-
-
-    /**
-     * When a mailbox is opened in IMP, allow redirection based on the mailbox
-     * name.
-     *
-     * @param string $mailbox  The mailbox which the user has opened.
-     *
-     * @return string  A valid page within a Horde application which will be
-     *                 placed in a "Location" header to redirect the client.
-     *                 Return an empty string if the user is not to be
-     *                 redirected.
-     */
-//    public function mbox_redirect($mailbox)
-//    {
-//        // Example #1: Redirect to various Horde apps based on the mailbox
-//        // name.
-//        if ((stripos($mailbox, "INBOX/Calendar") !== false) ||
-//            preg_match("!^user/[^/]+/Calendar!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'kronolith'));
-//        } elseif ((stripos($mailbox, "INBOX/Tasks") !== false) ||
-//                  preg_match("!^user/[^/]+/Tasks!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'nag'));
-//        } elseif ((strpos($mailbox, "INBOX/Notes") !== false) ||
-//                  preg_match("!^user/[^/]+/Notes!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'mnemo'));
-//        } elseif ((strpos($mailbox, "INBOX/Contacts") !== false) ||
-//                  preg_match("!^user/[^/]+/Contacts!", $mailbox)) {
-//            return Horde::url('', false, array('app' => 'turba'));
-//        }
-//
-//        return '';
 //
 //
-//        // Example #2: Kolab defaults.
-//        $type = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getFolder($mailbox)->getType();
-//        switch ($type) {
-//        case 'event':
-//            return Horde::url('', false, array('app' => 'kronolith'));
-//
-//        case 'task':
-//            return Horde::url('', false, array('app' => 'nag'));
-//
-//        case 'note':
-//            return Horde::url('', false, array('app' => 'mnemo'));
-//
-//        case 'contact':
-//            return Horde::url('', false, array('app' => 'turba'));
-//
-//        case 'prefs':
-//            return $GLOBALS['registry']->getServiceLink('prefs', 'horde');
-//
-//        default:
-//            return '';
+//        // Example #3: Make the 'Example' mailbox not appear in folder
+//        // lists.
+//        if ($mailbox == 'Example') {
+//            unset($acl[Horde_Imap_Client::ACL_LOOKUP]);
 //        }
 //    }
 
@@ -577,37 +527,6 @@ class IMP_Hooks
 
 
     /**
-     * Allow additional information to be added/edited from the data that is
-     * passed to the mailbox display template:
-     *   basic: imp/templates/basic/mailbox/mailbox.html
-     *   dynamic: imp/templates/dynamic/msglist_[horiz|vert].html
-     *
-     * If you are going to add new columns, you also have to update these
-     * fields:
-     *   basic: imp/lib/Basic/Mailbox.php to specify the column width.
-     *   dynamic: imp/themes/dynamic/screen.css to specify the column width.
-     *
-     * @param array $msgs  The mailbox data.
-     *
-     * @return array  The altered array to use in the template.
-     */
-//    public function mailboxarray($msgs)
-//    {
-//        // Example #1: Adds a 'foo' entry to each message element.
-//        switch ($GLOBALS['registry']->getView()) {
-//        case Horde_Registry::VIEW_BASIC:
-//        case Horde_Registry::VIEW_DYNAMIC:
-//            foreach (array_keys($msgs) as $key) {
-//                $msgs[$key]['foo'] = true;
-//            }
-//            break;
-//        }
-//
-//        return $msg;
-//    }
-
-
-    /**
      * Default browser-based preference values for the dynamic view.
      * Any value not returned here will use the default value (listed below).
      *
@@ -653,26 +572,6 @@ class IMP_Hooks
 //    {
 //        // Example #1: Entirely disable composition.
 //        return false;
-//    }
-
-
-    /**
-     * Hide IMAP mailboxes in folder listings.
-     *
-     * @param string $mailbox  The mailbox name.
-     *
-     * @return boolean  If false, do not display the mailbox.
-     */
-//    public function display_folder($mailbox)
-//    {
-//        // Example #1: Do not display the mailbox 'Foo'.
-//        return ($mailbox != 'Foo');
-//
-//
-//        // Example #2: Kolab default
-//        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->getQuery()->listTypes();
-//        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 
 
@@ -747,6 +646,7 @@ class IMP_Hooks
      */
 //    public function smime_key($address)
 //    {
+//        // Example #1: Retrieve S/MIME key from an LDAP backend.
 //        $ldapServer = 'localhost';
 //        $ldapPort = 389;
 //        $searchBase = 'ou=users,dc=example,dc=com';
@@ -791,6 +691,7 @@ class IMP_Hooks
      */
 //    public function pgp_key($address, $keyid)
 //    {
+//        // Example #1: Retrieve PGP key from an LDAP backend.
 //        $ldapServer = 'localhost';
 //        $ldapPort = 389;
 //        $searchBase = 'ou=users,dc=example,dc=com';

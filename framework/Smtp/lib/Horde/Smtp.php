@@ -70,10 +70,6 @@
  */
 class Horde_Smtp implements Serializable
 {
-    const BODY_7BIT = 1;
-    const BODY_8BIT = 2;
-    const BODY_BINARY = 3;
-
     const CHUNK_DEFAULT = 1048576;
 
     /**
@@ -503,17 +499,6 @@ class Horde_Smtp implements Serializable
      *                     Horde_Mail_Rfc822_List object, a string, or an
      *                     array of addresses.
      * @param mixed $data  The data to send. Either a stream or a string.
-     * @param array $opts  Additional options:
-     * <pre>
-     *   - body: (integer) The encoding type of the message data. (@since
-     *           1.7.0) One of:
-     *           - Horde_Smtp::BODY_7BIT (Default)
-     *           - Horde_Smtp::BODY_8BIT
-     *           - Horde_Smtp::BODY_BINARY
-     *   - intl: (boolean) If true, $data contains internationalized header
-     *           content (UTF-8). (@since 1.6.0)
-     *           DEFAULT: false
-     * </pre>
      *
      * @return array  If no receipients were successful, a
      *                Horde_Smtp_Exception will be thrown. If at least one
@@ -527,106 +512,134 @@ class Horde_Smtp implements Serializable
      */
     public function send($from, $to, $data, array $opts = array())
     {
-        /* BC: support '8bit' option. */
-        if (!isset($opts['body'])) {
-            $opts['body'] = empty($opts['8bit'])
-                ? self::BODY_7BIT
-                : self::BODY_8BIT;
-        }
-
         $this->login();
 
         if (!($from instanceof Horde_Mail_Rfc822_Address)) {
             $from = new Horde_Mail_Rfc822_Address($from);
         }
 
-        /* RFC 6531 */
-        if (!empty($opts['intl'])) {
-            if (!$this->data_intl) {
-                throw new InvalidArgumentException(
-                    'Server does not support sending internationalized header data.'
-                );
-            }
+        /* Are EAI addresses present? */
+        $eai = $from->eai;
 
-            /* RFC 6531[1.2] requires 8BITMIME to be available. */
-            $opts['body'] = self::BODY_8BIT;
+        if (!($to instanceof Horde_Mail_Rfc822_List)) {
+            $to = new Horde_Mail_Rfc822_List($to);
         }
 
-        $mailcmd = 'MAIL FROM:<' .
-            (empty($opts['intl']) ? $from->bare_address_idn : $from->bare_address) .
-            '>';
+        if (!$eai) {
+            foreach ($to->raw_addresses as $val) {
+                if ($eai = $val->eai) {
+                    break;
+                }
+            }
+        }
 
-        $size = $this->queryExtension('SIZE');
+        /* RFC 6531: EAI */
+        if ($eai && !$this->data_intl) {
+            throw new InvalidArgumentException(
+                'Server does not support sending internationalized header data.'
+            );
+        }
+
+        $stream = fopen('php://temp', 'r+');
+
+        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
+        $filter_data = stream_filter_append(
+            $stream,
+            'horde_smtp_data',
+            STREAM_FILTER_WRITE
+        );
+
+        stream_filter_register('horde_smtp_body', 'Horde_Smtp_Filter_Body');
+        $filter_body_params = new stdClass;
+        $filter_body = stream_filter_append(
+            $stream,
+            'horde_smtp_body',
+            STREAM_FILTER_WRITE,
+            $filter_body_params
+        );
+
+        if (is_resource($data)) {
+            while (!feof($data)) {
+                fwrite($stream, fread($data, 8192));
+            }
+        } else {
+            fwrite($stream, $data);
+        }
+
+        stream_filter_remove($filter_body);
+        stream_filter_remove($filter_data);
+
+        $size = ftell($stream);
+        rewind($stream);
 
         $chunking = $this->queryExtension('CHUNKING');
         $chunk_force = false;
         $chunk_size = $this->getParam('chunk_size');
 
-        // RFC 1870[6]
-        if ($size || $chunking) {
-            if (is_resource($data)) {
-                fseek($data, 0, SEEK_END);
-                $size = ftell($data);
-            } else {
-                $size = strlen($data);
-            }
-
-            if ($size) {
-                $mailcmd .= ' SIZE=' . intval($size);
-            }
+        /* Do body checks now, since if they fail it doesn't make sense to
+         * do anything else. */
+        $body = null;
+        if ($eai || ($filter_body_params->body === '8bit')) {
+            /* RFC 6152[3]. RFC 6531[1.2] also requires at least 8BITMIME to
+             * be available. */
+            $body = $this->data_8bit
+                ? ' BODY=8BITMIME'
+                : false;
         }
 
-        // RFC 6531[3.4]
-        if (!empty($opts['intl'])) {
-            $mailcmd .= ' SMTPUTF8';
-        }
-
-        switch ($opts['body']) {
-        case self::BODY_BINARY:
+        /* Fallback to binarymime if 8bitmime is not available. */
+        if (($body === false) || ($filter_body_params->body === 'binary')) {
             // RFC 3030[3]
             if (!$this->data_binary) {
-                throw new InvalidArgumentException(
-                    'Server does not support binary message data.'
-                );
+                switch ($filter_body_params->body) {
+                case 'binary':
+                    throw new InvalidArgumentException(
+                        'Server does not support binary message data.'
+                    );
+
+                default:
+                    throw new InvalidArgumentException(
+                        'Server does not support 8-bit message data.'
+                    );
+                }
             }
-            $mailcmd .= ' BODY=BINARYMIME';
+
+            $body = ' BODY=BINARYMIME';
 
             /* BINARYMIME requires CHUNKING. */
             $chunking = $chunk_force = true;
             if (!$chunk_size) {
                 $chunk_size = self::CHUNK_DEFAULT;
             }
-            break;
+        }
 
-        case self::BODY_8BIT:
-            // RFC 6152[3]
-            if (!$this->data_8bit) {
-                throw new InvalidArgumentException(
-                    'Server does not support 8-bit message data.'
-                );
-            }
-            $mailcmd .= ' BODY=8BITMIME';
-            break;
+        if (is_null($body) && $this->data_8bit) {
+            /* Only output extended 7bit command if debug is active (it is
+             * default and does not need to be explicitly declared). */
+            $mailcmd .= ' BODY=7BIT';
+        }
 
-        case self::BODY_7BIT:
-        default:
-            if ($this->_debug->active && $this->data_8bit) {
-                /* Only output extended 7bit command if debug is active (it is
-                 * default and does not need to be explicitly declared). */
-                $mailcmd .= ' BODY=7BIT';
-            }
-            break;
+        $mailcmd = 'MAIL FROM:<' . ($eai ? $from->bare_address : $from->bare_address_idn) . '>';
+
+        // RFC 1870[6]
+        if ($this->queryExtension('SIZE')) {
+            $mailcmd .= ' SIZE=' . intval($size);
+        }
+
+        // RFC 6531[3.4]
+        if ($eai) {
+            $mailcmd .= ' SMTPUTF8';
+        }
+
+        if (!is_null($body)) {
+            $mailcmd .= $body;
         }
 
         $cmds = array($mailcmd);
 
-        if (!($to instanceof Horde_Mail_Rfc822_List)) {
-            $to = new Horde_Mail_Rfc822_List($to);
-        }
-
-        $recipients = empty($opts['intl'])
-            ? $to->bare_addresses_idn
-            : $to->bare_addresses;
+        $recipients = $eai
+            ? $to->bare_addresses
+            : $to->bare_addresses_idn;
         foreach ($recipients as $val) {
             $cmds[] = 'RCPT TO:<' . $val . '>';
         }
@@ -659,24 +672,9 @@ class Horde_Smtp implements Serializable
         }
 
         /* CHUNKING support. RFC 3030[2] */
-        if ($chunking && $chunk_size &&
+        if ($chunking &&
+            $chunk_size &&
             ($chunk_force || ($size > $chunk_size))) {
-            list($data2, $res) = $this->_prepareData($data);
-
-            /* Since we need exact size for chunking purposes, we need to
-             * pre-create data stream. */
-            $data3 = fopen('php://temp', 'r+');
-            while (!feof($data2)) {
-                fwrite($data3, fread($data2, 65536));
-            }
-            $size = ftell($data3);
-            rewind($data3);
-
-            if (!is_resource($data)) {
-                fclose($data2);
-            }
-            stream_filter_remove($res);
-
             while ($size) {
                 $c = min($chunk_size, $size);
                 $size -= $c;
@@ -684,19 +682,19 @@ class Horde_Smtp implements Serializable
                 $this->_connection->write(
                     'BDAT ' . $c . ($size ? '' : ' LAST')
                 );
-                $this->_connection->write($data3, $c);
+                $this->_connection->write($stream, $c);
                 if ($size) {
                     $this->_getResponse(250, 'reset');
                 }
             }
-
-            fclose($data3);
         } else {
             $this->_connection->write('DATA');
 
             try {
                 $this->_getResponse(354, 'reset');
             } catch (Horde_Smtp_Exception $e) {
+                fclose($stream);
+
                 /* This is the place where a STARTTLS 530 error would occur.
                  * If so, explicitly use STARTTLS and try again. */
                 switch ($e->getSmtpCode()) {
@@ -713,15 +711,11 @@ class Horde_Smtp implements Serializable
                 throw $e;
             }
 
-            list($data2, $res) = $this->_prepareData($data);
-            $this->_connection->write($data2);
+            $this->_connection->write($stream);
             $this->_connection->write('.');
-
-            stream_filter_remove($res);
-            if (!is_resource($data)) {
-                fclose($data2);
-            }
         }
+
+        fclose($stream);
 
         return $this->_processData($recipients);
     }
@@ -763,7 +757,7 @@ class Horde_Smtp implements Serializable
     /**
      * Send request to process the remote queue.
      *
-     * @param string $host  The specific host ro request queue processing for.
+     * @param string $host  The specific host to request queue processing for.
      *
      * @throws Horde_Smtp_Exception
      */
@@ -1046,29 +1040,6 @@ class Horde_Smtp implements Serializable
         }
 
         throw $e;
-    }
-
-    /**
-     * Prepare message data for delivery to SMTP server.
-     *
-     * @param mixed $data  Message data. Either string or stream.
-     *
-     * @return array  2-element array: data stream and stream_filter resource.
-     */
-    protected function _prepareData($data)
-    {
-        if (!is_resource($data)) {
-            $stream = fopen('php://temp', 'r+');
-            fwrite($stream, $data);
-            $data = $stream;
-        }
-        rewind($data);
-
-        // Add SMTP escape filter.
-        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-        $res = stream_filter_append($data, 'horde_smtp_data', STREAM_FILTER_READ);
-
-        return array($data, $res);
     }
 
     /**

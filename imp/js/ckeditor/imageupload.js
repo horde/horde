@@ -20,7 +20,7 @@ document.observe('dom:loaded', function() {
                 type: 'text'
             });
 
-            params = $H({ composeCache: $F(DimpCompose.getCacheElt()) });
+            params = $H({ composeCache: $F(ImpCompose.getCacheElt()) });
             HordeCore.addRequestParams(params);
 
             upload.get('uploadButton').filebrowser = {

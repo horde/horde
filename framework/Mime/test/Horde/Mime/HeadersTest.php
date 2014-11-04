@@ -145,7 +145,7 @@ To: recipient2@example.com"
 
     public function testParseContentDispositionHeaderWithUtf8Data()
     {
-        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_utf8.txt');
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai.txt');
         $hdrs = Horde_Mime_Headers::parseHeaders($msg);
 
         $cd_params = $hdrs->getValue(
@@ -156,6 +156,36 @@ To: recipient2@example.com"
         $this->assertEquals(
             'blåbærsyltetøy',
             $cd_params['filename']
+        );
+    }
+
+    public function testParseEaiAddresses()
+    {
+        /* Simple message. */
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_2.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs->getValue('from')
+        );
+
+        /* Message with EAI addresses in 2 fields, and another header that
+         * contains a string (that looks like an address). */
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg_eai_4.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs->getValue('from')
+        );
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs->getValue('cc')
+        );
+        $this->assertEquals(
+            'Jøran Øygårdvær <jøran@example.com>',
+            $hdrs->getValue('signed-off-by')
         );
     }
 

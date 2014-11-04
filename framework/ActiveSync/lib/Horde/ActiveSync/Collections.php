@@ -257,15 +257,40 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function getNewCollection()
     {
         return array(
-            'truncation' => Horde_ActiveSync::TRUNCATION_ALL,
             'clientids' => array(),
             'fetchids' => array(),
-            'windowsize' => 100,
-            'conflict' => Horde_ActiveSync::CONFLICT_OVERWRITE_PIM,
-            'bodyprefs' => array(),
-            'mimesupport' => Horde_ActiveSync::MIME_SUPPORT_NONE,
-            'mimetruncation' => Horde_ActiveSync::TRUNCATION_8,
+            'windowsize' => 100
         );
+    }
+
+    /**
+     * Ensure default OPTIONS values are populated, while not overwriting any
+     * existing values.
+     *
+     * @since 2.20.0
+     */
+    public function ensureOptions()
+    {
+        foreach ($this->_collections as &$collection) {
+            $this->_logger->info(sprintf(
+                '[%s] Loading default OPTIONS for %s collection.', $this->_procid, $collection['id']));
+
+            if (!isset($collection['conflict'])) {
+                $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+            }
+            if (!isset($collection['mimetruncation'])) {
+                $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
+            }
+            if (!isset($collection['mimesupport'])) {
+                $collection['mimesupport'] = Horde_ActiveSync::MIME_SUPPORT_NONE;
+            }
+            if (!isset($collection['truncation'])) {
+                $collection['truncation'] = Horde_ActiveSync::TRUNCATION_9;
+            }
+            if (!isset($collection['bodyprefs'])) {
+                $collection['bodyprefs'] = array();
+            }
+        }
     }
 
     /**

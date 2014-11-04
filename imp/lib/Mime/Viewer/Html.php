@@ -321,7 +321,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                     /* We don't include HordePopup in IFRAME, so need to use
                      * 'simple' links. */
                     $clink = new IMP_Compose_Link($node->getAttribute('href'));
-                    $node->setAttribute('href', $clink->link(true));
+                    $node->setAttribute('href', $clink->link());
                     $node->removeAttribute('target');
                 } elseif (!empty($this->_imptmp['inline']) &&
                           isset($url['fragment']) &&
@@ -345,7 +345,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $style = $node->hasAttribute('style')
                 ? (rtrim($node->getAttribute('style'), ';') . ';')
                 : '';
-            $node->setAttribute('style', $style . 'width:auto !important');
+            $node->setAttribute('style', $style . 'overflow-y:hidden;width:auto !important');
             break;
 
         case 'img':

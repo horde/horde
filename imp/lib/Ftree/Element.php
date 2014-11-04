@@ -26,7 +26,6 @@
  * @property-read array $child_list  The list of the element's children.
  * @property boolean $container  True if this element is a container.
  * @property-read boolean $inbox  True if this is the INBOX.
- * @property boolean $invisible  True if this element is invisible.
  * @property-read integer $level  The tree level of the current element.
  * @property-read IMP_Mailbox $mbox_ob  The IMP_Mailbox object for this
  *                                      element.
@@ -157,7 +156,6 @@ class IMP_Ftree_Element
     {
         switch ($name) {
         case 'container':
-        case 'invisible':
         case 'needsort':
         case 'open':
         case 'polled':

@@ -64,7 +64,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.3.0-git)';
+    public $version = 'H6 (7.0.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -192,109 +192,7 @@ class IMP_Application extends Horde_Registry_Application
         return $GLOBALS['injector']->getInstance('IMP_Perms')->hasPermission($permission, $allowed, $opts);
     }
 
-    /* Menu methods. */
-
-    /**
-     */
-    public function menu($menu)
-    {
-        global $injector, $prefs, $registry, $session;
-
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-
-        if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
-            $prefs->getValue('use_trash') &&
-            $prefs->getValue('empty_trash_menu') &&
-            ($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) &&
-            ($trash->vtrash || $trash->access_expunge)) {
-            $menu->addArray(array(
-                'class' => '__noselection',
-                'icon' => 'imp-empty-trash',
-                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your trash mailbox?")) . ')',
-                'text' => _("Empty _Trash"),
-                'url' => $trash->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
-            ));
-        }
-
-        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
-            $prefs->getValue('empty_spam_menu') &&
-            ($spam = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) &&
-            $spam->access_expunge) {
-            $menu->addArray(array(
-                'class' => '__noselection',
-                'icon' =>  'imp-empty-spam',
-                'onclick' => 'return window.confirm(' . json_encode(_("Are you sure you wish to empty your spam mailbox?")) . ')',
-                'text' => _("Empty _Spam"),
-                'url' => $spam->url('mailbox')->add(array('actionID' => 'empty_mailbox', 'token' => $session->getToken()))
-            ));
-        }
-
-        if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $menu->addArray(array(
-                'icon' => 'imp-folder',
-                'text' => _("_Folders"),
-                'url' => IMP_Basic_Folders::url()
-            ));
-        }
-
-        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
-            $menu->addArray(array(
-                'icon' => 'imp-search',
-                'text' =>_("_Search"),
-                'url' => IMP_Basic_Search::url()
-            ));
-        }
-
-        if ($prefs->getValue('filter_menuitem')) {
-            $menu->addArray(array(
-                'icon' => 'imp-filters',
-                'text' => _("Fi_lters"),
-                'url' => $registry->getServiceLink('prefs', 'imp')->add('group', 'filters')
-            ));
-        }
-    }
-
-    /**
-     * Add additional items to the sidebar.
-     *
-     * @param Horde_View_Sidebar $sidebar  The sidebar object.
-     */
-    public function sidebar($sidebar)
-    {
-        global $injector;
-
-        if (IMP_Compose::canCompose()) {
-            $clink = new IMP_Compose_Link();
-            $sidebar->addNewButton(_("_New Message"), $clink->link());
-        }
-
-        /* Folders. */
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            try {
-                $tree = $injector->getInstance('Horde_Core_Factory_Tree')
-                    ->create('imp_menu', 'Horde_Tree_Renderer_Sidebar', array('nosession' => true));
-
-                $ftree = $injector->getInstance('IMP_Ftree');
-                $iterator = new IMP_Ftree_IteratorFilter($ftree);
-                $iterator->add(array(
-                    $iterator::REMOTE,
-                    $iterator::VFOLDER
-                ));
-
-                $tree = $ftree->createTree($tree, array(
-                    'iterator' => $iterator,
-                    'open' => false,
-                    'poll_info' => true
-                ));
-                $sidebar->containers['imp-menu'] = array(
-                    'content' => $tree->getTree()
-                );
-            } catch (Exception $e) {}
-        }
-    }
-
-
-    // Horde_Notification methods.
+    /* Horde_Notification methods. */
 
     /**
      * Modifies the global notification handler.
@@ -539,7 +437,7 @@ class IMP_Application extends Horde_Registry_Application
         case 'download_attach':
             $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             $view_ob->checkToken($vars);
-            return $view_ob->downloadAttach($vars->id, $vars->zip);
+            return $view_ob->downloadAttach($vars->id);
 
         case 'download_mbox':
             $mlist = IMP_Mailbox::formFrom($vars->mbox_list);

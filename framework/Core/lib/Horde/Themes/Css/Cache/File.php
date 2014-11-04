@@ -43,11 +43,14 @@ class Horde_Themes_Css_Cache_File extends Horde_Themes_Css_Cache
             json_encode($css) . $cacheid
         );
         $filename = $sig . '.css';
-        $path = $registry->get('staticfs', 'horde') . '/' . $filename;
+        $js_fs = $registry->get('staticfs', 'horde');
+        $path = $js_fs . '/' . $filename;
 
         if (!file_exists($path)) {
             $compress = new Horde_Themes_Css_Compress();
-            if (!file_put_contents($path, $compress->compress($css))) {
+            $temp = Horde_Util::getTempFile('staticcss', true, $js_fs);
+            if (!file_put_contents($temp, $compress->compress($css), LOCK_EX) ||
+                !rename($temp, $path)) {
                 Horde::log('Could not write cached CSS file to disk.', 'EMERG');
                 return array();
             }

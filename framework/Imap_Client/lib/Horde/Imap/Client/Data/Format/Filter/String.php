@@ -24,6 +24,13 @@
 class Horde_Imap_Client_Data_Format_Filter_String extends php_user_filter
 {
     /**
+     * Skip status.
+     *
+     * @var boolean
+     */
+    protected $_skip = false;
+
+    /**
      * @see stream_filter_register()
      */
     public function onCreate()
@@ -43,10 +50,9 @@ class Horde_Imap_Client_Data_Format_Filter_String extends php_user_filter
     public function filter($in, $out, &$consumed, $closing)
     {
         $p = $this->params;
-        $skip = false;
 
         while ($bucket = stream_bucket_make_writeable($in)) {
-            if (!$skip) {
+            if (!$this->_skip) {
                 $len = $bucket->datalen;
                 $str = $bucket->data;
 
@@ -59,7 +65,7 @@ class Horde_Imap_Client_Data_Format_Filter_String extends php_user_filter
                         $p->literal = true;
 
                         // No need to scan input anymore.
-                        $skip = true;
+                        $this->_skip = true;
                         break 2;
 
                     case 10: // LF

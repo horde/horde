@@ -264,7 +264,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
 
                 case 'flag':
                     /* Flag search. */
-                    $formdata = $imp_flags->parseFormId(rawurldecode($val->v));
+                    $formdata = (strpos($id, '0\\') === 0)
+                        ? array('flag' => substr($id, 2), 'set' => false)
+                        : array('flag' => $id, 'set' => true);
                     $c_list[] = new IMP_Search_Element_Flag(
                         $formdata['flag'],
                         ($formdata['set'] && !$val->n)
@@ -472,6 +474,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('horde.js', 'horde');
         $page_output->addScriptFile('search.js');
+
+        $s_css = new Horde_Themes_Element('search.css');
+        $page_output->addStylesheet($s_css->fs, $s_css->uri);
 
         $page_output->addInlineJsVars(array_merge($js_vars, array(
             /* Javascript data for this page. */

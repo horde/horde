@@ -597,10 +597,6 @@ class IMP_Message
 
         $indices_ob = $mbox->getIndicesOb($new_uid);
 
-        if (!empty($opts['mailboxob'])) {
-            $opts['mailboxob']->setIndex($indices_ob);
-        }
-
         /* We need to replace the old UID(s) in the URL params. */
         $vars = $injector->getInstance('Horde_Variables');
         if (isset($vars->buid)) {

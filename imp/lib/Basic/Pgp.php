@@ -148,6 +148,10 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
             '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
         ), true);
 
+        /* Import CSS located with prefs CSS. */
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $this->title = _("Import PGP Key");
 
         /* Need to use regular status notification - AJAX notifications won't

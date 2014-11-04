@@ -8,100 +8,6 @@
     margin-left: 20px;
 }
 
-.mboxheader {
-    font-size: 110%;
-    text-align: left;
-}
-
-/* Attachment tree styling. */
-div.partsTreeDiv {
-    min-height: 0;
-}
-
-/* Message body styling. */
-.messageBody div.mimePartData {
-    line-height: 1.3em;
-    margin-bottom: 8px;
-}
-
-/* Search page styling. */
-#search_form div.item {
-    padding: 1px 0 1px 0;
-}
-#search_form em.join {
-    font-weight: bold;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-#search_form em.joinOr {
-    display: inline-block;
-    padding: 5px;
-}
-#search_form #show_unsub {
-    padding-left: 5px;
-}
-
-#recent_searches_div {
-    padding: 10px;
-}
-
-#no_search_criteria, #no_search_mboxes {
-    font-weight: bold;
-    padding: 3px;
-}
-
-.searchAdd, .searchElement {
-    display: inline-block;
-}
-
-.searchAdd {
-    padding: 3px;
-}
-.searchElement {
-    background-color: lightblue;
-    border: 1px solid gray;
-    margin: 2px;
-    padding: 4px;
-}
-.searchElement em {
-    font-style: normal;
-    font-weight: bold;
-}
-.searchElement span.searchFlag {
-    padding-left: 3px;
-}
-.searchElement span.notMatch, .searchElement .searchuiDelete, .searchElement span.subfolders {
-    margin-left: 10px;
-}
-.searchElement input.checkbox {
-    margin-right: 3px;
-    vertical-align: sub;
-}
-
-#search_label, #search_type {
-    margin-left: 5px;
-}
-
-.searchElement span.beginDate, .searchElement span.endDate {
-    border: 1px grey dotted;
-    padding: 1px 2px;
-}
-.searchElement span.beginDate > span, .searchElement span.endDate > span {
-    padding-right: 4px;
-}
-.searchElement span.beginDate {
-    margin-right: 6px;
-}
-.searchElement span.endDate {
-    margin-left: 6px;
-}
-.searchElement .calendarImg, .searchElement .closeImg {
-    margin-right: 0;
-}
-.calendarImg {
-    background-image: url("graphics/calendar.png");
-}
-
 /* Folder images. */
 .folderImg {
     background-image: url("graphics/folders/folder.png");
@@ -109,7 +15,8 @@ div.partsTreeDiv {
 .folderopenImg {
     background-image: url("graphics/folders/open.png");
 }
-.draftsImg, .composetemplatesImg {
+.composetemplatesImg,
+.draftsImg {
     background-image: url("graphics/folders/drafts.png");
 }
 .inboxImg {
@@ -127,252 +34,9 @@ div.partsTreeDiv {
 .remoteImg {
     background-image: url("graphics/shared.png");
 }
-
 .mboxunsub {
     background: #bbb;
     font-style: italic;
-}
-
-/* Style for HTML data iframe. */
-.htmlMsgData {
-    margin: 2px 0;
-    width: 100%;
-}
-
-/* Compose view */
-#to, #cc, #bcc, #subject {
-    width: 500px;
-}
-#signatureBorder {
-    border: 1px solid #d0d0d0;
-    background-color: #fff;
-    padding: 0.2em 5px;
-}
-#signatureBorder .cke_skin_kama, #signatureBorder .cke_skin_kama .cke_wrapper {
-    border: 0;
-    padding: 0;
-}
-.spellcheck {
-    white-space: pre;
-    white-space: -moz-pre-wrap;
-    white-space: -hp-pre-wrap;
-    white-space: -o-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: pre-wrap;
-    white-space: pre-line;
-    word-wrap: break-word;
-}
-
-#compose span.notices {
-    margin: 0;
-}
-#replyallnotice, #replylistnotice {
-    background-color: #fcc;
-}
-.replyAllNoticeUnderline {
-    text-decoration: underline;
-}
-
-/* Message flags definitions.
- * For background color, see config/prefs.php [msgflags preference]. */
-.msgflags {
-    margin-right: 1px;
-}
-
-.mboxheader .msgflags {
-    vertical-align: sub;
-}
-
-.msgflags.iconImg {
-    width: 16px;
-}
-.msgflags.flagPersonal {
-    background-image: url("graphics/flags/personal.png");
-}
-.msgflags.flagHighpriority {
-    background-image: url("graphics/flags/priority_high.png");
-}
-.msgflags.flagLowpriority {
-    background-image: url("graphics/flags/priority_low.png");
-}
-.msgflags.flagSignedmsg {
-    background-image: url("graphics/flags/signed.png");
-}
-.msgflags.flagEncryptmsg {
-    background-image: url("graphics/flags/encrypted.png");
-}
-.msgflags.flagAttachmsg {
-    background-image: url("graphics/flags/attachment.png");
-}
-.msgflags.flagList {
-    background-image: url("graphics/flags/group.png");
-}
-.msgflags.flagJunk, span.iconImg.flagJunk {
-    background-image: url("graphics/flags/spam.png");
-}
-.msgflags.flagNotJunk, span.iconImg.flagNotJunk {
-    background-image: url("graphics/flags/innocent.png");
-}
-.msgflags.flagUnseen, span.iconImg.flagUnseen {
-    background-image: url("graphics/flags/unseen.png");
-}
-.msgflags.flagAnswered, span.iconImg.flagAnswered {
-    background-image: url("graphics/flags/answered.png");
-}
-.msgflags.flagDraft, span.iconImg.flagDraft {
-    background-image: url("graphics/flags/draft.png");
-}
-.msgflags.flagForwarded, span.iconImg.flagForwarded {
-    background-image: url("graphics/flags/forwarded.png");
-}
-.msgflags.flagFlagged {
-    background-image: url("graphics/flags/flagged.png");
-}
-.msgflags.flagDeleted, span.iconImg.flagDeleted {
-    background-image: url("graphics/flags/deleted.png");
-}
-.selectedRow .msgflags.flagPersonal {
-    background-image: url("graphics/flags/personal-inv.png");
-}
-.selectedRow .msgflags.flagHighpriority {
-    background-image: url("graphics/flags/priority_high-inv.png");
-}
-.selectedRow .msgflags.flagLowpriority {
-    background-image: url("graphics/flags/priority_low-inv.png");
-}
-.selectedRow .msgflags.flagSignedmsg {
-    background-image: url("graphics/flags/signed-inv.png");
-}
-.selectedRow .msgflags.flagEncryptmsg {
-    background-image: url("graphics/flags/encrypted-inv.png");
-}
-.selectedRow .msgflags.flagAttachmsg {
-    background-image: url("graphics/flags/attachment-inv.png");
-}
-.selectedRow .msgflags.flagList {
-    background-image: url("graphics/flags/group-inv.png");
-}
-.selectedRow .msgflags.flagJunk {
-    background-image: url("graphics/flags/spam-inv.png");
-}
-.selectedRow .msgflags.flagNotJunk {
-    background-image: url("graphics/flags/innocent-inv.png");
-}
-.selectedRow .msgflags.flagUnseen {
-    background-image: url("graphics/flags/unseen-inv.png");
-}
-.selectedRow .msgflags.flagAnswered {
-    background-image: url("graphics/flags/answered-inv.png");
-}
-.selectedRow .msgflags.flagDraft {
-    background-image: url("graphics/flags/draft-inv.png");
-}
-.selectedRow .msgflags.flagForwarded {
-    background-image: url("graphics/flags/forwarded-inv.png");
-}
-.selectedRow .msgflags.flagFlagged {
-    background-image: url("graphics/flags/flagged-inv.png");
-}
-.selectedRow .msgflags.flagDeleted {
-    background-image: url("graphics/flags/deleted-inv.png");
-}
-
-/* Prefs management styles. */
-table.flagmanagement thead td {
-    font-weight: bold;
-    text-decoration: underline;
-}
-table.flagmanagement div.flagUser {
-    border: 1px solid gray;
-    margin-right: 2px;
-}
-table.flagmanagement tbody td.flagicon {
-    text-align: center;
-}
-
-table.searchesmanagement {
-    border-bottom: 1px solid gray;
-    border-collapse: collapse;
-    margin-bottom: 1em;
-}
-table.searchesmanagement td, table.searchesmanagement th {
-    border: 1px solid gray;
-    border-right-color: lightgray;
-    border-bottom-width: 0;
-}
-table.searchesmanagement td:last-child,
-table.searchesmanagement th:last-child {
-    border-right-color: gray;
-}
-table.searchesmanagement th {
-    text-align: left;
-}
-table.searchesmanagement td.searchdescription {
-    background-color: #ffa;
-    border-top-color: lightgray;
-    width: 500px;
-}
-
-div.remotemanagement table {
-    width: auto;
-}
-table.remotemanagement {
-    margin-bottom: 10px;
-    border-left: 1px solid #d0d0d0;
-    border-right: 1px solid #d0d0d0;
-}
-table.remotemanagement td.required, .remoteNotSecure {
-    color: red;
-}
-table.remotemanagement td.noneconfigured {
-    font-style: italic;
-}
-.remoteSecure {
-    color: green;
-}
-
-/* Prefs styles. */
-.prefsPgpContainer, .prefsSmimeContainer {
-    border: 1px solid black;
-    margin: 5px 0;
-    padding: 4px;
-}
-.prefsPgpHeader, .prefsSmimeHeader {
-    margin-bottom: 5px;
-}
-.prefsPgpWarning, .prefsSmimeWarning {
-    color: red;
-    padding: 5px 10px;
-}
-
-.prefsAclTable {
-    padding-bottom: 8px;
-    width: 100%;
-}
-.prefsAclHeader {
-    border-bottom: 1px dashed #999;
-    cursor: help;
-}
-.prefsAclNegative {
-    text-decoration: line-through;
-}
-.prefsAclNegativeLabel {
-    border: 1px dotted red;
-    color: red;
-    padding: 1px;
-}
-.prefsViews {
-    font-weight: bold;
-    font-size: 110%;
-    padding: 10px 0;
-}
-.sound-list li {
-    height: auto;
-}
-.sound-list audio {
-    margin-left: 8px;
-    padding-bottom: 2px;
-    vertical-align: middle;
 }
 
 /* Quota styles. */
@@ -385,130 +49,11 @@ table.remotemanagement td.noneconfigured {
     font-weight:bold;
 }
 
-/* Contacts styles. */
-#contactstable #search {
-    width: 35%;
-}
-#contactstable #search_results, #contactstable #selected_addresses {
-    width: 100%;
-}
-.contactsButtons {
-    text-align: center;
-}
-.contactsButtons input {
-    width: 60px;
-}
-
-/* Large addresslist display. */
-.largeaddrlist, .largeaddrlistlimit {
-    color: #36525d;
-    cursor: pointer;
-    font-weight: bold;
-    margin-right: 5px;
-    padding: 1px;
-}
-.largeaddrlist:hover, .largeaddrlistlimit:hover {
-    text-decoration: underline;
-}
-
-/* Key import popup. */
-.importKeyTable {
-    border-collapse: collapse;
-    width: 100%;
-}
-.importKeyHowto {
-    padding: 8px;
-}
-.importKeyOr {
-    color: red !important;
-    font-weight: bold;
-}
-.importKeyText, .importKeyUpload {
-    font-weight: bold;
-}
-
-/* Thread page */
-.threadSummary {
-    margin: 5px 3px;
-}
-.threadSummary div {
-    height: 20px;
-    line-height: 20px;
-    padding-left: 2px;
-}
-.threadBox {
-    margin: 3px;
-}
-.threadBox span.threadlink {
-    float: right;
-}
-
 /* Mailing list info page */
 table.mailinglistinfo {
     border: 1px solid #d0d0d0;
     border-bottom: 0;
     margin: 8px;
-}
-
-/* Inline display (Horde_Mime_Viewer) styles. */
-.mimeStatusMessageTable {
-    margin-bottom: 3px;
-}
-.mimeStatusMessageTable {
-    background: #ffc;
-    border: 1px solid #fff760;
-    color: #000;
-    display: inline-block;
-    margin-bottom: 3px;
-    padding: 4px;
-}
-.mimeStatusIcon {
-    width: 22px;
-}
-div.mimeStatusMessage, div.mimePartInfo {
-    margin-bottom: 7px;
-}
-.mimePartInfo div {
-    background-color: #ebeff0;
-    border: 1px solid #d0d0d0;
-    margin: 0;
-    padding: 5px;
-    /* For FF2 */
-    display: table-cell;
-    display: inline-block;
-}
-.mimePartInfo div > img {
-    vertical-align: top;
-}
-.mimePartInfoAtc div {
-    border: 1px dashed;
-    background-image: url("graphics/attachment.png");
-    background-position: 2px 50%;
-    background-repeat: no-repeat;
-    padding-left: 35px;
-}
-span.mimePartInfoSize {
-    color: #666;
-}
-
-.mimeStatusMessageTable td {
-    padding: 0;
-}
-.mimeStatusMessageTable td table td {
-    padding-right: 2px;
-    white-space: nowrap;
-}
-
-.mimePartWrap, .mimePartWrapValid, .mimePartWrapInvalid {
-    border: 1px solid #d0d0d0;
-    margin: 2px 0;
-    padding: 10px;
-}
-.mimePartWrapValid {
-    border-color: #cfc;
-}
-.mimePartWrapInvalid {
-    border-color: #ffd0af;
 }
 
 .mimeHeadersPrint {
@@ -517,85 +62,25 @@ span.mimePartInfoSize {
     font-size: 12px;
 }
 
+/* Checkbox images */
+.msCheck {
+    background-image: url("graphics/checkbox_off.png");
+}
+.msCheck:hover {
+    background-image: url("graphics/checkbox_over.png") !important;
+}
+.msCheckOn,
+div.vpRowSelected .msCheck {
+    background-image: url("graphics/checkbox_on.png");
+}
+div.msgStatus .msCheck {
+    margin-right: 1px;
+}
+
 /* Other images. */
-.downloadAtc, .downloadZipAtc, .saveImgAtc {
-    margin-left: 1px;
-}
-.downloadAtc, .saveAsImg {
-    background-image: url("graphics/download.png");
-}
-.downloadZipAtc {
-    background-image: url("graphics/mime/compressed.png");
-}
-.printAtc {
-    background-image: url("graphics/print.png");
-}
-.saveImgAtc {
-    background-image: url("graphics/gallery.png");
-}
-.deleteImg, .searchuiDelete {
+.deleteImg {
     background-image: url("graphics/delete.png");
 }
 .closeImg {
     background-image: url("graphics/close.png");
-}
-.reloadImg {
-    background-image: url("graphics/reload.png");
-}
-.editImg {
-    background-image: url("graphics/edit.png");
-}
-.searchImg {
-    background-image: url("graphics/search.png");
-    background-position: left center;
-    background-repeat: no-repeat;
-}
-.readonlyImg, .horde-buttonbar li.readonlyImg {
-    background-image: url("graphics/locked.png");
-}
-.horde-buttonbar li.readonlyImg {
-    margin-right: -5px;
-}
-.addrbookaddImg {
-    background-image: url("graphics/add_contact.png");
-}
-.spellcheckImg {
-    background-image: url("graphics/spellcheck.png");
-}
-.emptytrashImg {
-    background-image: url("graphics/empty_trash.png");
-}
-.filtersIcon {
-    background-image: url("graphics/filters.png");
-}
-.refreshIcon {
-    background-image: url("graphics/reload.png");
-}
-
-/* Autocomplete styles. */
-.impACBox {
-    background-color: #ebeff0;
-    display: inline-block;
-    max-height: 150px;
-    min-height: 0;
-    overflow-y: auto;
-    padding: 3px;
-    width: 500px;
-}
-.impACBoxFocus {
-    background-color: #fff;
-}
-.impACList li.hordeACListItem {
-    font-size: 100%;
-    margin-bottom: 1px;
-}
-.impACListItemBad {
-    background-color: #ff6347;
-    border: 1px solid darkred;
-}
-.impACItemRemove {
-    padding-left: 3px;
-}
-.impACTrigger {
-    padding: 0;
 }

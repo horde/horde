@@ -10,8 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-06</date>
- <time>23:59:18</time>
+ <date>2014-10-21</date>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -28,6 +27,15 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Service">
+      <dir name="Scribd">
+       <file name="COPYING" role="doc" />
+      </dir> <!-- /doc/Horde/Service/Scribd -->
+     </dir> <!-- /doc/Horde/Service -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Block">
@@ -97,12 +105,6 @@
       <file name="Horde_Service_Scribd.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Service_Scribd.mo" role="data" />
-      <file name="Horde_Service_Scribd.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Scribd.mo" role="data" />
@@ -355,6 +357,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Service/Scribd/COPYING" />
    <install as="Horde/Block/Scribd.php" name="lib/Horde/Block/Scribd.php" />
    <install as="Horde/Service/Scribd.php" name="lib/Horde/Service/Scribd.php" />
    <install as="Horde/Service/Scribd/Exception.php" name="lib/Horde/Service/Scribd/Exception.php" />
@@ -380,8 +383,6 @@
    <install as="locale/de/LC_MESSAGES/Horde_Service_Scribd.po" name="locale/de/LC_MESSAGES/Horde_Service_Scribd.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Service_Scribd.mo" name="locale/el/LC_MESSAGES/Horde_Service_Scribd.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Service_Scribd.po" name="locale/el/LC_MESSAGES/Horde_Service_Scribd.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Service_Scribd.mo" name="locale/en/LC_MESSAGES/Horde_Service_Scribd.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Service_Scribd.po" name="locale/en/LC_MESSAGES/Horde_Service_Scribd.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Scribd.mo" name="locale/es/LC_MESSAGES/Horde_Service_Scribd.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Scribd.po" name="locale/es/LC_MESSAGES/Horde_Service_Scribd.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Service_Scribd.mo" name="locale/et/LC_MESSAGES/Horde_Service_Scribd.mo" />

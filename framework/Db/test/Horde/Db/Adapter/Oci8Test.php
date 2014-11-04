@@ -21,6 +21,7 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
 {
     public static function setUpBeforeClass()
     {
+        self::$_reason = 'The OCI8 adapter is not available';
         if (extension_loaded('oci8')) {
             self::$_skip = false;
             list($conn,) = static::_getConnection();
@@ -167,14 +168,17 @@ class Horde_Db_Adapter_Oci8Test extends Horde_Db_Adapter_TestBase
         $table->end();
         $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
                              array('foo'));
+        $this->_conn->insert('INSERT INTO text_to_binary (data) VALUES (?)',
+                             array(null));
 
         $this->_conn->changeColumn('text_to_binary', 'data', 'binary');
 
         $afterChange = $this->_getColumn('text_to_binary', 'data');
         $this->assertEquals('blob', $afterChange->getSqlType());
-        $value = $this->_conn->selectValue('SELECT data FROM text_to_binary');
-        $this->assertInstanceOf('OCI-Lob', $value);
-        $this->assertEquals('foo', $value->read($value->size()));
+        $values = $this->_conn->selectValues('SELECT data FROM text_to_binary');
+        $this->assertInstanceOf('OCI-Lob', $values[0]);
+        $this->assertEquals('foo', $values[0]->read($values[0]->size()));
+        $this->assertEquals(null, $values[1]);
     }
 
     public function testChangeColumnLimit()

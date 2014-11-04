@@ -14,9 +14,39 @@ This lists the API changes between releases of the package.
 Upgrading to 2.5
 ================
 
+  - Horde_Mail_Rfc822
+
+    - ATEXT
+
+      This constant is deprecated.
+
+    - parseAddressList()
+
+      Added the 'eai' option to the 'validate' optional parameter.
+
+  - Horde_Mail_Rfc822_Address
+
+    Added the 'eai' property.
+
+  - Horde_Mail_Rfc822_List
+
+    - first()
+
+      This method has been added.
+
   - Horde_Mail_Mbox_Parse
 
     Added object to parse mbox format mailbox data.
+
+  - Horde_Mail_Transport
+
+    Added 'eai' property.
+
+  - Horde_Mail_Transport_Smtp
+  - Horde_Mail_Transport_Smtpmx
+
+    These Transport drivers are deprecated. Use Horde_Mail_Transport_Hordesmtp
+    instead.
 
 
 Upgrading to 2.4

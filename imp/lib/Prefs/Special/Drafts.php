@@ -34,7 +34,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
     {
         global $injector, $page_output;
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.drafts' => _("Enter the name for your new drafts mailbox.")
         ));
@@ -47,7 +47,10 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
         $iterator = new IMP_Ftree_IteratorFilter(
             $injector->getInstance('IMP_Ftree')
         );
-        $iterator->add($iterator::NONIMAP);
+        $iterator->add(array(
+            $iterator::NONIMAP,
+            $iterator::REMOTE
+        ));
         $iterator->mboxes = array('INBOX');
 
         $view->flist = new IMP_Ftree_Select(array(

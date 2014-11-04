@@ -1384,6 +1384,14 @@
       <configinteger name="port" required="false" desc="The port to connect
       to [25]. This is HIGHLY RECOMMENDED to be 587, the mail submission port.
       (RFC 6409/STD 72; sending mail via port 25 is DEPRECATED.)"/>
+      <configenum name="secure" desc="The encryption to use to connect to
+      the SMTP server.">tls
+       <values>
+        <value>none</value>
+        <value>tls</value>
+        <value>ssl</value>
+       </values>
+      </configenum>
       <configstring name="localhost" required="false" desc="The local hostname
       / domain [localhost]"/>
       <configswitch name="auth" desc="Authenticate to SMTP server?">false
@@ -1916,14 +1924,14 @@
      <configstring name="server" desc="Server
      address">localhost</configstring>
      <configinteger name="port" desc="Server port">143</configinteger>
-      <configenum name="secure" desc="The encryption to use to connect to
-      the IMAP server.">tls
-       <values>
-        <value>none</value>
-        <value>tls</value>
-        <value>ssl</value>
-       </values>
-      </configenum>
+     <configenum name="secure" desc="The encryption to use to connect to the
+     IMAP server.">tls
+      <values>
+       <value>none</value>
+       <value>tls</value>
+       <value>ssl</value>
+      </values>
+     </configenum>
      <configstring name="maildomain" desc="Default
      maildomain">example.com</configstring>
      <configboolean name="cache_folders" desc="Cache IMAP folders?"

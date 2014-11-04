@@ -474,15 +474,6 @@ class IMP_Ajax_Application_ListMessages
             $msgs[$list_ob->getBuid($ob['mailbox'], $ob['uid'])] = $msg;
         }
 
-        /* Allow user to alter template array. */
-        try {
-            $msgs = $injector->getInstance('Horde_Core_Hooks')->callHook(
-                'mailboxarray',
-                'imp',
-                array($msgs)
-            );
-        } catch (Horde_Exception_HookNotSet $e) {}
-
         return $msgs;
     }
 

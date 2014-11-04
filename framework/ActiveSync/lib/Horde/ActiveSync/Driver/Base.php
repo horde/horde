@@ -232,7 +232,8 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Obtain a message from the backend.
+     * Obtain the FULL message from the backend, regardless of any truncation
+     * options.
      *
      * @param string $folderid   Folder id containing data to fetch.
      * @param string $id         Server id of data to fetch.
@@ -243,7 +244,8 @@ abstract class Horde_ActiveSync_Driver_Base
     public function fetch($folderid, $id, array $collection)
     {
         // Forces entire message
-        $collection['truncation'] = 0;
+        $collection['truncation'] = Horde_ActiveSync::TRUNCATION_9;
+        $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
         if (!empty($collection['bodyprefs'])) {
             foreach ($collection['bodyprefs'] as &$bodypref) {
                 if (isset($bodypref['truncationsize'])) {
@@ -259,7 +261,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param array $bodyprefs  BODYPREFERENCE data.
      *
-     * @return array  THe BODYPREFERENCE data, with default truncationsize values.
+     * @return array  The BODYPREFERENCE data, with default truncationsize values.
      */
     public function addDefaultBodyPrefTruncation(array $bodyprefs)
     {

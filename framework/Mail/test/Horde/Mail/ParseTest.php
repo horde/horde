@@ -386,10 +386,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testBadCharactersInEmail()
+    /**
+     * @dataProvider utf8CharactersInAddressProvider
+     */
+    public function testUtf8CharactersInAddress($address, $valid_eai)
     {
-        $address = 'fooççç@example.com';
-
         $ob = $this->rfc822->parseAddressList($address);
 
         $this->assertEquals(
@@ -403,6 +404,31 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
             ));
             $this->fail('Expected Exception.');
         } catch (Horde_Mail_Exception $e) {}
+
+        try {
+            $this->rfc822->parseAddressList($address, array(
+                'validate' => 'eai'
+            ));
+            if (!$valid_eai) {
+                $this->fail('Expected Exception.');
+            }
+        } catch (Horde_Mail_Exception $e) {
+            if ($valid_eai) {
+                $this->fail('Not expecting Exception.');
+            }
+        }
+    }
+
+    public function utf8CharactersInAddressProvider()
+    {
+        return array(
+            array('fooççç@example.com', true),
+            array('Jøran Øygårdvær <jøran@example.com>', true),
+            array('foo@üexample.com', true),
+            array('foo"ççç@example.com', false),
+            array('Jøran Øygårdvær <jør[an@example.com>', false),
+            array('f\10oo@üexample.com', false)
+        );
     }
 
     public function testParsingNonValidateAddressWithBareAddressAtFront()

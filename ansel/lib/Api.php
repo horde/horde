@@ -55,19 +55,6 @@ class Ansel_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['ansel/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['ansel/' . $owner]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['ansel/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results['ansel/' . $owner]['modified'] = time();
-                }
-                if (in_array('created', $properties)) {
-                    $results['ansel/' . $owner]['created'] = 0;
-                }
             }
             return $results;
         } else {
@@ -121,18 +108,6 @@ class Ansel_Api extends Horde_Registry_Api
                     $results[$retpath]['browseable'] = $gallery->hasPermission(
                         $GLOBALS['registry']->getAuth(), Horde_Perms::READ);
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results[$retpath]['modified'] = time();
-                }
-                if (in_array('created', $properties)) {
-                    $results[$retpath]['created'] = 0;
-                }
             }
 
             foreach ($images as $imageId => $image) {
@@ -151,9 +126,6 @@ class Ansel_Api extends Horde_Registry_Api
                 }
                 if (in_array('contenttype', $properties)) {
                     $results[$retpath]['contenttype'] = $image['type'];
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 1;
                 }
                 if (in_array('modified', $properties)) {
                     $results[$retpath]['modified'] = $image['uploaded'];

@@ -103,7 +103,7 @@ class IMP_Mbox_Generate
                     /* Add Body text. */
                     $stream = $ptr->getBodyText(0, true);
                     while (!feof($stream)) {
-                        fwrite($body, fread($stream, 8192));
+                        fwrite($body, fread($stream, 65536));
                     }
 
                     fwrite($body, "\r\n");

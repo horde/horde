@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-03-03</date>
+ <date>2014-10-21</date>
  <version>
   <release>2.2.1</release>
   <api>2.0.0</api>
@@ -127,12 +127,6 @@ Reading, writing and listing of files are all supported.</description>
       <file name="Horde_Vfs.po" role="data" />
      </dir> <!-- /locale/el/LC_MESSAGES -->
     </dir> <!-- /locale/el -->
-    <dir name="en">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Vfs.mo" role="data" />
-      <file name="Horde_Vfs.po" role="data" />
-     </dir> <!-- /locale/en/LC_MESSAGES -->
-    </dir> <!-- /locale/en -->
     <dir name="es">
      <dir name="LC_MESSAGES">
       <file name="Horde_Vfs.mo" role="data" />
@@ -523,8 +517,6 @@ Reading, writing and listing of files are all supported.</description>
    <install as="locale/de/LC_MESSAGES/Horde_Vfs.po" name="locale/de/LC_MESSAGES/Horde_Vfs.po" />
    <install as="locale/el/LC_MESSAGES/Horde_Vfs.mo" name="locale/el/LC_MESSAGES/Horde_Vfs.mo" />
    <install as="locale/el/LC_MESSAGES/Horde_Vfs.po" name="locale/el/LC_MESSAGES/Horde_Vfs.po" />
-   <install as="locale/en/LC_MESSAGES/Horde_Vfs.mo" name="locale/en/LC_MESSAGES/Horde_Vfs.mo" />
-   <install as="locale/en/LC_MESSAGES/Horde_Vfs.po" name="locale/en/LC_MESSAGES/Horde_Vfs.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Vfs.mo" name="locale/es/LC_MESSAGES/Horde_Vfs.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Vfs.po" name="locale/es/LC_MESSAGES/Horde_Vfs.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Vfs.mo" name="locale/et/LC_MESSAGES/Horde_Vfs.mo" />
@@ -1209,7 +1201,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-03-03</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

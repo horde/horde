@@ -28,6 +28,7 @@ var IMP_Autocompleter = Class.create({
     // input,
     // itemid,
     // knl,
+    // knl_status,
     // lastinput,
     // p,
 
@@ -51,8 +52,12 @@ var IMP_Autocompleter = Class.create({
             // <ul> CSS class
             listClass: 'hordeACList',
             listClassItem: 'hordeACListItem',
+            loadingText: 'Loading...',
+            loadingTextClass: '',
             maxItemSize: 50,
             minChars: 3,
+            noResultsText: 'No Results Found',
+            noResultsTextClass: '',
             onAdd: Prototype.emptyFunction,
             onBeforeServerRequest: Prototype.emptyFunction,
             onEntryClick: Prototype.emptyFunction,
@@ -140,8 +145,13 @@ var IMP_Autocompleter = Class.create({
 
     focus: function()
     {
-        this.input.focus();
-        this.box.addClassName(this.p.boxClassFocus);
+        try {
+            this.input.focus();
+            this.box.addClassName(this.p.boxClassFocus);
+        } catch (e) {
+            // IE8 bug (focus doesn't work on hidden fields)
+            this.focus.bind(this).defer();
+        }
     },
 
     blur: function()
@@ -261,6 +271,7 @@ var IMP_Autocompleter = Class.create({
         }
 
         this.resize();
+        this.focus();
     },
 
     removeEntry: function(input)
@@ -323,6 +334,8 @@ var IMP_Autocompleter = Class.create({
     {
         var elt = e.findElement('LI');
 
+        this.processInput();
+
         if (elt && elt.hasClassName(this.p.listClassItem)) {
             this.updateInput(elt);
         } else {
@@ -379,6 +392,10 @@ var IMP_Autocompleter = Class.create({
                 return;
             }
 
+            this.initKnl();
+            this.knl_status = 'loading';
+            this.knl.show([]);
+
             DimpCore.doAction(
                 'autocompleteSearch',
                 Object.extend(this.p.autocompleterParams, { search: t }),
@@ -414,43 +431,65 @@ var IMP_Autocompleter = Class.create({
         }, this);
 
         obs = this.filterChoices(obs);
-        if (!obs.size()) {
-            if (this.knl) {
-                this.knl.hide();
-            }
-            return;
+        if (obs.size()) {
+            re = new RegExp(search, "i");
+
+            obs.each(function(o) {
+                var l = o.label,
+                    l2 = '';
+
+                (l.match(re) || []).each(function(m2) {
+                    var idx = l.indexOf(m2);
+                    l2 += l.substr(0, idx).escapeHTML() + "<strong>" + m2.escapeHTML() + "</strong>";
+                    l = l.substr(idx + m2.length);
+                });
+
+                if (l.length) {
+                    l2 += l.escapeHTML();
+                }
+
+                c.push({ l: l2, v: o });
+            });
+
+            this.knl_status = false;
+        } else {
+            this.knl_status = 'noresults';
         }
 
+        this.initKnl();
+        this.knl.show(c);
+    },
+
+    initKnl: function()
+    {
         if (!this.knl) {
             this.knl = new KeyNavList(this.input, {
                 onChoose: function(item) {
-                    if (this.addNewItems([ item ])) {
+                    if (!this.knl_status && this.addNewItems([ item ])) {
                         this.updateInput('');
+                    }
+                }.bind(this),
+                onShow: function(elt) {
+                    switch (this.knl_status) {
+                    case 'loading':
+                        elt.down().insert(
+                            new Element('LI').insert(
+                                this.p.loadingText.escapeHTML()
+                            ).addClassName(this.p.loadingTextClass)
+                        );
+                        break;
+
+                    case 'noresults':
+                        elt.down().insert(
+                            new Element('LI').insert(
+                                this.p.noResultsText.escapeHTML()
+                            ).addClassName(this.p.noResultsTextClass)
+                        );
+                        break;
                     }
                 }.bind(this)
             });
         }
-
-        re = new RegExp(search, "i");
-
-        obs.each(function(o) {
-            var l = o.label,
-                l2 = '';
-
-            (l.match(re) || []).each(function(m2) {
-                var idx = l.indexOf(m2);
-                l2 += l.substr(0, idx).escapeHTML() + "<strong>" + m2.escapeHTML() + "</strong>";
-                l = l.substr(idx + m2.length);
-            });
-
-            if (l.length) {
-                l2 += l.escapeHTML();
-            }
-
-            c.push({ l: l2, v: o });
-        });
-
-        this.knl.show(c);
     }
 
 }),

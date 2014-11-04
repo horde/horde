@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-06</date>
+ <date>2014-10-21</date>
  <version>
-  <release>2.19.4</release>
-  <api>2.19.0</api>
+  <release>2.20.0</release>
+  <api>2.20.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling of MIME truncation in certain cases.
+* [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
+* [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
+* [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2414,10 +2417,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-06</date>
+   <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix adding new tasklists from EAS client (Bug #13642).
+* [mjr] Fix some issues related to synchronizing recurring tasks (Bug #13636).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.0</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-10-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix handling of MIME truncation in certain cases.
+* [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
+* [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
+* [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
    </notes>
   </release>
  </changelog>

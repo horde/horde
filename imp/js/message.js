@@ -1,226 +1,340 @@
 /**
- * Basic view message page.
+ * Dynamic message view.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2010-2014 Horde LLC
+ * @copyright  2005-2014 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
 var ImpMessage = {
 
-    // Set in PHP code: pop3delete, text
+    // buid,
+    // mbox,
+    // msg_md
 
-    arrowHandler: function(e)
+    quickreply: function(type)
     {
-        if (e.altKey || e.shiftKey || e.ctrlKey) {
-            return;
-        }
+        var func;
 
-        switch (e.keyCode || e.charCode) {
-        case Event.KEY_LEFT:
-            if ($('prev')) {
-                document.location.href = $('prev').href;
-            }
+        switch (type) {
+        case 'reply':
+        case 'reply_all':
+        case 'reply_auto':
+        case 'reply_list':
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getReplyData';
             break;
 
-        case Event.KEY_RIGHT:
-            if ($('next')) {
-                document.location.href = $('next').href;
-            }
-            break;
-        }
-    },
-
-    submit: function(actID)
-    {
-        switch (actID) {
-        case 'spam_report':
-            if (!window.confirm(this.text.spam_report)) {
-                return;
-            }
+        case 'forward_auto':
+        case 'forward_attach':
+        case 'forward_body':
+        case 'forward_both':
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getForwardData';
             break;
 
-        case 'innocent_report':
-            if (!window.confirm(this.text.innocent_report)) {
-                return;
-            }
+        case 'forward_editasnew':
+            $('compose').show();
+            $('redirect').hide();
+            func = 'getResumeData';
+            type = 'editasnew';
+            break;
+
+        case 'forward_redirect':
+            $('compose').hide();
+            $('redirect').show();
+            func = 'getRedirectData';
             break;
         }
 
-        $('actionID').setValue(actID);
-        $('messages').submit();
-    },
+        $('msgData').hide();
+        $('qreply').show();
 
-    flagMessage: function(form)
-    {
-        var f1 = $('flag1'), f2 = $('flag2');
-
-        if ((form == 1 && !$F(f1).empty()) ||
-            (form == 2 && !$F(f2).empty())) {
-            $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
-            this.submit('flag_message');
-        }
-    },
-
-    _transfer: function(actID)
-    {
-        var newMbox,
-            elt = $('target1'),
-            target = $F(elt),
-            tmbox = $('targetMbox');
-
-        tmbox.setValue(target);
-
-        // Check for a mailbox actually being selected.
-        if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-            newMbox = window.prompt(this.text.newmbox, '');
-            if (newMbox !== null && !newMbox.empty()) {
-                $('newMbox').setValue(1);
-                tmbox.setValue(newMbox);
-                this.submit(actID);
-            }
-        } else if (target.empty()) {
-            window.alert(this.text.target_mbox);
-        } else if (target.startsWith("notepad\0") ||
-                   target.startsWith("tasklist\0")) {
-            this.actIDconfirm = actID;
-            HordeDialog.display({
-                form_id: 'RB_ImpMessageConfirm',
-                noinput: true,
-                text: this.text.moveconfirm
-            });
-        } else {
-            this.submit(actID);
-        }
-    },
-
-    updateMailboxes: function(form)
-    {
-        var f = (form == 1) ? 2 : 1;
-        $('target' + f).selectedIndex = $('target' + form).selectedIndex;
-    },
-
-    /* Function needed for IE compatibilty with drop-down menus. */
-    _messageActionsHover: function()
-    {
-        var iefix = new Element('IFRAME', { scrolling: 'no', frameborder: 0 }).setStyle({ position: 'absolute' }).hide();
-
-        // This can not appear in the new Element() call - Bug #5887
-        iefix.writeAttribute('src', 'javascript:false;');
-
-        $$('UL.msgactions LI').each(function(li) {
-            var fixcopy, ul = li.down('UL'), zindex;
-            if (!ul) {
-                return;
-            }
-
-            fixcopy = $(iefix.clone(false));
-            li.insert(fixcopy);
-            fixcopy.clonePosition(ul);
-
-            zindex = li.getStyle('zIndex');
-            if (zindex === null || zindex.empty()) {
-                li.setStyle({ zIndex: 2 });
-                fixcopy.setStyle({ zIndex: 1 });
-            } else {
-                fixcopy.setStyle({ zIndex: parseInt(zindex, 10) - 1 });
-            }
-
-            li.observe('mouseout', function() {
-                this.removeClassName('hover');
-                li.down('iframe').hide();
-            });
-            li.observe('mouseover', function() {
-                this.addClassName('hover');
-                li.down('iframe').show();
-            });
+        DimpCore.doAction(func, {
+            imp_compose: $F('composeCache'),
+            type: type,
+            view: this.mbox
+        }, {
+            callback: function(r) {
+                ImpCompose.fillForm(r);
+                $(document).fire('AutoComplete:reset');
+            },
+            uids: [ this.buid ]
         });
+    },
+
+    updateAddressHeader: function(e)
+    {
+        DimpCore.doAction('addressHeader', {
+            header: e.element().up('TR').identify().substring(9).toLowerCase(),
+            view: this.mbox
+        }, {
+            callback: this._updateAddressHeaderCallback.bind(this),
+            uids: [ this.buid ]
+        });
+    },
+    _updateAddressHeaderCallback: function(r)
+    {
+        $H(r.hdr_data).each(function(d) {
+            this.updateHeader(d.key, d.value);
+        }, this);
+    },
+
+    updateHeader: function(hdr, data, limit)
+    {
+        // Can't use capitalize() here.
+        var elt = $('msgHeader' + hdr.charAt(0).toUpperCase() + hdr.substring(1));
+        if (elt) {
+            elt.down('TD', 1).replace(DimpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+        }
+    },
+
+    /* Click handlers. */
+    clickHandler: function(e)
+    {
+        var base;
+
+        switch (e.element().readAttribute('id')) {
+        case 'windowclose':
+            window.close();
+            e.memo.hordecore_stop = true;
+            break;
+
+        case 'forward_link':
+            this.quickreply('forward_auto');
+            e.memo.stop();
+            break;
+
+        case 'reply_link':
+            this.quickreply('reply_auto');
+            e.memo.stop();
+            break;
+
+        case 'button_delete':
+        case 'button_innocent':
+        case 'button_spam':
+            if ((base = DimpCore.baseAvailable())) {
+                base.focus();
+                if (e.element().identify() == 'button_delete') {
+                    base.DimpBase.deleteMsg({
+                        mailbox: this.mbox,
+                        uid: this.buid
+                    });
+                } else {
+                    base.DimpBase.reportSpam(e.element().identify() == 'button_spam', {
+                        mailbox: this.mbox,
+                        uid: this.buid
+                    });
+                }
+            } else {
+                if (e.element().identify() == 'button_delete') {
+                    DimpCore.doAction('deleteMessages', {
+                        view: this.mbox
+                    }, {
+                        uids: [ this.buid ],
+                        view: this.mbox
+                    });
+                } else {
+                    DimpCore.doAction('reportSpam', {
+                        spam: ~~(e.element().identify() == 'button_spam'),
+                        view: this.mbox
+                    }, {
+                        uids: [ this.buid ],
+                        view: this.mbox
+                    });
+                }
+            }
+            window.close();
+            e.memo.hordecore_stop = true;
+            break;
+
+        case 'msg_view_source':
+            HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                actionID: 'view_source',
+                buid: this.buid,
+                id: 0,
+                mailbox: this.mbox
+            }, {
+                name: this.buid + '|' + this.mbox
+            });
+            break;
+
+        case 'msg_all_parts':
+            DimpCore.doAction('messageMimeTree', {
+                view: this.mbox
+            }, {
+                callback: this._mimeTreeCallback.bind(this),
+                uids: [ this.buid ]
+            });
+            break;
+
+        case 'qreply':
+            if (e.memo.element().match('DIV.headercloseimg IMG')) {
+                ImpCompose.confirmCancel();
+            }
+            break;
+
+        case 'send_mdn_link':
+            DimpCore.doAction('sendMDN', {
+                view: this.mbox
+            }, {
+                callback: function(r) {
+                    $('sendMdnMessage').up(1).fade({ duration: 0.2 });
+                },
+                uids: [ this.buid ]
+            });
+            e.memo.stop();
+            break;
+
+        default:
+            if (e.element().hasClassName('printAtc')) {
+                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                    actionID: 'print_attach',
+                    buid: this.buid,
+                    id: e.element().readAttribute('mimeid'),
+                    mailbox: this.mbox
+                }, {
+                    name: this.buid + '|' + this.mbox + '|print',
+                    onload: IMP_JS.printWindow
+                });
+                e.memo.stop();
+            } else if (e.element().hasClassName('stripAtc')) {
+                if (window.confirm(DimpCore.text.strip_warn)) {
+                    DimpCore.reloadMessage({
+                        actionID: 'strip_attachment',
+                        buid: this.buid,
+                        id: e.element().readAttribute('mimeid'),
+                        mailbox: this.mbox
+                    });
+                }
+                e.memo.stop();
+            }
+            break;
+        }
+    },
+
+    contextOnClick: function(e)
+    {
+        var id = e.memo.elt.readAttribute('id');
+
+        switch (id) {
+        case 'ctx_reply_reply':
+        case 'ctx_reply_reply_all':
+        case 'ctx_reply_reply_list':
+            this.quickreply(id.substring(10));
+            break;
+
+        case 'ctx_forward_attach':
+        case 'ctx_forward_body':
+        case 'ctx_forward_both':
+        case 'ctx_forward_editasnew':
+        case 'ctx_forward_redirect':
+            this.quickreply(id.substring(4));
+            break;
+        }
+    },
+
+    resizeWindow: function()
+    {
+        var mb = $('msgData').down('DIV.messageBody');
+
+        mb.setStyle({ height: Math.max(document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10), 0) + 'px' });
+    },
+
+    _mimeTreeCallback: function(r)
+    {
+        $('msg_all_parts').up().hide();
+
+        $('partlist').update(r.tree);
+        $('msgHeaderAtc').down('TD.label').update(DimpCore.text.allparts_label + ':');
+        $('msgHeaderAtc').show();
+
+        this.resizeWindow();
     },
 
     onDomLoad: function()
     {
+        var base;
+
         HordeCore.initHandler('click');
 
-        if (Prototype.Browser.IE) {
-            $('flag1', 'target1', 'flag2', 'target2').compact().invoke('observe', 'change', this._changeHandler.bindAsEventListener(this));
-            this._messageActionsHover();
+        if (DimpCore.conf.disable_compose) {
+            $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
+            delete DimpCore.context.ctx_contacts['new'];
         } else {
-            document.observe('change', this._changeHandler.bindAsEventListener(this));
-        }
-    },
-
-    onDialogClick: function(e)
-    {
-        switch (e.element().identify()) {
-        case 'RB_ImpMessageConfirm':
-            this.submit(this.actIDconfirm);
-            break;
-        }
-    },
-
-    _changeHandler: function(e)
-    {
-        var id = e.element().readAttribute('id');
-
-        if (!id) {
-            return;
+            DimpCore.addPopdown('reply_link', 'reply');
+            DimpCore.addPopdown('forward_link', 'forward');
+            if (!this.reply_list) {
+                delete DimpCore.context.ctx_reply.reply_list;
+            }
         }
 
-        if (id.startsWith('flag')) {
-            this.flagMessage(id.substring(4));
-        } else if (id.startsWith('target')) {
-            this.updateMailboxes(id.substring(6));
-        }
-    },
-
-    clickHandler: function(e)
-    {
-        $w(e.element().className).each(function(c) {
-            switch (c) {
-            case 'deleteAction':
-                if (this.pop3delete && !window.confirm(this.pop3delete)) {
-                    e.memo.stop();
-                }
-                break;
-
-            case 'moveAction':
-                this._transfer('move_message');
-                break;
-
-            case 'copyAction':
-                this._transfer('copy_message');
-                break;
-
-            case 'spamAction':
-                this.submit('spam_report');
-                break;
-
-            case 'innocentAction':
-                this.submit('innocent_report');
-                break;
-
-            case 'stripAllAtc':
-                if (!window.confirm(this.text.stripallwarn)) {
-                    e.memo.stop();
-                }
-                break;
-
-             case 'unblockImageLink':
-                IMP_JS.unblockImages(e.memo);
-                break;
-
-            case 'stripAtc':
-                if (!window.confirm(this.text.stripwarn)) {
-                    e.memo.stop();
-                }
-                break;
+        /* Set up address linking. */
+        [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
+            if (this[a]) {
+                this.updateHeader(a, this[a], true);
+                delete this[a];
             }
         }, this);
+
+        if ((base = DimpCore.baseAvailable())) {
+            if (this.strip) {
+                base.DimpBase.poll();
+            } else if (this.tasks) {
+                if (this.tasks['imp:maillog']) {
+                    this.tasks['imp:maillog'].each(function(l) {
+                        if (this.mbox == l.mbox &&
+                            this.buid == l.buid) {
+                            DimpCore.updateMsgLog(l.log);
+                            $('msgloglist').show();
+                        }
+                    }, this);
+                    delete this.tasks['imp:maillog'];
+                }
+                base.DimpBase.tasksHandler({ tasks: this.tasks });
+            }
+        }
+
+        DimpCore.msgMetadata(this.msg_md);
+        delete this.msg_md;
+
+        $('dimpLoading').hide();
+        $('msgData').show();
+
+        this.resizeWindow();
     }
 
 };
 
-document.observe('dom:loaded', ImpMessage.onDomLoad.bind(ImpMessage));
-document.observe('keydown', ImpMessage.arrowHandler.bindAsEventListener(ImpMessage));
+/* Attach event handlers. */
+/* Initialize onload handler. */
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // IE 8
+        IMP_JS.iframeResize = IMP_JS.iframeResize.wrap(function(parentfunc, e, id) {
+            if ($('msgData').visible()) {
+                (function() { parentfunc(e, id); }).defer();
+            } else {
+                IMP_JS.iframeResize.bind(IMP_JS, e, id).defer();
+            }
+        });
+        ImpMessage.onDomLoad.bind(ImpMessage).delay(0.1);
+    } else {
+        ImpMessage.onDomLoad();
+    }
+});
 document.observe('HordeCore:click', ImpMessage.clickHandler.bindAsEventListener(ImpMessage));
-document.observe('HordeDialog:onClick', ImpMessage.onDialogClick.bind(ImpMessage));
+Event.observe(window, 'resize', ImpMessage.resizeWindow.bind(ImpMessage));
+
+/* ContextSensitive events. */
+document.observe('ContextSensitive:click', ImpMessage.contextOnClick.bindAsEventListener(ImpMessage));
+
+/* DimpCore handlers. */
+document.observe('DimpCore:updateAddressHeader', ImpMessage.updateAddressHeader.bindAsEventListener(ImpMessage));
+
+/* Define reloadMessage() method for this page. */
+DimpCore.reloadMessage = function(params) {
+    window.location = HordeCore.addURLParam(document.location.href, params);
+};

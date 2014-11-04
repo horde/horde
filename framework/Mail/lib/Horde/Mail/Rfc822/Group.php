@@ -12,7 +12,7 @@
  */
 
 /**
- * Object representation of a RFC 822 e-mail address.
+ * Object representation of a RFC 822 group e-mail address.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -26,7 +26,9 @@
  * @property-read boolean $valid  Returns true if there is enough information
  *                                in object to create a valid address.
  */
-class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Countable
+class Horde_Mail_Rfc822_Group
+    extends Horde_Mail_Rfc822_Object
+    implements Countable
 {
     /**
      * List of group e-mail address objects.

@@ -40,7 +40,7 @@ implements Horde_Core_Prefs_Ui_Special
             return '';
         }
 
-        $page_output->addScriptFile('folderprefs.js');
+        $page_output->addScriptFile('prefs/folder.js');
         $page_output->addInlineJsVars(array(
             'ImpFolderPrefs.mboxes.templates' => _("Enter the name for your new compose templates mailbox.")
         ));
@@ -53,7 +53,10 @@ implements Horde_Core_Prefs_Ui_Special
         $iterator = new IMP_Ftree_IteratorFilter(
             $injector->getInstance('IMP_Ftree')
         );
-        $iterator->add($iterator::NONIMAP);
+        $iterator->add(array(
+            $iterator::NONIMAP,
+            $iterator::REMOTE
+        ));
         $iterator->mboxes = array('INBOX');
 
         $view->mbox_flist = new IMP_Ftree_Select(array(

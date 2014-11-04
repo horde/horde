@@ -1,0 +1,17 @@
+.threadSummary {
+    margin: 5px 3px;
+}
+.threadSummary div {
+    height: 20px;
+    line-height: 20px;
+    padding-left: 2px;
+}
+.threadBox {
+    margin: 3px;
+}
+.threadBox span.threadlink {
+    float: right;
+}
+.addrbookaddImg {
+    background-image: url("graphics/add_contact.png");
+}

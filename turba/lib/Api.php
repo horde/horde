@@ -216,7 +216,10 @@ class Turba_Api extends Horde_Registry_Api
 
             foreach (array_keys($owners) as $owner) {
                 if (in_array('name', $properties)) {
-                    $results['turba/' . $owner]['name'] = $owner;
+                    $results['turba/' . $owner]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results['turba/' . $owner]['icon'] = Horde_Themes::img('turba.png');
@@ -224,19 +227,8 @@ class Turba_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results['turba/' . $owner]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results['turba/' . $owner]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results['turba/' . $owner]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO: Get a real modification date
-                    $results['turba/' . $owner]['modified'] = $now;
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Get a real creation date
-                    $results['turba/' . $owner]['created'] = 0;
+                if (in_array('read-only', $properties)) {
+                    $results['turba/' . $owner]['read-only'] = true;
                 }
             }
 
@@ -280,17 +272,22 @@ class Turba_Api extends Horde_Registry_Api
             }
 
             $curpath = 'turba/' . $parts[0] . '/';
-            $now = time();
 
             foreach ($addressbooks as $addressbook => $info) {
+                $label = ($info instanceof Horde_Share_Object)
+                    ? $info->get('name')
+                    : $info['title'];
                 if (in_array('name', $properties)) {
                     $results[$curpath . $addressbook]['name'] =
-                        sprintf(
-                            _("Contacts from %s"),
-                            ($info instanceof Horde_Share_Object)
-                                ? $info->get('name')
-                                : $info['title']
-                        );
+                        sprintf(_("Contacts from %s"), $label);
+                }
+                if (in_array('displayname', $properties)) {
+                    $results[$curpath . $addressbook]['displayname'] = $label;
+                }
+                if (in_array('owner', $properties)) {
+                    $results[$curpath . $addressbook]['owner'] = ($info instanceof Horde_Share_Object)
+                        ? $info->get('owner')
+                        : '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$curpath . $addressbook]['icon'] = Horde_Themes::img('turba.png');
@@ -298,19 +295,9 @@ class Turba_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results[$curpath . $addressbook]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results[$curpath . $addressbook]['contenttype'] = 'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$curpath . $addressbook]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    // @TODO: Get a real modification date
-                    $results[$curpath . $addressbook]['modified'] = $now;
-                }
-                if (in_array('created', $properties)) {
-                    // @TODO Get a real creation date
-                    $results[$curpath . $addressbook]['created'] = 0;
+                if (in_array('read-only', $properties) &&
+                    ($info instanceof Horde_Share_Object)) {
+                    $results[$curpath . $addressbook]['read-only'] = !$info->hasPermission($registry->getAuth(), Horde_Perms::EDIT);
                 }
             }
 
@@ -332,7 +319,10 @@ class Turba_Api extends Horde_Registry_Api
                 return array();
             }
 
-            $contacts = $injector->getInstance('Turba_Factory_Driver')->create($parts[1])->search(array());
+            $addressbook = $injector->getInstance('Turba_Factory_Driver')
+                ->create($parts[1]);
+            $owner = $addressbook->getContactOwner();
+            $contacts = $addressbook->search(array());
             $contacts->reset();
 
             $curpath = 'turba/' . $parts[0] . '/' . $parts[1] . '/';
@@ -342,25 +332,23 @@ class Turba_Api extends Horde_Registry_Api
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = Turba::formatName($contact);
                 }
+                if (in_array('owner', $properties)) {
+                    $results[$key]['owner'] = $owner;
+                }
                 if (in_array('icon', $properties)) {
                     $results[$key]['icon'] = Horde_Themes::img('mime/vcard.png');
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$key]['browseable'] = false;
                 }
+                if (in_array('read-only', $properties)) {
+                    $results[$key]['read-only'] = !$addressbook->hasPermission(Horde_Perms::EDIT);
+                }
                 if (in_array('contenttype', $properties)) {
                     $results[$key]['contenttype'] = 'text/x-vcard';
                 }
-                if (in_array('contentlength', $properties)) {
-                    try {
-                        $data = $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true));
-                    } catch (Turba_Exception $e) {
-                        $data = '';
-                    }
-                    $results[$key]['contentlength'] = strlen($data);
-                }
                 if (in_array('modified', $properties)) {
-                    $results[$key]['modified'] = $contact->lastModification();
+                    $results[$key]['modified'] = $contact->lastModification() ?: null;
                 }
                 if (in_array('created', $properties)) {
                     $results[$key]['created'] = $this->getActionTimestamp($contact->getValue('__uid'), 'add', $parts[1]);
@@ -387,7 +375,7 @@ class Turba_Api extends Horde_Registry_Api
             $contact = $driver->getObject($parts[2]);
 
             $result = array(
-                'data' => $this->export($contact->getValue('__uid'), 'text/x-vcard', $contact->getSource(), null, array('skip_empty' => true)),
+                'data' => $driver->tovCard($contact, '2.1', null, true)->exportVcalendar(),
                 'mimetype' => 'text/x-vcard'
             );
             $modified = $this->_modified($contact->getValue('__uid'), $parts[1]);

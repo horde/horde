@@ -48,8 +48,8 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHP_PMD')) {
-            return array('PHP PMD is not available!');
+        if (!class_exists('\\PHPMD\\PHPMD')) {
+            return array('PHPMD is not available!');
         }
     }
 
@@ -64,13 +64,13 @@ extends Components_Qc_Task_Base
     {
         $lib = realpath($this->_config->getPath() . '/lib');
 
-        $renderer = new PHP_PMD_Renderer_TextRenderer();
-        $renderer->setWriter(new PHP_PMD_Writer_Stream(STDOUT));
+        $renderer = new PHPMD\Renderer\TextRenderer();
+        $renderer->setWriter(new PHPMD\Writer\StreamWriter(STDOUT));
 
-        $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        $ruleSetFactory->setMinimumPriority(PHP_PMD_AbstractRule::LOWEST_PRIORITY);
+        $ruleSetFactory = new PHPMD\RuleSetFactory();
+        $ruleSetFactory->setMinimumPriority(PHPMD\AbstractRule::LOWEST_PRIORITY);
 
-        $phpmd = new PHP_PMD();
+        $phpmd = new PHPMD\PHPMD();
 
         $phpmd->processFiles(
             $lib,

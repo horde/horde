@@ -32,14 +32,15 @@ class Kronolith_Api extends Horde_Registry_Api
      * Returns the last modification timestamp for the given uid.
      *
      * @param string $uid      The uid to look for.
+     * @param string $calendar The calendar to search in.
      *
      * @return integer  The timestamp for the last modification of $uid.
      */
-    public function modified($uid)
+    public function modified($uid, $calendar = null)
     {
-        $modified = $this->getActionTimestamp($uid, 'modify');
+        $modified = $this->getActionTimestamp($uid, 'modify', $calendar);
         if (empty($modified)) {
-            $modified = $this->getActionTimestamp($uid, 'add');
+            $modified = $this->getActionTimestamp($uid, 'add', $calendar);
         }
         return $modified;
     }
@@ -56,6 +57,8 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function browse($path = '', $properties = array())
     {
+        global $injector, $registry;
+
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -66,6 +69,7 @@ class Kronolith_Api extends Horde_Registry_Api
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
+        $currentUser = $registry->getAuth();
 
         if (empty($path)) {
             // This request is for a list of all users who have calendars
@@ -80,7 +84,10 @@ class Kronolith_Api extends Horde_Registry_Api
             foreach (array_keys($owners) as $owner) {
                 $path = 'kronolith/' . $owner;
                 if (in_array('name', $properties)) {
-                    $results[$path]['name'] = $owner;
+                    $results[$path]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
                     $results[$path]['icon'] = Horde_Themes::img('user.png');
@@ -88,32 +95,8 @@ class Kronolith_Api extends Horde_Registry_Api
                 if (in_array('browseable', $properties)) {
                     $results[$path]['browseable'] = true;
                 }
-                if (in_array('contenttype', $properties)) {
-                    $results[$path]['contenttype'] =
-                        'httpd/unix-directory';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$path]['contentlength'] = 0;
-                }
-                if (in_array('modified', $properties)) {
-                    $results[$path]['modified'] =
-                        $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results[$path]['created'] = 0;
-                }
-
-                // CalDAV Properties from RFC 4791 and
-                // draft-desruisseaux-caldav-sched-03
-                $caldavns = 'urn:ietf:params:xml:ns:caldav';
-                $kronolith_rpc_base = $GLOBALS['registry']->get('webroot', 'horde') . '/rpc/kronolith/';
-                if (in_array($caldavns . ':calendar-home-set', $properties)) {
-                    $results[$path][$caldavns . ':calendar-home-set'] =  Horde::url($kronolith_rpc_base . urlencode($owner), true);
-                }
-
-                if (in_array($caldavns . ':calendar-user-address-set', $properties)) {
-                    // FIXME: Add the calendar owner's email address from
-                    // their Horde Identity
+                if (in_array('read-only', $properties)) {
+                    $results[$path]['read-only'] = true;
                 }
             }
             return $results;
@@ -121,10 +104,12 @@ class Kronolith_Api extends Horde_Registry_Api
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
             $owner = $parts[0] == '-system-' ? '' : $parts[0];
-            $calendars = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
-                $GLOBALS['registry']->getAuth(),
-                array('perm' => Horde_Perms::SHOW,
-                      'attributes' => $owner));
+            $calendars = $injector->getInstance('Kronolith_Shares')
+                ->listShares(
+                    $currentUser,
+                    array('perm' => Horde_Perms::SHOW,
+                          'attributes' => $owner)
+                );
             $results = array();
             foreach ($calendars as $calendarId => $calendar) {
                 if ($parts[0] == '-system-' && $calendar->get('owner')) {
@@ -136,38 +121,25 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['name'] = Kronolith::getLabel($calendar);
                 }
                 if (in_array('displayname', $properties)) {
-                    $results[$retpath]['displayname'] = rawurlencode(Kronolith::getLabel($calendar));
-                    $results[$retpath . '.ics']['displayname'] = rawurlencode(Kronolith::getLabel($calendar)) . '.ics';
+                    $results[$retpath]['displayname'] = Kronolith::getLabel($calendar);
+                    $results[$retpath . '.ics']['displayname'] = Kronolith::getLabel($calendar) . '.ics';
+                }
+                if (in_array('owner', $properties)) {
+                    $results[$retpath]['owner'] = $results[$retpath . '.ics']['owner'] = $calendar->get('owner') ?: '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');
                     $results[$retpath . '.ics']['icon'] = Horde_Themes::img('mime/icalendar.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results[$retpath]['browseable'] = $calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                    $results[$retpath]['browseable'] = $calendar->hasPermission($currentUser, Horde_Perms::READ);
                     $results[$retpath . '.ics']['browseable'] = false;
                 }
+                if (in_array('read-only', $properties)) {
+                    $results[$retpath]['read-only'] = $results[$retpath . '.ics']['read-only'] = !$calendar->hasPermission($currentUser, Horde_Perms::EDIT);
+                }
                 if (in_array('contenttype', $properties)) {
-                    $results[$retpath]['contenttype'] = 'httpd/unix-directory';
                     $results[$retpath . '.ics']['contenttype'] = 'text/calendar';
-                }
-                if (in_array('contentlength', $properties)) {
-                    $results[$retpath]['contentlength'] = 0;
-                    // FIXME: This is a hack.  If the content length is longer
-                    // than the actual data then some WebDAV clients will
-                    // report an error when the file EOF is received.  Ideally
-                    // we should determine the actual size of the .ics and
-                    // report it here, but the performance hit may be
-                    // prohibitive.  This requires further investigation.
-                    $results[$retpath . '.ics']['contentlength'] = 1;
-                }
-                if (in_array('modified', $properties)) {
-                    $results[$retpath]['modified'] = $_SERVER['REQUEST_TIME'];
-                    $results[$retpath . '.ics']['modified'] = $_SERVER['REQUEST_TIME'];
-                }
-                if (in_array('created', $properties)) {
-                    $results[$retpath]['created'] = 0;
-                    $results[$retpath . '.ics']['created'] = 0;
                 }
             }
             return $results;
@@ -177,6 +149,14 @@ class Kronolith_Api extends Horde_Registry_Api
             // This request is browsing into a specific calendar.  Generate
             // the list of items and represent them as files within the
             // directory.
+            try {
+                $calendar = $injector->getInstance('Kronolith_Shares')
+                    ->getShare($parts[1]);
+            } catch (Horde_Exception_NotFound $e) {
+                throw new Kronolith_Exception(_("Invalid calendar requested."), 404);
+            } catch (Horde_Share_Exception $e) {
+                throw new Kronolith_Exception($e->getMessage, 500);
+            }
             $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
             $events = $kronolith_driver->listEvents();
             $icon = Horde_Themes::img('mime/icalendar.png');
@@ -186,10 +166,13 @@ class Kronolith_Api extends Horde_Registry_Api
                     $key = 'kronolith/' . $path . '/' . $event->id;
                     if (in_array('modified', $properties) ||
                         in_array('etag', $properties)) {
-                        $modified = $this->modified($event->uid);
+                        $modified = $this->modified($event->uid, $parts[1]);
                     }
                     if (in_array('name', $properties)) {
                         $results[$key]['name'] = $event->getTitle();
+                    }
+                    if (in_array('owner', $properties)) {
+                        $results[$key]['owner'] = $calendar->get('owner') ?: '-system-';
                     }
                     if (in_array('icon', $properties)) {
                         $results[$key]['icon'] = $icon;
@@ -197,18 +180,11 @@ class Kronolith_Api extends Horde_Registry_Api
                     if (in_array('browseable', $properties)) {
                         $results[$key]['browseable'] = false;
                     }
+                    if (in_array('read-only', $properties)) {
+                        $results[$key]['read-only'] = !$calendar->hasPermission($currentUser, Horde_Perms::EDIT);
+                    }
                     if (in_array('contenttype', $properties)) {
                         $results[$key]['contenttype'] = 'text/calendar';
-                    }
-                    if (in_array('contentlength', $properties)) {
-                        // FIXME: This is a hack.  If the content length is
-                        // longer than the actual data then some WebDAV
-                        // clients will report an error when the file EOF is
-                        // received.  Ideally we should determine the actual
-                        // size of the data and report it here, but the
-                        // performance hit may be prohibitive.  This requires
-                        // further investigation.
-                        $results[$key]['contentlength'] = 1;
                     }
                     if (in_array('modified', $properties)) {
                         $results[$key]['modified'] = $modified;
@@ -233,7 +209,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 $result = array(
                     'data' => $this->export($event->uid, 'text/calendar'),
                     'mimetype' => 'text/calendar');
-                $modified = $this->modified($event->uid);
+                $modified = $this->modified($event->uid, $parts[1]);
                 if (!empty($modified)) {
                     $result['mtime'] = $modified;
                 }
@@ -243,12 +219,12 @@ class Kronolith_Api extends Horde_Registry_Api
                       array_key_exists(substr($parts[1], 0, -4), Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
                 // This request is for an entire calendar (calendar.ics).
                 $ical_data = $this->exportCalendar(substr($parts[1], 0, -4), 'text/calendar');
-                $result = array('data'          => $ical_data,
-                                'mimetype'      => 'text/calendar',
-                                'contentlength' => strlen($ical_data),
-                                'mtime'         => $_SERVER['REQUEST_TIME']);
-
-                return $result;
+                return array(
+                    'data'          => $ical_data,
+                    'mimetype'      => 'text/calendar',
+                    'contentlength' => strlen($ical_data),
+                    'mtime'         => $_SERVER['REQUEST_TIME']
+                );
             } else {
                 // All other requests are a 404: Not Found
                 return false;
@@ -333,7 +309,7 @@ class Kronolith_Api extends Horde_Registry_Api
                         // the event's history.
                         $created = $modified = null;
                         try {
-                            $history = $GLOBALS['injector']->getInstance('Horde_History');
+                            $history = $injector->getInstance('Horde_History');
                             $created = $history->getActionTimestamp(
                                 'kronolith:' . $calendar . ':' . $uid, 'add');
                             $modified = $history->getActionTimestamp(

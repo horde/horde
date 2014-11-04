@@ -1,0 +1,50 @@
+.msgfullread div.messageBody {
+    overflow: auto;
+}
+.msgfullread div.subject {
+    font-size: 120%;
+    font-weight: bold;
+    max-height: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 5px;
+}
+.msgfullread .msgHeaders {
+    cursor: default;
+}
+.msgfullread .msgHeaders table thead td.label {
+    padding-left: 3px;
+}
+div.msgfullread span.messagePrintShow {
+    display: none;
+}
+#msgHeaderAtc td.label a {
+    font-weight: normal;
+    padding-right: 2px;
+}
+.headercloseimg {
+    cursor: pointer;
+    float: right !important;
+    margin-top: 6px;
+}
+.saveAsImg {
+    background-image: url("../graphics/download.png");
+}
+
+@media print {
+    /* Hide UI elements when printing message in popup window. */
+    div.msgfullread div.dimpOptions,
+    div.msgfullread div.mimePartInfo a.iconImg,
+    div.msgfullread span.messagePrintNoShow {
+        display: none;
+    }
+
+    div.msgfullread span.messagePrintShow {
+        display: inline;
+    }
+
+    div.msgfullread div.messageBody{
+        height: auto !important;
+        overflow: visible;
+    }
+}

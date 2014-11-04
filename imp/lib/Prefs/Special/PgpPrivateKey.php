@@ -36,6 +36,9 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
+        $p_css = new Horde_Themes_Element('prefs.css');
+        $page_output->addStylesheet($p_css->fs, $p_css->uri);
+
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'
         ));
@@ -76,7 +79,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     '$("delete_pgp_privkey").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")) . ')) { e.stop(); } })'
                 ), true);
             } else {
-                $page_output->addScriptFile('pgp.js');
+                $page_output->addScriptFile('prefs/pgp.js');
                 Horde_Core_Ui_JsCalendar::init();
                 $page_output->addInlineJsVars(array(
                     'ImpPgp.months' => Horde_Core_Ui_JsCalendar::months()
@@ -119,9 +122,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                   !empty($conf['pgp']['keylength'])) {
             /* Sanity checking for email address. */
             try {
-                $email = IMP::parseAddressList($ui->vars->generate_email, array(
-                    'validate' => true
-                ));
+                $email = IMP::parseAddressList($ui->vars->generate_email);
             } catch (Horde_Mail_Exception $e) {
                 $notification->push($e);
                 return false;

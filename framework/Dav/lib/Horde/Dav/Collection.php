@@ -23,7 +23,7 @@ use Sabre\CalDAV;
  * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Dav
  */
-class Horde_Dav_Collection extends DAV\Collection
+class Horde_Dav_Collection extends DAV\Collection implements DAV\IProperties
 {
     /**
      * The path to the current collection.
@@ -54,14 +54,25 @@ class Horde_Dav_Collection extends DAV\Collection
     protected $_mimedb;
 
     /**
+     * Mapping of WebDAV property names to Horde API's browse() properties.
+     *
+     * @var array
+     */
+    protected static $_propertyMap = array(
+        '{DAV:}getcontentlength'            => 'contentlength',
+        '{DAV:}getcontenttype'              => 'contentype',
+        '{DAV:}getetag'                     => 'etag',
+        '{DAV:}owner'                       => 'owner',
+        '{http://sabredav.org/ns}read-only' => 'read-only',
+    );
+
+    /**
      * Constructor.
      *
-     * @param string $path                                  The path to this
-     *                                                      collection.
-     * @param array $item                                   Collection details.
-     * @param Horde_Registry $registry                      A registry object.
-     * @param string $mimedb                                Location of a MIME
-     *                                                      magic database.
+     * @param string $path              The path to this collection.
+     * @param array $item               Collection details.
+     * @param Horde_Registry $registry  A registry object.
+     * @param string $mimedb            Location of a MIME magic database.
      */
     public function __construct($path = null,
                                 array $item = array(),
@@ -119,7 +130,8 @@ class Horde_Dav_Collection extends DAV\Collection
                     'path' => $this->_path,
                     'properties' => array(
                         'name', 'browseable', 'contenttype', 'contentlength',
-                        'created', 'modified', 'etag'
+                        'created', 'modified', 'etag', 'owner', 'read-only',
+                        'displayname'
                     )
                 )
             );
@@ -185,5 +197,43 @@ class Horde_Dav_Collection extends DAV\Collection
         } catch (Horde_Exception $e) {
             throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * Updates properties on this node.
+     *
+     * @param array $mutations
+     * @return bool|array
+     */
+    public function updateProperties($mutations)
+    {
+        return false;
+    }
+
+    /**
+     * Returns a list of properties for this nodes.
+     *
+     * @param array $properties
+     * @return void
+     */
+    public function getProperties($properties)
+    {
+        $response = array();
+        foreach (self::$_propertyMap as $property => $apiProperty) {
+            if (isset($this->_item[$apiProperty])) {
+                $response[$property] = $this->_item[$apiProperty];
+            }
+        }
+        if (isset($this->_item['modified'])) {
+            $response['{DAV:}getlastmodified'] = new DAV\Property\GetLastModified(
+                $this->_item['modified']
+            );
+        }
+        if (isset($this->_item['displayname'])) {
+            $response['{DAV:}displayname'] = $this->_item['displayname'];
+        } elseif (isset($this->_item['name'])) {
+            $response['{DAV:}displayname'] = $this->_item['name'];
+        }
+        return $response;
     }
 }

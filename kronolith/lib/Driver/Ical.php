@@ -332,7 +332,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     )
     {
         $processed = array();
-        foreach ($events as $event) {
+        foreach (array_values($events) as $i => $event) {
             $event->permission = $this->getPermission();
             // Force string so JSON encoding is consistent across drivers.
             $event->id = $id ? $id : 'ical' . $i;
@@ -647,7 +647,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     {
         $cacheOb = $GLOBALS['injector']->getInstance('Horde_Cache');
         $cacheVersion = 1;
-        $signature = 'kronolith_remote_events_'  . $cacheVersion . '_' . $url . '_' . serialize($this->_params);
+        $signature = 'kronolith_remote_events_'  . $cacheVersion . '_' . $this->_getUrl() . '_' . serialize($this->_params);
         $events = $cacheOb->get($signature, 3600);
         if ($events) {
             $events = unserialize($events);
