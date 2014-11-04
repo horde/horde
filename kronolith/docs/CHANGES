@@ -12,6 +12,7 @@ v4.3.0-git
 v4.2.4
 -------
 
+[mjr] Fix fatal error when creating or modifying an entry via PUT.
 [mjr] Don't show private event details in daily agenda emails if not the owner
       (Bug #13660).
 
