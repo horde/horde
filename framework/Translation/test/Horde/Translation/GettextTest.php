@@ -1,7 +1,4 @@
 <?php
-
-require_once __DIR__ . '/TestBase.php';
-
 /**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -17,8 +14,8 @@ class Horde_Translation_GettextTest extends Horde_Translation_TestBase
     public function setUp()
     {
         parent::setUp();
-        $this->_dict = new Horde_Translation_Handler_Gettext('Horde_Translation', __DIR__ . '/locale');
-        $this->_otherDict = new Horde_Translation_Handler_Gettext('Horde_Other', __DIR__ . '/locale');
+        $this->_dict = new Horde_Translation_Handler_Gettext('Horde_Translation', __DIR__ . '/fixtures/locale');
+        $this->_otherDict = new Horde_Translation_Handler_Gettext('Horde_Other', __DIR__ . '/fixtures/locale');
     }
 
     public function testGettext()

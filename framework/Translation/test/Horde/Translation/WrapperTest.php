@@ -1,7 +1,4 @@
 <?php
-
-require_once __DIR__ . '/TestBase.php';
-
 /**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -27,14 +24,14 @@ class Horde_Translation_TestWrapperA extends Horde_Translation
     public static function t($message)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = __DIR__ . '/locale';
+        self::$_directory = __DIR__ . '/fixtures/locale';
         return parent::t($message);
     }
 
     public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Translation';
-        self::$_directory = __DIR__ . '/locale';
+        self::$_directory = __DIR__ . '/fixtures/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }
@@ -44,14 +41,14 @@ class Horde_Translation_TestWrapperB extends Horde_Translation
     public static function t($message)
     {
         self::$_domain = 'Horde_Other';
-        self::$_directory = __DIR__ . '/locale';
+        self::$_directory = __DIR__ . '/fixtures/locale';
         return parent::t($message);
     }
 
     public static function ngettext($singular, $plural, $number)
     {
         self::$_domain = 'Horde_Other';
-        self::$_directory = __DIR__ . '/locale';
+        self::$_directory = __DIR__ . '/fixtures/locale';
         return parent::ngettext($singular, $plural, $number);
     }
 }
