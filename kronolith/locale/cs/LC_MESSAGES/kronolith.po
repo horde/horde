@@ -39,12 +39,12 @@ msgid "%d %s before the event starts"
 msgstr "%d %s před začátkem události"
 
 #: lib/Event.php:2343
-#, fuzzy, php-format
+#, php-format
 msgid "%d day"
 msgid_plural "%d days"
-msgstr[0] "1 den"
-msgstr[1] "1 den"
-msgstr[2] "1 den"
+msgstr[0] "%d den"
+msgstr[1] "%d dny"
+msgstr[2] "%d dnů"
 
 #: templates/search/header.inc:4
 #, php-format
@@ -1879,9 +1879,8 @@ msgid "Not Found"
 msgstr "Nenalezeno"
 
 #: templates/edit/edit.inc:203
-#, fuzzy
 msgid "Notification"
-msgstr "Zobrazit upozornění"
+msgstr "Způsob upozornění"
 
 #: config/prefs.php:56 lib/Ajax.php:135
 msgid "Notifications"
@@ -3005,9 +3004,9 @@ msgstr[1] "Následuje podrobnější popis události:"
 msgstr[2] "Následuje podrobnější popis události:"
 
 #: lib/FreeBusy.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "The free/busy url for %s cannot be retrieved."
-msgstr "Složka \"%s\" nemůže být vyprázdněna."
+msgstr "URL informace o volném času %s se nepodařilo načíst."
 
 #: calendars/remote_edit.php:37 calendars/remote_unsubscribe.php:38
 #: lib/Kronolith.php:1729
