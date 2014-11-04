@@ -263,6 +263,7 @@ class Horde_ActiveSync
     const FILTERTYPE_6MONTHS                    = 7;
     const FILTERTYPE_INCOMPLETETASKS            = 8;
 
+    // @todo normalize to string values.
     const PROVISIONING_FORCE                    = true;
     const PROVISIONING_LOOSE                    = 'loose';
     const PROVISIONING_NONE                     = false;
