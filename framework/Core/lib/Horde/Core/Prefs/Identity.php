@@ -171,6 +171,26 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
     }
 
     /**
+     * Returns the user's full name.
+     *
+     * @param integer $ident  The identity to retrieve the name from.
+     *
+     * @return string  The user's full name, or the user name if it doesn't
+     *                 exist.
+     */
+    public function getName($ident = null)
+    {
+        global $registry;
+
+        if (!isset($this->_names[$ident]) &&
+            !strlen($this->getValue($this->_prefnames['fullname'], $ident))) {
+            $this->_names[$ident] = $registry->convertUsername($this->_user, false);
+        }
+
+        return parent::getName($ident);
+    }
+
+    /**
      * Returns the from address based on the chosen identity. If no
      * address can be found it is built from the current user name and
      * the specified maildomain.
