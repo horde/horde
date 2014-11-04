@@ -709,9 +709,6 @@ class Horde_ActiveSync
             throw new Horde_Exception_AuthenticationFailure();
         }
 
-        // Set provisioning support now that we are authenticated.
-        $this->setProvisioning($this->_driver->getProvisioning());
-
         self::$_logger->info(sprintf(
             '[%s] %s request received for user %s',
             $this->_procid,
@@ -839,6 +836,9 @@ class Horde_ActiveSync
             $this->_driver->clearAuthentication();
             return true;
         }
+
+        // Set provisioning support now that we are authenticated.
+        $this->setProvisioning($this->_driver->getProvisioning(self::$_device));
 
         // Read the initial Wbxml header
         $this->_decoder->readWbxmlHeader();
