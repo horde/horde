@@ -145,8 +145,13 @@ var IMP_Autocompleter = Class.create({
 
     focus: function()
     {
-        this.input.focus();
-        this.box.addClassName(this.p.boxClassFocus);
+        try {
+            this.input.focus();
+            this.box.addClassName(this.p.boxClassFocus);
+        } catch (e) {
+            // IE8 bug (focus doesn't work on hidden fields)
+            this.focus.bind(this).defer();
+        }
     },
 
     blur: function()
