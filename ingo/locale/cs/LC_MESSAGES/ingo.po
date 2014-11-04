@@ -693,7 +693,7 @@ msgstr "Počet dnů mezi automatickými odpověděmi:"
 
 #: lib/Storage.php:236
 #, fuzzy
-msgid "Only [5~flag the message"
+msgid "Only flag the message"
 msgstr "Jenom přidat příznak"
 
 #: config/prefs.php:14

@@ -1728,4 +1728,4 @@ msgstr "ve stejném dnu"
 
 #: lib/Ui/VarRenderer/Nag.php:329
 msgid "year(s) on the same weekday and month of the year"
-msgstr ""
+msgstr "rok(let) ve stejný měsíc a den v týdnu"

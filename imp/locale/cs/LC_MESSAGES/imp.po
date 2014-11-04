@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: IMP 4.1.4\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-11-03 17:17+0100\n"
+"PO-Revision-Date: 2014-10-16 14:17+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:93
 msgid " and "
@@ -435,9 +435,8 @@ msgid "Add search criteria"
 msgstr "Přidat vyhledávací kritéria"
 
 #: lib/Search/Ui.php:62
-#, fuzzy
 msgid "Add search mailbox:"
-msgstr "Přidat prohledávání složky:"
+msgstr "Přidat složku:"
 
 #: templates/contacts/contacts.html.php:49
 msgid "Add these by clicking OK"
@@ -530,9 +529,8 @@ msgid "All Mailboxes"
 msgstr "Všechny složky"
 
 #: lib/Dynamic/Mailbox.php:463
-#, fuzzy
 msgid "All Parts"
-msgstr "Všechny minulé"
+msgstr "Všechny části"
 
 #: lib/Basic/Folders.php:54
 #, fuzzy
@@ -768,7 +766,7 @@ msgstr "Čas doručení na server"
 
 #: lib/Basic/Message.php:609 lib/Dynamic/Base.php:174
 msgid "As Attachment"
-msgstr "Jako Příloha"
+msgstr "Jako příloha"
 
 #: config/prefs.php:746
 msgid "As attachment"
@@ -796,9 +794,8 @@ msgid "Attach a copy of your PGP public key to the message?"
 msgstr "Přiložit kopii Vašeho PGP klíče ke zprávě?"
 
 #: lib/Dynamic/Compose/Common.php:196
-#, fuzzy
 msgid "Attach contact information"
-msgstr "Informace o příloze"
+msgstr "Přiložit vizitku"
 
 #: templates/basic/compose/compose.html.php:261
 msgid "Attach your contact information to the message?"
@@ -817,11 +814,10 @@ msgstr ""
 "NEBYL přiložen."
 
 #: lib/Compose.php:3262
-#, fuzzy
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
 msgstr ""
-"Přiložený soubor \"%s\" přesahuje povolený limit pro velikost příloh. Soubor "
-"NEBYL přiložen."
+"Přiložený soubor přesahuje povolený limit pro velikost příloh. Soubor NEBYL "
+"přiložen."
 
 #: lib/Ajax/Imple/ItipRequest.php:326
 msgid "Attached is a reply to a calendar request you sent."
@@ -1253,7 +1249,7 @@ msgstr "Kapátko barev"
 
 #: config/prefs.php:1637
 msgid "Combine all namespaces"
-msgstr "Sloučit všsechna jmenná místa"
+msgstr "Sloučit všechna jmenná místa"
 
 #: templates/prefs/pgpprivatekey.html.php:65
 msgid "Comment"
@@ -1794,11 +1790,11 @@ msgstr "Provést akci"
 #: lib/Basic/Search.php:501 templates/basic/search/search-basic.html.php:24
 #: templates/basic/search/search-basic.html.php:38
 msgid "Do NOT Match"
-msgstr "NESHODUJÍ se"
+msgstr "Nesplňuje"
 
 #: lib/Dynamic/Mailbox.php:361 templates/basic/folders/actions.html.php:37
 msgid "Do Not Check for New Mail"
-msgstr "Nekontrolovat Novou Poštu"
+msgstr "Nekontrolovat novou poštu"
 
 #: config/prefs.php:835
 msgid "Do not save attachments"
@@ -2038,7 +2034,7 @@ msgstr "Konec zprávy od %s"
 #: lib/Prefs/Special/PgpPrivateKey.php:70
 #: lib/Prefs/Special/SmimePrivateKey.php:67
 msgid "Enter Passphrase"
-msgstr "Vložte heslo"
+msgstr "Zadejte heslo"
 
 #: lib/Prefs/Special/ComposeTemplates.php:45
 msgid "Enter the name for your new compose templates mailbox."
@@ -2062,11 +2058,11 @@ msgstr "Musíte zadat heslo, které bylo použito pro zašifrování této zprá
 
 #: lib/Ajax/Imple/PassphraseDialog.php:58
 msgid "Enter your personal PGP passphrase."
-msgstr "Vložte Vaše osobní PGP heslo."
+msgstr "Zadejte Vaše osobní PGP heslo."
 
 #: lib/Ajax/Imple/PassphraseDialog.php:66
 msgid "Enter your personal S/MIME passphrase."
-msgstr "Vložte vaše osobní S/MIME heslo."
+msgstr "Zadejte vaše osobní S/MIME heslo."
 
 #: lib/Basic/Search.php:89 lib/Dynamic/Mailbox.php:487
 #: templates/basic/search/search-basic.html.php:20
@@ -2773,7 +2769,7 @@ msgstr "Poslední stránka"
 
 #: lib/Imap/Acl.php:160
 msgid "List"
-msgstr "Seznam"
+msgstr "Zobrazit"
 
 #: lib/Dynamic/Mailbox.php:465 templates/dynamic/message.html.php:65
 #, fuzzy
@@ -3081,12 +3077,11 @@ msgstr "Zpráva je podepsaná"
 
 #: lib/Ajax/Application/Handler/Common.php:640 lib/Basic/Compose.php:411
 #: lib/Basic/Compose.php:417 lib/Minimal/Compose.php:242
-#, fuzzy
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
 msgstr[0] "Zráva byla úspěšně přesměrována."
 msgstr[1] "Zrávy byly úspěšně přesměrovány."
-msgstr[2] "Zrávy byly úspěšně přesměrovány."
+msgstr[2] "Zráv bylo úspěšně přesměrovných."
 
 #: lib/Compose.php:1019
 #, php-format
@@ -3334,14 +3329,12 @@ msgid "No Search Criteria"
 msgstr "Žádná vyhledávací kritéria"
 
 #: templates/search/search.html.php:59
-#, fuzzy
 msgid "No Search Mailboxes"
-msgstr "Prohledat všechny schránky"
+msgstr "Nejsou vybrány žádne složky"
 
 #: lib/Dynamic/Mailbox.php:261
-#, fuzzy
 msgid "No Sort"
-msgstr "Řazení"
+msgstr "Bez řazení"
 
 #: templates/prefs/newmailaudio.html.php:9
 msgid "No Sound"
@@ -3795,7 +3788,7 @@ msgstr "Možné konflikty"
 #: lib/Imap/Acl.php:180 templates/prefs/acl.html.php:40
 #: templates/prefs/acl.html.php:75
 msgid "Post"
-msgstr "Pošta"
+msgstr "Poslat"
 
 #: lib/Imap/Acl.php:179
 msgid "Post to this mailbox (not enforced by IMAP)"
@@ -3993,7 +3986,6 @@ msgstr "Přes_měrovat"
 #: templates/dynamic/redirect.html.php:7
 #: templates/minimal/redirect.html.php:27
 #: templates/smartmobile/message.html.php:55
-#, fuzzy
 msgid "Redirect"
 msgid_plural "Redirect Messages"
 msgstr[0] "Přesměrovat"
@@ -4207,7 +4199,7 @@ msgstr "Pokračovat v úpravě"
 #: lib/Basic/Search.php:512
 #, php-format
 msgid "Return to %s"
-msgstr "Návrat k %s"
+msgstr "Návrat do %s"
 
 #: templates/basic/folders/folders_size.html.php:41
 msgid "Return to Folders View"
@@ -4338,9 +4330,8 @@ msgid "Save All"
 msgstr "Uložit vše"
 
 #: lib/Dynamic/Compose/Common.php:182
-#, fuzzy
 msgid "Save Attachments in Sent Mailbox"
-msgstr "Uložit přílohy se zprávou ve složce pro odeslanou poštu"
+msgstr "Uložit přílohy ve složce pro odeslanou poštu"
 
 #: lib/Minimal/Compose.php:250 lib/Minimal/Compose.php:253
 #: lib/Minimal/Compose.php:309 templates/basic/compose/compose.html.php:24
@@ -5565,7 +5556,7 @@ msgstr "Komu"
 #: lib/Minimal/Message.php:262
 #, php-format
 msgid "To %s"
-msgstr "Komu%s"
+msgstr "Pro %s"
 
 #: config/prefs.php:1484
 msgid "To Address"
@@ -5589,7 +5580,7 @@ msgstr "Odpovědět _všem"
 
 #: lib/Basic/Message.php:582
 msgid "To _List"
-msgstr "Na seznam"
+msgstr "Na _seznam"
 
 #: lib/Basic/Thread.php:109 lib/Basic/Thread.php:110 lib/Mailbox/Ui.php:78
 #: templates/dynamic/redirect.html.php:14
@@ -6191,9 +6182,9 @@ msgid ""
 msgstr ""
 
 #: lib/Maillog/Log/Redirect.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "You redirected this message on %s to: %s."
-msgstr "Tato zpráva byla přesměrována na %s v %%s."
+msgstr "Tato zpráva byla přesměrována v %s na: %s."
 
 #: lib/Maillog/Log/Replyall.php:34
 #, php-format
@@ -6235,7 +6226,7 @@ msgstr "Úspěšně jste se registrovali pro \"%s\""
 msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
 msgstr "Úspěšně jste odregistrovali od \"%s\""
 
-#: lib/Mailbox.php:945[5~
+#: lib/Mailbox.php:945
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "Úspěšně jste odregistrovali od \"%s\""

@@ -532,9 +532,8 @@ msgid "Block Type"
 msgstr "Typ bloku"
 
 #: lib/Application.php:305
-#, fuzzy
 msgid "Bluetooth"
-msgstr "Blue Moon"
+msgstr "Bluetooth"
 
 #: config/registry.php:185
 msgid "Bookmarks"
@@ -555,7 +554,7 @@ msgstr "Prohlížeč"
 #: templates/activesync/device_table.html.php:29
 #: templates/prefs/activesync.html.php:56
 msgid "Cached Heartbeat (seconds)"
-msgstr ""
+msgstr "Interval obnovování (s)"
 
 #: config/registry.php:120
 msgid "Calendar"
@@ -563,7 +562,7 @@ msgstr "Kalendář"
 
 #: lib/Application.php:293
 msgid "Camera"
-msgstr ""
+msgstr "Fotoaparát"
 
 #: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
 #: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
@@ -595,10 +594,6 @@ msgstr "Keltský (ISO-8859-14)"
 #: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Středoevropský (ISO-8859-2)"
-
-#: config/nls.php:173
-msgid "Central European (windows-1250)"
-msgstr "Středoevropský (windows-1250)"
 
 #: templates/prefs/rpc.html:33
 msgid "Change"
@@ -651,7 +646,7 @@ msgstr "Zvolit %s"
 
 #: config/prefs.php:475
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Zvolte zobrazení datumu (zkrácený firnát):"
+msgstr "Zvolte zobrazení datumu (zkrácený formát):"
 
 #: config/prefs.php:451
 msgid "Choose how to display dates (full format):"
@@ -733,9 +728,8 @@ msgid "Comments: %d"
 msgstr "Komentáře: %d"
 
 #: templates/admin/activesync.html.php:16
-#, fuzzy
 msgid "Common Name"
-msgstr "Společný telefón"
+msgstr "Název"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
@@ -1033,9 +1027,8 @@ msgstr "ID zařízení"
 
 #: templates/activesync/device_table.html.php:7
 #: templates/prefs/activesync.html.php:31
-#, fuzzy
 msgid "Device Information"
-msgstr "Informace"
+msgstr "Informace o zařízení"
 
 #: templates/prefs/activesync.html.php:20
 msgid "Device Management"
@@ -1696,7 +1689,7 @@ msgstr "Poslední čtvrtina"
 #: templates/activesync/device_table.html.php:5
 #: templates/prefs/activesync.html.php:29
 msgid "Last Sync Time"
-msgstr "Čas poslední synchronizace"
+msgstr "Poslední synchronizace"
 
 #: lib/Block/Metar.php:125
 msgid "Last Updated:"
@@ -2023,7 +2016,7 @@ msgid ""
 msgstr ""
 "POZNÁMKA: VYMAZÁNÍ ZAŘÍZENÍ MŮŽE ZPŮSOBIT NÁVRAT DO VÝROBCEM NASTAVENÝCH "
 "HODNOT. PROSÍME UJISTĚTE SE PŘED PROVEDENÍM VYMAZÁNÍ, ZDALI TO CHCETE "
-"OPRAVDU PROVÉST"
+"OPRAVDU PROVÉST."
 
 #: lib/Block/Vatid.php:93
 msgid "Name"
@@ -2148,7 +2141,7 @@ msgstr "DB schéma není aktuální."
 #: templates/prefs/activesync.html.php:50
 #: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
 msgid "None"
-msgstr "Žádný"
+msgstr "Žádné"
 
 #: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
@@ -2161,7 +2154,7 @@ msgstr "Severní polokoule"
 #: templates/activesync/device_table.html.php:18
 #: templates/prefs/activesync.html.php:45
 msgid "Not Provisioned"
-msgstr "neupraveno"
+msgstr "Nespravováno"
 
 #: config/registry.php:169
 msgid "Notes"
@@ -3195,18 +3188,12 @@ msgid "This VAT identification number is valid."
 msgstr "Toto DIČ je platné."
 
 #: templates/admin/activesync.html.php:33
-#, fuzzy
 msgid "This will cause all devices to resyncronize all items."
-msgstr ""
-"Resetovat všechny stavy zařízení. Toto zapříčiní kompletní resynchronizaci "
-"všech položek vašeho zařízení."
+msgstr "Toto zapříčiní resynchronizaci všech položek do Vašich zařízení."
 
 #: templates/prefs/activesync.html.php:16
-#, fuzzy
 msgid "This will cause your devices to resyncronize all items."
-msgstr ""
-"Resetovat všechny stavy zařízení. Toto zapříčiní kompletní resynchronizaci "
-"všech položek vašeho zařízení."
+msgstr "Toto zapříčiní resynchronizaci všech položek do Vašich zařízení."
 
 #: config/registry.php:226
 msgid "Tickets"
@@ -3308,14 +3295,12 @@ msgid "Unable to validate the request token. Please try your request again."
 msgstr ""
 
 #: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:56
-#, fuzzy
 msgid "Unavailable"
-msgstr "Žádné akce nejsou dostupné"
+msgstr "Neznámý"
 
 #: templates/activesync/device_table.html.php:41
-#, fuzzy
 msgid "Unblock"
-msgstr "Odemknout"
+msgstr "Odblokovat"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
@@ -3395,9 +3380,8 @@ msgid "Uploaded all application configuration files to the server."
 msgstr "Všechny konfigurační soubory pro nastavení byly uloženy na server."
 
 #: lib/Prefs/Special/Activesync.php:66
-#, fuzzy
 msgid "Use Horde Default"
-msgstr "Resetovat na Implicitní Nastavení"
+msgstr "Použít globální nastavení"
 
 #: config/prefs.php:688
 msgid "Use if name/password is different for IMSP server."
@@ -3561,7 +3545,7 @@ msgstr "Které fáze"
 #: config/prefs.php:600
 #, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Šíře %s levého menu:"
+msgstr "Šíře levého menu %s:"
 
 #: lib/Application.php:301
 msgid "Wifi"
@@ -3588,13 +3572,12 @@ msgstr "Vítr:"
 #: templates/activesync/device_table.html.php:33
 #: templates/prefs/activesync.html.php:37
 msgid "Wipe"
-msgstr "Vymazat"
+msgstr "Vymazat data"
 
 #: templates/activesync/device_table.html.php:12
 #: templates/prefs/activesync.html.php:40
-#, fuzzy
 msgid "Wipe Pending"
-msgstr "Vymazání čeká"
+msgstr "Výmaz čeká na zpracování"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"

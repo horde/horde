@@ -1234,7 +1234,7 @@ msgstr ""
 
 #: templates/search/advanced.html.php:6
 msgid "Reset to Defaults"
-msgstr "Zpět na implicitní nastavení"
+msgstr "Vynulovat"
 
 #: config/attributes.php:492
 msgid "S/MIME Public Certificate"
@@ -1271,7 +1271,7 @@ msgstr "Vyhledat"
 
 #: templates/search/header.html.php:3
 msgid "Search Criteria Hidden - Click to Display"
-msgstr ""
+msgstr "Vyhledávací kritéria jsou skryté. Kľikněte sem pro zobrazení."
 
 #: templates/search/duplicate.html.php:2
 msgid "Search duplicates in:"
