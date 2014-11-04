@@ -35,7 +35,9 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="horde-push" role="script" />
+    <file name="horde-push" role="script">
+     <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="doc">
     <dir name="Horde">
