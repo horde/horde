@@ -2057,16 +2057,29 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Returns the provisioning support for the current request.
      *
+     * @param Horde_ActiveSync_Device $device  The device object. @since 2.16.0
+     *
      * @return mixed  The value of the provisiong support flag.
      */
-    public function getProvisioning()
+    public function getProvisioning(Horde_ActiveSync_Device $device = null)
     {
+        if (!empty($device)) {
+            try {
+                $hooks = $GLOBALS['injector']->getInstance('Horde_Core_Hooks');
+                $result = $hooks->callHook('activesync_provisioning_check', 'horde', array($device, $this->_user));
+                if ($result !== -1) {
+                    return $result;
+                }
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
         $provisioning = $GLOBALS['injector']
             ->getInstance('Horde_Perms')
             ->getPermissions(
                 'horde:activesync:provisioning',
                 $this->_user);
         return $this->_getPolicyValue('provisioning', $provisioning);
+
     }
 
     /**
