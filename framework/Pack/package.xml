@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-02</date>
+ <date>2014-11-04</date>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -219,7 +219,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-02</date>
+   <date>2014-11-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Catch unknown errors when unpacking data.
