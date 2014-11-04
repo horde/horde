@@ -21,7 +21,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Else implements Ingo_Script_Item
+class Ingo_Script_Sieve_Else extends Ingo_Script_Sieve_Base
 {
     /**
      * A list of Ingo_Script_Sieve_Action objects that go into the else clause.

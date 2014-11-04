@@ -23,7 +23,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-abstract class Ingo_Script_Sieve_Test implements Ingo_Script_Item
+abstract class Ingo_Script_Sieve_Test extends Ingo_Script_Sieve_Base
 {
     /**
      * Any necessary test parameters.
@@ -39,15 +39,4 @@ abstract class Ingo_Script_Sieve_Test implements Ingo_Script_Item
      *                         otherwise.
      */
     abstract public function check();
-
-    /**
-     * Returns a list of sieve extensions required for this rule and any
-     * sub-rules.
-     *
-     * @return array  A Sieve extension list.
-     */
-    public function requires()
-    {
-        return array();
-    }
 }

@@ -23,7 +23,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Comment implements Ingo_Script_Item
+class Ingo_Script_Sieve_Comment extends Ingo_Script_Sieve_Base
 {
     /**
      */
@@ -66,16 +66,5 @@ class Ingo_Script_Sieve_Comment implements Ingo_Script_Item
     public function check()
     {
         return true;
-    }
-
-    /**
-     * Returns a list of sieve extensions required for this rule and any
-     * sub-rules.
-     *
-     * @return array  A Sieve extension list.
-     */
-    public function requires()
-    {
-        return array();
     }
 }

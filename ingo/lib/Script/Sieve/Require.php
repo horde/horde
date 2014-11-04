@@ -19,7 +19,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Require implements Ingo_Script_Item
+class Ingo_Script_Sieve_Require extends Ingo_Script_Sieve_Base
 {
     /**
      * @var array
