@@ -318,6 +318,23 @@
  *   [Horde_ActiveSync_Mime] - Replaces the outgoing message with the contents
  *       of this MIME object.
  *
+ * activesync_provisioning_check
+ * -----------------------------
+ *
+ * This hook gives the chance to customize the provisioning requirements in a
+ * more atomic manner. E.g., enforce it on clients that REQUIRE it, but not on
+ * other clients.
+ *
+ * Parameters in:
+ *     $device (Horde_ActiveSync_Device)  The device object.
+ *     $user (string) The authenticating username.
+ *
+ * The return value from this hook is as follows:
+ *     [throw Horde_Exception] - Fatal error.
+ *     [mixed] - The provisioning constant to enforce for the current device.
+ *     [-1]    - No change to provisioning support should be applied.
+ *
+ *
  * TODO: groupldap, share_add, share_modify, share_remove
  *
  * $Id$
@@ -1174,5 +1191,28 @@ class Horde_Hooks
   //
   //       return true;
   // }
+
+   /**
+    * Hook for altering the provisioning requirement more atomically than can be
+    * done via the permissions interface.
+    *
+    * @param Horde_ActiveSync_Device $device  The device object.
+    * @param string $user                     The authenticating user.
+    *
+    * @return mixed  The provisioning constant to enforce for this request. If
+    *                no forced provisioning, -1 is returned.
+    */
+   // public function activesync_provisioning_check(Horde_ActiveSync_Device $device, $user)
+   // {
+   //      // Simple example for setting the provisioning requirement to force
+   //      // provisioning for Windows 8 Mail, while leaving other situations
+   //      // unchanged. This could easily be extended to provide more detailed
+   //      // checks such as certain username/device combinations etc..
+   //      if (strpos($device->userAgent, 'WindowsMail/') === 0) {
+   //          return Horde_ActiveSync::PROVISIONING_FORCE;
+   //      }
+
+   //      return -1;
+   // }
 
 }

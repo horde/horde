@@ -10,9 +10,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-21</date>
+ <date>2014-11-04</date>
  <version>
-  <release>2.20.0</release>
+  <release>2.20.1</release>
   <api>2.20.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix handling of MIME truncation in certain cases.
-* [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
-* [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
-* [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -237,6 +234,7 @@
        <file name="dst.wbxml" role="test" />
        <file name="email_plain.eml" role="test" />
        <file name="email_signed.eml" role="test" />
+       <file name="encrypted.eml" role="test" />
        <file name="invitation_one.eml" role="test" />
        <file name="iOSMultipartAlternative.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
@@ -548,6 +546,7 @@
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/email_plain.eml" name="test/Horde/ActiveSync/fixtures/email_plain.eml" />
    <install as="Horde/ActiveSync/fixtures/email_signed.eml" name="test/Horde/ActiveSync/fixtures/email_signed.eml" />
+   <install as="Horde/ActiveSync/fixtures/encrypted.eml" name="test/Horde/ActiveSync/fixtures/encrypted.eml" />
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
    <install as="Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" name="test/Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
@@ -2431,13 +2430,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2014-11-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Provisioning requirement is now set after the device object is obtained.
 * [mjr] Fix handling of MIME truncation in certain cases.
 * [mjr] Change the order various SYNC reply structures are sent to be more in-line with the spcification.
 * [mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect values for MIMESUPPORT and other values (Bug #12970).
 * [mjr] Added support for differentiating between S/MIME signed and S/MIME encrypted so the content-class property can be properly set (Bug #12970).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.1</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

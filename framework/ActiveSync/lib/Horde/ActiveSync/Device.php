@@ -249,7 +249,7 @@ class Horde_ActiveSync_Device
     {
         // Outlook? The specs say that "Windows Communication Apps" should
         // provide the 'OS' parameter of the ITEMSETTINGS data equal to 'Windows',
-        // but Outlook 2013 doesn't even sent the ITEMSETTINGS command, so we
+        // but Outlook 2013 doesn't even send the ITEMSETTINGS command, so we
         // need to check the userAgent header. Early versions used Microsoft.Outlook,
         // but after some update it was changed to 'Outlook/15.0'
         if (strpos($this->deviceType, 'MicrosoftOutlook') !== false ||
