@@ -590,6 +590,7 @@ class Horde_PageOutput
             $this->smartmobileInit = array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
+                '$.mobile.listview.prototype.options.filterPlaceholder = "' . Horde_Core_Translation::t("Filter items...") . '";',
                 '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
             ),
                 isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array(),
