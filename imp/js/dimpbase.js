@@ -2468,6 +2468,8 @@ var DimpBase = {
             id = elt.identify(),
             d = DragDrop.Drags.getDrag(id);
 
+        this.is_keydown = false;
+
         if (elt.hasClassName('vpRow')) {
             args = { right: e.memo.isRightClick() };
             d.fromClick = d.selectIfNoDrag = false;
@@ -2789,6 +2791,8 @@ var DimpBase = {
     {
         var elt = e.element(),
             tmp;
+
+        this.is_keydown = false;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
             DimpCore.setPref('splitbar_side', null);
