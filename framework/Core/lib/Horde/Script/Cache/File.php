@@ -135,6 +135,7 @@ class Horde_Script_Cache_File extends Horde_Script_Cache
 
         $temp = Horde_Util::getTempFile('staticjs', true, $js_fs);
         if (!file_put_contents($temp, $jsmin->minify(), LOCK_EX) ||
+            !chmod($temp, 0777 & ~umask()) ||
             !rename($temp, $js_path)) {
             Horde::log('Could not write cached JS file to disk.', Horde_Log::EMERG);
         } elseif ($this->_compress->sourcemap_support) {
