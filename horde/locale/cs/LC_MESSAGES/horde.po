@@ -532,9 +532,8 @@ msgid "Block Type"
 msgstr "Typ bloku"
 
 #: lib/Application.php:305
-#, fuzzy
 msgid "Bluetooth"
-msgstr "Blue Moon"
+msgstr "Bluetooth"
 
 #: config/registry.php:185
 msgid "Bookmarks"
@@ -555,7 +554,7 @@ msgstr "Prohlížeč"
 #: templates/activesync/device_table.html.php:29
 #: templates/prefs/activesync.html.php:56
 msgid "Cached Heartbeat (seconds)"
-msgstr ""
+msgstr "Interval obnovování (s)"
 
 #: config/registry.php:120
 msgid "Calendar"
@@ -563,7 +562,7 @@ msgstr "Kalendář"
 
 #: lib/Application.php:293
 msgid "Camera"
-msgstr ""
+msgstr "Fotoaparát"
 
 #: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
 #: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
@@ -647,7 +646,7 @@ msgstr "Zvolit %s"
 
 #: config/prefs.php:475
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Zvolte zobrazení datumu (zkrácený firnát):"
+msgstr "Zvolte zobrazení datumu (zkrácený formát):"
 
 #: config/prefs.php:451
 msgid "Choose how to display dates (full format):"
@@ -729,9 +728,8 @@ msgid "Comments: %d"
 msgstr "Komentáře: %d"
 
 #: templates/admin/activesync.html.php:16
-#, fuzzy
 msgid "Common Name"
-msgstr "Společný telefón"
+msgstr "Název"
 
 #: lib/Block/Fortune.php:38
 msgid "Computers"
@@ -963,7 +961,7 @@ msgstr "Výchozí shell"
 
 #: config/prefs.php:403
 msgid "Default charset for sending e-mail messages:"
-msgstr "Výchozí font pro posílání e-mailových zpráv:"
+msgstr "Výchozí znaková sada posílaných e-mailových zpráv:"
 
 #: config/prefs.php:296
 msgid "Default location to use for location-aware features."
@@ -1029,9 +1027,8 @@ msgstr "ID zařízení"
 
 #: templates/activesync/device_table.html.php:7
 #: templates/prefs/activesync.html.php:31
-#, fuzzy
 msgid "Device Information"
-msgstr "Informace"
+msgstr "Informace o zařízení"
 
 #: templates/prefs/activesync.html.php:20
 msgid "Device Management"
@@ -1153,7 +1150,7 @@ msgstr "Upravit \"%s\""
 
 #: templates/prefs/app.html:6
 msgid "Edit Preferences for"
-msgstr "Editovat nastavení pro"
+msgstr "Upravit nastavení pro"
 
 #: services/shares/edit.php:249
 msgid "Edit permissions"
@@ -1307,11 +1304,11 @@ msgstr "Zapsat"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr "Zásobník"
+msgstr "RSS kanál"
 
 #: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Adresa zásobníku"
+msgstr "Adresa RSS kanálu"
 
 #: lib/Block/Metar.php:194
 msgid "Feels Like"
@@ -1524,7 +1521,7 @@ msgstr "Kolik je tam polí (sloupců)?"
 
 #: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
-msgstr "Kolik sekund předem zkontrolujeme nové články?"
+msgstr "Po kolika sekundách se mají kontrolovat nové články?"
 
 #: lib/Block/Metar.php:204 lib/Block/Weather.php:227 lib/Block/Weather.php:267
 msgid "Humidity"
@@ -1545,7 +1542,7 @@ msgstr "Ikony pro %s"
 
 #: templates/prefs/activesync.html.php:2
 msgid "Identity to use when sending email via ActiveSync."
-msgstr ""
+msgstr "Identita, která se použije při odesílání e-mailů přes ActiveSync."
 
 #: config/prefs.php:274
 msgid "Identity's name:"
@@ -1692,7 +1689,7 @@ msgstr "Poslední čtvrtina"
 #: templates/activesync/device_table.html.php:5
 #: templates/prefs/activesync.html.php:29
 msgid "Last Sync Time"
-msgstr "Čas poslední synchronizace"
+msgstr "Poslední synchronizace"
 
 #: lib/Block/Metar.php:125
 msgid "Last Updated:"
@@ -1898,7 +1895,7 @@ msgstr "Maximální počet zařízení"
 
 #: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
-msgstr "Maximální počet položek k zobrazení"
+msgstr "Maximální počet zobrayených položek"
 
 #: lib/Block/Fortune.php:57
 msgid "Medicine"
@@ -2019,7 +2016,7 @@ msgid ""
 msgstr ""
 "POZNÁMKA: VYMAZÁNÍ ZAŘÍZENÍ MŮŽE ZPŮSOBIT NÁVRAT DO VÝROBCEM NASTAVENÝCH "
 "HODNOT. PROSÍME UJISTĚTE SE PŘED PROVEDENÍM VYMAZÁNÍ, ZDALI TO CHCETE "
-"OPRAVDU PROVÉST"
+"OPRAVDU PROVÉST."
 
 #: lib/Block/Vatid.php:93
 msgid "Name"
@@ -2068,7 +2065,7 @@ msgstr "Další 4 fáze"
 
 #: templates/prefs/alarm.html:32
 msgid "No Sound"
-msgstr "Žádný zvuk"
+msgstr "Bez zvuku"
 
 #: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
@@ -2144,7 +2141,7 @@ msgstr "DB schéma není aktuální."
 #: templates/prefs/activesync.html.php:50
 #: templates/prefs/activesync.html.php:63 templates/prefs/syncml.html.php:34
 msgid "None"
-msgstr "Žádný"
+msgstr "Žádné"
 
 #: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
@@ -2157,7 +2154,7 @@ msgstr "Severní polokoule"
 #: templates/activesync/device_table.html.php:18
 #: templates/prefs/activesync.html.php:45
 msgid "Not Provisioned"
-msgstr "neupraveno"
+msgstr "Nespravováno"
 
 #: config/registry.php:169
 msgid "Notes"
@@ -2238,7 +2235,6 @@ msgid "Other Options"
 msgstr "Další Možnosti"
 
 #: config/registry.php:180
-#, fuzzy
 msgid "Others"
 msgstr "Ostatní"
 
@@ -2331,9 +2327,8 @@ msgid "Pets"
 msgstr "Domácí zvířata"
 
 #: templates/admin/activesync.html.php:19
-#, fuzzy
 msgid "Phone Number"
-msgstr "Fonetické příjmení"
+msgstr "Telefonní číslo"
 
 #: config/registry.php:197
 msgid "Photos"
@@ -2376,6 +2371,8 @@ msgid ""
 "Position of reply text when replying to email on your device. Note that some "
 "devices will always send the citation string at the end of the reply text."
 msgstr ""
+"Umístění textu odpovědi při odepisování na mobilním zařízení. Poznámka: "
+"Některá zařízení vždy umístí citaci na konec zprávy."
 
 #: lib/Block/FbStream.php:143
 msgid "Post"
@@ -2798,7 +2795,7 @@ msgstr "Krátké shrnutí"
 
 #: config/prefs.php:620
 msgid "Should access keys be defined for most links?"
-msgstr "Měly by být přístupové klíče definovány pro většinu odkazů?"
+msgstr "Mají být klávesové zkratky definovány pro většinu odkazů?"
 
 #: templates/shares/edit.inc:64 templates/shares/edit.inc:75
 #: templates/shares/edit.inc:99 templates/shares/edit.inc:110
@@ -2815,9 +2812,8 @@ msgid "Show Advanced Preferences"
 msgstr "Zobrazit pokročilé nastavení"
 
 #: templates/prefs/end.html:8
-#, fuzzy
 msgid "Show All Preferences Groups"
-msgstr "Zobrazit pokročilé nastavení"
+msgstr "Zobrazit všechny skupiny nastavení"
 
 #: admin/config/index.php:385
 msgid ""
@@ -2827,7 +2823,7 @@ msgstr "Zobrazit odlišnosti mezi současnou a předchozí konfigurací."
 
 #: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr "Ukázat extra detail?"
+msgstr "Zobrazit popisky článků?"
 
 #: config/prefs.php:565
 msgid "Show last login time when logging in?"
@@ -3192,18 +3188,12 @@ msgid "This VAT identification number is valid."
 msgstr "Toto DIČ je platné."
 
 #: templates/admin/activesync.html.php:33
-#, fuzzy
 msgid "This will cause all devices to resyncronize all items."
-msgstr ""
-"Resetovat všechny stavy zařízení. Toto zapříčiní kompletní resynchronizaci "
-"všech položek vašeho zařízení."
+msgstr "Toto zapříčiní resynchronizaci všech položek do Vašich zařízení."
 
 #: templates/prefs/activesync.html.php:16
-#, fuzzy
 msgid "This will cause your devices to resyncronize all items."
-msgstr ""
-"Resetovat všechny stavy zařízení. Toto zapříčiní kompletní resynchronizaci "
-"všech položek vašeho zařízení."
+msgstr "Toto zapříčiní resynchronizaci všech položek do Vašich zařízení."
 
 #: config/registry.php:226
 msgid "Tickets"
@@ -3255,7 +3245,7 @@ msgstr "Zítra"
 
 #: config/prefs.php:748
 msgid "Top"
-msgstr "Nahoru"
+msgstr "Nahoře"
 
 #: lib/Block/Fortune.php:70
 msgid "Translations"
@@ -3305,14 +3295,12 @@ msgid "Unable to validate the request token. Please try your request again."
 msgstr ""
 
 #: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:56
-#, fuzzy
 msgid "Unavailable"
-msgstr "Žádné akce nejsou dostupné"
+msgstr "Neznámý"
 
 #: templates/activesync/device_table.html.php:41
-#, fuzzy
 msgid "Unblock"
-msgstr "Odemknout"
+msgstr "Odblokovat"
 
 #: templates/prefs/end.html:5
 msgid "Undo Changes"
@@ -3392,9 +3380,8 @@ msgid "Uploaded all application configuration files to the server."
 msgstr "Všechny konfigurační soubory pro nastavení byly uloženy na server."
 
 #: lib/Prefs/Special/Activesync.php:66
-#, fuzzy
 msgid "Use Horde Default"
-msgstr "Resetovat na Implicitní Nastavení"
+msgstr "Použít globální nastavení"
 
 #: config/prefs.php:688
 msgid "Use if name/password is different for IMSP server."
@@ -3495,7 +3482,7 @@ msgstr "Upozornění"
 
 #: templates/login/login.inc:43
 msgid "Warning: Your Caps Lock key is on!"
-msgstr ""
+msgstr "Upozornění: Máte zapnutý Caps Lock!"
 
 #: lib/Block/Weather.php:35 lib/Block/Weather.php:62
 msgid "Weather"
@@ -3558,7 +3545,7 @@ msgstr "Které fáze"
 #: config/prefs.php:600
 #, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Šíře %s levého menu:"
+msgstr "Šíře levého menu %s:"
 
 #: lib/Application.php:301
 msgid "Wifi"
@@ -3585,13 +3572,12 @@ msgstr "Vítr:"
 #: templates/activesync/device_table.html.php:33
 #: templates/prefs/activesync.html.php:37
 msgid "Wipe"
-msgstr "Vymazat"
+msgstr "Vymazat data"
 
 #: templates/activesync/device_table.html.php:12
 #: templates/prefs/activesync.html.php:40
-#, fuzzy
 msgid "Wipe Pending"
-msgstr "Vymazání čeká"
+msgstr "Výmaz čeká na zpracování"
 
 #: lib/Block/Fortune.php:71
 msgid "Wisdom"
@@ -3879,7 +3865,7 @@ msgstr "_Skupiny"
 
 #: lib/Api.php:60
 msgid "_Locks"
-msgstr "_zámky"
+msgstr "_Zámky"
 
 #: lib/Api.php:55
 msgid "_Permissions"
