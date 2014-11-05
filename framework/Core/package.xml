@@ -30,7 +30,7 @@
  </developer>
  <date>2014-11-05</date>
  <version>
-  <release>2.16.1</release>
+  <release>2.16.2</release>
   <api>2.16.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix file permissions of dynamically generated static CSS/JS files.
-* [jan] Use correct user name as a fallback for identity full names with existing authusername hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3691,6 +3690,19 @@
    <notes>
 * [mms] Fix file permissions of dynamically generated static CSS/JS files.
 * [jan] Use correct user name as a fallback for identity full names with existing authusername hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.16.2</release>
+    <api>2.16.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
