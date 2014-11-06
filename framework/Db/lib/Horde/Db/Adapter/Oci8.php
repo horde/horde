@@ -387,16 +387,23 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      *
      * @since Horde_Db 2.2.0
      *
-     * @param string $table  The table name.
-     * @param array $fields  A hash of column names and values. BLOB columns
-     *                       must be provided as Horde_Db_Value_Binary objects.
-     * @param string $where  A WHERE clause.
+     * @param string $table        The table name.
+     * @param array $fields        A hash of column names and values. BLOB
+     *                             columns must be provided as
+     *                             Horde_Db_Value_Binary objects.
+     * @param string|array $where  A WHERE clause. Either a complete clause or
+     *                             an array containing a clause with
+     *                             placeholders and a list of values.
      *
      * @throws Horde_Db_Exception
      */
-    public function updateBlob($table, $fields, $where = '')
+    public function updateBlob($table, $fields, $where = null)
     {
         list($fields, $blobs, $locators) = $this->_prepareBlobs($fields);
+
+        if (is_array($where)) {
+            $where = $this->_replaceParameters($where[0], $where[1]);
+        }
 
         $sql = 'UPDATE ' . $this->quoteTableName($table) . ' SET '
             . implode(
