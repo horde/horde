@@ -33,7 +33,7 @@ class Horde_Argv_Values implements IteratorAggregate, ArrayAccess, Countable
 
     public function offsetExists($attr)
     {
-        return !is_null($this->$attr);
+        return isset($this->$attr) && !is_null($this->$attr);
     }
 
     public function offsetGet($attr)
