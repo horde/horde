@@ -922,11 +922,11 @@ class Horde_ActiveSync_Imap_Adapter
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
         $eas_message = Horde_ActiveSync::messageFactory('Mail');
 
-        // Build To: data (POOMMAIL_TO has a max length of 1024).
+        // Build To: data (POOMMAIL_TO has a max length of 32768).
         $to = $imap_message->getToAddresses();
         $eas_message->to = array_pop($to['to']);
         foreach ($to['to'] as $to_atom) {
-            if (strlen($eas_message->to) + strlen($to_atom) > 1024) {
+            if (strlen($eas_message->to) + strlen($to_atom) > 32768) {
                 break;
             }
             $eas_message->to .= ',' . $to_atom;
