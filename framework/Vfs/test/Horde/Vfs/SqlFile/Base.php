@@ -179,7 +179,7 @@ class Horde_Vfs_Test_SqlFile_Base extends Horde_Vfs_TestBase
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_vfs_test_schema'));
+                  'schemaTableName' => 'horde_vfs_schema_info'));
         self::$migrator->up();
 
         self::$vfs = new Horde_Vfs_SqlFile(array('db' => self::$db));

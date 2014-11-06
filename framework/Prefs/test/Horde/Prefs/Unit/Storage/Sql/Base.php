@@ -71,7 +71,7 @@ class Horde_Prefs_Test_Sql_Base extends Horde_Test_Case
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_prefs_test_schema'));
+                  'schemaTableName' => 'horde_prefs_schema_info'));
         self::$migrator->up();
         self::$db->insert(
             'INSERT INTO horde_prefs (pref_uid, pref_scope, pref_name, pref_value) VALUES (?, ?, ?, ?)',

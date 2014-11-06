@@ -29,7 +29,7 @@ class Horde_Auth_Unit_Sql_Base extends Horde_Auth_TestCase
             self::$db,
             null,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_auth_test_schema'));
+                  'schemaTableName' => 'horde_auth_schema_info'));
         self::$migrator->up();
 
         self::$auth = new Horde_Auth_Sql(array('db' => self::$db, 'encryption' => 'plain'));

@@ -35,7 +35,7 @@ class Horde_Auth_Unit_Sql_Locks extends Horde_Auth_Unit_Sql_Base
             self::$db,
             null,//$logger,
             array('migrationsPath' => $lockMigrationsPath,
-                  'schemaTableName' => 'horde_lock_test_schema'));
+                  'schemaTableName' => 'horde_lock_schema_info'));
         self::$locksMigrator->up();
 
         self::$locks = new Horde_Lock_Sql(array('db' => self::$db));

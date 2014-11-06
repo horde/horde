@@ -30,7 +30,7 @@ abstract class Horde_Alarm_Storage_Sql_Base extends Horde_Alarm_Storage_Base
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_alarm_test_schema'));
+                  'schemaTableName' => 'horde_alarm_schema_info'));
         self::$migrator->up();
     }
 

@@ -84,7 +84,7 @@ class Horde_SessionHandler_Storage_Sql_Base extends Horde_SessionHandler_Storage
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_sh_test_schema'));
+                  'schemaTableName' => 'horde_sessionhandler_schema_info'));
         self::$migrator->up();
 
         self::$handler = new Horde_SessionHandler_Storage_Sql(array('db' => self::$db));

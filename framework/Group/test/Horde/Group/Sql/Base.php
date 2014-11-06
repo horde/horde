@@ -141,7 +141,7 @@ class Horde_Group_Test_Sql_Base extends Horde_Group_TestBase
             self::$db,
             null,//$logger,
             array('migrationsPath' => $dir,
-                  'schemaTableName' => 'horde_groups_test_schema'));
+                  'schemaTableName' => 'horde_groups_schema_info'));
         self::$migrator->up();
 
         self::$group = new Horde_Group_Sql(array('db' => self::$db));
