@@ -128,16 +128,14 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _getHash(array $alarm)
     {
-
-        try {
-            $columns = $this->_db->columns($this->_params['table']);
-        } catch (Horde_Db_Exception $e) {
-            throw new Horde_Alarm_Exception(
-                Horde_Alarm_Translation::t("Server error when querying database.")
-            );
+        foreach (array('params', 'text', 'internal') as $column) {
+            if (isset($alarm['alarm_' . $column])) {
+                $alarm['alarm_' . $column] = $this->_convertBinary(
+                    'alarm_' . $column,
+                    $alarm['alarm_' . $column]
+                );
+            }
         }
-
-        $alarm['alarm_params'] = $columns['alarm_params']->binaryToString($alarm['alarm_params']);
         $params = base64_decode($alarm['alarm_params']);
         if (!strlen($params) && strlen($alarm['alarm_params'])) {
             $params = $alarm['alarm_params'];
@@ -167,9 +165,11 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _get($id, $user)
     {
-        $query = sprintf('SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
-                         $this->_params['table'],
-                         !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
+        $query = sprintf(
+            'SELECT alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_internal FROM %s WHERE alarm_id = ? AND %s',
+            $this->_params['table'],
+            !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)'
+        );
 
         try {
             $alarm = $this->_db->selectOne($query, array($id, $user));
@@ -195,22 +195,21 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _add(array $alarm)
     {
-        $query = sprintf('INSERT INTO %s (alarm_id, alarm_uid, alarm_start, alarm_end, alarm_methods, alarm_params, alarm_title, alarm_text, alarm_snooze, alarm_instanceid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', $this->_params['table']);
         $values = array(
-            $alarm['id'],
-            isset($alarm['user']) ? $alarm['user'] : '',
-            $alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
-            empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
-            serialize($alarm['methods']),
-            base64_encode(serialize($alarm['params'])),
-            $this->_toDriver($alarm['title']),
-            empty($alarm['text']) ? null : $this->_toDriver($alarm['text']),
-            null,
-            empty($alarm['instanceid']) ? null : $alarm['instanceid']
+            'alarm_id' => $alarm['id'],
+            'alarm_uid' => isset($alarm['user']) ? $alarm['user'] : '',
+            'alarm_start' => $alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+            'alarm_end' => empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+            'alarm_methods' => serialize($alarm['methods']),
+            'alarm_params' => new Horde_Db_Value_Text(base64_encode(serialize($alarm['params']))),
+            'alarm_title' => $this->_toDriver($alarm['title']),
+            'alarm_text' => empty($alarm['text']) ? null : new Horde_Db_Value_Text($this->_toDriver($alarm['text'])),
+            'alarm_snooze' => null,
+            'alarm_instanceid' => empty($alarm['instanceid']) ? null : $alarm['instanceid']
         );
 
         try {
-            $this->_db->insert($query, $values);
+            $this->_db->insertBlob($this->_params['table'], $values);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")
@@ -228,24 +227,32 @@ class Horde_Alarm_Sql extends Horde_Alarm
      */
     protected function _update(array $alarm, $keepsnooze = false)
     {
-        $query = sprintf('UPDATE %s set alarm_start = ?, alarm_end = ?, alarm_methods = ?, alarm_params = ?, alarm_title = ?, alarm_instanceid = ?, alarm_text = ?%s WHERE alarm_id = ? AND %s',
-                         $this->_params['table'],
-                         $keepsnooze ? '' : ', alarm_snooze = NULL, alarm_dismissed = 0',
-                         isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array($alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
-                        empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
-                        serialize($alarm['methods']),
-                        base64_encode(serialize($alarm['params'])),
-                        $this->_toDriver($alarm['title']),
-                        empty($alarm['instanceid']) ? null : $alarm['instanceid'],
-                        empty($alarm['text'])
-                              ? null
-                              : $this->_toDriver($alarm['text']),
-                        $alarm['id'],
-                        isset($alarm['user']) ? $alarm['user'] : '');
+        $where = array(
+            sprintf(
+                'alarm_id = ? AND %s',
+                isset($alarm['user']) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)'
+            ),
+            array(
+                $alarm['id'],
+                isset($alarm['user']) ? $alarm['user'] : ''
+            )
+        );
+        $values = array(
+            'alarm_start' => $alarm['start']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+            'alarm_end' => empty($alarm['end']) ? null : $alarm['end']->setTimezone('UTC')->format(Horde_Date::DATE_DEFAULT),
+            'alarm_methods' => serialize($alarm['methods']),
+            'alarm_params' => new Horde_Db_Value_Text(base64_encode(serialize($alarm['params']))),
+            'alarm_title' => $this->_toDriver($alarm['title']),
+            'alarm_instanceid' => empty($alarm['instanceid']) ? null : $alarm['instanceid'],
+            'alarm_text' => empty($alarm['text']) ? null : new Horde_Db_Value_Text($this->_toDriver($alarm['text']))
+        );
+        if (!$keepsnooze) {
+            $values['alarm_snooze'] = null;
+            $values['alarm_dismissed'] = 0;
+        }
 
         try {
-            $this->_db->update($query, $values);
+            $this->_db->updateBlob($this->_params['table'], $values, $where);
         } catch (Horde_Db_Exception $e) {
             throw new Horde_Alarm_Exception(
                 Horde_Alarm_Translation::t("Server error when querying database.")
@@ -268,7 +275,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
         $query = sprintf('UPDATE %s set alarm_internal = ? WHERE alarm_id = ? AND %s',
                          $this->_params['table'],
                          !empty($user) ? 'alarm_uid = ?' : '(alarm_uid = ? OR alarm_uid IS NULL)');
-        $values = array(serialize($internal), $id, $user);
+        $values = array(new Horde_Db_Value_Text(serialize($internal)), $id, $user);
 
         try {
             $this->_db->update($query, $values);
@@ -466,4 +473,23 @@ class Horde_Alarm_Sql extends Horde_Alarm
         return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
     }
 
+    /**
+     * Converts results from TEXT columns to strings.
+     *
+     * @param string $column  A column name.
+     * @param mixed $value    A TEXT column value.
+     *
+     * @return string  The column value as plain string.
+     */
+    protected function _convertBinary($column, $value)
+    {
+        try {
+            $columns = $this->_db->columns($this->_params['table']);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Alarm_Exception(
+                Horde_Alarm_Translation::t("Server error when querying database.")
+            );
+        }
+        return $columns[$column]->binaryToString($value);
+    }
 }

@@ -31,7 +31,7 @@ abstract class Horde_Alarm_Storage_Base extends Horde_Test_Case
                       'start' => self::$date,
                       'end' => self::$end,
                       'methods' => array(),
-                      'params' => array(),
+                      'params' => array('foo' => str_repeat('X', 5000)),
                       'title' => 'This is a personal alarm.');
         self::$alarm->set($hash);
     }
@@ -54,7 +54,7 @@ abstract class Horde_Alarm_Storage_Base extends Horde_Test_Case
         $this->assertEquals('personalalarm', $alarm['id']);
         $this->assertEquals('john', $alarm['user']);
         $this->assertEquals(array(), $alarm['methods']);
-        $this->assertEquals(array(), $alarm['params']);
+        $this->assertEquals(str_repeat('X', 5000), $alarm['params']['foo']);
         $this->assertEquals('This is a personal alarm.', $alarm['title']);
         $this->assertNull($alarm['text']);
         $this->assertNull($alarm['snooze']);
