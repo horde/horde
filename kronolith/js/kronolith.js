@@ -1562,7 +1562,7 @@ KronolithCore = {
                                 if (remove) {
                                     remove.purge();
                                     remove.remove();
-                                    insertBefore = this.findInsertBefore(events, event, date);
+                                    insertBefore = this.findInsertBefore(events.without(remove), event, date);
                                 } else {
                                     this.insertMore(date);
                                     return;
