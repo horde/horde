@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix limiting To: field in email sent to ActiveSync clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3702,7 +3702,7 @@
    <date>2014-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Fix limiting To: field in email sent to ActiveSync clients.
+* 
    </notes>
   </release>
  </changelog>
