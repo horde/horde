@@ -1038,7 +1038,7 @@ var ImpCompose = {
             l = l.slice(1, -1).gsub(/\\/, "");
         }
 
-        return l.escapeHTML();
+        return l;
     },
 
     autocompleteProcess: function(r)
