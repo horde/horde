@@ -23,10 +23,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-23</date>
+ <date>2014-11-06</date>
  <version>
-  <release>2.1.6</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix returning primary key value from insertBlob().
+* [jan] Add Horde_Db_Adapter::updateBlob().
+* [jan] Add Horde_Db_Value_Text to encapsulate long text values.
+* [jan] Add missing insertBlob to adapter interface.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -108,6 +111,7 @@
       </dir> <!-- /lib/Horde/Db/Migration -->
       <dir name="Value">
        <file name="Binary.php" role="php" />
+       <file name="Text.php" role="php" />
       </dir> <!-- /lib/Horde/Db/Value -->
       <file name="Adapter.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -325,6 +329,7 @@
    <install as="Horde/Db/Migration/Exception.php" name="lib/Horde/Db/Migration/Exception.php" />
    <install as="Horde/Db/Migration/Migrator.php" name="lib/Horde/Db/Migration/Migrator.php" />
    <install as="Horde/Db/Value/Binary.php" name="lib/Horde/Db/Value/Binary.php" />
+   <install as="Horde/Db/Value/Text.php" name="lib/Horde/Db/Value/Text.php" />
    <install as="Horde/Db/AllTests.php" name="test/Horde/Db/AllTests.php" />
    <install as="Horde/Db/bootstrap.php" name="test/Horde/Db/bootstrap.php" />
    <install as="Horde/Db/phpunit.xml" name="test/Horde/Db/phpunit.xml" />
@@ -831,15 +836,18 @@
   </release>
   <release>
    <version>
-    <release>2.1.6</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-23</date>
+   <date>2014-11-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix returning primary key value from insertBlob().
+* [jan] Add Horde_Db_Adapter::updateBlob().
+* [jan] Add Horde_Db_Value_Text to encapsulate long text values.
+* [jan] Add missing insertBlob to adapter interface.
    </notes>
   </release>
  </changelog>

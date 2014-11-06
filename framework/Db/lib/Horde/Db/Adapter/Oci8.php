@@ -284,7 +284,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         $descriptors = array();
         foreach ($lobs as $name => $lob) {
             $descriptors[$name] = oci_new_descriptor($this->_connection, OCI_DTYPE_LOB);
-            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, OCI_B_BLOB);
+            oci_bind_by_name($stmt, ':' . $name, $descriptors[$name], -1, $lob instanceof Horde_Db_Value_Binary ? OCI_B_BLOB : OCI_B_CLOB);
         }
 
         $flags = $lobs
@@ -365,16 +365,7 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
      */
     public function insertBlob($table, $fields, $pk = null, $idValue = null)
     {
-        $blobs = $locators = array();
-        foreach ($fields as $column => &$field) {
-            if ($field instanceof Horde_Db_Value_Binary) {
-                $blobs[$this->quoteColumnName($column)] = $field;
-                $locators[] = ':' . $this->quoteColumnName($column);
-                $field = 'EMPTY_BLOB()';
-            } else {
-                $field = $this->quote($field);
-            }
-        }
+        list($fields, $blobs, $locators) = $this->_prepareBlobs($fields);
 
         $sql = 'INSERT INTO ' . $this->quoteTableName($table) . ' ('
             . implode(
@@ -389,6 +380,69 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         return $idValue
             ? $idValue
             : $this->selectValue('SELECT id FROM horde_db_autoincrement');
+    }
+
+    /**
+     * Updates rows including BLOBs into a table.
+     *
+     * @since Horde_Db 2.2.0
+     *
+     * @param string $table  The table name.
+     * @param array $fields  A hash of column names and values. BLOB columns
+     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param string $where  A WHERE clause.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function updateBlob($table, $fields, $where = '')
+    {
+        list($fields, $blobs, $locators) = $this->_prepareBlobs($fields);
+
+        $sql = 'UPDATE ' . $this->quoteTableName($table) . ' SET '
+            . implode(
+                ', ',
+                array_map(
+                    function($field, $value)
+                    {
+                        return $this->quoteColumnName($field) . ' = ' . $value;
+                    },
+                    array_keys($fields),
+                    $fields
+                )
+            )
+            . (strlen($where) ? ' WHERE ' . $where : '')
+            . ' RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
+            . implode(', ', $locators);
+        $this->execute($sql, null, null, $blobs);
+
+        return $this->_rowCount;
+    }
+
+    /**
+     * Prepares a list of field values to be consumed by insertBlob() or
+     * updateBlob().
+     *
+     * @param array $fields  A hash of column names and values. BLOB columns
+     *                       must be provided as Horde_Db_Value_Binary objects.
+     *
+     * @return array  A list of fields, blobs, and locators.
+     */
+    protected function _prepareBlobs($fields)
+    {
+        $blobs = $locators = array();
+        foreach ($fields as $column => &$field) {
+            if ($field instanceof Horde_Db_Value_Binary ||
+                $field instanceof Horde_Db_Value_Text) {
+                $blobs[$this->quoteColumnName($column)] = $field;
+                $locators[] = ':' . $this->quoteColumnName($column);
+                $field = $field instanceof Horde_Db_Value_Binary
+                    ? 'EMPTY_BLOB()'
+                    : 'EMPTY_CLOB()';
+            } else {
+                $field = $this->quote($field);
+            }
+        }
+        return array($fields, $blobs, $locators);
     }
 
     /**

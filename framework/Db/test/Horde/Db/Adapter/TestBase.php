@@ -201,6 +201,35 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $this->assertEquals(7, $result);
     }
 
+    public function testInsertBlob()
+    {
+        $this->_createTable();
+
+        $result = $this->_conn->insertBlob(
+            'unit_tests',
+            array(
+                'id' => 7,
+                'integer_value' => 999,
+                'blob_value' => new Horde_Db_Value_Binary(str_repeat("\0", 5000))
+            ),
+            null,
+            7
+        );
+        $this->assertEquals(7, $result);
+
+        $result = $this->_conn->insertBlob(
+            'unit_tests',
+            array(
+                'id' => 8,
+                'integer_value' => 1000,
+                'text_value' => new Horde_Db_Value_Text(str_repeat('X', 5000))
+            ),
+            null,
+            8
+        );
+        $this->assertEquals(8, $result);
+    }
+
     public function testUpdate()
     {
         $this->_createTable();
@@ -208,6 +237,29 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $sql = "UPDATE unit_tests SET integer_value=999 WHERE id IN (1)";
         $result = $this->_conn->update($sql);
 
+        $this->assertEquals(1, $result);
+    }
+
+    public function testUpdateBlob()
+    {
+        $this->_createTable();
+
+        $result = $this->_conn->updateBlob(
+            'unit_tests',
+            array(
+                'blob_value' => new Horde_Db_Value_Binary(str_repeat("\0", 5000))
+            ),
+            'id = 1'
+        );
+        $this->assertEquals(1, $result);
+
+        $result = $this->_conn->updateBlob(
+            'unit_tests',
+            array(
+                'text_value' => new Horde_Db_Value_Text(str_repeat('X', 5000))
+            ),
+            'id = 1'
+        );
         $this->assertEquals(1, $result);
     }
 

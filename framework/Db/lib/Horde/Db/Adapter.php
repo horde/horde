@@ -239,6 +239,25 @@ interface Horde_Db_Adapter
                            $idValue = null, $sequenceName = null);
 
     /**
+     * Inserts a row including BLOBs into a table.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $table     The table name.
+     * @param array $fields     A hash of column names and values. BLOB columns
+     *                          must be provided as Horde_Db_Value_Binary
+     *                          objects.
+     * @param string $pk        The primary key column.
+     * @param integer $idValue  The primary key value. This parameter is
+     *                          required if the primary key is inserted
+     *                          manually.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insertBlob($table, $fields, $pk = null, $idValue = null);
+
+    /**
      * Executes the update statement and returns the number of rows affected.
      *
      * @param string $sql   SQL statement.
@@ -251,6 +270,20 @@ interface Horde_Db_Adapter
      * @throws Horde_Db_Exception
      */
     public function update($sql, $arg1 = null, $arg2 = null);
+
+    /**
+     * Updates rows including BLOBs into a table.
+     *
+     * @since Horde_Db 2.2.0
+     *
+     * @param string $table  The table name.
+     * @param array $fields  A hash of column names and values. BLOB columns
+     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param string $where  A WHERE clause.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function updateBlob($table, $fields, $where = '');
 
     /**
      * Executes the delete statement and returns the number of rows affected.

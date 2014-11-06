@@ -575,11 +575,11 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     {
         $query = sprintf(
             'INSERT INTO %s (%s) VALUES (%s)',
-            $table,
+            $this->quoteTableName($table),
             implode(', ', array_map(array($this, 'quoteColumnName'), array_keys($fields))),
             implode(', ', array_fill(0, count($fields), '?'))
         );
-        return $this->insert($query, $fields, $pk, $idValue);
+        return $this->insert($query, $fields, null, $pk, $idValue);
     }
 
     /**
@@ -598,6 +598,38 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     {
         $this->execute($sql, $arg1, $arg2);
         return $this->_rowCount;
+    }
+
+    /**
+     * Updates rows including BLOBs into a table.
+     *
+     * @since Horde_Db 2.2.0
+     *
+     * @param string $table  The table name.
+     * @param array $fields  A hash of column names and values. BLOB columns
+     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param string $where  A WHERE clause.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function updateBlob($table, $fields, $where = '')
+    {
+        $query = sprintf(
+            'UPDATE %s SET %s%s',
+            $this->quoteTableName($table),
+            implode(
+                ', ',
+                array_map(
+                    function($field)
+                    {
+                        return $this->quoteColumnName($field) . ' = ?';
+                    },
+                    array_keys($fields)
+                )
+            ),
+            strlen($where) ? ' WHERE ' . $where : ''
+        );
+        return $this->update($query, $fields);
     }
 
     /**
