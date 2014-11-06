@@ -8,79 +8,58 @@
 
 var ImpContacts = {
 
-    _passAddresses: function()
-    {
-        var sa = '';
-
-        $('selected_addresses').childElements().each(function(s) {
-            if (s.value) {
-                sa += s.value + '|';
-            }
-        });
-
-        $('sa').setValue(sa);
-    },
-
-    sameOption: function(f, item, itemj)
-    {
-        var t = f + ": " + item.value,
-            tj = itemj.value;
-
-        return Try.these(
-            function() {
-                return (t == tj) || (decodeURIComponent(t) == decodeURIComponent(tj));
-            },
-            // Catch exception with NS 7.1
-            function() {
-                return (t == tj);
-            }
-        );
-    },
+    // initial,
+    // text,
 
     addAddress: function(f)
     {
-        var d, l, option, s = $('search_results');
+        var df = document.createDocumentFragment(),
+            sa = $('selected_addresses').select('[value]'),
+            sr = $('search_results'),
+            sel = $F(sr);
 
-        if (!$F(s).size()) {
+        if (!sel.size()) {
             alert(this.text.select);
-        } else {
-            d = $('selected_addresses');
-            l = $A(d).size();
-            s.childElements().each(function(i) {
-                if (i.value && i.selected) {
-                    if (!$A(d).any(function(j) {
-                        return this.sameOption(f, i, j);
-                    }, this)) {
-                        option = f + ': ' + i.value;
-                        d[l++] = new Option(option, option);
-                    }
-                }
-            }, this);
+            return;
         }
+
+        sel.each(function(s) {
+            if (!sa.any(function(j) {
+                return (j.readAttribute('value') == s) &&
+                       (j.retrieve('header') == f);
+            })) {
+                df.appendChild(
+                    new Element('OPTION', { value: s })
+                        .store('header', f)
+                        .insert(f + ': ' + s.escapeHTML())
+                );
+            }
+        });
+
+        $('selected_addresses').appendChild(df);
     },
 
     updateMessage: function()
     {
+        var addr = {};
+
         if (!parent.opener) {
             alert(this.text.closed);
             window.close();
             return;
         }
 
-        $('selected_addresses').childElements().each(function(s) {
-            var pos,
-                address = s.value;
+        $('selected_addresses').select('[value]').each(function(s) {
+            var field = s.retrieve('header');
 
-            if (!address.empty()) {
-                pos = address.indexOf(':');
-
-                $(parent.opener.document).fire('ImpContacts:update', {
-                    field: address.substring(0, pos),
-                    value: address.substring(pos + 2, address.length)
-                });
+            if (Object.isUndefined(addr[field])) {
+                addr[field] = [];
             }
+
+            addr[field].push(s.readAttribute('value'));
         });
 
+        $(parent.opener.document).fire('ImpContacts:update', addr);
         window.close();
     },
 
@@ -93,22 +72,66 @@ var ImpContacts = {
         });
     },
 
+    contactsSearch: function()
+    {
+        var sr = $('search_results');
+
+        sr.select('[value]').invoke('remove');
+        sr.childElements().invoke('hide');
+        sr.appendChild(
+            new Element('OPTION', { disabled: true, value: "" })
+                .insert(this.text.searching)
+        );
+
+        HordeCore.doAction('contactsSearch', {
+            search: $F('search'),
+            source: $F('source')
+        }, {
+            callback: function(r) {
+                sr.select(':not([value])').invoke('show');
+                this.updateResults(r.results);
+            }.bind(this)
+        });
+    },
+
+    updateResults: function(r)
+    {
+        var df = document.createDocumentFragment(),
+            sr = $('search_results');
+
+        r.each(function(addr) {
+            df.appendChild(
+                new Element('OPTION', { value: addr })
+                    .insert(addr.escapeHTML())
+            );
+        });
+
+        sr.select('[value]').invoke('remove');
+
+        if (r.size()) {
+            sr.appendChild(df);
+        }
+    },
+
     resize: function()
     {
-        window.resizeBy(0, Math.max(0, document.body.clientHeight - document.viewport.getHeight()));
+        window.resizeBy(
+            0,
+            Math.max(0, document.body.clientHeight - document.viewport.getHeight())
+        );
     },
 
     onDomLoad: function()
     {
-        if ($('search').present()) {
-            $('btn_clear').show();
-        }
-
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
-        $('contacts').observe('submit', this._passAddresses.bind(this));
 
-        this.resize.bind(this).delay(0.25);
+        if (this.initial) {
+            this.updateResults(this.initial);
+            delete this.initial;
+        }
+
+        this.resize.bind(this).delay(0.1);
     },
 
     clickHandler: function(e)
@@ -137,6 +160,10 @@ var ImpContacts = {
 
         case 'btn_delete':
             this.removeAddress();
+            break;
+
+        case 'btn_search':
+            this.contactsSearch();
             break;
 
         case 'btn_update':

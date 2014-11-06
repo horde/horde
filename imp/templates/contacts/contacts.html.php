@@ -1,7 +1,4 @@
-<form method="post" id="contacts" action="<?php echo $this->action ?>">
- <input type="hidden" name="searched" value="1" />
- <input type="hidden" name="to_only" id="to_only" value="<?php echo $this->to_only ?>" />
- <input type="hidden" id="sa" name="sa" />
+<form method="post" id="contacts">
 
 <h1 class="header">
  <?php echo _("Address Book") ?>
@@ -21,8 +18,8 @@
 <?php else: ?>
   <input name="source" type="hidden" value="<?php echo $this->source_list ?>" />
 <?php endif; ?>
-  <input type="submit" value="<?php echo _("Search") ?>" />
-  <input id="btn_clear" type="submit" style="display:none" value="<?php echo _("Reset") ?>" />
+  <input id="btn_search" type="button" value="<?php echo _("Search") ?>" />
+  <input id="btn_clear" type="button" value="<?php echo _("Reset") ?>" />
  </p>
 
  <table width="100%" cellspacing="2">
@@ -30,10 +27,7 @@
    <td width="45%">
     <label for="search_results" class="hidden"><?php echo _("Search Results") ?></label>
     <select id="search_results" name="search_results" multiple="multiple" size="10">
-     <option disabled="disabled" value="">* <?php echo _("Select address(es)") ?> *</option>
-<?php foreach (array_map(array($this, 'escape'), $this->a_list) as $v): ?>
-     <?php echo $this->optionTag($v, $v) ?>
-<?php endforeach; ?>
+     <option disabled="disabled">* <?php echo _("Select address(es)") ?> *</option>
     </select>
    </td>
    <td width="10%" class="contactsButtons">
@@ -46,7 +40,7 @@
    <td width="45%">
     <label for="selected_addresses" class="hidden"><?php echo _("Selected Addresses") ?></label>
     <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
-     <option disabled="disabled" value="">* <?php echo _("Add these by clicking OK") ?> *</option>
+     <option disabled="disabled">* <?php echo _("Add these by clicking OK") ?> *</option>
 <?php foreach (array_map(array($this, 'escape'), $this->sa) as $v): ?>
      <?php echo $this->optionTag($v, $v) ?>
 <?php endforeach; ?>

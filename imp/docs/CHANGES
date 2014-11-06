@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Contacts popup now does address search dynamically, without the need to
+      reload the page.
 [mms] Remove 'mailboxarray' hook.
 [mms] Remove 'display_folder' hook.
 [mms] Auto-detect EAI support on mail backends and provide validation feedback

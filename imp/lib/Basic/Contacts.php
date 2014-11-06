@@ -25,10 +25,7 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
 {
     /**
      * URL Parameters:
-     *   - sa: (string) List of selected addresses.
      *   - search: (string) Search term (defaults to '' which lists everyone).
-     *   - searched: (boolean) Indicates we have already searched at least
-     *                once.
      *   - source: (string) The addressbook source to use.
      *   - to_only: (boolean) Are we limiting to only the 'To:' field?
      */
@@ -47,29 +44,11 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
         $contacts = $injector->getInstance('IMP_Contacts');
         $source_list = $contacts->source_list;
 
-        /* If we self-submitted, use that source. Otherwise, choose a good
-         * source. */
+        /* Choose the correct source. */
         if (!isset($this->vars->source) ||
             !isset($source_list[$this->vars->source])) {
             reset($source_list);
             $this->vars->source = key($source_list);
-        }
-
-        if ($this->vars->searched || $prefs->getValue('display_contact')) {
-            $a_list = iterator_to_array($contacts->searchEmail($this->vars->get('search', ''), array(
-                'sources' => array($this->vars->source)
-            )));
-        } else {
-            $a_list = array();
-        }
-
-        /* If self-submitted, preserve the currently selected users encoded by
-         * javascript to pass as value|text. */
-        $selected_addresses = array();
-        foreach (explode('|', $this->vars->sa) as $addr) {
-            if (strlen(trim($addr))) {
-                $selected_addresses[] = $addr;
-            }
         }
 
         /* Prepare the contacts view. */
@@ -79,9 +58,6 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
         $view->addHelper('FormTag');
         $view->addHelper('Tag');
 
-        $view->a_list = $a_list;
-        $view->action = self::url();
-        $view->sa = $selected_addresses;
         $view->search = $this->vars->search;
         $view->to_only = intval($this->vars->to_only);
 
@@ -99,15 +75,28 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
             $view->source_list = key($source_list);
         }
 
+        /* Pre-populate address list if preference requires that. */
+        if ($prefs->getValue('display_contact')) {
+            $initial = array_map(
+                'strval',
+                iterator_to_array($contacts->searchEmail($this->vars->get('search', ''), array(
+                'sources' => array($this->vars->source)
+            ))));
+        } else {
+            $initial = null;
+        }
+
         /* Display the form. */
         $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('contacts.js');
-        $page_output->addInlineJsVars(array(
+        $page_output->addInlineJsVars(array_filter(array(
+            'ImpContacts.initial' => $initial,
             'ImpContacts.text' => array(
                 'closed' => _("The message being composed has been closed."),
-                'select' => _("You must select an address first.")
+                'select' => _("You must select an address first."),
+                'searching' => _("Searching...")
             )
-        ));
+        )));
 
         $c_css = new Horde_Themes_Element('contacts.css');
         $page_output->addStylesheet($c_css->fs, $c_css->uri);

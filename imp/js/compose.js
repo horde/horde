@@ -1362,35 +1362,30 @@ var ImpCompose = {
 
     onContactsUpdate: function(e)
     {
-        var elt = $(e.memo.field),
-            v = $F(elt).strip(),
-            pos = v.lastIndexOf(',');
+        Object.keys(e.memo).each(function(k) {
+            var add = [];
 
-        switch (e.memo.field) {
-        case 'bcc':
-        case 'cc':
-            if (!$('send' + e.memo.field).visible()) {
-                this.toggleCC(e.memo.field);
+            switch (k) {
+            case 'bcc':
+            case 'cc':
+                if (!$('send' + k).visible()) {
+                    this.toggleCC(k);
+                }
+                break;
+
+            case 'to':
+                if (DimpCore.conf.redirect) {
+                    k = 'redirect_to';
+                }
+                break;
             }
-            break;
 
-        case 'to':
-            if (DimpCore.conf.redirect) {
-                e.memo.field = 'redirect_to';
-            }
-            break;
-        }
+            e.memo[k].each(function(a) {
+                add.push(new IMP_Autocompleter_Elt(a));
+            });
 
-        if (v.empty()) {
-            v = '';
-        } else if (pos != (v.length - 1)) {
-            v += ', ';
-        } else {
-            v += ' ';
-        }
-
-        elt.setValue(v + e.memo.value + ', ');
-        document.fire('AutoComplete:reset');
+            this.ac.get(k).addNewItems(add);
+        }, this);
     },
 
     tasksHandler: function(e)

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-27</date>
+ <date>2014-11-06</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Contacts popup now does address search dynamically, without the need to reload the page.
 * [mms] Remove &apos;mailboxarray&apos; hook.
 * [mms] Remove &apos;display_folder&apos; hook.
 * [mms] Auto-detect EAI support on mail backends and provide validation feedback without the need to submit to the backend.
@@ -138,6 +139,7 @@
       <dir name="Handler">
        <file name="Common.php" role="horde" />
        <file name="ComposeAttach.php" role="horde" />
+       <file name="Contacts.php" role="horde" />
        <file name="Draft.php" role="horde" />
        <file name="Dynamic.php" role="horde" />
        <file name="ImageUnblock.php" role="horde" />
@@ -1563,6 +1565,7 @@
    <install as="imp/lib/Ajax/Application/Viewport.php" name="lib/Ajax/Application/Viewport.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
    <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Contacts.php" name="lib/Ajax/Application/Handler/Contacts.php" />
    <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
    <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
