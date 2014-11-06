@@ -31,7 +31,10 @@ var ImpContacts = {
                 df.appendChild(
                     new Element('OPTION', { value: s })
                         .store('header', f)
-                        .insert(f + ': ' + s.escapeHTML())
+                        .insert(
+                            new Element('EM').insert(f + ': ')
+                        )
+                        .insert(s.escapeHTML())
                 );
             }
         });

@@ -1,9 +1,12 @@
 #contactstable #search {
     width: 35%;
 }
-#contactstable #search_results,
-#contactstable #selected_addresses {
+#search_results,
+#selected_addresses {
     width: 100%;
+}
+#selected_addresses option em {
+    font-weight: bold;
 }
 .contactsButtons {
     text-align: center;
