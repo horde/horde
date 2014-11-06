@@ -14,3 +14,7 @@
 .contactsButtons input {
     width: 60px;
 }
+#btn_add_cc,
+#btn_add_bcc {
+    margin-top: 10px;
+}

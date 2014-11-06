@@ -31,9 +31,9 @@
     </select>
    </td>
    <td width="10%" class="contactsButtons">
-    <input id="btn_add_to" type="button" value="<?php echo _("To") ?> &gt;&gt;" /><br />&nbsp;<br />
+    <input id="btn_add_to" type="button" value="<?php echo _("To") ?> &gt;&gt;" />
 <?php if (!$this->to_only): ?>
-    <input id="btn_add_cc" type="button" value="<?php echo _("Cc") ?> &gt;&gt;" /><br />&nbsp;<br />
+    <input id="btn_add_cc" type="button" value="<?php echo _("Cc") ?> &gt;&gt;" />
     <input id="btn_add_bcc" type="button" value="<?php echo _("Bcc") ?> &gt;&gt;" />
 <?php endif; ?>
    </td>
@@ -48,7 +48,7 @@
    </td>
   </tr>
   <tr>
-   <td colspan="2">&nbsp;</td>
+   <td colspan="2"></td>
    <td>
     <input id="btn_delete" type="button" value="<?php echo _("Remove") ?>" />
    </td>
