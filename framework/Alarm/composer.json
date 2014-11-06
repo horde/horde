@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.2.2",
-    "time": "2014-10-23",
+    "version": "2.2.3",
+    "time": "2014-11-06",
     "repositories": [
         {
             "type": "pear",
@@ -26,7 +26,7 @@
         "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
-        "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Log": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
