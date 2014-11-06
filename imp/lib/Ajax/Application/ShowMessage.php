@@ -379,7 +379,7 @@ class IMP_Ajax_Application_ShowMessage
             }
         }
 
-        return array_filter($result);
+        return $result;
     }
 
     /**
