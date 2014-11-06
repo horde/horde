@@ -363,6 +363,35 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     }
 
     /**
+     * Inserts a row including BLOBs into a table.
+     *
+     * @since Horde_Db 2.1.0
+     *
+     * @param string $table     The table name.
+     * @param array $fields     A hash of column names and values. BLOB columns
+     *                          must be provided as Horde_Db_Value_Binary
+     *                          objects.
+     * @param string $pk        The primary key column.
+     * @param integer $idValue  The primary key value. This parameter is
+     *                          required if the primary key is inserted
+     *                          manually.
+     *
+     * @return integer  Last inserted ID.
+     * @throws Horde_Db_Exception
+     */
+    public function insertBlob($table, $fields, $pk = null, $idValue = null)
+    {
+        $result = $this->_write->insertBlob($table, $fields, $pk, $idValue);
+        $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
+        return $result;
+    }
+
+    /**
      * Executes the update statement and returns the number of rows affected.
      *
      * @param string $sql   SQL statement.
@@ -377,6 +406,30 @@ class Horde_Db_Adapter_SplitRead implements Horde_Db_Adapter
     public function update($sql, $arg1 = null, $arg2 = null)
     {
         $result = $this->_write->update($sql, $arg1, $arg2);
+        $this->_lastQuery = $this->_write->getLastQuery();
+
+        // Once doing writes, keep using the write backend even for reads
+        // at least during the same request, to help against stale data.
+        $this->_read = $this->_write;
+
+        return $result;
+    }
+
+    /**
+     * Updates rows including BLOBs into a table.
+     *
+     * @since Horde_Db 2.2.0
+     *
+     * @param string $table  The table name.
+     * @param array $fields  A hash of column names and values. BLOB columns
+     *                       must be provided as Horde_Db_Value_Binary objects.
+     * @param string $where  A WHERE clause.
+     *
+     * @throws Horde_Db_Exception
+     */
+    public function updateBlob($table, $fields, $where = '')
+    {
+        $result = $this->_write->updateBlob($table, $fields, $where);
         $this->_lastQuery = $this->_write->getLastQuery();
 
         // Once doing writes, keep using the write backend even for reads
