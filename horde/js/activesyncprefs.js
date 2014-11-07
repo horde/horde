@@ -13,6 +13,10 @@ var HordeActiveSyncPrefs = {
     {
         var id = e.element().readAttribute('id');
 
+        if (!id) {
+            return;
+        }
+
         if (id.startsWith('wipe_')) {
             $('wipeid').setValue(this.devices[id.substr(5)].id);
             $('actionID').setValue('update_special');
