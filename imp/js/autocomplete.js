@@ -126,7 +126,14 @@ var IMP_Autocompleter = Class.create({
 
     triggerEvent: function(e, func)
     {
-        switch (e.element()) {
+        var elt = e.element();
+
+        // IE 8 fix
+        if (elt == window && elt.document) {
+            elt = elt.document;
+        }
+
+        switch (elt) {
         case this.elt:
             e.stop();
             /* falls through */
