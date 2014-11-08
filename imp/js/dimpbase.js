@@ -1915,6 +1915,23 @@ var DimpBase = {
         }
     },
 
+    reloadPart: function(mimeid, params)
+    {
+        DimpCore.doAction('inlineMessageOutput', Object.extend(params, {
+            mimeid: mimeid,
+            view: this.pp.VP_view
+        }), {
+            callback: function(r) {
+                if (r.buid == this.pp.VP_id && r.mbox == this.pp.VP_view) {
+                    $('messageBody')
+                        .down('DIV.mimePartBase[impcontentsmimeid="' + r.mimeid + '"]')
+                        .replace(r.text);
+                }
+            }.bind(this),
+            uids: [ this.pp.VP_id ]
+        });
+    },
+
     messageCallback: function(r)
     {
         // Store messages in cache.
@@ -4538,3 +4555,6 @@ document.observe('IMP_JS:htmliframe_keydown', function(e) {
 DimpCore.reloadMessage = function(params) {
     DimpBase.loadPreview(null, params);
 };
+
+/* Define reloadPart() method for this page. */
+DimpCore.reloadPart = DimpBase.reloadPart.bind(DimpBase);

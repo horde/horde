@@ -755,6 +755,41 @@ extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * AJAX action: Return the inline display text for a given MIME ID of
+     * a message.
+     *
+     * See the list of variables needed for IMP_Ajax_Application#changed() and
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed. Additional variables used:
+     *   - mimeid: (string) The MIME ID to return.
+     *
+     * @return object  An object with the following entries:
+     * <pre>
+     *   - buid: (integer) BUID of message.
+     *   - mbox: (string) Mailbox of message (base64url encoded).
+     *   - mimeid: (string) The base MIME ID of the text.
+     *   - text: (string) Inline Message text of the part.
+     * </pre>
+     */
+    public function inlineMessageOutput()
+    {
+        $result = new stdClass;
+
+        $show_msg = new IMP_Ajax_Application_ShowMessage($this->_base->indices);
+        $msg_output = $show_msg->getInlineOutput($this->vars->mimeid);
+
+        list($mbox,) = $this->_base->indices->getSingle();
+
+        $result = new stdClass;
+        $result->buid = $this->vars->buid;
+        $result->mbox = $mbox->form_to;
+        $result->mimeid = $this->vars->mimeid;
+        $result->text = $msg_output['msgtext'];
+
+        return $result;
+    }
+
+    /**
      * AJAX action: Delete an attachment from compose data.
      *
      * Variables used:

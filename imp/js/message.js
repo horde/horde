@@ -91,6 +91,21 @@ var ImpMessage = {
         }
     },
 
+    reloadPart: function(mimeid, params)
+    {
+        DimpCore.doAction('inlineMessageOutput', Object.extend(params, {
+            mimeid: mimeid,
+            view: this.mbox
+        }), {
+            callback: function(r) {
+                $('messageBody')
+                    .down('DIV.mimePartBase[impcontentsmimeid="' + r.mimeid + '"]')
+                    .replace(r.text);
+            },
+            uids: [ this.buid ]
+        });
+    },
+
     /* Click handlers. */
     clickHandler: function(e)
     {
@@ -338,3 +353,6 @@ document.observe('DimpCore:updateAddressHeader', ImpMessage.updateAddressHeader.
 DimpCore.reloadMessage = function(params) {
     window.location = HordeCore.addURLParam(document.location.href, params);
 };
+
+/* Define reloadPart() method for this page. */
+DimpCore.reloadPart = ImpMessage.reloadPart.bind(ImpMessage);

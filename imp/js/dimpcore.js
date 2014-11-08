@@ -242,6 +242,10 @@ var DimpCore = {
     // One argument: params
     reloadMessage: Prototype.emptyFunction,
 
+    // Abstract: define in any pages that need reloadPart().
+    // Two arguments: mimeid, params
+    reloadPart: Prototype.emptyFunction,
+
     toggleCheck: function(elt, on)
     {
         if (Object.isArray(elt)) {
@@ -295,8 +299,11 @@ var DimpCore = {
 
         switch (elt.readAttribute('mimevieweraction')) {
         case 'pgpVerifyMsg':
+            this.reloadPart(
+                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
+                { pgp_verify_msg: 1 }
+            );
             elt.replace(this.text.verify);
-            this.reloadMessage({ pgp_verify_msg: 1 });
             e.memo.stop();
             return;
 
@@ -309,14 +316,20 @@ var DimpCore = {
             return;
 
         case 'smimeVerifyMsg':
+            this.reloadPart(
+                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
+                { smime_verify_msg: 1 }
+            );
             elt.replace(this.text.verify);
-            this.reloadMessage({ smime_verify_msg: 1 });
             e.memo.stop();
             return;
 
         case 'tgzViewContents':
+            this.reloadPart(
+                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
+                { tgz_contents: 1 }
+            );
             elt.replace(this.text.loading);
-            this.reloadMessage({ tgz_contents: 1 });
             e.memo.stop();
             return;
 
@@ -325,8 +338,11 @@ var DimpCore = {
             return;
 
         case 'zipViewContents':
+            this.reloadPart(
+                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
+                { zip_contents: 1 }
+            );
             elt.replace(this.text.loading);
-            this.reloadMessage({ zip_contents: 1 });
             e.memo.stop();
             return;
         }
