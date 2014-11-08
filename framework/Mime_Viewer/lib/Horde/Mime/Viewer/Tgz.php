@@ -66,28 +66,44 @@ class Horde_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Base
      */
     protected function _renderInfo()
     {
-        /* Currently, can't do anything without tar file. */
-        $subtype = $this->_mimepart->getSubType();
-        if (in_array($subtype, array('gzip', 'x-gzip', 'x-gzip-compressed'))) {
-            return array();
-        }
-
         $charset = $this->getConfigParam('charset');
         $contents = $this->_mimepart->getContents();
 
         /* Decompress gzipped files. */
-        if (in_array($subtype, $this->_gzipSubtypes)) {
-            if (!$this->getConfigParam('gzip')) {
-                $this->setConfigParam('gzip', Horde_Compress::factory('Gzip'));
-            }
-            $contents = $this->getConfigParam('gzip')->decompress($contents);
+        if (!($gzip = $this->getConfigParam('gzip'))) {
+            $gzip = Horde_Compress::factory('Gzip');
+        }
+
+        try {
+            $contents = $gzip->decompress($contents);
+            $this->_metadata['compressed'] = true;
+        } catch (Horde_Compress_Exception $e) {
+            $this->_metadata['compressed'] = false;
         }
 
         /* Obtain the list of files/data in the tar file. */
-        if (!$this->getConfigParam('tar')) {
-            $this->setConfigParam('tar', Horde_Compress::factory('Tar'));
+        if (!($tar = $this->getConfigParam('tar'))) {
+            $tar = Horde_Compress::factory('Tar');
         }
-        $tarData = $this->getConfigParam('tar')->decompress($contents);
+
+        $tarData = null;
+        try {
+            $tarData = $tar->decompress($contents);
+        } catch (Horde_Compress_Exception $e) {
+            if ($this->_metadata['compressed']) {
+                /* Doubly gzip'd files are somewhat common. Try a second
+                 * decompression before giving up. */
+                try {
+                    $tarData = $tar->decompress(
+                        $gzip->decompress($contents)
+                    );
+                } catch (Horde_Compress_Exception $e) {}
+            }
+        }
+
+        if (is_null($tarData)) {
+            return array();
+        }
 
         $fileCount = count($tarData);
 
