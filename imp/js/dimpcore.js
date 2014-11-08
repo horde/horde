@@ -322,6 +322,10 @@ var DimpCore = {
             elt.replace(this.text.loading);
             this.reloadMessage({ zip_contents: 1 });
             e.memo.stop();
+        } else if (elt.hasClassName('tgzViewContents')) {
+            elt.replace(this.text.loading);
+            this.reloadMessage({ tgz_contents: 1 });
+            e.memo.stop();
         }
     },
 

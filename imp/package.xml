@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add ability to download individual files from within a .tgz attachment.
 * [mms] Improved display of contents of ZIP attachments.
 * [mms] Contacts popup now does address search dynamically, without the need to reload the page.
 * [mms] Remove &apos;mailboxarray&apos; hook.

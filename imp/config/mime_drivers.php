@@ -176,6 +176,25 @@ $mime_drivers = array(
         'show_contents' => false
     ),
 
+    /* Tar file display.
+     * To access gzipped files, the zlib library must have been built into PHP
+     * (with the --with-zlib option). */
+    'tgz' => array(
+        'inline' => true,
+        'handles' => array(
+            'application/gzip',
+            'application/x-compressed-tar',
+            'application/x-gtar',
+            'application/x-gzip',
+            'application/x-gzip-compressed',
+            'application/x-tar',
+            'application/x-tgz'
+        ),
+        'icons' => array(
+            'default' => 'compressed.png'
+        )
+    ),
+
     /* Delivery status messages display. */
     'status' => array(
         'inline' => true,
