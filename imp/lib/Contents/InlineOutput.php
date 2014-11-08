@@ -30,9 +30,6 @@ class IMP_Contents_InlineOutput
      *   - display_mask: (integer) The mask of display view type to render
      *                   inline (DEFAULT: RENDER_INLINE_AUTO).
      *   - mask: (integer) The mask needed for a getSummary() call.
-     *   - no_inline_all: (boolean) If true, only display first inline part.
-     *                    Subsequent inline parts will be treated as
-     *                    attachments.
      *   - part_info_display: (array) The list of summary fields to display.
      *   - show_parts: (string) The value of the 'parts_display' pref.
      *
@@ -59,7 +56,6 @@ class IMP_Contents_InlineOutput
         $display_mask = isset($options['display_mask'])
             ? $options['display_mask']
             : $contents::RENDER_INLINE_AUTO;
-        $no_inline_all = !empty($options['no_inline_all']);
         $part_info_display = isset($options['part_info_display'])
             ? $options['part_info_display']
             : array();
@@ -114,11 +110,6 @@ class IMP_Contents_InlineOutput
                     continue;
                 }
 
-                if ($no_inline_all === 1) {
-                    $atc_parts[$id] = 1;
-                    continue;
-                }
-
                 $part_text = ($contents_mask && empty($info['nosummary']))
                     ? $this->_formatSummary($contents, $id, $contents_mask, $part_info_display, !empty($info['attach']))
                     : '';
@@ -161,10 +152,6 @@ class IMP_Contents_InlineOutput
                 if (isset($info['metadata'])) {
                     /* Format: array(identifier, ...[data]...) */
                     $metadata = array_merge($metadata, $info['metadata']);
-                }
-
-                if ($no_inline_all) {
-                    $no_inline_all = 1;
                 }
             }
         }
