@@ -166,7 +166,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $base_id = $this->_mimepart->getMimeId();
 
         /* Initialize inline data. */
-        $status = new IMP_Mime_Status(_("The data in this part has been encrypted via S/MIME."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("The data in this part has been encrypted via S/MIME.")
+        );
         $status->icon('mime/encryption.png', 'S/MIME');
 
         $cache = $this->getConfigParam('imp_contents')->getViewCache();
@@ -262,7 +265,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
         /* Initialize inline data. */
-        $status = new IMP_Mime_Status(_("The data in this part has been digitally signed via S/MIME."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("The data in this part has been digitally signed via S/MIME.")
+        );
         $status->icon('mime/encryption.png', 'S/MIME');
 
         $cache = $this->getConfigParam('imp_contents')->getViewCache();
@@ -352,7 +358,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                 $status->addText($e->getMessage());
             }
         } else {
-            $status->addText(Horde::link('#', '', 'smimeVerifyMsg') . _("Click HERE to verify the data.") . '</a>');
+            $status->addMimeAction(
+                'smimeVerifyMsg',
+                _("Click HERE to verify the data.")
+            );
         }
 
         if ($sig_only) {

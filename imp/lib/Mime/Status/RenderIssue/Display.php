@@ -58,12 +58,14 @@ class IMP_Mime_Status_RenderIssue_Display extends IMP_Mime_Status
         default:
             $unique_id = strval(new Horde_Support_Randomid());
 
-            $this->icon('info_icon.png', _("Info"));
-            $this->_text = array(
-                Horde::link('#', '', 'showRenderIssues', '', '', '', '', array(
+            $this->addMimeAction(
+                'showRenderIssues',
+                _("Click to show message part display errors."),
+                array(
                     'domid' => $unique_id
-                )) . _("Click to show message part display errors.") . '</a>'
+                )
             );
+            $this->icon('info_icon.png', _("Info"));
 
             $out = parent::__toString();
 

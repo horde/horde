@@ -110,7 +110,7 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
             return array();
         }
 
-        $s = new IMP_Mime_Status($status);
+        $s = new IMP_Mime_Status($this->_mimepart, $status);
         $s->icon('mime/video.png');
 
         return array(

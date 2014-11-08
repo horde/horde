@@ -66,7 +66,10 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $mdn_id = $this->_mimepart->getMimeId();
         $parts = array_keys($this->_mimepart->contentTypeMap());
 
-        $status = new IMP_Mime_Status(_("A message you have sent has resulted in a return notification from the recipient."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("A message you have sent has resulted in a return notification from the recipient.")
+        );
         $status->icon('info_icon.png', _("Info"));
 
         /* RFC 3798 [3]: There are three parts to a delivery status

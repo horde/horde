@@ -91,7 +91,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         // Parse the iCal file.
         $vCal = new Horde_Icalendar();
         if (!$vCal->parsevCalendar($data, 'VCALENDAR', $this->_mimepart->getCharset())) {
-            $status = new IMP_Mime_Status(_("The calendar data is invalid"));
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                _("The calendar data is invalid")
+            );
             $status->action(IMP_Mime_Status::ERROR);
             return array(
                 $mime_id => array(

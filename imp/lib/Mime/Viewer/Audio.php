@@ -70,6 +70,7 @@ class IMP_Mime_Viewer_Audio extends Horde_Mime_Viewer_Audio
         }
 
         $status = new IMP_Mime_Status(
+            $this->_mimepart,
             sprintf(_("This audio file is reported to be %s in length."), implode(' ', $text))
         );
         $status->icon('mime/audio.png');

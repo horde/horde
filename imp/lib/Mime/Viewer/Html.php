@@ -98,7 +98,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return array();
         }
 
-        $status = new IMP_Mime_Status(array(
+        $status = new IMP_Mime_Status($this->_mimepart, array(
             _("This message part contains HTML data, but inline HTML display is disabled."),
             $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View HTML data in new window.")),
             $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("Convert HTML data to plain text and view in new window."), array('params' => array('convert_text' => 1)))
@@ -175,7 +175,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         $status = array();
         if ($this->_phishWarn) {
-            $tmp = new IMP_Mime_Status(array(
+            $tmp = new IMP_Mime_Status($this->_mimepart, array(
                 _("This message may not be from whom it claims to be."),
                 _("Beware of following any links in it or of providing the sender with any personal information."),
                 _("The links that caused this warning have this background color:") . ' <span style="' . $this->_phishCss . '">' . _("EXAMPLE LINK") . '</span>'
@@ -209,7 +209,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 if (!is_null($tmp_txt)) {
-                    $tmp = new IMP_Mime_Status(array(
+                    $tmp = new IMP_Mime_Status($this->_mimepart, array(
                         '<a href="#unblock-image" data-role="button" data-theme="e">' . $tmp_txt . '</a>'
                     ));
                     $tmp->views = array($view);
@@ -218,10 +218,10 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 break;
 
             default:
-                $class = 'unblockImageLink';
+                $class = '';
                 if (!$injector->getInstance('IMP_Prefs_Special_ImageReplacement')->canAddToSafeAddrList() ||
                     $injector->getInstance('IMP_Identity')->hasAddress($contents->getHeader()->getOb('from'))) {
-                    $class .= ' noUnblockImageAdd';
+                    $class = 'noUnblockImageAdd';
                 }
 
                 $link = $text = null;
@@ -234,29 +234,45 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 }
 
                 if (!is_null($link)) {
-                    $tmp = new IMP_Mime_Status(array(
-                        $text,
-                        Horde::link('#', '', $class, '', '', '', '', array(
-                            'muid' => strval($contents->getIndicesOb())
-                        )) . $link . '</a>'
-                    ));
+                    $tmp = new IMP_Mime_Status($this->_mimepart, $text);
+                    if (!strlen($class)) {
+                        $tmp->addMimeAction(
+                            'unblockImageLink',
+                            $link,
+                            array(
+                                'muid' => strval($contents->getIndicesOb())
+                            )
+                        );
+                    } else {
+                        $tmp->addText(
+                            Horde::link('#', '', $class, '', '', '', '', array(
+                                'muid' => strval($contents->getIndicesOb())
+                            )) . $link . '</a>'
+                        );
+                    }
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
                 }
 
                 if ($this->_imptmp['cssbroken']) {
-                    $tmp = new IMP_Mime_Status_RenderIssue(array(
-                        _("This message contains corrupt styling data so the message contents may not appear correctly below."),
-                        $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
-                    ));
+                    $tmp = new IMP_Mime_Status_RenderIssue(
+                        $this->_mimepart,
+                        array(
+                            _("This message contains corrupt styling data so the message contents may not appear correctly below."),
+                            $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
+                        )
+                    );
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
                 }
 
                 if ($this->_imptmp['imgbroken']) {
-                    $tmp = new IMP_Mime_Status_RenderIssue(array(
-                        _("This message contains images that cannot be loaded.")
-                    ));
+                    $tmp = new IMP_Mime_Status_RenderIssue(
+                        $this->_mimepart,
+                        array(
+                            _("This message contains images that cannot be loaded.")
+                        )
+                    );
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
                 }

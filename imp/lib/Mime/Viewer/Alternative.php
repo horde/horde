@@ -95,6 +95,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
             $ret[$base_id] = array(
                 'data' => '',
                 'status' => new IMP_Mime_Status(
+                    $this->_mimepart,
                     _("There are no alternative parts that can be displayed inline.")
                 ),
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')

@@ -53,6 +53,13 @@ class IMP_Mime_Status
     protected $_icon;
 
     /**
+     * MIME Part that this status object refers to.
+     *
+     * @var Horde_Mime_Part
+     */
+    protected $_part;
+
+    /**
      * List of text to output. Each entry will be output on a newline.
      *
      * @var array
@@ -62,10 +69,12 @@ class IMP_Mime_Status
     /**
      * Constructor.
      *
-     * @param mixed $text  See addText().
+     * @param Horde_Mime_Part $part  MIME Part.
+     * @param mixed $text            See addText().
      */
-    public function __construct($text = null)
+    public function __construct($part = null, $text = null)
     {
+        $this->_part = $part;
         if (!is_null($text)) {
             $this->addText($text);
         }
@@ -105,6 +114,24 @@ class IMP_Mime_Status
         }
 
         $this->_text = array_merge($this->_text, $text);
+    }
+
+    /**
+     * Adds a MIME Viewer action to the status text.
+     *
+     * @param string $action  Action ID.
+     * @param string $text    Action description.
+     * @param array $attr     Additional attributes.
+     */
+    public function addMimeAction($action, $text, array $attr = array())
+    {
+        $attr['mimevieweraction'] = $action;
+        if (!is_null($this->_part)) {
+            $attr['mimeviewerid'] = $this->_part->getMimeId();
+        }
+
+        $url = new Horde_Url('#');
+        $this->addText($url->link($attr) . $text . '</a>');
     }
 
     /**

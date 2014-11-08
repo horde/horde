@@ -164,10 +164,13 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 $text = '&nbsp;' . substr($text, 1);
             }
         } else {
-            $error = new IMP_Mime_Status_RenderIssue(array(
-                _("Cannot display message text."),
-                _("The message part may contain incorrect character set information preventing correct display.")
-            ));
+            $error = new IMP_Mime_Status_RenderIssue(
+                $this->_mimepart,
+                array(
+                    _("Cannot display message text."),
+                    _("The message part may contain incorrect character set information preventing correct display.")
+                )
+            );
             $error->action(IMP_Mime_Status::ERROR);
             $status[] = $error;
         }

@@ -94,7 +94,10 @@ class IMP_Mime_Viewer_Partial extends Horde_Mime_Viewer_Base
          * status message. */
         $msg_count = count($indices);
         if ($msg_count != $total) {
-            $status = new IMP_Mime_Status(sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total));
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                sprintf(_("Cannot display message - found only %s of %s parts of this message in the current mailbox."), $msg_count, $total)
+            );
             $status->action(IMP_Mime_Status::ERROR);
 
             $cache = $this->getConfigParam('imp_contents')->getViewCache();

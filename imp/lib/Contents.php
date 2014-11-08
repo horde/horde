@@ -606,10 +606,13 @@ class IMP_Contents
 
             if ($limit && ($mime_part->getBytes() > $limit)) {
                 $data = '';
-                $status = new IMP_Mime_Status(array(
-                    _("This message part cannot be viewed because it is too large."),
-                    sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
-                ));
+                $status = new IMP_Mime_Status(
+                    $mime_part,
+                    array(
+                        _("This message part cannot be viewed because it is too large."),
+                        sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
+                    )
+                );
                 $status->icon('alerts/warning.png', _("Warning"));
 
                 if (method_exists($viewer, 'overLimitText')) {

@@ -80,13 +80,15 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
 
         if (!$this->getConfigParam('show_contents') &&
             !$vars->zip_contents) {
-            $status = new IMP_Mime_Status(_("This is a ZIP compressed file."));
-            $status->icon('mime/compressed.png');
-            $status->addText(
-                Horde::link('#', '', 'zipViewContents') .
-                _("Click HERE to display the contents.") .
-                '</a>'
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                _("This is a compressed file.")
             );
+            $status->addMimeAction(
+                'zipViewContents',
+                _("Click HERE to display the file contents.")
+            );
+            $status->icon('mime/compressed.png');
 
             return array(
                 $this->_mimepart->getMimeId() => array(

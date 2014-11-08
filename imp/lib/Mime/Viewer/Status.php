@@ -108,7 +108,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         switch ($action) {
         case 'failed':
         case 'delayed':
-            $status = new IMP_Mime_Status(array(
+            $status = new IMP_Mime_Status($this->_mimepart, array(
                 _("ERROR: Your message could not be delivered."),
                 sprintf(_("Technical error details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))))
             ));
@@ -120,7 +120,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         case 'delivered':
         case 'expanded':
         case 'relayed':
-            $status = new IMP_Mime_Status(array(
+            $status = new IMP_Mime_Status($this->_mimepart, array(
                 _("Your message was successfully delivered."),
                 sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
             ));

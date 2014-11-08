@@ -120,7 +120,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         /* The browser cannot view this image. Inform the user of this and
          * ask user if we should convert to another image type. */
-        $status = new IMP_Mime_Status(_("Your browser does not support inline display of this image type."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("Your browser does not support inline display of this image type.")
+        );
 
         /* See if we can convert to an inline browser viewable form. */
         $img = $this->_getHordeImageOb(false);
@@ -151,7 +154,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             return array();
         }
 
-        $status = new IMP_Mime_Status(_("This is a thumbnail of an image attachment."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("This is a thumbnail of an image attachment.")
+        );
         $status->icon('mime/image.png');
         $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', $this->_outputImgTag('view_thumbnail', _("View Attachment")), null, null, null));
 

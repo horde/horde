@@ -195,7 +195,10 @@ class IMP_Contents_InlineOutput
         $text_out .= str_repeat('</div>', count($wrap_ids));
 
         if (!strlen($text_out)) {
-            $text_out = strval(new IMP_Mime_Status(_("There are no parts that can be shown inline.")));
+            $text_out = strval(new IMP_Mime_Status(
+                null,
+                _("There are no parts that can be shown inline.")
+            ));
         }
 
         $atc_parts = ($show_parts == 'all')

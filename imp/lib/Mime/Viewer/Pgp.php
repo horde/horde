@@ -184,7 +184,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $id_ob = new Horde_Mime_Id($version_id);
         $data_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
-        $status = new IMP_Mime_Status();
+        $status = new IMP_Mime_Status($this->_mimepart);
         $status->icon('mime/encryption.png', 'PGP');
 
         $cache = $this->getConfigParam('imp_contents')->getViewCache();
@@ -306,7 +306,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 ? _("The data in this part has been digitally signed via PGP.")
                 : $this->_textFilter($decrypted_data->result, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::NOHTML));
 
-            $status2 = new IMP_Mime_Status($sig_text);
+            $status2 = new IMP_Mime_Status($this->_mimepart, $sig_text);
             $status2->action(IMP_Mime_Status::SUCCESS);
 
             $cache->pgp[$base_id]['status'][] = $status2;
@@ -353,7 +353,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         }
 
         /* Initialize status message. */
-        $status = new IMP_Mime_Status(_("A PGP Public Key is attached to the message."));
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("A PGP Public Key is attached to the message.")
+        );
         $status->icon('mime/encryption.png', 'PGP');
 
         $imp_contents = $this->getConfigParam('imp_contents');
@@ -403,7 +406,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             );
         }
 
-        $status = new IMP_Mime_Status();
+        $status = new IMP_Mime_Status($this->_mimepart);
         $status->addText(_("The data in this part has been digitally signed via PGP."));
         $status->icon('mime/encryption.png', 'PGP');
 
@@ -423,7 +426,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             $imp_contents = $this->getConfigParam('imp_contents');
             $sig_part = $imp_contents->getMIMEPart($sig_id);
 
-            $status2 = new IMP_Mime_Status();
+            $status2 = new IMP_Mime_Status($this->_mimepart);
 
             if (!$sig_part) {
                 $status2->action(IMP_Mime_Status::ERROR);
@@ -467,7 +470,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             )));
             $ret[$base_id]['status'][] = $status2;
         } else {
-            $status->addText(Horde::link('#', '', 'pgpVerifyMsg') . _("Click HERE to verify the message.") . '</a>');
+            $status->addMimeAction(
+                'pgpVerifyMsg',
+                _("Click HERE to verify the message.")
+            );
         }
 
         return $ret;

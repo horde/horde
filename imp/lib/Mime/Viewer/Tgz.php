@@ -70,13 +70,15 @@ class IMP_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Tgz
 
         if (!$this->getConfigParam('show_contents') &&
             !isset($vars->tgz_contents)) {
-            $status = new IMP_Mime_Status(_("This is a gzip/tar compressed file."));
-            $status->icon('mime/compressed.png');
-            $status->addText(
-                Horde::link('#', '', 'tgzViewContents') .
-                _("Click HERE to display the contents.") .
-                '</a>'
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                _("This is a compressed file.")
             );
+            $status->addMimeAction(
+                'tgzViewContents',
+                _("Click HERE to display the file contents.")
+            );
+            $status->icon('mime/compressed.png');
 
             return array(
                 $this->_mimepart->getMimeId() => array(

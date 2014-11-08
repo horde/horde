@@ -293,16 +293,46 @@ var DimpCore = {
             return;
         }
 
-        if (elt.hasClassName('unblockImageLink')) {
-            IMP_JS.unblockImages(e.memo);
-        } else if (elt.hasClassName('showRenderIssues')) {
+        switch (elt.readAttribute('mimevieweraction')) {
+        case 'pgpVerifyMsg':
+            elt.replace(this.text.verify);
+            this.reloadMessage({ pgp_verify_msg: 1 });
+            e.memo.stop();
+            return;
+
+        case 'showRenderIssues':
             if ((tmp = $(elt.readAttribute('domid')))) {
                 tmp.show();
             }
             elt.up('DIV').remove();
             e.memo.stop();
-        } else if (elt.hasClassName('largeaddrspan_active') &&
-                   !e.memo.element().hasClassName('horde-button')) {
+            return;
+
+        case 'smimeVerifyMsg':
+            elt.replace(this.text.verify);
+            this.reloadMessage({ smime_verify_msg: 1 });
+            e.memo.stop();
+            return;
+
+        case 'tgzViewContents':
+            elt.replace(this.text.loading);
+            this.reloadMessage({ tgz_contents: 1 });
+            e.memo.stop();
+            return;
+
+        case 'unblockImageLink':
+            IMP_JS.unblockImages(e.memo);
+            return;
+
+        case 'zipViewContents':
+            elt.replace(this.text.loading);
+            this.reloadMessage({ zip_contents: 1 });
+            e.memo.stop();
+            return;
+        }
+
+        if (elt.hasClassName('largeaddrspan_active') &&
+            !e.memo.element().hasClassName('horde-button')) {
             if (e.memo.element().hasClassName('largeaddrlistlimit')) {
                 e.memo.element().hide();
                 elt.up('TD').fire('DimpCore:updateAddressHeader');
@@ -310,22 +340,6 @@ var DimpCore = {
                 tmp = elt.down();
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
-        } else if (elt.hasClassName('pgpVerifyMsg')) {
-            elt.replace(this.text.verify);
-            this.reloadMessage({ pgp_verify_msg: 1 });
-            e.memo.stop();
-        } else if (elt.hasClassName('smimeVerifyMsg')) {
-            elt.replace(this.text.verify);
-            this.reloadMessage({ smime_verify_msg: 1 });
-            e.memo.stop();
-        } else if (elt.hasClassName('zipViewContents')) {
-            elt.replace(this.text.loading);
-            this.reloadMessage({ zip_contents: 1 });
-            e.memo.stop();
-        } else if (elt.hasClassName('tgzViewContents')) {
-            elt.replace(this.text.loading);
-            this.reloadMessage({ tgz_contents: 1 });
-            e.memo.stop();
         }
     },
 
