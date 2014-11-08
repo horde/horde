@@ -25,7 +25,7 @@ var IMP_JS = {
 
         e.stop();
 
-        if (elt.hasClassName('noUnblockImageAdd')) {
+        if (elt.readAttribute('noUnblockImageAdd')) {
             box.slideUp({
                 afterFinish: function() { box.remove(); },
                 duration: 0.6

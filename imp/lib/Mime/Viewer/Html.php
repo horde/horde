@@ -218,10 +218,10 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 break;
 
             default:
-                $class = '';
+                $attr = array('muid' => strval($contents->getIndicesOb()));
                 if (!$injector->getInstance('IMP_Prefs_Special_ImageReplacement')->canAddToSafeAddrList() ||
                     $injector->getInstance('IMP_Identity')->hasAddress($contents->getHeader()->getOb('from'))) {
-                    $class = 'noUnblockImageAdd';
+                    $attr['noUnblockImageAdd'] = 1;
                 }
 
                 $link = $text = null;
@@ -235,21 +235,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                 if (!is_null($link)) {
                     $tmp = new IMP_Mime_Status($this->_mimepart, $text);
-                    if (!strlen($class)) {
-                        $tmp->addMimeAction(
-                            'unblockImageLink',
-                            $link,
-                            array(
-                                'muid' => strval($contents->getIndicesOb())
-                            )
-                        );
-                    } else {
-                        $tmp->addText(
-                            Horde::link('#', '', $class, '', '', '', '', array(
-                                'muid' => strval($contents->getIndicesOb())
-                            )) . $link . '</a>'
-                        );
-                    }
+                    $tmp->addMimeAction('unblockImageLink', $link, $attr);
                     $tmp->icon('mime/image.png');
                     $status[] = $tmp;
                 }
