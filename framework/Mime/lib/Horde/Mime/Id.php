@@ -47,6 +47,13 @@ class Horde_Mime_Id
     }
 
     /**
+     */
+    public function __toString()
+    {
+        return $this->id;
+    }
+
+    /**
      * Performs MIME ID "arithmetic".
      *
      * @param string $action  One of:
