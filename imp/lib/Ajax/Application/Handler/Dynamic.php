@@ -730,19 +730,17 @@ extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
-     * AJAX action: Return a list of address objects used to build an address
-     * header for a message.
+     * AJAX action: Return a list of address objects used to build an
+     * address header for a message.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
      * parameters needed. Additional variables used:
-     *   - header: (integer) If set, return preview data. Otherwise, return
-     *              full data.
+     *   - header: (string) The header to return.
      *
      * @return object  An object with the following entries:
      *   - hdr_data: (object) Contains header names as keys and lists of
      *               address objects as values.
-     * @throws IMP_Exception
      */
     public function addressHeader()
     {
@@ -751,7 +749,7 @@ extends Horde_Core_Ajax_Application_Handler
         $hdr = $this->vars->header;
 
         $result = new stdClass;
-        $result->hdr_data->$hdr = (object)$show_msg->getAddressHeader($this->vars->header, null);
+        $result->hdr_data->$hdr = (object)$show_msg->getAddressHeader($hdr, null);
 
         return $result;
     }
