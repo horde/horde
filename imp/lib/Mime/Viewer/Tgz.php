@@ -92,7 +92,9 @@ class IMP_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Tgz
         ));
         $view->addHelper('Text');
 
+        $view->downloadclass = 'tgzdownload';
         $view->files = array();
+        $view->tableclass = 'tgzcontents';
 
         $tgzInfo = $this->_getTgzInfo();
         $zlib = Horde_Util::extensionExists('zlib');
@@ -127,7 +129,7 @@ class IMP_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Tgz
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $view->render('tgz'),
+                'data' => $view->render('compressed'),
                 'type' => 'text/html; charset=UTF-8'
             )
         );

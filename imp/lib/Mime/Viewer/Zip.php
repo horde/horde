@@ -101,7 +101,10 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
             'templatePath' => IMP_TEMPLATES . '/mime'
         ));
         $view->addHelper('Text');
+
+        $view->downloadclass = 'zipdownload';
         $view->files = array();
+        $view->tableclass = 'zipcontents';
 
         $zlib = Horde_Util::extensionExists('zlib');
 
@@ -137,7 +140,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
 
         return array(
             $this->_mimepart->getMimeId() => array(
-                'data' => $view->render('zip'),
+                'data' => $view->render('compressed'),
                 'type' => 'text/html; charset=UTF-8'
             )
         );

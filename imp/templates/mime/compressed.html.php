@@ -1,8 +1,8 @@
 <p>
- <h3><?php echo _("Contents of Tar/Gzip file:") ?></h3>
+ <h3><?php echo _("Contents of compressed file:") ?></h3>
 </p>
 
-<table class="horde-table tgzcontents">
+<table class="horde-table <?php echo $this->tableclass ?>">
  <thead>
   <tr>
    <th><?php echo _("Filename") ?></th>
@@ -15,7 +15,9 @@
   <tr>
    <td><?php echo $this->h($v->name) ?></td>
    <td><?php echo $this->h($v->size) ?></td>
-   <td class="tgzdownload"><?php echo $v->download ?></td>
+   <td class="<?php echo $this->downloadclass ?>">
+    <?php echo $v->download ?>
+   </td>
   </tr>
 <?php endforeach; ?>
  </tbody>
