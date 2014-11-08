@@ -43,7 +43,7 @@
 * [mms] Do autocomplete search on browser, if sufficient data exists, to save calls to contacts backend.
 * [mms] Removed minimal view.
 * [mms] Allow auto-completed e-mail groups to be expanded on the dynamic compose page.
-* [mms] Add class of message part rendering display errors that aren&apos;t show to the user by default.
+* [mms] Add class of message part rendering display errors that aren&apos;t shown to the user by default.
 * [mms] Throttle message list keypresses in dynamic view to prevent avalanche of preview requests sent to server (Request #13574).
 * [mms] Filter out relative image URLs in HTML message data.
 * [mms] Implement lazy loading for images in HTML messages.
