@@ -9,3 +9,15 @@ table.imp-itip {
 .imp-itip tr.imp-itipnearcollision {
     background-color: #ffdf4d;
 }
+
+/* ZIP styles. */
+table.zipcontents {
+    border-left: 1px solid #d0d0d0;
+    border-right: 1px solid #d0d0d0;
+    margin-bottom: 10px;
+}
+td.zipdownload a {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

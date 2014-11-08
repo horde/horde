@@ -12,8 +12,8 @@
  */
 
 /**
- * Handler to render the contents of ZIP files in HTML format, allowing
- * downloading of extractable files.
+ * Handler to render the contents of ZIP files, allowing downloading of
+ * extractable files.
  *
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
@@ -35,79 +35,127 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
      */
     protected function _render()
     {
-        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+        global $injector;
 
-        if (!isset($vars->zip_attachment)) {
+        $vars = $injector->getInstance('Horde_Variables');
+        $zipInfo = $this->_getZipInfo();
+
+        /* Verify that the requested file exists. */
+        if ((($key = $vars->zip_attachment) === null) ||
+            !isset($zipInfo[$key])) {
             return array();
         }
 
-        /* Send the requested file. Its position in the zip archive is located
-         * in 'zip_attachment'. */
-        $data = $this->_mimepart->getContents();
-        $fileKey = $vars->zip_attachment - 1;
-
-        if (!($zip = $this->getConfigParam('zip'))) {
-            $zip = Horde_Compress::factory('Zip');
-            $this->setConfigParam('zip', $zip);
-        }
-        $zipInfo = $zip->decompress($data, array(
-            'action' => Horde_Compress_Zip::ZIP_LIST
-        ));
-
-        /* Verify that the requested file exists. */
-        if (isset($zipInfo[$fileKey])) {
-            $text = $zip->decompress($data, array(
+        $text = $this->getConfigParam('zip')->decompress(
+            $this->_mimepart->getContents(),
+            array(
                 'action' => Horde_Compress_Zip::ZIP_DATA,
                 'info' => $zipInfo,
-                'key' => $fileKey
-            ));
-            if (!empty($text)) {
-                return array(
-                    $this->_mimepart->getMimeId() => array(
-                        'data' => $text,
-                        'name' => basename($zipInfo[$fileKey]['name']),
-                        'type' => 'application/octet-stream'
-                    )
-                );
-            }
-        }
+                'key' => $key
+            )
+        );
 
-        // TODO: Error reporting
-        return array();
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $text,
+                'name' => basename($zipInfo[$key]['name']),
+                'type' => 'application/octet-stream'
+            )
+        );
     }
 
     /**
      * Return the rendered information about the Horde_Mime_Part object.
      *
+     * URL parameters used by this function:
+     *   - zip_contents: (integer) If set, show contents of ZIP file.
+     *
      * @return array  See Horde_Mime_Viewer_Driver::render().
      */
     protected function _renderInfo()
     {
-        $this->_callback = array($this, '_IMPcallback');
-        return parent::_renderInfo();
+        global $injector;
+
+        $vars = $injector->getInstance('Horde_Variables');
+
+        if (!$this->getConfigParam('show_contents') &&
+            !$vars->zip_contents) {
+            $status = new IMP_Mime_Status(_("This is a ZIP compressed file."));
+            $status->icon('mime/compressed.png');
+            $status->addText(
+                Horde::link('#', '', 'zipViewContents') .
+                _("Click HERE to display the contents.") .
+                '</a>'
+            );
+
+            return array(
+                $this->_mimepart->getMimeId() => array(
+                    'data' => '',
+                    'status' => $status,
+                    'type' => 'text/html; charset=UTF-8'
+                )
+            );
+        }
+
+        $view = new Horde_View(array(
+            'templatePath' => IMP_TEMPLATES . '/mime'
+        ));
+        $view->addHelper('Text');
+        $view->files = array();
+
+        $zlib = Horde_Util::extensionExists('zlib');
+
+        foreach ($this->_getZipInfo() as $key => $val) {
+            $file = new stdClass;
+            $file->name = $val['name'];
+            $file->size = IMP::sizeFormat($val['size']);
+
+            /* TODO: Add ability to render in-browser for filetypes we can
+             *       handle. */
+            if (!empty($val['size']) &&
+                (strstr($val['attr'], 'D') === false) &&
+                (($zlib && ($val['method'] == 0x8)) ||
+                 ($val['method'] == 0x0))) {
+                $file->download = $this->getConfigParam('imp_contents')->linkView(
+                    $this->_mimepart,
+                    'download_render',
+                    '',
+                    array(
+                        'class' => 'iconImg downloadAtc',
+                        'jstext' => _("Download"),
+                        'params' => array(
+                            'zip_attachment' => $key
+                        )
+                    )
+                );
+            } else {
+                $file->download = '';
+            }
+
+            $view->files[] = $file;
+        }
+
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $view->render('zip'),
+                'type' => 'text/html; charset=UTF-8'
+            )
+        );
     }
 
     /**
-     * The function to use as a callback to _renderInfo().
+     * Return ZIP information.
      *
-     * @param integer $key  The position of the file in the zip archive.
-     * @param array $val    The information array for the archived file.
-     *
-     * @return string  The content-type of the output.
+     * @return array  See Horde_Compress_Zip#decompress().
      */
-    protected function _IMPcallback($key, $val)
+    protected function _getZipInfo()
     {
-        $name = preg_replace('/(&nbsp;)+$/', '', $val['name']);
+        $data = $this->_mimepart->getContents();
+        $zip = $this->getConfigParam('zip');
 
-        if (!empty($val['size']) && (strstr($val['attr'], 'D') === false) &&
-            ((($val['method'] == 0x8) && Horde_Util::extensionExists('zlib')) ||
-             ($val['method'] == 0x0))) {
-            $mime_part = clone $this->_mimepart;
-            $mime_part->setName(basename($name));
-            $val['name'] = str_replace($name, $this->getConfigParam('imp_contents')->linkView($mime_part, 'download_render', $name, array('jstext' => sprintf(_("View %s"), str_replace('&nbsp;', ' ', $name)), 'class' => 'fixed', 'params' => array('zip_attachment' => urlencode($key) + 1))), $val['name']);
-        }
-
-        return $val;
+        return $zip->decompress($data, array(
+            'action' => $zip::ZIP_LIST
+        ));
     }
 
 }

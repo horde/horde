@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mms] Improved display of contents of ZIP attachments.
 [mms] Contacts popup now does address search dynamically, without the need to
       reload the page.
 [mms] Remove 'mailboxarray' hook.

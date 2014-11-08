@@ -157,7 +157,9 @@ $mime_drivers = array(
         )
     ),
 
-    /* Zip file display. */
+    /* Zip file display.
+     * To access gzipped files, the zlib library must have been built into PHP
+     * (with the --with-zlib option). */
     'zip' => array(
         'handles' => array(
             'application/x-compressed',
@@ -166,7 +168,12 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'compressed.png'
-        )
+        ),
+
+        /* By default, ZIP contents are only shown if the user requests. Set
+         * this value to true to automatically show the contents on the
+         * initial load. */
+        'show_contents' => false
     ),
 
     /* Delivery status messages display. */

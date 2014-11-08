@@ -318,6 +318,10 @@ var DimpCore = {
             elt.replace(this.text.verify);
             this.reloadMessage({ smime_verify_msg: 1 });
             e.memo.stop();
+        } else if (elt.hasClassName('zipViewContents')) {
+            elt.replace(this.text.loading);
+            this.reloadMessage({ zip_contents: 1 });
+            e.memo.stop();
         }
     },
 
