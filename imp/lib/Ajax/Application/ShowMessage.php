@@ -23,6 +23,15 @@
 class IMP_Ajax_Application_ShowMessage
 {
     /**
+     * Default list of part info elements to display.
+     *
+     * @var array
+     */
+    public $part_info = array(
+        'icon', 'description', 'size', 'download'
+    );
+
+    /**
      * Contents object.
      *
      * @var IMP_Contents
@@ -253,26 +262,8 @@ class IMP_Ajax_Application_ShowMessage
 
         // Create message text and attachment list.
         $result['msgtext'] = '';
+        $part_info = $this->part_info;
         $show_parts = $prefs->getValue('parts_display');
-
-        switch ($registry->getView()) {
-        case $registry::VIEW_MINIMAL:
-        case $registry::VIEW_SMARTMOBILE:
-            $contents_mask = 0;
-            break;
-
-        default:
-            $contents_mask = IMP_Contents::SUMMARY_BYTES |
-                IMP_Contents::SUMMARY_SIZE |
-                IMP_Contents::SUMMARY_ICON |
-                IMP_Contents::SUMMARY_DESCRIP_LINK |
-                IMP_Contents::SUMMARY_DOWNLOAD |
-                IMP_Contents::SUMMARY_PRINT_STUB;
-            break;
-        }
-
-        $part_info = $part_info_display = array('icon', 'description', 'size', 'download');
-        $part_info_display[] = 'print';
 
         list($mbox, $uid) = $this->_indices->getSingle();
 
@@ -292,12 +283,7 @@ class IMP_Ajax_Application_ShowMessage
         /* Build body text. This needs to be done before we build the
          * attachment list. */
         $session->close();
-        $inline_ob = new IMP_Contents_InlineOutput();
-        $inlineout = $inline_ob->getInlineOutput($this->_contents, array(
-            'mask' => $contents_mask,
-            'part_info_display' => $part_info_display,
-            'show_parts' => $show_parts
-        ));
+        $inlineout = $this->getInlineOutput();
         $session->start();
 
         $result['md'] = $inlineout['metadata'];
@@ -325,7 +311,7 @@ class IMP_Ajax_Application_ShowMessage
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
-                $contents_mask |= IMP_Contents::SUMMARY_DESCRIP |
+                $contents_mask = IMP_Contents::SUMMARY_DESCRIP_LINK |
                     IMP_Contents::SUMMARY_DOWNLOAD |
                     IMP_Contents::SUMMARY_ICON |
                     IMP_Contents::SUMMARY_SIZE;
@@ -419,6 +405,44 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         return $out;
+    }
+
+    /**
+     * Get the inline display output for a message.
+     *
+     * @param string $mimeid  Restrict output to this MIME ID (and children).
+     *
+     * @return array  See IMP_Contents_InlineOutput#getInlineOutput().
+     */
+    public function getInlineOutput($mimeid = null)
+    {
+        global $registry;
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_MINIMAL:
+        case $registry::VIEW_SMARTMOBILE:
+            $contents_mask = 0;
+            break;
+
+        default:
+            $contents_mask = IMP_Contents::SUMMARY_BYTES |
+                IMP_Contents::SUMMARY_SIZE |
+                IMP_Contents::SUMMARY_ICON |
+                IMP_Contents::SUMMARY_DESCRIP_LINK |
+                IMP_Contents::SUMMARY_DOWNLOAD |
+                IMP_Contents::SUMMARY_PRINT_STUB;
+            break;
+        }
+
+        $part_info = $part_info_display = $this->part_info;
+        $part_info_display[] = 'print';
+
+        $inline_ob = new IMP_Contents_InlineOutput();
+        return $inline_ob->getInlineOutput($this->_contents, array(
+            'mask' => $contents_mask,
+            'mimeid' => $mimeid,
+            'part_info_display' => $part_info_display
+        ));
     }
 
 }

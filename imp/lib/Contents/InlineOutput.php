@@ -30,6 +30,7 @@ class IMP_Contents_InlineOutput
      *   - display_mask: (integer) The mask of display view type to render
      *                   inline (DEFAULT: RENDER_INLINE_AUTO).
      *   - mask: (integer) The mask needed for a getSummary() call.
+     *   - mimeid: (string) Restrict output to this MIME ID (and children).
      *   - part_info_display: (array) The list of summary fields to display.
      *   - show_parts: (string) The value of the 'parts_display' pref.
      *
@@ -56,6 +57,9 @@ class IMP_Contents_InlineOutput
         $display_mask = isset($options['display_mask'])
             ? $options['display_mask']
             : $contents::RENDER_INLINE_AUTO;
+        $mimeid_filter = isset($options['mimeid'])
+            ? new Horde_Mime_Id($options['mimeid'])
+            : null;
         $part_info_display = isset($options['part_info_display'])
             ? $options['part_info_display']
             : array();
@@ -67,6 +71,12 @@ class IMP_Contents_InlineOutput
             if (isset($display_ids[$mime_id]) ||
                 isset($atc_parts[$mime_id])) {
                 continue;
+            }
+
+            if ($mimeid_filter &&
+                ((strval($mimeid_filter) != $mime_id) &&
+                 !$mimeid_filter->isChild($mime_id))) {
+                 continue;
             }
 
             if (!($render_mode = $contents->canDisplay($mime_id, $display_mask))) {
@@ -176,7 +186,8 @@ class IMP_Contents_InlineOutput
                 $wrap_ids[] = $id;
             }
 
-            $text_out .= '<div class="mimePartBase">' . $part['text'] . '</div>';
+            $text_out .= '<div class="mimePartBase" impcontentsmimeid="' .
+                $id .  '">' . $part['text'] . '</div>';
         }
 
         $text_out .= str_repeat('</div>', count($wrap_ids));
