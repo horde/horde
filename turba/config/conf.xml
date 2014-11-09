@@ -51,4 +51,12 @@
   <configheader>Tag Settings</configheader>
   <configboolean name="enabled" desc="Enable tagging?">true</configboolean>
  </configsection>
+
+ <configsection name="pager">
+  <configheader>Alpha Pager Settings</configheader>
+  <configlist name="special" required="false" desc="An list containing any
+  special characters that should be appended to the alphapager such as a '#'.
+  Enter a comma delimited list." />
+</configsection>
+
 </configuration>
