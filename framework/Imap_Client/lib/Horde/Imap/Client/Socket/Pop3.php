@@ -425,8 +425,16 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                     $saslprep = new Znerol\Component\Stringprep\Profile\SASLprep();
 
                     try {
-                        $username = $saslprep->apply($username, 'UTF-8', self::MODE_QUERY);
-                        $password = $saslprep->apply($password, 'UTF-8', self::MODE_STORE);
+                        $username = $saslprep->apply(
+                            $username,
+                            'UTF-8',
+                            Znerol\Compnonent\Stringprep\Profile::MODE_QUERY
+                        );
+                        $password = $saslprep->apply(
+                            $password,
+                            'UTF-8',
+                            Znerol\Compnonent\Stringprep\Profile::MODE_STORE
+                        );
                         $error = false;
                     } catch (Znerol\Component\Stringprep\ProfileException $e) {
                         $error = true;
