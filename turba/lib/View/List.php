@@ -220,7 +220,7 @@ class Turba_View_List implements Countable
                 $page = $vars->get('page', 'A');
                 $pattern = array('A-Z', 'a-z', '*');
                 foreach ($GLOBALS['conf']['pager']['special'] as $chr) {
-                    $pattern[] = $chr;
+                    $pattern[] = preg_quote($chr, '/');
                 }
                 if (!preg_match('/^[' . implode('', $pattern) . ']$/', $page)) {
                     $page = 'A';
