@@ -7,7 +7,6 @@ if ($currentPage == '*') {
 } else {
     echo $viewurl->copy()->add('page', '*')->link() . _("All") . '</a>&nbsp;';
 }
-$special = array(35);
 foreach ($GLOBALS['conf']['pager']['special'] as $a) {
     if ($currentPage == $a) {
         echo '<strong>(' . $a . ')</strong>&nbsp;';
