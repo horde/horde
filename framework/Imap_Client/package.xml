@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-14</date>
+ <date>2014-11-10</date>
  <version>
   <release>2.25.3</release>
   <api>2.25.0</api>
@@ -331,6 +331,9 @@
        <dir name="Ids">
         <file name="Pop3Test.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Ids -->
+       <dir name="Interaction">
+        <file name="CommandTest.php" role="test" />
+       </dir> <!-- /test/Horde/Imap/Client/Interaction -->
        <dir name="Live">
         <file name="Base.php" role="test" />
         <file name="Imap.php" role="test" />
@@ -703,6 +706,7 @@
    <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
    <install as="Horde/Imap/Client/fixtures/remote5.txt" name="test/Horde/Imap/Client/fixtures/remote5.txt" />
    <install as="Horde/Imap/Client/Ids/Pop3Test.php" name="test/Horde/Imap/Client/Ids/Pop3Test.php" />
+   <install as="Horde/Imap/Client/Interaction/CommandTest.php" name="test/Horde/Imap/Client/Interaction/CommandTest.php" />
    <install as="Horde/Imap/Client/Live/Base.php" name="test/Horde/Imap/Client/Live/Base.php" />
    <install as="Horde/Imap/Client/Live/Imap.php" name="test/Horde/Imap/Client/Live/Imap.php" />
    <install as="Horde/Imap/Client/Live/ImapTest.php" name="test/Horde/Imap/Client/Live/ImapTest.php" />
@@ -2735,7 +2739,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-13</date>
+   <date>2014-11-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix determining whether a command requires a continuation request, when the literal occurs within a nested list.
