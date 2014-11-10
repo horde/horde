@@ -99,7 +99,7 @@ var ImpMessage = {
         }), {
             callback: function(r) {
                 $('messageBody')
-                    .down('DIV.mimePartBase[impcontentsmimeid="' + r.mimeid + '"]')
+                    .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                     .replace(r.text);
             },
             uids: [ this.buid ]

@@ -291,7 +291,8 @@ var DimpCore = {
     /* Mouse click handler. */
     clickHandler: function(e)
     {
-        var elt = e.element(), tmp;
+        var args, tmp, text,
+            elt = e.element();
 
         if (!elt.match('A')) {
             return;
@@ -299,13 +300,9 @@ var DimpCore = {
 
         switch (elt.readAttribute('mimevieweraction')) {
         case 'pgpVerifyMsg':
-            this.reloadPart(
-                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
-                { pgp_verify_msg: 1 }
-            );
-            elt.replace(this.text.verify);
-            e.memo.stop();
-            return;
+            args = { pgp_verify_msg: 1 };
+            text = this.text.verify;
+            break;
 
         case 'showRenderIssues':
             if ((tmp = $(elt.readAttribute('domid')))) {
@@ -316,33 +313,31 @@ var DimpCore = {
             return;
 
         case 'smimeVerifyMsg':
-            this.reloadPart(
-                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
-                { smime_verify_msg: 1 }
-            );
-            elt.replace(this.text.verify);
-            e.memo.stop();
-            return;
+            args = { smime_verify_msg: 1 };
+            text = this.text.verify;
+            break;
 
         case 'tgzViewContents':
-            this.reloadPart(
-                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
-                { tgz_contents: 1 }
-            );
-            elt.replace(this.text.loading);
-            e.memo.stop();
-            return;
+            args = { tgz_contents: 1 };
+            text = this.text.loading;
+            break;
 
         case 'unblockImageLink':
             IMP_JS.unblockImages(e.memo);
             return;
 
         case 'zipViewContents':
+            args = { zip_contents: 1 };
+            text = this.text.loading;
+            break;
+        }
+
+        if (text) {
             this.reloadPart(
-                elt.up('DIV.mimePartBase').readAttribute('impcontentsmimeid'),
-                { zip_contents: 1 }
+                elt.up('DIV[impcontentsmimeid]').readAttribute('impcontentsmimeid'),
+                args
             );
-            elt.replace(this.text.loading);
+            elt.replace(text);
             e.memo.stop();
             return;
         }

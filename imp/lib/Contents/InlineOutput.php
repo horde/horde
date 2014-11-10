@@ -182,12 +182,14 @@ class IMP_Contents_InlineOutput
             }
 
             if (!empty($part['wrap'])) {
-                $text_out .= '<div class="' . $part['wrap'] . '">';
+                $text_out .= '<div class="' . $part['wrap'] .
+                    '" impcontentsmimeid="' . $id . '">';
                 $wrap_ids[] = $id;
             }
 
-            $text_out .= '<div class="mimePartBase" impcontentsmimeid="' .
-                $id .  '">' . $part['text'] . '</div>';
+            $text_out .= '<div class="mimePartBase"' .
+                (empty($part['wrap']) ? ' impcontentsmimeid="' . $id .  '"' : '') .
+                '>' . $part['text'] . '</div>';
         }
 
         $text_out .= str_repeat('</div>', count($wrap_ids));

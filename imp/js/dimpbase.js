@@ -1924,7 +1924,7 @@ var DimpBase = {
             callback: function(r) {
                 if (r.buid == this.pp.VP_id && r.mbox == this.pp.VP_view) {
                     $('messageBody')
-                        .down('DIV.mimePartBase[impcontentsmimeid="' + r.mimeid + '"]')
+                        .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                         .replace(r.text);
                 }
             }.bind(this),
