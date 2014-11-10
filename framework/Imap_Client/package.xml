@@ -12,7 +12,7 @@
  </lead>
  <date>2014-11-10</date>
  <version>
-  <release>2.25.3</release>
+  <release>2.25.4</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix determining whether a command requires a continuation request, when the literal occurs within a nested list.
-* [mms] Ensure we don&apos;t use the same authentication method multiple times when logging into IMAP server.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2744,6 +2743,19 @@
    <notes>
 * [mms] Fix determining whether a command requires a continuation request, when the literal occurs within a nested list.
 * [mms] Ensure we don&apos;t use the same authentication method multiple times when logging into IMAP server.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.4</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
