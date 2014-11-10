@@ -145,7 +145,8 @@ var ImpCompose = {
             }
         });
         if (identity.bcc) {
-            $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc);
+            $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc)
+                .fire('AutoComplete:reset');
             this.toggleCC('bcc');
         }
         this.setSaveSentMail(identity.sm_save);
