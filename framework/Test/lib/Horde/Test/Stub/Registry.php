@@ -58,6 +58,21 @@ class Horde_Test_Stub_Registry
     }
 
     /**
+     * Converts an authentication username to a unique Horde username.
+     *
+     * @param string $userId    The username to convert.
+     * @param boolean $toHorde  If true, convert to a Horde username. If
+     *                          false, convert to the auth username.
+     *
+     * @return string  The converted username.
+     * @throws Horde_Exception
+     */
+    public function convertUsername($userId, $toHorde)
+    {
+        return $userId;
+    }
+
+    /**
      * Returns the currently logged in user, if there is one.
      *
      * @param string $format  The return format, defaults to the unique Horde
