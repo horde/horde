@@ -3482,9 +3482,10 @@ var DimpBase = {
         }
 
         if (mode == 'tog' || mode == 'expall') {
-            subs.each(function(s) {
-                if (!s.visible() && !s.childElements().size()) {
-                    need.set(this.flist.getMbox(s.previous()).value(), 1);
+            subs.invoke('previous').each(function(s) {
+                var s2 = this.flist.getMbox(s);
+                if (!s2.loaded()) {
+                    need.set(s2.value(), 1);
                 }
             }, this);
 
@@ -4352,6 +4353,10 @@ var IMP_Flist_Mbox = Class.create({
     {
         var elt;
 
+        if (e) {
+            this.data.load = true;
+        }
+
         if (this.data.fake) {
             return this.data.fake.expand(e);
         } else if (!Object.isUndefined(e)) {
@@ -4450,6 +4455,11 @@ var IMP_Flist_Mbox = Class.create({
         }
 
         return 'mbox';
+    },
+
+    loaded: function()
+    {
+        return !!this.data.load;
     },
 
     nc: function()
