@@ -159,6 +159,21 @@ To: recipient2@example.com"
         );
     }
 
+    public function testCaseInsensitiveContentParameters()
+    {
+        $hdr = 'Content-Type: multipart/mixed; BOUNDARY="foo"';
+        $hdrs = Horde_Mime_Headers::parseHeaders($hdr);
+
+        $c_params =  $hdrs->getValue(
+            'Content-Type',
+            $hdrs::VALUE_PARAMS
+        );
+        $this->assertEquals(
+            'foo',
+            $c_params['boundary']
+        );
+    }
+
     public function testParseEaiAddresses()
     {
         /* Simple message. */

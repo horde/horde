@@ -497,7 +497,7 @@ class Horde_Mime_Headers implements Serializable
             return $base;
 
         case self::VALUE_PARAMS:
-            return $params;
+            return array_change_key_case($params, CASE_LOWER);
 
         case self::VALUE_STRING:
             foreach ($params as $key => $val) {

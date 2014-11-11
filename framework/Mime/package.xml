@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly handle content parameters in a case-insensitive manner.
 * [mms] Correctly pass the &apos;no_body&apos; parameter to parts embedded in a message/rfc822 part in Horde_Mime_Part#parseMessage().
 * [mms] Fix parsing a base MIME-compliant message with no Content-Type information.
 * [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
@@ -1462,6 +1463,7 @@
    <date>2014-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly handle content parameters in a case-insensitive manner.
 * [mms] Correctly pass the &apos;no_body&apos; parameter to parts embedded in a message/rfc822 part in Horde_Mime_Part#parseMessage().
 * [mms] Fix parsing a base MIME-compliant message with no Content-Type information.
 * [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
