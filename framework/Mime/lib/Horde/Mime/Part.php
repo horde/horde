@@ -2084,7 +2084,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         switch ($ob->getPrimaryType()) {
         case 'message':
             if ($ob->getSubType() == 'rfc822') {
-                $ob->addPart(self::parseMessage($body, array('forcemime' => true)));
+                $ob->addPart(self::parseMessage($body, array(
+                    'forcemime' => true,
+                    'no_body' => $opts['no_body']
+                )));
             }
             break;
 
