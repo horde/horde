@@ -47,8 +47,9 @@ class IMP_Message_Date
      */
     public function __construct($date = null)
     {
-        if (!is_object($date) && !is_null($date)) {
-            $date = new Horde_Imap_Client_DateTime($date);
+        if (!is_null($date) &&
+            !($date instanceof Horde_Imap_Client_DateTime)) {
+            $date = new Horde_Imap_Client_DateTime(strval($date));
         }
 
         $this->_date = $date;
