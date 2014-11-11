@@ -146,8 +146,13 @@ var IMP_Autocompleter = Class.create({
 
     checkActiveElt: function(elt)
     {
-        return (document.activeElement &&
-                (document.activeElement == elt));
+        try {
+            return (document.activeElement &&
+                    (document.activeElement == elt));
+        } catch (e) {
+            // IE 9 bug (activeElement can't be accessed via IFRAME)
+            return false;
+        }
     },
 
     focus: function()
