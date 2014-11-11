@@ -43,12 +43,15 @@ class IMP_Message_Date
     /**
      * Constructor.
      *
-     * @param Horde_Imap_Client_DateTime $date  The date object.
+     * @param Horde_Imap_Client_DateTime|string $date  The date.
      */
     public function __construct($date = null)
     {
         if (!is_object($date) && !is_null($date)) {
             $date = new Horde_Imap_Client_DateTime($date);
+        }
+        if (!($date instanceof Horde_Imap_Client_DateTime)) {
+            Horde::debug($date);
         }
 
         $this->_date = $date;
