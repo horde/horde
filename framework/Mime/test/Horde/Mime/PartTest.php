@@ -488,6 +488,21 @@ C
         );
     }
 
+    public function testAccessingMimePartsInRawText()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/samplemultipart_msg.txt');
+
+        $this->assertNotEmpty(
+            Horde_Mime_Part::getRawPartText($msg, 'body', '0')
+        );
+        $this->assertNotEmpty(
+            Horde_Mime_Part::getRawPartText($msg, 'body', '1')
+        );
+        $this->assertNotEmpty(
+            Horde_Mime_Part::getRawPartText($msg, 'body', '2')
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

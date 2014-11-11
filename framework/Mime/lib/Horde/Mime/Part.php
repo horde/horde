@@ -2168,8 +2168,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $orig_id = $id;
 
         if ($base_pos !== false) {
-            $base_pos = substr($id, 0, $base_pos);
-            $id = substr($id, $base_pos);
+            $id = substr($id, $base_pos + 1);
+            $base_pos = substr($orig_id, 0, $base_pos);
         } else {
             $base_pos = $id;
             $id = 0;
