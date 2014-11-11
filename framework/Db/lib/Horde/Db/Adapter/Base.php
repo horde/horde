@@ -621,7 +621,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
             $where = $this->_replaceParameters($where[0], $where[1]);
         }
         $fnames = array();
-        foreach($fields as $field => $value) {
+        foreach (array_keys($fields) as $field) {
             $fnames[] = $this->quoteColumnName($field) . ' = ?';
         }
         $query = sprintf(
