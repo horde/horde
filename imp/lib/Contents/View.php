@@ -243,10 +243,9 @@ class IMP_Contents_View
         $view->headers = $headers;
 
         $ctype = new Horde_Mime_Headers_ContentParam($part['type']);
-
         $header_dom = new Horde_Domhtml(
-            Horde_String::convertCharset($view->render('headers'), 'UTF-8', $ctype->params['charset']),
-            $ctype->params['charset']
+            Horde_String::convertCharset($view->render('headers'), 'UTF-8', $ctype['charset']),
+            $ctype['charset']
         );
         $elt = $header_dom->dom->getElementById('headerblock');
         $elt->removeAttribute('id');
@@ -308,9 +307,7 @@ class IMP_Contents_View
         $div = $newdiv->createElement('div');
         $div->appendChild($newdiv->importNode($elt, true));
 
-        $pstring = Horde_Mime::decodeParam('content-type', $part['type']);
-
-        $doc = new Horde_Domhtml($part['data'], $pstring['params']['charset']);
+        $doc = new Horde_Domhtml($part['data'], $ctype['charset']);
 
         $bodyelt = $doc->dom->getElementsByTagName('body')->item(0);
         $bodyelt->insertBefore($doc->dom->importNode($div, true), $bodyelt->firstChild);

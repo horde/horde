@@ -2011,7 +2011,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                              * information, check from address. */
                             if (is_null($hdr_ob->personal) &&
                                 ($tmp = $h['from']) &&
-                                ($to_ob = $h->getAddressList(true)->first()) &&
+                                ($to_ob = $tmp->getAddressList(true)->first()) &&
                                 !is_null($to_ob->personal) &&
                                 ($hdr_ob->match($to_ob))) {
                                 $addr['to']->add($to_ob);
@@ -2184,8 +2184,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         // Bug #10148: Message text might be us-ascii, but reply headers may
         // contain 8-bit characters.
         if (($msg_text['charset'] == 'us-ascii') &&
-            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
-             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            (Horde_Mime::is8bit($msg_pre) ||
+             Horde_Mime::is8bit($msg_post))) {
             $msg_text['charset'] = 'UTF-8';
         }
 
@@ -2362,8 +2362,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         // Bug #10148: Message text might be us-ascii, but forward headers may
         // contain 8-bit characters.
         if (($msg_text['charset'] == 'us-ascii') &&
-            (Horde_Mime::is8bit($msg_pre, 'UTF-8') ||
-             Horde_Mime::is8bit($msg_post, 'UTF-8'))) {
+            (Horde_Mime::is8bit($msg_pre) ||
+             Horde_Mime::is8bit($msg_post))) {
             $msg_text['charset'] = 'UTF-8';
         }
 

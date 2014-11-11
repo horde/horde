@@ -531,7 +531,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         foreach ($special_mboxes as $val) {
             if (!$prefs->isDefault($val)) {
                 $old_pref = strval(IMP_Mailbox::getPref($val));
-                if (!Horde_Mime::is8bit($old_pref, 'UTF-8')) {
+                if (!Horde_Mime::is8bit($old_pref)) {
                     $mbox = IMP_Mailbox::get(Horde_String::convertCharset($old_pref, 'UTF7-IMAP', 'UTF-8'));
                     $prefs->setValue($val, $old_pref->$mbox->pref_to);
                 }
@@ -541,7 +541,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
         $imp_identity = $injector->getInstance('IMP_Identity');
 
         foreach ($imp_identity->getAll('sent_mail_folder') as $key => $val) {
-            if (!is_null($val) && !Horde_Mime::is8bit($val, 'UTF-8')) {
+            if (!is_null($val) && !Horde_Mime::is8bit($val)) {
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
                 $imp_identity->setValue(IMP_Mailbox::MBOX_SENT, $mbox, $key);
             }
