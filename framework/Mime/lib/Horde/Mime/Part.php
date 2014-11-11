@@ -1711,9 +1711,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *                                      holding this message's headers.
      * @param Horde_Mail_Transport $mailer  A Horde_Mail_Transport object.
      * @param array $opts                   Additional options:
+     * <pre>
+     *   - broken_rfc2231: (boolean) Attempt to work around non-RFC
+     *                     2231-compliant MUAs by generating both a RFC
+     *                     2047-like parameter name and also the correct RFC
+     *                     2231 parameter (@since 2.5.0).
+     *                     DEFAULT: false
      *   - encode: (integer) The encoding to use. A mask of self::ENCODE_*
      *             values.
      *             DEFAULT: Auto-determined based on transport driver.
+     * </pre>
      *
      * @throws Horde_Mime_Exception
      * @throws InvalidArgumentException
@@ -1784,6 +1791,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 'encode' => $this->getHeaderCharset(),
                 'idn' => true
             )), $headers->toArray(array(
+                'broken_rfc2231' => !empty($opts['broken_rfc2231']),
                 'canonical' => $canonical,
                 'charset' => $this->getHeaderCharset()
             )), $msg);

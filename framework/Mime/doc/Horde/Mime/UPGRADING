@@ -138,6 +138,12 @@ Upgrading to 2.5
 
     These classes were added.
 
+  - Horde_Mime_Part
+
+    - send()
+
+      Added the 'broken_rfc2231' option.
+
 
 Upgrading to 2.4
 ================
