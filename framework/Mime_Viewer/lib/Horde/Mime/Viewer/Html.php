@@ -34,7 +34,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
      *
      * @var string
      */
-    protected $_phishCss = 'padding: 1px;margin-bottom: 3px;font-size: 90%;border: 1px solid #800;background: #e81222;color: #fff;width: 100%;';
+    protected $_phishCss = 'padding: 1px;margin-bottom: 3px;font-size: 90%;border: 1px solid #800;background: #e81222;color: #fff !important;width: 100%;';
 
     /**
      * Phishing status of last call to _phishingCheck().
@@ -216,6 +216,14 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                 if ($this->_tmp['phish'] &&
                     $this->_phishingCheck($val->value, $node->textContent)) {
                     $this->_phishWarn = true;
+
+                    foreach (array_merge(array($node), iterator_to_array($node->childNodes)) as $node2) {
+                        if ($node2 instanceof DOMElement) {
+                            $node2->removeAttribute('color');
+                            $node2->removeAttribute('style');
+                        }
+                    }
+
                     $node->setAttribute('style', ($node->hasAttribute('style') ? rtrim($node->getAttribute('style'), '; ') . ';' : '') . $this->_phishCss);
                 }
 
