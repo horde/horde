@@ -626,7 +626,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $type = $ptype . '/' . $this->getSubType();
         if ($charset &&
             ($ptype == 'text') &&
-            ($charset = $this->getCharset())) {
+            ($charset = $this->getCharset() &&
+            ($charset !== 'us-ascii'))) {
             $type .= '; charset=' . $charset;
         }
 
@@ -697,21 +698,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function getCharset()
     {
         $charset = $this->getContentTypeParameter('charset');
-        if (is_null($charset) && $this->getPrimaryType() != 'text') {
-            return null;
-        }
-
-        $charset = Horde_String::lower($charset);
-
-        if ($this->getPrimaryType() == 'text') {
-            $d_charset = Horde_String::lower(self::$defaultCharset);
-            if ($d_charset != 'us-ascii' &&
-                (!$charset || $charset == 'us-ascii')) {
-                return $d_charset;
+        if (is_null($charset)) {
+            if ($this->getPrimaryType() != 'text') {
+                return null;
             }
+            $charset = self::$defaultCharset;
         }
 
-        return $charset;
+        return Horde_String::lower($charset);
     }
 
     /**
@@ -2008,7 +2002,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                                             array $opts = array())
     {
         $opts = array_merge(array(
-            'ctype' => 'application/octet-stream',
+            'ctype' => 'text/plain',
             'forcemime' => false,
             'level' => 0,
             'no_body' => false

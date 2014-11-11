@@ -472,6 +472,22 @@ C
         );
     }
 
+    public function testMimeMessageWithNoContentType()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg4.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            'text/plain',
+            $part->getType()
+        );
+
+        $this->assertEquals(
+            'us-ascii',
+            $part->getCharset()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
