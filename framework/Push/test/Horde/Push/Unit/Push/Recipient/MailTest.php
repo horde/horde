@@ -40,7 +40,7 @@ extends Horde_Push_TestCase
             ->push();
         $this->assertEquals(
             'E-MAIL',
-            $mx->sentMessages[0]['headers']['subject']
+            $mx->sentMessages[0]['headers']['Subject']
         );
     }
 

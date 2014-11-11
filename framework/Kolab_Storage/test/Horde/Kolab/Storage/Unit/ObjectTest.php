@@ -71,9 +71,8 @@ extends PHPUnit_Framework_TestCase
         $data = $this->getMock('Horde_Kolab_Storage_Object_Writer');
         $object = new Horde_Kolab_Storage_Object();
         $headers = $this->getMock('Horde_Mime_Headers');
-        $headers->expects($this->once())
-            ->method('getValue')
-            ->with('X-Kolab-Type')
+        $headers->method('__call')
+            ->with('getValue', array('X-Kolab-Type'))
             ->will($this->returnValue('application/x-vnd.kolab.note'));
         $this->folder->expects($this->once())
             ->method('getType')
@@ -100,9 +99,8 @@ extends PHPUnit_Framework_TestCase
         $data = $this->getMock('Horde_Kolab_Storage_Object_Writer');
         $object = new Horde_Kolab_Storage_Object();
         $headers = $this->getMock('Horde_Mime_Headers');
-        $headers->expects($this->once())
-            ->method('getValue')
-            ->with('X-Kolab-Type')
+        $headers->method('__call')
+            ->with('getValue', array('X-Kolab-Type'))
             ->will($this->returnValue('application/x-vnd.kolab.note'));
         $this->folder->expects($this->once())
             ->method('getType')
@@ -137,9 +135,8 @@ extends PHPUnit_Framework_TestCase
         $data = $this->getMock('Horde_Kolab_Storage_Object_Writer');
         $object = new Horde_Kolab_Storage_Object();
         $headers = $this->getMock('Horde_Mime_Headers');
-        $headers->expects($this->once())
-            ->method('getValue')
-            ->with('X-Kolab-Type')
+        $headers->method('__call')
+            ->with('getValue', array('X-Kolab-Type'))
             ->will($this->returnValue('application/x-vnd.kolab.note'));
         $this->folder->expects($this->once())
             ->method('getType')
@@ -326,9 +323,8 @@ extends PHPUnit_Framework_TestCase
         $data = $this->getMock('Horde_Kolab_Storage_Object_Writer');
         $object = new Horde_Kolab_Storage_Object();
         $headers = $this->getMock('Horde_Mime_Headers');
-        $headers->expects($this->once())
-            ->method('getValue')
-            ->with('X-Kolab-Type')
+        $headers->method('__call')
+            ->with('getValue', array('X-Kolab-Type'))
             ->will($this->returnValue('application/x-vnd.kolab.note'));
         $this->folder->expects($this->once())
             ->method('getType')
