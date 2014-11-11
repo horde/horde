@@ -1894,15 +1894,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $this->_setMetadata('indices', $contents->getIndicesOb());
 
             /* Set the Message-ID related headers (RFC 5322 [3.6.4]). */
-            $msg_id = $h['Message-ID']->getIdentificationOb();
-            if (count($msg_id->ids)) {
-                $this->_setMetadata('in_reply_to', reset($msg_id->ids));
+            if ($tmp = $h['Message-ID']) {
+                $msg_id = $tmp->getIdentificationOb();
+                if (count($msg_id->ids)) {
+                    $this->_setMetadata('in_reply_to', reset($msg_id->ids));
+                }
             }
 
-            if ($h['References']) {
-                $ref_ob = $h['References']->getIdentificationOb();
-                if (!count($ref_ob->ids)) {
-                    $ref_ob = $h['In-Reply-To']->getIdentificationOb();
+            if ($tmp = $h['References']) {
+                $ref_ob = $tmp->getIdentificationOb();
+                if (!count($ref_ob->ids) &&
+                    ($tmp = $h['In-Reply-To'])) {
+                    $ref_ob = $tmp->getIdentificationOb();
                     if (count($ref_ob->ids) > 1) {
                         $ref_ob->ids = array();
                     }
