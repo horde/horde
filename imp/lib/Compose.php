@@ -1901,11 +1901,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->_setMetadata('in_reply_to', reset($msg_id->ids));
             }
 
-            $ref_ob = $h['References']->getIdentificationOb();
-            if (!count($ref_ob->ids)) {
-                $ref_ob = $h['In-Reply-To']->getIdentificationOb();
-                if (count($ref_ob->ids) > 1) {
-                    $ref_ob->ids = array();
+            if ($h['References']) {
+                $ref_ob = $h['References']->getIdentificationOb();
+                if (!count($ref_ob->ids)) {
+                    $ref_ob = $h['In-Reply-To']->getIdentificationOb();
+                    if (count($ref_ob->ids) > 1) {
+                        $ref_ob->ids = array();
+                    }
                 }
             }
 
