@@ -1184,9 +1184,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $email = $this->_prepSendMessage($email, $message);
 
-        $opts = array(
-            'broken_rfc2231' => true
-        );
+        $opts = array();
         if ($this->getMetadata('encrypt_sign')) {
             /* Signing requires that the body not be altered in transport. */
             $opts['encode'] = Horde_Mime_Part::ENCODE_7BIT;
