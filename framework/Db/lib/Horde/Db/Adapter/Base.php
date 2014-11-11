@@ -620,20 +620,14 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
         if (is_array($where)) {
             $where = $this->_replaceParameters($where[0], $where[1]);
         }
-
+        $fnames = array();
+        foreach($fields as $field => $value) {
+            $fnames[] = $this->quoteColumnName($field) . ' = ?';
+        }
         $query = sprintf(
             'UPDATE %s SET %s%s',
             $this->quoteTableName($table),
-            implode(
-                ', ',
-                array_map(
-                    function($field)
-                    {
-                        return $this->quoteColumnName($field) . ' = ?';
-                    },
-                    array_keys($fields)
-                )
-            ),
+            implode(', ', $fnames),
             strlen($where) ? ' WHERE ' . $where : ''
         );
         return $this->update($query, $fields);
