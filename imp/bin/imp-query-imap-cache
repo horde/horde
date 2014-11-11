@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 /**
- * Query/manage the contents of a user's cached IMAP data.
+ * Query/manage the contents of a user's cached mail data.
  *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
@@ -118,20 +118,20 @@ if (!$ob) {
     $cli->fatal('Could not create Imap Client object.');
 }
 
-/* Make sure IMAP cache exists in the IMAP driver. */
+/* Make sure cache exists in the driver. */
 $cache = $ob->getCache();
 if (is_null($cache)) {
-    $cli->fatal('Could not get cache object from IMAP driver.');
+    $cli->fatal('Could not get cache object from driver.');
 }
 
 try {
     $ob->login();
-    $cli->message('Successfully logged in to IMAP server.');
+    $cli->message('Successfully logged in to server.');
 
     $mboxes = $ob->listMailboxes('*', Horde_Imap_Client::MBOX_ALL, array('flat' => true, 'sort' => true));
     $cli->message('User mailbox count: ' . count($mboxes));
 } catch (Horde_Imap_Client_Exception $e) {
-    $cli->fatal('IMAP error: ' . $e);
+    $cli->fatal('Error: ' . $e);
 }
 
 $opts = array(
@@ -213,14 +213,16 @@ while (true) {
                         $status = $ob->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
                     } catch (Horde_Imap_Client_Exception $e) {
                         $cli->writeln();
-                        $cli->message('IMAP error: ' . $e, 'cli.error');
+                        $cli->message('Error: ' . $e, 'cli.error');
                     }
-                    $cli->message(
-                        'UIDVALIDITY: ' . $res['uidvalid'] .
-                        (($status['uidvalidity'] != $res['uidvalid'])
-                            ? ' [Server value: ' . $cli->red($status['uidvalidity']) . ']'
-                            : '')
-                    );
+                    if ($res['uidvalid']) {
+                        $cli->message(
+                            'UIDVALIDITY: ' . $res['uidvalid'] .
+                            (($status['uidvalidity'] != $res['uidvalid'])
+                                ? ' [Server value: ' . $cli->red($status['uidvalidity']) . ']'
+                                : '')
+                        );
+                    }
                     if (isset($res[Horde_Imap_Client_Base::CACHE_MODSEQ])) {
                         $cli->message(
                             'Highest MODSEQ seen: ' . $res[Horde_Imap_Client_Base::CACHE_MODSEQ] .
@@ -295,7 +297,7 @@ while (true) {
         if (!strlen($mbox)) {
             break;
         }
-        $uids = $cli->prompt('UIDs (IMAP sequence string format):');
+        $uids = $cli->prompt('UIDs (sequence string format):');
         if (!strlen($uids)) {
             break;
         }
