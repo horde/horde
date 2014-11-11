@@ -68,6 +68,12 @@ class Horde_Mime_Headers
      * Returns the headers in array format.
      *
      * @param array $opts  Optional parameters:
+     * <pre>
+     *   - broken_rfc2231: (boolean) Attempt to work around non-RFC
+     *                     2231-compliant MUAs by generating both a RFC
+     *                     2047-like parameter name and also the correct RFC
+     *                     2231 parameter
+     *                     DEFAULT: false
      *   - canonical: (boolean) Use canonical (RFC 822/2045) CRLF EOLs?
      *                DEFAULT: Uses "\n"
      *   - charset: (string) Encodes the headers using this charset. If empty,
@@ -75,8 +81,11 @@ class Horde_Mime_Headers
      *              DEFAULT: No encoding.
      *   - defserver: (string) The default domain to append to mailboxes.
      *                DEFAULT: No default name.
+     *   - lang: (string) The language to use when encoding.
+     *           DEFAULT: None specified
      *   - nowrap: (integer) Don't wrap the headers.
      *             DEFAULT: Headers are wrapped.
+     * </pre>
      *
      * @return array  The headers in array format. Keys are header names, but
      *                case sensitivity cannot be guaranteed. Values are
@@ -93,23 +102,25 @@ class Horde_Mime_Headers
         $ret = array();
 
         foreach ($this->_headers as $ob) {
-            $opts = array(
+            $sopts = array(
                 'charset' => $charset
             );
 
             if (($ob instanceof Horde_Mime_Headers_Addresses) ||
                 ($ob instanceof Horde_Mime_Headers_AddressesMulti)) {
-                $opts['defserver'] = empty($opts['defserver'])
-                    ? null
-                    : $opts['defserver'];
+                if (!empty($opts['defserver'])) {
+                    $sopts['defserver'] = $opts['defserver'];
+                }
             } elseif ($ob instanceof Horde_Mime_Headers_ContentParams) {
-                // TODO: 'broken_rfc2231'
-                // TODO: 'lang'
+                $sopts['broken_rfc2231'] = !empty($opts['broken_rfc2231']);
+                if (!empty($opts['lang'])) {
+                    $sopts['lang'] = $opts['lang'];
+                }
             }
 
             $tmp = array();
 
-            foreach ($ob->sendEncode(array_filter($opts)) as $val) {
+            foreach ($ob->sendEncode(array_filter($sopts)) as $val) {
                 if (empty($opts['nowrap'])) {
                     /* Remove any existing linebreaks and wrap the line. */
                     $htext = $ob->name . ': ';
