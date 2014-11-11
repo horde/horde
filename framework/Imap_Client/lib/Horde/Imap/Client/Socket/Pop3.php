@@ -618,13 +618,17 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _listMailboxes($pattern, $mode, $options)
     {
-        return array(
-            'INBOX' => array(
-                'attributes' => array(),
-                'delimiter' => '',
-                'mailbox' => Horde_Imap_Client_Mailbox::get('INBOX')
-            )
-        );
+        if (empty($options['flat'])) {
+            return array(
+                'INBOX' => array(
+                    'attributes' => array(),
+                    'delimiter' => '',
+                    'mailbox' => Horde_Imap_Client_Mailbox::get('INBOX')
+                )
+            );
+        }
+
+        return array('INBOX' => Horde_Imap_Client_Mailbox::get('INBOX'));
     }
 
     /**
