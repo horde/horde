@@ -2157,7 +2157,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         /* If this is a message/rfc822, pass the body into the next loop.
          * Don't decrement the ID here. */
         if ($hdr_ob->getValue('Content-Type', Horde_Mime_Headers::VALUE_BASE) == 'message/rfc822') {
-            return self::getRawPartText(substr($rawtext, $curr_pos + 1), $type, $id);
+            return self::getRawPartText(
+                substr($rawtext, $curr_pos + 1),
+                $type,
+                $id
+            );
         }
 
         $base_pos = strpos($id, '.');
@@ -2186,7 +2190,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Horde_Mime_Exception('Could not find MIME part.');
         }
 
-        return self::getRawPartText(substr($rawtext, $b_find[$base_pos]['start'], $b_find[$base_pos]['length'] - 1), $type, $id);
+        return self::getRawPartText(
+            substr(
+                $rawtext,
+                $b_find[$base_pos]['start'],
+                $b_find[$base_pos]['length'] - 1
+            ),
+            $type,
+            $id
+        );
     }
 
     /**
