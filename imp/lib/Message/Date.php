@@ -50,9 +50,6 @@ class IMP_Message_Date
         if (!is_object($date) && !is_null($date)) {
             $date = new Horde_Imap_Client_DateTime($date);
         }
-        if (!($date instanceof Horde_Imap_Client_DateTime)) {
-            Horde::debug($date);
-        }
 
         $this->_date = $date;
     }
