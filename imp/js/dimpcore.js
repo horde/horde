@@ -515,6 +515,7 @@ document.observe('ImpPassphraseDialog:success', function() {
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
     if (!e.findElement('.allowTextSelection') &&
+        e.element() &&
         !e.element().match('SELECT') &&
         !e.element().match('TEXTAREA') &&
         !e.element().match('INPUT')) {
