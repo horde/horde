@@ -28,7 +28,11 @@ $parser = new Horde_Argv_Parser(
                 'action' => 'store',
                 'help' => 'Temporary directory (memory FS) for git operations',
                 'dest' => 'tmpdir'
-            ))
+            )),
+            new Horde_Argv_Option('-o', '--output', array(
+                'action' => 'store',
+                'help' => 'Output directory where split repositories are placed.',
+                'dest' => 'output'))
         )
     )
 );
