@@ -341,10 +341,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     // Build the reply headers.
                     $msg_headers = new Horde_Mime_Headers();
                     $msg_headers->addHeaderOb(
-                        Horde_Mime_Headers_Received::createHordeHop(array(
-                            'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-                            'server' => $conf['server']['name']
-                        ))
+                        Horde_Core_Mime_Headers_Received::createHordeHop()
                     );
                     $msg_headers->addHeaderOb(
                         Horde_Mime_Headers_MessageId::create()

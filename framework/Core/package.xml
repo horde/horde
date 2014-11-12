@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-11-05</date>
+ <date>2014-11-12</date>
  <version>
-  <release>2.16.2</release>
-  <api>2.16.0</api>
+  <release>2.17.0</release>
+  <api>2.17.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -509,6 +509,9 @@
        </dir> <!-- /lib/Horde/Core/LoginTasks/SystemTask -->
       </dir> <!-- /lib/Horde/Core/LoginTasks -->
       <dir name="Mime">
+       <dir name="Headers">
+        <file name="Received.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Mime/Headers -->
        <dir name="Viewer">
         <file name="Syntaxhighlighter.php" role="php" />
         <file name="Vcard.php" role="php" />
@@ -1881,6 +1884,7 @@
    <install as="Horde/Core/Log/Wrapper.php" name="lib/Horde/Core/Log/Wrapper.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
    <install as="Horde/Core/LoginTasks/SystemTask/Upgrade.php" name="lib/Horde/Core/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="Horde/Core/Mime/Headers/Received.php" name="lib/Horde/Core/Mime/Headers/Received.php" />
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
    <install as="Horde/Core/Notification/Event/Status.php" name="lib/Horde/Core/Notification/Event/Status.php" />
@@ -3694,12 +3698,12 @@
   </release>
   <release>
    <version>
-    <release>2.16.2</release>
-    <api>2.16.0</api></version>
+    <release>2.17.0</release>
+    <api>2.17.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-05</date>
+   <date>2014-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

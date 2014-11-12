@@ -738,7 +738,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $body, $header, IMP_Prefs_Identity $identity, array $opts = array()
     )
     {
-        global $conf, $injector, $prefs, $registry, $session;
+        global $injector, $prefs, $registry, $session;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -824,10 +824,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addHeaderOb(
-            Horde_Mime_Headers_Received::createHordeHop(array(
-                'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-                'server' => $conf['server']['name']
-            ))
+            Horde_Core_Mime_Headers_Received::createHordeHop()
         );
 
         /* Add Reply-To header. */
