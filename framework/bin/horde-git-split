@@ -67,7 +67,8 @@ if (is_null($package_path)) {
     exit("Invalid Horde component: " . $package . "\n");
 }
 
-$tmp = sys_get_temp_dir() . '/' . mt_rand() . '_' . $package;
+$tmp = (empty($options['output']) ? sys_get_temp_dir() : $options['output']) . '/' . mt_rand() . '_' . $package;
+
 
 print "Package: " . $package . "\n";
 print "Tag prefix: " . $tag_prefix . "\n";
