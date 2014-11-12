@@ -646,6 +646,9 @@ class Horde_ActiveSync_Device
      */
     protected function _isNine()
     {
+        if (!ctype_xdigit($this->id)) {
+            return false;
+        }
         return stripos(pack('H*', $this->id), 'nine') === 0;
     }
 
