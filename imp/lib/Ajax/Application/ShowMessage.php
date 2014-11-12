@@ -218,11 +218,10 @@ class IMP_Ajax_Application_ShowMessage
             /* Display the user-specified headers for the current identity. */
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {
-                $user_val = $mime_headers[$user_hdr];
-                if (!empty($user_val)) {
-                    if (!is_array($user_val)) {
-                        $user_val = array($user_val);
-                    }
+                if ($user_val = $mime_headers[$user_hdr]) {
+                    $user_val = ($user_val instanceof Horde_Mime_Headers_Element_Multiple)
+                        ? $user_val->value
+                        : array($user_val->value);
                     foreach ($user_val as $val) {
                         $headers[] = array(
                             'name' => $user_hdr,
@@ -235,8 +234,7 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Process the subject. */
-        $subject = $mime_headers['Subject'];
-        if ($subject) {
+        if ($subject = strval($mime_headers['Subject'])) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
 

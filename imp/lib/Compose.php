@@ -491,7 +491,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if (is_null($type)) {
                 $type = self::FORWARD;
             }
-        } elseif ($headers[self::DRAFT_HDR]) {
+        } elseif (isset($headers[self::DRAFT_HDR])) {
             $imp_draft = self::COMPOSE;
         }
 
@@ -632,7 +632,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             'identity' => $this->_getMatchingIdentity($headers, array('from')),
             'priority' => $injector->getInstance('IMP_Mime_Headers')->getPriority($headers),
             'readreceipt' => $readreceipt,
-            'subject' => $headers['Subject'],
+            'subject' => strval($headers['Subject']),
             'type' => $type
         );
     }
@@ -875,12 +875,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $this->sendMessage($val['recipients'], $headers, $val['base']);
 
                 /* Store history information. */
-                $sentmail->log(
-                    $senttype,
-                    reset($headers['Message-ID']->getIdentificationOb()->ids),
-                    $val['recipients'],
-                    true
-                );
+                if ($msg_id = $headers['Message-ID']) {
+                    $sentmail->log(
+                        $senttype,
+                        reset($msg_id->getIdentificationOb()->ids),
+                        $val['recipients'],
+                        true
+                    );
+                }
             } catch (IMP_Compose_Exception_Address $e) {
                 throw $e;
             } catch (IMP_Compose_Exception $e) {
@@ -2144,7 +2146,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         $h = $contents->getHeader();
 
-        $from = $h->getHeader('from')->getAddressList(true);
+        $from = ($tmp = $h['from'])
+            ? $tmp->getAddressList(true)
+            : '';
 
         if ($prefs->getValue('reply_headers') && !empty($h)) {
             $from_text = strval(new IMP_Prefs_AttribText($from, $h, '%f'));
@@ -2493,16 +2497,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth()), 'INFO');
 
-                if ($log) {
+                if ($log && ($tmp = $headers['Message-ID'])) {
+                    $msg_id = reset($tmp->getIdentificationob()->ids);
+
                     /* Store history information. */
                     $injector->getInstance('IMP_Maillog')->log(
-                        new IMP_Maillog_Message(reset($msg_id->ids)),
+                        new IMP_Maillog_Message($msg_id),
                         new IMP_Maillog_Log_Redirect($recipients)
                     );
 
                     $injector->getInstance('IMP_Sentmail')->log(
                         IMP_Sentmail::REDIRECT,
-                        reset($headers['Message-ID']->getIdentificationOb()->ids),
+                        $msg_id,
                         $recipients
                     );
                 }
@@ -2546,7 +2552,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $msgAddresses[] = $h[$val];
         }
 
-        $match = $identity->getMatchingIdentity($msgAddresses);
+        $match = $identity->getMatchingIdentity(array_filter($msgAddresses));
 
         return is_null($match)
             ? $identity->getDefault()

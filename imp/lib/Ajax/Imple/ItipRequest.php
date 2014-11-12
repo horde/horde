@@ -117,13 +117,14 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        $from = $contents->getHeader()->geHeader('from')->getAddressList(true)->first();
-                        $registry->call('calendar/updateAttendee', array(
-                            $components[$key],
-                            $from->bare_address
-                        ));
-                        $notification->push(_("Respondent Status Updated."), 'horde.success');
-                        $result = true;
+                        if ($tmp = $from->contents->getHeader()->getHeader('from')) {
+                            $registry->call('calendar/updateAttendee', array(
+                                $components[$key],
+                                $tmp->getAddressList(true)->first()->bare_address
+                            ));
+                            $notification->push(_("Respondent Status Updated."), 'horde.success');
+                            $result = true;
+                        }
                     } catch (Horde_Exception $e) {
                         $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
                     }

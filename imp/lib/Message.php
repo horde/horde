@@ -339,8 +339,9 @@ class IMP_Message
                 $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
 
                 /* Fetch the message headers. */
-                $imp_headers = $imp_contents->getHeader();
-                $subject = $imp_headers['Subject'];
+                $subject = strval(
+                    $imp_contents->getHeader()->getHeader('Subject')
+                );
 
                 /* Re-flow the message for prettier formatting. */
                 $body_part = $imp_contents->getMIMEPart($imp_contents->findBody());

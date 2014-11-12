@@ -161,7 +161,7 @@ class IMP_Message_Ui
             /* See if the List-Post header provides an e-mail address for the
              * list. */
             if ($val = $headers['List-Post']) {
-                foreach ($lh->parse('list-post', $val) as $val2) {
+                foreach ($lh->parse('list-post', $val->value) as $val2) {
                     if ($val2 instanceof Horde_ListHeaders_NoPost) {
                         break;
                     } elseif (stripos($val2->url, 'mailto:') === 0) {

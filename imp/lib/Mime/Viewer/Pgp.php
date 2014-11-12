@@ -497,8 +497,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected function _getSender()
     {
         if (is_null($this->_sender)) {
-            $this->_sender = $this->getConfigParam('imp_contents')->getHeader()
-                ->getHeader('from')->getAddressList(true)->first();
+            $from = $this->getConfigParam('imp_contents')->getHeader()->getHeader('from');
+            $this->_sender = $from
+                ? $from->getHeader('from')->getAddressList(true)->first()
+                : new Horde_Mail_Rfc822_Address();
         }
 
         return $this->_sender;

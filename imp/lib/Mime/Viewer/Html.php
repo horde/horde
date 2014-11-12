@@ -220,8 +220,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             default:
                 $attr = array('muid' => strval($contents->getIndicesOb()));
                 if (!$injector->getInstance('IMP_Prefs_Special_ImageReplacement')->canAddToSafeAddrList() ||
-                    (($h = $contents->getHeader()) &&
-                     $injector->getInstance('IMP_Identity')->hasAddress($h['from']->getAddressList(true)))) {
+                    (($from = $contents->getHeader()->getHeader('from')) &&
+                     $injector->getInstance('IMP_Identity')->hasAddress($from->getAddressList(true)))) {
                     $attr['noUnblockImageAdd'] = 1;
                 }
 

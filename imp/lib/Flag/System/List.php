@@ -42,7 +42,7 @@ class IMP_Flag_System_List extends IMP_Flag_System_Match_Header
      */
     public function match($data)
     {
-        return ($data['List-Post'] !== null);
+        return isset($data['List-Post']);
     }
 
 }
