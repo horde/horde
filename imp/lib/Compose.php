@@ -2087,7 +2087,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (($lang = $h['Accept-Language']) ||
             ($lang = $h['X-Accept-Language'])) {
             $langs = array();
-            foreach (explode(',', $lang) as $val) {
+            foreach (explode(',', $lang->value_single) as $val) {
                 if (($name = Horde_Nls::getLanguageISO($val)) !== null) {
                     $langs[trim($val)] = $name;
                 }
