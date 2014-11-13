@@ -52,7 +52,9 @@ class Horde_Mime_Mdn
     {
         /* RFC 3798 [2.1] requires the Disposition-Notification-To header
          * for an MDN to be created. */
-        return strval($this->_headers[self::MDN_HEADER]);
+        return ($hdr = $this->_headers[self::MDN_HEADER])
+            ? strval($hdr)
+            : null;
     }
 
     /**
