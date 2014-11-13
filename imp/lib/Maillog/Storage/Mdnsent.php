@@ -28,17 +28,15 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
         IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
     )
     {
-        global $injector;
-
         if (!$msg->indices || ($log->action != 'mdn')) {
             return false;
         }
 
-        return $injector->getInstance('IMP_Message')->flag(array(
-            'add' => array(Horde_Imap_Client::FLAG_MDNSENT)
-        ), $msg->indices, array(
-            'silent' => true
-        ));
+        return $msg->indices->flag(
+            array(Horde_Imap_Client::FLAG_MDNSENT),
+            array(),
+            array('silent' => true)
+        );
     }
 
     /**

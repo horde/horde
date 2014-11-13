@@ -250,7 +250,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
 
     /**
      * Copies or moves a list of messages to a new mailbox.
-     * Handles search and Trash mailboxes.
      * Also handles moves to the tasklist and/or notepad applications.
      *
      * @param string $targetMbox  The mailbox to move/copy messages to
@@ -348,7 +347,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
 
     /**
      * Deletes a list of messages.
-     * Handles search and Trash mailboxes.
      *
      * @param array $opts  Additional options:
      * <pre>
@@ -527,7 +525,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
 
     /**
      * Strips one or all MIME parts out of a message.
-     * Handles search mailboxes.
      *
      * @param string $partid  The MIME ID of the part to strip. All parts are
      *                        stripped if null.
@@ -675,6 +672,108 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         }
 
         return $indices_ob;
+    }
+
+    /**
+     * Sets or clears a given flag for a list of messages.
+     *
+     * @param array $add     A list of IMAP flag(s) to add.
+     * @param array $remove  A list of IMAP flag(s) to remove.
+     * @param array $opts    Additional options:
+     * <pre>
+     *   - silent: (boolean) Don't output notification messages.
+     *             DEFAULT: false
+     *   - unchangedsince: (array) The unchangedsince value to pass to the
+     *                     IMAP store command. Keys are mailbox names, values
+     *                     are the unchangedsince values to use for that
+     *                     mailbox.
+     *                     DEFAULT: array()
+     * </pre>
+     *
+     * @return boolean  True if successful, false if not.
+     */
+    public function flag(array $add = array(), array $remove = array(),
+                         array $opts = array())
+    {
+        global $injector, $notification;
+
+        if (!count($this)) {
+            return false;
+        }
+
+        $opts = array_merge(array(
+            'unchangedsince' => array()
+        ), $opts);
+
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $ret = true;
+
+        foreach ($this as $ob) {
+            try {
+                if ($ob->mbox->readonly) {
+                    throw new IMP_Exception(_("This mailbox is read-only."));
+                }
+
+                $ob->mbox->uidvalid;
+
+                $unchangedsince = isset($opts['unchangedsince'][strval($ob->mbox)])
+                    ? $opts['unchangedsince'][strval($ob->mbox)]
+                    : null;
+
+                /* Flag/unflag the messages now. */
+                $imp_imap = $ob->mbox->imp_imap;
+                $res = $imp_imap->store($ob->mbox, array_filter(array(
+                    'add' => $add,
+                    'ids' => $imp_imap->getIdsOb($ob->uids),
+                    'remove' => $remove,
+                    'unchangedsince' => $unchangedsince
+                )));
+
+                $flag_change = $ob->mbox->getIndicesOb($ob->uids);
+
+                if ($unchangedsince && count($res)) {
+                    foreach ($res as $val) {
+                        unset($flag_change[$val]);
+                    }
+                    if (empty($opts['silent'])) {
+                        $notification->push(
+                            sprintf(
+                                _("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."),
+                                $ob->mbox->display
+                            ),
+                            'horde.warning'
+                        );
+                        $ret = false;
+                    }
+                }
+
+                foreach (array('add' => $add, 'remove' => $remove) as $key => $val) {
+                    if (!empty($val)) {
+                        $ajax_queue->flag($val, ($key == 'add'), $flag_change);
+                        if ($this instanceof IMP_Indices_Mailbox) {
+                            $ajax_queue->flag(
+                                $val,
+                                ($key == 'add'),
+                                $this->mailbox->toBuids($flag_change)
+                            );
+                        }
+                    }
+                }
+            } catch (Exception $e) {
+                if (empty($opts['silent'])) {
+                    $notification->push(
+                        sprintf(
+                            _("There was an error flagging messages in the mailbox \"%s\": %s."),
+                            $ob->mbox->display, $e->getMessage()
+                        ),
+                        'horde.error'
+                    );
+                }
+                $ret = false;
+            }
+        }
+
+        return $ret;
     }
 
     /* ArrayAccess methods. */

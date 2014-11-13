@@ -559,8 +559,6 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function flagMessages()
     {
-        global $injector;
-
         if (!$this->vars->flags || !count($this->_base->indices)) {
             return false;
         }
@@ -599,11 +597,13 @@ extends Horde_Core_Ajax_Application_Handler
             } catch (Horde_Imap_Client_Exception_Sync $e) {}
         }
 
-        $res = $injector->getInstance('IMP_Message')->flag(array(
-            ($this->vars->add ? 'add' : 'remove') => $flags
-        ), $this->_base->indices, array(
-            'unchangedsince' => $unchangedsince
-        ));
+        $res = $this->_base->indices->flag(
+            $this->vars->add ? $flags : array(),
+            $this->vars->add ? array() : $flags,
+            array(
+                'unchangedsince' => $unchangedsince
+            )
+        );
 
         if (!$res) {
             $this->_base->checkUidvalidity();

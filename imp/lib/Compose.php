@@ -933,25 +933,22 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $injector->getInstance('IMP_Maillog')->log($log_msgs, $log);
             }
 
-            $imp_message = $injector->getInstance('IMP_Message');
             $reply_uid = new IMP_Indices($this);
 
             switch ($this->replyType(true)) {
             case self::FORWARD:
                 /* Set the Forwarded flag, if possible, in the mailbox.
                  * See RFC 5550 [5.9] */
-                $imp_message->flag(array(
-                    'add' => array(Horde_Imap_Client::FLAG_FORWARDED)
-                ), $reply_uid);
+                $reply_uid->flag(array(Horde_Imap_Client::FLAG_FORWARDED));
                 break;
 
             case self::REPLY:
                 /* Make sure to set the IMAP reply flag and unset any
                  * 'flagged' flag. */
-                $imp_message->flag(array(
-                    'add' => array(Horde_Imap_Client::FLAG_ANSWERED),
-                    'remove' => array(Horde_Imap_Client::FLAG_FLAGGED)
-                ), $reply_uid);
+                $reply_uid->flag(
+                    array(Horde_Imap_Client::FLAG_ANSWERED),
+                    array(Horde_Imap_Client::FLAG_FLAGGED)
+                );
                 break;
             }
         }
