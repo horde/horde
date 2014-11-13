@@ -451,7 +451,7 @@ var DimpBase = {
             }.bind(this),
             container: container,
             onContent: function(r, mode) {
-                var bg, escapeAttr, u,
+                var bg, escapeAttr, highlight, u,
                     thread = $H(this.viewport.getMetaData('thread')),
                     tsort = this.isThreadSort();
 
@@ -514,6 +514,8 @@ var DimpBase = {
                             break;
                         }
                     } else if (!Object.isUndefined(r[h])) {
+                        highlight = false;
+
                         switch (h) {
                         case 'from':
                             r.fromtitle = escapeAttr(r.fromaddr || r.from);
@@ -521,11 +523,26 @@ var DimpBase = {
                             if (DimpCore.conf.from_link) {
                                 r.from = '<a>' + r.from + '</a>';
                             }
+
+                            switch (DimpCore.getPref('qsearch_field')) {
+                            case 'all':
+                            case 'from':
+                            case 'recip':
+                                highlight = true;
+                                break;
+                            }
                             break;
 
                         case 'subject':
                             r.subjecttitle = escapeAttr(r[h]);
                             r.subject = r.subject.escapeHTML();
+
+                            switch (DimpCore.getPref('qsearch_field')) {
+                            case 'all':
+                            case 'subject':
+                                highlight = true;
+                                break;
+                            }
                             break;
 
                         default:
@@ -533,8 +550,7 @@ var DimpBase = {
                             break;
                         }
 
-                        if (this.isQSearch() &&
-                            DimpCore.getPref('qsearch_field') == h) {
+                        if (highlight && this.isQSearch()) {
                             r[h] = r[h].gsub(
                                 new RegExp("(" + RegExp.escape($F('horde-search-input')) + ")", "i"),
                                 '<span class="qsearchMatch">#{1}</span>'
