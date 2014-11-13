@@ -478,7 +478,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = $contents->getHeader();
         $imp_draft = false;
 
-        if ($draft_url = $headers->getValue(self::DRAFT_REPLY)) {
+        if ($draft_url = $headers[self::DRAFT_REPLY]) {
             if (is_null($type) &&
                 !($type = $headers[self::DRAFT_REPLY_TYPE])) {
                 $type = self::REPLY;
@@ -595,7 +595,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
                 $indices = new IMP_Indices();
 
-                foreach (explode(',', $draft_url) as $val) {
+                foreach (explode(',', $draft_url->value_single) as $val) {
                     $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($val, '<'), '>'));
 
                     try {
