@@ -613,10 +613,10 @@ class Horde_Smtp implements Serializable
             }
         }
 
-        if (is_null($body) && $this->data_8bit) {
+        if (is_null($body) && $this->_debug->active) {
             /* Only output extended 7bit command if debug is active (it is
              * default and does not need to be explicitly declared). */
-            $mailcmd .= ' BODY=7BIT';
+            $body = ' BODY=7BIT';
         }
 
         $mailcmd = 'MAIL FROM:<' . ($eai ? $from->bare_address : $from->bare_address_idn) . '>';
