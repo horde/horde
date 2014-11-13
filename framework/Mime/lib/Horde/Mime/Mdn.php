@@ -158,9 +158,8 @@ class Horde_Mime_Mdn
         $to = $this->getMdnReturnAddr();
         $ua = Horde_Mime_Headers_UserAgent::create();
 
-        if (!($orig_recip = $this->_headers['Original-Recipient']) ||
-            is_array($orig_recip->value)) {
-            $orig_recip = reset($orig_recip->value);
+        if ($orig_recip = $this->_headers['Original-Recipient']) {
+            $orig_recip = $orig_recip->value_single;
         }
 
         /* Set up the mail headers. */
