@@ -69,7 +69,7 @@ class IMP_Filter
     public function blacklistMessage($indices, $show_link = true)
     {
         if (!$this->_processBWlist($indices, _("your blacklist"), 'blacklistFrom', 'showBlacklist', $show_link) ||
-            !($msg_count = $GLOBALS['injector']->getInstance('IMP_Message')->delete($indices))) {
+            !($msg_count = $indices->delete())) {
             return false;
         }
 

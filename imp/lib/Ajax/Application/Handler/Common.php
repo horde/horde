@@ -233,7 +233,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         if (count($this->_base->indices)) {
             $change = $this->_base->changed(true);
 
-            if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($this->_base->indices)) {
+            if ($this->_base->indices->delete()) {
                 $this->_base->deleteMsgs($this->_base->indices, $change);
                 return true;
             }

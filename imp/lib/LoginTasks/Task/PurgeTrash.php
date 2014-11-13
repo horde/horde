@@ -49,7 +49,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $notification, $prefs;
+        global $notification, $prefs;
 
         /* Get the current UNIX timestamp minus the number of days
            specified in 'purge_trash_keep'.  If a message has a
@@ -62,7 +62,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         $msg_ids = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
-        if (!$injector->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
+        if (!$msg_ids->delete(array('nuke' => true))) {
             return false;
         }
 

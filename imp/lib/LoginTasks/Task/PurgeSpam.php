@@ -62,7 +62,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
         $msg_ids = $spam->runSearchQuery($query);
 
         /* Go through the message list and delete the messages. */
-        if ($GLOBALS['injector']->getInstance('IMP_Message')->delete($msg_ids, array('nuke' => true))) {
+        if ($msg_ids->delete(array('nuke' => true))) {
             $msgcount = count($msg_ids);
             $GLOBALS['notification']->push(sprintf(ngettext("Purging %d message from Spam mailbox.", "Purging %d messages from Spam mailbox.", $msgcount), $msgcount), 'horde.message');
             return true;

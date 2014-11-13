@@ -135,10 +135,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         case 'discard':
         case 'send':
             /* Delete the draft. */
-            $GLOBALS['injector']->getInstance('IMP_Message')->delete(
-                new IMP_Indices($this->getMetadata('draft_uid')),
-                array('nuke' => true)
-            );
+            $i = new IMP_Indices($this->getMetadata('draft_uid'));
+            $i->delete(array('nuke' => true));
             break;
 
         case 'save_draft':
@@ -355,7 +353,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $ids = $drafts_mbox->imp_imap->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
+                $old_uid->delete(array('nuke' => true));
             }
 
             $this->_setMetadata('draft_uid', $drafts_mbox->getIndicesOb($ids));
@@ -681,7 +679,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             )));
 
             if ($old_uid) {
-                $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
+                $old_uid->delete(array('nuke' => true));
             }
         } catch (IMP_Imap_Exception $e) {
             return _("The template was not successfully saved.");

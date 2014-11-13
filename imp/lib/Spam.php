@@ -185,7 +185,7 @@ class IMP_Spam
 
             switch ($result = $prefs->getValue('delete_spam_after_report')) {
             case 1:
-                $msg_count = $imp_message->delete($indices);
+                $msg_count = $indices->delete();
                 if ($msg_count === false) {
                     $result = 0;
                 } else {

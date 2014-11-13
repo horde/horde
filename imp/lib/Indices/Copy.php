@@ -75,7 +75,7 @@ abstract class IMP_Indices_Copy
 
         /* Delete the original messages if this is a "move" operation. */
         if ($move) {
-            $injector->getInstance('IMP_Message')->delete($indices);
+            $indices->delete();
         }
 
         return $success;

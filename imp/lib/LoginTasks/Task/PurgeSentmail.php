@@ -47,9 +47,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $prefs, $notification;
-
-        $imp_message = $injector->getInstance('IMP_Message');
+        global $prefs, $notification;
 
         /* Get the current UNIX timestamp minus the number of days specified
          * in 'purge_sentmail_keep'.  If a message has a timestamp prior to
@@ -64,7 +62,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
             $msg_ids = $mbox->runSearchQuery($query);
 
             /* Go through the message list and delete the messages. */
-            if ($imp_message->delete($msg_ids, array('nuke' => true))) {
+            if ($msg_ids->delete(array('nuke' => true))) {
                 $msgcount = count($msg_ids);
                 if ($msgcount == 1) {
                     $notification->push(sprintf(_("Purging 1 message from sent-mail mailbox %s."), $mbox->display), 'horde.message');

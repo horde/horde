@@ -346,6 +346,187 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         return $return_value;
     }
 
+    /**
+     * Deletes a list of messages.
+     * Handles search and Trash mailboxes.
+     *
+     * @param array $opts  Additional options:
+     * <pre>
+     *   - keeplog: (boolean) Should any history information of the message be
+     *              kept?
+     *              DEFAULT: false
+     *   - nuke: (boolean) Override user preferences and nuke (i.e.
+     *           permanently delete) the messages instead?
+     *           DEFAULT: false
+     * </pre>
+     *
+     * @return integer|boolean  The number of messages deleted if successful,
+     *                          false if not successful.
+     */
+    public function delete(array $opts = array())
+    {
+        global $injector, $notification, $prefs;
+
+        if (!count($this)) {
+            return false;
+        }
+
+        $trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
+        $use_trash = $prefs->getValue('use_trash');
+        if ($use_trash && !$trash) {
+            $notification->push(
+                _("Cannot move messages to Trash - no Trash mailbox set in preferences."),
+                'horde.error'
+            );
+            return false;
+        }
+
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $maillog = empty($opts['keeplog'])
+            ? $injector->getInstance('IMP_Maillog')
+            : null;
+        $return_value = 0;
+
+        /* Check for Trash mailbox. */
+        $no_expunge = $use_trash_mbox = $use_vtrash = false;
+        if ($use_trash &&
+            empty($opts['nuke']) &&
+            $injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_TRASH)) {
+            $use_vtrash = $trash->vtrash;
+            $use_trash_mbox = !$use_vtrash;
+        }
+
+        /* Check whether we are marking messages as seen.
+         * If using virtual trash, we must mark the message as seen or else it
+         * will appear as an 'unseen' message for purposes of new message
+         * counts. */
+        $mark_seen = empty($opts['nuke']) &&
+                     ($use_vtrash || $prefs->getValue('delete_mark_seen'));
+
+        if ($use_trash_mbox && !$trash->create()) {
+            /* If trash mailbox could not be created, just mark message as
+             * deleted. */
+            $no_expunge = true;
+            $return_value = $use_trash_mbox = false;
+        }
+
+        foreach ($this as $ob) {
+            try {
+                if (!$ob->mbox->access_deletemsgs) {
+                    throw new IMP_Exception(_("This mailbox is read-only."));
+                }
+
+                $ob->mbox->uidvalid;
+            } catch (IMP_Exception $e) {
+                $notification->push(
+                    sprintf(
+                        _("There was an error deleting messages from the mailbox \"%s\"."),
+                        $ob->mbox->display
+                    ) . ' ' . $e->getMessage(),
+                    'horde.error'
+                );
+                $return_value = false;
+                continue;
+            }
+
+            $imp_indices = $ob->mbox->getIndicesOb($ob->uids);
+            if ($return_value !== false) {
+                $return_value += count($ob->uids);
+            }
+
+            $imp_imap = $ob->mbox->imp_imap;
+            $ids_ob = $imp_imap->getIdsOb($ob->uids);
+
+            /* Trash is only valid for IMAP mailboxes. */
+            if ($use_trash_mbox &&
+                ($ob->mbox != $trash) &&
+                /* TODO(?): Don't use Trash mailbox for remote accounts. */
+                !$ob->mbox->remote_mbox) {
+                if ($ob->mbox->access_expunge) {
+                    try {
+                        if ($mark_seen) {
+                            $imp_imap->store($ob->mbox, array(
+                                'add' => array(Horde_Imap_Client::FLAG_SEEN),
+                                'ids' => $ids_ob
+                            ));
+                        }
+
+                        $imp_imap->copy($ob->mbox, $trash, array(
+                            'ids' => $ids_ob,
+                            'move' => true
+                        ));
+                    } catch (IMP_Imap_Exception $e) {
+                        if ($e->getCode() == $e::OVERQUOTA) {
+                            $notification->push(
+                                _("You are over your quota, so your messages will be permanently deleted instead of moved to the Trash mailbox."),
+                                'horde.warning'
+                            );
+
+                            $idx = new IMP_Indices($ob->mbox, $ob->uids);
+                            return $idx->delete(array(
+                                'keeplog' => !empty($opts['keeplog']),
+                                'nuke' => true
+                            ));
+                        }
+
+                        return false;
+                    }
+                }
+            } else {
+                /* Delete message logs now. This may result in loss of message
+                 * log data for messages that might not be deleted - i.e. if
+                 * an error occurs. But 1) the user has already indicated they
+                 * don't care about this data and 2) message IDs (used by some
+                 * maillog backends) won't be available after deletion. */
+                if ($maillog) {
+                    $delete_ids = array();
+                    foreach ($ids_ob as $val) {
+                        $delete_ids[] = new IMP_Maillog_Message(
+                            new IMP_Indices($ob->mbox, $val)
+                        );
+                    }
+                    $maillog->deleteLog($delete_ids);
+                }
+
+                /* Delete the messages. */
+                $expunge_now = false;
+                $del_flags = array(Horde_Imap_Client::FLAG_DELETED);
+
+                if (!$use_vtrash &&
+                    (!$imp_imap->access(IMP_Imap::ACCESS_TRASH) ||
+                     !empty($opts['nuke']) ||
+                     ($use_trash &&
+                      ($ob->mbox == $trash) || $ob->mbox->remote_mbox))) {
+                    /* Purge messages immediately. */
+                    $expunge_now = !$no_expunge;
+                } elseif ($mark_seen) {
+                    $del_flags[] = Horde_Imap_Client::FLAG_SEEN;
+                }
+
+                try {
+                    $imp_imap->store($ob->mbox, array(
+                        'add' => $del_flags,
+                        'ids' => $ids_ob
+                    ));
+
+                    if ($expunge_now) {
+                        $this->expungeMailbox(
+                            $imp_indices->indices()
+                        );
+                    } else {
+                        $ajax_queue->flag(
+                            $del_flags,
+                            true,
+                            new IMP_Indices($ob->mbox, $ids_ob)
+                        );
+                    }
+                } catch (IMP_Imap_Exception $e) {}
+            }
+        }
+
+        return $return_value;
+    }
+
     /* ArrayAccess methods. */
 
     /**
