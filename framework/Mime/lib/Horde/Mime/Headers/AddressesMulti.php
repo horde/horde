@@ -53,11 +53,7 @@ class Horde_Mime_Headers_AddressesMulti
     protected function _setValue($value)
     {
         $rfc822 = new Horde_Mail_Rfc822();
-
-        $this->_values = array_merge(
-            $this->_values,
-            array($rfc822->parseAddressList($value))
-        );
+        $this->_values[] = $rfc822->parseAddressList($value);
     }
 
     /**
