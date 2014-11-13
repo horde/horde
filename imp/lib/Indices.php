@@ -260,8 +260,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      * <pre>
      *   - create: (boolean) Should the target mailbox be created?
      *             DEFAULT: false
-     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
-     *                DEFAULT: No update.
      * </pre>
      *
      * @return boolean  True if successful, false if not.
@@ -328,14 +326,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                     'ids' => $imp_imap->getIdsOb($ob->uids),
                     'move' => $imap_move
                 ));
-
-                if (($action == 'move') &&
-                    !empty($opts['mailboxob']) &&
-                    $opts['mailboxob']->isBuilt()) {
-                    $opts['mailboxob']->removeMsgs(
-                        $ob->mbox->getIndicesOb($ob->uids)
-                    );
-                }
             } catch (Exception $e) {
                 $error_msg = sprintf(
                     $message,

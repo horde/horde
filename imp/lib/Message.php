@@ -226,9 +226,6 @@ class IMP_Message
      * @param IMP_Indices $indices  An indices object.
      * @param string $partid        The MIME ID of the part to strip. All
      *                              parts are stripped if null.
-     * @param array $opts           Additional options:
-     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
-     *                DEFAULT: No update.
      *
      * @return IMP_Indices  Returns the new indices object.
      * @throws IMP_Exception
@@ -351,7 +348,6 @@ class IMP_Message
 
         $this->delete($indices, array(
             'keeplog' => true,
-            'mailboxob' => empty($opts['mailboxob']) ? null : $opts['mailboxob'],
             'nuke' => true
         ));
 
@@ -500,8 +496,6 @@ class IMP_Message
      * @param array $opts       Additional options:
      *   - list: (boolean) Return a list of messages expunged.
      *           DEFAULT: false
-     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
-     *                DEFAULT: No update.
      *
      * @return IMP_Indices  If 'list' option is true, an indices object
      *                      containing the messages that have been expunged.
@@ -549,11 +543,6 @@ class IMP_Message
                     'ids' => $val[1],
                     'list' => $msg_list
                 ));
-
-                if (!empty($opts['mailboxob']) &&
-                    $opts['mailboxob']->isBuilt()) {
-                    $opts['mailboxob']->removeMsgs($val[1]->all ? true : $val[0]->getIndicesOb($val[1]));
-                }
             } catch (IMP_Imap_Exception $e) {}
         }
 

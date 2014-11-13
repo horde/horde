@@ -61,14 +61,11 @@ class IMP_Spam
      * Reports a list of messages as innocent/spam.
      *
      * @param IMP_Indices $indices  An indices object.
-     * @param array $opts           Additional options:
-     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox list object.
-     *                DEFAULT: No update.
      *
      * @return integer  1 if messages have been deleted, 2 if messages have
      *                  been moved.
      */
-    public function report(IMP_Indices $indices, array $opts = array())
+    public function report(IMP_Indices $indices)
     {
         global $injector, $notification, $prefs;
 
@@ -150,11 +147,6 @@ class IMP_Spam
         }
         $notification->push($msg, 'horde.message');
 
-        $mbox_args = array();
-        if (isset($opts['mailboxob'])) {
-            $mbox_args['mailboxob'] = $opts['mailboxob'];
-        }
-
         /* Run post-reporting hook. */
         try {
             $injector->getInstance('Horde_Core_Hooks')->callHook(
@@ -178,7 +170,7 @@ class IMP_Spam
             ), $indices);
 
             if (($result = $prefs->getValue('move_innocent_after_report')) &&
-                !$indices->copy('INBOX', 'move', $mbox_args)) {
+                !$indices->copy('INBOX', 'move')) {
                 $result = 0;
             }
             break;
@@ -193,7 +185,7 @@ class IMP_Spam
 
             switch ($result = $prefs->getValue('delete_spam_after_report')) {
             case 1:
-                $msg_count = $imp_message->delete($indices, $mbox_args);
+                $msg_count = $imp_message->delete($indices);
                 if ($msg_count === false) {
                     $result = 0;
                 } else {
@@ -207,7 +199,7 @@ class IMP_Spam
 
             case 2:
                 if ($targetMbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) {
-                    if (!$indices->copy($targetMbox, 'move', array_merge($mbox_args, array('create' => true)))) {
+                    if (!$indices->copy($targetMbox, 'move', array('create' => true))) {
                         $result = 0;
                     }
                 } else {
