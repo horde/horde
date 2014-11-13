@@ -29,6 +29,8 @@ class Horde_Mime_Headers_Addresses
      * By default, if more than 1 address header is found, the addresses are
      * appended together into a single field.  Set this value to false to
      * ignore all but the *last* header.
+     *
+     * @var boolean
      */
     public $append_addr = true;
 

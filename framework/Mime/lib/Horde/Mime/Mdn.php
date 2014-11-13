@@ -43,9 +43,9 @@ class Horde_Mime_Mdn
     }
 
     /**
-     * Returns the address to return the MDN to.
+     * Returns the address(es) to return the MDN to.
      *
-     * @return string  The address to send the MDN to. Returns null if no
+     * @return string  The address(es) to send the MDN to. Returns null if no
      *                 MDN is requested.
      */
     public function getMdnReturnAddr()
@@ -128,7 +128,7 @@ class Horde_Mime_Mdn
      *                            - deleted
      *                            - displayed
      * @param string $name      The name of the local server.
-     * @param Mail $mailer      A Mail driver.
+     * @param Horde_Mail_Transport $mailer  Mail transport object.
      * @param array $opts       Additional options:
      *   - charset: (string) Default charset.
      *              DEFAULT: NONE
