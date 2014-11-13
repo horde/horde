@@ -242,7 +242,10 @@ class IMP_Contents_View
 
         $view->headers = $headers;
 
-        $ctype = new Horde_Mime_Headers_ContentParam($part['type']);
+        $ctype = new Horde_Mime_Headers_ContentParam(
+            'Content-Type',
+            $part['type']
+        );
         $header_dom = new Horde_Domhtml(
             Horde_String::convertCharset($view->render('headers'), 'UTF-8', $ctype['charset']),
             $ctype['charset']
