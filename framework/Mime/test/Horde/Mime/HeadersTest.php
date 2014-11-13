@@ -64,9 +64,9 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider headerDecodeProvider
+     * @dataProvider normalHeaderDecodeProvider
      */
-    public function testHeaderDecode($header, $value, $decoded)
+    public function testNormalHeaderDecode($header, $value, $decoded)
     {
         $hdrs = new Horde_Mime_Headers();
         $hdrs->addHeader($header, $value);
@@ -83,13 +83,48 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function headerDecodeProvider()
+    public function normalHeaderDecodeProvider()
     {
         return array(
             array(
                 'Test',
                 '=?iso-8859-15?b?VmVyc2nzbg==?=',
                 'Versión'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider contentParamHeaderDecodeProvider
+     */
+    public function testContentParamHeaderDecode(
+        $header, $value, $decode_value, $decode_params
+    )
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader($header, $value);
+
+        $this->assertEquals(
+            $decode_value,
+            $hdrs[$header]->value
+        );
+
+        $this->assertEquals(
+            $decode_params,
+            $hdrs[$header]->params
+        );
+    }
+
+    public function contentParamHeaderDecodeProvider()
+    {
+        return array(
+            array(
+                'Content-Type',
+                'text/plain; name="=?iso-8859-15?b?VmVyc2nzbg==?="',
+                'text/plain',
+                array(
+                    'name' => 'Versión'
+                )
             )
         );
     }

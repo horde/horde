@@ -81,7 +81,7 @@ class Horde_Mime_Headers_ContentParam
 
         if (is_array($data)) {
             foreach ($data as $key => $val) {
-                $this->_params[$key] = $val;
+                $this->_params[$key] = Horde_Mime::decode($val);
             }
         } else {
             $this->decode($data);
