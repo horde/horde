@@ -162,9 +162,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             $newMbox = false;
         }
 
-        $result = $GLOBALS['injector']
-            ->getInstance('IMP_Message')
-            ->copy($mbox, 'move', $this->_base->indices, array('create' => $newMbox));
+        $result = $this->_base->indices->copy($mbox, 'move', array(
+            'create' => $newMbox
+        ));
 
         if ($result) {
             $this->_base->deleteMsgs($this->_base->indices, $change, true);
@@ -204,9 +204,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             $newMbox = false;
         }
 
-        $result = $GLOBALS['injector']
-            ->getInstance('IMP_Message')
-            ->copy($mbox, 'copy', $this->_base->indices, array('create' => $newMbox));
+        $result = $this->_base->indices->copy($mbox, 'copy', array(
+            'create' => $newMbox
+        ));
 
         if ($result) {
             $this->_base->queue->poll($mbox);

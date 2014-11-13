@@ -33,10 +33,6 @@ class IMP
     const MAILBOX_START_FIRSTPAGE = 3;
     const MAILBOX_START_LASTPAGE = 4;
 
-    /* Folder list actions. */
-    const NOTEPAD_EDIT = "notepad\0";
-    const TASKLIST_EDIT = "tasklist\0";
-
     /* Initial page constants. */
     const INITIAL_FOLDERS = "initial\0folders";
 

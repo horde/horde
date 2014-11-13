@@ -178,7 +178,7 @@ class IMP_Spam
             ), $indices);
 
             if (($result = $prefs->getValue('move_innocent_after_report')) &&
-                !$imp_message->copy('INBOX', 'move', $indices, $mbox_args)) {
+                !$indices->copy('INBOX', 'move', $mbox_args)) {
                 $result = 0;
             }
             break;
@@ -207,7 +207,7 @@ class IMP_Spam
 
             case 2:
                 if ($targetMbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) {
-                    if (!$imp_message->copy($targetMbox, 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
+                    if (!$indices->copy($targetMbox, 'move', array_merge($mbox_args, array('create' => true)))) {
                         $result = 0;
                     }
                 } else {

@@ -177,10 +177,11 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function copyMessages($mailbox, $indices, $target)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
+        $i = new IMP_Indices($mailbox, $indices);
+
+        return $i->copy(
             $target,
             'copy',
-            new IMP_Indices($mailbox, $indices),
             array('create' => true)
         );
     }
@@ -196,10 +197,11 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function moveMessages($mailbox, $indices, $target)
     {
-        return $GLOBALS['injector']->getInstance('IMP_Message')->copy(
+        $i = new IMP_Indices($mailbox, $indices);
+
+        return $i->copy(
             $target,
             'move',
-            new IMP_Indices($mailbox, $indices),
             array('create' => true)
         );
     }

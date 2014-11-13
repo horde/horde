@@ -12,7 +12,7 @@
  */
 
 /**
- * Provides functions to handle lists of message indices.
+ * Object representing a list of message indices.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -244,6 +244,116 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         }
 
         return $str;
+    }
+
+    /* Mail server modification methods. */
+
+    /**
+     * Copies or moves a list of messages to a new mailbox.
+     * Handles search and Trash mailboxes.
+     * Also handles moves to the tasklist and/or notepad applications.
+     *
+     * @param string $targetMbox  The mailbox to move/copy messages to
+     *                            (UTF-8).
+     * @param string $action      Either 'copy' or 'move'.
+     * @param array $opts         Additional options:
+     * <pre>
+     *   - create: (boolean) Should the target mailbox be created?
+     *             DEFAULT: false
+     *   - mailboxob: (IMP_Mailbox_List) Update this mailbox object.
+     *                DEFAULT: No update.
+     * </pre>
+     *
+     * @return boolean  True if successful, false if not.
+     */
+    public function copy($targetMbox, $action, array $opts = array())
+    {
+        global $notification;
+
+        if (!count($this)) {
+            return false;
+        }
+
+        $targetMbox = IMP_Mailbox::get($targetMbox);
+
+        /* If the target is a tasklist, handle the move/copy specially. */
+        $tasks = new IMP_Indices_Copy_Tasklist();
+        if ($tasks->match($targetMbox)) {
+            return $tasks->copy($targetMbox, $this, $action == 'copy');
+        }
+
+        /* If the target is a notepad, handle the move/copy specially. */
+        $note = new IMP_Indices_Copy_Notepad();
+        if ($note->match($targetMbox)) {
+            return $note->copy($targetMbox, $this, $action == 'copy');
+        }
+
+        if (!empty($opts['create']) && !$targetMbox->create()) {
+            return false;
+        }
+        $imap_move = false;
+        $return_value = true;
+
+        switch ($action) {
+        case 'move':
+            $imap_move = true;
+            $message = _("There was an error moving messages from \"%s\" to \"%s\". This is what the server said");
+            break;
+
+        case 'copy':
+            $message = _("There was an error copying messages from \"%s\" to \"%s\". This is what the server said");
+            break;
+        }
+
+        foreach ($this as $ob) {
+            try {
+                if ($targetMbox->readonly) {
+                    throw new IMP_Exception(
+                        _("The target directory is read-only.")
+                    );
+                }
+
+                if (($action == 'move') && $ob->mbox->readonly) {
+                    throw new IMP_Exception(
+                        _("The source directory is read-only.")
+                    );
+                }
+
+                /* Throws Exception on error. */
+                $ob->mbox->uidvalid;
+
+                /* Attempt to copy/move messages to new mailbox. */
+                $imp_imap = $ob->mbox->imp_imap;
+                $imp_imap->copy($ob->mbox, $targetMbox, array(
+                    'ids' => $imp_imap->getIdsOb($ob->uids),
+                    'move' => $imap_move
+                ));
+
+                if (($action == 'move') &&
+                    !empty($opts['mailboxob']) &&
+                    $opts['mailboxob']->isBuilt()) {
+                    $opts['mailboxob']->removeMsgs(
+                        $ob->mbox->getIndicesOb($ob->uids)
+                    );
+                }
+            } catch (Exception $e) {
+                $error_msg = sprintf(
+                    $message,
+                    $ob->mbox->display,
+                    $targetMbox->display
+                ) . ': ' . $e->getMessage();
+
+                if ($e instanceof IMP_Imap_Exception) {
+                    $e->notify($error_msg);
+                } else {
+                    $notification->push($error_msg, 'horde.error');
+                }
+
+                $return_value = false;
+            }
+        }
+
+        return $return_value;
     }
 
     /* ArrayAccess methods. */

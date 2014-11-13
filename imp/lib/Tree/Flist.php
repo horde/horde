@@ -128,42 +128,29 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         }
 
         /* Add the list of editable tasklists to the list. */
-        if ($this->getOption('inc_tasklists') &&
-            $conf['tasklist']['use_tasklist'] &&
-            $registry->hasMethod('tasks/listTasklists')) {
-            try {
-                $tasklists = $registry->call('tasks/listTasklists', array(false, Horde_Perms::EDIT));
+        if ($this->getOption('inc_tasklists')) {
+            $tasklist = new IMP_Indices_Copy_Tasklist();
+            $view->tasklist = array();
 
-                if (count($tasklists)) {
-                    $tasklist_list = array();
-                    foreach ($tasklists as $id => $tasklist) {
-                        $tasklist_list[] = array(
-                            'l' => $filter->filter($tasklist->get('name'), 'space2html', array('encode' => true)),
-                            'v' => IMP_Mailbox::formTo(IMP::TASKLIST_EDIT . $id)
-                        );
-                    }
-                    $view->tasklist = $tasklist_list;
-                }
-            } catch (Horde_Exception $e) {}
+            foreach ($tasklist->getTasklists() as $key => $val) {
+                $view->tasklist[] = array(
+                    'l' => $filter->filter($val->get('name'), 'space2html', array('encode' => true)),
+                    'v' => $key
+                );
+            }
         }
 
         /* Add the list of editable notepads to the list. */
-        if ($this->getOption('inc_notepads') &&
-            $conf['notepad']['use_notepad'] &&
-            $registry->hasMethod('notes/listNotepads')) {
-            try {
-                $notepads = $registry->call('notes/listNotepads', array(false, Horde_Perms::EDIT));
+        if ($this->getOption('inc_notepads')) {
+            $notepad = new IMP_Indices_Copy_Notepad();
+            $view->notepad = array();
 
-                if (count($notepads)) {
-                    foreach ($notepads as $id => $notepad) {
-                        $notepad_list[] = array(
-                            'l' => $filter->filter($notepad->get('name'), 'space2html', array('encode' => true)),
-                            'v' => IMP_Mailbox::formTo(IMP::NOTEPAD_EDIT . $id)
-                        );
-                    }
-                    $view->notepad = $notepad_list;
-                }
-            } catch (Horde_Exception $e) {}
+            foreach ($notepad->getNotepads() as $key => $val) {
+                $view->notepad[] = array(
+                    'l' => $filter->filter($val->get('name'), 'space2html', array('encode' => true)),
+                    'v' => $key
+                );
+            }
         }
 
         /* Prepare filter list. */

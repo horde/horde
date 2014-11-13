@@ -592,8 +592,7 @@ class IMP_Hooks
 //        // full mailbox name.
 //        $targetMbox = 'foo';
 //
-//        $imp_message = $GLOBALS['injector']->getInstance('IMP_Message');
-//        $imp_message->copy($targetMbox, 'copy', $indices, array('create' => true));
+//        $indices->copy($targetMbox, 'copy', array('create' => true));
 //    }
 
 

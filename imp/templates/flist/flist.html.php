@@ -38,7 +38,7 @@
 <?php endif; ?>
 <?php endif; ?>
 
-<?php if ($this->tasklist): ?>
+<?php if (!empty($this->tasklist)): ?>
 <?php if ($this->optgroup): ?>
 <optgroup class="flistTasklists" label="<?php echo _("Task Lists") ?>">
 <?php else: ?>
@@ -55,7 +55,7 @@
 <?php endif; ?>
 <?php endif; ?>
 
-<?php if ($this->notepad): ?>
+<?php if (!empty($this->notepad)): ?>
 <?php if ($this->optgroup): ?>
 <optgroup class="flistNotepads" label="<?php echo _("Notepads") ?>">
 <?php else: ?>

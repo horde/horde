@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-11-08</date>
+ <date>2014-11-13</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -345,6 +345,11 @@
      <file name="Remote.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
+     <dir name="Copy">
+      <file name="Notepad.php" role="horde" />
+      <file name="Tasklist.php" role="horde" />
+     </dir> <!-- /lib/Indices/Copy -->
+     <file name="Copy.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
     </dir> <!-- /lib/Indices -->
     <dir name="LoginTasks">
@@ -429,6 +434,7 @@
       <file name="Smil.php" role="horde" />
       <file name="Smime.php" role="horde" />
       <file name="Status.php" role="horde" />
+      <file name="Tgz.php" role="horde" />
       <file name="Vcard.php" role="horde" />
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
@@ -917,7 +923,7 @@
      <file name="listinfo.html.php" role="horde" />
     </dir> <!-- /templates/listinfo -->
     <dir name="mime">
-     <file name="zip.html.php" role="horde" />
+     <file name="compressed.html.php" role="horde" />
     </dir> <!-- /templates/mime -->
     <dir name="pgp">
      <file name="import_key.html.php" role="horde" />
@@ -1705,7 +1711,10 @@
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Remote.php" name="lib/Imap/Remote.php" />
    <install as="imp/lib/Imap/Cache/Wrapper.php" name="lib/Imap/Cache/Wrapper.php" />
+   <install as="imp/lib/Indices/Copy.php" name="lib/Indices/Copy.php" />
    <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
+   <install as="imp/lib/Indices/Copy/Notepad.php" name="lib/Indices/Copy/Notepad.php" />
+   <install as="imp/lib/Indices/Copy/Tasklist.php" name="lib/Indices/Copy/Tasklist.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
@@ -1764,6 +1773,7 @@
    <install as="imp/lib/Mime/Viewer/Smil.php" name="lib/Mime/Viewer/Smil.php" />
    <install as="imp/lib/Mime/Viewer/Smime.php" name="lib/Mime/Viewer/Smime.php" />
    <install as="imp/lib/Mime/Viewer/Status.php" name="lib/Mime/Viewer/Status.php" />
+   <install as="imp/lib/Mime/Viewer/Tgz.php" name="lib/Mime/Viewer/Tgz.php" />
    <install as="imp/lib/Mime/Viewer/Vcard.php" name="lib/Mime/Viewer/Vcard.php" />
    <install as="imp/lib/Mime/Viewer/Video.php" name="lib/Mime/Viewer/Video.php" />
    <install as="imp/lib/Mime/Viewer/Zip.php" name="lib/Mime/Viewer/Zip.php" />
@@ -1988,7 +1998,7 @@
    <install as="imp/templates/itip/action.html.php" name="templates/itip/action.html.php" />
    <install as="imp/templates/itip/base.html.php" name="templates/itip/base.html.php" />
    <install as="imp/templates/listinfo/listinfo.html.php" name="templates/listinfo/listinfo.html.php" />
-   <install as="imp/templates/mime/zip.html.php" name="templates/mime/zip.html.php" />
+   <install as="imp/templates/mime/compressed.html.php" name="templates/mime/compressed.html.php" />
    <install as="imp/templates/pgp/import_key.html.php" name="templates/pgp/import_key.html.php" />
    <install as="imp/templates/prefs/acl.html.php" name="templates/prefs/acl.html.php" />
    <install as="imp/templates/prefs/composetemplates.html.php" name="templates/prefs/composetemplates.html.php" />
