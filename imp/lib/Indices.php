@@ -510,9 +510,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                     ));
 
                     if ($expunge_now) {
-                        $this->expungeMailbox(
-                            $imp_indices->indices()
-                        );
+                        $ob->mbox->expunge($ids_ob);
                     } else {
                         $ajax_queue->flag(
                             $del_flags,

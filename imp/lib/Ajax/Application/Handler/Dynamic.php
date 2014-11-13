@@ -231,7 +231,7 @@ extends Horde_Core_Ajax_Application_Handler
 
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
 
-        $GLOBALS['injector']->getInstance('IMP_Message')->emptyMailbox(array($mbox));
+        $mbox->emptyMailbox();
 
         $this->_base->queue->poll($mbox);
 
@@ -263,7 +263,7 @@ extends Horde_Core_Ajax_Application_Handler
 
         $mbox = IMP_Mailbox::formFrom($this->vars->mbox);
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flagAllInMailbox($flags, array($mbox), $this->vars->add)) {
+        if (!$mbox->flagAll($flags, $this->vars->add)) {
             return false;
         }
 
@@ -835,8 +835,6 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function purgeDeleted()
     {
-        global $injector;
-
         $change = $this->_base->changed(true);
         if (is_null($change)) {
             return false;
@@ -846,7 +844,9 @@ extends Horde_Core_Ajax_Application_Handler
             $change = ($this->_base->indices->mailbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
-        $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_base->indices->mailbox) => 1), array('list' => true));
+        $expunged = $this->_base->indices->mailbox->expunge(null, array(
+            'list' => true
+        ));
 
         if (!($expunge_count = count($expunged))) {
             return false;

@@ -1275,6 +1275,164 @@ class IMP_Mailbox
         return self::get($new);
     }
 
+    /**
+     * Adds or removes flag(s) for all messages in the mailbox.
+     * This function works with IMAP only, not POP3.
+     *
+     * @param array $flags     The IMAP flag(s) to add or remove.
+     * @param boolean $action  If true, add the flag(s); otherwise, remove the
+     *                         flag(s).
+     *
+     * @return boolean  True if successful, false if not.
+     */
+    public function flagAll($flags, $action = true)
+    {
+        $action_array = $action
+            ? array('add' => $flags)
+            : array('remove' => $flags);
+
+        try {
+            /* Grab list of UIDs before flagging, to make sure we determine
+             * the exact subset that has been flagged. */
+            $mailbox_list = $this->list_ob->getIndicesOb();
+            $this->imp_imap->store($this, $action_array);
+            $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')
+                ->flag(reset($action_array), $action, $mailbox_list);
+        } catch (IMP_Imap_Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Expunges all deleted messages.
+     *
+     * @param array $to_expunge  An optional array of indices to delete.
+     *                           If empty, all messages flagged as deleted in
+     *                           the mailbox will be deleted.
+     * @param array $opts       Additional options:
+     * <pre>
+     *   - list: (boolean) Return a list of messages expunged.
+     *           DEFAULT: false
+     * </pre>
+     *
+     * @return IMP_Indices  If 'list' option is true, an indices object
+     *                      containing the messages that have been expunged.
+     */
+    public function expunge($to_expunge, array $opts = array())
+    {
+        $msg_list = !empty($opts['list']);
+        $process_list = $update_list = array();
+
+        if ($this->access_expunge) {
+            $ids = $this->imp_imap->getIdsOb(
+                $to_expunge ?: Horde_Imap_Client_Ids::ALL
+            );
+
+            if ($this->search) {
+                foreach ($this->getSearchOb()->mboxes as $skey) {
+                    $process_list[] = array($skey, $ids);
+                }
+            } else {
+                $process_list[] = array($key, $ids);
+            }
+        }
+
+        // [0] = IMP_Mailbox object, [1] = Horde_Imap_Client_Ids object
+        foreach ($process_list as $val) {
+            /* If expunging a particular UID list, need to check
+             * UIDVALIDITY. */
+            if (!$val[1]->all) {
+                try {
+                    $val[0]->uidvalid;
+                } catch (IMP_Exception $e) {
+                    continue;
+                }
+            }
+
+            try {
+                $update_list[strval($val[0])] = $val[0]->imp_imap->expunge($val[0], array(
+                    'ids' => $val[1],
+                    'list' => $msg_list
+                ));
+            } catch (IMP_Imap_Exception $e) {}
+        }
+
+        if ($msg_list) {
+            return new IMP_Indices($update_list);
+        }
+    }
+
+    /**
+     * Empties the entire mailbox.
+     */
+    public function emptyMailbox()
+    {
+        global $notification, $prefs;
+
+        if (!$this->access_empty) {
+            $notification->push(
+                sprintf(
+                    _("Could not delete messages from %s. This mailbox is read-only."),
+                    $this->display
+                ),
+                'horde.error'
+            );
+            return;
+        }
+
+        if ($this->vtrash) {
+            foreach (IMP_Mailbox::get($this->getSearchOb()->mboxes) as $val) {
+                $val->expunge();
+            }
+            $notification->push(
+                _("Emptied all messages from Virtual Trash Folder."),
+                'horde.success'
+            );
+            return;
+        }
+
+        /* Make sure there is at least 1 message before attempting to
+         * delete. */
+        try {
+            $imp_imap = $this->imp_imap;
+            $status = $imp_imap->status($this, Horde_Imap_Client::STATUS_MESSAGES);
+            if (empty($status['messages'])) {
+                $notification->push(
+                    sprintf(
+                        _("The mailbox %s is already empty."),
+                        $this->display
+                    ),
+                    'horde.message'
+                );
+                return;
+            }
+
+            $trash = $prefs->getValue('use_trash')
+                ? IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)
+                : null;
+
+            if (!$trash || ($trash == $this)) {
+                $imp_imap->store($this, array(
+                    'add' => array(Horde_Imap_Client::FLAG_DELETED)
+                ));
+                $this->expunge();
+            } else {
+                $ret = $imp_imap->search($this);
+                $this->getIndicesOb($ret['match'])->delete();
+            }
+
+            $notification->push(
+                sprintf(
+                    _("Emptied all messages from %s."),
+                    $this->display
+                ),
+                'horde.success'
+            );
+        } catch (IMP_Imap_Exception $e) {}
+    }
+
     /* Static methods. */
 
     /**
