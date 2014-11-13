@@ -16,140 +16,137 @@ class Horde_ListHeaders_ParseTest extends PHPUnit_Framework_TestCase
         $this->parser = new Horde_ListHeaders();
     }
 
-    public function testBaseParsing()
+    /**
+     * @dataProvider parsingProvider
+     */
+    public function testBaseParsing($header, $value, $urls, $comments)
     {
-        $header = '<mailto:list@host.com?subject=help> (List Instructions)';
-        $ob = $this->parser->parse('list-help', $header);
+        $ob = $this->parser->parse($header, $value);
 
         $this->assertEquals(
-            1,
-            count($ob)
-        );
-        $this->assertEquals(
-            'mailto:list@host.com?subject=help',
-            $ob[0]->url
-        );
-        $this->assertEquals(
-            'List Instructions',
-            $ob[0]->comments[0]
-        );
-    }
-
-    public function testSubitemParsing()
-    {
-        $header = '<ftp://ftp.host.com/list.txt> (FTP), <mailto:list@host.com?subject=help>';
-        $ob = $this->parser->parse('list-help', $header);
-
-        $this->assertEquals(
-            2,
+            count($urls),
             count($ob)
         );
 
-        $this->assertEquals(
-            'ftp://ftp.host.com/list.txt',
-            $ob[0]->url
-        );
-        $this->assertEquals(
-            'FTP',
-            $ob[0]->comments[0]
-        );
+        foreach (array_values($urls) as $key => $val) {
+            if (is_null($urls[$key])) {
+                $this->assertTrue($ob[$key] instanceof Horde_ListHeaders_NoPost);
+                $this->assertNull($ob[$key]->url);
+            } else {
+                $this->assertFalse($ob[$key] instanceof Horde_ListHeaders_NoPost);
+                $this->assertEquals(
+                    $urls[$key],
+                    $ob[$key]->url
+                );
+            }
 
-        $this->assertEquals(
-            'mailto:list@host.com?subject=help',
-            $ob[1]->url
-        );
-        $this->assertEmpty($ob[1]->comments);
+            if (empty($comments[$key])) {
+                $this->assertEmpty($ob[$key]->comments);
+            } else {
+                foreach ($comments[$key] as $key2 => $val2) {
+                    $this->assertEquals(
+                        $val2,
+                        $ob[$key]->comments[$key2]
+                    );
+                }
+            }
+        }
     }
 
-    public function testDoubleCommentParsing()
+    public function parsingProvider()
     {
-        $header = '(Foo) <mailto:foo@example.com> (Foo2)';
-        $ob = $this->parser->parse('list-help', $header);
-
-        $this->assertEquals(
-            1,
-            count($ob)
-        );
-
-        $this->assertEquals(
-            2,
-            count($ob[0]->comments)
-        );
-
-        $this->assertEquals(
-            'Foo',
-            $ob[0]->comments[0]
-        );
-
-        $this->assertEquals(
-            'Foo2',
-            $ob[0]->comments[1]
+        return array(
+            array(
+                'list-help',
+                '<mailto:list@host.com?subject=help> (List Instructions)',
+                array(
+                    'mailto:list@host.com?subject=help'
+                ),
+                array(
+                    array('List Instructions')
+                )
+            ),
+            array(
+                'list-help',
+                '<ftp://ftp.host.com/list.txt> (FTP), <mailto:list@host.com?subject=help>',
+                array(
+                    'ftp://ftp.host.com/list.txt',
+                    'mailto:list@host.com?subject=help'
+                ),
+                array(
+                    array('FTP'),
+                    array()
+                )
+            ),
+            array(
+                'list-help',
+                '(Foo) <mailto:foo@example.com> (Foo2)',
+                array(
+                    'mailto:foo@example.com'
+                ),
+                array(
+                    array('Foo', 'Foo2'),
+                )
+            ),
+            array(
+                'list-post',
+                '<mailto:foo@example.com> (Foo)',
+                array(
+                    'mailto:foo@example.com'
+                ),
+                array(
+                    array('Foo')
+                )
+            ),
+            array(
+                'list-post',
+                'NO (Foo)',
+                array(
+                    null
+                ),
+                array(
+                    array('Foo')
+                )
+            ),
         );
     }
 
-    public function testListPostParsing()
+    /**
+     * @dataProvider listIdParsingProvider
+     */
+    public function testListIdParsing($value, $id, $label)
     {
-        $header = '<mailto:foo@example.com> (Foo)';
-        $ob = $this->parser->parse('list-post', $header);
-
-        $this->assertEquals(
-            1,
-            count($ob)
-        );
-        $this->assertFalse($ob[0] instanceof Horde_ListHeaders_NoPost);
-
-        $this->assertEquals(
-            'mailto:foo@example.com',
-            $ob[0]->url
-        );
-
-        $this->assertEquals(
-            'Foo',
-            $ob[0]->comments[0]
-        );
-    }
-
-    public function testListPostParsingWhenNoPostingAllowed()
-    {
-        $header = 'NO (Foo)';
-        $ob = $this->parser->parse('list-post', $header);
-
-        $this->assertEquals(
-            1,
-            count($ob)
-        );
-        $this->assertTrue($ob[0] instanceof Horde_ListHeaders_NoPost);
-        $this->assertNull($ob[0]->url);
-
-        $this->assertEquals(
-            'Foo',
-            $ob[0]->comments[0]
-        );
-    }
-
-    public function testListIdParsing()
-    {
-        $header = '<commonspace-users.list-id.within.com>';
-        $ob = $this->parser->parse('list-id', $header);
+        $ob = $this->parser->parse('list-id', $value);
 
         $this->assertTrue($ob instanceof Horde_ListHeaders_Id);
         $this->assertEquals(
-            'commonspace-users.list-id.within.com',
+            $id,
             $ob->id
         );
-        $this->assertNull($ob->label);
 
-        $header = '"Lena\'s Personal Joke List" <lenas-jokes.da39efc25c530ad145d41b86f7420c3b.021999.localhost>';
-        $ob = $this->parser->parse('list-id', $header);
+        if (is_null($label)) {
+            $this->assertNull($ob->label);
+        } else {
+            $this->assertEquals(
+                $label,
+                $ob->label
+            );
+        }
+    }
 
-        $this->assertTrue($ob instanceof Horde_ListHeaders_Id);
-        $this->assertEquals(
-            'lenas-jokes.da39efc25c530ad145d41b86f7420c3b.021999.localhost',
-            $ob->id
-        );
-        $this->assertEquals(
-            "Lena's Personal Joke List",
-            $ob->label
+    public function listIdParsingProvider()
+    {
+        return array(
+            array(
+                '<commonspace-users.list-id.within.com>',
+                'commonspace-users.list-id.within.com',
+                null
+            ),
+            array(
+                '"Lena\'s Personal Joke List" <lenas-jokes.da39efc25c530ad145d41b86f7420c3b.021999.localhost>',
+                'lenas-jokes.da39efc25c530ad145d41b86f7420c3b.021999.localhost',
+                "Lena's Personal Joke List"
+            )
         );
     }
 
