@@ -109,6 +109,13 @@ class Horde_Mime_Headers_Addresses
     }
 
     /**
+     * Do send encoding for addresses.
+     *
+     * Needed as a static function because it is used by both single and
+     * multiple address headers.
+     *
+     * @todo  Implement with traits.
+     *
      * @param array $alist  An array of Horde_Mail_Rfc822_List objects.
      * @param array $opts   Additional options:
      *   - charset: (string) Encodes the headers using this charset.
