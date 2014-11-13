@@ -4177,8 +4177,9 @@ var IMP_Flist = Class.create({
 
         if (elt) {
             elt.element().addClassName('horde-subnavi-active');
-            this.active = elt;
         }
+
+        this.active = elt;
     },
 
     subElements: function(base)
