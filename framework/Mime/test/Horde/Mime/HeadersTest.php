@@ -164,11 +164,13 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
      * @dataProvider headerCharsetConversionProvider
      */
     public function testHeaderCharsetConversion(
-        $header, $value, $charset, $encoded
+        $header, $values, $charset, $encoded
     )
     {
         $hdrs = new Horde_Mime_Headers();
-        $hdrs->addHeader($header, $value);
+        foreach ($values as $val) {
+            $hdrs->addHeader($header, $val);
+        }
 
         $hdr_encode = $hdrs[$header]->sendEncode(array(
             'charset' => $charset
@@ -176,7 +178,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $encoded,
-            reset($hdr_encode)
+            $hdr_encode
         );
 
         $hdr_array = $hdrs->toArray(array(
@@ -184,7 +186,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         ));
 
         $this->assertEquals(
-            $encoded,
+            (count($encoded) > 1) ? $encoded : reset($encoded),
             $hdr_array[$header]
         );
     }
@@ -192,11 +194,29 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     public function headerCharsetConversionProvider()
     {
         return array(
+            /* Single address header */
             array(
                 'To',
-                'Empfänger <recipient@example.com>',
+                array(
+                    'Empfänger <recipient@example.com>'
+                ),
                 'iso-8859-1',
-                '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>'
+                array(
+                    '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>'
+                )
+            ),
+            /* Multiple address header */
+            array(
+                'Resent-To',
+                array(
+                    'Empfänger <recipient@example.com>',
+                    'Foo <foo@example.com>'
+                ),
+                'iso-8859-1',
+                array(
+                    '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
+                    'Foo <foo@example.com>'
+                )
             )
         );
     }

@@ -78,7 +78,7 @@ class Horde_Mime_Headers_AddressesMulti
      */
     protected function _sendEncode($opts)
     {
-        return Horde_Mime_Headers_Addresses::sendEncodeProcess(
+        return Horde_Mime_Headers_Addresses::doSendEncode(
             $this->getAddressList(),
             $opts
         );
