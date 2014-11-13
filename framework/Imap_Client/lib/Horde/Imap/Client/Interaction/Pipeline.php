@@ -103,13 +103,22 @@ class Horde_Imap_Client_Interaction_Pipeline implements Countable, IteratorAggre
      *                                                           response.
      *
      * @return Horde_Imap_Client_Interaction_Command  Command that was
-     *                                                completed.
+     *                                                completed. Returns null
+     *                                                if tagged response
+     *                                                is not contained in this
+     *                                                pipeline object.
      */
     public function complete(Horde_Imap_Client_Interaction_Server_Tagged $resp)
     {
-        $cmd = $this->_commands[$resp->tag];
-        $cmd->response = $resp;
-        unset($this->_todo[$resp->tag]);
+        if (isset($this->_commands[$resp->tag])) {
+            $cmd = $this->_commands[$resp->tag];
+            $cmd->response = $resp;
+            unset($this->_todo[$resp->tag]);
+        } else {
+            /* This can be reached if a previous pipeline action was aborted,
+             * e.g. via an Exception. */
+            $cmd = null;
+        }
 
         return $cmd;
     }
