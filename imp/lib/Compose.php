@@ -3292,13 +3292,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $analyze = Horde_Mime_Magic::analyzeFile($atc_file, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array(
                 'nostrip' => true
             ));
+            $atc->setCharset('UTF-8');
 
             if ($analyze) {
-                $ctype = new Horde_Mime_Headers_ContentParam($analyze);
+                $ctype = new Horde_Mime_Headers_ContentParam(
+                    'Content-Type',
+                    $analyze
+                );
                 $atc->setType($ctype->value);
-                $atc->setCharset(isset($ctype->params['charset']) ? $ctype->params['charset'] : 'UTF-8');
-            } else {
-                $atc->setCharset('UTF-8');
+                if (isset($ctype->params['charset'])) {
+                    $atc->setCharset($ctype->params['charset']);
+                }
             }
         } else {
             $atc->setHeaderCharset('UTF-8');
