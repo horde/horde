@@ -551,18 +551,18 @@ class IMP_Hooks
              *  - 'from': Search from header
              *  - 'recip': Search recipients (To/CC/BCC) headers
              *  - 'subject': Search subject */
-            // qsearch_field: 'all',
+            // 'qsearch_field' => 'all',
 
             /* Splitbar (horizontal) height. Value is number of messages to
              * show. 0 means auto-determine default size. */
-            // splitbar_horiz: 0,
+            // 'splitbar_horiz' => 0,
 
             /* Splitbar (vertical) width. Value is width (in pixels) of the
              * mailbox listing. 0 means auto-determine default size. */
-            // splitbar_vert: 0,
+            // 'splitbar_vert' => 0,
 
             /* Toggle headers in preview. 1 to show headers, 0 to hide. */
-            // toggle_hdrs: 0,
+            // 'toggle_hdrs' => 0,
         );
     }
 
