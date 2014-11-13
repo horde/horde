@@ -39,6 +39,13 @@ class Horde_Mime_Headers
     public static $defaultCharset = 'us-ascii';
 
     /**
+     * Cached handler information for Header Element objects.
+     *
+     * @var array
+     */
+    protected static $_handlers = array();
+
+    /**
      * The internal headers array.
      *
      * @var Horde_Support_CaseInsensitiveArray
@@ -192,7 +199,7 @@ class Horde_Mime_Headers
             return;
         }
 
-        $classname = $this->_getHeaderClassname($header);
+        $classname = $this->_getHeaderClassName($header);
 
         switch ($classname) {
         case 'Horde_Mime_Headers_ContentParam':
@@ -256,28 +263,33 @@ class Horde_Mime_Headers
      */
     protected function _getHeaderClassName($header)
     {
-        $header = Horde_String::lower($header);
-        $search = array(
-            'Horde_Mime_Headers_Element_Single',
-            'Horde_Mime_Headers_AddressesMulti',
-            'Horde_Mime_Headers_Addresses',
-            'Horde_Mime_Headers_ContentParam',
-            'Horde_Mime_Headers_Date',
-            'Horde_Mime_Headers_Identification',
-            'Horde_Mime_Headers_MessageId',
-            'Horde_Mime_Headers_MimeVersion',
-            'Horde_Mime_Headers_Received',
-            'Horde_Mime_Headers_Subject',
-            'Horde_Mime_Headers_UserAgent'
-        );
+        if (empty(self::$_handlers)) {
+            $search = array(
+                'Horde_Mime_Headers_Element_Single',
+                'Horde_Mime_Headers_AddressesMulti',
+                'Horde_Mime_Headers_Addresses',
+                'Horde_Mime_Headers_ContentParam',
+                'Horde_Mime_Headers_Date',
+                'Horde_Mime_Headers_Identification',
+                'Horde_Mime_Headers_MessageId',
+                'Horde_Mime_Headers_MimeVersion',
+                'Horde_Mime_Headers_Received',
+                'Horde_Mime_Headers_Subject',
+                'Horde_Mime_Headers_UserAgent'
+            );
 
-        foreach ($search as $val) {
-            if (in_array($header, call_user_func(array($val, 'getHandles')))) {
-                return $val;
+            foreach ($search as $val) {
+                foreach ($val::getHandles() as $hdr) {
+                    self::$_handlers[$hdr] = $val;
+                }
             }
         }
 
-        return 'Horde_Mime_Headers_Element_Multiple';
+        $header = Horde_String::lower($header);
+
+        return isset(self::$_handlers[$header])
+            ? self::$_handlers[$header]
+            : 'Horde_Mime_Headers_Element_Multiple';
     }
 
     /**
