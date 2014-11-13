@@ -552,7 +552,7 @@ var DimpBase = {
 
                         if (highlight && this.isQSearch()) {
                             r[h] = r[h].gsub(
-                                new RegExp("(" + RegExp.escape($F('horde-search-input')) + ")", "i"),
+                                new RegExp("(" + RegExp.escape($F('horde-search-input').escapeHTML()) + ")", "i"),
                                 '<span class="qsearchMatch">#{1}</span>'
                             );
                         }
