@@ -49,7 +49,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             try {
                 $this->indices = new IMP_Indices_Mailbox(
                     $this->indices->mailbox,
-                    $injector->getInstance('IMP_Message')->stripPart($this->indices, $this->vars->id)
+                    $this->indices->stripPart($this->vars->id)
                 );
                 $js_vars['-ImpMessage.strip'] = 1;
                 $notification->push(_("Attachment successfully stripped."), 'horde.success');

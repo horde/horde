@@ -525,6 +525,158 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         return $return_value;
     }
 
+    /**
+     * Strips one or all MIME parts out of a message.
+     * Handles search mailboxes.
+     *
+     * @param string $partid  The MIME ID of the part to strip. All parts are
+     *                        stripped if null.
+     *
+     * @return IMP_Indices  Returns the new indices object.
+     * @throws IMP_Exception
+     */
+    public function stripPart($partid = null)
+    {
+        global $injector;
+
+        list($mbox, $uid) = $this->getSingle();
+        if (!$uid) {
+            return;
+        }
+
+        if ($mbox->readonly) {
+            throw new IMP_Exception(
+                _("Cannot strip the part as the mailbox is read-only.")
+            );
+        }
+
+        $uidvalidity = $mbox->uidvalid;
+
+        $contents = $injector->getInstance('IMP_Factory_Contents')->create($this);
+        $message = $contents->getMIMEMessage();
+        $boundary = trim($message->getContentTypeParameter('boundary'), '"');
+
+        $url = new Horde_Imap_Client_Url();
+        $url->mailbox = $mbox;
+        $url->uid = $uid;
+        $url->uidvalidity = $uidvalidity;
+
+        $imp_imap = $mbox->imp_imap;
+
+        /* Always add the header to output. */
+        $url->section = 'HEADER';
+        $parts = array(
+            array(
+                't' => 'url',
+                'v' => strval($url)
+            )
+        );
+
+        for ($id = 1; ; ++$id) {
+            $part = $message->getPart($id);
+            if (!$part) {
+                break;
+            }
+
+            $parts[] = array(
+                't' => 'text',
+                'v' => "\r\n--" . $boundary . "\r\n"
+            );
+
+            if (($id != 1) && is_null($partid) || ($id == $partid)) {
+                $newPart = new Horde_Mime_Part();
+                $newPart->setType('text/plain');
+
+                /* Need to make sure all text is in the correct charset. */
+                $newPart->setCharset('UTF-8');
+                $newPart->setContents(sprintf(
+                    _("[Part stripped: Original part type: %s, name: %s]"),
+                    $part->getType(),
+                    $contents->getPartName($part)
+                ));
+                $newPart->setDisposition('attachment');
+
+                $parts[] = array(
+                    't' => 'text',
+                    'v' => $newPart->toString(array(
+                        'canonical' => true,
+                        'headers' => true,
+                        'stream' => true
+                    ))
+                );
+            } else {
+                $url->section = $id . '.MIME';
+                $parts[] = array(
+                    't' => 'url',
+                    'v' => strval($url)
+                );
+
+                $url->section = $id;
+                $parts[] = array(
+                    't' => 'url',
+                    'v' => strval($url)
+                );
+            }
+        }
+
+        $parts[] = array(
+            't' => 'text',
+            'v' => "\r\n--" . $boundary . "--\r\n"
+        );
+
+        /* Get the headers for the message. */
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query->imapDate();
+        $query->flags();
+
+        try {
+            $res = $imp_imap->fetch($mbox, $query, array(
+                'ids' => $imp_imap->getIdsOb($uid)
+            ))->first();
+            if (is_null($res)) {
+                throw new IMP_Imap_Exception();
+            }
+            $flags = $res->getFlags();
+
+            /* If in Virtual Inbox, we need to reset flag to unseen so that it
+             * appears again in the mailbox list. */
+            if ($mbox->vinbox) {
+                $flags = array_values(array_diff($flags, array(Horde_Imap_Client::FLAG_SEEN)));
+            }
+
+            $new_uid = $imp_imap->append($mbox, array(
+                array(
+                    'data' => $parts,
+                    'flags' => $flags,
+                    'internaldate' => $res->getImapDate()
+                )
+            ))->ids;
+            $new_uid = reset($new_uid);
+        } catch (IMP_Imap_Exception $e) {
+            throw new IMP_Exception(
+                _("An error occured while attempting to strip the part.")
+            );
+        }
+
+        $indices->delete(array(
+            'keeplog' => true,
+            'nuke' => true
+        ));
+
+        $indices_ob = $mbox->getIndicesOb($new_uid);
+
+        /* We need to replace the old UID(s) in the URL params. */
+        $vars = $injector->getInstance('Horde_Variables');
+        if (isset($vars->buid)) {
+            list(,$vars->buid) = $mbox->toBuids($indices_ob)->getSingle();
+        }
+        if (isset($vars->uid)) {
+            $vars->uid = $new_uid;
+        }
+
+        return $indices_ob;
+    }
+
     /* ArrayAccess methods. */
 
     /**

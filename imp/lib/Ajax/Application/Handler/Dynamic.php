@@ -918,7 +918,7 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function stripAttachment()
     {
-        global $injector, $notification;
+        global $notification;
 
         if (count($this->_base->indices) != 1) {
             return false;
@@ -932,7 +932,7 @@ extends Horde_Core_Ajax_Application_Handler
         try {
             $this->_base->indices = new IMP_Indices_Mailbox(
                 $this->_base->indices->mailbox,
-                $injector->getInstance('IMP_Message')->stripPart($this->_base->indices, $this->vars->id)
+                $this->_base->indices->stripPart($this->vars->id)
             );
         } catch (IMP_Exception $e) {
             $notification->push($e);
