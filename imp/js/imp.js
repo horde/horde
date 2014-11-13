@@ -189,8 +189,8 @@ var IMP_JS = {
         mb_height = mb.getHeight();
 
         /* Load messages within 1 scrolled page of range boundaries. */
-        range_top = mb.scrollTop + mb.cumulativeOffset().top - mb_height;
-        range_bottom = mb.scrollTop + mb.cumulativeOffset().top + (2 * mb_height);
+        range_top = mb.scrollTop - mb_height;
+        range_bottom = mb.scrollTop + (2 * mb_height);
 
         imgs = Prototype.Selector.select('IMG[data-src]', this.iframeDoc(iframe)).findAll(Element.visible);
 
