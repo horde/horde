@@ -54,12 +54,13 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
     */
     public function listHeadersExist(Horde_Mime_Headers $ob)
     {
-        return (bool)count(
-            array_intersect(
-                array_keys($this->headers()),
-                array_keys(iterator_to_array($ob))
-            )
-        );
+        foreach (array_keys($this->headers()) as $hdr) {
+            if (isset($ob[$hdr])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -78,8 +79,8 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
             return false;
         }
 
-        $this->_data = $value;
-        $this->_datalen = strlen($value);
+        $this->_data = strval($value);
+        $this->_datalen = strlen($this->_data);
         $this->_params['validate'] = true;
 
         switch (strtolower($id)) {
