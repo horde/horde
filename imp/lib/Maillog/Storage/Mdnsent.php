@@ -34,11 +34,9 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
             return false;
         }
 
-        list($mbox, $uid) = $msg->indices->getSingle();
-
         return $injector->getInstance('IMP_Message')->flag(array(
             'add' => array(Horde_Imap_Client::FLAG_MDNSENT)
-        ), $mbox->getIndicesOb($uid), array(
+        ), $msg->indices, array(
             'silent' => true
         ));
     }
