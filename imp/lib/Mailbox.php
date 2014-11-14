@@ -1335,7 +1335,7 @@ class IMP_Mailbox
                     $process_list[] = array($skey, $ids);
                 }
             } else {
-                $process_list[] = array($key, $ids);
+                $process_list[] = array($this, $ids);
             }
         }
 
