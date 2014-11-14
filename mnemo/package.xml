@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mms] Added ability to link to note via API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1248,7 +1248,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mms] Added ability to link to note via API.
    </notes>
   </release>
  </changelog>
