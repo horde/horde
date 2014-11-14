@@ -5,7 +5,7 @@
     <th class="smallheader"><?php echo _("Last Sync Time") ?></th>
     <th class="smallheader"><?php echo _("Status") ?></th>
     <th class="smallheader"><?php echo _("Device Information") ?></th>
-    <th class ="smallheader"><?php echo _("Cached Collectons") ?></th>
+    <th class ="smallheader"><?php echo _("Cached Collections") ?></th>
     <th class="smallheader"><?php echo _("Actions")?></th>
    </tr>
   <?php foreach ($this->devices as $d_id => $d): ?>
