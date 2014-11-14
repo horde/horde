@@ -98,28 +98,23 @@ class IMP_Indices_Copy_Notepad
             $name = '"' . htmlspecialchars($subject) . '"';
 
             /* Attempt to convert the object name into a hyperlink. */
-            try {
-                $link = $registry->hasMethod('notes/show')
-                    ? $registry->link('notes/show', array('uid' => $res))
-                    : false;
-                if ($link) {
-                    $name = sprintf(
-                        '<a href="%s">%s</a>',
-                        Horde::url($link),
-                        $name
-                    );
-                }
-
-                $notification->push(
-                    sprintf(
-                        _("%s was successfully added to \"%s\"."),
-                        $name,
-                        htmlspecialchars($lists[$list]->get('name'))
-                    ),
-                    'horde.success',
-                    array('content.raw')
+            if ($registry->hasLink('notes/show')) {
+                $name = sprintf(
+                    '<a href="%s">%s</a>',
+                    Horde::url($registry->link('notes/show', array('uid' => $res))),
+                    $name
                 );
-            } catch (Horde_Exception $e) {}
+            }
+
+            $notification->push(
+                sprintf(
+                    _("%s was successfully added to \"%s\"."),
+                    $name,
+                    htmlspecialchars($lists[$list]->get('name'))
+                ),
+                'horde.success',
+                array('content.raw')
+            );
         }
     }
 

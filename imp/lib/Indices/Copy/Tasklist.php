@@ -100,28 +100,23 @@ class IMP_Indices_Copy_Tasklist
             $name = '"' . htmlspecialchars($subject) . '"';
 
             /* Attempt to convert the object name into a hyperlink. */
-            try {
-                $link = $registry->hasMethod('tasks/show')
-                    ? $registry->link('tasks/show', array('uid' => $res))
-                    : null;
-                if ($link) {
-                    $name = sprintf(
-                        '<a href="%s">%s</a>',
-                        Horde::url($link),
-                        $name
-                    );
-                }
-
-                $notification->push(
-                    sprintf(
-                        _("%s was successfully added to \"%s\"."),
-                        $name,
-                        htmlspecialchars($lists[$list]->get('name'))
-                    ),
-                    'horde.success',
-                    array('content.raw')
+            if ($registry->hasLink('tasks/show')) {
+                $name = sprintf(
+                    '<a href="%s">%s</a>',
+                    Horde::url($registry->link('tasks/show', array('uid' => $res))),
+                    $name
                 );
-            } catch (Horde_Exception $e) {}
+            }
+
+            $notification->push(
+                sprintf(
+                    _("%s was successfully added to \"%s\"."),
+                    $name,
+                    htmlspecialchars($lists[$list]->get('name'))
+                ),
+                'horde.success',
+                array('content.raw')
+            );
         }
     }
 
