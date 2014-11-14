@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -598,6 +598,9 @@ msgstr ""
 #: lib/Horde/Service/Weather/Current/WeatherUnderground.php:128
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:73
 #: lib/Horde/Service/Weather/Period/WeatherUnderground.php:81
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:91
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:96
+#: lib/Horde/Service/Weather/Period/WeatherUnderground.php:105
 msgid "N/A"
 msgstr ""
 

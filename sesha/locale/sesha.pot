@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Sesha H5 (1.0.0-git)\n"
+"Project-Id-Version: Sesha\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:51+0100\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Add a new category"
 msgstr ""
 
-#: admin.php:204 admin.php:261
+#: admin.php:265
 msgid "Add a new property"
 msgstr ""
 
@@ -45,20 +45,15 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: config/prefs.php:39
+#: config/prefs.php:34
 msgid "Ascending"
 msgstr ""
 
-#: lib/View/List.php:36
+#: lib/View/List.php:32
 msgid "Available Inventory"
 msgstr ""
 
-#: lib/View/List.php:34
-#, php-format
-msgid "Available Inventory in %s"
-msgstr ""
-
-#: lib/View/List.php:31
+#: lib/View/List.php:30
 msgid "Back to stock list"
 msgstr ""
 
@@ -70,7 +65,7 @@ msgstr ""
 msgid "Category Name"
 msgstr ""
 
-#: config/prefs.php:19
+#: config/prefs.php:14
 msgid "Change your inventory sorting and display options."
 msgstr ""
 
@@ -115,11 +110,11 @@ msgstr ""
 msgid "Data Type"
 msgstr ""
 
-#: config/prefs.php:31
+#: config/prefs.php:26
 msgid "Default sorting criteria:"
 msgstr ""
 
-#: config/prefs.php:41
+#: config/prefs.php:36
 msgid "Default sorting direction:"
 msgstr ""
 
@@ -132,7 +127,7 @@ msgstr ""
 msgid "Delete Category \"%s\""
 msgstr ""
 
-#: lib/View/List.php:160 lib/View/List.php:178
+#: lib/View/List.php:157 lib/View/List.php:176
 msgid "Delete Item"
 msgstr ""
 
@@ -145,7 +140,7 @@ msgstr ""
 msgid "Delete Property \"%s\""
 msgstr ""
 
-#: config/prefs.php:40
+#: config/prefs.php:35
 msgid "Descending"
 msgstr ""
 
@@ -153,11 +148,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: config/prefs.php:18
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr ""
 
-#: stock.php:139
+#: stock.php:141
 msgid "Edit"
 msgstr ""
 
@@ -165,11 +160,11 @@ msgstr ""
 msgid "Edit Category"
 msgstr ""
 
-#: stock.php:137
+#: stock.php:101
 msgid "Edit Inventory Item"
 msgstr ""
 
-#: lib/View/List.php:158 lib/View/List.php:172
+#: lib/View/List.php:155 lib/View/List.php:170
 msgid "Edit Item"
 msgstr ""
 
@@ -189,15 +184,11 @@ msgstr ""
 msgid "For this value"
 msgstr ""
 
-#: config/prefs.php:17
+#: config/prefs.php:12
 msgid "General Options"
 msgstr ""
 
-#: lib/View/List.php:37
-msgid "Inventory List"
-msgstr ""
-
-#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:106
+#: config/prefs.php:24 lib/Form/Search.php:32 lib/View/List.php:103
 msgid "Item Name"
 msgstr ""
 
@@ -210,8 +201,16 @@ msgstr ""
 msgid "Item number %d was successfully deleted"
 msgstr ""
 
-#: config/prefs.php:50
+#: config/prefs.php:45
 msgid "List"
+msgstr ""
+
+#: admin.php:245
+msgid "List Categories"
+msgstr ""
+
+#: admin.php:273
+msgid "List Properties"
 msgstr ""
 
 #: admin.php:31
@@ -258,6 +257,10 @@ msgstr ""
 msgid "No categories are currently configured. Use the form below to add one."
 msgstr ""
 
+#: templates/view/list.php:39
+msgid "No items"
+msgstr ""
+
 #: lib/Form/Category.php:58
 msgid ""
 "No properties are currently configured. Use the \"Manage Properties\" tab "
@@ -268,7 +271,7 @@ msgstr ""
 msgid "No properties are currently configured. Use the form below to add one."
 msgstr ""
 
-#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:120
+#: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:117
 msgid "Note"
 msgstr ""
 
@@ -316,7 +319,7 @@ msgstr ""
 msgid "Save Property"
 msgstr ""
 
-#: config/prefs.php:51 lib/Form/Search.php:26
+#: config/prefs.php:46 lib/Form/Search.php:26
 msgid "Search"
 msgstr ""
 
@@ -324,7 +327,7 @@ msgstr ""
 msgid "Search Inventory"
 msgstr ""
 
-#: lib/View/List.php:28 lib/View/List.php:29
+#: lib/View/List.php:28
 msgid "Search Results"
 msgstr ""
 
@@ -336,13 +339,13 @@ msgstr ""
 msgid "Search these properties"
 msgstr ""
 
-#: config/prefs.php:64
+#: config/prefs.php:59
 msgid ""
 "Select properties that you would like to see in the list view. All other "
 "properties are only shown on individual item screens:"
 msgstr ""
 
-#: config/prefs.php:54
+#: config/prefs.php:49
 msgid "Select the view to display after login:"
 msgstr ""
 
@@ -354,29 +357,29 @@ msgstr ""
 msgid "Sort Weight"
 msgstr ""
 
-#: lib/View/List.php:113
+#: lib/View/List.php:110
 #, php-format
 msgid "Sort by %s"
 msgstr ""
 
-#: lib/View/List.php:106
+#: lib/View/List.php:103
 msgid "Sort by item name"
 msgstr ""
 
-#: lib/View/List.php:120
+#: lib/View/List.php:117
 msgid "Sort by note"
 msgstr ""
 
-#: lib/View/List.php:102
+#: lib/View/List.php:99
 msgid "Sort by stock ID"
 msgstr ""
 
-#: config/prefs.php:52
+#: config/prefs.php:47
 msgid "Stock"
 msgstr ""
 
-#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
+#: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99
 #: list.php:31 search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr ""
@@ -421,7 +424,7 @@ msgstr ""
 msgid "The property was not deleted."
 msgstr ""
 
-#: stock.php:166
+#: stock.php:168
 msgid "The stock item was successfully updated."
 msgstr ""
 
@@ -430,7 +433,7 @@ msgstr ""
 msgid "There was a problem adding the item: %s"
 msgstr ""
 
-#: stock.php:150
+#: stock.php:152
 #, php-format
 msgid "There was a problem updating the inventory: %s"
 msgstr ""
@@ -464,11 +467,11 @@ msgstr ""
 msgid "Updated property successfully."
 msgstr ""
 
-#: stock.php:100
+#: stock.php:103
 msgid "View Inventory Item"
 msgstr ""
 
-#: lib/View/List.php:189 lib/View/List.php:197
+#: lib/View/List.php:187 lib/View/List.php:195
 msgid "View Item"
 msgstr ""
 

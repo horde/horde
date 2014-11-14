@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Smtp\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "Could not open secure TLS connection to the server."
 msgstr ""
 
-#: lib/Horde/Smtp.php:365
+#: lib/Horde/Smtp.php:400
 msgid "Error connecting to SMTP server."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:108
+#: lib/Horde/Smtp/Connection.php:121
 msgid "Error when communicating with the server."
 msgstr ""
 
@@ -43,19 +43,19 @@ msgid ""
 "is not receiving messages."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:100
+#: lib/Horde/Smtp/Connection.php:113
 msgid "Server closed the connection unexpectedly."
 msgstr ""
 
-#: lib/Horde/Smtp.php:434
+#: lib/Horde/Smtp.php:469
 msgid "Server denied authentication."
 msgstr ""
 
-#: lib/Horde/Smtp.php:701
+#: lib/Horde/Smtp.php:851
 msgid "Server does not support TLS connections."
 msgstr ""
 
-#: lib/Horde/Smtp.php:395
+#: lib/Horde/Smtp.php:430
 #, php-format
 msgid "Server does not support a necessary server extension: %s."
 msgstr ""
@@ -68,6 +68,6 @@ msgstr ""
 msgid "Server requires authentication."
 msgstr ""
 
-#: lib/Horde/Smtp/Connection.php:81
+#: lib/Horde/Smtp/Connection.php:94
 msgid "Server write error."
 msgstr ""

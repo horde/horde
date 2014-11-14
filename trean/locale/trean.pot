@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"POT-Creation-Date: 2014-11-14 12:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+#: lib/Block/Tagsearch.php:44
 msgid "1 Line"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+#: lib/Block/Tagsearch.php:32
 msgid "10 rows"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+#: lib/Block/Tagsearch.php:33
 msgid "15 rows"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+#: lib/Block/Tagsearch.php:43
 msgid "2 Line"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+#: lib/Block/Tagsearch.php:34
 msgid "25 rows"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+#: lib/Block/Tagsearch.php:42
 msgid "3 Line"
 msgstr ""
 
@@ -83,6 +89,11 @@ msgstr ""
 msgid "Bookmarks successfully imported"
 msgstr ""
 
+#: lib/Block/Tagsearch.php:19
+#, php-format
+msgid "Bookmarks tagged with \"%s\""
+msgstr ""
+
 #: browse.php:31
 msgid "Browse"
 msgstr ""
@@ -99,7 +110,7 @@ msgstr ""
 msgid "Clicks"
 msgstr ""
 
-#: lib/Api.php:130
+#: lib/Api.php:131
 msgid "Close"
 msgstr ""
 
@@ -132,7 +143,7 @@ msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
 
-#: templates/list.html.php:57
+#: templates/list.html.php:58
 msgid "Edit"
 msgstr ""
 
@@ -185,6 +196,7 @@ msgid "No bookmarks found"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+#: lib/Block/Tagsearch.php:84
 msgid "No bookmarks to display"
 msgstr ""
 
@@ -200,7 +212,7 @@ msgstr ""
 msgid "Note:"
 msgstr ""
 
-#: lib/Block/Mostclicked.php:28
+#: lib/Block/Mostclicked.php:28 lib/Block/Tagsearch.php:28
 msgid "Number of bookmarks to show"
 msgstr ""
 
@@ -273,12 +285,13 @@ msgstr ""
 msgid "Tagged with %s"
 msgstr ""
 
-#: lib/Application.php:102 templates/add.html.php:30
-#: templates/edit.html.php:39
+#: lib/Application.php:102 lib/Block/Tagsearch.php:48
+#: templates/add.html.php:30 templates/edit.html.php:39
 msgid "Tags"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+#: lib/Block/Tagsearch.php:38
 msgid "Template"
 msgstr ""
 
@@ -296,7 +309,7 @@ msgstr ""
 msgid "There was an error adding the bookmark: %s"
 msgstr ""
 
-#: app/controllers/SaveBookmark.php:26
+#: app/controllers/SaveBookmark.php:25
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr ""

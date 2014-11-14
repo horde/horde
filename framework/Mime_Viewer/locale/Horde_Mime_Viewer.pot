@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Mime_Viewer \n"
+"Project-Id-Version: Horde_Mime_Viewer\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,17 +18,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:108
+#: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:124
 #: lib/Horde/Mime/Viewer/Zip.php:99
 msgid "Archive File Size"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:103
+#: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:119
 #: lib/Horde/Mime/Viewer/Zip.php:98
 msgid "Archive Name"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:121
+#: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:137
 #: lib/Horde/Mime/Viewer/Zip.php:104
 msgid "Attributes"
 msgstr ""
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:95 lib/Horde/Mime/Viewer/Tgz.php:113
+#: lib/Horde/Mime/Viewer/Rar.php:95 lib/Horde/Mime/Viewer/Tgz.php:129
 #: lib/Horde/Mime/Viewer/Zip.php:101
 #, php-format
 msgid "File Count: %d file"
@@ -53,7 +53,7 @@ msgid_plural "File Count: %d files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:120
+#: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:136
 msgid "File Name"
 msgstr ""
 
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Method"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:123
+#: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:139
 #: lib/Horde/Mime/Viewer/Zip.php:106
 msgid "Modified Date"
 msgstr ""
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Reply-To"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:122
+#: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:138
 #: lib/Horde/Mime/Viewer/Zip.php:105
 msgid "Size"
 msgstr ""
@@ -103,7 +103,7 @@ msgstr ""
 msgid "Unable to translate this WordPerfect document"
 msgstr ""
 
-#: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:96
+#: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:112
 #: lib/Horde/Mime/Viewer/Zip.php:90
 msgid "unnamed"
 msgstr ""
