@@ -16,7 +16,7 @@ class Trean_Block_Tagsearch extends Horde_Core_Block
     public function __construct($app, $params = array())
     {
         parent::__construct($app, $params);
-        $this->_name = _("Bookmarks tagged with '%s'");
+        $this->_name = _("Bookmarks tagged with \"%s\"");
     }
 
     /**
