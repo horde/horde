@@ -13,9 +13,17 @@
  * @category Horde
  * @package  Mnemo
  */
-
 class Mnemo_Api extends Horde_Registry_Api
 {
+    /**
+     * Links.
+     *
+     * @var array
+     */
+    protected $_links = array(
+        'show' => '%application%/view.php?memo=|memo|&memolist=|memolist|&uid=|uid|'
+    );
+
     /**
      * Removes user data.
      *
