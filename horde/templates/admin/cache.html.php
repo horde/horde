@@ -12,7 +12,7 @@
   <strong><?php echo _("Success") ?></strong>
 <?php else: ?>
   <strong class="cacheAdminError"><?php echo _("FAIL") ?></strong>
-  (<?php echo _("Check your cache settings in horde/conf.php.") ?>)
+  (<?php echo _("Check your cache settings in the Horde configuration.") ?>)
 <?php endif; ?>
  </p>
 </div>

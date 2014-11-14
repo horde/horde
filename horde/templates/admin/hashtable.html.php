@@ -20,7 +20,7 @@
   <strong><?php echo _("Success") ?></strong>
 <?php else: ?>
   <strong class="htAdminError"><?php echo _("FAIL") ?></strong>
-  (<?php echo _("Check your hashtable settings in horde/conf.php.") ?>)
+  (<?php echo _("Check your hashtable settings in the Horde configuration.") ?>)
 <?php endif; ?>
  </p>
 </div>
