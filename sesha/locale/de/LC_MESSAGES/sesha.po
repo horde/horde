@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:51+0100\n"
-"PO-Revision-Date: 2013-01-29 11:53+0100\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"PO-Revision-Date: 2014-11-14 12:29+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -33,7 +33,7 @@ msgstr "Kategorie hinzufügen"
 msgid "Add a new category"
 msgstr "Neue Kategorie hinzufügen"
 
-#: admin.php:204 admin.php:261
+#: admin.php:265
 msgid "Add a new property"
 msgstr "Neue Eigenschaft hinzufügen"
 
@@ -45,20 +45,15 @@ msgstr "Eigenschaft hinzufügen"
 msgid "Administration"
 msgstr "Administration"
 
-#: config/prefs.php:39
+#: config/prefs.php:34
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/View/List.php:36
+#: lib/View/List.php:32
 msgid "Available Inventory"
 msgstr "Verfügbares Inventar"
 
-#: lib/View/List.php:34
-#, php-format
-msgid "Available Inventory in %s"
-msgstr "Verfügbares Inventar in %s"
-
-#: lib/View/List.php:31
+#: lib/View/List.php:30
 msgid "Back to stock list"
 msgstr "Zurück zur Artikelliste"
 
@@ -70,7 +65,7 @@ msgstr "Kategorie"
 msgid "Category Name"
 msgstr "Kategoriebezeichnung"
 
-#: config/prefs.php:19
+#: config/prefs.php:14
 msgid "Change your inventory sorting and display options."
 msgstr "Ändern Sie die Sortierreihenfolge und andere Anzeigeeinstellungen."
 
@@ -115,11 +110,11 @@ msgstr "Eigenschaft konnte nicht geändert werden."
 msgid "Data Type"
 msgstr "Datentyp"
 
-#: config/prefs.php:31
+#: config/prefs.php:26
 msgid "Default sorting criteria:"
 msgstr "Sortierreihenfolge:"
 
-#: config/prefs.php:41
+#: config/prefs.php:36
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
@@ -132,7 +127,7 @@ msgstr "Kategorie löschen"
 msgid "Delete Category \"%s\""
 msgstr "Kategorie \"%s\" löschen"
 
-#: lib/View/List.php:160 lib/View/List.php:178
+#: lib/View/List.php:157 lib/View/List.php:176
 msgid "Delete Item"
 msgstr "Artikel löschen"
 
@@ -145,7 +140,7 @@ msgstr "Eigenschaft löschen"
 msgid "Delete Property \"%s\""
 msgstr "Eigenschaft \"%s\" löschen"
 
-#: config/prefs.php:40
+#: config/prefs.php:35
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -153,11 +148,11 @@ msgstr "Absteigend"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php:18
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr "Anzeige-Einstellungen"
 
-#: stock.php:139
+#: stock.php:141
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -165,11 +160,11 @@ msgstr "Bearbeiten"
 msgid "Edit Category"
 msgstr "Kategorie bearbeiten"
 
-#: stock.php:137
+#: stock.php:101
 msgid "Edit Inventory Item"
 msgstr "Artikel bearbeiten"
 
-#: lib/View/List.php:158 lib/View/List.php:172
+#: lib/View/List.php:155 lib/View/List.php:170
 msgid "Edit Item"
 msgstr "Artikel bearbeiten"
 
@@ -189,15 +184,11 @@ msgstr "Eigenschaft bearbeiten"
 msgid "For this value"
 msgstr "Nach diesem Wert"
 
-#: config/prefs.php:17
+#: config/prefs.php:12
 msgid "General Options"
 msgstr "Allgemeine Einstellungen"
 
-#: lib/View/List.php:37
-msgid "Inventory List"
-msgstr "Inventarliste"
-
-#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:106
+#: config/prefs.php:24 lib/Form/Search.php:32 lib/View/List.php:103
 msgid "Item Name"
 msgstr "Artikelname"
 
@@ -210,9 +201,17 @@ msgstr "Bemerkungen"
 msgid "Item number %d was successfully deleted"
 msgstr "Der Artikel \"%d\" wurde erfolgreich gelöscht."
 
-#: config/prefs.php:50
+#: config/prefs.php:45
 msgid "List"
 msgstr "Liste"
+
+#: admin.php:245
+msgid "List Categories"
+msgstr "Kategorien Anzeigen"
+
+#: admin.php:273
+msgid "List Properties"
+msgstr "Eigenschaften Anzeigen"
 
 #: admin.php:31
 msgid "Manage Categories"
@@ -262,6 +261,10 @@ msgstr ""
 "Es sind noch keine Kategorien angelegt. Fügen Sie welche über das Formular "
 "unten hinzu."
 
+#: templates/view/list.php:39
+msgid "No items"
+msgstr "Keine Einträge"
+
 #: lib/Form/Category.php:58
 msgid ""
 "No properties are currently configured. Use the \"Manage Properties\" tab "
@@ -276,7 +279,7 @@ msgstr ""
 "Es sind noch keine Eigenschaften angelegt. Fügen Sie welche über das "
 "Formular unten hinzu."
 
-#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:120
+#: config/prefs.php:25 lib/Form/Stock.php:96 lib/View/List.php:117
 msgid "Note"
 msgstr "Notiz"
 
@@ -324,7 +327,7 @@ msgstr "Artikel speichern"
 msgid "Save Property"
 msgstr "Eigenschaft Speichern"
 
-#: config/prefs.php:51 lib/Form/Search.php:26
+#: config/prefs.php:46 lib/Form/Search.php:26
 msgid "Search"
 msgstr "Suche"
 
@@ -332,7 +335,7 @@ msgstr "Suche"
 msgid "Search Inventory"
 msgstr "Inventar durchsuchen"
 
-#: lib/View/List.php:28 lib/View/List.php:29
+#: lib/View/List.php:28
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -344,7 +347,7 @@ msgstr "Inventar durchsuchen"
 msgid "Search these properties"
 msgstr "Diese Eigenschaften durchsuchen"
 
-#: config/prefs.php:64
+#: config/prefs.php:59
 msgid ""
 "Select properties that you would like to see in the list view. All other "
 "properties are only shown on individual item screens:"
@@ -353,7 +356,7 @@ msgstr ""
 "Alle anderen Eigenschaften werden nur in der Detailansicht der Artikel "
 "angezeigt."
 
-#: config/prefs.php:54
+#: config/prefs.php:49
 msgid "Select the view to display after login:"
 msgstr ""
 "Wählen Sie die Standardansicht aus, die nach dem Anmelden angezeigt werden "
@@ -367,29 +370,29 @@ msgstr "Kategorie anzeigen:"
 msgid "Sort Weight"
 msgstr "Sortierpriorität"
 
-#: lib/View/List.php:113
+#: lib/View/List.php:110
 #, php-format
 msgid "Sort by %s"
 msgstr "Sortieren nach %s"
 
-#: lib/View/List.php:106
+#: lib/View/List.php:103
 msgid "Sort by item name"
 msgstr "Sortieren nach Name"
 
-#: lib/View/List.php:120
+#: lib/View/List.php:117
 msgid "Sort by note"
 msgstr "Sortieren nach Bemerkung"
 
-#: lib/View/List.php:102
+#: lib/View/List.php:99
 msgid "Sort by stock ID"
 msgstr "Sortieren nach Artikelnummer"
 
-#: config/prefs.php:52
+#: config/prefs.php:47
 msgid "Stock"
 msgstr "Bestand"
 
-#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
+#: admin.php:17 config/prefs.php:23 lib/Form/Search.php:31
+#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:99
 #: list.php:31 search.php:20 stock.php:23
 msgid "Stock ID"
 msgstr "Artikelnummer"
@@ -434,7 +437,7 @@ msgstr "Die Eigenschaft wurde gelöscht."
 msgid "The property was not deleted."
 msgstr "Die Eigenschaft wurde nicht gelöscht."
 
-#: stock.php:166
+#: stock.php:168
 msgid "The stock item was successfully updated."
 msgstr "Der Artikel wurde erfolgreich aktualisiert."
 
@@ -443,7 +446,7 @@ msgstr "Der Artikel wurde erfolgreich aktualisiert."
 msgid "There was a problem adding the item: %s"
 msgstr "Beim Speichern des Artikels ist ein Problem aufgetreten: %s."
 
-#: stock.php:150
+#: stock.php:152
 #, php-format
 msgid "There was a problem updating the inventory: %s"
 msgstr "Beim Ändern des Inventars ist ein Fehler aufgetreten: %s"
@@ -477,11 +480,11 @@ msgstr "Kategorie erfolgreich geändert."
 msgid "Updated property successfully."
 msgstr "Eigenschaft erfolgreich geändert."
 
-#: stock.php:100
+#: stock.php:103
 msgid "View Inventory Item"
 msgstr "Artikel anzeigen"
 
-#: lib/View/List.php:189 lib/View/List.php:197
+#: lib/View/List.php:187 lib/View/List.php:195
 msgid "View Item"
 msgstr "Artikel anzeigen"
 

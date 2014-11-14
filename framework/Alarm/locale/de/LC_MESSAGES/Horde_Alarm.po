@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: 2014-06-04 11:38+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -38,10 +38,10 @@ msgid "Play a sound?"
 msgstr "Einen Klang abspielen?"
 
 #: lib/Horde/Alarm/Sql.php:88 lib/Horde/Alarm/Sql.php:115
-#: lib/Horde/Alarm/Sql.php:136 lib/Horde/Alarm/Sql.php:178
-#: lib/Horde/Alarm/Sql.php:216 lib/Horde/Alarm/Sql.php:251
-#: lib/Horde/Alarm/Sql.php:277 lib/Horde/Alarm/Sql.php:307
-#: lib/Horde/Alarm/Sql.php:332 lib/Horde/Alarm/Sql.php:357
-#: lib/Horde/Alarm/Sql.php:381 lib/Horde/Alarm/Sql.php:409
+#: lib/Horde/Alarm/Sql.php:178 lib/Horde/Alarm/Sql.php:215
+#: lib/Horde/Alarm/Sql.php:258 lib/Horde/Alarm/Sql.php:284
+#: lib/Horde/Alarm/Sql.php:314 lib/Horde/Alarm/Sql.php:339
+#: lib/Horde/Alarm/Sql.php:364 lib/Horde/Alarm/Sql.php:388
+#: lib/Horde/Alarm/Sql.php:416 lib/Horde/Alarm/Sql.php:490
 msgid "Server error when querying database."
 msgstr "Serverfehler beim Abfragen der Datenbank."

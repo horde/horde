@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2013-06-20 10:52+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"PO-Revision-Date: 2014-11-14 12:47+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -130,7 +130,7 @@ msgstr "Ein von Lightbox inspirierter Stil (Kein Hintergrund)"
 msgid "A Lightbox Inspired Style (White Background)"
 msgstr "Ein von Lightbox inspirierter Stil (Weißer Hintergrund)"
 
-#: lib/Api.php:343
+#: lib/Api.php:318
 msgid "A gallery to add this photo to is required."
 msgstr ""
 "Die Galerie, zu der dieses Foto hinzugefügt werden soll, muss angegeben "
@@ -141,11 +141,11 @@ msgid "Access denied adding a sub gallery to this gallery."
 msgstr ""
 "Zugriff verweigert beim Hinzufügen einer Untergalerie zu dieser Galerie."
 
-#: lib/Api.php:201 lib/Api.php:353 xppublish.php:178
+#: lib/Api.php:176 lib/Api.php:328 xppublish.php:178
 msgid "Access denied adding photos to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Fotos zu dieser Galerie."
 
-#: lib/Gallery.php:871
+#: lib/Gallery.php:876
 msgid "Access denied adding tags to this gallery."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 
@@ -153,27 +153,27 @@ msgstr "Zugriff verweigert beim Hinzufügen von Tags zu dieser Galerie."
 msgid "Access denied adding tags to this photo."
 msgstr "Zugriff verweigert beim Hinzufügen von Tags zu diesem Foto."
 
-#: lib/Gallery.php:478
+#: lib/Gallery.php:483
 msgid "Access denied copying photos to this gallery."
 msgstr "Zugriff verweigert beim Kopieren von Fotos zu dieser Galerie."
 
-#: lib/Api.php:460
+#: lib/Api.php:435
 msgid "Access denied creating new galleries."
 msgstr "Zugriff verweigert beim Erstellen neuer Galerien."
 
-#: lib/Api.php:420 lib/Api.php:506
+#: lib/Api.php:395 lib/Api.php:481
 msgid "Access denied deleting galleries."
 msgstr "Zugriff verweigert beim Löschen der Galerien."
 
-#: lib/ActionHandler.php:122 lib/Api.php:431
+#: lib/ActionHandler.php:122 lib/Api.php:406
 msgid "Access denied deleting photos from this gallery."
 msgstr "Zugriff verweigert beim Löschen der Fotos aus dieser Galerie."
 
-#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:518
+#: lib/ActionHandler.php:948 lib/ActionHandler.php:973 lib/Api.php:493
 msgid "Access denied deleting this gallery."
 msgstr "Löschen dieser Galerie verweigert."
 
-#: lib/Api.php:666
+#: lib/Api.php:641
 msgid "Access denied downloading full sized photos from this gallery."
 msgstr ""
 "Zugriff verweigert beim Herunterladen der Originalfotos von dieser Galerie."
@@ -223,7 +223,7 @@ msgid "Access denied to this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:838
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:843
 msgid "Access denied viewing this gallery."
 msgstr "Zugriff auf diese Galerie verweigert."
 
@@ -515,14 +515,14 @@ msgstr "Bilderdaten konnten nicht aus dem ZIP-Archiv gelesen werden."
 msgid "Could not open zip archive."
 msgstr "ZIP-Archiv konnte nicht geöffnet werden."
 
-#: lib/Gallery.php:215
+#: lib/Gallery.php:220
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", already exists."
 msgstr ""
 "Die Galerie konnte nicht gespeichert werden, der Kurzname \"%s\" existiert "
 "bereits."
 
-#: lib/Gallery.php:207
+#: lib/Gallery.php:212
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", contains invalid characters."
 msgstr ""
@@ -802,7 +802,7 @@ msgstr "Gesichter"
 msgid "File %s"
 msgstr "Datei %s"
 
-#: lib/Api.php:102 lib/Api.php:169
+#: lib/Api.php:89 lib/Api.php:144
 msgid "File not found."
 msgstr "Datei nicht gefunden."
 
@@ -1006,7 +1006,7 @@ msgstr "Ich weiß, wer auf einem Deiner Fotos zu sehen ist"
 msgid "Image"
 msgstr "Bild"
 
-#: lib/Gallery.php:502
+#: lib/Gallery.php:507
 msgid "Image already has existing attributes."
 msgstr "Das Bild hat bereits Attribute."
 
@@ -1080,7 +1080,7 @@ msgstr "Bild verorten in:"
 msgid "Location"
 msgstr "Ort"
 
-#: lib/Api.php:659 lib/View/Gallery.php:78 lib/View/Image.php:141
+#: lib/Api.php:634 lib/View/Gallery.php:78 lib/View/Image.php:141
 msgid "Locked galleries are not viewable via the api."
 msgstr "Gesperrte Galerien können nicht über die API betrachtet werden."
 
@@ -1342,7 +1342,7 @@ msgstr "Besitzer: %s"
 msgid "Owner"
 msgstr "Besitzer"
 
-#: lib/Gallery.php:347
+#: lib/Gallery.php:352
 #, php-format
 msgid "Page %d"
 msgstr "Seite %d"
@@ -1431,7 +1431,7 @@ msgstr "Fotosuche"
 msgid "Photos by %s"
 msgstr "Fotos nach %s"
 
-#: lib/Api.php:110
+#: lib/Api.php:97
 #, php-format
 msgid "Photos from %s"
 msgstr "Fotos aus %s"
@@ -1979,7 +1979,7 @@ msgstr "AGB-Verletzung"
 msgid "The file \"%s\" doesn't exist."
 msgstr "Die Datei \"%s\" existiert nicht."
 
-#: lib/ActionHandler.php:374 lib/Api.php:340 lib/View/Upload.php:219
+#: lib/ActionHandler.php:374 lib/Api.php:315 lib/View/Upload.php:219
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 "Die Datei, die Sie hochgeladen haben, scheint kein gültiges Foto zu sein."
@@ -2307,6 +2307,14 @@ msgstr ""
 "Welche Rechte sollen Gästen erteilt werden, wenn eine neue Galerie angelegt "
 "wird?"
 
+#: config/prefs.php:187
+msgid ""
+"When a new gallery is created, what should the default be for allowing users "
+"to download original photos?"
+msgstr ""
+"Sollen Benutzer standardmäßig die Erlaubnis haben Originalfotos "
+"herunterzuladen, wenn eine neue Galerie angelegt wird?"
+
 #: config/prefs.php:227
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
@@ -2314,10 +2322,6 @@ msgid ""
 msgstr ""
 "Welche Metadaten-Felder sollen beim Hochladen automatisch als Fototags "
 "verwendet werden?"
-
-#: config/prefs.php:187
-msgid "Who should be allowed to download original photos"
-msgstr "Wer soll Originalfotos herunterladen können?"
 
 #: templates/gallery/properties.html.php:107
 msgid "Who should be allowed to download original photos?"
@@ -2437,7 +2441,7 @@ msgstr "_Meine Galerien"
 msgid "_New Gallery"
 msgstr "_Neue Galerie"
 
-#: lib/Api.php:1026
+#: lib/Api.php:1001
 msgid "from"
 msgstr "von"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: 2011-08-02 15:50+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -46,7 +46,7 @@ msgstr "Beim Entfernen von %s für %s ist ein Fehler aufgetreten<br />\n"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: config/prefs.php:9
+#: config/prefs.php:14
 msgid ""
 "Change display options such as what comics you see, and how comics are "
 "sorted."
@@ -75,7 +75,7 @@ msgstr "Konnte %s von %s nicht finden<br />\n"
 msgid "Could not find any comics to display."
 msgstr "Keine Comics."
 
-#: config/prefs.php:51
+#: config/prefs.php:56
 msgid "Default gallery to use when saving comics:"
 msgstr "Standardgalerie in der Comics gespeichert werden sollen:"
 
@@ -91,7 +91,7 @@ msgstr "Comics löschen"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: config/prefs.php:8
+#: config/prefs.php:13
 msgid "Display Options"
 msgstr "Anzeige-Einstellungen"
 
@@ -153,7 +153,7 @@ msgstr "Hauptliste"
 msgid "Maintenance Functions"
 msgstr "Wartungsfunktionen"
 
-#: config/prefs.php:7
+#: config/prefs.php:12
 msgid "Other Options"
 msgstr "Andere Einstellungen"
 
@@ -185,11 +185,11 @@ msgstr "Keine auswählen"
 msgid "Select the gallery to save the comic to."
 msgstr "Wählen Sie die Galerie, in die der Comic gespeichert werden soll."
 
-#: config/prefs.php:44
+#: config/prefs.php:49
 msgid "Show all of your selected comics on the summary page?"
 msgstr "Alle ausgewählten Comics auf der Startseite anzeigen?"
 
-#: config/prefs.php:36
+#: config/prefs.php:41
 msgid "Show comics you haven't selected on the browse page?"
 msgstr "Comics, die Sie nicht ausgewählt haben, in der Liste anzeigen?"
 

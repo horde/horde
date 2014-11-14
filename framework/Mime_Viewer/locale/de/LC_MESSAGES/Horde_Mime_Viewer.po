@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime_Viewer\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: 2011-02-02 18:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:108
+#: lib/Horde/Mime/Viewer/Rar.php:90 lib/Horde/Mime/Viewer/Tgz.php:124
 #: lib/Horde/Mime/Viewer/Zip.php:99
 msgid "Archive File Size"
 msgstr "Archivgröße"
 
-#: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:103
+#: lib/Horde/Mime/Viewer/Rar.php:85 lib/Horde/Mime/Viewer/Tgz.php:119
 #: lib/Horde/Mime/Viewer/Zip.php:98
 msgid "Archive Name"
 msgstr "Archivname"
 
-#: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:121
+#: lib/Horde/Mime/Viewer/Rar.php:103 lib/Horde/Mime/Viewer/Tgz.php:137
 #: lib/Horde/Mime/Viewer/Zip.php:104
 msgid "Attributes"
 msgstr "Attribute"
@@ -44,7 +44,7 @@ msgstr "Cc"
 msgid "Date"
 msgstr "Datum"
 
-#: lib/Horde/Mime/Viewer/Rar.php:95 lib/Horde/Mime/Viewer/Tgz.php:113
+#: lib/Horde/Mime/Viewer/Rar.php:95 lib/Horde/Mime/Viewer/Tgz.php:129
 #: lib/Horde/Mime/Viewer/Zip.php:101
 #, php-format
 msgid "File Count: %d file"
@@ -52,7 +52,7 @@ msgid_plural "File Count: %d files"
 msgstr[0] "Anzahl: %d Datei"
 msgstr[1] "Anzahl: %d Dateien"
 
-#: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:120
+#: lib/Horde/Mime/Viewer/Rar.php:102 lib/Horde/Mime/Viewer/Tgz.php:136
 msgid "File Name"
 msgstr "Dateiname"
 
@@ -64,7 +64,7 @@ msgstr "Von"
 msgid "Method"
 msgstr "Methode"
 
-#: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:123
+#: lib/Horde/Mime/Viewer/Rar.php:105 lib/Horde/Mime/Viewer/Tgz.php:139
 #: lib/Horde/Mime/Viewer/Zip.php:106
 msgid "Modified Date"
 msgstr "Änderungsdatum"
@@ -77,7 +77,7 @@ msgstr "Verhältnis"
 msgid "Reply-To"
 msgstr "Antwort-An"
 
-#: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:122
+#: lib/Horde/Mime/Viewer/Rar.php:104 lib/Horde/Mime/Viewer/Tgz.php:138
 #: lib/Horde/Mime/Viewer/Zip.php:105
 msgid "Size"
 msgstr "Größe"
@@ -102,7 +102,7 @@ msgstr "Dieses Word-Dokument lässt sich nicht anzeigen"
 msgid "Unable to translate this WordPerfect document"
 msgstr "Dieses WordPerfect-Dokument lässt sich nicht anzeigen"
 
-#: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:96
+#: lib/Horde/Mime/Viewer/Rar.php:78 lib/Horde/Mime/Viewer/Tgz.php:112
 #: lib/Horde/Mime/Viewer/Zip.php:90
 msgid "unnamed"
 msgstr "unbenannt"

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2014-06-04 11:47+0200\n"
+"PO-Revision-Date: 2014-11-14 12:43+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -43,7 +43,7 @@ msgstr "\"%s\" ist nicht als Tabelle definiert."
 #: lib/Api.php:517
 #, php-format
 msgid "%.2f hours: %s"
-msgstr "%,2f Stunden: %s"
+msgstr "%.2f Stunden: %s"
 
 #: templates/deliverables/list.inc:4
 #, php-format

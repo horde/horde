@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2014-06-04 11:46+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"PO-Revision-Date: 2014-11-14 12:27+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -98,6 +98,11 @@ msgstr "Wählen Sie Ihren Standard-Notizblock aus."
 msgid "Close Search"
 msgstr "Suche beenden"
 
+#: lib/Api.php:339
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Verbindung fehlgeschlagen: %s"
+
 #: lib/Form/CreateNotepad.php:25
 msgid "Create"
 msgstr "Erstellen"
@@ -110,7 +115,7 @@ msgstr "Notizblock erstellen"
 msgid "Create a new Notepad"
 msgstr "Neuen Notizblock erstellen"
 
-#: templates/view/view.html.php:28
+#: templates/view/view.html.php:30
 msgid "Created"
 msgstr "Erstellt"
 
@@ -118,7 +123,7 @@ msgstr "Erstellt"
 msgid "Date"
 msgstr "Datum"
 
-#: templates/memo/memo.html.php:13 templates/view/view.html.php:56
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
 msgid "Decrypt"
 msgstr "Entschlüsseln"
 
@@ -168,7 +173,7 @@ msgstr "Anzeige-Einstellungen"
 msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
-#: list.php:120
+#: list.php:122
 #, php-format
 msgid "Edit \"%s\""
 msgstr "\"%s\" bearbeiten"
@@ -187,7 +192,7 @@ msgstr "Notiz bearbeiten"
 msgid "Edit: %s"
 msgstr "Bearbeiten: %s"
 
-#: lib/Block/Summary.php:85 list.php:139
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
 msgstr "Leere Notiz"
 
@@ -207,7 +212,7 @@ msgstr "Exportieren"
 msgid "Export Notes"
 msgstr "Notizen exportieren"
 
-#: lib/Driver/Kolab.php:286
+#: lib/Driver/Kolab.php:293
 #, php-format
 msgid "Failed retrieving Kolab data for notepad %s: %s"
 msgstr "Fehler beim Lesen der Kolab-Daten für das Notizbuch %s: %s"
@@ -233,7 +238,15 @@ msgstr "Notizen Import/Export"
 msgid "In"
 msgstr "In"
 
-#: templates/view/view.html.php:38
+#: lib/Api.php:254
+msgid "Invalid notepad name supplied."
+msgstr "Ungültiges Notizbuch angegeben."
+
+#: lib/Api.php:147 lib/Api.php:152
+msgid "Invalid notepad requested."
+msgstr "Ungültiges Notizbuch angefordert."
+
+#: templates/view/view.html.php:40
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
@@ -257,7 +270,7 @@ msgstr "Änderungsdatum"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:430
+#: lib/Api.php:726
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vNote wird unterstützt."
@@ -282,7 +295,7 @@ msgstr "Neue Notiz"
 msgid "Next"
 msgstr "Weiter"
 
-#: lib/Api.php:266 lib/Api.php:423
+#: lib/Api.php:562 lib/Api.php:719
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -334,6 +347,14 @@ msgstr "Notizblock"
 msgid "Notepad and Share Preferences"
 msgstr "Notizblock- und Rechte-Einstellungen"
 
+#: lib/Api.php:329
+msgid "Notepad does not exist or no permission to delete"
+msgstr "Das Notizbuch existiert nicht oder keine Berechtigung zum Löschen"
+
+#: lib/Api.php:273
+msgid "Notepad does not exist or no permission to edit"
+msgstr "Das Notizbuch existiert nicht oder keine Berechtigung zum Ändern"
+
 #: lib/Notepads/Default.php:64
 #, php-format
 msgid "Notepad of %s"
@@ -346,6 +367,11 @@ msgstr "Notizen"
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
 msgstr "Notizen-Zusammenfassung"
+
+#: lib/Api.php:119
+#, php-format
+msgid "Notes from %s"
+msgstr "Notizen aus %s"
 
 #: lib/Form/EditNotepad.php:42
 msgid "Owner"
@@ -374,7 +400,7 @@ msgstr "Diese Notiz wirklich löschen?"
 msgid "Save"
 msgstr "Speichern"
 
-#: templates/view/view.html.php:3
+#: templates/view/view.html.php:4
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
@@ -450,7 +476,7 @@ msgstr "System"
 msgid "T_ags:"
 msgstr "T_ags:"
 
-#: data.php:43 templates/view/view.html.php:21
+#: data.php:43 templates/view/view.html.php:23
 msgid "Tags"
 msgstr "Tags"
 
@@ -506,7 +532,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:260 lib/Api.php:417
+#: lib/Api.php:556 lib/Api.php:713
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
@@ -552,7 +578,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr "Diese Notiz wurde verschlüsselt, bitte geben Sie das Passwort ein."
 
-#: lib/Driver/Kolab.php:314 lib/Driver/Sql.php:331
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
@@ -560,7 +586,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 msgid "Title"
 msgstr "Titel"
 
-#: lib/Api.php:304 lib/Api.php:356 lib/Api.php:445
+#: lib/Api.php:267 lib/Api.php:600 lib/Api.php:652 lib/Api.php:741
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
@@ -622,7 +648,7 @@ msgstr "Notizen _anzeigen"
 msgid "_New Note"
 msgstr "_Neue Notiz"
 
-#: templates/memo/memo.html.php:11 templates/view/view.html.php:54
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
 msgid "_Password"
 msgstr "_Passwort"
 
@@ -652,7 +678,7 @@ msgstr "durch mich"
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:294 templates/data/export.inc:3
+#: lib/Application.php:295 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notizen.csv"
 

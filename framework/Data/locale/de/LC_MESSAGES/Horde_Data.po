@@ -1,14 +1,14 @@
 # German translations for Horde_Data module.
 # Copyright 2010-2014 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Data module.
-# Jan Schneider <jan@horde.org>, 2010-2012.
+# Jan Schneider <jan@horde.org>, 2010-2014.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2012-07-19 19:00+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"PO-Revision-Date: 2014-11-14 12:19+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -29,11 +29,11 @@ msgstr "Falscher Zeichensatz für die Daten angegeben."
 msgid "TSV file"
 msgstr "TSV-Datei"
 
-#: lib/Horde/Data/Base.php:282
+#: lib/Horde/Data/Base.php:317
 msgid "The file contained no data."
 msgstr "Die Datei enthielt keine Daten."
 
-#: lib/Horde/Data/Base.php:343
+#: lib/Horde/Data/Base.php:378
 msgid "The uploaded data was lost since the previous step."
 msgstr ""
 "Die hochgeladenen Daten sind nach dem letzten Schritt verloren gegangen."
@@ -46,7 +46,12 @@ msgstr "Die hochgeladene Datei konnte nicht gespeichert werden."
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Horde/Data/Base.php:289
+#: lib/Horde/Data/Base.php:137
+#, php-format
+msgid "URL %s not found"
+msgstr "URL %s nicht gefunden"
+
+#: lib/Horde/Data/Base.php:324
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

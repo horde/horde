@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
-"PO-Revision-Date: 2014-06-04 11:47+0200\n"
+"POT-Creation-Date: 2014-11-14 12:22+0100\n"
+"PO-Revision-Date: 2014-11-14 12:23+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -18,26 +18,32 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Block/Bookmarks.php:53 lib/Block/Mostclicked.php:44
+#: lib/Block/Tagsearch.php:44
 msgid "1 Line"
 msgstr "1 Zeile"
 
 #: lib/Block/Bookmarks.php:41 lib/Block/Mostclicked.php:32
+#: lib/Block/Tagsearch.php:32
 msgid "10 rows"
 msgstr "10 Zeilen"
 
 #: lib/Block/Bookmarks.php:42 lib/Block/Mostclicked.php:33
+#: lib/Block/Tagsearch.php:33
 msgid "15 rows"
 msgstr "15 Zeilen"
 
 #: lib/Block/Bookmarks.php:52 lib/Block/Mostclicked.php:43
+#: lib/Block/Tagsearch.php:43
 msgid "2 Line"
 msgstr "2 Zeilen"
 
 #: lib/Block/Bookmarks.php:43 lib/Block/Mostclicked.php:34
+#: lib/Block/Tagsearch.php:34
 msgid "25 rows"
 msgstr "25 Zeilen"
 
 #: lib/Block/Bookmarks.php:51 lib/Block/Mostclicked.php:42
+#: lib/Block/Tagsearch.php:42
 msgid "3 Line"
 msgstr "3 Zeilen"
 
@@ -83,6 +89,11 @@ msgstr "Lesezeichen-Feed"
 msgid "Bookmarks successfully imported"
 msgstr "Lesezeichen erfolgreich importiert"
 
+#: lib/Block/Tagsearch.php:19
+#, php-format
+msgid "Bookmarks tagged with \"%s\""
+msgstr "Mit \"%s\" getaggte Lesezeichen"
+
 #: browse.php:31
 msgid "Browse"
 msgstr "Liste"
@@ -99,7 +110,7 @@ msgstr "Abbrechen"
 msgid "Clicks"
 msgstr "Klicks"
 
-#: lib/Api.php:130
+#: lib/Api.php:131
 msgid "Close"
 msgstr "Schließen"
 
@@ -136,7 +147,7 @@ msgstr ""
 "Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Persönliche "
 "Symbolleiste\""
 
-#: templates/list.html.php:57
+#: templates/list.html.php:58
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -189,6 +200,7 @@ msgid "No bookmarks found"
 msgstr "Keine Lesezeichen gefunden"
 
 #: lib/Block/Bookmarks.php:91 lib/Block/Mostclicked.php:72
+#: lib/Block/Tagsearch.php:84
 msgid "No bookmarks to display"
 msgstr "Keine Lesezeichen"
 
@@ -204,7 +216,7 @@ msgstr "Keine Suche"
 msgid "Note:"
 msgstr "Anmerkung:"
 
-#: lib/Block/Mostclicked.php:28
+#: lib/Block/Mostclicked.php:28 lib/Block/Tagsearch.php:28
 msgid "Number of bookmarks to show"
 msgstr "Anzahl der angezeigten Lesezeichen"
 
@@ -281,12 +293,13 @@ msgstr "Sortierrichtung:"
 msgid "Tagged with %s"
 msgstr "Getaggt mit %s"
 
-#: lib/Application.php:102 templates/add.html.php:30
-#: templates/edit.html.php:39
+#: lib/Application.php:102 lib/Block/Tagsearch.php:48
+#: templates/add.html.php:30 templates/edit.html.php:39
 msgid "Tags"
 msgstr "Tags"
 
 #: lib/Block/Bookmarks.php:47 lib/Block/Mostclicked.php:38
+#: lib/Block/Tagsearch.php:38
 msgid "Template"
 msgstr "Vorlage"
 
@@ -304,7 +317,7 @@ msgstr "Beim Löschen des Lesezeichens ist ein Fehler aufgetreten: %s"
 msgid "There was an error adding the bookmark: %s"
 msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
 
-#: app/controllers/SaveBookmark.php:26
+#: app/controllers/SaveBookmark.php:25
 #, php-format
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-06-04 11:29+0200\n"
+"POT-Creation-Date: 2014-11-12 14:05+0100\n"
 "PO-Revision-Date: 2014-09-10 15:47+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -67,7 +67,7 @@ msgstr "%s hinzugefügt."
 msgid "%s file successfully imported."
 msgstr "Die %s-Datei wurde erfolgreich importiert."
 
-#: lib/Api.php:1446
+#: lib/Api.php:1460
 #, php-format
 msgid "%s in %s"
 msgstr "%s in %s"
@@ -98,7 +98,7 @@ msgstr "Datei hinzufügen"
 msgid "Add to"
 msgstr "Hinzufügen zu"
 
-#: lib/Api.php:1619
+#: lib/Api.php:1633
 #, php-format
 msgid "Added or updated %d contact, but at least one contact failed:"
 msgid_plural "Added or updated %d contacts, but at least one contact failed:"
@@ -109,7 +109,7 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:3014
+#: lib/Driver.php:3017
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
@@ -126,7 +126,7 @@ msgstr "Adressbuchliste"
 msgid "Address Books"
 msgstr "Adressbücher"
 
-#: lib/Api.php:426
+#: lib/Api.php:414
 msgid "Address book does not exist"
 msgstr "Adressbuch existiert nicht"
 
@@ -143,7 +143,7 @@ msgstr "Adressbuch wurde erfolgreich geleert."
 msgid "Addressbook entry could not be loaded."
 msgstr "Der Adressbucheintrag konnte nicht geladen werden."
 
-#: search.php:204 search.php:249
+#: search.php:204 search.php:248
 msgid "Advanced Search"
 msgstr "Erweiterte Suche"
 
@@ -164,7 +164,7 @@ msgstr ""
 "Der Status Ihrer ActiveSync-Geräte wurde zurückgesetzt. Bei der nächsten "
 "Verbindung mit dem Server werden sie neu synchronisiert."
 
-#: lib/Api.php:748
+#: lib/Api.php:736
 msgid "Already Exists"
 msgstr "Existiert bereits"
 
@@ -353,7 +353,7 @@ msgstr "Straße allgemein"
 msgid "Common Video Call"
 msgstr "Bildtelefon allgemein"
 
-#: config/backends.php:358 config/backends.php:697
+#: config/backends.php:362 config/backends.php:701
 msgid "Communications"
 msgstr "Kommunikation"
 
@@ -393,7 +393,7 @@ msgstr "Kontakte"
 msgid "Contacts displayed:"
 msgstr "Angezeigte Kontakte:"
 
-#: lib/Api.php:292
+#: lib/Api.php:282
 #, php-format
 msgid "Contacts from %s"
 msgstr "Kontakte aus %s"
@@ -442,7 +442,7 @@ msgstr "Adressbuch Erstellen"
 msgid "Create a new Address Book"
 msgstr "Neues Adressbuch erstellen"
 
-#: lib/View/List.php:495
+#: lib/View/List.php:499
 msgid "Create a new Contact List in:"
 msgstr "Neue Kontaktliste anlegen in:"
 
@@ -475,7 +475,7 @@ msgstr "%s löschen"
 msgid "Delete Contact List \"%s\""
 msgstr "Kontaktliste \"%s\" löschen"
 
-#: lib/Api.php:422
+#: lib/Api.php:410
 msgid "Delete denied."
 msgstr "Löschen nicht erlaubt."
 
@@ -489,7 +489,7 @@ msgstr "Löschen fehlgeschlagen: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "Kontakt gelöscht: %s"
 
-#: lib/Driver.php:3027
+#: lib/Driver.php:3030
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -521,7 +521,7 @@ msgstr "Herunterladen"
 msgid "Download vCard"
 msgstr "vCard herunterladen"
 
-#: search.php:206 search.php:262
+#: search.php:206 search.php:260
 msgid "Duplicate Search"
 msgstr "Duplikatsuche"
 
@@ -606,7 +606,7 @@ msgstr "Fehler beim Entfernen von %d Kontakten aus der Liste."
 msgid "Error removing %d of %d requested contact(s) from list."
 msgstr "Fehler beim Entfernen von %d von %d Kontakten aus der Liste."
 
-#: lib/Api.php:452
+#: lib/Api.php:440
 #, php-format
 msgid "Error searching the address book: %s"
 msgstr "Das Adressbuch konnte nicht durchsucht werden: %s"
@@ -627,7 +627,7 @@ msgstr "Nur die ausgewählten Kontakte exportieren."
 msgid "Export the following address book completely."
 msgstr "Das folgende Adressbuch komplett exportieren."
 
-#: config/backends.php:800
+#: config/backends.php:804
 msgid "Facebook Friends"
 msgstr "Facebook-Freunde"
 
@@ -660,7 +660,7 @@ msgstr "Das Adressbuch konnte nicht durchsucht werden"
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
 
-#: config/backends.php:770
+#: config/backends.php:774
 msgid "Favourite Recipients"
 msgstr "Häufigste Empfänger"
 
@@ -762,7 +762,7 @@ msgstr "Bildtelefon privat"
 msgid "Home Website URL"
 msgstr "Website-URL privat"
 
-#: config/backends.php:925
+#: config/backends.php:929
 msgid "IMSP"
 msgstr "IMSP"
 
@@ -784,7 +784,7 @@ msgstr "Initialien"
 msgid "Instant Messenger"
 msgstr "Instant Messenger"
 
-#: lib/Api.php:805 lib/Api.php:947
+#: lib/Api.php:793 lib/Api.php:935
 msgid "Invalid ID"
 msgstr "Ungültige ID"
 
@@ -792,20 +792,20 @@ msgstr "Ungültige ID"
 msgid "Invalid address book."
 msgstr "Ungültiges Adressbuch."
 
-#: lib/Api.php:678 lib/Api.php:1629 lib/Api.php:2202
+#: lib/Api.php:666 lib/Api.php:1643 lib/Api.php:2226
 #, php-format
 msgid "Invalid address book: %s"
 msgstr "Ungültiges Adressbuch: %s"
 
-#: lib/Api.php:1007
+#: lib/Api.php:995
 msgid "Invalid contact unique ID"
 msgstr "Ungültige eindeutige Kontakt-ID"
 
-#: lib/Api.php:1633 lib/Api.php:1718 lib/Api.php:1789
+#: lib/Api.php:1647 lib/Api.php:1732 lib/Api.php:1803
 msgid "Invalid email"
 msgstr "Ungültige E-Mail-Adresse"
 
-#: lib/Api.php:1641
+#: lib/Api.php:1655
 msgid "Invalid entry"
 msgstr "Ungültiger Eintrag"
 
@@ -813,7 +813,7 @@ msgstr "Ungültiger Eintrag"
 msgid "Invalid key specified."
 msgstr "Ungültiger Schlüssel angegeben."
 
-#: lib/Api.php:1637
+#: lib/Api.php:1651
 msgid "Invalid name"
 msgstr "Ungültiger Name"
 
@@ -864,7 +864,7 @@ msgstr "Liste"
 msgid "Loading..."
 msgstr "Lade..."
 
-#: config/backends.php:350 config/backends.php:693
+#: config/backends.php:354 config/backends.php:697
 msgid "Location"
 msgstr "Ort"
 
@@ -880,7 +880,7 @@ msgstr "Logo-Dateityp"
 msgid "Longitude"
 msgstr "Längengrad"
 
-#: lib/Api.php:400
+#: lib/Api.php:388
 msgid "Malformed request."
 msgstr "Ungültige Anfrage."
 
@@ -929,7 +929,7 @@ msgstr "Änderung fehlgeschlagen: (%s) %s"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:1766
+#: lib/Api.php:1780
 msgid "More than 1 entry found"
 msgstr "Mehr als 1 Eintrag zurückgeliefert"
 
@@ -941,12 +941,12 @@ msgstr "Verschieben"
 msgid "Mulberry Address Book"
 msgstr "Mulberry-Adressbuch"
 
-#: lib/Api.php:1024
+#: lib/Api.php:1012
 #, php-format
 msgid "Multiple contacts found with same unique ID %s."
 msgstr "Mehrere Kontakte mit der gleichen eindeutigen ID %s gefunden."
 
-#: lib/Api.php:1664
+#: lib/Api.php:1678
 #, php-format
 msgid ""
 "Multiple persons with address [%s], but none with name [%s] already exist"
@@ -954,7 +954,7 @@ msgstr ""
 "Mehrere Personen mit der Adresse [%s], aber keine mit dem Namen [%s] im "
 "Adressbuch"
 
-#: config/backends.php:517
+#: config/backends.php:521
 msgid "My Address Book"
 msgstr "Mein Adressbuch"
 
@@ -996,7 +996,7 @@ msgstr "Weiter"
 msgid "Nickname"
 msgstr "Spitzname"
 
-#: lib/Api.php:1769 lib/Api.php:1825
+#: lib/Api.php:1783 lib/Api.php:1839
 #, php-format
 msgid "No %s entry found for %s"
 msgstr "Es wurde kein %s Eintrag für %s gefunden"
@@ -1018,7 +1018,7 @@ msgstr ""
 msgid "No Name"
 msgstr "Kein Name"
 
-#: lib/Api.php:2196
+#: lib/Api.php:2220
 msgid "No address book specified"
 msgstr "Kein Adressbuch angegeben"
 
@@ -1038,7 +1038,7 @@ msgstr "Keine Kontakte entsprechen den Suchkriterien."
 msgid "No duplicates found."
 msgstr "Keine Duplikate gefunden."
 
-#: lib/View/List.php:254
+#: lib/View/List.php:258
 msgid "No matching contacts"
 msgstr "Keine passenden Kontakte"
 
@@ -1046,7 +1046,7 @@ msgstr "Keine passenden Kontakte"
 msgid "No source for favourite recipients exists."
 msgstr "Es existiert keine Quelle für häufigste Empfänger."
 
-#: lib/Api.php:711 lib/Api.php:1052
+#: lib/Api.php:699 lib/Api.php:1040
 msgid "No vCard data was found."
 msgstr "Es wurden keine vCard-Daten gefunden."
 
@@ -1071,7 +1071,7 @@ msgstr "Notizen"
 msgid "Number of items per page"
 msgstr "Anzahl der Einträge pro Seite"
 
-#: lib/Api.php:864 lib/Api.php:1076
+#: lib/Api.php:852 lib/Api.php:1064
 #, php-format
 msgid "Object %s not found."
 msgstr "Objekt %s nicht gefunden."
@@ -1089,15 +1089,15 @@ msgstr "Beruf"
 msgid "Office"
 msgstr "Büro"
 
-#: lib/Api.php:1059
+#: lib/Api.php:1047
 msgid "Only one vcard supported."
 msgstr "Nur einzelne vCards werden unterstützt."
 
-#: config/backends.php:365 config/backends.php:699
+#: config/backends.php:369 config/backends.php:703
 msgid "Organization"
 msgstr "Firma"
 
-#: config/backends.php:366 config/backends.php:701
+#: config/backends.php:370 config/backends.php:705
 msgid "Other"
 msgstr "Sonstige"
 
@@ -1153,12 +1153,12 @@ msgstr "Pager"
 msgid "Permanently delete this contact?"
 msgstr "Diesen Kontakt unwiederbringlich löschen?"
 
-#: deletefile.php:32 lib/Api.php:686 lib/Api.php:1647 lib/Driver.php:967
-#: lib/Driver/Share.php:328 lib/Driver/Sql.php:667
+#: deletefile.php:32 lib/Api.php:674 lib/Api.php:1661 lib/Driver.php:967
+#: lib/Driver/Share.php:328 lib/Driver/Sql.php:673
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
-#: config/backends.php:346 config/backends.php:689
+#: config/backends.php:350 config/backends.php:693
 msgid "Personal"
 msgstr "Persönlich"
 
@@ -1191,7 +1191,7 @@ msgstr "Bitte einen Namen für die neue Kontaktliste angeben:"
 msgid "Previous"
 msgstr "Zurück"
 
-#: config/backends.php:731
+#: config/backends.php:735
 msgid "Private Address Book"
 msgstr "Privates Adressbuch"
 
@@ -1204,12 +1204,12 @@ msgstr "Abfrage fehlgeschlagen: (%s) %s"
 msgid "Radio Phone"
 msgstr "Telefon Funk"
 
-#: lib/Driver/Ldap.php:264 lib/Driver/Ldap.php:273 lib/Driver/Ldap.php:547
+#: lib/Driver/Ldap.php:264 lib/Driver/Ldap.php:273 lib/Driver/Ldap.php:572
 #, php-format
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:3000
+#: lib/Driver.php:3003
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1223,7 +1223,7 @@ msgstr ""
 "gemacht werden, und alle Kontakte in diesem Adressbuch werden endgültig "
 "gelöscht."
 
-#: lib/Driver.php:3052
+#: lib/Driver.php:3055
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1265,7 +1265,7 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:3040
+#: lib/Driver.php:3043
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
@@ -1284,11 +1284,11 @@ msgstr "Suchkriterien ausgeblendet - Klicken zum Anzeigen"
 msgid "Search duplicates in:"
 msgstr "Duplikate suchen in:"
 
-#: lib/Api.php:1413
+#: lib/Api.php:1427
 msgid "Search failed"
 msgstr "Suche fehlgeschlagen"
 
-#: lib/Api.php:1653 lib/Api.php:1660 lib/Api.php:1670 lib/Api.php:1684
+#: lib/Api.php:1667 lib/Api.php:1674 lib/Api.php:1684 lib/Api.php:1698
 #, php-format
 msgid "Search failed: %s"
 msgstr "Suche fehlgeschlagen: %s"
@@ -1297,7 +1297,7 @@ msgstr "Suche fehlgeschlagen: %s"
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2979
+#: lib/Driver.php:2982
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1363,32 +1363,32 @@ msgstr "Wählen Sie das Format, in dem die Namen angezeigt werden sollen."
 msgid "Selected address book \"%s\"."
 msgstr "Adressbuch \"%s\" ausgewählt."
 
-#: lib/Driver/Sql.php:426
+#: lib/Driver/Sql.php:432
 msgid "Server error when adding data."
 msgstr "Serverfehler beim Hinzufügen der Daten."
 
-#: lib/Driver/Sql.php:472 lib/Driver/Sql.php:502 lib/Driver/Sql.php:511
+#: lib/Driver/Sql.php:478 lib/Driver/Sql.php:508 lib/Driver/Sql.php:517
 msgid "Server error when deleting data."
 msgstr "Serverfehler beim Löschen der Daten."
 
-#: lib/Factory/Driver.php:82
+#: lib/Factory/Driver.php:85
 msgid "Server error when initializing database connection."
 msgstr "Serverfehler beim Herstellen der Datenbankverbindung."
 
-#: lib/Api.php:1916 lib/Api.php:1947 lib/Api.php:2013 lib/Api.php:2094
-#: lib/Driver/Sql.php:175 lib/Driver/Sql.php:324 lib/Driver/Sql.php:403
+#: lib/Api.php:1930 lib/Api.php:1961 lib/Api.php:2027 lib/Api.php:2108
+#: lib/Driver/Sql.php:175 lib/Driver/Sql.php:330 lib/Driver/Sql.php:409
 msgid "Server error when performing search."
 msgstr "Serverfehler während der Suche."
 
-#: lib/Driver/Sql.php:544
+#: lib/Driver/Sql.php:550
 msgid "Server error when saving data."
 msgstr "Serverfehler beim Speichern der Daten."
 
-#: config/backends.php:228 config/backends.php:601 lib/Application.php:241
+#: config/backends.php:232 config/backends.php:605 lib/Application.php:241
 msgid "Shared Address Books"
 msgstr "Gemeinsame Adressbücher"
 
-#: config/backends.php:399
+#: config/backends.php:403
 msgid "Shared Directory"
 msgstr "Gemeinsames Verzeichnis"
 
@@ -1404,7 +1404,7 @@ msgstr "_Kontakte anzeigen"
 msgid "Show _Lists"
 msgstr "_Listen anzeigen"
 
-#: lib/View/List.php:333 lib/View/List.php:343
+#: lib/View/List.php:337 lib/View/List.php:347
 msgid "Sort Direction"
 msgstr "Sortierrichtung"
 
@@ -1512,7 +1512,7 @@ msgstr ""
 "Klasse Content_Tagger nicht gefunden. Bitte stellen Sie sicher, dass die "
 "\"Content\"-Anwendung installiert ist."
 
-#: lib/Factory/Driver.php:57
+#: lib/Factory/Driver.php:60
 #, php-format
 msgid "The address book \"%s\" does not exist."
 msgstr "Das Adressbuch \"%s\" existiert nicht."
@@ -1527,7 +1527,7 @@ msgstr "Das Adressbuch \"%s\" wurde erzeugt."
 msgid "The address book could not be purged: %s"
 msgstr "Das Adressbuch konnte nicht geleert werden: %s"
 
-#: lib/Api.php:912
+#: lib/Api.php:900
 msgid "The address book with your own contact doesn't exist anymore."
 msgstr "Das Adressbuch mit Ihrer Visitenkarte existiert nicht mehr."
 
@@ -1631,11 +1631,11 @@ msgstr "Beim Anzeigen der Liste ist ein Fehler aufgetreten"
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:706 lib/Api.php:1047
+#: lib/Api.php:694 lib/Api.php:1035
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Application.php:805
+#: lib/Application.php:825
 msgid "There was an error importing the vCard data."
 msgstr "Beim Importieren der vCard-Daten ist ein Fehler aufgetreten."
 
@@ -1664,7 +1664,7 @@ msgstr "Der Kontakt wurde als Ihre Visitenkarte markiert."
 msgid "This file format is not supported."
 msgstr "Dieses Dateiformat wird nicht unterstützt."
 
-#: lib/Api.php:1674 lib/Api.php:1688
+#: lib/Api.php:1688 lib/Api.php:1702
 #, php-format
 msgid "This person already has a %s entry in the address book"
 msgstr "Diese Person hat bereits einen %s-Eintrag in Ihrem Adressbuch"
@@ -1684,7 +1684,7 @@ msgstr "Zeitzone"
 msgid "Unable to find contact owner."
 msgstr "Kontaktbesitzer konnte nicht gefunden werden."
 
-#: lib/Factory/Driver.php:65
+#: lib/Factory/Driver.php:68
 #, php-format
 msgid "Unable to load the definition of %s."
 msgstr "Der %s-Treiber konnte nicht geladen werden."
@@ -1694,7 +1694,7 @@ msgstr "Der %s-Treiber konnte nicht geladen werden."
 msgid "Unable to save address book \"%s\": %s"
 msgstr "Das Adressbuch \"%s\" kann nicht gespeichert werden: %s"
 
-#: lib/Api.php:737 lib/Api.php:860 lib/Api.php:1064
+#: lib/Api.php:725 lib/Api.php:848 lib/Api.php:1052
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
@@ -1817,7 +1817,7 @@ msgstr "Sie können keine Kontakte zu Virtuellen Adressbüchern hinzufügen"
 msgid "You cannot delete contacts from a virtual address book"
 msgstr "Sie können keine Kontakte aus Virtuellen Adressbüchern löschen"
 
-#: lib/Api.php:907
+#: lib/Api.php:895
 msgid "You didn't mark a contact as your own yet."
 msgstr "Sie haben noch keinen Kontakt als Ihre Visitenkarte markiert."
 
@@ -1834,7 +1834,7 @@ msgstr "Sie haben nicht genügend Rechte, um dieses Objekt zu sehen."
 msgid "You do not have permissions to delete this address book."
 msgstr "Sie haben nicht genügend Rechte, um dieses Adressbuch zu löschen."
 
-#: lib/Api.php:918
+#: lib/Api.php:906
 msgid ""
 "You don't have sufficient permissions to read the address book that contains "
 "your own contact."
@@ -1871,7 +1871,7 @@ msgstr "Ihr Standard-Adressbuch kann nicht angezeigt werden."
 msgid "Your own contact"
 msgstr "Ihre Visitenkarte"
 
-#: lib/Api.php:924
+#: lib/Api.php:912
 msgid "Your own contact cannot be found in the address book."
 msgstr "Ihre Visitenkarte konnte in dem Adressbuch nicht gefunden werden."
 
