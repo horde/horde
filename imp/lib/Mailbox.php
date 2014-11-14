@@ -1311,7 +1311,7 @@ class IMP_Mailbox
      * @param array $to_expunge  An optional array of indices to delete.
      *                           If empty, all messages flagged as deleted in
      *                           the mailbox will be deleted.
-     * @param array $opts       Additional options:
+     * @param array $opts        Additional options:
      * <pre>
      *   - list: (boolean) Return a list of messages expunged.
      *           DEFAULT: false
