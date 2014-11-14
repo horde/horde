@@ -66,7 +66,7 @@ class Horde_ActiveSync_MimeTest extends Horde_Test_Case
                 $part = new Horde_Mime_Part();
                 $part->setType('text/plain');
                 $part->setContents(sprintf(
-                    _("An attachment named %s was removed by Horde_ActiveSync_Test"),
+                    'An attachment named %s was removed by Horde_ActiveSync_Test',
                     $mime->getPart($id)->getName(true))
                 );
                 $mime->removePart($id);
