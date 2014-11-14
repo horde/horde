@@ -28,7 +28,7 @@ class IMP_Indices_Copy_Notepad
     /**
      * @return array
      */
-    public function getTasklists($notify = false)
+    public function getNotepads($notify = false)
     {
         global $conf, $notification, $registry;
 
