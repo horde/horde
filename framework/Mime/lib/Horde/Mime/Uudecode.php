@@ -25,7 +25,7 @@
 /**
  * Class used to uudecode data.
  *
- * Needed because PHP's built-in uudecode() method is (was) broken.
+ * Needed because PHP's built-in uudecode() method is broken.
  *
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Aidan Lister <aidan@php.net>

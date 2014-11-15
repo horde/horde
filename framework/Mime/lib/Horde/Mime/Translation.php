@@ -5,7 +5,7 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @category  Mime
+ * @category  Horde
  * @copyright 2010-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
@@ -15,7 +15,7 @@
  * Horde_Mime_Translation is the translation wrapper class for Horde_Mime.
  *
  * @author    Jan Schneider <jan@horde.org>
- * @category  Mime
+ * @category  Horde
  * @copyright 2010-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime

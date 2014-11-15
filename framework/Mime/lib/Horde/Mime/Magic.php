@@ -1,18 +1,25 @@
 <?php
 /**
- * The Horde_Mime_Magic:: class provides an interface to determine a MIME type
- * for various content, if it provided with different levels of information.
- *
  * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Anil Madhavapeddy <anil@recoil.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Mime
+ * @category  Horde
+ * @copyright 1999-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
+ */
+
+/**
+ * Utilities to determine MIME content-types of unknown content.
+ *
+ * @author    Anil Madhavapeddy <anil@recoil.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
  */
 class Horde_Mime_Magic
 {

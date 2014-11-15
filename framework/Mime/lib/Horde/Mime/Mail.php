@@ -1,20 +1,28 @@
 <?php
 /**
+ * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
+ */
+
+/**
  * The Horde_Mime_Mail:: class wraps around the various MIME library classes
  * to provide a simple interface for creating and sending MIME messages.
  *
  * All content has to be passed UTF-8 encoded. The charset parameters is used
  * for the generated message only.
  *
- * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Mime
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2007-2014 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Mime
  */
 class Horde_Mime_Mail
 {
