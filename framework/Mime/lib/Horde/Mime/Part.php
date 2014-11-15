@@ -286,12 +286,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function __clone()
     {
-        reset($this->_parts);
-        while (list($k, $v) = each($this->_parts)) {
+        foreach ($this->_parts as $k => $v) {
             $this->_parts[$k] = clone $v;
         }
 
-        $this->_contentTypeParams = clone $this->_contentTypeParams;
+        $this->_contentTypeParams = new Horde_Support_CaseInsensitiveArray(
+            $this->_contentTypeParams->getArrayCopy()
+        );
+
+        $this->_contents = $this->_writeStream($this->_contents);
     }
 
     /**
