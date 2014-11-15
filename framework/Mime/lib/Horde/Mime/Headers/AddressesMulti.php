@@ -28,6 +28,17 @@ class Horde_Mime_Headers_AddressesMulti
 {
     /**
      */
+    public function __clone()
+    {
+        $copy = array();
+        foreach ($this->_values as $val) {
+            $copy[] = clone $val;
+        }
+        $this->_values = $copy;
+    }
+
+    /**
+     */
     public function __get($name)
     {
         switch ($name) {

@@ -36,6 +36,13 @@ class Horde_Mime_Headers_Addresses
 
     /**
      */
+    public function __clone()
+    {
+        $this->_values = clone $this->_values;
+    }
+
+    /**
+     */
     public function __get($name)
     {
         switch ($name) {
