@@ -4374,6 +4374,9 @@ var IMP_Flist_Mbox = Class.create({
             } else {
                 e = !!e;
                 [ elt ].invoke('addClassName', e ? 'exp' : 'col');
+                if (!e) {
+                    this.data.load = true;
+                }
             }
 
             this.data.expand = e;
