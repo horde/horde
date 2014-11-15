@@ -280,9 +280,9 @@ var IMP_Autocompleter = Class.create({
             this.removeEntry(input);
         } else {
             this.input.setValue(input);
+            this.resize();
         }
 
-        this.resize();
         this.focus();
     },
 
@@ -293,6 +293,7 @@ var IMP_Autocompleter = Class.create({
             return (v.id != input.retrieve('itemid'));
         });
         this.updateHiddenInput();
+        this.resize();
     },
 
     // Format: value [, value [, ...]]
