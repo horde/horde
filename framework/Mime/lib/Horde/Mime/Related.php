@@ -64,9 +64,8 @@ class Horde_Mime_Related implements IteratorAggregate
         /* Look at the 'start' parameter to determine which part to start
          * with. If no 'start' parameter, use the first part (RFC 2387
          * [3.1]). */
-        $start = $mime_part->getContentTypeParameter('start');
-        if (!empty($start)) {
-            $id = $this->cidSearch($start);
+        if ($start = $mime_part->getContentTypeParameter('start')) {
+            $id = $this->cidSearch(trim($start, '<> '));
         }
 
         if (empty($id)) {
