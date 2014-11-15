@@ -306,8 +306,5 @@
 </div>
 
 <div id="sidebar_mbox_loading" style="display:none">
- <span>
-  <span class="imp-sidebar-mbox-loading"></span>
-  <?php echo _("Loading...") ?>
- </span>
+ <span class="imp-sidebar-mbox-loading"><?php echo _("Loading...") ?></span>
 </div>
