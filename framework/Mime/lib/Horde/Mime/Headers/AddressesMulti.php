@@ -44,7 +44,7 @@ class Horde_Mime_Headers_AddressesMulti
         switch ($name) {
         case 'full_value':
         case 'value':
-            return array_map($this->_values, 'strval');
+            return array_map('strval', $this->_values);
         }
 
         return parent::__get($name);
