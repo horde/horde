@@ -636,8 +636,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $type = $ptype . '/' . $this->getSubType();
         if ($charset &&
             ($ptype == 'text') &&
-            ($charset = $this->getCharset() &&
-            ($charset !== 'us-ascii'))) {
+            ($charset = $this->getCharset()) &&
+            ($charset !== 'us-ascii')) {
             $type .= '; charset=' . $charset;
         }
 
