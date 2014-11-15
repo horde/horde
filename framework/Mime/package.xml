@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-04</date>
+ <date>2014-11-15</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -368,10 +368,12 @@
        <file name="header_trailing_ws.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
+       <file name="related_msg_2.txt" role="test" />
        <file name="samplemultipart_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
        <file name="sample_msg2.txt" role="test" />
        <file name="sample_msg3.txt" role="test" />
+       <file name="sample_msg4.txt" role="test" />
        <file name="sample_msg_eai.txt" role="test" />
        <file name="sample_msg_eai_2.txt" role="test" />
        <file name="sample_msg_eai_3.txt" role="test" />
@@ -651,10 +653,12 @@
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
+   <install as="Horde/Mime/fixtures/related_msg_2.txt" name="test/Horde/Mime/fixtures/related_msg_2.txt" />
    <install as="Horde/Mime/fixtures/samplemultipart_msg.txt" name="test/Horde/Mime/fixtures/samplemultipart_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg2.txt" name="test/Horde/Mime/fixtures/sample_msg2.txt" />
    <install as="Horde/Mime/fixtures/sample_msg3.txt" name="test/Horde/Mime/fixtures/sample_msg3.txt" />
+   <install as="Horde/Mime/fixtures/sample_msg4.txt" name="test/Horde/Mime/fixtures/sample_msg4.txt" />
    <install as="Horde/Mime/fixtures/sample_msg_eai.txt" name="test/Horde/Mime/fixtures/sample_msg_eai.txt" />
    <install as="Horde/Mime/fixtures/sample_msg_eai_2.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_2.txt" />
    <install as="Horde/Mime/fixtures/sample_msg_eai_3.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_3.txt" />
@@ -1500,7 +1504,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-04</date>
+   <date>2014-11-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Mime_Headers has been rewritten.

@@ -22,6 +22,17 @@
  */
 class Horde_Mime_MimeIdTest extends PHPUnit_Framework_TestCase
 {
+    public function testToString()
+    {
+        $id = '2.1';
+        $id_ob = new Horde_Mime_Id($id);
+
+        $this->assertEquals(
+            $id,
+            strval($id_ob)
+        );
+    }
+
     /**
      * @dataProvider idArithmeticProvider
      */
@@ -38,6 +49,12 @@ class Horde_Mime_MimeIdTest extends PHPUnit_Framework_TestCase
     public function idArithmeticProvider()
     {
         return array(
+            array(
+                '0',
+                Horde_Mime_Id::ID_DOWN,
+                array(),
+                '1'
+            ),
             array(
                 '1.1',
                 Horde_Mime_Id::ID_DOWN,
@@ -63,6 +80,12 @@ class Horde_Mime_MimeIdTest extends PHPUnit_Framework_TestCase
                 '1.4'
             ),
             array(
+                '1',
+                Horde_Mime_Id::ID_NEXT,
+                array(),
+                '2'
+            ),
+            array(
                 '1.2',
                 Horde_Mime_Id::ID_PREV,
                 array(),
@@ -75,6 +98,12 @@ class Horde_Mime_MimeIdTest extends PHPUnit_Framework_TestCase
                 null
             ),
             array(
+                '2',
+                Horde_Mime_Id::ID_PREV,
+                array(),
+                '1'
+            ),
+            array(
                 '1.1',
                 Horde_Mime_Id::ID_UP,
                 array(),
@@ -85,6 +114,12 @@ class Horde_Mime_MimeIdTest extends PHPUnit_Framework_TestCase
                 Horde_Mime_Id::ID_UP,
                 array('no_rfc822' => true),
                 '1'
+            ),
+            array(
+                '2',
+                Horde_Mime_Id::ID_UP,
+                array(),
+                '0'
             )
         );
     }

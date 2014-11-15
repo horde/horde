@@ -1,19 +1,21 @@
 <?php
 /**
- * Tests for the Horde_Mime_Part class.
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2010-2014 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
 
 /**
+ * Tests for the Horde_Mime_Part class.
+ *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2010-2014 Horde LLC
+ * @internal
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
@@ -234,6 +236,121 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider contentsTransferDecodingProvider
+     */
+    public function testContentsTransferDecoding($data, $encoding, $text)
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+
+        $part->setContents($data, array('encoding' => $encoding));
+
+        $this->assertEquals(
+            $text,
+            $part->getContents()
+        );
+    }
+
+    public function contentsTransferDecodingProvider()
+    {
+        return array(
+            array(
+                'xIE=',
+                'base64',
+                'ā'
+            ),
+            array(
+                '=C4=81',
+                'quoted-printable',
+                'ā'
+            ),
+            array(
+                'ā',
+                '8bit',
+                'ā'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider setTypeProvider
+     */
+    public function testSetType($data, $type, $boundary)
+    {
+        $part = new Horde_Mime_Part();
+
+        $part->setType($data);
+
+        $this->assertEquals(
+            $type,
+            $part->getType()
+        );
+
+        $b = $part->getContentTypeParameter('boundary');
+        if ($boundary) {
+            $this->assertNotEmpty($b);
+        } else {
+            $this->assertEmpty($b);
+        }
+    }
+
+    public function setTypeProvider()
+    {
+        return array(
+            array(
+                'text/plain',
+                'text/plain',
+                false
+            ),
+            array(
+                'multipart/mixed',
+                'multipart/mixed',
+                true
+            ),
+            array(
+                'foo/bar',
+                Horde_Mime_Part::UNKNOWN . '/bar',
+                false
+            )
+        );
+    }
+
+    public function testAppendContents()
+    {
+        $part = new Horde_Mime_Part();
+        $part->appendContents('1');
+
+        $this->assertEquals(
+            '1',
+            $part->getContents()
+        );
+
+        $part->appendContents('2');
+        $this->assertEquals(
+            '12',
+            $part->getContents()
+        );
+
+        $tmp = fopen('php://temp', 'r+');
+        fwrite($tmp, '3');
+        rewind($tmp);
+        $part->appendContents($tmp);
+        $this->assertEquals(
+            '123',
+            $part->getContents()
+        );
+
+        $tmp = fopen('php://temp', 'r+');
+        fwrite($tmp, '5');
+        rewind($tmp);
+        $part->appendContents(array('4', $tmp, '6'));
+        $this->assertEquals(
+            '123456',
+            $part->getContents()
+        );
+    }
+
     public function testAlterPart()
     {
         $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg.txt');
@@ -258,6 +375,29 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider setDispositionProvider
+     */
+    public function testSetDisposition($disp)
+    {
+        $part = new Horde_Mime_Part();
+        $part->setDisposition($disp);
+
+        $this->assertEquals(
+            $disp,
+            $part->getDisposition()
+        );
+    }
+
+    public function setDispositionProvider()
+    {
+        return array(
+            array('attachment'),
+            array('inline'),
+            array('')
+        );
+    }
+
     public function testUnserialize()
     {
         $part = new Horde_Mime_Part();
@@ -279,6 +419,34 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Test',
             $part->getContents()
+        );
+    }
+
+    public function testClone()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('multipart/mixed');
+        $part->setContentTypeParameter('x-foo', 'foo');
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('text/plain');
+        $part2->setContents('Foo');
+
+        $part->addPart($part2);
+        $part->buildMimeIds();
+
+        $part3 = clone $part;
+
+        $part->setContentTypeParameter('x-foo', 'bar');
+        $part2->setContents('Bar');
+
+        $this->assertEquals(
+            'foo',
+            $part3->getContentTypeParameter('x-foo')
+        );
+        $this->assertEquals(
+            'Foo',
+            $part3->getPart(1)->getContents()
         );
     }
 

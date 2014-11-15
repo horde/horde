@@ -3,6 +3,7 @@
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
+ * @copyright  2010-2014 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
@@ -13,8 +14,9 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @copyright  2010-2014 Horde LLC
  * @internal
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */

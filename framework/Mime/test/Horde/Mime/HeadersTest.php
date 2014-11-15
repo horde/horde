@@ -1,25 +1,49 @@
 <?php
 /**
- * Tests for the Horde_Mime_Headers class.
- *
  * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
  *
- * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2010-2014 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
 
 /**
+ * Tests for the Horde_Mime_Headers class.
+ *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright  2010-2014 Horde LLC
+ * @internal
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    Mime
  * @subpackage UnitTests
  */
 class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
 {
+    public function testClone()
+    {
+        $hdrs = new Horde_Mime_Headers();
+        $hdrs->addHeader('To', 'foo@example.com');
+        $hdrs->addHeader('Resent-To', 'foo2@example.com');
+        $hdrs->addHeader('Resent-To', 'foo3@example.com');
+
+        $hdrs2 = clone $hdrs;
+
+        $hdrs->addHeader('To', 'bar@example.com');
+        $hdrs->addHeader('Resent-To', 'bar2@example.com');
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($hdrs2['To'])
+        );
+        $this->assertEquals(
+            array('foo2@example.com', 'foo3@example.com'),
+            $hdrs2['Resent-To']->value
+        );
+    }
+
     /**
      * @dataProvider serializeProvider
      */
@@ -578,6 +602,45 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'X-priority',
                 "X-Priority: 1\nX-priority: 5\n",
                 '1'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider addHeaderObProvider
+     */
+    public function testAddHeaderOb($ob, $valid)
+    {
+        $hdrs = new Horde_Mime_Headers();
+
+        try {
+            $hdrs->addHeaderOb($ob, true);
+            if (!$valid) {
+                $this->fail();
+            }
+        } catch (InvalidArgumentException $e) {
+            if ($valid) {
+                $this->fail();
+            }
+            return;
+        }
+
+        $this->assertEquals(
+            $ob,
+            $hdrs[$ob->name]
+        );
+    }
+
+    public function addHeaderObProvider()
+    {
+        return array(
+            array(
+                new Horde_Mime_Headers_Addresses('To', 'foo@example.com'),
+                true
+            ),
+            array(
+                new Horde_Mime_Headers_Element_Single('To', 'foo@example.com'),
+                false
             )
         );
     }
