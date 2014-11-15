@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Don&apos;t clone objects when returning data from the structure object.
 * [mms] Better error handling when IMAP connection is prematurely disconnected.
 * [mms] Fix regression in listMailboxes() for POP3 servers when &apos;flat&apos; option is true.
  </notes>
@@ -2756,6 +2757,7 @@
    <date>2014-11-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Don&apos;t clone objects when returning data from the structure object.
 * [mms] Better error handling when IMAP connection is prematurely disconnected.
 * [mms] Fix regression in listMailboxes() for POP3 servers when &apos;flat&apos; option is true.
    </notes>
