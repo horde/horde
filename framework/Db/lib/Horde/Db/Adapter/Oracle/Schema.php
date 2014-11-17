@@ -380,7 +380,11 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
             $sql
         );
 
-        return $this->execute($sql);
+        $this->execute($sql);
+
+        if ($type == 'autoincrementKey') {
+            $this->createAutoincrementTrigger($tableName, $columnName);
+        }
     }
 
     /**
@@ -395,6 +399,7 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $sql = sprintf('ALTER TABLE %s DROP COLUMN %s',
                        $this->quoteTableName($tableName),
                        $this->quoteColumnName($columnName));
+        $this->removeAutoincrementTrigger($tableName, $columnName);
         return $this->execute($sql);
     }
 
@@ -607,16 +612,37 @@ END;
      */
     public function createAutoincrementTrigger($tableName, $columnName)
     {
+        // Build the table that holds the last autoincremented value. Used for
+        // example for returning the ID from last INSERT.
         $id = $tableName . '_' . $columnName;
         if (!$this->selectValue('SELECT 1 FROM USER_TABLES WHERE TABLE_NAME = \'HORDE_DB_AUTOINCREMENT\'')) {
             $this->execute('CREATE TABLE horde_db_autoincrement (id INTEGER)');
             $this->execute('INSERT INTO horde_db_autoincrement (id) VALUES (0)');
         }
+
+        // Create a sequence that automatically increments when queried with
+        // .NEXTVAL.
         $sequence = $this->_truncate($id . '_seq');
-        $this->execute(sprintf(
+        $sql = sprintf(
             'CREATE SEQUENCE %s',
             $sequence
-        ));
+        );
+        // See if the column already has values, to start the sequence at a
+        // higher value.
+        $max = $this->selectValue(
+            sprintf(
+                'SELECT MAX(%s) FROM %s',
+                $this->quoteColumnName($columnName),
+                $tableName
+            )
+        );
+        if ($max) {
+            $sql .= ' MINVALUE ' . ($max + 1);
+        }
+        $this->execute($sql);
+
+        // Create the actual trigger that inserts the next value from the
+        // sequence into the autoincrementKey column when inserting a row.
         $this->execute(sprintf(
             'CREATE OR REPLACE TRIGGER %s BEFORE INSERT ON %s FOR EACH ROW DECLARE increment INTEGER; BEGIN SELECT %s.NEXTVAL INTO :NEW.%s FROM dual; SELECT %s.CURRVAL INTO increment FROM dual; UPDATE horde_db_autoincrement SET id = increment; END;',
             $this->_truncate($id . '_trig'),
@@ -630,16 +656,20 @@ END;
     /**
      * Drops sequences and triggers for an autoincrementKey column.
      *
+     * If $columnName is specified, the sequences and triggers are only dropped
+     * if $columnName is actually an autoincrementKey column.
+     *
      * @since Horde_Db 2.1.0
      *
      * @param string $tableName   A table name.
      * @param string $columnName  A column name.
      */
-    public function removeAutoincrementTrigger($name)
+    public function removeAutoincrementTrigger($tableName, $columnName = null)
     {
-        $pk = $this->primaryKey($name);
-        if (count($pk->columns) == 1) {
-            $prefix = $name . '_' . $pk->columns[0];
+        $pk = $this->primaryKey($tableName);
+        if (count($pk->columns) == 1 &&
+            (!$columnName || $pk->columns[0] == $columnName)) {
+            $prefix = $tableName . '_' . $pk->columns[0];
             try {
                 $this->execute(sprintf(
                     'DROP SEQUENCE %s',
