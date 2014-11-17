@@ -118,6 +118,10 @@ class Horde_Db_Adapter_Base_TableDefinition implements ArrayAccess, IteratorAggr
      */
     public function column($name, $type, $options = array())
     {
+        if ($name == $this->_primaryKey) {
+            throw new LogicException($name . ' has already been added as a primary key');
+        }
+
         $options = array_merge(
             array('limit'         => null,
                   'precision'     => null,
