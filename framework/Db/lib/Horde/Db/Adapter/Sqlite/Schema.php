@@ -230,15 +230,27 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      *                            Horde_Db_Adapter_Base_TableDefinition#column()
      *                            for details.
      */
-    public function addColumn($tableName, $columnName, $type, $options=array())
+    public function addColumn($tableName, $columnName, $type, $options = array())
     {
-        /* Ignore ':autoincrement' - it is handled automatically by SQLite
-         * for any 'INTEGER PRIMARY KEY' column. */
         if ($this->transactionStarted()) {
             throw new Horde_Db_Exception('Cannot add columns to a SQLite database while inside a transaction');
         }
 
-        parent::addColumn($tableName, $columnName, $type, $options);
+        if ($type == 'autoincrementKey') {
+            $this->_alterTable(
+                $tableName,
+                array(),
+                create_function(
+                    '$definition',
+                    sprintf(
+                        '$definition->column("%s", "%s", %s);',
+                        $columnName, $type, var_export($options, true)
+                    )
+                )
+            );
+        } else {
+            parent::addColumn($tableName, $columnName, $type, $options);
+        }
 
         // See last paragraph on http://www.sqlite.org/lang_altertable.html
         $this->execute('VACUUM');
@@ -271,7 +283,7 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
      *                            Horde_Db_Adapter_Base_TableDefinition#column()
      *                            for details.
      */
-    public function changeColumn($tableName, $columnName, $type, $options=array())
+    public function changeColumn($tableName, $columnName, $type, $options = array())
     {
         $this->_clearTableCache($tableName);
 
