@@ -811,6 +811,76 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
 
     /*##########################################################################
+    # Autoincrement Management
+    ##########################################################################*/
+
+    public function testAutoIncrementWithTypeInColumn()
+    {
+        $table = $this->_conn->createTable('autoinc', array('autoincrementKey' => false));
+        $table->column('foo', 'autoincrementKey');
+        $table->column('bar', 'integer');
+        $table->end();
+
+        try {
+        $this->assertEquals(1, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(5)'));
+        } catch (Exception $e) {
+            var_dump($this->_conn->getLastQuery());
+            throw $e;
+        }
+        $this->assertEquals(2, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(6)'));
+        $this->assertEquals(2, $this->_conn->selectValue('SELECT foo FROM autoinc WHERE bar = 6'));
+    }
+
+    /**
+     * @expectedException LogicException
+     * @expectedExceptionMessage foo has already been added as a primary key
+     */
+    public function testAutoIncrementWithTypeInTableAndColumnDefined()
+    {
+        $table = $this->_conn->createTable('autoincrement', array('autoincrementKey' => 'foo'));
+        $table->column('foo', 'integer');
+        $table->column('bar', 'integer');
+        $table->end();
+    }
+
+    public function testAutoIncrementWithTypeInTable()
+    {
+        $table = $this->_conn->createTable('autoinc', array('autoincrementKey' => 'foo'));
+        $table->column('bar', 'integer');
+        $table->end();
+
+        $this->assertEquals(1, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(5)'));
+        $this->assertEquals(2, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(6)'));
+        $this->assertEquals(2, $this->_conn->selectValue('SELECT foo FROM autoinc WHERE bar = 6'));
+    }
+
+    public function testAutoIncrementWithAddColumn()
+    {
+        $table = $this->_conn->createTable('autoinc', array('autoincrementKey' => false));
+        $table->column('bar', 'integer');
+        $table->end();
+        $this->_conn->addColumn('autoinc', 'foo', 'autoincrementKey');
+
+        $this->assertEquals(1, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(5)'));
+        $this->assertEquals(2, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(6)'));
+        $this->assertEquals(2, $this->_conn->selectValue('SELECT foo FROM autoinc WHERE bar = 6'));
+    }
+
+    public function testAutoIncrementWithChangeColumn()
+    {
+        $table = $this->_conn->createTable('autoinc', array('autoincrementKey' => false));
+        $table->column('foo', 'integer');
+        $table->column('bar', 'integer');
+        $table->end();
+        $this->_conn->changeColumn('autoinc', 'foo', 'autoincrementKey');
+
+        $this->assertEquals(1, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(5)'));
+        $this->assertEquals(2, $this->_conn->insert('INSERT INTO autoinc (bar) VALUES(6)'));
+        $this->assertEquals(2, $this->_conn->selectValue('SELECT foo FROM autoinc WHERE bar = 6'));
+    }
+
+
+    /*##########################################################################
     # Table cache
     ##########################################################################*/
 
@@ -916,6 +986,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
     protected function _dropTestTables()
     {
         $tables = array(
+            'autoinc',
             'binary_testings',
             'cache_table',
             /* MySQL only? */
