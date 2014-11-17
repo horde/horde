@@ -260,12 +260,24 @@ ul.horde-tags li:hover {
     cursor: pointer;
     text-indent: -10000px;
     padding: 8px;
+    float: left;
 }
 #kronolithFBDateNext, #kronolithResourceFBDateNext {
     background: transparent url("../graphics/right.png") no-repeat center center;
     cursor: pointer;
     padding: 8px;
-    text-indent: -10000px
+    text-indent: -10000px;
+    float: right;
+}
+#kronolithFBDate {
+    text-align: center;
+    float: left;
+    width: 90%;
+}
+#kronolithResourceFBDate {
+    text-align: center;
+    float: left;
+    width: 90%;
 }
 
 /* Map */

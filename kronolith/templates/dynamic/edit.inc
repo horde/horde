@@ -211,7 +211,7 @@
   <span id="kronolithEventAttendees_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <br class="clear" />
   <div id="kronolithFBLoading" style="display:none"></div>
-  <div style="text-align: center;"><a id="kronolithFBDatePrev" title="Previous day"></a><span id="kronolithFBDate"></span><a id="kronolithFBDateNext" title="Next day"></a></div>
+  <a id="kronolithFBDatePrev" title="Previous day"></a><span id="kronolithFBDate"></span><a id="kronolithFBDateNext" title="Next day"></a>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>
@@ -234,9 +234,9 @@
   <label for="kronolithEventResources"><?php echo _("Add resources") ?>:</label><br />
   <input id="kronolithEventResources" />
   <span id="kronolithEventResources_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-  <br class="clear" /><br />
+  <br class="clear" />
   <div id="kronolithResourceFBLoading" style="display:none"></div>
-  <div style="text-align: center;"><a id="kronolithResourceFBDatePrev" title="Previous day"></a><span id="kronolithResourceFBDate"></span><a id="kronolithResourceFBDateNext" title="Next day"></a></div>
+  <a id="kronolithResourceFBDatePrev" title="Previous day"></a><span id="kronolithResourceFBDate"></span><a id="kronolithResourceFBDateNext" title="Next day"></a>
   <table cellspacing="0" cellpadding="0" border="0">
     <thead>
       <tr>
