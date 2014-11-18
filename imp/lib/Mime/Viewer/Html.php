@@ -674,7 +674,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     protected function _imgBlockImg()
     {
         if (!isset($this->_imptmp['blockimg'])) {
-            $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
+            /* Need full URL here because a <base> tag may change the root
+             * of relative URLs. */
+            $this->_imptmp['blockimg'] = Horde_Themes::img('spacer_red.png')->fulluri;
         }
 
         return $this->_imptmp['blockimg'];
