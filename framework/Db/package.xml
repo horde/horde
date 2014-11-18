@@ -25,7 +25,7 @@
  </lead>
  <date>2014-11-18</date>
  <version>
-  <release>2.2.1</release>
+  <release>2.2.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix using addColumn() with autoincrementKey types in SQLite.
-* [jan] Fix several issues with changing autoincrementKey columns in Oracle.
-* [mms] Fix SplitRead driver to work with the recent blob changes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -862,6 +860,19 @@
 * [jan] Fix using addColumn() with autoincrementKey types in SQLite.
 * [jan] Fix several issues with changing autoincrementKey columns in Oracle.
 * [mms] Fix SplitRead driver to work with the recent blob changes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-18</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
