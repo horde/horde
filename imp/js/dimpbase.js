@@ -2150,7 +2150,7 @@ var DimpBase = {
     poll: function(search)
     {
         var args = $H(),
-            opts = {};
+            opts = { loading: 'viewport' };
 
         // Reset poll counter.
         this.setPoll();
@@ -2176,8 +2176,6 @@ var DimpBase = {
 
         if (search) {
             args.set('forceUpdate', 1);
-        } else {
-            opts.loading = 'viewport';
         }
 
         DimpCore.doAction('poll', args, opts);
