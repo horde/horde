@@ -297,7 +297,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         $events = array();
         foreach ($ical->getComponents() as $component) {
             if ($component->getType() == 'vEvent') {
-                $events[] = new Kronolith_Event_Ical($this, $component);
+                try {
+                    $events[] = new Kronolith_Event_Ical($this, $component);
+                } catch (Kronolith_Exception $e) {
+                    Horde::log(
+                        sprintf(
+                            'Failed parse event from remote calendar: url = "%s"',
+                            $this->calendar
+                        ),
+                        'INFO'
+                    );
+                }
             }
         }
         return $events;
