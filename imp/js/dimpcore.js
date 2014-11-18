@@ -159,13 +159,17 @@ var DimpCore = {
                 a = new Element('A', { className: 'horde-button address' }).store({ email: o });
 
             if (o.g) {
-                a.insert(o.g.escapeHTML() + ':').addClassName('addrgroup-name');
+                if (o.a.size()) {
+                    a.insert(o.g.escapeHTML() + ':').addClassName('addrgroup-name');
 
-                tmp = new Element('DIV', { className: 'addrgroup-div' });
-                tmp.insert(a);
-                df.appendChild(tmp);
+                    tmp = new Element('DIV', { className: 'addrgroup-div' });
+                    tmp.insert(a);
+                    df.appendChild(tmp);
 
-                this._buildAddressLinks(o.a, tmp);
+                    this._buildAddressLinks(o.a, tmp);
+                } else {
+                    df.appendChild(new Element('DIV').insert(o.g.escapeHTML()));
+                }
             } else if (o.p) {
                 a.writeAttribute({ title: o.b }).insert(o.p.escapeHTML());
                 df.appendChild(a);
