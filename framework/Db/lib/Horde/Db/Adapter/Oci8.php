@@ -405,21 +405,20 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
             $where = $this->_replaceParameters($where[0], $where[1]);
         }
 
-        $sql = 'UPDATE ' . $this->quoteTableName($table) . ' SET '
-            . implode(
-                ', ',
-                array_map(
-                    function($field, $value)
-                    {
-                        return $this->quoteColumnName($field) . ' = ' . $value;
-                    },
-                    array_keys($fields),
-                    $fields
-                )
-            )
-            . (strlen($where) ? ' WHERE ' . $where : '')
-            . ' RETURNING ' . implode(', ', array_keys($blobs)) . ' INTO '
-            . implode(', ', $locators);
+        $fnames = array();
+        foreach ($fields as $field => $value) {
+            $fnames[] = $this->quoteColumnName($field) . ' = ' . $value;
+        }
+
+        $sql = sprintf(
+            'UPDATE %s SET %s%s RETURNING %s INTO %s',
+            $this->quoteTableName($table),
+            implode(', ', $fnames),
+            strlen($where) ? ' WHERE ' . $where : '',
+            implode(', ', array_keys($blobs)),
+            implode(', ', $locators)
+        );
+
         $this->execute($sql, null, null, $blobs);
 
         return $this->_rowCount;
