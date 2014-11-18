@@ -728,7 +728,7 @@ class Horde
     {
         $vars = isset($opts['vars'])
             ? $opts['vars']
-            : $GLOBALS['injector']->getInstance('Horde_Variables');
+            : $GLOBALS['injector']->createInstance('Horde_Variables');
 
         $url = self::selfUrl(
             false,
