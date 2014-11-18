@@ -302,7 +302,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 } catch (Kronolith_Exception $e) {
                     Horde::log(
                         sprintf(
-                            'Failed parse event from remote calendar: url = "%s"',
+                            'Failed to parse event from remote calendar: url = "%s"',
                             $this->calendar
                         ),
                         'INFO'
