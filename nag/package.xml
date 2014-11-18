@@ -1606,6 +1606,19 @@
   </release>
   <release>
    <version>
+    <release>4.2.3</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue with initially creating nag_shares table.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.2.0</api></version>
    <stability>

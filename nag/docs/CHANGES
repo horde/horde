@@ -11,6 +11,13 @@ v4.3.0-git
 
 
 ------
+v4.2.3
+------
+
+[mjr] Fix issue with initially creating nag_shares table.
+
+
+------
 v4.2.2
 ------
 
