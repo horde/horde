@@ -90,7 +90,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
+    public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
         $out = array();
 
@@ -103,7 +103,7 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         }
 
         foreach ($history as $val) {
-            if (!in_array($val['action'], $filter)) {
+            if (empty($types) || in_array($val['action'], $types)) {
                 switch ($val['action']) {
                 case 'forward':
                     $ob = new IMP_Maillog_Log_Forward($val['recipients']);

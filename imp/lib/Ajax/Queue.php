@@ -741,8 +741,16 @@ class IMP_Ajax_Queue
                         new IMP_Indices($v->mbox, $v2)
                     );
 
+                    $l = $imp_maillog->getLog($msg, array(
+                        'forward',
+                        'redirect',
+                        'reply_all',
+                        'reply_list',
+                        'reply'
+                    ));
                     $tmp = array();
-                    foreach ($imp_maillog->getLog($msg, array('mdn')) as $v3) {
+
+                    foreach ($l as $v3) {
                         $tmp[] = array(
                             'm' => $v3->message,
                             't' => $v3->action

@@ -57,13 +57,14 @@ class IMP_Maillog
      * Retrieve history for a message.
      *
      * @param IMP_Maillog_Message $msg  A message object.
-     * @param array $filter             Filter these actions.
+     * @param array $types              Return only these log types. If empty,
+     *                                  returns all types.
      *
      * @return array  List of IMP_Maillog_Log_Base objects.
      */
-    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
+    public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
-        return $this->storage->getLog($msg, $filter);
+        return $this->storage->getLog($msg, $types);
     }
 
     /**

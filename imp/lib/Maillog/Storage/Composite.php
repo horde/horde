@@ -56,12 +56,12 @@ class IMP_Maillog_Storage_Composite extends IMP_Maillog_Storage_Base
 
     /**
      */
-    public function getLog(IMP_Maillog_Message $msg, array $filter = array())
+    public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
         $out = array();
 
         foreach ($this->_drivers as $val) {
-            $out = array_merge($out, $val->getLog($msg, $filter));
+            $out = array_merge($out, $val->getLog($msg, $types));
         }
 
         return $out;

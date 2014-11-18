@@ -96,7 +96,7 @@ class IMP_Message_Ui
         }
 
         $log_msg = new IMP_Maillog_Message($indices);
-        if (count($maillog->getLog($log_msg, array('forward', 'redirect', 'reply_all', 'reply_list', 'reply')))) {
+        if (count($maillog->getLog($log_msg, array('mdn')))) {
             return false;
         }
 
