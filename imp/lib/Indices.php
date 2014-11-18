@@ -655,7 +655,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
             );
         }
 
-        $indices->delete(array(
+        $this->delete(array(
             'keeplog' => true,
             'nuke' => true
         ));
