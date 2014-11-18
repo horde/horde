@@ -1320,7 +1320,7 @@ class IMP_Mailbox
      * @return IMP_Indices  If 'list' option is true, an indices object
      *                      containing the messages that have been expunged.
      */
-    public function expunge($to_expunge, array $opts = array())
+    public function expunge($to_expunge = array(), array $opts = array())
     {
         $msg_list = !empty($opts['list']);
         $process_list = $update_list = array();
