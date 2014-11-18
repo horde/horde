@@ -18,7 +18,7 @@
  </developer>
  <date>2014-11-18</date>
  <version>
-  <release>2.0.8</release>
+  <release>2.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Consider all user agents with "bot" in the name as robots.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -838,6 +838,19 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Consider all user agents with "bot" in the name as robots.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
