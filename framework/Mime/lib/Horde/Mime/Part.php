@@ -294,7 +294,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $this->_contentTypeParams->getArrayCopy()
         );
 
-        $this->_contents = $this->_writeStream($this->_contents);
+        if (!empty($this->_contents)) {
+            $this->_contents = $this->_writeStream($this->_contents);
+        }
     }
 
     /**
