@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-21</date>
+ <date>2014-11-18</date>
  <version>
   <release>2.5.1</release>
   <api>2.5.0</api>
@@ -1034,7 +1034,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2014-11-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix using non-deprecated Content-Type for encrypted messages (Bug #13659).
