@@ -65,4 +65,17 @@ abstract class IMP_Maillog_Storage_Base
      */
     abstract public function getChanges($ts);
 
+    /**
+     * Is this storage driver available for the given message/log type?
+     *
+     * @param IMP_Maillog_Message $msg   A message object.
+     * @param IMP_Maillog_Log_Base $log  Log entry.
+     *
+     * @return boolean  True if the storage driver can handle data for the
+     *                  given input.
+     */
+    abstract public function isAvailable(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    );
+
 }

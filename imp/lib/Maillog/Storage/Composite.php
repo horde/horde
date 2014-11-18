@@ -89,4 +89,19 @@ class IMP_Maillog_Storage_Composite extends IMP_Maillog_Storage_Base
         return $out;
     }
 
+    /**
+     */
+    public function isAvailable(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    )
+    {
+        foreach ($this->_drivers as $val) {
+            if ($val->isAvailable($msg, $log)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

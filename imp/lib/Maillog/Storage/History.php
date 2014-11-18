@@ -54,7 +54,9 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
     )
     {
-        global $conf;
+        if (!$this->isAvailable($msg, $log)) {
+            return false;
+        }
 
         $data = array(
             'action' => $log->action,
@@ -65,13 +67,6 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         case 'forward':
         case 'redirect':
             $data['recipients'] = $log->recipients;
-            break;
-
-        case 'mdn':
-            /* Unless configured, this driver doesn't support MDN. */
-            if (empty($conf['maillog']['mdn_history'])) {
-                return false;
-            }
             break;
         }
 
@@ -200,6 +195,19 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         }
 
         return $out;
+    }
+
+    /**
+     */
+    public function isAvailable(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    )
+    {
+        global $conf;
+
+        /* Unless configured, this driver doesn't support MDN. */
+        return (!($log instanceof IMP_Maillog_Log_Mdn) ||
+                !empty($conf['maillog']['mdn_history']));
     }
 
     /**

@@ -889,14 +889,14 @@ extends Horde_Core_Ajax_Application_Handler
             return false;
         }
 
-        list($mbox, $uid) = $this->_base->indices->getSingle();
-        $injector->getInstance('IMP_Message_Ui')->MDNCheck(
-            new IMP_Indices($mbox, $uid),
+        $this->_base->indices->mdnCheck(
             $contents->getHeaderAndMarkAsSeen(),
             true
         );
 
         $notification->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
+
+        list($mbox,) = $this->_base->indices->getSingle();
 
         $result = new stdClass;
         $result->buid = $this->_base->vars->buid;

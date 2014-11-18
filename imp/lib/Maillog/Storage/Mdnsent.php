@@ -28,7 +28,7 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
         IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
     )
     {
-        if (!$msg->indices || !($log instanceof IMP_Maillog_Log_Mdn)) {
+        if (!$this->isAvailable($msg, $log)) {
             return false;
         }
 
@@ -43,21 +43,18 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
      */
     public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
-        if (!$msg->indices ||
-            (!empty($types) && !in_array('IMP_Maillog_Log_Mdn', $types))) {
+        $log_ob = new IMP_Maillog_Log_Mdn();
+
+        if ((!empty($types) && !in_array('IMP_Maillog_Log_Mdn', $types)) ||
+            !$this->isAvailable($msg, $log_ob)) {
             return array();
         }
 
         list($mbox, $uid) = $msg->indices->getSingle();
-
-        if (!$mbox->permflags->allowed(Horde_Imap_Client::FLAG_MDNSENT)) {
-            return array();
-        }
+        $imp_imap = $mbox->imp_imap;
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->flags();
-
-        $imp_imap = $mbox->imp_imap;
 
         try {
             $flags = $imp_imap->fetch($mbox, $query, array(
@@ -68,7 +65,7 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
         }
 
         return in_array(Horde_Imap_Client::FLAG_MDNSENT, $flags)
-            ? array(new IMP_Maillog_Log_Mdn())
+            ? array($log_ob)
             : array();
     }
 
@@ -85,6 +82,23 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
     {
         /* No timestamp support for this driver. */
         return array();
+    }
+
+    /**
+     */
+    public function isAvailable(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    )
+    {
+        if (!($log instanceof IMP_Maillog_Log_Mdn) ||
+            !$msg->indices) {
+            return false;
+        }
+
+        list($mbox,) = $msg->indices->getSingle();
+
+        return (!$mbox->readonly &&
+                ($mbox->permflags->allowed(Horde_Imap_Client::FLAG_MDNSENT)));
     }
 
 }

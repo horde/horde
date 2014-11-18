@@ -51,4 +51,13 @@ class IMP_Maillog_Storage_Null extends IMP_Maillog_Storage_Base
         return array();
     }
 
+    /**
+     */
+    public function isAvailable(
+        IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
+    )
+    {
+        return false;
+    }
+
 }

@@ -776,6 +776,81 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         return $ret;
     }
 
+    /**
+     * Check if we need to send a MDN, and send if needed.
+     *
+     * @param Horde_Mime_Headers $headers  The headers of the message.
+     * @param boolean $confirmed           Has the MDN request been confirmed?
+     *
+     * @return boolean  True if the MDN request needs to be confirmed.
+     */
+    public function MDNCheck($headers, $confirmed = false)
+    {
+        global $conf, $injector, $prefs;
+
+        if (!($pref_val = $prefs->getValue('send_mdn'))) {
+            return false;
+        }
+
+        /* Check to see if an MDN has been requested. */
+        $mdn = new Horde_Mime_Mdn($headers);
+        if (!($return_addr = $mdn->getMdnReturnAddr())) {
+            return false;
+        }
+
+        /* Check to see if MDN information can be stored. */
+        $log_msg = new IMP_Maillog_Message($this);
+        $log_ob = new IMP_Maillog_Log_Mdn();
+        $maillog = $injector->getInstance('IMP_Maillog');
+
+        if (!$maillog->storage->isAvailable($log_msg, $log_ob) ||
+            count($maillog->getLog($log_msg, array('IMP_Maillog_Log_Mdn')))) {
+            return false;
+        }
+
+        /* See if we need to query the user. */
+        if (!$confirmed &&
+            ((intval($pref_val) == 1) ||
+             $mdn->userConfirmationNeeded())) {
+            try {
+                if ($injector->getInstance('Horde_Core_Hooks')->callHook('mdn_check', 'imp', array($headers))) {
+                    return true;
+                }
+            } catch (Horde_Exception_HookNotSet $e) {
+                return true;
+            }
+        }
+
+        /* Send out the MDN now. */
+        $success = false;
+        try {
+            $mdn->generate(
+                false,
+                $confirmed,
+                'displayed',
+                $conf['server']['name'],
+                $injector->getInstance('IMP_Mail'),
+                array(
+                    'charset' => 'UTF-8',
+                    'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
+                )
+            );
+
+            $maillog->log($log_msg, $log_ob);
+
+            $success = true;
+        } catch (Exception $e) {}
+
+        $injector->getInstance('IMP_Sentmail')->log(
+            IMP_Sentmail::MDN,
+            '',
+            $return_addr,
+            $success
+        );
+
+        return false;
+    }
+
     /* ArrayAccess methods. */
 
     /**
