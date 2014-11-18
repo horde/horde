@@ -54,6 +54,8 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
     )
     {
+        global $conf;
+
         $data = array(
             'action' => $log->action,
             'ts' => $log->timestamp
@@ -63,6 +65,13 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         case 'forward':
         case 'redirect':
             $data['recipients'] = $log->recipients;
+            break;
+
+        case 'mdn':
+            /* Unless configured, this driver doesn't support MDN. */
+            if (empty($conf['maillog']['mdn_history'])) {
+                return false;
+            }
             break;
         }
 
@@ -92,7 +101,17 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
      */
     public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
+        global $conf;
+
         $out = array();
+
+        /* Unless configured, this driver doesn't support MDN. */
+        if (!empty($types) && empty($conf['maillog']['mdn_history'])) {
+            $types = array_diff($types, array('IMP_Maillog_Log_Mdn'));
+            if (empty($types)) {
+                return $out;
+            }
+        }
 
         try {
             $history = $this->_history->getHistory(

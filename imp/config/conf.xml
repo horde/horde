@@ -95,7 +95,14 @@
    forwarding/replying/redirecting a message. (These entries could potentially
    be stored forever, so sufficient storage space is required.)">history
     <case name="none" desc="None" />
-    <case name="history" desc="Horde History" />
+    <case name="history" desc="Horde History">
+     <configboolean name="mdn_history" required="false" desc="In old versions
+     of IMP (&lt; 6.0), message disposition notification (MDN) status was
+     stored in the maillog. Newer versions, and the preferred method, stores
+     that information on the IMAP server. For performance reasons, MDN status
+     on IMAP servers will not use the maillog data unless this option is
+     enabled.">false</configboolean>
+    </case>
    </configswitch>
   </configsection>
  </configtab>
