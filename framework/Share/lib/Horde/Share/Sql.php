@@ -176,7 +176,6 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logger->err(sprintf('Share name %s not found', $name));
             throw new Horde_Exception_NotFound(sprintf('Share name %s not found', $name));
         }
         $data = $this->_fromDriverCharset($results);
@@ -231,8 +230,7 @@ class Horde_Share_Sql extends Horde_Share_Base
             throw new Horde_Share_Exception($e->getMessage());
         }
         if (!$results) {
-            $this->_logger->err(sprintf('Share id %s not found', $id));
-            throw new Horde_Exception_NotFound();
+            throw new Horde_Exception_NotFound(sprintf('Share id %s not found', $id));
         }
         $data = $this->_fromDriverCharset($results);
         $this->_loadPermissions($data);
