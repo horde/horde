@@ -309,7 +309,8 @@ class IMP_Ajax_Application_ShowMessage
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
-                $contents_mask = IMP_Contents::SUMMARY_DESCRIP_LINK |
+                $contents_mask = IMP_Contents::SUMMARY_DESCRIP |
+                    IMP_Contents::SUMMARY_DESCRIP_LINK |
                     IMP_Contents::SUMMARY_DOWNLOAD |
                     IMP_Contents::SUMMARY_ICON |
                     IMP_Contents::SUMMARY_SIZE;

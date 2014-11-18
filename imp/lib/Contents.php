@@ -858,9 +858,7 @@ class IMP_Contents
         }
 
         /* Download column. */
-        if (($mask & self::SUMMARY_DOWNLOAD) &&
-            $is_atc &&
-            (is_null($part['bytes']) || $part['bytes'])) {
+        if ($is_atc && ($mask & self::SUMMARY_DOWNLOAD)) {
             $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
             $part['download_url'] = $this->urlView($mime_part, 'download_attach');
         }
