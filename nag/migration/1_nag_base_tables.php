@@ -50,7 +50,7 @@ class NagBaseTables extends Horde_Db_Migration_Base
         }
 
         if (!in_array('nag_shares', $tableList)) {
-            $t = $this->createTable('nag_shares', array('autoincrementKey' => 'share_id'));
+            $t = $this->createTable('nag_shares', array('autoincrementKey' => false));
             $t->column('share_id', 'integer', array('null' => false));
             $t->column('share_name', 'string', array('null' => false));
             $t->column('share_owner', 'string');
