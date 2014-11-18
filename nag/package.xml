@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue with initially creating nag_shares table.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1612,7 +1612,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue with initially creating nag_shares table.
    </notes>
   </release>
  </changelog>
