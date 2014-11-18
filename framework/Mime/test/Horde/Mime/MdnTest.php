@@ -25,24 +25,34 @@ class Horde_Mime_MdnTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getMdnReturnAddrProvider
      */
-    public function testGetMdnReturnAddr($h, $expected)
+    public function testGetMdnReturnAddr($email)
     {
+        $h = new Horde_Mime_Headers();
         $ob = new Horde_Mime_Mdn($h);
-        $this->assertEquals($expected, $ob->getMdnReturnAddr());
+
+        if (!is_null($email)) {
+            $ob->addMdnRequestHeaders($email);
+        }
+
+        $this->assertEquals(
+            strval($email),
+            $ob->getMdnReturnAddr()
+        );
     }
 
     public function getMdnReturnAddrProvider()
     {
-        $out = array();
+        $email = 'foo1@example.com, Test <foo2@example.com>';
 
-        $h = new Horde_Mime_Headers();
-        $out[] = array(clone $h, null);
+        $rfc822 = new Horde_Mail_Rfc822();
+        $mail_ob = $rfc822->parseAddressList($email);
 
-        $email = 'foo@example.com';
-        $h->addHeader(Horde_Mime_Mdn::MDN_HEADER, $email);
-        $out[] = array(clone $h, $email);
-
-        return $out;
+        return array(
+            array(null),
+            array('foo@example.com'),
+            array($email),
+            array($mail_ob)
+        );
     }
 
     /**

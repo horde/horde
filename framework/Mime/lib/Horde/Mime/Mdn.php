@@ -86,8 +86,9 @@ class Horde_Mime_Mdn
         /* RFC 3798 [2.1]: Explicit confirmation is needed if there is more
          * than one distinct address in the Disposition-Notification-To
          * header. */
-        $rfc822 = new Horde_Mail_Rfc822();
-        $addr_ob = $rfc822->parseAddressList($this->getMdnReturnAddr());
+        $addr_ob = ($hdr = $this->_headers[self::MDN_HEADER])
+            ? $hdr->getAddressList(true)
+            : array();
 
         switch (count($addr_ob)) {
         case 0:
@@ -162,7 +163,11 @@ class Horde_Mime_Mdn
             'from_addr' => null
         ), $opts);
 
-        $to = $this->getMdnReturnAddr();
+        if (!($hdr = $this->_headers[self::MDN_HEADER])) {
+            throw new Horde_Mime_Exception();
+        }
+
+        $to = $hdr->getAddressList(true);
         $ua = Horde_Mime_Headers_UserAgent::create();
 
         if ($orig_recip = $this->_headers['Original-Recipient']) {
@@ -179,7 +184,7 @@ class Horde_Mime_Mdn
         if ($opts['from_addr']) {
             $msg_headers->addHeader('From', $opts['from_addr']);
         }
-        $msg_headers->addHeader('To', $this->getMdnReturnAddr());
+        $msg_headers->addHeader('To', $to);
         $msg_headers->addHeader('Subject', Horde_Mime_Translation::t("Disposition Notification"));
 
         /* MDNs are a subtype of 'multipart/report'. */
@@ -258,10 +263,9 @@ class Horde_Mime_Mdn
     }
 
     /**
-     * Add a MDN (read receipt) request headers to the Horde_Mime_Headers::
-     * object.
+     * Add a MDN (read receipt) request header.
      *
-     * @param string $to  The address the receipt should be mailed to.
+     * @param mixed $to  The address(es) the receipt should be mailed to.
      */
     public function addMdnRequestHeaders($to)
     {
