@@ -97,6 +97,8 @@ class Horde_Mime_Headers_Addresses
     public static function getHandles()
     {
         return array(
+            // Mail: RFC 3798
+            'disposition-notification-to',
             // Mail: RFC 5322 (Address)
             'from',
             'to',

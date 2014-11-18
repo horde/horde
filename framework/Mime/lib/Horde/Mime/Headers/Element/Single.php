@@ -67,7 +67,6 @@ class Horde_Mime_Headers_Element_Single
     {
         return array(
             // Mail: RFC 3798
-            'disposition-notification-to',
             'disposition-notification-options',
             'original-recipient',
             // MIME: RFC 1864
