@@ -181,6 +181,20 @@ class Horde_Mime_Mail
     }
 
     /**
+     * Add a Horde_Mime_Headers_Element object to the current header list.
+     *
+     * @since 2.5.0
+     *
+     * @param Horde_Mime_Headers_Element $ob  Header object to add.
+     *
+     * @throws InvalidArgumentException
+     */
+    public function addHeaderOb(Horde_Mime_Headers_Element $ob)
+    {
+        $this->_headers->addHeaderOb($ob, true);
+    }
+
+    /**
      * Removes a message header.
      *
      * @param string $header  The header name.
