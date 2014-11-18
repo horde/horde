@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Continue with further events if parsing of one remote event date fails.
 * [jan] Fix JS error in month view with more events today than the maximum threshold.
 * [mjr] Fix fatal error when creating or modifying an entry via PUT.
 * [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
@@ -2486,6 +2487,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Continue with further events if parsing of one remote event date fails.
 * [jan] Fix JS error in month view with more events today than the maximum threshold.
 * [mjr] Fix fatal error when creating or modifying an entry via PUT.
 * [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
