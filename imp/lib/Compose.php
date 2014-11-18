@@ -1904,13 +1904,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         $ref_ob->ids = array();
                     }
                 }
-            }
-
-            if (count($ref_ob->ids)) {
-                $this->_setMetadata(
-                    'references',
-                    array_merge($ref_ob->ids, array(reset($msg_id->ids)))
-                );
+                if (count($ref_ob->ids)) {
+                    $this->_setMetadata(
+                        'references',
+                        array_merge($ref_ob->ids, array(reset($msg_id->ids)))
+                    );
+                }
             }
         }
 
