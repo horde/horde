@@ -2219,7 +2219,10 @@ var DimpBase = {
             }
             // Run in anonymous function, or else PeriodicalExecuter passes
             // in itself as first ('force') parameter to poll().
-            this.pollPE = new PeriodicalExecuter(function() { this.poll(); }.bind(this), DimpCore.conf.refresh_time);
+            this.pollPE = new PeriodicalExecuter(
+                function() { this.poll(false); }.bind(this),
+                DimpCore.conf.refresh_time
+            );
         }
     },
 
