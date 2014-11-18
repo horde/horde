@@ -25,7 +25,7 @@
  * @package   Mime
  */
 class Horde_Mime_Headers
-    implements ArrayAccess, IteratorAggregate, Serializable
+implements ArrayAccess, IteratorAggregate, Serializable
 {
     /* Serialized version. */
     const VERSION = 3;
