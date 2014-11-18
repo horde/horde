@@ -1,6 +1,6 @@
 {
     "name": "horde/horde-stringprep",
-    "description": "PHP implementation of RFC 3454 - Preparation of Internationalized Strings ('stringprep').",
+    "description": "PHP implementation of RFC 3454 - Preparation of Internationalized Strings ("stringprep").",
     "type": "library",
     "homepage": "http://pear.horde.org",
     "license": "LGPL-3.0",
@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.0",
-    "time": "2014-10-14",
+    "version": "1.0.1",
+    "time": "2014-11-18",
     "repositories": [
         {
             "type": "pear",
