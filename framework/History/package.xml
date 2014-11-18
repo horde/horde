@@ -10,7 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-10</date>
+ <date>2014-11-18</date>
  <version>
   <release>2.3.3</release>
   <api>2.3.0</api>
@@ -522,7 +522,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-10</date>
+   <date>2014-11-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix migration with Oracle.
