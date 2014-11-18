@@ -113,6 +113,7 @@ class Horde_Browser
         'lmspider',
         'lwp-trivial',
         'Lycos_Spider',
+        'Mail.RU_Bot',
         'Mediapartners-Google',
         'MSRBOT',
         'MuscatFerret',
