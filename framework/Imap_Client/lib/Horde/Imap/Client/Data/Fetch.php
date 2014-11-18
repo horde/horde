@@ -75,7 +75,7 @@ class Horde_Imap_Client_Data_Fetch
     public function getStructure()
     {
         return isset($this->_data[Horde_Imap_Client::FETCH_STRUCTURE])
-            ? $this->_data[Horde_Imap_Client::FETCH_STRUCTURE]
+            ? clone $this->_data[Horde_Imap_Client::FETCH_STRUCTURE]
             : new Horde_Mime_Part();
     }
 
@@ -275,7 +275,7 @@ class Horde_Imap_Client_Data_Fetch
     public function getEnvelope()
     {
         return isset($this->_data[Horde_Imap_Client::FETCH_ENVELOPE])
-            ? $this->_data[Horde_Imap_Client::FETCH_ENVELOPE]
+            ? clone $this->_data[Horde_Imap_Client::FETCH_ENVELOPE]
             : new Horde_Imap_Client_Data_Envelope();
     }
 
@@ -322,7 +322,7 @@ class Horde_Imap_Client_Data_Fetch
     public function getImapDate()
     {
         return isset($this->_data[Horde_Imap_Client::FETCH_IMAPDATE])
-            ? $this->_data[Horde_Imap_Client::FETCH_IMAPDATE]
+            ? clone $this->_data[Horde_Imap_Client::FETCH_IMAPDATE]
             : new Horde_Imap_Client_DateTime();
     }
 
@@ -550,7 +550,7 @@ class Horde_Imap_Client_Data_Fetch
             if (!isset($this->_data[$key][$id])) {
                 return new Horde_Mime_Headers();
             } elseif (is_object($this->_data[$key][$id])) {
-                return $this->_data[$key][$id];
+                return clone $this->_data[$key][$id];
             }
             return Horde_Mime_Headers::parseHeaders($this->_getHeaders($id, self::HEADER_STREAM, $key));
         }
