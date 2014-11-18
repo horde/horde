@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Consider all user agents with "bot" in the name as robots.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -837,7 +837,7 @@ Initial packaging
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Consider all user agents with "bot" in the name as robots.
    </notes>
   </release>
  </changelog>

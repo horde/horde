@@ -75,9 +75,6 @@ class Horde_Browser
      */
     protected $_robotAgents = array(
         /* The most common ones. */
-        'Googlebot',
-        'msnbot',
-        'bingbot',
         'Slurp',
         'Yahoo',
         /* The rest alphabetically. */
@@ -85,20 +82,14 @@ class Horde_Browser
         'Arachnoidea',
         'ArchitextSpider',
         'Ask Jeeves',
-        'B-l-i-t-z-Bot',
         'Baiduspider',
-        'BecomeBot',
         'cfetch',
         'ConveraCrawler',
         'ExtractorPro',
         'FAST-WebCrawler',
-        'FDSE robot',
         'fido',
         'findlinks',
         'Francis',
-        'geckobot',
-        'Gigabot',
-        'Girafabot',
         'grub-client',
         'Gulliver',
         'HTTrack',
@@ -106,33 +97,22 @@ class Horde_Browser
         'iaskspider',
         'iCCrawler',
         'InfoSeek',
-        'kinjabot',
         'KIT-Fireball',
         'larbin',
         'LEIA',
         'lmspider',
         'lwp-trivial',
         'Lycos_Spider',
-        'Mail.RU_Bot',
         'Mediapartners-Google',
-        'MSRBOT',
         'MuscatFerret',
-        'NaverBot',
-        'OmniExplorer_Bot',
-        'polybot',
         'Pompos',
-        'RufusBot',
         'Scooter',
-        'Seekbot',
         'sogou spider',
         'sproose',
         'Teoma',
-        'TheSuBot',
-        'TurnitinBot',
         'Twiceler',
         'Ultraseek',
         'Vagabondo/Kliksafe',
-        'ViolaBot',
         'voyager',
         'W3C-checklink',
         'webbandit',
@@ -836,6 +816,10 @@ class Horde_Browser
      */
     public function isRobot()
     {
+        if (preg_match('/bot/i', $this->_agent)) {
+            return true;
+        }
+
         if (is_null($this->_robotAgentRegexp)) {
             $regex = array();
             foreach ($this->_robotAgents as $r) {
