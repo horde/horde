@@ -28,7 +28,7 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
         IMP_Maillog_Message $msg, IMP_Maillog_Log_Base $log
     )
     {
-        if (!$msg->indices || ($log->action != 'mdn')) {
+        if (!$msg->indices || !($log instanceof IMP_Maillog_Log_Mdn)) {
             return false;
         }
 
@@ -44,7 +44,7 @@ class IMP_Maillog_Storage_Mdnsent extends IMP_Maillog_Storage_Base
     public function getLog(IMP_Maillog_Message $msg, array $types = array())
     {
         if (!$msg->indices ||
-            (!empty($types) && !in_array('mdn', $types))) {
+            (!empty($types) && !in_array('IMP_Maillog_Log_Mdn', $types))) {
             return array();
         }
 

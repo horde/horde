@@ -103,40 +103,42 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         }
 
         foreach ($history as $val) {
-            if (empty($types) || in_array($val['action'], $types)) {
-                switch ($val['action']) {
-                case 'forward':
-                    $ob = new IMP_Maillog_Log_Forward($val['recipients']);
-                    break;
-
-                case 'mdn':
-                    $ob = new IMP_Maillog_Log_Mdn();
-                    break;
-
-                case 'redirect':
-                    $ob = new IMP_Maillog_Log_Redirect($val['recipients']);
-                    break;
-
-                case 'reply':
-                    $ob = new IMP_Maillog_Log_Reply();
-                    break;
-
-                case 'reply_all':
-                    $ob = new IMP_Maillog_Log_Replyall();
-                    break;
-
-                case 'reply_list':
-                    $ob = new IMP_Maillog_Log_Replylist();
-                    break;
-
-                default:
-                    continue 2;
-                }
-
-                $ob->timestamp = $val['ts'];
-
-                $out[] = $ob;
+            if (!empty($types) && !in_array(get_class($val), $types)) {
+                continue;
             }
+
+            switch ($val['action']) {
+            case 'forward':
+                $ob = new IMP_Maillog_Log_Forward($val['recipients']);
+                break;
+
+            case 'mdn':
+                $ob = new IMP_Maillog_Log_Mdn();
+                break;
+
+            case 'redirect':
+                $ob = new IMP_Maillog_Log_Redirect($val['recipients']);
+                break;
+
+            case 'reply':
+                $ob = new IMP_Maillog_Log_Reply();
+                break;
+
+            case 'reply_all':
+                $ob = new IMP_Maillog_Log_Replyall();
+                break;
+
+            case 'reply_list':
+                $ob = new IMP_Maillog_Log_Replylist();
+                break;
+
+            default:
+                continue 2;
+            }
+
+            $ob->timestamp = $val['ts'];
+
+            $out[] = $ob;
         }
 
         return $out;

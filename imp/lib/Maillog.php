@@ -57,8 +57,9 @@ class IMP_Maillog
      * Retrieve history for a message.
      *
      * @param IMP_Maillog_Message $msg  A message object.
-     * @param array $types              Return only these log types. If empty,
-     *                                  returns all types.
+     * @param array $types              Return only these log types
+     *                                  (IMP_Maillog_Log_Base class names). If
+     *                                  empty, returns all types.
      *
      * @return array  List of IMP_Maillog_Log_Base objects.
      */

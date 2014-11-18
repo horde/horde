@@ -96,7 +96,7 @@ class IMP_Message_Ui
         }
 
         $log_msg = new IMP_Maillog_Message($indices);
-        if (count($maillog->getLog($log_msg, array('mdn')))) {
+        if (count($maillog->getLog($log_msg, array('IMP_Maillog_Log_Mdn')))) {
             return false;
         }
 

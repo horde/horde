@@ -742,11 +742,11 @@ class IMP_Ajax_Queue
                     );
 
                     $l = $imp_maillog->getLog($msg, array(
-                        'forward',
-                        'redirect',
-                        'reply_all',
-                        'reply_list',
-                        'reply'
+                        'IMP_Maillog_Log_Forward',
+                        'IMP_Maillog_Log_Redirect',
+                        'IMP_Maillog_Log_Reply',
+                        'IMP_Maillog_Log_Replyall',
+                        'IMP_Maillog_Log_Replylist'
                     ));
                     $tmp = array();
 
