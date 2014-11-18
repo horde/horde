@@ -12,7 +12,7 @@
  */
 
 /**
- * Compose storage driver for the IMP_Maillog class.
+ * Composite storage driver for the IMP_Maillog class.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
