@@ -1182,6 +1182,8 @@ abstract class Kronolith_Event
             }
         } catch (Horde_Icalendar_Exception $e) {
             throw new Kronolith_Exception($e);
+        } catch (Horde_Date_Exception $e) {
+            throw new Kronolith_Exception($e);
         }
 
         try {
