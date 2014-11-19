@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Text_Filter
+ */
+
+/**
  * This filter attempts to sanitize HTML by cleaning up malformed HTML tags.
  *
  * Parameters:
@@ -9,11 +21,6 @@
  *              DEFAULT: UTF-8
  *   - size: (integer) Only filter if data is below this size.
  *           DEFAULT: No default
- *
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <jan@horde.org>
  * @category Horde
@@ -61,7 +68,7 @@ class Horde_Text_Filter_Cleanhtml extends Horde_Text_Filter_Base
 
         $tidy = new tidy();
 
-        if (strtolower($this->_params['charset']) == 'us-ascii') {
+        if (Horde_String::lower($this->_params['charset']) == 'us-ascii') {
             if ($tidy->parseString($text, $tidy_config, 'ascii')) {
                 $tidy->cleanRepair();
                 $text = $tidy->value;
