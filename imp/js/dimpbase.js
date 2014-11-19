@@ -1997,11 +1997,14 @@ var DimpBase = {
 
     _sendMdnCallback: function(r)
     {
-        this._expirePPCache([ this._getPPId(r.buid, r.mbox) ]);
+        this._expirePPCache([ this._getPPId(r.buid, r.view) ]);
+        if (r.mbox) {
+            this._expirePPCache([ this._getPPId(r.uid, r.mbox) ]);
+        }
 
         if (this.pp &&
             this.pp.VP_id == r.buid &&
-            this.pp.VP_view == r.mbox) {
+            this.pp.VP_view == r.view) {
             $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
