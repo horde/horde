@@ -29,7 +29,9 @@ Upgrading to 1.7.0
 
   - Horde_Smtp_Exception
 
-    Added the $permanent property.
+    Added the $category property.
+    Added the CATEGORY_* constants to provide more general error categories if
+    an error code is not handled specifically.
 
 
 Upgrading to 1.6.0
