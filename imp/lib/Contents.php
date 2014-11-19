@@ -1007,7 +1007,9 @@ class IMP_Contents
         }
 
         if (empty($options['jstext'])) {
-            $options['jstext'] = sprintf(_("View %s"), $mime_part->getDescription(true));
+            $options['jstext'] = ($decrip = $mime_part->getDescription(true))
+                ? sprintf(_("View %s"), $descrip)
+                : null;
         }
 
         $url = Horde::popupJs(Horde::url('view.php'), array(
