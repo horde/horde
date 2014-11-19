@@ -343,11 +343,13 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $partlist;
         }
 
+        list($bmbox, $buid) = $this->_indices->buids->getSingle();
+
         $result['save_as'] = IMP_Contents_View::downloadUrl(
             htmlspecialchars_decode($result['subject']),
             array_merge(
                 array('actionID' => 'save_message'),
-                $mbox->urlParams($uid)
+                $bmbox->urlParams($buid)
             )
         );
 
