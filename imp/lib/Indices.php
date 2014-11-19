@@ -784,7 +784,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      *
      * @return boolean  True if the MDN request needs to be confirmed.
      */
-    public function MDNCheck($headers, $confirmed = false)
+    public function mdnCheck($headers, $confirmed = false)
     {
         global $conf, $injector, $prefs;
 
