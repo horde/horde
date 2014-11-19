@@ -89,7 +89,7 @@ class IMP_Api extends Horde_Registry_Api
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
-     *   - subscribed: (boolean) True if mailbox is subscribed (@since 6.2.0).
+     *   - subscribed: (boolean) True if mailbox is subscribed.
      */
     public function mailboxList()
     {
@@ -389,7 +389,6 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Obtain the Maillog for a given message.
      *
-     * @since 6.1.0
      * @todo  This should not be returning a Horde_History_Log object.
      *
      * @param string $mid  The Message-ID to obtain the log for.
@@ -422,7 +421,6 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Log an entry in the Maillog.
      *
-     * @since 6.1.0
      * @todo  Rewrite this. $action and $data are both IMP specific, so they
      *        aren't intended to be set from outside of IMP. And $mid should
      *        be replaced by mailbox/UID.
@@ -469,7 +467,6 @@ class IMP_Api extends Horde_Registry_Api
      * Returns a list of Message-IDs that have been added to the Maillog since
      * the specified timestamp.
      *
-     * @since 6.1.0
      * @todo  This should not be returning Message-IDs.
      *
      * @param integer $ts  The timestamp to start searching from. Only entries
