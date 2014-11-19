@@ -343,7 +343,9 @@ class IMP_Ajax_Application_ShowMessage
             $result['atc_list'] = $partlist;
         }
 
-        list($bmbox, $buid) = $this->_indices->buids->getSingle();
+        list($bmbox, $buid) = ($this->_indices instanceof IMP_Indices_Mailbox)
+            ? $this->_indices->buids->getSingle()
+            : $this->_indices->getSingle();
 
         $result['save_as'] = IMP_Contents_View::downloadUrl(
             htmlspecialchars_decode($result['subject']),
