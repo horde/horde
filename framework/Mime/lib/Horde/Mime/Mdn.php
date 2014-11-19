@@ -151,8 +151,6 @@ class Horde_Mime_Mdn
      * @param array $err        If $mod is 'error', the additional
      *                          information to provide. Key is the type of
      *                          modification, value is the text.
-     *
-     * @throws Horde_Mime_Exception
      */
     public function generate($action, $sending, $type, $name, $mailer,
                              array $opts = array(), array $mod = array(),
@@ -164,7 +162,9 @@ class Horde_Mime_Mdn
         ), $opts);
 
         if (!($hdr = $this->_headers[self::MDN_HEADER])) {
-            throw new Horde_Mime_Exception();
+            throw new RuntimeException(
+                'Need at least one address to send MDN to.'
+            );
         }
 
         $to = $hdr->getAddressList(true);
