@@ -51,6 +51,10 @@ abstract class IMP_Indices_Copy
                 $body_part = $imp_contents->getMIMEPart(
                     $imp_contents->findBody()
                 );
+                if (!$body_part) {
+                    $success = false;
+                    continue;
+                }
                 $flowed = new Horde_Text_Flowed($body_part->getContents());
                 if ($body_part->getContentTypeParameter('delsp') == 'yes') {
                     $flowed->setDelSp(true);

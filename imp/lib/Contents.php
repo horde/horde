@@ -249,17 +249,22 @@ class IMP_Contents
                 }
             }
 
-            $part = $this->getMIMEPart($base_id->id, array('nocontents' => true));
-            $txt = $part->addMimeHeaders()->toString() .
-                "\n" .
-                $part->getContents();
+            $body = '';
+            $part = $this->getMIMEPart(
+                $base_id->id,
+                array('nocontents' => true)
+            );
 
-            try {
-                $body = Horde_Mime_Part::getRawPartText($txt, 'header', '1') .
-                    "\n\n" .
-                    Horde_Mime_Part::getRawPartText($txt, 'body', '1');
-            } catch (Horde_Mime_Exception $e) {
-                $body = '';
+            if ($part) {
+                $txt = $part->addMimeHeaders()->toString() .
+                    "\n" .
+                    $part->getContents();
+
+                try {
+                    $body = Horde_Mime_Part::getRawPartText($txt, 'header', '1') .
+                        "\n\n" .
+                        Horde_Mime_Part::getRawPartText($txt, 'body', '1');
+                } catch (Horde_Mime_Exception $e) {}
             }
 
             if (empty($options['stream'])) {
@@ -506,20 +511,22 @@ class IMP_Contents
      *   - nocontents: (boolean) If true, don't add the contents to the part
      *                 DEFAULT: Contents are added to the part
      *
-     * @return Horde_Mime_Part  The raw MIME part asked for (reference).
+     * @return Horde_Mime_Part  The raw MIME part asked for. If not found,
+     *                          returns null.
      */
     public function getMIMEPart($id, $options = array())
     {
         $this->_buildMessage();
 
-        $part = $this->_message->getPart($id);
+        if (!$part = $this->_message->getPart($id)) {
+            return null;
+        }
 
         /* Ticket #9201: Treat 'ISO-8859-1' as 'windows-1252'. 1252 has some
          * characters (e.g. euro sign, back quote) not in 8859-1. There
          * shouldn't be any issue doing this since the additional code points
          * in 1252 don't map to anything in 8859-1. */
-        if ($part &&
-            (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0)) {
+        if (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0) {
             $part->setCharset('windows-1252');
         }
 
@@ -527,7 +534,6 @@ class IMP_Contents
          * body of the main multipart message).  I'm pretty sure we never
          * want to download the body of that part here. */
         if (!empty($id) &&
-            !is_null($part) &&
             (substr($id, -2) != '.0') &&
             empty($options['nocontents']) &&
             $this->_indices &&
@@ -717,10 +723,18 @@ class IMP_Contents
         // account for any content-encoding & HTML tags.
         $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
 
-        $ptext = Horde_String::convertCharset($pmime->getContents(), $pmime->getCharset(), 'UTF-8');
+        if ($pmime) {
+            $ptext = Horde_String::convertCharset(
+                $pmime->getContents(),
+                $pmime->getCharset(),
+                'UTF-8'
+            );
 
-        if ($pmime->getType() == 'text/html') {
-            $ptext = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($ptext, 'Html2text');
+            if ($pmime->getType() == 'text/html') {
+                $ptext = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($ptext, 'Html2text');
+            }
+        } else {
+            $ptext = '';
         }
 
         $this->_build = $oldbuild;
@@ -797,6 +811,10 @@ class IMP_Contents
         );
 
         $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
+        if (!$mime_part) {
+            return $part;
+        }
+
         $mime_type = $mime_part->getType();
 
         /* If this is an attachment that has no specific MIME type info, see
@@ -1090,9 +1108,17 @@ class IMP_Contents
             $last_id = null;
 
             $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
-            $viewer = $mv_factory->create($mime_part, array('contents' => $this));
-            if ($viewer->embeddedMimeParts()) {
-                $mime_part = $this->getMIMEPart($id);
+            if (!$mime_part) {
+                continue;
+            }
+
+            $viewer = $mv_factory->create(
+                $mime_part,
+                array('contents' => $this)
+            );
+
+            if ($viewer->embeddedMimeParts() &&
+                ($mime_part = $this->getMIMEPart($id))) {
                 $viewer->setMIMEPart($mime_part);
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
@@ -1122,10 +1148,8 @@ class IMP_Contents
      */
     public function canDisplay($part, $mask, $type = null)
     {
-        if (!is_object($part)) {
-            $part = $this->getMIMEPart($part, array('nocontents' => true));
-        }
-        if (!$part) {
+        if (!is_object($part) &&
+            !($part = $this->getMIMEPart($part, array('nocontents' => true)))) {
             return 0;
         }
         $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
@@ -1266,8 +1290,8 @@ class IMP_Contents
                 $curr_ignore = null;
                 if (($key != 0) &&
                     ($val != 'message/rfc822') &&
-                    (strpos($val, 'multipart/') === false)) {
-                    $part = $this->getMIMEPart($key);
+                    (strpos($val, 'multipart/') === false) &&
+                    ($part = $this->getMIMEPart($key))) {
                     $message->alterPart($key, $part);
                 }
             }

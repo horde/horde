@@ -60,7 +60,9 @@ class IMP_Contents_View
 
         $tosave = array();
         foreach ($this->_contents->downloadAllList() as $val) {
-            $mime = $this->_getRawDownloadPart($val);
+            if (!($mime = $this->_getRawDownloadPart($val))) {
+                continue;
+            }
             if (!($name = $mime->getName(true))) {
                 $name = sprintf(_("part %s"), $val);
             }
@@ -91,7 +93,9 @@ class IMP_Contents_View
 
         $session->close();
 
-        $mime = $this->_getRawDownloadPart($id);
+        if (!($mime = $this->_getRawDownloadPart($id))) {
+            return array();
+        }
 
         return array(
             'data' => $mime->getContents(array('stream' => true)),
@@ -385,11 +389,13 @@ class IMP_Contents_View
      *
      * @param string $id  MIME ID.
      *
-     * @return Horde_Mime_Part  MIME part.
+     * @return Horde_Mime_Part  MIME part, or null on error.
      */
     protected function _getRawDownloadPart($id)
     {
-        $mime = $this->_contents->getMIMEPart($id);
+        if (!($mime = $this->_contents->getMIMEPart($id))) {
+            return null;
+        }
 
         if ($this->_contents->canDisplay($id, IMP_Contents::RENDER_RAW)) {
             $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);

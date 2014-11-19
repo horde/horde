@@ -418,8 +418,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 if ($node->hasAttribute('href')) {
                     $tmp = $node->getAttribute('href');
 
-                    if ($id = $this->_cidSearch($tmp, false)) {
-                        $this->_imptmp['style'][] = $this->getConfigParam('imp_contents')->getMIMEPart($id)->getContents();
+                    if (($id = $this->_cidSearch($tmp, false)) &&
+                        ($mime_part = $this->getConfigParam('imp_contents')->getMIMEPart($id))) {
+                        $this->_imptmp['style'][] = $mime_part->getContents();
                     } elseif ($this->_imgBlock()) {
                         $node->setAttribute(self::CSSBLOCK, $node->getAttribute('href'));
                         $node->removeAttribute('href');

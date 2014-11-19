@@ -177,6 +177,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             return null;
         }
 
+        $imp_contents = $this->getConfigParam('imp_contents');
         $partlist = array_keys($this->_mimepart->contentTypeMap());
         $base_id = reset($partlist);
         $version_id = next($partlist);
@@ -187,7 +188,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status = new IMP_Mime_Status($this->_mimepart);
         $status->icon('mime/encryption.png', 'PGP');
 
-        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $cache = $imp_contents->getViewCache();
         $cache->pgp[$base_id] = array(
             'status' => array($status),
             'other' => array(
@@ -207,9 +208,11 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         /* PGP version information appears in the first MIME subpart. We
          * don't currently need to do anything with this information. The
          * encrypted data appears in the second MIME subpart. */
-        $encrypted_part = $this->getConfigParam('imp_contents')->getMIMEPart($data_id);
-        $encrypted_data = $encrypted_part->getContents();
+        if (!($encrypted_part = $imp_contents->getMIMEPart($data_id))) {
+            return null;
+        }
 
+        $encrypted_data = $encrypted_part->getContents();
         $symmetric_pass = $personal_pass = null;
 
         /* Check if this a symmetrically encrypted message. */

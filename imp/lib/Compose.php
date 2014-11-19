@@ -3033,7 +3033,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $part = $contents->getMIMEPart($body_id);
+        if (!($part = $contents->getMIMEPart($body_id))) {
+            return null;
+        }
         $type = $part->getType();
         $part_charset = $part->getCharset();
 
@@ -3155,14 +3157,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Callback used in _getMessageText().
      *
-     * @return Horde_Url
+     * @return string  Replacement text.
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        $atc = $this->addAttachmentFromPart($this->getMetadata('related_contents')->getMIMEPart($id));
-        $this->addRelatedAttachment($atc, $node, $attribute);
+        if ($part = $this->getMetadata('related_contents')->getMIMEPart($id)) {
+            $atc = $this->addAttachmentFromPart($part);
+            $this->addRelatedAttachment($atc, $node, $attribute);
+            return $atc->viewUrl();
+        }
 
-        return $atc->viewUrl();
+        return $node->getAttribute($attribute);
     }
 
     /**

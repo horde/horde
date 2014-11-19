@@ -88,7 +88,8 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
 
         /* Get the action first - it appears in the second part. */
         $action = null;
-        $part2 = $this->getConfigParam('imp_contents')->getMIMEPart($part2_id);
+        $imp_contents = $this->getConfigParam('imp_contents');
+        $part2 = $imp_contents->getMIMEPart($part2_id);
 
         foreach (explode("\n", $part2->getContents()) as $line) {
             if (stristr($line, 'Action:') !== false) {
@@ -132,10 +133,9 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         }
 
         /* Display a link to the returned message, if it exists. */
-        $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
-        if ($part3) {
+        if ($part3 = $imp_contents->getMIMEPart($part3_id)) {
             $status->addText(
-                $this->getConfigParam('imp_contents')->linkViewJS(
+                $imp_contents->linkViewJS(
                     $part3,
                     'view_attach',
                     $msg_link,

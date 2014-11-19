@@ -89,11 +89,12 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $ret[$id_ob->id] = null;
 
         /* Display a link to the sent message. */
+        $imp_contents = $this->getConfigParam('imp_contents');
         $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
-        $part = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
-        if ($part) {
+
+        if ($part = $imp_contents->getMIMEPart($part3_id)) {
             $status->addText(
-                $this->getConfigParam('imp_contents')->linkViewJS(
+                $imp_contents->linkViewJS(
                     $part,
                     'view_attach',
                     _("View the text of the sent message."),
