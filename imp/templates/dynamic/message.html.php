@@ -38,21 +38,21 @@
     <div class="dimpOptions">
 <?php if ($this->show_view_source): ?>
      <div>
-      <span id="msg_view_source">
+      <span id="msg_view_source" title="<?php echo _("View Source") ?>">
        <span class="iconImg"></span>
        <a><?php echo _("View Source") ?></a>
       </span>
      </div>
 <?php endif; ?>
      <div>
-      <span>
+      <span title="<?php echo _("Save") ?>">
        <span class="iconImg saveAsImg"></span>
        <a href="<?php echo $this->save_as ?>"><?php echo _("Save") ?></a>
       </span>
      </div>
 <?php if ($this->show_view_all): ?>
      <div>
-      <span id="msg_all_parts">
+      <span id="msg_all_parts" title="<?php echo _("View All Parts") ?>">
        <span class="iconImg"></span>
        <a><?php echo _("View All Parts") ?></a>
       </span>
@@ -60,7 +60,7 @@
 <?php endif; ?>
 <?php if ($this->listinfo): ?>
      <div>
-      <span id="msg_listinfo">
+      <span id="msg_listinfo" title="<?php echo _("List Info") ?>">
        <span class="iconImg"></span>
        <a href="#" onclick="<?php echo $this->listinfo ?>"><?php echo _("List Info") ?></a>
       </span>
