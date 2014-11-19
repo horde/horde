@@ -305,8 +305,8 @@ var DimpBase = {
         var vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
-        if (this.isQSearch()) {
-            // Quicksearch is not saved after page reload.
+        if (this.isQSearch() || this.isFSearch()) {
+            // Quicksearch/Filtering is not saved after page reload.
             this.setHash('mbox', this.search.mbox);
         } else if (vs.size()) {
             this.setHash('msg', view + ';' + vs.get('uid').toViewportUidString());
