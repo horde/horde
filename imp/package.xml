@@ -3688,6 +3688,8 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix message saving when using a POP3 server.
+* [jan] Fix JS error when using regexp characters in search string.
 * [mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
    </notes>
   </release>

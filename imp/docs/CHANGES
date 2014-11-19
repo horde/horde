@@ -43,6 +43,8 @@ v7.0.0-git
 v6.2.4
 ------
 
+[mms] Fix message saving when using a POP3 server.
+[jan] Fix JS error when using regexp characters in search string.
 [mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
 
 
