@@ -83,19 +83,29 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $part1_id = next($parts);
         $id_ob = new Horde_Mime_Id($part1_id);
 
-        /* Display a link to more detailed message. */
-        $part2_id = $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
-        $part = $this->getConfigParam('imp_contents')->getMIMEPart($part2_id);
-        if ($part) {
-            $status->addText(sprintf(_("Technical details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL)))));
-        }
-        $ret[$part2_id] = null;
+        /* Ignore the technical details.
+         * TODO: parse technical details to give a better status description */
+        $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
+        $ret[$id_ob->id] = null;
 
         /* Display a link to the sent message. */
         $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
         $part = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part) {
-            $status->addText(sprintf(_("The text of the sent message can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part, 'view_attach', _("HERE"), array('jstext' => _("The text of the sent message"), 'params' => array('ctype' => 'message/rfc822', 'mode' => IMP_Contents::RENDER_FULL)))));
+            $status->addText(
+                $this->getConfigParam('imp_contents')->linkViewJS(
+                    $part,
+                    'view_attach',
+                    _("View the text of the sent message."),
+                    array(
+                        'params' => array(
+                            'ctype' => 'message/rfc822',
+                            'mode' => IMP_Contents::RENDER_FULL
+                        )
+                    )
+                )
+            );
+
             foreach (array_keys($part->contentTypeMap()) as $key) {
                 $ret[$key] = null;
             }
