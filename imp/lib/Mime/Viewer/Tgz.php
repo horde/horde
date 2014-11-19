@@ -76,7 +76,7 @@ class IMP_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Tgz
             );
             $status->addMimeAction(
                 'tgzViewContents',
-                _("Click HERE to display the file contents.")
+                _("Click to display the file contents.")
             );
             $status->icon('mime/compressed.png');
 

@@ -472,7 +472,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         } else {
             $status->addMimeAction(
                 'pgpVerifyMsg',
-                _("Click HERE to verify the message.")
+                _("Click to verify the message.")
             );
         }
 

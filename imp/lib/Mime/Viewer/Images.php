@@ -129,8 +129,18 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         $img = $this->_getHordeImageOb(false);
         if ($img &&
             $GLOBALS['browser']->isViewable($img->getContentType())) {
-            $convert_link = $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("HERE"), array('params' => array('imp_img_view' => 'view_convert')));
-            $status->addText(sprintf(_("Click %s to convert the image file into a format your browser can attempt to view."), $convert_link));
+            $status->addText(
+                $this->getConfigParam('imp_contents')->linkViewJS(
+                    $this->_mimepart,
+                    'view_attach',
+                    _("Click to convert the image file into a format your browser can attempt to view."),
+                    array(
+                        'params' => array(
+                            'imp_img_view' => 'view_convert'
+                        )
+                    )
+                )
+            );
         }
 
         return array(

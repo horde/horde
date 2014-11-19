@@ -360,7 +360,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         } else {
             $status->addMimeAction(
                 'smimeVerifyMsg',
-                _("Click HERE to verify the data.")
+                _("Click to verify the data.")
             );
         }
 
