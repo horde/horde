@@ -176,9 +176,10 @@ class Horde_Dav_Collection extends DAV\Collection implements DAV\IProperties
     {
         list($app) = explode('/', $this->_path);
         if (is_resource($data)) {
-            $content = new Horde_Stream_Existing(array('stream' => $data));
+            rewind($data);
+            $content = stream_get_contents($data);
             $type = Horde_Mime_Magic::analyzeData(
-                $content->getString(0, 100), $this->_mimedb
+                $content, $this->_mimedb
             );
         } else {
             $content = $data;
@@ -192,7 +193,11 @@ class Horde_Dav_Collection extends DAV\Collection implements DAV\IProperties
             $this->_registry->callByPackage(
                 $app,
                 'put',
-                array($this->_path . '/' . $name, $content, $type)
+                array(
+                    $this->_path . '/' . $name,
+                    $content,
+                    $type
+                )
             );
         } catch (Horde_Exception $e) {
             throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);

@@ -142,6 +142,7 @@ class Horde_Dav_File extends Sabre\DAV\File implements DAV\IProperties
     {
         list($base) = explode('/', $this->_path);
         try {
+            rewind($data);
             $this->_registry->callByPackage(
                 $base,
                 'put',
