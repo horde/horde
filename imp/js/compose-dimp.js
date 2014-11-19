@@ -193,7 +193,7 @@ var DimpCompose = {
         }
 
         if (!l) {
-            l = k.opts.data.find(function(f) {
+            l = (k.opts.data || []).find(function(f) {
                 return f.v == s;
             });
 
