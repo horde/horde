@@ -85,11 +85,13 @@ var DimpCore = {
 
         var elt = new Element('SPAN', { className: 'horde-popdown' }),
             ins = {};
-        p = $(p);
 
+        p = $(p);
         if (!p) {
             return;
         }
+
+        elt.writeAttribute({ title: p.readAttribute('title') });
 
         ins[o.insert ? o.insert : 'after'] = elt;
         p.insert(ins);
