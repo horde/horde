@@ -271,7 +271,7 @@ class IMP_Ajax_Application_ShowMessage
             if ($this->_indices->mdnCheck($mime_headers)) {
                 $status = new IMP_Mime_Status(null, array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
-                    sprintf(_("Click %s to send the notification message."), Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("HERE") . '</a>')
+                    Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("Click to send the notification message.") . '</a>'
                 ));
                 $status->domid('sendMdnMessage');
                 $result['msgtext'] .= strval($status);
