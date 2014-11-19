@@ -66,7 +66,7 @@ class IMP_Ajax_Imple_VcardImport extends Horde_Core_Ajax_Imple
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')
                 ->create(new IMP_Indices_Mailbox($vars));
-            if (!($mime_part = $contents->getMIMEPart($vars->mime_id))) {
+            if (!($mime_part = $contents->getMimePart($vars->mime_id))) {
                 throw new IMP_Exception(
                     _("Cannot retrieve vCard data from message.")
                 );

@@ -81,7 +81,7 @@ extends PHPUnit_Framework_TestCase
             if (!isset($this->_contents)) {
                 $contents= $this->getMock('IMP_Contents', array(), array(), '', false);
                 $contents->expects($this->any())
-                    ->method('getMIMEPart')
+                    ->method('getMimePart')
                     ->will($this->returnCallback(array($this, '_getMimePart')));
                 $this->_contents = $contents;
             }

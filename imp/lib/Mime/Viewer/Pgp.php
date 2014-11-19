@@ -208,7 +208,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         /* PGP version information appears in the first MIME subpart. We
          * don't currently need to do anything with this information. The
          * encrypted data appears in the second MIME subpart. */
-        if (!($encrypted_part = $imp_contents->getMIMEPart($data_id))) {
+        if (!($encrypted_part = $imp_contents->getMimePart($data_id))) {
             return null;
         }
 
@@ -427,7 +427,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         if ($prefs->getValue('pgp_verify') ||
             $injector->getInstance('Horde_Variables')->pgp_verify_msg) {
             $imp_contents = $this->getConfigParam('imp_contents');
-            $sig_part = $imp_contents->getMIMEPart($sig_id);
+            $sig_part = $imp_contents->getMimePart($sig_id);
 
             $status2 = new IMP_Mime_Status($this->_mimepart);
 

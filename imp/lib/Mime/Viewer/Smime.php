@@ -368,7 +368,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return;
         }
 
-        if (!($subpart = $imp_contents->getMIMEPart($sig_id))) {
+        if (!($subpart = $imp_contents->getMimePart($sig_id))) {
             try {
                 $msg_data = $this->_impsmime->extractSignedContents($raw_text);
                 $subpart = Horde_Mime_Part::parseMessage($msg_data, array('forcemime' => true));

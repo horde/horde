@@ -557,7 +557,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     continue;
                 }
 
-                if (!($part = $contents->getMIMEPart($i))) {
+                if (!($part = $contents->getMimePart($i))) {
                     break;
                 }
 
@@ -3033,7 +3033,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        if (!($part = $contents->getMIMEPart($body_id))) {
+        if (!($part = $contents->getMimePart($body_id))) {
             return null;
         }
         $type = $part->getType();
@@ -3161,7 +3161,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        if ($part = $this->getMetadata('related_contents')->getMIMEPart($id)) {
+        if ($part = $this->getMetadata('related_contents')->getMimePart($id)) {
             $atc = $this->addAttachmentFromPart($part);
             $this->addRelatedAttachment($atc, $node, $attribute);
             return $atc->viewUrl();

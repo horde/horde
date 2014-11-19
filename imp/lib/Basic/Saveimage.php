@@ -39,7 +39,7 @@ class IMP_Basic_Saveimage extends IMP_Basic_Base
         switch ($this->vars->actionID) {
         case 'save_image':
             $contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
-            if (!($mime_part = $contents->getMIMEPart($this->vars->id))) {
+            if (!($mime_part = $contents->getMimePart($this->vars->id))) {
                 $notification->push(_("Could not load message."));
                 break;
             }

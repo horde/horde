@@ -62,7 +62,7 @@ class IMP_Mime_Viewer_Smil extends Horde_Mime_Viewer_Smil
 
         return (($related_part = $imp_contents->findMimeType($this->_mimepart->getMimeId(), 'multipart/related')) &&
                 (($key = $related_part->getMetadata('related_ob')->cidSearch($cid)) !== false))
-            ? $imp_contents->getMIMEPart($key)
+            ? $imp_contents->getMimePart($key)
             : false;
     }
 

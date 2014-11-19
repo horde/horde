@@ -64,7 +64,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
         /* Retrieve the key from the message. */
         try {
             $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($vars));
-            if (!($mime_part = $contents->getMIMEPart($vars->mime_id))) {
+            if (!($mime_part = $contents->getMimePart($vars->mime_id))) {
                 throw new IMP_Exception(
                     _("Cannot retrieve public key from message.")
                 );

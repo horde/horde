@@ -48,7 +48,7 @@ abstract class IMP_Indices_Copy
                 );
 
                 /* Re-flow the message for prettier formatting. */
-                $body_part = $imp_contents->getMIMEPart(
+                $body_part = $imp_contents->getMimePart(
                     $imp_contents->findBody()
                 );
                 if (!$body_part) {

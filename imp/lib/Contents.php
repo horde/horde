@@ -226,7 +226,7 @@ class IMP_Contents
         if (!$this->_indices || $this->isEmbedded($id)) {
             if (empty($options['mimeheaders']) ||
                 in_array($id, $this->_embedded)) {
-                $ob = $this->getMIMEPart($id, array('nocontents' => true));
+                $ob = $this->getMimePart($id, array('nocontents' => true));
 
                 if (empty($options['stream'])) {
                     if (!is_null($ob)) {
@@ -250,7 +250,7 @@ class IMP_Contents
             }
 
             $body = '';
-            $part = $this->getMIMEPart(
+            $part = $this->getMimePart(
                 $base_id->id,
                 array('nocontents' => true)
             );
@@ -514,7 +514,7 @@ class IMP_Contents
      * @return Horde_Mime_Part  The raw MIME part asked for. If not found,
      *                          returns null.
      */
-    public function getMIMEPart($id, $options = array())
+    public function getMimePart($id, $options = array())
     {
         $this->_buildMessage();
 
@@ -578,7 +578,7 @@ class IMP_Contents
         $this->_buildMessage();
 
         $mime_part = empty($options['mime_part'])
-            ? $this->getMIMEPart($mime_id)
+            ? $this->getMimePart($mime_id)
             : $options['mime_part'];
         if (!$mime_part) {
             return array($mime_id => null);
@@ -721,7 +721,7 @@ class IMP_Contents
 
         // Retrieve 3x the size of $maxlen of bodytext data. This should
         // account for any content-encoding & HTML tags.
-        $pmime = $this->getMIMEPart($mimeid, array('length' => $maxlen * 3));
+        $pmime = $this->getMimePart($mimeid, array('length' => $maxlen * 3));
 
         if ($pmime) {
             $ptext = Horde_String::convertCharset(
@@ -810,7 +810,7 @@ class IMP_Contents
             'strip' => null
         );
 
-        $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
+        $mime_part = $this->getMimePart($id, array('nocontents' => true));
         if (!$mime_part) {
             return $part;
         }
@@ -1107,7 +1107,7 @@ class IMP_Contents
 
             $last_id = null;
 
-            $mime_part = $this->getMIMEPart($id, array('nocontents' => true));
+            $mime_part = $this->getMimePart($id, array('nocontents' => true));
             if (!$mime_part) {
                 continue;
             }
@@ -1118,7 +1118,7 @@ class IMP_Contents
             );
 
             if ($viewer->embeddedMimeParts() &&
-                ($mime_part = $this->getMIMEPart($id))) {
+                ($mime_part = $this->getMimePart($id))) {
                 $viewer->setMIMEPart($mime_part);
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
@@ -1149,7 +1149,7 @@ class IMP_Contents
     public function canDisplay($part, $mask, $type = null)
     {
         if (!is_object($part) &&
-            !($part = $this->getMIMEPart($part, array('nocontents' => true)))) {
+            !($part = $this->getMimePart($part, array('nocontents' => true)))) {
             return 0;
         }
         $viewer = $GLOBALS['injector']->getInstance('IMP_Factory_MimeViewer')->create($part, array('contents' => $this, 'type' => $type));
@@ -1291,7 +1291,7 @@ class IMP_Contents
                 if (($key != 0) &&
                     ($val != 'message/rfc822') &&
                     (strpos($val, 'multipart/') === false) &&
-                    ($part = $this->getMIMEPart($key))) {
+                    ($part = $this->getMimePart($key))) {
                     $message->alterPart($key, $part);
                 }
             }
@@ -1333,7 +1333,7 @@ class IMP_Contents
         $id_ob = new Horde_Mime_Id($id);
 
         while (($id_ob->id = $id_ob->idArithmetic($id_ob::ID_UP)) !== null) {
-            if (($part = $this->getMIMEPart($id_ob->id, array('nocontents' => true))) &&
+            if (($part = $this->getMimePart($id_ob->id, array('nocontents' => true))) &&
                 ($part->getType() == $type)) {
                 return $part;
             }
@@ -1364,7 +1364,7 @@ class IMP_Contents
         case 'multipart':
             if (($part->getSubType() == 'related') &&
                 ($view_id = $part->getMetaData('viewable_part')) &&
-                ($viewable = $this->getMIMEPart($view_id, array('nocontents' => true)))) {
+                ($viewable = $this->getMimePart($view_id, array('nocontents' => true)))) {
                 return $this->getPartName($viewable, $use_descrip);
             }
             /* Fall-through. */

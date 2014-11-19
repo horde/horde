@@ -92,7 +92,7 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $imp_contents = $this->getConfigParam('imp_contents');
         $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
-        if ($part = $imp_contents->getMIMEPart($part3_id)) {
+        if ($part = $imp_contents->getMimePart($part3_id)) {
             $status->addText(
                 $imp_contents->linkViewJS(
                     $part,

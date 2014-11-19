@@ -393,7 +393,7 @@ class IMP_Contents_View
      */
     protected function _getRawDownloadPart($id)
     {
-        if (!($mime = $this->_contents->getMIMEPart($id))) {
+        if (!($mime = $this->_contents->getMimePart($id))) {
             return null;
         }
 
