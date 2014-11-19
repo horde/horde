@@ -32,12 +32,12 @@ class Horde_Stream_String extends Horde_Stream
      *   - string: (string) [REQUIRED] The PHP string.
      * </pre>
      *
-     * @throws Horde_Stream_Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(array $opts = array())
     {
         if (!isset($opts['string']) || !is_string($opts['string'])) {
-            throw new Horde_Stream_Exception('Need a PHP string.');
+            throw new InvalidArgumentException('Need a PHP string.');
         }
 
         $this->stream = Horde_Stream_Wrapper_String::getStream($opts['string']);

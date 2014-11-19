@@ -31,12 +31,12 @@ class Horde_Stream_Existing extends Horde_Stream
      * @param array $opts  Additional configuration options:
      *   - stream: (resource) [REQUIRED] The stream resource.
      *
-     * @throws Horde_Stream_Exception
+     * @throws InvalidArgumentException
      */
     public function __construct(array $opts = array())
     {
         if (!isset($opts['stream']) || !is_resource($opts['stream'])) {
-            throw new Horde_Stream_Exception('Need a stream resource.');
+            throw new InvalidArgumentException('Need a stream resource.');
         }
 
         $this->stream = $opts['stream'];
