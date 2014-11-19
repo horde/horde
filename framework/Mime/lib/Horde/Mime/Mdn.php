@@ -244,7 +244,7 @@ class Horde_Mime_Mdn
             $part_two_h->addHeader('Error', $err['error']);
         }
 
-        $part_two->setContents($part_two_h->toString());
+        $part_two->setContents(trim($part_two_h->toString()) . "\n");
         $msg->addPart($part_two);
 
         /* The third part is the text of the original message.  RFC 3798 [3]
@@ -252,9 +252,9 @@ class Horde_Mime_Mdn
          * is left up to the user. */
         $part_three = new Horde_Mime_Part();
         $part_three->setType('message/rfc822');
-        $part_three_text = array($this->_headers->toString());
+        $part_three_text = array(trim($this->_headers->toString()) . "\n");
         if (!empty($this->_msgtext)) {
-            $part_three_text[] = $part_three->getEOL() . $this->_msgtext;
+            $part_three_text[] = "\n" . $this->_msgtext;
         }
         $part_three->setContents($part_three_text);
         $msg->addPart($part_three);
