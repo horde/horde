@@ -108,25 +108,23 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         switch ($action) {
         case 'failed':
         case 'delayed':
-            $status = new IMP_Mime_Status($this->_mimepart, array(
-                _("ERROR: Your message could not be delivered."),
-                sprintf(_("Technical error details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/plain', 'mode' => IMP_Contents::RENDER_FULL))))
-            ));
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                _("ERROR: Your message could not be delivered.")
+            );
             $status->action(IMP_Mime_Status::ERROR);
-            $msg_link = _("The text of the returned message can be viewed %s.");
-            $msg_link_status = _("The text of the returned message");
+            $msg_link = _("View details of the returned message.");
             break;
 
         case 'delivered':
         case 'expanded':
         case 'relayed':
-            $status = new IMP_Mime_Status($this->_mimepart, array(
-                _("Your message was successfully delivered."),
-                sprintf(_("Technical message details can be viewed %s."), $this->getConfigParam('imp_contents')->linkViewJS($part2, 'view_attach', _("HERE"), array('jstext' => _("Technical details"), 'params' => array('ctype' => 'text/x-simple', 'mode' => IMP_Contents::RENDER_FULL))))
-            ));
+            $status = new IMP_Mime_Status(
+                $this->_mimepart,
+                _("Your message was successfully delivered.")
+            );
             $status->action(IMP_Mime_Status::SUCCESS);
-            $msg_link = _("The text of the message can be viewed %s.");
-            $msg_link_status = _("The text of the message");
+            $msg_link = _("View details of the delivered message.");
             break;
 
         default:
@@ -136,7 +134,18 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
         /* Display a link to the returned message, if it exists. */
         $part3 = $this->getConfigParam('imp_contents')->getMIMEPart($part3_id);
         if ($part3) {
-            $status->addText(sprintf($msg_link, $this->getConfigParam('imp_contents')->linkViewJS($part3, 'view_attach', _("HERE"), array('jstext' => $msg_link_status, 'params' => array('ctype' => 'message/rfc822')))));
+            $status->addText(
+                $this->getConfigParam('imp_contents')->linkViewJS(
+                    $part3,
+                    'view_attach',
+                    $msg_link,
+                    array(
+                        'params' => array(
+                            'ctype' => 'message/rfc822'
+                        )
+                    )
+                )
+            );
         }
 
         $ret = array_fill_keys(array_diff($parts, array($part1_id)), null);
