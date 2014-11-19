@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Smtp_Exception property indicating whether error is permanent or transient.
 * [mms] Determine EAI and Body transport information by analyzing the message data, instead of requiring a parameter.
 * [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
@@ -451,6 +452,7 @@
    <date>2014-10-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Smtp_Exception property indicating whether error is permanent or transient.
 * [mms] Determine EAI and Body transport information by analyzing the message data, instead of requiring a parameter.
 * [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).

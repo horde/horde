@@ -27,6 +27,10 @@ Upgrading to 1.7.0
       Deprecated the '8bit' option. The correct encoding mode to use is now
       automatically determined.
 
+  - Horde_Smtp_Exception
+
+    Added the $permanent property.
+
 
 Upgrading to 1.6.0
 ==================

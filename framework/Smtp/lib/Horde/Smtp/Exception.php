@@ -19,6 +19,11 @@
  * @copyright 2013-2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
+ *
+ * @property-read boolean $permanent  Is this a permanent (non-tranisent)
+ *                                    error? (@since 1.7.0)
+ * @property-read string $raw_msg  Raw error message from server (in English).
+ *                                 (@since 1.4.0)
  */
 class Horde_Smtp_Exception extends Horde_Exception
 {
@@ -69,20 +74,18 @@ class Horde_Smtp_Exception extends Horde_Exception
 
 
     /**
-     * Raw error message (in English).
-     *
-     * @since 1.4.0
-     *
-     * @var string
-     */
-    public $raw_msg = '';
-
-    /**
      * SMTP Enhanced Mail System Status Code (see RFC 3463).
      *
      * @var string
      */
     protected $_enhancedcode = null;
+
+    /**
+     * Raw error message (in English).
+     *
+     * @var string
+     */
+    protected $_rawmsg = '';
 
     /**
      * SMTP reply code.
@@ -104,7 +107,27 @@ class Horde_Smtp_Exception extends Horde_Exception
             $code
         );
 
-        $this->raw_msg = $message;
+        $this->_rawmsg = $message;
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'permanent':
+            $str_code = is_null($this->_enhancedcode)
+                ? strval($this->_smtpcode)
+                : explode('.', $this->_enhancedcode);
+            /* Enhanced codes: Permanent errors are 5.y.z codes. (4.y.z are
+             * tranisent errors)
+             * Status code: permanent errors are 5yz codes. (4yz are tranisent
+             * errors) */
+            return ($str_code[0] === '5');
+
+        case 'raw_msg':
+            return $this->_rawmsg;
+        }
     }
 
     /**
@@ -114,40 +137,39 @@ class Horde_Smtp_Exception extends Horde_Exception
      */
     public function setSmtpCode($code)
     {
+        $this->_enhancedcode = null;
         $this->_smtpcode = $code;
 
-        // Any code not listed here will get the details of the error message
-        // as returned from the server.
-
+        /* Any code not listed here will get the details of the error message
+         * as returned from the server.
+         * Need to store $code/$message here because getCode()/getMessage() is
+         * declared final in the parent class and we can not alter on-demand
+         * at that location (darn). */
         switch ($code) {
         case 450:
-            $this->raw_msg = Horde_Smtp_Translation::r("Mailbox unavailable.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::MAILBOX_UNAVAILABLE;
+            $this->message = Horde_Smtp_Translation::t("Mailbox unavailable.");
+
             break;
 
         case 452:
-            $this->raw_msg = Horde_Smtp_Translation::r("Insufficient system storage.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::INSUFFICIENT_STORAGE;
+            $this->message = Horde_Smtp_Translation::t("Insufficient system storage.");
             break;
 
         case 454:
-            $this->raw_msg = Horde_Smtp_Translation::r("Could not open secure TLS connection to the server.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::LOGIN_TLSFAILURE;
+            $this->message = Horde_Smtp_Translation::t("Could not open secure TLS connection to the server.");
             break;
 
         case 530:
-            $this->raw_msg = Horde_Smtp_Translation::r("Server requires authentication.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::LOGIN_REQUIREAUTHENTICATION;
+            $this->message = Horde_Smtp_Translation::t("Server requires authentication.");
             break;
 
         case 550:
-            $this->raw_msg = Horde_Smtp_Translation::r("Message could not be delivered - the address was not found, is unknown, or is not receiving messages.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::MAILBOX_UNAVAILABLE;
+            $this->message = Horde_Smtp_Translation::t("Message could not be delivered - the address was not found, is unknown, or is not receiving messages.");
             break;
 
         case 551:
@@ -159,9 +181,8 @@ class Horde_Smtp_Exception extends Horde_Exception
             break;
 
         case 554:
-            $this->raw_msg = Horde_Smtp_Translation::r("Server is not accepting SMTP connections.");
-            $this->message = Horde_Smtp_Translation::t($this->raw_msg);
             $this->code = self::DISCONNECT;
+            $this->message = Horde_Smtp_Translation::t("Server is not accepting SMTP connections.");
             break;
         }
     }
@@ -177,9 +198,9 @@ class Horde_Smtp_Exception extends Horde_Exception
     }
 
     /**
-     * Set SMTP Enhanced Mail System Status Code.
+     * Set SMTP Enhanced Mail System Status Code (RFC 3463).
      *
-     * @param string $code  Status code.
+     * @param string $code  Enhanced status code.
      */
     public function setEnhancedSmtpCode($code)
     {
@@ -187,9 +208,9 @@ class Horde_Smtp_Exception extends Horde_Exception
     }
 
     /**
-     * Get SMTP Enhanced Mail System Status Code.
+     * Get SMTP Enhanced Mail System Status Code (RFC 3463).
      *
-     * @return string  Status code.
+     * @return string  Enhanced status code.
      */
     public function getEnhancedSmtpCode()
     {
