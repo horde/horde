@@ -872,7 +872,11 @@ extends Horde_Core_Ajax_Application_Handler
      *
      * @return mixed  False on failure, or an object with these properties:
      *   - buid: (integer) BUID of message.
-     *   - mbox: (string) Mailbox of message (base64url encoded).
+     *   - mbox: (string) Mailbox of message (base64url encoded). Only
+     *           returned if view is a search mailbox.
+     *   - uid: (string) Mailbox of message (base64url encoded). Only
+     *          returned if view is a search mailbox.
+     *   - view: (string) The view ID.
      */
     public function sendMDN()
     {
@@ -896,11 +900,17 @@ extends Horde_Core_Ajax_Application_Handler
 
         $notification->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 
-        list($mbox,) = $this->_base->indices->getSingle();
+        list($view, $buid) = $this->_base->indices->buids->getSingle();
+        list($mbox, $uid) = $this->_base->indices->getSingle();
 
         $result = new stdClass;
-        $result->buid = $this->_base->vars->buid;
-        $result->mbox = $mbox->form_to;
+        $result->buid = $buid;
+        $result->view = $view->form_to;
+
+        if ($view != $mbox) {
+            $result->mbox = $mbox->form_to;
+            $result->uid = $uid;
+        }
 
         return $result;
     }
