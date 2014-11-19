@@ -336,6 +336,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setDispositionParameter($label, $data)
     {
+        if (!strlen($data)) {
+            return;
+        }
+
         $this->_dispParams[$label] = $data;
 
         switch ($label) {
@@ -988,7 +992,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setContentTypeParameter($label, $data)
     {
-        $this->_contentTypeParams[$label] = $data;
+        if (strlen($data)) {
+            $this->_contentTypeParams[$label] = $data;
+        }
     }
 
     /**

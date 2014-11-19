@@ -671,6 +671,31 @@ C
         );
     }
 
+    /**
+     * @dataProvider setCharsetProvider
+     */
+    public function testSetCharset($charset, $expected)
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setCharset($charset);
+
+        $this->assertEquals(
+            $expected,
+            $part->getType(true)
+        );
+    }
+
+    public function setCharsetProvider()
+    {
+        return array(
+            array('utf-8', 'text/plain; charset=utf-8'),
+            array('UtF-8', 'text/plain; charset=utf-8'),
+            array('us-ascii', 'text/plain'),
+            array('', 'text/plain')
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
