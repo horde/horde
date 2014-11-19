@@ -1,8 +1,11 @@
 #!/usr/bin/env php
 <?php
 /**
- * Usage: ./horde-git-split horde_component [temp_dir] [-- list of branches]
- * horde_component = application -or- framework library directory
+ * Usage examples:
+ * ./horde-git-split --component imp
+ * ./horde-git-split --component Imap_Client
+ * ./horde-git-split --component Core -- horde_core-2.11.x
+ * ./horde-git-split --component ansel -- ansel-ajax
  */
 
 $branch_keep_app = array(
