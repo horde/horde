@@ -102,10 +102,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
      *   - headers: (boolean) Return info on the non-envelope headers
      *              'Importance', 'List-Post', and 'X-Priority'.
      *              DEFAULT: false (only envelope headers returned)
-     *   - preview: (mixed) Include preview information?  If empty, add no
-     *              preview information. If 1, uses value from prefs.
-     *              If 2, forces addition of preview info.
-     *              DEFAULT: No preview information.
      *   - type: (boolean) Return info on the MIME Content-Type of the base
      *           message part ('Content-Type' header).
      *           DEFAULT: false
@@ -120,9 +116,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
      *              true.
      *   - idx: (integer) Array index of this message.
      *   - mailbox: (string) The mailbox containing the message.
-     *   - preview: (string) If requested in $options['preview'], the preview
-     *              text.
-     *   - previewcut: (boolean) Has the preview text been cut?
      *   - size: (integer) The size of the message in bytes.
      *   - uid: (string) The unique ID of the message.
      *   - uids: (IMP_Indices) An indices object.
@@ -168,13 +161,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
             ));
         }
 
-        if (empty($options['preview'])) {
-            $cache = null;
-            $options['preview'] = 0;
-        } else {
-            $cache = $this->_mailbox->imp_imap->getCache();
-        }
-
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {
             try {
@@ -182,15 +168,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
                 $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
                     'ids' => $imp_imap->getIdsOb($ids)
                 ));
-
-                if ($options['preview']) {
-                    $preview_info = $tostore = array();
-                    if ($cache) {
-                        try {
-                            $preview_info = $cache->get($mbox, $ids, array('IMPpreview', 'IMPpreviewc'));
-                        } catch (IMP_Imap_Exception $e) {}
-                    }
-                }
 
                 $mbox_ids = array();
 
@@ -210,33 +187,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
                         'size' => $f->getSize(),
                         'uid' => $uid
                     );
-
-                    if (($options['preview'] === 2) ||
-                        (($options['preview'] === 1) &&
-                         (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
-                          !in_array(Horde_Imap_Client::FLAG_SEEN, $v['flags'])))) {
-                        if (empty($preview_info[$uid])) {
-                            try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $uid));
-                                $prev = $imp_contents->generatePreview();
-                                $preview_info[$uid] = array(
-                                    'IMPpreview' => $prev['text'],
-                                    'IMPpreviewc' => $prev['cut']
-                                );
-                                if (!is_null($cache)) {
-                                    $tostore[$uid] = $preview_info[$uid];
-                                }
-                            } catch (Exception $e) {
-                                $preview_info[$uid] = array(
-                                    'IMPpreview' => '',
-                                    'IMPpreviewc' => false
-                                );
-                            }
-                        }
-
-                        $v['preview'] = $preview_info[$uid]['IMPpreview'];
-                        $v['previewcut'] = $preview_info[$uid]['IMPpreviewc'];
-                    }
 
                     $overview[] = $v;
                     $mbox_ids[] = $uid;

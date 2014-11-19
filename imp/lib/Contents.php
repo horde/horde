@@ -695,64 +695,6 @@ class IMP_Contents
     }
 
     /**
-     * Generate the preview text.
-     *
-     * @return array  Array with the following keys:
-     *   - cut: (boolean) Was the preview text cut?
-     *   - text: (string) The preview text.
-     */
-    public function generatePreview()
-    {
-        // For preview generation, don't go through overhead of scanning for
-        // embedded parts. Necessary evil, or else very large parts (e.g
-        // 5 MB+ text parts) will take ages to scan.
-        $oldbuild = $this->_build;
-        $this->_build = true;
-        $mimeid = $this->findBody();
-
-        if (is_null($mimeid)) {
-            $this->_build = $oldbuild;
-            return array('cut' => false, 'text' => '');
-        }
-
-        $maxlen = empty($GLOBALS['conf']['msgcache']['preview_size'])
-            ? $GLOBALS['prefs']->getValue('preview_maxlen')
-            : $GLOBALS['conf']['msgcache']['preview_size'];
-
-        // Retrieve 3x the size of $maxlen of bodytext data. This should
-        // account for any content-encoding & HTML tags.
-        $pmime = $this->getMimePart($mimeid, array('length' => $maxlen * 3));
-
-        if ($pmime) {
-            $ptext = Horde_String::convertCharset(
-                $pmime->getContents(),
-                $pmime->getCharset(),
-                'UTF-8'
-            );
-
-            if ($pmime->getType() == 'text/html') {
-                $ptext = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($ptext, 'Html2text');
-            }
-        } else {
-            $ptext = '';
-        }
-
-        $this->_build = $oldbuild;
-
-        if (Horde_String::length($ptext) > $maxlen) {
-            return array(
-                'cut' => true,
-                'text' => Horde_String::truncate($ptext, $maxlen)
-            );
-        }
-
-        return array(
-            'cut' => false,
-            'text' => $ptext
-        );
-    }
-
-    /**
      * Get summary info for a MIME ID.
      *
      * @param string $id     The MIME ID.
