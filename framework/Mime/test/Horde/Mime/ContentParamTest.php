@@ -166,6 +166,14 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
                     'foo' => 'ABCDEFGHIJKL'
                 )
             ),
+            array(
+                "attachment; size=147502;\n filename*=utf-8''Factura%20n%C2%BA%2010.pdf",
+                'attachment',
+                array(
+                    'size' => '147502',
+                    'filename' => 'Factura nº 10.pdf'
+                )
+            ),
             // Bug #13587
             array(
                 "multipart/mixed; boundary=\"EPOC32-8'4Lqb7RwmJkJ+8bx'NRLMC2SXt1Ls'Gfpd0RMtxgP6JQFKj\"",
