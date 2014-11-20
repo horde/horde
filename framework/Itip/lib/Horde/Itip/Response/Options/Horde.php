@@ -66,11 +66,6 @@ extends Horde_Itip_Response_Options_Base
      */
     public function prepareResponseMimeHeaders(Horde_Mime_Headers $headers)
     {
-        $headers->addHeaderOb(
-            Horde_Mime_Headers_Received::createHordeHop(
-                $this->_received_options
-            )
-        );
         $headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
     }
 
