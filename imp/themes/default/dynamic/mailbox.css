@@ -538,21 +538,24 @@ span.readonlyImg {
     cursor: pointer;
     margin: 0 0 0 4px;
 }
-#th_expand,
+#th_expand span.iconImg,
 #partlist_col,
 #msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
     margin: 3px 0 -3px;
 }
-#th_collapse,
+#th_collapse span.iconImg,
 #partlist_exp,
 #msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
     margin: 3px 0 -3px;
 }
-#th_collapse {
+#th_collapse, #th_expand {
+    cursor: pointer;
+}
+#th_collapse span.iconImg {
     margin: 4px 0 -2px;
 }
 

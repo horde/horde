@@ -89,8 +89,10 @@
        </ul>
        <ul>
         <li>
-         <div class="iconImg" id="th_expand" title="<?php echo _("Expand Headers") ?>"></div>
-         <span class="subject allowTextSelection"></span>
+         <span id="th_expand">
+          <span class="iconImg" title="<?php echo _("Expand Headers") ?>"></span>
+          <span class="subject allowTextSelection"></span>
+         </span>
          <?php echo _("from") ?>
          <span class="from"></span>
         </li>
@@ -124,8 +126,10 @@
         </div>
        </div>
        <div>
-        <span class="iconImg" id="th_collapse" title="<?php echo _("Collapse Headers") ?>"></span>
-        <span class="subject allowTextSelection"></span>
+        <span id="th_collapse">
+         <span class="iconImg" title="<?php echo _("Collapse Headers") ?>"></span>
+         <span class="subject allowTextSelection"></span>
+        </span>
        </div>
        <table>
         <thead>
