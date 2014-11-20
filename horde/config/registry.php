@@ -10,12 +10,13 @@
  * If the 'vhosts' setting has been enabled in Horde's configuration, you can
  * use registry-servername.php.
  *
- * NOTE: _() is an alias for gettext(), which translates the string into
- * other languages.
+ * NOTE: _() is an alias for the PHP gettext() function, which translates the
+ * string within the parentheses into other languages.
  *
  * Application registry
  * --------------------
- * These settings are OPTIONAL:
+ * ALL settings are OPTIONAL:
+ *
  *   - fileroot: (string) The base filesystem path for the module's files.
  *               DEFAULT: Auto-determined based on this file's location.
  *   - initial_page: (string) The initial page for the module.
@@ -42,7 +43,8 @@
  *              DEFAULT: Applications live one level below the base horde
  *                       directory.
  *
- * These settings should not normally be changed from the defaults:
+ * Advanced settings that normally do not need to be changed from the defaults
+ * (at least during an initial installation):
  *
  *   - icon: (string) The URI for an icon to show in menus for the module.
  *           Setting this will override the default theme-based logic in the
@@ -50,16 +52,21 @@
  *   - jsfs: (string) The base filesystem path for static javascript files.
  *   - jsuri: (string) The base URI for static javascript files.
  *   - provides: (mixed) Service types the module provides.
- *   - staticfs: (string) The filesystem path for dynamically created files
- *               to be statically served.
- *   - staticuri: (string) The URI for the dynamically created files to be
- *                statically served.
  *   - target: (string) The target frame for the link.
  *   - templates: (string) The filesystem path to the templates directory.
  *   - themesfs: (string) The base file system directory for the themes.
  *   - themesuri: (string) The base URI for the themes. This can be used to
  *                serve all icons and style sheets from a separate server.
  *   - url: (string) The URL of 'heading' entries.
+ *
+ * Advanced settings, that ONLY apply to the 'horde' application, that
+ * normally do not need to be changed from the defaults (at least during an
+ * initial installation):
+ *
+ *   - staticfs: (string) The filesystem path for dynamically created files
+ *               to be statically served.
+ *   - staticuri: (string) The URI for the dynamically created files to be
+ *                statically served.
  */
 
 // By default, applications are assumed to live within the base Horde
