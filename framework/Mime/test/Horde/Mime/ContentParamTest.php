@@ -29,9 +29,13 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
     {
         $cp = new Horde_Mime_Headers_ContentParam('NOT_USED', $params);
 
+        ksort($expected);
+        $params = $cp->encode($opts);
+        ksort($params);
+
         $this->assertEquals(
             $expected,
-            $cp->encode($opts)
+            $params
         );
     }
 
@@ -118,9 +122,14 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
             $cp->value
         );
 
+
+        ksort($params_expected);
+        $params = $cp->params;
+        ksort($params);
+
         $this->assertEquals(
             $params_expected,
-            $cp->params
+            $params
         );
     }
 
