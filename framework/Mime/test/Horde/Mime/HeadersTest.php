@@ -133,9 +133,13 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
             $hdrs[$header]->value
         );
 
+        ksort($decode_params);
+        $params = $hdrs[$header]->params;
+        ksort($params);
+
         $this->assertEquals(
             $decode_params,
-            $hdrs[$header]->params
+            $params
         );
     }
 
@@ -148,6 +152,15 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'text/plain',
                 array(
                     'name' => 'Versión'
+                )
+            ),
+            array(
+                'Content-Disposition',
+                "attachment; size=147502;\n filename*=utf-8''Factura%20n%C2%BA%2010.pdf",
+                'attachment',
+                array(
+                    'size' => '147502',
+                    'filename' => 'Factura nº 10.pdf'
                 )
             )
         );
