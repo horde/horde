@@ -57,7 +57,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
      */
     protected function _handle(Horde_Variables $vars)
     {
-        global $conf, $injector, $notification, $registry;
+        global $injector, $notification, $registry;
 
         $actions = (array)$vars->imple_submit;
         $result = false;
@@ -240,13 +240,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         // Send the reply.
                         Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
                             $type,
-                            new Horde_Itip_Response_Options_Horde(
-                                'UTF-8',
-                                array(
-                                    'dns' => $injector->getInstance('Net_DNS2_Resolver'),
-                                    'server' => $conf['server']['name']
-                                )
-                            ),
+                            new Horde_Core_Itip_Response_Options_Horde('UTF-8'),
                             $injector->getInstance('IMP_Mail')
                         );
                         $notification->push(_("Reply Sent."), 'horde.success');
