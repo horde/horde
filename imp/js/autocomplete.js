@@ -282,9 +282,8 @@ var IMP_Autocompleter = Class.create({
         } else {
             this.input.setValue(input);
             this.resize();
+            this.focus();
         }
-
-        this.focus();
     },
 
     removeEntry: function(input)
