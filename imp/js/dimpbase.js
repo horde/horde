@@ -1942,21 +1942,18 @@ var DimpBase = {
 
     _dragAtc: function(e)
     {
-        // As of now, only WebKit supports DownloadURL
-        if (!Prototype.Browser.Webkit) {
-            e.stop();
-            return;
-        }
-
         var base = e.element().up();
 
-        e.dataTransfer.setData(
-            'DownloadURL',
-            base.down('IMG').readAttribute('title') + ':' +
-            // IE8 doesn't use this code so textContent is OK to use
-            base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
-            window.location.origin + e.element().readAttribute('href')
-        );
+        /* As of November 2014, only supported in Chrome. */
+        try {
+            e.dataTransfer.setData(
+                'DownloadURL',
+                base.down('IMG').readAttribute('title') + ':' +
+                // IE8 doesn't use this code so textContent is OK to use
+                base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
+                window.location.origin + e.element().readAttribute('href')
+            );
+        } catch (e) {}
     },
 
     updateAddressHeader: function(e)
