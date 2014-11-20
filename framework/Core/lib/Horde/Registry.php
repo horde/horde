@@ -2508,25 +2508,25 @@ class Horde_Registry implements Horde_Shutdown_Task
         } else {
             $out->addr = $_SERVER['REMOTE_ADDR'];
             if (!empty($_SERVER['REMOTE_HOST'])) {
-                $out->remote = $_SERVER['REMOTE_HOST'];
+                $out->host = $_SERVER['REMOTE_HOST'];
             }
             $out->proxy = false;
         }
 
-        if ($dns && !isset($out->remote)) {
-            $out->remote = $remote_addr;
+        if ($dns && !isset($out->host)) {
+            $out->host = $remote_addr;
             try {
                 if ($response = $dns->query($out->addr, 'PTR')) {
                     foreach ($response->answer as $val) {
                         if (isset($val->ptrdname)) {
-                            $out->remote = $val->ptrdname;
+                            $out->host = $val->ptrdname;
                             break;
                         }
                     }
                 }
             } catch (Net_DNS2_Exception $e) {}
-        } elseif (!isset($out->remote)) {
-            $out->remote = gethostbyaddr($out->addr);
+        } elseif (!isset($out->host)) {
+            $out->host = gethostbyaddr($out->addr);
         }
         error_reporting($old_error);
 
