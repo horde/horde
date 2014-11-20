@@ -646,20 +646,7 @@ var ImpCompose = {
 
         ob.opts = ob.opts || {};
 
-        if (ob.addr) {
-            $('to').setValue(ob.addr.to.join(', '))
-                .fire('AutoComplete:reset');
-            if (ob.addr.cc.size()) {
-                this.toggleCC('cc');
-                $('cc').setValue(ob.addr.cc.join(', '))
-                    .fire('AutoComplete:reset');
-            }
-            if (ob.addr.bcc.size()) {
-                this.toggleCC('bcc');
-                $('bcc').setValue(ob.addr.bcc.join(', '))
-                    .fire('AutoComplete:reset');
-            }
-        }
+        this.fillFormAddr(ob);
 
         $('identity').setValue(ob.identity);
         this.changeIdentity();
@@ -735,6 +722,30 @@ var ImpCompose = {
             /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
+    },
+
+    updateAddrField: function(hdr, addrs)
+    {
+        if (!addrs.size()) {
+            return;
+        }
+
+        switch (hdr) {
+        case 'bcc':
+        case 'cc':
+            if (!$('send' + hdr).visible()) {
+                this.toggleCC(hdr);
+            }
+            break;
+
+        case 'to':
+            if (DimpCore.conf.redirect) {
+                hdr = 'redirect_to';
+            }
+            break;
+        }
+
+        this.ac.get(hdr).addNewItems(addrs);
     },
 
     focus: function(elt)
@@ -869,19 +880,16 @@ var ImpCompose = {
         }
     },
 
-    swapToAddressCallback: function(r)
+    fillFormAddr: function(r)
     {
         if (r.addr) {
-            $('to').setValue(r.addr.to.join(', '))
-                .fire('AutoComplete:reset');
-            [ 'cc', 'bcc' ].each(function(t) {
-                if (r.addr[t].size() || $('send' + t).visible()) {
-                    if (!$('send' + t).visible()) {
-                        this.toggleCC(t);
-                    }
-                    $(t).setValue(r.addr[t].join(', '))
-                        .fire('AutoComplete:reset');
-                }
+            [ 'to', 'cc', 'bcc' ].each(function(a) {
+                var add = [];
+                $(a).setValue('').fire('AutoComplete:reset');
+                r.addr[a].each(function(ob) {
+                    add.push(new IMP_Autocompleter_Elt(ob.v, ob.l, ob.s));
+                });
+                this.updateAddrField(a, add);
             }, this);
         }
         $('to_loading_img').hide();
@@ -1264,7 +1272,7 @@ var ImpCompose = {
                 headeronly: 1,
                 type: 'reply'
             }), {
-                callback: this.swapToAddressCallback.bind(this)
+                callback: this.fillFormAddr.bind(this)
             });
             e.memo.stop();
             break;
@@ -1365,27 +1373,10 @@ var ImpCompose = {
     {
         Object.keys(e.memo).each(function(k) {
             var add = [];
-
-            switch (k) {
-            case 'bcc':
-            case 'cc':
-                if (!$('send' + k).visible()) {
-                    this.toggleCC(k);
-                }
-                break;
-
-            case 'to':
-                if (DimpCore.conf.redirect) {
-                    k = 'redirect_to';
-                }
-                break;
-            }
-
             e.memo[k].each(function(a) {
                 add.push(new IMP_Autocompleter_Elt(a));
             });
-
-            this.ac.get(k).addNewItems(add);
+            this.updateAddrField(k, add);
         }, this);
     },
 

@@ -64,7 +64,6 @@ class IMP_Ajax_Addresses
     {
         $out = new stdClass;
         $out->addr = array();
-        $out->limit = false;
         $out->total = count($this->_addr);
 
         $this->_count = 0;
@@ -118,6 +117,67 @@ class IMP_Ajax_Addresses
         ++$this->_count;
 
         return $tmp;
+    }
+
+    /**
+     * Creates the output list for the 'email' autocomplete search.
+     *
+     * @param integer $limit  Limit display to this many addresses. If null,
+     *                        shows all addresses.
+     *
+     * @return array  An array with the following keys for each result:
+     * <pre>
+     *   - g: (array) List of addresses in the group.
+     *   - l: (string) Full label.
+     *   - s: (string) Short display string.
+     *   - v: (string) Value.
+     * </pre>
+     */
+    public function toAutocompleteArray($limit = null)
+    {
+        return $this->_toAutocompleteArray($this->_addr, $limit);
+    }
+
+    /**
+     * @see toAutocompleteArray
+     *
+     * @param Horde_Mail_Rfc822_List $alist  Address list.
+     * @param integer $limit                 Limit to this many entries.
+     */
+    protected function _toAutocompleteArray($alist, $limit)
+    {
+        $i = 0;
+        $limit = intval($limit);
+        $out = array();
+
+        foreach ($alist as $val) {
+            $tmp = array('v' => strval($val));
+            $l = $val->writeAddress(array('noquote' => true));
+            $s = $val->label;
+
+            if ($l !== $tmp['v']) {
+                $tmp['l'] = $l;
+            }
+
+            if ($val instanceof Horde_Mail_Rfc822_Group) {
+                $tmp['g'] = $this->_toAutocompleteArray($val->addresses, 0);
+                $tmp['s'] = sprintf(
+                    _("%s [%d addresses]"),
+                    $s,
+                    count($val)
+                );
+            } elseif ($s !== $tmp['v']) {
+                $tmp['s'] = $s;
+            }
+
+            $out[] = $tmp;
+
+            if ($limit && (++$i > $limit)) {
+                break;
+            }
+        }
+
+        return $out;
     }
 
 }

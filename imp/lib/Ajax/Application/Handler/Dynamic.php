@@ -1339,57 +1339,10 @@ extends Horde_Core_Ajax_Application_Handler
                 array('levenshtein' => true)
             );
 
-            $out->results = $this->_autocompleteSearchEmail(
-                $addr,
-                $this->vars->limit
-            );
+            $ajax_addr = new IMP_Ajax_Addresses($addr);
+
+            $out->results = $ajax_addr->toAutocompleteArray($this->vars->limit);
             break;
-        }
-
-        return $out;
-    }
-
-    /**
-     * Creates the output list for the 'email' autocomplete search.
-     *
-     * @param Horde_Mail_Rfc822_List $alist  Address list.
-     * @param integer $limit                 Limit to this many entries.
-     *
-     * @return array  See autocompleteSearch().
-     */
-    protected function _autocompleteSearchEmail(
-        Horde_Mail_Rfc822_List $alist, $limit = 0
-    )
-    {
-        $i = 0;
-        $limit = intval($limit);
-        $out = array();
-
-        foreach ($alist as $val) {
-            $tmp = array('v' => strval($val));
-            $l = $val->writeAddress(array('noquote' => true));
-            $s = $val->label;
-
-            if ($l !== $tmp['v']) {
-                $tmp['l'] = $l;
-            }
-
-            if ($val instanceof Horde_Mail_Rfc822_Group) {
-                $tmp['g'] = $this->_autocompleteSearchEmail($val->addresses);
-                $tmp['s'] = sprintf(
-                    _("%s [%d addresses]"),
-                    $s,
-                    count($val)
-                );
-            } elseif ($s !== $tmp['v']) {
-                $tmp['s'] = $s;
-            }
-
-            $out[] = $tmp;
-
-            if ($limit && (++$i > $limit)) {
-                break;
-            }
         }
 
         return $out;

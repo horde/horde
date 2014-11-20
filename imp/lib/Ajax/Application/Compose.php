@@ -129,11 +129,11 @@ class IMP_Ajax_Application_Compose
         $ob->type = $this->_type;
 
         if (isset($result['addr'])) {
-            $ob->addr = array(
-                'to' => array_map('strval', $result['addr']['to']->base_addresses),
-                'cc' => array_map('strval', $result['addr']['cc']->base_addresses),
-                'bcc' => array_map('strval', $result['addr']['bcc']->base_addresses),
-            );
+            $ob->addr = array();
+            foreach (array('to', 'cc', 'bcc') as $val) {
+                $addr = new IMP_Ajax_Addresses($result['addr'][$val]);
+                $ob->addr[$val] = $addr->toAutocompleteArray();
+            }
         }
 
         return $ob;
