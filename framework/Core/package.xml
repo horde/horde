@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Core_Mime_Headers_Received.
 * [mms] Added Horde_Registry#remoteHost().
  </notes>
  <contents>
@@ -3706,6 +3707,7 @@
    <date>2014-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Core_Mime_Headers_Received.
 * [mms] Added Horde_Registry#remoteHost().
    </notes>
   </release>
