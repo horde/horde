@@ -1542,17 +1542,41 @@ class Horde_Registry implements Horde_Shutdown_Task
          *  - To all authenticated users if no permission is set on $app.
          *  - To anyone who is allowed by an explicit ACL on $app. */
         if ($checkPerms) {
-            if ($this->getAuth() && !$this->checkExistingAuth()) {
-                throw new Horde_Exception_PushApp('User is not authorized', self::AUTH_FAILURE, $app);
+            $error = $error_log = null;
+            $error_app = $this->applications[$app]['name'];
+            $error_type = self::AUTH_FAILURE;
+
+            if (($auth = $this->getAuth()) && !$this->checkExistingAuth()) {
+                $error = '%s is not authorized %s(Remote host: %s)';
+                $error_app = '';
             }
 
-            if (!$this->hasPermission($app, Horde_Perms::READ, array('notransparent' => !empty($options['notransparent'])))) {
-                if (!$this->isAuthenticated(array('app' => $app))) {
-                    throw new Horde_Exception_PushApp('User is not authorized for ' . $app, self::AUTH_FAILURE, $app);
+            if (!$error &&
+                !$this->hasPermission($app, Horde_Perms::READ, array('notransparent' => !empty($options['notransparent'])))) {
+                $error = '%s is not authorized for %s (Host: %s).';
+
+                if ($this->isAuthenticated(array('app' => $app))) {
+                    $error_log = '%s does not have READ permission for %s (Host: %s)';
+                    $error_type = self::PERMISSION_DENIED;
+                }
+            }
+
+            if ($error) {
+                $auth = $auth ? 'User ' . $auth : 'Guest user';
+                $remote = $this->remoteHost();
+
+                if ($error_log) {
+                    Horde::log(
+                        sprintf($error_log, $auth, $error_app, $remote->host),
+                        'DEBUG'
+                    );
                 }
 
-                Horde::log(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception_PushApp(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED, $app);
+                throw new Horde_Exception_PushApp(
+                    sprintf($error_log, $auth, $error_app, $remote->host),
+                    $error_type,
+                    $app
+                );
             }
         }
 
