@@ -41,12 +41,16 @@ class Horde_Core_Auth_Signup_Sql extends Horde_Core_Auth_Signup_Base
      */
     protected function _queueSignup($signup)
     {
+        global $registry;
+
         $query = 'INSERT INTO ' . $this->_params['table']
             . ' (user_name, signup_date, signup_host, signup_data) VALUES (?, ?, ?, ?) ';
+        $remote = $registry->remoteHost();
+
         $values = array(
             $signup->getName(),
             time(),
-            $_SERVER['REMOTE_ADDR'],
+            $remote->addr,
             serialize($signup->getData())
         );
 

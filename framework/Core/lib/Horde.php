@@ -234,12 +234,14 @@ class Horde
      */
     public static function isConnectionSecure()
     {
-        if ($GLOBALS['browser']->usingSSLConnection()) {
+        global $browser, $conf, $registry;
+
+        if ($browser->usingSSLConnection()) {
             return true;
         }
 
-        if (!empty($GLOBALS['conf']['safe_ips'])) {
-            if (reset($GLOBALS['conf']['safe_ips']) == '*') {
+        if (!empty($conf['safe_ips'])) {
+            if (reset($conf['safe_ips']) == '*') {
                 return true;
             }
 
@@ -248,11 +250,11 @@ class Horde
              * assume that if it is present, the user is coming through a proxy
              * server. If so, we don't count any non-SSL connection as safe, no
              * matter the source IP. */
-            if (!isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                $remote_addr = $_SERVER['REMOTE_ADDR'];
-                foreach ($GLOBALS['conf']['safe_ips'] as $safe_ip) {
+            $remote = $registry->remoteHost();
+            if (!$remote->proxy) {
+                foreach ($conf['safe_ips'] as $safe_ip) {
                     $safe_ip = preg_replace('/(\.0)*$/', '', $safe_ip);
-                    if (strpos($remote_addr, $safe_ip) === 0) {
+                    if (strpos($remote->addr, $safe_ip) === 0) {
                         return true;
                     }
                 }

@@ -2456,6 +2456,60 @@ class Horde_Registry implements Horde_Shutdown_Task
     }
 
     /**
+     * Returns information about the remote host.
+     *
+     * @since 2.17.0
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   addr: (string) Remote IP address.
+     *   host: (string) Remote hostname (if resolvable; otherwise, this value
+     *         is identical to 'addr').
+     *   proxy: (boolean) True if this user is connecting through a proxy.
+     * </pre>
+     */
+    public function remoteHost()
+    {
+        global $injector;
+
+        $out = new stdClass;
+
+        $dns = $injector->getInstance('Net_DNS2_Resolver');
+        $old_error = error_reporting(0);
+
+        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $remote_path = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+            $out->addr = $remote_path[0];
+            $out->proxy = true;
+        } else {
+            $out->addr = $_SERVER['REMOTE_ADDR'];
+            if (!empty($_SERVER['REMOTE_HOST'])) {
+                $out->remote = $_SERVER['REMOTE_HOST'];
+            }
+            $out->proxy = false;
+        }
+
+        if ($dns && !isset($out->remote)) {
+            $out->remote = $remote_addr;
+            try {
+                if ($response = $dns->query($out->addr, 'PTR')) {
+                    foreach ($response->answer as $val) {
+                        if (isset($val->ptrdname)) {
+                            $out->remote = $val->ptrdname;
+                            break;
+                        }
+                    }
+                }
+            } catch (Net_DNS2_Exception $e) {}
+        } elseif (!isset($out->remote)) {
+            $out->remote = gethostbyaddr($out->addr);
+        }
+        error_reporting($old_error);
+
+        return $out;
+    }
+
+    /**
      * Sets data in the session saying that authorization has succeeded,
      * note which userId was authorized, and note when the login took place.
      *
@@ -2494,9 +2548,10 @@ class Horde_Registry implements Horde_Shutdown_Task
             $session->set('horde', 'auth/change', 1);
         }
         $session->set('horde', 'auth/credentials', $app);
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            $session->set('horde', 'auth/remoteAddr', $_SERVER['REMOTE_ADDR']);
-        }
+
+        $remote = $this->remoteHost();
+        $session->set('horde', 'auth/remoteAddr', $remote->addr);
+
         $session->set('horde', 'auth/timestamp', time());
         $session->set('horde', 'auth/userId', $this->convertUsername(trim($authId), true));
 
@@ -2531,7 +2586,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         if (empty($this->_cache['existing'])) {
             if (!empty($conf['auth']['checkip']) &&
                 ($remoteaddr = $session->get('horde', 'auth/remoteAddr')) &&
-                ($remoteaddr != $_SERVER['REMOTE_ADDR'])) {
+                ($remoteob = $this->remoteHost()) &&
+                ($remoteaddr != $remoteob->addr)) {
                 $injector->getInstance('Horde_Core_Factory_Auth')->create()
                     ->setError(Horde_Core_Auth_Application::REASON_SESSIONIP);
                 return false;

@@ -30,59 +30,14 @@ class Horde_Core_Mime_Headers_Received
      */
     public static function createHordeHop()
     {
-        global $conf, $injector;
+        global $conf, $registry;
 
-        $dns = $injector->getInstance('Net_DNS2_Resolver');
-
-        $old_error = error_reporting(0);
-        if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            /* This indicates the user is connecting through a proxy. */
-            $remote_path = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-            $remote_addr = $remote_path[0];
-
-            if ($dns) {
-                $remote = $remote_addr;
-                try {
-                    if ($response = $dns->query($remote_addr, 'PTR')) {
-                        foreach ($response->answer as $val) {
-                            if (isset($val->ptrdname)) {
-                                $remote = $val->ptrdname;
-                                break;
-                            }
-                        }
-                    }
-                } catch (Net_DNS2_Exception $e) {}
-            } else {
-                $remote = gethostbyaddr($remote_addr);
-            }
-        } else {
-            $remote_addr = $_SERVER['REMOTE_ADDR'];
-            if (empty($_SERVER['REMOTE_HOST'])) {
-                if ($dns) {
-                    $remote = $remote_addr;
-                    try {
-                        if ($response = $dns->query($remote_addr, 'PTR')) {
-                            foreach ($response->answer as $val) {
-                                if (isset($val->ptrdname)) {
-                                    $remote = $val->ptrdname;
-                                    break;
-                                }
-                            }
-                        }
-                    } catch (Net_DNS2_Exception $e) {}
-                } else {
-                    $remote = gethostbyaddr($remote_addr);
-                }
-            } else {
-                $remote = $_SERVER['REMOTE_HOST'];
-            }
-        }
-        error_reporting($old_error);
+        $remote = $registry->remoteHost();
 
         if (!empty($_SERVER['REMOTE_IDENT'])) {
-            $remote_ident = $_SERVER['REMOTE_IDENT'] . '@' . $remote . ' ';
-        } elseif ($remote != $_SERVER['REMOTE_ADDR']) {
-            $remote_ident = $remote . ' ';
+            $remote_ident = $_SERVER['REMOTE_IDENT'] . '@' . $remote->host . ' ';
+        } elseif ($remote->host != $remote->addr) {
+            $remote_ident = $remote->host . ' ';
         } else {
             $remote_ident = '';
         }
@@ -100,8 +55,8 @@ class Horde_Core_Mime_Headers_Received
 
         return new self(
             null,
-            'from ' . $remote . ' (' . $remote_ident .
-            '[' . $remote_addr . ']) ' .
+            'from ' . $remote->host . ' (' . $remote_ident .
+            '[' . $remote->addr . ']) ' .
             'by ' . $server_name . ' (Horde Framework) with HTTP; ' .
             date('r')
         );
