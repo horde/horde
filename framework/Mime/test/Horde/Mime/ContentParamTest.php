@@ -165,6 +165,44 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
                     'boundary' => "EPOC32-8'4Lqb7RwmJkJ+8bx'NRLMC2SXt1Ls'Gfpd0RMtxgP6JQFKj"
                 )
             ),
+            // Gmail
+            array(
+                // Content-Disposition
+                "attachment;\n filename=\"=?UTF-8?Q?Vantagens_da_Caixa_para_Empresas_e_alterac=CC=A7a=CC=83o_do_prec=CC=A7?=\n =?UTF-8?Q?a=CC=81rio=2Epdf?=\"",
+                'attachment',
+                array(
+                    'filename' => 'Vantagens da Caixa para Empresas e alteração do preçário.pdf'
+                )
+            ),
+            array(
+                // Content-Type
+                "application/pdf;\nname=\"=?UTF-8?Q?Vantagens_da_Caixa_para_Empresas_e_alterac=CC=A7a=CC=83o_do_prec=CC=A7?=\n =?UTF-8?Q?a=CC=81rio=2Epdf?=\"",
+                'application/pdf',
+                array(
+                    'name' => 'Vantagens da Caixa para Empresas e alteração do preçário.pdf'
+                )
+            ),
+            // mail.app
+            // Note: filename/name parameter value is NOT the same UTF-8
+            // string as the Gmail examples above; character length is the
+            // same, but Gmail byte-length is 4 bytes longer (they are using
+            // different Unicode points to display the 4 non-ASCII chars)
+            array(
+                // Content-Disposition
+                "inline;\n filename*=iso-8859-1''Vantagens%20da%20Caixa%20para%20Empresas%20e%20altera%E7%E3o%20do%20pre%E7%E1rio.pdf",
+                'inline',
+                array(
+                    'filename' => 'Vantagens da Caixa para Empresas e alteração do preçário.pdf'
+                )
+            ),
+            array(
+                // Content-Type
+                "application/pdf;\n name=\"=?iso-8859-1?Q?Vantagens_da_Caixa_para_Empresas_e_altera=E7=E3o_?=\n =?iso-8859-1?Q?do_pre=E7=E1rio=2Epdf?=\"",
+                'application/pdf',
+                array(
+                    'name' => 'Vantagens da Caixa para Empresas e alteração do preçário.pdf'
+                )
+            ),
             // Adapted from Dovecot's src/lib-mail/test-rfc2231-parser.c
             array(
                 "key4*=us-ascii''foo" .
