@@ -4478,17 +4478,19 @@ var IMP_Preview_Cache = Class.create({
     cachesize: 20,
 
     // cache,
-    // cache_fifo,
+    // fifo,
     // hide_all,
     // mbox,
     // save_as,
+    // size,
     // uid,
     // viewport,
 
     initialize: function(viewport)
     {
-        this.cache = {};
-        this.fifo = [];
+        this.cache = $H();
+        this.fifo = 0;
+        this.size = 0;
         this.viewport = viewport;
     },
 
@@ -4514,27 +4516,40 @@ var IMP_Preview_Cache = Class.create({
 
     get: function(mbox, uid)
     {
-        return this.cache[this._getId(mbox, uid)];
+        return (this.cache.get(this._getId(mbox, uid)) || {}).data;
     },
 
     set: function(mbox, uid, data)
     {
-        var id = this._getId(mbox, uid);
+        var old;
 
         this.remove(mbox, uid);
-        this.cache[id] = data;
-        this.fifo.push(id);
+
+        this.cache.set(this._getId(mbox, uid), {
+            data: data,
+            fifo: ++this.fifo,
+            mbox: mbox,
+            uid: uid
+        });
+
+        if (++this.size > this.cachesize) {
+            this.cache.each(function(c) {
+                if (!old || c.value.fifo < old.data.fifo) {
+                    old = c.value;
+                }
+            });
+
+            this.remove(old.mbox, old.uid);
+        }
     },
 
     remove: function(mbox, uid)
     {
         var id = this._getId(mbox, uid);
 
-        this.fifo = this.fifo.diff([ id ]);
-        delete this.cache[this._getId(mbox, uid)];
-
-        if (this.fifo.size() > this.cachesize) {
-            delete this.cache[this.fifo.shift()];
+        if (this.cache.get(id)) {
+            this.cache.unset(id);
+            --this.size;
         }
     },
 
@@ -4553,8 +4568,10 @@ var IMP_Preview_Cache = Class.create({
 
     popupWindowParams: function(o)
     {
-        o.buid = this.uid;
-        o.mailbox = this.mbox;
+        if (this.uid) {
+            o.buid = this.uid;
+            o.mailbox = this.mbox;
+        }
         return o;
     },
 
