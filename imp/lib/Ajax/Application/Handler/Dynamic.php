@@ -764,9 +764,8 @@ extends Horde_Core_Ajax_Application_Handler
      *
      * @return object  An object with the following entries:
      * <pre>
-     *   - buid: (integer) BUID of message.
-     *   - mbox: (string) Mailbox of message (base64url encoded).
      *   - mimeid: (string) The base MIME ID of the text.
+     *   - puids: (array) See IMP_Ajax_Application#previewUids().
      *   - text: (string) Inline Message text of the part.
      * </pre>
      */
@@ -777,12 +776,9 @@ extends Horde_Core_Ajax_Application_Handler
         $show_msg = new IMP_Ajax_Application_ShowMessage($this->_base->indices);
         $msg_output = $show_msg->getInlineOutput($this->vars->mimeid);
 
-        list($mbox,) = $this->_base->indices->getSingle();
-
         $result = new stdClass;
-        $result->buid = $this->vars->buid;
-        $result->mbox = $mbox->form_to;
         $result->mimeid = $this->vars->mimeid;
+        $result->puids = $this->_base->previewUids();
         $result->text = $msg_output['msgtext'];
 
         return $result;
@@ -871,12 +867,9 @@ extends Horde_Core_Ajax_Application_Handler
      * Mailbox/indices form parameters needed.
      *
      * @return mixed  False on failure, or an object with these properties:
-     *   - buid: (integer) BUID of message.
-     *   - mbox: (string) Mailbox of message (base64url encoded). Only
-     *           returned if view is a search mailbox.
-     *   - uid: (string) Mailbox of message (base64url encoded). Only
-     *          returned if view is a search mailbox.
-     *   - view: (string) The view ID.
+     * <pre>
+     *   - puids: (array) See IMP_Ajax_Application#previewUids().
+     * </pre>
      */
     public function sendMDN()
     {
@@ -900,17 +893,8 @@ extends Horde_Core_Ajax_Application_Handler
 
         $notification->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 
-        list($view, $buid) = $this->_base->indices->buids->getSingle();
-        list($mbox, $uid) = $this->_base->indices->getSingle();
-
         $result = new stdClass;
-        $result->buid = $buid;
-        $result->view = $view->form_to;
-
-        if ($view != $mbox) {
-            $result->mbox = $mbox->form_to;
-            $result->uid = $uid;
-        }
+        $result->puids = $this->_base->previewUids();
 
         return $result;
     }
@@ -923,8 +907,10 @@ extends Horde_Core_Ajax_Application_Handler
      * parameters needed.
      *
      * @return mixed  False on failure, or an object with these properties:
-     *   - newbuid: (integer) BUID of new message.
-     *   - newmbox: (string) Mailbox of new message (base64url encoded).
+     * <pre>
+     *   - puids: (array) See IMP_Ajax_Application#previewUids(). Contains a
+     *            list of new mailbox/UID values.
+     * </pre>
      */
     public function stripAttachment()
     {
@@ -952,8 +938,7 @@ extends Horde_Core_Ajax_Application_Handler
         $notification->push(_("Attachment successfully stripped."), 'horde.success');
 
         $result = new stdClass;
-        list($result->newmbox, $result->newbuid) = $this->_base->indices->getSingle();
-        $result->newmbox = $result->newmbox->form_to;
+        $result->puids = $this->_base->previewUids();
 
         $this->_base->queue->message($this->_base->indices, true);
         $this->_base->addTask('viewport', $this->_base->viewPortData(true));

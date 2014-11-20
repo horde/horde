@@ -1922,7 +1922,7 @@ var DimpBase = {
             mimeid: mimeid
         }), {
             callback: function(r) {
-                if (this.preview.isActive(r.mbox, r.buid)) {
+                if (this.preview.isActive(r.puids[0].mbox, r.puids[0].uid)) {
                     $('messageBody')
                         .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                         .replace(r.text);
@@ -2000,12 +2000,11 @@ var DimpBase = {
 
     _sendMdnCallback: function(r)
     {
-        this.preview.remove(r.view, r.buid);
-        if (r.mbox) {
-            this.preview.remove(r.mbox, r.uid);
-        }
+        r.puids.each(function(p) {
+            this.preview.remove(p.mbox, p.uid);
+        }, this);
 
-        if (this.preview.isActive(r.view, r.buid)) {
+        if (this.preview.isActive(r.puids[0].mbox, r.puids[0].uid)) {
             $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
@@ -3029,9 +3028,9 @@ var DimpBase = {
                         id: elt.readAttribute('mimeid')
                     }), {
                         callback: function(r) {
-                            this.viewport.select(this.viewport.createSelectionBuffer(r.newmbox).search({
+                            this.viewport.select(this.viewport.createSelectionBuffer(r.puids[0].mbox).search({
                                 VP_id: {
-                                    equal: [ r.newbuid ]
+                                    equal: [ r.puids[0].uid ]
                                 }
                             }).get('rownum'));
                         }.bind(this),

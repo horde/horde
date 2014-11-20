@@ -423,4 +423,32 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->queue->poll(array_keys($indices->indices()));
     }
 
+    /**
+     * Return the list of preview UIDs for the current index.
+     *
+     * @return array  List of objects. Each object has 2 properties: mbox and
+     *                uid.
+     */
+    public function previewUids()
+    {
+        $buid = $this->indices->buids->getSingle();
+        $uid = $this->indices->getSingle();
+
+        $puids = array(
+            array(
+                'mbox' => $buid[0]->form_to,
+                'uid' => $buid[1]
+            )
+        );
+
+        if ($buid[0] != $uid[0]) {
+            $puids[] = array(
+                'mbox' => $uid[0]->form_to,
+                'uid' => $uid[1]
+            );
+        }
+
+        return $puids;
+    }
+
 }
