@@ -1926,6 +1926,7 @@ var DimpBase = {
                     $('messageBody')
                         .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                         .replace(r.text);
+                    DimpCore.msgMetadata(r.md);
                 }
             }.bind(this),
             uids: this.preview.vpSelection()

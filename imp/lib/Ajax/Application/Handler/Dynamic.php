@@ -764,6 +764,7 @@ extends Horde_Core_Ajax_Application_Handler
      *
      * @return object  An object with the following entries:
      * <pre>
+     *   - md: (array) Metadata information.
      *   - mimeid: (string) The base MIME ID of the text.
      *   - puids: (array) See IMP_Ajax_Application#previewUids().
      *   - text: (string) Inline Message text of the part.
@@ -777,6 +778,7 @@ extends Horde_Core_Ajax_Application_Handler
         $msg_output = $show_msg->getInlineOutput($this->vars->mimeid);
 
         $result = new stdClass;
+        $result->md = $msg_output['metadata'];
         $result->mimeid = $this->vars->mimeid;
         $result->puids = $this->_base->previewUids();
         $result->text = $msg_output['msgtext'];
