@@ -175,6 +175,7 @@ var IMP_Autocompleter = Class.create({
     {
         this.data = [];
         this.currentEntries().invoke('remove');
+        this.updateHiddenInput();
         this.processValue($F(this.elt));
         this.processInput();
     },
