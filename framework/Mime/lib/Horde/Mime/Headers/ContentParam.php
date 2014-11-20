@@ -71,13 +71,17 @@ class Horde_Mime_Headers_ContentParam
             if (empty($this->_values)) {
                 $this->_values = array($data->value);
             }
-            $data = $data->params;
+            foreach ($data->params as $key => $val) {
+                $this->_params[$key] = $val;
+            }
         } elseif (is_object($data)) {
-            $this->_values = array($data->value);
-            $data = $data->params;
+            if (!empty($data->value)) {
+                $this->_values = array($data->value);
+            }
+            $this->decode($data->params);
+        } else {
+            $this->decode($data);
         }
-
-        $this->decode($data);
     }
 
     /**
@@ -243,33 +247,26 @@ class Horde_Mime_Headers_ContentParam
     {
         $convert = array();
 
-        $this->_params = new Horde_Support_CaseInsensitiveArray();
-        $this->_values = array();
-
         if (is_array($data)) {
             $params = $data;
         } else {
             $parts = explode(';', $data, 2);
-            if (count($parts) === 1) {
-                $param = $parts[0];
+            if (isset($parts[0]) && (strpos($parts[0], '=') === false)) {
+                $this->_values = array(trim($parts[0]));
+                $param = isset($parts[1]) ? $parts[1] : null;
             } else {
-                $value = trim($parts[0]);
-                if (strlen($value)) {
-                    $this->decode($parts[0]);
-                    if (!count($this->_params)) {
-                        $this->_values = array($value);
-                    }
-                }
-                $param = $parts[1];
+                $param = $data;
             }
 
-            $decode = new Horde_Mime_ContentParam_Decode();
-            $params = $decode->decode($param);
+            if (empty($param)) {
+                $params = array();
+            } else {
+                $decode = new Horde_Mime_ContentParam_Decode();
+                $params = $decode->decode($param);
+            }
         }
 
-        /* Sort the params list. Prevents us from having to manually keep
-         * track of continuation values below. */
-        uksort($params, 'strnatcasecmp');
+        $to_add = array();
 
         foreach ($params as $name => $val) {
             /* Asterisk at end indicates encoded value. */
@@ -282,19 +279,21 @@ class Horde_Mime_Headers_ContentParam
 
             /* This asterisk indicates continuation parameter. */
             if ((($pos = strrpos($name, '*')) !== false) &&
-                is_numeric(substr($name, $pos + 1))) {
+                is_numeric($order = substr($name, $pos + 1))) {
                 $name = substr($name, 0, $pos);
-            }
-
-            if (isset($this->_params[$name])) {
-                $this->_params[$name] .= $val;
+                $to_add[strtolower($name)][$order] = $val;
             } else {
-                $this->_params[$name] = $val;
+                $to_add[$name] = array($val);
             }
 
             if ($encoded) {
                 $convert[$name] = true;
             }
+        }
+
+        foreach ($to_add as $key => $val) {
+            ksort($val);
+            $this->_params[$key] = implode('', $val);
         }
 
         foreach (array_keys($convert) as $name) {

@@ -220,6 +220,14 @@ class Horde_Mime_ContentParamTest extends PHPUnit_Framework_TestCase
                     'name' => 'Vantagens da Caixa para Empresas e alteração do preçário.pdf'
                 )
             ),
+            // Params with different cases (params are case-insensitive)
+            array(
+                "kEy*1=b; KEY*0=a; key*2=c",
+                null,
+                array(
+                    'key' => 'abc'
+                )
+            ),
             // Adapted from Dovecot's src/lib-mail/test-rfc2231-parser.c
             array(
                 "key4*=us-ascii''foo" .
