@@ -12,7 +12,7 @@
 .msgfullread .msgHeaders {
     cursor: default;
 }
-.msgfullread .msgHeaders table thead td.label {
+.msgfullread #msgHeadersTable td.label {
     padding-left: 3px;
 }
 div.msgfullread span.messagePrintShow {

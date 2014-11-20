@@ -10,8 +10,13 @@
 .msgHeaders a {
     color: #000;
 }
-.msgHeaders table thead td.label {
-    display: block;
+#msgHeadersTable tr {
+    vertical-align: top;
+}
+#msgHeadersTable td {
+    padding-bottom: 0;
+}
+#msgHeadersTable td.label {
     font-weight: bold;
     padding-right: 4px;
     text-align: right;

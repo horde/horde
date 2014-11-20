@@ -131,52 +131,50 @@
          <span class="subject allowTextSelection"></span>
         </span>
        </div>
-       <table>
-        <thead>
-         <tr id="msgHeaderFrom">
-          <td class="label"><?php echo _("From") ?>:</td>
-          <td class="from allowTextSelection"></td>
-         </tr>
-         <tr id="msgHeaderDate">
-          <td class="label"><?php echo _("Date") ?>:</td>
-          <td class="date allowTextSelection"></td>
-         </tr>
-         <tr id="msgHeaderTo">
-          <td class="label"><?php echo _("To") ?>:</td>
-          <td class="to allowTextSelection"></td>
-         </tr>
-         <tr id="msgHeaderCc">
-          <td class="label"><?php echo _("Cc") ?>:</td>
-          <td class="cc allowTextSelection"></td>
-         </tr>
-         <tr id="msgHeaderBcc">
-          <td class="label"><?php echo _("Bcc") ?>:</td>
-          <td class="bcc allowTextSelection"></td>
-         </tr>
-         <tr id="msgAtc" style="display:none">
-          <td class="label" id="partlist_toggle">
-           <span class="iconImg attachmentImg attachmentImage"></span>
-           <span class="iconImg" id="partlist_col"></span>
-           <span class="iconImg" id="partlist_exp" style="display:none"></span>
-          </td>
-          <td>
-           <div></div>
-           <div id="partlist" style="display:none"></div>
-          </td>
-         </tr>
-         <tr id="msgLogInfo" style="display:none">
-          <td class="label" id="msgloglist_toggle">
-           <span class="iconImg" id="msgloglist_col"></span>
-           <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
-          </td>
-          <td>
-           <div>
-            <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
-           </div>
-           <ul id="msgloglist" style="display:none"></ul>
-          </td>
-         </tr>
-        </thead>
+       <table id="msgHeadersTable">
+        <tr id="msgHeaderFrom">
+         <td class="label"><?php echo _("From") ?>:</td>
+         <td class="from allowTextSelection"></td>
+        </tr>
+        <tr id="msgHeaderDate">
+         <td class="label"><?php echo _("Date") ?>:</td>
+         <td class="date allowTextSelection"></td>
+        </tr>
+        <tr id="msgHeaderTo">
+         <td class="label"><?php echo _("To") ?>:</td>
+         <td class="to allowTextSelection"></td>
+        </tr>
+        <tr id="msgHeaderCc">
+         <td class="label"><?php echo _("Cc") ?>:</td>
+         <td class="cc allowTextSelection"></td>
+        </tr>
+        <tr id="msgHeaderBcc">
+         <td class="label"><?php echo _("Bcc") ?>:</td>
+         <td class="bcc allowTextSelection"></td>
+        </tr>
+        <tr id="msgAtc" style="display:none">
+         <td class="label" id="partlist_toggle">
+          <span class="iconImg attachmentImg attachmentImage"></span>
+          <span class="iconImg" id="partlist_col"></span>
+          <span class="iconImg" id="partlist_exp" style="display:none"></span>
+         </td>
+         <td>
+          <div></div>
+          <div id="partlist" style="display:none"></div>
+         </td>
+        </tr>
+        <tr id="msgLogInfo" style="display:none">
+         <td class="label" id="msgloglist_toggle">
+          <span class="iconImg" id="msgloglist_col"></span>
+          <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
+         </td>
+         <td>
+          <div>
+           <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
+          </div>
+          <ul id="msgloglist" style="display:none"></ul>
+         </td>
+        </tr>
        </table>
       </div>
      </div>
