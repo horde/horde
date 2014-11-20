@@ -4471,11 +4471,11 @@ var IMP_Flist_Mbox = Class.create({
 
 var IMP_Preview_Cache = Class.create({
 
-    // Preview pane cache size is 20 entries. Given that a reasonable guess
+    // Preview pane cache size is 50 entries. Given that a reasonable guess
     // of an average e-mail size is 10 KB (including headers), also make
-    // an estimate that the JSON data size will be approx. 10 KB. 200 KB
+    // an estimate that the JSON data size will be approx. 10 KB. 500 KB
     // should be a fairly safe caching value for any recent browser.
-    cachesize: 20,
+    cachesize: 50,
 
     // cache,
     // fifo,
