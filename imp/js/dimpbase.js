@@ -42,9 +42,7 @@ var DimpBase = {
         };
     })(),
     // pollPE,
-    // pp,
-    ppcache: {},
-    ppfifo: [],
+    // preview,
     // resize,
     // rownum,
     // search,
@@ -58,12 +56,6 @@ var DimpBase = {
     // view,
     // viewport,
     // viewswitch,
-
-    // Preview pane cache size is 20 entries. Given that a reasonable guess
-    // of an average e-mail size is 10 KB (including headers), also make
-    // an estimate that the JSON data size will be approx. 10 KB. 200 KB
-    // should be a fairly safe caching value for any recent browser.
-    ppcachesize: 20,
 
     // Message selection functions
 
@@ -643,6 +635,9 @@ var DimpBase = {
             }.bind(this)
         });
 
+        /* Initialize preview cache. */
+        this.preview = new IMP_Preview_Cache(this.viewport);
+
         /* Custom ViewPort events. */
         container.observe('ViewPort:add', function(e) {
             DimpCore.addContextMenu({
@@ -776,7 +771,7 @@ var DimpBase = {
 
         container.observe('ViewPort:remove', function(e) {
             e.memo.get('dataob').each(function(d) {
-                this._expirePPCache([ this._getPPId(d.VP_id, d.VP_view) ]);
+                this.preview.remove(d.VP_view, d.VP_id);
             }, this);
         }.bindAsEventListener(this));
 
@@ -1556,7 +1551,7 @@ var DimpBase = {
             break;
 
         case 'ctx_preview':
-            [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
+            [ $('ctx_preview_allparts') ].invoke(this.preview.hide_all ? 'hide' : 'show');
             [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
             [ $('ctx_preview_listinfo') ].invoke(this.viewport.getSelected().get('dataob').first().listmsg ? 'show' : 'hide');
             break;
@@ -1745,7 +1740,7 @@ var DimpBase = {
 
     loadPreview: function(data, params)
     {
-        var curr, last, p, peek, pp_uid, rows, tmp,
+        var curr, last, p, peek, rows, tmp,
             msgload = {};
 
         if (this.is_keydown ||
@@ -1774,7 +1769,7 @@ var DimpBase = {
                 /* Search for next cached message based on direction the
                  * selection row moved. */
                 this.viewport.createSelection('rownum', (last && last.get('rownum').first() > curr) ? p[1].concat(p[0]) : p[0].concat(p[1])).get('uid').detect(function(u) {
-                    if (this.ppfifo.indexOf(this._getPPId(u, data.VP_view)) === -1) {
+                    if (!this.preview.get(data.VP_view, u)) {
                         msgload = { msgload: u };
                         return true;
                     }
@@ -1785,19 +1780,11 @@ var DimpBase = {
         peek = this.viewswitch && (this.viewport.bufferCount() > 1);
 
         if (!params) {
-            if (!data ||
-                (this.pp &&
-                 this.pp.VP_id == data.VP_id &&
-                 this.pp.VP_view == data.VP_view)) {
+            if (!data || !this.preview.setActive(data.VP_view, data.VP_id)) {
                 return;
             }
-            this.pp = {
-                VP_id: data.VP_id,
-                VP_view: data.VP_view
-            };
-            pp_uid = this._getPPId(data.VP_id, data.VP_view);
 
-            if (this.ppfifo.indexOf(pp_uid) !== -1) {
+            if (this.preview.get(data.VP_view, data.VP_id)) {
                 if (!peek) {
                     this.flag(DimpCore.conf.FLAG_SEEN, true, {
                         buid: data.VP_id,
@@ -1805,7 +1792,7 @@ var DimpBase = {
                         params: msgload
                     });
                 }
-                return this._loadPreview(data.VP_id, data.VP_view);
+                return this._loadPreview(data.VP_view, data.VP_id);
             }
 
             params = {};
@@ -1821,27 +1808,25 @@ var DimpBase = {
             callback: function(r) {
                 if (!r) {
                     this.clearPreviewPane();
-                } else if (this.pp &&
-                           this.pp.VP_id == r.buid &&
-                           this.pp.VP_view == r.view) {
+                } else if (this.preview.isActive(r.view, r.buid)) {
                     if (r.error) {
                         HordeCore.notify(r.error, r.errortype);
                         this.clearPreviewPane();
                     } else {
-                        this._loadPreview(r.buid, r.view);
+                        this._loadPreview(r.view, r.buid);
                     }
                 }
             }.bind(this),
             loading: 'msg',
-            uids: this.viewport.createSelection('dataob', this.pp)
+            uids: this.preview.vpSelection()
         });
     },
 
-    _loadPreview: function(uid, mbox)
+    _loadPreview: function(mbox, uid)
     {
         var tmp,
             pm = $('previewMsg'),
-            r = this.ppcache[this._getPPId(uid, mbox)];
+            r = this.preview.get(mbox, uid);
 
         pm.down('.msgHeaders').select('.address').invoke('fire', 'DimpBase:removeElt');
 
@@ -1911,8 +1896,8 @@ var DimpBase = {
             [ $('msg_resume_draft').up() ].invoke(this.isDraft(this.viewport.getSelection()) ? 'show' : 'hide');
         }
 
-        this.pp.hide_all = r.onepart;
-        this.pp.save_as = r.save_as;
+        this.preview.hide_all = r.onepart;
+        this.preview.save_as = r.save_as;
 
         $('messageBody').update(
             (r.msgtext === null)
@@ -1934,17 +1919,16 @@ var DimpBase = {
     reloadPart: function(mimeid, params)
     {
         DimpCore.doAction('inlineMessageOutput', Object.extend(params, {
-            mimeid: mimeid,
-            view: this.pp.VP_view
+            mimeid: mimeid
         }), {
             callback: function(r) {
-                if (r.buid == this.pp.VP_id && r.mbox == this.pp.VP_view) {
+                if (this.preview.isActive(r.mbox, r.buid)) {
                     $('messageBody')
                         .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                         .replace(r.text);
                 }
             }.bind(this),
-            uids: [ this.pp.VP_id ]
+            uids: this.preview.vpSelection()
         });
     },
 
@@ -1952,10 +1936,7 @@ var DimpBase = {
     {
         // Store messages in cache.
         r.each(function(msg) {
-            var ppuid = this._getPPId(msg.buid, msg.mbox);
-            this._expirePPCache([ ppuid ]);
-            this.ppcache[ppuid] = msg.data;
-            this.ppfifo.push(ppuid);
+            this.preview.set(msg.mbox, msg.buid, msg.data);
         }, this);
     },
 
@@ -1986,7 +1967,7 @@ var DimpBase = {
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
             loading: 'msg',
-            uids: this.viewport.createSelection('dataob', this.pp)
+            uids: this.preview.vpSelection()
         });
     },
 
@@ -2012,7 +1993,7 @@ var DimpBase = {
 
     _mimeTreeCallback: function(r)
     {
-        this.pp.hide_all = true;
+        this.preview.hide_all = true;
 
         $('partlist').update(r.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DimpCore.text.allparts_label));
         $('partlist_col').show();
@@ -2022,14 +2003,12 @@ var DimpBase = {
 
     _sendMdnCallback: function(r)
     {
-        this._expirePPCache([ this._getPPId(r.buid, r.view) ]);
+        this.preview.remove(r.view, r.buid);
         if (r.mbox) {
-            this._expirePPCache([ this._getPPId(r.uid, r.mbox) ]);
+            this.preview.remove(r.mbox, r.uid);
         }
 
-        if (this.pp &&
-            this.pp.VP_id == r.buid &&
-            this.pp.VP_view == r.view) {
+        if (this.preview.isActive(r.view, r.buid)) {
             $('sendMdnMessage').up(1).fade({ duration: 0.2 });
         }
     },
@@ -2037,13 +2016,10 @@ var DimpBase = {
     maillogCallback: function(r)
     {
         r.each(function(l) {
-            var tmp = this._getPPId(l.buid, l.mbox);
-            if (this.ppcache[tmp]) {
-                this.ppcache[tmp].log = l.log;
-                if (l.log &&
-                    this.pp &&
-                    this.pp.VP_id == l.buid &&
-                    this.pp.VP_view == l.mbox) {
+            var tmp = this.preview.get(l.mbox, l.buid);
+            if (tmp) {
+                tmp.log = l.log;
+                if (l.log && this.preview.isActive(l.mbox, l.buid)) {
                     this.updateMsgLog(l.log);
                 }
             }
@@ -2073,7 +2049,9 @@ var DimpBase = {
 
         $('previewInfo').update(DimpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
 
-        delete this.pp;
+        if (this.preview) {
+            this.preview.setActive();
+        }
     },
 
     _toggleHeaders: function(elt, update)
@@ -2082,23 +2060,6 @@ var DimpBase = {
             DimpCore.setPref('toggle_hdrs', ~~(!DimpCore.getPref('toggle_hdrs')));
         }
         [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
-    },
-
-    _expirePPCache: function(ids)
-    {
-        this.ppfifo = this.ppfifo.diff(ids);
-        ids.each(function(i) {
-            delete this.ppcache[i];
-        }, this);
-
-        if (this.ppfifo.size() > this.ppcachesize) {
-            delete this.ppcache[this.ppfifo.shift()];
-        }
-    },
-
-    _getPPId: function(uid, mailbox)
-    {
-        return uid + '|' + mailbox;
     },
 
     // mbox: (string) Mailbox name.
@@ -2990,47 +2951,43 @@ var DimpBase = {
 
         case 'msg_newwin_options':
         case 'ppane_view_error':
-            this.msgWindow(this.viewport.getSelection(this.pp.VP_view).search({
-                VP_id: {
-                    equal: [ this.pp.VP_id ]
-                }
+            this.msgWindow(this.viewport.getSelection(this.preview.mbox).search({
+                VP_id: { equal: [ this.preview.uid ] }
             }).get('dataob').first());
             e.memo.stop();
             break;
 
         case 'ctx_preview_save':
-            HordeCore.redirect(this.pp.save_as);
+            HordeCore.redirect(this.preview.save_as);
             break;
 
         case 'ctx_preview_viewsource':
-            HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                actionID: 'view_source',
-                buid: this.pp.VP_id,
-                id: 0,
-                mailbox: this.pp.VP_view
-            }, {
-                name: this.pp.VP_id + '|' + this.pp.VP_view
-            });
+            HordeCore.popupWindow(
+                DimpCore.conf.URI_VIEW,
+                this.preview.popupWindowParams({
+                    actionID: 'view_source',
+                    id: 0
+                }),
+                { name: this.preview.uniqueId() }
+            );
             break;
 
         case 'ctx_preview_listinfo':
         case 'ctx_preview_thread':
-            HordeCore.popupWindow((id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD, {
-                buid: this.pp.VP_id,
-                mailbox: this.pp.VP_view
-            }, {
-                name: this.pp.VP_id + '|' + this.pp.VP_view
-            });
+            HordeCore.popupWindow(
+                (id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD,
+                this.preview.popupWindowParams({}),
+                { name: this.preview.uniqueId() }
+            );
             break;
 
         case 'ctx_preview_allparts':
             DimpCore.doAction('messageMimeTree', {
                 preview: 1,
-                view: this.pp.VP_view
             }, {
                 callback: this._mimeTreeCallback.bind(this),
                 loading: 'msg',
-                uids: [ this.pp.VP_id ]
+                uids: this.preview.vpSelection()
             });
             break;
 
@@ -3048,26 +3005,26 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {
-                view: this.pp.VP_view
-            }, {
+            DimpCore.doAction('sendMDN', {}, {
                 callback: this._sendMdnCallback.bind(this),
-                uids: [ this.pp.VP_id ]
+                uids: this.preview.vpSelection()
             });
             e.memo.stop();
             break;
 
         default:
             if (elt.hasClassName('printAtc')) {
-                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                    actionID: 'print_attach',
-                    buid: this.pp.VP_id,
-                    id: elt.readAttribute('mimeid'),
-                    mailbox: this.pp.VP_view
-                }, {
-                    name: this.pp.VP_id + '|' + this.pp.VP_view + '|print',
-                    onload: IMP_JS.printWindow
-                });
+                HordeCore.popupWindow(
+                    DimpCore.conf.URI_VIEW,
+                    this.preview.popupWindowParams({
+                        actionID: 'print_attach',
+                        id: elt.readAttribute('mimeid')
+                    }),
+                    {
+                        name: this.preview.uniqueId() + '|print',
+                        onload: IMP_JS.printWindow
+                    }
+                );
                 e.memo.stop();
             } else if (elt.hasClassName('stripAtc')) {
                 if (window.confirm(DimpCore.text.strip_warn)) {
@@ -3075,16 +3032,14 @@ var DimpBase = {
                         id: elt.readAttribute('mimeid')
                     }), {
                         callback: function(r) {
-                            if (!this.pp) {
-                                this.viewport.select(this.viewport.createSelectionBuffer(r.newmbox).search({
-                                    VP_id: {
-                                        equal: [ r.newbuid ]
-                                    }
-                                }).get('rownum'));
-                            }
+                            this.viewport.select(this.viewport.createSelectionBuffer(r.newmbox).search({
+                                VP_id: {
+                                    equal: [ r.newbuid ]
+                                }
+                            }).get('rownum'));
                         }.bind(this),
                         loading: 'msg',
-                        uids: [ this.pp.VP_id ]
+                        uids: this.preview.vpSelection()
                     });
                 }
                 e.memo.stop();
@@ -4510,6 +4465,102 @@ var IMP_Flist_Mbox = Class.create({
     fullMboxDisplay: function()
     {
         return this.data.elt.readAttribute('title').escapeHTML();
+    }
+
+});
+
+var IMP_Preview_Cache = Class.create({
+
+    // Preview pane cache size is 20 entries. Given that a reasonable guess
+    // of an average e-mail size is 10 KB (including headers), also make
+    // an estimate that the JSON data size will be approx. 10 KB. 200 KB
+    // should be a fairly safe caching value for any recent browser.
+    cachesize: 20,
+
+    // cache,
+    // cache_fifo,
+    // hide_all,
+    // mbox,
+    // save_as,
+    // uid,
+    // viewport,
+
+    initialize: function(viewport)
+    {
+        this.cache = {};
+        this.fifo = [];
+        this.viewport = viewport;
+    },
+
+    isActive: function(mbox, uid)
+    {
+        return ((this.mbox == mbox) && (this.uid == uid));
+    },
+
+    setActive: function(mbox, uid)
+    {
+        if (this.isActive(mbox, uid)) {
+            return false;
+        }
+
+        this.mbox = mbox;
+        this.uid = uid;
+
+        delete this.hide_all;
+        delete this.save_as;
+
+        return true;
+    },
+
+    get: function(mbox, uid)
+    {
+        return this.cache[this._getId(mbox, uid)];
+    },
+
+    set: function(mbox, uid, data)
+    {
+        var id = this._getId(mbox, uid);
+
+        this.remove(mbox, uid);
+        this.cache[id] = data;
+        this.fifo.push(id);
+    },
+
+    remove: function(mbox, uid)
+    {
+        var id = this._getId(mbox, uid);
+
+        this.fifo = this.fifo.diff([ id ]);
+        delete this.cache[this._getId(mbox, uid)];
+
+        if (this.fifo.size() > this.cachesize) {
+            delete this.cache[this.fifo.shift()];
+        }
+    },
+
+    uniqueId: function()
+    {
+        return this._getId(this.mbox, this.uid);
+    },
+
+    vpSelection: function()
+    {
+        return this.viewport.createSelection('dataob', {
+            VP_id: this.uid,
+            VP_view: this.mbox
+        });
+    },
+
+    popupWindowParams: function(o)
+    {
+        o.buid = this.uid;
+        o.mailbox = this.mbox;
+        return o;
+    },
+
+    _getId: function(mbox, uid)
+    {
+        return mbox + '|' + uid;
     }
 
 });

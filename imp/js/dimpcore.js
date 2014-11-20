@@ -41,9 +41,11 @@ var DimpCore = {
     {
         if (opts && opts.uids) {
             params = $H(params).clone();
-            opts = opts || {};
 
             if (opts.uids.viewport_selection) {
+                if (!params.get('view')) {
+                    params.set('view', opts.uids.getBuffer().getView());
+                }
                 opts.uids = opts.uids.get('uid');
             }
 
