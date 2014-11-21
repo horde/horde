@@ -14,7 +14,7 @@
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
-        },
+        }
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
@@ -26,8 +26,8 @@
             "role": "developer"
         }
     ],
-    "version": "2.16.1",
-    "time": "2014-11-05",
+    "version": "2.17.0",
+    "time": "2014-11-21",
     "repositories": [
         {
             "type": "pear",
@@ -57,7 +57,7 @@
         "pear-pear.horde.org/Horde_Lock": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Log": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_LoginTasks": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Mime": ">=2.4.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Mime": ">=2.5.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime_Viewer": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Notification": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Pack": ">=1.0.0@stable,<=2.0.0alpha1@stable",
