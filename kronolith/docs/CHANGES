@@ -2,6 +2,7 @@
 v4.2.4-git
 ----------
 
+[jan] Make access to non-CalDAV remote calendars faster (Bug #12379).
 [jan] Continue with further events if parsing of one remote event date fails.
 [jan] Fix JS error in month view with more events today than the maximum
       threshold.
