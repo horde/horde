@@ -77,6 +77,11 @@ print "Package: " . $package . "\n";
 print "Tag prefix: " . $tag_prefix . "\n";
 print "Temporary git directory: " . $tmp . "\n\n";
 
+foreach ($branch_keep as $branch) {
+    if (!shell_exec("git --work-tree=\"$base\" branch --list $branch")) {
+        passthru("git --work-tree=\"$base\" branch --track $branch origin/$branch");
+    }
+}
 mkdir($tmp);
 chdir($tmp);
 passthru('git clone --bare ' . escapeshellarg($base) . ' tmp');
