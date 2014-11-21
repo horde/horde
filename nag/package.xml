@@ -24,7 +24,7 @@
  </lead>
  <date>2014-11-21</date>
  <version>
-  <release>4.2.3</release>
+  <release>4.2.4</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue with initially creating nag_shares table.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1613,6 +1613,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with initially creating nag_shares table.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
