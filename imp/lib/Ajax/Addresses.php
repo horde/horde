@@ -65,6 +65,7 @@ class IMP_Ajax_Addresses
         $out = new stdClass;
         $out->addr = array();
         $out->total = count($this->_addr);
+        $out->limit = false;
 
         $this->_count = 0;
 
