@@ -82,11 +82,16 @@ class Horde_Dav_Client extends Sabre\DAV\Client
             $this->_http->{'request.proxyServer'} = $this->proxy;
         }
         if ($this->userName && $this->authType) {
-            if ($this->authType & self::AUTH_BASIC) {
+            switch ($this->authType) {
+            case self::AUTH_BASIC:
                 $this->_http->{'request.authenticationScheme'} = Horde_Http::AUTH_BASIC;
-            }
-            if ($this->authType & self::AUTH_DIGEST) {
+                break;
+            case self::AUTH_DIGEST:
                 $this->_http->{'request.authenticationScheme'} = Horde_Http::AUTH_DIGEST;
+                break;
+            default:
+                $this->_http->{'request.authenticationScheme'} = Horde_Http::AUTH_ANY;
+                break;
             }
             $this->_http->{'request.username'} = $this->userName;
             $this->_http->{'request.password'} = $this->password;
