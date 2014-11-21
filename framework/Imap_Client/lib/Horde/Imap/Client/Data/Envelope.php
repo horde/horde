@@ -125,9 +125,9 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
             return;
         }
 
-        $n_name = $this->_normalizeProperty($name);
+        $name = $this->_normalizeProperty($name);
 
-        switch ($n_name) {
+        switch ($name) {
         case 'bcc':
         case 'cc':
         case 'date':
