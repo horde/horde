@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-10-29</date>
+ <date>2014-11-21</date>
  <version>
   <release>4.2.3</release>
   <api>4.2.0</api>
@@ -1609,7 +1609,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue with initially creating nag_shares table.
