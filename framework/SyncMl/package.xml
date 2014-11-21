@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix exporting notes to Funambol clients (horde@albasoft.com, Bug #9487).
 * [jan] Fix creating server-client-mapping if backend returns multiple server IDs per client ID (horde@albasoft.com, Bug #13706).
  </notes>
  <contents>
@@ -1322,6 +1323,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix exporting notes to Funambol clients (horde@albasoft.com, Bug #9487).
 * [jan] Fix creating server-client-mapping if backend returns multiple server IDs per client ID (horde@albasoft.com, Bug #13706).
    </notes>
   </release>

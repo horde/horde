@@ -18,6 +18,35 @@
  */
 class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
 {
+    public function getPreferredContentTypeClient($serverSyncURI, $sourceSyncURI)
+    {
+        $contentType =  parent::getPreferredContentTypeClient($serverSyncURI, $sourceSyncURI);
+
+        switch ($contentType) {
+        case 'text/x-s4j-sifn' :
+        case 'text/x-sifn' :
+            $contentType = 'text/x-vnote';
+            break;
+
+        case 'text/x-s4j-sifc' :
+        case 'text/x-sifc' :
+            $contentType = 'text/x-vcard';
+            break;
+
+        case 'text/x-s4j-sife' :
+        case 'text/x-sife' :
+            $contentType = 'text/calendar';
+            break;
+
+        case 'text/x-s4j-sift' :
+        case 'text/x-sift' :
+            $contentType = 'text/calendar';
+            break;
+        }
+
+        return $contentType;
+    }
+
     /**
      * Convert the content.
      */
@@ -607,7 +636,7 @@ class Horde_SyncMl_Device_sync4j extends Horde_SyncMl_Device
             } else {
                 $a = array(
                     'Body' => $components[0]->getAttribute('BODY'),
-                    'Categories' => $components[0]->getAttribute('CATEGORIES'));
+                    'Categories' => $components[0]->getAttributeDefault('CATEGORIES', ''));
                 try {
                     $sum = $components[0]->getAttribute('SUMMARY');
                     $a['Subject'] = $sum;
