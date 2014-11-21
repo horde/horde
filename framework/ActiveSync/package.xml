@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improvements and fixes to MIME truncation truncation handling.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2473,7 +2473,7 @@
    <date>2014-11-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improvements and fixes to MIME truncation truncation handling.
    </notes>
   </release>
  </changelog>
