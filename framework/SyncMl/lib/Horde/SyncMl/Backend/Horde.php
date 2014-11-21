@@ -368,6 +368,7 @@ class Horde_SyncMl_Backend_Horde extends Horde_SyncMl_Backend
                       $contentType,
                       Horde_SyncMl_Backend::getParameter($databaseURI, 'source')));
 
+            $suid = is_array($suid) ? $suid[0] : $suid;
             $this->logMessage(
                 "Added to server db $database client id $cuid -> server id $suid", 'DEBUG');
             $ts = $registry->call(
