@@ -30,7 +30,7 @@
  </developer>
  <date>2014-11-21</date>
  <version>
-  <release>2.17.0</release>
+  <release>2.17.1</release>
   <api>2.17.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue that could cause incorrect truncation of ActiveSync emails.
-* [mms] Added Horde_Core_Mime_Headers_Received.
-* [mms] Added Horde_Registry#remoteHost().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3719,6 +3717,19 @@
 * [mjr] Fix issue that could cause incorrect truncation of ActiveSync emails.
 * [mms] Added Horde_Core_Mime_Headers_Received.
 * [mms] Added Horde_Registry#remoteHost().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.17.1</release>
+    <api>2.17.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
