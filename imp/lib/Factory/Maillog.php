@@ -54,9 +54,7 @@ class IMP_Factory_Maillog extends Horde_Core_Factory_Injector
         }
 
         return new IMP_Maillog(
-            (count($storage) > 1)
-                ? new IMP_Maillog_Storage_Composite($storage)
-                : reset($storage)
+            new IMP_Maillog_Storage_Composite($storage)
         );
     }
 
