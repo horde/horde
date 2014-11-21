@@ -692,6 +692,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             if ($e->getCode() != 405) {
                 Horde::log($e, 'INFO');
             }
+            $this->_davSupport = false;
             return false;
         }
 
