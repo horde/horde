@@ -89,7 +89,7 @@ class IMP_Maillog_Message
                     'ids' => $imp_imap->getIdsOb($uid)
                 ));
 
-                $this->_msgid = ($ob = $ret->first())
+                $this->_msgid = ($ob = $ret[$uid])
                     ? $ob->getEnvelope()->message_id
                     : '';
             }
