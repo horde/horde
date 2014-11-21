@@ -193,11 +193,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 $uids[$mbox] = $mbox_ids;
-
-                if (!is_null($cache) && !empty($tostore)) {
-                    $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                    $cache->set($mbox, $tostore, $status['uidvalidity']);
-                }
             } catch (IMP_Imap_Exception $e) {}
         }
 
