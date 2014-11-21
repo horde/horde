@@ -27,6 +27,7 @@
 /* Redbox styles. */
 #RB_window {
     top: 50px !important;
+    margin-top: 0 !important;
 }
 
 .overdue, .overdue td, .overdue a, .overdue td a {
