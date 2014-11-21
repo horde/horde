@@ -19,7 +19,7 @@
  </lead>
  <date>2014-11-21</date>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -28,19 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Horde_Mime_Headers has been rewritten.
-* [mms] Correctly handle content parameters in a case-insensitive manner.
-* [mms] Correctly pass the &apos;no_body&apos; parameter to parts embedded in a message/rfc822 part in Horde_Mime_Part#parseMessage().
-* [mms] Fix parsing a base MIME-compliant message with no Content-Type information.
-* [mms] Horde_Mime::is8bit() no longer requires the charset parameter.
-* [mms] Improved MIME encoding.
-* [mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to Horde_Mime_QuotedPrintable.
-* [mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into Horde_Mime_Id.
-* [mms] Use string-based ABNF-based parser for scanning MIME content parameters instead of a regular expression (Bug #13587).
-* [mms] Moved content parameter handling methods out of Horde_Mime and into Horde_Mime_ContentParam.
-* [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
-* [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
-* [mms] Add Auto-Submitted header to outgoing MDN messages.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1520,6 +1508,19 @@
 * [mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
 * [mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode class.
 * [mms] Add Auto-Submitted header to outgoing MDN messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
