@@ -616,14 +616,6 @@ class Horde_ActiveSync_SyncCache
                 $collections[$key]['bodyprefs'] = $this->_data['collections'][$values['id']]['bodyprefs'];
                 $this->_markCollectionsDirty($key);
             }
-            if (empty($values['truncation']) && isset($this->_data['collections'][$values['id']]['truncation'])) {
-                $collections[$key]['truncation'] = $this->_data['collections'][$values['id']]['truncation'];
-                $this->_markCollectionsDirty($key);
-            }
-            if (empty($values['mimetruncation']) && isset($this->_data['collections'][$values['id']]['mimetruncation'])) {
-                $collections[$key]['mimetruncation'] = $this->_data['collections'][$values['id']]['mimetruncation'];
-                $this->_markCollectionsDirty($key);
-            }
             if (empty($values['serverid']) && isset($this->_data['collections'][$values['id']]['serverid'])) {
                 $collections[$key]['serverid'] = $this->_data['collections'][$values['id']]['serverid'];
                 $this->_markCollectionsDirty($key);
