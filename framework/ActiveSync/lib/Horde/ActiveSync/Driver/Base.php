@@ -267,19 +267,19 @@ abstract class Horde_ActiveSync_Driver_Base
     {
         if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
             !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = 1048576; // 1024 * 1024
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
         }
         if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
             !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = 1048576; // 1024 * 1024
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
         }
         if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
             !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = 1048576; // 1024 * 1024
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
         }
         if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
             !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = 1048576; // 1024 * 1024
+            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
         }
 
         return $bodyprefs;
