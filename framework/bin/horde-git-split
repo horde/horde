@@ -97,14 +97,15 @@ foreach (array_filter(explode("\n", shell_exec('git tag -l'))) as $val) {
     $delete[] = escapeshellarg($val);
 }
 if (count($delete)) {
-    passthru('git tag -d ' . implode(' ', $delete));
+    printf("Deleting %d tags...\n", count($delete));
+    shell_exec('git tag -d ' . implode(' ', $delete));
 }
 
 $delete = array();
 foreach (array_filter(explode("\n", shell_exec('git branch --no-color'))) as $val) {
     $val = trim(preg_replace("/^\s*\*\s/", '', $val));
     if (!in_array($val, $branch_keep)) {
-        $delete[] = $val;
+        $delete[] = escapeshellarg($val);
     }
 }
 if (count($delete)) {
