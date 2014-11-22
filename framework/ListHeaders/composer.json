@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.1.5",
-    "time": "2014-07-01",
+    "version": "1.2.0",
+    "time": "2014-11-22",
     "repositories": [
         {
             "type": "pear",
@@ -25,6 +25,7 @@
         "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
+        "pear-pear.horde.org/Horde_Mime": ">=2.5.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable"
     }
 }
