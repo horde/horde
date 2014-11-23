@@ -1824,7 +1824,7 @@ var DimpBase = {
 
     _loadPreview: function(mbox, uid)
     {
-        var df, tmp,
+        var tmp,
             pm = $('previewMsg'),
             r = this.preview.get(mbox, uid);
 
@@ -1849,27 +1849,33 @@ var DimpBase = {
             }
         }, this);
 
+        if ($('partlist_exp').visible()) {
+            $('partlist', 'partlist_col', 'partlist_exp').invoke('toggle');
+        }
+
         // Add attachment information
-        $('partlist').childElements().invoke('remove');
         if (r.atc_label) {
-            df = document.createDocumentFragment();
+            $('msgAtc').show();
+            tmp = $('partlist');
+            tmp.previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
+            if (r.atc_list) {
+                tmp.update(new Element('TABLE'));
+                tmp = tmp.down();
 
-            df.appendChild(
-                new Element('LI', { className: 'partlistLabel' })
-                    .insert(r.atc_label + (r.atc_download ? (' ' + r.atc_download) : ''))
-            );
-
-            (r.atc_list || []).each(function(a) {
-                df.appendChild(
-                    new Element('LI').insert(
-                        a.icon + ' ' +
-                        a.description + ' (' + a.size + ') ' +
-                        a.download
-                    )
-                );
-            });
-
-            $('partlist').appendChild(df);
+                r.atc_list.each(function(a) {
+                    tmp.insert(
+                        new Element('TR').insert(
+                            new Element('TD').insert(a.icon)
+                        ).insert(
+                            new Element('TD').insert(a.description + ' (' + a.size + ')')
+                        ).insert(
+                            new Element('TD').insert(a.download)
+                        )
+                    );
+                });
+            }
+        } else {
+            $('msgAtc').hide();
         }
 
         // Add message log information
@@ -1976,6 +1982,8 @@ var DimpBase = {
         this.preview.hide_all = true;
 
         $('partlist').update(r.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DimpCore.text.allparts_label));
+        $('partlist_col').show();
+        $('partlist_exp').hide();
         $('msgAtc').show();
     },
 
@@ -2910,6 +2918,18 @@ var DimpBase = {
         case 'th_expand':
         case 'th_collapse':
             this._toggleHeaders(elt, true);
+            break;
+
+        case 'partlist_toggle':
+            $('partlist_col', 'partlist_exp').invoke('toggle');
+            Effect.toggle('partlist', 'blind', {
+                duration: 0.2,
+                queue: {
+                    position: 'end',
+                    scope: 'partlist',
+                    limit: 2
+                }
+            });
             break;
 
         case 'msg_newwin_options':

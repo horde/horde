@@ -152,11 +152,20 @@
          <td class="label"><?php echo _("Bcc") ?>:</td>
          <td class="bcc allowTextSelection"></td>
         </tr>
+        <tr id="msgAtc" style="display:none">
+         <td class="label" id="partlist_toggle">
+          <span class="iconImg attachmentImg attachmentImage"></span>
+          <span class="iconImg" id="partlist_col"></span>
+          <span class="iconImg" id="partlist_exp" style="display:none"></span>
+         </td>
+         <td>
+          <div></div>
+          <div id="partlist" style="display:none"></div>
+         </td>
+        </tr>
        </table>
 
-       <ul id="partlist"></ul>
-
-       <ul id="msgloglist"></ul>
+       <ul id="msgloglist" style="display:none"></ul>
 
       </div>
      </div>
