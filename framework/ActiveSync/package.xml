@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue that could cause mime boundry strings to leak into the message body when the message contained only a single part.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2486,7 +2486,7 @@
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue that could cause mime boundry strings to leak into the message body when the message contained only a single part.
    </notes>
   </release>
  </changelog>
