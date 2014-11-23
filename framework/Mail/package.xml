@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-08-14</date>
+ <date>2014-11-23</date>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -653,7 +653,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-14</date>
+   <date>2014-11-23</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Added Horde_Mail_Rfc822_List#first() function.
