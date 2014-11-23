@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-28</date>
+ <date>2014-11-23</date>
  <version>
   <release>1.7.0</release>
   <api>1.7.0</api>
@@ -449,7 +449,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-28</date>
+   <date>2014-11-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added Horde_Smtp_Exception property indicating whether error is permanent or transient.
