@@ -25,23 +25,7 @@
 .msgHeaders .subject {
     font-weight: bold;
 }
-#msgHeaderAtc td.label {
-    display: table-cell;
-}
-.atcLabel {
-    font-weight: bold;
-    line-height: 20px;
-    padding-right: 5px;
-}
-#partlist {
-    padding-top: 2px;
-}
-#partlist .horde-tree-image {
-    padding-right: 1px;
-}
-#partlist_toggle span.attachmentImg {
-    margin-right: 0;
-}
+#partlist,
 #msgloglist {
     border: 1px solid #d0d0d0;
     display: inline-block;
@@ -49,11 +33,17 @@
     margin-left: 5px;
     padding: 2px;
 }
-#msgloglist li {
-    padding: 2px;
+.partlistLabel {
+    font-weight: bold;
+    line-height: 20px;
+    padding-right: 5px;
 }
-#partlist_toggle {
-    cursor: pointer;
+#partlist .horde-tree-image {
+    padding-right: 1px;
+}
+#msgloglist li,
+#partlist li {
+    padding: 2px;
 }
 
 /* Message body formatting. */
