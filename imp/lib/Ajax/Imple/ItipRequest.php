@@ -242,7 +242,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         // Send the reply.
                         Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
                             $type,
-                            new Horde_Core_Itip_Response_Options_Horde('UTF-8'),
+                            new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
                             $injector->getInstance('IMP_Mail')
                         );
                         $notification->push(_("Reply Sent."), 'horde.success');
