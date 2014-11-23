@@ -49,6 +49,9 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
 
     public function testBug12116()
     {
+        if (!extension_loaded('intl')) {
+            $this->markTestSkipped('Intl module is not available.');
+        }
         $addr = new Horde_Mail_Rfc822_Address();
         $addr->personal = 'Aäb';
         $addr->mailbox = 'test';
