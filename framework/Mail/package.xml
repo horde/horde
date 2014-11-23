@@ -12,7 +12,7 @@
  </lead>
  <date>2014-11-23</date>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Added Horde_Mail_Rfc822_List#first() function.
-* [mms] Add property to address object to indicate whether it is an EAI address.
-* [mms] Transport driver now indicates whether it handles EAI data.
-* [mms] Support validation of EAI addresses (RFC 6532).
-* [mms] Add Horde_Mail_Mbox_Parse.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -661,6 +657,19 @@
 * [mms] Transport driver now indicates whether it handles EAI data.
 * [mms] Support validation of EAI addresses (RFC 6532).
 * [mms] Add Horde_Mail_Mbox_Parse.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-22</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
