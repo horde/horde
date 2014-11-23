@@ -204,11 +204,25 @@ var DimpCore = {
             tmp = $('msgloglist');
 
         log.each(function(entry) {
-            df.appendChild(new Element('LI').insert(new Element('SPAN', { className: 'iconImg imp-' + entry.t })).insert(entry.m.escapeHTML()));
+            df.appendChild(
+                new Element('LI')
+                    .insert(
+                        new Element('SPAN', {
+                            className: 'iconImg imp-' + entry.t
+                        })
+                    ).insert(
+                        entry.m.escapeHTML()
+                    )
+            );
         });
 
         tmp.childElements().invoke('remove');
-        tmp.appendChild(df);
+
+        if (log.size()) {
+            tmp.show().appendChild(df);
+        } else {
+            tmp.hide();
+        }
     },
 
     /* Browser-side preferences. */

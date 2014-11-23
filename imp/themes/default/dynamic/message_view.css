@@ -28,8 +28,7 @@
 #msgHeaderAtc td.label {
     display: table-cell;
 }
-.atcLabel,
-.msgLogLabel {
+.atcLabel {
     font-weight: bold;
     line-height: 20px;
     padding-right: 5px;
@@ -49,7 +48,6 @@
 #msgloglist li {
     padding-top: 4px;
 }
-#msgloglist_toggle,
 #partlist_toggle {
     cursor: pointer;
 }
