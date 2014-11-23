@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1520,7 +1520,7 @@
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
    </notes>
   </release>
  </changelog>

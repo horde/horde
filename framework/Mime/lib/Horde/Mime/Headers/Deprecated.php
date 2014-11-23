@@ -126,7 +126,7 @@ class Horde_Mime_Headers_Deprecated
     public function listHeadersExist()
     {
         $lhdrs = new Horde_ListHeaders();
-        return $lhdrs->listHeadersExist($this);
+        return $lhdrs->listHeadersExist($this->_headers);
     }
 
     /**
