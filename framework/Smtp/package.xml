@@ -12,7 +12,7 @@
  </lead>
  <date>2014-11-23</date>
  <version>
-  <release>1.7.0</release>
+  <release>1.7.1</release>
   <api>1.7.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_Smtp_Exception property indicating whether error is permanent or transient.
-* [mms] Determine EAI and Body transport information by analyzing the message data, instead of requiring a parameter.
-* [mms] Add support for ETRN extension (RFC 1985).
-* [mms] Add support for BINARYMIME extension (RFC 3030).
-* [mms] Add support for CHUNKING extension (RFC 3030).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -457,6 +453,19 @@
 * [mms] Add support for ETRN extension (RFC 1985).
 * [mms] Add support for BINARYMIME extension (RFC 3030).
 * [mms] Add support for CHUNKING extension (RFC 3030).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.7.1</release>
+    <api>1.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
