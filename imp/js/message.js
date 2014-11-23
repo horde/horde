@@ -303,6 +303,7 @@ var ImpMessage = {
                         if (this.mbox == l.mbox &&
                             this.buid == l.buid) {
                             DimpCore.updateMsgLog(l.log);
+                            $('msgloglist').show();
                         }
                     }, this);
                     delete this.tasks['imp:maillog'];

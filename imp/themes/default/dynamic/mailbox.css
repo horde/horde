@@ -539,13 +539,15 @@ span.readonlyImg {
     margin: 0 0 0 4px;
 }
 #th_expand span.iconImg,
-#partlist_col {
+#partlist_col,
+#msgloglist_col {
     background-image: url("../graphics/arrow_collapsed.png");
     cursor: pointer;
     margin: 3px 0 -3px;
 }
 #th_collapse span.iconImg,
-#partlist_exp {
+#partlist_exp,
+#msgloglist_exp {
     background-image: url("../graphics/arrow_expanded.png");
     cursor: pointer;
     margin: 3px 0 -3px;

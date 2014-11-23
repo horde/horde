@@ -1849,9 +1849,11 @@ var DimpBase = {
             }
         }, this);
 
-        if ($('partlist_exp').visible()) {
-            $('partlist', 'partlist_col', 'partlist_exp').invoke('toggle');
-        }
+        [ 'msgloglist', 'partlist' ].each(function(a) {
+            if ($(a + '_exp').visible()) {
+                $(a, a + '_col', a + '_exp').invoke('toggle');
+            }
+        });
 
         // Add attachment information
         if (r.atc_label) {
@@ -1879,7 +1881,11 @@ var DimpBase = {
         }
 
         // Add message log information
-        DimpCore.updateMsgLog(r.log || []);
+        if (r.log) {
+            this.updateMsgLog(r.log);
+        } else {
+            $('msgLogInfo').hide();
+        }
 
         // Toggle resume link
         if (this.viewport.getMetaData('templates')) {
@@ -1977,6 +1983,12 @@ var DimpBase = {
         });
     },
 
+    updateMsgLog: function(log)
+    {
+        DimpCore.updateMsgLog(log);
+        $('msgLogInfo').show();
+    },
+
     _mimeTreeCallback: function(r)
     {
         this.preview.hide_all = true;
@@ -2003,9 +2015,9 @@ var DimpBase = {
         r.each(function(l) {
             var tmp = this.preview.get(l.mbox, l.buid);
             if (tmp) {
-                tmp.log = l.log || [];
-                if (this.preview.isActive(l.mbox, l.buid)) {
-                    this.updateMsgLog(tmp.log);
+                tmp.log = l.log;
+                if (l.log && this.preview.isActive(l.mbox, l.buid)) {
+                    this.updateMsgLog(l.log);
                 }
             }
         }, this);
@@ -2920,13 +2932,15 @@ var DimpBase = {
             this._toggleHeaders(elt, true);
             break;
 
+        case 'msgloglist_toggle':
         case 'partlist_toggle':
-            $('partlist_col', 'partlist_exp').invoke('toggle');
-            Effect.toggle('partlist', 'blind', {
+            tmp = (id == 'partlist_toggle') ? 'partlist' : 'msgloglist';
+            $(tmp + '_col', tmp + '_exp').invoke('toggle');
+            Effect.toggle(tmp, 'blind', {
                 duration: 0.2,
                 queue: {
                     position: 'end',
-                    scope: 'partlist',
+                    scope: tmp,
                     limit: 2
                 }
             });
