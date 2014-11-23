@@ -221,9 +221,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                     $onload->addr[$val] = array();
                 }
                 if (isset($addr[$val])) {
+                    $tmp = new IMP_Ajax_Addresses($addr[$val]);
                     $onload->addr[$val] = array_merge(
                         $onload->addr[$val],
-                        array_map('strval', $addr[$val]->base_addresses)
+                        $tmp->toAutocompleteArray()
                     );
                 }
             }
