@@ -19,7 +19,7 @@
  </lead>
  <date>2014-11-23</date>
  <version>
-  <release>2.5.1</release>
+  <release>2.5.2</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix Horde_Mime_Headers_Deprecated#addReceivedHeader().
-* [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1523,6 +1522,19 @@
    <notes>
 * [mms] Fix Horde_Mime_Headers_Deprecated#addReceivedHeader().
 * [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.2</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
