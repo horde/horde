@@ -118,7 +118,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vEvent reply.
                 if ($registry->hasMethod('calendar/updateAttendee')) {
                     try {
-                        if ($tmp = $from->contents->getHeader()->getHeader('from')) {
+                        if ($tmp = $contents->getHeader()->getHeader('from')) {
                             $registry->call('calendar/updateAttendee', array(
                                 $components[$key],
                                 $tmp->getAddressList(true)->first()->bare_address
