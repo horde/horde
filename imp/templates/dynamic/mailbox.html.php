@@ -163,19 +163,10 @@
           <div id="partlist" style="display:none"></div>
          </td>
         </tr>
-        <tr id="msgLogInfo" style="display:none">
-         <td class="label" id="msgloglist_toggle">
-          <span class="iconImg" id="msgloglist_col"></span>
-          <span class="iconImg" id="msgloglist_exp" style="display:none"></span>
-         </td>
-         <td>
-          <div>
-           <span class="msgLogLabel"><?php echo _("Message Log") ?></span>
-          </div>
-          <ul id="msgloglist" style="display:none"></ul>
-         </td>
-        </tr>
        </table>
+
+       <ul id="msgloglist" style="display:none"></ul>
+
       </div>
      </div>
      <div id="messageBody" class="messageBody allowTextSelection"></div>
