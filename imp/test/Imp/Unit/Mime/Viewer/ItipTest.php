@@ -54,6 +54,9 @@ extends PHPUnit_Framework_TestCase
         $registry->expects($this->any())
             ->method('getCharset')
             ->will($this->returnValue('UTF-8'));
+        $registry->expects($this->any())
+            ->method('remoteHost')
+            ->will($this->returnCallback(array($this, '_registryRemoteHost')));
         $GLOBALS['registry'] = $registry;
 
         $notification = $this->getMock('Horde_Notification_Handler', array(), array(), '', false);
@@ -148,6 +151,15 @@ extends PHPUnit_Framework_TestCase
             }
             return $this->_mail;
         }
+    }
+
+    public function _registryRemoteHost()
+    {
+        $remote = new stdClass;
+        $remote->addr = '127.0.0.1';
+        $remote->host = 'localhost';
+
+        return $remote;
     }
 
     public function _getMimePart($id)
