@@ -3,7 +3,7 @@
     padding: 10px 6px 10px 4px;
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
-    max-height: 300px;
+    max-height: 250px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -43,10 +43,14 @@
     margin-right: 0;
 }
 #msgloglist {
+    border-top: 1px solid #d0d0d0;
     list-style-type: none;
+    margin-top: 2px;
+    margin-left: 5px;
+    padding: 2px;
 }
 #msgloglist li {
-    padding-top: 4px;
+    padding: 2px;
 }
 #partlist_toggle {
     cursor: pointer;
