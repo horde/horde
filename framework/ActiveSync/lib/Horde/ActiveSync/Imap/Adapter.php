@@ -998,7 +998,6 @@ class Horde_ActiveSync_Imap_Adapter
                     // Sending a non-signed MIME message, start building the
                     // UTF-8 converted structure.
                     $mime = new Horde_Mime_Part();
-                    $mime->setType('multipart/alternative');
 
                     // Populate the text/plain part if we have one.
                     if (!empty($message_body_data['plain'])) {
@@ -1006,7 +1005,6 @@ class Horde_ActiveSync_Imap_Adapter
                         $plain_mime->setType('text/plain');
                         $plain_mime->setContents($message_body_data['plain']['body']->stream, array('usestream' => true));
                         $plain_mime->setCharset('UTF-8');
-                        $mime->addPart($plain_mime);
                     }
 
                     // Populate the text/html part if we have one.
@@ -1015,6 +1013,16 @@ class Horde_ActiveSync_Imap_Adapter
                         $html_mime->setType('text/html');
                         $html_mime->setContents($message_body_data['html']['body']->stream, array('usestream' => true));
                         $html_mime->setCharset('UTF-8');
+                    }
+
+                    // Sanity check the mime type
+                    if (empty($message_body_data['html'])) {
+                        $mime = $plain_mime;
+                    } elseif (empty($message_body_data['plain'])) {
+                        $mime = $html_mime;
+                    } else {
+                        $mime->setType('multipart/alternative');
+                        $mime->addPart($plain_mime);
                         $mime->addPart($html_mime);
                     }
 
