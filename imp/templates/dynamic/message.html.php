@@ -83,30 +83,11 @@
        </td>
       </tr>
 <?php endforeach; ?>
-      <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
-       <td class="label">
-        <?php echo _("Attachments") ?>:
-<?php if (isset($this->atc_download)): ?>
-        <br />
-        <?php echo $this->atc_download ?>
-<?php endif; ?>
-       </td>
-       <td>
-        <div id="partlist">
-         <table>
-<?php foreach ($this->atc_list as $val): ?>
-          <tr>
-           <td><?php echo $val['icon'] ?></td>
-           <td><?php echo $val['description'] ?> (<?php echo $val['size'] ?>)</td>
-           <td><?php echo $val['download'] ?></td>
-          </tr>
-<?php endforeach ?>
-         </table>
-        </div>
-       </td>
-      </tr>
      </table>
-
+     <div id="partlist" style="display:none">
+      <div class="partlistDownloadAll"></div>
+      <ul></ul>
+     </div>
      <ul id="msgloglist" style="display:none"></ul>
     </div>
    </div>

@@ -1849,34 +1849,9 @@ var DimpBase = {
             }
         }, this);
 
-        if ($('partlist_exp').visible()) {
-            $('partlist', 'partlist_col', 'partlist_exp').invoke('toggle');
-        }
-
         // Add attachment information
-        if (r.atc_label) {
-            $('msgAtc').show();
-            tmp = $('partlist');
-            tmp.previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(r.atc_label)).insert(r.atc_download);
-            if (r.atc_list) {
-                tmp.update(new Element('TABLE'));
-                tmp = tmp.down();
-
-                r.atc_list.each(function(a) {
-                    tmp.insert(
-                        new Element('TR').insert(
-                            new Element('TD').insert(a.icon)
-                        ).insert(
-                            new Element('TD').insert(a.description + ' (' + a.size + ')')
-                        ).insert(
-                            new Element('TD').insert(a.download)
-                        )
-                    );
-                });
-            }
-        } else {
-            $('msgAtc').hide();
-        }
+        $('partlist').down('.partlistAllParts').hide();
+        DimpCore.updateAtcList(r.atc);
 
         // Add message log information
         DimpCore.updateMsgLog(r.log || []);
@@ -1979,12 +1954,13 @@ var DimpBase = {
 
     _mimeTreeCallback: function(r)
     {
+        var p = $('partlist');
+
         this.preview.hide_all = true;
 
-        $('partlist').update(r.tree).previous().update(new Element('SPAN', { className: 'atcLabel' }).insert(DimpCore.text.allparts_label));
-        $('partlist_col').show();
-        $('partlist_exp').hide();
-        $('msgAtc').show();
+        [ p.down('.partlistDownloadAll'), p.down('UL') ].invoke('hide');
+        p.down('.partlistAllParts').show().update(r.tree);
+        p.show();
     },
 
     _sendMdnCallback: function(r)
@@ -2918,18 +2894,6 @@ var DimpBase = {
         case 'th_expand':
         case 'th_collapse':
             this._toggleHeaders(elt, true);
-            break;
-
-        case 'partlist_toggle':
-            $('partlist_col', 'partlist_exp').invoke('toggle');
-            Effect.toggle('partlist', 'blind', {
-                duration: 0.2,
-                queue: {
-                    position: 'end',
-                    scope: 'partlist',
-                    limit: 2
-                }
-            });
             break;
 
         case 'msg_newwin_options':

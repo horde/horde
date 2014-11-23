@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Improved display of attachments and message log information in dynamic
+      view.
 [mms] IMP no longer uses MDN status stored in the maillog backend by default.
 [mms] Add ability to download individual files from within a .tgz attachment.
 [mms] Improved display of contents of ZIP attachments.

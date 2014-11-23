@@ -98,6 +98,12 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
         $js_vars['ImpMessage.buid'] = $buid;
         $js_vars['ImpMessage.mbox'] = $this->indices->mailbox->form_to;
+        if (isset($msg_res['atc'])) {
+            $js_vars['ImpMessage.msg_atc'] = $msg_res['atc'];
+            $this->js_text += array(
+                'atc_downloadall' => _("Download All (%s)")
+            );
+        }
         if (isset($msg_res['md'])) {
             $js_vars['ImpMessage.msg_md'] = $msg_res['md'];
         }
@@ -155,20 +161,6 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             $hdrs[] = $tmp;
         }
         $this->view->hdrs = $hdrs;
-
-        if (isset($msg_res['atc_label'])) {
-            $this->view->atc_label = $msg_res['atc_label'];
-            if (isset($msg_res['atc_list'])) {
-                $this->view->atc_list = $msg_res['atc_list'];
-            } else {
-                $this->view->atc_list = array();
-            }
-            if (isset($msg_res['atc_download'])) {
-                $this->view->atc_download = $msg_res['atc_download'];
-            }
-        } else {
-            $this->view->atc_list = array();
-        }
 
         $this->view->msgtext = $msg_res['msgtext'];
 

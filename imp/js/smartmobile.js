@@ -776,11 +776,11 @@ var ImpMobile = {
                 : IMP.text.nofrom
         );
 
-        if (data.atc_label) {
+        if (data.atc) {
             $('#imp-message-atc').show();
-            $('#imp-message-atclabel').text(data.atc_label);
+            $('#imp-message-atclabel').text(data.atc.label);
 
-            ImpMobile.atc = data.atc_list;
+            ImpMobile.atc = data.atc.list;
         } else {
             $('#imp-message-atc').hide();
             delete ImpMobile.atc;

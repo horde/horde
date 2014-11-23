@@ -111,9 +111,10 @@ class IMP_Ajax_Application_ShowMessage
      *   - preview: (boolean) Is this the preview view?
      *
      * @return array  Array with the following keys:
-     *   - atc_download: The download all link
-     *   - atc_label: The label to use for Attachments
-     *   - atc_list: The list (HTML code) of attachments
+     *   - atc: (object) Attachment information.
+     *     - download: (string) The URL for the download all action.
+     *     - label: (string) The attachment label.
+     *     - list: (array) Attachment information.
      *   - bcc (FULL): The Bcc addresses
      *   - cc: The CC addresses
      *   - fulldate (FULL): The full canonical date.
@@ -292,11 +293,14 @@ class IMP_Ajax_Application_ShowMessage
 
         if (count($inlineout['atc_parts']) ||
             (($show_parts == 'all') && count($inlineout['display_ids']) > 2)) {
-            $result['atc_label'] = ($show_parts == 'all')
+            $result['atc']['label'] = ($show_parts == 'all')
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
-            if (count($inlineout['atc_parts']) > 2) {
-                $result['atc_download'] = Horde::link($this->_contents->urlView($this->_contents->getMIMEMessage(), 'download_all')) . '[' . _("Save All") . ']</a>';
+            if (count($inlineout['atc_parts']) > 1) {
+                $result['atc']['download'] = strval($this->_contents->urlView(
+                    $this->_contents->getMIMEMessage(),
+                    'download_all'
+                )->setRaw(true));
             }
         }
 
@@ -329,7 +333,7 @@ class IMP_Ajax_Application_ShowMessage
                 $partlist[] = array_filter($tmp);
             }
 
-            $result['atc_list'] = $partlist;
+            $result['atc']['list'] = $partlist;
         }
 
         list($bmbox, $buid) = ($this->_indices instanceof IMP_Indices_Mailbox)

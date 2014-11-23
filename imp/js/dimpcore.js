@@ -197,7 +197,39 @@ var DimpCore = {
         });
     },
 
-    /* Add message log info to message view. */
+    updateAtcList: function(atc)
+    {
+        var df = document.createDocumentFragment(),
+            p = $('partlist');
+
+        p.hide().down('UL').childElements().invoke('remove');
+
+        if (!atc) {
+            return;
+        }
+
+        if (atc.download) {
+            p.down('.partlistDownloadAll').show().update(
+                new Element('A', { href: atc.download }).insert(
+                    this.text.atc_downloadall.sub('%s', atc.label)
+                )
+            );
+        } else {
+            p.down('.partlistDownloadAll').hide();
+        }
+
+        atc.list.each(function(a) {
+            df.appendChild(new Element('LI').insert([
+                a.icon,
+                a.description,
+                '(' + a.size + ')',
+                a.download
+            ].join(' ')));
+        });
+
+        p.show().down('UL').show().appendChild(df);
+    },
+
     updateMsgLog: function(log)
     {
         var df = document.createDocumentFragment(),

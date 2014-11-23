@@ -518,6 +518,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $this->js_context = array_merge($context, $this->js_context);
 
         $this->js_text += array(
+            'atc_downloadall' => _("Download All (%s)"),
             'badaddr' => _("Invalid Address"),
             'badsubject' => _("Invalid Subject"),
             'baselevel' => _("base level of the folder tree"),

@@ -10,7 +10,8 @@ var ImpMessage = {
 
     // buid,
     // mbox,
-    // msg_md
+    // msg_atc,
+    // msg_md,
 
     quickreply: function(type)
     {
@@ -262,9 +263,7 @@ var ImpMessage = {
     {
         $('msg_all_parts').up().hide();
 
-        $('partlist').update(r.tree);
-        $('msgHeaderAtc').down('TD.label').update(DimpCore.text.allparts_label + ':');
-        $('msgHeaderAtc').show();
+        $('partlist').show().update(r.tree);
 
         this.resizeWindow();
     },
@@ -313,6 +312,9 @@ var ImpMessage = {
 
         DimpCore.msgMetadata(this.msg_md);
         delete this.msg_md;
+
+        DimpCore.updateAtcList(this.msg_atc);
+        delete this.msg_atc;
 
         $('dimpLoading').hide();
         $('msgData').show();
