@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix Horde_Mime_Headers_Deprecated#addReceivedHeader().
 * [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
  </notes>
  <contents>
@@ -1520,6 +1521,7 @@
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix Horde_Mime_Headers_Deprecated#addReceivedHeader().
 * [mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
    </notes>
   </release>
