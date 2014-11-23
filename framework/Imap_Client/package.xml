@@ -12,7 +12,7 @@
  </lead>
  <date>2014-11-23</date>
  <version>
-  <release>2.25.4</release>
+  <release>2.25.5</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Better error handling when IMAP connection is prematurely disconnected.
-* [mms] Fix regression in listMailboxes() for POP3 servers when &apos;flat&apos; option is true.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2758,6 +2757,19 @@
    <notes>
 * [mms] Better error handling when IMAP connection is prematurely disconnected.
 * [mms] Fix regression in listMailboxes() for POP3 servers when &apos;flat&apos; option is true.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.5</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-23</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
