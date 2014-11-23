@@ -117,10 +117,6 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
         }
 
         foreach ($history as $val) {
-            if (!empty($types) && !in_array(get_class($val), $types)) {
-                continue;
-            }
-
             switch ($val['action']) {
             case 'forward':
                 $ob = new IMP_Maillog_Log_Forward($val['recipients']);
@@ -148,6 +144,10 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
 
             default:
                 continue 2;
+            }
+
+            if (!empty($types) && !in_array(get_class($ob), $types)) {
+                continue;
             }
 
             $ob->timestamp = $val['ts'];
