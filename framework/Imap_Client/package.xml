@@ -12,7 +12,7 @@
  </lead>
  <date>2014-11-24</date>
  <version>
-  <release>2.25.5</release>
+  <release>2.25.6</release>
   <api>2.25.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix broken IMAP cache behavior in the DB driver when unserialization of a cached object fails.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2770,6 +2770,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix broken IMAP cache behavior in the DB driver when unserialization of a cached object fails.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.6</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
