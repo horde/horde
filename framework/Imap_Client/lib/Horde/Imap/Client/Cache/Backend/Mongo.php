@@ -21,7 +21,9 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Cache_Backend_Mongo extends Horde_Imap_Client_Cache_Backend implements Horde_Mongo_Collection_Index
+class Horde_Imap_Client_Cache_Backend_Mongo
+extends Horde_Imap_Client_Cache_Backend
+implements Horde_Mongo_Collection_Index
 {
     /** Mongo collection names. */
     const BASE = 'horde_imap_client_cache_data';

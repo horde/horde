@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Cache_Backend_Null extends Horde_Imap_Client_Cache_Backend
+class Horde_Imap_Client_Cache_Backend_Null
+extends Horde_Imap_Client_Cache_Backend
 {
     /**
      */

@@ -21,7 +21,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
-class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
+class Horde_Imap_Client_Cache_Backend_Db
+extends Horde_Imap_Client_Cache_Backend
 {
     /** SQL table names. */
     const BASE_TABLE = 'horde_imap_client_data';
