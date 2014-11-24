@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Messageid
-    extends Horde_Mime_Headers_Identification
+extends Horde_Mime_Headers_Identification
 {
     /**
      * Creates a Message-ID header conforming to RFC 2822 [3.6.4] and the

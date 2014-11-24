@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Subject
-    extends Horde_Mime_Headers_Element_Single
+extends Horde_Mime_Headers_Element_Single
 {
     /**
      */

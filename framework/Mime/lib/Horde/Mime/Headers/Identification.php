@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Identification
-    extends Horde_Mime_Headers_Element_Single
+extends Horde_Mime_Headers_Element_Single
 {
     /**
      * Get the identification object for the header value.

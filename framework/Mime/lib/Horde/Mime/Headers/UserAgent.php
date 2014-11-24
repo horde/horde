@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_UserAgent
-    extends Horde_Mime_Headers_Element_Single
+extends Horde_Mime_Headers_Element_Single
 {
     /**
      * Creates a default system User-Agent header.

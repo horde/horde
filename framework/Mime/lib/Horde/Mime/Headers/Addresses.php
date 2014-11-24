@@ -22,8 +22,8 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Addresses
-    extends Horde_Mime_Headers_Element_Single
-    implements Horde_Mime_Headers_Element_Address
+extends Horde_Mime_Headers_Element_Single
+implements Horde_Mime_Headers_Element_Address
 {
     /**
      * By default, if more than 1 address header is found, the addresses are

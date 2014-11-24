@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Received
-    extends Horde_Mime_Headers_Element_Multiple
+extends Horde_Mime_Headers_Element_Multiple
 {
     /**
      */

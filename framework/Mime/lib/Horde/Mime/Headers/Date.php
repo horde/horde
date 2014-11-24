@@ -22,7 +22,7 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_Date
-    extends Horde_Mime_Headers_Element_Single
+extends Horde_Mime_Headers_Element_Single
 {
     /**
      * Generate a 'Date' header for the current time.

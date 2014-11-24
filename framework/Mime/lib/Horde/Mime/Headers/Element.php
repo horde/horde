@@ -25,7 +25,7 @@
  * @property-read string $value_single  The first header value.
  */
 abstract class Horde_Mime_Headers_Element
-    implements IteratorAggregate
+implements IteratorAggregate
 {
     /**
      * Header name (UTF-8, although limited to US-ASCII subset by RFCs).

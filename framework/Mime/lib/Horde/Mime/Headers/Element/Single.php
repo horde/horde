@@ -26,7 +26,7 @@
  * @property-read string $value  Header value.
  */
 class Horde_Mime_Headers_Element_Single
-    extends Horde_Mime_Headers_Element
+extends Horde_Mime_Headers_Element
 {
     /**
      */

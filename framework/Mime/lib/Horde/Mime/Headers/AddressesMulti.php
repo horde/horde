@@ -23,8 +23,8 @@
  * @since     2.5.0
  */
 class Horde_Mime_Headers_AddressesMulti
-    extends Horde_Mime_Headers_Element_Multiple
-    implements Horde_Mime_Headers_Element_Address
+extends Horde_Mime_Headers_Element_Multiple
+implements Horde_Mime_Headers_Element_Address
 {
     /**
      */

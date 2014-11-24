@@ -26,7 +26,7 @@
  * @property-read array $value  List of header values (strings).
  */
 class Horde_Mime_Headers_Element_Multiple
-    extends Horde_Mime_Headers_Element
+extends Horde_Mime_Headers_Element
 {
     /**
      */
