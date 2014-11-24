@@ -157,9 +157,7 @@ class Horde_Imap_Client_Data_Envelope implements Serializable
                 break;
             }
 
-            $this->_data->addHeader($name, $value, array(
-                'sanity_check' => true
-            ));
+            $this->_data->addHeader($name, $value);
             break;
         }
     }
