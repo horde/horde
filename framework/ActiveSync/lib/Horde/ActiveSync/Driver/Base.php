@@ -244,8 +244,7 @@ abstract class Horde_ActiveSync_Driver_Base
     public function fetch($folderid, $id, array $collection)
     {
         // Forces entire message
-        $collection['truncation'] = Horde_ActiveSync::TRUNCATION_9;
-        $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
+        $collection['truncation'] = $collection['mimetruncation'] = false;
         if (!empty($collection['bodyprefs'])) {
             foreach ($collection['bodyprefs'] as &$bodypref) {
                 if (isset($bodypref['truncationsize'])) {
