@@ -84,13 +84,11 @@ class Horde_Imap_Client_Cache_Backend_Db extends Horde_Imap_Client_Cache_Backend
             $res = $this->_db->select($query[0], $query[1]);
 
             foreach ($res as $row) {
-                try {
-                    $out[$row['msguid']] = @unserialize($compress->decompress(
-                        $columns['data']->binaryToString($row['data'])
-                    ));
-                } catch (Exception $e) {}
+                $out[$row['msguid']] = @unserialize($compress->decompress(
+                    $columns['data']->binaryToString($row['data'])
+                ));
             }
-        } catch (Horde_Db_Exception $e) {}
+        } catch (Exception $e) {}
 
         return $out;
     }
