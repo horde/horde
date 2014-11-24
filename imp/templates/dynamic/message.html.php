@@ -69,45 +69,44 @@
     </div>
     <div>
      <div class="subject allowTextSelection"><?php echo $this->subject ?></div>
-     <table>
-      <thead>
+     <table id="msgHeadersTable">
 <?php foreach ($this->hdrs as $val): ?>
-       <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
-        <td class="label"><?php echo $val['label'] ?>:</td>
-        <td class="allowTextSelection">
+      <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
+       <td class="label"><?php echo $val['label'] ?>:</td>
+       <td class="allowTextSelection">
 <?php if (isset($val['print'])): ?>
-         <span class="messagePrintShow"><?php echo $this->h($val['print']) ?></span>
-         <span class="messagePrintNoShow"><?php echo $val['val'] ?></span>
+        <span class="messagePrintShow"><?php echo $this->h($val['print']) ?></span>
+        <span class="messagePrintNoShow"><?php echo $val['val'] ?></span>
 <?php else: ?>
          <?php echo $val['val'] ?>
 <?php endif; ?>
-        </td>
-       </tr>
+       </td>
+      </tr>
 <?php endforeach; ?>
-       <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
-        <td class="label">
-         <?php echo _("Attachments") ?>:
+      <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
+       <td class="label">
+        <?php echo _("Attachments") ?>:
 <?php if (isset($this->atc_download)): ?>
-         <br />
-         <?php echo $this->atc_download ?>
+        <br />
+        <?php echo $this->atc_download ?>
 <?php endif; ?>
-        </td>
-        <td>
-         <div id="partlist">
-          <table>
+       </td>
+       <td>
+        <div id="partlist">
+         <table>
 <?php foreach ($this->atc_list as $val): ?>
-           <tr>
-            <td><?php echo $val['icon'] ?></td>
-            <td><?php echo $val['description'] ?> (<?php echo $val['size'] ?>)</td>
-            <td><?php echo $val['download'] ?></td>
-           </tr>
+          <tr>
+           <td><?php echo $val['icon'] ?></td>
+           <td><?php echo $val['description'] ?> (<?php echo $val['size'] ?>)</td>
+           <td><?php echo $val['download'] ?></td>
+          </tr>
 <?php endforeach ?>
-          </table>
-         </div>
-        </td>
-       </tr>
-      </thead>
+         </table>
+        </div>
+       </td>
+      </tr>
      </table>
+
      <ul id="msgloglist" style="display:none"></ul>
     </div>
    </div>
