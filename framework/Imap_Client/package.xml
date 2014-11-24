@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix issue that could cause broken IMAP cache behavior when the serialization format has changed in a cached object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2769,7 +2769,7 @@
    <date>2014-11-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix issue that could cause broken IMAP cache behavior when the serialization format has changed in a cached object.
    </notes>
   </release>
  </changelog>
