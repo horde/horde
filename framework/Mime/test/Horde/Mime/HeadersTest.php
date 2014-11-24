@@ -348,7 +348,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider uuencodeMimeHeaderProvider
+     * @dataProvider unencodeMimeHeaderProvider
      */
     public function testUnencodedMimeHeader($header, $in, $decoded)
     {
@@ -366,7 +366,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function uuencodeMimeHeaderProvider()
+    public function unencodeMimeHeaderProvider()
     {
         return array(
             array(
