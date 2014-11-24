@@ -106,6 +106,41 @@ implements IteratorAggregate
         return $this->_values;
     }
 
+    /**
+     * Perform sanity checking on a header value.
+     *
+     * @param string $data  The header data.
+     *
+     * @return string  The cleaned header data.
+     */
+    protected function _sanityCheck($data)
+    {
+        $charset_test = array(
+            'windows-1252',
+            Horde_Mime_Headers::$defaultCharset
+        );
+
+        if (!Horde_String::validUtf8($data)) {
+            /* Appears to be a PHP error with the internal String structure
+             * which prevents accurate manipulation of the string. Copying
+             * the data to a new variable fixes things. */
+            $data = substr($data, 0);
+
+            /* Assumption: broken charset in headers is generally either
+             * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
+             * first before using default charset. This may be a
+             * Western-centric approach, but it's better than nothing. */
+            foreach ($charset_test as $charset) {
+                $tmp = Horde_String::convertCharset($data, $charset, 'UTF-8');
+                if (Horde_String::validUtf8($tmp)) {
+                    return $tmp;
+                }
+            }
+        }
+
+        return $data;
+    }
+
     /* Static methods */
 
     /**

@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Improved sanity checking when adding header data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1534,7 +1534,7 @@
    <date>2014-11-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Improved sanity checking when adding header data.
    </notes>
   </release>
  </changelog>

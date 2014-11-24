@@ -114,6 +114,11 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 'Test',
                 '=?iso-8859-15?b?VmVyc2nzbg==?=',
                 'Versión'
+            ),
+            array(
+                'To',
+                '=?utf-8?B?IklsZ2EginVwbGluc2thIg==?= <foo@example.com>',
+                'Ilga Šuplinska <foo@example.com>'
             )
         );
     }

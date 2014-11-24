@@ -49,12 +49,9 @@ extends Horde_Mime_Headers_Element
             $value = $value->value;
         }
 
-        $values = array_map(
-            array('Horde_Mime', 'decode'),
-            is_array($value) ? $value : array($value)
-        );
-
-        $this->_values = array_merge($this->_values, $values);
+        foreach ((is_array($value) ? $value : array($value)) as $val) {
+            $this->_values[] = $this->_sanityCheck(Horde_Mime::decode($val));
+        }
     }
 
 }

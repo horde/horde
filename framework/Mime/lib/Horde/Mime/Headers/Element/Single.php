@@ -58,7 +58,9 @@ extends Horde_Mime_Headers_Element
             $value = reset($value);
         }
 
-        $this->_values = array(Horde_Mime::decode($value));
+        $this->_values = array(
+            $this->_sanityCheck(Horde_Mime::decode($value))
+        );
     }
 
     /**

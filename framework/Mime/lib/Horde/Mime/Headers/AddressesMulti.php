@@ -45,6 +45,9 @@ implements Horde_Mime_Headers_Element_Address
         case 'full_value':
         case 'value':
             return array_map('strval', $this->_values);
+
+        case 'value_single':
+            return strval(reset($this->_values));
         }
 
         return parent::__get($name);
@@ -63,8 +66,18 @@ implements Horde_Mime_Headers_Element_Address
      */
     protected function _setValue($value)
     {
+        /* @todo Implement with traits */
         $rfc822 = new Horde_Mail_Rfc822();
-        $this->_values[] = $rfc822->parseAddressList($value);
+        $addr_list = $rfc822->parseAddressList($value);
+
+        foreach ($addr_list as $ob) {
+            if ($ob instanceof Horde_Mail_Rfc822_Group) {
+                $ob->groupname = $this->_sanityCheck($ob->groupname);
+            } else {
+                $ob->personal = $this->_sanityCheck($ob->personal);                         }
+        }
+
+        $this->_values[] = $addr_list;
     }
 
     /**

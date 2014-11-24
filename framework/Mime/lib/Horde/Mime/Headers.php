@@ -182,16 +182,9 @@ implements ArrayAccess, IteratorAggregate, Serializable
      *
      * @param string $header  The header name.
      * @param string $value   The header value (UTF-8).
-     * @param array $opts     Additional options:
-     *   - sanity_check: (boolean) Do sanity-checking on header value?
-     *                   DEFAULT: false
      */
-    public function addHeader($header, $value, array $opts = array())
+    public function addHeader($header, $value)
     {
-        if (!empty($opts['sanity_check'])) {
-            $value = $this->_sanityCheck($value);
-        }
-
         /* Existing header? Add to that object. */
         $header = trim($header);
         if ($hdr = $this[$header]) {
@@ -315,41 +308,6 @@ implements ArrayAccess, IteratorAggregate, Serializable
         unset($this[$header]);
     }
 
-    /**
-     * Perform sanity checking on a raw header (e.g. handle 8-bit characters).
-     *
-     * @param string $data  The header data.
-     *
-     * @return string  The cleaned header data.
-     */
-    protected function _sanityCheck($data)
-    {
-        $charset_test = array(
-            'windows-1252',
-            self::$defaultCharset
-        );
-
-        if (!Horde_String::validUtf8($data)) {
-            /* Appears to be a PHP error with the internal String structure
-             * which prevents accurate manipulation of the string. Copying
-             * the data to a new variable fixes things. */
-            $data = substr($data, 0);
-
-            /* Assumption: broken charset in headers is generally either
-             * UTF-8 or ISO-8859-1/Windows-1252. Test these charsets
-             * first before using default charset. This may be a
-             * Western-centric approach, but it's better than nothing. */
-            foreach ($charset_test as $charset) {
-                $tmp = Horde_String::convertCharset($data, $charset, 'UTF-8');
-                if (Horde_String::validUtf8($tmp)) {
-                    return $tmp;
-                }
-            }
-        }
-
-        return $data;
-    }
-
     /* Static methods. */
 
     /**
@@ -399,13 +357,7 @@ implements ArrayAccess, IteratorAggregate, Serializable
             if (!($ob = $headers[$val->header]) ||
                 !($ob instanceof Horde_Mime_Headers_Element_Single) ||
                 ($ob instanceof Horde_Mime_Headers_Addresses)) {
-                $headers->addHeader(
-                    $val->header,
-                    rtrim($val->text),
-                    array(
-                        'sanity_check' => true
-                    )
-                );
+                $headers->addHeader($val->header, rtrim($val->text));
             }
         }
 

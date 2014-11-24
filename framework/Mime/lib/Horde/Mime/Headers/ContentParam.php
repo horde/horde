@@ -72,7 +72,7 @@ implements ArrayAccess, Serializable
                 $this->_values = array($data->value);
             }
             foreach ($data->params as $key => $val) {
-                $this->_params[$key] = $val;
+                $this->_params[$key] = $this->_sanityCheck($val);
             }
         } elseif (is_object($data)) {
             if (!empty($data->value)) {
@@ -245,7 +245,7 @@ implements ArrayAccess, Serializable
      */
     public function decode($data)
     {
-        $convert = array();
+        $add = $convert = array();
 
         if (is_array($data)) {
             $params = $data;
@@ -293,15 +293,15 @@ implements ArrayAccess, Serializable
 
         foreach ($to_add as $key => $val) {
             ksort($val);
-            $this->_params[$key] = implode('', $val);
+            $add[$key] = implode('', $val);
         }
 
         foreach (array_keys($convert) as $name) {
-            $val = $this->_params[$name];
+            $val = $add[$name];
             $quote = strpos($val, "'");
 
             if ($quote === false) {
-                $this->_params[$name] = urldecode($val);
+                $add[$name] = urldecode($val);
             } else {
                 $orig_charset = substr($val, 0, $quote);
                 if (Horde_String::lower($orig_charset) == 'iso-8859-1') {
@@ -311,7 +311,7 @@ implements ArrayAccess, Serializable
                 /* Ignore language. */
                 $quote = strpos($val, "'", $quote + 1);
                 substr($val, $quote + 1);
-                $this->_params[$name] = Horde_String::convertCharset(
+                $add[$name] = Horde_String::convertCharset(
                     urldecode(substr($val, $quote + 1)),
                     $orig_charset,
                     'UTF-8'
@@ -324,12 +324,16 @@ implements ArrayAccess, Serializable
          * one RFC 2231 encoding, then assume the sending mailer knew what
          * it was doing and didn't send any parameters RFC 2045 encoded. */
         if (empty($convert)) {
-            foreach ($this->_params as $key => $val) {
-                $this->_params[$key] = Horde_Mime::decode($val);
+            foreach ($add as $key => $val) {
+                $add[$key] = Horde_Mime::decode($val);
             }
         }
 
-        if (!count($this->_params) && is_string($data)) {
+        if (count($add)) {
+            foreach ($add as $key => $val) {
+                $this->_params[$key] = $this->_sanityCheck($val);
+            }
+        } elseif (is_string($data)) {
             $this->_values = array(trim($parts[0]));
         }
     }
@@ -354,7 +358,7 @@ implements ArrayAccess, Serializable
      */
     public function offsetSet($offset, $value)
     {
-        $this->_params[$offset] = $value;
+        $this->_params[$offset] = $this->_sanityCheck($value);
     }
 
     /**
