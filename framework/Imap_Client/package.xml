@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-23</date>
+ <date>2014-11-24</date>
  <version>
   <release>2.25.5</release>
   <api>2.25.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue that could cause broken IMAP cache behavior when the serialization format has changed in a cached object.
+* [mjr] Fix broken IMAP cache behavior in the DB driver when unserialization of a cached object fails.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2766,10 +2766,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-23</date>
+   <date>2014-11-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Fix issue that could cause broken IMAP cache behavior when the serialization format has changed in a cached object.
+* [mjr] Fix broken IMAP cache behavior in the DB driver when unserialization of a cached object fails.
    </notes>
   </release>
  </changelog>
