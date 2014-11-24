@@ -243,7 +243,9 @@ abstract class Horde_ActiveSync_Driver_Base
      */
     public function fetch($folderid, $id, array $collection)
     {
-        // Forces entire message
+        // Forces entire message since FETCH requests are part of normal SYNC
+        // requests and, as such, will have the default OPTIONS loaded which
+        // should not applied to FETCH requests.
         $collection['truncation'] = $collection['mimetruncation'] = false;
         if (!empty($collection['bodyprefs'])) {
             foreach ($collection['bodyprefs'] as &$bodypref) {
