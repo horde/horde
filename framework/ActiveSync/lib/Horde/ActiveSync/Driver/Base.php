@@ -612,14 +612,19 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param string $folderid    The server's folder id this message is from
      * @param string $id          The server's message id
      * @param array  $collection  The colletion data. May contain things like:
-     *   - mimesupport: (boolean) Indicates if the device has MIME support.
-     *                  DEFAULT: false (No MIME support)
-     *   - truncation: (integer)  The truncation constant, if sent by the device.
+     *   - mimesupport: (integer) Indicates if the device has MIME support.
+     *                  DEFAULT: 0 (No MIME support)
+     *   - truncation: (integer)  Non-MIME truncation limit. Anything larger
+     *                            than this amount of bytes will be truncated.
      *                 DEFAULT: 0 (No truncation)
+     *   - mimetruncation: (integer)  MIME truncation limit. Anything larger
+     *                                than this amount of bytes will be
+     *                                truncated.
+     *                DEFAULT: 0 (No truncation)
      *   - bodyprefs: (array)  The bodypref array from the device.
      *
      * @return Horde_ActiveSync_Message_Base The message data
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
      */
     abstract public function getMessage($folderid, $id, array $collection);
 

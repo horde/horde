@@ -1142,8 +1142,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param array  $collection  The colletion data. May contain things like:
      *   - mimesupport: (integer) Indicates if the device has MIME support.
      *                  DEFAULT: 0 (No MIME support)
-     *   - truncation: (integer)  The truncation constant, if sent by the device.
+     *   - truncation: (integer)  Non-MIME truncation limit. Anything larger
+     *                            than this amount of bytes will be truncated.
      *                 DEFAULT: 0 (No truncation)
+     *   - mimetruncation: (integer)  MIME truncation limit. Anything larger
+     *                                than this amount of bytes will be
+     *                                truncated.
+     *                DEFAULT: 0 (No truncation)
      *   - bodyprefs: (array)  The bodypref array from the device.
      *
      * @return Horde_ActiveSync_Message_Base The message data
