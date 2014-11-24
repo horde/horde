@@ -127,7 +127,9 @@ implements Horde_Mongo_Collection_Index
                 )
             );
             foreach ($cursor as $val) {
-                $out[$val[self::MSG_MSGUID]] = $this->_value($val[self::MSG_DATA]);
+                try {
+                    $out[$val[self::MSG_MSGUID]] = $this->_value($val[self::MSG_DATA]);
+                } catch (Exception $e) {}
             }
         } catch (MongoException $e) {}
 
@@ -239,7 +241,9 @@ implements Horde_Mongo_Collection_Index
                 )
             );
             foreach ($cursor as $val) {
-                $out[$val[self::MD_FIELD]] = $this->_value($val[self::MD_DATA]);
+                try {
+                    $out[$val[self::MD_FIELD]] = $this->_value($val[self::MD_DATA]);
+                } catch (Exception $e) {}
             }
 
             if (is_null($uidvalid) ||

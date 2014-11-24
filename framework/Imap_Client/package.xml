@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Better cache unserialization error handling for all backends.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2782,7 +2782,7 @@
    <date>2014-11-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Better cache unserialization error handling for all backends.
    </notes>
   </release>
  </changelog>

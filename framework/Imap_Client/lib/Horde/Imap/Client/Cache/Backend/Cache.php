@@ -177,7 +177,9 @@ extends Horde_Imap_Client_Cache_Backend
 
         foreach (array_intersect($uids, array_keys($ptr)) as $val) {
             if (is_string($ptr[$val])) {
-                $ptr[$val] = @unserialize($ptr[$val]);
+                try {
+                    $ptr[$val] = @unserialize($ptr[$val]);
+                } catch (Exception $e) {}
             }
 
             $ret[$val] = (empty($fields) || empty($ptr[$val]))
@@ -218,7 +220,9 @@ extends Horde_Imap_Client_Cache_Backend
         foreach ($data as $k => $v) {
             if (isset($d[$k])) {
                 if (is_string($d[$k])) {
-                    $d[$k] = @unserialize($d[$k]);
+                    try {
+                        $d[$k] = @unserialize($d[$k]);
+                    } catch (Exception $e) {}
                 }
                 $d[$k] = is_array($d[$k])
                     ? array_merge($d[$k], $v)
@@ -396,9 +400,13 @@ extends Horde_Imap_Client_Cache_Backend
             return;
         }
 
-        if ((($data = $this->_cache->get($cache_id, 0)) !== false) &&
-            ($data = @unserialize($data)) &&
-            is_array($data)) {
+        if (($data = $this->_cache->get($cache_id, 0)) !== false) {
+            try {
+                $data = @unserialize($data);
+            } catch (Exception $e) {}
+        }
+
+        if (($data !== false) && is_array($data)) {
             $this->_data[$mailbox] += $data;
             $this->_loaded[$cache_id] = true;
         } else {
@@ -426,10 +434,13 @@ extends Horde_Imap_Client_Cache_Backend
     protected function _loadSliceMap($mailbox, $uidvalid = null)
     {
         if (!isset($this->_slicemap[$mailbox]) &&
-            (($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), 0)) !== false) &&
-            ($slice = @unserialize($data)) &&
-            is_array($slice)) {
-            $this->_slicemap[$mailbox] = $slice;
+            (($data = $this->_cache->get($this->_getCid($mailbox, 'slicemap'), 0)) !== false)) {
+            try {
+                if (($slice = @unserialize($data)) &&
+                    is_array($slice)) {
+                    $this->_slicemap[$mailbox] = $slice;
+                }
+            } catch (Exception $e) {}
         }
 
         if (isset($this->_slicemap[$mailbox])) {

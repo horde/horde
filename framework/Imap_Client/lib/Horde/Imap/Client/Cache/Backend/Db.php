@@ -85,11 +85,13 @@ extends Horde_Imap_Client_Cache_Backend
             $res = $this->_db->select($query[0], $query[1]);
 
             foreach ($res as $row) {
-                $out[$row['msguid']] = @unserialize($compress->decompress(
-                    $columns['data']->binaryToString($row['data'])
-                ));
+                try {
+                    $out[$row['msguid']] = @unserialize($compress->decompress(
+                        $columns['data']->binaryToString($row['data'])
+                    ));
+                } catch (Exception $e) {}
             }
-        } catch (Exception $e) {}
+        } catch (Horde_Db_Exception $e) {}
 
         return $out;
     }
@@ -194,9 +196,11 @@ extends Horde_Imap_Client_Cache_Backend
                         break;
 
                     default:
-                        $res[$key] = @unserialize(
-                            $columns['data']->binaryToString($val)
-                        );
+                        try {
+                            $res[$key] = @unserialize(
+                                $columns['data']->binaryToString($val)
+                            );
+                        } catch (Exception $e) {}
                         break;
                     }
                 }
