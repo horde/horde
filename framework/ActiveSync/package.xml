@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression in sending MIME messages as a result of a FETCH operation (Bug #13714).
 * [mjr] Fix issue that could cause mime boundry strings to leak into the message body when the message contained only a single part.
  </notes>
  <contents>
@@ -2486,6 +2487,7 @@
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression in sending MIME messages as a result of a FETCH operation (Bug #13714).
 * [mjr] Fix issue that could cause mime boundry strings to leak into the message body when the message contained only a single part.
    </notes>
   </release>
