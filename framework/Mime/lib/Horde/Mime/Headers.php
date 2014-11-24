@@ -461,7 +461,7 @@ implements ArrayAccess, IteratorAggregate, Serializable
 
     /**
      * Does header exist?
-
+     *
      * @since 2.5.0
      *
      * @param string $header  Header name.
