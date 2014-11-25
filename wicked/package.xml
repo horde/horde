@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-10</date>
+ <date>2014-11-25</date>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add ReST rendering rule for horizontal rulers.
 * [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
  </notes>
@@ -219,6 +220,7 @@
        <file name="Emphasis.php" role="horde" />
        <file name="Freelink.php" role="horde" />
        <file name="Heading2.php" role="horde" />
+       <file name="Horiz.php" role="horde" />
        <file name="Links.php" role="horde" />
        <file name="List.php" role="horde" />
        <file name="Newline.php" role="horde" />
@@ -253,6 +255,12 @@
     <file name="Wicked.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
+    <dir name="da">
+     <dir name="LC_MESSAGES">
+      <file name="wicked.mo" role="horde" />
+      <file name="wicked.po" role="horde" />
+     </dir> <!-- /locale/da/LC_MESSAGES -->
+    </dir> <!-- /locale/da -->
     <dir name="de">
      <dir name="LC_MESSAGES">
       <file name="wicked.mo" role="horde" />
@@ -749,6 +757,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Rst/Emphasis.php" name="lib/Text_Wiki/Render/Rst/Emphasis.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading2.php" name="lib/Text_Wiki/Render/Rst/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Horiz.php" name="lib/Text_Wiki/Render/Rst/Horiz.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/List.php" name="lib/Text_Wiki/Render/Rst/List.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
@@ -770,6 +779,8 @@
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Wikilink2.php" name="lib/Text_Wiki/Render/Xhtml/Wikilink2.php" />
    <install as="wicked/locale/.htaccess" name="locale/.htaccess" />
    <install as="wicked/locale/wicked.pot" name="locale/wicked.pot" />
+   <install as="wicked/locale/da/LC_MESSAGES/wicked.mo" name="locale/da/LC_MESSAGES/wicked.mo" />
+   <install as="wicked/locale/da/LC_MESSAGES/wicked.po" name="locale/da/LC_MESSAGES/wicked.po" />
    <install as="wicked/locale/de/help.xml" name="locale/de/help.xml" />
    <install as="wicked/locale/de/LC_MESSAGES/wicked.mo" name="locale/de/LC_MESSAGES/wicked.mo" />
    <install as="wicked/locale/de/LC_MESSAGES/wicked.po" name="locale/de/LC_MESSAGES/wicked.po" />
@@ -1028,9 +1039,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-10</date>
+   <date>2014-11-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add ReST rendering rule for horizontal rulers.
 * [jan] Add Swedish translation (Arne Nordmark &lt;nordmark@mech.kth.se&gt;).
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
    </notes>
