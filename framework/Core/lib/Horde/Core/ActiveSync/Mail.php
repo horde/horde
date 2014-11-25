@@ -326,8 +326,7 @@ class Horde_Core_ActiveSync_Mail
         }
         if (!empty($html_id)) {
             $mail->setHtmlBody($this->_getHtmlPart($html_id, $mime_message, $body_data, $base_part));
-        }
-        if (!empty($plain_id)) {
+        } elseif (!empty($plain_id)) {
             $mail->setBody($this->_getPlainPart($plain_id, $mime_message, $body_data, $base_part));
         }
         if ($this->_forward) {
