@@ -52,7 +52,7 @@ class Whups_Block_Tickets extends Horde_Core_Block
         $sortby = $GLOBALS['prefs']->getValue('sortby');
         $sortdirclass = ' class="' . ($GLOBALS['prefs']->getValue('sortdir') ? 'sortup' : 'sortdown') . '"';
         $html = '<thead><tr><th' . ($sortby == 'id' ? $sortdirclass : '') . '>' . _("Id") . '</th>';
-        foreach (Whups::getSearchResultColumns('block', $this->_params['columns']) as $name => $column) {
+        foreach (Whups::getSearchResultColumns('block', $columns) as $name => $column) {
             if ($column == 'id') {
                 continue;
             }
