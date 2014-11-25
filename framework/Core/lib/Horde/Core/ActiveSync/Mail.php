@@ -305,6 +305,12 @@ class Horde_Core_ActiveSync_Mail
     protected function _sendSmart()
     {
         $mime_message = $this->_raw->getMimeObject();
+        // Need to remove content-type header from the incoming raw message
+        // since in a smart request, we actually construct the full MIME msg
+        // ourselves and the content-type in _headers only applies to the reply
+        // text sent from the client, not the fully generated MIME message.
+        $this->_headers->removeHeader('Content-Type');
+        $this->_headers->removeHeader('Content-Transfer-Encoding');
         $mail = new Horde_Mime_Mail($this->_headers->toArray(array('charset' => 'UTF-8')));
         $base_part = $this->imapMessage->getStructure();
         $plain_id = $base_part->findBody('plain');
