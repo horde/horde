@@ -1113,10 +1113,10 @@ var ImpMobile = {
 
             if (r.addr) {
                 $.each(r.addr.to, function(k, v) {
-                    ImpMobile.addAddress('to', v);
+                    ImpMobile.addAddress('to', v.v);
                 });
                 $.each(r.addr.cc, function(k, v) {
-                    ImpMobile.addAddress('cc', v);
+                    ImpMobile.addAddress('cc', v.v);
                 });
             }
 
