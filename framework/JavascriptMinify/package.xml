@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Raise log level of errors from Closure compiler.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -133,7 +133,7 @@
    <date>2014-05-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Raise log level of errors from Closure compiler.
    </notes>
   </release>
  </changelog>
