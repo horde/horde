@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] No longer call code that depends on Horde_Mime, which is not a required dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1138,7 +1138,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] No longer call code that depends on Horde_Mime, which is not a required dependency.
    </notes>
   </release>
  </changelog>
