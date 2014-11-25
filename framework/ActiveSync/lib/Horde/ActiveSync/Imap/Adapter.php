@@ -1057,8 +1057,14 @@ class Horde_ActiveSync_Imap_Adapter
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_MIME;
 
                 // MIME Truncation
-                $mime_truncation = isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])
+                // @todo Remove this sanity-check hack in 3.0. This is needed
+                // since truncationsize incorrectly defaulted to a
+                // MIME_TRUNCATION constant and could be cached in the sync-cache.
+                $ts = !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])
                     ? $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize']
+                    : false;
+                $mime_truncation = (!empty($ts) && $ts > 9)
+                    ? $ts
                     : $options['truncation'];
 
                 $this->_logger->info(sprintf(
