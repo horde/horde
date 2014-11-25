@@ -111,3 +111,6 @@ BC BREAKING (i.e., Horde 6).
   out of the box from the library. Need to figure out the best way to inject the
   Horde specific things, like the actual mailer and identity data.
 
+- Implement something like Horde_ActiveSync_Sync_Options:: to encapsulate loading
+  and transporting the various collection options/bodyprefs around.
+
