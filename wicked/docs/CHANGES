@@ -1,8 +1,14 @@
 ----------
-v2.0.2-git
+v2.0.3-git
 ----------
 
 [jan] Add ReST rendering rule for horizontal rulers.
+
+
+------
+v2.0.2
+------
+
 [jan] Add Swedish translation (Arne Nordmark <nordmark@mech.kth.se>).
 [jan] Add Danish translation (Erling Preben Hansen <erling@eph.dk>).
 
