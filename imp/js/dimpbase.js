@@ -2289,8 +2289,8 @@ var DimpBase = {
             if (!show) {
                 $('searchbar').hide();
                 this.viewport.onResize(true);
-                this.searchbarTimeReset(false);
             }
+            this.searchbarTimeReset(show);
         } else if (show) {
             $('searchbar').show();
             this.viewport.onResize(true);
