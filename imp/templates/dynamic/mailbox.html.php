@@ -132,13 +132,13 @@
         </span>
        </div>
        <table id="msgHeadersTable">
-        <tr id="msgHeaderFrom">
-         <td class="label"><?php echo _("From") ?>:</td>
-         <td class="from allowTextSelection"></td>
-        </tr>
         <tr id="msgHeaderDate">
          <td class="label"><?php echo _("Date") ?>:</td>
          <td class="date allowTextSelection"></td>
+        </tr>
+        <tr id="msgHeaderFrom">
+         <td class="label"><?php echo _("From") ?>:</td>
+         <td class="from allowTextSelection"></td>
         </tr>
         <tr id="msgHeaderTo">
          <td class="label"><?php echo _("To") ?>:</td>
