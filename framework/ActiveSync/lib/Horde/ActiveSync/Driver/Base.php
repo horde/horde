@@ -263,26 +263,14 @@ abstract class Horde_ActiveSync_Driver_Base
      * @param array $bodyprefs  BODYPREFERENCE data.
      *
      * @return array  The BODYPREFERENCE data, with default truncationsize values.
+     * @deprecated  Will be removed in 3.0. We don't need and indeed shouldn't
+     *              set default values for truncationsize. Not to mention we
+     *              were setting the incorrect constant value instead of the
+     *              byte value.
+     * @todo
      */
     public function addDefaultBodyPrefTruncation(array $bodyprefs)
     {
-        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
-            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
-        }
-        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
-            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
-        }
-        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]) &&
-            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_RTF]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
-        }
-        if (isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
-            !isset($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'])) {
-            $bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME]['truncationsize'] = Horde_ActiveSync::TRUNCATION_9;
-        }
-
         return $bodyprefs;
     }
 
