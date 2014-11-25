@@ -75,6 +75,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         case $registry::VIEW_SMARTMOBILE:
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
             $this->addHandler('IMP_Ajax_Application_Handler_ComposeAttach');
+            $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Draft')->disabled = array(
                 'autoSaveDraft',
                 'saveTemplate'

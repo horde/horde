@@ -187,13 +187,23 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'mailbox-more':
+        case 'mailbox-more-msgs':
             ImpMobile.cache[ImpMobile.mailbox].slice += ImpMobile.mbox_slice;
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: ImpMobile.mailbox
             }), {
                 data: { force: true }
             });
+            e.preventDefault();
+            break;
+
+        case 'mailbox-purge':
+            HordeMobile.doAction(
+                'purgeDeleted',
+                ImpMobile.addViewportParams({
+                    view: ImpMobile.mailbox
+                })
+            );
             e.preventDefault();
             break;
 
@@ -377,8 +387,8 @@ var ImpMobile = {
             $.mobile.silentScroll(ImpMobile.mailboxTop);
 
             // Need to do here since Exit Search does not trigger beforeShow.
-            $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search'));
-            $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit'));
+            $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search').closest('LI'));
+            $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit').closest('LI'));
             break;
 
         case 'message':
@@ -649,7 +659,7 @@ var ImpMobile = {
 
         if (ob.totalrows > ob.slice) {
             list.append($('<li class="imp-mailbox-more"></li>').append(
-                $('<a href="#mailbox-more"></a>').text(
+                $('<a href="#mailbox-more-msgs"></a>').text(
                     IMP.text.more_msgs)));
         }
 
@@ -1611,6 +1621,14 @@ var ImpMobile = {
             switch ($(r.target).attr('id')) {
             case 'folders-more':
                 ImpMobile.morePopup('folders-more', function() {});
+                break;
+            }
+        });
+
+        $('#mailbox').on('popupbeforeposition', function(r) {
+            switch ($(r.target).attr('id')) {
+            case 'mailbox-more':
+                ImpMobile.morePopup('mailbox-more', function() {});
                 break;
             }
         });

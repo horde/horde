@@ -107,12 +107,13 @@ class IMP_Smartmobile
      */
     protected function _initPages()
     {
-        global $injector, $registry, $session;
+        global $injector, $prefs, $registry, $session;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         $this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
         $this->view->canInnocent = !empty($imp_imap->config->innocent_params);
+        $this->view->canPurge = !$prefs->getValue('use_trash');
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->canSpam = !empty($imp_imap->config->spam_params);
 
