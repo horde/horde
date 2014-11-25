@@ -298,7 +298,7 @@ class Horde_Core_ActiveSync_Mail
     }
 
     /**
-     * Sends a SMART request.
+     * Sends a SMART response.
      *
      * @throws Horde_ActiveSync_Exception
      */
