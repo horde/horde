@@ -34,6 +34,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         $page_output->addScriptFile('message.js');
+        $page_output->addScriptFile('external/CustomElements.js');
+        $page_output->addScriptFile('external/time-elements.js');
         $page_output->addScriptFile('textarearesize.js', 'horde');
         $page_output->addScriptFile('toggle_quotes.js', 'horde');
 
@@ -155,6 +157,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
             if (isset($val['id']) && ($val['id'] === 'Date')) {
                 $this->view->addHelper('Text');
+                $tmp['datestamp'] = $msg_res['datestamp'];
                 $tmp['print'] = $msg_res['fulldate'];
             }
 

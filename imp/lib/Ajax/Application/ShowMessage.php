@@ -117,12 +117,14 @@ class IMP_Ajax_Application_ShowMessage
      *     - list: (array) Attachment information.
      *   - bcc (FULL): The Bcc addresses
      *   - cc: The CC addresses
+     *   - datestamp: (string) ISO 8601 date string.
      *   - fulldate (FULL): The full canonical date.
      *   - from: The From addresses
      *   - headers (FULL): An array of headers (not including basic headers)
      *   - js: Javascript code to run on display
      *   - list_info (FULL): List information.
-     *   - localdate (PREVIEW): The date formatted to the user's timezone
+     *   - localdate: (string; PREVIEW) The date formatted to the user's
+     *                timezone.
      *   - md: Metadata
      *   - msgtext: The text of the message
      *   - onepart: True if message only contains one part.
@@ -179,14 +181,13 @@ class IMP_Ajax_Application_ShowMessage
                 if ($head == 'date') {
                     /* Add local time to date header. */
                     $date_ob = new IMP_Message_Date($this->_envelope->date);
-                    $val = htmlspecialchars($date_ob->format($date_ob::DATE_LOCAL));
+                    $val = $date_ob->format($date_ob::DATE_LOCAL);
                     if ($preview) {
                         $result['localdate'] = $val;
                     } else {
                         $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
                     }
-                } elseif (!$preview) {
-                    $val = htmlspecialchars($val);
+                    $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
                 }
 
                 if (!$preview) {
@@ -226,7 +227,7 @@ class IMP_Ajax_Application_ShowMessage
                     foreach ($user_val as $val) {
                         $headers[] = array(
                             'name' => $user_hdr,
-                            'value' => htmlspecialchars($val)
+                            'value' => $val
                         );
                     }
                 }

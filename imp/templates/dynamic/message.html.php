@@ -76,9 +76,12 @@
        <td class="allowTextSelection">
 <?php if (isset($val['print'])): ?>
         <span class="messagePrintShow"><?php echo $this->h($val['print']) ?></span>
-        <span class="messagePrintNoShow"><?php echo $val['val'] ?></span>
+        <span class="messagePrintNoShow"><?php echo $this->h($val['val']) ?></span>
 <?php else: ?>
          <?php echo $val['val'] ?>
+<?php endif; ?>
+<?php if (isset($val['datestamp'])): ?>
+         <time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($val['datestamp']) ?>"></time>
 <?php endif; ?>
        </td>
       </tr>

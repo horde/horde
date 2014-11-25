@@ -25,6 +25,7 @@ class IMP_Message_Date
     const DATE_FORCE = 1;
     const DATE_FULL = 2;
     const DATE_LOCAL = 3;
+    const DATE_ISO_8601 = 4;
 
     /**
      * Shared cache.
@@ -66,12 +67,13 @@ class IMP_Message_Date
      * Formats the date.
      *
      * @param integer $format  Formatting options:
-     *   - DATE_FORCE - Force use of date formatting, instead of time
-     *                  formatting, for all dates.
-     *   - DATE_FULL - Use full representation of date, including time
-     *                 information.
-     *   - DATE_LOCAL - Display localized formatting (with timezone
-     *                  information). Displays "Today" for the current date.
+     *   - DATE_FORCE: Force use of date formatting, instead of time
+     *                 formatting, for all dates.
+     *   - DATE_FULL: Use full representation of date, including time
+     *                information.
+     *   - DATE_ISO_8601: Return ISO 8601 formatted date.
+     *   - DATE_LOCAL: Display localized formatting (with timezone
+     *                 information). Displays "Today" for the current date.
      *
      * @return string  The formatted date string.
      */
@@ -92,6 +94,11 @@ class IMP_Message_Date
         }
 
         switch ($format) {
+        case self::DATE_ISO_8601:
+            $d = clone $this->_date;
+            $d->setTimezone(new DateTimeZone(date_default_timezone_get()));
+            return $d->format('c');
+
         case self::DATE_LOCAL:
             if (is_null($udate)) {
                 return '';

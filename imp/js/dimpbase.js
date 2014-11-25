@@ -1836,8 +1836,21 @@ var DimpBase = {
         tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
 
         // Add date
-        [ $('msgHeaderDate') ].flatten().invoke(r.localdate ? 'show' : 'hide');
-        [ $('msgHeadersColl').select('.date'), $('msgHeaderDate').select('.date') ].flatten().invoke('update', r.localdate);
+        if (r.localdate) {
+            $('msgHeadersColl').down('.date').show().update(r.localdate.escapeHTML());
+            $('msgHeaderDate').show().down('.date').update(r.localdate.escapeHTML()).insert(
+                // document.createElement(), with 2nd argument, required for
+                // Chrome
+                document.createElement('TIME', 'time-ago')
+                    .writeAttribute({
+                        className: 'msgHeaderDateRelative',
+                        datetime: r.datestamp,
+                        is: 'time-ago'
+                    })
+            );
+        } else {
+            [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ].invoke('hide');
+        }
 
         // Add from/to/cc/bcc headers
         [ 'from', 'to', 'cc', 'bcc' ].each(function(h) {

@@ -25,6 +25,11 @@
 .msgHeaders .subject {
     font-weight: bold;
 }
+.msgHeaderDateRelative {
+    color: #ef3d47;
+    font-style: italic;
+    padding-left: 3px;
+}
 #msgloglist,
 #partlist {
     border-top: 1px solid #d0d0d0;
