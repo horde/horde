@@ -826,22 +826,12 @@ extends Horde_Core_Ajax_Application_Handler
     /**
      * AJAX action: Purge deleted messages.
      *
-     * See the list of variables needed for IMP_Ajax_Application#changed() and
-     * IMP_Ajax_Application#deleteMsgs().
+     * See the list of variables needed for IMP_Ajax_Application#deleteMsgs().
      *
      * @return boolean  True on success.
      */
     public function purgeDeleted()
     {
-        $change = $this->_base->changed(true);
-        if (is_null($change)) {
-            return false;
-        }
-
-        if (!$change) {
-            $change = ($this->_base->indices->mailbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
-        }
-
         $expunged = $this->_base->indices->mailbox->expunge(null, array(
             'list' => true
         ));
@@ -857,7 +847,7 @@ extends Horde_Core_Ajax_Application_Handler
         $indices->mailbox = $this->_base->indices->mailbox;
         $indices->indices = $expunged;
 
-        $this->_base->deleteMsgs($indices, $change, true);
+        $this->_base->deleteMsgs($indices, true, true);
         $this->_base->queue->poll($this->_base->indices->mailbox);
 
         return true;
