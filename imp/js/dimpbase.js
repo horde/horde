@@ -2930,7 +2930,7 @@ var DimpBase = {
 
         case 'ctx_preview_allparts':
             DimpCore.doAction('messageMimeTree', {
-                preview: 1,
+                preview: 1
             }, {
                 callback: this._mimeTreeCallback.bind(this),
                 loading: 'msg',
