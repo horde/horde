@@ -1181,7 +1181,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->calendar_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
-                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']), $folder_id);
 
                 // Nokia MfE requires the optional UID element.
@@ -1224,7 +1224,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->contacts_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
-                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport'],
                     'device' => $this->_device));
             } catch (Horde_Exception $e) {
@@ -1239,7 +1239,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->tasks_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
-                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
@@ -1253,7 +1253,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $message = $this->_connector->notes_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
-                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
