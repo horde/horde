@@ -221,10 +221,8 @@ class IMP_Ajax_Application_ShowMessage
             $user_hdrs = $imp_ui->getUserHeaders();
             foreach ($user_hdrs as $user_hdr) {
                 if ($user_val = $mime_headers[$user_hdr]) {
-                    $user_val = ($user_val instanceof Horde_Mime_Headers_Element_Multiple)
-                        ? $user_val->value
-                        : array($user_val->value);
-                    foreach ($user_val as $val) {
+                    $user_val = $user_val->value;
+                    foreach ((is_array($user_val) ? $user_val : array($user_val)) as $val) {
                         $headers[] = array(
                             'name' => $user_hdr,
                             'value' => $val
