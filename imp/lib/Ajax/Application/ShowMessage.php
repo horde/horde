@@ -115,26 +115,27 @@ class IMP_Ajax_Application_ShowMessage
      *     - download: (string) The URL for the download all action.
      *     - label: (string) The attachment label.
      *     - list: (array) Attachment information.
-     *   - bcc (FULL): The Bcc addresses
-     *   - cc: The CC addresses
+     *   - bcc: (array; FULL) The Bcc addresses.
+     *   - cc: (array) The CC addresses.
      *   - datestamp: (string) ISO 8601 date string.
-     *   - fulldate (FULL): The full canonical date.
-     *   - from: The From addresses
-     *   - headers (FULL): An array of headers (not including basic headers)
-     *   - js: Javascript code to run on display
-     *   - list_info (FULL): List information.
+     *   - fulldate: (string; FULL) The full canonical date.
+     *   - from: (array) The From addresses.
+     *   - headers: (array; FULL): An array of header information (not
+     *              including basic headers).
+     *   - js: (array) Javascript code to run on display.
+     *   - list_info: (array; FULL) List information.
      *   - localdate: (string; PREVIEW) The date formatted to the user's
      *                timezone.
-     *   - md: Metadata
-     *   - msgtext: The text of the message
-     *   - onepart: True if message only contains one part.
-     *   - replyTo (FULL): The Reply-to addresses
-     *   - save_as: The save link
-     *   - subject: The subject
-     *   - subjectlink: The subject with linked URLs/email addresses (defaults
-     *                  to 'subject')
-     *   - title (FULL): The title of the page
-     *   - to: The To addresses
+     *   - md: (array) Metadata.
+     *   - msgtext: (string) The text of the message.
+     *   - onepart: (boolean) True if message only contains one part.
+     *   - replyTo: (array; FULL) The Reply-to addresses.
+     *   - save_as: (string) The save link.
+     *   - subject: (string) The subject.
+     *   - subjectlink: (string) The subject with linked URLs/email addresses
+     *                  (defaults to 'subject')
+     *   - title: (string; FULL) The title of the page.
+     *   - to: (array) The To addresses.
      *
      * @throws IMP_Exception
      */
