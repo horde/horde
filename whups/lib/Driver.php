@@ -510,7 +510,10 @@ abstract class Whups_Driver
                 continue;
             }
 
-            if ($details && $details['type'] == 'user') {
+            if ($details &&
+                $details['type'] == 'user' &&
+                ($details['user'] == $registry->getAuth() ||
+                 !$registry->getAuth())) {
                 $user_prefs = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Prefs')
                     ->create('whups', array('user' => $details['user']));
