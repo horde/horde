@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix incorrect default values for BODYPREF TRUNCATIONSIZE values (Bug #13711).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2500,7 +2500,7 @@
    <date>2014-11-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix incorrect default values for BODYPREF TRUNCATIONSIZE values (Bug #13711).
    </notes>
   </release>
  </changelog>
