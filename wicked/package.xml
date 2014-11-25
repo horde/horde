@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-29</date>
+ <date>2014-11-25</date>
  <version>
   <release>2.0.3</release>
   <api>2.0.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add ReST rendering rule for horizontal rulers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -218,6 +218,7 @@
        <file name="Emphasis.php" role="horde" />
        <file name="Freelink.php" role="horde" />
        <file name="Heading2.php" role="horde" />
+       <file name="Horiz.php" role="horde" />
        <file name="Links.php" role="horde" />
        <file name="List.php" role="horde" />
        <file name="Newline.php" role="horde" />
@@ -754,6 +755,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Rst/Emphasis.php" name="lib/Text_Wiki/Render/Rst/Emphasis.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading2.php" name="lib/Text_Wiki/Render/Rst/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Horiz.php" name="lib/Text_Wiki/Render/Rst/Horiz.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/List.php" name="lib/Text_Wiki/Render/Rst/List.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
@@ -1052,7 +1054,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add ReST rendering rule for horizontal rulers.
    </notes>
   </release>
  </changelog>
