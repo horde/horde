@@ -56,7 +56,7 @@ class Horde_JavascriptMinify_Util_Cmdline
         if (strlen($error)) {
             $log->log(
                 sprintf('Output from %s: %s', $cmd, $error),
-                'DEBUG'
+                'WARN'
             );
         }
 
