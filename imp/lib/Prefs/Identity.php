@@ -351,13 +351,11 @@ class IMP_Prefs_Identity extends Horde_Core_Prefs_Identity
         foreach ($this->_identitiesWithDefaultFirst() as $key) {
             $tie_addr = $this->getTieAddresses($key);
 
-            /* Search 'tieto' addresses first. Check for address first
-             * and, if not found, check for the domain. */
+            /* Search 'tieto' addresses first. */
             if (count($tie_addr)) {
                 foreach ($addresses as $val) {
                     foreach ($tie_addr as $val2) {
-                        if (($val->bare_address == $val2->bare_address) &&
-                            (strcasecmp($val->host, $val2->host) === 0)) {
+                        if ($val->match($val2)) {
                             return $key;
                         }
                     }
