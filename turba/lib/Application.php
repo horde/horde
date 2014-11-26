@@ -243,7 +243,7 @@ class Turba_Application extends Horde_Registry_Application
             ),
         );
         $shares = array();
-        foreach (Turba::listShares() as $id => $abook) {
+        foreach (Turba::listShares(false, Horde_Perms::SHOW) as $id => $abook) {
             $row = array(
                 'selected' => $id == Turba::$source,
                 'url' => $url->add('source', $id),
@@ -275,7 +275,7 @@ class Turba_Application extends Horde_Registry_Application
                 'collapsed' => true,
             ),
         );
-        foreach (Turba::getAddressBooks(Horde_Perms::READ) as $id => $abook) {
+        foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $abook) {
             if (isset($shares[$id])) {
                 continue;
             }
