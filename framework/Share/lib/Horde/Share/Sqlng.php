@@ -398,7 +398,7 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
             // (name == perm_creator and val & $perm)
             $where .= ' OR ' . $this->_getPermsCriteria('perm_creator', $perms);
 
-            // (name == perm_creator and val & $perm)
+            // (name == perm_default and val & $perm)
             $where .= ' OR ' . $this->_getPermsCriteria('perm_default', $perms);
 
             if ($shareids) {
