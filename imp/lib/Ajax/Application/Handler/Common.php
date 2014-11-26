@@ -593,7 +593,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             } else {
                 /* Don't push notification if showing passphrase dialog -
                  * passphrase dialog contains the necessary information. */
-                $notification->push($e);
+                $notification->push($e, $notify_level);
             }
 
             return $result;
