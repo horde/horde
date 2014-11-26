@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Use the SHOW permission to determine the sidebar address book list.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1953,7 +1953,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Use the SHOW permission to determine the sidebar address book list.
    </notes>
   </release>
  </changelog>
