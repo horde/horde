@@ -138,10 +138,14 @@ class Wicked_View_Helper_Navigation extends Horde_View_Helper_Base
      */
     public function subPages($name)
     {
+        $slashes = substr_count($name, '/') + 1;
         $pages = $this->_getSubPages($name);
         $children = array();
         foreach ($pages as $page) {
             $name = $page['page_name'];
+            if (substr_count($name, '/') != $slashes) {
+                continue;
+            }
             $children[$name] = '<li>' . Wicked::url($name)->link()
                 . $this->h($name) . '</a></li>';
         }
