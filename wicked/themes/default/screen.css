@@ -114,12 +114,17 @@
 #subpages {
     padding-top: .5em;
 }
+#subpages h2 {
+    font-size: 100%;
+    font-weight: bold;
+}
 #subpages ul {
     margin-top: 10px;
     list-style: none;
 }
 #subpages li {
     display: inline-block;
+    margin: 2px 0;
     padding-right: 20px;
 }
 #pagefooter {

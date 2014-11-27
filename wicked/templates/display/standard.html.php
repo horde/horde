@@ -57,7 +57,7 @@
 
 <?php if ($this->hasSubPages($this->name)): ?>
 <div id="subpages">
-  <p><?php echo _("Related Sub Pages") ?>:</p>
+  <h2><?php echo _("Related Sub Pages") ?></h2>
   <?php echo $this->subPages($this->name) ?>
 </div>
 <?php endif ?>
