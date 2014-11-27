@@ -2565,7 +2565,13 @@ var DimpBase = {
             if (!this.viewport.getMetaData('nodelete')) {
                 r = sel.get('dataob');
                 if (e.shiftKey) {
-                    this.moveSelected((r.last().VP_rownum == this.viewport.getMetaData('total_rows')) ? (r.first().VP_rownum - 1) : (r.last().VP_rownum + 1), true);
+                    this.moveSelected(
+                        (r.last().VP_rownum == this.viewport.getMetaData('total_rows'))
+                            ? (r.first().VP_rownum - 1)
+                            : (r.last().VP_rownum + 1),
+                        true,
+                        true
+                    );
                 }
                 this.deleteMsg({ vs: sel });
             }
