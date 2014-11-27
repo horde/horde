@@ -60,7 +60,7 @@ Upgrading to 2.24.0
 
   - Horde_Imap_Client_Search_Query
 
-    - Constructor
+    - build()
 
       The constructor now expects either a Horde_Imap_Client_Base object,
       a Horde_Imap_Client_Data_Capability object, or null as its argument.
