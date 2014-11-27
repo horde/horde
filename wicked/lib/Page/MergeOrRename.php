@@ -223,54 +223,57 @@ class Wicked_Page_MergeOrRename extends Wicked_Page
                 'Subject' => '[' . $registry->get('name') . '] renamed: ' . $referrer . ', ' . $new_name));
         }
 
-        $wikiWord = '/^' . Wicked::REGEXP_WIKIWORD . '$/';
-
-        $changelog = sprintf(_("Changed references from %s to %s"),
-                             $referrer, $new_name);
-
-        // Links like ((Foobar|Description Text))
-        $from = array('/\(\(' . preg_quote($referrer, '/') . '(\|[^)]*?)\)\)/');
-        $to = array('((' . $new_name . '$1))');
-
-        // Links like ((Foobar))
-        if (preg_match($wikiWord, $new_name)) {
-            $replaceWith = $new_name;
-        } else {
-            $replaceWith = '((' . $new_name . '))';
-        }
-        $from[] = '/\(\(' . preg_quote($referrer, '/') . '\)\)/';
-        $to[] = $replaceWith;
-
-        // Links like FooBar
-        if (preg_match($wikiWord, $referrer)) {
-            $from[] = '/\b' . preg_quote($referrer, '/') . '\b/';
-            $to[] = $replaceWith;
-        }
-
         // We don't check permissions on these pages since we want references
         // to be fixed even if the user doing the editing couldn't fix that
         // page, and fixing references is likely to never be a destructive
         // action, and the user can't supply their own data for it.
         $references = Horde_Util::getFormData('ref', array());
-        foreach (array_keys($references) as $name) {
-            $page_name = quoted_printable_decode($name);
 
-            // Fix up for self-references.
-            if ($page_name == $referrer) {
-                $page_name = $new_name;
+        if ($references) {
+            $wikiWord = '/^' . Wicked::REGEXP_WIKIWORD . '$/';
+
+            $changelog = sprintf(_("Changed references from %s to %s"),
+                                 $referrer, $new_name);
+
+            // Links like ((Foobar|Description Text))
+            $from = array('/\(\(' . preg_quote($referrer, '/') . '(\|[^)]*?)\)\)/');
+            $to = array('((' . $new_name . '$1))');
+
+            // Links like ((Foobar))
+            if (preg_match($wikiWord, $new_name)) {
+                $replaceWith = $new_name;
+            } else {
+                $replaceWith = '((' . $new_name . '))';
+            }
+            $from[] = '/\(\(' . preg_quote($referrer, '/') . '\)\)/';
+            $to[] = $replaceWith;
+
+            // Links like FooBar
+            if (preg_match($wikiWord, $referrer)) {
+                $from[] = '/\b' . preg_quote($referrer, '/') . '\b/';
+                $to[] = $replaceWith;
             }
 
-            try {
-                $refPage = $wicked->retrieveByName($page_name);
-            } catch (Wicked_Exception $e) {
-                $notification->push(sprintf(_("Error retrieving %s: %s"),
-                                            $page_name, $e->getMessage()),
-                                    'horde.error');
-                continue;
-            }
+            foreach (array_keys($references) as $name) {
+                $page_name = quoted_printable_decode($name);
 
-            $newText = preg_replace($from, $to, $refPage['page_text']);
-            $wicked->updateText($page_name, $newText, $changelog);
+                // Fix up for self-references.
+                if ($page_name == $referrer) {
+                    $page_name = $new_name;
+                }
+
+                try {
+                    $refPage = $wicked->retrieveByName($page_name);
+                } catch (Wicked_Exception $e) {
+                    $notification->push(sprintf(_("Error retrieving %s: %s"),
+                                                $page_name, $e->getMessage()),
+                                        'horde.error');
+                    continue;
+                }
+
+                $newText = preg_replace($from, $to, $refPage['page_text']);
+                $wicked->updateText($page_name, $newText, $changelog);
+            }
         }
 
         Wicked::url($new_name, true)->redirect();
