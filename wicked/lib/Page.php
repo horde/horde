@@ -445,7 +445,7 @@ class Wicked_Page
         $view_url = Wicked::url('%s')
             ->setRaw(true)
             ->add('referrer', $this->pageName());
-        $view_url = str_replace(array(urlencode('%s'), urlencode('/')), array('%s', '%' . urlencode('/')), $view_url);
+        $view_url = str_replace(urlencode('%s'), '%s', $view_url);
 
         /* Create format-specific Text_Wiki object */
         $class = 'Text_Wiki_' . $GLOBALS['conf']['wicked']['format'];
