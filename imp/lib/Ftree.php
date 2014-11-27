@@ -770,7 +770,7 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
 
         $change = false;
         if (isset($this->_elts[$name])) {
-            if ($elt['a'] && self::ELT_NOSELECT) {
+            if ($elt['a'] & self::ELT_NOSELECT) {
                 return;
             }
             $change = true;
