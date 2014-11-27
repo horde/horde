@@ -55,6 +55,13 @@
 <?php echo $this->text ?>
 </div>
 
+<?php if ($this->hasSubPages($this->name)): ?>
+<div id="subpages">
+  <p><?php echo _("Related Sub Pages") ?>:</p>
+  <?php echo $this->subPages($this->name) ?>
+</div>
+<?php endif ?>
+
 <?php if ($this->showTools): ?>
 <div id="pagefooter">
  <?php echo _("Download this page as:") ?>

@@ -16,9 +16,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-25</date>
+ <date>2014-11-27</date>
  <version>
-  <release>2.0.3</release>
+  <release>2.1.0</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add ReST rendering rule for horizontal rulers.
+* [jan] Add navigation between pages from the same hierarchy.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -244,6 +244,11 @@
       <file name="Rst.php" role="horde" />
      </dir> <!-- /lib/Text_Wiki/Render -->
     </dir> <!-- /lib/Text_Wiki -->
+    <dir name="View">
+     <dir name="Helper">
+      <file name="Navigation.php" role="horde" />
+     </dir> <!-- /lib/View/Helper -->
+    </dir> <!-- /lib/View -->
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
     <file name="Driver.php" role="horde" />
@@ -775,6 +780,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Url.php" name="lib/Text_Wiki/Render/Xhtml/Url.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Wickedblock.php" name="lib/Text_Wiki/Render/Xhtml/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Wikilink2.php" name="lib/Text_Wiki/Render/Xhtml/Wikilink2.php" />
+   <install as="wicked/lib/View/Helper/Navigation.php" name="lib/View/Helper/Navigation.php" />
    <install as="wicked/locale/.htaccess" name="locale/.htaccess" />
    <install as="wicked/locale/wicked.pot" name="locale/wicked.pot" />
    <install as="wicked/locale/da/LC_MESSAGES/wicked.mo" name="locale/da/LC_MESSAGES/wicked.mo" />
@@ -1055,6 +1061,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add ReST rendering rule for horizontal rulers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add navigation between pages from the same hierarchy.
    </notes>
   </release>
  </changelog>

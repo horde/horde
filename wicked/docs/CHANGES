@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[jan] Add navigation between pages from the same hierarchy.
 [jan] Add ReST rendering rule for horizontal rulers.
 
 

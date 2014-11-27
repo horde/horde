@@ -101,10 +101,28 @@
     text-align: center;
 }
 
+/* Page header */
+.navigation img {
+    vertical-align: middle;
+}
+
 /* Page footer */
-#pagefooter {
+#subpages, #pagefooter {
     border-top: thin solid #ccc;
     margin: 20px 20px 0 20px;
+}
+#subpages {
+    padding-top: .5em;
+}
+#subpages ul {
+    margin-top: 10px;
+    list-style: none;
+}
+#subpages li {
+    display: inline-block;
+    padding-right: 20px;
+}
+#pagefooter {
     padding: .5em 0;
     font-size: 90%;
 }

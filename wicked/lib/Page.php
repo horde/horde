@@ -345,6 +345,7 @@ class Wicked_Page
         $inner = $this->displayContents(false);
 
         $view = $injector->createInstance('Horde_View');
+        $view->addHelper('Wicked_View_Helper_Navigation');
         $topbar = $injector->getInstance('Horde_View_Topbar');
         try {
             $view->version = $this->version();
@@ -370,9 +371,6 @@ class Wicked_Page
                 . htmlspecialchars($this->referrer()) . '</a>';
         }
         $view->isOld = $this->isOld();
-        $view->refresh = $this->pageUrl()
-            ->link(array('title' => _("Reload Page")))
-            . Horde::img('reload.png', _("Reload Page")) . '</a>';
         if ($this->isLocked()) {
             $this->locked = Horde::img('locked.png', _("Locked"));
         }
