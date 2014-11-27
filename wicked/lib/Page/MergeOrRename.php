@@ -225,12 +225,30 @@ class Wicked_Page_MergeOrRename extends Wicked_Page
 
         $wikiWord = '/^' . Wicked::REGEXP_WIKIWORD . '$/';
 
+        $changelog = sprintf(_("Changed references from %s to %s"),
+                             $referrer, $new_name);
+
+        if (preg_match($wikiWord, $new_name)) {
+            $replaceWith = $new_name;
+        } else {
+            $replaceWith = '((' . $new_name . '))';
+        }
+
+        $from = array('/\(\(' . preg_quote($referrer, '/') . '\)\)/');
+        $to = array($replaceWith);
+
+        // If this works as a bare wiki word, replace that, too.
+        if (preg_match($wikiWord, $referrer)) {
+            $from[] = '/\b' . preg_quote($referrer, '/') . '\b/';
+            $to[] = $replaceWith;
+        }
+
         // We don't check permissions on these pages since we want references
         // to be fixed even if the user doing the editing couldn't fix that
         // page, and fixing references is likely to never be a destructive
         // action, and the user can't supply their own data for it.
         $references = Horde_Util::getFormData('ref', array());
-        foreach ($references as $name => $value) {
+        foreach (array_keys($references) as $name) {
             $page_name = quoted_printable_decode($name);
 
             // Fix up for self-references.
@@ -245,24 +263,6 @@ class Wicked_Page_MergeOrRename extends Wicked_Page
                                             $page_name, $e->getMessage()),
                                     'horde.error');
                 continue;
-            }
-
-            $changelog = sprintf(_("Changed references from %s to %s"),
-                                 $referrer, $new_name);
-
-            if (preg_match($wikiWord, $new_name)) {
-                $replaceWith = $new_name;
-            } else {
-                $replaceWith = '((' . $new_name . '))';
-            }
-
-            $from = array('/\(\(' . preg_quote($referrer, '/') . '\)\)/');
-            $to = array($replaceWith);
-
-            // If this works as a bare wiki word, replace that, too.
-            if (preg_match($wikiWord, $referrer)) {
-                $from[] = '/\b' . preg_quote($referrer, '/') . '\b/';
-                $to[] = $replaceWith;
             }
 
             $newText = preg_replace($from, $to, $refPage['page_text']);
