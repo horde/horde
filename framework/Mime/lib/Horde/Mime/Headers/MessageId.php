@@ -21,7 +21,7 @@
  * @package   Mime
  * @since     2.5.0
  */
-class Horde_Mime_Headers_Messageid
+class Horde_Mime_Headers_MessageId
 extends Horde_Mime_Headers_Identification
 {
     /**
