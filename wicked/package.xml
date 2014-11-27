@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix updating annotated links when renaming pages.
 * [jan] Add ReST rendering rule for horizontal rulers.
  </notes>
  <contents>
@@ -1054,6 +1055,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix updating annotated links when renaming pages.
 * [jan] Add ReST rendering rule for horizontal rulers.
    </notes>
   </release>
