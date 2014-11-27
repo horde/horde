@@ -228,16 +228,20 @@ class Wicked_Page_MergeOrRename extends Wicked_Page
         $changelog = sprintf(_("Changed references from %s to %s"),
                              $referrer, $new_name);
 
+        // Links like ((Foobar|Description Text))
+        $from = array('/\(\(' . preg_quote($referrer, '/') . '(\|[^)]*?)\)\)/');
+        $to = array('((' . $new_name . '$1))');
+
+        // Links like ((Foobar))
         if (preg_match($wikiWord, $new_name)) {
             $replaceWith = $new_name;
         } else {
             $replaceWith = '((' . $new_name . '))';
         }
+        $from[] = '/\(\(' . preg_quote($referrer, '/') . '\)\)/';
+        $to[] = $replaceWith;
 
-        $from = array('/\(\(' . preg_quote($referrer, '/') . '\)\)/');
-        $to = array($replaceWith);
-
-        // If this works as a bare wiki word, replace that, too.
+        // Links like FooBar
         if (preg_match($wikiWord, $referrer)) {
             $from[] = '/\b' . preg_quote($referrer, '/') . '\b/';
             $to[] = $replaceWith;
