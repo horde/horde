@@ -455,7 +455,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _resumeDraft($indices, $type, $opts)
     {
-        global $injector, $prefs;
+        global $injector, $notification, $prefs;
 
         $contents_factory = $injector->getInstance('IMP_Factory_Contents');
 
@@ -540,6 +540,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $mime_message = $contents->getMIMEMessage();
 
         /* Add attachments. */
+        $parts = array();
         if (($mime_message->getPrimaryType() == 'multipart') &&
             ($mime_message->getType() != 'multipart/alternative')) {
             for ($i = 1; ; ++$i) {
@@ -547,15 +548,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     continue;
                 }
 
-                if (!($part = $contents->getMIMEPart($i))) {
+                if ($part = $contents->getMIMEPart($i)) {
+                    $parts[] = $part;
+                } else {
                     break;
                 }
+            }
+        } elseif ($mime_message->getDisposition() == 'attachment') {
+            $parts[] = $contents->getMimePart('1');
+        }
 
-                try {
-                    $this->addAttachmentFromPart($part);
-                } catch (IMP_Compose_Exception $e) {
-                    $GLOBALS['notification']->push($e, 'horde.warning');
-                }
+        foreach ($parts as $val) {
+            try {
+                $this->addAttachmentFromPart($val);
+            } catch (IMP_Compose_Exception $e) {
+                $notification->push($e, 'horde.warning');
             }
         }
 
