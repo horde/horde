@@ -125,8 +125,6 @@ class Horde_Memcache implements Serializable
     {
         $this->_params = array_merge($this->_params, $params);
         $this->_init();
-
-        register_shutdown_function(array($this, 'shutdown'));
     }
 
     /**
@@ -387,6 +385,24 @@ class Horde_Memcache implements Serializable
 
         while ($this->_memcache->add($this->_key($key . self::LOCK_SUFFIX), 1, 0, self::LOCK_TIMEOUT) === false) {
             usleep(min(pow(2, $i++) * 10000, 100000));
+        }
+
+        /* Register a shutdown handler function here to catch cases where PHP
+         * suffers a fatal error. Must be done via shutdown function, since
+         * a destructor will not be called in this case.
+         * Only trigger on error, since we must assume that the code that
+         * locked will also handle unlocks (which may occur in the destruct
+         * phase, e.g. session handling).
+         * @todo: $this is not usable in closures until PHP 5.4+ */
+        if (empty($this->_locks)) {
+            $self = $this;
+            register_shutdown_function(function() use ($self) {
+                $e = error_get_last();
+                if ($e['type'] & E_ERROR) {
+                    /* Try to do cleanup at very end of shutdown methods. */
+                    register_shutdown_function(array($self, 'shutdown'));
+                }
+            });
         }
 
         $this->_locks[$key] = true;
