@@ -47,7 +47,7 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
         $result = new stdClass;
         $result->action = 'addAttachment';
         if (isset($this->vars->file_id)) {
-            $result->file_id = $this->vars->file_id;
+            $result->file_id = intval($this->vars->file_id);
         }
         $result->success = 0;
 
