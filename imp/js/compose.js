@@ -113,7 +113,7 @@ var ImpCompose = {
         this.attachlist.reset();
         this.getCacheElt().clear();
         $('qreply', 'sendcc', 'sendbcc').compact().invoke('hide');
-        $('noticerow').down('UL.notices').childElements().invoke('hide');
+        $('compose_notices').childElements().invoke('hide');
         $('msgData', 'togglecc', 'togglebcc').compact().invoke('show');
         if (this.editor_on) {
             this.toggleHtmlEditor();
@@ -392,7 +392,7 @@ var ImpCompose = {
                 this.old_identity = $F('identity');
                 $('identity').setValue(d.identity);
                 this.changeIdentity();
-                $('noticerow', 'identitychecknotice').invoke('show');
+                $('compose_notices', 'identitychecknotice').invoke('show');
                 this.resizeMsgArea();
             }
 
@@ -663,28 +663,28 @@ var ImpCompose = {
 
         switch (ob.opts.auto) {
         case 'forward_attach':
-            $('noticerow', 'fwdattachnotice').invoke('show');
+            $('compose_notices', 'fwdattachnotice').invoke('show');
             this.fwdattach = true;
             break;
 
         case 'forward_body':
-            $('noticerow', 'fwdbodynotice').invoke('show');
+            $('compose_notices', 'fwdbodynotice').invoke('show');
             break;
 
         case 'reply_all':
             $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DimpCore.text.replyall.sub('%d', ob.opts.reply_recip));
-            $('noticerow', 'replyallnotice').invoke('show');
+            $('compose_notices', 'replyallnotice').invoke('show');
             break;
 
         case 'reply_list':
             $('replylistnotice').down('SPAN.replyListNoticeId').setText(ob.opts.reply_list_id ? (' (' + ob.opts.reply_list_id + ')') : '');
-            $('noticerow', 'replylistnotice').invoke('show');
+            $('compose_notices', 'replylistnotice').invoke('show');
             break;
         }
 
         if (ob.opts.reply_lang) {
             $('langnotice').down('SPAN.langNoticeList').setText(ob.opts.reply_lang.join(', '));
-            $('noticerow', 'langnotice').invoke('show');
+            $('compose_notices', 'langnotice').invoke('show');
         }
 
         this.setBodyText(ob);
@@ -1696,16 +1696,10 @@ ImpCompose.classes.Attachlist = Class.create({
 
     initAttachList: function()
     {
-        var al = $('attach_list'),
-            u = $('upload');
+        var al = $('attach_list');
 
-        if (this.num_limit === 0) {
-            $('upload_limit').show();
-            u.up().hide();
-        } else {
-            $('upload_limit').hide();
-            u.up().show();
-        }
+        [ $('upload_add') ].invoke(this.num_limit === 0 ? 'hide' : 'show');
+        [ $('upload_limit') ].invoke(this.num_limit === 0 ? 'show' : 'hide');
 
         if (!al.childElements().size()) {
             al.hide();
@@ -1717,7 +1711,6 @@ ImpCompose.classes.Attachlist = Class.create({
     uploadAttachWait: function(f)
     {
         var li = new Element('LI')
-            .addClassName('attach_upload')
             .insert(
                 new Element('SPAN')
                     .addClassName('attach_upload_text')
@@ -1804,14 +1797,15 @@ ImpCompose.classes.Attachlist = Class.create({
                         if (e.transport && e.transport.upload) {
                             var p = new Element('SPAN')
                                 .addClassName('attach_upload_progress')
-                                .hide();
+                                .hide()
+                                .insert(new Element('SPAN'));
                             li = this.uploadAttachWait(d);
                             li.insert(p);
 
                             e.transport.upload.onprogress = function(e2) {
                                 if (e2.lengthComputable) {
-                                    p.setStyle({
-                                        backgroundPosition: parseInt(100 - (e2.loaded / e2.total * 100), 10) + "% 0"
+                                    p.down('SPAN').setStyle({
+                                        width: parseInt((e2.loaded / e2.total) * 100, 10) + "%"
                                     });
                                     if (!p.visible()) {
                                         li.down('.attach_upload_text')

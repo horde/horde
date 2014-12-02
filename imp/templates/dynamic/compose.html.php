@@ -149,57 +149,50 @@
       <?php echo $this->textFieldTag('subject') ?>
      </td>
     </tr>
-    <tr class="atcrow">
-<?php if ($this->attach): ?>
-     <td class="label">
-      <span class="iconImg attachmentImg"></span>:
-     </td>
-     <td>
-      <div id="atcdrop" style="display:none">
-       <?php echo _("Drop file(s) here to attach.") ?>
-      </div>
-      <div id="atcdiv">
-       <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
-       <span>
-        <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
-        <?php echo $this->fileFieldTag('file_upload[]', array('id' => 'upload', 'multiple' => 'multiple')) ?>
-       </span>
-<?php else: ?>
-     <td></td>
-     <td>
-      <div>
-<?php endif; ?>
-       <ul id="attach_list" style="display:none"></ul>
-      </div>
-     </td>
-    </tr>
-    <tr id="noticerow" style="display:none">
-     <td colspan="2">
-      <ul class="notices">
-       <li id="replyallnotice" style="display:none">
-        <?php echo _("You are") ?> <span class="replyAllNoticeUnderline"><?php echo _("replying to ALL") ?></span> (<span class="replyAllNoticeCount"></span>).
-        <input id="replyall_revert" class="button" type="button" value="<?php echo _("Reply To Sender instead") ?>" />
-       </li>
-       <li id="replylistnotice" style="display:none">
-        <?php echo _("You are replying to a mailing list") ?><span class="replyListNoticeId"></span>.
-        <input id="replylist_revert" class="button" type="button" value="<?php echo _("Reply To Sender instead") ?>" />
-       </li>
-       <li id="fwdattachnotice" style="display:none">
-        <?php echo _("Click this box to add the original message text to the body.") ?>
-       </li>
-       <li id="fwdbodynotice" style="display:none">
-        <?php echo _("Click this box to add the original message as an attachment.") ?>
-       </li>
-       <li id="identitychecknotice" style="display:none">
-        <?php echo _("Your identity has been switched to the identity associated with the current recipient address. Click this box to revert to the original identity. The identity will not be checked again during this compose action.") ?>
-       </li>
-       <li id="langnotice" style="display:none">
-        <?php echo _("The recipient has indicated that they prefer replies in these languages") ?>: <span class="langNoticeList"></span>.
-       </li>
-      </ul>
-     </td>
-    </tr>
    </table>
+
+   <div id="atcdiv">
+    <span class="iconImg attachmentImg"></span>
+<?php if ($this->attach): ?>
+    <div id="upload_limit" style="display:none">
+     <?php echo _("The attachment limit has been reached.") ?>
+    </div>
+    <div id="upload_add">
+     <label id="compose_upload_add" for="upload"><?php echo _("Add Attachment") ?></label>
+      <?php echo $this->fileFieldTag('file_upload[]', array('id' => 'upload', 'multiple' => 'multiple')) ?>
+    </div>
+<?php endif; ?>
+    <ul id="attach_list" style="display:none"></ul>
+   </div>
+
+<?php if ($this->attach): ?>
+   <div id="atcdrop" style="display:none">
+    <?php echo _("Drop file(s) here to attach.") ?>
+   </div>
+<?php endif; ?>
+
+   <ul id="compose_notices" style="display:none">
+    <li id="replyallnotice" style="display:none">
+     <?php echo _("You are") ?> <span class="replyAllNoticeUnderline"><?php echo _("replying to ALL") ?></span> (<span class="replyAllNoticeCount"></span>).
+     <input id="replyall_revert" class="button" type="button" value="<?php echo _("Reply To Sender instead") ?>" />
+    </li>
+    <li id="replylistnotice" style="display:none">
+     <?php echo _("You are replying to a mailing list") ?><span class="replyListNoticeId"></span>.
+     <input id="replylist_revert" class="button" type="button" value="<?php echo _("Reply To Sender instead") ?>" />
+    </li>
+    <li id="fwdattachnotice" style="display:none">
+     <?php echo _("Click this box to add the original message text to the body.") ?>
+    </li>
+    <li id="fwdbodynotice" style="display:none">
+     <?php echo _("Click this box to add the original message as an attachment.") ?>
+    </li>
+    <li id="identitychecknotice" style="display:none">
+     <?php echo _("Your identity has been switched to the identity associated with the current recipient address. Click this box to revert to the original identity. The identity will not be checked again during this compose action.") ?>
+    </li>
+    <li id="langnotice" style="display:none">
+     <?php echo _("The recipient has indicated that they prefer replies in these languages") ?>: <span class="langNoticeList"></span>.
+    </li>
+   </ul>
   </div>
 
   <div id="composeMessageParent">
