@@ -255,6 +255,7 @@ class IMP_Dynamic_Compose_Common
             'data' => _("Data"),
             'dragdropimg_error' => _("Could not add %d file(s) to message: only images are supported."),
             'group_expand' => _("Expand Group"),
+            'image_data' => _("Image Data"),
             'loading' => _("Loading..."),
             'max_atc_size' => _("Your attachment(s) are too large and cannot be uploaded."),
             'max_atc_num' => _("You have reached the limit for the number of attachments in this message."),

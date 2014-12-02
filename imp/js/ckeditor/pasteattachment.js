@@ -116,7 +116,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         editor.on('paste', function(ev) {
             if (ev.data.html) {
-                var data, i,
+                var b, data, i,
                     a = [],
                     span = new Element('SPAN').insert(ev.data.html).down();
 
@@ -136,7 +136,13 @@ CKEDITOR.plugins.add('pasteattachment', {
                         a[i] = data[1].charCodeAt(i);
                     }
 
-                    uploadAtc([ new Blob([ new Uint8Array(a) ], { type: data[0].split(':')[1].split(';')[0] }) ]);
+                    b = new Blob(
+                        [ new Uint8Array(a) ],
+                        { type: data[0].split(':')[1].split(';')[0] }
+                    );
+                    b.name = DimpCore.text.image_data;
+
+                    uploadAtc([ b ]);
 
                     ev.data.html = '';
                 }
