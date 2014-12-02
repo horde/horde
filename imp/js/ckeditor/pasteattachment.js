@@ -62,11 +62,40 @@ CKEDITOR.plugins.add('pasteattachment', {
             editor.getThemeSpace('contents').$.dispatchEvent(evt);
         }
 
+        function addImages(files)
+        {
+            var error = 0,
+                upload = [];
+
+            $A(files).each(function(f) {
+                if (f.type.startsWith('image/')) {
+                    if (f.getAsFile) {
+                        f = f.getAsFile();
+                    }
+                    if (!f.name) {
+                        f.name = DimpCore.text.image_data;
+                    }
+                    upload.push(f);
+                } else {
+                    ++error;
+                }
+            });
+
+            if (upload.size()) {
+                uploadAtc(upload);
+            }
+
+            if (error) {
+                HordeCore.notify(
+                    DimpCore.text.dragdropimg_error.sub('%d', error),
+                    'horde.error'
+                );
+            }
+        }
+
         editor.on('contentDom', function(e1) {
             editor.document.on('drop', function(e2) {
-                var d = e2.data.$,
-                    error = 0,
-                    upload = [];
+                var d = e2.data.$;
 
                 fireEventInParent('drop', e2);
 
@@ -86,24 +115,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
                 e2.data.preventDefault();
 
-                $A(d.dataTransfer.files).each(function(f) {
-                    if (f.type.startsWith('image/')) {
-                        upload.push(f);
-                    } else {
-                        ++error;
-                    }
-                });
-
-                if (upload.size()) {
-                    uploadAtc(upload);
-                }
-
-                if (error) {
-                    HordeCore.notify(
-                        DimpCore.text.dragdropimg_error.sub('%d', error),
-                        'horde.error'
-                    );
-                }
+                addImages(d.dataTransfer.files);
             });
 
             editor.document.on('dragover', function(e3) {
@@ -111,6 +123,16 @@ CKEDITOR.plugins.add('pasteattachment', {
                     e3.data.preventDefault();
                 }
                 fireEventInParent('dragover', e3);
+            });
+
+            /* This works on Chrome. 'paste' action below works on FF. */
+            editor.document.on('paste', function(ev) {
+                var d = ev.data.$;
+                try {
+                    addImages(
+                        (d.clipboardData || d.originalEvent.clipboardData).items
+                    );
+                } catch (e) {}
             });
         });
 
