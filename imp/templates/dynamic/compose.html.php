@@ -171,7 +171,7 @@
    </div>
 <?php endif; ?>
 
-   <ul id="compose_notices" style="display:none">
+   <ul class="notices" id="compose_notices" style="display:none">
     <li id="replyallnotice" style="display:none">
      <?php echo _("You are") ?> <span class="replyAllNoticeUnderline"><?php echo _("replying to ALL") ?></span> (<span class="replyAllNoticeCount"></span>).
      <input id="replyall_revert" class="button" type="button" value="<?php echo _("Reply To Sender instead") ?>" />
