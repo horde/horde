@@ -1714,7 +1714,7 @@ ImpCompose.classes.Attachlist = Class.create({
             .insert(
                 new Element('SPAN')
                     .addClassName('attach_upload_text')
-                    .insert((Object.isElement(f) ? $F(f) : f.name).escapeHTML())
+                    .insert((Object.isElement(f) ? $F(f) : (f.name || DimpCore.text.data)).escapeHTML())
                     .insert(new Element('SPAN').insert('(' + DimpCore.text.uploading + ')'))
             );
 

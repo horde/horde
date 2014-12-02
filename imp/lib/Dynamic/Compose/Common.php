@@ -252,6 +252,7 @@ class IMP_Dynamic_Compose_Common
             'change_identity' => _("You have edited your signature. Change the identity and lose your changes?"),
             'compose_cancel' => _("Cancelling this message will permanently discard its contents and will delete auto-saved drafts.\nAre you sure you want to do this?"),
             'compose_close' => _("Compose action completed. You may now safely close this window."),
+            'data' => _("Data"),
             'dragdropimg_error' => _("Could not add %d file(s) to message: only images are supported."),
             'group_expand' => _("Expand Group"),
             'loading' => _("Loading..."),
