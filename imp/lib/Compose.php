@@ -2420,7 +2420,23 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 try {
                     $injector->getInstance('IMP_Mail')->send($to, $hdr_array, $contents->getBody());
                 } catch (Horde_Mail_Exception $e) {
-                    throw new IMP_Compose_Exception($e);
+                    $e2 = new IMP_Compose_Exception($e);
+
+                    if (($prev = $e->getPrevious()) &&
+                        ($prev instanceof Horde_Smtp_Exception)) {
+                        Horde::log(
+                            sprintf(
+                                "SMTP Error: %s (%u; %s)",
+                                $prev->raw_msg,
+                                $prev->getCode(),
+                                $prev->getEnhancedSmtpCode() ?: 'N/A'
+                            ),
+                            'ERR'
+                        );
+                        $e2->logged = true;
+                    }
+
+                    throw $e2;
                 }
 
                 $recipients = strval($recip['list']);
