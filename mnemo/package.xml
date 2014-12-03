@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
 * [mms] Added ability to link to note via API.
  </notes>
  <contents>
@@ -1248,6 +1249,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
 * [mms] Added ability to link to note via API.
    </notes>
   </release>
