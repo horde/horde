@@ -3716,6 +3716,7 @@
    <notes>
 * [mjr] Fix issue that could cause incorrect truncation of ActiveSync emails.
 * [mms] Added Horde_Core_Mime_Headers_Received.
+* [mms] Added Horde_Core_Itip_Response_Options_Horde.
 * [mms] Added Horde_Registry#remoteHost().
    </notes>
   </release>

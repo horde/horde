@@ -20,6 +20,7 @@
  * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
+ * @since     2.17.0
  */
 class Horde_Core_Itip_Response_Options_Horde
 extends Horde_Itip_Response_Options_Horde
