@@ -273,7 +273,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders($headers, array_merge($opts, array('bcc' => true)));
+        $draft_headers = $this->_prepareHeaders(
+            $headers,
+            array_merge($opts, array('bcc' => true))
+        );
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -1104,30 +1107,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $ob->addHeaderOb(Horde_Mime_Headers_Date::create());
         $ob->addHeaderOb(Horde_Mime_Headers_MessageId::create());
 
-        if (isset($headers['from']) && strlen($headers['from'])) {
-            $ob->addHeader('From', $headers['from']);
-        }
+        $hdrs = array_filter(array(
+            'From' => 'from',
+            'To' => 'to',
+            'Cc' => 'cc',
+            'Bcc' => empty($opts['bcc']) ? null : 'bcc',
+            'Subject' => 'subject'
+        ));
 
-        if (isset($headers['to']) &&
-            (is_object($headers['to']) || strlen($headers['to']))) {
-            $ob->addHeader('To', $headers['to']);
-        } elseif (!isset($headers['cc'])) {
-            $ob->addHeader('To', 'undisclosed-recipients:;');
-        }
-
-        if (isset($headers['cc']) &&
-            (is_object($headers['cc']) || strlen($headers['cc']))) {
-            $ob->addHeader('Cc', $headers['cc']);
-        }
-
-        if (!empty($opts['bcc']) &&
-            isset($headers['bcc']) &&
-            (is_object($headers['bcc']) || strlen($headers['bcc']))) {
-            $ob->addHeader('Bcc', $headers['bcc']);
-        }
-
-        if (isset($headers['subject']) && strlen($headers['subject'])) {
-            $ob->addHeader('Subject', $headers['subject']);
+        foreach ($hdrs as $key => $val) {
+            if (isset($headers[$val]) &&
+                (is_object($headers[$val]) || strlen($headers[$val]))) {
+                $ob->addHeader($key, $headers[$val]);
+            }
         }
 
         if ($this->replyType(true) == self::REPLY) {
