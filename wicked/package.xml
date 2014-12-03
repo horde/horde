@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-25</date>
+ <date>2014-12-03</date>
  <version>
   <release>2.0.3</release>
   <api>2.0.0</api>
@@ -1052,7 +1052,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix updating annotated links when renaming pages.

@@ -1,6 +1,6 @@
-----------
-v2.0.3-git
-----------
+------
+v2.0.3
+------
 
 [jan] Fix updating annotated links when renaming pages.
 [jan] Add ReST rendering rule for horizontal rulers.
