@@ -113,6 +113,26 @@ class Horde_Test_Stub_Registry
     }
 
     /**
+     * Returns information about the remote host.
+     *
+     * @return object  An object with the following properties:
+     * <pre>
+     *   - addr: (string) Remote IP address.
+     *   - host: (string) Remote hostname (if resolvable; otherwise, this value
+     *           is identical to 'addr').
+     *   - proxy: (boolean) True if this user is connecting through a proxy.
+     * </pre>
+     */
+    public function remoteHost()
+    {
+        return (object)array(
+            'addr' => '1.2.3.4',
+            'host' => 'example.com',
+            'proxy' => false
+        );
+    }
+
+    /**
      * Load a configuration file from a Horde application's config directory.
      * This call is cached (a config file is only loaded once, regardless of
      * the $vars value).
