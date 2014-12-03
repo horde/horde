@@ -11,7 +11,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-21</date>
+ <date>2014-12-03</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -1320,7 +1320,7 @@ Make the SyncML package independant from Horde, provide a new Sql backend as a r
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-21</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix exporting notes to Funambol clients (horde@albasoft.com, Bug #9487).
