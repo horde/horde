@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-02</date>
+ <date>2014-12-03</date>
  <version>
   <release>1.1.1</release>
   <api>1.1.0</api>
@@ -130,7 +130,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-02</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Raise log level of errors from Closure compiler.
