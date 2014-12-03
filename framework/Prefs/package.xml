@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn&apos;t exist in a scope.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1130,7 +1130,7 @@ Initial release as a PEAR package
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn&apos;t exist in a scope.
    </notes>
   </release>
  </changelog>

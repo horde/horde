@@ -330,7 +330,7 @@ class Horde_Prefs implements ArrayAccess
     {
         return ($scope = $this->_getScope($pref))
             ? $this->_scopes[$scope]->isDefault($pref)
-            : false;
+            : true;
     }
 
     /**
