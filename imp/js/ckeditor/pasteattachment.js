@@ -148,7 +148,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     if (data.size() != 2) {
                         /* IE 10 doesn't support pasting images, so don't try
                          * to copy HTML IMG source. */
-                        if (span.hasAttribute('imp_related_attr')) {
+                        if (span.hasAttribute(IMP_Ckeditor_Imagepoll.related_attr)) {
                             ev.data.html = '';
                         }
                         return;
