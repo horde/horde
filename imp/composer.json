@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "6.2.3",
-    "time": "2014-10-29",
+    "version": "6.2.4",
+    "time": "2014-12-03",
     "repositories": [
         {
             "type": "pear",
@@ -36,7 +36,7 @@
         "pear-pear.horde.org/Horde_Browser": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Compress": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Core": ">=2.12.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Core": ">=2.17.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Crypt": ">=2.5.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Css_Parser": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
