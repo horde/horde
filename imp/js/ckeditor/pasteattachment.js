@@ -144,7 +144,16 @@ CKEDITOR.plugins.add('pasteattachment', {
 
                 /* Only support images for now. */
                 if (span && span.match('IMG')) {
-                    data = span.readAttribute('src').split(',', 2);
+                    data = (span.readAttribute('src') || '').split(',', 2);
+                    if (data.size() != 2) {
+                        /* IE 10 doesn't support pasting images, so don't try
+                         * to copy HTML IMG source. */
+                        if (span.hasAttribute('imp_related_attr')) {
+                            ev.data.html = '';
+                        }
+                        return;
+                    }
+
                     try {
                         data[1] = Base64.atob(data[1]);
                     } catch (e) {
