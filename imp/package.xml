@@ -24,7 +24,7 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>6.2.4</release>
+  <release>6.2.5</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Don&apos;t persist dynamic filter views across page reloads.
-* [mms] Fix message saving when using a POP3 server.
-* [jan] Fix JS error when using regexp characters in search string.
-* [mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3768,6 +3765,19 @@
 * [mms] Fix message saving when using a POP3 server.
 * [jan] Fix JS error when using regexp characters in search string.
 * [mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.5</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
