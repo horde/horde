@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.2.3).
+Program (IMP) version H5 (6.2.4).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -20,7 +20,7 @@ http://www.horde.org/apps/imp/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/imp/docs/INSTALL
 
-The major changes compared to IMP version H5 (6.2.2) are:
+The major changes compared to IMP version H5 (6.2.3) are:
     * Small bugfixes.
 ML;
 

@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Wicked wiki
-application version H5 (2.0.2).
+application version H5 (2.0.3).
 
 Wicked is a wiki application for the Horde Framework. It uses PEAR's Text_Wiki
 library for the actual wiki markup parsing and rendering. It supports Creole,
@@ -15,8 +15,8 @@ Wicked, visit http://www.horde.org/apps/wicked.
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/wicked/docs/INSTALL
 
-The major changes compared to the Wicked version H5 (2.0.1) are:
-    * Added Danish and Swedish translations.
+The major changes compared to the Wicked version H5 (2.0.2) are:
+    * Small bugfixes.
 ML;
 
 $notes['name'] = 'Wicked';
