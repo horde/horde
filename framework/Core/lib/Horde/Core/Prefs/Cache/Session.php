@@ -14,11 +14,13 @@
 /**
  * Cache storage implementation using Horde_Session.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2010-2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Core
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2010-2014 Horde LLC
+ * @deprecated Use Horde_Prefs_Cache_HordeCache with the
+ *             Horde_Core_Cache_Session driver instead.
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Core
  */
 class Horde_Core_Prefs_Cache_Session extends Horde_Prefs_Cache_Base
 {

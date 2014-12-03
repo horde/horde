@@ -170,7 +170,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             : array($config_driver, $hooks_driver);
 
         if ($driver && $opts['cache']) {
-            $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
+            $opts['cache'] = $this->_getCache($opts['user'], false);
         } else {
             unset($opts['cache']);
         }
@@ -180,9 +180,15 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
         } catch (Horde_Prefs_Exception $e) {
             $this->_notifyError($e);
 
-            /* Store data in the cached session object. */
-            $opts['cache'] = new Horde_Core_Prefs_Cache_Session($opts['user']);
-            $this->_instances[$sig] = new Horde_Prefs($scope, array($config_driver, $hooks_driver), $opts);
+            /* Store data in the cached session object. This cache data is
+             * stored for the life of the session. */
+            $opts['cache'] = $this->_getCache($opts['user'], true);
+
+            $this->_instances[$sig] = new Horde_Prefs(
+                $scope,
+                array($config_driver, $hooks_driver),
+                $opts
+            );
         }
 
         return $this->_instances[$sig];
@@ -203,6 +209,44 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 Horde::log($e);
             }
         }
+    }
+
+    /**
+     * Return the cache object to use for the prefs driver.
+     *
+     * @param string $user       Username.
+     * @param boolean $fallback  Return the fallback cache driver?
+     *
+     * @return Horde_Cache  Cache object.
+     */
+    protected function _getCache($user, $fallback)
+    {
+        global $injector;
+
+        $params = array(
+            'app' => 'horde',
+            'storage_key' => 'horde_prefs_cache'
+        );
+
+        if ($fallback) {
+            $params['cache'] = new Horde_Cache_Storage_Null();
+            $params['maxsize'] = 0;
+        } else {
+            $params['cache'] = $injector->getInstance('Horde_Cache');
+        }
+
+        return new Horde_Prefs_Cache_HordeCache(
+            $user,
+            array(
+                'cache' => new Horde_Cache(
+                    new Horde_Core_Cache_Session($params),
+                    array(
+                        'compress' => true,
+                        'logger' => $injector->getInstance('Horde_Core_Log_Wrapper')
+                    )
+                )
+            )
+        );
     }
 
     /**
