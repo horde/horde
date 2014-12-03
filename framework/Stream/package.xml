@@ -12,7 +12,7 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>1.6.2</release>
+  <release>1.6.3</release>
   <api>1.6.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Throw InvalidArgumentException if passing incorrect arguments to constructors.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -286,6 +286,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Throw InvalidArgumentException if passing incorrect arguments to constructors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.6.3</release>
+    <api>1.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
