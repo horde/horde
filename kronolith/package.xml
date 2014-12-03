@@ -24,7 +24,7 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>4.2.4</release>
+  <release>4.2.5</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,11 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Make access to non-CalDAV remote calendars faster (Bug #12379).
-* [jan] Continue with further events if parsing of one remote event date fails.
-* [jan] Fix JS error in month view with more events today than the maximum threshold.
-* [mjr] Fix fatal error when creating or modifying an entry via PUT.
-* [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2493,6 +2489,19 @@
 * [jan] Fix JS error in month view with more events today than the maximum threshold.
 * [mjr] Fix fatal error when creating or modifying an entry via PUT.
 * [mjr] Don&apos;t show private event details in daily agenda emails if not the owner (Bug #13660).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.5</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
