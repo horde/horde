@@ -2,6 +2,198 @@
 v5.2.4-git
 ----------
 
+Horde Changes
+-------------
+[mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
+[jan] Add missing 'secure' configuration for SMTP.
+
+Mail Changes
+------------
+[mms] Don't persist dynamic filter views across page reloads.
+[mms] Fix message saving when using a POP3 server.
+[jan] Fix JS error when using regexp characters in search string.
+[mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
+
+Filters Changes
+---------------
+[mms] Fix determination of preferred backend (Bug #13548).
+
+Address Book Changes
+--------------------
+[jan] Use the SHOW permission to determine the sidebar address book list.
+
+Calendar Changes
+----------------
+[mjr] SECURITY: Don't show private event details in daily agenda emails if not
+      the owner (Bug #13660).
+[jan] Make access to non-CalDAV remote calendars faster (Bug #12379).
+[jan] Continue with further events if parsing of one remote event date fails.
+[jan] Fix JS error in month view with more events today than the maximum
+      threshold.
+[mjr] Fix fatal error when creating or modifying an entry via PUT.
+
+Tasks Changes
+-------------
+[mjr] Fix issue with initially creating nag_shares table.
+
+Notes Changes
+-------------
+[jan] SECURITY: Fix permission check when editing notes (found by Christopher
+      Neuhaus <cne@ruhrverband.de>).
+[mms] Added ability to link to note via API.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix incorrect default values for BODYPREF TRUNCATIONSIZE values (Bug
+      #13711).
+[mjr] Fix regression in sending MIME messages as a result of a FETCH operation
+      (Bug #13714).
+[mjr] Fix issue that could cause mime boundry strings to leak into the message
+      body when the message contained only a single part.
+[mjr] Improvements and fixes to MIME truncation truncation handling.
+[mjr] Fix limiting To: field in email sent to ActiveSync clients.
+[mjr] Provisioning requirement is now set after the device object is obtained.
+[mjr] Fix handling of MIME truncation in certain cases.
+[mjr] Change the order various SYNC reply structures are sent to be more
+      in-line with the spcification.
+[mjr] Fix issue where sticky OPTIONS values were lost resulting in incorrect
+      values for MIMESUPPORT and other values (Bug #12970).
+[mjr] Added support for differentiating between S/MIME signed and S/MIME
+      encrypted so the content-class property can be properly set (Bug #12970).
+
+Alarm
+[jan] More compatibility fixes for Oracle.
+
+Browser
+[jan] Consider all user agents with "bot" in the name as robots.
+
+Core
+[mjr] Fix broken MIME messages constructed from ActiveSync SMART replies to
+      messages that contained a mulitpart/alternative part (Bug #13720).
+[mjr] Fix issue that could cause incorrect truncation of ActiveSync emails.
+[mms] Added Horde_Core_Mime_Headers_Received.
+[mms] Added Horde_Registry#remoteHost().
+[mms] Fix file permissions of dynamically generated static CSS/JS files.
+[jan] Use correct user name as a fallback for identity full names with existing
+      authusername hook.
+[mjr] Add the activesync_provisioning_check hook.
+[mjr] Fix determining multiplex settting for EAS notes (Bug #13637).
+[mjr] Fix adding new tasklists from EAS (Bug #13642).
+[jan] Update Czech translation (Michael Grafnetter
+      <michael.grafnetter@outlook.com>).
+
+Crypt
+[jan] Fix using non-deprecated Content-Type for encrypted messages (Bug #13659).
+
+Dav
+[jan] Fix DAV client always using Digest authentication (Bug #13319).
+[jan] Fix PUT request not passing content to the backend.
+
+Db
+[jan] Make Oracle's updateBlob() compatible with PHP 5.3.
+[jan] Fix using addColumn() with autoincrementKey types in SQLite.
+[jan] Fix several issues with changing autoincrementKey columns in Oracle.
+[mms] Fix SplitRead driver to work with the recent blob changes.
+[jan] Fix returning primary key value from insertBlob().
+[jan] Add Horde_Db_Adapter::updateBlob().
+[jan] Add Horde_Db_Value_Text to encapsulate long text values.
+[jan] Add missing insertBlob to adapter interface.
+
+History
+[jan] Fix migration with Oracle.
+
+Icalendar
+[mms] No longer call code that depends on Horde_Mime, which is not a required
+      dependency.
+
+Imap_Client
+[mms] Better cache unserialization error handling for all backends.
+[mjr] Fix broken IMAP cache behavior in the DB driver when unserialization of a
+      cached object fails.
+[mms] Better error handling when IMAP connection is prematurely disconnected.
+[mms] Fix regression in listMailboxes() for POP3 servers when 'flat' option is
+      true.
+[mms] Fix determining whether a command requires a continuation request, when
+      the literal occurs within a nested list.
+[mms] Ensure we don't use the same authentication method multiple times when
+      logging into IMAP server.
+
+JavascriptMinify
+[jan] Raise log level of errors from Closure compiler.
+
+ListHeaders
+[mms] Added Horde_ListHeaders#listHeadersExist().
+
+Mail
+[mms] Added Horde_Mail_Rfc822_List#first() function.
+[mms] Add property to address object to indicate whether it is an EAI address.
+[mms] Transport driver now indicates whether it handles EAI data.
+[mms] Support validation of EAI addresses (RFC 6532).
+[mms] Add Horde_Mail_Mbox_Parse.
+
+Memcache
+[mms] Fix race condition where memcache lock could be removed before the
+      underlying locked data could be updated.
+
+Mime
+[mms] Improved sanity checking when adding header data.
+[mms] Fix Horde_Mime_Headers_Deprecated#addReceivedHeader().
+[mms] Fix Horde_Mime_Headers_Deprecated#listHeadersExists().
+[mms] Horde_Mime_Headers has been rewritten.
+[mms] Correctly handle content parameters in a case-insensitive manner.
+[mms] Correctly pass the 'no_body' parameter to parts embedded in a
+      message/rfc822 part in Horde_Mime_Part#parseMessage().
+[mms] Fix parsing a base MIME-compliant message with no Content-Type
+      information.
+[mms] Horde_Mime::is8bit() no longer requires the charset parameter.
+[mms] Improved MIME encoding.
+[mms] Deprecated Horde_Mime::quotedPrintableEncode() and move to
+      Horde_Mime_QuotedPrintable.
+[mms] Moved MIME ID manipulation/query methods out of Horde_Mime and into
+      Horde_Mime_Id.
+[mms] Use string-based ABNF-based parser for scanning MIME content parameters
+      instead of a regular expression (Bug #13587).
+[mms] Moved content parameter handling methods out of Horde_Mime and into
+      Horde_Mime_ContentParam.
+[mms] Deprecated Horde_Mime::generateMessageId() and move to Horde_Mime_Headers.
+[mms] Deprecated Horde_Mime::uudecode() and move to new Horde_Mime_Uudecode
+      class.
+[mms] Add Auto-Submitted header to outgoing MDN messages.
+
+Mime_Viewer
+[mms] More thorough handling of tar.gz data.
+
+Pack
+[mms] Catch unknown errors when unpacking data.
+
+Smtp
+[mms] Added Horde_Smtp_Exception property indicating whether error is permanent
+      or transient.
+[mms] Determine EAI and Body transport information by analyzing the message
+      data, instead of requiring a parameter.
+[mms] Add support for ETRN extension (RFC 1985).
+[mms] Add support for BINARYMIME extension (RFC 3030).
+[mms] Add support for CHUNKING extension (RFC 3030).
+
+Stream
+[jan] Throw InvalidArgumentException if passing incorrect arguments to
+      constructors.
+
+Stringprep
+[mms] COPYING file did not contain the LGPL-3.0 addition to GPLv3.
+
+SyncMl
+[jan] Fix exporting notes to Funambol clients (horde@albasoft.com, Bug #9487).
+[jan] Fix creating server-client-mapping if backend returns multiple server IDs
+      per client ID (horde@albasoft.com, Bug #13706).
+
+Test
+[jan] Add convertUsername() to Horde_Test_Stub_Registry.
+
+Translation
+[jan] Add Horde_Translation_Autodetect to support loading translations from
+      Composer-installed packages (Renan Gonçalves <renan.saddam@gmail.com>).
 
 
 ------
