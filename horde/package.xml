@@ -40,7 +40,7 @@
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
 * [mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
-* [jan]  Add missing &apos;secure&apos; configuration for SMTP.
+* [jan] Add missing &apos;secure&apos; configuration for SMTP.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3987,7 +3987,7 @@
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
-* [jan]  Add missing &apos;secure&apos; configuration for SMTP.
+* [jan] Add missing &apos;secure&apos; configuration for SMTP.
    </notes>
   </release>
  </changelog>
