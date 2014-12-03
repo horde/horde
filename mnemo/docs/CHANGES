@@ -1,6 +1,6 @@
-----------
-v4.2.3-git
-----------
+------
+v4.2.3
+------
 
 [jan] SECURITY: Fix permission check when editing notes (found by Christopher
       Neuhaus <cne@ruhrverband.de>).

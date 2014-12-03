@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-10-29</date>
+ <date>2014-12-03</date>
  <version>
   <release>4.2.3</release>
   <api>4.0.0</api>
@@ -1246,7 +1246,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
