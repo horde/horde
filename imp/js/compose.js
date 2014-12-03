@@ -1739,6 +1739,7 @@ ImpCompose.classes.Attachlist = Class.create({
                     callback: function() {
                         --this.curr_upload;
                         li.remove();
+                        this.compose.resizeMsgArea();
                     }.bind(this)
                 });
                 return;
@@ -1792,6 +1793,7 @@ ImpCompose.classes.Attachlist = Class.create({
                     onComplete: function() {
                         --this.curr_upload;
                         li.remove();
+                        this.compose.resizeMsgArea();
                     }.bind(this),
                     onCreate: function(e) {
                         if (e.transport && e.transport.upload) {
