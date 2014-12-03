@@ -18,7 +18,7 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>4.2.3</release>
+  <release>4.2.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
-* [mms] Added ability to link to note via API.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1251,6 +1250,19 @@
    <notes>
 * [jan] SECURITY: Fix permission check when editing notes (found by Christopher Neuhaus &lt;cne@ruhrverband.de&gt;).
 * [mms] Added ability to link to note via API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
