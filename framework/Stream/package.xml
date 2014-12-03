@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-12</date>
+ <date>2014-12-03</date>
  <version>
   <release>1.6.2</release>
   <api>1.6.0</api>
@@ -282,7 +282,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-12</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Throw InvalidArgumentException if passing incorrect arguments to constructors.
