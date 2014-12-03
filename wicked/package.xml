@@ -18,7 +18,7 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix updating annotated links when renaming pages.
-* [jan] Add ReST rendering rule for horizontal rulers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1057,6 +1056,19 @@
    <notes>
 * [jan] Fix updating annotated links when renaming pages.
 * [jan] Add ReST rendering rule for horizontal rulers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

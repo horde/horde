@@ -43,7 +43,7 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (2.0.3)';
+    public $version = 'H5 (2.0.4-git)';
 
     protected function _bootstrap()
     {
