@@ -62,7 +62,7 @@ CKEDITOR.plugins.add('pasteattachment', {
             editor.getThemeSpace('contents').$.dispatchEvent(evt);
         }
 
-        function addImages(files)
+        function addImages(files, errorcheck)
         {
             var error = 0,
                 upload = [];
@@ -76,7 +76,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                         f.name = DimpCore.text.image_data;
                     }
                     upload.push(f);
-                } else {
+                } else if (errorcheck) {
                     ++error;
                 }
             });
@@ -115,7 +115,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
                 e2.data.preventDefault();
 
-                addImages(d.dataTransfer.files);
+                addImages(d.dataTransfer.files, true);
             });
 
             editor.document.on('dragover', function(e3) {
