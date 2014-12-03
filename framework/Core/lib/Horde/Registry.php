@@ -2486,10 +2486,10 @@ class Horde_Registry implements Horde_Shutdown_Task
      *
      * @return object  An object with the following properties:
      * <pre>
-     *   addr: (string) Remote IP address.
-     *   host: (string) Remote hostname (if resolvable; otherwise, this value
-     *         is identical to 'addr').
-     *   proxy: (boolean) True if this user is connecting through a proxy.
+     *   - addr: (string) Remote IP address.
+     *   - host: (string) Remote hostname (if resolvable; otherwise, this value
+     *           is identical to 'addr').
+     *   - proxy: (boolean) True if this user is connecting through a proxy.
      * </pre>
      */
     public function remoteHost()
