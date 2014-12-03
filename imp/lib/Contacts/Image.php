@@ -27,6 +27,13 @@ class IMP_Contacts_Image
     const FLAG = 2;
 
     /**
+     * Cache timeout (in seconds).
+     *
+     * @var integer
+     */
+    public $cache_timeout = 3600;
+
+    /**
      * The e-mail address.
      *
      * @var string
@@ -56,7 +63,7 @@ class IMP_Contacts_Image
      */
     public function getImage($type)
     {
-        global $conf;
+        global $conf, $injector;
 
         if (!empty($conf['contactsimage']['backends'])) {
             switch ($type) {
@@ -71,11 +78,31 @@ class IMP_Contacts_Image
                 break;
             }
 
+            $cache = $injector->getInstance('Horde_Cache');
+            $pack = $injector->getInstance('Horde_Pack');
+
+            $cache_id = implode('|', array(
+                'imp_avatar_email',
+                $type,
+                $this->_email
+            ));
+
+            if ($url = $cache->get($cache_id, 0)) {
+                try {
+                    return $pack->unpack($url);
+                } catch (Horde_Pack_Exception $e) {}
+            }
+
             foreach ($conf['contactsimage']['backends'] as $val) {
                 if (class_exists($val)) {
                     $backend = new $val();
                     if (($backend instanceof $type) &&
                         ($url = $backend->$func($this->_email))) {
+                        $cache->set(
+                            $cache_id,
+                            $pack->pack($url),
+                            $this->cache_timeout
+                        );
                         return $url;
                     }
                 }
