@@ -1,6 +1,6 @@
-----------
-v4.2.4-git
-----------
+------
+v4.2.4
+------
 
 [mjr] SECURITY: Don't show private event details in daily agenda emails if not
       the owner (Bug #13660).
