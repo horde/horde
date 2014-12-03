@@ -54,6 +54,9 @@ extends PHPUnit_Framework_TestCase
         $registry->expects($this->any())
             ->method('getCharset')
             ->will($this->returnValue('UTF-8'));
+        $registry->expects($this->any())
+            ->method('remoteHost')
+            ->will($this->returnValue((object)array('addr' => '1.2.3.4', 'host' => 'example.com', 'proxy' => false)));
         $GLOBALS['registry'] = $registry;
 
         $notification = $this->getMock('Horde_Notification_Handler', array(), array(), '', false);
