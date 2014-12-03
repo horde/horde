@@ -1,6 +1,6 @@
-----------
-v5.2.3-git
-----------
+------
+v5.2.3
+------
 
 [mjr] Fix performing actions from ActiveSync user preference page (Bug #13657).
 [jan] Add missing 'secure' configuration for SMTP.
