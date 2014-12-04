@@ -6,7 +6,7 @@
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
-var DimpBase = {
+var ImpBase = {
 
     // colorpicker,
     flags: {},
@@ -25,7 +25,7 @@ var DimpBase = {
     mboxDropConfig: (function() {
         return {
             caption: function(drop, drag, e) {
-                return DimpBase.mboxDropCaption(drop, drag, e);
+                return ImpBase.mboxDropCaption(drop, drag, e);
             },
             keypress: true
         };
@@ -33,7 +33,7 @@ var DimpBase = {
     msgDragConfig: (function() {
         return {
             caption: function() {
-                return DimpBase.messageCountText(DimpBase.selectedCount());
+                return ImpBase.messageCountText(ImpBase.selectedCount());
             },
             classname: 'msgdrag',
             rightclick: true,
@@ -648,7 +648,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            $(e.memo).fire('DimpBase:removeElt');
+            $(e.memo).fire('ImpBase:removeElt');
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
@@ -1828,7 +1828,7 @@ var DimpBase = {
             pm = $('previewMsg'),
             r = this.preview.get(mbox, uid);
 
-        pm.down('.msgHeaders').select('.address').invoke('fire', 'DimpBase:removeElt');
+        pm.down('.msgHeaders').select('.address').invoke('fire', 'ImpBase:removeElt');
 
         // Add subject. Subject was already html encoded on server (subject
         // may include links).
@@ -2015,7 +2015,7 @@ var DimpBase = {
         var pm = $('previewMsg');
 
         if (pm.visible()) {
-            pm.hide().down('.msgHeaders').select('.address').invoke('fire', 'DimpBase:removeElt');
+            pm.hide().down('.msgHeaders').select('.address').invoke('fire', 'ImpBase:removeElt');
         }
 
         this.loadingImg('msg', false);
@@ -4552,73 +4552,73 @@ var IMP_Preview_Cache = Class.create({
 document.observe('dom:loaded', function() {
     if (Prototype.Browser.IE && !document.addEventListener) {
         // For IE 8
-        DimpBase.onDomLoad.bind(DimpBase).delay(0.1);
+        ImpBase.onDomLoad.bind(ImpBase).delay(0.1);
     } else {
-        DimpBase.onDomLoad();
+        ImpBase.onDomLoad();
     }
 });
 
 /* Basic event handlers. */
-document.observe('keydown', DimpBase.keydownHandler.bindAsEventListener(DimpBase));
-document.observe('keyup', DimpBase.keyupHandler.bindAsEventListener(DimpBase));
-Event.observe(window, 'resize', DimpBase.onResize.bind(DimpBase));
+document.observe('keydown', ImpBase.keydownHandler.bindAsEventListener(ImpBase));
+document.observe('keyup', ImpBase.keyupHandler.bindAsEventListener(ImpBase));
+Event.observe(window, 'resize', ImpBase.onResize.bind(ImpBase));
 
 /* Drag/drop listeners. */
-document.observe('DragDrop2:start', DimpBase.onDragStart.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:drop', DimpBase.mboxDropHandler.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:end', DimpBase.onDragEnd.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:mousedown', DimpBase.onDragMouseDown.bindAsEventListener(DimpBase));
-document.observe('DragDrop2:mouseup', DimpBase.onDragMouseUp.bindAsEventListener(DimpBase));
+document.observe('DragDrop2:start', ImpBase.onDragStart.bindAsEventListener(ImpBase));
+document.observe('DragDrop2:drop', ImpBase.mboxDropHandler.bindAsEventListener(ImpBase));
+document.observe('DragDrop2:end', ImpBase.onDragEnd.bindAsEventListener(ImpBase));
+document.observe('DragDrop2:mousedown', ImpBase.onDragMouseDown.bindAsEventListener(ImpBase));
+document.observe('DragDrop2:mouseup', ImpBase.onDragMouseUp.bindAsEventListener(ImpBase));
 
 /* HordeDialog listener. */
-document.observe('HordeDialog:onClick', DimpBase.dialogClickHandler.bindAsEventListener(DimpBase));
-document.observe('HordeDialog:close', DimpBase.dialogCloseHandler.bind(DimpBase));
+document.observe('HordeDialog:onClick', ImpBase.dialogClickHandler.bindAsEventListener(ImpBase));
+document.observe('HordeDialog:close', ImpBase.dialogCloseHandler.bind(ImpBase));
 
 /* AJAX related events. */
-document.observe('HordeCore:ajaxException', DimpBase.onAjaxException.bind(DimpBase));
-document.observe('HordeCore:ajaxFailure', DimpBase.onAjaxFailure.bind(DimpBase));
+document.observe('HordeCore:ajaxException', ImpBase.onAjaxException.bind(ImpBase));
+document.observe('HordeCore:ajaxFailure', ImpBase.onAjaxFailure.bind(ImpBase));
 document.observe('HordeCore:runTasks', function(e) {
-    DimpBase.tasksHandler(e.memo);
+    ImpBase.tasksHandler(e.memo);
 });
 
 /* Click handlers. */
-document.observe('HordeCore:click', DimpBase.clickHandler.bindAsEventListener(DimpBase));
-document.observe('HordeCore:dblclick', DimpBase.dblclickHandler.bindAsEventListener(DimpBase));
+document.observe('HordeCore:click', ImpBase.clickHandler.bindAsEventListener(ImpBase));
+document.observe('HordeCore:dblclick', ImpBase.dblclickHandler.bindAsEventListener(ImpBase));
 
 /* AJAX loading handlers. */
-document.observe('HordeCore:loadingStart', DimpBase.loadingStartHandler.bindAsEventListener(DimpBase));
-document.observe('HordeCore:loadingEnd', DimpBase.loadingEndHandler.bindAsEventListener(DimpBase));
+document.observe('HordeCore:loadingStart', ImpBase.loadingStartHandler.bindAsEventListener(ImpBase));
+document.observe('HordeCore:loadingEnd', ImpBase.loadingEndHandler.bindAsEventListener(ImpBase));
 
 /* ContextSensitive handlers. */
-document.observe('ContextSensitive:click', DimpBase.contextOnClick.bindAsEventListener(DimpBase));
-document.observe('ContextSensitive:show', DimpBase.contextOnShow.bindAsEventListener(DimpBase));
-document.observe('ContextSensitive:trigger', DimpBase.contextOnTrigger.bindAsEventListener(DimpBase));
+document.observe('ContextSensitive:click', ImpBase.contextOnClick.bindAsEventListener(ImpBase));
+document.observe('ContextSensitive:show', ImpBase.contextOnShow.bindAsEventListener(ImpBase));
+document.observe('ContextSensitive:trigger', ImpBase.contextOnTrigger.bindAsEventListener(ImpBase));
 
 /* Search handlers. */
-document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(DimpBase));
-document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
+document.observe('FormGhost:reset', ImpBase.searchReset.bindAsEventListener(ImpBase));
+document.observe('FormGhost:submit', ImpBase.searchSubmit.bindAsEventListener(ImpBase));
 
-/* DimpBase handlers. */
-document.observe('DimpBase:removeElt', DimpBase.removeEltHandler.bindAsEventListener(DimpBase));
+/* ImpBase handlers. */
+document.observe('ImpBase:removeElt', ImpBase.removeEltHandler.bindAsEventListener(ImpBase));
 
 /* ImpCore handlers. */
-document.observe('ImpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+document.observe('ImpCore:updateAddressHeader', ImpBase.updateAddressHeader.bindAsEventListener(ImpBase));
 
 /* Folder list element handlers. */
-document.observe('IMP_Flist_Mbox:create', DimpBase.createMboxHandler.bind(DimpBase));
+document.observe('IMP_Flist_Mbox:create', ImpBase.createMboxHandler.bind(ImpBase));
 document.observe('IMP_Flist_Mbox:delete', function(e) {
-    e.memo.element().fire('DimpBase:removeElt');
+    e.memo.element().fire('ImpBase:removeElt');
 });
 
 /* HTML IFRAME handlers. */
 document.observe('IMP_JS:htmliframe_keydown', function(e) {
-    DimpBase.keydownHandler(e.memo);
+    ImpBase.keydownHandler(e.memo);
 });
 
 /* Define reloadMessage() method for this page. */
 ImpCore.reloadMessage = function(params) {
-    DimpBase.loadPreview(null, params);
+    ImpBase.loadPreview(null, params);
 };
 
 /* Define reloadPart() method for this page. */
-ImpCore.reloadPart = DimpBase.reloadPart.bind(DimpBase);
+ImpCore.reloadPart = ImpBase.reloadPart.bind(ImpBase);

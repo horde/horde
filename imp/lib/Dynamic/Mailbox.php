@@ -28,7 +28,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     {
         global $injector, $page_output, $registry, $session;
 
-        $page_output->addScriptFile('dimpbase.js');
+        $page_output->addScriptFile('base.js');
         $page_output->addScriptFile('passphrase.js');
         $page_output->addScriptFile('viewport.js');
         $page_output->addScriptFile('external/CustomElements.js');

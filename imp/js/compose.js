@@ -85,8 +85,8 @@ var ImpCompose = {
         var base;
 
         if ((base = ImpCore.baseAvailable()) &&
-            base.DimpBase.view == ImpCore.conf.drafts_mbox) {
-            base.DimpBase.poll();
+            base.ImpBase.view == ImpCore.conf.drafts_mbox) {
+            base.ImpBase.poll();
         }
     },
 
@@ -360,15 +360,15 @@ var ImpCompose = {
 
             case 'saveTemplate':
                 if ((base = ImpCore.baseAvailable()) &&
-                    base.DimpBase.view == ImpCore.conf.templates_mbox) {
-                    base.DimpBase.poll();
+                    base.ImpBase.view == ImpCore.conf.templates_mbox) {
+                    base.ImpBase.poll();
                 }
                 return this.closeCompose();
 
             case 'sendMessage':
                 if ((base = ImpCore.baseAvailable())) {
                     if (d.draft_delete) {
-                        base.DimpBase.poll();
+                        base.ImpBase.poll();
                     }
 
                     if (!ImpCore.conf.qreply) {
@@ -1394,15 +1394,15 @@ var ImpCompose = {
 
         if (base) {
             if (t['imp:flag']) {
-                base.DimpBase.flagCallback(t['imp:flag']);
+                base.ImpBase.flagCallback(t['imp:flag']);
             }
 
             if (t['imp:mailbox']) {
-                base.DimpBase.mailboxCallback(t['imp:mailbox']);
+                base.ImpBase.mailboxCallback(t['imp:mailbox']);
             }
 
             if (t['imp:maillog']) {
-                base.DimpBase.maillogCallback(t['imp:maillog']);
+                base.ImpBase.maillogCallback(t['imp:maillog']);
             }
         }
     },

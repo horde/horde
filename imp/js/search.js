@@ -539,13 +539,13 @@ var ImpSearch = {
 
         case 'search_dynamic_return':
             e.memo.hordecore_stop = true;
-            window.parent.DimpBase.go('mbox', this.data.searchmbox);
+            window.parent.ImpBase.go('mbox', this.data.searchmbox);
             break;
 
         case 'search_edit_query_cancel':
             e.memo.hordecore_stop = true;
             if (this.data.dynamic_view) {
-                window.parent.DimpBase.go();
+                window.parent.ImpBase.go();
             } else {
                 document.location.href = this.prefsurl;
             }

@@ -338,7 +338,7 @@ class IMP_Application extends Horde_Registry_Application
                 $url = Horde::url('dynamic.php', true)
                     ->add('page', 'mailbox')
                     ->setAnchor('search');
-                $onclick = 'if (window.DimpBase) { DimpBase.go(\'search\') }';
+                $onclick = 'if (window.ImpBase) { ImpBase.go(\'search\') }';
                 break;
 
             default:

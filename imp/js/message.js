@@ -134,12 +134,12 @@ var ImpMessage = {
             if ((base = ImpCore.baseAvailable())) {
                 base.focus();
                 if (e.element().identify() == 'button_delete') {
-                    base.DimpBase.deleteMsg({
+                    base.ImpBase.deleteMsg({
                         mailbox: this.mbox,
                         uid: this.buid
                     });
                 } else {
-                    base.DimpBase.reportSpam(e.element().identify() == 'button_spam', {
+                    base.ImpBase.reportSpam(e.element().identify() == 'button_spam', {
                         mailbox: this.mbox,
                         uid: this.buid
                     });
@@ -295,7 +295,7 @@ var ImpMessage = {
 
         if ((base = ImpCore.baseAvailable())) {
             if (this.strip) {
-                base.DimpBase.poll();
+                base.ImpBase.poll();
             } else if (this.tasks) {
                 if (this.tasks['imp:maillog']) {
                     this.tasks['imp:maillog'].each(function(l) {
@@ -306,7 +306,7 @@ var ImpMessage = {
                     }, this);
                     delete this.tasks['imp:maillog'];
                 }
-                base.DimpBase.tasksHandler({ tasks: this.tasks });
+                base.ImpBase.tasksHandler({ tasks: this.tasks });
             }
         }
 

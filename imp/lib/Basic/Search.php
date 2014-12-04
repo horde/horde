@@ -328,7 +328,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
             if ($redirect_target) {
                 if ($dynamic_view && $redirect_dynamic) {
                     echo '<html><head>' .
-                        Horde::wrapInlineScript(array('window.parent.DimpBase.go("mbox", "' . $q_ob->mbox_ob->form_to . '")')) .
+                        Horde::wrapInlineScript(array('window.parent.ImpBase.go("mbox", "' . $q_ob->mbox_ob->form_to . '")')) .
                         '</head></html>';
                     exit;
                 }

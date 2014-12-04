@@ -335,7 +335,7 @@ var ImpCore = {
 
         if (base != window &&
             !base.closed &&
-            !Object.isUndefined(base.DimpBase)) {
+            !Object.isUndefined(base.ImpBase)) {
             return base;
         }
 
