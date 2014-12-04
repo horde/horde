@@ -25,25 +25,6 @@ class IMP_Mailbox_List_Pop3 extends IMP_Mailbox_List
 {
     /**
      */
-    public function removeMsgs($indices)
-    {
-        if (!parent::removeMsgs($indices)) {
-            return false;
-        }
-
-        foreach ($indices as $ob) {
-            foreach ($ob->uids as $uid) {
-                if (($aindex = array_search($uid, $this->_buids)) !== false) {
-                    unset($this->_buids[$aindex]);
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     */
     public function getBuid($mbox, $uid)
     {
         // Ignore $mbox

@@ -104,29 +104,6 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
 
     /**
      */
-    public function removeMsgs($indices)
-    {
-        if (!parent::removeMsgs($indices)) {
-            return false;
-        }
-
-        foreach ($indices as $ob) {
-            foreach ($ob->uids as $uid) {
-                unset($this->_sortedMbox[$this->getArrayIndex($uid, $ob->mbox)]);
-                $idx = $ob->mbox . self::IDX_SEP . $uid;
-                if (($aindex = array_search($idx, $this->_buids)) !== false) {
-                    unset($this->_buids[$aindex]);
-                }
-            }
-        }
-
-        $this->_sortedMbox = array_values($this->_sortedMbox);
-
-        return true;
-    }
-
-    /**
-     */
     protected function _getMbox($id)
     {
         return IMP_Mailbox::get($this->_sortedMbox[$id]);

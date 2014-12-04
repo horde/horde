@@ -205,105 +205,13 @@ implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Using the preferences and the current mailbox, determines the messages
-     * to view on the current page (if using a paged view).
-     *
-     * @param integer $page   The page number currently being displayed.
-     * @param integer $start  The starting message number.
-     *
-     * @return array  An array with the following fields:
-     *   - anymsg: (boolean) Are there any messages at all in mailbox? E.g. If
-     *             'msgcount' is 0, there may still be hidden deleted messages.
-     *   - begin: (integer) The beginning message sequence number of the page.
-     *   - end: (integer) The ending message sequence number of the page.
-     *   - msgcount: (integer) The number of viewable messages in the current
-     *               mailbox.
-     *   - page: (integer) The current page number.
-     *   - pagecount: (integer) The number of pages in this mailbox.
-     */
-    public function buildMailboxPage($page = 0, $start = 0)
-    {
-        global $prefs, $session;
-
-        $this->_buildMailbox();
-
-        $ret = array('msgcount' => count($this->_sorted));
-
-        $page_size = max($prefs->getValue('max_msgs'), 1);
-
-        if ($ret['msgcount'] > $page_size) {
-            $ret['pagecount'] = ceil($ret['msgcount'] / $page_size);
-
-            /* Determine which page to display. */
-            if (empty($page) || strcspn($page, '0123456789')) {
-                if (!empty($start)) {
-                    /* Messages set this when returning to a mailbox. */
-                    $page = ceil($start / $page_size);
-                } else {
-                    /* Search for the last visited page first. */
-                    $page = $session->exists('imp', 'mbox_page/' . $this->_mailbox)
-                        ? $session->get('imp', 'mbox_page/' . $this->_mailbox)
-                        : ceil($this->mailboxStart($ret['msgcount']) / $page_size);
-                }
-            }
-
-            /* Make sure we're not past the end or before the beginning, and
-               that we have an integer value. */
-            $ret['page'] = intval($page);
-            if ($ret['page'] > $ret['pagecount']) {
-                $ret['page'] = $ret['pagecount'];
-            } elseif ($ret['page'] < 1) {
-                $ret['page'] = 1;
-            }
-
-            $ret['begin'] = (($ret['page'] - 1) * $page_size) + 1;
-            $ret['end'] = $ret['begin'] + $page_size - 1;
-            if ($ret['end'] > $ret['msgcount']) {
-                $ret['end'] = $ret['msgcount'];
-            }
-        } else {
-            $ret['begin'] = 1;
-            $ret['end'] = $ret['msgcount'];
-            $ret['page'] = 1;
-            $ret['pagecount'] = 1;
-        }
-
-        /* If there are no viewable messages, check for deleted messages in
-           the mailbox. */
-        $ret['anymsg'] = true;
-        if (!$ret['msgcount'] && !$this->_mailbox->search) {
-            try {
-                $status = $this->_mailbox->imp_imap->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
-                $ret['anymsg'] = (bool)$status['messages'];
-            } catch (IMP_Imap_Exception $e) {
-                $ret['anymsg'] = false;
-            }
-        }
-
-        /* Store the page value now. */
-        $session->set('imp', 'mbox_page/' . $this->_mailbox, $ret['page']);
-
-        return $ret;
-    }
-
-    /**
-     * Returns true if the mailbox data has been built.
-     *
-     * @return boolean  True if the mailbox has been built.
-     */
-    public function isBuilt()
-    {
-        return !is_null($this->_sorted);
-    }
-
-    /**
      * Builds the sorted list of messages in the mailbox.
      */
     protected function _buildMailbox()
     {
         $cacheid = $this->_mailbox->cacheid;
 
-        if ($this->isBuilt() && ($this->_cacheid == $cacheid)) {
+        if (!is_null($this->_sorted) && ($this->_cacheid == $cacheid)) {
             return;
         }
 
@@ -533,42 +441,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
         $this->_buildMailbox();
 
         return new IMP_Indices($this->_mailbox, $this->_sorted);
-    }
-
-    /**
-     * Removes messages from the mailbox.
-     *
-     * @param mixed $indices  An IMP_Indices object or true to remove all
-     *                        messages in the mailbox.
-     *
-     * @return boolean  True if the message was removed from the mailbox.
-     */
-    public function removeMsgs($indices)
-    {
-        if ($indices === true) {
-            $this->rebuild();
-            return false;
-        }
-
-        if (!count($indices)) {
-            return false;
-        }
-
-        /* Remove the current entry and recalculate the range. */
-        foreach ($indices as $ob) {
-            foreach ($ob->uids as $uid) {
-                unset($this->_sorted[$this->getArrayIndex($uid, $ob->mbox)]);
-            }
-        }
-
-        $this->changed = true;
-        $this->_sorted = array_values($this->_sorted);
-
-        if (isset($this->_thread[strval($ob->mbox)])) {
-            unset($this->_thread[strval($ob->mbox)], $this->_threadui[strval($ob->mbox)]);
-        }
-
-        return true;
     }
 
     /**
