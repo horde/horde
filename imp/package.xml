@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-11-13</date>
+ <date>2014-12-04</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -104,7 +104,9 @@
     </dir> <!-- /js/ckeditor -->
     <dir name="external">
      <file name="base64.js" role="horde" />
+     <file name="CustomElements.js" role="horde" />
      <file name="latinize.js" role="horde" />
+     <file name="time-elements.js" role="horde" />
      <file name="tinycon.js" role="horde" />
     </dir> <!-- /js/external -->
     <dir name="jquery.mobile">
@@ -126,8 +128,8 @@
     <file name="autocomplete.js" role="horde" />
     <file name="compose.js" role="horde" />
     <file name="contacts.js" role="horde" />
+    <file name="core.js" role="horde" />
     <file name="dimpbase.js" role="horde" />
-    <file name="dimpcore.js" role="horde" />
     <file name="draghandler.js" role="horde" />
     <file name="editor.js" role="horde" />
     <file name="imp.js" role="horde" />
@@ -1515,8 +1517,8 @@
    <install as="imp/js/autocomplete.js" name="js/autocomplete.js" />
    <install as="imp/js/compose.js" name="js/compose.js" />
    <install as="imp/js/contacts.js" name="js/contacts.js" />
+   <install as="imp/js/core.js" name="js/core.js" />
    <install as="imp/js/dimpbase.js" name="js/dimpbase.js" />
-   <install as="imp/js/dimpcore.js" name="js/dimpcore.js" />
    <install as="imp/js/draghandler.js" name="js/draghandler.js" />
    <install as="imp/js/editor.js" name="js/editor.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
@@ -1532,7 +1534,9 @@
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />
    <install as="imp/js/external/base64.js" name="js/external/base64.js" />
+   <install as="imp/js/external/CustomElements.js" name="js/external/CustomElements.js" />
    <install as="imp/js/external/latinize.js" name="js/external/latinize.js" />
+   <install as="imp/js/external/time-elements.js" name="js/external/time-elements.js" />
    <install as="imp/js/external/tinycon.js" name="js/external/tinycon.js" />
    <install as="imp/js/jquery.mobile/plugins/listviewtaphold.js" name="js/jquery.mobile/plugins/listviewtaphold.js" />
    <install as="imp/js/jquery.mobile/plugins/textchange.js" name="js/jquery.mobile/plugins/textchange.js" />

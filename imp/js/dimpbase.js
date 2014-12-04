@@ -105,7 +105,7 @@ var DimpBase = {
             this.resetSelected();
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
-            DimpCore.toggleCheck(tmp, true);
+            ImpCore.toggleCheck(tmp, true);
         }
     },
 
@@ -131,7 +131,7 @@ var DimpBase = {
 
     resetSelectAll: function()
     {
-        DimpCore.toggleCheck($('msglistHeaderContainer').select('DIV.msCheckAll'), false);
+        ImpCore.toggleCheck($('msglistHeaderContainer').select('DIV.msCheckAll'), false);
     },
 
     // num = (integer) See absolute.
@@ -266,10 +266,10 @@ var DimpBase = {
             }
 
             this.highlightSidebar();
-            this.setTitle(DimpCore.text.search);
+            this.setTitle(ImpCore.text.search);
             $('dimpmain_iframe').insert(
                 new Element('IFRAME', {
-                    src: HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
+                    src: HordeCore.addURLParam(ImpCore.conf.URI_SEARCH, data)
                 }).setStyle({
                     height: $('horde-page').getHeight() + 'px'
                 })
@@ -311,7 +311,7 @@ var DimpBase = {
     {
         var opts = {};
 
-        document.title = DimpCore.conf.name + ' :: ' + title;
+        document.title = ImpCore.conf.name + ' :: ' + title;
 
         if (unseen > 99 & unseen < 1000) {
             opts.font = '8px Arial';
@@ -340,7 +340,7 @@ var DimpBase = {
         var tmp = $('horde-sidebar');
 
         tmp.setStyle({
-            width: DimpCore.getPref('splitbar_side') + 'px'
+            width: ImpCore.getPref('splitbar_side') + 'px'
         });
         this.splitbar.setStyle({
             left: tmp.clientWidth + 'px'
@@ -353,7 +353,7 @@ var DimpBase = {
     // r = ViewPort row data
     msgWindow: function(r)
     {
-        HordeCore.popupWindow(DimpCore.conf.URI_MESSAGE, {
+        HordeCore.popupWindow(ImpCore.conf.URI_MESSAGE, {
             buid: r.VP_id,
             mailbox: r.VP_view
         }, {
@@ -365,7 +365,7 @@ var DimpBase = {
     {
         var sel = this.viewport.getSelected();
         if (sel.size()) {
-            DimpCore.compose(type, {
+            ImpCore.compose(type, {
                 buid: sel.get('uid').toViewportUidString(),
                 mailbox: this.view
             });
@@ -386,7 +386,7 @@ var DimpBase = {
         }
 
         if (this.view != f) {
-            $('mailboxName').update(DimpCore.text.loading);
+            $('mailboxName').update(ImpCore.text.loading);
             this.viewswitch = true;
 
             /* Don't cache results of search mailboxes - since we will need to
@@ -418,8 +418,8 @@ var DimpBase = {
         var container = $('msgSplitPane');
 
         this.template = {
-            horiz: new Template(DimpCore.conf.msglist_template_horiz),
-            vert: new Template(DimpCore.conf.msglist_template_vert)
+            horiz: new Template(ImpCore.conf.msglist_template_horiz),
+            vert: new Template(ImpCore.conf.msglist_template_vert)
         };
 
         this.viewport = new ViewPort({
@@ -437,7 +437,7 @@ var DimpBase = {
                     }
                     this.init = true;
                 }
-                DimpCore.doAction(action, params, {
+                ImpCore.doAction(action, params, {
                     loading: 'viewport'
                 }).rid = r_id;
             }.bind(this),
@@ -498,11 +498,11 @@ var DimpBase = {
                         // scrubbed by JSON encode.
                         switch (h) {
                         case 'from':
-                            r.from = '[' + DimpCore.text.badaddr + ']';
+                            r.from = '[' + ImpCore.text.badaddr + ']';
                             break;
 
                         case 'subject':
-                            r.subject = r.subjecttitle = '[' + DimpCore.text.badsubject + ']';
+                            r.subject = r.subjecttitle = '[' + ImpCore.text.badsubject + ']';
                             break;
                         }
                     } else if (!Object.isUndefined(r[h])) {
@@ -512,11 +512,11 @@ var DimpBase = {
                         case 'from':
                             r.fromtitle = escapeAttr(r.fromaddr || r.from);
                             r.from = r.from.escapeHTML();
-                            if (DimpCore.conf.from_link) {
+                            if (ImpCore.conf.from_link) {
                                 r.from = '<a>' + r.from + '</a>';
                             }
 
-                            switch (DimpCore.getPref('qsearch_field')) {
+                            switch (ImpCore.getPref('qsearch_field')) {
                             case 'all':
                             case 'from':
                             case 'recip':
@@ -529,7 +529,7 @@ var DimpBase = {
                             r.subjecttitle = escapeAttr(r[h]);
                             r.subject = r.subject.escapeHTML();
 
-                            switch (DimpCore.getPref('qsearch_field')) {
+                            switch (ImpCore.getPref('qsearch_field')) {
                             case 'all':
                             case 'subject':
                                 highlight = true;
@@ -570,10 +570,10 @@ var DimpBase = {
             empty_msg: this.emptyMsg.bind(this),
             list_class: 'msglist',
             list_header: $('msglistHeaderContainer').remove(),
-            page_size: DimpCore.getPref('splitbar_horiz'),
+            page_size: ImpCore.getPref('splitbar_horiz'),
             pane_data: 'previewPane',
-            pane_mode: DimpCore.getPref('preview'),
-            pane_width: DimpCore.getPref('splitbar_vert'),
+            pane_mode: ImpCore.getPref('preview'),
+            pane_width: ImpCore.getPref('splitbar_vert'),
             split_bar_class: {
                 horiz: 'horde-splitbar-horiz',
                 vert: 'horde-splitbar-vert'
@@ -591,7 +591,7 @@ var DimpBase = {
                 if (this.viewswitch &&
                     (this.isQSearch(view) || this.isFSearch(view))) {
                     params.update({
-                        qsearchfield: DimpCore.getPref('qsearch_field'),
+                        qsearchfield: ImpCore.getPref('qsearch_field'),
                         qsearchmbox: this.search.mbox
                     });
                     if (this.search.filter) {
@@ -640,7 +640,7 @@ var DimpBase = {
 
         /* Custom ViewPort events. */
         container.observe('ViewPort:add', function(e) {
-            DimpCore.addContextMenu({
+            ImpCore.addContextMenu({
                 elt: e.memo,
                 type: 'message'
             });
@@ -662,7 +662,7 @@ var DimpBase = {
                 if (this.viewport.getMetaData('vfolder')) {
                     $('search_close').hide();
                     if (tmp) {
-                        tmp = DimpCore.text.vfolder.sub('%s', tmp);
+                        tmp = ImpCore.text.vfolder.sub('%s', tmp);
                     }
                 } else {
                     $('search_close').show();
@@ -691,7 +691,7 @@ var DimpBase = {
 
             if (this.viewswitch) {
                 if (this.selectedCount()) {
-                    if (DimpCore.getPref('preview')) {
+                    if (ImpCore.getPref('preview')) {
                         this.initPreviewPane();
                     }
                     this.toggleButtons();
@@ -735,7 +735,7 @@ var DimpBase = {
                 // mailbox.
                 this.viewswitch = false;
             } else if (this.filtertoggle && this.isThreadSort()) {
-                ssc = DimpCore.conf.sort.get('date').v;
+                ssc = ImpCore.conf.sort.get('date').v;
             }
 
             this.setSortColumns(ssc);
@@ -755,7 +755,7 @@ var DimpBase = {
             this.toggleButtons();
             if (e.memo.opts.right || !count) {
                 this.clearPreviewPane();
-            } else if ((count == 1) && DimpCore.getPref('preview')) {
+            } else if ((count == 1) && ImpCore.getPref('preview')) {
                 this.loadPreview(sel.get('dataob').first());
             }
 
@@ -803,7 +803,7 @@ var DimpBase = {
 
             this.toggleButtons();
 
-            if (DimpCore.getPref('preview')) {
+            if (ImpCore.getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
                     $('previewInfo').highlight({
@@ -844,18 +844,18 @@ var DimpBase = {
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
             case 'horiz':
-                DimpCore.setPref('splitbar_horiz', this.viewport.getPageSize());
+                ImpCore.setPref('splitbar_horiz', this.viewport.getPageSize());
                 break;
 
             case 'vert':
-                DimpCore.setPref('splitbar_vert', this.viewport.getVertWidth());
+                ImpCore.setPref('splitbar_vert', this.viewport.getVertWidth());
                 break;
             }
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:wait', function() {
             if ($('dimpmain_folder').visible()) {
-                HordeCore.notify(DimpCore.text.listmsg_wait, 'horde.warning');
+                HordeCore.notify(ImpCore.text.listmsg_wait, 'horde.warning');
             }
         });
     },
@@ -870,8 +870,8 @@ var DimpBase = {
     emptyMsg: function()
     {
         return (this.isQSearch() || this.isFSearch())
-            ? DimpCore.text.vp_empty_search
-            : DimpCore.text.vp_empty;
+            ? ImpCore.text.vp_empty_search
+            : ImpCore.text.vp_empty;
     },
 
     contextOnClick: function(e)
@@ -887,7 +887,7 @@ var DimpBase = {
         case 'ctx_remoteauth_create':
             tmp = this.flist.getMbox(e);
             RedBox.loading();
-            DimpCore.doAction('createMailboxPrepare', {
+            ImpCore.doAction('createMailboxPrepare', {
                 mbox: tmp.value()
             },{
                 callback: this._mailboxPromptCallback.bind(this, 'create', tmp)
@@ -898,7 +898,7 @@ var DimpBase = {
         case 'ctx_mbox_rename':
             tmp = this.flist.getMbox(e);
             RedBox.loading();
-            DimpCore.doAction('deleteMailboxPrepare', {
+            ImpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.value(),
                 type: 'rename'
             },{
@@ -909,7 +909,7 @@ var DimpBase = {
         case 'ctx_mbox_empty':
             tmp = this.flist.getMbox(e);
             RedBox.loading();
-            DimpCore.doAction('emptyMailboxPrepare', {
+            ImpCore.doAction('emptyMailboxPrepare', {
                 mbox: tmp.value()
             },{
                 callback: this._mailboxPromptCallback.bind(this, 'empty', tmp)
@@ -926,7 +926,7 @@ var DimpBase = {
         case 'ctx_vfolder_delete':
             tmp = this.flist.getMbox(e);
             RedBox.loading();
-            DimpCore.doAction('deleteMailboxPrepare', {
+            ImpCore.doAction('deleteMailboxPrepare', {
                 mbox: tmp.value(),
                 type: 'delete'
             }, {
@@ -945,7 +945,7 @@ var DimpBase = {
                     });
                     HordeDialog.close();
                 }.bind(this),
-                text: DimpCore.text.download_mbox
+                text: ImpCore.text.download_mbox
             });
             break;
 
@@ -972,17 +972,17 @@ var DimpBase = {
                             }
                         }.bind(this)
                     });
-                    h.update(DimpCore.text.import_mbox_loading);
+                    h.update(ImpCore.text.import_mbox_loading);
                 }.bind(this),
-                text: DimpCore.text.import_mbox
+                text: ImpCore.text.import_mbox
             });
             break;
 
         case 'ctx_mbox_flag_seen':
         case 'ctx_mbox_flag_unseen':
-            DimpCore.doAction('flagAll', {
+            ImpCore.doAction('flagAll', {
                 add: ~~(id == 'ctx_mbox_flag_seen'),
-                flags: Object.toJSON([ DimpCore.conf.FLAG_SEEN ]),
+                flags: Object.toJSON([ ImpCore.conf.FLAG_SEEN ]),
                 mbox: this.flist.getMbox(e).value()
             });
             break;
@@ -1003,13 +1003,13 @@ var DimpBase = {
         case 'ctx_mbox_size':
             tmp = this.flist.getMbox(e);
             RedBox.loading();
-            DimpCore.doAction('mailboxSize', {
+            ImpCore.doAction('mailboxSize', {
                 mbox: tmp.value()
             }, {
                 callback: function(r) {
                     this.dialogDisplay({
                         noform: true,
-                        text: DimpCore.text.mboxsize.sub('%s', tmp.fullMboxDisplay()).sub('%s', r.size.escapeHTML())
+                        text: ImpCore.text.mboxsize.sub('%s', tmp.fullMboxDisplay()).sub('%s', r.size.escapeHTML())
                     });
                 }.bind(this)
             });
@@ -1017,7 +1017,7 @@ var DimpBase = {
 
         case 'ctx_mbox_acl':
             HordeCore.redirect(HordeCore.addURLParam(
-                DimpCore.conf.URI_PREFS_IMP,
+                ImpCore.conf.URI_PREFS_IMP,
                 {
                     group: 'acl',
                     mbox: this.flist.getMbox(e).value()
@@ -1028,7 +1028,7 @@ var DimpBase = {
         case 'ctx_folderopts_new':
             this.dialogDisplay({
                 onForm: function(h) {
-                    if (DimpCore.conf.poll_alter) {
+                    if (ImpCore.conf.poll_alter) {
                         h.down('INPUT').insert({
                             after: $('poll_mbox_redbox').down().clone(true)
                         });
@@ -1044,12 +1044,12 @@ var DimpBase = {
                         if (val && $F(val)) {
                             params.create_poll = 1;
                         }
-                        DimpCore.doAction('createMailbox', params);
+                        ImpCore.doAction('createMailbox', params);
                     }
 
                     HordeDialog.close();
                 },
-                text: DimpCore.text.create_prompt
+                text: ImpCore.text.create_prompt
             });
             break;
 
@@ -1116,7 +1116,7 @@ var DimpBase = {
 
         case 'ctx_message_source':
             this.viewport.getSelected().get('dataob').each(function(v) {
-                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                HordeCore.popupWindow(ImpCore.conf.URI_VIEW, {
                     actionID: 'view_source',
                     buid: v.VP_id,
                     id: 0,
@@ -1136,7 +1136,7 @@ var DimpBase = {
             break;
 
         case 'ctx_message_addfilter':
-            DimpCore.doAction('newFilter', {
+            ImpCore.doAction('newFilter', {
                 mailbox: this.view
             }, {
                 uids: this.viewport.getSelected()
@@ -1157,12 +1157,12 @@ var DimpBase = {
             break;
 
         case 'ctx_oa_preview_hide':
-            DimpCore.setPref('preview_old', DimpCore.getPref('preview', 'horiz'));
+            ImpCore.setPref('preview_old', ImpCore.getPref('preview', 'horiz'));
             this.togglePreviewPane('');
             break;
 
         case 'ctx_oa_preview_show':
-            this.togglePreviewPane(DimpCore.getPref('preview_old'));
+            this.togglePreviewPane(ImpCore.getPref('preview_old'));
             break;
 
         case 'ctx_oa_layout_horiz':
@@ -1177,7 +1177,7 @@ var DimpBase = {
 
         case 'ctx_message_undelete':
         case 'ctx_oa_undelete':
-            this.flag(DimpCore.conf.FLAG_DELETED, false);
+            this.flag(ImpCore.conf.FLAG_DELETED, false);
             break;
 
         case 'ctx_oa_purge_deleted':
@@ -1190,7 +1190,7 @@ var DimpBase = {
             break;
 
         case 'ctx_oa_clear_sort':
-            this.sort(DimpCore.conf.sort.get('sequence').v);
+            this.sort(ImpCore.conf.sort.get('sequence').v);
             break;
 
         case 'ctx_sortopts_date':
@@ -1202,7 +1202,7 @@ var DimpBase = {
         case 'ctx_sortopts_size':
         case 'ctx_sortopts_subject':
         case 'ctx_sortopts_thread':
-            this.sort(DimpCore.conf.sort.get(id.substring(13)).v);
+            this.sort(ImpCore.conf.sort.get(id.substring(13)).v);
             break;
 
         case 'ctx_template_edit':
@@ -1210,16 +1210,16 @@ var DimpBase = {
             break;
 
         case 'ctx_template_new':
-            DimpCore.compose('template_new');
+            ImpCore.compose('template_new');
             break;
 
         case 'ctx_subjectsort_thread':
-            this.sort(DimpCore.conf.sort.get(this.isThreadSort() ? 'subject' : 'thread').v);
+            this.sort(ImpCore.conf.sort.get(this.isThreadSort() ? 'subject' : 'thread').v);
             break;
 
         case 'ctx_datesort_msgarrival':
         case 'ctx_datesort_msgdate':
-            tmp = DimpCore.conf.sort.get(id.substring(13)).v;
+            tmp = ImpCore.conf.sort.get(id.substring(13)).v;
             if (tmp != this.viewport.getMetaData('sortby')) {
                 this.sort(tmp);
             }
@@ -1234,7 +1234,7 @@ var DimpBase = {
 
         case 'ctx_vcontainer_edit':
             HordeCore.redirect(HordeCore.addURLParam(
-                DimpCore.conf.URI_PREFS_IMP,
+                ImpCore.conf.URI_PREFS_IMP,
                 {
                     group: 'searches'
                 }
@@ -1246,7 +1246,7 @@ var DimpBase = {
         case 'ctx_qsearchopts_from':
         case 'ctx_qsearchopts_recip':
         case 'ctx_qsearchopts_subject':
-            DimpCore.setPref('qsearch_field', id.substring(16));
+            ImpCore.setPref('qsearch_field', id.substring(16));
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
@@ -1272,7 +1272,7 @@ var DimpBase = {
 
        case 'ctx_flag_edit':
             HordeCore.redirect(HordeCore.addURLParam(
-                DimpCore.conf.URI_PREFS_IMP,
+                ImpCore.conf.URI_PREFS_IMP,
                 {
                     group: 'flags'
                 }
@@ -1281,13 +1281,13 @@ var DimpBase = {
 
         case 'ctx_rcontainer_prefs':
             HordeCore.redirect(HordeCore.addURLParam(
-                DimpCore.conf.URI_PREFS_IMP,
+                ImpCore.conf.URI_PREFS_IMP,
                 { group: 'remote' }
             ));
             break;
 
         case 'ctx_remoteauth_logout':
-            DimpCore.doAction('remoteLogout', {
+            ImpCore.doAction('remoteLogout', {
                 remoteid: this.flist.getMbox(e).value()
             });
             break;
@@ -1299,7 +1299,7 @@ var DimpBase = {
                     label: this.viewport.getMetaData('label'),
                     mbox: this.view
                 };
-                this.go('mbox', DimpCore.conf.fsearchid);
+                this.go('mbox', ImpCore.conf.fsearchid);
             } else if (menu.endsWith('_setflag')) {
                 tmp = elt.down('DIV');
                 this.flag(elt.retrieve('flag'), !tmp.visible() || tmp.hasClassName('msCheck'));
@@ -1312,7 +1312,7 @@ var DimpBase = {
                     mbox: this.view,
                     not: menu.endsWith('_flagnot')
                 };
-                this.go('mbox', DimpCore.conf.fsearchid);
+                this.go('mbox', ImpCore.conf.fsearchid);
             }
             break;
         }
@@ -1341,7 +1341,7 @@ var DimpBase = {
                 }
 
                 if (Object.isUndefined(baseelt.fixed())) {
-                    DimpCore.doAction('isFixedMbox', {
+                    ImpCore.doAction('isFixedMbox', {
                         mbox: baseelt.value()
                      }, {
                         ajaxopts: {
@@ -1365,7 +1365,7 @@ var DimpBase = {
                 $('ctx_mbox_create').hide();
             }
 
-            if (DimpCore.conf.poll_alter) {
+            if (ImpCore.conf.poll_alter) {
                 [ $('ctx_mbox_poll') ].compact().invoke(baseelt.polled() ? 'hide' : 'show');
                 [ $('ctx_mbox_nopoll') ].compact().invoke(baseelt.polled() ? 'show' : 'hide');
             } else {
@@ -1374,7 +1374,7 @@ var DimpBase = {
 
             [ $('ctx_mbox_expand').up() ].invoke(baseelt.subElement() ? 'show' : 'hide');
 
-            [ $('ctx_mbox_acl').up() ].invoke(DimpCore.conf.acl ? 'show' : 'hide');
+            [ $('ctx_mbox_acl').up() ].invoke(ImpCore.conf.acl ? 'show' : 'hide');
             // Fall-through
 
         case 'ctx_container':
@@ -1393,7 +1393,7 @@ var DimpBase = {
             break;
 
         case 'ctx_oa':
-            switch (DimpCore.getPref('preview')) {
+            switch (ImpCore.getPref('preview')) {
             case 'vert':
                 $('ctx_oa_preview_hide', 'ctx_oa_layout_horiz').invoke('show');
                 $('ctx_oa_preview_show', 'ctx_oa_layout_vert').invoke('hide');
@@ -1452,7 +1452,7 @@ var DimpBase = {
             }
 
             if ((tmp = $('ctx_oa_clear_sort'))) {
-                [ tmp.up() ].invoke(this.viewport.getMetaData('sortby') == DimpCore.conf.sort.get('sequence').v ? 'hide' : 'show');
+                [ tmp.up() ].invoke(this.viewport.getMetaData('sortby') == ImpCore.conf.sort.get('sequence').v ? 'hide' : 'show');
             }
             break;
 
@@ -1463,7 +1463,7 @@ var DimpBase = {
             elts.invoke('removeClassName', 'sortdown')
                 .invoke('removeClassName', 'sortup');
 
-            DimpCore.conf.sort.detect(function(s) {
+            ImpCore.conf.sort.detect(function(s) {
                 if (s.value.v == tmp) {
                     $('ctx_sortopts_' + s.key).down('.iconImg').addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown');
                     return true;
@@ -1477,11 +1477,11 @@ var DimpBase = {
 
         case 'ctx_qsearchopts':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
-            $(ctx_id + '_' + DimpCore.getPref('qsearch_field')).addClassName('contextSelected');
+            $(ctx_id + '_' + ImpCore.getPref('qsearch_field')).addClassName('contextSelected');
             break;
 
         case 'ctx_message':
-            [ $('ctx_message_source').up() ].invoke(DimpCore.getPref('preview') ? 'hide' : 'show');
+            [ $('ctx_message_source').up() ].invoke(ImpCore.getPref('preview') ? 'hide' : 'show');
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
             [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
@@ -1532,14 +1532,14 @@ var DimpBase = {
                 : null;
 
             tmp.each(function(elt) {
-                DimpCore.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
+                ImpCore.toggleCheck(elt.down('DIV'), (flags === null) ? null : flags.include(elt.retrieve('flag')));
             });
             break;
 
         case 'ctx_datesort':
             tmp = this.viewport.getMetaData('sortby');
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected').find(function(n) {
-                if (DimpCore.conf.sort.get(n.identify().substring(13)).v == tmp) {
+                if (ImpCore.conf.sort.get(n.identify().substring(13)).v == tmp) {
                     n.addClassName('contextSelected');
                     return true;
                 }
@@ -1547,7 +1547,7 @@ var DimpBase = {
             break;
 
         case 'ctx_subjectsort':
-            DimpCore.toggleCheck($('ctx_subjectsort_thread').down('.iconImg'), this.isThreadSort());
+            ImpCore.toggleCheck($('ctx_subjectsort_thread').down('.iconImg'), this.isThreadSort());
             break;
 
         case 'ctx_preview':
@@ -1563,7 +1563,7 @@ var DimpBase = {
         case 'ctx_filteropts':
             tmp = $('ctx_filteropts_applyfilters');
             if (tmp) {
-                [ tmp.up('DIV') ].invoke(this.isSearch() || (!DimpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
+                [ tmp.up('DIV') ].invoke(this.isSearch() || (!ImpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
             }
             break;
         }
@@ -1674,7 +1674,7 @@ var DimpBase = {
     setSortColumns: function(sortby)
     {
         var elt, tmp, tmp2,
-            ptr = DimpCore.conf.sort,
+            ptr = ImpCore.conf.sort,
             m = $('msglistHeaderHoriz');
 
         if (Object.isUndefined(sortby)) {
@@ -1721,16 +1721,16 @@ var DimpBase = {
 
     isThreadSort: function()
     {
-        return (this.viewport.getMetaData('sortby') == DimpCore.conf.sort.get('thread').v);
+        return (this.viewport.getMetaData('sortby') == ImpCore.conf.sort.get('thread').v);
     },
 
     // Preview pane functions
     // mode = (string) Either 'horiz', 'vert', or empty
     togglePreviewPane: function(mode)
     {
-        var old = DimpCore.getPref('preview');
+        var old = ImpCore.getPref('preview');
         if (mode != old) {
-            DimpCore.setPref('preview', mode);
+            ImpCore.setPref('preview', mode);
             this.viewport.showSplitPane(mode);
             if (!old) {
                 this.initPreviewPane();
@@ -1744,7 +1744,7 @@ var DimpBase = {
             msgload = {};
 
         if (this.is_keydown ||
-            !DimpCore.getPref('preview')) {
+            !ImpCore.getPref('preview')) {
             return;
         }
 
@@ -1755,7 +1755,7 @@ var DimpBase = {
             tmp.polled()) {
             curr = this.viewport.getSelected().get('rownum').first();
             rows = this.viewport.createSelectionBuffer().search({
-                flag: { notinclude: DimpCore.conf.FLAG_SEEN }
+                flag: { notinclude: ImpCore.conf.FLAG_SEEN }
             }).get('rownum').diff([ curr ]).numericSort();
 
             if (rows.size()) {
@@ -1786,7 +1786,7 @@ var DimpBase = {
 
             if (this.preview.get(data.VP_view, data.VP_id)) {
                 if (!peek) {
-                    this.flag(DimpCore.conf.FLAG_SEEN, true, {
+                    this.flag(ImpCore.conf.FLAG_SEEN, true, {
                         buid: data.VP_id,
                         mailbox: data.VP_view,
                         params: msgload
@@ -1804,7 +1804,7 @@ var DimpBase = {
         }
         params.preview = 1;
 
-        DimpCore.doAction('showMessage', this.addViewportParams().merge(params), {
+        ImpCore.doAction('showMessage', this.addViewportParams().merge(params), {
             callback: function(r) {
                 if (!r) {
                     this.clearPreviewPane();
@@ -1833,7 +1833,7 @@ var DimpBase = {
         // Add subject. Subject was already html encoded on server (subject
         // may include links).
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + DimpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
+        tmp.invoke('update', r.subject === null ? '[' + ImpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
 
         // Add date
         if (r.localdate) {
@@ -1864,10 +1864,10 @@ var DimpBase = {
 
         // Add attachment information
         $('partlist').down('.partlistAllParts').hide();
-        DimpCore.updateAtcList(r.atc);
+        ImpCore.updateAtcList(r.atc);
 
         // Add message log information
-        DimpCore.updateMsgLog(r.log || []);
+        ImpCore.updateMsgLog(r.log || []);
 
         // Toggle resume link
         if (this.viewport.getMetaData('templates')) {
@@ -1891,7 +1891,7 @@ var DimpBase = {
         $('previewPane').scrollTop = 0;
         pm.show();
 
-        DimpCore.msgMetadata(r.md);
+        ImpCore.msgMetadata(r.md);
 
         if (r.js) {
             eval(r.js.join(';'));
@@ -1900,7 +1900,7 @@ var DimpBase = {
 
     reloadPart: function(mimeid, params)
     {
-        DimpCore.doAction('inlineMessageOutput', Object.extend(params, {
+        ImpCore.doAction('inlineMessageOutput', Object.extend(params, {
             mimeid: mimeid
         }), {
             callback: function(r) {
@@ -1908,7 +1908,7 @@ var DimpBase = {
                     $('messageBody')
                         .down('DIV[impcontentsmimeid="' + r.mimeid + '"]')
                         .replace(r.text);
-                    DimpCore.msgMetadata(r.md);
+                    ImpCore.msgMetadata(r.md);
                 }
             }.bind(this),
             uids: this.preview.vpSelection()
@@ -1941,7 +1941,7 @@ var DimpBase = {
 
     updateAddressHeader: function(e)
     {
-        DimpCore.doAction('addressHeader', {
+        ImpCore.doAction('addressHeader', {
             header: $w(e.element().className).first(),
             view: this.view
         }, {
@@ -1961,7 +1961,7 @@ var DimpBase = {
     updateHeader: function(hdr, data, limit)
     {
         (hdr == 'from' ? $('previewMsg').select('.' + hdr) : [ $('msgHeadersTable').down('.' + hdr) ]).each(function(elt) {
-            elt.replace(DimpCore.buildAddressLinks(data, elt.clone(false), limit));
+            elt.replace(ImpCore.buildAddressLinks(data, elt.clone(false), limit));
         });
     },
 
@@ -1994,7 +1994,7 @@ var DimpBase = {
             if (tmp) {
                 tmp.log = l.log || [];
                 if (this.preview.isActive(l.mbox, l.buid)) {
-                    DimpCore.updateMsgLog(tmp.log);
+                    ImpCore.updateMsgLog(tmp.log);
                 }
             }
         }, this);
@@ -2021,7 +2021,7 @@ var DimpBase = {
         this.loadingImg('msg', false);
         $('previewPane').scrollTop = 0;
 
-        $('previewInfo').update(DimpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
+        $('previewInfo').update(ImpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
 
         if (this.preview) {
             this.preview.setActive();
@@ -2031,7 +2031,7 @@ var DimpBase = {
     _toggleHeaders: function(elt, update)
     {
         if (update) {
-            DimpCore.setPref('toggle_hdrs', ~~(!DimpCore.getPref('toggle_hdrs')));
+            ImpCore.setPref('toggle_hdrs', ~~(!ImpCore.getPref('toggle_hdrs')));
         }
         [ $('msgHeadersColl', 'msgHeaders') ].flatten().invoke('toggle');
     },
@@ -2116,7 +2116,7 @@ var DimpBase = {
             args.set('forceUpdate', 1);
         }
 
-        DimpCore.doAction('poll', args, opts);
+        ImpCore.doAction('poll', args, opts);
     },
 
     pollCallback: function(r)
@@ -2149,7 +2149,7 @@ var DimpBase = {
 
     setPoll: function()
     {
-        if (DimpCore.conf.refresh_time) {
+        if (ImpCore.conf.refresh_time) {
             if (this.pollPE) {
                 this.pollPE.stop();
             }
@@ -2157,7 +2157,7 @@ var DimpBase = {
             // in itself as first ('force') parameter to poll().
             this.pollPE = new PeriodicalExecuter(
                 function() { this.poll(false); }.bind(this),
-                DimpCore.conf.refresh_time
+                ImpCore.conf.refresh_time
             );
         }
     },
@@ -2170,12 +2170,12 @@ var DimpBase = {
 
     isFSearch: function(id)
     {
-        return ((id ? id : this.view) == DimpCore.conf.fsearchid);
+        return ((id ? id : this.view) == ImpCore.conf.fsearchid);
     },
 
     isQSearch: function(id)
     {
-        return ((id ? id : this.view) == DimpCore.conf.qsearchid);
+        return ((id ? id : this.view) == ImpCore.conf.qsearchid);
     },
 
     searchReset: function(e)
@@ -2213,7 +2213,7 @@ var DimpBase = {
                 qsearch: true,
                 query: $F(q)
             };
-            this.go('mbox', DimpCore.conf.qsearchid);
+            this.go('mbox', ImpCore.conf.qsearchid);
         }
     },
 
@@ -2239,7 +2239,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + DimpCore.getPref('qsearch_field')]));
+        $('horde-search-input').writeAttribute('title', ImpCore.text.search_input.sub('%s', ImpCore.context.ctx_qsearchopts['*' + ImpCore.getPref('qsearch_field')]));
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2273,7 +2273,7 @@ var DimpBase = {
             this.searchbar_time_mins = 0;
             this.searchbar_time = new PeriodicalExecuter(function() {
                 if (++this.searchbar_time_mins > 5) {
-                    $('search_time_elapsed').update(DimpCore.text.search_time.sub('%d', this.searchbar_time_mins).escapeHTML()).show();
+                    $('search_time_elapsed').update(ImpCore.text.search_time.sub('%d', this.searchbar_time_mins).escapeHTML()).show();
                 }
             }.bind(this), 60);
         }
@@ -2299,13 +2299,13 @@ var DimpBase = {
         var bf = $('button_forward'),
             sc = this.selectedCount();
 
-        DimpCore.toggleButtons(
+        ImpCore.toggleButtons(
             $('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'),
             sc === 0
         );
 
         if (sc > 1) {
-            DimpCore.toggleButtons([ $('button_reply') ], true);
+            ImpCore.toggleButtons([ $('button_reply') ], true);
         }
 
         if (bf) {
@@ -2326,7 +2326,7 @@ var DimpBase = {
             if (dropbase ||
                 (drop.ftype() != 'special' &&
                  !this.flist.isSubfolder(drag_m, drop))) {
-                DimpCore.doAction('renameMailbox', {
+                ImpCore.doAction('renameMailbox', {
                     new_name: drag_m.label().unescapeHTML(),
                     new_parent: dropbase ? '' : drop.value(),
                     old_name: drag_m.value()
@@ -2345,15 +2345,15 @@ var DimpBase = {
 
             if (uids.size()) {
                 if (e.memo.dragevent.ctrlKey) {
-                    DimpCore.doAction('copyMessages', this.addViewportParams().merge({
+                    ImpCore.doAction('copyMessages', this.addViewportParams().merge({
                         mboxto: drop.value()
                     }), {
                         uids: uids
                     });
                 } else if (this.view != drop.value()) {
                     // Don't allow drag/drop to the current mailbox.
-                    this.updateFlag(uids, DimpCore.conf.FLAG_DELETED, true);
-                    DimpCore.doAction('moveMessages', this.addViewportParams().merge({
+                    this.updateFlag(uids, ImpCore.conf.FLAG_DELETED, true);
+                    ImpCore.doAction('moveMessages', this.addViewportParams().merge({
                         mboxto: drop.value()
                     }), {
                         uids: uids
@@ -2385,20 +2385,20 @@ var DimpBase = {
 
         switch (e.type) {
         case 'mousemove':
-            m = (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
+            m = (e.ctrlKey) ? ImpCore.text.copyto : ImpCore.text.moveto;
             break;
 
         case 'keydown':
             /* Can't use ctrlKey here since different browsers handle the
              * ctrlKey in different ways when it comes to firing keyboard
              * events. */
-             m = (e.keyCode == 17) ? DimpCore.text.copyto : DimpCore.text.moveto;
+             m = (e.keyCode == 17) ? ImpCore.text.copyto : ImpCore.text.moveto;
              break;
 
         case 'keyup':
             m = (e.keyCode == 17)
-                ? DimpCore.text.moveto
-                : (e.ctrlKey) ? DimpCore.text.copyto : DimpCore.text.moveto;
+                ? ImpCore.text.moveto
+                : (e.ctrlKey) ? ImpCore.text.copyto : ImpCore.text.moveto;
             break;
         }
 
@@ -2410,7 +2410,7 @@ var DimpBase = {
             }
 
             return this.isDropbase(orig_drop)
-                ? DimpCore.text.moveto.sub('%s', drag.label()).sub('%s', DimpCore.text.baselevel)
+                ? ImpCore.text.moveto.sub('%s', drag.label()).sub('%s', ImpCore.text.baselevel)
                 : '';
         }
 
@@ -2423,13 +2423,13 @@ var DimpBase = {
     {
         switch (cnt) {
         case 0:
-            return DimpCore.text.message_0;
+            return ImpCore.text.message_0;
 
         case 1:
-            return DimpCore.text.message_1;
+            return ImpCore.text.message_1;
 
         default:
-            return DimpCore.text.message_2.sub('%d', cnt);
+            return ImpCore.text.message_2.sub('%d', cnt);
         }
     },
 
@@ -2446,13 +2446,13 @@ var DimpBase = {
             args = { right: e.memo.isRightClick() };
             d.fromClick = d.selectIfNoDrag = false;
 
-            if (DimpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
+            if (ImpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
                 d.fromClick = !args.right;
                 return;
             }
 
             // Handle selection first.
-            if (DimpCore.DMenu.operaCheck(e)) {
+            if (ImpCore.DMenu.operaCheck(e)) {
                 if (!this.isSelected('domid', id)) {
                     this.msgSelect(id, { right: true });
                 }
@@ -2474,7 +2474,7 @@ var DimpBase = {
                 this.msgSelect(id, args);
             }
         } else if ((tmp = this.flist.getMbox(elt)) && tmp.isMbox()) {
-            d.opera = DimpCore.DMenu.operaCheck(e);
+            d.opera = ImpCore.DMenu.operaCheck(e);
         }
     },
 
@@ -2496,7 +2496,7 @@ var DimpBase = {
             d = DragDrop.Drags.getDrag(id);
 
         if (id == 'horde-slideleft') {
-            DimpCore.setPref('splitbar_side', d.lastCoord[0]);
+            ImpCore.setPref('splitbar_side', d.lastCoord[0]);
             this.setSidebarWidth();
         } else if (elt.hasClassName('horde-subnavi')) {
             if (!d.opera) {
@@ -2514,7 +2514,7 @@ var DimpBase = {
         if (elt.hasClassName('vpRow')) {
             d = DragDrop.Drags.getDrag(id);
             if (d.fromClick) {
-                DimpCore.compose('new_to', {
+                ImpCore.compose('new_to', {
                     buid: this.viewport.createSelection('div', elt).get('uid').toViewportUidString(),
                     mailbox: this.view
                 });
@@ -2673,7 +2673,7 @@ var DimpBase = {
                 cnt = tmp.unseen();
                 if (cnt || !tmp.polled()) {
                     vsel = this.viewport.createSelectionBuffer();
-                    row = vsel.search({ flag: { notinclude: DimpCore.conf.FLAG_SEEN } }).get('rownum');
+                    row = vsel.search({ flag: { notinclude: ImpCore.conf.FLAG_SEEN } }).get('rownum');
                     all = (vsel.size() == this.viewport.getMetaData('total_rows'));
 
                     if (all || ((row.size() == cnt) && tmp.polled())) {
@@ -2773,7 +2773,7 @@ var DimpBase = {
         this.is_keydown = false;
 
         if (elt.hasClassName('splitBarVertSidebar')) {
-            DimpCore.setPref('splitbar_side', null);
+            ImpCore.setPref('splitbar_side', null);
             this.setSidebarWidth();
             e.memo.stop();
             return;
@@ -2781,12 +2781,12 @@ var DimpBase = {
             tmp = this.viewport.createSelection('domid', elt.identify());
 
             if (this.viewport.getMetaData('templates')) {
-                DimpCore.compose('template', {
+                ImpCore.compose('template', {
                     buid: tmp.get('uid').toViewportUidString(),
                     mailbox: this.view
                 });
             } else if (this.isDraft(tmp)) {
-                DimpCore.compose('resume', {
+                ImpCore.compose('resume', {
                     buid: tmp.get('uid').toViewportUidString(),
                     mailbox: this.view
                 });
@@ -2803,7 +2803,7 @@ var DimpBase = {
             elt = e.element(),
             id = elt.readAttribute('id');
 
-        if (DimpCore.DMenu.operaCheck(e.memo)) {
+        if (ImpCore.DMenu.operaCheck(e.memo)) {
             return;
         }
 
@@ -2822,7 +2822,7 @@ var DimpBase = {
 
         case 'button_compose':
         case 'composelink':
-            DimpCore.compose('new');
+            ImpCore.compose('new');
             e.memo.stop();
             break;
 
@@ -2852,7 +2852,7 @@ var DimpBase = {
             break;
 
         case 'applogout':
-            elt.down('A').update('[' + DimpCore.text.onlogout + ']');
+            elt.down('A').update('[' + ImpCore.text.onlogout + ']');
             HordeCore.logout();
             e.memo.stop();
             break;
@@ -2929,7 +2929,7 @@ var DimpBase = {
 
         case 'ctx_preview_viewsource':
             HordeCore.popupWindow(
-                DimpCore.conf.URI_VIEW,
+                ImpCore.conf.URI_VIEW,
                 this.preview.popupWindowParams({
                     actionID: 'view_source',
                     id: 0
@@ -2941,14 +2941,14 @@ var DimpBase = {
         case 'ctx_preview_listinfo':
         case 'ctx_preview_thread':
             HordeCore.popupWindow(
-                (id == 'ctx_preview_listinfo') ? DimpCore.conf.URI_LISTINFO : DimpCore.conf.URI_THREAD,
+                (id == 'ctx_preview_listinfo') ? ImpCore.conf.URI_LISTINFO : ImpCore.conf.URI_THREAD,
                 this.preview.popupWindowParams({}),
                 { name: this.preview.uniqueId() }
             );
             break;
 
         case 'ctx_preview_allparts':
-            DimpCore.doAction('messageMimeTree', {
+            ImpCore.doAction('messageMimeTree', {
                 preview: 1
             }, {
                 callback: this._mimeTreeCallback.bind(this),
@@ -2971,7 +2971,7 @@ var DimpBase = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {}, {
+            ImpCore.doAction('sendMDN', {}, {
                 callback: this._sendMdnCallback.bind(this),
                 uids: this.preview.vpSelection()
             });
@@ -2981,7 +2981,7 @@ var DimpBase = {
         default:
             if (elt.hasClassName('printAtc')) {
                 HordeCore.popupWindow(
-                    DimpCore.conf.URI_VIEW,
+                    ImpCore.conf.URI_VIEW,
                     this.preview.popupWindowParams({
                         actionID: 'print_attach',
                         id: elt.readAttribute('mimeid')
@@ -2993,8 +2993,8 @@ var DimpBase = {
                 );
                 e.memo.stop();
             } else if (elt.hasClassName('stripAtc')) {
-                if (window.confirm(DimpCore.text.strip_warn)) {
-                    DimpCore.doAction('stripAttachment', this.addViewportParams().merge({
+                if (window.confirm(ImpCore.text.strip_warn)) {
+                    ImpCore.doAction('stripAttachment', this.addViewportParams().merge({
                         id: elt.readAttribute('mimeid')
                     }), {
                         callback: function(r) {
@@ -3030,7 +3030,7 @@ var DimpBase = {
                         h.down('[name=remote_id]').setValue(elt.value());
                     },
                     onSuccess: function(h) {
-                        DimpCore.doAction('remoteLogin', {
+                        ImpCore.doAction('remoteLogin', {
                             // Base64 encode just to keep password data from
                             // being plaintext. A trivial obfuscation, but
                             // will prevent passwords from leaking in the
@@ -3053,7 +3053,7 @@ var DimpBase = {
                         });
                         h.disable();
                     }.bind(this),
-                    text: DimpCore.text.remote_password.sub('%s', elt.fullMboxDisplay())
+                    text: ImpCore.text.remote_password.sub('%s', elt.fullMboxDisplay())
                 });
                 e.memo.stop();
             }
@@ -3090,7 +3090,7 @@ var DimpBase = {
 
         if (id) {
             [ DragDrop.Drags.getDrag(id), DragDrop.Drops.getDrop(id) ].compact().invoke('destroy');
-            DimpCore.DMenu.removeElement(id);
+            ImpCore.DMenu.removeElement(id);
         }
     },
 
@@ -3098,7 +3098,7 @@ var DimpBase = {
     {
         var range = this.viewport.currentViewableRange();
 
-        $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
+        $('slider_count').update(ImpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
     },
 
     // elt: [Object:IMP_Flist_Mbox]
@@ -3109,7 +3109,7 @@ var DimpBase = {
             if (r.result) {
                 this.dialogDisplay({
                     onForm: function(h) {
-                        if (DimpCore.conf.poll_alter) {
+                        if (ImpCore.conf.poll_alter) {
                             h.down('INPUT').insert({
                                 after: $('poll_mbox_redbox').down().clone(true)
                             });
@@ -3125,12 +3125,12 @@ var DimpBase = {
                             if (val && $F(val)) {
                                 params.create_poll = 1;
                             }
-                            DimpCore.doAction('createMailbox', params);
+                            ImpCore.doAction('createMailbox', params);
                         }
 
                         HordeDialog.close();
                     },
-                    text: DimpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay())
+                    text: ImpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay())
                 });
             } else {
                 RedBox.close();
@@ -3142,14 +3142,14 @@ var DimpBase = {
                 this.dialogDisplay({
                     form: $('delete_mbox_redbox').down().clone(true),
                     onSuccess: function(h) {
-                        DimpCore.doAction('deleteMailbox', {
+                        ImpCore.doAction('deleteMailbox', {
                             container: ~~elt.isContainer(),
                             mbox: elt.value(),
                             subfolders: h.down('[name=delete_subfolders]').getValue()
                         });
                         HordeDialog.close();
                     },
-                    text: elt.isContainer() ? null : DimpCore.text.delete_mbox.sub('%s', elt.fullMboxDisplay())
+                    text: elt.isContainer() ? null : ImpCore.text.delete_mbox.sub('%s', elt.fullMboxDisplay())
                 });
             } else {
                 RedBox.close();
@@ -3161,10 +3161,10 @@ var DimpBase = {
                 this.dialogDisplay({
                     noinput: true,
                     onSuccess: function() {
-                        DimpCore.doAction('emptyMailbox', { mbox: elt.value() });
+                        ImpCore.doAction('emptyMailbox', { mbox: elt.value() });
                         HordeDialog.close();
                     },
-                    text: DimpCore.text.empty_mbox.sub('%s', elt.fullMboxDisplay()).sub('%d', r.result)
+                    text: ImpCore.text.empty_mbox.sub('%s', elt.fullMboxDisplay()).sub('%d', r.result)
                 });
             } else {
                 RedBox.close();
@@ -3178,14 +3178,14 @@ var DimpBase = {
                     onSuccess: function(h) {
                         var val = $F(h.down('INPUT'));
                         if (val && elt.label() != val) {
-                            DimpCore.doAction('renameMailbox', {
+                            ImpCore.doAction('renameMailbox', {
                                 old_name: elt.value(),
                                 new_name: val
                             });
                         }
                         HordeDialog.close();
                     },
-                    text: DimpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay())
+                    text: ImpCore.text.rename_prompt.sub('%s', elt.fullMboxDisplay())
                 });
             } else {
                 RedBox.close();
@@ -3197,17 +3197,17 @@ var DimpBase = {
             this.dialogDisplay({
                 form: $(type + '_mbox_redbox').down().clone(true),
                 onForm: function(h) {
-                    h.down('DIV').insert(DimpCore.text[type + '_mbox_subfolders'].sub('%s', elt.fullMboxDisplay()));
+                    h.down('DIV').insert(ImpCore.text[type + '_mbox_subfolders'].sub('%s', elt.fullMboxDisplay()));
                 },
                 onSuccess: function(h) {
-                    DimpCore.doAction('subscribe', {
+                    ImpCore.doAction('subscribe', {
                         mbox: elt.value(),
                         sub: ~~(type == 'subscribe'),
                         subfolders: h.down('[name=' + type + '_subfolders]').getValue()
                     });
                     HordeDialog.close();
                 },
-                text: elt.isContainer() ? null : DimpCore.text[type + '_mbox'].sub('%s', elt.fullMboxDisplay())
+                text: elt.isContainer() ? null : ImpCore.text[type + '_mbox'].sub('%s', elt.fullMboxDisplay())
             });
             break;
         }
@@ -3338,7 +3338,7 @@ var DimpBase = {
         this.dialogDisplay({
             form: $('flagnew_redbox').down().clone(true),
             onSuccess: function(h) {
-                DimpCore.doAction('createFlag', this.addViewportParams().merge({
+                ImpCore.doAction('createFlag', this.addViewportParams().merge({
                     flagcolor: $F(h.down('INPUT[name="flagcolor"]')),
                     flagname: $F(h.down('INPUT[name="flagname"]'))
                 }), {
@@ -3351,9 +3351,9 @@ var DimpBase = {
                     }.bind(this),
                     uids: this.viewport.getSelected()
                 });
-                h.update(DimpCore.text.newflag_wait);
+                h.update(ImpCore.text.newflag_wait);
             }.bind(this),
-            text: DimpCore.text.newflag_name
+            text: ImpCore.text.newflag_name
         });
     },
 
@@ -3476,20 +3476,20 @@ var DimpBase = {
             }
         }, this);
 
-        if (DimpCore.conf.mbox_expand) {
+        if (ImpCore.conf.mbox_expand) {
             if (collapse.size()) {
-                DimpCore.doAction('toggleMailboxes', {
+                ImpCore.doAction('toggleMailboxes', {
                     action: 'collapse',
                     mboxes: Object.toJSON(collapse)
                 });
             } else if (expand.size()) {
-                DimpCore.doAction('toggleMailboxes', {
+                ImpCore.doAction('toggleMailboxes', {
                     action: 'expand',
                     mboxes: Object.toJSON(expand)
                 });
             } else if (mode == 'colall' ||
                        (!opts.noexpand && mode == 'expall')) {
-                DimpCore.doAction('toggleMailboxes', {
+                ImpCore.doAction('toggleMailboxes', {
                     action: (mode == 'colall' ? 'collapse' : 'expand'),
                     all: 1
                 });
@@ -3533,7 +3533,7 @@ var DimpBase = {
         }
         params.mboxes = Object.toJSON(params.mboxes);
 
-        DimpCore.doAction('listMailboxes', params, {
+        ImpCore.doAction('listMailboxes', params, {
             ajaxopts: { asynchronous: !sync }
         });
     },
@@ -3547,7 +3547,7 @@ var DimpBase = {
             new Drop(e.memo.element(), this.mboxDropConfig);
         }
 
-        if (DimpCore.conf.subscribe && e.memo.unsubscribed()) {
+        if (ImpCore.conf.subscribe && e.memo.unsubscribed()) {
             e.memo.element().addClassName('imp-sidebar-unsubmbox');
         }
 
@@ -3579,7 +3579,7 @@ var DimpBase = {
             break;
         }
 
-        DimpCore.addContextMenu({
+        ImpCore.addContextMenu({
             elt: e.memo.element(),
             type: ftype
         });
@@ -3602,7 +3602,7 @@ var DimpBase = {
 
     showUnsub: function()
     {
-        return (!DimpCore.conf.subscribe || ~~(!!this.unsub));
+        return (!ImpCore.conf.subscribe || ~~(!!this.unsub));
     },
 
     _reloadFolders: function()
@@ -3640,7 +3640,7 @@ var DimpBase = {
             // This needs to be synchronous Ajax if we are calling from a
             // popup window because Mozilla will not correctly call the
             // callback function if the calling window has been closed.
-            DimpCore.doAction(type, this.addViewportParams(vs).merge(args), {
+            ImpCore.doAction(type, this.addViewportParams(vs).merge(args), {
                 ajaxopts: { asynchronous: !(opts.uid && opts.mailbox) },
                 loading: opts,
                 uids: vs
@@ -3660,7 +3660,7 @@ var DimpBase = {
         opts.vs = this._getSelection(opts);
 
         if (this._doMsgAction('reportSpam', opts, { spam: ~~(!!spam) })) {
-            this.updateFlag(opts.vs, spam ? DimpCore.conf.FLAG_SPAM : DimpCore.conf.FLAG_INNOCENT, true);
+            this.updateFlag(opts.vs, spam ? ImpCore.conf.FLAG_SPAM : ImpCore.conf.FLAG_INNOCENT, true);
         }
     },
 
@@ -3678,7 +3678,7 @@ var DimpBase = {
         opts.vs = this._getSelection(opts);
 
         if (this._doMsgAction('deleteMessages', opts, {})) {
-            this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
+            this.updateFlag(opts.vs, ImpCore.conf.FLAG_DELETED, true);
         }
     },
 
@@ -3700,7 +3700,7 @@ var DimpBase = {
             });
 
         if (need) {
-            DimpCore.doAction('flagMessages', this.addViewportParams(vs).merge(opts.params).merge({
+            ImpCore.doAction('flagMessages', this.addViewportParams(vs).merge(opts.params).merge({
                 add: ~~(!!add),
                 flags: Object.toJSON([ flag ])
             }), {
@@ -3736,19 +3736,19 @@ var DimpBase = {
 
         return this.viewport.getMetaData('drafts') ||
                ((d = vs.get('dataob').first()) &&
-                d.flag.include(DimpCore.conf.FLAG_DRAFT));
+                d.flag.include(ImpCore.conf.FLAG_DRAFT));
     },
 
     /* Miscellaneous mailbox actions. */
 
     purgeDeleted: function()
     {
-        DimpCore.doAction('purgeDeleted', this.addViewportParams());
+        ImpCore.doAction('purgeDeleted', this.addViewportParams());
     },
 
     modifyPoll: function(mbox, add)
     {
-        DimpCore.doAction('modifyPoll', {
+        ImpCore.doAction('modifyPoll', {
             add: ~~(!!add),
             mbox: mbox
         }, {
@@ -3820,14 +3820,14 @@ var DimpBase = {
     /* Onload function. */
     onDomLoad: function()
     {
-        var DM = DimpCore.DMenu, tmp, tmp2;
+        var DM = ImpCore.DMenu, tmp, tmp2;
 
         /* Register global handlers now. */
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
 
         /* Initialize variables. */
-        DimpCore.conf.sort = $H(DimpCore.conf.sort);
+        ImpCore.conf.sort = $H(ImpCore.conf.sort);
         this.flist = new IMP_Flist();
 
         /* Limit to folders sidebar only. */
@@ -3855,20 +3855,20 @@ var DimpBase = {
         if ($('horde-search')) {
             this._setQsearchText();
 
-            DimpCore.addContextMenu({
+            ImpCore.addContextMenu({
                 elt: $('horde-search-dropdown'),
                 left: true,
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
-            DimpCore.addContextMenu({
+            ImpCore.addContextMenu({
                 elt: $('horde-search-dropdown'),
                 left: false,
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
 
-            DimpCore.addPopdown('button_filter', 'filteropts', {
+            ImpCore.addPopdown('button_filter', 'filteropts', {
                 trigger: true
             });
             DM.addSubMenu('ctx_filteropts_filter', 'ctx_filter');
@@ -3894,21 +3894,21 @@ var DimpBase = {
             } else {
                 this.go(tmp.substring(0, tmp2), tmp.substring(tmp2 + 1));
             }
-        } else if (DimpCore.conf.initial_page) {
-            this.go('mbox', DimpCore.conf.initial_page);
+        } else if (ImpCore.conf.initial_page) {
+            this.go('mbox', ImpCore.conf.initial_page);
         } else {
             this.go();
         }
 
         /* Add popdown menus. */
-        DimpCore.addPopdown('button_template', 'template');
-        DimpCore.addPopdown('button_other', 'oa', {
+        ImpCore.addPopdown('button_template', 'template');
+        ImpCore.addPopdown('button_other', 'oa', {
             trigger: true
         });
-        DimpCore.addPopdown('folderopts_link', 'folderopts', {
+        ImpCore.addPopdown('folderopts_link', 'folderopts', {
             trigger: true
         });
-        DimpCore.addPopdown('vertical_sort', 'sortopts', {
+        ImpCore.addPopdown('vertical_sort', 'sortopts', {
             trigger: true
         });
 
@@ -3920,28 +3920,28 @@ var DimpBase = {
         DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flagunset');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
 
-        DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
+        ImpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'
         });
-        DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgDate').identify(), 'datesort', {
+        ImpCore.addPopdown($('msglistHeaderHoriz').down('.msgDate').identify(), 'datesort', {
             insert: 'bottom'
         });
 
-        DimpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
+        ImpCore.addPopdown($('preview_other_opts').down('A'), 'preview', {
             trigger: true
         });
-        DimpCore.addContextMenu({
+        ImpCore.addContextMenu({
             elt: $('preview_other'),
             left: true,
             offset: $('preview_other').down('SPAN'),
             type: 'preview'
         });
 
-        if (DimpCore.conf.disable_compose) {
+        if (ImpCore.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdown('button_reply', 'reply');
-            DimpCore.addPopdown('button_forward', 'forward');
+            ImpCore.addPopdown('button_reply', 'reply');
+            ImpCore.addPopdown('button_forward', 'forward');
         }
 
         if (tmp = this.dropbase()) {
@@ -3951,7 +3951,7 @@ var DimpBase = {
         // See: http://www.thecssninja.com/javascript/gmail-dragout
         $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
 
-        if (DimpCore.getPref('toggle_hdrs')) {
+        if (ImpCore.getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
         }
 
@@ -4601,8 +4601,8 @@ document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(D
 /* DimpBase handlers. */
 document.observe('DimpBase:removeElt', DimpBase.removeEltHandler.bindAsEventListener(DimpBase));
 
-/* DimpCore handlers. */
-document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
+/* ImpCore handlers. */
+document.observe('ImpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
 
 /* Folder list element handlers. */
 document.observe('IMP_Flist_Mbox:create', DimpBase.createMboxHandler.bind(DimpBase));
@@ -4616,9 +4616,9 @@ document.observe('IMP_JS:htmliframe_keydown', function(e) {
 });
 
 /* Define reloadMessage() method for this page. */
-DimpCore.reloadMessage = function(params) {
+ImpCore.reloadMessage = function(params) {
     DimpBase.loadPreview(null, params);
 };
 
 /* Define reloadPart() method for this page. */
-DimpCore.reloadPart = DimpBase.reloadPart.bind(DimpBase);
+ImpCore.reloadPart = DimpBase.reloadPart.bind(DimpBase);

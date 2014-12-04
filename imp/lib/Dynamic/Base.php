@@ -87,9 +87,9 @@ abstract class IMP_Dynamic_Base
         $this->_init();
 
         $page_output->addInlineJsVars(array(
-            'DimpCore.conf' => $this->js_conf,
-            'DimpCore.context' => $this->js_context,
-            'DimpCore.text' => $this->js_text
+            'ImpCore.conf' => $this->js_conf,
+            'ImpCore.context' => $this->js_context,
+            'ImpCore.text' => $this->js_text
         ), array('top' => true));
     }
 

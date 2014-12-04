@@ -6,8 +6,8 @@
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 
-/* DimpCore object. */
-var DimpCore = {
+/* ImpCore object. */
+var ImpCore = {
 
     // Vars used and defaulting to null/false:
     //   DMenu
@@ -400,7 +400,7 @@ var DimpCore = {
             !e.memo.element().hasClassName('horde-button')) {
             if (e.memo.element().hasClassName('largeaddrlistlimit')) {
                 e.memo.element().hide();
-                elt.up('TD').fire('DimpCore:updateAddressHeader');
+                elt.up('TD').fire('ImpCore:updateAddressHeader');
             } else {
                 tmp = elt.down();
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
@@ -542,27 +542,27 @@ var DimpCore = {
 };
 
 /* Initialize onload handler. */
-document.observe('dom:loaded', DimpCore.onDomLoad.bind(DimpCore));
+document.observe('dom:loaded', ImpCore.onDomLoad.bind(ImpCore));
 
 /* Browser native events. */
-document.observe('HordeCore:click', DimpCore.clickHandler.bindAsEventListener(DimpCore));
+document.observe('HordeCore:click', ImpCore.clickHandler.bindAsEventListener(ImpCore));
 
 /* ContextSensitive events. */
-document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventListener(DimpCore));
-document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
-document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
+document.observe('ContextSensitive:click', ImpCore.contextOnClick.bindAsEventListener(ImpCore));
+document.observe('ContextSensitive:show', ImpCore.contextOnShow.bindAsEventListener(ImpCore));
+document.observe('ContextSensitive:trigger', ImpCore.contextOnTrigger.bindAsEventListener(ImpCore));
 
 /* HTML IFRAME events. */
 document.observe('IMP_JS:htmliframe_click', function() {
     if (this.DMenu) {
         this.DMenu.close();
     }
-}.bind(DimpCore));
+}.bind(ImpCore));
 
 /* Dialog events. Since reloadMessage() can be extended, don't immediately
  * bind function call now. */
 document.observe('ImpPassphraseDialog:success', function() {
-    DimpCore.reloadMessage({});
+    ImpCore.reloadMessage({});
 });
 
 /* Disable text selection for everything but compose/message body and FORM

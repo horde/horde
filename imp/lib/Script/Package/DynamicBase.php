@@ -30,13 +30,13 @@ class IMP_Script_Package_DynamicBase extends Horde_Script_Package
     {
         global $injector;
 
-        $ob = new Horde_Script_File_JsDir('dimpcore.js', 'imp');
+        $ob = new Horde_Script_File_JsDir('core.js', 'imp');
 
         try {
             $hooks = $injector->getInstance('Horde_Core_Hooks');
             $dprefs = $hooks->callHook('dynamic_prefs', 'imp');
             foreach ($dprefs as $key => $val) {
-                $ob->jsvars['DimpCore.prefs.' . $key] = $val;
+                $ob->jsvars['ImpCore.prefs.' . $key] = $val;
             }
         } catch (Horde_Exception $e) {}
 

@@ -610,7 +610,7 @@ class IMP_Ajax_Queue
      *   - ns: (boolean) [no sort] Don't sort on browser.
      *         DEFAULT: no
      *   - pa: (string) [parent] The parent element.
-     *         DEFAULT: DimpCore.conf.base_mbox
+     *         DEFAULT: ImpCore.conf.base_mbox
      *   - po: (boolean) [polled] Is the element polled?
      *         DEFAULT: no
      *   - r: (integer) [remote] Is this a "remote" element? 1 is the remote

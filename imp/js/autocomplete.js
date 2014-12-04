@@ -409,7 +409,7 @@ var IMP_Autocompleter = Class.create({
             this.knl_status = 'loading';
             this.knl.show([]);
 
-            DimpCore.doAction(
+            ImpCore.doAction(
                 'autocompleteSearch',
                 Object.extend(this.p.autocompleterParams, { search: t }),
                 {

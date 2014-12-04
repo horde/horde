@@ -66,13 +66,13 @@ var ImpCompose = {
     {
         var base;
 
-        if (window.confirm(DimpCore.text.compose_cancel)) {
-            if (!DimpCore.conf.qreply &&
-                (base = DimpCore.baseAvailable())) {
+        if (window.confirm(ImpCore.text.compose_cancel)) {
+            if (!ImpCore.conf.qreply &&
+                (base = ImpCore.baseAvailable())) {
                 base.focus();
             }
 
-            DimpCore.doAction('cancelCompose', this.actionParams({
+            ImpCore.doAction('cancelCompose', this.actionParams({
                 discard: ~~(!!discard)
             }));
             this.updateDraftsMailbox();
@@ -84,15 +84,15 @@ var ImpCompose = {
     {
         var base;
 
-        if ((base = DimpCore.baseAvailable()) &&
-            base.DimpBase.view == DimpCore.conf.drafts_mbox) {
+        if ((base = ImpCore.baseAvailable()) &&
+            base.DimpBase.view == ImpCore.conf.drafts_mbox) {
             base.DimpBase.poll();
         }
     },
 
     closeCompose: function()
     {
-        if (DimpCore.conf.qreply) {
+        if (ImpCore.conf.qreply) {
             this.closeQReply();
         } else if (HordeCore.baseWindow() != window) {
             // We are only checking whether window.close can be done, not the
@@ -102,7 +102,7 @@ var ImpCompose = {
             // Sanity checking: if popup cannot be manually closed, output
             // information message without allowing further actions on the
             // page.
-            $$('body')[0].update(DimpCore.text.compose_close);
+            $$('body')[0].update(ImpCore.text.compose_close);
         }
     },
 
@@ -132,7 +132,7 @@ var ImpCompose = {
     {
         if (!Object.isUndefined(this.hash_sigOrig) &&
             this.hash_sigOrig != this.sigHash() &&
-            !window.confirm(DimpCore.text.change_identity)) {
+            !window.confirm(ImpCore.text.change_identity)) {
             return false;
         }
 
@@ -285,7 +285,7 @@ var ImpCompose = {
         switch (action) {
         case 'sendMessage':
             if (!this.skip_spellcheck &&
-                DimpCore.conf.spellcheck &&
+                ImpCore.conf.spellcheck &&
                 sc &&
                 !sc.isActive()) {
                 this.sc_submit = action;
@@ -294,7 +294,7 @@ var ImpCompose = {
             }
 
             if ($F('subject').empty() &&
-                !window.confirm(DimpCore.text.nosubject)) {
+                !window.confirm(ImpCore.text.nosubject)) {
                 return;
             }
             // Fall-through
@@ -323,7 +323,7 @@ var ImpCompose = {
             }
         }
 
-        DimpCore.doAction(
+        ImpCore.doAction(
             action,
             c.serialize(true),
             { callback: this.uniqueSubmitCallback.bind(this) }
@@ -347,11 +347,11 @@ var ImpCompose = {
                 this.updateDraftsMailbox();
 
                 if (d.action == 'saveDraft') {
-                    if (!DimpCore.conf.qreply &&
-                        (base = DimpCore.baseAvailable())) {
+                    if (!ImpCore.conf.qreply &&
+                        (base = ImpCore.baseAvailable())) {
                         HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
                     }
-                    if (DimpCore.conf.close_draft) {
+                    if (ImpCore.conf.close_draft) {
                         $('attach_list').childElements().invoke('remove');
                         return this.closeCompose();
                     }
@@ -359,19 +359,19 @@ var ImpCompose = {
                 break;
 
             case 'saveTemplate':
-                if ((base = DimpCore.baseAvailable()) &&
-                    base.DimpBase.view == DimpCore.conf.templates_mbox) {
+                if ((base = ImpCore.baseAvailable()) &&
+                    base.DimpBase.view == ImpCore.conf.templates_mbox) {
                     base.DimpBase.poll();
                 }
                 return this.closeCompose();
 
             case 'sendMessage':
-                if ((base = DimpCore.baseAvailable())) {
+                if ((base = ImpCore.baseAvailable())) {
                     if (d.draft_delete) {
                         base.DimpBase.poll();
                     }
 
-                    if (!DimpCore.conf.qreply) {
+                    if (!ImpCore.conf.qreply) {
                         HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
                     }
                 }
@@ -380,8 +380,8 @@ var ImpCompose = {
                 return this.closeCompose();
 
             case 'redirectMessage':
-                if (!DimpCore.conf.qreply &&
-                    (base = DimpCore.baseAvailable())) {
+                if (!ImpCore.conf.qreply &&
+                    (base = ImpCore.baseAvailable())) {
                     HordeCore.notify_handler = base.HordeCore.showNotifications.bind(base.HordeCore);
                 }
 
@@ -413,11 +413,11 @@ var ImpCompose = {
 
         if (redirect && redirect.visible()) {
             HordeCore.loadingImg('sendingImg', 'redirect', disable);
-            DimpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
+            ImpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
             redirect.setStyle({ cursor: disable ? 'wait': null });
         } else {
             HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
-            DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+            ImpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
             if ((sc = this.getSpellChecker())) {
                 sc.disable(disable);
@@ -436,7 +436,7 @@ var ImpCompose = {
             active = this.editor_on,
             params = $H();
 
-        if (!DimpCore.conf.rte_avail) {
+        if (!ImpCore.conf.rte_avail) {
             return;
         }
 
@@ -490,7 +490,7 @@ var ImpCompose = {
         }
 
         if (params.size()) {
-            DimpCore.doAction(action, this.actionParams({
+            ImpCore.doAction(action, this.actionParams({
                 data: Object.toJSON(params)
             }), {
                 ajaxopts: { asynchronous: false },
@@ -563,7 +563,7 @@ var ImpCompose = {
             this.skip_spellcheck = true;
             this.uniqueSubmit(this.sc_submit);
         } else {
-            HordeCore.notify(DimpCore.text.spell_noerror, 'horde.message');
+            HordeCore.notify(ImpCore.text.spell_noerror, 'horde.message');
             this._onSpellCheckAfter();
         }
     },
@@ -653,7 +653,7 @@ var ImpCompose = {
 
         $('subject').setValue(ob.subject);
 
-        if (DimpCore.conf.priority && ob.opts.priority) {
+        if (ImpCore.conf.priority && ob.opts.priority) {
             this.setPopdownLabel('p', ob.opts.priority);
         }
 
@@ -672,7 +672,7 @@ var ImpCompose = {
             break;
 
         case 'reply_all':
-            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DimpCore.text.replyall.sub('%d', ob.opts.reply_recip));
+            $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(ImpCore.text.replyall.sub('%d', ob.opts.reply_recip));
             $('compose_notices', 'replyallnotice').invoke('show');
             break;
 
@@ -711,12 +711,12 @@ var ImpCompose = {
         // Set auto-save-drafts now if not already active. Only need if
         // compose template is output on current page (redirect doesn't
         // need autosave).
-        if (DimpCore.conf.auto_save_interval_val &&
+        if (ImpCore.conf.auto_save_interval_val &&
             !this.auto_save_interval &&
             $('compose')) {
             this.auto_save_interval = new PeriodicalExecuter(
                 this.autoSaveDraft.bind(this),
-                DimpCore.conf.auto_save_interval_val * 60
+                ImpCore.conf.auto_save_interval_val * 60
             );
 
             /* Immediately execute to get hash of headers. */
@@ -739,7 +739,7 @@ var ImpCompose = {
             break;
 
         case 'to':
-            if (DimpCore.conf.redirect) {
+            if (ImpCore.conf.redirect) {
                 hdr = 'redirect_to';
             }
             break;
@@ -825,7 +825,7 @@ var ImpCompose = {
             this.rte.setData(ob.body);
         } else {
             $('composeMessage').setValue(ob.body);
-            this.setCursorPosition('composeMessage', DimpCore.conf.compose_cursor);
+            this.setCursorPosition('composeMessage', ImpCore.conf.compose_cursor);
         }
 
         if (ob.format == 'html') {
@@ -982,7 +982,7 @@ var ImpCompose = {
     /* Open the addressbook window. */
     openAddressbook: function(params)
     {
-        var uri = DimpCore.conf.URI_ABOOK;
+        var uri = ImpCore.conf.URI_ABOOK;
 
         if (params) {
             uri = HordeCore.addURLParam(uri, params);
@@ -1104,7 +1104,7 @@ var ImpCompose = {
         if (v.group) {
             v.elt.down('IMG').insert({ before:
                 new Element('A', { className: 'impACGroupExpand' })
-                    .insert(DimpCore.text.group_expand)
+                    .insert(ImpCore.text.group_expand)
             });
         }
     },
@@ -1213,7 +1213,7 @@ var ImpCompose = {
         case 'sendcc':
         case 'sendbcc':
         case 'sendto':
-            if (DimpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
+            if (ImpCore.conf.URI_ABOOK && elt.match('TD.label SPAN')) {
                 this.openAddressbook();
             }
             break;
@@ -1237,7 +1237,7 @@ var ImpCompose = {
 
         case 'fwdattachnotice':
             this.fadeNotice(e.element());
-            DimpCore.doAction('getForwardData', this.actionParams({
+            ImpCore.doAction('getForwardData', this.actionParams({
                 dataonly: 1,
                 type: 'forward_body'
             }), {
@@ -1249,7 +1249,7 @@ var ImpCompose = {
 
         case 'fwdbodynotice':
             this.fadeNotice(e.element());
-            DimpCore.doAction('getForwardData', this.actionParams({
+            ImpCore.doAction('getForwardData', this.actionParams({
                 dataonly: 1,
                 type: 'forward_attach'
             }));
@@ -1268,7 +1268,7 @@ var ImpCompose = {
         case 'replylist_revert':
             this.fadeNotice(e.element().up('LI'));
             $('to_loading_img').show();
-            DimpCore.doAction('getReplyData', this.actionParams({
+            ImpCore.doAction('getReplyData', this.actionParams({
                 headeronly: 1,
                 type: 'reply'
             }), {
@@ -1289,7 +1289,7 @@ var ImpCompose = {
             break;
 
         case 'save_sent_mail_load':
-            DimpCore.doAction('sentMailList', {}, {
+            ImpCore.doAction('sentMailList', {}, {
                 callback: this.sentMailListCallback.bind(this)
             });
             break;
@@ -1357,7 +1357,7 @@ var ImpCompose = {
             tmp.each(function(pair) {
                 var t = $(e.memo + '_' + pair.key);
                 if (t) {
-                    DimpCore.toggleCheck(t.down('SPAN'), ~~$F(pair.value));
+                    ImpCore.toggleCheck(t.down('SPAN'), ~~$F(pair.value));
                 }
             });
         }
@@ -1382,7 +1382,7 @@ var ImpCompose = {
 
     tasksHandler: function(e)
     {
-        var base = DimpCore.baseAvailable(),
+        var base = ImpCore.baseAvailable(),
             t = e.tasks || {};
 
         if (t['imp:compose']) {
@@ -1422,14 +1422,14 @@ var ImpCompose = {
                     },
                     boxClass: 'hordeACBox impACBox',
                     boxClassFocus: 'impACBoxFocus',
-                    deleteIcon: DimpCore.conf.ac_delete,
+                    deleteIcon: ImpCore.conf.ac_delete,
                     displayFilter: function(t) { return t.sub(/<[^>]*>$/, "").strip().escapeHTML(); },
                     growingInputClass: 'hordeACTrigger impACTrigger',
                     listClass: 'hordeACList impACList',
-                    loadingText: DimpCore.text.loading,
+                    loadingText: ImpCore.text.loading,
                     loadingTextClass: 'impACLoadingText',
-                    minChars: DimpCore.conf.ac_minchars,
-                    noResultsText: DimpCore.text.noresults,
+                    minChars: ImpCore.conf.ac_minchars,
+                    noResultsText: ImpCore.text.noresults,
                     noResultsTextClass: 'impACNoResultsText',
                     onAdd: this.autocompleteOnAdd.bind(this),
                     onBeforeServerRequest: this.autocompleteServerRequest.bind(this),
@@ -1445,9 +1445,9 @@ var ImpCompose = {
         }, this);
 
         /* Initialize redirect elements. */
-        if (DimpCore.conf.redirect) {
+        if (ImpCore.conf.redirect) {
             $('redirect').observe('submit', Event.stop);
-            if (DimpCore.conf.URI_ABOOK) {
+            if (ImpCore.conf.URI_ABOOK) {
                 $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
             }
             $('dimpLoading').hide();
@@ -1469,7 +1469,7 @@ var ImpCompose = {
         $('compose').observe('submit', Event.stop);
         $('htmlcheckbox').up('LABEL').observe('mouseup', function() {
             if (!this.editor_on ||
-                window.confirm(DimpCore.text.toggle_html)) {
+                window.confirm(ImpCore.text.toggle_html)) {
                 this.toggleHtmlEditor();
             }
         }.bind(this));
@@ -1483,13 +1483,13 @@ var ImpCompose = {
             DragHandler.dropelt = tmp;
             DragHandler.droptarget = $('atcdiv');
             DragHandler.hoverclass = 'atcdrop_over';
-            DimpCore.addPopdown($('upload'), 'atc', {
+            ImpCore.addPopdown($('upload'), 'atc', {
                 no_offset: true
             });
         }
 
-        if ($H(DimpCore.context.ctx_other).size()) {
-            DimpCore.addPopdown($('other_options').down('A'), 'other', {
+        if ($H(ImpCore.context.ctx_other).size()) {
+            ImpCore.addPopdown($('other_options').down('A'), 'other', {
                 trigger: true
             });
         } else {
@@ -1502,10 +1502,10 @@ var ImpCompose = {
         }
 
         /* Create priority list. */
-        if (DimpCore.conf.priority) {
+        if (ImpCore.conf.priority) {
             this.createPopdown('p', {
                 base: 'priority_label',
-                data: DimpCore.conf.priority,
+                data: ImpCore.conf.priority,
                 input: 'priority',
                 label: 'priority_label'
             });
@@ -1513,10 +1513,10 @@ var ImpCompose = {
         }
 
         /* Create encryption list. */
-        if (DimpCore.conf.encrypt) {
+        if (ImpCore.conf.encrypt) {
             this.createPopdown('e', {
                 base: $('encrypt_label').up(),
-                data: DimpCore.conf.encrypt,
+                data: ImpCore.conf.encrypt,
                 input: 'encrypt',
                 label: 'encrypt_label'
             });
@@ -1524,7 +1524,7 @@ var ImpCompose = {
         }
 
         /* Add addressbook link formatting. */
-        if (DimpCore.conf.URI_ABOOK) {
+        if (ImpCore.conf.URI_ABOOK) {
             $('sendto', 'sendcc', 'sendbcc', 'redirect_sendto').compact().each(function(a) {
                 a.down('TD.label SPAN').addClassName('composeAddrbook');
             });
@@ -1644,7 +1644,7 @@ ImpCompose.classes.Attachlist = Class.create({
 
         $('attach_list').insert(li).show();
 
-        DimpCore.addPopdown(li.down(':last'), 'atcfile', {
+        ImpCore.addPopdown(li.down(':last'), 'atcfile', {
             no_offset: true
         });
 
@@ -1666,7 +1666,7 @@ ImpCompose.classes.Attachlist = Class.create({
         }
 
         if (elt.size()) {
-            DimpCore.doAction('deleteAttach', this.compose.actionParams({
+            ImpCore.doAction('deleteAttach', this.compose.actionParams({
                 atc_indices: Object.toJSON(elt),
                 quiet: ~~(!!quiet)
             }), {
@@ -1690,7 +1690,7 @@ ImpCompose.classes.Attachlist = Class.create({
 
     removeAttachRow: function(elt)
     {
-        DimpCore.DMenu.removeElement(elt.down('.horde-popdown').identify());
+        ImpCore.DMenu.removeElement(elt.down('.horde-popdown').identify());
         elt.remove();
     },
 
@@ -1714,8 +1714,8 @@ ImpCompose.classes.Attachlist = Class.create({
             .insert(
                 new Element('SPAN')
                     .addClassName('attach_upload_text')
-                    .insert((Object.isElement(f) ? $F(f) : (f.name || DimpCore.text.data)).escapeHTML())
-                    .insert(new Element('SPAN').insert('(' + DimpCore.text.uploading + ')'))
+                    .insert((Object.isElement(f) ? $F(f) : (f.name || ImpCore.text.data)).escapeHTML())
+                    .insert(new Element('SPAN').insert('(' + ImpCore.text.uploading + ')'))
             );
 
         $('attach_list').show().insert(li);
@@ -1750,7 +1750,7 @@ ImpCompose.classes.Attachlist = Class.create({
         }
 
         if ($A(data).size() > this.num_limit) {
-            HordeCore.notify(DimpCore.text.max_atc_num, 'horde.error');
+            HordeCore.notify(ImpCore.text.max_atc_num, 'horde.error');
             return;
         }
 
@@ -1760,7 +1760,7 @@ ImpCompose.classes.Attachlist = Class.create({
         if ($A(data).detect(function(d) {
             return (parseInt(d.size, 10) >= this.size_limit);
         }, this)) {
-            HordeCore.notify(DimpCore.text.max_atc_size, 'horde.error');
+            HordeCore.notify(ImpCore.text.max_atc_size, 'horde.error');
             return;
         }
 

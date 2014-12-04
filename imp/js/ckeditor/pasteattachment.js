@@ -73,7 +73,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                         f = f.getAsFile();
                     }
                     if (!f.name) {
-                        f.name = DimpCore.text.image_data;
+                        f.name = ImpCore.text.image_data;
                     }
                     upload.push(f);
                 } else if (errorcheck) {
@@ -87,7 +87,7 @@ CKEDITOR.plugins.add('pasteattachment', {
 
             if (error) {
                 HordeCore.notify(
-                    DimpCore.text.dragdropimg_error.sub('%d', error),
+                    ImpCore.text.dragdropimg_error.sub('%d', error),
                     'horde.error'
                 );
             }
@@ -157,7 +157,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     try {
                         data[1] = Base64.atob(data[1]);
                     } catch (e) {
-                        HordeCore.notify(DimpCore.text.paste_error, 'horde.error');
+                        HordeCore.notify(ImpCore.text.paste_error, 'horde.error');
                         ev.data.html = '';
                         return;
                     }
@@ -171,7 +171,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                         [ new Uint8Array(a) ],
                         { type: data[0].split(':')[1].split(';')[0] }
                     );
-                    b.name = DimpCore.text.image_data;
+                    b.name = ImpCore.text.image_data;
 
                     uploadAtc([ b ]);
 

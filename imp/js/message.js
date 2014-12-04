@@ -53,7 +53,7 @@ var ImpMessage = {
         $('msgData').hide();
         $('qreply').show();
 
-        DimpCore.doAction(func, {
+        ImpCore.doAction(func, {
             imp_compose: $F('composeCache'),
             type: type,
             view: this.mbox
@@ -68,7 +68,7 @@ var ImpMessage = {
 
     updateAddressHeader: function(e)
     {
-        DimpCore.doAction('addressHeader', {
+        ImpCore.doAction('addressHeader', {
             header: e.element().up('TR').identify().substring(9).toLowerCase(),
             view: this.mbox
         }, {
@@ -88,13 +88,13 @@ var ImpMessage = {
         // Can't use capitalize() here.
         var elt = $('msgHeader' + hdr.charAt(0).toUpperCase() + hdr.substring(1));
         if (elt) {
-            elt.down('TD', 1).replace(DimpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+            elt.down('TD', 1).replace(ImpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
         }
     },
 
     reloadPart: function(mimeid, params)
     {
-        DimpCore.doAction('inlineMessageOutput', Object.extend(params, {
+        ImpCore.doAction('inlineMessageOutput', Object.extend(params, {
             mimeid: mimeid,
             view: this.mbox
         }), {
@@ -131,7 +131,7 @@ var ImpMessage = {
         case 'button_delete':
         case 'button_innocent':
         case 'button_spam':
-            if ((base = DimpCore.baseAvailable())) {
+            if ((base = ImpCore.baseAvailable())) {
                 base.focus();
                 if (e.element().identify() == 'button_delete') {
                     base.DimpBase.deleteMsg({
@@ -146,14 +146,14 @@ var ImpMessage = {
                 }
             } else {
                 if (e.element().identify() == 'button_delete') {
-                    DimpCore.doAction('deleteMessages', {
+                    ImpCore.doAction('deleteMessages', {
                         view: this.mbox
                     }, {
                         uids: [ this.buid ],
                         view: this.mbox
                     });
                 } else {
-                    DimpCore.doAction('reportSpam', {
+                    ImpCore.doAction('reportSpam', {
                         spam: ~~(e.element().identify() == 'button_spam'),
                         view: this.mbox
                     }, {
@@ -167,7 +167,7 @@ var ImpMessage = {
             break;
 
         case 'msg_view_source':
-            HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+            HordeCore.popupWindow(ImpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
                 buid: this.buid,
                 id: 0,
@@ -178,7 +178,7 @@ var ImpMessage = {
             break;
 
         case 'msg_all_parts':
-            DimpCore.doAction('messageMimeTree', {
+            ImpCore.doAction('messageMimeTree', {
                 view: this.mbox
             }, {
                 callback: this._mimeTreeCallback.bind(this),
@@ -193,7 +193,7 @@ var ImpMessage = {
             break;
 
         case 'send_mdn_link':
-            DimpCore.doAction('sendMDN', {
+            ImpCore.doAction('sendMDN', {
                 view: this.mbox
             }, {
                 callback: function(r) {
@@ -206,7 +206,7 @@ var ImpMessage = {
 
         default:
             if (e.element().hasClassName('printAtc')) {
-                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
+                HordeCore.popupWindow(ImpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
                     buid: this.buid,
                     id: e.element().readAttribute('mimeid'),
@@ -217,8 +217,8 @@ var ImpMessage = {
                 });
                 e.memo.stop();
             } else if (e.element().hasClassName('stripAtc')) {
-                if (window.confirm(DimpCore.text.strip_warn)) {
-                    DimpCore.reloadMessage({
+                if (window.confirm(ImpCore.text.strip_warn)) {
+                    ImpCore.reloadMessage({
                         actionID: 'strip_attachment',
                         buid: this.buid,
                         id: e.element().readAttribute('mimeid'),
@@ -274,14 +274,14 @@ var ImpMessage = {
 
         HordeCore.initHandler('click');
 
-        if (DimpCore.conf.disable_compose) {
+        if (ImpCore.conf.disable_compose) {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
-            delete DimpCore.context.ctx_contacts['new'];
+            delete ImpCore.context.ctx_contacts['new'];
         } else {
-            DimpCore.addPopdown('reply_link', 'reply');
-            DimpCore.addPopdown('forward_link', 'forward');
+            ImpCore.addPopdown('reply_link', 'reply');
+            ImpCore.addPopdown('forward_link', 'forward');
             if (!this.reply_list) {
-                delete DimpCore.context.ctx_reply.reply_list;
+                delete ImpCore.context.ctx_reply.reply_list;
             }
         }
 
@@ -293,7 +293,7 @@ var ImpMessage = {
             }
         }, this);
 
-        if ((base = DimpCore.baseAvailable())) {
+        if ((base = ImpCore.baseAvailable())) {
             if (this.strip) {
                 base.DimpBase.poll();
             } else if (this.tasks) {
@@ -301,7 +301,7 @@ var ImpMessage = {
                     this.tasks['imp:maillog'].each(function(l) {
                         if (this.mbox == l.mbox &&
                             this.buid == l.buid) {
-                            DimpCore.updateMsgLog(l.log);
+                            ImpCore.updateMsgLog(l.log);
                         }
                     }, this);
                     delete this.tasks['imp:maillog'];
@@ -310,10 +310,10 @@ var ImpMessage = {
             }
         }
 
-        DimpCore.msgMetadata(this.msg_md);
+        ImpCore.msgMetadata(this.msg_md);
         delete this.msg_md;
 
-        DimpCore.updateAtcList(this.msg_atc);
+        ImpCore.updateAtcList(this.msg_atc);
         delete this.msg_atc;
 
         $('dimpLoading').hide();
@@ -347,13 +347,13 @@ Event.observe(window, 'resize', ImpMessage.resizeWindow.bind(ImpMessage));
 /* ContextSensitive events. */
 document.observe('ContextSensitive:click', ImpMessage.contextOnClick.bindAsEventListener(ImpMessage));
 
-/* DimpCore handlers. */
-document.observe('DimpCore:updateAddressHeader', ImpMessage.updateAddressHeader.bindAsEventListener(ImpMessage));
+/* ImpCore handlers. */
+document.observe('ImpCore:updateAddressHeader', ImpMessage.updateAddressHeader.bindAsEventListener(ImpMessage));
 
 /* Define reloadMessage() method for this page. */
-DimpCore.reloadMessage = function(params) {
+ImpCore.reloadMessage = function(params) {
     window.location = HordeCore.addURLParam(document.location.href, params);
 };
 
 /* Define reloadPart() method for this page. */
-DimpCore.reloadPart = ImpMessage.reloadPart.bind(ImpMessage);
+ImpCore.reloadPart = ImpMessage.reloadPart.bind(ImpMessage);
