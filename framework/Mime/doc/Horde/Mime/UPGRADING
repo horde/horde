@@ -18,6 +18,13 @@ Upgrading to 2.6
 
     This class has been added.
 
+  - Horde_Mime
+
+    - $decodeWindows1252
+
+      This property now defaults to true. (HTML 5 demands that ISO-8859-1 be
+      treated as Windows-1252, so this is matching conventional usage.)
+
 
 Upgrading to 2.5
 ================
