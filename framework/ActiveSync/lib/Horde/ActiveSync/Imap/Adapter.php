@@ -913,13 +913,11 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Imap_Client_Data_Fetch $data,
         $options = array())
     {
-        $imap = $this->_getImapOb();
-
         $version = empty($options['protocolversion']) ?
             Horde_ActiveSync::VERSION_TWOFIVE :
             $options['protocolversion'];
 
-        $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
+        $imap_message = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $data);
         $eas_message = Horde_ActiveSync::messageFactory('Mail');
 
         // Build To: data (POOMMAIL_TO has a max length of 32768).
