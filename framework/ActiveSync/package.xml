@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-25</date>
+ <date>2014-12-04</date>
  <version>
   <release>2.20.5</release>
   <api>2.20.0</api>
@@ -259,6 +259,9 @@
        </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql -->
        <file name="Base.php" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/StateTest -->
+      <dir name="Stub">
+       <file name="ImapFactory.php" role="test" />
+      </dir> <!-- /test/Horde/ActiveSync/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
       <file name="AutodiscoverTest.php" role="test" />
@@ -267,6 +270,7 @@
       <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="DeviceTest.php" role="test" />
+      <file name="ImapAdapterTest.php" role="test" />
       <file name="ImapFolderTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
@@ -542,6 +546,7 @@
    <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/DeviceTest.php" name="test/Horde/ActiveSync/DeviceTest.php" />
+   <install as="Horde/ActiveSync/ImapAdapterTest.php" name="test/Horde/ActiveSync/ImapAdapterTest.php" />
    <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/MimeTest.php" name="test/Horde/ActiveSync/MimeTest.php" />
@@ -572,6 +577,7 @@
    <install as="Horde/ActiveSync/StateTest/Sql/Oci8Test.php" name="test/Horde/ActiveSync/StateTest/Sql/Oci8Test.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
    <install as="Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/SqliteTest.php" />
+   <install as="Horde/ActiveSync/Stub/ImapFactory.php" name="test/Horde/ActiveSync/Stub/ImapFactory.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -2510,7 +2516,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-25</date>
+   <date>2014-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
