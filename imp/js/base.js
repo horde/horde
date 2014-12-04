@@ -230,13 +230,13 @@ var ImpBase = {
                     : this.view;
             }
 
-            if (this.view != data || !$('dimpmain_folder').visible()) {
+            if (this.view != data || !$('impbase_folder').visible()) {
                 this.highlightSidebar(data);
-                if ($('dimpmain_iframe').visible()) {
-                    tmp = $('dimpmain_iframe').hide().down();
+                if ($('impbase_iframe').visible()) {
+                    tmp = $('impbase_iframe').hide().down();
                     tmp.blur();
                 }
-                $('dimpmain_folder').show();
+                $('impbase_folder').show();
             }
 
             this.loadMailbox(data);
@@ -250,8 +250,8 @@ var ImpBase = {
             }
         }
 
-        $('dimpmain_folder').hide();
-        $('dimpmain_iframe').show();
+        $('impbase_folder').hide();
+        $('impbase_iframe').show();
 
         switch (type) {
         case 'search':
@@ -267,7 +267,7 @@ var ImpBase = {
 
             this.highlightSidebar();
             this.setTitle(ImpCore.text.search);
-            $('dimpmain_iframe').insert(
+            $('impbase_iframe').insert(
                 new Element('IFRAME', {
                     src: HordeCore.addURLParam(ImpCore.conf.URI_SEARCH, data)
                 }).setStyle({
@@ -854,7 +854,7 @@ var ImpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:wait', function() {
-            if ($('dimpmain_folder').visible()) {
+            if ($('impbase_folder').visible()) {
                 HordeCore.notify(ImpCore.text.listmsg_wait, 'horde.warning');
             }
         });
@@ -1629,7 +1629,7 @@ var ImpBase = {
 
         // 'label' will not be set if there has been an error retrieving data
         // from the server.
-        if (!label || !$('dimpmain_folder').visible()) {
+        if (!label || !$('impbase_folder').visible()) {
             return;
         }
 
@@ -2097,7 +2097,7 @@ var ImpBase = {
         // loading but not complete yet and sending this request will cause
         // duplicate info to be returned.
         if (this.view &&
-            $('dimpmain_folder').visible() &&
+            $('impbase_folder').visible() &&
             this.viewport.getMetaData('label')) {
             args = this.addViewportParams();
 
@@ -2300,7 +2300,7 @@ var ImpBase = {
             sc = this.selectedCount();
 
         ImpCore.toggleButtons(
-            $('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'),
+            $('impbase_folder_top').select('DIV.horde-buttonbar A.noselectDisable'),
             sc === 0
         );
 
@@ -2532,7 +2532,7 @@ var ImpBase = {
             kc = e.keyCode || e.charCode;
 
         // Only catch keyboard shortcuts in message list view.
-        if (!$('dimpmain_folder').visible()) {
+        if (!$('impbase_folder').visible()) {
             return;
         }
 
@@ -3383,7 +3383,7 @@ var ImpBase = {
             case 'vfolder':
                 e.stop();
                 if (mbox.value() != this.view ||
-                    !$('dimpmain_folder').visible()) {
+                    !$('impbase_folder').visible()) {
                     this.go('mbox', mbox.value());
                 }
                 break;
@@ -3846,7 +3846,7 @@ var ImpBase = {
         });
 
         /* Show page now. */
-        $('dimpLoading').hide();
+        $('impLoading').hide();
         $('horde-page').show();
         this.setSidebarWidth();
 
@@ -3971,13 +3971,13 @@ var ImpBase = {
 
     _onResize: function()
     {
-        if (!$('dimpLoading').visible()) {
+        if (!$('impLoading').visible()) {
             this._sizeFolderlist();
             this.splitbar.setStyle({
                 height: document.viewport.getHeight() + 'px'
             });
-            if ($('dimpmain_iframe').visible()) {
-                $('dimpmain_iframe').down('IFRAME').setStyle({
+            if ($('impbase_iframe').visible()) {
+                $('impbase_iframe').down('IFRAME').setStyle({
                     height: $('horde-page').getHeight() + 'px'
                 });
             }

@@ -1,6 +1,6 @@
 <?php echo $this->status ?>
 
-<div id="dimpLoading">
+<div id="impLoading">
  <?php echo _("Loading...") ?>
 </div>
 

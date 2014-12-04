@@ -18,27 +18,27 @@ input {
 }
 
 /* Message options. */
-.dimpOptions {
+.optionsContainer {
     float: right;
 }
-.dimpOptions div {
+.optionsContainer div {
     padding-bottom: 2px;
 }
-.dimpOptions span {
+.optionsContainer span {
     cursor: pointer;
 }
-.dimpOptions .iconImg {
+.optionsContainer .iconImg {
     margin-right: 0;
 }
-.dimpOptions a,
-.dimpOptions a:visited {
+.optionsContainer a,
+.optionsContainer a:visited {
     text-decoration: none;
     color: #000;
 }
-.dimpOptions a:hover {
+.optionsContainer a:hover {
     text-decoration: underline;
 }
-.dimpOptions .horde-popdown {
+.optionsContainer .horde-popdown {
     display: inline-block;
     float: none;
     height: 16px;

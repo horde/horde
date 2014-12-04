@@ -316,7 +316,7 @@ var ImpMessage = {
         ImpCore.updateAtcList(this.msg_atc);
         delete this.msg_atc;
 
-        $('dimpLoading').hide();
+        $('impLoading').hide();
         $('msgData').show();
 
         this.resizeWindow();

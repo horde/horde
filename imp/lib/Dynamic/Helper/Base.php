@@ -39,7 +39,7 @@ class IMP_Dynamic_Helper_Base extends Horde_View_Helper_Base
     {
         $class = '';
         if (!empty($params['icon'])) {
-            $class .= 'dimpaction' . $params['icon'];
+            $class .= 'action' . $params['icon'];
         }
         if (!empty($params['class'])) {
             $class .= ' ' . $params['class'];

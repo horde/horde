@@ -51,7 +51,7 @@
 
  <div id="writemsg">
   <div class="msgwrite">
-   <div class="dimpOptions">
+   <div class="optionsContainer">
 <?php if ($this->rte): ?>
     <div>
      <label>

@@ -413,11 +413,11 @@ var ImpCompose = {
 
         if (redirect && redirect.visible()) {
             HordeCore.loadingImg('sendingImg', 'redirect', disable);
-            ImpCore.toggleButtons(redirect.select('DIV.dimpActions A'), disable);
+            ImpCore.toggleButtons(redirect.select('DIV.actions A'), disable);
             redirect.setStyle({ cursor: disable ? 'wait': null });
         } else {
             HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
-            ImpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
+            ImpCore.toggleButtons($('compose').select('DIV.actions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
             if ((sc = this.getSpellChecker())) {
                 sc.disable(disable);
@@ -639,7 +639,7 @@ var ImpCompose = {
     //           reply_lang, reply_recip, reply_list_id, show_editor
     fillForm: function(ob)
     {
-        if (!document.loaded || $('dimpLoading').visible()) {
+        if (!document.loaded || $('impLoading').visible()) {
             this.fillForm.bind(this, ob).delay(0.1);
             return;
         }
@@ -897,7 +897,7 @@ var ImpCompose = {
 
     resizeMsgArea: function(e)
     {
-        if (!document.loaded || $('dimpLoading').visible()) {
+        if (!document.loaded || $('impLoading').visible()) {
             return;
         }
 
@@ -1450,7 +1450,7 @@ var ImpCompose = {
             if (ImpCore.conf.URI_ABOOK) {
                 $('redirect_sendto').down('TD.label SPAN').addClassName('composeAddrbook');
             }
-            $('dimpLoading').hide();
+            $('impLoading').hide();
             $('composeContainer', 'redirect').invoke('show');
 
             this.doTasks();
@@ -1530,7 +1530,7 @@ var ImpCompose = {
             });
         }
 
-        $('dimpLoading').hide();
+        $('impLoading').hide();
         $('composeContainer', 'compose').compact().invoke('show');
 
         this.doTasks();

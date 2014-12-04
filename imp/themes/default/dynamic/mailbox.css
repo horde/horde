@@ -314,7 +314,7 @@ div.vpRow div.msgSubject span.flagUser {
 }
 
 /* IFRAMEs */
-#dimpmain_iframe iframe {
+#impbase_iframe iframe {
     border: 0;
     width: 100%;
 }
@@ -513,18 +513,18 @@ span.readonlyImg {
 }
 
 /* Action images. */
-.dimpactionRefresh,
+.actionRefresh,
 #ctx_folderopts_reload span.iconImg {
     background-image: url("../graphics/reload.png");
 }
 .imp-loading {
     background-image: url("../graphics/reload.gif");
 }
-.dimpactionOther,
-.dimpactionSort {
+.actionOther,
+.actionSort {
     background-image: url("../graphics/plus.png");
 }
-.dimpactionEditsearch,
+.actionEditsearch,
 #ctx_mbox_acl span.iconImg {
     background-image: url("../graphics/edit.png");
 }

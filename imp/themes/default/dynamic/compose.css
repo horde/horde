@@ -57,17 +57,17 @@
     cursor: default;
     padding: 10px;
 }
-.msgwrite .dimpOptions {
+.msgwrite .optionsContainer {
     padding: 8px 8px 0 0;
 }
-.msgwrite .dimpOptions label {
+.msgwrite .optionsContainer label {
     cursor: pointer;
 }
-.msgwrite .dimpOptions input {
+.msgwrite .optionsContainer input {
     margin-right: 2px;
     min-height: 0px;
 }
-.msgwrite .dimpOptions .horde-popdown {
+.msgwrite .optionsContainer .horde-popdown {
     height: 18px;
     margin-top: -6px;
 }
@@ -308,14 +308,14 @@ span.attachmentImg {
     cursor: pointer;
     margin-top: 6px;
 }
-.dimpactionSend {
+.actionSend {
     background-image: url("../graphics/forward.png");
 }
-.dimpactionDrafts,
-.dimpactionTemplates {
+.actionDrafts,
+.actionTemplates {
     background-image: url("../graphics/drafts.png");
 }
-.dimpactionSpellcheck {
+.actionSpellcheck {
     background-image: url("../graphics/spellcheck.png");
 }
 

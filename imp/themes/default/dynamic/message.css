@@ -33,7 +33,7 @@ div.msgfullread span.messagePrintShow {
 
 @media print {
     /* Hide UI elements when printing message in popup window. */
-    div.msgfullread div.dimpOptions,
+    div.msgfullread div.optionsContainer,
     div.msgfullread div.mimePartInfo a.iconImg,
     div.msgfullread span.messagePrintNoShow {
         display: none;

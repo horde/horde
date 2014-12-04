@@ -1,6 +1,6 @@
 <?php echo $this->status ?>
 
-<div id="dimpLoading">
+<div id="impLoading">
  <?php echo _("Loading...") ?>
 </div>
 
@@ -35,7 +35,7 @@
  <div class="msgfullread">
   <div class="msgHeaders">
    <div id="msgHeaders">
-    <div class="dimpOptions">
+    <div class="optionsContainer">
 <?php if ($this->show_view_source): ?>
      <div>
       <span id="msg_view_source" title="<?php echo _("View Source") ?>">

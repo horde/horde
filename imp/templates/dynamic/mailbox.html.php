@@ -1,4 +1,4 @@
-<div id="dimpLoading">
+<div id="impLoading">
  <?php echo _("Loading...") ?>
  <noscript>
   <div class="nojserror"><?php echo _("Error! This application requires javascript to be available and enabled in your browser.") ?></div>
@@ -6,10 +6,10 @@
 </div>
 
 <div id="horde-page" style="display:none">
- <div id="dimpmain">
-  <div id="dimpmain_iframe" style="display:none"></div>
-  <div id="dimpmain_folder" style="display:none">
-   <div id="dimpmain_folder_top">
+ <div id="impbase">
+  <div id="impbase_iframe" style="display:none"></div>
+  <div id="impbase_folder" style="display:none">
+   <div id="impbase_folder_top">
     <div class="horde-buttonbar">
     <ul class="rightFloat">
      <li class="horde-nobutton">
@@ -58,14 +58,14 @@
 
     <div id="searchbar" style="display:none">
      <span class="iconImg closeImg" id="search_close" title="<?php echo _("Clear Search") ?>"></span>
-     <span class="iconImg dimpactionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
-     <span class="iconImg dimpactionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
+     <span class="iconImg actionRefresh" id="search_refresh" title="<?php echo _("Refresh Search Results") ?>"></span>
+     <span class="iconImg actionEditsearch" id="search_edit" style="display:none" title="<?php echo _("Edit Search Query") ?>"></span>
      <span id="search_time_elapsed" style="display:none"></span>
      <div id="search_label"></div>
     </div>
 
     <div id="viewport_error" style="display:none">
-     <span class="iconImg dimpactionRefresh" id="viewport_error_refresh" title="<?php echo _("Retry") ?>"></span>
+     <span class="iconImg actionRefresh" id="viewport_error_refresh" title="<?php echo _("Retry") ?>"></span>
      <div><?php echo _("Error loading message list.") ?></div>
     </div>
    </div>
@@ -99,7 +99,7 @@
        </ul>
       </div>
       <div id="msgHeaders" style="display:none">
-       <div class="dimpOptions">
+       <div class="optionsContainer">
         <div>
          <span id="msg_newwin_options">
           <span class="iconImg"></span>
@@ -120,7 +120,7 @@
         </div>
         <div>
          <span id="preview_other_opts">
-          <span class="iconImg dimpactionOther"></span>
+          <span class="iconImg actionOther"></span>
           <a><?php echo _("Other Options") ?></a>
         </span>
         </div>
