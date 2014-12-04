@@ -511,13 +511,13 @@ abstract class Whups_Driver
             }
 
             if ($details &&
-                $details['type'] == 'user' &&
-                ($details['user'] == $registry->getAuth() ||
-                 !$registry->getAuth())) {
+                $details['type'] == 'user') {
                 $user_prefs = $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_Prefs')
                     ->create('whups', array('user' => $details['user']));
-                if ($from['type'] == 'user' &&
+                if (($details['user'] == $registry->getAuth() ||
+                     (!$registry->getAuth())) &&
+                    $from['type'] == 'user' &&
                     $details['user'] == $from['user'] &&
                     $user_prefs->getValue('email_others_only')) {
                     continue;
