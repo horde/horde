@@ -15,12 +15,13 @@
  * Stream filter to determine whether body needs to be sent as 8-bit
  * (STD 71/RFC 6152) or binary (RFC 3030).
  *
- * @author    Michael Slusarz <slusarz@horde.org>
- * @category  Horde
- * @copyright 2014 Horde LLC
- * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Smtp
- * @since     1.7.0
+ * @author     Michael Slusarz <slusarz@horde.org>
+ * @category   Horde
+ * @copyright  2014 Horde LLC
+ * @deprecated Use Horde_Mime_Filter_Encoding instead.
+ * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package    Smtp
+ * @since      1.7.0
  */
 class Horde_Smtp_Filter_Body extends php_user_filter
 {
