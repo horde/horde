@@ -42,9 +42,10 @@ class Horde_Http_Response_Peclhttp extends Horde_Http_Response_Base
         $this->httpVersion = $message->getHttpVersion();
         $this->code = $message->getResponseCode();
         $this->_message = $message;
-        foreach ($message->getHeaders() as $k => $v) {
-            $this->headers[strtolower($k)] = $v;
-        }
+        $this->_headers = new Horde_Support_CaseInsensitiveArray(
+            $message->getHeaders()
+        );
+        $this->headers = $this->_headers->getArrayCopy();
     }
 
     public function getBody()

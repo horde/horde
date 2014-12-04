@@ -45,6 +45,13 @@ abstract class Horde_Http_Response_Base
     public $headers;
 
     /**
+     * Case-insensitive list of headers.
+     *
+     * @var Horde_Support_CaseInsensitiveArray
+     */
+    protected $_headers;
+
+    /**
      * Parses an array of response headers, mindful of line continuations, etc.
      *
      * @param array $headers
@@ -57,7 +64,7 @@ abstract class Horde_Http_Response_Base
             $headers = preg_split("/\r?\n/", $headers);
         }
 
-        $this->headers = array();
+        $this->_headers = new Horde_Support_CaseInsensitiveArray();
 
         $lastHeader = null;
         foreach ($headers as $headerLine) {
@@ -69,7 +76,7 @@ abstract class Horde_Http_Response_Base
             if (preg_match('/^HTTP\/(\d.\d) (\d{3})/', $headerLine, $httpMatches)) {
                 $this->httpVersion = $httpMatches[1];
                 $this->code = (int)$httpMatches[2];
-                $this->headers = array();
+                $this->_headers = new Horde_Support_CaseInsensitiveArray();
                 $lastHeader = null;
             }
 
@@ -78,29 +85,33 @@ abstract class Horde_Http_Response_Base
                 break;
             }
             if (preg_match('|^([\w-]+):\s+(.+)|', $headerLine, $m)) {
-                unset($lastHeader);
-                $headerName = strtolower($m[1]);
+                $headerName = $m[1];
                 $headerValue = $m[2];
 
-                if (isset($this->headers[$headerName])) {
-                    if (!is_array($this->headers[$headerName])) {
-                        $this->headers[$headerName] = array($this->headers[$headerName]);
+                if ($tmp = $this->_headers[$headerName]) {
+                    if (!is_array($tmp)) {
+                        $this->_headers[$headerName] = array($tmp);
                     }
 
-                    $this->headers[$headerName][] = $headerValue;
+                    $this->_headers[$headerName][] = $headerValue;
                 } else {
-                    $this->headers[$headerName] = $headerValue;
+                    $this->_headers[$headerName] = $headerValue;
                 }
                 $lastHeader = $headerName;
-            } elseif (preg_match("|^\s+(.+)$|", $headerLine, $m) && !is_null($lastHeader)) {
-                if (is_array($this->headers[$lastHeader])) {
-                    end($this->headers[$lastHeader]);
-                    $this->headers[$lastHeader][key($this->headers[$lastHeader])] .= $m[1];
+            } elseif (preg_match("|^\s+(.+)$|", $headerLine, $m) &&
+                      !is_null($lastHeader)) {
+                if (is_array($this->_headers[$lastHeader])) {
+                    $tmp = $this->_headers[$lastHeader];
+                    end($tmp);
+                    $tmp[key($tmp)] .= $m[1];
+                    $this->_headers[$lastHeader] = $tmp;
                 } else {
-                    $this->headers[$lastHeader] .= $m[1];
+                    $this->_headers[$lastHeader] .= $m[1];
                 }
             }
         }
+
+        $this->headers = $this->_headers->getArrayCopy();
     }
 
     /**
@@ -126,12 +137,12 @@ abstract class Horde_Http_Response_Base
      * Returns the value of a single response header.
      *
      * @param string $header  Header name to get ('Content-Type',
-     *                        'Content-Length', etc.). This is case sensitive.
+     *                        'Content-Length', etc.).
      *
-     * @return string HTTP header value.
+     * @return string  HTTP header value.
      */
     public function getHeader($header)
     {
-        return isset($this->headers[$header]) ? $this->headers[$header] : null;
+        return $this->_headers[$header];
     }
 }
