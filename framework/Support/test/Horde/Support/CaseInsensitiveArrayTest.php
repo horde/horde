@@ -18,22 +18,22 @@
  */
 class Horde_Support_CaseInsensitiveArrayTest extends PHPUnit_Framework_TestCase
 {
-    public function testImplementsArrayAccess()
+    /**
+     * @dataProvider implementsProvider
+     */
+    public function testImplements($interface)
     {
         $o = new Horde_Support_CaseInsensitiveArray();
         $this->assertInstanceOf('ArrayAccess', $o);
     }
 
-    public function testImplementsTraversable()
+    public function implementsProvider()
     {
-        $o = new Horde_Support_CaseInsensitiveArray();
-        $this->assertInstanceOf('Traversable', $o);
-    }
-
-    public function testImplementsCountable()
-    {
-        $o = new Horde_Support_CaseInsensitiveArray();
-        $this->assertInstanceOf('Countable', $o);
+        return array(
+            array('ArrayAccess'),
+            array('Traversable'),
+            array('Countable')
+        );
     }
 
     public function testOffsetGetReturnsValueAtOffset()
