@@ -1384,16 +1384,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             case 'text':
                 $eol = $this->getEOL();
 
-                if ($this->_scanStream($this->_contents, '8bit')) {
-                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
-                        ? '8bit'
-                        : 'quoted-printable';
-                } elseif ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
+                if ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
                     /* If the text is longer than 998 characters between
                      * linebreaks, use quoted-printable encoding to ensure the
                      * text will not be chopped (i.e. by sendmail if being
                      * sent as mail text). */
                     $encoding = 'quoted-printable';
+                } elseif ($this->_scanStream($this->_contents, '8bit')) {
+                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
+                        ? '8bit'
+                        : 'quoted-printable';
                 } else {
                     $encoding = '7bit';
                 }
