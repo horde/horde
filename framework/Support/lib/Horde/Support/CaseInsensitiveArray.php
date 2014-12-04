@@ -46,9 +46,7 @@ class Horde_Support_CaseInsensitiveArray extends ArrayIterator
      */
     public function offsetExists($offset)
     {
-        return (is_null($offset = $this->_getRealOffset($offset)))
-            ? false
-            : parent::offsetExists($offset);
+        return !is_null($offset = $this->_getRealOffset($offset));
     }
 
     /**
@@ -69,6 +67,11 @@ class Horde_Support_CaseInsensitiveArray extends ArrayIterator
      */
     protected function _getRealOffset($offset)
     {
+        /* Optimize: check for base $offset in array first. */
+        if (parent::offsetExists($offset)) {
+            return $offset;
+        }
+
         foreach (array_keys($this->getArrayCopy()) as $key) {
             if (strcasecmp($key, $offset) === 0) {
                 return $key;
