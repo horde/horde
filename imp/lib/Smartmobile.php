@@ -163,7 +163,7 @@ class IMP_Smartmobile
                     'seen' => '\\seen'
                 ),
                 'mailbox_return' => $prefs->getValue('mailbox_return'),
-                'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
+                'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::QUICKSEARCH),
                 'refresh_time' => intval($prefs->getValue('refresh_time'))
             )),
 

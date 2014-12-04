@@ -26,8 +26,8 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
     const MBOX_PREFIX = "impsearch\0";
 
     /* The special search mailbox names. */
-    const DIMP_FILTERSEARCH = 'dimpfsearch';
-    const DIMP_QUICKSEARCH = 'dimpqsearch';
+    const FILTERSEARCH = 'impfsearch';
+    const QUICKSEARCH = 'impqsearch';
 
     /* Query creation types. */
     const CREATE_FILTER = 1;
@@ -376,7 +376,7 @@ class IMP_Search implements ArrayAccess, IteratorAggregate, Serializable
     public function isSystemQuery($id)
     {
         return (isset($this->_search['query'][$this->_strip($id)]) &&
-                in_array($this[$id]->id, array(self::DIMP_FILTERSEARCH, self::DIMP_QUICKSEARCH)));
+                in_array($this[$id]->id, array(self::FILTERSEARCH, self::QUICKSEARCH)));
     }
 
     /**
