@@ -137,8 +137,6 @@
  *                                             doesn't exist in the tree).
  * @property-read string $uidvalid  Returns the UIDVALIDITY string. Throws an
  *                                  IMP_Exception on error.
- * @property-read string $utf7imap  The UTF7-IMAP representation of this
- *                                  object.
  * @property-read string $value  The value of this element (IMAP mailbox name;
  *                               UTF-8).
  * @property-read boolean $vfolder  Is this a virtual folder?
@@ -676,9 +674,6 @@ class IMP_Mailbox
             }
 
             return $uidvalid;
-
-        case 'utf7imap':
-            return Horde_String::convertCharset($this->_mbox, 'UTF-8', 'UTF7-IMAP');
 
         case 'value':
             return $this->_mbox;
