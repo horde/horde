@@ -139,9 +139,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $registry;
 
-        // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
-        Horde_Mime::$decodeWindows1252 = true;
-
         if (($registry->initialApp == 'imp') &&
             !empty($this->initParams['impmode']) &&
             ($this->initParams['impmode'] != $registry->getView())) {
