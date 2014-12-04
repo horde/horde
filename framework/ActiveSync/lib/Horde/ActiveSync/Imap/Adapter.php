@@ -1014,11 +1014,11 @@ class Horde_ActiveSync_Imap_Adapter
                     }
 
                     // Sanity check the mime type
-                    if (empty($message_body_data['html'])) {
+                    if (empty($message_body_data['html']) && !empty($plain_mime)) {
                         $mime = $plain_mime;
-                    } elseif (empty($message_body_data['plain'])) {
+                    } elseif (empty($message_body_data['plain']) && !empty($html_mime)) {
                         $mime = $html_mime;
-                    } else {
+                    } elseif (!empty($plain_mime) && !empty($html_mime)) {
                         $mime->setType('multipart/alternative');
                         $mime->addPart($plain_mime);
                         $mime->addPart($html_mime);
