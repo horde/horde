@@ -78,7 +78,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $data['metadata'] = array(array('html', $uid, $data['data']));
-        $data['data'] = '<div>' . _("Loading...") . '</div><iframe sandbox="allow-popups allow-same-origin" class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
+        $data['data'] = '<div>' . _("Loading...") . '</div><iframe sandbox="allow-popups allow-same-origin allow-scripts" class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none;height:auto;"></iframe>';
         $data['type'] = 'text/html; charset=UTF-8';
 
         return array(
