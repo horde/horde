@@ -572,4 +572,38 @@ Mike', $body);
         $mail->send($dummy);
     }
 
+    public function testBug13709()
+    {
+        $p_part = new Horde_Mime_Part();
+        $p_part->setType('text/plain');
+        $p_part->setContents('Foo bär');
+        $h_part = new Horde_Mime_Part();
+        $h_part->setType('text/html');
+        $h_part->setContents('Foo<br />
+<br />
+&quot;smith, Jane (IAM)&quot; &lt;<a href="mailto:Jane.smith@kit.edu">Jane.smith@kit.edu</a>&gt; wrote:<br />
+<br />
+<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;"><html><head><meta http-equiv="Content-Type" content="text/html charset=windows-1252"></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">Hallo Jörk,<div><br></div><div>hoffe es geht dir gut und bei HHHH ist alles okay?</div><div><br></div><div>Ich wollte gerade auf die XXX III Homepage schauen und haben im Browser nur <a href="http://example.com">example.com</a> eingegeben.</div><div>Damit bin ich auf einer Seite mit XXX II - Logo gelandet, die sofort Passwort und Nutzername abgefragt hat.</div><div>Ist diese Seite auch von Euch?</div><div><br></div><div>Liebe Grüße,</div><div>Jane</div><div><br></div><div><br></div><div><br></div><div><br></div><div><br><div>
+<div><div style="orphans: 2; text-align: -webkit-auto; widows: 2; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; font-size: 10px;">--------------------------------------------------<br>Dr. Jane smith</div><div style="orphans: 2; text-align: -webkit-auto; widows: 2; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; font-size: 10px;">( geb. Repper)<br>Karlsruhe Institute of Technology (KIT)&nbsp;<br>IAM-WK@INT&nbsp;<br>Hermann-von-Helmholtz-Platz 1, Building 640,&nbsp;</div><div style="orphans: 2; text-align: -webkit-auto; widows: 2; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; font-size: 10px;">76344&nbsp;Eggenstein-Leopoldshafen, Germany<br><br>Phone CN: +49 721 608-26960</div><div style="orphans: 2; text-align: -webkit-auto; widows: 2; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space; font-size: 10px;">Phone CS: +49 721 608-47447<br>Web:&nbsp;<a href="http://www.kit.edu/">http://www.kit.edu/</a>&nbsp;<br><br>KIT – University of the State of Baden-Wuerttemberg&nbsp;and<br>National Research Center of the Helmholtz&nbsp;Association</div></div>
+</div>
+<br></div></body></html></blockquote><br /><br />');
+
+
+        $base_part = new Horde_Mime_Part();
+        $base_part->setType('multipart/alternative');
+        $base_part->addPart($p_part);
+        $base_part->addPart($h_part);
+        $headers = $base_part->addMimeHeaders();
+        $headers->addHeader('From', 'sender@example.com');
+        $headers->addHeader('Subject', 'My Subject');
+        $mailer = new Horde_Mail_Transport_Mock();
+        $base_part->send('recipient@example.com', $headers, $mailer, array('encode' => Horde_Mime_Part::ENCODE_8BIT));
+        $sent = current($mailer->sentMessages);
+        $sent_mime = Horde_Mime_Part::parseMessage($sent['header_text'] . "\n\n" . $sent['body']);
+        $headers = Horde_Mime_Headers::parseHeaders($sent_mime->getPart($sent_mime->findBody('plain'))->toString(array('headers' => true, 'encode' => Horde_Mime_Part::ENCODE_8BIT)));
+        $this->assertEquals('8bit', $headers->getHeader('Content-Transfer-Encoding')->value_single);
+        $headers = Horde_Mime_Headers::parseHeaders($sent_mime->getPart($sent_mime->findBody('html'))->toString(array('headers' => true, 'encode' => Horde_Mime_Part::ENCODE_8BIT)));
+        $this->assertEquals('quoted-printable', $headers->getHeader('Content-Transfer-Encoding'));
+    }
+
 }
