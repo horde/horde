@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-25</date>
+ <date>2014-12-04</date>
  <version>
   <release>2.5.3</release>
   <api>2.5.0</api>
@@ -28,13 +28,21 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
      <dir name="Mime">
+      <dir name="mime_mapping">
+       <file name="convert.php" role="doc" />
+       <file name="Makefile" role="doc" />
+       <file name="mime.globs" role="doc" />
+       <file name="mime.types" role="doc" />
+       <file name="mime.types.horde" role="doc" />
+       <file name="README" role="doc" />
+      </dir> <!-- /doc/Horde/Mime/mime_mapping -->
       <file name="COPYING" role="doc" />
       <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Mime -->
@@ -502,6 +510,12 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Mime/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Mime/UPGRADING" />
+   <install as="mime_mapping/convert.php" name="doc/Horde/Mime/mime_mapping/convert.php" />
+   <install as="mime_mapping/Makefile" name="doc/Horde/Mime/mime_mapping/Makefile" />
+   <install as="mime_mapping/mime.globs" name="doc/Horde/Mime/mime_mapping/mime.globs" />
+   <install as="mime_mapping/mime.types" name="doc/Horde/Mime/mime_mapping/mime.types" />
+   <install as="mime_mapping/mime.types.horde" name="doc/Horde/Mime/mime_mapping/mime.types.horde" />
+   <install as="mime_mapping/README" name="doc/Horde/Mime/mime_mapping/README" />
    <install as="Horde/Mime.php" name="lib/Horde/Mime.php" />
    <install as="Horde/Mime/Exception.php" name="lib/Horde/Mime/Exception.php" />
    <install as="Horde/Mime/Headers.php" name="lib/Horde/Mime/Headers.php" />
@@ -1544,10 +1558,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-24</date>
+   <date>2014-12-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
    </notes>
   </release>
  </changelog>
