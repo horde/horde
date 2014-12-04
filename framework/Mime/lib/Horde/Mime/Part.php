@@ -1382,20 +1382,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 break;
 
             case 'text':
-                $eol = $this->getEOL();
-
-                if ($this->_scanStream($this->_contents, 'preg', "/(?:" . $eol . "|^)[^" . $eol . "]{999,}(?:" . $eol . "|$)/")) {
+                switch ($this->_scanStream($this->_contents)) {
+                case 'binary':
                     /* If the text is longer than 998 characters between
                      * linebreaks, use quoted-printable encoding to ensure the
                      * text will not be chopped (i.e. by sendmail if being
                      * sent as mail text). */
                     $encoding = 'quoted-printable';
-                } elseif ($this->_scanStream($this->_contents, '8bit')) {
-                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
+                    break;
+
+                case '8bit':
+                    $encoding = (($encode & self::ENCODE_8BIT) || ($encode & self::ENCODE_BINARY))
                         ? '8bit'
                         : 'quoted-printable';
-                } else {
+                    break;
+
+                default:
                     $encoding = '7bit';
+                    break;
                 }
                 break;
 
@@ -1419,7 +1423,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
              * those encodings. */
             if (!$nobinary &&
                 in_array($encoding, array('8bit', '7bit')) &&
-                $this->_scanStream($this->_contents, 'binary')) {
+                ($this->_scanStream($this->_contents) === 'binary')) {
                 $encoding = ($encode & self::ENCODE_BINARY)
                     ? 'binary'
                     : 'base64';
@@ -1964,41 +1968,35 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     }
 
     /**
-     * Scans a stream for the requested data.
+     * Scans a stream for content type.
      *
      * @param resource $fp  A stream resource.
-     * @param string $type  Either '8bit', 'binary', or 'preg'.
-     * @param mixed $data   Any additional data needed to do the scan.
      *
-     * @param boolean  The result of the scan.
+     * @param mixed  Either 'binary', '8bit', or false.
      */
-    protected function _scanStream($fp, $type, $data = null)
+    protected function _scanStream($fp)
     {
         rewind($fp);
-        while (is_resource($fp) && !feof($fp)) {
-            $line = fread($fp, 8192);
-            switch ($type) {
-            case '8bit':
-                if (Horde_Mime::is8bit($line)) {
-                    return true;
-                }
-                break;
 
-            case 'binary':
-                if (strpos($line, "\0") !== false) {
-                    return true;
-                }
-                break;
+        stream_filter_register(
+            'horde_mime_scan_stream',
+            'Horde_Mime_Filter_Encoding'
+        );
+        $filter_params = new stdClass;
+        $filter = stream_filter_append(
+            $fp,
+            'horde_mime_scan_stream',
+            STREAM_FILTER_READ,
+            $filter_params
+        );
 
-            case 'preg':
-                if (preg_match($data, $line)) {
-                    return true;
-                }
-                break;
-            }
+        while (!feof($fp)) {
+            fread($fp, 8192);
         }
 
-        return false;
+        stream_filter_remove($filter);
+
+        return $filter_params->body;
     }
 
     /**

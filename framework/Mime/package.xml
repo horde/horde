@@ -19,8 +19,8 @@
  </lead>
  <date>2014-12-04</date>
  <version>
-  <release>2.5.3</release>
-  <api>2.5.0</api>
+  <release>2.6.0</release>
+  <api>2.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Mime_Filter_Encoding class.
 * [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
  </notes>
@@ -55,6 +56,9 @@
       <dir name="ContentParam">
        <file name="Decode.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/ContentParam -->
+      <dir name="Filter">
+       <file name="Encoding.php" role="php" />
+      </dir> <!-- /lib/Horde/Mime/Filter -->
       <dir name="Headers">
        <dir name="Element">
         <file name="Address.php" role="php" />
@@ -353,6 +357,9 @@
       <dir name="ContentParam">
        <file name="DecodeTest.php" role="test" />
       </dir> <!-- /test/Horde/Mime/ContentParam -->
+      <dir name="Filter">
+       <file name="EncodingTest.php" role="test" />
+      </dir> <!-- /test/Horde/Mime/Filter -->
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
        <file name="blank_subject.txt" role="test" />
@@ -531,6 +538,7 @@
    <install as="Horde/Mime/Translation.php" name="lib/Horde/Mime/Translation.php" />
    <install as="Horde/Mime/Uudecode.php" name="lib/Horde/Mime/Uudecode.php" />
    <install as="Horde/Mime/ContentParam/Decode.php" name="lib/Horde/Mime/ContentParam/Decode.php" />
+   <install as="Horde/Mime/Filter/Encoding.php" name="lib/Horde/Mime/Filter/Encoding.php" />
    <install as="Horde/Mime/Headers/Addresses.php" name="lib/Horde/Mime/Headers/Addresses.php" />
    <install as="Horde/Mime/Headers/AddressesMulti.php" name="lib/Horde/Mime/Headers/AddressesMulti.php" />
    <install as="Horde/Mime/Headers/ContentParam.php" name="lib/Horde/Mime/Headers/ContentParam.php" />
@@ -645,6 +653,7 @@
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/UudecodeTest.php" name="test/Horde/Mime/UudecodeTest.php" />
    <install as="Horde/Mime/ContentParam/DecodeTest.php" name="test/Horde/Mime/ContentParam/DecodeTest.php" />
+   <install as="Horde/Mime/Filter/EncodingTest.php" name="test/Horde/Mime/Filter/EncodingTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/blank_subject.txt" name="test/Horde/Mime/fixtures/blank_subject.txt" />
    <install as="Horde/Mime/fixtures/bug12536.txt" name="test/Horde/Mime/fixtures/bug12536.txt" />
@@ -1554,14 +1563,15 @@
   </release>
   <release>
    <version>
-    <release>2.5.3</release>
-    <api>2.5.0</api></version>
+    <release>2.6.0</release>
+    <api>2.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-12-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Mime_Filter_Encoding class.
 * [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
    </notes>
