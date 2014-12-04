@@ -32,10 +32,11 @@ class Horde_Mime
 
     /**
      * Use windows-1252 charset when decoding ISO-8859-1 data?
+     * HTML 5 requires this behavior, so it is the default.
      *
      * @var boolean
      */
-    public static $decodeWindows1252 = false;
+    public static $decodeWindows1252 = true;
 
     /**
      * Determines if a string contains 8-bit (non US-ASCII) characters.

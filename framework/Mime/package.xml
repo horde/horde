@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
  </notes>
  <contents>
@@ -1561,6 +1562,7 @@
    <date>2014-12-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
    </notes>
   </release>
