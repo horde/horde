@@ -1359,16 +1359,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (empty($this->_contents)) {
             $encoding = '7bit';
         } else {
-            $nobinary = false;
-
             switch ($this->getPrimaryType()) {
             case 'message':
             case 'multipart':
                 /* RFC 2046 [5.2.1] - message/rfc822 messages only allow 7bit,
                  * 8bit, and binary encodings. If the current encoding is
                  * either base64 or q-p, switch it to 8bit instead.
-                 * RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other message/*
-                 * messages only allow 7bit encodings.
+                 * RFC 2046 [5.2.2, 5.2.3, 5.2.4] - All other messages
+                 * only allow 7bit encodings.
                  *
                  * TODO: What if message contains 8bit characters and we are
                  * in strict 7bit mode? Not sure there is anything we can do
@@ -1377,56 +1375,39 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                  * These encoding will be figured out later (via toString()).
                  * They are limited to 7bit, 8bit, and binary. Default to
                  * '7bit' per RFCs. */
+                $default_8bit = 'base64';
                 $encoding = '7bit';
-                $nobinary = true;
                 break;
 
             case 'text':
-                switch ($this->_scanStream($this->_contents)) {
-                case 'binary':
-                    /* If the text is longer than 998 characters between
-                     * linebreaks, use quoted-printable encoding to ensure the
-                     * text will not be chopped (i.e. by sendmail if being
-                     * sent as mail text). */
-                    $encoding = 'quoted-printable';
-                    break;
-
-                case '8bit':
-                    $encoding = (($encode & self::ENCODE_8BIT) || ($encode & self::ENCODE_BINARY))
-                        ? '8bit'
-                        : 'quoted-printable';
-                    break;
-
-                default:
-                    $encoding = '7bit';
-                    break;
-                }
+                $default_8bit = 'quoted-printable';
+                $encoding = '7bit';
                 break;
 
             default:
+                $default_8bit = 'base64';
                 /* If transfer encoding has changed from the default, use that
                  * value. */
-                if ($this->_transferEncoding != self::DEFAULT_ENCODING) {
-                    $encoding = $this->_transferEncoding;
-                } else {
-                    $encoding = ($encode & self::ENCODE_8BIT || $encode & self::ENCODE_BINARY)
-                        ? '8bit'
-                        : 'base64';
-                }
+                $encoding = ($this->_transferEncoding == self::DEFAULT_ENCODING)
+                    ? 'base64'
+                    : $this->_transferEncoding;
                 break;
             }
 
-            /* Need to do one last check for binary data if encoding is 7bit
-             * or 8bit.  If the message contains a NULL character at all, the
-             * message MUST be in binary format. RFC 2046 [2.7, 2.8, 2.9]. Q-P
-             * and base64 can handle binary data fine so no need to switch
-             * those encodings. */
-            if (!$nobinary &&
-                in_array($encoding, array('8bit', '7bit')) &&
-                ($this->_scanStream($this->_contents) === 'binary')) {
-                $encoding = ($encode & self::ENCODE_BINARY)
-                    ? 'binary'
-                    : 'base64';
+            switch ($this->_scanStream($this->_contents)) {
+            case 'binary':
+                /* If the text is longer than 998 characters between
+                 * linebreaks, use quoted-printable encoding to ensure the
+                 * text will not be chopped (i.e. by sendmail if being
+                 * sent as mail text). */
+                $encoding = $default_8bit;
+                break;
+
+            case '8bit':
+                $encoding = (($encode & self::ENCODE_8BIT) || ($encode & self::ENCODE_BINARY))
+                    ? '8bit'
+                    : $default_8bit;
+                break;
             }
         }
 
