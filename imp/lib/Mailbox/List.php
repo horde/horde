@@ -107,18 +107,20 @@ implements ArrayAccess, Countable, Iterator, Serializable
      *           DEFAULT: false
      *
      * @return array  An array with the following keys:
+     * <pre>
      *   - overview: (array) The overview information. Contains the following:
-     *   - envelope: (Horde_Imap_Client_Data_Envelope) Envelope information
-     *               returned from the IMAP server.
-     *   - flags: (array) The list of IMAP flags returned from the server.
-     *   - headers: (array) Horde_Mime_Headers objects containing header data
-     *              if either $options['headers'] or $options['type'] are
-     *              true.
-     *   - idx: (integer) Array index of this message.
-     *   - mailbox: (string) The mailbox containing the message.
-     *   - size: (integer) The size of the message in bytes.
-     *   - uid: (string) The unique ID of the message.
+     *     - envelope: (Horde_Imap_Client_Data_Envelope) Envelope information
+     *                 returned from the IMAP server.
+     *     - flags: (array) The list of IMAP flags returned from the server.
+     *     - headers: (array) Horde_Mime_Headers objects containing header data
+     *                if either $options['headers'] or $options['type'] are
+     *                true.
+     *     - idx: (integer) Array index of this message.
+     *     - mailbox: (string) The mailbox containing the message.
+     *     - size: (integer) The size of the message in bytes.
+     *     - uid: (string) The unique ID of the message.
      *   - uids: (IMP_Indices) An indices object.
+     * </pre>
      */
     public function getMailboxArray($msgnum, $options = array())
     {
