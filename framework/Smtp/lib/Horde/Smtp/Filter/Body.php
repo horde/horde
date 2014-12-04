@@ -20,6 +20,7 @@
  * @copyright 2014 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Smtp
+ * @since     1.7.0
  */
 class Horde_Smtp_Filter_Body extends php_user_filter
 {

@@ -33,6 +33,10 @@ Upgrading to 1.7.0
     Added the CATEGORY_* constants to provide more general error categories if
     an error code is not handled specifically.
 
+  - Horde_Smtp_Filter_Body
+
+    This class was added.
+
 
 Upgrading to 1.6.0
 ==================
