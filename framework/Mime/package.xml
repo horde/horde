@@ -19,7 +19,7 @@
  </lead>
  <date>2014-12-05</date>
  <version>
-  <release>2.6.0</release>
+  <release>2.6.1</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_Mime_Filter_Encoding class.
-* [mms] MIME decoding uses windows-1252 charset by default when iso-8859-1 is identified in the MIME encoded string.
-* [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1574,6 +1572,19 @@
 * [mms] Added Horde_Mime_Filter_Encoding class.
 * [mms] MIME decoding uses windows-1252 charset by default when iso-8859-1 is identified in the MIME encoded string.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
