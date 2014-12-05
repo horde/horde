@@ -25,28 +25,53 @@
  */
 class Horde_Smtp_FilterDataTest extends Horde_Test_Case
 {
-    private $stream;
+    const FILTER_ID = 'horde_smtp_data';
 
     public function setUp()
     {
-        $this->stream = fopen('php://temp', 'r+');
-        stream_filter_register('horde_smtp_data', 'Horde_Smtp_Filter_Data');
-        stream_filter_append($this->stream, 'horde_smtp_data', STREAM_FILTER_READ);
+        stream_filter_register(self::FILTER_ID, 'Horde_Smtp_Filter_Data');
     }
 
-    public function tearDown()
+    /**
+     * @dataProvider escapeProvider
+     */
+    public function testEscape($in, $expected)
     {
-        fclose($this->stream);
-    }
+        $stream = fopen('php://temp', 'r+');
+        stream_filter_append($stream, self::FILTER_ID, STREAM_FILTER_READ);
 
-    public function testLeadingPeriodsEscape()
-    {
-        fwrite($this->stream, "Foo\r\n.\r\nFoo\r\n");
-        rewind($this->stream);
+        fwrite($stream, $in);
+        rewind($stream);
 
         $this->assertEquals(
-            "Foo\r\n..\r\nFoo\r\n",
-            stream_get_contents($this->stream)
+            $expected,
+            stream_get_contents($stream)
+        );
+    }
+
+    public function escapeProvider()
+    {
+        return array(
+            array(
+                "Foo\nBar",
+                "Foo\r\nBar"
+            ),
+            array(
+                "Foo\rBar",
+                "Foo\r\nBar"
+            ),
+            array(
+                "Foo\r\nBar",
+                "Foo\r\nBar"
+            ),
+            array(
+                "Foo\r\n.\r\nBar\r\n",
+                "Foo\r\n..\r\nBar\r\n"
+            ),
+            array(
+                "Foo\r.\r\n\n .Foo\n\r\nBaz",
+                "Foo\r\n..\r\n\r\n .Foo\r\n\r\nBaz"
+            )
         );
     }
 
