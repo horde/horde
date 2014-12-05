@@ -1,8 +1,16 @@
+#identity {
+    min-height: 26px;
+}
 #to,
 #cc,
 #bcc,
 #subject {
-    width: 500px;
+    width: 550px;
+}
+#subject {
+    height: 24px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 #composeContainer .header,
 #qreply .header {
@@ -55,9 +63,10 @@
     background-color: #eceff0;
     border-bottom: 1px solid #d0d0d0;
     cursor: default;
-    padding: 10px;
+    padding: 10px 8px;
 }
 .msgwrite .optionsContainer {
+    max-width: 175px;
     padding: 8px 8px 0 0;
 }
 .msgwrite .optionsContainer label {
@@ -106,7 +115,7 @@
 .msgwrite td.label {
     white-space: nowrap;
     text-align: right;
-    padding: 4px 4px 0 4px;
+    padding: 6px 4px 0 0;
     font-weight: bold;
 }
 .msgwrite span.loadingImg {
@@ -224,7 +233,9 @@
     padding-left: 0;
 }
 #atcdiv {
-    padding-top: 5px;
+    border-top: 1px solid #d0d0d0;
+    margin-top: 4px;
+    padding-top: 6px;
 }
 #atcdiv .horde-popdown {
     display: inline-block;
@@ -324,10 +335,10 @@ span.attachmentImg {
     background-color: #ebeff0;
     display: inline-block;
     max-height: 150px;
-    min-height: 0;
+    min-height: 22px;
     overflow-y: auto;
     padding: 3px;
-    width: 500px;
+    width: 550px;
 }
 .impACBoxFocus {
     background-color: #fff;
