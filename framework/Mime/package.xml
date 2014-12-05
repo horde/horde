@@ -29,7 +29,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Added Horde_Mime_Filter_Encoding class.
-* [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
+* [mms] MIME decoding uses windows-1252 charset by default when iso-8859-1 is identified in the MIME encoded string.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
  </notes>
  <contents>
@@ -1572,7 +1572,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Added Horde_Mime_Filter_Encoding class.
-* [mms] MIME decoding uses windows-1252 by default when iso-8859-1 is reported.
+* [mms] MIME decoding uses windows-1252 charset by default when iso-8859-1 is identified in the MIME encoded string.
 * [mms] Move mime.mapping.php generation code from horde-support repository into doc/ directory.
    </notes>
   </release>
