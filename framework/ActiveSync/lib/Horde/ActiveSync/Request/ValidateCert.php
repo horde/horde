@@ -100,7 +100,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
             } elseif ($field == self::VALIDATECERT_CHECKCRL) {
-               $checkcrl = $this->_decoder->getElementContent()) {
+               $checkcrl = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     throw new Horde_ActiveSync_Exception('Protocol Error');
                 }
