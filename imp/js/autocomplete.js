@@ -270,11 +270,12 @@ var IMP_Autocompleter = Class.create({
 
     updateInput: function(input)
     {
+        var entry;
+
         if (Object.isElement(input)) {
-            this.input.setValue(
-                this.getEntryByElt(input).value
-            );
-            this.removeEntry(input);
+            entry = this.getEntryByElt(input);
+            this.input.setValue(entry.value);
+            this.removeEntry(entry);
         } else {
             this.input.setValue(input);
             this.resize();
@@ -282,15 +283,15 @@ var IMP_Autocompleter = Class.create({
         }
     },
 
-    removeEntry: function(input)
+    removeEntry: function(entry)
     {
-        if (!input) {
+        if (!entry) {
             return;
         }
 
-        input = input.remove();
+        entry.elt.remove();
         this.data = this.data.findAll(function(v) {
-            return (v.id != input.retrieve('itemid'));
+            return (v.id != entry.id);
         });
         this.updateHiddenInput();
         this.resize();
@@ -336,7 +337,7 @@ var IMP_Autocompleter = Class.create({
 
         if (!this.p.onEntryClick({ ac: this, elt: elt, entry: li })) {
             if (elt.hasClassName(this.p.removeClass)) {
-                this.removeEntry(li);
+                this.removeEntry(this.getEntryByElt(li));
             }
         }
 
