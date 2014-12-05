@@ -35,6 +35,7 @@ var ImpCkeditorImgs = {};
         if (!active[n]) {
             active[n] = [];
             editor.on('afterUndoImage', checkRemove);
+            editor.resetUndo();
         }
 
         active[n].push(elt);
@@ -65,6 +66,8 @@ var ImpCkeditorImgs = {};
             delete active[n];
             editor.removeListener('afterUndoImage', checkRemove);
         }
+
+        editor.resetUndo();
     };
 
 }(ImpCkeditorImgs));
