@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-04</date>
+ <date>2014-12-05</date>
  <version>
   <release>2.20.5</release>
   <api>2.20.0</api>
@@ -227,6 +227,9 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="ActiveSync">
+      <dir name="Factory">
+       <file name="TestServer.php" role="test" />
+      </dir> <!-- /test/Horde/ActiveSync/Factory -->
       <dir name="fixtures">
        <file name="appointment.wbxml" role="test" />
        <file name="default_policies.wbxml" role="test" />
@@ -555,6 +558,7 @@
    <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
    <install as="Horde/ActiveSync/ServerTest.php" name="test/Horde/ActiveSync/ServerTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
+   <install as="Horde/ActiveSync/Factory/TestServer.php" name="test/Horde/ActiveSync/Factory/TestServer.php" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />

@@ -8,36 +8,17 @@
  */
 class Horde_ActiveSync_ImapAdapterTest extends Horde_Test_Case
 {
-    protected static $_server;
-    protected static $_input;
-    protected static $_driver;
-    protected static $_request;
-
-    public function setup()
-    {
-        self::$_driver = $this->getMockSkipConstructor('Horde_ActiveSync_Driver_Base');
-        self::$_input = fopen('php://memory', 'wb+');
-        $decoder = new Horde_ActiveSync_Wbxml_Decoder(self::$_input);
-        $output = fopen('php://memory', 'wb+');
-        $encoder = new Horde_ActiveSync_Wbxml_Encoder($output);
-        $state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Base');
-        self::$_request = $this->getMockSkipConstructor('Horde_Controller_Request_Http');
-        self::$_request->expects($this->any())
-            ->method('getHeader')
-            ->will($this->returnValue('14.1'));
-        self::$_server = new Horde_ActiveSync(self::$_driver, $decoder, $encoder, $state, self::$_request);
-    }
-
     public function testBug13711()
     {
+        $factory = new Horde_ActiveSync_Factory_TestServer();
         $imap_client = $this->getMockSkipConstructor('Horde_Imap_Client_Socket');
         $imap_client->expects($this->any())
             ->method('fetch')
             ->will($this->_getFixturesFor13711());
 
-        $factory = new Horde_ActiveSync_Stub_ImapFactory();
-        $factory->fixture = $imap_client;
-        $adapter = new Horde_ActiveSync_Imap_Adapter(array('factory' => $factory));
+        $imap_factory = new Horde_ActiveSync_Stub_ImapFactory();
+        $imap_factory->fixture = $imap_client;
+        $adapter = new Horde_ActiveSync_Imap_Adapter(array('factory' => $imap_factory));
 
         $adapter->getMessages(
             'INBOX',
