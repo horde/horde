@@ -26,6 +26,7 @@ var ImpCompose = {
     // last_identity,
     // onload_show,
     // old_action,
+    // old_bcc,
     // old_identity,
     // rte_sig,
     // sc_submit,
@@ -144,11 +145,17 @@ var ImpCompose = {
                 label: 'sent_mail_label'
             }
         });
-        if (identity.bcc) {
-            $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc)
-                .fire('AutoComplete:reset');
-            this.toggleCC('bcc');
+
+        if (this.old_bcc) {
+            this.ac.get('bcc').removeEntry(this.old_bcc);
         }
+        delete this.old_bcc;
+
+        if (identity.bcc) {
+            this.old_bcc = new IMP_Autocompleter_Elt(identity.bcc);
+            this.updateAddrField('bcc', [ this.old_bcc ]);
+        }
+
         this.setSaveSentMail(identity.sm_save);
         this.setSignature(this.editor_on, identity);
         this.last_identity = $F('identity');
@@ -1494,11 +1501,6 @@ var ImpCompose = {
             });
         } else {
             $('other_options').hide();
-        }
-
-        /* Create sent-mail list. */
-        if ($('save_sent_mail_mbox')) {
-            this.changeIdentity();
         }
 
         /* Create priority list. */
