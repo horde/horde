@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2536,7 +2536,7 @@
    <date>2014-12-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
    </notes>
   </release>
  </changelog>
