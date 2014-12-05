@@ -2934,7 +2934,7 @@ var ImpBase = {
                     actionID: 'view_source',
                     id: 0
                 }),
-                { name: this.preview.uniqueId() }
+                { name: this.preview.uniqueId() + '|' + id }
             );
             break;
 
@@ -2943,7 +2943,7 @@ var ImpBase = {
             HordeCore.popupWindow(
                 (id == 'ctx_preview_listinfo') ? ImpCore.conf.URI_LISTINFO : ImpCore.conf.URI_THREAD,
                 this.preview.popupWindowParams({}),
-                { name: this.preview.uniqueId() }
+                { name: this.preview.uniqueId() + '|' + id }
             );
             break;
 
