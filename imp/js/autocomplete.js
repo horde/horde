@@ -284,6 +284,10 @@ var IMP_Autocompleter = Class.create({
 
     removeEntry: function(input)
     {
+        if (!input) {
+            return;
+        }
+
         input = input.remove();
         this.data = this.data.findAll(function(v) {
             return (v.id != input.retrieve('itemid'));
