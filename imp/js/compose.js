@@ -137,7 +137,14 @@ var ImpCompose = {
             return false;
         }
 
-        var identity = this.identities[$F('identity')];
+        var identity,
+            identity_id = $F('identity');
+
+        if (this.last_identity === identity_id) {
+            return true;
+        }
+
+        identity = this.identities[identity_id];
 
         this.setPopdownLabel('sm', identity.sm_name, identity.sm_display, {
             opts: {
