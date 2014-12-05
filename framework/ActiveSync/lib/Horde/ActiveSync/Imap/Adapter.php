@@ -1038,9 +1038,14 @@ class Horde_ActiveSync_Imap_Adapter
                         $base = $mime;
                     }
 
-                    // Populate the EAS body structure with the MIME data.
+                    // Populate the EAS body structure with the MIME data, but
+                    // remove the Content-Type and Content-Transfer-Encoding
+                    // headers since we are building this ourselves.
+                    $headers = $imap_message->getHeaders();
+                    $headers->removeHeader('Content-Type');
+                    $headers->removeHeader('Content-Transfer-Encoding');
                     $airsync_body->data = $base->toString(array(
-                        'headers' => $imap_message->getHeaders(),
+                        'headers' => $headers,
                         'stream' => true)
                     );
                     $airsync_body->estimateddatasize = $base->getBytes();
