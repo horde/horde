@@ -51,9 +51,9 @@ class Horde_Smtp_Filter_Data extends php_user_filter
             }
 
             // EOLs need to be CRLF; double leading periods.
-            $bucket->data = preg_replace(
-                array("/(?:\r\n|\n|\r(?!\n))/", "/\n\./"),
-                array("\r\n", "\n.."),
+            $bucket->data = str_replace(
+                array("\r\n", "\r", "\n", "\n."),
+                array("\n", "\n", "\r\n", "\n.."),
                 $bucket->data
             );
 
