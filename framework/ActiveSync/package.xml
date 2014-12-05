@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue that could cause broken sync when an email contains no text parts (Bug #13711).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2516,10 +2516,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-04</date>
+   <date>2014-12-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue that could cause broken sync when an email contains no text parts (Bug #13711).
    </notes>
   </release>
  </changelog>
