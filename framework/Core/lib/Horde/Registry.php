@@ -1528,7 +1528,14 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Bail out if application is not present or inactive. */
         if ($this->isInactive($app)) {
-            throw new Horde_Exception_PushApp($app . ' is not activated.', self::NOT_ACTIVE, $app);
+            throw new Horde_Exception_PushApp(
+                sprintf(
+                    Horde_Core_Translation::t("%s is not activated."),
+                    $this->applications[$app]['name']
+                ),
+                self::NOT_ACTIVE,
+                $app
+            );
         }
 
         $checkPerms = ((!isset($options['check_perms']) ||
