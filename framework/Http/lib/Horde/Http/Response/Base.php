@@ -90,13 +90,13 @@ abstract class Horde_Http_Response_Base
 
                 if ($tmp = $this->_headers[$headerName]) {
                     if (!is_array($tmp)) {
-                        $this->_headers[$headerName] = array($tmp);
+                        $tmp = array($tmp);
                     }
-
-                    $this->_headers[$headerName][] = $headerValue;
-                } else {
-                    $this->_headers[$headerName] = $headerValue;
+                    $tmp[] = $headerValue;
+                    $headerValue = $tmp;
                 }
+
+                $this->_headers[$headerName] = $headerValue;
                 $lastHeader = $headerName;
             } elseif (preg_match("|^\s+(.+)$|", $headerLine, $m) &&
                       !is_null($lastHeader)) {
