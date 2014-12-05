@@ -49,7 +49,7 @@ document.observe('dom:loaded', function() {
 
             definition.dialog.on('cancel', function(ev2) {
                 if (rf.attrdata) {
-                    IMP_Ckeditor_Imagepoll.remove([
+                    ImpCkeditorImgs.remove(ev.editor, [
                         new CKEDITOR.dom.element('IMG').writeAttribute(rf.attrdata)
                     ]);
                 }
@@ -59,7 +59,7 @@ document.observe('dom:loaded', function() {
                 var elt = new CKEDITOR.dom.element(ev2.sender.imageElement.$);
                 if (elt.isVisible()) {
                     elt.setAttributes(rf.attrdata);
-                    IMP_Ckeditor_Imagepoll.add(elt.$);
+                    ImpCkeditorImgs.add(ev.editor, elt.$);
                 }
             });
         }

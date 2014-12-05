@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-12-04</date>
+ <date>2014-12-05</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -97,7 +97,7 @@
    </dir> <!-- /docs -->
    <dir name="js">
     <dir name="ckeditor">
-     <file name="imagepoll.js" role="horde" />
+     <file name="images.js" role="horde" />
      <file name="imageupload.js" role="horde" />
      <file name="pasteattachment.js" role="horde" />
      <file name="pasteignore.js" role="horde" />
@@ -1529,7 +1529,7 @@
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
    <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
-   <install as="imp/js/ckeditor/imagepoll.js" name="js/ckeditor/imagepoll.js" />
+   <install as="imp/js/ckeditor/images.js" name="js/ckeditor/images.js" />
    <install as="imp/js/ckeditor/imageupload.js" name="js/ckeditor/imageupload.js" />
    <install as="imp/js/ckeditor/pasteattachment.js" name="js/ckeditor/pasteattachment.js" />
    <install as="imp/js/ckeditor/pasteignore.js" name="js/ckeditor/pasteignore.js" />

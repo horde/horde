@@ -19,7 +19,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     elt.setAttribute(r.img.related[0], r.img.related[1]);
                     elt.setAttribute('height', elt.height);
                     elt.setAttribute('width', elt.width);
-                    IMP_Ckeditor_Imagepoll.add(elt);
+                    ImpCkeditorImgs.add(editor, elt);
                 } else {
                     elt.parentNode.removeChild(elt);
                 }
@@ -148,7 +148,7 @@ CKEDITOR.plugins.add('pasteattachment', {
                     if (data.size() != 2) {
                         /* IE 10 doesn't support pasting images, so don't try
                          * to copy HTML IMG source. */
-                        if (span.hasAttribute(IMP_Ckeditor_Imagepoll.related_attr)) {
+                        if (span.hasAttribute(ImpCkeditorImgs.related_attr)) {
                             ev.data.html = '';
                         }
                         return;
