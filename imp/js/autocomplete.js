@@ -208,11 +208,7 @@ var IMP_Autocompleter = Class.create({
 
     getEntryByElt: function(elt)
     {
-        var itemid = elt.retrieve('itemid');
-
-        return this.data.detect(function(v) {
-            return (v.id == itemid);
-        });
+        return this.getEntryById(elt.retrieve('itemid'));
     },
 
     getEntryById: function(id)
@@ -276,7 +272,7 @@ var IMP_Autocompleter = Class.create({
     {
         if (Object.isElement(input)) {
             this.input.setValue(
-                this.getEntryById(input.retrieve('itemid')).value
+                this.getEntryByElt(input).value
             );
             this.removeEntry(input);
         } else {
