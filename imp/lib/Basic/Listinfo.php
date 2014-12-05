@@ -106,7 +106,17 @@ class IMP_Basic_Listinfo extends IMP_Basic_Base
         $parser = $injector->getInstance('Horde_ListHeaders');
         $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
 
-        foreach ($parser->parse($id, $data) as $val) {
+        $parsed = $parser->parse($id, $data);
+
+        if ($parsed instanceof Horde_ListHeaders_Id) {
+            $out = $parsed->id;
+            if ($parsed->label) {
+                $out .= ' -- <em>' . $parsed->label . '</em>';
+            }
+            return $out;
+        }
+
+        foreach ($parsed as $val) {
             /* RFC 2369 [2] states that we should only show the *FIRST* URL
              * that appears in a header that we can adequately handle. */
             if (stripos($val->url, 'mailto:') === 0) {
