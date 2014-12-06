@@ -270,8 +270,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketInformation($pgpdata)
     {
         $data_array = array();
-        $keyid = '';
-        $header = null;
+        $header = $keyid = null;
         $input = $this->_createTempFile('horde-pgp');
         $sig_id = $uid_idx = 0;
 
@@ -290,20 +289,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             if (strpos($line, ':') === 0) {
                 $lowerLine = Horde_String::lower($line);
 
-                /* If we have a key (rather than a signature block), get the
-                   key's ID */
-                if (strpos($lowerLine, ':public key packet:') !== false ||
-                    strpos($lowerLine, ':secret key packet:') !== false) {
-                    $cmdline = array(
-                        '--with-colons',
-                        $input
-                    );
-                    $data = $this->_callGpg($cmdline, 'r');
-                    if (preg_match("/(sec|pub):.*:.*:.*:([A-F0-9]{16}):/", $data->stdout, $matches)) {
-                        $keyid = $matches[2];
-                    }
-                }
-
                 if (strpos($lowerLine, ':public key packet:') !== false) {
                     $header = 'public_key';
                 } elseif (strpos($lowerLine, ':secret key packet:') !== false) {
@@ -321,6 +306,9 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                             $data_array['signature'][$header]['comment'] = '';
                         }
                         $data_array['signature'][$header]['email'] = $matches[2];
+                        if (is_null($keyid)) {
+                            $keyid = $this->_pgpPacketInformationKeyId($input);
+                        }
                         $data_array['signature'][$header]['keyid'] = $keyid;
                     }
                 } elseif (strpos($lowerLine, ':signature packet:') !== false) {
@@ -346,6 +334,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                         $data_array[$header]['expires'] = $matches[2];
                     } elseif (preg_match("/\s+[sp]key\[0\]:\s+\[(\d+)/i", $line, $matches)) {
                         $data_array[$header]['size'] = $matches[1];
+                    } elseif (preg_match("/\s+keyid:\s+([0-9A-F]+)/i", $line, $matches)) {
+                        $keyid = $matches[1];
                     }
                 } elseif ($header == 'literal' || $header == 'encrypted') {
                     $data_array[$header] = true;
@@ -366,6 +356,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                             /* Likely a signature block, not a key. */
                             $data_array['signature']['_SIGNATURE']['micalg'] = $micalg;
                         }
+
+                        if (is_null($keyid)) {
+                            $keyid = $this->_pgpPacketInformationKeyId($input);
+                        }
+
                         if ($sig_id == $keyid) {
                             /* Self signing signature - we can assume
                              * the micalg value from this signature is
@@ -378,9 +373,30 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             }
         }
 
+        if (is_null($keyid)) {
+            $keyid = $this->_pgpPacketInformationKeyId($input);
+        }
+
         $keyid && $data_array['keyid'] = $keyid;
 
         return $data_array;
+    }
+
+    /**
+     * TODO
+     */
+    protected function _pgpPacketInformationKeyId($input)
+    {
+        $cmdline = array(
+            '--with-colons',
+            $input
+        );
+        $data = $this->_callGpg($cmdline, 'r');
+        if (preg_match("/(sec|pub):.*:.*:.*:([A-F0-9]{16}):/", $data->stdout, $matches)) {
+            return $matches[2];
+        }
+
+        return null;
     }
 
     /**
