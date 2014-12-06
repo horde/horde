@@ -931,12 +931,19 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $keys = array($keys);
         }
 
+        /* Gnupg v2: --secret-keyring is not used, so import everything into
+         * the main keyring also. */
+        if ($type == 'private') {
+            $this->_putInKeyring($keys);
+        }
+
         /* Create the keyrings if they don't already exist. */
         $keyring = $this->_createKeyring($type);
 
         /* Store the key(s) in the keyring. */
         $cmdline = array(
             '--allow-secret-key-import',
+            '--batch',
             '--fast-import',
             $keyring
         );
