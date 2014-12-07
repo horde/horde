@@ -43,4 +43,31 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
         $this->assertEquals($fixture, $results);
     }
 
+    public function testBodyTypePref()
+    {
+        $fixture = array(
+            'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_HTML => true, Horde_ActiveSync::BODYPREF_TYPE_MIME => true)
+        );
+
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_HTML, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture));
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_MIME, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture, false));
+
+        $fixture = array(
+            'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_HTML => true)
+        );
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_HTML, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture));
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_HTML, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture, false));
+
+        $fixture = array(
+            'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_HTML => true)
+        );
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_HTML, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture));
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_HTML, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture, false));
+
+        $fixture = array(
+            'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_MIME => true)
+        );
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_MIME, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture));
+        $this->assertEquals(Horde_ActiveSync::BODYPREF_TYPE_MIME, Horde_ActiveSync_Utils_Mime::getBodyTypePref($fixture, false));
+    }
 }
