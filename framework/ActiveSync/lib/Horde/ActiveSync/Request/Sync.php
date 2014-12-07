@@ -332,7 +332,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
-        // Start output to PIM
+        // Start output to client
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
@@ -427,7 +427,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             // any changes (incoming or outgoing), if this is during the
             // initial sync pairing of the collection, or if we received a
             // SYNC due to changes found during a PING (since those changes
-            // may be changes to items that never even made it to the PIM in
+            // may be changes to items that never even made it to the client in
             // the first place (See Bug: 12075).
             if ($statusCode == self::STATUS_SUCCESS &&
                 (!empty($collection['importedchanges']) ||
@@ -478,7 +478,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
 
-                // Send server changes to PIM
+                // Send server changes to client
                 if ($statusCode == self::STATUS_SUCCESS &&
                     empty($forceChanges) &&
                     (!empty($collection['getchanges']) ||
@@ -543,7 +543,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         }
                     }
 
-                    // Output server IDs for new items we received and added from PIM
+                    // Output server IDs for new items we received and added from client
                     if (!empty($collection['clientids'])) {
                         foreach ($collection['clientids'] as $clientid => $serverid) {
                             if ($serverid) {
@@ -959,7 +959,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $clientid = false;
             }
 
-            // Create Message object from messages passed from PIM.
+            // Create Message object from messages passed from client.
             // Only passed during SYNC_ADD or SYNC_MODIFY
             if (($element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_ADD ||
                 $element[Horde_ActiveSync_Wbxml::EN_TAG] == Horde_ActiveSync::SYNC_MODIFY) &&

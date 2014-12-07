@@ -81,7 +81,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
-        // Get the current synckey from PIM
+        // Get the current synckey from client
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::FOLDERHIERARCHY_SYNCKEY)) {
             $this->_logger->err('[Horde_ActiveSync::handleFolderSync] No input to parse');
             $this->_statusCode = self::STATUS_PROTOERR;
@@ -180,7 +180,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             return true;
         }
 
-        // Start sending server -> PIM changes
+        // Start sending server -> client changes
         $newsynckey = $this->_state->getNewSyncKey($synckey);
         $exporter = new Horde_ActiveSync_Connector_Exporter($this->_activeSync);
         $exporter->setChanges($collections->getHierarchyChanges(), false);

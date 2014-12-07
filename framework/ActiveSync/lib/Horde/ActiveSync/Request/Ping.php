@@ -90,13 +90,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Handle a PING command from the PIM. PING is sent periodically by the PIM
-     * to tell the server what folders we are interested in monitoring for
-     * changes. If no changes are detected by the server during the 'heartbeat'
-     * interval, the server sends back a status of self::STATUS_NOCHANGES to
-     * indicate heartbeat expired and the client should re-issue the PING
-     * command. If a change has been found, the client is sent a
-     * self::STATUS_NEEDSYNC and should issue a SYNC command.
+     * Handle a PING command from the client. PING is sent periodically by
+     * the client to tell the server what folders we are interested in
+     * monitoring for changes. If no changes are detected by the server during
+     * the 'heartbeat' interval, the server sends back a status of
+     * self::STATUS_NOCHANGES to indicate heartbeat expired and the client
+     * should re-issue the PING command. If a change has been found, the client
+     * is sent a self::STATUS_NEEDSYNC and should issue a SYNC command.
      *
      * @return boolean
      */

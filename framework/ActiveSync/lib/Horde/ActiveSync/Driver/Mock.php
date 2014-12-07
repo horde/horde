@@ -558,7 +558,7 @@ class Horde_ActiveSync_Driver_Mock extends Horde_ActiveSync_Driver_Base
     public function setReadFlag($folderid, $uid, $flag) {  }
 
     /**
-     * Sends the email represented by the rfc822 string received by the PIM.
+     * Sends the email represented by the rfc822 string received by the client.
      *
      * @param mixed $rfc822     The rfc822 mime message, a string or stream
      *                          resource.

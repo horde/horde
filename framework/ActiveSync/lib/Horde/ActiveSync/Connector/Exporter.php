@@ -337,7 +337,7 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
-     * Stream a message deletion to the PIM
+     * Stream a message deletion to the client.
      *
      * @param string $id  The uid of the message we are deleting.
      * @param boolean $soft  If true, send a SOFTDELETE, otherwise a REMOVE.

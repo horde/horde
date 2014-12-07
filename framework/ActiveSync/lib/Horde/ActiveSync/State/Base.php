@@ -80,7 +80,7 @@ abstract class Horde_ActiveSync_State_Base
      * Keys include:
      *   - class:       The collection class Contacts, Calendar etc...
      *   - synckey:     The current synckey
-     *   - newsynckey:  The new synckey sent back to the PIM
+     *   - newsynckey:  The new synckey sent back to the client
      *   - id:          Server folder id
      *   - filtertype:  Filter
      *   - conflict:    Conflicts
@@ -105,7 +105,7 @@ abstract class Horde_ActiveSync_State_Base
     protected $_deviceInfo;
 
     /**
-     * Local cache for changes to *send* to PIM
+     * Local cache for changes to *send* to client.
      * (Will remain null until getChanges() is called)
      *
      * @var array
@@ -257,10 +257,10 @@ abstract class Horde_ActiveSync_State_Base
 
     /**
      * Determines if the server version of the message represented by $stat
-     * conflicts with the PIM version of the message.  For this driver, this is
+     * conflicts with the client version of the message.  For this driver, this is
      * true whenever $lastSyncTime is older then $stat['mod']. Method is only
      * called from the Importer during an import of a non-new change from the
-     * PIM.
+     * client.
      *
      * @param array $stat   A message stat array
      * @param string $type  The type of change (change, delete, add)
@@ -448,7 +448,7 @@ abstract class Horde_ActiveSync_State_Base
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges()) {
                 $this->_logger->info(sprintf(
-                    '[%s] Checking for PIM initiated changes.',
+                    '[%s] Checking for client initiated changes.',
                     $this->_procid));
 
                 switch ($this->_collection['class']) {
@@ -477,7 +477,7 @@ abstract class Horde_ActiveSync_State_Base
                                 continue;
                             }
                             $this->_logger->info(sprintf(
-                                '[%s] Ignoring PIM initiated %s for %s',
+                                '[%s] Ignoring client initiated %s for %s',
                                 $this->_procid,
                                 $flag_map[$change['type']],
                                 $change['id']));
@@ -488,9 +488,9 @@ abstract class Horde_ActiveSync_State_Base
                     break;
 
                 default:
-                    $pim_timestamps = $this->_getPIMChangeTS($changes);
+                    $client_timestamps = $this->_getPIMChangeTS($changes);
                     foreach ($changes as $change) {
-                        if (empty($pim_timestamps[$change['id']])) {
+                        if (empty($client_timestamps[$change['id']])) {
                             $this->_changes[] = $change;
                             continue;
                         }
@@ -503,11 +503,11 @@ abstract class Horde_ActiveSync_State_Base
                             // so will return (int)0 for ADD or DELETE.
                             $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
                         }
-                        if ($pim_timestamps[$change['id']] >= $stat['mod']) {
+                        if ($client_timestamps[$change['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
-                                '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
+                                '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $pim_timestamps[$change['id']], $stat['mod']));
+                                $change['id'], $client_timestamps[$change['id']], $stat['mod']));
                         } else {
                             $this->_changes[] = $change;
                         }
@@ -515,7 +515,7 @@ abstract class Horde_ActiveSync_State_Base
                 }
             } elseif (count($changes)) {
                 $this->_logger->info(sprintf(
-                    '[%s] No PIM changes present, returning all messages.',
+                    '[%s] No client changes present, returning all messages.',
                     $this->_procid));
                 $this->_changes = $changes;
             }
@@ -671,10 +671,10 @@ abstract class Horde_ActiveSync_State_Base
     }
 
     /**
-     * Helper function that performs the actual diff between PIM state and
+     * Helper function that performs the actual diff between client state and
      * server state FOLDERSYNC arrays.
      *
-     * @param array $old  The PIM state
+     * @param array $old  The client state
      * @param array $new  The current server state
      *
      * @return unknown_type
@@ -862,8 +862,8 @@ abstract class Horde_ActiveSync_State_Base
      * and user.
      *
      * An extra database query for each sync, but the payoff is that we avoid
-     * having to stat every message change we send to the PIM if there are no
-     * PIM generated changes for this sync period.
+     * having to stat every message change we send to the client if there are no
+     * client generated changes for this sync period.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
@@ -909,11 +909,11 @@ abstract class Horde_ActiveSync_State_Base
      *
      * @param integer $origin   Flag to indicate the origin of the change:
      *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
-     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from PIM
+     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from client
      *
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
-     * @param string $clientid  PIM clientid sent when adding a new message
+     * @param string $clientid  client clientid sent when adding a new message
      */
     abstract public function updateState(
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
@@ -1052,8 +1052,8 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function deleteSyncCache($devid, $user);
 
     /**
-     * Check and see that we didn't already see the incoming change from the PIM.
-     * This would happen e.g., if the PIM failed to receive the server response
+     * Check and see that we didn't already see the incoming change from the client.
+     * This would happen e.g., if the client failed to receive the server response
      * after successfully importing new messages.
      *
      * @param string $id  The client id sent during message addition.

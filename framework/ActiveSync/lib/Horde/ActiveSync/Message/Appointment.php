@@ -390,7 +390,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Set the appointment uid. Note that this is the PIM's UID value, and not
+     * Set the appointment uid. Note that this is the client's UID value, and not
      * the value that the server uses for the UID. ActiveSync messages do not
      * include any server uid value as part of the message natively.
      *
@@ -402,7 +402,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Get the PIM's UID. See not above regarding server UIDs.
+     * Get the client's UID. See not above regarding server UIDs.
      *
      * @return string
      */
@@ -412,7 +412,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Because the PIM doesn't pass the server uid as part of the message,
+     * Because the client doesn't pass the server uid as part of the message,
      * we need to add it manually so the backend can have access to it
      * when changing this object.
      *

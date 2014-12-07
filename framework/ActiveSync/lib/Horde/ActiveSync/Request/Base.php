@@ -74,7 +74,7 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_provisioning;
 
     /**
-     * Used to track what error code to send back to PIM on failure
+     * Used to track what error code to send back to client on failure
      *
      * @var integer
      */

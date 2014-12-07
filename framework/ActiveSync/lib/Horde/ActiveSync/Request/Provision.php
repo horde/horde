@@ -135,7 +135,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             // POLICYKEY is only sent by client in phase 3
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICYKEY)) {
                 $policykey = $this->_decoder->getElementContent();
-                $this->_logger->info('[' . $this->_device->id .'] PHASE 3 policykey sent from PIM: ' . $policykey);
+                $this->_logger->info('[' . $this->_device->id .'] PHASE 3 policykey sent from client: ' . $policykey);
                 if (!$this->_decoder->getElementEndTag() ||
                     !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
 

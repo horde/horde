@@ -36,7 +36,7 @@
  *
  *    syncMapTable (horde_activesync_map):
  *        message_uid    - The server uid for the object
- *        sync_modtime   - The time the change was received from the PIM and
+ *        sync_modtime   - The time the change was received from the client and
  *                         applied to the server data store.
  *        sync_key       - The syncKey that was current at the time the change
  *                         was received.
@@ -45,7 +45,7 @@
  *
  *    syncDeviceTable (horde_activesync_device):
  *        device_id         - The unique id for this device
- *        device_type       - The device type the PIM identifies itself with
+ *        device_type       - The device type the client identifies itself with
  *        device_agent      - The user agent string sent by the device
  *        device_policykey  - The current policykey for this device
  *        device_rwstatus   - The current remote wipe status for this device
@@ -352,7 +352,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Update the state to reflect changes
      *
-     * Notes: If we are importing PIM changes, need to update the syncMapTable
+     * Notes: If we are importing client changes, need to update the syncMapTable
      * so we don't mirror back the changes on next sync. If we are exporting
      * server changes, we need to track which changes have been sent (by
      * removing them from $this->_changes) so we know which items to send on the
@@ -372,11 +372,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param integer $origin   Flag to indicate the origin of the change:
      *    Horde_ActiveSync::CHANGE_ORIGIN_NA  - Not applicapble/not important
-     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from PIM
+     *    Horde_ActiveSync::CHANGE_ORIGIN_PIM - Change originated from client
      *
      * @param string $user      The current sync user, only needed if change
      *                          origin is CHANGE_ORIGIN_PIM
-     * @param string $clientid  PIM clientid sent when adding a new message
+     * @param string $clientid  client clientid sent when adding a new message
      *
      * @todo This method needs some cleanup, abstraction.
      */
@@ -413,7 +413,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 ? $this->getLatestSynckeyForCollection($this->_collection['id'])
                 : $this->_syncKey;
 
-            // This is an incoming change from the PIM, store it so we
+            // This is an incoming change from the client, store it so we
             // don't mirror it back to device.
             switch ($this->_collection['class']) {
             case Horde_ActiveSync::CLASS_EMAIL:
@@ -988,8 +988,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     }
 
     /**
-     * Check and see that we didn't already see the incoming change from the PIM.
-     * This would happen e.g., if the PIM failed to receive the server response
+     * Check and see that we didn't already see the incoming change from the client.
+     * This would happen e.g., if the client failed to receive the server response
      * after successfully importing new messages.
      *
      * @param string $id  The client id sent during message addition.
@@ -1156,13 +1156,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
     /**
      * Return an array of timestamps from the map table for the last
-     * PIM-initiated change for the provided uid. Used to avoid mirroring back
-     * changes to the PIM that it sent to the server.
+     * client-initiated change for the provided uid. Used to avoid mirroring back
+     * changes to the client that it sent to the server.
      *
      * @param array $changes  The changes array, each entry a hash containing
      *                        'id' and 'type' keys.
      *
-     * @return array  An array of UID -> timestamp of the last PIM-initiated
+     * @return array  An array of UID -> timestamp of the last client-initiated
      *                change for the specified UIDs, or null if none found.
      */
     protected function _getPIMChangeTS(array $changes)
@@ -1201,8 +1201,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * and user.
      *
      * An extra database query for each sync, but the payoff is that we avoid
-     * having to stat every message change we send to the PIM if there are no
-     * PIM generated changes for this sync period.
+     * having to stat every message change we send to the client if there are no
+     * client generated changes for this sync period.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
@@ -1301,7 +1301,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         // Clean up all but the last 2 syncs for any given sync series, this
         // ensures that we can still respond to SYNC requests for the previous
-        // key if the PIM never received the new key in a SYNC response.
+        // key if the client never received the new key in a SYNC response.
         $sql = 'SELECT sync_key FROM ' . $this->_syncStateTable
             . ' WHERE sync_devid = ? AND sync_folderid = ?';
         $values = array(

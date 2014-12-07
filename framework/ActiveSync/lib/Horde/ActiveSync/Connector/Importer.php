@@ -130,7 +130,7 @@ class Horde_ActiveSync_Connector_Importer
      *                                                 false if a new message.
      * @param Horde_ActiveSync_Message_Base $message   A message object
      * @param Horde_ActiveSync_Device $device          A device descriptor
-     * @param integer $clientid                        Client id sent from PIM
+     * @param integer $clientid                        Client id sent from client.
      *                                                 on message addition.
      * @param string $class   The collection class (only needed for SMS).
      *                        @since 2.6.0
@@ -165,7 +165,7 @@ class Horde_ActiveSync_Connector_Importer
                 return array($id, Horde_ActiveSync_Request_Sync::STATUS_CONFLICT);
             }
         } elseif (!$id && $uid = $this->_state->isDuplicatePIMAddition($clientid)) {
-            // Already saw this addition, but PIM never received UID
+            // Already saw this addition, but client never received UID
             $this->_logger->notice(sprintf(
                 '[%s] Duplicate addition for %s',
                 $this->_procid, $uid)
@@ -264,7 +264,7 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Perform a message move initiated on the PIM
+     * Perform a message move initiated on the clinet.
      *
      * @param array $uids     The source message ids.
      * @param string $dst     The destination folder uid.
@@ -383,7 +383,7 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Imports a folder deletion from the PIM
+     * Imports a folder deletion from the client.
      *
      * @param string $uid     The folder uid
      * @param string $parent  The folder id of the parent folder.
