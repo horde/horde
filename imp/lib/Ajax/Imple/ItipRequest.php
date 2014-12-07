@@ -393,7 +393,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
         // Check if this is an update.
         try {
-            $registry->call('calendar/export', array($guid, 'text/calendar'));
+            $calendars = $registry->calendar->listCalendars(true);
+            $registry->call('calendar/export', array($guid, 'text/calendar', array(), $calendars));
             $success = true;
         } catch (Horde_Exception $e) {
             $success = false;

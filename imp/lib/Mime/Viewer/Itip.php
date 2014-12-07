@@ -281,7 +281,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'REQUEST':
             // Check if this is an update.
             try {
-                $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar'));
+                $calendars = $registry->calendar->listCalendars(true);
+                $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar', array(), $calendars));
                 $desc = _("%s wants to notify you about changes in \"%s\".");
                 $is_update = true;
             } catch (Horde_Exception $e) {
