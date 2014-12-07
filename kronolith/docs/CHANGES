@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[mjr] Honor the UID value sent from EAS clients directly in the message
+      structure.
 [jan] Add entries for Tasks and Agenda to top menu.
 [mjr] Add Kronolith_Api::move().
 [jan] Return ETags with browse() API method.
