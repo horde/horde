@@ -114,3 +114,6 @@ BC BREAKING (i.e., Horde 6).
 - Implement something like Horde_ActiveSync_Sync_Options:: to encapsulate loading
   and transporting the various collection options/bodyprefs around.
 
+- Move non server-ish methods out of Horde_ActiveSync(_Server). E.g.,
+  getMimeTrucSize() etc...
+
