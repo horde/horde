@@ -390,10 +390,14 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
-     * Set the appointment uid. Note that this is the client's UID value, and not
-     * the value that the server uses for the UID. ActiveSync messages do not
-     * include any server uid value as part of the message natively.
-     *
+     * Set the appointment uid. Note that this is the client's UID value, and
+     * not the value that the server normally uses for the UID. ActiveSync
+     * messages do not normally include any server uid value as part of the
+     * message directly. This causes issues with meeting requests since most
+     * clients will use the CLIENT_ENTRY_ID for this value, and will send the
+     * invitation email out using this value as the UID so we sort-of HAVE to
+     * use this value as the server's UID.
+     * 
      * @param string $uid  The server's uid for this appointment
      */
     public function setUid($uid)

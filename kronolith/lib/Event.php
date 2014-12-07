@@ -1490,6 +1490,12 @@ abstract class Kronolith_Event
         if ($this->id === null) {
             $this->creator = $GLOBALS['registry']->getAuth();
         }
+
+        /* Meeting requests come with their own UID value. */
+        if (empty($this->uid) && !empty($message->getUid())) {
+            $this->uid = $message->getUid();
+        }
+
         if (strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
