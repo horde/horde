@@ -152,7 +152,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_SENSITIVITY    => array (self::KEY_ATTRIBUTE => 'sensitivity'),
         self::POOMCAL_SUBJECT        => array (self::KEY_ATTRIBUTE => 'subject'),
         self::POOMCAL_STARTTIME      => array (self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
-        self::POOMCAL_UID            => array (self::KEY_ATTRIBUTE => 'uid', self::KEY_TYPE => self::TYPE_HEX),
+        self::POOMCAL_UID            => array (self::KEY_ATTRIBUTE => 'uid'),
         self::POOMCAL_MEETINGSTATUS  => array (self::KEY_ATTRIBUTE => 'meetingstatus'),
         self::POOMCAL_ATTENDEES      => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
         self::POOMCAL_CATEGORIES     => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),

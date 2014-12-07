@@ -47,6 +47,7 @@ class Horde_ActiveSync_Message_Base
     const TYPE_HEX         = 2;
     const TYPE_DATE_DASHES = 3;
     const TYPE_MAPI_STREAM = 4;
+    const TYPE_MAPI_GOID   = 5;
 
     /**
      * Holds the mapping for object properties
@@ -336,28 +337,18 @@ class Horde_ActiveSync_Message_Base
                             // Complex type, decode recursively
                             if ($map[self::KEY_TYPE] == self::TYPE_DATE || $map[self::KEY_TYPE] == self::TYPE_DATE_DASHES) {
                                 $decoded = $this->_parseDate($decoder->getElementContent());
-                                if (!$decoder->getElementEndTag()) {
-                                    throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
-                                }
                             } elseif ($map[self::KEY_TYPE] == self::TYPE_HEX) {
                                 $decoded = self::hex2bin($decoder->getElementContent());
-                                if (!$decoder->getElementEndTag()) {
-                                   throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
-                                }
+                            } elseif ($map[self::KEY_TYPE] == self::TYPE_MAPI_GOID) {
+                                $decoded = Horde_Mapi::getUidFromGoid($decoder->getElementContent());
                             } else {
                                 $class = $map[self::KEY_TYPE];
                                 $subdecoder = new $class(array(
                                     'protocolversion' => $this->_version,
                                     'logger' => $this->_logger)
                                 );
-                                if ($subdecoder->decodeStream($decoder) === false) {
-                                    throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
-                                }
+                                $subdecoder->decodeStream($decoder);
                                 $decoded = $subdecoder;
-                                if (!$decoder->getElementEndTag()) {
-                                    $this->_logger->err('No end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
-                                    throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
-                                }
                             }
                         } else {
                             // Simple type, just get content
@@ -365,16 +356,14 @@ class Horde_ActiveSync_Message_Base
                             if ($decoded === false) {
                                 $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
                             }
-                            if (!$decoder->getElementEndTag()) {
-                                $this->_logger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
-                                throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
-                            }
                         }
-                        // $decoded now contains data object (or string)
+                        if (!$decoder->getElementEndTag()) {
+                            $this->_logger->err('Unable to get end tag for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                            throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
+                        }
                         $this->$map[self::KEY_ATTRIBUTE] = $decoded;
                     }
                 }
-
             } elseif ($entity[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                 $decoder->_ungetElement($entity);
                 break;
