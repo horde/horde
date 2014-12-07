@@ -3286,7 +3286,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_pid,
             $mid,
             $this->_verbs[$mid]
-        );
+        ));
 
         return $this->_verbs[$mid];
     }
