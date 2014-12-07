@@ -3272,7 +3272,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _getLastVerb($mid)
     {
         if (!array_key_exists($mid, $this->_verbs)) {
-            $this->_logger->info('FETCHING VERB');
             $log = $this->_connector->mail_getMaillog($mid);
             $last = array();
             foreach ($log as $entry) {
@@ -3282,7 +3281,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             $this->_verbs[$mid] = $last;
         }
-        $this->_logger->info('RETURNING VERB');
+        $this->_logger->info(sprintf(
+            '[%s] Fetching verb for %s: %s',
+            $this->_pid,
+            $mid,
+            $this->_verbs[$mid]
+        );
 
         return $this->_verbs[$mid];
     }
