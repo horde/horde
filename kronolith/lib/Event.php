@@ -1492,7 +1492,8 @@ abstract class Kronolith_Event
         }
 
         /* Meeting requests come with their own UID value. */
-        if (empty($this->uid) && !empty($message->getUid())) {
+        $client_uid = $message->getUid();
+        if (empty($this->uid) && !empty($client_uid)) {
             $this->uid = $message->getUid();
         }
 
