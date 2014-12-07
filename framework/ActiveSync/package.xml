@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-05</date>
+ <date>2014-12-07</date>
  <version>
   <release>2.20.6</release>
   <api>2.20.0</api>
@@ -122,6 +122,9 @@
        <file name="Mongo.php" role="php" />
        <file name="Sql.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/State -->
+      <dir name="Utils">
+       <file name="Mime.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Utils -->
       <dir name="Wbxml">
        <file name="Decoder.php" role="php" />
        <file name="Encoder.php" role="php" />
@@ -502,6 +505,7 @@
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
    <install as="Horde/ActiveSync/State/Mongo.php" name="lib/Horde/ActiveSync/State/Mongo.php" />
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
+   <install as="Horde/ActiveSync/Utils/Mime.php" name="lib/Horde/ActiveSync/Utils/Mime.php" />
    <install as="Horde/ActiveSync/Wbxml/Decoder.php" name="lib/Horde/ActiveSync/Wbxml/Decoder.php" />
    <install as="Horde/ActiveSync/Wbxml/Encoder.php" name="lib/Horde/ActiveSync/Wbxml/Encoder.php" />
    <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
@@ -2534,7 +2538,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-04</date>
+   <date>2014-12-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
