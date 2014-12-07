@@ -339,8 +339,6 @@ class Horde_ActiveSync_Message_Base
                                 $decoded = $this->_parseDate($decoder->getElementContent());
                             } elseif ($map[self::KEY_TYPE] == self::TYPE_HEX) {
                                 $decoded = self::hex2bin($decoder->getElementContent());
-                            } elseif ($map[self::KEY_TYPE] == self::TYPE_MAPI_GOID) {
-                                $decoded = Horde_Mapi::getUidFromGoid($decoder->getElementContent());
                             } else {
                                 $class = $map[self::KEY_TYPE];
                                 $subdecoder = new $class(array(
