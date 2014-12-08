@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-07</date>
+ <date>2014-12-08</date>
  <version>
-  <release>2.20.6</release>
-  <api>2.20.0</api>
+  <release>2.21.0</release>
+  <api>2.21.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -71,6 +71,7 @@
       <dir name="Message">
        <file name="AirSyncBaseAttachment.php" role="php" />
        <file name="AirSyncBaseBody.php" role="php" />
+       <file name="AirSyncBaseBodypart.php" role="php" />
        <file name="AirSyncBaseFileAttachment.php" role="php" />
        <file name="Appointment.php" role="php" />
        <file name="Attachment.php" role="php" />
@@ -459,6 +460,7 @@
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseBody.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBody.php" />
+   <install as="Horde/ActiveSync/Message/AirSyncBaseBodypart.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseBodypart.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseFileAttachment.php" />
    <install as="Horde/ActiveSync/Message/Appointment.php" name="lib/Horde/ActiveSync/Message/Appointment.php" />
    <install as="Horde/ActiveSync/Message/Attachment.php" name="lib/Horde/ActiveSync/Message/Attachment.php" />
@@ -2533,12 +2535,12 @@
   </release>
   <release>
    <version>
-    <release>2.20.6</release>
+    <release>2.21.0</release>
     <api>2.20.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-07</date>
+   <date>2014-12-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
