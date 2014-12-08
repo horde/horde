@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add support for clients that issue BODYPARTPREFERENCE options (Bug #13729).
 * [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
 * [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
  </notes>
@@ -2543,6 +2544,7 @@
    <date>2014-12-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add support for clients that issue BODYPARTPREFERENCE options (Bug #13729).
 * [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
 * [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
    </notes>
