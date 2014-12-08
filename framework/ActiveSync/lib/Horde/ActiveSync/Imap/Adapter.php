@@ -980,15 +980,9 @@ class Horde_ActiveSync_Imap_Adapter
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
             $airsync_body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
-
             $body_type_pref = Horde_ActiveSync_Utils_Mime::getBodyTypePref($options);
-            // Apparently some clients don't send the MIME_SUPPORT field (thus
-            // defaulting it to MIME_SUPPORT_NONE), but still request
-            // BODYPREF_TYPE_MIME. Failure to do this results in NO data being
-            // sent to the client, so we ignore the MIME_SUPPORT requirement and
-            // assume it is implied if it is requested in a BODYPREF element.
-            if ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_MIME) {
 
+            if ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_MIME) {
                 $this->_logger->info(sprintf(
                     '[%s] Sending MIME Message.', $this->_procid));
                 // ActiveSync *REQUIRES* all data sent to be in UTF-8, so we
