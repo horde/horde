@@ -1474,7 +1474,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _getiTipStatus($vCal)
     {
-        foreach ($vCal->getComponents() as $key => $component) {
+        foreach ($vCal->getComponents() as $component) {
             switch ($component->getType()) {
             case 'vEvent':
                 try {
