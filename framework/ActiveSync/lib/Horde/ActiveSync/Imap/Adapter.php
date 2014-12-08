@@ -1191,7 +1191,7 @@ class Horde_ActiveSync_Imap_Adapter
                         break;
                     case 'REPLY':
                         try {
-                            $reply_status = $this->_getiTipStatus($vCal, $eas_message->from);
+                            $reply_status = $this->_getiTipStatus($vCal);
                             switch ($reply_status) {
                             case 'ACCEPTED':
                                 $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Pos';
@@ -1468,12 +1468,11 @@ class Horde_ActiveSync_Imap_Adapter
      * Return the attendee participation status.
      *
      * @param Horde_Icalendar $vCal  The vCalendar component.
-     * @param string $from           The From: address.
      *
      * @param Horde_Icalendar
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _getiTipStatus($vCal, $from)
+    protected function _getiTipStatus($vCal)
     {
         foreach ($vCal->getComponents() as $key => $component) {
             switch ($component->getType()) {
