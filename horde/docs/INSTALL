@@ -632,6 +632,11 @@ Configuring Horde
    server.  Similar steps apply for authenticating against a database, an LDAP
    server, etc.
 
+   .. NOTE:: This is an example/testing configuration only, and should **NOT**
+             be used if you intend to install IMP (Internet Message Program)
+             and authenticate to the remote mail server. Please see the IMP
+             documentation for further details.
+
    a. In the ``Which users should be treated as administrators`` field enter a
       comma separated list of user names of your choosing. This will control
       who is allowed to make configuration changes, see passwords, potentially
