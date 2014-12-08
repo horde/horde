@@ -22,10 +22,10 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since     2.21.0
  */
 class Horde_ActiveSync_Utils_Mime
 {
-
     /**
      * Return the body type to send to the client, based on the various
      * OPTIONS requested by the client.
