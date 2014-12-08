@@ -958,7 +958,7 @@ class Horde_ActiveSync_Imap_Adapter
         // Message importance. First try X-Priority, then Importance since
         // Outlook sends the later.
         if ($priority = $imap_message->getHeaders()->getValue('X-priority')) {
-            $priorty = preg_replace('/\D+/', '', $priority);
+            $priority = preg_replace('/\D+/', '', $priority);
         } else {
             $priority = $imap_message->getHeaders()->getValue('Importance');
         }
