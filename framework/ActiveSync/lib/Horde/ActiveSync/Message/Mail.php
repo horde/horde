@@ -298,6 +298,15 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                    'forwarded'             => false,
                 );
             }
+
+            if ($this->_version > Horde_ActiveSync::VERSION_FOURTEEN) {
+                $this->_mapping += array(
+                    Horde_ActiveSync::AIRSYNCBASE_BODYPART => array(self::KEY_ATTRIBUTE => 'bodypart', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBodypart')
+                );
+                $this->_properties += array(
+                    'bodypart' => false
+                );
+            }
         }
     }
 
