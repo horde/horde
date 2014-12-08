@@ -48,7 +48,7 @@ class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_
         Horde_ActiveSync::AIRSYNCBASE_TYPE              => array(self::KEY_ATTRIBUTE => 'type'),
         Horde_ActiveSync::AIRSYNCBASE_ESTIMATEDDATASIZE => array(self::KEY_ATTRIBUTE => 'estimateddatasize'),
         Horde_ActiveSync::AIRSYNCBASE_TRUNCATED         => array(self::KEY_ATTRIBUTE => 'truncated'),
-        Horde_ActiveSync::AIRSYNCBASE_DATA              => array(self::KEY_ATTRIBUTE => 'data',
+        Horde_ActiveSync::AIRSYNCBASE_DATA              => array(self::KEY_ATTRIBUTE => 'data'),
         Horde_ActiveSync::AIRSYNCBASE_PREVIEW           => array(self::KEY_ATTRIBUTE => 'preview')
     );
 
