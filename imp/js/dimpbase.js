@@ -4401,7 +4401,7 @@ var IMP_Flist_Mbox = Class.create({
     {
         var m_elt;
 
-        if (this.data.fake) {
+        if (this.data && this.data.fake && this.data.fake.data) {
             return this.data.fake.subElement();
         }
 
