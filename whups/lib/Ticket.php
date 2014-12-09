@@ -116,6 +116,7 @@ class Whups_Ticket
         }
 
         // Check for a deferred attachment upload.
+        $a_name = null;
         if (!empty($info['deferred_attachment']) &&
             ($a_name = $GLOBALS['session']->get('whups', 'deferred_attachment/' . $info['deferred_attachment']))) {
             $ticket->change(
@@ -123,7 +124,6 @@ class Whups_Ticket
                 array(
                     'name' => $info['deferred_attachment'],
                     'tmp_name' => $a_name));
-            unlink($a_name);
         }
 
         // Check for manually added attachments.
@@ -136,6 +136,12 @@ class Whups_Ticket
             $ticket->get('user_id_requester'),
             $info['last-transaction'],
             false);
+
+        // Delete deferred attachment now, because it will be attached in the
+        // commit() call above.
+        if ($a_name) {
+            unlink($a_name);
+        }
 
         // Send email notifications.
         $ticket->notify($ticket->get('user_id_requester'), true);
