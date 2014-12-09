@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
 * [jan] Fix sending reminders (Bug #12867).
  </notes>
  <contents>
@@ -1130,6 +1131,7 @@
    <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
 * [jan] Fix sending reminders (Bug #12867).
    </notes>
   </release>
