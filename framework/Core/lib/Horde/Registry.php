@@ -1580,7 +1580,7 @@ class Horde_Registry implements Horde_Shutdown_Task
                 }
 
                 throw new Horde_Exception_PushApp(
-                    sprintf($error_log, $auth, $error_app, $remote->host),
+                    sprintf($error, $auth, $error_app, $remote->host),
                     $error_type,
                     $app
                 );
