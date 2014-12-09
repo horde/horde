@@ -56,7 +56,6 @@ if ($valid1 && $valid2 && $valid3 &&
     }
     $notification->push(sprintf(_("Your ticket ID is %s. An appropriate person has been notified of this request."), $ticket->getId()), 'horde.success');
     $ticket->show();
-    exit;
 }
 
 // Start the page.
@@ -95,12 +94,12 @@ if ($valid3 && $valid2 && $valid1) {
     if (!empty($info['newattachment']['name'])) {
         $file_name = $info['newattachment']['name'];
 
-        $tmp_file_path = Horde::getTempFile('whups');
+        $tmp_file_path = Horde::getTempFile('whups', false);
         if (move_uploaded_file($info['newattachment']['tmp_name'],
                                $tmp_file_path)) {
             $session->set('whups', 'deferred_attachment/' . $file_name, $tmp_file_path);
             $vars->set('deferred_attachment', $file_name);
-            $form3->preserveVarByPost($vars, 'deferred_attachment');
+            $form4->preserveVarByPost($vars, 'deferred_attachment');
         }
     }
 
