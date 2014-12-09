@@ -52,6 +52,7 @@ class Horde_ActiveSync_Device
     const OS                = 'Settings:OS';
     const OS_LANGUAGE       = 'Settings:OSLanguage';
     const PHONE_NUMBER      = 'Settings:PhoneNumber';
+    const OPERATOR          = 'Settings:MobileOperator';
     const VERSION           = 'version';
     const MULTIPLEX         = 'multiplex';
     const ANNOUNCED_VERSION = 'announcedVersion';
@@ -313,6 +314,9 @@ class Horde_ActiveSync_Device
         }
         if (!empty($this->properties[self::NAME])) {
             $data[_("Common Name")] = $this->properties[self::NAME];
+        }
+        if (!empty($this->properties[self::OPERATOR])) {
+            $data[_("Mobile Operator")] = $this->properties[self::OPERATOR];
         }
         if (!empty($this->properties[self::OS])) {
             $data[_("OS")] = $this->properties[self::OS];
