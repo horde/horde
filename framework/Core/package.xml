@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Log E_USER_WARNING, E_RECOVERABLE_ERROR, and E_USER_NOTICE messages at the correct level.
 * [mjr] Add support for ActiveSync clients that issue BODYPARTPREFERENCE options (Bug #13729).
  </notes>
  <contents>
@@ -3743,6 +3744,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Log E_USER_WARNING, E_RECOVERABLE_ERROR, and E_USER_NOTICE messages at the correct level.
 * [mjr] Add support for ActiveSync clients that issue BODYPARTPREFERENCE options (Bug #13729).
    </notes>
   </release>

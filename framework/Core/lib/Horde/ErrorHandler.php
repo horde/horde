@@ -161,10 +161,13 @@ HTML;
         try {
             switch ($errno) {
             case E_WARNING:
+            case E_USER_WARNING:
+            case E_RECOVERABLE_ERROR:
                 $priority = Horde_Log::WARN;
                 break;
 
             case E_NOTICE:
+            case E_USER_NOTICE:
                 $priority = Horde_Log::NOTICE;
                 break;
 
