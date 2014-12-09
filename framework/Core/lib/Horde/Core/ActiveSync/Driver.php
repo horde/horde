@@ -3112,6 +3112,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         $cert = str_replace("-----BEGIN CERTIFICATE-----", '', $cert);
         $cert = str_replace("-----END CERTIFICATE-----", '', $cert);
+        $cert = str_replace("\r\n", '', $cert);
 
         return $cert;
     }
