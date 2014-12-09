@@ -2521,7 +2521,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
 
         if ($dns && !isset($out->host)) {
-            $out->host = $remote_addr;
+            $out->host = $out->addr;
             try {
                 if ($response = $dns->query($out->addr, 'PTR')) {
                     foreach ($response->answer as $val) {
