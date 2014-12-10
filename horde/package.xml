@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
 * [mms] Add Cache Administration page.
@@ -4089,6 +4090,7 @@
    <date>2014-09-26</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
 * [mms] Add Cache Administration page.
