@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-06</date>
+ <date>2014-12-10</date>
  <version>
   <release>1.1.0RC2</release>
   <api>1.1.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mjr] Fix missing CSS rules for blocks.
 * [mjr] Add new block for displaying bookmarks tagged with a certain set of tags (Request #13020).
  </notes>
  <contents>
@@ -236,6 +237,9 @@
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <dir name="http">
        <file name="1xx.png" role="horde" />
@@ -539,6 +543,7 @@
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
    <install as="trean/templates/data/import.inc" name="templates/data/import.inc" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="trean/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="trean/themes/default/graphics/tag.png" name="themes/default/graphics/tag.png" />
