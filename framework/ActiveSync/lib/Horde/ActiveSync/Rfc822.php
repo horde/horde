@@ -224,21 +224,14 @@ class Horde_ActiveSync_Rfc822
      */
     protected function _findHeader()
     {
-        $i = 0;
-        while (!$this->_stream->eof()) {
-            $data = $this->_stream->substring(0, 8192);
-            $hdr_pos = strpos($data, "\r\n\r\n");
-            if ($hdr_pos !== false) {
-                return array($hdr_pos + ($i * 8192), 4);
-            }
-            $hdr_pos = strpos($data, "\n\n");
-            if ($hdr_pos !== false) {
-                return array($hdr_pos + ($i * 8192), 2);
-            }
-            $i++;
+        // Look for the EOL that is found first in the message. Some clients
+        // are sending mixed EOL in S/MIME signed messages.
+        switch ($this->_stream->getEOL()) {
+        case "\n":
+            return array($this->_stream->search("\n\n"), 2);
+        case "\r\n":
+            return array($this->stream->search("\r\n\r\n"), 4);
         }
-        $this->_stream->end();
-        return array($this->_stream->pos(), 0);
     }
 
 }
