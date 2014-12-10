@@ -52,14 +52,8 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
             return parent::minify();
         }
 
-        $cmd = escapeshellcmd($this->_opts['uglifyjs']);
-        if (isset($this->_opts['sourcemap']) && is_array($this->_data)) {
-            $this->_sourcemap = Horde_Util::getTempFile();
-            $cmd .= ' --source-map ' .
-                escapeshellarg($this->_sourcemap) .
-                ' --source-map-url ' .
-                escapeshellarg($this->_opts['sourcemap']);
-        }
+        $cmd = escapeshellcmd($this->_opts['uglifyjs'])
+            . ' ' . $this->_opts['cmdline'];
 
         if (is_array($this->_data)) {
             $js = '';
@@ -73,7 +67,7 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
         $cmdline = new Horde_JavascriptMinify_Util_Cmdline();
         return $cmdline->runCmd(
             $js,
-            trim($cmd . ' ' . $this->_opts['cmdline']),
+            trim($cmd),
             $this->_opts['logger']
         ) . $this->_sourceUrls();
     }
