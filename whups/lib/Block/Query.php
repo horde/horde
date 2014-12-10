@@ -66,6 +66,9 @@ class Whups_Block_Query extends Whups_Block_Tickets
 
         $vars = Horde_Variables::getDefaultVariables();
         $tickets = $GLOBALS['whups_driver']->executeQuery($query, $vars);
+        if (!$tickets) {
+            return '<p class="horde-content"><em>' . _("No tickets from query.") . '</em></p>';
+        }
 
         return $this->_table($tickets, 'whups_block_query_' . $query->id);
     }
