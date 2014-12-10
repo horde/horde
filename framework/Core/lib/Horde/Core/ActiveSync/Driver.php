@@ -1063,7 +1063,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             'protocolversion' => $this->_version,
                             'softdelete' => $soft));
                     // Poll the maillog for reply/forward state changes.
-                    $folder = $this->_getMaillogChanges($folder, $from_ts);
+                    if (empty($GLOBALS['conf']['activesync']['no_maillogsync'])) {
+                        $folder = $this->_getMaillogChanges($folder, $from_ts);
+                    }
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
