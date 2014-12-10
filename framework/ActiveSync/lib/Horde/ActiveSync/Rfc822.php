@@ -72,14 +72,13 @@ class Horde_ActiveSync_Rfc822
      */
     public function __construct($rfc822, $auto_add_headers = true)
     {
-        // Look for the EOL that is found first in the message. Some clients
-        // are sending mixed EOL in S/MIME signed messages. This still doesn't
-        // fix "Nine" currently, as they first send \r\n, but use \n\n to
-        // separate the headers.
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-        $stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
-        stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-        $stream->add($rfc822, true);
+        if (is_resource($rfc822)) {
+            $stream = new Horde_Stream_Existing(array('stream' => $rfc822));
+            $stream->rewind();
+        } else {
+            $stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
+            $stream->add($rfc822, true);
+        }
         $this->_parseStream($stream);
         if ($auto_add_headers) {
             $this->addStandardHeaders();
@@ -225,7 +224,16 @@ class Horde_ActiveSync_Rfc822
      */
     protected function _findHeader()
     {
-        return array($this->_stream->search("\r\n\r\n"), 2);
+        // Look for the EOL that is found first in the message. Some clients
+        // are sending mixed EOL in S/MIME signed messages. This still doesn't
+        // fix "Nine" currently, as they first send \r\n, but use \n\n to
+        // separate the headers.
+        switch ($this->_stream->getEOL()) {
+        case "\n":
+            return array($this->_stream->search("\n\n"), 2);
+        case "\r\n":
+            return array($this->_stream->search("\r\n\r\n"), 4);
+        }
     }
 
 }
