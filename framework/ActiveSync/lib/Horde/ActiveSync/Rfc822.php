@@ -225,7 +225,9 @@ class Horde_ActiveSync_Rfc822
     protected function _findHeader()
     {
         // Look for the EOL that is found first in the message. Some clients
-        // are sending mixed EOL in S/MIME signed messages.
+        // are sending mixed EOL in S/MIME signed messages. This still doesn't
+        // fix "Nine" currently, as they first send \r\n, but use \n\n to
+        // separate the headers.
         switch ($this->_stream->getEOL()) {
         case "\n":
             return array($this->_stream->search("\n\n"), 2);
