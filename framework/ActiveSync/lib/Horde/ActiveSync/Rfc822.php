@@ -26,7 +26,6 @@
   */
 class Horde_ActiveSync_Rfc822
 {
-
     /**
      * The memory limit for use with the PHP temp stream.
      *
@@ -162,6 +161,7 @@ class Horde_ActiveSync_Rfc822
             $this->_stream->rewind();
             $hdr_text = $this->_stream->substring(0, $this->_hdr_pos);
         }
+
         return Horde_Mime_Headers::parseHeaders($hdr_text);
     }
 
