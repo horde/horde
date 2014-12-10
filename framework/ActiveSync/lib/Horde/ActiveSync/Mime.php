@@ -183,7 +183,7 @@ class Horde_ActiveSync_Mime
         }
 
         if ($mime->getPrimaryType() == 'multipart') {
-            if ($mime->getSubType() == 'signed') {
+            if ($mime->getSubType() == 'signed' && $mime->getContentTypeParameter('protocol') != 'application/pgp-signature') {
                 return true;
             }
 
