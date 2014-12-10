@@ -230,7 +230,7 @@ class Horde_ActiveSync_Rfc822
         case "\n":
             return array($this->_stream->search("\n\n"), 2);
         case "\r\n":
-            return array($this->stream->search("\r\n\r\n"), 4);
+            return array($this->_stream->search("\r\n\r\n"), 4);
         }
     }
 
