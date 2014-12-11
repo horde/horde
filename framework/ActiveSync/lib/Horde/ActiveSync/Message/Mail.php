@@ -138,6 +138,8 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL2_ISLEAPMONTH           = 'POOMMAIL2:IsLeapMonth';
     const POOMMAIL2_ACCOUNTID             = 'POOMMAIL2:AccountId';
     const POOMMAIL2_FIRSTDAYOFWEEK        = 'POOMMAIL2:FirstDayOfWeek';
+
+    // EAS 14.1
     const POOMMAIL2_MEETINGMESSAGETYPE    = 'POOMMAIL2:MeetingMessageType';
 
     /* Mail message types */
@@ -270,8 +272,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                     self::POOMMAIL2_CALENDARTYPE          => array(self::KEY_ATTRIBUTE => 'calendartype'),
                     self::POOMMAIL2_ISLEAPMONTH           => array(self::KEY_ATTRIBUTE => 'isleapmonth'),
                     self::POOMMAIL2_ACCOUNTID             => array(self::KEY_ATTRIBUTE => 'accountid'),
-                    self::POOMMAIL2_FIRSTDAYOFWEEK        => array(self::KEY_ATTRIBUTE => 'firstdayofweek'),
-                    self::POOMMAIL2_MEETINGMESSAGETYPE    => array(self::KEY_ATTRIBUTE => 'meetingmessagetype')
+                    self::POOMMAIL2_FIRSTDAYOFWEEK        => array(self::KEY_ATTRIBUTE => 'firstdayofweek')
                 );
 
                 $this->_properties += array(
@@ -289,7 +290,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                    'isleapmonth'           => false,
                    'accountid'             => false,
                    'firstdayofweek'        => false,
-                   'meetingmessagetype'    => false,
                    'categories'            => array(),
 
                    // Internal use

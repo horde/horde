@@ -105,6 +105,24 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
     protected $_vEvent;
 
     /**
+     * Const'r
+     *
+     * @see Horde_ActiveSync_Message_Base::__construct()
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+        if ($this->_version > Horde_ActiveSync::VERSION_FOURTEEN) {
+            $this->_mapping += array(
+                Horde_ActiveSync_Message_Mail::POOMMAIL2_MEETINGMESSAGETYPE  => array(self::KEY_ATTRIBUTE => 'meetingmessagetype')
+            );
+            $this->_properties += array(
+                'meetingmessagetype' => false
+            );
+        }
+    }
+
+    /**
      * Create a meeting request from a vEvent.
      *
      * @param Horde_Icalendar_Vevent $vCal  The vEvent.
