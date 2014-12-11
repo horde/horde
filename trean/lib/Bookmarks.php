@@ -184,18 +184,26 @@ class Trean_Bookmarks
      * Returns the bookmarks corresponding to the given ids.
      *
      * @param array $id  An array of integer IDs of the bookmarks to retrieve.
+     * @param array $options  An array of options:
+     *     - sortby: (string) The field to sort by.
+     *         DEFAULT: No sorting is done.
+     *     - sortdir: (integer)  The direction to sort, if sorting.
      *
      * @return array  An array of Trean_Bookmark objects.
      * @throws Trean_Exception
      * @since 1.2.0
      */
-    public function getBookmarks(array $ids)
+    public function getBookmarks(array $ids, array $options = array())
     {
-        try {
-            $bookmarks = $GLOBALS['trean_db']->selectAll('
-                SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
-                WHERE bookmark_id IN (' . implode(',', $ids) . ')');
+                WHERE bookmark_id IN (' . implode(',', $ids) . ')';
+        if (!empty($options['sortby'])) {
+            $sql .= ' ORDER BY bookmark_' . $options['sortby'] . ($options['sortdir'] ? ' DESC' : '');
+        }
+
+        try {
+            $bookmarks = $GLOBALS['trean_db']->selectAll($sql);
         } catch (Horde_Db_Exception $e) {
             throw new Trean_Exception($e);
         }

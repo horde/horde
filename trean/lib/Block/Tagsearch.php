@@ -61,7 +61,7 @@ class Trean_Block_Tagsearch extends Horde_Core_Block
      */
     protected function _content()
     {
-        global $trean_gateway, $registry, $injector;
+        global $trean_gateway, $registry, $injector, $prefs;
 
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
@@ -73,7 +73,7 @@ class Trean_Block_Tagsearch extends Horde_Core_Block
             $ids = array();
         }
 
-        $bookmarks = $trean_gateway->getBookmarks($ids);
+        $bookmarks = $trean_gateway->getBookmarks($ids, array('sortby' => $prefs->getValue('sortby'), 'sortdir' => $prefs->getValue('sortdir')));
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;
