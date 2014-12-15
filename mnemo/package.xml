@@ -1254,6 +1254,19 @@
   </release>
   <release>
    <version>
+    <release>4.2.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-15</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.1.0</api></version>
    <stability>
