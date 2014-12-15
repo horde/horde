@@ -51,7 +51,7 @@ class Horde_ActiveSync_Message_DeviceInformation extends Horde_ActiveSync_Messag
         Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE        => array(self::KEY_ATTRIBUTE => 'oslanguage'),
         Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER       => array(self::KEY_ATTRIBUTE => 'phonenumber'),
         Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT         => array(self::KEY_ATTRIBUTE => 'useragent'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR    => array(self::KEY_ATTRIBUTE => 'mobileoperator')
+        Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR    => array(self::KEY_ATTRIBUTE => 'mobileoperator'),
         Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS => array(self::KEY_ATTRIBUTE => 'enableoutboundsms')
     );
 
