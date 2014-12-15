@@ -160,7 +160,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
              * address book and remove the id from the key_info for a correct
              * output. */
             try {
-                $result = $this->getPublicKey($sig['email'], array('nocache' => true, 'noserver' => true));
+                $result = $this->getPublicKey($sig['email'], array('nocache' => true, 'noserver' => true, 'nohooks' => true));
                 if (!empty($result)) {
                     unset($key_info['signature'][$id]);
                     continue;
@@ -213,16 +213,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             }
         }
 
-        try {
-            $key = $injector->getInstance('Horde_Core_Hooks')->callHook(
-                'pgp_key',
-                'imp',
-                array($address, $keyid)
-            );
-            if ($key) {
-                return $key;
-            }
-        } catch (Horde_Exception_HookNotSet $e) {}
+        if (empty($options['nohooks'])) {
+            try {
+                $key = $injector->getInstance('Horde_Core_Hooks')->callHook(
+                    'pgp_key',
+                    'imp',
+                    array($address, $keyid)
+                );
+                if ($key) {
+                    return $key;
+                }
+            } catch (Horde_Exception_HookNotSet $e) {}
+        }
 
         /* Try retrieving by e-mail only first. */
         $params = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
