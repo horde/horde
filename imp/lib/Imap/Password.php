@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Imap_Password implements Horde_Imap_Client_Base_Password, Serializable
+class IMP_Imap_Password
+implements Horde_Imap_Client_Base_Password, Serializable
 {
     /* Password key. */
     const PASSWORD_KEY = 'imap_ob_pass';
