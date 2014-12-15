@@ -40,7 +40,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @var Horde_ActiveSync_Mime
      */
-    protected $_message;
+    protected $_basePart;
 
     /**
      * The imap client.
@@ -85,7 +85,7 @@ class Horde_ActiveSync_Imap_Message
         Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
-        $this->_message = new Horde_ActiveSync_Mime($data->getStructure());
+        $this->_basePart = new Horde_ActiveSync_Mime($data->getStructure());
         $this->_uid = $data->getUid();
         $this->_flags = $data->getFlags();
         $this->_mbox = $mbox;
@@ -185,7 +185,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getStructure()
     {
-        return $this->_message->base;
+        return $this->_basePart->base;
     }
 
     /**
@@ -216,8 +216,8 @@ class Horde_ActiveSync_Imap_Message
         // we need, while ensuring we have something to return. So, e.g., if we
         // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
         // can't find plain text but we have a html body, fetch that anyway.
-        $text_id = $this->_message->findBody('plain');
-        $html_id = $this->_message->findBody('html');
+        $text_id = $this->_basePart->findBody('plain');
+        $html_id = $this->_basePart->findBody('html');
 
         // Deduce which part(s) we need to request.
         $want_html_text = $version >= Horde_ActiveSync::VERSION_TWELVE &&
@@ -233,7 +233,7 @@ class Horde_ActiveSync_Imap_Message
 
         $want_html_as_plain = false;
         if (!empty($text_id) && $want_plain_text) {
-            $text_body_part = $this->_message->getPart($text_id);
+            $text_body_part = $this->_basePart->getPart($text_id);
             $charset = $text_body_part->getCharset();
         } elseif ($want_plain_text && !empty($html_id) &&
                   empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME])) {
@@ -241,7 +241,7 @@ class Horde_ActiveSync_Imap_Message
             $want_html_as_plain = true;
         }
         if (!empty($html_id) && $want_html_text) {
-            $html_body_part = $this->_message->getPart($html_id);
+            $html_body_part = $this->_basePart->getPart($html_id);
             $html_charset = $html_body_part->getCharset();
         }
 
@@ -389,7 +389,7 @@ class Horde_ActiveSync_Imap_Message
     public function getAttachments($version)
     {
         $ret = array();
-        $map = $this->_message->contentTypeMap();
+        $map = $this->_basePart->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 if ($type != 'application/ms-tnef' || (!$mime_part = $this->_decodeTnefData($id))) {
@@ -426,7 +426,7 @@ class Horde_ActiveSync_Imap_Message
         $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
         $atc->displayname = Horde_String::convertCharset(
             $this->getPartName($mime_part, true),
-            $this->_message->getHeaderCharset(),
+            $this->_basePart->getHeaderCharset(),
             'UTF-8',
             true);
         $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
@@ -492,7 +492,7 @@ class Horde_ActiveSync_Imap_Message
     public function getAttachmentsMimeParts()
     {
         $mime_parts = array();
-        $map = $this->_message->contentTypeMap();
+        $map = $this->_basePart->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 $mpart = $this->getMimePart($id);
@@ -528,11 +528,11 @@ class Horde_ActiveSync_Imap_Message
      *   - nocontents: (boolean) If true, don't add the contents to the part
      *                 DEFAULT: Contents are added to the part
      *
-     * @return Horde_Mime_Part  The raw MIME part asked for (reference).
+     * @return Horde_Mime_Part  The raw MIME part asked for.
      */
     public function getMimePart($id, array $options = array())
     {
-        $part = $this->_message->getPart($id);
+        $part = $this->_basePart->getPart($id);
         if ($part &&
             (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0)) {
             $part->setCharset('windows-1252');
@@ -551,7 +551,6 @@ class Horde_ActiveSync_Imap_Message
                     'length' => empty($options['length']) ? null : $options['length'],
                     'stream' => true)
             );
-
             $part->setContents($body, array('encoding' => $this->_lastBodyPartDecode, 'usestream' => true));
         }
 
@@ -798,7 +797,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function contentTypeMap()
     {
-        return $this->_message->contentTypeMap();
+        return $this->_basePart->contentTypeMap();
     }
 
     /**
@@ -815,7 +814,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function isAttachment($id, $mime_type)
     {
-        return $this->_message->isAttachment($id, $mime_type);
+        return $this->_basePart->isAttachment($id, $mime_type);
     }
 
     /**
@@ -835,7 +834,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function hasAttachments()
     {
-        return $this->_message->hasAttachments();
+        return $this->_basePart->hasAttachments();
     }
 
     /**
@@ -853,7 +852,7 @@ class Horde_ActiveSync_Imap_Message
             return $message->isSigned();
         }
 
-        return $this->_message->isSigned();
+        return $this->_basePart->isSigned();
     }
 
     /**
@@ -872,7 +871,7 @@ class Horde_ActiveSync_Imap_Message
             return $message->isEncrypted();
         }
 
-        return $this->_message->isEncrypted();
+        return $this->_basePart->isEncrypted();
     }
 
 }
