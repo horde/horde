@@ -352,7 +352,8 @@ class Horde_ActiveSync_Message_Base
                             // Simple type, just get content
                             $decoded = $decoder->getElementContent();
                             if ($decoded === false) {
-                                $this->_logger->err('Unable to get content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG]);
+                                $decoded = '';
+                                $this->_logger->notice('Unable to get expected content for ' . $entity[Horde_ActiveSync_Wbxml::EN_TAG] . ': Setting to an empty string.');
                             }
                         }
                         if (!$decoder->getElementEndTag()) {
