@@ -162,7 +162,7 @@ class Horde_ActiveSync_Mime
             return false;
         }
         foreach ($this->_base->contentTypeMap() as $id => $type) {
-            if ($type == 'text/calendar') {
+            if ($type == 'text/calendar' || $type == 'application/ics') {
                 return $id;
             }
         }
