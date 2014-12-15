@@ -10,6 +10,7 @@
  * @copyright 2013-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since     2.21.0
  */
 /**
  * Horde_ActiveSync_Message_DeviceInformation::
@@ -22,6 +23,7 @@
  * @copyright 2010-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ * @since     2.21.0
  *
  * @property string $model
  * @property string $imei
