@@ -406,13 +406,12 @@ abstract class Mnemo_Driver
             }
         } else {
             $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
-                if (Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+            if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) &&
+                Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
                     $body->data = Horde_String::substr($memo['body'], 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
                     $body->truncated = 1;
-                } else {
-                    $body->data = $memo['body'];
-                }
+            } else {
+                $body->data = $memo['body'];
             }
         }
         $body->estimateddatasize = Horde_String::length($memo['body']);
