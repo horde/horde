@@ -12,7 +12,8 @@
  */
 
 /**
- * UglifyJS minification driver.
+ * UglifyJS minification driver.  Supports UglifyJS versions 1 (with limited
+ * features) and 2.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -27,7 +28,8 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
      * <pre>
      *   - cmdline: (string) Command-line options to pass to binary.
      *   - sourcemap: (string) The URL to the web-accessible location the
-     *                sourcemap file will be stored at.
+     *                sourcemap file will be stored at. Only supported by
+     *                UglifyJS2.
      *   - uglifyjs: (string) [REQUIRED] Path to the UglifyJS binary.
      * </pre>
      */
@@ -53,6 +55,7 @@ class Horde_JavascriptMinify_Uglifyjs extends Horde_JavascriptMinify_Null
         }
 
         $cmd = escapeshellcmd($this->_opts['uglifyjs']);
+        /* Sourcemaps only supported by UglifyJS2. */
         if (isset($this->_opts['sourcemap']) && is_array($this->_data)) {
             $this->_sourcemap = Horde_Util::getTempFile();
             $cmd .= ' --source-map ' .

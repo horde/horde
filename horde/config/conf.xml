@@ -1214,8 +1214,16 @@
       compression, good speed)">
        <configstring name="uglifyjspath" desc="The path to the uglifyjs
        binary"></configstring>
-       <configstring name="uglifyjscmdline" desc="The command line options
-       to use">-c</configstring>
+       <configenum name="uglifyjsversion" required="false" desc="The version
+       of uglifyjs installed on the server.">2
+        <values>
+         <value desc="Version 1 (deprecated)">1</value>
+         <value desc="Version 2">2</value>
+        </values>
+       </configenum>
+       <configstring name="uglifyjscmdline" required="false" desc="The command
+       line options to use. If set, this needs to be the complete command-line
+       needed for your installed version of Uglifyjs."></configstring>
       </case>
       <case name="yui" desc="YUI Compressor (Best compression, slowest
       speed)">

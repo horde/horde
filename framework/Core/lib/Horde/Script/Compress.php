@@ -85,10 +85,25 @@ class Horde_Script_Compress
         case 'uglifyjs':
             $this->_driver = 'Horde_JavascriptMinify_Uglifyjs';
             $this->_params = array_merge($this->_params, array(
-                'cmdline' => $params['uglifyjscmdline'],
                 'uglifyjs' => $params['uglifyjspath']
             ));
-            $this->_sourcemap = true;
+
+            if (isset($params['uglifyjscmdline'])) {
+                $this->_params['cmdline'] = trim($params['uglifyjscmdline']);
+            }
+
+            if (isset($params['uglifyjsversion'])) {
+                switch ($params['uglifyjsversion']) {
+                case 2:
+                    if ($this->_params['cmdline'] != '-c') {
+                        $this->_params['cmdline'] = '-c';
+                    }
+                    $this->_sourcemap = true;
+                    break;
+                }
+            } else {
+                $this->_sourcemap = true;
+            }
             break;
 
         case 'yui':
