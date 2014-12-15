@@ -2,6 +2,8 @@
 v4.2.4-git
 ----------
 
+[mjr] Fix truncation of body text when synchronizing over EAS when no
+      truncationsize option is sent from client (Bug #13755).
 
 
 ------

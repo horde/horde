@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1262,7 +1262,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
    </notes>
   </release>
  </changelog>
