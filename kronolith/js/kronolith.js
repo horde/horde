@@ -1295,10 +1295,10 @@ KronolithCore = {
         }
         switch (tab.identify()) {
         case 'kronolithEventTabAttendees':
-            this.attendeeStartDateHandler($('kronolithFBDate').innerHTML);
+            this.attendeeStartDateHandler(this.getFBDate());
             break;
         case 'kronolithEventTabResources':
-            this.resourceStartDateHandler($('kronolithFBDate').innerHTML);
+            this.resourceStartDateHandler(this.getFBDate());
             break;
         }
     },
@@ -6144,7 +6144,7 @@ KronolithCore = {
                     }
                     if (!Object.isUndefined(r.fb)) {
                         this.freeBusy.get(attendee.l)[1] = r.fb;
-                        this.insertFreeBusy(attendee.l, $('kronolithFBDate').innerHTML);
+                        this.insertFreeBusy(attendee.l, this.getFBDate());
                     }
                 }.bind(this)
             });
@@ -6298,6 +6298,17 @@ KronolithCore = {
         }
     },
 
+    getFBDate: function () {
+   var startDate = $('kronolithFBDate').innerHTML;
+        startDate = startDate.split(' ');
+        if (startDate.length > 1) {
+            startDate = startDate[1];
+        } else {
+            startDate = startDate[0];
+        }
+        return Date.parseExact(startDate, Kronolith.conf.date_format);
+    },
+
     /**
      * Updates rows with free/busy information in the attendees table.
      *
@@ -6306,7 +6317,7 @@ KronolithCore = {
      * @param date   start     An optinal start date for f/b info. If omitted,
      *                         $('kronolithEventStartDate') is used.
      */
-    insertFreeBusy: function(attendee, startDate)
+    insertFreeBusy: function(attendee, start)
     {
         if (!$('kronolithEventDialog').visible() ||
             !this.freeBusy.get(attendee)) {
@@ -6321,7 +6332,7 @@ KronolithCore = {
         }
 
         if (!td.getWidth()) {
-            this.insertFreeBusy.bind(this, attendee, startDate).defer();
+            this.insertFreeBusy.bind(this, attendee, start).defer();
             return;
         }
 
@@ -6329,15 +6340,7 @@ KronolithCore = {
             div.purge();
             div.remove();
         }
-        if (startDate) {
-            startDate = startDate.split(' ');
-            if (startDate.length > 1) {
-                startDate = startDate[1];
-            } else {
-                startDate = startDate[0];
-            }
-            start = Date.parseExact(startDate, Kronolith.conf.date_format);
-        } else {
+        if (!start) {
             start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format);
         }
         var end = start.clone().add(1).days(),
@@ -6387,7 +6390,7 @@ KronolithCore = {
 
     fbStartDateHandler: function(start)
     {
-        this.updateFBDate(Date.parseExact(start, Kronolith.conf.date_format));
+        this.updateFBDate(start);
         this.resetFBRows();
         // Need to check visisbility - multiple changes will break the display
         // due to the use of .defer() in insertFreeBusy().
@@ -6415,14 +6418,14 @@ KronolithCore = {
 
     nextFreebusy: function()
     {
-        var fbdate = Date.parse($('kronolithFBDate').innerHTML);
-        this.fbStartDateHandler(fbdate.addDays(1).toString(Kronolith.conf.date_format));
+        var fbdate = this.getFBDate();
+        this.fbStartDateHandler(fbdate.addDays(1));
     },
 
     prevFreebusy: function()
     {
-        var fbdate = Date.parse($('kronolithFBDate').innerHTML);
-        this.fbStartDateHandler(fbdate.addDays(-1).toString(Kronolith.conf.date_format));
+        var fbdate = this.getFBDate();
+        this.fbStartDateHandler(fbdate.addDays(-1));
     },
 
     /**
