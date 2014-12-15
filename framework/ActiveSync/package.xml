@@ -12,7 +12,7 @@
  </lead>
  <date>2014-12-15</date>
  <version>
-  <release>2.21.0</release>
+  <release>2.21.1</release>
   <api>2.21.0</api>
  </version>
  <stability>
@@ -21,11 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Workaround some broken clients that send null content inside open/close tags instead of an empty tag (Bug #13719).
-* [mjr] Fix regression in detecting iTip requests (Bug #13739).
-* [mjr] Add support for clients that issue BODYPARTPREFERENCE options (Bug #13729).
-* [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
-* [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2557,6 +2553,19 @@
 * [mjr] Add support for clients that issue BODYPARTPREFERENCE options (Bug #13729).
 * [mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request behavior.
 * [mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.21.1</release>
+    <api>2.21.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
