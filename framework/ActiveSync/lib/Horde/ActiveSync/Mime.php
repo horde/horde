@@ -153,7 +153,8 @@ class Horde_ActiveSync_Mime
     /**
      * Return the MIME part of the iCalendar attachment, if available.
      *
-     * @return mixed  The mime part, if present, false otherwise.
+     * @return mixed  The mime id of an iCalendar part, if present. Otherwise
+     *                false.
      */
     public function hasiCalendar()
     {
@@ -162,7 +163,7 @@ class Horde_ActiveSync_Mime
         }
         foreach ($this->_base->contentTypeMap() as $id => $type) {
             if ($type == 'text/calendar') {
-                return $this->_base->getPart($id);
+                return $id;
             }
         }
 
