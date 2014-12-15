@@ -30,7 +30,7 @@
  </developer>
  <date>2014-12-15</date>
  <version>
-  <release>2.17.2</release>
+  <release>2.17.3</release>
   <api>2.17.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Allow disabling maillog synchronization with EAS clients (Bug #13747).
-* [jan] Log E_USER_WARNING, E_RECOVERABLE_ERROR, and E_USER_NOTICE messages at the correct level.
-* [mjr] Add support for ActiveSync clients that issue BODYPARTPREFERENCE options (Bug #13729).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3748,6 +3746,19 @@
 * [mjr] Allow disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Log E_USER_WARNING, E_RECOVERABLE_ERROR, and E_USER_NOTICE messages at the correct level.
 * [mjr] Add support for ActiveSync clients that issue BODYPARTPREFERENCE options (Bug #13729).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.17.3</release>
+    <api>2.17.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
