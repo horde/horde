@@ -30,58 +30,58 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
     /**
      * Parse incoming BODYPARTPREFERENCE options.
      *
-     * @param array $collection  An array structure to parse the data into.
+     * @param array $options  An array structure to parse the data into.
      */
-    protected function _bodyPartPrefs(&$collection)
+    protected function _bodyPartPrefs(&$options)
     {
-        $collection['bodypartprefs'] = array();
+        $options['bodypartprefs'] = array();
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-            $collection['bodypartprefs']['type'] = $this->_decoder->getElementContent();
+            $options['bodypartprefs']['type'] = $this->_decoder->getElementContent();
             // MS-ASAIRS 2.2.2.22.3 type MUST be BODYPREF_TYPE_HTML
             if (!$this->_decoder->getElementEndTag() ||
-                $collection['bodypartprefs']['type'] != Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $options['bodypartprefs']['type'] != Horde_ActiveSync::BODYPREF_TYPE_HTML) {
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
+                $this->_handleError($options);
                 exit;
             }
         }
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-            $collection['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
+            $options['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
+                $this->_handleError($options);
                 exit;
             }
         }
 
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-            $collection['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
+            $options['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
             // MS-ASAIRS 2.2.2.1.1 - MUST be ignored if no trunction
             // size is set. Note we still must read it if it sent
             // so reading the wbxml stream does not break.
-            if (empty($collection['bodypartprefs']['truncationsize'])) {
-                unset($collection['bodypartprefs']['allornone']);
+            if (empty($options['bodypartprefs']['truncationsize'])) {
+                unset($options['bodypartprefs']['allornone']);
             }
             if (!$this->_decoder->getElementEndTag()) {
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
+                $this->_handleError($options);
                 exit;
             }
         }
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
-            $collection['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
+            $options['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
             // MS-ASAIRS 2.2.2.18.3 - Max size of preview is 255.
             if (!$this->_decoder->getElementEndTag() ||
-                $collection['bodypartprefs']['preview'] > 255) {
+                $options['bodypartprefs']['preview'] > 255) {
 
                 $this->_statusCode = self::STATUS_PROTERROR;
-                $this->_handleError($collection);
+                $this->_handleError($options);
                 exit;
             }
         }
         if (!$this->_decoder->getElementEndTag()) {
             $this->_statusCode = self::STATUS_PROTERROR;
-            $this->_handleError($collection);
+            $this->_handleError($options);
             exit;
         }
     }
@@ -91,18 +91,18 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
      *
      * @param array  An array structure to parse the values into.
      */
-    protected function _bodyPrefs(&$collection)
+    protected function _bodyPrefs(&$options)
     {
         $body_pref = array();
-        if (empty($collection['bodyprefs'])) {
-            $collection['bodyprefs'] = array();
+        if (empty($options['bodyprefs'])) {
+            $options['bodyprefs'] = array();
         }
         while (1) {
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                 $body_pref['type'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
+                    $this->_handleError($options);
                     exit;
                 }
             }
@@ -111,7 +111,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
                 $body_pref['truncationsize'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
+                    $this->_handleError($options);
                     exit;
                 }
             }
@@ -120,7 +120,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
                 $body_pref['allornone'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
+                    $this->_handleError($options);
                     exit;
                 }
             }
@@ -129,7 +129,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
                 $body_pref['preview'] = $this->_decoder->getElementContent();
                 if (!$this->_decoder->getElementEndTag()) {
                     $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
+                    $this->_handleError($options);
                     exit;
                 }
             }
@@ -137,7 +137,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
             $e = $this->_decoder->peek();
             if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                 $this->_decoder->getElementEndTag();
-                $collection['bodyprefs'][$body_pref['type']] = $body_pref;
+                $options['bodyprefs'][$body_pref['type']] = $body_pref;
                 break;
             }
         }
