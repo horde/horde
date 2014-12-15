@@ -76,11 +76,23 @@ class IMP_Imap_Password implements Horde_Imap_Client_Base_Password, Serializable
     }
 
     /**
+     * @throws RuntimeException
      */
     public function unserialize($data)
     {
         $this->_id = $data;
-        $this->_password = $GLOBALS['session']->get('imp', self::PASSWORD_KEY . '/' . $this->_id);
+
+        $password = $GLOBALS['session']->get(
+            'imp',
+            self::PASSWORD_KEY . '/' . $this->_id
+        );
+        if (!strlen($password)) {
+            /* Without a password, this object is invalid. */
+            throw new RuntimeException(
+                'Invalid object since password is empty.'
+            );
+        }
+        $this->_password = $password;
     }
 
 }
