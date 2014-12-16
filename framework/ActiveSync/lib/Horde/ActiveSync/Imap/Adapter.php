@@ -899,6 +899,8 @@ class Horde_ActiveSync_Imap_Adapter
      *                  DEFAULT: No truncation.
      *   - bodyprefs: (array)  Bodyprefs, if sent from device.
      *                DEFAULT: none (No body prefs sent or enforced).
+     *   - bodypartprefs: (array)  Bodypartprefs, if sent from device.
+     *                DEFAULT: none (No body part prefs sent or enforced).
      *   - mimesupport: (integer)  Indicates if MIME is supported or not.
      *                  Possible values: 0 - Not supported 1 - Only S/MIME or
      *                  2 - All MIME.
