@@ -113,10 +113,6 @@ class IMP_Ajax_Application_Handler_Draft extends Horde_Core_Ajax_Application_Han
             }
 
             switch ($action) {
-            case 'autoSaveDraft':
-                $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
-                break;
-
             case 'saveDraft':
                 if ($GLOBALS['prefs']->getValue('close_draft')) {
                     $imp_compose->destroy('save_draft');
