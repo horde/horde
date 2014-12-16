@@ -222,7 +222,8 @@ class Horde_ActiveSync_Imap_Message
         // Deduce which part(s) we need to request.
         $want_html_text = $version >= Horde_ActiveSync::VERSION_TWELVE &&
             (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
-            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]));
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            !empty($options['bodypartprefs']));
 
         $want_plain_text = $version == Horde_ActiveSync::VERSION_TWOFIVE ||
             empty($options['bodyprefs']) ||
@@ -325,6 +326,7 @@ class Horde_ActiveSync_Imap_Message
                 $html_body_part->setContents($html);
                 $html = $html_body_part->getContents();
             }
+            $html_original = $html;
 
             // Size of the original HTML part.
             $html_size = !is_null($data->getBodyPartSize($html_id))
@@ -351,6 +353,25 @@ class Horde_ActiveSync_Imap_Message
                         $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
                         $html_charset);
                 }
+            }
+
+            // Bodypart?
+            if (!empty($options['bodypartprefs'])) {
+                if (!empty($options['bodypartprefs']['truncationsize'])) {
+                    $html_bp = Horde_String::substr(
+                        $html_original,
+                        0,
+                        $options['bodypartprefs']['truncationsize'],
+                        $html_charset);
+                } else {
+                    $html_bp = $html_original;
+                }
+                $return['bodyparthtml'] = array(
+                    'charset' => $html_charset,
+                    'body' => $html_bp,
+                    'truncated' => $html_size > Horde_String::length($html_bp),
+                    'size' => $html_size
+                );
             }
 
             // Was the part truncated?

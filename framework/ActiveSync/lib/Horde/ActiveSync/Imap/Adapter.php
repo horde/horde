@@ -1267,7 +1267,11 @@ class Horde_ActiveSync_Imap_Adapter
         } else {
             $message->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
         }
-        if (!empty($body_data['html']['estimated_size'])) {
+
+        if ($message instanceof Horde_ActiveSync_Message_AirSyncBaseBodypart) {
+            $message->data = $body_data['bodyparthtml']['body']->stream;
+            $message->truncated = $body_data['bodyparthtml']['truncated'];
+        } elseif (!empty($body_data['html']['estimated_size'])) {
             $message->estimateddatasize = $body_data['html']['estimated_size'];
             $message->truncated = $body_data['html']['truncated'];
             $message->data = $body_data['html']['body']->stream;
@@ -1595,6 +1599,13 @@ class Horde_ActiveSync_Imap_Adapter
             $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['html']['body'], $data['html']['charset']), true);
             stream_filter_remove($filter_h);
             $data['html']['body'] = $stream;
+        }
+        if (!empty($data['bodyparthtml'])) {
+            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
+            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
+            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['bodyparthtml']['body'], $data['bodyparthtml']['charset']), true);
+            stream_filter_remove($filter_h);
+            $data['bodyparthtml']['body'] = $stream;
         }
 
         return $data;
