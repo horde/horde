@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-12-15</date>
+ <date>2014-12-16</date>
  <version>
-  <release>2.17.3</release>
-  <api>2.17.0</api>
+  <release>2.18.0</release>
+  <api>2.18.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Only load application notify handlers on demand.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -543,6 +543,7 @@
        <dir name="Storage">
         <file name="Session.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Notification/Storage -->
+       <file name="Handler.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Notification -->
       <dir name="Perms">
        <file name="Ui.php" role="php" />
@@ -1895,6 +1896,7 @@
    <install as="Horde/Core/Mime/Headers/Received.php" name="lib/Horde/Core/Mime/Headers/Received.php" />
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
    <install as="Horde/Core/Mime/Viewer/Vcard.php" name="lib/Horde/Core/Mime/Viewer/Vcard.php" />
+   <install as="Horde/Core/Notification/Handler.php" name="lib/Horde/Core/Notification/Handler.php" />
    <install as="Horde/Core/Notification/Event/Status.php" name="lib/Horde/Core/Notification/Event/Status.php" />
    <install as="Horde/Core/Notification/Event/Webnotification.php" name="lib/Horde/Core/Notification/Event/Webnotification.php" />
    <install as="Horde/Core/Notification/Handler/Decorator/Base.php" name="lib/Horde/Core/Notification/Handler/Decorator/Base.php" />
@@ -3750,15 +3752,15 @@
   </release>
   <release>
    <version>
-    <release>2.17.3</release>
-    <api>2.17.0</api></version>
+    <release>2.18.0</release>
+    <api>2.18.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-15</date>
+   <date>2014-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Only load application notify handlers on demand.
    </notes>
   </release>
  </changelog>

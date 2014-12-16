@@ -577,7 +577,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         }
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
         if (empty($args['nonotificationinit'])) {
-            $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
+            $GLOBALS['notification']->attachAllAppHandlers();
         }
         $GLOBALS['notification']->attach('status', null, $nclass);
 
@@ -1520,7 +1520,7 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function pushApp($app, array $options = array())
     {
-        global $injector, $language, $session;
+        global $injector, $notification, $language, $session;
 
         if ($app == $this->getApp()) {
             return false;
@@ -1627,6 +1627,8 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Initialize application. */
         if (!isset($this->_appsInit[$app])) {
+            $notification->addAppHandler($app);
+
             try {
                 $error = self::INITCALLBACK_FATAL;
                 $this->callAppMethod($app, 'init');
