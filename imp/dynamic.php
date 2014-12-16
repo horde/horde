@@ -26,7 +26,8 @@ Horde_Registry::appInit('imp', array(
 
 $class = 'IMP_Dynamic_' . Horde_String::ucfirst($vars->page);
 if (!class_exists($class)) {
-    throw new IMP_Exception('Page not found: ' . $vars->page);
+    /* Need to do redirect to ensure that browser URL is updated. */
+    IMP::getInitialPage()->url->redirect();
 }
 
 $ob = new $class($vars);
