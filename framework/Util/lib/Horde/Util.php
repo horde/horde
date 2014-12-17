@@ -38,13 +38,12 @@ class Horde_Util
     protected static $_magicquotes = null;
 
     /**
-     * TODO
+     * Data used to determine shutdown deletion.
      *
      * @var array
      */
     protected static $_shutdowndata = array(
-        'dirs' => array(),
-        'files' => array(),
+        'paths' => array(),
         'secure' => array()
     );
 
@@ -397,17 +396,12 @@ class Horde_Util
 
         $ptr = &self::$_shutdowndata;
         if ($register) {
-            if (@is_dir($filename)) {
-                $ptr['dirs'][$filename] = true;
-            } else {
-                $ptr['files'][$filename] = true;
-            }
-
+            $ptr['paths'][$filename] = true;
             if ($secure) {
                 $ptr['secure'][$filename] = true;
             }
         } else {
-            unset($ptr['dirs'][$filename], $ptr['files'][$filename], $ptr['secure'][$filename]);
+            unset($ptr['paths'][$filename], $ptr['secure'][$filename]);
         }
     }
 
@@ -425,39 +419,56 @@ class Horde_Util
     {
         $ptr = &self::$_shutdowndata;
 
-        foreach ($ptr['files'] as $file => $val) {
-            /* Delete files */
-            if ($val && file_exists($file)) {
-                /* Should we securely delete the file by overwriting the data
-                   with a random string? */
-                if (isset($ptr['secure'][$file])) {
-                    $filesize = filesize($file);
-                    $fp = fopen($file, 'r+');
-                    foreach (self::$patterns as $pattern) {
-                        $pattern = substr(str_repeat($pattern, floor($filesize / strlen($pattern)) + 1), 0, $filesize);
-                        fwrite($fp, $pattern);
-                        fseek($fp, 0);
-                    }
-                    fclose($fp);
-                }
-                @unlink($file);
+        foreach (array_keys($ptr['paths']) as $val) {
+            if (@is_file($val)) {
+                self::_secureDelete($val);
+                continue;
             }
+
+            try {
+                $it = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($val),
+                    RecursiveIteratorIterator::CHILD_FIRST
+                );
+            } catch (UnexpectedValueException $e) {
+                continue;
+            }
+
+            while ($it->valid()) {
+                if (!$it->isDot()) {
+                    if ($it->isDir()) {
+                        rmdir($it->key());
+                    } elseif ($it->isFile()) {
+                        self::_secureDelete($it->key());
+                    } else {
+                        unlink($it->key());
+                    }
+                }
+                $it->next();
+            }
+        }
+    }
+
+    /**
+     * Securely delete the file by overwriting the data with a random
+     * string.
+     *
+     * @param string $file  Filename.
+     */
+    protected static function _secureDelete($file)
+    {
+        if (isset($ptr['secure'][$file])) {
+            $filesize = filesize($file);
+            $fp = fopen($file, 'r+');
+            foreach (self::$patterns as $pattern) {
+                $pattern = substr(str_repeat($pattern, floor($filesize / strlen($pattern)) + 1), 0, $filesize);
+                fwrite($fp, $pattern);
+                fseek($fp, 0);
+            }
+            fclose($fp);
         }
 
-        foreach ($ptr['dirs'] as $dir => $val) {
-            /* Delete directories */
-            if ($val && file_exists($dir)) {
-                /* Make sure directory is empty. */
-                $dir_class = dir($dir);
-                while (false !== ($entry = $dir_class->read())) {
-                    if ($entry != '.' && $entry != '..') {
-                        @unlink($dir . '/' . $entry);
-                    }
-                }
-                $dir_class->close();
-                @rmdir($dir);
-            }
-        }
+        @unlink($file);
     }
 
     /**
