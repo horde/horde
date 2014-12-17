@@ -93,7 +93,7 @@ Further server debug information *might* be found in the ```$details``` property
 
 IMAP alerts are *REQUIRED* by the IMAP specification to be displayed to the user.
 
-These alerts should be caught/handled in the client code by observing the ```Horde_Imap_Client_Base_Alerts``` object, which is available as the ```$alerts_ob``` in the Horde_Imap_Client_Base object.
+These alerts should be caught/handled in the client code by observing the [```Horde_Imap_Client_Base_Alerts```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Base_Alerts.html) object, which is available as the ```$alerts_ob``` property in the Horde_Imap_Client_Base object.
 
 Example:
 
@@ -119,13 +119,10 @@ $foo = new Foo();
 $client->alerts_ob->attach($foo);
 ```
 
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Base_Alerts.html)
-
-## Mailbox Actions
-
-The following are actions dealing with mailbox-level actions.  Actions dealing with the contents of the mailboxes are discussed below in the "Message Actions" section.
+## General Function Information
 
 #### Manual Mailbox Loading Not Necessary
+
 <span style="color:red">NOTE:</span> All mailbox arguments to methods in Horde/Imap_Client take the UTF-8 version of the mailbox name. There is no need to worry about converting from/to the internal UTF7-IMAP charset used on IMAP servers.
 
 Alternatively, you can use [Horde_Imap_Client_Mailbox](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Mailbox.html) objects as the mailbox argument. This object can automatically convert the mailbox name if in UTF7-IMAP for you.  Example:
@@ -141,9 +138,19 @@ $mbox2 = Horde_Imap_Client_Mailbox::create('Envoy&AOk-', true);
 $result = ($mbox1 == $mbox2);
 ```
 
+#### UID Object Return
+
+Many method either require UIDs as an argument or return a list of UIDs.  This is done by using the [Horde_Imap_Client_Ids](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Ids.html) object.
+
+This object implements both the ```Countable``` and ```Traversable``` classes, so it can be used directly in ```count()``` and ```foreach()``` commands. If a raw array list of ids is needed, it can be obtained from the object via the ```$ids``` property.
+
+## Mailbox Actions
+
+The following are actions dealing with mailbox-level actions.  Actions dealing with the contents of the mailboxes are discussed below in the "Message Actions" section.
+
 ### Listing Mailboxes
 
-Listing mailboxes is accomplished via the ```listMailboxes()``` function. The search query (or multiple queries) is passed in via the first argument.  The second argument defines which mailboxes that match the search pattern(s) are returned.  Valid modes are:
+Listing mailboxes is accomplished via the [```listMailboxes()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Base.html#method_listMailboxes) function. The search query (or multiple queries) is passed in via the first argument.  The second argument defines which mailboxes that match the search pattern(s) are returned.  Valid modes are:
 
 | Constant Value                            | Description |
 |-------------------------------------------|-------------|
@@ -180,7 +187,7 @@ $list = $client->listMailboxes(
 
 ### Mailbox Creation
 
-```createMailbox()``` will create a new mailbox or throw an Exception on error or if the mailbox already exists.
+[```createMailbox()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_createMailbox) will create a new mailbox or throw an Exception on error or if the mailbox already exists.
 
 Example:
 
@@ -195,11 +202,9 @@ try {
 }
 ```
 
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_createMailbox)
-
 ### Mailbox Deletion
 
-```deleteMailbox()``` will delete an existing mailbox or throw an Exception on error or if the mailbox doesn't exist.
+[```deleteMailbox()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_deleteMailbox) will delete an existing mailbox or throw an Exception on error or if the mailbox doesn't exist.
 
 Example:
 
@@ -213,11 +218,9 @@ try {
 }
 ```
 
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_deleteMailbox)
-
 ### Mailbox Rename
 
-```renameMailbox()``` will rename an existing mailbox or throw an Exception on error or if the mailbox doesn't exist.
+[```renameMailbox()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_renameMailbox) will rename an existing mailbox or throw an Exception on error or if the mailbox doesn't exist.
 
 Example:
 
@@ -232,11 +235,9 @@ try {
 }
 ```
 
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_renameMailbox)
- 
 ### Mailbox Subscriptions
 
-```subscribeMailbox()``` sets the subscription status of a mailbox or throws an Exception on error.
+[```subscribeMailbox()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_subscribeMailbox) sets the subscription status of a mailbox or throws an Exception on error.
 
 Example:
 
@@ -254,17 +255,13 @@ try {
 }
 ```
 
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_subscribeMailbox)
-
 ### Mailbox Status
 
-TODO
-
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_status)
+[```status()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_status) - TODO
 
 ## Message Storage Actions
 
-To store a message on the mail server, the ```append()``` command is used.
+To store a message on the mail server, the [```append()```](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_append) command is used.
 
 Example of simple usage - adding a single message with two flags set (```\Seen``` and ```OtherFlag```):
 
@@ -294,8 +291,6 @@ try {
     // Failure
 }
 ```
-
-- [API Documentation](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Exception.html#method_append)
 
 ## Message Actions
 
@@ -349,4 +344,3 @@ $results = $client->search('INBOX', $query, array(
 $uids = $results['match'];
 ```
 
-In the examples above, ```$uids``` is a [Horde_Imap_Client_Ids](http://dev.horde.org/api/master/lib/Imap_Client/classes/Horde_Imap_Client_Ids.html) object (all message ID lists are returned via this object in Horde/Imap_Client). This object implements both the ```Countable``` and ```Traversable``` classes, so it can be used directly in ```count()``` and ```foreach()``` commands. If a raw array is needed, it can be obtained from the object via the ```$ids``` property.
