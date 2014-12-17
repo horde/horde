@@ -198,7 +198,6 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function setupNotification(Horde_Notification_Handler $handler)
     {
-        $handler->addDecorator(new IMP_Notification_Handler_Decorator_ImapAlerts());
         $handler->addDecorator(new IMP_Notification_Handler_Decorator_NewmailNotify());
         $handler->addType('status', 'imp.*', 'IMP_Notification_Event_Status');
     }

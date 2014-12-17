@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
+class IMP_Factory_Imap
+extends Horde_Core_Factory_Base
+implements Horde_Shutdown_Task, SplObserver
 {
     const BASE_OB = "base\0";
 
@@ -81,6 +83,9 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
                     : new IMP_Imap_Remote($id);
             }
 
+            /* Attach IMAP alert handler. */
+            $ob->client_ob->alerts_ob->attach($this);
+
             $this->_instance[$id] = $ob;
         }
 
@@ -120,22 +125,17 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base implements Horde_Shutdown
         }
     }
 
+    /* SplObserver method */
+
     /**
-     * Returns IMAP alerts from all servers contacted this access.
-     *
-     * @return array  IMAP alerts.
      */
-    public function alerts()
+    public function update(SplSubject $subject)
     {
-        $out = array();
+        global $notification;
 
-        foreach ($this->_instance as $val) {
-            if ($val->init) {
-                $out = array_merge($out, $val->alerts());
-            }
+        if ($subject instanceof Horde_Imap_Client_Base_Alerts) {
+            $notification->push($subject->getLast()->alert, 'horde.warning');
         }
-
-        return $out;
     }
 
 }
