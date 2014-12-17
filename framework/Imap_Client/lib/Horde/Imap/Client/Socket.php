@@ -344,17 +344,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
     /**
      */
-    public function alerts()
-    {
-        $alerts = empty($this->_temp['alerts'])
-            ? array()
-            : $this->_temp['alerts'];
-        $this->_temp['alerts'] = array();
-        return $alerts;
-    }
-
-    /**
-     */
     protected function _login()
     {
         $secure = $this->getParam('secure');
@@ -4695,10 +4684,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Used by Gmail - Treat as an alert for now.
         // http://mailman13.u.washington.edu/pipermail/imap-protocol/2014-September/002324.html
         case 'WEBALERT':
-            if (!isset($this->_temp['alerts'])) {
-                $this->_temp['alerts'] = array();
-            }
-            $this->_temp['alerts'][] = strval($ob->token);
+            $this->_alerts->add(strval($ob->token), $rc->code);
             break;
 
         case 'BADCHARSET':

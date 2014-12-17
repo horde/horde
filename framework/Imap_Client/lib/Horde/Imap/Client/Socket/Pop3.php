@@ -191,13 +191,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
-    public function alerts()
-    {
-        return array();
-    }
-
-    /**
-     */
     protected function _login()
     {
         /* Blank passwords are not allowed, so no need to even try

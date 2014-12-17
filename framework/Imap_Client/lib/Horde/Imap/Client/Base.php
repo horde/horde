@@ -21,6 +21,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  *
+ * @property-read Horde_Imap_Client_Base_Alert $alerts_ob
+                  The alert reporting object (@since 2.26.0)
  * @property-read Horde_Imap_Client_Data_Capability $capability
  *                A capability object. (@since 2.24.0)
  * @property-read Horde_Imap_Client_Data_SearchCharset $search_charset
@@ -76,6 +78,13 @@ implements Serializable, SplObserver
      * @var boolean
      */
     public $statuscache = true;
+
+    /**
+     * Alerts reporting object.
+     *
+     * @var Horde_Imap_Client_Base_Alerts
+     */
+    protected $_alerts;
 
     /**
      * The Horde_Imap_Client_Cache object.
@@ -286,6 +295,9 @@ implements Serializable, SplObserver
     protected function _initOb()
     {
         register_shutdown_function(array($this, 'shutdown'));
+
+        $this->_alerts = new Horde_Imap_Client_Base_Alerts();
+
         $this->_debug = ($debug = $this->getParam('debug'))
             ? new Horde_Imap_Client_Base_Debug($debug)
             : new Horde_Support_Stub();
@@ -327,6 +339,11 @@ implements Serializable, SplObserver
             ($subject instanceof Horde_Imap_Client_Data_SearchCharset)) {
             $this->changed = true;
         }
+
+        /* @todo: BC - remove */
+        if ($subject instanceof Horde_Imap_Client_Base_Alerts) {
+            $this->_temp['alerts'][] = $subject->getLast()->alert;
+        }
     }
 
     /**
@@ -362,6 +379,9 @@ implements Serializable, SplObserver
     public function __get($name)
     {
         switch ($name) {
+        case 'alerts_ob':
+            return $this->_alerts;
+
         case 'capability':
             return $this->_capability();
 
@@ -780,9 +800,18 @@ implements Serializable, SplObserver
      * Return a list of alerts that MUST be presented to the user (RFC 3501
      * [7.1]).
      *
+     * @deprecated  Add an observer to the $alerts_ob property instead.
+     *
      * @return array  An array of alert messages.
      */
-    abstract public function alerts();
+    public function alerts()
+    {
+        $alerts = isset($this->_temp['alerts'])
+            ? $this->_temp['alerts']
+            : array();
+        unset($this->_temp['alerts']);
+        return $alerts;
+    }
 
     /**
      * Login to the IMAP server.

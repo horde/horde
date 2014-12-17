@@ -12,8 +12,8 @@
  </lead>
  <date>2014-12-03</date>
  <version>
-  <release>2.25.7</release>
-  <api>2.25.0</api>
+  <release>2.26.0</release>
+  <api>2.26.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] IMAP alerts can now be handled by registering an observer with the new Horde_Imap_Client_Base_Alerts object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -46,6 +46,7 @@
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
+        <file name="Alerts.php" role="php" />
         <file name="Debug.php" role="php" />
         <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
@@ -553,6 +554,7 @@
    <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Base/Alerts.php" name="lib/Horde/Imap/Client/Base/Alerts.php" />
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
@@ -2787,15 +2789,15 @@
   </release>
   <release>
    <version>
-    <release>2.25.7</release>
-    <api>2.25.0</api></version>
+    <release>2.26.0</release>
+    <api>2.26.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] IMAP alerts can now be handled by registering an observer with the new Horde_Imap_Client_Base_Alerts object.
    </notes>
   </release>
  </changelog>

@@ -11,6 +11,19 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.26.0
+===================
+
+  - Horde_Imap_Client_Base
+
+    Added the $alerts_ob property.
+
+    - alerts()
+
+      This method has been deprecated. Add an observer to the $alerts_ob
+      property instead.
+
+
 Upgrading to 2.25.0
 ===================
 
