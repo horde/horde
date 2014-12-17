@@ -30,7 +30,7 @@
      <dir name="Imap">
       <dir name="Client">
        <dir name="examples">
-        <file name="tutorial.html" role="doc" />
+        <file name="tutorial.md" role="doc" />
        </dir> <!-- /doc/Horde/Imap/Client/examples -->
        <file name="COPYING" role="doc" />
        <file name="UPGRADING" role="doc" />
@@ -540,7 +540,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
-   <install as="examples/tutorial.html" name="doc/Horde/Imap/Client/examples/tutorial.html" />
+   <install as="examples/tutorial.md" name="doc/Horde/Imap/Client/examples/tutorial.md" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
