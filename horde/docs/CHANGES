@@ -2,6 +2,7 @@
 v5.2.4-git
 ----------
 
+[jan] Don't instantiate notification system for RPC requests.
 
 
 ------
