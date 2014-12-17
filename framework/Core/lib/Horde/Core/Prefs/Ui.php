@@ -867,7 +867,7 @@ class Horde_Core_Prefs_Ui
         foreach ($members as $member) {
             $tmp[] = $this->_generateEntry(
                 $member,
-                $GLOBALS['prefs']->getDefault($member));
+                $GLOBALS['prefs']->getValue($member));
         }
         $js[-1] = $tmp;
 

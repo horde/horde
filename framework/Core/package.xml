@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Call preference hooks for default values of new identities.
 * [mms] Only load application notify handlers on demand.
  </notes>
  <contents>
@@ -3760,6 +3761,7 @@
    <date>2014-12-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Call preference hooks for default values of new identities.
 * [mms] Only load application notify handlers on demand.
    </notes>
   </release>
