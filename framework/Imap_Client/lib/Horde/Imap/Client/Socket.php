@@ -1072,7 +1072,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_initCache();
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
-            if (isset($md[self::CACHE_MODSEQ])) {
+            /* CACHE_MODSEQ can be set but 0 (NOMODSEQ was returned). */
+            if (!empty($md[self::CACHE_MODSEQ])) {
                 if ($uids = $this->_cache->get($mailbox)) {
                     $uids = $this->getIdsOb($uids);
 

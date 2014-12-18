@@ -3909,7 +3909,8 @@ implements Serializable, SplObserver
             $sync = 0;
         }
 
-        if ($set) {
+        /* $modseq can be 0 - NOMODSEQ - so don't store in that case. */
+        if ($set && $modseq) {
             $this->_cache->setMetaData($this->_selected, $uidvalid, array(
                 self::CACHE_MODSEQ => $modseq
             ));

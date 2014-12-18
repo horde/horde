@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix handling mailbox cache data when the mailbox returns NOMODSEQ.
 * [mms] IMAP alerts can now be handled by registering an observer with the new Horde_Imap_Client_Base_Alerts object.
  </notes>
  <contents>
@@ -2797,6 +2798,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix handling mailbox cache data when the mailbox returns NOMODSEQ.
 * [mms] IMAP alerts can now be handled by registering an observer with the new Horde_Imap_Client_Base_Alerts object.
    </notes>
   </release>
