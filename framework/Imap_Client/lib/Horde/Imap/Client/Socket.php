@@ -1068,8 +1068,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($qresync) {
             $this->_initCache();
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
-
-            if (isset($md[self::CACHE_MODSEQ])) {
+            /*
+                RFC 5162 requires the last known UIDVALIDITY AND the last known modification sequence
+                to be present and not empty; $md[self::CACHE_MODSEQ] is seen to be occasionally empty
+                causing the issued request to fail with BAD
+            */
+            if (isset($md[self::CACHE_MODSEQ]) && $md[self::CACHE_MODSEQ]) {
                 if ($uids = $this->_cache->get($mailbox)) {
                     $uids = $this->getIdsOb($uids);
 
