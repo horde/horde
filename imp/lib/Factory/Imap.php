@@ -84,7 +84,9 @@ implements Horde_Shutdown_Task, SplObserver
             }
 
             /* Attach IMAP alert handler. */
-            $ob->client_ob->alerts_ob->attach($this);
+            if ($c_ob = $ob->client_ob) {
+                $c_ob->alerts_ob->attach($this);
+            }
 
             $this->_instance[$id] = $ob;
         }
