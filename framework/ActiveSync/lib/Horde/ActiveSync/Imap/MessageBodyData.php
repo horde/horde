@@ -77,7 +77,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
         }
     }
 
-    protected function __set($property, $value)
+    public function __set($property, $value)
     {
         switch ($property) {
         case 'html':
