@@ -33,7 +33,7 @@
  * @property string|stream  $data  The body data.
  * @property string         $preview  Body preview.
  */
-class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_Base
+class Horde_ActiveSync_Message_AirSyncBaseBodypart extends Horde_ActiveSync_Message_Base
 {
 
     const STATUS_SUCCESS = 1;
@@ -58,7 +58,8 @@ class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_
      * @var array
      */
     protected $_properties = array(
-        'type'              => false,
+        'status'            => false,
+        'type'              =>  Horde_ActiveSync::BODYPREF_TYPE_HTML,
         'estimateddatasize' => false,
         'truncated'         => false,
         'data'              => false,

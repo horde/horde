@@ -1,0 +1,450 @@
+<?php
+/**
+ * Horde_ActiveSync_Imap_MessageBodyData::
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2012-2014 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2012-2014 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+class Horde_ActiveSync_Imap_MessageBodyData
+{
+
+    protected $_imap;
+    protected $_basePart;
+    protected $_options;
+    protected $_version;
+    protected $_mbox;
+    protected $_uid;
+
+    protected $_plain;
+    protected $_html;
+    protected $_bodyPart;
+
+    /**
+     * Const'r
+     *
+     * @param array $params  Parameters:
+     *     - imap: (Horde_Imap_Client_Base)     The IMAP client.
+     *     - mbox: (Horde_Imap_Client_Mailbox)  The mailbox.
+     *     - uid: (integer) The message UID.
+     *     - mime: (Horde_ActiveSync_Mime)      The MIME object.
+     *
+     * @param array $options  The options array.
+     */
+    public function __construct(array $params, array $options)
+    {
+        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+
+        $this->_imap = $params['imap'];
+        $this->_basePart = $params['mime'];
+        $this->_mbox = $params['mbox'];
+        $this->_uid = $params['uid'];
+        $this->_options = $options;
+
+        $this->_version = empty($options['protocolversion']) ?
+            Horde_ActiveSync::VERSION_TWOFIVE :
+            $options['protocolversion'];
+
+        $this->_getParts();
+    }
+
+    public function &__get($property)
+    {
+        switch ($property) {
+        case 'plain':
+            return $this->plainBody();
+        case 'html':
+            return $this->htmlBody();
+        case 'bodyPart':
+            return $this->bodyPartBody();
+        default:
+            throw new InvalidArgumentException("Unknown property: $property");
+        }
+    }
+
+    protected function __set($property, $value)
+    {
+        switch ($property) {
+        case 'html':
+            $this->_html = $value;
+            break;
+        default:
+            throw new InvalidArgumentException("$property can not be set.");
+        }
+    }
+
+    /**
+     * Determine which parts we need, and fetch them.
+     *
+     * @return [type] [description]
+     */
+    protected function _getParts()
+    {
+        // Look for the parts we need. We try to detect and fetch only the parts
+        // we need, while ensuring we have something to return. So, e.g., if we
+        // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
+        // can't find plain text but we have a html body, fetch that anyway.
+        $text_id = $this->_basePart->findBody('plain');
+        $html_id = $this->_basePart->findBody('html');
+
+        // Deduce which part(s) we need to request.
+        $want_html_text = $this->_wantHtml();
+        $want_plain_text = $this->_wantPlainText($html_id, $want_html_text);
+
+        $want_html_as_plain = false;
+        if (!empty($text_id) && $want_plain_text) {
+            $text_body_part = $this->_basePart->getPart($text_id);
+        } elseif ($want_plain_text && !empty($html_id) &&
+                  empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME])) {
+            $want_html_text = true;
+            $want_html_as_plain = true;
+        }
+        if (!empty($html_id) && $want_html_text) {
+            $html_body_part = $this->_basePart->getPart($html_id);
+        }
+
+        // Make sure we have truncation if needed.
+        if (empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) &&
+            !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) &&
+            $want_plain_text && $want_html_text) {
+
+            // We only have HTML truncation data, requested HTML body but only
+            // have plaintext.
+            $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN] =
+                $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML];
+        }
+
+        // Fetch the data from the IMAP client.
+        $data = $this->_fetchData(array('html_id' => $html_id, 'text_id' => $text_id));
+
+        // @todo can we get the text_id from the body part?
+        if (!empty($text_id) && $want_plain_text) {
+            $this->_plain = $this->_getPlainPart($data, $text_body_part, $text_id);
+        }
+
+        if (!empty($html_id) && $want_html_text) {
+            $results = $this->_getHtmlPart($data, $html_body_part, $html_id, $want_html_as_plain);
+            if (!empty($results['html'])) {
+                $this->_html = $results['html'];
+            }
+            if (!empty($results['plain'])) {
+                $this->_plain = $results['plain'];
+            }
+        }
+
+        if (!empty($this->_options['bodypartprefs'])) {
+            $this->_bodyPart = $this->_getBodyPart(
+                $data,
+                !empty($html_id) ? $html_body_part : $text_body_part,
+                !empty($html_id) ? $html_id : $text_id,
+                empty($html_id)
+            );
+        }
+
+    }
+
+    protected function _wantHtml()
+    {
+        return $this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
+            (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
+            !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            !empty($this->_options['bodypartprefs']));
+    }
+
+    protected function _wantPlainText($html_id, $want_html)
+    {
+        return $this->_version == Horde_ActiveSync::VERSION_TWOFIVE ||
+            empty($this->_options['bodyprefs']) ||
+            !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) ||
+            !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]) ||
+            !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            ($want_html && empty($html_id));
+    }
+
+    /**
+     * Fetch data from the IMAP client.
+     *
+     * @param  array $params  Parameter array.
+     *     - html_id (string)  The MIME id of the HTML part, if any.
+     *     - text_id (string)  The MIME id of the plain part, if any.
+     *
+     * @return Horde_Imap_Client_Fetch_Data  The results.
+     */
+    protected function _fetchData($params)
+    {
+        $query = new Horde_Imap_Client_Fetch_Query();
+        $query_opts = array(
+            'decode' => true,
+            'peek' => true
+        );
+
+        // Get body information
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE) {
+            if (!empty($params['html_id'])) {
+                $query->bodyPartSize($params['html_id']);
+                $query->bodyPart($params['html_id'], $query_opts);
+            }
+            if (!empty($params['text_id'])) {
+                $query->bodyPart($params['text_id'], $query_opts);
+                $query->bodyPartSize($params['text_id']);
+            }
+        } else {
+            // EAS 2.5 Plaintext body
+            $query->bodyPart($params['text_id'], $query_opts);
+            $query->bodyPartSize($params['text_id']);
+        }
+        try {
+            $fetch_ret = $this->_imap->fetch(
+                $this->_mbox,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+            );
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        if (!$data = $fetch_ret->first()) {
+            throw new Horde_Exception_NotFound(
+                sprintf('Could not load message %s from server.', $this->_uid));
+        }
+
+        return $data;
+    }
+
+    /**
+     * Build the data needed for the plain part.
+     *
+     * @param  Horde_Imap_Client_Fetch_Data $data  The FETCH results.
+     * @param  Horde_Mime_Part $text_mime          The plaintext MIME part.
+     * @param  string $text_id                     The MIME id for this part on
+     *                                             the IMAP server.
+     * @return array  The plain part data.
+     *     - charset:  (string)   The charset of the text.
+     *     - body: (string)       The body text.
+     *     - truncated: (boolean) True if text was truncated.
+     *     - size: (integer)      The original part size, in bytes.
+     */
+    protected function _getPlainPart(
+        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $text_mime, $text_id)
+    {
+        $text = $data->getBodyPart($text_id);
+        if (!$data->getBodyPartDecode($text_id)) {
+            $text_mime->setContents($text);
+            $text = $text_mime->getContents();
+        }
+
+        $text_size = !is_null($data->getBodyPartSize($text_id))
+                ? $data->getBodyPartSize($text_id)
+                : Horde_String::length($text);
+
+        if (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+            // EAS >= 12.0 truncation
+            $text = Horde_String::substr(
+                $text,
+                0,
+                $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
+                $text_mime->getCharset()
+            );
+        }
+
+        $truncated = $text_size > Horde_String::length($text);
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
+            $truncated && !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone'])) {
+            $text = '';
+        }
+        return array(
+            'charset' => $text_mime->getCharset(),
+            'body' => $text,
+            'truncated' => $truncated,
+            'size' => $text_size);
+    }
+
+    /**
+     * Build the data needed for the html part.
+     *
+     * @param  Horde_Imap_Client_Fetch_Data $data             FETCH results.
+     * @param  Horde_Mime_Part  $html_mime        text/html part.
+     * @param  string           $html_id          MIME id.
+     * @param  boolean          $convert_to_plain Convert text to plain text
+     *                          also? If true, will also return a 'plain' array.
+     *
+     * @return array  An array containing 'html' and if $convert_to_true is set,
+     *                a 'plain' part as well. @see self::_getPlainPart for
+     *                structure of each entry.
+     */
+    protected function _getHtmlPart(
+        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
+    {
+        $results = array();
+        $html = $data->getBodyPart($html_id);
+        if (!$data->getBodyPartDecode($html_id)) {
+            $html_mime->setContents($html);
+            $html = $html_mime->getContents();
+        }
+        $charset = $html_mime->getCharset();
+
+        // Size of the original HTML part.
+        $html_size = !is_null($data->getBodyPartSize($html_id))
+            ? $data->getBodyPartSize($html_id)
+            : Horde_String::length($html);
+
+        if (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+            $html = Horde_String::substr(
+                $html,
+                0,
+                $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
+                $charset);
+        } elseif ($convert_to_plain) {
+            $html = Horde_Text_Filter::filter(
+                $html, 'Html2text', array('charset' => $charset));
+
+            // Get the new size, since it probably changed.
+            $html_size = Horde_String::length($html);
+            if (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                // EAS >= 12.0 truncation
+                $html = Horde_String::substr(
+                    $html,
+                    0,
+                    $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
+                    $charset);
+            }
+        }
+
+        // Was the part truncated?
+        $truncated = $html_size > Horde_String::length($html);
+
+        if ($convert_to_plain) {
+            $results['plain'] = array(
+                'charset' => $charset,
+                'body' => $html,
+                'truncated' => $truncated,
+                'size' => $html_size
+            );
+        }
+
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
+            !($truncated && !empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone']))) {
+            $results['html'] = array(
+                'charset' => $charset,
+                'body' => $html,
+                'estimated_size' => $html_size,
+                'truncated' => $truncated);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Build the data needed for the BodyPart part.
+     *
+     * @param  Horde_Imap_Client_Fetch_Data $data  The FETCH results.
+     * @param  Horde_Mime_Part $mime  The plaintext MIME part.
+     * @param  string $id             The MIME id for this part on the IMAP
+     *                                server.
+     * @param boolean $to_html        If true, $id is assumed to be a text/plain
+     *                                part and is converted to html.
+     *
+     * @return array  The BodyPart data.
+     *     - charset:  (string)   The charset of the text.
+     *     - body: (string)       The body text.
+     *     - truncated: (boolean) True if text was truncated.
+     *     - size: (integer)      The original part size, in bytes.
+     */
+    protected function _getBodyPart(
+        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $mime, $id, $to_html)
+    {
+        $text = $data->getBodyPart($id);
+        if (!$data->getBodyPartDecode($id)) {
+            $mime->setContents($text);
+            $text = $mime->getContents();
+        }
+
+        if ($to_html) {
+            $text = Horde_Text_Filter::filter(
+                $text, 'Text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO, 'charset' => $mime->getCharset()));
+            $size = Horde_String::length($text);
+        } else {
+            $size = !is_null($data->getBodyPartSize($id))
+                ? $data->getBodyPartSize($id)
+                : Horde_String::length($text);
+        }
+
+        if (!empty($this->_options['bodypartprefs']['truncationsize'])) {
+            $text = Horde_String::substr(
+                $text,
+                0,
+                $this->_options['bodypartprefs']['truncationsize'],
+                $mime->getCharset());
+        }
+
+        return array(
+            'charset' => $mime->getCharset(),
+            'body' => $text,
+            'truncated' => $size > Horde_String::length($text),
+            'size' => $size
+        );
+    }
+
+    public function plainBody()
+    {
+        if (!empty($this->_plain)) {
+            return $this->_validateBodyData($this->_plain);
+        }
+
+        return false;
+    }
+
+    public function htmlBody()
+    {
+        if (!empty($this->_html)) {
+            return $this->_validateBodyData($this->_html);
+        }
+
+        return false;
+    }
+
+    public function bodyPartBody()
+    {
+        if (!empty($this->_bodyPart)) {
+            return $this->_validateBodyData($this->_bodyPart);
+        }
+
+        return false;
+    }
+
+    /**
+     * Validate the body data to ensure consistent EOL and UTF8 data. Returns
+     * body data in a stream object.
+     *
+     * @param array $data  The body data. @see self::_bodyPartText() for
+     *                     structure.
+     *
+     * @return array  The validated body data array. @see self::_bodyPartText()
+     */
+    protected function _validateBodyData($data)
+    {
+        $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
+        $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
+        $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['body'], $data['charset']), true);
+        stream_filter_remove($filter_h);
+
+        $data['body'] = $stream;
+
+        return $data;
+    }
+
+}

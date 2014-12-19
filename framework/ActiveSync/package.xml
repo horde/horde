@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-15</date>
+ <date>2014-12-19</date>
  <version>
   <release>2.21.1</release>
   <api>2.21.0</api>
@@ -62,6 +62,7 @@
       <dir name="Imap">
        <file name="Adapter.php" role="php" />
        <file name="Message.php" role="php" />
+       <file name="MessageBodyData.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Imap -->
       <dir name="Interface">
        <file name="ImapFactory.php" role="php" />
@@ -458,6 +459,7 @@
    <install as="Horde/ActiveSync/Folder/RI.php" name="lib/Horde/ActiveSync/Folder/RI.php" />
    <install as="Horde/ActiveSync/Imap/Adapter.php" name="lib/Horde/ActiveSync/Imap/Adapter.php" />
    <install as="Horde/ActiveSync/Imap/Message.php" name="lib/Horde/ActiveSync/Imap/Message.php" />
+   <install as="Horde/ActiveSync/Imap/MessageBodyData.php" name="lib/Horde/ActiveSync/Imap/MessageBodyData.php" />
    <install as="Horde/ActiveSync/Interface/ImapFactory.php" name="lib/Horde/ActiveSync/Interface/ImapFactory.php" />
    <install as="Horde/ActiveSync/Interface/LoggerFactory.php" name="lib/Horde/ActiveSync/Interface/LoggerFactory.php" />
    <install as="Horde/ActiveSync/Message/AirSyncBaseAttachment.php" name="lib/Horde/ActiveSync/Message/AirSyncBaseAttachment.php" />
@@ -2562,7 +2564,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-15</date>
+   <date>2014-12-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

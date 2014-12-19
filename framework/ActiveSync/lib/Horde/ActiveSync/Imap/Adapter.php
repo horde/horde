@@ -966,17 +966,17 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $eas_message->importance = $this->_getEASImportance($priority);
 
-        // Get the body data and ensure we have something to send.
-        $message_body_data = $this->_validateMessageBodyData($imap_message->getMessageBodyData($options));
+        // Get the body data.
+        $mbd = $imap_message->getMessageBodyData($options);
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $eas_message->body = $message_body_data['plain']['body']->stream;
-            $eas_message->bodysize = $message_body_data['plain']['body']->length(true);
-            $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
+            $eas_message->body = $mbd->plain['body']->stream;
+            $eas_message->bodysize = $mbd->plain['body']->length(true);
+            $eas_message->bodytruncated = $mbd->plain['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
             // Get the message body and determine original type.
-            if (!empty($message_body_data['html'])) {
+            if ($mbd->html) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
@@ -995,24 +995,24 @@ class Horde_ActiveSync_Imap_Adapter
                 if (!$imap_message->isSigned() && !$imap_message->isEncrypted()) {
                     $mime = new Horde_Mime_Part();
 
-                    if (!empty($message_body_data['plain'])) {
+                    if ($mbd->plain) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        $plain_mime->setContents($message_body_data['plain']['body']->stream, array('usestream' => true));
+                        $plain_mime->setContents($mbd->plain['body']->stream, array('usestream' => true));
                         $plain_mime->setCharset('UTF-8');
                     }
 
-                    if (!empty($message_body_data['html'])) {
+                    if ($mbd->html) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $html_mime->setContents($message_body_data['html']['body']->stream, array('usestream' => true));
+                        $html_mime->setContents($mbd->html['body']->stream, array('usestream' => true));
                         $html_mime->setCharset('UTF-8');
                     }
 
                     // Sanity check the mime type
-                    if (empty($message_body_data['html']) && !empty($plain_mime)) {
+                    if (!$mbd->html && !empty($plain_mime)) {
                         $mime = $plain_mime;
-                    } elseif (empty($message_body_data['plain']) && !empty($html_mime)) {
+                    } elseif (!$mbd->plain && !empty($html_mime)) {
                         $mime = $html_mime;
                     } elseif (!empty($plain_mime) && !empty($html_mime)) {
                         $mime->setType('multipart/alternative');
@@ -1082,17 +1082,16 @@ class Horde_ActiveSync_Imap_Adapter
                 $eas_message->airsyncbasebody = $airsync_body;
             } elseif ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
                 // Sending non MIME encoded HTML message text.
-                $this->_buildHtmlPart($message_body_data, $options, $airsync_body);
-                $eas_message->airsyncbasebody = $airsync_body;
+                $eas_message->airsyncbasebody = $this->_buildHtmlPart($mbd, $airsync_body);
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_PLAIN) {
                 // Non MIME encoded plaintext
                 $this->_logger->info(sprintf(
                     '[%s] Sending PLAINTEXT Message.', $this->_procid));
-                if (!empty($message_body_data['plain']['size'])) {
-                    $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
-                    $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                    $airsync_body->data = $message_body_data['plain']['body']->stream;
+                if (!empty($mbd->plain['size'])) {
+                    $airsync_body->estimateddatasize = $mbd->plain['size'];
+                    $airsync_body->truncated = $mbd->plain['truncated'];
+                    $airsync_body->data = $mbd->plain['body']->stream;
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $eas_message->airsyncbasebody = $airsync_body;
                 }
@@ -1103,7 +1102,7 @@ class Horde_ActiveSync_Imap_Adapter
             // check for that.
             if ($version > Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodypartprefs'])) {
                 $body_part = Horde_ActiveSync::messageFactory('AirSyncBaseBodypart');
-                $eas_message->airsyncbasebodypart = $this->_buildHtmlPart($message_body_data, $options, $body_part);
+                $eas_message->airsyncbasebodypart = $this->_buildBodyPart($mbd, $options, $body_part);
             }
 
             if ($version > Horde_ActiveSync::VERSION_TWELVEONE) {
@@ -1119,11 +1118,10 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Body Preview? Note that this is different from BodyPart's preview
-        // which is handled in _buildHtmlPart().
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
-            $message_body_data['plain']['body']->rewind();
+            $mbd->plain['body']->rewind();
             $eas_message->airsyncbasebody->preview =
-                $message_body_data['plain']['body']->substring(0, $options['bodyprefs']['preview']);
+                $mbd->plain['body']->substring(0, $options['bodyprefs']['preview']);
         }
 
         // Check for special message types.
@@ -1235,47 +1233,59 @@ class Horde_ActiveSync_Imap_Adapter
     /**
      * Build the HTML body and populate the appropriate message object.
      *
-     * @param array $body_data  The body data array.
+     * @param Horde_ActiveSync_Imap_MessageBodyData $mbd  The body data array.
      * @param array $options    The options array.
-     * @param mixed $message    Either the body or bodypart object.
+     * @param Horde_ActiveSync_Message_AirSyncBaseBody $message
+     *            The body or bodypart object.
      */
-    protected function _buildHtmlPart(array $body_data, array $options, &$message)
+    protected function _buildHtmlPart(
+        Horde_ActiveSync_Imap_MessageBodyData $mbd,
+        Horde_ActiveSync_Message_AirSyncBaseBody $message)
     {
         // Sending non MIME encoded HTML message text.
         $this->_logger->info(sprintf(
             '[%s] Sending HTML Message.',
             $this->_procid));
 
-        // @todo Figure out what consititutes a "too large" message, since
-        // we always honor the truncation size anyway. For now, always return
-        // a sucess.
-        if ($message instanceof Horde_ActiveSync_Message_AirSyncBaseBodypart) {
-            $message->status = Horde_ActiveSync_Message_AirSyncBaseBodypart::STATUS_SUCCESS;
-            if (!empty($options['bodypartprefs']['preview'])) {
-                $body_data['plain']['body']->rewind();
-                $message->preview = $body_data['plain']['body']->substring(0, $options['bodypartprefs']['preview']);
-            }
-        }
-
-        if (empty($body_data['html'])) {
+        if (!$mbd->html) {
             $message->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
-            $body_data['html'] = array(
-                'body' => $body_data['plain']['body'],
-                'estimated_size' => $body_data['plain']['size'],
-                'truncated' => $body_data['plain']['truncated']
+            $mbd->html = array(
+                'body' => $mbd->plain['body'],
+                'estimated_size' => $mbd->plain['size'],
+                'truncated' => $mbd->plain['truncated']
             );
         } else {
             $message->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
         }
 
-        if ($message instanceof Horde_ActiveSync_Message_AirSyncBaseBodypart) {
-            $message->data = $body_data['bodyparthtml']['body']->stream;
-            $message->truncated = $body_data['bodyparthtml']['truncated'];
-        } elseif (!empty($body_data['html']['estimated_size'])) {
-            $message->estimateddatasize = $body_data['html']['estimated_size'];
-            $message->truncated = $body_data['html']['truncated'];
-            $message->data = $body_data['html']['body']->stream;
+        if (!empty($mbd->html['estimated_size'])) {
+            $message->estimateddatasize = $mbd->html['estimated_size'];
+            $message->truncated = $mbd->html['truncated'];
+            $message->data = $mbd->html['body']->stream;
         }
+
+        return $message;
+    }
+
+    protected function _buildBodyPart(
+        Horde_ActiveSync_Imap_MessageBodyData $mbd,
+        array $options,
+        Horde_ActiveSync_Message_AirSyncBaseBodypart $message)
+    {
+        $this->_logger->info(sprintf(
+            '[%s] Preparing BODYPART data.',
+            $this->_procid)
+        );
+
+        $message->status = Horde_ActiveSync_Message_AirSyncBaseBodypart::STATUS_SUCCESS;
+        if (!empty($options['bodypartprefs']['preview']) && $mbd->plain) {
+            $mbd->plain['body']->rewind();
+            $message->preview = $mbd->plain['body']->substring(0, $options['bodypartprefs']['preview']);
+        }
+        $message->data = $mbd->bodyPart['body']->stream;
+        $message->truncated = $mbd->bodyPart['truncated'];
+
+        return $message;
     }
 
     /**
@@ -1570,45 +1580,6 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return false;
-    }
-
-    /**
-     * Converts and validates the message body data structure.
-     *
-     * @param array $data  Message body data structure.
-     *
-     * @return array  The message body data structure, with the [html][body] and
-     *                [plain][body] data converted to UTF-8, EOL normalized and
-     *                placed in a stream.
-     */
-    protected function _validateMessageBodyData($data)
-    {
-        //We will need the eol filter to work around PHP bug 65776.
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-
-        if (!empty($data['plain'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['plain']['body'], $data['plain']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['plain']['body'] = $stream;
-        }
-        if (!empty($data['html'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['html']['body'], $data['html']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['html']['body'] = $stream;
-        }
-        if (!empty($data['bodyparthtml'])) {
-            $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
-            $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-            $stream->add(Horde_ActiveSync_Utils::ensureUtf8($data['bodyparthtml']['body'], $data['bodyparthtml']['charset']), true);
-            stream_filter_remove($filter_h);
-            $data['bodyparthtml']['body'] = $stream;
-        }
-
-        return $data;
     }
 
     protected function _getMsgFlags()
