@@ -150,6 +150,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         // @TODO Clean the return values up when we can break bc.
                         $device_properties = $this->_device->properties;
                         $settings = Horde_ActiveSync::messageFactory('DeviceInformation');
+                        $settings->decodeStream($this->_decoder);
                         $device_properties[self::SETTINGS_MODEL] = $settings->model;
                         $device_properties[self::SETTINGS_IMEI] = $settings->imei;
                         $device_properties[self::SETTINGS_FRIENDLYNAME] = $settings->friendlyname;
