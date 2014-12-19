@@ -6304,9 +6304,9 @@ KronolithCore = {
         }
     },
 
-    getFBDate: function () {
-   var startDate = $('kronolithFBDate').innerHTML;
-        startDate = startDate.split(' ');
+    getFBDate: function ()
+    {
+        var startDate = $('kronolithFBDate').innerHTML.split(' ');
         if (startDate.length > 1) {
             startDate = startDate[1];
         } else {
@@ -6424,14 +6424,12 @@ KronolithCore = {
 
     nextFreebusy: function()
     {
-        var fbdate = this.getFBDate();
-        this.fbStartDateHandler(fbdate.addDays(1));
+        this.fbStartDateHandler(this.getFBDate().addDays(1));
     },
 
     prevFreebusy: function()
     {
-        var fbdate = this.getFBDate();
-        this.fbStartDateHandler(fbdate.addDays(-1));
+        this.fbStartDateHandler(this.getFBDate().addDays(-1));
     },
 
     /**
