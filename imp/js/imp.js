@@ -141,9 +141,15 @@ var IMP_JS = {
 
     iframeResizeRun: function(id)
     {
-        var body, h1, h2, html, iHeight;
+        var body, h1, h2, html, iHeight,
+            doc = this.iframeDoc(id);
 
-        body = this.iframeDoc(id).body;
+        if (!doc) {
+            this.iframeresize_run[id.identify()] = false;
+            return;
+        }
+
+        body = doc.body;
         html = body.parentNode;
         iHeight = function() {
             return Math.max(
@@ -184,8 +190,15 @@ var IMP_JS = {
     iframeImgLazyLoadRun: function(iframe)
     {
         var error, imgs, mb_height, range_top, range_bottom, resize,
+            doc = this.iframeDoc(iframe),
             mb = this.messageBody();
 
+        if (!doc) {
+            this.lazyload_run[iframe.identify()] = false;
+            return;
+        }
+
+        imgs = Prototype.Selector.select('IMG[data-src]', doc).findAll(Element.visible);
         mb_height = mb.getHeight();
 
         /* Load messages within 1 scrolled page of range boundaries. */
@@ -220,7 +233,8 @@ var IMP_JS = {
 
     iframeDoc: function(i)
     {
-        return i.contentDocument || i.contentWindow.document;
+        return i.contentDocument ||
+               (i.contentWindow && i.contentWindow.document);
     },
 
     iframeOverflowY: function(id, show)
