@@ -338,21 +338,18 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             return false;
         }
         $di = array();
-        while (($field = ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MODEL) ? Horde_ActiveSync_Request_Settings::SETTINGS_MODEL :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_IMEI) ? Horde_ActiveSync_Request_Settings::SETTINGS_IMEI :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME) ? Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OS) ? Horde_ActiveSync_Request_Settings::SETTINGS_OS :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE) ? Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER) ? Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT) ? Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR) ? Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR :
-               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS) ? Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS :
-               -1)))))))))) != -1) {
+        $settings = Horde_ActiveSync::messageFactory('DeviceInformation');
+        $settings->decodeStream($this->_decoder);
+        $di[self::SETTINGS_MODEL] = $settings->model;
+        $di[self::SETTINGS_IMEI] = $settings->imei;
+        $di[self::SETTINGS_FRIENDLYNAME] = $settings->friendlyname;
+        $di[self::SETTINGS_OS] = $settings->os;
+        $di[self::SETTINGS_OSLANGUAGE] = $settings->oslanguage;
+        $di[self::SETTINGS_PHONENUMBER] = $settings->phonenumber;
+        $di[self::SETTINGS_USERAGENT] = $settings->useragent;
+        $di[self::SETTINGS_MOBILEOPERATOR] = $settings->mobileoperator;
+        $di[self::SETTINGS_ENABLEOUTBOUNDSMS] = $settings->enableoutboundsms;
 
-            if (($di[$field] = $this->_decoder->getElementContent()) !== false) {
-                $this->_decoder->getElementEndTag(); // end $field
-            }
-        }
         $this->_decoder->getElementEndTag();
         $this->_decoder->getElementEndTag();
 
