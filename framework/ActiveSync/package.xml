@@ -12,8 +12,8 @@
  </lead>
  <date>2014-12-19</date>
  <version>
-  <release>2.21.1</release>
-  <api>2.21.0</api>
+  <release>2.22.0</release>
+  <api>2.22.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Correctly implement BODYPART handling (Bug #13729).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2559,15 +2559,15 @@
   </release>
   <release>
    <version>
-    <release>2.21.1</release>
-    <api>2.21.0</api></version>
+    <release>2.22.0</release>
+    <api>2.22.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-12-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Correctly implement BODYPART handling (Bug #13729).
    </notes>
   </release>
  </changelog>
