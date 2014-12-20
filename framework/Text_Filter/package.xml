@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Support display of IDN domains in URLs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -379,6 +379,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Net_IDNA2</name>
+    <channel>pear.php.net</channel>
+    <min>0.1.1</min>
+    <max>1.0.0alpha1</max>
+    <exclude>1.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
@@ -1014,7 +1021,7 @@ Initial release as a PEAR package
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Support display of IDN domains in URLs.
    </notes>
   </release>
  </changelog>

@@ -131,10 +131,12 @@ END_OF_REGEX;
         if (strpos($match[2], ':') === false) {
             $href = 'http://' . $href;
         }
+        $orig_href = $href;
 
         if ($this->_params['callback']) {
             $href = call_user_func($this->_params['callback'], $href);
         }
+
         $href = htmlspecialchars($href);
 
         $class = $this->_params['class'];
@@ -147,10 +149,13 @@ END_OF_REGEX;
             $target = ' target="' . $target . '"';
         }
 
+        $idna = new Net_IDNA2(array(
+            'strict' => false
+        ));
         $replacement = '<a href="' . $href . '"' .
             ($this->_params['nofollow'] ? ' rel="nofollow"' : '') .
             $target . $class .
-            '>' . htmlspecialchars($match[0]) . '</a>';
+            '>' . htmlspecialchars($idna->decode($orig_href)) . '</a>';
 
         if (!empty($this->_params['noprefetch'])) {
             $replacement = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
