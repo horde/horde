@@ -154,12 +154,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 : Horde_ActiveSync::BODYPREF_TYPE_PLAIN);
     }
 
-
-    public function hasHtml()
-    {
-        return !empty($this->_html);
-    }
-
     /**
      * Determine which parts we need, and fetch them.
      *
