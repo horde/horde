@@ -77,6 +77,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const SETTINGS_ACCOUNT                  = 'Settings:Account';
     const SETTINGS_ACCOUNTID                = 'Settings:AccountId';
     const SETTINGS_USERDISPLAYNAME          = 'Settings:UserDisplayName';
+    const SETTINGS_RIGHTSMANAGEMENTINFO     = 'Settings:RightsManagementInformation';
 
 
     /** Status codes **/
@@ -105,7 +106,8 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEINFORMATION) ? self::SETTINGS_DEVICEINFORMATION :
                ($this->_decoder->getElementStartTag(self::SETTINGS_USERINFORMATION) ? self::SETTINGS_USERINFORMATION :
                ($this->_decoder->getElementStartTag(self::SETTINGS_DEVICEPASSWORD) ? self::SETTINGS_DEVICEPASSWORD :
-               -1))))) != -1) {
+               ($this->_decoder->getElementStartTag(self::SETTINGS_RIGHTSMANAGEMENTINFO) ? self::SETTINGS_RIGHTSMANAGEMENTINFO :
+               -1)))))) != -1) {
 
             while (($querytype = ($this->_decoder->getElementStartTag(self::SETTINGS_GET) ? self::SETTINGS_GET :
                    ($this->_decoder->getElementStartTag(self::SETTINGS_SET) ? self::SETTINGS_SET :
@@ -118,14 +120,21 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $oof = Horde_ActiveSync::messageFactory('Oof');
                         $oof->decodeStream($this->_decoder);
                         $request['get']['oof']['bodytype'] = $oof->bodytype;
+                        $this->_decoder->getElementEndTag(); // SETTINGS_GET
                         break;
                     case self::SETTINGS_USERINFORMATION:
-                        // @TODO Do we need to fetch the <GET /> element?
+                        // These are empty <GET /> tags.
                         $request['get']['userinformation'] = array();
+                        $this->_decoder->getElementContent();
+                        break;
+                    case self::SETTINGS_RIGHTSMANAGEMENTINFO:
+                        // These are empty <GET /> tags.
+                        $request['get']['rightsmanagementinfo'] = true;
+                        $this->_decoder->getElementContent();
                         break;
                     }
                     break;
-                    $this->_decoder->getElementEndTag(); // SETTINGS_GET
+                    // $this->_decoder->getElementEndTag(); // SETTINGS_GET
                 case self::SETTINGS_SET:
                     switch ($reqtype) {
                     case self::SETTINGS_OOF:
@@ -338,6 +347,13 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                 $this->_encoder->endTag(); // end self::SETTINGS_OOF
             }
 
+        }
+        if (isset($request['get']['rightsmanagementinfo'])) {
+            $this->_encoder->startTag(self::SETTINGS_RIGHTSMANAGEMENTINFO);
+            $this->_encoder->startTag(self::SETTINGS_STATUS);
+            $this->_encoder->content(self::STATUS_SUCCESS);
+            $this->_encoder->endTag();
+            $this->_encoder->endTag();
         }
 
         $this->_encoder->endTag(); // end self::SETTINGS_SETTINGS
