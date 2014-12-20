@@ -188,6 +188,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *            DEFAULT: key ID not used
      *   - nocache: (boolean) Don't retrieve from cache?
      *              DEFAULT: false
+     *   - nohooks: (boolean) Don't trigger hook when retrieving public key?
+     *              DEFAULT: false
      *   - noserver: (boolean) Whether to check the public key servers for the
      *               key.
      *               DEFAULT: false
