@@ -37,7 +37,6 @@
  */
 class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
 {
-
     /* Status Constants */
     const STATUS_SUCCESS           = 1;
     const STATUS_PROTERROR         = 2; // Global status
