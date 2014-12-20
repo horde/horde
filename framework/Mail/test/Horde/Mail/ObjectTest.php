@@ -93,10 +93,6 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testEncodedAddressWithIDNHost()
     {
-        if (!extension_loaded('intl')) {
-            $this->markTestSkipped('Intl module is not available.');
-        }
-
         $ob = new Horde_Mail_Rfc822_Address();
         $ob->personal = 'Aäb';
         $ob->mailbox = 'test';
@@ -110,9 +106,6 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
 
     public function testDecodedAddressWithIDNHost()
     {
-        if (!extension_loaded('intl')) {
-            $this->markTestSkipped('Intl module is not available.');
-        }
         $ob = new Horde_Mail_Rfc822_Address();
         $ob->personal = '=?utf-8?b?QcOkYg==?=';
         $ob->mailbox = 'test';

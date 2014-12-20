@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] IDN support no longer requires intl to be built-in to PHP.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -131,6 +131,13 @@
     <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Net_IDNA2</name>
+    <channel>pear.php.net</channel>
+    <min>0.1.1</min>
+    <max>1.0.0alpha1</max>
+    <exclude>1.0.0alpha1</exclude>
    </package>
   </required>
   <optional>
@@ -669,7 +676,7 @@
    <date>2014-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] IDN support no longer requires intl to be built-in to PHP.
    </notes>
   </release>
  </changelog>

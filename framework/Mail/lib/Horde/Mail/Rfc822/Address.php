@@ -92,10 +92,8 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     {
         switch ($name) {
         case 'host':
-            $value = ltrim($value, '@');
-            $this->_host = function_exists('idn_to_utf8')
-                ? strtolower(idn_to_utf8($value))
-                : strtolower($value);
+            $idna = new Net_IDNA2();
+            $this->_host = Horde_String::lower($idna->decode($value));
             break;
 
         case 'personal':
@@ -135,9 +133,8 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             return $this->_host;
 
         case 'host_idn':
-            return function_exists('idn_to_ascii')
-                ? idn_to_ascii($this->_host)
-                : $this->host;
+            $idna = new Net_IDNA2();
+            return $idna->encode($this->_host);
 
         case 'label':
             return is_null($this->personal)

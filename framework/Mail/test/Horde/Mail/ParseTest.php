@@ -145,7 +145,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result[0]->addresses[0]->comment);
         $this->assertEquals($result[0]->addresses[0]->comment[0], 'A comment');
         $this->assertEquals($result[0]->addresses[0]->mailbox, 'richard');
-        $this->assertEquals($result[0]->addresses[0]->host, 'localhost');
+        $this->assertEmpty($result[0]->addresses[0]->host);
 
         $this->assertInternalType('object', $result[0]->addresses[1]);
         $this->assertEquals($result[0]->addresses[1]->personal, '');
@@ -450,10 +450,6 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
 
     public function testParsingIDNHost()
     {
-        if (!extension_loaded('intl')) {
-            $this->markTestSkipped('Intl module is not available.');
-        }
-
         $email = 'Aäb <test@üexample.com>';
 
         $ob = $this->rfc822->parseAddressList($email);

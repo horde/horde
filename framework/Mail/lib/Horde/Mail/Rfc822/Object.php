@@ -42,9 +42,7 @@ abstract class Horde_Mail_Rfc822_Object
      *             If boolean true, encodes in 'UTF-8'.
      *             If a string, encodes using this charset.
      *             DEFAULT: false
-     *   - idn: (boolean) If true, encodes IDN domain names
-     *          (Punycode/RFC 3490).
-     *          Requires the idn or intl PHP module.
+     *   - idn: (boolean) If true, encodes IDN domain names (RFC 3490).
      *          DEFAULT: false
      *   - noquote: (boolean) If true, don't quote personal part. [@since
      *              2.4.0]
