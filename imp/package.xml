@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3777,7 +3777,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
    </notes>
   </release>
  </changelog>
