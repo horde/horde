@@ -277,15 +277,7 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
       This extension is automatically enabled by default.
 
-   g. intl
-
-      The intl extension is required to handle display of Internationalized
-      Domain Names (see RFC 3490), e.g in e-mail addresses.
-
-      This extension can be enabled by adding the ``--enable-intl`` option
-      when compiling PHP.
-
-   h. _`curl` ``--with-curl``
+   g. _`curl` ``--with-curl``
 
       The `curl extension`_, if installed, will be used instead of PHP's
       fopen() when retrieving data from external HTTP servers (remote

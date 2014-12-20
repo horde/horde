@@ -121,10 +121,6 @@ class Horde_Test
             'error' => 'For best results make sure the iconv extension is linked against GNU libiconv.',
             'function' => '_checkIconvImplementation'
         ),
-        'intl' => array(
-            'descrip' => 'Internationalization Support',
-            'error' => 'Horde requires the intl extension to handle Internationalized Domain Names. Compile PHP with <code>--enable-intl</code>.'
-        ),
         'imagick' => array(
             'descrip' => 'Imagick (PECL extension)',
             'error' => 'Horde can make use of the Imagick library to manipulate images. It is highly recommended to use the PECL extension (although, alternatively, Horde can be configured to use the convert command line utility instead).'
