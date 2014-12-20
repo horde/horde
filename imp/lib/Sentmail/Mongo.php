@@ -145,6 +145,7 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_
     public function numberOfRecipients($hours, $user = false)
     {
         $query = array(
+            self::SUCCESS => 1,
             self::TS => array(
                 '$gt' => (time() - ($hours * 3600))
             )

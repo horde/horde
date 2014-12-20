@@ -103,8 +103,11 @@ class IMP_Sentmail_Sql extends IMP_Sentmail
     public function numberOfRecipients($hours, $user = false)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT COUNT(*) FROM %s WHERE sentmail_ts > ?',
-                         $this->_params['table']);
+        $query = sprintf(
+            'SELECT COUNT(*) FROM %s WHERE sentmail_ts > ? AND sentmail_success = 1',
+            $this->_params['table']
+        );
+
         if ($user) {
             $query .= sprintf(' AND sentmail_who = %s', $this->_db->quote($GLOBALS['registry']->getAuth()));
         }

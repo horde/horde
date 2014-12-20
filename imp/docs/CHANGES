@@ -45,6 +45,14 @@ v7.0.0-git
 
 
 ------
+v6.2.5
+------
+
+[mms] Only count successful compose mails when determining recipient limits
+      (Bug #13751).
+
+
+------
 v6.2.4
 ------
 

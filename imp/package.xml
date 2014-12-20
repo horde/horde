@@ -3699,5 +3699,18 @@
 * [mjr] Ensure we have a valid MIME part to display in thread view (Bug #13653).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>6.2.5</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
+   </notes>
+  </release>
  </changelog>
 </package>
