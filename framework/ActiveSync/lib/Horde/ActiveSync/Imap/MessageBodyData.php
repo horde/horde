@@ -24,15 +24,57 @@
 class Horde_ActiveSync_Imap_MessageBodyData
 {
 
+    /**
+     *
+     * @var Horde_ActiveSync_Imap_Adapter
+     */
     protected $_imap;
+
+    /**
+     * @var Horde_ActiveSync_Mime
+     */
     protected $_basePart;
+
+    /**
+     *
+     * @var array
+     */
     protected $_options;
+
+    /**
+     *
+     * @var float
+     */
     protected $_version;
+
+    /**
+     *
+     * @var Horde_Imap_Client_Mailbox
+     */
     protected $_mbox;
+
+    /**
+     *
+     * @var integer
+     */
     protected $_uid;
 
+    /**
+     *
+     * @var string
+     */
     protected $_plain;
+
+    /**
+     *
+     * @var string
+     */
     protected $_html;
+
+    /**
+     *
+     * @var string
+     */
     protected $_bodyPart;
 
     /**
