@@ -339,15 +339,15 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $di = array();
         $settings = Horde_ActiveSync::messageFactory('DeviceInformation');
         $settings->decodeStream($this->_decoder);
-        $di[self::SETTINGS_MODEL] = $settings->model;
-        $di[self::SETTINGS_IMEI] = $settings->imei;
-        $di[self::SETTINGS_FRIENDLYNAME] = $settings->friendlyname;
-        $di[self::SETTINGS_OS] = $settings->os;
-        $di[self::SETTINGS_OSLANGUAGE] = $settings->oslanguage;
-        $di[self::SETTINGS_PHONENUMBER] = $settings->phonenumber;
-        $di[self::SETTINGS_USERAGENT] = $settings->useragent;
-        $di[self::SETTINGS_MOBILEOPERATOR] = $settings->mobileoperator;
-        $di[self::SETTINGS_ENABLEOUTBOUNDSMS] = $settings->enableoutboundsms;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_MODEL] = $settings->model;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_IMEI] = $settings->imei;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME] = $settings->friendlyname;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_OS] = $settings->os;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE] = $settings->oslanguage;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER] = $settings->phonenumber;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT] = $settings->useragent;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR] = $settings->mobileoperator;
+        $di[Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS] = $settings->enableoutboundsms;
 
         $this->_decoder->getElementEndTag();
         $this->_decoder->getElementEndTag();
