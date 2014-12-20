@@ -160,7 +160,11 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
              * address book and remove the id from the key_info for a correct
              * output. */
             try {
-                $result = $this->getPublicKey($sig['email'], array('nocache' => true, 'noserver' => true, 'nohooks' => true));
+                $result = $this->getPublicKey($sig['email'], array(
+                    'nocache' => true,
+                    'nohooks' => true,
+                    'noserver' => true
+                ));
                 if (!empty($result)) {
                     unset($key_info['signature'][$id]);
                     continue;
@@ -207,7 +211,8 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         /* If there is a cache driver configured, try to get the public key
          * from the cache. */
-        if (empty($options['nocache']) && ($cache = $injector->getInstance('Horde_Cache'))) {
+        if (empty($options['nocache']) &&
+            ($cache = $injector->getInstance('Horde_Cache'))) {
             $result = $cache->get("PGPpublicKey_" . $address . $keyid, 3600);
             if ($result) {
                 Horde::log('PGPpublicKey: ' . serialize($result), 'DEBUG');
