@@ -982,7 +982,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
             $airsync_body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
-            $body_type_pref = Horde_ActiveSync_Utils_Mime::getBodyTypePref($options, false);
+            $body_type_pref = $mbd->getBodyTypePreference();
 
             if ($body_type_pref == Horde_ActiveSync::BODYPREF_TYPE_MIME) {
                 $this->_logger->info(sprintf(

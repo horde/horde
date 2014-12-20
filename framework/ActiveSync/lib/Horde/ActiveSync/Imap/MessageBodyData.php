@@ -88,6 +88,36 @@ class Horde_ActiveSync_Imap_MessageBodyData
         }
     }
 
+    public function getBodyTypePreference($save_bandwith = false)
+    {
+        // Apparently some clients don't send the MIME_SUPPORT field (thus
+        // defaulting it to MIME_SUPPORT_NONE), but still request
+        // BODYPREF_TYPE_MIME. Failure to do this results in NO data being
+        // sent to the client, so we ignore the MIME_SUPPORT requirement and
+        // assume it is implied if it is requested in a BODYPREF element.
+        $bodyprefs = $this->_options['bodyprefs'];
+        if ($save_bandwidth) {
+            return !empty($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) && !empty($this->_html)
+                ? Horde_ActiveSync::BODYPREF_TYPE_HTML
+                : (!empty($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME])
+                    ? Horde_ActiveSync::BODYPREF_TYPE_MIME
+                    : Horde_ActiveSync::BODYPREF_TYPE_PLAIN);
+        }
+
+        // Prefer high bandwidth, full MIME.
+        return !empty($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_MIME])
+            ? Horde_ActiveSync::BODYPREF_TYPE_MIME
+            : (!empty($bodyprefs[Horde_ActiveSync::BODYPREF_TYPE_HTML]) && !empty($this->_html)
+                ? Horde_ActiveSync::BODYPREF_TYPE_HTML
+                : Horde_ActiveSync::BODYPREF_TYPE_PLAIN);
+    }
+
+
+    public function hasHtml()
+    {
+        return !empty($this->_html);
+    }
+
     /**
      * Determine which parts we need, and fetch them.
      *
