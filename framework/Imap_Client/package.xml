@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-03</date>
+ <date>2014-12-20</date>
  <version>
   <release>2.26.0</release>
   <api>2.26.0</api>
@@ -32,6 +32,7 @@
       <dir name="Client">
        <dir name="examples">
         <file name="tutorial.md" role="doc" />
+        <file name="tutorial.rst" role="doc" />
        </dir> <!-- /doc/Horde/Imap/Client/examples -->
        <file name="COPYING" role="doc" />
        <file name="UPGRADING" role="doc" />
@@ -542,6 +543,7 @@
    <install as="COPYING" name="doc/Horde/Imap/Client/COPYING" />
    <install as="UPGRADING" name="doc/Horde/Imap/Client/UPGRADING" />
    <install as="examples/tutorial.md" name="doc/Horde/Imap/Client/examples/tutorial.md" />
+   <install as="examples/tutorial.rst" name="doc/Horde/Imap/Client/examples/tutorial.rst" />
    <install as="Horde/Imap/Client.php" name="lib/Horde/Imap/Client.php" />
    <install as="Horde/Imap/Client/Base.php" name="lib/Horde/Imap/Client/Base.php" />
    <install as="Horde/Imap/Client/Cache.php" name="lib/Horde/Imap/Client/Cache.php" />
@@ -2795,7 +2797,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2014-12-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix handling mailbox cache data when the mailbox returns NOMODSEQ.
