@@ -45,6 +45,7 @@ class Horde_ActiveSync_UtilsTest extends Horde_Test_Case
 
     public function testBodyTypePref()
     {
+        $this->markTestIncomplete('Needs refactoring.');
         $fixture = array(
             'bodyprefs' => array(Horde_ActiveSync::BODYPREF_TYPE_HTML => true, Horde_ActiveSync::BODYPREF_TYPE_MIME => true)
         );
