@@ -142,7 +142,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @return integer  A Horde_ActiveSync::BODYPREF_TYPE_* constant.
      */
-    public function getBodyTypePreference($save_bandwith = false)
+    public function getBodyTypePreference($save_bandwidth = false)
     {
         // Apparently some clients don't send the MIME_SUPPORT field (thus
         // defaulting it to MIME_SUPPORT_NONE), but still request
