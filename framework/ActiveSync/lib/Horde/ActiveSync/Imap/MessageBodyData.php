@@ -109,11 +109,14 @@ class Horde_ActiveSync_Imap_MessageBodyData
     {
         switch ($property) {
         case 'plain':
-            return $this->plainBody();
+            $body = $this->plainBody();
+            return $body;
         case 'html':
-            return $this->htmlBody();
+            $body = $this->htmlBody();
+            return $body;
         case 'bodyPart':
-            return $this->bodyPartBody();
+            $body = $this->bodyPartBody();
+            return $body;
         default:
             throw new InvalidArgumentException("Unknown property: $property");
         }
