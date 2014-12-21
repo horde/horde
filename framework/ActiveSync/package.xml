@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix some WBXML parsing issues due to empty GET tags in SETTINGS requests.
+* [mjr] Decode RIGHTSMANAGEMENTINFORMATION nodes.
 * [mjr] Correctly implement BODYPART handling (Bug #13729).
  </notes>
  <contents>
@@ -2563,6 +2565,8 @@
    <date>2014-12-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix some WBXML parsing issues due to empty GET tags in SETTINGS requests.
+* [mjr] Decode RIGHTSMANAGEMENTINFORMATION nodes.
 * [mjr] Correctly implement BODYPART handling (Bug #13729).
    </notes>
   </release>
