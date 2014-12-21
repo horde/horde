@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-20</date>
+ <date>2014-12-21</date>
  <version>
   <release>2.22.0</release>
   <api>2.22.0</api>
@@ -2562,7 +2562,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-20</date>
+   <date>2014-12-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some WBXML parsing issues due to empty GET tags in SETTINGS requests.
