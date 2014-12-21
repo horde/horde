@@ -130,6 +130,15 @@ class Horde_ActiveSync_Imap_MessageBodyData
         }
     }
 
+    /**
+     * Return the BODYTYPE to return to the client. Takes BODYPREF and available
+     * parts into account.
+     *
+     * @param  boolean $save_bandwith  IF true, saves bandwidth usage by
+     *                                 favoring HTML over MIME BODYTYPE if able.
+     *
+     * @return integer  A Horde_ActiveSync::BODYPREF_TYPE_* constant.
+     */
     public function getBodyTypePreference($save_bandwith = false)
     {
         // Apparently some clients don't send the MIME_SUPPORT field (thus
@@ -155,9 +164,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
     }
 
     /**
-     * Determine which parts we need, and fetch them.
-     *
-     * @return [type] [description]
+     * Determine which parts we need, and fetches them from the IMAP client.
+     * Takes into account the available parts and the BODYPREF/BODYPARTPREF
+     * options.
      */
     protected function _getParts()
     {
@@ -224,6 +233,11 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
     }
 
+    /**
+     * Return if we want HTML data.
+     *
+     * @return boolean  True if HTML data is needed.
+     */
     protected function _wantHtml()
     {
         return $this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
@@ -232,6 +246,17 @@ class Horde_ActiveSync_Imap_MessageBodyData
             !empty($this->_options['bodypartprefs']));
     }
 
+    /**
+     * Return if we want plain text data.
+     *
+     * @param  string $html_id     The MIME id of any HTML part, if available.
+     *                             Used to detect if we need to fetch the plain
+     *                             part if we are requesting HTML, but only have
+     *                             plain.
+     * @param  boolean $want_html  True if the client wants HTML.
+     *
+     * @return boolean  True if plain data is needed.
+     */
     protected function _wantPlainText($html_id, $want_html)
     {
         return $this->_version == Horde_ActiveSync::VERSION_TWOFIVE ||
@@ -251,7 +276,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @return Horde_Imap_Client_Fetch_Data  The results.
      */
-    protected function _fetchData($params)
+    protected function _fetchData(array $params)
     {
         $query = new Horde_Imap_Client_Fetch_Query();
         $query_opts = array(
@@ -465,6 +490,15 @@ class Horde_ActiveSync_Imap_MessageBodyData
         );
     }
 
+    /**
+     * Return the validated text/plain body data.
+     *
+     * @return array The validated body data array:
+     *     - charset:  (string)   The charset of the text.
+     *     - body: (Horde_Stream) The body text in a stream.
+     *     - truncated: (boolean) True if text was truncated.
+     *     - size: (integer)      The original part size, in bytes.
+     */
     public function plainBody()
     {
         if (!empty($this->_plain)) {
@@ -474,6 +508,15 @@ class Horde_ActiveSync_Imap_MessageBodyData
         return false;
     }
 
+    /**
+     * Return the validated text/html body data.
+     *
+     * @return array The validated body data array:
+     *     - charset:  (string)   The charset of the text.
+     *     - body: (Horde_Stream) The body text in a stream.
+     *     - truncated: (boolean) True if text was truncated.
+     *     - size: (integer)      The original part size, in bytes.
+     */
     public function htmlBody()
     {
         if (!empty($this->_html)) {
@@ -483,6 +526,15 @@ class Horde_ActiveSync_Imap_MessageBodyData
         return false;
     }
 
+    /**
+     * Return the validated BODYPART data.
+     *
+     * @return array The validated body data array:
+     *     - charset:  (string)   The charset of the text.
+     *     - body: (Horde_Stream) The body text in a stream.
+     *     - truncated: (boolean) True if text was truncated.
+     *     - size: (integer)      The original part size, in bytes.
+     */
     public function bodyPartBody()
     {
         if (!empty($this->_bodyPart)) {
