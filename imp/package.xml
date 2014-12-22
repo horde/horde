@@ -3709,6 +3709,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression when working with multiple selected messages with a POP3 server (Bug #13759).
 * [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
    </notes>
   </release>

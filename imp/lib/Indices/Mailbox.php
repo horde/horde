@@ -59,7 +59,10 @@ class IMP_Indices_Mailbox extends IMP_Indices
                     $this->mailbox = IMP_Mailbox::formFrom($args[0]->mailbox);
 
                     if (isset($args[0]->buid)) {
-                        $this->buids = new IMP_Indices($this->mailbox, $args[0]->buid);
+                        /* BUIDs are always integers. Do conversion here since
+                         * POP3 won't work otherwise. */
+                        $tmp = new Horde_Imap_Client_Ids($args[0]->buid);
+                        $this->buids = new IMP_Indices($this->mailbox, $tmp->ids);
                         parent::__construct($this->mailbox->fromBuids($this->buids));
                     } elseif (isset($args[0]->uid)) {
                         parent::__construct($this->mailbox, $args[0]->uid);
