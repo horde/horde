@@ -92,8 +92,6 @@ class IMP_Compose_Link
             break;
 
         default:
-            $args['popup'] = 1;
-
             $url = IMP_Dynamic_Compose::url();
             $raw = true;
             $callback = array($this, 'composeLinkSimpleCallback');
