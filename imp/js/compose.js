@@ -906,7 +906,6 @@ var ImpCompose = {
                 this.updateAddrField(a, add);
             }, this);
         }
-        $('to_loading_img').hide();
     },
 
     resizeMsgArea: function(e)
@@ -1281,7 +1280,6 @@ var ImpCompose = {
         case 'replyall_revert':
         case 'replylist_revert':
             this.fadeNotice(e.element().up('LI'));
-            $('to_loading_img').show();
             ImpCore.doAction('getReplyData', this.actionParams({
                 headeronly: 1,
                 type: 'reply'

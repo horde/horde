@@ -114,7 +114,6 @@
       <span><?php echo _("To") ?>:</span>
      </td>
      <td>
-      <span id="to_loading_img" class="loadingImg" style="display:none"></span>
       <?php echo $this->textAreaTag('to', null, array('size' => '75x1')) ?>
      </td>
     </tr>
@@ -123,7 +122,6 @@
       <span><?php echo _("Cc") ?>:</span>
      </td>
      <td>
-      <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
       <?php echo $this->textAreaTag('cc', null, array('size' => '75x1')) ?>
      </td>
     </tr>
@@ -132,7 +130,6 @@
       <span><?php echo _("Bcc") ?>:</span>
      </td>
      <td>
-      <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
       <?php echo $this->textAreaTag('bcc', null, array('size' => '75x1')) ?>
      </td>
     </tr>
