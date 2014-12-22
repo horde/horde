@@ -159,11 +159,10 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Mail-specific viewport information. */
-        if (($args['initial'] ||
-             $args['delhide'] ||
-             !is_null($args['sortby'])) &&
-            $mbox->hideDeletedMsgs(true)) {
-            $result->setMetadata('delhide', 1);
+        if ($args['initial'] ||
+            (isset($args['delhide']) && !is_null($args['delhide'])) ||
+            !is_null($args['sortby']))  {
+            $result->setMetadata('delhide', $mbox->hideDeletedMsgs(true));
         }
         if ($args['initial'] ||
             !is_null($args['sortby']) ||

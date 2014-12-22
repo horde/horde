@@ -104,10 +104,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             try {
                 $vp = $this->_base->viewPortData($changed);
                 $result = true;
-
-                if (isset($vp_vars->delhide)) {
-                    $vp->metadata_reset = 1;
-                }
             } catch (Exception $e) {
                 $vp = new IMP_Ajax_Application_Viewport_Error($this->_base->indices->mailbox);
             }

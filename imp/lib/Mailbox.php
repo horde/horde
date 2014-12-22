@@ -1591,6 +1591,8 @@ class IMP_Mailbox
      */
     protected function _getCacheID($date = false)
     {
+        global $prefs;
+
         $date = $date
             ? 'D' . date('z')
             : '';
@@ -1600,7 +1602,11 @@ class IMP_Mailbox
         }
 
         $sortpref = $this->getSort(true);
-        $addl = array($sortpref->sortby, $sortpref->sortdir);
+        $addl = array(
+            $sortpref->sortby,
+            $sortpref->sortdir,
+            intval($prefs->getValue('delhide'))
+        );
         if ($date) {
             $addl[] = $date;
         }
