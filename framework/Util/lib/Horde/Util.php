@@ -446,6 +446,8 @@ class Horde_Util
                 }
                 $it->next();
             }
+
+            rmdir($val);
         }
     }
 
