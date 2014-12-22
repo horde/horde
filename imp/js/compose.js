@@ -825,7 +825,7 @@ var ImpCompose = {
         elt.fade({
             afterFinish: function() {
                 if (!elt.siblings().any(Element.visible)) {
-                    elt.up('TR').hide();
+                    elt.up().hide();
                     this.resizeMsgArea();
                 }
             }.bind(this),
