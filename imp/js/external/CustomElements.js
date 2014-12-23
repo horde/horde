@@ -413,8 +413,8 @@ CustomElements.addModule(function(scope) {
     processingDocuments.push(doc);
     var imports = doc.querySelectorAll("link[rel=" + IMPORT_LINK_TYPE + "]");
     for (var i = 0, l = imports.length, n; i < l && (n = imports[i]); i++) {
-      if (n.import) {
-        _forDocumentTree(n.import, cb);
+      if (n['import']) {
+        _forDocumentTree(n['import'], cb);
       }
     }
     cb(doc);
@@ -626,7 +626,7 @@ CustomElements.addModule(function(scope) {
       if (definition) {
         if (is && definition.tag == node.localName) {
           return upgradeWithDefinition(node, definition);
-        } else if (!is && !definition.extends) {
+        } else if (!is && !definition['extends']) {
           return upgradeWithDefinition(node, definition);
         }
       }
@@ -649,7 +649,7 @@ CustomElements.addModule(function(scope) {
     if (Object.__proto__) {
       element.__proto__ = definition.prototype;
     } else {
-      customMixin(element, definition.prototype, definition.native);
+      customMixin(element, definition.prototype, definition['native']);
       element.__proto__ = definition.prototype;
     }
   }
@@ -702,7 +702,7 @@ CustomElements.addModule(function(scope) {
     }
     definition.__name = name.toLowerCase();
     definition.lifecycle = definition.lifecycle || {};
-    definition.ancestry = ancestry(definition.extends);
+    definition.ancestry = ancestry(definition['extends']);
     resolveTagName(definition);
     resolvePrototypeChain(definition);
     overrideAttributeApi(definition.prototype);
@@ -749,12 +749,12 @@ CustomElements.addModule(function(scope) {
   function ancestry(extnds) {
     var extendee = getRegisteredDefinition(extnds);
     if (extendee) {
-      return ancestry(extendee.extends).concat([ extendee ]);
+      return ancestry(extendee['extends']).concat([ extendee ]);
     }
     return [];
   }
   function resolveTagName(definition) {
-    var baseTag = definition.extends;
+    var baseTag = definition['extends'];
     for (var i = 0, a; a = definition.ancestry[i]; i++) {
       baseTag = a.is && a.tag;
     }
@@ -779,7 +779,7 @@ CustomElements.addModule(function(scope) {
         proto.__proto__ = ancestor;
         proto = ancestor;
       }
-      definition.native = nativePrototype;
+      definition['native'] = nativePrototype;
     }
   }
   function instantiate(definition) {
@@ -859,7 +859,7 @@ CustomElements.addModule(function(scope) {
   document.createElementNS = createElementNS;
   Node.prototype.cloneNode = cloneNode;
   scope.registry = registry;
-  scope.instanceof = isInstance;
+  scope['instanceof'] = isInstance;
   scope.reservedTagList = reservedTagList;
   scope.getRegisteredDefinition = getRegisteredDefinition;
   document.register = document.registerElement;
@@ -877,7 +877,7 @@ CustomElements.addModule(function(scope) {
     scope.upgradeDocumentTree = nop;
     scope.upgradeSubtree = nop;
     scope.takeRecords = nop;
-    scope.instanceof = function(obj, base) {
+    scope['instanceof'] = function(obj, base) {
       return obj instanceof base;
     };
   } else {
@@ -898,7 +898,7 @@ CustomElements.addModule(function(scope) {
     upgradeDocumentTree(wrap(document));
     if (window.HTMLImports) {
       HTMLImports.__importsParsingHook = function(elt) {
-        upgradeDocumentTree(wrap(elt.import));
+        upgradeDocumentTree(wrap(elt['import']));
       };
     }
     CustomElements.ready = true;
