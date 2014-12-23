@@ -2793,7 +2793,7 @@ implements Serializable, SplObserver
         $ids = $this->resolveIds($mailbox, $opts['ids']);
 
         $squery = new Horde_Imap_Client_Search_Query();
-        $squery->ids($this->getIdsOb($ids->range_string));
+        $squery->ids($ids);
         $search = $this->search($mailbox, $squery, array(
             'nocache' => true
         ));
