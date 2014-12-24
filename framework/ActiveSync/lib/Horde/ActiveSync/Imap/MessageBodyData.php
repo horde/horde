@@ -20,10 +20,29 @@
  * @copyright 2012-2014 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property array html     An array describing the text/html part with:
+ *     - charset:  (string)   The charset of the text.
+ *     - body: (Horde_Stream) The body text in a stream.
+ *     - truncated: (boolean) True if text was truncated.
+ *     - size: (integer)      The original part size, in bytes.
+ *
+ * @property array plain    An array describing the text/plain part with:
+ *     - charset:  (string)   The charset of the text.
+ *     - body: (Horde_Stream) The body text in a stream.
+ *     - truncated: (boolean) True if text was truncated.
+ *     - size: (integer)      The original part size, in bytes.
+ *
+ * @property array bodyPart An array describing the BODYPART requested. BODYPART
+ *                          is typically a truncated text/html representation of
+ *                          part of the message. Very few clients request this.
+ *     - charset:  (string)   The charset of the text.
+ *     - body: (Horde_Stream) The body text in a stream.
+ *     - truncated: (boolean) True if text was truncated.
+ *     - size: (integer)      The original part size, in bytes.
  */
 class Horde_ActiveSync_Imap_MessageBodyData
 {
-
     /**
      *
      * @var Horde_ActiveSync_Imap_Adapter
