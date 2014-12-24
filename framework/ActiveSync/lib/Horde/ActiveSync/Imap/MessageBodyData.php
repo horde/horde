@@ -397,6 +397,13 @@ class Horde_ActiveSync_Imap_MessageBodyData
     protected function _getHtmlPart(
         Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
     {
+        // @todo The length stuff in this method should really be done after
+        // we validate the text since it might change if there was an incorrect
+        // charset etc... For BC reasons, however, we need to keep the
+        // unvalidated data available. Keep this as-is for now and refactor
+        // for Horde 6. The worse-case here is that an incorrectly announced
+        // charset MAY cause an email to be reported as truncated when it's not,
+        // causing an additional reload on the client when viewing.
         $results = array();
         $html = $data->getBodyPart($html_id);
         if (!$data->getBodyPartDecode($html_id)) {
