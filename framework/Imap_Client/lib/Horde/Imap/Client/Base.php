@@ -297,6 +297,8 @@ implements Serializable, SplObserver
         register_shutdown_function(array($this, 'shutdown'));
 
         $this->_alerts = new Horde_Imap_Client_Base_Alerts();
+        // @todo: Remove (BC)
+        $this->_alerts->attach($this);
 
         $this->_debug = ($debug = $this->getParam('debug'))
             ? new Horde_Imap_Client_Base_Debug($debug)
