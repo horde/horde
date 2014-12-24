@@ -416,31 +416,27 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 0,
                 $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
                 $charset);
-        } elseif ($convert_to_plain) {
-            $html = Horde_Text_Filter::filter(
+        }
+        if ($convert_to_plain) {
+            $html_plain = Horde_Text_Filter::filter(
                 $html, 'Html2text', array('charset' => $charset));
 
             // Get the new size, since it probably changed.
-            $html_size = Horde_String::length($html);
+            $html__plain_size = Horde_String::length($html_plain);
             if (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
                 // EAS >= 12.0 truncation
-                $html = Horde_String::substr(
-                    $html,
+                $html_plain = Horde_String::substr(
+                    $html_plain,
                     0,
                     $this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
                     $charset);
             }
-        }
 
-        // Was the part truncated?
-        $truncated = $html_size > Horde_String::length($html);
-
-        if ($convert_to_plain) {
             $results['plain'] = array(
                 'charset' => $charset,
-                'body' => $html,
-                'truncated' => $truncated,
-                'size' => $html_size
+                'body' => $html_plain,
+                'truncated' => $html_size > Horde_String::length($html_plain),
+                'size' => $html_plain_size
             );
         }
 
@@ -450,7 +446,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 'charset' => $charset,
                 'body' => $html,
                 'estimated_size' => $html_size,
-                'truncated' => $truncated);
+                'truncated' => $html_size > Horde_String::length($html));
         }
 
         return $results;
