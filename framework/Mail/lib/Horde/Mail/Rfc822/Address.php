@@ -92,8 +92,10 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     {
         switch ($name) {
         case 'host':
-            $idna = new Net_IDNA2();
-            $this->_host = Horde_String::lower($idna->decode($value));
+            try {
+                $value = Horde_Idna::decode($value);
+            } catch (Horde_Idna_Exception $e) {}
+            $this->_host = Horde_String::lower($value);
             break;
 
         case 'personal':
@@ -105,6 +107,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     }
 
     /**
+     * @throws Horde_Idna_Exception
      */
     public function __get($name)
     {
@@ -133,8 +136,7 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
             return $this->_host;
 
         case 'host_idn':
-            $idna = new Net_IDNA2();
-            return $idna->encode($this->_host);
+            return Horde_Idna::encode($this->_host);
 
         case 'label':
             return is_null($this->personal)

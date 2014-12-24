@@ -149,13 +149,14 @@ END_OF_REGEX;
             $target = ' target="' . $target . '"';
         }
 
-        $idna = new Net_IDNA2(array(
-            'strict' => false
-        ));
+        try {
+            $decoded = Horde_Idna::decode($orig_href);
+        } catch (Horde_Idna_Exception $e) {}
+
         $replacement = '<a href="' . $href . '"' .
             ($this->_params['nofollow'] ? ' rel="nofollow"' : '') .
             $target . $class .
-            '>' . htmlspecialchars($idna->decode($orig_href)) . '</a>';
+            '>' . htmlspecialchars($decoded) . '</a>';
 
         if (!empty($this->_params['noprefetch'])) {
             $replacement = '<meta http-equiv="x-dns-prefetch-control" value="off" />' .
