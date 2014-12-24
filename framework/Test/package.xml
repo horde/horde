@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-18</date>
+ <date>2014-12-24</date>
  <version>
   <release>2.4.7</release>
   <api>2.3.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Update to PHPUnit 4.4.0 and dependencies.
 * [jan] Add remoteHost() to Horde_Test_Stub_Registry.
  </notes>
  <contents>
@@ -429,6 +430,7 @@
           </dir> <!-- /bundle/vendor/phpunit/phpunit/src/Framework/Constraint/JsonMatches -->
           <file name="And.php" role="php" />
           <file name="ArrayHasKey.php" role="php" />
+          <file name="ArraySubset.php" role="php" />
           <file name="Attribute.php" role="php" />
           <file name="Callback.php" role="php" />
           <file name="ClassHasAttribute.php" role="php" />
@@ -739,6 +741,7 @@
          <file name="concrete-test-class.phpt" role="php" />
          <file name="custom-printer-debug.phpt" role="php" />
          <file name="custom-printer-verbose.phpt" role="php" />
+         <file name="dataprovider-debug.phpt" role="php" />
          <file name="dataprovider-log-xml-isolation.phpt" role="php" />
          <file name="dataprovider-log-xml.phpt" role="php" />
          <file name="dataprovider-testdox.phpt" role="php" />
@@ -793,6 +796,7 @@
          <file name="log-json-pre-66021.phpt" role="php" />
          <file name="log-tap.phpt" role="php" />
          <file name="log-xml.phpt" role="php" />
+         <file name="output-isolation.phpt" role="php" />
          <file name="repeat.phpt" role="php" />
          <file name="strict-incomplete.phpt" role="php" />
          <file name="strict-isolation.phpt" role="php" />
@@ -809,6 +813,7 @@
           <file name="NamePrettifierTest.php" role="php" />
          </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/Util/TestDox -->
          <file name="ConfigurationTest.php" role="php" />
+         <file name="GlobalStateTest.php" role="php" />
          <file name="RegexTest.php" role="php" />
          <file name="TestTest.php" role="php" />
          <file name="XMLTest.php" role="php" />
@@ -863,6 +868,7 @@
          <file name="CoveredClass.php" role="php" />
          <file name="CoveredFunction.php" role="php" />
          <file name="CustomPrinter.php" role="php" />
+         <file name="DataProviderDebugTest.php" role="php" />
          <file name="DataProviderFilterTest.php" role="php" />
          <file name="DataProviderIncompleteTest.php" role="php" />
          <file name="DataProviderSkippedTest.php" role="php" />
@@ -1257,6 +1263,32 @@
        <file name="phpunit.xml.dist" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sebastian/exporter -->
+      <dir name="global-state">
+       <dir name="build">
+        <file name="phpunit.xml" role="php" />
+       </dir> <!-- /bundle/vendor/sebastian/global-state/build -->
+       <dir name="src">
+        <file name="Blacklist.php" role="php" />
+        <file name="Exception.php" role="php" />
+        <file name="Restorer.php" role="php" />
+        <file name="RuntimeException.php" role="php" />
+        <file name="Snapshot.php" role="php" />
+       </dir> <!-- /bundle/vendor/sebastian/global-state/src -->
+       <dir name="tests">
+        <dir name="_fixture">
+         <file name="BlacklistedChildClass.php" role="php" />
+         <file name="BlacklistedClass.php" role="php" />
+         <file name="BlacklistedImplementor.php" role="php" />
+         <file name="BlacklistedInterface.php" role="php" />
+        </dir> <!-- /bundle/vendor/sebastian/global-state/tests/_fixture -->
+        <file name="BlacklistTest.php" role="php" />
+       </dir> <!-- /bundle/vendor/sebastian/global-state/tests -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="build.xml" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/sebastian/global-state -->
       <dir name="version">
        <dir name="build">
         <file name="package.xml" role="php" />
@@ -1731,6 +1763,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Assert/Functions.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Assert/Functions.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Constraint/And.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/And.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Constraint/ArrayHasKey.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/ArrayHasKey.php" />
+   <install as="vendor/phpunit/phpunit/src/Framework/Constraint/ArraySubset.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/ArraySubset.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Constraint/Attribute.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/Attribute.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Constraint/Callback.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/Callback.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Framework/Constraint/ClassHasAttribute.php" name="bundle/vendor/phpunit/phpunit/src/Framework/Constraint/ClassHasAttribute.php" />
@@ -1907,6 +1940,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/concrete-test-class.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/concrete-test-class.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/custom-printer-debug.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/custom-printer-debug.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/custom-printer-verbose.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/custom-printer-verbose.phpt" />
+   <install as="vendor/phpunit/phpunit/tests/TextUI/dataprovider-debug.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/dataprovider-debug.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/dataprovider-log-xml-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/dataprovider-log-xml-isolation.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/dataprovider-log-xml.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/dataprovider-log-xml.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/dataprovider-testdox.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/dataprovider-testdox.phpt" />
@@ -1961,6 +1995,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-json-pre-66021.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-json-pre-66021.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-tap.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-tap.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" />
+   <install as="vendor/phpunit/phpunit/tests/TextUI/output-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/output-isolation.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/strict-incomplete.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/strict-incomplete.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/strict-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/strict-isolation.phpt" />
@@ -1972,6 +2007,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/testdox-text.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/testdox-text.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/testdox.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/testdox.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Util/ConfigurationTest.php" name="bundle/vendor/phpunit/phpunit/tests/Util/ConfigurationTest.php" />
+   <install as="vendor/phpunit/phpunit/tests/Util/GlobalStateTest.php" name="bundle/vendor/phpunit/phpunit/tests/Util/GlobalStateTest.php" />
    <install as="vendor/phpunit/phpunit/tests/Util/RegexTest.php" name="bundle/vendor/phpunit/phpunit/tests/Util/RegexTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Util/TestTest.php" name="bundle/vendor/phpunit/phpunit/tests/Util/TestTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Util/XMLTest.php" name="bundle/vendor/phpunit/phpunit/tests/Util/XMLTest.php" />
@@ -2017,6 +2053,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/_files/CoveredClass.php" name="bundle/vendor/phpunit/phpunit/tests/_files/CoveredClass.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/_files/CoveredFunction.php" name="bundle/vendor/phpunit/phpunit/tests/_files/CoveredFunction.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/_files/CustomPrinter.php" name="bundle/vendor/phpunit/phpunit/tests/_files/CustomPrinter.php" />
+   <install as="vendor/phpunit/phpunit/tests/_files/DataProviderDebugTest.php" name="bundle/vendor/phpunit/phpunit/tests/_files/DataProviderDebugTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/_files/DataProviderFilterTest.php" name="bundle/vendor/phpunit/phpunit/tests/_files/DataProviderFilterTest.php" />
    <install as="vendor/phpunit/phpunit/tests/_files/DataProviderIncompleteTest.php" name="bundle/vendor/phpunit/phpunit/tests/_files/DataProviderIncompleteTest.php" />
    <install as="vendor/phpunit/phpunit/tests/_files/DataProviderSkippedTest.php" name="bundle/vendor/phpunit/phpunit/tests/_files/DataProviderSkippedTest.php" />
@@ -2317,6 +2354,22 @@
    <install as="Horde/Test/vendor/sebastian/exporter/src/Exception.php" name="bundle/vendor/sebastian/exporter/src/Exception.php" />
    <install as="Horde/Test/vendor/sebastian/exporter/src/Exporter.php" name="bundle/vendor/sebastian/exporter/src/Exporter.php" />
    <install as="Horde/Test/vendor/sebastian/exporter/tests/ExporterTest.php" name="bundle/vendor/sebastian/exporter/tests/ExporterTest.php" />
+   <install as="vendor/sebastian/global-state/.gitignore" name="bundle/vendor/sebastian/global-state/.gitignore" />
+   <install as="vendor/sebastian/global-state/.travis.yml" name="bundle/vendor/sebastian/global-state/.travis.yml" />
+   <install as="vendor/sebastian/global-state/build.xml" name="bundle/vendor/sebastian/global-state/build.xml" />
+   <install as="vendor/sebastian/global-state/LICENSE" name="bundle/vendor/sebastian/global-state/LICENSE" />
+   <install as="vendor/sebastian/global-state/README.md" name="bundle/vendor/sebastian/global-state/README.md" />
+   <install as="vendor/sebastian/global-state/build/phpunit.xml" name="bundle/vendor/sebastian/global-state/build/phpunit.xml" />
+   <install as="vendor/sebastian/global-state/src/Blacklist.php" name="bundle/vendor/sebastian/global-state/src/Blacklist.php" />
+   <install as="vendor/sebastian/global-state/src/Exception.php" name="bundle/vendor/sebastian/global-state/src/Exception.php" />
+   <install as="vendor/sebastian/global-state/src/Restorer.php" name="bundle/vendor/sebastian/global-state/src/Restorer.php" />
+   <install as="vendor/sebastian/global-state/src/RuntimeException.php" name="bundle/vendor/sebastian/global-state/src/RuntimeException.php" />
+   <install as="vendor/sebastian/global-state/src/Snapshot.php" name="bundle/vendor/sebastian/global-state/src/Snapshot.php" />
+   <install as="vendor/sebastian/global-state/tests/BlacklistTest.php" name="bundle/vendor/sebastian/global-state/tests/BlacklistTest.php" />
+   <install as="vendor/sebastian/global-state/tests/_fixture/BlacklistedChildClass.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedChildClass.php" />
+   <install as="vendor/sebastian/global-state/tests/_fixture/BlacklistedClass.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedClass.php" />
+   <install as="vendor/sebastian/global-state/tests/_fixture/BlacklistedImplementor.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedImplementor.php" />
+   <install as="vendor/sebastian/global-state/tests/_fixture/BlacklistedInterface.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedInterface.php" />
    <install as="Horde/Test/vendor/sebastian/version/.gitattributes" name="bundle/vendor/sebastian/version/.gitattributes" />
    <install as="Horde/Test/vendor/sebastian/version/.gitignore" name="bundle/vendor/sebastian/version/.gitignore" />
    <install as="Horde/Test/vendor/sebastian/version/build.xml" name="bundle/vendor/sebastian/version/build.xml" />
@@ -2830,9 +2883,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-18</date>
+   <date>2014-12-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Update to PHPUnit 4.4.0 and dependencies.
 * [jan] Add remoteHost() to Horde_Test_Stub_Registry.
    </notes>
   </release>

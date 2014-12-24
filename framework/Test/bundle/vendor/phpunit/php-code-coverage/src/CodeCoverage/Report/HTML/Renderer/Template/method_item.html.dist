@@ -8,3 +8,4 @@
       <td class="{{lines_level}} small"><div align="right">{{lines_executed_percent}}</div></td>
       <td class="{{lines_level}} small"><div align="right">{{lines_number}}</div></td>
      </tr>
+

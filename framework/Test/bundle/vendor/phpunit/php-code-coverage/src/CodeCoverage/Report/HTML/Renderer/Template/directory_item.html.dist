@@ -10,3 +10,4 @@
       <td class="{{classes_level}} small"><div align="right">{{classes_tested_percent}}</div></td>
       <td class="{{classes_level}} small"><div align="right">{{classes_number}}</div></td>
      </tr>
+

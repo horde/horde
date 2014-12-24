@@ -69,3 +69,4 @@ var_dump($runtime->canCollectCodeCoverage());
     bool(false)
     bool(false)
     bool(true)
+

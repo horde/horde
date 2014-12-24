@@ -7,7 +7,7 @@
         "xunit",
         "testing"
     ],
-    "homepage": "http://www.phpunit.de/",
+    "homepage": "https://phpunit.de/",
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -30,8 +30,9 @@
         "symfony/yaml": "~2.0",
         "sebastian/comparator": "~1.0",
         "sebastian/diff": "~1.1",
-        "sebastian/environment": "~1.0",
+        "sebastian/environment": "~1.1",
         "sebastian/exporter": "~1.0",
+        "sebastian/global-state": "~1.0",
         "sebastian/version": "~1.0",
         "ext-dom": "*",
         "ext-json": "*",
@@ -64,11 +65,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.3.x-dev"
+            "dev-master": "4.4.x-dev"
         }
-    },
-    "include-path": [
-        "",
-        "../../symfony/yaml/"
-    ]
+    }
 }

@@ -11,6 +11,4 @@ return array(
     $vendorDir . '/phpunit/php-file-iterator',
     $vendorDir . '/phpunit/phpunit-story',
     $vendorDir . '/phpunit/php-code-coverage',
-    $vendorDir . '/phpunit/phpunit',
-    $vendorDir . '/symfony/yaml',
 );

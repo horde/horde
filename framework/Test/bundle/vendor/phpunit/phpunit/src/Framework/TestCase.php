@@ -43,6 +43,12 @@
  * @since      File available since Release 2.0.0
  */
 
+use SebastianBergmann\GlobalState\Snapshot;
+use SebastianBergmann\GlobalState\Restorer;
+use SebastianBergmann\GlobalState\Blacklist;
+use SebastianBergmann\Exporter\Context;
+use SebastianBergmann\Exporter\Exporter;
+
 /**
  * A TestCase defines the fixture to run multiple tests.
  *
@@ -281,6 +287,11 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
      * @var integer
      */
     private $outputBufferingLevel;
+
+    /**
+     * @var SebastianBergmann\GlobalState\Snapshot
+     */
+    private $snapshot;
 
     /**
      * Constructs a test case with the given name.
@@ -727,29 +738,9 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
     {
         $this->numAssertions = 0;
 
-        // Backup the $GLOBALS array and static attributes.
-        if ($this->runTestInSeparateProcess !== true &&
-            $this->inIsolation !== true) {
-            if ($this->backupGlobals === null ||
-                $this->backupGlobals === true) {
-                PHPUnit_Util_GlobalState::backupGlobals(
-                    $this->backupGlobalsBlacklist
-                );
-            }
-
-            if ($this->backupStaticAttributes === true) {
-                PHPUnit_Util_GlobalState::backupStaticAttributes(
-                    $this->backupStaticAttributesBlacklist
-                );
-            }
-        }
-
+        $this->snapshotGlobalState();
         $this->startOutputBuffering();
-
-        // Clean up stat cache.
         clearstatcache();
-
-        // Backup the cwd
         $currentWorkingDirectory = getcwd();
 
         $hookMethods = PHPUnit_Util_Test::getHookMethods(get_class($this));
@@ -822,28 +813,13 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
             }
         }
 
-        // Clean up stat cache.
         clearstatcache();
 
-        // Restore the cwd if it was changed by the test
         if ($currentWorkingDirectory != getcwd()) {
             chdir($currentWorkingDirectory);
         }
 
-        // Restore the $GLOBALS array and static attributes.
-        if ($this->runTestInSeparateProcess !== true &&
-            $this->inIsolation !== true) {
-            if ($this->backupGlobals === null ||
-                $this->backupGlobals === true) {
-                PHPUnit_Util_GlobalState::restoreGlobals(
-                    $this->backupGlobalsBlacklist
-                );
-            }
-
-            if ($this->backupStaticAttributes === true) {
-                PHPUnit_Util_GlobalState::restoreStaticAttributes();
-            }
-        }
+        $this->restoreGlobalState();
 
         // Clean up INI settings.
         foreach ($this->iniSettings as $varName => $oldValue) {
@@ -1677,45 +1653,40 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
     }
 
     /**
-     * @param  mixed  $data
+     * @param  mixed                              $data       The data to export as a string
+     * @param  SebastianBergmann\Exporter\Context $processed  Contains all objects and arrays that have previously been processed
      * @return string
      * @since  Method available since Release 3.2.1
      */
-    protected function dataToString($data)
+    protected function dataToString(&$data, $processed = null)
     {
         $result = array();
+        $exporter = new Exporter();
 
-        set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-            throw new ErrorException($errstr, $errno, $errno, $errfile, $errline);
-        }, E_WARNING);
-
-        foreach ($data as $key => $_data) {
-            try {
-                // Detect array-recursions by using count
-                // http://php.net/manual/en/function.count.php
-                $iRecursiveCheck = count($_data, COUNT_RECURSIVE);
-
-                if (is_array($_data)) {
-                    $result[] = 'array(' . $this->dataToString($_data) . ')';
-                } elseif (is_object($_data)) {
-                    $object = new ReflectionObject($_data);
-
-                    if ($object->hasMethod('__toString')) {
-                        $result[] = (string) $_data;
-                    } else {
-                        $result[] = get_class($_data);
-                    }
-                } elseif (is_resource($_data)) {
-                    $result[] = '<resource>';
-                } else {
-                    $result[] = var_export($_data, true);
-                }
-            } catch (ErrorException $e) {
-                $result[] = '*RECURSION*';
-            }
+        if (!$processed) {
+            $processed = new Context();
         }
 
-        restore_error_handler();
+        $processed->add($data);
+
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                if ($processed->contains($data[$key]) !== false) {
+                    $result[] = '*RECURSION*';
+                }
+
+                else {
+                    $result[] = sprintf(
+                        'array(%s)',
+                        $this->dataToString($data[$key], $processed)
+                    );
+                }
+            }
+
+            else {
+                $result[] = $exporter->shortenedExport($value);
+            }
+        }
 
         return join(', ', $result);
     }
@@ -1960,5 +1931,74 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
 
         $this->outputBufferingActive = false;
         $this->outputBufferingLevel  = ob_get_level();
+    }
+
+    private function snapshotGlobalState()
+    {
+        if ($this->runTestInSeparateProcess || $this->inIsolation) {
+            return;
+        }
+
+        $backupGlobals = $this->backupGlobals === null || $this->backupGlobals === true;
+
+        if ($backupGlobals || $this->backupStaticAttributes) {
+            $blacklist = new Blacklist;
+
+            if ($backupGlobals) {
+                foreach ($this->backupGlobalsBlacklist as $globalVariable) {
+                    $blacklist->addGlobalVariable($globalVariable);
+                }
+            }
+
+            if ($this->backupStaticAttributes && !defined('PHPUNIT_TESTSUITE')) {
+                $blacklist->addClassNamePrefix('PHPUnit');
+                $blacklist->addClassNamePrefix('File_Iterator');
+                $blacklist->addClassNamePrefix('PHP_CodeCoverage');
+                $blacklist->addClassNamePrefix('PHP_Invoker');
+                $blacklist->addClassNamePrefix('PHP_Timer');
+                $blacklist->addClassNamePrefix('PHP_Token');
+                $blacklist->addClassNamePrefix('Symfony');
+                $blacklist->addClassNamePrefix('Text_Template');
+                $blacklist->addClassNamePrefix('Doctrine\Instantiator');
+
+                foreach ($this->backupStaticAttributesBlacklist as $class => $attributes) {
+                    foreach ($attributes as $attribute) {
+                        $blacklist->addStaticAttribute($class, $attribute);
+                    }
+                }
+            }
+
+            $this->snapshot = new Snapshot(
+                $blacklist,
+                $backupGlobals,
+                $this->backupStaticAttributes,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            );
+        }
+    }
+
+    private function restoreGlobalState()
+    {
+        if (!$this->snapshot instanceof Snapshot) {
+            return;
+        }
+
+        $restorer = new Restorer;
+
+        if ($this->backupGlobals === null || $this->backupGlobals === true) {
+            $restorer->restoreGlobalVariables($this->snapshot);
+        }
+
+        if ($this->backupStaticAttributes) {
+            $restorer->restoreStaticAttributes($this->snapshot);
+        }
+
+        $this->snapshot = null;
     }
 }
