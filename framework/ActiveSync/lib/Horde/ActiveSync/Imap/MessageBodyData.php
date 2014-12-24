@@ -78,6 +78,20 @@ class Horde_ActiveSync_Imap_MessageBodyData
     protected $_bodyPart;
 
     /**
+     * Cached validated text/plain data.
+     *
+     * @var array
+     */
+    protected $_validatedPlain;
+
+    /**
+     * Cached validated text/html data
+     *
+     * @var array
+     */
+    protected $_validatedHtml;
+
+    /**
      * Const'r
      *
      * @param array $params  Parameters:
@@ -504,8 +518,11 @@ class Horde_ActiveSync_Imap_MessageBodyData
      */
     public function plainBody()
     {
-        if (!empty($this->_plain)) {
-            return $this->_validateBodyData($this->_plain);
+        if (!empty($this->_plain) && empty($this->_validatedPlain)) {
+            $this->_validatedPlain = $this->_validateBodyData($this->_plain);
+        }
+        if ($this->_validatedPlain) {
+            return $this->_validatedPlain;
         }
 
         return false;
@@ -522,8 +539,11 @@ class Horde_ActiveSync_Imap_MessageBodyData
      */
     public function htmlBody()
     {
-        if (!empty($this->_html)) {
-            return $this->_validateBodyData($this->_html);
+        if (!empty($this->_html) && empty($this->_validatedHtml)) {
+            $this->_validatedHtml = $this->_validateBodyData($this->_html);
+        }
+        if ($this->_validatedHtml) {
+            return $this->_validatedHtml;
         }
 
         return false;
