@@ -568,4 +568,23 @@ class Horde_ActiveSync_Imap_MessageBodyData
         return $data;
     }
 
+    /**
+     * Return the body data in array format. Needed for BC.
+     *
+     * @return array
+     * @todo remove in H6.
+     */
+    public function toArray()
+    {
+        $result = array();
+        if ($this->plain) {
+            $result['plain'] = $this->_plain;
+        }
+        if ($this->html) {
+            $result['html'] = $this->_html;
+        }
+
+        return $result;
+    }
+
 }

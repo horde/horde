@@ -208,6 +208,31 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMessageBodyData(array $options = array())
     {
+        $mbd = $this->getMessageBodyDataObject($options);
+
+        return $mbd->toArray();
+    }
+
+    /**
+     * Returns the main text body of the message suitable for sending over
+     * EAS response.
+     *
+     * @param array $options  An options array containgin:
+     *  - bodyprefs: (array)  Bodypref settings
+     *               DEFAULT: none (No bodyprefs used).
+     *  - mimesupport: (integer)  Indicates if MIME is supported or not.
+     *                  Possible values: 0 - Not supported 1 - Only S/MIME or
+     *                  2 - All MIME.
+     *                  DEFAULT: 0 (No MIME support)
+     *  - protocolversion: (float)  The EAS protocol we are supporting.
+     *                     DEFAULT 2.5
+     *
+     * @return Horde_ActiveSync_Imap_MessageBodyData  The result.
+     *
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_NotFound
+     */
+    public function getMessageBodyDataObject(array $options = array())
+    {
         $mbd = new Horde_ActiveSync_Imap_MessageBodyData(
             array(
                 'imap' => $this->_imap,

@@ -967,7 +967,7 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data.
-        $mbd = $imap_message->getMessageBodyData($options);
+        $mbd = $imap_message->getMessageBodyDataObject($options);
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $eas_message->body = $mbd->plain['body']->stream;
