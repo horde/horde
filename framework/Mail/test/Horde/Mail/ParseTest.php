@@ -129,7 +129,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($result[0]->host, 'example.com');
 
         /* Address groups. */
-        $address = 'My Group: "Richard" <richard@localhost> (A comment), ted@example.com (Ted Bloggs), Barney;';
+        $address = 'My Group: "Richard" <richard@example.com> (A comment), ted@example.com (Ted Bloggs), Barney;';
         $result = $this->rfc822->parseAddressList($address, array(
             'default_domain' => null
         ));
@@ -145,7 +145,7 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $result[0]->addresses[0]->comment);
         $this->assertEquals($result[0]->addresses[0]->comment[0], 'A comment');
         $this->assertEquals($result[0]->addresses[0]->mailbox, 'richard');
-        $this->assertEmpty($result[0]->addresses[0]->host);
+        $this->assertEquals($result[0]->addresses[0]->host, 'example.com');
 
         $this->assertInternalType('object', $result[0]->addresses[1]);
         $this->assertEquals($result[0]->addresses[1]->personal, '');
