@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Idna</name>
+ <channel>pear.horde.org</channel>
+ <summary>Normalized access to various backends providing IDNA (Internationalized Domain Names in Applications) support.</summary>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2014-12-24</date>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+ <notes>
+* [mms] Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="bundle">
+    <dir name="vendor">
+     <dir name="composer">
+      <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_namespaces.php" role="php" />
+      <file name="autoload_psr4.php" role="php" />
+      <file name="autoload_real.php" role="php" />
+      <file name="ClassLoader.php" role="php" />
+      <file name="installed.json" role="php" />
+     </dir> <!-- /bundle/vendor/composer -->
+     <dir name="true">
+      <dir name="punycode">
+       <dir name="src">
+        <file name="Punycode.php" role="php" />
+       </dir> <!-- /bundle/vendor/true/punycode/src -->
+       <dir name="tests">
+        <file name="PunycodeTest.php" role="php" />
+       </dir> <!-- /bundle/vendor/true/punycode/tests -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="CHANGELOG.md" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/true/punycode -->
+     </dir> <!-- /bundle/vendor/true -->
+     <file name="autoload.php" role="php" />
+    </dir> <!-- /bundle/vendor -->
+   </dir> <!-- /bundle -->
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Idna">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Idna -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Idna">
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/Idna -->
+     <file name="Idna.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+  <optional>
+   <package>
+    <name>Net_IDNA</name>
+    <channel>pear.php.net</channel>
+    <max>1.0.0alpha1</max>
+    <exclude>1.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Net_IDNA2</name>
+    <channel>pear.php.net</channel>
+    <max>1.0.0alpha1</max>
+    <exclude>1.0.0alpha1</exclude>
+   </package>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="vendor/true/punycode/.gitignore" name="bundle/vendor/true/punycode/.gitignore" />
+   <install as="vendor/true/punycode/.travis.yml" name="bundle/vendor/true/punycode/.travis.yml" />
+   <install as="vendor/true/punycode/CHANGELOG.md" name="bundle/vendor/true/punycode/CHANGELOG.md" />
+   <install as="vendor/true/punycode/LICENSE" name="bundle/vendor/true/punycode/LICENSE" />
+   <install as="vendor/true/punycode/phpunit.xml.dist" name="bundle/vendor/true/punycode/phpunit.xml.dist" />
+   <install as="vendor/true/punycode/README.md" name="bundle/vendor/true/punycode/README.md" />
+   <install as="vendor/true/punycode/src/Punycode.php" name="bundle/vendor/true/punycode/src/Punycode.php" />
+   <install as="vendor/true/punycode/tests/PunycodeTest.php" name="bundle/vendor/true/punycode/tests/PunycodeTest.php" />
+   <install as="COPYING" name="doc/Horde/Idna/COPYING" />
+   <install as="Horde/Idna.php" name="lib/Horde/Idna.php" />
+   <install as="Horde/Idna/Exception.php" name="lib/Horde/Idna/Exception.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2014-12-24</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [mms] Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
