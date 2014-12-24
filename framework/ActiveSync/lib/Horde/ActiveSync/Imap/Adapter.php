@@ -1064,7 +1064,9 @@ class Horde_ActiveSync_Imap_Adapter
                     : false;
                 $mime_truncation = (!empty($ts) && $ts > 9)
                     ? $ts
-                    : $options['truncation'];
+                    : (!empty($options['truncation']) && $options['truncation'] > 9)
+                        ? $options['truncation']
+                        : false;
 
                 $this->_logger->info(sprintf(
                     '[%s] Checking MIMETRUNCATION: %s, ServerData: %s',
