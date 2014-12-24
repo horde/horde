@@ -127,11 +127,10 @@ END_OF_REGEX;
      */
     public function callback($match)
     {
-        $href = $match[0];
+        $href = $orig_href = $match[0];
         if (strpos($match[2], ':') === false) {
             $href = 'http://' . $href;
         }
-        $orig_href = $href;
 
         if ($this->_params['callback']) {
             $href = call_user_func($this->_params['callback'], $href);
