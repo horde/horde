@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-21</date>
+ <date>2014-12-24</date>
  <version>
   <release>2.23.0</release>
   <api>2.23.0</api>
@@ -244,6 +244,7 @@
        <file name="email_plain.eml" role="test" />
        <file name="email_signed.eml" role="test" />
        <file name="encrypted.eml" role="test" />
+       <file name="fixture_fetch" role="test" />
        <file name="invitation_one.eml" role="test" />
        <file name="iOSMultipartAlternative.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
@@ -282,6 +283,7 @@
       <file name="ImapAdapterTest.php" role="test" />
       <file name="ImapFolderTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
+      <file name="MessageBodyDataTest.php" role="test" />
       <file name="MimeTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
@@ -563,6 +565,7 @@
    <install as="Horde/ActiveSync/ImapAdapterTest.php" name="test/Horde/ActiveSync/ImapAdapterTest.php" />
    <install as="Horde/ActiveSync/ImapFolderTest.php" name="test/Horde/ActiveSync/ImapFolderTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
+   <install as="Horde/ActiveSync/MessageBodyDataTest.php" name="test/Horde/ActiveSync/MessageBodyDataTest.php" />
    <install as="Horde/ActiveSync/MimeTest.php" name="test/Horde/ActiveSync/MimeTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
@@ -577,6 +580,7 @@
    <install as="Horde/ActiveSync/fixtures/email_plain.eml" name="test/Horde/ActiveSync/fixtures/email_plain.eml" />
    <install as="Horde/ActiveSync/fixtures/email_signed.eml" name="test/Horde/ActiveSync/fixtures/email_signed.eml" />
    <install as="Horde/ActiveSync/fixtures/encrypted.eml" name="test/Horde/ActiveSync/fixtures/encrypted.eml" />
+   <install as="Horde/ActiveSync/fixtures/fixture_fetch" name="test/Horde/ActiveSync/fixtures/fixture_fetch" />
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
    <install as="Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" name="test/Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
@@ -2576,7 +2580,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-21</date>
+   <date>2014-12-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix incorrect converting of HTML to plaintext causing incorrect truncation size.
