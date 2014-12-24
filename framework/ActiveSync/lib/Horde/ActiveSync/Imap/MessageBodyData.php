@@ -422,7 +422,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 $html, 'Html2text', array('charset' => $charset));
 
             // Get the new size, since it probably changed.
-            $html__plain_size = Horde_String::length($html_plain);
+            $html_plain_size = Horde_String::length($html_plain);
             if (!empty($this->_options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
                 // EAS >= 12.0 truncation
                 $html_plain = Horde_String::substr(
@@ -435,7 +435,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
             $results['plain'] = array(
                 'charset' => $charset,
                 'body' => $html_plain,
-                'truncated' => $html_size > Horde_String::length($html_plain),
+                'truncated' => $html_plain_size > Horde_String::length($html_plain),
                 'size' => $html_plain_size
             );
         }
