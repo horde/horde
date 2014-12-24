@@ -291,7 +291,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - html_id (string)  The MIME id of the HTML part, if any.
      *     - text_id (string)  The MIME id of the plain part, if any.
      *
-     * @return Horde_Imap_Client_Fetch_Data  The results.
+     * @return Horde_Imap_Client_Data_Fetch  The results.
      */
     protected function _fetchData(array $params)
     {
@@ -336,7 +336,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
     /**
      * Build the data needed for the plain part.
      *
-     * @param  Horde_Imap_Client_Fetch_Data $data  The FETCH results.
+     * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $text_mime          The plaintext MIME part.
      * @param  string $text_id                     The MIME id for this part on
      *                                             the IMAP server.
@@ -347,7 +347,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getPlainPart(
-        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $text_mime, $text_id)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $text_mime, $text_id)
     {
         $text = $data->getBodyPart($text_id);
         if (!$data->getBodyPartDecode($text_id)) {
@@ -384,7 +384,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
     /**
      * Build the data needed for the html part.
      *
-     * @param  Horde_Imap_Client_Fetch_Data $data             FETCH results.
+     * @param  Horde_Imap_Client_Data_Fetch $data             FETCH results.
      * @param  Horde_Mime_Part  $html_mime        text/html part.
      * @param  string           $html_id          MIME id.
      * @param  boolean          $convert_to_plain Convert text to plain text
@@ -395,7 +395,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *                structure of each entry.
      */
     protected function _getHtmlPart(
-        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
     {
         $results = array();
         $html = $data->getBodyPart($html_id);
@@ -455,7 +455,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
     /**
      * Build the data needed for the BodyPart part.
      *
-     * @param  Horde_Imap_Client_Fetch_Data $data  The FETCH results.
+     * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $mime  The plaintext MIME part.
      * @param  string $id             The MIME id for this part on the IMAP
      *                                server.
@@ -469,7 +469,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getBodyPart(
-        Horde_Imap_Client_Fetch_Data $data, Horde_Mime_Part $mime, $id, $to_html)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $mime, $id, $to_html)
     {
         $text = $data->getBodyPart($id);
         if (!$data->getBodyPartDecode($id)) {
