@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-10-21</date>
+ <date>2014-12-26</date>
  <version>
-  <release>2.0.9</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add option to inject a logger object.
+* [mjr] Improve support for decompressing TNEF data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -53,6 +54,14 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Compress">
+      <dir name="Tnef">
+       <file name="Date.php" role="php" />
+       <file name="File.php" role="php" />
+       <file name="Icalendar.php" role="php" />
+       <file name="MessageData.php" role="php" />
+       <file name="Object.php" role="php" />
+       <file name="Vtodo.php" role="php" />
+      </dir> <!-- /lib/Horde/Compress/Tnef -->
       <file name="Base.php" role="php" />
       <file name="Dbx.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -330,6 +339,7 @@
        <file name="TnefAttachments.txt" role="test" />
        <file name="TnefAttachmentsMultiple.txt" role="test" />
        <file name="TnefMeetingRequest.txt" role="test" />
+       <file name="tnef_vnote" role="test" />
       </dir> <!-- /test/Horde/Compress/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -356,6 +366,13 @@
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mime</name>
+    <channel>pear.horde.org</channel>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -421,6 +438,12 @@
    <install as="Horde/Compress/Tnef.php" name="lib/Horde/Compress/Tnef.php" />
    <install as="Horde/Compress/Translation.php" name="lib/Horde/Compress/Translation.php" />
    <install as="Horde/Compress/Zip.php" name="lib/Horde/Compress/Zip.php" />
+   <install as="Horde/Compress/Tnef/Date.php" name="lib/Horde/Compress/Tnef/Date.php" />
+   <install as="Horde/Compress/Tnef/File.php" name="lib/Horde/Compress/Tnef/File.php" />
+   <install as="Horde/Compress/Tnef/Icalendar.php" name="lib/Horde/Compress/Tnef/Icalendar.php" />
+   <install as="Horde/Compress/Tnef/MessageData.php" name="lib/Horde/Compress/Tnef/MessageData.php" />
+   <install as="Horde/Compress/Tnef/Object.php" name="lib/Horde/Compress/Tnef/Object.php" />
+   <install as="Horde/Compress/Tnef/Vtodo.php" name="lib/Horde/Compress/Tnef/Vtodo.php" />
    <install as="locale/Horde_Compress.pot" name="locale/Horde_Compress.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Compress.mo" name="locale/ar/LC_MESSAGES/Horde_Compress.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Compress.po" name="locale/ar/LC_MESSAGES/Horde_Compress.po" />
@@ -515,6 +538,7 @@
    <install as="Horde/Compress/fixtures/TnefAttachments.txt" name="test/Horde/Compress/fixtures/TnefAttachments.txt" />
    <install as="Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" name="test/Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" />
    <install as="Horde/Compress/fixtures/TnefMeetingRequest.txt" name="test/Horde/Compress/fixtures/TnefMeetingRequest.txt" />
+   <install as="Horde/Compress/fixtures/tnef_vnote" name="test/Horde/Compress/fixtures/tnef_vnote" />
    </filelist>
  </phprelease>
  <changelog>
@@ -893,15 +917,16 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.0.9</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2014-12-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add option to inject a logger object.
+* [mjr] Improve support for decompressing TNEF data.
    </notes>
   </release>
  </changelog>

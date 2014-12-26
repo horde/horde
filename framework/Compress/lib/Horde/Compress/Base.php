@@ -29,6 +29,22 @@ class Horde_Compress_Base
     public $canDecompress = false;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    public function __construct($options = array())
+    {
+        if (!empty($options['logger'])) {
+            $this->_logger = $options['logger'];
+        } else {
+            $this->_logger = new Horde_Support_Stub();
+        }
+    }
+
+    /**
      * Compress the data.
      *
      * @param mixed $data    The data to compress.

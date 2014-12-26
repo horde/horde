@@ -29,9 +29,15 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
     const ASUBJECT                          = 0x88004;
+    const ADATESENT                         = 0x38005;
+    const ADATERECEIVED                     = 0x38006;
+
     const AMCLASS                           = 0x78008;
     const ATTACHDATA                        = 0x6800f;
     const AFILENAME                         = 0x18010;
+    const ATTACHMETAFILE                    = 0x68011;
+    const ATTACHCREATEDATE                  = 0x38012;
+
     const ARENDDATA                         = 0x69002;
     const AMAPIPROPS                        = 0x69003;
     const AMAPIATTRS                        = 0x69005;
@@ -70,8 +76,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_MEETING_INFO                 = 0x00020000;
 
 
+    const MAPI_SENT_REP_NAME                = 0x0042;
     const MAPI_START_DATE                   = 0x0060;
     const MAPI_END_DATE                     = 0x0061;
+    const MAPI_SENT_REP_EMAIL_ADDR          = 0x0065;
     const MAPI_COMPRESSED                   = 0x1009;
     const MAPI_IN_REPLY_TO_ID               = 0x1042;
 
@@ -79,14 +87,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_TAG_SUBJECT_PREFIX           = 0x003D;
     const MAPI_CONVERSATION_TOPIC           = 0x0070;
 
+    const MAPI_ATTACH_EXTENSION             = 0x3703;
     const MAPI_CREATION_TIME                = 0x3007;
     const MAPI_MODIFICATION_TIME            = 0x3008;
     const MAPI_ATTACH_DATA                  = 0x3701;
     const MAPI_ATTACH_LONG_FILENAME         = 0x3707;
     const MAPI_ATTACH_MIME_TAG              = 0x370E;
+
     const MAPI_ORIGINAL_CREATORID           = 0x3FF9;
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_CODEPAGE                     = 0x3FFD;
+
+    const MAPI_TASK_STARTDATE               = 0x8104;
+    const MAPI_TASK_DUEDATE                 = 0x8105;
 
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
 
@@ -122,6 +135,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_ENTRY_UID                    = 0x0003; // GOID??
     const MAPI_MEETING_TYPE                 = 0x0026;
 
+    const MSG_EDITOR_FORMAT                 = 0x5909;
+    const MSG_EDITOR_FORMAT_UNKNOWN         = 0;
+    const MSG_EDITOR_FORMAT_PLAIN           = 1;
+    const MSG_EDITOR_FORMAT_HTML            = 2;
+    const MSG_EDITOR_FORMAT_RTF             = 3;
+
     const MAPI_NAMED_TYPE_ID                = 0x0000;
     const MAPI_NAMED_TYPE_STRING            = 0x0001;
     const MAPI_MV_FLAG                      = 0x1000;
@@ -131,6 +150,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const IPM_MEETING_RESPONSE_NEG          = 'IPM.Microsoft Schedule.MtgRespN';
     const IPM_MEETING_RESPONSE_TENT         = 'IPM.Microsoft Schedule.MtgRespA';
     const IPM_MEETING_REQUEST_CANCELLED     = 'IPM.Microsoft Schedule.MtgCncl';
+    const IPM_TASK_REQUEST                  = 'IPM.TaskRequest';
+
+    const IPM_TASK_GUID                     = 0x00008519;
+
+    const MAPI_TAG_SYNC_BODY                = 0x1008;
+    const MAPI_TAG_HTML                     = 0x1013;
+    const MAPI_TAG_RTF_COMPRESSED           = 0x1009;
 
     const RECUR_DAILY                       = 0x200A;
     const RECUR_WEEKLY                      = 0x200B;
@@ -152,44 +178,304 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     public $canDecompress = true;
 
     /**
-     * Temporary cache of data needed to build an iTip from the encoded
-     * MAPI appointment properties.
+     * Collection of files contained in the TNEF data.
      *
-     * @var array
+     * @var array of Horde_Compress_Tnef_Object classes.
      */
-    protected $_iTip = array();
-
-    protected $_conversation_topic;
-    protected $_lastModifier;
+    protected $_files = array();
 
     /**
+     * Collection of embedded TNEF attachments within the outer TNEF file.
+     *
+     * @var array of Horde_Compress_Tnef objects.
+     */
+    protected $_attachments = array();
+
+    /**
+     *
+     * @var Horde_Compress_Tnef_MessageData
+     */
+    protected $_msgInfo;
+
+    /**
+     * The TNEF object currently being decoded.
+     *
+     * @var Horde_Compress_Tnef_Object
+     */
+    protected $_currentObject;
+
+    /**
+     * Decompress the TNEF data. For BC reasons we can only return a numerically
+     * indexed array of object data. For more detailed information, use
+     * self::getFiles(), self::getAttachements(), and self::getMsgInfo().
+     *
+     * @todo Refactor return data for Horde 6.
      * @return array  The decompressed data.
      * @throws Horde_Compress_Exception
      */
     public function decompress($data, array $params = array())
     {
-        $out = array();
-        $message = array();
-
         if ($this->_geti($data, 32) == self::SIGNATURE) {
-            // LegacyKey value - not used.
-            $this->_geti($data, 16);
-
+            $this->_logger->debug(sprintf(
+                'TNEF: Signature: 0x%08X Key: 0x%04X',
+                self::SIGNATURE,
+                $this->_geti($data, 16))
+            );
+            $out = array();
+            $this->_msgInfo = new Horde_Compress_Tnef_MessageData($this->_logger);
             while (strlen($data) > 0) {
                 switch ($this->_geti($data, 8)) {
                 case self::LVL_MESSAGE:
-                    $this->_decodeMessageProperty($data);
+                    $this->_decodeAttribute($data);
                     break;
 
                 case self::LVL_ATTACHMENT:
-                    $this->_decodeAttachment($data, $out);
+                    $this->_decodeAttribute($data);
                     break;
                 }
             }
-            $this->_checkiTip($out);
         }
 
-        return array_reverse($out);
+        // Add the files. @todo the embedded attachments.
+        foreach ($this->_files as $object) {
+            $out[] = $object->toArray();
+        }
+
+        return $out;
+    }
+
+    /**
+     * Return the collection of files in the TNEF data.
+     *
+     * @return array  @see self::$_files
+     */
+    public function getFiles()
+    {
+        return $this->_files;
+    }
+
+    /**
+     * Return the collection of embedded attachments.
+     *
+     * @return array @see self::$_attachments
+     */
+    public function getAttachments()
+    {
+        return $this->_attachments;
+    }
+
+    /**
+     * Return the message information data.
+     *
+     * @return array @see self::$_msgInfo
+     */
+    public function getMsgInfo()
+    {
+        return $this->_msgInfo;
+    }
+
+    /**
+     * TODO
+     *
+     * @param string $data             The data string.
+     * @param array &$attachment_data  TODO
+     */
+    protected function _extractMapiAttributes($data)
+    {
+        // Number of attributes.
+        $number = $this->_geti($data, 32);
+
+        while ((strlen($data) > 0) && $number--) {
+            $have_mval = false;
+            $num_mval = 1;
+            $value = null;
+            $attr_type = $this->_geti($data, 16);
+            $attr_name = $this->_geti($data, 16);
+
+            // Multivalue attributes.
+            if (($attr_type & self::MAPI_MV_FLAG) != 0) {
+                $this->_logger->debug('TNEF: Multivalue attribute!');
+                $have_mval = true;
+                $attr_type = $attr_type & ~self::MAPI_MV_FLAG;
+            }
+
+            // Named attributes.
+            if (($attr_name >= 0x8000) && ($attr_name < 0xFFFE)) {
+                // GUID?
+                $this->_getx($data, 16);
+                $named_type = $this->_geti($data, 32);
+
+                switch ($named_type) {
+                case self::MAPI_NAMED_TYPE_ID:
+                    $attr_name =$this->_geti($data, 32);
+                    $this->_logger->debug(sprintf(
+                        'TNEF: Named Id: 0x%04X', $attr_name)
+                    );
+                    break;
+
+                case self::MAPI_NAMED_TYPE_STRING:
+                    $attr_name = 0x9999;
+                    $id_len = $this->_geti($data, 32);
+                    $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
+                    $this->_logger->debug(sprintf(
+                        'TNEF: Named Id: %s', substr($this->_getx($data, $data_len)))
+                    );
+                    break;
+
+                default:
+                    $this->_logger->notice(sprintf(
+                        'TNEF: Unknown Named Type: 0x%04X.', $named_type));
+                }
+            }
+
+            if ($have_mval) {
+                $num_mval = $this->_geti($data, 32);
+                $this->_logger->debug(sprintf(
+                    'TNEF: Number of multivalues: %s', $num_mval));
+            }
+
+            switch ($attr_type) {
+            case self::MAPI_NULL:
+                break;
+
+            case self::MAPI_SHORT:
+                $value = $this->_geti($data, 16);
+                break;
+
+            case self::MAPI_INT:
+            case self::MAPI_BOOLEAN:
+                for ($i = 0; $i < $num_mval; $i++) {
+                    $value = $this->_geti($data, 32);
+                }
+                break;
+
+            case self::MAPI_FLOAT:
+            case self::MAPI_ERROR:
+                $value = $this->_getx($data, 4);
+                break;
+
+            case self::MAPI_DOUBLE:
+            case self::MAPI_APPTIME:
+            case self::MAPI_CURRENCY:
+            case self::MAPI_INT8BYTE:
+            case self::MAPI_SYSTIME:
+                $value = $this->_getx($data, 8);
+                break;
+
+            case self::MAPI_CLSID:
+                $this->_logger->debug('TNEF: CLSID??');
+                break;
+
+            case self::MAPI_STRING:
+            case self::MAPI_UNICODE_STRING:
+            case self::MAPI_BINARY:
+            case self::MAPI_OBJECT:
+                $num_vals = ($have_mval) ? $num_mval : $this->_geti($data, 32);
+                for ($i = 0; $i < $num_vals; $i++) {
+                    $length = $this->_geti($data, 32);
+                    /* Pad to next 4 byte boundary. */
+                    $datalen = $length + ((4 - ($length % 4)) % 4);
+                    if ($attr_type == self::MAPI_STRING) {
+                        --$length;
+                    }
+
+                    /* Read and truncate to length. */
+                    $value = substr($this->_getx($data, $datalen), 0, $length);
+                }
+                break;
+            default:
+                $this->_logger->notice('TNEF: Unknown attribute type!');
+            }
+
+            // @todo Utility method to make this log more readable.
+            $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type:', $attr_name, $attr_type));
+
+            switch ($attr_name) {
+            case self::MAPI_ATTACH_DATA:
+                $this->_logger->debug('TNEF: Found nested attachment. Parsing.');
+                // ?
+                $this->_getx($value, 16);
+
+                $att = &new Horde_Compress_Tnef($this->_logger);
+                $att->decompress($value);
+                $this->attachments[] = &$att;
+                $this->_logger->debug('TNEF: Completed nested attachment parsing.');
+                break;
+
+            // case self::MAPI_TAG_RTF_COMPRESSED:
+            //     $this->_logger->debug('TNEF: Found compressed RTF text.');
+            //     $this->_files[] = &new Horde_Compress_Tnef_FileRTF($this->_logger, $value);
+            //     break;
+
+            default:
+                $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
+                if ($this->_currentObject) {
+                    $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $value);
+                }
+            }
+        }
+    }
+
+    /**
+     * TODO
+     *
+     * @param string &$data  The data string.
+     */
+    protected function _decodeAttribute(&$data)
+    {
+        $attribute = $this->_geti($data, 32);
+        $length = $this->_geti($data, 32);
+        $value = $this->_getx($data, $length);
+        $this->_geti($data, 16);
+
+        $this->_logger->debug(sprintf('TNEF: Decoding message attribute: 0x%X', $attribute));
+
+        switch ($attribute) {
+        case self::ARENDDATA:
+            $this->_logger->debug('Creating new attachment.');
+            $this->_currentObject = &new Horde_Compress_Tnef_File($this->_logger);
+            $this->_files[] = &$this->_currentObject;
+            break;
+
+        case self::AMCLASS:
+            // Start of a new message.
+            $message_class = trim($value);
+            $this->_logger->debug(sprintf('TNEF: Message class: %s', $message_class));
+
+            switch ($message_class) {
+            case self::IPM_MEETING_REQUEST:
+                $this->_currentObject = &new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->method = 'REQUEST';
+                $this->_files[] = &$this->_currentObject;
+                break;
+            case self::IPM_MEETING_REQUEST_CANCELLED:
+                $this->_currentObject = &new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->method = 'CANCEL';
+                $this->_files[] = &$this->_currentObject;
+                break;
+            // case self::IPM_TASK_REQUEST:
+            //     $this->_currentObject = &new Horde_Compress_Tnef_vTodo($this->_logger);
+            //     $this->_files[] = &$this->_currentObject;
+            //     break;
+            }
+            break;
+
+        case self::AMAPIATTRS:
+            $this->_logger->debug('TNEF: Extracting MAPI attributes.');
+            $this->_extractMapiAttributes($value);
+            break;
+
+        case self::AMAPIPROPS:
+            $this->_logger->debug('TNEF: Extracting MAPI properties.');
+            $this->_extractMapiAttributes($value);
+            break;
+
+        default:
+            $this->_msgInfo->setTnefAttribute($attribute, $value, $length);
+            if ($this->_currentObject) {
+                $this->_currentObject->setTnefAttribute($attribute, $value, $length);
+            }
+        }
     }
 
     /**
@@ -198,7 +484,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
      * @param string &$data  The data string.
      * @param integer $bytes  How many bytes to retrieve.
      *
-     * @return TODO
+     * @return @todo these also need to exist in the objects. Need to
+     *         refactor this away by adding a data/stream object
+     *         with getx/geti methods with the data hanled internally.
      */
     protected function _getx(&$data, $bytes)
     {
@@ -237,476 +525,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         }
 
         return $value;
-    }
-
-    /**
-     * TODO
-     *
-     * @param string &$data      The data string.
-     *
-     * @return @todo
-     */
-    protected function _decodeAttribute(&$data)
-    {
-        $fetched = $this->_getx($data, $this->_geti($data, 32));
-        // checksum
-        $this->_geti($data, 16);
-        return $fetched;
-    }
-
-    /**
-     * TODO
-     *
-     * @param string $data             The data string.
-     * @param array &$attachment_data  TODO
-     */
-    protected function _extractMapiAttributes($data, &$attachment_data)
-    {
-        /* Number of attributes. */
-        $number = $this->_geti($data, 32);
-
-        while ((strlen($data) > 0) && $number--) {
-            $have_mval = false;
-            $num_mval = 1;
-            $named_id = $value = null;
-            $attr_type = $this->_geti($data, 16);
-            $attr_name = $this->_geti($data, 16);
-
-            if (($attr_type & self::MAPI_MV_FLAG) != 0) {
-                $have_mval = true;
-                $attr_type = $attr_type & ~self::MAPI_MV_FLAG;
-            }
-
-            if (($attr_name >= 0x8000) && ($attr_name < 0xFFFE)) {
-                $this->_getx($data, 16);
-                $named_type = $this->_geti($data, 32);
-
-                switch ($named_type) {
-                case self::MAPI_NAMED_TYPE_ID:
-                    $named_id = $this->_geti($data, 32);
-                    $attr_name = $named_id;
-                    break;
-
-                case self::MAPI_NAMED_TYPE_STRING:
-                    $attr_name = 0x9999;
-                    $idlen = $this->_geti($data, 32);
-                    $datalen = $idlen + ((4 - ($idlen % 4)) % 4);
-                    $named_id = substr($this->_getx($data, $datalen), 0, $idlen);
-                    break;
-                }
-            }
-
-            if ($have_mval) {
-                $num_mval = $this->_geti($data, 32);
-            }
-
-            switch ($attr_type) {
-            case self::MAPI_SHORT:
-                $value = $this->_geti($data, 16);
-                break;
-
-            case self::MAPI_INT:
-            case self::MAPI_BOOLEAN:
-                for ($i = 0; $i < $num_mval; $i++) {
-                    $value = $this->_geti($data, 32);
-                }
-                break;
-
-            case self::MAPI_FLOAT:
-            case self::MAPI_ERROR:
-                $value = $this->_getx($data, 4);
-                break;
-
-            case self::MAPI_DOUBLE:
-            case self::MAPI_APPTIME:
-            case self::MAPI_CURRENCY:
-            case self::MAPI_INT8BYTE:
-            case self::MAPI_SYSTIME:
-                $value = $this->_getx($data, 8);
-                break;
-
-            case self::MAPI_STRING:
-            case self::MAPI_UNICODE_STRING:
-            case self::MAPI_BINARY:
-            case self::MAPI_OBJECT:
-                $num_vals = ($have_mval) ? $num_mval : $this->_geti($data, 32);
-                for ($i = 0; $i < $num_vals; $i++) {
-                    $length = $this->_geti($data, 32);
-                    /* Pad to next 4 byte boundary. */
-                    $datalen = $length + ((4 - ($length % 4)) % 4);
-
-                    if ($attr_type == self::MAPI_STRING) {
-                        --$length;
-                    }
-
-                    /* Read and truncate to length. */
-                    $value = substr($this->_getx($data, $datalen), 0, $length);
-                }
-                break;
-            }
-
-            /* Store any interesting attributes. */
-            switch ($attr_name) {
-            case self::MAPI_ATTACH_LONG_FILENAME:
-                /* Used in preference to AFILENAME value. */
-                $attachment_data[0]['name'] = preg_replace('/.*[\/](.*)$/', '\1', $value);
-                $attachment_data[0]['name'] = str_replace("\0", '', $attachment_data[0]['name']);
-                break;
-
-            case self::MAPI_ATTACH_MIME_TAG:
-                /* Is this ever set, and what is format? */
-                $attachment_data[0]['type'] = preg_replace('/^(.*)\/.*/', '\1', $value);
-                $attachment_data[0]['type'] = str_replace("\0", '', $attachment_data[0]['type']);
-                $attachment_data[0]['subtype'] = preg_replace('/.*\/(.*)$/', '\1', $value);
-                $attachment_data[0]['subtype'] = str_replace("\0", '', $attachment_data[0]['subtype']);
-                break;
-
-            // MAPI properties for meeting requests/responses.
-            case self::MAPI_CONVERSATION_TOPIC:
-                $this->_conversation_topic = $value;
-                break;
-            case self::MAPI_APPOINTMENT_LOCATION:
-                $attachment_data[0]['location'] = $value;
-                break;
-            case self::MAPI_APPOINTMENT_URL:
-                $attachment_data[0]['url'] = $value;
-                break;
-            case self::MAPI_APPOINTMENT_START_WHOLE:
-                try {
-                    $attachment_data[0]['start_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-                } catch (Horde_Mapi_Exception $e) {
-                    throw new Horde_Compress_Exception($e);
-                }
-                break;
-            case self::MAPI_APPOINTMENT_END_WHOLE:
-                try {
-                    $attachment_data[0]['end_utc'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-                } catch (Horde_Mapi_Exception $e) {
-                    throw new Horde_Compress_Exception($e);
-                }
-                break;
-            case self::MAPI_APPOINTMENT_DURATION:
-                $attachment_data[0]['duration'] = $value;
-                break;
-            case self::MAPI_APPOINTMENT_SUBTYPE:
-                $attachment_data[0]['allday'] = $value;
-                break;
-            case self::MAPI_ORGANIZER_ALIAS:
-                $attachment_data[0]['organizer'] = $value;
-                break;
-            case self::MAPI_LAST_MODIFIER_NAME:
-                $this->_lastModifier = $value;
-                break;
-            case self::MAPI_ENTRY_UID:
-                $attachment_data[0]['uid'] = Horde_Mapi::getUidFromGoid(bin2hex($value));
-                break;
-            case self::MAPI_APPOINTMENT_RECUR:
-                if (empty($attachment_data[0]['recurrence'])) {
-                    $attachment_data[0]['recurrence'] = array();
-                }
-                $attachment_data[0]['recurrence']['recur'] = $this->_parseRecurrence($value);
-                break;
-            case self::MAPI_RECURRING:
-                if (empty($attachment_data[0]['recurrence'])) {
-                    $attachment_data[0]['recurrence'] = array();
-                }
-                break;
-            case self::MAPI_RECURRENCE_TYPE:
-                $attachment_data[0]['recurrence']['type'] = $value;
-                break;
-            case self::MAPI_MEETING_REQUEST_TYPE:
-                $attachment_data[0]['type'] = $value;
-                break;
-            case self::MAPI_CREATION_TIME:
-                try {
-                    $attachment_data[0]['created'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-                } catch (Horde_Mapi_Exception $e) {
-                    throw new Horde_Compress_Exception($e);
-                }
-                break;
-            case self::MAPI_MODIFICATION_TIME:
-                try {
-                    $attachment_data[0]['modified'] = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-                } catch (Horde_Mapi_Exception $e) {
-                    throw new Horde_Compress_Exception($e);
-                }
-                break;
-            }
-        }
-    }
-
-    /**
-     * TODO
-     *
-     * @param string &$data  The data string.
-     */
-    protected function _decodeMessageProperty(&$data)
-    {
-        $attribute = $this->_geti($data, 32);
-        switch ($attribute) {
-        case self::AMCLASS:
-            // Start of a message.
-            $message_class = trim($this->_decodeAttribute($data));
-
-            // For now, we only care about the parts that can be represented
-            // as attachments.
-            switch ($message_class) {
-            case self::IPM_MEETING_REQUEST:
-                $this->_iTip[0]['method'] = 'REQUEST';
-                break;
-            case self::IPM_MEETING_REQUEST_CANCELLED:
-                $this->_iTip[0]['method'] = 'CANCEL';
-                break;
-            }
-            break;
-
-        case self::AIDOWNER:
-            $aid = $this->_decodeAttribute($data);
-            $this->_iTip[0]['aid'] = $this->_geti($aid, 32);
-            break;
-
-        case self::ID_REQUEST_RESP:
-            $response = $this->_decodeAttribute($data);
-            // This is a boolean value in the low-order bits and null byte in
-            // the high order bits.
-            $this->_iTip[0]['RequestResponse'] = $this->_geti($response, 16);
-            break;
-
-        case self::AMAPIPROPS:
-            $properties = $this->_decodeAttribute($data);
-            $this->_extractMapiAttributes($properties, $this->_iTip);
-            break;
-
-        default:
-            $this->_decodeAttribute($data);
-        }
-    }
-
-    /**
-     * TODO
-     *
-     * @param string &$data            The data string.
-     * @param array &$attachment_data  TODO
-     */
-    protected function _decodeAttachment(&$data, &$attachment_data)
-    {
-        $attribute = $this->_geti($data, 32);
-
-        switch ($attribute) {
-        case self::ARENDDATA:
-            /* Marks start of new attachment. */
-            $this->_getx($data, $this->_geti($data, 32));
-
-            /* Checksum */
-            $this->_geti($data, 16);
-
-            /* Add a new default data block to hold details of this
-               attachment. Reverse order is easier to handle later! */
-            array_unshift($attachment_data, array('type'    => 'application',
-                                                  'subtype' => 'octet-stream',
-                                                  'name'    => 'unknown',
-                                                  'stream'  => ''));
-            break;
-
-        case self::AFILENAME:
-            /* Strip path. */
-            $attachment_data[0]['name'] = preg_replace('/.*[\/](.*)$/', '\1', $this->_getx($data, $this->_geti($data, 32)));
-            $attachment_data[0]['name'] = str_replace("\0", '', $attachment_data[0]['name']);
-
-            /* Checksum */
-            $this->_geti($data, 16);
-            break;
-
-        case self::ATTACHDATA:
-            /* The attachment itself. */
-            $length = $this->_geti($data, 32);
-            $attachment_data[0]['size'] = $length;
-            $attachment_data[0]['stream'] = $this->_getx($data, $length);
-
-            /* Checksum */
-            $this->_geti($data, 16);
-            break;
-
-        case self::AMAPIATTRS:
-            $length = $this->_geti($data, 32);
-            $value = $this->_getx($data, $length);
-
-            /* Checksum */
-            $this->_geti($data, 16);
-            $this->_extractMapiAttributes($value, $attachment_data);
-            break;
-
-        default:
-            $this->_decodeAttribute($data);
-        }
-    }
-
-    /**
-     * Generate an iTip from embedded TNEF MEETING data.
-     *
-     */
-    protected function _checkiTip(&$out)
-    {
-        // Meeting requests will have 'type' set to a non-empty value.
-        if (!empty($this->_iTip[0]) && !empty($this->_iTip[0]['method'])) {
-            $iCal = new Horde_Icalendar();
-
-
-            // METHOD
-            if (!empty($this->_iTip[0]['type'])) {
-                switch ($this->_iTip[0]['type']) {
-                case self::MAPI_MEETING_INITIAL:
-                case self::MAPI_MEETING_FULL_UPDATE:
-                    $method = 'REQUEST';
-                    break;
-                case self::MAPI_MEETING_INFO:
-                    $method = 'PUBLISH';
-                    break;
-                }
-            } else {
-                $method = $this->_iTip[0]['method'];
-            }
-            $iCal->setAttribute('METHOD', $method);
-
-            // VEVENT
-            $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
-            if (empty($this->_iTip[0]['end_utc'])) {
-                return;
-            }
-            $end = clone $this->_iTip[0]['end_utc'];
-            $end->sec++;
-            if ($this->_iTip[0]['allday']) {
-                $vEvent->setAttribute('DTSTART', $this->_iTip[0]['start_utc'], array('VALUE' => 'DATE'));
-                $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
-            } else {
-                $vEvent->setAttribute('DTSTART', $this->_iTip[0]['start_utc']);
-                $vEvent->setAttribute('DTEND', $end);
-            }
-            $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
-            $vEvent->setAttribute('UID', $this->_iTip[0]['uid']);
-            if (!empty($this->_iTip[0]['created'])) {
-                $vEvent->setAttribute('CREATED', $this->_iTip[0]['created']);
-            }
-            if (!empty($this->_iTip[0]['modified'])) {
-                $vEvent->setAttribute('LAST-MODIFIED', $this->_iTip[0]['modified']);
-            }
-            $vEvent->setAttribute('SUMMARY', $this->_conversation_topic);
-
-            if (empty($this->_iTip[0]['organizer']) && !empty($this->_lastModifier)) {
-                $email = $this->_lastModifier;
-            } else if (!empty($this->_iTip[0]['organizer'])) {
-                $email = $this->_iTip[0]['organizer'];
-            }
-            if (!empty($email)) {
-                $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
-            }
-            if (!empty($this->_iTip[0]['url'])) {
-                $vEvent->setAttribute('URL', $this->_iTip[0]['url']);
-            }
-            if (!empty($this->_iTip[0]['recurrence']['recur'])) {
-                $rrule = $this->_iTip[0]['recurrence']['recur']->toRRule20($iCal);
-                $vEvent->setAttribute('RRULE', $rrule);
-            }
-            $iCal->addComponent($vEvent);
-
-            array_unshift($out, array(
-                'type'    => 'text',
-                'subtype' => 'calendar',
-                'name'    => $this->_conversation_topic,
-                'stream'  => $iCal->exportvCalendar()));
-        }
-    }
-
-    protected function _parseRecurrence($value)
-    {
-        // both are 0x3004 (version strings);
-        $this->_geti($value, 16);
-        $this->_geti($value, 16);
-
-        $freq = $this->_geti($value, 16);
-        $pattern = $this->_geti($value, 16);
-        $calendarType = $this->_geti($value, 16);
-        $firstDt = $this->_geti($value, 32);
-        $period = $this->_geti($value, 32);
-        // Only used for tasks, otherwise value must be zero.
-        $flag = $this->_geti($value, 32);
-
-        // TypeSpecific field
-        switch ($pattern) {
-        case self::PATTERN_DAY:
-            // Nothing here to see, move along.
-            break;
-        case self::PATTERN_WEEK:
-            // Bits: 0/unused, 1/Saturday, 2/Friday, 3/Thursday, 4/Wednesday,
-            // 5/Tuesday, 6/Monday, 7/Sunday.
-            $day = $this->_geti($value, 8);
-            $this->_geti($value, 24);
-            break;
-        case self::PATTERN_MONTH:
-        case self::PATTERN_MONTH_END:
-            // Day of month on which the recurrence falls.
-            $day = $this->_geti($value, 32);
-            break;
-        case self::PATTERN_MONTH_NTH:
-            // Bits: 0/unused, 1/Saturday, 2/Friday, 3/Thursday, 4/Wednesday,
-            // 5/Tuesday, 6/Monday, 7/Sunday.
-            // For Nth Weekday of month
-            $day = $this->_geti($value, 8);
-            $this->_geti($value, 24);
-            $n = $this->_geti($value, 32);
-            break;
-        }
-        $end = $this->_geti($value, 32);
-        $count = $this->_geti($value, 32);
-        $fdow = $this->_geti($value, 32);
-        $deletedCount = $this->_geti($value, 32);
-        for ($i = 0; $i < $deletedCount; $i++) {
-            $deleted[] = $this->_geti($value, 32);
-        }
-        $modifiedCount = $this->_geti($value, 32);
-        for ($i = 0; $i < $modifiedCount; $i++) {
-            $modified[] = $this->_geti($value, 32);
-        }
-
-        // What Timezone are these in?
-        try {
-            $startDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
-            $endDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
-        } catch (Horde_Mapi_Exception $e) {
-            throw new Horde_Compress_Exception($e);
-        }
-
-        $rrule = new Horde_Date_Recurrence($startDate);
-        switch ($pattern) {
-        case self::PATTERN_DAY:
-            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
-            break;
-        case self::PATTERN_WEEK:
-            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_WEEKLY);
-            break;
-        case self::PATTERN_MONTH:
-        case self::PATTERN_MONTH_END:
-            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_DATE);
-            break;
-        case self::PATTERN_MONTH_NTH:
-            $rrule->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
-            break;
-        default:
-            if ($freq == self::RECUR_YEARLY) {
-                $rrule->setRecurType(Horde_Date_Recurrence::RECUR_YEARLY);
-            }
-        }
-
-        switch ($end) {
-        case self::RECUR_END_N:
-            $rrule->setRecurCount($count);
-            break;
-        case self::RECUR_END_DATE:
-            $rrule->setRecurEnd($endDate);
-            break;
-        }
-
-        return $rrule;
     }
 
 }
