@@ -11,6 +11,21 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.8.0
+==================
+
+  - Horde_Smtp
+
+    - send()
+
+      Failed recipients now cause a Horde_Smtp_Exception_Recipients exception
+      to be thrown, which contains the list of recipients that failed.
+
+  - Horde_Smtp_Exception_Recipients
+
+    This exception class has been added.
+
+
 Upgrading to 1.7.0
 ==================
 

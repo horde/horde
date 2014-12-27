@@ -411,7 +411,9 @@ class Horde_Smtp implements Serializable
             ));
 
             // Get initial line (RFC 5321 [3.1]).
-            $this->_getResponse(220, 'logout');
+            $this->_getResponse(220, array(
+                'error' => 'logout'
+            ));
         }
 
         $this->_hello();
@@ -509,6 +511,7 @@ class Horde_Smtp implements Serializable
      *             or a Horde_Smtp_Exception (if messages was not accepted).
      *
      * @throws Horde_Smtp_Exception
+     * @throws Horde_Smtp_Exception_Recipients
      */
     public function send($from, $to, $data, array $opts = array())
     {
@@ -635,25 +638,39 @@ class Horde_Smtp implements Serializable
             $mailcmd .= $body;
         }
 
-        $cmds = array($mailcmd);
-
         $recipients = $eai
             ? $to->bare_addresses
             : $to->bare_addresses_idn;
+
+        $recip_cmds = array();
         foreach ($recipients as $val) {
-            $cmds[] = 'RCPT TO:<' . $val . '>';
+            $recip_cmds[$val] = 'RCPT TO:<' . $val . '>';
         }
 
         if ($this->queryExtension('PIPELINING')) {
-            $this->_connection->write($cmds);
+            $this->_connection->write(
+                array_merge(array($mailcmd), array_values($recip_cmds))
+            );
 
-            $error = null;
-            foreach ($cmds as $val) {
+            try {
+                $this->_getResponse(250);
+                $error =  null;
+            } catch (Horde_Smtp_Exception $e) {
+                $error = $e;
+            }
+
+            foreach ($recip_cmds as $key => $val) {
                 try {
-                    $this->_getResponse(array(250, 251));
-                } catch (Horde_Smtp_Exception $e) {
+                    $this->_getResponse(array(250, 251), array(
+                        'exception' => 'Horde_Smtp_Exception_Recipients'
+                    ));
+                } catch (Horde_Smtp_Exception_Recipients $e) {
                     if (is_null($error)) {
                         $error = $e;
+                    }
+
+                    if ($error instanceof Horde_Smtp_Exception_Recipients) {
+                        $error->recipients[] = $key;
                     }
                 }
             }
@@ -665,9 +682,22 @@ class Horde_Smtp implements Serializable
                 throw $error;
             }
         } else {
-            foreach ($cmds as $val) {
+            $this->_connection->write($mailcmd);
+            $this->_getResponse(250, array(
+                'error' => 'reset'
+            ));
+
+            foreach ($recip_cmds as $key => $val) {
                 $this->_connection->write($val);
-                $this->_getResponse(array(250, 251), 'reset');
+                try {
+                    $this->_getResponse(array(250, 251), array(
+                        'error' => 'reset',
+                        'exception' => 'Horde_Smtp_Exception_Recipients'
+                    ));
+                } catch (Horde_Smtp_Exception_Recipients $e) {
+                    $e->recipients[] = $key;
+                    throw $e;
+                }
             }
         }
 
@@ -684,14 +714,18 @@ class Horde_Smtp implements Serializable
                 );
                 $this->_connection->write($stream, $c);
                 if ($size) {
-                    $this->_getResponse(250, 'reset');
+                    $this->_getResponse(250, array(
+                        'error' => 'reset'
+                    ));
                 }
             }
         } else {
             $this->_connection->write('DATA');
 
             try {
-                $this->_getResponse(354, 'reset');
+                $this->_getResponse(354, array(
+                    'error' => 'reset'
+                ));
             } catch (Horde_Smtp_Exception $e) {
                 fclose($stream);
 
@@ -854,7 +888,9 @@ class Horde_Smtp implements Serializable
         }
 
         $this->_connection->write('STARTTLS');
-        $this->_getResponse(220, 'logout');
+        $this->_getResponse(220, array(
+            'error' => 'logout'
+        ));
 
         if (!$this->_connection->startTls()) {
             $this->logout();
@@ -985,14 +1021,23 @@ class Horde_Smtp implements Serializable
     /**
      * Gets a line from the incoming stream and parses it.
      *
-     * @param mixed $code    Expected reply code(s) (integer or array).
-     * @param string $error  On error, 'logout' or 'reset'?
+     * @param mixed $code  Expected reply code(s) (integer or array).
+     * @param array $opts  Additional options:
+     * <pre>
+     *   - error: (string) On error, 'logout' or 'reset'?
+     *   - exception: (string) Throw an exception of this class on error.
+     * </pre>
      *
      * @return array  An array with the response text.
      * @throws Horde_Smtp_Exception
      */
-    protected function _getResponse($code, $error = null)
+    protected function _getResponse($code, array $opts = array())
     {
+        $opts = array_merge(array(
+            'error' => null,
+            'exception' => 'Horde_Smtp_Exception'
+        ), $opts);
+
         $text = array();
 
         while ($read = $this->_connection->read()) {
@@ -1021,12 +1066,12 @@ class Horde_Smtp implements Serializable
             $enhanced = null;
         }
 
-        $e = new Horde_Smtp_Exception($details);
+        $e = new $opts['exception']($details);
         $e->details = $details;
         $e->setSmtpCode($replycode);
         $e->setEnhancedSmtpCode($enhanced);
 
-        switch ($error) {
+        switch ($opts['error']) {
         case 'logout':
             $this->logout();
             break;
@@ -1054,7 +1099,9 @@ class Horde_Smtp implements Serializable
      */
     protected function _processData($recipients)
     {
-        $this->_getResponse(250, 'reset');
+        $this->_getResponse(250, array(
+            'error' => 'reset'
+        ));
         return array_fill_keys($recipients, true);
     }
 
