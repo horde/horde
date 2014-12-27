@@ -80,8 +80,6 @@
  * TODO (or not necessary?):
  * <pre>
  *   - RFC 2177: IDLE
- *     Probably not necessary due to the limited connection time of each
- *     HTTP/PHP request
  *   - RFC 2193: MAILBOX-REFERRALS
  *   - RFC 4467/5092/5524/5550/5593: URLAUTH, URLAUTH=BINARY, URL-PARTIAL
  *   - RFC 4978: COMPRESS=DEFLATE
@@ -91,8 +89,8 @@
  *   - RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT
  *   - RFC 5465: NOTIFY
  *   - RFC 5466: FILTERS
- *   - RFC 6237: MULTISEARCH (Experimental)
  *   - RFC 6785: IMAPSIEVE
+ *   - RFC 7377: MULTISEARCH
  * </pre>
  *
  * @author    Michael Slusarz <slusarz@horde.org>
