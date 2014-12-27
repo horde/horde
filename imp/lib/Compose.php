@@ -2484,6 +2484,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                     if (($prev = $e->getPrevious()) &&
                         ($prev instanceof Horde_Smtp_Exception)) {
+                        if ($prev instanceof Horde_Smtp_Exception_Recipients) {
+                            $e2 = new IMP_Compose_Exception_Addresses($e);
+                            foreach ($prev->recipients as $val) {
+                                $e2->addAddress(
+                                    new Horde_Mail_Rfc822_Address($val),
+                                    _("Address rejected by the sending mail server."),
+                                    $e2::BAD
+                                );
+                            }
+                        }
+
                         Horde::log(
                             sprintf(
                                 "SMTP Error: %s (%u; %s)",
