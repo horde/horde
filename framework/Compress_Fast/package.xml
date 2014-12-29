@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-27</date>
+ <date>2014-12-29</date>
  <version>
   <release>1.1.0</release>
   <api>1.1.0</api>
@@ -53,6 +53,13 @@
     <dir name="Horde">
      <dir name="Compress">
       <dir name="Fast">
+       <dir name="Driver">
+        <file name="Lz4Test.php" role="test" />
+        <file name="LzfTest.php" role="test" />
+        <file name="NullTest.php" role="test" />
+        <file name="TestBase.php" role="test" />
+        <file name="ZlibTest.php" role="test" />
+       </dir> <!-- /test/Horde/Compress/Fast/Driver -->
        <file name="AllTests.php" role="test" />
        <file name="bootstrap.php" role="test" />
        <file name="CompressFastTest.php" role="test" />
@@ -119,6 +126,11 @@
    <install as="Horde/Compress/Fast/bootstrap.php" name="test/Horde/Compress/Fast/bootstrap.php" />
    <install as="Horde/Compress/Fast/CompressFastTest.php" name="test/Horde/Compress/Fast/CompressFastTest.php" />
    <install as="Horde/Compress/Fast/phpunit.xml" name="test/Horde/Compress/Fast/phpunit.xml" />
+   <install as="Horde/Compress/Fast/Driver/Lz4Test.php" name="test/Horde/Compress/Fast/Driver/Lz4Test.php" />
+   <install as="Horde/Compress/Fast/Driver/LzfTest.php" name="test/Horde/Compress/Fast/Driver/LzfTest.php" />
+   <install as="Horde/Compress/Fast/Driver/NullTest.php" name="test/Horde/Compress/Fast/Driver/NullTest.php" />
+   <install as="Horde/Compress/Fast/Driver/TestBase.php" name="test/Horde/Compress/Fast/Driver/TestBase.php" />
+   <install as="Horde/Compress/Fast/Driver/ZlibTest.php" name="test/Horde/Compress/Fast/Driver/ZlibTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -183,7 +195,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-27</date>
+   <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add zlib driver and allow it to be considered a &apos;fast&apos; compression driver (disabled by default).
