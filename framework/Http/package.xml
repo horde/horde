@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add unit tests for PECL HTTP 1.x/2.x drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -81,6 +81,8 @@
       <file name="CurlTest.php" role="test" />
       <file name="FopenTest.php" role="test" />
       <file name="MockTest.php" role="test" />
+      <file name="Peclhttp2Test.php" role="test" />
+      <file name="PeclhttpTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Http -->
     </dir> <!-- /test/Horde -->
@@ -161,6 +163,8 @@
    <install as="Horde/Http/CurlTest.php" name="test/Horde/Http/CurlTest.php" />
    <install as="Horde/Http/FopenTest.php" name="test/Horde/Http/FopenTest.php" />
    <install as="Horde/Http/MockTest.php" name="test/Horde/Http/MockTest.php" />
+   <install as="Horde/Http/Peclhttp2Test.php" name="test/Horde/Http/Peclhttp2Test.php" />
+   <install as="Horde/Http/PeclhttpTest.php" name="test/Horde/Http/PeclhttpTest.php" />
    <install as="Horde/Http/phpunit.xml" name="test/Horde/Http/phpunit.xml" />
   </filelist>
  </phprelease>
@@ -490,7 +494,7 @@
    <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add unit tests for PECL HTTP 1.x/2.x drivers.
    </notes>
   </release>
  </changelog>
