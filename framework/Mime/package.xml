@@ -382,6 +382,9 @@
        <file name="sample_msg_eai_4.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
+      <dir name="Mdn">
+       <file name="NonTranslatedTest.php" role="test" />
+      </dir> <!-- /test/Horde/Mime/Mdn -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="ContentParamTest.php" role="test" />
@@ -674,6 +677,7 @@
    <install as="Horde/Mime/fixtures/sample_msg_eai_3.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_3.txt" />
    <install as="Horde/Mime/fixtures/sample_msg_eai_4.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_4.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
+   <install as="Horde/Mime/Mdn/NonTranslatedTest.php" name="test/Horde/Mime/Mdn/NonTranslatedTest.php" />
   </filelist>
  </phprelease>
  <changelog>
