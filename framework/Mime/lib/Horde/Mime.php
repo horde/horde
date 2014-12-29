@@ -392,7 +392,7 @@ class Horde_Mime
     public static function quotedPrintableEncode($text, $eol = self::EOL,
                                                  $wrap = 76)
     {
-        return strval(new Horde_Mime_QuotedPrintable($text, $eol, $wrap));
+        return Horde_Mime_QuotedPrintable::encode($text, $eol, $wrap);
     }
 
 }
