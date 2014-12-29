@@ -18,7 +18,7 @@
  </lead>
  <date>2014-12-29</date>
  <version>
-  <release>2.4.7</release>
+  <release>2.4.8</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Update to PHPUnit 4.4.0 and dependencies.
-* [jan] Add remoteHost() to Horde_Test_Stub_Registry.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2888,6 +2887,19 @@
    <notes>
 * [mms] Update to PHPUnit 4.4.0 and dependencies.
 * [jan] Add remoteHost() to Horde_Test_Stub_Registry.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.8</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
