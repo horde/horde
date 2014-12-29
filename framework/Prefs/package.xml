@@ -24,7 +24,7 @@
  </lead>
  <date>2014-12-29</date>
  <version>
-  <release>2.7.1</release>
+  <release>2.7.2</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn&apos;t exist in a scope.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1131,6 +1131,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn&apos;t exist in a scope.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.2</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
