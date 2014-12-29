@@ -128,7 +128,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     public function toArray()
     {
-        return $this->_generateItip();
+        return $this->_toItip();
     }
 
     /**
@@ -330,7 +330,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      *
      * @return array  see @self::toArray().
      */
-    protected function _generateItip()
+    protected function _toItip()
     {
         $iCal = new Horde_Icalendar();
 
