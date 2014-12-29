@@ -23,7 +23,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-08-14</date>
+ <date>2014-12-29</date>
  <version>
   <release>2.5.2</release>
   <api>2.5.0</api>
@@ -708,7 +708,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-08-14</date>
+   <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix deleting multi-level temporary directories in Horde_Util::deleteAtShutdown().
