@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-12-26</date>
+ <date>2014-12-29</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -60,6 +60,7 @@
        <file name="Icalendar.php" role="php" />
        <file name="MessageData.php" role="php" />
        <file name="Object.php" role="php" />
+       <file name="Rtf.php" role="php" />
        <file name="Vtodo.php" role="php" />
       </dir> <!-- /lib/Horde/Compress/Tnef -->
       <file name="Base.php" role="php" />
@@ -443,6 +444,7 @@
    <install as="Horde/Compress/Tnef/Icalendar.php" name="lib/Horde/Compress/Tnef/Icalendar.php" />
    <install as="Horde/Compress/Tnef/MessageData.php" name="lib/Horde/Compress/Tnef/MessageData.php" />
    <install as="Horde/Compress/Tnef/Object.php" name="lib/Horde/Compress/Tnef/Object.php" />
+   <install as="Horde/Compress/Tnef/Rtf.php" name="lib/Horde/Compress/Tnef/Rtf.php" />
    <install as="Horde/Compress/Tnef/Vtodo.php" name="lib/Horde/Compress/Tnef/Vtodo.php" />
    <install as="locale/Horde_Compress.pot" name="locale/Horde_Compress.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Compress.mo" name="locale/ar/LC_MESSAGES/Horde_Compress.mo" />
@@ -922,7 +924,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-26</date>
+   <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add option to inject a logger object.
