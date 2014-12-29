@@ -21,16 +21,16 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         }
     }
 
-    // public function testvNote()
-    // {
-    //     $tnef = Horde_Compress::factory('Tnef');
-    //     $data = file_get_contents(__DIR__ . '/fixtures/tnef_vnote');
-    //     try {
-    //         $tnef_data = $tnef->decompress($data);
-    //     } catch (Horde_Compress_Exception $e) {
-    //         var_dump($e);
-    //     }
-    // }
+    public function testvNote()
+    {
+        $tnef = Horde_Compress::factory('Tnef');
+        $data = file_get_contents(__DIR__ . '/fixtures/tnef_vnote');
+        try {
+            $tnef_data = $tnef->decompress($data);
+        } catch (Horde_Compress_Exception $e) {
+            var_dump($e);
+        }
+    }
 
     public function testMeetingInvitation()
     {
@@ -55,10 +55,13 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachments.txt'));
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($data);
-        $this->assertEquals('image', $tnef_data[0]['type'], 'application');
-        $this->assertEquals('jpeg', $tnef_data[0]['subtype']);
-        $this->assertEquals('hasselhoff_birthday.jpg', $tnef_data[0]['name']);
-        $this->assertEquals(80051, $tnef_data[0]['size']);
+        $this->assertEquals('application', $tnef_data[0]['type']);
+        $this->assertEquals('rtf', $tnef_data[0]['subtype']);
+
+        $this->assertEquals('image', $tnef_data[1]['type']);
+        $this->assertEquals('jpeg', $tnef_data[1]['subtype']);
+        $this->assertEquals('hasselhoff_birthday.jpg', $tnef_data[1]['name']);
+        $this->assertEquals(80051, $tnef_data[1]['size']);
     }
 
     public function testMultipleAttachments()
@@ -66,12 +69,14 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachmentsMultiple.txt'));
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($data);
-        $this->assertEquals('image', $tnef_data[0]['type']);
-        $this->assertEquals('jpeg', $tnef_data[0]['subtype']);
-        $this->assertEquals('Lighthouse.jpg', $tnef_data[0]['name']);
+        $this->assertEquals('application', $tnef_data[0]['type']);
+        $this->assertEquals('rtf', $tnef_data[0]['subtype']);
         $this->assertEquals('image', $tnef_data[1]['type']);
         $this->assertEquals('jpeg', $tnef_data[1]['subtype']);
-        $this->assertEquals('Penguins.jpg', $tnef_data[1]['name']);
+        $this->assertEquals('Lighthouse.jpg', $tnef_data[1]['name']);
+        $this->assertEquals('image', $tnef_data[2]['type']);
+        $this->assertEquals('jpeg', $tnef_data[2]['subtype']);
+        $this->assertEquals('Penguins.jpg', $tnef_data[2]['name']);
     }
 
 }
