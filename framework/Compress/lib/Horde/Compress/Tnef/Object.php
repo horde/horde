@@ -26,6 +26,18 @@
 class Horde_Compress_Tnef_Object
 {
     /**
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    public function __construct($logger, $data = null)
+    {
+        $this->_data = $data;
+        $this->_logger = $logger;
+    }
+
+    /**
      * Allow this object to set any TNEF attributes it needs to know about,
      * ignore any it doesn't care about.
      *
