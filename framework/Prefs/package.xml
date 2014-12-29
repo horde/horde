@@ -22,7 +22,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-21</date>
+ <date>2014-12-29</date>
  <version>
   <release>2.7.1</release>
   <api>2.7.0</api>
@@ -1127,7 +1127,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn&apos;t exist in a scope.
