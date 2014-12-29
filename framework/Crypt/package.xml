@@ -18,7 +18,7 @@
  </lead>
  <date>2014-12-29</date>
  <version>
-  <release>2.5.2</release>
+  <release>2.5.3</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix parsing GPG packet information using the gnupg v2.1 binary.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1051,6 +1051,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing GPG packet information using the gnupg v2.1 binary.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.3</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
