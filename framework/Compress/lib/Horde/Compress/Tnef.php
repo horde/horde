@@ -391,7 +391,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             // @todo Utility method to make this log more readable.
             $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type:', $attr_name, $attr_type));
-
             switch ($attr_name) {
             case self::MAPI_ATTACH_DATA:
                 $this->_logger->debug('TNEF: Found nested attachment. Parsing.');
@@ -400,7 +399,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
                 $att = &new Horde_Compress_Tnef($this->_logger);
                 $att->decompress($value);
-                $this->attachments[] = &$att;
+                $this->attachments[] = $att;
                 $this->_logger->debug('TNEF: Completed nested attachment parsing.');
                 break;
 
@@ -443,15 +442,14 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             // Start of a new message.
             $message_class = trim($value);
             $this->_logger->debug(sprintf('TNEF: Message class: %s', $message_class));
-
             switch ($message_class) {
             case self::IPM_MEETING_REQUEST:
-                $this->_currentObject = &new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
                 $this->_currentObject->method = 'REQUEST';
-                $this->_files[] = &$this->_currentObject;
+                $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_REQUEST_CANCELLED:
-                $this->_currentObject = &new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
                 $this->_currentObject->method = 'CANCEL';
                 $this->_files[] = &$this->_currentObject;
                 break;
