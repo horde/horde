@@ -332,72 +332,69 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     protected function _generateItip()
     {
-        // Meeting requests will have 'type' set to a non-empty value.
-        // if (!empty($this->_iTip[0]) && !empty($this->_iTip[0]['method']) &&
-        //     $this->_iTip[0]['method'] != 'VTODO') {
-            $iCal = new Horde_Icalendar();
+        $iCal = new Horde_Icalendar();
 
-            // METHOD
-            if ($this->type) {
-                switch ($this->type) {
-                case self::MAPI_MEETING_INITIAL:
-                case self::MAPI_MEETING_FULL_UPDATE:
-                    $this->method = 'REQUEST';
-                    break;
-                case self::MAPI_MEETING_INFO:
-                    $this->method = 'PUBLISH';
-                    break;
-                }
+        // METHOD
+        if ($this->type) {
+            switch ($this->type) {
+            case self::MAPI_MEETING_INITIAL:
+            case self::MAPI_MEETING_FULL_UPDATE:
+                $this->method = 'REQUEST';
+                break;
+            case self::MAPI_MEETING_INFO:
+                $this->method = 'PUBLISH';
+                break;
             }
-            $iCal->setAttribute('METHOD', $this->method);
+        }
+        $iCal->setAttribute('METHOD', $this->method);
 
-            // VEVENT
-            $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
-            if (empty($this->end_utc)) {
-                return;
-            }
-            $end = clone $this->end_utc;
-            $end->sec++;
-            if ($this->allday) {
-                $vEvent->setAttribute('DTSTART', $this->start_utc, array('VALUE' => 'DATE'));
-                $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
-            } else {
-                $vEvent->setAttribute('DTSTART', $this->start_utc);
-                $vEvent->setAttribute('DTEND', $end);
-            }
-            $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
-            $vEvent->setAttribute('UID', $this->uid);
-            if ($this->created) {
-                $vEvent->setAttribute('CREATED', $this->created);
-            }
-            if ($this->modified) {
-                $vEvent->setAttribute('LAST-MODIFIED', $this->modified);
-            }
-            $vEvent->setAttribute('SUMMARY', $this->summary);
+        // VEVENT
+        $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
+        if (empty($this->end_utc)) {
+            return;
+        }
+        $end = clone $this->end_utc;
+        $end->sec++;
+        if ($this->allday) {
+            $vEvent->setAttribute('DTSTART', $this->start_utc, array('VALUE' => 'DATE'));
+            $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
+        } else {
+            $vEvent->setAttribute('DTSTART', $this->start_utc);
+            $vEvent->setAttribute('DTEND', $end);
+        }
+        $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
+        $vEvent->setAttribute('UID', $this->uid);
+        if ($this->created) {
+            $vEvent->setAttribute('CREATED', $this->created);
+        }
+        if ($this->modified) {
+            $vEvent->setAttribute('LAST-MODIFIED', $this->modified);
+        }
+        $vEvent->setAttribute('SUMMARY', $this->summary);
 
-            if (!$this->organizer && $this->last_modifier) {
-                $email = $this->last_modifier;
-            } else if ($this->organizer) {
-                $email = $this->organizer;
-            }
-            if (!empty($email)) {
-                $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
-            }
-            if ($this->url) {
-                $vEvent->setAttribute('URL', $this->_url);
-            }
-            if (!empty($this->recurrence['recur'])) {
-                $rrule = $this->recurrence['recur']->toRRule20($iCal);
-                $vEvent->setAttribute('RRULE', $rrule);
-            }
-            $iCal->addComponent($vEvent);
+        if (!$this->organizer && $this->last_modifier) {
+            $email = $this->last_modifier;
+        } else if ($this->organizer) {
+            $email = $this->organizer;
+        }
+        if (!empty($email)) {
+            $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
+        }
+        if ($this->url) {
+            $vEvent->setAttribute('URL', $this->_url);
+        }
+        if (!empty($this->recurrence['recur'])) {
+            $rrule = $this->recurrence['recur']->toRRule20($iCal);
+            $vEvent->setAttribute('RRULE', $rrule);
+        }
+        $iCal->addComponent($vEvent);
 
-            return array(
-                'type'    => 'text',
-                'subtype' => 'calendar',
-                'name'    => $this->summary,
-                'stream'  => $iCal->exportvCalendar()
-            );
+        return array(
+            'type'    => 'text',
+            'subtype' => 'calendar',
+            'name'    => $this->summary,
+            'stream'  => $iCal->exportvCalendar()
+        );
     }
 
 }
