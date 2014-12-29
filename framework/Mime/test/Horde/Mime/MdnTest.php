@@ -94,6 +94,8 @@ class Horde_Mime_MdnTest extends PHPUnit_Framework_TestCase
 
     public function testGenerate()
     {
+        $locale = setlocale(LC_MESSAGES, 0);
+        setlocale(LC_MESSAGES, 'C');
         $h = new Horde_Mime_Headers();
         $ob = new Horde_Mime_Mdn($h);
 
@@ -176,6 +178,8 @@ Disposition-Notification-To: =?utf-8?b?QcOkYg==?= <foo@example.com>
 ',
             $sent['body']
         );
+
+        setlocale(LC_MESSAGES, $locale);
     }
 
 }
