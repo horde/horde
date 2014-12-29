@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-07-08</date>
+ <date>2014-12-27</date>
  <version>
-  <release>1.0.4</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add zlib driver and allow it to be considered a &apos;fast&apos; compression driver (disabled by default).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,6 +43,7 @@
        <file name="Lz4.php" role="php" />
        <file name="Lzf.php" role="php" />
        <file name="Null.php" role="php" />
+       <file name="Zlib.php" role="php" />
       </dir> <!-- /lib/Horde/Compress/Fast -->
       <file name="Fast.php" role="php" />
      </dir> <!-- /lib/Horde/Compress -->
@@ -99,6 +100,9 @@
     <min>1.5.2</min>
     <providesextension>lzf</providesextension>
    </package>
+   <extension>
+    <name>zlib</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -110,6 +114,7 @@
    <install as="Horde/Compress/Fast/Lz4.php" name="lib/Horde/Compress/Fast/Lz4.php" />
    <install as="Horde/Compress/Fast/Lzf.php" name="lib/Horde/Compress/Fast/Lzf.php" />
    <install as="Horde/Compress/Fast/Null.php" name="lib/Horde/Compress/Fast/Null.php" />
+   <install as="Horde/Compress/Fast/Zlib.php" name="lib/Horde/Compress/Fast/Zlib.php" />
    <install as="Horde/Compress/Fast/AllTests.php" name="test/Horde/Compress/Fast/AllTests.php" />
    <install as="Horde/Compress/Fast/bootstrap.php" name="test/Horde/Compress/Fast/bootstrap.php" />
    <install as="Horde/Compress/Fast/CompressFastTest.php" name="test/Horde/Compress/Fast/CompressFastTest.php" />
@@ -173,15 +178,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.4</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-07-08</date>
+   <date>2014-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add zlib driver and allow it to be considered a &apos;fast&apos; compression driver (disabled by default).
    </notes>
   </release>
  </changelog>

@@ -35,34 +35,39 @@ class Horde_Compress_Fast
      * Constructor.
      *
      * @param array $opts  Options:
+     * <pre>
      *   - drivers: (array) A list of driver names (Horde_Compress_Fast_Base
      *              class names) to use instead of auto-detecting.
+     *   - zlib: (boolean) Consider zlib to be a "fast" compression algorithm.
+     *           Only used if 'drivers' is empty. (@since 1.1.0).
+     * </pre>
      *
      * @throws Horde_Compress_Fast_Exception
      */
     public function __construct(array $opts = array())
     {
         if (empty($opts['drivers'])) {
-            if (Horde_Compress_Fast_Lz4::supported()) {
-                $this->_compress = new Horde_Compress_Fast_Lz4();
-            } else {
-                $this->_compress = Horde_Compress_Fast_Lzf::supported()
-                    ? new Horde_Compress_Fast_Lzf()
-                    : new Horde_Compress_Fast_Null();
+            $opts['drivers'] = array(
+                'Horde_Compress_Fast_Lz4',
+                'Horde_Compress_Fast_Lzf',
+                'Horde_Compress_Fast_Null'
+            );
+            if (!empty($opts['zlib'])) {
+                array_unshift($opts['drivers'], 'Horde_Compress_Fast_Zlib');
             }
-        } else {
-            foreach ($opts['drivers'] as $val) {
-                if (($ob = new $val()) &&
-                    ($ob instanceof Horde_Compress_Fast_Base) &&
-                    $val::supported()) {
-                    $this->_compress = $ob;
-                    break;
-                }
-            }
+        }
 
-            if (!isset($this->_compress)) {
-                throw new Horde_Compress_Fast_Exception('Could not load a valid compression driver.');
+        foreach ($opts['drivers'] as $val) {
+            if (($ob = new $val()) &&
+                ($ob instanceof Horde_Compress_Fast_Base) &&
+                $val::supported()) {
+                $this->_compress = $ob;
+                break;
             }
+        }
+
+        if (!isset($this->_compress)) {
+            throw new Horde_Compress_Fast_Exception('Could not load a valid compression driver.');
         }
     }
 
