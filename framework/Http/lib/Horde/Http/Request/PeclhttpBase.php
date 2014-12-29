@@ -68,7 +68,7 @@ abstract class Horde_Http_Request_PeclhttpBase extends Horde_Http_Request_Base {
     {
         $proxyType = $this->proxyType;
         if (!isset($this->_proxyTypes[$proxyType])) {
-            throw new Horde_Http_Exception('Unsupported proxy type (' . $httpAuthScheme . ')');
+            throw new Horde_Http_Exception('Unsupported proxy type (' . $proxyType . ')');
         }
         return $this->_proxyTypes[$proxyType];
     }
