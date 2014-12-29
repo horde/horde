@@ -19,7 +19,7 @@
  </lead>
  <date>2014-12-29</date>
  <version>
-  <release>2.6.1</release>
+  <release>2.6.2</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix Horde_Mime::quotedPrintableEncode() (Bug #13769).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1586,6 +1586,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix Horde_Mime::quotedPrintableEncode() (Bug #13769).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.2</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
