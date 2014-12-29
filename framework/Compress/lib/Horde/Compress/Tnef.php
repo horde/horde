@@ -471,6 +471,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             break;
 
         default:
+            $this->_logger->debug(sprintf('TNEF: Setting message attribute: %s', $attribute));
             $this->_msgInfo->setTnefAttribute($attribute, $value, $length);
             if ($this->_currentObject) {
                 $this->_currentObject->setTnefAttribute($attribute, $value, $length);
