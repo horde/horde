@@ -48,7 +48,7 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
     public function setMapiAttribute($type, $name, $value)
     {
         switch ($name) {
-        case Horde_Compress_Tnef::IPM_TASK_GUI:
+        case Horde_Compress_Tnef::IPM_TASK_GUID:
             // Almost positive this is wrong :(
             $this->guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
             break;
@@ -58,12 +58,13 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
             break;
         case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
             //rtfsyncbody
+            break;
         case Horde_Compress_Tnef::MAPI_TAG_HTML:
             //htmlbody
+            break;
         case Horde_Compress_Tnef::MAPI_TASK_DUEDATE:
-            //$this->due = Horde_Mapi::filetimeToUnixtime($value);
-            //break;
-
+            $this->due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+            break;
         }
     }
 

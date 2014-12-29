@@ -276,6 +276,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         return $this->_msgInfo;
     }
 
+    public function setCurrentObject(Horde_Compress_Tnef_Object $object)
+    {
+        $this->_currentObject = $object;
+    }
+
     /**
      * TODO
      *
@@ -397,7 +402,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 // ?
                 $this->_getx($value, 16);
 
-                $att = &new Horde_Compress_Tnef($this->_logger);
+                $att = new Horde_Compress_Tnef(array('logger' => $this->_logger));
+                $att->setCurrentObject($this->_currentObject);
                 $att->decompress($value);
                 $this->attachments[] = $att;
                 $this->_logger->debug('TNEF: Completed nested attachment parsing.');
@@ -433,9 +439,14 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
         switch ($attribute) {
         case self::ARENDDATA:
-            $this->_logger->debug('Creating new attachment.');
-            $this->_currentObject = &new Horde_Compress_Tnef_File($this->_logger);
-            $this->_files[] = &$this->_currentObject;
+            // Create a "generic" file object if we can't deduce what the
+            // attachment is. E.g., Task requests have MAPI data related to the
+            // task in the attachment, so we use the vTodo object in that case.
+            if (!($this->_currentObject instanceof Horde_Compress_Tnef_vTodo)) {
+                $this->_logger->debug('Creating new attachment.');
+                $this->_currentObject = new Horde_Compress_Tnef_File($this->_logger);
+                $this->_files[] = $this->_currentObject;
+            }
             break;
 
         case self::AMCLASS:
@@ -451,12 +462,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             case self::IPM_MEETING_REQUEST_CANCELLED:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
                 $this->_currentObject->method = 'CANCEL';
-                $this->_files[] = &$this->_currentObject;
+                $this->_files[] = $this->_currentObject;
                 break;
-            // case self::IPM_TASK_REQUEST:
-            //     $this->_currentObject = &new Horde_Compress_Tnef_vTodo($this->_logger);
-            //     $this->_files[] = &$this->_currentObject;
-            //     break;
+            case self::IPM_TASK_REQUEST:
+                $this->_currentObject = new Horde_Compress_Tnef_vTodo($this->_logger);
+                $this->_files[] = $this->_currentObject;
+                break;
             }
             break;
 
