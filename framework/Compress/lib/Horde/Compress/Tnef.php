@@ -403,10 +403,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_logger->debug('TNEF: Completed nested attachment parsing.');
                 break;
 
-            // case self::MAPI_TAG_RTF_COMPRESSED:
-            //     $this->_logger->debug('TNEF: Found compressed RTF text.');
-            //     $this->_files[] = &new Horde_Compress_Tnef_FileRTF($this->_logger, $value);
-            //     break;
+            case self::MAPI_TAG_RTF_COMPRESSED:
+                $this->_logger->debug('TNEF: Found compressed RTF text.');
+                $this->_files[] = new Horde_Compress_Tnef_Rtf($this->_logger, $value);
+                break;
 
             default:
                 $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
