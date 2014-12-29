@@ -78,6 +78,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 isset($vp_vars->sortby) ? $vp_vars->sortby : null,
                 isset($vp_vars->sortdir) ? $vp_vars->sortdir : null
             );
+
+            /* Ensure that results are updated for search mailboxes. */
+            $this->vars->forceUpdate = true;
         }
 
         /* Toggle hide deleted preference if necessary. */
