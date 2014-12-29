@@ -1,6 +1,6 @@
 <?php
 /**
- * Object to parse and represent vTOOD data encapsulated in a TNEF file.
+ * Object to parse and represent vTODO data encapsulated in a TNEF file.
  *
  * Copyright 2002-2014 Horde LLC (http://www.horde.org/)
  *
@@ -25,7 +25,6 @@
  */
 class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
 {
-
     /**
      * Allow this object to set any TNEF attributes it needs to know about,
      * ignore any it doesn't care about.
