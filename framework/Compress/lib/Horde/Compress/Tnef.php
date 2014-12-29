@@ -25,6 +25,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const LVL_MESSAGE                       = 0x01;
     const LVL_ATTACHMENT                    = 0x02;
 
+    // @deprecated Now lives in Horde_Compress_Tnef_Rtf::
     const RTF_COMPRESSED                    = 0x75465a4c;
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
@@ -68,6 +69,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_CLSID                        = 0x0048;
     const MAPI_BINARY                       = 0x0102;
 
+    // @todo Horde 6 - move constants to the appropriate Tnef subclass.
     // MAPI START and END should always be also set in ID_DATE_START and
     // ID_DATE_END so no need to translate them?
     const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
