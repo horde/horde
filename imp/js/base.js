@@ -15,6 +15,7 @@ var ImpBase = {
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
     // init,
     // is_keydown,
+    // keydown_delay,
     mboxDragConfig: {
         classname: 'mboxdrag',
         ghosting: true,
@@ -814,8 +815,6 @@ var ImpBase = {
                             scope: 'previewInfo'
                         }
                     });
-                } else if (e.memo.opts.delay) {
-                    this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
                     this.initPreviewPane();
                 }
@@ -2558,6 +2557,9 @@ var ImpBase = {
         sel = this.viewport.getSelected();
 
         this.is_keydown = true;
+        if (this.keydown_delay) {
+            clearTimeout(this.keydown_delay);
+        }
 
         switch (kc) {
         case Event.KEY_DELETE:
@@ -2760,7 +2762,7 @@ var ImpBase = {
         case Event.KEY_PAGEDOWN:
         case Event.KEY_HOME:
         case Event.KEY_END:
-            this.initPreviewPane();
+            this.keydown_delay = this.initPreviewPane.bind(this).delay(0.2);
             break;
         }
     },
