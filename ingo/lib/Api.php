@@ -153,8 +153,8 @@ class Ingo_Api extends Horde_Registry_Api
     public function applyFilters(array $params = array())
     {
         if (isset($params['mailbox'])) {
-            $params['mailbox'] = Horde_String::convertCharset(
-                $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
+            $mbox = new Horde_Imap_Client_Mailbox($params['mailbox']);
+            $params['mailbox'] = $mbox->utf7imap;
         }
         foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
             $script->setParams($params)->perform();
