@@ -693,9 +693,9 @@ class IMP_Ajax_Queue
 
             if ($elt->inbox) {
                 $ob->ns = $ob->s = 1;
+                $ob->t = 'INBOX';
             } elseif ($mbox_ob->special) {
                 $ob->ns = $ob->s = 1;
-                $ob->t = strval($elt);
             }
         }
 
