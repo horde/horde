@@ -371,7 +371,10 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
                 substr($folder, 0, 6) == 'INBOX.') {
                 $folder = substr($folder, 6);
             }
-            return '"${DEFAULT}/.' . $folder . '/"';
+
+            $mbox = new Horde_Imap_Client_Mailbox($folder);
+
+            return '"${DEFAULT}/.' . $mbox->utf7imap . '/"';
         } else {
             if (empty($folder) || ($folder == 'INBOX')) {
                 return '${DEFAULT}';

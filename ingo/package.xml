@@ -1530,5 +1530,18 @@
 * [mms] Fix determination of preferred backend (Bug #13548).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>3.2.4</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
+   </notes>
+  </release>
  </changelog>
 </package>

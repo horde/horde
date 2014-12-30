@@ -439,7 +439,10 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             if (substr($folder, 0, 6) == 'INBOX.') {
                 $folder = substr($folder, 6);
             }
-            return '".' . escapeshellcmd($folder) . '/"';
+
+            $mbox = new Horde_Imap_Client_Mailbox($folder);
+
+            return '".' . escapeshellcmd($mbox->utf7imap) . '/"';
         }
         return str_replace(' ', '\ ', escapeshellcmd($folder));
     }
