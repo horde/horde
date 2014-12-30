@@ -142,16 +142,11 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return null;
         }
 
-        // 'smime-type' must be 'enveloped-data' or 'signed-data'
-        switch ($this->_mimepart->getContentTypeParameter('smime-type')) {
+        switch ($this->_getSmimeType($this->_mimepart)) {
         case 'signed-data':
             return $this->_parseSignedData();
 
         case 'enveloped-data':
-        default:
-            /* Thunderbird bug: it doesn't include the smime-type parameter
-             * for 'enveloped-data'. So do explicit check for enveloped
-             * data. */
             return $this->_parseEnvelopedData();
         }
     }
@@ -215,7 +210,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         switch ($new_part->getType()) {
         case 'application/pkcs7-mime':
         case 'application/x-pkcs7-mime':
-            $signed_data = (bool)$new_part->getContentTypeParameter('smime-type');
+            $signed_data = ($this->_getSmimeType($new_part) === 'signed-data');
             break;
 
         case 'multipart/signed':
@@ -413,6 +408,48 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         return $id
             ? $this->getConfigParam('imp_contents')->getBodyPart($id, array('mimeheaders' => true, 'stream' => true))->data
             : $this->getConfigParam('imp_contents')->fullMessageText();
+    }
+
+    /**
+     * Determines the S/MIME type of a part. Uses the smime-type content
+     * parameter (if it exists), and falls back to ASN.1 parsing of data if
+     * it doesn't exist.
+     *
+     * @param Horde_Mime_Part $part  MIME part with S/MIME data.
+     *
+     * @return string  'signed-data', 'enveloped-data', or null.
+     */
+    protected function _getSmimeType(Horde_Mime_Part $part)
+    {
+        if ($type = $part->getContentTypeParameter('smime-type')) {
+            return strtolower($type);
+        }
+
+        $asn1 = new File_ASN1();
+        $decoded = $asn1->decodeBER($part->getContents());
+
+        foreach ($decoded as $val) {
+            if ($val['type'] == FILE_ASN1_TYPE_SEQUENCE) {
+                foreach ($val['content'] as $val2) {
+                    if ($val2['type'] == FILE_ASN1_TYPE_OBJECT_IDENTIFIER) {
+                        /* ASN.1 values from STD 70/RFC 5652 - CMS syntax */
+                        switch ($val2['content']) {
+                        case '1.2.840.113549.1.7.2':
+                            return 'signed-data';
+
+                        case '1.2.840.113549.1.7.3':
+                            return 'enveloped-data';
+
+                        default:
+                            // Other types not supported as of now.
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
 }
