@@ -441,7 +441,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             // Create a "generic" file object if we can't deduce what the
             // attachment is. E.g., Task requests have MAPI data related to the
             // task in the attachment, so we use the vTodo object in that case.
-            if (!($this->_currentObject instanceof Horde_Compress_Tnef_vTodo)) {
+            if (!($this->_currentObject instanceof Horde_Compress_Tnef_VTodo)) {
                 $this->_logger->debug('Creating new attachment.');
                 $this->_currentObject = new Horde_Compress_Tnef_File($this->_logger);
                 $this->_files[] = $this->_currentObject;
@@ -464,7 +464,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:
-                $this->_currentObject = new Horde_Compress_Tnef_vTodo($this->_logger, null, array('parent' => &$this));
+                $this->_currentObject = new Horde_Compress_Tnef_VTodo($this->_logger, null, array('parent' => &$this));
                 $this->_files[] = $this->_currentObject;
                 break;
             }
