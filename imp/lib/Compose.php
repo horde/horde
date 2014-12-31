@@ -12,7 +12,7 @@
  */
 
 /**
- * The IMP_Compose:: class represents an outgoing mail message.
+ * An object representing an outgoing mail message.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde

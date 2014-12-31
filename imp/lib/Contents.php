@@ -12,8 +12,8 @@
  */
 
 /**
- * The IMP_Contents:: class contains all functions related to handling the
- * content and output of mail messages in IMP.
+ * Contains all functions related to handling the content and output of mail
+ * messages in IMP.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
