@@ -15,8 +15,6 @@ $conf['imapclient'] = array(
             // Test for XOAUTH2
             //'xoauth2_token' => ''
         ),
-        'test_mbox' => 'TestMailboxTest',
-        'test_mbox_utf8' => 'TestMailboxTest1è',
 
         // Configuration for the Mongo cache driver test.
         // Format: mongodb://[username:password@]host

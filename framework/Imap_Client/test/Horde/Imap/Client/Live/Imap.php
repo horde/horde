@@ -28,16 +28,20 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
     public static $config;
 
     private static $created;
-    private static $test_mbox;
-    private static $test_mbox_utf8;
+    private static $test_mbox = '_____TestMailboxTest';
+    private static $test_mbox_utf8 = '_____TestMailboxTest1è';
 
     public static function setUpBeforeClass()
     {
         $c = array_shift(self::$config);
 
         self::$created = false;
-        self::$test_mbox = $c['test_mbox'];
-        self::$test_mbox_utf8 = $c['test_mbox_utf8'];
+        if (isset($c['test_mbox'])) {
+            self::$test_mbox = $c['test_mbox'];
+        }
+        if (isset($c['test_mbox_utf8'])) {
+            self::$test_mbox_utf8 = $c['test_mbox_utf8'];
+        }
 
         try {
             $c['client_config']['cache'] = array(
