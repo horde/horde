@@ -30,92 +30,118 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      *
      * @var string
      */
-    public $method;
+    protected $_method;
 
     /**
      *
      * @var string
      */
-    public $summary;
+    protected $_summary;
 
     /**
      *
      * @var string
      */
-    public $location;
+    protected $_location;
 
     /**
      *
      * @var string
      */
-    public $url;
+    protected $_url;
 
     /**
      *
      * @var Horde_Date
      */
-    public $start_utc;
+    protected $_startUtc;
 
     /**
      *
      * @var Horde_Date
      */
-    public $end_utc;
+    protected $_endUtc;
 
     /**
      *
      * @var string
      */
-    public $duration;
+    protected $_duration;
 
     /**
      *
      * @var boolean
      */
-    public $allday;
+    protected $_allday;
 
     /**
      *
      * @var string
      */
-    public $organizer;
+    protected $_organizer;
 
     /**
      *
      * @var string
      */
-    public $last_modifier;
+    protected $_lastModifier;
 
     /**
      *
      * @var string
      */
-    public $uid;
+    protected $_uid;
 
     /**
      * Recurrence data.
      *
      * @var array
      */
-    public $recurrence = array();
+    protected $_recurrence = array();
 
     /**
      *
      * @var integer
      */
-    public $type;
+    protected $_type;
 
     /**
      *
      * @var Horde_Date
      */
-    public $created;
+    protected $_created;
 
     /**
      *
      * @var Horde_Date
      */
-    public $modified;
+    protected $_modified;
+
+    /**
+     * Cache of the iCalendar text.
+     *
+     * @var string
+     */
+    protected $_content;
+
+    /**
+     * MIME type.
+     *
+     * @var string
+     */
+    public $type = 'text/calendar';
+
+    public function __get($property)
+    {
+        if ($property == 'content') {
+            if (empty($this->_content)) {
+                $this->_toItip();
+                return $this->_content;
+            }
+        }
+
+        throw new InvalidArgumentException('Invalid property access.');
+    }
 
     /**
      * Output the data for this object in an array.
@@ -132,20 +158,6 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     }
 
     /**
-     * Allow this object to set any TNEF attributes it needs to know about,
-     * ignore any it doesn't care about.
-     *
-     * @param integer $attribute  The attribute descriptor.
-     * @param mixed $value        The value from the MAPI stream.
-     * @param integer $size       The byte length of the data, as reported by
-     *                            the MAPI data.
-     */
-    public function setTnefAttribute($attribute, $value, $size)
-    {
-
-    }
-
-    /**
      * Allow this object to set any MAPI attributes it needs to know about,
      * ignore any it doesn't care about.
      *
@@ -156,65 +168,65 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     {
         switch ($name) {
         case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
-            $this->summary = $value;
+            $this->_summary = $value;
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_LOCATION:
-            $this->location = $value;
+            $this->_location = $value;
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_URL:
-            $this->url = $value;
+            $this->_url = $value;
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_START_WHOLE:
             try {
-                $this->start_utc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                $this->_startUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             }
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_END_WHOLE:
             try {
-                $this->end_utc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                $this->_endUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             }
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_DURATION:
-            $this->duration = $value;
+            $this->_duration = $value;
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_SUBTYPE:
-            $this->allday = $value;
+            $this->_allday = $value;
             break;
         case Horde_Compress_Tnef::MAPI_ORGANIZER_ALIAS:
-            $this->organizer = $value;
+            $this->_organizer = $value;
             break;
         case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
-            $this->last_modifier = $value;
+            $this->_lastModifier = $value;
             break;
         case Horde_Compress_Tnef::MAPI_ENTRY_UID:
-            $this->uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+            $this->_uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_RECUR:
-            $this->recurrence['recur'] = $this->_parseRecurrence($value);
+            $this->_recurrence['recur'] = $this->_parseRecurrence($value);
             break;
         case Horde_Compress_Tnef::MAPI_RECURRING:
-            // ?? Reset $this->recurrence?
+            // ?? Reset $this->_recurrence?
             break;
         case Horde_Compress_Tnef::MAPI_RECURRENCE_TYPE:
-            $this->recurrence['type'] = $value;
+            $this->_recurrence['type'] = $value;
             break;
         case Horde_Compress_Tnef::MAPI_MEETING_REQUEST_TYPE:
-            $this->type = $value;
+            $this->_type = $value;
             break;
         case Horde_Compress_Tnef::MAPI_CREATION_TIME:
             try {
-                $this->created = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                $this->_created = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             }
             break;
         case Horde_Compress_Tnef::MAPI_MODIFICATION_TIME:
             try {
-                $this->modified = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                $this->_modified = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             }
@@ -335,65 +347,66 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         $iCal = new Horde_Icalendar();
 
         // METHOD
-        if ($this->type) {
-            switch ($this->type) {
+        if ($this->_type) {
+            switch ($this->_type) {
             case self::MAPI_MEETING_INITIAL:
             case self::MAPI_MEETING_FULL_UPDATE:
-                $this->method = 'REQUEST';
+                $this->_method = 'REQUEST';
                 break;
             case self::MAPI_MEETING_INFO:
-                $this->method = 'PUBLISH';
+                $this->_method = 'PUBLISH';
                 break;
             }
         }
-        $iCal->setAttribute('METHOD', $this->method);
+        $iCal->setAttribute('METHOD', $this->_method);
 
         // VEVENT
         $vEvent = Horde_Icalendar::newComponent('vevent', $iCal);
-        if (empty($this->end_utc)) {
+        if (empty($this->_endUtc)) {
             return;
         }
-        $end = clone $this->end_utc;
+        $end = clone $this->_endUtc;
         $end->sec++;
-        if ($this->allday) {
-            $vEvent->setAttribute('DTSTART', $this->start_utc, array('VALUE' => 'DATE'));
+        if ($this->_allday) {
+            $vEvent->setAttribute('DTSTART', $this->_startUtc, array('VALUE' => 'DATE'));
             $vEvent->setAttribute('DTEND', $end, array('VALUE' => 'DATE'));
         } else {
-            $vEvent->setAttribute('DTSTART', $this->start_utc);
+            $vEvent->setAttribute('DTSTART', $this->_startUtc);
             $vEvent->setAttribute('DTEND', $end);
         }
         $vEvent->setAttribute('DTSTAMP', $_SERVER['REQUEST_TIME']);
-        $vEvent->setAttribute('UID', $this->uid);
-        if ($this->created) {
-            $vEvent->setAttribute('CREATED', $this->created);
+        $vEvent->setAttribute('UID', $this->_uid);
+        if ($this->_created) {
+            $vEvent->setAttribute('CREATED', $this->_created);
         }
-        if ($this->modified) {
-            $vEvent->setAttribute('LAST-MODIFIED', $this->modified);
+        if ($this->_modified) {
+            $vEvent->setAttribute('LAST-MODIFIED', $this->_modified);
         }
-        $vEvent->setAttribute('SUMMARY', $this->summary);
+        $vEvent->setAttribute('SUMMARY', $this->_summary);
 
-        if (!$this->organizer && $this->last_modifier) {
-            $email = $this->last_modifier;
-        } else if ($this->organizer) {
-            $email = $this->organizer;
+        if (!$this->_organizer && $this->_lastModifier) {
+            $email = $this->_lastModifier;
+        } else if ($this->_organizer) {
+            $email = $this->_organizer;
         }
         if (!empty($email)) {
             $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
         }
-        if ($this->url) {
+        if ($this->_url) {
             $vEvent->setAttribute('URL', $this->_url);
         }
-        if (!empty($this->recurrence['recur'])) {
-            $rrule = $this->recurrence['recur']->toRRule20($iCal);
+        if (!empty($this->_recurrence['recur'])) {
+            $rrule = $this->_recurrence['recur']->toRRule20($iCal);
             $vEvent->setAttribute('RRULE', $rrule);
         }
         $iCal->addComponent($vEvent);
+        $this->_content = $iCal->exportvCalendar();
 
         return array(
             'type'    => 'text',
             'subtype' => 'calendar',
-            'name'    => $this->summary,
-            'stream'  => $iCal->exportvCalendar()
+            'name'    => $this->_summary,
+            'stream'  => $this->_content
         );
     }
 

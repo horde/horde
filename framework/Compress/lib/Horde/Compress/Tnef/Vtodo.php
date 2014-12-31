@@ -41,33 +41,54 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
     const STATUS_WAIT               = 0x00000003;
     const STATUS_DEFERRED           = 0x00000004;
 
-
-
-
     /**
      * Due date (timestamp).
      *
      * @var integer.
      */
-    public $due;
+    protected $_due;
 
     /**
      * UID
      *
      * @var string
      */
-    public $guid;
+    protected $_guid;
 
     /**
      * @var integer
      */
-    public $msgformat;
+    protected $_msgformat;
 
-    public $description;
+    /**
+     * Percentage of task that is completed.
+     *
+     * @var integer
+     */
+    protected $_percentComplete;
 
-    public $percentComplete;
+    /**
+     * The MIME type of this object's content.
+     *
+     * @var string
+     */
+    public $type = 'text/vTodo';
 
-    public $completed;
+    /**
+     * Timestamp when task was completed.
+     *
+     * @var integer
+     */
+    protected $_completed;
+
+    public function __get($property)
+    {
+        if ($property == 'content') {
+            return $this->_tovTodo();
+        }
+
+        throw new InvalidArgumentException('Invalid property access.');
+    }
 
     /**
      * Allow this object to set any MAPI attributes it needs to know about,
@@ -84,11 +105,11 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
             break;
         case Horde_Compress_Tnef::IPM_TASK_GUID:
             // Almost positive this is wrong :(
-            $this->guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+            $this->_guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
             break;
         case Horde_Compress_Tnef::MSG_EDITOR_FORMAT:
             // Map this?
-            $this->msgformat = $value;
+            $this->_msgformat = $value;
             break;
         case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
             //rtfsyncbody
@@ -98,13 +119,13 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
             break;
         case self::MAPI_TASK_DUEDATE:
             // Favor COMMONEND
-            if (empty($this->due)) {
-                $this->due = Horde_Mapi::filetimeToUnixtime($value);
+            if (empty($this->_due)) {
+                $this->_due = Horde_Mapi::filetimeToUnixtime($value);
             }
             break;
         case self::MAPI_TASK_COMMONEND:
-            $this->due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
-            $this->due = $this->due->timestamp();
+            $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+            $this->_due = $this->_due->timestamp();
         case self::MAPI_TASK_STARTDATE:
             if (empty($this->start)) {
                 $this->start = Horde_Mapi::filetimeToUnixtime($value);
@@ -114,18 +135,18 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
             $this->start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
             $this->start = $this->start->timestamp();
         case self::MAPI_TASK_DATECOMPLETED:
-            $this->completed = Horde_Mapi::filetimeToUnixtime($value);
+            $this->_completed = Horde_Mapi::filetimeToUnixtime($value);
             break;
         case self::MAPI_TASK_PERCENTCOMPLETE:
             $value = unpack('d', $value);
-            $this->percentComplete = $value[1] * 100;
+            $this->_percentComplete = $value[1] * 100;
             break;
         case self::MAPI_TASK_STATUS:
             switch ($value) {
             case self::STATUS_NOT_STARTED:
             case self::STATUS_WAIT:
             case self::STATUS_DEFERRED: // ??
-                $this->percentComplete = 0;
+                $this->_percentComplete = 0;
                 $this->status = 'NEEDS-ACTION';
                 break;
             case self::STATUS_IN_PROGRESS:
@@ -133,7 +154,7 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
                 break;
             case self::STATUS_COMPLETE:
                 $this->status = 'COMPLETED';
-                $this->percentComplete = 1;
+                $this->_percentComplete = 1;
                 break;
             // Body properties. I still can't figure this out.
             // They don't actually seem to be set here, even though there
@@ -179,20 +200,20 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
         $iCal = new Horde_ICalendar();
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
-        $vtodo->setAttribute('UID', $this->guid);
+        $vtodo->setAttribute('UID', $this->_guid);
 
-        if ($this->due) {
-            $vtodo->setAttribute('DUE', $this->due);
+        if ($this->_due) {
+            $vtodo->setAttribute('DUE', $this->_due);
         }
         if ($this->start) {
             $vtodo->setAttribute('DTSTART', $this->start);
         }
-        if ($this->completed) {
-            $vtodo->setAttribute('COMPLETED', $this->completed);
+        if ($this->_completed) {
+            $vtodo->setAttribute('COMPLETED', $this->_completed);
         }
 
-        if (isset($this->percentComplete)) {
-            $vtodo->setAttribute('PERCENT-COMPLETE', $this->percentComplete);
+        if (isset($this->_percentComplete)) {
+            $vtodo->setAttribute('PERCENT-COMPLETE', $this->_percentComplete);
         }
 
         // Summary is stored in the message data.
@@ -216,9 +237,7 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
                 }
             }
         }
-
         $iCal->addComponent($vtodo);
-
 
         return array(
             'type'    => 'text',

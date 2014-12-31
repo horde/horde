@@ -28,13 +28,59 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
     const UNCOMPRESSED = 0x414c454d;
     const COMPRESSED   = 0x75465a4c;
 
-    public $content = '';
-    public $size = 0;
+    /**
+     * RTF content.
+     *
+     * @var string
+     */
+    protected $_content = '';
+
+    /**
+     * Size of RTF content.
+     *
+     * @var integer
+     */
+    protected $_size = 0;
+
+    /**
+     * MIME type.
+     *
+     * @var string
+     */
+    public $type = 'application/rtf';
 
     public function __construct($logger, $data)
     {
         parent::__construct($logger, $data);
         $this->_decode();
+    }
+
+    public function __get($property)
+    {
+        if ($property == 'content') {
+            return $this->_content;
+        }
+
+        throw new InvalidArgumentException('Invalid property access.');
+    }
+
+    /**
+     * Output the data for this object in an array.
+     *
+     * @return array
+     *   - type: (string)    The MIME type of the content.
+     *   - subtype: (string) The MIME subtype.
+     *   - name: (string)    The filename.
+     *   - stream: (string)  The file data.
+     */
+    public function toArray()
+    {
+        return array(
+            'type'    => 'application',
+            'subtype' => 'rtf',
+            'name'    => 'Untitled.rtf',
+            'stream'  => $this->_content
+        );
     }
 
     /**
@@ -45,19 +91,19 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
      */
     public function toPlain()
     {
-        return $this->_rtf2text($this->content);
+        return $this->_rtf2text($this->_content);
     }
 
     protected function _decode()
     {
         $c_size = $this->_geti($this->_data, 32);
-        $this->size = $this->_geti($this->_data, 32);
+        $this->_size = $this->_geti($this->_data, 32);
         $magic = $this->_geti($this->_data, 32);
         $crc = $this->_geti($this->_data, 32);
 
         $this->_logger->debug(sprintf(
             'TNEF: compressed size: %s, size: %s, magic: %s, CRC: %s',
-            $c_size, $this->size, $magic, $crc)
+            $c_size, $this->_size, $magic, $crc)
         );
 
         switch ($magic) {
@@ -65,7 +111,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
             $this->_decompress();
             break;
         case self::UNCOMPRESSED:
-            $this->content = $this->_data;
+            $this->_content = $this->_data;
             break;
         default:
             $this->_logger->notice('TNEF: Unknown RTF compression.');
@@ -91,7 +137,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
             ++$out;
         }
 
-        while ($out < ($this->size + $length_preload)) {
+        while ($out < ($this->_size + $length_preload)) {
             if (($flag_count++ % 8) == 0) {
                 $flags = ord($this->_data{$in++});
             } else {
@@ -117,51 +163,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                 ++$out;
             }
         }
-        $this->content = substr_replace($uncomp, "", 0, $length_preload);
-    }
-
-    /**
-     * Allow this object to set any TNEF attributes it needs to know about,
-     * ignore any it doesn't care about.
-     *
-     * @param integer $attribute  The attribute descriptor.
-     * @param mixed $value        The value from the MAPI stream.
-     * @param integer $size       The byte length of the data, as reported by
-     *                            the MAPI data.
-     */
-    public function setTnefAttribute($attribute, $value, $size)
-    {
-    }
-
-    /**
-     * Allow this object to set any MAPI attributes it needs to know about,
-     * ignore any it doesn't care about.
-     *
-     * @param integer $type  The attribute type descriptor.
-     * @param integer $name  The attribute name descriptor.
-     */
-    public function setMapiAttribute($type, $name, $value)
-    {
-
-    }
-
-    /**
-     * Output the data for this object in an array.
-     *
-     * @return array
-     *   - type: (string)    The MIME type of the content.
-     *   - subtype: (string) The MIME subtype.
-     *   - name: (string)    The filename.
-     *   - stream: (string)  The file data.
-     */
-    public function toArray()
-    {
-        return array(
-            'type'    => 'application',
-            'subtype' => 'rtf',
-            'name'    => 'Untitled.rtf',
-            'stream'  => $this->content
-        );
+        $this->_content = substr_replace($uncomp, "", 0, $length_preload);
     }
 
     /**
