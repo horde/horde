@@ -329,7 +329,11 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
             case '{':
                 // New subgroup starts, add new stack element and write the data
                 // from previous stack element to it.
-                array_push($stack, $stack[$j++]);
+                if (!empty($stack[$j])) {
+                    array_push($stack, $stack[$j++]);
+                } else {
+                    $j++;
+                }
                 break;
             case '}':
                 array_pop($stack);
@@ -343,7 +347,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                 break;
             default:
                 // Add other data to the output stream if required.
-                if ($this->_rtfIsPlain($stack[$j])) {
+                if (!empty($stack[$j]) && $this->_rtfIsPlain($stack[$j])) {
                     $document .= $c;
                 }
                 break;
