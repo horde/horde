@@ -100,9 +100,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_CODEPAGE                     = 0x3FFD;
 
-    const MAPI_TASK_STARTDATE               = 0x8104;
-    const MAPI_TASK_DUEDATE                 = 0x8105;
-
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
 
     // Do we need this?
@@ -156,6 +153,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
     const IPM_TASK_GUID                     = 0x00008519;
 
+    const MAPI_TAG_BODY                     = 0x1000;
+    const MAPI_NATIVE_BODY                  = 0x1016;
     const MAPI_TAG_SYNC_BODY                = 0x1008;
     const MAPI_TAG_HTML                     = 0x1013;
     const MAPI_TAG_RTF_COMPRESSED           = 0x1009;
@@ -465,7 +464,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:
-                $this->_currentObject = new Horde_Compress_Tnef_vTodo($this->_logger);
+                $this->_currentObject = new Horde_Compress_Tnef_vTodo($this->_logger, null, array('parent' => &$this));
                 $this->_files[] = $this->_currentObject;
                 break;
             }

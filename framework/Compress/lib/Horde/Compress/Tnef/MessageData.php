@@ -41,12 +41,6 @@
      *
      * @var string
      */
-    public $topic;
-
-    /**
-     *
-     * @var string
-     */
     public $from;
 
     /**
@@ -94,7 +88,7 @@
     {
         switch ($name) {
         case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
-            $this->topic = $value;
+            $this->subject = $value;
             break;
 
         case Horde_Compress_Tnef::MAPI_SENT_REP_EMAIL_ADDR:

@@ -31,10 +31,24 @@ class Horde_Compress_Tnef_Object
      */
     protected $_logger;
 
-    public function __construct($logger, $data = null)
+    /**
+     *
+     * @var string
+     */
+    protected $_data;
+
+    /**
+     *
+     * @var array
+     */
+    protected $_options;
+
+
+    public function __construct($logger, $data = null, $options = array())
     {
         $this->_data = $data;
         $this->_logger = $logger;
+        $this->_options = $options;
     }
 
     /**

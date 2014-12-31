@@ -25,18 +25,49 @@
  */
 class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
 {
+    const MAPI_TASK_OWNER           = 0x801B;
+    const MAPI_TASK_STATUS          = 0x8101;
+    const MAPI_TASK_PERCENTCOMPLETE = 0x8102;
+    const MAPI_TASK_STARTDATE       = 0x8104;
+    const MAPI_TASK_DUEDATE         = 0x8105;
+    const MAPI_TASK_DATECOMPLETED   = 0x814A;
+
+    const MAPI_TASK_COMMONEND       = 0x8517;
+    const MAPI_TASK_COMMONSTART     = 0x81BD;
+
+    const STATUS_NOT_STARTED        = 0x00000000;
+    const STATUS_IN_PROGRESS        = 0x00000001;
+    const STATUS_COMPLETE           = 0x00000002;
+    const STATUS_WAIT               = 0x00000003;
+    const STATUS_DEFERRED           = 0x00000004;
+
+
+
+
     /**
-     * Allow this object to set any TNEF attributes it needs to know about,
-     * ignore any it doesn't care about.
+     * Due date (timestamp).
      *
-     * @param integer $attribute  The attribute descriptor.
-     * @param mixed $value        The value from the MAPI stream.
-     * @param integer $size       The byte length of the data, as reported by
-     *                            the MAPI data.
+     * @var integer.
      */
-    public function setTnefAttribute($attribute, $value, $size)
-    {
-    }
+    public $due;
+
+    /**
+     * UID
+     *
+     * @var string
+     */
+    public $guid;
+
+    /**
+     * @var integer
+     */
+    public $msgformat;
+
+    public $description;
+
+    public $percentComplete;
+
+    public $completed;
 
     /**
      * Allow this object to set any MAPI attributes it needs to know about,
@@ -48,6 +79,9 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
     public function setMapiAttribute($type, $name, $value)
     {
         switch ($name) {
+        case self::MAPI_TASK_OWNER:
+            $this->owner = $value;
+            break;
         case Horde_Compress_Tnef::IPM_TASK_GUID:
             // Almost positive this is wrong :(
             $this->guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
@@ -62,9 +96,67 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
         case Horde_Compress_Tnef::MAPI_TAG_HTML:
             //htmlbody
             break;
-        case Horde_Compress_Tnef::MAPI_TASK_DUEDATE:
-            $this->due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+        case self::MAPI_TASK_DUEDATE:
+            // Favor COMMONEND
+            if (empty($this->due)) {
+                $this->due = Horde_Mapi::filetimeToUnixtime($value);
+            }
             break;
+        case self::MAPI_TASK_COMMONEND:
+            $this->due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+            $this->due = $this->due->timestamp();
+        case self::MAPI_TASK_STARTDATE:
+            if (empty($this->start)) {
+                $this->start = Horde_Mapi::filetimeToUnixtime($value);
+            }
+            break;
+        case self::MAPI_TASK_COMMONSTART:
+            $this->start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+            $this->start = $this->start->timestamp();
+        case self::MAPI_TASK_DATECOMPLETED:
+            $this->completed = Horde_Mapi::filetimeToUnixtime($value);
+            break;
+        case self::MAPI_TASK_PERCENTCOMPLETE:
+            $value = unpack('d', $value);
+            $this->percentComplete = $value[1] * 100;
+            break;
+        case self::MAPI_TASK_STATUS:
+            switch ($value) {
+            case self::STATUS_NOT_STARTED:
+            case self::STATUS_WAIT:
+            case self::STATUS_DEFERRED: // ??
+                $this->percentComplete = 0;
+                $this->status = 'NEEDS-ACTION';
+                break;
+            case self::STATUS_IN_PROGRESS:
+                $this->status = 'IN-PROGRESS';
+                break;
+            case self::STATUS_COMPLETE:
+                $this->status = 'COMPLETED';
+                $this->percentComplete = 1;
+                break;
+            // Body properties. I still can't figure this out.
+            // They don't actually seem to be set here, even though there
+            // is an explicit property for them, but rather in the enclosing
+            // TNEF file. Maybe this depends on the settings/version of the
+            // Outlook client that is creating the Task? For now, we will
+            // have to do our best to get something to place in the body,
+            // regardless of where it comes from.
+            case Horde_Compress_Tnef::MAPI_TAG_BODY:
+                // plaintext?
+                $this->bodyPlain = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_TAG_HTML:
+                // html
+                $this->bodyHtml = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
+                $this->_rtfCompressed = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
+                $this->_inSync = $value;
+                break;
+            }
         }
     }
 
@@ -79,6 +171,61 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
      */
     public function toArray()
     {
+        return $this->_tovTodo();
+    }
+
+    protected function _tovTodo()
+    {
+        $iCal = new Horde_ICalendar();
+        $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
+
+        $vtodo->setAttribute('UID', $this->guid);
+
+        if ($this->due) {
+            $vtodo->setAttribute('DUE', $this->due);
+        }
+        if ($this->start) {
+            $vtodo->setAttribute('DTSTART', $this->start);
+        }
+        if ($this->completed) {
+            $vtodo->setAttribute('COMPLETED', $this->completed);
+        }
+
+        if (isset($this->percentComplete)) {
+            $vtodo->setAttribute('PERCENT-COMPLETE', $this->percentComplete);
+        }
+
+        // Summary is stored in the message data.
+        $msg = $this->_options['parent']->getMsgInfo();
+        if ($msg->subject) {
+            $vtodo->setAttribute('SUMMARY', $msg->subject);
+        }
+
+        // Figure out the body.
+        if ($this->bodyPlain) {
+            $vtodo->setAttribute('DESCRIPTION', $this->bodyPlain);
+        } elseif ($this->bodyHtml) {
+            $vtodo->setAttribute(Horde_Text_Filter::filter($this->bodyHtml, 'html2text'));
+        } elseif ($this->_rtfCompressed) {
+            // @todo Decompress and parse using Horde_Mime_Viewer_Rtf?
+        } else {
+            $files = $this->_options['parent']->getFiles();
+            foreach ($files as $file) {
+                if ($file instanceof Horde_Compress_Tnef_Rtf) {
+                    $vtodo->setAttribute('DESCRIPTION', $file->toPlain());
+                }
+            }
+        }
+
+        $iCal->addComponent($vtodo);
+
+
+        return array(
+            'type'    => 'text',
+            'subtype' => 'vTodo',
+            'name'    => 'Untitled.vtodo',
+            'stream'  => $iCal->exportvCalendar()
+        );
     }
 
 }
