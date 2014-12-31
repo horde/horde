@@ -68,6 +68,27 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
     protected $_percentComplete;
 
     /**
+     * Plain body
+     *
+     * @var string
+     */
+    protected $_bodyPlain;
+
+    /**
+     * HTML body.
+     *
+     * @var string
+     */
+    protected $_bodyHtml;
+
+    /**
+     * Compressed RTF body.
+     *
+     * @var string
+     */
+    protected $_rtfCompressed;
+
+    /**
      * The MIME type of this object's content.
      *
      * @var string
@@ -165,11 +186,11 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
             // regardless of where it comes from.
             case Horde_Compress_Tnef::MAPI_TAG_BODY:
                 // plaintext?
-                $this->bodyPlain = $value;
+                $this->_bodyPlain = $value;
                 break;
             case Horde_Compress_Tnef::MAPI_TAG_HTML:
                 // html
-                $this->bodyHtml = $value;
+                $this->_bodyHtml = $value;
                 break;
             case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
                 $this->_rtfCompressed = $value;
@@ -223,9 +244,9 @@ class Horde_Compress_Tnef_vTodo extends Horde_Compress_Tnef_Object
         }
 
         // Figure out the body.
-        if ($this->bodyPlain) {
+        if ($this->_bodyPlain) {
             $vtodo->setAttribute('DESCRIPTION', $this->bodyPlain);
-        } elseif ($this->bodyHtml) {
+        } elseif ($this->_bodyHtml) {
             $vtodo->setAttribute(Horde_Text_Filter::filter($this->bodyHtml, 'html2text'));
         } elseif ($this->_rtfCompressed) {
             // @todo Decompress and parse using Horde_Mime_Viewer_Rtf?
