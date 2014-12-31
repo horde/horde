@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VTODO
+UID:69DE75EFCDBC6FADDEEBAE3DF5F7F6E100000000796F5777
+DUE:20150109T050000Z
+DTSTART:20150101T000000Z
+PERCENT-COMPLETE:10
+SUMMARY:Some important task.
+DESCRIPTION:\n\n \n Subject:
+ 	 Some important task.\n\n Start Date:
+ 	 Thursday\, January 01\, 2015\n\n Due Date:
+ 	 Friday\, January 09\, 2015\n\n\n\n Status:
+ 	 In Progress\n\n Percent Complete:
+ 	 10%\n\n\n\n Total Work:
+ 	 0 hours\n\n Actual Work:
+ 	 0 hours\n\n\n\n Owner:
+ 	 Michael Rubinsky (mrubinsk@horde.org)\n\n\n\n\n\n\n ------------\n\n Due
+  this\, please.\n\n\n\n\n
+END:VTODO
+END:VCALENDAR

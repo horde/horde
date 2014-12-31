@@ -24,12 +24,15 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     public function testvNote()
     {
         $tnef = Horde_Compress::factory('Tnef');
-        $data = file_get_contents(__DIR__ . '/fixtures/tnef_vnote');
+        $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
         try {
             $tnef_data = $tnef->decompress($data);
         } catch (Horde_Compress_Exception $e) {
             var_dump($e);
         }
+
+        $fixture = file_get_contents(__DIR__ . '/fixtures/tnef_vtodo_fixture.txt');
+        $this->assertEquals($fixture, $tnef_data[0]['stream']);
     }
 
     public function testMeetingInvitation()
