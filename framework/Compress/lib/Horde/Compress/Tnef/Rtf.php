@@ -226,11 +226,10 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                         // since we reach the end of the control word.
                         if ($nextCharacter >= 'a' && $nextCharacter <= 'z'
                             || $nextCharacter >= 'A' && $nextCharacter <= 'Z') {
-                            if (empty($param)) {
-                                $word .= $nextCharacter;
-                            } else {
+                            if (!empty($param)) {
                                 break;
                             }
+                            $word .= $nextCharacter;
                         } elseif ($nextCharacter >= '0' && $nextCharacter <= '9') {
                             // If it is a digit, store the parameter.
                             $param .= $nextCharacter;
@@ -238,11 +237,10 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                             // Since minus sign may occur only before a digit
                             // parameter, check whether $param is empty.
                             // Otherwise, we reach the end of the control word.
-                            if (empty($param)) {
-                                $param .= $nextCharacter;
-                            } else {
+                            if (!empty($param)) {
                                 break;
                             }
+                            $param .= $nextCharacter;
                         } else {
                             break;
                         }
