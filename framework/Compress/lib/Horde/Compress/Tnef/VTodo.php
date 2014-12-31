@@ -218,7 +218,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 
     protected function _tovTodo()
     {
-        $iCal = new Horde_ICalendar();
+        $iCal = new Horde_Icalendar();
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
         $vtodo->setAttribute('UID', $this->_guid);
