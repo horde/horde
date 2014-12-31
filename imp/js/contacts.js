@@ -9,6 +9,7 @@
 var ImpContacts = {
 
     // initial,
+    // searchGhost,
     // text,
 
     addAddress: function(f)
@@ -124,6 +125,11 @@ var ImpContacts = {
         );
     },
 
+    searchButton: function(isempty)
+    {
+        $('btn_search').setValue(isempty ? this.text.load_all : this.text.search);
+    },
+
     onDomLoad: function()
     {
         HordeCore.initHandler('click');
@@ -138,6 +144,18 @@ var ImpContacts = {
             this.updateResults(this.initial);
             delete this.initial;
         }
+
+        this.searchButton($F('search').empty());
+
+        this.searchGhost = new FormGhost('search');
+        document.observe('FormGhost:ghost', function() {
+            if (!this.searchGhost.hasinput) {
+                this.searchButton(true);
+            }
+        }.bind(this));
+        $('search').observe('keyup', function() {
+            this.searchButton($F('search').empty());
+        }.bind(this));
 
         this.resize.bind(this).delay(0.1);
     },
@@ -163,7 +181,7 @@ var ImpContacts = {
             break;
 
         case 'btn_clear':
-            $('search').clear();
+            this.searchGhost.reset();
             break;
 
         case 'btn_delete':

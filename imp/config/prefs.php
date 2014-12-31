@@ -872,7 +872,7 @@ $prefGroups['addressbooks'] = array(
     'label' => _("Address Books"),
     'desc' => _("Select address book sources for adding/searching."),
     'members' => array(
-        'save_recipients', 'display_contact', 'sourceselect', 'add_source'
+        'save_recipients', 'sourceselect', 'add_source'
     ),
     'suppress' => function() {
         $contacts_app = $GLOBALS['registry']->hasInterface('contacts');
@@ -885,14 +885,6 @@ $_prefs['save_recipients'] = array(
     'value' => 0,
     'type' => 'checkbox',
     'desc' => _("Save recipients automatically to the default address book?")
-);
-
-// If your default address book is large and slow to display, you may want to
-// disable and lock this preference.
-$_prefs['display_contact'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("List all contacts when loading the contacts screen? (if disabled, you will only see contacts that you search for explicitly)")
 );
 
 // address book selection widget

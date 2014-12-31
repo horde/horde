@@ -86,6 +86,7 @@ The following preferences have been removed::
 
    compose_confirm
    compose_popup
+   display_contact
    empty_spam_menu
    empty_trash_menu
    filter_menuitem

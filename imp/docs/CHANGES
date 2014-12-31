@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Improved contacts loading - all contacts are never shown by default, but
+      provide simple method for user to load all contacts.
 [mms] Add dynamically updating relative time display for messages in dynamic
       view.
 [mms] Add Purge Deleted button in smartmobile view (Request #13155).

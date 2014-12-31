@@ -25,13 +25,13 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
 {
     /**
      * URL Parameters:
-     *   - search: (string) Search term (defaults to '' which lists everyone).
+     *   - search: (string) Search term (defaults to '').
      *   - source: (string) The addressbook source to use.
      *   - to_only: (boolean) Are we limiting to only the 'To:' field?
      */
     protected function _init()
     {
-        global $injector, $page_output, $prefs, $registry;
+        global $injector, $page_output, $registry;
 
         /* Sanity checking. */
         if (!$registry->hasMethod('contacts/search')) {
@@ -75,11 +75,11 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
             $view->source_list = key($source_list);
         }
 
-        /* Pre-populate address list if preference requires that. */
-        if ($prefs->getValue('display_contact')) {
+        /* Pre-populate address list if search text is provided. */
+        if (strlen($this->vars->search)) {
             $initial = array_map(
                 'strval',
-                iterator_to_array($contacts->searchEmail($this->vars->get('search', ''), array(
+                iterator_to_array($contacts->searchEmail($this->vars->search, array(
                 'sources' => array($this->vars->source)
             ))));
         } else {
@@ -88,13 +88,16 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
 
         /* Display the form. */
         $page_output->addScriptFile('hordecore.js', 'horde');
+        $page_output->addScriptFile('form_ghost.js', 'horde');
         $page_output->addScriptFile('contacts.js');
         $page_output->addInlineJsVars(array_filter(array(
             'ImpContacts.initial' => $initial,
             'ImpContacts.text' => array(
                 'closed' => _("The message being composed has been closed."),
-                'select' => _("You must select an address first."),
-                'searching' => _("Searching...")
+                'load_all' => _("Load All Contacts"),
+                'search' => _("Search"),
+                'searching' => _("Searching..."),
+                'select' => _("You must select an address first.")
             )
         )));
 

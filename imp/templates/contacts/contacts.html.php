@@ -7,7 +7,7 @@
 <div id="contactstable" class="headerbox item">
  <p class="control">
   <label for="search"><strong><?php echo _("Find") ?>:</strong></label>
-  <input value="<?php echo $this->escape($this->search) ?>" id="search" name="search" />
+  <input value="<?php echo $this->escape($this->search) ?>" id="search" name="search" title="<?php echo _("Enter Search Term") ?>" />
 <?php if (is_array($this->source_list)): ?>
   <strong><label for="source"><?php echo _("from") ?></label></strong>
   <select id="source" name="source">
