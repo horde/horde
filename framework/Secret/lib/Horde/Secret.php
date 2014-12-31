@@ -99,7 +99,7 @@ class Horde_Secret
      * @param string $key  The key to use for [de|en]cryption. Only the first
      *                     56 bytes of this string is used.
      *
-     * @return Crypt_Blowfish  The crypt object.
+     * @return Horde_Crypt_Blowfish  The crypt object.
      * @throws Horde_Secret_Exception
      */
     protected function _getCipherOb($key)
