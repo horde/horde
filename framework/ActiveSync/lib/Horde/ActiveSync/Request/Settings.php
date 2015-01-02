@@ -86,6 +86,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const STATUS_UNAVAILABLE                = 4;
 
     /** Out of office constants **/
+    const OOF_STATE_TIMEBASED               = 2;
     const OOF_STATE_ENABLED                 = 1;
     const OOF_STATE_DISABLED                = 0;
 
@@ -145,7 +146,11 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $request['set']['oof']['starttime'] = $oof->starttime;
                         $request['set']['oof']['endtime'] = $oof->endtime;
                         $message = array();
-                        //$message['appliesto'] = $
+                        $message['appliesto'] = !empty($oof->internal)
+                            ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL
+                            : (!empty($oof->externalknown)
+                                ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN
+                                : Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALUNKNOWN);
                         $message['enabled'] = $oof->message->enabled;
                         $message['replymessage'] = $oof->message->reply;
                         $message['bodytype'] = $oof->message->bodytype;
