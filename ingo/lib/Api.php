@@ -164,7 +164,15 @@ class Ingo_Api extends Horde_Registry_Api
     /**
      * Set vacation
      *
-     * @param array $info      Vacation details.
+     * @param array $info        Vacation details.
+     *   - addresses: (mixed)    Address list to enable vacation for.
+     *   - days: (integer)       Number of days between vacation replies.
+     *   - excludes: (mixed)     Address list to exclude from vacation replies.
+     *   - ignorelist: (boolean) If set, ignore mailing lists.
+     *   - reason: (string)      Vacation message.
+     *   - subject: (string)     Vacation email subject.
+     *   - start: (integer)      Timestamp of vacation starttime.
+     *   - end: (integer)        Timestamp of vacation endtime.
      * @param boolean $enable  Enable the filter?
      *
      * @throws Ingo_Exception
