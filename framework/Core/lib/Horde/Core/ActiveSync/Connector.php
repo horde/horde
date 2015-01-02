@@ -858,18 +858,28 @@ class Horde_Core_ActiveSync_Connector
         if (!$this->horde_hasInterface('filter')) {
             throw new Horde_Exception('Filter interface unavailable.');
         }
-        if ($setting['oofstate'] == Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED) {
-            // Only support a single message, the APPLIESTOINTERNAL message.
+
+        if ($setting['oofstate'] != Horde_ActiveSync_Request_Settings::OOF_STATE_DISABLED) {
+            // Currently the filter/ API only supports a single configuration.
+            // So, first check "external" rules and if none found, send the 
+            // internal rules.
             foreach ($setting['oofmsgs'] as $msg) {
+                if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN ||
+                    $msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALUNKNOWN) {
+                    $vacation = array(
+                        'reason' => $msg['replymessage'],
+                        'subject' => Horde_Core_Translation::t('Out Of Office')
+                    );
+                    break;
+                }
                 if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL) {
                     $vacation = array(
                         'reason' => $msg['replymessage'],
                         'subject' => Horde_Core_Translation::t('Out Of Office')
                     );
-                    $this->_registry->filter->setVacation($vacation);
-                    return;
                 }
             }
+            $this->_registry->filter->setVacation($vacation);
         } else {
             $this->_registry->filter->disableVacation();
         }
