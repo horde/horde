@@ -145,20 +145,19 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $request['set']['oof']['oofstate'] = $oof->state;
                         $request['set']['oof']['starttime'] = $oof->starttime;
                         $request['set']['oof']['endtime'] = $oof->endtime;
-                        $message = array();
-                        $message['appliesto'] = !empty($oof->internal)
-                            ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL
-                            : (!empty($oof->externalknown)
-                                ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN
-                                : Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALUNKNOWN);
-                        $message['enabled'] = $oof->message->enabled;
-                        $message['replymessage'] = $oof->message->reply;
-                        $message['bodytype'] = $oof->message->bodytype;
-
-                        if (!isset($request['set']['oof']['oofmsgs'])) {
-                            $request['set']['oof']['oofmsgs'] = array();
+                        $request['set']['oof']['oofmsgs'] = array();
+                        foreach ($oof->messages as $msg) {
+                            $message = array();
+                            $message['appliesto'] = !empty($msg->internal)
+                                ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL
+                                : (!empty($msg->externalknown)
+                                    ? Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN
+                                    : Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALUNKNOWN);
+                            $message['enabled'] = $msg->enabled;
+                            $message['replymessage'] = $msg->reply;
+                            $message['bodytype'] = $msg->bodytype;
+                            $request['set']['oof']['oofmsgs'][] = $message;
                         }
-                        $request['set']['oof']['oofmsgs'][] = $message;
                         break;
                     case self::SETTINGS_DEVICEINFORMATION :
                         // @TODO Clean the return values up when we can break bc.
@@ -307,6 +306,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag(); // end self::SETTINGS_USERINFORMATION
         }
         if (isset($request['get']['oof'])) {
+            $oof = $this->_getOofObject($result['get']['oof']);
             $this->_encoder->startTag(self::SETTINGS_OOF);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
             $this->_encoder->content($result['get']['oof']['status']);
@@ -314,44 +314,11 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
 
             if ($result['get']['oof']['status'] == self::STATUS_SUCCESS) {
                 $this->_encoder->startTag(self::SETTINGS_GET);
-                $this->_encoder->startTag(self::SETTINGS_OOFSTATE);
-                $this->_encoder->content($result['get']['oof']['oofstate']);
-                $this->_encoder->endTag(); // end self::SETTINGS_OOFSTATE
-                // This we maybe need later on (OOFSTATE=2). It shows that OOF
-                // Messages could be send depending on Time being set in here.
-                // Unfortunately cannot proof it working on my device.
-                if ($result['get']['oof']['oofstate'] == 2) {
-                    $this->_encoder->startTag(self::SETTINGS_STARTTIME);
-                    $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['starttime']));
-                    $this->_encoder->endTag(); // end self::SETTINGS_STARTTIME
-                    $this->_encoder->startTag(self::SETTINGS_ENDTIME);
-                    $this->_encoder->content(gmdate('Y-m-d\TH:i:s.000', $result['get']['oof']['endtime']));
-                    $this->_encoder->endTag(); // end self::SETTINGS_ENDTIME
-                }
-                foreach($result['get']['oof']['oofmsgs'] as $oofentry) {
-                    $this->_encoder->startTag(self::SETTINGS_OOFMESSAGE);
-                    $this->_encoder->startTag($oofentry['appliesto'],false,true);
-                    $this->_encoder->startTag(self::SETTINGS_ENABLED);
-                    $this->_encoder->content($oofentry['enabled']);
-                    $this->_encoder->endTag(); // end self::SETTINGS_ENABLED
-                    $this->_encoder->startTag(self::SETTINGS_REPLYMESSAGE);
-                    $this->_encoder->content($oofentry['replymessage']);
-                    $this->_encoder->endTag(); // end self::SETTINGS_REPLYMESSAGE
-                    $this->_encoder->startTag(self::SETTINGS_BODYTYPE);
-                    switch (strtolower($oofentry['bodytype'])) {
-                    case 'text':
-                        $this->_encoder->content('Text');
-                        break;
-                    case 'HTML':
-                        $this->_encoder->content('HTML');
-                    }
-                    $this->_encoder->endTag(); // end self::SETTINGS_BODYTYPE
-                    $this->_encoder->endTag(); // end self::SETTINGS_OOFMESSAGE
-                }
+                $oof->encodeStream($this->_encoder);
                 $this->_encoder->endTag(); // end self::SETTINGS_GET
-                $this->_encoder->endTag(); // end self::SETTINGS_OOF
             }
-
+            $this->_encoder->endTag();
+            $this->_encoder->endTag();
         }
         if (isset($request['get']['rightsmanagementinfo'])) {
             $this->_encoder->startTag(self::SETTINGS_RIGHTSMANAGEMENTINFO);
@@ -364,6 +331,26 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag(); // end self::SETTINGS_SETTINGS
 
         return true;
+    }
+
+    /**
+     * @todo remove for H6 when driver methods always return EAS objects.
+     */
+    protected function _getOofObject($info)
+    {
+        $info = new Horde_Support_Array($info);
+        $oof = Horde_ActiveSync::messageFactory('Oof');
+        $oof->state = $info['oofstate'];
+        $oof->starttime = new Horde_Date($info['starttime']);
+        $oof->endtime = new Horde_Date($info['endtime']);
+        $msg = Horde_ActiveSync::messageFactory('OofMessage');
+        $msg->internal = '';
+        $msg->enabled = $info['oofmsgs'][0]['enabled'];
+        $msg->reply = $info['oofmsgs'][0]['replymessage'];
+        $msg->bodytype = 'text';
+        $oof->messages[] = $msg;
+
+        return $oof;
     }
 
 }

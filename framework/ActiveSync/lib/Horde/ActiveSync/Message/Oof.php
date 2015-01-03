@@ -34,20 +34,24 @@
 class Horde_ActiveSync_Message_Oof extends Horde_ActiveSync_Message_Base
 {
 
+    public $messages = array();
+
     /**
      * Property mapping
      *
      * @var array
      */
     protected $_mapping = array (
-        Horde_ActiveSync_Request_Settings::SETTINGS_OOFSTATE                 => array(self::KEY_ATTRIBUTE => 'state'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_STARTTIME                => array(self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE),
-        Horde_ActiveSync_Request_Settings::SETTINGS_ENDTIME                  => array(self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE),
-        Horde_ActiveSync_Request_Settings::SETTINGS_OOFMESSAGE               => array(self::KEY_ATTRIBUTE => 'message', self::KEY_TYPE => 'Horde_ActiveSync_Message_OofMessage'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_BODYTYPE                 => array(self::KEY_ATTRIBUTE => 'bodytype'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL        => array(self::KEY_ATTRIBUTE => 'internal'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN   => array(self::KEY_ATTRIBUTE => 'externalknown'),
-        Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALUNKNOWN => array(self::KEY_ATTRIBUTE => 'externalunknown'),
+        Horde_ActiveSync_Request_Settings::SETTINGS_OOFSTATE => array(self::KEY_ATTRIBUTE => 'state'),
+        Horde_ActiveSync_Request_Settings::SETTINGS_STARTTIME => array(self::KEY_ATTRIBUTE => 'starttime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        Horde_ActiveSync_Request_Settings::SETTINGS_ENDTIME => array(self::KEY_ATTRIBUTE => 'endtime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+        Horde_ActiveSync_Request_Settings::SETTINGS_OOFMESSAGE => array(
+            self::KEY_ATTRIBUTE => 'messages',
+            self::KEY_TYPE => 'Horde_ActiveSync_Message_OofMessage',
+            self::KEY_VALUES => Horde_ActiveSync_Request_Settings::SETTINGS_OOFMESSAGE,
+            self::KEY_PROPERTY => self::PROPERTY_NO_CONTAINER
+        ),
+        Horde_ActiveSync_Request_Settings::SETTINGS_BODYTYPE => array(self::KEY_ATTRIBUTE => 'bodytype'),
     );
 
     /**
@@ -59,7 +63,6 @@ class Horde_ActiveSync_Message_Oof extends Horde_ActiveSync_Message_Base
         'state'   => false,
         'starttime'  => false,
         'endtime'    => false,
-        'message' => false,
         'bodytype'   => false
     );
 

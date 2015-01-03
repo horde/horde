@@ -35,6 +35,10 @@
 class Horde_ActiveSync_Message_OofMessage extends Horde_ActiveSync_Message_Base
 {
 
+    public $internal;
+    public $externalknown;
+    public $externalunknown;
+
     /**
      * Property mapping
      *
@@ -55,12 +59,20 @@ class Horde_ActiveSync_Message_OofMessage extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_properties = array(
-        'internal'   => false,
-        'externalknown'  => false,
-        'externalunknown'    => false,
         'enabled' => false,
         'reply'   => false,
         'bodytype' => false,
     );
 
+    /**
+     * Checks to see if we should send an empty value.
+     *
+     * @param string $tag  The tag name
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        return true;
+    }
 }
