@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improve/fix support for handling OOF messages in ActiveSync (Bug #13719).
 * [mms] Upgrade jQuery to v1.11.2.
  </notes>
  <contents>
@@ -3774,6 +3775,7 @@
    <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improve/fix support for handling OOF messages in ActiveSync (Bug #13719).
 * [mms] Upgrade jQuery to v1.11.2.
    </notes>
   </release>
