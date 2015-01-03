@@ -12,7 +12,7 @@
  </lead>
  <date>2015-01-03</date>
  <version>
-  <release>2.23.1</release>
+  <release>2.23.2</release>
   <api>2.23.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Add some more TRUNCATION related workarounds/fixes.
-* [mjr] Improve/fix support for handling OOF messages (Bug #13719).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2599,6 +2598,19 @@
    <notes>
 * [mjr] Add some more TRUNCATION related workarounds/fixes.
 * [mjr] Improve/fix support for handling OOF messages (Bug #13719).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.23.2</release>
+    <api>2.23.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
