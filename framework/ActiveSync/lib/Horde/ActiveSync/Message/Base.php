@@ -38,16 +38,19 @@
 class Horde_ActiveSync_Message_Base
 {
     /* Attribute Keys */
-    const KEY_ATTRIBUTE    = 1;
-    const KEY_VALUES       = 2;
-    const KEY_TYPE         = 3;
+    const KEY_ATTRIBUTE         = 1;
+    const KEY_VALUES            = 2;
+    const KEY_TYPE              = 3;
+    const KEY_PROPERTY          = 4;
 
     /* Types */
-    const TYPE_DATE        = 1;
-    const TYPE_HEX         = 2;
-    const TYPE_DATE_DASHES = 3;
-    const TYPE_MAPI_STREAM = 4;
-    const TYPE_MAPI_GOID   = 5;
+    const TYPE_DATE             = 1;
+    const TYPE_HEX              = 2;
+    const TYPE_DATE_DASHES      = 3;
+    const TYPE_MAPI_STREAM      = 4;
+    const TYPE_MAPI_GOID        = 5;
+
+    const PROPERTY_NO_CONTAINER = 7;
 
     /**
      * Holds the mapping for object properties
@@ -305,8 +308,11 @@ class Horde_ActiveSync_Message_Base
                     if (isset($map[self::KEY_VALUES])) {
                         // Handle arrays of attribute values
                         while (1) {
-                            if (!$decoder->getElementStartTag($map[self::KEY_VALUES])) {
-                                break;
+                            //do not get start tag for an array without a container
+                            if (!(isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER)) {
+                                if (!$decoder->getElementStartTag($map[self::KEY_VALUES])) {
+                                    break;
+                                }
                             }
                             if (isset($map[self::KEY_TYPE])) {
                                 $class = $map[self::KEY_TYPE];
@@ -323,13 +329,28 @@ class Horde_ActiveSync_Message_Base
                             } else {
                                 $this->{$map[self::KEY_ATTRIBUTE]}[] = $decoded;
                             }
+
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');
                             }
+                            if (isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER) {
+                                $e = $decoder->peek();
+                                //go back to the initial while if another block of no container elements is found
+                                if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
+                                    continue 2;
+                                }
+                                //break on end tag because no container elements block end is reached
+                                if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG)
+                                    break;
+                                if (empty($e))
+                                    break;
+                            }
                         }
-
-                        if (!$decoder->getElementEndTag()) {
-                            return false;
+                        //do not get container end tag for an array without a container
+                        if (!(isset($map[self::KEY_PROPERTY]) && $map[self::KEY_PROPERTY] == self::PROPERTY_NO_CONTAINER)) {
+                            if (!$decoder->getElementEndTag()) {
+                                return false;
+                            }
                         }
                     } else {
                         // Handle a simple attribute value
@@ -393,7 +414,9 @@ class Horde_ActiveSync_Message_Base
                     // Array of objects. Note that some array values must be
                     // send as an empty tag if they contain no elements.
                     if (count($this->$map[self::KEY_ATTRIBUTE])) {
-                        $encoder->startTag($tag);
+                        if (!isset($map[self::KEY_PROPERTY]) || $map[self::KEY_PROPERTY] != self::PROPERTY_NO_CONTAINER) {
+                            $encoder->startTag($tag);
+                        }
                         foreach ($this->$map[self::KEY_ATTRIBUTE] as $element) {
                             if (is_object($element)) {
                                 // Outputs object container (eg Attachment)
@@ -409,7 +432,9 @@ class Horde_ActiveSync_Message_Base
                                 }
                             }
                         }
-                        $encoder->endTag();
+                        if (!isset($map[self::KEY_PROPERTY]) || $map[self::KEY_PROPERTY] != self::PROPERTY_NO_CONTAINER) {
+                            $encoder->endTag();
+                        }
                     } elseif ($this->_checkSendEmpty($tag)) {
                         $encoder->startTag($tag, null, true);
                     }
