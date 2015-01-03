@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-24</date>
+ <date>2015-01-03</date>
  <version>
   <release>2.23.1</release>
   <api>2.23.0</api>
@@ -2594,7 +2594,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-24</date>
+   <date>2015-01-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Add some more TRUNCATION related workarounds/fixes.
