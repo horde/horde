@@ -861,7 +861,7 @@ class Horde_Core_ActiveSync_Connector
 
         if ($setting['oofstate'] != Horde_ActiveSync_Request_Settings::OOF_STATE_DISABLED) {
             // Currently the filter/ API only supports a single configuration.
-            // So, first check "external" rules and if none found, send the 
+            // So, first check "external" rules and if none found, send the
             // internal rules.
             foreach ($setting['oofmsgs'] as $msg) {
                 if ($msg['appliesto'] == Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOEXTERNALKNOWN ||
@@ -878,6 +878,12 @@ class Horde_Core_ActiveSync_Connector
                         'subject' => Horde_Core_Translation::t('Out Of Office')
                     );
                 }
+            }
+            if (!empty($setting['starttime'])) {
+                $vacation['start'] = $setting['starttime']->timestamp();
+            }
+            if (!empty($setting['endtime'])) {
+                $vacation['end'] = $setting['endtime']->timestamp();
             }
             $this->_registry->filter->setVacation($vacation);
         } else {

@@ -2113,7 +2113,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @return array  The requested settings.
      * @todo H6: return information keyed by the common names given in wbxml
-     *           schema for the settings command (use constants).
+     *           schema for the settings command (use constants) and return
+     *           as a Horde_ActiveSync_Message_Oof object.
      */
     public function getSettings(array $settings, $device)
     {
@@ -2131,12 +2132,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         : Horde_ActiveSync_Request_Settings::OOF_STATE_ENABLED),
                     'oofmsgs' => array()
                 );
+                // If we have start/end it's a timebased vacation in EAS-speak.
+                if (!empty($vacation['end']) && !$vacation['disabled']) {
+                   $res['oof']['oofstate'] = Horde_ActiveSync_Request_Settings::OOF_STATE_TIMEBASED;
+                   $res['oof']['starttime']  = new Horde_Date($vacation['start']);
+                   $res['oof']['endtime'] = new Horde_Date($vacation['end']);
+                }
+                // Horde's filter API doesn't support internal/external so
+                // always send as internal since that's what most clients
+                // fall back to as well.
                 $res['oof']['oofmsgs'][] = array(
-                    'appliesto' => Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL,
+                    'appliesto'    => Horde_ActiveSync_Request_Settings::SETTINGS_APPLIESTOINTERNAL,
                     'replymessage' => $vacation['reason'],
-                    'enabled' => !$vacation['disabled'],
-                    'bodytype' => $setting['bodytype'],
-                    'subject' => $vacation['subject']
+                    'enabled'      => !$vacation['disabled'],
+                    'bodytype'     => $setting['bodytype'],
+                    'subject'      => $vacation['subject'],
                 );
                 break;
             case 'userinformation':
