@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Add some more TRUNCATION related workarounds/fixes.
 * [mjr] Improve/fix support for handling OOF messages (Bug #13719).
  </notes>
  <contents>
@@ -2596,6 +2597,7 @@
    <date>2014-12-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Add some more TRUNCATION related workarounds/fixes.
 * [mjr] Improve/fix support for handling OOF messages (Bug #13719).
    </notes>
   </release>
