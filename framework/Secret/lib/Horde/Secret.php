@@ -124,7 +124,7 @@ class Horde_Secret
 
     /**
      * Generate a secret key (for encryption), either using a random
-     * md5 string and storing it in a cookie if the user has cookies
+     * string and storing it in a cookie if the user has cookies
      * enabled, or munging some known values if they don't.
      *
      * @param string $keyname  The name of the key to set.
