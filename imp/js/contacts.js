@@ -88,7 +88,7 @@ var ImpContacts = {
         );
 
         HordeCore.doAction('contactsSearch', {
-            search: $F('search'),
+            search: this.searchGhost.hasinput ? $F('search') : '',
             source: $F('source')
         }, {
             callback: function(r) {
