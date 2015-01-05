@@ -22,7 +22,7 @@
  *    Fired when no spellcheck errors are found.
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
- * @copyright  2005-2014 Horde LLC
+ * @copyright  2005-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

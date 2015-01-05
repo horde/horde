@@ -1,5 +1,5 @@
 # Croatian translations for imp.
-# Copyright 2006-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2006-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the horde package.
 # Iva Rumora <iva.rumora@zg.t-com.hr>, 2006.
 # Matej Vela <Matej.Vela@CARNet.hr>, 2008.

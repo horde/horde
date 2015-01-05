@@ -2,7 +2,7 @@
  * Mytopo layer. See http://www.mytopo.com/google/index.cfm for instructions
  * in obtaining an api key.
  *
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.fsf.org/copyleft/gpl.html.

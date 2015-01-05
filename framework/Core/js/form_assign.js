@@ -2,7 +2,7 @@
  * Provides the javascript class to accompany the Horde_Form assign field.
  *
  * @author     Jan Schneider <jan@horde.org>
- * @copyright  2004-2014 Horde LLC
+ * @copyright  2004-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

@@ -3,14 +3,14 @@
  * Horde_Mapi_Util_Timezone::
  *
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @copyright 2009-2014 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2015 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */
 /**
  * Utility functions for dealing with Microsoft MAPI Timezone format.
  *
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,7 +19,7 @@
  * blob inspired by code in the Tine20 Project (http://tine20.org).
  *
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @copyright 2009-2014 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2015 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   Mapi_Utils
  */

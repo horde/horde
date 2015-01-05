@@ -15,7 +15,7 @@
 /**
  * The base functionality of the notepads handler.
  *
- * Copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.

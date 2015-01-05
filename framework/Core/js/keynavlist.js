@@ -27,7 +27,7 @@
  *
  * [base = (Element) The element to use for display positioning purposes]
  *
- * @copyright  2005-2014 Horde LLC
+ * @copyright  2005-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

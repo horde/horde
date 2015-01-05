@@ -3,7 +3,7 @@
  * Provide an API to embed the most popular news stories in other Horde
  * applications.
  *
- * Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.

@@ -1,7 +1,7 @@
 /**
  * Provides the javascript for managing categories.
  *
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 

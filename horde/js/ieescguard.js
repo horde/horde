@@ -5,7 +5,7 @@
  *
  * Requires prototypejs 1.6.0.2+.
  *
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 

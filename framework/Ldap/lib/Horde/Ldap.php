@@ -3,7 +3,7 @@
  * The main Horde_Ldap class.
  *
  * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Del Elson, Benedikt Hallinger
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * @package   Ldap
  * @author    Tarjej Huse <tarjei@bergfald.no>

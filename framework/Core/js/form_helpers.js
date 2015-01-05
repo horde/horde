@@ -2,7 +2,7 @@
  * Javascript to add events to form elements
  *
  * @author     Matt Kynaston <matt@kynx.org>
- * @copyright  2004-2014 Horde LLC
+ * @copyright  2004-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

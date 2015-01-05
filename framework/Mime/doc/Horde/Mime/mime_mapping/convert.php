@@ -2,7 +2,7 @@
 /**
  * Create MIME mapping file from data sources.
  *
- * Copyright 2001-2014 The Horde Project (http://www.horde.org/)
+ * Copyright 2001-2015 The Horde Project (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,7 +10,7 @@
  * @author    Anil Madhavapeddy <avsm@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2001-2014 Horde LLC
+ * @copyright 2001-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */

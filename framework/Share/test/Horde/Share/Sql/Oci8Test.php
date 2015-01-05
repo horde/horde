@@ -5,7 +5,7 @@
 require_once __DIR__ . '/Base.php';
 
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde

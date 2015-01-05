@@ -2,7 +2,7 @@
 /**
  * This class represent a single day of free busy information sets.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information.
  *

@@ -3,7 +3,7 @@
  * Simple composite effect for composing multiple images. This effect assumes
  * that all images being passed in are already the desired size.
  *
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image

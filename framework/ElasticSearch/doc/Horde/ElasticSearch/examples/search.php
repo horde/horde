@@ -2,7 +2,7 @@
 /**
  * Basic example for searching with ElasticSearch
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD

@@ -5,13 +5,13 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category  Horde
- * @copyright 2010-2014 Horde LLC
+ * @copyright 2010-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl LGPL-2
  * @package   Horde
  */

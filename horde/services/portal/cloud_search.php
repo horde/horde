@@ -2,7 +2,7 @@
 /**
  * Perform search request for the horde-wide tag cloud block.
  *
- * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.

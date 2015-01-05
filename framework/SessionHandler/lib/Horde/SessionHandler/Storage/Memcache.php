@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2005-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2005-2014 Horde LLC
+ * @copyright 2005-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   SessionHandler
  */
@@ -17,7 +17,7 @@
  * @author     Rong-En Fan <rafan@infor.org>
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2005-2014 Horde LLC
+ * @copyright  2005-2015 Horde LLC
  * @deprecated Use HashTable driver instead
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    SessionHandler

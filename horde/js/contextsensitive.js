@@ -54,7 +54,7 @@
  *
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2006-2014 Horde LLC
+ * @copyright  2006-2015 Horde LLC
  */
 
 var ContextSensitive = Class.create({

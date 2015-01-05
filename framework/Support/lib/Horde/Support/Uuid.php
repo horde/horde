@@ -6,7 +6,7 @@
  * $uuid = (string)new Horde_Support_Uuid;
  * </code>
  *
- * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support

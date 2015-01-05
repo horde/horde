@@ -2,7 +2,7 @@
 /**
  * Horde_Core_ActiveSync_Mail::
  *
- * @copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -13,7 +13,7 @@
  * Wraps functionality related to sending/replying/forwarding email from
  * EAS clients.
  *
- * @copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core

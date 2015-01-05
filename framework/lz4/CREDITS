@@ -1,7 +1,7 @@
 horde_lz4 extension
 
 This package is maintained by The Horde Project (http://www.horde.org/).
-Copyright 2013-2014 Horde LLC
+Copyright 2013-2015 Horde LLC
 
 The original PHP extension package was created by kamijo <kamijo@ninja.co.jp>
 https://github.com/kjdev/php-ext-lz4

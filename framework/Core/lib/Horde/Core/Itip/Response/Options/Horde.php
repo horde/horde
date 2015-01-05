@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see
  * {@link http://www.horde.org/licenses/lgpl21 LGPL}.
  *
  * @category  Horde
- * @copyright 2014 Horde LLC
+ * @copyright 2014-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2014 Horde LLC
+ * @copyright 2014-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  * @since     2.17.0

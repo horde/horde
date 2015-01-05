@@ -3,7 +3,7 @@
  * The Whups_Ticket class encapsulates some logic relating to tickets, sending
  * updates, etc.
  *
- * Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

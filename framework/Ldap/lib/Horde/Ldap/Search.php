@@ -3,7 +3,7 @@
  * Result set of an LDAP search
  *
  * Copyright 2009 Jan Wagner, Benedikt Hallinger
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
  * @category  Horde
  * @package   Ldap

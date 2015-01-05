@@ -2,7 +2,7 @@
 /**
  * Object for holding properties of the TNEF message as a whole.
  *
- * Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -13,7 +13,7 @@
  * @package  Compress
  */
 /**
- * Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

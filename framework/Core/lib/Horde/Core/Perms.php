@@ -3,7 +3,7 @@
  * The Horde_Core_Perms class provides information about internal Horde
  * elements that can be managed through the Horde_Perms system.
  *
- * Copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

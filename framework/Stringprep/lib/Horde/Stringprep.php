@@ -1,14 +1,14 @@
 <?php
 /**
- * Copyright 2012-2014 Lorenz Schori <lo@znerol.ch>
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Lorenz Schori <lo@znerol.ch>
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv3). If you
  * did not receive this file, see http://opensource.org/licenses/gpl-3.0.html.
  *
  * @category  Horde
- * @copyright 2012-2014 Lorenz Schori
- * @copyright 2014 Horde LLC
+ * @copyright 2012-2015 Lorenz Schori
+ * @copyright 2014-2015 Horde LLC
  * @license   http://opensource.org/licenses/gpl-3.0.html GPL-3.0
  * @package   Stringprep
  */
@@ -21,8 +21,8 @@
  * @author    Lorenz Schori <lo@znerol.ch>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012-2014 Lorenz Schori
- * @copyright 2014 Horde LLC
+ * @copyright 2012-2015 Lorenz Schori
+ * @copyright 2014-2015 Horde LLC
  * @license   http://opensource.org/licenses/gpl-3.0.html GPL-3.0
  * @link      https://github.com/znerol/Stringprep
  * @package   Stringprep

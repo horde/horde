@@ -224,7 +224,7 @@
  *   - viewport_utils.js
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2005-2014 Horde LLC
+ * @copyright  2005-2015 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 

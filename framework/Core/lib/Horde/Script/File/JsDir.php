@@ -3,7 +3,7 @@
  * This class represents a javascript script file located in an application's
  * js/ directory.
  *
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

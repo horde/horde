@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2011-2014 Horde LLC
+ * @copyright 2011-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -21,7 +21,7 @@
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
  * @category   Horde
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @ignore
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),

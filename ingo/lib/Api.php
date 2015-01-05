@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2012-2014 Horde LLC
+ * @copyright 2012-2015 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
@@ -18,7 +18,7 @@
  * can interact with Ingo through this API.
  *
  * @category  Horde
- * @copyright 2012-2014 Horde LLC
+ * @copyright 2012-2015 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */

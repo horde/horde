@@ -3,7 +3,7 @@
  * A data object that indicates to the HordeCore javascript framework that
  * the action was successful, but the page needs to be reloaded.
  *
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

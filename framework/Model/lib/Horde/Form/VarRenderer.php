@@ -3,7 +3,7 @@
  * The Horde_Form_VarRenderer:: class provides base functionality for
  * other Horde_Form elements.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  * Copyright 2005-2007 Matt Warden <mwarden@gmail.com>
  *
  * See the enclosed file COPYING for license information (LGPL).

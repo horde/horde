@@ -2,14 +2,14 @@
 /**
  * (c) 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c)
  * (c) 2008 Ryan Grove <ryan@wonko.com> (PHP port)
- * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (JSMin).
  *
  * @category  Horde
  * @copyright 2002 Douglas Crockford
  * @copyright 2008 Ryan Grove
- * @copyright 2009-2014 Horde LLC
+ * @copyright 2009-2015 Horde LLC
  * @license   JSMin
  * @package   JavascriptMinify_Jsmin
  */
@@ -32,7 +32,7 @@
  * @category  Horde
  * @copyright 2002 Douglas Crockford
  * @copyright 2008 Ryan Grove
- * @copyright 2009-2014 Horde LLC
+ * @copyright 2009-2015 Horde LLC
  * @license   JSMin
  * @package   JavascriptMinify_Jsmin
  */

@@ -2,7 +2,7 @@
  * Provides the javascript for toggle quotes (Highlightquotes text filter).
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2011-2014 Horde LLC
+ * @copyright  2011-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

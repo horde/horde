@@ -1,5 +1,5 @@
 # Whups - Norwegian translation
-# Copyright 2006-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2006-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Whups package.
 # Torbjorn Grindhaug <grindhaug@gmail.com>, 2006.
 #

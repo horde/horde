@@ -5,7 +5,7 @@
  * Required values for $params:<pre>
  *      'db'       The Horde_Db adapter
  *
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  * Based on the original Sql driver by Ben Klang
  *
  * See the enclosed file LICENSE for license information (BSD). If you

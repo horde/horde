@@ -16,7 +16,7 @@
  * The Horde_Kolab_Session_Imap class relies on predefined Kolab user
  * details and validates the credentials against the IMAP server only.
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

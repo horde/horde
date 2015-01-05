@@ -16,7 +16,7 @@
  * TODO: options = autoSelect, frequency, minChars, onSelect, onShow, onType,
  *                 paramName, tokens
  *
- * @copyright  2007-2014 Horde LLC
+ * @copyright  2007-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

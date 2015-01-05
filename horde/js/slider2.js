@@ -51,7 +51,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2007-2014 Horde LLC
+ * @copyright  2007-2015 Horde LLC
  */
 
 var Slider2 = Class.create({

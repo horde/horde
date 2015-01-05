@@ -1,5 +1,5 @@
 # Polish translations for Horde_Core module.
-# Copyright 2010-2014 Horde LLC
+# Copyright 2010-2015 Horde LLC
 # This file is distributed under the same license as the Horde_Core module.
 # Krzysztof Kozera <krzysztof113@o2.pl>, 2012.
 # Maciej Uhlig <maciej.uhlig@us.edu.pl>, 2014.

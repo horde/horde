@@ -2,7 +2,7 @@
 /**
  * The Horde_Help:: class provides an interface to the online help subsystem.
  *
- * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

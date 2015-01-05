@@ -2,7 +2,7 @@
  * jQuery Mobile taphold widget for listview rows that will display a popup.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2013-2014 Horde LLC
+ * @copyright  2013-2015 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 

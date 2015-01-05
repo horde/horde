@@ -3,7 +3,7 @@
  * To: field where entered items are represented as bubbles etc...
  *
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
- * @copyright  2008-2014 Horde LLC
+ * @copyright  2008-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  *
  * @todo H6 Extract common code between this class and IMP's version. Use custom

@@ -1,7 +1,7 @@
 /**
  * Load any jQuery Mobile init code before the library is loaded.
  *
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    LGPL-2.1 (http://www.horde.org/licenses/lgpl21)
  */
 

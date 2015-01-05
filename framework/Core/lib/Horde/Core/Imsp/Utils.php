@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2003-2014 Horde LLC
+ * @copyright 2003-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Rubinsky <mrubinsk@horde.org>
  * @category  Horde
- * @copyright 2003-2014 Horde LLC
+ * @copyright 2003-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL
  * @package   Core
  */

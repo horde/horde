@@ -12,7 +12,7 @@
  *  - MODULENAME: The name of the new module that you wish to create.
  *  - AUTHOR: Your name and mail address (e.g. "John Doe <john@doe.org>")
  *
- * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

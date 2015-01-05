@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -10,8 +10,8 @@
  *   Copyright (c) 2002-2014 Timo Sirainen <tss@iki.fi>
  *
  * @category  Horde
- * @copyright 2002-2014 Timo Sirainen
- * @copyright 2014 Horde LLC
+ * @copyright 2002-2015 Timo Sirainen
+ * @copyright 2014-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */
@@ -22,8 +22,8 @@
  * @author    Timo Sirainen <tss@iki.fi>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2014 Timo Sirainen
- * @copyright 2014 Horde LLC
+ * @copyright 2002-2015 Timo Sirainen
+ * @copyright 2014-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  * @since     2.5.0

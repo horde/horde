@@ -2,7 +2,7 @@
 /**
  * Administrative management of ActiveSync devices.
  *
- * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.

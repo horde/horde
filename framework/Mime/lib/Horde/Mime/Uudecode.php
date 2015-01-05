@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 1999-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * -----
  *
@@ -16,7 +16,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2009-2014 Horde LLC
+ * @copyright 2009-2015 Horde LLC
  * @copyright 2004-2007 Aidan Lister <aidan@php.net>, Arpad Ray <arpad@php.net>
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
@@ -32,7 +32,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @author    Michael Wallner <mike@php.net>
  * @category  Horde
- * @copyright 2009-2014 Horde LLC
+ * @copyright 2009-2015 Horde LLC
  * @copyright 2004-2007 Aidan Lister <aidan@php.net>, Arpad Ray <arpad@php.net>
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime

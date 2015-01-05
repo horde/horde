@@ -2,7 +2,7 @@
 /**
  * Image effect for adding a drop shadow.
  *
- * Copyright 2007-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image

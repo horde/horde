@@ -1,5 +1,5 @@
 # Wicked Traditional Chinese Translation
-# Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2015 Horde LLC (http://www.horde.org/)
 # David Chang <david@tmv.gov.tw>, 2004.
 msgid ""
 msgstr ""
