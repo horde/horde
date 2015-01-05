@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Rearrange the default order of filter rules.
+
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
