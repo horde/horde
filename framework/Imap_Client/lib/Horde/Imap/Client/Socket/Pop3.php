@@ -654,7 +654,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         $uidl = $this->_capability('UIDL');
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
             if ($uidl) {
-                $ctx = hash_init((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1');
+                $ctx = hash_init('md5');
                 foreach ($this->_pop3Cache('uidl') as $key => $val) {
                     hash_update($ctx, '|' . $key . '|' . $val);
                 }
