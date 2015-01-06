@@ -393,7 +393,6 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         /* Define autoloader callbacks. */
         $callbacks = array(
-            'Horde_Mime' => 'Horde_Core_Autoloader_Callback_Mime',
             'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls',
         );
 
