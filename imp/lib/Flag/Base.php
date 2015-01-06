@@ -116,10 +116,7 @@ abstract class IMP_Flag_Base implements Serializable
             return '0\\' . $this->id;
 
         case 'hash':
-            return hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                $this->id
-            );
+            return hash('md5', $this->id);
 
         case 'id':
             return $this->_id;
