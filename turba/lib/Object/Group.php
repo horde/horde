@@ -210,4 +210,80 @@ class Turba_Object_Group extends Turba_Object
         return $list;
     }
 
+    /**
+     * Add members to a group, creating the group if necessary.
+     *
+     * @param string $source  Destination source.
+     * @param array $members  Members of the group. Array of two-element
+     *                        arrays: source and key.
+     * @param array $opts     Additional options:
+     * <pre>
+     *  - attr: (array) Array of attributes to use to create a new group.
+     *          This should include 'name' at a minimum.
+     *  - gid: (string) Existing Group ID.
+     *  - name: (string) Group Name.
+     * </pre>
+     *
+     * @return object  Object with the following properties:
+     * <pre>
+     *   - errors: (array) List of errors when adding members.
+     *   - group: (Turba_Object_Group) Group object.
+     *   - success: (integer) Number of members sucessfully added.
+     * </pre>
+     *
+     * @throws Turba_Exception
+     */
+    public static function createGroup(
+        $source, $members, array $opts = array()
+    )
+    {
+        global $injector;
+
+        /* Throws Turba_Exception */
+        $driver = $injector->getInstance('Turba_Factory_Driver')
+            ->create($source);
+
+        if (isset($opts['gid'])) {
+            /* Throws Turba_Exception */
+            $group = $driver->getObject($opts['gid']);
+        } elseif (isset($opts['attr']) && is_array($opts['attr'])) {
+            if ($error = Turba::hasMaxContacts($driver)) {
+                throw new Turba_Exception($error);
+            }
+
+            $newGroup = array_merge($opts['attr'], array(
+                '__owner' => $driver->getContactOwner(),
+                '__type' => 'Group'
+            ));
+
+            try {
+                $group = $driver->getObject($driver->add($newGroup));
+            } catch (Turba_Exception $e) {}
+        } else {
+            $group = null;
+        }
+
+        if (empty($group) || !$group->isGroup()) {
+            throw new Turba_Exception(_("Could not create or add to group."));
+        }
+
+        $out = new stdClass;
+        $out->errors = array();
+        $out->success = 0;
+        $out->group = $group;
+
+        // Adding contact to an existing list.
+        foreach ($members as $key) {
+            try {
+                $group->addMember($key[1], $key[0]);
+                ++$out->success;
+            } catch (Turba_Exception $e) {
+                $out->errors[] = $e;
+            }
+            $group->store();
+        }
+
+        return $out;
+    }
+
 }

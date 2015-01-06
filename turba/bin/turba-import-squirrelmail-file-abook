@@ -108,22 +108,38 @@ foreach($files as $file) {
         if (count($members) > 1) {
             // Entry is a list of contacts, import each individually and
             // create a group that contains them.
-            $attributes = array('alias' => $entry[0],
-                                'firstname' => $entry[1],
-                                'lastname' => $entry[2],
-                                'notes' => $entry[4]);
-            $gid = $driver->add($attributes);
-            $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
+            $to_add = array();
             foreach ($members as $member) {
                 try {
-                    $result = $driver->add(array('firstname' => $member, 'email' => $member));
-                    $group->addMember($result, $import_source);
-                    $cli->message('  Added ' . $member, 'cli.success');
+                    $to_add[] = array(
+                        $import_source,
+                        $driver->add(array('firstname' => $member, 'email' => $member))
+                    );
                 } catch (Turba_Exception $e) {
                     $cli->message('  ' . $e->getMessage(), 'cli.error');
                 }
             }
-            $group->store();
+
+            try {
+                $res = Turba_Object_Group::createGroup(
+                    $import_source,
+                    $to_add,
+                    array(
+                        'attr' => array(
+                            'alias' => $entry[0],
+                            'firstname' => $entry[1],
+                            'lastname' => $entry[2],
+                            'notes' => $entry[4]
+                        )
+                    )
+                );
+                $cli->message(
+                    '  Added ' . $res->success . ' contacts',
+                    'cli.success'
+                );
+            } catch (Turba_Exception $e) {
+                $cli->message('  ' . $e->getMessage(), 'cli.error');
+            }
         } else {
             // entry only contains one contact, import it
             $contact = array(

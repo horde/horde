@@ -105,29 +105,40 @@ foreach ($handle as $row) {
 
     $rfc822 = new Horde_Mail_Rfc822();
     $members = $rfc822->parseAddressList($row['email']);
+
     if (count($members) > 1) {
         // Entry is a list of contacts, import each individually and create a
         // group that contains them.
-        $attributes = array('alias' => $row['nickname'],
-                            'firstname' => $row['firstname'],
-                            'lastname' => $row['lastname'],
-                            'notes' => $row['label']);
-        $gid = $driver->add($attributes);
-        $group = new Turba_Object_Group($driver, array_merge($attributes, array('__key' => $gid)));
-        ++$count;
+        $to_add = array();
         foreach (array_map('strval', $members) as $member) {
             try {
-                $result = $driver->add(array(
-                    'firstname' => $member,
-                    'email' => $member
-                ));
-                $group->addMember($result, $import_source);
+                $to_add[] = array(
+                    $import_source,
+                    $driver->add(array('firstname' => $member, 'email' => $member))
+                );
                 ++$count;
             } catch (Turba_Exception $e) {
                 $cli->message('  ' . $e->getMessage(), 'cli.error');
             }
         }
-        $group->store();
+
+        try {
+            $res = Turba_Object_Group::createGroup(
+                $import_source,
+                $to_add,
+                array(
+                    'attr' => array(
+                        'alias' => $row['nickname'],
+                        'firstname' => $row['firstname'],
+                        'lastname' => $row['lastname'],
+                        'notes' => $row['label']
+                    )
+                )
+            );
+            ++$count;
+        } catch (Turba_Exception $e) {
+            $cli->message('  ' . $e->getMessage(), 'cli.error');
+        }
     } else {
         // Entry only contains one contact, import it.
         $contact = array(

@@ -257,147 +257,80 @@ class Turba_View_Browse
             case 'add':
                 // Add a contact to a list.
                 $keys = $vars->get('objectkeys');
-                $targetKey = $vars->get('targetList');
-                if (empty($targetKey)) {
+                if (!($targetKey = $vars->get('targetList'))) {
                     break;
                 }
+                $args = array();
 
-                if (!$vars->exists('targetNew') || $vars->get('targetNew') == '') {
-                    list($targetSource, $targetKey) = explode(':', $targetKey, 2);
+                if (strlen($vars->get('targetNew'))) {
+                    $targetSource = $vars->get('targetAddressbook');
+                    $args['attr'] = array('name' => $targetKey);
+                } else {
+                    list($targetSource, $args['gid']) = explode(':', $targetKey, 2);
                     if (!isset($cfgSources[$targetSource])) {
                         break;
                     }
-
-                    try {
-                        $targetDriver = $factory->create($targetSource);
-                    } catch (Turba_Exception $e) {
-                        $notification->push($e, 'horde.error');
-                        break;
-                    }
-
-                    try {
-                        $target = $targetDriver->getObject($targetKey);
-                    } catch (Horde_Exception $e) {
-                        $notification->push($e);
-                        break;
-                    }
-                } else {
-                    $targetSource = $vars->get('targetAddressbook');
-                    try {
-                        $targetDriver = $factory->create($targetSource);
-                    } catch (Turba_Exception $e) {
-                        $notification->push($e, 'horde.error');
-                        break;
-                    }
                 }
-                if (!empty($target) && $target->isGroup()) {
-                    // Adding contact to an existing list.
-                    if (is_array($keys)) {
-                        $errorCount = 0;
-                        foreach ($keys as $sourceKey) {
-                            list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                            try {
-                                $target->addMember($objectKey, $objectSource);
-                            } catch (Turba_Exception $e) {
-                                $notification->push($e, 'horde.error');
-                                $errorCount++;
-                            }
-                        }
-                        if (!$errorCount) {
-                            $notification->push(
-                                sprintf(_("Successfully added %d contact(s) to list."),
-                                    count($keys)),
-                                'horde.success');
-                        } elseif ($errorCount == count($keys)) {
-                            $notification->push(
-                                sprintf(_("Error adding %d contact(s) to list."),
-                                    count($keys)),
-                                'horde.error');
-                        } else {
-                            $notification->push(
-                                sprintf(_("Error adding %d of %d requested contact(s) to list."),
-                                    $errorCount,
-                                    count($keys)),
-                                'horde.error');
-                        }
-                        $target->store();
-                    }
-                } else {
-                    // Check permissions.
-                    $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
-                    if ($max_contacts !== true &&
-                        $max_contacts <= count($driver)) {
-                        Horde::permissionDeniedError(
-                            'turba',
-                            'max_contacts',
-                            sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."),
-                                $max_contacts,
-                                $cfgSources[$source]['title'])
-                        );
-                        break;
-                    }
 
-                    // Adding contact to a new list.
-                    $newList = array(
-                        '__owner' => $targetDriver->getContactOwner(),
-                        '__type' => 'Group',
-                        'name' => $targetKey
+                $members = array();
+                foreach ($keys as $key) {
+                    $members[] = explode(':', $key, 2);
+                }
+
+                try {
+                    $res = Turba_Object_Group::createGroup(
+                        $targetSource,
+                        $members,
+                        $args
                     );
+                } catch (Turba_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                    break;
+                }
 
-                    try {
-                        $targetKey = $targetDriver->add($newList);
-                    } catch (Turba_Exception $e) {
-                        $notification->push(_("There was an error creating a new list."), 'horde.error');
-                        $targetKey = null;
-                    }
+                if (isset($args['name'])) {
+                    $notification->push(
+                        sprintf(
+                            _("Successfully created the contact list \"%s\"."),
+                            $args['name']
+                        ),
+                        'horde.success'
+                    );
+                }
 
-                    if ($targetKey) {
-                        try {
-                            $target = $targetDriver->getObject($targetKey);
-                            if ($target->isGroup()) {
-                                $notification->push(
-                                    sprintf(_("Successfully created the contact list \"%s\"."),
-                                        $newList['name']),
-                                    'horde.success');
-                                if (is_array($keys)) {
-                                    $errorCount = 0;
-                                    foreach ($keys as $sourceKey) {
-                                        list($objectSource, $objectKey) = explode(':', $sourceKey, 2);
-                                        try {
-                                            $target->addMember($objectKey, $objectSource);
-                                        } catch (Turba_Exception $e) {
-                                            $notification->push($e, 'horde.error');
-                                            ++$errorCount;
-                                        }
-                                    }
-                                    if (!$errorCount) {
-                                        $notification->push(
-                                            sprintf(_("Successfully added %d contact(s) to list."),
-                                                count($keys)),
-                                            'horde.success');
-                                    } elseif ($errorCount == count($keys)) {
-                                        $notification->push(
-                                            sprintf(_("Error adding %d contact(s) to list."),
-                                                count($keys)),
-                                            'horde.error');
-                                    } else {
-                                        $notification->push(
-                                            sprintf(_("Error adding %d of %d requested contact(s) to list."),
-                                                $errorCount,
-                                                count($keys)),
-                                            'horde.error');
-                                    }
-                                    $target->store();
-                                }
-                            }
-                        } catch (Turba_Exception $e) {}
+                if (!empty($res->error)) {
+                    if ($res->success) {
+                        $notification->push(
+                            sprintf(
+                                _("Error adding %d of %d requested contact(s) to list."),
+                                count($res->error),
+                                count($res->error) + $res->success
+                            ),
+                            'horde.error'
+                        );
+                    } else {
+                        $notification->push(
+                            sprintf(
+                                _("Error adding %d contact(s) to list."),
+                                count($res->error)
+                            ),
+                            'horde.error'
+                        );
                     }
+                } elseif ($res->success) {
+                    $notification->push(
+                        sprintf(
+                            _("Successfully added %d contact(s) to list."),
+                            $res->success
+                        ),
+                        'horde.success'
+                    );
                 }
                 break;
             }
 
-            // We might get here from the search page but are not allowed to browse
-            // the current address book.
+            // We might get here from the search page but are not allowed to
+            // browse the current address book.
             if ($actionID && empty($cfgSources[$source]['browse'])) {
                 Horde::url($prefs->getValue('initial_page'), true)
                     ->redirect();
