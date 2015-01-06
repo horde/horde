@@ -19,7 +19,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
     {
         $url = $GLOBALS['registry']->getServiceLink('ajax')->setRaw(true);
         $url->url .= 'blockRefresh';
-        $url->add('blockid', 'horde_block_weather');
+        $url->add('blockid', 'Horde_Block_Weather');
         $indicator = $this->_params['id'] . '_loading_img';
 
         $GLOBALS['injector']->getInstance('Horde_PageOutput')->addInlineScript(
@@ -37,7 +37,7 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         }
                         $("' . $indicator . '").toggle();
                         HordeCore.doAction("blockRefresh",
-                            { blockid: "horde_block_weather", location: v },
+                            { blockid: "Horde_Block_Weather", location: v },
                             { callback: function(r) { $("weathercontent' . $this->_params['instance'] . '").update(r); $("' . $indicator . '").toggle(); } }
                         );
                         this.value = false;
