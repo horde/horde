@@ -12,7 +12,7 @@
  */
 
 /**
- * Provides method to parse PGP armored text data.
+ * Provides methods to parse PGP armored text data.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde

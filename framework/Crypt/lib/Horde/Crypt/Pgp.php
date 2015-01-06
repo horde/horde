@@ -1089,10 +1089,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * <pre>
      * Parameters:
      * ===========
-     * 'type'        =>  'message' (REQUIRED)
-     * 'pubkey'      =>  PGP public key. (REQUIRED for asymmetric encryption)
-     * 'privkey'     =>  PGP private key. (REQUIRED for asymmetric encryption)
-     * 'passphrase'  =>  Passphrase for PGP Key. (REQUIRED)
+     * 'type'          => 'message' (REQUIRED)
+     * 'pubkey'        => PGP public key. (REQUIRED for asymmetric encryption)
+     * 'privkey'       => PGP private key. (REQUIRED for asymmetric encryption)
+     * 'passphrase'    => Passphrase for PGP Key. (REQUIRED, see no_passphrase)
+     * 'no_passphrase' => Passphrase is not required.
      * </pre>
      *
      * @return stdClass  An object with the following properties:
