@@ -783,7 +783,6 @@ class Turba_Api extends Horde_Registry_Api
      *                       length.
      *                       DEFAULT: none (No truncation).
      *
-     *
      * @return mixed  The requested data.
      * @throws Turba_Exception
      */

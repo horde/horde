@@ -1,11 +1,25 @@
 <?php
 /**
- * The Turba_Object_Group:: class provides a set of methods for dealing with
- * contact groups.
+ * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jon Parise <jon@csh.rit.edu>
- * @package Turba
+ * See the enclosed file LICENSE for license information (ASL).  If you did
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category  Horde
+ * @copyright 2000-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
+ */
+
+/**
+ * This class provides a set of methods for dealing with contact groups.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@csh.rit.edu>
+ * @category  Horde
+ * @copyright 2000-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Turba
  */
 class Turba_Object_Group extends Turba_Object
 {
