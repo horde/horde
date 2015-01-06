@@ -65,7 +65,11 @@ class Horde_Core_Ui_FlagImage
      */
     public static function getFlagImageObByHost($host)
     {
-        global $conf;
+        global $conf, $injector;
+
+        if (!Horde_Nls::$dnsResolver) {
+            Horde_Nls::$dnsResolver = $injector->getInstance('Net_DNS2_Resolver');
+        }
 
         $data = Horde_Nls::getCountryByHost(
             $host,

@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-03</date>
+ <date>2015-01-06</date>
  <version>
   <release>2.18.2</release>
   <api>2.18.0</api>
@@ -374,12 +374,6 @@
        <file name="Shibboleth.php" role="php" />
        <file name="X509.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
-      <dir name="Autoloader">
-       <dir name="Callback">
-        <file name="Mime.php" role="php" />
-        <file name="Nls.php" role="php" />
-       </dir> <!-- /lib/Horde/Core/Autoloader/Callback -->
-      </dir> <!-- /lib/Horde/Core/Autoloader -->
       <dir name="Block">
        <dir name="Layout">
         <file name="Manager.php" role="php" />
@@ -1792,8 +1786,6 @@
    <install as="Horde/Core/Auth/Signup/Null.php" name="lib/Horde/Core/Auth/Signup/Null.php" />
    <install as="Horde/Core/Auth/Signup/Sql.php" name="lib/Horde/Core/Auth/Signup/Sql.php" />
    <install as="Horde/Core/Auth/Signup/SqlObject.php" name="lib/Horde/Core/Auth/Signup/SqlObject.php" />
-   <install as="Horde/Core/Autoloader/Callback/Mime.php" name="lib/Horde/Core/Autoloader/Callback/Mime.php" />
-   <install as="Horde/Core/Autoloader/Callback/Nls.php" name="lib/Horde/Core/Autoloader/Callback/Nls.php" />
    <install as="Horde/Core/Block/Collection.php" name="lib/Horde/Core/Block/Collection.php" />
    <install as="Horde/Core/Block/Layout.php" name="lib/Horde/Core/Block/Layout.php" />
    <install as="Horde/Core/Block/Upgrade.php" name="lib/Horde/Core/Block/Upgrade.php" />
@@ -3785,7 +3777,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-02</date>
+   <date>2015-01-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

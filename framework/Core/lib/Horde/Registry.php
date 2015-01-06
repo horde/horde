@@ -391,11 +391,6 @@ class Horde_Registry implements Horde_Shutdown_Task
         /* Save arguments. */
         $this->_args = $args;
 
-        /* Define autoloader callbacks. */
-        $callbacks = array(
-            'Horde_Nls' => 'Horde_Core_Autoloader_Callback_Nls',
-        );
-
         /* Define factories. By default, uses the 'create' method in the given
          * classname (string). If other function needed, define as the second
          * element in an array. */
@@ -473,12 +468,8 @@ class Horde_Registry implements Horde_Shutdown_Task
         $GLOBALS['registry'] = $this;
         $injector->setInstance(__CLASS__, $this);
 
-        /* Setup autoloader instance and callbacks.
-         * $__autoloader is defined in horde/lib/core.php */
+        /* Setup autoloader instance. */
         $injector->setInstance('Horde_Autoloader', $GLOBALS['__autoloader']);
-        foreach ($callbacks as $key => $val) {
-            $GLOBALS['__autoloader']->addCallback($key, array($val, 'callback'));
-        }
 
         /* Import and global Horde's configuration values. */
         $this->importConfig('horde');
