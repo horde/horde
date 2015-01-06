@@ -82,8 +82,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             : '';
         $key .= '|' . __FILE__;
 
-        $this->_cachekey = self::PREFIX . '_' .
-            hash(PHP_MINOR_VERSION >= 4 ? 'fnv132' : 'sha1', $key);
+        $this->_cachekey = self::PREFIX . '_' . hash('md5', $key);
         $this->_storage = new Horde_Autoloader_Cache_Bootstrap();
 
         $data = $this->_storage->get($this->_cachekey);
