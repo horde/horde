@@ -1,8 +1,9 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Identity:: factory.
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Core
@@ -12,12 +13,7 @@
  */
 
 /**
- * A Horde_Injector:: based Horde_Identity:: factory.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * A Horde_Injector based Horde_Identity factory.
  *
  * @category Horde
  * @package  Core
@@ -35,7 +31,7 @@ class Horde_Core_Factory_Identity extends Horde_Core_Factory_Base
     private $_instances = array();
 
     /**
-     * Return the Horde_Identity:: instance.
+     * Returns the Horde_Identity instance.
      *
      * @param string $user    The user to use, if not the current user.
      * @param string $driver  The identity driver. Either empty (use default
