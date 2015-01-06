@@ -21,7 +21,6 @@ require_once __DIR__ . '/lib/Application.php';
 
 $vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC,
     'session_control' => ($vars->page == 'compose' ? 'netscape' : null),
     'timezone' => in_array($vars->page, array('compose', 'mailbox', 'message'))
 ));
