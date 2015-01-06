@@ -20,7 +20,6 @@
 require_once __DIR__ . '/lib/Application.php';
 $vars = Horde_Variables::getDefaultVariables();
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_DYNAMIC,
     'timezone' => in_array($vars->page, array('compose'))
 ));
 

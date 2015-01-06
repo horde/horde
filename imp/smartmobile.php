@@ -15,9 +15,7 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_SMARTMOBILE
-));
+Horde_Registry::appInit('imp');
 
 $ob = new IMP_Smartmobile($injector->getInstance('Horde_Variables'));
 

@@ -135,19 +135,6 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    protected function _init()
-    {
-        global $registry;
-
-        if (($registry->initialApp == 'imp') &&
-            !empty($this->initParams['impmode']) &&
-            ($this->initParams['impmode'] != $registry->getView())) {
-            IMP::getInitialPage()->url->redirect();
-        }
-    }
-
-    /**
-     */
     public function logout()
     {
         global $injector;
