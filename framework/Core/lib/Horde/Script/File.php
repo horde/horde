@@ -97,7 +97,7 @@ class Horde_Script_File
 
         case 'hash':
             return hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                'md5',
                 $this->_app . "\0" . $this->_file
             );
 
@@ -158,7 +158,7 @@ class Horde_Script_File
         return empty($GLOBALS['conf']['cachejsparams']['url_version_param'])
             ? $url
             : $url->add('v', hash(
-                  (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                  'md5',
                   $GLOBALS['registry']->getVersion($this->app))
               );
     }

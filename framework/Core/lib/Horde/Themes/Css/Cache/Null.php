@@ -36,7 +36,7 @@ class Horde_Themes_Css_Cache_Null extends Horde_Themes_Css_Cache
             if (!is_null($file['app']) &&
                 !empty($this->_params['url_version_param'])) {
                 $url->add('v', hash(
-                    (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                    'md5',
                     $registry->getVersion($file['app'])
                 ));
             }

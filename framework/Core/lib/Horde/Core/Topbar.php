@@ -284,10 +284,7 @@ class Horde_Core_Topbar
      */
     public function getHash()
     {
-        return hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            serialize($this->getTree())
-        );
+        return hash('md5', serialize($this->getTree()));
     }
 
     /**

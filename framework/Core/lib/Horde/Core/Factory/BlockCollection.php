@@ -54,10 +54,7 @@ class Horde_Core_Factory_BlockCollection extends Horde_Core_Factory_Base
             ? $registry->listApps()
             : array_intersect($registry->listApps(), $apps);
         sort($apps);
-        $sig = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            json_encode(array($apps, $layout))
-        );
+        $sig = hash('md5', json_encode(array($apps, $layout)));
 
         if (!isset($this->_instances[$sig])) {
             $this->_instances[$sig] =

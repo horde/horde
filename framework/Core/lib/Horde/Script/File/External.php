@@ -51,10 +51,7 @@ class Horde_Script_File_External extends Horde_Script_File
     {
         switch ($name) {
         case 'hash':
-            return hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                $this->_url
-            );
+            return hash('md5', $this->_url);
 
         case 'modified':
             return 0;
