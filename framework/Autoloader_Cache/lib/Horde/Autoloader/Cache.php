@@ -118,6 +118,25 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     }
 
     /**
+     */
+    public function loadClass($className)
+    {
+        $exists = isset($this->_cache[$className]);
+
+        if (parent::loadClass($className)) {
+            return true;
+        }
+
+        /* Cache miss. Remove cache entry and try to load again. */
+        if ($exists) {
+            unset($this->_cache[$className]);
+            return parent::loadClass($className);
+        }
+
+        return false;
+    }
+
+    /**
      * Search registered mappers in LIFO order.
      *
      * @param string $className  Classname.
