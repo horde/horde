@@ -53,8 +53,19 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         switch ($this->vars->actionID) {
         case 'add_address':
             try {
-                $contact_link = $injector->getInstance('IMP_Contacts')->addAddress($this->vars->address, $this->vars->name);
-                $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
+                $addr = new Horde_Mail_Rfc822_Address($this->vars->address);
+                $addr->personal = $this->vars->name;
+
+                $contact_link = $injector->getInstance('IMP_Contacts')->addAddress($addr);
+
+                $notification->push(
+                    sprintf(
+                        _("Entry \"%s\" was successfully added to the address book"),
+                        $contact_link
+                    ),
+                    'horde.success',
+                    array('content.raw')
+                );
             } catch (Horde_Exception $e) {
                 $notification->push($e);
             }
