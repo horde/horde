@@ -1124,15 +1124,19 @@ var ImpCompose = {
 
     autocompleteOnEntryClick: function(ob)
     {
-        if (ob.elt.hasClassName('impACGroupExpand')) {
-            ob.ac.getEntryByElt(ob.entry).group.each(function(v) {
-                ob.ac.addNewItems([ new IMP_Autocompleter_Elt(v.v, v.l, v.s) ]);
-            });
-            ob.ac.removeEntry(ob.entry);
-            return true;
+        var entry;
+
+        if (!ob.elt.hasClassName('impACGroupExpand')) {
+            return false;
         }
 
-        return false;
+        entry = ob.ac.getEntryByElt(ob.entry);
+        entry.group.each(function(v) {
+            ob.ac.addNewItems([ new IMP_Autocompleter_Elt(v.v, v.l, v.s) ]);
+        });
+        ob.ac.removeEntry(entry);
+
+        return true;
     },
 
     /* Click observe handler. */
