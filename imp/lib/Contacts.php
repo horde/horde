@@ -86,32 +86,33 @@ class IMP_Contacts implements Serializable
     }
 
     /**
-     * Adds a contact to the user defined address book.
+     * Adds contacts to the user defined address book.
      *
-     * @param string $addr  The contact's email address.
-     * @param string $name  The contact's name.
+     * @param Horde_Mail_Rfc822_Object $addr  Address to add.
      *
      * @return string  A link or message to show in the notification area.
      * @throws Horde_Exception
      */
-    public function addAddress($addr, $name)
+    public function addAddress(Horde_Mail_Rfc822_List $addr)
     {
         global $registry, $prefs;
 
-        if (empty($name)) {
-            $name = $addr;
+        if ($addr instanceof Horde_Mail_Rfc822_Group) {
+            throw new Horde_Exception(
+                _("Adding group lists not currently supported.")
+            );
         }
 
         $result = $registry->call('contacts/import', array(array(
-            'email' => $addr,
-            'name' => $name
+            'email' => $addr->bare_address,
+            'name' => $addr->personal
         ), 'array', $prefs->getValue('add_source')));
 
-        $escapeName = @htmlspecialchars($name, ENT_COMPAT, 'UTF-8');
+        $escapeName = @htmlspecialchars($addr->label, ENT_COMPAT, 'UTF-8');
 
         try {
             if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
-                return Horde::link(Horde::url($contact_link), sprintf(_("Go to address book entry of \"%s\""), $name)) . $escapeName . '</a>';
+                return Horde::link(Horde::url($contact_link)) . $escapeName . '</a>';
             }
         } catch (Horde_Exception $e) {}
 

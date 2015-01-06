@@ -631,24 +631,26 @@ extends Horde_Core_Ajax_Application_Handler
     {
         global $injector, $notification;
 
-        $ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr)->first();
+        $ob = $injector->getInstance('IMP_Dynamic_AddressList')->parseAddressList($this->vars->addr);
+        $result = false;
 
-        // TODO: Currently supports only a single, non-group contact.
-        if (!$ob) {
-            return false;
-        } elseif ($ob instanceof Horde_Mail_Rfc822_Group) {
-            $notification->push(_("Adding group lists not currently supported."), 'horde.warning');
-            return false;
+        foreach ($ob->base_addresses as $val) {
+            try {
+                $injector->getInstance('IMP_Contacts')->addAddress($val);
+                $notification->push(
+                    sprintf(
+                        _("%s was successfully added to your address book."),
+                        $val->label
+                    ),
+                    'horde.success'
+                );
+                $result = true;
+            } catch (Horde_Exception $e) {
+                $notification->push($e);
+            }
         }
 
-        try {
-            $injector->getInstance('IMP_Contacts')->addAddress($ob->bare_address, $ob->personal);
-            $notification->push(sprintf(_("%s was successfully added to your address book."), $ob->label), 'horde.success');
-            return true;
-        } catch (Horde_Exception $e) {
-            $notification->push($e);
-            return false;
-        }
+        return $result;
     }
 
     /**
