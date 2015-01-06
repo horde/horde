@@ -57,6 +57,7 @@ class IMP_Ajax_Addresses
      *   - addr: (array) Array of objects with 2 possible formats:
      *     - Address keys: 'b' (bare address); 'p' (personal part)
      *     - Group keys: 'a' (list of addresses); 'g' (group name)
+     *     - Both: 'v' (full value of address)
      *   - limit: (boolean) True if limit was reached.
      *   - total: (integer) Total address count.
      */
@@ -91,6 +92,8 @@ class IMP_Ajax_Addresses
             } else {
                 $tmp = $this->_addAddress($ob);
             }
+
+            $tmp->v = strval($ob);
 
             $out->addr[] = $tmp;
         }

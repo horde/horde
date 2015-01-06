@@ -426,7 +426,7 @@ var ImpCore = {
             break;
 
         case 'ctx_contacts_copy':
-            window.prompt(this.text.emailcopy, baseelt.retrieve('email').b);
+            window.prompt(this.text.emailcopy, baseelt.retrieve('email').v);
             break;
 
         case 'ctx_contacts_new':
