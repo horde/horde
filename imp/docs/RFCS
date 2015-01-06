@@ -91,6 +91,8 @@ Mail Messages
 :RFC 6533:          Internationalized Delivery Status and Disposition
                     Notifications
 :RFC 6783:          Mailing Lists and Non-ASCII Addresses
+:RFC 6854:          Update to Internet Message Format to Allow Group Syntax in
+                    the "From:" and "Sender:" Header Fields
 
 
 SMTP
