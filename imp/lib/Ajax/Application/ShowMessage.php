@@ -386,6 +386,7 @@ class IMP_Ajax_Application_ShowMessage
      *   - addr: (array) List of addresses/groups.
      *           Group keys: 'a' (list of addresses); 'g' (group name)
      *           Address keys: 'b' (bare address); 'p' (personal part)
+     *           Both: 'v' (full value)
      *   - limit: (integer) If limit was reached, the number of total
      *            addresses.
      *   - raw: (string) A raw string to display instead of addresses.
