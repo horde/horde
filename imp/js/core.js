@@ -447,9 +447,15 @@ var ImpCore = {
             tmp2 = e.element().retrieve('email');
             tmp.hide().childElements().invoke('remove');
 
+            if (!tmp2) {
+                break;
+            }
+
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (tmp2 && !tmp2.g) {
+            if (tmp2.g) {
+                $('ctx_contacts_addfilter').hide();
+            } else {
                 this.doAction('getContactsImage', {
                     addr: tmp2.b
                 }, {
@@ -469,6 +475,8 @@ var ImpCore = {
                         }
                     }
                 });
+
+                $('ctx_contacts_addfilter').show();
 
                 if (tmp2.p) {
                     tmp.show().insert({ top: new Element('DIV', { className: 'sep' }) })
