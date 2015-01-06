@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
@@ -20,7 +20,7 @@
  * @author    Robert E. Coyle <robertecoyle@hotmail.com>
  * @category  Horde
  * @copyright 2001-2002 Robert E. Coyle
- * @copyright 2001-2014 Horde LLC
+ * @copyright 2001-2015 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  * @package   Whups
  */

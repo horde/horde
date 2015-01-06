@@ -3,7 +3,7 @@
  * The Turba_View_Duplicates class provides an interface for displaying and
  * resolving duplicate contacts.
  *
- * Copyright 2010-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.

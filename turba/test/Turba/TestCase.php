@@ -17,7 +17,7 @@ require __DIR__ . '/Stub/Hooks.php';
 /**
  * Basic Turba test case.
  *
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.

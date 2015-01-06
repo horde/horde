@@ -3,7 +3,7 @@
  * Turba_View_StoryList:: A view to handle displaying a list of stories in a
  * channel.
  *
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.

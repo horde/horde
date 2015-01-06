@@ -2,7 +2,7 @@
  * Provides the javascript class for handling tabbed sections in Horde Forms.
  *
  * @author     Marko Djukic <marko@oblo.com>
- * @copyright  2003-2014 Horde LLC
+ * @copyright  2003-2015 Horde LLC
  * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 

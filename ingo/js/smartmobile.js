@@ -2,7 +2,7 @@
  * jQuery Mobile UI Ingo application logic.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    ASL (http://www.horde.org/licenses/apache)
  */
 

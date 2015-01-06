@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2003-2014 Horde LLC (http://www.horde.org)
+ * @copyright 2003-2015 Horde LLC (http://www.horde.org)
  * @license   http://www.horde.org/licenses/gpl GPL
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
@@ -19,7 +19,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2003-2014 Horde LLC (http://www.horde.org)
+ * @copyright 2003-2015 Horde LLC (http://www.horde.org)
  * @license   http://www.horde.org/licenses/gpl GPL
  * @author  Chuck Hagenbuch <chuck@horde.org>
  * @author  Michael J Rubinsky <mrubinsk@horde.org>

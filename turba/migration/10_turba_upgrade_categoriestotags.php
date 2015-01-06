@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2013-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category  Horde
- * @copyright 2013-2014 Horde LLC
+ * @copyright 2013-2015 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */
@@ -17,7 +17,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2013-2014 Horde LLC
+ * @copyright 2013-2015 Horde LLC
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Turba
  */

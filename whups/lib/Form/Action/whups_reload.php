@@ -4,7 +4,7 @@
  * form with the current (not the original) value after the form element
  * that the action is attached to is modified.
  *
- * Copyright 2008-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.

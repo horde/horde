@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.
@@ -20,7 +20,7 @@
  *
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
- * @copyright 2013-2014 Horde LLC
+ * @copyright 2013-2015 Horde LLC
  * @license   http://www.horde.org/licenses/bsdl BSD
  * @package   Whups
  */

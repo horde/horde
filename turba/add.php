@@ -2,7 +2,7 @@
 /**
  * The Turba script to add a new entry into an address book.
  *
- * Copyright 2000-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.

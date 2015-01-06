@@ -2,7 +2,7 @@
  * Advanced search page.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 

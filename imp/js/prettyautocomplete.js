@@ -13,7 +13,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @author     Michael J Rubinsky <mrubinsk@horde.org>
- * @copyright  2008-2014 Horde LLC
+ * @copyright  2008-2015 Horde LLC
  * @license    GPL-2 (http://www.horde.org/licenses/gpl)
  */
 var IMP_PrettyAutocompleter = Class.create({

@@ -1,5 +1,5 @@
 # Jonah 3.1 French Translation.
-# Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2015 Horde LLC (http://www.horde.org/)
 # Eric Rostetter <eric.rostetter@physics.utexas.edu>, 2002.
 #
 msgid ""

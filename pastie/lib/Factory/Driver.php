@@ -2,7 +2,7 @@
 /**
  * Pastie_Factory_Driver:: defines a factory for Pastie storage backends.
  *
- * Copyright 2012-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.

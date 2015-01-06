@@ -125,7 +125,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2008-2014 Horde LLC (http://www.horde.org/)
+ * @copyright  2008-2015 Horde LLC (http://www.horde.org/)
  */
 
 var DragDrop = {

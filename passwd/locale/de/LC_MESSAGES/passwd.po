@@ -1,5 +1,5 @@
 # German translations for Passwd.
-# Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Passwd package.
 # Jens Tkotz <jens.tkotz@f2h9.de>, 2002.
 # Jan Schneider <jan@horde.org>, 2002-2014.

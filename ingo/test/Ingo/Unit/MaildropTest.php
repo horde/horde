@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2014-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @category   Horde
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo
  * @subpackage UnitTests
@@ -18,7 +18,7 @@
  * @author     Jason M. Felice <jason.m.felice@gmail.com>
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/apache ASL
  * @package    Ingo

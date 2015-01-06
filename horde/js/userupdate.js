@@ -2,7 +2,7 @@
  * Provides the javascript for the admin user update page.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    LGPL-2 (http://www.horde.org/licenses/lgpl)
  */
 

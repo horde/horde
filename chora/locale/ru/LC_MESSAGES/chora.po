@@ -1,5 +1,5 @@
 # Chora Russian translation.
-# Copyright 2005-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2005-2015 Horde LLC (http://www.horde.org/)
 # Illya Belov <belov@iop.irkps.ru>, 2005.
 msgid ""
 msgstr ""

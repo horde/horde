@@ -1,5 +1,5 @@
 # Italian translations for Mnemo module.
-# Copyright 2003-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2003-2015 Horde LLC (http://www.horde.org/)
 # Copyright 2003 Sergio G. Caredda.
 # Sergio G. Caredda <scaredda@tiscali.it>, 2003.
 # Copyright 2007 nethesis srl.

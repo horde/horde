@@ -3,7 +3,7 @@
  * Whups_View for displaying a list of tickets.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2015 Horde LLC (http://www.horde.org/)
  *
  * @author  Robert E. Coyle <robertcoyle@hotmail.com>
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>

@@ -1,5 +1,5 @@
 # Bulgarian translations for Imp package.
-# Copyright 2002-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Imp package.
 # Miroslav Pendev <miro@cybershade.us>  and
 # Atanas Stoyanov <chaos@pzonline.net>, 2002.

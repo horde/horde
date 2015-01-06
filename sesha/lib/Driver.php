@@ -3,7 +3,7 @@
  * This is the base Driver class for the Sesha application.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

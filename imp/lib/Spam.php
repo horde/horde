@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2004-2014 Horde LLC
+ * @copyright 2004-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -14,14 +14,14 @@
 /**
  * Handles spam/innocent reporting within IMP.
  *
- * Copyright 2004-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2004-2014 Horde LLC
+ * @copyright 2004-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */

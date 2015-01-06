@@ -1,6 +1,6 @@
 # Polish translations for Gollem package
 # Polskie tlumaczenia dla pakietu Gollem.
-# Copyright 2007-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2007-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Gollem package.
 # Automatically generated, 2007.
 # Krzysztof Kozlowski <kozik1@o2.pl>, 2005.

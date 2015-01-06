@@ -2,7 +2,7 @@
  * Javascript based Twitter client for Horde.
  *
  * @author     Michael J. Rubinsky <mrubinsk@horde.org>
- * @copyright  2014 Horde LLC
+ * @copyright  2014-2015 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl LGPL-2
  */
 

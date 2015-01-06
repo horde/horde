@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2011-2014 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
  * @category  Horde
- * @copyright 2011-2014 Horde LLC
+ * @copyright 2011-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl.php
  * @package   Passwd
  */
@@ -16,7 +16,7 @@
  *
  * @author    Ralf Lang <lang@b1-systems.de>
  * @category  Horde
- * @copyright 2011-2014 Horde LLC
+ * @copyright 2011-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl.php
  * @package   Passwd
  *

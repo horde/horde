@@ -252,7 +252,7 @@ Example for `LGPL`_'ed Horde code::
      * The Horde_Foo class provides an API for various foo
      * techniques that can be used by Horde applications.
      *
-     * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (LGPL-2). If you
      * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -273,7 +273,7 @@ Example for `GPL`_'ed application code::
      * The App_Bar class contains all functions related to handling
      * bars in App.
      *
-     * Copyright 2009-2014 Horde LLC (http://www.horde.org/)
+     * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
      *
      * See the enclosed file COPYING for license information (GPL). If you
      * did not receive this file, see http://www.horde.org/licenses/gpl.

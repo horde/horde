@@ -1,5 +1,5 @@
 # Italian translations for ansel package.
-# Copyright 2008-2014 Horde LLC (http://www.horde.org/)
+# Copyright 2008-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the ansel package.
 # Fabio Pedretti <fabio.pedretti@ing.unibs.it>, 2008.
 #
