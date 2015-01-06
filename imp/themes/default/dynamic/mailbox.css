@@ -413,6 +413,9 @@ div.vpRow div.msgSubject span.flagUser {
 #msgHeadersColl .date {
     margin-left: 5px;
 }
+#msgHeadersColl div.addrgroup-div {
+    padding: 3px 2px;
+}
 #msgHeadersColl .from .horde-button {
     line-height: 16px !important;
     margin: 0;
