@@ -86,7 +86,7 @@ class SM_Horde_Convert
      *                False if there is no horde pref equivalent, or the horde
      *                default should be used.
      */
-    private function _translate($sm_pref_name, $sm_pref_value)
+    protected function _translate($sm_pref_name, $sm_pref_value)
     {
         switch ($sm_pref_name) {
         case 'compose_new_win':
@@ -213,7 +213,7 @@ class SM_Horde_Convert
 
     /**
      */
-    private function _savePrefs($user, $basename, $prefs_cache)
+    protected function _savePrefs($user, $basename, $prefs_cache)
     {
         global $prefs, $registry;
 
@@ -270,7 +270,7 @@ class SM_Horde_Convert
 
     /**
      */
-    private function _getSignature()
+    protected function _getSignature()
     {
         return '';
     }
@@ -280,7 +280,7 @@ class SM_Horde_Convert
 
 class SM_Horde_Convert_File extends SM_Horde_Convert
 {
-    private $_files;
+    protected $_files;
 
     /**
      */
@@ -351,7 +351,7 @@ class SM_Horde_Convert_File extends SM_Horde_Convert
 
     /**
      */
-    private function _getSignature($basename, $number = 'g')
+    protected function _getSignature($basename, $number = 'g')
     {
         $sigfile = $basename . '.si' . $number;
 
@@ -365,8 +365,8 @@ class SM_Horde_Convert_File extends SM_Horde_Convert
 
 class SM_Horde_Convert_Sql extends SM_Horde_Convert
 {
-    private $_cache;
-    private $_db;
+    protected $_cache;
+    protected $_db;
 
     /**
      */
@@ -403,7 +403,7 @@ class SM_Horde_Convert_Sql extends SM_Horde_Convert
 
     /**
      */
-    private function _importPrefs($user, $prefs_cache)
+    protected function _importPrefs($user, $prefs_cache)
     {
         global $cli, $conf, $injector, $registry;
 
@@ -421,7 +421,7 @@ class SM_Horde_Convert_Sql extends SM_Horde_Convert
 
     /**
      */
-    private function _getSignature($basename, $number = 'nature')
+    protected function _getSignature($basename, $number = 'nature')
     {
         $key = '___sig' . $number . '___';
 

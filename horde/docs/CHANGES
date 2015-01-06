@@ -2,6 +2,7 @@
 v5.2.4-git
 ----------
 
+[jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
 [jan] Don't instantiate notification system for RPC requests.
 
 

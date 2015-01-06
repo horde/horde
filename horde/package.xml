@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
 * [jan] Don&apos;t instantiate notification system for RPC requests.
  </notes>
  <contents>
@@ -3999,6 +4000,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
 * [jan] Don&apos;t instantiate notification system for RPC requests.
    </notes>
   </release>
