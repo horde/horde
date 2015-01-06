@@ -712,7 +712,7 @@ implements Serializable, SplObserver
     {
         $additional = array_map('strval', $additional);
         $sig = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            'md5',
             json_encode($additional) . intval(empty($opts['ob_return']))
         );
 
@@ -2536,10 +2536,7 @@ implements Serializable, SplObserver
                         if (!empty($val['cache']) && !empty($val['peek'])) {
                             $cache_array[$k] = $v;
                             ksort($val);
-                            $header_cache[$key] = hash(
-                                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                                serialize($val)
-                            );
+                            $header_cache[$key] = hash('md5', serialize($val));
                         }
                     }
                     break;
@@ -3813,10 +3810,7 @@ implements Serializable, SplObserver
         }
 
         ksort($options);
-        $cache = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            $type . serialize($options)
-        );
+        $cache = hash('md5', $type . serialize($options));
         $cacheid = $this->getSyncToken($this->_selected);
         $ret = array();
 
