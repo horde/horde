@@ -2662,7 +2662,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $conf, $registry;
 
         return hash_hmac(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+            'sha1',
             (is_null($cacheid) ? $this->getCacheId() : $cacheid) . '|' .
                 (is_null($user) ? $registry->getAuth() : $user),
             $conf['secret_key']
