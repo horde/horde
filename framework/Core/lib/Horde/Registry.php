@@ -744,7 +744,7 @@ class Horde_Registry implements Horde_Shutdown_Task
         global $session;
 
         if (!is_null($hash)) {
-            $hash = hash((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1', $hash);
+            $hash = hash('md5', $hash);
             $session->set('horde', self::REGISTRY_CACHE, $hash);
         } elseif (!($hash = $session->get('horde', self::REGISTRY_CACHE))) {
             return false;

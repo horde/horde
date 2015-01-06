@@ -108,10 +108,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             'sizecallback' => !is_null($opts['sizecallback'])
         ));
         ksort($sig_opts);
-        $sig = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            serialize($sig_opts) . '|' . $registry->getAuth()
-        );
+        $sig = hash('md5', serialize($sig_opts) . '|' . $registry->getAuth());
 
         if (isset($this->_instances[$sig])) {
             $this->_instances[$sig]->changeScope($scope);

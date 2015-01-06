@@ -72,10 +72,7 @@ class Horde_Core_Notification_Event_Status extends Horde_Notification_Event_Stat
                     '360' => Horde_Core_Translation::t("6 hours"),
                     '1440' => Horde_Core_Translation::t("1 day")
                 );
-                $id = 'snooze_' . hash(
-                    (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                    $alarm['id']
-                );
+                $id = 'snooze_' . hash('md5', $alarm['id']);
                 $text .= ' <small onmouseover="if(typeof ' . $id . '_t!=\'undefined\')clearTimeout(' . $id . '_t);Element.show(\'' . $id . '\')" onmouseout="' . $id . '_t=setTimeout(function(){Element.hide(\'' . $id . '\')},500)">[' . Horde_Core_Translation::t("Snooze...") . '<span id="' . $id . '" style="display:none"> ';
                 $first = true;
                 foreach ($opts as $minutes => $desc) {
