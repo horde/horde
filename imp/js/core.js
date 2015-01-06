@@ -449,7 +449,7 @@ var ImpCore = {
 
             // Add e-mail info to context menu if personal name is shown on
             // page.
-            if (tmp2) {
+            if (tmp2 && !tmp2.g) {
                 this.doAction('getContactsImage', {
                     addr: tmp2.b
                 }, {
@@ -470,7 +470,7 @@ var ImpCore = {
                     }
                 });
 
-                if (!tmp2.g && tmp2.p) {
+                if (tmp2.p) {
                     tmp.show().insert({ top: new Element('DIV', { className: 'sep' }) })
                         .insert({ top: new Element('DIV', { className: 'contactAddr' }).insert(tmp2.b.escapeHTML()) });
                 }
