@@ -411,6 +411,37 @@ class Turba
     }
 
     /**
+     * Checks the max_contacts permission.
+     *
+     * @param Turba_Driver $driver  The address book to check.
+     * @param boolean $notify       If true, outputs error to notification.
+     *
+     * @return string  Error message if maximum contacts have been reached.
+     *                 False otherwise.
+     */
+    public static function hasMaxContacts(Turba_Driver $driver, $notify = true)
+    {
+        $error = false;
+        $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
+
+        if (($max_contacts !== true) && ($max_contacts <= count($driver))) {
+            $error = sprintf(
+                _("You are not allowed to create more than %d contacts in \"%s\"."),
+                $max_contacts,
+                $driver->title
+            );
+
+            Horde::permissionDeniedError(
+                'turba',
+                'max_contacts',
+                $notify ? $error : null
+            );
+        }
+
+        return $error;
+    }
+
+    /**
      * Filters sources based on permissions.
      *
      * @param array $in            The source list we want filtered.

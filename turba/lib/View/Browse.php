@@ -140,14 +140,7 @@ class Turba_View_Browse
                     break;
                 }
 
-                $max_contacts = Turba::getExtendedPermission($targetDriver, 'max_contacts');
-                if ($max_contacts !== true &&
-                    $max_contacts <= count($targetDriver)) {
-                    Horde::permissionDeniedError(
-                        'turba',
-                        'max_contacts',
-                        sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$targetSource]['title'])
-                    );
+                if (Turba::hasMaxContacts($targetDriver)) {
                     break;
                 }
 

@@ -41,15 +41,7 @@ if ($source) {
     }
 
     if (!is_null($driver)) {
-        /* Check permissions. */
-        $max_contacts = Turba::getExtendedPermission($driver, 'max_contacts');
-        if ($max_contacts !== true &&
-            $max_contacts <= count($driver)) {
-            Horde::permissionDeniedError(
-                'turba',
-                'max_contacts',
-                sprintf(_("You are not allowed to create more than %d contacts in \"%s\"."), $max_contacts, $cfgSources[$source]['title'])
-            );
+        if (Turba::hasMaxContacts($driver)) {
             $url = $url
                 ? Horde::url($url, true)
                 : Horde::url('index.php', true);
