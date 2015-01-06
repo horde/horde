@@ -151,7 +151,7 @@ class IMP_Ajax_Addresses
         $limit = intval($limit);
         $out = array();
 
-        foreach ($alist as $val) {
+        foreach ($alist->base_addresses as $val) {
             $tmp = array('v' => strval($val));
             $l = $val->writeAddress(array('noquote' => true));
             $s = $val->label;
