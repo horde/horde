@@ -901,8 +901,11 @@ var ImpCompose = {
                 var add = [];
                 $(a).setValue('').fire('AutoComplete:reset');
                 r.addr[a].each(function(ob) {
-                    add.push(new IMP_Autocompleter_Elt(ob.v, ob.l, ob.s));
-                });
+                    add.push(this.autocompleteServerSuggestion(
+                        ob,
+                        new IMP_Autocompleter_Elt(ob.v, ob.l, ob.s)
+                    ));
+                }, this);
                 this.updateAddrField(a, add);
             }, this);
         }
@@ -1110,6 +1113,7 @@ var ImpCompose = {
         if (e.g) {
             elt.group = e.g;
         }
+        return elt;
     },
 
     autocompleteOnAdd: function(v)
@@ -1133,7 +1137,7 @@ var ImpCompose = {
         entry = ob.ac.getEntryByElt(ob.entry);
         entry.group.each(function(v) {
             ob.ac.addNewItems([ new IMP_Autocompleter_Elt(v.v, v.l, v.s) ]);
-        });
+        }, this);
         ob.ac.removeEntry(entry);
 
         return true;
