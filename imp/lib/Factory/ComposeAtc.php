@@ -75,10 +75,7 @@ class IMP_Factory_ComposeAtc extends Horde_Core_Factory_Base
             return new $classname($user);
         }
 
-        $sig = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-            implode('|', array($user, $id))
-        );
+        $sig = hash('md5', implode('|', array($user, $id)));
 
         if (!isset($this->_instances[$sig])) {
             $this->_instances[$sig] = new $classname($user, $id);

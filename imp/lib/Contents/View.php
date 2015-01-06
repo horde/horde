@@ -266,18 +266,15 @@ class IMP_Contents_View
             }
 
             /* Cache CSS. */
-            $cache_list = array();
             $cache_ob = $injector->getInstance('Horde_Cache');
 
             $css_list = $page_output->css->getStylesheets();
+            $ctx = hash_init('md5');
             foreach ($css_list as $val) {
-                $cache_list[] = $val['fs'];
-                $cache_list[] = filemtime($val['fs']);
+                hash_update($ctx, $val['fs']);
+                hash_update($ctx, filemtime($val['fs']));
             }
-            $cache_id = 'imp_printcss_' . hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
-                implode('|', $cache_list)
-            );
+            $cache_id = 'imp_printcss_' . hash_final($ctx);
 
             if (($style = $cache_ob->get($cache_id, 0)) === false) {
                 try {
