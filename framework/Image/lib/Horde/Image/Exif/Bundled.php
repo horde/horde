@@ -44,7 +44,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
         // Not really an EXIF property, but an attribute nonetheless...
         // PHP's exif functions return it, so add it here to be consistent.
-        $exif['FileSize'] = @filesize($imageFile);
+        $exif['FileSize'] = @filesize($image);
 
         return $this->_processData($exif);
     }
