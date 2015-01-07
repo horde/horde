@@ -22,12 +22,18 @@ abstract class Horde_Image_Base extends EmptyIterator
     protected $_background = 'white';
 
     /**
+     * Capabilites of this driver.
+     *
+     * @var array
+     */
+    protected $_capabilities = array();
+
+    /**
      * Observers.
      *
      * @var array
      */
     protected $_observers = array();
-
 
     /**
      * The current image data.
