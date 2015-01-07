@@ -24,7 +24,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Remove PHPUnit dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -873,7 +873,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Remove PHPUnit dependency.
    </notes>
   </release>
  </changelog>
