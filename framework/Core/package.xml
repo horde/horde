@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-06</date>
+ <date>2015-01-07</date>
  <version>
   <release>2.18.2</release>
   <api>2.18.0</api>
@@ -372,6 +372,7 @@
        <file name="Ldap.php" role="php" />
        <file name="Msad.php" role="php" />
        <file name="Shibboleth.php" role="php" />
+       <file name="UsernameHook.php" role="php" />
        <file name="X509.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Auth -->
       <dir name="Block">
@@ -403,6 +404,9 @@
        <file name="Ckeditor.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Editor -->
       <dir name="Factory">
+       <dir name="Identity">
+        <file name="UsernameHook.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Factory/Identity -->
        <file name="ActiveSyncBackend.php" role="php" />
        <file name="ActiveSyncServer.php" role="php" />
        <file name="ActiveSyncState.php" role="php" />
@@ -1780,6 +1784,7 @@
    <install as="Horde/Core/Auth/Ldap.php" name="lib/Horde/Core/Auth/Ldap.php" />
    <install as="Horde/Core/Auth/Msad.php" name="lib/Horde/Core/Auth/Msad.php" />
    <install as="Horde/Core/Auth/Shibboleth.php" name="lib/Horde/Core/Auth/Shibboleth.php" />
+   <install as="Horde/Core/Auth/UsernameHook.php" name="lib/Horde/Core/Auth/UsernameHook.php" />
    <install as="Horde/Core/Auth/X509.php" name="lib/Horde/Core/Auth/X509.php" />
    <install as="Horde/Core/Auth/Signup/Base.php" name="lib/Horde/Core/Auth/Signup/Base.php" />
    <install as="Horde/Core/Auth/Signup/Form.php" name="lib/Horde/Core/Auth/Signup/Form.php" />
@@ -1874,6 +1879,7 @@
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
+   <install as="Horde/Core/Factory/Identity/UsernameHook.php" name="lib/Horde/Core/Factory/Identity/UsernameHook.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/HashTable/PersistentSession.php" name="lib/Horde/Core/HashTable/PersistentSession.php" />
    <install as="Horde/Core/HashTable/Vfs.php" name="lib/Horde/Core/HashTable/Vfs.php" />
@@ -3777,7 +3783,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-06</date>
+   <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix updating of location in weather portal block.
