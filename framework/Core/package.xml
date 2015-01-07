@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix user names via DAV access when using authusername hooks.
 * [jan] Fix updating of location in weather portal block.
  </notes>
  <contents>
@@ -3786,6 +3787,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix user names via DAV access when using authusername hooks.
 * [jan] Fix updating of location in weather portal block.
    </notes>
   </release>
