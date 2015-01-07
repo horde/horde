@@ -636,13 +636,14 @@ extends Horde_Core_Ajax_Application_Handler
 
         foreach ($ob->base_addresses as $val) {
             try {
-                $injector->getInstance('IMP_Contacts')->addAddress($val);
+                $res = $injector->getInstance('IMP_Contacts')->addAddress($val);
                 $notification->push(
                     sprintf(
                         _("%s was successfully added to your address book."),
-                        $val->label
+                        $res
                     ),
-                    'horde.success'
+                    'horde.success',
+                    array('content.raw')
                 );
                 $result = true;
             } catch (Horde_Exception $e) {

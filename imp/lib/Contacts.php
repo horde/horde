@@ -90,7 +90,8 @@ class IMP_Contacts implements Serializable
      *
      * @param Horde_Mail_Rfc822_Object $addr  Address to add.
      *
-     * @return string  A link or message to show in the notification area.
+     * @return string  A link or message to show in the notification area
+     *                 (already HTML encoded).
      * @throws Horde_Exception
      */
     public function addAddress(Horde_Mail_Rfc822_List $addr)
