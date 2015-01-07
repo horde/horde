@@ -642,39 +642,19 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function import($content, $contentType = 'array', $source = null)
     {
-        global $cfgSources, $injector, $prefs;
+        global $injector;
 
-        /* Get default address book from user preferences. */
-        if (empty($source) &&
-            !($source = $prefs->getValue('default_dir'))) {
-            // On new installations default_dir is not set. Try default
-            // addressbook if it's editable. Otherwise use first editable
-            // addressbook.
-            $edit_sources = Turba::getAddressBooks(Horde_Perms::EDIT);
-            $default_source = Turba::getDefaultAddressbook();
-            if (isset($edit_sources[$default_source])) {
-                // use default addressbook
-                $source = $default_source;
-            } else {
-                // Use first writable source
-                $source = reset($edit_sources);
-            }
-        }
+        $source = $this->_getSource($source);
 
-        // Check existence of and permissions on the specified source.
-        if (!isset($cfgSources[$source])) {
-            throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $source));
-        }
-
-        $driver = $injector
-            ->getInstance('Turba_Factory_Driver')
+        $driver = $injector->getInstance('Turba_Factory_Driver')
             ->create($source);
-
         if (!$driver->hasPermission(Horde_Perms::EDIT)) {
             throw new Turba_Exception(_("Permission denied"));
         }
 
-        if (!($content instanceof Horde_Icalendar_Vcard)) {
+        if ($content instanceof Horde_Icalendar_Vcard) {
+            $content = $driver->toHash($content);
+        } else {
             switch ($contentType) {
             case 'activesync':
                 $content = $driver->fromASContact($content);
@@ -726,10 +706,6 @@ class Turba_Api extends Horde_Registry_Api
             }
         }
 
-        if ($content instanceof Horde_Icalendar_Vcard) {
-            $content = $driver->toHash($content);
-        }
-
         // Check if the entry already exists in the data source.
         $result = $driver->search($content);
         if (count($result)) {
@@ -738,19 +714,7 @@ class Turba_Api extends Horde_Registry_Api
 
         // We can't use $object->setValue() here since that cannot be used
         // with composite fields.
-        $hooks = $injector->getInstance('Horde_Core_Hooks');
-        if ($hooks->hookExists('encode_attribute', 'turba')) {
-            foreach ($content as $attribute => &$value) {
-                try {
-                    $value = $hooks->callHook(
-                        'encode_attribute',
-                        'turba',
-                        array($attribute, $value, null, null)
-                    );
-                } catch (Turba_Exception $e) {}
-            }
-        }
-        $result = $driver->add($content);
+        $result = $driver->add($this->_encodeContent($content));
 
         return $driver->getObject($result)->getValue('__uid');
     }
@@ -2028,23 +1992,6 @@ class Turba_Api extends Horde_Registry_Api
     }
 
     /**
-     */
-    protected function _getGroupObject($source, $key)
-    {
-        $db = empty($source['params']['sql'])
-            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
-            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
-
-        $sql = 'SELECT ' . $source['map']['__members'] . ' members,'
-            . $source['map']['email'] . ' email,'
-            . $source['map'][$source['list_name_field']]
-            . ' lname FROM ' . $source['params']['table'] . ' WHERE '
-            . $source['map']['__key'] . ' = ' . $db->quoteString($key);
-
-        return array($db, $sql);
-    }
-
-    /**
      * Returns a list of all members belonging to a contact group.
      *
      * @param string $gid         The group identifier
@@ -2314,7 +2261,27 @@ class Turba_Api extends Horde_Registry_Api
         return $return;
     }
 
+    /* Helper methods. */
 
+    /**
+     */
+    protected function _getGroupObject($source, $key)
+    {
+        $db = empty($source['params']['sql'])
+            ? $GLOBALS['injector']->getInstance('Horde_Db_Adapter')
+            : $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('turba', $source['params']['sql']);
+
+        $sql = 'SELECT ' . $source['map']['__members'] . ' members,'
+            . $source['map']['email'] . ' email,'
+            . $source['map'][$source['list_name_field']]
+            . ' lname FROM ' . $source['params']['table'] . ' WHERE '
+            . $source['map']['__key'] . ' = ' . $db->quoteString($key);
+
+        return array($db, $sql);
+    }
+
+    /**
+     */
     protected function _getContactImageUrl($obj)
     {
         if ($photo = $obj->getValue('photo')) {
@@ -2331,6 +2298,64 @@ class Turba_Api extends Horde_Registry_Api
 
             return Horde_Url_Data::create($type, $data);
         }
+    }
+
+    /**
+     */
+    protected function _getSource($source)
+    {
+        global $cfgSources, $injector, $prefs;
+
+        /* Get default address book from user preferences. */
+        if (empty($source) &&
+            !($source = $prefs->getValue('default_dir'))) {
+            // On new installations default_dir is not set. Try default
+            // addressbook if it's editable. Otherwise use first editable
+            // addressbook.
+            $edit_sources = Turba::getAddressBooks(Horde_Perms::EDIT);
+            $default_source = Turba::getDefaultAddressbook();
+            if (isset($edit_sources[$default_source])) {
+                // use default addressbook
+                $source = $default_source;
+            } else {
+                // Use first writable source
+                $source = reset($edit_sources);
+            }
+        }
+
+        // Check existence of and permissions on the specified source.
+        if (!isset($cfgSources[$source])) {
+            throw new Turba_Exception(sprintf(
+                _("Invalid address book: %s"),
+                $source
+            ));
+        }
+
+        return $source;
+    }
+
+    /**
+     */
+    protected function _encodeContent($content)
+    {
+        global $injector;
+
+        $hooks = $injector->getInstance('Horde_Core_Hooks');
+        $out = $content;
+
+        if ($hooks->hookExists('encode_attribute', 'turba')) {
+            foreach ($out as $attr => $val) {
+                try {
+                    $out[$attr] = $hooks->callHook(
+                        'encode_attribute',
+                        'turba',
+                        array($attr, $value, null, null)
+                    );
+                } catch (Turba_Exception $e) {}
+            }
+        }
+
+        return $out;
     }
 
 }
