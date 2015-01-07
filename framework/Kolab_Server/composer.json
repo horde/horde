@@ -12,7 +12,7 @@
         }
     ],
     "version": "2.0.3",
-    "time": "2013-03-05",
+    "time": "2015-01-07",
     "repositories": [
         {
             "type": "pear",
@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "ext-hash": "*"
@@ -28,8 +28,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Date": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Ldap": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.phpunit.de/PHPUnit_Story": "*",
+        "pear-pear.horde.org/Horde_Test": ">=2.4.0@stable,<=3.0.0alpha1@stable",
         "ext-ldap": "*"
     }
 }
