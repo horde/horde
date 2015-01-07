@@ -106,7 +106,7 @@ class Foo implements SplObserver
         if ($subject instanceof Horde_Imap_Client_Base_Alerts) {
             // This is where your code processes the alert.
             $alert = $subject->getLast();
-            
+
             // Alert text: $alert->alert
             // Alert type (optional): $alert->type
         }
@@ -247,7 +247,7 @@ $mailbox = new Horde_Imap_Client_Mailbox('MailboxName');
 try {
     // Subscribe
     $client->subscribeMailbox($mailbox, true);
-    
+
     // Unsubscribe
     $client->subscribeMailbox($mailbox, false);
 } catch (Horde_Imap_Client_Exception $e) {
