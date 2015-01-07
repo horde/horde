@@ -62,8 +62,8 @@ class Horde_Idna
     {
         if (!isset(self::$_backend)) {
             if (extension_loaded('mbstring')) {
-                if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-                    require_once __DIR__ . '/vendor/autoload.php';
+                if (file_exists(__DIR__ . '/Idna/vendor/autoload.php')) {
+                    require_once __DIR__ . '/Idna/vendor/autoload.php';
                 } else {
                     require_once __DIR__ . '/../../bundle/vendor/autoload.php';
                 }

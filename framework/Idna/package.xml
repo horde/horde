@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix install paths.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -109,21 +109,21 @@
  </dependencies>
  <phprelease>
   <filelist>
-   <install as="vendor/autoload.php" name="bundle/vendor/autoload.php" />
-   <install as="vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
-   <install as="vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
-   <install as="vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
-   <install as="vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
-   <install as="vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
-   <install as="vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
-   <install as="vendor/true/punycode/.gitignore" name="bundle/vendor/true/punycode/.gitignore" />
-   <install as="vendor/true/punycode/.travis.yml" name="bundle/vendor/true/punycode/.travis.yml" />
-   <install as="vendor/true/punycode/CHANGELOG.md" name="bundle/vendor/true/punycode/CHANGELOG.md" />
-   <install as="vendor/true/punycode/LICENSE" name="bundle/vendor/true/punycode/LICENSE" />
-   <install as="vendor/true/punycode/phpunit.xml.dist" name="bundle/vendor/true/punycode/phpunit.xml.dist" />
-   <install as="vendor/true/punycode/README.md" name="bundle/vendor/true/punycode/README.md" />
-   <install as="vendor/true/punycode/src/Punycode.php" name="bundle/vendor/true/punycode/src/Punycode.php" />
-   <install as="vendor/true/punycode/tests/PunycodeTest.php" name="bundle/vendor/true/punycode/tests/PunycodeTest.php" />
+   <install as="Horde/Idna/vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="Horde/Idna/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Idna/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="Horde/Idna/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="Horde/Idna/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Idna/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="Horde/Idna/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Idna/vendor/true/punycode/.gitignore" name="bundle/vendor/true/punycode/.gitignore" />
+   <install as="Horde/Idna/vendor/true/punycode/.travis.yml" name="bundle/vendor/true/punycode/.travis.yml" />
+   <install as="Horde/Idna/vendor/true/punycode/CHANGELOG.md" name="bundle/vendor/true/punycode/CHANGELOG.md" />
+   <install as="Horde/Idna/vendor/true/punycode/LICENSE" name="bundle/vendor/true/punycode/LICENSE" />
+   <install as="Horde/Idna/vendor/true/punycode/phpunit.xml.dist" name="bundle/vendor/true/punycode/phpunit.xml.dist" />
+   <install as="Horde/Idna/vendor/true/punycode/README.md" name="bundle/vendor/true/punycode/README.md" />
+   <install as="Horde/Idna/vendor/true/punycode/src/Punycode.php" name="bundle/vendor/true/punycode/src/Punycode.php" />
+   <install as="Horde/Idna/vendor/true/punycode/tests/PunycodeTest.php" name="bundle/vendor/true/punycode/tests/PunycodeTest.php" />
    <install as="COPYING" name="doc/Horde/Idna/COPYING" />
    <install as="Horde/Idna.php" name="lib/Horde/Idna.php" />
    <install as="Horde/Idna/Exception.php" name="lib/Horde/Idna/Exception.php" />
@@ -155,7 +155,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix install paths.
    </notes>
   </release>
  </changelog>
