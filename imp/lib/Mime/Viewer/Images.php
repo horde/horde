@@ -58,6 +58,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
+     *   - imp_img_base64: (boolean) Return data in base64.
      *   - imp_img_view: (string) One of the following:
      *     - data: Output the image directly.
      *     - view_convert: Convert the image to browser-viewable format and
@@ -68,11 +69,12 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _render()
     {
-        switch ($GLOBALS['injector']->getInstance('Horde_Variables')->imp_img_view) {
+        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
+
+        switch ($vars->imp_img_view) {
         case 'data':
-            /* If calling page is asking us to output data, do that without
-             * any further delay and exit. */
-            return parent::_render();
+            /* Request is asking us to output data. */
+            return $this->_renderImgData($vars->imp_img_base64);
 
         case 'view_convert':
             /* Convert image to browser-viewable format and display. */
@@ -86,7 +88,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             break;
         }
 
-        return parent::_render();
+        return $this->_renderImgData();
     }
 
     /**
@@ -96,12 +98,16 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderInline()
     {
+        global $browser, $injector, $page_output;
+
+        $type = $this->_getType();
+
         /* Only display the image inline if the browser can display it and the
          * size of the image is below the config value. */
-        if ($GLOBALS['browser']->isViewable($this->_getType())) {
+        if ($browser->isViewable($type)) {
             if (!isset($this->_conf['inlinesize']) ||
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
-                $showimg = $GLOBALS['injector']->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
+                $showimg = $injector->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
                 $showimg = false;
             }
@@ -110,13 +116,32 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 return $this->_renderInfo();
             }
 
+            $part_data = array(
+                'type' => 'text/html; charset=' . $this->getConfigParam('charset')
+            );
+
+            /* Load JPEGs via javascript to allow for rotation. */
+            if ($type === 'image/jpeg') {
+                $page_output->addScriptFile('external/base64.js');
+                $page_output->addScriptFile('external/load-image.all.min.js');
+                $uid = strval(new Horde_Support_Randomid());
+
+                $part_data['data'] = '<div id="' . $uid . '">' . _("Loading...") . '</div>';
+                $part_data['metadata'] = array(
+                    array(
+                        'image',
+                        $uid,
+                        strval($this->_imgDataUrl())
+                    )
+                );
+            } else {
+                $part_data['data'] = $this->_outputImgTag('data', $this->_mimepart->getName(true));
+            }
+
             /* Viewing inline, and the browser can handle the image type
              * directly. So output an <img> tag to load the image. */
             return array(
-                $this->_mimepart->getMimeId() => array(
-                    'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
-                    'type' => 'text/html; charset=' . $this->getConfigParam('charset')
-                )
+                $this->_mimepart->getMimeId() => $part_data
             );
         }
 
@@ -130,7 +155,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         /* See if we can convert to an inline browser viewable form. */
         $img = $this->_getHordeImageOb(false);
         if ($img &&
-            $GLOBALS['browser']->isViewable($img->getContentType())) {
+            $browser->isViewable($img->getContentType())) {
             $status->addText(
                 $this->getConfigParam('imp_contents')->linkViewJS(
                     $this->_mimepart,
@@ -190,7 +215,27 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderRaw()
     {
-        return parent::_render();
+        return $this->_renderImgData();
+    }
+
+    /**
+     */
+    protected function _renderImgData($base64 = null)
+    {
+        $data = $this->_mimepart->getContents(array('stream' => true));
+        if ($base64) {
+            stream_filter_append(
+                $data,
+                'convert.base64-encode',
+                STREAM_FILTER_READ
+            );
+        }
+        return array(
+            $this->_mimepart->getMimeId() => array(
+                'data' => $data,
+                'type' => $this->_getType()
+            )
+        );
     }
 
     /**
@@ -273,13 +318,27 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $src = Horde_Url_Data::create($thumb['type'], $thumb['data']);
                 break;
             }
+            // Fall-through
 
         default:
-            $src = $this->getConfigParam('imp_contents')->urlView($this->_mimepart, 'view_attach', array('params' => array('imp_img_view' => $type)));
+            $src = $this->_imgDataUrl();
             break;
         }
 
         return '<img src="' . $src . '" alt="' . htmlspecialchars($alt, ENT_COMPAT, $this->getConfigParam('charset')) . '" />';
+    }
+
+    /**
+     */
+    protected function _imgDataUrl()
+    {
+        return $this->getConfigParam('imp_contents')->urlView(
+            $this->_mimepart,
+            'view_attach',
+            array(
+                'params' => array('imp_img_view' => 'data')
+            )
+        );
     }
 
 }

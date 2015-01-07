@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Automatically try to rotate embedded inline images when displaying a
+      message.
 [mms] Add ability to add email groups to the address book.
 [mms] Improved contacts loading - all contacts are never shown by default, but
       provide simple method for user to load all contacts.

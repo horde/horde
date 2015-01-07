@@ -193,8 +193,41 @@ var ImpCore = {
             case 'html':
                 IMP_JS.iframeInject(a[1], a[2]);
                 break;
+
+            case 'image':
+                new Ajax.Request(a[2], {
+                    method: 'get',
+                    onFailure: function(r) {
+                        loadImage(a[2], function(img) {
+                            $(a[1]).replace(img);
+                        });
+                    },
+                    onSuccess: function(r) {
+                        var blob, i,
+                            d = Base64.atob(r.responseText),
+                            b = new Uint8Array(d.length);
+                        for (i = 0; i < d.length; ++i) {
+                            b[i] = d.charCodeAt(i);
+                        }
+                        blob = new Blob(
+                            [ b ],
+                            { type: r.getResponseHeader('content-type') }
+                        );
+                        loadImage.parseMetaData(blob, function(data) {
+                            loadImage(blob, function(img) {
+                                $(a[1]).replace(img);
+                            }, {
+                                orientation: (data.exif && data.exif.get('Orientation')) || 1
+                            });
+                        });
+                    },
+                    parameters: {
+                        imp_img_base64: 1
+                    }
+                });
+                break;
             }
-        });
+        }, this);
     },
 
     updateAtcList: function(atc)
