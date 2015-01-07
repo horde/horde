@@ -24,6 +24,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Improve PSR-2 compatibility.
 * [jan] Remove PHPUnit dependency.
  </notes>
  <contents>
@@ -873,6 +874,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Improve PSR-2 compatibility.
 * [jan] Remove PHPUnit dependency.
    </notes>
   </release>
