@@ -639,7 +639,7 @@ extends Horde_Core_Ajax_Application_Handler
                 $res = $injector->getInstance('IMP_Contacts')->addAddress($val);
                 $notification->push(
                     sprintf(
-                        _("%s was successfully added to your address book."),
+                        htmlspecialchars(_("%s was successfully added to your address book.")),
                         $res
                     ),
                     'horde.success',
