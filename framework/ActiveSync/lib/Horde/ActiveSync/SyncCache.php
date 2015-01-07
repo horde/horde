@@ -437,7 +437,7 @@ class Horde_ActiveSync_SyncCache
      */
     public function removeCollection($id, $purge = true)
     {
-        if (!$purge) {
+        if ($purge) {
             $this->_logger->info(sprintf(
                 '[%s] Removing collection %s from SyncCache.',
                 $this->_procid, $id)
