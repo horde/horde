@@ -58,6 +58,9 @@ class IMP_Script_Package_Editor extends Horde_Script_Package
             /* Don't load the config.js file. */
             'customConfig: ""',
 
+            /* Remove elementspath to provide more space. */
+            'removePlugins: "elementspath"',
+
             /* Disable resize of the textarea. */
             'resize_enabled: false',
 
