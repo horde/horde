@@ -186,8 +186,13 @@ var ImpCompose = {
                 this.rte_sig.setData($F('signature'));
             } else {
                 config = Object.clone(IMP.ckeditor_config);
-                config.removePlugins = 'toolbar,elementspath';
-                config.contentsCss = [ CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css' ];
+                config.removePlugins = (config.removePlugins || '')
+                    .split(',')
+                    .concat('toolbar', 'elementspath')
+                    .join(',');
+                config.contentsCss = [ config.contentsCss]
+                    .concat(CKEDITOR.basePath + 'contents.css', CKEDITOR.basePath + 'nomargin.css')
+                    .flatten();
                 config.height = ($('signatureBorder') ? $('signatureBorder') : $('signature')).getLayout().get('height');
                 this.rte_sig = new IMP_Editor('signature', config);
             }
