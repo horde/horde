@@ -58,16 +58,11 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      * Return the full rendered version of the Horde_Mime_Part object.
      *
      * URL parameters used by this function:
-     * <pre>
      *   - imp_img_view: (string) One of the following:
      *     - data: Output the image directly.
-     *     - data_rotate_90: Output the image after rotating 90 degrees.
-     *     - data_rotate_180: Output the image after rotating 180 degrees.
-     *     - data_rotate_270: Output the image after rotating 180 degrees.
      *     - view_convert: Convert the image to browser-viewable format and
      *                     display.
      *     - view_thumbnail: Create thumbnail and display.
-     * </pre>
      *
      * @return array  See parent::render().
      */
@@ -78,15 +73,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
             /* If calling page is asking us to output data, do that without
              * any further delay and exit. */
             return parent::_render();
-
-        case 'data_rotate_90':
-            return $this->_viewRotate(90);
-
-        case 'data_rotate_180':
-            return $this->_viewRotate(180);
-
-        case 'data_rotate_270':
-            return $this->_viewRotate(270);
 
         case 'view_convert':
             /* Convert image to browser-viewable format and display. */
@@ -110,16 +96,12 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderInline()
     {
-        global $browser, $injector;
-
-        $type = $this->_getType();
-
         /* Only display the image inline if the browser can display it and the
          * size of the image is below the config value. */
-        if ($browser->isViewable($type)) {
+        if ($GLOBALS['browser']->isViewable($this->_getType())) {
             if (!isset($this->_conf['inlinesize']) ||
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
-                $showimg = $injector->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
+                $showimg = $GLOBALS['injector']->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
                 $showimg = false;
             }
@@ -128,36 +110,11 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 return $this->_renderInfo();
             }
 
-            $img_type = 'data';
-
-            if ($type == 'image/jpeg') {
-                $exif = new Horde_Image_Exif_Bundled();
-                $exif_data = $exif->getData($this->_mimepart->getContents(array(
-                    'stream' => true
-                )));
-
-                if (isset($exif_data['Orientation'])) {
-                    switch (intval($exif_data['Orientation'])) {
-                    case 3:
-                        $img_type = 'data_rotate_180' . $orientation;
-                        break;
-
-                    case 6:
-                        $img_type = 'data_rotate_90' . $orientation;
-                        break;
-
-                    case 8:
-                        $img_type = 'data_rotate_270' . $orientation;
-                        break;
-                    }
-                }
-            }
-
             /* Viewing inline, and the browser can handle the image type
              * directly. So output an <img> tag to load the image. */
             return array(
                 $this->_mimepart->getMimeId() => array(
-                    'data' => $this->_outputImgTag($img_type, $this->_mimepart->getName(true)),
+                    'data' => $this->_outputImgTag('data', $this->_mimepart->getName(true)),
                     'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                 )
             );
@@ -173,7 +130,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         /* See if we can convert to an inline browser viewable form. */
         $img = $this->_getHordeImageOb(false);
         if ($img &&
-            $browser->isViewable($img->getContentType())) {
+            $GLOBALS['browser']->isViewable($img->getContentType())) {
             $status->addText(
                 $this->getConfigParam('imp_contents')->linkViewJS(
                     $this->_mimepart,
@@ -272,40 +229,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'type' => $type
             )
         );
-    }
-
-    /**
-     * Rotate image.
-     *
-     * @param integer $degrees  The number of degrees to rotate.
-     *
-     * @return string  The image data.
-     */
-    protected function _viewRotate($degrees)
-    {
-        global $injector;
-
-        /* No need to do image load check previously ... if we can't rotate we
-         * silently output as-is. */
-        try {
-            $img = $injector->getInstance('Horde_Core_Factory_Image')->create();
-            if ($img->hasCapability('rotate')) {
-                $type = $this->_mimepart->getType();
-
-                $img->setType($type);
-                $img->loadString($this->_mimepart->getContents());
-                $img->rotate($degrees);
-
-                return array(
-                    $this->_mimepart->getMimeId() => array(
-                        'data' => $img->raw(),
-                        'type' => $type
-                    )
-                );
-            }
-        } catch (Horde_Exception $e) {}
-
-        return parent::_render();
     }
 
     /**
