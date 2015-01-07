@@ -727,7 +727,7 @@ class Nag
             }
             $url = Horde::url($url, true, -1)
                 . ($tasklist->get('owner')
-                   ? $tasklist->get('owner')
+                   ? $registry->convertUsername($tasklist->get('owner'), false)
                    : '-system-')
                 . '/' . $tasklist->getName() . '.ics';
             break;
@@ -739,7 +739,7 @@ class Nag
                 $url .= '/rpc.php/calendars/';
             }
             $url = Horde::url($url, true, -1)
-                . $registry->getAuth()
+                . $registry->convertUsername($registry->getAuth(), false)
                 . '/'
                 . $injector->getInstance('Horde_Dav_Storage')
                     ->getExternalCollectionId($tasklist->getName(), 'tasks')
@@ -753,7 +753,7 @@ class Nag
                 $url .= '/rpc.php/';
             }
             $url = Horde::url($url, true, -1)
-                . 'principals/'. $registry->getAuth() . '/';
+                . 'principals/' . $registry->convertUsername($registry->getAuth(), false) . '/';
             break;
         }
 

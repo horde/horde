@@ -264,32 +264,32 @@ class Nag_Api extends Horde_Registry_Api
             $tasklists = Nag::listTasklists(false, Horde_Perms::READ);
             $owners = array();
             foreach ($tasklists as $tasklist) {
-                $owners[$tasklist->get('owner') ? $tasklist->get('owner') : '-system-'] = true;
+                $owners[$tasklist->get('owner') ? $registry->convertUsername($tasklist->get('owner'), false) : '-system-'] = $tasklist->get('owner') ?: '-system-';
             }
 
             $results = array();
-            foreach (array_keys($owners) as $owner) {
+            foreach ($owners as $externalOwner => $internalOwner) {
                 if (in_array('name', $properties)) {
-                    $results['nag/' . $owner]['name'] = $injector
+                    $results['nag/' . $externalOwner]['name'] = $injector
                         ->getInstance('Horde_Core_Factory_Identity')
-                        ->create($owner)
+                        ->create($internalOwner)
                         ->getName();
                 }
                 if (in_array('icon', $properties)) {
-                    $results['nag/' . $owner]['icon'] = Horde_Themes::img('user.png');
+                    $results['nag/' . $externalOwner]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results['nag/' . $owner]['browseable'] = true;
+                    $results['nag/' . $externalOwner]['browseable'] = true;
                 }
                 if (in_array('read-only', $properties)) {
-                    $results['nag/' . $owner]['read-only'] = true;
+                    $results['nag/' . $externalOwner]['read-only'] = true;
                 }
             }
             return $results;
 
         } elseif (count($parts) == 1) {
             // This request is for all tasklists owned by the requested user
-            $owner = $parts[0] == '-system-' ? '' : $parts[0];
+            $owner = $parts[0] == '-system-' ? '' : $registry->convertUsername($parts[0], true);
             $tasklists = $nag_shares->listShares(
                 $currentUser,
                 array('perm' => Horde_Perms::SHOW,
@@ -310,8 +310,7 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['displayname'] = Nag::getLabel($tasklist) . '.ics';
                 }
                 if (in_array('owner', $properties)) {
-                    $results[$retpath]['owner'] = $tasklist->get('owner') ?: '-system-';
-                    $results[$retpath . '.ics']['owner'] = $tasklist->get('owner') ?: '-system-';
+                    $results[$retpath]['owner'] = $results[$retpath . '.ics']['owner'] = $tasklist->get('owner') ? $registry->convertUsername($tasklist->get('owner'), false) : '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('nag.png');
@@ -368,6 +367,9 @@ class Nag_Api extends Horde_Registry_Api
                  throw new Nag_Exception($e->getMessage, 500);
             }
             $icon = Horde_Themes::img('nag.png');
+            $owner = $tasklist->get('owner')
+                ? $registry->convertUsername($tasklist->get('owner'), false)
+                : '-system-';
             $results = array();
             $storage->tasks->reset();
             while ($task = $storage->tasks->each()) {
@@ -376,7 +378,7 @@ class Nag_Api extends Horde_Registry_Api
                     $results[$key]['name'] = $task->name;
                 }
                 if (in_array('owner', $properties)) {
-                    $results[$key]['owner'] = $tasklist->get('owner') ?: '-system-';
+                    $results[$key]['owner'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
                     $results[$key]['icon'] = $icon;

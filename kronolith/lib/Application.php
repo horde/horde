@@ -670,18 +670,18 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function davGetCollections($user)
     {
-        $opts = array('perm' => Horde_Perms::SHOW);
-        $shares = $GLOBALS['injector']
-            ->getInstance('Kronolith_Shares')
-            ->listShares($user, $opts);
-        $dav = $GLOBALS['injector']
-            ->getInstance('Horde_Dav_Storage');
+        global $calendar_manager, $injector, $registry;
+
+        $hordeUser = $registry->convertUsername($user, true);
+        $shares = $injector->getInstance('Kronolith_Shares')
+            ->listShares($hordeUser);
+        $dav = $injector->getInstance('Horde_Dav_Storage');
         $calendars = array();
         foreach ($shares as $id => $share) {
             if ($user == '-system-' && $share->get('owner')) {
                 continue;
             }
-            $calendar = $GLOBALS['calendar_manager']
+            $calendar = $calendar_manager
                 ->getEntry(Kronolith::ALL_CALENDARS, $id)
                 ->toHash();
             try {
@@ -695,14 +695,18 @@ class Kronolith_Application extends Horde_Registry_Application
                     $calendar['caldav'],
                 'principaluri' => 'principals/' . $user,
                 '{http://sabredav.org/ns}owner-principal' =>
-                    'principals/' . ($share->get('owner') ?: '-system-'),
+                    'principals/'
+                        . ($share->get('owner')
+                           ? $registry->convertUsername($share->get('owner'), false)
+                           : '-system-'
+                        ),
                 '{DAV:}displayname' => Kronolith::getLabel($share),
                 '{' . CalDAV\Plugin::NS_CALDAV . '}calendar-description' =>
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $share->get('color') . 'ff',
                 '{' . CalDAV\Plugin::NS_CALDAV . '}supported-calendar-component-set' => new CalDAV\Property\SupportedCalendarComponentSet(array('VEVENT')),
-                '{http://sabredav.org/ns}read-only' => !$share->hasPermission($user, Horde_Perms::EDIT),
+                '{http://sabredav.org/ns}read-only' => !$share->hasPermission($hordeUser, Horde_Perms::EDIT),
             );
         }
         return $calendars;

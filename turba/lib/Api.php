@@ -205,30 +205,30 @@ class Turba_Api extends Horde_Registry_Api
              * book sources that are shared among all users.  Per-user shares
              * are shown in a folder for each respective user. */
             $owners = array(
-                'global' => true
+                'global' => _("Global Address Books")
             );
 
             foreach (Turba::listShares() as $share) {
-                $owners[$share->get('owner') ? $share->get('owner') : '-system-'] = true;
+                $owners[$share->get('owner') ? $registry->convertUsername($share->get('owner'), false) : '-system-'] = $share->get('owner') ?: '-system-';
             }
 
             $now = time();
 
-            foreach (array_keys($owners) as $owner) {
+            foreach ($owners as $externalOwner => $internalOwner) {
                 if (in_array('name', $properties)) {
-                    $results['turba/' . $owner]['name'] = $injector
+                    $results['turba/' . $externalOwner]['name'] = $injector
                         ->getInstance('Horde_Core_Factory_Identity')
-                        ->create($owner)
+                        ->create($internalOwner)
                         ->getName();
                 }
                 if (in_array('icon', $properties)) {
-                    $results['turba/' . $owner]['icon'] = Horde_Themes::img('turba.png');
+                    $results['turba/' . $externalOwner]['icon'] = Horde_Themes::img('turba.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results['turba/' . $owner]['browseable'] = true;
+                    $results['turba/' . $externalOwner]['browseable'] = true;
                 }
                 if (in_array('read-only', $properties)) {
-                    $results['turba/' . $owner]['read-only'] = true;
+                    $results['turba/' . $externalOwner]['read-only'] = true;
                 }
             }
 
@@ -265,13 +265,13 @@ class Turba_Api extends Horde_Registry_Api
                     ->listShares(
                         $registry->getAuth(),
                         array(
-                            'attributes' => $parts[0],
+                            'attributes' => $registry->convertUsername($parts[0], true),
                             'perm' => Horde_Perms::READ
                         )
                     );
             }
 
-            $curpath = 'turba/' . $parts[0] . '/';
+            $curpath = 'turba/' . $registry->convertUsername($parts[0], true) . '/';
 
             foreach ($addressbooks as $addressbook => $info) {
                 $label = ($info instanceof Horde_Share_Object)
@@ -286,7 +286,7 @@ class Turba_Api extends Horde_Registry_Api
                 }
                 if (in_array('owner', $properties)) {
                     $results[$curpath . $addressbook]['owner'] = ($info instanceof Horde_Share_Object)
-                        ? $info->get('owner')
+                        ? $registry->convertUsername($info->get('owner'), false)
                         : '-system-';
                 }
                 if (in_array('icon', $properties)) {
@@ -321,11 +321,11 @@ class Turba_Api extends Horde_Registry_Api
 
             $addressbook = $injector->getInstance('Turba_Factory_Driver')
                 ->create($parts[1]);
-            $owner = $addressbook->getContactOwner();
+            $owner = $registry->convertUsername($addressbook->getContactOwner(), false);
             $contacts = $addressbook->search(array());
             $contacts->reset();
 
-            $curpath = 'turba/' . $parts[0] . '/' . $parts[1] . '/';
+            $curpath = 'turba/' . $registry->convertUsername($parts[0], false) . '/' . $parts[1] . '/';
 
             while ($contact = $contacts->next()) {
                 $key = $curpath . $contact->getValue('__key');

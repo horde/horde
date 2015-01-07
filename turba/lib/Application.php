@@ -676,27 +676,41 @@ class Turba_Application extends Horde_Registry_Application
     {
         global $injector, $registry;
 
+        $hordeUser = $registry->convertUsername($user, true);
         $dav = $injector->getInstance('Horde_Dav_Storage');
         $factory = $injector->getInstance('Turba_Shares');
         $books = array();
         foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $book) {
+            $readOnly = false;
+            switch ($book['type']) {
             // Ugly hack! There is currently no clean way to retrieve address
             // books that the user "owns", or to find out if a SQL/LDAP/Kolab
             // address book contains per-user or global contacts.
-            if ($book['type'] == 'share') {
+            case 'share':
                 $share = $factory->getShare($id);
                 if (($user == '-system-' && strlen($share->get('owner'))) ||
                     ($user != '-system-' &&
-                     $user != $share->get('owner') &&
-                     $user != $registry->getAuth())) {
+                     $hordeUser != $share->get('owner') &&
+                     $hordeUser != $registry->getAuth())) {
                     continue;
                 }
-            }
-            if ($user == '-system-' &&
-                ($book['type'] == 'facebook' ||
-                 $book['type'] == 'favourites' ||
-                 $book['type'] == 'vbook')) {
-                continue;
+                $readOnly = !$share->hasPermission($hordeUser, Horde_Perms::EDIT);
+                break;
+
+            case 'facebook':
+            case 'favourites':
+            case 'vbook':
+                if ($user == '-system-') {
+                    continue;
+                }
+                $readOnly = true;
+                break;
+
+            default:
+                if (!Turba::permissionsFilter(array($id => $book), Horde_Perms::EDIT)) {
+                    $readOnly = true;
+                }
+                break;
             }
             try {
                 $id = $dav->getExternalCollectionId($id, 'contacts') ?: $id;
@@ -724,6 +738,7 @@ class Turba_Application extends Horde_Registry_Application
                             ),
                         )
                     ),
+                '{http://sabredav.org/ns}read-only' => $readOnly
             );
         }
         return $books;

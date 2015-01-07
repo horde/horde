@@ -82,7 +82,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
             $results = array();
             foreach (array_keys($owners) as $owner) {
-                $path = 'kronolith/' . $owner;
+                $path = 'kronolith/' . $registry->convertUsername($owner, false);
                 if (in_array('name', $properties)) {
                     $results[$path]['name'] = $injector
                         ->getInstance('Horde_Core_Factory_Identity')
@@ -100,7 +100,7 @@ class Kronolith_Api extends Horde_Registry_Api
 
         } elseif (count($parts) == 1) {
             // This request is for all calendars owned by the requested user
-            $owner = $parts[0] == '-system-' ? '' : $parts[0];
+            $owner = $parts[0] == '-system-' ? '' : $registry->convertUsername($parts[0], true);
             $calendars = $injector->getInstance('Kronolith_Shares')
                 ->listShares(
                     $currentUser,
@@ -122,7 +122,9 @@ class Kronolith_Api extends Horde_Registry_Api
                     $results[$retpath . '.ics']['displayname'] = Kronolith::getLabel($calendar) . '.ics';
                 }
                 if (in_array('owner', $properties)) {
-                    $results[$retpath]['owner'] = $results[$retpath . '.ics']['owner'] = $calendar->get('owner') ?: '-system-';
+                    $results[$retpath]['owner'] = $results[$retpath . '.ics']['owner'] = $calendar->get('owner')
+                        ? $registry->convertUsername($calendar->get('owner'), false)
+                        : '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('kronolith.png');
@@ -157,12 +159,18 @@ class Kronolith_Api extends Horde_Registry_Api
             $kronolith_driver = Kronolith::getDriver(null, $parts[1]);
             $events = $kronolith_driver->listEvents();
             $icon = Horde_Themes::img('mime/icalendar.png');
+            $owner = $calendar->get('owner')
+                ? $registry->convertUsername($calendar->get('owner'), false)
+                : '-system-';
             $results = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
                     $key = 'kronolith/' . $path . '/' . $event->id;
                     if (in_array('name', $properties)) {
                         $results[$key]['name'] = $event->getTitle();
+                    }
+                    if (in_array('owner', $properties)) {
+                        $results[$key]['owner'] = $owner;
                     }
                     if (in_array('icon', $properties)) {
                         $results[$key]['icon'] = $icon;

@@ -26,11 +26,13 @@ class Turba_Form_EditAddressBook extends Horde_Form
 
     public function __construct($vars, Horde_Share_Object $addressbook)
     {
+        global $conf, $injector, $registry;
+
         $this->_addressbook = $addressbook;
 
-        $owner = $addressbook->get('owner') == $GLOBALS['registry']->getAuth() ||
+        $owner = $addressbook->get('owner') == $registry->getAuth() ||
             (is_null($addressbook->get('owner')) &&
-             $GLOBALS['registry']->isAdmin());
+             $registry->isAdmin());
 
         parent::__construct(
             $vars,
@@ -44,7 +46,7 @@ class Turba_Form_EditAddressBook extends Horde_Form
 
         if (!$owner) {
             $v = $this->addVariable(_("Owner"), 'owner', 'text', false);
-            $owner_name = $GLOBALS['injector']
+            $owner_name = $injector
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create($addressbook->get('owner'))
                 ->getValue('fullname');
@@ -57,9 +59,9 @@ class Turba_Form_EditAddressBook extends Horde_Form
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
 
         /* Subscription URLs. */
-        $url = $GLOBALS['registry']->get('webroot', 'horde');
-        if (isset($GLOBALS['conf']['urls']['pretty']) &&
-            $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
+        $url = $registry->get('webroot', 'horde');
+        if (isset($conf['urls']['pretty']) &&
+            $conf['urls']['pretty'] == 'rewrite') {
             $webdavUrl = $url . '/rpc/turba/';
             $carddavUrl = $url . '/rpc/addressbooks/';
             $accountUrl = $url . '/rpc/';
@@ -70,12 +72,17 @@ class Turba_Form_EditAddressBook extends Horde_Form
         }
         try {
             $accountUrl = Horde::url($accountUrl, true, -1)
-                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+                . 'principals/'
+                . $registry->convertUsername($registry->getAuth(), false) . '/';
             if ($addressbook->get('owner')) {
                 $carddavUrl = Horde::url($carddavUrl, true, -1)
-                    . $GLOBALS['registry']->getAuth()
+                    . $registry->convertUsername($registry->getAuth(), false)
                     . '/'
-                    . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($addressbook->getName(), 'contacts')
+                    . $injector->getInstance('Horde_Dav_Storage')
+                        ->getExternalCollectionId(
+                            $addressbook->getName(),
+                            'contacts'
+                        )
                     . '/';
                 $this->addVariable(
                      _("CardDAV Subscription URL"), '', 'link', false, false, null,
@@ -100,7 +107,7 @@ class Turba_Form_EditAddressBook extends Horde_Form
         }
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($addressbook->get('owner')
-               ? $addressbook->get('owner')
+               ? $registry->convertUsername($addressbook->get('owner'), false)
                : '-system-')
             . '/' . $addressbook->getName() . '/';
         $this->addVariable(
@@ -114,8 +121,8 @@ class Turba_Form_EditAddressBook extends Horde_Form
         );
 
         /* Permissions link. */
-        if (empty($GLOBALS['conf']['share']['no_sharing']) && $owner) {
-            $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde')
+        if (empty($conf['share']['no_sharing']) && $owner) {
+            $url = Horde::url($registry->get('webroot', 'horde')
                               . '/services/shares/edit.php')
                 ->add(array('app' => 'turba', 'share' => $addressbook->getName()));
             $this->addVariable(
