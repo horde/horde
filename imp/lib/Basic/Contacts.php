@@ -93,6 +93,11 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
         $page_output->addInlineJsVars(array_filter(array(
             'ImpContacts.initial' => $initial,
             'ImpContacts.text' => array(
+                'rcpt' => array(
+                    'to' => _("To"),
+                    'cc' => _("Cc"),
+                    'bcc' => _("Bcc")
+                ),
                 'closed' => _("The message being composed has been closed."),
                 'load_all' => _("Load All Contacts"),
                 'search' => _("Search"),

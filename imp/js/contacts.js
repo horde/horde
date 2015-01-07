@@ -33,12 +33,12 @@ var ImpContacts = {
                     new Element('OPTION', { value: s })
                         .store('header', f)
                         .insert(
-                            new Element('EM').insert(f + ': ')
+                            new Element('EM').insert(this.text.rcpt[f] + ': ')
                         )
                         .insert(s.escapeHTML())
                 );
             }
-        });
+        }, this);
 
         $('selected_addresses').appendChild(df);
     },
