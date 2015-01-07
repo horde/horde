@@ -844,6 +844,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             !$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($collection);
+
+            return false;
         }
 
         return true;
