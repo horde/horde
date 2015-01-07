@@ -183,6 +183,11 @@ class Horde_ActiveSync_Rfc822
             $headers->addUserAgentHeader();
             $updated = true;
         }
+        if (!$headers->getValue('Date')) {
+            $d = new Horde_Date();
+            $headers->addHeader('Date', $d->format(DateTime::RFC822));
+            $updated = true;
+        }
         if ($updated) {
             $this->_header_text = $headers->toString(array('charset' => 'UTF-8'));
         }
