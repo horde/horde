@@ -714,9 +714,85 @@ class Turba_Api extends Horde_Registry_Api
 
         // We can't use $object->setValue() here since that cannot be used
         // with composite fields.
-        $result = $driver->add($this->_encodeContent($content));
+        return $driver->getObject(
+            $driver->add($this->_encodeContent($content))
+        )->getValue('__uid');
+    }
 
-        return $driver->getObject($result)->getValue('__uid');
+    /**
+     * Adds a group (and its members) to the source provided.
+     *
+     * @param string $name    Group name.
+     * @param array $members  An array of members to add to the group. Format
+     *                        is the same as the 'array' argument to the
+     *                        import() API function.
+     * @param array $opts     Additional options:
+     * <pre>
+     *   - attr: (array) Additional attributes to add to group.
+     *   - source: (string) Source to import contacts to.
+     * </pre>
+     *
+     * @return array  An array with the following keys:
+     * <pre>
+     *   - added: (integer) The number of addresses added to the group.
+     *   - uid: (string) The uid of the group object.
+     * </pre>
+     *
+     * @throws Turba_Exception
+     */
+    public function addGroup($name, $members, array $opts = array())
+    {
+        global $injector;
+
+        $source = $this->_getSource(
+            isset($opts['source']) ? $opts['source'] : null
+        );
+
+        $driver = $injector->getInstance('Turba_Factory_Driver')
+            ->create($source);
+        if (!$driver->hasPermission(Horde_Perms::EDIT)) {
+            throw new Turba_Exception(_("Permission denied"));
+        }
+
+        $group_add = array();
+
+        foreach ($members as $val) {
+            $ob = null;
+            $result = $driver->search($val);
+
+            if (count($result)) {
+                $ob = $result->reset();
+            } else {
+                try {
+                    $ob = $driver->getObject(
+                        $driver->add($this->_encodeContent($val))
+                    );
+                } catch (Exception $e) {}
+            }
+
+            if ($ob) {
+                $group_add[] = array(
+                    $source,
+                    $ob->getValue('__key')
+                );
+            }
+        }
+
+        $res = Turba_Object_Group::createGroup(
+            $source,
+            $group_add,
+            array(
+                'attr' => array_merge(
+                    isset($opts['attr']) ? $opts['attr'] : array(),
+                    array('name' => $name)
+                )
+            )
+        );
+
+        return array(
+            'added' => $res->success,
+            'uid' => $res->group->getValue('__uid')
+        );
     }
 
     /**

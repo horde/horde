@@ -42,6 +42,18 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Turba from 4.2 to 4.3
+===============================
+
+API Changes
+-----------
+
+  - addGroup
+
+    This API method has been added.
+
+
+
 Upgrading Turba from 4.1 to 4.2
 ===============================
 

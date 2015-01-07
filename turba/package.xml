@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.
 * [jan] Return ETags with browse() API method.
 * [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
@@ -1953,6 +1954,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.
 * [jan] Return ETags with browse() API method.
 * [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request #11889).
