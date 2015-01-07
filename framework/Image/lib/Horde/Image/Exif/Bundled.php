@@ -29,6 +29,9 @@
  */
 class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 {
+    /**
+     * @param mixed $image  Filename -or- an open PHP stream (@since 2.2.0).
+     */
     public function getData($image)
     {
         $raw = $this->_readData($image);
@@ -44,22 +47,38 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
         // Not really an EXIF property, but an attribute nonetheless...
         // PHP's exif functions return it, so add it here to be consistent.
-        $exif['FileSize'] = @filesize($image);
+        if (is_resource($image)) {
+            fseek($image, SEEK_END);
+            $exif['FileSize'] = ftell($image);
+        } else {
+            $exif['FileSize'] = @filesize($image);
+        }
 
         return $this->_processData($exif);
     }
 
     /**
      *
-     * @param $path
+     * @param mixed $path  Filename -or- an open PHP stream.
      *
      * @return array
      */
     protected function _readData($path)
     {
         // There may be an elegant way to do this with one file handle.
-        $in = @fopen($path, 'rb');
-        $seek = @fopen($path, 'rb');
+        if (is_resource($path)) {
+            $in = $path;
+            rewind($in);
+            $seek = fopen('php://temp/', 'r+');
+            while (!feof($in)) {
+                fwrite($seek, fread($in, 65536));
+            }
+            rewind($in);
+        } else {
+            $in = @fopen($path, 'rb');
+            $seek = @fopen($path, 'rb');
+        }
+
         $globalOffset = 0;
         $result = array('Errors' => 0);
 
@@ -76,7 +95,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $result['ValidJpeg'] = 1;
         } else {
             $result['ValidJpeg'] = 0;
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -150,7 +171,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         if ($data != 'ffe1') {
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -194,7 +217,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // Check for extremely large values here
         if (hexdec($offset) > 100000) {
             $result['ValidEXIFData'] = 0;
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -235,7 +260,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // Check for SubIFD
         if (!isset($result['IFD0']['ExifOffset']) ||
             $result['IFD0']['ExifOffset'] == 0) {
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -273,7 +300,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 
         // Check for IFD1
         if (!isset($result['IFD1Offset']) || $result['IFD1Offset'] == 0) {
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -319,7 +348,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // Check for Interoperability IFD
         if (!isset($result['SubIFD']['ExifInteroperabilityOffset']) ||
             $result['SubIFD']['ExifInteroperabilityOffset'] == 0) {
-            fclose($in);
+            if (!is_resource($path)) {
+                fclose($in);
+            }
             fclose($seek);
             return $result;
         }
@@ -350,7 +381,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Illegal size for InteroperabilityIFD");
         }
 
-        fclose($in);
+        if (!is_resource($path)) {
+            fclose($in);
+        }
         fclose($seek);
         return $result;
     }
