@@ -86,34 +86,68 @@ class IMP_Contacts implements Serializable
     }
 
     /**
-     * Adds contacts to the user defined address book.
+     * Adds e-mail address to the user defined address book.
      *
-     * @param Horde_Mail_Rfc822_Object $addr  Address to add.
+     * @param Horde_Mail_Rfc822_Object $addr  Address or group to add.
      *
      * @return string  A link or message to show in the notification area
      *                 (already HTML encoded).
      * @throws Horde_Exception
      */
-    public function addAddress(Horde_Mail_Rfc822_List $addr)
+    public function addAddress(Horde_Mail_Rfc822_Object $addr)
     {
         global $registry, $prefs;
 
+        $source = $prefs->getValue('add_source');
+
         if ($addr instanceof Horde_Mail_Rfc822_Group) {
-            throw new Horde_Exception(
-                _("Adding group lists not currently supported.")
+            $members = array();
+            foreach ($addr->addresses as $val) {
+                $members[] = array(
+                    'email' => $val->bare_address,
+                    'name' => $val->label
+                );
+            }
+
+            $result = $registry->call(
+                'contacts/addGroup',
+                array(
+                    $addr->groupname,
+                    $members,
+                    array(
+                        'source' => $source
+                    )
+                )
+            );
+            $uid = $result['uid'];
+        } else {
+            $uid = $registry->call(
+                'contacts/import',
+                array(
+                    array(
+                        'email' => $addr->bare_address,
+                        'name' => $addr->label
+                    ),
+                    'array',
+                    $source
+                )
             );
         }
-
-        $result = $registry->call('contacts/import', array(array(
-            'email' => $addr->bare_address,
-            'name' => $addr->personal
-        ), 'array', $prefs->getValue('add_source')));
 
         $escapeName = @htmlspecialchars($addr->label, ENT_COMPAT, 'UTF-8');
 
         try {
-            if ($contact_link = $registry->link('contacts/show', array('uid' => $result, 'source' => $prefs->getValue('add_source')))) {
-                return Horde::link(Horde::url($contact_link)) . $escapeName . '</a>';
+            $contact_link = $registry->link(
+                'contacts/show',
+                array(
+                    'uid' => $uid,
+                    'source' => $source
+                )
+            );
+
+            if ($contact_link) {
+                return Horde::link(Horde::url($contact_link))
+                    . $escapeName . '</a>';
             }
         } catch (Horde_Exception $e) {}
 
