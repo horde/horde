@@ -543,7 +543,7 @@ var ImpCore = {
         }
 
         /* Set popup height. */
-        HordeCore.conf.popup_height = screen.availHeight - 50 -
+        HordeCore.conf.popup_height = screen.availHeight - 25 -
             ((window.outerHeight && window.innerHeight) ? (window.outerHeight - window.innerHeight) : 150);
     }
 
