@@ -81,6 +81,9 @@ $mime_drivers = array(
         /* Display images inline that are less than this size (in bytes). */
         'inlinesize' => 262144,
 
+        /* Auto-rotate inline images? */
+        'rotate_inline' => true,
+
         /* Display image thumbnails? */
         'thumbnails' => true,
 

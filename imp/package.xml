@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Automatically try to rotate embedded inline images when displaying a message.
 * [mms] Add ability to add email groups to the address book.
 * [mms] Improved contacts loading - all contacts are never shown by default, but provide simple method for user to load all contacts.
 * [mms] Add dynamically updating relative time display for messages in dynamic view.
@@ -1278,7 +1279,7 @@
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
