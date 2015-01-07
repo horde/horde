@@ -88,11 +88,13 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
         case 'view_thumbnail':
             /* Create thumbnail and display. */
-            return $this->_viewConvert(true);
-
-        default:
-            return parent::_render();
+            if ($this->getConfigParam('thumbnails')) {
+                return $this->_viewConvert(true);
+            }
+            break;
         }
+
+        return parent::_render();
     }
 
     /**
@@ -165,7 +167,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     protected function _renderInfo()
     {
         /* Check to see if convert utility is available. */
-        if (!$this->_getHordeImageOb(false)) {
+        if (!$this->getConfigParam('thumbnails') ||
+            !$this->_getHordeImageOb(false)) {
             return array();
         }
 
@@ -247,10 +250,6 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _getHordeImageOb($load)
     {
-        if (!$this->getConfigParam('thumbnails')) {
-            return false;
-        }
-
         try {
             if (($img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create()) && $load) {
                 $img->loadString($this->_mimepart->getContents());
