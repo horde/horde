@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix updating of location in weather portal block.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3780,7 +3780,7 @@
    <date>2015-01-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix updating of location in weather portal block.
    </notes>
   </release>
  </changelog>
