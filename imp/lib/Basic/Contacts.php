@@ -107,6 +107,11 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
         $page_output->addScriptFile('contacts.js');
         $page_output->addInlineJsVars(array(
             'ImpContacts.text' => array(
+                'rcpt' => array(
+                    'to' => _("To"),
+                    'cc' => _("Cc"),
+                    'bcc' => _("Bcc")
+                ),
                 'closed' => _("The message being composed has been closed."),
                 'select' => _("You must select an address first.")
             )

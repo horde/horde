@@ -51,7 +51,7 @@ var ImpContacts = {
                     if (!$A(d).any(function(j) {
                         return this.sameOption(f, i, j);
                     }, this)) {
-                        option = f + ': ' + i.value;
+                        option = this.text.rcpt[f] + ': ' + i.value;
                         d[l++] = new Option(option, option);
                     }
                 }
