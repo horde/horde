@@ -24,11 +24,13 @@ class Kronolith_Form_EditCalendar extends Horde_Form
 
     public function __construct($vars, $calendar)
     {
+        global $conf, $injector, $registry;
+
         $this->_calendar = $calendar;
 
-        $owner = $calendar->get('owner') == $GLOBALS['registry']->getAuth() ||
+        $owner = $calendar->get('owner') == $registry->getAuth() ||
             (is_null($calendar->get('owner')) &&
-             $GLOBALS['registry']->isAdmin());
+             $registry->isAdmin());
 
         parent::__construct(
             $vars,
@@ -42,7 +44,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
 
         if (!$owner) {
             $v = $this->addVariable(_("Owner"), 'owner', 'text', false);
-            $owner_name = $GLOBALS['injector']
+            $owner_name = $injector
                 ->getInstance('Horde_Core_Factory_Identity')
                 ->create($calendar->get('owner'))
                 ->getValue('fullname');
@@ -53,7 +55,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         }
 
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
-        if ($GLOBALS['registry']->isAdmin()) {
+        if ($registry->isAdmin()) {
             $this->addVariable(_("System Calendar"), 'system', 'boolean', false, false, _("System calendars don't have an owner. Only administrators can change the calendar settings and permissions."));
         }
         $this->addVariable(_("Description"), 'description', 'longtext', false, false, null, array(4, 60));
@@ -73,9 +75,9 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         );
 
         /* Subscription URLs. */
-        $url = $GLOBALS['registry']->get('webroot', 'horde');
-        if (isset($GLOBALS['conf']['urls']['pretty']) &&
-            $GLOBALS['conf']['urls']['pretty'] == 'rewrite') {
+        $url = $registry->get('webroot', 'horde');
+        if (isset($conf['urls']['pretty']) &&
+            $conf['urls']['pretty'] == 'rewrite') {
             $webdavUrl = $url . '/rpc/kronolith/';
             $caldavUrl = $url . '/rpc/calendars/';
             $accountUrl = $url . '/rpc/';
@@ -86,11 +88,11 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         }
         try {
             $accountUrl = Horde::url($accountUrl, true, -1)
-                . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+                . 'principals/' . $registry->convertUsername($registry->getAuth(), false) . '/';
             $caldavUrl = Horde::url($caldavUrl, true, -1)
-                . $GLOBALS['registry']->getAuth()
+                . $registry->convertUsername($registry->getAuth(), false)
                     . '/'
-                . $GLOBALS['injector']->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
+                . $injector->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
                 . '/';
             $this->addVariable(
                  _("CalDAV Subscription URL"), '', 'link', false, false, null,
@@ -114,7 +116,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         }
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($calendar->get('owner')
-               ? $calendar->get('owner')
+               ? $registry->convertUsername($calendar->get('owner'), false)
                : '-system-')
             . '/' . $calendar->getName() . '.ics';
         $this->addVariable(
@@ -148,7 +150,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         $v->setDefault(Kronolith::embedCode($calendar->getName()));
 
         /* Permissions link. */
-        if (empty($GLOBALS['conf']['share']['no_sharing']) && $owner) {
+        if (empty($conf['share']['no_sharing']) && $owner) {
             $url = Horde::url('perms.php')->add('share', $calendar->getName());
             $this->addVariable(
                  '', '', 'link', false, false, null,

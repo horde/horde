@@ -152,7 +152,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
                 true,
                 -1
             )
-                . $registry->getAuth() . '/'
+                . $registry->convertUsername($registry->getAuth(), false) . '/'
                 . $injector->getInstance('Horde_Dav_Storage')
                     ->getExternalCollectionId($id, 'calendar')
                 . '/';
@@ -166,7 +166,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
             true,
             -1
         )
-            . ($this->owner() ? $this->owner() : '-system-') . '/'
+            . ($this->owner() ? $registry->convertUsername($this->owner(), false) : '-system-') . '/'
             . $id . '.ics';
         $hash['feed']  = (string)Kronolith::feedUrl($id);
         $hash['embed'] = Kronolith::embedCode($id);

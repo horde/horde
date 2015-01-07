@@ -32,7 +32,7 @@ if (isset($GLOBALS['conf']['urls']['pretty']) &&
     $accountUrl .= '/rpc.php/';
 }
 $accountUrl = Horde::url($accountUrl, true, -1)
-    . 'principals/'. $GLOBALS['registry']->getAuth() . '/';
+    . 'principals/'. $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false) . '/';
 
 ?>
 <div id="kronolithCalendarDialog" class="kronolithDialog">

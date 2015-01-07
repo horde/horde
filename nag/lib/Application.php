@@ -440,11 +440,11 @@ class Nag_Application extends Horde_Registry_Application
      */
     public function davGetCollections($user)
     {
-        $opts = array('perm' => Horde_Perms::SHOW);
-        $shares = $GLOBALS['nag_shares']
-            ->listShares($user, $opts);
-        $dav = $GLOBALS['injector']
-            ->getInstance('Horde_Dav_Storage');
+        global $injector, $nag_shares, $registry;
+
+        $hordeUser = $registry->convertUsername($user, true);
+        $shares = $nag_shares->listShares($hordeUser);
+        $dav = $injector->getInstance('Horde_Dav_Storage');
         $tasklists = array();
         foreach ($shares as $id => $share) {
             if ($user == '-system-' && $share->get('owner')) {
@@ -461,14 +461,18 @@ class Nag_Application extends Horde_Registry_Application
                     Nag::getUrl(Nag::DAV_CALDAV, $share),
                 'principaluri' => 'principals/' . $user,
                 '{http://sabredav.org/ns}owner-principal' =>
-                    'principals/' . ($share->get('owner') ?: '-system-'),
+                    'principals/'
+                        . ($share->get('owner')
+                           ? $registry->convertUsername($share->get('owner'), false)
+                           : '-system-'
+                        ),
                 '{DAV:}displayname' => Nag::getLabel($share),
                 '{urn:ietf:params:xml:ns:caldav}calendar-description' =>
                     $share->get('desc'),
                 '{http://apple.com/ns/ical/}calendar-color' =>
                     $share->get('color'),
                 '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set' => new Sabre\CalDAV\Property\SupportedCalendarComponentSet(array('VTODO')),
-                '{http://sabredav.org/ns}read-only' => !$share->hasPermission($user, Horde_Perms::EDIT),
+                '{http://sabredav.org/ns}read-only' => !$share->hasPermission($hordeUser, Horde_Perms::EDIT),
             );
         }
         return $tasklists;

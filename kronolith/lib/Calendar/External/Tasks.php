@@ -71,7 +71,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
                 true,
                 -1
             )
-                . $registry->getAuth() . '/'
+                . $registry->convertUsername($registry->getAuth(), false) . '/'
                 . $injector->getInstance('Horde_Dav_Storage')
                     ->getExternalCollectionId($this->_share->getName(), 'tasks')
                 . '/';
@@ -86,7 +86,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
             -1
         )
             . ($this->_share->get('owner')
-                ? $this->_share->get('owner')
+                ? $registry->convertUsername($this->_share->get('owner'), false)
                 : '-system-')
             . '/'
             . $this->_share->getName() . '.ics';
