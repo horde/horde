@@ -14,7 +14,7 @@
  </lead>
  <date>2015-01-07</date>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Improve PSR-2 compatibility.
-* [jan] Remove PHPUnit dependency.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -875,6 +874,19 @@
    <notes>
 * [jan] Improve PSR-2 compatibility.
 * [jan] Remove PHPUnit dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
