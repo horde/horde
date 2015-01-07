@@ -185,7 +185,7 @@ class Horde_ActiveSync_Rfc822
         }
         if (!$headers->getValue('Date')) {
             $d = new Horde_Date();
-            $headers->addHeader('Date', $d->format(DateTime::RFC822));
+            $headers->addHeaderOb(Horde_Mime_Headers_Date::create());
             $updated = true;
         }
         if ($updated) {
