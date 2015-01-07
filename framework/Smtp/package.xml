@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-23</date>
+ <date>2015-01-07</date>
  <version>
   <release>1.8.0</release>
   <api>1.8.0</api>
@@ -36,6 +36,9 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Smtp">
+      <dir name="Exception">
+       <file name="Recipients.php" role="php" />
+      </dir> <!-- /lib/Horde/Smtp/Exception -->
       <dir name="Filter">
        <file name="Body.php" role="php" />
        <file name="Data.php" role="php" />
@@ -179,6 +182,7 @@
    <install as="Horde/Smtp/Lmtp.php" name="lib/Horde/Smtp/Lmtp.php" />
    <install as="Horde/Smtp/Password.php" name="lib/Horde/Smtp/Password.php" />
    <install as="Horde/Smtp/Translation.php" name="lib/Horde/Smtp/Translation.php" />
+   <install as="Horde/Smtp/Exception/Recipients.php" name="lib/Horde/Smtp/Exception/Recipients.php" />
    <install as="Horde/Smtp/Filter/Body.php" name="lib/Horde/Smtp/Filter/Body.php" />
    <install as="Horde/Smtp/Filter/Data.php" name="lib/Horde/Smtp/Filter/Data.php" />
    <install as="Horde/Smtp/Password/Xoauth2.php" name="lib/Horde/Smtp/Password/Xoauth2.php" />
@@ -462,7 +466,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-22</date>
+   <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Failed recipients can now be determined via the Horde_Smtp_Exception_Recipients exception thrown when calling Horde_Smtp#send().
