@@ -1927,6 +1927,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             } elseif ($tmp = $h['from']) {
                 $addr['to']->add($tmp->getAddressList());
             }
+        } elseif ($type === self::REPLY_ALL) {
+            $force = isset($h['reply-to']);
         }
 
         /* We might need $list_info in the reply_all section. */
