@@ -451,6 +451,14 @@ var ImpBase = {
                 escapeAttr = function(s) {
                     return s.escapeHTML().replace(/"/g, '&quot;');
                 };
+                highlight = function(s) {
+                    return this.isQSearch()
+                        ? s.gsub(
+                              new RegExp("(" + RegExp.escape($F('horde-search-input').escapeHTML()) + ")", "i"),
+                              '<span class="qsearchMatch">#{1}</span>'
+                          )
+                        : s;
+                }.bind(this);
                 r.status = r.subjectdata = '';
 
                 // Add thread graphics
@@ -507,30 +515,30 @@ var ImpBase = {
                             break;
                         }
                     } else if (!Object.isUndefined(r[h])) {
-                        highlight = false;
-
                         switch (h) {
                         case 'from':
                             var links = [],
                                 title = [];
 
                             r.from.each(function(f) {
+                                var display = (f.p || f.b).escapeHTML();
+
+                                switch (ImpCore.getPref('qsearch_field')) {
+                                case 'all':
+                                case 'from':
+                                case 'recip':
+                                    display = highlight(display);
+                                    break;
+                                }
+
                                 links.push(
-                                    '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + (f.p || f.b).escapeHTML() + '</a>'
+                                    '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + display + '</a>'
                                 );
                                 title.push(escapeAttr(f.b));
                             });
 
                             r.from = links.join(', ');
                             r.fromtitle = title.join(', ');
-
-                            switch (ImpCore.getPref('qsearch_field')) {
-                            case 'all':
-                            case 'from':
-                            case 'recip':
-                                highlight = true;
-                                break;
-                            }
                             break;
 
                         case 'subject':
@@ -540,7 +548,7 @@ var ImpBase = {
                             switch (ImpCore.getPref('qsearch_field')) {
                             case 'all':
                             case 'subject':
-                                highlight = true;
+                                r.subject = highlight(r.subject);
                                 break;
                             }
                             break;
@@ -548,13 +556,6 @@ var ImpBase = {
                         default:
                             r[h] = r[h].escapeHTML();
                             break;
-                        }
-
-                        if (highlight && this.isQSearch()) {
-                            r[h] = r[h].gsub(
-                                new RegExp("(" + RegExp.escape($F('horde-search-input').escapeHTML()) + ")", "i"),
-                                '<span class="qsearchMatch">#{1}</span>'
-                            );
                         }
                     }
                 }, this);
