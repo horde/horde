@@ -2507,7 +2507,8 @@ var ImpBase = {
 
     onDragMouseUp: function(e)
     {
-        var elt = e.element(),
+        var d,
+            elt = e.element(),
             id = elt.identify();
 
         if (elt.hasClassName('vpRow')) {
