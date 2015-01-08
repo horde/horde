@@ -11,7 +11,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-21</date>
+ <date>2015-01-08</date>
  <version>
   <release>2.0.6</release>
   <api>1.0.0</api>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support loading translations from Composer-installed package.
+* [jan] Add Composer definition.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -809,10 +810,11 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support loading translations from Composer-installed package.
+* [jan] Add Composer definition.
    </notes>
   </release>
  </changelog>
