@@ -30,7 +30,7 @@
  </developer>
  <date>2015-01-08</date>
  <version>
-  <release>2.18.2</release>
+  <release>2.18.3</release>
   <api>2.18.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix missing Date and From headers when saving sent mail from broken HTC clients (Bug #13784).
-* [jan] Fix user names via DAV access when using authusername hooks.
-* [jan] Fix updating of location in weather portal block.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3791,6 +3789,19 @@
 * [mjr] Fix missing Date and From headers when saving sent mail from broken HTC clients (Bug #13784).
 * [jan] Fix user names via DAV access when using authusername hooks.
 * [jan] Fix updating of location in weather portal block.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.18.3</release>
+    <api>2.18.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
