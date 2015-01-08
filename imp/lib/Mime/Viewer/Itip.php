@@ -118,16 +118,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         $out = array();
+        $exceptions = array();
         $components = $vCal->getComponents();
         foreach ($components as $key => $component) {
             switch ($component->getType()) {
             case 'vEvent':
                 try {
                     if ($component->getAttribute('RECURRENCE-ID')) {
-                        break;
+                        $exceptions[] = $this->_vEvent($component, $key, $method, $components);
                     }
-                } catch (Horde_ICalendar_Exception $e) {}
-                $out[] = $this->_vEvent($component, $key, $method, $components);
+                } catch (Horde_ICalendar_Exception $e) {
+                    $out[] = $this->_vEvent($component, $key, $method, $components);
+                }
                 break;
 
             case 'vTodo':
@@ -147,6 +149,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $out[] = sprintf(_("Unhandled component of type: %s"), $component->getType());
                 break;
             }
+        }
+
+        // If we don't have any other parts, any exceptions should be shown
+        // since this is likely an update to a series instance such as a
+        // cancellation etc...
+        if (empty($out)) {
+            $out = $exceptions;
         }
 
         $view = $this->_getViewOb();
