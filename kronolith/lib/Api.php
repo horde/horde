@@ -283,7 +283,11 @@ class Kronolith_Api extends Horde_Registry_Api
         // Store all currently existings UIDs. Use this info to delete UIDs not
         // present in $content after processing.
         $ids = array();
-        $uids_remove = array_flip($this->listUids($calendar));
+        if (count($parts) == 2) {
+            $uids_remove = array_flip($this->listUids($calendar));
+        } else {
+            $uids_remove = array();
+        }
 
         switch ($content_type) {
         case 'text/calendar':
@@ -298,53 +302,61 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
             $kronolith_driver = Kronolith::getDriver();
+            $kronolith_driver->open($parts[1]);
+            $history = $GLOBALS['injector']->getInstance('Horde_History');
             foreach ($iCal->getComponents() as $content) {
                 if ($content instanceof Horde_Icalendar_Vevent) {
                     $event = $kronolith_driver->getEvent();
                     $event->fromiCalendar($content);
                     $uid = $event->uid;
-                    // Remove from uids_remove list so we won't delete in the
-                    // end.
-                    if (isset($uids_remove[$uid])) {
+                    if ($uid) {
+                        // Remove from uids_remove list so we won't delete in
+                        // the end.
                         unset($uids_remove[$uid]);
-                    }
-                    try {
-                        $existing_event = $kronolith_driver->getByUID($uid, array($calendar));
-                        // Check if our event is newer then the existing - get
-                        // the event's history.
-                        $created = $modified = null;
                         try {
-                            $history = $GLOBALS['injector']->getInstance('Horde_History');
-                            $created = $history->getActionTimestamp(
-                                'kronolith:' . $calendar . ':' . $uid, 'add');
-                            $modified = $history->getActionTimestamp(
-                                'kronolith:' . $calendar . ':' . $uid, 'modify');
-                            /* The history driver returns 0 for not found. If 0
-                             * or null does not matter, strip this */
-                            if ($created == 0) {
-                                $created = null;
+                            $existing_event = $kronolith_driver->getByUID(
+                                $uid, array($calendar)
+                            );
+                            // Check if our event is newer then the existing -
+                            // get the event's history.
+                            $created = $modified = null;
+                            try {
+                                $created = $history->getActionTimestamp(
+                                    'kronolith:' . $calendar . ':' . $uid,
+                                    'add'
+                                );
+                                $modified = $history->getActionTimestamp(
+                                    'kronolith:' . $calendar . ':' . $uid,
+                                    'modify'
+                                );
+                                /* The history driver returns 0 for not
+                                 * found. If 0 or null does not matter, strip
+                                 * this */
+                                if ($created == 0) {
+                                    $created = null;
+                                }
+                                if ($modified == 0) {
+                                    $modified = null;
+                                }
+                            } catch (Horde_Exception $e) {
                             }
-                            if ($modified == 0) {
-                                $modified = null;
+                            if (empty($modified) && !empty($created)) {
+                                $modified = $created;
                             }
-                        } catch (Horde_Exception $e) {
-                        }
-                        if (empty($modified) && !empty($created)) {
-                            $modified = $created;
-                        }
-                        try {
-                            if (!empty($modified) &&
-                                $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                // LAST-MODIFIED timestamp of existing entry
-                                // is newer: don't replace it.
-                                continue;
+                            try {
+                                if (!empty($modified) &&
+                                    $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                                    // LAST-MODIFIED timestamp of existing
+                                    // entry is newer: don't replace it.
+                                    continue;
+                                }
+                            } catch (Horde_Icalendar_Exception $e) {
                             }
-                        } catch (Horde_Icalendar_Exception $e) {
-                        }
 
-                        // Don't change creator/owner.
-                        $event->creator = $existing_event->creator;
-                    } catch (Horde_Exception_NotFound $e) {
+                            // Don't change creator/owner.
+                            $event->creator = $existing_event->creator;
+                        } catch (Horde_Exception_NotFound $e) {
+                        }
                     }
 
                     // Save entry.
