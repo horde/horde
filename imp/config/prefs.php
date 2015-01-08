@@ -1395,7 +1395,7 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'from_link', 'atc_flag'
+        'atc_flag'
     )
 );
 
@@ -1474,16 +1474,6 @@ $_prefs['sortdate'] = array(
         Horde_Imap_Client::SORT_DATE => _("Date in message headers")
     ),
     'desc' => _("Criteria to use when sorting by date:")
-);
-
-$_prefs['from_link'] = array(
-    'value' => 1,
-    'type' => 'enum',
-    'enum' => array(
-        0 => _("Clicking on the address will compose a new message to the sender"),
-        1 => _("Clicking on the address will open the message to be read")
-    ),
-    'desc' => _("The From: column of the message should be linked:")
 );
 
 $_prefs['atc_flag'] = array(

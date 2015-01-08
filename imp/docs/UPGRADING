@@ -90,6 +90,7 @@ The following preferences have been removed::
    empty_spam_menu
    empty_trash_menu
    filter_menuitem
+   from_link
    max_msgs
    preview_enabled
    preview_maxlen
