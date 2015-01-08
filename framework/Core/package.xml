@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix missing Date and From headers when saving sent mail from broken HTC clients (Bug #13784).
 * [jan] Fix user names via DAV access when using authusername hooks.
 * [jan] Fix updating of location in weather portal block.
  </notes>
@@ -3787,6 +3788,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix missing Date and From headers when saving sent mail from broken HTC clients (Bug #13784).
 * [jan] Fix user names via DAV access when using authusername hooks.
 * [jan] Fix updating of location in weather portal block.
    </notes>
