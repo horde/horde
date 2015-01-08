@@ -2115,6 +2115,8 @@
       </configswitch>
       <configstring name="password" required="false" desc="Password to
       authenticate to the Redis server with."/>
+      <configinteger name="database" required="false" desc="Database
+      index to select when connected to Redis server."/>
       <configboolean name="persistent" required="false" desc="Enable
       persistent connections to Redis server(s)?">false</configboolean>
      </configsection>
