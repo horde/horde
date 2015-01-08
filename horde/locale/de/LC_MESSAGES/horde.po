@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.2-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-14 12:35+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: 2014-11-14 12:42+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -291,7 +291,7 @@ msgstr "Das Hinzufügen von Benutzern ist nicht möglich."
 msgid "Address"
 msgstr "Adresse"
 
-#: config/registry.php:134
+#: config/registry.php:141
 msgid "Address Book"
 msgstr "Adressbuch"
 
@@ -526,7 +526,7 @@ msgstr "Blocktyp"
 msgid "Bluetooth"
 msgstr "Bluetooth"
 
-#: config/registry.php:185
+#: config/registry.php:192
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -564,7 +564,7 @@ msgstr "Gecachte Collections"
 msgid "Cached Heartbeat (seconds)"
 msgstr "Gespeicherter Heartbeat (Sekunden)"
 
-#: config/registry.php:120
+#: config/registry.php:127
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -747,7 +747,7 @@ msgstr "Collection-ID"
 msgid "Color Picker"
 msgstr "Farbauswahl"
 
-#: config/registry.php:249
+#: config/registry.php:256
 msgid "Comics"
 msgstr "Comics"
 
@@ -1056,7 +1056,7 @@ msgstr ""
 msgid "Describe the Problem"
 msgstr "Beschreiben Sie das Problem"
 
-#: config/registry.php:209
+#: config/registry.php:216
 msgid "Development"
 msgstr "Entwicklung"
 
@@ -1370,7 +1370,7 @@ msgstr "Gefühlte Temperatur"
 msgid "Fields to search"
 msgstr "Zu durchsuchende Felder"
 
-#: config/registry.php:315
+#: config/registry.php:322
 msgid "File Manager"
 msgstr "Dateimanager"
 
@@ -1378,7 +1378,7 @@ msgstr "Dateimanager"
 msgid "Filter"
 msgstr "Filter"
 
-#: config/registry.php:90
+#: config/registry.php:97
 msgid "Filters"
 msgstr "Filter"
 
@@ -1410,7 +1410,7 @@ msgstr ""
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: config/registry.php:344
+#: config/registry.php:351
 msgid "Forms"
 msgstr "Formulare"
 
@@ -1430,7 +1430,7 @@ msgstr "Glückskekse"
 msgid "Fortunes 2"
 msgstr "Glückskekse 2"
 
-#: config/registry.php:338
+#: config/registry.php:345
 msgid "Forums"
 msgstr "Foren"
 
@@ -1574,7 +1574,7 @@ msgstr "Ergebnisse ausblenden"
 msgid "Home Directory"
 msgstr "Heimverzeichnis"
 
-#: config/registry.php:77
+#: config/registry.php:84
 msgid "Horde"
 msgstr "Horde"
 
@@ -1657,7 +1657,7 @@ msgstr ""
 msgid "Individual Users"
 msgstr "Einzelne Benutzer"
 
-#: config/registry.php:243
+#: config/registry.php:250
 msgid "Information"
 msgstr "Informationen"
 
@@ -1696,7 +1696,7 @@ msgstr "Ungültiger Hash."
 msgid "Invalid parent permission."
 msgstr "Ungültiges Überrecht."
 
-#: config/registry.php:296
+#: config/registry.php:303
 msgid "Inventory"
 msgstr "Inventar"
 
@@ -1728,7 +1728,7 @@ msgstr "Stichwort"
 msgid "Kids"
 msgstr "Kinder"
 
-#: config/registry.php:304
+#: config/registry.php:311
 msgid "Kolab"
 msgstr "Kolab"
 
@@ -1918,11 +1918,11 @@ msgstr "MM"
 msgid "Magic"
 msgstr "Magie"
 
-#: config/registry.php:82
+#: config/registry.php:89
 msgid "Mail"
 msgstr "Webmail"
 
-#: config/registry.php:349
+#: config/registry.php:356
 msgid "Mail Admin"
 msgstr "E-Mail Administration"
 
@@ -2051,7 +2051,7 @@ msgstr "Montag"
 msgid "Moon Phases"
 msgstr "Mondphasen"
 
-#: config/registry.php:309
+#: config/registry.php:316
 msgid "My Account"
 msgstr "Mein Konto"
 
@@ -2123,7 +2123,7 @@ msgstr "Neues Passwort"
 msgid "New passwords don't match."
 msgstr "Die neuen Passwörter stimmen nicht überein."
 
-#: config/registry.php:254 lib/Block/Fortune.php:59
+#: config/registry.php:261 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Nachrichten"
 
@@ -2234,7 +2234,7 @@ msgstr "Nördliche Hemisphere"
 msgid "Not Provisioned"
 msgstr "Nicht verknüpft"
 
-#: config/registry.php:169
+#: config/registry.php:176
 msgid "Notes"
 msgstr "Notizen"
 
@@ -2266,7 +2266,7 @@ msgstr "Objektersteller"
 msgid "Offense filter"
 msgstr "Filter für anstößige Inhalte"
 
-#: config/registry.php:266
+#: config/registry.php:273
 msgid "Office"
 msgstr "Büro"
 
@@ -2311,7 +2311,7 @@ msgstr "Andere Informationen"
 msgid "Other Options"
 msgstr "Weitere Einstellungen"
 
-#: config/registry.php:180
+#: config/registry.php:187
 msgid "Others"
 msgstr "Weitere"
 
@@ -2348,7 +2348,7 @@ msgid "P_HP Shell"
 msgstr "_PHP Shell"
 
 #: login.php:211 admin/config/index.php:416 admin/user.php:39
-#: admin/user.php:53 config/registry.php:327
+#: admin/user.php:53 config/registry.php:334
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Passwort"
@@ -2407,7 +2407,7 @@ msgstr "Haustiere"
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: config/registry.php:197
+#: config/registry.php:204
 msgid "Photos"
 msgstr "Fotos"
 
@@ -2928,7 +2928,7 @@ msgstr "Südeuropäisch (ISO-8859-3)"
 msgid "Southern Hemisphere"
 msgstr "Südliche Hemisphere"
 
-#: config/registry.php:106
+#: config/registry.php:113
 msgid "Spam"
 msgstr "Spam"
 
@@ -3064,7 +3064,7 @@ msgstr "Ausgelieferter Feed"
 msgid "Tag Cloud"
 msgstr "Tagwolke"
 
-#: config/registry.php:155
+#: config/registry.php:162
 msgid "Tasks"
 msgstr "Aufgaben"
 
@@ -3278,11 +3278,11 @@ msgstr "Damit werden alle Einträge auf allen Geräten neu synchronisiert."
 msgid "This will cause your devices to resyncronize all items."
 msgstr "Damit werden alle Einträge auf Ihren Geräten neu synchronisiert."
 
-#: config/registry.php:226
+#: config/registry.php:233
 msgid "Tickets"
 msgstr "Tickets"
 
-#: config/registry.php:272
+#: config/registry.php:279
 msgid "Time Tracking"
 msgstr "Zeiterfassung"
 
@@ -3544,7 +3544,7 @@ msgstr "Version"
 msgid "Version Check"
 msgstr "Versionscheck"
 
-#: config/registry.php:215
+#: config/registry.php:222
 msgid "Version Control"
 msgstr "Versionskontrolle"
 
@@ -3576,7 +3576,7 @@ msgstr "Wetter"
 msgid "Weather data provided by"
 msgstr "Wetterdaten von"
 
-#: config/registry.php:332
+#: config/registry.php:339
 msgid "Web Site"
 msgstr "Website"
 
@@ -3635,7 +3635,7 @@ msgstr "Breite des %s-Menüs links:"
 msgid "Wifi"
 msgstr "WLAN"
 
-#: config/registry.php:203
+#: config/registry.php:210
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3671,7 +3671,7 @@ msgstr "Mit "
 msgid "Work"
 msgstr "Arbeit"
 
-#: config/registry.php:238
+#: config/registry.php:245
 msgid "X-Ref"
 msgstr "Querverweise"
 

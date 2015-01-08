@@ -1,7 +1,7 @@
 # German translations for Whups.
 # Copyright 2002-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Whups package.
-# Jan Schneider <jan@horde.org>, 2002-2014.
+# Jan Schneider <jan@horde.org>, 2002-2015.
 #
 # query: Abfrage
 # search: Suche
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
-"PO-Revision-Date: 2013-10-14 14:33+0200\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
+"PO-Revision-Date: 2015-01-08 11:27+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
 "Language: de\n"
@@ -45,12 +45,12 @@ msgstr "%s %s Tickets in allen Warteschlangen."
 msgid "%s &rArr; %s"
 msgstr "%s &rArr; %s"
 
-#: lib/Driver.php:657
+#: lib/Driver.php:660
 #, php-format
 msgid "%s (%s) uploaded: %s"
 msgstr "%s (%s) hat hochgeladen: %s"
 
-#: lib/Driver.php:639
+#: lib/Driver.php:642
 #, php-format
 msgid "%s (%s) wrote:"
 msgstr "%s (%s) hat geschrieben:"
@@ -263,7 +263,7 @@ msgstr "Anlage"
 msgid "Attachment %s deleted."
 msgstr "Anlage %s wurde gelöscht."
 
-#: lib/Driver/Sql.php:1338 lib/Ticket.php:545
+#: lib/Driver/Sql.php:1338 lib/Ticket.php:551
 #, php-format
 msgid "Attachment %s not found."
 msgstr "Anlage %s nicht gefunden."
@@ -466,7 +466,7 @@ msgstr "Ticket erstellen - Schritt 4"
 msgid "Created"
 msgstr "Erstellt"
 
-#: lib/Ticket.php:684 lib/Ticket.php:710
+#: lib/Ticket.php:690 lib/Ticket.php:716
 msgid "Created By"
 msgstr "Erstellt Von"
 
@@ -614,7 +614,7 @@ msgstr "Version löschen: Bestätigung"
 msgid "Delete entry"
 msgstr "Kommentar löschen"
 
-#: lib/Ticket.php:689 lib/Ticket.php:793
+#: lib/Ticket.php:695 lib/Ticket.php:799
 msgid "Deleted Attachment"
 msgstr "Anlage gelöscht"
 
@@ -623,7 +623,7 @@ msgstr "Anlage gelöscht"
 msgid "Deleted Attachment: %s"
 msgstr "Anlage gelöscht: %s"
 
-#: lib/Ticket.php:458
+#: lib/Ticket.php:464
 msgid "Deleted:"
 msgstr "Gelöscht:"
 
@@ -648,7 +648,7 @@ msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
 #: lib/Api.php:677 lib/Form/Renderer/Query.php:169
-#: lib/Form/TicketDetails.php:115 lib/Ticket.php:681 lib/Ticket.php:873
+#: lib/Form/TicketDetails.php:115 lib/Ticket.php:687 lib/Ticket.php:879
 #: lib/Whups.php:867
 msgid "Due"
 msgstr "Fällig am"
@@ -1094,7 +1094,7 @@ msgstr "Ne_ue Abfrage"
 msgid "New"
 msgstr "Neu"
 
-#: lib/Ticket.php:688 lib/Ticket.php:781 lib/Ticket.php:786
+#: lib/Ticket.php:694 lib/Ticket.php:787 lib/Ticket.php:792
 msgid "New Attachment"
 msgstr "Neue Anlage"
 
@@ -1108,7 +1108,7 @@ msgstr "Neue Anlage: %s"
 msgid "New Queue"
 msgstr "Neue Warteschlange"
 
-#: lib/Application.php:140 ticket/create.php:64
+#: lib/Application.php:140 ticket/create.php:63
 msgid "New Ticket"
 msgstr "Neues Ticket"
 
@@ -1173,6 +1173,10 @@ msgstr "Keine Tickets sind Ihnen zugewiesen."
 #: lib/Block/Unassigned.php:32
 msgid "No tickets are unassigned!"
 msgstr "Keine Tickets ohne Zuweisung!"
+
+#: lib/Block/Query.php:70
+msgid "No tickets from query."
+msgstr "Keine Tickets aus Abfrage."
 
 #: lib/Block/Queuecontents.php:66 lib/Block/Queuecontents.php:73
 msgid "No tickets in queue."
@@ -1269,8 +1273,8 @@ msgstr "Orginalnachricht"
 
 #: lib/Form/Renderer/Query.php:88 lib/Form/Ticket/CreateStepFour.php:52
 #: lib/Form/Ticket/CreateStepFour.php:67 lib/Form/Ticket/Edit.php:118
-#: lib/Form/TicketDetails.php:96 lib/Ticket.php:687 lib/Ticket.php:771
-#: lib/Ticket.php:772 lib/Ticket.php:775 lib/Ticket.php:877 lib/Ticket.php:898
+#: lib/Form/TicketDetails.php:96 lib/Ticket.php:693 lib/Ticket.php:777
+#: lib/Ticket.php:778 lib/Ticket.php:781 lib/Ticket.php:883 lib/Ticket.php:904
 #: lib/Whups.php:863
 msgid "Owners"
 msgstr "Zuständige"
@@ -1307,7 +1311,7 @@ msgstr "Prioritäten für diesen Typ"
 #: lib/Form/Queue/StepThree.php:35 lib/Form/Renderer/Query.php:129
 #: lib/Form/SetTypeStepTwo.php:28 lib/Form/Ticket/CreateStepThree.php:69
 #: lib/Form/Ticket/Edit.php:86 lib/Form/TicketDetails.php:91
-#: lib/Ticket.php:680 lib/Ticket.php:872 lib/Whups.php:860
+#: lib/Ticket.php:686 lib/Ticket.php:878 lib/Whups.php:860
 msgid "Priority"
 msgstr "Priorität"
 
@@ -1360,7 +1364,7 @@ msgstr "Durchzuführende Abfrage"
 #: lib/Block/Queuesummary.php:39 lib/Form/Query/PropertyCriterion.php:52
 #: lib/Form/Renderer/Query.php:98 lib/Form/Search.php:40
 #: lib/Form/TicketDetails.php:53 lib/Form/TicketDetails.php:60
-#: lib/Ticket.php:676 lib/Ticket.php:868 lib/Whups.php:861
+#: lib/Ticket.php:682 lib/Ticket.php:874 lib/Whups.php:861
 msgid "Queue"
 msgstr "Warteschlange"
 
@@ -1717,7 +1721,7 @@ msgstr "Spamschutz"
 #: config/prefs.php:51 lib/Form/Query/PropertyCriterion.php:65
 #: lib/Form/Queue/StepThree.php:34 lib/Form/Renderer/Query.php:121
 #: lib/Form/SetTypeStepTwo.php:27 lib/Form/Ticket/Edit.php:80
-#: lib/Form/TicketDetails.php:86 lib/Ticket.php:679 lib/Ticket.php:871
+#: lib/Form/TicketDetails.php:86 lib/Ticket.php:685 lib/Ticket.php:877
 #: lib/Whups.php:858
 msgid "State"
 msgstr "Status"
@@ -1754,7 +1758,7 @@ msgstr "Status für diesen Typ"
 msgid "Status"
 msgstr "Status"
 
-#: ticket/create.php:142
+#: ticket/create.php:141
 msgid "Submit"
 msgstr "Abschicken"
 
@@ -1774,8 +1778,8 @@ msgstr "Tickettyp erfolgreich geändert."
 #: config/prefs.php:50 lib/Form/Renderer/Query.php:93
 #: lib/Form/Ticket/CreateStepThree.php:74 lib/Form/Ticket/Delete.php:20
 #: lib/Form/Ticket/Edit.php:63 lib/Form/TicketDetails.php:47
-#: lib/Ticket.php:686 lib/Ticket.php:713 lib/Ticket.php:716 lib/Ticket.php:720
-#: lib/Ticket.php:877 lib/Ticket.php:886 lib/Whups.php:857
+#: lib/Ticket.php:692 lib/Ticket.php:719 lib/Ticket.php:722 lib/Ticket.php:726
+#: lib/Ticket.php:883 lib/Ticket.php:892 lib/Whups.php:857
 msgid "Summary"
 msgstr "Zusammenfassung"
 
@@ -1805,7 +1809,7 @@ msgstr "Dieser Kurzname ist bereits vergeben. Bitte wählen Sie einen anderen."
 msgid "The Requester's Email Address"
 msgstr "Die E-Mail-Adresse des Anfragers"
 
-#: lib/Application.php:184 lib/Ticket.php:477 lib/Ticket.php:530 view.php:39
+#: lib/Application.php:184 lib/Ticket.php:483 lib/Ticket.php:536 view.php:39
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 "Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
@@ -1923,7 +1927,7 @@ msgstr "Der Status wurde geändert."
 msgid "The state was not deleted."
 msgstr "Der Status wurde nicht gelöscht."
 
-#: lib/Ticket.php:453
+#: lib/Ticket.php:459
 msgid "The ticket was deleted."
 msgstr "Das Ticket wurde gelöscht."
 
@@ -2186,7 +2190,7 @@ msgstr ""
 "keine Versionen zugeordnet. Solange keine Versionen erzeugt worden sind, "
 "können Sie keine Tickets anlegen."
 
-#: lib/Api.php:400 lib/Ticket.php:708 lib/Ticket.php:885
+#: lib/Api.php:400 lib/Ticket.php:714 lib/Ticket.php:891
 msgid "Ticket"
 msgstr "Ticket"
 
@@ -2239,7 +2243,7 @@ msgstr "Ticket-Typ"
 msgid "Ticket Types associated with this Queue"
 msgstr "Dieser Warteschlange zugehörige Tickettypen"
 
-#: lib/Ticket.php:703
+#: lib/Ticket.php:709
 #, php-format
 msgid "Ticket URL: %s"
 msgstr "Ticket-URL: %s"
@@ -2264,7 +2268,7 @@ msgstr "Zur Abfrage \"%s\" passende Tickets."
 
 #: config/prefs.php:52 lib/Form/Query/PropertyCriterion.php:43
 #: lib/Form/Queue/StepTwo.php:42 lib/Form/Renderer/Query.php:112
-#: lib/Form/TicketDetails.php:82 lib/Ticket.php:678 lib/Ticket.php:870
+#: lib/Form/TicketDetails.php:82 lib/Ticket.php:684 lib/Ticket.php:876
 #: lib/Whups.php:859
 msgid "Type"
 msgstr "Typ"
@@ -2328,7 +2332,7 @@ msgstr "Zuordnungen aktualisieren"
 msgid "Updated"
 msgstr "Aktualisiert"
 
-#: lib/Ticket.php:685 lib/Ticket.php:710
+#: lib/Ticket.php:691 lib/Ticket.php:716
 msgid "Updated By"
 msgstr "Aktualisiert Von"
 
@@ -2358,7 +2362,7 @@ msgid "Users responsible for this queue"
 msgstr "Für diese Warteschlange verantwortliche Benutzer"
 
 #: config/prefs.php:55 lib/Form/Query/PropertyCriterion.php:57
-#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:677 lib/Ticket.php:869
+#: lib/Form/Renderer/Query.php:106 lib/Ticket.php:683 lib/Ticket.php:875
 msgid "Version"
 msgstr "Version"
 

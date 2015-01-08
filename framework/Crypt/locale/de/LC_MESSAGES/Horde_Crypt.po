@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: 2013-07-16 21:34+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Crypt/Pgp.php:1086
+#: lib/Horde/Crypt/Pgp.php:1110
 msgid "A passphrase is required to decrypt a message."
 msgstr "Ein Passwort wird für die Entschlüsselung einer Nachricht benötigt."
 
-#: lib/Horde/Crypt/Pgp.php:1157
+#: lib/Horde/Crypt/Pgp.php:1181
 msgid "A public PGP key is required to verify a signed message."
 msgstr ""
 "Ein öffentlicher PGP-Schlüssel wird für die Überprüfung einer "
 "unterzeichneten Nachricht benötigt."
 
-#: lib/Horde/Crypt/Pgp.php:1017
+#: lib/Horde/Crypt/Pgp.php:1040
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -73,7 +73,7 @@ msgstr "Zertifikatbesitzer"
 msgid "Certificate Policies"
 msgstr "Zertifikatrichtlinien"
 
-#: lib/Horde/Crypt/Pgp.php:417
+#: lib/Horde/Crypt/Pgp.php:433
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -81,11 +81,11 @@ msgstr "Kommentar"
 msgid "Common Name"
 msgstr "Eindeutiger Name"
 
-#: lib/Horde/Crypt/Pgp.php:985
+#: lib/Horde/Crypt/Pgp.php:1008
 msgid "Could not PGP encrypt message: "
 msgstr "Die Nachricht konnte nicht mit PGP verschlüsselt werden: "
 
-#: lib/Horde/Crypt/Pgp.php:1054
+#: lib/Horde/Crypt/Pgp.php:1077
 msgid "Could not PGP sign message: "
 msgstr "Die Nachricht konnte nicht mit PGP unterzeichnet werden: "
 
@@ -97,7 +97,7 @@ msgstr "Die Nachricht konnte nicht mit S/MIME verschlüsselt werden."
 msgid "Could not S/MIME sign message."
 msgstr "Die Nachricht konnte nicht mit S/MIME unterzeichnet werden."
 
-#: lib/Horde/Crypt/Pgp.php:1125
+#: lib/Horde/Crypt/Pgp.php:1149
 msgid "Could not decrypt PGP data: "
 msgstr "PGP-Daten konnten nicht entschlüsselt werden: "
 
@@ -105,7 +105,7 @@ msgstr "PGP-Daten konnten nicht entschlüsselt werden: "
 msgid "Could not decrypt S/MIME data."
 msgstr "S/MIME-Daten konnten nicht entschlüsselt werden."
 
-#: lib/Horde/Crypt/Pgp.php:644
+#: lib/Horde/Crypt/Pgp.php:660
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Die E-Mail-Adresse des Empfängers konnte nicht ermittelt werden."
 
@@ -121,7 +121,7 @@ msgstr "Land"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: lib/Horde/Crypt/Pgp.php:418
+#: lib/Horde/Crypt/Pgp.php:434
 msgid "E-Mail"
 msgstr "E-Mail-Adresse"
 
@@ -134,7 +134,7 @@ msgstr "E-Mail-Adresse"
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "Fehler beim Lesen des S/MIME-Zertifikats: %s"
 
-#: lib/Horde/Crypt/Pgp.php:1453 lib/Horde/Crypt/Pgp.php:1461
+#: lib/Horde/Crypt/Pgp.php:1477 lib/Horde/Crypt/Pgp.php:1485
 msgid "Error while talking to pgp binary."
 msgstr "Fehler beim Aufruf des PGP-Programms."
 
@@ -143,7 +143,7 @@ msgstr "Fehler beim Aufruf des PGP-Programms."
 msgid "Error while talking to smime binary."
 msgstr "Fehler beim Aufruf der S/MIME-Bibliothek."
 
-#: lib/Horde/Crypt/Pgp.php:415
+#: lib/Horde/Crypt/Pgp.php:431
 msgid "Expiration Date"
 msgstr "Verfallsdatum"
 
@@ -151,7 +151,7 @@ msgstr "Verfallsdatum"
 msgid "Given Name"
 msgstr "Vorname"
 
-#: lib/Horde/Crypt/Pgp.php:419
+#: lib/Horde/Crypt/Pgp.php:435
 msgid "Hash-Algorithm"
 msgstr "Hash-Algorithmus"
 
@@ -159,23 +159,23 @@ msgstr "Hash-Algorithmus"
 msgid "Issuer"
 msgstr "Aussteller"
 
-#: lib/Horde/Crypt/Pgp.php:414
+#: lib/Horde/Crypt/Pgp.php:430
 msgid "Key Creation"
 msgstr "Schlüsselerzeugung"
 
-#: lib/Horde/Crypt/Pgp.php:421
+#: lib/Horde/Crypt/Pgp.php:437
 msgid "Key Fingerprint"
 msgstr "Fingerabdruck des Schlüssels"
 
-#: lib/Horde/Crypt/Pgp.php:420
+#: lib/Horde/Crypt/Pgp.php:436
 msgid "Key ID"
 msgstr "Schlüssel-Id"
 
-#: lib/Horde/Crypt/Pgp.php:416
+#: lib/Horde/Crypt/Pgp.php:432
 msgid "Key Length"
 msgstr "Schlüssellänge"
 
-#: lib/Horde/Crypt/Pgp.php:413
+#: lib/Horde/Crypt/Pgp.php:429
 msgid "Key Type"
 msgstr "Schlüsseltyp"
 
@@ -204,11 +204,11 @@ msgstr ""
 msgid "Message verified successfully."
 msgstr "Nachricht erfolgreich überprüft."
 
-#: lib/Horde/Crypt/Pgp.php:412
+#: lib/Horde/Crypt/Pgp.php:428
 msgid "Name"
 msgstr "Name"
 
-#: lib/Horde/Crypt/Pgp.php:444
+#: lib/Horde/Crypt/Pgp.php:460
 msgid "Never"
 msgstr "Nie"
 
@@ -220,7 +220,7 @@ msgstr ""
 "Kein Pfad zum OpenSSL-Programm angegeben. Das OpenSSL-Programm wird "
 "benötigt, um PKCS-12-Daten verarbeiten zu können."
 
-#: lib/Horde/Crypt/Pgp.php:446 lib/Horde/Crypt/Pgp.php:447
+#: lib/Horde/Crypt/Pgp.php:462 lib/Horde/Crypt/Pgp.php:463
 msgid "None"
 msgstr "Keine"
 
@@ -245,19 +245,19 @@ msgstr "Organisation"
 msgid "Organisational Unit"
 msgstr "Organisationsabteilung"
 
-#: lib/Horde/Crypt/Pgp.php:1275
+#: lib/Horde/Crypt/Pgp.php:1299
 msgid "PGP Digital Signature"
 msgstr "Digitale PGP-Signatur"
 
-#: lib/Horde/Crypt/Pgp.php:1319
+#: lib/Horde/Crypt/Pgp.php:1343
 msgid "PGP Encrypted Data"
 msgstr "PGP-verschlüsselte Daten"
 
-#: lib/Horde/Crypt/Pgp.php:1380
+#: lib/Horde/Crypt/Pgp.php:1404
 msgid "PGP Public Key"
 msgstr "Öffentlicher PGP-Schlüssel"
 
-#: lib/Horde/Crypt/Pgp.php:1362
+#: lib/Horde/Crypt/Pgp.php:1386
 msgid "PGP Signed/Encrypted Data"
 msgstr "Mit PGP unterzeichnete/verschlüsselte Daten"
 
@@ -265,11 +265,11 @@ msgstr "Mit PGP unterzeichnete/verschlüsselte Daten"
 msgid "Password incorrect"
 msgstr "Falsches Passwort"
 
-#: lib/Horde/Crypt/Pgp.php:442
+#: lib/Horde/Crypt/Pgp.php:458
 msgid "Private Key"
 msgstr "Privater Schlüssel"
 
-#: lib/Horde/Crypt/Pgp.php:442
+#: lib/Horde/Crypt/Pgp.php:458
 msgid "Public Key"
 msgstr "Öffentlicher Schlüssel"
 
@@ -309,7 +309,7 @@ msgstr "Nachname"
 msgid "Telephone Number"
 msgstr "Telefonnummer"
 
-#: lib/Horde/Crypt/Pgp.php:1161
+#: lib/Horde/Crypt/Pgp.php:1185
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
@@ -320,8 +320,8 @@ msgstr ""
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Das OpenSSL-Modul wird für die Horde_Crypt_Smime:: Klasse benötigt."
 
-#: lib/Horde/Crypt/Pgp.php:448 lib/Horde/Crypt/Pgp.php:449
-#: lib/Horde/Crypt/Pgp.php:450
+#: lib/Horde/Crypt/Pgp.php:464 lib/Horde/Crypt/Pgp.php:465
+#: lib/Horde/Crypt/Pgp.php:466
 msgid "Unknown"
 msgstr "Unbekannt"
 

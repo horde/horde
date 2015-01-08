@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: 2014-06-04 11:40+0200\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -490,7 +490,7 @@ msgid "Individual rules are not supported in the current filtering driver."
 msgstr ""
 "Individuelle Regeln werden vom aktuellen Filtertreiber nicht unterstützt."
 
-#: lib/Script/Sieve/Action/Fileinto.php:61
+#: lib/Script/Sieve/Action/Fileinto.php:62
 msgid "Inexistant mailbox specified for message delivery."
 msgstr "Nicht vorhandener Ordner für die Nachrichtenauslieferung angegeben."
 

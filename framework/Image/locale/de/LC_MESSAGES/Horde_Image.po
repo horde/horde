@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:23+0100\n"
 "PO-Revision-Date: 2011-09-20 14:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -358,15 +358,15 @@ msgstr "Kühl-weiße Leuchtstoffröhre"
 msgid "Copyright"
 msgstr "Copyright"
 
-#: lib/Horde/Image/Exif/Bundled.php:285
+#: lib/Horde/Image/Exif/Bundled.php:314
 msgid "Couldnt Find IFD1"
 msgstr "IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:331
+#: lib/Horde/Image/Exif/Bundled.php:362
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "InteroperabilityIFD nicht gefunden"
 
-#: lib/Horde/Image/Exif/Bundled.php:248
+#: lib/Horde/Image/Exif/Bundled.php:275
 msgid "Couldnt Find SubIFD"
 msgstr "SubIFD nicht gefunden<"
 
@@ -598,15 +598,15 @@ msgstr "ISO-Einstellung"
 msgid "ISO studio tungsten"
 msgstr "ISO-genormtes Studio-Kunstlicht"
 
-#: lib/Horde/Image/Exif/Bundled.php:304
+#: lib/Horde/Image/Exif/Bundled.php:333
 msgid "Illegal size for IFD1"
 msgstr "Ungültige Größe für IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:350
+#: lib/Horde/Image/Exif/Bundled.php:381
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "Ungültige Größe für InteroperabilityIFD"
 
-#: lib/Horde/Image/Exif/Bundled.php:267
+#: lib/Horde/Image/Exif/Bundled.php:294
 msgid "Illegal size for SubIFD"
 msgstr "Ungültige Größe für SubIFD"
 
@@ -1122,7 +1122,7 @@ msgstr "Sonnig"
 msgid "Superfine"
 msgstr "Sehr fein"
 
-#: lib/Horde/Image/Exif/Bundled.php:69
+#: lib/Horde/Image/Exif/Bundled.php:88
 msgid "The file could not be opened."
 msgstr "Die Datei konnte nicht geöffnet werden."
 
@@ -1324,7 +1324,7 @@ msgstr "Andere Lichtquelle"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:816
+#: lib/Horde/Image/Exif/Bundled.php:849
 #, php-format
 msgid "version %d"
 msgstr "Version %d"

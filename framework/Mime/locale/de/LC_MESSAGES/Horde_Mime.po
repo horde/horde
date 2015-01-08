@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Mime/Mdn.php:175
+#: lib/Horde/Mime/Mdn.php:188
 msgid "Disposition Notification"
 msgstr "Empfangsbestätigung"
 
-#: lib/Horde/Mime/Mail.php:417
+#: lib/Horde/Mime/Mail.php:439
 msgid "HTML Version of Message"
 msgstr "HTML-Version der Nachricht"
 
-#: lib/Horde/Mime/Mail.php:415
+#: lib/Horde/Mime/Mail.php:437
 msgid "Plaintext Version of Message"
 msgstr "Textversion der Nachricht"
 
-#: lib/Horde/Mime/Mdn.php:188
+#: lib/Horde/Mime/Mdn.php:201
 #, php-format
 msgid ""
 "The message sent on %s to %s with subject \"%s\" has been displayed.\n"
