@@ -65,7 +65,7 @@
   </td>
   <td><?php echo strlen($task->desc) ? Horde::img('note.png', _("Task Note")) : '&nbsp;' ?></td>
   <td><?php echo ($task->alarm && $due) ?
-    Horde::img('alarm_small.png', _("Task Alarm")) : '&nbsp;' ?>
+    Horde::img('alarm.png', _("Task Alarm")) : '&nbsp;' ?>
   </td>
 <?php if (in_array('due', $columns)): ?>
   <td class="nowrap" sortval="<?php echo $due ? $due->timestamp() : PHP_INT_MAX ?>">
