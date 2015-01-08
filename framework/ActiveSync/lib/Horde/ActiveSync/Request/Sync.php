@@ -815,6 +815,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 return false;
             }
 
+            if (isset($collection['filtertype']) &&
+                !$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
+
+                $this->_logger->info(sprintf(
+                    '[%s] Found updated filtertype, will force a SOFTDELETE.', $this->_procid));
+                $collection['soft'] = true;
+            }
+
             try {
                 $this->_collections->addCollection($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -837,14 +845,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
         if (!$this->_decoder->getElementEndTag()) {
             $this->_logger->err('Parsing Error');
-            return false;
-        }
-
-        if (isset($collection['filtertype']) &&
-            !$this->_collections->checkFilterType($collection['id'], $collection['filtertype'])) {
-            $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleError($collection);
-
             return false;
         }
 

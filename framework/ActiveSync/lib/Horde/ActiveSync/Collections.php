@@ -259,7 +259,8 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         return array(
             'clientids' => array(),
             'fetchids' => array(),
-            'windowsize' => 100
+            'windowsize' => 100,
+            'soft' => false
         );
     }
 
@@ -898,11 +899,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if (!empty($cc[$id]['filtertype']) &&
             !is_null($filter) &&
             $cc[$id]['filtertype'] != $filter) {
-
-            $this->_cache->removeCollection($id, true);
-            $this->_cache->save();
-            $this->_logger->info('Invalidating SYNCKEY and removing collection - found updated filtertype');
-
             return false;
         }
 

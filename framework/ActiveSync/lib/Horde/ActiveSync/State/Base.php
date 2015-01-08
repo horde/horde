@@ -429,7 +429,8 @@ abstract class Horde_ActiveSync_State_Base
                 $cutoffdate,
                 !empty($options['ping']),
                 $this->_folder->haveInitialSync,
-                !empty($options['maxitems']) ? $options['maxitems'] : 100
+                !empty($options['maxitems']) ? $options['maxitems'] : 100,
+                !empty($this->_collection['soft'])
             );
 
             // Only update the folderstate if we are not PINGing.
