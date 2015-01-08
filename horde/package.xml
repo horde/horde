@@ -107,7 +107,6 @@
    <dir name="bin">
     <dir name="dev">
      <file name="horde-dev-create-web" role="script" />
-     <file name="horde-dev-create-web.conf" role="script" />
      <file name="horde-dev-create-web.conf.dist" role="script" />
     </dir> <!-- /bin/dev -->
     <file name="horde-active-sessions" role="script">
@@ -166,15 +165,6 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
-    <dir name="backup-dev">
-     <file name="registry.local.php.1420694655" role="horde" />
-     <file name="registry.local.php.1420695546" role="horde" />
-     <file name="registry.local.php.1420695605" role="horde" />
-     <file name="registry.local.php.1420696036" role="horde" />
-     <file name="registry.local.php.1420696078" role="horde" />
-     <file name="registry.local.php.1420696092" role="horde" />
-     <file name="registry.local.php.1420696846" role="horde" />
-    </dir> <!-- /config/backup-dev -->
     <dir name="registry.d">
      <file name="README" role="horde" />
     </dir> <!-- /config/registry.d -->
@@ -2035,7 +2025,6 @@
    <install as="horde-themes" name="bin/horde-themes" />
    <install as="horde-translation" name="bin/horde-translation" />
    <install as="dev/horde-dev-create-web" name="bin/dev/horde-dev-create-web" />
-   <install as="dev/horde-dev-create-web.conf" name="bin/dev/horde-dev-create-web.conf" />
    <install as="dev/horde-dev-create-web.conf.dist" name="bin/dev/horde-dev-create-web.conf.dist" />
    <install as="config/.htaccess" name="config/.htaccess" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
@@ -2047,13 +2036,6 @@
    <install as="config/prefs.php" name="config/prefs.php" />
    <install as="config/registry.php" name="config/registry.php" />
    <install as="config/spelling.php" name="config/spelling.php" />
-   <install as="config/backup-dev/registry.local.php.1420694655" name="config/backup-dev/registry.local.php.1420694655" />
-   <install as="config/backup-dev/registry.local.php.1420695546" name="config/backup-dev/registry.local.php.1420695546" />
-   <install as="config/backup-dev/registry.local.php.1420695605" name="config/backup-dev/registry.local.php.1420695605" />
-   <install as="config/backup-dev/registry.local.php.1420696036" name="config/backup-dev/registry.local.php.1420696036" />
-   <install as="config/backup-dev/registry.local.php.1420696078" name="config/backup-dev/registry.local.php.1420696078" />
-   <install as="config/backup-dev/registry.local.php.1420696092" name="config/backup-dev/registry.local.php.1420696092" />
-   <install as="config/backup-dev/registry.local.php.1420696846" name="config/backup-dev/registry.local.php.1420696846" />
    <install as="config/registry.d/README" name="config/registry.d/README" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
