@@ -109,18 +109,30 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @param array $flags       A hash of message read flags, keyed by UID.
      * @param array $categories  A hash of custom message flags, keyed by UID.
      *                           @since 2.17.0
+     * @param boolean $resetMinUid  If true, reset the minimum UID. Should be
+     *                              used when FilterType has widened and
+     *                              messages older than originally selected are
+     *                              being returned. @since 2.24.0
      */
-    public function setChanges(array $messages, array $flags = array(), array $categories = array())
+    public function setChanges(array $messages, array $flags = array(), array $categories = array(), $resetMinUid = false)
     {
         $uidnext = $this->uidnext();
         $minuid = $this->minuid();
         $modseq = $this->modseq();
         foreach ($messages as $uid) {
             if ($uid >= $uidnext) {
+                // new (to us) message.
                 $this->_added[] = $uid;
-            } elseif ($uid >= $minuid) {
+            } elseif ($uid >= $minuid || $resetMinUid) {
                 if ($modseq > 0) {
-                    $this->_changed[] = $uid;
+                    // MODSEQ capable server, either a changed message, or
+                    // one that was previously outside of FilterType but is now
+                    // within.
+                    if (array_search($uid, $this->_messages)) {
+                        $this->_changed[] = $uid;
+                    } else {
+                        $this->_added[] = $uid;
+                    }
                 } else {
                     if (empty($this->_messages[$uid])) {
                         // Do not know about this message

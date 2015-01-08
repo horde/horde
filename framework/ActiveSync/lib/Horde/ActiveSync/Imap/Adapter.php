@@ -316,8 +316,7 @@ class Horde_ActiveSync_Imap_Adapter
             $this->_procid,
             serialize($status))
         );
-        $flags = array();
-        $categories = array();
+
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         if ($modseq && $folder->modseq() > 0 && ($folder->modseq() < $modseq) || !empty($options['softdelete'])) {
             $this->_logger->info(sprintf(
@@ -336,50 +335,58 @@ class Horde_ActiveSync_Imap_Adapter
                 throw new Horde_ActiveSync_Exception($e);
             }
 
-            // Prepare the changes and flags array, ensuring no changes after
-            // $modseq sneak in yet (they will be caught on the next PING or
-            // SYNC).
+            // Build the changes array for the "normal" changes.
             $changes = array();
+            $flags = array();
+            $categories = array();
+            $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
 
-            // Get custom flags to use as categories.
-            $msgFlags = $this->_getMsgFlags();
+            // Check for mail outside of the time restriction since the
+            // filtertype changed
+            if ($options['softdelete']) {
+                $this->_logger->info(sprintf(
+                    '[%s] Checking for additional messages within the new FilterType parameters.',
+                    $this->_procid));
 
-            foreach ($fetch_ret as $uid => $data) {
-                if ($options['sincedate']) {
-                    $since = new Horde_Date($options['sincedate']);
-                    $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
-                    try {
-                        $date = new Horde_Date($headers->getValue('Date'));
-                        if ($date->compareDate($since) <= -1) {
-                            // Ignore, it's out of the FILTERTYPE range.
-                            $this->_logger->info(sprintf(
-                                '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
-                                $this->_procid,
-                                $uid,
-                                $headers->getValue('Date')));
-                            continue;
-                        }
-                    } catch (Horde_Date_Exception $e) {}
+                $query = new Horde_Imap_Client_Search_Query();
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE);
+                $query->ids(new Horde_Imap_Client_Ids($folder->messages()), true);
+                try {
+                    $search_ret = $imap->search(
+                        $mbox,
+                        $query,
+                        array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
                 }
-                if ($data->getModSeq() <= $modseq) {
-                    $changes[] = $uid;
-                    $flags[$uid] = array(
-                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
-                    );
-                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                if ($search_ret['count']) {
+                    $this->_logger->info(sprintf(
+                        '[%s] Found %d additional messages that are now withing FilterType.',
+                        $this->_procid, count($search_ret['match']->ids)));
+                    $query = new Horde_Imap_Client_Fetch_Query();
+                    $query->modseq();
+                    $query->flags();
+                    $query->headerText(array('peek' => true));
+                    try {
+                        $fetch_ret = $imap->fetch($mbox, $query, array(
+                            'ids' => $search_ret['match']
+                        ));
+                    } catch (Horde_Imap_Client_Exception $e) {
+                        $this->_logger->err($e->getMessage());
+                        throw new Horde_ActiveSync_Exception($e);
                     }
-                    if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
-                        $categories[$uid] = array();
-                        foreach ($data->getFlags() as $flag) {
-                            if (!empty($msgFlags[strtolower($flag)])) {
-                                $categories[$uid][] = $msgFlags[strtolower($flag)];
-                            }
-                        }
-                    }
+                    $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
+                } else {
+                     $this->_logger->info(sprintf(
+                        '[%s] Found NO additional messages.',
+                        $this->_procid));
                 }
             }
-            $folder->setChanges($changes, $flags, $categories);
+            $folder->setChanges($changes, $flags, $categories, !empty($options['softdelete']));
+
             try {
                 $deleted = $imap->vanished(
                     $mbox,
@@ -500,6 +507,51 @@ class Horde_ActiveSync_Imap_Adapter
         $folder->setStatus($status);
 
         return $folder;
+    }
+
+    protected function _buildModSeqChanges(
+        &$changes, &$flags, &$categories, $fetch_ret, $options, $modseq)
+    {
+        // Get custom flags to use as categories.
+        $msgFlags = $this->_getMsgFlags();
+
+        foreach ($fetch_ret as $uid => $data) {
+            if ($options['sincedate']) {
+                $since = new Horde_Date($options['sincedate']);
+                $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
+                try {
+                    $date = new Horde_Date($headers->getValue('Date'));
+                    if ($date->compareDate($since) <= -1) {
+                        // Ignore, it's out of the FILTERTYPE range.
+                        $this->_logger->info(sprintf(
+                            '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
+                            $this->_procid,
+                            $uid,
+                            $headers->getValue('Date')));
+                        continue;
+                    }
+                } catch (Horde_Date_Exception $e) {}
+            }
+            // Ensure no changes after $modseq sneak in
+            // (they will be caught on the next PING or SYNC).
+            if ($data->getModSeq() <= $modseq) {
+                $changes[] = $uid;
+                $flags[$uid] = array(
+                    'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                );
+                if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                }
+                if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+                    $categories[$uid] = array();
+                    foreach ($data->getFlags() as $flag) {
+                        if (!empty($msgFlags[strtolower($flag)])) {
+                            $categories[$uid][] = $msgFlags[strtolower($flag)];
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
