@@ -43,7 +43,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * The folder's current message list.
      * Note: This represents the folder list on the client and is affected by
-     * the FILTER on the collection.
+     * the FILTERTYPE on the collection.
      *
      * @var array
      */
