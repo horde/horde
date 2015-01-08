@@ -132,8 +132,20 @@ class IMP_Filter
 
         /* Add link to filter management page. */
         if ($link && $GLOBALS['registry']->hasMethod('mail/' . $reg2)) {
-            $manage_link = Horde::link(Horde::url($GLOBALS['registry']->link('mail/' . $reg2)), sprintf(_("Filters: %s management page"), $descrip)) . _("HERE") . '</a>';
-            $GLOBALS['notification']->push(sprintf(_("Click %s to go to %s management page."), $manage_link, $descrip), 'horde.message', array('content.raw'));
+            $GLOBALS['notification']->push(
+                Horde::url($GLOBALS['registry']->link('mail/' . $reg2))->link(
+                    array(
+                        'title' => sprintf(
+                            _("Filters: %s management page"),
+                            $descrip
+                        )
+                    )
+                )
+                . sprintf(_("Click to go to %s management page."), $descrip)
+                . '</a>',
+                'horde.message',
+                array('content.raw')
+            );
         }
 
         return true;

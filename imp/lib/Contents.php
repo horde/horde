@@ -616,7 +616,7 @@ class IMP_Contents
                     $mime_part,
                     array(
                         _("This message part cannot be viewed because it is too large."),
-                        sprintf(_("Click %s to download the data."), $this->linkView($mime_part, 'download_attach', _("HERE")))
+                        $this->linkView($mime_part, 'download_attach', _("Click to download the data."))
                     )
                 );
                 $status->icon('alerts/warning.png', _("Warning"));

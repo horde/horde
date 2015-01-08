@@ -86,7 +86,7 @@ class IMP_Mime_Viewer_Zip extends Horde_Mime_Viewer_Zip
             );
             $status->addMimeAction(
                 'zipViewContents',
-                _("Click HERE to display the file contents.")
+                _("Click to display the file contents.")
             );
             $status->icon('mime/compressed.png');
 

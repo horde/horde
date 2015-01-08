@@ -179,7 +179,7 @@
    <td><?php echo _("Unable to view message in preview pane.") ?></td>
   </tr>
   <tr>
-   <td><a href="#" class="messageBodyErrorLink"><?php echo _("Click HERE to view the message in a new window.") ?></a></td>
+   <td><a href="#" class="messageBodyErrorLink"><?php echo _("Click to view the message in a new window.") ?></a></td>
   </tr>
  </table>
 </div>
