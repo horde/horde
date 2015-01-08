@@ -258,8 +258,7 @@ class Horde_Core_ActiveSync_Mail
         if (!empty($this->_mailer)) {
             return $this->_mailer->getRaw();
         }
-
-        return $this->_raw->getString();
+        return $this->_headers->toString(array('charset' => 'UTF-8')) . $this->_raw->getMessage();
     }
 
     /**
