@@ -35,7 +35,7 @@ Installation will *OVERWRITE* the following file(s):
 
 Installation will *MOVE* the current file to a time-stamped backup.
 
-  - horde/config/registry.local.php
+  - horde/config/registry.d/horde-dev.php
 
 Installation will *DELETE* all contents of the 'web_base' directory defined
 in the configuration file.
@@ -185,19 +185,19 @@ foreach ($apps as $key => $val) {
 $conf_dir = realpath(__DIR__ . '/../../config');
 print "Config directory: " . $conf_dir . "\n";
 
-print "Preparing registry.local.php ... \n";
-$registry_local = $conf_dir . '/registry.local.php';
+print "Preparing registry.d/horde-dev.php ... \n";
+$registry_local = $conf_dir . '/registry.d/horde-dev.php';
 
 if (file_exists($registry_local)) {
     $registry_backup_dir = $conf_dir . '/' . DEV_CONF_BACKUP;
     if (!@is_dir($registry_backup_dir) &&
-        @mkdir($registry_backup_dir)) {
+        !@mkdir($registry_backup_dir)) {
         exit("ERROR: Could not create config backup directory.\n");
     }
 
-    $registry_local_backup = $registry_backup_dir . '/registry.' . time() . '.local.php';
+    $registry_local_backup = $registry_backup_dir . '/horde-dev.' . time() . '.php';
     if (!@rename($registry_local, $registry_local_backup)) {
-        exit("ERROR: Could not move current registry.local.php to backup file.\n");
+        exit("ERROR: Could not move current registry.d/horde-dev.php to backup file.\n");
     }
     print "\tMoved existing local registry config to " . $registry_local_backup . "\n";
 }
