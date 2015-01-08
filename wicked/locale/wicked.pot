@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgid ""
 "pages?"
 msgstr ""
 
-#: lib/Page/StandardPage.php:473
+#: lib/Page/StandardPage.php:475
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Attachment Name"
 msgstr ""
 
-#: lib/Page/StandardPage.php:249 templates/display/standard.html.php:49
+#: lib/Page/StandardPage.php:251 templates/display/standard.html.php:49
 msgid "Attachments"
 msgstr ""
 
@@ -112,7 +112,7 @@ msgstr ""
 msgid "Author"
 msgstr ""
 
-#: lib/Page/StandardPage.php:276
+#: lib/Page/StandardPage.php:278
 msgid "Ba_ck to"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Change references to this page from:"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:250
+#: lib/Page/MergeOrRename.php:235
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr ""
@@ -213,11 +213,11 @@ msgstr ""
 msgid "Delete Page"
 msgstr ""
 
-#: lib/Page/StandardPage.php:355
+#: lib/Page/StandardPage.php:357
 msgid "Delete Version"
 msgstr ""
 
-#: lib/Page/StandardPage.php:390
+#: lib/Page/StandardPage.php:392
 #, php-format
 msgid "Delete Version %s"
 msgstr ""
@@ -240,17 +240,17 @@ msgstr ""
 msgid "Diff for %s between %s and %s"
 msgstr ""
 
-#: lib/Page.php:592
+#: lib/Page.php:590
 #, php-format
 msgid "Display %s"
 msgstr ""
 
-#: lib/Page.php:598 lib/Page/StandardPage.php:386
+#: lib/Page.php:596 lib/Page/StandardPage.php:388
 #, php-format
 msgid "Display Version %s"
 msgstr ""
 
-#: templates/display/standard.html.php:60
+#: templates/display/standard.html.php:67
 msgid "Download this page as:"
 msgstr ""
 
@@ -267,16 +267,16 @@ msgstr ""
 msgid "Edit Page"
 msgstr ""
 
-#: lib/Page/StandardPage.php:359
+#: lib/Page/StandardPage.php:361
 msgid "Edit Version"
 msgstr ""
 
-#: lib/Page/StandardPage.php:399
+#: lib/Page/StandardPage.php:401
 #, php-format
 msgid "Edit Version %s"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:244
+#: lib/Page/MergeOrRename.php:268
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr ""
@@ -303,11 +303,11 @@ msgstr ""
 msgid "Guest"
 msgstr ""
 
-#: lib/Page/StandardPage.php:320
+#: lib/Page/StandardPage.php:322
 msgid "HTML"
 msgstr ""
 
-#: lib/Page/StandardPage.php:254
+#: lib/Page/StandardPage.php:256
 msgid "Hi_story"
 msgstr ""
 
@@ -349,7 +349,7 @@ msgstr ""
 msgid "Last Author"
 msgstr ""
 
-#: lib/Page.php:360 lib/Page/EditPage.php:113
+#: lib/Page.php:361 lib/Page/EditPage.php:113
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr ""
@@ -358,7 +358,7 @@ msgstr ""
 msgid "Last Update"
 msgstr ""
 
-#: lib/Page/StandardPage.php:324
+#: lib/Page/StandardPage.php:326
 msgid "Latex"
 msgstr ""
 
@@ -366,7 +366,7 @@ msgstr ""
 msgid "Least Popular"
 msgstr ""
 
-#: lib/Page.php:377 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page.php:375 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
 #: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr ""
@@ -493,7 +493,7 @@ msgstr ""
 msgid "Pages cannot be empty."
 msgstr ""
 
-#: lib/Page/StandardPage.php:269
+#: lib/Page/StandardPage.php:271
 msgid "Permissio_ns"
 msgstr ""
 
@@ -501,7 +501,7 @@ msgstr ""
 msgid "Permission denied."
 msgstr ""
 
-#: lib/Page/StandardPage.php:316
+#: lib/Page/StandardPage.php:318
 msgid "Plain Text"
 msgstr ""
 
@@ -522,17 +522,17 @@ msgstr ""
 msgid "Referrer \"%s\" does not exist."
 msgstr ""
 
+#: templates/display/standard.html.php:60
+msgid "Related Sub Pages"
+msgstr ""
+
 #: lib/Page/AttachedFiles.php:129
 #, php-format
 msgid "Reload \"%s\""
 msgstr ""
 
-#: lib/Page/StandardPage.php:353
+#: lib/Page/StandardPage.php:355
 msgid "Reload History"
-msgstr ""
-
-#: lib/Page.php:374 lib/Page.php:375
-msgid "Reload Page"
 msgstr ""
 
 #: lib/Page/MergeOrRename.php:218
@@ -550,7 +550,7 @@ msgstr ""
 msgid "Renamed page from %s"
 msgstr ""
 
-#: lib/Page/StandardPage.php:360
+#: lib/Page/StandardPage.php:362
 msgid "Restore Version"
 msgstr ""
 
@@ -562,7 +562,7 @@ msgstr ""
 msgid "Revert Page"
 msgstr ""
 
-#: lib/Page/StandardPage.php:405
+#: lib/Page/StandardPage.php:407
 #, php-format
 msgid "Revert to version %s"
 msgstr ""
@@ -576,7 +576,7 @@ msgstr ""
 msgid "Robots are not allowed to create pages"
 msgstr ""
 
-#: lib/Page/StandardPage.php:244
+#: lib/Page/StandardPage.php:246
 msgid "S_imilar Pages"
 msgstr ""
 
@@ -592,7 +592,7 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: lib/Page.php:358 lib/Page/RecentChanges.php:69
+#: lib/Page.php:359 lib/Page/RecentChanges.php:69
 #, php-format
 msgid "Show changes for %s"
 msgstr ""
@@ -629,11 +629,11 @@ msgstr ""
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr ""
 
-#: lib/Page.php:522
+#: lib/Page.php:520
 msgid "Table of Contents"
 msgstr ""
 
-#: lib/Page/StandardPage.php:441
+#: lib/Page/StandardPage.php:443
 msgid "The page is already locked."
 msgstr ""
 
@@ -660,7 +660,7 @@ msgstr ""
 msgid "This page is referenced from %d other page(s)."
 msgstr ""
 
-#: lib/Page/StandardPage.php:204
+#: lib/Page/StandardPage.php:206
 msgid "Un_lock"
 msgstr ""
 
@@ -673,10 +673,10 @@ msgstr ""
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr ""
 
-#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:412
-#: lib/Page.php:420 lib/Page.php:428 lib/Page.php:438 lib/Page.php:572
-#: lib/Page.php:611 lib/Page.php:616 lib/Page.php:621 lib/Page.php:626
-#: lib/Page.php:666
+#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
+#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:570
+#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
+#: lib/Page.php:664
 msgid "Unsupported"
 msgstr ""
 
@@ -760,15 +760,15 @@ msgstr ""
 msgid "_All Pages"
 msgstr ""
 
-#: lib/Page/StandardPage.php:239
+#: lib/Page/StandardPage.php:241
 msgid "_Backlinks"
 msgstr ""
 
-#: lib/Page/StandardPage.php:224
+#: lib/Page/StandardPage.php:226
 msgid "_Delete"
 msgstr ""
 
-#: lib/Page/StandardPage.php:196
+#: lib/Page/StandardPage.php:198
 msgid "_Edit"
 msgstr ""
 
@@ -776,11 +776,11 @@ msgstr ""
 msgid "_Home"
 msgstr ""
 
-#: lib/Page/StandardPage.php:212
+#: lib/Page/StandardPage.php:214
 msgid "_Lock"
 msgstr ""
 
-#: lib/Page/StandardPage.php:233
+#: lib/Page/StandardPage.php:235
 msgid "_Merge/Rename"
 msgstr ""
 
@@ -792,7 +792,7 @@ msgstr ""
 msgid "_Usage"
 msgstr ""
 
-#: lib/Page/StandardPage.php:467
+#: lib/Page/StandardPage.php:469
 msgid "a guest"
 msgstr ""
 
@@ -800,6 +800,6 @@ msgstr ""
 msgid "attachment"
 msgstr ""
 
-#: lib/Page/StandardPage.php:328
+#: lib/Page/StandardPage.php:330
 msgid "reStructuredText"
 msgstr ""

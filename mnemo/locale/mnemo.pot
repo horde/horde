@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: memo.php:282
+#: memo.php:275
 #, php-format
 msgid "%s characters"
 msgstr ""
@@ -27,19 +27,23 @@ msgstr ""
 msgid "%s file successfully imported"
 msgstr ""
 
-#: memo.php:93
+#: memo.php:100
 msgid "Access denied addings notes to this notepad."
 msgstr ""
 
-#: memo.php:257
+#: memo.php:250
 msgid "Access denied deleting note."
 msgstr ""
 
-#: memo.php:190 memo.php:193
+#: memo.php:114
+msgid "Access denied editing note."
+msgstr ""
+
+#: memo.php:187
 msgid "Access denied moving the note."
 msgstr ""
 
-#: memo.php:149
+#: memo.php:156
 msgid "Access denied saving note to this notepad."
 msgstr ""
 
@@ -95,7 +99,7 @@ msgstr ""
 msgid "Close Search"
 msgstr ""
 
-#: lib/Api.php:339
+#: lib/Api.php:347
 #, php-format
 msgid "Connection failed: %s"
 msgstr ""
@@ -184,7 +188,7 @@ msgstr ""
 msgid "Edit Note"
 msgstr ""
 
-#: memo.php:125 memo.php:161
+#: memo.php:138 memo.php:170
 #, php-format
 msgid "Edit: %s"
 msgstr ""
@@ -233,11 +237,11 @@ msgstr ""
 msgid "In"
 msgstr ""
 
-#: lib/Api.php:254
+#: lib/Api.php:262
 msgid "Invalid notepad name supplied."
 msgstr ""
 
-#: lib/Api.php:147 lib/Api.php:152
+#: lib/Api.php:155 lib/Api.php:160
 msgid "Invalid notepad requested."
 msgstr ""
 
@@ -245,7 +249,7 @@ msgstr ""
 msgid "Last Modified"
 msgstr ""
 
-#: memo.php:293
+#: memo.php:286
 msgid "Loading..."
 msgstr ""
 
@@ -265,7 +269,7 @@ msgstr ""
 msgid "More Options..."
 msgstr ""
 
-#: lib/Api.php:726
+#: lib/Api.php:734
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 
@@ -281,7 +285,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: lib/Application.php:186 memo.php:102 memo.php:153
+#: lib/Application.php:186 memo.php:109 memo.php:162
 msgid "New Note"
 msgstr ""
 
@@ -289,7 +293,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: lib/Api.php:562 lib/Api.php:719
+#: lib/Api.php:570 lib/Api.php:727
 msgid "No iCalendar data was found."
 msgstr ""
 
@@ -325,7 +329,7 @@ msgstr ""
 msgid "Note _Text"
 msgstr ""
 
-#: memo.php:113 memo.php:158 note/pdf.php:52 view.php:55
+#: memo.php:125 memo.php:167 note/pdf.php:52 view.php:55
 msgid "Note not found."
 msgstr ""
 
@@ -341,11 +345,11 @@ msgstr ""
 msgid "Notepad and Share Preferences"
 msgstr ""
 
-#: lib/Api.php:329
+#: lib/Api.php:337
 msgid "Notepad does not exist or no permission to delete"
 msgstr ""
 
-#: lib/Api.php:273
+#: lib/Api.php:281
 msgid "Notepad does not exist or no permission to edit"
 msgstr ""
 
@@ -362,7 +366,7 @@ msgstr ""
 msgid "Notes Summary"
 msgstr ""
 
-#: lib/Api.php:119
+#: lib/Api.php:127
 #, php-format
 msgid "Notes from %s"
 msgstr ""
@@ -478,7 +482,7 @@ msgid ""
 "application is installed."
 msgstr ""
 
-#: memo.php:252
+#: memo.php:245
 msgid "The note was deleted."
 msgstr ""
 
@@ -502,7 +506,7 @@ msgstr ""
 msgid "The notepad \"%s\" has been saved."
 msgstr ""
 
-#: memo.php:151
+#: memo.php:160
 msgid "The passwords don't match."
 msgstr ""
 
@@ -516,7 +520,7 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr ""
 
-#: lib/Api.php:556 lib/Api.php:713
+#: lib/Api.php:564 lib/Api.php:721
 msgid "There was an error importing the iCalendar data."
 msgstr ""
 
@@ -525,7 +529,7 @@ msgstr ""
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
 
-#: memo.php:254
+#: memo.php:247
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr ""
@@ -535,7 +539,7 @@ msgstr ""
 msgid "There was an error saving the note: %s"
 msgstr ""
 
-#: note/pdf.php:42 view.php:45
+#: memo.php:60 note/pdf.php:42 view.php:45
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr ""
@@ -566,7 +570,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: lib/Api.php:267 lib/Api.php:600 lib/Api.php:652 lib/Api.php:741
+#: lib/Api.php:275 lib/Api.php:608 lib/Api.php:660 lib/Api.php:749
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr ""
@@ -579,7 +583,7 @@ msgstr ""
 msgid "Which Notepad should the notes be added to?"
 msgstr ""
 
-#: data.php:34 data.php:87 memo.php:73
+#: data.php:34 data.php:87 memo.php:85
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr ""

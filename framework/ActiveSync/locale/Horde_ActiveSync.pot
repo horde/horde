@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-14 12:26+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:617
+#: lib/Horde/ActiveSync/Imap/Message.php:483
 #, php-format
 msgid "%s part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:596
+#: lib/Horde/ActiveSync/Imap/Message.php:462
 msgid "Audio part"
 msgstr ""
 
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Cc"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:315
+#: lib/Horde/ActiveSync/Device.php:316
 msgid "Common Name"
 msgstr ""
 
@@ -38,11 +38,11 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:327
+#: lib/Horde/ActiveSync/Device.php:331
 msgid "EAS Version"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:330
+#: lib/Horde/ActiveSync/Device.php:334
 msgid "Forced Multiplexed Bitmask"
 msgstr ""
 
@@ -50,43 +50,47 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:312
+#: lib/Horde/ActiveSync/Device.php:313
 msgid "IMEI"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:303
+#: lib/Horde/ActiveSync/Device.php:304
 msgid "Id"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:599
+#: lib/Horde/ActiveSync/Imap/Message.php:465
 msgid "Image part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:603
+#: lib/Horde/ActiveSync/Imap/Message.php:469
 msgid "Message part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:309
+#: lib/Horde/ActiveSync/Device.php:319
+msgid "Mobile Operator"
+msgstr ""
+
+#: lib/Horde/ActiveSync/Device.php:310
 msgid "Model"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:606
+#: lib/Horde/ActiveSync/Imap/Message.php:472
 msgid "Multipart part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:318
+#: lib/Horde/ActiveSync/Device.php:322
 msgid "OS"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:321
+#: lib/Horde/ActiveSync/Device.php:325
 msgid "OS Language"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:324
+#: lib/Horde/ActiveSync/Device.php:328
 msgid "Phone Number"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:304
+#: lib/Horde/ActiveSync/Device.php:305
 msgid "Policy Key"
 msgstr ""
 
@@ -98,7 +102,7 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:609
+#: lib/Horde/ActiveSync/Imap/Message.php:475
 msgid "Text part"
 msgstr ""
 
@@ -106,10 +110,10 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Device.php:305
+#: lib/Horde/ActiveSync/Device.php:306
 msgid "User Agent"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:612
+#: lib/Horde/ActiveSync/Imap/Message.php:478
 msgid "Video part"
 msgstr ""

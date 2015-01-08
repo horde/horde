@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/Mime/Mdn.php:175
+#: lib/Horde/Mime/Mdn.php:188
 msgid "Disposition Notification"
 msgstr ""
 
-#: lib/Horde/Mime/Mail.php:417
+#: lib/Horde/Mime/Mail.php:439
 msgid "HTML Version of Message"
 msgstr ""
 
-#: lib/Horde/Mime/Mail.php:415
+#: lib/Horde/Mime/Mail.php:437
 msgid "Plaintext Version of Message"
 msgstr ""
 
-#: lib/Horde/Mime/Mdn.php:188
+#: lib/Horde/Mime/Mdn.php:201
 #, php-format
 msgid ""
 "The message sent on %s to %s with subject \"%s\" has been displayed.\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-12 14:05+0100\n"
+"POT-Creation-Date: 2015-01-08 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -480,7 +480,7 @@ msgstr ""
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr ""
 
-#: lib/Script/Sieve/Action/Fileinto.php:61
+#: lib/Script/Sieve/Action/Fileinto.php:62
 msgid "Inexistant mailbox specified for message delivery."
 msgstr ""
 
