@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use composer to generate the distributed version of the PHP-CSS-Parser package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -232,7 +232,7 @@
    <date>2014-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use composer to generate the distributed version of the PHP-CSS-Parser package.
    </notes>
   </release>
  </changelog>
