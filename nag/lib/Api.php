@@ -481,7 +481,11 @@ class Nag_Api extends Horde_Registry_Api
         // Store all currently existings UIDs. Use this info to delete UIDs not
         // present in $content after processing.
         $ids = array();
-        $uids_remove = array_flip($this->listUids($tasklist));
+        if (count($parts) == 2) {
+            $uids_remove = array_flip($this->listUids($tasklist));
+        } else {
+            $uids_remove = array();
+        }
 
         $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
 
@@ -515,9 +519,7 @@ class Nag_Api extends Horde_Registry_Api
                 if (!$create) {
                     // Entry exists, remove from uids_remove list so we
                     // won't delete in the end.
-                    if (isset($uids_remove[$task->uid])) {
-                        unset($uids_remove[$task->uid]);
-                    }
+                    unset($uids_remove[$task->uid]);
                     if ($existing->private &&
                         $existing->owner != $GLOBALS['registry']->getAuth()) {
                         continue;
@@ -539,7 +541,8 @@ class Nag_Api extends Horde_Registry_Api
                                 break;
                             }
                         }
-                    } catch (Exception $e) {}
+                    } catch (Exception $e) {
+                    }
                     if (empty($modified) && !empty($add)) {
                         $modified = $add;
                     }
