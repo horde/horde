@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Improve handling of FILTERTYPE changes after initial SYNC (Bug #13781).
+* [mjr] Add Date header to emails sent from broken HTC clients (Bug #13784).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2610,7 +2611,8 @@
    <date>2015-01-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Improve handling of FILTERTYPE changes after initial SYNC (Bug #13781).
+* [mjr] Add Date header to emails sent from broken HTC clients (Bug #13784).
    </notes>
   </release>
  </changelog>
