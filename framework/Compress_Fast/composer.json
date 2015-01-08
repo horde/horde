@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.3",
-    "time": "2014-07-08",
+    "version": "1.1.0",
+    "time": "2015-01-08",
     "repositories": [
         {
             "type": "pear",
@@ -26,6 +26,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/horde_lz4": "*",
-        "pear-pecl.php.net/lzf": ">=1.5.2@stable"
+        "pear-pecl.php.net/lzf": ">=1.5.2@stable",
+        "ext-zlib": "*"
     }
 }
