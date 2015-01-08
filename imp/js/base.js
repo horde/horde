@@ -511,11 +511,18 @@ var ImpBase = {
 
                         switch (h) {
                         case 'from':
-                            r.fromtitle = escapeAttr(r.fromaddr || r.from);
-                            r.from = r.from.escapeHTML();
-                            if (ImpCore.conf.from_link) {
-                                r.from = '<a>' + r.from + '</a>';
-                            }
+                            var links = [],
+                                title = [];
+
+                            r.from.each(function(f) {
+                                links.push(
+                                    '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + (f.p || f.b).escapeHTML() + '</a>'
+                                );
+                                title.push(escapeAttr(f.b));
+                            });
+
+                            r.from = links.join(', ');
+                            r.fromtitle = title.join(', ');
 
                             switch (ImpCore.getPref('qsearch_field')) {
                             case 'all':
@@ -641,15 +648,33 @@ var ImpBase = {
 
         /* Custom ViewPort events. */
         container.observe('ViewPort:add', function(e) {
+            var a = e.memo.down('.msgFromLink');
+
             ImpCore.addContextMenu({
                 elt: e.memo,
                 type: 'message'
             });
+
+            if (a) {
+                a.store('email', a.readAttribute('x-email').evalJSON());
+                a.removeAttribute('x-email');
+                ImpCore.addContextMenu({
+                    elt: a,
+                    left: true,
+                    offset: a,
+                    type: 'contacts'
+                });
+            }
+
             new Drag(e.memo, this.msgDragConfig);
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            $(e.memo).fire('ImpBase:removeElt');
+            var a = e.memo.down('.msgFromLink');
+            if (a) {
+                a.fire('ImpBase:removeElt');
+            }
+            e.memo.fire('ImpBase:removeElt');
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
@@ -2443,12 +2468,7 @@ var ImpBase = {
 
         if (elt.hasClassName('vpRow')) {
             args = { right: e.memo.isRightClick() };
-            d.fromClick = d.selectIfNoDrag = false;
-
-            if (ImpCore.conf.from_link && e.memo.findElement('.msgFrom a')) {
-                d.fromClick = !args.right;
-                return;
-            }
+            d.selectIfNoDrag = false;
 
             // Handle selection first.
             if (ImpCore.DMenu.operaCheck(e)) {
@@ -2513,12 +2533,7 @@ var ImpBase = {
 
         if (elt.hasClassName('vpRow')) {
             d = DragDrop.Drags.getDrag(id);
-            if (d.fromClick) {
-                ImpCore.compose('new_to', {
-                    buid: this.viewport.createSelection('div', elt).get('uid').toViewportUidString(),
-                    mailbox: this.view
-                });
-            } else if (d.selectIfNoDrag) {
+            if (d.selectIfNoDrag) {
                 this.msgSelect(id, { right: e.memo.isRightClick() });
             }
         }
