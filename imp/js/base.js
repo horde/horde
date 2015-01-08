@@ -670,11 +670,12 @@ var ImpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:clear', function(e) {
-            var a = e.memo.down('.msgFromLink');
+            var row = $(e.memo),
+                a = row.down('.msgFromLink');
             if (a) {
                 a.fire('ImpBase:removeElt');
             }
-            e.memo.fire('ImpBase:removeElt');
+            row.fire('ImpBase:removeElt');
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
