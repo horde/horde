@@ -284,7 +284,9 @@ class Horde_ActiveSync_Imap_Adapter
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
      *  - softdelete: (boolean)  If true, calculate SOFTDELETE data.
-     *                           @since 2.8.0
+     *                           @since 2.8.0 @todo Rename this to something
+     *                           more appropriate now that it's not just for
+     *                           triggering SOFTDELETE.
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
