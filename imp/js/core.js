@@ -182,7 +182,12 @@ var ImpCore = {
                 df.appendChild(a);
             }
 
-            this.DMenu.addElement(a.identify(), 'ctx_contacts', { offset: a, left: true });
+            this.addContextMenu({
+                elt: a,
+                left: true,
+                offset: a,
+                type: 'contacts'
+            });
         }, this);
     },
 
