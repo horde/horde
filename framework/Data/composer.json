@@ -9,15 +9,15 @@
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
-        },
+        }
         {
             "name": "Chuck Hagenbuch",
             "email": "chuck@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.1.0",
-    "time": "2014-07-01",
+    "version": "2.1.1",
+    "time": "2015-01-08",
     "repositories": [
         {
             "type": "pear",
