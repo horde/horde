@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-20</date>
+ <date>2015-01-08</date>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -25,6 +25,116 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bundle">
+    <dir name="vendor">
+     <dir name="composer">
+      <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_namespaces.php" role="php" />
+      <file name="autoload_psr4.php" role="php" />
+      <file name="autoload_real.php" role="php" />
+      <file name="ClassLoader.php" role="php" />
+      <file name="installed.json" role="php" />
+     </dir> <!-- /bundle/vendor/composer -->
+     <dir name="sabberworm">
+      <dir name="php-css-parser">
+       <dir name="lib">
+        <dir name="Sabberworm">
+         <dir name="CSS">
+          <dir name="CSSList">
+           <file name="AtRuleBlockList.php" role="php" />
+           <file name="CSSBlockList.php" role="php" />
+           <file name="CSSList.php" role="php" />
+           <file name="Document.php" role="php" />
+           <file name="KeyFrame.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList -->
+          <dir name="Parsing">
+           <file name="OutputException.php" role="php" />
+           <file name="UnexpectedTokenException.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parsing -->
+          <dir name="Property">
+           <file name="AtRule.php" role="php" />
+           <file name="Charset.php" role="php" />
+           <file name="CSSNamespace.php" role="php" />
+           <file name="Import.php" role="php" />
+           <file name="Selector.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property -->
+          <dir name="Rule">
+           <file name="Rule.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Rule -->
+          <dir name="RuleSet">
+           <file name="AtRuleSet.php" role="php" />
+           <file name="DeclarationBlock.php" role="php" />
+           <file name="RuleSet.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet -->
+          <dir name="Value">
+           <file name="Color.php" role="php" />
+           <file name="CSSFunction.php" role="php" />
+           <file name="PrimitiveValue.php" role="php" />
+           <file name="RuleValueList.php" role="php" />
+           <file name="Size.php" role="php" />
+           <file name="String.php" role="php" />
+           <file name="URL.php" role="php" />
+           <file name="Value.php" role="php" />
+           <file name="ValueList.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value -->
+          <file name="OutputFormat.php" role="php" />
+          <file name="Parser.php" role="php" />
+          <file name="Renderable.php" role="php" />
+          <file name="Settings.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS -->
+        </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm -->
+       </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/lib -->
+       <dir name="tests">
+        <dir name="files">
+         <file name="-end-token-2.css" role="php" />
+         <file name="-end-token.css" role="php" />
+         <file name="-fault-tolerance.css" role="php" />
+         <file name="-tobedone.css" role="php" />
+         <file name="1readme.css" role="php" />
+         <file name="2readme.css" role="php" />
+         <file name="atrules.css" role="php" />
+         <file name="case-insensitivity.css" role="php" />
+         <file name="colortest.css" role="php" />
+         <file name="comments.css" role="php" />
+         <file name="create-shorthands.css" role="php" />
+         <file name="docuwiki.css" role="php" />
+         <file name="expand-shorthands.css" role="php" />
+         <file name="functions.css" role="php" />
+         <file name="ie.css" role="php" />
+         <file name="important.css" role="php" />
+         <file name="inner-color.css" role="php" />
+         <file name="namespaces.css" role="php" />
+         <file name="nested.css" role="php" />
+         <file name="slashed.css" role="php" />
+         <file name="specificity.css" role="php" />
+         <file name="unicode.css" role="php" />
+         <file name="values.css" role="php" />
+         <file name="webkit.css" role="php" />
+         <file name="whitespace.css" role="php" />
+        </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests/files -->
+        <dir name="Sabberworm">
+         <dir name="CSS">
+          <dir name="RuleSet">
+           <file name="DeclarationBlockTest.php" role="php" />
+           <file name="LenientParsingTest.php" role="php" />
+          </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/RuleSet -->
+          <file name="OutputFormatTest.php" role="php" />
+          <file name="ParserTest.php" role="php" />
+         </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS -->
+        </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm -->
+        <file name="bootstrap.php" role="php" />
+        <file name="phpunit.xml" role="php" />
+        <file name="quickdump.php" role="php" />
+       </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests -->
+       <file name=".travis.yml" role="php" />
+       <file name="CHANGELOG.md" role="php" />
+       <file name="phpunit.xml" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/sabberworm/php-css-parser -->
+     </dir> <!-- /bundle/vendor/sabberworm -->
+     <file name="autoload.php" role="php" />
+    </dir> <!-- /bundle/vendor -->
+   </dir> <!-- /bundle -->
    <dir name="doc">
     <dir name="Horde">
      <dir name="Css">
@@ -41,50 +151,7 @@
       <file name="Parser.php" role="php" />
      </dir> <!-- /lib/Horde/Css -->
     </dir> <!-- /lib/Horde -->
-    <dir name="Sabberworm">
-     <dir name="CSS">
-      <dir name="CSSList">
-       <file name="AtRuleBlockList.php" role="php" />
-       <file name="CSSBlockList.php" role="php" />
-       <file name="CSSList.php" role="php" />
-       <file name="Document.php" role="php" />
-       <file name="KeyFrame.php" role="php" />
-       <file name="MediaQuery.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/CSSList -->
-      <dir name="Parsing">
-       <file name="UnexpectedTokenException.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/Parsing -->
-      <dir name="Property">
-       <file name="AtRule.php" role="php" />
-       <file name="Charset.php" role="php" />
-       <file name="CSSNamespace.php" role="php" />
-       <file name="Import.php" role="php" />
-       <file name="Selector.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/Property -->
-      <dir name="Rule">
-       <file name="Rule.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/Rule -->
-      <dir name="RuleSet">
-       <file name="AtRuleSet.php" role="php" />
-       <file name="DeclarationBlock.php" role="php" />
-       <file name="RuleSet.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/RuleSet -->
-      <dir name="Value">
-       <file name="Color.php" role="php" />
-       <file name="CSSFunction.php" role="php" />
-       <file name="PrimitiveValue.php" role="php" />
-       <file name="RuleValueList.php" role="php" />
-       <file name="Size.php" role="php" />
-       <file name="String.php" role="php" />
-       <file name="URL.php" role="php" />
-       <file name="Value.php" role="php" />
-       <file name="ValueList.php" role="php" />
-      </dir> <!-- /lib/Sabberworm/CSS/Value -->
-      <file name="Parser.php" role="php" />
-      <file name="Settings.php" role="php" />
-     </dir> <!-- /lib/Sabberworm/CSS -->
-    </dir> <!-- /lib/Sabberworm -->
-   </dir> <!-- /lib -->
+    </dir> <!-- /lib -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Css">
@@ -118,36 +185,81 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Css/Parser/vendor/autoload.php" name="bundle/vendor/autoload.php" />
+   <install as="Horde/Css/Parser/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Css/Parser/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
+   <install as="Horde/Css/Parser/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
+   <install as="Horde/Css/Parser/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
+   <install as="Horde/Css/Parser/vendor/composer/ClassLoader.php" name="bundle/vendor/composer/ClassLoader.php" />
+   <install as="Horde/Css/Parser/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/.travis.yml" name="bundle/vendor/sabberworm/php-css-parser/.travis.yml" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/CHANGELOG.md" name="bundle/vendor/sabberworm/php-css-parser/CHANGELOG.md" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/phpunit.xml" name="bundle/vendor/sabberworm/php-css-parser/phpunit.xml" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/README.md" name="bundle/vendor/sabberworm/php-css-parser/README.md" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/OutputFormat.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/OutputFormat.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parser.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parser.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Renderable.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Renderable.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Settings.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Settings.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/AtRuleBlockList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/AtRuleBlockList.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSBlockList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSBlockList.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/CSSList.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/Document.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/Document.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/KeyFrame.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/CSSList/KeyFrame.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parsing/OutputException.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parsing/OutputException.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parsing/UnexpectedTokenException.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Parsing/UnexpectedTokenException.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/AtRule.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/AtRule.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Charset.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Charset.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/CSSNamespace.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/CSSNamespace.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Import.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Import.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Selector.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Property/Selector.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Rule/Rule.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Rule/Rule.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/AtRuleSet.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/AtRuleSet.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/RuleSet.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Color.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Color.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSFunction.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/CSSFunction.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/PrimitiveValue.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/PrimitiveValue.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/RuleValueList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/RuleValueList.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Size.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Size.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/String.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/String.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/URL.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/URL.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Value.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/Value.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/ValueList.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/Value/ValueList.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/bootstrap.php" name="bundle/vendor/sabberworm/php-css-parser/tests/bootstrap.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/phpunit.xml" name="bundle/vendor/sabberworm/php-css-parser/tests/phpunit.xml" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/quickdump.php" name="bundle/vendor/sabberworm/php-css-parser/tests/quickdump.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-end-token-2.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-end-token-2.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-end-token.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-end-token.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-fault-tolerance.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-fault-tolerance.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/-tobedone.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/-tobedone.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/1readme.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/1readme.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/2readme.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/2readme.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/atrules.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/atrules.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/case-insensitivity.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/case-insensitivity.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/colortest.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/colortest.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/comments.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/comments.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/create-shorthands.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/create-shorthands.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/docuwiki.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/docuwiki.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/expand-shorthands.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/expand-shorthands.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/functions.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/functions.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/ie.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/ie.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/important.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/important.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/inner-color.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/inner-color.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/namespaces.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/namespaces.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/nested.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/nested.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/slashed.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/slashed.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/specificity.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/specificity.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/unicode.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/unicode.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/values.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/values.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/webkit.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/webkit.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/files/whitespace.css" name="bundle/vendor/sabberworm/php-css-parser/tests/files/whitespace.css" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/OutputFormatTest.php" name="bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/OutputFormatTest.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/ParserTest.php" name="bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/ParserTest.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/RuleSet/DeclarationBlockTest.php" name="bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/RuleSet/DeclarationBlockTest.php" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/RuleSet/LenientParsingTest.php" name="bundle/vendor/sabberworm/php-css-parser/tests/Sabberworm/CSS/RuleSet/LenientParsingTest.php" />
    <install as="COPYING" name="doc/Horde/Css/Parser/COPYING" />
    <install as="EXPAT_LICENSE" name="doc/Horde/Css/Parser/EXPAT_LICENSE" />
    <install as="Horde/Css/Parser.php" name="lib/Horde/Css/Parser.php" />
-   <install as="Sabberworm/CSS/Parser.php" name="lib/Sabberworm/CSS/Parser.php" />
-   <install as="Sabberworm/CSS/Settings.php" name="lib/Sabberworm/CSS/Settings.php" />
-   <install as="Sabberworm/CSS/CSSList/AtRuleBlockList.php" name="lib/Sabberworm/CSS/CSSList/AtRuleBlockList.php" />
-   <install as="Sabberworm/CSS/CSSList/CSSBlockList.php" name="lib/Sabberworm/CSS/CSSList/CSSBlockList.php" />
-   <install as="Sabberworm/CSS/CSSList/CSSList.php" name="lib/Sabberworm/CSS/CSSList/CSSList.php" />
-   <install as="Sabberworm/CSS/CSSList/Document.php" name="lib/Sabberworm/CSS/CSSList/Document.php" />
-   <install as="Sabberworm/CSS/CSSList/KeyFrame.php" name="lib/Sabberworm/CSS/CSSList/KeyFrame.php" />
-   <install as="Sabberworm/CSS/CSSList/MediaQuery.php" name="lib/Sabberworm/CSS/CSSList/MediaQuery.php" />
-   <install as="Sabberworm/CSS/Parsing/UnexpectedTokenException.php" name="lib/Sabberworm/CSS/Parsing/UnexpectedTokenException.php" />
-   <install as="Sabberworm/CSS/Property/AtRule.php" name="lib/Sabberworm/CSS/Property/AtRule.php" />
-   <install as="Sabberworm/CSS/Property/Charset.php" name="lib/Sabberworm/CSS/Property/Charset.php" />
-   <install as="Sabberworm/CSS/Property/CSSNamespace.php" name="lib/Sabberworm/CSS/Property/CSSNamespace.php" />
-   <install as="Sabberworm/CSS/Property/Import.php" name="lib/Sabberworm/CSS/Property/Import.php" />
-   <install as="Sabberworm/CSS/Property/Selector.php" name="lib/Sabberworm/CSS/Property/Selector.php" />
-   <install as="Sabberworm/CSS/Rule/Rule.php" name="lib/Sabberworm/CSS/Rule/Rule.php" />
-   <install as="Sabberworm/CSS/RuleSet/AtRuleSet.php" name="lib/Sabberworm/CSS/RuleSet/AtRuleSet.php" />
-   <install as="Sabberworm/CSS/RuleSet/DeclarationBlock.php" name="lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" />
-   <install as="Sabberworm/CSS/RuleSet/RuleSet.php" name="lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
-   <install as="Sabberworm/CSS/Value/Color.php" name="lib/Sabberworm/CSS/Value/Color.php" />
-   <install as="Sabberworm/CSS/Value/CSSFunction.php" name="lib/Sabberworm/CSS/Value/CSSFunction.php" />
-   <install as="Sabberworm/CSS/Value/PrimitiveValue.php" name="lib/Sabberworm/CSS/Value/PrimitiveValue.php" />
-   <install as="Sabberworm/CSS/Value/RuleValueList.php" name="lib/Sabberworm/CSS/Value/RuleValueList.php" />
-   <install as="Sabberworm/CSS/Value/Size.php" name="lib/Sabberworm/CSS/Value/Size.php" />
-   <install as="Sabberworm/CSS/Value/String.php" name="lib/Sabberworm/CSS/Value/String.php" />
-   <install as="Sabberworm/CSS/Value/URL.php" name="lib/Sabberworm/CSS/Value/URL.php" />
-   <install as="Sabberworm/CSS/Value/Value.php" name="lib/Sabberworm/CSS/Value/Value.php" />
-   <install as="Sabberworm/CSS/Value/ValueList.php" name="lib/Sabberworm/CSS/Value/ValueList.php" />
    <install as="Horde/Css/Parser/AllTests.php" name="test/Horde/Css/Parser/AllTests.php" />
    <install as="Horde/Css/Parser/bootstrap.php" name="test/Horde/Css/Parser/bootstrap.php" />
    <install as="Horde/Css/Parser/ParserTest.php" name="test/Horde/Css/Parser/ParserTest.php" />
@@ -229,7 +341,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-20</date>
+   <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Use composer to generate the distributed version of the PHP-CSS-Parser package.

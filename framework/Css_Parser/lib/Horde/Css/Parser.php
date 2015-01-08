@@ -11,8 +11,8 @@
  * @package   Css_Parser
  */
 
-if (file_exists(__DIR__ . '/Css_Parser/vendor/autoload.php')) {
-    require_once __DIR__ . '/Css_parser/vendor/autoload.php';
+if (file_exists(__DIR__ . '/Parser/vendor/autoload.php')) {
+    require_once __DIR__ . '/Parser/vendor/autoload.php';
 } else {
     require_once __DIR__ . '/../../../bundle/vendor/autoload.php';
 }
