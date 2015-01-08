@@ -1,5 +1,15 @@
+#contactstable {
+    margin-bottom: 8px;
+}
 #contactstable #search {
     width: 35%;
+}
+#contactstable table {
+    padding: 0 5px 5px 5px;
+    width: 100%;
+}
+#contactstable td {
+    width: 45%;
 }
 #search_results,
 #selected_addresses {
@@ -10,6 +20,7 @@
 }
 .contactsButtons {
     text-align: center;
+    width: 10% !important;
 }
 .contactsButtons input {
     width: 60px;

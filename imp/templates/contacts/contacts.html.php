@@ -22,22 +22,22 @@
   <input id="btn_clear" type="button" value="<?php echo _("Reset") ?>" />
  </p>
 
- <table width="100%" cellspacing="2">
+ <table>
   <tr>
-   <td width="45%">
+   <td>
     <label for="search_results" class="hidden"><?php echo _("Search Results") ?></label>
     <select id="search_results" name="search_results" multiple="multiple" size="10">
      <option disabled="disabled">* <?php echo _("Select address(es)") ?> *</option>
     </select>
    </td>
-   <td width="10%" class="contactsButtons">
+   <td class="contactsButtons">
     <input id="btn_add_to" type="button" value="<?php echo _("To") ?> &gt;&gt;" />
 <?php if (!$this->to_only): ?>
     <input id="btn_add_cc" type="button" value="<?php echo _("Cc") ?> &gt;&gt;" />
     <input id="btn_add_bcc" type="button" value="<?php echo _("Bcc") ?> &gt;&gt;" />
 <?php endif; ?>
    </td>
-   <td width="45%">
+   <td>
     <label for="selected_addresses" class="hidden"><?php echo _("Selected Addresses") ?></label>
     <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
      <option disabled="disabled">* <?php echo _("Add these by clicking OK") ?> *</option>
@@ -52,8 +52,6 @@
   </tr>
  </table>
 </div>
-
-<br class="spacer" />
 
 <div>
  <input id="btn_update" type="button" class="horde-default" value="<?php echo _("OK") ?>" />
