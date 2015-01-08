@@ -37,7 +37,7 @@ Installation will *MOVE* the current file to a time-stamped backup.
 
   - horde/config/registry.d/horde-dev.php
 
-Installation will *DELETE* all contents of the 'web_base' directory defined
+Installation will *DELETE* all contents of the 'file_root' directory defined
 in the configuration file.
 
 Perform install (Y to install, anything else to exit)? 
@@ -57,11 +57,11 @@ if (!isset($dev_config)) {
     exit("CONFIG ERROR: \$dev_config array not found in config file.\n");
 }
 
-if (empty($dev_config['web_base'])) {
-    exit("CONFIG ERROR: 'web_base' not defined in config file.\n");
+if (empty($dev_config['file_root'])) {
+    exit("CONFIG ERROR: 'file_root' not defined in config file.\n");
 }
-$web_base = rtrim(trim($dev_config['web_base']), '/');
-print "\tWeb base Horde directory: " . $web_base . "\n";
+$file_root = rtrim(trim($dev_config['file_root']), '/');
+print "\tWeb base Horde directory: " . $file_root . "\n";
 
 $web_dir = isset($dev_config['web_dir'])
     ? rtrim(trim($dev_config['web_dir']), '/')
@@ -84,17 +84,17 @@ if (!isset($apps['horde'])) {
     exit("CONFIG ERROR: Require at least 'horde' app to install.\n");
 }
 
-if (!file_exists($web_base)) {
+if (!file_exists($file_root)) {
     print "\tCreating new directory ... ";
-    if (!@mkdir($web_base)) {
-        exit("\nCONFIG ERROR: 'web_base' directory cannot be created.\n");
+    if (!@mkdir($file_root)) {
+        exit("\nCONFIG ERROR: 'file_root' directory cannot be created.\n");
     }
     print "DONE\n";
 } else {
-    if (!is_dir($web_base)) {
-        exit("CONFIG ERROR: 'web_base' is not a directory.\n");
-    } elseif (!is_writable($web_base)) {
-        exit("CONFIG ERROR: 'web_base' is not a writable directory.\n");
+    if (!is_dir($file_root)) {
+        exit("CONFIG ERROR: 'file_root' is not a directory.\n");
+    } elseif (!is_writable($file_root)) {
+        exit("CONFIG ERROR: 'file_root' is not a writable directory.\n");
     }
 
     print "\tEmptying old directory ... ";
@@ -102,7 +102,7 @@ if (!file_exists($web_base)) {
     try {
         $it = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(
-                $web_base,
+                $file_root,
                 // This does not follow symlinks.
                 FilesystemIterator::KEY_AS_PATHNAME |
                 FilesystemIterator::CURRENT_AS_FILEINFO |
@@ -137,7 +137,7 @@ foreach ($apps as $key => $val) {
         print "FAILED!\n";
         print "ERROR: Source directory does not exist. Skipping.\n";
     } else {
-        $app_install = $web_base . '/' . $key;
+        $app_install = $file_root . '/' . $key;
         if (!@symlink($val, $app_install)) {
             print "FAILED!\n";
             print "\tERROR: Could not link to source directory. Skipping.\n";

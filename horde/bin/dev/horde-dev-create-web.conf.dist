@@ -7,7 +7,7 @@ $dev_config = array(
 
     /* Location of the web-accessible base directory. ALL applications will
      * be stored as first-level elements of this directory. */
-    'web_base' => null,
+    'file_root' => null,
 
     /* Location of the web root directory. */
     'web_root' => '/',
