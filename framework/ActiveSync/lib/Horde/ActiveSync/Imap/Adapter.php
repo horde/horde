@@ -75,11 +75,10 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function appendMessage($folderid, $msg, array $flags = array())
     {
-        $imap = $this->_getImapOb();
         $message = array(array('data' => $msg, 'flags' => $flags));
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         try {
-            $imap->append($mbox, $message);
+            $this->_getImapOb()->append($mbox, $message);
         } catch (Horde_Imap_Client_Exception $e) {
             if (!$this->_mailboxExists($folderid)) {
                 throw new Horde_ActiveSync_Exception_FolderGone();
@@ -149,10 +148,9 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function emptyMailbox($mbox)
     {
-        $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mbox);
         try {
-            $imap->expunge($mbox, array('delete' => true));
+            $this->_getImapOb()->expunge($mbox, array('delete' => true));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -736,9 +734,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function ping(Horde_ActiveSync_Folder_Imap $folder)
     {
-        $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-
         // Note: non-CONDSTORE servers will return a highestmodseq of 0
         $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
             Horde_Imap_Client::STATUS_UIDNEXT_FORCE |
@@ -747,7 +743,7 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Get IMAP status.
         try {
-            $status = $imap->status($mbox, $status_flags);
+            $status = $this->_getImapOb()->status($mbox, $status_flags);
         } catch (Horde_Imap_Client_Exception $e) {
             // See if the folder disappeared.
             if (!$this->_mailboxExists($mbox->utf8)) {
@@ -805,15 +801,13 @@ class Horde_ActiveSync_Imap_Adapter
             return;
         }
 
-        $imap = $this->_getImapOb();
-
         if (!empty($parent)) {
             $ns = $this->_defaultNamespace();
             $new = $parent . $ns['delimiter'] . $new;
         }
         $new_mbox = new Horde_Imap_Client_Mailbox($new);
         try {
-            $imap->renameMailbox(
+            $this->_getImapOb()->renameMailbox(
                 new Horde_Imap_Client_Mailbox($old),
                 $new_mbox
             );
@@ -893,9 +887,8 @@ class Horde_ActiveSync_Imap_Adapter
         default:
             $options['remove'] = array(Horde_Imap_Client::FLAG_FLAGGED);
         }
-        $imap = $this->_getImapOb();
         try {
-            $imap->store($mbox, $options);
+            $this->_getImapOb()->store($mbox, $options);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -946,9 +939,8 @@ class Horde_ActiveSync_Imap_Adapter
         } else if ($flag == Horde_ActiveSync_Message_Mail::FLAG_READ_UNSEEN) {
             $options['remove'] = array(Horde_Imap_Client::FLAG_SEEN);
         }
-        $imap = $this->_getImapOb();
         try {
-            $imap->store($mbox, $options);
+            $this->_getImapOb()->store($mbox, $options);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -1637,7 +1629,6 @@ class Horde_ActiveSync_Imap_Adapter
             $options
         );
 
-        $imap = $this->_getImapOb();
         $query = new Horde_Imap_Client_Fetch_Query();
         if ($options['structure']) {
             $query->structure();
@@ -1653,7 +1644,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $ids = new Horde_Imap_Client_Ids($uids);
         try {
-            return $imap->fetch($mbox, $query, array('ids' => $ids, 'exists' => true));
+            return $this->_getImapOb()->fetch($mbox, $query, array('ids' => $ids, 'exists' => true));
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] Unable to fetch message: %s',
