@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix handling of iTips indicating a change to a series exception (Bug #13777).
 * [mms] Fix parsing broken S/MIME messages that don&apos;t include the smime-type content-type parameter (Request #13661).
 * [mms] Fix regression when working with multiple selected messages with a POP3 server (Bug #13759).
 * [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
@@ -3783,6 +3784,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix handling of iTips indicating a change to a series exception (Bug #13777).
 * [mms] Fix parsing broken S/MIME messages that don&apos;t include the smime-type content-type parameter (Request #13661).
 * [mms] Fix regression when working with multiple selected messages with a POP3 server (Bug #13759).
 * [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
