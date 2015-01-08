@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-09-26</date>
+ <date>2015-01-08</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -105,6 +105,11 @@
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
+    <dir name="dev">
+     <file name="horde-dev-create-web" role="script" />
+     <file name="horde-dev-create-web.conf" role="script" />
+     <file name="horde-dev-create-web.conf.dist" role="script" />
+    </dir> <!-- /bin/dev -->
     <file name="horde-active-sessions" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -161,6 +166,15 @@
     </file>
    </dir> <!-- /bin -->
    <dir name="config">
+    <dir name="backup-dev">
+     <file name="registry.local.php.1420694655" role="horde" />
+     <file name="registry.local.php.1420695546" role="horde" />
+     <file name="registry.local.php.1420695605" role="horde" />
+     <file name="registry.local.php.1420696036" role="horde" />
+     <file name="registry.local.php.1420696078" role="horde" />
+     <file name="registry.local.php.1420696092" role="horde" />
+     <file name="registry.local.php.1420696846" role="horde" />
+    </dir> <!-- /config/backup-dev -->
     <dir name="registry.d">
      <file name="README" role="horde" />
     </dir> <!-- /config/registry.d -->
@@ -259,6 +273,11 @@
      </dir> <!-- /lib/Ajax/Application -->
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Autoloader">
+     <dir name="ClassPathMapper">
+      <file name="HordeDevel.php" role="horde" />
+     </dir> <!-- /lib/Autoloader/ClassPathMapper -->
+    </dir> <!-- /lib/Autoloader -->
     <dir name="Block">
      <dir name="Account">
       <file name="Base.php" role="horde" />
@@ -2015,6 +2034,9 @@
    <install as="horde-sql-shell" name="bin/horde-sql-shell" />
    <install as="horde-themes" name="bin/horde-themes" />
    <install as="horde-translation" name="bin/horde-translation" />
+   <install as="dev/horde-dev-create-web" name="bin/dev/horde-dev-create-web" />
+   <install as="dev/horde-dev-create-web.conf" name="bin/dev/horde-dev-create-web.conf" />
+   <install as="dev/horde-dev-create-web.conf.dist" name="bin/dev/horde-dev-create-web.conf.dist" />
    <install as="config/.htaccess" name="config/.htaccess" />
    <install as="config/conf.php.dist" name="config/conf.php.dist" />
    <install as="config/conf.xml" name="config/conf.xml" />
@@ -2025,6 +2047,13 @@
    <install as="config/prefs.php" name="config/prefs.php" />
    <install as="config/registry.php" name="config/registry.php" />
    <install as="config/spelling.php" name="config/spelling.php" />
+   <install as="config/backup-dev/registry.local.php.1420694655" name="config/backup-dev/registry.local.php.1420694655" />
+   <install as="config/backup-dev/registry.local.php.1420695546" name="config/backup-dev/registry.local.php.1420695546" />
+   <install as="config/backup-dev/registry.local.php.1420695605" name="config/backup-dev/registry.local.php.1420695605" />
+   <install as="config/backup-dev/registry.local.php.1420696036" name="config/backup-dev/registry.local.php.1420696036" />
+   <install as="config/backup-dev/registry.local.php.1420696078" name="config/backup-dev/registry.local.php.1420696078" />
+   <install as="config/backup-dev/registry.local.php.1420696092" name="config/backup-dev/registry.local.php.1420696092" />
+   <install as="config/backup-dev/registry.local.php.1420696846" name="config/backup-dev/registry.local.php.1420696846" />
    <install as="config/registry.d/README" name="config/registry.d/README" />
    <install as="CHANGES" name="docs/CHANGES" />
    <install as="CODING_STANDARDS" name="docs/CODING_STANDARDS" />
@@ -2100,6 +2129,7 @@
    <install as="lib/Ajax/Application/FacebookHandler.php" name="lib/Ajax/Application/FacebookHandler.php" />
    <install as="lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="lib/Ajax/Application/TwitterHandler.php" name="lib/Ajax/Application/TwitterHandler.php" />
+   <install as="lib/Autoloader/ClassPathMapper/HordeDevel.php" name="lib/Autoloader/ClassPathMapper/HordeDevel.php" />
    <install as="lib/Block/Account.php" name="lib/Block/Account.php" />
    <install as="lib/Block/Cloud.php" name="lib/Block/Cloud.php" />
    <install as="lib/Block/FbStream.php" name="lib/Block/FbStream.php" />
@@ -4101,7 +4131,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-09-26</date>
+   <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).

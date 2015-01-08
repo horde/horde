@@ -1,0 +1,25 @@
+<?php
+/**
+ * Sample configuration file for horde-dev-create-web script.
+ */
+
+$dev_config = array(
+
+    /* Location of the web-accessible base directory. ALL applications will
+     * be stored as first-level elements of this directory. */
+    'web_base' => null,
+
+    /* Location of the web root directory. */
+    'web_root' => '/',
+
+    /* The list of applications (keys) to link/install. Values are the
+     * filesystem location of the base of the application source directory.
+     * These applications will be marked as active in the registry. */
+    'apps' => array(
+        'horde' => null,
+    ),
+
+    /* The path to the directory containing the Horde libraries. */
+    'library_base' => null
+
+);

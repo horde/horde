@@ -45,6 +45,8 @@ framework/*/test/*/*/*/*.out
 */config/menu.php
 */config/*.local.php
 */config/*-*.php
+horde/config/backup-dev
+horde/bin/dev/*.conf
 framework/bin/*.conf
 !/horde/admin/config/
 !/bundles/*/config/*.d/*.php

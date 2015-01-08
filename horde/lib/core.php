@@ -38,6 +38,12 @@ if (!defined('HORDE_BASE')) {
 }
 
 ini_set('include_path', $dirname . PATH_SEPARATOR . ini_get('include_path'));
+
+/* Autoloader class path mappers can be added inside horde.local.php in the
+ * $__horde_autoload_cpm array. Each element of this array contains two
+ * values: the ClassPathMapper class name and an array of arguments to that
+ * object's constructor. */
+$__horde_autoload_cpm = array();
 if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
     include_once HORDE_BASE . '/config/horde.local.php';
 }
@@ -48,9 +54,18 @@ if (file_exists(HORDE_BASE . '/config/horde.local.php')) {
 if (!@include_once 'Horde/Autoloader/Cache.php') {
     require_once 'Horde/Autoloader/Default.php';
 }
+
+/* Add autoloaders. */
 $__autoloader->addClassPathMapper(
     new Horde_Autoloader_ClassPathMapper_PrefixString('Horde', $dirname)
 );
+foreach ($__horde_autoload_cpm as $val) {
+    $reflection = new ReflectionClass($val[0]);
+    $__autoloader->addClassPathMapper(
+        $reflection->newInstanceArgs($val[1])
+    );
+}
+unset($__horde_autoload_cpm);
 
 /* Sanity checking - if we can't even load the Horde_ErrorHandler file, then
  * the installation is all sorts of busted. */

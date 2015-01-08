@@ -1,0 +1,259 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Developer script to install a web-accessible Horde installation from git
+ * source.
+ *
+ * Copyright 2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+/* Can't rely on external libs since we may be bootstrapping this install. */
+
+define('DEV_CONF', __DIR__ . '/horde-dev-create-web.conf');
+define('DEV_CONF_BACKUP', 'backup-dev');
+
+if (!file_exists(DEV_CONF)) {
+    exit("ERROR: Missing the " . basename(DEV_CONF) . " configuration file.\n");
+}
+
+print <<<EOT
+**** THIS SCRIPT IS FOR DEVELOPERS ONLY.                       ****
+**** THIS IS NOT AN INSTALL SCRIPT! (SEE docs/INSTALL instead) ****
+
+Installation will *OVERWRITE* the following file(s):
+
+  - [application]/config/horde.local.php
+
+Installation will *MOVE* the current file to a time-stamped backup.
+
+  - horde/config/registry.local.php
+
+Installation will *DELETE* all contents of the 'web_base' directory defined
+in the configuration file.
+
+Perform install (Y to install, anything else to exit)? 
+EOT;
+
+if (strtolower(trim(fgets(STDIN))) !== 'y') {
+    exit("EXITING.\n");
+}
+
+print "Reading config file ...\n";
+
+if (!@include DEV_CONF) {
+    exit("CONFIG ERROR: Could not read " . basename(DEV_CONF) . ".\n");
+}
+
+if (!isset($dev_config)) {
+    exit("CONFIG ERROR: \$dev_config array not found in config file.\n");
+}
+
+if (empty($dev_config['web_base'])) {
+    exit("CONFIG ERROR: 'web_base' not defined in config file.\n");
+}
+$web_base = rtrim(trim($dev_config['web_base']), '/');
+print "\tWeb base Horde directory: " . $web_base . "\n";
+
+$web_dir = isset($dev_config['web_dir'])
+    ? rtrim(trim($dev_config['web_dir']), '/')
+    : '/';
+print "\tWeb root directory: " . $web_dir . "\n";
+
+if (empty($dev_config['library_base'])) {
+    exit("CONFIG ERROR: 'library_base' not defined in config file.\n");
+} elseif (!file_exists($dev_config['library_base'])) {
+    exit("CONFIG ERROR: 'library_base' does not exist in the filesystem.\n");
+}
+$library_base = rtrim(trim($dev_config['library_base']), '/');
+print "\tLibrary base directory: " . $library_base . "\n";
+
+if (!isset($dev_config['apps']) ||
+    empty(array_filter($apps = $dev_config['apps']))) {
+    exit("CONFIG ERROR: No applications (in 'apps') defined to install.\n");
+}
+if (!isset($apps['horde'])) {
+    exit("CONFIG ERROR: Require at least 'horde' app to install.\n");
+}
+
+if (!file_exists($web_base)) {
+    print "\tCreating new directory ... ";
+    if (!@mkdir($web_base)) {
+        exit("\nCONFIG ERROR: 'web_base' directory cannot be created.\n");
+    }
+    print "DONE\n";
+} else {
+    if (!is_dir($web_base)) {
+        exit("CONFIG ERROR: 'web_base' is not a directory.\n");
+    } elseif (!is_writable($web_base)) {
+        exit("CONFIG ERROR: 'web_base' is not a writable directory.\n");
+    }
+
+    print "\tEmptying old directory ... ";
+
+    try {
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
+                $web_base,
+                // This does not follow symlinks.
+                FilesystemIterator::KEY_AS_PATHNAME |
+                FilesystemIterator::CURRENT_AS_FILEINFO |
+                FilesystemIterator::SKIP_DOTS
+            ),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+    } catch (Exception $e) {
+        exit("\nERROR: " . $e->getMessage() . "\n");
+    }
+
+    while ($it->valid()) {
+        if ($it->isLink()) {
+            unlink($it->key());
+        } elseif ($it->isDir()) {
+            rmdir($it->key());
+        } elseif ($it->isFile()) {
+            unlink($it->key());
+        }
+        $it->next();
+    }
+
+    print "DONE\n";
+}
+
+$registry_conf = array();
+
+foreach ($apps as $key => $val) {
+    print "Symlinking " . $key . " ... ";
+
+    if (!file_exists($val)) {
+        print "FAILED!\n";
+        print "ERROR: Source directory does not exist. Skipping.\n";
+    } else {
+        $app_install = $web_base . '/' . $key;
+        if (!@symlink($val, $app_install)) {
+            print "FAILED!\n";
+            print "\tERROR: Could not link to source directory. Skipping.\n";
+        } else {
+            print "DONE\n";
+
+            $registry_conf[] = '$this->applications[\'' . $key . '\'][\'fileroot\'] = \'' . $val . '\';';
+            print "\tFileroot: " . $val . "\n";
+
+            $registry_conf[] = '$this->applications[\'' . $key . '\'][\'webroot\'] = \'/' . ltrim(preg_replace('/^' . preg_quote($web_dir, '/') . '/', '', $app_install), '/') . '\';';
+            print "\tWebroot: " . $app_install . "\n";
+
+            $registry_conf[] = '$this->applications[\'' . $key . '\'][\'status\'] = \'active\';';
+
+            if ($key !== 'horde') {
+                $bootstrap = $val . '/config/horde.local.php';
+
+                if (file_exists($bootstrap)) {
+                    print "\tDeleting existing bootstrap file ... ";
+                    if (!@unlink($bootstrap)) {
+                        print "FAILED!\n";
+                        exit("ERROR: Could not delete bootstrap file.\n");
+                    }
+                    print "DONE\n";
+                }
+
+                print "\tCreating application bootstrap file ... ";
+
+                $result = file_put_contents(
+                    $bootstrap,
+                    '<?php define(\'HORDE_BASE\', \'' . $apps['horde'] . '\');'
+                );
+
+                if (!$result) {
+                    print "FAILED!\n";
+                    exit("ERROR: Could not create bootstrap file.\n");
+                }
+
+                print "DONE\n";
+            }
+        }
+    }
+}
+
+$conf_dir = realpath(__DIR__ . '/../../config');
+print "Config directory: " . $conf_dir . "\n";
+
+print "Preparing registry.local.php ... \n";
+$registry_local = $conf_dir . '/registry.local.php';
+
+if (file_exists($registry_local)) {
+    $registry_backup_dir = $conf_dir . '/' . DEV_CONF_BACKUP;
+    if (!@is_dir($registry_backup_dir) &&
+        @mkdir($registry_backup_dir)) {
+        exit("ERROR: Could not create config backup directory.\n");
+    }
+
+    $registry_local_backup = $registry_backup_dir . '/registry.' . time() . '.local.php';
+    if (!@rename($registry_local, $registry_local_backup)) {
+        exit("ERROR: Could not move current registry.local.php to backup file.\n");
+    }
+    print "\tMoved existing local registry config to " . $registry_local_backup . "\n";
+}
+
+print "\tWriting " . $registry_local . " ... ";
+
+$result = file_put_contents(
+    $registry_local,
+    "<?php\n" . implode("\n", $registry_conf)
+);
+
+if (!$result) {
+    print "FAILED!\n";
+    exit("ERROR: Could not create new local registry config file.\n");
+}
+
+print "DONE\n";
+
+print "Preparing horde.local.php ... \n";
+$horde_local = $conf_dir . '/horde.local.php';
+
+if (file_exists($horde_local)) {
+    print "\tDeleting existing file ... ";
+    if (!@unlink($horde_local)) {
+        print "FAILED!\n";
+        exit("ERROR: Could not delete current horde bootstrap file.\n");
+    }
+    print "DONE\n";
+}
+
+print "Checking autoloader include paths ...\n";
+
+$horde_conf = array();
+$include_path = '';
+
+foreach (array('Autoloader_Cache', 'Autoloader') as $val) {
+    $full_path = $library_base . '/' . $val . '/lib';
+    if (!file_exists($full_path)) {
+        exit("ERROR: Could not determine include path for " . $val . "\n");
+    }
+    print "\tAdding autoloader include path: " . $full_path . "\n";
+    $include_path .= PATH_SEPARATOR . $full_path;
+}
+$horde_conf[] = 'ini_set(\'include_path\', ini_get(\'include_path\') . \'' . $include_path . '\');';
+$horde_conf[] = '$__horde_autoload_cpm = array(array(\'Horde_Autoloader_ClassPathMapper_HordeDevel\', array(\'' . $library_base . '\')));';
+
+print "\tWriting " . $horde_local . " ... ";
+
+$result = file_put_contents(
+    $horde_local,
+    "<?php\n" . implode("\n", $horde_conf)
+);
+
+if (!$result) {
+    print "FAILED!\n";
+    exit("ERROR: Could not create new horde bootstap file.\n");
+}
+
+print "DONE\n";
