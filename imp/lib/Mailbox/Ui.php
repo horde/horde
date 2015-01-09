@@ -54,15 +54,14 @@ class IMP_Mailbox_Ui
      * @return array  An array of information:
      *   - from: (string) The label(s) of the From address (personal part;
      *           fallback to address).
-     *   - from_addr: (string) The bare address(es) of the From address.
+     *   - from_label: (string) String to prefix to From label.
      *   - from_list: (Horde_Mail_Rfc822_List) From address list.
      *   - to: (boolean) True if this is who the message was sent to.
      */
     public function getFrom($ob)
     {
         $ret = array(
-            'from' => '',
-            'from_addr' => '',
+            'from_label' => null,
             'to' => false
         );
 
@@ -72,39 +71,35 @@ class IMP_Mailbox_Ui
 
         if ($GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($ob->from)) {
             if (!$this->_draftsSent) {
-                $ret['from'] = _("To:") . ' ';
+                $ret['from_label'] = _("To:");
             }
             $ret['to'] = true;
             $addrs = $ob->to;
 
             if (!count($addrs)) {
-                $ret['from'] .= _("Undisclosed Recipients");
-                $ret['from_list'] = new Horde_Mail_Rfc822_List();
-                return $ret;
+                $ret['from'] = _("Undisclosed Recipients");
             }
         } else {
             $addrs = $ob->from;
             if ($this->_draftsSent) {
-                $ret['from'] = _("From:") . ' ';
+                $ret['from_label'] = _("From:");
             }
 
             if (!count($addrs)) {
                 $ret['from'] = _("Invalid Address");
-                $ret['from_list'] = new Horde_Mail_Rfc822_List();
-                return $ret;
             }
         }
 
-        $bare = $parts = array();
+        $parts = array();
 
         $addrs->unique();
         foreach ($addrs->base_addresses as $val) {
-            $bare[] = $val->bare_address;
             $parts[] = $val->label;
         }
 
-        $ret['from'] .= implode(', ', $parts);
-        $ret['from_addr'] = implode(', ', $bare);
+        if (count($parts)) {
+            $ret['from'] = implode(', ', $parts);
+        }
         $ret['from_list'] = $addrs;
 
         return $ret;

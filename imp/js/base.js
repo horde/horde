@@ -537,7 +537,7 @@ var ImpBase = {
                                 title.push(escapeAttr(f.b));
                             });
 
-                            r.from = links.join(', ');
+                            r.from = ((r.fromlabel || '') + ' ' + links.join(', ')).strip();
                             r.fromtitle = title.join(', ');
                             break;
 
