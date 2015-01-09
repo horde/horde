@@ -3,15 +3,14 @@
  <name>Horde_Scheduler</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Scheduler System</summary>
- <description>TODO</description>
+ <description>Horde Scheduler System</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:21:29</time>
+ <date>2015-01-09</date>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Improve PSR-2 compatibility.
+* [jan] Add Composer definition.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -207,10 +207,11 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Improve PSR-2 compatibility.
+* [jan] Add Composer definition.
    </notes>
   </release>
  </changelog>
