@@ -825,7 +825,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                  data. @since 2.6.0
      * @param integer $maxitems         Maximum number of recipients for a RI
      *                                  collection. @since 2.12.0
-     * @param boolean $soft             Force a SOFTDELETE operation.
+     * @param boolean $refreshFilter    Force a SOFTDELETE operation and check
+     *                                  for new items within the (newly changed)
+     *                                  current FilterType interval.
      *                                  @since 2.19.0
      *
      * @return array  An array of hashes that contain the ids of items that have
@@ -835,7 +837,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *            return a new ids object.
      */
     public function getServerChanges(
-        $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100, $soft = false)
+        $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100, $refreshFilter = false)
     {
         $this->_logger->info(sprintf(
             "[%s] Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d, %s, %u, %s)",
@@ -847,7 +849,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $ping,
             $ignoreFirstSync,
             $maxitems,
-            $soft)
+            $refreshFilter)
         );
 
         $changes = array(
