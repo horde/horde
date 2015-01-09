@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP &lt; 5.3.9 (Bug #13792).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -357,7 +357,7 @@
    <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP &lt; 5.3.9 (Bug #13792).
    </notes>
   </release>
  </changelog>

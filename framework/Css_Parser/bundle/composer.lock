@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "46c85bd32c503e11591516f16f129418",
+    "hash": "bb63d4814779ab33ccc8a8d08c9f99c2",
     "packages": [
         {
             "name": "sabberworm/php-css-parser",
-            "version": "6.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
-                "reference": "ef95a38fe0c0f093f46a25029a4dd2d57ebe847e"
+                "reference": "eb29754d1f82288911ca38dc52d62e307275288d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/ef95a38fe0c0f093f46a25029a4dd2d57ebe847e",
-                "reference": "ef95a38fe0c0f093f46a25029a4dd2d57ebe847e",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/eb29754d1f82288911ca38dc52d62e307275288d",
+                "reference": "eb29754d1f82288911ca38dc52d62e307275288d",
                 "shasum": ""
             },
             "require": {
@@ -45,13 +45,15 @@
                 "parser",
                 "stylesheet"
             ],
-            "time": "2014-07-03 21:45:17"
+            "time": "2014-10-09 06:34:33"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sabberworm/php-css-parser": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
