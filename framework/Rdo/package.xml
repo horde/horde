@@ -13,7 +13,7 @@
  </lead>
  <date>2015-01-09</date>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Composer definition.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -367,6 +367,19 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Composer definition.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
