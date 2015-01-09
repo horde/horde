@@ -1012,6 +1012,44 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Return an array of calendar sources - either the user's configured
+     * "default" calendar (if $source is empty) or the calendar specified by
+     * $soruce.
+     *
+     * @param  string $source  The calendar id.
+     *
+     * @return array  An array containing the calendar id.
+     */
+    protected function _ensureCalendar($source)
+    {
+        if (empty($source)) {
+            // @TODO: For Horde 6, add API calls to the calendar API to
+            // get the default share and sync shares.  We need to hack this
+            // logic here since the methods to return the default calendar
+            // and sync calendars are not available in Kronolith 4's API.
+            $calendars = unserialize(
+                $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'sync_calendars'));
+            if (empty($calendars)) {
+                $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
+                $default_calendar = $this->_registry->horde->getPreference(
+                    $this->_registry->hasInterface('calendar'),
+                    'default_share');
+                if (empty($calendars[$default_calendar])) {
+                    return array();
+                } else {
+                    $calendars = array($default_calendar);
+                }
+            }
+        } else {
+            $calendars = array($source);
+        }
+
+        return $calendars;
+    }
+
+    /**
      * Return message UIDs that should be SOFTDELETEd from the client.
      *
      * @param string $collection  The collection type.
@@ -1028,29 +1066,7 @@ class Horde_Core_ActiveSync_Connector
         $results = array();
         switch ($collection) {
         case 'calendar':
-            if (empty($source)) {
-                // @TODO: For Horde 6, add API calls to the calendar API to
-                // get the default share and sync shares.  We need to hack this
-                // logic here since the methods to return the default calendar
-                // and sync calendars are not available in Kronolith 4's API.
-                $calendars = unserialize(
-                    $this->_registry->horde->getPreference(
-                        $this->_registry->hasInterface('calendar'),
-                        'sync_calendars'));
-                if (empty($calendars)) {
-                    $calendars = $this->_registry->calendar->listCalendars(true, Horde_Perms::EDIT);
-                    $default_calendar = $this->_registry->horde->getPreference(
-                        $this->_registry->hasInterface('calendar'),
-                        'default_share');
-                    if (empty($calendars[$default_calendar])) {
-                        return array();
-                    } else {
-                        $calendars = array($default_calendar);
-                    }
-                }
-            } else {
-                $calendars = array($source);
-            }
+            $calendars = $this->_ensureCalendar($source);
 
             // Need to use listEvents instead of listUids since we must
             // ignore recurring events when softdeleting or else we run
