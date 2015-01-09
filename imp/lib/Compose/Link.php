@@ -79,7 +79,7 @@ class IMP_Compose_Link
      */
     public function link()
     {
-        global $browser, $prefs, $registry;
+        global $registry;
 
         $args = $this->args;
         $callback = $raw = false;

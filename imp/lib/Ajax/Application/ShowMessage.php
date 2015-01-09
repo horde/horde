@@ -253,7 +253,7 @@ class IMP_Ajax_Application_ShowMessage
         $part_info = $this->part_info;
         $show_parts = $prefs->getValue('parts_display');
 
-        list($mbox, $uid) = $this->_indices->getSingle();
+        list($mbox,) = $this->_indices->getSingle();
 
         /* Do MDN processing now. */
         switch ($registry->getView()) {
@@ -429,7 +429,7 @@ class IMP_Ajax_Application_ShowMessage
             break;
         }
 
-        $part_info = $part_info_display = $this->part_info;
+        $part_info_display = $this->part_info;
         $part_info_display[] = 'print';
 
         $inline_ob = new IMP_Contents_InlineOutput();

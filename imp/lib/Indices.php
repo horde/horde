@@ -427,7 +427,6 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 continue;
             }
 
-            $imp_indices = $ob->mbox->getIndicesOb($ob->uids);
             if ($return_value !== false) {
                 $return_value += count($ob->uids);
             }
