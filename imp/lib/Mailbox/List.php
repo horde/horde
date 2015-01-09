@@ -98,13 +98,6 @@ implements ArrayAccess, Countable, Iterator, Serializable
      * Build the array of message information.
      *
      * @param array $msgnum   An array of index numbers.
-     * @param array $options  Additional options:
-     *   - headers: (boolean) Return info on the non-envelope headers
-     *              'Importance', 'List-Post', and 'X-Priority'.
-     *              DEFAULT: false (only envelope headers returned)
-     *   - type: (boolean) Return info on the MIME Content-Type of the base
-     *           message part ('Content-Type' header).
-     *           DEFAULT: false
      *
      * @return array  An array with the following keys:
      * <pre>
@@ -112,9 +105,8 @@ implements ArrayAccess, Countable, Iterator, Serializable
      *     - envelope: (Horde_Imap_Client_Data_Envelope) Envelope information
      *                 returned from the IMAP server.
      *     - flags: (array) The list of IMAP flags returned from the server.
-     *     - headers: (array) Horde_Mime_Headers objects containing header data
-     *                if either $options['headers'] or $options['type'] are
-     *                true.
+     *     - headers: (array) Horde_Mime_Headers objects containing header
+     *                data for non-envelope headers.
      *     - idx: (integer) Array index of this message.
      *     - mailbox: (string) The mailbox containing the message.
      *     - size: (integer) The size of the message in bytes.
@@ -122,11 +114,11 @@ implements ArrayAccess, Countable, Iterator, Serializable
      *   - uids: (IMP_Indices) An indices object.
      * </pre>
      */
-    public function getMailboxArray($msgnum, $options = array())
+    public function getMailboxArray($msgnum)
     {
         $this->_buildMailbox();
 
-        $headers = $overview = $to_process = $uids = array();
+        $overview = $to_process = $uids = array();
 
         /* Build the list of mailboxes and messages. */
         foreach ($msgnum as $i) {
@@ -144,24 +136,19 @@ implements ArrayAccess, Countable, Iterator, Serializable
         $fetch_query->size();
         $fetch_query->uid();
 
-        if (!empty($options['headers'])) {
-            $headers = array_merge($headers, array(
+        $fetch_query->headers(
+            'imp',
+            array(
+                'content-type',
                 'importance',
                 'list-post',
                 'x-priority'
-            ));
-        }
-
-        if (!empty($options['type'])) {
-            $headers[] = 'content-type';
-        }
-
-        if (!empty($headers)) {
-            $fetch_query->headers('imp', $headers, array(
+            ),
+            array(
                 'cache' => true,
                 'peek' => true
-            ));
-        }
+            )
+        );
 
         /* Retrieve information from each mailbox. */
         foreach ($to_process as $mbox => $ids) {

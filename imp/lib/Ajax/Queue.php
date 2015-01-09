@@ -399,7 +399,7 @@ class IMP_Ajax_Queue
      */
     public function flagReplace(IMP_Indices $indices)
     {
-        global $injector, $prefs;
+        global $injector;
 
         $imp_flags = $injector->getInstance('IMP_Flags');
 
@@ -411,10 +411,7 @@ class IMP_Ajax_Queue
                 $msgnum[] = $list_ob->getArrayIndex($uid) + 1;
             }
 
-            $marray = $list_ob->getMailboxArray($msgnum, array(
-                'headers' => true,
-                'type' => $prefs->getValue('atc_flag')
-            ));
+            $marray = $list_ob->getMailboxArray($msgnum);
 
             foreach ($marray['overview'] as $val) {
                 $result = new stdClass;

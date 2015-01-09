@@ -411,7 +411,7 @@ class IMP_Ajax_Application_ListMessages
      */
     private function _getOverviewData($mbox, $msglist)
     {
-        global $injector, $prefs;
+        global $injector;
 
         $msgs = array();
 
@@ -424,10 +424,7 @@ class IMP_Ajax_Application_ListMessages
         $imp_flags = $injector->getInstance('IMP_Flags');
         $imp_ui = new IMP_Mailbox_Ui($mbox);
         $list_ob = $mbox->list_ob;
-        $overview = $list_ob->getMailboxArray($msglist, array(
-            'headers' => true,
-            'type' => $prefs->getValue('atc_flag')
-        ));
+        $overview = $list_ob->getMailboxArray($msglist);
 
         /* Display message information. */
         reset($overview['overview']);
