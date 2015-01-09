@@ -122,16 +122,15 @@ class IMP_Ajax_Application_ShowMessage
      *     - download: (string) The URL for the download all action.
      *     - label: (string) The attachment label.
      *     - list: (array) Attachment information.
-     *   - bcc: (array; FULL) The Bcc addresses.
+     *   - bcc: (array) The Bcc addresses.
      *   - cc: (array) The CC addresses.
      *   - datestamp: (string) ISO 8601 date string.
-     *   - fulldate: (string; FULL) The full canonical date.
+     *   - fulldate: (string) The full canonical date.
      *   - from: (array) The From addresses.
      *   - headers: (array; FULL): An array of user-defined headers.
      *   - js: (array) Javascript code to run on display.
      *   - list_info: (array; FULL) List information.
-     *   - localdate: (string; PREVIEW) The date formatted to the user's
-     *                timezone.
+     *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
@@ -139,7 +138,7 @@ class IMP_Ajax_Application_ShowMessage
      *   - subject: (string) The subject.
      *   - subjectlink: (string) The subject with linked URLs/email addresses
      *                  (defaults to 'subject')
-     *   - title: (string; FULL) The title of the page.
+     *   - title: (string) The title of the page.
      *   - to: (array) The To addresses.
      *
      * @throws IMP_Exception
@@ -187,12 +186,9 @@ class IMP_Ajax_Application_ShowMessage
                     /* Add local time to date header. */
                     $date_ob = new IMP_Message_Date($this->_envelope->date);
                     $val = $date_ob->format($date_ob::DATE_LOCAL);
-                    if ($preview) {
-                        $result['localdate'] = $val;
-                    } else {
-                        $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
-                    }
                     $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
+                    $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
+                    $result['localdate'] = $val;
                 }
 
                 if (!$preview) {
@@ -228,14 +224,9 @@ class IMP_Ajax_Application_ShowMessage
             if ($subjectlink != $result['subject']) {
                 $result['subjectlink'] = $subjectlink;
             }
-            if (!$preview) {
-                $result['title'] = $subject;
-            }
+            $result['title'] = $subject;
         } else {
-            $result['subject'] = _("[No Subject]");
-            if (!$preview) {
-                $result['title'] = _("[No Subject]");
-            }
+            $result['subject'] = $result['title'] = _("[No Subject]");
         }
 
         // Create message text and attachment list.
