@@ -27,7 +27,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $registry, $session;
+        global $injector, $notification, $page_output;
 
         $imp_mailbox = $this->indices->mailbox->list_ob;
 
@@ -74,7 +74,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
         $msgs = $tree = array();
         $subject = '';
-        $page_label = $this->indices->mailbox->label;
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();

@@ -99,7 +99,6 @@ class IMP_Mime_Viewer_Tgz extends Horde_Mime_Viewer_Tgz
         $view->tableclass = 'tgzcontents';
 
         $tgzInfo = $this->_getTgzInfo();
-        $zlib = Horde_Util::extensionExists('zlib');
 
         foreach ($tgzInfo as $key => $val) {
             if (!strlen($val['data'])) {

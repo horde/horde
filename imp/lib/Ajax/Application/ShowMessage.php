@@ -46,6 +46,13 @@ class IMP_Ajax_Application_ShowMessage
     protected $_envelope;
 
     /**
+     * MIME headers object.
+     *
+     * @var Horde_Mime_Headers
+     */
+    protected $_headers;
+
+    /**
      * Indices object.
      *
      * @var IMP_Indices
@@ -115,17 +122,15 @@ class IMP_Ajax_Application_ShowMessage
      *     - download: (string) The URL for the download all action.
      *     - label: (string) The attachment label.
      *     - list: (array) Attachment information.
-     *   - bcc: (array; FULL) The Bcc addresses.
+     *   - bcc: (array) The Bcc addresses.
      *   - cc: (array) The CC addresses.
      *   - datestamp: (string) ISO 8601 date string.
-     *   - fulldate: (string; FULL) The full canonical date.
+     *   - fulldate: (string) The full canonical date.
      *   - from: (array) The From addresses.
-     *   - headers: (array; FULL): An array of header information (not
-     *              including basic headers).
+     *   - headers: (array; FULL): An array of user-defined headers.
      *   - js: (array) Javascript code to run on display.
      *   - list_info: (array; FULL) List information.
-     *   - localdate: (string; PREVIEW) The date formatted to the user's
-     *                timezone.
+     *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
@@ -133,7 +138,7 @@ class IMP_Ajax_Application_ShowMessage
      *   - subject: (string) The subject.
      *   - subjectlink: (string) The subject with linked URLs/email addresses
      *                  (defaults to 'subject')
-     *   - title: (string; FULL) The title of the page.
+     *   - title: (string) The title of the page.
      *   - to: (array) The To addresses.
      *
      * @throws IMP_Exception
@@ -142,14 +147,9 @@ class IMP_Ajax_Application_ShowMessage
     {
         global $injector, $page_output, $prefs, $registry, $session;
 
+        $headers = $result = array();
         $preview = !empty($args['preview']);
-        $result = array();
 
-        $mime_headers = $this->_peek
-            ? $this->_contents->getHeader()
-            : $this->_contents->getHeaderAndMarkAsSeen();
-
-        $headers = array();
         $imp_ui = $injector->getInstance('IMP_Message_Ui');
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
@@ -177,19 +177,18 @@ class IMP_Ajax_Application_ShowMessage
             }
         }
 
+        $this->_loadHeaders();
+
         /* Build the rest of the headers. */
         foreach ($headers_list as $head => $str) {
-            if ($val = $mime_headers[$head]) {
+            if ($val = $this->_headers[$head]) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
                     $date_ob = new IMP_Message_Date($this->_envelope->date);
                     $val = $date_ob->format($date_ob::DATE_LOCAL);
-                    if ($preview) {
-                        $result['localdate'] = $val;
-                    } else {
-                        $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
-                    }
                     $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
+                    $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
+                    $result['localdate'] = $val;
                 }
 
                 if (!$preview) {
@@ -207,24 +206,11 @@ class IMP_Ajax_Application_ShowMessage
         $ajax_queue->maillog($this->_indices);
 
         if (!$preview) {
-            /* Display the user-specified headers for the current identity. */
-            $user_hdrs = $imp_ui->getUserHeaders();
-            foreach ($user_hdrs as $user_hdr) {
-                if ($user_val = $mime_headers[$user_hdr]) {
-                    $user_val = $user_val->value;
-                    foreach ((is_array($user_val) ? $user_val : array($user_val)) as $val) {
-                        $headers[] = array(
-                            'name' => $user_hdr,
-                            'value' => $val
-                        );
-                    }
-                }
-            }
-            $result['headers'] = array_values($headers);
+            $result['headers'] = array_merge($headers, $this->getUserHeaders());
         }
 
         /* Process the subject. */
-        if ($subject = strval($mime_headers['Subject'])) {
+        if ($subject = strval($this->_headers['Subject'])) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
 
@@ -238,14 +224,9 @@ class IMP_Ajax_Application_ShowMessage
             if ($subjectlink != $result['subject']) {
                 $result['subjectlink'] = $subjectlink;
             }
-            if (!$preview) {
-                $result['title'] = $subject;
-            }
+            $result['title'] = $subject;
         } else {
-            $result['subject'] = _("[No Subject]");
-            if (!$preview) {
-                $result['title'] = _("[No Subject]");
-            }
+            $result['subject'] = $result['title'] = _("[No Subject]");
         }
 
         // Create message text and attachment list.
@@ -253,12 +234,12 @@ class IMP_Ajax_Application_ShowMessage
         $part_info = $this->part_info;
         $show_parts = $prefs->getValue('parts_display');
 
-        list($mbox, $uid) = $this->_indices->getSingle();
+        list($mbox,) = $this->_indices->getSingle();
 
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
-            if ($this->_indices->mdnCheck($mime_headers)) {
+            if ($this->_indices->mdnCheck($this->_headers)) {
                 $status = new IMP_Mime_Status(null, array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
                     Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("Click to send the notification message.") . '</a>'
@@ -347,7 +328,7 @@ class IMP_Ajax_Application_ShowMessage
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
         } else {
-            $list_info = $imp_ui->getListInformation($mime_headers);
+            $list_info = $imp_ui->getListInformation($this->_headers);
             if (!empty($list_info['exists'])) {
                 $result['list_info'] = $list_info;
             }
@@ -429,7 +410,7 @@ class IMP_Ajax_Application_ShowMessage
             break;
         }
 
-        $part_info = $part_info_display = $this->part_info;
+        $part_info_display = $this->part_info;
         $part_info_display[] = 'print';
 
         $inline_ob = new IMP_Contents_InlineOutput();
@@ -438,6 +419,69 @@ class IMP_Ajax_Application_ShowMessage
             'mimeid' => $mimeid,
             'part_info_display' => $part_info_display
         ));
+    }
+
+    /**
+     * Get the user-specified headers.
+     *
+     * @return array  The list of user-defined headers.
+     */
+    public function getUserHeaders()
+    {
+        global $prefs;
+
+        $headers = array();
+        $user_hdrs = $prefs->getValue('mail_hdr');
+
+        /* Split the list of headers by new lines and sort the list of headers
+         * to make sure there are no duplicates. */
+        if (is_array($user_hdrs)) {
+            $user_hdrs = implode("\n", $user_hdrs);
+        }
+
+        $user_hdrs = trim($user_hdrs);
+        if (empty($user_hdrs)) {
+            return $headers;
+        }
+
+        $user_hdrs = array_filter(array_keys(array_flip(
+            array_map(
+                'trim',
+                preg_split(
+                    "/[\n\r]+/",
+                    str_replace(':', '', $user_hdrs)
+                )
+            )
+        )));
+        natcasesort($user_hdrs);
+
+        foreach ($user_hdrs as $hdr) {
+            if ($user_val = $this->_headers[$hdr]) {
+                $user_val = $user_val->value;
+                foreach ((is_array($user_val) ? $user_val : array($user_val)) as $val) {
+                    $headers[] = array(
+                        'name' => $hdr,
+                        'value' => $val
+                    );
+                }
+            }
+        }
+
+        return array_values($headers);
+    }
+
+    /* Internal methods. */
+
+    /**
+     * Loads the MIME headers object internally.
+     */
+    protected function _loadHeaders()
+    {
+        if (!isset($this->_headers)) {
+            $this->_headers = $this->_peek
+                ? $this->_contents->getHeader()
+                : $this->_contents->getHeaderAndMarkAsSeen();
+        }
     }
 
 }

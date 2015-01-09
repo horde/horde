@@ -40,31 +40,6 @@ class IMP_Message_Ui
     }
 
     /**
-     * Get the list of user-defined headers to display.
-     *
-     * @return array  The list of user-defined headers.
-     */
-    public function getUserHeaders()
-    {
-        $user_hdrs = $GLOBALS['prefs']->getValue('mail_hdr');
-
-        /* Split the list of headers by new lines and sort the list of headers
-         * to make sure there are no duplicates. */
-        if (is_array($user_hdrs)) {
-            $user_hdrs = implode("\n", $user_hdrs);
-        }
-        $user_hdrs = trim($user_hdrs);
-        if (empty($user_hdrs)) {
-            return array();
-        }
-
-        $user_hdrs = array_filter(array_keys(array_flip(array_map('trim', preg_split("/[\n\r]+/", str_replace(':', '', $user_hdrs))))));
-        natcasesort($user_hdrs);
-
-        return $user_hdrs;
-    }
-
-    /**
      * Returns e-mail information for a mailing list.
      *
      * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.

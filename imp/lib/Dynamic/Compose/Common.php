@@ -45,7 +45,7 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $injector, $page_output, $prefs, $registry;
+        global $page_output, $registry;
 
         $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_Compose');
