@@ -1066,8 +1066,7 @@ $_prefs['parts_display'] = array(
     'desc' => _("Which message parts do you want to display in the summary?")
 );
 
-// Display custom headers (configured via the identity screen) when viewing
-// messages?
+// Display custom headers when viewing messages?
 $_prefs['mail_hdr'] = array(
     // Value is a list of headers to display, separated by "\n"
     // e.g.: "Message-ID\nX-Spam-Level"
