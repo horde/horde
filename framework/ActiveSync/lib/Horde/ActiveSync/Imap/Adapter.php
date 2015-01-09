@@ -318,7 +318,7 @@ class Horde_ActiveSync_Imap_Adapter
         );
 
         $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
-        if ($modseq && $folder->modseq() > 0 && ($folder->modseq() < $modseq) || !empty($options['softdelete'])) {
+        if ($modseq && $folder->modseq() > 0 && ($folder->modseq() < $modseq || !empty($options['softdelete']))) {
             $this->_logger->info(sprintf(
                 '[%s] CONDSTORE and CHANGES', $this->_procid));
             $folder->checkValidity($status);
