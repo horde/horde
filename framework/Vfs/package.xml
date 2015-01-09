@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-21</date>
+ <date>2015-01-09</date>
  <version>
   <release>2.2.1</release>
   <api>2.0.0</api>
@@ -38,7 +38,8 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support loading translations from Composer-installed package.
+* [jan] Improve PSR-2 compatibility.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1201,10 +1202,11 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-21</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support loading translations from Composer-installed package.
+* [jan] Improve PSR-2 compatibility.
    </notes>
   </release>
  </changelog>

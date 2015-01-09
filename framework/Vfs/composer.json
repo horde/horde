@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.1.2",
-    "time": "2013-07-16",
+    "version": "2.2.1",
+    "time": "2015-01-09",
     "repositories": [
         {
             "type": "pear",
@@ -25,7 +25,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
@@ -33,12 +33,12 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Core": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Db": ">=2.0.3@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Db": ">=2.1.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Kolab_Session": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mime": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Perms": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Test": ">=2.1.0@stable,<=3.0.0alpha1@stable",
-        "pear-pecl.php.net/ssh2": ">=0.10@stable",
+        "pear-pecl.php.net/ssh2": ">=0.12@stable",
         "ext-ftp": "*"
     }
 }
