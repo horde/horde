@@ -587,7 +587,7 @@ class Horde_Test
         ini_set('track_errors', 1);
 
         /* Print the include_path. */
-        $output .= $this->_outputLine(array("<strong>PEAR Search Path (PHP's include_path)</strong>", '&nbsp;<tt>' . ini_get('include_path') . '</tt>'));
+        $output .= $this->_outputLine(array("<strong>PEAR Search Path (PHP's include_path)</strong>", '&nbsp;<tt>' . get_include_path() . '</tt>'));
 
         /* Check for PEAR in general. */
         @include_once 'PEAR.php';

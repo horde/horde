@@ -1606,7 +1606,7 @@ foreach (array('Console_Getopt', 'Console_Table', 'File_Find') as $class) {
 if (!$libs_found) {
     $c->writeln();
     $c->writeln('Make sure that you have PEAR installed and in your include path.');
-    $c->writeln('include_path: ' . ini_get('include_path'));
+    $c->writeln('include_path: ' . get_include_path());
     $script->footer();
 }
 $c->writeln();

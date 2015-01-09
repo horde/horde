@@ -241,7 +241,7 @@ foreach (array('Autoloader_Cache', 'Autoloader') as $val) {
     print "\tAdding autoloader include path: " . $full_path . "\n";
     $include_path .= PATH_SEPARATOR . $full_path;
 }
-$horde_conf[] = 'ini_set(\'include_path\', ini_get(\'include_path\') . \'' . $include_path . '\');';
+$horde_conf[] = 'set_include_path(get_include_path() . \'' . $include_path . '\');';
 $horde_conf[] = '$__horde_autoload_cpm = array(array(\'Horde_Autoloader_ClassPathMapper_HordeDevel\', array(\'' . $library_base . '\')));';
 
 print "\tWriting " . $horde_local . " ... ";

@@ -30,7 +30,7 @@ function _hordeTestError($msg)
 
 /* If we can't find the Autoloader, then the framework is not setup. A user
  * must at least correctly install the framework. */
-ini_set('include_path', __DIR__ . '/lib' . PATH_SEPARATOR . ini_get('include_path'));
+set_include_path(__DIR__ . '/lib' . PATH_SEPARATOR . get_include_path());
 if (file_exists(__DIR__ . '/config/horde.local.php')) {
     include __DIR__ . '/config/horde.local.php';
 }

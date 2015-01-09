@@ -37,7 +37,7 @@ if (!defined('HORDE_BASE')) {
     define('HORDE_BASE', $dirname . '/..');
 }
 
-ini_set('include_path', $dirname . PATH_SEPARATOR . ini_get('include_path'));
+set_include_path($dirname . PATH_SEPARATOR . get_include_path());
 
 /* Autoloader class path mappers can be added inside horde.local.php in the
  * $__horde_autoload_cpm array. Each element of this array contains two
