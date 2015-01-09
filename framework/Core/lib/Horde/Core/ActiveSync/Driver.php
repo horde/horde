@@ -868,6 +868,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $parts = $this->_parseFolderId($folder->serverid());
                 $server_id = $parts[self::FOLDER_PART_ID];
             }
+
             if ($from_ts == 0 && !$ignoreFirstSync) {
                 // Can't use History if it's a first sync
                 $startstamp = (int)$cutoffdate;
@@ -895,10 +896,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
 
-                // Softdelete. We check this once per close-to 24 hour period.
-                // We introduce an element of randomness in the time to help
-                // avoid a large number of clients performing a softdelete at
-                // once. It's 23 hours + some random number of minutes < 60.
+                // Softdelete. We check this once per close-to 24 hour period,or
+                // if the FILTERTYPE range changes. We introduce an element of
+                // randomness in the time to help avoid a large number of
+                // clients performing a softdelete at once. It's 23 hours + some
+                // random number of minutes < 60.
+                //
+                // @todo We need to populate additional events if the FILTERTYPE
+                // is expanded, but we need to persist the previous FILTERTYPE
+                // so we know exactly which events we already have and which
+                // we don't (since we don't track the UIDs themselves).
                 if (!$ping) {
                     if (!$refreshFilter) {
                         $sd = $folder->getSoftDeleteTimes();
@@ -906,6 +913,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             $from = $sd[2];
                         }
                     } else {
+                        // Force refresh the FILTERTYPE.
                         $from = 0;
                     }
                     if (isset($from)) {
