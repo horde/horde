@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t wipe out whole calendars when PUTing individual events via WebDAV.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2501,7 +2501,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t wipe out whole calendars when PUTing individual events via WebDAV.
    </notes>
   </release>
  </changelog>

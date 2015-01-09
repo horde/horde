@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1625,7 +1625,7 @@
    <date>2014-11-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
    </notes>
   </release>
  </changelog>
