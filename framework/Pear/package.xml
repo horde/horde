@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-11-19</date>
+ <date>2015-01-09</date>
  <version>
   <release>1.0.0alpha7</release>
   <api>1.0.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Improve PSR-2 compatibility.
 * [mms] Report XML parsing errors (math.parent@gmail.com, Request #12164).
  </notes>
  <contents>
@@ -521,10 +522,11 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2013-11-19</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Report XML parsing errors (Request #12164; math.parent@gmail.com).
+* [jan] Improve PSR-2 compatibility.
+* [mms] Report XML parsing errors (math.parent@gmail.com, Request #12164).
    </notes>
   </release>
  </changelog>
