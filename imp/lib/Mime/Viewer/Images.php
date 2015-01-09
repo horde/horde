@@ -98,7 +98,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _renderInline()
     {
-        global $browser, $injector, $page_output;
+        global $browser, $injector, $page_output, $registry;
 
         $type = $this->_getType();
 
@@ -120,8 +120,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 'type' => 'text/html; charset=' . $this->getConfigParam('charset')
             );
 
-            /* Load JPEGs via javascript to allow for rotation. */
-            if ($type === 'image/jpeg') {
+            /* Load JPEGs via javascript, in dynamic view, to allow for
+             * browser-side rotation. */
+            if (($type === 'image/jpeg') &&
+                ($registry->getView() === $registry::VIEW_DYNAMIC)) {
                 $page_output->addScriptFile('external/base64.js');
                 $page_output->addScriptFile('external/load-image.all.min.js');
                 $uid = strval(new Horde_Support_Randomid());
