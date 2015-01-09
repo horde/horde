@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-08</date>
+ <date>2015-01-09</date>
  <version>
   <release>2.18.3</release>
   <api>2.18.0</api>
@@ -3798,7 +3798,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Improvements in ActiveSync to handling the case when FILTERTYPE changes (Bug #13781).
