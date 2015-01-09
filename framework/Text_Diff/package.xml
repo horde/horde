@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2015-01-09</date>
  <version>
   <release>2.1.1</release>
   <api>1.1.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Improve PSR-2 compatibility.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -402,10 +402,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-17</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Improve PSR-2 compatibility.
    </notes>
   </release>
  </changelog>
