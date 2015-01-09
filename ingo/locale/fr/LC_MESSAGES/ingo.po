@@ -1,6 +1,6 @@
 # translation of Ingo to french
 # French translation for Ingo
-# Copyright 2003-2015 Horde LLC
+# Copyright 2003-2014 Horde LLC
 # This file is distributed under the same license as the ingo package.
 #
 # AIDE Florent <faide@alphacent.com>, 2003.
@@ -8,12 +8,12 @@
 # Yannick Sebastia <yannick.sebastia@ecole-navale.fr>, 2008, 2009, 2010.
 # Laurent Foucher <laurent.foucher@iut-tlse3.fr>, 2011.
 # Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>, 2013
-# Laurent Foucher <laurent.foucher@iut-tlse3.fr>, 2014.
+# Laurent Foucher <laurent.foucher@iut-tlse3.fr>, 2014, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-07-01 14:24+0200\n"
+"POT-Creation-Date: 2014-10-29 12:14+0100\n"
 "PO-Revision-Date: 2013-01-17 17:47+0100\n"
 "Last-Translator: Laurent Foucher <laurent.foucher@iut-tlse3.fr>fr>\n"
 "Language-Team: French <i18n@lists.horde.org>\n"
@@ -24,15 +24,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Lokalize 1.4\n"
 
-#: lib/Storage.php:347
+#: lib/Storage.php:348
 msgid " and"
 msgstr " et"
 
-#: lib/Storage.php:348
+#: lib/Storage.php:349
 msgid " or"
 msgstr " ou"
 
 #: lib/Form/Type/Longemail.php:57
+#, php-format
 msgid "\"%s\" are not valid email addresses."
 msgstr "\"%s\" ne sont pas des adresses de messagerie valides."
 
@@ -54,6 +55,7 @@ msgid "%s The driver said: %s"
 msgstr "%s Message du pilote : %s"
 
 #: lib/Basic/Base.php:152
+#, php-format
 msgid "%s is not supported in the current filtering driver."
 msgstr "%s n'est pas supportée par le pilote de filtre courant."
 
@@ -143,7 +145,7 @@ msgid "Blacklist Edit"
 msgstr "Éditer la Liste Noire"
 
 #: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
-#: lib/Script/Sieve.php:236
+#: lib/Script/Sieve.php:237
 msgid "Blacklisted Addresses"
 msgstr "Adresses en liste Noire"
 
@@ -151,7 +153,7 @@ msgstr "Adresses en liste Noire"
 msgid "Body"
 msgstr "Corps"
 
-#: lib/Storage.php:342 templates/basic/rule/rule.html.php:93
+#: lib/Storage.php:343 templates/basic/rule/rule.html.php:93
 msgid "Case Sensitive"
 msgstr "Tenir compte de la casse"
 
@@ -290,9 +292,13 @@ msgstr "Ne finit pas par "
 msgid "Doesn't exist"
 msgstr "N'existe pas "
 
-#: lib/Storage.php:274
+#: lib/Storage.php:275
 msgid "Doesn't match (with placeholders)"
 msgstr "Ne correspond pas (avec des espaces réservés)"
+
+#: lib/Storage.php:273
+msgid "Doesn't match regular expression"
+msgstr "Ne correspond pas à l'expression régulière"
 
 #: lib/Block/Overview.php:63 lib/Block/Overview.php:74
 #: lib/Block/Overview.php:89 lib/Block/Overview.php:100
@@ -318,7 +324,7 @@ msgstr "Fin d'absence :"
 msgid "Ends with"
 msgstr "Se termine par"
 
-#: lib/Storage.php:279
+#: lib/Storage.php:280
 msgid "Equal to"
 msgstr "Égal à"
 
@@ -389,31 +395,31 @@ msgstr "Affichage du script de filtre"
 msgid "Filter _Rules"
 msgstr "_Règles de filtrage"
 
-#: lib/Script/Imap.php:331
+#: lib/Script/Imap.php:336
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr ""
 "Activité du filtre : %s message(s) ont été copié(s) vers le dossier « %s »."
 
-#: lib/Script/Imap.php:308
+#: lib/Script/Imap.php:313
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Activité du filtre : %s message(s) ont été effacé(s)."
 
-#: lib/Script/Imap.php:283
+#: lib/Script/Imap.php:288
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr ""
 "Activité du filtre : %s message(s) ont été déplacé(s) vers le dossier « %s »."
 
-#: lib/Script/Imap.php:181
+#: lib/Script/Imap.php:183
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
 "Activité du filtre : %s message(s) correspondant à la liste noire ont été "
 "effacé(s)."
 
-#: lib/Script/Imap.php:324
+#: lib/Script/Imap.php:329
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -422,12 +428,12 @@ msgstr ""
 "Activité du filtre : le message « %s » de « %s » a été copié vers le dossier "
 "« %s ». "
 
-#: lib/Script/Imap.php:302
+#: lib/Script/Imap.php:307
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Activité du filtre : le message « %s » de « %s » a été effacé. "
 
-#: lib/Script/Imap.php:276
+#: lib/Script/Imap.php:281
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -457,12 +463,12 @@ msgstr "Pour les messages entrants qui correspondent :"
 msgid "Forward"
 msgstr "Transfert"
 
-#: lib/Script/Sieve.php:182
+#: lib/Script/Sieve.php:183
 msgid "Forward Keep Action"
 msgstr "Garder l'action de transfert"
 
 #: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
-#: lib/Script/Sieve.php:192
+#: lib/Script/Sieve.php:193
 msgid "Forwards"
 msgstr "Transferts"
 
@@ -478,15 +484,15 @@ msgstr "De"
 msgid "From:"
 msgstr "De :"
 
-#: lib/Script/Sieve.php:476
+#: lib/Script/Sieve.php:477
 msgid "Generated by Ingo"
 msgstr "Généré par Ingo."
 
-#: lib/Storage.php:277
+#: lib/Storage.php:278
 msgid "Greater than"
 msgstr "Plus grand que"
 
-#: lib/Storage.php:278
+#: lib/Storage.php:279
 msgid "Greater than or equal to"
 msgstr "Plus grand ou égale à"
 
@@ -521,11 +527,11 @@ msgstr ""
 msgid "Label"
 msgstr "Étiquette"
 
-#: lib/Storage.php:275
+#: lib/Storage.php:276
 msgid "Less than"
 msgstr "Plus petit que"
 
-#: lib/Storage.php:276
+#: lib/Storage.php:277
 msgid "Less than or equal to"
 msgstr "Plus petit ou égale à"
 
@@ -534,6 +540,7 @@ msgid "List-ID"
 msgstr "List-ID"
 
 #: lib/Transport/Ispconfig.php:196
+#, php-format
 msgid "Login to %s failed."
 msgstr "Échec de la connexion à %s."
 
@@ -553,7 +560,7 @@ msgstr "Marquer le message comme :"
 msgid "Match type"
 msgstr "Correspondant"
 
-#: lib/Storage.php:273
+#: lib/Storage.php:274
 msgid "Matches (with placeholders)"
 msgstr "Correspond (avec des espaces réservés)"
 
@@ -576,13 +583,11 @@ msgid ""
 "addresses: %s)."
 msgstr ""
 "Nombre maximal d'adresses de transfert dépassé (Nombre total: %s, Nombre "
-"maximal d'adresses: %s).Nombre maximum d'adresses en liste noire dépassé "
-"(Nombre total: %s, Nombre maximum d'adresses: %s). Impossible d'ajouter plus "
-"d'adresses en liste noire."
+"maximal d'adresses: %s)."
 
 #: lib/Perms.php:43
 msgid "Maximum number of forward addresses."
-msgstr "Nombre maximal d'adresses de trabsfert."
+msgstr "Nombre maximal d'adresses de transfert."
 
 #: lib/Perms.php:47
 msgid "Maximum number of rules (0 to disable rules editing)."
@@ -679,7 +684,7 @@ msgstr "Aucun script généré."
 msgid "No strings specified"
 msgstr "Pas de chaînes spécifiées"
 
-#: lib/Storage.php:280
+#: lib/Storage.php:281
 msgid "Not equal to"
 msgstr "Non égale à"
 
@@ -739,7 +744,7 @@ msgstr "Expression régulière"
 msgid "Reject with reason..."
 msgstr "Rejeter avec la raison"
 
-#: lib/Storage.php:322
+#: lib/Storage.php:323
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
@@ -818,10 +823,12 @@ msgid "Rules"
 msgstr "Règles"
 
 #: templates/basic/filters/filters.html.php:19
+#, php-format
 msgid "Rules Containing Mailbox \"%s\""
 msgstr "Les règles contiennet le dossier \"%s\""
 
 #: templates/basic/filters/filters.html.php:17
+#, php-format
 msgid "Rules Matching Mailbox \"%s\""
 msgstr "Les règles correspondent au dossier \"%s\""
 
@@ -933,7 +940,7 @@ msgid "Source (From, Reply-to, etc.)"
 msgstr "Source (De, Réponse à, etc)"
 
 #: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
-#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:403
+#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404
 #: lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Filtre de spam"
@@ -1018,7 +1025,7 @@ msgstr "En-tête utilisateur"
 #: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
 #: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
 #: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:292
-#: lib/Script/Sieve.php:376 lib/Smartmobile.php:95
+#: lib/Script/Sieve.php:377 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "Absence"
 
@@ -1057,7 +1064,7 @@ msgid "Whitelist Edit"
 msgstr "Éditer Liste blanche"
 
 #: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
-#: lib/Script/Sieve.php:297
+#: lib/Script/Sieve.php:298
 msgid "Whitelisted Addresses"
 msgstr "Adresse en liste blanche"
 
@@ -1119,11 +1126,11 @@ msgstr "Vous avez reçu un nouveau message"
 msgid "You need to select at least one field to match."
 msgstr "Veuillez sélectionner au moins un champ de recherche."
 
-#: lib/Script/Imap.php:278 lib/Script/Imap.php:304 lib/Script/Imap.php:326
+#: lib/Script/Imap.php:283 lib/Script/Imap.php:309 lib/Script/Imap.php:331
 msgid "[No Sender]"
 msgstr "[Pas d'émetteur]"
 
-#: lib/Script/Imap.php:277 lib/Script/Imap.php:303 lib/Script/Imap.php:325
+#: lib/Script/Imap.php:282 lib/Script/Imap.php:308 lib/Script/Imap.php:330
 msgid "[No Subject]"
 msgstr "[Pas d'objet]"
 
