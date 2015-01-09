@@ -286,7 +286,7 @@ var ImpMessage = {
         }
 
         /* Set up address linking. */
-        [ 'from', 'to', 'cc', 'bcc', 'replyTo' ].each(function(a) {
+        [ 'from', 'to', 'cc', 'bcc' ].each(function(a) {
             if (this[a]) {
                 this.updateHeader(a, this[a], true);
                 delete this[a];

@@ -129,7 +129,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
-     *   - replyTo: (array; FULL) The Reply-to addresses.
      *   - save_as: (string) The save link.
      *   - subject: (string) The subject.
      *   - subjectlink: (string) The subject with linked URLs/email addresses
@@ -161,12 +160,14 @@ class IMP_Ajax_Application_ShowMessage
             $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
         }
 
-        $headers_list = array_intersect_key($basic_headers, array_flip($args['headers']));
+        $headers_list = array_intersect_key(
+            $basic_headers,
+            array_flip($args['headers'])
+        );
 
-        /* Build From/To/Cc/Bcc/Reply-To links. */
-        foreach (array('from', 'to', 'cc', 'bcc', 'reply-to') as $val) {
-            if (isset($headers_list[$val]) &&
-                (!$preview || ($val != 'reply-to'))) {
+        /* Build From/To/Cc/Bcc links. */
+        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
+            if (isset($headers_list[$val])) {
                 if ($tmp = $this->getAddressHeader($val)) {
                     $result[$val] = $tmp;
                 }
@@ -199,18 +200,6 @@ class IMP_Ajax_Application_ShowMessage
                     );
                 }
             }
-        }
-
-        if (empty($result['reply-to']) ||
-            ($result['from']['addr'][0]->b == $result['reply-to']['addr'][0]->b)) {
-            unset($result['reply-to'], $headers['reply-to']);
-        }
-
-        /* JS requires camelized name for reply-to. */
-        if (!$preview && isset($headers['reply-to'])) {
-            $result['replyTo'] = $result['reply-to'];
-            $headers['reply-to']['id'] = 'ReplyTo';
-            unset($result['reply-to']);
         }
 
         /* Maillog information. */
@@ -393,9 +382,7 @@ class IMP_Ajax_Application_ShowMessage
      */
     public function getAddressHeader($header, $limit = 50)
     {
-        $addrlist = ($header == 'reply-to')
-            ? $this->_envelope->reply_to
-            : $this->_envelope->$header;
+        $addrlist = $this->_envelope->$header;
         $addrlist->unique();
 
         $addr_ob = new IMP_Ajax_Addresses($addrlist);

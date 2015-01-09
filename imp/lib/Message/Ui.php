@@ -35,7 +35,6 @@ class IMP_Message_Ui
             'to'        =>  _("To"),
             'cc'        =>  _("Cc"),
             'bcc'       =>  _("Bcc"),
-            'reply-to'  =>  _("Reply-To"),
             'subject'   =>  _("Subject")
         );
     }
