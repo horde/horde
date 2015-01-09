@@ -119,6 +119,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $uidnext = $this->uidnext();
         $minuid = $this->minuid();
         $modseq = $this->modseq();
+
         foreach ($messages as $uid) {
             if ($uid >= $uidnext) {
                 // new (to us) message.
@@ -128,7 +129,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                     // MODSEQ capable server, either a changed message, or
                     // one that was previously outside of FilterType but is now
                     // within.
-                    if (array_search($uid, $this->_messages)) {
+                    if (array_search($uid, $this->_messages) !== false) {
                         $this->_changed[] = $uid;
                     } else {
                         $this->_added[] = $uid;
