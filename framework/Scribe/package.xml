@@ -10,8 +10,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:22:43</time>
+ <date>2015-01-09</date>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
  <notes>
-* 
+* [jan] Add Composer definition.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -244,10 +243,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
    <notes>
-* 
+* [jan] Add Composer definition.
    </notes>
   </release>
  </changelog>
