@@ -18,7 +18,7 @@
  </lead>
  <date>2015-01-09</date>
  <version>
-  <release>2.0.6</release>
+  <release>2.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Support loading translations from Composer-installed package.
-* [jan] Improve PSR-2 compatibility.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -913,6 +912,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <notes>
 * [jan] Support loading translations from Composer-installed package.
 * [jan] Improve PSR-2 compatibility.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
