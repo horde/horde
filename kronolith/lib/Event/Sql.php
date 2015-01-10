@@ -79,6 +79,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $this->id = $SQLEvent['event_id'];
         $this->uid = $SQLEvent['event_uid'];
         $this->creator = $SQLEvent['event_creator_id'];
+        $this->organizer = $SQLEvent['event_organizer'];
 
         if (!empty($SQLEvent['event_recurtype'])) {
             $this->recurrence = new Horde_Date_Recurrence($this->start);
