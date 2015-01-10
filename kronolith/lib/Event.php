@@ -1514,6 +1514,11 @@ abstract class Kronolith_Event
             $this->uid = $message->getUid();
         }
 
+        $organizer = $message->getOrganizer();
+        if ($organizer['email']) {
+            $this->organizer =  $organizer['email'];
+        }
+
         if (strlen($title = $message->getSubject())) {
             $this->title = $title;
         }
@@ -1738,7 +1743,9 @@ abstract class Kronolith_Event
         $message->setTimezone($this->start);
 
         // Organizer
-        if (count($this->attendees)) {
+        if ($this->organizer) {
+            $message->setOrganizer(array('email' => $this->organizer));
+        } elseif (count($this->attendees)) {
             if ($this->creator == $registry->getAuth()) {
                 $as_ident = $prefs->getValue('activesync_identity') == 'horde'
                     ? $prefs->getValue('default_identity')
