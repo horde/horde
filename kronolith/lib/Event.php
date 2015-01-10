@@ -782,7 +782,9 @@ abstract class Kronolith_Event
         $vEvent->setAttribute('SUMMARY', $this->getTitle());
 
         // Organizer
-        if (count($this->attendees)) {
+        if ($this->organizer) {
+            $vEvent->setAttribute('ORGANIZER', $this->organizer, array());
+        } elseif (count($this->attendees)) {
             $name = Kronolith::getUserName($this->creator);
             $email = Kronolith::getUserEmail($this->creator);
             $params = array();
