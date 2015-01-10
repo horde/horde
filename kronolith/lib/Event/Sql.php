@@ -198,6 +198,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         $properties['event_attendees'] = serialize($driver->convertToDriver($this->attendees));
         $properties['event_resources'] = serialize($driver->convertToDriver($this->getResources()));
         $properties['event_modified'] = $_SERVER['REQUEST_TIME'];
+        $properties['event_organizer'] = $this->organizer;
 
         if ($this->isAllDay()) {
             $properties['event_start'] = $this->start->strftime('%Y-%m-%d %H:%M:%S');

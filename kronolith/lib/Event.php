@@ -64,6 +64,13 @@ abstract class Kronolith_Event
     protected $_creator = null;
 
     /**
+     * The CAL-ADDRESS of the organizer of the event, if known.
+     *
+     * @var string
+     */
+    public  $organizer = null;
+
+    /**
      * The title of this event.
      *
      * For displaying in the interface use getTitle() instead.
@@ -1075,6 +1082,14 @@ abstract class Kronolith_Event
             $uid = $vEvent->getAttribute('UID');
             if (!empty($uid)) {
                 $this->uid = $uid;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        // Organizer
+        try {
+            $organizer = $vEvent->getAttribute('ORGANIZER');
+            if (!empty($organizer)) {
+                $this->organizer = $organizer;
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
