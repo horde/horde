@@ -1909,7 +1909,14 @@ class Kronolith
         $view->event = $event;
         $view->imageId = $image->getContentId();
 
-        foreach ($event->attendees as $email => $status) {
+        /* Enhancement #3965: Only send updates to organizer if the user is not the organizer */
+        $receivers = $event->attendees;
+        if ($event->organizer && !$this->isUserEmail($event->creator, $event->organizer) ) {
+            /* TODO: Guess organizer name and status if he is one of the attendees */
+            $receivers = array($event->organizer => array('name' => $event->organizer, 'response' => self::RESPONSE_ACCEPTED));
+        }
+
+        foreach ($receivers as $email => $status) {
             /* Don't bother sending an invitation/update if the recipient does
              * not need to participate, or has declined participating, or
              * doesn't have an email address. */
