@@ -783,7 +783,7 @@ abstract class Kronolith_Event
 
         // Organizer
         if ($this->organizer) {
-            $vEvent->setAttribute('ORGANIZER', $this->organizer, array());
+            $vEvent->setAttribute('ORGANIZER', 'mailto:' . $this->organizer, array());
         } elseif (count($this->attendees)) {
             $name = Kronolith::getUserName($this->creator);
             $email = Kronolith::getUserEmail($this->creator);
@@ -1091,7 +1091,8 @@ abstract class Kronolith_Event
         try {
             $organizer = $vEvent->getAttribute('ORGANIZER');
             if (!empty($organizer)) {
-                $this->organizer = $organizer;
+                $this->organizer = str_replace(array('MAILTO:', 'mailto:'), '',
+                                            $organizer);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
@@ -2105,11 +2106,9 @@ abstract class Kronolith_Event
         }
 
         // Import once we support organizers.
-        /*
         if (!empty($hash['organizer'])) {
             $this->organizer = $hash['organizer'];
         }
-        */
 
         if (!empty($hash['private'])) {
             $this->private = true;
