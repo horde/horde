@@ -593,6 +593,7 @@ var ImpMobile = {
         $.each(ob.rows(), function(key, val) {
             var c = $('<li class="imp-message"></li>')
                     .jqmData('buid', val.buid),
+                from = [],
                 labels = [],
                 tmp,
                 url = HordeMobile.createUrl('message', {
@@ -640,6 +641,10 @@ var ImpMobile = {
                 });
             }
 
+            $.each(val.data.from, function(k2, v2) {
+                from.push(v2.p || v2.g || v2.b);
+            });
+
             list.append(
                 c.append(
                     $('<a href="' + url + '"></a>').text(val.data.subject)
@@ -650,7 +655,7 @@ var ImpMobile = {
                         )
                     ).append(
                         $('<span class="imp-mailbox-from"></span>').text(
-                            val.data.from
+                            from.join(', ')
                         ).append(labels)
                     )
                 )
