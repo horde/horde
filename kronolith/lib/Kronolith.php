@@ -1909,9 +1909,9 @@ class Kronolith
         $view->event = $event;
         $view->imageId = $image->getContentId();
 
-        /* Enhancement #3965: Only send updates to organizer if the user is not the organizer */
+        /* Only send updates to organizer if the user is not the organizer */
         $receivers = $event->attendees;
-        if ($event->organizer && !$this->isUserEmail($event->creator, $event->organizer) ) {
+        if ($event->organizer && !self::isUserEmail($event->creator, $event->organizer) ) {
             /* TODO: Guess organizer name and status if he is one of the attendees */
             $receivers = array($event->organizer => array('name' => $event->organizer, 'response' => self::RESPONSE_ACCEPTED));
         }
