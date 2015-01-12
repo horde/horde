@@ -64,7 +64,7 @@ abstract class Kronolith_Event
     protected $_creator = null;
 
     /**
-     * The CAL-ADDRESS of the organizer of the event, if known.
+     * The email address of the organizer of the event, if known.
      *
      * @var string
      */
@@ -1091,8 +1091,7 @@ abstract class Kronolith_Event
         try {
             $organizer = $vEvent->getAttribute('ORGANIZER');
             if (!empty($organizer)) {
-                $this->organizer = str_replace(array('MAILTO:', 'mailto:'), '',
-                                            $organizer);
+                $this->organizer = str_replace(array('MAILTO:', 'mailto:'), '', $organizer);
             }
         } catch (Horde_Icalendar_Exception $e) {}
 
