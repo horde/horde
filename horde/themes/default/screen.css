@@ -1308,6 +1308,9 @@ ul.horde-tags {
     background-position: 3px center;
     background-repeat: no-repeat;
 }
+#GrowlerLog ul li.horde-error {
+    color: #fff;
+}
 #GrowlerLog ul li:last-child {
     border: 0;
 }
@@ -1342,6 +1345,7 @@ div.GrowlerNoticeExit {
 .horde-error {
     background-color: #f03232;
     border-color: #cb2a2a;
+    color: #fff;
 }
 .horde-warning {
     background-color: #ffdf4d;
@@ -1354,9 +1358,6 @@ div.GrowlerNoticeExit {
 .horde-alarm {
     background-color: #f49e51;
     border-color: #d38847;
-}
-.horde-error {
-    color: #fff;
 }
 
 /* Auto completer styles. See tags section too. */
