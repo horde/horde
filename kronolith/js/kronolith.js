@@ -5993,6 +5993,15 @@ KronolithCore = {
         $('kronolithEventLinkExport').up('span').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
+        /* Attendance and Status */
+        if ('oy' in ev && !ev.oy) {
+            $('kronolithEventStatus').disabled = true;
+            $('kronolithEventAttend').show();
+        } else {
+            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventAttend').hide();
+        }
+
         /* Alarm */
         if (ev.a) {
             this.enableAlarm('Event', ev.a);
