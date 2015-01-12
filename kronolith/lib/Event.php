@@ -2340,6 +2340,8 @@ abstract class Kronolith_Event
      * - rs:  resources
      * - tg: tag list,
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
+     * - o: organizer (if known)
+     * - oy: organizer you
      *
      * @param boolean $allDay      If not null, overrides whether the event is
      *                             an all-day event.
@@ -2435,6 +2437,10 @@ abstract class Kronolith_Event
                         $json->at = $attendees;
                     }
                 }
+            }
+            if ($this->organizer) {
+                $json->o = $this->organizer;
+                $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
             }
             if ($this->methods) {
                 $json->m = $this->methods;
