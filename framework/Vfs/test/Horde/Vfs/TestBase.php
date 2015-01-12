@@ -387,6 +387,15 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
             $this->_sort(self::$vfs->listFolder('test', '^.*1$')));
     }
 
+    protected function _chmod()
+    {
+        self::$vfs->createFolder('', 'chmodtest');
+        self::$vfs->writeData('chmodtest', 'chmod', 'foo');
+        self::$vfs->changePermissions('chmodtest', 'chmod', '640');
+        $folder = self::$vfs->listFolder('chmodtest');
+        $this->assertEquals('-rw-r-----', $folder['chmod']['perms']);
+    }
+
     protected function _sort($folders)
     {
         ksort($folders);
