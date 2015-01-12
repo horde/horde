@@ -249,7 +249,6 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        $this->_checkQuotaWrite('string', $data);
         $tmpFile = Horde_Util::getTempFile('vfs');
         file_put_contents($tmpFile, $data);
         try {
