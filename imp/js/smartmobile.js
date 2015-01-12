@@ -802,15 +802,13 @@ var ImpMobile = {
         }
 
         $('#imp-message-body').html(data.msgtext);
-        $('#imp-message-date').text('');
+        $('#imp-message-date').text(data.headers.date ? data.headers.date.value : '');
 
-        $.each(data.headers, function(k, v) {
-            if (v.id == 'Date') {
-                $('#imp-message-date').text(v.value);
-            }
-        });
+        data.headers['subject'] = {
+            name: IMP.text.subject,
+            value: data.subject
+        };
 
-        data.headers.push({ name: IMP.text.subject, value: data.subject });
         ImpMobile.headers = {
             Cc: data.cc,
             From: data.from,
