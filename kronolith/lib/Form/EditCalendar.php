@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_Form for editing calendars.
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
@@ -9,7 +7,7 @@
  */
 
 /**
- * The Kronolith_EditCalendarForm class provides the form for editing a
+ * The Kronolith_Form_EditCalendar class provides the form for editing a
  * calendar.
  *
  * @author  Chuck Hagenbuch <chuck@horde.org>
@@ -19,6 +17,8 @@ class Kronolith_Form_EditCalendar extends Horde_Form
 {
     /**
      * Calendar being edited.
+     *
+     * @var Horde_Share_Object
      */
     protected $_calendar;
 
