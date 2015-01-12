@@ -26,7 +26,7 @@ class KronolithRemoteOrganizer extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $this->addColumn('kronolith_events', 'event_organizer', 'string', array('limit' => 250));
+        $this->addColumn('kronolith_events', 'event_organizer', 'string', array('limit' => 255));
     }
 
     /**
