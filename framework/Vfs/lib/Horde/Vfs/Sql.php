@@ -225,7 +225,7 @@ class Horde_Vfs_Sql extends Horde_Vfs_Base
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        $this->_checkQuotaWrite('string', $data);
+        $this->_checkQuotaWrite('string', $data, $path, $name);
 
         $path = $this->_convertPath($path);
         list($op, $values) = $this->_nullString($path);

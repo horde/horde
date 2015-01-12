@@ -38,6 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix updating quota when overwriting existing files.
 * [jan] Fix updating quota when using writeData() with FTP driver.
 * [jan] Fix setting permissions in Ssh2 driver (Bug #13783).
  </notes>
@@ -1219,6 +1220,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix updating quota when overwriting existing files.
 * [jan] Fix updating quota when using writeData() with FTP driver.
 * [jan] Fix setting permissions in Ssh2 driver (Bug #13783).
    </notes>

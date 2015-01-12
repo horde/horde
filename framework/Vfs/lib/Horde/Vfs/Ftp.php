@@ -223,7 +223,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     public function write($path, $name, $tmpFile, $autocreate = false)
     {
         $this->_connect();
-        $this->_checkQuotaWrite('file', $tmpFile);
+        $this->_checkQuotaWrite('file', $tmpFile, $path, $name);
 
         if (!@ftp_put($this->_stream, $this->_getPath($path, $name), $tmpFile, FTP_BINARY)) {
             if ($autocreate) {
@@ -672,7 +672,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
             }
 
             clearstatcache();
-            $this->_checkQuotaWrite('file', $tmpFile);
+            $this->_checkQuotaWrite('file', $tmpFile, $dest, $name);
 
             if (!@ftp_put($this->_stream, $this->_getPath($dest, $name), $tmpFile, FTP_BINARY)) {
                 unlink($tmpFile);

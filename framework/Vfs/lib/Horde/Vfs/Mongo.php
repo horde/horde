@@ -176,7 +176,7 @@ class Horde_Vfs_Mongo extends Horde_Vfs_Base
      */
     protected function _write($type, $path, $name, $data, $autocreate)
     {
-        $this->_checkQuotaWrite($type, $data);
+        $this->_checkQuotaWrite($type, $data, $path, $name);
 
         if ($autocreate) {
             $this->autocreatePath($path);
