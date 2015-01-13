@@ -25,9 +25,8 @@
   you have the php zlib extension installed, pages over a certain size will be
   compressed and sent to the browser as gzip-encoded data in order to save
   bandwidth. There is little reason not to enable this.">true</configboolean>
-  <configsecret name="secret_key" desc="Secret key for generating signed
-  messages from this server. This is a random string unique to this Horde
-  installation."></configsecret>
+  <configsecret name="secret_key" desc="Secret key (random string) unique to
+  this Horde installation."></configsecret>
   <configinteger name="umask" octal="true" desc="What umask should we run
   with? This will affect the permissions on any temporary files that are
   created. This value is an integer.">077</configinteger>
