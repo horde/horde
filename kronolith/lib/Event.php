@@ -2913,6 +2913,9 @@ abstract class Kronolith_Event
                 if (!isset($newattendees[$email])) {
                     unset($attendees[$email]);
                 }
+                if (Kronolith::isUserEmail($this->creator, $email)) {
+                    $attendees[$email]['response'] = Horde_Util::getFormData('attendance');
+                }
             }
         }
         $this->attendees = $attendees;
