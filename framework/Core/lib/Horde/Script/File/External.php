@@ -32,7 +32,7 @@ class Horde_Script_File_External extends Horde_Script_File
      * break-up caching collections (since a non-cached script will cause
      * separate cache files to be created).
      */
-    public $priority = self::PRIORITY_LOW;
+    protected $_priority = self::PRIORITY_LOW;
 
     /**
      * External URL.
