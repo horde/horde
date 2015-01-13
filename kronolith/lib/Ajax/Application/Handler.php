@@ -317,6 +317,15 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             }
         }
 
+        if ($this->vars->attendance) {
+            foreach ($event->attendees as $email => $status) {
+                if (Kronolith::isUserEmail($event->creator, $email)) {
+                    $event->attendees[$email]['response'] = $this->vars->attendance;
+                    $event->save();
+                }
+            }
+        }
+
         if (($result !== true) && $this->vars->sendupdates) {
             $type = $event->status == Kronolith::STATUS_CANCELLED ? Kronolith::ITIP_CANCEL : Kronolith::ITIP_REQUEST;
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], $type);
