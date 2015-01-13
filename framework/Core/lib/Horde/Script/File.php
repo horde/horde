@@ -29,6 +29,9 @@
  * @property integer $priority  Script priority
  * @property-read string $tag  HTML script tag to relative URL.
  * @property-read string $tag_full  HTML script tag to full URL.
+ * @property-read Horde_Script_File $uncompressed  Return the object
+ *                                                 representing the
+ *                                                 uncompressed script.
  * @property-read Horde_Url $url  URL to script.
  * @property-read Horde_Url $url_full  Full URL to script.
  */
@@ -124,6 +127,9 @@ class Horde_Script_File
             return '<script type="text/javascript" src="' .
                 (($name == 'tag') ? $this->url : $this->url_full) .
                 '"></script>';
+
+        case 'uncompressed':
+            return $this;
 
         case 'url':
         case 'url_full':

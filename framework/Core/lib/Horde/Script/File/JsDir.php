@@ -31,6 +31,16 @@ class Horde_Script_File_JsDir extends Horde_Script_File
         case 'path':
             return $GLOBALS['registry']->get('jsfs', $this->_app) . '/';
 
+        case 'uncompressed':
+            if (($pos = strripos($this->file, '.min.js')) !== false) {
+                $cname = get_class();
+                return new $cname(
+                    substr($this->file, 0, $pos) . '.js',
+                    $this->app
+                );
+            }
+            break;
+
         case 'url':
         case 'url_full':
             return $this->_url($GLOBALS['registry']->get('jsuri', $this->_app) . '/' . $this->_file, ($name == 'url_full'));
