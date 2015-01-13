@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
 * [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
 * [mjr] Add option to inject a logger object.
 * [mjr] Improve support for decompressing TNEF data.
@@ -930,6 +931,7 @@ Initial release as a PEAR package
    <date>2014-12-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
 * [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
 * [mjr] Add option to inject a logger object.
 * [mjr] Improve support for decompressing TNEF data.
