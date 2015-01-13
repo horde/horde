@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix generating the install path for composer packages installed within a Horde component.
 * [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
  </notes>
  <contents>
@@ -540,6 +541,7 @@
    <date>2015-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix generating the install path for composer packages installed within a Horde component.
 * [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
    </notes>
   </release>
