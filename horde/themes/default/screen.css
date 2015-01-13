@@ -332,7 +332,7 @@ input:focus, textarea:focus, select:focus {
     border-color: #000;
 }
 input[type="submit"], input[type="button"], input[type="reset"],
-a.horde-button, a.horde-default, a.horde-delete {
+a.horde-button, a.horde-default, a.horde-create, a.horde-delete {
     background-image: url("graphics/button.png");
     background-repeat: repeat-x;
     border: 1px solid #d0d0d0;
@@ -340,7 +340,7 @@ a.horde-button, a.horde-default, a.horde-delete {
     color: #000;
     cursor: pointer;
 }
-a.horde-button, a.horde-default, a.horde-delete, a.horde-cancel {
+a.horde-button, a.horde-default, a.horde-create, a.horde-delete, a.horde-cancel {
     display: inline-block;
     padding: 4px 13px;
     font-weight: normal;
