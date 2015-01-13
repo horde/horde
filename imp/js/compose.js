@@ -272,7 +272,7 @@ var ImpCompose = {
         }
 
         input.setValue(s);
-        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(15)).up(1).show();
+        $(k.opts.label).writeAttribute('title', l.escapeHTML()).setText(l.truncate(11)).up(1).show();
 
         if (k.knl) {
             k.knl.setSelected(s);
