@@ -109,6 +109,7 @@ implements Horde_Pear_Package_Type
                     $this->getGitIgnore(),
                     $this->getRepositoryRoot()
                 ),
+                new Horde_Pear_Package_Contents_Ignore_Composer()
             )
         );
     }

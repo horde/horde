@@ -10,7 +10,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-01-13</date>
  <version>
   <release>1.0.0alpha8</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,6 +45,7 @@
       <dir name="Package">
        <dir name="Contents">
         <dir name="Ignore">
+         <file name="Composer.php" role="php" />
          <file name="Composite.php" role="php" />
          <file name="Dot.php" role="php" />
          <file name="Git.php" role="php" />
@@ -326,6 +327,7 @@
    <install as="Horde/Pear/Package/Contents/InstallAs.php" name="lib/Horde/Pear/Package/Contents/InstallAs.php" />
    <install as="Horde/Pear/Package/Contents/List.php" name="lib/Horde/Pear/Package/Contents/List.php" />
    <install as="Horde/Pear/Package/Contents/Role.php" name="lib/Horde/Pear/Package/Contents/Role.php" />
+   <install as="Horde/Pear/Package/Contents/Ignore/Composer.php" name="lib/Horde/Pear/Package/Contents/Ignore/Composer.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Composite.php" name="lib/Horde/Pear/Package/Contents/Ignore/Composite.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Dot.php" name="lib/Horde/Pear/Package/Contents/Ignore/Dot.php" />
    <install as="Horde/Pear/Package/Contents/Ignore/Git.php" name="lib/Horde/Pear/Package/Contents/Ignore/Git.php" />
@@ -535,10 +537,10 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Ignore .git directories in composer bundle directories when creating package.xml file.
    </notes>
   </release>
  </changelog>
