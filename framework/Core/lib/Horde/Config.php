@@ -688,7 +688,7 @@ class Horde_Config
                     '_type' => 'text',
                     'required' => true,
                     'desc' => $desc,
-                    'default' => $this->_default($curctx, strval(new Horde_Support_Uuid())),
+                    'default' => $this->_default($curctx, strval(new Horde_Support_Randomid())),
                     'is_default' => $this->_isDefault($curctx, $this->_getNodeOnlyText($node))
                 );
                 break;
