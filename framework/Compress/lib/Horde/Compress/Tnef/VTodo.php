@@ -262,7 +262,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 
         return array(
             'type'    => 'text',
-            'subtype' => 'vTodo',
+            'subtype' => 'calendar',
             'name'    => $msg->subject ? $msg->subject . '.vtodo': 'Untitled.vtodo',
             'stream'  => $iCal->exportvCalendar()
         );
