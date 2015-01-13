@@ -1,17 +1,25 @@
 <?php
 /**
- * This class represents a javascript script file located in an application's
- * js/ directory.
- *
  * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * This class represents a javascript script file located in an application's
+ * js/ directory.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Script_File_JsDir extends Horde_Script_File
 {
