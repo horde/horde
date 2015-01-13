@@ -12,7 +12,7 @@
  </lead>
  <date>2015-01-13</date>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP &lt; 5.3.9 (Bug #13792).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -360,6 +360,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP &lt; 5.3.9 (Bug #13792).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
