@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2015-01-13</date>
  <version>
   <release>1.0.6</release>
   <api>1.0.0</api>
@@ -128,6 +128,7 @@
        </dir> <!-- /bundle/vendor/sabberworm/php-css-parser/tests -->
        <file name=".travis.yml" role="php" />
        <file name="CHANGELOG.md" role="php" />
+       <file name="Doxyfile" role="php" />
        <file name="phpunit.xml" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sabberworm/php-css-parser -->
@@ -151,7 +152,7 @@
       <file name="Parser.php" role="php" />
      </dir> <!-- /lib/Horde/Css -->
     </dir> <!-- /lib/Horde -->
-    </dir> <!-- /lib -->
+   </dir> <!-- /lib -->
    <dir name="test">
     <dir name="Horde">
      <dir name="Css">
@@ -194,6 +195,7 @@
    <install as="Horde/Css/Parser/vendor/composer/installed.json" name="bundle/vendor/composer/installed.json" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/.travis.yml" name="bundle/vendor/sabberworm/php-css-parser/.travis.yml" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/CHANGELOG.md" name="bundle/vendor/sabberworm/php-css-parser/CHANGELOG.md" />
+   <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/Doxyfile" name="bundle/vendor/sabberworm/php-css-parser/Doxyfile" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/phpunit.xml" name="bundle/vendor/sabberworm/php-css-parser/phpunit.xml" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/README.md" name="bundle/vendor/sabberworm/php-css-parser/README.md" />
    <install as="Horde/Css/Parser/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/OutputFormat.php" name="bundle/vendor/sabberworm/php-css-parser/lib/Sabberworm/CSS/OutputFormat.php" />
@@ -354,7 +356,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP &lt; 5.3.9 (Bug #13792).
