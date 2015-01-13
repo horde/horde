@@ -27,6 +27,8 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
         try {
             $tnef_data = $tnef->decompress($data);
+        } catch (Horde_Mapi_Exception $e) {
+            $this->markTestSkipped('Horde_Mapi is not available');
         } catch (Horde_Compress_Exception $e) {
             var_dump($e);
         }
