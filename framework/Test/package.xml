@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix install location for the phpunit libraries packaged locally via composer.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2899,7 +2899,7 @@
    <date>2015-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix install location for the phpunit libraries packaged locally via composer.
    </notes>
   </release>
  </changelog>
