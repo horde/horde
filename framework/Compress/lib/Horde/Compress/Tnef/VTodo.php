@@ -245,9 +245,9 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 
         // Figure out the body.
         if ($this->_bodyPlain) {
-            $vtodo->setAttribute('DESCRIPTION', $this->bodyPlain);
+            $vtodo->setAttribute('DESCRIPTION', $this->_bodyPlain);
         } elseif ($this->_bodyHtml) {
-            $vtodo->setAttribute(Horde_Text_Filter::filter($this->bodyHtml, 'html2text'));
+            $vtodo->setAttribute(Horde_Text_Filter::filter($this->_bodyHtml, 'html2text'));
         } elseif ($this->_rtfCompressed) {
             // @todo Decompress and parse using Horde_Mime_Viewer_Rtf?
         } else {
