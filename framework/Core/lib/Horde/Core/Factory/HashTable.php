@@ -60,6 +60,7 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
             $params = array_merge(array(
                 'hostspec' => array(),
                 'password' => null,
+                'database' => null,
                 'port' => '',
                 'protocol' => 'tcp',
             ), $params);
@@ -67,7 +68,8 @@ class Horde_Core_Factory_HashTable extends Horde_Core_Factory_Injector
 
             $common = array_filter(array(
                 'password' => strlen($params['password']) ? $params['password'] : null,
-                'persistent' => !empty($params['persistent'])
+                'persistent' => !empty($params['persistent']),
+                'database' => !empty($params['database']) ? $params['database'] : null
             ));
 
             switch ($params['protocol']) {
