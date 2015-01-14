@@ -24,7 +24,7 @@
  </lead>
  <date>2015-01-14</date>
  <version>
-  <release>6.2.5</release>
+  <release>6.2.6</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,11 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix advanced search (Bug #13773).
-* [mjr] Fix handling of iTips indicating a change to a series exception (Bug #13777).
-* [mms] Fix parsing broken S/MIME messages that don&apos;t include the smime-type content-type parameter (Request #13661).
-* [mms] Fix regression when working with multiple selected messages with a POP3 server (Bug #13759).
-* [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3790,6 +3786,19 @@
 * [mms] Fix parsing broken S/MIME messages that don&apos;t include the smime-type content-type parameter (Request #13661).
 * [mms] Fix regression when working with multiple selected messages with a POP3 server (Bug #13759).
 * [mms] Only count successful compose mails when determining recipient limits (Bug #13751).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.6</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
