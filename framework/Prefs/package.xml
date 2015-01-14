@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Removed unused &apos;password&apos; parameter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1143,7 +1143,7 @@ Initial release as a PEAR package
    <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Removed unused &apos;password&apos; parameter.
    </notes>
   </release>
  </changelog>
