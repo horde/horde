@@ -39,36 +39,4 @@ class IMP_Message_Ui
         );
     }
 
-    /**
-     * Returns e-mail information for a mailing list.
-     *
-     * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
-     *
-     * @return array  An array with 2 elements: 'exists' and 'reply_list'.
-     */
-    public function getListInformation($headers)
-    {
-        $lh = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
-        $ret = array('exists' => false, 'reply_list' => null);
-
-        if ($lh->listHeadersExist($headers)) {
-            $ret['exists'] = true;
-
-            /* See if the List-Post header provides an e-mail address for the
-             * list. */
-            if ($val = $headers['List-Post']) {
-                foreach ($lh->parse('list-post', $val->value) as $val2) {
-                    if ($val2 instanceof Horde_ListHeaders_NoPost) {
-                        break;
-                    } elseif (stripos($val2->url, 'mailto:') === 0) {
-                        $ret['reply_list'] = substr($val2->url, 7);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return $ret;
-    }
-
 }

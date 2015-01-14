@@ -1379,4 +1379,45 @@ class IMP_Contents
         return $this->_viewcache;
     }
 
+    /**
+     * Returns mailing list information for the message.
+     *
+     * @return array  An array with 2 elements:
+     * <pre>
+     *   - exists: (boolean) True if this is a mailing list message.
+     *   - reply_list: (string) If non-null, the e-mail address to use to post
+     *                 to the list.
+     * </pre>
+     */
+    public function getListInformation()
+    {
+        global $injector;
+
+        $headers = $this->getHeader();
+        $lh = $injector->getInstance('Horde_ListHeaders');
+        $ret = array(
+            'exists' => false,
+            'reply_list' => null
+        );
+
+        if ($lh->listHeadersExist($headers)) {
+            $ret['exists'] = true;
+
+            /* See if the List-Post header provides an e-mail address for the
+             * list. */
+            if ($val = $headers['List-Post']) {
+                foreach ($lh->parse('list-post', $val->value) as $val2) {
+                    if ($val2 instanceof Horde_ListHeaders_NoPost) {
+                        break;
+                    } elseif (stripos($val2->url, 'mailto:') === 0) {
+                        $ret['reply_list'] = substr($val2->url, 7);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $ret;
+    }
+
 }

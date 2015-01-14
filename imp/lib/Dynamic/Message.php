@@ -87,7 +87,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                 $js_vars['ImpMessage.' . $val] = $msg_res[$val];
             }
         }
-        if (!empty($msg_res['list_info']['exists'])) {
+
+        $list_info = $show_msg->contents->getListInformation();
+        if (!empty($list_info['exists'])) {
             $js_vars['ImpMessage.reply_list'] = true;
             $this->view->listinfo = Horde::popupJs(
                 IMP_Basic_Listinfo::url(array(

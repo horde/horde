@@ -23,6 +23,13 @@
 class IMP_Ajax_Application_ShowMessage
 {
     /**
+     * Contents object.
+     *
+     * @var IMP_Contents
+     */
+    public $contents;
+
+    /**
      * Default list of part info elements to display.
      *
      * @var array
@@ -30,13 +37,6 @@ class IMP_Ajax_Application_ShowMessage
     public $part_info = array(
         'icon', 'description', 'size', 'download'
     );
-
-    /**
-     * Contents object.
-     *
-     * @var IMP_Contents
-     */
-    protected $_contents;
 
     /**
      * Envelope object.
@@ -98,12 +98,11 @@ class IMP_Ajax_Application_ShowMessage
                 throw new Exception();
             }
 
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
+            $this->contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
 
-        $this->_contents = $imp_contents;
         $this->_envelope = $ob->getEnvelope();
         $this->_indices = $indices;
         $this->_peek = $peek;
@@ -129,7 +128,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - from: (array) The From addresses.
      *   - headers: (array; FULL): An array of user-defined headers.
      *   - js: (array) Javascript code to run on display.
-     *   - list_info: (array; FULL) List information.
      *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
@@ -267,8 +265,8 @@ class IMP_Ajax_Application_ShowMessage
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
             if (count($inlineout['atc_parts']) > 1) {
-                $result['atc']['download'] = strval($this->_contents->urlView(
-                    $this->_contents->getMIMEMessage(),
+                $result['atc']['download'] = strval($this->contents->urlView(
+                    $this->contents->getMIMEMessage(),
                     'download_all'
                 )->setRaw(true));
             }
@@ -291,7 +289,7 @@ class IMP_Ajax_Application_ShowMessage
                 $part_info[] = 'description_raw';
                 $part_info[] = 'download_url';
 
-                $summary = $this->_contents->getSummary($id, $contents_mask);
+                $summary = $this->contents->getSummary($id, $contents_mask);
                 $tmp = array();
                 foreach ($part_info as $val) {
                     if (isset($summary[$val])) {
@@ -327,11 +325,6 @@ class IMP_Ajax_Application_ShowMessage
             }
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
-        } else {
-            $list_info = $imp_ui->getListInformation($this->_headers);
-            if (!empty($list_info['exists'])) {
-                $result['list_info'] = $list_info;
-            }
         }
 
         /* Add changed flag information. */
@@ -414,7 +407,7 @@ class IMP_Ajax_Application_ShowMessage
         $part_info_display[] = 'print';
 
         $inline_ob = new IMP_Contents_InlineOutput();
-        return $inline_ob->getInlineOutput($this->_contents, array(
+        return $inline_ob->getInlineOutput($this->contents, array(
             'mask' => $contents_mask,
             'mimeid' => $mimeid,
             'part_info_display' => $part_info_display
@@ -479,8 +472,8 @@ class IMP_Ajax_Application_ShowMessage
     {
         if (!isset($this->_headers)) {
             $this->_headers = $this->_peek
-                ? $this->_contents->getHeader()
-                : $this->_contents->getHeaderAndMarkAsSeen();
+                ? $this->contents->getHeader()
+                : $this->contents->getHeaderAndMarkAsSeen();
         }
     }
 
