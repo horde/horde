@@ -935,7 +935,10 @@ extends Horde_Core_Ajax_Application_Handler
         $result = new stdClass;
         $result->puids = $this->_base->previewUids();
 
-        $this->_base->queue->message($this->_base->indices, true);
+        $this->_base->queue->message(
+            $this->_base->indices,
+            array('preview' => true)
+        );
         $this->_base->addTask('viewport', $this->_base->viewPortData(true));
 
         return $result;

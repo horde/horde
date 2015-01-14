@@ -654,6 +654,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * See the list of variables needed for changed() and
      * checkUidvalidity(). Mailbox/indices form parameters needed. Additional
      * variables used:
+     *   - is_list: (boolean) If true, check for list existence.
      *   - peek: (integer) If set, don't set seen flag.
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
@@ -676,7 +677,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 throw new IMP_Exception(_("Could not open mailbox."));
             }
 
-            $this->_base->queue->message($this->_base->indices, $this->vars->preview, $this->vars->peek);
+            $this->_base->queue->message(
+                $this->_base->indices,
+                array(
+                    'is_list' => (bool)$this->vars->is_list,
+                    'peek' => (bool)$this->vars->peek,
+                    'preview' => (bool)$this->vars->preview
+                )
+            );
 
             /* Explicitly load the message here; non-existent messages are
              * ignored when the Ajax queue is processed. Place the check AFTER

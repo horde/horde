@@ -717,7 +717,8 @@ var ImpMobile = {
             $.extend(ImpMobile.addViewportParams($.extend(params, {
                 view: purl.params.mbox
             })), {
-                buid: purl.params.buid
+                buid: purl.params.buid,
+                is_list: 1
             }),
             ImpMobile.messageLoaded
         );
@@ -810,7 +811,7 @@ var ImpMobile = {
             subject: data.subject,
             to: data.to
         };
-        ImpMobile.listmsg = (data.list_info && data.list_info.exists);
+        ImpMobile.listmsg = data.is_list;
         ImpMobile.rowid = r.buid;
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
