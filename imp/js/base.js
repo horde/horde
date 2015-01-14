@@ -2792,11 +2792,10 @@ var ImpBase = {
 
         this.is_keydown = false;
 
-        if (elt.hasClassName('splitBarVertSidebar')) {
+        if (elt.getAttribute('id') == 'horde-slideleft') {
             ImpCore.setPref('splitbar_side', null);
             this.setSidebarWidth();
             e.memo.stop();
-            return;
         } else if (elt.hasClassName('vpRow')) {
             tmp = this.viewport.createSelection('domid', elt.identify());
 
