@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "6.2.4",
-    "time": "2014-12-03",
+    "version": "6.2.5",
+    "time": "2015-01-14",
     "repositories": [
         {
             "type": "pear",
@@ -68,6 +68,7 @@
         "pear-pear.horde.org/Horde_Util": ">=2.4.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Vfs": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_View": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-phpseclib.sourceforge.net/File_ASN1": "*",
         "ext-dom": "*",
         "ext-gettext": "*",
         "ext-hash": "*",
