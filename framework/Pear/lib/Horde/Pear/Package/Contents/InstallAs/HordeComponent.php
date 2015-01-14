@@ -42,14 +42,24 @@ implements Horde_Pear_Package_Contents_InstallAs
     {
         $elements = explode('/', substr($file, 1));
         $basedir = array_shift($elements);
+
         switch ($basedir) {
         case 'COPYING':
         case 'examples':
         case 'js':
         case 'locale':
             return substr($file, 1);
+
+        case 'bundle':
+            // Composer packages
+            foreach (array_reverse(explode('_', $package)) as $dir) {
+                array_unshift($elements, $dir);
+            }
+            return join('/', $elements);
+
         case 'migration':
             return $basedir . '/' . basename($file);
+
         case 'doc':
             foreach (explode('_', $package) as $dir) {
                 if ($elements[0] == $dir) {

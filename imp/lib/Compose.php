@@ -1933,7 +1933,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* We might need $list_info in the reply_all section. */
         $list_info = in_array($type, array(self::REPLY_AUTO, self::REPLY_LIST))
-            ? $injector->getInstance('IMP_Message_Ui')->getListInformation($h)
+            ? $contents->getListInformation()
             : null;
 
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {

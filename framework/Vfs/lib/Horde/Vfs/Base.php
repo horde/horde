@@ -731,10 +731,12 @@ abstract class Horde_Vfs_Base
      *                       the data to be written.  If 'file', $data is the
      *                       filename containing the data to be written.
      * @param string $data   Either the data or the filename to the data.
+     * @param string $path   The path the file is located in.
+     * @param string $name   The filename.
      *
      * @throws Horde_Vfs_Exception
      */
-    protected function _checkQuotaWrite($mode, $data)
+    protected function _checkQuotaWrite($mode, $data, $path = null, $name = null)
     {
         if ($this->_params['vfs_quotalimit'] == -1 &&
             is_null($this->_vfsSize)) {
@@ -749,15 +751,22 @@ abstract class Horde_Vfs_Base
         } else {
             $filesize = strlen($data);
         }
+        $oldsize = 0;
+        if ($name) {
+            try {
+                $oldsize = $this->size($path, $name);
+            } catch (Horde_Vfs_Exception $e) {
+            }
+        }
 
         $vfssize = $this->getVFSSize();
         if ($this->_params['vfs_quotalimit'] > -1 &&
-            ($vfssize + $filesize) > $this->_params['vfs_quotalimit']) {
+            ($vfssize + $filesize - $oldsize) > $this->_params['vfs_quotalimit']) {
             throw new Horde_Vfs_Exception('Unable to write VFS file, quota will be exceeded.');
         }
 
         if (!is_null($this->_vfsSize)) {
-            $this->_vfsSize += $filesize;
+            $this->_vfsSize += $filesize - $oldsize;
         }
     }
 

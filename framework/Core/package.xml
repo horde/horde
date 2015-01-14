@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
+* [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3814,7 +3815,8 @@
    <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
+* [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
    </notes>
   </release>
  </changelog>

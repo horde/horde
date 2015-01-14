@@ -23,6 +23,13 @@
 class IMP_Ajax_Application_ShowMessage
 {
     /**
+     * Contents object.
+     *
+     * @var IMP_Contents
+     */
+    public $contents;
+
+    /**
      * Default list of part info elements to display.
      *
      * @var array
@@ -32,25 +39,11 @@ class IMP_Ajax_Application_ShowMessage
     );
 
     /**
-     * Contents object.
-     *
-     * @var IMP_Contents
-     */
-    protected $_contents;
-
-    /**
      * Envelope object.
      *
      * @var Horde_Imap_Client_Data_Envelope
      */
     protected $_envelope;
-
-    /**
-     * MIME headers object.
-     *
-     * @var Horde_Mime_Headers
-     */
-    protected $_headers;
 
     /**
      * Indices object.
@@ -98,12 +91,11 @@ class IMP_Ajax_Application_ShowMessage
                 throw new Exception();
             }
 
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
+            $this->contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
 
-        $this->_contents = $imp_contents;
         $this->_envelope = $ob->getEnvelope();
         $this->_indices = $indices;
         $this->_peek = $peek;
@@ -111,11 +103,6 @@ class IMP_Ajax_Application_ShowMessage
 
     /**
      * Create the object used to display the message.
-     *
-     * @param array $args  Configuration parameters:
-     *   - headers: (array) The headers desired in the returned headers array
-     *              (only used with non-preview view).
-     *   - preview: (boolean) Is this the preview view?
      *
      * @return array  Array with the following keys:
      *   - atc: (object) Attachment information.
@@ -127,9 +114,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - datestamp: (string) ISO 8601 date string.
      *   - fulldate: (string) The full canonical date.
      *   - from: (array) The From addresses.
-     *   - headers: (array; FULL): An array of user-defined headers.
-     *   - js: (array) Javascript code to run on display.
-     *   - list_info: (array; FULL) List information.
      *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
@@ -143,74 +127,34 @@ class IMP_Ajax_Application_ShowMessage
      *
      * @throws IMP_Exception
      */
-    public function showMessage($args)
+    public function showMessage()
     {
-        global $injector, $page_output, $prefs, $registry, $session;
+        global $injector, $prefs, $registry, $session;
 
-        $headers = $result = array();
-        $preview = !empty($args['preview']);
+        $result = array();
 
-        $imp_ui = $injector->getInstance('IMP_Message_Ui');
-
-        /* Develop the list of Headers to display now. Deal with the 'basic'
-         * header information first since there are various manipulations
-         * done to them. */
-        $basic_headers = $imp_ui->basicHeaders();
-        if (empty($args['headers'])) {
-            $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
-        }
-
-        $headers_list = array_intersect_key(
-            $basic_headers,
-            array_flip($args['headers'])
-        );
-
-        /* Build From/To/Cc/Bcc links. */
+        /* Build From/To/Cc/Bcc. */
         foreach (array('from', 'to', 'cc', 'bcc') as $val) {
-            if (isset($headers_list[$val])) {
-                if ($tmp = $this->getAddressHeader($val)) {
-                    $result[$val] = $tmp;
-                }
-                if ($preview) {
-                    unset($headers_list[$val]);
-                }
+            if ($tmp = $this->getAddressHeader($val)) {
+                $result[$val] = $tmp;
             }
         }
 
-        $this->_loadHeaders();
-
-        /* Build the rest of the headers. */
-        foreach ($headers_list as $head => $str) {
-            if ($val = $this->_headers[$head]) {
-                if ($head == 'date') {
-                    /* Add local time to date header. */
-                    $date_ob = new IMP_Message_Date($this->_envelope->date);
-                    $val = $date_ob->format($date_ob::DATE_LOCAL);
-                    $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
-                    $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
-                    $result['localdate'] = $val;
-                }
-
-                if (!$preview) {
-                    $headers[$head] = array(
-                        'id' => Horde_String::ucfirst($head),
-                        'name' => $str,
-                        'value' => $val
-                    );
-                }
-            }
+        /* Build the date information. */
+        if ($date = $this->_envelope->date) {
+            $date_ob = new IMP_Message_Date($date);
+            $val = $date_ob->format($date_ob::DATE_LOCAL);
+            $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
+            $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
+            $result['localdate'] = $val;
         }
 
         /* Maillog information. */
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $ajax_queue->maillog($this->_indices);
 
-        if (!$preview) {
-            $result['headers'] = array_merge($headers, $this->getUserHeaders());
-        }
-
         /* Process the subject. */
-        if ($subject = strval($this->_headers['Subject'])) {
+        if (strlen($subject = $this->_envelope->subject)) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
 
@@ -239,7 +183,7 @@ class IMP_Ajax_Application_ShowMessage
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
-            if ($this->_indices->mdnCheck($this->_headers)) {
+            if ($this->_indices->mdnCheck($this->_loadHeaders())) {
                 $status = new IMP_Mime_Status(null, array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
                     Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("Click to send the notification message.") . '</a>'
@@ -267,8 +211,8 @@ class IMP_Ajax_Application_ShowMessage
                 ? _("Parts")
                 : sprintf(ngettext("%d Attachment", "%d Attachments", count($inlineout['atc_parts'])), count($inlineout['atc_parts']));
             if (count($inlineout['atc_parts']) > 1) {
-                $result['atc']['download'] = strval($this->_contents->urlView(
-                    $this->_contents->getMIMEMessage(),
+                $result['atc']['download'] = strval($this->contents->urlView(
+                    $this->contents->getMIMEMessage(),
                     'download_all'
                 )->setRaw(true));
             }
@@ -291,7 +235,7 @@ class IMP_Ajax_Application_ShowMessage
                 $part_info[] = 'description_raw';
                 $part_info[] = 'download_url';
 
-                $summary = $this->_contents->getSummary($id, $contents_mask);
+                $summary = $this->contents->getSummary($id, $contents_mask);
                 $tmp = array();
                 foreach ($part_info as $val) {
                     if (isset($summary[$val])) {
@@ -316,23 +260,7 @@ class IMP_Ajax_Application_ShowMessage
                 array('actionID' => 'save_message'),
                 $bmbox->urlParams($buid)
             )
-        );
-
-        if ($preview) {
-            /* Need to grab cached inline scripts. */
-            Horde::startBuffer();
-            $page_output->outputInlineScript(true);
-            if ($js_inline = Horde::endBuffer()) {
-                $result['js'] = array($js_inline);
-            }
-
-            $result['save_as'] = strval($result['save_as']->setRaw(true));
-        } else {
-            $list_info = $imp_ui->getListInformation($this->_headers);
-            if (!empty($list_info['exists'])) {
-                $result['list_info'] = $list_info;
-            }
-        }
+        )->setRaw(true);
 
         /* Add changed flag information. */
         if (!$this->_peek && $mbox->is_imap) {
@@ -414,7 +342,7 @@ class IMP_Ajax_Application_ShowMessage
         $part_info_display[] = 'print';
 
         $inline_ob = new IMP_Contents_InlineOutput();
-        return $inline_ob->getInlineOutput($this->_contents, array(
+        return $inline_ob->getInlineOutput($this->contents, array(
             'mask' => $contents_mask,
             'mimeid' => $mimeid,
             'part_info_display' => $part_info_display
@@ -424,7 +352,12 @@ class IMP_Ajax_Application_ShowMessage
     /**
      * Get the user-specified headers.
      *
-     * @return array  The list of user-defined headers.
+     * @return array  The list of user-defined headers.  Array of arrays with
+     *                these keys:
+     * <pre>
+     *   - name: (string) Header name.
+     *   - value: (string) Header value.
+     * </pre>
      */
     public function getUserHeaders()
     {
@@ -455,8 +388,10 @@ class IMP_Ajax_Application_ShowMessage
         )));
         natcasesort($user_hdrs);
 
+        $headers_ob = $this->_loadHeaders();
+
         foreach ($user_hdrs as $hdr) {
-            if ($user_val = $this->_headers[$hdr]) {
+            if ($user_val = $headers_ob[$hdr]) {
                 $user_val = $user_val->value;
                 foreach ((is_array($user_val) ? $user_val : array($user_val)) as $val) {
                     $headers[] = array(
@@ -477,11 +412,9 @@ class IMP_Ajax_Application_ShowMessage
      */
     protected function _loadHeaders()
     {
-        if (!isset($this->_headers)) {
-            $this->_headers = $this->_peek
-                ? $this->_contents->getHeader()
-                : $this->_contents->getHeaderAndMarkAsSeen();
-        }
+        return $this->_peek
+            ? $this->contents->getHeader()
+            : $this->contents->getHeaderAndMarkAsSeen();
     }
 
 }

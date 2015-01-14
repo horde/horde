@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Workaround broken in-memory stream filter handling.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2813,7 +2813,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Workaround broken in-memory stream filter handling.
    </notes>
   </release>
  </changelog>

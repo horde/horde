@@ -75,7 +75,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
      */
     public function writeData($path, $name, $data, $autocreate = false)
     {
-        $this->_checkQuotaWrite('string', $data);
+        $this->_checkQuotaWrite('string', $data, $path, $name);
 
         $fp = @fopen($this->_getNativePath($path, $name), 'w');
         if (!$fp) {
@@ -168,7 +168,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
             return $this->_recursiveCopy($path, $name, $dest);
         }
 
-        $this->_checkQuotaWrite('file', $orig);
+        $this->_checkQuotaWrite('file', $orig, $dest, $name);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {
             throw new Horde_Vfs_Exception('Unable to copy VFS file.');

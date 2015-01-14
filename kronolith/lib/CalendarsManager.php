@@ -1,7 +1,5 @@
 <?php
 /**
- * Kronolith_CalendarsManager::
- *
  * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
@@ -15,11 +13,6 @@
 
 /**
  * Handles management of the various global calendar lists.
- *
- * Copyright 2013-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/gpl GPL
@@ -174,6 +167,7 @@ class Kronolith_CalendarsManager
                 return $this->_allResource;
             }
             return $this->_getAllResource();
+
         case Kronolith::ALL_REMOTE_CALENDARS:
             if ($this->_allRemote !== false) {
                 return $this->_allRemote;
@@ -199,11 +193,13 @@ class Kronolith_CalendarsManager
                 return $this->_displayExternal;
             }
             return $this->_getDisplayExternal();
+
         case Kronolith::ALL_HOLIDAYS:
             if ($this->_allHolidays !== false) {
                 return $this->_allHolidays;
             }
             return $this->_getAllHolidays();
+
         case Kronolith::DISPLAY_HOLIDAYS:
             if ($this->_displayHolidays !== false) {
                 return $this->_displayHolidays;

@@ -1789,8 +1789,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             }
 
             $opts = array(
-                'password' => $this->getAuthCredential('password'),
-                'user' => $user,
+                'user' => $user
             );
         } else {
             /* If there is no logged in user, return an empty Horde_Prefs

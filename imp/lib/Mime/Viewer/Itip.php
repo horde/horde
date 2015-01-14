@@ -19,6 +19,7 @@
  * @author    Chuck Hagenbuch <chuck@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @category  Horde
  * @copyright 2002-2015 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL

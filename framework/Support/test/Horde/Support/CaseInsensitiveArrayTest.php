@@ -24,7 +24,7 @@ class Horde_Support_CaseInsensitiveArrayTest extends PHPUnit_Framework_TestCase
     public function testImplements($interface)
     {
         $o = new Horde_Support_CaseInsensitiveArray();
-        $this->assertInstanceOf('ArrayAccess', $o);
+        $this->assertInstanceOf($interface, $o);
     }
 
     public function implementsProvider()

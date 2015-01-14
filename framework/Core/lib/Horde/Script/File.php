@@ -1,27 +1,39 @@
 <?php
 /**
- * This class represents a javascript script file to output to the browser.
- *
  * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * This class represents a javascript script file to output to the browser.
  *
- * @property string $app
- * @property string $file
- * @property string $full_path
- * @property string $hash  Hash value of this file.
- * @property integer $modified  Last modification time of the file.
- * @property string $path  Full filesystem path to script.
- * @property string $tag
- * @property string $tag_full
- * @property Horde_Url $url  URL to script.
- * @property Horde_Url $url_full  Full URL to script.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ *
+ * @property-read string $app  Application.
+ * @property-read string $file  Filename.
+ * @property-read string $full_path  Full path to file on filesystem.
+ * @property-read string $hash  Hash value of this file.
+ * @property-read integer $modified  Last modification time of the file.
+ * @property-read string $path  Full filesystem path to script.
+ * @property integer $priority  Script priority
+ * @property-read string $tag  HTML script tag to relative URL.
+ * @property-read string $tag_full  HTML script tag to full URL.
+ * @property-read Horde_Script_File $uncompressed  Return the object
+ *                                                 representing the
+ *                                                 uncompressed script.
+ * @property-read Horde_Url $url  URL to script.
+ * @property-read Horde_Url $url_full  Full URL to script.
  */
 class Horde_Script_File
 {
@@ -115,6 +127,9 @@ class Horde_Script_File
             return '<script type="text/javascript" src="' .
                 (($name == 'tag') ? $this->url : $this->url_full) .
                 '"></script>';
+
+        case 'uncompressed':
+            return $this;
 
         case 'url':
         case 'url_full':

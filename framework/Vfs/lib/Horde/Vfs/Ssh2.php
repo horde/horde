@@ -189,7 +189,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
     public function write($path, $name, $tmpFile, $autocreate = false)
     {
         $this->_connect();
-        $this->_checkQuotaWrite('file', $tmpFile);
+        $this->_checkQuotaWrite('file', $tmpFile, $path, $name);
 
         if (!$this->_send($tmpFile, $this->_getPath($path, $name))) {
             if ($autocreate) {
@@ -355,7 +355,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
     {
         $this->_connect();
         $full = $this->_getPath($path, $name);
-        if (!@ssh2_sftp_chmod($this->_sftp, $full, $permission)) {
+        if (!@ssh2_sftp_chmod($this->_sftp, $full, octdec($permission))) {
             throw new Horde_Vfs_Exception(sprintf('Unable to change permission for VFS file "%s".', $full));
         }
     }
@@ -651,7 +651,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             }
 
             clearstatcache();
-            $this->_checkQuotaWrite('file', $tmpFile);
+            $this->_checkQuotaWrite('file', $tmpFile, $dest, $name);
 
             if (!$this->_send($tmpFile, $this->_getPath($dest, $name))) {
                 throw new Horde_Vfs_Exception(sprintf('Failed to copy to "%s".', $this->_getPath($dest, $name)));

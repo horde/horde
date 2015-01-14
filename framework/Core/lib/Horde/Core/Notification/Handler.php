@@ -63,7 +63,6 @@ extends Horde_Notification_Handler
             return;
         }
 
-        $changed = ($registry->getAuth() !== false);
         $this->_apps = array();
 
         try {

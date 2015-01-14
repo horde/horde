@@ -23,11 +23,28 @@
 class Horde_Imap_Client_Data_Format_Filter_Quote extends php_user_filter
 {
     /**
+     * Has the initial quote been prepended?
+     *
+     * @var boolean
+     */
+    protected $_prepend;
+
+    /**
+     */
+    public function onCreate()
+    {
+        $this->_prepend = false;
+    }
+
+    /**
      * @see stream_filter_register()
      */
     public function filter($in, $out, &$consumed, $closing)
     {
-        stream_bucket_append($out, stream_bucket_new($this->stream, '"'));
+        if (!$this->_prepend) {
+            stream_bucket_append($out, stream_bucket_new($this->stream, '"'));
+            $this->_prepend = true;
+        }
 
         while ($bucket = stream_bucket_make_writeable($in)) {
             $consumed += $bucket->datalen;
@@ -35,7 +52,11 @@ class Horde_Imap_Client_Data_Format_Filter_Quote extends php_user_filter
             stream_bucket_append($out, $bucket);
         }
 
-        stream_bucket_append($out, stream_bucket_new($this->stream, '"'));
+        /* feof() call needed due to:
+         * http://news.php.net/php.internals/80363 */
+        if ($closing || feof($this->stream)) {
+            stream_bucket_append($out, stream_bucket_new($this->stream, '"'));
+        }
 
         return PSFS_PASS_ON;
     }

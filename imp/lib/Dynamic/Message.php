@@ -63,10 +63,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         try {
             $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
-            $msg_res = $show_msg->showMessage(array(
-                'headers' => array_diff(array_keys($injector->getInstance('IMP_Message_Ui')->basicHeaders()), array('subject')),
-                'preview' => false
-            ));
+            $msg_res = $show_msg->showMessage();
         } catch (IMP_Exception $e) {
             $notification->notify(array(
                 'listeners' => array('status', 'audio')
@@ -82,12 +79,16 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         list(,$buid) = $this->indices->buids->getSingle();
 
-        foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
+        /* Need to be dynamically added, since formatting needs to be applied
+         * via javascript. */
+        foreach (array('from', 'to', 'cc', 'bcc', 'log') as $val) {
             if (!empty($msg_res[$val])) {
                 $js_vars['ImpMessage.' . $val] = $msg_res[$val];
             }
         }
-        if (!empty($msg_res['list_info']['exists'])) {
+
+        $list_info = $show_msg->contents->getListInformation();
+        if (!empty($list_info['exists'])) {
             $js_vars['ImpMessage.reply_list'] = true;
             $this->view->listinfo = Horde::popupJs(
                 IMP_Basic_Listinfo::url(array(
@@ -147,23 +148,16 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             ? $msg_res['subjectlink']
             : $msg_res['subject'];
 
-        $hdrs = array();
-        foreach ($msg_res['headers'] as $val) {
-            $tmp = array_filter(array(
-                'id' => (isset($val['id']) ? 'msgHeader' . $val['id'] : null),
-                'label' => $val['name'],
-                'val' => $val['value']
-            ));
-
-            if (isset($val['id']) && ($val['id'] === 'Date')) {
-                $this->view->addHelper('Text');
-                $tmp['datestamp'] = $msg_res['datestamp'];
-                $tmp['print'] = $msg_res['fulldate'];
-            }
-
-            $hdrs[] = $tmp;
+        if (isset($msg_res['datestamp'])) {
+            $this->view->datestamp = $msg_res['datestamp'];
+            $this->view->fulldate = $msg_res['fulldate'];
+            $this->view->localdate = $msg_res['localdate'];
+            $this->view->addHelper('Text');
         }
-        $this->view->hdrs = $hdrs;
+
+        if ($this->view->user_hdrs = $show_msg->getUserHeaders()) {
+            $this->view->addHelper('Text');
+        }
 
         $this->view->msgtext = $msg_res['msgtext'];
 

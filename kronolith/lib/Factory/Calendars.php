@@ -35,9 +35,9 @@ class Kronolith_Factory_Calendars
     }
 
     /**
-     * Return a Kronolith_Calendars instance.
+     * Return a Kronolith_Calendars_Base instance.
      *
-     * @return Kronolith_Calendars
+     * @return Kronolith_Calendars_Base
      */
     public function create()
     {

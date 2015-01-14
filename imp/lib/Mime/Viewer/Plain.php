@@ -60,7 +60,9 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
     {
         global $injector, $prefs, $registry;
 
-        $cache = $this->getConfigParam('imp_contents')->getViewCache();
+        $contents = $this->getConfigParam('imp_contents');
+
+        $cache = $contents->getViewCache();
         $mime_id = $this->_mimepart->getMimeId();
 
         if (isset($cache->plain[$mime_id])) {
@@ -120,8 +122,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                                    (($show == 'thread') && ($injector->getInstance('Horde_Variables')->page == 'thread')));
                     if (!$hideBlocks &&
                         in_array($show, array('list', 'listthread'))) {
-                        $header = $this->getConfigParam('imp_contents')->getHeader();
-                        $list_info = $injector->getInstance('IMP_Message_Ui')->getListInformation($header);
+                        $list_info = $contents->getListInformation();
                         $hideBlocks = $list_info['exists'];
                     }
                 }

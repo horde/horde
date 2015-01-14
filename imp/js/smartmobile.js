@@ -593,6 +593,7 @@ var ImpMobile = {
         $.each(ob.rows(), function(key, val) {
             var c = $('<li class="imp-message"></li>')
                     .jqmData('buid', val.buid),
+                from = [],
                 labels = [],
                 tmp,
                 url = HordeMobile.createUrl('message', {
@@ -640,6 +641,10 @@ var ImpMobile = {
                 });
             }
 
+            $.each(val.data.from, function(k2, v2) {
+                from.push(v2.p || v2.g || v2.b);
+            });
+
             list.append(
                 c.append(
                     $('<a href="' + url + '"></a>').text(val.data.subject)
@@ -650,7 +655,7 @@ var ImpMobile = {
                         )
                     ).append(
                         $('<span class="imp-mailbox-from"></span>').text(
-                            val.data.from
+                            from.join(', ')
                         ).append(labels)
                     )
                 )
@@ -712,7 +717,8 @@ var ImpMobile = {
             $.extend(ImpMobile.addViewportParams($.extend(params, {
                 view: purl.params.mbox
             })), {
-                buid: purl.params.buid
+                buid: purl.params.buid,
+                is_list: 1
             }),
             ImpMobile.messageLoaded
         );
@@ -797,22 +803,15 @@ var ImpMobile = {
         }
 
         $('#imp-message-body').html(data.msgtext);
-        $('#imp-message-date').text('');
+        $('#imp-message-date').text(data.localdate || '');
 
-        $.each(data.headers, function(k, v) {
-            if (v.id == 'Date') {
-                $('#imp-message-date').text(v.value);
-            }
-        });
-
-        data.headers.push({ name: IMP.text.subject, value: data.subject });
         ImpMobile.headers = {
-            Cc: data.cc,
-            From: data.from,
-            headers: data.headers,
-            To: data.to
+            cc: data.cc,
+            from: data.from,
+            subject: data.subject,
+            to: data.to
         };
-        ImpMobile.listmsg = (data.list_info && data.list_info.exists);
+        ImpMobile.listmsg = data.is_list;
         ImpMobile.rowid = r.buid;
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
@@ -904,48 +903,49 @@ var ImpMobile = {
 
         h.children().remove();
 
-        $.each(ImpMobile.headers.headers, function(k, header) {
-            var td, tmp;
+        $.each([ 'from', 'to', 'cc', 'subject' ], function(undefined, v) {
+            var td,
+                tmp = ImpMobile.headers[v];
 
-            if (header.value) {
-                td = $('<td class="imp-header-label-value"></td>');
-
-                switch (header.id) {
-                case 'Cc':
-                case 'From':
-                case 'To':
-                    tmp = ImpMobile.headers[header.id];
-
-                    if (tmp.raw) {
-                        td.html(tmp.raw);
-                    } else {
-                        $.each(tmp.addr, function(k2, addr) {
-                            if (addr.g) {
-                            } else if (addr.p || addr.b) {
-                                td.append(
-                                    $('<a></a>')
-                                        .attr('href', HordeMobile.createUrl('compose', { to: addr.b }))
-                                        .attr('data-role', 'button')
-                                        .attr('data-theme', 'b')
-                                        .text(addr.p ? (addr.p + ' <' + addr.b + '>') : addr.b)
-                                        .button()
-                                );
-                            }
-                        });
-                    }
-                    break;
-
-                default:
-                    td.html(header.value);
-                    break;
-                }
-
-                h.append($('<tr></tr>')
-                    .append($('<td class="imp-header-label"></td>')
-                        .html(header.name + ':'))
-                    .append(td)
-                );
+            if (!tmp) {
+                return;
             }
+
+            td = $('<td class="imp-header-label-value"></td>');
+
+            switch (v) {
+            case 'cc':
+            case 'from':
+            case 'to':
+                if (tmp.raw) {
+                    td.html(tmp.raw);
+                } else {
+                    $.each(tmp.addr, function(k2, addr) {
+                        if (addr.g) {
+                        } else if (addr.p || addr.b) {
+                            td.append(
+                                $('<a></a>')
+                                    .attr('href', HordeMobile.createUrl('compose', { to: addr.b }))
+                                    .attr('data-role', 'button')
+                                    .attr('data-theme', 'b')
+                                    .text(addr.p ? (addr.p + ' <' + addr.b + '>') : addr.b)
+                                    .button()
+                            );
+                        }
+                    });
+                }
+                break;
+
+            default:
+                td.html(tmp);
+                break;
+            }
+
+            h.append($('<tr></tr>')
+                .append($('<td class="imp-header-label"></td>')
+                    .html(IMP.text[v] + ':'))
+                .append(td)
+            );
         });
 
         delete ImpMobile.headers;
@@ -1477,7 +1477,7 @@ var ImpMobile = {
         var v;
 
         if ((v = d['imp:compose'])) {
-            $.fn[v.atclimit ? 'hide' : 'show'].call($('#imp-compose-attach-form'));
+            $.fn[v.atclimit === 0 ? 'hide' : 'show'].call($('#imp-compose-attach-form'));
             if (v.cacheid) {
                 if ($('#imp-redirect-form:visible').length) {
                     $('#imp-redirect-cache').val(v.cacheid);

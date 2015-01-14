@@ -34,7 +34,6 @@ class Horde_Prefs implements ArrayAccess
     protected $_opts = array(
         'cache' => null,
         'logger' => null,
-        'password' => '',
         'sizecallback' => null,
         'storage' => null,
         'user' => ''
@@ -77,8 +76,6 @@ class Horde_Prefs implements ArrayAccess
      *         DEFAULT: No caching.
      * logger - (Horde_Log_Logger) Logging object.
      *          DEFAULT: NONE
-     * password - (string) The password associated with 'user'.
-     *            DEFAULT: NONE
      * sizecallback - (callback) If set, called when setting a value in the
      *                backend.
      *                DEFAULT: NONE

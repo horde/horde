@@ -147,13 +147,29 @@ class Horde_Script_Compress
     public function getMinifier($scripts, $sourcemap = null)
     {
         $js_files = array();
+
         foreach ($scripts as $val) {
+            switch ($this->_driver) {
+            case 'Horde_JavascriptMinify_Null':
+                break;
+
+            default:
+                $val = $val->uncompressed;
+                break;
+            }
+
             $js_files[strval($val->url_full)] = $val->full_path;
         }
 
-        return new $this->_driver($js_files, array_merge($this->_params, array(
-            'sourcemap' => $sourcemap
-        )));
+        return new $this->_driver(
+            $js_files,
+            array_merge(
+                $this->_params,
+                array(
+                    'sourcemap' => $sourcemap
+                )
+            )
+        );
     }
 
 }

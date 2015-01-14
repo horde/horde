@@ -441,17 +441,39 @@ class IMP_Ajax_Queue
      * Add message data to output.
      *
      * @param IMP_Indices $indices  Index of the message.
-     * @param boolean $preview      Preview data?
-     * @param boolean $peek         Don't set seen flag?
+     * @param array $opts           Additional options:
+     * <pre>
+     *   - is_list: (boolean) Do list check?
+     *   - peek: (boolean) Don't set seen flag?
+     *   - user_headers: (boolean) Add user headers?
+     * </pre>
      */
-    public function message(IMP_Indices $indices, $preview = false,
-                            $peek = false)
+    public function message(IMP_Indices $indices, array $opts = array())
     {
+        global $page_output;
+
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($indices, $peek);
-            $msg = (object)$show_msg->showMessage(array(
-                'preview' => $preview
-            ));
+            $show_msg = new IMP_Ajax_Application_ShowMessage($indices, !empty($opts['peek']));
+            $msg = (object)$show_msg->showMessage();
+
+            /* Need to grab cached inline scripts. */
+            Horde::startBuffer();
+            $page_output->outputInlineScript(true);
+            if ($js_inline = Horde::endBuffer()) {
+                $msg->js = array($js_inline);
+            }
+
+            if (!empty($opts['user_headers'])) {
+                $msg->headers = $show_msg->getUserHeaders();
+            }
+
+            if (!empty($opts['is_list'])) {
+                $list_info = $show_msg->contents->getListInformation();
+                if (!empty($list_info['exists'])) {
+                    $msg->is_list = true;
+                }
+            }
+
             $msg->save_as = strval($msg->save_as);
 
             if ($indices instanceof IMP_Indices_Mailbox) {

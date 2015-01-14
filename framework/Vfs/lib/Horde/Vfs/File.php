@@ -226,7 +226,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             }
         }
 
-        $this->_checkQuotaWrite('file', $tmpFile);
+        $this->_checkQuotaWrite('file', $tmpFile, $path, $name);
 
         // Since we already have the data in a file, don't read it
         // into PHP's memory at all - just copy() it to the new
@@ -298,7 +298,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
         }
 
         $orig = $this->_getNativePath($path, $name);
-        $this->_checkQuotaWrite('file', $orig);
+        $this->_checkQuotaWrite('file', $orig, $dest, $name);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {
             $e = new Horde_Vfs_Exception(sprintf('Unable to copy VFS file %s/%s.', $path, $name));
@@ -342,7 +342,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             throw $e;
         }
 
-        $this->_checkQuotaWrite('string', $data);
+        $this->_checkQuotaWrite('string', $data, $path, $name);
 
         // Otherwise we go ahead and try to write out the file.
         if (!@file_put_contents($this->_getNativePath($path, $name), $data)) {

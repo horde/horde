@@ -322,8 +322,10 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
         }
         self::$vfs->writeData('', 'file1', '1234567890');
         $this->assertTrue(self::$vfs->exists('', 'file1'));
-        $this->assertEquals(array('limit' => $used + 10, 'usage' => $used + 10),
-                            self::$vfs->getQuota());
+        $this->assertEquals(
+            array('limit' => $used + 10, 'usage' => $used + 10),
+            self::$vfs->getQuota()
+        );
         try {
             self::$vfs->writeData('', 'file2', '1');
             $this->fail('Writing over quota should throw an exception');
@@ -331,10 +333,31 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
         }
         self::$vfs->deleteFile('', 'file1');
         $this->assertFalse(self::$vfs->exists('', 'file1'));
-        $this->assertEquals(array('limit' => $used + 10, 'usage' => $used),
-                            self::$vfs->getQuota());
+        $this->assertEquals(
+            array('limit' => $used + 10, 'usage' => $used),
+            self::$vfs->getQuota()
+        );
         self::$vfs->writeData('', 'file2', '1');
+        $this->assertEquals(
+            array('limit' => $used + 10, 'usage' => $used + 1),
+            self::$vfs->getQuota()
+        );
+        self::$vfs->writeData('', 'file2', '12345');
+        $this->assertEquals(
+            array('limit' => $used + 10, 'usage' => $used + 5),
+            self::$vfs->getQuota()
+        );
+        self::$vfs->writeData('', 'file2', '123');
+        $this->assertEquals(
+            array('limit' => $used + 10, 'usage' => $used + 3),
+            self::$vfs->getQuota()
+        );
         self::$vfs->setQuota(-1);
+        try {
+            self::$vfs->getQuota();
+            $this->fail('Quota should be unset and throw an exception.');
+        } catch (Horde_Vfs_Exception $e) {
+        }
         self::$vfs->deleteFile('', 'file2');
     }
 
@@ -385,6 +408,15 @@ class Horde_Vfs_TestBase extends Horde_Test_Case
             array('.file2' => null,
                   'dir2' => array()),
             $this->_sort(self::$vfs->listFolder('test', '^.*1$')));
+    }
+
+    protected function _chmod()
+    {
+        self::$vfs->createFolder('', 'chmodtest');
+        self::$vfs->writeData('chmodtest', 'chmod', 'foo');
+        self::$vfs->changePermissions('chmodtest', 'chmod', '640');
+        $folder = self::$vfs->listFolder('chmodtest');
+        $this->assertEquals('-rw-r-----', $folder['chmod']['perms']);
     }
 
     protected function _sort($folders)

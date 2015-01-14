@@ -58,7 +58,9 @@ class Horde_JavascriptMinify_Closure extends Horde_JavascriptMinify_Null
             return parent::minify();
         }
 
-        $cmd = trim(escapeshellcmd($this->_opts['java']) . ' -jar ' . escapeshellarg($this->_opts['closure']));
+        /* -W QUIET - closure default is "DEFAULT" which will cause code with
+         * compiler warnings to output bad js (see Bug #13789) */
+        $cmd = trim(escapeshellcmd($this->_opts['java']) . ' -W QUIET -jar ' . escapeshellarg($this->_opts['closure']));
         if (isset($this->_opts['sourcemap']) && is_array($this->_data)) {
             $this->_sourcemap = Horde_Util::getTempFile();
             $cmd .= ' --create_source_map ' .

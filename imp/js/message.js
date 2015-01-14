@@ -76,6 +76,7 @@ var ImpMessage = {
             uids: [ this.buid ]
         });
     },
+
     _updateAddressHeaderCallback: function(r)
     {
         $H(r.hdr_data).each(function(d) {
@@ -85,10 +86,9 @@ var ImpMessage = {
 
     updateHeader: function(hdr, data, limit)
     {
-        // Can't use capitalize() here.
-        var elt = $('msgHeader' + hdr.charAt(0).toUpperCase() + hdr.substring(1));
+        var elt = $('msgHeader' + hdr.capitalize());
         if (elt) {
-            elt.down('TD', 1).replace(ImpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+            elt.show().down('TD', 1).replace(ImpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
         }
     },
 

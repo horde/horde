@@ -238,7 +238,11 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 'cache' => new Horde_Cache(
                     new Horde_Core_Cache_Session($params),
                     array(
-                        'compress' => true,
+                        /* Don't enable compression here. Data is either
+                         * compressed in the main Horde_Cache object (if
+                         * oversized) or is compressed within the session
+                         * (if stored in session cache). */
+                        'compress' => false,
                         'logger' => $injector->getInstance('Horde_Core_Log_Wrapper')
                     )
                 )

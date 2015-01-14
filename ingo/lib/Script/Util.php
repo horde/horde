@@ -48,7 +48,7 @@ class Ingo_Script_Util
                   ? _("There was an error deactivating the script.")
                   : _("There was an error activating the script.");
                 throw new Ingo_Exception(
-                    sprintf(_("%s The driver said: %s"), $msg, $e)
+                    sprintf(_("%s The driver said: %s"), $msg, $e->getMessage())
                 );
             }
         }
@@ -81,7 +81,7 @@ class Ingo_Script_Util
                     self::activate($script->generate());
                 } catch (Ingo_Exception $e) {
                     throw new Ingo_Exception(
-                        sprintf(_("Script not updated: %s"), $e)
+                        sprintf(_("Script not updated: %s"), $e->getMessage())
                     );
                 }
             }
