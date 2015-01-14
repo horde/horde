@@ -104,11 +104,6 @@ class IMP_Ajax_Application_ShowMessage
     /**
      * Create the object used to display the message.
      *
-     * @param array $args  Configuration parameters:
-     *   - headers: (array) The headers desired in the returned headers array
-     *              (only used with non-preview view).
-     *   - preview: (boolean) Is this the preview view?
-     *
      * @return array  Array with the following keys:
      *   - atc: (object) Attachment information.
      *     - download: (string) The URL for the download all action.
@@ -119,8 +114,6 @@ class IMP_Ajax_Application_ShowMessage
      *   - datestamp: (string) ISO 8601 date string.
      *   - fulldate: (string) The full canonical date.
      *   - from: (array) The From addresses.
-     *   - headers: (array; FULL): An array of user-defined headers.
-     *   - js: (array) Javascript code to run on display.
      *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
@@ -134,79 +127,34 @@ class IMP_Ajax_Application_ShowMessage
      *
      * @throws IMP_Exception
      */
-    public function showMessage($args)
+    public function showMessage()
     {
-        global $injector, $page_output, $prefs, $registry, $session;
+        global $injector, $prefs, $registry, $session;
 
-        $headers = $result = array();
-        $preview = !empty($args['preview']);
+        $result = array();
 
-        /* Develop the list of Headers to display now. Deal with the 'basic'
-         * header information first since there are various manipulations
-         * done to them. */
-        $basic_headers = array(
-            'date'      =>  _("Date"),
-            'from'      =>  _("From"),
-            'to'        =>  _("To"),
-            'cc'        =>  _("Cc"),
-            'bcc'       =>  _("Bcc"),
-            'subject'   =>  _("Subject")
-        );
-        if (empty($args['headers'])) {
-            $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
-        }
-
-        $headers_list = array_intersect_key(
-            $basic_headers,
-            array_flip($args['headers'])
-        );
-
-        /* Build From/To/Cc/Bcc links. */
+        /* Build From/To/Cc/Bcc. */
         foreach (array('from', 'to', 'cc', 'bcc') as $val) {
-            if (isset($headers_list[$val])) {
-                if ($tmp = $this->getAddressHeader($val)) {
-                    $result[$val] = $tmp;
-                }
-                if ($preview) {
-                    unset($headers_list[$val]);
-                }
+            if ($tmp = $this->getAddressHeader($val)) {
+                $result[$val] = $tmp;
             }
         }
 
-        $headers_ob = $this->_loadHeaders();
-
-        /* Build the rest of the headers. */
-        foreach ($headers_list as $head => $str) {
-            if ($val = $headers_ob[$head]) {
-                if ($head == 'date') {
-                    /* Add local time to date header. */
-                    $date_ob = new IMP_Message_Date($this->_envelope->date);
-                    $val = $date_ob->format($date_ob::DATE_LOCAL);
-                    $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
-                    $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
-                    $result['localdate'] = $val;
-                }
-
-                if (!$preview) {
-                    $headers[$head] = array(
-                        'id' => Horde_String::ucfirst($head),
-                        'name' => $str,
-                        'value' => $val
-                    );
-                }
-            }
+        /* Build the date information. */
+        if ($date = $this->_envelope->date) {
+            $date_ob = new IMP_Message_Date($date);
+            $val = $date_ob->format($date_ob::DATE_LOCAL);
+            $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
+            $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
+            $result['localdate'] = $val;
         }
 
         /* Maillog information. */
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $ajax_queue->maillog($this->_indices);
 
-        if (!$preview) {
-            $result['headers'] = array_merge($headers, $this->getUserHeaders());
-        }
-
         /* Process the subject. */
-        if ($subject = strval($headers_ob['Subject'])) {
+        if (strlen($subject = $this->_envelope->subject)) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
 
@@ -235,7 +183,7 @@ class IMP_Ajax_Application_ShowMessage
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
-            if ($this->_indices->mdnCheck($headers_ob)) {
+            if ($this->_indices->mdnCheck($this->_loadHeaders())) {
                 $status = new IMP_Mime_Status(null, array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
                     Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("Click to send the notification message.") . '</a>'
@@ -313,17 +261,6 @@ class IMP_Ajax_Application_ShowMessage
                 $bmbox->urlParams($buid)
             )
         );
-
-        if ($preview) {
-            /* Need to grab cached inline scripts. */
-            Horde::startBuffer();
-            $page_output->outputInlineScript(true);
-            if ($js_inline = Horde::endBuffer()) {
-                $result['js'] = array($js_inline);
-            }
-
-            $result['save_as'] = strval($result['save_as']->setRaw(true));
-        }
 
         /* Add changed flag information. */
         if (!$this->_peek && $mbox->is_imap) {

@@ -63,10 +63,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         try {
             $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
-            $msg_res = $show_msg->showMessage(array(
-                'headers' => array('date', 'from', 'to', 'cc'),
-                'preview' => false
-            ));
+            $msg_res = $show_msg->showMessage();
         } catch (IMP_Exception $e) {
             $notification->notify(array(
                 'listeners' => array('status', 'audio')
@@ -82,7 +79,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         list(,$buid) = $this->indices->buids->getSingle();
 
-        foreach (array('from', 'to', 'cc', 'bcc', 'replyTo', 'log') as $val) {
+        foreach (array('from', 'to', 'cc', 'bcc', 'log') as $val) {
             if (!empty($msg_res[$val])) {
                 $js_vars['ImpMessage.' . $val] = $msg_res[$val];
             }

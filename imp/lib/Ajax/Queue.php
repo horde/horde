@@ -447,11 +447,24 @@ class IMP_Ajax_Queue
     public function message(IMP_Indices $indices, $preview = false,
                             $peek = false)
     {
+        global $page_output;
+
         try {
             $show_msg = new IMP_Ajax_Application_ShowMessage($indices, $peek);
-            $msg = (object)$show_msg->showMessage(array(
-                'preview' => $preview
-            ));
+            $msg = (object)$show_msg->showMessage();
+
+            if ($preview) {
+                /* Need to grab cached inline scripts. */
+                Horde::startBuffer();
+                $page_output->outputInlineScript(true);
+                if ($js_inline = Horde::endBuffer()) {
+                    $msg->js = array($js_inline);
+                }
+                $msg->save_as->setRaw(true);
+            } else {
+                $msg->headers = $show_msg->getUserHeaders();
+            }
+
             $msg->save_as = strval($msg->save_as);
 
             if ($indices instanceof IMP_Indices_Mailbox) {
