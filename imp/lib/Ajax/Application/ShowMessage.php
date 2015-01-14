@@ -46,13 +46,6 @@ class IMP_Ajax_Application_ShowMessage
     protected $_envelope;
 
     /**
-     * MIME headers object.
-     *
-     * @var Horde_Mime_Headers
-     */
-    protected $_headers;
-
-    /**
      * Indices object.
      *
      * @var IMP_Indices
@@ -175,11 +168,11 @@ class IMP_Ajax_Application_ShowMessage
             }
         }
 
-        $this->_loadHeaders();
+        $headers_ob = $this->_loadHeaders();
 
         /* Build the rest of the headers. */
         foreach ($headers_list as $head => $str) {
-            if ($val = $this->_headers[$head]) {
+            if ($val = $headers_ob[$head]) {
                 if ($head == 'date') {
                     /* Add local time to date header. */
                     $date_ob = new IMP_Message_Date($this->_envelope->date);
@@ -208,7 +201,7 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Process the subject. */
-        if ($subject = strval($this->_headers['Subject'])) {
+        if ($subject = strval($headers_ob['Subject'])) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
             $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
 
@@ -237,7 +230,7 @@ class IMP_Ajax_Application_ShowMessage
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
-            if ($this->_indices->mdnCheck($this->_headers)) {
+            if ($this->_indices->mdnCheck($headers_ob)) {
                 $status = new IMP_Mime_Status(null, array(
                     _("The sender of this message is requesting notification from you when you have read this message."),
                     Horde::link('#', '', '', '', '', '', '', array('id' => 'send_mdn_link')) . _("Click to send the notification message.") . '</a>'
@@ -448,8 +441,10 @@ class IMP_Ajax_Application_ShowMessage
         )));
         natcasesort($user_hdrs);
 
+        $headers_ob = $this->_loadHeaders();
+
         foreach ($user_hdrs as $hdr) {
-            if ($user_val = $this->_headers[$hdr]) {
+            if ($user_val = $headers_ob[$hdr]) {
                 $user_val = $user_val->value;
                 foreach ((is_array($user_val) ? $user_val : array($user_val)) as $val) {
                     $headers[] = array(
@@ -470,11 +465,9 @@ class IMP_Ajax_Application_ShowMessage
      */
     protected function _loadHeaders()
     {
-        if (!isset($this->_headers)) {
-            $this->_headers = $this->_peek
-                ? $this->contents->getHeader()
-                : $this->contents->getHeaderAndMarkAsSeen();
-        }
+        return $this->_peek
+            ? $this->contents->getHeader()
+            : $this->contents->getHeaderAndMarkAsSeen();
     }
 
 }
