@@ -1655,8 +1655,9 @@ class Turba_Driver implements Countable
                 }
                 $vcard->setAttribute('NOTE', $val, Horde_Mime::is8bit($val) ? $charset : array());
                 break;
+
             case '__tags':
-                $val = explode(',', $val);
+                $val = $injector->getInstance('Turba_Tagger')->split($val);
             case 'businessCategory':
                 // No CATEGORIES in vCard 2.1
                 if ($version == '2.1' ||
