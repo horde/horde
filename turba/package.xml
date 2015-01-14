@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix export format of tags to vCard 3.0 categories (Bug #13800).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1966,7 +1966,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix export format of tags to vCard 3.0 categories (Bug #13800).
    </notes>
   </release>
  </changelog>
