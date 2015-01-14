@@ -2,7 +2,7 @@
 v6.2.5-git
 ----------
 
-[mms] Fix advanced search.
+[mms] Fix advanced search (Bug #13773).
 [mjr] Fix handling of iTips indicating a change to a series exception (Bug
       #13777).
 [mms] Fix parsing broken S/MIME messages that don't include the smime-type
