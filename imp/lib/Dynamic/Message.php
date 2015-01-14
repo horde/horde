@@ -79,6 +79,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         list(,$buid) = $this->indices->buids->getSingle();
 
+        /* Need to be dynamically added, since formatting needs to be applied
+         * via javascript. */
         foreach (array('from', 'to', 'cc', 'bcc', 'log') as $val) {
             if (!empty($msg_res[$val])) {
                 $js_vars['ImpMessage.' . $val] = $msg_res[$val];
@@ -146,23 +148,16 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             ? $msg_res['subjectlink']
             : $msg_res['subject'];
 
-        $hdrs = array();
-        foreach ($msg_res['headers'] as $val) {
-            $tmp = array_filter(array(
-                'id' => (isset($val['id']) ? 'msgHeader' . $val['id'] : null),
-                'label' => $val['name'],
-                'val' => $val['value']
-            ));
-
-            if (isset($val['id']) && ($val['id'] === 'Date')) {
-                $this->view->addHelper('Text');
-                $tmp['datestamp'] = $msg_res['datestamp'];
-                $tmp['print'] = $msg_res['fulldate'];
-            }
-
-            $hdrs[] = $tmp;
+        if (isset($msg_res['datestamp'])) {
+            $this->view->datestamp = $msg_res['datestamp'];
+            $this->view->fulldate = $msg_res['fulldate'];
+            $this->view->localdate = $msg_res['localdate'];
+            $this->view->addHelper('Text');
         }
-        $this->view->hdrs = $hdrs;
+
+        if ($this->view->user_hdrs = $show_msg->getUserHeaders()) {
+            $this->view->addHelper('Text');
+        }
 
         $this->view->msgtext = $msg_res['msgtext'];
 

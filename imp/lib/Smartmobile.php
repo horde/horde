@@ -169,8 +169,10 @@ class IMP_Smartmobile
 
             /* Gettext strings. */
             'text' => array(
+                'cc' => _("Cc"),
                 'exitsearch' => _("Exit Search"),
                 'folders' => _("Folders"),
+                'from' => _("From"),
                 'message_0' => _("No messages"),
                 'message_1' => _("1 message"),
                 'message_2' => _("%d messages"),
@@ -180,7 +182,8 @@ class IMP_Smartmobile
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
                 'searchresults' => _("Search Results"),
-                'subject' => _("Subject")
+                'subject' => _("Subject"),
+                'to' => _("To")
             )
         );
 

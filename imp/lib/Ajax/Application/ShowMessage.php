@@ -352,7 +352,12 @@ class IMP_Ajax_Application_ShowMessage
     /**
      * Get the user-specified headers.
      *
-     * @return array  The list of user-defined headers.
+     * @return array  The list of user-defined headers.  Array of arrays with
+     *                these keys:
+     * <pre>
+     *   - name: (string) Header name.
+     *   - value: (string) Header value.
+     * </pre>
      */
     public function getUserHeaders()
     {

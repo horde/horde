@@ -70,20 +70,36 @@
     <div>
      <div class="subject allowTextSelection"><?php echo $this->subject ?></div>
      <table id="msgHeadersTable">
-<?php foreach ($this->hdrs as $val): ?>
-      <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
-       <td class="label"><?php echo $val['label'] ?>:</td>
+<?php if (isset($this->fulldate)): ?>
+      <tr id="msgHeaderDate">
+       <td class="label"><?php echo _("Date") ?>:</td>
        <td class="allowTextSelection">
-<?php if (isset($val['print'])): ?>
-        <span class="messagePrintShow"><?php echo $this->h($val['print']) ?></span>
-        <span class="messagePrintNoShow"><?php echo $this->h($val['val']) ?></span>
-<?php else: ?>
-         <?php echo $val['val'] ?>
-<?php endif; ?>
-<?php if (isset($val['datestamp'])): ?>
-         <time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($val['datestamp']) ?>"></time>
-<?php endif; ?>
+        <span class="messagePrintShow"><?php echo $this->h($this->fulldate) ?></span>
+        <span class="messagePrintNoShow"><?php echo $this->h($this->localdate) ?></span>
+        <time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($this->datestamp) ?>"></time>
        </td>
+      </tr>
+<?php endif; ?>
+      <tr id="msgHeaderFrom" style="display:none">
+       <td class="label"><?php echo _("From") ?>:</td>
+       <td class="allowTextSelection"></td>
+      </tr>
+      <tr id="msgHeaderTo" style="display:none">
+       <td class="label"><?php echo _("To") ?>:</td>
+       <td class="allowTextSelection"></td>
+      </tr>
+      <tr id="msgHeaderCc" style="display:none">
+       <td class="label"><?php echo _("Cc") ?>:</td>
+       <td class="allowTextSelection"></td>
+      </tr>
+      <tr id="msgHeaderBcc" style="display:none">
+       <td class="label"><?php echo _("Bcc") ?>:</td>
+       <td class="allowTextSelection"></td>
+      </tr>
+<?php foreach ($this->user_hdrs as $val): ?>
+      <tr>
+       <td class="label"><?php echo $this->h($val['name']) ?></td>
+       <td class="allowTextSelection"><?php echo $this->h($val['value']) ?></td>
       </tr>
 <?php endforeach; ?>
      </table>
