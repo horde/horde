@@ -260,7 +260,7 @@ class IMP_Ajax_Application_ShowMessage
                 array('actionID' => 'save_message'),
                 $bmbox->urlParams($buid)
             )
-        );
+        )->setRaw(true);
 
         /* Add changed flag information. */
         if (!$this->_peek && $mbox->is_imap) {

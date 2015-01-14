@@ -445,7 +445,7 @@ class IMP_Ajax_Queue
      * <pre>
      *   - is_list: (boolean) Do list check?
      *   - peek: (boolean) Don't set seen flag?
-     *   - preview: (boolean) Preview data?
+     *   - user_headers: (boolean) Add user headers?
      * </pre>
      */
     public function message(IMP_Indices $indices, array $opts = array())
@@ -456,15 +456,14 @@ class IMP_Ajax_Queue
             $show_msg = new IMP_Ajax_Application_ShowMessage($indices, !empty($opts['peek']));
             $msg = (object)$show_msg->showMessage();
 
-            if (!empty($opts['preview'])) {
-                /* Need to grab cached inline scripts. */
-                Horde::startBuffer();
-                $page_output->outputInlineScript(true);
-                if ($js_inline = Horde::endBuffer()) {
-                    $msg->js = array($js_inline);
-                }
-                $msg->save_as->setRaw(true);
-            } else {
+            /* Need to grab cached inline scripts. */
+            Horde::startBuffer();
+            $page_output->outputInlineScript(true);
+            if ($js_inline = Horde::endBuffer()) {
+                $msg->js = array($js_inline);
+            }
+
+            if (!empty($opts['user_headers'])) {
                 $msg->headers = $show_msg->getUserHeaders();
             }
 
