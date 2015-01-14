@@ -141,12 +141,17 @@ class IMP_Ajax_Application_ShowMessage
         $headers = $result = array();
         $preview = !empty($args['preview']);
 
-        $imp_ui = $injector->getInstance('IMP_Message_Ui');
-
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations
          * done to them. */
-        $basic_headers = $imp_ui->basicHeaders();
+        $basic_headers = array(
+            'date'      =>  _("Date"),
+            'from'      =>  _("From"),
+            'to'        =>  _("To"),
+            'cc'        =>  _("Cc"),
+            'bcc'       =>  _("Bcc"),
+            'subject'   =>  _("Subject")
+        );
         if (empty($args['headers'])) {
             $args['headers'] = array('from', 'date', 'to', 'cc', 'bcc');
         }

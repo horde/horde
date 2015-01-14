@@ -211,12 +211,18 @@ class IMP_Contents_View
         }
 
         $imp_ui_mbox = new IMP_Mailbox_Ui();
-        $basic_headers = $injector->getInstance('IMP_Message_Ui')->basicHeaders();
-        unset($basic_headers['bcc']);
         $headerob = $this->_contents->getHeader();
 
         $headers = array();
-        foreach ($basic_headers as $key => $val) {
+        $header_labels = array(
+            'date'    =>  _("Date"),
+            'from'    =>  _("From"),
+            'to'      =>  _("To"),
+            'cc'      =>  _("Cc"),
+            'subject' =>  _("Subject")
+        );
+
+        foreach ($header_labels as $key => $val) {
             if ($hdr_val = $headerob[$key]) {
                 /* Format date string. */
                 if ($key == 'date') {

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-01-07</date>
+ <date>2015-01-14</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -416,7 +416,6 @@
     </dir> <!-- /lib/Mbox -->
     <dir name="Message">
      <file name="Date.php" role="horde" />
-     <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Message -->
     <dir name="Mime">
      <dir name="Status">
@@ -1764,7 +1763,6 @@
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Size.php" name="lib/Mbox/Size.php" />
    <install as="imp/lib/Message/Date.php" name="lib/Message/Date.php" />
-   <install as="imp/lib/Message/Ui.php" name="lib/Message/Ui.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Status/RenderIssue.php" name="lib/Mime/Status/RenderIssue.php" />

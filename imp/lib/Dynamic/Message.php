@@ -64,7 +64,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         try {
             $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
             $msg_res = $show_msg->showMessage(array(
-                'headers' => array_diff(array_keys($injector->getInstance('IMP_Message_Ui')->basicHeaders()), array('subject')),
+                'headers' => array('date', 'from', 'to', 'cc'),
                 'preview' => false
             ));
         } catch (IMP_Exception $e) {
