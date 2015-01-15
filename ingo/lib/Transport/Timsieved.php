@@ -32,11 +32,15 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     protected $_sieve;
 
     /**
+     */
+    protected $_supportShares = true;
+
+    /**
      * Constructor.
      */
     public function __construct(array $params = array())
     {
-        $default_params = array(
+        parent::__construct(array_merge(array(
             'admin'      => '',
             'debug'      => false,
             'euser'      => '',
@@ -45,11 +49,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             'port'       => 4190,
             'scriptname' => 'ingo',
             'usetls'     => true
-        );
-
-        $this->_supportShares = true;
-
-        parent::__construct(array_merge($default_params, $params));
+        ), $params));
     }
 
     /**
@@ -74,7 +74,7 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             $this->_params['port'],
             $this->_params['logintype'],
             $this->_params['euser'],
-            $this->_params['debug'],
+            !empty($this->_params['debug']),
             false,
             $this->_params['usetls'],
             null,
