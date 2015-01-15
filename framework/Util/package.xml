@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Use grapheme functions in Horde_String if intl extension is available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -724,7 +724,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Use grapheme functions in Horde_String if intl extension is available.
    </notes>
   </release>
  </changelog>

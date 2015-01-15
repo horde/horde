@@ -329,6 +329,24 @@ class Horde_String
             }
         }
 
+        /* Try intl. */
+        if (Horde_Util::extensionExists('intl')) {
+            $ret = self::convertCharset(
+                @grapheme_substr(
+                    self::convertCharset($string, $charset, 'UTF-8'),
+                    $start,
+                    $length
+                ),
+                'UTF-8',
+                $charset
+            );
+
+            /* grapheme_substr() returns false on failure. */
+            if ($ret !== false) {
+                return $ret;
+            }
+        }
+
         return substr($string, $start, $length);
     }
 
@@ -355,6 +373,11 @@ class Horde_String
                 return $ret;
             }
         }
+        if (Horde_Util::extensionExists('intl')) {
+            return grapheme_strlen(
+                self::convertCharset($string, $charset, 'UTF-8')
+            );
+        }
 
         return strlen($string);
     }
@@ -374,7 +397,7 @@ class Horde_String
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
-        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strpos', 'strpos');
+        return self::_pos($haystack, $needle, $offset, $charset, 'strpos');
     }
 
     /**
@@ -394,7 +417,7 @@ class Horde_String
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
-        return self::_pos($haystack, $needle, $offset, $charset, 'mb_stripos', 'stripos');
+        return self::_pos($haystack, $needle, $offset, $charset, 'stripos');
     }
 
     /**
@@ -412,7 +435,7 @@ class Horde_String
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
-        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strrpos', 'strrpos');
+        return self::_pos($haystack, $needle, $offset, $charset, 'strrpos');
     }
 
     /**
@@ -432,7 +455,7 @@ class Horde_String
         $haystack, $needle, $offset = 0, $charset = 'UTF-8'
     )
     {
-        return self::_pos($haystack, $needle, $offset, $charset, 'mb_strripos', 'strripos');
+        return self::_pos($haystack, $needle, $offset, $charset, 'strripos');
     }
 
     /**
@@ -442,19 +465,36 @@ class Horde_String
      * @param string $needle    The string to search for.
      * @param integer $offset   Character in $haystack to start searching at.
      * @param string $charset   Charset of $needle.
-     * @param string $mb_func   mb_* function to use.
-     * @param string $func      PHP string fallback function to use.
+     * @param string $func   Function to use.
      *
      * @return integer  The position of occurrence.
      *
      */
     protected static function _pos(
-        $haystack, $needle, $offset, $charset, $mb_func, $func
+        $haystack, $needle, $offset, $charset, $func
     )
     {
         if (Horde_Util::extensionExists('mbstring')) {
             $track_errors = ini_set('track_errors', 1);
-            $ret = @$mb_func($haystack, $needle, $offset, self::_mbstringCharset($charset));
+            $ret = @call_user_func('mb_' . $func, $haystack, $needle, $offset, self::_mbstringCharset($charset));
+            ini_set('track_errors', $track_errors);
+            if (!isset($php_errormsg)) {
+                return $ret;
+            }
+        }
+
+        if (Horde_Util::extensionExists('intl')) {
+            $track_errors = ini_set('track_errors', 1);
+            $ret = self::convertCharset(
+                @call_user_func(
+                    'grapheme_' . $func,
+                    self::convertCharset($haystack, $charset, 'UTF-8'),
+                    self::convertCharset($needle, $charset, 'UTF-8'),
+                    $offset
+                ),
+                'UTF-8',
+                $charset
+            );
             ini_set('track_errors', $track_errors);
             if (!isset($php_errormsg)) {
                 return $ret;
