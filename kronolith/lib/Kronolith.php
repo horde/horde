@@ -779,6 +779,9 @@ class Kronolith
 
     /**
      * Checks if an email address belongs to a user.
+     *
+     * @param string  $uid    user id to check
+     * @param string  $email  email address to check
      */
     public static function isUserEmail($uid, $email)
     {
@@ -792,7 +795,6 @@ class Kronolith
 
             $emails[$uid] = $addrs;
         }
-
         return in_array($email, $emails[$uid]);
     }
 
