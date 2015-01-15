@@ -5,6 +5,8 @@ table {
 
 /* Scripts page. */
 .scriptHeader {
+    margin: 0;
+    text-align: center;
     width: 100%;
 }
 .scriptHeader form {
