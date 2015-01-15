@@ -30,13 +30,11 @@ class IMP_Contents_Message
     public $contents;
 
     /**
-     * Default list of part info elements to display.
+     * Cached values.
      *
      * @var array
      */
-    public $part_info = array(
-        'icon', 'description', 'size', 'download'
-    );
+    protected $_cache = array();
 
     /**
      * Envelope object.
@@ -51,6 +49,15 @@ class IMP_Contents_Message
      * @var IMP_Indices
      */
     protected $_indices;
+
+    /**
+     * Default list of part info elements to display.
+     *
+     * @var array
+     */
+    public $part_info = array(
+        'icon', 'description', 'size', 'download'
+    );
 
     /**
      * Don't seen seen flag?
@@ -118,18 +125,13 @@ class IMP_Contents_Message
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
-     *   - save_as: (string) The save link.
-     *   - subject: (string) The subject.
-     *   - subjectlink: (string) The subject with linked URLs/email addresses
-     *                  (defaults to 'subject')
-     *   - title: (string) The title of the page.
      *   - to: (array) The To addresses.
      *
      * @throws IMP_Exception
      */
     public function showMessage()
     {
-        global $injector, $prefs, $registry, $session;
+        global $prefs, $registry, $session;
 
         $result = array();
 
@@ -147,26 +149,6 @@ class IMP_Contents_Message
             $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
             $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
             $result['localdate'] = $val;
-        }
-
-        /* Process the subject. */
-        if (strlen($subject = $this->_envelope->subject)) {
-            $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
-            $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
-
-            $result['subject'] = $text_filter->filter($filtered_subject, 'text2html', array(
-                'parselevel' => Horde_Text_Filter_Text2html::NOHTML
-            ));
-            $subjectlink = $text_filter->filter($filtered_subject, 'text2html', array(
-                'parselevel' => Horde_Text_Filter_Text2html::MICRO
-            ));
-
-            if ($subjectlink != $result['subject']) {
-                $result['subjectlink'] = $subjectlink;
-            }
-            $result['title'] = $subject;
-        } else {
-            $result['subject'] = $result['title'] = _("[No Subject]");
         }
 
         // Create message text and attachment list.
@@ -243,18 +225,6 @@ class IMP_Contents_Message
 
             $result['atc']['list'] = $partlist;
         }
-
-        list($bmbox, $buid) = ($this->_indices instanceof IMP_Indices_Mailbox)
-            ? $this->_indices->buids->getSingle()
-            : $this->_indices->getSingle();
-
-        $result['save_as'] = IMP_Contents_View::downloadUrl(
-            htmlspecialchars_decode($result['subject']),
-            array_merge(
-                array('actionID' => 'save_message'),
-                $bmbox->urlParams($buid)
-            )
-        )->setRaw(true);
 
         return $result;
     }
@@ -414,6 +384,83 @@ class IMP_Contents_Message
         }
 
         return array_values($headers);
+    }
+
+    /**
+     * Return subject header data.
+     *
+     * @return array  Array with these possible keys:
+     * <pre>
+     *   - subject: (string) The subject.
+     *   - subjectlink: (string) The subject with linked URLs/email addresses
+     *                  (if not present, is same as 'subject').
+     *   - title: (string) The title of the page derived from the subject.
+     * </pre>
+     */
+    public function getSubject()
+    {
+        global $injector;
+
+        if (!isset($this->_cache['subject'])) {
+            $out = array();
+
+            if (strlen($subject = $this->_envelope->subject)) {
+                $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
+                $filtered_subject = preg_replace(
+                    "/\b\s+\b/",
+                    ' ',
+                    IMP::filterText($subject)
+                );
+
+                $out['subject'] = $text_filter->filter(
+                    $filtered_subject,
+                    'text2html',
+                    array(
+                        'parselevel' => Horde_Text_Filter_Text2html::NOHTML
+                    )
+                );
+                $subjectlink = $text_filter->filter(
+                    $filtered_subject,
+                    'text2html',
+                    array(
+                        'parselevel' => Horde_Text_Filter_Text2html::MICRO
+                    )
+                );
+
+                if ($subjectlink != $out['subject']) {
+                    $out['subjectlink'] = $subjectlink;
+                }
+                $out['title'] = $subject;
+            } else {
+                $out['subject'] = $out['title'] = _("[No Subject]");
+            }
+
+            $this->_cache['subject'] = $out;
+        }
+
+        return $this->_cache['subject'];
+    }
+
+    /**
+     * Return the save link for the message source.
+     *
+     * @return Horde_Url  URL for the save link.
+     */
+    public function getSaveAs()
+    {
+        list($bmbox, $buid) = ($this->_indices instanceof IMP_Indices_Mailbox)
+            ? $this->_indices->buids->getSingle()
+            : $this->_indices->getSingle();
+
+        $subject = $this->getSubject();
+
+        return IMP_Contents_View::downloadUrl(
+            htmlspecialchars_decode($subject['subject']),
+            array_merge(
+                array('actionID' => 'save_message'),
+                $bmbox->urlParams($buid)
+            )
+        );
     }
 
     /* Internal methods. */

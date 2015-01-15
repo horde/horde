@@ -121,13 +121,22 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $this->_pages[] = 'message';
 
+        $subject = $show_msg->getSubject();
+        $this->view->subject = isset($subject['subjectlink'])
+            ? $subject['subjectlink']
+            : $subject['subject'];
+        $this->title = $subject['title'];
+
         /* Determine if compose mode is disabled. */
         if (IMP_Compose::canCompose()) {
             $this->view->qreply = $injector
                 ->getInstance('IMP_Dynamic_Compose_Common')
                 ->compose(
                     $this,
-                    array('title' => _("Message") . ': ' . $msg_res['subject']));
+                    array(
+                        'title' => _("Message") . ': ' . $subject['subject']
+                    )
+                );
 
             $this->_pages[] = 'qreply';
 
@@ -145,10 +154,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->view->show_view_all = empty($msg_res['onepart']);
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
 
-        $this->view->save_as = $msg_res['save_as'];
-        $this->view->subject = isset($msg_res['subjectlink'])
-            ? $msg_res['subjectlink']
-            : $msg_res['subject'];
+        $this->view->save_as = $show_msg->getSaveAs();
 
         if (isset($msg_res['datestamp'])) {
             $this->view->datestamp = $msg_res['datestamp'];
@@ -169,7 +175,6 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         ));
         $this->view->status = Horde::endBuffer();
 
-        $this->title = $msg_res['title'];
         $this->view->title = $this->title;
     }
 

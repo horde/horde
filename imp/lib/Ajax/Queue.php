@@ -459,15 +459,17 @@ class IMP_Ajax_Queue
             );
             $msg = (object)$show_msg->showMessage();
 
+            $subject = $show_msg->getSubject();
+            $msg->subject = $subject['subject'];
+            if (!$subject['subject'] !== $subject['title']) {
+                $msg->title = $subject['title'];
+            }
+            if (isset($subject['subjectlink'])) {
+                $msg->subjectlink = $subject['subjectlink'];
+            }
+
             $this->maillog($indices);
             $show_msg->addChangedFlag();
-
-            /* Need to grab cached inline scripts. */
-            Horde::startBuffer();
-            $page_output->outputInlineScript(true);
-            if ($js_inline = Horde::endBuffer()) {
-                $msg->js = array($js_inline);
-            }
 
             if (!empty($opts['user_headers'])) {
                 $msg->headers = $show_msg->getUserHeaders();
@@ -480,8 +482,14 @@ class IMP_Ajax_Queue
                 }
             }
 
-            $msg->save_as = strval($msg->save_as);
+            $msg->save_as = strval($show_msg->getSaveAs()->setRaw(true));
 
+            /* Need to grab cached inline scripts. */
+            Horde::startBuffer();
+            $page_output->outputInlineScript(true);
+            if ($js_inline = Horde::endBuffer()) {
+                $msg->js = array($js_inline);
+            }
             if ($indices instanceof IMP_Indices_Mailbox) {
                 $indices = $indices->buids;
             }
