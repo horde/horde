@@ -178,8 +178,6 @@ class IMP_Contents_Message
         $part_info = $this->part_info;
         $show_parts = $prefs->getValue('parts_display');
 
-        list($mbox,) = $this->_indices->getSingle();
-
         /* Do MDN processing now. */
         switch ($registry->getView()) {
         case $registry::VIEW_DYNAMIC:
@@ -262,15 +260,32 @@ class IMP_Contents_Message
             )
         )->setRaw(true);
 
+        return $result;
+    }
+
+    /**
+     * Add changed flag information to the AJAX queue output, if necessary.
+     */
+    public function addChangedFlag()
+    {
+        global $injector;
+
         /* Add changed flag information. */
+        list($mbox,) = $this->_indices->getSingle();
         if (!$this->_peek && $mbox->is_imap) {
-            $status = $mbox->imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+            $status = $mbox->imp_imap->status(
+                $mbox,
+                Horde_Imap_Client::STATUS_PERMFLAGS
+            );
+
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
-                $ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_indices);
+                $injector->getInstance('IMP_Ajax_Queue')->flag(
+                    array(Horde_Imap_Client::FLAG_SEEN),
+                    true,
+                    $this->_indices
+                );
             }
         }
-
-        return $result;
     }
 
     /**
