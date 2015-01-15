@@ -12,7 +12,7 @@
  */
 
 /**
- * Message viewing action for AJAX application handler.
+ * Prepare details for viewing a message.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ajax_Application_ShowMessage
+class IMP_Contents_Message
 {
     /**
      * Contents object.

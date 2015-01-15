@@ -62,7 +62,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
+            $show_msg = new IMP_Contents_Message($this->indices);
             $msg_res = $show_msg->showMessage();
         } catch (IMP_Exception $e) {
             $notification->notify(array(

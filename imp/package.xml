@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-01-14</date>
+ <date>2015-01-15</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -167,7 +167,6 @@
       </dir> <!-- /lib/Ajax/Application/Viewport -->
       <file name="Compose.php" role="horde" />
       <file name="ListMessages.php" role="horde" />
-      <file name="ShowMessage.php" role="horde" />
       <file name="Viewport.php" role="horde" />
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
@@ -235,6 +234,7 @@
     </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
      <file name="InlineOutput.php" role="horde" />
+     <file name="Message.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
     <dir name="Crypt">
@@ -1585,7 +1585,6 @@
    <install as="imp/lib/Ajax/Queue.php" name="lib/Ajax/Queue.php" />
    <install as="imp/lib/Ajax/Application/Compose.php" name="lib/Ajax/Application/Compose.php" />
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
-   <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
    <install as="imp/lib/Ajax/Application/Viewport.php" name="lib/Ajax/Application/Viewport.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
    <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
@@ -1638,6 +1637,7 @@
    <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/InlineOutput.php" name="lib/Contents/InlineOutput.php" />
+   <install as="imp/lib/Contents/Message.php" name="lib/Contents/Message.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />

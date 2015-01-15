@@ -453,7 +453,7 @@ class IMP_Ajax_Queue
         global $page_output;
 
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($indices, !empty($opts['peek']));
+            $show_msg = new IMP_Contents_Message($indices, !empty($opts['peek']));
             $msg = (object)$show_msg->showMessage();
 
             /* Need to grab cached inline scripts. */
