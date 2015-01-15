@@ -34,6 +34,8 @@ implements ArrayAccess, IteratorAggregate, Serializable
      * The default charset to use when parsing text parts with no charset
      * information.
      *
+     * @todo Make this a non-static property or pass as parameter to static
+     *       methods in Horde 6.
      * @var string
      */
     public static $defaultCharset = 'us-ascii';
