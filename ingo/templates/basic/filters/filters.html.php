@@ -19,7 +19,7 @@ $enable_img = $this->hordeImage('enable.png');
   <?php printf(_("Rules Containing Mailbox \"%s\""), $this->mbox_search['query']) ?>
 <?php endif; ?>
 <?php else: ?>
-  <?php echo _("Existing Rules") ?>
+  <?php echo _("Filter Rules") ?>
 <?php endif; ?>
   <?php echo $this->hordeHelp('ingo', 'filters_rules') ?>
  </div>
