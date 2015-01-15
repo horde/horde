@@ -116,13 +116,9 @@ class IMP_Contents_Message
      *     - download: (string) The URL for the download all action.
      *     - label: (string) The attachment label.
      *     - list: (array) Attachment information.
-     *   - bcc: (array) The Bcc addresses.
-     *   - cc: (array) The CC addresses.
-     *   - from: (array) The From addresses.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
-     *   - to: (array) The To addresses.
      *
      * @throws IMP_Exception
      */
@@ -131,13 +127,6 @@ class IMP_Contents_Message
         global $prefs, $registry, $session;
 
         $result = array();
-
-        /* Build From/To/Cc/Bcc. */
-        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
-            if ($tmp = $this->getAddressHeader($val)) {
-                $result[$val] = $tmp;
-            }
-        }
 
         // Create message text and attachment list.
         $result['msgtext'] = '';

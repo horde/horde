@@ -83,10 +83,14 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         /* Need to be dynamically added, since formatting needs to be applied
          * via javascript. */
-        foreach (array('from', 'to', 'cc', 'bcc', 'log') as $val) {
-            if (!empty($msg_res[$val])) {
-                $js_vars['ImpMessage.' . $val] = $msg_res[$val];
+        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
+            if ($tmp = $show_msg->getAddressHeader($val)) {
+                $js_vars['ImpMessage.' . $val] = $tmp;
             }
+        }
+
+        if (isset($msg_res['log'])) {
+            $js_vars['ImpMessage.log'] = $msg_res['log'];
         }
 
         $list_info = $show_msg->contents->getListInformation();

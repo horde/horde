@@ -459,6 +459,12 @@ class IMP_Ajax_Queue
             );
             $msg = (object)$show_msg->showMessage();
 
+            foreach (array('from', 'to', 'cc', 'bcc') as $val) {
+                if ($tmp = $show_msg->getAddressHeader($val)) {
+                    $msg->$val = $tmp;
+                }
+            }
+
             $subject = $show_msg->getSubject();
             $msg->subject = $subject['subject'];
             if (!$subject['subject'] !== $subject['title']) {
