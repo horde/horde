@@ -248,7 +248,11 @@
   <entry id="whitelist">
     <title>Whitelist</title>
     <para>The whitelist is a list of (legitimate) email addresses that you
-    always wish to see in your INBOX. Each address should be entered on a
+    always wish to see in your INBOX.</para>
+  </entry>
+  <entry id="whitelist-addresses">
+    <title>Whitelist: Addresses</title>
+    <para>The list of addresses to accept. Each address should be entered on a
     separate line.</para>
   </entry>
   <entry id="spam-level">

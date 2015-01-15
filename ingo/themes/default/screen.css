@@ -79,6 +79,11 @@ table {
     padding: 5px;
 }
 
+/* Whitelist page. */
+.whitelistDiv {
+    padding: 5px;
+}
+
 /* Icons. */
 .ingo-rules {
     background-image: url('graphics/ingo.png');
