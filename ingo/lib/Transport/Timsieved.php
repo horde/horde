@@ -86,12 +86,6 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             unset($this->_sieve);
             throw new Ingo_Exception($res);
         }
-
-        /* BC for older Net_Sieve versions that don't allow specify the debug
-         * handler in the constructor. */
-        if (!empty($this->_params['debug'])) {
-            Ingo_Exception_Pear::catchError($this->_sieve->setDebug(true, array($this, 'debug')));
-        }
     }
 
     /**
