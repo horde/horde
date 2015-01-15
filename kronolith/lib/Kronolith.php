@@ -1950,18 +1950,17 @@ class Kronolith
                 foreach ($event->attendees as $attendeeEmail => $status) {
                     if (self::isUserEmail($event->creator, $attendeeEmail)) {
                         switch ($status['response']) {
-                            case self::RESPONSE_ACCEPTED:
-                                $type = new Horde_Itip_Response_Type_Accept($attendee);
-                            break;
-                            case self::RESPONSE_DECLINED:
-                                $type = new Horde_Itip_Response_Type_Decline($attendee);
-                            break;
-                            case self::RESPONSE_TENTATIVE:
-                                $type = new Horde_Itip_Response_Type_Tentative($attendee);
-                            break;
-                            default:
-                                return;
-                            break;
+                        case self::RESPONSE_ACCEPTED:
+                            $type = new Horde_Itip_Response_Type_Accept($attendee);
+                        break;
+                        case self::RESPONSE_DECLINED:
+                            $type = new Horde_Itip_Response_Type_Decline($attendee);
+                        break;
+                        case self::RESPONSE_TENTATIVE:
+                            $type = new Horde_Itip_Response_Type_Tentative($attendee);
+                        break;
+                        default:
+                            return;
                         }
                         try {
                             // Send the reply.
