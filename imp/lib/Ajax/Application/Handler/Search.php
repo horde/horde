@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Ajax_Application_Handler_Search extends Horde_Core_Ajax_Application_Handler
+class IMP_Ajax_Application_Handler_Search
+extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Create mailbox select list for advanced search page.
@@ -82,7 +83,7 @@ class IMP_Ajax_Application_Handler_Search extends Horde_Core_Ajax_Application_Ha
                 'abbrev' => 0,
                 'container_select' => true,
                 'customhtml' => $view->render('search-all'),
-                'heading' => _("Add search mailbox:")
+                'heading' => _("Add search mailbox") . '...'
             ),
             'render_type' => 'IMP_Tree_Flist'
         ));

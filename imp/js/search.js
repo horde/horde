@@ -115,9 +115,6 @@ var ImpSearch = {
         }, this);
 
         if ($('search_criteria').childElements().size()) {
-            if ($('no_search_criteria').visible()) {
-                $('no_search_criteria', 'search_criteria').invoke('toggle');
-            }
             this.showOr(true);
         }
     },
@@ -130,27 +127,28 @@ var ImpSearch = {
 
     deleteCriteria: function(div)
     {
-        var first, keys;
+        var elts, tmp;
 
         delete this.criteria[div.identify()];
         div.remove();
 
-        keys = $('search_criteria').childElements().pluck('id');
-        if (keys.size()) {
-            first = keys.first();
+        elts = $('search_criteria').childElements();
 
-            if (this.criteria[first].t && this.criteria[first].t == 'or') {
-                $(first).remove();
-                delete this.criteria[first];
-                keys = [];
-            } else if ($(first).down().hasClassName('join')) {
-                $(first).down().remove();
+        if (elts.size()) {
+            tmp = elts.first();
+            if (!tmp.down('EM.join')) {
+                tmp = elts.last();
             }
-        }
 
-        if (!keys.size()) {
+            if (tmp.down('EM.join')) {
+                if (tmp.down('EM.joinOr')) {
+                    delete this.criteria[tmp.identify()];
+                    this.showOr(true);
+                }
+                tmp.down('EM.join').remove();
+            }
+        } else {
             this.showOr(false);
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
         }
     },
 
@@ -159,7 +157,6 @@ var ImpSearch = {
         var elts = $('search_criteria').childElements();
         if (elts.size()) {
             elts.invoke('remove');
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
             this.criteria = {};
             this.showOr(false);
         }
@@ -172,10 +169,12 @@ var ImpSearch = {
 
         if ($('search_criteria').childElements().size()) {
             if (this.criteria[$('search_criteria').childElements().last().readAttribute('id')].t != 'or') {
-                div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
+                div.insert(
+                    new Element('EM', { className: 'join' })
+                        .insert(this.text.and)
+                );
             }
         } else {
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
             this.showOr(true);
         }
 
@@ -195,7 +194,11 @@ var ImpSearch = {
 
     insertOr: function()
     {
-        var div = new Element('DIV').insert(new Element('EM', { className: 'join joinOr' }).insert('--&nbsp;' + this.text.or + '&nbsp;--'));
+        var div = new Element('DIV').insert(
+            new Element('EM', { className: 'join joinOr' })
+                .insert('--&nbsp;' + this.text.or + '&nbsp;--')
+        );
+
         $('search_criteria_add').clear();
         $('search_criteria').insert(div);
         this.criteria[div.identify()] = { t: 'or' };
@@ -354,7 +357,6 @@ var ImpSearch = {
         }
 
         if (!keys.size()) {
-            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             $('search_mboxes_add').up().show();
         }
     },
@@ -366,7 +368,6 @@ var ImpSearch = {
         if (elts.size()) {
             this.mboxes.values().each(this.disableMailbox.bind(this, false));
             elts.invoke('remove');
-            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             $('search_mboxes_add').clear().up().show();
             this.mboxes = $H();
         }
@@ -386,7 +387,6 @@ var ImpSearch = {
 
         if (mbox == this.allsearch) {
             this.resetMailboxes();
-            [ $('no_search_mboxes'), $('search_mboxes_add').up() ].invoke('hide');
             $('search_mboxes').show();
             div2.insert(
                 new Element('EM').insert(this.text.search_all.escapeHTML())
@@ -396,8 +396,6 @@ var ImpSearch = {
         } else {
             if ($('search_mboxes').childElements().size()) {
                 div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
-            } else {
-                $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             }
 
             div2.insert(
@@ -413,7 +411,7 @@ var ImpSearch = {
         }
 
         div.insert(div2);
-        $('search_mboxes').insert(div);
+        $('search_mboxes').show().insert(div);
 
         this.mboxes.set(div.identify(), mbox);
     },
