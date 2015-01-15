@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix return code from multi-request actions in Peclhttp2 driver.
 * [jan] Fix return errors from jsonrpc requests.
  </notes>
  <contents>
@@ -861,6 +862,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix return code from multi-request actions in Peclhttp2 driver.
 * [jan] Fix return errors from jsonrpc requests.
    </notes>
   </release>
