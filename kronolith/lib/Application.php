@@ -876,7 +876,7 @@ class Kronolith_Application extends Horde_Registry_Application
             // Send iTip messages unless organizer is external.
             // Notifications will get lost, there is no way to return messages
             // to clients.
-            if ($event->organizer && !Kronolith::isUserEmail($this->creator, $event->organizer)) {
+            if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
                 return;
             }
             Kronolith::sendITipNotifications(
@@ -916,7 +916,7 @@ class Kronolith_Application extends Horde_Registry_Application
         // Send iTip messages unless organizer is external.
         // Notifications will get lost, there is no way to return messages to
         // clients.
-        if ($event->organizer && !Kronolith::isUserEmail($this->creator, $event->organizer)) {
+        if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
             return;
         }
         Kronolith::sendITipNotifications(
