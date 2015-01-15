@@ -1,8 +1,3 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
 /* Scripts page. */
 .scriptHeader {
     margin: 0;
@@ -33,35 +28,63 @@ table {
 }
 
 /* Rules page. */
-.ruleAction, .ruleCondition, .ruleMatch {
-    margin-left: 20px;
-}
-.ruleAction, .ruleMatch {
-    margin-bottom: 10px;
+.ruleAction,
+.ruleCondition {
+    margin: 5px 0 0 30px;
 }
 .ruleCondition input {
     vertical-align: middle;
 }
-.ruleCondition label {
-    padding-right: 8px;
+.ruleCondition span {
+    margin-right: 20px;
+}
+.ruleMatch {
+    margin: 10px 0 0 30px;
 }
 .ruleMatchRow {
-    padding-bottom: 5px;
+    border: 1px solid lightgrey;
+    display: table;
+    padding: 10px;
 }
-.ruleMatchRow div {
-    display: inline-block;
-    padding-right: 5px;
+.ruleMatchRowDelete {
+    display: table-cell;
+    padding-left: 12px;
+    vertical-align: middle;
+}
+.ruleMatchRowRules {
+    display: table-cell;
+}
+.ruleMatchRowRules > div {
+    padding: 2px;
 }
 .ruleMatchCondition {
-    width: 30px;
+    font-weight: bold;
+    margin: 10px 0;
 }
-.ruleStopChecking {
+.ruleMark ul {
+    margin: 5px 0 0 30px;
+    list-style: none;
+}
+.ruleMark li {
+    padding-bottom: 8px;
+}
+.ruleMark input {
+    min-height: auto;
+    vertical-align: middle;
+}
+.ruleStopChecking input {
     margin-right: 5px;
+    vertical-align: middle;
+}
+.ruleStopChecking label {
     vertical-align: middle;
 }
 .caseSensitive {
     margin-left: 5px;
     vertical-align: middle;
+}
+.ruleDiv {
+    padding: 5px 5px 8px;
 }
 
 /* Blacklist page. */
