@@ -54,7 +54,9 @@ var FormGhost = Class.create({
         this.elt.observe('keydown', this.keydownHandler.bindAsEventListener(this));
         this.elt.observe('focus', this.unghost.bind(this));
         this.elt.observe('blur', this.ghost.bind(this));
-        this.elt.up('FORM').observe('submit', this.submit.bind(this));
+        this.elt.up('FORM').observe('submit', function(e) {
+            this.submit(e, this.elt.up('FORM'));
+        }.bind(this));
 
         this.ghost();
     },
@@ -99,13 +101,17 @@ var FormGhost = Class.create({
         this.ghost();
     },
 
-    submit: function(e)
+    submit: function(e, elt)
     {
-        var action = this.elt.up('FORM').readAttribute('action');
+        var action = elt.readAttribute('action');
 
-        this.unghost();
+        if (!this.isghost) {
+            this.hasinput = !($F(this.elt).empty());
+        }
+
         this.elt.fire('FormGhost:submit');
-        if (action.empty() || action == '#') {
+
+        if (!action || action.empty() || action == '#') {
             e.stop();
         }
     },
@@ -113,8 +119,7 @@ var FormGhost = Class.create({
     /* Keydown event handler */
     keydownHandler: function(e)
     {
-        var action,
-            elt = e.element(),
+        var elt = e.element(),
             kc = e.keyCode || e.charCode,
             form = e.findElement('FORM');
 
@@ -131,12 +136,7 @@ var FormGhost = Class.create({
                 break;
 
             case Event.KEY_RETURN:
-                //this.unghost();
-                this.elt.fire('FormGhost:submit');
-                action = form.readAttribute('action');
-                if (action.empty() || action == '#') {
-                    e.stop();
-                }
+                this.submit(e, form);
                 break;
             }
         }
