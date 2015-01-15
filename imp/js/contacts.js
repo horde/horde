@@ -135,7 +135,7 @@ var ImpContacts = {
         HordeCore.initHandler('click');
         HordeCore.initHandler('dblclick');
 
-        $('contacts').observe('submit', function(e) {
+        $('contacts').observe('FormGhost:submit', function(e) {
             this.contactsSearch();
             e.stop();
         }.bind(this));
