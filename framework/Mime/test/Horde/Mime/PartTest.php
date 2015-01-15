@@ -724,4 +724,9 @@ C
         return $part;
     }
 
+    public function setUp()
+    {
+        Horde_Mime_Part::$defaultCharset =
+            Horde_Mime_Headers::$defaultCharset = 'us-ascii';
+    }
 }
