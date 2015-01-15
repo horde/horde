@@ -74,7 +74,9 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             exit;
         }
 
+        /* Add 'maillog' and 'poll' data to the AJAX queue. */
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $ajax_queue->maillog($this->indices);
         $ajax_queue->poll($this->indices->mailbox);
 
         list(,$buid) = $this->indices->buids->getSingle();

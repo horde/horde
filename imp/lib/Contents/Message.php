@@ -149,10 +149,6 @@ class IMP_Contents_Message
             $result['localdate'] = $val;
         }
 
-        /* Maillog information. */
-        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $ajax_queue->maillog($this->_indices);
-
         /* Process the subject. */
         if (strlen($subject = $this->_envelope->subject)) {
             $text_filter = $injector->getInstance('Horde_Core_Factory_TextFilter');
