@@ -118,10 +118,7 @@ class IMP_Contents_Message
      *     - list: (array) Attachment information.
      *   - bcc: (array) The Bcc addresses.
      *   - cc: (array) The CC addresses.
-     *   - datestamp: (string) ISO 8601 date string.
-     *   - fulldate: (string) The full canonical date.
      *   - from: (array) The From addresses.
-     *   - localdate: (string) The date formatted to the user's timezone.
      *   - md: (array) Metadata.
      *   - msgtext: (string) The text of the message.
      *   - onepart: (boolean) True if message only contains one part.
@@ -140,15 +137,6 @@ class IMP_Contents_Message
             if ($tmp = $this->getAddressHeader($val)) {
                 $result[$val] = $tmp;
             }
-        }
-
-        /* Build the date information. */
-        if ($date = $this->_envelope->date) {
-            $date_ob = new IMP_Message_Date($date);
-            $val = $date_ob->format($date_ob::DATE_LOCAL);
-            $result['datestamp'] = $date_ob->format($date_ob::DATE_ISO_8601);
-            $result['fulldate'] = $date_ob->format($date_ob::DATE_FORCE);
-            $result['localdate'] = $val;
         }
 
         // Create message text and attachment list.
@@ -439,6 +427,19 @@ class IMP_Contents_Message
         }
 
         return $this->_cache['subject'];
+    }
+
+    /**
+     * Return date data.
+     *
+     * @return mixed  Either a IMP_Message_Date object or null if no date
+     *                information is available.
+     */
+    public function getDateOb()
+    {
+        return ($date = $this->_envelope->date)
+            ? new IMP_Message_Date($date)
+            : null;
     }
 
     /**

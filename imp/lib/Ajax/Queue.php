@@ -468,6 +468,11 @@ class IMP_Ajax_Queue
                 $msg->subjectlink = $subject['subjectlink'];
             }
 
+            if ($date = $show_msg->getDateOb()) {
+                $msg->datestamp = $date->format($date::DATE_ISO_8601);
+                $msg->localdate = $date->format($date::DATE_LOCAL);
+            }
+
             $this->maillog($indices);
             $show_msg->addChangedFlag();
 

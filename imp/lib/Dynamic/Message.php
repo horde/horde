@@ -156,10 +156,10 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $this->view->save_as = $show_msg->getSaveAs();
 
-        if (isset($msg_res['datestamp'])) {
-            $this->view->datestamp = $msg_res['datestamp'];
-            $this->view->fulldate = $msg_res['fulldate'];
-            $this->view->localdate = $msg_res['localdate'];
+        if ($date = $show_msg->getDateOb()) {
+            $this->view->datestamp = $date->format($date::DATE_ISO_8601);
+            $this->view->fulldate = $date->format($date::DATE_FORCE);
+            $this->view->localdate = $date->format($date::DATE_LOCAL);
             $this->view->addHelper('Text');
         }
 
