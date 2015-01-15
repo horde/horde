@@ -99,6 +99,10 @@ class IMP_Contents_Message
             }
 
             $this->contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
+
+            if (!$peek) {
+                $this->_loadHeaders();
+            }
         } catch (Exception $e) {
             throw new IMP_Exception(_("Requested message not found."));
         }
