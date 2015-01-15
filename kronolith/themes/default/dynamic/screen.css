@@ -83,15 +83,14 @@ html, body {
     line-height: 2em;
 }
 
-.kronolithDialogInfo {
-    background: transparent url("../graphics/alerts/message.png") left 2px no-repeat;
-    padding-left: 23px;
-    padding-bottom: 2px;
-    font-style: italic;
-}
-.kronolithDialogWarning {
+.kronolithDialogWarning, .kronolithDialogInfo {
     background: transparent url("../graphics/alerts/warning.png") left 2px no-repeat;
-    padding-left: 23px;
+    padding: 3px 0 0 23px;
+    min-height: 17px;
+}
+.kronolithDialogInfo {
+    background-image: url("../graphics/alerts/message.png");
+    font-style: italic;
 }
 .kronolithDialogWarning strong {
     color: #f00;
@@ -108,12 +107,16 @@ html, body {
 
 /* Event/task form dialogs */
 .kronolithDialog {
-    width: 700px;
+    width: 710px;
     padding: 10px 20px;
     border: 1px #999 solid;
 }
-.kronolithDialog div {
+#RB_window .kronolithDialog p {
     margin-bottom: 5px;
+    overflow: visible;
+}
+#RB_window .kronolithDialog .kronolithTabsOption p:last-child {
+    margin-bottom: 0;
 }
 .kronolithDialog td {
     padding-right: 10px;
@@ -121,6 +124,10 @@ html, body {
 }
 .kronolithDialog label {
     font-weight: bold;
+}
+.kronolithDialog input {
+    vertical-align: middle;
+    line-height: normal;
 }
 .kronolithLongField {
     width: 100%;
@@ -164,9 +171,6 @@ ul.horde-tags li:hover {
     border-bottom-width: 0;
     height: 21px;
 }
-.kronolithDialog .tabset .kronolithSeparator {
-    float: left;
-}
 .kronolithDialog hr {
    margin: 5px 0;
    height: 0;
@@ -179,7 +183,37 @@ ul.horde-tags li:hover {
 .kronolithTabsOption {
     position: relative;
     line-height: 150%;
+    border: 1px solid #d0d0d0;
+    padding: 2px 5px;
 }
+#kronolithEventTabDescription {
+    border: 0;
+    padding: 0;
+}
+#kronolithEventTabMap {
+    padding: 0;
+}
+#kronolithEventTabExport div,
+#kronolithEventTabRecur div,
+#kronolithEventTabReminder div {
+    margin-bottom: 0;
+}
+#kronolithEventDescription {
+    padding: 0 1px;
+}
+#kronolithEventUrl {
+    border: 0;
+    margin: -2px -5px;
+}
+#kronolithAttendeesACBox, #kronolithResourceACBox, #kronolithEventACBox {
+    margin: -2px -5px 0;
+    border-left: 0;
+    border-right: 0;
+}
+#kronolithEventACBox {
+    border-top: 0;
+}
+
 #kronolithEventTabAttendees table, #kronolithEventTabResources table {
     border-collapse: collapse;
     table-layout: fixed;
@@ -283,7 +317,7 @@ ul.horde-tags li:hover {
 /* Map */
 #kronolithEventMap {
     height: 300px;
-    width: 700px;
+    width: 708px;
 }
 #kronolithEventMap_OpenLayers_ViewPort div {
     margin-bottom: 0;
@@ -292,7 +326,7 @@ ul.horde-tags li:hover {
     margin-bottom: 0;
 }
 .olControlLayerSwitcher div {
-    line-height: 100%;
+    line-height: normal;
     margin-bottom: 0px;
 }
 

@@ -3132,7 +3132,7 @@ KronolithCore = {
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset();
                 // Fall through.
             case 'tasklists':
-                $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
+                $('kronolithCalendar' + type + 'LinkExport').up('li').hide();
                 break;
             case 'remote':
                 if (calendar) {
@@ -3185,7 +3185,7 @@ KronolithCore = {
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 if ($('kronolithCalendar' + type + 'LinkExport')) {
-                    $('kronolithCalendar' + type + 'LinkExport').up('span').show();
+                    $('kronolithCalendar' + type + 'LinkExport').up('li').show();
                     $('kronolithCalendar' + type + 'Export').href = type == 'internal'
                         ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
                         : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
@@ -5697,7 +5697,7 @@ KronolithCore = {
             this.duration = 60;
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
-            $('kronolithEventLinkExport').up('span').hide();
+            $('kronolithEventLinkExport').up('li').hide();
             $('kronolithEventSaveAsNew').hide();
             $('kronolithEventUrlDisplay').hide();
             $('kronolithEventUrl').show();
@@ -5990,7 +5990,7 @@ KronolithCore = {
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
         $('kronolithEventPrivate').setValue(ev.pv);
-        $('kronolithEventLinkExport').up('span').show();
+        $('kronolithEventLinkExport').up('li').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
         /* Alarm */
@@ -6520,7 +6520,7 @@ KronolithCore = {
         var prefix = 'kronolith' + (event ? 'Event' : 'Task');
         if (recur == 'Exception') {
             if (!$(prefix + 'RepeatException').visible()) {
-                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('p').invoke('hide');
                 $(prefix + 'RepeatException').show();
             }
         } else if (recur != 'None') {
@@ -6528,7 +6528,7 @@ KronolithCore = {
                 length = $(prefix + 'RepeatLength');
             this.lastRecurType = recur;
             if (!div.visible()) {
-                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('p').invoke('hide');
                 div.show();
                 length.show();
                 $(prefix + 'RepeatType').show();
@@ -6549,10 +6549,10 @@ KronolithCore = {
 
             if (length.down('input[name=recur_end_type][value=date]').checked) {
                 $(prefix + 'RecurDate').enable();
-                $(prefix + 'RecurPicker').setStyle({ visibility: 'visible' });
+                $(prefix + 'RecurPicker').show()
             } else {
                 $(prefix + 'RecurDate').disable();
-                $(prefix + 'RecurPicker').setStyle({ visibility: 'hidden' });
+                $(prefix + 'RecurPicker').hide()
             }
             if (length.down('input[name=recur_end_type][value=count]').checked) {
                 $(prefix + 'RecurCount').enable();
@@ -6560,7 +6560,7 @@ KronolithCore = {
                 $(prefix + 'RecurCount').disable();
             }
         } else {
-            $(prefix + 'TabRecur').select('div').invoke('hide');
+            $(prefix + 'TabRecur').select('p').invoke('hide');
             $(prefix + 'RepeatType').show();
         }
     },

@@ -13,81 +13,94 @@
 <input type="hidden" id="kronolithEventSendUpdates" name="sendupdates" value="0" />
 
 <div id="kronolithEventDiv">
-  <div id="kronolithEventEditRecur" style="display:none;">
-    <div class="kronolithDialogWarning">
-      <?php echo _("This is a recurring event") ?>
-    </div>
+<div id="kronolithEventEditRecur" style="display:none;">
+  <p class="kronolithDialogWarning">
+    <?php echo _("This is a recurring event") ?>
+  </p>
+  <p>
     <?php echo sprintf(_("Edit the %s Entire Series %s, the %s Current Event %s or this and all %s Future Events %s?"),
     '<label for="kronolithEditRecurAll"><input type="radio" name="recur_edit" value="all" id="kronolithEditRecurAll" checked="checked" />', '</label>',
     '<label for="kronolithEditRecurCurrent"><input type="radio" name="recur_edit" value="current" id="kronolithEditRecurCurrent" />', '</label>',
     '<label for="kronolithEditRecurFuture"><input type="radio" name="recur_edit" value="future" id="kronolithEditRecurFuture" />', '</label>'
     ); ?>
-  </div>
+  </p>
+</div>
+
 <div>
-  <label for="kronolithEventTitle">
+  <p><label for="kronolithEventTitle">
     <?php echo _("Event title") ?>:<br />
     <input type="text" name="title" id="kronolithEventTitle" class="kronolithLongField" tabindex="1" />
-  </label>
+  </label></p>
 </div>
 
 <div id="kronolithEventDates">
-  <label for="kronolithEventStartDate">
-    <?php echo _("From") ?>
-    <input type="text" name="start_date" id="kronolithEventStartDate" size="10" tabindex="2" />
-    <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
-  </label>
-  <label id="kronolithEventStartTimeLabel">
-    <?php echo _("at") ?>
-    <input type="text" name="start_time" id="kronolithEventStartTime" size="8" tabindex="3" />
-  </label>
-  <label for="kronolithEventEndDate">
-    <?php echo _("to") ?>
-    <input type="text" name="end_date" id="kronolithEventEndDate" size="10" tabindex="4" />
-    <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
-  </label>
-  <label id="kronolithEventEndTimeLabel">
-    <?php echo _("at") ?>
-    <input type="text" name="end_time" id="kronolithEventEndTime" size="8" tabindex="5" />
-  </label>
-  <span class="kronolithSeparator">|</span>
-  <label for="kronolithEventAllday">
-    <input type="checkbox" name="whole_day" id="kronolithEventAllday" tabindex="6" />
-    <?php echo _("All-day event") ?>
-  </label>
-  <span class="kronolithSeparator">|</span>
-  <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
-  <select name="timezone" id="kronolithEventTimezone" tabindex="7">
-    <option value=""><?php echo _("Default") ?></option>
-    <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
-    <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
-    <?php endforeach ?>
-  </select>
+  <p>
+    <label for="kronolithEventStartDate">
+      <?php echo _("From") ?>
+      <input type="text" name="start_date" id="kronolithEventStartDate" size="10" tabindex="2" />
+      <?php echo Horde::img('picker.png', _("Set start date"), 'id="kronolithEventStartPicker" class="kronolithDatePicker"') ?>
+    </label>
+    <label id="kronolithEventStartTimeLabel">
+      <?php echo _("at") ?>
+      <input type="text" name="start_time" id="kronolithEventStartTime" size="8" tabindex="3" />
+    </label>
+    <label for="kronolithEventEndDate">
+      <?php echo _("to") ?>
+      <input type="text" name="end_date" id="kronolithEventEndDate" size="10" tabindex="4" />
+      <?php echo Horde::img('picker.png', _("Set end date"), 'id="kronolithEventEndPicker" class="kronolithDatePicker"') ?>
+    </label>
+    <label id="kronolithEventEndTimeLabel">
+      <?php echo _("at") ?>
+      <input type="text" name="end_time" id="kronolithEventEndTime" size="8" tabindex="5" />
+    </label>
+  </p>
+</div>
+
+<div id="kronolithEventDates2">
+  <p>
+    <label for="kronolithEventAllday">
+      <input type="checkbox" name="whole_day" id="kronolithEventAllday" tabindex="6" />
+      <?php echo _("All-day event") ?>
+    </label>
+    &nbsp;
+    <label for="kronolithEventTimezone"><?php echo _("Timezone") ?>:</label>
+    <select name="timezone" id="kronolithEventTimezone" tabindex="7">
+      <option value=""><?php echo _("Default") ?></option>
+      <?php foreach (Horde_Nls::getTimezones() as $timezone): ?>
+      <option value="<?php echo $timezone ?>"><?php echo $timezone ?></option>
+      <?php endforeach ?>
+    </select>
+  </p>
 </div>
 
 <div id="kronolithEventBasics">
-  <label for="kronolithEventStatus"><?php echo _("Status") ?>:</label>
-  <select name="status" id="kronolithEventStatus" tabindex="8">
-    <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
-    <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
-    <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
-    <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
-  </select>
-  <span class="kronolithSeparator">|</span>
-  <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
-  <input type="text" name="location" id="kronolithEventLocation" size="25" tabindex="9" />
-  <?php if ($GLOBALS['conf']['maps']['driver']): ?>
-  <span id="kronolithEventMapLink" style="display:none">
-    <span class="kronolithSeparator">|</span> <span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>&nbsp;<span id="kronolithEventGeo_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-  </span>
-  <?php endif; ?>
+  <p>
+    <label for="kronolithEventStatus"><?php echo _("Status") ?>:</label>
+    <select name="status" id="kronolithEventStatus" tabindex="8">
+      <option value="<?php echo Kronolith::STATUS_FREE ?>"><?php echo _("Free") ?></option>
+      <option value="<?php echo Kronolith::STATUS_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
+      <option value="<?php echo Kronolith::STATUS_CONFIRMED ?>" selected="selected"><?php echo _("Confirmed") ?></option>
+      <option value="<?php echo Kronolith::STATUS_CANCELLED ?>"><?php echo _("Cancelled") ?></option>
+    </select>
+    &nbsp;
+    <label for="kronolithEventLocation"><?php echo _("Location") ?>:</label>
+    <input type="text" name="location" id="kronolithEventLocation" size="25" tabindex="9" />
+    <?php if ($GLOBALS['conf']['maps']['driver']): ?>
+    <span id="kronolithEventMapLink" style="display:none">
+      &nbsp;<span><a href="#" class="kronolithEventGeo"><?php echo _("Find in Maps") ?></a></span>&nbsp;<span id="kronolithEventGeo_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+    </span>
+    <?php endif; ?>
+  </p>
 </div>
 
 <div>
-  <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
-  <span id="kronolithEventTargetRO" style="display:none"></span>
-  <select name="targetcalendar" id="kronolithEventTarget" tabindex="10"></select>
-  <span class="kronolithSeparator">|</span>
-  <?php printf(_("%s Private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" tabindex="11" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
+  <p>
+    <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
+    <span id="kronolithEventTargetRO" style="display:none"></span>
+    <select name="targetcalendar" id="kronolithEventTarget" tabindex="10"></select>
+    &nbsp;
+    <?php printf(_("%s Private %s &mdash; hides details if calendar is public %s"), '<input type="checkbox" name="private" id="kronolithEventPrivate" tabindex="11" /> <label for="kronolithEventPrivate">', '</label> <span class="kronolithSeparator">', '</span>') ?>
+  </p>
 </div>
 
 <div class="tabset">
@@ -104,13 +117,8 @@
     <?php if ($GLOBALS['conf']['maps']['driver']): ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkMap"><?php echo _("Map") ?></a></li>
     <?php endif; ?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
   </ul>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkExport"><?php echo _("Export") ?></a></li>
-    </ul>
-  </span>
 </div>
 <br class="clear" />
 
@@ -119,43 +127,45 @@
 </div>
 
 <div id="kronolithEventTabReminder" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php printf(_("You can change the default settings in the %sNotification options%s"), '<a id="kronolithEventAlarmPrefs" href="#">', '</a>') ?></div>
-  <?php printf(_("%s Don't set %s or %s set %s before the event %s"),
-  '<label for="kronolithEventAlarmOff"><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
-  '<label for="kronolithEventAlarmOn"><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
-  <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="3" value="15" class="kronolithEventValue" />
-  <select name="alarm_unit" id="kronolithEventAlarmUnit">
-    <option value="1">' . _("minutes") . '</option>
-    <option value="60">' . _("hours") . '</option>
-    <option value="1440">' . _("days") . '</option>
-    <option value="10080">' . _("weeks") . '</option>
-  </select>
-  <label for="kronolithEventAlarmValue">',
-  '</label>') ?>
-  <br />
-  <?php printf(_("Alert me %s as default %s or %s using:"),
-  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOn" value="0" checked="checked" />
-  <label for="kronolithEventAlarmDefaultOn">', '</label>',
-  '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" style="display:none" />') ?>
-  <?php echo $eventAlarmMethods . $eventAlarmParams ?>
+  <p>
+    <?php printf(_("%s Don't set %s or %s set %s before the event %s"),
+    '<label for="kronolithEventAlarmOff"><input type="radio" name="alarm" id="kronolithEventAlarmOff" value="0" checked="checked" />', '</label>',
+    '<label for="kronolithEventAlarmOn"><input type="radio" name="alarm" id="kronolithEventAlarmOn" value="1" />', '</label>
+    <input type="text" name="alarm_value" id="kronolithEventAlarmValue" size="3" value="15" class="kronolithEventValue" />
+    <select name="alarm_unit" id="kronolithEventAlarmUnit">
+      <option value="1">' . _("minutes") . '</option>
+      <option value="60">' . _("hours") . '</option>
+      <option value="1440">' . _("days") . '</option>
+      <option value="10080">' . _("weeks") . '</option>
+    </select>
+    <label for="kronolithEventAlarmValue">',
+    '</label>') ?>
+    <br />
+    <?php printf(_("Alert me %s as default %s or %s using:"),
+    '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOn" value="0" checked="checked" />
+    <label for="kronolithEventAlarmDefaultOn">', '</label>',
+    '<input type="radio" name="alarm_change_method" id="kronolithEventAlarmDefaultOff" value="1" style="display:none" />') ?>
+    <?php echo $eventAlarmMethods . $eventAlarmParams ?>
+  </p>
+  <p class="kronolithDialogInfo"><?php printf(_("You can change the default settings in the %sNotification options%s"), '<a id="kronolithEventAlarmPrefs" href="#">', '</a>') ?></p>
 </div>
 
 <div id="kronolithEventTabRecur" class="kronolithTabsOption" style="display:none">
-  <div id="kronolithEventRepeatType" style="display:none">
+  <p id="kronolithEventRepeatType" style="display:none">
     <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
     '<label for="kronolithEventLinkNone"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithEventLinkNone" />', '</label>',
     '<label for="kronolithEventLinkDaily"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_DAILY . '" id="kronolithEventLinkDaily" />', '</label>
     <label for="kronolithEventLinkWeekly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_WEEKLY . '" id="kronolithEventLinkWeekly" />', '</label>
     <label for="kronolithEventLinkMonthly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" id="kronolithEventLinkMonthly" />', '</label>',
-    '<label for="kronolithEventLinkYearly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label><br />') ?>
-  </div>
-  <div id="kronolithEventRepeatDaily" style="display:none">
+    '<label for="kronolithEventLinkYearly"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" id="kronolithEventLinkYearly" />', '</label>') ?>
+  </p>
+  <p id="kronolithEventRepeatDaily" style="display:none">
     <?php printf(_("Repeat %s every day %s or %s every %s days %s"),
     '<label><input type="radio" name="recur_daily" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_daily" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_daily_interval" value="" class="kronolithEventValue" />', '</label>') ?>
-  </div>
-  <div id="kronolithEventRepeatWeekly" style="display:none">
+  </p>
+  <p id="kronolithEventRepeatWeekly" style="display:none">
     <?php printf(_("Repeat %s every week %s or %s every %s weeks %s On %s"),
     '<label><input type="radio" name="recur_weekly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_weekly" value="0" />', '</label>
@@ -167,16 +177,16 @@
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_FRIDAY . '" /> ' . Horde_String::substr(_("Friday"), 0, 3) . '</label>
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SATURDAY . '" /> ' . Horde_String::substr(_("Saturday"), 0, 3) . '</label>
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . Horde_String::substr(_("Sunday"), 0, 3) . '</label>') ?>
-  </div>
-  <div id="kronolithEventRepeatMonthly" style="display:none">
+  </p>
+  <p id="kronolithEventRepeatMonthly" style="display:none">
     <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
     '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
     '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>',
     '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
-  </div>
-  <div id="kronolithEventRepeatYearly" style="display:none">
+  </p>
+  <p id="kronolithEventRepeatYearly" style="display:none">
     <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date %s day of the year %s month and weekday %s"),
     '<label><input type="radio" name="recur_yearly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_yearly" value="0" />', '</label>
@@ -184,8 +194,8 @@
     '<label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DATE . '" />', '</label>
     <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_DAY . '" />', '</label>
     <label><input type="radio" name="recur_yearly_scheme" value="' . Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY . '" />', '</label>') ?>
-  </div>
-  <div id="kronolithEventRepeatLength" style="display:none">
+  </p>
+  <p id="kronolithEventRepeatLength" style="display:none">
     <?php printf(_("Stop %s never%s, %s at %s or %s after %s recurrences %s"),
     '<label><input type="radio" name="recur_end_type" value="none" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_end_type" value="date" />', '</label>
@@ -194,10 +204,10 @@
     '<label><input type="radio" name="recur_end_type" value="count" />', '</label>
     <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="3" class="kronolithEventValue" />', '</label>') ?>
     <br />
-  </div>
-  <div id="kronolithEventRepeatException" style="display:none">
+  </p>
+  <p id="kronolithEventRepeatException" style="display:none">
     <?php printf(_("This is an exception to a recurring event originally scheduled on %s"), '<span id="recur_exception_original"></span>')?>
-  </div>
+  </p>
 </div>
 
 <div id="kronolithEventTabUrl" class="kronolithTabsOption" style="display:none">
@@ -255,8 +265,8 @@
 </div>
 
 <div id="kronolithEventTabTags" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></div>
   <input id="kronolithEventTags" name="tags" />
+  <p class="kronolithDialogInfo"><?php echo _("To make it easier to find, you can enter comma separated tags related to the event subject.") ?></p>
   <label for="kronolithEventTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <span id="kronolithEventTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithEventTopTags"></div>
@@ -267,11 +277,14 @@
 </div>
 
 <div id="kronolithEventTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
-  <label><?php echo _("Export ICS file") ?>:</label>
-  <a id="kronolithEventExport"><?php echo _("Event ICS file") ?></a>
+  <p>
+    <label><?php echo _("Export ICS file") ?>:</label>
+    <a id="kronolithEventExport"><?php echo _("Event ICS file") ?></a>
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
   <?php if ($time_jobs): ?>
-    <div class="kronolithDialogInfo"><?php echo _("This event can be saved as a timeslice in your timesheet.")?></div>
+  <hr />
+  <p>
     <label><?php echo _("Job type")?>:</label>
     <select id="kronolithEventTimesliceType">
     <?php foreach ($time_jobs as $jid => $jname): ?>
@@ -284,7 +297,9 @@
       <option value="<?php echo $cid ?>"><?php echo htmlspecialchars($cname) ?></option>
     <?php endforeach;?>
     </select>
-    <a id="kronolithEventToTimeslice"><?php echo _("Save time")?></a>
+    <input type="button" class="horde-default" id="kronolithEventToTimeslice" value="<?php echo _("Save time")?>" />
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("This event can be saved as a timeslice in your timesheet.")?></p>
   <?php endif;?>
 </div>
 
