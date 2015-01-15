@@ -2342,6 +2342,7 @@ abstract class Kronolith_Event
      * - mt: meeting (Boolean true if event has attendees, false otherwise).
      * - o: organizer (if known)
      * - oy: organizer you
+     * - cr: creator's attendance response
      *
      * @param boolean $allDay      If not null, overrides whether the event is
      *                             an all-day event.
@@ -2427,15 +2428,17 @@ abstract class Kronolith_Event
                         if (!empty($info['name'])) {
                             $tmp->personal = $info['name'];
                         }
-
+                        if (Kronolith::isUserEmail($this->creator, $email)) {
+                            $json->cr = $info['response'];
+                        }
                         $attendees[] = array(
                             'a' => intval($info['attendance']),
                             'e' => $tmp->bare_address,
                             'r' => intval($info['response']),
                             'l' => strval($tmp)
                         );
-                        $json->at = $attendees;
                     }
+                    $json->at = $attendees;
                 }
             }
             if ($this->organizer) {

@@ -6001,6 +6001,9 @@ KronolithCore = {
             $('kronolithEventStatus').disabled = false;
             $('kronolithEventAttend').hide();
         }
+        if (ev.cr) {
+            $('kronolithEventAttendance').setValue(ev.cr);
+        }
 
         /* Alarm */
         if (ev.a) {
