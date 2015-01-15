@@ -98,7 +98,7 @@
       </tr>
 <?php foreach ($this->user_hdrs as $val): ?>
       <tr>
-       <td class="label"><?php echo $this->h($val['name']) ?></td>
+       <td class="label"><?php echo $this->h($val['name']) ?>:</td>
        <td class="allowTextSelection"><?php echo $this->h($val['value']) ?></td>
       </tr>
 <?php endforeach; ?>
