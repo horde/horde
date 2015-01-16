@@ -425,6 +425,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             return strtolower($type);
         }
 
+        if (!class_exists('File_ASN1')) {
+            return null;
+        }
+
         $asn1 = new File_ASN1();
         $decoded = $asn1->decodeBER($part->getContents());
 
