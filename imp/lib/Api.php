@@ -95,9 +95,12 @@ class IMP_Api extends Horde_Registry_Api
     {
         global $injector;
 
-        $iterator = new IMP_Ftree_IteratorFilter(
-            $injector->getInstance('IMP_Ftree')
-        );
+        $ftree = $injector->getInstance('IMP_Ftree');
+
+        /* Make sure unsubscribed mailboxes are loaded. */
+        $ftree->loadUnsubscribed();
+
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
         $iterator->add(array(
             $iterator::CONTAINERS,
             $iterator::REMOTE,
