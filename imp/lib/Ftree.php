@@ -784,7 +784,9 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
         if (!isset($this->_parent[$parent])) {
             $this->eltdiff->change($p_elt);
         }
-        $this->_parent[$parent][] = $name;
+        if (!isset($this->_elts[$name])) {
+            $this->_parent[$parent][] = $name;
+        }
         $this->_elts[$name] = $elt['a'];
 
         if ($change) {

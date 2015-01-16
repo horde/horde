@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3798,7 +3798,7 @@
    <date>2015-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
    </notes>
   </release>
  </changelog>
