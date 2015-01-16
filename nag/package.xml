@@ -33,6 +33,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use consistent checkbox.
+* [jan] Don&apos;t allow deletion of tasks with sub-tasks (Bug #13809).
+* [jan] Don&apos;t allow completion of tasks with incomplete sub-tasks and vice versa.
 * [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
  </notes>
  <contents>
@@ -1623,6 +1626,9 @@
    <date>2015-01-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use consistent checkbox.
+* [jan] Don&apos;t allow deletion of tasks with sub-tasks (Bug #13809).
+* [jan] Don&apos;t allow completion of tasks with incomplete sub-tasks and vice versa.
 * [jan] Don&apos;t wipe out whole task lists when PUTing individual tasks via WebDAV.
    </notes>
   </release>

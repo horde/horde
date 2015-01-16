@@ -2,6 +2,9 @@
 v4.2.4-git
 ----------
 
+[jan] Use consistent checkbox.
+[jan] Don't allow deletion of tasks with sub-tasks (Bug #13809).
+[jan] Don't allow completion of tasks with incomplete sub-tasks and vice versa.
 [jan] Don't wipe out whole task lists when PUTing individual tasks via WebDAV.
 
 
