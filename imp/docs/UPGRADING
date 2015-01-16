@@ -99,6 +99,16 @@ The following preferences have been removed::
    preview_strip_nl
 
 
+API Changes
+-----------
+
+These API calls have been changed::
+
+   - mailboxList
+
+     Added the 'unsub' option.
+
+
 
 Upgrading IMP From 6.1.x To 6.2
 ===============================

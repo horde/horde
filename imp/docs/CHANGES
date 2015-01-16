@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Added an option to the mailboxList API call to force inclusion of
+      unsubscribed mailboxes.
 [mms] Asynchronously load the mailbox list on the advanced search page.
 [mms] Automatically try to rotate embedded inline images when displaying a
       message.
