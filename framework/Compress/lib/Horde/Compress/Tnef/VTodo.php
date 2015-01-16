@@ -25,21 +25,60 @@
  */
 class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 {
-    const MAPI_TASK_OWNER           = 0x801B;
     const MAPI_TASK_STATUS          = 0x8101;
     const MAPI_TASK_PERCENTCOMPLETE = 0x8102;
     const MAPI_TASK_STARTDATE       = 0x8104;
     const MAPI_TASK_DUEDATE         = 0x8105;
+
+    const MAPI_TASK_ACCEPTED        = 0x8108;
+    const MAPI_TASK_STATE           = 0x8113;
+    const MAPI_TASK_ASSIGNERS       = 0x8117;
+
+    // If non-zero, updates are requested.
+    const MAPI_TASK_UPDATES         = 0x811B;
+    const MAPI_TASK_OWNER           = 0x811F;
+    const MAPI_TASK_ASSIGNER        = 0x8121;
+    const MAPI_TASK_LASTUSER        = 0x8122;
+    const MAPI_TASK_OWNERSHIP       = 0x8129;
+
     const MAPI_TASK_DATECOMPLETED   = 0x814A;
+
 
     const MAPI_TASK_COMMONEND       = 0x8517;
     const MAPI_TASK_COMMONSTART     = 0x81BD;
 
+    /**
+     * MAPI_TASK_STATUS constants
+     */
     const STATUS_NOT_STARTED        = 0x00000000;
     const STATUS_IN_PROGRESS        = 0x00000001;
     const STATUS_COMPLETE           = 0x00000002;
     const STATUS_WAIT               = 0x00000003;
     const STATUS_DEFERRED           = 0x00000004;
+
+    /**
+     * MAPI_TASK_STATE constants
+     */
+    const STATE_TASK_NOT_FOUND     = 0x00000000;
+    const STATE_NOT_ASSIGNED       = 0x00000001;
+    const STATE_ASSIGNEE_COPY      = 0x00000002;
+    const STATE_ASSIGNERS_COPY     = 0x00000003;
+    const STATE_ASSIGNERS_REJECTED = 0x00000004;
+
+    /**
+     * MAPI_TASK_OWNERSHIP
+     */
+    const OWNERSHIP_NONE           = 0x00000000;
+    const OWNERSHIP_ASSIGNERS_COPY = 0x00000001;
+    const OWNERSHIP_ASSIGNEES_COPY = 0x00000002;
+
+    /**
+     * MAPI_MESSAGE_CLASS
+     */
+    const CLASS_REQUEST            = 'IPM.TaskRequest';
+    const CLASS_ACCEPT             = 'IPM.TaskRequest.Accept';
+    const CLASS_DECLINE            = 'IPM.TaskRequest.Decline';
+    const CLASS_UPDATE             = 'IPM.TaskRequest.Update';
 
     /**
      * Due date (timestamp).
@@ -89,11 +128,62 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     protected $_rtfCompressed;
 
     /**
+     * If true, assignee is requested to send updates.
+     *
+     * @var boolean
+     */
+    protected $_updates = false;
+
+    /**
+     * The MAPI_TASK_STATE value. Used to help determine METHOD.
+     *
+     * @var integer.
+     */
+    protected $_state;
+
+    /**
+     * The MAPI_TASK_OWNERSHIP value.
+     *
+     * @var integer
+     */
+    protected $_ownership;
+
+    /**
+     * The METHOD to use in the generated vTodo component. Default
+     * to REQUEST since TNEF files are generally not used for PUBLISH.
+     *
+     * @var string
+     */
+    protected $_method = 'REQUEST';
+
+    /**
+     * The MAPI_MESSAGE_CLASS
+     *
+     * @var string
+     */
+    protected $_messageClass;
+
+    /**
+     * The current owner of the task. Note, this is the CURRENT owner,
+     * so for the initial REQUEST, this will be empty. MS doesn't consider
+     * the task creator the owner in this context.
+     *
+     * @var string
+     */
+    protected $_owner;
+
+    /**
+     * Last user to modify the request.
+     *
+     * @var string
+     */
+    protected $_lastUser;
+    /**
      * The MIME type of this object's content.
      *
      * @var string
      */
-    public $type = 'text/vTodo';
+    public $type = 'text/calendar';
 
     /**
      * Timestamp when task was completed.
@@ -122,7 +212,8 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     {
         switch ($name) {
         case self::MAPI_TASK_OWNER:
-            $this->owner = $value;
+            // This is the OWNER, not to be confused with the ORGANIZER.
+            $this->_owner = $value;
             break;
         case Horde_Compress_Tnef::IPM_TASK_GUID:
             // Almost positive this is wrong :(
@@ -199,6 +290,39 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
                 $this->_inSync = $value;
                 break;
             }
+            break;
+        case self::MAPI_TASK_UPDATES:
+            if (!empty($value)) {
+                $this->_updates = true;
+            }
+            break;
+
+        case self::MAPI_TASK_OWNERSHIP:
+            $this->_ownership = $value;
+            break;
+
+        case self::MAPI_TASK_STATE:
+            $this->_state = $value;
+            break;
+
+        case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
+            $this->_lastUser = $value;
+            break;
+
+        case self::MAPI_TASK_ASSIGNER:
+            // *sigh* This isn't set by Outlook/Exchange until AFTER the
+            // assignee receives the request. I.e., this is blank on the initial
+            // REQUEST so not a valid way to obtain the task creator.
+            //$this->_organizer = $value;
+            break;
+        case self::MAPI_TASK_LASTUSER:
+            // From MS-OXOTASK 2.2.2.2.25:
+            // Before client sends a REQUEST, it is set to the assigner.
+            // Before client sends an ACCEPT, it is set to the assignee.
+            // Before client sneds REJECT, it is set to the assigner, not assignee.
+            // Unfortunately, it is only the display name, not the email!
+            //$this->_lastUser = $value;
+            break;
         }
     }
 
@@ -222,7 +346,16 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
         $vtodo->setAttribute('UID', $this->_guid);
+        $vtodo->setAttribute('METHOD', $this->_method);
 
+        // For REQUESTS, we MUST have the ORGANIZER and an ATTENDEE.
+        if ($this->_state == self::STATE_ASSIGNERS_COPY || $this->_ownership == self::OWNERSHIP_ASSIGNERS_COPY) {
+            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_lastUser);
+            $list = new Horde_Mail_Rfc822_List($this->_lastUser);
+            foreach ($list as $email) {
+                $vtodo->setAttribute('ATTENDEE', $email, array('ROLE' => 'REQ-PARTICIPANT'));
+            }
+        }
         if ($this->_due) {
             $vtodo->setAttribute('DUE', $this->_due);
         }
