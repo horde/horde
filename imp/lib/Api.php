@@ -110,8 +110,6 @@ class IMP_Api extends Horde_Registry_Api
             $sub = $mbox_ob->sub;
 
             $mboxes[] = array(
-                // TODO: Remove for IMP 7.
-                'a' => $sub ? 8 : 0,
                 'd' => $mbox_ob->namespace_delimiter,
                 'label' => $mbox_ob->label,
                 'level' => $val->level,
