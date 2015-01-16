@@ -24,8 +24,6 @@
 
 class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_ImapFactory
 {
-    const MASK_SUBSCRIBED = 8;
-
     protected $_adapter;
     protected $_mailboxlist;
     protected $_specialMailboxlist;
@@ -72,12 +70,20 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                 'subscribe'
             );
             try {
-                foreach ($registry->mail->mailboxList() as $mbox) {
-                    // @HACK. Don't like having to check for imp specific
-                    //        mailbox strings here but don't see anyway around it.
-                    if (strpos($mbox['ob']->utf8, "impsearch\000") === false &&
-                        (!$subscriptions  || ($mbox['a'] & self::MASK_SUBSCRIBED))) {
+                foreach ($registry->mail->mailboxList(array('unsub' => !$subscriptions)) as $mbox) {
+                    if (isset($mbox['subscribed'])) {
+                        /* IMP 7. Guaranteed that return will match what was
+                         * asked for in 'unsub' argument. */
                         $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
+                    } else {
+                        // @HACK. Don't like having to check for imp specific
+                        //        mailbox strings here but don't see anyway
+                        //        around it.
+                        // @TODO  REMOVE - deprecated in IMP 6.
+                        if (strpos($mbox['ob']->utf8, "impsearch\000") === false &&
+                            (!$subscriptions || ($mbox['a'] & 8))) {
+                            $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
+                        }
                     }
                 }
             } catch (Horde_Exception $e) {
