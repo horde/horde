@@ -1604,8 +1604,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 $this->setMimeId($id . '1');
             } else {
                 if (empty($id) && ($this->getType() == 'message/rfc822')) {
-                    $this->setMimeId('1');
-                    $id = '1.';
+                    $this->setMimeId('1.0');
                 } else {
                     $this->setMimeId($id . '0');
                 }
@@ -1664,10 +1663,26 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         if ($sort) {
-            uksort($map, 'strnatcmp');
+            uksort($map, array($this, '_contentTypeMapSort'));
         }
 
         return $map;
+    }
+
+    /**
+      */
+    protected function _contentTypeMapSort($a, $b)
+    {
+        if (substr($a, -2) === '.0') {
+            if (substr($a, 0, -2) == $b) {
+                return -1;
+            }
+        } elseif ((substr($b, 0, -2) === '.0') &&
+                  (substr($b, 0, -2) == $a)) {
+            return 1;
+        }
+
+        return strnatcmp($a, $b);
     }
 
     /**

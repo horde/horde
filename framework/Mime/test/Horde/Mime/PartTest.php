@@ -696,6 +696,31 @@ C
         );
     }
 
+    public function testIdSortingInMessageRfc822Part()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('message/rfc822');
+
+        $part1 = new Horde_Mime_Part();
+        $part1->setType('multipart/alternative');
+        $part->addPart($part1);
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('text/plain');
+        $part1->addPart($part2);
+
+        $part3 = new Horde_Mime_Part();
+        $part3->setType('text/html');
+        $part1->addPart($part3);
+
+        $part->buildMimeIds();
+
+        $this->assertEquals(
+            array('1.0', '1', '1.1', '1.2'),
+            array_keys($part->contentTypeMap(true))
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

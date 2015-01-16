@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1602,7 +1602,7 @@
    <date>2014-12-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
    </notes>
   </release>
  </changelog>
