@@ -9,7 +9,7 @@
 <?php endif ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('task.php', true)->add(array('actionID' => 'add_task', 'tasklist_id' => $task->tasklist, 'parent_task' => $task->id)), 'title' => _("Create Subtask"), 'class' => 'nag-new')) ?></li>
 <?php endif ?>
-<?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
+<?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && !$task->hasSubTasks()): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete"), 'class' => 'nag-delete')) ?></li>
 <?php endif ?>
 <?php if (Horde_Util::getFormData('have_search')): ?>

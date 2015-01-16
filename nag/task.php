@@ -11,31 +11,36 @@
 
 function _delete($task_id, $tasklist_id)
 {
+    global $injector, $nag_shares, $notification, $registry;
+
     if (!empty($task_id)) {
         try {
             $task = Nag::getTask($tasklist_id, $task_id);
+            $task->loadChildren();
             try {
-                $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
+                $share = $nag_shares->getShare($tasklist_id);
             } catch (Horde_Share_Exception $e) {
                 throw new Nag_Exception($e);
             }
-            if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-                $GLOBALS['notification']->push(_("Access denied deleting task."), 'horde.error');
+            if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+                $notification->push(_("Access denied deleting task."), 'horde.error');
+            } elseif ($task->hasSubTasks()) {
+                $notification->push(_("Sub tasks exist, delete them first"), 'horde.error');
             } else {
-                $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist_id);
+                $storage = $injector->getInstance('Nag_Factory_Driver')->create($tasklist_id);
                 try {
                     $storage->delete($task_id);
-                } catch (Horde_Share_Exception $e) {
-                    $GLOBALS['notification']->push(
+                } catch (Nag_Exception $e) {
+                    $notification->push(
                         sprintf(_("There was a problem deleting %s: %s"),
                                 $task->name, $e->getMessage()),
                         'horde.error');
                 }
-                $GLOBALS['notification']->push(sprintf(_("Deleted %s."), $task->name),
+                $notification->push(sprintf(_("Deleted %s."), $task->name),
                                                'horde.success');
             }
         } catch (Nag_Exception $e) {
-            $GLOBALS['notification']->push(
+            $notification->push(
                 sprintf(_("Error deleting task: %s"),
                         $e->getMessage()), 'horde.error');
         }
