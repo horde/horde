@@ -716,7 +716,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             if (!is_array($attendees)) {
                 $attendees = array($attendees);
             }
-            $view->attendees = $this->parseAttendees($vtodo, $attendees);
+            $view->attendees = $this->_parseAttendees($vtodo, $attendees);
         }
 
         if (!empty($options)) {
