@@ -28,9 +28,12 @@
 }
 
 /* Rules page. */
+#rule select {
+    padding: 2px;
+}
 .ruleAction,
 .ruleCondition {
-    margin: 5px 0 0 30px;
+    margin: 5px 0 0 20px;
 }
 .ruleCondition input {
     vertical-align: middle;
@@ -39,7 +42,7 @@
     margin-right: 20px;
 }
 .ruleMatch {
-    margin: 10px 0 0 30px;
+    margin: 10px 0 0 20px;
 }
 .ruleMatchRow {
     border: 1px solid lightgrey;
@@ -62,7 +65,7 @@
     margin: 10px 0;
 }
 .ruleMark ul {
-    margin: 5px 0 0 30px;
+    margin: 5px 0 0 20px;
     list-style: none;
 }
 .ruleMark li {
