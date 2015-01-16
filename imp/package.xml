@@ -1452,10 +1452,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>File_ASN1</name>
-    <channel>phpseclib.sourceforge.net</channel>
-   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -1490,6 +1486,10 @@
     <min>1.0.0alpha1</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>File_ASN1</name>
+    <channel>phpseclib.sourceforge.net</channel>
    </package>
    <extension>
     <name>openssl</name>
@@ -3732,6 +3732,7 @@
    <date>2015-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Make dependency on File_ASN1 optional.
 * [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
    </notes>
   </release>

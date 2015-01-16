@@ -56,6 +56,7 @@ v7.0.0-git
 v6.2.6
 ------
 
+[jan] Make dependency on File_ASN1 optional.
 [mms] Fix double listing of mailboxes in certain instances when subscriptions
       are active and unsubscribed mailboxes are shown.
 
