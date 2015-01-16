@@ -284,6 +284,7 @@ class IMP_Contents
         if (substr($id, -2) === '.0') {
             $rfc822 = true;
             $id = substr($id, 0, -2);
+            $options['mimeheaders'] = true;
         } else {
             $rfc822 = false;
         }
@@ -534,7 +535,6 @@ class IMP_Contents
          * body of the main multipart message).  I'm pretty sure we never
          * want to download the body of that part here. */
         if (!empty($id) &&
-            (substr($id, -2) != '.0') &&
             empty($options['nocontents']) &&
             $this->_indices &&
             !$part->getContents(array('stream' => true))) {
