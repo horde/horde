@@ -467,8 +467,19 @@ might want to use::
   msgid "_Help"
   msgstr "_H說明"
 
-This renders to "說明(H)" in the interface and you can
-access this link with "H" as the access key.
+This renders to "說明(H)" in the interface and you can access this link with
+"H" as the access key.
+
+Since Horde 6, translators of languages with a latin character system can
+specify characters with diacritics as access keys. The base character will then
+be used as the access key::
+
+  #: templates/menu/menu.inc:53
+  msgid "_Tasks"
+  msgstr "_"
+
+This renders to "Úkoly" with the Ú character underlined in the interface and
+you can access this link with "U" as the access key.
 
 
 Right-to-Left Languages

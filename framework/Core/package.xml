@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-09</date>
+ <date>2015-01-16</date>
  <version>
-  <release>2.18.4</release>
-  <api>2.18.0</api>
+  <release>2.19.0</release>
+  <api>2.19.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Support non-ascii latin characters as access keys.
 * [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
 * [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
  </notes>
@@ -3807,14 +3808,15 @@
   </release>
   <release>
    <version>
-    <release>2.18.4</release>
-    <api>2.18.0</api></version>
+    <release>2.19.0</release>
+    <api>2.19.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-01-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Support non-ascii latin characters as access keys.
 * [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
 * [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
    </notes>
