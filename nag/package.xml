@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2014-10-23</date>
+ <date>2015-01-16</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -512,7 +512,6 @@
       <file name="alarm_small.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
-      <file name="checkbox.png" role="horde" />
       <file name="checked.png" role="horde" />
       <file name="complete.png" role="horde" />
       <file name="delete.png" role="horde" />
@@ -988,7 +987,6 @@
    <install as="nag/themes/default/graphics/alarm_small.png" name="themes/default/graphics/alarm_small.png" />
    <install as="nag/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="nag/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
-   <install as="nag/themes/default/graphics/checkbox.png" name="themes/default/graphics/checkbox.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/complete.png" name="themes/default/graphics/complete.png" />
    <install as="nag/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
@@ -1624,7 +1622,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2014-10-23</date>
+   <date>2015-01-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Improve priority display in basic view.
