@@ -451,10 +451,15 @@ class IMP_Ajax_Application_ListMessages
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);
-            $from_ob = new IMP_Ajax_Addresses($getfrom['from_list']);
-            $msg['from'] = $from_ob->toArray()->addr;
-            if (isset($getfrom['from_label'])) {
-                $msg['fromlabel'] = $getfrom['from_label'];
+            if (count($getfrom['from_list'])) {
+                $from_ob = new IMP_Ajax_Addresses($getfrom['from_list']);
+                $msg['from'] = $from_ob->toArray()->addr;
+                if (isset($getfrom['from_label'])) {
+                    $msg['fromlabel'] = $getfrom['from_label'];
+                }
+            } else {
+                $msg['from'] = array();
+                $msg['fromlabel'] = $getfrom['from'];
             }
 
             /* Format the Subject: Header. */

@@ -520,7 +520,7 @@ var ImpBase = {
                             var links = [],
                                 title = [];
 
-                            r.from.each(function(f) {
+                            (r.from || []).each(function(f) {
                                 var display = (f.p || f.b).escapeHTML();
 
                                 switch (ImpCore.getPref('qsearch_field')) {
