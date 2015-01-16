@@ -113,4 +113,15 @@ class Horde_Test_Log extends Horde_Test_Case
         }
         $this->assertTrue($found, sprintf("Did not find \"%s\" in [\n%s\n]", $message, join("\n", $messages)));
     }
+
+    /**
+     * Utility function to return the array of logged events.
+     *
+     * @return array
+     */
+    public function getLogOutput()
+    {
+        return $this->_logHandler->events;
+    }
+
 }
