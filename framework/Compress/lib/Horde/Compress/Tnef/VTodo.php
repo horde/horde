@@ -343,11 +343,10 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     protected function _tovTodo()
     {
         $iCal = new Horde_Icalendar();
+        $iCal->setAttribute('METHOD', $this->_method);
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
         $vtodo->setAttribute('UID', $this->_guid);
-        $vtodo->setAttribute('METHOD', $this->_method);
-
         // For REQUESTS, we MUST have the ORGANIZER and an ATTENDEE.
         if ($this->_state == self::STATE_ASSIGNERS_COPY || $this->_ownership == self::OWNERSHIP_ASSIGNERS_COPY) {
             $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_lastUser);
