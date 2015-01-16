@@ -56,16 +56,18 @@
  </div>
 
  <div class="item">
-  <div id="no_search_mboxes"><?php echo _("No Search Mailboxes") ?></div>
-  <div id="search_mboxes" style="display:none"></div>
+  <div id="search_loading"><?php echo _("Loading...") ?></div>
 
-  <div class="searchAdd">
-   <select id="search_mboxes_add">
-    <?php echo $this->tree ?>
-   </select>
+  <div id="search_loaded" style="display:none">
+   <div id="no_search_mboxes"><?php echo _("No Search Mailboxes") ?></div>
+   <div id="search_mboxes" style="display:none"></div>
+
+   <div class="searchAdd">
+    <select id="search_mboxes_add"></select>
 <?php if ($this->subscribe): ?>
-   <a href="#" id="show_unsub"><?php echo _("Show Unsubscribed Mailboxes") ?></a>
+    <a href="#" id="show_unsub"><?php echo _("Show Unsubscribed Mailboxes") ?></a>
 <?php endif; ?>
+   </div>
   </div>
  </div>
 <?php endif; ?>

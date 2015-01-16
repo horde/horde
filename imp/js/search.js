@@ -10,7 +10,9 @@ var ImpSearch = {
 
     // The following variables are defined in PHP code:
     //   data, i_criteria, i_mboxes, i_recent, text
+
     criteria: {},
+    mbox_to_add: $H(),
     mboxes: $H(),
     saved_searches: {},
 
@@ -368,10 +370,17 @@ var ImpSearch = {
             $('search_mboxes_add').clear().up().show();
             this.mboxes = $H();
         }
+
+        this.mbox_to_add = $H();
     },
 
     insertMailbox: function(mbox, checked)
     {
+        if (!$('search_loaded').visible()) {
+            this.mbox_to_add.set(mbox, checked);
+            return;
+        }
+
         var div = new Element('DIV', { className: 'searchId' }),
             div2 = new Element('DIV', { className: 'searchElement' });
 
@@ -552,11 +561,7 @@ var ImpSearch = {
             break;
 
         case 'show_unsub':
-            HordeCore.doAction('searchMailboxList', {
-                unsub: 1
-            }, {
-                callback: this.showUnsubCallback.bind(this)
-            });
+            this.loadMailboxList(1);
             elt.remove();
             e.memo.stop();
             break;
@@ -658,18 +663,34 @@ var ImpSearch = {
         );
     },
 
-    showUnsubCallback: function(r)
+    loadMailboxList: function(unsub)
     {
-        var sfa = $('search_mboxes_add'),
-            vals = sfa.select('[disabled]').pluck('value');
+        HordeCore.doAction('searchMailboxList', {
+            unsub: unsub
+        }, {
+            callback: function(r) {
+                var sfa = $('search_mboxes_add'),
+                    vals = sfa.select('[disabled]').pluck('value');
 
-        this.data.mbox_list = r.mbox_list;
-        sfa.update(r.tree);
-        vals.each(function(v) {
-            if (v.length) {
-                this.disableMailbox(true, v);
-            }
-        }, this);
+                this.data.mbox_list = r.mbox_list;
+                sfa.update(r.tree);
+
+                $('search_loading').hide();
+                $('search_loaded').show();
+
+                vals.each(function(v) {
+                    if (v.length) {
+                        this.disableMailbox(true, v);
+                    }
+                }, this);
+
+                this.mbox_to_add.each(function(pair) {
+                    this.insertMailbox(pair.key, pair.value);
+                }, this);
+
+                this.mbox_to_add = $H();
+            }.bind(this)
+        });
     },
 
     onDomLoad: function()
@@ -677,6 +698,11 @@ var ImpSearch = {
         if (!this.data) {
             this.onDomLoad.bind(this).delay(0.1);
             return;
+        }
+
+        /* Asynchronously load the mailbox list. */
+        if ($('search_loading')) {
+            this.loadMailboxList(0);
         }
 
         HordeCore.initHandler('click');

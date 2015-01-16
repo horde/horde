@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mms] Asynchronously load the mailbox list on the advanced search page.
 [mms] Automatically try to rotate embedded inline images when displaying a
       message.
 [mms] Add ability to add email groups to the address book.

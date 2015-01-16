@@ -454,14 +454,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
         }
         $view->flist = $flag_set;
 
-        /* Generate master mailbox list. */
-        $mbox_list = array();
         if (!$view->edit_query_filter) {
             $js_vars['ImpSearch.allsearch'] = IMP_Mailbox::formTo(IMP_Search_Query::ALLSEARCH);
-            $ob = $injector->getInstance('IMP_Search_Ui')->getSearchMboxList();
-            $mbox_list = $ob->mbox_list;
             $view->subscribe = $prefs->getValue('subscribe');
-            $view->tree = $ob->tree->getTree();
         }
 
         /* Prepare the topbar. */
@@ -484,7 +479,6 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 'constants' => $constants,
                 'dynamic_view' => $dynamic_view,
                 'inbox' => IMP_Mailbox::get('INBOX')->form_to,
-                'mbox_list' => $mbox_list,
                 'months' => Horde_Core_Ui_JsCalendar::months(),
                 'searchmbox' => $default_mailbox->form_to,
                 'types' => $types
