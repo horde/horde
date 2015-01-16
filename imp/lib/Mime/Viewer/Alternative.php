@@ -64,7 +64,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
     protected function _IMPrender($inline)
     {
         $base_id = $this->_mimepart->getMimeId();
-        $subparts = $this->_mimepart->contentTypeMap();
+        $full_subparts = $this->_mimepart->contentTypeMap();
 
         $display_ids = $ret = array();
 
@@ -77,7 +77,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
          * one viewable part, we will display all viewable subparts of that
          * alternative. */
         $imp_contents = $this->getConfigParam('imp_contents');
-        foreach ($subparts as $mime_id => $type) {
+        foreach ($full_subparts as $mime_id => $type) {
             $ret[$mime_id] = null;
             if ((strcmp($base_id, $mime_id) !== 0) &&
                 $imp_contents->canDisplay($mime_id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL) &&
@@ -109,7 +109,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         end($display_ids);
         $curr_id = key($display_ids);
         while (!is_null($curr_id) && (strcmp($base_id, $curr_id) !== 0)) {
-            if (isset($subparts[$curr_id])) {
+            if (isset($full_subparts[$curr_id])) {
                 $disp_id = $curr_id;
             }
 
@@ -125,9 +125,15 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
         $render_part = $this->_mimepart->getPart($disp_id);
         $need_render = $subparts = $render_part->contentTypeMap();
 
+        /* Track whether there is at least one viewable (non-empty) part. */
+        $viewable = false;
+
         foreach (array_keys($subparts) as $val) {
             if (isset($display_ids[$val]) && isset($need_render[$val])) {
-                $render = $this->getConfigParam('imp_contents')->renderMIMEPart($val, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
+                $render = $this->getConfigParam('imp_contents')->renderMIMEPart(
+                    $val,
+                    $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL
+                );
 
                 foreach (array_keys($render) as $id) {
                     unset($need_render[$id]);
@@ -138,9 +144,16 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
                         }
                     } else {
                         $ret[$id] = $render[$id];
+                        if (!is_null($ret[$id])) {
+                            $viewable = true;
+                        }
                     }
                 }
             }
+        }
+
+        if (!$inline) {
+            return null;
         }
 
         unset($need_render[$disp_id]);
@@ -148,9 +161,28 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
             unset($ret[$val]);
         }
 
-        return $inline
-            ? $ret
-            : null;
+        /* If we reach this point, and have at least one subpart with no
+         * viewable parts, check to see there is not a richer, non-inline
+         * viewable part that exists in the message. */
+        if (!$viewable) {
+            $id_ob = new Horde_Mime_Id($disp_id);
+            if (isset($full_subparts[$id_ob->idArithmetic($id_ob::ID_NEXT)])) {
+                $ret[$disp_id] = array(
+                    'data' => '',
+                    'status' => new IMP_Mime_Status(
+                        $this->_mimepart,
+                        array(
+                            _("This part contains no message contents."),
+                            /* TODO: list other alternative parts? */
+                            _("There are no alternative parts that can be displayed inline.")
+                        )
+                    ),
+                    'type' => 'text/html; charset=' . $this->getConfigParam('charset')
+                );
+            }
+        }
+
+        return $ret;
     }
 
 }
