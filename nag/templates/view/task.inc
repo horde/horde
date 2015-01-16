@@ -1,7 +1,7 @@
 <div class="horde-buttonbar">
   <ul>
 <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)): ?>
-<?php if (!$task->completed): ?>
+<?php if (!$task->completed && $task->childrenCompleted()): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $task->complete_link, 'title' => _("_Complete"), 'class' => 'nag-complete')) ?></li>
 <?php endif ?>
 <?php if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()): ?>

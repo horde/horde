@@ -17,17 +17,28 @@ class Nag_CompleteTask {
                 $notification->push(_("Access denied completing this task."), 'horde.error');
             } else {
                 $wasCompleted = $task->completed;
-                $task->toggleComplete();
-                $task->save();
-                if ($task->completed) {
+                $task->loadChildren();
+                if ($wasCompleted &&
+                    $task->parent &&
+                    $task->parent->completed) {
                     $result = array('data' => 'complete');
-                    $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
-                } elseif (!$wasCompleted) {
+                    $notification->push(_("Completed parent task, mark it as incomplete first"), 'horde.error');
+                } elseif (!$wasCompleted && !$task->childrenCompleted()) {
                     $result = array('data' => 'incomplete');
-                    $notification->push(sprintf(_("%s is still incomplete."), $task->name), 'horde.success');
+                    $notification->push(_("Incomplete sub tasks, complete them first"), 'horde.error');
                 } else {
-                    $result = array('data' => 'incomplete');
-                    $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
+                    $task->toggleComplete();
+                    $task->save();
+                    if ($task->completed) {
+                        $result = array('data' => 'complete');
+                        $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
+                    } elseif (!$wasCompleted) {
+                        $result = array('data' => 'incomplete');
+                        $notification->push(sprintf(_("%s is still incomplete."), $task->name), 'horde.success');
+                    } else {
+                        $result = array('data' => 'incomplete');
+                        $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
+                    }
                 }
             }
         } catch (Exception $e) {
@@ -37,5 +48,4 @@ class Nag_CompleteTask {
 
         return $result;
     }
-
 }
