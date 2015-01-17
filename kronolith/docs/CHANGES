@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[rla] Handle external organizers and responses (Request #3965).
 [mjr] Honor the UID value sent from EAS clients directly in the message
       structure.
 [jan] Add entries for Tasks and Agenda to top menu.
