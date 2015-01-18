@@ -5688,6 +5688,8 @@ KronolithCore = {
             }
             $('kronolithEventId').clear();
             $('kronolithEventCalendar').clear();
+            $('kronolithEventStatus').disabled = false;
+            $('kronolithEventAttend').hide();
             $('kronolithEventTarget').setValue(Kronolith.conf.default_calendar);
             $('kronolithEventDelete').hide();
             $('kronolithEventStartDate').setValue(d.toString(Kronolith.conf.date_format));

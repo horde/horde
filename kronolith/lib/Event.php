@@ -2444,6 +2444,8 @@ abstract class Kronolith_Event
             if ($this->organizer) {
                 $json->o = $this->organizer;
                 $json->oy = Kronolith::isUserEmail($this->creator, $this->organizer);
+            } else {
+                $json->oy = true;
             }
             if ($this->methods) {
                 $json->m = $this->methods;
