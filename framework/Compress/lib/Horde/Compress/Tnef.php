@@ -324,8 +324,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $id_len = $this->_geti($data, 32);
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
                     $this->_logger->debug(sprintf(
-                        'TNEF: Named Id: %s', substr($this->_getx($data, $data_len)))
-                    );
+                        'TNEF: Named Id: %s',
+                        substr($this->_getx($data, $data_len))
+                    ));
                     break;
 
                 default:
