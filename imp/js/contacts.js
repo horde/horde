@@ -175,6 +175,7 @@ var ImpContacts = {
             break;
 
         case 'btn_search_all':
+            $('search').value = '';
             this.contactsSearch();
             break;
 
