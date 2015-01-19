@@ -591,8 +591,21 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                             }
                         }
                         $item->setListComponents($components);
-                    } elseif ($blocked) {
-                        $val->removeRule($val2);
+                    } else {
+                        switch ($val2->getRule()) {
+                        case 'cursor':
+                            /* Don't allow overriding default pointer rules,
+                             * since this can make visual recognition of
+                             * clickable elements difficult. */
+                            $val->removeRule($val2);
+                            break;
+
+                        default:
+                            if ($blocked) {
+                                $val->removeRule($val2);
+                            }
+                            break;
+                        }
                     }
                 }
             } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
