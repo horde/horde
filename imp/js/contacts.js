@@ -37,22 +37,22 @@ var ImpContacts = {
         );
     },
 
-    addAddress: function(f)
+    addAddress: function(where)
     {
-        var d, l, option, s = $('search_results');
+        var selected, length, option, results = $('search_results');
 
-        if (!$F(s).size()) {
+        if (!$F(results).size()) {
             alert(this.text.select);
         } else {
-            d = $('selected_addresses');
-            l = $A(d).size();
-            s.childElements().each(function(i) {
+            selected = $('selected_addresses');
+            length = $A(selected).size();
+            results.childElements().each(function(i) {
                 if (i.value && i.selected) {
-                    if (!$A(d).any(function(j) {
-                        return this.sameOption(f, i, j);
+                    if (!$A(selected).any(function(j) {
+                        return this.sameOption(where, i, j);
                     }, this)) {
-                        option = this.text.rcpt[f] + ': ' + i.value;
-                        d[l++] = new Option(option, option);
+                        option = this.text.rcpt[where] + ': ' + i.value;
+                        selected[length++] = new Option(option, option);
                     }
                 }
             }, this);
