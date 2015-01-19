@@ -534,9 +534,7 @@ var ImpBase = {
                                 links.push(
                                     '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + display + '</a>'
                                 );
-                                if (f.b) {
-                                    title.push(escapeAttr(f.b));
-                                }
+                                title.push(escapeAttr((f.b || f.v).truncate(50)));
                             });
 
                             r.from = ((r.fromlabel || '') + ' ' + links.join(', ')).strip();
