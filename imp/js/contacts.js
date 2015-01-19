@@ -39,7 +39,7 @@ var ImpContacts = {
 
     addAddress: function(where)
     {
-        var selected, length, option, results = $('search_results');
+        var selected, length, results = $('search_results');
 
         if (!$F(results).size()) {
             alert(this.text.select);
@@ -51,8 +51,10 @@ var ImpContacts = {
                     if (!$A(selected).any(function(j) {
                         return this.sameOption(where, i, j);
                     }, this)) {
-                        option = this.text.rcpt[where] + ': ' + i.value;
-                        selected[length++] = new Option(option, option);
+                        selected[length++] = new Option(
+                            this.text.rcpt[where] + ': ' + i.value,
+                            where + ': ' + i.value
+                        );
                     }
                 }
             }, this);
