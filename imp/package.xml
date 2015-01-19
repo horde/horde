@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix adding addresses from address book popup (Bug #13806).
 * [mjr] Fix fatal error when viewing a vTodo with attendees.
 * [jan] Make dependency on File_ASN1 optional.
 * [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
@@ -3800,6 +3801,7 @@
    <date>2015-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix adding addresses from address book popup (Bug #13806).
 * [mjr] Fix fatal error when viewing a vTodo with attendees.
 * [jan] Make dependency on File_ASN1 optional.
 * [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.

@@ -2,6 +2,7 @@
 v6.2.6-git
 ----------
 
+[jan] Fix adding addresses from address book popup (Bug #13806).
 [mjr] Fix fatal error when viewing a vTodo with attendees.
 [jan] Make dependency on File_ASN1 optional.
 [mms] Fix double listing of mailboxes in certain instances when subscriptions
