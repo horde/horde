@@ -521,7 +521,7 @@ var ImpBase = {
                                 title = [];
 
                             (r.from || []).each(function(f) {
-                                var display = (f.p || f.b).escapeHTML();
+                                var display = (f.p || f.g || f.b).escapeHTML();
 
                                 switch (ImpCore.getPref('qsearch_field')) {
                                 case 'all':
@@ -534,7 +534,9 @@ var ImpBase = {
                                 links.push(
                                     '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + display + '</a>'
                                 );
-                                title.push(escapeAttr(f.b));
+                                if (f.b) {
+                                    title.push(escapeAttr(f.b));
+                                }
                             });
 
                             r.from = ((r.fromlabel || '') + ' ' + links.join(', ')).strip();
