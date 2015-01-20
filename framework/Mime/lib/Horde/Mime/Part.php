@@ -423,6 +423,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setContents($contents, $options = array())
     {
+        if (is_resource($contents) && ($contents === $this->_contents)) {
+            return;
+        }
+
         if (empty($options['encoding'])) {
             $options['encoding'] = $this->_transferEncoding;
         }
@@ -430,6 +434,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $fp = (empty($options['usestream']) || !is_resource($contents))
             ? $this->_writeStream($contents)
             : $contents;
+
+        /* Properly close the existing stream. */
+        $this->clearContents();
 
         $this->setTransferEncoding($options['encoding']);
         $this->_contents = $this->_transferDecode($fp, $options['encoding']);
