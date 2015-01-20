@@ -739,6 +739,94 @@ C
         );
     }
 
+    public function testNullCharactersNotAllowedInMimeHeaderData()
+    {
+        $part = new Horde_Mime_Part();
+
+        $part->setType("text/pl\0ain");
+        $this->assertEquals(
+            'text/plain',
+            $part->getType()
+        );
+
+        $part->setDisposition("inl\0ine");
+        $this->assertEmpty($part->getDisposition());
+
+        $part->setDispositionParameter('size', '123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getDispositionParameter('size')
+        );
+
+        $part->setDispositionParameter('foo', "foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getDispositionParameter('foo')
+        );
+
+        $part->setCharset("utf\0-8");
+        $this->assertEquals(
+            'utf-8',
+            $part->getCharset()
+        );
+
+        $part->setName("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getName()
+        );
+        $this->assertEquals(
+            'foobar',
+            $part->getDispositionParameter('filename')
+        );
+        $this->assertEquals(
+            'foobar',
+            $part->getContentTypeParameter('name')
+        );
+
+        $part->setLanguage("e\0n");
+        $this->assertEquals(
+            array('en'),
+            $part->getLanguage()
+        );
+
+        $part->setLanguage(array("e\0n", "d\0e"));
+        $this->assertEquals(
+            array('en', 'de'),
+            $part->getLanguage()
+        );
+
+        $part->setDuration('123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getDuration()
+        );
+
+        $part->setBytes('123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getBytes()
+        );
+
+        $part->setDescription("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getDescription()
+        );
+
+        $part->setContentTypeParameter('foo', "foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getContentTypeParameter('foo')
+        );
+
+        $part->setContentId("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getContentId()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

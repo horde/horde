@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
  </notes>
  <contents>
@@ -1619,6 +1620,7 @@
    <date>2015-01-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
    </notes>
   </release>

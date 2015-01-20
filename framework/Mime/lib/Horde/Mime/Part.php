@@ -342,12 +342,12 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return;
         }
 
-        $this->_dispParams[$label] = $data;
+        $this->_dispParams[$label] = $this->_sanitizeHeaderData($data);
 
         switch ($label) {
         case 'size':
             // RFC 2183 [2.7] - size parameter
-            $this->_bytes = intval($data);
+            $this->_bytes = intval($this->_sanitizeHeaderData($data));
             break;
         }
     }
@@ -614,7 +614,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return;
         }
 
-        list($this->_type, $this->_subtype) = explode('/', Horde_String::lower($type));
+        list($this->_type, $this->_subtype) = explode(
+            '/',
+            Horde_String::lower($this->_sanitizeHeaderData($type))
+        );
 
         if (in_array($this->_type, self::$mimeTypes)) {
             /* Set the boundary string for 'multipart/*' parts. */
@@ -716,8 +719,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Get the character set to use for this part.
      *
-     * @return string  The character set of this part. Returns null if there
-     *                 is no character set.
+     * @return string  The character set of this part (lowercase). Returns
+     *                 null if there is no character set.
      */
     public function getCharset()
     {
@@ -763,9 +766,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setLanguage($lang)
     {
-        $this->_language = is_array($lang)
-            ? $lang
-            : array($lang);
+        $this->_language = array();
+
+        foreach ((is_array($lang) ? $lang : array($lang)) as $val) {
+            $this->_language[] = $this->_sanitizeHeaderData($val);
+        }
     }
 
     /**
@@ -790,7 +795,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (is_null($duration)) {
             unset($this->_duration);
         } else {
-            $this->_duration = intval($duration);
+            $this->_duration = intval($this->_sanitizeHeaderData($duration));
         }
     }
 
@@ -815,7 +820,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setDescription($description)
     {
-        $this->_description = $description;
+        $this->_description = $this->_sanitizeHeaderData($description);
     }
 
     /**
@@ -1001,7 +1006,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function setContentTypeParameter($label, $data)
     {
         if (strlen($data)) {
-            $this->_contentTypeParams[$label] = $data;
+            $this->_contentTypeParams[$label] = $this->_sanitizeHeaderData($data);
         }
     }
 
@@ -1555,7 +1560,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (is_null($this->_contentid)) {
             $this->_contentid = is_null($cid)
                 ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-                : trim($cid, '<>');
+                : trim($this->_sanitizeHeaderData($cid), '<>');
         }
 
         return $this->_contentid;
@@ -2002,6 +2007,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         return $filter_params->body;
     }
+
+    /**
+     * Sanitize header-related MIME data.
+     *
+     * @param string $data  Header data.
+     *
+     * @return string  Sanitized data.
+     **/
+    protected function _sanitizeHeaderData($data)
+    {
+        return str_replace("\0", '', $data);
+    }
+
+    /* Static methods. */
 
     /**
      * Attempts to build a Horde_Mime_Part object from message text.
