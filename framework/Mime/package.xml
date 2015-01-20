@@ -19,7 +19,7 @@
  </lead>
  <date>2015-01-20</date>
  <version>
-  <release>2.7.0</release>
+  <release>2.7.1</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix setting a MIME part&apos;s contents when the data is the current stream resource of that part.
-* [mms] Fix MIME encoding the Content-Description header (Bug #13814).
-* [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1609,6 +1607,19 @@
 * [mms] Fix setting a MIME part&apos;s contents when the data is the current stream resource of that part.
 * [mms] Fix MIME encoding the Content-Description header (Bug #13814).
 * [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.1</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
