@@ -24,7 +24,7 @@
  </lead>
  <date>2015-01-20</date>
  <version>
-  <release>6.2.6</release>
+  <release>6.2.7</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix adding addresses from address book popup (Bug #13806).
-* [mjr] Fix fatal error when viewing a vTodo with attendees.
-* [jan] Make dependency on File_ASN1 optional.
-* [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3805,6 +3802,19 @@
 * [mjr] Fix fatal error when viewing a vTodo with attendees.
 * [jan] Make dependency on File_ASN1 optional.
 * [mms] Fix double listing of mailboxes in certain instances when subscriptions are active and unsubscribed mailboxes are shown.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.7</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
