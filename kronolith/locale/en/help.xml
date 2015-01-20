@@ -136,7 +136,7 @@
     Events can be made to repeat in various ways. Many events repeat in certain
     frequently used ways. For example, the &quot;Monthly&quot; recurrence types
     make the selected item repeat each month and the &quot;Weekly&quot;
-    recurrence type makes the selected item repeat each per week. These can be
+    recurrence type makes the selected item repeat each week. These can be
     made to represent events that repeat in complex ways: for example, an item
     that occurs on the third Friday of each month, or an item that occurs on
     Monday, Wednesday, and Friday every week.
@@ -163,7 +163,7 @@
     following are examples of code to use to embed each view on an external
     blog or website. You should obviously edit the code with the correct server
     address and calendar name.  The 'container' parameter is arbitrary, but must
-    both match the DOM id of the the div element and be unique across the whole
+    both match the DOM id of the div element and be unique across the whole
     page you are embedding in.
   </para>
   <para>
