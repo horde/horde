@@ -29,10 +29,24 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         $hdrs->addHeader('Resent-To', 'foo2@example.com');
         $hdrs->addHeader('Resent-To', 'foo3@example.com');
 
+        $ct = new Horde_Mime_Headers_ContentParam(
+            'Content-Type',
+            'text/plain; charset="us-ascii"'
+        );
+        $hdrs->addHeaderOb($ct);
+
+        $cd = new Horde_Mime_Headers_ContentParam(
+            'Content-Disposition',
+            'attachment; filename="foo"'
+        );
+        $hdrs->addHeaderOb($cd);
+
         $hdrs2 = clone $hdrs;
 
         $hdrs->addHeader('To', 'bar@example.com');
         $hdrs->addHeader('Resent-To', 'bar2@example.com');
+        $ct['charset'] = 'utf-8';
+        $cd['filename'] = 'bar';
 
         $this->assertEquals(
             'foo@example.com',
@@ -41,6 +55,14 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('foo2@example.com', 'foo3@example.com'),
             $hdrs2['Resent-To']->value
+        );
+        $this->assertEquals(
+            array('charset' => 'us-ascii'),
+            $hdrs2['Content-Type']->params
+        );
+        $this->assertEquals(
+            array('filename' => 'foo'),
+            $hdrs2['Content-Disposition']->params
         );
     }
 

@@ -37,6 +37,15 @@ implements ArrayAccess, Serializable
 
     /**
      */
+    public function __clone()
+    {
+        $this->_params = new Horde_Support_CaseInsensitiveArray(
+            $this->_params->getArrayCopy()
+        );
+    }
+
+    /**
+     */
     public function __get($name)
     {
         switch ($name) {
