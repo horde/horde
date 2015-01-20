@@ -467,7 +467,7 @@ class IMP_Ajax_Queue
 
             $subject = $show_msg->getSubject();
             $msg->subject = $subject['subject'];
-            if (!$subject['subject'] !== $subject['title']) {
+            if ($subject['subject'] !== $subject['title']) {
                 $msg->title = $subject['title'];
             }
             if (isset($subject['subjectlink'])) {
