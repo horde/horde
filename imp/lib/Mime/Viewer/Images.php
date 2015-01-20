@@ -222,9 +222,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
     /**
      */
-    protected function _renderImgData($base64 = null)
+    protected function _renderImgData($base64 = false)
     {
         $data = $this->_mimepart->getContents(array('stream' => true));
+
         if ($base64) {
             stream_filter_append(
                 $data,
@@ -232,6 +233,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 STREAM_FILTER_READ
             );
         }
+
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $data,
