@@ -184,8 +184,9 @@ implements ArrayAccess, IteratorAggregate, Serializable
      *
      * @param string $header  The header name.
      * @param string $value   The header value (UTF-8).
+     * @param array $opts     DEPRECATED
      */
-    public function addHeader($header, $value)
+    public function addHeader($header, $value, array $opts = array())
     {
         /* Existing header? Add to that object. */
         $header = trim($header);
