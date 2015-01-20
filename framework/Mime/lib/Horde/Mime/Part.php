@@ -1897,7 +1897,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                     while (!feof($d)) {
                         fwrite($fp, fread($d, 8192));
                     }
-                } else {
+                } elseif (is_string($d)) {
                     $len = strlen($d);
                     $i = 0;
                     while ($i < $len) {
