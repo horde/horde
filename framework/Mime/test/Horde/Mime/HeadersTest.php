@@ -203,9 +203,9 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider headerCharsetConversionProvider
+     * @dataProvider headerEncodeProvider
      */
-    public function testHeaderCharsetConversion(
+    public function testHeaderEncode(
         $header, $values, $charset, $encoded
     )
     {
@@ -233,7 +233,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function headerCharsetConversionProvider()
+    public function headerEncodeProvider()
     {
         return array(
             /* Single address header */
@@ -258,6 +258,17 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 array(
                     '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
                     'Foo <foo@example.com>'
+                )
+            ),
+            /* Bug #13814 */
+            array(
+                'Content-Description',
+                array(
+                    'AüA'
+                ),
+                'utf-8',
+                array(
+                    '=?utf-8?b?QcO8QQ==?='
                 )
             )
         );

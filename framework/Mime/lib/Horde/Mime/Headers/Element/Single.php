@@ -76,7 +76,6 @@ extends Horde_Mime_Headers_Element
             // MIME: RFC 2045
             'content-transfer-encoding',
             'content-id',
-            'content-description',
             // MIME: RFC 2110
             'content-base',
             // MIME: RFC 2424

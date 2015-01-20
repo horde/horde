@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-29</date>
+ <date>2015-01-20</date>
  <version>
-  <release>2.6.2</release>
-  <api>2.6.0</api>
+  <release>2.7.0</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix MIME encoding the Content-Description header (Bug #13814).
 * [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
  </notes>
  <contents>
@@ -65,6 +66,7 @@
        </dir> <!-- /lib/Horde/Mime/Headers/Element -->
        <file name="Addresses.php" role="php" />
        <file name="AddressesMulti.php" role="php" />
+       <file name="ContentDescription.php" role="php" />
        <file name="ContentParam.php" role="php" />
        <file name="Date.php" role="php" />
        <file name="Deprecated.php" role="php" />
@@ -542,6 +544,7 @@
    <install as="Horde/Mime/Filter/Encoding.php" name="lib/Horde/Mime/Filter/Encoding.php" />
    <install as="Horde/Mime/Headers/Addresses.php" name="lib/Horde/Mime/Headers/Addresses.php" />
    <install as="Horde/Mime/Headers/AddressesMulti.php" name="lib/Horde/Mime/Headers/AddressesMulti.php" />
+   <install as="Horde/Mime/Headers/ContentDescription.php" name="lib/Horde/Mime/Headers/ContentDescription.php" />
    <install as="Horde/Mime/Headers/ContentParam.php" name="lib/Horde/Mime/Headers/ContentParam.php" />
    <install as="Horde/Mime/Headers/Date.php" name="lib/Horde/Mime/Headers/Date.php" />
    <install as="Horde/Mime/Headers/Deprecated.php" name="lib/Horde/Mime/Headers/Deprecated.php" />
@@ -1594,14 +1597,15 @@
   </release>
   <release>
    <version>
-    <release>2.6.2</release>
-    <api>2.6.0</api></version>
+    <release>2.7.0</release>
+    <api>2.7.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-29</date>
+   <date>2015-01-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix MIME encoding the Content-Description header (Bug #13814).
 * [mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part object.
    </notes>
   </release>
