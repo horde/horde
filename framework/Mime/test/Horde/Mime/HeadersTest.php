@@ -696,4 +696,21 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testContentLanguageHeaderGeneration()
+    {
+        $hdrs = new Horde_Mime_Headers();
+
+        $this->assertNull($hdrs['content-language']);
+
+        $hdrs->addHeader('content-language', 'en');
+
+        $ob = $hdrs['content-language'];
+
+        $this->assertNotNull($ob);
+        $this->assertInstanceOf(
+            'Horde_Mime_Headers_ContentLanguage',
+            $ob
+        );
+    }
+
 }

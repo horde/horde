@@ -19,8 +19,8 @@
  </lead>
  <date>2015-01-20</date>
  <version>
-  <release>2.7.1</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
 * [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
@@ -68,6 +69,7 @@
        <file name="Addresses.php" role="php" />
        <file name="AddressesMulti.php" role="php" />
        <file name="ContentDescription.php" role="php" />
+       <file name="ContentLanguage.php" role="php" />
        <file name="ContentParam.php" role="php" />
        <file name="Date.php" role="php" />
        <file name="Deprecated.php" role="php" />
@@ -546,6 +548,7 @@
    <install as="Horde/Mime/Headers/Addresses.php" name="lib/Horde/Mime/Headers/Addresses.php" />
    <install as="Horde/Mime/Headers/AddressesMulti.php" name="lib/Horde/Mime/Headers/AddressesMulti.php" />
    <install as="Horde/Mime/Headers/ContentDescription.php" name="lib/Horde/Mime/Headers/ContentDescription.php" />
+   <install as="Horde/Mime/Headers/ContentLanguage.php" name="lib/Horde/Mime/Headers/ContentLanguage.php" />
    <install as="Horde/Mime/Headers/ContentParam.php" name="lib/Horde/Mime/Headers/ContentParam.php" />
    <install as="Horde/Mime/Headers/Date.php" name="lib/Horde/Mime/Headers/Date.php" />
    <install as="Horde/Mime/Headers/Deprecated.php" name="lib/Horde/Mime/Headers/Deprecated.php" />
@@ -1613,14 +1616,15 @@
   </release>
   <release>
    <version>
-    <release>2.7.1</release>
-    <api>2.7.0</api></version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-01-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
 * [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.

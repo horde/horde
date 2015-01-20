@@ -11,6 +11,22 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.8
+================
+
+  - Horde_Mime_Headers_ContentLanguage
+
+    This class has been added.
+
+
+Upgrading to 2.7
+================
+
+  - Horde_Mime_Headers_ContentDescription
+
+    This class has been added.
+
+
 Upgrading to 2.6
 ================
 

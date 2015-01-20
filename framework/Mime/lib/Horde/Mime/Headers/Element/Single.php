@@ -84,8 +84,6 @@ extends Horde_Mime_Headers_Element
             'content-location',
             // MIME: RFC 2912 [3]
             'content-features',
-            // MIME: RFC 3282
-            'content-language',
             // MIME: RFC 3297
             'content-alternative',
             // Lists: RFC 2369

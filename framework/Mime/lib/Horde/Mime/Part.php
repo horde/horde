@@ -24,7 +24,7 @@
 class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 {
     /* Serialized version. */
-    const VERSION = 1;
+    const VERSION = 2;
 
     /* The character(s) used internally for EOLs. */
     const EOL = "\n";
@@ -109,18 +109,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_contents;
 
     /**
+     * The MIME headers for this part.
+     *
+     * @var Horde_Mime_Headers
+     */
+    protected $_headers;
+
+    /**
      * The desired transfer encoding of this part.
      *
      * @var string
      */
     protected $_transferEncoding = self::DEFAULT_ENCODING;
-
-    /**
-     * The language(s) of this part.
-     *
-     * @var array
-     */
-    protected $_language = array();
 
     /**
      * The description of this part.
@@ -246,10 +246,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var array
      */
     protected $_serializedVars = array(
+        '_headers',
         '_type',
         '_subtype',
         '_transferEncoding',
-        '_language',
         '_description',
         '_disposition',
         '_dispParams',
@@ -272,6 +272,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function __construct()
     {
+        $this->_headers = new Horde_Mime_Headers();
         $this->_init();
     }
 
@@ -766,11 +767,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setLanguage($lang)
     {
-        $this->_language = array();
-
-        foreach ((is_array($lang) ? $lang : array($lang)) as $val) {
-            $this->_language[] = $this->_sanitizeHeaderData($val);
-        }
+        $this->_headers->addHeaderOb(
+            new Horde_Mime_Headers_ContentLanguage('', $lang)
+        );
     }
 
     /**
@@ -780,7 +779,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getLanguage()
     {
-        return $this->_language;
+        return $this->_headers['content-language']->langs;
     }
 
     /**
@@ -1102,8 +1101,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         );
 
         /* Add the language(s), if set. (RFC 3282 [2]) */
-        if ($langs = $this->getLanguage()) {
-            $headers->addHeader('Content-Language', implode(',', $langs));
+        if (isset($this->_headers['content-language'])) {
+            $headers->addHeaderOb($this->_headers['content-language']);
         }
 
         /* Get the description, if any. */
