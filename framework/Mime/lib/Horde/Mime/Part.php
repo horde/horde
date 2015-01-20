@@ -423,7 +423,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setContents($contents, $options = array())
     {
-        $this->clearContents();
         if (empty($options['encoding'])) {
             $options['encoding'] = $this->_transferEncoding;
         }

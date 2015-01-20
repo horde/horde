@@ -721,6 +721,24 @@ C
         );
     }
 
+    public function testNoOverwriteOfPartContentsWithItsOwnStreamData()
+    {
+        $text = 'foo';
+
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents($text);
+
+        $stream = $part->getContents(array('stream' => true));
+
+        $part->setContents($stream);
+
+        $this->assertEquals(
+            $text,
+            $part->getContents()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
