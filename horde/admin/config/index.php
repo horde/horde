@@ -68,6 +68,11 @@ $nosql = new Horde_Core_Nosql();
 $vars = $injector->getInstance('Horde_Variables');
 $a = $registry->listAllApps();
 
+/* Check for suspicious missing of migration data. */
+if (!in_array('Horde_Core', $migration->apps)) {
+    $notification->push(_("Database migration files not found. Please check PEAR's data_dir configuration setting."), 'horde.error');
+}
+
 /* Check for versions if requested. */
 $versions = array();
 if ($vars->check_versions) {
