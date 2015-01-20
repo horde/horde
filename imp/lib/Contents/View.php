@@ -404,7 +404,8 @@ class IMP_Contents_View
             $render = $this->_contents->renderMIMEPart($id, IMP_Contents::RENDER_RAW);
             $part = reset($render);
             $mime->setContents($part['data'], array(
-                'encoding' => 'binary'
+                'encoding' => 'binary',
+                'usestream' => true
             ));
         }
 
