@@ -87,7 +87,9 @@ implements ArrayAccess, Serializable
             if (!empty($data->value)) {
                 $this->_values = array($data->value);
             }
-            $this->decode($data->params);
+            if (!empty($data->params)) {
+                $this->decode($data->params);
+            }
         } else {
             $this->decode($data);
         }
