@@ -52,6 +52,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const ID_DATE_END                       = 0x30007;
     const AIDOWNER                          = 0x50008;
 
+    // @todo These should all be MAPI_TYPE_*
+    const MAPI_TYPE_UNSPECIFIED             = 0x0000;
     const MAPI_NULL                         = 0x0001;
     const MAPI_SHORT                        = 0x0002;
     const MAPI_INT                          = 0x0003;
@@ -343,6 +345,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             switch ($attr_type) {
             case self::MAPI_NULL:
+            case self::MAPI_TYPE_UNSPECIFIED:
                 break;
 
             case self::MAPI_SHORT:
