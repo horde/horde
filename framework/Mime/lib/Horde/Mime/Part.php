@@ -95,13 +95,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_transferEncoding = self::DEFAULT_ENCODING;
 
     /**
-     * The description of this part.
-     *
-     * @var string
-     */
-    protected $_description = '';
-
-    /**
      * The subparts of this part.
      *
      * @var array
@@ -192,7 +185,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_serializedVars = array(
         '_headers',
         '_transferEncoding',
-        '_description',
         '_parts',
         '_mimeid',
         '_eol',
@@ -723,11 +715,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Set the description of this part.
      *
-     * @param string $description  The description of this part.
+     * @param string $description  The description of this part. If null,
+     *                             deletes the description (@since 2.8.0).
      */
     public function setDescription($description)
     {
-        $this->_description = $this->_sanitizeHeaderData($description);
+        if (is_null($description)) {
+            unset($this->_headers['content-description']);
+        } else {
+            if (!($hdr = $this->_headers['content-description'])) {
+                $hdr = new Horde_Mime_Headers_ContentDescription(null, '');
+                $this->_headers->addHeaderOb($hdr);
+            }
+            $hdr->setValue($description);
+        }
     }
 
     /**
@@ -740,13 +741,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getDescription($default = false)
     {
-        $desc = $this->_description;
-
-        if ($default && empty($desc)) {
-            $desc = $this->getName();
+        if (($ob = $this->_headers['content-description']) &&
+            strlen($ob->value)) {
+            return $ob->value;
         }
 
-        return $desc;
+        return $default
+            ? $this->getName()
+            : '';
     }
 
     /**
@@ -1000,8 +1002,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Get the description, if any. */
-        if (($descrip = $this->getDescription())) {
-            $headers->addHeader('Content-Description', $descrip);
+        if ($hdr = $this->_headers['content-description']) {
+            $headers->addHeaderOb($hdr);
         }
 
         /* Set the duration, if it exists. (RFC 3803) */

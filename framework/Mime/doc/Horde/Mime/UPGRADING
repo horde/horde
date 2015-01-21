@@ -36,6 +36,10 @@ Upgrading to 2.8
       Passing null as the second argument will cause the Content-Disposition
       parameter identified by the first argument to be deleted.
 
+    - setDescription()
+
+      Passing null as the argument will cause the description to be deleted.
+
   - Horde_Mime_Headers_ContentLanguage
 
     This class has been added.
