@@ -315,8 +315,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 // PROPERTY_NAME_SPACE contains the GUID for the named property
                 // namespace.
                 $this->_getx($data, 16);
-                $named_type = $this->_geti($data, 32);
 
+                // The type of named property, an ID or STRING.
+                $named_type = $this->_geti($data, 32);
                 switch ($named_type) {
                 case self::MAPI_NAMED_TYPE_ID:
                     $attr_name =$this->_geti($data, 32);
@@ -330,7 +331,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $id_len = $this->_geti($data, 32);
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
                     $this->_logger->debug(sprintf(
-                        'TNEF: Named Id: %s',
+                        'TNEF: Named String Id: %s',
                         substr($this->_getx($data, $data_len)), 0, $id_len)
                     );
                     break;
