@@ -178,15 +178,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $ct = Horde_Mime_Headers_ContentParam_ContentType::create();
         $ct['charset'] = self::$defaultCharset;
         $this->_headers->addHeaderOb($ct);
-
-        $this->_init();
-    }
-
-    /**
-     * Initialization tasks.
-     */
-    protected function _init()
-    {
     }
 
     /**
@@ -2280,8 +2271,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             ($data[0] != self::VERSION)) {
             throw new Exception('Cache version change');
         }
-
-        $this->_init();
 
         $this->_headers = $data[1];
         $this->_transferEncoding = $data[2];
