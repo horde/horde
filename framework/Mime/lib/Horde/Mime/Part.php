@@ -44,6 +44,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /* MIME nesting limit. */
     const NESTING_LIMIT = 100;
 
+    /* Status mask value: Need to reindex the current part. */
+    const STATUS_REINDEX = 1;
+    /* Status mask value: This is the base MIME part. */
+    const STATUS_BASEPART = 2;
+
     /**
      * The default charset to use when parsing text parts with no charset
      * information.
@@ -86,6 +91,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var Horde_Mime_Headers
      */
     protected $_headers;
+
+    /**
+     * Status mask for this part.
+     *
+     * @var integer
+     */
+    protected $_status = 0;
 
     /**
      * The desired transfer encoding of this part.
@@ -141,20 +153,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @var integer
      */
     protected $_bytes;
-
-    /**
-     * Do we need to reindex the current part?
-     *
-     * @var boolean
-     */
-    protected $_reindex = false;
-
-    /**
-     * Is this the base MIME part?
-     *
-     * @var boolean
-     */
-    protected $_basepart = false;
 
     /**
      * The charset to output the headers in.
@@ -761,7 +759,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function addPart($mime_part)
     {
         $this->_parts[] = $mime_part;
-        $this->_reindex = true;
+        $this->_status |= self::STATUS_REINDEX;
     }
 
     /**
@@ -832,7 +830,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $this;
         }
 
-        if ($this->_reindex) {
+        if ($this->_status & self::STATUS_REINDEX) {
             $this->buildMimeIds(is_null($this_id) ? '1' : $this_id);
         }
 
@@ -859,7 +857,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 case 'remove':
                     if ($match) {
                         unset($this->_parts[$key]);
-                        $this->_reindex = true;
+                        $this->_status |= self::STATUS_REINDEX;
                         return true;
                     }
                     return $val->removePart($id);
@@ -976,7 +974,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Per RFC 2046[4], this MUST appear in the base message headers. */
-        if ($this->_basepart) {
+        if ($this->_status & self::STATUS_BASEPART) {
             $headers->addHeaderOb(Horde_Mime_Headers_MimeVersion::create());
         }
 
@@ -1493,7 +1491,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
         }
 
-        $this->_reindex = false;
+        $this->_status &= ~self::STATUS_REINDEX;
     }
 
     /**
@@ -1540,7 +1538,11 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function isBasePart($base)
     {
-        $this->_basepart = $base;
+        if (empty($base)) {
+            $this->_status &= ~self::STATUS_BASEPART;
+        } else {
+            $this->_status |= self::STATUS_BASEPART;
+        }
     }
 
     /**
@@ -1597,8 +1599,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function send($email, $headers, Horde_Mail_Transport $mailer,
                          array $opts = array())
     {
-        $old_basepart = $this->_basepart;
-        $this->_basepart = true;
+        $old_status = $this->_status;
+        $this->isBasePart(true);
 
         /* Does the SMTP backend support 8BITMIME (RFC 1652)? */
         $canonical = true;
@@ -1653,7 +1655,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
         }
 
-        $this->_basepart = $old_basepart;
+        $this->_status = $old_status;
         $rfc822 = new Horde_Mail_Rfc822();
         try {
             $mailer->send($rfc822->parseAddressList($email)->writeAddress(array(
@@ -2237,16 +2239,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $data = array(
             // Serialized data ID.
             self::VERSION,
-            $this->_headers,
-            $this->_transferEncoding,
-            $this->_parts,
-            $this->_mimeid,
-            $this->_eol,
-            $this->_metadata,
             $this->_bytes,
-            $this->_reindex,
-            $this->_basepart,
-            $this->_hdrCharset
+            $this->_eol,
+            $this->_hdrCharset,
+            $this->_headers,
+            $this->_metadata,
+            $this->_mimeid,
+            $this->_parts,
+            $this->_status,
+            $this->_transferEncoding
         );
 
         if (!empty($this->_contents)) {
@@ -2272,19 +2273,19 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Exception('Cache version change');
         }
 
-        $this->_headers = $data[1];
-        $this->_transferEncoding = $data[2];
-        $this->_parts = $data[3];
-        $this->_mimeid = $data[4];
-        $this->_eol = $data[5];
-        $this->_metadata = $data[6];
-        $this->_bytes = $data[7];
-        $this->_reindex = $data[8];
-        $this->_basepart = $data[9];
-        $this->_hdrCharset = $data[10];
+        $key = 0;
+        $this->_bytes = $data[++$key];
+        $this->_eol = $data[++$key];
+        $this->_hdrCharset = $data[++$key];
+        $this->_headers = $data[++$key];
+        $this->_metadata = $data[++$key];
+        $this->_mimeid = $data[++$key];
+        $this->_parts = $data[++$key];
+        $this->_status = $data[++$key];
+        $this->_transferEncoding = $data[++$key];
 
-        if (isset($data[11])) {
-            $this->setContents($data[11]);
+        if (isset($data[++$key])) {
+            $this->setContents($data[$key]);
         }
     }
 
