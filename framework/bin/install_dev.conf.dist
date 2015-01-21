@@ -11,6 +11,9 @@ $git = false;
 // The list of apps to create symlinks for
 $apps = array();
 
+// Don't install framework?
+$no_framework = false;
+
 // The location of the horde-git repository
 $horde_git = '';
 
