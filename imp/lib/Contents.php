@@ -819,7 +819,21 @@ class IMP_Contents
 
         /* Download column. */
         if ($is_atc && ($mask & self::SUMMARY_DOWNLOAD)) {
-            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
+            $part['download'] = $this->linkView(
+                $mime_part,
+                'download_attach',
+                '',
+                array(
+                    'attr' => array(
+                        /* Can't rely on base 'download' tag. Because XHTML
+                         * requires an attribute, have to put some sort of
+                         * filename in the attribute. */
+                        'download' => $mime_part->getName(true) ?: $mime_part->getPrimaryType()
+                    ),
+                    'class' => 'iconImg downloadAtc',
+                    'jstext' => _("Download")
+                )
+            );
             $part['download_url'] = $this->urlView($mime_part, 'download_attach');
         }
 
@@ -918,16 +932,20 @@ class IMP_Contents
      * @param integer $actionID           The actionID value.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional parameters:
+     * <pre>
+     *   - attr: (array) Additional attributed to set on the link.
      *   - class: (string) The CSS class to use.
      *   - jstext: (string) The JS text to use.
      *   - params: (array) A list of any additional parameters that need to be
      *             passed to the download/view page.
+     * </pre>
      *
      * @return string  A HTML href link to the download/view page.
      */
     public function linkView($mime_part, $actionID, $text, $options = array())
     {
         $options = array_merge(array(
+            'attr' => array(),
             'class' => null,
             'jstext' => $text,
             'params' => array()
@@ -937,7 +955,11 @@ class IMP_Contents
             $this->urlView($mime_part, $actionID, $options),
             $options['jstext'],
             $options['class'],
-            ($actionID == 'download_attach') ? null : strval(new Horde_Support_Randomid())
+            ($actionID == 'download_attach') ? null : strval(new Horde_Support_Randomid()),
+            '',
+            '',
+            '',
+            $options['attr']
         ) . $text . '</a>';
     }
 
