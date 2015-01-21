@@ -42,6 +42,17 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Nag from 4.x to 5.x
+=============================
+
+
+Configuration
+-------------
+
+The 'table' configuration option has been removed, the database table has a
+fixed name now.
+
+
 Upgrading Nag from 2.2.x to 2.3.x
 =================================
 

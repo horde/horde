@@ -42,8 +42,16 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
-Upgrading Mnemo to 5.0.0
-========================
+Upgrading Mnemo from 4.x to 5.x
+===============================
+
+
+Configuration
+-------------
+
+The 'table' configuration option has been removed, the database table has a
+fixed name now.
+
 
 API Changes
 -----------
