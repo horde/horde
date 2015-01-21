@@ -359,7 +359,14 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function changeLanguage()
     {
-        $GLOBALS['injector']->getInstance('IMP_Ftree')->init();
+        global $injector;
+
+        $injector->getInstance('IMP_Mailbox_SessionCache')->expire(array(
+            IMP_Mailbox_SessionCache::CACHE_DISPLAY,
+            IMP_Mailbox_SessionCache::CACHE_LABEL
+        ));
+
+        $injector->getInstance('IMP_Ftree')->init();
     }
 
     /* NoSQL methods. */
