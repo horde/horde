@@ -164,24 +164,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_hdrCharset = null;
 
     /**
-     * The list of member variables to serialize.
-     *
-     * @var array
-     */
-    protected $_serializedVars = array(
-        '_headers',
-        '_transferEncoding',
-        '_parts',
-        '_mimeid',
-        '_eol',
-        '_metadata',
-        '_bytes',
-        '_reindex',
-        '_basepart',
-        '_hdrCharset'
-    );
-
-    /**
      * Constructor.
      */
     public function __construct()
@@ -2263,12 +2245,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     {
         $data = array(
             // Serialized data ID.
-            self::VERSION
+            self::VERSION,
+            $this->_headers,
+            $this->_transferEncoding,
+            $this->_parts,
+            $this->_mimeid,
+            $this->_eol,
+            $this->_metadata,
+            $this->_bytes,
+            $this->_reindex,
+            $this->_basepart,
+            $this->_hdrCharset
         );
-
-        foreach ($this->_serializedVars as $val) {
-            $data[] = $this->$val;
-        }
 
         if (!empty($this->_contents)) {
             $data[] = $this->_readStream($this->_contents);
@@ -2289,19 +2277,25 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $data = @unserialize($data);
         if (!is_array($data) ||
             !isset($data[0]) ||
-            (array_shift($data) != self::VERSION)) {
+            ($data[0] != self::VERSION)) {
             throw new Exception('Cache version change');
         }
 
         $this->_init();
 
-        foreach ($this->_serializedVars as $key => $val) {
-            $this->$val = $data[$key];
-        }
+        $this->_headers = $data[1];
+        $this->_transferEncoding = $data[2];
+        $this->_parts = $data[3];
+        $this->_mimeid = $data[4];
+        $this->_eol = $data[5];
+        $this->_metadata = $data[6];
+        $this->_bytes = $data[7];
+        $this->_reindex = $data[8];
+        $this->_basepart = $data[9];
+        $this->_hdrCharset = $data[10];
 
-        // $key now contains the last index of _serializedVars.
-        if (isset($data[++$key])) {
-            $this->setContents($data[$key]);
+        if (isset($data[11])) {
+            $this->setContents($data[11]);
         }
     }
 
