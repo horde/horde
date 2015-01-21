@@ -2274,13 +2274,18 @@ class Horde_Registry implements Horde_Shutdown_Task
      */
     public function downloadUrl($filename, array $params = array())
     {
-        return $this->getServiceLink('download', $this->getApp())
+        $url = $this->getServiceLink('download', $this->getApp())
             /* Add parameters. */
-            ->add($params)
+            ->add($params);
+
+        if (strlen($filename)) {
             /* Add the filename to the end of the URL. Although not necessary
              * for many browsers, this should allow every browser to download
              * correctly. */
-            ->add('fn', '/' . $filename);
+            $url->add('fn', '/' . $filename);
+        }
+
+        return $url;
     }
 
     /**
