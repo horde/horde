@@ -459,6 +459,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_currentObject->method = 'REQUEST';
                 $this->_files[] = $this->_currentObject;
                 break;
+            case self::IPM_MEETING_RESPONSE_TENT:
+            case self::IPM_MEETING_RESPONSE_NEG:
+            case self::IPM_MEETING_RESPONSE_POS:
+                $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->method = 'REPLY';
+                $this->_files[] = $this->_currentObject;
+                break;
             case self::IPM_MEETING_REQUEST_CANCELLED:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
                 $this->_currentObject->method = 'CANCEL';
