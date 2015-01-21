@@ -184,7 +184,7 @@ class Horde_Mapi_Timezone
             mktime(24, 0, 0, 12, 31, $date->year)
         );
 
-        if ($transistions === false) {
+        if ($transitions === false) {
             return array();
         }
 
