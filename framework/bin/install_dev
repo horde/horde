@@ -20,11 +20,11 @@ array_shift($argv);
 /* Defaults */
 $apps = array();
 $debug = $git = $no_framework = false;
-$horde_git = $static_group = $web_dir = '';
+$framework = $horde_git = $static_group = $web_dir = '';
 $static_mode = 0775;
 
 if (count($argv)) {
-    $options = $c->getopt2($argv, '', array('apps=', 'config=', 'debug', 'git', 'group=', 'hordegit=', 'mode=', 'noframework=', 'webdir='));
+    $options = $c->getopt2($argv, '', array('apps=', 'config=', 'debug', 'framework=', 'git', 'group=', 'hordegit=', 'mode=', 'noframework=', 'webdir='));
     if ($options instanceof PEAR_Error) {
         exit("Invalid arguments.\n");
     }
@@ -41,6 +41,10 @@ if (count($argv)) {
 
         case '--debug':
             $debug = (bool)$val[1];
+            break;
+
+        case '--framework':
+            $framework = $val[1];
             break;
 
         case '--git':
@@ -74,6 +78,9 @@ if (count($argv)) {
 
 $horde_git = rtrim(ltrim($horde_git), '/ ');
 $web_dir = rtrim(ltrim($web_dir), '/ ');
+if (!$framework) {
+    $framework = escapeshellarg($horde_git) . '/framework';
+}
 
 if ($git && ($git === true)) {
     $git = 'git fetch && ( git rebase -v origin || ( git stash && ( git rebase -v origin || echo "WARNING: Run \'git stash pop\' manually!" ) && git stash pop ) )';
@@ -197,5 +204,5 @@ if ($apps) {
 if (!$no_framework) {
     print "\nLINKING framework\n";
     mkdir($web_dir . '/libs');
-    system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
+    system(__DIR__ . '/install_framework --src ' . $framework . ' --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
 }
