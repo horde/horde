@@ -153,8 +153,11 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
         }
 
         $tz = new Horde_Mapi_Timezone();
-        $this->timezone = $tz->getSyncTZFromOffsets(
-            $tz->getOffsetsFromDate(new Horde_Date()));
+        try {
+            $this->timezone = $tz->getSyncTZFromOffsets(
+                $tz->getOffsetsFromDate(new Horde_Date($this->_vEvent->getAttribute('DTSTART')))
+            );
+        } catch (Horde_Icalendar_Exception $e) {}
         $this->alldayevent = (int)$this->_isAllDay();
     }
 
