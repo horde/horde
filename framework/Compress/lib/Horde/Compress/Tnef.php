@@ -391,7 +391,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 }
                 break;
             default:
-                $this->_logger->notice('TNEF: Unknown attribute type!');
+                $this->_logger->notice(sprintf(
+                    'TNEF: Unknown attribute type, "0x%04X"',
+                    $attr_type)
+                );
             }
 
             // @todo Utility method to make this log more readable.
