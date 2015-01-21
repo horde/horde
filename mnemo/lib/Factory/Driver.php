@@ -56,10 +56,13 @@ class Mnemo_Factory_Driver
 
             switch ($class) {
             case 'Mnemo_Driver_Sql':
-                $params = array(
-                    'db' => $this->_injector->getInstance('Horde_Db_Adapter'),
-                    'charset' => $params['charset'],
-                );
+                if ($params['driverconfig'] != 'Horde') {
+                    $customParams = $params;
+                    unset($customParams['driverconfig'], $customParams['table']);
+                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('nag', $customParams);
+                } else {
+                    $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
+                }
                 break;
 
             case 'Mnemo_Driver_Kolab':
