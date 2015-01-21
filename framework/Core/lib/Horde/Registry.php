@@ -2888,6 +2888,12 @@ class Horde_Registry implements Horde_Shutdown_Task
 
         if ($changed) {
             $this->rebuild();
+
+            foreach ($this->listApps() as $app) {
+                if ($this->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
+                    $this->callAppMethod($app, 'changeLanguage');
+                }
+            }
         }
 
         return $lang;

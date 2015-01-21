@@ -19,13 +19,9 @@ Horde_Registry::appInit('horde');
 $vars = $injector->getInstance('Horde_Variables');
 
 /* Set the language. */
-$session->set('horde', 'language', $registry->preferredLang($vars->new_lang));
-$prefs->setValue('language', $session->get('horde', 'language'));
-
-/* Update apps language */
-foreach ($registry->listApps() as $app) {
-    $registry->callAppMethod($app, 'changeLanguage');
-}
+$lang = $registry->preferredLang($vars->new_lang);
+$prefs->setValue('language', $lang);
+$registry->setLanguageEnvironment($lang);
 
 /* Redirect to the url or login page if none given. */
 $url = isset($vars->url)

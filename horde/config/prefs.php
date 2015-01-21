@@ -384,13 +384,9 @@ $_prefs['language'] = array(
         $ui->prefs['language']['enum'] = $enum;
     },
     'on_change' => function() {
-        global $prefs, $registry;
-        $registry->setLanguageEnvironment($prefs->getValue('language'));
-        foreach ($registry->listApps() as $app) {
-            if ($registry->isAuthenticated(array('app' => $app, 'notransparent' => true))) {
-                $registry->callAppMethod($app, 'changeLanguage');
-            }
-        }
+        $GLOBALS['registry']->setLanguageEnvironment(
+            $GLOBALS['prefs']->getValue('language')
+        );
     }
 );
 
