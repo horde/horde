@@ -143,13 +143,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_bytes;
 
     /**
-     * The duration of this part's media data (RFC 3803).
-     *
-     * @var integer
-     */
-    protected $_duration;
-
-    /**
      * Do we need to reindex the current part?
      *
      * @var boolean
@@ -183,7 +176,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         '_eol',
         '_metadata',
         '_bytes',
-        '_duration',
         '_reindex',
         '_basepart',
         '_hdrCharset'
@@ -684,9 +676,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function setDuration($duration)
     {
         if (is_null($duration)) {
-            unset($this->_duration);
+            unset($this->_headers['content-duration']);
         } else {
-            $this->_duration = intval($this->_sanitizeHeaderData($duration));
+            if (!($hdr = $this->_headers['content-duration'])) {
+                $hdr = new Horde_Mime_Headers_Element_Single(
+                    'Content-Duration',
+                    ''
+                );
+                $this->_headers->addHeaderOb($hdr);
+            }
+            $hdr->setValue($duration);
         }
     }
 
@@ -699,8 +698,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getDuration()
     {
-        return isset($this->_duration)
-            ? $this->_duration
+        return ($hdr = $this->_headers['content-duration'])
+            ? intval($hdr->value)
             : null;
     }
 
@@ -999,8 +998,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Set the duration, if it exists. (RFC 3803) */
-        if (($duration = $this->getDuration()) !== null) {
-            $headers->addHeader('Content-Duration', $duration);
+        if ($hdr = $this->_headers['content-duration']) {
+            $headers->addHeaderOb($hdr);
         }
 
         /* Per RFC 2046[4], this MUST appear in the base message headers. */
