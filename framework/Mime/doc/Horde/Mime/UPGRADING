@@ -41,8 +41,17 @@ Upgrading to 2.8
       Passing null as the argument will cause the description to be deleted.
 
   - Horde_Mime_Headers_ContentLanguage
+  - Horde_Mime_Headers_ContentParam_ContentDisposition
+  - Horde_Mime_Headers_ContentParam_ContentType
 
-    This class has been added.
+    These classes have been added.
+
+  - Horde_Mime_Headers_ContentParam
+
+    - setContentParamValue()
+
+      This method has been added.
+
 
 
 Upgrading to 2.7
