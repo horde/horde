@@ -19,12 +19,12 @@ array_shift($argv);
 
 /* Defaults */
 $apps = array();
-$debug = $git = false;
+$debug = $git = $no_framework = false;
 $horde_git = $static_group = $web_dir = '';
 $static_mode = 0775;
 
 if (count($argv)) {
-    $options = $c->getopt2($argv, '', array('apps=', 'config=', 'debug', 'git', 'group=', 'hordegit=', 'mode=', 'webdir='));
+    $options = $c->getopt2($argv, '', array('apps=', 'config=', 'debug', 'git', 'group=', 'hordegit=', 'mode=', 'noframework=', 'webdir='));
     if ($options instanceof PEAR_Error) {
         exit("Invalid arguments.\n");
     }
@@ -57,6 +57,10 @@ if (count($argv)) {
 
         case '--mode':
             $mode = $val[1];
+            break;
+
+        case '--noframework':
+            $no_framework = $val[1];
             break;
 
         case '--webdir':
@@ -190,6 +194,8 @@ if ($apps) {
     }
 }
 
-print "\nLINKING framework\n";
-mkdir($web_dir . '/libs');
-system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
+if (!$no_framework) {
+    print "\nLINKING framework\n";
+    mkdir($web_dir . '/libs');
+    system(__DIR__ . '/install_framework --src ' . escapeshellarg($horde_git) . '/framework --dest ' . escapeshellarg($web_dir . '/libs') . ' --horde ' . escapeshellarg($web_dir));
+}
