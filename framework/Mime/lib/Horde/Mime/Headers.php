@@ -120,7 +120,7 @@ implements ArrayAccess, IteratorAggregate, Serializable
                 if (!empty($opts['defserver'])) {
                     $sopts['defserver'] = $opts['defserver'];
                 }
-            } elseif ($ob instanceof Horde_Mime_Headers_ContentParams) {
+            } elseif ($ob instanceof Horde_Mime_Headers_ContentParam) {
                 $sopts['broken_rfc2231'] = !empty($opts['broken_rfc2231']);
                 if (!empty($opts['lang'])) {
                     $sopts['lang'] = $opts['lang'];
