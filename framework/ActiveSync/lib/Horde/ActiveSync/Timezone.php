@@ -92,7 +92,7 @@ class Horde_ActiveSync_Timezone
         $tz['timezone'] = $tz['bias'];
         $tz['timezonedst'] = $tz['dstbias'];
 
-        if (!self::_isLittleEndian()) {
+        if (!Horde_Mapi::isLittleEndian()) {
             $tz['bias'] = self::_chbo($tz['bias']);
             $tz['stdbias'] = self::_chbo($tz['stdbias']);
             $tz['dstbias'] = self::_chbo($tz['dstbias']);
@@ -111,7 +111,7 @@ class Horde_ActiveSync_Timezone
      */
     public static function getSyncTZFromOffsets(array $offsets)
     {
-        if (!self::_isLittleEndian()) {
+        if (!Horde_Mapi::isLittleEndian()) {
             $offsets['bias'] = self::_chbo($offsets['bias']);
             $offsets['stdbias'] = self::_chbo($offsets['stdbias']);
             $offsets['dstbias'] = self::_chbo($offsets['dstbias']);
@@ -422,18 +422,6 @@ class Horde_ActiveSync_Timezone
             return $modified->month < $original->month &&
                    $modified2->month == $original->month;
        }
-    }
-
-    /**
-     * Determine if the current machine is little endian.
-     *
-     * @return boolean  True if endianness is little endian, otherwise false.
-     */
-    protected static function _isLittleEndian() {
-        $testint = 0x00FF;
-        $p = pack('S', $testint);
-
-        return ($testint === current(unpack('v', $p)));
     }
 
     /**
