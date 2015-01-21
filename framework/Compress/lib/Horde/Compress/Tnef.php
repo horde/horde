@@ -312,7 +312,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             // Named attributes.
             if (($attr_name >= 0x8000) && ($attr_name < 0xFFFE)) {
-                // GUID?
+                // PROPERTY_NAME_SPACE contains the GUID for the named property
+                // namespace.
                 $this->_getx($data, 16);
                 $named_type = $this->_geti($data, 32);
 
