@@ -302,9 +302,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             // Multivalue attributes.
             if (($attr_type & self::MAPI_MV_FLAG) != 0) {
-                $this->_logger->debug('TNEF: Multivalue attribute!');
                 $have_mval = true;
                 $attr_type = $attr_type & ~self::MAPI_MV_FLAG;
+                $this->_logger->debug(sprintf(
+                    'TNEF: Multivalue attribute of type: 0x%04X',
+                    $attr_type)
+                );
             }
 
             // Named attributes.
