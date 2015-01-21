@@ -175,6 +175,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part->setType('text/plain');
         $part->setContents('123');
         $part->setBytes(3);
+        $part->setDisposition('attachment');
 
         $this->assertEquals(
             "Content-Type: text/plain\r\n" .
@@ -310,7 +311,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 'foo/bar',
-                Horde_Mime_Part::UNKNOWN . '/bar',
+                'x-foo/bar',
                 false
             )
         );
@@ -402,6 +403,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
     {
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
+        $part->setContentTypeParameter('foo', 'bar');
         $part->setContents('Test');
 
         $part1 = unserialize(serialize($part));
@@ -409,6 +411,11 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Test',
             $part1->getContents()
+        );
+
+        $this->assertEquals(
+            array('foo' => 'bar'),
+            $part1->getAllContentTypeParameters()
         );
 
         $this->assertInternalType(
@@ -750,7 +757,10 @@ C
         );
 
         $part->setDisposition("inl\0ine");
-        $this->assertEmpty($part->getDisposition());
+        $this->assertEquals(
+            'inline',
+            $part->getDisposition()
+        );
 
         $part->setDispositionParameter('size', '123' . "\0" . '456');
         $this->assertEquals(

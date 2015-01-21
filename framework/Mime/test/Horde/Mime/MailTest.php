@@ -491,7 +491,7 @@ From: foo@example.com
 Message-ID: <%d.%s@mail.example.com>
 User-Agent: Horde Application Framework %d
 Date: %s, %d %s %d %d:%d:%d %s%d
-Content-Type: text/plain; charset=ISO-8859-1; format=flowed; DelSp=Yes
+Content-Type: text/plain; charset=iso-8859-1; format=flowed; DelSp=Yes
 MIME-Version: 1.0',
             $sent['header_text']
         );

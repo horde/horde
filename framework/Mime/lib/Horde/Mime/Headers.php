@@ -196,23 +196,17 @@ implements ArrayAccess, IteratorAggregate, Serializable
         }
 
         $classname = $this->_getHeaderClassName($header);
+        $ob = new $classname($header, $value);
 
         switch ($classname) {
-        case 'Horde_Mime_Headers_ContentParam':
-            /* TODO: BC */
-            if (empty($opts['params'])) {
-                $cd = $value;
-            } else {
-                $cd = new stdClass;
-                $cd->params = $opts['params'];
-                $cd->value = $value;
+        case 'Horde_Mime_Headers_ContentParam_ContentDisposition':
+        case 'Horde_Mime_Headers_ContentParam_ContentType':
+            /* BC */
+            if (!empty($opts['params'])) {
+                foreach ($opts['params'] as $key => $val) {
+                    $ob[$key] = $val;
+                }
             }
-
-            $ob = new $classname($header, $cd);
-            break;
-
-        default:
-            $ob = new $classname($header, $value);
             break;
         }
 
@@ -266,7 +260,8 @@ implements ArrayAccess, IteratorAggregate, Serializable
                 'Horde_Mime_Headers_Addresses',
                 'Horde_Mime_Headers_ContentDescription',
                 'Horde_Mime_Headers_ContentLanguage',
-                'Horde_Mime_Headers_ContentParam',
+                'Horde_Mime_Headers_ContentParam_ContentDisposition',
+                'Horde_Mime_Headers_ContentParam_ContentType',
                 'Horde_Mime_Headers_Date',
                 'Horde_Mime_Headers_Identification',
                 'Horde_Mime_Headers_MessageId',

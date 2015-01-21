@@ -29,14 +29,14 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         $hdrs->addHeader('Resent-To', 'foo2@example.com');
         $hdrs->addHeader('Resent-To', 'foo3@example.com');
 
-        $ct = new Horde_Mime_Headers_ContentParam(
-            'Content-Type',
-            'text/plain; charset="us-ascii"'
+        $ct = new Horde_Mime_Headers_ContentParam_ContentType(
+            null,
+            'text/plain; charset="iso-8859-1"'
         );
         $hdrs->addHeaderOb($ct);
 
-        $cd = new Horde_Mime_Headers_ContentParam(
-            'Content-Disposition',
+        $cd = new Horde_Mime_Headers_ContentParam_ContentDisposition(
+            null,
             'attachment; filename="foo"'
         );
         $hdrs->addHeaderOb($cd);
@@ -57,7 +57,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
             $hdrs2['Resent-To']->value
         );
         $this->assertEquals(
-            array('charset' => 'us-ascii'),
+            array('charset' => 'iso-8859-1'),
             $hdrs2['Content-Type']->params
         );
         $this->assertEquals(
@@ -696,20 +696,41 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testContentLanguageHeaderGeneration()
+    /**
+     * @dataProvider headerGenerationProvider
+     */
+    public function testHeaderGeneration($label, $data, $class)
     {
         $hdrs = new Horde_Mime_Headers();
 
-        $this->assertNull($hdrs['content-language']);
+        $this->assertNull($hdrs[$label]);
 
-        $hdrs->addHeader('content-language', 'en');
+        $hdrs->addHeader($label, $data);
 
-        $ob = $hdrs['content-language'];
+        $ob = $hdrs[$label];
 
         $this->assertNotNull($ob);
-        $this->assertInstanceOf(
-            'Horde_Mime_Headers_ContentLanguage',
-            $ob
+        $this->assertInstanceOf($class, $ob);
+    }
+
+    public function headerGenerationProvider()
+    {
+        return array(
+            array(
+                'content-disposition',
+                'inline',
+                'Horde_Mime_Headers_ContentParam_ContentDisposition'
+            ),
+            array(
+                'content-language',
+                'en',
+                'Horde_Mime_Headers_ContentLanguage'
+            ),
+            array(
+                'content-type',
+                'text/plain',
+                'Horde_Mime_Headers_ContentParam_ContentType'
+            )
         );
     }
 

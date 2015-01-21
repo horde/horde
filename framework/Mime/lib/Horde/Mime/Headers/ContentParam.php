@@ -51,7 +51,7 @@ implements ArrayAccess, Serializable
         switch ($name) {
         case 'full_value':
             $tmp = $this->value;
-            foreach ($this->_escapeParams($this->_params) as $key => $val) {
+            foreach ($this->_escapeParams($this->params) as $key => $val) {
                 $tmp .= '; ' . $key . '=' . $val;
             }
             return $tmp;
@@ -78,14 +78,14 @@ implements ArrayAccess, Serializable
 
         if ($data instanceof Horde_Mime_Headers_ContentParam) {
             if (empty($this->_values)) {
-                $this->_values = array($data->value);
+                $this->setContentParamValue($data->value);
             }
             foreach ($data->params as $key => $val) {
-                $this->_params[$key] = $this->_sanityCheck($val);
+                $this[$key] = $val;
             }
         } elseif (is_object($data)) {
             if (!empty($data->value)) {
-                $this->_values = array($data->value);
+                $this->setContentParamValue($data->value);
             }
             if (!empty($data->params)) {
                 $this->decode($data->params);
@@ -113,12 +113,7 @@ implements ArrayAccess, Serializable
      */
     public static function getHandles()
     {
-        return array(
-            // MIME: RFC 2045
-            'content-type',
-            // MIME: RFC 2183
-            'content-disposition'
-        );
+        return array();
     }
 
     /**
@@ -146,7 +141,7 @@ implements ArrayAccess, Serializable
 
         $out = array();
 
-        foreach ($this->_params as $key => $val) {
+        foreach ($this->params as $key => $val) {
             $out = array_merge($out, $this->_encode($key, $val, $opts));
         }
 
@@ -247,6 +242,23 @@ implements ArrayAccess, Serializable
     }
 
     /**
+     * Set the content-parameter base value.
+     *
+     * @since 2.8.0
+     *
+     * @param string $data  Value.
+     */
+    public function setContentParamValue($data)
+    {
+        $data = $this->_sanityCheck(trim($data));
+        if (($pos = strpos($data, ';')) !== false) {
+            $data = substr($data, 0, $pos);
+        }
+
+        $this->_values = array($data);
+    }
+
+    /**
      * Decodes a MIME content parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
@@ -263,7 +275,7 @@ implements ArrayAccess, Serializable
         } else {
             $parts = explode(';', $data, 2);
             if (isset($parts[0]) && (strpos($parts[0], '=') === false)) {
-                $this->_values = array(trim($parts[0]));
+                $this->setContentParamValue($parts[0]);
                 $param = isset($parts[1]) ? $parts[1] : null;
             } else {
                 $param = $data;
@@ -342,10 +354,13 @@ implements ArrayAccess, Serializable
 
         if (count($add)) {
             foreach ($add as $key => $val) {
-                $this->_params[$key] = $this->_sanityCheck($val);
+                /* When parsing a content-param string, lowercase all
+                 * parameter names to normalize. Only maintain case of
+                 * parameters explicitly added by calling code. */
+                $this[Horde_String::lower($key)] = $val;
             }
         } elseif (is_string($data)) {
-            $this->_values = array(trim($parts[0]));
+            $this->setContentParamValue($parts[0]);
         }
     }
 
@@ -385,8 +400,11 @@ implements ArrayAccess, Serializable
      */
     public function serialize()
     {
-        $this->_params = $this->params;
-        return serialize(get_object_vars($this));
+        $vars = array_filter(get_object_vars($this));
+        if (isset($vars['_params'])) {
+            $vars['_params'] = $vars['_params']->getArrayCopy();
+        }
+        return serialize($vars);
     }
 
     /**
@@ -395,13 +413,17 @@ implements ArrayAccess, Serializable
     {
         $data = unserialize($data);
 
-        foreach (unserialize($data) as $key => $val) {
-            if ($key != '_params') {
+        foreach ($data as $key => $val) {
+            switch ($key) {
+            case '_params':
+                $this->_params = new Horde_Support_CaseInsensitiveArray($val);
+                break;
+
+            default:
                 $this->$key = $val;
+                break;
             }
         }
-
-        $this->_setValue($data['_params']);
     }
 
 }

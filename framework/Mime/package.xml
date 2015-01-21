@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-20</date>
+ <date>2015-01-22</date>
  <version>
   <release>2.8.0</release>
   <api>2.8.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
 * [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.
@@ -61,6 +62,10 @@
        <file name="Encoding.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Filter -->
       <dir name="Headers">
+       <dir name="ContentParam">
+        <file name="ContentDisposition.php" role="php" />
+        <file name="ContentType.php" role="php" />
+       </dir> <!-- /lib/Horde/Mime/Headers/ContentParam -->
        <dir name="Element">
         <file name="Address.php" role="php" />
         <file name="Multiple.php" role="php" />
@@ -387,6 +392,11 @@
        <file name="sample_msg_eai_4.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
+      <dir name="Headers">
+       <file name="ContentDispositionTest.php" role="test" />
+       <file name="ContentLanguageTest.php" role="test" />
+       <file name="ContentTypeTest.php" role="test" />
+      </dir> <!-- /test/Horde/Mime/Headers -->
       <dir name="Mdn">
        <file name="NonTranslatedTest.php" role="test" />
       </dir> <!-- /test/Horde/Mime/Mdn -->
@@ -559,6 +569,8 @@
    <install as="Horde/Mime/Headers/Received.php" name="lib/Horde/Mime/Headers/Received.php" />
    <install as="Horde/Mime/Headers/Subject.php" name="lib/Horde/Mime/Headers/Subject.php" />
    <install as="Horde/Mime/Headers/UserAgent.php" name="lib/Horde/Mime/Headers/UserAgent.php" />
+   <install as="Horde/Mime/Headers/ContentParam/ContentDisposition.php" name="lib/Horde/Mime/Headers/ContentParam/ContentDisposition.php" />
+   <install as="Horde/Mime/Headers/ContentParam/ContentType.php" name="lib/Horde/Mime/Headers/ContentParam/ContentType.php" />
    <install as="Horde/Mime/Headers/Element/Address.php" name="lib/Horde/Mime/Headers/Element/Address.php" />
    <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
    <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
@@ -684,6 +696,9 @@
    <install as="Horde/Mime/fixtures/sample_msg_eai_3.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_3.txt" />
    <install as="Horde/Mime/fixtures/sample_msg_eai_4.txt" name="test/Horde/Mime/fixtures/sample_msg_eai_4.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
+   <install as="Horde/Mime/Headers/ContentDispositionTest.php" name="test/Horde/Mime/Headers/ContentDispositionTest.php" />
+   <install as="Horde/Mime/Headers/ContentLanguageTest.php" name="test/Horde/Mime/Headers/ContentLanguageTest.php" />
+   <install as="Horde/Mime/Headers/ContentTypeTest.php" name="test/Horde/Mime/Headers/ContentTypeTest.php" />
    <install as="Horde/Mime/Mdn/NonTranslatedTest.php" name="test/Horde/Mime/Mdn/NonTranslatedTest.php" />
   </filelist>
  </phprelease>
@@ -1621,9 +1636,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-20</date>
+   <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
 * [mms] Ensure that null bytes are filtered from MIME data that is contained in the headers.

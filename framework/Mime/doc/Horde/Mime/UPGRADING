@@ -14,6 +14,28 @@ This lists the API changes between releases of the package.
 Upgrading to 2.8
 ================
 
+  - Horde_Mime_Part
+
+    - $mimeTypes
+
+      This static property is deprecated.
+
+    - clearContentTypeParameter()
+
+      This method is deprecated. Use Horde_Mime_Part#setContentTypeParameter()
+      instead with null as the second argument to delete a Content-Type
+      parameter.
+
+    - setContentTypeParameter()
+
+      Passing null as the second argument will cause the Content-Type
+      parameter identified by the first argument to be deleted.
+
+    - setDispositionParameter()
+
+      Passing null as the second argument will cause the Content-Disposition
+      parameter identified by the first argument to be deleted.
+
   - Horde_Mime_Headers_ContentLanguage
 
     This class has been added.
