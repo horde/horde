@@ -143,13 +143,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_bytes;
 
     /**
-     * The content-ID for this part.
-     *
-     * @var string
-     */
-    protected $_contentid = null;
-
-    /**
      * The duration of this part's media data (RFC 3803).
      *
      * @var integer
@@ -190,7 +183,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         '_eol',
         '_metadata',
         '_bytes',
-        '_contentid',
         '_duration',
         '_reindex',
         '_basepart',
@@ -1039,8 +1031,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         }
 
         /* Add content ID information. */
-        if (!is_null($this->_contentid)) {
-            $headers->addHeader('Content-ID', '<' . $this->_contentid . '>');
+        if ($hdr = $this->_headers['content-id']) {
+            $headers->addHeaderOb($hdr);
         }
 
         return $headers;
@@ -1425,30 +1417,41 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * Sets the Content-ID header for this part.
      *
-     * @param string $cid  Use this CID (if not already set).  Else, generate
+     * @param string $cid  Use this CID (if not already set). Else, generate
      *                     a random CID.
      *
      * @return string  The Content-ID for this part.
      */
     public function setContentId($cid = null)
     {
-        if (is_null($this->_contentid)) {
-            $this->_contentid = is_null($cid)
-                ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-                : trim($this->_sanitizeHeaderData($cid), '<>');
+        if (!is_null($id = $this->getContentId())) {
+            return $id;
         }
 
-        return $this->_contentid;
+        $cid = is_null($cid)
+            ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
+            : trim($cid, '<>');
+
+        $this->_headers->addHeaderOb(
+            new Horde_Mime_Headers_Element_Single(
+                'Content-ID',
+                '<' . $cid . '>'
+            )
+        );
+
+        return $cid;
     }
 
     /**
      * Returns the Content-ID for this part.
      *
-     * @return string  The Content-ID for this part.
+     * @return string  The Content-ID for this part (null if not set).
      */
     public function getContentId()
     {
-        return $this->_contentid;
+        return ($hdr = $this->_headers['content-id'])
+            ? trim($hdr->value, '<>')
+            : null;
     }
 
     /**
