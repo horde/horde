@@ -179,11 +179,13 @@ class Horde_Mapi_Timezone
     {
 
         $std = $dst = array();
+var_dump(mktime(0, 0, 0, 12, 1, $date->year - 1));
+var_dump(mktime(24, 0, 0, 12, 31, $date->year));
         $transitions = $timezone->getTransitions(
             mktime(0, 0, 0, 12, 1, $date->year - 1),
             mktime(24, 0, 0, 12, 31, $date->year)
         );
-
+var_dump($transitions);
         foreach ($transitions as $i => $transition) {
             try {
                $d = new Horde_Date($transition['time']);
