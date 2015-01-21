@@ -309,7 +309,6 @@ class Horde_Core_Prefs_Ui
 
             if (isset($this->prefs[$pref]['on_init']) &&
                 is_callable($this->prefs[$pref]['on_init'])) {
-
                 $this->prefs[$pref]['on_init']($this);
             }
 
