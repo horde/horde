@@ -22,13 +22,6 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     protected $_db;
 
     /**
-     * Share table name
-     *
-     * @var string
-     */
-    protected $_table;
-
-    /**
      * Charset
      *
      * @var string
@@ -52,15 +45,14 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      */
     public function __construct($notepad, $params = array())
     {
-        if (empty($params['db']) || empty($params['table'])) {
-            throw new InvalidArgumentException('Missing required connection parameter(s).');
+        if (empty($params['db'])) {
+            throw new InvalidArgumentException('Missing required connection parameter.');
         }
         $this->_notepad = $notepad;
         $this->_db = $params['db'];
-        $this->_table = $params['table'];
         $this->_charset = $params['charset'];
 
-        $this->_column = $this->_db->column($params['table'], 'memo_body');
+        $this->_column = $this->_db->column('mnemo_memos', 'memo_body');
     }
 
     /**
@@ -70,7 +62,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      */
     public function retrieve()
     {
-        $query = sprintf('SELECT * FROM %s WHERE memo_owner = ?', $this->_table);
+        $query = 'SELECT * FROM mnemo_memos WHERE memo_owner = ?';
         $values = array($this->_notepad);
 
         try {
@@ -99,7 +91,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      */
     public function get($noteId, $passphrase = null)
     {
-        $query = 'SELECT * FROM ' . $this->_table .
+        $query = 'SELECT * FROM mnemo_memos' .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($this->_notepad, $noteId);
         try {
@@ -128,7 +120,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      */
     public function getByUID($uid, $passphrase = null)
     {
-        $query = 'SELECT * FROM ' . $this->_table . ' WHERE memo_uid = ?';
+        $query = 'SELECT * FROM mnemo_memos WHERE memo_uid = ?';
         $values = array($uid);
         try {
             $row = $this->_db->selectOne($query, $values);
@@ -159,7 +151,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     {
         $uid = strval(new Horde_Support_Uuid());
 
-        $query = 'INSERT INTO ' . $this->_table
+        $query = 'INSERT INTO mnemo_memos'
             . ' (memo_owner, memo_id, memo_desc, memo_body, memo_uid)'
             . ' VALUES (?, ?, ?, ?, ?)';
         $values = array(
@@ -191,7 +183,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
      */
     protected function _modify($noteId, $desc, $body, $tags)
     {
-        $query  = 'UPDATE ' . $this->_table
+        $query  = 'UPDATE mnemo_memos'
             . ' SET memo_desc = ?, memo_body = ?'
             . ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array(
@@ -226,7 +218,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         // Get the note's details for use later.
         $note = $this->get($noteId);
 
-        $query = 'UPDATE ' . $this->_table .
+        $query = 'UPDATE mnemo_memos' .
                  ' SET memo_owner = ?' .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($newNotepad, $this->_notepad, $noteId);
@@ -252,7 +244,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         // Get the note's details for use later.
         $note = $this->get($noteId);
 
-        $query = 'DELETE FROM ' . $this->_table .
+        $query = 'DELETE FROM mnemo_memos' .
                  ' WHERE memo_owner = ? AND memo_id = ?';
         $values = array($this->_notepad, $noteId);
 
@@ -274,8 +266,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
     protected function _deleteAll()
     {
         // Get list of notes we are removing so we can tell history about it.
-        $query = sprintf('SELECT memo_uid FROM %s WHERE memo_owner = ?',
-                         $this->_table);
+        $query = 'SELECT memo_uid FROM mnemo_memos WHERE memo_owner = ?';
         $values = array($this->_notepad);
         try {
             $ids = $this->_db->selectValues($query, $values);
@@ -283,7 +274,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             throw new Mnemo_Exception($e->getMessage());
         }
 
-        $query = sprintf('DELETE FROM %s WHERE memo_owner = ?', $this->_table);
+        $query = 'DELETE FROM mnemo_memos WHERE memo_owner = ?';
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -307,7 +298,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         if (empty($row['memo_uid'])) {
             $row['memo_uid'] = strval(new Horde_Support_Guid());
 
-            $query = 'UPDATE ' . $this->_table .
+            $query = 'UPDATE mnemo_memos' .
                 ' SET memo_uid = ?' .
                 ' WHERE memo_owner = ? AND memo_id = ?';
             $values = array($row['memo_uid'], $row['memo_owner'], $row['memo_id']);

@@ -53,12 +53,8 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
-        $this->_params = array_merge(array(
-            'table' => 'kronolith_resources'
-        ), $this->_params);
-
         $this->_driver = Kronolith::getDriver();
-        $this->_columns = $this->_db->columns($this->_params['table']);
+        $this->_columns = $this->_db->columns('kronolith_resources');
     }
 
     /**
@@ -243,7 +239,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             throw new Horde_Exception_PermissionDenied();
         }
         if ($resource->getId()) {
-            $query = 'UPDATE ' . $this->_params['table'] . ' SET resource_name = ?, '
+            $query = 'UPDATE kronolith_resources SET resource_name = ?, '
                 . 'resource_calendar = ? , resource_description = ?, '
                 . 'resource_response_type = ?, resource_type = ?, '
                 . 'resource_members = ?, resource_email = ? WHERE resource_id = ?';
@@ -263,7 +259,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
                 throw new Kronolith_Exception($e);
             }
         } else {
-            $query = 'INSERT INTO ' . $this->_params['table']
+            $query = 'INSERT INTO kronolith_resources'
                 . ' (resource_name, resource_calendar, '
                 .  'resource_description, resource_response_type, '
                 . ' resource_type, resource_members, resource_email)'
@@ -317,7 +313,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
 
         $this->_deleteResourceCalendar($resource->get('calendar'));
         try {
-            $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE resource_id = ?';
+            $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
             $this->_db->delete($query, array($resource->getId()));
         } catch (Horde_Db_Exception $e) {
             throw new Kronolith_Exception($e);
@@ -336,7 +332,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     {
         $query = 'SELECT resource_id, resource_name, resource_calendar, '
             . 'resource_description, resource_response_type, resource_type, '
-            . 'resource_members, resource_email FROM ' . $this->_params['table']
+            . 'resource_members, resource_email FROM kronolith_resources'
             . ' WHERE resource_id = ?';
 
         try {
@@ -366,7 +362,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function getResourceIdByCalendar($calendar)
     {
-        $query = 'SELECT resource_id FROM ' . $this->_params['table']
+        $query = 'SELECT resource_id FROM kronolith_resources'
             . ' WHERE resource_calendar = ?';
         try {
             $result = $this->_db->selectValue($query, array($calendar));
@@ -389,7 +385,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function isResourceCalendar($calendar)
     {
-        $query = 'SELECT count(*) FROM ' . $this->_params['table']
+        $query = 'SELECT count(*) FROM kronolith_resources'
             . ' WHERE resource_calendar = ?';
         try {
             return $this->_db->selectValue($query, array($calendar)) > 0;
@@ -418,9 +414,9 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             return array();
         }
 
-        $query = 'SELECT resource_id, resource_name, resource_calendar, resource_description,'
-            . ' resource_response_type, resource_type, resource_members, resource_email FROM '
-            . $this->_params['table'];
+        $query = 'SELECT resource_id, resource_name, resource_calendar,'
+            . ' resource_description, resource_response_type, resource_type,'
+            . ' resource_members, resource_email FROM kronolith_resources';
         if (count($filter)) {
             $clause = ' WHERE ';
             $i = 0;

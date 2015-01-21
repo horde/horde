@@ -42,6 +42,16 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Kronolith from 4.x to 5.x
+===================================
+
+Configuration
+-------------
+
+The 'table' configuration options have been removed, the database tables have
+fixed names now.
+
+
 Upgrading Kronolith from 2.3.x to 3.x
 =====================================
 

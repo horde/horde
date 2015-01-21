@@ -58,7 +58,6 @@ class Mnemo_Factory_Driver
             case 'Mnemo_Driver_Sql':
                 $params = array(
                     'db' => $this->_injector->getInstance('Horde_Db_Adapter'),
-                    'table' => 'mnemo_memos',
                     'charset' => $params['charset'],
                 );
                 break;

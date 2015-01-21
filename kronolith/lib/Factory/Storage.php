@@ -35,7 +35,6 @@ class Kronolith_Factory_Storage extends Horde_Core_Factory_Base
                 // Horde default DB config
                 $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             }
-            $params['table'] = $driver_params['table'];
         }
 
         if (class_exists($class)) {

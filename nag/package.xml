@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Remove configuration option for database table.
 * [jan] Improve priority display in basic view.
 * [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.
@@ -1625,6 +1626,7 @@
    <date>2015-01-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Remove configuration option for database table.
 * [jan] Improve priority display in basic view.
 * [jan] Display task list background color in basic view.
 * [jan] Import snooze information from iCalendar alarms.

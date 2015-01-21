@@ -29,9 +29,6 @@ class Nag_Driver_Sql extends Nag_Driver
     {
         $this->_tasklist = $tasklist;
         $this->_params = $params;
-        if (!isset($this->_params['table'])) {
-            $this->_params['table'] = 'nag_tasks';
-        }
         $this->_db = $this->_params['db'];
     }
 
@@ -76,17 +73,14 @@ class Nag_Driver_Sql extends Nag_Driver
     protected function _getBy($taskIds, $column)
     {
         if (!is_array($taskIds)) {
-            $query = sprintf('SELECT * FROM %s WHERE ' . $column . ' = ?',
-                             $this->_params['table']);
+            $query = 'SELECT * FROM nag_tasks WHERE ' . $column . ' = ?';
             $values = array($taskIds);
         } else {
             if (empty($taskIds)) {
                 throw new InvalidArgumentException('Must specify at least one task id');
             }
-            $query = sprintf('SELECT * FROM %s WHERE ' . $column . ' IN ('
-                . implode(',', array_fill(0, count($taskIds), '?')) . ')',
-                    $this->_params['table']
-            );
+            $query = 'SELECT * FROM nag_tasks WHERE ' . $column . ' IN ('
+                . implode(',', array_fill(0, count($taskIds), '?')) . ')';
             $values = $taskIds;
         }
 
@@ -143,16 +137,15 @@ class Nag_Driver_Sql extends Nag_Driver
     {
         $taskId = strval(new Horde_Support_Randomid());
 
-        $query = sprintf(
-            'INSERT INTO %s (task_owner, task_creator, task_assignee, '
+        $query =
+            'INSERT INTO nag_tasks (task_owner, task_creator, task_assignee, '
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
             . 'task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            $this->_params['table']);
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $values = array($this->_tasklist,
                         $task['owner'],
@@ -215,30 +208,29 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     protected function _modify($taskId, array $task)
     {
-        $query = sprintf('UPDATE %s SET' .
-                         ' task_creator = ?, ' .
-                         ' task_assignee = ?, ' .
-                         ' task_name = ?, ' .
-                         ' task_desc = ?, ' .
-                         ' task_start = ?, ' .
-                         ' task_due = ?, ' .
-                         ' task_priority = ?, ' .
-                         ' task_estimate = ?, ' .
-                         ' task_completed = ?, ' .
-                         ' task_completed_date = ?, ' .
-                         ' task_alarm = ?, ' .
-                         ' task_alarm_methods = ?, ' .
-                         ' task_parent = ?, ' .
-                         ' task_private = ?, ' .
-                         ' task_recurtype = ?, ' .
-                         ' task_recurinterval = ?, ' .
-                         ' task_recurenddate = ?, ' .
-                         ' task_recurcount = ?, ' .
-                         ' task_recurdays = ?, ' .
-                         ' task_exceptions = ?, ' .
-                         ' task_completions = ? ' .
-                         'WHERE task_owner = ? AND task_id = ?',
-                         $this->_params['table']);
+        $query = 'UPDATE nag_tasks SET ' .
+                 'task_creator = ?, ' .
+                 'task_assignee = ?, ' .
+                 'task_name = ?, ' .
+                 'task_desc = ?, ' .
+                 'task_start = ?, ' .
+                 'task_due = ?, ' .
+                 'task_priority = ?, ' .
+                 'task_estimate = ?, ' .
+                 'task_completed = ?, ' .
+                 'task_completed_date = ?, ' .
+                 'task_alarm = ?, ' .
+                 'task_alarm_methods = ?, ' .
+                 'task_parent = ?, ' .
+                 'task_private = ?, ' .
+                 'task_recurtype = ?, ' .
+                 'task_recurinterval = ?, ' .
+                 'task_recurenddate = ?, ' .
+                 'task_recurcount = ?, ' .
+                 'task_recurdays = ?, ' .
+                 'task_exceptions = ?, ' .
+                 'task_completions = ? ' .
+                 'WHERE task_owner = ? AND task_id = ?';
 
         $values = array($task['owner'],
                         $task['assignee'],
@@ -323,8 +315,7 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     protected function _move($taskId, $newTasklist)
     {
-        $query = sprintf('UPDATE %s SET task_owner = ? WHERE task_owner = ? AND task_id = ?',
-                         $this->_params['table']);
+        $query = 'UPDATE nag_tasks SET task_owner = ? WHERE task_owner = ? AND task_id = ?';
         $values = array($newTasklist, $this->_tasklist, $taskId);
 
         try {
@@ -346,8 +337,7 @@ class Nag_Driver_Sql extends Nag_Driver
         /* Get the task's details for use later. */
         $task = $this->get($taskId);
 
-        $query = sprintf('DELETE FROM %s WHERE task_owner = ? AND task_id = ?',
-                         $this->_params['table']);
+        $query = 'DELETE FROM nag_tasks WHERE task_owner = ? AND task_id = ?';
         $values = array($this->_tasklist, $taskId);
 
         try {
@@ -366,8 +356,7 @@ class Nag_Driver_Sql extends Nag_Driver
     protected function _deleteAll()
     {
         // Get the list of ids so we can notify History.
-        $query = sprintf('SELECT task_uid FROM %s WHERE task_owner = ?',
-            $this->_params['table']);
+        $query = 'SELECT task_uid FROM nag_tasks WHERE task_owner = ?';
 
         $values = array($this->_tasklist);
 
@@ -378,8 +367,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         // Deletion
-        $query = sprintf('DELETE FROM %s WHERE task_owner = ?',
-            $this->_params['table']);
+        $query = 'DELETE FROM nag_tasks WHERE task_owner = ?';
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
@@ -404,8 +392,7 @@ class Nag_Driver_Sql extends Nag_Driver
     public function retrieve($completed = Nag::VIEW_ALL, $include_history = true)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT * FROM %s WHERE task_owner = ?',
-                         $this->_params['table']);
+        $query = 'SELECT * FROM nag_tasks WHERE task_owner = ?';
         $values = array($this->_tasklist);
         switch ($completed) {
         case Nag::VIEW_INCOMPLETE:
@@ -487,8 +474,7 @@ class Nag_Driver_Sql extends Nag_Driver
     public function getChildren($parentId, $include_history = true)
     {
         // Build the SQL query.
-        $query = sprintf('SELECT * FROM %s WHERE task_owner = ? AND task_parent = ?',
-                         $this->_params['table']);
+        $query = 'SELECT * FROM nag_tasks WHERE task_owner = ? AND task_parent = ?';
         $values = array($this->_tasklist, $parentId);
 
         try {
@@ -519,7 +505,7 @@ class Nag_Driver_Sql extends Nag_Driver
      */
     public function listAlarms($date)
     {
-        $q = 'SELECT * FROM ' . $this->_params['table'] .
+        $q = 'SELECT * FROM nag_tasks' .
             ' WHERE task_owner = ?' .
             ' AND task_alarm > 0' .
             ' AND (task_due - (task_alarm * 60) <= ?)' .
@@ -557,7 +543,7 @@ class Nag_Driver_Sql extends Nag_Driver
         if (empty($row['task_uid'])) {
             $row['task_uid'] = strval(new Horde_Support_Guid());
 
-            $query = 'UPDATE ' . $this->_params['table'] .
+            $query = 'UPDATE nag_tasks' .
                 ' SET task_uid = ?' .
                 ' WHERE task_owner = ? AND task_id = ?';
             $values = array($row['task_uid'], $row['task_owner'], $row['task_id']);

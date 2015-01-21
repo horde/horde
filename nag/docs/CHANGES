@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Remove configuration option for database table.
 [jan] Improve priority display in basic view.
 [jan] Display task list background color in basic view.
 [jan] Import snooze information from iCalendar alarms.
