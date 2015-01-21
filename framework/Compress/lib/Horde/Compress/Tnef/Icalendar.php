@@ -349,11 +349,11 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         // METHOD
         if ($this->_type) {
             switch ($this->_type) {
-            case self::MAPI_MEETING_INITIAL:
-            case self::MAPI_MEETING_FULL_UPDATE:
+            case Horde_Compress_Tnef::MAPI_MEETING_INITIAL:
+            case Horde_Compress_Tnef::MAPI_MEETING_FULL_UPDATE:
                 $this->_method = 'REQUEST';
                 break;
-            case self::MAPI_MEETING_INFO:
+            case Horde_Compress_Tnef::MAPI_MEETING_INFO:
                 $this->_method = 'PUBLISH';
                 break;
             }
