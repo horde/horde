@@ -508,6 +508,10 @@ class Nag
             return array();
         }
 
+        if ($owneronly) {
+            return $tasklists;
+        }
+
         $display_tasklists = @unserialize($GLOBALS['prefs']->getValue('display_tasklists'));
         if (is_array($display_tasklists)) {
             foreach ($display_tasklists as $id) {
