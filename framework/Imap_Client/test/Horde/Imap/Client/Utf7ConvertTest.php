@@ -32,13 +32,10 @@ class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider conversionProvider
+     * @requires extension mbstring
      */
     public function testConversionWithMbstring($orig, $expected = null)
     {
-        if (!extension_loaded('mbstring')) {
-            $this->markTestSkipped('mbstring extension not loaded');
-        }
-
         Horde_Imap_Client_Stub_Utf7imap::setMbstring(true);
 
         $this->_testConversion($orig, $expected);
