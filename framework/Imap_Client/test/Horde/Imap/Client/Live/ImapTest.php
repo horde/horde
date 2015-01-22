@@ -34,12 +34,21 @@ class Horde_Imap_Client_Live_ImapTest extends Horde_Test_Case
 
         $c = self::getConfig('IMAPCLIENT_TEST_CONFIG', __DIR__ . '/../');
         if (!is_null($c) && !empty($c['imapclient'])) {
+            $key = 0;
+
             foreach ($c['imapclient'] as $val) {
                 if (!empty($val['enabled']) &&
                     !empty($val['client_config']['username']) &&
                     !empty($val['client_config']['password'])) {
+                    /* Create a temp class for each instance to ensure that
+                     * no @depends mixing between servers occurs. */
+                    $temp_class = 'Horde_Imap_Client_Live_Imap_' . ++$key;
+                    eval(
+                        "class $temp_class extends Horde_Imap_Client_Live_Imap {}"
+                    );
+
                     Horde_Imap_Client_Live_Imap::$config[] = $val;
-                    $suite->addTestSuite('Horde_Imap_Client_Live_Imap');
+                    $suite->addTestSuite($temp_class);
                 }
             }
         }
