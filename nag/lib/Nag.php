@@ -1385,22 +1385,6 @@ class Nag
     }
 
     /**
-     * Comparison function for sorting tasks by create date (not currently used
-     * as it would require accessing Horde_History for each task) and id.
-     *
-     * @param array $a  Task one.
-     * @param array $b  Task two.
-     *
-     * @return integer  1 if task one is greater, -1 if task two is greater;
-     *                  0 if they are equal (though no tasks should ever be
-     *                  equal in this comparison).
-     */
-    public static function _sortByIdentity($a, $b)
-    {
-        return strcmp($a->id, $b->id);
-    }
-
-    /**
      * Comparison function for sorting tasks by priority.
      *
      * @param array $a  Task one.
@@ -1412,7 +1396,7 @@ class Nag
     public static function _sortByPriority($a, $b)
     {
         if ($a->priority == $b->priority) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         }
         return ($a->priority > $b->priority) ? 1 : -1;
     }
@@ -1501,7 +1485,7 @@ class Nag
         $a_est = $a->estimation();
         $b_est = $b->estimation();
         if ($a_est == $b_est) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         }
         return ($a_est > $b_est) ? 1 : -1;
     }
@@ -1532,7 +1516,7 @@ class Nag
     public static function _sortByDue($a, $b)
     {
         if ($a->due == $b->due) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         }
 
         // Treat empty due dates as farthest into the future.
@@ -1572,7 +1556,7 @@ class Nag
     public static function _sortByStart($a, $b)
     {
         if ($a->start == $b->start) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         }
 
         // Treat empty start dates as farthest into the future.
@@ -1612,7 +1596,7 @@ class Nag
     public static function _sortByCompletion($a, $b)
     {
         if ($a->completed == $b->completed) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         }
         return ($a->completed > $b->completed) ? -1 : 1;
     }
@@ -1644,7 +1628,7 @@ class Nag
     {
         $diff = strcasecmp(self::_getOwner($a), self::_getOwner($b));
         if ($diff == 0) {
-            return self::_sortByIdentity($a, $b);
+            return self::_sortByName($a, $b);
         } else {
             return $diff;
         }
