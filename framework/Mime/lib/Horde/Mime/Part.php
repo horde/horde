@@ -122,19 +122,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
     /**
      * The sequence to use as EOL for this part.
+     *
      * The default is currently to output the EOL sequence internally as
      * just "\n" instead of the canonical "\r\n" required in RFC 822 & 2045.
      * To be RFC complaint, the full <CR><LF> EOL combination should be used
      * when sending a message.
-     * It is not crucial here since the PHP/PEAR mailing functions will handle
-     * the EOL details.
      *
      * @var string
      */
     protected $_eol = self::EOL;
 
     /**
-     * Internal temp array.
+     * Temporary array.
      *
      * @var array
      */
@@ -714,8 +713,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     }
 
     /**
-     * Set the transfer encoding to use for this part. Only needed in the
-     * following circumstances:
+     * Set the transfer encoding to use for this part.
+     *
+     * Only needed in the following circumstances:
      * 1.) Indicate what the transfer encoding is if the data has not yet been
      * set in the object (can only be set if there presently are not
      * any contents).
@@ -937,7 +937,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *
      * @param array $options  Additional options:
      *   - encode: (integer) A mask of allowable encodings.
-     *             DEFAULT: See self::_getTransferEncoding()
+     *             DEFAULT: Auto-determined
      *   - headers: (Horde_Mime_Headers) The object to add the MIME headers
      *              to.
      *              DEFAULT: Add headers to a new object
