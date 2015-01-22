@@ -1851,18 +1851,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         return $filter_params->body;
     }
 
-    /**
-     * Sanitize header-related MIME data.
-     *
-     * @param string $data  Header data.
-     *
-     * @return string  Sanitized data.
-     **/
-    protected function _sanitizeHeaderData($data)
-    {
-        return str_replace("\0", '', $data);
-    }
-
     /* Static methods. */
 
     /**
