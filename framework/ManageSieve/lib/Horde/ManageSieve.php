@@ -2,8 +2,6 @@
 /**
  * This file contains the Net_Sieve class.
  *
- * PHP version 4
- *
  * +-----------------------------------------------------------------------+
  * | All rights reserved.                                                  |
  * |                                                                       |
@@ -43,33 +41,13 @@
  * @link      http://pear.php.net/package/Net_Sieve
  */
 
-require_once 'PEAR.php';
-require_once 'Net/Socket.php';
-
 /**
  * TODO
  *
  * o supportsAuthMech()
  */
 
-/**
- * Disconnected state
- * @const NET_SIEVE_STATE_DISCONNECTED
- */
-define('NET_SIEVE_STATE_DISCONNECTED', 1, true);
-
-/**
- * Authorisation state
- * @const NET_SIEVE_STATE_AUTHORISATION
- */
-define('NET_SIEVE_STATE_AUTHORISATION', 2, true);
-
-/**
- * Transaction state
- * @const NET_SIEVE_STATE_TRANSACTION
- */
-define('NET_SIEVE_STATE_TRANSACTION', 3, true);
-
+namespace Horde;
 
 /**
  * A class for talking to the timsieved server which comes with Cyrus IMAP.
@@ -91,8 +69,23 @@ define('NET_SIEVE_STATE_TRANSACTION', 3, true);
  * @link      http://tools.ietf.org/html/rfc5804 RFC 5804 A Protocol for
  *            Remotely Managing Sieve Scripts
  */
-class Net_Sieve
+class ManageSieve
 {
+    /**
+     * Disconnected state
+     */
+    const STATE_DISCONNECTED = 1;
+
+    /**
+     * Authorisation state
+     */
+    const STATE_AUTHORIZATION = 2;
+
+    /**
+     * Transaction state
+     */
+    const STATE_TRANSACTION = 3;
+
     /**
      * The authentication methods this class supports.
      *
@@ -100,59 +93,60 @@ class Net_Sieve
      *
      * @var array
      */
-    var $supportedAuthMethods = array('DIGEST-MD5', 'CRAM-MD5', 'EXTERNAL',
-                                      'PLAIN' , 'LOGIN');
+    public $supportedAuthMethods = array(
+        'DIGEST-MD5', 'CRAM-MD5', 'EXTERNAL', 'PLAIN' , 'LOGIN'
+    );
 
     /**
      * SASL authentication methods that require Auth_SASL.
      *
      * @var array
      */
-    var $supportedSASLAuthMethods = array('DIGEST-MD5', 'CRAM-MD5');
+    public $supportedSASLAuthMethods = array('DIGEST-MD5', 'CRAM-MD5');
 
     /**
      * The socket handle.
      *
-     * @var resource
+     * @var Net_Socket
      */
-    var $_sock;
+    protected $_sock;
 
     /**
      * Parameters and connection information.
      *
      * @var array
      */
-    var $_data;
+    protected $_data;
 
     /**
      * Current state of the connection.
      *
-     * One of the NET_SIEVE_STATE_* constants.
+     * One of the STATE_* constants.
      *
      * @var integer
      */
-    var $_state;
+    protected $_state;
 
     /**
      * PEAR object to avoid strict warnings.
      *
      * @var PEAR_Error
      */
-    var $_pear;
+    protected $_pear;
 
     /**
      * Constructor error.
      *
      * @var PEAR_Error
      */
-    var $_error;
+    protected $_error;
 
     /**
      * Whether to enable debugging.
      *
      * @var boolean
      */
-    var $_debug = false;
+    protected $_debug = false;
 
     /**
      * Debug output handler.
@@ -161,35 +155,35 @@ class Net_Sieve
      *
      * @var string|array
      */
-    var $_debug_handler = null;
+    protected $_debug_handler = null;
 
     /**
      * Whether to pick up an already established connection.
      *
      * @var boolean
      */
-    var $_bypassAuth = false;
+    protected $_bypassAuth = false;
 
     /**
      * Whether to use TLS if available.
      *
      * @var boolean
      */
-    var $_useTLS = true;
+    protected $_useTLS = true;
 
     /**
      * Additional options for stream_context_create().
      *
      * @var array
      */
-    var $_options = null;
+    protected $_options = null;
 
     /**
      * Maximum number of referral loops
      *
      * @var array
      */
-    var $_maxReferralCount = 15;
+    protected $_maxReferralCount = 15;
 
     /**
      * Constructor.
@@ -214,13 +208,13 @@ class Net_Sieve
      *                            stream_context_create().
      * @param mixed   $handler    A callback handler for the debug output.
      */
-    function Net_Sieve($user = null, $pass  = null, $host = 'localhost',
+    public function __construct($user = null, $pass  = null, $host = 'localhost',
                        $port = 2000, $logintype = '', $euser = '',
                        $debug = false, $bypassAuth = false, $useTLS = true,
                        $options = null, $handler = null)
     {
         $this->_pear = new PEAR();
-        $this->_state             = NET_SIEVE_STATE_DISCONNECTED;
+        $this->_state             = self::STATE_DISCONNECTED;
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
         $this->_data['host']      = $host;
@@ -236,7 +230,7 @@ class Net_Sieve
         /* Try to include the Auth_SASL package.  If the package is not
          * available, we disable the authentication methods that depend upon
          * it. */
-        if ((@include_once 'Auth/SASL.php') === false) {
+        if (!class_exists('Auth_SASL')) {
             $this->_debug('Auth_SASL not present');
             $this->supportedAuthMethods = array_diff(
                 $this->supportedAuthMethods,
@@ -254,7 +248,7 @@ class Net_Sieve
      *
      * @return boolean|PEAR_Error  False if no error, PEAR_Error otherwise.
      */
-    function getError()
+    public function getError()
     {
         return is_a($this->_error, 'PEAR_Error') ? $this->_error : false;
     }
@@ -264,10 +258,8 @@ class Net_Sieve
      *
      * @param boolean $debug   Whether to enable debugging.
      * @param string  $handler A custom debug handler. Must be a valid callback.
-     *
-     * @return void
      */
-    function setDebug($debug = true, $handler = null)
+    public function setDebug($debug = true, $handler = null)
     {
         $this->_debug = $debug;
         $this->_debug_handler = $handler;
@@ -278,7 +270,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function _handleConnectAndLogin()
+    protected function _handleConnectAndLogin()
     {
         $res = $this->connect($this->_data['host'], $this->_data['port'], $this->_options, $this->_useTLS);
         if (is_a($res, 'PEAR_Error')) {
@@ -304,7 +296,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function connect($host, $port, $options = null, $useTLS = true)
+    public function connect($host, $port, $options = null, $useTLS = true)
     {
         $this->_data['host'] = $host;
         $this->_data['port'] = $port;
@@ -313,7 +305,7 @@ class Net_Sieve
             $this->_options = array_merge($this->_options, $options);
         }
 
-        if (NET_SIEVE_STATE_DISCONNECTED != $this->_state) {
+        if (self::STATE_DISCONNECTED != $this->_state) {
             return $this->_pear->raiseError('Not currently in DISCONNECTED state', 1);
         }
 
@@ -323,9 +315,9 @@ class Net_Sieve
         }
 
         if ($this->_bypassAuth) {
-            $this->_state = NET_SIEVE_STATE_TRANSACTION;
+            $this->_state = self::STATE_TRANSACTION;
         } else {
-            $this->_state = NET_SIEVE_STATE_AUTHORISATION;
+            $this->_state = self::STATE_AUTHORIZATION;
             $res = $this->_doCmd();
             if (is_a($res, 'PEAR_Error')) {
                 return $res;
@@ -362,7 +354,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function disconnect($sendLogoutCMD = true)
+    public function disconnect($sendLogoutCMD = true)
     {
         return $this->_cmdLogout($sendLogoutCMD);
     }
@@ -378,7 +370,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function login($user, $pass, $logintype = null, $euser = '', $bypassAuth = false)
+    public function login($user, $pass, $logintype = null, $euser = '', $bypassAuth = false)
     {
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
@@ -386,8 +378,8 @@ class Net_Sieve
         $this->_data['euser']     = $euser;
         $this->_bypassAuth        = $bypassAuth;
 
-        if (NET_SIEVE_STATE_AUTHORISATION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_AUTHORIZATION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         if (!$bypassAuth ) {
@@ -396,7 +388,7 @@ class Net_Sieve
                 return $res;
             }
         }
-        $this->_state = NET_SIEVE_STATE_TRANSACTION;
+        $this->_state = self::STATE_TRANSACTION;
 
         return true;
     }
@@ -406,7 +398,7 @@ class Net_Sieve
      *
      * @return array  Indexed array of scriptnames.
      */
-    function listScripts()
+    public function listScripts()
     {
         if (is_array($scripts = $this->_cmdListScripts())) {
             return $scripts[0];
@@ -420,7 +412,7 @@ class Net_Sieve
      *
      * @return string  The active scriptname.
      */
-    function getActive()
+    public function getActive()
     {
         if (is_array($scripts = $this->_cmdListScripts())) {
             return $scripts[1];
@@ -434,7 +426,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function setActive($scriptname)
+    public function setActive($scriptname)
     {
         return $this->_cmdSetActive($scriptname);
     }
@@ -446,7 +438,7 @@ class Net_Sieve
      *
      * @return string  The script on success, PEAR_Error on failure.
     */
-    function getScript($scriptname)
+    public function getScript($scriptname)
     {
         return $this->_cmdGetScript($scriptname);
     }
@@ -460,7 +452,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function installScript($scriptname, $script, $makeactive = false)
+    public function installScript($scriptname, $script, $makeactive = false)
     {
         $res = $this->_cmdPutScript($scriptname, $script);
         if (is_a($res, 'PEAR_Error')) {
@@ -479,7 +471,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function removeScript($scriptname)
+    public function removeScript($scriptname)
     {
         return $this->_cmdDeleteScript($scriptname);
     }
@@ -494,9 +486,9 @@ class Net_Sieve
      *
      * @todo Rename to hasSpace()
      */
-    function haveSpace($scriptname, $size)
+    public function haveSpace($scriptname, $size)
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
+        if (self::STATE_TRANSACTION != $this->_state) {
             return $this->_pear->raiseError('Not currently in TRANSACTION state', 1);
         }
 
@@ -512,9 +504,9 @@ class Net_Sieve
      *
      * @return array  List of extensions or PEAR_Error on failure.
      */
-    function getExtensions()
+    public function getExtensions()
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 7);
         }
         return $this->_capability['extensions'];
@@ -528,9 +520,9 @@ class Net_Sieve
      * @return boolean  Whether the extension is supported or PEAR_Error on
      *                  failure.
      */
-    function hasExtension($extension)
+    public function hasExtension($extension)
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 7);
         }
 
@@ -551,9 +543,9 @@ class Net_Sieve
      *
      * @return array  List of authentication methods or PEAR_Error on failure.
      */
-    function getAuthMechs()
+    public function getAuthMechs()
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 7);
         }
         return $this->_capability['sasl'];
@@ -567,9 +559,9 @@ class Net_Sieve
      * @return boolean  Whether the method is supported or PEAR_Error on
      *                  failure.
      */
-    function hasAuthMech($method)
+    public function hasAuthMech($method)
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 7);
         }
 
@@ -593,10 +585,8 @@ class Net_Sieve
      * @param string $userMethod The method to use. If empty, the class chooses
      *                           the best (strongest) available method.
      * @param string $euser      The effective uid to authenticate as.
-     *
-     * @return void
      */
-    function _cmdAuthenticate($uid, $pwd, $userMethod = null, $euser = '')
+    protected function _cmdAuthenticate($uid, $pwd, $userMethod = null, $euser = '')
     {
         $method = $this->_getBestAuthMethod($userMethod);
         if (is_a($method, 'PEAR_Error')) {
@@ -645,10 +635,8 @@ class Net_Sieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
-     *
-     * @return void
      */
-    function _authPLAIN($user, $pass, $euser)
+    protected function _authPLAIN($user, $pass, $euser)
     {
         return $this->_sendCmd(
             sprintf(
@@ -664,10 +652,8 @@ class Net_Sieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as. Not used.
-     *
-     * @return void
      */
-    function _authLOGIN($user, $pass, $euser)
+    protected function _authLOGIN($user, $pass, $euser)
     {
         $result = $this->_sendCmd('AUTHENTICATE "LOGIN"');
         if (is_a($result, 'PEAR_Error')) {
@@ -686,10 +672,8 @@ class Net_Sieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as. Not used.
-     *
-     * @return void
      */
-    function _authCRAMMD5($user, $pass, $euser)
+    protected function _authCRAMMD5($user, $pass, $euser)
     {
         $challenge = $this->_doCmd('AUTHENTICATE "CRAM-MD5"', true);
         if (is_a($challenge, 'PEAR_Error')) {
@@ -712,10 +696,8 @@ class Net_Sieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
-     *
-     * @return void
      */
-    function _authDigestMD5($user, $pass, $euser)
+    protected function _authDigestMD5($user, $pass, $euser)
     {
         $challenge = $this->_doCmd('AUTHENTICATE "DIGEST-MD5"', true);
         if (is_a($challenge, 'PEAR_Error')) {
@@ -758,12 +740,8 @@ class Net_Sieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
-     *
-     * @return void
-     *
-     * @since  1.1.7
      */
-    function _authEXTERNAL($user, $pass, $euser)
+    protected function _authEXTERNAL($user, $pass, $euser)
     {
         $cmd = sprintf(
             'AUTHENTICATE "EXTERNAL" "%s"',
@@ -779,10 +757,10 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function _cmdDeleteScript($scriptname)
+    protected function _cmdDeleteScript($scriptname)
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_TRANSACTION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         $res = $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
@@ -799,10 +777,10 @@ class Net_Sieve
      *
      * @return string  The script if successful, PEAR_Error otherwise.
      */
-    function _cmdGetScript($scriptname)
+    protected function _cmdGetScript($scriptname)
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_TRANSACTION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         $res = $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
@@ -821,10 +799,10 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
     */
-    function _cmdSetActive($scriptname)
+    protected function _cmdSetActive($scriptname)
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_TRANSACTION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         $res = $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
@@ -842,10 +820,10 @@ class Net_Sieve
      *                and the active script in the second element on success,
      *                PEAR_Error otherwise.
      */
-    function _cmdListScripts()
+    protected function _cmdListScripts()
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_TRANSACTION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         $res = $this->_doCmd('LISTSCRIPTS');
@@ -877,10 +855,10 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function _cmdPutScript($scriptname, $scriptdata)
+    protected function _cmdPutScript($scriptname, $scriptdata)
     {
-        if (NET_SIEVE_STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORISATION state', 1);
+        if (self::STATE_TRANSACTION != $this->_state) {
+            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
         }
 
         $stringLength = $this->_getLineLength($scriptdata);
@@ -904,9 +882,9 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function _cmdLogout($sendLogoutCMD = true)
+    protected function _cmdLogout($sendLogoutCMD = true)
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 1);
         }
 
@@ -918,7 +896,7 @@ class Net_Sieve
         }
 
         $this->_sock->disconnect();
-        $this->_state = NET_SIEVE_STATE_DISCONNECTED;
+        $this->_state = self::STATE_DISCONNECTED;
 
         return true;
     }
@@ -928,9 +906,9 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error otherwise.
      */
-    function _cmdCapability()
+    protected function _cmdCapability()
     {
-        if (NET_SIEVE_STATE_DISCONNECTED == $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
             return $this->_pear->raiseError('Not currently connected', 1);
         }
         $res = $this->_doCmd('CAPABILITY');
@@ -946,10 +924,8 @@ class Net_Sieve
      * in $_capability.
      *
      * @param string $data The response from the capability command.
-     *
-     * @return void
      */
-    function _parseCapability($data)
+    protected function _parseCapability($data)
     {
         // Clear the cached capabilities.
         $this->_capability = array('sasl' => array(),
@@ -985,10 +961,8 @@ class Net_Sieve
      * Sends a command to the server
      *
      * @param string $cmd The command to send.
-     *
-     * @return void
      */
-    function _sendCmd($cmd)
+    protected function _sendCmd($cmd)
     {
         $status = $this->_sock->getStatus();
         if (is_a($status, 'PEAR_Error') || $status['eof']) {
@@ -1007,10 +981,8 @@ class Net_Sieve
      * Sends a string response to the server.
      *
      * @param string $str The string to send.
-     *
-     * @return void
      */
-    function _sendStringResponse($str)
+    protected function _sendStringResponse($str)
     {
         return $this->_sendCmd('{' . $this->_getLineLength($str) . "+}\r\n" . $str);
     }
@@ -1020,7 +992,7 @@ class Net_Sieve
      *
      * @return string  The server response line.
      */
-    function _recvLn()
+    protected function _recvLn()
     {
         $lastline = $this->_sock->gets(8192);
         if (is_a($lastline, 'PEAR_Error')) {
@@ -1046,7 +1018,7 @@ class Net_Sieve
      *
      * @return string  The server response.
      */
-    function _recvBytes($length)
+    protected function _recvBytes($length)
     {
         $response = '';
         $response_length = 0;
@@ -1067,7 +1039,7 @@ class Net_Sieve
      * @return string|PEAR_Error  Reponse string if an OK response, PEAR_Error
      *                            if a NO response.
      */
-    function _doCmd($cmd = '', $auth = false)
+    protected function _doCmd($cmd = '', $auth = false)
     {
         $referralCount = 0;
         while ($referralCount < $this->_maxReferralCount) {
@@ -1170,7 +1142,7 @@ class Net_Sieve
      * @return string  The name of the best supported authentication method or
      *                 a PEAR_Error object on failure.
      */
-    function _getBestAuthMethod($userMethod = null)
+    protected function _getBestAuthMethod($userMethod = null)
     {
         if (!isset($this->_capability['sasl'])) {
             return $this->_pear->raiseError('This server doesn\'t support any authentication methods. SASL problem?');
@@ -1206,7 +1178,7 @@ class Net_Sieve
      *
      * @return boolean  True on success, PEAR_Error on failure.
      */
-    function _startTLS()
+    protected function _startTLS()
     {
         $res = $this->_doCmd('STARTTLS');
         if (is_a($res, 'PEAR_Error')) {
@@ -1248,7 +1220,7 @@ class Net_Sieve
      *
      * @return integer  The length of the string.
      */
-    function _getLineLength($string)
+    protected function _getLineLength($string)
     {
         if (extension_loaded('mbstring')) {
             return mb_strlen($string, 'latin1');
@@ -1264,7 +1236,7 @@ class Net_Sieve
      *
      * @return string  The lowercased string, based on ASCII encoding.
      */
-    function _toUpper($string)
+    protected function _toUpper($string)
     {
         $language = setlocale(LC_CTYPE, 0);
         setlocale(LC_CTYPE, 'C');
@@ -1280,7 +1252,7 @@ class Net_Sieve
      *
      * @return string  Result string.
      */
-    function _escape($string)
+    protected function _escape($string)
     {
         // Some implementations don't allow UTF-8 characters in quoted-string,
         // use literal-c2s.
@@ -1295,10 +1267,8 @@ class Net_Sieve
      * Write debug text to the current debug output handler.
      *
      * @param string $message Debug message text.
-     *
-     * @return void
      */
-    function _debug($message)
+    protected function _debug($message)
     {
         if ($this->_debug) {
             if ($this->_debug_handler) {
