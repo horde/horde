@@ -313,4 +313,59 @@ extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($ob['boundary']);
     }
 
+    /**
+     * @dataProvider isDefaultProvider
+     */
+    public function testIsDefault($value, $is_default)
+    {
+        $ob = new Horde_Mime_Headers_ContentParam_ContentType(
+            'Content-Type',
+            $value
+        );
+
+        if ($is_default) {
+            $this->assertTrue($ob->isDefault());
+        } else {
+            $this->assertFalse($ob->isDefault());
+        }
+    }
+
+    public function isDefaultProvider()
+    {
+        return array(
+            array(
+                'text/plain',
+                true
+            ),
+            array(
+                'text/plain; charset=us-ascii',
+                true
+            ),
+            array(
+                'text/plain; charset=us-ascii; foo=bar',
+                false
+            ),
+            array(
+                'text/plain; charset=utf-8',
+                false
+            ),
+            array(
+                'text/html',
+                false
+            ),
+            array(
+                'text/html; charset=us-ascii',
+                false
+            ),
+            array(
+                'image/jpeg',
+                false
+            ),
+            array(
+                'image/jpeg; charset=utf-8',
+                false
+            )
+        );
+    }
+
 }

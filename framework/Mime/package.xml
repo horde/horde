@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Mime_Headers_Element#isDefault().
 * [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.
@@ -1646,6 +1647,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Mime_Headers_Element#isDefault().
 * [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.

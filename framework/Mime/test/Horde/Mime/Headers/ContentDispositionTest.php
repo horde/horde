@@ -189,4 +189,47 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider isDefaultProvider
+     */
+    public function testIsDefault($value, $is_default)
+    {
+        $ob = new Horde_Mime_Headers_ContentParam_ContentDisposition(
+            'Content-Disposition',
+            $value
+        );
+
+        if ($is_default) {
+            $this->assertTrue($ob->isDefault());
+        } else {
+            $this->assertFalse($ob->isDefault());
+        }
+    }
+
+    public function isDefaultProvider()
+    {
+        return array(
+            array(
+                '',
+                true
+            ),
+            array(
+                'attachment',
+                false
+            ),
+            array(
+                'attachment; foo=bar',
+                false
+            ),
+            array(
+                'inline',
+                false
+            ),
+            array(
+                'inline; foo=bar',
+                false
+            )
+        );
+    }
+
 }

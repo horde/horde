@@ -985,13 +985,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $headers;
         }
 
-        /* Don't show Content-Disposition unless a disposition has explicitly
-         * been set or there are parameters.
-         * If there is a name, but no disposition, default to 'attachment'.
-         * RFC 2183 [2] indicates that default is no requested disposition -
+        /* RFC 2183 [2] indicates that default is no requested disposition -
          * the receiving MUA is responsible for display choice. */
         $cd = $this->_headers['content-disposition'];
-        if ($cd->value) {
+        if (!$cd->isDefault()) {
             $headers->addHeaderOb($cd);
         }
 

@@ -48,6 +48,12 @@ Upgrading to 2.8
 
     These classes have been added.
 
+  - Horde_Mime_Headers_Element
+
+    - isDefault()
+
+      This method has been added.
+
   - Horde_Mime_Headers_Extension_Mime
 
     This interface has been added.

@@ -72,6 +72,13 @@ extends Horde_Mime_Headers_ContentParam
 
     /**
      */
+    public function isDefault()
+    {
+        return !($this->full_value);
+    }
+
+    /**
+     */
     public static function getHandles()
     {
         return array(

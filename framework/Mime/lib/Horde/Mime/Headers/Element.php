@@ -142,6 +142,18 @@ implements IteratorAggregate
         return str_replace("\0", '', $data);
     }
 
+    /**
+     * If true, indicates the contents of the header is the default value.
+     *
+     * @since 2.8.0
+     *
+     * @return boolean  True if this header is the default value.
+     */
+    public function isDefault()
+    {
+        return false;
+    }
+
     /* Static methods */
 
     /**
