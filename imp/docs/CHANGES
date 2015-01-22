@@ -2,6 +2,7 @@
 v6.2.7-git
 ----------
 
+[jan] Fix regression with not being able to list users (Bug #13808).
 [mms] Fix rebuilding the folder tree translations when the language is changed
       in a session (Bug #13821).
 
