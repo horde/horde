@@ -151,8 +151,12 @@ class Horde_Mapi_Timezone
         );
 
         $timezone = $date->toDateTime()->getTimezone();
-        list($std, $dst) = self::_getTransitions($timezone, $date);
-        if ($std) {
+        // If transition parsing failed, we won't have a multi-element array.
+        $transitions = self::_getTransitions($timezone, $date);
+        if (!empty($transitions)) {
+            list($std, $dst) = self::_getTransitions($timezone, $date);
+        }
+        if (!empty($std)) {
             $offsets['bias'] = $std['offset'] / 60 * -1;
             if ($dst) {
                 $offsets = self::_generateOffsetsForTransition($offsets, $std, 'std');
