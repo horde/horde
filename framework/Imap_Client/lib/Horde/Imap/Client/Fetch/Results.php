@@ -22,7 +22,8 @@
  *
  * @property-read integer $key_type  The key type (sequence or UID).
  */
-class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, IteratorAggregate
+class Horde_Imap_Client_Fetch_Results
+implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * Key type constants.

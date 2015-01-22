@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-07</date>
+ <date>2015-01-22</date>
  <version>
   <release>2.26.1</release>
   <api>2.26.0</api>
@@ -320,6 +320,13 @@
         <file name="SearchCharsetUtf8Test.php" role="test" />
         <file name="SubjectParseTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Data -->
+       <dir name="Fetch">
+        <dir name="Results">
+         <file name="FetchPop3Test.php" role="test" />
+         <file name="FetchTest.php" role="test" />
+         <file name="TestBase.php" role="test" />
+        </dir> <!-- /test/Horde/Imap/Client/Fetch/Results -->
+       </dir> <!-- /test/Horde/Imap/Client/Fetch -->
        <dir name="fixtures">
         <file name="clientsort.txt" role="test" />
         <file name="clientsort2.txt" role="test" />
@@ -701,6 +708,9 @@
    <install as="Horde/Imap/Client/Data/Format/Nstring/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/Nstring/NonasciiTest.php" />
    <install as="Horde/Imap/Client/Data/Format/String/NonasciiTest.php" name="test/Horde/Imap/Client/Data/Format/String/NonasciiTest.php" />
    <install as="Horde/Imap/Client/Data/Format/String/TestBase.php" name="test/Horde/Imap/Client/Data/Format/String/TestBase.php" />
+   <install as="Horde/Imap/Client/Fetch/Results/FetchPop3Test.php" name="test/Horde/Imap/Client/Fetch/Results/FetchPop3Test.php" />
+   <install as="Horde/Imap/Client/Fetch/Results/FetchTest.php" name="test/Horde/Imap/Client/Fetch/Results/FetchTest.php" />
+   <install as="Horde/Imap/Client/Fetch/Results/TestBase.php" name="test/Horde/Imap/Client/Fetch/Results/TestBase.php" />
    <install as="Horde/Imap/Client/fixtures/clientsort.txt" name="test/Horde/Imap/Client/fixtures/clientsort.txt" />
    <install as="Horde/Imap/Client/fixtures/clientsort2.txt" name="test/Horde/Imap/Client/fixtures/clientsort2.txt" />
    <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
@@ -2810,7 +2820,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-07</date>
+   <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround broken in-memory stream filter handling.
