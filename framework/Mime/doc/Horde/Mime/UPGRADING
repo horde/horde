@@ -16,9 +16,10 @@ Upgrading to 2.8
 
   - Horde_Mime_Part
 
+    - $encodingTypes
     - $mimeTypes
 
-      This static property is deprecated.
+      These static properties are deprecated.
 
     - clearContentTypeParameter()
 

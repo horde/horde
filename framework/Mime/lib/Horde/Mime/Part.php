@@ -61,17 +61,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public static $defaultCharset = 'us-ascii';
 
     /**
-     * Valid encoding types.
-     *
-     * @var array
-     */
-    public static $encodingTypes = array(
-        '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
-        // Non-RFC types, but old mailers may still use
-        'uuencode', 'x-uuencode', 'x-uue'
-    );
-
-    /**
      * The memory limit for use with the PHP temp stream.
      *
      * @var integer
@@ -734,20 +723,33 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return;
         }
 
-        $encoding = Horde_String::lower($encoding);
-
-        if (in_array($encoding, self::$encodingTypes)) {
+        switch ($encoding = Horde_String::lower($encoding)) {
+        case '7bit':
+        case '8bit':
+        case 'base64':
+        case 'binary':
+        case 'quoted-printable':
+        // Non-RFC types, but old mailers may still use
+        case 'uuencode':
+        case 'x-uuencode':
+        case 'x-uue':
             if (empty($options['send'])) {
                 $this->_transferEncoding = $encoding;
             } else {
                 $this->_temp['sendEncoding'] = $encoding;
             }
-        } elseif (empty($options['send'])) {
-            /* RFC 2045: Any entity with unrecognized encoding must be treated
-             * as if it has a Content-Type of "application/octet-stream"
-             * regardless of what the Content-Type field actually says. */
-            $this->setType('application/octet-stream');
-            $this->_transferEncoding = null;
+            break;
+
+        default:
+            if (empty($options['send'])) {
+                /* RFC 2045: Any entity with unrecognized encoding must be
+                 * treated as if it has a Content-Type of
+                 * "application/octet-stream" regardless of what the
+                 * Content-Type field actually says. */
+                $this->setType('application/octet-stream');
+                $this->_transferEncoding = null;
+            }
+            break;
         }
     }
 
@@ -2295,6 +2297,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @deprecated
      */
     const UNKNOWN = 'x-unknown';
+
+    /**
+     * @deprecated
+     */
+    public static $encodingTypes = array(
+        '7bit', '8bit', 'base64', 'binary', 'quoted-printable',
+        // Non-RFC types, but old mailers may still use
+        'uuencode', 'x-uuencode', 'x-uue'
+    );
 
     /**
      * @deprecated
