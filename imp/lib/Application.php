@@ -116,6 +116,12 @@ class IMP_Application extends Horde_Registry_Application
             $injector->bindFactory($key, $val, 'create');
         }
 
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
+        }
+
         /* Set exception handler to handle uncaught
          * Horde_Imap_Client_Exceptions. */
         set_exception_handler(array($this, 'exceptionHandler'));
@@ -132,13 +138,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $injector, $registry;
-
-        /* Methods only available if admin config is set for this
-         * server/login. */
-        if (empty($injector->getInstance('IMP_Factory_Imap')->create()->config->admin)) {
-            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
-        }
+        global $registry;
 
         // Always use Windows-1252 in place of ISO-8859-1 for MIME decoding.
         Horde_Mime::$decodeWindows1252 = true;
