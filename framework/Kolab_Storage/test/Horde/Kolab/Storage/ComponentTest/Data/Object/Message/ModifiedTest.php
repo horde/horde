@@ -90,14 +90,14 @@ Subject: ABC1234
 User-Agent: Horde::Kolab::Storage v@version@
 MIME-Version: 1.0
 X-Kolab-Type: application/x-vnd.kolab.note
-Content-Type: multipart/mixed; name="Kolab Groupware Data";
- boundary=""
+Content-Type: multipart/mixed; boundary="";
+ name="Kolab Groupware Data"
 Content-Disposition: attachment; filename="Kolab Groupware Data"
 
 This message is in MIME format.
 
 --=_
-Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
+Content-Type: text/plain; charset=utf-8; name="Kolab Groupware Information"
 Content-Disposition: inline; filename="Kolab Groupware Information"
 
 This is a Kolab Groupware object. To view this object you will need an email

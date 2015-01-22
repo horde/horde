@@ -96,7 +96,7 @@ Content-Disposition: attachment; filename="Kolab Groupware Data"
 This message is in MIME format.
 
 --=_
-Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
+Content-Type: text/plain; charset=utf-8; name="Kolab Groupware Information"
 Content-Disposition: inline; filename="Kolab Groupware Information"
 
 This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit http://www.kolab.org/content/kolab-clients
