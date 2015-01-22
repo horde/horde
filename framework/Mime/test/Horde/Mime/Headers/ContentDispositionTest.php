@@ -159,11 +159,11 @@ extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             'inline',
-            $ob->value
+            $ob2->value
         );
         $this->assertEquals(
             array('foo' => 'bar'),
-            $ob->params
+            $ob2->params
         );
     }
 
