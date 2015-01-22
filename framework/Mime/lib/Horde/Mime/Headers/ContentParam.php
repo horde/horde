@@ -26,7 +26,7 @@
  */
 class Horde_Mime_Headers_ContentParam
 extends Horde_Mime_Headers_Element_Single
-implements ArrayAccess, Serializable
+implements ArrayAccess, Horde_Mime_Headers_Extension_Mime, Serializable
 {
     /**
      * Content parameters.

@@ -23,6 +23,7 @@
  */
 class Horde_Mime_Headers_MimeVersion
 extends Horde_Mime_Headers_Element_Single
+implements Horde_Mime_Headers_Extension_Mime
 {
     /**
      * Creates a MIME-Version header, conforming to the MIME specification as

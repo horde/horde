@@ -25,6 +25,7 @@
  */
 class Horde_Mime_Headers_ContentLanguage
 extends Horde_Mime_Headers_Element_Single
+implements Horde_Mime_Headers_Extension_Mime
 {
     /**
      */

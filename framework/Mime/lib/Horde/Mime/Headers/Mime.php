@@ -12,40 +12,40 @@
  */
 
 /**
- * This class represents the Content-Description header value (RFC 2045[8]).
+ * This class handles all MIME headers that don't have a specific class
+ * defined for them.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
- * @since     2.7.0
+ * @since     2.8.0
  */
-class Horde_Mime_Headers_ContentDescription
+class Horde_Mime_Headers_Mime
 extends Horde_Mime_Headers_Element_Single
 implements Horde_Mime_Headers_Extension_Mime
 {
     /**
      */
-    public function __construct($name, $value)
-    {
-        parent::__construct('Content-Description', $value);
-    }
-
-    /**
-     */
-    protected function _sendEncode($opts)
-    {
-        return array(Horde_Mime::encode($this->value, $opts['charset']));
-    }
-
-    /**
-     */
     public static function getHandles()
     {
         return array(
+            // MIME: RFC 1864
+            'content-md5',
             // MIME: RFC 2045
-            'content-description'
+            'content-transfer-encoding',
+            'content-id',
+            // MIME: RFC 2110
+            'content-base',
+            // MIME: RFC 2424
+            'content-duration',
+            // MIME: RFC 2557
+            'content-location',
+            // MIME: RFC 2912 [3]
+            'content-features',
+            // MIME: RFC 3297
+            'content-alternative'
         );
     }
 

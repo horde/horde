@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
@@ -71,6 +72,9 @@
         <file name="Multiple.php" role="php" />
         <file name="Single.php" role="php" />
        </dir> <!-- /lib/Horde/Mime/Headers/Element -->
+       <dir name="Extension">
+        <file name="Mime.php" role="php" />
+       </dir> <!-- /lib/Horde/Mime/Headers/Extension -->
        <file name="Addresses.php" role="php" />
        <file name="AddressesMulti.php" role="php" />
        <file name="ContentDescription.php" role="php" />
@@ -81,6 +85,7 @@
        <file name="Element.php" role="php" />
        <file name="Identification.php" role="php" />
        <file name="MessageId.php" role="php" />
+       <file name="Mime.php" role="php" />
        <file name="MimeVersion.php" role="php" />
        <file name="Received.php" role="php" />
        <file name="Subject.php" role="php" />
@@ -565,6 +570,7 @@
    <install as="Horde/Mime/Headers/Element.php" name="lib/Horde/Mime/Headers/Element.php" />
    <install as="Horde/Mime/Headers/Identification.php" name="lib/Horde/Mime/Headers/Identification.php" />
    <install as="Horde/Mime/Headers/MessageId.php" name="lib/Horde/Mime/Headers/MessageId.php" />
+   <install as="Horde/Mime/Headers/Mime.php" name="lib/Horde/Mime/Headers/Mime.php" />
    <install as="Horde/Mime/Headers/MimeVersion.php" name="lib/Horde/Mime/Headers/MimeVersion.php" />
    <install as="Horde/Mime/Headers/Received.php" name="lib/Horde/Mime/Headers/Received.php" />
    <install as="Horde/Mime/Headers/Subject.php" name="lib/Horde/Mime/Headers/Subject.php" />
@@ -574,6 +580,7 @@
    <install as="Horde/Mime/Headers/Element/Address.php" name="lib/Horde/Mime/Headers/Element/Address.php" />
    <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
    <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
+   <install as="Horde/Mime/Headers/Extension/Mime.php" name="lib/Horde/Mime/Headers/Extension/Mime.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
@@ -1639,6 +1646,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
 * [mms] Added the Horde_Mime_Headers_ContentLanguage class.
 * [mms] Fix cloning of the Content-Type and Content-Disposition header objects.
