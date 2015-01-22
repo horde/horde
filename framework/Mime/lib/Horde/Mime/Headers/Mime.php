@@ -33,8 +33,6 @@ implements Horde_Mime_Headers_Extension_Mime
         return array(
             // MIME: RFC 1864
             'content-md5',
-            // MIME: RFC 2045
-            'content-id',
             // MIME: RFC 2110
             'content-base',
             // MIME: RFC 2424

@@ -1402,18 +1402,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return $id;
         }
 
-        $cid = is_null($cid)
-            ? (strval(new Horde_Support_Randomid()) . '@' . $_SERVER['SERVER_NAME'])
-            : trim($cid, '<>');
-
         $this->_headers->addHeaderOb(
-            new Horde_Mime_Headers_Element_Single(
-                'Content-ID',
-                '<' . $cid . '>'
-            )
+            is_null($cid)
+                ? Horde_Mime_Headers_ContentId::create()
+                : new Horde_Mime_Headers_ContentId(null, $cid)
         );
 
-        return $cid;
+        return $this->getContentId();
     }
 
     /**
