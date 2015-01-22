@@ -262,6 +262,7 @@ implements ArrayAccess, IteratorAggregate, Serializable
                 'Horde_Mime_Headers_ContentLanguage',
                 'Horde_Mime_Headers_ContentParam_ContentDisposition',
                 'Horde_Mime_Headers_ContentParam_ContentType',
+                'Horde_Mime_Headers_ContentTransferEncoding',
                 'Horde_Mime_Headers_Date',
                 'Horde_Mime_Headers_Identification',
                 'Horde_Mime_Headers_MessageId',

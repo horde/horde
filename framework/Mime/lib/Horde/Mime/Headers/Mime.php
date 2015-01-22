@@ -34,7 +34,6 @@ implements Horde_Mime_Headers_Extension_Mime
             // MIME: RFC 1864
             'content-md5',
             // MIME: RFC 2045
-            'content-transfer-encoding',
             'content-id',
             // MIME: RFC 2110
             'content-base',

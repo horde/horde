@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
 * [mms] Added Horde_Mime_Headers_Element#isDefault().
 * [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.
@@ -81,6 +82,7 @@
        <file name="ContentDescription.php" role="php" />
        <file name="ContentLanguage.php" role="php" />
        <file name="ContentParam.php" role="php" />
+       <file name="ContentTransferEncoding.php" role="php" />
        <file name="Date.php" role="php" />
        <file name="Deprecated.php" role="php" />
        <file name="Element.php" role="php" />
@@ -401,6 +403,7 @@
       <dir name="Headers">
        <file name="ContentDispositionTest.php" role="test" />
        <file name="ContentLanguageTest.php" role="test" />
+       <file name="ContentTransferEncodingTest.php" role="test" />
        <file name="ContentTypeTest.php" role="test" />
       </dir> <!-- /test/Horde/Mime/Headers -->
       <dir name="Mdn">
@@ -566,6 +569,7 @@
    <install as="Horde/Mime/Headers/ContentDescription.php" name="lib/Horde/Mime/Headers/ContentDescription.php" />
    <install as="Horde/Mime/Headers/ContentLanguage.php" name="lib/Horde/Mime/Headers/ContentLanguage.php" />
    <install as="Horde/Mime/Headers/ContentParam.php" name="lib/Horde/Mime/Headers/ContentParam.php" />
+   <install as="Horde/Mime/Headers/ContentTransferEncoding.php" name="lib/Horde/Mime/Headers/ContentTransferEncoding.php" />
    <install as="Horde/Mime/Headers/Date.php" name="lib/Horde/Mime/Headers/Date.php" />
    <install as="Horde/Mime/Headers/Deprecated.php" name="lib/Horde/Mime/Headers/Deprecated.php" />
    <install as="Horde/Mime/Headers/Element.php" name="lib/Horde/Mime/Headers/Element.php" />
@@ -706,6 +710,7 @@
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
    <install as="Horde/Mime/Headers/ContentDispositionTest.php" name="test/Horde/Mime/Headers/ContentDispositionTest.php" />
    <install as="Horde/Mime/Headers/ContentLanguageTest.php" name="test/Horde/Mime/Headers/ContentLanguageTest.php" />
+   <install as="Horde/Mime/Headers/ContentTransferEncodingTest.php" name="test/Horde/Mime/Headers/ContentTransferEncodingTest.php" />
    <install as="Horde/Mime/Headers/ContentTypeTest.php" name="test/Horde/Mime/Headers/ContentTypeTest.php" />
    <install as="Horde/Mime/Mdn/NonTranslatedTest.php" name="test/Horde/Mime/Mdn/NonTranslatedTest.php" />
   </filelist>
@@ -1647,6 +1652,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
 * [mms] Added Horde_Mime_Headers_Element#isDefault().
 * [mms] Add interface to differentiate between MIME and non-MIME headers.
 * [mms] Content-Type and Content-Disposition related data is now handled internally in Horde_Mime_Part object by using Horde_Mime_Headers.

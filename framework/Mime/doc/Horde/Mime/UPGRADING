@@ -44,6 +44,7 @@ Upgrading to 2.8
   - Horde_Mime_Headers_ContentLanguage
   - Horde_Mime_Headers_ContentParam_ContentDisposition
   - Horde_Mime_Headers_ContentParam_ContentType
+  - Horde_Mime_Headers_ContentTransferEncoding
   - Horde_Mime_Headers_Mime
 
     These classes have been added.

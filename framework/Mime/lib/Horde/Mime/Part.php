@@ -994,9 +994,14 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
         /* Add transfer encoding information. RFC 2045 [6.1] indicates that
          * default is 7bit. No need to send the header in this case. */
-        $encoding = $this->_getTransferEncoding(empty($options['encode']) ? null : $options['encode']);
-        if ($encoding !== '7bit') {
-            $headers->addHeader('Content-Transfer-Encoding', $encoding);
+        $cte = new Horde_Mime_Headers_ContentTransferEncoding(
+            null,
+            $this->_getTransferEncoding(
+                empty($options['encode']) ? null : $options['encode']
+            )
+        );
+        if (!$cte->isDefault()) {
+            $headers->addHeaderOb($cte);
         }
 
         /* Add content ID information. */
