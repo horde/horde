@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix serialization of Horde_Imap_Client_Data_Fetch objects.
 * [mms] Workaround broken in-memory stream filter handling.
  </notes>
  <contents>
@@ -2823,6 +2824,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix serialization of Horde_Imap_Client_Data_Fetch objects.
 * [mms] Workaround broken in-memory stream filter handling.
    </notes>
   </release>

@@ -42,7 +42,7 @@ class Horde_Imap_Client_Data_Fetch
      */
     public function setFullMsg($msg)
     {
-        $this->_data[Horde_Imap_Client::FETCH_FULLMSG] = $msg;
+        $this->_data[Horde_Imap_Client::FETCH_FULLMSG] = $this->_setMixed($msg);
     }
 
     /**
@@ -190,7 +190,7 @@ class Horde_Imap_Client_Data_Fetch
     {
         $this->_data[Horde_Imap_Client::FETCH_BODYPART][$id] = array(
             'd' => $decode,
-            't' => $text
+            't' => $this->_setMixed($text)
         );
     }
 
@@ -260,7 +260,7 @@ class Horde_Imap_Client_Data_Fetch
      */
     public function setBodyText($id, $text)
     {
-        $this->_data[Horde_Imap_Client::FETCH_BODYTEXT][$id] = $text;
+        $this->_data[Horde_Imap_Client::FETCH_BODYTEXT][$id] = $this->_setMixed($text);
     }
 
     /**
@@ -528,28 +528,26 @@ class Horde_Imap_Client_Data_Fetch
      */
     protected function _msgText($stream, $data)
     {
-        if ($stream) {
-            if (is_resource($data)) {
-                rewind($data);
-                return $data;
+        if ($data instanceof Horde_Stream) {
+            if ($stream) {
+                $data->rewind();
+                return $data->stream;
             }
-
-            $tmp = fopen('php://temp', 'w+');
-
-            if (!is_null($data)) {
-                fwrite($tmp, $data);
-                rewind($tmp);
-            }
-
-            return $tmp;
+            return strval($data);
         }
 
-        if (is_resource($data)) {
-            rewind($data);
-            return stream_get_contents($data);
+        if (!$stream) {
+            return strval($data);
         }
 
-        return strval($data);
+        $tmp = fopen('php://temp', 'w+');
+
+        if (!is_null($data)) {
+            fwrite($tmp, $data);
+            rewind($tmp);
+        }
+
+        return $tmp;
     }
 
     /**
@@ -594,6 +592,21 @@ class Horde_Imap_Client_Data_Fetch
         return is_object($this->_data[$key][$id])
             ? $this->_data[$key][$id]->toString(array('nowrap' => true))
             : $this->_msgText(false, $this->_data[$key][$id]);
+    }
+
+    /**
+     * Converts mixed input (string or resource) to the correct internal
+     * representation.
+     *
+     * @param mixed $data  Mixed data.
+     *
+     * @return mixed  The internal representation of that data.
+     */
+    protected function _setMixed($data)
+    {
+        return is_resource($data)
+            ? new Horde_Stream_Existing(array('stream' => $data))
+            : $data;
     }
 
 }
