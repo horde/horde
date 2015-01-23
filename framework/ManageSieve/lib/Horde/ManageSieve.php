@@ -1,42 +1,17 @@
 <?php
 /**
- * This file contains the Net_Sieve class.
+ * Copyright 2002-2003 Richard Heyes
+ * Copyright 2006-2008 Anish Mistry
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
- * +-----------------------------------------------------------------------+
- * | All rights reserved.                                                  |
- * |                                                                       |
- * | Redistribution and use in source and binary forms, with or without    |
- * | modification, are permitted provided that the following conditions    |
- * | are met:                                                              |
- * |                                                                       |
- * | o Redistributions of source code must retain the above copyright      |
- * |   notice, this list of conditions and the following disclaimer.       |
- * | o Redistributions in binary form must reproduce the above copyright   |
- * |   notice, this list of conditions and the following disclaimer in the |
- * |   documentation and/or other materials provided with the distribution.|
- * |                                                                       |
- * | THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS   |
- * | "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT     |
- * | LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR |
- * | A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT  |
- * | OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, |
- * | SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT      |
- * | LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, |
- * | DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY |
- * | THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT   |
- * | (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE |
- * | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  |
- * +-----------------------------------------------------------------------+
+ * See the enclosed file LICENSE for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @category  Networking
- * @package   Net_Sieve
+ * @package   ManageSieve
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Damian Fernandez Sosa <damlists@cnba.uba.ar>
  * @author    Anish Mistry <amistry@am-productions.biz>
  * @author    Jan Schneider <jan@horde.org>
- * @copyright 2002-2003 Richard Heyes
- * @copyright 2006-2008 Anish Mistry
- * @copyright 2009-2015 Jan Schneider
  * @license   http://www.horde.org/licenses/bsd BSD
  */
 
@@ -50,22 +25,17 @@ namespace Horde;
 use Horde\ManageSieve;
 
 /**
- * A class for talking to the timsieved server which comes with Cyrus IMAP.
+ * This class implements the ManageSieve protocol (RFC 5804).
  *
- * @category  Networking
- * @package   Net_Sieve
+ * @package   ManageSieve
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Damian Fernandez Sosa <damlists@cnba.uba.ar>
  * @author    Anish Mistry <amistry@am-productions.biz>
  * @author    Jan Schneider <jan@horde.org>
  * @copyright 2002-2003 Richard Heyes
  * @copyright 2006-2008 Anish Mistry
- * @copyright 2009-2015 Jan Schneider
+ * @copyright 2009-2015 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/Net_Sieve
- * @link      http://tools.ietf.org/html/rfc5228 RFC 5228 (Sieve: An Email
- *            Filtering Language)
  * @link      http://tools.ietf.org/html/rfc5804 RFC 5804 A Protocol for
  *            Remotely Managing Sieve Scripts
  */
