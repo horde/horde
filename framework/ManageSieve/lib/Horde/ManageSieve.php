@@ -37,8 +37,7 @@
  * @copyright 2002-2003 Richard Heyes
  * @copyright 2006-2008 Anish Mistry
  * @copyright 2009-2015 Jan Schneider
- * @license   http://www.opensource.org/licenses/bsd-license.php BSD
- * @link      http://pear.php.net/package/Net_Sieve
+ * @license   http://www.horde.org/licenses/bsd BSD
  */
 
 /**
@@ -48,6 +47,7 @@
  */
 
 namespace Horde;
+use Horde\ManageSieve;
 
 /**
  * A class for talking to the timsieved server which comes with Cyrus IMAP.
@@ -61,7 +61,7 @@ namespace Horde;
  * @copyright 2002-2003 Richard Heyes
  * @copyright 2006-2008 Anish Mistry
  * @copyright 2009-2015 Jan Schneider
- * @license   http://www.opensource.org/licenses/bsd-license.php BSD
+ * @license   http://www.horde.org/licenses/bsd BSD
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Net_Sieve
  * @link      http://tools.ietf.org/html/rfc5228 RFC 5228 (Sieve: An Email
@@ -128,20 +128,6 @@ class ManageSieve
     protected $_state;
 
     /**
-     * PEAR object to avoid strict warnings.
-     *
-     * @var PEAR_Error
-     */
-    protected $_pear;
-
-    /**
-     * Constructor error.
-     *
-     * @var PEAR_Error
-     */
-    protected $_error;
-
-    /**
      * Whether to enable debugging.
      *
      * @var boolean
@@ -188,9 +174,7 @@ class ManageSieve
     /**
      * Constructor.
      *
-     * Sets up the object, connects to the server and logs in. Stores any
-     * generated error in $this->_error, which can be retrieved using the
-     * getError() method.
+     * Sets up the object, connects to the server and logs in.
      *
      * @param string  $user       Login username.
      * @param string  $pass       Login password.
@@ -207,13 +191,14 @@ class ManageSieve
      * @param array   $options    Additional options for
      *                            stream_context_create().
      * @param mixed   $handler    A callback handler for the debug output.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     public function __construct($user = null, $pass  = null, $host = 'localhost',
                        $port = 2000, $logintype = '', $euser = '',
                        $debug = false, $bypassAuth = false, $useTLS = true,
                        $options = null, $handler = null)
     {
-        $this->_pear = new PEAR();
         $this->_state             = self::STATE_DISCONNECTED;
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
@@ -239,18 +224,8 @@ class ManageSieve
         }
 
         if (strlen($user) && strlen($pass)) {
-            $this->_error = $this->_handleConnectAndLogin();
+            $this->_handleConnectAndLogin();
         }
-    }
-
-    /**
-     * Returns any error that may have been generated in the constructor.
-     *
-     * @return boolean|PEAR_Error  False if no error, PEAR_Error otherwise.
-     */
-    public function getError()
-    {
-        return is_a($this->_error, 'PEAR_Error') ? $this->_error : false;
     }
 
     /**
@@ -268,21 +243,14 @@ class ManageSieve
     /**
      * Connects to the server and logs in.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _handleConnectAndLogin()
     {
-        $res = $this->connect($this->_data['host'], $this->_data['port'], $this->_options, $this->_useTLS);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->connect($this->_data['host'], $this->_data['port'], $this->_options, $this->_useTLS);
         if ($this->_bypassAuth === false) {
-            $res = $this->login($this->_data['user'], $this->_data['pass'], $this->_data['logintype'], $this->_data['euser'], $this->_bypassAuth);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->login($this->_data['user'], $this->_data['pass'], $this->_data['logintype'], $this->_data['euser'], $this->_bypassAuth);
         }
-        return true;
     }
 
     /**
@@ -294,7 +262,7 @@ class ManageSieve
      *                         stream_context_create().
      * @param boolean $useTLS  Use TLS if available.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function connect($host, $port, $options = null, $useTLS = true)
     {
@@ -306,44 +274,35 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            return $this->_pear->raiseError('Not currently in DISCONNECTED state', 1);
+            throw new Exception('Not currently in DISCONNECTED state', 1);
         }
 
         $res = $this->_sock->connect($host, $port, false, 5, $options);
         if (is_a($res, 'PEAR_Error')) {
-            return $res;
+            throw new Exception($res);
         }
 
         if ($this->_bypassAuth) {
             $this->_state = self::STATE_TRANSACTION;
         } else {
             $this->_state = self::STATE_AUTHORIZATION;
-            $res = $this->_doCmd();
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_doCmd();
         }
 
         // Explicitly ask for the capabilities in case the connection is
         // picked up from an existing connection.
-        $res = $this->_cmdCapability();
-        if (is_a($res, 'PEAR_Error')) {
-            return $this->_pear->raiseError(
-                'Failed to connect, server said: ' . $res->getMessage(), 2
-            );
+        try {
+            $this->_cmdCapability();
+        } catch (Exception $e) {
+            throw new Exception('Failed to connect, server said: ' . $e->getMessage(), 2);
         }
 
         // Check if we can enable TLS via STARTTLS.
         if ($useTLS && !empty($this->_capability['starttls'])
             && function_exists('stream_socket_enable_crypto')
         ) {
-            $res = $this->_startTLS();
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_startTLS();
         }
-
-        return true;
     }
 
     /**
@@ -352,11 +311,11 @@ class ManageSieve
      * @param boolean $sendLogoutCMD Whether to send LOGOUT command before
      *                               disconnecting.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function disconnect($sendLogoutCMD = true)
     {
-        return $this->_cmdLogout($sendLogoutCMD);
+        $this->_cmdLogout($sendLogoutCMD);
     }
 
     /**
@@ -368,7 +327,7 @@ class ManageSieve
      * @param string  $euser      Effective UID (perform on behalf of $euser).
      * @param boolean $bypassAuth Do not perform authentication.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function login($user, $pass, $logintype = null, $euser = '', $bypassAuth = false)
     {
@@ -379,18 +338,13 @@ class ManageSieve
         $this->_bypassAuth        = $bypassAuth;
 
         if (self::STATE_AUTHORIZATION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
 
         if (!$bypassAuth ) {
-            $res = $this->_cmdAuthenticate($user, $pass, $logintype, $euser);
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_cmdAuthenticate($user, $pass, $logintype, $euser);
         }
         $this->_state = self::STATE_TRANSACTION;
-
-        return true;
     }
 
     /**
@@ -424,11 +378,11 @@ class ManageSieve
      *
      * @param string $scriptname The name of the script to be set as active.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function setActive($scriptname)
     {
-        return $this->_cmdSetActive($scriptname);
+        $this->_cmdSetActive($scriptname);
     }
 
     /**
@@ -436,7 +390,8 @@ class ManageSieve
      *
      * @param string $scriptname The name of the script to be retrieved.
      *
-     * @return string  The script on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return string  The script.
     */
     public function getScript($scriptname)
     {
@@ -450,18 +405,14 @@ class ManageSieve
      * @param string  $script     The script content.
      * @param boolean $makeactive Whether to make this the active script.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function installScript($scriptname, $script, $makeactive = false)
     {
-        $res = $this->_cmdPutScript($scriptname, $script);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_cmdPutScript($scriptname, $script);
         if ($makeactive) {
-            return $this->_cmdSetActive($scriptname);
+            $this->_cmdSetActive($scriptname);
         }
-        return true;
     }
 
     /**
@@ -469,11 +420,11 @@ class ManageSieve
      *
      * @param string $scriptname Name of the script.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
      */
     public function removeScript($scriptname)
     {
-        return $this->_cmdDeleteScript($scriptname);
+        $this->_cmdDeleteScript($scriptname);
     }
 
     /**
@@ -482,32 +433,34 @@ class ManageSieve
      * @param string  $scriptname The name of the script to mark as active.
      * @param integer $size       The size of the script.
      *
-     * @return boolean|PEAR_Error  True if there is space, PEAR_Error otherwise.
-     *
-     * @todo Rename to hasSpace()
+     * @throws \Horde\ManageSieve\Exception
+     * @return boolean  True if there is space.
      */
-    public function haveSpace($scriptname, $size)
+    public function hasSpace($scriptname, $size)
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in TRANSACTION state', 1);
+            throw new Exception('Not currently in TRANSACTION state', 1);
         }
 
-        $res = $this->_doCmd(sprintf('HAVESPACE %s %d', $this->_escape($scriptname), $size));
-        if (is_a($res, 'PEAR_Error')) {        
-            return $res;
+        try {
+            $this->_doCmd(sprintf('HAVESPACE %s %d', $this->_escape($scriptname), $size));
+        } catch (Exception $e) {
+            return false;
         }
+
         return true;
     }
 
     /**
      * Returns the list of extensions the server supports.
      *
-     * @return array  List of extensions or PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return array  List of extensions.
      */
     public function getExtensions()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 7);
+            throw new Exception('Not currently connected', 7);
         }
         return $this->_capability['extensions'];
     }
@@ -517,13 +470,13 @@ class ManageSieve
      *
      * @param string $extension The extension to check.
      *
-     * @return boolean  Whether the extension is supported or PEAR_Error on
-     *                  failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return boolean  Whether the extension is supported.
      */
     public function hasExtension($extension)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 7);
+            throw new Exception('Not currently connected', 7);
         }
 
         $extension = trim($this->_toUpper($extension));
@@ -541,12 +494,13 @@ class ManageSieve
     /**
      * Returns the list of authentication methods the server supports.
      *
-     * @return array  List of authentication methods or PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return array  List of authentication methods.
      */
     public function getAuthMechs()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 7);
+            throw new Exception('Not currently connected', 7);
         }
         return $this->_capability['sasl'];
     }
@@ -556,13 +510,13 @@ class ManageSieve
      *
      * @param string $method The method to check.
      *
-     * @return boolean  Whether the method is supported or PEAR_Error on
-     *                  failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return boolean  Whether the method is supported.
      */
     public function hasAuthMech($method)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 7);
+            throw new Exception('Not currently connected', 7);
         }
 
         $method = trim($this->_toUpper($method));
@@ -585,48 +539,46 @@ class ManageSieve
      * @param string $userMethod The method to use. If empty, the class chooses
      *                           the best (strongest) available method.
      * @param string $euser      The effective uid to authenticate as.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdAuthenticate($uid, $pwd, $userMethod = null, $euser = '')
     {
         $method = $this->_getBestAuthMethod($userMethod);
-        if (is_a($method, 'PEAR_Error')) {
-            return $method;
-        }
+
         switch ($method) {
         case 'DIGEST-MD5':
-            return $this->_authDigestMD5($uid, $pwd, $euser);
+            $this->_authDigestMD5($uid, $pwd, $euser);
+            return;
         case 'CRAM-MD5':
-            $result = $this->_authCRAMMD5($uid, $pwd, $euser);
+            $this->_authCRAMMD5($uid, $pwd, $euser);
             break;
         case 'LOGIN':
-            $result = $this->_authLOGIN($uid, $pwd, $euser);
+            $this->_authLOGIN($uid, $pwd, $euser);
             break;
         case 'PLAIN':
-            $result = $this->_authPLAIN($uid, $pwd, $euser);
+            $this->_authPLAIN($uid, $pwd, $euser);
             break;
         case 'EXTERNAL':
-            $result = $this->_authEXTERNAL($uid, $pwd, $euser);
+            $this->_authEXTERNAL($uid, $pwd, $euser);
             break;
         default :
-            $result = $this->_pear->raiseError(
+            throw new Exception(
                 $method . ' is not a supported authentication method'
             );
             break;
         }
 
-        $res = $this->_doCmd();
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_doCmd();
 
         // Query the server capabilities again now that we are authenticated.
-        if ($this->_pear->isError($res = $this->_cmdCapability())) {
-            return $this->_pear->raiseError(
-                'Failed to connect, server said: ' . $res->getMessage(), 2
+        try {
+            $this->_cmdCapability();
+        } catch (Exception $e) {
+            throw new Exception(
+                'Failed to connect, server said: ' . $e->getMessage(), 2
             );
         }
-
-        return $result;
     }
 
     /**
@@ -635,6 +587,8 @@ class ManageSieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _authPLAIN($user, $pass, $euser)
     {
@@ -652,18 +606,14 @@ class ManageSieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as. Not used.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _authLOGIN($user, $pass, $euser)
     {
-        $result = $this->_sendCmd('AUTHENTICATE "LOGIN"');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        $result = $this->_doCmd('"' . base64_encode($user) . '"', true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        return $this->_doCmd('"' . base64_encode($pass) . '"', true);
+        $this->_sendCmd('AUTHENTICATE "LOGIN"');
+        $this->_doCmd('"' . base64_encode($user) . '"', true);
+        $this->_doCmd('"' . base64_encode($pass) . '"', true);
     }
 
     /**
@@ -672,22 +622,19 @@ class ManageSieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as. Not used.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _authCRAMMD5($user, $pass, $euser)
     {
         $challenge = $this->_doCmd('AUTHENTICATE "CRAM-MD5"', true);
-        if (is_a($challenge, 'PEAR_Error')) {
-            return $challenge;
-        }
-
         $challenge = base64_decode(trim($challenge));
         $cram = Auth_SASL::factory('crammd5');
         $response = $cram->getResponse($user, $pass, $challenge);
         if (is_a($response, 'PEAR_Error')) {
-            return $response;
+            throw new Exception($response);
         }
-
-        return $this->_sendStringResponse(base64_encode($response));
+        $this->_sendStringResponse(base64_encode($response));
     }
 
     /**
@@ -696,42 +643,30 @@ class ManageSieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _authDigestMD5($user, $pass, $euser)
     {
         $challenge = $this->_doCmd('AUTHENTICATE "DIGEST-MD5"', true);
-        if (is_a($challenge, 'PEAR_Error')) {
-            return $challenge;
-        }
-
         $challenge = base64_decode(trim($challenge));
         $digest = Auth_SASL::factory('digestmd5');
         // @todo Really 'localhost'?
         $response = $digest->getResponse($user, $pass, $challenge, 'localhost', 'sieve', $euser);
         if (is_a($response, 'PEAR_Error')) {
-            return $response;
+            throw new Exception($response);
         }
 
-        $result = $this->_sendStringResponse(base64_encode($response));
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-        $result = $this->_doCmd('', true);
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
+        $this->_sendStringResponse(base64_encode($response));
+        $this->_doCmd('', true);
         if ($this->_toUpper(substr($result, 0, 2)) == 'OK') {
             return;
         }
 
         /* We don't use the protocol's third step because SIEVE doesn't allow
          * subsequent authentication, so we just silently ignore it. */
-        $result = $this->_sendStringResponse('');
-        if (is_a($result, 'PEAR_Error')) {
-            return $result;
-        }
-
-        return $this->_doCmd();
+        $this->_sendStringResponse('');
+        $this->_doCmd();
     }
 
     /**
@@ -740,6 +675,8 @@ class ManageSieve
      * @param string $user  The userid to authenticate as.
      * @param string $pass  The password to authenticate with.
      * @param string $euser The effective uid to authenticate as.
+     *
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _authEXTERNAL($user, $pass, $euser)
     {
@@ -755,19 +692,14 @@ class ManageSieve
      *
      * @param string $scriptname Name of the script to delete.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdDeleteScript($scriptname)
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
-
-        $res = $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-        return true;
+        $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
     }
 
     /**
@@ -775,18 +707,16 @@ class ManageSieve
      *
      * @param string $scriptname Name of the script to retrieve.
      *
-     * @return string  The script if successful, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
+     * @return string  The script.
      */
     protected function _cmdGetScript($scriptname)
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
 
-        $res = $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
 
         return preg_replace('/^{[0-9]+}\r\n/', '', $res);
     }
@@ -797,39 +727,30 @@ class ManageSieve
      *
      * @param string $scriptname The name of the script to mark as active.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
-    */
+     * @throws \Horde\ManageSieve\Exception
+     */
     protected function _cmdSetActive($scriptname)
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
-
-        $res = $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        return true;
+        $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
     }
 
     /**
      * Returns the list of scripts on the server.
      *
+     * @throws \Horde\ManageSieve\Exception
      * @return array  An array with the list of scripts in the first element
-     *                and the active script in the second element on success,
-     *                PEAR_Error otherwise.
+     *                and the active script in the second element.
      */
     protected function _cmdListScripts()
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
 
         $res = $this->_doCmd('LISTSCRIPTS');
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
 
         $scripts = array();
         $activescript = null;
@@ -853,12 +774,12 @@ class ManageSieve
      * @param string $scriptname Name of the new script.
      * @param string $scriptdata The new script.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdPutScript($scriptname, $scriptdata)
     {
         if (self::STATE_TRANSACTION != $this->_state) {
-            return $this->_pear->raiseError('Not currently in AUTHORIZATION state', 1);
+            throw new Exception('Not currently in AUTHORIZATION state', 1);
         }
 
         $stringLength = $this->_getLineLength($scriptdata);
@@ -866,12 +787,7 @@ class ManageSieve
                                 $this->_escape($scriptname),
                                 $stringLength,
                                 $scriptdata);
-        $res = $this->_doCmd($command);
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
-        return true;
+        $this->_doCmd($command);
     }
 
     /**
@@ -880,43 +796,34 @@ class ManageSieve
      * @param boolean $sendLogoutCMD Whether to send LOGOUT command before
      *                               disconnecting.
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdLogout($sendLogoutCMD = true)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 1);
+            throw new Exception('Not currently connected', 1);
         }
 
         if ($sendLogoutCMD) {
-            $res = $this->_doCmd('LOGOUT');
-            if (is_a($res, 'PEAR_Error')) {
-                return $res;
-            }
+            $this->_doCmd('LOGOUT');
         }
 
         $this->_sock->disconnect();
         $this->_state = self::STATE_DISCONNECTED;
-
-        return true;
     }
 
     /**
      * Sends the CAPABILITY command
      *
-     * @return boolean  True on success, PEAR_Error otherwise.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdCapability()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            return $this->_pear->raiseError('Not currently connected', 1);
+            throw new Exception('Not currently connected', 1);
         }
-        $res = $this->_doCmd('CAPABILITY');
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
+        $this->_doCmd('CAPABILITY');
         $this->_parseCapability($res);
-        return true;
     }
 
     /**
@@ -966,11 +873,11 @@ class ManageSieve
     {
         $status = $this->_sock->getStatus();
         if (is_a($status, 'PEAR_Error') || $status['eof']) {
-            return $this->_pear->raiseError('Failed to write to socket: connection lost');
+            throw new Exception('Failed to write to socket: connection lost');
         }
         $error = $this->_sock->write($cmd . "\r\n");
         if (is_a($error, 'PEAR_Error')) {
-            return $this->_pear->raiseError(
+            throw new Exception(
                 'Failed to write to socket: ' . $error->getMessage()
             );
         }
@@ -996,7 +903,7 @@ class ManageSieve
     {
         $lastline = $this->_sock->gets(8192);
         if (is_a($lastline, 'PEAR_Error')) {
-            return $this->_pear->raiseError(
+            throw new Exception(
                 'Failed to read from socket: ' . $lastline->getMessage()
             );
         }
@@ -1005,7 +912,7 @@ class ManageSieve
         $this->_debug("S: $lastline");
 
         if ($lastline === '') {
-            return $this->_pear->raiseError('Failed to read from socket');
+            throw new Exception('Failed to read from socket');
         }
 
         return $lastline;
@@ -1036,26 +943,21 @@ class ManageSieve
      * @param string $cmd   The command to send.
      * @param boolean $auth Whether this is an authentication command.
      *
-     * @return string|PEAR_Error  Reponse string if an OK response, PEAR_Error
-     *                            if a NO response.
+     * @throws \Horde\ManageSieve\Exception if a NO response.
+     * @return string  Reponse string if an OK response.
+     *                            
      */
     protected function _doCmd($cmd = '', $auth = false)
     {
         $referralCount = 0;
         while ($referralCount < $this->_maxReferralCount) {
             if (strlen($cmd)) {
-                $error = $this->_sendCmd($cmd);
-                if (is_a($error, 'PEAR_Error')) {
-                    return $error;
-                }
+                $this->_sendCmd($cmd);
             }
 
             $response = '';
             while (true) {
                 $line = $this->_recvLn();
-                if (is_a($line, 'PEAR_Error')) {
-                    return $line;
-                }
 
                 if (preg_match('/^(OK|NO)/i', $line, $tag)) {
                     // Check for string literal message.
@@ -1071,15 +973,16 @@ class ManageSieve
                         return rtrim($response);
                     }
 
-                    return $this->_pear->raiseError(trim($response . substr($line, 2)), 3);
+                    throw new Exception(trim($response . substr($line, 2)), 3);
                 }
 
                 if (preg_match('/^BYE/i', $line)) {
-                    $error = $this->disconnect(false);
-                    if (is_a($error, 'PEAR_Error')) {
-                        return $this->_pear->raiseError(
+                    try {
+                        $this->disconnect(false);
+                    } catch (Exception $e) {
+                        throw new Exception(
                             'Cannot handle BYE, the error was: '
-                            . $error->getMessage(),
+                            . $e->getMessage(),
                             4
                         );
                     }
@@ -1092,18 +995,19 @@ class ManageSieve
                             '/\w+(?!(\w|\:\/\/)).*/', $matches[2],
                             $this->_data['host']
                         );
-                        $error = $this->_handleConnectAndLogin();
-                        if (is_a($error, 'PEAR_Error')) {
-                            return $this->_pear->raiseError(
+                        try {
+                            $this->_handleConnectAndLogin();
+                        } catch (Exception $e) {
+                            throw new Exception(
                                 'Cannot follow referral to '
                                 . $this->_data['host'] . ', the error was: '
-                                . $error->getMessage(),
+                                . $e->getMessage(),
                                 5
                             );
                         }
                         break;
                     }
-                    return $this->_pear->raiseError(trim($response . $line), 6);
+                    throw new Exception(trim($response . $line), 6);
                 }
 
                 if (preg_match('/^{([0-9]+)}/', $line, $matches)) {
@@ -1130,7 +1034,7 @@ class ManageSieve
             }
         }
 
-        return $this->_pear->raiseError('Max referral count (' . $referralCount . ') reached. Cyrus murder loop error?', 7);
+        throw new Exception('Max referral count (' . $referralCount . ') reached. Cyrus murder loop error?', 7);
     }
 
     /**
@@ -1139,23 +1043,23 @@ class ManageSieve
      *
      * @param string $userMethod Only consider this method as available.
      *
-     * @return string  The name of the best supported authentication method or
-     *                 a PEAR_Error object on failure.
+     * @throws \Horde\ManageSieve\Exception
+     * @return string  The name of the best supported authentication method.
      */
     protected function _getBestAuthMethod($userMethod = null)
     {
         if (!isset($this->_capability['sasl'])) {
-            return $this->_pear->raiseError('This server doesn\'t support any authentication methods. SASL problem?');
+            throw new Exception('This server doesn\'t support any authentication methods. SASL problem?');
         }
         if (!$this->_capability['sasl']) {
-            return $this->_pear->raiseError('This server doesn\'t support any authentication methods.');
+            throw new Exception('This server doesn\'t support any authentication methods.');
         }
 
         if ($userMethod) {
             if (in_array($userMethod, $this->_capability['sasl'])) {
                 return $userMethod;
             }
-            return $this->_pear->raiseError(
+            throw new Exception(
                 sprintf('No supported authentication method found. The server supports these methods: %s, but we want to use: %s',
                         implode(', ', $this->_capability['sasl']),
                         $userMethod));
@@ -1167,7 +1071,7 @@ class ManageSieve
             }
         }
 
-        return $this->_pear->raiseError(
+        throw new Exception(
             sprintf('No supported authentication method found. The server supports these methods: %s, but we only support: %s',
                     implode(', ', $this->_capability['sasl']),
                     implode(', ', $this->supportedAuthMethods)));
@@ -1176,17 +1080,13 @@ class ManageSieve
     /**
      * Starts a TLS connection.
      *
-     * @return boolean  True on success, PEAR_Error on failure.
+     * @throws \Horde\ManageSieve\Exception
      */
     protected function _startTLS()
     {
-        $res = $this->_doCmd('STARTTLS');
-        if (is_a($res, 'PEAR_Error')) {
-            return $res;
-        }
-
+        $this->_doCmd('STARTTLS');
         if (!stream_socket_enable_crypto($this->_sock->fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-            return $this->_pear->raiseError('Failed to establish TLS connection', 2);
+            throw new Exception('Failed to establish TLS connection', 2);
         }
 
         $this->_debug('STARTTLS negotiation successful');
@@ -1203,14 +1103,13 @@ class ManageSieve
 
         // Query the server capabilities again now that we are under
         // encryption.
-        $res = $this->_cmdCapability();
-        if (is_a($res, 'PEAR_Error')) {
-            return $this->_pear->raiseError(
-                'Failed to connect, server said: ' . $res->getMessage(), 2
+        try {
+            $this->_cmdCapability();
+        } catch (Exception $e) {
+            throw new Exception(
+                'Failed to connect, server said: ' . $e->getMessage(), 2
             );
         }
-
-        return true;
     }
 
     /**
