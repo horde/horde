@@ -226,9 +226,14 @@ var DimpBase = {
         if (type == 'msg') {
             type = 'mbox';
             tmp = data.split(';');
-            data = tmp[0];
-            this.uid = tmp[1].parseViewportUidString().first();
-            // Fall through to the 'mbox' check below.
+            if (tmp[1]) {
+                data = tmp[0];
+                this.uid = tmp[1].parseViewportUidString().first();
+                // Fall through to the 'mbox' check below.
+            } else {
+                // Invalid formatted data.
+                data = '';
+            }
         }
 
         if (type == 'mbox' || Object.isUndefined(this.view)) {
