@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-22</date>
+ <date>2015-01-23</date>
  <version>
   <release>2.26.1</release>
   <api>2.26.0</api>
@@ -286,6 +286,11 @@
         <dir name="Capability">
          <file name="ImapTest.php" role="test" />
         </dir> <!-- /test/Horde/Imap/Client/Data/Capability -->
+        <dir name="Fetch">
+         <file name="FetchPop3Test.php" role="test" />
+         <file name="FetchTest.php" role="test" />
+         <file name="TestBase.php" role="test" />
+        </dir> <!-- /test/Horde/Imap/Client/Data/Fetch -->
         <dir name="Format">
          <dir name="Astring">
           <file name="NonasciiTest.php" role="test" />
@@ -690,6 +695,9 @@
    <install as="Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" name="test/Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" />
    <install as="Horde/Imap/Client/Data/SubjectParseTest.php" name="test/Horde/Imap/Client/Data/SubjectParseTest.php" />
    <install as="Horde/Imap/Client/Data/Capability/ImapTest.php" name="test/Horde/Imap/Client/Data/Capability/ImapTest.php" />
+   <install as="Horde/Imap/Client/Data/Fetch/FetchPop3Test.php" name="test/Horde/Imap/Client/Data/Fetch/FetchPop3Test.php" />
+   <install as="Horde/Imap/Client/Data/Fetch/FetchTest.php" name="test/Horde/Imap/Client/Data/Fetch/FetchTest.php" />
+   <install as="Horde/Imap/Client/Data/Fetch/TestBase.php" name="test/Horde/Imap/Client/Data/Fetch/TestBase.php" />
    <install as="Horde/Imap/Client/Data/Format/AstringTest.php" name="test/Horde/Imap/Client/Data/Format/AstringTest.php" />
    <install as="Horde/Imap/Client/Data/Format/AtomTest.php" name="test/Horde/Imap/Client/Data/Format/AtomTest.php" />
    <install as="Horde/Imap/Client/Data/Format/DateTest.php" name="test/Horde/Imap/Client/Data/Format/DateTest.php" />
@@ -2821,7 +2829,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-22</date>
+   <date>2015-01-23</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix serialization of Horde_Imap_Client_Data_Fetch objects.
