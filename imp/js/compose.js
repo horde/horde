@@ -526,16 +526,13 @@ var ImpCompose = {
 
     RTELoading: function(show, notxt)
     {
-        var o;
-
         if (show) {
-            $('rteloading').clonePosition('composeMessageParent').show();
-            if (!notxt) {
-                o = $('rteloading').viewportOffset();
-                $('rteloadingtxt').setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).show();
-            }
+            [ $('rteloading').down('SPAN') ].invoke(notxt ? 'hide' : 'show');
+            $('rteloading').clonePosition('composeMessageParent').appear({
+                duration: 0.1
+            });
         } else {
-            $('rteloading', 'rteloadingtxt').invoke('hide');
+            $('rteloading').fade({ duration: 0.1 });
         }
     },
 

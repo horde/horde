@@ -211,17 +211,16 @@
     background-image: url("../graphics/arrow_expanded.png");
 }
 #rteloading {
+    background-color: rgba(0,0,0,.35);
     position: absolute;
     z-index: 100;
-    background-color: #000;
-    filter: alpha(opacity=35);
-    -moz-opacity: .35;
-    opacity: .35;
 }
-#rteloadingtxt {
+#rteloading span {
+    background-color: #ccc;
+    left: 15px;
+    padding: 4px;
     position: absolute;
-    background-color: #fff;
-    z-index: 101;
+    top: 15px;
 }
 #encrypt_label,
 #priority_label,
