@@ -195,17 +195,6 @@ class Horde_Imap_Client_Data_Fetch
     }
 
     /**
-     * Set the body part size for a body part.
-     *
-     * @param string $id     The MIME ID.
-     * @param integer $size  The size (in bytes).
-     */
-    public function setBodyPartSize($id, $size)
-    {
-        $this->_data[Horde_Imap_Client::FETCH_BODYPARTSIZE][$id] = intval($size);
-    }
-
-    /**
      * Get a body part entry.
      *
      * @param string $id       The MIME ID.
@@ -235,6 +224,17 @@ class Horde_Imap_Client_Data_Fetch
         return isset($this->_data[Horde_Imap_Client::FETCH_BODYPART][$id])
             ? $this->_data[Horde_Imap_Client::FETCH_BODYPART][$id]['d']
             : null;
+    }
+
+    /**
+     * Set the body part size for a body part.
+     *
+     * @param string $id     The MIME ID.
+     * @param integer $size  The size (in bytes).
+     */
+    public function setBodyPartSize($id, $size)
+    {
+        $this->_data[Horde_Imap_Client::FETCH_BODYPARTSIZE][$id] = intval($size);
     }
 
     /**
