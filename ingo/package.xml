@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Fix filter drag/drop ordering working in basic view.
 * [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
  </notes>
  <contents>
@@ -1535,6 +1536,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Fix filter drag/drop ordering working in basic view.
 * [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
    </notes>
   </release>

@@ -306,6 +306,8 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
         $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('filters.js');
 
+        $page_output->ajax = true;
+
         $topbar = $injector->getInstance('Horde_View_Topbar');
         $topbar->search = true;
         $topbar->searchAction = self::url();
