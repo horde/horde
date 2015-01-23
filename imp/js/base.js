@@ -708,7 +708,7 @@ var ImpBase = {
                     }
                     $('search_label').update(tmp.escapeHTML());
                 }
-                [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                [ $('search_edit') ].compact().invoke(this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
