@@ -568,11 +568,14 @@ class Horde_Imap_Client_Data_Fetch
         switch ($format) {
         case self::HEADER_STREAM:
             if (!isset($this->_data[$key][$id])) {
-                return $this->_msgText(true, null);
+                $data = null;
             } elseif (is_object($this->_data[$key][$id])) {
-                return $this->_getHeaders($id, 0, $key);
+                $data = $this->_getHeaders($id, 0, $key);
+            } else {
+                $data = $this->_data[$key][$id];
             }
-            return $this->_msgText(true, $this->_data[$key][$id]);
+
+            return $this->_msgText(true, $data);
 
         case self::HEADER_PARSE:
             if (!isset($this->_data[$key][$id])) {
