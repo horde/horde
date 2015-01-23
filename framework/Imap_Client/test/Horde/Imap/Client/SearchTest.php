@@ -558,6 +558,24 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testClone()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->text('foo');
+
+        $ob2 = clone $ob;
+        $ob2->text('bar');
+
+        $this->assertEquals(
+            'BODY foo',
+            strval($ob)
+        );
+        $this->assertEquals(
+            'BODY foo BODY bar',
+            strval($ob2)
+        );
+    }
+
     public function testSerialize()
     {
         $ob = new Horde_Imap_Client_Search_Query();

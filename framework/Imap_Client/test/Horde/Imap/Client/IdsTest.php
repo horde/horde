@@ -330,4 +330,33 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testClone()
+    {
+        $ids = new Horde_Imap_Client_Ids(array(1, 3));
+
+        $ids2 = clone $ids;
+        $ids2->add(5);
+
+        $this->assertEquals(
+            array(1, 3),
+            iterator_to_array($ids)
+        );
+        $this->assertEquals(
+            array(1, 3, 5),
+            iterator_to_array($ids2)
+        );
+    }
+
+    public function testSerialize()
+    {
+        $ids = new Horde_Imap_Client_Ids(array(1, 3, 5));
+
+        $ids2 = unserialize(serialize($ids));
+
+        $this->assertEquals(
+            array(1, 3, 5),
+            iterator_to_array($ids2)
+        );
+    }
+
 }

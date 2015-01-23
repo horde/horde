@@ -53,4 +53,35 @@ class Horde_Imap_Client_DateTimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testClone()
+    {
+        $ob = new Horde_Imap_Client_DateTime('12 Sep 2007 15:49:12 UTC');
+
+        $ob2 = clone $ob;
+
+        $ob2->modify('+1 minute');
+
+        $this->assertEquals(
+            1189612152,
+            intval(strval($ob))
+        );
+
+        $this->assertEquals(
+            1189612152 + 60,
+            intval(strval($ob2))
+        );
+    }
+
+    public function testSerialize()
+    {
+        $ob = new Horde_Imap_Client_DateTime('12 Sep 2007 15:49:12 UTC');
+
+        $ob2 = unserialize(serialize($ob));
+
+        $this->assertEquals(
+            1189612152,
+            intval(strval($ob2))
+        );
+    }
+
 }

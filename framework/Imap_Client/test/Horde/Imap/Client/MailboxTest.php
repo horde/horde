@@ -25,6 +25,18 @@
  */
 class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
 {
+    public function testMailboxClone()
+    {
+        $ob = new Horde_Imap_Client_Mailbox('Envoyé');
+
+        $ob2 = clone $ob;
+
+        $this->assertEquals(
+            'Envoyé',
+            $ob2->utf8
+        );
+     }
+
     public function testMailboxSerialize()
     {
         $mailbox = unserialize(

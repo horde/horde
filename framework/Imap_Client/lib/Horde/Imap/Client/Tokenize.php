@@ -81,6 +81,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
     /**
      */
+    public function __clone()
+    {
+        throw new LogicException('Object can not be cloned.');
+    }
+
+    /**
+     */
     public function __get($name)
     {
         switch ($name) {
