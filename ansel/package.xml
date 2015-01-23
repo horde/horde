@@ -801,9 +801,6 @@
     <name>libpuzzle</name>
    </extension>
    <extension>
-    <name>opencv</name>
-   </extension>
-   <extension>
     <name>php-facedetect</name>
    </extension>
   </optional>
