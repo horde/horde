@@ -9,6 +9,8 @@ v3.3.0-git
 v3.2.4
 ------
 
+[mms] Rate-limit filters drag/drop changes to prevent race conditions (Bug
+      #13819).
 [mms] Fix filter drag/drop ordering working in basic view (Bug #13820).
 [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
 

@@ -27,6 +27,19 @@
     color: red;
 }
 
+#filtersSave {
+    background-color: rgba(0,0,0,0.35);
+    position: absolute;
+    z-index: 100;
+}
+#filtersSave span {
+    background-color: #ddd;
+    left: 15px;
+    padding: 5px;
+    position: absolute;
+    top: 15px;
+}
+
 /* Rules page. */
 #rule select {
     padding: 2px;
