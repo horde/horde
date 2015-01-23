@@ -2,7 +2,7 @@
 v3.2.4-git
 ----------
 
-[mms] Fix filter drag/drop ordering working in basic view.
+[mms] Fix filter drag/drop ordering working in basic view (Bug #13820).
 [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
 
 
