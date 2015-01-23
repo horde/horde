@@ -35,6 +35,13 @@ class Horde_Imap_Client_Data_Fetch
     protected $_data = array();
 
     /**
+     */
+    public function __clone()
+    {
+        $this->_data = unserialize(serialize($this->_data));
+    }
+
+    /**
      * Set the full message property.
      *
      * @param mixed $msg  The full message text, as either a string or stream
