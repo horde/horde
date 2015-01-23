@@ -24,6 +24,10 @@ var IngoFilters = {
                     Horde.stripeElement('filterslist');
                 },
                 onUpdate: function() {
+                    $('filtersSave').clonePosition('filterslist').appear({
+                       duration: 0.2
+                    });
+
                     HordeCore.doAction(
                         'reSortFilters',
                         {
@@ -39,6 +43,8 @@ var IngoFilters = {
                                 rows.each(function(r) {
                                     r.writeAttribute('id', 'filtersrow_' + (i++));
                                 });
+
+                                $('filtersSave').fade({ duration: 0.2 });
                             }
                         }
                     );
