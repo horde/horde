@@ -15,12 +15,6 @@
  * @license   http://www.horde.org/licenses/bsd BSD
  */
 
-/**
- * TODO
- *
- * o supportsAuthMech()
- */
-
 namespace Horde;
 use Horde\ManageSieve;
 use Horde\ManageSieve\Exception;
@@ -760,11 +754,13 @@ class ManageSieve
             throw new NotAuthenticated();
         }
 
-        $stringLength = $this->_getLineLength($scriptdata);
-        $command      = sprintf("PUTSCRIPT %s {%d+}\r\n%s",
-                                $this->_escape($scriptname),
-                                $stringLength,
-                                $scriptdata);
+        $command = sprintf(
+            "PUTSCRIPT %s {%d+}\r\n%s",
+            $this->_escape($scriptname),
+            strlen($scriptdata),
+            $scriptdata
+        );
+
         $this->_doCmd($command);
     }
 
@@ -869,7 +865,7 @@ class ManageSieve
      */
     protected function _sendStringResponse($str)
     {
-        return $this->_sendCmd('{' . $this->_getLineLength($str) . "+}\r\n" . $str);
+        return $this->_sendCmd('{' . strlen($str) . "+}\r\n" . $str);
     }
 
     /**
@@ -909,7 +905,7 @@ class ManageSieve
         $response_length = 0;
         while ($response_length < $length) {
             $response .= $this->_sock->read($length - $response_length);
-            $response_length = $this->_getLineLength($response);
+            $response_length = strlen($response);
         }
         $this->_debug('S: ' . rtrim($response));
         return $response;
@@ -1088,22 +1084,6 @@ class ManageSieve
     }
 
     /**
-     * Returns the length of a string.
-     *
-     * @param string $string A string.
-     *
-     * @return integer  The length of the string.
-     */
-    protected function _getLineLength($string)
-    {
-        if (extension_loaded('mbstring')) {
-            return mb_strlen($string, 'latin1');
-        } else {
-            return strlen($string);
-        }
-    }
-
-    /**
      * Locale independant strtoupper() implementation.
      *
      * @param string $string The string to convert to lowercase.
@@ -1131,7 +1111,7 @@ class ManageSieve
         // Some implementations don't allow UTF-8 characters in quoted-string,
         // use literal-c2s.
         if (preg_match('/[^\x01-\x09\x0B-\x0C\x0E-\x7F]/', $string)) {
-            return sprintf("{%d+}\r\n%s", $this->_getLineLength($string), $string);
+            return sprintf("{%d+}\r\n%s", strlen($string), $string);
         }
 
         return '"' . addcslashes($string, '\\"') . '"';
