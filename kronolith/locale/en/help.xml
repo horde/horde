@@ -170,10 +170,10 @@
     To embed a small Month View of the current month:
   </para>
   <raw>
-    &lt;div id=&quot;kronocalendar&quot;&gt;&lt;/div&gt;&lt;script
-    src=&quot;http://hostname.example.com/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/container=kronocalendar/view=month/calendar=calendar_name
-    &quot;type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+    &lt;div id=&quot;kronolithCal&quot;&gt;&lt;/div&gt;&lt;script
+    src=&quot;http://hostname.example.com/horde/services/ajax.php/kronolith/embed?
+    container=kronolithCal&amp;amp;view=Monthlist&quot;type=&quot;text/javascript&quot;&gt;
+    &lt;/script&gt;
   </raw>
   <para>
     To embed an Upcoming Events View (note the 'months' and 'maxevents'
@@ -181,10 +181,10 @@
   </para>
   <raw>
     &lt;div id=&quot;kronolist&quot;&gt;&lt;/div&gt;&lt;script
-    src=&quot;http://hostname.example.com/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/view=monthlist/calendar=calendar_name/container=kronolist/
-    months=2/maxevents=10&quot; type=&quot;text/javascript&quot;&gt;&lt;/script
-    &gt;
+    src=&quot;http://hostname.example.com/horde/services/ajax.php/kronolith/embed?
+    view=Monthlist&amp;calendar=calendar_name&amp;container=kronolist&amp;
+    months=2&amp;maxevents=10&quot; type=&quot;text/javascript&quot;&gt;
+    &lt;/script&gt;
   </raw>
   <para>
     To embed a Summary View:
@@ -192,8 +192,8 @@
   <raw>
     &lt;div id=&quot;kronosummary&quot;&gt;
     &lt;/div&gt;&lt;script type=&quot;text/javascript&quot;
-    src=&quot;http://hostname.example.com/horde/services/imple.php?imple=Embed/
-    impleApp=kronolith/container=kronosummary/view=summary/calendar=calendar_name
+    src=&quot;http://hostname.example.com/horde/services/ajax.php/kronolith/embed?
+    container=kronosummary&amp;view=Summary&amp;calendar=calendar_name
     &quot;&gt;&lt;/script&gt;
   </raw>
 </entry>
