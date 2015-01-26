@@ -1,0 +1,40 @@
+============================
+ Upgrading Horde_ManageSieve
+============================
+
+:Contact: dev@lists.horde.org
+
+.. contents:: Contents
+.. section-numbering::
+
+
+This lists the API changes between releases of the package.
+
+
+Upgrading from Net_Sieve
+========================
+
+  - The class name has been changed from Net_Sieve to \Horde\ManageSieve.
+
+  - Constants
+
+    - NET_SIEVE_STATE_DISCONNECTED been renamed to
+      \Horde\ManageSieve\STATE_DISCONNECTED.
+
+    - NET_SIEVE_STATE_AUTHORISATION been renamed to
+      \Horde\ManageSieve\STATE_NON_AUTHENTICATED.
+
+    - NET_SIEVE_STATE_TRANSACTION been renamed to
+      \Horde\ManageSieve\STATE_AUTHENTICATED.
+
+  - Methods
+
+    - haveSpace() has been renamed to hasSpace().
+
+  - Error handling
+
+    - Error handling has been converted to
+      exceptions. \Horde\ManageSieve\Exception objects are thrown instead of
+      PEAR_Error objects returned.
+
+    - getError() has been removed.
