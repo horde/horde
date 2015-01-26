@@ -218,9 +218,20 @@ class ManageSieve
      */
     protected function _handleConnectAndLogin()
     {
-        $this->connect($this->_data['host'], $this->_data['port'], $this->_options, $this->_useTLS);
+        $this->connect(
+            $this->_data['host'],
+            $this->_data['port'],
+            $this->_options,
+            $this->_useTLS
+        );
         if ($this->_bypassAuth === false) {
-            $this->login($this->_data['user'], $this->_data['pass'], $this->_data['logintype'], $this->_data['euser'], $this->_bypassAuth);
+            $this->login(
+                $this->_data['user'],
+                $this->_data['pass'],
+                $this->_data['logintype'],
+                $this->_data['euser'],
+                $this->_bypassAuth
+            );
         }
     }
 
@@ -269,8 +280,9 @@ class ManageSieve
         }
 
         // Check if we can enable TLS via STARTTLS.
-        if ($useTLS && !empty($this->_capability['starttls'])
-            && function_exists('stream_socket_enable_crypto')
+        if ($useTLS &&
+            !empty($this->_capability['starttls']) &&
+            function_exists('stream_socket_enable_crypto')
         ) {
             $this->_startTLS();
         }
@@ -300,7 +312,9 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception
      */
-    public function login($user, $pass, $logintype = null, $euser = '', $bypassAuth = false)
+    public function login(
+        $user, $pass, $logintype = null, $euser = '', $bypassAuth = false
+    )
     {
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
@@ -417,7 +431,9 @@ class ManageSieve
         }
 
         try {
-            $this->_doCmd(sprintf('HAVESPACE %s %d', $this->_escape($scriptname), $size));
+            $this->_doCmd(
+                sprintf('HAVESPACE %s %d', $this->_escape($scriptname), $size)
+            );
         } catch (Exception $e) {
             return false;
         }
@@ -516,7 +532,9 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception
      */
-    protected function _cmdAuthenticate($uid, $pwd, $userMethod = null, $euser = '')
+    protected function _cmdAuthenticate(
+        $uid, $pwd, $userMethod = null, $euser = ''
+    )
     {
         $method = $this->_getBestAuthMethod($userMethod);
 
@@ -624,7 +642,9 @@ class ManageSieve
         $challenge = base64_decode(trim($challenge));
         $digest = Auth_SASL::factory('digestmd5');
         // @todo Really 'localhost'?
-        $response = $digest->getResponse($user, $pass, $challenge, 'localhost', 'sieve', $euser);
+        $response = $digest->getResponse(
+            $user, $pass, $challenge, 'localhost', 'sieve', $euser
+        );
         if (is_a($response, 'PEAR_Error')) {
             throw new Exception($response);
         }
@@ -688,9 +708,11 @@ class ManageSieve
             throw new NotAuthenticated();
         }
 
-        $res = $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
+        $resuls = $this->_doCmd(
+            sprintf('GETSCRIPT %s', $this->_escape($scriptname))
+        );
 
-        return preg_replace('/^{[0-9]+}\r\n/', '', $res);
+        return preg_replace('/^{[0-9]+}\r\n/', '', $result);
     }
 
     /**
@@ -809,10 +831,17 @@ class ManageSieve
     protected function _parseCapability($data)
     {
         // Clear the cached capabilities.
-        $this->_capability = array('sasl' => array(),
-                                   'extensions' => array());
+        $this->_capability = array(
+            'sasl' => array(),
+            'extensions' => array()
+        );
 
-        $data = preg_split('/\r?\n/', $this->_toUpper($data), -1, PREG_SPLIT_NO_EMPTY);
+        $data = preg_split(
+            '/\r?\n/',
+            $this->_toUpper($data),
+            -1,
+            PREG_SPLIT_NO_EMPTY
+        );
 
         for ($i = 0; $i < count($data); $i++) {
             if (!preg_match('/^"([A-Z]+)"( "(.*)")?$/', $data[$i], $matches)) {
@@ -1022,10 +1051,14 @@ class ManageSieve
     protected function _getBestAuthMethod($userMethod = null)
     {
         if (!isset($this->_capability['sasl'])) {
-            throw new Exception('This server doesn\'t support any authentication methods. SASL problem?');
+            throw new Exception(
+                'This server doesn\'t support any authentication methods. SASL problem?'
+            );
         }
         if (!$this->_capability['sasl']) {
-            throw new Exception('This server doesn\'t support any authentication methods.');
+            throw new Exception(
+                'This server doesn\'t support any authentication methods.'
+            );
         }
 
         if ($userMethod) {
@@ -1033,9 +1066,12 @@ class ManageSieve
                 return $userMethod;
             }
             throw new Exception(
-                sprintf('No supported authentication method found. The server supports these methods: %s, but we want to use: %s',
-                        implode(', ', $this->_capability['sasl']),
-                        $userMethod));
+                sprintf(
+                    'No supported authentication method found. The server supports these methods: %s, but we want to use: %s',
+                    implode(', ', $this->_capability['sasl']),
+                    $userMethod
+                )
+            );
         }
 
         foreach ($this->supportedAuthMethods as $method) {
@@ -1045,9 +1081,12 @@ class ManageSieve
         }
 
         throw new Exception(
-            sprintf('No supported authentication method found. The server supports these methods: %s, but we only support: %s',
-                    implode(', ', $this->_capability['sasl']),
-                    implode(', ', $this->supportedAuthMethods)));
+            sprintf(
+                'No supported authentication method found. The server supports these methods: %s, but we only support: %s',
+                implode(', ', $this->_capability['sasl']),
+                implode(', ', $this->supportedAuthMethods)
+            )
+        );
     }
 
     /**
