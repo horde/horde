@@ -50,6 +50,13 @@ class Client
     protected $_secure = false;
 
     /**
+     * The actual socket.
+     *
+     * @var resource
+     */
+    protected $_stream;
+
+    /**
      * Constructor.
      *
      * @param string $host      Hostname of remote server.
