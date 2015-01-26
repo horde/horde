@@ -42,19 +42,19 @@ use Horde\ManageSieve;
 class ManageSieve
 {
     /**
-     * Disconnected state
+     * Client is disconnected.
      */
     const STATE_DISCONNECTED = 1;
 
     /**
-     * Authorisation state
+     * Client is connected but not authenticated.
      */
-    const STATE_AUTHORIZATION = 2;
+    const STATE_NON_AUTHENTICATED = 2;
 
     /**
-     * Transaction state
+     * Client is authenticated.
      */
-    const STATE_TRANSACTION = 3;
+    const STATE_AUTHENTICATED = 3;
 
     /**
      * The authentication methods this class supports.
@@ -253,9 +253,9 @@ class ManageSieve
         }
 
         if ($this->_bypassAuth) {
-            $this->_state = self::STATE_TRANSACTION;
+            $this->_state = self::STATE_AUTHENTICATED;
         } else {
-            $this->_state = self::STATE_AUTHORIZATION;
+            $this->_state = self::STATE_NON_AUTHENTICATED;
             $this->_doCmd();
         }
 
@@ -307,14 +307,14 @@ class ManageSieve
         $this->_data['euser']     = $euser;
         $this->_bypassAuth        = $bypassAuth;
 
-        if (self::STATE_AUTHORIZATION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_NON_AUTHENTICATED != $this->_state) {
         }
 
         if (!$bypassAuth ) {
             $this->_cmdAuthenticate($user, $pass, $logintype, $euser);
         }
-        $this->_state = self::STATE_TRANSACTION;
+        $this->_state = self::STATE_AUTHENTICATED;
     }
 
     /**
@@ -408,8 +408,8 @@ class ManageSieve
      */
     public function hasSpace($scriptname, $size)
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
-            throw new Exception('Not currently in TRANSACTION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new Exception('Not currently in AUTHENTICATED state', 1);
         }
 
         try {
@@ -666,8 +666,8 @@ class ManageSieve
      */
     protected function _cmdDeleteScript($scriptname)
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
         }
         $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
     }
@@ -682,8 +682,8 @@ class ManageSieve
      */
     protected function _cmdGetScript($scriptname)
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
         }
 
         $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
@@ -701,8 +701,8 @@ class ManageSieve
      */
     protected function _cmdSetActive($scriptname)
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
         }
         $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
     }
@@ -716,8 +716,8 @@ class ManageSieve
      */
     protected function _cmdListScripts()
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
         }
 
         $res = $this->_doCmd('LISTSCRIPTS');
@@ -748,8 +748,8 @@ class ManageSieve
      */
     protected function _cmdPutScript($scriptname, $scriptdata)
     {
-        if (self::STATE_TRANSACTION != $this->_state) {
             throw new Exception('Not currently in AUTHORIZATION state', 1);
+        if (self::STATE_AUTHENTICATED != $this->_state) {
         }
 
         $stringLength = $this->_getLineLength($scriptdata);
