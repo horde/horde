@@ -34,6 +34,13 @@ class SieveTest extends Horde_Test_Case
     protected $fixture;
 
     /**
+     * Server configuration.
+     *
+     * @var array
+     */
+    protected $config;
+
+    /**
      * The tested scripts.
      *
      * @var array
@@ -42,10 +49,12 @@ class SieveTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        if (!file_exists(dirname(__FILE__) . '/conf.php')) {
-            $this->markTestSkipped('Test configuration incomplete. Copy conf.php.dist to conf.php.');
+        $this->config = self::getConfig('MANAGESIEVE_TEST_CONFIG');
+        if (!$this->config || empty($this->config['managesieve'])) {
+            $this->markTestSkipped('No ManageSieve configuration');
+            return;
         }
-        require_once dirname(__FILE__) . '/conf.php';
+        $this->config = $this->config['managesieve'];
 
         // Create a new instance of Horde\ManageSieve.
         $this->fixture = new ManageSieve();
@@ -64,8 +73,8 @@ class SieveTest extends Horde_Test_Case
     
     protected function login()
     {
-        $this->fixture->connect(HOST, PORT);
-        $this->fixture->login(USERNAME, PASSWORD, null, '', false);
+        $this->fixture->connect($this->config['host'], $this->config['port']);
+        $this->fixture->login($this->config['username'], $this->config['password'], null, '', false);
     }
 
     protected function logout()
@@ -92,19 +101,19 @@ class SieveTest extends Horde_Test_Case
 
     public function testConnect()
     {
-        $this->fixture->connect(HOST, PORT);
+        $this->fixture->connect($this->config['host'], $this->config['port']);
     }
     
     public function testLogin()
     {
-        $this->fixture->connect(HOST, PORT);
-        $this->fixture->login(USERNAME, PASSWORD, null, '', false);
+        $this->fixture->connect($this->config['host'], $this->config['port']);
+        $this->fixture->login($this->config['username'], $this->config['password'], null, '', false);
     }
 
     public function testDisconnect()
     {
-        $this->fixture->connect(HOST, PORT);
-        $this->fixture->login(USERNAME, PASSWORD, null, '', false);
+        $this->fixture->connect($this->config['host'], $this->config['port']);
+        $this->fixture->login($this->config['username'], $this->config['password'], null, '', false);
         $this->fixture->disconnect();
     }
 
