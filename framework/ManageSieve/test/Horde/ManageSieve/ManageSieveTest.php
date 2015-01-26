@@ -24,7 +24,7 @@ use \Horde, \Horde\ManageSieve, \Horde\ManageSieve\Exception;
  * @copyright 2009-2015 Horde LLC
  * @license   http://www.horde.org/licenses/bsd BSD
  */
-class SieveTest extends Horde_Test_Case
+class ManageSieveTest extends Horde_Test_Case
 {
     /**
      * The ManageSieve client.
