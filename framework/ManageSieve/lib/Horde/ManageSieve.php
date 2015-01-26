@@ -23,6 +23,7 @@
 
 namespace Horde;
 use Horde\ManageSieve;
+use Horde\ManageSieve\Exception;
 
 /**
  * This class implements the ManageSieve protocol (RFC 5804).
@@ -244,7 +245,7 @@ class ManageSieve
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
-            throw new Exception('Not currently in DISCONNECTED state', 1);
+            throw new NotDisconnected();
         }
 
         $res = $this->_sock->connect($host, $port, false, 5, $options);
@@ -264,7 +265,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new Exception('Failed to connect, server said: ' . $e->getMessage(), 2);
+            throw new ConnectionFailed($e);
         }
 
         // Check if we can enable TLS via STARTTLS.
@@ -307,8 +308,11 @@ class ManageSieve
         $this->_data['euser']     = $euser;
         $this->_bypassAuth        = $bypassAuth;
 
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
-        if (self::STATE_NON_AUTHENTICATED != $this->_state) {
+        if (self::STATE_DISCONNECTED == $this->_state) {
+            throw new NotConnected();
+        }
+        if (self::STATE_AUTHENTICATED == $this->_state) {
+            throw new Exception('Already authenticated');
         }
 
         if (!$bypassAuth ) {
@@ -409,7 +413,7 @@ class ManageSieve
     public function hasSpace($scriptname, $size)
     {
         if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new Exception('Not currently in AUTHENTICATED state', 1);
+            throw new NotAuthenticated();
         }
 
         try {
@@ -430,7 +434,7 @@ class ManageSieve
     public function getExtensions()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 7);
+            throw new NotConnected();
         }
         return $this->_capability['extensions'];
     }
@@ -446,7 +450,7 @@ class ManageSieve
     public function hasExtension($extension)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 7);
+            throw new NotConnected();
         }
 
         $extension = trim($this->_toUpper($extension));
@@ -470,7 +474,7 @@ class ManageSieve
     public function getAuthMechs()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 7);
+            throw new NotConnected();
         }
         return $this->_capability['sasl'];
     }
@@ -486,7 +490,7 @@ class ManageSieve
     public function hasAuthMech($method)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 7);
+            throw new NotConnected();
         }
 
         $method = trim($this->_toUpper($method));
@@ -545,9 +549,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new Exception(
-                'Failed to connect, server said: ' . $e->getMessage(), 2
-            );
+            throw new ConnectionFailed($e);
         }
     }
 
@@ -666,8 +668,8 @@ class ManageSieve
      */
     protected function _cmdDeleteScript($scriptname)
     {
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
         if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
         }
         $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
     }
@@ -682,8 +684,8 @@ class ManageSieve
      */
     protected function _cmdGetScript($scriptname)
     {
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
         if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
         }
 
         $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
@@ -701,8 +703,8 @@ class ManageSieve
      */
     protected function _cmdSetActive($scriptname)
     {
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
         if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
         }
         $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
     }
@@ -716,8 +718,8 @@ class ManageSieve
      */
     protected function _cmdListScripts()
     {
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
         if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
         }
 
         $res = $this->_doCmd('LISTSCRIPTS');
@@ -748,8 +750,8 @@ class ManageSieve
      */
     protected function _cmdPutScript($scriptname, $scriptdata)
     {
-            throw new Exception('Not currently in AUTHORIZATION state', 1);
         if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
         }
 
         $stringLength = $this->_getLineLength($scriptdata);
@@ -771,7 +773,7 @@ class ManageSieve
     protected function _cmdLogout($sendLogoutCMD = true)
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 1);
+            throw new NotConnected();
         }
 
         if ($sendLogoutCMD) {
@@ -790,7 +792,7 @@ class ManageSieve
     protected function _cmdCapability()
     {
         if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new Exception('Not currently connected', 1);
+            throw new NotConnected();
         }
         $this->_doCmd('CAPABILITY');
         $this->_parseCapability($res);
@@ -968,11 +970,10 @@ class ManageSieve
                         try {
                             $this->_handleConnectAndLogin();
                         } catch (Exception $e) {
-                            throw new Exception(
+                            throw new Referral(
                                 'Cannot follow referral to '
                                 . $this->_data['host'] . ', the error was: '
-                                . $e->getMessage(),
-                                5
+                                . $e->getMessage()
                             );
                         }
                         break;
@@ -1004,7 +1005,7 @@ class ManageSieve
             }
         }
 
-        throw new Exception('Max referral count (' . $referralCount . ') reached. Cyrus murder loop error?', 7);
+        throw new Referral('Max referral count (' . $referralCount . ') reached.');
     }
 
     /**
@@ -1076,9 +1077,7 @@ class ManageSieve
         try {
             $this->_cmdCapability();
         } catch (Exception $e) {
-            throw new Exception(
-                'Failed to connect, server said: ' . $e->getMessage(), 2
-            );
+            throw new ConnectionFailed($e);
         }
     }
 
