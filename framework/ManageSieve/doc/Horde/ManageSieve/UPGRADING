@@ -27,6 +27,10 @@ Upgrading from Net_Sieve
     - NET_SIEVE_STATE_TRANSACTION been renamed to
       \Horde\ManageSieve\STATE_AUTHENTICATED.
 
+  - Constructor
+
+    - The default port has been changed to 4190.
+
   - Methods
 
     - haveSpace() has been renamed to hasSpace().

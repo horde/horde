@@ -77,9 +77,9 @@ class ManageSieve
     );
 
     /**
-     * The socket handle.
+     * The socket client.
      *
-     * @var Net_Socket
+     * @var \Horde\Socket
      */
     protected $_sock;
 
@@ -166,10 +166,11 @@ class ManageSieve
      *
      * @throws \Horde\ManageSieve\Exception
      */
-    public function __construct($user = null, $pass  = null, $host = 'localhost',
-                       $port = 2000, $logintype = '', $euser = '',
-                       $debug = false, $bypassAuth = false, $useTLS = true,
-                       $options = null, $handler = null)
+    public function __construct(
+        $user = null, $pass  = null, $host = 'localhost', $port = 4190,
+        $logintype = '', $euser = '', $debug = false, $bypassAuth = false,
+        $useTLS = true, $options = null, $handler = null
+    )
     {
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
@@ -177,7 +178,6 @@ class ManageSieve
         $this->_data['port']      = $port;
         $this->_data['logintype'] = $logintype;
         $this->_data['euser']     = $euser;
-        $this->_sock              = new \Net_Socket();
         $this->_bypassAuth        = $bypassAuth;
         $this->_useTLS            = $useTLS;
         $this->_options           = $options;
@@ -259,9 +259,12 @@ class ManageSieve
             throw new NotDisconnected();
         }
 
-        $result = $this->_sock->connect($host, $port, false, 5, $options);
-        if (is_a($result, 'PEAR_Error')) {
-            throw new Exception($result);
+        try {
+            $this->_sock = new ManageSieve\Connection(
+                $host, $port, 5, $this->_useTLS, array('context' => $options)
+            );
+        } catch (Socket\Client\Exception $e) {
+            throw new Exception($e);
         }
 
         if ($this->_bypassAuth) {
@@ -280,11 +283,18 @@ class ManageSieve
         }
 
         // Check if we can enable TLS via STARTTLS.
-        if ($useTLS &&
-            !empty($this->_capability['starttls']) &&
-            function_exists('stream_socket_enable_crypto')
-        ) {
-            $this->_startTLS();
+        if ($useTLS && !empty($this->_capability['starttls'])) {
+            if (!$this->_sock->startTls()) {
+                throw new Exception('Failed to establish TLS connection');
+            }
+
+            // Query the server capabilities again now that we are under
+            // encryption.
+            try {
+                $this->_cmdCapability();
+            } catch (Exception $e) {
+                throw new ConnectionFailed($e);
+            }
         }
     }
 
@@ -804,7 +814,7 @@ class ManageSieve
             $this->_doCmd('LOGOUT');
         }
 
-        $this->_sock->disconnect();
+        $this->_sock->close();
         $this->_state = self::STATE_DISCONNECTED;
     }
 
@@ -875,15 +885,10 @@ class ManageSieve
     protected function _sendCmd($cmd)
     {
         $status = $this->_sock->getStatus();
-        if (is_a($status, 'PEAR_Error') || $status['eof']) {
+        if ($status['eof']) {
             throw new Exception('Failed to write to socket: connection lost');
         }
-        $error = $this->_sock->write($cmd . "\r\n");
-        if (is_a($error, 'PEAR_Error')) {
-            throw new Exception(
-                'Failed to write to socket: ' . $error->getMessage()
-            );
-        }
+        $this->_sock->write($cmd . "\r\n");
         $this->_debug("C: $cmd");
     }
 
@@ -904,20 +909,11 @@ class ManageSieve
      */
     protected function _recvLn()
     {
-        $lastline = $this->_sock->gets(8192);
-        if (is_a($lastline, 'PEAR_Error')) {
-            throw new Exception(
-                'Failed to read from socket: ' . $lastline->getMessage()
-            );
-        }
-
-        $lastline = rtrim($lastline);
+        $lastline = rtrim($this->_sock->gets(8192));
         $this->_debug("S: $lastline");
-
         if ($lastline === '') {
             throw new Exception('Failed to read from socket');
         }
-
         return $lastline;
     }
 
@@ -1087,39 +1083,6 @@ class ManageSieve
                 implode(', ', $this->supportedAuthMethods)
             )
         );
-    }
-
-    /**
-     * Starts a TLS connection.
-     *
-     * @throws \Horde\ManageSieve\Exception
-     */
-    protected function _startTLS()
-    {
-        $this->_doCmd('STARTTLS');
-        if (!stream_socket_enable_crypto($this->_sock->fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
-            throw new Exception('Failed to establish TLS connection', 2);
-        }
-
-        $this->_debug('STARTTLS negotiation successful');
-
-        // The server should be sending a CAPABILITY response after
-        // negotiating TLS. Read it, and ignore if it doesn't.
-        // Unfortunately old Cyrus versions are broken and don't send a
-        // CAPABILITY response, thus we would wait here forever. Parse the
-        // Cyrus version and work around this broken behavior.
-        if (!preg_match('/^CYRUS TIMSIEVED V([0-9.]+)/', $this->_capability['implementation'], $matches) ||
-            version_compare($matches[1], '2.3.10', '>=')) {
-            $this->_doCmd();
-        }
-
-        // Query the server capabilities again now that we are under
-        // encryption.
-        try {
-            $this->_cmdCapability();
-        } catch (Exception $e) {
-            throw new ConnectionFailed($e);
-        }
     }
 
     /**

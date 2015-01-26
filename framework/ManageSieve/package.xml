@@ -43,6 +43,7 @@
        <file name="NotDisconnected.php" role="php" />
        <file name="Referral.php" role="php" />
       </dir> <!-- /lib/Horde/ManageSieve/Exception -->
+      <file name="Connection.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/ManageSieve -->
      <file name="ManageSieve.php" role="php" />
@@ -77,6 +78,7 @@
    <install as="LICENSE" name="doc/Horde/ManageSieve/LICENSE" />
    <install as="UPGRADING" name="doc/Horde/ManageSieve/UPGRADING" />
    <install as="Horde/ManageSieve.php" name="lib/Horde/ManageSieve.php" />
+   <install as="Horde/ManageSieve/Connection.php" name="lib/Horde/ManageSieve/Connection.php" />
    <install as="Horde/ManageSieve/Exception.php" name="lib/Horde/ManageSieve/Exception.php" />
    <install as="Horde/ManageSieve/Exception/ConnectionFailed.php" name="lib/Horde/ManageSieve/Exception/ConnectionFailed.php" />
    <install as="Horde/ManageSieve/Exception/NotAuthenticated.php" name="lib/Horde/ManageSieve/Exception/NotAuthenticated.php" />
