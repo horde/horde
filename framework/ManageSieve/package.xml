@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_ManageSieve</name>
+ <channel>pear.horde.org</channel>
+ <summary>Client library for ManageSieve</summary>
+ <description>This library implements the ManageSieve protocol (RFC 5804).</description>
+ <lead>
+  <name>Jan Schneider</name>
+  <user>jan</user>
+  <email>jan@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2015-01-26</date>
+ <version>
+  <release>1.0.0alpha1</release>
+  <api>1.0.0alpha1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+ <notes>
+* Initial release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="ManageSieve">
+      <file name="LICENSE" role="doc" />
+      <file name="UPGRADING" role="doc" />
+     </dir> <!-- /doc/Horde/ManageSieve -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="ManageSieve">
+      <dir name="Exception">
+       <file name="ConnectionFailed.php" role="php" />
+       <file name="NotAuthenticated.php" role="php" />
+       <file name="NotConnected.php" role="php" />
+       <file name="NotDisconnected.php" role="php" />
+       <file name="Referral.php" role="php" />
+      </dir> <!-- /lib/Horde/ManageSieve/Exception -->
+      <file name="Exception.php" role="php" />
+     </dir> <!-- /lib/Horde/ManageSieve -->
+     <file name="ManageSieve.php" role="php" />
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="ManageSieve">
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
+      <file name="largescript.siv" role="test" />
+      <file name="ManageSieveTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/ManageSieve -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="LICENSE" name="doc/Horde/ManageSieve/LICENSE" />
+   <install as="UPGRADING" name="doc/Horde/ManageSieve/UPGRADING" />
+   <install as="Horde/ManageSieve.php" name="lib/Horde/ManageSieve.php" />
+   <install as="Horde/ManageSieve/Exception.php" name="lib/Horde/ManageSieve/Exception.php" />
+   <install as="Horde/ManageSieve/Exception/ConnectionFailed.php" name="lib/Horde/ManageSieve/Exception/ConnectionFailed.php" />
+   <install as="Horde/ManageSieve/Exception/NotAuthenticated.php" name="lib/Horde/ManageSieve/Exception/NotAuthenticated.php" />
+   <install as="Horde/ManageSieve/Exception/NotConnected.php" name="lib/Horde/ManageSieve/Exception/NotConnected.php" />
+   <install as="Horde/ManageSieve/Exception/NotDisconnected.php" name="lib/Horde/ManageSieve/Exception/NotDisconnected.php" />
+   <install as="Horde/ManageSieve/Exception/Referral.php" name="lib/Horde/ManageSieve/Exception/Referral.php" />
+   <install as="Horde/ManageSieve/AllTests.php" name="test/Horde/ManageSieve/AllTests.php" />
+   <install as="Horde/ManageSieve/bootstrap.php" name="test/Horde/ManageSieve/bootstrap.php" />
+   <install as="Horde/ManageSieve/conf.php.dist" name="test/Horde/ManageSieve/conf.php.dist" />
+   <install as="Horde/ManageSieve/largescript.siv" name="test/Horde/ManageSieve/largescript.siv" />
+   <install as="Horde/ManageSieve/ManageSieveTest.php" name="test/Horde/ManageSieve/ManageSieveTest.php" />
+   <install as="Horde/ManageSieve/phpunit.xml" name="test/Horde/ManageSieve/phpunit.xml" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0alpha1</release>
+    <api>1.0.0alpha1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2015-01-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD</license>
+   <notes>
+* Initial release.
+   </notes>
+  </release>
+ </changelog>
+</package>
