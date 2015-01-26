@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Always send the attachmentsenabled policy, even when it&apos;s the default value of &apos;enabled&apos; (Bug #13827).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2624,7 +2624,7 @@
    <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Always send the attachmentsenabled policy, even when it&apos;s the default value of &apos;enabled&apos; (Bug #13827).
    </notes>
   </release>
  </changelog>
