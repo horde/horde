@@ -1772,7 +1772,7 @@ class Kronolith
         $url = $GLOBALS['registry']->getServiceLink('ajax', 'kronolith')->add(array(
             'calendar' => 'internal_' . $calendar,
             'container' => 'kronolithCal',
-            'view' => 'month'
+            'view' => 'Month'
         ));
         $url->url .= 'embed';
 
