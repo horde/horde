@@ -65,7 +65,11 @@ class ManageSieve
      * @var array
      */
     public $supportedAuthMethods = array(
-        'DIGEST-MD5', 'CRAM-MD5', 'EXTERNAL', 'PLAIN' , 'LOGIN'
+        'DIGEST-MD5',
+        'CRAM-MD5',
+        'EXTERNAL',
+        'PLAIN',
+        'LOGIN',
     );
 
     /**
@@ -73,7 +77,10 @@ class ManageSieve
      *
      * @var array
      */
-    public $supportedSASLAuthMethods = array('DIGEST-MD5', 'CRAM-MD5');
+    public $supportedSASLAuthMethods = array(
+        'DIGEST-MD5',
+        'CRAM-MD5',
+    );
 
     /**
      * The socket handle.
@@ -96,7 +103,7 @@ class ManageSieve
      *
      * @var integer
      */
-    protected $_state;
+    protected $_state = self::STATE_DISCONNECTED;
 
     /**
      * Whether to enable debugging.
@@ -170,7 +177,6 @@ class ManageSieve
                        $debug = false, $bypassAuth = false, $useTLS = true,
                        $options = null, $handler = null)
     {
-        $this->_state             = self::STATE_DISCONNECTED;
         $this->_data['user']      = $user;
         $this->_data['pass']      = $pass;
         $this->_data['host']      = $host;
@@ -1140,7 +1146,7 @@ class ManageSieve
     {
         if ($this->_debug) {
             if ($this->_debug_handler) {
-                call_user_func_array($this->_debug_handler, array(&$this, $message));
+                call_user_func_array($this->_debug_handler, array($this, $message));
             } else {
                 echo "$message\n";
             }
