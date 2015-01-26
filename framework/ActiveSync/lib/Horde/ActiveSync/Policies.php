@@ -259,7 +259,7 @@ class Horde_ActiveSync_Policies
             $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0', true);
         }
         $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION], true);
-        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC], true);
+        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC], false);
         $this->_sendPolicy(self::POLICY_AEFVALUE, $policies[self::POLICY_AEFVALUE], true);
         $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE], true);
         if ($this->_version > Horde_ActiveSync::VERSION_TWELVE) {
