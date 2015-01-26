@@ -39,7 +39,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const ATTACHMETAFILE                    = 0x68011;
     const ATTACHCREATEDATE                  = 0x38012;
 
+    // idAttachRendData
     const ARENDDATA                         = 0x69002;
+
     const AMAPIPROPS                        = 0x69003;
     const AMAPIATTRS                        = 0x69005;
     const OEMCODEPAGE                       = 0x69007;
@@ -229,11 +231,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             while (strlen($data) > 0) {
                 switch ($this->_geti($data, 8)) {
                 case self::LVL_MESSAGE:
-                    $this->_decodeAttribute($data);
+                    $this->_logger->debug('DECODING LVL_MESSAGE property.');
+                    $this->_decodeMessageProperty($data);
                     break;
 
                 case self::LVL_ATTACHMENT:
-                    $this->_decodeAttribute($data);
+                    $this->_logger->debug('DECODING LVL_ATTACHMENT property.');
+                    $this->_decodeAttachment($data);
                     break;
                 }
             }
@@ -292,7 +296,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     {
         // Number of attributes.
         $number = $this->_geti($data, 32);
-
+        $this->_logger->debug(sprintf('TNEF: Extracting %n MAPI attributes.', $number));
         while ((strlen($data) > 0) && $number--) {
             $have_mval = false;
             $num_mval = 1;
@@ -406,7 +410,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             }
 
             // @todo Utility method to make this log more readable.
-            $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type:', $attr_name, $attr_type));
+            $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type: 0x%X', $attr_name, $attr_type));
             switch ($attr_name) {
             case self::MAPI_ATTACH_DATA:
                 $this->_logger->debug('TNEF: Found nested attachment. Parsing.');
