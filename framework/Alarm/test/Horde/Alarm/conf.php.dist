@@ -1,5 +1,5 @@
 <?php
-// Horde_Db configuration.
+// Horde_Alarm configuration.
 $conf['alarm']['sql']['mysql']['host'] = 'localhost';
 $conf['alarm']['sql']['mysql']['username'] = '';
 $conf['alarm']['sql']['mysql']['password'] = '';
