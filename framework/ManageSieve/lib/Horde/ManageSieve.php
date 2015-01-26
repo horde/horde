@@ -259,9 +259,9 @@ class ManageSieve
             throw new NotDisconnected();
         }
 
-        $res = $this->_sock->connect($host, $port, false, 5, $options);
-        if (is_a($res, 'PEAR_Error')) {
-            throw new Exception($res);
+        $result = $this->_sock->connect($host, $port, false, 5, $options);
+        if (is_a($result, 'PEAR_Error')) {
+            throw new Exception($result);
         }
 
         if ($this->_bypassAuth) {
@@ -705,7 +705,7 @@ class ManageSieve
             throw new NotAuthenticated();
         }
 
-        $resuls = $this->_doCmd(
+        $result = $this->_doCmd(
             sprintf('GETSCRIPT %s', $this->_escape($scriptname))
         );
 
@@ -741,12 +741,12 @@ class ManageSieve
             throw new NotAuthenticated();
         }
 
-        $res = $this->_doCmd('LISTSCRIPTS');
+        $result = $this->_doCmd('LISTSCRIPTS');
 
         $scripts = array();
         $activescript = null;
-        $res = explode("\r\n", $res);
-        foreach ($res as $value) {
+        $result = explode("\r\n", $result);
+        foreach ($result as $value) {
             if (preg_match('/^"(.*)"( ACTIVE)?$/i', $value, $matches)) {
                 $script_name = stripslashes($matches[1]);
                 $scripts[] = $script_name;
@@ -815,8 +815,8 @@ class ManageSieve
         if (self::STATE_DISCONNECTED == $this->_state) {
             throw new NotConnected();
         }
-        $res = $this->_doCmd('CAPABILITY');
-        $this->_parseCapability($res);
+        $result = $this->_doCmd('CAPABILITY');
+        $this->_parseCapability($result);
     }
 
     /**
