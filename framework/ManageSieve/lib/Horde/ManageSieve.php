@@ -280,7 +280,10 @@ class ManageSieve
         }
 
         // Check if we can enable TLS via STARTTLS.
-        if ($useTLS && !empty($this->_capability['starttls'])) {
+        if ($useTLS &&
+            !empty($this->_capability['starttls']) &&
+            function_exists('stream_socket_enable_crypto')
+        ) {
             $this->_startTLS();
         }
     }
