@@ -107,20 +107,20 @@ class ManageSieveTest extends Horde_Test_Case
     public function testLogin()
     {
         $this->fixture->connect($this->config['host'], $this->config['port']);
-        $this->fixture->login($this->config['username'], $this->config['password'], null, '', false);
+        $this->fixture->login($this->config['username'], $this->config['password']);
     }
 
     public function testDisconnect()
     {
         $this->fixture->connect($this->config['host'], $this->config['port']);
-        $this->fixture->login($this->config['username'], $this->config['password'], null, '', false);
+        $this->fixture->login($this->config['username'], $this->config['password']);
         $this->fixture->disconnect();
     }
 
     public function testListScripts()
     {
         $this->login();
-        $this->fixture->listScripts();
+        $this->assertInternalType('array', $this->fixture->listScripts());
         $this->logout();
     }
 
@@ -171,7 +171,7 @@ class ManageSieveTest extends Horde_Test_Case
     }
 
     /**
-     * See bug #16691.
+     * See PEAR bug #16691.
      */
     public function testInstallNonAsciiScript()
     {
@@ -209,16 +209,16 @@ class ManageSieveTest extends Horde_Test_Case
     {
         $this->clear();
         $this->login();
-        $active_script = $this->fixture->getActive();
+        $this->fixture->getActive();
         $this->logout();
     }
 
     public function testSetActive()
     {
         $this->clear();
-        $scriptname = 'test script1';
         $this->login();
-        $result = $this->fixture->installScript($scriptname, $this->scripts[$scriptname]);
+        $scriptname = 'test script1';
+        $this->fixture->installScript($scriptname, $this->scripts[$scriptname]);
         $this->fixture->setActive($scriptname);
         $active_script = $this->fixture->getActive();
         $this->assertEquals($scriptname, $active_script, 'Active script does not match');
@@ -235,10 +235,14 @@ class ManageSieveTest extends Horde_Test_Case
     public function testRemoveScript()
     {
         $this->clear();
-        $scriptname = 'test script1';
         $this->login();
+        $scriptname = 'test script1';
+        $before_scripts = $this->fixture->listScripts();
         $this->fixture->installScript($scriptname, $this->scripts[$scriptname]);
         $this->fixture->removeScript($scriptname);
+        $after_scripts = $this->fixture->listScripts();
+        $diff_scripts = array_values(array_diff($after_scripts, $before_scripts));
+        $this->assertTrue(count($diff_scripts) == 0, 'Script still installed');
         $this->logout();
     }
 }
