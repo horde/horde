@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix generating calendar embed code (Bug #13828).
 * [jan] Don&apos;t wipe out whole calendars when PUTing individual events via WebDAV.
  </notes>
  <contents>
@@ -2501,6 +2502,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix generating calendar embed code (Bug #13828).
 * [jan] Don&apos;t wipe out whole calendars when PUTing individual events via WebDAV.
    </notes>
   </release>
