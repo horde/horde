@@ -11,6 +11,13 @@ v4.3.0-git
 [jan] Add importing of calendar data from a URL.
 
 
+------
+v4.2.5
+------
+[mjr] Fix generating calendar embed code (Bug #13828).
+[jan] Don't wipe out whole calendars when PUTing individual events via WebDAV.
+
+
 -------
 v4.2.4
 -------
