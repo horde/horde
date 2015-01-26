@@ -177,7 +177,7 @@ class ManageSieve
         $this->_data['port']      = $port;
         $this->_data['logintype'] = $logintype;
         $this->_data['euser']     = $euser;
-        $this->_sock              = new Net_Socket();
+        $this->_sock              = new \Net_Socket();
         $this->_bypassAuth        = $bypassAuth;
         $this->_useTLS            = $useTLS;
         $this->_options           = $options;
@@ -688,7 +688,7 @@ class ManageSieve
             throw new NotAuthenticated();
         }
 
-        $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
+        $res = $this->_doCmd(sprintf('GETSCRIPT %s', $this->_escape($scriptname)));
 
         return preg_replace('/^{[0-9]+}\r\n/', '', $res);
     }
@@ -794,7 +794,7 @@ class ManageSieve
         if (self::STATE_DISCONNECTED == $this->_state) {
             throw new NotConnected();
         }
-        $this->_doCmd('CAPABILITY');
+        $res = $this->_doCmd('CAPABILITY');
         $this->_parseCapability($res);
     }
 
