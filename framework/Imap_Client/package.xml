@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-23</date>
+ <date>2015-01-27</date>
  <version>
   <release>2.26.1</release>
   <api>2.26.0</api>
@@ -2829,7 +2829,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-23</date>
+   <date>2015-01-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix serialization of Horde_Imap_Client_Data_Fetch objects.
