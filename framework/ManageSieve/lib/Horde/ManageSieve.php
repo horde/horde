@@ -284,8 +284,19 @@ class ManageSieve
 
         // Check if we can enable TLS via STARTTLS.
         if ($useTLS && !empty($this->_capability['starttls'])) {
+            $this->_doCmd('STARTTLS');
             if (!$this->_sock->startTls()) {
                 throw new Exception('Failed to establish TLS connection');
+            }
+
+            // The server should be sending a CAPABILITY response after
+            // negotiating TLS. Read it, and ignore if it doesn't.
+            // Unfortunately old Cyrus versions are broken and don't send a
+            // CAPABILITY response, thus we would wait here forever. Parse the
+            // Cyrus version and work around this broken behavior.
+            if (!preg_match('/^CYRUS TIMSIEVED V([0-9.]+)/', $this->_capability['implementation'], $matches) ||
+                version_compare($matches[1], '2.3.10', '>=')) {
+                $this->_doCmd();
             }
 
             // Query the server capabilities again now that we are under
