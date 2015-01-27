@@ -100,20 +100,11 @@ class ManageSieve
     protected $_state = self::STATE_DISCONNECTED;
 
     /**
-     * Whether to enable debugging.
-     *
-     * @var boolean
-     */
-    protected $_debug = false;
-
-    /**
-     * Debug output handler.
-     *
-     * This has to be a valid callback.
+     * Logging handler.
      *
      * @var string|array
      */
-    protected $_debug_handler = null;
+    protected $_logger;
 
     /**
      * Whether to pick up an already established connection.
@@ -134,7 +125,7 @@ class ManageSieve
      *
      * @var array
      */
-    protected $_options = null;
+    protected $_options = array();
 
     /**
      * Maximum number of referral loops
@@ -156,20 +147,18 @@ class ManageSieve
      *                            $supportedAuthMethods).
      * @param string  $euser      Effective user. If authenticating as an
      *                            administrator, login as this user.
-     * @param boolean $debug      Whether to enable debugging (@see setDebug()).
      * @param string  $bypassAuth Skip the authentication phase. Useful if the
      *                            socket is already open.
      * @param boolean $useTLS     Use TLS if available.
      * @param array   $options    Additional options for
      *                            stream_context_create().
-     * @param mixed   $handler    A callback handler for the debug output.
      *
      * @throws \Horde\ManageSieve\Exception
      */
     public function __construct(
         $user = null, $pass  = null, $host = 'localhost', $port = 4190,
-        $logintype = '', $euser = '', $debug = false, $bypassAuth = false,
-        $useTLS = true, $options = null, $handler = null
+        $logintype = '', $euser = '', $bypassAuth = false,
+        $useTLS = true, $options = null
     )
     {
         $this->_data['user']      = $user;
@@ -181,7 +170,6 @@ class ManageSieve
         $this->_bypassAuth        = $bypassAuth;
         $this->_useTLS            = $useTLS;
         $this->_options           = $options;
-        $this->setDebug($debug, $handler);
 
         /* Try to include the Auth_SASL package.  If the package is not
          * available, we disable the authentication methods that depend upon
@@ -200,15 +188,13 @@ class ManageSieve
     }
 
     /**
-     * Sets the debug state and handler function.
+     * Passes a logger for debug logging.
      *
-     * @param boolean $debug   Whether to enable debugging.
-     * @param string  $handler A custom debug handler. Must be a valid callback.
+     * @param object $logger   A log handler, must implement debug().
      */
-    public function setDebug($debug = true, $handler = null)
+    public function setLogger($logger)
     {
-        $this->_debug = $debug;
-        $this->_debug_handler = $handler;
+        $this->_logger = $logger;
     }
 
     /**
@@ -1131,18 +1117,14 @@ class ManageSieve
     }
 
     /**
-     * Write debug text to the current debug output handler.
+     * Write debug text to the current log handler.
      *
-     * @param string $message Debug message text.
+     * @param string $message  Debug message text.
      */
     protected function _debug($message)
     {
-        if ($this->_debug) {
-            if ($this->_debug_handler) {
-                call_user_func_array($this->_debug_handler, array($this, $message));
-            } else {
-                echo "$message\n";
-            }
+        if ($this->_logger) {
+            $this->_logger->debug($message);
         }
     }
 }

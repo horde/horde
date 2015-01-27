@@ -42,3 +42,8 @@ Upgrading from Net_Sieve
       PEAR_Error objects returned.
 
     - getError() has been removed.
+
+  - Logging
+
+    - The debug handler, the debug constructor parameters and the setDebug()
+      method have been removed. Use setLogger() instead.
