@@ -79,7 +79,7 @@ class ManageSieve
     /**
      * The socket client.
      *
-     * @var \Horde\Socket
+     * @var \Horde\ManageSieve\Connection
      */
     protected $_sock;
 
