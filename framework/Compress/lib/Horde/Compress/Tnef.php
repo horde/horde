@@ -418,23 +418,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             // @todo Utility method to make this log more readable.
             $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type: 0x%X', $attr_name, $attr_type));
             switch ($attr_name) {
-            case self::MAPI_ATTACH_DATA:
-                $this->_logger->debug('TNEF: Found nested attachment. Parsing.');
-                // ?
-                $this->_getx($value, 16);
-
-                $att = new Horde_Compress_Tnef(array('logger' => $this->_logger));
-                $att->setCurrentObject($this->_currentObject);
-                $att->decompress($value);
-                $this->attachments[] = $att;
-                $this->_logger->debug('TNEF: Completed nested attachment parsing.');
-                break;
-
             case self::MAPI_TAG_RTF_COMPRESSED:
                 $this->_logger->debug('TNEF: Found compressed RTF text.');
                 $this->_files[] = new Horde_Compress_Tnef_Rtf($this->_logger, $value);
                 break;
-
+            case self::MAPI_ATTACH_DATA:
+                $this->_logger->debug('TNEF: Found nested MAPI object. Parsing.');
+                $this->_getx($value, 16);
+                $att = new Horde_Compress_Tnef($this->_logger);
+                $att->setCurrentObject($this->_currentObject);
+                $att->decompress($value);
+                $this->_attachments[] = $att;
+                $this->_logger->debug('TNEF: Completed nested attachment parsing.');
+                break;
             default:
                 $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
                 if ($this->_currentObject) {
@@ -445,37 +441,69 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     }
 
     /**
-     * TODO
+     * Decodes all LVL_ATTACHMENT data. Attachment data MUST be at the end of
+     * TNEF stream. First LVL_ATTACHMENT MUST be ARENDDATA (attAttachRendData).
      *
-     * @param string &$data  The data string.
+     * From MS-OXTNEF:
+     * ; An attachment is determined/delimited by attAttachRendData, followed by
+     * ; other encoded attributes, if any, and ending with attAttachment
+     * ; if there are any encoded properties.
+     * AttachData = AttachRendData [*AttachAttribute] [AttachProps]
+     * AttachRendData = attrLevelAttachment idAttachRendData Length Data Checksum
+     * AttachAttribute = attrLevelAttachment idAttachAttr Length Data Checksum
+     * AttachProps = attrLevelAttachment idAttachment Length Data Checksum
+     *
+     * @param  [type] &$data [description]
+     * @return [type]        [description]
      */
-    protected function _decodeAttribute(&$data)
+    protected function _decodeAttachment(&$data)
     {
         $attribute = $this->_geti($data, 32);
-        $length = $this->_geti($data, 32);
-        $value = $this->_getx($data, $length);
+        $size = $this->_geti($data, 32);
+        $value = $this->_getx($data, $size);
         $this->_geti($data, 16);
-
-        $this->_logger->debug(sprintf('TNEF: Decoding message attribute: 0x%X', $attribute));
-
         switch ($attribute) {
         case self::ARENDDATA:
-            // Create a "generic" file object if we can't deduce what the
-            // attachment is. E.g., Task requests have MAPI data related to the
-            // task in the attachment, so we use the vTodo object in that case.
-            if (!($this->_currentObject instanceof Horde_Compress_Tnef_VTodo)) {
-                $this->_logger->debug('Creating new attachment.');
+            // This delimits the attachment structure. I.e., every attachment
+            // MUST begin with idAttachRendData.
+            $this->_logger->debug('Creating new attachment.');
+            if (!$this->_currentObject instanceof Horde_Compress_Tnef_VTodo) {
                 $this->_currentObject = new Horde_Compress_Tnef_File($this->_logger);
                 $this->_files[] = $this->_currentObject;
             }
             break;
+        case self::AFILENAME:
+             // Strip path.
+            $value = preg_replace('/.*[\/](.*)$/', '\1', $value);
+            $value = str_replace("\0", '', $value);
+            $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            break;
+        case self::ATTACHDATA:
+             // The attachment itself.
+            $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            break;
+        case self::AMAPIATTRS:
+            // idAttachment (Attachment properties)
+            $this->_extractMapiAttributes($value);
+            break;
+        default:
+            if (!empty($this->_currentObject)) {
+                $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            }
+        }
+    }
 
+    protected function _decodeMessageProperty(&$data)
+    {
+        $attribute = $this->_geti($data, 32);
+        $this->_logger->debug(sprintf('TNEF: Message property 0x%X found.', $attribute));
+        switch ($attribute) {
         case self::AMCLASS:
             // Start of a new message.
-            $message_class = trim($value);
+            $message_class = trim($this->_decodeAttribute($data));
             $this->_logger->debug(sprintf('TNEF: Message class: %s', $message_class));
             switch ($message_class) {
-            case self::IPM_MEETING_REQUEST:
+            case self::IPM_MEETING_REQUEST :
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
                 $this->_currentObject->method = 'REQUEST';
                 $this->_files[] = $this->_currentObject;
@@ -498,24 +526,29 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 break;
             }
             break;
-
-        case self::AMAPIATTRS:
-            $this->_logger->debug('TNEF: Extracting MAPI attributes.');
-            $this->_extractMapiAttributes($value);
-            break;
-
         case self::AMAPIPROPS:
-            $this->_logger->debug('TNEF: Extracting MAPI properties.');
-            $this->_extractMapiAttributes($value);
+            $this->_logger->debug('TNEF: Extracting encapsulated message properties (idMsgProps)');
+            $properties = $this->_decodeAttribute($data);
+            $this->_extractMapiAttributes($properties);
             break;
 
         default:
-            $this->_logger->debug(sprintf('TNEF: Setting message attribute: %s', $attribute));
-            $this->_msgInfo->setTnefAttribute($attribute, $value, $length);
-            if ($this->_currentObject) {
-                $this->_currentObject->setTnefAttribute($attribute, $value, $length);
-            }
+            $value = $this->_decodeAttribute($data);
         }
+    }
+
+    /**
+     * Decode a single attribute.
+     *
+     * @param string &$data  The data string.
+     */
+    protected function _decodeAttribute(&$data)
+    {
+        $size = $this->_geti($data, 32);
+        $value = $this->_getx($data, $size);
+        $this->_geti($data, 16); // Checksum.
+
+        return $value;
     }
 
     /**
