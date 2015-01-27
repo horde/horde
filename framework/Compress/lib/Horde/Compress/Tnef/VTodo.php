@@ -80,6 +80,10 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     const CLASS_DECLINE            = 'IPM.TaskRequest.Decline';
     const CLASS_UPDATE             = 'IPM.TaskRequest.Update';
 
+    const TASK_STATUS_ACTION       =  'NEEDS-ACTION';
+    const TASK_STATUS_IN_PROGRESS  = 'IN-PROGRESS'
+    const TASK_STATUS_COMPLETED    = 'COMPLETED';
+
     /**
      * Due date (timestamp).
      *
