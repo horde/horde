@@ -185,7 +185,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     /**
      * Collection of files contained in the TNEF data.
      *
-     * @var array of Horde_Compress_Tnef_Object classes.
+     * @var array of Horde_Compress_Tnef_Object objects.
      */
     protected $_files = array();
 
@@ -281,13 +281,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         return $this->_msgInfo;
     }
 
+    /**
+     * Sets the current object being decompressed.
+     *
+     * @param Horde_Compress_Tnef_Object $object
+     */
     public function setCurrentObject(Horde_Compress_Tnef_Object $object)
     {
         $this->_currentObject = $object;
     }
 
     /**
-     * TODO
+     * Extract a set of encapsulated MAPI properties. Normally either embedded
+     * in an attachment structure, or an idMessageProperty structure.
      *
      * @param string $data             The data string.
      * @param array &$attachment_data  TODO
