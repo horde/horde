@@ -48,14 +48,7 @@ class Ingo_Test extends Horde_Test
      *
      * @var array
      */
-    protected $_pearList = array(
-        'Net_Socket' => array(
-            'error' => 'If you will be using Sieve scripts, make sure you are using a version of PEAR which includes the Net_Socket class, or that you have installed the Net_Socket package seperately.'
-        ),
-        'Net_Sieve' => array(
-            'error' => 'If you will be using Sieve scripts, make sure you are using a version of PEAR which includes the Net_Sieve class, or that you have installed the Net_Sieve package seperately.'
-        )
-    );
+    protected $_pearList = array();
 
     /**
      * Inter-Horde application dependencies.

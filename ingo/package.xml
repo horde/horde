@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2015-01-28</date>
  <version>
   <release>3.3.0</release>
   <api>3.2.0</api>
@@ -33,8 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.
-
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -98,9 +98,6 @@
     <dir name="Block">
      <file name="Overview.php" role="horde" />
     </dir> <!-- /lib/Block -->
-    <dir name="Exception">
-     <file name="Pear.php" role="horde" />
-    </dir> <!-- /lib/Exception -->
     <dir name="Factory">
      <file name="Script.php" role="horde" />
      <file name="Shares.php" role="horde" />
@@ -633,20 +630,18 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_ManageSieve</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Net_Sieve</name>
-    <channel>pear.php.net</channel>
-    <min>1.3.1</min>
-   </package>
-   <package>
-    <name>Net_Socket</name>
-    <channel>pear.php.net</channel>
    </package>
   </optional>
  </dependencies>
@@ -702,7 +697,6 @@
    <install as="ingo/lib/Basic/Vacation.php" name="lib/Basic/Vacation.php" />
    <install as="ingo/lib/Basic/Whitelist.php" name="lib/Basic/Whitelist.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
-   <install as="ingo/lib/Exception/Pear.php" name="lib/Exception/Pear.php" />
    <install as="ingo/lib/Factory/Script.php" name="lib/Factory/Script.php" />
    <install as="ingo/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="ingo/lib/Factory/Storage.php" name="lib/Factory/Storage.php" />

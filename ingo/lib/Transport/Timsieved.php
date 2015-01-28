@@ -12,6 +12,8 @@
  * @package  Ingo
  */
 
+use \Horde\ManageSieve;
+
 /**
  * Ingo_Transport_Timsieved implements an Ingo transport driver to allow
  * scripts to be installed and set active via a Cyrus timsieved server.
@@ -25,9 +27,9 @@
 class Ingo_Transport_Timsieved extends Ingo_Transport_Base
 {
     /**
-     * The Net_Sieve object.
+     * The ManageSieve object.
      *
-     * @var Net_Sieve
+     * @var \Horde\ManageSieve
      */
     protected $_sieve;
 
@@ -59,6 +61,8 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
      */
     protected function _connect()
     {
+        global $injector;
+
         if (!empty($this->_sieve)) {
             return;
         }
@@ -67,36 +71,22 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
             ? $this->_params['username']
             : $this->_params['admin'];
 
-        $this->_sieve = new Net_Sieve(
-            $auth,
-            $this->_params['password'],
-            $this->_params['hostspec'],
-            $this->_params['port'],
-            $this->_params['logintype'],
-            $this->_params['euser'],
-            !empty($this->_params['debug']),
-            false,
-            $this->_params['usetls'],
-            null,
-            array($this, 'debug')
-        );
-
-        $res = $this->_sieve->getError();
-        if ($res instanceof PEAR_Error) {
-            unset($this->_sieve);
-            throw new Ingo_Exception($res);
+        try {
+            $this->_sieve = new ManageSieve(array(
+                'user'       => $auth,
+                'password'   => $this->_params['password'],
+                'host'       => $this->_params['hostspec'],
+                'port'       => $this->_params['port'],
+                'authmethod' => $this->_params['logintype'],
+                'euser'      => $this->_params['euser'],
+                'usetls'     => $this->_params['usetls'],
+                'logger'     => $this->_params['debug']
+                    ? $injector->getInstance('Horde_Log_Logger')
+                    : null,
+            ));
+        } catch (ManageSieve\Exception $e) {
+            throw new Ingo_Exception($e);
         }
-    }
-
-    /**
-     * Routes the Sieve protocol log to the Horde log.
-     *
-     * @param Net_Sieve $sieve  A Net_Sieve object.
-     * @param string $message   The tracked Sieve communication.
-     */
-    public function debug($sieve, $message)
-    {
-        Horde::log($message, 'DEBUG');
     }
 
     /**
@@ -113,14 +103,22 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     {
         $this->_connect();
 
-        if (!strlen($script['script'])) {
-            Ingo_Exception_Pear::catchError($this->_sieve->setActive(''));
-            Ingo_Exception_Pear::catchError($this->_sieve->removeScript($script['name']));
-            return;
-        }
+        try {
+            if (!strlen($script['script'])) {
+                $this->_sieve->setActive('');
+                $this->_sieve->removeScript($script['name']);
+                return;
+            }
 
-        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($script['name'], strlen($script['script'])));
-        Ingo_Exception_Pear::catchError($this->_sieve->installScript($script['name'], $script['script'], true));
+            if (!$this->_sieve->hasSpace($script['name'], strlen($script['script']))) {
+                throw new Ingo_Exception(_("Not enough free space on the server."));
+            }
+            $this->_sieve->installScript(
+                $script['name'], $script['script'], true
+            );
+        } catch (ManageSieve\Exception $e) {
+            throw new Ingo_Exception($e);
+        }
     }
 
     /**
@@ -133,13 +131,17 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     public function getScript()
     {
         $this->_connect();
-        $active = Ingo_Exception_Pear::catchError($this->_sieve->getActive());
-        if (!strlen($active)) {
-            throw new Horde_Exception_NotFound();
+        try {
+            $active = $this->_sieve->getActive();
+            if (!strlen($active)) {
+                throw new Horde_Exception_NotFound();
+            }
+            return array(
+                'name' => $active,
+                'script' => $this->_sieve->getScript($active)
+            );
+        } catch (ManageSieve\Exception $e) {
+            throw new Ingo_Exception($e);
         }
-        return array(
-            'name' => $active,
-            'script' => Ingo_Exception_Pear::catchError($this->_sieve->getScript($active))
-        );
     }
 }
