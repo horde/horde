@@ -29,7 +29,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_COMPRESSED                    = 0x75465a4c;
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
-    const ASUBJECT                          = 0x88004;
+    const ASUBJECT                          = 0x18004;
     const ADATESENT                         = 0x38005;
     const ADATERECEIVED                     = 0x38006;
 
