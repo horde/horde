@@ -29,7 +29,17 @@ Upgrading from Net_Sieve
 
   - Constructor
 
+    - The connection parameters are passed as a hash now, instead of individual
+      arguments.
+
     - The default port has been changed to 4190.
+
+    - The bypassauth parameter has been removed.
+
+  - Authentication methods
+
+    The authentication methods are now specified as one of the
+    \Horde\ManageSieve\AUTH_* class constants.
 
   - Methods
 

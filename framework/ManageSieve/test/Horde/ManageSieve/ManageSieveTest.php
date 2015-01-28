@@ -59,7 +59,7 @@ class ManageSieveTest extends Horde_Test_Case
         // Create a new instance of Horde\ManageSieve.
         $this->fixture = new ManageSieve();
         $logger = new Horde_Log_Logger(new Horde_Log_Handler_Cli());
-        $this->fixture->setLogger($logger);
+        //$this->fixture->setLogger($logger);
         $this->scripts = array(
             'test script1' => "require \"fileinto\";\r\nif header :contains \"From\" \"@cnba.uba.ar\" \r\n{fileinto \"INBOX.Test1\";}\r\nelse \r\n{fileinto \"INBOX\";}",
             'test script2' => "require \"fileinto\";\r\nif header :contains \"From\" \"@cnba.uba.ar\" \r\n{fileinto \"INBOX.Test\";}\r\nelse \r\n{fileinto \"INBOX\";}",

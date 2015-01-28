@@ -52,6 +52,36 @@ class ManageSieve
     const STATE_AUTHENTICATED = 3;
 
     /**
+     * Authentication with the best available method.
+     */
+    const AUTH_AUTOMATIC = 0;
+
+    /**
+     * DIGEST-MD5 authentication.
+     */
+    const AUTH_DIGESTMD5 = 'DIGEST-MD5';
+
+    /**
+     * CRAM-MD5 authentication.
+     */
+    const AUTH_CRAMMD5 = 'CRAM-MD5';
+
+    /**
+     * LOGIN authentication.
+     */
+    const AUTH_LOGIN = 'LOGIN';
+
+    /**
+     * PLAIN authentication.
+     */
+    const AUTH_PLAIN = 'PLAIN';
+
+    /**
+     * EXTERNAL authentication.
+     */
+    const AUTH_EXTERNAL = 'EXTERNAL';
+
+    /**
      * The authentication methods this class supports.
      *
      * Can be overwritten if having problems with certain methods.
@@ -59,11 +89,11 @@ class ManageSieve
      * @var array
      */
     public $supportedAuthMethods = array(
-        'DIGEST-MD5',
-        'CRAM-MD5',
-        'EXTERNAL',
-        'PLAIN',
-        'LOGIN',
+        self::AUTH_DIGESTMD5,
+        self::AUTH_CRAMMD5,
+        self::AUTH_EXTERNAL,
+        self::AUTH_PLAIN,
+        self::AUTH_LOGIN,
     );
 
     /**
@@ -72,8 +102,8 @@ class ManageSieve
      * @var array
      */
     public $supportedSASLAuthMethods = array(
-        'DIGEST-MD5',
-        'CRAM-MD5',
+        self::AUTH_DIGESTMD5,
+        self::AUTH_CRAMMD5,
     );
 
     /**
@@ -88,7 +118,7 @@ class ManageSieve
      *
      * @var array
      */
-    protected $_data;
+    protected $_params;
 
     /**
      * Current state of the connection.
@@ -107,27 +137,6 @@ class ManageSieve
     protected $_logger;
 
     /**
-     * Whether to pick up an already established connection.
-     *
-     * @var boolean
-     */
-    protected $_bypassAuth = false;
-
-    /**
-     * Whether to use TLS if available.
-     *
-     * @var boolean
-     */
-    protected $_useTLS = true;
-
-    /**
-     * Additional options for stream_context_create().
-     *
-     * @var array
-     */
-    protected $_options = array();
-
-    /**
      * Maximum number of referral loops
      *
      * @var array
@@ -137,39 +146,40 @@ class ManageSieve
     /**
      * Constructor.
      *
-     * Sets up the object, connects to the server and logs in.
+     * If username and password are provided connects to the server and logs
+     * in too.
      *
-     * @param string  $user       Login username.
-     * @param string  $pass       Login password.
-     * @param string  $host       Hostname of server.
-     * @param string  $port       Port of server.
-     * @param string  $logintype  Type of login to perform (see
-     *                            $supportedAuthMethods).
-     * @param string  $euser      Effective user. If authenticating as an
-     *                            administrator, login as this user.
-     * @param string  $bypassAuth Skip the authentication phase. Useful if the
-     *                            socket is already open.
-     * @param boolean $useTLS     Use TLS if available.
-     * @param array   $options    Additional options for
-     *                            stream_context_create().
+     * @param array $params  A hash of connection parameters:
+     *                       - host: Hostname of server (DEFAULT: localhost).
+     *                       - port: Port of server (DEFAULT: 4190).
+     *                       - user: Login username (optional).
+     *                       - password: Login password (optional).
+     *                       - authmethod: Type of login to perform (see
+     *                                     $supportedAuthMethods) (DEFAULT:
+     *                                     AUTH_AUTOMATIC).
+     *                       - euser: Effective user. If authenticating as an
+     *                                administrator, login as this user.
+     *                       - usetls: Use TLS if available.
+     *                       - context: Additional options for
+     *                                  stream_context_create().
      *
      * @throws \Horde\ManageSieve\Exception
      */
-    public function __construct(
-        $user = null, $pass  = null, $host = 'localhost', $port = 4190,
-        $logintype = '', $euser = '', $bypassAuth = false,
-        $useTLS = true, $options = null
-    )
+    public function __construct($params = array())
     {
-        $this->_data['user']      = $user;
-        $this->_data['pass']      = $pass;
-        $this->_data['host']      = $host;
-        $this->_data['port']      = $port;
-        $this->_data['logintype'] = $logintype;
-        $this->_data['euser']     = $euser;
-        $this->_bypassAuth        = $bypassAuth;
-        $this->_useTLS            = $useTLS;
-        $this->_options           = $options;
+        $this->_params = array_merge(
+            array(
+                'host'       => 'localhost',
+                'port'       => 4190,
+                'user'       => '',
+                'password'   => '',
+                'authmethod' => self::AUTH_AUTOMATIC,
+                'euser'      => null,
+                'usetls'     => true,
+                'context'    => array()
+            ),
+            $params
+        );
 
         /* Try to include the Auth_SASL package.  If the package is not
          * available, we disable the authentication methods that depend upon
@@ -182,7 +192,8 @@ class ManageSieve
             );
         }
 
-        if (strlen($user) && strlen($pass)) {
+        if (strlen($this->_params['user']) &&
+            strlen($this->_params['password'])) {
             $this->_handleConnectAndLogin();
         }
     }
@@ -205,40 +216,50 @@ class ManageSieve
     protected function _handleConnectAndLogin()
     {
         $this->connect(
-            $this->_data['host'],
-            $this->_data['port'],
-            $this->_options,
-            $this->_useTLS
+            $this->_params['host'],
+            $this->_params['port'],
+            $this->_params['context'],
+            $this->_params['usetls']
         );
-        if ($this->_bypassAuth === false) {
-            $this->login(
-                $this->_data['user'],
-                $this->_data['pass'],
-                $this->_data['logintype'],
-                $this->_data['euser'],
-                $this->_bypassAuth
-            );
-        }
+        $this->login(
+            $this->_params['user'],
+            $this->_params['password'],
+            $this->_params['authmethod'],
+            $this->_params['euser']
+        );
     }
 
     /**
      * Handles connecting to the server and checks the response validity.
      *
+     * Defaults from the constructor are used for missing parameters.
+     *
      * @param string  $host    Hostname of server.
      * @param string  $port    Port of server.
-     * @param array   $options List of options to pass to
+     * @param array   $context List of options to pass to
      *                         stream_context_create().
      * @param boolean $useTLS  Use TLS if available.
      *
      * @throws \Horde\ManageSieve\Exception
      */
-    public function connect($host, $port, $options = null, $useTLS = true)
+    public function connect(
+        $host = null, $port = null, $context = null, $useTLS = null
+    )
     {
-        $this->_data['host'] = $host;
-        $this->_data['port'] = $port;
-        $this->_useTLS       = $useTLS;
-        if (is_array($options)) {
-            $this->_options = array_merge($this->_options, $options);
+        if (isset($host)) {
+            $this->_params['host'] = $host;
+        }
+        if (isset($port)) {
+            $this->_params['port'] = $port;
+        }
+        if (isset($context)) {
+            $this->_params['context'] = array_merge_recursive(
+                $this->_params['context'],
+                $context
+            );
+        }
+        if (isset($useTLS)) {
+            $this->_params['usetls'] = $useTLS;
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
@@ -247,18 +268,18 @@ class ManageSieve
 
         try {
             $this->_sock = new ManageSieve\Connection(
-                $host, $port, 5, $this->_useTLS, array('context' => $options)
+                $this->_params['host'],
+                $this->_params['port'],
+                5,
+                $this->_params['usetls'],
+                $this->_params['context']
             );
         } catch (Socket\Client\Exception $e) {
             throw new Exception($e);
         }
 
-        if ($this->_bypassAuth) {
-            $this->_state = self::STATE_AUTHENTICATED;
-        } else {
-            $this->_state = self::STATE_NON_AUTHENTICATED;
-            $this->_doCmd();
-        }
+        $this->_state = self::STATE_NON_AUTHENTICATED;
+        $this->_doCmd();
 
         // Explicitly ask for the capabilities in case the connection is
         // picked up from an existing connection.
@@ -269,7 +290,8 @@ class ManageSieve
         }
 
         // Check if we can enable TLS via STARTTLS.
-        if ($useTLS && !empty($this->_capability['starttls'])) {
+        if ($this->_params['usetls'] &&
+            !empty($this->_capability['starttls'])) {
             $this->_doCmd('STARTTLS');
             if (!$this->_sock->startTls()) {
                 throw new Exception('Failed to establish TLS connection');
@@ -298,8 +320,8 @@ class ManageSieve
     /**
      * Disconnect from the Sieve server.
      *
-     * @param boolean $sendLogoutCMD Whether to send LOGOUT command before
-     *                               disconnecting.
+     * @param boolean $sendLogoutCMD  Whether to send LOGOUT command before
+     *                                disconnecting.
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -311,23 +333,31 @@ class ManageSieve
     /**
      * Logs into server.
      *
-     * @param string  $user       Login username.
-     * @param string  $pass       Login password.
-     * @param string  $logintype  Type of login method to use.
-     * @param string  $euser      Effective UID (perform on behalf of $euser).
-     * @param boolean $bypassAuth Do not perform authentication.
+     * Defaults from the constructor are used for missing parameters.
+     *
+     * @param string $user        Login username.
+     * @param string $pass        Login password.
+     * @param string $authmethod  Type of login method to use.
+     * @param string $euser       Effective UID (perform on behalf of $euser).
      *
      * @throws \Horde\ManageSieve\Exception
      */
     public function login(
-        $user, $pass, $logintype = null, $euser = '', $bypassAuth = false
+        $user = null, $password = null, $authmethod = null, $euser = null
     )
     {
-        $this->_data['user']      = $user;
-        $this->_data['pass']      = $pass;
-        $this->_data['logintype'] = $logintype;
-        $this->_data['euser']     = $euser;
-        $this->_bypassAuth        = $bypassAuth;
+        if (isset($user)) {
+            $this->_params['user'] = $user;
+        }
+        if (isset($user)) {
+            $this->_params['password'] = $password;
+        }
+        if (isset($user)) {
+            $this->_params['authmethod'] = $authmethod;
+        }
+        if (isset($user)) {
+            $this->_params['euser'] = $euser;
+        }
 
         if (self::STATE_DISCONNECTED == $this->_state) {
             throw new NotConnected();
@@ -336,9 +366,12 @@ class ManageSieve
             throw new Exception('Already authenticated');
         }
 
-        if (!$bypassAuth ) {
-            $this->_cmdAuthenticate($user, $pass, $logintype, $euser);
-        }
+        $this->_cmdAuthenticate(
+            $this->_params['user'],
+            $this->_params['password'],
+            $this->_params['authmethod'],
+            $this->_params['euser']
+        );
         $this->_state = self::STATE_AUTHENTICATED;
     }
 
@@ -533,32 +566,32 @@ class ManageSieve
      *
      * @param string $uid        The userid to authenticate as.
      * @param string $pwd        The password to authenticate with.
-     * @param string $userMethod The method to use. If empty, the class chooses
+     * @param string $authmethod The method to use. If empty, the class chooses
      *                           the best (strongest) available method.
      * @param string $euser      The effective uid to authenticate as.
      *
      * @throws \Horde\ManageSieve\Exception
      */
     protected function _cmdAuthenticate(
-        $uid, $pwd, $userMethod = null, $euser = ''
+        $uid, $pwd, $authmethod = null, $euser = ''
     )
     {
-        $method = $this->_getBestAuthMethod($userMethod);
+        $method = $this->_getBestAuthMethod($authmethod);
 
         switch ($method) {
-        case 'DIGEST-MD5':
+        case self::AUTH_DIGESTMD5:
             $this->_authDigestMD5($uid, $pwd, $euser);
             return;
-        case 'CRAM-MD5':
+        case self::AUTH_CRAMMD5:
             $this->_authCRAMMD5($uid, $pwd, $euser);
             break;
-        case 'LOGIN':
+        case self::AUTH_LOGIN:
             $this->_authLOGIN($uid, $pwd, $euser);
             break;
-        case 'PLAIN':
+        case self::AUTH_PLAIN:
             $this->_authPLAIN($uid, $pwd, $euser);
             break;
-        case 'EXTERNAL':
+        case self::AUTH_EXTERNAL:
             $this->_authEXTERNAL($uid, $pwd, $euser);
             break;
         default :
@@ -987,16 +1020,16 @@ class ManageSieve
                     if (preg_match('/^bye \(referral "(sieve:\/\/)?([^"]+)/i', $line, $matches)) {
                         // Replace the old host with the referral host
                         // preserving any protocol prefix.
-                        $this->_data['host'] = preg_replace(
+                        $this->_params['host'] = preg_replace(
                             '/\w+(?!(\w|\:\/\/)).*/', $matches[2],
-                            $this->_data['host']
+                            $this->_params['host']
                         );
                         try {
                             $this->_handleConnectAndLogin();
                         } catch (Exception $e) {
                             throw new Referral(
                                 'Cannot follow referral to '
-                                . $this->_data['host'] . ', the error was: '
+                                . $this->_params['host'] . ', the error was: '
                                 . $e->getMessage()
                             );
                         }
@@ -1036,12 +1069,12 @@ class ManageSieve
      * Returns the name of the best authentication method that the server
      * has advertised.
      *
-     * @param string $userMethod Only consider this method as available.
+     * @param string $authmethod Only consider this method as available.
      *
      * @throws \Horde\ManageSieve\Exception
      * @return string  The name of the best supported authentication method.
      */
-    protected function _getBestAuthMethod($userMethod = null)
+    protected function _getBestAuthMethod($authmethod = null)
     {
         if (!isset($this->_capability['sasl'])) {
             throw new Exception(
@@ -1054,15 +1087,15 @@ class ManageSieve
             );
         }
 
-        if ($userMethod) {
-            if (in_array($userMethod, $this->_capability['sasl'])) {
-                return $userMethod;
+        if ($authmethod) {
+            if (in_array($authmethod, $this->_capability['sasl'])) {
+                return $authmethod;
             }
             throw new Exception(
                 sprintf(
                     'No supported authentication method found. The server supports these methods: %s, but we want to use: %s',
                     implode(', ', $this->_capability['sasl']),
-                    $userMethod
+                    $authmethod
                 )
             );
         }
