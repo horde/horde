@@ -359,9 +359,7 @@ class ManageSieve
             $this->_params['euser'] = $euser;
         }
 
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
         if (self::STATE_AUTHENTICATED == $this->_state) {
             throw new Exception('Already authenticated');
         }
@@ -466,9 +464,7 @@ class ManageSieve
      */
     public function hasSpace($scriptname, $size)
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
+        $this->_checkAuthenticated();
 
         try {
             $this->_doCmd(
@@ -489,9 +485,7 @@ class ManageSieve
      */
     public function getExtensions()
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
         return $this->_capability['extensions'];
     }
 
@@ -505,9 +499,7 @@ class ManageSieve
      */
     public function hasExtension($extension)
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
 
         $extension = trim($this->_toUpper($extension));
         if (is_array($this->_capability['extensions'])) {
@@ -529,9 +521,7 @@ class ManageSieve
      */
     public function getAuthMechs()
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
         return $this->_capability['sasl'];
     }
 
@@ -545,9 +535,7 @@ class ManageSieve
      */
     public function hasAuthMech($method)
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
 
         $method = trim($this->_toUpper($method));
         if (is_array($this->_capability['sasl'])) {
@@ -728,9 +716,7 @@ class ManageSieve
      */
     protected function _cmdDeleteScript($scriptname)
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
+        $this->_checkAuthenticated();
         $this->_doCmd(sprintf('DELETESCRIPT %s', $this->_escape($scriptname)));
     }
 
@@ -744,14 +730,10 @@ class ManageSieve
      */
     protected function _cmdGetScript($scriptname)
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
-
+        $this->_checkAuthenticated();
         $result = $this->_doCmd(
             sprintf('GETSCRIPT %s', $this->_escape($scriptname))
         );
-
         return preg_replace('/^{[0-9]+}\r\n/', '', $result);
     }
 
@@ -765,9 +747,7 @@ class ManageSieve
      */
     protected function _cmdSetActive($scriptname)
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
+        $this->_checkAuthenticated();
         $this->_doCmd(sprintf('SETACTIVE %s', $this->_escape($scriptname)));
     }
 
@@ -780,9 +760,7 @@ class ManageSieve
      */
     protected function _cmdListScripts()
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
+        $this->_checkAuthenticated();
 
         $result = $this->_doCmd('LISTSCRIPTS');
 
@@ -812,17 +790,13 @@ class ManageSieve
      */
     protected function _cmdPutScript($scriptname, $scriptdata)
     {
-        if (self::STATE_AUTHENTICATED != $this->_state) {
-            throw new NotAuthenticated();
-        }
-
+        $this->_checkAuthenticated();
         $command = sprintf(
             "PUTSCRIPT %s {%d+}\r\n%s",
             $this->_escape($scriptname),
             strlen($scriptdata),
             $scriptdata
         );
-
         $this->_doCmd($command);
     }
 
@@ -836,14 +810,10 @@ class ManageSieve
      */
     protected function _cmdLogout($sendLogoutCMD = true)
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
-
+        $this->_checkConnected();
         if ($sendLogoutCMD) {
             $this->_doCmd('LOGOUT');
         }
-
         $this->_sock->close();
         $this->_state = self::STATE_DISCONNECTED;
     }
@@ -855,9 +825,7 @@ class ManageSieve
      */
     protected function _cmdCapability()
     {
-        if (self::STATE_DISCONNECTED == $this->_state) {
-            throw new NotConnected();
-        }
+        $this->_checkConnected();
         $result = $this->_doCmd('CAPABILITY');
         $this->_parseCapability($result);
     }
@@ -1113,6 +1081,30 @@ class ManageSieve
                 implode(', ', $this->supportedAuthMethods)
             )
         );
+    }
+
+    /**
+     * Asserts that the client is in disconnected state.
+     *
+     * @throws \Horde\ManageSieve\Exception
+     */
+    protected function _checkConnected()
+    {
+        if (self::STATE_DISCONNECTED == $this->_state) {
+            throw new NotConnected();
+        }
+    }
+
+    /**
+     * Asserts that the client is in authenticated state.
+     *
+     * @throws \Horde\ManageSieve\Exception
+     */
+    protected function _checkAuthenticated()
+    {
+        if (self::STATE_AUTHENTICATED != $this->_state) {
+            throw new NotAuthenticated();
+        }
     }
 
     /**
