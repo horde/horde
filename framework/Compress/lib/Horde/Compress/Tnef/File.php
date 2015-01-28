@@ -80,6 +80,10 @@ class Horde_Compress_Tnef_File extends Horde_Compress_Tnef_Object
 
     public function setTnefAttribute($attribute, $value, $size)
     {
+        $this->_logger->debug(sprintf(
+            'TNEF: Horde_Compress_Tnef_File::setTnefAttribute(0x%X, <value>, %n)',
+            $attribute, $size)
+        );
         switch ($attribute) {
         case Horde_Compress_Tnef::AFILENAME:
             $this->name = preg_replace('/.*[\/](.*)$/', '\1', $value);

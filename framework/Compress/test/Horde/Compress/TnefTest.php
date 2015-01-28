@@ -21,6 +21,15 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         }
     }
 
+    public function testItipReply()
+    {
+        $eml = file_get_contents(__DIR__ . '/fixtures/Itip_Reply.eml');
+        $mime = Horde_Mime_Part::parseMessage($eml);
+        $winmail = $mime->getPart(2)->getContents();
+        $tnef = Horde_Compress::factory('Tnef');
+        $tnef_data = $tnef->decompress($winmail);
+    }
+
     public function testvNote()
     {
         $tnef = Horde_Compress::factory('Tnef');
@@ -32,7 +41,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         } catch (Horde_Compress_Exception $e) {
             var_dump($e);
         }
-
         $fixture = file_get_contents(__DIR__ . '/fixtures/tnef_vtodo_fixture.txt');
         $this->assertEquals($fixture, $tnef_data[0]['stream']);
     }
@@ -55,6 +63,13 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $this->assertEquals($tnef_data[0]['name'], 'Meeting');
     }
 
+    public function testMeetingTnef()
+    {
+        $winmail = file_get_contents(__DIR__ . '/fixtures/winmail2.dat');
+        $tnef = Horde_Compress::factory('Tnef');
+        $tnef_data = $tnef->decompress($winmail);
+    }
+
     public function testAttachments()
     {
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachments.txt'));
@@ -62,7 +77,6 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $tnef_data = $tnef->decompress($data);
         $this->assertEquals('application', $tnef_data[0]['type']);
         $this->assertEquals('rtf', $tnef_data[0]['subtype']);
-
         $this->assertEquals('image', $tnef_data[1]['type']);
         $this->assertEquals('jpeg', $tnef_data[1]['subtype']);
         $this->assertEquals('hasselhoff_birthday.jpg', $tnef_data[1]['name']);

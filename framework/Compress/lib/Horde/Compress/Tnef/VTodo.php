@@ -80,6 +80,10 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     const CLASS_DECLINE            = 'IPM.TaskRequest.Decline';
     const CLASS_UPDATE             = 'IPM.TaskRequest.Update';
 
+    const TASK_STATUS_ACTION       = 'NEEDS-ACTION';
+    const TASK_STATUS_IN_PROGRESS  = 'IN-PROGRESS';
+    const TASK_STATUS_COMPLETED    = 'COMPLETED';
+
     /**
      * Due date (timestamp).
      *
@@ -178,6 +182,21 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
      * @var string
      */
     protected $_lastUser;
+
+    /**
+     * Start time of task.
+     *
+     * @var integer
+     */
+    protected $_start;
+
+    /**
+     * Status of task.
+     *
+     * @var string
+     */
+    protected $_status;
+
     /**
      * The MIME type of this object's content.
      *
@@ -239,13 +258,13 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
             $this->_due = $this->_due->timestamp();
         case self::MAPI_TASK_STARTDATE:
-            if (empty($this->start)) {
-                $this->start = Horde_Mapi::filetimeToUnixtime($value);
+            if (empty($this->_start)) {
+                $this->_start = Horde_Mapi::filetimeToUnixtime($value);
             }
             break;
         case self::MAPI_TASK_COMMONSTART:
-            $this->start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
-            $this->start = $this->start->timestamp();
+            $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+            $this->_start = $this->_start->timestamp();
         case self::MAPI_TASK_DATECOMPLETED:
             $this->_completed = Horde_Mapi::filetimeToUnixtime($value);
             break;
@@ -259,13 +278,13 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             case self::STATUS_WAIT:
             case self::STATUS_DEFERRED: // ??
                 $this->_percentComplete = 0;
-                $this->status = 'NEEDS-ACTION';
+                $this->_status = self::TASK_STATUS_ACTION;
                 break;
             case self::STATUS_IN_PROGRESS:
-                $this->status = 'IN-PROGRESS';
+                $this->_status = self::TASK_STATUS_IN_PROGRESS;
                 break;
             case self::STATUS_COMPLETE:
-                $this->status = 'COMPLETED';
+                $this->_status = self::TASK_STATUS_COMPLETED;
                 $this->_percentComplete = 1;
                 break;
             // Body properties. I still can't figure this out.
@@ -358,8 +377,8 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         if ($this->_due) {
             $vtodo->setAttribute('DUE', $this->_due);
         }
-        if ($this->start) {
-            $vtodo->setAttribute('DTSTART', $this->start);
+        if ($this->_start) {
+            $vtodo->setAttribute('DTSTART', $this->_start);
         }
         if ($this->_completed) {
             $vtodo->setAttribute('COMPLETED', $this->_completed);

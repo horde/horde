@@ -29,7 +29,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_COMPRESSED                    = 0x75465a4c;
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
-    const ASUBJECT                          = 0x88004;
+    const ASUBJECT                          = 0x18004;
     const ADATESENT                         = 0x38005;
     const ADATERECEIVED                     = 0x38006;
 
@@ -39,7 +39,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const ATTACHMETAFILE                    = 0x68011;
     const ATTACHCREATEDATE                  = 0x38012;
 
+    // idAttachRendData
     const ARENDDATA                         = 0x69002;
+
     const AMAPIPROPS                        = 0x69003;
     const AMAPIATTRS                        = 0x69005;
     const OEMCODEPAGE                       = 0x69007;
@@ -102,11 +104,14 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_CODEPAGE                     = 0x3FFD;
 
+    const MAPI_SENDER_SMTP                  = 0x5D01;
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
 
     // Do we need this?
     const MAPI_BUSY_STATUS                  = 0x8205;
 
+    const MAPI_RESPONSE_REQUESTED           = 0x0063;
+    const MAPI_APPOINTMENT_UID              = 0x001f;
     const MAPI_APPOINTMENT_LOCATION         = 0x8208;
     const MAPI_APPOINTMENT_URL              = 0x8209;
     const MAPI_APPOINTMENT_START_WHOLE      = 0x820D; // Full datetime of start (FILETIME format)
@@ -118,6 +123,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_RESPONSE_STATUS              = 0x8218;
     const MAPI_RECURRING                    = 0x8223;
     const MAPI_RECURRENCE_TYPE              = 0x8231;
+    const MAPI_ALL_ATTENDEES                = 0x8238; // ALL attendees, required/optional and non-sendable.
+    const MAPI_TO_ATTENDEES                 = 0x823B; // All "sendable" attendees that are REQUIRED.
 
     // tz. Not sure when to use STRUCT vs DEFINITION_RECUR. Possible ok to always use STRUCT?
     const MAPI_TIMEZONE_STRUCT              = 0x8233; // Timezone for recurring mtg?
@@ -134,6 +141,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
     const MAPI_ENTRY_UID                    = 0x0003; // GOID??
+    const MAPI_ENTRY_CLEANID                = 0x0023;
     const MAPI_MEETING_TYPE                 = 0x0026;
 
     const MSG_EDITOR_FORMAT                 = 0x5909;
@@ -183,7 +191,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     /**
      * Collection of files contained in the TNEF data.
      *
-     * @var array of Horde_Compress_Tnef_Object classes.
+     * @var array of Horde_Compress_Tnef_Object objects.
      */
     protected $_files = array();
 
@@ -229,11 +237,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             while (strlen($data) > 0) {
                 switch ($this->_geti($data, 8)) {
                 case self::LVL_MESSAGE:
-                    $this->_decodeAttribute($data);
+                    $this->_logger->debug('DECODING LVL_MESSAGE property.');
+                    $this->_decodeMessageProperty($data);
                     break;
 
                 case self::LVL_ATTACHMENT:
-                    $this->_decodeAttribute($data);
+                    $this->_logger->debug('DECODING LVL_ATTACHMENT property.');
+                    $this->_decodeAttachment($data);
                     break;
                 }
             }
@@ -277,13 +287,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         return $this->_msgInfo;
     }
 
+    /**
+     * Sets the current object being decompressed.
+     *
+     * @param Horde_Compress_Tnef_Object $object
+     */
     public function setCurrentObject(Horde_Compress_Tnef_Object $object)
     {
         $this->_currentObject = $object;
     }
 
     /**
-     * TODO
+     * Extract a set of encapsulated MAPI properties. Normally either embedded
+     * in an attachment structure, or an idMessageProperty structure.
      *
      * @param string $data             The data string.
      * @param array &$attachment_data  TODO
@@ -292,7 +308,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     {
         // Number of attributes.
         $number = $this->_geti($data, 32);
-
+        $this->_logger->debug(sprintf('TNEF: Extracting %n MAPI attributes.', $number));
         while ((strlen($data) > 0) && $number--) {
             $have_mval = false;
             $num_mval = 1;
@@ -332,7 +348,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
                     $this->_logger->debug(sprintf(
                         'TNEF: Named String Id: %s',
-                        substr($this->_getx($data, $data_len)), 0, $id_len)
+                        substr($this->_getx($data, $data_len), 0, $id_len))
                     );
                     break;
 
@@ -406,25 +422,28 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             }
 
             // @todo Utility method to make this log more readable.
-            $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type:', $attr_name, $attr_type));
+            $this->_logger->debug(sprintf('TNEF: Attribute: 0x%X Type: 0x%X', $attr_name, $attr_type));
             switch ($attr_name) {
-            case self::MAPI_ATTACH_DATA:
-                $this->_logger->debug('TNEF: Found nested attachment. Parsing.');
-                // ?
-                $this->_getx($value, 16);
-
-                $att = new Horde_Compress_Tnef(array('logger' => $this->_logger));
-                $att->setCurrentObject($this->_currentObject);
-                $att->decompress($value);
-                $this->attachments[] = $att;
-                $this->_logger->debug('TNEF: Completed nested attachment parsing.');
-                break;
-
             case self::MAPI_TAG_RTF_COMPRESSED:
                 $this->_logger->debug('TNEF: Found compressed RTF text.');
-                $this->_files[] = new Horde_Compress_Tnef_Rtf($this->_logger, $value);
+                $rtf =  new Horde_Compress_Tnef_Rtf($this->_logger, $value);
+                $this->_files[] = $rtf;
+                // Give the currentObject a chance to do something with the RTF
+                // body. This is used, e.g., in meeting requests to populate
+                // the description field.
+                if ($this->_currentObject) {
+                    $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $rtf->toPlain());
+                }
                 break;
-
+            case self::MAPI_ATTACH_DATA:
+                $this->_logger->debug('TNEF: Found nested MAPI object. Parsing.');
+                $this->_getx($value, 16);
+                $att = new Horde_Compress_Tnef($this->_logger);
+                $att->setCurrentObject($this->_currentObject);
+                $att->decompress($value);
+                $this->_attachments[] = $att;
+                $this->_logger->debug('TNEF: Completed nested attachment parsing.');
+                break;
             default:
                 $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
                 if ($this->_currentObject) {
@@ -435,51 +454,84 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     }
 
     /**
-     * TODO
+     * Decodes all LVL_ATTACHMENT data. Attachment data MUST be at the end of
+     * TNEF stream. First LVL_ATTACHMENT MUST be ARENDDATA (attAttachRendData).
      *
-     * @param string &$data  The data string.
+     * From MS-OXTNEF:
+     * ; An attachment is determined/delimited by attAttachRendData, followed by
+     * ; other encoded attributes, if any, and ending with attAttachment
+     * ; if there are any encoded properties.
+     * AttachData = AttachRendData [*AttachAttribute] [AttachProps]
+     * AttachRendData = attrLevelAttachment idAttachRendData Length Data Checksum
+     * AttachAttribute = attrLevelAttachment idAttachAttr Length Data Checksum
+     * AttachProps = attrLevelAttachment idAttachment Length Data Checksum
+     *
+     * @param  [type] &$data [description]
+     * @return [type]        [description]
      */
-    protected function _decodeAttribute(&$data)
+    protected function _decodeAttachment(&$data)
     {
         $attribute = $this->_geti($data, 32);
-        $length = $this->_geti($data, 32);
-        $value = $this->_getx($data, $length);
+        $size = $this->_geti($data, 32);
+        $value = $this->_getx($data, $size);
         $this->_geti($data, 16);
-
-        $this->_logger->debug(sprintf('TNEF: Decoding message attribute: 0x%X', $attribute));
-
         switch ($attribute) {
         case self::ARENDDATA:
-            // Create a "generic" file object if we can't deduce what the
-            // attachment is. E.g., Task requests have MAPI data related to the
-            // task in the attachment, so we use the vTodo object in that case.
-            if (!($this->_currentObject instanceof Horde_Compress_Tnef_VTodo)) {
-                $this->_logger->debug('Creating new attachment.');
+            // This delimits the attachment structure. I.e., every attachment
+            // MUST begin with idAttachRendData.
+            $this->_logger->debug('Creating new attachment.');
+            if (!$this->_currentObject instanceof Horde_Compress_Tnef_VTodo) {
                 $this->_currentObject = new Horde_Compress_Tnef_File($this->_logger);
                 $this->_files[] = $this->_currentObject;
             }
             break;
+        case self::AFILENAME:
+             // Strip path.
+            $value = preg_replace('/.*[\/](.*)$/', '\1', $value);
+            $value = str_replace("\0", '', $value);
+            $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            break;
+        case self::ATTACHDATA:
+             // The attachment itself.
+            $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            break;
+        case self::AMAPIATTRS:
+            // idAttachment (Attachment properties)
+            $this->_extractMapiAttributes($value);
+            break;
+            case self::MAPI_ENTRY_UID:
+        default:
+            if (!empty($this->_currentObject)) {
+                $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            }
+        }
+    }
 
+    protected function _decodeMessageProperty(&$data)
+    {
+        $attribute = $this->_geti($data, 32);
+        $this->_logger->debug(sprintf('TNEF: Message property 0x%X found.', $attribute));
+        switch ($attribute) {
         case self::AMCLASS:
             // Start of a new message.
-            $message_class = trim($value);
+            $message_class = trim($this->_decodeAttribute($data));
             $this->_logger->debug(sprintf('TNEF: Message class: %s', $message_class));
             switch ($message_class) {
-            case self::IPM_MEETING_REQUEST:
+            case self::IPM_MEETING_REQUEST :
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'REQUEST';
+                $this->_currentObject->setMethod('REQUEST', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_RESPONSE_TENT:
             case self::IPM_MEETING_RESPONSE_NEG:
             case self::IPM_MEETING_RESPONSE_POS:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'REPLY';
+                $this->_currentObject->setMethod('REPLY', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_REQUEST_CANCELLED:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'CANCEL';
+                $this->_currentObject->setMethod('CANCEL', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:
@@ -488,24 +540,33 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 break;
             }
             break;
-
-        case self::AMAPIATTRS:
-            $this->_logger->debug('TNEF: Extracting MAPI attributes.');
-            $this->_extractMapiAttributes($value);
-            break;
-
         case self::AMAPIPROPS:
-            $this->_logger->debug('TNEF: Extracting MAPI properties.');
-            $this->_extractMapiAttributes($value);
+            $this->_logger->debug('TNEF: Extracting encapsulated message properties (idMsgProps)');
+            $properties = $this->_decodeAttribute($data);
+            $this->_extractMapiAttributes($properties);
             break;
-
         default:
-            $this->_logger->debug(sprintf('TNEF: Setting message attribute: %s', $attribute));
-            $this->_msgInfo->setTnefAttribute($attribute, $value, $length);
+            $size = $this->_geti($data, 32);
+            $value = $this->_getx($data, $size);
+            $this->_geti($data, 16); // Checksum.
             if ($this->_currentObject) {
-                $this->_currentObject->setTnefAttribute($attribute, $value, $length);
+                $this->_currentObject->setTnefAttribute($attribute, $value, $size);
             }
         }
+    }
+
+    /**
+     * Decode a single attribute.
+     *
+     * @param string &$data  The data string.
+     */
+    protected function _decodeAttribute(&$data)
+    {
+        $size = $this->_geti($data, 32);
+        $value = $this->_getx($data, $size);
+        $this->_geti($data, 16); // Checksum.
+
+        return $value;
     }
 
     /**
