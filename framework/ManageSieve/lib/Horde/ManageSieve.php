@@ -16,6 +16,7 @@
  */
 
 namespace Horde;
+use Horde\Socket\Client;
 use Horde\ManageSieve;
 use Horde\ManageSieve\Exception;
 
@@ -109,7 +110,7 @@ class ManageSieve
     /**
      * The socket client.
      *
-     * @var \Horde\ManageSieve\Connection
+     * @var \Horde\Socket\Client
      */
     protected $_sock;
 
@@ -274,14 +275,14 @@ class ManageSieve
         }
 
         try {
-            $this->_sock = new ManageSieve\Connection(
+            $this->_sock = new Client(
                 $this->_params['host'],
                 $this->_params['port'],
                 5,
                 $this->_params['usetls'],
                 $this->_params['context']
             );
-        } catch (Socket\Client\Exception $e) {
+        } catch (Client\Exception $e) {
             throw new Exception($e);
         }
 

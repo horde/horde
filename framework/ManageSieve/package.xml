@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-26</date>
+ <date>2015-01-28</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -43,7 +43,6 @@
        <file name="NotDisconnected.php" role="php" />
        <file name="Referral.php" role="php" />
       </dir> <!-- /lib/Horde/ManageSieve/Exception -->
-      <file name="Connection.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/ManageSieve -->
      <file name="ManageSieve.php" role="php" />
@@ -78,7 +77,6 @@
    <install as="LICENSE" name="doc/Horde/ManageSieve/LICENSE" />
    <install as="UPGRADING" name="doc/Horde/ManageSieve/UPGRADING" />
    <install as="Horde/ManageSieve.php" name="lib/Horde/ManageSieve.php" />
-   <install as="Horde/ManageSieve/Connection.php" name="lib/Horde/ManageSieve/Connection.php" />
    <install as="Horde/ManageSieve/Exception.php" name="lib/Horde/ManageSieve/Exception.php" />
    <install as="Horde/ManageSieve/Exception/ConnectionFailed.php" name="lib/Horde/ManageSieve/Exception/ConnectionFailed.php" />
    <install as="Horde/ManageSieve/Exception/NotAuthenticated.php" name="lib/Horde/ManageSieve/Exception/NotAuthenticated.php" />
@@ -103,7 +101,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2015-01-26</date>
+   <date>2015-01-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
 * Initial release.
