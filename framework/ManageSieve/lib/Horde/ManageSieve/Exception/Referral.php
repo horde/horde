@@ -12,7 +12,7 @@
  */
 
 namespace Horde\ManageSieve\Exception;
-use Horde\ManageSieve
+use Horde\ManageSieve;
 
 /**
  * Exception thrown if the referring to a different server failed.
