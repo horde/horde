@@ -34,8 +34,6 @@ Upgrading from Net_Sieve
 
     - The default port has been changed to 4190.
 
-    - The bypassauth parameter has been removed.
-
   - Authentication methods
 
     The authentication methods are now specified as one of the

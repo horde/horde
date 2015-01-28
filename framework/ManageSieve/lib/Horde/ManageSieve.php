@@ -151,6 +151,7 @@ class ManageSieve
      *
      * @param array $params  A hash of connection parameters:
      *                       - host: Hostname of server (DEFAULT: localhost).
+     *                               Optionally prefixed with protocol scheme.
      *                       - port: Port of server (DEFAULT: 4190).
      *                       - user: Login username (optional).
      *                       - password: Login password (optional).
@@ -159,6 +160,9 @@ class ManageSieve
      *                                     AUTH_AUTOMATIC).
      *                       - euser: Effective user. If authenticating as an
      *                                administrator, login as this user.
+     *                       - bypassauth: Skip the authentication phase.
+     *                                     Useful if passing an already open
+     *                                     socket.
      *                       - usetls: Use TLS if available.
      *                       - context: Additional options for
      *                                  stream_context_create().
@@ -175,6 +179,7 @@ class ManageSieve
                 'password'   => '',
                 'authmethod' => self::AUTH_AUTOMATIC,
                 'euser'      => null,
+                'bypassauth' => false,
                 'usetls'     => true,
                 'context'    => array()
             ),
@@ -221,12 +226,14 @@ class ManageSieve
             $this->_params['context'],
             $this->_params['usetls']
         );
-        $this->login(
-            $this->_params['user'],
-            $this->_params['password'],
-            $this->_params['authmethod'],
-            $this->_params['euser']
-        );
+        if (!$this->_params['bypassauth']) {
+            $this->login(
+                $this->_params['user'],
+                $this->_params['password'],
+                $this->_params['authmethod'],
+                $this->_params['euser']
+            );
+        }
     }
 
     /**
@@ -278,8 +285,12 @@ class ManageSieve
             throw new Exception($e);
         }
 
-        $this->_state = self::STATE_NON_AUTHENTICATED;
-        $this->_doCmd();
+        if ($this->_params['bypassauth']) {
+            $this->_state = self::STATE_AUTHENTICATED;
+        } else {
+            $this->_state = self::STATE_NON_AUTHENTICATED;
+            $this->_doCmd();
+        }
 
         // Explicitly ask for the capabilities in case the connection is
         // picked up from an existing connection.
