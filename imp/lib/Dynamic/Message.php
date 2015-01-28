@@ -109,9 +109,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $js_vars['ImpMessage.mbox'] = $this->indices->mailbox->form_to;
         if (isset($msg_res['atc'])) {
             $js_vars['ImpMessage.msg_atc'] = $msg_res['atc'];
-            $this->js_text += array(
-                'atc_downloadall' => _("Download All (%s)")
-            );
+            $this->js_text['atc_downloadall'] = _("Download All (%s)");
         }
         if (isset($msg_res['md'])) {
             $js_vars['ImpMessage.msg_md'] = $msg_res['md'];
