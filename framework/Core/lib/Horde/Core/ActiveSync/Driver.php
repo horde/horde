@@ -25,6 +25,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_TRASH           = 'trash';
     const SPECIAL_DRAFTS          = 'drafts';
     const SPECIAL_INBOX           = 'inbox';
+    const SPECIAL_OUTBOX          = 'outbox';
 
     const FOLDER_PART_CLASS       = 0;
     const FOLDER_PART_ID          = 1;
@@ -2864,6 +2865,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_mailFolders = array($this->_buildDummyFolder(self::SPECIAL_INBOX));
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_DRAFTS);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_OUTBOX);
             } else {
                 $this->_logger->info(sprintf(
                     "[%s] Polling Horde_Core_ActiveSync_Driver::_getMailFolders()",
@@ -2928,6 +2931,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             $folder->serverid = $folder->_serverid = 'INBOX';
             $folder->displayname = Horde_Core_Translation::t("Inbox");
+            break;
+        case self::SPECIAL_DRAFTS:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+            $folder->serverid = $folder->_serverid = 'DRAFTS';
+            $folder->displayname = Horde_Core_Translation::t("Drafts");
+            break;
+        case self::SPECIAL_OUTBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_OUTBOX;
+            $folder->serverid = $folder->_serverid = 'OUTBOX';
+            $folder->displayname = Horde_Core_Translation::t("Outbox");
             break;
         }
 
