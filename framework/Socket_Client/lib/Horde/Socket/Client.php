@@ -50,28 +50,36 @@ class Client
     protected $_secure = false;
 
     /**
+     * The actual socket.
+     *
+     * @var resource
+     */
+    protected $_stream;
+
+    /**
      * Constructor.
      *
-     * @param string $host      Hostname of remote server.
-     * @param integer $port     Port number of remote server.
+     * @param string $host      Hostname of remote server. Optionally with
+     *                          protocol prefix (@since 1.2.0).
+     * @param integer $port     Port number of remote server (optional
+     *                          @since 1.2.0).
      * @param integer $timeout  Connection timeout (in seconds).
      * @param mixed $secure     Security layer requested. One of:
-     * <pre>
-     *   - false (No encryption) [DEFAULT]
-     *   - 'ssl' (Auto-detect SSL version)
-     *   - 'sslv2' (Force SSL version 3)
-     *   - 'sslv3' (Force SSL version 2)
-     *   - 'tls' (TLS; started via protocol-level negotation over unencrypted
+     *   - false: (No encryption) [DEFAULT]
+     *   - 'ssl': (Auto-detect SSL version)
+     *   - 'sslv2': (Force SSL version 3)
+     *   - 'sslv3': (Force SSL version 2)
+     *   - 'tls': (TLS; started via protocol-level negotation over unencrypted
      *     channel)
-     *   - 'tlsv1' (TLS version 1.x connection) (@since 1.1.0)
-     *   - true (TLS if available/necessary)
-     * </pre>
+     *   - 'tlsv1': (TLS version 1.x connection) (@since 1.1.0)
+     *   - true: (TLS if available/necessary)
      * @param array $params     Additional options.
      *
      * @throws Horde\Socket\Client\Exception
      */
     public function __construct(
-        $host, $port, $timeout = 30, $secure = false, array $params = array()
+        $host, $port = null, $timeout = 30, $secure = false,
+        array $params = array()
     )
     {
         if ($secure && !extension_loaded('openssl')) {
@@ -144,6 +152,80 @@ class Client
         }
     }
 
+    /**
+     * Returns information about the connection.
+     *
+     * Currently returns four entries in the result array:
+     *  - timed_out (bool): The socket timed out waiting for data
+     *  - blocked (bool): The socket was blocked
+     *  - eof (bool): Indicates EOF event
+     *  - unread_bytes (int): Number of bytes left in the socket buffer
+     *
+     * @throws Horde\Socket\Client\Exception
+     * @return array  Information about existing socket resource.
+     */
+    public function getStatus()
+    {
+        $this->_checkStream();
+        return stream_get_meta_data($this->_stream);
+    }
+
+    /**
+     * Returns a line of data.
+     *
+     * @param int $size  Reading ends when $size - 1 bytes have been read,
+     *                   or a newline or an EOF (whichever comes first).
+     *
+     * @throws Horde\Socket\Client\Exception
+     * @return string  $size bytes of data from the socket
+     */
+    public function gets($size)
+    {
+        $this->_checkStream();
+        $data = @fgets($this->_stream, $size);
+        if ($data === false) {
+            throw new Client\Exception('Error reading data from socket');
+        }
+        return $data;
+    }
+
+    /**
+     * Returns a specified amount of data.
+     *
+     * @param integer $size  The number of bytes to read from the socket.
+     *
+     * @throws Horde\Socket\Client\Exception
+     * @return string  $size bytes of data from the socket.
+     */
+    public function read($size)
+    {
+        $this->_checkStream();
+        $data = @fread($this->_stream, $size);
+        if ($data === false) {
+            throw new Client\Exception('Error reading data from socket');
+        }
+        return $data;
+    }
+
+    /**
+     * Writes data to the stream.
+     *
+     * @param string $data  Data to write.
+     *
+     * @throws Horde\Socket\Client\Exception
+     */
+    public function write($data)
+    {
+        $this->_checkStream();
+        if (!@fwrite($this->_stream, $data)) {
+            $meta_data = $this->getStatus();
+            if (!empty($meta_data['timed_out'])) {
+                throw new Client\Exception('Timed out writing data to socket');
+            }
+            throw new Client\Exception('Error writing data to socket');
+        }
+    }
+
     /* Internal methods. */
 
     /**
@@ -155,27 +237,34 @@ class Client
      */
     protected function _connect($host, $port, $timeout, $secure, $retries = 0)
     {
-        switch (strval($secure)) {
-        case 'ssl':
-        case 'sslv2':
-        case 'sslv3':
-            $conn = $secure . '://';
-            $this->_secure = true;
-            break;
+        $conn = '';
+        if (!strpos($host, '://')) {
+            switch (strval($secure)) {
+            case 'ssl':
+            case 'sslv2':
+            case 'sslv3':
+                $conn = $secure . '://';
+                $this->_secure = true;
+                break;
 
-        case 'tlsv1':
-            $conn = 'tls://';
-            $this->_secure = true;
-            break;
+            case 'tlsv1':
+                $conn = 'tls://';
+                $this->_secure = true;
+                break;
 
-        case 'tls':
-        default:
-            $conn = 'tcp://';
-            break;
+            case 'tls':
+            default:
+                $conn = 'tcp://';
+                break;
+            }
+        }
+        $conn .= $host;
+        if ($port) {
+            $conn .= ':' . $port;
         }
 
         $this->_stream = @stream_socket_client(
-            $conn . $host . ':' . $port,
+            $conn,
             $error_number,
             $error_string,
             $timeout,
@@ -217,6 +306,18 @@ class Client
         stream_set_write_buffer($this->_stream, 0);
 
         $this->_connected = true;
+    }
+
+    /**
+     * Throws an exception is the stream is not a resource.
+     *
+     * @throws Horde\Socket\Client\Exception
+     */
+    protected function _checkStream()
+    {
+        if (!is_resource($this->_stream)) {
+            throw new Client\Exception('Not connected');
+        }
     }
 
 }

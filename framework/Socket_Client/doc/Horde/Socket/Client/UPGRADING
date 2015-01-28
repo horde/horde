@@ -11,6 +11,18 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.2.0
+===================
+
+  - Horde\Socket\Client
+
+    - Constructor
+
+      - The $host parameter accepts a protocol scheme prefix like 'unix://'.
+
+      - The $port parameter is optional.
+
+
 Upgrading to 1.1.0
 ===================
 
