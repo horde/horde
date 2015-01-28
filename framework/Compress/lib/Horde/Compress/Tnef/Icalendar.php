@@ -151,6 +151,12 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     protected $_description;
 
     /**
+     * RSVP property
+     *
+     * @var boolean
+     */
+    protected $_rsvp = false;
+    /**
      * MIME type.
      *
      * @var string
@@ -201,15 +207,19 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         switch ($class) {
         case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_TENT:
             $this->_partStat = self::PART_TENTATIVE;
+            $this->_rsvp = false;
             break;
         case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_NEG:
             $this->_partStat = self::PART_DECLINE;
+            $this->_rsvp = false;
             break;
         case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_POS:
             $this->_partStat = self::PART_ACCEPTED;
+            $this->_rsvp = false;
             break;
         case Horde_Compress_Tnef::IPM_MEETING_REQUEST:
             $this->_partStat =self::PART_ACTION;
+            $this->_rsvp = true;
             break;
         }
     }
@@ -333,6 +343,9 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             break;
         case Horde_Compress_Tnef::MAPI_COMPRESSED:
             $this->_description = $value;
+            break;
+        case Horde_Compress_Tnef::MAPI_RESPONSE_REQUESTED:
+            $this->_rsvp = $value;
             break;
         }
     }
@@ -510,6 +523,9 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
                 $params = array('ROLE' => 'REQ-PARTICIPANT');
                 if (!empty($this->_partStat)) {
                     $params['PARTSTAT'] = $this->_partStat;
+                }
+                if ($this->_rsvp) {
+                    $params['RSVP'] = 'TRUE';
                 }
                 $vEvent->setAttribute('ATTENDEE', $email->bare_address, $params);
             }

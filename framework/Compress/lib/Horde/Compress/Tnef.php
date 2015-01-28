@@ -110,6 +110,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     // Do we need this?
     const MAPI_BUSY_STATUS                  = 0x8205;
 
+    const MAPI_RESPONSE_REQUESTED           = 0x0063;
     const MAPI_APPOINTMENT_UID              = 0x001f;
     const MAPI_APPOINTMENT_LOCATION         = 0x8208;
     const MAPI_APPOINTMENT_URL              = 0x8209;
