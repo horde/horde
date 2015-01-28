@@ -129,10 +129,25 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     protected $_content;
 
+    /**
+     * List of required attendees parsed from the MAPI object.
+     *
+     * @var string
+     */
     protected $_requiredAttendees;
 
+    /**
+     * The current PARTSTAT property for this meeting request.
+     *
+     * @var string  A self::PART_* constant.
+     */
     protected $_partStat;
 
+    /**
+     * The description/body of the meeting request.
+     *
+     * @var string
+     */
     protected $_description;
 
     /**
@@ -142,6 +157,12 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     public $type = 'text/calendar';
 
+    /**
+     * Accessor
+     *
+     * @param  string $property
+     * @return mixed
+     */
     public function __get($property)
     {
         if ($property == 'content') {
@@ -172,7 +193,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      * Set the METHOD parameter, used to help generate the PART-STAT attribute.
      *
      * @param string $method  The METHOD parameter.
-     * @param string $class   If a REPLY, the message class.
+     * @param string $class   The message class.
      */
     public function setMethod($method, $class = null)
     {
@@ -212,6 +233,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      *
      * @param integer $type  The attribute type descriptor.
      * @param integer $name  The attribute name descriptor.
+     * @param mixed $value   The value to set.
      */
     public function setMapiAttribute($type, $name, $value)
     {
