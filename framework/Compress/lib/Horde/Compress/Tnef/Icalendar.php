@@ -25,6 +25,11 @@
  */
 class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
 {
+    const PART_ACTION    = 'NEEDS-ACTION';
+    const PART_TENTATIVE = 'TENTATIVE';
+    const PART_DECLINE   = 'DECLINE';
+    const PART_ACCEPTED  = 'ACCEPTED';
+
     /**
      * ICalendar METHOD
      *
@@ -124,6 +129,12 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     protected $_content;
 
+    protected $_requiredAttendees;
+
+    protected $_partStat;
+
+    protected $_description;
+
     /**
      * MIME type.
      *
@@ -158,6 +169,44 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     }
 
     /**
+     * Set the METHOD parameter, used to help generate the PART-STAT attribute.
+     *
+     * @param string $method  The METHOD parameter.
+     * @param string $class   If a REPLY, the message class.
+     */
+    public function setMethod($method, $class = null)
+    {
+        $this->_method = $method;
+        switch ($class) {
+        case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_TENT:
+            $this->_partStat = self::PART_TENTATIVE;
+            break;
+        case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_NEG:
+            $this->_partStat = self::PART_DECLINE;
+            break;
+        case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_POS:
+            $this->_partStat = self::PART_ACCEPTED;
+            break;
+        case Horde_Compress_Tnef::IPM_MEETING_REQUEST:
+            $this->_partStat =self::PART_ACTION;
+            break;
+        }
+    }
+
+    /**
+     * Allow this object to set any TNEF attributes it needs to know about,
+     * ignore any it doesn't care about.
+     *
+     * @param integer $attribute  The attribute descriptor.
+     * @param mixed $value        The value from the MAPI stream.
+     * @param integer $size       The byte length of the data, as reported by
+     *                            the MAPI data.
+     */
+    public function setTnefAttribute($attribute, $value, $size)
+    {
+    }
+
+    /**
      * Allow this object to set any MAPI attributes it needs to know about,
      * ignore any it doesn't care about.
      *
@@ -167,6 +216,21 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     public function setMapiAttribute($type, $name, $value)
     {
         switch ($name) {
+        case Horde_Compress_Tnef::MAPI_ENTRY_CLEANID:
+        case Horde_Compress_Tnef::MAPI_ENTRY_UID:
+        case Horde_Compress_Tnef::MAPI_APPOINTMENT_UID:
+            // Still not 100% sure about where a suitable UID comes from;
+            // These attributes are all said to contain it, at various times.
+            // The "Clean" UID is supposed to only be in appointments that
+            // are exceptions to a recurring series, though I have a number
+            // of examples where that is not the case. Also, in some cases
+            // some of these attributes seem to be set here multiple times,
+            // sometimes with non-empty and then empty values, so never set
+            // self::$_uid if it is already set, or if $value is empty.
+            if (empty($this->_uid) && !empty($value)) {
+                $this->_uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+            }
+            break;
         case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
             $this->_summary = $value;
             break;
@@ -199,11 +263,20 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         case Horde_Compress_Tnef::MAPI_ORGANIZER_ALIAS:
             $this->_organizer = $value;
             break;
+        case Horde_Compress_Tnef::MAPI_SENDER_SMTP:
         case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
+            // Sender SMTP is more appropriate, but not present in all
+            // meeting request MAPI objects (it's normally taken form the
+            // parent MAPI mail message object) Since this class doesn't
+            // (currently) have access to the parent MIME
+            // part (since this isn't necessarily from an email), this is the
+            // only hope of obtaining an ORGANIZER.
             $this->_lastModifier = $value;
             break;
-        case Horde_Compress_Tnef::MAPI_ENTRY_UID:
-            $this->_uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+        case Horde_Compress_Tnef::MAPI_TO_ATTENDEES:
+            // Don't even ask. Why, Microsoft, why??
+            $value = str_replace(array('(', ')'), array('<', '>'), $value);
+            $this->_requiredAttendees = $value;
             break;
         case Horde_Compress_Tnef::MAPI_APPOINTMENT_RECUR:
             $this->_recurrence['recur'] = $this->_parseRecurrence($value);
@@ -230,6 +303,14 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
             }
+            break;
+        case Horde_Compress_Tnef::MAPI_RESPONSE_STATUS:
+            // Don't think we need this, it seems more geared towards writing
+            // a TNEF. Indicates the response status of an ATTENDEE. Putting
+            // this here for reference, see MS-OXOCAL 2.2.1.11
+            break;
+        case Horde_Compress_Tnef::MAPI_COMPRESSED:
+            $this->_description = $value;
             break;
         }
     }
@@ -382,8 +463,14 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         if ($this->_modified) {
             $vEvent->setAttribute('LAST-MODIFIED', $this->_modified);
         }
-        $vEvent->setAttribute('SUMMARY', $this->_summary);
 
+        // SUMMARY and DESCRIPTION
+        $vEvent->setAttribute('SUMMARY', $this->_summary);
+        if ($this->_description) {
+            $vEvent->setAttribute('DESCRIPTION', trim($this->_description));
+        }
+
+        // ORGANIZER
         if (!$this->_organizer && $this->_lastModifier) {
             $email = $this->_lastModifier;
         } else if ($this->_organizer) {
@@ -392,9 +479,31 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         if (!empty($email)) {
             $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
         }
+
+        // ATTENDEE
+        // @todo RSVP??
+        if (!empty($this->_requiredAttendees)) {
+            $list = new Horde_Mail_Rfc822_List($this->_requiredAttendees);
+            foreach ($list as $email) {
+                $params = array('ROLE' => 'REQ-PARTICIPANT');
+                if (!empty($this->_partStat)) {
+                    $params['PARTSTAT'] = $this->_partStat;
+                }
+                $vEvent->setAttribute('ATTENDEE', $email->bare_address, $params);
+            }
+        }
+
+        // LOCATION
+        if ($this->_location) {
+            $vEvent->setAttribute('LOCATION', $this->_location);
+        }
+
+        // URL
         if ($this->_url) {
             $vEvent->setAttribute('URL', $this->_url);
         }
+
+        // RECUR
         if (!empty($this->_recurrence['recur'])) {
             $rrule = $this->_recurrence['recur']->toRRule20($iCal);
             $vEvent->setAttribute('RRULE', $rrule);

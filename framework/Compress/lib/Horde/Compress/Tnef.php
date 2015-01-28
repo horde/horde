@@ -104,11 +104,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_CODEPAGE                     = 0x3FFD;
 
+    const MAPI_SENDER_SMTP                  = 0x5D01;
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
 
     // Do we need this?
     const MAPI_BUSY_STATUS                  = 0x8205;
 
+    const MAPI_APPOINTMENT_UID              = 0x001f;
     const MAPI_APPOINTMENT_LOCATION         = 0x8208;
     const MAPI_APPOINTMENT_URL              = 0x8209;
     const MAPI_APPOINTMENT_START_WHOLE      = 0x820D; // Full datetime of start (FILETIME format)
@@ -120,6 +122,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_RESPONSE_STATUS              = 0x8218;
     const MAPI_RECURRING                    = 0x8223;
     const MAPI_RECURRENCE_TYPE              = 0x8231;
+    const MAPI_ALL_ATTENDEES                = 0x8238; // ALL attendees, required/optional and non-sendable.
+    const MAPI_TO_ATTENDEES                 = 0x823B; // All "sendable" attendees that are REQUIRED.
 
     // tz. Not sure when to use STRUCT vs DEFINITION_RECUR. Possible ok to always use STRUCT?
     const MAPI_TIMEZONE_STRUCT              = 0x8233; // Timezone for recurring mtg?
@@ -136,6 +140,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
     const MAPI_ENTRY_UID                    = 0x0003; // GOID??
+    const MAPI_ENTRY_CLEANID                = 0x0023;
     const MAPI_MEETING_TYPE                 = 0x0026;
 
     const MSG_EDITOR_FORMAT                 = 0x5909;
@@ -420,7 +425,14 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             switch ($attr_name) {
             case self::MAPI_TAG_RTF_COMPRESSED:
                 $this->_logger->debug('TNEF: Found compressed RTF text.');
-                $this->_files[] = new Horde_Compress_Tnef_Rtf($this->_logger, $value);
+                $rtf =  new Horde_Compress_Tnef_Rtf($this->_logger, $value);
+                $this->_files[] = $rtf;
+                // Give the currentObject a chance to do something with the RTF
+                // body. This is used, e.g., in meeting requests to populate
+                // the description field.
+                if ($this->_currentObject) {
+                    $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $rtf->toPlain());
+                }
                 break;
             case self::MAPI_ATTACH_DATA:
                 $this->_logger->debug('TNEF: Found nested MAPI object. Parsing.');
@@ -486,6 +498,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             // idAttachment (Attachment properties)
             $this->_extractMapiAttributes($value);
             break;
+            case self::MAPI_ENTRY_UID:
         default:
             if (!empty($this->_currentObject)) {
                 $this->_currentObject->setTnefAttribute($attribute, $value, $size);
@@ -505,19 +518,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             switch ($message_class) {
             case self::IPM_MEETING_REQUEST :
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'REQUEST';
+                $this->_currentObject->setMethod('REQUEST', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_RESPONSE_TENT:
             case self::IPM_MEETING_RESPONSE_NEG:
             case self::IPM_MEETING_RESPONSE_POS:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'REPLY';
+                $this->_currentObject->setMethod('REPLY', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_REQUEST_CANCELLED:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
-                $this->_currentObject->method = 'CANCEL';
+                $this->_currentObject->setMethod('CANCEL', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:
@@ -531,9 +544,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $properties = $this->_decodeAttribute($data);
             $this->_extractMapiAttributes($properties);
             break;
-
         default:
-            $value = $this->_decodeAttribute($data);
+            $size = $this->_geti($data, 32);
+            $value = $this->_getx($data, $size);
+            $this->_geti($data, 16); // Checksum.
+            if ($this->_currentObject) {
+                $this->_currentObject->setTnefAttribute($attribute, $value, $size);
+            }
         }
     }
 
