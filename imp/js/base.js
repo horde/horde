@@ -1885,11 +1885,18 @@ var ImpBase = {
 
         // Add from/to/cc/bcc headers
         [ 'from', 'to', 'cc', 'bcc' ].each(function(h) {
+            var elt = $('msgHeader' + h.capitalize());
+
             if (r[h]) {
                 this.updateHeader(h, r[h], true);
-                $('msgHeader' + h.capitalize()).show();
+                elt.show();
+
+                // Add resent information to from header.
+                if (h === 'from' && r.resent) {
+                    ImpCore.buildResentHeader(elt.down('TD:last'), r.resent);
+                }
             } else {
-                $('msgHeader' + h.capitalize()).hide();
+                elt.hide();
             }
         }, this);
 

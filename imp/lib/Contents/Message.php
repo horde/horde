@@ -23,6 +23,16 @@
 class IMP_Contents_Message
 {
     /**
+     * The list of headers used by this class.
+     *
+     * @var array
+     */
+    public static $headersUsed = array(
+        'resent-date',
+        'resent-from'
+    );
+
+    /**
      * Contents object.
      *
      * @var IMP_Contents
@@ -42,6 +52,13 @@ class IMP_Contents_Message
      * @var Horde_Imap_Client_Data_Envelope
      */
     protected $_envelope;
+
+    /**
+     * Header information.
+     *
+     * @var Horde_Mime_Headers
+     */
+    protected $_headers;
 
     /**
      * Indices object.
@@ -86,6 +103,14 @@ class IMP_Contents_Message
 
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
+            $query->headers(
+                'imp',
+                self::$headersUsed,
+                array(
+                    'cache' => true,
+                    'peek' => true
+                )
+            );
 
             $imp_imap = $mbox->imp_imap;
             $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
@@ -108,6 +133,10 @@ class IMP_Contents_Message
         }
 
         $this->_envelope = $ob->getEnvelope();
+        $this->_headers = $ob->getHeaders(
+            'imp',
+            Horde_Imap_Client_Data_Fetch::HEADER_PARSE
+        );
         $this->_indices = $indices;
         $this->_peek = $peek;
     }
@@ -238,7 +267,8 @@ class IMP_Contents_Message
     /**
      * Return data to build an address header.
      *
-     * @param string $header  The address header.
+     * @param mixed $header   The address header name (string) or a
+     *                        Horde_Mime_Rfc822_List object.
      * @param integer $limit  Limit display to this many addresses. If null,
      *                        shows all addresses.
      *
@@ -253,7 +283,12 @@ class IMP_Contents_Message
      */
     public function getAddressHeader($header, $limit = 50)
     {
-        $addrlist = $this->_envelope->$header;
+        if ($header instanceof Horde_Mail_Rfc822_List) {
+            $addrlist = $header;
+        } else {
+            $addrlist = $this->_envelope->{strval($header)};
+        }
+
         $addrlist->unique();
 
         $addr_ob = new IMP_Ajax_Addresses($addrlist);
@@ -455,6 +490,46 @@ class IMP_Contents_Message
                 $bmbox->urlParams($buid)
             )
         );
+    }
+
+    /**
+     * Return resent message data.
+     *
+     * @return array  An array of arrays, each sub-array representing a resent
+     *                action and containing these keys:
+     *   - date: (IMP_Message_Date) Date object of the resent action.
+     *   - from: (Horde_Mail_Rfc822_List) Address object containing the
+     *           address(es) that resent the message.
+     */
+    public function getResentData()
+    {
+        $out = array();
+
+        if ($date = $this->_headers['Resent-Date']) {
+            $dates = array_values($date->value);
+            $from = array_values(
+                $this->_headers['Resent-From']->getAddressList()
+            );
+
+            /* Sanity checking: RFC 5322 [3.6.6] declares that resent messages
+             * MUST incude (at least) both Date and From. These headers are
+             * "packaged" together by appending at the top of the headers.
+             * Check for equal counts of both headers. If different, ignore
+             * this information (not going to try to parse headers to fix
+             * such a broken message just for this information). If the same,
+             * assume that these headers are correctly packaged and link each
+             * header together that shares the same array slot. */
+            if (count($dates) === count($from)) {
+                foreach ($dates as $key => $val) {
+                    $out[] = array(
+                        'date' => new IMP_Message_Date($val),
+                        'from' => $from[$key]
+                    );
+                }
+            }
+        }
+
+        return $out;
     }
 
     /* Internal methods. */

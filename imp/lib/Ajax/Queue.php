@@ -479,6 +479,16 @@ class IMP_Ajax_Queue
                 $msg->localdate = $date->format($date::DATE_LOCAL);
             }
 
+            if ($resent = $show_msg->getResentData()) {
+                $msg->resent = array();
+                foreach ($resent as $val) {
+                    $msg->resent[] = array(
+                        'date' => $val['date']->format($val['date']::DATE_LOCAL),
+                        'from' => $show_msg->getAddressHeader($val['from'])
+                    );
+                }
+            }
+
             $this->maillog($indices);
             $show_msg->addChangedFlag();
 

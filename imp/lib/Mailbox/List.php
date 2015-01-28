@@ -29,6 +29,18 @@ implements ArrayAccess, Countable, Iterator, Serializable
     const SERIALIZE_LIMIT = 500;
 
     /**
+     * The list of headers used by this class.
+     *
+     * @var array
+     */
+    public static $headersUsed = array(
+        'content-type',
+        'importance',
+        'list-post',
+        'x-priority'
+    );
+
+    /**
      * Has the internal message list changed?
      *
      * @var boolean
@@ -138,11 +150,9 @@ implements ArrayAccess, Countable, Iterator, Serializable
 
         $fetch_query->headers(
             'imp',
-            array(
-                'content-type',
-                'importance',
-                'list-post',
-                'x-priority'
+            array_merge(
+                self::$headersUsed,
+                IMP_Contents_Message::$headersUsed
             ),
             array(
                 'cache' => true,

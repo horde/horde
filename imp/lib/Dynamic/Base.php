@@ -189,6 +189,7 @@ abstract class IMP_Dynamic_Base
         /* Gettext strings used in core javascript files. */
         $this->js_text = array(
             'emailcopy' => _("Your browser security settings don't permit direct access to the clipboard.") . "\n" . _("You need to either use the keyboard (Ctrl/Cmd + C) or right click on the selected address to access the Copy command."),
+            'resent' => _("Resent on %s by:"),
             'strip_warn' => _("Are you sure you wish to PERMANENTLY delete this attachment?"),
             'verify' => _("Verifying...")
         );

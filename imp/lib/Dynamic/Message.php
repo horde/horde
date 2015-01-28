@@ -88,6 +88,16 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
                 $js_vars['ImpMessage.' . $val] = $tmp;
             }
         }
+        if ($resent = $show_msg->getResentData()) {
+            $resent_js = array();
+            foreach ($resent as $val) {
+                $resent_js[] = array(
+                    'date' => $val['date']->format($val['date']::DATE_LOCAL),
+                    'from' => $show_msg->getAddressHeader($val['from'])
+                );
+            }
+            $js_vars['ImpMessage.resent'] = $resent_js;
+        }
 
         if (isset($msg_res['log'])) {
             $js_vars['ImpMessage.log'] = $msg_res['log'];

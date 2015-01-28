@@ -54,6 +54,17 @@
     padding: 2px;
 }
 
+.resentFrom {
+    font-style: italic;
+    padding: 2px 0 2px 2px;
+}
+.resentFrom .address {
+    font-style: normal;
+}
+.resentFrom .address:first-child {
+    margin-left: 3px;
+}
+
 /* Message body formatting. */
 .messageBody {
     padding: 10px;
