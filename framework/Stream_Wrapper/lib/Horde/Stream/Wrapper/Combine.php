@@ -164,9 +164,13 @@ class Horde_Stream_Wrapper_Combine
         }
 
         $out = '';
+        $tmp = &$this->_data[$this->_datapos];
 
         while ($count) {
-            $tmp = &$this->_data[$this->_datapos];
+            if (!is_resource($tmp['fp'])) {
+                return false;
+            }
+
             $curr_read = min($count, $tmp['l'] - $tmp['p']);
             $out .= fread($tmp['fp'], $curr_read);
             $count -= $curr_read;
