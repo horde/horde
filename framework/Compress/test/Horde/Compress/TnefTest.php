@@ -63,6 +63,13 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $this->assertEquals($tnef_data[0]['name'], 'Meeting');
     }
 
+    public function testMeetingTnef()
+    {
+        $winmail = file_get_contents(__DIR__ . '/fixtures/winmail2.dat');
+        $tnef = Horde_Compress::factory('Tnef');
+        $tnef_data = $tnef->decompress($winmail);
+    }
+
     public function testAttachments()
     {
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefAttachments.txt'));
