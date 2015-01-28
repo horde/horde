@@ -54,4 +54,5 @@ Upgrading from Net_Sieve
   - Logging
 
     - The debug handler, the debug constructor parameters and the setDebug()
-      method have been removed. Use setLogger() instead.
+      method have been removed. Use the 'logger' constructor parameter, or
+      setLogger() instead.

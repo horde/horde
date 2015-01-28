@@ -167,6 +167,7 @@ class ManageSieve
      *                       - usetls: Use TLS if available.
      *                       - context: Additional options for
      *                                  stream_context_create().
+     *                       - logger: A log handler, must implement debug().
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -182,7 +183,8 @@ class ManageSieve
                 'euser'      => null,
                 'bypassauth' => false,
                 'usetls'     => true,
-                'context'    => array()
+                'context'    => array(),
+                'logger'     => null,
             ),
             $params
         );
@@ -196,6 +198,10 @@ class ManageSieve
                 $this->supportedAuthMethods,
                 $this->supportedSASLAuthMethods
             );
+        }
+
+        if ($this->_params['logger']) {
+            $this->setLogger($this->_params['logger']);
         }
 
         if (strlen($this->_params['user']) &&
