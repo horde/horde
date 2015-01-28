@@ -78,6 +78,13 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Auth_SASL</name>
+    <channel>pear.php.net</channel>
+    <min>1.0</min>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
