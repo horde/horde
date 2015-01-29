@@ -328,6 +328,10 @@ span.attachmentImg {
 .actionSpellcheck {
     background-image: url("../graphics/spellcheck.png");
 }
+.actionDelete,
+#ctx_atcfile_delete span.iconImg {
+    background-image: url("../graphics/delete.png");
+}
 
 /* Autocomplete styles. */
 .impACBox {
@@ -364,9 +368,4 @@ span.attachmentImg {
 }
 .impACTrigger {
     padding: 0;
-}
-
-/* Context menus */
-#ctx_atcfile_delete span.iconImg {
-    background-image: url("../graphics/delete.png");
 }
