@@ -976,7 +976,9 @@ class ManageSieve
 
                 if (preg_match('/^(OK|NO)/i', $line, $tag)) {
                     // Check for string literal message.
-                    if (preg_match('/{([0-9]+)}$/', $line, $matches)) {
+                    // DBMail has some broken versions that send the trailing
+                    // plus even though it's disallowed.
+                    if (preg_match('/{([0-9]+)\+?}$/', $line, $matches)) {
                         $line = substr($line, 0, -(strlen($matches[1]) + 2))
                             . str_replace(
                                 "\r\n", ' ', $this->_recvBytes($matches[1] + 2)
