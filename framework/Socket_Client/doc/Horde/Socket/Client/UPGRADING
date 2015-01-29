@@ -11,8 +11,8 @@
 This lists the API changes between releases of the package.
 
 
-Upgrading to 1.2.0
-===================
+Upgrading to 2.0.0
+==================
 
   - Horde\Socket\Client
 

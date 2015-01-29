@@ -125,11 +125,14 @@ extends Horde_Imap_Client_Socket_Connection_Base
     /**
      * Read data from incoming IMAP stream.
      *
+     * @param integer $size  UNUSED: The number of bytes to read from the
+     *                       socket.
+     *
      * @return Horde_Imap_Client_Tokenize  The tokenized data.
      *
      * @throws Horde_Imap_Client_Exception
      */
-    public function read()
+    public function read($size = null)
     {
         $got_data = false;
         $literal_len = null;
