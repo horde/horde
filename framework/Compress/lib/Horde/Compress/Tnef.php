@@ -407,14 +407,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     /* Pad to next 4 byte boundary. */
                     $datalen = $length + ((4 - ($length % 4)) % 4);
 
-                    switch ($attr_type) {
-                    case self::MAPI_STRING:
-                    case self::MAPI_UNICODE_STRING:
-                        // Strings are null-terminated.
-                        --$length;
-                        break;
-                    }
-
                     /* Read and truncate to length. */
                     $value = substr($this->_getx($data, $datalen), 0, $length);
                 }
@@ -429,6 +421,15 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     );
                     break;
                 }
+
+                switch ($attr_type) {
+                case self::MAPI_STRING:
+                case self::MAPI_UNICODE_STRING:
+                    // Strings are null-terminated.
+                    $value = substr($value, 0, -1);
+                    break;
+                }
+
                 break;
             default:
                 $this->_logger->notice(sprintf(
