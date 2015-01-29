@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix decoding of Unicode Strings in TNEF MAPI attributes.
 * [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
 * [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
 * [mjr] Add option to inject a logger object.
@@ -942,6 +943,7 @@ Initial release as a PEAR package
    <date>2015-01-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix decoding of Unicode Strings in TNEF MAPI attributes.
 * [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
 * [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
 * [mjr] Add option to inject a logger object.

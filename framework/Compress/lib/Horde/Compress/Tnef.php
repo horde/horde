@@ -406,12 +406,28 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $length = $this->_geti($data, 32);
                     /* Pad to next 4 byte boundary. */
                     $datalen = $length + ((4 - ($length % 4)) % 4);
-                    if ($attr_type == self::MAPI_STRING) {
+
+                    switch ($attr_type) {
+                    case self::MAPI_STRING:
+                    case self::MAPI_UNICODE_STRING:
+                        // Strings are null-terminated.
                         --$length;
+                        break;
                     }
 
                     /* Read and truncate to length. */
                     $value = substr($this->_getx($data, $datalen), 0, $length);
+                }
+
+                switch ($attr_type) {
+                case self::MAPI_UNICODE_STRING:
+                    // MAPI Unicode is UTF-16LE; convert to UTF-8
+                    $value = Horde_String::convertCharset(
+                        $value,
+                        'UTF-16LE',
+                        'UTF-8'
+                    );
+                    break;
                 }
                 break;
             default:
