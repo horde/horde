@@ -22,9 +22,11 @@ Upgrading to 1.2.0
 
       - The $port parameter is optional.
 
+    - getStatus(), gets(), read(), and write() have been added.
+
 
 Upgrading to 1.1.0
-===================
+==================
 
   - Horde\Socket\Client
 
