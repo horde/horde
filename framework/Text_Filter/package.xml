@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-09</date>
+ <date>2015-01-29</date>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Match simple markup spanning a complete line too.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -346,6 +346,7 @@
        <file name="Html2textTest.php" role="test" />
        <file name="LinkurlsTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
+       <file name="SimplemarkupTest.php" role="test" />
        <file name="Space2htmlTest.php" role="test" />
        <file name="Text2htmlTest.php" role="test" />
        <file name="WordsTest.php" role="test" />
@@ -538,6 +539,7 @@
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
    <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
+   <install as="Horde/Text/Filter/SimplemarkupTest.php" name="test/Horde/Text/Filter/SimplemarkupTest.php" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
    <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
    <install as="Horde/Text/Filter/WordsTest.php" name="test/Horde/Text/Filter/WordsTest.php" />
@@ -1033,10 +1035,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Match simple markup spanning a complete line too.
    </notes>
   </release>
  </changelog>

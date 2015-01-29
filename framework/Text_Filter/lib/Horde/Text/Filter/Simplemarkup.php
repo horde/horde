@@ -12,6 +12,16 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Text_Filter
  */
+
+/**
+ * Highlights simple markup as used in emails or usenet postings.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2004-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Text_Filter
+ */
 class Horde_Text_Filter_Simplemarkup extends Horde_Text_Filter_Base
 {
     /**
@@ -21,16 +31,27 @@ class Horde_Text_Filter_Simplemarkup extends Horde_Text_Filter_Base
      */
     public function getPatterns()
     {
+        $startOfLine = '((?:^|<br(?:\s*/)?>)(?:\s|&nbsp;)*)';
+        $endOfLine = '((?:\s|&nbsp;)*(?:$|<br|\.))';
+        $startOfWord = '(^|\s|&nbsp;|<br(?:\s*/)?>)';
+        $endOfWord = '($|\s|&nbsp;|<br|\.)';
+
         return array('regexp' => array(
             // Bold.
-            '/(^|\s|&nbsp;|<br \/>)(\*[^*\s]+\*)(\s|&nbsp;|<br|\.)/i' => '\1<strong>\2</strong>\3',
+            '!' . $startOfLine . '(\*[^*]+\*)' . $endOfLine .
+            '|' . $startOfWord . '(\*[^*\s]+\*)' . $endOfWord . '!i'
+            => '$1$4<strong>$2$5</strong>$3$6',
 
             // Underline.
-            '/(^|\s|&nbsp;|<br \/>)(_[^_\s]+_)(\s|&nbsp;|<br|\.)/i' => '\1<u>\2</u>\3',
+            '!' . $startOfLine . '(_[^_]+_)' . $endOfLine .
+            '|' . $startOfWord . '(_[^_\s]+_)' . $endOfWord . '!i'
+            => '$1$4<u>$2$5</u>$3$6',
 
             // Italic.
-            ';(^|\s|&nbsp\;|<br />)(/[^/\s]+/)(\s|&nbsp\;|<br|\.);i' => '\1<em>\2</em>\3')
-        );
+            '!' . $startOfLine . '(/[^/]+/)' . $endOfLine .
+            '|' . $startOfWord . '(/[^/\s]+/)' . $endOfWord . '!i'
+            => '$1$4<em>$2$5</em>$3$6',
+        ));
     }
 
 }
