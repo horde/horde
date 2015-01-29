@@ -18,6 +18,7 @@ namespace Horde\Socket;
  * Utility interface for establishing a stream socket client.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2013-2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
