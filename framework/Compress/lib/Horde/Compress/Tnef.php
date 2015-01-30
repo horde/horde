@@ -30,13 +30,20 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
     const AOWNER                            = 0x60000;
+    const ASENTFOR                          = 0x60001;
+
+    const AORIGINALMCLASS                   = 0x70006;
+
     const ASUBJECT                          = 0x18004;
     const ADATESENT                         = 0x38005;
     const ADATERECEIVED                     = 0x38006;
 
-
+    const AFROM                             = 0x08000;
+    const ASTATUS                           = 0x68007;
     const AMCLASS                           = 0x78008; // 0x8008
     const AMESSAGEID                        = 0x18009;  // 0x8009
+    const APARENTID                         = 0x1800a;
+    const ACONVERSATIONID                   = 0x1800b;
     const APRIORITY                         = 0x4800d;
     const ATTACHDATA                        = 0x6800f; // 0x800F
     const AFILENAME                         = 0x18010; // 0x8010
@@ -46,15 +53,16 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
     // idAttachRendData
     const ARENDDATA                         = 0x69002;
-
     const AMAPIPROPS                        = 0x69003;
+    const ARECIPIENTTABLE                   = 0x69004;
+
     const AMAPIATTRS                        = 0x69005;
     const OEMCODEPAGE                       = 0x69007;
 
     const AVERSION                          = 0x89006;
 
     const ID_REQUEST_RESP                   = 0x40009;
-    const ID_FROM                           = 0x8000;
+    const ID_FROM                           = 0x8000; // @deprecated
     const ID_DATE_START                     = 0x30006;
     const ID_DATE_END                       = 0x30007;
     const AIDOWNER                          = 0x50008; // 0x0008;
@@ -78,14 +86,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_CLSID                        = 0x0048;
     const MAPI_BINARY                       = 0x0102;
 
-    // @todo Horde 6 - move constants to the appropriate Tnef subclass.
-    // MAPI START and END should always be also set in ID_DATE_START and
-    // ID_DATE_END so no need to translate them?
-    const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
+    // // @todo Horde 6 - move constants to the appropriate Tnef subclass.
+    // // MAPI START and END should always be also set in ID_DATE_START and
+    // // ID_DATE_END so no need to translate them?
     const MAPI_MEETING_INITIAL              = 0x00000001;
-    const MAPI_MEETING_FULL_UPDATE          = 0x00010000;
+    const MAPI_MEETING_FULL_UPDATE          = 0x100010000;
     const MAPI_MEETING_INFO                 = 0x00020000;
-
 
     const MAPI_SENT_REP_NAME                = 0x0042;
     const MAPI_START_DATE                   = 0x0060;
@@ -115,6 +121,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     // Do we need this?
     const MAPI_BUSY_STATUS                  = 0x8205;
 
+    const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
     const MAPI_RESPONSE_REQUESTED           = 0x0063;
     const MAPI_APPOINTMENT_UID              = 0x001f;
     const MAPI_APPOINTMENT_LOCATION         = 0x8208;
@@ -237,9 +244,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 self::SIGNATURE,
                 $this->_geti($data, 16))
             );
+
             // Version
             $this->_geti($data, 8); // LVL_MESSAGE
-            $this->_geti($data, $this->_geti($data, 32)); //AVERSION
+            $this->_getx($data, $this->_geti($data, 32)); //AVERSION
             $this->_geti($data, 16); //checksum
 
             $out = array();
@@ -598,8 +606,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $this->_geti($data, $this->_geti($data, 32));
             $this->_geti($data, 16);
             break;
+        case self::ACONVERSATIONID:
+        case self::APARENTID:
         case self::AMESSAGEID:
         case self::ASUBJECT:
+        case self::AORIGINALMCLASS:
             $this->_decodeAttribute($data);
             break;
         case self::ADATERECEIVED:
@@ -610,14 +621,23 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             break;
         case self::AOWNER:
             $owner = $this->_decodeAttribute($data);
-            $len1 = $this->_geti($owner, 8);
-            $len2 = $this->_geti($owner, 8);
             break;
         case self::OEMCODEPAGE:
-            // OEMCODEPAGE
-            $this->_geti($data, 8); // LVL_MESSAGE
-            $this->_geti($data, $this->_geti($data, 32)); //AVERSION
+            $this->_geti($data, $this->_geti($data, 32));
             $this->_geti($data, 16); //checksum
+            break;
+        case self::AFROM:
+        case self::ASENTFOR:
+            $display_name = $this->_getx($data, $this->_geti($data, 16));
+            $email = $this->_getx($data, $this->_geti($data, 16));
+            $this->_geti($data, 16); // checksum
+            break;
+        case self::ARECIPIENTTABLE:
+            $this->_decodeAttribute($data);
+            break;
+        case self::ASTATUS:
+            $this->_geti($data, $this->_geti($data, 32));
+            $this->_geti($data, 16);
             break;
         default:
             $size = $this->_geti($data, 32);
