@@ -233,7 +233,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
     /**
      * @expectedException Horde_Db_Exception
-     * @expectedExceptionMessage QUERY FAILED: Out of range value for column 'intelligence_quotient' at row 1
+     * @expectedExceptionMessage Out of range value for column 'intelligence_quotient' at row 1
      */
     public function testUnabstractedDatabaseDependentTypes()
     {
@@ -321,7 +321,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
     /**
      * @expectedException Horde_Db_Exception
-     * @expectedExceptionMessage QUERY FAILED: Out of range value for column 'foo' at row 1
+     * @expectedExceptionMessage Out of range value for column 'foo' at row 1
      */
     public function testChangeColumnUnsigned()
     {
