@@ -231,6 +231,10 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
         $this->assertEquals(array('name' => 'int', 'limit' => 11), $types['integer']);
     }
 
+    /**
+     * @expectedException Horde_Db_Exception
+     * @expectedExceptionMessage QUERY FAILED: Out of range value for column 'intelligence_quotient' at row 1
+     */
     public function testUnabstractedDatabaseDependentTypes()
     {
         $this->_createTestUsersTable();
@@ -315,6 +319,10 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
         $this->assertEquals('decimal(5,2)', $afterChange->getSqlType());
     }
 
+    /**
+     * @expectedException Horde_Db_Exception
+     * @expectedExceptionMessage QUERY FAILED: Out of range value for column 'foo' at row 1
+     */
     public function testChangeColumnUnsigned()
     {
         $table = $this->_conn->createTable('testings');
