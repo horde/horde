@@ -1,6 +1,6 @@
 <?php
 /**
- * Object to parse and represent vTOOD data encapsulated in a TNEF file.
+ * Object to parse RTF data encapsulated in a TNEF file.
  *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
