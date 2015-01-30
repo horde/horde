@@ -26,6 +26,7 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_TestBase
 {
     public static function setUpBeforeClass()
     {
+        self::$_reason = 'The pgsql adapter is not available';
         if (extension_loaded('pdo') &&
             in_array('pgsql', PDO::getAvailableDrivers())) {
             self::$_skip = false;

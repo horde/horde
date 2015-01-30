@@ -32,7 +32,7 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
 
     protected static $_skip = true;
 
-    protected static $_reason = 'The MySQL adapter is not available';
+    protected static $_reason;
 
     protected $_conn;
 

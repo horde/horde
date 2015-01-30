@@ -33,6 +33,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
     public static function setUpBeforeClass()
     {
+        self::$_reason = 'The MySQL adapter is not available';
         if (static::_available()) {
             self::$_skip = false;
             list($conn,) = static::_getConnection();
