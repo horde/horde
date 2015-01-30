@@ -560,7 +560,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:
-                $this->_currentObject = new Horde_Compress_Tnef_VTodo($this->_logger, null, array('parent' => &$this));
+                $this->_currentObject = new Horde_Compress_Tnef_VTodo($this->_logger, null);
                 $this->_files[] = $this->_currentObject;
                 break;
             }
