@@ -598,8 +598,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $properties = $this->_decodeAttribute($data);
             $this->_extractMapiAttributes($properties);
             break;
-        case self::APRIORITY:
-            $this->_geti($data, 32);
+        case self::APRIOITY:
+            // Must use geti, not getx for the APRIORITY value.
+            $this->_geti($data, $this->_geti($data, 32));
+            $this->_geti($data, 16);
             break;
         case self::AMESSAGEID:
         case self::ASUBJECT:
