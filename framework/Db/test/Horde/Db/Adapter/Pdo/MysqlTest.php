@@ -35,7 +35,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Db_Adapter_MysqlBase
     protected static function _getConnection($overrides = array())
     {
         $config = Horde_Test_Case::getConfig('DB_ADAPTER_PDO_MYSQL_TEST_CONFIG',
-                                             null,
+                                             __DIR__ . '/..',
                                              array('host' => 'localhost',
                                                    'username' => '',
                                                    'password' => '',
