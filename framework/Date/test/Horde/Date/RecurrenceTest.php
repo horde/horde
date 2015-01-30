@@ -969,8 +969,6 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
 
     public function testBug2813RecurrenceEndFromIcalendar()
     {
-        require_once 'PEAR.php';
-
         $iCal = new Horde_Icalendar();
         $iCal->parsevCalendar(file_get_contents(__DIR__ . '/fixtures/bug2813.ics'));
         $components = $iCal->getComponents();
