@@ -110,7 +110,7 @@
   <input type="button" id="search_reset" value="<?php echo _("Reset") ?>" />
 <?php endif; ?>
 <?php if ($this->return_mailbox_val): ?>
-  <input type="button" id="search_dynamic_return" value="<?php echo $this->return_mailbox_val ?>" />
+  <input type="button" id="search_return" value="<?php echo $this->return_mailbox_val ?>" />
 <?php endif; ?>
  </div>
 </form>

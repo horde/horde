@@ -546,7 +546,7 @@ var ImpSearch = {
             this.resetMailboxes();
             return;
 
-        case 'search_dynamic_return':
+        case 'search_return':
             e.memo.hordecore_stop = true;
             window.parent.ImpBase.go('mbox', this.data.searchmbox);
             break;

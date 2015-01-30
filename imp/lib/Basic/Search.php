@@ -505,9 +505,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
         )), array('onload' => true));
 
         if ($dynamic_view) {
-            if (!$this->vars->edit_query) {
-                $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
-            }
+            $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
             $page_output->topbar = $page_output->sidebar = false;
             $this->header_params = array(
                 'html_id' => 'htmlAllowScroll'

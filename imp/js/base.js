@@ -273,6 +273,9 @@ var ImpBase = {
 
             this.highlightSidebar();
             this.setTitle(ImpCore.text.search);
+
+            $('horde-search').hide();
+
             $('impbase_iframe').insert(
                 new Element('IFRAME', {
                     src: HordeCore.addURLParam(ImpCore.conf.URI_SEARCH, data)
@@ -724,6 +727,10 @@ var ImpBase = {
 
             this.updateTitle();
 
+            [ $('horde-search') ].compact().invoke(
+                (!this.isSearch() || this.isQSearch() || this.isFSearch()) ? 'show' : 'hide'
+            );
+
             if (this.viewswitch) {
                 if (this.selectedCount()) {
                     if (ImpCore.getPref('preview')) {
@@ -734,15 +741,7 @@ var ImpBase = {
                     this.resetSelected();
                 }
 
-                tmp = $('filter');
-                if (this.isSearch()) {
-                    tmp.hide();
-                    if (!this.search || !this.search.qsearch) {
-                        $('horde-search').hide();
-                    }
-                } else if (tmp)  {
-                    tmp.show();
-                }
+                [ $('filter') ].compact().invoke(this.isSearch() ? 'hide' : 'show');
 
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
