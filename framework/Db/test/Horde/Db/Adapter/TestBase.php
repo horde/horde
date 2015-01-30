@@ -918,13 +918,13 @@ abstract class Horde_Db_Adapter_TestBase extends Horde_Test_Case
         $table = $this->_conn->createTable('unit_tests');
           $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
           $table->column('string_value',    'string',   array('limit' => 255, 'default' => ''));
-          $table->column('text_value',      'text',     array('null' => false, 'default' => ''));
+          $table->column('text_value',      'text',     array());
           $table->column('float_value',     'float',    array('precision' => 2, 'default' => 0.0));
           $table->column('decimal_value',   'decimal',  array('precision' => 2, 'scale' => 1, 'default' => 0.0));
           $table->column('datetime_value',  'datetime', array());
           $table->column('date_value',      'date',     array());
           $table->column('time_value',      'time',     array());
-          $table->column('blob_value',      'binary',   array('null' => false, 'default' => ''));
+          $table->column('blob_value',      'binary',   array());
           $table->column('boolean_value',   'boolean',  array('default' => false));
           $table->column('email_value',     'string',   array('limit' => 255, 'default' => ''));
         $table->end();
