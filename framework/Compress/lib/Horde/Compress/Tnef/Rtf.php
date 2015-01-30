@@ -357,7 +357,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
 
     protected function _rtfIsPlain($s)
     {
-        $notPlain = array('*', 'fonttbl', 'colortbl', 'datastore', 'themedata');
+        $notPlain = array('*', 'fonttbl', 'colortbl', 'datastore', 'themedata', 'stylesheet');
         for ($i = 0; $i < count($notPlain); $i++) {
             if (!empty($s[$notPlain[$i]])) {
                 return false;
