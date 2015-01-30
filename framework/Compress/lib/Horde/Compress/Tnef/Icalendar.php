@@ -244,6 +244,8 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      * @param integer $type  The attribute type descriptor.
      * @param integer $name  The attribute name descriptor.
      * @param mixed $value   The value to set.
+     *
+     * @throws  Horde_Compress_Exception
      */
     public function setMapiAttribute($type, $name, $value)
     {
@@ -356,6 +358,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      * @param string  $value MAPI stream
      *
      * @return Horde_Date_Recurrence
+     * @throws  Horde_Compress_Exception
      */
     protected function _parseRecurrence($value)
     {

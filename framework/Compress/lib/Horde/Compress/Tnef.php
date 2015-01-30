@@ -449,7 +449,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 // body. This is used, e.g., in meeting requests to populate
                 // the description field.
                 if ($this->_currentObject) {
-                    $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $rtf->toPlain());
+                    try {
+                        $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $rtf->toPlain());
+                    } catch (Horde_Compress_Exception $e) {
+                        $this->_logger->err(sprintf('TNEF: Unable to set attribute: %s', $e->getMessage()));
+                    }
                 }
                 break;
             case self::MAPI_ATTACH_DATA:
@@ -462,9 +466,13 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_logger->debug('TNEF: Completed nested attachment parsing.');
                 break;
             default:
-                $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
-                if ($this->_currentObject) {
-                    $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $value);
+                try {
+                    $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
+                    if ($this->_currentObject) {
+                        $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $value);
+                    }
+                } catch (Horde_Compress_Exception $e) {
+                    $this->_logger->err(sprintf('TNEF: Unable to set attribute: %s', $e->getMessage()));
                 }
             }
         }
