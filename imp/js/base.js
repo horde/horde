@@ -319,14 +319,16 @@ var ImpBase = {
 
         document.title = ImpCore.conf.name + ' :: ' + title;
 
-        if (unseen > 99 & unseen < 1000) {
-            opts.font = '8px Arial';
-            opts.offset = 1;
-            opts.width = 1;
-        }
+        if (unseen !== null) {
+            if (unseen > 99 & unseen < 1000) {
+                opts.font = '8px Arial';
+                opts.offset = 1;
+                opts.width = 1;
+            }
 
-        Tinycon.setOptions(opts);
-        Tinycon.setBubble(unseen);
+            Tinycon.setOptions(opts);
+            Tinycon.setBubble(unseen);
+        }
     },
 
     // id: (string) Either the ID of a sidebar element, or the name of a
@@ -1654,9 +1656,8 @@ var ImpBase = {
 
     updateTitle: function()
     {
-        var elt,
-            label = this.viewport.getMetaData('label'),
-            unseen = 0;
+        var elt, unseen,
+            label = this.viewport.getMetaData('label');
 
         // 'label' will not be set if there has been an error retrieving data
         // from the server.
@@ -1668,8 +1669,11 @@ var ImpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
+            unseen = 0;
         } else if ((elt = this.flist.getMbox(this.view))) {
             unseen = elt.unseen();
+        } else {
+            unseen = null;
         }
 
         this.setTitle(label, unseen);
