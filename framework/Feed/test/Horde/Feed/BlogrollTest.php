@@ -38,7 +38,6 @@ class Horde_Feed_BlogrollTest extends PHPUnit_Framework_TestCase
 
     public function testGroupedBlogrolls()
     {
-        $this->markTestSkipped();
         $feed = Horde_Feed::readFile($this->_feedDir . 'MySubscriptionsGrouped.opml');
     }
 
