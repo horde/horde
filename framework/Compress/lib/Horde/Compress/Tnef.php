@@ -239,13 +239,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             );
             // Version
             $this->_geti($data, 8); // LVL_MESSAGE
-            $this->_geti($data, 32); //AVERSION
-            $this->_decodeAttribute($data); // data
-
-            // OEMCODEPAGE
-            $this->_geti($data, 8); // LVL_MESSAGE
-            $this->_geti($data, 32); //OEMCODEPAGE
-            $this->_decodeAttribute($data); // data
+            $this->_geti($data, $this->_geti($data, 32)); //AVERSION
+            $this->_geti($data, 16); //checksum
 
             $out = array();
             $this->_msgInfo = new Horde_Compress_Tnef_MessageData($this->_logger);
@@ -617,6 +612,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $owner = $this->_decodeAttribute($data);
             $len1 = $this->_geti($owner, 8);
             $len2 = $this->_geti($owner, 8);
+            break;
+        case self::OEMCODEPAGE:
+            // OEMCODEPAGE
+            $this->_geti($data, 8); // LVL_MESSAGE
+            $this->_geti($data, $this->_geti($data, 32)); //AVERSION
+            $this->_geti($data, 16); //checksum
             break;
         default:
             $size = $this->_geti($data, 32);
