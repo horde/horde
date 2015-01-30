@@ -23,18 +23,19 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
 
     public function testItipReply()
     {
+        $log = new Horde_Test_Log();
         $eml = file_get_contents(__DIR__ . '/fixtures/Itip_Reply.eml');
         $mime = Horde_Mime_Part::parseMessage($eml);
         $winmail = $mime->getPart(2)->getContents();
-        $tnef = Horde_Compress::factory('Tnef');
+        $tnef = Horde_Compress::factory('Tnef', array('logger' => $log->getLogger()));
         $tnef_data = $tnef->decompress($winmail);
     }
 
+    /**
+     * @requires extension bcmath
+     */
     public function testvTodo()
     {
-        if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('bcmath not available.');
-        }
         $tnef = Horde_Compress::factory('Tnef');
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
         try {
@@ -48,11 +49,11 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $this->assertEquals($fixture, $tnef_data[0]['stream']);
     }
 
+    /**
+     * @requires extension bcmath
+     */
     public function testMeetingInvitation()
     {
-        if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('bcmath not available.');
-        }
         $tnef = Horde_Compress::factory('Tnef');
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/TnefMeetingRequest.txt'));
         try {
@@ -69,11 +70,11 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $this->assertEquals($tnef_data[0]['name'], 'Meeting');
     }
 
+    /**
+     * @requires extension bcmath
+     */
     public function testMeetingTnef()
     {
-        if (!extension_loaded('bcmath')) {
-            $this->markTestSkipped('bcmath not available.');
-        }
         $winmail = file_get_contents(__DIR__ . '/fixtures/winmail2.dat');
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($winmail);
