@@ -29,15 +29,20 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_COMPRESSED                    = 0x75465a4c;
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
+    const AOWNER                            = 0x60000;
     const ASUBJECT                          = 0x18004;
     const ADATESENT                         = 0x38005;
     const ADATERECEIVED                     = 0x38006;
 
-    const AMCLASS                           = 0x78008;
-    const ATTACHDATA                        = 0x6800f;
-    const AFILENAME                         = 0x18010;
-    const ATTACHMETAFILE                    = 0x68011;
-    const ATTACHCREATEDATE                  = 0x38012;
+
+    const AMCLASS                           = 0x78008; // 0x8008
+    const AMESSAGEID                        = 0x18009;  // 0x8009
+    const APRIORITY                         = 0x4800d;
+    const ATTACHDATA                        = 0x6800f; // 0x800F
+    const AFILENAME                         = 0x18010; // 0x8010
+    const ATTACHMETAFILE                    = 0x68011; // 0x8011
+    const ATTACHCREATEDATE                  = 0x38012; // 0x8012
+    const ADATEMODIFIED                     = 0x38020;
 
     // idAttachRendData
     const ARENDDATA                         = 0x69002;
@@ -52,7 +57,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const ID_FROM                           = 0x8000;
     const ID_DATE_START                     = 0x30006;
     const ID_DATE_END                       = 0x30007;
-    const AIDOWNER                          = 0x50008;
+    const AIDOWNER                          = 0x50008; // 0x0008;
 
     // @todo These should all be MAPI_TYPE_*
     const MAPI_TYPE_UNSPECIFIED             = 0x0000;
@@ -232,6 +237,16 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 self::SIGNATURE,
                 $this->_geti($data, 16))
             );
+            // Version
+            $this->_geti($data, 8); // LVL_MESSAGE
+            $this->_geti($data, 32); //AVERSION
+            $this->_decodeAttribute($data); // data
+
+            // OEMCODEPAGE
+            $this->_geti($data, 8); // LVL_MESSAGE
+            $this->_geti($data, 32); //OEMCODEPAGE
+            $this->_decodeAttribute($data); // data
+
             $out = array();
             $this->_msgInfo = new Horde_Compress_Tnef_MessageData($this->_logger);
             while (strlen($data) > 0) {
@@ -532,8 +547,21 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         }
     }
 
+    /**
+     * Decodes TNEF attributes.
+     *
+     * @param  [type] &$data [description]
+     * @return [type]        [description]
+     */
     protected function _decodeMessageProperty(&$data)
     {
+        // This contains the type AND the attribute name. We should only check
+        // against the name since this is very confusing  (everything else is
+        // checked against just name). Can't change until Horde 6 though since
+        // the constants would have to change. Also, the type identifiers are
+        // different between MAPI and TNEF. Of course...
+        // $type = $this->_geti($data, 16);
+        // $attribute = $this->_geti($data, 16);
         $attribute = $this->_geti($data, 32);
         $this->_logger->debug(sprintf('TNEF: Message property 0x%X found.', $attribute));
         switch ($attribute) {
@@ -569,6 +597,24 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $this->_logger->debug('TNEF: Extracting encapsulated message properties (idMsgProps)');
             $properties = $this->_decodeAttribute($data);
             $this->_extractMapiAttributes($properties);
+            break;
+        case self::APRIORITY:
+            $this->_geti($data, 32);
+            break;
+        case self::AMESSAGEID:
+        case self::ASUBJECT:
+            $this->_decodeAttribute($data);
+            break;
+        case self::ADATERECEIVED:
+        case self::ADATESENT:
+        case self::ADATEMODIFIED:
+        case self::ID_DATE_END:
+            $value = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_decodeAttribute($data)), 'UTC');
+            break;
+        case self::AOWNER:
+            $owner = $this->_decodeAttribute($data);
+            $len1 = $this->_geti($owner, 8);
+            $len2 = $this->_geti($owner, 8);
             break;
         default:
             $size = $this->_geti($data, 32);
