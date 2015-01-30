@@ -30,7 +30,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $tnef_data = $tnef->decompress($winmail);
     }
 
-    public function testvNote()
+    public function testvTodo()
     {
         $tnef = Horde_Compress::factory('Tnef');
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
