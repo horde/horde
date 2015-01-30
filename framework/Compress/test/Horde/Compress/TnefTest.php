@@ -68,6 +68,34 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $winmail = file_get_contents(__DIR__ . '/fixtures/winmail2.dat');
         $tnef = Horde_Compress::factory('Tnef');
         $tnef_data = $tnef->decompress($winmail);
+
+        // Test the meta data
+        $this->assertEquals($tnef_data[0]['type'], 'text');
+        $this->assertEquals($tnef_data[0]['subtype'], 'calendar');
+        $this->assertEquals($tnef_data[0]['name'], 'Test Meeting');
+
+        // Test the generated iCalendar.
+        $iCal = new Horde_Icalendar();
+        if (!$iCal->parsevCalendar($tnef_data[0]['stream'])) {
+            throw new Horde_Compress_Exception(_("There was an error importing the iCalendar data."));
+        }
+        $components = $iCal->getComponents();
+        if (count($components) == 0) {
+            throw new Horde_Compress_Exception(_("No iCalendar data was found."));
+        }
+        $iTip = current($components);
+        $this->assertEquals($iTip->getAttribute('SUMMARY'), 'Test Meeting');
+        $this->assertEquals($iTip->getAttribute('DESCRIPTION'), 'This is a test meeting.');
+        $this->assertEquals($iTip->getAttribute('ORGANIZER'), 'mailto:mike@theupstairsroom.com');
+        $this->assertEquals($iTip->getAttribute('UID'), 'D38D34D34D34F36D347B4D34EF87396F00000000367B4D3CD34D34D34D34EF4774D3877BF3ADDA774D35D34D34D34D34D34D34D34D34D74D34D34D34D3471CF747DB6F469FE5EE34F386FCE75F79DFC6B675FE9D');
+        $this->assertEquals($iTip->getAttribute('ATTENDEE'), 'mrubinsk@horde.org');
+        $params = $iTip->getAttribute('ATTENDEE', true);
+        if (!$params) {
+            throw new Horde_Compress_Exception('Could not find expected parameters.');
+        }
+        $this->assertEquals($params[0]['ROLE'], 'REQ-PARTICIPANT');
+        $this->assertEquals($params[0]['PARTSTAT'], 'NEEDS-ACTION');
+        $this->assertEquals($params[0]['RSVP'], 'TRUE');
     }
 
     public function testAttachments()
