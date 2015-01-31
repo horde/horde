@@ -562,6 +562,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         // $attribute = $this->_geti($data, 16);
         $attribute = $this->_geti($data, 32);
         $this->_logger->debug(sprintf('TNEF: Message property 0x%X found.', $attribute));
+        $value = false;
         switch ($attribute) {
         case self::AMCLASS:
             // Start of a new message.
@@ -598,7 +599,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             break;
         case self::APRIORITY:
             // Must use geti, not getx for the APRIORITY value.
-            $this->_geti($data, $this->_geti($data, 32));
+            $value = $this->_geti($data, $this->_geti($data, 32));
             $this->_geti($data, 16);
             break;
         case self::ACONVERSATIONID:
@@ -606,7 +607,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         case self::AMESSAGEID:
         case self::ASUBJECT:
         case self::AORIGINALMCLASS:
-            $this->_decodeAttribute($data);
+            $value = $this->_decodeAttribute($data);
             break;
         case self::ADATERECEIVED:
         case self::ADATESENT:
@@ -615,10 +616,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $value = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_decodeAttribute($data)), 'UTC');
             break;
         case self::AOWNER:
-            $owner = $this->_decodeAttribute($data);
+            $value = $this->_decodeAttribute($data);
             break;
         case self::OEMCODEPAGE:
-            $this->_geti($data, $this->_geti($data, 32));
+            $value = $this->_geti($data, $this->_geti($data, 32));
             $this->_geti($data, 16); //checksum
             break;
         case self::AVERSION:
@@ -630,22 +631,23 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         case self::ASENTFOR:
             $display_name = $this->_getx($data, $this->_geti($data, 16));
             $email = $this->_getx($data, $this->_geti($data, 16));
+            $value = $email; // @todo - Do we need to pass display name too?
             $this->_geti($data, 16); // checksum
             break;
         case self::ARECIPIENTTABLE:
-            $this->_decodeAttribute($data);
+            $value = $this->_decodeAttribute($data);
             break;
         case self::ASTATUS:
-            $this->_geti($data, $this->_geti($data, 32));
+            $value = $this->_geti($data, $this->_geti($data, 32));
             $this->_geti($data, 16);
             break;
         default:
             $size = $this->_geti($data, 32);
             $value = $this->_getx($data, $size);
             $this->_geti($data, 16); // Checksum.
-            if ($this->_currentObject) {
-                $this->_currentObject->setTnefAttribute($attribute, $value, $size);
-            }
+        }
+        if ($value && $this->_currentObject) {
+            $this->_currentObject->setTnefAttribute($attribute, $value, (empty($size) ? strlen($value) : $size));
         }
     }
 
