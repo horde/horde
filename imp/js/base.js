@@ -863,13 +863,13 @@ var ImpBase = {
         container.observe('ViewPort:sliderStart', function() {
             var sc = $('slider_count'),
                 sb = $('msgSplitPane').down('.vpScroll'),
-                s = sb.viewportOffset();
+                s = sb.positionedOffset();
 
             this.updateSliderCount();
 
             sc.setStyle({
                 top: (s.top + sb.getHeight() - sc.getHeight()) + 'px',
-                right: (document.viewport.getWidth() - s.left) + 'px'
+                right: sb.getWidth() + 'px'
             }).show();
         }.bind(this));
 
