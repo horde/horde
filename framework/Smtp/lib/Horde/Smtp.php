@@ -136,6 +136,10 @@ class Horde_Smtp implements Serializable
      *         DEFAULT: localhost
      *  </li>
      *  <li>
+     *   localhost: (string) The hostname of the localhost. (since 1.9.0)
+     *              DEFAULT: Auto-determined.
+     *  </li>
+     *  <li>
      *   password: (mixed) The SMTP password or a Horde_Smtp_Password object
      *             (since 1.1.0).
      *             DEFAULT: NONE
@@ -804,7 +808,7 @@ class Horde_Smtp implements Serializable
         }
 
         if (is_null($host)) {
-            $host = gethostname();
+            $host = $this->_getHostname();
             if ($host === false) {
                 return;
             }
@@ -823,7 +827,7 @@ class Horde_Smtp implements Serializable
      */
     protected function _hello()
     {
-        $ehlo = $host = gethostname();
+        $ehlo = $host = $this->_getHostname();
         if ($host === false) {
             $ehlo = $_SERVER['SERVER_ADDR'];
             $host = 'localhost';
@@ -1103,6 +1107,18 @@ class Horde_Smtp implements Serializable
             'error' => 'reset'
         ));
         return array_fill_keys($recipients, true);
+    }
+
+    /**
+     * Return the local hostname.
+     *
+     * @return string  Local hostname (null if it cannot be determined).
+     */
+    protected function _getHostname()
+    {
+        return ($localhost = $this->getParam('localhost'))
+            ? $localhost
+            : gethostname();
     }
 
 }
