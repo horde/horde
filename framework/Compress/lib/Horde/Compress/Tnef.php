@@ -245,11 +245,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_geti($data, 16))
             );
 
-            // Version
-            $this->_geti($data, 8); // LVL_MESSAGE
-            $this->_getx($data, $this->_geti($data, 32)); //AVERSION
-            $this->_geti($data, 16); //checksum
-
             $out = array();
             $this->_msgInfo = new Horde_Compress_Tnef_MessageData($this->_logger);
             while (strlen($data) > 0) {
@@ -624,6 +619,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             break;
         case self::OEMCODEPAGE:
             $this->_geti($data, $this->_geti($data, 32));
+            $this->_geti($data, 16); //checksum
+            break;
+        case self::AVERSION:
+            // Version
+            $this->_getx($data, $this->_geti($data, 32)); //AVERSION
             $this->_geti($data, 16); //checksum
             break;
         case self::AFROM:
