@@ -623,9 +623,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $this->_geti($data, 16); //checksum
             break;
         case self::AVERSION:
-            // Version
-            $this->_getx($data, $this->_geti($data, 32)); //AVERSION
-            $this->_geti($data, 16); //checksum
+            $this->_decodeAttribute($data);
             break;
         case self::AFROM:
         case self::ASENTFOR:
