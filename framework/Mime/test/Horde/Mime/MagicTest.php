@@ -22,12 +22,11 @@
  */
 class Horde_Mime_MagicTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @requires extension fileinfo
+     */
     public function testBug325()
     {
-        if (!extension_loaded('fileinfo')) {
-            $this->markTestSkipped('The fileinfo extension is not available.');
-        }
-
         $this->assertEquals(
             'text/plain',
             Horde_Mime_Magic::analyzeFile(__DIR__ . '/fixtures/flowed_msg.txt')
