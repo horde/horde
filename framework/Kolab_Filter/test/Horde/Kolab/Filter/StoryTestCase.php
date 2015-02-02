@@ -32,7 +32,7 @@ extends PHPUnit_Extensions_Story_TestCase
 {
     public function setUp()
     {
-        $this->markTestSkipped('Kolab_Filter is not H4 compatible yet.');
+        $this->markTestIncomplete('Kolab_Filter is not H4 compatible yet.');
     }
 
     /**
