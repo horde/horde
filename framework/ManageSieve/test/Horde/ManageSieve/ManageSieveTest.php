@@ -12,7 +12,7 @@
  * @license   http://www.horde.org/licenses/bsd BSD
  */
 
-use \Horde, \Horde\ManageSieve, \Horde\ManageSieve\Exception;
+use \Horde\ManageSieve, \Horde\ManageSieve\Exception;
 
 /**
  * PHPUnit test case for Horde\ManageSieve.
