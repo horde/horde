@@ -235,6 +235,12 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     public function setTnefAttribute($attribute, $value, $size)
     {
+        switch ($attribute) {
+        case Horde_Compress_Tnef::ABODY;
+            $this->_description = $value;
+            var_dump($value);
+            break;
+        }
     }
 
     /**
@@ -344,7 +350,10 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             // this here for reference, see MS-OXOCAL 2.2.1.11
             break;
         case Horde_Compress_Tnef::MAPI_COMPRESSED:
-            $this->_description = $value;
+            // We may already have a description from the TNEF attBODY attribute
+            if (empty($this->_description)) {
+                $this->_description = $value;
+            }
             break;
         case Horde_Compress_Tnef::MAPI_RESPONSE_REQUESTED:
             $this->_rsvp = $value;

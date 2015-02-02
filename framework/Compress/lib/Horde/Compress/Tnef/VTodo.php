@@ -221,6 +221,24 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     }
 
     /**
+     * Allow this object to set any TNEF attributes it needs to know about,
+     * ignore any it doesn't care about.
+     *
+     * @param integer $attribute  The attribute descriptor.
+     * @param mixed $value        The value from the MAPI stream.
+     * @param integer $size       The byte length of the data, as reported by
+     *                            the MAPI data.
+     */
+    public function setTnefAttribute($attribute, $value, $size)
+    {
+        switch ($attribute) {
+        case Horde_Compress_Tnef::ABODY;
+            $this->_bodyPlain = $value;
+            break;
+        }
+    }
+
+    /**
      * Allow this object to set any MAPI attributes it needs to know about,
      * ignore any it doesn't care about.
      *
@@ -287,16 +305,12 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
                 $this->_status = self::TASK_STATUS_COMPLETED;
                 $this->_percentComplete = 1;
                 break;
-            // Body properties. I still can't figure this out.
-            // They don't actually seem to be set here, even though there
-            // is an explicit property for them, but rather in the enclosing
-            // TNEF file. Maybe this depends on the settings/version of the
-            // Outlook client that is creating the Task? For now, we will
-            // have to do our best to get something to place in the body,
-            // regardless of where it comes from.
             case Horde_Compress_Tnef::MAPI_TAG_BODY:
-                // plaintext?
-                $this->_bodyPlain = $value;
+                // plaintext. Most likely set via the attBody TNEF attribute,
+                // and not by the MAPI property.
+                if (empty($this->_bodyPlain)) {
+                    $this->_bodyPlain = $value;
+                }
                 break;
             case Horde_Compress_Tnef::MAPI_TAG_HTML:
                 // html

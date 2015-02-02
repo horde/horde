@@ -44,6 +44,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const AMESSAGEID                        = 0x18009;  // 0x8009
     const APARENTID                         = 0x1800a;
     const ACONVERSATIONID                   = 0x1800b;
+    const ABODY                             = 0x2800c;
     const APRIORITY                         = 0x4800d;
     const ATTACHDATA                        = 0x6800f; // 0x800F
     const AFILENAME                         = 0x18010; // 0x8010
