@@ -139,8 +139,6 @@ class Horde_Routes_UtilTest extends PHPUnit_Framework_TestCase
 
     public function testWithRouteNamesAndDefaults()
     {
-        $this->markTestSkipped();
-
         $m = $this->mapper;
 
         $utils = $m->utils;
