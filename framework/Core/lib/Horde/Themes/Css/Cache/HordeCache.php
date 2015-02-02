@@ -40,7 +40,7 @@ class Horde_Themes_Css_Cache_HordeCache extends Horde_Themes_Css_Cache
             /* Use 64-bit FNV algo (instead of 32-bit) since this is a
              * publicly accessible key and we want to guarantee filename
              * is unique. */
-            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            (version_compare(PHP_VERSION, '5.4', '>=')) ? 'fnv164' : 'sha1',
             json_encode($css) . $cacheid
         );
 

@@ -29,7 +29,7 @@ class Horde_Imap_Client_DateTime extends DateTime
     public function __construct($time = null, $tz = null)
     {
         /* See https://bugs.php.net/bug.php?id=67118 */
-        $bug_67118 = (PHP_MINOR_VERSION >= 6) ||
+        $bug_67118 = (version_compare(PHP_VERSION, '5.6', '>=')) ||
                      in_array(PHP_VERSION, array('5.4.29', '5.5.13'));
         $tz = new DateTimeZone('UTC');
 

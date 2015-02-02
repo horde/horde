@@ -79,7 +79,7 @@ class Horde_ActiveSync_Timezone
      */
     public static function getOffsetsFromSyncTZ($data)
     {
-        if (PHP_MINOR_VERSION >= 5) {
+        if (version_compare(PHP_VERSION, '5.5', '>=')) {
             $format = 'lbias/Z64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/'
                 . 'lstdbias/Z64dstname/vdstyear/vdstmonth/vdstday/vdstweek/vdsthour/vdstminute/vdstsecond/vdstmillis/'
                 . 'ldstbias';

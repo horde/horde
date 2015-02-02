@@ -134,7 +134,7 @@ abstract class IMP_Dynamic_Base
             // Other variables
             'disable_compose' => !IMP_Compose::canCompose(),
             'pref_prefix' => hash(
-                (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1',
+                (version_compare(PHP_VERSION, '5.4', '>=')) ? 'fnv132' : 'sha1',
                 $registry->getAuth() . '|' . $_SERVER['SERVER_NAME']
             )
         ));

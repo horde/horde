@@ -50,7 +50,7 @@ class Horde_Script_Cache_HordeCache extends Horde_Script_Cache
         sort($hashes);
 
         $sig = hash(
-            (PHP_MINOR_VERSION >= 4) ? 'fnv164' : 'sha1',
+            (version_compare(PHP_VERSION, '5.4', '>=')) ? 'fnv164' : 'sha1',
             json_encode($hashes) . $mtime
         );
 
