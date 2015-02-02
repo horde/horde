@@ -1066,6 +1066,10 @@ class Horde_Smtp implements Serializable
         if (!is_null($this->_extensions) &&
             $this->queryExtension('ENHANCEDSTATUSCODES')) {
             list($enhanced, $details) = explode(' ', $details, 2);
+            if (!strpos($enhanced, '.')) {
+                $details = $enhanced . ' ' . $details;
+                $enhanced = null;
+            }
         } else {
             $enhanced = null;
         }
@@ -1073,7 +1077,9 @@ class Horde_Smtp implements Serializable
         $e = new $opts['exception']($details);
         $e->details = $details;
         $e->setSmtpCode($replycode);
-        $e->setEnhancedSmtpCode($enhanced);
+        if ($enhanced) {
+            $e->setEnhancedSmtpCode($enhanced);
+        }
 
         switch ($opts['error']) {
         case 'logout':

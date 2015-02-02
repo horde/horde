@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix notice if server doesn&apos;t support ENHANCEDSTATUSCODES.
 * [mms] Add &apos;localhost&apos; parameter to Horde_Smtp (Request #13832).
  </notes>
  <contents>
@@ -482,6 +483,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix notice if server doesn&apos;t support ENHANCEDSTATUSCODES.
 * [mms] Add &apos;localhost&apos; parameter to Horde_Smtp (Request #13832).
    </notes>
   </release>
