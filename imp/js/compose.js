@@ -526,13 +526,25 @@ var ImpCompose = {
 
     RTELoading: function(show, notxt)
     {
+        var loading = $('rteloading'),
+            opts = {
+                duration: 0.1,
+                queue: {
+                    limit: 1,
+                    scope: 'rteloading'
+                }
+            };
+
         if (show) {
-            [ $('rteloading').down('SPAN') ].invoke(notxt ? 'hide' : 'show');
-            $('rteloading').clonePosition('composeMessageParent').appear({
-                duration: 0.1
-            });
+            loading.appear(Object.extend(opts, {
+                afterSetup: function() {
+                    [ loading.down('SPAN') ].invoke(notxt ? 'hide' : 'show');
+                    loading.clonePosition('composeMessageParent');
+                }
+            }));
         } else {
-            $('rteloading').fade({ duration: 0.1 });
+            Effect.Queues.get('rteloading').invoke('cancel');
+            loading.fade(opts);
         }
     },
 
@@ -950,9 +962,8 @@ var ImpCompose = {
         }
 
         $('composeMessage').setStyle({ height: mah + 'px' });
-
-        if ($('rteloading').visible()) {
-            this.RTELoading(true);
+        if (this.rte) {
+            $('rteloading').clonePosition('composeMessageParent');
         }
     },
 
