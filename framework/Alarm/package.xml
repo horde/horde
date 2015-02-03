@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix fatal errors when stored alarm data cannot be unserialized.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -945,7 +945,7 @@
    <date>2014-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix fatal errors when stored alarm data cannot be unserialized.
    </notes>
   </release>
  </changelog>
