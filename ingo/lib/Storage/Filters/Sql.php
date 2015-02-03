@@ -5,24 +5,23 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 
 /**
- * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
- * rule information.
+ * SQL storage of the user-defined filter list.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/apache ASL
- * @package  Ingo
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2012-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/apache ASL
+ * @package   Ingo
  */
 class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
 {
-
     /**
      * Handle for the current database connection.
      *
