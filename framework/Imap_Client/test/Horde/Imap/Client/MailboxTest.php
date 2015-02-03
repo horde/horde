@@ -121,6 +121,7 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
     public function testBug13825()
     {
         $mbox = 'INBOX.!  Astrid"';
+        $mbox_escape = '"INBOX.!  Astrid\""';
 
         $ob = new Horde_Imap_Client_Mailbox($mbox);
 
@@ -135,13 +136,13 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
 
         $format = new Horde_Imap_Client_Data_Format_Mailbox($ob);
         $this->assertEquals(
-            '"' . $mbox . '"',
+            $mbox_escape,
             $format->escape()
         );
 
         $format2 = new Horde_Imap_Client_Data_Format_Mailbox_Utf8($ob);
         $this->assertEquals(
-            '"' . $mbox . '"',
+            $mbox_escape,
             $format2->escape()
         );
     }
