@@ -1420,6 +1420,7 @@ div.GrowlerNoticeExit {
 .context {
     top: 0;
     left: 0;
+    overflow-y: auto;
 }
 .context a, .context a:visited, .horde-buttonbar li div li a {
     white-space: nowrap;
