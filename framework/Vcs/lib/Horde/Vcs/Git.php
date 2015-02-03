@@ -168,7 +168,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
         $this->assertValidRevision($rev);
 
         $command = $this->getCommand() . ' blame -p ' . escapeshellarg($rev) . ' -- ' . escapeshellarg($fileob->getSourcerootPath()) . ' 2>&1';
-        $pipe = popen($command, 'r');
+        $pipe = $this->popen($command);
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute git annotate: ' . $command);
         }
@@ -237,7 +237,7 @@ class Horde_Vcs_Git extends Horde_Vcs_Base
             throw new Horde_Vcs_Exception($file . ' is deleted in commit ' . $rev);
         }
 
-        if ($pipe = popen($this->getCommand() . ' cat-file blob ' . $hash . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+        if ($pipe = $this->popen($this->getCommand() . ' cat-file blob ' . $hash . ' 2>&1')) {
             return $pipe;
         }
 

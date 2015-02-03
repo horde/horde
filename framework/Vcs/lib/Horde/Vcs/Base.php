@@ -531,4 +531,21 @@ abstract class Horde_Vcs_Base
     {
         return 'HEAD';
     }
+
+    /**
+     * Wrapper around popen() for locale-safe results.
+     *
+     * @param string $cmd  Command to call.
+     * @param string $mode popen() mode.
+     *
+     * @return resource  Pipe handle.
+     */
+    public function popen($cmd, $mode = 'r')
+    {
+        $language = getenv('LC_MESSAGES');
+        putenv('LC_MESSAGES=C');
+        $pipe = popen($cmd, 'r');
+        putenv('LC_MESSAGES=' . $language);
+        return $pipe;
+    }
 }

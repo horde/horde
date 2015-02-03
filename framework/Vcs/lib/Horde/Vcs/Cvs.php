@@ -148,7 +148,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
         $tmpfile = Horde_Util::getTempFile('vc', true, $this->_paths['temp']);
         $where = $fileob->getSourcerootPath();
 
-        $pipe = popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), VC_WINDOWS ? 'wb' : 'w');
+        $pipe = $this->popen(escapeshellcmd($this->getPath('cvs')) . ' -n server > ' . escapeshellarg($tmpfile), 'w');
 
         $out = array(
             'Root ' . $this->sourceroot,
@@ -227,7 +227,7 @@ class Horde_Vcs_Cvs extends Horde_Vcs_Rcs
     {
         $this->assertValidRevision($rev);
 
-        if (!($RCS = popen(escapeshellcmd($this->getPath('co')) . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . " 2>&1", VC_WINDOWS ? 'rb' : 'r'))) {
+        if (!($RCS = $this->popen(escapeshellcmd($this->getPath('co')) . ' ' . escapeshellarg('-p' . $rev) . ' ' . escapeshellarg($fullname) . ' 2>&1'))) {
             throw new Horde_Vcs_Exception('Couldn\'t perform checkout of the requested file');
         }
 

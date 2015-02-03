@@ -24,7 +24,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
     {
         $cmd = $this->_rep->getCommand() . ' log -v '
             . escapeshellarg($this->getPath()) . ' 2>&1';
-        $this->_logpipe = popen($cmd, 'r');
+        $this->_logpipe = $this->_rep->popen($cmd);
         if (!$this->_logpipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
         }
@@ -40,7 +40,8 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
                 $rev = $log->getRevision();
                 $this->_logs[$rev] = $log;
                 $this->_revs[] = $rev;
-            } catch (Horde_Vcs_Exception $e) {}
+            } catch (Horde_Vcs_Exception $e) {
+            }
         }
 
         pclose($this->_logpipe);
@@ -126,7 +127,7 @@ class Horde_Vcs_File_Svn extends Horde_Vcs_File_Base
     public function getLastLog()
     {
         $cmd = $this->_rep->getCommand() . ' log -l 1 ' . escapeshellarg($this->getPath()) . ' 2>&1';
-        $this->_logpipe = popen($cmd, 'r');
+        $this->_logpipe = $this->_rep->popen($cmd);
         if (!$this->_logpipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn log: ' . $cmd);
         }
