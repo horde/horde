@@ -67,8 +67,11 @@ class Ingo_Storage_Sql extends Ingo_Storage
             break;
 
         case self::ACTION_FILTERS:
-            $ob = new Ingo_Storage_Filters_Sql($this->_params['db'], $this->_params);
-            $ob->init($readonly);
+            $ob = new Ingo_Storage_Filters_Sql(
+                $this->_params['db'],
+                $this->_params,
+                $readonly
+            );
             break;
 
         case self::ACTION_FORWARD:

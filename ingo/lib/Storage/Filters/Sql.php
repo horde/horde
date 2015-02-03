@@ -41,19 +41,22 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
      *
      * @param Horde_Db_Adapter $db   Handle for the database connection.
      * @param array $params          Driver specific parameters.
+     * @param boolean $readonly      Disable any write operations?
      */
-    public function __construct(Horde_Db_Adapter $db, $params)
+    public function __construct(
+        Horde_Db_Adapter $db, $params, $readonly = false
+    )
     {
         $this->_db = $db;
         $this->_params = $params;
+
+        $this->_init($readonly);
     }
 
     /**
      * Loads all rules from the DB backend.
-     *
-     * @param boolean $readonly  Whether to disable any write operations.
      */
-    public function init($readonly = false)
+    protected function _init($readonly = false)
     {
         $query = sprintf('SELECT * FROM %s WHERE rule_owner = ? ORDER BY rule_order',
                          $this->_params['table_rules']);
