@@ -13,6 +13,15 @@ v5.3.0-git
 
 
 ------
+v5.2.4
+------
+[mms] Make dynamic context menus scrollable if taller than the browser screen
+      height (Bug #13833).
+[jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
+[jan] Don't instantiate notification system for RPC requests.
+
+
+------
 v5.2.3
 ------
 
