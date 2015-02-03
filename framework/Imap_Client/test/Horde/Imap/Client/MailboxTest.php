@@ -118,4 +118,32 @@ class Horde_Imap_Client_MailboxTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug13825()
+    {
+        $mbox = 'INBOX.!  Astrid"';
+
+        $ob = new Horde_Imap_Client_Mailbox($mbox);
+
+        $this->assertEquals(
+            $ob,
+            Horde_Imap_Client_Mailbox::get($mbox)
+        );
+        $this->assertEquals(
+            $ob,
+            Horde_Imap_Client_Mailbox::get($ob)
+        );
+
+        $format = new Horde_Imap_Client_Data_Format_Mailbox($ob);
+        $this->assertEquals(
+            '"' . $mbox . '"',
+            $format->escape()
+        );
+
+        $format2 = new Horde_Imap_Client_Data_Format_Mailbox_Utf8($ob);
+        $this->assertEquals(
+            '"' . $mbox . '"',
+            $format2->escape()
+        );
+    }
+
 }
