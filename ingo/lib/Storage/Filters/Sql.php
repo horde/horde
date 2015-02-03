@@ -63,9 +63,9 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }
-        $data = array();
+
         foreach ($result as $row) {
-            $data[$row['rule_order']] = array(
+            $this->_filters[$row['rule_order']] = array(
                 'id' => (int)$row['rule_id'],
                 'name' => Horde_String::convertCharset($row['rule_name'], $this->_params['charset'], 'UTF-8'),
                 'action' => (int)$row['rule_action'],
@@ -76,7 +76,6 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
                 'stop' => (bool)$row['rule_stop'],
                 'disable' => !(bool)$row['rule_active']);
         }
-        $this->setFilterlist($data);
 
         if (empty($data) && !$readonly) {
             $data = @unserialize($GLOBALS['prefs']->getDefault('rules'));

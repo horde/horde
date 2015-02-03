@@ -57,10 +57,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
             break;
 
         case self::ACTION_FILTERS:
-            $ob = new Ingo_Storage_Filters();
-            if ($data = @unserialize($prefs->getValue('rules'))) {
-                $ob->setFilterlist($data);
-            }
+            $ob = new Ingo_Storage_Filters_Prefs();
             break;
 
         case self::ACTION_FORWARD:

@@ -47,16 +47,6 @@ class Ingo_Storage_Filters
     }
 
     /**
-     * Propagates the filter list with data.
-     *
-     * @param array $data  A list of rule hashes.
-     */
-    public function setFilterlist($data)
-    {
-        $this->_filters = $data;
-    }
-
-    /**
      * Returns the filter list.
      *
      * @param arary  The rules to skip, a list of Ingo::RULE_* constants.
