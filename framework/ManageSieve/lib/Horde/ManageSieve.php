@@ -151,23 +151,28 @@ class ManageSieve
      * in too.
      *
      * @param array $params  A hash of connection parameters:
-     *                       - host: Hostname of server (DEFAULT: localhost).
-     *                               Optionally prefixed with protocol scheme.
-     *                       - port: Port of server (DEFAULT: 4190).
-     *                       - user: Login username (optional).
-     *                       - password: Login password (optional).
-     *                       - authmethod: Type of login to perform (see
-     *                                     $supportedAuthMethods) (DEFAULT:
-     *                                     AUTH_AUTOMATIC).
-     *                       - euser: Effective user. If authenticating as an
-     *                                administrator, login as this user.
-     *                       - bypassauth: Skip the authentication phase.
-     *                                     Useful if passing an already open
-     *                                     socket.
-     *                       - usetls: Use TLS if available.
-     *                       - context: Additional options for
-     *                                  stream_context_create().
-     *                       - logger: A log handler, must implement debug().
+     *   - host: Hostname of server (DEFAULT: localhost). Optionally prefixed
+     *           with protocol scheme.
+     *   - port: Port of server (DEFAULT: 4190).
+     *   - user: Login username (optional).
+     *   - password: Login password (optional).
+     *   - authmethod: Type of login to perform (see $supportedAuthMethods)
+                       (DEFAULT: AUTH_AUTOMATIC).
+     *   - euser: Effective user. If authenticating as an administrator, login
+     *            as this user.
+     *   - bypassauth: Skip the authentication phase. Useful if passing an
+     *                 already open socket.
+     *   - secure: Security layer requested. One of:
+     *     - true: (TLS if available/necessary) [DEFAULT]
+     *     - false: (No encryption)
+     *     - 'ssl': (Auto-detect SSL version)
+     *     - 'sslv2': (Force SSL version 3)
+     *     - 'sslv3': (Force SSL version 2)
+     *     - 'tls': (TLS; started via protocol-level negotation over
+     *              unencrypted channel)
+     *     - 'tlsv1': (TLS version 1.x connection)
+     *   - context: Additional options for stream_context_create().
+     *   - logger: A log handler, must implement debug().
      *
      * @throws \Horde\ManageSieve\Exception
      */
@@ -182,7 +187,7 @@ class ManageSieve
                 'authmethod' => self::AUTH_AUTOMATIC,
                 'euser'      => null,
                 'bypassauth' => false,
-                'usetls'     => true,
+                'secure'     => true,
                 'context'    => array(),
                 'logger'     => null,
             ),
@@ -231,7 +236,7 @@ class ManageSieve
             $this->_params['host'],
             $this->_params['port'],
             $this->_params['context'],
-            $this->_params['usetls']
+            $this->_params['secure']
         );
         if (!$this->_params['bypassauth']) {
             $this->login(
@@ -252,12 +257,12 @@ class ManageSieve
      * @param string  $port    Port of server.
      * @param array   $context List of options to pass to
      *                         stream_context_create().
-     * @param boolean $useTLS  Use TLS if available.
+     * @param boolean $secure: Security layer requested. @see __construct().
      *
      * @throws \Horde\ManageSieve\Exception
      */
     public function connect(
-        $host = null, $port = null, $context = null, $useTLS = null
+        $host = null, $port = null, $context = null, $secure = null
     )
     {
         if (isset($host)) {
@@ -272,8 +277,8 @@ class ManageSieve
                 $context
             );
         }
-        if (isset($useTLS)) {
-            $this->_params['usetls'] = $useTLS;
+        if (isset($secure)) {
+            $this->_params['secure'] = $secure;
         }
 
         if (self::STATE_DISCONNECTED != $this->_state) {
@@ -285,7 +290,7 @@ class ManageSieve
                 $this->_params['host'],
                 $this->_params['port'],
                 5,
-                $this->_params['usetls'],
+                $this->_params['secure'],
                 $this->_params['context']
             );
         } catch (Client\Exception $e) {
@@ -308,8 +313,10 @@ class ManageSieve
         }
 
         // Check if we can enable TLS via STARTTLS.
-        if ($this->_params['usetls'] &&
-            !empty($this->_capability['starttls'])) {
+        if ($this->_params['secure'] === 'tls' ||
+            $this->_params['secure'] === 'tlsv1' ||
+            ($this->_params['secure'] === true &&
+             !empty($this->_capability['starttls']))) {
             $this->_doCmd('STARTTLS');
             if (!$this->_sock->startTls()) {
                 throw new Exception('Failed to establish TLS connection');
