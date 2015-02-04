@@ -34,6 +34,8 @@ Upgrading from Net_Sieve
 
     - The default port has been changed to 4190.
 
+    - A timeout parameter has been added.
+
   - Authentication methods
 
     The authentication methods are now specified as one of the
