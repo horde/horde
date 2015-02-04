@@ -180,16 +180,17 @@ class ManageSieve
     {
         $this->_params = array_merge(
             array(
-                'host'       => 'localhost',
-                'port'       => 4190,
-                'user'       => '',
-                'password'   => '',
                 'authmethod' => self::AUTH_AUTOMATIC,
-                'euser'      => null,
                 'bypassauth' => false,
-                'secure'     => true,
                 'context'    => array(),
+                'euser'      => null,
+                'host'       => 'localhost',
                 'logger'     => null,
+                'password'   => '',
+                'port'       => 4190,
+                'secure'     => true,
+                'timeout'    => 5,
+                'user'       => '',
             ),
             $params
         );
@@ -289,7 +290,7 @@ class ManageSieve
             $this->_sock = new Client(
                 $this->_params['host'],
                 $this->_params['port'],
-                5,
+                $this->_params['timeout'],
                 $this->_params['secure'],
                 $this->_params['context']
             );
