@@ -2579,8 +2579,16 @@ var ImpBase = {
             e = new Event(e);
             e.preventDefault();
             noelt = true;
-            if (!(kc === 17 || kc === 67)) { //CTRL + C
-                $$('IFRAME').invoke('blur');
+            switch(kc) {
+                case 224://Firefox osx cmd
+                case 17://Opera osx cmd
+                case 91://Webkit left osx cmd
+                case 93://WebKit right osx cmd
+                case 17://CTRL
+                case 67://CTRL
+                    break;
+                default:
+                    $$('IFRAME').invoke('blur');
             }
         } else if (e.findElement('FORM')) {
             // Inside form, so ignore.
