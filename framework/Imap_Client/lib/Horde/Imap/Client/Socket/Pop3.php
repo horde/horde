@@ -313,6 +313,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                 $this->getParam('port'),
                 $this->getParam('timeout'),
                 $this->getParam('secure'),
+                $this->getParam('context'),
                 array(
                     'debug' => $this->_debug
                 )

@@ -22,6 +22,8 @@ Upgrading to 2.0.0
 
       - The $port parameter is optional.
 
+      - The $context parameter has been added before the $params parameter.
+
     - getStatus(), gets(), read(), and write() have been added.
 
 

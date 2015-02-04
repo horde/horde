@@ -74,13 +74,15 @@ class Client
      *     channel)
      *   - 'tlsv1': (TLS version 1.x connection) (@since 1.1.0)
      *   - true: (TLS if available/necessary)
+     * @param array $context    Any context parameters passed to
+     *                          stream_create_context().
      * @param array $params     Additional options.
      *
      * @throws Horde\Socket\Client\Exception
      */
     public function __construct(
         $host, $port = null, $timeout = 30, $secure = false,
-        array $params = array()
+        $context = array(), array $params = array()
     )
     {
         if ($secure && !extension_loaded('openssl')) {
@@ -90,9 +92,19 @@ class Client
             $secure = false;
         }
 
+        $context = array_merge_recursive(
+            array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false
+                )
+            ),
+            $context
+        );
+
         $this->_params = $params;
 
-        $this->_connect($host, $port, $timeout, $secure);
+        $this->_connect($host, $port, $timeout, $secure, $context);
     }
 
     /**
@@ -236,7 +248,9 @@ class Client
      *
      * @throws Horde\Socket\Client\Exception
      */
-    protected function _connect($host, $port, $timeout, $secure, $retries = 0)
+    protected function _connect(
+        $host, $port, $timeout, $secure, $context, $retries = 0
+    )
     {
         $conn = '';
         if (!strpos($host, '://')) {
@@ -270,15 +284,7 @@ class Client
             $error_string,
             $timeout,
             STREAM_CLIENT_CONNECT,
-            /* @todo: As of PHP 5.6, TLS connections require valid certs.
-             * However, this is BC-breaking to this library. For now, keep
-             * pre-5.6 behavior. */
-            stream_context_create(array(
-                'ssl' => array(
-                    'verify_peer' => false,
-                    'verify_peer_name' => false
-                )
-            ))
+            stream_context_create($context)
         );
 
         if ($this->_stream === false) {
@@ -289,7 +295,7 @@ class Client
              * these are likely transient issues. Retry up to 3 times in these
              * instances. */
             if (!$error_number && ($retries < 3)) {
-                return $this->_connect($host, $port, $timeout, $secure, ++$retries);
+                return $this->_connect($host, $port, $timeout, $secure, ++$retries, $context);
             }
 
             $e = new Client\Exception(

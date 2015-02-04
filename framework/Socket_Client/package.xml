@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add parameter for stream context settings (Request #13730).
 * [jan] Allow to pass hostname with protocol scheme prefix.
 * [jan] Add getStatus(), gets(), read(), and write().
  </notes>
@@ -145,6 +146,7 @@
    <date>2015-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add parameter for stream context settings (Request #13730).
 * [jan] Allow to pass hostname with protocol scheme prefix.
 * [jan] Add getStatus(), gets(), read(), and write().
    </notes>

@@ -196,6 +196,8 @@ implements Serializable, SplObserver
      *               default server comparator. See setComparator() for
      *               format.
      *               DEFAULT: Use the server default
+     * - context: (array) Any context parameters passed to
+     *            stream_create_context(). @since 2.27.0
      * - debug: (string) If set, will output debug information to the stream
      *          provided. The value can be any PHP supported wrapper that can
      *          be opened via PHP's fopen() function.
@@ -241,6 +243,7 @@ implements Serializable, SplObserver
 
         // Default values.
         $params = array_merge(array(
+            'context' => array(),
             'hostspec' => 'localhost',
             'secure' => false,
             'timeout' => 30
