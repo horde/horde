@@ -695,6 +695,15 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $options['import'] = _("Add this to my tasklist");
             }
             break;
+
+        case 'REQUEST':
+            $desc = _("%s wishes to assign you \"%s\".");
+            if ($registry->hasMethod('tasks/import')) {
+                $options['accept-import'] = _("Accept and add this to my tasklist");
+                $options['import'] = _("Add this to my tasklist");
+                $options['deny'] = _("Deny task assignment");
+            }
+            break;
         }
 
         $view = $this->_getViewOb();
