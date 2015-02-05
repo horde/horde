@@ -797,10 +797,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function renameMailbox($old, $new, $parent = null)
     {
-        if ($old == $new) {
-            return;
-        }
-
         if (!empty($parent)) {
             $ns = $this->_defaultNamespace();
             $new = $parent . $ns['delimiter'] . $new;
