@@ -24,6 +24,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                        'ou=Horde_Ldap_Test_search1,',
                        'ou=Horde_Ldap_Test_search2,',
                        'ou=Horde_Ldap_Test_exists,',
+                       'ou=Horde_Ldap_Test_exists_2+l=somewhere,',
                        'ou=Horde_Ldap_Test_getEntry,',
                        'ou=Horde_Ldap_Test_move,',
                        'ou=Horde_Ldap_Test_pool,',
@@ -326,7 +327,7 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $ou1_1 = Horde_Ldap_Entry::createFresh(
             'ou=Horde_Ldap_Test_search1_1,' . $ou1->dn(),
             array('objectClass' => array('top','organizationalUnit'),
-                  'ou' => 'Horde_Ldap_Test_search2'));
+                  'ou' => 'Horde_Ldap_Test_search1_1'));
         $ou2 = Horde_Ldap_Entry::createFresh(
             'ou=Horde_Ldap_Test_search2,' . $base,
             array('objectClass' => array('top','organizationalUnit'),
@@ -420,12 +421,14 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         // Testing not existing DN.
         $this->assertFalse($ldap->exists($dn));
 
-        // Passing an entry object (should work). It should return false,
+        // Passing an entry object (should work). exists() should return false,
         // because we didn't add the test entry yet.
         $ou1 = Horde_Ldap_Entry::createFresh(
             $dn,
-            array('objectClass' => array('top', 'organizationalUnit'),
-                  'ou' => 'Horde_Ldap_Test_search1'));
+            array('objectClass' => array('top', 'organizationalUnit'))
+        );
+
+        $this->assertFalse($ldap->exists($dn));
         $this->assertFalse($ldap->exists($ou1));
 
         // Testing not existing DN.
@@ -437,6 +440,16 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
             $ldap->exists(1.234);
             $this->fail('Horde_Ldap_Exception expected.');
         } catch (Horde_Ldap_Exception $e) {}
+
+        // Testing multivalued RDNs.
+        $dn = 'ou=Horde_Ldap_Test_exists_2+l=somewhere,' . self::$ldapcfg['server']['basedn'];
+        $ou2 = Horde_Ldap_Entry::createFresh(
+            $dn,
+            array('objectClass' => array('top', 'organizationalUnit'))
+        );
+        $this->assertFalse($ldap->exists($dn));
+        $ldap->add($ou2);
+        $this->assertTrue($ldap->exists($dn));
     }
 
     /**

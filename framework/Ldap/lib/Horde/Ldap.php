@@ -1036,12 +1036,18 @@ class Horde_Ldap
         }
 
         /* Make dn relative to parent. */
-        $base = Horde_Ldap_Util::explodeDN($dn, array('casefold' => 'none', 'reverse' => false, 'onlyvalues' => false));
-        $entry_rdn = array_shift($base);
-        $base = Horde_Ldap_Util::canonicalDN($base);
+        $options = array('casefold' => 'none');
+        $base = Horde_Ldap_Util::explodeDN($dn, $options);
+        $entry_rdn = '(&('
+            . Horde_Ldap_Util::canonicalDN(
+                array_shift($base),
+                array_merge($options, array('separator' => ')('))
+            )
+            . '))';
+        $base = Horde_Ldap_Util::canonicalDN($base, $options);
 
-        $result = @ldap_list($this->_link, $base, $entry_rdn, array(), 1, 1);
-        if (@ldap_count_entries($this->_link, $result)) {
+        $result = @ldap_list($this->_link, $base, $entry_rdn, array('dn'), 1, 1);
+        if ($result && @ldap_count_entries($this->_link, $result)) {
             return true;
         }
         if ($this->errorName(@ldap_errno($this->_link)) == 'LDAP_NO_SUCH_OBJECT') {
