@@ -18,7 +18,6 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
             return;
         }
 
-        $ldap = new Horde_Ldap(self::$ldapcfg['server']);
         $clean = array('cn=Horde_Ldap_TestEntry,',
                        'ou=Horde_Ldap_Test_subdelete,',
                        'ou=Horde_Ldap_Test_modify,',
@@ -29,10 +28,15 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
                        'ou=Horde_Ldap_Test_move,',
                        'ou=Horde_Ldap_Test_pool,',
                        'ou=Horde_Ldap_Test_tgt,');
-        foreach ($clean as $dn) {
-            try {
-                $ldap->delete($dn . self::$ldapcfg['server']['basedn'], true);
-            } catch (Exception $e) {}
+        try {
+            $ldap = new Horde_Ldap(self::$ldapcfg['server']);
+            foreach ($clean as $dn) {
+                try {
+                    $ldap->delete($dn . self::$ldapcfg['server']['basedn'], true);
+                } catch (Exception $e) {
+                }
+            }
+        } catch (Exception $e) {
         }
     }
 
@@ -42,15 +46,23 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
     public function testConnectAndPrivilegedBind()
     {
         // This connect is supposed to fail.
-        $lcfg = array('hostspec' => 'nonexistant.ldap.horde.org');
+        $lcfg = array(
+            'hostspec' => 'nonexistant.ldap.horde.org',
+            'timeout' => 1,
+        );
         try {
             $ldap = new Horde_Ldap($lcfg);
             $this->fail('Horde_Ldap_Exception expected.');
         } catch (Horde_Ldap_Exception $e) {}
 
         // Failing with multiple hosts.
-        $lcfg = array('hostspec' => array('nonexistant1.ldap.horde.org',
-                                          'nonexistant2.ldap.horde.org'));
+        $lcfg = array(
+            'hostspec' => array(
+                'nonexistant1.ldap.horde.org',
+                'nonexistant2.ldap.horde.org'
+            ),
+            'timeout' => 1,
+        );
         try {
             $ldap = new Horde_Ldap($lcfg);
             $this->fail('Horde_Ldap_Exception expected.');
@@ -60,11 +72,16 @@ class Horde_Ldap_LdapTest extends Horde_Ldap_TestBase
         $ldap = new Horde_Ldap(self::$ldapcfg['server']);
 
         // Working connect and privileged bind with first host down.
-        $lcfg = array('hostspec' => array('nonexistant.ldap.horde.org',
-                                          self::$ldapcfg['server']['hostspec']),
-                      'port'      => self::$ldapcfg['server']['port'],
-                      'binddn'    => self::$ldapcfg['server']['binddn'],
-                      'bindpw'    => self::$ldapcfg['server']['bindpw']);
+        $lcfg = array(
+            'hostspec' => array(
+                'nonexistant.ldap.horde.org',
+                self::$ldapcfg['server']['hostspec']
+            ),
+            'port'    => self::$ldapcfg['server']['port'],
+            'binddn'  => self::$ldapcfg['server']['binddn'],
+            'bindpw'  => self::$ldapcfg['server']['bindpw'],
+            'timeout' => 1,
+        );
         $ldap = new Horde_Ldap($lcfg);
     }
 

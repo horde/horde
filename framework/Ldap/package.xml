@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2015-02-05</date>
  <version>
-  <release>2.2.1</release>
-  <api>1.2.0</api>
+  <release>2.3.0</release>
+  <api>1.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Add &apos;timeout&apos; parameter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -462,15 +462,15 @@
   </release>
   <release>
    <version>
-    <release>2.2.1</release>
-    <api>1.2.0</api></version>
+    <release>2.3.0</release>
+    <api>1.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-17</date>
+   <date>2015-02-05</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Add &apos;timeout&apos; parameter.
    </notes>
   </release>
  </changelog>
