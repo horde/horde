@@ -403,6 +403,11 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $GLOBALS['conf']['use_ssl'] = 2;
         $GLOBALS['conf']['server']['port'] = 1234;
         $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
+
+        // This fails since the port is always ignored. Not sure if this is intended or not.
+        // $GLOBALS['conf']['use_ssl'] = 3;
+        // $GLOBALS['conf']['server']['port'] = 1234;
+        // $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
     }
 }
 
