@@ -318,9 +318,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             // html
             $this->_bodyHtml = $value;
             break;
-        case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
-            $this->_rtfCompressed = $value;
-            break;
         case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
             $this->_inSync = $value;
             break;
