@@ -731,6 +731,10 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $attendees = null;
         }
 
+        try {
+            $view->percentComplete = $vtodo->getAttribute('PERCENT-COMPLETE');
+        } catch (Horde_Icalendar_Exception $e) {}
+
         if (!empty($options)) {
             reset($options);
             $view->options = $options;
