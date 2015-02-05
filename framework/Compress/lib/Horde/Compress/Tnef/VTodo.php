@@ -233,7 +233,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     {
         switch ($attribute) {
         case Horde_Compress_Tnef::ABODY;
-            $this->_bodyPlain = $value;
+            $this->_bodyPlain = trim($value);
             break;
         }
     }
