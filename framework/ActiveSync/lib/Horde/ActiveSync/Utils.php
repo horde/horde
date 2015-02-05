@@ -91,40 +91,42 @@ class Horde_ActiveSync_Utils
         while (!feof($stream)) {
             $tag = ord(fread($stream, 1));
             $length = ord(fread($stream, 1));
-            switch ($tag) {
-            case 0:
-                $data = unpack('A' . $length . 'AttName', fread($stream, $length));
-                $results['AttachmentName'] = $data['AttName'];
-                break;
-            case 1:
-                $data = unpack('A' . $length . 'CollId', fread($stream, $length));
-                $results['CollectionId'] = $data['CollId'];
-                break;
-            case 3:
-                $data = unpack('A' . $length . 'ItemId', fread($stream, $length));
-                $results['ItemId'] = $data['ItemId'];
-                break;
-            case 4:
-                $data = unpack('A' . $length . 'Lid', fread($stream, $length));
-                $results['LongId'] = $data['Lid'];
-                break;
-            case 5:
-                $data = unpack('A' . $length . 'Pid', fread($stream, $length));
-                $results['ParentId'] = $data['Pid'];
-                break;
-            case 6:
-                $data = unpack('A' . $length . 'Oc', fread($stream, $length));
-                $results['Occurrence'] = $data['Oc'];
-                break;
-            case 7:
-                $options = ord(fread($stream, 1));
-                $results['SaveInSent'] = !!($options & 0x01);
-                $results['AcceptMultiPart'] = !!($options & 0x02);
-                break;
-            case 8:
-                $data = unpack('A' . $length . 'User', fread($stream, $length));
-                $results['User'] = $data['User'];
-                break;
+            if ($length > 0 || $tag == 7) {
+                switch ($tag) {
+                case 0:
+                    $data = unpack('A' . $length . 'AttName', fread($stream, $length));
+                    $results['AttachmentName'] = $data['AttName'];
+                    break;
+                case 1:
+                    $data = unpack('A' . $length . 'CollId', fread($stream, $length));
+                    $results['CollectionId'] = $data['CollId'];
+                    break;
+                case 3:
+                    $data = unpack('A' . $length . 'ItemId', fread($stream, $length));
+                    $results['ItemId'] = $data['ItemId'];
+                    break;
+                case 4:
+                    $data = unpack('A' . $length . 'Lid', fread($stream, $length));
+                    $results['LongId'] = $data['Lid'];
+                    break;
+                case 5:
+                    $data = unpack('A' . $length . 'Pid', fread($stream, $length));
+                    $results['ParentId'] = $data['Pid'];
+                    break;
+                case 6:
+                    $data = unpack('A' . $length . 'Oc', fread($stream, $length));
+                    $results['Occurrence'] = $data['Oc'];
+                    break;
+                case 7:
+                    $options = ord(fread($stream, 1));
+                    $results['SaveInSent'] = !!($options & 0x01);
+                    $results['AcceptMultiPart'] = !!($options & 0x02);
+                    break;
+                case 8:
+                    $data = unpack('A' . $length . 'User', fread($stream, $length));
+                    $results['User'] = $data['User'];
+                    break;
+                }
             }
         }
 
