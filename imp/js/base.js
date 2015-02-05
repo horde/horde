@@ -2576,19 +2576,28 @@ var ImpBase = {
                 return;
             }
 
+            tmp = e;
             e = new Event(e);
             e.preventDefault();
             noelt = true;
-            switch(kc) {
-                case 224://Firefox osx cmd
-                case 17://Opera osx cmd
-                case 91://Webkit left osx cmd
-                case 93://WebKit right osx cmd
-                case 17://CTRL
-                case 67://CTRL
+
+            switch (kc) {
+            case 17:  // CTRL/Opera OSX Cmd
+            case 91:  // WebKit left OSX Cmd
+            case 93:  // WebKit right OSX Cmd
+            case 224: // Firefox OSX Cmd
+                break;
+
+            case 67:
+                if (tmp.metaKey || tmp.ctrlKey) {
+                    // Allow copy text action inside HTML IFRAME.
                     break;
-                default:
-                    $$('IFRAME').invoke('blur');
+                }
+                // Fall-through
+
+            default:
+                $$('IFRAME').invoke('blur');
+                break;
             }
         } else if (e.findElement('FORM')) {
             // Inside form, so ignore.
