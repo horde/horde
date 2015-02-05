@@ -1,2 +1,0 @@
-<?php
-$conf['crypt']['gnupg'] = '/usr/bin/gpg';
