@@ -52,43 +52,31 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarinternal1">
 <div>
-  <label><?php echo _("Calendar title") ?>:<br />
+  <p><label><?php echo _("Calendar title") ?>:<br />
     <input type="text" name="name" id="kronolithCalendarinternalName" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div>
-  <label><?php echo _("Color") ?>:
+  <p><label><?php echo _("Color") ?>:
     <input type="text" name="color" id="kronolithCalendarinternalColor" size="7" />
     <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
-  </label>
+  </label></p>
 </div>
 
 <div class="tabset">
   <ul>
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkTags"><?php echo _("Tags") ?></a></li>
-  </ul>
-  <?php if (empty($GLOBALS['conf']['share']['no_sharing'])):?>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Sharing") ?></a></li>
-    </ul>
-  </span>
-  <?php endif;?>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkUrls"><?php echo _("Subscription") ?></a></li>
-    </ul>
+    <?php if (empty($GLOBALS['conf']['share']['no_sharing'])):?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkPerms"><?php echo _("Sharing") ?></a></li>
+    <?php endif;?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkUrls"><?php echo _("Subscription") ?></a></li>
     <?php if (!empty($GLOBALS['conf']['menu']['import_export'])): ?>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImport"><?php echo _("Import") ?></a></li>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkExport"><?php echo _("Export") ?></a></li>
-    </ul>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkImport"><?php echo _("Import") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarinternalLinkExport"><?php echo _("Export") ?></a></li>
     <?php endif ?>
-  </span>
+  </ul>
 </div>
 <br class="clear" />
 
@@ -98,70 +86,74 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div id="kronolithCalendarinternalTabTags" class="kronolithTabsOption kronolithTabTags" style="display:none">
   <input id="kronolithCalendarinternalTags" name="tags" />
+  <label for="kronolithCalendarinternalTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <span id="kronolithCalendarinternalTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   <div class="kronolithTopTags" id="kronolithCalendarinternalTopTags"></div>
-</div>
-
-<div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
-  <div id="kronolithCalendarinternalUrls">
-    <div id="kronolithCalendarinternalCaldav">
-      <?php echo Horde_Help::link('kronolith', 'caldav') . ' ' . _("Learn how to subscribe via CalDAV from calendar clients.") ?><br />
-      <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
-    </div>
-    <div>
-      <label for="kronolithCalendarinternalUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
-    </div>
-    <div>
-      <label for="kronolithCalendarinternalUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
-    </div>
-    <div>
-      <label for="kronolithCalendarinternalUrlFeed"><?php echo _("Feed URL") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
-    </div>
-    <div>
-      <label for="kronolithCalendarinternalEmbedUrl"><?php echo _("Embed Script") ?></label>
-      <span class="kronolithSeparator">&mdash; <?php echo _("Embed calendar on external website") ?></span><br />
-      <input type="text" id="kronolithCalendarinternalEmbedUrl" class="kronolithLongField" onfocus="this.select()" /><br />
-      <?php echo Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") ?><br />
-    </div>
-  </div>
 </div>
 
 <div id="kronolithCalendarinternalTabPerms" class="kronolithTabsOption" style="display:none">
 <?php $type = 'internal'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
+<div id="kronolithCalendarinternalTabUrls" class="kronolithTabsOption" style="display:none">
+  <div id="kronolithCalendarinternalUrls">
+    <p id="kronolithCalendarinternalCaldav">
+      <label for="kronolithCalendarinternalUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+    </p>
+    <p>
+      <label for="kronolithCalendarinternalUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+    </p>
+    <p><?php echo Horde_Help::link('kronolith', 'caldav') . ' ' . _("Learn how to subscribe via CalDAV from calendar clients.") ?></p>
+    <hr />
+    <p>
+      <label for="kronolithCalendarinternalUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this calendar from another calendar program") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
+    </p>
+    <p>
+      <label for="kronolithCalendarinternalUrlFeed"><?php echo _("Feed URL") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe from a feed reader") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalUrlFeed" class="kronolithLongField" onfocus="this.select()" /><br />
+    </p>
+    <p>
+      <label for="kronolithCalendarinternalEmbedUrl"><?php echo _("Embed Script") ?></label>
+      <span class="kronolithSeparator">&mdash; <?php echo _("Embed calendar on external website") ?></span><br />
+      <input type="text" id="kronolithCalendarinternalEmbedUrl" class="kronolithLongField" onfocus="this.select()" />
+    </p>
+    <p>
+      <?php echo Horde_Help::link('kronolith', 'embed') . ' ' . _("Learn how to embed other calendar views.") ?>
+    </p>
+  </div>
+</div>
+
 <div id="kronolithCalendarinternalTabImport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
-  <div>
+  <p>
     <label for="kronolithCalendarinternalImport"><?php echo _("Import ICS file") ?>:</label>
     <input type="file" id="kronolithCalendarinternalImport" name="import_file" /><br />
-  </div>
-  <div>
+  </p>
+  <p>
     <label for="kronolithCalendarinternalImportURL"><?php echo _("Import ICS URL") ?>:</label>
     <input type="text" id="kronolithCalendarinternalImportUrl" name="import_url" /><br />
-  </div>
-  <div>
+  </p>
+  <p>
     <?php printf(_("Importing should %s %sreplace this calendar%s."),
                  '<input type="checkbox" id="kronolithCalendarinternalImportOver" name="purge" />',
                  '<label for="kronolithCalendarinternalImportOver">', '</label>') ?>
     <span class="kronolithDialogWarning"><?php printf(_("%sWarning:%s also %sdeletes all events%s currently in the calendar."), '<strong>', '</strong>', '<strong>', '</strong>') ?></span>
-  </div>
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
 </div>
 
 <div id="kronolithCalendarinternalTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
-  <div>
+  <p>
     <label><?php echo _("Export ICS file") ?>:</label>
     <a id="kronolithCalendarinternalExport"><?php echo _("Calendar ICS file") ?></a>
-  </div>
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
 </div>
 
 <div class="kronolithFormActions">
@@ -181,39 +173,27 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div class="kronolithCalendarDiv" id="kronolithCalendartasklists1">
 <div>
-  <label><?php echo _("Name") ?>:<br />
+  <p><label><?php echo _("Name") ?>:<br />
     <input type="text" name="name" id="kronolithCalendartasklistsName" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div>
-  <label><?php echo _("Color") ?>:<br />
+  <p><label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendartasklistsColor" size="7" />
     <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
-  </label>
+  </label></p>
 </div>
 
 <div class="tabset">
   <ul>
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkDescription"><?php echo _("Description") ?></a></li>
+    <?php if (empty($GLOBALS['conf']['share']['no_sharing'])):?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Sharing") ?></a></li>
+    <?php endif;?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkUrls"><?php echo _("Subscription") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkExport"><?php echo _("Export") ?></a></li>
   </ul>
-  <?php if (empty($GLOBALS['conf']['share']['no_sharing'])):?>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkPerms"><?php echo _("Sharing") ?></a></li>
-    </ul>
-  </span>
-  <?php endif;?>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkUrls"><?php echo _("Subscription") ?></a></li>
-    </ul>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendartasklistsLinkExport"><?php echo _("Export") ?></a></li>
-    </ul>
-  </span>
 </div>
 <br class="clear" />
 
@@ -221,34 +201,36 @@ $accountUrl = Horde::url($accountUrl, true, -1)
   <textarea name="description" id="kronolithCalendartasklistsDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 
-<div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
-  <div id="kronolithCalendartasklistsCaldav">
-    <label for="kronolithCalendartasklistsUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendartasklistsUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
-  </div>
-  <div>
-    <label for="kronolithCalendartasklistsUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendartasklistsUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
-  </div>
-  <div>
-    <label for="kronolithCalendartasklistsUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
-    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
-    <input type="text" id="kronolithCalendartasklistsUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
-  </div>
-</div>
-
 <div id="kronolithCalendartasklistsTabPerms" class="kronolithTabsOption" style="display:none">
 <?php $type = 'tasklists'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 
+<div id="kronolithCalendartasklistsTabUrls" class="kronolithTabsOption" style="display:none">
+  <p id="kronolithCalendartasklistsCaldav">
+    <label for="kronolithCalendartasklistsUrlCaldav"><?php echo _("CalDAV Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlCaldav" class="kronolithLongField" onfocus="this.select()" />
+  </p>
+  <p>
+    <label for="kronolithCalendartasklistsUrlAccount"><?php echo _("CalDAV Account URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to all your calendars from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlAccount" class="kronolithLongField" onfocus="this.select()" value="<?php echo $accountUrl ?>" />
+  </p>
+    <p><?php echo Horde_Help::link('kronolith', 'caldav') . ' ' . _("Learn how to subscribe via CalDAV from calendar clients.") ?></p>
+    <hr />
+  <p>
+    <label for="kronolithCalendartasklistsUrlWebdav"><?php echo _("WebDAV/ICS Subscription URL") ?></label>
+    <span class="kronolithSeparator">&mdash; <?php echo _("Subscribe to this task list from another calendar program") ?></span><br />
+    <input type="text" id="kronolithCalendartasklistsUrlWebdav" class="kronolithLongField" onfocus="this.select()" />
+  </p>
+</div>
+
 <div id="kronolithCalendartasklistsTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
-  <div>
+  <p>
     <label><?php echo _("Export ICS file") ?>:</label>
     <a id="kronolithCalendartasklistsExport"><?php echo _("Task list ICS file") ?></a>
-  </div>
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
 </div>
 
 <div class="kronolithFormActions">
@@ -268,16 +250,16 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarremote1">
 <div>
-  <label><?php echo _("URL") ?>:<br />
+  <p><label><?php echo _("URL") ?>:<br />
     <input type="text" name="url" id="kronolithCalendarremoteUrl" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div>
-  <label><?php echo _("Color") ?>:<br />
+  <p><label><?php echo _("Color") ?>:<br />
     <input type="text" name="color" id="kronolithCalendarremoteColor" size="7" />
     <?php echo Horde::url('#')->link(array('title' => _("Color Picker"), 'class' => 'kronolithColorPicker')) . Horde::img('colorpicker.png', _("Color Picker")) . '</a>' ?>
-  </label>
+  </label></p>
 </div>
 
 <div class="kronolithFormActions">
@@ -288,18 +270,18 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 </div>
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarremote2">
-<div><?php echo _("This calendar requires to specify a user name and password.") ?></div>
+<div><p><?php echo _("This calendar requires to specify a user name and password.") ?></p></div>
 
 <div>
-  <label><?php echo _("Username") ?>:<br />
+  <p><label><?php echo _("Username") ?>:<br />
     <input type="text" name="user" id="kronolithCalendarremoteUsername" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div>
-  <label><?php echo _("Password") ?>:<br />
+  <p><label><?php echo _("Password") ?>:<br />
     <input type="password" name="password" id="kronolithCalendarremotePassword" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div class="kronolithFormActions">
@@ -310,15 +292,15 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 
 <div class="kronolithCalendarDiv" id="kronolithCalendarremote3">
 <div>
-  <label><?php echo _("Name") ?>:<br />
+  <p><label><?php echo _("Name") ?>:<br />
     <input type="text" name="name" id="kronolithCalendarremoteName" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 
 <div>
-  <label><?php echo _("Description") ?>:<br />
+  <p><label><?php echo _("Description") ?>:<br />
     <textarea name="desc" id="kronolithCalendarremoteDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
-  </label>
+  </label></p>
 </div>
 
 <div class="kronolithFormActions">
@@ -361,12 +343,12 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 <input id="kronolithCalendarresourceId" type="hidden" name="calendar" />
 <div class="kronolithCalendarDiv" id="kronolithCalendarresource1">
 <div>
-  <label><?php echo _("Name") ?>:<br />
+  <p><label><?php echo _("Name") ?>:<br />
     <input type="text" name="name" id="kronolithCalendarresourceName" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 <div>
-  <label><?php echo _("Resource Response Type")?>:<br />
+  <p><label><?php echo _("Resource Response Type")?>:<br />
     <select id="kronolithCalendarresourceResponseType" name="response_type">
       <option value="0"><?php echo _("None") ?></option>
       <option value="1"><?php echo _("Auto") ?></option>
@@ -374,31 +356,26 @@ $accountUrl = Horde::url($accountUrl, true, -1)
       <option value="3"><?php echo _("Always Decline") ?></option>
       <option value="4"><?php echo _("Manual") ?></option>
     </select>
-  </label>
+  </label></p>
 <input id="kronolithCalendarresourceColor" type="hidden" name="color" />
 <input class="kronolithColorPicker" type="hidden" />
 </div>
 <div class="tabset">
   <ul>
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkDescription"><?php echo _("Description") ?></a></li>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkExport"><?php echo _("Export") ?></a></li>
   </ul>
-  <span>
-    <span class="kronolithSeparator">|</span>
-    <ul>
-      <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkExport"><?php echo _("Export") ?></a></li>
-    </ul>
-  </span>
 </div>
 <br class="clear" />
 <div id="kronolithCalendarresourceTabDescription" class="kronolithTabsOption">
-    <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 <div id="kronolithCalendarresourceTabExport" class="kronolithTabsOption" style="display:none">
-  <div class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></div>
-  <div>
+  <p>
     <label><?php echo _("Export ICS file") ?>:</label>
     <a id="kronolithCalendarresourceExport"><?php echo _("Calendar ICS file") ?></a>
-  </div>
+  </p>
+  <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
 </div>
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
@@ -413,23 +390,23 @@ $accountUrl = Horde::url($accountUrl, true, -1)
 <input id="kronolithCalendarresourcegroupId" type="hidden" name="calendar" />
 <div class="kronolithCalendarDiv" id="kronolithCalendarresourcegroup1">
 <div>
-  <label><?php echo _("Name") ?>:<br />
+  <p><label><?php echo _("Name") ?>:<br />
     <input type="text" name="name" id="kronolithCalendarresourcegroupName" class="kronolithLongField" />
-  </label>
+  </label></p>
 </div>
 <div>
-  <label><?php echo _("Description") ?>:<br />
+  <p><label><?php echo _("Description") ?>:<br />
     <textarea name="description" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
-  </label>
+  </label></p>
 </div>
 <div>
-  <label><?php echo _("Resources") ?>:<br />
+  <p><label><?php echo _("Resources") ?>:<br />
    <select id="kronolithCalendarresourcegroupmembers" name="members[]" multiple="multiple">
    <?php foreach ($resource_enum as $id => $resource_name): ?>
     <option value="<?php echo $id ?>"><?php echo $resource_name ?></option>
    <?php endforeach; ?>
    </select>
-  </label>
+  </label></p>
 </div>
 
 <div>

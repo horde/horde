@@ -3243,7 +3243,7 @@ KronolithCore = {
                 form.down('.kronolithCalendarSubscribe').hide();
                 form.down('.kronolithCalendarUnsubscribe').hide();
                 if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').up('span').show();
+                    $('kronolithCalendar' + type + 'LinkPerms').show();
                 }
                 if (!Object.isUndefined(info) && info.owner) {
                     this.setPermsFields(type, info.perms);
@@ -3286,7 +3286,7 @@ KronolithCore = {
                 }
                 form.down('.kronolithFormActions .kronolithSeparator').show();
                 if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').up('span').hide();
+                    $('kronolithCalendar' + type + 'LinkPerms').hide();
                 }
             } else {
                 form.down('.kronolithFormActions .kronolithSeparator').hide();

@@ -92,6 +92,9 @@ html, body {
     background-image: url("../graphics/alerts/message.png");
     font-style: italic;
 }
+span.kronolithDialogWarning {
+    background-position: left -1px;
+}
 .kronolithDialogWarning strong {
     color: #f00;
 }
@@ -129,9 +132,27 @@ html, body {
     vertical-align: middle;
     line-height: normal;
 }
+.kronolithDialog input:focus,
+.kronolithDialog textarea:focus,
+.kronolithDialog select:focus {
+    border-color: #d0d0d0;
+}
 .kronolithLongField {
     width: 100%;
 }
+#kronolithEventTitle,
+#kronolithTaskTitle,
+#kronolithCalendarinternalName,
+#kronolithCalendartasklistsName,
+#kronolithCalendarremoteUrl,
+#kronolithCalendarremoteUsername,
+#kronolithCalendarremotePassword,
+#kronolithCalendarremoteName,
+#kronolithCalendarresourceName,
+#kronolithCalendarresourcegroupName {
+    width: 99%;
+}
+
 div.kronolithFormActions {
     margin: 5px 0;
 }
@@ -179,6 +200,9 @@ ul.horde-tags li:hover {
    border-color: #ccc transparent #fff;
    border-style: solid none;
 }
+.kronolithTabsOption hr {
+    margin: 5px -5px;
+}
 
 .kronolithTabsOption {
     position: relative;
@@ -186,7 +210,11 @@ ul.horde-tags li:hover {
     border: 1px solid #d0d0d0;
     padding: 2px 5px;
 }
-#kronolithEventTabDescription {
+#kronolithEventTabDescription,
+#kronolithTaskTabDescription,
+#kronolithCalendarinternalTabDescription,
+#kronolithCalendartasklistsTabDescription,
+#kronolithCalendarresourceTabDescription {
     border: 0;
     padding: 0;
 }
@@ -195,22 +223,47 @@ ul.horde-tags li:hover {
 }
 #kronolithEventTabExport div,
 #kronolithEventTabRecur div,
-#kronolithEventTabReminder div {
+#kronolithEventTabReminder div,
+#kronolithTaskTabRecur div,
+#kronolithTaskTabReminder div {
     margin-bottom: 0;
 }
-#kronolithEventDescription {
+#kronolithEventDescription,
+#kronolithTaskDescription,
+#kronolithCalendarinternalDescription,
+#kronolithCalendartasklistsDescription
+#kronolithCalendarresourceDescription {
     padding: 0 1px;
+}
+#kronolithEventUrl,
+#kronolithCalendarinternalUrlCaldav,
+#kronolithCalendarinternalUrlAccount,
+#kronolithCalendarinternalUrlWebdav,
+#kronolithCalendarinternalUrlFeed,
+#kronolithCalendarinternalEmbedUrl,
+#kronolithCalendartasklistsUrlCaldav,
+#kronolithCalendartasklistsUrlAccount,
+#kronolithCalendartasklistsUrlWebdav {
+    border-left: 0;
+    border-right: 0;
+    margin: -2px -5px;
 }
 #kronolithEventUrl {
     border: 0;
-    margin: -2px -5px;
 }
-#kronolithAttendeesACBox, #kronolithResourceACBox, #kronolithEventACBox {
+#kronolithCalendartasklistsUrlWebdav {
+    border-bottom: 0;
+}
+#kronolithAttendeesACBox,
+#kronolithResourceACBox,
+#kronolithEventACBox,
+#kronolithTaskACBox,
+#kronolithCalendarinternalACBox {
     margin: -2px -5px 0;
     border-left: 0;
     border-right: 0;
 }
-#kronolithEventACBox {
+#kronolithEventACBox, #kronolithTaskACBox, #kronolithCalendarinternalACBox {
     border-top: 0;
 }
 
@@ -250,7 +303,10 @@ ul.horde-tags li:hover {
     margin: 0;
     height: 100%;
 }
-#kronolithEventACBox, #kronolithCalendarinternalACBox, #kronolithAttendeesACBox,
+#kronolithEventACBox,
+#kronolithTaskACBox,
+#kronolithCalendarinternalACBox,
+#kronolithAttendeesACBox,
 #kronolithResourceACBox {
     line-height: 100%;
 }

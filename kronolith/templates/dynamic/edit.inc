@@ -203,7 +203,6 @@
     . Horde::img('picker.png', _("Set end date"), 'id="kronolithEventRecurPicker" class="kronolithDatePicker"'),
     '<label><input type="radio" name="recur_end_type" value="count" />', '</label>
     <label><input type="text" name="recur_count" id="kronolithEventRecurCount" value="" size="3" class="kronolithEventValue" />', '</label>') ?>
-    <br />
   </p>
   <p id="kronolithEventRepeatException" style="display:none">
     <?php printf(_("This is an exception to a recurring event originally scheduled on %s"), '<span id="recur_exception_original"></span>')?>
