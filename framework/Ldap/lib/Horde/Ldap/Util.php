@@ -76,15 +76,14 @@ class Horde_Ldap_Util
      */
     public static function explodeDN($dn, array $options = array())
     {
-        if (!isset($options['onlyvalues'])) {
-            $options['onlyvalues'] = false;
-        }
-        if (!isset($options['reverse'])) {
-            $options['reverse'] = false;
-        }
-        if (!isset($options['casefold'])) {
-            $options['casefold'] = 'upper';
-        }
+        $options = array_merge(
+            array(
+                'casefold' => 'upper',
+                'onlyvalues' => false,
+                'reverse' => false,
+            ),
+            $options
+        );
 
         // Escaping of DN and stripping of "OID.".
         $dn = self::canonicalDN($dn, array('casefold' => $options['casefold']));
@@ -284,7 +283,7 @@ class Horde_Ldap_Util
      *
      * @return boolean|string The canonical DN or false if the DN is not valid.
      */
-    public static function canonicalDN($dn, $options = array())
+    public static function canonicalDN($dn, array $options = array())
     {
         if ($dn === '') {
             // Empty DN is valid.
@@ -292,13 +291,14 @@ class Horde_Ldap_Util
         }
 
         // Options check.
-        $options['reverse'] = !empty($options['reverse']);
-        if (!isset($options['casefold'])) {
-            $options['casefold'] = 'upper';
-        }
-        if (!isset($options['separator'])) {
-            $options['separator'] = ',';
-        }
+        $options = array_merge(
+            array(
+                'casefold' => 'upper',
+                'reverse' => false,
+                'separator' => ',',
+            ),
+            $options
+        );
 
         if (!is_array($dn)) {
             // It is not clear to me if the perl implementation splits by the
@@ -347,7 +347,7 @@ class Horde_Ldap_Util
                     if (!is_int($subkey)) {
                         $subval = $subkey . '=' . $subval;
                     }
-                    $subval_processed = self::canonicalDN($subval);
+                    $subval_processed = self::canonicalDN($subval, $options);
                     if (false === $subval_processed) {
                         return false;
                     }
@@ -366,7 +366,7 @@ class Horde_Ldap_Util
                     // Sort RDN keys alphabetically.
                     sort($rdns, SORT_STRING);
                     foreach ($rdns as $rdn) {
-                        $subval_processed = self::canonicalDN($rdn);
+                        $subval_processed = self::canonicalDN($rdn, $options);
                         if (false === $subval_processed) {
                             return false;
                         }
