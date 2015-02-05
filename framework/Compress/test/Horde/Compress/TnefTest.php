@@ -36,6 +36,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
      */
     public function testvTodo()
     {
+        $this->markTestSkipped('Still a work in progress.');
         $tnef = Horde_Compress::factory('Tnef');
         $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
         try {
