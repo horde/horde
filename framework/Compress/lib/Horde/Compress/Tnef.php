@@ -245,6 +245,18 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_geti($data, 16))
             );
 
+            // Version
+            $this->_geti($data, 8); // lvl_message
+            $this->_geti($data, 32); // idTnefVersion
+            $this->_getx($data, $this->_geti($data, 32));
+            $this->_geti($data, 16); //checksum
+
+            // Codepage
+            $this->_geti($data, 8);
+            $this->_geti($data, 32); // idCodepage
+            $this->_getx($data, $this->_geti($data, 32));
+            $this->_geti($data, 16); //checksum
+
             $out = array();
             $this->_msgInfo = new Horde_Compress_Tnef_MessageData($this->_logger);
             while (strlen($data) > 0) {
@@ -598,10 +610,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $this->_extractMapiAttributes($properties);
             break;
         case self::APRIORITY:
-            // Must use geti, not getx for the APRIORITY value.
-            $value = $this->_geti($data, $this->_geti($data, 32));
-            $this->_geti($data, 16);
-            break;
+        case self::AOWNER:
+        case self::ARECIPIENTTABLE:
+        case self::ABODY:
+        case self::ASTATUS:
         case self::ACONVERSATIONID:
         case self::APARENTID:
         case self::AMESSAGEID:
@@ -615,29 +627,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         case self::ID_DATE_END:
             $value = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_decodeAttribute($data)), 'UTC');
             break;
-        case self::AOWNER:
-            $value = $this->_decodeAttribute($data);
-            break;
-        case self::OEMCODEPAGE:
-            $value = $this->_geti($data, $this->_geti($data, 32));
-            $this->_geti($data, 16); //checksum
-            break;
-        case self::AVERSION:
-            $this->_decodeAttribute($data);
-            break;
         case self::AFROM:
         case self::ASENTFOR:
-            $display_name = $this->_getx($data, $this->_geti($data, 16));
-            $email = $this->_getx($data, $this->_geti($data, 16));
+            $msgObj = $this->_decodeAttribute($data);
+            $display_name = $this->_getx($msgObj, $this->_geti($msgObj, 16));
+            $email = $this->_getx($msgObj, $this->_geti($msgObj, 16));
             $value = $email; // @todo - Do we need to pass display name too?
-            $this->_geti($data, 16); // checksum
-            break;
-        case self::ARECIPIENTTABLE:
-            $value = $this->_decodeAttribute($data);
-            break;
-        case self::ASTATUS:
-            $value = $this->_geti($data, $this->_geti($data, 32));
-            $this->_geti($data, 16);
             break;
         default:
             $size = $this->_geti($data, 32);
