@@ -250,7 +250,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         switch ($name) {
         case self::MAPI_TASK_OWNER:
             // This is the OWNER, not to be confused with the ORGANIZER.
-            $this->_owner = $value;
+            $this->_owner = str_replace(array('(', ')'), array('<', '>'), $value);
             break;
         case Horde_Compress_Tnef::IPM_TASK_GUID:
             // Almost positive this is wrong :(
@@ -375,7 +375,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         $vtodo->setAttribute('UID', $this->_guid);
         // For REQUESTS, we MUST have the ORGANIZER and an ATTENDEE.
         if ($this->_state == self::STATE_ASSIGNERS_COPY || $this->_ownership == self::OWNERSHIP_ASSIGNERS_COPY) {
-            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_lastUser);
+            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_owner);
             $list = new Horde_Mail_Rfc822_List($this->_lastUser);
             foreach ($list as $email) {
                 $vtodo->setAttribute('ATTENDEE', $email, array('ROLE' => 'REQ-PARTICIPANT'));
