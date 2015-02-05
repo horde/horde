@@ -305,43 +305,39 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
                 $this->_status = self::TASK_STATUS_COMPLETED;
                 $this->_percentComplete = 1;
                 break;
-            case Horde_Compress_Tnef::MAPI_TAG_BODY:
-                // plaintext. Most likely set via the attBody TNEF attribute,
-                // and not by the MAPI property.
-                if (empty($this->_bodyPlain)) {
-                    $this->_bodyPlain = $value;
-                }
-                break;
-            case Horde_Compress_Tnef::MAPI_TAG_HTML:
-                // html
-                $this->_bodyHtml = $value;
-                break;
-            case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
-                $this->_rtfCompressed = $value;
-                break;
-            case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
-                $this->_inSync = $value;
-                break;
             }
+            break;
+        case Horde_Compress_Tnef::MAPI_TAG_BODY:
+            // plaintext. Most likely set via the attBody TNEF attribute,
+            // and not by the MAPI property.
+            if (empty($this->_bodyPlain)) {
+                $this->_bodyPlain = $value;
+            }
+            break;
+        case Horde_Compress_Tnef::MAPI_TAG_HTML:
+            // html
+            $this->_bodyHtml = $value;
+            break;
+        case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
+            $this->_rtfCompressed = $value;
+            break;
+        case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
+            $this->_inSync = $value;
             break;
         case self::MAPI_TASK_UPDATES:
             if (!empty($value)) {
                 $this->_updates = true;
             }
             break;
-
         case self::MAPI_TASK_OWNERSHIP:
             $this->_ownership = $value;
             break;
-
         case self::MAPI_TASK_STATE:
             $this->_state = $value;
             break;
-
         case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
             $this->_lastUser = $value;
             break;
-
         case self::MAPI_TASK_ASSIGNER:
             // *sigh* This isn't set by Outlook/Exchange until AFTER the
             // assignee receives the request. I.e., this is blank on the initial
