@@ -238,7 +238,6 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         switch ($attribute) {
         case Horde_Compress_Tnef::ABODY;
             $this->_description = $value;
-            var_dump($value);
             break;
         }
     }
