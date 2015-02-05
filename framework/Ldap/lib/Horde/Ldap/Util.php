@@ -304,7 +304,7 @@ class Horde_Ldap_Util
             // It is not clear to me if the perl implementation splits by the
             // user defined separator or if it just uses this separator to
             // construct the new DN.
-            $dn = preg_split('/(?<!\\\\)' . $options['separator'] . '/', $dn);
+            $dn = preg_split('/(?<!\\\\)' . preg_quote($options['separator']) . '/', $dn);
 
             // Clear wrong splitting (possibly we have split too much).
             $dn = self::_correctDNSplitting($dn, $options['separator']);

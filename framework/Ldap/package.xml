@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
+* [jan] Fix error when using custom separators in Horde_Ldap_Utils::canonicalDN().
 * [jan] Fix casefolding option not being passed to multivalued RDNs.
 * [jan] Fix exists() with multivalued RDNs.
 * [jan] Add &apos;timeout&apos; parameter.
@@ -472,6 +473,7 @@
    <date>2015-02-05</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
+* [jan] Fix error when using custom separators in Horde_Ldap_Utils::canonicalDN().
 * [jan] Fix casefolding option not being passed to multivalued RDNs.
 * [jan] Fix exists() with multivalued RDNs.
 * [jan] Add &apos;timeout&apos; parameter.
