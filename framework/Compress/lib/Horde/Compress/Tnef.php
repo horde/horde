@@ -98,7 +98,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_START_DATE                   = 0x0060;
     const MAPI_END_DATE                     = 0x0061;
     const MAPI_SENT_REP_EMAIL_ADDR          = 0x0065;
-    const MAPI_COMPRESSED                   = 0x1009;
     const MAPI_IN_REPLY_TO_ID               = 0x1042;
 
     const MAPI_MESSAGE_CLASS                = 0x001A;

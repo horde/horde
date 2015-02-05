@@ -349,7 +349,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             // a TNEF. Indicates the response status of an ATTENDEE. Putting
             // this here for reference, see MS-OXOCAL 2.2.1.11
             break;
-        case Horde_Compress_Tnef::MAPI_COMPRESSED:
+        case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
             // We may already have a description from the TNEF attBODY attribute
             if (empty($this->_description)) {
                 $this->_description = $value;
