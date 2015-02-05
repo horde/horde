@@ -76,9 +76,9 @@ class Trean_Bookmarks
      *
      * @return array  An array of Trean_Bookmark objects.
      */
-    public function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    public function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0, $userId = NULL)
     {
-        $values = array($this->_userId);
+        $values = array(is_null($userId) ? $this->_userId : $userId);
 
         $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
@@ -220,7 +220,7 @@ class Trean_Bookmarks
     public function removeBookmark(Trean_Bookmark $bookmark)
     {
         /* Check permissions. */
-        if ($bookmark->userId != $this->_userId) {
+        if ($bookmark->userId != $this->_userId && !$GLOBALS['registry']->isAdmin()) {
             throw new Horde_Exception_PermissionDenied();
         }
 
