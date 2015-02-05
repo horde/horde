@@ -294,7 +294,7 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             switch ($value) {
             case self::STATUS_NOT_STARTED:
             case self::STATUS_WAIT:
-            case self::STATUS_DEFERRED: // ??
+            case self::STATUS_DEFERRED:
                 $this->_percentComplete = 0;
                 $this->_status = self::TASK_STATUS_ACTION;
                 break;
