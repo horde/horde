@@ -133,7 +133,7 @@ class Trean_Application extends Horde_Registry_Application
         global $injector;
 
         try {
-            $userId = current($injector->getInstance('Content_Users_Managter')->ensureUsers($user));
+            $userId = current($injector->getInstance('Content_Users_Manager')->ensureUsers($user));
             $bookmarks = $GLOBALS['trean_gateway']->listBookmarks('title', 0, 0, 0, $userId);
             foreach ($bookmarks as $bookmark) {
                 $GLOBALS['trean_gateway']->removeBookmark($bookmark);
