@@ -405,17 +405,9 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         if ($this->_bodyPlain) {
             $vtodo->setAttribute('DESCRIPTION', $this->_bodyPlain);
         } elseif ($this->_bodyHtml) {
-            $vtodo->setAttribute(Horde_Text_Filter::filter($this->_bodyHtml, 'html2text'));
-        } elseif ($this->_rtfCompressed) {
-            // @todo Decompress and parse using Horde_Mime_Viewer_Rtf?
-        } else {
-            $files = $this->_options['parent']->getFiles();
-            foreach ($files as $file) {
-                if ($file instanceof Horde_Compress_Tnef_Rtf) {
-                    $vtodo->setAttribute('DESCRIPTION', $file->toPlain());
-                }
-            }
+            $vtodo->setAttribute('DESCRIPTION', Horde_Text_Filter::filter($this->_bodyHtml, 'html2text'));
         }
+
         $iCal->addComponent($vtodo);
 
         return array(
