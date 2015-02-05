@@ -22,7 +22,7 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
         }
 
         @date_default_timezone_set('GMT');
-        putenv('LANGUAGE=C');
+        $this->_language = getenv('LANGUAGE');
 
         $this->_pgp = Horde_Crypt::factory('Pgp', array(
             'program' => '/usr/bin/gpg',
@@ -33,10 +33,16 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
         $this->_pubkey = file_get_contents(__DIR__ . '/fixtures/pgp_public.asc');
     }
 
+    protected function tearDown()
+    {
+        putenv('LANGUAGE=' . $this->_language);
+    }
+
     public function testBug6601()
     {
         $data = file_get_contents(__DIR__ . '/fixtures/bug_6601.asc');
 
+        putenv('LANGUAGE=C');
         $this->assertEquals(
 'Name:             Richard Selsky
 Key Type:         Public Key
@@ -327,6 +333,8 @@ Version: GnuPG %s
 
     public function testPgpPrettyKey()
     {
+        putenv('LANGUAGE=C');
+
         $this->assertEquals(
 'Name:             My Name
 Key Type:         Public Key
@@ -357,6 +365,18 @@ Key Fingerprint:  966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7
 
 ',
             $this->_pgp->pgpPrettyKey($this->_privkey)
+        );
+    }
+
+    public function testPgpGetFingerprintsFromKey()
+    {
+        $this->assertEquals(
+            array('0xBADEABD7' => '966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7'),
+            $this->_pgp->getFingerprintsFromKey($this->_pubkey)
+        );
+        $this->assertEquals(
+            array('0xBADEABD7' => '966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7'),
+            $this->_pgp->getFingerprintsFromKey($this->_privkey)
         );
     }
 

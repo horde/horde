@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Crypt
@@ -21,10 +22,12 @@
  * This class has been developed with, and is only guaranteed to work with,
  * Version 1.21 or above of GnuPG.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Crypt
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Crypt
  */
 class Horde_Crypt_Pgp extends Horde_Crypt
 {
@@ -132,10 +135,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--yes',
             '--homedir ' . $this->_tempdir
         );
-
-        if (strncasecmp(PHP_OS, 'WIN', 3)) {
-            array_unshift($this->_gnupg, 'LANG= ;');
-        }
 
         $this->_params = $params;
     }
@@ -281,11 +280,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--list-packets',
             $input
         );
-        $result = $this->_callGpg($cmdline, 'r');
+        $result = $this->_callGpg($cmdline, 'r', null, false, false, true);
 
         foreach (explode("\n", $result->stdout) as $line) {
             /* Headers are prefaced with a ':' as the first character on the
-               line. */
+             * line. */
             if (strpos($line, ':') === 0) {
                 $lowerLine = Horde_String::lower($line);
 
@@ -392,7 +391,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $input
         );
         $data = $this->_callGpg($cmdline, 'r');
-        if (preg_match("/(sec|pub):.*:.*:.*:([A-F0-9]{16}):/", $data->stdout, $matches)) {
+        if (preg_match('/(sec|pub):.*:.*:.*:([A-F0-9]{16}):/', $data->stdout, $matches)) {
             return $matches[2];
         }
 
@@ -633,7 +632,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--verify',
             $input
         );
-        $result = $this->_callGpg($cmdline, 'r', null, true, true);
+        $result = $this->_callGpg($cmdline, 'r', null, true, true, true);
         if (preg_match('/gpg:\sSignature\smade.*ID\s+([A-F0-9]{8})\s+/', $result->stderr, $matches)) {
             $keyid = $matches[1];
         }
@@ -799,7 +798,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             $keyring,
         );
 
-        $result = $this->_callGpg($cmdline, 'r');
+        $result = $this->_callGpg($cmdline, 'r', null, true, false, true);
         if (!$result || !$result->stdout) {
             return $fingerprints;
         }
@@ -873,7 +872,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *
      * @param string $text  The PGP encrypted text.
      *
-     * @return boolean  True if the text is symmetricallly encrypted.
+     * @return boolean  True if the text is symmetrically encrypted.
      * @throws Horde_Crypt_Exception
      */
     public function encryptedSymmetrically($text)
@@ -883,7 +882,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--batch',
             '--passphrase ""'
         );
-        $result = $this->_callGpg($cmdline, 'w', $text, true, true, true);
+        $result = $this->_callGpg($cmdline, 'w', $text, true, true, true, true);
         return strpos($result->stderr, 'gpg: encrypted with 1 passphrase') !== false;
     }
 
@@ -1136,14 +1135,11 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $cmdline[] = $input;
 
         /* Decrypt the document now. */
-        $language = getenv('LC_MESSAGES');
-        putenv('LC_MESSAGES=C');
         if (empty($params['no_passphrase'])) {
-            $result = $this->_callGpg($cmdline, 'w', $params['passphrase'], true, true);
+            $result = $this->_callGpg($cmdline, 'w', $params['passphrase'], true, true, true);
         } else {
-            $result = $this->_callGpg($cmdline, 'r', null, true, true);
+            $result = $this->_callGpg($cmdline, 'r', null, true, true, true);
         }
-        putenv('LC_MESSAGES=' . $language);
         if (empty($result->output)) {
             $error = preg_replace('/\n.*/', '', $result->stderr);
             throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not decrypt PGP data: ") . $error);
@@ -1215,10 +1211,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Verify the signature.  We need to catch standard error output,
          * since this is where the signature information is sent. */
-        $language = getenv('LC_MESSAGES');
-        putenv('LC_MESSAGES=C');
-        $result = $this->_callGpg($cmdline, 'r', null, true, true);
-        putenv('LC_MESSAGES=' . $language);
+        $result = $this->_callGpg($cmdline, 'r', null, true, true, true);
         return $this->_checkSignatureResult($result->stderr, $result->stderr);
     }
 
@@ -1410,20 +1403,22 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Function that handles interfacing with the GnuPG binary.
      *
-     * @param array $options    Options and commands to pass to GnuPG.
-     * @param string $mode      'r' to read from stdout, 'w' to write to
-     *                          stdin.
-     * @param array $input      Input to write to stdin.
-     * @param boolean $output   Collect and store output in object returned?
-     * @param boolean $stderr   Collect and store stderr in object returned?
-     * @param boolean $verbose  Run GnuPG with verbose flag?
+     * @param array $options      Options and commands to pass to GnuPG.
+     * @param string $mode        'r' to read from stdout, 'w' to write to
+     *                            stdin.
+     * @param array $input        Input to write to stdin.
+     * @param boolean $output     Collect and store output in object returned?
+     * @param boolean $stderr     Collect and store stderr in object returned?
+     * @param boolean $parseable  Is parseable output required? The gpg binary
+     *                            would be executed with C locale then.
+     * @param boolean $verbose    Run GnuPG with verbose flag?
      *
      * @return stdClass  Class with members output, stderr, and stdout.
      * @throws Horde_Crypt_Exception
      */
     protected function _callGpg($options, $mode, $input = array(),
                                 $output = false, $stderr = false,
-                                $verbose = false)
+                                $parseable = false, $verbose = false)
     {
         $data = new stdClass;
         $data->output = null;
@@ -1455,8 +1450,13 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         /* Build the command line string now. */
         $cmdline = implode(' ', array_merge($this->_gnupg, $options));
 
+        $language = getenv('LANGUAGE');
+        if ($parseable) {
+            putenv('LANGUAGE=C');
+        }
         if ($mode == 'w') {
             if ($fp = popen($cmdline, 'w')) {
+                putenv('LANGUAGE=' . $language);
                 $win32 = !strncasecmp(PHP_OS, 'WIN', 3);
 
                 if (!is_array($input)) {
@@ -1474,14 +1474,17 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     }
                 }
             } else {
+                putenv('LANGUAGE=' . $language);
                 throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to pgp binary."));
             }
         } elseif ($mode == 'r') {
             if ($fp = popen($cmdline, 'r')) {
+                putenv('LANGUAGE=' . $language);
                 while (!feof($fp)) {
                     $data->stdout .= fgets($fp, 1024);
                 }
             } else {
+                putenv('LANGUAGE=' . $language);
                 throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Error while talking to pgp binary."));
             }
         }
