@@ -388,6 +388,21 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $_SERVER['SCRIPT_NAME'] = '/test/index.php';
         $_SERVER['QUERY_STRING'] = 'id=42&id=42';
         $this->assertEquals('/test/42?id=42', (string)Horde::selfUrl(true));
+
+        // Non-standard port
+        $_SERVER['REQUEST_URI'] = '/hordeurl/test/foo/bar?foo=bar&x=y';
+        $_SERVER['SCRIPT_NAME'] = '/hordeurl/test/index.php';
+        $GLOBALS['conf']['use_ssl'] = 0;
+        $GLOBALS['conf']['server']['port'] = 1234;
+        $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
+
+        $GLOBALS['conf']['use_ssl'] = 1;
+        $GLOBALS['conf']['server']['port'] = 1234;
+        $this->assertEquals('https://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
+
+        $GLOBALS['conf']['use_ssl'] = 2;
+        $GLOBALS['conf']['server']['port'] = 1234;
+        $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
     }
 }
 
@@ -412,5 +427,10 @@ class Browser
     public function hasQuirk()
     {
         return false;
+    }
+
+    public function usingSSLConnection()
+    {
+      return false;
     }
 }
