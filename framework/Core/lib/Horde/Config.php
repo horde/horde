@@ -764,9 +764,9 @@ class Horde_Config
 
         $fields = array(
             'hostspec' => array(
-                '_type' => 'text',
+                '_type' => 'stringlist',
                 'required' => true,
-                'desc' => 'LDAP server/hostname',
+                'desc' => 'LDAP server(s)/hostname(s)',
                 'default' => $this->_default(
                     $ctx . '|hostspec',
                     $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
@@ -790,6 +790,16 @@ class Horde_Config
                 'default' => $this->_default(
                     $ctx . '|tls',
                     $node ? ($xpath->evaluate('string(configboolean[@name="tls"])', $node) ?: false) : false
+                )
+            ),
+
+            'timeout' => array(
+                '_type' => 'int',
+                'required' => false,
+                'desc' => 'Connection timeout',
+                'default' => $this->_default(
+                    $ctx . '|port',
+                    $node ? ($xpath->evaluate('string(configinteger[@name="timeout"])', $node) ?: 5) : 5
                 )
             ),
 
