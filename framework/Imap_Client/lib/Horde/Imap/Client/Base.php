@@ -34,7 +34,7 @@ abstract class Horde_Imap_Client_Base
 implements Serializable, SplObserver
 {
     /** Serialized version. */
-    const VERSION = 2;
+    const VERSION = 3;
 
     /** Cache names for miscellaneous data. */
     const CACHE_MODSEQ = '_m';
