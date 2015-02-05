@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-02-05</date>
  <version>
   <release>2.24.1</release>
   <api>2.24.0</api>
@@ -2622,7 +2622,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-02-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix moving a mailbox to a new parent (Bug #13839).
