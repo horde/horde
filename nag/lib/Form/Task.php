@@ -30,10 +30,16 @@ class Nag_Form_Task extends Horde_Form
      */
     public function __construct($vars, $title = '')
     {
+        global $injector, $nag_shares, $prefs, $registry;
+
         parent::__construct($vars, $title);
 
+        $user = $registry->getAuth();
         $tasklist_enums = array();
-        foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $tl_id => $tl) {
+        foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $tl_id => $tl) {
+            if (!$tl->hasPermission($user, Horde_Perms::EDIT)) {
+                continue;
+            }
             $tasklist_enums[$tl_id] = Nag::getLabel($tl);
         }
         $tasklist = $vars->get('tasklist_id');
@@ -60,7 +66,7 @@ class Nag_Form_Task extends Horde_Form
 
         $this->setSection(self::SECTION_GENERAL, _("General"));
         $this->addVariable(_("Name"), 'name', 'text', true);
-        if (!$GLOBALS['prefs']->isLocked('default_tasklist') &&
+        if (!$prefs->isLocked('default_tasklist') &&
             count($tasklist_enums) > 1) {
             $v = $this->addVariable(
                 _("Task List"), 'tasklist_id', 'enum', true, false, false,
@@ -94,14 +100,14 @@ class Nag_Form_Task extends Horde_Form
 
         // Only display the delete button if this is an existing task and the
         // user has HORDE_PERMS::DELETE
-        $share = $GLOBALS['nag_shares']->getShare($tasklist);
-        $delete = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && $vars->get('task_id');
+        $share = $nag_shares->getShare($tasklist);
+        $delete = $share->hasPermission($registry->getAuth(), Horde_Perms::DELETE) && $vars->get('task_id');
 
         if (!$vars->get('mobile')) {
             $users = $share->listUsers(Horde_Perms::READ);
             $groups = $share->listGroups(Horde_Perms::READ);
             if (count($groups)) {
-                $horde_group = $GLOBALS['injector']->getInstance('Horde_Group');
+                $horde_group = $injector->getInstance('Horde_Group');
                 foreach ($groups as $group) {
                     $users = array_merge($users,
                                          $horde_group->listUsers($group));
@@ -110,7 +116,7 @@ class Nag_Form_Task extends Horde_Form
             $users = array_flip($users);
             if (count($users)) {
                 foreach (array_keys($users) as $user) {
-                    $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
+                    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user);
                     $fullname = $identity->getValue('fullname');
                     $users[$user] = strlen($fullname) ? $fullname : $user;
                 }

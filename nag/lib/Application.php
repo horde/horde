@@ -325,7 +325,11 @@ class Nag_Application extends Horde_Registry_Application
                 )
             ));
 
-            foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $name => $tasklist) {
+            $user = $registry->getAuth();
+            foreach (Nag::listTasklists(false, Horde_Perms::SHOW, false) as $name => $tasklist) {
+                if (!$tasklist->hasPermission($user, Horde_Perms::EDIT)) {
+                    continue;
+                }
                 $tree->addNode(array(
                     'id' => $parent . $name . '__new',
                     'parent' => $parent . '__new',
