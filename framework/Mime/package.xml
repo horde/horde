@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in using the deprecated Horde_Mime::generateMessageId() method (Bug #13846).
 * [mms] Add Horde_Mime_Headers_ContentId class.
 * [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
 * [mms] Added Horde_Mime_Headers_Element#isDefault().
@@ -1657,6 +1658,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in using the deprecated Horde_Mime::generateMessageId() method (Bug #13846).
 * [mms] Add Horde_Mime_Headers_ContentId class.
 * [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
 * [mms] Added Horde_Mime_Headers_Element#isDefault().
