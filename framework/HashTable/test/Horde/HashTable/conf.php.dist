@@ -1,0 +1,5 @@
+<?php
+$conf['hashtable']['memcache']['hostspec'] = array('localhost');
+$conf['hashtable']['memcache']['port'] = array(11211);
+$conf['hashtable']['predis']['hostspec'] = array('localhost');
+$conf['hashtable']['predis']['scheme'] = 'tcp';

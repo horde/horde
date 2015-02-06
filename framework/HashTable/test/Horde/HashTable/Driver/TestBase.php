@@ -27,6 +27,15 @@ abstract class Horde_HashTable_Driver_TestBase extends Horde_Test_Case
 {
     protected static $_driver;
 
+    protected static $_skip = false;
+
+    public function setUp()
+    {
+        if (self::$_skip) {
+            $this->markTestSkipped(self::$_skip);
+        }
+    }
+
     public function testSet()
     {
         $this->assertTrue(self::$_driver->set('foo', 1));

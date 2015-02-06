@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2015-02-06</date>
  <version>
   <release>1.2.2</release>
   <api>1.2.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add unit tests for Memcache and Redis backends.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,11 +50,14 @@
     <dir name="Horde">
      <dir name="HashTable">
       <dir name="Driver">
+       <file name="MemcacheTest.php" role="test" />
        <file name="MemoryTest.php" role="test" />
+       <file name="PredisTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/HashTable/Driver -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/HashTable -->
     </dir> <!-- /test/Horde -->
@@ -121,8 +124,11 @@
    <install as="Horde/HashTable/Vfs.php" name="lib/Horde/HashTable/Vfs.php" />
    <install as="Horde/HashTable/AllTests.php" name="test/Horde/HashTable/AllTests.php" />
    <install as="Horde/HashTable/bootstrap.php" name="test/Horde/HashTable/bootstrap.php" />
+   <install as="Horde/HashTable/conf.php.dist" name="test/Horde/HashTable/conf.php.dist" />
    <install as="Horde/HashTable/phpunit.xml" name="test/Horde/HashTable/phpunit.xml" />
+   <install as="Horde/HashTable/Driver/MemcacheTest.php" name="test/Horde/HashTable/Driver/MemcacheTest.php" />
    <install as="Horde/HashTable/Driver/MemoryTest.php" name="test/Horde/HashTable/Driver/MemoryTest.php" />
+   <install as="Horde/HashTable/Driver/PredisTest.php" name="test/Horde/HashTable/Driver/PredisTest.php" />
    <install as="Horde/HashTable/Driver/TestBase.php" name="test/Horde/HashTable/Driver/TestBase.php" />
    </filelist>
  </phprelease>
@@ -282,10 +288,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add unit tests for Memcache and Redis backends.
    </notes>
   </release>
  </changelog>

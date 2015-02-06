@@ -5,8 +5,8 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
+ * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2013 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    HashTable
  * @subpackage UnitTests
@@ -17,8 +17,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright  2013 Horde LLC
- * @ignore
+ * @copyright  2013-2015 Horde LLC
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package    HashTable
  * @subpackage UnitTests
@@ -29,5 +28,4 @@ class Horde_HashTable_Driver_MemoryTest extends Horde_HashTable_Driver_TestBase
     {
         self::$_driver = new Horde_HashTable_Memory();
     }
-
 }
