@@ -113,7 +113,7 @@ Upgrading to 2.5
 
     - generateMessageId()
 
-      This method is deprecated. Use Horde_Mime_Headers_Messageid::create()
+      This method is deprecated. Use Horde_Mime_Headers_MessageId::create()
       instead.
 
     - is8bit()
