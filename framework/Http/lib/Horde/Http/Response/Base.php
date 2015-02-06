@@ -111,7 +111,7 @@ abstract class Horde_Http_Response_Base
             }
         }
 
-        $this->headers = $this->_headers->getArrayCopy();
+        $this->headers = array_change_key_case($this->_headers->getArrayCopy());
     }
 
     /**

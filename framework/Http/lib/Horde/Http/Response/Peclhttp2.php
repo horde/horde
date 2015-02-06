@@ -48,7 +48,7 @@ class Horde_Http_Response_Peclhttp2 extends Horde_Http_Response_Base
         $this->_headers = new Horde_Support_CaseInsensitiveArray(
             $response->getHeaders()
         );
-        $this->headers = $this->_headers->getArrayCopy();
+        $this->headers = array_change_key_case($this->_headers->getArrayCopy());
     }
 
     public function getBody()
