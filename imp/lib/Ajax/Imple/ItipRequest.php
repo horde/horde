@@ -214,7 +214,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             case 'tentative':
                 // vEvent request.
                 if (isset($components[$key]) &&
-                    ($components[$key]->getType() == 'vEvent')) {
+                    ($components[$key]->getType() == 'vEvent' ||
+                     $components[$key]->getType() == 'vTodo')) {
                     $vEvent = $components[$key];
 
                     $resource = new Horde_Itip_Resource_Identity(
@@ -238,17 +239,25 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         break;
                     }
 
-                    try {
-                        // Send the reply.
-                        Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
+                    if ($vEvent->getType() == 'vEvent') {
+                        try {
+                            // Send the reply.
+                            Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
+                                $type,
+                                new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
+                                $injector->getInstance('IMP_Mail')
+                            );
+                            $notification->push(_("Reply Sent."), 'horde.success');
+                            $result = true;
+                        } catch (Horde_Itip_Exception $e) {
+                            $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
+                        }
+                    } elseif ($vEvent->getType() == 'vTodo') {
+                        Horde_Itip::vTodoFactory($vEvent, $resource)->sendMultiPartResponse(
                             $type,
                             new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
                             $injector->getInstance('IMP_Mail')
                         );
-                        $notification->push(_("Reply Sent."), 'horde.success');
-                        $result = true;
-                    } catch (Horde_Itip_Exception $e) {
-                        $notification->push(sprintf(_("Error sending reply: %s."), $e->getMessage()), 'horde.error');
                     }
                 } else {
                     $notification->push(_("This action is not supported."), 'horde.warning');
