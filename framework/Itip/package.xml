@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-02-06</date>
  <version>
   <release>2.0.8</release>
   <api>1.0.0</api>
@@ -43,6 +43,7 @@
      <dir name="Itip">
       <dir name="Event">
        <file name="Vevent.php" role="php" />
+       <file name="Vtodo.php" role="php" />
       </dir> <!-- /lib/Horde/Itip/Event -->
       <dir name="Resource">
        <file name="Base.php" role="php" />
@@ -62,6 +63,7 @@
        </dir> <!-- /lib/Horde/Itip/Response/Type -->
        <file name="Options.php" role="php" />
        <file name="Type.php" role="php" />
+       <file name="Vtodo.php" role="php" />
       </dir> <!-- /lib/Horde/Itip/Response -->
       <file name="Event.php" role="php" />
       <file name="Exception.php" role="php" />
@@ -416,10 +418,12 @@
    <install as="Horde/Itip/Response.php" name="lib/Horde/Itip/Response.php" />
    <install as="Horde/Itip/Translation.php" name="lib/Horde/Itip/Translation.php" />
    <install as="Horde/Itip/Event/Vevent.php" name="lib/Horde/Itip/Event/Vevent.php" />
+   <install as="Horde/Itip/Event/Vtodo.php" name="lib/Horde/Itip/Event/Vtodo.php" />
    <install as="Horde/Itip/Resource/Base.php" name="lib/Horde/Itip/Resource/Base.php" />
    <install as="Horde/Itip/Resource/Identity.php" name="lib/Horde/Itip/Resource/Identity.php" />
    <install as="Horde/Itip/Response/Options.php" name="lib/Horde/Itip/Response/Options.php" />
    <install as="Horde/Itip/Response/Type.php" name="lib/Horde/Itip/Response/Type.php" />
+   <install as="Horde/Itip/Response/Vtodo.php" name="lib/Horde/Itip/Response/Vtodo.php" />
    <install as="Horde/Itip/Response/Options/Base.php" name="lib/Horde/Itip/Response/Options/Base.php" />
    <install as="Horde/Itip/Response/Options/Horde.php" name="lib/Horde/Itip/Response/Options/Horde.php" />
    <install as="Horde/Itip/Response/Options/Kolab.php" name="lib/Horde/Itip/Response/Options/Kolab.php" />
@@ -802,7 +806,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-02-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

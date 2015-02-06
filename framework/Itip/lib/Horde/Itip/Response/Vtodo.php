@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Itip response data.
+ * Handles Itip response data for vTodo.
  *
  * PHP version 5
  *
@@ -10,12 +10,13 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
 
 /**
- * Handles Itip response data.
+ * Handles Itip response data for vTodo.
  *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2010 Klarälvdalens Datakonsult AB
@@ -30,15 +31,21 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
+ *
+ * @todo For H6, look at protected/private visibility of parent class' methods
+ *       and properties. Needed to provide duplicated methods, like __construct
+ *       due to private members. Might be able to combine classes once type
+ *       hints are fixed/changed in the Horde_Itip_Event_* classes.
  */
-class Horde_Itip_Response
+class Horde_Itip_Response_Vtodo extends Horde_Itip_Response
 {
     /**
      * The request we are going to answer.
      *
-     * @var Horde_Itip_Event
+     * @var Horde_Itip_Event_Vtodo
      */
     private $_request;
 
@@ -76,57 +83,34 @@ class Horde_Itip_Response
     }
 
     /**
-     * Return the response as an iCalendar vEvent object.
+     * Return the response as an iCalendar vTodo object.
      *
      * @param Horde_Itip_Response_Type $type The response type.
      * @param Horde_Icalendar|boolean  $vCal The parent container or false if not
      *                                       provided.
      *
-     * @return Horde_Icalendar_Vevent The response object.
+     * @return Horde_Icalendar_Vtodo The response object.
+     * @todo Refactor this along with parent class. This method name is confusing,
+     *       but necessary due to the parent class' method name. It returns
+     *       a vTodo, not vEvent.
      */
     public function getVevent(
         Horde_Itip_Response_Type $type,
         $vCal = false
     )
     {
-        $itip_reply = new Horde_Itip_Event_Vevent(
-            Horde_Icalendar::newComponent('VEVENT', $vCal)
+        $itip_reply = new Horde_Itip_Event_Vtodo(
+            Horde_Icalendar::newComponent('VTODO', $vCal)
         );
         $this->_request->copyEventInto($itip_reply);
-
         $type->setRequest($this->_request);
-
         $itip_reply->setAttendee(
             $this->_resource->getMailAddress(),
             $this->_resource->getCommonName(),
             $type->getStatus()
         );
+
         return $itip_reply->getVevent();
-    }
-
-    /**
-     * Return the response as an iCalendar object.
-     *
-     * @param Horde_Itip_Response_Type $type       The response type.
-     * @param Horde_Itip_Response_Options $options The options for the response.
-     *
-     * @return Horde_Icalendar The response object.
-     */
-    public function getIcalendar(
-        Horde_Itip_Response_Type $type,
-        Horde_Itip_Response_Options $options
-    )
-    {
-        $vCal = new Horde_Icalendar();
-        $options->prepareIcalendar($vCal);
-        $vCal->setAttribute('METHOD', 'REPLY');
-        $vCal->addComponent($this->getVevent($type, $vCal));
-        return $vCal;
-    }
-
-    protected function _setIcsFilename(Horde_Mime_Part &$message)
-    {
-        $message->setName('event-reply.ics');
     }
 
     /**
@@ -137,6 +121,8 @@ class Horde_Itip_Response
      *
      * @return array A list of two object: The mime headers and the mime
      *               message.
+     * @todo  I tried to abstract just the .ics filename, but due to private
+     * members in the parent class, must override the entire method here.
      */
     public function getMessage(
         Horde_Itip_Response_Type $type,
@@ -172,33 +158,9 @@ class Horde_Itip_Response
         return array($headers, $message);
     }
 
-    /**
-     * Return the response as a MIME message.
-     *
-     * @param Horde_Itip_Response_Type $type       The response type.
-     * @param Horde_Itip_Response_Options $options The options for the response.
-     *
-     * @return array A list of two object: The mime headers and the mime
-     *               message.
-     */
-    public function getMultiPartMessage(
-        Horde_Itip_Response_Type $type,
-        Horde_Itip_Response_Options $options
-    )
+    protected function _setIcsFilename(Horde_Mime_Part &$message)
     {
-        $message = new Horde_Mime_Part();
-        $message->setType('multipart/alternative');
-
-        list($headers, $ics) = $this->getMessage($type, $options);
-
-        $body = new Horde_Mime_Part();
-        $body->setType('text/plain');
-        $options->prepareMessageMimePart($body);
-        $body->setContents(Horde_String::wrap($type->getMessage(), 76));
-
-        $message->addPart($body);
-        $message->addPart($ics);
-
-        return array($headers, $message);
+        $message->setName('task-reply.ics');
     }
+
 }
