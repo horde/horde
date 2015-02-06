@@ -21,6 +21,9 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         }
     }
 
+    /**
+     * @requires extension bcmath
+     */
     public function testItipReply()
     {
         $log = new Horde_Test_Log();
