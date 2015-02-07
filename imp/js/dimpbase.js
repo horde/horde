@@ -3531,8 +3531,14 @@ var DimpBase = {
                     Effect.toggle(s, 'blind', {
                         beforeStart: (need.get(mbox.value()) ? this._loadMboxes.bind(this, mbox, base) : Prototype.emptyFunction),
                         afterFinish: function() {
-                            mbox.expand(!mbox.expand());
-                        },
+                            if (!mbox.expand()) {
+                                mbox.expand(true);
+                            } else if (mbox.hasChildren()) {
+                                mbox.expand(false);
+                            } else {
+                                s.hide();
+                            }
+                        }.bind(this),
                         duration: opts.noeffect ? 0 : 0.2,
                         queue: {
                             limit: 1,
@@ -4409,6 +4415,13 @@ var IMP_Flist_Mbox = Class.create({
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
+    },
+
+    hasChildren: function()
+    {
+        var sub = this.subElement();
+
+        return (sub && sub.childElements().size());
     },
 
     parentElement: function()
