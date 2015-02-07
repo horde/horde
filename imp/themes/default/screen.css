@@ -73,9 +73,6 @@ table.mailinglistinfo {
 div.vpRowSelected .msCheck {
     background-image: url("graphics/checkbox_on.png");
 }
-div.msgStatus .msCheck {
-    margin-right: 1px;
-}
 
 /* Other images. */
 .deleteImg {
