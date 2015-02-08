@@ -115,10 +115,7 @@ abstract class Ingo_Storage
      *
      * @return Ingo_Storage_Rule  The specified data.
      */
-    protected function _retrieve($field, $readonly = false)
-    {
-        return false;
-    }
+    protected abstract function _retrieve($field, $readonly = false);
 
     /**
      * Stores the specified data.
@@ -175,9 +172,7 @@ abstract class Ingo_Storage
      *
      * @param Ingo_Storage_Rule $ob  The object to store.
      */
-    protected function _store($ob)
-    {
-    }
+    protected abstract function _store($ob);
 
     /**
      * Returns information on a given action constant.
