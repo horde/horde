@@ -35,15 +35,10 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _retrieve($field, $readonly = false)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
-            'cache' => false,
-            'user' => Ingo::getUser()
-        ));
-
         switch ($field) {
         case self::ACTION_BLACKLIST:
             $ob = new Ingo_Storage_Blacklist();
-            if ($data = @unserialize($prefs->getValue('blacklist'))) {
+            if ($data = @unserialize($this->_prefs()->getValue('blacklist'))) {
                 $ob->setBlacklist($data['a']);
                 $ob->setBlacklistFolder($data['f']);
             }
@@ -51,7 +46,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_WHITELIST:
             $ob = new Ingo_Storage_Whitelist();
-            if ($data = @unserialize($prefs->getValue('whitelist'))) {
+            if ($data = @unserialize($this->_prefs()->getValue('whitelist'))) {
                 $ob->setWhitelist($data);
             }
             break;
@@ -62,7 +57,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_FORWARD:
             $ob = new Ingo_Storage_Forward();
-            if ($data = @unserialize($prefs->getValue('forward'))) {
+            if ($data = @unserialize($this->_prefs()->getValue('forward'))) {
                 $ob->setForwardAddresses($data['a']);
                 $ob->setForwardKeep($data['k']);
             }
@@ -70,7 +65,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_VACATION:
             $ob = new Ingo_Storage_Vacation();
-            if ($data = @unserialize($prefs->getValue('vacation'))) {
+            if ($data = @unserialize($this->_prefs()->getValue('vacation'))) {
                 $ob->setVacationAddresses($data['addresses']);
                 $ob->setVacationDays($data['days']);
                 $ob->setVacationExcludes($data['excludes']);
@@ -88,7 +83,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
 
         case self::ACTION_SPAM:
             $ob = new Ingo_Storage_Spam();
-            if ($data = @unserialize($prefs->getValue('spam'))) {
+            if ($data = @unserialize($this->_prefs()->getValue('spam'))) {
                 $ob->setSpamFolder($data['folder']);
                 $ob->setSpamLevel($data['level']);
             }
@@ -109,34 +104,30 @@ class Ingo_Storage_Prefs extends Ingo_Storage
      */
     protected function _store($ob)
     {
-        $prefs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
-            'cache' => false,
-            'user' => Ingo::getUser()
-        ));
-
         switch ($ob->obType()) {
         case self::ACTION_BLACKLIST:
-            $data = array(
+            $this->_prefs()->setValue('blacklist', serialize(array(
                 'a' => $ob->getBlacklist(),
-                'f' => $ob->getBlacklistFolder(),
-            );
-            $prefs->setValue('blacklist', serialize($data));
+                'f' => $ob->getBlacklistFolder()
+            )));
             break;
 
         case self::ACTION_FILTERS:
-            $prefs->setValue('rules', serialize($ob->getFilterList()));
+            $this->_prefs()->setValue(
+                'rules',
+                serialize($ob->getFilterList())
+            );
             break;
 
         case self::ACTION_FORWARD:
-            $data = array(
+            $this->_prefs()->setValue('forward', serialize(array(
                 'a' => $ob->getForwardAddresses(),
-                'k' => $ob->getForwardKeep(),
-            );
-            $prefs->setValue('forward', serialize($data));
+                'k' => $ob->getForwardKeep()
+            )));
             break;
 
         case self::ACTION_VACATION:
-            $data = array(
+            $this->_prefs()->setValue('vacation', serialize(array(
                 'addresses' => $ob->getVacationAddresses(),
                 'days' => $ob->getVacationDays(),
                 'excludes' => $ob->getVacationExcludes(),
@@ -144,22 +135,39 @@ class Ingo_Storage_Prefs extends Ingo_Storage
                 'reason' => $ob->getVacationReason(),
                 'subject' => $ob->getVacationSubject(),
                 'start' => $ob->getVacationStart(),
-                'end' => $ob->getVacationEnd(),
-            );
-            $prefs->setValue('vacation', serialize($data));
+                'end' => $ob->getVacationEnd()
+            )));
             break;
 
         case self::ACTION_WHITELIST:
-            $prefs->setValue('whitelist', serialize($ob->getWhitelist()));
+            $this->_prefs()->setValue(
+                'whitelist',
+                serialize($ob->getWhitelist())
+            );
             break;
 
         case self::ACTION_SPAM:
-            $data = array(
+            $this->_prefs()->setValue('spam', serialize(array(
                 'folder' => $ob->getSpamFolder(),
-                'level' => $ob->getSpamLevel(),
-            );
-            $prefs->setValue('spam', serialize($data));
+                'level' => $ob->getSpamLevel()
+            )));
             break;
         }
     }
+
+    /**
+     * Get prefs object to use for storage.
+     *
+     * @return Horde_Prefs  Prefs object.
+     */
+    protected function _prefs()
+    {
+        global $injector;
+
+        return $injector->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
+            'cache' => false,
+            'user' => Ingo::getUser()
+        ));
+    }
+
 }
