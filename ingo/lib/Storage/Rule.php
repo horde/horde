@@ -30,13 +30,6 @@ class Ingo_Storage_Rule
     protected $_obtype;
 
     /**
-     * Whether the rule has been saved (if being saved separately).
-     *
-     * @var boolean
-     */
-    protected $_saved = false;
-
-    /**
      * Returns the object rule type.
      *
      * @return integer  The object rule type.
@@ -44,26 +37,6 @@ class Ingo_Storage_Rule
     public function obType()
     {
         return $this->_obtype;
-    }
-
-    /**
-     * Marks the rule as saved or unsaved.
-     *
-     * @param boolean $data  Whether the rule has been saved.
-     */
-    public function setSaved($data)
-    {
-        $this->_saved = $data;
-    }
-
-    /**
-     * Returns whether the rule has been saved.
-     *
-     * @return boolean  True if the rule has been saved.
-     */
-    public function isSaved()
-    {
-        return $this->_saved;
     }
 
     /**

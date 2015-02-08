@@ -25,6 +25,13 @@
 class Ingo_Storage_Sql extends Ingo_Storage
 {
     /**
+     * Whether the rule has been saved (if being saved separately).
+     *
+     * @var boolean
+     */
+    protected $_saved = false;
+
+    /**
      * Retrieves the specified data from the storage backend.
      *
      * @param integer $field     The field name of the desired data.
@@ -87,7 +94,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             if (!empty($data)) {
                 $ob->setForwardAddresses(explode("\n", $data['forward_addresses']));
                 $ob->setForwardKeep((bool)$data['forward_keep']);
-                $ob->setSaved(true);
+                $this->_saved = true;
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('forward'))) {
                 $ob->setForwardAddresses($data['a']);
                 $ob->setForwardKeep($data['k']);
@@ -113,7 +120,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 $ob->setVacationIgnorelist((bool)$data['vacation_ignorelists']);
                 $ob->setVacationReason(Horde_String::convertCharset($data['vacation_reason'], $this->_params['charset'], 'UTF-8'));
                 $ob->setVacationSubject(Horde_String::convertCharset($data['vacation_subject'], $this->_params['charset'], 'UTF-8'));
-                $ob->setSaved(true);
+                $this->_saved = true;
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('vacation'))) {
                 $ob->setVacationAddresses($data['addresses'], false);
                 $ob->setVacationDays($data['days']);
@@ -143,7 +150,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             if (!empty($data)) {
                 $ob->setSpamFolder($data['spam_folder']);
                 $ob->setSpamLevel((int)$data['spam_level']);
-                $ob->setSaved(true);
+                $this->_saved = true;
             } elseif ($data = @unserialize($GLOBALS['prefs']->getDefault('spam'))) {
                 $ob->setSpamFolder($data['folder']);
                 $ob->setSpamLevel($data['level']);
@@ -207,7 +214,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     throw new Ingo_Exception($e);
                 }
             }
-            $ob->setSaved(true);
+            $this->_saved = true;
             break;
 
         case self::ACTION_FORWARD:
@@ -216,7 +223,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 (int)(bool)$ob->getForwardKeep(),
                 Ingo::getUser());
             try {
-                if ($ob->isSaved()) {
+                if ($this->_saved) {
                     $query = sprintf('UPDATE %s SET forward_addresses = ?, forward_keep = ? WHERE forward_owner = ?', $this->_params['table_forwards']);
                     $this->_params['db']->update($query, $values);
                 } else {
@@ -226,7 +233,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
-            $ob->setSaved(true);
+            $this->_saved = true;
             break;
 
         case self::ACTION_VACATION:
@@ -246,7 +253,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 Ingo::getUser()
             );
             try {
-                if ($ob->isSaved()) {
+                if ($this->_saved) {
                     $query = sprintf('UPDATE %s SET vacation_addresses = ?, vacation_subject = ?, vacation_reason = ?, vacation_days = ?, vacation_start = ?, vacation_end = ?, vacation_excludes = ?, vacation_ignorelists = ? WHERE vacation_owner = ?', $this->_params['table_vacations']);
                     $this->_params['db']->update($query, $values);
                 } else {
@@ -256,7 +263,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
-            $ob->setSaved(true);
+            $this->_saved = true;
             break;
 
         case self::ACTION_SPAM:
@@ -265,7 +272,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 $ob->getSpamFolder(),
                 Ingo::getUser());
             try {
-                if ($ob->isSaved()) {
+                if ($this->_saved) {
                     $query = sprintf('UPDATE %s SET spam_level = ?, spam_folder = ? WHERE spam_owner = ?', $this->_params['table_spam']);
                     $this->_params['db']->update($query, $values);
                 } else {
@@ -275,7 +282,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
-            $ob->setSaved(true);
+            $this->_saved = true;
             break;
         }
     }
