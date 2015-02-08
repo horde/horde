@@ -48,7 +48,9 @@ class Ingo_Storage_Rule
      */
     protected function _addressList($data)
     {
-        $ob = new Horde_Mail_Rfc822_List(is_array($data) ? $data : preg_split("/\s+/", $data));
+        $ob = new Horde_Mail_Rfc822_List(
+            is_array($data) ? $data : preg_split("/\s+/", $data)
+        );
         $ob->unique();
 
         return $ob->bare_addresses;

@@ -320,7 +320,7 @@ class Ingo_Storage
      */
     public function removeUserData($user)
     {
-	    throw new Ingo_Exception(_("Removing user data is not supported with the current filter storage backend."));
+        throw new Ingo_Exception(_("Removing user data is not supported with the current filter storage backend."));
     }
 
     /**
