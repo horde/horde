@@ -291,27 +291,37 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     protected function _removeUserData($user)
     {
-        $queries = array(sprintf('DELETE FROM %s WHERE rule_owner = ?',
-                                 $this->_params['table_rules']),
-                         sprintf('DELETE FROM %s WHERE list_owner = ?',
-                                 $this->_params['table_lists']),
-                         sprintf('DELETE FROM %s WHERE vacation_owner = ?',
-                                 $this->_params['table_vacations']),
-                         sprintf('DELETE FROM %s WHERE forward_owner = ?',
-                                 $this->_params['table_forwards']),
-                         sprintf('DELETE FROM %s WHERE spam_owner = ?',
-                                 $this->_params['table_spam']));
-
+        $queries = array(
+            sprintf(
+                'DELETE FROM %s WHERE rule_owner = ?',
+                $this->_params['table_rules']
+            ),
+            sprintf(
+                'DELETE FROM %s WHERE list_owner = ?',
+                $this->_params['table_lists']
+            ),
+            sprintf(
+                'DELETE FROM %s WHERE vacation_owner = ?',
+                $this->_params['table_vacations']
+            ),
+            sprintf(
+                'DELETE FROM %s WHERE forward_owner = ?',
+                $this->_params['table_forwards']
+            ),
+            sprintf(
+                'DELETE FROM %s WHERE spam_owner = ?',
+                $this->_params['table_spam']
+            )
+        );
         $values = array($user);
+
         foreach ($queries as $query) {
             try {
                 $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
-                throw new Ingo_Exception($e);
+                Horde::log($e, 'ERR');
             }
         }
-
-        return true;
     }
 
 }
