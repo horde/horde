@@ -21,7 +21,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Storage
+abstract class Ingo_Storage
 {
     /**
      * Ingo_Storage:: 'combine' constants
@@ -312,7 +312,6 @@ class Ingo_Storage
 
     /**
      * Removes the user data from the storage backend.
-     * Stub for child class to override if it can implement.
      *
      * @param string $user  The user name to delete filters for.
      *
@@ -320,8 +319,23 @@ class Ingo_Storage
      */
     public function removeUserData($user)
     {
-        throw new Ingo_Exception(_("Removing user data is not supported with the current filter storage backend."));
+        global $registry;
+
+        if (!$registry->isAdmin() && ($user != $registry->getAuth())) {
+            throw new Ingo_Exception(_("Permission Denied"));
+        }
+
+        $this->_removeUserData($user);
     }
+
+    /**
+     * Removes the user data from the storage backend.
+     *
+     * @param string $user  The user name to delete filters for.
+     *
+     * @throws Ingo_Exception
+     */
+    protected abstract function _removeUserData($user);
 
     /**
      * Output description for a rule.

@@ -156,17 +156,32 @@ class Ingo_Storage_Prefs extends Ingo_Storage
     }
 
     /**
+     */
+    protected function _removeUserData($user)
+    {
+        $p = $this->_prefs($user);
+
+        $p->remove('blacklist');
+        $p->remove('filters');
+        $p->remove('forward');
+        $p->remove('spam');
+        $p->remove('vacation');
+    }
+
+    /**
      * Get prefs object to use for storage.
+     *
+     * @param string $user  Username to use (if not default).
      *
      * @return Horde_Prefs  Prefs object.
      */
-    protected function _prefs()
+    protected function _prefs($user = null)
     {
         global $injector;
 
         return $injector->getInstance('Horde_Core_Factory_Prefs')->create('ingo', array(
             'cache' => false,
-            'user' => Ingo::getUser()
+            'user' => is_null($user) ? Ingo::getUser() : $user
         ));
     }
 

@@ -288,19 +288,9 @@ class Ingo_Storage_Sql extends Ingo_Storage
     }
 
     /**
-     * Removes the data of the specified user from the storage backend.
-     *
-     * @param string $user  The user name to delete filters for.
-     *
-     * @throws Ingo_Exception
      */
-    public function removeUserData($user)
+    protected function _removeUserData($user)
     {
-        if (!$GLOBALS['registry']->isAdmin() &&
-            $user != $GLOBALS['registry']->getAuth()) {
-            throw new Ingo_Exception(_("Permission Denied"));
-        }
-
         $queries = array(sprintf('DELETE FROM %s WHERE rule_owner = ?',
                                  $this->_params['table_rules']),
                          sprintf('DELETE FROM %s WHERE list_owner = ?',
