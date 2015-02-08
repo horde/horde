@@ -25,6 +25,13 @@
 class Horde_Mime_Filter_Encoding extends php_user_filter
 {
     /**
+     * Location of last CR character.
+     *
+     * @var integer
+     */
+    protected $_cr = null;
+
+    /**
      * Non CR/LF characters.
      *
      * @var integer
@@ -64,7 +71,20 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
                         break 2;
 
                     case 10: // LF
+                        if (($this->_cr !== ($i - 1)) &&
+                            !$this->params->body) {
+                            $this->params->body = '8bit_noncrlf';
+                        }
+                        $this->_cr = null;
+                        $this->_crlf = 0;
+                        break;
+
                     case 13: // CR
+                        if (is_null($this->_cr)) {
+                            $this->_cr = $i;
+                        } elseif (!$this->params->body) {
+                            $this->params->body = '8bit_noncrlf';
+                        }
                         $this->_crlf = 0;
                         break;
 
@@ -86,6 +106,12 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
 
             $consumed += $bucket->datalen;
             stream_bucket_append($out, $bucket);
+        }
+
+        if ($closing &&
+            !is_null($this->_cr) &&
+            !$this->params->body) {
+            $this->params->body = '8bit_noncrlf';
         }
 
         return PSFS_PASS_ON;

@@ -1249,6 +1249,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
 
             switch ($this->_scanStream($this->_contents)) {
+            case '8bit_nocrlf':
             case 'binary':
                 /* If the text is longer than 998 characters between
                  * linebreaks, use quoted-printable encoding to ensure the

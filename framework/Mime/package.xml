@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Work around broken line-oriented data when transfer encoding (Bug #13835).
 * [mms] Fix regression in using the deprecated Horde_Mime::generateMessageId() method (Bug #13846).
 * [mms] Add Horde_Mime_Headers_ContentId class.
 * [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
@@ -1658,6 +1659,7 @@
    <date>2015-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Work around broken line-oriented data when transfer encoding (Bug #13835).
 * [mms] Fix regression in using the deprecated Horde_Mime::generateMessageId() method (Bug #13846).
 * [mms] Add Horde_Mime_Headers_ContentId class.
 * [mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
