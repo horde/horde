@@ -56,7 +56,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
         }
 
-        $this->storage = new Ingo_Storage_Mock(array(
+        $this->storage = new Ingo_Stub_Storage_Mock(array(
             'maxblacklist' => 3,
             'maxwhitelist' => 3
         ));

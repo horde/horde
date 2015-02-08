@@ -110,7 +110,7 @@ stop;
 
     public function testVacationDisabled()
     {
-        $vacation = new Ingo_Storage_VacationTest();
+        $vacation = new Ingo_Stub_Storage_Vacation();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");
@@ -122,7 +122,7 @@ stop;
 
     public function testVacationEnabled()
     {
-        $vacation = new Ingo_Storage_VacationTest();
+        $vacation = new Ingo_Stub_Storage_Vacation();
         $vacation->setVacationAddresses(array('from@example.com'));
         $vacation->setVacationSubject('Subject');
         $vacation->setVacationReason("Because I don't like working!");

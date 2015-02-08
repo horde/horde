@@ -131,7 +131,7 @@ class ScriptTester {
 
     function _setupStorage()
     {
-        $GLOBALS['ingo_storage'] = new Ingo_Storage_Mock();
+        $GLOBALS['ingo_storage'] = new Ingo_Stub_Storage_Mock();
         foreach ($this->rules as $ob) {
             $GLOBALS['ingo_storage']->store($ob);
         }

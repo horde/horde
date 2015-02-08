@@ -5,22 +5,20 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
 
 /**
- * Ingo_Storage_Mock is used for testing purposes.  It just keeps the data
- * local and doesn't put it anywhere.
+ * Driver used for testing purposes.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Storage_Mock extends Ingo_Storage
+class Ingo_Stub_Storage_Mock extends Ingo_Storage
 {
     /**
      */
@@ -46,7 +44,7 @@ class Ingo_Storage_Mock extends Ingo_Storage
                 return new Ingo_Storage_Forward();
 
             case self::ACTION_VACATION:
-                return new Ingo_Storage_VacationTest();
+                return new Ingo_Stub_Storage_Vacation();
 
             case self::ACTION_WHITELIST:
                 return new Ingo_Storage_Whitelist();
