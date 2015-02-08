@@ -21,6 +21,7 @@
  * @package   Ingo
  */
 class Ingo_Storage_Filters
+extends Ingo_Storage_Rule
 {
     /**
      * The filter list.
@@ -30,21 +31,8 @@ class Ingo_Storage_Filters
     protected $_filters = array();
 
     /**
-     * The object type.
-     *
-     * @var integer
      */
     protected $_obtype = Ingo_Storage::ACTION_FILTERS;
-
-    /**
-     * Returns the object rule type.
-     *
-     * @return integer  The object rule type.
-     */
-    public function obType()
-    {
-        return $this->_obtype;
-    }
 
     /**
      * Returns the filter list.

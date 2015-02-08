@@ -20,12 +20,9 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Storage_Forward extends Ingo_Storage_Rule
+class Ingo_Storage_Forward
+extends Ingo_Storage_Rule_Addresses
 {
-    /**
-     */
-    protected $_addr = array();
-
     /**
      */
     protected $_keep = true;

@@ -94,7 +94,7 @@ class Ingo_Storage
      *                           (ACTION_* constants).
      * @param boolean $readonly  Whether to disable any write operations.
      *
-     * @return Ingo_Storage_Rule|Ingo_Storage_Filters  The specified object.
+     * @return Ingo_Storage_Rule  The specified object.
      * @throws Ingo_Exception
      */
     public function retrieve($field, $readonly = false)
@@ -113,7 +113,7 @@ class Ingo_Storage
      *                           See lib/Storage.php for the available fields.
      * @param boolean $readonly  Whether to disable any write operations.
      *
-     * @return Ingo_Storage_Rule|Ingo_Storage_Filters  The specified data.
+     * @return Ingo_Storage_Rule  The specified data.
      */
     protected function _retrieve($field, $readonly = false)
     {
@@ -123,7 +123,7 @@ class Ingo_Storage
     /**
      * Stores the specified data.
      *
-     * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
+     * @param Ingo_Storage_Rule $ob  The object to store.
      *
      * @throws Ingo_Exception
      */
@@ -173,7 +173,7 @@ class Ingo_Storage
     /**
      * Stores the specified data in the storage backend.
      *
-     * @param Ingo_Storage_Rule|Ingo_Storage_Filters $ob  The object to store.
+     * @param Ingo_Storage_Rule $ob  The object to store.
      */
     protected function _store($ob)
     {
