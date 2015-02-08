@@ -56,7 +56,6 @@ class Ingo_Storage_Filters
     public function getFilterList($skip = array())
     {
         $filters = array();
-        $skip = array_flip($skip);
         $skip_list = array(
             Ingo_Storage::ACTION_BLACKLIST => Ingo::RULE_BLACKLIST,
             Ingo_Storage::ACTION_WHITELIST => Ingo::RULE_WHITELIST,
@@ -67,10 +66,10 @@ class Ingo_Storage_Filters
 
         foreach ($this->_filters as $id => $filter) {
             if (isset($skip_list[$filter['action']])) {
-                if (!isset($skip[$skip_list[$filter['action']]])) {
+                if (!in_array($skip_list[$filter['action']], $skip)) {
                     $filters[$id] = $filter;
                 }
-            } elseif (!isset($skip[Ingo::RULE_FILTER])) {
+            } elseif (!in_array(Ingo::RULE_FILTER, $skip)) {
                 $filters[$id] = $filter;
             }
         }
@@ -80,6 +79,8 @@ class Ingo_Storage_Filters
 
     /**
      * Return the filter entry for a given ID.
+     *
+     * @param integer $id  A rule number.
      *
      * @return mixed  The rule hash entry, or false if not defined.
      */
@@ -110,14 +111,14 @@ class Ingo_Storage_Filters
     public function getDefaultRule()
     {
         return array(
-            'name' => _("New Rule"),
-            'combine' => Ingo_Storage::COMBINE_ALL,
-            'conditions' => array(),
             'action' => Ingo_Storage::ACTION_KEEP,
             'action-value' => '',
-            'stop' => true,
+            'combine' => Ingo_Storage::COMBINE_ALL,
+            'conditions' => array(),
+            'disable' => false,
             'flags' => 0,
-            'disable' => false
+            'name' => _("New Rule"),
+            'stop' => true
         );
     }
 
@@ -149,10 +150,9 @@ class Ingo_Storage_Filters
      */
     public function findRule($action)
     {
-        $id = $this->findRuleId($action);
-        if ($id !== null) {
-            return $this->getRule($id);
-        }
+        return (($id = $this->findRuleId($action)) === null)
+            ? null
+            : $this->getRule($id);
     }
 
     /**
@@ -164,11 +164,9 @@ class Ingo_Storage_Filters
      */
     public function addRule(array $rule, $default = true)
     {
-        if ($default) {
-            $this->_filters[] = array_merge($this->getDefaultRule(), $rule);
-        } else {
-            $this->_filters[] = $rule;
-        }
+        $this->_filters[] = $default
+            ? array_merge($this->getDefaultRule(), $rule)
+            : $rule;
     }
 
     /**
@@ -212,22 +210,28 @@ class Ingo_Storage_Filters
      */
     public function copyRule($id)
     {
-        if (isset($this->_filters[$id])) {
-            $newrule = $this->_filters[$id];
-            $newrule['name'] = sprintf(_("Copy of %s"), $this->_filters[$id]['name']);
-            $this->_filters = array_merge(array_slice($this->_filters, 0, $id + 1), array($newrule), array_slice($this->_filters, $id + 1));
-            return true;
+        if (!isset($this->_filters[$id])) {
+            return false;
         }
 
-        return false;
+        $newrule = $this->_filters[$id];
+        $newrule['name'] = sprintf(
+            _("Copy of %s"),
+            $this->_filters[$id]['name']
+        );
+        $this->_filters = array_merge(
+            array_slice($this->_filters, 0, $id + 1),
+            array($newrule),
+            array_slice($this->_filters, $id + 1)
+        );
+
+        return true;
     }
 
     /**
      * Sorts the list of rules in the given order.
      *
      * @param array $rules  List of rule numbers.
-     *
-     * @throws Ingo_Exception
      */
     public function sort($rules)
     {
