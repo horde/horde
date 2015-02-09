@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Improve stream handling in bundled EXIF driver (Request #13788).
 * [mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream, rather than a file.
  </notes>
  <contents>
@@ -1054,6 +1055,7 @@ Initial release as a PEAR package
    <date>2014-10-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Improve stream handling in bundled EXIF driver (Request #13788).
 * [mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream, rather than a file.
    </notes>
   </release>
