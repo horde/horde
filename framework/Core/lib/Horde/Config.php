@@ -1089,8 +1089,8 @@ class Horde_Config
                             'required' => false,
                             'desc' => 'Database name to use',
                             'default' => $this->_default(
-                                $ctx . '|database',
-                                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+                                $ctx . '|dbname',
+                                $node ? ($xpath->evaluate('string(configstring[@name="dbname"])', $node) ?: '') : ''
                             )
                         )
                     )
