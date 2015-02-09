@@ -34,11 +34,7 @@ class Ingo_Stub_Storage_Mock extends Ingo_Storage
                 return new Ingo_Storage_Blacklist();
 
             case self::ACTION_FILTERS:
-                include INGO_BASE . '/config/prefs.php';
-                $ob = new Ingo_Storage_Filters_Memory(
-                    unserialize($_prefs['rules']['value'])
-                );
-                return $ob;
+                return new Ingo_Storage_Filters_Memory();
 
             case self::ACTION_FORWARD:
                 return new Ingo_Storage_Forward();
@@ -65,6 +61,10 @@ class Ingo_Stub_Storage_Mock extends Ingo_Storage
     protected function _store($ob)
     {
         $this->_data[$ob->obType()] = $ob;
+    }
+
+    protected function _removeUserData($user)
+    {
     }
 
 }

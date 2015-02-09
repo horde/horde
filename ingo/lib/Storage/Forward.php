@@ -64,13 +64,6 @@ extends Ingo_Storage_Rule_Addresses
      */
     public function getForwardAddresses()
     {
-        if (is_array($this->_addr)) {
-            foreach ($this->_addr as $key => $val) {
-                if (empty($val)) {
-                    unset($this->_addr[$key]);
-                }
-            }
-        }
         return $this->_addr;
     }
 

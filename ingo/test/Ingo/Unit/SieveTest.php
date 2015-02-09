@@ -117,6 +117,11 @@ stop;
 
         $this->storage->store($vacation);
 
+        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters->ruleDisable(
+            $filters->findRuleId(Ingo_Storage::ACTION_VACATION)
+        );
+
         $this->_assertScript('');
     }
 
@@ -144,6 +149,11 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
         $spam->setSpamFolder("Junk");
 
         $this->storage->store($spam);
+
+        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters->ruleDisable(
+            $filters->findRuleId(Ingo_Storage::ACTION_SPAM)
+        );
 
         $this->_assertScript('');
     }

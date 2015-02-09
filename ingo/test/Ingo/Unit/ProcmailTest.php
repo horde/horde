@@ -168,6 +168,12 @@ $DEFAULT');
         $vacation->setVacationReason("Because I don't like working!");
 
         $this->storage->store($vacation);
+
+        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters->ruleDisable(
+            $filters->findRuleId(Ingo_Storage::ACTION_VACATION)
+        );
+
         $this->_assertScript('');
     }
 
