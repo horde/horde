@@ -262,7 +262,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 
         // seek to SubIFD (Value of ExifOffset tag) above.
         $ExitOffset = $result['IFD0']['ExifOffset'];
-        if (!$in->seek($globalOffset + $ExifOffset)) {
+        if (!$in->seek($globalOffset + $ExifOffset, false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find SubIFD");
         }
@@ -299,7 +299,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // seek to IFD1
-        if (!$in->seek($globalOffset + $result['IFD1Offset'])) {
+        if (!$in->seek($globalOffset + $result['IFD1Offset'], false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find IFD1");
         }
@@ -434,8 +434,8 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $cpos = $in->pos();
             if ($in->seek($globalOffset + hexdec($value), false)) {
                 $data = $in->substring(0, $bytesofdata);
-                $in->seek($cpos);
-            } elseif ($v == -1) {
+                $in->seek($cpos, false);
+            } else {
                 $result['Errors'] = $result['Errors'] + 1;
             }
         } else {
@@ -473,7 +473,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             if ($parser) {
                 $cpos = $in->pos();
                 $parser->parse($data, $result, $in, $globalOffset);
-                $in->seek($cpos);
+                $in->seek($cpos, false);
             }
             break;
 
@@ -483,7 +483,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $parser = new Horde_Image_Exif_Parser_Gps();
             $cpos = $in->pos();
             $parser->parse($data, $result, $formated_data, $in, $globalOffset);
-            $in->seek($cpos);
+            $in->seek($cpos, false);
             break;
 
         default:
