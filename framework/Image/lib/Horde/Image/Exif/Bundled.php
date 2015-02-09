@@ -65,7 +65,6 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
      */
     protected function _readData($path)
     {
-        // There may be an elegant way to do this with one file handle.
         if (is_resource($path)) {
             $in = new Horde_Stream_Existing(array('stream' => $path));
             $in->rewind();
