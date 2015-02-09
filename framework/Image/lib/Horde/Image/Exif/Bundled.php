@@ -196,7 +196,11 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // 2 bytes of 0x002a
-        $tag = bin2hex($in->substring(0, 2));
+        if (bin2hex($in->substring(0, 2)) != '002a') {
+            $result['Errors'] = $result['Errors'] + 1;
+            $result['Error'][$result['Errors']] = 'Unexpected value.';
+            return $result;
+        }
 
         // Then 4 bytes of offset to IFD0 (usually 8 which includes all 8 bytes
         // of TIFF header)
