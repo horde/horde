@@ -283,10 +283,10 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             'state' => $station->state,
             'country' => $station->country_iso3166,
             'country_name' => $station->country_name,
-            'tz' => $station->tz_long,
-            'lat' => $station->lat,
-            'lon' => $station->lon,
-            'zip' => $station->zip,
+            'tz' => isset($station->tz_long) ? $station->tz_long : '',
+            'lat' => isset($station->lat) ? $station->lat : '',
+            'lon' => isset($station->lon) ? $station->lon : '',
+            'zip' => isset($station->zip) ? $station->zip : '',
             'code' => str_replace('/q/', '', $station->l)
         );
 
