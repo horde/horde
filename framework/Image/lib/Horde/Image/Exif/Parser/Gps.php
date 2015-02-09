@@ -275,9 +275,9 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
         //file
         if (!$seek->seek($globalOffset + $offset, false)) {
             $result['Errors'] = $result['Errors']++;
-            //return;
+            return $result;
         }
-var_dump($result);
+
         $num = bin2hex($seek->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
