@@ -50,7 +50,7 @@ extends Ingo_Storage_Rule_Addresses
             }
         }
 
-        $this->_addr = $addr;
+        $this->_addr = array_filter($addr);
     }
 
     /**
