@@ -273,18 +273,18 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
 
         //offsets are from TIFF header which is 12 bytes from the start of the
         //file
-        $v = fseek($seek, $globalOffset + $offset);
-        if ($v == -1) {
+        if (!$seek->seek($globalOffset + $offset, false)) {
             $result['Errors'] = $result['Errors']++;
+            //return;
         }
-
-        $num = bin2hex(fread($seek, 2));
+var_dump($result);
+        $num = bin2hex($seek->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
         $num = hexdec($num);
         $result['GPS']['NumTags'] = $num;
-        $block = fread($seek, $num * 12);
+        $block = $seek->substring(0, $num * 12);
         $place = 0;
 
         //loop thru all tags  Each field is 12 bytes
@@ -326,9 +326,8 @@ class Horde_Image_Exif_Parser_Gps extends Horde_Image_Exif_Parser_Base
                 }
                 //offsets are from TIFF header which is 12 bytes from the start
                 //of the file
-                $v = fseek($seek, $globalOffset + hexdec($value));
-                if ($v == 0) {
-                    $data = fread($seek, $bytesofdata);
+                if ($seek->seek($globalOffset + hexdec($value), false)) {
+                    $data = $seek->substring(0, $bytesofdata);
                 } elseif ($v == -1) {
                     $result['Errors'] = $result['Errors']++;
                 }
