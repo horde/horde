@@ -1,6 +1,6 @@
-----------
-v5.2.4-git
-----------
+------
+v5.2.4
+------
 
 [mms] Make dynamic context menus scrollable if taller than the browser screen
       height (Bug #13833).
