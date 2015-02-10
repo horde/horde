@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-05</date>
+ <date>2015-02-10</date>
  <version>
   <release>2.3.0</release>
   <api>1.3.0</api>
@@ -470,7 +470,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-05</date>
+   <date>2015-02-10</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Fix error when using custom separators in Horde_Ldap_Utils::canonicalDN().
