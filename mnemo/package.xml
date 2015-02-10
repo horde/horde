@@ -18,7 +18,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>4.2.5</release>
+  <release>4.2.6</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix fatal error when using Mnemo without Nag installed.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1278,6 +1278,19 @@
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [mjr] Fix fatal error when using Mnemo without Nag installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
