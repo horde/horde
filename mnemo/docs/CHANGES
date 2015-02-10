@@ -1,6 +1,6 @@
-----------
-v4.2.4-git
-----------
+------
+v4.2.4
+------
 
 [jan] Don't list notepads without SHOW permissions (Bug #13838).
 [jan] Fix using custom SQL driver configuration.
