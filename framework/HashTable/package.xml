@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-06</date>
+ <date>2015-02-10</date>
  <version>
   <release>1.2.2</release>
   <api>1.2.0</api>
@@ -288,7 +288,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-06</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add unit tests for Memcache and Redis backends.
