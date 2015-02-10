@@ -30,7 +30,7 @@
  </developer>
  <date>2015-02-10</date>
  <version>
-  <release>2.19.0</release>
+  <release>2.19.1</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -39,14 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix notice when deleting identities.
-* [jan] Fix NoSQL database name setting getting lost during configuration.
-* [jan] Allow to configure multiple LDAP servers and timeout value.
-* [mjr] Fixes for using ActiveSync without email sync enabled on Android 5 (Niklas Forsdahl &lt;niklas@creamarketing.com&gt;).
-* [mms] Calling an application&apos;s changeLanguage method on language change now handled by Horde_Registry.
-* [jan] Support non-ascii latin characters as access keys.
-* [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
-* [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3829,6 +3822,19 @@
 * [jan] Support non-ascii latin characters as access keys.
 * [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
 * [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.1</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
