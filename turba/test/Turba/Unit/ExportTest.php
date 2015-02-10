@@ -24,6 +24,13 @@ class Turba_Unit_ExportTest extends Turba_TestCase
 
     public function setUp()
     {
+        $GLOBALS['injector']->setInstance(
+            'Turba_Tagger',
+            $this->getMockBuilder('Turba_Tagger')
+                ->disableOriginalConstructor()
+                ->setMethods(null)
+                ->getMock()
+        );
         $this->contact = array(
             'name' => 'Jan Schneiderö',
             'namePrefix' => 'Mr.',
