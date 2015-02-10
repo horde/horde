@@ -24,7 +24,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>3.0.2</release>
+  <release>3.0.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,11 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix closure compiler errors (Bug #13596).
-* [jan] Fix type of ansel_shares_users.user_uid column.
-* [jan] Fix watermark font size preference.
-* [jan] Make shares table compatible with Oracle.
-* [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1351,6 +1347,21 @@
 * [jan] Fix watermark font size preference.
 * [jan] Make shares table compatible with Oracle.
 * [jan] Add Danish translation (Erling Preben Hansen &lt;erling@eph.dk&gt;).
+   </notes>
+  </release>
+  <release>
+   <date>2015-02-10</date>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
