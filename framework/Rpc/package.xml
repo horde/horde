@@ -24,7 +24,7 @@
  </developer>
  <date>2015-02-10</date>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix return errors from jsonrpc requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -862,6 +862,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix return errors from jsonrpc requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
