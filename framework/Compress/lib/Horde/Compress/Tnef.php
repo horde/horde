@@ -333,7 +333,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     {
         // Number of attributes.
         $number = $this->_geti($data, 32);
-        $this->_logger->debug(sprintf('TNEF: Extracting %n MAPI attributes.', $number));
+        $this->_logger->debug(sprintf('TNEF: Extracting %d MAPI attributes.', $number));
         while ((strlen($data) > 0) && $number--) {
             $have_mval = false;
             $num_mval = 1;
