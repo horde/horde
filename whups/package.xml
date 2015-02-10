@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-10-29</date>
+ <date>2015-02-10</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -478,11 +478,6 @@
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
- <usesrole>
-  <role>horde</role>
-  <package>Role</package>
-  <channel>pear.horde.org</channel>
- </usesrole>
  <dependencies>
   <required>
    <php>
@@ -662,6 +657,11 @@
    </extension>
   </required>
  </dependencies>
+ <usesrole>
+  <role>horde</role>
+  <package>Role</package>
+  <channel>pear.horde.org</channel>
+ </usesrole>
  <phprelease>
   <filelist>
    <install as="whups/index.php" name="index.php" />
@@ -1133,7 +1133,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
 * [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
