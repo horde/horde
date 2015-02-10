@@ -18,7 +18,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>4.2.4</release>
+  <release>4.2.5</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Don&apos;t list notepads without SHOW permissions (Bug #13838).
-* [jan] Fix using custom SQL driver configuration.
-* [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1267,6 +1265,19 @@
 * [jan] Don&apos;t list notepads without SHOW permissions (Bug #13838).
 * [jan] Fix using custom SQL driver configuration.
 * [mjr] Fix truncation of body text when synchronizing over EAS when no truncationsize option is sent from client (Bug #13755).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
