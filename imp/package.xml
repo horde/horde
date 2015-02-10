@@ -24,7 +24,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>6.2.7</release>
+  <release>6.2.8</release>
   <api>6.2.0</api>
  </version>
  <stability>
@@ -33,8 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix regression with not being able to list users (Bug #13808).
-* [mms] Fix rebuilding the folder tree translations when the language is changed in a session (Bug #13821).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3817,6 +3816,19 @@
    <notes>
 * [jan] Fix regression with not being able to list users (Bug #13808).
 * [mms] Fix rebuilding the folder tree translations when the language is changed in a session (Bug #13821).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.2.8</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
