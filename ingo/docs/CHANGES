@@ -1,6 +1,6 @@
-----------
-v3.2.4-git
-----------
+------
+v3.2.4
+------
 
 [mms] Rate-limit filters drag/drop changes to prevent race conditions (Bug
       #13819).
