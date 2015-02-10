@@ -5,7 +5,7 @@ $notes['security'] = false;
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Mnemo Note
-Manager version H5 (4.2.4).
+Manager version H5 (4.2.5).
 
 The Mnemo Note Manager is the Horde notes/memos application. It allows users to
 keep web-based notes and freeform text. Notes may be shared with other users
@@ -19,8 +19,8 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to the Mnemo version H5 (4.2.3) are:
-    * Small bugfixes and improvements.
+The major changes compared to the Mnemo version H5 (4.2.4) are:
+    * Fixed fatal error regression if not using default SQL configuration.
 ML;
 
 $notes['name'] = 'Mnemo';
