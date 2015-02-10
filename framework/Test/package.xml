@@ -18,7 +18,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Add method to obtain all logged events.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2913,6 +2913,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Add method to obtain all logged events.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
