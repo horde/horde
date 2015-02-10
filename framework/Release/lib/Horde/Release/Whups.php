@@ -105,10 +105,11 @@ class Horde_Release_Whups
     }
 
     /**
-     * Perform a listQueue api call.
+     * Performs a listQueue API call.
      *
-     * @return string  TODO
      * @throws Horde_Exception
+     * @return array  List of queues with IDs as key and information hash as
+     *                value.
      */
     protected function _listQueues()
     {
