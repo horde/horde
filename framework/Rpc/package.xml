@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-09</date>
+ <date>2015-02-10</date>
  <version>
   <release>2.1.3</release>
   <api>1.0.0</api>
@@ -33,7 +33,6 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix return code from multi-request actions in Peclhttp2 driver.
 * [jan] Fix return errors from jsonrpc requests.
  </notes>
  <contents>
@@ -859,10 +858,9 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix return code from multi-request actions in Peclhttp2 driver.
 * [jan] Fix return errors from jsonrpc requests.
    </notes>
   </release>
