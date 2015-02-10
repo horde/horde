@@ -62,6 +62,18 @@ class Horde_Mime_Filter_EncodingTest extends Horde_Test_Case
                 false
             ),
             array(
+                "This is 7-bit\rdata\rwith\rCR\rline-endings.",
+                false,
+            ),
+            array(
+                "This is 7-bit\ndata\nwith\nLF\nline-endings.",
+                false
+            ),
+            array(
+                "This is 7-bit\r\ndata\nwith\rinconsistent\r\nline-endings.",
+                false
+            ),
+            array(
                 "This is 8-bit åå\r\ndata.",
                 '8bit'
             ),
@@ -70,20 +82,12 @@ class Horde_Mime_Filter_EncodingTest extends Horde_Test_Case
                 '8bit'
             ),
             array(
-                "This is 8-bit\ndata\nwith\nnon-CRLF\nline-endings.",
-                '8bit_noncrlf'
+                "This is 8-bit åå\rdata\rwith\rCR\rline-endings.",
+                '8bit'
             ),
             array(
-                "This is 8-bit data with a terminal CR.\r",
-                '8bit_noncrlf'
-            ),
-            array(
-                "This is 8-bit\rdata\rwith\rnon-CRLF\rline-endings.",
-                '8bit_noncrlf'
-            ),
-            array(
-                "This is 8-bit\r\ndata\nwith\rinconsistent\r\nline-endings.",
-                '8bit_noncrlf'
+                "This is 8-bit åå\ndata\nwith\nLF\nline-endings.",
+                '8bit'
             ),
             array(
                 "This is binary \0\r\ndata.",
