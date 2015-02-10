@@ -41,7 +41,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const AFROM                             = 0x08000;
     const ASTATUS                           = 0x68007;
     const AMCLASS                           = 0x78008; // 0x8008
-    const AMESSAGEID                        = 0x18009;  // 0x8009
+    const AMESSAGEID                        = 0x18009; // 0x8009
     const APARENTID                         = 0x1800a;
     const ACONVERSATIONID                   = 0x1800b;
     const ABODY                             = 0x2800c;
@@ -63,7 +63,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const AVERSION                          = 0x89006;
 
     const ID_REQUEST_RESP                   = 0x40009;
-    const ID_FROM                           = 0x8000; // @deprecated
+    const ID_FROM                           = 0x8000;  // @deprecated
     const ID_DATE_START                     = 0x30006;
     const ID_DATE_END                       = 0x30007;
     const AIDOWNER                          = 0x50008; // 0x0008;
