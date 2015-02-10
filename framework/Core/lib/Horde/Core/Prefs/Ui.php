@@ -951,7 +951,7 @@ class Horde_Core_Prefs_Ui
             $id = intval($this->vars->identity);
             $deleted_identity = $identity->delete($id);
             $this->_loadPrefs($this->app);
-            $notification->push(sprintf(Horde_Core_Translation::t("The identity \"%s\" has been deleted."), $deleted_identity[0]['id']), 'horde.success');
+            $notification->push(sprintf(Horde_Core_Translation::t("The identity \"%s\" has been deleted."), $deleted_identity['id']), 'horde.success');
             return;
         }
 

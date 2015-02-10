@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix notice when deleting identities.
 * [jan] Fix NoSQL database name setting getting lost during configuration.
 * [jan] Allow to configure multiple LDAP servers and timeout value.
 * [mjr] Fixes for using ActiveSync without email sync enabled on Android 5 (Niklas Forsdahl &lt;niklas@creamarketing.com&gt;).
@@ -3820,6 +3821,7 @@
    <date>2015-01-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix notice when deleting identities.
 * [jan] Fix NoSQL database name setting getting lost during configuration.
 * [jan] Allow to configure multiple LDAP servers and timeout value.
 * [mjr] Fixes for using ActiveSync without email sync enabled on Android 5 (Niklas Forsdahl &lt;niklas@creamarketing.com&gt;).
