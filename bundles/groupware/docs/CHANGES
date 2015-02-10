@@ -2,6 +2,205 @@
 v5.2.5-git
 ----------
 
+Horde Changes
+-------------
+[mms] Make dynamic context menus scrollable if taller than the browser screen
+      height (Bug #13833).
+[jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
+[jan] Don't instantiate notification system for RPC requests.
+
+Address Book Changes
+--------------------
+[jan] Fix export format of tags to vCard 3.0 categories (Bug #13800).
+
+Calendar Changes
+----------------
+[mjr] Fix generating calendar embed code (Bug #13828).
+[jan] Don't wipe out whole calendars when PUTing individual events via WebDAV.
+
+Tasks Changes
+-------------
+[jan] Don't list task lists without SHOW permissions (Bug #13837).
+[jan] Use consistent checkbox.
+[jan] Don't allow deletion of tasks with sub-tasks (Bug #13809).
+[jan] Don't allow completion of tasks with incomplete sub-tasks and vice versa.
+[jan] Don't wipe out whole task lists when PUTing individual tasks via WebDAV.
+
+Notes Changes
+-------------
+[jan] Don't list notepads without SHOW permissions (Bug #13838).
+[jan] Fix using custom SQL driver configuration.
+[mjr] Fix truncation of body text when synchronizing over EAS when no
+      truncationsize option is sent from client (Bug #13755).
+
+Library Changes
+---------------
+[jan] Improve PSR-2 compatibility.
+
+ActiveSync
+[mjr] Fix moving a mailbox to a new parent (Bug #13839).
+[mjr] Always send the attachmentsenabled policy, even when it's the default
+      value of 'enabled' (Bug #13827).
+[mjr] Improve handling of FILTERTYPE changes after initial SYNC (Bug #13781).
+[mjr] Add Date header to emails sent from broken HTC clients (Bug #13784).
+[mjr] Add some more TRUNCATION related workarounds/fixes.
+[mjr] Improve/fix support for handling OOF messages (Bug #13719).
+[mjr] Fix incorrect converting of HTML to plaintext causing incorrect
+      truncation size.
+[mjr] Fix BC break due to MessageBodyData improvements (Bug #13768).
+[mjr] Fix some WBXML parsing issues due to empty GET tags in SETTINGS requests.
+[mjr] Decode RIGHTSMANAGEMENTINFORMATION nodes.
+[mjr] Correctly implement BODYPART handling (Bug #13729).
+[mjr] Workaround some broken clients that send null content inside open/close
+      tags instead of an empty tag (Bug #13719).
+[mjr] Fix regression in detecting iTip requests (Bug #13739).
+[mjr] Add support for clients that issue BODYPARTPREFERENCE options (Bug
+      #13729).
+[mjr] Fix handling POOMCALENDAR_UID values to prevent broken meeting request
+      behavior.
+[mjr] Fix handling of certain types of broken MIME messages (Bug #13728).
+[mjr] Fix issue that could cause broken sync when an email contains no text
+      parts (Bug #13711).
+
+Alarm
+[mms] Fix fatal errors when stored alarm data cannot be unserialized.
+
+Autoloader_Cache
+[mms] Handle a cache miss by trying to load the class in its new location.
+
+Compress_Fast
+[mms] Add zlib driver and allow it to be considered a 'fast' compression driver
+      (disabled by default).
+
+Core
+[jan] Fix notice when deleting identities.
+[jan] Fix NoSQL database name setting getting lost during configuration.
+[jan] Allow to configure multiple LDAP servers and timeout value.
+[mjr] Fixes for using ActiveSync without email sync enabled on Android 5
+      (Niklas Forsdahl <niklas@creamarketing.com>).
+[mms] Calling an application's changeLanguage method on language change now
+      handled by Horde_Registry.
+[jan] Support non-ascii latin characters as access keys.
+[mms] Use more secure CBC block cipher mode when storing encrypted Blowfish
+      data inside the session.
+[mms] If compressing/packaging javascript files, don't use pre-compressed
+      version (if one exists) when generating.
+[mjr] Improvements in ActiveSync to handling the case when FILTERTYPE changes
+      (Bug #13781).
+[mjr] Fix missing Date and From headers when saving sent mail from broken HTC
+      clients (Bug #13784).
+[jan] Fix user names via DAV access when using authusername hooks.
+[jan] Fix updating of location in weather portal block.
+[mjr] Improve/fix support for handling OOF messages in ActiveSync (Bug #13719).
+[mms] Upgrade jQuery to v1.11.2.
+[jan] Call preference hooks for default values of new identities.
+[mms] Only load application notify handlers on demand.
+[mjr] Allow disabling maillog synchronization with EAS clients (Bug #13747).
+[jan] Log E_USER_WARNING, E_RECOVERABLE_ERROR, and E_USER_NOTICE messages at
+      the correct level.
+[mjr] Add support for ActiveSync clients that issue BODYPARTPREFERENCE options
+      (Bug #13729).
+
+Crypt
+[jan] Make all PGP features locale-independent.
+[mms] Fix parsing GPG packet information using the gnupg v2.1 binary.
+
+Css_Parser
+[mms] Update PHP-CSS-Parser lib to latest dev to fix issues on PHP < 5.3.9 (Bug
+      #13792).
+[mms] Use composer to generate the distributed version of the PHP-CSS-Parser
+      package.
+
+HashTable
+[jan] Add unit tests for Memcache and Redis backends.
+
+Http
+[jan] Add unit tests for PECL HTTP 1.x/2.x drivers.
+[mms] Horde_Http_Base_Response#getHeader() is now case-insensitive for the
+      header input (Bug #13736).
+
+Idna
+[jan] Fix install paths (Bug #13785).
+[mms] Initial release.
+
+Image
+[mjr] Improve stream handling in bundled EXIF driver (Request #13788).
+[mms] Horde_Image_Exif_Bundled now supports reading data from a PHP stream,
+      rather than a file.
+
+Imap_Client
+[mms] Fix serialization of Horde_Imap_Client_Data_Fetch objects.
+[mms] Workaround broken in-memory stream filter handling.
+[mms] Fix handling mailbox cache data when the mailbox returns NOMODSEQ.
+[mms] IMAP alerts can now be handled by registering an observer with the new
+      Horde_Imap_Client_Base_Alerts object.
+
+JavascriptMinify
+[mms] Silence code warnings for Closure compiler (Bug #13789).
+
+Kolab_Server
+[jan] Remove PHPUnit dependency.
+
+Ldap
+[jan] Fix error when using custom separators in
+      Horde_Ldap_Utils::canonicalDN().
+[jan] Fix casefolding option not being passed to multivalued RDNs.
+[jan] Fix exists() with multivalued RDNs.
+[jan] Add 'timeout' parameter.
+
+Mail
+[mms] IDN support no longer requires intl to be built-in to PHP.
+
+Mime
+[mms] Fix setting a MIME part's contents when the data is the current stream
+      resource of that part.
+[mms] Fix MIME encoding the Content-Description header (Bug #13814).
+[mms] Fix setting MIME IDs when a message/rfc822 part is the base of the part
+      object.
+[jan] Fix Horde_Mime::quotedPrintableEncode() (Bug #13769).
+[mjr] Fix issue where long lines were not properly dealt with when binary
+      transfer encoding was used (Bug #13709).
+[mms] Added Horde_Mime_Filter_Encoding class.
+[mms] MIME decoding uses windows-1252 charset by default when iso-8859-1 is
+      identified in the MIME encoded string.
+[mms] Move mime.mapping.php generation code from horde-support repository into
+      doc/ directory.
+
+Prefs
+[mms] Removed unused 'password' parameter.
+[mms] Fix Horde_Prefs#isDefault() to return true if the given pref name doesn't
+      exist in a scope.
+
+Rpc
+[jan] Fix return errors from jsonrpc requests.
+
+Smtp
+[mms] Failed recipients can now be determined via the
+      Horde_Smtp_Exception_Recipients exception thrown when calling
+      Horde_Smtp#send().
+
+Stream_Wrapper
+[mms] Fix possible infinite loop when reading from a combined stream.
+
+Test
+[mjr] Add method to obtain all logged events.
+[mms] Fix install location for the phpunit libraries packaged locally via
+      composer.
+[mms] Update to PHPUnit 4.4.0 and dependencies.
+[jan] Add remoteHost() to Horde_Test_Stub_Registry.
+
+Text_Filter
+[mms] Support display of IDN domains in URLs.
+
+Util
+[jan] Use grapheme functions in Horde_String if intl extension is available.
+[mms] Fix deleting multi-level temporary directories in
+      Horde_Util::deleteAtShutdown().
+
+Vfs
+[jan] Fix updating quota when overwriting existing files.
+[jan] Fix updating quota when using writeData() with FTP driver.
+[jan] Fix setting permissions in Ssh2 driver (Bug #13783).
 
 
 ------
