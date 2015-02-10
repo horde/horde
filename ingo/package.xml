@@ -24,7 +24,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>3.2.4</release>
+  <release>3.2.5</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mms] Rate-limit filters drag/drop changes to prevent race conditions (Bug #13819).
-* [mms] Fix filter drag/drop ordering working in basic view (Bug #13820).
-* [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1540,6 +1538,19 @@
 * [mms] Rate-limit filters drag/drop changes to prevent race conditions (Bug #13819).
 * [mms] Fix filter drag/drop ordering working in basic view (Bug #13820).
 * [mms] Maildir requires UTF7-IMAP encoding for folder names (Bug #13378).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.5</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
