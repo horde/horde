@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-03</date>
+ <date>2015-02-10</date>
  <version>
   <release>5.2.5</release>
   <api>5.2.0</api>
@@ -126,7 +126,7 @@
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.4</min>
+    <min>4.2.5</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -599,10 +599,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, and Mnemo.
    </notes>
   </release>
  </changelog>
