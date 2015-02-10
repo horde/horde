@@ -1,6 +1,6 @@
-----------
-v3.0.2-git
-----------
+------
+v3.0.2
+------
 
 [jan] Fix closure compiler errors (Bug #13596).
 [jan] Fix type of ansel_shares_users.user_uid column.

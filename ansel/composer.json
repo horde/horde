@@ -21,8 +21,8 @@
             "role": "lead"
         }
     ],
-    "version": "3.0.1",
-    "time": "2013-08-22",
+    "version": "3.0.2",
+    "time": "2015-02-10",
     "repositories": [
         {
             "type": "pear",
@@ -30,7 +30,7 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
+        "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/content": ">=2.0.3@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/horde": ">=5.0.0@stable,<=6.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Auth": ">=2.0.0@stable,<=3.0.0alpha1@stable",
@@ -64,7 +64,6 @@
         "ext-gd": "*",
         "ext-imagick": "*",
         "ext-libpuzzle": "*",
-        "ext-opencv": "*",
         "ext-php-facedetect": "*"
     }
 }

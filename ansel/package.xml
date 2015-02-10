@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-02-24</date>
+ <date>2015-02-10</date>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -1343,7 +1343,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-02-24</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix closure compiler errors (Bug #13596).
