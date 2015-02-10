@@ -1,6 +1,6 @@
-----------
-v3.0.2-git
-----------
+------
+v3.0.2
+------
 
 [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
 [jan] Fix sending reminders (Bug #12867).
