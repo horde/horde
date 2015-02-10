@@ -120,11 +120,16 @@ extends Components_Release_Task_Base
         $ticket_description = $this->getNotes()->getName() . ' ' . $ticket_description;
 
         if (!$this->getTasks()->pretend()) {
-            $this->_getBugs($options)->addNewVersion(
-                $this->getComponent()->getName(),
-                $ticket_version,
-                $ticket_description
-            );
+            try {
+                $this->_getBugs($options)->addNewVersion(
+                    $this->getComponent()->getName(),
+                    $ticket_version,
+                    $ticket_description
+                );
+            } catch (Horde_Exception $e) {
+                $this->getOutput()->warn('Cannot update version on bugs.horde.org.');
+                $this->getOutput()->warn($e->getMessage());
+            }
         } else {
             $this->getOutput()->info(
                 sprintf(
