@@ -31,6 +31,7 @@ class Ansel_Unit_ImageTest extends Ansel_Unit_Base
 {
     public function testExif()
     {
+        $this->markTestIncomplete();
         $params = array(
             'image_id' => 4200,
             'image_filename' => 'exif_test.jpg',

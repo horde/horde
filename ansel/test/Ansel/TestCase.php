@@ -41,9 +41,10 @@ extends PHPUnit_Framework_TestCase
                 // 'Horde_Core_Factory_Vfs' => array(
                 //     'factory' => 'Ansel_Unit_Factory_Vfs',
                 //     'method' => 'create')
+                'Horde_Group' => 'Group',
+                'Horde_Perms' => 'Perms',
                 'Horde_Prefs' => 'Prefs',
-                //'Horde_Perms' => 'Perms',
-                //'Horde_Group' => 'Group',
+                'Horde_Share' => 'Share',
                 'Horde_Registry' => 'Registry',
             )
         );
@@ -57,12 +58,12 @@ extends PHPUnit_Framework_TestCase
         );
 
         // TODO: need separate test bundles
-       $GLOBALS['conf']['image']['driver'] = 'Gd';
-       $GLOBALS['conf']['image']['type'] = 'jpg';
-       $GLOBALS['conf']['exif']['driver'] = 'Bundled';
-   }
+        $GLOBALS['conf']['image']['driver'] = 'Gd';
+        $GLOBALS['conf']['image']['type'] = 'jpg';
+        $GLOBALS['conf']['exif']['driver'] = 'Bundled';
+    }
 
-   static protected function createTestVFS(Horde_Test_Setup $setup)
+    static protected function createTestVFS(Horde_Test_Setup $setup)
     {
         $setup->getInjector()->setInstance(
             'Ansel_Vfs',
