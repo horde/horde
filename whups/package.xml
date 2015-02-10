@@ -18,7 +18,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>3.0.2</release>
+  <release>3.0.3</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
-* [jan] Fix sending reminders (Bug #12867).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1138,6 +1137,19 @@
    <notes>
 * [jan] Fix uploading attachments when assigning in step 4 (Bug #13621).
 * [jan] Fix sending reminders (Bug #12867).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
