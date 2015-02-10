@@ -30,7 +30,7 @@
  </lead>
  <date>2015-02-10</date>
  <version>
-  <release>5.2.4</release>
+  <release>5.2.5</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Make dynamic context menus scrollable if taller than the browser screen height (Bug #13833).
-* [jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
-* [jan] Don&apos;t instantiate notification system for RPC requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4004,6 +4002,19 @@
 * [mms] Make dynamic context menus scrollable if taller than the browser screen height (Bug #13833).
 * [jan] Fix horde-import-squirrelmail-prefs script (Bug #13780).
 * [jan] Don&apos;t instantiate notification system for RPC requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.5</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
