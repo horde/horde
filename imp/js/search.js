@@ -354,10 +354,9 @@ var ImpSearch = {
             if ($(first).down().hasClassName('join')) {
                 $(first).down().remove();
             }
-        }
-
-        if (!keys.size()) {
+        } else {
             $('search_mboxes_add').up().show();
+            $('search_mboxes').hide();
         }
     },
 
@@ -387,14 +386,14 @@ var ImpSearch = {
 
         if (mbox == this.allsearch) {
             this.resetMailboxes();
-            $('search_mboxes').show();
+            $('search_mboxes_add').show().up().hide();
             div2.insert(
                 new Element('EM').insert(this.text.search_all.escapeHTML())
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
         } else {
-            if ($('search_mboxes').childElements().size()) {
+            if ($('search_mboxes').show().childElements().size()) {
                 div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
             }
 
@@ -411,7 +410,7 @@ var ImpSearch = {
         }
 
         div.insert(div2);
-        $('search_mboxes').show().insert(div);
+        $('search_mboxes').insert(div);
 
         this.mboxes.set(div.identify(), mbox);
     },
