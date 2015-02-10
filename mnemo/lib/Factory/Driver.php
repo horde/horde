@@ -59,7 +59,7 @@ class Mnemo_Factory_Driver
                 if ($params['driverconfig'] != 'Horde') {
                     $customParams = $params;
                     unset($customParams['driverconfig'], $customParams['table']);
-                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('nag', $customParams);
+                    $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('mnemo', $customParams);
                 } else {
                     $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
                 }
