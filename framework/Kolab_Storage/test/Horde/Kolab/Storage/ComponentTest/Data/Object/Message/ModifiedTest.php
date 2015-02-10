@@ -32,11 +32,6 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
-        if (version_compare(PHP_VERSION, '5.5.0', '>=') &&
-            version_compare(PHP_VERSION, '5.5.3', '<=')) {
-            $this->markTestSkipped('PHP version with broken quoted-printable-encode');
-        }
-
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
         $driver->setMessage('INBOX', 1, file_get_contents(__DIR__ . '/../../../../fixtures/note.eml'));
         $factory = new Horde_Kolab_Format_Factory();
@@ -106,10 +101,9 @@ clients please visit http://www.kolab.org/content/kolab-clients
 --=_
 Content-Type: application/x-vnd.kolab.note; name=kolab.xml
 Content-Disposition: inline; x-kolab-type=xml; filename=kolab.xml
-Content-Transfer-Encoding: quoted-printable
 
-<?xml version=3D"1.0" encoding=3D"UTF-8"?>
-<note version=3D"1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<note version="1.0">
   <uid>ABC1234</uid>
   <body/>
   <categories/>
