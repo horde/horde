@@ -325,7 +325,10 @@ implements Serializable, SplObserver
      */
     public function shutdown()
     {
-        $this->logout();
+        try {
+            $this->logout();
+        } catch (Horde_Imap_Exception $e) {
+        }
     }
 
     /**

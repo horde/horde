@@ -119,40 +119,43 @@ extends Horde_Imap_Client_Cache_Backend
         foreach ($this->_update as $mbox => $val) {
             $s = &$this->_slicemap[$mbox];
 
-            if (!empty($val['add'])) {
-                if ($s['c'] <= $this->_params['slicesize']) {
-                    $val['slice'][] = $s['i'];
-                    $this->_loadSlice($mbox, $s['i']);
-                }
-                $val['slicemap'] = true;
-
-                foreach (array_keys(array_flip($val['add'])) as $uid) {
-                    if ($s['c']++ > $this->_params['slicesize']) {
-                        $s['c'] = 0;
-                        $val['slice'][] = ++$s['i'];
+            try {
+                if (!empty($val['add'])) {
+                    if ($s['c'] <= $this->_params['slicesize']) {
+                        $val['slice'][] = $s['i'];
                         $this->_loadSlice($mbox, $s['i']);
                     }
-                    $s['s'][$uid] = $s['i'];
-                }
-            }
+                    $val['slicemap'] = true;
 
-            if (!empty($val['slice'])) {
-                $d = &$this->_data[$mbox];
-                $val['slicemap'] = true;
-
-                foreach (array_keys(array_flip($val['slice'])) as $slice) {
-                    $data = array();
-                    foreach (array_keys($s['s'], $slice) as $uid) {
-                        $data[$uid] = is_array($d[$uid])
-                            ? serialize($d[$uid])
-                            : $d[$uid];
+                    foreach (array_keys(array_flip($val['add'])) as $uid) {
+                        if ($s['c']++ > $this->_params['slicesize']) {
+                            $s['c'] = 0;
+                            $val['slice'][] = ++$s['i'];
+                            $this->_loadSlice($mbox, $s['i']);
+                        }
+                        $s['s'][$uid] = $s['i'];
                     }
-                    $this->_cache->set($this->_getCid($mbox, $slice), serialize($data), $lifetime);
                 }
-            }
 
-            if (!empty($val['slicemap'])) {
-                $this->_cache->set($this->_getCid($mbox, 'slicemap'), serialize($s), $lifetime);
+                if (!empty($val['slice'])) {
+                    $d = &$this->_data[$mbox];
+                    $val['slicemap'] = true;
+
+                    foreach (array_keys(array_flip($val['slice'])) as $slice) {
+                        $data = array();
+                        foreach (array_keys($s['s'], $slice) as $uid) {
+                            $data[$uid] = is_array($d[$uid])
+                                ? serialize($d[$uid])
+                                : $d[$uid];
+                        }
+                        $this->_cache->set($this->_getCid($mbox, $slice), serialize($data), $lifetime);
+                    }
+                }
+
+                if (!empty($val['slicemap'])) {
+                    $this->_cache->set($this->_getCid($mbox, 'slicemap'), serialize($s), $lifetime);
+                }
+            } catch (Horde_Exception $e) {
             }
         }
 

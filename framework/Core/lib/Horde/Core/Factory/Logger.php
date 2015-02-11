@@ -145,16 +145,19 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
      */
     public static function processQueue($logger = null)
     {
-        if (empty(self::$_queue) || !self::available()) {
-            return;
-        }
+        try {
+            if (empty(self::$_queue) || !self::available()) {
+                return;
+            }
 
-        if (is_null($logger)) {
-            $logger = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-        }
+            if (is_null($logger)) {
+                $logger = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+            }
 
-        foreach (self::$_queue as $val) {
-            $logger->logObject($val);
+            foreach (self::$_queue as $val) {
+                $logger->logObject($val);
+            }
+        } catch (Exception $e) {
         }
 
         self::$_queue = array();

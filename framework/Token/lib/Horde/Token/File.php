@@ -53,7 +53,10 @@ class Horde_Token_File extends Horde_Token_Base
      */
     public function __destruct()
     {
-        $this->_disconnect(false);
+        try {
+            $this->_disconnect(false);
+        } catch (Horde_Token_Exception $e) {
+        }
     }
 
     /**
