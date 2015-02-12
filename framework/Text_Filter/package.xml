@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
  </notes>
  <contents>
@@ -1038,6 +1039,7 @@ Initial release as a PEAR package
    <date>2015-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
    </notes>
   </release>

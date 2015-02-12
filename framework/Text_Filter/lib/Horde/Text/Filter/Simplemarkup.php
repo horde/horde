@@ -31,26 +31,36 @@ class Horde_Text_Filter_Simplemarkup extends Horde_Text_Filter_Base
      */
     public function getPatterns()
     {
-        $startOfLine = '((?:^|<br(?:\s*/)?>)(?:\s|&nbsp;)*)';
-        $endOfLine = '((?:\s|&nbsp;)*(?:$|<br|\.))';
-        $startOfWord = '(^|\s|&nbsp;|<br(?:\s*/)?>)';
-        $endOfWord = '($|\s|&nbsp;|<br|\.)';
+        if (!isset($this->_params['html'])) {
+            $linebreak = '\n|<br(?:\s*/)?>';
+            $whitespace = '\s|&nbsp;';
+        } elseif ($this->_params['html']) {
+            $linebreak = '<br(?:\s*/)?>';
+            $whitespace = '&nbsp;';
+        } else {
+            $linebreak = '\n';
+            $whitespace = '\s';
+        }
+        $startOfLine = '((?:^|' . $linebreak . ')(?:' . $whitespace . ')*)';
+        $endOfLine = '(?=(?:' . $whitespace . ')*(?:$|\.|' . $linebreak . '))';
+        $startOfWord = '(^|' . $whitespace . '|' . $linebreak . ')';
+        $endOfWord = '(?=$|\.|' . $whitespace . '|' . $linebreak . ')';
 
         return array('regexp' => array(
             // Bold.
-            '!' . $startOfLine . '(\*[^*]+\*)' . $endOfLine .
-            '|' . $startOfWord . '(\*[^*\s]+\*)' . $endOfWord . '!i'
-            => '$1$4<strong>$2$5</strong>$3$6',
+            '#' . $startOfLine . '(\*(?:[^*](?!$|' . $linebreak . '))+\*)' . $endOfLine .
+            '|' . $startOfWord . '(\*[^*\s]+\*)' . $endOfWord . '#i'
+            => '$1$3<strong>$2$4</strong>',
 
             // Underline.
-            '!' . $startOfLine . '(_[^_]+_)' . $endOfLine .
-            '|' . $startOfWord . '(_[^_\s]+_)' . $endOfWord . '!i'
-            => '$1$4<u>$2$5</u>$3$6',
+            '#' . $startOfLine . '(_(?:[^*](?!$|' . $linebreak . '))+_)' . $endOfLine .
+            '|' . $startOfWord . '(_[^_\s]+_)' . $endOfWord . '#i'
+            => '$1$3<u>$2$4</u>',
 
             // Italic.
-            '!' . $startOfLine . '(/[^/]+/)' . $endOfLine .
-            '|' . $startOfWord . '(/[^/\s]+/)' . $endOfWord . '!i'
-            => '$1$4<em>$2$5</em>$3$6',
+            '#' . $startOfLine . '(/(?:[^*](?!$|' . $linebreak . '))+/)' . $endOfLine .
+            '|' . $startOfWord . '(/[^/\s]+/)' . $endOfWord . '#i'
+            => '$1$3<em>$2$4</em>',
         ));
     }
 

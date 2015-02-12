@@ -27,11 +27,11 @@ class Horde_Text_Filter_SimplemarkupTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider markupExamples
      */
-    public function testSimplemarkup($markup, $html)
+    public function testSimplemarkup($markup, $output, $html)
     {
         $this->assertEquals(
-            $html,
-            Horde_Text_Filter::filter($markup, 'simplemarkup')
+            $output,
+            Horde_Text_Filter::filter($markup, 'simplemarkup', array('html' => $html))
         );
     }
 
@@ -41,69 +41,101 @@ class Horde_Text_Filter_SimplemarkupTest extends PHPUnit_Framework_TestCase
             // Simple examples.
             array(
                 'some *bold* text',
-                'some <strong>*bold*</strong> text'
+                'some <strong>*bold*</strong> text',
+                false,
             ),
             array(
                 'some _underlined_ text',
-                'some <u>_underlined_</u> text'
+                'some <u>_underlined_</u> text',
+                false,
             ),
             array(
                 'some /italic/ text',
-                'some <em>/italic/</em> text'
+                'some <em>/italic/</em> text',
+                false,
             ),
 
             // Edge cases.
             array(
                 '*bold* at start',
-                '<strong>*bold*</strong> at start'
+                '<strong>*bold*</strong> at start',
+                false,
             ),
             array(
                 'at end *bold*',
-                'at end <strong>*bold*</strong>'
+                'at end <strong>*bold*</strong>',
+                false,
             ),
             array(
                 'full stop *bold*.',
-                'full stop <strong>*bold*</strong>.'
+                'full stop <strong>*bold*</strong>.',
+                false,
             ),
             array(
                 'some&nbsp;*bold*&nbsp;text',
-                'some&nbsp;<strong>*bold*</strong>&nbsp;text'
+                'some&nbsp;<strong>*bold*</strong>&nbsp;text',
+                true,
             ),
             array(
                 'some<br>*bold*<br />text more<br />*bold*<br>text',
-                'some<br><strong>*bold*</strong><br />text more<br /><strong>*bold*</strong><br>text'
+                'some<br><strong>*bold*</strong><br />text more<br /><strong>*bold*</strong><br>text',
+                true,
             ),
 
             // Whole phrase matching.
             array(
                 '*some bold text*',
-                '<strong>*some bold text*</strong>'
+                '<strong>*some bold text*</strong>',
+                false,
             ),
             array(
                 ' *some bold text* ',
-                ' <strong>*some bold text*</strong> '
+                ' <strong>*some bold text*</strong> ',
+                false,
             ),
             array(
                 '&nbsp;*some bold&nbsp;text*&nbsp;',
-                '&nbsp;<strong>*some bold&nbsp;text*</strong>&nbsp;'
+                '&nbsp;<strong>*some bold&nbsp;text*</strong>&nbsp;',
+                true,
             ),
             array(
                 '<br>*some bold text*<br />',
-                '<br><strong>*some bold text*</strong><br />'
+                '<br><strong>*some bold text*</strong><br />',
+                true,
             ),
 
             // No matching.
             array(
                 'some *bold**bold* text',
                 'some *bold**bold* text',
+                false,
             ),
             array(
                 'some *bold*bold* text',
                 'some *bold*bold* text',
+                false,
             ),
             array(
                 'some bold*bold text',
                 'some bold*bold text',
+                false,
+            ),
+
+            // More edge cases.
+            array(
+                "* some bullet point\n* ...\n",
+                "* some bullet point\n* ...\n",
+                false,
+            ),
+            array(
+                "* some bullet point<br>* ...<br>",
+                "* some bullet point<br>* ...<br>",
+                true,
+            ),
+            array(
+                'some *bold* *text*.',
+                'some <strong>*bold*</strong> <strong>*text*</strong>.',
+                false,
             ),
         );
     }
