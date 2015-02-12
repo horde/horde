@@ -1862,28 +1862,35 @@ var ImpBase = {
             pm = $('previewMsg'),
             r = this.preview.get(mbox, uid);
 
-        pm.down('.msgHeaders').select('.address').invoke('fire', 'ImpBase:removeElt');
+        pm.down('.msgHeaders').select('.address')
+            .invoke('fire', 'ImpBase:removeElt');
 
-        // Add subject. Subject was already html encoded on server (subject
-        // may include links).
+        // Add subject. Subject was already html encoded on server (subject may
+        // include links).
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + ImpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
+        tmp.invoke('update', r.subject === null
+                   ? '[' + ImpCore.text.badsubject + ']'
+                   : (r.subjectlink || r.subject));
 
         // Add date
         if (r.localdate) {
-            $('msgHeadersColl').down('.date').show().update(r.localdate.escapeHTML());
-            $('msgHeaderDate').show().down('.date').update(r.localdate.escapeHTML()).insert(
-                // document.createElement(), with 2nd argument, required for
-                // Chrome
-                document.createElement('TIME', 'time-ago')
-                    .writeAttribute({
-                        className: 'msgHeaderDateRelative',
-                        datetime: r.datestamp,
-                        is: 'time-ago'
-                    })
-            );
+            $('msgHeadersColl').down('.date').show()
+                .update(r.localdate.escapeHTML());
+            $('msgHeaderDate').show().down('.date')
+                .update(r.localdate.escapeHTML())
+                .insert(
+                    // document.createElement(), with 2nd argument, required
+                    // for Chrome
+                    document.createElement('TIME', 'time-ago')
+                        .writeAttribute({
+                            className: 'msgHeaderDateRelative',
+                            datetime: r.datestamp,
+                            is: 'time-ago'
+                        })
+                );
         } else {
-            [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ].invoke('hide');
+            [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ]
+                .invoke('hide');
         }
 
         // Add from/to/cc/bcc headers
