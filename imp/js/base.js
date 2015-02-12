@@ -1877,7 +1877,7 @@ var ImpBase = {
             $('msgHeadersColl').down('.date').show()
                 .update(r.localdate.escapeHTML());
             $('msgHeaderDate').show().down('.date')
-                .update(r.localdate.escapeHTML())
+                .update(r.localdate.escapeHTML() + ' (')
                 .insert(
                     // document.createElement(), with 2nd argument, required
                     // for Chrome
@@ -1887,7 +1887,8 @@ var ImpBase = {
                             datetime: r.datestamp,
                             is: 'time-ago'
                         })
-                );
+                )
+                .insert(')');
         } else {
             [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ]
                 .invoke('hide');

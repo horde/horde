@@ -76,7 +76,7 @@
        <td class="allowTextSelection">
         <span class="messagePrintShow"><?php echo $this->h($this->fulldate) ?></span>
         <span class="messagePrintNoShow"><?php echo $this->h($this->localdate) ?></span>
-        <time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($this->datestamp) ?>"></time>
+        (<time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($this->datestamp) ?>"></time>)
        </td>
       </tr>
 <?php endif; ?>
