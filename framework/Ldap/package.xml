@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Fix connection if using ldaps:// scheme (Bug #13858).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -486,7 +486,7 @@
    <date>2015-02-10</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Fix connection if using ldaps:// scheme (Bug #13858).
    </notes>
   </release>
  </changelog>

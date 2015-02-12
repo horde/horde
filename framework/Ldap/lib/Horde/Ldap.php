@@ -313,7 +313,9 @@ class Horde_Ldap
              * and seems to default to 2 minutes. Open a socket manually
              * instead to ping the server. */
             $failed = true;
-            if ($fp = @fsockopen($host, $this->_config['port'], $errno, $errstr, $this->_config['timeout'])) {
+            $url = @parse_url($host);
+            $sockhost = !empty($url['host']) ? $url['host'] : $host;
+            if ($fp = @fsockopen($sockhost, $this->_config['port'], $errno, $errstr, $this->_config['timeout'])) {
                 $failed = false;
                 fclose($fp);
             }
