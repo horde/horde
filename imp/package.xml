@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Show warning on S/MIME page if personal certificate has expired.
 * [mjr] Improve support for vTodo iTip handling.
 * [mms] Add resent information to message header display.
 * [mms] Added an option to the mailboxList API call to force inclusion of unsubscribed mailboxes.
