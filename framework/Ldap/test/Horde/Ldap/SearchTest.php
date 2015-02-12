@@ -19,14 +19,14 @@ class Horde_Ldap_SearchTest extends Horde_Ldap_TestBase
         }
         try {
             $ldap = new Horde_Ldap(self::$ldapcfg['server']);
-        } catch (Exception $e) {
-        }
-        try {
-            $ldap->delete('ou=Horde_Ldap_Test_search1,' . self::$ldapcfg['server']['basedn']);
-        } catch (Exception $e) {
-        }
-        try {
-            $ldap->delete('ou=Horde_Ldap_Test_search2,' . self::$ldapcfg['server']['basedn']);
+            try {
+                $ldap->delete('ou=Horde_Ldap_Test_search1,' . self::$ldapcfg['server']['basedn']);
+            } catch (Exception $e) {
+            }
+            try {
+                $ldap->delete('ou=Horde_Ldap_Test_search2,' . self::$ldapcfg['server']['basedn']);
+            } catch (Exception $e) {
+            }
         } catch (Exception $e) {
         }
     }
