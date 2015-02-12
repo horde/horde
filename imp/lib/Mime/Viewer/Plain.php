@@ -160,7 +160,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
 
         // Highlight simple markup of an email.
         if ($prefs->getValue('highlight_simple_markup')) {
-            $filters['simplemarkup'] = array();
+            $filters['simplemarkup'] = array('html' => true);
         }
 
         // Dim signatures.
