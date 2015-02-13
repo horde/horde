@@ -29,45 +29,40 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const RTF_COMPRESSED                    = 0x75465a4c;
     const RTF_UNCOMPRESSED                  = 0x414c454d;
 
+    // TNEF specific properties (includes the type).
     const AOWNER                            = 0x60000;
     const ASENTFOR                          = 0x60001;
-
     const AORIGINALMCLASS                   = 0x70006;
-
     const ASUBJECT                          = 0x18004;
     const ADATESENT                         = 0x38005;
     const ADATERECEIVED                     = 0x38006;
-
     const AFROM                             = 0x08000;
     const ASTATUS                           = 0x68007;
-    const AMCLASS                           = 0x78008; // 0x8008
-    const AMESSAGEID                        = 0x18009; // 0x8009
+    const AMCLASS                           = 0x78008;
+    const AMESSAGEID                        = 0x18009;
     const APARENTID                         = 0x1800a;
     const ACONVERSATIONID                   = 0x1800b;
     const ABODY                             = 0x2800c;
     const APRIORITY                         = 0x4800d;
-    const ATTACHDATA                        = 0x6800f; // 0x800F
-    const AFILENAME                         = 0x18010; // 0x8010
-    const ATTACHMETAFILE                    = 0x68011; // 0x8011
-    const ATTACHCREATEDATE                  = 0x38012; // 0x8012
+    const ATTACHDATA                        = 0x6800f;
+    const AFILENAME                         = 0x18010;
+    const ATTACHMETAFILE                    = 0x68011;
+    const ATTACHCREATEDATE                  = 0x38012;
     const ADATEMODIFIED                     = 0x38020;
-
     // idAttachRendData
     const ARENDDATA                         = 0x69002;
     const AMAPIPROPS                        = 0x69003;
     const ARECIPIENTTABLE                   = 0x69004;
-
     const AMAPIATTRS                        = 0x69005;
     const OEMCODEPAGE                       = 0x69007;
-
     const AVERSION                          = 0x89006;
-
     const ID_REQUEST_RESP                   = 0x40009;
     const ID_FROM                           = 0x8000;  // @deprecated
     const ID_DATE_START                     = 0x30006;
     const ID_DATE_END                       = 0x30007;
-    const AIDOWNER                          = 0x50008; // 0x0008;
+    const AIDOWNER                          = 0x50008;
 
+    // All valid MAPI data types.
     // @todo These should all be MAPI_TYPE_*
     const MAPI_TYPE_UNSPECIFIED             = 0x0000;
     const MAPI_NULL                         = 0x0001;
@@ -87,40 +82,44 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_CLSID                        = 0x0048;
     const MAPI_BINARY                       = 0x0102;
 
-    // // @todo Horde 6 - move constants to the appropriate Tnef subclass.
-    // // MAPI START and END should always be also set in ID_DATE_START and
-    // // ID_DATE_END so no need to translate them?
+    // Constants for possible value of MAPI_MEETING_REQUEST_TYPE
     const MAPI_MEETING_INITIAL              = 0x00000001;
     const MAPI_MEETING_FULL_UPDATE          = 0x100010000;
     const MAPI_MEETING_INFO                 = 0x00020000;
 
-    const MAPI_SENT_REP_NAME                = 0x0042;
-    const MAPI_START_DATE                   = 0x0060;
-    const MAPI_END_DATE                     = 0x0061;
-    const MAPI_SENT_REP_EMAIL_ADDR          = 0x0065;
-    const MAPI_IN_REPLY_TO_ID               = 0x1042;
-
+    // pidTag* properties. These should all be renamed in H6 to include pidTag
+    // in the name to make this clear.
     const MAPI_MESSAGE_CLASS                = 0x001A;
     const MAPI_TAG_SUBJECT_PREFIX           = 0x003D;
     const MAPI_CONVERSATION_TOPIC           = 0x0070;
 
-    const MAPI_ATTACH_EXTENSION             = 0x3703;
+    // pidTagSentRepresentingName
+    const MAPI_SENT_REP_NAME                = 0x0042;
+
+    // pidTagSentRepresentingEmail
+    const MAPI_SENT_REP_EMAIL_ADDR          = 0x0065;
+
+    // pidTagInReplyTo
+    const MAPI_IN_REPLY_TO_ID               = 0x1042;
+
     const MAPI_CREATION_TIME                = 0x3007;
     const MAPI_MODIFICATION_TIME            = 0x3008;
     const MAPI_ATTACH_DATA                  = 0x3701;
+    const MAPI_ATTACH_EXTENSION             = 0x3703;
     const MAPI_ATTACH_LONG_FILENAME         = 0x3707;
     const MAPI_ATTACH_MIME_TAG              = 0x370E;
-
     const MAPI_ORIGINAL_CREATORID           = 0x3FF9;
     const MAPI_LAST_MODIFIER_NAME           = 0x3FFA;
     const MAPI_CODEPAGE                     = 0x3FFD;
-
     const MAPI_SENDER_SMTP                  = 0x5D01;
+
+    // Appointment related.
+    // This is pidTagStartDate and contains the value of PidLidAppointmentStartWhole
+    const MAPI_START_DATE                   = 0x0060;
+    // See above. pidTagEndDate/pidLidAppointmentEndWhole
+    const MAPI_END_DATE                     = 0x0061;
     const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
-
-    // Do we need this?
     const MAPI_BUSY_STATUS                  = 0x8205;
-
     const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
     const MAPI_RESPONSE_REQUESTED           = 0x0063;
     const MAPI_APPOINTMENT_UID              = 0x001f;
@@ -162,8 +161,10 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MSG_EDITOR_FORMAT_HTML            = 2;
     const MSG_EDITOR_FORMAT_RTF             = 3;
 
-    const MAPI_NAMED_TYPE_ID                = 0x0000;
-    const MAPI_NAMED_TYPE_STRING            = 0x0001;
+    const MAPI_NAMED_TYPE_ID                = 0x00;
+    const MAPI_NAMED_TYPE_STRING            = 0x01;
+    const MAPI_NAMED_TYPE_NONE              = 0xff;
+
     const MAPI_MV_FLAG                      = 0x1000;
 
     const IPM_MEETING_REQUEST               = 'IPM.Microsoft Schedule.MtgReq';
