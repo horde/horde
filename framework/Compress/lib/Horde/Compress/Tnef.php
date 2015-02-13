@@ -354,18 +354,15 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             // Named attributes.
             if (($attr_name >= 0x8000) && ($attr_name < 0xFFFE)) {
-                // PROPERTY_NAME_SPACE contains the GUID for the named property
-                // namespace.
-                $this->_getx($data, 16);
+                $namespace = $this->_toNamespaceGUID($this->_getx($data, 16));
 
                 // The type of named property, an ID or STRING.
                 $named_type = $this->_geti($data, 32);
                 switch ($named_type) {
                 case self::MAPI_NAMED_TYPE_ID:
                     $attr_name = $this->_geti($data, 32);
-                    $this->_logger->debug(sprintf(
-                        'TNEF: Named Id: 0x%04X', $attr_name)
-                    );
+                    $msg = sprintf('TNEF: Named Id: %s 0x%04X', $namespace, $attr_name);
+                    $this->_logger->debug($msg);
                     break;
 
                 case self::MAPI_NAMED_TYPE_STRING:
@@ -710,6 +707,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
         }
 
         return $value;
+    }
+
+    protected function _toNamespaceGUID($value)
+    {
+        $guid = unpack("VV/v2v/n4n", $value);
+        return sprintf("{%08x-%04x-%04x-%04x-%04x%04x%04x}",$guid['V'], $guid['v1'], $guid['v2'],$guid['n1'],$guid['n2'],$guid['n3'],$guid['n4']);
     }
 
 }
