@@ -157,8 +157,11 @@ implements Horde_HashTable_Lock
                 $res = explode(' ', $res);
             }
 
-            $this->_predis->del($res);
-        } catch (Exception $e) {}
+            if ($res) {
+                $this->_predis->del($res);
+            }
+        } catch (Exception $e) {
+        }
     }
 
     /**
