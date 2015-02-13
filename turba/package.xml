@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix waiting for replication on LDAP backend.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1979,7 +1979,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix waiting for replication on LDAP backend.
    </notes>
   </release>
  </changelog>
