@@ -341,6 +341,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             $value = null;
             $attr_type = $this->_geti($data, 16);
             $attr_name = $this->_geti($data, 16);
+            $namespace = false;
 
             // Multivalue attributes.
             if (($attr_type & self::MAPI_MV_FLAG) != 0) {
