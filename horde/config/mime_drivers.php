@@ -382,7 +382,8 @@ $mime_drivers = array(
     /* MS-TNEF Attachment display. */
     'tnef' => array(
         'handles' => array(
-            'application/ms-tnef'
+            'application/ms-tnef',
+            'application/vnd.ms-tnef'
         ),
         'icons' => array(
             'default' => 'binary.png'
