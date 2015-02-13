@@ -42,8 +42,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     const MAPI_TASK_LASTUSER        = 0x8122;
     const MAPI_TASK_OWNERSHIP       = 0x8129;
 
-    const MAPI_TASK_DATECOMPLETED2  = 0x814A;
-
 
     const MAPI_TASK_COMMONEND       = 0x8517;
     const MAPI_TASK_COMMONSTART     = 0x81BD;
@@ -285,7 +283,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
             $this->_start = $this->_start->timestamp();
         case self::MAPI_TASK_DATECOMPLETED:
-        case self::MAPI_TASK_DATECOMPLETED2:
             $this->_completed = Horde_Mapi::filetimeToUnixtime($value);
             break;
         case self::MAPI_TASK_PERCENTCOMPLETE:
