@@ -551,7 +551,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             // idAttachment (Attachment properties)
             $this->_extractMapiAttributes($value);
             break;
-            case self::MAPI_ENTRY_UID:
         default:
             if (!empty($this->_currentObject)) {
                 $this->_currentObject->setTnefAttribute($attribute, $value, $size);
