@@ -459,7 +459,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 break;
             default:
                 $msg = sprintf(
-                    'TNEF: Unknown attribute type, "0x%04X"',
+                    'TNEF: Unknown attribute type, "0x%X"',
                     $attr_type);
                 throw new Horde_Compress_Exception($msg);
                 $this->_logger->notice($msg);
