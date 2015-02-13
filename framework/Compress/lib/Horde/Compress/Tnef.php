@@ -423,6 +423,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             case self::MAPI_CLSID:
                 $this->_logger->debug('TNEF: CLSID??');
+                $this->_getx($data, 16);
                 break;
 
             case self::MAPI_STRING:
