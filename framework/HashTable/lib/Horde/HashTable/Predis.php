@@ -170,7 +170,7 @@ implements Horde_HashTable_Lock
     {
         /* Key is MD5 encoded. But don't MD5 encode the prefix part, or else
          * clear() won't work properly. */
-        return $this->_prefix . hash('md5', $key);
+        return $this->_params['prefix'] . hash('md5', $key);
     }
 
     /**
