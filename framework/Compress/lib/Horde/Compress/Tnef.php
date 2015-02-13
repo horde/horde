@@ -399,6 +399,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
             case self::MAPI_SHORT:
                 $value = $this->_geti($data, 16);
+                // Padding. See MS-OXTNEF 2.1.3.4
+                // Must always pad to a multiple of 4 bytes.
+                $this->_geti($data, 16);
                 break;
 
             case self::MAPI_INT:
