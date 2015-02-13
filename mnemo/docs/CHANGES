@@ -9,10 +9,18 @@ v4.3.0-git
 
 
 ------
+v4.2.6
+------
+
+[mjr] Fix using custom SQL configuration parameters.
+
+
+------
 v4.2.5
 ------
 
 [mjr] Fix fatal error when using Mnemo without Nag installed.
+
 
 ------
 v4.2.4
