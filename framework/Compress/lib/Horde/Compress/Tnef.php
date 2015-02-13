@@ -361,8 +361,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $named_type = $this->_geti($data, 32);
                 switch ($named_type) {
                 case self::MAPI_NAMED_TYPE_ID:
+                    $pid = $attr_name;
                     $attr_name = $this->_geti($data, 32);
-                    $msg = sprintf('TNEF: Named Id: %s 0x%04X', $namespace, $attr_name);
+                    $msg = sprintf('TNEF: pid: 0x%X type: 0x%X Named Id: %s 0x%04X', $pid, $attr_type, $namespace, $attr_name);
                     $this->_logger->debug($msg);
                     break;
 
@@ -371,9 +372,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $id_len = $this->_geti($data, 32);
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
                     $name = substr($this->_getx($data, $data_len), 0, $id_len);
-                    $this->_logger->debug(sprintf(
-                        'TNEF: Named String Id: %s', $name)
-                    );
+                    $this->_logger->debug(sprintf('TNEF: Named String Id: %s', $name));
                     break;
                 case self::MAPI_NAMED_TYPE_NONE:
                     break;
