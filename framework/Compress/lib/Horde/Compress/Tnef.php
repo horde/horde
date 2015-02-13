@@ -377,6 +377,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                         'TNEF: Named String Id: %s', $name)
                     );
                     break;
+                case self::MAPI_NAMED_TYPE_NONE:
+                    break;
 
                 default:
                     $this->_logger->notice(sprintf(
