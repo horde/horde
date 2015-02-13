@@ -436,6 +436,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $num_vals = ($have_mval) ? $num_mval : $this->_geti($data, 32);
                 for ($i = 0; $i < $num_vals; $i++) {
                     $length = $this->_geti($data, 32);
+
                     /* Pad to next 4 byte boundary. */
                     $datalen = $length + ((4 - ($length % 4)) % 4);
 
