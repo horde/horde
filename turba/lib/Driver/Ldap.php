@@ -227,7 +227,7 @@ class Turba_Driver_Ldap extends Turba_Driver
      *                           @since 4.2.0
      *
      * @return array  Hash containing the search results.
-     * @throws Turba_Exception
+     * @throws Horde_Exception_NotFound
      */
     protected function _read($key, $ids, $owner, array $fields,
                              array $blobFields = array(),
@@ -261,7 +261,7 @@ class Turba_Driver_Ldap extends Turba_Driver
                 if ($res) {
                     $results = array_merge($results, $this->_getResults($fields, $res));
                 } else {
-                    throw new Turba_Exception(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+                    throw new Horde_Exception_NotFound(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
                 }
             }
 
@@ -270,7 +270,7 @@ class Turba_Driver_Ldap extends Turba_Driver
 
         $res = @ldap_read($this->_ds, Horde_String::convertCharset($this->_params['root'], 'UTF-8', $this->_params['charset']), $filter, $attr);
         if (!$res) {
-            throw new Turba_Exception(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
+            throw new Horde_Exception_NotFound(sprintf(_("Read failed: (%s) %s"), ldap_errno($this->_ds), ldap_error($this->_ds)));
         }
 
         return $this->_getResults($fields, $res);
