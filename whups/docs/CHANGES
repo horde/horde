@@ -2,6 +2,8 @@
 v3.0.3-git
 ----------
 
+[jan] Fix fatal error when assigning a ticket in certain use cases (Bug
+      #13731).
 
 
 ------
