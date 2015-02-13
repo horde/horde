@@ -28,7 +28,7 @@ class Kronolith_Factory_Storage extends Horde_Core_Factory_Base
 
         $driver_params =  Horde::getDriverConfig('storage', 'Sql');
         if ($driver == 'Sql') {
-            if ($driver_params != 'Horde') {
+            if ($driver_params != 'horde') {
                 // Custom DB config
                 $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', Horde::getDriverConfig('storage', 'Sql'));
             } else {
