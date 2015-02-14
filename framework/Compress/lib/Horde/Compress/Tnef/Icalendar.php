@@ -254,8 +254,6 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      */
     public function setMapiAttribute($type, $name, $value, $ns = null)
     {
-        // var_dump(sprintf('%08X', $name));
-        // var_dump(sprintf('%s', $value));
         // First check for pidTag* properties - these will have to namespace.
         // @todo look at just cocantenating the GUID with the pidLid in the
         // constants in H6?
@@ -370,7 +368,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
                 break;
             }
         } else {
-            var_dump($ns);
+            $this->_logger->notice(sprintf('Unknown namespace GUID: %s', $ns));
         }
     }
 
