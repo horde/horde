@@ -622,6 +622,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $this->_currentObject = new Horde_Compress_Tnef_VTodo($this->_logger, null, array('parent' => &$this));
                 $this->_files[] = $this->_currentObject;
                 break;
+            default:
+                $this->_logger->debug(sprintf('Unknown message class: %s', $message_class));
             }
             break;
         case self::AMAPIPROPS:
