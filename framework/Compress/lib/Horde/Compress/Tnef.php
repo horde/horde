@@ -69,6 +69,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const ID_REQUEST_RESP                   = 0x40009;
     const ID_FROM                           = 0x8000;
     const AIDOWNER                          = 0x50008;
+    const ID_DATE_START                     = 0x30006;
+    const ID_DATE_END                       = 0x30007;
 
     // All valid MAPI data types.
     // @todo These should all be MAPI_TYPE_*
