@@ -21,6 +21,14 @@
  */
 class Horde_Compress_Tnef extends Horde_Compress_Base
 {
+    const PSETID_MEETING                    = '{6ED8DA90-450B-101B-98DA-00AA003F1305}';
+    const PSETID_APPOINTMENT                = '{00062002-0000-0000-C000-000000000046}';
+    const PSETID_COMMON                     = '{00062008-0000-0000-C000-000000000046}';
+    const PSETID_PUBLIC_STRINGS             = '{00020329-0000-0000-C000-000000000046}';
+    const PSETID_NOTE                       = '{0006200E-0000-0000-C000-000000000046}';
+    const PSETID_TASK                       = '{00062003-0000-0000-C000-000000000046}';
+    const PSETID_MAPI                       = '{00020328-0000-0000-C000-000000000046}';
+
     const SIGNATURE                         = 0x223e9f78;
     const LVL_MESSAGE                       = 0x01;
     const LVL_ATTACHMENT                    = 0x02;
@@ -507,7 +515,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 try {
                     $this->_msgInfo->setMapiAttribute($attr_type, $attr_name, $value);
                     if ($this->_currentObject) {
-                        $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $value);
+                        $this->_currentObject->setMapiAttribute($attr_type, $attr_name, $value, $namespace);
                     }
                 } catch (Horde_Compress_Exception $e) {
                     $this->_logger->err(sprintf('TNEF: Unable to set attribute: %s', $e->getMessage()));

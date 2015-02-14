@@ -252,111 +252,125 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      *
      * @throws  Horde_Compress_Exception
      */
-    public function setMapiAttribute($type, $name, $value)
+    public function setMapiAttribute($type, $name, $value, $ns = null)
     {
-        switch ($name) {
-        case Horde_Compress_Tnef::MAPI_ENTRY_CLEANID:
-        case Horde_Compress_Tnef::MAPI_ENTRY_UID:
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_UID:
-            // Still not 100% sure about where a suitable UID comes from;
-            // These attributes are all said to contain it, at various times.
-            // The "Clean" UID is supposed to only be in appointments that
-            // are exceptions to a recurring series, though I have a number
-            // of examples where that is not the case. Also, in some cases
-            // some of these attributes seem to be set here multiple times,
-            // sometimes with non-empty and then empty values, so never set
-            // self::$_uid if it is already set, or if $value is empty.
-            if (empty($this->_uid) && !empty($value)) {
-                $this->_uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+        // var_dump(sprintf('%08X', $name));
+        // var_dump(sprintf('%s', $value));
+        // First check for pidTag* properties - these will have to namespace.
+        // @todo look at just cocantenating the GUID with the pidLid in the
+        // constants in H6?
+        if (empty($ns)) {
+            switch ($name) {
+            case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
+                $this->_summary = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_SENDER_SMTP: // pidTag
+            case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
+                // Sender SMTP is more appropriate, but not present in all
+                // meeting request MAPI objects (it's normally taken form the
+                // parent MAPI mail message object) Since this class doesn't
+                // (currently) have access to the parent MIME
+                // part (since this isn't necessarily from an email), this is the
+                // only hope of obtaining an ORGANIZER.
+                $this->_lastModifier = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_CREATION_TIME:
+                try {
+                    $this->_created = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_MODIFICATION_TIME:
+                try {
+                    $this->_modified = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_RESPONSE_REQUESTED:
+                $this->_rsvp = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
+                // We may already have a description from the TNEF attBODY attribute
+                if (empty($this->_description)) {
+                    $this->_description = $value;
+                }
+                break;
             }
-            break;
-        case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
-            $this->_summary = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_LOCATION:
-            $this->_location = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_URL:
-            $this->_url = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_START_WHOLE:
-            try {
-                $this->_startUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-            } catch (Horde_Mapi_Exception $e) {
-                throw new Horde_Compress_Exception($e);
+        } elseif ($ns == Horde_Compress_Tnef::PSETID_APPOINTMENT) {
+            switch ($name) {
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_LOCATION:
+                $this->_location = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_URL:
+                $this->_url = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_START_WHOLE:
+                try {
+                    $this->_startUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_END_WHOLE:
+                try {
+                    $this->_endUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_DURATION:
+                $this->_duration = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_SUBTYPE:
+                $this->_allday = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_ORGANIZER_ALIAS:
+                $this->_organizer = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_TO_ATTENDEES:
+                // Don't even ask. Why, Microsoft, why??
+                $value = str_replace(array('(', ')'), array('<', '>'), $value);
+                $this->_requiredAttendees = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_APPOINTMENT_RECUR:
+                $this->_recurrence['recur'] = $this->_parseRecurrence($value);
+                break;
+            case Horde_Compress_Tnef::MAPI_RECURRING:
+                // ?? Reset $this->_recurrence?
+                break;
+            case Horde_Compress_Tnef::MAPI_RECURRENCE_TYPE:
+                $this->_recurrence['type'] = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_RESPONSE_STATUS:
+                // Don't think we need this, it seems more geared towards writing
+                // a TNEF. Indicates the response status of an ATTENDEE. Putting
+                // this here for reference, see MS-OXOCAL 2.2.1.11
+                break;
             }
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_END_WHOLE:
-            try {
-                $this->_endUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-            } catch (Horde_Mapi_Exception $e) {
-                throw new Horde_Compress_Exception($e);
+        } elseif ($ns == Horde_Compress_Tnef::PSETID_MEETING) {
+            switch ($name) {
+            case Horde_Compress_Tnef::MAPI_ENTRY_CLEANID:
+            case Horde_Compress_Tnef::MAPI_ENTRY_UID:
+                // Still not 100% sure about where a suitable UID comes from;
+                // These attributes are all said to contain it, at various times.
+                // The "Clean" UID is supposed to only be in appointments that
+                // are exceptions to a recurring series, though I have a number
+                // of examples where that is not the case. Also, in some cases
+                // some of these attributes seem to be set here multiple times,
+                // sometimes with non-empty and then empty values, so never set
+                // self::$_uid if it is already set, or if $value is empty.
+                if (empty($this->_uid) && !empty($value)) {
+                    $this->_uid = Horde_Mapi::getUidFromGoid(bin2hex($value));
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_MEETING_REQUEST_TYPE: //pset
+                $this->_type = $value;
+                break;
             }
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_DURATION:
-            $this->_duration = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_SUBTYPE:
-            $this->_allday = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_ORGANIZER_ALIAS:
-            $this->_organizer = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_SENDER_SMTP:
-        case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
-            // Sender SMTP is more appropriate, but not present in all
-            // meeting request MAPI objects (it's normally taken form the
-            // parent MAPI mail message object) Since this class doesn't
-            // (currently) have access to the parent MIME
-            // part (since this isn't necessarily from an email), this is the
-            // only hope of obtaining an ORGANIZER.
-            $this->_lastModifier = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_TO_ATTENDEES:
-            // Don't even ask. Why, Microsoft, why??
-            $value = str_replace(array('(', ')'), array('<', '>'), $value);
-            $this->_requiredAttendees = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_APPOINTMENT_RECUR:
-            $this->_recurrence['recur'] = $this->_parseRecurrence($value);
-            break;
-        case Horde_Compress_Tnef::MAPI_RECURRING:
-            // ?? Reset $this->_recurrence?
-            break;
-        case Horde_Compress_Tnef::MAPI_RECURRENCE_TYPE:
-            $this->_recurrence['type'] = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_MEETING_REQUEST_TYPE:
-            $this->_type = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_CREATION_TIME:
-            try {
-                $this->_created = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-            } catch (Horde_Mapi_Exception $e) {
-                throw new Horde_Compress_Exception($e);
-            }
-            break;
-        case Horde_Compress_Tnef::MAPI_MODIFICATION_TIME:
-            try {
-                $this->_modified = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
-            } catch (Horde_Mapi_Exception $e) {
-                throw new Horde_Compress_Exception($e);
-            }
-            break;
-        case Horde_Compress_Tnef::MAPI_RESPONSE_STATUS:
-            // Don't think we need this, it seems more geared towards writing
-            // a TNEF. Indicates the response status of an ATTENDEE. Putting
-            // this here for reference, see MS-OXOCAL 2.2.1.11
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_RTF_COMPRESSED:
-            // We may already have a description from the TNEF attBODY attribute
-            if (empty($this->_description)) {
-                $this->_description = $value;
-            }
-            break;
-        case Horde_Compress_Tnef::MAPI_RESPONSE_REQUESTED:
-            $this->_rsvp = $value;
-            break;
+        } else {
+            var_dump($ns);
         }
     }
 
