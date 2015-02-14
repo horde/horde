@@ -370,7 +370,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     $attr_name = 0x9999;
                     $id_len = $this->_geti($data, 32);
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
-                    $name = substr($this->_getx($data, $data_len), 0, $id_len);
+                    $name = Horde_String::substr($this->_getx($data, $data_len), 0, $id_len);
+                    $name = trim(Horde_String::convertCharset($name, 'UTF-16LE', 'UTF-8'));
                     $this->_logger->debug(sprintf('TNEF: Named String Id: %s', $name));
                     break;
 
