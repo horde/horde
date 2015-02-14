@@ -62,12 +62,12 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const AMAPIPROPS                        = 0x69003;
     const ARECIPIENTTABLE                   = 0x69004;
     const AMAPIATTRS                        = 0x69005;
+
+    // @deprecated constants to be removed in H6
     const OEMCODEPAGE                       = 0x69007;
     const AVERSION                          = 0x89006;
     const ID_REQUEST_RESP                   = 0x40009;
-    const ID_FROM                           = 0x8000;  // @deprecated
-    const ID_DATE_START                     = 0x30006;
-    const ID_DATE_END                       = 0x30007;
+    const ID_FROM                           = 0x8000;
     const AIDOWNER                          = 0x50008;
 
     // All valid MAPI data types.
