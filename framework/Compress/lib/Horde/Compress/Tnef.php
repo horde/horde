@@ -122,7 +122,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_BUSY_STATUS                  = 0x8205;
     const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
     const MAPI_RESPONSE_REQUESTED           = 0x0063;
-    const MAPI_APPOINTMENT_UID              = 0x001f;
     const MAPI_APPOINTMENT_LOCATION         = 0x8208;
     const MAPI_APPOINTMENT_URL              = 0x8209;
     const MAPI_APPOINTMENT_START_WHOLE      = 0x820D; // Full datetime of start (FILETIME format)
