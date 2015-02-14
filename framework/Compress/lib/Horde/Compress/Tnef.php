@@ -730,7 +730,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     protected function _toNamespaceGUID($value)
     {
         $guid = unpack("VV/v2v/n4n", $value);
-        return sprintf("{%08x-%04x-%04x-%04x-%04x%04x%04x}",$guid['V'], $guid['v1'], $guid['v2'],$guid['n1'],$guid['n2'],$guid['n3'],$guid['n4']);
+        return sprintf("{%08X-%04X-%04X-%04X-%04X%04X%04X}",$guid['V'], $guid['v1'], $guid['v2'],$guid['n1'],$guid['n2'],$guid['n3'],$guid['n4']);
     }
 
 }
