@@ -115,18 +115,17 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
     // Appointment related.
     // This is pidTagStartDate and contains the value of PidLidAppointmentStartWhole
-    const MAPI_START_DATE                   = 0x0060;
-    // See above. pidTagEndDate/pidLidAppointmentEndWhole
-    const MAPI_END_DATE                     = 0x0061;
-    const MAPI_APPOINTMENT_SEQUENCE         = 0x8201;
-    const MAPI_BUSY_STATUS                  = 0x8205;
-    const MAPI_MEETING_REQUEST_TYPE         = 0x0026;
-    const MAPI_RESPONSE_REQUESTED           = 0x0063;
-    const MAPI_APPOINTMENT_LOCATION         = 0x8208;
-    const MAPI_APPOINTMENT_URL              = 0x8209;
+    const MAPI_START_DATE                   = 0x0060; // pidTag
+    const MAPI_END_DATE                     = 0x0061; // pidTag
+    const MAPI_APPOINTMENT_SEQUENCE         = 0x8201; // pidLid
+    const MAPI_BUSY_STATUS                  = 0x8205; // pidLid
+    const MAPI_MEETING_REQUEST_TYPE         = 0x0026; // pidLid
+    const MAPI_RESPONSE_REQUESTED           = 0x0063; // pidTag
+    const MAPI_APPOINTMENT_LOCATION         = 0x8208; // pidLid
+    const MAPI_APPOINTMENT_URL              = 0x8209; // pidLid
     const MAPI_APPOINTMENT_START_WHOLE      = 0x820D; // Full datetime of start (FILETIME format)
     const MAPI_APPOINTMENT_END_WHOLE        = 0x820E; // Full datetime of end (FILETIME format)
-    const MAPI_APPOINTMENT_DURATION         = 0x8213; // duration in minutes.
+    const MAPI_APPOINTMENT_DURATION         = 0x8213; // pidLid - duration in minutes.
     const MAPI_APPOINTMENT_SUBTYPE          = 0x8215; // (Boolean - all day event?)
     const MAPI_APPOINTMENT_RECUR            = 0x8216; // This seems to be a combined property of MAPI_RECURRING, MAPI_RECURRING_TYPE etc...?
     const MAPI_APPOINTMENT_STATE_FLAGS      = 0x8217; // (bitmap for meeting, received, cancelled?)
@@ -150,9 +149,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const MAPI_REMINDER_DELTA               = 0x8501; // Minutes between start of mtg and overdue.
     const MAPI_SIGNAL_TIME                  = 0x8502; // Initial alarm time.
     const MAPI_REMINDER_SIGNAL_TIME         = 0x8560; // Time that item becomes overdue.
-    const MAPI_ENTRY_UID                    = 0x0003; // GOID??
-    const MAPI_ENTRY_CLEANID                = 0x0023;
-    const MAPI_MEETING_TYPE                 = 0x0026;
+    const MAPI_ENTRY_UID                    = 0x0003; // pidLidGlobalObjectId, PSETID_MEETING
+    const MAPI_ENTRY_CLEANID                = 0x0023; // pidLidCleanGlobalObjectId, PSETID_MEETING
+    const MAPI_MEETING_TYPE                 = 0x0026; // pidLidMeetingType, PSETID_MEETING
 
     const MSG_EDITOR_FORMAT                 = 0x5909;
     const MSG_EDITOR_FORMAT_UNKNOWN         = 0;
@@ -173,7 +172,7 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const IPM_MEETING_REQUEST_CANCELLED     = 'IPM.Microsoft Schedule.MtgCncl';
     const IPM_TASK_REQUEST                  = 'IPM.TaskRequest';
 
-    const IPM_TASK_GUID                     = 0x00008519;
+    const IPM_TASK_GUID                     = 0x8519; // pidLidTaskGlobalId, PSETID_Common
 
     const MAPI_TAG_BODY                     = 0x1000;
     const MAPI_NATIVE_BODY                  = 0x1016;
