@@ -367,6 +367,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                     break;
 
                 case self::MAPI_NAMED_TYPE_STRING:
+                    // @todo. We haven't needed data from any string named id
+                    // yet, but might be able to just assign the name to
+                    // $attr_name and pass it down to _currentObject for now.
+                    // For H6, look at using some lightweight object to transport
+                    // the name/value to the various objects.
                     $attr_name = 0x9999;
                     $id_len = $this->_geti($data, 32);
                     $data_len = $id_len + ((4 - ($id_len % 4)) % 4);
