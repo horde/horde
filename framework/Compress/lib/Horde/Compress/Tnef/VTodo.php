@@ -254,110 +254,108 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
      * @param integer $type  The attribute type descriptor.
      * @param integer $name  The attribute name descriptor.
      */
-    public function setMapiAttribute($type, $name, $value)
+    public function setMapiAttribute($type, $name, $value, $ns = null)
     {
-        switch ($name) {
-        case self::MAPI_TASK_OWNER:
-            // This is the OWNER, not to be confused with the ORGANIZER.
-            $this->_owner = str_replace(array('(', ')'), array('<', '>'), $value);
-            break;
-        case Horde_Compress_Tnef::IPM_TASK_GUID:
-            // Almost positive this is wrong :(
-            $this->_guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
-            break;
-        case Horde_Compress_Tnef::MSG_EDITOR_FORMAT:
-            // Map this?
-            $this->_msgformat = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
-            //rtfsyncbody
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_HTML:
-            //htmlbody
-            break;
-        case self::MAPI_TASK_DUEDATE:
-            // Favor COMMONEND
-            if (empty($this->_due)) {
-                $this->_due = Horde_Mapi::filetimeToUnixtime($value);
-            }
-            break;
-        case self::MAPI_TASK_COMMONEND:
-            $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
-            $this->_due = $this->_due->timestamp();
-        case self::MAPI_TASK_STARTDATE:
-            if (empty($this->_start)) {
-                $this->_start = Horde_Mapi::filetimeToUnixtime($value);
-            }
-            break;
-        case self::MAPI_TASK_COMMONSTART:
-            $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
-            $this->_start = $this->_start->timestamp();
-        case self::MAPI_TASK_DATECOMPLETED:
-            $this->_completed = Horde_Mapi::filetimeToUnixtime($value);
-            break;
-        case self::MAPI_TASK_PERCENTCOMPLETE:
-            $value = unpack('d', $value);
-            $this->_percentComplete = $value[1] * 100;
-            break;
-        case self::MAPI_TASK_STATUS:
-            switch ($value) {
-            case self::STATUS_NOT_STARTED:
-            case self::STATUS_WAIT:
-            case self::STATUS_DEFERRED:
-                $this->_percentComplete = 0;
-                $this->_status = self::TASK_STATUS_ACTION;
+        if ($ns == Horde_Compress_Tnef::PSETID_COMMON) {
+            switch ($name) {
+            case Horde_Compress_Tnef::IPM_TASK_GUID:
+                // Almost positive this is wrong :(
+                $this->_guid = Horde_Mapi::getUidFromGoid(bin2hex($value));
                 break;
-            case self::STATUS_IN_PROGRESS:
-                $this->_status = self::TASK_STATUS_IN_PROGRESS;
+            case Horde_Compress_Tnef::MSG_EDITOR_FORMAT:
+                // Map this?
+                $this->_msgformat = $value;
                 break;
-            case self::STATUS_COMPLETE:
-                $this->_status = self::TASK_STATUS_COMPLETED;
-                $this->_percentComplete = 1;
+            case Horde_Compress_Tnef::MAPI_TAG_BODY:
+                // plaintext. Most likely set via the attBody TNEF attribute,
+                // and not by the MAPI property.
+                if (empty($this->_bodyPlain)) {
+                    $this->_bodyPlain = $value;
+                }
+                break;
+            case Horde_Compress_Tnef::MAPI_TAG_HTML:
+                // html
+                $this->_bodyHtml = $value;
+                break;
+            case self::MAPI_TASK_COMMONSTART:
+                $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                $this->_start = $this->_start->timestamp();
+                break;
+            case self::MAPI_TASK_COMMONEND:
+                $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                $this->_due = $this->_due->timestamp();
                 break;
             }
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_BODY:
-            // plaintext. Most likely set via the attBody TNEF attribute,
-            // and not by the MAPI property.
-            if (empty($this->_bodyPlain)) {
-                $this->_bodyPlain = $value;
+        } elseif ($ns == Horde_Compress_Tnef::PSETID_TASK) {
+            switch ($name) {
+            case self::MAPI_TASK_OWNER:
+                // This is the OWNER, not to be confused with the ORGANIZER.
+                $this->_owner = str_replace(array('(', ')'), array('<', '>'), $value);
+                break;
+            case self::MAPI_TASK_DUEDATE:
+                // Favor COMMONEND
+                if (empty($this->_due)) {
+                    $this->_due = Horde_Mapi::filetimeToUnixtime($value);
+                }
+                break;
+            case self::MAPI_TASK_STARTDATE:
+                if (empty($this->_start)) {
+                    $this->_start = Horde_Mapi::filetimeToUnixtime($value);
+                }
+                break;
+            case self::MAPI_TASK_DATECOMPLETED:
+                $this->_completed = Horde_Mapi::filetimeToUnixtime($value);
+                break;
+            case self::MAPI_TASK_PERCENTCOMPLETE:
+                $value = unpack('d', $value);
+                $this->_percentComplete = $value[1] * 100;
+                break;
+            case self::MAPI_TASK_STATUS:
+                switch ($value) {
+                case self::STATUS_NOT_STARTED:
+                case self::STATUS_WAIT:
+                case self::STATUS_DEFERRED:
+                    $this->_percentComplete = 0;
+                    $this->_status = self::TASK_STATUS_ACTION;
+                    break;
+                case self::STATUS_IN_PROGRESS:
+                    $this->_status = self::TASK_STATUS_IN_PROGRESS;
+                    break;
+                case self::STATUS_COMPLETE:
+                    $this->_status = self::TASK_STATUS_COMPLETED;
+                    $this->_percentComplete = 1;
+                    break;
+                }
+                break;
+            case self::MAPI_TASK_UPDATES:
+                if (!empty($value)) {
+                    $this->_updates = true;
+                }
+                break;
+            case self::MAPI_TASK_OWNERSHIP:
+                $this->_ownership = $value;
+                break;
+            case self::MAPI_TASK_STATE:
+                $this->_state = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
+                $this->_lastUser = $value;
+                break;
+            case self::MAPI_TASK_ASSIGNER:
+                // *sigh* This isn't set by Outlook/Exchange until AFTER the
+                // assignee receives the request. I.e., this is blank on the initial
+                // REQUEST so not a valid way to obtain the task creator.
+                //$this->_organizer = $value;
+                break;
+            case self::MAPI_TASK_LASTUSER:
+                // From MS-OXOTASK 2.2.2.2.25:
+                // Before client sends a REQUEST, it is set to the assigner.
+                // Before client sends an ACCEPT, it is set to the assignee.
+                // Before client sneds REJECT, it is set to the assigner, not assignee.
+                // Unfortunately, it is only the display name, not the email!
+                //$this->_lastUser = $value;
+                break;
             }
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_HTML:
-            // html
-            $this->_bodyHtml = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_TAG_SYNC_BODY:
-            $this->_inSync = $value;
-            break;
-        case self::MAPI_TASK_UPDATES:
-            if (!empty($value)) {
-                $this->_updates = true;
-            }
-            break;
-        case self::MAPI_TASK_OWNERSHIP:
-            $this->_ownership = $value;
-            break;
-        case self::MAPI_TASK_STATE:
-            $this->_state = $value;
-            break;
-        case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
-            $this->_lastUser = $value;
-            break;
-        case self::MAPI_TASK_ASSIGNER:
-            // *sigh* This isn't set by Outlook/Exchange until AFTER the
-            // assignee receives the request. I.e., this is blank on the initial
-            // REQUEST so not a valid way to obtain the task creator.
-            //$this->_organizer = $value;
-            break;
-        case self::MAPI_TASK_LASTUSER:
-            // From MS-OXOTASK 2.2.2.2.25:
-            // Before client sends a REQUEST, it is set to the assigner.
-            // Before client sends an ACCEPT, it is set to the assignee.
-            // Before client sneds REJECT, it is set to the assigner, not assignee.
-            // Unfortunately, it is only the display name, not the email!
-            //$this->_lastUser = $value;
-            break;
         }
     }
 
