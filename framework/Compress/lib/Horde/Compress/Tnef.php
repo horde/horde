@@ -612,16 +612,19 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
             switch ($message_class) {
             case self::IPM_MEETING_REQUEST :
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->setMethod('REQUEST', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_RESPONSE_TENT:
             case self::IPM_MEETING_RESPONSE_NEG:
             case self::IPM_MEETING_RESPONSE_POS:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->setMethod('REPLY', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_MEETING_REQUEST_CANCELLED:
                 $this->_currentObject = new Horde_Compress_Tnef_Icalendar($this->_logger);
+                $this->_currentObject->setMethod('CANCEL', $message_class);
                 $this->_files[] = $this->_currentObject;
                 break;
             case self::IPM_TASK_REQUEST:

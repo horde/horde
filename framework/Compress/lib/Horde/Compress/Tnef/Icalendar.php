@@ -200,7 +200,6 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
      *
      * @param string $method  The METHOD parameter.
      * @param string $class   The message class.
-     * @deprecated METHOD is set based on message class.
      */
     public function setMethod($method, $class = null)
     {
@@ -260,38 +259,6 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         // constants in H6?
         if (empty($ns)) {
             switch ($name) {
-            case Horde_Compress_Tnef::MAPI_MESSAGE_CLASS:
-                var_dump($value);
-                switch ($value) {
-                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_TENT:
-                case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_TENT:
-                    $this->_method = 'REPLY';
-                    $this->_partStat = self::PART_TENTATIVE;
-                    $this->_rsvp = false;
-                    break;
-                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_NEG:
-                case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_NEG:
-                    $this->_method = 'REPLY';
-                    $this->_partStat = self::PART_DECLINE;
-                    $this->_rsvp = false;
-                    break;
-                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_POS:
-                case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_POS:
-                    $this->_method = 'REPLY';
-                    $this->_partStat = self::PART_ACCEPTED;
-                    $this->_rsvp = false;
-                    break;
-                case Horde_Compress_Tnef::IPM_MEETING_REQUEST:
-                    $this->_method = 'REQUEST';
-                    $this->_partStat =self::PART_ACTION;
-                    $this->_rsvp = true;
-                    break;
-                case Horde_Compress_Tnef::IPM_MEETING_REQUEST_CANCELLED:
-                    $this->_method = 'CANCEL';
-                    $this->_rsvp = false;
-                    break;
-                }
-                break;
             case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
                 $this->_summary = $value;
                 break;
