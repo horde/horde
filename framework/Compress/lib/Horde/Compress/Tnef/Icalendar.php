@@ -294,7 +294,7 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             case Horde_Compress_Tnef::MAPI_CONVERSATION_TOPIC:
                 $this->_summary = $value;
                 break;
-            case Horde_Compress_Tnef::MAPI_SENDER_SMTP: // pidTag
+            case Horde_Compress_Tnef::MAPI_SENT_REP_SMTP_ADDR:
             case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
                 // Sender SMTP is more appropriate, but not present in all
                 // meeting request MAPI objects (it's normally taken form the

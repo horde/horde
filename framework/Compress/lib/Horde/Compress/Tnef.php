@@ -109,6 +109,9 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     // pidTagSentRepresentingEmail
     const MAPI_SENT_REP_EMAIL_ADDR          = 0x0065;
 
+    // pidTagSentRepresentingSMTPAddress
+    const MAPI_SENT_REP_SMTP_ADDR           = 0x5d02;
+
     // pidTagInReplyTo
     const MAPI_IN_REPLY_TO_ID               = 0x1042;
 
