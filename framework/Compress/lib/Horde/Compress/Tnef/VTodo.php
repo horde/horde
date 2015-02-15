@@ -27,8 +27,21 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 {
     const MAPI_TASK_STATUS          = 0x8101;
     const MAPI_TASK_PERCENTCOMPLETE = 0x8102;
+
+    // These are in user's local timezone and MUST have a time component of
+    // 12:00 midnight.
     const MAPI_TASK_STARTDATE       = 0x8104;
     const MAPI_TASK_DUEDATE         = 0x8105;
+
+    // The following is used as a placeholder value when a task has no start
+    // or due date. Some clients set the property empty, some set it to this
+    // value.
+    const MAPI_TASK_NODUEDATE       = 0x5AE980E0;
+
+    // The following properties are UTC equivalant values of MAPI_TASk_STARTDATE
+    // and MAPI_TASK_DUEDATE
+    const MAPI_TASK_COMMONEND       = 0x8517;
+    const MAPI_TASK_COMMONSTART     = 0x8516;
 
     const MAPI_TASK_ACCEPTED        = 0x8108;
     const MAPI_TASK_DATECOMPLETED   = 0x810F;
@@ -42,9 +55,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     const MAPI_TASK_LASTUSER        = 0x8122;
     const MAPI_TASK_OWNERSHIP       = 0x8129;
 
-
-    const MAPI_TASK_COMMONEND       = 0x8517;
-    const MAPI_TASK_COMMONSTART     = 0x81BD;
 
     /**
      * MAPI_TASK_STATUS constants
