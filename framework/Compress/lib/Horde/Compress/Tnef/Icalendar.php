@@ -261,20 +261,21 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
         if (empty($ns)) {
             switch ($name) {
             case Horde_Compress_Tnef::MAPI_MESSAGE_CLASS:
-                // @todo H6 Set the partstat and METHOD attributes here since
-                // we can deduce them from the message class (and deprecated/
-                // remove setMethod() method).
+                var_dump($value);
                 switch ($value) {
+                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_TENT:
                 case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_TENT:
                     $this->_method = 'REPLY';
                     $this->_partStat = self::PART_TENTATIVE;
                     $this->_rsvp = false;
                     break;
+                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_NEG:
                 case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_NEG:
                     $this->_method = 'REPLY';
                     $this->_partStat = self::PART_DECLINE;
                     $this->_rsvp = false;
                     break;
+                case Horde_Compress_Tnef::MAPI_MEETING_RESPONSE_POS:
                 case Horde_Compress_Tnef::IPM_MEETING_RESPONSE_POS:
                     $this->_method = 'REPLY';
                     $this->_partStat = self::PART_ACCEPTED;

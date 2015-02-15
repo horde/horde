@@ -183,6 +183,11 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
     const IPM_MEETING_RESPONSE_NEG          = 'IPM.Microsoft Schedule.MtgRespN';
     const IPM_MEETING_RESPONSE_TENT         = 'IPM.Microsoft Schedule.MtgRespA';
     const IPM_MEETING_REQUEST_CANCELLED     = 'IPM.Microsoft Schedule.MtgCncl';
+
+    const MAPI_MEETING_RESPONSE_POS         = 'IPM.Schedule.Meeting.Resp.Pos';
+    const MAPI_MEETING_RESPONSE_NEG         = 'IPM.Schedule.Meeting.Resp.Neg';
+    const MAPI_MEETING_RESPONSE_TENT        = 'IPM.Schedule.Meeting.Resp.Tent';
+
     const IPM_TASK_REQUEST                  = 'IPM.TaskRequest';
 
     const IPM_TASK_GUID                     = 0x8519; // pidLidTaskGlobalId, PSETID_Common
