@@ -186,7 +186,6 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
 
     const MAPI_TAG_BODY                     = 0x1000;
     const MAPI_NATIVE_BODY                  = 0x1016;
-    const MAPI_TAG_SYNC_BODY                = 0x1008;
     const MAPI_TAG_HTML                     = 0x1013;
     const MAPI_TAG_RTF_COMPRESSED           = 0x1009;
 
