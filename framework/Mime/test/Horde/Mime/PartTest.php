@@ -837,6 +837,95 @@ C
         );
     }
 
+    public function testSerializeUpgradeFromVersion1()
+    {
+        $data = base64_decode(
+            file_get_contents(__DIR__ . '/fixtures/mime_part_v1.txt')
+        );
+
+        $part = unserialize($data);
+
+        $this->assertEquals(
+            'text/plain',
+            $part->getType()
+        );
+
+        $this->assertEquals(
+            array('en'),
+            $part->getLanguage()
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getDescription()
+        );
+
+        $this->assertEquals(
+            'attachment',
+            $part->getDisposition()
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getDispositionParameter('foo')
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getDispositionParameter('filename')
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getContentTypeParameter('name')
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getContentTypeParameter('foo')
+        );
+
+        $this->assertEquals(
+            'us-ascii',
+            $part->getCharset()
+        );
+
+        $this->assertEquals(
+            array(),
+            $part->getParts()
+        );
+
+        $this->assertEquals(
+            '1',
+            $part->getMimeId()
+        );
+
+        $this->assertEquals(
+            "\n",
+            $part->getEOL()
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getMetadata('foo')
+        );
+
+        $this->assertEquals(
+            'svl8CVtZEEO5bgqR-wFIFQ8@bigworm.curecanti.org',
+            $part->getContentId()
+        );
+
+        $this->assertEquals(
+            10,
+            $part->getDuration()
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getContents()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

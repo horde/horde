@@ -2268,7 +2268,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (!is_array($data) ||
             !isset($data[0]) ||
             ($data[0] != self::VERSION)) {
-            throw new Exception('Cache version change');
+            switch ($data[0]) {
+            case 1:
+                $convert = new Horde_Mime_Part_Upgrade_V1($data);
+                $data = $convert->data;
+                break;
+
+            default:
+                $data = null;
+                break;
+            }
+
+            if (is_null($data)) {
+                throw new Exception('Cache version change');
+            }
         }
 
         $key = 0;

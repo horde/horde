@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-22</date>
+ <date>2015-02-16</date>
  <version>
   <release>2.8.0</release>
   <api>2.8.0</api>
@@ -98,6 +98,11 @@
        <file name="Subject.php" role="php" />
        <file name="UserAgent.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Headers -->
+      <dir name="Part">
+       <dir name="Upgrade">
+        <file name="V1.php" role="php" />
+       </dir> <!-- /lib/Horde/Mime/Part/Upgrade -->
+      </dir> <!-- /lib/Horde/Mime/Part -->
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
       <file name="Id.php" role="php" />
@@ -390,6 +395,7 @@
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
+       <file name="mime_part_v1.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
        <file name="related_msg_2.txt" role="test" />
@@ -592,6 +598,7 @@
    <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
    <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
    <install as="Horde/Mime/Headers/Extension/Mime.php" name="lib/Horde/Mime/Headers/Extension/Mime.php" />
+   <install as="Horde/Mime/Part/Upgrade/V1.php" name="lib/Horde/Mime/Part/Upgrade/V1.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.po" name="locale/ar/LC_MESSAGES/Horde_Mime.po" />
@@ -701,6 +708,7 @@
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
+   <install as="Horde/Mime/fixtures/mime_part_v1.txt" name="test/Horde/Mime/fixtures/mime_part_v1.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
    <install as="Horde/Mime/fixtures/related_msg_2.txt" name="test/Horde/Mime/fixtures/related_msg_2.txt" />
@@ -1656,7 +1664,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-22</date>
+   <date>2015-02-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Work around broken line-oriented data when transfer encoding (Bug #13835).
