@@ -24,12 +24,12 @@ class Ingo_Storage_Filters_Prefs extends Ingo_Storage_Filters
 {
     /**
      * Constructor.
+     *
+     * @param Horde_Prefs $p  Prefs object to retrieve data from.
      */
-    public function __construct()
+    public function __construct(Horde_Prefs $p)
     {
-        global $prefs;
-
-        if ($rules = @unserialize($prefs->getValue('rules'))) {
+        if ($rules = @unserialize($p->getValue('rules'))) {
             $this->_filters = $rules;
         }
     }

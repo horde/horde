@@ -52,7 +52,7 @@ class Ingo_Storage_Prefs extends Ingo_Storage
             break;
 
         case self::ACTION_FILTERS:
-            $ob = new Ingo_Storage_Filters_Prefs();
+            $ob = new Ingo_Storage_Filters_Prefs($this->_prefs());
             break;
 
         case self::ACTION_FORWARD:
