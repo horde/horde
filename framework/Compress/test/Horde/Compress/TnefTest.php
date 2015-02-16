@@ -32,6 +32,27 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
         $winmail = $mime->getPart(2)->getContents();
         $tnef = Horde_Compress::factory('Tnef', array('logger' => $log->getLogger()));
         $tnef_data = $tnef->decompress($winmail);
+
+        // Test the generated iCalendar.
+        $iCal = new Horde_Icalendar();
+        if (!$iCal->parsevCalendar($tnef_data[0]['stream'])) {
+            throw new Horde_Compress_Exception(_("There was an error importing the iCalendar data."));
+        }
+        $this->assertEquals($iCal->getAttribute('METHOD'), 'REPLY');
+        $components = $iCal->getComponents();
+        if (count($components) == 0) {
+            throw new Horde_Compress_Exception(_("No iCalendar data was found."));
+        }
+        $iTip = current($components);
+        $this->assertEquals($iTip->getAttribute('SUMMARY'), 'Infoveranstaltung VDI/VDE Jena "Digitalisierung Medizintechnik"');
+        $this->assertEquals($iTip->getAttribute('UID'), 'D38D34D34D34F36D347B4D34EF87396F00000000367B4D3CD34D34D34D34D34D34D34D34D34D34D34D34D34D34D34D34D34D34D34D34E39D34D34D34EFAE37EB5E9CD9DE79EBDEB8D35D34D34D34DF6DF4DF5DF9DF4DF5DF5DF7DF5DF8DF7DF9DF5DFDD9EEF8EF6E74EBCE1FDFAE77EF6E36E35E3BE79E76E3DE37E3AEBCE76DF9E1EE1DEBBDF9E34EFBEFBEFBD9EE9EEB5EB7EBCEF8EBCEB9E9CE9CD9EE9EEB9EF8D3');
+        $this->assertEquals($iTip->getAttribute('ATTENDEE'), 'J.Meier@medizin.uni-leipzig.de');
+        $params = $iTip->getAttribute('ATTENDEE', true);
+        if (!$params) {
+            throw new Horde_Compress_Exception('Could not find expected parameters.');
+        }
+        $this->assertEquals($params[0]['ROLE'], 'REQ-PARTICIPANT');
+        $this->assertEquals($params[0]['PARTSTAT'], 'ACCEPTED');
     }
 
     /**
