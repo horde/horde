@@ -92,6 +92,13 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
     protected $_lastModifier;
 
     /**
+     * The "From" attribute used by iTip responses.
+     *
+     * @var string
+     */
+    protected $_from;
+
+    /**
      *
      * @var string
      */
@@ -263,6 +270,8 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
                 $this->_summary = $value;
                 break;
             case Horde_Compress_Tnef::MAPI_SENT_REP_SMTP_ADDR:
+                $this->_from = $value;
+                break;
             case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
                 // Sender SMTP is more appropriate, but not present in all
                 // meeting request MAPI objects (it's normally taken form the
