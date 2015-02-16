@@ -547,8 +547,12 @@ class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
             $vEvent->setAttribute('ORGANIZER', 'mailto:' . $email);
         }
 
+
         // ATTENDEE
-        // @todo RSVP??
+        if (empty($this->_requiredAttendees) && $this->_method == 'REPLY') {
+            $this->_requiredAttendees = $this->_from;
+        }
+
         if (!empty($this->_requiredAttendees)) {
             $list = new Horde_Mail_Rfc822_List($this->_requiredAttendees);
             foreach ($list as $email) {
