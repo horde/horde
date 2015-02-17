@@ -162,10 +162,11 @@ class Ingo_Storage_Prefs extends Ingo_Storage
         $p = $this->_prefs($user);
 
         $p->remove('blacklist');
-        $p->remove('filters');
         $p->remove('forward');
+        $p->remove('rules');
         $p->remove('spam');
         $p->remove('vacation');
+        $p->remove('whitelist');
     }
 
     /**
