@@ -12,7 +12,7 @@
  */
 
 /**
- * Memory storage of the user-defined filter list.
+ * Base rule.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,16 +20,44 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_Filters_Memory extends Ingo_Storage_Filters
+class Ingo_Rule
 {
     /**
-     * Constructor.
+     * Is this rule disabled?
      *
-     * @param array $filters  The list of filters.
+     * @var boolean
      */
-    public function __construct(array $filters = array())
+    public $disable = false;
+
+    /**
+     * Rule name.
+     *
+     * @var string
+     */
+    public $name = '';
+
+    /**
+     * Unique ID of the rule.
+     *
+     * @var string
+     */
+    public $uid = '';
+
+    /**
+     */
+    public function __toString()
     {
-        $this->_filters = $filters;
+        return strval($this->uid);
+    }
+
+    /**
+     * Generate the rule description.
+     *
+     * @return string  Rule description.
+     */
+    public function description()
+    {
+        return $this->name;
     }
 
 }

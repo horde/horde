@@ -48,11 +48,11 @@ class Ingo_Unit_ProcmailTest extends Ingo_Unit_TestBase
 
     public function testForwardKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(true);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = true;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript(':0 c
 {
@@ -81,11 +81,11 @@ $DEFAULT
 
     public function testForwardNoKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(false);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = false;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript(':0
 {
@@ -114,11 +114,11 @@ $DEFAULT
 
     public function testBlacklistWithFolder()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder('Junk');
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
+        $bl->mailbox = 'Junk';
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
 
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
@@ -127,11 +127,12 @@ Junk');
 
     public function testBlacklistMarker()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
+        $bl->mailbox = Ingo_Rule_System_Blacklist::DELETE_MARKER;
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
+
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
 ++DELETE++');
@@ -139,11 +140,11 @@ Junk');
 
     public function testBlacklistDiscard()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder(null);
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
+
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
 /dev/null');
@@ -151,10 +152,11 @@ Junk');
 
     public function testWhitelist()
     {
-        $wl = new Ingo_Storage_Whitelist(3);
-        $wl->setWhitelist(array('spammer@example.com'));
+        $wl = new Ingo_Rule_System_Whitelist();
+        $wl->addAddresses('spammer@example.com');
 
-        $this->storage->store($wl);
+        $this->storage->updateRule($wl);
+
         $this->_assertScript(':0
 * ^From:(.*\<)?spammer@example\.com
 $DEFAULT');
@@ -162,30 +164,24 @@ $DEFAULT');
 
     public function testVacationDisabled()
     {
-        $vacation = new Ingo_Stub_Storage_Vacation();
-        $vacation->setVacationAddresses(array('from@example.com'));
-        $vacation->setVacationSubject('Subject');
-        $vacation->setVacationReason("Because I don't like working!");
+        $vacation = new Ingo_Rule_System_Vacation();
+        $vacation->addAddresses('from@example.com');
+        $vacation->disable = true;
 
-        $this->storage->store($vacation);
-
-        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $filters->ruleDisable(
-            $filters->findRuleId(Ingo_Storage::ACTION_VACATION)
-        );
+        $this->storage->updateRule($vacation);
 
         $this->_assertScript('');
     }
 
     public function testVacationEnabled()
     {
-        $vacation = new Ingo_Stub_Storage_Vacation();
-        $vacation->setVacationAddresses(array('from@example.com'));
-        $vacation->setVacationSubject('Subject');
-        $vacation->setVacationReason("Because I don't like working!");
+        $vacation = new Ingo_Rule_System_Vacation();
+        $vacation->addAddresses('from@example.com');
+        $vacation->disable = false;
+        $vacation->subject = 'Subject';
+        $vacation->reason = "Because I don't like working!";
 
-        $this->storage->store($vacation);
-        $this->_enableRule(Ingo_Storage::ACTION_VACATION);
+        $this->storage->updateRule($vacation);
 
         $this->_assertScript(':0
 {

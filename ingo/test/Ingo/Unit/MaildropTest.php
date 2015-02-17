@@ -48,11 +48,11 @@ class Ingo_Unit_MaildropTest extends Ingo_Unit_TestBase
 
     public function testForwardKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(true);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = true;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript('if( \
 /^From:\s*.*/:h \
@@ -65,11 +65,11 @@ to "${DEFAULT}"
 
     public function testForwardNoKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(false);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = false;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript('if( \
 /^From:\s*.*/:h \
@@ -82,11 +82,11 @@ exit
 
     public function testBlacklistWithFolder()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder('Junk');
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
+        $bl->mailbox = 'Junk';
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
 
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
@@ -98,11 +98,11 @@ to Junk
 
     public function testBlacklistMarker()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
+        $bl->mailbox = Ingo_Rule_System_Blacklist::DELETE_MARKER;
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
 
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
@@ -114,11 +114,10 @@ to ++DELETE++
 
     public function testBlacklistDiscard()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder(null);
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
 
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \
@@ -130,10 +129,10 @@ exit
 
     public function testWhitelist()
     {
-        $wl = new Ingo_Storage_Whitelist(3);
-        $wl->setWhitelist(array('spammer@example.com'));
+        $wl = new Ingo_Rule_System_Whitelist();
+        $wl->addAddresses('spammer@example.com');
 
-        $this->storage->store($wl);
+        $this->storage->updateRule($wl);
 
         $this->_assertScript('if( \
 /^From:\s*.*spammer@example\.com/:h \

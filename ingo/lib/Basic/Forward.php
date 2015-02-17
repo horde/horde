@@ -30,18 +30,14 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         global $injector, $notification;
 
         /* Redirect if forward is not available. */
-        $this->_assertCategory(Ingo_Storage::ACTION_FORWARD, _("Forward"));
-
+        $this->_assertCategory('Ingo_Rule_System_Forward', _("Forward"));
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
 
         /* Get the forward object and rule. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $forward = $ingo_storage->retrieve(Ingo_Storage::ACTION_FORWARD);
-        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $fwd_id = $filters->findRuleId(Ingo_Storage::ACTION_FORWARD);
-        $fwd_rule = $filters->getRule($fwd_id);
+        $forward = $ingo_storage->getSystemRule('Ingo_Rule_System_Forward');
 
         /* Build form. */
         $form = new Ingo_Form_Forward($this->vars);
@@ -49,22 +45,22 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         /* Perform requested actions. Ingo_Form_Forward does token checking
          * for us. */
         if ($form->validate($this->vars)) {
-            $forward->setForwardAddresses($this->vars->addresses);
-            $forward->setForwardKeep($this->vars->keep_copy == 'on');
+            $forward->addresses = $this->vars->addresses;
+            $forward->keep = ($this->vars->keep_copy == 'on');
+
             try {
-                $ingo_storage->store($forward);
-                $notification->push(_("Changes saved."), 'horde.success');
                 if ($this->vars->submitbutton == _("Save and Enable")) {
-                    $filters->ruleEnable($fwd_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Enabled"), 'horde.success');
-                    $fwd_rule['disable'] = false;
+                    $forward->disable = true;
+                    $notify = _("Rule Enabled");
                 } elseif ($this->vars->submitbutton == _("Save and Disable")) {
-                    $filters->ruleDisable($fwd_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Disabled"), 'horde.success');
-                    $fwd_rule['disable'] = true;
+                    $forward->disable = false;
+                    $notify = _("Rule Disabled");
+                } else {
+                    $notify = _("Changes saved.");
                 }
+
+                $ingo_storage->updateRule($forward);
+                $notification->push($notify, 'horde.success');
                 Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
@@ -72,17 +68,17 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         }
 
         /* Add buttons depending on the above actions. */
-        $form->setCustomButtons($fwd_rule['disable']);
+        $form->setCustomButtons($forward->disable);
 
         /* Set default values. */
         if (!$form->isSubmitted()) {
-            $this->vars->keep_copy = $forward->getForwardKeep();
-            $this->vars->addresses = implode("\n", $forward->getForwardAddresses());
+            $this->vars->keep_copy = $forward->keep;
+            $this->vars->addresses = implode("\n", $forward->addresses);
         }
 
         /* Set form title. */
         $form_title = _("Forward");
-        if (!empty($fwd_rule['disable'])) {
+        if ($forward->disable) {
             $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
         }
         $form_title .= ' ' . Horde_Help::link('ingo', 'forward');

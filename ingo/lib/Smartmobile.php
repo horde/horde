@@ -69,55 +69,50 @@ class Ingo_Smartmobile
 
         $this->view->list = array();
 
-        $filters = $injector->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS)->getFilterList();
-        $s_categories = $session->get('ingo', 'script_categories');
+        $filters = Ingo_Storage_FilterIterator_Match::create(
+            $injector->getInstance('Ingo_Factory_Storage')->create(),
+            $session->get('ingo', 'script_categories')
+        );
 
-        foreach ($filters as $key => $val) {
-            // For now, skip non-display categories and disabled rules.
-            if (!empty($val['disable']) ||
-                !in_array($val['action'], $s_categories)) {
+        foreach ($filters as $val) {
+            // Skip disabled rules.
+            if ($val->disable) {
                 continue;
             }
 
-            switch ($val['action']) {
-            case Ingo_Storage::ACTION_BLACKLIST:
+            switch (get_class($val)) {
+            case 'Ingo_Rule_System_Blacklist':
                 $img = 'blacklist.png';
-                $name = _("Blacklist");
                 break;
 
-            case Ingo_Storage::ACTION_WHITELIST:
+            case 'Ingo_Rule_System_Whitelist':
                 $img = 'whitelist.png';
-                $name = _("Whitelist");
                 break;
 
-            case Ingo_Storage::ACTION_VACATION:
+            case 'Ingo_Rule_System_Vacation':
                 $img = 'vacation.png';
-                $name = _("Vacation");
                 break;
 
-            case Ingo_Storage::ACTION_FORWARD:
+            case 'Ingo_Rule_System_Forward':
                 $img = 'forward.png';
-                $name = _("Forward");
                 break;
 
-            case Ingo_Storage::ACTION_SPAM:
+            case 'Ingo_Rule_System_Spam':
                 $img = 'spam.png';
-                $name = _("Spam Filter");
                 break;
 
             default:
                 $img = null;
-                $name = $val['name'];
                 break;
             }
 
             $url = new Horde_Core_Smartmobile_Url();
-            $url->add('rulenum', $key);
+            $url->add('uid', $val->uid);
             $url->setAnchor('rule');
 
             $this->view->list[] = array(
                 'img' => is_null($img) ? null : Horde_Themes_Image::tag($img, array('attr' => array('class' => 'ui-li-icon'))),
-                'name' => $name,
+                'name' => $val->name,
                 'url' => $url
             );
         }

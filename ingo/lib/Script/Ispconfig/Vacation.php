@@ -28,20 +28,20 @@ class Ingo_Script_Ispconfig_Vacation implements Ingo_Script_Item
     public $disable;
 
     /**
-     * @var Ingo_Storage_Vacation
+     * @var Ingo_Rule_System_Vacation
      */
     public $vacation;
 
     /**
      * Constructor.
      *
-     * @param array $params  Array of parameters. Expected fields are 'vacation'
-     *                       and 'disable'.
+     * @param array $params  Array of parameters. Expected fields are
+     *                       'vacation'.
      */
     public function __construct($params = array())
     {
         $this->vacation = $params['vacation'];
-        $this->disable = $params['disable'];
+        $this->disable = $params['vacation']->disable;
     }
 
     /**

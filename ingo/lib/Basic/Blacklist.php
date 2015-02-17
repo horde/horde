@@ -29,11 +29,11 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
     {
         global $injector, $notification, $page_output;
 
-        $this->_assertCategory(Ingo_Storage::ACTION_BLACKLIST, _("Blacklist"));
+        $this->_assertCategory('Ingo_Rule_System_Blacklist', _("Blacklist"));
 
         $ingo_script = $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_BLACKLIST);
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $flagonly = ($ingo_script && in_array(Ingo_Storage::ACTION_FLAGONLY, $ingo_script->availableActions()));
+        $flagonly = ($ingo_script && in_array('Ingo_Rule_User_FlagOnly', $ingo_script->availableActions()));
 
         /* Token checking & perform requested actions. */
         switch ($this->_checkToken(array('rule_update'))) {
@@ -44,7 +44,7 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                 break;
 
             case 'mark':
-                $folder = Ingo::BLACKLIST_MARKER;
+                $folder = Ingo_Rule_System_Blacklist::DELETE_MARKER;
                 break;
 
             case 'folder':
@@ -56,38 +56,29 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
                 break;
             }
 
-            if (!$flagonly && ($folder == Ingo::BLACKLIST_MARKER)) {
+            if (!$flagonly &&
+                ($folder == Ingo_Rule_System_Blacklist::DELETE_MARKER)) {
                 $notification->push("Not supported by this script generator.", 'horde.error');
             } else {
                 try {
-                    $blacklist = Ingo::updateListFilter($this->vars->blacklist, Ingo_Storage::ACTION_BLACKLIST);
-                    $blacklist->setBlacklistFolder($folder);
-                    $ingo_storage->store($blacklist);
+                    $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
+                    $bl->addresses = $this->vars->blacklist;
+                    $bl->mailbox = $folder;
+                    $ingo_storage->updateRule($bl);
                     $notification->push(_("Changes saved."), 'horde.success');
                     Ingo_Script_Util::update();
                 } catch (Ingo_Exception $e) {
-                    $notification->push($e->getMessage(), $e->getCode());
+                    $notification->push($e, $e->getCode());
                 }
             }
             break;
         }
 
         /* Get the blacklist object. */
-        if (!isset($blacklist)) {
-            try {
-                $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
-                $blacklist = new Ingo_Storage_Blacklist();
-            }
-        }
+        $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
 
         /* Create the folder listing. */
-        $blacklist_folder = $blacklist->getBlacklistFolder();
-        $folder_list = Ingo_Flist::select($blacklist_folder, 'actionvalue');
-
-        /* Get the blacklist rule. */
-        $bl_rule = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS)->findRule(Ingo_Storage::ACTION_BLACKLIST);
+        $folder_list = Ingo_Flist::select($bl->mailbox, 'actionvalue');
 
         /* Prepare the view. */
         $view = new Horde_View(array(
@@ -99,10 +90,10 @@ class Ingo_Basic_Blacklist extends Ingo_Basic_Base
         $view->addHelper('Tag');
         $view->addHelper('Text');
 
-        $view->blacklist = implode("\n", $blacklist->getBlacklist());
-        $view->disabled = !empty($bl_rule['disable']);
+        $view->blacklist = implode("\n", $bl->addresses);
+        $view->disabled = $bl->disable;
         $view->flagonly = $flagonly;
-        $view->folder = $blacklist_folder;
+        $view->folder = $bl->mailbox;
         $view->folderlist = $folder_list;
         $view->formurl = $this->_addToken(self::url());
 

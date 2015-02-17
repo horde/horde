@@ -153,17 +153,15 @@ function smtpd_access_policy($query)
 
         $ingo_storage = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create();
 
-        try {
-            $whitelists[$user] = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST)->getWhitelist();
-        } catch (Ingo_Exception $e) {}
+        $whitelists[$user] = $ingo_storage->getSystemRule('Ingo_Rule_System_Whitelist')->addresses;
 
         try {
-            $bl = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-            if (!$bl->getBlacklistFolder()) {
+            $bl = $ingo_storage->getSystemRule('Ingo_Rule_System_Blacklist');
+            if (!strlen($bl->mailbox)) {
                 // We will only reject email at delivery time if the user
                 // wants blacklisted mail deleted completely, not filed
                 // into a separate folder.
-                $blacklists[$user] = $bl->getBlacklist();
+                $blacklists[$user] = $bl->addresses;
             }
         } catch (Ingo_Exception $e) {}
     }

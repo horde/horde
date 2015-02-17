@@ -49,6 +49,7 @@ var IngoFilters = {
                         }
                     );
                 },
+                format: /^[^_\-](?:[A-Za-z0-9]*)[_](.*)$/,
                 tag: 'div'
             });
         }

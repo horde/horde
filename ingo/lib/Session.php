@@ -50,11 +50,11 @@ class Ingo_Session
 
         /* Disable categories as specified in preferences */
         $locked_prefs = array(
-            'blacklist' => Ingo_Storage::ACTION_BLACKLIST,
-            'forward' => Ingo_Storage::ACTION_FORWARD,
-            'spam' => Ingo_Storage::ACTION_SPAM,
-            'vacation' => Ingo_Storage::ACTION_VACATION,
-            'whitelist' => Ingo_Storage::ACTION_WHITELIST
+            'blacklist' => 'Ingo_Storage_System_Blacklist',
+            'forward' => 'Ingo_Storage_System_Forward',
+            'spam' => 'Ingo_Storage_System_Spam',
+            'vacation' => 'Ingo_Storage_System_Vacation',
+            'whitelist' => 'Ingo_Storage_System_Whitelist'
         );
         $locked = array();
         foreach ($locked_prefs as $key => $val) {
@@ -64,7 +64,8 @@ class Ingo_Session
         }
 
         /* Set the list of categories this driver supports. */
-        $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')->createAll();
+        $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')
+            ->createAll();
         $categories = array();
         foreach ($ingo_scripts as $ingo_script) {
             $categories = array_merge(
@@ -73,7 +74,11 @@ class Ingo_Session
                 $ingo_script->availableCategories()
             );
         }
-        $session->set('ingo', 'script_categories', array_diff($categories, $locked));
+        $session->set(
+            'ingo',
+            'script_categories',
+            array_diff($categories, $locked)
+        );
 
         /* Create shares if necessary. */
         $factory = $injector->getInstance('Ingo_Factory_Transport');

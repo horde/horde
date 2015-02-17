@@ -12,7 +12,7 @@
  */
 
 /**
- * Horde_Prefs storage of the user-defined filter list.
+ * User-defined keep & redirect rule.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,18 +20,18 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_Filters_Prefs extends Ingo_Storage_Filters
+class Ingo_Rule_User_RedirectKeep
+extends Ingo_Rule_User
 {
     /**
-     * Constructor.
-     *
-     * @param Horde_Prefs $p  Prefs object to retrieve data from.
      */
-    public function __construct(Horde_Prefs $p)
+    public function __construct()
     {
-        if ($rules = @unserialize($p->getValue('rules'))) {
-            $this->_filters = $rules;
-        }
+        parent::__construct();
+
+        $this->flags = self::FLAG_AVAILABLE;
+        $this->label = _("Deliver to my Inbox and redirect to...");
+        $this->type = self::TYPE_TEXT;
     }
 
 }

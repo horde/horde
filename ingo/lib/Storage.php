@@ -22,53 +22,18 @@
  * @package  Ingo
  */
 abstract class Ingo_Storage
+implements Countable, IteratorAggregate
 {
-    /**
-     * Ingo_Storage:: 'combine' constants
-     */
-    const COMBINE_ALL = 1;
-    const COMBINE_ANY = 2;
+    /* Internal storage actions. */
+    const STORE_ADD = 1;
+    const STORE_DELETE = 2;
+    const STORE_UPDATE = 3;
+    const STORE_SORT = 4;
 
-    /**
-     * Ingo_Storage:: 'action' constants
-     */
-    const ACTION_FILTERS = 0;
-    const ACTION_KEEP = 1;
-    const ACTION_MOVE = 2;
-    const ACTION_DISCARD = 3;
-    const ACTION_REDIRECT = 4;
-    const ACTION_REDIRECTKEEP = 5;
-    const ACTION_REJECT = 6;
-    const ACTION_BLACKLIST = 7;
-    const ACTION_VACATION = 8;
-    const ACTION_WHITELIST = 9;
-    const ACTION_FORWARD = 10;
-    const ACTION_MOVEKEEP = 11;
-    const ACTION_FLAGONLY = 12;
-    const ACTION_NOTIFY = 13;
-    const ACTION_SPAM = 14;
-
-    /**
-     * Ingo_Storage:: 'flags' constants
-     */
-    const FLAG_ANSWERED = 1;
-    const FLAG_DELETED = 2;
-    const FLAG_FLAGGED = 4;
-    const FLAG_SEEN = 8;
-
-    /**
-     * Ingo_Storage:: 'type' constants.
-     */
-    const TYPE_HEADER = 1;
-    const TYPE_SIZE = 2;
-    const TYPE_BODY = 3;
-
-    /**
-     * Cached rules.
-     *
-     * @var array
-     */
-    protected $_cache = array();
+    /* Max rules errors. */
+    const MAX_OK = 0;
+    const MAX_NONE = 1;
+    const MAX_OVER = 2;
 
     /**
      * Configuration parameters.
@@ -76,6 +41,13 @@ abstract class Ingo_Storage
      * @var array
      */
     protected $_params = array();
+
+    /**
+     * Rules list.
+     *
+     * @var array
+     */
+    protected $_rules = array();
 
     /**
      * Constructor.
@@ -88,221 +60,62 @@ abstract class Ingo_Storage
     }
 
     /**
-     * Retrieves the specified data.
+     * Load the rules.
+     */
+    protected function _load()
+    {
+        if (!empty($this->_rules) || !empty($this->_params['_loading'])) {
+            return;
+        }
+
+        $this->_params['_loading'] = true;
+        $this->_loadFromBackend();
+
+        if (empty($this->_rules)) {
+            $this->addRule(new Ingo_Rule_System_Whitelist());
+            $this->addRule(new Ingo_Rule_System_Blacklist());
+
+            $spam = new Ingo_Rule_System_Spam();
+            $spam->disable = true;
+            $this->addRule($spam);
+
+            $forward = new Ingo_Rule_System_Forward();
+            $forward->disable = true;
+            $this->addRule($forward);
+
+            $vacation = new Ingo_Rule_System_Vacation();
+            $vacation->disable = true;
+            $this->addRule($vacation);
+        }
+
+        unset($this->_params['_loading']);
+    }
+
+    /**
+     * Load the rules from the storage backend.
+     */
+    protected abstract function _loadFromBackend();
+
+    /**
+     * Retrieves the specified system rule.
      *
-     * @param integer $field     The field name of the desired data
-     *                           (ACTION_* constants).
-     * @param boolean $readonly  Whether to disable any write operations.
+     * @param string $rule  The rule name.
      *
-     * @return Ingo_Storage_Rule  The specified object.
+     * @return Ingo_Rule  A rule object.
      * @throws Ingo_Exception
      */
-    public function retrieve($field, $readonly = false)
+    public function getSystemRule($rule)
     {
-        if (!isset($this->_cache[$field])) {
-            $this->_cache[$field] = $this->_retrieve($field, $readonly);
-        }
+        $this->_load();
 
-        return $this->_cache[$field];
-    }
-
-    /**
-     * Retrieves the specified data from the storage backend.
-     *
-     * @param integer $field     The field name of the desired data.
-     *                           See lib/Storage.php for the available fields.
-     * @param boolean $readonly  Whether to disable any write operations.
-     *
-     * @return Ingo_Storage_Rule  The specified data.
-     */
-    protected abstract function _retrieve($field, $readonly = false);
-
-    /**
-     * Stores the specified data.
-     *
-     * @param Ingo_Storage_Rule $ob  The object to store.
-     *
-     * @throws Ingo_Exception
-     */
-    public function store($ob)
-    {
-        global $session;
-
-        switch ($type = $ob->obType()) {
-        case self::ACTION_BLACKLIST:
-            $name = 'Blacklist';
-            break;
-
-        case self::ACTION_VACATION:
-            $name = 'Vacation';
-            break;
-
-        case self::ACTION_WHITELIST:
-            $name = 'Whitelist';
-            break;
-
-        case self::ACTION_FORWARD:
-            $name = 'Forward';
-            break;
-
-        case self::ACTION_SPAM:
-            $name = 'Spam Filter';
-            break;
-
-        default:
-            $name = null;
-            break;
-        }
-
-        if (!is_null($name) &&
-            ($filters = $this->retrieve(self::ACTION_FILTERS)) &&
-            ($filters->findRuleId($type) === null)) {
-            $filters->addRule(array('action' => $type, 'name' => $name));
-            $this->store($filters);
-        }
-
-        $this->_store($ob);
-        $this->_cache[$type] = $ob;
-
-        $session->set('ingo', 'change', time());
-    }
-
-    /**
-     * Stores the specified data in the storage backend.
-     *
-     * @param Ingo_Storage_Rule $ob  The object to store.
-     */
-    protected abstract function _store($ob);
-
-    /**
-     * Returns information on a given action constant.
-     *
-     * @param integer $action  The ACTION_* value.
-     *
-     * @return object  Object with the following values:
-     *   - flags: (boolean) Does this action allow flags to be set?
-     *   - label: (string) The label for this action.
-     *   - type: (string) Either 'folder', 'text', or empty.
-     */
-    public function getActionInfo($action)
-    {
-        $ob = new stdClass;
-        $ob->flags = false;
-        $ob->type = 'text';
-
-        switch ($action) {
-        case self::ACTION_KEEP:
-            $ob->label = _("Deliver into my Inbox");
-            $ob->type = false;
-            $ob->flags = true;
-            break;
-
-        case self::ACTION_MOVE:
-            $ob->label = _("Deliver to folder...");
-            $ob->type = 'folder';
-            $ob->flags = true;
-            break;
-
-        case self::ACTION_DISCARD:
-            $ob->label = _("Delete message completely");
-            $ob->type = false;
-            break;
-
-        case self::ACTION_REDIRECT:
-            $ob->label = _("Redirect to...");
-            break;
-
-        case self::ACTION_REDIRECTKEEP:
-            $ob->label = _("Deliver into my Inbox and redirect to...");
-            $ob->flags = true;
-            break;
-
-        case self::ACTION_MOVEKEEP:
-            $ob->label = _("Deliver into my Inbox and copy to...");
-            $ob->type = 'folder';
-            $ob->flags = true;
-            break;
-
-        case self::ACTION_REJECT:
-            $ob->label = _("Reject with reason...");
-            break;
-
-        case self::ACTION_FLAGONLY:
-            $ob->label = _("Only flag the message");
-            $ob->type = false;
-            $ob->flags = true;
-            break;
-
-        case self::ACTION_NOTIFY:
-            $ob->label = _("Notify email address...");
-            break;
-        }
-
-        return $ob;
-    }
-
-    /**
-     * Returns information on a given test string.
-     *
-     * @param string $action  The test string.
-     *
-     * @return object  Object with the following values:
-     *   - label: (string) The label for this action.
-     *   - type: (string) Either 'int', 'none', or 'text'.
-     */
-    public function getTestInfo($test)
-    {
-        /* Mapping of gettext strings -> labels. */
-        $labels = array(
-            'contains' => _("Contains"),
-            'not contain' =>  _("Doesn't contain"),
-            'is' => _("Is"),
-            'not is' => _("Isn't"),
-            'begins with' => _("Begins with"),
-            'not begins with' => _("Doesn't begin with"),
-            'ends with' => _("Ends with"),
-            'not ends with' => _("Doesn't end with"),
-            'exists' =>  _("Exists"),
-            'not exist' => _("Doesn't exist"),
-            'regex' => _("Regular expression"),
-            'not regex' => _("Doesn't match regular expression"),
-            'matches' => _("Matches (with placeholders)"),
-            'not matches' => _("Doesn't match (with placeholders)"),
-            'less than' => _("Less than"),
-            'less than or equal to' => _("Less than or equal to"),
-            'greater than' => _("Greater than"),
-            'greater than or equal to' => _("Greater than or equal to"),
-            'equal' => _("Equal to"),
-            'not equal' => _("Not equal to")
-        );
-
-        /* The type of tests available. */
-        $types = array(
-            'int'  => array(
-                'less than', 'less than or equal to', 'greater than',
-                'greater than or equal to', 'equal', 'not equal'
-            ),
-            'none' => array(
-                'exists', 'not exist'
-            ),
-            'text' => array(
-                'contains', 'not contain', 'is', 'not is', 'begins with',
-                'not begins with', 'ends with', 'not ends with', 'regex',
-                'not regex', 'matches', 'not matches'
-            )
-        );
-
-        /* Create the information object. */
-        $ob = new stdClass;
-        $ob->label = $labels[$test];
-        foreach ($types as $key => $val) {
-            if (in_array($test, $val)) {
-                $ob->type = $key;
-                break;
+        foreach ($this->_rules as $val) {
+            if (($val instanceof $rule) &&
+                ($val instanceof Ingo_Rule_System)) {
+                return $val;
             }
         }
 
-        return $ob;
+        throw new Ingo_Exception('Invalid system rule');
     }
 
     /**
@@ -321,6 +134,8 @@ abstract class Ingo_Storage
         }
 
         $this->_removeUserData($user);
+
+        $this->_rules = array();
     }
 
     /**
@@ -333,44 +148,243 @@ abstract class Ingo_Storage
     protected abstract function _removeUserData($user);
 
     /**
-     * Output description for a rule.
+     * Has the maximum number of rules been reached?
      *
-     * @param array $rule  Rule.
-     *
-     * @return string  Text description.
+     * @return integer  A MAX_* constant. Non-zero indicates rule cannot be
+     *                  added.
      */
-    public function ruleDescription($rule)
+    public function maxRules()
     {
-        $condition_size = count($rule['conditions']) - 1;
-        $descrip = '';
+        global $injector;
 
-        foreach ($rule['conditions'] as $key => $val) {
-            $info = $this->getTestInfo($val['match']);
-            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), $info->label, $val['value']);
+        $this->_load();
 
-            if (!empty($val['case'])) {
-                $descrip .= ' [' . _("Case Sensitive") . ']';
+        $max = $injector->getInstance('Horde_Core_Perms')
+            ->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+
+        if ($max === 0) {
+            return self::MAX_NONE;
+        } elseif (($max !== true) && ($max <= count($this))) {
+            return self::MAX_OVER;
+        }
+
+        return self::MAX_OK;
+    }
+
+    /**
+     * Adds a rule to the filters list.
+     *
+     * @param Ingo_Rule $rule  A rule object.
+     */
+    public function addRule(Ingo_Rule $rule)
+    {
+        $this->_load();
+
+        $this->_rules[] = $rule;
+        $this->_store(self::STORE_ADD, $rule);
+    }
+
+    /**
+     * Updates an existing rule.
+     *
+     * @param Ingo_Rule $rule  A rule object.
+     */
+    public function updateRule(Ingo_Rule $rule)
+    {
+        if (($key = $this->_getRule($rule)) === null) {
+            $this->addRule($rule);
+        } else {
+            $this->_rules[$key] = $rule;
+            $this->_store(self::STORE_UPDATE, $rule);
+        }
+    }
+
+    /**
+     * Deletes an existing rule.
+     *
+     * @param Ingo_Rule $rule  A rule object.
+     *
+     * @return boolean  True if the rule has been found and deleted.
+     */
+    public function deleteRule(Ingo_Rule $rule)
+    {
+        if (!($rule instanceof Ingo_Rule_System) &&
+            (($key = $this->_getRule($rule)) !== null)) {
+            unset($this->_rules[$key]);
+            $this->_store(self::STORE_DELETE, $rule);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates a copy of an existing rule.
+     *
+     * The created copy is added to the filters list after the original rule.
+     *
+     * @param Ingo_Rule $rule  The rule object to copy.
+     *
+     * @return boolean  True if the rule has been found and copied.
+     */
+    public function copyRule(Ingo_Rule $rule)
+    {
+        if (($rule instanceof Ingo_Rule_System) ||
+            (($key = $this->_getRule($rule)) === null)) {
+            return false;
+        }
+
+        $newrule = clone $this->_rules[$key];
+        $newrule->name = sprintf(_("Copy of %s"), $newrule->name);
+        $newrule->uid = '';
+
+        $this->_rules = array_values(array_merge(
+            array_slice($this->_rules, 0, $key + 1),
+            array($newrule),
+            array_slice($this->_rules, $key + 1)
+        ));
+
+        $this->_store(self::STORE_ADD, $newrule);
+
+        return true;
+    }
+
+    /**
+     * Sorts the list of rules in the given order.
+     *
+     * @param array $rules  Sorted list of rule UIDs.
+     */
+    public function sort($rules)
+    {
+        $this->_load();
+
+        $rules = array_flip($rules);
+
+        usort($this->_rules, function ($a, $b) use ($rules) {
+            $pos_a = isset($rules[$a->uid]) ? $rules[$a->uid] : null;
+            $pos_b = isset($rules[$b->uid]) ? $rules[$b->uid] : null;
+
+            if (is_null($pos_a)) {
+                return is_null($pos_b) ? 0 : 1;
             }
 
-            if ($key < $condition_size) {
-                $descrip .= ($rule['combine'] == self::COMBINE_ALL)
-                    ? _(" and")
-                    : _(" or");
-                $descrip .= "\n  ";
+            return is_null($pos_b)
+                ? -1
+                : (($pos_a < $pos_b) ? -1 : 1);
+        });
+
+        $this->_store(self::STORE_SORT);
+    }
+
+    /**
+     * Returns a rule given a UID.
+     *
+     * @param string $uid  Rule UID.
+     *
+     * @return Ingo_Rule  The rule object (null if not found).
+     */
+    public function getRuleByUid($uid)
+    {
+        $this->_load();
+
+        foreach ($this->_rules as $key => $val) {
+            if ($val->uid == $uid) {
+                return $val;
             }
         }
 
-        $descrip .= "\n" . $this->getActionInfo($rule['action'])->label;
+        return null;
+    }
 
-        if ($rule['action-value']) {
-            $descrip .= ': ' . $rule['action-value'];
+    /**
+     * Store a rule.
+     *
+     * @param integer $action  Storage action.
+     * @param Ingo_Rule $rule  Rule the action affects.
+     */
+    protected function _store($action, $rule = null)
+    {
+        global $session;
+
+        $this->_storeBackend($action, $rule);
+
+        switch ($action) {
+        case self::STORE_UPDATE:
+            if ($rule instanceof Ingo_Rule_System_Blacklist) {
+                $tmp = $this->getSystemRule('Ingo_Rule_System_Whitelist');
+            } elseif ($rule instanceof Ingo_Rule_System_Whitelist) {
+                $tmp = $this->getSystemRule('Ingo_Rule_System_Blacklist');
+            } else {
+                $tmp = null;
+            }
+
+            if (!is_null($tmp)) {
+                /* Filter out the rule's addresses in the opposite filter. */
+                $ob = new Horde_Mail_Rfc822_List($tmp->addresses);
+                $ob->setIteratorFilter(0, $rule->addresses);
+                $tmp->addresses = $ob->bare_addresses;
+
+                $this->_storeBackend($action, $tmp);
+            }
+            break;
         }
 
-        if ($rule['stop']) {
-            $descrip .= "\n[stop]";
+        $session->set('ingo', 'change', time());
+    }
+
+    /**
+     * Store a rule in the backend.
+     *
+     * @see _store()
+     */
+    protected abstract function _storeBackend($action, $rule);
+
+    /**
+     * Retrieves a rule.
+     *
+     * @param Ingo_Rule $rule  The rule object.
+     *
+     * @return integer  The key of the rule in the rules list.
+     */
+    protected function _getRule(Ingo_Rule $rule)
+    {
+        $this->_load();
+
+        foreach ($this->_rules as $key => $val) {
+            if (strlen($rule->uid)) {
+                if ($val->uid == $rule->uid) {
+                    return $key;
+                }
+            } elseif (($rule instanceof Ingo_Rule_System) &&
+                      ($rule instanceof $val)) {
+                $rule->uid = $val->uid;
+                return $key;
+            }
         }
 
-        return $descrip;
+        return null;
+    }
+
+    /* Countable methods. */
+
+    /**
+     */
+    public function count()
+    {
+        $this->_load();
+
+        return count($this->_rules);
+    }
+
+    /* IteratorAggregate methods. */
+
+    /**
+     */
+    public function getIterator()
+    {
+        $this->_load();
+
+        return new ArrayIterator($this->_rules);
     }
 
 }

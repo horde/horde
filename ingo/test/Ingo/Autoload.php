@@ -12,6 +12,4 @@
 
 Horde_Test_Autoload::addPrefix('Ingo', __DIR__ . '/../../lib');
 
-require_once 'Stub/Storage/Mock.php';
-require_once 'Stub/Storage/Vacation.php';
 require_once 'Unit/TestBase.php';

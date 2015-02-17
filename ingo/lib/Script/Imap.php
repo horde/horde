@@ -47,10 +47,10 @@ class Ingo_Script_Imap extends Ingo_Script_Base
      * @var array
      */
     protected $_actions = array(
-        Ingo_Storage::ACTION_KEEP,
-        Ingo_Storage::ACTION_MOVE,
-        Ingo_Storage::ACTION_DISCARD,
-        Ingo_Storage::ACTION_MOVEKEEP
+        'Ingo_Rule_User_Keep',
+        'Ingo_Rule_User_Move',
+        'Ingo_Rule_User_Discard',
+        'Ingo_Rule_User_MoveKeep'
     );
 
     /**
@@ -59,8 +59,8 @@ class Ingo_Script_Imap extends Ingo_Script_Base
      * @var array
      */
     protected $_categories = array(
-        Ingo_Storage::ACTION_BLACKLIST,
-        Ingo_Storage::ACTION_WHITELIST
+        'Ingo_Rule_System_Blacklist',
+        'Ingo_Rule_System_Whitelist'
     );
 
     /**
@@ -78,9 +78,9 @@ class Ingo_Script_Imap extends Ingo_Script_Base
      * @var array
      */
     protected $_types = array(
-        Ingo_Storage::TYPE_HEADER,
-        Ingo_Storage::TYPE_SIZE,
-        Ingo_Storage::TYPE_BODY
+        Ingo_Rule_User::TEST_HEADER,
+        Ingo_Rule_User::TEST_SIZE,
+        Ingo_Rule_User::TEST_BODY
     );
 
     /**
@@ -106,32 +106,26 @@ class Ingo_Script_Imap extends Ingo_Script_Base
             return;
         }
 
-        /* Grab the rules list. */
-        $filters = $this->_params['storage']
-            ->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = Ingo_Storage_FilterIterator_Skip::create(
+            $this->_params['storage'],
+            $this->_params['skip']
+        );
 
         /* Parse through the rules, one-by-one. */
-        foreach ($filters->getFilterList($this->_params['skip']) as $rule) {
+        foreach ($filters as $rule) {
             /* Check to make sure this is a valid rule and that the rule is
                not disabled. */
-            if (!$this->_validRule($rule['action']) ||
-                !empty($rule['disable'])) {
+            if (!$this->_validRule($rule) || $rule->disable) {
                 continue;
             }
 
-            switch ($rule['action']) {
-            case Ingo_Storage::ACTION_BLACKLIST:
-            case Ingo_Storage::ACTION_WHITELIST:
-                $bl_folder = null;
-
-                if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
-                    $blacklist = $this->_params['storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
-                    $addr = $blacklist->getBlacklist();
-                    $bl_folder = $blacklist->getBlacklistFolder();
-                } else {
-                    $whitelist = $this->_params['storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
-                    $addr = $whitelist->getWhitelist();
-                }
+            switch ($class = get_class($rule)) {
+            case 'Ingo_Rule_System_Blacklist':
+            case 'Ingo_Rule_System_Whitelist':
+                $addr = $rule->addresses;
+                $bl_folder = ($class === 'Ingo_Rule_System_Blacklist')
+                    ? $rule->mailbox
+                    : null;
 
                 /* If list is empty, move on. */
                 if (empty($addr)) {
@@ -172,7 +166,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                     $indices = array_diff($indices, $remove);
                 }
 
-                if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
+                if ($class === 'Ingo_Rule_System_Blacklist') {
                     $indices = array_diff($indices, $ignore_ids);
                     if (!empty($indices)) {
                         if (!empty($bl_folder)) {
@@ -180,27 +174,34 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         } else {
                             $api->deleteMessages($indices);
                         }
-                        $notification->push(sprintf(_("Filter activity: %s message(s) that matched the blacklist were deleted."), count($indices)), 'horde.message');
+                        $notification->push(
+                            sprintf(
+                                _("Filter activity: %s message(s) that matched the blacklist were deleted."),
+                                count($indices)
+                            ),
+                            'horde.message'
+                        );
                     }
                 } else {
                     $ignore_ids = $indices;
                 }
                 break;
 
-            case Ingo_Storage::ACTION_KEEP:
-            case Ingo_Storage::ACTION_MOVE:
-            case Ingo_Storage::ACTION_DISCARD:
+            case 'Ingo_Rule_User_Discard':
+            case 'Ingo_Rule_User_Keep':
+            case 'Ingo_Rule_User_Move':
+            case 'Ingo_Rule_User_MoveKeep':
                 $base_query = $this->_getQuery();
                 $query = new Horde_Imap_Client_Search_Query();
 
-                foreach ($rule['conditions'] as $val) {
+                foreach ($rule->conditions as $val) {
                     $ob = new Horde_Imap_Client_Search_Query();
 
                     if (!empty($val['type']) &&
-                        ($val['type'] == Ingo_Storage::TYPE_SIZE)) {
+                        ($val['type'] == Ingo_Rule_User::TEST_SIZE)) {
                         $ob->size($val['value'], ($val['match'] == 'greater than'));
                     } elseif (!empty($val['type']) &&
-                              ($val['type'] == Ingo_Storage::TYPE_BODY)) {
+                              ($val['type'] == Ingo_Rule_User::TEST_BODY)) {
                         $ob->charset('UTF-8', false);
                         $ob->text($val['value'], true, ($val['match'] == 'not contain'));
                     } else {
@@ -221,18 +222,22 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         }
                     }
 
-                    if ($rule['combine'] == Ingo_Storage::COMBINE_ALL) {
+                    switch ($rule->combine) {
+                    case Ingo_Rule_User::COMBINE_ALL:
                         $query->andSearch(array($ob));
-                    } else {
+                        break;
+
+                    case Ingo_Rule_User::COMBINE_ANY:
                         $query->orSearch(array($ob));
+                        break;
                     }
                 }
 
                 $base_query->andSearch(array($query));
                 $indices = $api->search($base_query);
 
-                if (($indices = array_diff($indices, $ignore_ids))) {
-                    if ($rule['stop']) {
+                if ($indices = array_diff($indices, $ignore_ids)) {
+                    if ($rule->stop) {
                         /* If the stop action is set, add these
                          * indices to the list of ids that will be
                          * ignored by subsequent rules. */
@@ -240,35 +245,39 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                     }
 
                     /* Set the flags. */
-                    if (!empty($rule['flags']) &&
-                        ($rule['action'] != Ingo_Storage::ACTION_DISCARD)) {
+                    if ($class !== 'Ingo_Rule_User_Discard') {
                         $flags = array();
-                        if ($rule['flags'] & Ingo_Storage::FLAG_ANSWERED) {
+                        if ($rule->flags & Ingo_Rule_User::FLAG_ANSWERED) {
                             $flags[] = '\\answered';
                         }
-                        if ($rule['flags'] & Ingo_Storage::FLAG_DELETED) {
+                        if ($rule->flags & Ingo_Rule_User::FLAG_DELETED) {
                             $flags[] = '\\deleted';
                         }
-                        if ($rule['flags'] & Ingo_Storage::FLAG_FLAGGED) {
+                        if ($rule->flags & Ingo_Rule_User::FLAG_FLAGGED) {
                             $flags[] = '\\flagged';
                         }
-                        if ($rule['flags'] & Ingo_Storage::FLAG_SEEN) {
+                        if ($rule->flags & Ingo_Rule_User::FLAG_SEEN) {
                             $flags[] = '\\seen';
                         }
-                        $api->setMessageFlags($indices, $flags);
+                        if (!empty($flags)) {
+                            $api->setMessageFlags($indices, $flags);
+                        }
                     }
 
-                    if ($rule['action'] == Ingo_Storage::ACTION_KEEP) {
+                    switch ($class) {
+                    case 'Ingo_Rule_User_Keep':
                         /* Add these indices to the ignore list. */
                         $ignore_ids = array_unique($indices + $ignore_ids);
-                    } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVE) {
+                        break;
+
+                    case 'Ingo_Rule_User_Move':
                         /* We need to grab the envelope first. */
                         if ($this->_params['show_filter_msg'] &&
                             !($fetch = $api->fetchEnvelope($indices))) {
-                            continue;
+                            continue 2;
                         }
 
-                        $mbox = new Horde_Imap_Client_Mailbox($rule['action-value']);
+                        $mbox = new Horde_Imap_Client_Mailbox($rule->value);
 
                         /* Move the messages to the requested mailbox. */
                         $api->moveMessages($indices, strval($mbox));
@@ -289,7 +298,9 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                                                         count($indices),
                                                         $mbox), 'horde.message');
                         }
-                    } elseif ($rule['action'] == Ingo_Storage::ACTION_DISCARD) {
+                        break;
+
+                    case 'Ingo_Rule_User_Discard':
                         /* We need to grab the envelope first. */
                         if ($this->_params['show_filter_msg'] &&
                             !($fetch = $api->fetchEnvelope($indices))) {
@@ -312,8 +323,10 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                         } else {
                             $notification->push(sprintf(_("Filter activity: %s message(s) have been deleted."), count($indices)), 'horde.message');
                         }
-                    } elseif ($rule['action'] == Ingo_Storage::ACTION_MOVEKEEP) {
-                        $mbox = new Horde_Imap_Client_Mailbox($rule['action-value']);
+                        break;
+
+                    case 'Ingo_Rule_User_MoveKeep':
+                        $mbox = new Horde_Imap_Client_Mailbox($rule->value);
 
                         /* Copy the messages to the requested mailbox. */
                         $api->copyMessages($indices, strval($mbox));

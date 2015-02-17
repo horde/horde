@@ -21,67 +21,63 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
     {
         $runner = ScriptTester::factory('all', $this);
 
-        $ob = new Ingo_Storage_Blacklist();
-        $ob->setBlacklist(array('spammer@example.com'));
-        $ob->setBlacklistFolder('');
+        $ob = new Ingo_Rule_System_Blacklist();
+        $ob->addAddresses('spammer@example.com');
         $runner->addRule($ob);
 
         $runner->assertDeletesMessage('from_spammer');
         $runner->assertKeepsMessage('not_from_spammer');
     }
 
-    function test_whitelist_rule_will_prevent_deletion_of_blacklisted_message()
+    function testWhitelistRuleWillPreventDeletionOfBlacklistedMessage()
     {
         $runner = ScriptTester::factory('all', $this);
 
-        $bl = new Ingo_Storage_Blacklist();
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder('');
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
         $runner->addRule($bl);
 
-        $wl = new Ingo_Storage_Whitelist();
-        $wl->setWhitelist(array('spammer@example.com'));
+        $wl = new Ingo_Rule_System_Whitelist();
+        $wl->addAddresses('spammer@example.com');
         $runner->addRule($wl);
 
         $runner->assertKeepsMessage('from_spammer');
         $runner->assertKeepsMessage('not_from_spammer');
     }
 
-    function test_blacklist_rule_with_folder_will_move_matching_messages()
+    function testBlacklistRuleWithFolderWillMoveMatchingMessages()
     {
         $runner = ScriptTester::factory('all', $this);
 
-        $ob = new Ingo_Storage_Blacklist();
-        $ob->setBlacklist(array('spammer@example.com'));
-        $ob->setBlacklistFolder('Junk');
+        $ob = new Ingo_Rule_System_Blacklist();
+        $ob->addAddresses('spammer@example.com');
+        $ob->mailbox = 'Junk';
         $runner->addRule($ob);
 
         $runner->assertMovesMessage('from_spammer', 'Junk');
     }
 
-    function test_partial_whitelist_address_should_not_match()
+    function testPartialWhitelistAddressShouldNotMatch()
     {
         $runner = ScriptTester::factory('all', $this);
 
-        $bl = new Ingo_Storage_Blacklist();
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder('');
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
         $runner->addRule($bl);
 
-        $wl = new Ingo_Storage_Whitelist();
-        $wl->setWhitelist(array('ammer@example.com'));
+        $wl = new Ingo_Rule_System_Whitelist();
+        $wl->addAddresses('ammer@example.com');
         $runner->addRule($wl);
 
         $runner->assertDeletesMessage('from_spammer');
     }
 
-    function test_partial_blacklist_address_should_not_match()
+    function testPartialBlacklistAddressShouldNotMatch()
     {
         $runner = ScriptTester::factory('all', $this);
 
         $bl = new Ingo_Storage_Blacklist();
-        $bl->setBlacklist(array('ammer@example.com'));
-        $bl->setBlacklistFolder('');
+        $bl->addAddresses('ammer@example.com');
         $runner->addRule($bl);
 
         $runner->assertKeepsMessage('from_spammer');
@@ -94,8 +90,8 @@ class Ingo_Unit_ScriptTest extends Ingo_Unit_TestBase
  */
 class ScriptTester {
 
-    var $test;
-    var $rules = array();
+    protected $test;
+    protected $rules = array();
 
     function ScriptTester($test)
     {
@@ -131,9 +127,9 @@ class ScriptTester {
 
     function _setupStorage()
     {
-        $GLOBALS['ingo_storage'] = new Ingo_Stub_Storage_Mock();
+        $GLOBALS['ingo_storage'] = new Ingo_Storage_Memory();
         foreach ($this->rules as $ob) {
-            $GLOBALS['ingo_storage']->store($ob);
+            $GLOBALS['ingo_storage']->updateRule($ob);
         }
     }
 

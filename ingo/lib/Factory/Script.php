@@ -37,26 +37,44 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
     {
         global $conf, $injector, $notification, $prefs, $registry, $session;
 
-        $scripts = $GLOBALS['session']
-            ->get('ingo', 'backend/script', Horde_Session::TYPE_ARRAY);
-        if ($rule != Ingo::RULE_ALL && isset($scripts[$rule])) {
+        $scripts = $session->get(
+            'ingo',
+            'backend/script',
+            Horde_Session::TYPE_ARRAY
+        );
+        $skip = array();
+
+        if (($rule != Ingo::RULE_ALL) && isset($scripts[$rule])) {
             $script = $scripts[$rule];
-            $skip = array_diff(
-                array(Ingo::RULE_FILTER, Ingo::RULE_BLACKLIST,
-                      Ingo::RULE_WHITELIST, Ingo::RULE_VACATION,
-                      Ingo::RULE_FORWARD, Ingo::RULE_SPAM),
-                array($rule)
+
+            $map = array(
+                Ingo::RULE_FILTER => 'Ingo_Rule_User',
+                Ingo::RULE_BLACKLIST => 'Ingo_Rule_System_Blacklist',
+                Ingo::RULE_FORWARD => 'Ingo_Rule_System_Forward',
+                Ingo::RULE_SPAM => 'Ingo_Rule_System_Spam',
+                Ingo::RULE_VACATION => 'Ingo_Rule_System_Vacation',
+                Ingo::RULE_WHITELIST => 'Ingo_Rule_System_Whitelist'
             );
+
+            foreach ($map as $key => $val) {
+                if ($rule != $key) {
+                    $skip[] = $val;
+                }
+            }
         } else {
             $script = $scripts[Ingo::RULE_ALL];
-            $skip = array_keys($scripts);
         }
+
         $driver = ucfirst(basename($script['driver']));
         $params = $script['params'];
         $params['skip'] = $skip;
         $params['storage'] = $injector->getInstance('Ingo_Factory_Storage')
             ->create();
-        $params['transport'] = $session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY);
+        $params['transport'] = $session->get(
+            'ingo',
+            'backend/transport',
+            Horde_Session::TYPE_ARRAY
+        );
 
         if (!isset($params['spam_compare'])) {
             $params['spam_compare'] = $conf['spam']['compare'];
@@ -98,7 +116,10 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
             return new $class($params);
         }
 
-        throw new Ingo_Exception(sprintf(_("Unable to load the script driver \"%s\"."), $class));
+        throw new Ingo_Exception(sprintf(
+            _("Unable to load the script driver \"%s\"."),
+            $class
+        ));
     }
 
     /**

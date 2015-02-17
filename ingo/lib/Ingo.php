@@ -24,12 +24,6 @@
 class Ingo
 {
     /**
-     * String that can't be a valid folder name used to mark blacklisted email
-     * as deleted.
-     */
-    const BLACKLIST_MARKER = '++DELETE++';
-
-    /**
      * Define the key to use to indicate a user-defined header is requested.
      */
     const USER_HEADER = '++USER_HEADER++';
@@ -107,59 +101,6 @@ class Ingo
                   $registry->getAuth()
               ) & $mask)
             : true;
-    }
-
-    /**
-     * Updates a list (blacklist/whitelist) filter.
-     *
-     * @param mixed $addresses  Addresses of the filter.
-     * @param integer $type     Type of filter.
-     *
-     * @return Horde_Storage_Rule  The filter object.
-     */
-    public static function updateListFilter($addresses, $type)
-    {
-        global $injector;
-
-        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $rule = $storage->retrieve($type);
-
-        switch ($type) {
-        case $storage::ACTION_BLACKLIST:
-            $rule->setBlacklist($addresses);
-            $addr = $rule->getBlacklist();
-
-            $rule2 = $storage->retrieve($storage::ACTION_WHITELIST);
-            $addr2 = $rule2->getWhitelist();
-            break;
-
-        case $storage::ACTION_WHITELIST:
-            $rule->setWhitelist($addresses);
-            $addr = $rule->getWhitelist();
-
-            $rule2 = $storage->retrieve($storage::ACTION_BLACKLIST);
-            $addr2 = $rule2->getBlacklist();
-            break;
-        }
-
-        /* Filter out the rule's addresses in the opposite filter. */
-        $ob = new Horde_Mail_Rfc822_List($addr2);
-        $ob->setIteratorFilter(0, $addr);
-
-        switch ($type) {
-        case $storage::ACTION_BLACKLIST:
-            $rule2->setWhitelist($ob->bare_addresses);
-            break;
-
-        case $storage::ACTION_WHITELIST:
-            $rule2->setBlacklist($ob->bare_addresses);
-            break;
-        }
-
-        $storage->store($rule);
-        $storage->store($rule2);
-
-        return $rule;
     }
 
     /**

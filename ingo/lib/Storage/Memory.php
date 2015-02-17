@@ -12,7 +12,8 @@
  */
 
 /**
- * A rule that deals with an address list.
+ * Ingo_Storage API implementation to save Ingo data within the process
+ * memory.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,31 +21,25 @@
  * @license   http://www.horde.org/licenses/apache ASL
  * @package   Ingo
  */
-class Ingo_Storage_Rule_Addresses
-extends Ingo_Storage_Rule
+class Ingo_Storage_Memory
+extends Ingo_Storage
 {
     /**
-     * Address list.
-     *
-     * @var array
      */
-    protected $_addr;
+    protected function _loadFromBackend()
+    {
+    }
 
     /**
-     * Function to manage an internal address list.
-     *
-     * @param mixed $data  The incoming data (array or string).
-     *
-     * @return array  The address list.
      */
-    protected function _addressList($data)
+    protected function _removeUserData($user)
     {
-        $ob = new Horde_Mail_Rfc822_List(
-            is_array($data) ? $data : preg_split("/\s+/", $data)
-        );
-        $ob->unique();
+    }
 
-        return $ob->bare_addresses;
+    /**
+     */
+    protected function _storeBackend($action, $ob)
+    {
     }
 
 }

@@ -125,13 +125,13 @@ abstract class Ingo_Script_Base
         $this->setParams($params);
 
         /* Determine if ingo should handle the blacklist. */
-        if ((($key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories)) !== false) &&
+        if ((($key = array_search('Ingo_Rule_System_Blacklist', $this->_categories)) !== false) &&
             ($registry->hasMethod('mail/blacklistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
 
         /* Determine if ingo should handle the whitelist. */
-        if ((($key = array_search(Ingo_Storage::ACTION_WHITELIST, $this->_categories)) !== false) &&
+        if ((($key = array_search('Ingo_Rule_System_Whitelist', $this->_categories)) !== false) &&
             ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
@@ -366,13 +366,16 @@ abstract class Ingo_Script_Base
     /**
      * Is this a valid rule?
      *
-     * @param integer $type  The rule type.
+     * @param Ingo_Rule $rule  The rule object.
      *
-     * @return boolean  Whether the rule is valid or not for this driver.
+     * @return boolean  Whether the rule is valid for this driver.
      */
-    protected function _validRule($type)
+    protected function _validRule(Ingo_Rule $rule)
     {
-        return (!empty($type) && in_array($type, array_merge($this->_categories, $this->_actions)));
+        return in_array(
+            get_class($rule),
+            array_merge($this->_categories, $this->_actions)
+        );
     }
 
 }

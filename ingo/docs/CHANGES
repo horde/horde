@@ -2,6 +2,7 @@
 v3.3.0-git
 ----------
 
+[mms] Rule code has been separated from the storage backend drivers.
 [jan] Use Horde\ManageSieve instead of Net_Sieve.
 [mms] Rearrange the default order of filter rules.
 

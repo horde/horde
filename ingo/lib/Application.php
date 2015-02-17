@@ -112,35 +112,96 @@ class Ingo_Application extends Horde_Registry_Application
         $s_categories = $session->get('ingo', 'script_categories');
         $vars = $injector->getInstance('Horde_Variables');
 
-        $menu->add(Ingo_Basic_Filters::url(), _("Filter _Rules"), 'ingo-rules', null, null, null, $vars->page == 'filters' ? 'current' : '__noselection');
+        $menu->add(
+            Ingo_Basic_Filters::url(),
+            _("Filter _Rules"),
+            'ingo-rules',
+            null,
+            null,
+            null,
+            ($vars->page == 'filters') ? 'current' : '__noselection'
+        );
 
         try {
-            if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
-                $menu->add(Horde::url($registry->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist', null, null, null, $vars->page == 'whitelist' ? 'current' : '__noselection');
-            }
-            if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
-                $menu->add(Horde::url($registry->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist', null, null, null, $vars->page == 'blacklist' ? 'current' : '__noselection');
+            if (in_array('Ingo_Rule_System_Whitelist', $s_categories)) {
+                $menu->add(
+                    Horde::url($registry->link('mail/showWhitelist')),
+                    _("_Whitelist"),
+                    'ingo-whitelist',
+                    null,
+                    null,
+                    null,
+                    ($vars->page == 'whitelist') ? 'current' : '__noselection'
+                );
             }
         } catch (Horde_Exception $e) {
             Horde::log($e, 'ERR');
         }
 
-        if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-            $menu->add(Ingo_Basic_Vacation::url(), _("_Vacation"), 'ingo-vacation', null, null, null, $vars->page == 'vacation' ? 'current' : '__noselection');
+        try {
+            if (in_array('Ingo_Rule_System_Blacklist', $s_categories)) {
+                $menu->add(
+                    Horde::url($registry->link('mail/showBlacklist')),
+                    _("_Blacklist"),
+                    'ingo-blacklist',
+                    null,
+                    null,
+                    null,
+                    ($vars->page == 'blacklist') ? 'current' : '__noselection'
+                );
+            }
+        } catch (Horde_Exception $e) {
+            Horde::log($e, 'ERR');
         }
 
-        if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-            $menu->add(Ingo_Basic_Forward::url(), _("_Forward"), 'ingo-forward', null, null, null, $vars->page == 'forward' ? 'current' : '__noselection');
+        if (in_array('Ingo_Rule_System_Vacation', $s_categories)) {
+            $menu->add(
+                Ingo_Basic_Vacation::url(),
+                _("_Vacation"),
+                'ingo-vacation',
+                null,
+                null,
+                null,
+                ($vars->page == 'vacation') ? 'current' : '__noselection'
+            );
         }
 
-        if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-            $menu->add(Ingo_Basic_Spam::url(), _("S_pam"), 'ingo-spam', null, null, null, $vars->page == 'spam' ? 'current' : '__noselection');
+        if (in_array('Ingo_Rule_System_Forward', $s_categories)) {
+            $menu->add(
+                Ingo_Basic_Forward::url(),
+                _("_Forward"),
+                'ingo-forward',
+                null,
+                null,
+                null,
+                ($vars->page == 'forward') ? 'current' : '__noselection'
+            );
+        }
+
+        if (in_array('Ingo_Rule_System_Spam', $s_categories)) {
+            $menu->add(
+                Ingo_Basic_Spam::url(),
+                _("S_pam"),
+                'ingo-spam',
+                null,
+                null,
+                null,
+                ($vars->page == 'spam') ? 'current' : '__noselection'
+            );
         }
 
         if ((!$prefs->isLocked('auto_update') ||
              !$prefs->getValue('auto_update')) &&
             $injector->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
-            $menu->add(Ingo_Basic_Script::url(), _("_Script"), 'ingo-script', null, null, null, $vars->page == 'script' ? 'current' : '__noselection');
+            $menu->add(
+                Ingo_Basic_Script::url(),
+                _("_Script"),
+                'ingo-script',
+                null,
+                null,
+                null,
+                ($vars->page == 'script') ? 'current' : '__noselection'
+            );
         }
 
         if ($injector->getInstance('Ingo_Shares') &&
@@ -183,16 +244,10 @@ class Ingo_Application extends Horde_Registry_Application
         foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
             $actions = array_merge($actions, $script->availableActions());
         }
-        $filters = $injector->getInstance('Ingo_Factory_Storage')
-            ->create()
-            ->retrieve(Ingo_Storage::ACTION_FILTERS)
-            ->getFilterList();
 
-        if (!empty($actions)) {
-            $max = $injector->getInstance('Horde_Core_Perms')->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
-            if (($max === true) || ($max > count($filters))) {
-                $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
-            }
+        if (!empty($actions) &&
+            !$injector->getInstance('Ingo_Factory_Storage')->create()->maxRules()) {
+            $sidebar->addNewButton(_("New Rule"), Ingo_Basic_Rule::url());
         }
 
         if ($injector->getInstance('Ingo_Shares') &&

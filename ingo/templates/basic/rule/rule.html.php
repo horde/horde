@@ -4,13 +4,10 @@
 <?php if (!is_null($this->edit)): ?>
  <?php echo $this->hiddenFieldTag('edit', $this->edit) ?>
 <?php endif; ?>
-<?php if (isset($this->rule['id'])): ?>
- <?php echo $this->hiddenFieldTag('id', $this->rule['id']) ?>
-<?php endif; ?>
 
  <div class="header">
   <?php echo _("Filter Rule") ?>
-<?php if (!empty($this->rule['disable'])): ?>
+<?php if ($this->rule->disable): ?>
   [<span class="horde-form-error"><?php echo _("Disabled") ?></span>]
 <?php endif; ?>
   <?php echo $this->hordeHelp('ingo', 'rule') ?>
@@ -18,7 +15,7 @@
 
  <div class="control">
   <?php echo $this->hordeLabel('name', _("Rule Name:")) ?>
-  <input class="input" id="name" name="name" size="50" value="<?php echo isset($this->rule['name']) ? $this->h($this->rule['name']) : '' ?>" />
+  <input class="input" id="name" name="name" size="50" value="<?php echo $this->h($this->rule->name) ?>" />
   <?php echo $this->hordeHelp('ingo', 'rule-name') ?>
  </div>
 
@@ -28,11 +25,11 @@
 
   <div class="ruleCondition">
    <span>
-    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ALL, $this->rule['combine'] == Ingo_Storage::COMBINE_ALL, array('id' => 'all')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ALL, $this->rule->combine == Ingo_Rule_User::COMBINE_ALL, array('id' => 'all')) ?>
     <?php echo $this->hordeLabel('all', _("ALL of the following")) ?>
    </span>
    <span>
-    <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ANY, $this->rule['combine'] == Ingo_Storage::COMBINE_ANY, array('id' => 'any')) ?>
+    <?php echo $this->radioButtonTag('combine', Ingo_Rule_User::COMBINE_ANY, $this->rule->combine == Ingo_Rule_User::COMBINE_ANY, array('id' => 'any')) ?>
     <?php echo $this->hordeLabel('any', _("ANY of the following")) ?>
    </span>
   </div>
@@ -41,7 +38,7 @@
 <?php foreach ($this->filter as $f): ?>
 <?php if ($f['cond_num'] > 0): ?>
    <div class="ruleMatchCondition">
-    <?php echo ($this->rule['combine'] == Ingo_Storage::COMBINE_ALL) ? _("and") : _("or") ?>
+    <?php echo ($this->rule->combine == Ingo_Rule_User::COMBINE_ALL) ? _("and") : _("or") ?>
    </div>
 <?php endif; ?>
    <div class="ruleMatchRow">
@@ -132,19 +129,19 @@
 
   <ul>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_SEEN, (bool)(Ingo_Storage::FLAG_SEEN & $this->rule['flags']), array('id' => 'seen')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_SEEN, (bool)(Ingo_Rule_User::FLAG_SEEN & $this->rule->flags), array('id' => 'seen')) ?>
     <?php echo $this->hordeLabel('seen', _("Seen")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_FLAGGED, (bool)(Ingo_Storage::FLAG_FLAGGED & $this->rule['flags']), array('id' => 'flagged')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_FLAGGED, (bool)(Ingo_Rule_User::FLAG_FLAGGED & $this->rule->flags), array('id' => 'flagged')) ?>
     <?php echo $this->hordeLabel('flagged', _("Flagged")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_ANSWERED, (bool)(Ingo_Storage::FLAG_ANSWERED & $this->rule['flags']), array('id' => 'answered')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_ANSWERED, (bool)(Ingo_Rule_User::FLAG_ANSWERED & $this->rule->flags), array('id' => 'answered')) ?>
     <?php echo $this->hordeLabel('answered', _("Answered")) ?>
    </li>
    <li>
-    <?php echo $this->checkBoxTag('flags[]', Ingo_Storage::FLAG_DELETED, (bool)(Ingo_Storage::FLAG_DELETED & $this->rule['flags']), array('id' => 'deleted')) ?>
+    <?php echo $this->checkBoxTag('flags[]', Ingo_Rule_User::FLAG_DELETED, (bool)(Ingo_Rule_User::FLAG_DELETED & $this->rule->flags), array('id' => 'deleted')) ?>
     <?php echo $this->hordeLabel('deleted', _("Deleted")) ?>
    </li>
   </ul>
@@ -153,7 +150,7 @@
 
 <?php if ($this->stop): ?>
  <div class="ruleDiv ruleStopChecking">
-  <?php echo $this->checkBoxTag('stop', '1', (bool)$this->rule['stop']) ?>
+  <?php echo $this->checkBoxTag('stop', '1', $this->rule->stop) ?>
   <?php echo $this->hordeLabel('stop', _("Stop checking if this rule matches?")) ?>
   <?php echo $this->hordeHelp('ingo', 'rule-stop') ?>
  </div>

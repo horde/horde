@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-01-28</date>
+ <date>2015-02-24</date>
  <version>
   <release>3.3.0</release>
   <api>3.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.
  </notes>
@@ -118,6 +119,29 @@
       <file name="Upgrade.php" role="horde" />
      </dir> <!-- /lib/LoginTasks/SystemTask -->
     </dir> <!-- /lib/LoginTasks -->
+    <dir name="Rule">
+     <dir name="System">
+      <file name="Blacklist.php" role="horde" />
+      <file name="Forward.php" role="horde" />
+      <file name="Spam.php" role="horde" />
+      <file name="Vacation.php" role="horde" />
+      <file name="Whitelist.php" role="horde" />
+     </dir> <!-- /lib/Rule/System -->
+     <dir name="User">
+      <file name="Discard.php" role="horde" />
+      <file name="FlagOnly.php" role="horde" />
+      <file name="Keep.php" role="horde" />
+      <file name="Move.php" role="horde" />
+      <file name="MoveKeep.php" role="horde" />
+      <file name="Notify.php" role="horde" />
+      <file name="Redirect.php" role="horde" />
+      <file name="RedirectKeep.php" role="horde" />
+      <file name="Reject.php" role="horde" />
+     </dir> <!-- /lib/Rule/User -->
+     <file name="Addresses.php" role="horde" />
+     <file name="System.php" role="horde" />
+     <file name="User.php" role="horde" />
+    </dir> <!-- /lib/Rule -->
     <dir name="Script">
      <dir name="Imap">
       <file name="Api.php" role="horde" />
@@ -185,20 +209,14 @@
      <file name="Util.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
-     <dir name="Filters">
-      <file name="Sql.php" role="horde" />
-     </dir> <!-- /lib/Storage/Filters -->
-     <file name="Blacklist.php" role="horde" />
-     <file name="Filters.php" role="horde" />
-     <file name="Forward.php" role="horde" />
-     <file name="Mock.php" role="horde" />
+     <dir name="FilterIterator">
+      <file name="Match.php" role="horde" />
+      <file name="Skip.php" role="horde" />
+     </dir> <!-- /lib/Storage/FilterIterator -->
+     <file name="FilterIterator.php" role="horde" />
+     <file name="Memory.php" role="horde" />
      <file name="Prefs.php" role="horde" />
-     <file name="Rule.php" role="horde" />
-     <file name="Spam.php" role="horde" />
      <file name="Sql.php" role="horde" />
-     <file name="Vacation.php" role="horde" />
-     <file name="VacationTest.php" role="horde" />
-     <file name="Whitelist.php" role="horde" />
     </dir> <!-- /lib/Storage -->
     <dir name="Transport">
      <file name="Base.php" role="horde" />
@@ -221,6 +239,7 @@
     <file name="Flist.php" role="horde" />
     <file name="Ingo.php" role="horde" />
     <file name="Perms.php" role="horde" />
+    <file name="Rule.php" role="horde" />
     <file name="Session.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
@@ -680,6 +699,7 @@
    <install as="ingo/lib/Flist.php" name="lib/Flist.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
    <install as="ingo/lib/Perms.php" name="lib/Perms.php" />
+   <install as="ingo/lib/Rule.php" name="lib/Rule.php" />
    <install as="ingo/lib/Session.php" name="lib/Session.php" />
    <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
@@ -707,6 +727,23 @@
    <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/Form/Type/Longemail.php" name="lib/Form/Type/Longemail.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ingo/lib/Rule/Addresses.php" name="lib/Rule/Addresses.php" />
+   <install as="ingo/lib/Rule/System.php" name="lib/Rule/System.php" />
+   <install as="ingo/lib/Rule/User.php" name="lib/Rule/User.php" />
+   <install as="ingo/lib/Rule/System/Blacklist.php" name="lib/Rule/System/Blacklist.php" />
+   <install as="ingo/lib/Rule/System/Forward.php" name="lib/Rule/System/Forward.php" />
+   <install as="ingo/lib/Rule/System/Spam.php" name="lib/Rule/System/Spam.php" />
+   <install as="ingo/lib/Rule/System/Vacation.php" name="lib/Rule/System/Vacation.php" />
+   <install as="ingo/lib/Rule/System/Whitelist.php" name="lib/Rule/System/Whitelist.php" />
+   <install as="ingo/lib/Rule/User/Discard.php" name="lib/Rule/User/Discard.php" />
+   <install as="ingo/lib/Rule/User/FlagOnly.php" name="lib/Rule/User/FlagOnly.php" />
+   <install as="ingo/lib/Rule/User/Keep.php" name="lib/Rule/User/Keep.php" />
+   <install as="ingo/lib/Rule/User/Move.php" name="lib/Rule/User/Move.php" />
+   <install as="ingo/lib/Rule/User/MoveKeep.php" name="lib/Rule/User/MoveKeep.php" />
+   <install as="ingo/lib/Rule/User/Notify.php" name="lib/Rule/User/Notify.php" />
+   <install as="ingo/lib/Rule/User/Redirect.php" name="lib/Rule/User/Redirect.php" />
+   <install as="ingo/lib/Rule/User/RedirectKeep.php" name="lib/Rule/User/RedirectKeep.php" />
+   <install as="ingo/lib/Rule/User/Reject.php" name="lib/Rule/User/Reject.php" />
    <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
    <install as="ingo/lib/Script/Customsql.php" name="lib/Script/Customsql.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
@@ -757,18 +794,12 @@
    <install as="ingo/lib/Script/Sieve/Test/Relational.php" name="lib/Script/Sieve/Test/Relational.php" />
    <install as="ingo/lib/Script/Sieve/Test/Size.php" name="lib/Script/Sieve/Test/Size.php" />
    <install as="ingo/lib/Script/Sieve/Test/True.php" name="lib/Script/Sieve/Test/True.php" />
-   <install as="ingo/lib/Storage/Blacklist.php" name="lib/Storage/Blacklist.php" />
-   <install as="ingo/lib/Storage/Filters.php" name="lib/Storage/Filters.php" />
-   <install as="ingo/lib/Storage/Forward.php" name="lib/Storage/Forward.php" />
-   <install as="ingo/lib/Storage/Mock.php" name="lib/Storage/Mock.php" />
+   <install as="ingo/lib/Storage/FilterIterator.php" name="lib/Storage/FilterIterator.php" />
+   <install as="ingo/lib/Storage/Memory.php" name="lib/Storage/Memory.php" />
    <install as="ingo/lib/Storage/Prefs.php" name="lib/Storage/Prefs.php" />
-   <install as="ingo/lib/Storage/Rule.php" name="lib/Storage/Rule.php" />
-   <install as="ingo/lib/Storage/Spam.php" name="lib/Storage/Spam.php" />
    <install as="ingo/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
-   <install as="ingo/lib/Storage/Vacation.php" name="lib/Storage/Vacation.php" />
-   <install as="ingo/lib/Storage/VacationTest.php" name="lib/Storage/VacationTest.php" />
-   <install as="ingo/lib/Storage/Whitelist.php" name="lib/Storage/Whitelist.php" />
-   <install as="ingo/lib/Storage/Filters/Sql.php" name="lib/Storage/Filters/Sql.php" />
+   <install as="ingo/lib/Storage/FilterIterator/Match.php" name="lib/Storage/FilterIterator/Match.php" />
+   <install as="ingo/lib/Storage/FilterIterator/Skip.php" name="lib/Storage/FilterIterator/Skip.php" />
    <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
    <install as="ingo/lib/Transport/Ispconfig.php" name="lib/Transport/Ispconfig.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
@@ -1542,7 +1573,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-01-28</date>
+   <date>2015-02-24</date>
    <version>
     <release>3.3.0</release>
     <api>3.2.0</api>
@@ -1553,6 +1584,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.
    </notes>

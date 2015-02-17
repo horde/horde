@@ -56,10 +56,7 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
             define('INGO_BASE', realpath(__DIR__ . '/../../..'));
         }
 
-        $this->storage = new Ingo_Stub_Storage_Mock(array(
-            'maxblacklist' => 3,
-            'maxwhitelist' => 3
-        ));
+        $this->storage = new Ingo_Storage_Memory();
 
         $GLOBALS['conf']['spam'] = array(
             'enabled' => true,
@@ -90,6 +87,16 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
 
             return $factory;
 
+        case 'Horde_Core_Hooks':
+            $hooks = $this->getMock(
+                'Horde_Core_Hooks', array(), array(), '', false
+            );
+            $hooks->expects($this->any())
+                ->method('callHook')
+                ->will($this->returnCallback(array($this, '_hooksCallback')));
+
+            return $hooks;
+
         case 'Horde_Core_Perms':
             $perms = $this->getMock('Horde_Core_Perms', array(), array(), '', false);
             $perms->method('hasAppPermission')->will($this->returnValue(true));
@@ -97,16 +104,9 @@ class Ingo_Unit_TestBase extends PHPUnit_Framework_TestCase
         }
     }
 
-    protected function _enableRule($rule)
+    public function _hooksCallback()
     {
-        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        foreach ($filters->getFilterList() as $k => $v) {
-            if ($v['action'] == $rule) {
-                $v['disable'] = false;
-                $filters->updateRule($v, $k);
-                $this->storage->store($filters);
-            }
-        }
+        throw new Horde_Exception_HookNotSet();
     }
 
     protected function _assertScript($expect)

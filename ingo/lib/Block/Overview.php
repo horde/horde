@@ -41,80 +41,71 @@ class Ingo_Block_Overview extends Horde_Core_Block
      */
     protected function _content()
     {
+        global $injector, $session;
+
         /* Get list of filters */
-        $filters = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = Ingo_Storage_FilterIterator_Match::create(
+            $injector->getInstance('Ingo_Factory_Storage')->create(),
+            $session->get('ingo', 'script_categories')
+        );
+
         $html = '<table class="ingoBlockSummary">';
 
-        foreach ($filters->getFilterList() as $filter) {
-            if (!empty($filter['disable'])) {
-                $active = _("inactive");
-            } else {
-                $active = _("active");
-            }
+        foreach ($filters as $rule) {
+            $active = $rule->disable
+                ? _("inactive")
+                : _("active");
 
-            $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
-
-            switch ($filter['name']) {
-            case 'Vacation':
-                if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
-                    $html .= '<tr><td>' .
-                        '<span class="iconImg vacationImg"></span>' .
-                        '</td><td>' .
-                        Ingo_Basic_Vacation::url()->link(array('title' => _("Edit"))) .
-                        _("Vacation") . '</a> ' . $active .
-                        '</td></tr>';
-                }
+            switch (get_class($class)) {
+            case 'Ingo_Rule_System_Vacation':
+                $html .= '<tr><td>' .
+                    '<span class="iconImg vacationImg"></span>' .
+                    '</td><td>' .
+                    Ingo_Basic_Vacation::url()->link(array('title' => _("Edit"))) .
+                    _("Vacation") . '</a> ' . $active .
+                    '</td></tr>';
                 break;
 
-            case 'Forward':
-                if (in_array(Ingo_Storage::ACTION_FORWARD, $s_categories)) {
-                    $html .= '<tr><td>' .
-                        '<span class="iconImg forwardImg"></span>' .
-                        '</td><td>' .
-                        Ingo_Basic_Forward::url()->link(array('title' => _("Edit"))) .
-                        _("Forward") . '</a> ' . $active;
-                    $data = unserialize($GLOBALS['prefs']->getValue('forward'));
-                    if (!empty($data['a'])) {
-                        $html .= ':<br />' . implode('<br />', $data['a']);
-                    }
-                    $html .= '</td></tr>';
+            case 'Ingo_Rule_System_Forward':
+                $html .= '<tr><td>' .
+                    '<span class="iconImg forwardImg"></span>' .
+                    '</td><td>' .
+                    Ingo_Basic_Forward::url()->link(array('title' => _("Edit"))) .
+                    _("Forward") . '</a> ' . $active;
+                $addr = $rule->addresses;
+                if (!empty($addr)) {
+                    $html .= ':<br />' . implode('<br />', $addr);
                 }
+                $html .= '</td></tr>';
                 break;
 
-            case 'Whitelist':
-                if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
-                    $html .= '<tr><td>' .
-                        '<span class="iconImg whitelistImg"></span>' .
-                        '</td><td>' .
-                        Ingo_Basic_Whitelist::url()->link(array('title' => _("Edit"))) .
-                        _("Whitelist") . '</a> ' . $active .
-                       '</td></tr>';
-                }
+            case 'Ingo_Rule_System_Whitelist':
+                $html .= '<tr><td>' .
+                    '<span class="iconImg whitelistImg"></span>' .
+                    '</td><td>' .
+                    Ingo_Basic_Whitelist::url()->link(array('title' => _("Edit"))) .
+                    _("Whitelist") . '</a> ' . $active .
+                   '</td></tr>';
                 break;
 
-            case 'Blacklist':
-                if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
-                    $html .= '<tr><td>' .
-                        '<span class="iconImg blacklistImg"></span>' .
-                        '</td><td>' .
-                        Ingo_Basic_Blacklist::url()->link(array('title' => _("Edit"))) .
-                        _("Blacklist") . '</a> ' . $active .
-                        '</td></tr>';
-                }
+            case 'Ingo_Rule_System_Blacklist':
+                $html .= '<tr><td>' .
+                    '<span class="iconImg blacklistImg"></span>' .
+                    '</td><td>' .
+                    Ingo_Basic_Blacklist::url()->link(array('title' => _("Edit"))) .
+                    _("Blacklist") . '</a> ' . $active .
+                    '</td></tr>';
                 break;
 
-            case 'Spam Filter':
-                if (in_array(Ingo_Storage::ACTION_SPAM, $s_categories)) {
-                    $html .= '<tr><td>' .
-                        '<span class="iconImg spamImg"></span>' .
-                        '</td><td>' .
-                        Ingo_Basic_Spam::url()->link(array('title' => _("Edit"))) .
-                        _("Spam Filter") . '</a> ' . $active .
-                        '</td></tr>';
-                }
+            case 'Ingo_Rule_Spam Filter':
+                $html .= '<tr><td>' .
+                    '<span class="iconImg spamImg"></span>' .
+                    '</td><td>' .
+                    Ingo_Basic_Spam::url()->link(array('title' => _("Edit"))) .
+                    _("Spam Filter") . '</a> ' . $active .
+                    '</td></tr>';
                 break;
             }
-
         }
 
         return $html . '</table>';

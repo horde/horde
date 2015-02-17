@@ -49,11 +49,11 @@ class Ingo_Unit_SieveTest extends Ingo_Unit_TestBase
 
     public function testForwardKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(true);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = true;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript('if true {
 redirect "joefabetes@example.com";
@@ -66,11 +66,11 @@ stop;
 
     public function testForwardNoKeep()
     {
-        $forward = new Ingo_Storage_Forward();
-        $forward->setForwardAddresses('joefabetes@example.com');
-        $forward->setForwardKeep(false);
+        $forward = new Ingo_Rule_System_Forward();
+        $forward->addAddresses('joefabetes@example.com');
+        $forward->keep = false;
 
-        $this->storage->store($forward);
+        $this->storage->updateRule($forward);
 
         $this->_assertScript('if true {
 redirect "joefabetes@example.com";
@@ -80,11 +80,11 @@ stop;
 
     public function testBlacklistMarker()
     {
-        $bl = new Ingo_Storage_Blacklist(3);
-        $bl->setBlacklist(array('spammer@example.com'));
-        $bl->setBlacklistFolder(Ingo::BLACKLIST_MARKER);
+        $bl = new Ingo_Rule_System_Blacklist();
+        $bl->addAddresses('spammer@example.com');
+        $bl->mailbox = Ingo_Rule_System_Blacklist::DELETE_MARKER;
 
-        $this->storage->store($bl);
+        $this->storage->updateRule($bl);
 
         $this->_assertScript('require "imap4flags";
 if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
@@ -97,10 +97,10 @@ stop;
 
     public function testWhitelist()
     {
-        $wl = new Ingo_Storage_Whitelist(3);
-        $wl->setWhitelist(array('spammer@example.com'));
+        $wl = new Ingo_Rule_System_Whitelist();
+        $wl->addAddresses('spammer@example.com');
 
-        $this->storage->store($wl);
+        $this->storage->updateRule($wl);
 
         $this->_assertScript('if address :all :comparator "i;ascii-casemap" :is ["From", "Sender", "Resent-From"] "spammer@example.com"  {
 keep;
@@ -110,31 +110,24 @@ stop;
 
     public function testVacationDisabled()
     {
-        $vacation = new Ingo_Stub_Storage_Vacation();
-        $vacation->setVacationAddresses(array('from@example.com'));
-        $vacation->setVacationSubject('Subject');
-        $vacation->setVacationReason("Because I don't like working!");
+        $vacation = new Ingo_Rule_System_Vacation();
+        $vacation->addAddresses('from@example.com');
+        $vacation->disable = true;
 
-        $this->storage->store($vacation);
-
-        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $filters->ruleDisable(
-            $filters->findRuleId(Ingo_Storage::ACTION_VACATION)
-        );
+        $this->storage->updateRule($vacation);
 
         $this->_assertScript('');
     }
 
     public function testVacationEnabled()
     {
-        $vacation = new Ingo_Stub_Storage_Vacation();
-        $vacation->setVacationAddresses(array('from@example.com'));
-        $vacation->setVacationSubject('Subject');
-        $vacation->setVacationReason("Because I don't like working!");
+        $vacation = new Ingo_Rule_System_Vacation();
+        $vacation->addAddresses('from@example.com');
+        $vacation->disable = false;
+        $vacation->subject = 'Subject';
+        $vacation->reason = "Because I don't like working!";
 
-        $this->storage->store($vacation);
-
-        $this->_enableRule(Ingo_Storage::ACTION_VACATION);
+        $this->storage->updateRule($vacation);
 
         $this->_assertScript('require ["vacation", "regex"];
 if allof ( not exists "list-help", not exists "list-unsubscribe", not exists "list-subscribe", not exists "list-owner", not exists "list-post", not exists "list-archive", not exists "list-id", not exists "Mailing-List", not header :comparator "i;ascii-casemap" :is "Precedence" ["list", "bulk", "junk"], not header :comparator "i;ascii-casemap" :matches "To" "Multiple recipients of*" ) {
@@ -144,29 +137,24 @@ vacation :days 7 :addresses "from@example.com" :subject "Subject" "Because I don
 
     public function testSpamDisabled()
     {
-        $spam = new Ingo_Storage_Spam();
-        $spam->setSpamLevel(7);
-        $spam->setSpamFolder("Junk");
+        $spam = new Ingo_Rule_System_Spam();
+        $spam->disable = true;
+        $spam->level = 7;
+        $spam->mailbox = "Junk";
 
-        $this->storage->store($spam);
-
-        $filters = $this->storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $filters->ruleDisable(
-            $filters->findRuleId(Ingo_Storage::ACTION_SPAM)
-        );
+        $this->storage->updateRule($spam);
 
         $this->_assertScript('');
     }
 
     function testSpamEnabled()
     {
-        $spam = new Ingo_Storage_Spam();
-        $spam->setSpamLevel(7);
-        $spam->setSpamFolder("Junk");
+        $spam = new Ingo_Rule_System_Spam();
+        $spam->disable = false;
+        $spam->level = 7;
+        $spam->mailbox = "Junk";
 
-        $this->storage->store($spam);
-
-        $this->_enableRule(Ingo_Storage::ACTION_SPAM);
+        $this->storage->updateRule($spam);
 
         $this->_assertScript('require "fileinto";
 if header :comparator "i;ascii-casemap" :contains "X-Spam-Level" "*******"  {

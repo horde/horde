@@ -26,7 +26,7 @@ class Ingo_Ajax_Application_Filters extends Horde_Core_Ajax_Application_Handler
      * AJAX action: Re-sort the filters list.
      *
      * Variables used:
-     *   - sort: (string) JSON serialized sort list of rule IDs.
+     *   - sort: (string) JSON serialized sort list of rule UIDs.
      *
      * @return boolean  True on success.
      */
@@ -40,12 +40,9 @@ class Ingo_Ajax_Application_Filters extends Horde_Core_Ajax_Application_Handler
         }
 
         $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $filters = $storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         try {
-            $filters->sort(json_decode($this->vars->sort));
-            $storage->store($filters);
-
+            $storage->sort(json_decode($this->vars->sort));
             $notification->push(_("Rule sort saved successfully."), 'horde.success');
         } catch (Ingo_Exception $e) {
             $notification->push(_("Rule sort not saved."), 'horde.error');
