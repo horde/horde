@@ -133,7 +133,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $csk = $this->_collections->confirmed_synckeys;
                     if (count($csk) > 0) {
                         $this->_logger->warn(sprintf(
-                            '[%s] Unconfirmed synckeys, but handling a short request. Request full SYNC.',
+                            '[%s] Unconfirmed synckeys, but handling an empty request. Request full SYNC.',
                             $this->_procid));
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                         $this->_handleGlobalSyncError();
