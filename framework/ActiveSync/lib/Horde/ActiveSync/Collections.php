@@ -766,7 +766,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         // the logic for checking for changed collections in this case.
         if (empty($this->_collections)) {
             $this->_logger->err('No collections in collection handler, loading full collection set from cache.');
-            $this->_collections->loadCollectionsFromCache();
+            $this->loadCollectionsFromCache();
             foreach ($this->_collections as $value) {
                 // Remove keys from confirmed synckeys array and count them
                 if (isset($value['synckey'])) {
