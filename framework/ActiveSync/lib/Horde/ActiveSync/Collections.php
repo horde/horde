@@ -836,7 +836,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                 }
                 // Unset in tempSyncCache, since we have it from device.
                 // Afterwards, anything left in tempSyncCache needs to be
-                // added to _collections.
+                // added to _collections (this is done in self::_haveNoChangesInPartialSync())
                 $this->_tempSyncCache->removeCollection($key);
 
                 // Remove keys from confirmed synckeys array and count them
