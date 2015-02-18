@@ -723,6 +723,13 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_cache->clearCollectionKeys();
     }
 
+    /**
+     * Prepare the syncCache for an EMPTY sync request.
+     *
+     * @return boolean  False if EMPTY request cannot be performed, otherwise
+     *                  true.
+     * @since 2.25.0
+     */
     public function initEmptySync()
     {
         $this->loadCollectionsFromCache();
