@@ -732,8 +732,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function initPartialSync()
     {
         if (empty($this->_collections)) {
-            $this->_logger->err('No collections in collection handler, no PARTIAL allowed.');
-            return false;
+            // PARTIAL is allowed without a <collection> tag if the
+            // waitinterval, heartbeat, or windowsize changed.
+            $this->_logger->err('No collections in collection handler, loading full collection set from cache.');
+            $this->_collections->loadCollectionsFromCache();
         }
         $this->_tempSyncCache = clone $this->_cache;
         $c = $this->_tempSyncCache->getCollections();
