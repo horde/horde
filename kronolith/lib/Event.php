@@ -1924,8 +1924,10 @@ abstract class Kronolith_Event
             }
         }
 
-        // EAS 14
-        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+        // EAS 14, and only if it is a meeting.
+        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE &&
+            $message->getMeetingStatus() == Horde_ActiveSync_Message_Appointment::MEETING_IS_MEETING) {
+
             // We don't track the actual responses we sent to other's invitations.
             // Set this based on the status flag.
             switch ($this->status) {
