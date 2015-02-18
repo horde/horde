@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.
 * [jan] Return ETags with browse() API method.
@@ -1954,6 +1955,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Add tag search to advanced search (Request #13693).
 * [mms] Added the addGroup API method.
 * [mjr] Add ability to add special characters to the alpha pager.
 * [jan] Return ETags with browse() API method.
