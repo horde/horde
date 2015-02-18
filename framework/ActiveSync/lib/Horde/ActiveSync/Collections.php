@@ -723,6 +723,35 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         $this->_cache->clearCollectionKeys();
     }
 
+    public function initEmptySync()
+    {
+        $this->loadCollectionsFromCache();
+        foreach ($this->_collections as $value) {
+            // Remove keys from confirmed synckeys array and count them
+            if (isset($value['synckey'])) {
+                if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
+                    $this->_logger->info(sprintf(
+                        'Removed %s from confirmed_synckeys',
+                        $value['synckey'])
+                    );
+                    $this->_cache->removeConfirmedKey($value['synckey']);
+                    $this->_confirmedCount++;
+                }
+                $this->_synckeyCount++;
+            }
+        }
+        if (!$this->_checkConfirmedKeys()) {
+            $this->_logger->err('Some synckeys were not confirmed, but handling an empty request. Requesting full SYNC');
+            $this->save();
+            return false;
+        }
+        $this->shortSyncRequest = true;
+        $this->hangingSync = true;
+        $this->save(true);
+
+        return true;
+    }
+
     /**
      * Prepares the syncCache for a partial sync request and checks that
      * it is allowed.

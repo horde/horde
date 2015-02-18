@@ -129,19 +129,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $this->_handleGlobalSyncError();
                     return true;
                 } else {
-                    $this->_collections->loadCollectionsFromCache();
-                    $csk = $this->_collections->confirmed_synckeys;
-                    if (count($csk) > 0) {
-                        $this->_logger->warn(sprintf(
-                            '[%s] Unconfirmed synckeys, but handling an empty request. Request full SYNC.',
-                            $this->_procid));
+                    if (!$this->_collections->initEmptySync()) {
                         $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                         $this->_handleGlobalSyncError();
                         return true;
                     }
-                    $this->_collections->shortSyncRequest = true;
-                    $this->_collections->hangingSync = true;
-                    $this->_collections->save(true);
                 }
             } else {
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
