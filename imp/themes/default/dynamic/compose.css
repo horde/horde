@@ -358,3 +358,6 @@ span.attachmentImg {
 .impACNoResultsText {
     font-style: italic;
 }
+.impACTrigger {
+    padding: 0 0 0 2px;
+}
