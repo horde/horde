@@ -497,6 +497,7 @@ class Horde_ActiveSync_SyncCache
     public function removeConfirmedKey($key)
     {
         unset($this->_data['confirmed_synckeys'][$key]);
+        $this->_dirty['confirmed_synckeys'] = true;
     }
 
     /**
