@@ -74,7 +74,9 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                     if (isset($mbox['subscribed'])) {
                         /* IMP 7. Guaranteed that return will match what was
                          * asked for in 'unsub' argument. */
-                        $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
+                        if (!$subscriptions || $mbox['subscribed']) {
+                            $this->_mailboxlist[$mbox['ob']->utf8] = $mbox;
+                        }
                     } else {
                         // @HACK. Don't like having to check for imp specific
                         //        mailbox strings here but don't see anyway
