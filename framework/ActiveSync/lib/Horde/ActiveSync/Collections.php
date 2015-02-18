@@ -731,12 +731,36 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      */
     public function initPartialSync()
     {
+
+        // PARTIAL is allowed without a <collection> tag if the
+        // waitinterval, heartbeat, or windowsize changed. So, short circuit
+        // the logic for checking for changed collections in this case.
         if (empty($this->_collections)) {
-            // PARTIAL is allowed without a <collection> tag if the
-            // waitinterval, heartbeat, or windowsize changed.
             $this->_logger->err('No collections in collection handler, loading full collection set from cache.');
             $this->_collections->loadCollectionsFromCache();
+            foreach ($this->_collections as $value) {
+                // Remove keys from confirmed synckeys array and count them
+                if (isset($value['synckey'])) {
+                    if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
+                        $this->_logger->info(sprintf(
+                            'Removed %s from confirmed_synckeys',
+                            $value['synckey'])
+                        );
+                        $this->_cache->removeConfirmedKey($value['synckey']);
+                        $this->_confirmedCount++;
+                    }
+                    $this->_synckeyCount++;
+                }
+            }
+            if (!$this->_checkConfirmedKeys()) {
+                $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
+                $this->save();
+                return false;
+            }
+
+            return true;
         }
+
         $this->_tempSyncCache = clone $this->_cache;
         $c = $this->_tempSyncCache->getCollections();
         foreach ($this->_collections as $key => $value) {
@@ -800,13 +824,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             }
         }
 
-        $csk = $this->_cache->confirmed_synckeys;
-        if ($csk) {
-            $this->_logger->info(sprintf(
-                '[%s] Confirmed Synckeys contains %s',
-                $this->_procid,
-                serialize($csk))
-            );
+        if (!$this->_checkConfirmedKeys()) {
             $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
             $this->save();
             return false;
@@ -817,6 +835,21 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     '[%s] Partial Request with completely unchanged collections. Request a full SYNC',
                     $this->_procid));
                     return false;
+        }
+
+        return true;
+    }
+
+    protected function _checkConfirmedKeys()
+    {
+        $csk = $this->_cache->confirmed_synckeys;
+        if ($csk) {
+            $this->_logger->info(sprintf(
+                '[%s] Confirmed Synckeys contains %s',
+                $this->_procid,
+                serialize($csk))
+            );
+            return false;
         }
 
         return true;
