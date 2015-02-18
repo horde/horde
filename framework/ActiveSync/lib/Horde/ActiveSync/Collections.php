@@ -76,13 +76,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     protected $_synckeyCount = 0;
 
     /**
-     * Count of confirmed collections calculated for PARTIAL sync.
-     *
-     * @var integer
-     */
-    protected $_confirmedCount = 0;
-
-    /**
      * Global WINDOWSIZE
      *
      * @var integer
@@ -799,7 +792,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                             $value['synckey'])
                         );
                         $this->_cache->removeConfirmedKey($value['synckey']);
-                        $this->_confirmedCount++;
                     }
                     $this->_synckeyCount++;
                 }
