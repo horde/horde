@@ -512,7 +512,6 @@ var ImpCompose = {
             ImpCore.doAction(action, this.actionParams({
                 data: Object.toJSON(params)
             }), {
-                ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, {
                     changed: changed,
                     rte: !active
