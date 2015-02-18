@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix handling of PARTIAL and EMPTY sync requests in certain cases (Bug #13863).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2638,7 +2638,7 @@
    <date>2015-02-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix handling of PARTIAL and EMPTY sync requests in certain cases (Bug #13863).
    </notes>
   </release>
  </changelog>
