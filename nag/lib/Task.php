@@ -306,7 +306,7 @@ class Nag_Task
     /**
      * Getter.
      *
-     * Returns the 'id' and 'creator' properties.
+     * Returns 'tags' property.
      *
      * @param string $name  Property name.
      *
