@@ -960,6 +960,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if (!empty($cc[$id]['filtertype']) &&
             !is_null($filter) &&
             $cc[$id]['filtertype'] != $filter) {
+            $this->_logger->info(sprintf(
+                '[%s] Filtertype change from: %d to %d',
+                $this->_procid, $cc[$id]['filtertype'], $filter));
             $this->_cache->updateFiltertype($id, $filter);
             return false;
         }
