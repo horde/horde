@@ -279,6 +279,13 @@ class Nag_Task
     public $internaltags;
 
     /**
+     * Task organizer
+     *
+     * @var string
+     */
+    public $organizer;
+
+    /**
      * Task tags (lazy loaded).
      *
      * @var array
