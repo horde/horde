@@ -233,7 +233,7 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_recurdays = ?, ' .
                  'task_exceptions = ?, ' .
                  'task_completions = ? ' .
-                 'task_organizer = ?' .
+                 'task_organizer = ? ' .
                  'WHERE task_owner = ? AND task_id = ?';
 
         $values = array($task['owner'],
