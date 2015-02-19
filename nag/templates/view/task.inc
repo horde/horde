@@ -66,7 +66,12 @@
    <?php endif ?>
   </td>
  </tr>
-
+ <tr>
+   <td class="horde-label"><?php echo _("Organizer") ?>:</td>
+   <td>
+     <?php echo htmlspecialchars($task->organizer) ?>
+   </td>
+  </tr>
 <?php if ($task->created): ?>
  <tr>
   <td class="horde-label"><?php echo _("Created") ?>:</td>
