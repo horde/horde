@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-01-16</date>
+ <date>2015-02-19</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -417,6 +417,7 @@
     <file name="12_nag_fix_smartlists.php" role="horde" />
     <file name="13_nag_upgrade_parents.php" role="horde" />
     <file name="14_nag_upgrade_search.php" role="horde" />
+    <file name="15_nag_upgrade_addorganizer.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -943,6 +944,7 @@
    <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
    <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
+   <install as="nag/migration/15_nag_upgrade_addorganizer.php" name="migration/15_nag_upgrade_addorganizer.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
@@ -1624,7 +1626,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-01-16</date>
+   <date>2015-02-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fall back to sort by name if sort criteria are equal.
