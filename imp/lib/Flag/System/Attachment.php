@@ -22,7 +22,7 @@
  */
 class IMP_Flag_System_Attachment
 extends IMP_Flag_Base
-implements IMP_Flag_Match_Header
+implements IMP_Flag_Match_Header, IMP_Flag_Match_Structure
 {
     /**
      */
@@ -50,6 +50,33 @@ implements IMP_Flag_Match_Header
         @list($primary, $sub) = explode('/', $ctype->value, 2);
         return (($primary == 'multipart') &&
             !in_array($sub, array('alternative', 'encrypt', 'related', 'signed')));
+    }
+
+    /**
+     */
+    public function matchStructure(Horde_Mime_Part $data)
+    {
+        return $this->_matchStructure(array($data));
+    }
+
+    /**
+     * Recursively search message for Content-Disposition of 'attachment'
+     *
+     * @param Horde_Mime_Part $data  MIME part.
+     *
+     * @return boolean  True if the part is an attachment.
+     */
+    private function _matchStructure($data)
+    {
+        foreach ($data as $val) {
+            if ($val->getDisposition() === 'attachment') {
+                return true;
+            } elseif ($this->_matchStructure($val->getParts())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

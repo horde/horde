@@ -22,6 +22,8 @@
  *
  * @property boolean $acl  Enable ACLs?
  * @property array $admin  Admin configuration.
+ * @property boolean $atc_structure  Use body structure data to determine
+ *                                   attachment flag status?
  * @property array $autocreate_special  Autocreate the special mailboxes?
  * @property mixed $cache  The cache configuration from backends.php.
  * @property string $cache_lifetime  Cache lifetime.
@@ -72,12 +74,21 @@ class IMP_Imap_Config implements Serializable
     );
 
     /**
-     * Boolean options.
+     * Boolean options defaulting to false.
      *
      * @var array
      */
-    private $_boptions = array(
-        'acl', 'autocreate_special', 'debug_raw', 'sort_force'
+    private $_boptions_false = array(
+        'autocreate_special', 'debug_raw', 'sort_force'
+    );
+
+    /**
+     * Boolean options defaulting to true.
+     *
+     * @var array
+     */
+    private $_boptions_true = array(
+        'acl', 'atc_structure'
     );
 
     /**
@@ -168,7 +179,8 @@ class IMP_Imap_Config implements Serializable
             in_array($name, $this->_moptions)) {
             /* Array and/or mixed options. */
             $this->_config[$name] = $value;
-        } elseif (in_array($name, $this->_boptions)) {
+        } elseif ((in_array($name, $this->_boptions_false)) ||
+                  (in_array($name, $this->_boptions_true))) {
             /* Boolean options. */
             $this->_config[$name] = (bool)$value;
         } elseif (in_array($name, $this->_soptions)) {
@@ -192,9 +204,13 @@ class IMP_Imap_Config implements Serializable
             if (isset($this->_passwords[$name])) {
                 $out['password'] = $this->_passwords[$name];
             }
-        } elseif (in_array($name, $this->_boptions)) {
+        } elseif (in_array($name, $this->_boptions_false)) {
             /* Boolean options. */
             $out = !empty($this->_config[$name]);
+        } elseif (in_array($name, $this->_boptions_true)) {
+            /* Boolean options. */
+            $out = (!isset($this->_config[$name]) ||
+                    !empty($this->_config[$name]));
         } elseif (in_array($name, $this->_soptions) ||
                   in_array($name, $this->_moptions)) {
             /* Mixed and/or string options. */

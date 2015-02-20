@@ -419,8 +419,9 @@ class IMP_Ajax_Queue
                 $result->replace = array_map('strval', $imp_flags->parse(array(
                     'flags' => $val['flags'],
                     'headers' => $val['headers'],
+                    'personal' => $val['envelope']->to,
                     'runhook' => $val,
-                    'personal' => $val['envelope']->to
+                    'structure' => $val['structure']
                 )));
                 $this->_flag[] = $result;
             }

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-01-16</date>
+ <date>2015-02-20</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add backend configuration option to use body structure data to more accurately determine whether a message contains attachments.
 * [jan] Show warning on S/MIME page if personal certificate has expired.
 * [mjr] Improve support for vTodo iTip handling.
 * [mms] Add resent information to message header display.
@@ -295,12 +296,13 @@
       <file name="NotJunk.php" role="horde" />
       <file name="Seen.php" role="horde" />
      </dir> <!-- /lib/Flag/Imap -->
+     <dir name="Match">
+      <file name="Address.php" role="horde" />
+      <file name="Flag.php" role="horde" />
+      <file name="Header.php" role="horde" />
+      <file name="Structure.php" role="horde" />
+     </dir> <!-- /lib/Flag/Match -->
      <dir name="System">
-      <dir name="Match">
-       <file name="Address.php" role="horde" />
-       <file name="Flag.php" role="horde" />
-       <file name="Header.php" role="horde" />
-      </dir> <!-- /lib/Flag/System/Match -->
       <file name="Attachment.php" role="horde" />
       <file name="Encrypted.php" role="horde" />
       <file name="HighPriority.php" role="horde" />
@@ -1686,6 +1688,10 @@
    <install as="imp/lib/Flag/Imap/Junk.php" name="lib/Flag/Imap/Junk.php" />
    <install as="imp/lib/Flag/Imap/NotJunk.php" name="lib/Flag/Imap/NotJunk.php" />
    <install as="imp/lib/Flag/Imap/Seen.php" name="lib/Flag/Imap/Seen.php" />
+   <install as="imp/lib/Flag/Match/Address.php" name="lib/Flag/Match/Address.php" />
+   <install as="imp/lib/Flag/Match/Flag.php" name="lib/Flag/Match/Flag.php" />
+   <install as="imp/lib/Flag/Match/Header.php" name="lib/Flag/Match/Header.php" />
+   <install as="imp/lib/Flag/Match/Structure.php" name="lib/Flag/Match/Structure.php" />
    <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
    <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />
    <install as="imp/lib/Flag/System/HighPriority.php" name="lib/Flag/System/HighPriority.php" />
@@ -1694,9 +1700,6 @@
    <install as="imp/lib/Flag/System/Personal.php" name="lib/Flag/System/Personal.php" />
    <install as="imp/lib/Flag/System/Signed.php" name="lib/Flag/System/Signed.php" />
    <install as="imp/lib/Flag/System/Unseen.php" name="lib/Flag/System/Unseen.php" />
-   <install as="imp/lib/Flag/System/Match/Address.php" name="lib/Flag/System/Match/Address.php" />
-   <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
-   <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
    <install as="imp/lib/Ftree/Account.php" name="lib/Ftree/Account.php" />
    <install as="imp/lib/Ftree/Element.php" name="lib/Ftree/Element.php" />
    <install as="imp/lib/Ftree/Eltdiff.php" name="lib/Ftree/Eltdiff.php" />

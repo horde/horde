@@ -164,7 +164,14 @@ implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($to_process as $mbox => $ids) {
             try {
                 $imp_imap = IMP_Mailbox::get($mbox)->imp_imap;
-                $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
+                if ($imp_imap->config->atc_structure) {
+                    $query = clone $fetch_query;
+                    $query->structure();
+                } else {
+                    $query = $fetch_query;
+                }
+
+                $fetch_res = $imp_imap->fetch($mbox, $query, array(
                     'ids' => $imp_imap->getIdsOb($ids)
                 ));
 
@@ -184,6 +191,7 @@ implements ArrayAccess, Countable, Iterator, Serializable
                         'idx' => $k,
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
+                        'structure' => $f->getStructure(),
                         'uid' => $uid
                     );
 

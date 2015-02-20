@@ -231,6 +231,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      *   - personal: (mixed) Personal message info. Either a list of To
      *               addresses (Horde_Mail_Rfc822_List object) or the identity
      *               that matched the address list.
+     *   - structure: TODO
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -241,7 +242,8 @@ class IMP_Flags implements ArrayAccess, Serializable
         $opts = array_merge(array(
             'flags' => array(),
             'headers' => null,
-            'personal' => null
+            'personal' => null,
+            'structure' => null
         ), $opts);
 
         if (!empty($opts['runhook']) && $this->_flaghook) {
@@ -279,6 +281,14 @@ class IMP_Flags implements ArrayAccess, Serializable
             if ($val instanceof IMP_Flag_Match_Header) {
                 if (!is_null($opts['headers']) &&
                     $val->matchHeader($opts['headers'])) {
+                    $ret[] = $val;
+                    continue;
+                }
+            }
+
+            if ($val instanceof IMP_Flag_Match_Structure) {
+                if (!is_null($opts['structure']) &&
+                    $val->matchStructure($opts['structure'])) {
                     $ret[] = $val;
                     continue;
                 }

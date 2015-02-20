@@ -435,8 +435,9 @@ class IMP_Ajax_Application_ListMessages
                     ? array_map('strval', $imp_flags->parse(array(
                           'flags' => $ob['flags'],
                           'headers' => $ob['headers'],
+                          'personal' => $ob['envelope']->to,
                           'runhook' => $ob,
-                          'personal' => $ob['envelope']->to
+                          'structure' => $ob['structure']
                       )))
                     : array()
             );

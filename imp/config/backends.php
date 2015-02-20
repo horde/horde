@@ -280,6 +280,12 @@
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
  * *** (the default if the parameters are not set) SHOULD BE USED!         ***
  *
+ * atc_structure: (boolean) Use body structure data to determine whether to
+ *   flag messages with attachments in the mailbox list? This is a more
+ *   accurate algorithm for determining, but is more expensive to generate
+ *   this data (especially if not using IMAP and/or not using a caching mail
+ *   server). Set to false if worried about performance issues.
+ *
  * capability_ignore: [IMAP only] (array) A list of IMAP capabilites to
  *   ignore, even if they are supported on the server. The capability names
  *   should be in all capitals. This option may be useful, for example, if it

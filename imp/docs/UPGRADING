@@ -99,6 +99,12 @@ The following preferences have been removed::
    preview_strip_nl
 
 
+Server Options (backends.php)
+-----------------------------
+
+The 'atc_structure' option has been added.
+
+
 API Changes
 -----------
 
