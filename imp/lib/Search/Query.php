@@ -324,6 +324,29 @@ class IMP_Search_Query implements Serializable
         }
     }
 
+    /**
+     * Reduce the sorted return ID list by running search element callbacks..
+     *
+     * @param IMP_Mailbox $mbox  Mailbox.
+     * @param array $ids         Sorted ID list.
+     *
+     * @return array  Sorted ID list.
+     */
+    public function runElementCallbacks(IMP_Mailbox $mbox, array $ids)
+    {
+        foreach ($this->_criteria as $val) {
+            if (empty($ids)) {
+                break;
+            }
+
+            if ($val instanceof IMP_Search_Element_Callback) {
+                $ids = $val->searchCallback($mbox, $ids);
+            }
+        }
+
+        return $ids;
+    }
+
     /* Serializable methods. */
 
     /**

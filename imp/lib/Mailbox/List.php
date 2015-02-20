@@ -251,6 +251,8 @@ implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         foreach ($query_ob as $mbox => $val) {
+            $mbox_ob = IMP_Mailbox::get($mbox);
+
             if ($thread_sort) {
                 $this->_getThread($mbox, $val ? array('search' => $val) : array());
                 $sorted = $this->_thread[$mbox]->messageList()->ids;
@@ -258,7 +260,7 @@ implements ArrayAccess, Countable, Iterator, Serializable
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $res = IMP_Mailbox::get($mbox)->imp_imap->search($mbox, $val, array(
+                $res = $mbox_ob->imp_imap->search($mbox, $val, array(
                     'sort' => array($sortpref->sortby)
                 ));
                 if ($sortpref->sortdir) {
@@ -267,8 +269,10 @@ implements ArrayAccess, Countable, Iterator, Serializable
                 $sorted = $res['match']->ids;
             }
 
-            $this->_sorted = array_merge($this->_sorted, $sorted);
-            $this->_buildMailboxProcess($mbox, $sorted);
+            $this->_sorted = array_merge(
+                $this->_sorted,
+                $this->_buildMailboxProcess($mbox_ob, $sorted)
+            );
         }
     }
 
@@ -280,9 +284,16 @@ implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
+     * Run after the initial mailbox search is completed.
+     *
+     * @param IMP_Mailbox $mbox  Mailbox searched.
+     * @param array $sorted      Sorted list of UIDs.
+     *
+     * @return array  Sorted list of UIDs.
      */
-    protected function _buildMailboxProcess($mbox, $sorted)
+    protected function _buildMailboxProcess(IMP_Mailbox $mbox, $sorted)
     {
+        return $sorted;
     }
 
     /**
