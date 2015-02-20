@@ -341,9 +341,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             case self::MAPI_TASK_STATE:
                 $this->_state = $value;
                 break;
-            case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
-                $this->_lastUser = $value;
-                break;
             // case self::MAPI_TASK_ASSIGNER:
             //     // *sigh* This isn't set by Outlook/Exchange until AFTER the
             //     // assignee receives the request. I.e., this is blank on the initial
@@ -356,14 +353,17 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             //     // Before client sends an ACCEPT, it is set to the assignee.
             //     // Before client sneds REJECT, it is set to the assigner, not assignee.
             //     // Unfortunately, it is only the display name, not the email!
-            //     //$this->_lastUser = $value;
-                break;
+            //     $this->_lastUser = $value;
+            //     break;
             }
         } else {
             // pidTag?
             switch ($name) {
             case Horde_Compress_Tnef::MAPI_SENT_REP_EMAIL_ADDR:
                 $this->_organizer = $value;
+                break;
+            case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
+                $this->_lastUser = $value;
             }
         }
     }
@@ -392,7 +392,10 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
 
         // For REQUESTS, we MUST have the ORGANIZER and an ATTENDEE.
         if ($this->_state == self::STATE_ASSIGNERS_COPY || $this->_ownership == self::OWNERSHIP_ASSIGNERS_COPY) {
-            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_organizer);
+            // When sending a REQUEST the lastUser to edit it should be the
+            // ORGANIZER. I can't find any of the other properties that work
+            // consistently.
+            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_lastUser);
             $list = new Horde_Mail_Rfc822_List($this->_owner);
             foreach ($list as $email) {
                 $vtodo->setAttribute('ATTENDEE', $email, array('ROLE' => 'REQ-PARTICIPANT'));
