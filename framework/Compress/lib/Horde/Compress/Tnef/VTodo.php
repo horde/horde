@@ -55,7 +55,6 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
     const MAPI_TASK_LASTUSER        = 0x8122;
     const MAPI_TASK_OWNERSHIP       = 0x8129;
 
-
     /**
      * MAPI_TASK_STATUS constants
      */
@@ -290,6 +289,10 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             switch ($name) {
             case self::MAPI_TASK_OWNER:
                 // This is the OWNER, not to be confused with the ORGANIZER.
+                // I.e., this is the person the task has been assigned to.
+                // The ORGANIZER is the person who created the task and has
+                // assigned it. I.e., the person that any task updates are
+                // sent back to by the owner.
                 $this->_owner = str_replace(array('(', ')'), array('<', '>'), $value);
                 break;
             case self::MAPI_TASK_DUEDATE:
@@ -341,20 +344,26 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
             case Horde_Compress_Tnef::MAPI_LAST_MODIFIER_NAME:
                 $this->_lastUser = $value;
                 break;
-            case self::MAPI_TASK_ASSIGNER:
-                // *sigh* This isn't set by Outlook/Exchange until AFTER the
-                // assignee receives the request. I.e., this is blank on the initial
-                // REQUEST so not a valid way to obtain the task creator.
-                //$this->_organizer = $value;
+            // case self::MAPI_TASK_ASSIGNER:
+            //     // *sigh* This isn't set by Outlook/Exchange until AFTER the
+            //     // assignee receives the request. I.e., this is blank on the initial
+            //     // REQUEST so not a valid way to obtain the task creator.
+            //     //$this->_organizer = $value;
+            //     break;
+            // case self::MAPI_TASK_LASTUSER:
+            //     // From MS-OXOTASK 2.2.2.2.25:
+            //     // Before client sends a REQUEST, it is set to the assigner.
+            //     // Before client sends an ACCEPT, it is set to the assignee.
+            //     // Before client sneds REJECT, it is set to the assigner, not assignee.
+            //     // Unfortunately, it is only the display name, not the email!
+            //     //$this->_lastUser = $value;
                 break;
-            case self::MAPI_TASK_LASTUSER:
-                // From MS-OXOTASK 2.2.2.2.25:
-                // Before client sends a REQUEST, it is set to the assigner.
-                // Before client sends an ACCEPT, it is set to the assignee.
-                // Before client sneds REJECT, it is set to the assigner, not assignee.
-                // Unfortunately, it is only the display name, not the email!
-                //$this->_lastUser = $value;
-                break;
+            }
+        } else {
+            // pidTag?
+            switch ($name) {
+            case Horde_Compress_Tnef::MAPI_SENT_REP_EMAIL_ADDR:
+                $this->_organizer = $value;
             }
         }
     }
@@ -380,10 +389,11 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
         $vtodo = Horde_Icalendar::newComponent('vtodo', $iCal);
 
         $vtodo->setAttribute('UID', $this->_guid);
+
         // For REQUESTS, we MUST have the ORGANIZER and an ATTENDEE.
         if ($this->_state == self::STATE_ASSIGNERS_COPY || $this->_ownership == self::OWNERSHIP_ASSIGNERS_COPY) {
-            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_owner);
-            $list = new Horde_Mail_Rfc822_List($this->_lastUser);
+            $vtodo->setAttribute('ORGANIZER', 'mailto: ' . $this->_organizer);
+            $list = new Horde_Mail_Rfc822_List($this->_owner);
             foreach ($list as $email) {
                 $vtodo->setAttribute('ATTENDEE', $email, array('ROLE' => 'REQ-PARTICIPANT'));
             }
