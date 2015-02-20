@@ -12,7 +12,7 @@
  */
 
 /**
- * This class implements an IMP system flag with matching on a headers object.
+ * Interface to allow flagging a message based on IMAP flags.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,14 +20,15 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-abstract class IMP_Flag_System_Match_Header extends IMP_Flag_Base
+interface IMP_Flag_Match_Flag
 {
     /**
-     * @param Horde_Mime_Headers $data  Headers object for a message.
+     * Set flag by doing IMAP flag matching.
+     *
+     * @param array $data  List of IMAP flags.
+     *
+     * @return boolean  True if the flag should be set.
      */
-    public function match($data)
-    {
-        return false;
-    }
+    public function matchFlag(array $data);
 
 }

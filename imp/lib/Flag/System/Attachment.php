@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
+class IMP_Flag_System_Attachment
+extends IMP_Flag_Base
+implements IMP_Flag_Match_Header
 {
     /**
      */
@@ -38,9 +40,8 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
     }
 
     /**
-     * @param Horde_Mime_Headers $data
      */
-    public function match($data)
+    public function matchHeader(Horde_Mime_Headers $data)
     {
         if (!($ctype = $data['Content-Type'])) {
             return false;

@@ -12,7 +12,7 @@
  */
 
 /**
- * This class implements an IMP system flag with matching on addresses.
+ * Interface to allow flagging a message based on address matches.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,15 +20,16 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-abstract class IMP_Flag_System_Match_Address extends IMP_Flag_Base
+interface IMP_Flag_Match_Address
 {
     /**
+     * Set flag by doing address matching.
+     *
      * @param mixed $data  Either a list of addresses (Horde_Mail_Rfc822_List)
      *                     or the identity that matched the address list.
+     *
+     * @return boolean  True if the flag should be set.
      */
-    public function match($data)
-    {
-        return false;
-    }
+    public function matchAddress($data);
 
 }

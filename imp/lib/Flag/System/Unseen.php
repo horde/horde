@@ -22,7 +22,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
+class IMP_Flag_System_Unseen
+extends IMP_Flag_Base
+implements IMP_Flag_Match_Flag
 {
     /**
      */
@@ -57,9 +59,8 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
     }
 
     /**
-     * @param array $data  List of IMAP flags.
      */
-    public function match($data)
+    public function matchFlag(array $data)
     {
         return !in_array(Horde_Imap_Client::FLAG_SEEN, $data);
     }

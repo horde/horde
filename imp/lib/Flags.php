@@ -262,20 +262,25 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {
-            if ($val instanceof IMP_Flag_System_Match_Address) {
+            if ($val instanceof IMP_Flag_Match_Address) {
                 if (!is_null($opts['personal']) &&
-                    $val->match($opts['personal'])) {
+                    $val->matchAddress($opts['personal'])) {
                     $ret[] = $val;
+                    continue;
                 }
-            } elseif (($val instanceof IMP_Flag_Imap) ||
-                      ($val instanceof IMP_Flag_System_Match_Flag)) {
-                if ($val->match($opts['flags'])) {
+            }
+            if ($val instanceof IMP_Flag_Match_Flag) {
+                if ($val->matchFlag($opts['flags'])) {
                     $ret[] = $val;
+                    continue;
                 }
-            } elseif ($val instanceof IMP_Flag_System_Match_Header) {
+            }
+
+            if ($val instanceof IMP_Flag_Match_Header) {
                 if (!is_null($opts['headers']) &&
-                    $val->match($opts['headers'])) {
+                    $val->matchHeader($opts['headers'])) {
                     $ret[] = $val;
+                    continue;
                 }
             }
         }
