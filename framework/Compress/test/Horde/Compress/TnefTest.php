@@ -61,14 +61,39 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
     public function testvTodo()
     {
         $tnef = Horde_Compress::factory('Tnef');
-        $data = base64_decode(file_get_contents(__DIR__ . '/fixtures/tnef_vnote'));
+        $mime = Horde_Mime_Part::parseMessage(file_get_contents(__DIR__ . '/fixtures/tnef_task.eml'));
         try {
-            $tnef_data = $tnef->decompress($data);
+            $tnef_data = $tnef->decompress($mime->getPart(2)->getContents());
         } catch (Horde_Mapi_Exception $e) {
             $this->markTestSkipped('Horde_Mapi is not available');
         } catch (Horde_Compress_Exception $e) {
             var_dump($e);
         }
+
+        // Test the generated iCalendar.
+        $iCal = new Horde_Icalendar();
+        if (!$iCal->parsevCalendar($tnef_data[0]['stream'])) {
+            throw new Horde_Compress_Exception(_("There was an error importing the iCalendar data."));
+        }
+        $this->assertEquals($iCal->getAttribute('METHOD'), 'REQUEST');
+        $components = $iCal->getComponents();
+        if (count($components) == 0) {
+            throw new Horde_Compress_Exception(_("No iCalendar data was found."));
+        }
+        $vTodo = current($components);
+        $this->assertEquals($vTodo->getAttribute('SUMMARY'), 'Test Task');
+        $this->assertEquals($vTodo->getAttribute('UID'), 'EDF71E6FA6FB69A79D79FE1D6DCDBBD300000000DFD9B6FB');
+        $this->assertEquals($vTodo->getAttribute('ATTENDEE'), 'Michael Rubinsky <mrubinsk@horde.org>');
+        $params = $vTodo->getAttribute('ATTENDEE', true);
+        if (!$params) {
+            throw new Horde_Compress_Exception('Could not find expected parameters.');
+        }
+        $this->assertEquals($params[0]['ROLE'], 'REQ-PARTICIPANT');
+
+        // @ Need a better fixture. I accidently generated the TNEF file with
+        // the wrong email address as the ORGANIZER.
+        //$this->assertEquals($vTodo->getAttribute('ORGANIZER'), 'mike@theupstairsroom.com');
+        $this->assertEquals($vTodo->getAttribute('ORGANIZER'), 'mailto: mrubinsk@horde.org');
     }
 
     /**
