@@ -1022,7 +1022,8 @@ class Nag_Task
             'methods' => $this->methods,
             'private' => $this->private,
             'recurrence' => $this->recurrence,
-            'tags' => $this->tags);
+            'tags' => $this->tags,
+            'organizer' => $this->organizer);
 
         return $hash;
     }
@@ -1417,9 +1418,17 @@ class Nag_Task
             if (!is_array($name)) { $this->name = $name; }
         } catch (Horde_Icalendar_Exception $e) {}
 
+        // Not sure why we were mapping the ORGANIZER to the person the
+        // task is assigned to? If anything, this needs to be mapped to
+        // any ATTENDEE fields from the vTodo.
+        // try {
+        //     $assignee = $vTodo->getAttribute('ORGANIZER');
+        //     if (!is_array($assignee)) { $this->assignee = $assignee; }
+        // } catch (Horde_Icalendar_Exception $e) {}
+
         try {
-            $assignee = $vTodo->getAttribute('ORGANIZER');
-            if (!is_array($assignee)) { $this->assignee = $assignee; }
+            $organizer = $vTodo->getAttribute('ORGANIZER');
+            if (!is_array($organizer)) { $this->organizer = $organizer; }
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {

@@ -226,6 +226,7 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_alarm_methods = ?, ' .
                  'task_parent = ?, ' .
                  'task_private = ?, ' .
+                 'task_organizer = ?, ' .
                  'task_recurtype = ?, ' .
                  'task_recurinterval = ?, ' .
                  'task_recurenddate = ?, ' .
@@ -233,7 +234,6 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_recurdays = ?, ' .
                  'task_exceptions = ?, ' .
                  'task_completions = ? ' .
-                 'task_organizer = ? ' .
                  'WHERE task_owner = ? AND task_id = ?';
 
         $values = array($task['owner'],
