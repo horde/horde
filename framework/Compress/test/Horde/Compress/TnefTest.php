@@ -89,11 +89,7 @@ class Horde_Compress_TnefTest extends Horde_Test_Case
             throw new Horde_Compress_Exception('Could not find expected parameters.');
         }
         $this->assertEquals($params[0]['ROLE'], 'REQ-PARTICIPANT');
-
-        // @ Need a better fixture. I accidently generated the TNEF file with
-        // the wrong email address as the ORGANIZER.
-        //$this->assertEquals($vTodo->getAttribute('ORGANIZER'), 'mike@theupstairsroom.com');
-        $this->assertEquals($vTodo->getAttribute('ORGANIZER'), 'mailto: mrubinsk@horde.org');
+        $this->assertEquals($vTodo->getAttribute('ORGANIZER'), 'mailto: mike@theupstairsroom.com');
     }
 
     /**
