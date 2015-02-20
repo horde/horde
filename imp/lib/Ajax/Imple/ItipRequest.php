@@ -218,11 +218,15 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                      $components[$key]->getType() == 'vTodo')) {
                     $vEvent = $components[$key];
 
-                    $resource = new Horde_Itip_Resource_Identity(
-                        $injector->getInstance('IMP_Identity'),
-                        $vEvent->getAttribute('ATTENDEE'),
-                        $vars->identity
-                    );
+                    try {
+                        $resource = new Horde_Itip_Resource_Identity(
+                            $injector->getInstance('IMP_Identity'),
+                            $vEvent->getAttribute('ATTENDEE'),
+                            $vars->identity
+                        );
+                    } catch (Horde_Icalendar_Exception $e) {
+                        throw new Horde_Itip_Exception('No ATTENDEE data, unable to reply.');
+                    }
 
                     switch ($action) {
                     case 'accept':
