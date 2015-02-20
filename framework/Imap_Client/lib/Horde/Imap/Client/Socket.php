@@ -1818,13 +1818,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         /* Although it is normally more efficient to use LITERAL+, disable if
-         * payload is over 0.5 MB because it allows the server to throw error
+         * payload is over 50 KB because it allows the server to throw error
          * before we potentially push a lot of data to server that would
          * otherwise be ignored (see RFC 4549 [4.2.2.3]).
-         * Additionally, if using BINARY, since so many IMAP servers have
-         * issues with APPEND + BINARY, don't use LITERAL+ since servers may
-         * send BAD after initial command. */
-        $cmd->literalplus = (($asize < 524288) && !$binary);
+         * Additionally, since so many IMAP servers have issues with APPEND
+         * + BINARY, don't use LITERAL+ since servers may send BAD
+         * (incorrectly) after initial command. */
+        $cmd->literalplus = (($asize < (1024 * 50)) && !$binary);
 
         // If the mailbox is currently selected read-only, we need to close
         // because some IMAP implementations won't allow an append. And some
