@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-20</date>
+ <date>2015-02-21</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -300,6 +300,7 @@
       <file name="Address.php" role="horde" />
       <file name="Flag.php" role="horde" />
       <file name="Header.php" role="horde" />
+      <file name="Order.php" role="horde" />
       <file name="Structure.php" role="horde" />
      </dir> <!-- /lib/Flag/Match -->
      <dir name="System">
@@ -1692,6 +1693,7 @@
    <install as="imp/lib/Flag/Match/Address.php" name="lib/Flag/Match/Address.php" />
    <install as="imp/lib/Flag/Match/Flag.php" name="lib/Flag/Match/Flag.php" />
    <install as="imp/lib/Flag/Match/Header.php" name="lib/Flag/Match/Header.php" />
+   <install as="imp/lib/Flag/Match/Order.php" name="lib/Flag/Match/Order.php" />
    <install as="imp/lib/Flag/Match/Structure.php" name="lib/Flag/Match/Structure.php" />
    <install as="imp/lib/Flag/System/Attachment.php" name="lib/Flag/System/Attachment.php" />
    <install as="imp/lib/Flag/System/Encrypted.php" name="lib/Flag/System/Encrypted.php" />

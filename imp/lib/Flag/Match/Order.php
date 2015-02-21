@@ -12,7 +12,7 @@
  */
 
 /**
- * Interface to allow flagging a message based on bodystructure data.
+ * Interface to allow specifying the order that match interfaces are run.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,17 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-interface IMP_Flag_Match_Structure
+interface IMP_Flag_Match_Order
 {
     /**
-     * Set flag by doing body structure matching.
+     * Return an ordered list of flag match interfaces.
      *
-     * @param Horde_Mime_Part $data  Structure object for a message.
-     *
-     * @return boolean  True if the flag should be set. False if the flag
-     *                  should never be set. Null if flag should not be set,
-     *                  but could be set by other matching interfaces.
+     * @return array  List of interface class names.
      */
-    public function matchStructure(Horde_Mime_Part $data);
+    public function matchOrder();
 
 }

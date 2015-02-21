@@ -27,7 +27,9 @@ interface IMP_Flag_Match_Flag
      *
      * @param array $data  List of IMAP flags.
      *
-     * @return boolean  True if the flag should be set.
+     * @return boolean  True if the flag should be set. False if the flag
+     *                  should never be set. Null if flag should not be set,
+     *                  but could be set by other matching interfaces.
      */
     public function matchFlag(array $data);
 

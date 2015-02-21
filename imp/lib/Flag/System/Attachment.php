@@ -22,7 +22,7 @@
  */
 class IMP_Flag_System_Attachment
 extends IMP_Flag_Base
-implements IMP_Flag_Match_Header, IMP_Flag_Match_Structure
+implements IMP_Flag_Match_Header, IMP_Flag_Match_Order, IMP_Flag_Match_Structure
 {
     /**
      */
@@ -41,15 +41,27 @@ implements IMP_Flag_Match_Header, IMP_Flag_Match_Structure
 
     /**
      */
+    public function matchOrder()
+    {
+        return array(
+            'IMP_Flag_Match_Structure',
+            'IMP_Flag_Match_Header'
+        );
+    }
+
+    /**
+     */
     public function matchHeader(Horde_Mime_Headers $data)
     {
-        if (!($ctype = $data['Content-Type'])) {
-            return false;
+        if ($ctype = $data['Content-Type']) {
+            @list($primary, $sub) = explode('/', $ctype->value, 2);
+            if (($primary == 'multipart') &&
+                !in_array($sub, array('alternative', 'encrypt', 'related', 'signed'))) {
+                return true;
+            }
         }
 
-        @list($primary, $sub) = explode('/', $ctype->value, 2);
-        return (($primary == 'multipart') &&
-            !in_array($sub, array('alternative', 'encrypt', 'related', 'signed')));
+        return null;
     }
 
     /**

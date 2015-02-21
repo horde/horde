@@ -264,33 +264,53 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {
-            if ($val instanceof IMP_Flag_Match_Address) {
-                if (!is_null($opts['personal']) &&
-                    $val->matchAddress($opts['personal'])) {
-                    $ret[] = $val;
-                    continue;
-                }
-            }
-            if ($val instanceof IMP_Flag_Match_Flag) {
-                if ($val->matchFlag($opts['flags'])) {
-                    $ret[] = $val;
-                    continue;
-                }
+            if ($val instanceof IMP_Flag_Match_Order) {
+                $match = $val->matchOrder();
+            } else {
+                $match = array(
+                    'IMP_Flag_Match_Address',
+                    'IMP_Flag_Match_Flag',
+                    'IMP_Flag_Match_Header',
+                    'IMP_Flag_Match_Structure'
+                );
             }
 
-            if ($val instanceof IMP_Flag_Match_Header) {
-                if (!is_null($opts['headers']) &&
-                    $val->matchHeader($opts['headers'])) {
-                    $ret[] = $val;
+            foreach ($match as $val2) {
+                if (!($val instanceof $val2)) {
                     continue;
                 }
-            }
 
-            if ($val instanceof IMP_Flag_Match_Structure) {
-                if (!is_null($opts['structure']) &&
-                    $val->matchStructure($opts['structure'])) {
-                    $ret[] = $val;
-                    continue;
+                $res = null;
+
+                switch ($val2) {
+                case 'IMP_Flag_Match_Address':
+                    if (!is_null($opts['personal'])) {
+                        $res = $val->matchAddress($opts['personal']);
+                    }
+                    break;
+
+                case 'IMP_Flag_Match_Flag':
+                    $res = $val->matchFlag($opts['flags']);
+                    break;
+
+                case 'IMP_Flag_Match_Header':
+                    if (!is_null($opts['headers'])) {
+                        $res = $val->matchHeader($opts['headers']);
+                    }
+                    break;
+
+                case 'IMP_Flag_Match_Structure':
+                    if (!is_null($opts['structure'])) {
+                        $res = $val->matchStructure($opts['structure']);
+                    }
+                    break;
+                }
+
+                if (is_bool($res)) {
+                    if ($res) {
+                        $ret[] = $val;
+                    }
+                    break;
                 }
             }
         }
