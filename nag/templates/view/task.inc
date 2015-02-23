@@ -69,7 +69,7 @@
  <tr>
    <td class="horde-label"><?php echo _("Organizer") ?>:</td>
    <td>
-     <?php echo htmlspecialchars($task->organizer) ?>
+     <?php echo Nag::formatOrganizer($task->organizer, true) ?>
    </td>
   </tr>
 <?php if ($task->created): ?>

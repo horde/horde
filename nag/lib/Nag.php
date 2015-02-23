@@ -900,6 +900,36 @@ class Nag
     }
 
     /**
+     * Returns formatted string representing a task organizer.
+     *
+     * @param string $organizer  The organinzer, as an email or mailto: format.
+     * @param boolean $link     Whether to link to an email compose screen.
+     *
+     * @return string  The formatted organizer name.
+     */
+    public static function formatOrganizer($organizer, $link = false)
+    {
+        if (empty($organizer)) {
+            return;
+        }
+        $rfc = new Horde_Mail_Rfc822();
+        $list = $rfc->parseAddressList(str_replace('mailto:', '', $organizer), array('limit' => 1));
+        if (empty($list)) {
+            return;
+        }
+        $email = $list[0];
+        if ($link && $GLOBALS['registry']->hasMethod('mail/compose')) {
+            return Horde::link($GLOBALS['registry']->call(
+                                   'mail/compose',
+                                   array(array('to' => $email->bare_address))))
+                . htmlspecialchars($email->writeAddress())
+                . '</a>';
+        } else {
+            return htmlspecialchars($email->writeAddress());
+        }
+    }
+
+    /**
      * Returns the full name and a compose to message an assignee.
      *
      * @param string $assignee  The assignee's user name.
