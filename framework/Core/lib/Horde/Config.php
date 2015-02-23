@@ -767,10 +767,10 @@ class Horde_Config
                 '_type' => 'stringlist',
                 'required' => true,
                 'desc' => 'LDAP server(s)/hostname(s)',
-                'default' => $this->_default(
+                'default' => implode(',', $this->_default(
                     $ctx . '|hostspec',
                     $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
-                )
+                ))
             ),
 
             'port' => array(
