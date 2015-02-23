@@ -1951,21 +1951,30 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // [Smart]Reply/[Smart]Forward?
-        try {
-            if ($forward === true) {
-                $mailer->setForward($message->source->folderid, $message->source->itemid);
-            } elseif (!empty($forward)) {
-                $mailer->setForward($parent, $forward);
+        if ($forward || $reply) {
+            $source = $message->source;
+            if ($source->longid) {
+                list($folderid, $itemid) = each(explode(':', $source, 2));
+            } elseif ($forward === true || $reply === true) {
+                $folderid = $source->folderid;
+                $itemid = $source->itemid;
             }
-            if ($reply === true) {
-                $mailer->setReply($message->source->folderid, $message->source->itemid);
-            } elseif (!empty($reply)) {
-                $mailer->setReply($parent, $reply);
+            try {
+                if ($forward === true) {
+                    $mailer->setForward($folderid, $itemid);
+                } elseif (!empty($forward)) {
+                    $mailer->setForward($parent, $forward);
+                }
+                if ($reply === true) {
+                    $mailer->setReply($folderid, $itemid);
+                } elseif (!empty($reply)) {
+                    $mailer->setReply($parent, $reply);
+                }
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                throw $e;
             }
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            $this->_endBuffer();
-            throw $e;
         }
 
         try {
