@@ -46,9 +46,22 @@ class IMP_Ajax_Application_ListMessages
         $mbox = IMP_Mailbox::get($args['mbox']);
         $sortpref = $mbox->getSort(true);
 
+        /* Create the base object. */
+        $result = new IMP_Ajax_Application_Viewport($mbox);
+
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
             $qsearch_mbox = IMP_Mailbox::formFrom($args['qsearchmbox']);
+
+            /* Sanity checking: qsearchmbox cannot be a search mailbox
+             * itself. */
+            if ($qsearch_mbox->search) {
+                $notification->push(
+                    _("Error in displaying search results."),
+                    'horde.error'
+                );
+                return $result;
+            }
 
             if (strlen($args['qsearchfilter'])) {
                 $injector->getInstance('IMP_Search')->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
@@ -116,14 +129,12 @@ class IMP_Ajax_Application_ListMessages
             $mbox->filterOnDisplay();
         }
 
+        $result->label = $mbox->label;
+
         /* Optimization: saves at least a STATUS and an EXAMINE call since
          * we will eventually open mailbox READ-WRITE. */
         $imp_imap = $mbox->imp_imap;
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
-
-        /* Create the base object. */
-        $result = new IMP_Ajax_Application_Viewport($mbox);
-        $result->label = $mbox->label;
 
         if ($is_search) {
             /* For search mailboxes, we need to invalidate all browser data
