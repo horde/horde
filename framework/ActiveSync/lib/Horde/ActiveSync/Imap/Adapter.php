@@ -1517,7 +1517,9 @@ class Horde_ActiveSync_Imap_Adapter
                 $search_res = $this->_getImapOb()->search(
                     $mbox,
                     $imap_query,
-                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_SAVE, Horde_Imap_Client::SEARCH_RESULTS_COUNT))
+                    array(
+                        'results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_SAVE, Horde_Imap_Client::SEARCH_RESULTS_COUNT),
+                        'sort' => array(Horde_Imap_Client::SORT_REVERSE, Horde_Imap_Client::SORT_ARRIVAL))
                 );
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
