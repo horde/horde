@@ -152,6 +152,11 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             }
         }
 
+        // Ensure we actually have a vEvent to parse.
+        if (empty($this->_vEvent)) {
+            return;
+        }
+
         $tz = new Horde_Mapi_Timezone();
         try {
             $this->timezone = $tz->getSyncTZFromOffsets(
