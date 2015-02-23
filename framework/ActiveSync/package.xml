@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Return email search results in descending order by arrival date.
+* [mjr] Add HTCOne Mini to device detection and set multiplex ability accordingly.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2651,7 +2652,8 @@
    <date>2015-02-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Return email search results in descending order by arrival date.
+* [mjr] Add HTCOne Mini to device detection and set multiplex ability accordingly.
    </notes>
   </release>
  </changelog>
