@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix replying to email from search results in some broken ActiveSync clients (Bug #13878).
 * [jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
  </notes>
  <contents>
@@ -3834,6 +3835,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix replying to email from search results in some broken ActiveSync clients (Bug #13878).
 * [jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
    </notes>
   </release>
