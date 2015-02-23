@@ -38,7 +38,14 @@ switch ($cli->prompt('Action:', $opts)) {
 case 1:
     $encoded = trim($cli->prompt('Base64url encoded mailbox:'));
     $cli->writeln();
-    $cli->message($cli->red('IMAP mailbox: ') . IMP_Mailbox::formFrom($encoded));
+    $cli->message(
+        $cli->red('IMAP mailbox: ') .
+        str_replace(
+            "\0",
+            $cli->green("\\0"),
+            IMP_Mailbox::formFrom($encoded)
+        )
+    );
     break;
 
 case 2:
