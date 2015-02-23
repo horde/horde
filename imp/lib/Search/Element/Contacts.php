@@ -38,11 +38,16 @@ class IMP_Search_Element_Contacts extends IMP_Search_Element
      */
     public function createQuery($mbox, $queryob)
     {
-        $ajax = new IMP_Ajax_Imple_ContactAutoCompleter();
-        foreach ($ajax->getAddressList()->bare_addresses as $val) {
-            $ob = new Horde_Imap_Client_Search_Query();
-            $ob->headerText('from', $val, $this->_data);
-            $queryob->orSearch($ob);
+        global $injector;
+
+        $contacts = $injector->getInstance('IMP_Contacts');
+
+        foreach ($contacts as $val) {
+            if ($val instanceof Horde_Mail_Rfc822_Address) {
+                $ob = new Horde_Imap_Client_Search_Query();
+                $ob->headerText('from', $val->bare_address, $this->_data);
+                $queryob->orSearch($ob);
+            }
         }
 
         return $queryob;

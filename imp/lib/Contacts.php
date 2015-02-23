@@ -26,7 +26,8 @@
  * @property-read array $source_list  The list of sources in the contacts
  *                                    backend.
  */
-class IMP_Contacts implements Serializable
+class IMP_Contacts
+implements IteratorAggregate, Serializable
 {
     /**
      * Has the internal data changed?
@@ -226,6 +227,18 @@ class IMP_Contacts implements Serializable
         $this->_sources = empty($src) ? array() : $src;
 
         $this->_changed = true;
+    }
+
+    /* IteratorAggregate methods. */
+
+    /**
+     * Returns the list of all contacts.
+     *
+     * @return Horde_Mail_Rfc822_List  Listing of all contacts.
+     */
+    public function getIterator()
+    {
+        return $this->searchEmail('');
     }
 
     /* Serializable methods. */
