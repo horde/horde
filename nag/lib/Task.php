@@ -1468,6 +1468,7 @@ class Nag_Task
             }
             if (in_array($attendee, $all_addrs) !== false) {
                 $this->assignee = $GLOBALS['registry']->getAuth();
+                $this->status = Nag::RESPONSE_ACCEPTED;
                 break;
             }
         }
