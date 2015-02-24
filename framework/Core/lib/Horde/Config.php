@@ -769,7 +769,7 @@ class Horde_Config
                 'desc' => 'LDAP server(s)/hostname(s)',
                 'default' => implode(',', $this->_default(
                     $ctx . '|hostspec',
-                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
+                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: array()) : array()
                 ))
             ),
 
