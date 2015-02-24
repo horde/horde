@@ -286,6 +286,13 @@ class Nag_Task
     public $organizer;
 
     /**
+     * The assignment status of this task.
+     *
+     * @var integer
+     */
+    public $status;
+
+    /**
      * Task tags (lazy loaded).
      *
      * @var array

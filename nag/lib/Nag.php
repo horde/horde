@@ -13,6 +13,13 @@
 class Nag
 {
     /**
+     * Status codes
+     */
+    const RESPONSE_NONE      = 1;
+    const RESPONSE_ACCEPTED  = 2;
+    const RESPONSE_DECLINED  = 3;
+
+    /**
      * Sort by task name.
      */
     const SORT_NAME = 'name';
@@ -1727,6 +1734,29 @@ class Nag
         }
 
         return array();
+    }
+
+    /**
+     * Maps an iCalendar attendee response string to the corresponding
+     * Nag value.
+     *
+     * @param string $response  The attendee response.
+     *
+     * @return string  The Nag response value.
+     */
+    public static function responseFromICal($response)
+    {
+        switch (Horde_String::upper($response)) {
+        case 'ACCEPTED':
+            return self::RESPONSE_ACCEPTED;
+
+        case 'DECLINED':
+            return self::RESPONSE_DECLINED;
+
+        case 'NEEDS-ACTION':
+        default:
+            return self::RESPONSE_NONE;
+        }
     }
 
 }
