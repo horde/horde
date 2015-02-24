@@ -32,6 +32,12 @@
   <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
  </tr>
  <tr>
+  <td class="horde-label"><?php echo _("Organizer") ?>:</td>
+  <td>
+    <?php echo Nag::formatOrganizer($task->organizer, true) ?>
+  </td>
+ </tr>
+ <tr>
   <td class="horde-label"><?php echo _("Private?") ?>:</td>
   <td>
    <?php echo $task->private ? Horde::img('checked.png', _("Private")) : Horde::img('unchecked.png', _("Not Private")) ?>
@@ -66,12 +72,6 @@
    <?php endif ?>
   </td>
  </tr>
- <tr>
-   <td class="horde-label"><?php echo _("Organizer") ?>:</td>
-   <td>
-     <?php echo Nag::formatOrganizer($task->organizer, true) ?>
-   </td>
-  </tr>
 <?php if ($task->created): ?>
  <tr>
   <td class="horde-label"><?php echo _("Created") ?>:</td>
