@@ -252,6 +252,7 @@ class Nag_Api extends Horde_Registry_Api
                 if (is_null($sender) || $sender == $attendee) {
                     $task->status = Nag::responseFromICal($atparms[$index]['PARTSTAT']);
                     $found = true;
+                    break;
                 } else {
                     $error = _("The attendee hasn't been updated because the update was not sent from the attendee.");
                 }
