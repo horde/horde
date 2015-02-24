@@ -247,8 +247,9 @@ class Nag_Api extends Horde_Registry_Api
                 $attendee = str_ireplace('mailto:', '', $attendee);
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
             }
-
-            if ($task->assignee == $attendee) {
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($task->assignee);
+            $all_addrs = $identity->getAll('from_addr');
+            if (in_array($attendee, $all_addrs)) {
                 if (is_null($sender) || $sender == $attendee) {
                     $task->status = Nag::responseFromICal($atparms[$index]['PARTSTAT']);
                     $found = true;
