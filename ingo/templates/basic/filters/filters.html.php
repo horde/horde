@@ -103,7 +103,3 @@ $enable_img = $this->hordeImage('enable.png');
  </p>
 </form>
 <?php endif; ?>
-
-<div id="filtersSave" style="display:none">
- <span><?php echo _("Saving...") ?></span>
-</div>
