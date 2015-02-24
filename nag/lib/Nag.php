@@ -19,6 +19,11 @@ class Nag
     const RESPONSE_ACCEPTED  = 2;
     const RESPONSE_DECLINED  = 3;
 
+    /** iTip requests */
+    const ITIP_REQUEST = 1;
+    const ITIP_CANCEL  = 2;
+    const RANGE_THISANDFUTURE = 'THISANDFUTURE';
+
     /**
      * Sort by task name.
      */
@@ -1756,6 +1761,177 @@ class Nag
         case 'NEEDS-ACTION':
         default:
             return self::RESPONSE_NONE;
+        }
+    }
+
+    /**
+     * Sends out iTip task notification to the assignee.
+     *
+     * Can be used to send task invitations, updates, and cancellations.
+     *
+     * @param Nag_Task $task  The task in question.
+     * @param Horde_Notification_Handler $notification
+     *        A notification object used to show result status.
+     * @param integer $action
+     *        The type of notification to send. One of the Nag::ITIP_* values.
+     * @param Horde_Date $instance
+     *        If cancelling a single instance of a recurring task, the date of
+     *        this instance.
+     * @param  string $range  The range parameter if this is a recurring event.
+     *                        Possible values are self::RANGE_THISANDFUTURE
+     */
+    public static function sendITipNotifications(
+        Nag_Task $task, Horde_Notification_Handler $notification,
+        $action, Horde_Date $instance = null, $range = null)
+    {
+        global $injector, $registry, $nag_shares;
+
+        Horde::debug($task);
+        if (!$task->assignee) {
+            return;
+        }
+
+        $ident = $injector->getInstance('Horde_Core_Factory_Identity')->create($task->creator);
+        if (!$ident->getValue('from_addr')) {
+            $notification->push(sprintf(_("You do not have an email address configured in your Personal Information Preferences. You must set one %shere%s before event notifications can be sent."), $registry->getServiceLink('prefs', 'kronolith')->add(array('app' => 'horde', 'group' => 'identities'))->link(), '</a>'), 'horde.error', array('content.raw'));
+            return;
+        }
+
+        // Generate image mime part first and only once, because we
+        // need the Content-ID.
+        $image = self::getImagePart('big_invitation.png');
+        $share = $nag_shares->getShare($task->tasklist);
+        $view = new Horde_View(array('templatePath' => NAG_TEMPLATES . '/itip'));
+        new Horde_View_Helper_Text($view);
+        $view->identity = $ident;
+        $view->task = $task;
+        $view->imageId = $image->getContentId();
+
+        $ident_assignee = $injector->getInstance('Horde_Core_Factory_Identity')->create($task->assignee);
+        $email = $ident_assignee->getValue('from_addr');
+        if (strpos($email, '@') === false) {
+            continue;
+        }
+
+       /* Determine all notification-specific strings. */
+       switch ($action) {
+       case self::ITIP_CANCEL:
+            /* Cancellation. */
+            $method = 'CANCEL';
+            $filename = 'task-cancellation.ics';
+            $view->subject = sprintf(_("Cancelled: %s"), $task->name);
+            if (empty($instance)) {
+                $view->header = sprintf(_("%s has cancelled \"%s\"."), $ident->getName(), $task->name);
+            } else {
+                $view->header = sprintf(_("%s has cancelled an instance of the recurring \"%s\"."), $ident->getName(), $task->name);
+            }
+            break;
+        case self::ITIP_REQUEST:
+        default:
+            $method = 'REQUEST';
+            if (empty($task->status) || $task->status == self::RESPONSE_NONE) {
+                /* Invitation. */
+                $filename = 'task-invitation.ics';
+                $view->subject = $task->name;
+                $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $task->name);
+            } else {
+                /* Update. */
+                $filename = 'task-update.ics';
+                $view->subject = sprintf(_("Updated: %s."), $task->name);
+                $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $task->name);
+            }
+            Horde::debug($view);
+            break;
+        }
+        $view->attendees = $email;
+        $view->organizer = $registry->convertUserName($task->creator, false);
+        if ($action == self::ITIP_REQUEST) {
+            // @todo
+            // $attend_link = Horde::url('attend.php', true, -1)
+            //     ->add(array('c' => $task->calendar,
+            //                 'e' => $task->id,
+            //                 'u' => $email));
+            // $view->linkAccept    = (string)$attend_link->add('a', 'accept');
+            // $view->linkTentative = (string)$attend_link->add('a', 'tentative');
+            // $view->linkDecline   = (string)$attend_link->add('a', 'decline');
+        }
+
+        /* Build the iCalendar data */
+        $iCal = new Horde_Icalendar();
+        $iCal->setAttribute('METHOD', $method);
+        $vevent = $task->toiCalendar($iCal);
+        // @todo
+        // if ($action == self::ITIP_CANCEL && !empty($instance)) {
+        //     // Recurring event instance deletion, need to specify the
+        //     // RECURRENCE-ID but NOT the EXDATE.
+        //     foreach($vevent as &$ve) {
+        //         try {
+        //             $uid = $ve->getAttribute('UID');
+        //         } catch (Horde_Icalendar_Exception $e) {
+        //             continue;
+        //         }
+        //         if ($task->uid == $uid) {
+        //             $ve->setAttribute('RECURRENCE-ID', $instance);
+        //             if (!empty($range)) {
+        //                 $ve->setParameter('RECURRENCE-ID', array('RANGE' => $range));
+        //             }
+        //             $ve->setAttribute('DTSTART', $instance, array(), false);
+        //             $diff = $task->end->timestamp() - $task->start->timestamp();
+        //             $end = clone $instance;
+        //             $end->sec += $diff;
+        //             $ve->setAttribute('DTEND', $end, array(), false);
+        //             $ve->removeAttribute('EXDATE');
+        //             break;
+        //         }
+        //     }
+        // }
+        $iCal->addComponent($vevent);
+
+        /* text/calendar part */
+        $ics = new Horde_Mime_Part();
+        $ics->setType('text/calendar');
+        $ics->setContents($iCal->exportvCalendar());
+        $ics->setName($filename);
+        $ics->setContentTypeParameter('METHOD', $method);
+        $ics->setCharset('UTF-8');
+        $ics->setEOL("\r\n");
+
+        /* application/ics part */
+        $ics2 = clone $ics;
+        $ics2->setType('application/ics');
+
+        /* multipart/mixed part */
+        $multipart = new Horde_Mime_Part();
+        $multipart->setType('multipart/mixed');
+        $inner = self::buildMimeMessage($view, 'notification', $image);
+        $inner->addPart($ics);
+        $multipart->addPart($inner);
+        $multipart->addPart($ics2);
+
+        // @todo
+        $recipient = new Horde_Mail_Rfc822_Address($email);
+        // if (!empty($status['name'])) {
+        //     $recipient->personal = $status['name'];
+        // }
+
+        $mail = new Horde_Mime_Mail(
+            array('Subject' => $view->subject,
+                  'To' => $recipient,
+                  'From' => $ident->getDefaultFromAddress(true),
+                  'User-Agent' => 'Nag ' . $registry->getVersion()));
+        $mail->setBasePart($multipart);
+
+        try {
+            $mail->send($injector->getInstance('Horde_Mail'));
+            $notification->push(
+                sprintf(_("The task request notification to %s was successfully sent."), $recipient),
+                'horde.success'
+            );
+        } catch (Horde_Mime_Exception $e) {
+            $notification->push(
+                sprintf(_("There was an error sending a task request notification to %s: %s"), $recipient, $e->getMessage(), $e->getCode()),
+                'horde.error'
+            );
         }
     }
 

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-02-19</date>
+ <date>2015-02-24</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -456,6 +456,8 @@
     </dir> <!-- /templates/view -->
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
+    <file name="notification.html.php" role="horde" />
+    <file name="notification.plain.php" role="horde" />
     <file name="quick.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -513,8 +515,12 @@
       <file name="add.png" role="horde" />
       <file name="alarm.png" role="horde" />
       <file name="alarm_small.png" role="horde" />
+      <file name="attendee-accepted.png" role="horde" />
+      <file name="attendee-declined.png" role="horde" />
+      <file name="attendee-none.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
+      <file name="big_invitation.png" role="horde" />
       <file name="checked.png" role="horde" />
       <file name="complete.png" role="horde" />
       <file name="delete.png" role="horde" />
@@ -954,6 +960,8 @@
    <install as="nag/tasks/index.php" name="tasks/index.php" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
+   <install as="nag/templates/notification.html.php" name="templates/notification.html.php" />
+   <install as="nag/templates/notification.plain.php" name="templates/notification.plain.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
@@ -989,8 +997,12 @@
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
    <install as="nag/themes/default/graphics/alarm_small.png" name="themes/default/graphics/alarm_small.png" />
+   <install as="nag/themes/default/graphics/attendee-accepted.png" name="themes/default/graphics/attendee-accepted.png" />
+   <install as="nag/themes/default/graphics/attendee-declined.png" name="themes/default/graphics/attendee-declined.png" />
+   <install as="nag/themes/default/graphics/attendee-none.png" name="themes/default/graphics/attendee-none.png" />
    <install as="nag/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="nag/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
+   <install as="nag/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/complete.png" name="themes/default/graphics/complete.png" />
    <install as="nag/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
@@ -1626,7 +1638,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-02-19</date>
+   <date>2015-02-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fall back to sort by name if sort criteria are equal.

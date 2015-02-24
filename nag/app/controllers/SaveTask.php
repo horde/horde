@@ -91,6 +91,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
+            Nag::sendITipNotifications($storage->get($newid[0]), $notification, Nag::ITIP_REQUEST);
         }
 
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
