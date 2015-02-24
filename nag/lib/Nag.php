@@ -913,7 +913,7 @@ class Nag
             return;
         }
         $rfc = new Horde_Mail_Rfc822();
-        $list = $rfc->parseAddressList(str_replace('mailto:', '', $organizer), array('limit' => 1));
+        $list = $rfc->parseAddressList(str_ireplace('mailto:', '', $organizer), array('limit' => 1));
         if (empty($list)) {
             return;
         }
