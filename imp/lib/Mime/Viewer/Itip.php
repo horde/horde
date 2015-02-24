@@ -27,6 +27,10 @@
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 {
+    const AUTO_UPDATE_EVENT_REPLY = 'auto_update_eventreply';
+    const AUTO_UPDATE_FB_PUBLISH  = 'auto_update_fbpublish';
+    const AUTO_UPDATE_FB_REPLY    = 'auto_update_fbreply';
+
     /**
      * This driver's display capabilities.
      *
@@ -225,7 +229,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'PUBLISH':
         case 'REPLY':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                if ($this->_autoUpdateReply(($method == 'PUBLISH') ? 'auto_update_fbpublish' : 'auto_update_fbreply', $sender)) {
+                if ($this->_autoUpdateReply(($method == 'PUBLISH') ? self::AUTO_UPDATE_FB_PUBLISH : self::AUTO_UPDATE_EVENT_REPLY, $sender)) {
                     try {
                         $registry->call('calendar/import_vfreebusy', array($vfb));
                         $notification->push(_("The user's free/busy information was sucessfully stored."), 'horde.success');
@@ -346,7 +350,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 ? $from->getAddressList(true)->first()->bare_address
                 : null;
             if ($registry->hasMethod('calendar/updateAttendee') &&
-                $this->_autoUpdateReply('auto_update_eventreply', $sender)) {
+                $this->_autoUpdateReply(self::AUTO_UPDATE_EVENT_REPLY, $sender)) {
                 try {
                     $registry->call('calendar/updateAttendee', array(
                         $vevent,
