@@ -1949,10 +1949,8 @@ class Kronolith
                 break;
             }
 
-            if ($event->attendees) {
-                $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
-                $view->organizer = $registry->convertUserName($event->creator, false);
-            }
+            $view->attendees = strval(self::getAttendeeEmailList($event->attendees));
+            $view->organizer = $registry->convertUserName($event->creator, false);
 
             if ($action == self::ITIP_REQUEST) {
                 $attend_link = Horde::url('attend.php', true, -1)
