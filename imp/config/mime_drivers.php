@@ -262,7 +262,17 @@ $mime_drivers = array(
          *            automatically updated. All other domains require the
          *            free/busy data to be explicitly updated by user
          *            action. */
-        'auto_update_fbreply' => false
+        'auto_update_fbreply' => false,
+
+        /* How task replies are handled when a user opens the message.
+         *   - false: Reply status is never automatically updated; requires
+         *            explicit action by user.
+         *   - true: Reply status is always automatically updated.
+         *   - Array: An array of domains for which replies are always
+         *            automatically updated. All other domains require the
+         *            reply data to be explicitly updated by user
+         *            action. */
+        'auto_update_taskreply' => false,
     ),
 
     /* Audio data. */
