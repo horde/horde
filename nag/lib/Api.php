@@ -212,8 +212,9 @@ class Nag_Api extends Horde_Registry_Api
             throw new Kronolith_Exception($e);
         }
 
-        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
-        $task = $factory->create('')->getByUID($uid);
+        $task = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create('')->getByUID($uid);
         $taskId = $task->id;
         $owner = $task->owner;
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::EDIT)) {
