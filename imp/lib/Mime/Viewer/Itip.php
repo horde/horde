@@ -851,6 +851,14 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     }
 
     /**
+     * Determine if we are going to auto-update the reply.
+     *
+     * @param string $type    The type of reply. Must match one of the
+     *                        'auto_update_*' configuration keys in the iTip
+     *                        mime viewer configuration.
+     * @param string $sender  The sender.
+     *
+     * @return boolean
      */
     protected function _autoUpdateReply($type, $sender)
     {
