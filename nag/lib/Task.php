@@ -1030,7 +1030,8 @@ class Nag_Task
             'private' => $this->private,
             'recurrence' => $this->recurrence,
             'tags' => $this->tags,
-            'organizer' => $this->organizer);
+            'organizer' => $this->organizer,
+            'status' => $this->status);
 
         return $hash;
     }

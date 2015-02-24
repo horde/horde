@@ -143,7 +143,7 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
-            . 'task_organizer, task_recurtype, task_recurinterval, task_recurenddate, '
+            . 'task_organizer, task_status, task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
             . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -164,7 +164,8 @@ class Nag_Driver_Sql extends Nag_Driver
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         (int)$task['private'],
                         $task['parent'],
-                        $task['organizer']);
+                        $task['organizer'],
+                        $task['status']);
 
         $this->_addRecurrenceFields($values, $task);
 
@@ -227,6 +228,7 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_parent = ?, ' .
                  'task_private = ?, ' .
                  'task_organizer = ?, ' .
+                 'task_status = ?, ' .
                  'task_recurtype = ?, ' .
                  'task_recurinterval = ?, ' .
                  'task_recurenddate = ?, ' .
@@ -250,7 +252,8 @@ class Nag_Driver_Sql extends Nag_Driver
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         $task['parent'],
                         (int)$task['private'],
-                        $task['organizer']);
+                        $task['organizer'],
+                        $task['status']);
         $this->_addRecurrenceFields($values, $task);
         $values[] = $this->_tasklist;
         $values[] = $taskId;
@@ -604,7 +607,8 @@ class Nag_Driver_Sql extends Nag_Driver
             'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
             'private' => $row['task_private'],
             'recurrence' => $recurrence,
-            'organizer' => $row['task_organizer']
+            'organizer' => $row['task_organizer'],
+            'status' => $row['task_status']
         );
 
         if ($include_history) {

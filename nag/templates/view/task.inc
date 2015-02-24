@@ -29,7 +29,7 @@
 <table cellspacing="0" width="100%">
  <tr>
   <td class="horde-label"><?php echo _("Assignee") ?>:</td>
-  <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+  <td width="100%" class="nag-status-<?php echo $task->status ?>"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
  </tr>
  <tr>
   <td class="horde-label"><?php echo _("Organizer") ?>:</td>
