@@ -2850,6 +2850,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $conf;
 
+        if (empty($conf['compose']['link_attachments'])) {
+            return;
+        }
+
         $link_all = false;
         $linked = array();
 
