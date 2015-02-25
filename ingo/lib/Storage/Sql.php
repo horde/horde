@@ -362,7 +362,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
 
             $this->_db->beginDbTransaction();
             try {
-                foreach ($this->_filters as $key => $val) {
+                foreach ($this->_rules as $key => $val) {
                     $this->_db->update($query, array($key, $val->uid));
                 }
             } catch (Horde_Db_Exception $e) {
