@@ -64,7 +64,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
             throw new Ingo_Exception($e);
         }
 
-        $rules = array();
         $user = Ingo::getUser();
 
         foreach ($result as $row) {

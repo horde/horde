@@ -56,7 +56,7 @@ class Ingo_Block_Overview extends Horde_Core_Block
                 ? _("inactive")
                 : _("active");
 
-            switch (get_class($class)) {
+            switch (get_class($rule)) {
             case 'Ingo_Rule_System_Vacation':
                 $html .= '<tr><td>' .
                     '<span class="iconImg vacationImg"></span>' .

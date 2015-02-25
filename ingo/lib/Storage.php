@@ -20,6 +20,8 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
+ *
+ * @property-read mixed $max_rules  The value of the max_rules permission.
  */
 abstract class Ingo_Storage
 implements Countable, IteratorAggregate
@@ -57,6 +59,19 @@ implements Countable, IteratorAggregate
     public function __construct(array $params = array())
     {
         $this->_params = $params;
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        global $injector;
+
+        switch ($name) {
+        case 'max_rules':
+            return $injector->getInstance('Horde_Core_Perms')
+                ->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+        }
     }
 
     /**
@@ -155,12 +170,9 @@ implements Countable, IteratorAggregate
      */
     public function maxRules()
     {
-        global $injector;
-
         $this->_load();
 
-        $max = $injector->getInstance('Horde_Core_Perms')
-            ->hasAppPermission(Ingo_Perms::getPerm('max_rules'));
+        $max = $this->max_rules;
 
         if ($max === 0) {
             return self::MAX_NONE;
@@ -287,7 +299,7 @@ implements Countable, IteratorAggregate
     {
         $this->_load();
 
-        foreach ($this->_rules as $key => $val) {
+        foreach ($this->_rules as $val) {
             if ($val->uid == $uid) {
                 return $val;
             }

@@ -103,7 +103,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     Horde::permissionDeniedError(
                         'ingo',
                         'max_rules',
-                        sprintf(_("You are not allowed to create more than %d rules."), $max)
+                        sprintf(_("You are not allowed to create more than %d rules."), $ingo_storage->max_rules)
                     );
                     break 2;
                 }
