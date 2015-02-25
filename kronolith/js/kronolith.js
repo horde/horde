@@ -3578,7 +3578,6 @@ KronolithCore = {
         this.groupLoading = true;
         params.each(function(param) {
             var elm = $(param[0]), options = elm.childElements();
-            options.shift();
             options.invoke('remove');
             elm.up('form').disable();
         });
