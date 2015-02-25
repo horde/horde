@@ -3793,7 +3793,8 @@ KronolithCore = {
                 var color = {
                     backgroundColor: cal.bg,
                     color: cal.fg
-                };
+                },
+                legendSpan;
                 id = data.calendar;
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                     if (element.retrieve('calendar') == id) {
@@ -3809,10 +3810,14 @@ KronolithCore = {
                         el.setStyle(color);
                     }
                 });
-                $('kronolith-legend').select('span').find(function(span) {
-                    return span.retrieve('calendarclass') == type &&
-                        span.retrieve('calendar') == id;
-                }).setStyle(color).update(cal.name.escapeHTML());
+                legendSpan = $('kronolith-legend').select('span')
+                    .find(function(span) {
+                        return span.retrieve('calendarclass') == type &&
+                            span.retrieve('calendar') == id;
+                    });
+                if (legendSpan) {
+                    legendSpan.setStyle(color).update(cal.name.escapeHTML());
+                }
                 Kronolith.conf.calendars[type][id] = cal;
             } else {
                 id = r.id;
