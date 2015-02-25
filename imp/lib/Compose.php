@@ -2938,7 +2938,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         foreach (iterator_to_array($this) as $key => $val) {
             if ($link_all && !$val->linked) {
-                $val = new IMP_Compose_Attachment($this, $val->getPart(), $val->storage->getTempFile());
+                $val = new IMP_Compose_Attachment(
+                    $this,
+                    $val->getPart(),
+                    $val->storage->getTempFile()
+                );
                 $val->forceLinked = true;
                 unset($this[$key]);
                 $this[$key] = $val;

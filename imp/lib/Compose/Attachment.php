@@ -124,7 +124,11 @@ class IMP_Compose_Attachment implements Serializable
             $linked = $this->linked
                 ? 'linked'
                 : (is_null($this->_linked) ? null : 'atc');
-            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid, $linked);
+            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(
+                null,
+                $this->_uuid,
+                $linked
+            );
 
         case 'tmpfile':
             return $this->storage->getTempFile();
