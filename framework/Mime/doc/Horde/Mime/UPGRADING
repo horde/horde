@@ -21,11 +21,22 @@ Upgrading to 2.8
 
       These static properties are deprecated.
 
+    - Iteration
+
+      The object can now be iterated through to access the subparts.
+      partIterator() can be used to obtain a RecursiveIteratorIterator that
+      will iterator through all descendants.
+
     - clearContentTypeParameter()
 
       This method is deprecated. Use Horde_Mime_Part#setContentTypeParameter()
       instead with null as the second argument to delete a Content-Type
       parameter.
+
+    - contentTypeMap()
+
+      This method is deprecated. Use partIterator() to recursively iterate
+      through the parts instead.
 
     - setContentTypeParameter()
 

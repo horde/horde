@@ -21,7 +21,8 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Mime
  */
-class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
+class Horde_Mime_Part
+implements ArrayAccess, Countable, RecursiveIterator, Serializable
 {
     /* Serialized version. */
     const VERSION = 2;
@@ -1130,8 +1131,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
                     $boundary = trim($this->getContentTypeParameter('boundary'), '"');
 
-                    reset($this->_parts);
-                    while (list(,$part) = each($this->_parts)) {
+                    foreach ($this as $part) {
                         $parts[] = $eol . '--' . $boundary . $eol;
                         $tmp = $part->toString($options);
                         if ($part->getEOL() != $eol) {
@@ -1330,8 +1330,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
 
             $bytes = 0;
-            reset($this->_parts);
-            while (list(,$part) = each($this->_parts)) {
+            foreach ($this as $part) {
                 $bytes += $part->getBytes($approx);
             }
             return $bytes;
@@ -1478,8 +1477,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                     $this->setMimeId($id . '0');
                 }
                 $i = 1;
-                foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($id . ($i++));
+                foreach ($this as $val) {
+                    $val->buildMimeIds($id . ($i++));
                 }
             }
         } else {
@@ -1488,57 +1487,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 ? ((substr($id, -2) === '.0') ? substr($id, 0, -1) : ($id . '.'))
                 : '';
 
-            if ($this->getType() == 'message/rfc822') {
-                if (count($this->_parts)) {
-                    reset($this->_parts);
-                    $this->_parts[key($this->_parts)]->buildMimeIds($id, true);
-                }
-            } elseif (!empty($this->_parts)) {
-                $i = 1;
-                foreach (array_keys($this->_parts) as $val) {
-                    $this->_parts[$val]->buildMimeIds($id . ($i++));
+            if (count($this)) {
+                if ($this->getType() == 'message/rfc822') {
+                    $this->rewind();
+                    $this->current()->buildMimeIds($id, true);
+                } else {
+                    $i = 1;
+                    foreach ($this as $val) {
+                        $val->buildMimeIds($id . ($i++));
+                    }
                 }
             }
         }
 
         $this->_status &= ~self::STATUS_REINDEX;
-    }
-
-    /**
-     * Returns a mapping of all MIME IDs to their content-types.
-     *
-     * @param boolean $sort  Sort by MIME ID?
-     *
-     * @return array  Keys: MIME ID; values: content type.
-     */
-    public function contentTypeMap($sort = true)
-    {
-        $map = array($this->getMimeId() => $this->getType());
-        foreach ($this->_parts as $val) {
-            $map += $val->contentTypeMap(false);
-        }
-
-        if ($sort) {
-            uksort($map, array($this, '_contentTypeMapSort'));
-        }
-
-        return $map;
-    }
-
-    /**
-      */
-    protected function _contentTypeMapSort($a, $b)
-    {
-        if (substr($a, -2) === '.0') {
-            if (substr($a, 0, -2) == $b) {
-                return -1;
-            }
-        } elseif ((substr($b, 0, -2) === '.0') &&
-                  (substr($b, 0, -2) == $a)) {
-            return 1;
-        }
-
-        return strnatcmp($a, $b);
     }
 
     /**
@@ -1692,20 +1654,40 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function findBody($subtype = null)
     {
-        $initial_id = $this->getMimeId();
         $this->buildMimeIds();
 
-        foreach ($this->contentTypeMap() as $mime_id => $mime_type) {
-            if ((strpos($mime_type, 'text/') === 0) &&
-                (!$initial_id || (intval($mime_id) == 1)) &&
-                (is_null($subtype) || (substr($mime_type, 5) == $subtype)) &&
-                ($part = $this->getPart($mime_id)) &&
-                ($part->getDisposition() != 'attachment')) {
-                return $mime_id;
+        foreach ($this->partIterator() as $val) {
+            $id = $val->getMimeId();
+
+            if (($val->getPrimaryType() == 'text') &&
+                ((intval($id) === 1) || !$this->getMimeId()) &&
+                (is_null($subtype) || ($val->getSubType() == $subtype)) &&
+                ($val->getDisposition() !== 'attachment')) {
+                return $id;
             }
         }
 
         return null;
+    }
+
+    /**
+     * Returns the recursive iterator needed to iterate through this part.
+     * The first entry will be this part itself.
+     *
+     * @since 2.8.0
+     *
+     * @return Iterator  Recursive Iterator.
+     */
+    public function partIterator()
+    {
+        $i = new AppendIterator();
+        $i->append(new ArrayIterator(array($this)));
+        $i->append(new RecursiveIteratorIterator(
+            $this,
+            RecursiveIteratorIterator::SELF_FIRST
+        ));
+
+        return $i;
     }
 
     /**
@@ -2225,6 +2207,70 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         return count($this->_parts);
     }
 
+    /* RecursiveIterator methods. */
+
+    /**
+     * @since 2.8.0
+     */
+    public function current()
+    {
+        return (($key = $this->key()) !== null)
+            ? $this->_parts[$key]
+            : null;
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function key()
+    {
+        return (isset($this->_temp['iterate']) && isset($this->_parts[$this->_temp['iterate']]))
+            ? $this->_temp['iterate']
+            : null;
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function next()
+    {
+        ++$this->_temp['iterate'];
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function rewind()
+    {
+        $this->_parts = array_values($this->_parts);
+        reset($this->_parts);
+        $this->_temp['iterate'] = key($this->_parts);
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function valid()
+    {
+        return ($this->key() !== null);
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function hasChildren()
+    {
+        return (($curr = $this->current()) && count($curr));
+    }
+
+    /**
+     * @since 2.8.0
+     */
+    public function getChildren()
+    {
+        return $this->current();
+    }
+
     /* Serializable methods. */
 
     /**
@@ -2330,6 +2376,20 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public function clearContentTypeParameter($label)
     {
         $this->setContentTypeParam($label, null);
+    }
+
+    /**
+     * @deprecated  Use iterator instead.
+     */
+    public function contentTypeMap($sort = true)
+    {
+        $map = array();
+
+        foreach ($this->partIterator() as $val) {
+            $map[$val->getMimeId()] = $val->getType();
+        }
+
+        return $map;
     }
 
 }

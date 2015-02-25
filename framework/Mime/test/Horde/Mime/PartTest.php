@@ -926,6 +926,34 @@ C
         );
     }
 
+    public function testIteration()
+    {
+        $iterator = $this->_getTestPart()->partIterator();
+
+        $ids = array(
+            '0',
+            '1',
+            '2',
+            '3',
+            '3.1',
+            '3.2',
+            '3.2.1',
+            '3.2.2'
+        );
+        reset($ids);
+
+        foreach ($iterator as $val) {
+            $this->assertEquals(
+                current($ids),
+                $val->getMimeId()
+            );
+
+            next($ids);
+        }
+
+        $this->assertFalse(current($ids));
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
@@ -948,6 +976,20 @@ C
         $part3_1->setType('text/plain');
         $part3_1->setContents('Test 2');
         $part3->addPart($part3_1);
+
+        $part3_2 = new Horde_Mime_Part();
+        $part3_2->setType('multipart/mixed');
+        $part3->addPart($part3_2);
+
+        $part3_2_1 = new Horde_Mime_Part();
+        $part3_2_1->setType('text/plain');
+        $part3_2_1->setContents('Test 3.2.1');
+        $part3_2->addPart($part3_2_1);
+
+        $part3_2_2 = new Horde_Mime_Part();
+        $part3_2_2->setType('application/octet-stream');
+        $part3_2_2->setContents('Test 3.2.2');
+        $part3_2->addPart($part3_2_2);
 
         $part->buildMimeIds();
 

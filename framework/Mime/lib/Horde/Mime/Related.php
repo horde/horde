@@ -49,15 +49,18 @@ class Horde_Mime_Related implements IteratorAggregate
             throw new InvalidArgumentException('MIME part must be of type multipart/related');
         }
 
-        $ids = array_keys($mime_part->contentTypeMap());
-        $related_id = $mime_part->getMimeId();
         $id = null;
+        $ids = array();
+        $related_id = $mime_part->getMimeId();
 
         /* Build a list of parts -> CIDs. */
-        foreach ($ids as $val) {
-            if ((strcmp($related_id, $val) !== 0) &&
-                ($cid = $mime_part->getPart($val)->getContentId())) {
-                $this->_cids[$val] = $cid;
+        foreach ($mime_part->partIterator() as $val) {
+            $part_id = $val->getMimeId();
+            $ids[] = $part_id;
+
+            if ((strcmp($related_id, $part_id) !== 0) &&
+                ($cid = $val->getContentId())) {
+                $this->_cids[$part_id] = $cid;
             }
         }
 
