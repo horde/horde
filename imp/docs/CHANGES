@@ -58,9 +58,18 @@ v7.0.0-git
 
 
 ------
+v6.2.8
+------
+
+[mms] Don't honor linked attachment limit configuration options if linked
+      attachments are disabled (Bug #13665).
+
+
+------
 v6.2.7
 ------
 
+[jan] Fix regression with not being able to list users (Bug #13808).
 [mms] Fix rebuilding the folder tree translations when the language is changed
       in a session (Bug #13821).
 
