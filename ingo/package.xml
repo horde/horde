@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-24</date>
+ <date>2015-02-25</date>
  <version>
   <release>3.3.0</release>
   <api>3.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.
@@ -215,6 +216,7 @@
      </dir> <!-- /lib/Storage/FilterIterator -->
      <file name="FilterIterator.php" role="horde" />
      <file name="Memory.php" role="horde" />
+     <file name="Mongo.php" role="horde" />
      <file name="Prefs.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Storage -->
@@ -796,6 +798,7 @@
    <install as="ingo/lib/Script/Sieve/Test/True.php" name="lib/Script/Sieve/Test/True.php" />
    <install as="ingo/lib/Storage/FilterIterator.php" name="lib/Storage/FilterIterator.php" />
    <install as="ingo/lib/Storage/Memory.php" name="lib/Storage/Memory.php" />
+   <install as="ingo/lib/Storage/Mongo.php" name="lib/Storage/Mongo.php" />
    <install as="ingo/lib/Storage/Prefs.php" name="lib/Storage/Prefs.php" />
    <install as="ingo/lib/Storage/Sql.php" name="lib/Storage/Sql.php" />
    <install as="ingo/lib/Storage/FilterIterator/Match.php" name="lib/Storage/FilterIterator/Match.php" />
@@ -1572,7 +1575,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-02-24</date>
+   <date>2015-02-25</date>
    <version>
     <release>3.3.0</release>
     <api>3.2.0</api>
@@ -1583,6 +1586,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Added a NoSQL (MongoDB) driver for the storage backend.
 * [mms] Rule code has been separated from the storage backend drivers.
 * [jan] Use Horde\ManageSieve instead of Net_Sieve.
 * [mms] Rearrange the default order of filter rules.

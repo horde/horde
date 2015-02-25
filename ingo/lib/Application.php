@@ -383,4 +383,19 @@ class Ingo_Application extends Horde_Registry_Application
         return $this->_rulesets;
     }
 
+    /* NoSQL methods. */
+
+    /**
+     */
+    public function nosqlDrivers()
+    {
+        global $injector;
+
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+
+        return ($storage instanceof Ingo_Storage_Mongo)
+            ? array($storage)
+            : array();
+    }
+
 }
