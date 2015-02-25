@@ -40,7 +40,7 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
 
         $is_search = false;
         $mbox = IMP_Mailbox::get($args['mbox']);
@@ -188,6 +188,8 @@ class IMP_Ajax_Application_ListMessages
             $injector->getInstance('IMP_Ajax_Queue')->quota($mbox, true);
 
             if (!$mbox->is_imap) {
+                $result->setMetadata('nodeleteshow', 1);
+                $result->setMetadata('noundelete', 1);
                 $result->setMetadata('pop3', 1);
             }
             if ($sortpref->sortby_locked) {
@@ -224,6 +226,13 @@ class IMP_Ajax_Application_ListMessages
                 $result->setMetadata('spam_show', 1);
             }
 
+            if ($prefs->getValue('use_trash')) {
+                $result->setMetadata('nodeleteshow', 1);
+                if (!$mbox->vtrash) {
+                    $result->setMetadata('noundelete', 1);
+                }
+            }
+
             $result->addFlagMetadata();
         }
 
@@ -248,7 +257,8 @@ class IMP_Ajax_Application_ListMessages
         if ($mbox->readonly) {
             $result->setMetadata('readonly', 1);
             $result->setMetadata('nodelete', 1);
-            $result->setMetadata('expunge', 1);
+            $result->setMetadata('nodeleteshow', 1);
+            $result->setMetadata('noundelete', 1);
         } else {
             if (!$mbox->access_deletemsgs) {
                 $result->setMetadata('nodelete', 1);

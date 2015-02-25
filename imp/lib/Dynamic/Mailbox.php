@@ -343,9 +343,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if (!$registry->hasLink('mail/newEmailFilter')) {
             unset($context['ctx_message']['addfilter']);
         }
-        if ($prefs->getValue('use_trash')) {
-            unset($context['ctx_message']['undelete']);
-        }
         if (empty($conf['user']['allow_view_source'])) {
             unset($context['ctx_message']['_sub3']);
         }
@@ -439,9 +436,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'clear_sort' => _("Clear Sort")
             )
         );
-        if ($prefs->getValue('use_trash')) {
-            unset($context['ctx_oa']['_sub2']);
-        }
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
         }

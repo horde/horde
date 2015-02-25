@@ -1442,7 +1442,9 @@ var ImpBase = {
                 break;
             }
 
-            tmp = $('ctx_oa_undeleted', 'ctx_oa_blacklist', 'ctx_oa_whitelist');
+            [ $('ctx_oa_undelete') ].invoke(this.viewport.getMetaData('noundelete') ? 'hide' : 'show');
+
+            tmp = $('ctx_oa_blacklist', 'ctx_oa_whitelist');
             sel = this.viewport.getSelected();
 
             if ($('ctx_oa_setflag')) {
@@ -1457,22 +1459,22 @@ var ImpBase = {
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
-            if ((tmp = $('ctx_oa_purge_deleted'))) {
-                if (this.viewport.getMetaData('pop3')) {
-                    tmp.up().hide();
+            tmp = $('ctx_oa_purge_deleted');
+            if (this.viewport.getMetaData('nodeleteshow')) {
+                tmp.up().hide();
+            } else {
+                tmp.up().show();
+                if (this.viewport.getMetaData('noexpunge')) {
+                    tmp.hide();
                 } else {
-                    tmp.up().show();
-                    if (this.viewport.getMetaData('noexpunge')) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                        [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
-                    }
+                    tmp.show();
+                    [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
                 }
             }
 
             if ((tmp = $('ctx_oa_hide_deleted'))) {
-                if (this.isThreadSort() || this.viewport.getMetaData('pop3')) {
+                if (this.isThreadSort() ||
+                    this.viewport.getMetaData('nodeleteshow')) {
                     $(tmp, 'ctx_oa_show_deleted').invoke('hide');
                 } else if (this.viewport.getMetaData('delhide')) {
                     tmp.hide();
@@ -1515,7 +1517,7 @@ var ImpBase = {
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(ImpCore.getPref('preview') ? 'hide' : 'show');
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
-            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('noundelete') ? 'hide' : 'show');
 
             [ $('ctx_message_setflag').up() ].invoke((!this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
