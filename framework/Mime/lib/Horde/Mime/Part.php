@@ -68,46 +68,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     public static $memoryLimit = 2097152;
 
     /**
+     * Default value for this Part's size.
+     *
+     * @var integer
+     */
+    protected $_bytes;
+
+    /**
      * The body of the part. Always stored in binary format.
      *
      * @var resource
      */
     protected $_contents;
-
-    /**
-     * The MIME headers for this part.
-     *
-     * @var Horde_Mime_Headers
-     */
-    protected $_headers;
-
-    /**
-     * Status mask for this part.
-     *
-     * @var integer
-     */
-    protected $_status = 0;
-
-    /**
-     * The desired transfer encoding of this part.
-     *
-     * @var string
-     */
-    protected $_transferEncoding = self::DEFAULT_ENCODING;
-
-    /**
-     * The subparts of this part.
-     *
-     * @var array
-     */
-    protected $_parts = array();
-
-    /**
-     * The MIME ID of this part.
-     *
-     * @var string
-     */
-    protected $_mimeid = null;
 
     /**
      * The sequence to use as EOL for this part.
@@ -122,11 +94,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_eol = self::EOL;
 
     /**
-     * Temporary array.
+     * The MIME headers for this part.
      *
-     * @var array
+     * @var Horde_Mime_Headers
      */
-    protected $_temp = array();
+    protected $_headers;
+
+    /**
+     * The charset to output the headers in.
+     *
+     * @var string
+     */
+    protected $_hdrCharset = null;
 
     /**
      * Metadata.
@@ -136,18 +115,39 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     protected $_metadata = array();
 
     /**
-     * Default value for this Part's size.
-     *
-     * @var integer
-     */
-    protected $_bytes;
-
-    /**
-     * The charset to output the headers in.
+     * The MIME ID of this part.
      *
      * @var string
      */
-    protected $_hdrCharset = null;
+    protected $_mimeid = null;
+
+    /**
+     * The subparts of this part.
+     *
+     * @var array
+     */
+    protected $_parts = array();
+
+    /**
+     * Status mask for this part.
+     *
+     * @var integer
+     */
+    protected $_status = 0;
+
+    /**
+     * Temporary array.
+     *
+     * @var array
+     */
+    protected $_temp = array();
+
+    /**
+     * The desired transfer encoding of this part.
+     *
+     * @var string
+     */
+    protected $_transferEncoding = self::DEFAULT_ENCODING;
 
     /**
      * Constructor.
