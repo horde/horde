@@ -366,6 +366,8 @@ class Horde_Group_Ldap extends Horde_Group_Base
                 $users[] = $user;
             }
             return $users;
+        } catch (Horde_Exception_NotFound $e) {
+            return array();
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Group_Exception($e);
         }
