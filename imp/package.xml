@@ -3772,6 +3772,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix protocol name in POP3 example backend configuration.
 * [mms] Don&apos;t honor linked attachment limit configuration options if linked attachments are disabled (Bug #13665).
    </notes>
   </release>
