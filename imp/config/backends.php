@@ -367,7 +367,7 @@ $servers['pop'] = array(
     'name' => 'POP3 Server',
     'hostspec' => 'localhost',
     'hordeauth' => false,
-    'protocol' => 'pop3',
+    'protocol' => 'pop',
     'port' => 110,
     // Default to secure TLS authentication by default (see RFC 2595 [4]).
     'secure' => 'tls',

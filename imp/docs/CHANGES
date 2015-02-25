@@ -2,6 +2,7 @@
 v6.2.8-git
 ----------
 
+[jan] Fix protocol name in POP3 example backend configuration.
 [mms] Don't honor linked attachment limit configuration options if linked
       attachments are disabled (Bug #13665).
 
