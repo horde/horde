@@ -104,7 +104,6 @@ class IMP_Sentmail_Mongo extends IMP_Sentmail implements Horde_Mongo_Collection_
         $out = array();
 
         try {
-
             $res = $this->_db->aggregate(array(
                 /* Match the query. */
                 array('$match' => $query),
