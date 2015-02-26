@@ -26,6 +26,8 @@ Upgrading to 2.8
       The object can now be iterated through to access the subparts.
       partIterator() can be used to obtain a RecursiveIteratorIterator that
       will iterator through all descendants.
+      The $parent property has been added; it will be set, and is only
+      guaranteed to be accurate, during iteration.
 
     - addPart()
 

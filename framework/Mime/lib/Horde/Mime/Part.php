@@ -69,6 +69,15 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     public static $memoryLimit = 2097152;
 
     /**
+     * Parent object. Value only accurate when iterating.
+     *
+     * @since 2.8.0
+     *
+     * @var Horde_Mime_Part
+     */
+    public $parent = null;
+
+    /**
      * Default value for this Part's size.
      *
      * @var integer
@@ -765,66 +774,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     }
 
     /**
-     * Function used to find a specific MIME part by ID and perform an action
-     * on it.
-     *
-     * @param string $id                  The MIME ID.
-     * @param string $action              The action to perform ('get',
-     *                                    'remove', or 'alter').
-     * @param Horde_Mime_Part $mime_part  The object to use for 'alter'.
-     *
-     * @return mixed  See calling functions.
-     */
-    protected function _partAction($id, $action, $mime_part = null)
-    {
-        $this_id = $this->getMimeId();
-
-        /* Need strcmp() because, e.g., '2.0' == '2'. */
-        if (($action === 'get') && (strcmp($id, $this_id) === 0)) {
-            return $this;
-        }
-
-        if ($this->_status & self::STATUS_REINDEX) {
-            $this->buildMimeIds(is_null($this_id) ? '1' : $this_id);
-        }
-
-        foreach ($this->_parts as $key => $val) {
-            $partid = $val->getMimeId();
-
-            if (($match = (strcmp($id, $partid) === 0)) ||
-                (strpos($id, $partid . '.') === 0) ||
-                (strrchr($partid, '.') === '.0')) {
-                switch ($action) {
-                case 'alter':
-                    if ($match) {
-                        $mime_part->setMimeId($partid);
-                        $this->_parts[$key] = $mime_part;
-                        return true;
-                    }
-                    $val[$id] = $mime_part;
-                    return;
-
-                case 'get':
-                    return $match
-                        ? $val
-                        : $val[$id];
-
-                case 'remove':
-                    if ($match) {
-                        unset($this->_parts[$key]);
-                        $this->_status |= self::STATUS_REINDEX;
-                        return true;
-                    }
-                    unset($val[$id]);
-                    return;
-                }
-            }
-        }
-
-        return ($action === 'get') ? null : false;
-    }
-
-    /**
      * Add/remove a content type parameter to this part.
      *
      * @param string $label  The content-type parameter label.
@@ -1414,6 +1363,8 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function buildMimeIds($id = null, $rfc822 = false)
     {
+        $this->_status &= ~self::STATUS_REINDEX;
+
         if (is_null($id)) {
             $rfc822 = true;
             $id = '';
@@ -1452,8 +1403,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                 }
             }
         }
-
-        $this->_status &= ~self::STATUS_REINDEX;
     }
 
     /**
@@ -2143,7 +2092,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function offsetGet($offset)
     {
-        return $this->_partAction($offset, 'get');
+        foreach ($this->partIterator() as $val) {
+            if (strcmp($offset, $val->getMimeId()) === 0) {
+                return $val;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -2153,8 +2108,15 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         if (is_null($offset)) {
             $this->_parts[] = $value;
             $this->_status |= self::STATUS_REINDEX;
-        } else {
-            $this->_partAction($offset, 'alter', $value);
+        } elseif ($part = $this[$offset]) {
+            if ($part->parent === $this) {
+                if (($k = array_search($part, $this->_parts, true)) !== false) {
+                    $value->setMimeId($part->getMimeId());
+                    $this->_parts[$k] = $value;
+                }
+            } else {
+                $this->parent[$offset] = $value;
+            }
         }
     }
 
@@ -2162,7 +2124,16 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function offsetUnset($offset)
     {
-        $this->_partAction($offset, 'remove');
+        if ($part = $this[$offset]) {
+            if ($part->parent === $this) {
+                if (($k = array_search($part, $this->_parts, true)) !== false) {
+                    unset($this->_parts[$k]);
+                }
+            } else {
+                unset($part->parent[$offset]);
+            }
+            $this->_status |= self::STATUS_REINDEX;
+        }
     }
 
     /* Countable methods. */
@@ -2184,9 +2155,14 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function current()
     {
-        return (($key = $this->key()) !== null)
-            ? $this->_parts[$key]
-            : null;
+        if (($key = $this->key()) === null) {
+            return null;
+        }
+
+        $part = $this->_parts[$key];
+        $part->parent = $this;
+
+        return $part;
     }
 
     /**
@@ -2212,6 +2188,11 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function rewind()
     {
+        if ($this->_status & self::STATUS_REINDEX) {
+            $id = $this->getMimeId();
+            $this->buildMimeIds(is_null($id) ? '1' : $id);
+        }
+
         $this->_parts = array_values($this->_parts);
         reset($this->_parts);
         $this->_temp['iterate'] = key($this->_parts);
