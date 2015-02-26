@@ -1629,7 +1629,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         if (!empty($options['error'])) {
-            set_error_handler(array($this, '_writeStreamErrorHandler'));
+            set_error_handler(function($errstr, $errno) {
+                throw new ErrorException($errstr, $errno);
+            });
             $error = null;
         }
 
@@ -1666,19 +1668,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         return $fp;
-    }
-
-    /**
-     * Error handler for _writeStream().
-     *
-     * @param integer $errno  Error code.
-     * @param string $errstr  Error text.
-     *
-     * @throws ErrorException
-     */
-    protected function _writeStreamErrorHandler($errno, $errstr)
-    {
-        throw new ErrorException($errstr, $errno);
     }
 
     /**
