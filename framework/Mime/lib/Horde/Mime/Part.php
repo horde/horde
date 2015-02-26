@@ -1629,7 +1629,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         if (!empty($options['error'])) {
-            set_error_handler(function($errstr, $errno) {
+            set_error_handler(function($errno, $errstr) {
                 throw new ErrorException($errstr, $errno);
             });
             $error = null;
