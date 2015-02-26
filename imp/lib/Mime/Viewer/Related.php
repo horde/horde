@@ -111,7 +111,7 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
              * is not downloadable and clicking on the MIME part may not
              * produce the desired result in the full display (i.e. HTML parts
              * with related images). */
-            if ($data_id !== $related_id) {
+            if (strcmp($data_id, $related_id) !== 0) {
                 $ret[$related_id] = $ret[$data_id];
                 $ret[$data_id] = null;
             }
@@ -126,7 +126,7 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
         $id_ob = new Horde_Mime_Id($id);
 
         foreach (array_diff(array_keys($ret), $used) as $val) {
-            if (($val !== $id) && !$id_ob->isChild($val)) {
+            if ((strcmp($val, $id) !== 0) && !$id_ob->isChild($val)) {
                 $summary = $this->getConfigParam('imp_contents')->getSummary(
                     $val,
                     IMP_Contents::SUMMARY_SIZE |
