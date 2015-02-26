@@ -178,7 +178,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         }
 
         $imp_contents = $this->getConfigParam('imp_contents');
-        $iterator = $this->_mimepart->partIterator(false);
+        $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
         $base_id = $iterator->current()->getMimeId();
         $iterator->next();
@@ -398,7 +398,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     {
         global $conf, $injector, $prefs, $session;
 
-        $iterator = $this->_mimepart->partIterator(false);
+        $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
         $base_id = $iterator->current()->getMimeId();
         $iterator->next();

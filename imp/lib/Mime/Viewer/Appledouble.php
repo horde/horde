@@ -81,7 +81,7 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
          * means to download. */
 
         /* Display the resource fork download link. */
-        $iterator = $this->_mimepart->partIterator(false);
+        $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
         $mime_id = $iterator->current()->getMimeId();
         $iterator->next();

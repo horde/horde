@@ -2330,7 +2330,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     {
         $map = array();
 
-        foreach ($this->partIterator(false) as $val) {
+        foreach ($this->partIterator() as $val) {
             $map[$val->getMimeId()] = $val->getType();
         }
 

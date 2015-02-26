@@ -252,7 +252,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
      */
     protected function _parseSignedData($sig_only = false)
     {
-        $iterator = $this->_mimepart->partIterator(false);
+        $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
 
         $base_id = $iterator->current()->getMimeId();
