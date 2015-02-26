@@ -76,7 +76,10 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             return array();
         }
 
-        $render = $this->getConfigParam('imp_contents')->renderMIMEPart($id, $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL);
+        $render = $this->getConfigParam('imp_contents')->renderMIMEPart(
+            $id,
+            $inline ? IMP_Contents::RENDER_INLINE : IMP_Contents::RENDER_FULL
+        );
 
         if (!$inline) {
             foreach (array_keys($render) as $key) {
