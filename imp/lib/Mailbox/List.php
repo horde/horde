@@ -254,15 +254,30 @@ implements ArrayAccess, Countable, Iterator, Serializable
             $mbox_ob = IMP_Mailbox::get($mbox);
 
             if ($thread_sort) {
-                $this->_getThread($mbox, $val ? array('search' => $val) : array());
+                $this->_getThread(
+                    $mbox,
+                    $val ? array('search' => $val) : array()
+                );
                 $sorted = $this->_thread[$mbox]->messageList()->ids;
                 if ($sortpref->sortdir) {
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $res = $mbox_ob->imp_imap->search($mbox, $val, array(
-                    'sort' => array($sortpref->sortby)
-                ));
+                try {
+                    $res = $mbox_ob->imp_imap->search($mbox, $val, array(
+                        'sort' => array($sortpref->sortby)
+                    ));
+                } catch (IMP_Imap_Exception $e) {
+                    switch ($e->getCode()) {
+                    case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
+                        if ($this->_mailbox->search) {
+                            /* Ignore non-existent mailboxes when in a search
+                             * mailbox. */
+                            continue 2;
+                        }
+                    }
+                    throw $e;
+                }
                 if ($sortpref->sortdir) {
                     $res['match']->reverse();
                 }
