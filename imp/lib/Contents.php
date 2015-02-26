@@ -1134,7 +1134,11 @@ class IMP_Contents
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('mime-' . $this->getUid(), $renderer, array(
             'nosession' => true
         ));
-        $this->_addTreeNodes($tree, $this->_message);
+
+        foreach ($this->_message->partIterator() as $val) {
+            $this->_addTreeNodes($tree, $val);
+        }
+
         return $tree;
     }
 
@@ -1142,15 +1146,16 @@ class IMP_Contents
      * Adds MIME parts to the tree instance.
      *
      * @param Horde_Tree_Renderer_Base tree   A tree instance.
-     * @param Horde_Mime_Part $part           The MIME part to add to the
-     *                                        tree, including its sub-parts.
-     * @param string $parent                  The parent part's MIME id.
+     * @param Horde_Mime_Part $part           The MIME part to add.
      */
-    protected function _addTreeNodes($tree, $part, $parent = null)
+    protected function _addTreeNodes($tree, $part)
     {
         $mimeid = $part->getMimeId();
 
-        $summary_mask = self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD;
+        $summary_mask = self::SUMMARY_ICON_RAW |
+            self::SUMMARY_DESCRIP_LINK |
+            self::SUMMARY_SIZE |
+            self::SUMMARY_DOWNLOAD;
         if ($GLOBALS['prefs']->getValue('strip_attachments')) {
             $summary_mask += self::SUMMARY_STRIP;
         }
@@ -1159,7 +1164,7 @@ class IMP_Contents
 
         $tree->addNode(array(
             'id' => $mimeid,
-            'parent' => $parent,
+            'parent' => is_null($part->parent) ? null : $part->parent->getMimeId(),
             'label' => sprintf(
                 '%s (%s) %s %s',
                 $summary['description'],
@@ -1172,10 +1177,6 @@ class IMP_Contents
                 'icon' => $summary['icon']
             )
         ));
-
-        foreach ($part->getParts() as $part) {
-            $this->_addTreeNodes($tree, $part, $mimeid);
-        }
     }
 
     /**
