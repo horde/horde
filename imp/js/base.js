@@ -1117,7 +1117,8 @@ var ImpBase = {
         case 'ctx_container_search':
         case 'ctx_mbox_search':
             this.go('search', {
-                mailbox: this.flist.getMbox(e).value()
+                mailbox: this.flist.getMbox(e).value(),
+                subfolder: ~~(id == 'ctx_container_search')
             });
             break;
 
