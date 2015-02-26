@@ -1578,16 +1578,24 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      *
      * @since 2.8.0
      *
-     * @return Iterator  Recursive Iterator.
+     * @param boolean $current  Include the current part as the base?
+     *
+     * @return Iterator  Recursive iterator.
      */
-    public function partIterator()
+    public function partIterator($current = true)
     {
-        $i = new AppendIterator();
-        $i->append(new ArrayIterator(array($this)));
-        $i->append(new RecursiveIteratorIterator(
+        $ri = new RecursiveIteratorIterator(
             $this,
             RecursiveIteratorIterator::SELF_FIRST
-        ));
+        );
+
+        if ($current) {
+            $i = new AppendIterator();
+            $i->append(new ArrayIterator(array($this)));
+            $i->append($ri);
+        } else {
+            $i = $ri;
+        }
 
         return $i;
     }
@@ -2322,7 +2330,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     {
         $map = array();
 
-        foreach ($this->partIterator() as $val) {
+        foreach ($this->partIterator(false) as $val) {
             $map[$val->getMimeId()] = $val->getType();
         }
 
