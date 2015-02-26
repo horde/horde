@@ -252,6 +252,9 @@ class IMP_Search_Query implements Serializable
             $qout = array();
 
             foreach ($this->mboxes as $mbox) {
+                if ($mbox->container) {
+                    continue;
+                }
                 $query = new Horde_Imap_Client_Search_Query();
                 foreach ($this->_criteria as $elt) {
                     $query = $elt->createQuery($mbox, $query);
