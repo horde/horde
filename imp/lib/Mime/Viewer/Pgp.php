@@ -178,9 +178,11 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         }
 
         $imp_contents = $this->getConfigParam('imp_contents');
-        $partlist = array_keys($this->_mimepart->contentTypeMap());
-        $base_id = reset($partlist);
-        $version_id = next($partlist);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+        $base_id = $iterator->current()->getMimeId();
+        $iterator->next();
+        $version_id = $iterator->current()->getMimeId();
 
         $id_ob = new Horde_Mime_Id($version_id);
         $data_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -396,9 +398,11 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     {
         global $conf, $injector, $prefs, $session;
 
-        $partlist = array_keys($this->_mimepart->contentTypeMap());
-        $base_id = reset($partlist);
-        $signed_id = next($partlist);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+        $base_id = $iterator->current()->getMimeId();
+        $iterator->next();
+        $signed_id = $iterator->current()->getMimeId();
 
         $id_ob = new Horde_Mime_Id($signed_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);

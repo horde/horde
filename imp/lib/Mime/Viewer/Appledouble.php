@@ -81,10 +81,11 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
          * means to download. */
 
         /* Display the resource fork download link. */
-        $mime_id = $this->_mimepart->getMimeId();
-        $parts_list = array_keys($this->_mimepart->contentTypeMap());
-        reset($parts_list);
-        $applefile_id = next($parts_list);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+        $mime_id = $iterator->current()->getMimeId();
+        $iterator->next();
+        $applefile_id = $iterator->current()->getMimeId();
 
         $id_ob = new Horde_Mime_Id($applefile_id);
         $data_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -110,9 +111,11 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
             $ret = $this->getConfigParam('imp_contents')->renderMIMEPart($data_id, $disp);
         }
 
-        foreach ($parts_list as $val) {
-            if (!isset($ret[$val]) && (strcmp($val, $data_id) !== 0)) {
-                $ret[$val] = (strcmp($val, $mime_id) === 0)
+        foreach ($iterator as $ob) {
+            $id = $ob->getMimeId();
+
+            if (!isset($ret[$id]) && (strcmp($id, $data_id) !== 0)) {
+                $ret[$id] = (strcmp($id, $mime_id) === 0)
                     ? array(
                           'data' => '',
                           'status' => $status,

@@ -774,7 +774,7 @@ class IMP_Contents
         $part['type'] = $mime_type;
 
         /* Is this part an attachment? */
-        $is_atc = $this->isAttachment($mime_type);
+        $is_atc = $this->isAttachment($mime_part);
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
@@ -1012,12 +1012,14 @@ class IMP_Contents
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
-     * @param string $mime_type  The MIME type.
+     * @param Horde_Mime_Part $part  The MIME part.
      *
      * @return boolean  True if an attachment.
      */
-    public function isAttachment($mime_type)
+    public function isAttachment(Horde_Mime_Part $part)
     {
+        $mime_type = $part->getType();
+
         switch ($mime_type) {
         case 'application/ms-tnef':
             return false;
@@ -1052,7 +1054,10 @@ class IMP_Contents
                 return;
             }
             $this->_build = true;
-            $parts = array_keys($this->_message->contentTypeMap());
+            $parts = array();
+            foreach ($this->_message->partIterator() as $val) {
+                $parts[] = $val->getMimeId();
+            }
             $first_id = reset($parts);
         } else {
             $first_id = null;
@@ -1089,7 +1094,9 @@ class IMP_Contents
                     $mime_part->addPart($new_part);
                     $mime_part->buildMimeIds($id);
                     $this->_embedded[] = $new_part->getMimeId();
-                    $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
+                    foreach ($new_part->partIterator() as $val) {
+                        $to_process[] = $val->getMimeId();
+                    }
                     $last_id = $id;
                 }
             }
@@ -1144,18 +1151,6 @@ class IMP_Contents
         }
 
         return 0;
-    }
-
-    /**
-     * Returns the Content-Type map for the entire message, regenerating
-     * embedded parts if needed.
-     *
-     * @return array  See Horde_Mime_Part::contentTypeMap().
-     */
-    public function getContentTypeMap()
-    {
-        $this->_buildMessage();
-        return $this->_message->contentTypeMap();
     }
 
     /**
@@ -1225,9 +1220,11 @@ class IMP_Contents
     {
         $ret = array();
 
-        foreach ($this->getContentTypeMap() as $key => $val) {
+        $this->_buildMessage();
+
+        foreach ($this->_message->partIterator() as $val) {
             if ($this->isAttachment($val)) {
-                $ret[] = $key;
+                $ret[] = $val->getMimeId();
             }
         }
 

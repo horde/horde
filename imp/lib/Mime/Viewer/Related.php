@@ -88,7 +88,10 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
         }
 
         $data_id = null;
-        $ret = array_fill_keys(array_keys($this->_mimepart->contentTypeMap()), null);
+        $ret = array();
+        foreach ($this->_mimepart->partIterator() as $val) {
+            $ret[$val->getMimeId()] = null;
+        }
 
         foreach (array_keys($render) as $val) {
             $ret[$val] = $render[$val];

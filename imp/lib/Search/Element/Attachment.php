@@ -67,9 +67,14 @@ implements IMP_Search_Element_Callback
 
         foreach ($ids as $v) {
             if (isset($fetch_res[$v])) {
-                $atc = $this->_attachmentSearch(
-                    array($fetch_res[$v]->getStructure())
-                );
+                $atc = false;
+                foreach ($fetch_res[$v]->getStructure()->partIterator() as $val) {
+                    if ($val->getDisposition() === 'attachment') {
+                        $atc = true;
+                        break;
+                    }
+                }
+
                 if (($this->_data && $atc) || (!$this->_data && !$atc)) {
                     continue;
                 }
@@ -79,26 +84,6 @@ implements IMP_Search_Element_Callback
         }
 
         return $out;
-    }
-
-    /**
-     * Recursively search message for Content-Disposition of 'attachment'
-     *
-     * @param Horde_Mime_Part $data  MIME part.
-     *
-     * @return boolean  True if the part contains an attachment.
-     */
-    private function _attachmentSearch($data)
-    {
-        foreach ($data as $val) {
-            if ($val->getDisposition() === 'attachment') {
-                return true;
-            } elseif ($this->_attachmentSearch($val->getParts())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 }

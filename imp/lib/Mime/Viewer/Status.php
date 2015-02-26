@@ -63,8 +63,6 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
      */
     protected function _renderInfo()
     {
-        $parts = array_keys($this->_mimepart->contentTypeMap());
-
         /* RFC 3464 [2]: There are three parts to a delivery status
          * multipart/report message:
          *   (1) Human readable message
@@ -75,12 +73,13 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
          * located in part #2 (RFC 3464 [2.3.3]). It can be either 'failed',
          * 'delayed', 'delivered', 'relayed', or 'expanded'. */
 
-        if (count($parts) < 2) {
+        if (count($this->_mimepart) < 2) {
             return array();
         }
 
-        reset($parts);
-        $part1_id = next($parts);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+        $part1_id = $iterator->current()->getMimeId();
 
         $id_ob = new Horde_Mime_Id($part1_id);
         $part2_id = $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -148,7 +147,10 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             );
         }
 
-        $ret = array_fill_keys(array_diff($parts, array($part1_id)), null);
+        $ret = array();
+        foreach ($iterator as $val) {
+            $ret[$val->getMimeId()] = null;
+        }
 
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => '',

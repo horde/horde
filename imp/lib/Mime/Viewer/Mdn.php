@@ -64,7 +64,6 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
     protected function _renderInfo()
     {
         $mdn_id = $this->_mimepart->getMimeId();
-        $parts = array_keys($this->_mimepart->contentTypeMap());
 
         $status = new IMP_Mime_Status(
             $this->_mimepart,
@@ -79,8 +78,10 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
          *   (3) Original message (optional) */
 
         /* Get the human readable message. */
-        reset($parts);
-        $part1_id = next($parts);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+        $iterator->next();
+        $part1_id = $iterator->current()->getMimeId();
         $id_ob = new Horde_Mime_Id($part1_id);
 
         /* Ignore the technical details.
@@ -107,8 +108,8 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
                 )
             );
 
-            foreach (array_keys($part->contentTypeMap()) as $key) {
-                $ret[$key] = null;
+            foreach ($part->partIterator() as $val) {
+                $ret[$val->getMimeId()] = null;
             }
         }
 

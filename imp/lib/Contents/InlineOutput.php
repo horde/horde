@@ -46,8 +46,7 @@ class IMP_Contents_InlineOutput
     {
         global $prefs, $registry;
 
-        $atc_parts = $display_ids = $metadata = $msgtext = $wrap_ids = array();
-        $parts_list = $contents->getContentTypeMap();
+        $atc_parts = $display_ids = $i = $metadata = $msgtext = $wrap_ids = array();
         $text_out = '';
         $view = $registry->getView();
 
@@ -67,7 +66,10 @@ class IMP_Contents_InlineOutput
             ? $options['show_parts']
             : $prefs->getValue('parts_display');
 
-        foreach ($parts_list as $mime_id => $mime_type) {
+        foreach ($contents->getMIMEMessage()->partIterator() as $part) {
+            $mime_id = $part->getMimeId();
+            $i[] = $mime_id;
+
             if (isset($display_ids[$mime_id]) ||
                 isset($atc_parts[$mime_id])) {
                 continue;
@@ -80,7 +82,7 @@ class IMP_Contents_InlineOutput
             }
 
             if (!($render_mode = $contents->canDisplay($mime_id, $display_mask))) {
-                if ($contents->isAttachment($mime_type)) {
+                if ($contents->isAttachment($part)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[$mime_id] = 1;
                     }
@@ -96,7 +98,7 @@ class IMP_Contents_InlineOutput
 
             $render_part = $contents->renderMIMEPart($mime_id, $render_mode);
             if (($show_parts == 'atc') &&
-                $contents->isAttachment($mime_type) &&
+                $contents->isAttachment($part) &&
                 (empty($render_part) ||
                  !($render_mode & $contents::RENDER_INLINE))) {
                 $atc_parts[$mime_id] = 1;
@@ -104,7 +106,7 @@ class IMP_Contents_InlineOutput
 
             if (empty($render_part)) {
                 if ($contents_mask &&
-                    $contents->isAttachment($mime_type)) {
+                    $contents->isAttachment($part)) {
                     $msgtext[$mime_id] = array(
                         'text' => $this->_formatSummary($contents, $mime_id, $contents_mask, $part_info_display, true)
                     );
@@ -202,7 +204,7 @@ class IMP_Contents_InlineOutput
         }
 
         $atc_parts = ($show_parts == 'all')
-            ? array_keys($parts_list)
+            ? $i
             : array_keys($atc_parts);
 
         return array(
@@ -210,7 +212,7 @@ class IMP_Contents_InlineOutput
             'display_ids' => array_keys($display_ids),
             'metadata' => $metadata,
             'msgtext' => $text_out,
-            'one_part' => (count($parts_list) == 1)
+            'one_part' => (count($i) === 1)
         );
     }
 

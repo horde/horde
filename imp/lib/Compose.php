@@ -3153,9 +3153,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if (!is_null($pgp)) {
                 $msg = '';
                 $pgp->buildMimeIds();
-                foreach ($pgp->contentTypeMap() as $key => $val) {
-                    if (strpos($val, 'text/') === 0) {
-                        $msg .= $pgp[$key]->getContents();
+                foreach ($pgp->partIterator() as $val) {
+                    if ($val->getPrimaryType() === 'text') {
+                        $msg .= $val->getContents();
                     }
                 }
             }

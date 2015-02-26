@@ -49,11 +49,10 @@ class IMP_Mime_Viewer_Externalbody extends Horde_Mime_Viewer_Base
             $base_part = $imp_contents->getMIMEMessage();
             $cid = $this->_mimepart->getContentId();
 
-            foreach (array_keys($base_part->contentTypeMap(true)) as $key) {
-                if (($part = $base_part->getPart($key)) &&
-                    ($part->getContentId() == $cid) &&
+            foreach ($base_part->partIterator() as $part) {
+                if (($part->getContentId() == $cid) &&
                     ($part->getType() != 'message/external-body') &&
-                    ($full_part = $imp_contents->getMimePart($key))) {
+                    ($full_part = $imp_contents->getMimePart($part->getMimeId()))) {
                     $full_part = clone $full_part;
                     $full_part->setMimeId($this->_mimepart->getMimeId());
                     // TODO: Add headers from referring body part.

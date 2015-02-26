@@ -252,9 +252,12 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
      */
     protected function _parseSignedData($sig_only = false)
     {
-        $partlist = array_keys($this->_mimepart->contentTypeMap());
-        $base_id = reset($partlist);
-        $data_id = next($partlist);
+        $iterator = $this->_mimepart->partIterator();
+        $iterator->rewind();
+
+        $base_id = $iterator->current()->getMimeId();
+        $iterator->next();
+        $data_id = $iterator->current()->getMimeId();
 
         $id_ob = new Horde_Mime_Id($data_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
@@ -279,7 +282,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         }
 
         /* Sanity checking to make sure MIME structure is correct. */
-        if (!in_array($sig_id, $partlist)) {
+        if (!$this->_mimepart[$sig_id]) {
             $status->action(IMP_Mime_Status::ERROR);
             $cache->smime[$base_id]['wrap'] = 'mimePartWrapInvalid';
             $status->addText(_("Invalid S/MIME data."));
