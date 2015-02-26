@@ -210,7 +210,7 @@ class Horde_Mime_Mdn
             $part_one->setContents($flowed->toFlowed());
         }
         // TODO: Messages for other notification types.
-        $msg->addPart($part_one);
+        $msg[] = $part_one;
 
         /* The second part is a machine-parseable description. */
         $part_two = new Horde_Mime_Part();
@@ -245,7 +245,7 @@ class Horde_Mime_Mdn
         }
 
         $part_two->setContents(trim($part_two_h->toString()) . "\n");
-        $msg->addPart($part_two);
+        $msg[] = $part_two;
 
         /* The third part is the text of the original message.  RFC 3798 [3]
          * allows us to return only a portion of the entire message - this
@@ -257,7 +257,7 @@ class Horde_Mime_Mdn
             $part_three_text[] = "\n" . $this->_msgtext;
         }
         $part_three->setContents($part_three_text);
-        $msg->addPart($part_three);
+        $msg[] = $part_three;
 
         return $msg->send($to, $msg_headers, $mailer);
     }

@@ -36,7 +36,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part->getContentTypeParameter('boundary')
         );
 
-        $part_1 = $part->getPart(1);
+        $part_1 = $part[1];
         $this->assertEquals(
             'text/plain',
             $part_1->getType()
@@ -46,12 +46,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part_1->getContentTypeParameter('format')
         );
 
-        $part_2 = $part->getPart(2);
+        $part_2 = $part[2];
         $this->assertEquals(
             'message/rfc822',
             $part_2->getType()
         );
-        $part_2_2 = $part->getPart('2.2');
+        $part_2_2 = $part['2.2'];
         $this->assertEquals(
             'text/plain',
             $part_2_2->getType()
@@ -61,7 +61,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part_2_2->getDispositionParameter('filename')
         );
 
-        $part_3 = $part->getPart(3);
+        $part_3 = $part[3];
         $this->assertEquals(
             'image/png',
             $part_3->getType()
@@ -105,8 +105,10 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             'text/html');
         $this->assertEquals($map, $test_part->contentTypeMap());
 
-        $part_one = $test_part->getPart(1);
-        $this->assertEquals('', $test_part->getPart(1)->getDisposition());
+        $this->assertEquals(
+            '',
+            $test_part[1]->getDisposition()
+        );
     }
 
     public function testParsingMimeMessageWithEaiAddress()
@@ -142,7 +144,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             count($part->getParts())
         );
 
-        $part1 = $part->getPart(1);
+        $part1 = $part[1];
         $this->assertEquals(
             'text/plain',
             $part1->getType()
@@ -157,7 +159,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
         $this->assertNull($part1->getContentTypeParameter('filename'));
 
-        $part1 = $part->getPart(2);
+        $part1 = $part[2];
         $this->assertEquals(
             'text/plain',
             $part1->getType()
@@ -203,12 +205,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            $part->getPart('1'),
-            $part['1']
+            'text/plain',
+            $part['1']->getType()
         );
         $this->assertSame(
-            $part->getPart('3.1'),
-            $part['3.1']
+            'text/plain',
+            $part['3.1']->getType()
         );
 
         $part2 = new Horde_Mime_Part();
@@ -217,13 +219,13 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part['2'] = $part2;
         $this->assertSame(
             $part2,
-            $part->getPart('2')
+            $part['2']
         );
 
         unset($part['3']);
         $this->assertEquals(
             null,
-            $part->getPart('3')
+            $part['3']
         );
     }
 
@@ -367,7 +369,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part2->setType('text/plain');
         $part2->setContents('foo');
 
-        $part->alterPart('2', $part2);
+        $part['2'] = $part2;
 
         $map = $part->contentTypeMap();
         $this->assertEquals(
@@ -439,7 +441,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part2->setType('text/plain');
         $part2->setContents('Foo');
 
-        $part->addPart($part2);
+        $part[] = $part2;
         $part->buildMimeIds();
 
         $part3 = clone $part;
@@ -453,7 +455,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             'Foo',
-            $part3->getPart(1)->getContents()
+            $part3[1]->getContents()
         );
     }
 
@@ -478,7 +480,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('multipart/mixed');
-        $part2->addPart($part);
+        $part2[] = $part;
 
         $this->assertStringMatchesFormat(
             "This message is in MIME format.
@@ -498,7 +500,7 @@ C
     public function testFindBody()
     {
         $part = $this->_getTestPart();
-        $part31 = $part->getPart('3.1');
+        $part31 = $part['3.1'];
         $part31->setType('text/html');
 
         $this->assertEquals(
@@ -529,7 +531,7 @@ C
         for ($i = 0; $i < 100; ++$i) {
             $new_part = new Horde_Mime_Part();
             $new_part->setType('multipart/mixed');
-            $part->addPart($new_part);
+            $part[] = $new_part;
             $part = $new_part;
         }
 
@@ -537,7 +539,7 @@ C
         $new_part = new Horde_Mime_Part();
         $new_part->setType('text/plain');
         $new_part->setContents('Test');
-        $part->addPart($new_part);
+        $part[] = $new_part;
 
         $base_part->isBasePart(true);
         $base_part->buildMimeIds();
@@ -570,10 +572,9 @@ C
             $part->getContentTypeParameter('boundary')
         );
 
-        $part_1 = $part->getPart(1);
         $this->assertEquals(
             'text/plain',
-            $part_1->getType()
+            $part['1']->getType()
         );
     }
 
@@ -608,7 +609,7 @@ C
         $this->assertFalse(isset($part['2.2']));
 
         $multipart = $part['2.0'];
-        $multipart->addPart(new Horde_Mime_Part());
+        $multipart[] = new Horde_Mime_Part();
         $multipart->buildMimeIds('2.0');
 
         $this->assertTrue(isset($part['2']));
@@ -710,15 +711,15 @@ C
 
         $part1 = new Horde_Mime_Part();
         $part1->setType('multipart/alternative');
-        $part->addPart($part1);
+        $part[] = $part1;
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('text/plain');
-        $part1->addPart($part2);
+        $part1[] = $part2;
 
         $part3 = new Horde_Mime_Part();
         $part3->setType('text/html');
-        $part1->addPart($part3);
+        $part1[] = $part3;
 
         $part->buildMimeIds();
 
@@ -962,34 +963,34 @@ C
         $part1 = new Horde_Mime_Part();
         $part1->setType('text/plain');
         $part1->setContents('Test');
-        $part->addPart($part1);
+        $part[] = $part1;
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
-        $part->addPart($part2);
+        $part[] = $part2;
 
         $part3 = new Horde_Mime_Part();
         $part3->setType('multipart/mixed');
-        $part->addPart($part3);
+        $part[] = $part3;
 
         $part3_1 = new Horde_Mime_Part();
         $part3_1->setType('text/plain');
         $part3_1->setContents('Test 2');
-        $part3->addPart($part3_1);
+        $part3[] = $part3_1;
 
         $part3_2 = new Horde_Mime_Part();
         $part3_2->setType('multipart/mixed');
-        $part3->addPart($part3_2);
+        $part3[] = $part3_2;
 
         $part3_2_1 = new Horde_Mime_Part();
         $part3_2_1->setType('text/plain');
         $part3_2_1->setContents('Test 3.2.1');
-        $part3_2->addPart($part3_2_1);
+        $part3_2[] = $part3_2_1;
 
         $part3_2_2 = new Horde_Mime_Part();
         $part3_2_2->setType('application/octet-stream');
         $part3_2_2->setContents('Test 3.2.2');
-        $part3_2->addPart($part3_2_2);
+        $part3_2[] = $part3_2_2;
 
         $part->buildMimeIds();
 

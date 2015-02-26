@@ -755,17 +755,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     }
 
     /**
-     * Add a MIME subpart.
-     *
-     * @param Horde_Mime_Part $mime_part  Add a subpart to the current object.
-     */
-    public function addPart($mime_part)
-    {
-        $this->_parts[] = $mime_part;
-        $this->_status |= self::STATUS_REINDEX;
-    }
-
-    /**
      * Get a list of all MIME subparts.
      *
      * @return array  An array of the Horde_Mime_Part subparts.
@@ -773,44 +762,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     public function getParts()
     {
         return $this->_parts;
-    }
-
-    /**
-     * Retrieve a specific MIME part.
-     *
-     * @param string $id  The MIME ID to get.
-     *
-     * @return Horde_Mime_Part  The part requested or null if the part doesn't
-     *                          exist.
-     */
-    public function getPart($id)
-    {
-        return $this->_partAction($id, 'get');
-    }
-
-    /**
-     * Remove a subpart.
-     *
-     * @param string $id  The MIME ID to delete.
-     *
-     * @param boolean  Success status.
-     */
-    public function removePart($id)
-    {
-        return $this->_partAction($id, 'remove');
-    }
-
-    /**
-     * Alter a current MIME subpart.
-     *
-     * @param string $id                  The MIME ID to alter.
-     * @param Horde_Mime_Part $mime_part  The MIME part to store.
-     *
-     * @param boolean  Success status.
-     */
-    public function alterPart($id, $mime_part)
-    {
-        return $this->_partAction($id, 'alter', $mime_part);
     }
 
     /**
@@ -850,12 +801,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                         $this->_parts[$key] = $mime_part;
                         return true;
                     }
-                    return $val->alterPart($id, $mime_part);
+                    $val[$id] = $mime_part;
+                    return;
 
                 case 'get':
                     return $match
                         ? $val
-                        : $val->getPart($id);
+                        : $val[$id];
 
                 case 'remove':
                     if ($match) {
@@ -863,7 +815,8 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                         $this->_status |= self::STATUS_REINDEX;
                         return true;
                     }
-                    return $val->removePart($id);
+                    unset($val[$id]);
+                    return;
                 }
             }
         }
@@ -1048,7 +1001,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
         if (isset($options['id'])) {
             $id = $options['id'];
-            if (!($part = $this->getPart($id))) {
+            if (!($part = $this[$id])) {
                 return $part;
             }
             unset($options['id']);
@@ -1057,7 +1010,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
             $prev_id = Horde_Mime::mimeIdArithmetic($id, 'up', array('norfc822' => true));
             $prev_part = ($prev_id == $this->getMimeId())
                 ? $this
-                : $this->getPart($prev_id);
+                : $this[$prev_id];
             if (!$prev_part) {
                 return $contents;
             }
@@ -1068,7 +1021,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                 $contents
             );
 
-            if (!$this->getPart(Horde_Mime::mimeIdArithmetic($id, 'next'))) {
+            if (!isset($this[Horde_Mime::mimeIdArithmetic($id, 'next')])) {
                 $parts[] = $eol . '--' . $boundary . '--' . $eol;
             }
         } else {
@@ -1979,10 +1932,10 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         switch ($ob->getPrimaryType()) {
         case 'message':
             if ($ob->getSubType() == 'rfc822') {
-                $ob->addPart(self::parseMessage($body, array(
+                $ob[] = self::parseMessage($body, array(
                     'forcemime' => true,
                     'no_body' => $opts['no_body']
-                )));
+                ));
             }
             break;
 
@@ -1995,12 +1948,16 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                     }
                     $subpart = substr($body, $val['start'], $val['length']);
                     $hdr_pos = self::_findHeader($subpart, self::EOL);
-                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + 2), array(
-                        'ctype' => ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain',
-                        'forcemime' => true,
-                        'level' => $opts['level'],
-                        'no_body' => $opts['no_body']
-                    )));
+                    $ob[] = self::_getStructure(
+                        substr($subpart, 0, $hdr_pos),
+                        substr($subpart, $hdr_pos + 2),
+                        array(
+                            'ctype' => ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain',
+                            'forcemime' => true,
+                            'level' => $opts['level'],
+                            'no_body' => $opts['no_body']
+                        )
+                    );
                 }
             }
             break;
@@ -2175,24 +2132,37 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
     /* ArrayAccess methods. */
 
+    /**
+     */
     public function offsetExists($offset)
     {
-        return ($this->getPart($offset) !== null);
+        return ($this[$offset] !== null);
     }
 
+    /**
+     */
     public function offsetGet($offset)
     {
-        return $this->getPart($offset);
+        return $this->_partAction($offset, 'get');
     }
 
+    /**
+     */
     public function offsetSet($offset, $value)
     {
-        $this->alterPart($offset, $value);
+        if (is_null($offset)) {
+            $this->_parts[] = $value;
+            $this->_status |= self::STATUS_REINDEX;
+        } else {
+            $this->_partAction($offset, 'alter', $value);
+        }
     }
 
+    /**
+     */
     public function offsetUnset($offset)
     {
-        $this->removePart($offset);
+        $this->_partAction($offset, 'remove');
     }
 
     /* Countable methods. */
@@ -2390,6 +2360,38 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
         }
 
         return $map;
+    }
+
+    /**
+     * @deprecated  Use array access instead.
+     */
+    public function addPart($mime_part)
+    {
+        $this[] = $mime_part;
+    }
+
+    /**
+     * @deprecated  Use array access instead.
+     */
+    public function getPart($id)
+    {
+        return $this[$id];
+    }
+
+    /**
+     * @deprecated  Use array access instead.
+     */
+    public function alterPart($id, $mime_part)
+    {
+        $this[$id] = $mime_part;
+    }
+
+    /**
+     * @deprecated  Use array access instead.
+     */
+    public function removePart($id)
+    {
+        unset($this[$id]);
     }
 
 }

@@ -27,6 +27,16 @@ Upgrading to 2.8
       partIterator() can be used to obtain a RecursiveIteratorIterator that
       will iterator through all descendants.
 
+    - addPart()
+
+      This method is deprecated. Use array access to add a subpart (e.g.
+      $part[] = $new_part).
+
+    - alterPart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to alter a subpart.
+
     - clearContentTypeParameter()
 
       This method is deprecated. Use Horde_Mime_Part#setContentTypeParameter()
@@ -37,6 +47,11 @@ Upgrading to 2.8
 
       This method is deprecated. Use partIterator() to recursively iterate
       through the parts instead.
+
+    - getPart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to obtain a subpart.
 
     - setContentTypeParameter()
 
@@ -51,6 +66,11 @@ Upgrading to 2.8
     - setDescription()
 
       Passing null as the argument will cause the description to be deleted.
+
+    - removePart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to remove a subpart.
 
   - Horde_Mime_Headers_ContentId
   - Horde_Mime_Headers_ContentLanguage

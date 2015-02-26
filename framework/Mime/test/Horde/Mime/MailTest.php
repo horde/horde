@@ -561,7 +561,7 @@ Mike';
         $this->assertEquals('Michñel Rubinsky <mrubinsk@horde.org>', $headers->getValue('To'));
 
         $mail = new Horde_Mime_Mail();
-        $part = $message_part->getPart($message_part->findBody());
+        $part = $message_part[$message_part->findBody()];
         $body = $part->getContents();
         $this->assertEquals('Testing 123
 --
@@ -591,8 +591,8 @@ Mike', $body);
 
         $base_part = new Horde_Mime_Part();
         $base_part->setType('multipart/alternative');
-        $base_part->addPart($p_part);
-        $base_part->addPart($h_part);
+        $base_part[] = $p_part;
+        $base_part[] = $h_part;
         $headers = $base_part->addMimeHeaders();
         $headers->addHeader('From', 'sender@example.com');
         $headers->addHeader('Subject', 'My Subject');
@@ -600,9 +600,19 @@ Mike', $body);
         $base_part->send('recipient@example.com', $headers, $mailer, array('encode' => Horde_Mime_Part::ENCODE_8BIT));
         $sent = current($mailer->sentMessages);
         $sent_mime = Horde_Mime_Part::parseMessage($sent['header_text'] . "\n\n" . $sent['body']);
-        $headers = Horde_Mime_Headers::parseHeaders($sent_mime->getPart($sent_mime->findBody('plain'))->toString(array('headers' => true, 'encode' => Horde_Mime_Part::ENCODE_8BIT)));
+        $headers = Horde_Mime_Headers::parseHeaders(
+            $sent_mime[$sent_mime->findBody('plain')]->toString(array(
+                'headers' => true,
+                'encode' => Horde_Mime_Part::ENCODE_8BIT
+            ))
+        );
         $this->assertEquals('8bit', $headers->getHeader('Content-Transfer-Encoding')->value_single);
-        $headers = Horde_Mime_Headers::parseHeaders($sent_mime->getPart($sent_mime->findBody('html'))->toString(array('headers' => true, 'encode' => Horde_Mime_Part::ENCODE_8BIT)));
+        $headers = Horde_Mime_Headers::parseHeaders(
+            $sent_mime[$sent_mime->findBody('html')]->toString(array(
+                'headers' => true,
+                'encode' => Horde_Mime_Part::ENCODE_8BIT
+            ))
+        );
         $this->assertEquals('quoted-printable', $headers->getHeader('Content-Transfer-Encoding'));
     }
 
