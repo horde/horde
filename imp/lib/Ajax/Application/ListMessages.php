@@ -281,7 +281,14 @@ class IMP_Ajax_Application_ListMessages
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
             if (!$mbox->exists) {
-                $notification->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
+                $notification->push(
+                    sprintf(
+                        _("Mailbox %s does not exist."),
+                        $mbox->label
+                    ),
+                    'horde.error'
+                );
+                $result = new IMP_Ajax_Application_Viewport_Error($mbox);
             }
 
             if (!empty($args['change'])) {
