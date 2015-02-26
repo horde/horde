@@ -1734,8 +1734,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
     /**
      * Attempts to build a Horde_Mime_Part object from message text.
-     * This function can be called statically via:
-     *    $mime_part = Horde_Mime_Part::parseMessage();
      *
      * @param string $text  The text of the MIME message.
      * @param array $opts   Additional options:
@@ -1906,8 +1904,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
     /**
      * Attempts to obtain the raw text of a MIME part.
-     * This function can be called statically via:
-     *    $data = Horde_Mime_Part::getRawPartText();
      *
      * @param mixed $text   The full text of the MIME message. The text is
      *                      assumed to be MIME data (no MIME-Version checking
@@ -2128,7 +2124,8 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     /* Countable methods. */
 
     /**
-     * Returns the number of message parts.
+     * Returns the number of child message parts (doesn't include
+     * grandchildren or more remote ancestors).
      *
      * @return integer  Number of message parts.
      */
