@@ -399,6 +399,7 @@ var ImpBase = {
         if (this.view != f) {
             $('mailboxName').update(ImpCore.text.loading);
             this.viewswitch = true;
+            this.showViewportError(false);
 
             /* Don't cache results of search mailboxes - since we will need to
              * grab new copy if we ever return to it. */
