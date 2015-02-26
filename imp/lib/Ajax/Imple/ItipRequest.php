@@ -343,8 +343,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
 
                     $mime = new Horde_Mime_Part();
-                    $mime->addPart($body);
-                    $mime->addPart($ics);
+                    $mime[] = $body;
+                    $mime[] = $ics;
 
                     // Build the reply headers.
                     $msg_headers = new Horde_Mime_Headers();

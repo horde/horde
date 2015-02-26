@@ -121,7 +121,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
          * Go through all subparts of displayable part and make sure all parts
          * are rendered.  Parts not rendered will be marked as not being
          * handled by this viewer (Bug #9365). */
-        $render_part = $this->_mimepart->getPart($disp_id);
+        $render_part = $this->_mimepart[$disp_id];
         foreach ($render_part->partIterator() as $val) {
             $id = $val->getMimeId();
             $need_render[$id] = $subparts[$id] = true;

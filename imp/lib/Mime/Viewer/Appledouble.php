@@ -90,8 +90,8 @@ class IMP_Mime_Viewer_Appledouble extends Horde_Mime_Viewer_Base
         $id_ob = new Horde_Mime_Id($applefile_id);
         $data_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
-        $applefile_part = $this->_mimepart->getPart($applefile_id);
-        $data_part = $this->_mimepart->getPart($data_id);
+        $applefile_part = $this->_mimepart[$applefile_id];
+        $data_part = $this->_mimepart[$data_id];
 
         $data_name = $this->getConfigParam('imp_contents')->getPartName($data_part);
 

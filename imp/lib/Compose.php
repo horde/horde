@@ -1049,7 +1049,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * plaintext and HTML representation. */
             if ($save_msg->getType() != 'multipart/alternative') {
                 for ($i = 2; ; ++$i) {
-                    if (!($oldPart = $save_msg->getPart($i))) {
+                    if (!($oldPart = $save_msg[$i])) {
                         break;
                     }
 
@@ -1058,7 +1058,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $replace_part->setCharset($this->charset);
                     $replace_part->setLanguage($language);
                     $replace_part->setContents('[' . _("Attachment stripped: Original attachment type") . ': "' . $oldPart->getType() . '", ' . _("name") . ': "' . $oldPart->getName(true) . '"]');
-                    $save_msg->alterPart($i, $replace_part);
+                    $save_msg[$i] = $replace_part;
                 }
             }
         }
@@ -1647,8 +1647,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             if (strlen(trim($text_contents))) {
                 $textpart = new Horde_Mime_Part();
                 $textpart->setType('multipart/alternative');
-                $textpart->addPart($textBody);
-                $textpart->addPart($to_add);
+                $textpart[] = $textBody;
+                $textpart[] = $to_add;
                 $textpart->setHeaderCharset($this->charset);
 
                 $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
@@ -1713,10 +1713,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $base = new Horde_Mime_Part();
                     $base->setType('multipart/mixed');
                     if (!is_null($textpart)) {
-                        $base->addPart($textpart);
+                        $base[] = $textpart;
                     }
                     foreach ($parts as $val) {
-                        $base->addPart($val);
+                        $base[] = $val;
                     }
                 }
             }
@@ -2877,7 +2877,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
          * is the root part (RFC 2387 [3.2]), we may as well be explicit and
          * put the CID in the 'start' parameter. */
         $related->setContentTypeParameter('start', $part->setContentId());
-        $related->addPart($part);
+        $related[] = $part;
 
         /* HTML iteration is from child->parent, so need to gather related
          * parts and add at end after sorting to generate a more sensible
@@ -2906,7 +2906,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        array_map(array($related, 'addPart'), array_reverse($add));
+        foreach (array_reverse($add) as $val) {
+            $related[] = $val;
+        }
 
         return $related;
     }

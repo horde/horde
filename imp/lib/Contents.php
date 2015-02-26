@@ -519,7 +519,7 @@ class IMP_Contents
     {
         $this->_buildMessage();
 
-        if (!$part = $this->_message->getPart($id)) {
+        if (!$part = $this->_message[$id]) {
             return null;
         }
 
@@ -1058,7 +1058,7 @@ class IMP_Contents
                 $viewer->setMIMEPart($mime_part);
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
-                    $mime_part->addPart($new_part);
+                    $mime_part[] = $new_part;
                     $mime_part->buildMimeIds($id);
                     $this->_embedded[] = $new_part->getMimeId();
                     foreach ($new_part->partIterator() as $val) {
@@ -1208,20 +1208,20 @@ class IMP_Contents
      */
     public function buildMessageContents($ignore = array())
     {
-        $message = $this->_message;
         $curr_ignore = null;
 
-        foreach ($message->contentTypeMap() as $key => $val) {
-            if (is_null($curr_ignore) && in_array($key, $ignore)) {
-                $curr_ignore = $key . '.';
-            } elseif (is_null($curr_ignore) ||
-                      (strpos($key, $curr_ignore) === false)) {
+        foreach ($this->_message->partIterator() as $val) {
+            $id = $val->getMimeId();
+
+            if (is_null($curr_ignore) && in_array($id, $ignore)) {
+                $curr_ignore = new Horde_Mime_Id($id);
+            } elseif (is_null($curr_ignore) || !$curr_ignore->isChild($id)) {
                 $curr_ignore = null;
-                if (($key != 0) &&
-                    ($val != 'message/rfc822') &&
-                    (strpos($val, 'multipart/') === false) &&
-                    ($part = $this->getMimePart($key))) {
-                    $message->alterPart($key, $part);
+                if (($id != 0) &&
+                    ($val->getType() != 'message/rfc822') &&
+                    ($val->getPrimaryType != 'multipart/') &&
+                    ($part = $this->getMimePart($id))) {
+                    $this->_message[$id] = $part;
                 }
             }
         }

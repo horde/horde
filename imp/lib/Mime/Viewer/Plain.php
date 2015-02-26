@@ -260,14 +260,14 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
         $text_part->setType('text/plain');
         $text_part->setCharset($this->getConfigParam('charset'));
         $text_part->setContents(preg_replace("/begin [0-7]{3} .+\r?\n.+\r?\nend/Us", "\n", $text));
-        $new_part->addPart($text_part);
+        $new_part[] = $text_part;
 
         foreach ($files as $file) {
             $uupart = new Horde_Mime_Part();
             $uupart->setType('application/octet-stream');
             $uupart->setContents($file['data']);
             $uupart->setName(strip_tags($file['name']));
-            $new_part->addPart($uupart);
+            $new_part[] = $uupart;
         }
 
         return $new_part;
