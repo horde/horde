@@ -61,7 +61,9 @@ class Horde_Idna
     protected static function _getBackend()
     {
         if (!isset(self::$_backend)) {
-            if (extension_loaded('mbstring')) {
+            if (class_exists('Net_IDNA2')) {
+                self::$_backend = new Net_IDNA2();
+            } elseif (extension_loaded('mbstring')) {
                 if (file_exists(__DIR__ . '/Idna/vendor/autoload.php')) {
                     require_once __DIR__ . '/Idna/vendor/autoload.php';
                 } else {
@@ -69,8 +71,6 @@ class Horde_Idna
                 }
                 self::$_backend = new True\Punycode();
                 mb_internal_encoding('UTF-8');
-            } elseif (class_exists('Net_IDNA2')) {
-                self::$_backend = new Net_IDNA2();
             } elseif (class_exists('Net_IDNA')) {
                 self::$_backend = new Net_IDNA();
             } else {
