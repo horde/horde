@@ -49,7 +49,7 @@ class IMP_Mime_Viewer_Externalbody extends Horde_Mime_Viewer_Base
             $base_part = $imp_contents->getMIMEMessage();
             $cid = $this->_mimepart->getContentId();
 
-            foreach ($base_part->partIterator() as $part) {
+            foreach ($base_part->partIterator(false) as $part) {
                 if (($part->getContentId() == $cid) &&
                     ($part->getType() != 'message/external-body') &&
                     ($full_part = $imp_contents->getMimePart($part->getMimeId()))) {

@@ -77,7 +77,7 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             return array();
         }
 
-        $iterator = $this->_mimepart->partIterator();
+        $iterator = $this->_mimepart->partIterator(false);
         $iterator->rewind();
         $part1_id = $iterator->current()->getMimeId();
 

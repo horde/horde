@@ -78,9 +78,8 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
          *   (3) Original message (optional) */
 
         /* Get the human readable message. */
-        $iterator = $this->_mimepart->partIterator();
+        $iterator = $this->_mimepart->partIterator(false);
         $iterator->rewind();
-        $iterator->next();
         $part1_id = $iterator->current()->getMimeId();
         $id_ob = new Horde_Mime_Id($part1_id);
 

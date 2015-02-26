@@ -74,7 +74,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
          * one viewable part, we will display all viewable subparts of that
          * alternative. */
         $imp_contents = $this->getConfigParam('imp_contents');
-        foreach ($this->_mimepart->partIterator() as $val) {
+        foreach ($this->_mimepart->partIterator(false) as $val) {
             $id = $val->getMimeId();
             $ret[$id] = null;
 
