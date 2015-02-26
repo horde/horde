@@ -69,7 +69,7 @@ implements IMP_Flag_Match_Header, IMP_Flag_Match_Order, IMP_Flag_Match_Structure
     public function matchStructure(Horde_Mime_Part $data)
     {
         foreach ($data->partIterator() as $val) {
-            if ($val->getDisposition() === 'attachment') {
+            if (IMP_Mime_Attachment::isAttachment($val)) {
                 return true;
             }
         }

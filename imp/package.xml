@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-21</date>
+ <date>2015-02-26</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -456,6 +456,7 @@
       <file name="Video.php" role="horde" />
       <file name="Zip.php" role="horde" />
      </dir> <!-- /lib/Mime/Viewer -->
+     <file name="Attachment.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Status.php" role="horde" />
     </dir> <!-- /lib/Mime -->
@@ -1773,6 +1774,7 @@
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Size.php" name="lib/Mbox/Size.php" />
    <install as="imp/lib/Message/Date.php" name="lib/Message/Date.php" />
+   <install as="imp/lib/Mime/Attachment.php" name="lib/Mime/Attachment.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Status/RenderIssue.php" name="lib/Mime/Status/RenderIssue.php" />

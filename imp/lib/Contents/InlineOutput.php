@@ -82,7 +82,7 @@ class IMP_Contents_InlineOutput
             }
 
             if (!($render_mode = $contents->canDisplay($mime_id, $display_mask))) {
-                if ($contents->isAttachment($part)) {
+                if (IMP_Mime_Attachment::isAttachment($part)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[$mime_id] = 1;
                     }
@@ -98,7 +98,7 @@ class IMP_Contents_InlineOutput
 
             $render_part = $contents->renderMIMEPart($mime_id, $render_mode);
             if (($show_parts == 'atc') &&
-                $contents->isAttachment($part) &&
+                IMP_Mime_Attachment::isAttachment($part) &&
                 (empty($render_part) ||
                  !($render_mode & $contents::RENDER_INLINE))) {
                 $atc_parts[$mime_id] = 1;
@@ -106,7 +106,7 @@ class IMP_Contents_InlineOutput
 
             if (empty($render_part)) {
                 if ($contents_mask &&
-                    $contents->isAttachment($part)) {
+                    IMP_Mime_Attachment::isAttachment($part)) {
                     $msgtext[$mime_id] = array(
                         'text' => $this->_formatSummary($contents, $mime_id, $contents_mask, $part_info_display, true)
                     );

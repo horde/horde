@@ -774,7 +774,7 @@ class IMP_Contents
         $part['type'] = $mime_type;
 
         /* Is this part an attachment? */
-        $is_atc = $this->isAttachment($mime_part);
+        $is_atc = IMP_Mime_Attachment::isAttachment($mime_part);
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
@@ -1007,39 +1007,6 @@ class IMP_Contents
     }
 
     /**
-     * Determines if a MIME type is an attachment.
-     * For IMP's purposes, an attachment is any MIME part that can be
-     * downloaded by itself (i.e. all the data needed to view the part is
-     * contained within the download data).
-     *
-     * @param Horde_Mime_Part $part  The MIME part.
-     *
-     * @return boolean  True if an attachment.
-     */
-    public function isAttachment(Horde_Mime_Part $part)
-    {
-        $mime_type = $part->getType();
-
-        switch ($mime_type) {
-        case 'application/ms-tnef':
-            return false;
-        }
-
-        list($ptype,) = explode('/', $mime_type, 2);
-
-        switch ($ptype) {
-        case 'message':
-            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
-
-        case 'multipart':
-            return false;
-
-        default:
-            return true;
-        }
-    }
-
-    /**
      * Builds the "virtual" Horde_Mime_Part object by checking for embedded
      * parts.
      *
@@ -1223,7 +1190,7 @@ class IMP_Contents
         $this->_buildMessage();
 
         foreach ($this->_message->partIterator() as $val) {
-            if ($this->isAttachment($val)) {
+            if (IMP_Mime_Attachment::isAttachment($val)) {
                 $ret[] = $val->getMimeId();
             }
         }
