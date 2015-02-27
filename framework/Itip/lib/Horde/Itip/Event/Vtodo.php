@@ -277,8 +277,12 @@ implements Horde_Itip_Event
      */
     public function getStartParameters()
     {
-        $parameters = $this->_vevent->getAttribute('DTSTART', true);
-        return array_pop($parameters);
+        try {
+            $parameters = $this->_vevent->getAttribute('DTSTART', true);
+            return array_pop($parameters);
+        } catch (Horde_Icalendar_Exception $e) {
+            return array();
+        }
     }
 
     /**
