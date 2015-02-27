@@ -1071,7 +1071,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 // SOFTDELETE
-                if (!$soft) {
+                if (!$soft = $refreshFilter) {
                     $sd = $folder->getSoftDeleteTimes();
                     if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
                         $soft = true;
