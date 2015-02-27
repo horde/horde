@@ -584,6 +584,8 @@ class Turba_Driver implements Countable
                            array $custom_strict = array(), $match_begin = false,
                            $count_only = false)
     {
+        global $injector;
+
         /* If we are not using Horde_Share, enforce the requirement that the
          * current user must be the owner of the addressbook. */
         $search_criteria['__owner'] = $this->getContactOwner();
@@ -633,11 +635,44 @@ class Turba_Driver implements Countable
         }
 
         /* Retrieve the search results from the driver. */
-        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()), $count_only);
+        $objects = $this->_search($fields, $return_fields, $this->toDriverKeys($this->getBlobs()), isset($search_criteria['tags']) ? false : $count_only);
+
+        /* Need some magic if we are searching tags */
+        $list = $this->_filterTags(
+            $objects,
+            !empty($search_criteria['tags']) ? $injector->getInstance('Turba_Tagger')->split($search_criteria['tags']) : array()
+        );
+
         if ($count_only) {
-            return $objects;
+            return $list->count();
         }
-        return $this->_toTurbaObjects($objects, $sort_order);
+        return $list;
+    }
+
+    /**
+     * Returns a Turba_List object containing $objects filtered by $tags.
+     *
+     * @param  array $objects  A hash of objects, as returned by self::_search.
+     * @param  array $tags     An array of tags to filter by.
+     *
+     * @return Turba_List  The filtered Turba_List object.
+     */
+    protected function _filterTags($objects, $tags)
+    {
+        global $injector;
+
+        if (empty($tags)) {
+            return $this->_toTurbaObjects($objects, $sort_order);
+        }
+        $tag_results = $injector->getInstance('Turba_Tagger')->search($tags, array('list' => $this->_name));
+
+        // Short circuit if we know we have no tag hits.
+        if (!$tag_results) {
+            return new Turba_List();
+        }
+
+        $list = $this->_toTurbaObjects($objects, $sort_order);
+        return $list->filter('__uid', $tag_results);
     }
 
     /**

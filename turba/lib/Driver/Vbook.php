@@ -87,8 +87,29 @@ class Turba_Driver_Vbook extends Turba_Driver
          * driver-specific fields). */
         $criteria['AND'][] = $this->makeSearch($this->searchCriteria, 'AND', array());
         $results = $this->_driver->_search($criteria, $fields, $blobFields);
-
         return $count_only ? count($results) : $results;
+    }
+
+    /**
+     * Returns a Turba_List object containing $objects filtered by $tags.
+     *
+     * @param  array $objects  A hash of objects, as returned by self::_search.
+     * @param  array $tags     An array of tags to filter by.
+     *
+     * @return Turba_List  The filtered Turba_List object.
+     */
+    protected function _filterTags($objects, $tags)
+    {
+        global $injector;
+
+        // Overridden in this class so we can grab the internally stored
+        // tag criteria.
+        if (isset($this->searchCriteria['tags'])) {
+            $tags = array_merge($injector->getInstance('Turba_Tagger')->split($this->searchCriteria['tags']), $tags);
+
+        }
+
+        return parent::_filterTags($objects, $tags);
     }
 
     /**

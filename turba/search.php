@@ -85,6 +85,9 @@ if ($driver) {
                 }
             }
         }
+        if ($conf['tags']['enabled']) {
+            $criteria['tags'] = $vars->tags;
+        }
         if (count($criteria) || $browsable) {
             $do_search = true;
         }
@@ -174,22 +177,10 @@ if ($driver) {
             }
         } else {
             try {
-                /* Short circuit if we have tags in the search, and have no
-                tag results. */
-                if ($vars->tags) {
-                    if (!($tag_results = $injector->getInstance('Turba_Tagger')->search($vars->tags, array('list' => $source)))) {
-                        $results = new Turba_List();
-                    }
-                }
-                if ($results || (($search_mode == 'basic') &&
+                if (($search_mode == 'basic' &&
                      ($results = $driver->search($criteria, null, 'OR'))) ||
                     (($search_mode == 'advanced') &&
                      ($results = $driver->search($criteria)))) {
-
-                    /* Limit to results that match any tags, if present. */
-                    if (!empty($tag_results)) {
-                        $results = $results->filter('__uid', $tag_results);
-                    }
 
                     /* Read the columns to display from the preferences. */
                     $sources = Turba::getColumns();
