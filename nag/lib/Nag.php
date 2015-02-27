@@ -1860,31 +1860,7 @@ class Nag
         $iCal = new Horde_Icalendar();
         $iCal->setAttribute('METHOD', $method);
         $vevent = $task->toiCalendar($iCal);
-        // @todo
-        // if ($action == self::ITIP_CANCEL && !empty($instance)) {
-        //     // Recurring event instance deletion, need to specify the
-        //     // RECURRENCE-ID but NOT the EXDATE.
-        //     foreach($vevent as &$ve) {
-        //         try {
-        //             $uid = $ve->getAttribute('UID');
-        //         } catch (Horde_Icalendar_Exception $e) {
-        //             continue;
-        //         }
-        //         if ($task->uid == $uid) {
-        //             $ve->setAttribute('RECURRENCE-ID', $instance);
-        //             if (!empty($range)) {
-        //                 $ve->setParameter('RECURRENCE-ID', array('RANGE' => $range));
-        //             }
-        //             $ve->setAttribute('DTSTART', $instance, array(), false);
-        //             $diff = $task->end->timestamp() - $task->start->timestamp();
-        //             $end = clone $instance;
-        //             $end->sec += $diff;
-        //             $ve->setAttribute('DTEND', $end, array(), false);
-        //             $ve->removeAttribute('EXDATE');
-        //             break;
-        //         }
-        //     }
-        // }
+
         $iCal->addComponent($vevent);
 
         /* text/calendar part */
@@ -1908,11 +1884,7 @@ class Nag
         $multipart->addPart($inner);
         $multipart->addPart($ics2);
 
-        // @todo
         $recipient = new Horde_Mail_Rfc822_Address($email);
-        // if (!empty($status['name'])) {
-        //     $recipient->personal = $status['name'];
-        // }
 
         $mail = new Horde_Mime_Mail(
             array('Subject' => $view->subject,
