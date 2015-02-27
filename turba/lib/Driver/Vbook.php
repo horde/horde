@@ -29,6 +29,13 @@ class Turba_Driver_Vbook extends Turba_Driver
     public $searchCriteria;
 
     /**
+     * The composed driver.
+     *
+     * @var Turba_Driver
+     */
+    protected $_driver;
+
+    /**
      *
      * @see Turba_Driver::__construct
      * @throws Turba_Exception
