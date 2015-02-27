@@ -905,15 +905,21 @@ class Turba_Driver implements Countable
         $key = $attributes['__key'] = $this->_makeKey($this->toDriverKeys($attributes));
         $uid = $attributes['__uid'];
 
+        /* Remember any tags, since toDriverKeys will remove them.
+           (They are not stored in the Turba backend so have no mapping). */
+        $tags = isset($attributes['__tags'])
+            ? $attributes['__tags']
+            : false;
+
         $attributes = $this->toDriverKeys($attributes);
 
         $this->_add($attributes, $this->toDriverKeys($this->getBlobs()), $this->toDriverKeys($this->getDateFields()));
 
         /* Add tags. */
-        if (isset($attributes['__tags'])) {
+        if ($tags !== false) {
             $GLOBALS['injector']->getInstance('Turba_Tagger')->tag(
                 $uid,
-                $attributes['__tags'],
+                $tags,
                 $GLOBALS['registry']->getAuth(),
                 'contact'
             );
