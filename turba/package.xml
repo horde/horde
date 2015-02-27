@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix adding tags to new contacts (Bug #13884).
 * [jan] Fix waiting for replication on LDAP backend.
  </notes>
  <contents>
@@ -1979,6 +1980,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix adding tags to new contacts (Bug #13884).
 * [jan] Fix waiting for replication on LDAP backend.
    </notes>
   </release>

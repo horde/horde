@@ -2,6 +2,7 @@
 v4.2.6-git
 ----------
 
+[mjr] Fix adding tags to new contacts (Bug #13884).
 [jan] Fix waiting for replication on LDAP backend.
 
 
