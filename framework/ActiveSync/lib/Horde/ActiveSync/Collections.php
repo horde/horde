@@ -742,7 +742,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                         $value['synckey'])
                     );
                     $this->_cache->removeConfirmedKey($value['synckey']);
-                    $this->_confirmedCount++;
                 }
                 $this->_synckeyCount++;
             }
@@ -783,7 +782,6 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                             $value['synckey'])
                         );
                         $this->_cache->removeConfirmedKey($value['synckey']);
-                        $this->_confirmedCount++;
                     }
                     $this->_synckeyCount++;
                 }
