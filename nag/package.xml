@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-02-24</date>
+ <date>2015-02-27</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -100,6 +100,7 @@
       </dir> <!-- /lib/Ajax/Application/Handler -->
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
+      <file name="ContactAutoCompleter.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -120,6 +121,7 @@
     <dir name="Form">
      <dir name="Type">
       <file name="NagAlarm.php" role="horde" />
+      <file name="NagContact.php" role="horde" />
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
       <file name="NagRecurrence.php" role="horde" />
@@ -441,6 +443,10 @@
      <file name="export.inc" role="horde" />
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
+    <dir name="itip">
+     <file name="notification.html.php" role="horde" />
+     <file name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/itip -->
     <dir name="list">
      <file name="header.html.php" role="horde" />
      <file name="task_headers.html.php" role="horde" />
@@ -456,8 +462,6 @@
     </dir> <!-- /templates/view -->
     <file name="javascript_defs.php" role="horde" />
     <file name="list.html.php" role="horde" />
-    <file name="notification.html.php" role="horde" />
-    <file name="notification.plain.php" role="horde" />
     <file name="quick.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -824,6 +828,7 @@
    <install as="nag/lib/Tasklist.php" name="lib/Tasklist.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="nag/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
+   <install as="nag/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -838,6 +843,7 @@
    <install as="nag/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
+   <install as="nag/lib/Form/Type/NagContact.php" name="lib/Form/Type/NagContact.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagRecurrence.php" name="lib/Form/Type/NagRecurrence.php" />
@@ -960,13 +966,13 @@
    <install as="nag/tasks/index.php" name="tasks/index.php" />
    <install as="nag/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="nag/templates/list.html.php" name="templates/list.html.php" />
-   <install as="nag/templates/notification.html.php" name="templates/notification.html.php" />
-   <install as="nag/templates/notification.plain.php" name="templates/notification.plain.php" />
    <install as="nag/templates/quick.inc" name="templates/quick.inc" />
    <install as="nag/templates/alarm/mail.html.php" name="templates/alarm/mail.html.php" />
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="nag/templates/data/import.inc" name="templates/data/import.inc" />
+   <install as="nag/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
+   <install as="nag/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
    <install as="nag/templates/list/header.html.php" name="templates/list/header.html.php" />
    <install as="nag/templates/list/task_headers.html.php" name="templates/list/task_headers.html.php" />
    <install as="nag/templates/list/_task.html.php" name="templates/list/_task.html.php" />
@@ -1638,7 +1644,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-02-24</date>
+   <date>2015-02-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fall back to sort by name if sort criteria are equal.

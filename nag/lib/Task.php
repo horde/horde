@@ -1201,8 +1201,10 @@ class Nag_Task
         $vTodo->setAttribute('UID', $this->uid);
 
         if (!empty($this->assignee)) {
-            $vTodo->setAttribute('ORGANIZER', $this->assignee);
+            $vTodo->setAttribute('ATTENDEE', Nag::getUserEmail($this->assignee), array('ROLE' => 'REQ-PARTICIPANT'));
         }
+
+        $vTodo->setAttribute('ORGANIZER', !empty($this->organizer) ? Nag::getUserEmail($this->organizer) : Nag::getUserEmail($this->owner));
 
         if (!empty($this->name)) {
             $vTodo->setAttribute('SUMMARY', $this->name);
@@ -1436,7 +1438,9 @@ class Nag_Task
 
         try {
             $organizer = $vTodo->getAttribute('ORGANIZER');
-            if (!is_array($organizer)) { $this->organizer = $organizer; }
+            if (!is_array($organizer)) {
+                $this->organizer = $organizer;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         // If an attendee matches our from_addr, add current user as assignee.
@@ -1468,10 +1472,17 @@ class Nag_Task
                 $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
             }
             if (in_array($attendee, $all_addrs) !== false) {
-                $this->assignee = $GLOBALS['registry']->getAuth();
+                $this->assignee = $GLOBALS['conf']['assignees']['allow_external'] ? $attendee : $GLOBALS['registry']->getAuth();
                 $this->status = Nag::RESPONSE_ACCEPTED;
                 break;
+            } elseif ($GLOBALS['conf']['assignees']['allow_external']) {
+                $this->assignee = $attendee;
             }
+        }
+
+        // Default to current user as organizer
+        if (empty($this->organizer) && !empty($this->assignee)) {
+            $this->organizer = $identity->getValue('from_addr');
         }
 
         try {

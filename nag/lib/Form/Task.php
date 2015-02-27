@@ -113,16 +113,20 @@ class Nag_Form_Task extends Horde_Form
                                          $horde_group->listUsers($group));
                 }
             }
-            $users = array_flip($users);
-            if (count($users)) {
-                foreach (array_keys($users) as $user) {
-                    $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user);
-                    $fullname = $identity->getValue('fullname');
-                    $users[$user] = strlen($fullname) ? $fullname : $user;
+            if (empty($GLOBALS['conf']['assignees']['allow_external'])) {
+                $users = array_flip($users);
+                if (count($users)) {
+                    foreach (array_keys($users) as $user) {
+                        $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($user);
+                        $fullname = $identity->getValue('fullname');
+                        $users[$user] = strlen($fullname) ? $fullname : $user;
+                    }
                 }
+                $this->addVariable(_("Assignee"), 'assignee', 'enum', false, false,
+                                   null, array($users, _("None")));
+            } else {
+                $this->addVariable(_("Assignee"), 'assignee', 'Nag:NagContact', false);
             }
-            $this->addVariable(_("Assignee"), 'assignee', 'enum', false, false,
-                               null, array($users, _("None")));
         }
 
         $this->addVariable(_("Private?"), 'private', 'boolean', false);

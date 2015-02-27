@@ -183,13 +183,19 @@ $_prefs['task_notification'] = array(
         'read' => _("On all task lists I have read access to")
     ),
     'desc' => _("Choose if you want to be notified of new, edited, and deleted tasks by email:"),
+    'locked' => function() {
+        return $GLOBALS['conf']['assignees']['allow_external'];
+    }
 );
 
 $_prefs['task_notification_exclude_self'] = array(
     'value' => 0,
     'locked' => false,
     'type' => 'checkbox',
-    'desc' => _("Don't send me a notification if I've added, changed or deleted the task?")
+    'desc' => _("Don't send me a notification if I've added, changed or deleted the task?"),
+    'locked' => function() {
+        return $GLOBALS['conf']['assignees']['allow_external'];
+    }
 );
 
 // alarm methods

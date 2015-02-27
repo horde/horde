@@ -955,12 +955,19 @@ class Nag
             return '';
         }
 
-        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($assignee);
-        $fullname = $identity->getValue('fullname');
-        if (!strlen($fullname)) {
-            $fullname = $assignee;
+        if ($GLOBALS['conf']['assignees']['allow_external']) {
+            $email = new Horde_Mail_Rfc822_Address($assignee);
+            $fullname = $email->personal;
+            $email = $email->bare_address;
+        } else {
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($assignee);
+            $fullname = $identity->getValue('fullname');
+            if (!strlen($fullname)) {
+                $fullname = $assignee;
+            }
+            $email = $identity->getValue('from_addr');
         }
-        $email = $identity->getValue('from_addr');
+
         if ($link && !empty($email) &&
             $GLOBALS['registry']->hasMethod('mail/compose')) {
             return Horde::link($GLOBALS['registry']->call(
@@ -1741,6 +1748,15 @@ class Nag
         return array();
     }
 
+    public static function getUserEmail($user)
+    {
+        if (strpos($user, '@')) {
+            return $user;
+        }
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($user);
+        return $identity->getValue('from_addr');
+    }
+
     /**
      * Maps an iCalendar attendee response string to the corresponding
      * Nag value.
@@ -1786,7 +1802,6 @@ class Nag
     {
         global $injector, $registry, $nag_shares;
 
-        Horde::debug($task);
         if (!$task->assignee) {
             return;
         }
@@ -1807,8 +1822,7 @@ class Nag
         $view->task = $task;
         $view->imageId = $image->getContentId();
 
-        $ident_assignee = $injector->getInstance('Horde_Core_Factory_Identity')->create($task->assignee);
-        $email = $ident_assignee->getValue('from_addr');
+        $email = Nag::getUserEmail($task->assignee);
         if (strpos($email, '@') === false) {
             continue;
         }
@@ -1844,7 +1858,10 @@ class Nag
             break;
         }
         $view->attendees = $email;
-        $view->organizer = $registry->convertUserName($task->creator, false);
+        $view->organizer = empty($task->organizer)
+            ? $registry->convertUserName($task->creator, false)
+            : $task->organizer;
+
         if ($action == self::ITIP_REQUEST) {
             // @todo
             // $attend_link = Horde::url('attend.php', true, -1)
