@@ -2,14 +2,14 @@
 # Copyright 2004-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
-# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Nag 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-11-03 16:51+0100\n"
+"PO-Revision-Date: 2015-02-25 18:47+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: templates/view/task.inc:58
 #, php-format
 msgid " (%s including sub-tasks)"
-msgstr ""
+msgstr " (%s včetně podůkolů)"
 
 #: lib/Nag.php:126
 #, php-format
@@ -78,17 +78,17 @@ msgstr "%s na %s"
 #: lib/Block/Summary.php:121 lib/Nag.php:1007
 #, php-format
 msgid "%s is due in %s"
-msgstr "%s je požadováno v %s"
+msgstr "%s má termín %s"
 
 #: lib/Block/Summary.php:118 lib/Nag.php:1005
 #, php-format
 msgid "%s is due now."
-msgstr "%s požadováno nyní."
+msgstr "%s musí být dokončen doteď."
 
 #: lib/CompleteTask.php:30
 #, php-format
 msgid "%s is now incomplete."
-msgstr "%s je nyní dokončen."
+msgstr "%s je nyní nedokončen."
 
 #: lib/CompleteTask.php:27
 #, php-format
@@ -110,16 +110,15 @@ msgstr "(nejnižší)"
 
 #: lib/Form/Type/NagRecurrence.php:127
 msgid "A due date is necessary to enable recurrences."
-msgstr ""
+msgstr "Termín je nutný pro povolení opakování."
 
 #: lib/Form/Type/NagAlarm.php:30
 msgid "A due date must be set to enable alarms."
-msgstr ""
+msgstr "Termín je nutný pro zapnutí upozornění."
 
 #: lib/CompleteTask.php:17
-#, fuzzy
 msgid "Access denied completing this task."
-msgstr "Zamezen přístup pro dokončení úkolu %s."
+msgstr "Zamezen přístup pro dokončení tohoto úkolu."
 
 #: app/controllers/SaveTask.php:34
 msgid "Access denied deleting task"
@@ -165,12 +164,12 @@ msgid "Access denied saving task: %s"
 msgstr "Zamezen přístup pro uložení úkolu: %s."
 
 #: quick.php:13
-#, fuzzy, php-format
+#, php-format
 msgid "Added %d task"
 msgid_plural "Added %d tasks"
-msgstr[0] "%d úkoly"
-msgstr[1] "%d úkoly"
-msgstr[2] "%d úkoly"
+msgstr[0] "Byl přidán %d úkol"
+msgstr[1] "Byly přidány %d úkoly"
+msgstr[2] "Bylo přidáno %d úkolů"
 
 #: data.php:51 lib/Form/Task.php:127 templates/view/task.inc:49
 msgid "Alarm"
@@ -185,10 +184,9 @@ msgid "All Tasks"
 msgstr "Všechny úkoly"
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:80
-#, fuzzy, php-format
+#, php-format
 msgid "All completed tasks older than %d days will be permanently deleted."
-msgstr ""
-"Všechny zprávy ve Vaší složce \"%s\" starší než %s dní budou trvale vymazány."
+msgstr "Všechny dokončené úkoly starší než %d dní budou trvale vymazány."
 
 #: config/prefs.php:316
 msgid ""
@@ -203,9 +201,8 @@ msgid "All tasks"
 msgstr "Všechny úkoly"
 
 #: lib/Block/Summary.php:76
-#, fuzzy
 msgid "Always show completed and future tasks?"
-msgstr "Vždy zobrazit dokončené úkoly?"
+msgstr "Vždy zobrazit dokončené a budoucí úkoly?"
 
 #: lib/Block/Summary.php:71
 msgid "Always show overdue tasks?"
@@ -227,9 +224,8 @@ msgid "Assignee"
 msgstr "Řešitel"
 
 #: lib/Block/Summary.php:41
-#, fuzzy
 msgid "Block title"
-msgstr "Název úkolu"
+msgstr "Titulek bloku"
 
 #: data.php:22
 msgid "CSV"
@@ -268,63 +264,62 @@ msgid "Change your task sorting and display preferences."
 msgstr "Změňit nastavení třídení a zobrazení úkolů."
 
 #: lib/Nag.php:1199
-#, fuzzy, php-format
+#, php-format
 msgid "Changed alarm from %s to %s"
-msgstr ", proměnná z %s do %s"
+msgstr "Bylo změněno upozornění z %s na %s"
 
 #: lib/Nag.php:1178
-#, fuzzy, php-format
+#, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
-msgstr ", proměnná z %s do %s"
+msgstr "Odpovědná osoba byla změněna z \"%s\" na \"%s\""
 
 #: lib/Nag.php:1214
-#, fuzzy, php-format
+#, php-format
 msgid "Changed completion from %s to %s"
-msgstr "Událost od %s do %s"
+msgstr "Byl změněn stav z %s na %s"
 
 #: lib/Nag.php:1219
-#, fuzzy
 msgid "Changed description"
-msgstr "Popis Kalendáře"
+msgstr "Byl změněn popis"
 
 #: lib/Nag.php:1187
-#, fuzzy, php-format
+#, php-format
 msgid "Changed due date from %s to %s"
-msgstr "Událost od %s do %s"
+msgstr "Byl změněn termín dokončení z %s na %s"
 
 #: lib/Nag.php:1209
-#, fuzzy, php-format
+#, php-format
 msgid "Changed estimate from %s to %s"
-msgstr ", proměnná z %s do %s"
+msgstr "Byl změněn odhad pracnosti z %s na %s"
 
 #: lib/Nag.php:1146
-#, fuzzy, php-format
+#, php-format
 msgid "Changed name from \"%s\" to \"%s\""
-msgstr ", proměnná z %s do %s"
+msgstr "Bylo změněno jméno z \"%s\" na \"%s\""
 
 #: lib/Nag.php:1160
 #, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
-msgstr ""
+msgstr "Nadřazený úkol byl změněn z \"%s\" na \"%s\""
 
 #: lib/Nag.php:1204
-#, fuzzy, php-format
+#, php-format
 msgid "Changed priority from %s to %s"
-msgstr "Událost od %s do %s"
+msgstr "Změněna priorita z %s na %s"
 
 #: lib/Nag.php:1193
-#, fuzzy, php-format
+#, php-format
 msgid "Changed start date from %s to %s"
-msgstr ", proměnná z %s do %s"
+msgstr "Změněn datum začátku z %s na %s"
 
 #: lib/Nag.php:1152
-#, fuzzy, php-format
+#, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
-msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+msgstr "Seznam úkolů \"%s\" byl přejmenován na \"%s\"."
 
 #: lib/Nag.php:1143
 msgid "Changes made for this task:"
-msgstr ""
+msgstr "Změny v tomto úkole:"
 
 #: lib/Prefs/Special/TaskAlarms.php:29
 msgid "Choose how you want to receive reminders for tasks with alarms:"
@@ -369,9 +364,9 @@ msgid "Color"
 msgstr "Barva"
 
 #: lib/Block/Summary.php:188 templates/list/_task.html.php:10
-#, fuzzy, php-format
+#, php-format
 msgid "Complete \"%s\""
-msgstr "%s dokončeno."
+msgstr "Dokončit \"%s\""
 
 #: config/prefs.php:226
 msgid "Complete tasks"
@@ -409,9 +404,9 @@ msgid "Completion Status"
 msgstr "Stav dokončení"
 
 #: lib/Api.php:640
-#, fuzzy, php-format
+#, php-format
 msgid "Connection failed: %s"
-msgstr "Spojení selhalo"
+msgstr "Spojení selhalo: %s"
 
 #: lib/Form/EditTaskList.php:102
 msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
@@ -554,9 +549,8 @@ msgid "Due Date"
 msgstr "Termín dokončení"
 
 #: lib/Ui/VarRenderer/Nag.php:110
-#, fuzzy
 msgid "Due date specified."
-msgstr "Nebylo zadáno žádné uživatelské jméno."
+msgstr "Není vyplňen termín dokončení."
 
 #: lib/Form/Search.php:60
 msgid "Due date:"
@@ -597,11 +591,14 @@ msgid ""
 "cleaning next Thursday\". Tags may be added by prefixing them with the \"#\" "
 "character."
 msgstr ""
+"Zadejte jeden úkol na řádek. Podřazené úkoly můžete vytvořit jejich "
+"odsazením. Termíny dokončení vložte ve tvaru \"Odeslat fakturu zítra\". "
+"Můžete přidat také štítky pomocí předpony \"#\"."
 
 #: app/controllers/SaveTask.php:43 task.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "Error deleting task: %s"
-msgstr "Chyba při změně hesla: %s."
+msgstr "Chyba při mazání úkolu: %s"
 
 #: templates/smartmobile/taskform.html.php:50
 msgid "Estimate"
@@ -668,7 +665,7 @@ msgstr "Nedokončeno"
 
 #: templates/list/_task.html.php:7
 msgid "Incomplete sub tasks, complete them first"
-msgstr ""
+msgstr "Podúkoly nejsou dokončeny. Nejdříve je dokončete."
 
 #: config/prefs.php:225 templates/data/export.inc:35
 msgid "Incomplete tasks"
@@ -711,7 +708,7 @@ msgstr "Nejnižší"
 #: templates/list/_task.html.php:18
 #, php-format
 msgid "Mark \"%s\" as incomplete"
-msgstr ""
+msgstr "Označit \"%s\" jako nedokončen"
 
 #: lib/Application.php:76
 #, fuzzy
@@ -876,7 +873,7 @@ msgstr "Vlastník"
 
 #: templates/list/task_headers.html.php:12
 msgid "P_ri"
-msgstr "D_ůl"
+msgstr "_Důl"
 
 #: lib/Form/Task.php:89
 msgid "Parent task"
@@ -909,12 +906,12 @@ msgid "Purge completed tasks older than this amount of days."
 msgstr "Mazat dokončené úkoly starší než tento počet dní:"
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Purging %d completed task."
 msgid_plural "Purging %d completed tasks."
-msgstr[0] "Nedokončené úkoly"
-msgstr[1] "Nedokončené úkoly"
-msgstr[2] "Nedokončené úkoly"
+msgstr[0] "Mažu %d dokončený úkol."
+msgstr[1] "Mažu %d dokončené úkoly."
+msgstr[2] "Mažu %d dokončených úkolů."
 
 #: templates/quick.inc:2
 msgid "Quick Task Creation"
@@ -1028,9 +1025,8 @@ msgid "Select the format of the source file:"
 msgstr "Vybrat formát zdrojového souboru:"
 
 #: templates/data/export.inc:20
-#, fuzzy
 msgid "Select the task list(s) to export from:"
-msgstr "Vybrat kalendář pro importování:"
+msgstr "Vyberte seznam úkolů pro export:"
 
 #: config/prefs.php:276
 msgid ""
@@ -1041,9 +1037,8 @@ msgstr ""
 "externími zařízeními:"
 
 #: templates/data/export.inc:32
-#, fuzzy
 msgid "Select the task states to export:"
-msgstr "Vybrat soubor k importování:"
+msgstr "Vyberte stavy úkolů pro export:"
 
 #: lib/Ui/VarRenderer/Nag.php:357
 msgid "Set recurrence end date"
@@ -1071,7 +1066,7 @@ msgstr "Zobrazit data z jiných aplikací a zdrojů."
 
 #: lib/Block/Summary.php:56
 msgid "Show due dates?"
-msgstr "Zobrazit datum požadovaného dokočení?"
+msgstr "Zobrazit termíny?"
 
 #: lib/Block/Summary.php:46
 msgid "Show priorities?"
@@ -1204,9 +1199,8 @@ msgid "Task Note?"
 msgstr "Poznámku úkolu?"
 
 #: lib/Nag.php:1125
-#, fuzzy
 msgid "Task added:"
-msgstr "Název Úkolu"
+msgstr "Úkolu přidán:"
 
 #: lib/Nag.php:1224
 msgid "Task deleted:"
@@ -1229,7 +1223,7 @@ msgstr "Nedostatečná práva pro vložení položek."
 #: lib/Tasklists/Default.php:45
 #, php-format
 msgid "Task list of %s"
-msgstr "Úkoly %s"
+msgstr "Úkoly uživatele %s"
 
 #: lib/Nag.php:1136
 msgid "Task modified:"
@@ -1256,9 +1250,9 @@ msgid "Tasks Summary"
 msgstr "Shrnutí úkolů"
 
 #: lib/Api.php:312
-#, fuzzy, php-format
+#, php-format
 msgid "Tasks from %s"
-msgstr "Zpráva od %s"
+msgstr "Úkoly od %s"
 
 #: lib/Driver/Sql.php:99
 msgid "Tasks not found"
@@ -1269,9 +1263,9 @@ msgid "Th"
 msgstr "Čt"
 
 #: data.php:160
-#, fuzzy, php-format
+#, php-format
 msgid "The %s file didn't contain any tasks."
-msgstr "Soubor %s neobsahoval žádné kontakty."
+msgstr "Soubor %s neobsahoval žádné úkoly."
 
 #: lib/Driver.php:56
 #, fuzzy
@@ -1288,25 +1282,25 @@ msgid "The current hour"
 msgstr "Aktuální hodina"
 
 #: lib/Nag.php:1129
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
-msgstr "Událost byla přidána do Vašeho kalendáře."
+msgstr "Úkol \"%s\" byl přidán na seznam \"%s\". Termín jeho dokončení je %s."
 
 #: lib/Nag.php:1130
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
-msgstr "Úkol byl přidán do Vašeho seznamu úkolů."
+msgstr "Úkol \"%s\" byl přidán do seznamu úkolů \"%s\"."
 
 #: lib/Nag.php:1228
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
-msgstr "Úkol byl přidán do Vašeho seznamu úkolů."
+msgstr "Úkol \"%s\" byl smzazán ze seznamu úkolů \"%s\"."
 
 #: lib/Nag.php:1139
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
-msgstr "Úkol byl přidán do Vašeho seznamu úkolů."
+msgstr "Úkol \"%s\" ze seznamu \"%s\" byl upraven."
 
 #: tasklists/create.php:25
 #, php-format
@@ -1319,9 +1313,9 @@ msgid "The task list \"%s\" has been deleted."
 msgstr "Byl´smazán seznam úkolů \"%s\"."
 
 #: tasklists/edit.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+msgstr "Seznam úkolů \"%s\" byl přejmenován na \"%s\"."
 
 #: tasklists/edit.php:41
 #, php-format
@@ -1401,9 +1395,9 @@ msgid "Turned privacy on"
 msgstr ""
 
 #: lib/Api.php:650
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to delete task list \"%s\": %s"
-msgstr "Nelze smazat \"%s\": %s."
+msgstr "Nelze smazat seznam úkolů \"%s\": %s"
 
 #: lib/Factory/Driver.php:70
 #, php-format
@@ -1520,22 +1514,22 @@ msgid ""
 "reminders of due tasks with alarms. You can change this if you %slogin to "
 "the task list%s and change your preferences."
 msgstr ""
+"Tuto správu jste dostal, protože Váš seznam úkolů je nastaven, aby Vám "
+"posílal upomínky na úkoly s nastaveným termínem. Toto nastavení můžete "
+"upravit, když %sotevřete seznam úkolů%s a změníte předvolby."
 
 #: lib/Nag.php:1126
-#, fuzzy
 msgid "You requested to be notified when tasks are added to your task lists."
-msgstr "Událost byla přidána do Vašeho kalendáře."
+msgstr "Přál jste si být upozorněn, když bude přidán nový úkol."
 
 #: lib/Nag.php:1226
-#, fuzzy
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
-msgstr "Událost byla přidána do Vašeho kalendáře."
+msgstr "Přál jste si být upozorněn, když bude smazán nějaký úkol."
 
 #: lib/Nag.php:1137
-#, fuzzy
 msgid "You requested to be notified when tasks are edited on your task lists."
-msgstr "Událost ve Vašem kalendáři byla aktualizována."
+msgstr "Přál jste si být upozorněn, když bude upraven nějaký úkol."
 
 #: config/prefs.php:238
 msgid "Your default task list:"
@@ -1564,7 +1558,7 @@ msgstr "_Smazat"
 
 #: templates/list/task_headers.html.php:25
 msgid "_Due Date"
-msgstr "_Datum Požadovaného Dokončení"
+msgstr "_Termín"
 
 #: templates/view/task.inc:8
 msgid "_Edit"
@@ -1595,18 +1589,16 @@ msgid "_Search"
 msgstr "_Vyhledat"
 
 #: templates/list/task_headers.html.php:29
-#, fuzzy
 msgid "_Start Date"
-msgstr "Datum Začátku"
+msgstr "Datum _začátku"
 
 #: templates/list/task_headers.html.php:8
 msgid "_Task List"
 msgstr "_Seznam Úkolů"
 
 #: config/prefs.php:169
-#, fuzzy
 msgid "am"
-msgstr "Název"
+msgstr "dop."
 
 #: lib/View/List.php:347 lib/View/List.php:356
 msgid "and"
@@ -1657,19 +1649,16 @@ msgid "month(s)"
 msgstr "měsíc(e)"
 
 #: lib/Nag.php:1188 lib/Nag.php:1189
-#, fuzzy
 msgid "no due date"
-msgstr "Bez požadovaného dokočení."
+msgstr "bez termínu"
 
 #: lib/Nag.php:1161 lib/Nag.php:1162
-#, fuzzy
 msgid "no parent"
-msgstr "Žádný nadřazený úkol"
+msgstr "žádný nadřazený úkol"
 
 #: lib/Nag.php:1194 lib/Nag.php:1195
-#, fuzzy
 msgid "no start date"
-msgstr "Nastavit datum začátku"
+msgstr "bez data začátku"
 
 #: lib/Nag.php:134
 msgid "no time"
@@ -1688,9 +1677,8 @@ msgid "on the same weekday"
 msgstr "ve stejném týdnu"
 
 #: config/prefs.php:169
-#, fuzzy
 msgid "pm"
-msgstr "Spam"
+msgstr "odp."
 
 #: lib/Ui/VarRenderer/Nag.php:368
 msgid "recurrences"
@@ -1717,14 +1705,12 @@ msgid "with"
 msgstr "s"
 
 #: lib/Ui/VarRenderer/Nag.php:299
-#, fuzzy
 msgid "year(s) on the same date"
-msgstr "ve stejném dnu"
+msgstr "rok(let) ve stejném datu"
 
 #: lib/Ui/VarRenderer/Nag.php:314
-#, fuzzy
 msgid "year(s) on the same day of the year"
-msgstr "ve stejném dnu"
+msgstr "rok(let) ve stejném dnu"
 
 #: lib/Ui/VarRenderer/Nag.php:329
 msgid "year(s) on the same weekday and month of the year"
