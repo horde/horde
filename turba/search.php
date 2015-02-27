@@ -59,6 +59,7 @@ foreach ($addressBooks as $key => $entry) {
     $shareSources[$key] = $entry['type'] != 'vbook';
 }
 
+// Criteria is from "basic" search only.
 $criteria = $vars->criteria;
 $val = $vars->val;
 try {
