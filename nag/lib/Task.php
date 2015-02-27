@@ -279,6 +279,20 @@ class Nag_Task
     public $internaltags;
 
     /**
+     * Task organizer
+     *
+     * @var string
+     */
+    public $organizer;
+
+    /**
+     * The assignment status of this task.
+     *
+     * @var integer
+     */
+    public $status;
+
+    /**
      * Task tags (lazy loaded).
      *
      * @var array
@@ -306,7 +320,7 @@ class Nag_Task
     /**
      * Getter.
      *
-     * Returns the 'id' and 'creator' properties.
+     * Returns 'tags' property.
      *
      * @param string $name  Property name.
      *
@@ -1015,7 +1029,9 @@ class Nag_Task
             'methods' => $this->methods,
             'private' => $this->private,
             'recurrence' => $this->recurrence,
-            'tags' => $this->tags);
+            'tags' => $this->tags,
+            'organizer' => $this->organizer,
+            'status' => $this->status);
 
         return $hash;
     }
@@ -1185,8 +1201,10 @@ class Nag_Task
         $vTodo->setAttribute('UID', $this->uid);
 
         if (!empty($this->assignee)) {
-            $vTodo->setAttribute('ORGANIZER', $this->assignee);
+            $vTodo->setAttribute('ATTENDEE', Nag::getUserEmail($this->assignee), array('ROLE' => 'REQ-PARTICIPANT'));
         }
+
+        $vTodo->setAttribute('ORGANIZER', !empty($this->organizer) ? Nag::getUserEmail($this->organizer) : Nag::getUserEmail($this->owner));
 
         if (!empty($this->name)) {
             $vTodo->setAttribute('SUMMARY', $this->name);
@@ -1410,10 +1428,62 @@ class Nag_Task
             if (!is_array($name)) { $this->name = $name; }
         } catch (Horde_Icalendar_Exception $e) {}
 
+        // Not sure why we were mapping the ORGANIZER to the person the
+        // task is assigned to? If anything, this needs to be mapped to
+        // any ATTENDEE fields from the vTodo.
+        // try {
+        //     $assignee = $vTodo->getAttribute('ORGANIZER');
+        //     if (!is_array($assignee)) { $this->assignee = $assignee; }
+        // } catch (Horde_Icalendar_Exception $e) {}
+
         try {
-            $assignee = $vTodo->getAttribute('ORGANIZER');
-            if (!is_array($assignee)) { $this->assignee = $assignee; }
+            $organizer = $vTodo->getAttribute('ORGANIZER');
+            if (!is_array($organizer)) {
+                $this->organizer = $organizer;
+            }
         } catch (Horde_Icalendar_Exception $e) {}
+
+        // If an attendee matches our from_addr, add current user as assignee.
+        try {
+            $atnames = $vTodo->getAttribute('ATTENDEE');
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Nag_Exception($e->getMessage());
+        }
+        if (!is_array($atnames)) {
+            $atnames = array($atnames);
+        }
+        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+        $all_addrs = $identity->getAll('from_addr');
+        foreach ($atnames as $index => $attendee) {
+            if ($vTodo->getAttribute('VERSION') < 2) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                if (!$addr_ob->valid) {
+                    continue;
+                }
+                $attendee = $addr_ob->bare_address;
+                $name = $addr_ob->personal;
+            } else {
+                $attendee = str_ireplace('mailto:', '', $attendee);
+                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                if (!$addr_ob->valid) {
+                    continue;
+                }
+                $attendee = $addr_ob->bare_address;
+                $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
+            }
+            if (in_array($attendee, $all_addrs) !== false) {
+                $this->assignee = $GLOBALS['conf']['assignees']['allow_external'] ? $attendee : $GLOBALS['registry']->getAuth();
+                $this->status = Nag::RESPONSE_ACCEPTED;
+                break;
+            } elseif ($GLOBALS['conf']['assignees']['allow_external']) {
+                $this->assignee = $attendee;
+            }
+        }
+
+        // Default to current user as organizer
+        if (empty($this->organizer) && !empty($this->assignee)) {
+            $this->organizer = $identity->getValue('from_addr');
+        }
 
         try {
             $uid = $vTodo->getAttribute('UID');

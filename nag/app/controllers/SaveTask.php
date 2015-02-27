@@ -3,7 +3,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
 {
     public function processRequest(Horde_Controller_Request $request, Horde_Controller_Response $response)
     {
-        global $nag_shares, $prefs;
+        global $nag_shares, $prefs, $conf;
 
         $vars = Horde_Variables::getDefaultVariables();
         $registry = $this->getInjector()->getInstance('Horde_Registry');
@@ -90,6 +90,9 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             } catch (Nag_Exception $e) {
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
+            }
+            if ($conf['assignees']['allow_external']) {
+                Nag::sendITipNotifications($storage->get($newid[0]), $notification, Nag::ITIP_REQUEST);
             }
         }
 

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-01-16</date>
+ <date>2015-02-27</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -100,6 +100,7 @@
       </dir> <!-- /lib/Ajax/Application/Handler -->
      </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
+      <file name="ContactAutoCompleter.php" role="horde" />
       <file name="TagAutoCompleter.php" role="horde" />
      </dir> <!-- /lib/Ajax/Imple -->
      <file name="Application.php" role="horde" />
@@ -120,6 +121,7 @@
     <dir name="Form">
      <dir name="Type">
       <file name="NagAlarm.php" role="horde" />
+      <file name="NagContact.php" role="horde" />
       <file name="NagDue.php" role="horde" />
       <file name="NagMethod.php" role="horde" />
       <file name="NagRecurrence.php" role="horde" />
@@ -417,6 +419,7 @@
     <file name="12_nag_fix_smartlists.php" role="horde" />
     <file name="13_nag_upgrade_parents.php" role="horde" />
     <file name="14_nag_upgrade_search.php" role="horde" />
+    <file name="15_nag_upgrade_addorganizer.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -440,6 +443,10 @@
      <file name="export.inc" role="horde" />
      <file name="import.inc" role="horde" />
     </dir> <!-- /templates/data -->
+    <dir name="itip">
+     <file name="notification.html.php" role="horde" />
+     <file name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/itip -->
     <dir name="list">
      <file name="header.html.php" role="horde" />
      <file name="task_headers.html.php" role="horde" />
@@ -512,8 +519,12 @@
       <file name="add.png" role="horde" />
       <file name="alarm.png" role="horde" />
       <file name="alarm_small.png" role="horde" />
+      <file name="attendee-accepted.png" role="horde" />
+      <file name="attendee-declined.png" role="horde" />
+      <file name="attendee-none.png" role="horde" />
       <file name="az.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
+      <file name="big_invitation.png" role="horde" />
       <file name="checked.png" role="horde" />
       <file name="complete.png" role="horde" />
       <file name="delete.png" role="horde" />
@@ -817,6 +828,7 @@
    <install as="nag/lib/Tasklist.php" name="lib/Tasklist.php" />
    <install as="nag/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="nag/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
+   <install as="nag/lib/Ajax/Imple/ContactAutoCompleter.php" name="lib/Ajax/Imple/ContactAutoCompleter.php" />
    <install as="nag/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="nag/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="nag/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
@@ -831,6 +843,7 @@
    <install as="nag/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="nag/lib/Form/Task.php" name="lib/Form/Task.php" />
    <install as="nag/lib/Form/Type/NagAlarm.php" name="lib/Form/Type/NagAlarm.php" />
+   <install as="nag/lib/Form/Type/NagContact.php" name="lib/Form/Type/NagContact.php" />
    <install as="nag/lib/Form/Type/NagDue.php" name="lib/Form/Type/NagDue.php" />
    <install as="nag/lib/Form/Type/NagMethod.php" name="lib/Form/Type/NagMethod.php" />
    <install as="nag/lib/Form/Type/NagRecurrence.php" name="lib/Form/Type/NagRecurrence.php" />
@@ -943,6 +956,7 @@
    <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
    <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
+   <install as="nag/migration/15_nag_upgrade_addorganizer.php" name="migration/15_nag_upgrade_addorganizer.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
@@ -957,6 +971,8 @@
    <install as="nag/templates/alarm/mail.plain.php" name="templates/alarm/mail.plain.php" />
    <install as="nag/templates/data/export.inc" name="templates/data/export.inc" />
    <install as="nag/templates/data/import.inc" name="templates/data/import.inc" />
+   <install as="nag/templates/itip/notification.html.php" name="templates/itip/notification.html.php" />
+   <install as="nag/templates/itip/notification.plain.php" name="templates/itip/notification.plain.php" />
    <install as="nag/templates/list/header.html.php" name="templates/list/header.html.php" />
    <install as="nag/templates/list/task_headers.html.php" name="templates/list/task_headers.html.php" />
    <install as="nag/templates/list/_task.html.php" name="templates/list/_task.html.php" />
@@ -987,8 +1003,12 @@
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
    <install as="nag/themes/default/graphics/alarm_small.png" name="themes/default/graphics/alarm_small.png" />
+   <install as="nag/themes/default/graphics/attendee-accepted.png" name="themes/default/graphics/attendee-accepted.png" />
+   <install as="nag/themes/default/graphics/attendee-declined.png" name="themes/default/graphics/attendee-declined.png" />
+   <install as="nag/themes/default/graphics/attendee-none.png" name="themes/default/graphics/attendee-none.png" />
    <install as="nag/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="nag/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
+   <install as="nag/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/complete.png" name="themes/default/graphics/complete.png" />
    <install as="nag/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
@@ -1624,7 +1644,7 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-01-16</date>
+   <date>2015-02-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fall back to sort by name if sort criteria are equal.

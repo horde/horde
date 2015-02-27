@@ -27,6 +27,11 @@
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 {
+    const AUTO_UPDATE_EVENT_REPLY = 'auto_update_eventreply';
+    const AUTO_UPDATE_FB_PUBLISH  = 'auto_update_fbpublish';
+    const AUTO_UPDATE_FB_REPLY    = 'auto_update_fbreply';
+    const AUTO_UPDATE_TASK_REPLY  = 'auto_update_taskreply';
+
     /**
      * This driver's display capabilities.
      *
@@ -225,7 +230,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         case 'PUBLISH':
         case 'REPLY':
             if ($registry->hasMethod('calendar/import_vfreebusy')) {
-                if ($this->_autoUpdateReply(($method == 'PUBLISH') ? 'auto_update_fbpublish' : 'auto_update_fbreply', $sender)) {
+                if ($this->_autoUpdateReply(($method == 'PUBLISH') ? self::AUTO_UPDATE_FB_PUBLISH : self::AUTO_UPDATE_EVENT_REPLY, $sender)) {
                     try {
                         $registry->call('calendar/import_vfreebusy', array($vfb));
                         $notification->push(_("The user's free/busy information was sucessfully stored."), 'horde.success');
@@ -346,7 +351,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 ? $from->getAddressList(true)->first()->bare_address
                 : null;
             if ($registry->hasMethod('calendar/updateAttendee') &&
-                $this->_autoUpdateReply('auto_update_eventreply', $sender)) {
+                $this->_autoUpdateReply(self::AUTO_UPDATE_EVENT_REPLY, $sender)) {
                 try {
                     $registry->call('calendar/updateAttendee', array(
                         $vevent,
@@ -688,6 +693,13 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $sender = _("An unknown person");
         }
 
+        try {
+            if (($attendees = $vtodo->getAttribute('ATTENDEE')) &&
+                !is_array($attendees)) {
+                $attendees = array($attendees);
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
         switch ($method) {
         case 'PUBLISH':
             $desc = _("%s wishes to make you aware of \"%s\".");
@@ -702,6 +714,29 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
                 $options['accept-import'] = _("Accept and add this to my tasklist");
                 $options['import'] = _("Add this to my tasklist");
                 $options['deny'] = _("Deny task assignment");
+            }
+            break;
+
+        case 'REPLY':
+            $desc = _("%s has replied to the assignment of task \"%s\".");
+            $from = $this->getConfigParam('imp_contents')->getHeader()->getHeader('from');
+            $sender = $from
+                ? $from->getAddressList(true)->first()->bare_address
+                : null;
+
+            if ($registry->hasMethod('tasks/updateAttendee') &&
+                $this->_autoUpdateReply(self::AUTO_UPDATE_TASK_REPLY, $sender)) {
+                try {
+                    $registry->call('tasks/updateAttendee', array(
+                        $vtodo,
+                        $sender
+                    ));
+                    $notification->push(_("Respondent Status Updated."), 'horde.success');
+                } catch (Horde_Exception $e) {
+                    $notification->push(sprintf(_("There was an error updating the task: %s"), $e->getMessage()), 'horde.error');
+                }
+            } elseif ($registry->hasMethod('tasks/updateAttendee')) {
+                $options['update'] = _("Update respondent status");
             }
             break;
         }
@@ -726,14 +761,12 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $attendees = $vtodo->getAttribute('ATTENDEE');
-        } catch (Horde_Icalendar_Exception $e) {
-            $attendees = null;
-        }
-
-        try {
             $view->percentComplete = $vtodo->getAttribute('PERCENT-COMPLETE');
         } catch (Horde_Icalendar_Exception $e) {}
+
+        if (!empty($attendees)) {
+            $view->attendees = $this->_parseAttendees($vtodo, $attendees);
+        }
 
         if (!empty($options)) {
             reset($options);
@@ -851,6 +884,14 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     }
 
     /**
+     * Determine if we are going to auto-update the reply.
+     *
+     * @param string $type    The type of reply. Must match one of the
+     *                        'auto_update_*' configuration keys in the iTip
+     *                        mime viewer configuration.
+     * @param string $sender  The sender.
+     *
+     * @return boolean
      */
     protected function _autoUpdateReply($type, $sender)
     {

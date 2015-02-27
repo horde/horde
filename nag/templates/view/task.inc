@@ -29,7 +29,13 @@
 <table cellspacing="0" width="100%">
  <tr>
   <td class="horde-label"><?php echo _("Assignee") ?>:</td>
-  <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+  <td width="100%" class="nag-status-<?php echo $task->status ?>"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+ </tr>
+ <tr>
+  <td class="horde-label"><?php echo _("Organizer") ?>:</td>
+  <td>
+    <?php echo Nag::formatOrganizer($task->organizer, true) ?>
+  </td>
  </tr>
  <tr>
   <td class="horde-label"><?php echo _("Private?") ?>:</td>
@@ -66,7 +72,6 @@
    <?php endif ?>
   </td>
  </tr>
-
 <?php if ($task->created): ?>
  <tr>
   <td class="horde-label"><?php echo _("Created") ?>:</td>

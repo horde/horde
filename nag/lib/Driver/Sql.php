@@ -129,6 +129,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - assignee: (OPTIONAL, string) The assignee of the event.
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
+     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -142,10 +143,10 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
-            . 'task_recurtype, task_recurinterval, task_recurenddate, '
+            . 'task_organizer, task_status, task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $values = array($this->_tasklist,
                         $task['owner'],
@@ -162,7 +163,9 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         (int)$task['private'],
-                        $task['parent']);
+                        $task['parent'],
+                        $task['organizer'],
+                        $task['status']);
 
         $this->_addRecurrenceFields($values, $task);
 
@@ -203,6 +206,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - completed_date: (OPTIONAL, integer) The task's completion date.
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
+     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
      *
      * @throws Nag_Exception
      */
@@ -223,6 +227,8 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_alarm_methods = ?, ' .
                  'task_parent = ?, ' .
                  'task_private = ?, ' .
+                 'task_organizer = ?, ' .
+                 'task_status = ?, ' .
                  'task_recurtype = ?, ' .
                  'task_recurinterval = ?, ' .
                  'task_recurenddate = ?, ' .
@@ -245,7 +251,9 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['alarm'],
                         serialize(Horde_String::convertCharset($task['methods'], 'UTF-8', $this->_params['charset'])),
                         $task['parent'],
-                        (int)$task['private']);
+                        (int)$task['private'],
+                        $task['organizer'],
+                        $task['status']);
         $this->_addRecurrenceFields($values, $task);
         $values[] = $this->_tasklist;
         $values[] = $taskId;
@@ -598,7 +606,9 @@ class Nag_Driver_Sql extends Nag_Driver
             'alarm' => $row['task_alarm'],
             'methods' => Horde_String::convertCharset(@unserialize($row['task_alarm_methods']), $this->_params['charset'], 'UTF-8'),
             'private' => $row['task_private'],
-            'recurrence' => $recurrence
+            'recurrence' => $recurrence,
+            'organizer' => $row['task_organizer'],
+            'status' => $row['task_status']
         );
 
         if ($include_history) {

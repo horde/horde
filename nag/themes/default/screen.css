@@ -136,6 +136,18 @@
 .nag-new {
     background-image: url("graphics/add.png");
 }
+.nag-status-1 {
+    padding-left: 20px !important;
+    background: url("graphics/attendee-none.png") no-repeat;
+}
+.nag-status-2 {
+    padding-left: 20px !important;
+    background: url("graphics/attendee-accepted.png") no-repeat;
+}
+.nag-status-3 {
+    padding-left: 20px !important;
+    background: url("graphics/attendee-declined.png") no-repeat;
+}
 
 @media print {
     .header .smallheader, .tabset, .notices, #quicksearchL, #quicksearch {

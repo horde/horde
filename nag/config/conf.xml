@@ -21,6 +21,14 @@
   </configswitch>
  </configsection>
 
+ <configsection name="assignees">
+  <configheader>Assignee Handling</configheader>
+  <configboolean name="allow_external" desc="Should we allow assingment of tasks
+  to external users? This enables sending vTodo/iTip messages for task
+  assignments. Turning this off will restrict assignees to Horde users that have
+  read access to the parent tasklist.">true</configboolean>
+ </configsection>
+
  <configsection name="menu">
   <configheader>Menu settings</configheader>
   <configboolean name="import_export" desc="Should we display an Import/Export

@@ -116,21 +116,44 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
             case 'update':
                 // vEvent reply.
-                if ($registry->hasMethod('calendar/updateAttendee')) {
-                    try {
-                        if ($tmp = $contents->getHeader()->getHeader('from')) {
-                            $registry->call('calendar/updateAttendee', array(
-                                $components[$key],
-                                $tmp->getAddressList(true)->first()->bare_address
-                            ));
-                            $notification->push(_("Respondent Status Updated."), 'horde.success');
-                            $result = true;
+                // vTodo reply.
+                switch ($components[$key]->getType()) {
+                case 'vEvent':
+                    if ($registry->hasMethod('calendar/updateAttendee')) {
+                        try {
+                            if ($tmp = $contents->getHeader()->getHeader('from')) {
+                                $registry->call('calendar/updateAttendee', array(
+                                    $components[$key],
+                                    $tmp->getAddressList(true)->first()->bare_address
+                                ));
+                                $notification->push(_("Respondent Status Updated."), 'horde.success');
+                                $result = true;
+                            }
+                        } catch (Horde_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
                         }
-                    } catch (Horde_Exception $e) {
-                        $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
+                    } else {
+                        $notification->push(_("This action is not supported."), 'horde.warning');
                     }
-                } else {
-                    $notification->push(_("This action is not supported."), 'horde.warning');
+                    break;
+                case 'vTodo':
+                    if ($registry->hasMethod('tasks/updateAttendee')) {
+                        try {
+                            if ($tmp = $contents->getHeader()->getHeader('from')) {
+                                $registry->call('tasks/updateAttendee', array(
+                                    $components[$key],
+                                    $tmp->getAddressList(true)->first()->bare_address
+                                ));
+                                $notification->push(_("Respondent Status Updated."), 'horde.success');
+                                $result = true;
+                            }
+                        } catch (Horde_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating the task: %s"), $e->getMessage()), 'horde.error');
+                        }
+                    } else {
+                        $notification->push(_("This action is not supported."), 'horde.warning');
+                    }
+                    break;
                 }
                 break;
 
