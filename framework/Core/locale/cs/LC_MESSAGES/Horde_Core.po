@@ -1,14 +1,14 @@
 # Czech translations for Horde_Core module.
 # Copyright 2010-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
-# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-06-04 11:28+0200\n"
-"PO-Revision-Date: 2014-11-03 16:50+0100\n"
+"PO-Revision-Date: 2015-02-25 18:44+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: cs\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: lib/Horde.php:935
 #, php-format
 msgid " (Accesskey %s)"
-msgstr " (Přístupový klíč %s)"
+msgstr " (Klávesová zkratka %s)"
 
 #: lib/Horde/Registry.php:1338 lib/Horde/Registry.php:2030
 #, php-format
@@ -189,8 +189,9 @@ msgid "Applications"
 msgstr "Aplikace"
 
 #: lib/Horde/Core/Auth/Signup/Base.php:105
+#, fuzzy
 msgid "Approve the account:"
-msgstr ""
+msgstr "Vzdálený hostitel:"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:451
@@ -209,9 +210,8 @@ msgid "Available address books:"
 msgstr "Dostupné adresáře:"
 
 #: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:583
-#, fuzzy
 msgid "Back"
-msgstr "Backendy"
+msgstr "Zpět"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:159
 msgid "Birthday"
@@ -252,9 +252,8 @@ msgstr ""
 "Zvolte pořadí, v kterém se mají prohledávat adresáře při doplňování adres."
 
 #: lib/Horde/PageOutput.php:660
-#, fuzzy
 msgid "Clear All"
-msgstr "Vyčistit vyhledávání"
+msgstr "Smazat vše"
 
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
 #, fuzzy
@@ -327,7 +326,7 @@ msgstr "Vzdálený hostitel:"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:371
 msgid "Department"
-msgstr "oddělení"
+msgstr "Oddělení"
 
 #: lib/Horde/Core/Alarm/Handler/Desktop.php:94
 msgid "Desktop notification (with certain browsers)"
@@ -613,7 +612,7 @@ msgstr "Ne"
 
 #: lib/Horde/PageOutput.php:662
 msgid "No Alerts"
-msgstr ""
+msgstr "Žádné notifikace"
 
 #: lib/Horde/Core/Factory/Twitter.php:17
 msgid "No OAuth Key or Secret found for the Twitter API"
@@ -741,9 +740,8 @@ msgstr "Ikony pro %s"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:223
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:287
-#, fuzzy
 msgid "Preferred Address"
-msgstr "Ulice"
+msgstr "Preferovaná adresa"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1554
 msgid "Preview"
@@ -754,17 +752,15 @@ msgid "Problem"
 msgstr "Problém"
 
 #: lib/Horde/Core/ActiveSync/Mail.php:466
-#, fuzzy
 msgid "Quoted"
-msgstr "Kvóta"
+msgstr "Citace"
 
 #: lib/Horde/Core/ActiveSync/Mail.php:466
-#, fuzzy, php-format
+#, php-format
 msgid "Quoting %s"
-msgstr "Cituji %f:"
+msgstr "Cituji %s"
 
 #: lib/Horde/Core/Block/Layout.php:117
-#, fuzzy
 msgid "Really delete this block?"
 msgstr "Trvale odstranit tento kontakt?"
 
@@ -913,9 +909,8 @@ msgid "The alarm was dismissed."
 msgstr "Upozornění bylo uloženo."
 
 #: lib/Horde/PageOutput.php:645
-#, fuzzy
 msgid "The connection to the server has been restored."
-msgstr "Zámek odstraněn."
+msgstr "Spojení se serverem bylo znovu navázáno."
 
 #: lib/Horde/Core/Prefs/Identity.php:145
 #, fuzzy, php-format
@@ -999,9 +994,8 @@ msgid "There were errors encountered while updating your preferences."
 msgstr ""
 
 #: lib/Horde/PageOutput.php:661
-#, fuzzy
 msgid "This is the notification log."
-msgstr "Klikněte na %s pro odeslání upozornění."
+msgstr "Toto je historie notifikací."
 
 #: lib/Horde/Registry.php:554
 msgid "This system is currently deactivated."
@@ -1012,7 +1006,6 @@ msgid "This value must be a number."
 msgstr "Tato hodnota musí být číslo."
 
 #: lib/Horde/Core/Prefs/Ui.php:345
-#, fuzzy
 msgid "This value must be non-zero."
 msgstr "Toto číslo musí být nejméně jedna."
 
@@ -1034,7 +1027,7 @@ msgstr ""
 
 #: lib/Horde/Core/Topbar.php:177
 msgid "Toggle Alerts Log"
-msgstr ""
+msgstr "Historie notifikací"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:2768
 msgid "Trash"
@@ -1050,9 +1043,8 @@ msgstr "Úterý"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:46
 #: lib/Horde/Core/Auth/Signup/Form.php:60
-#, fuzzy
 msgid "Type your password twice to confirm"
-msgstr "pro potvrzení napište heslo dvakrát"
+msgstr "Pro potvrzení napište heslo dvakrát."
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:383
 msgid "URL"
@@ -1104,11 +1096,11 @@ msgstr "Mapa Austrálie"
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:203
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:267
 msgid "Work Address"
-msgstr "Adresa do zaměstnání"
+msgstr "Pracovní adresa"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Work Phone"
-msgstr "Telefon do zaměstnání"
+msgstr "Pracovní telefon"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:460
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:522
@@ -1201,7 +1193,6 @@ msgid "Your preferences have been updated for the duration of this session."
 msgstr "Vaše nastavení bylo aktualizováno pro trvání této relace."
 
 #: lib/Horde/Core/Prefs/Ui.php:392
-#, fuzzy
 msgid "Your preferences have been updated."
 msgstr "Vaše nastavení bylo aktualizováno."
 
@@ -1228,9 +1219,8 @@ msgid "hh"
 msgstr "hh"
 
 #: lib/Horde/PageOutput.php:585
-#, fuzzy
 msgid "loading"
-msgstr "Nahrává se ..."
+msgstr "načítání"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:415
 msgid "mm"
