@@ -2,14 +2,14 @@
 # Copyright 2004-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
-# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Kronolith 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-11-03 16:51+0100\n"
+"PO-Revision-Date: 2015-02-25 18:47+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -22,16 +22,16 @@ msgstr ""
 
 #: feed/index.php:124
 msgid " to "
-msgstr ""
+msgstr " do "
 
 #: templates/edit/edit.inc:283
 #, php-format
 msgid " until %s"
-msgstr ""
+msgstr " do %s"
 
 #: templates/edit/edit.inc:283
 msgid " without end"
-msgstr ""
+msgstr " bez konce"
 
 #: templates/edit/edit.inc:173
 #, php-format
@@ -52,48 +52,48 @@ msgid "%d events"
 msgstr "%d událostí"
 
 #: lib/Event.php:2346
-#, fuzzy, php-format
+#, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d hodina"
-msgstr[1] "%d hodina"
-msgstr[2] "%d hodina"
+msgstr[1] "%d hodiny"
+msgstr[2] "%d hodin"
 
 #: lib/Event.php:2349
-#, fuzzy, php-format
+#, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d minuta"
-msgstr[1] "%d minuta"
-msgstr[2] "%d minuta"
+msgstr[1] "%d minuty"
+msgstr[2] "%d minut"
 
 #: templates/view/view.inc:129
-#, fuzzy, php-format
+#, php-format
 msgid "%d times"
-msgstr "bez časového údaje"
+msgstr "%dkrát"
 
 #: lib/Event.php:2340
-#, fuzzy, php-format
+#, php-format
 msgid "%d week"
 msgid_plural "%d weeks"
-msgstr[0] "týden"
-msgstr[1] "týden"
-msgstr[2] "týden"
+msgstr[0] "%d týden"
+msgstr[1] "%d týdny"
+msgstr[2] "%d týdnů"
 
 #: templates/chunks/permissions.inc:20
 #, php-format
 msgid "%s %sShare with the %s %sgroup%s and %sallow them to%s %s"
-msgstr ""
+msgstr "%s %sSdílet se %s %sskupinou%s a %spovolit jim%s %s"
 
 #: templates/chunks/permissions.inc:38
 #, php-format
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
-msgstr ""
+msgstr "%s %sSdílet s uživateli:%s %s a %spovolit jim%s %s"
 
 #: lib/Api.php:820 lib/Api.php:833
-#, fuzzy, php-format
+#, php-format
 msgid "%s Already Exists"
-msgstr "Již existuje"
+msgstr "%s již existuje"
 
 #: templates/edit/edit_timespan.inc:110
 #, php-format
@@ -137,12 +137,12 @@ msgstr "%s soubor úspěšně importován"
 #: templates/share/notification.plain.php:5
 #, php-format
 msgid "%s has assigned the ownership of the calendar \"%s\" to you."
-msgstr ""
+msgstr "%s Vám předal vlastnictví kalendáře \"%s\"."
 
 #: templates/share/notification.html.php:13
 #, php-format
 msgid "%s has assigned the ownership of the calendar %s to you."
-msgstr ""
+msgstr "%s Vám předal vlastnictví kalendáře %s."
 
 #: lib/Kronolith.php:1923
 #, php-format
@@ -155,9 +155,9 @@ msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr "%s zrušil(a) instanci vracejícího se \"%s\"."
 
 #: lib/Driver/Sql.php:522
-#, fuzzy, php-format
+#, php-format
 msgid "%s not found"
-msgstr "Úkol nebyl nalezen."
+msgstr "%s nebyl nalezen"
 
 #: lib/Kronolith.php:1941
 #, php-format
@@ -170,6 +170,8 @@ msgid ""
 "%s wants to share the calendar \"%s\" with you to grant you access to all "
 "events in this calendar."
 msgstr ""
+"%s chce s Vámi sdílet kalendář \"%s\" a umožnit Vám přístup ke všem "
+"událostem v tomto kalendáři."
 
 #: templates/share/notification.html.php:15
 #, php-format
@@ -177,6 +179,8 @@ msgid ""
 "%s wants to share the calendar %s with you to grant you access to all events "
 "in this calendar."
 msgstr ""
+"%s chce s Vámi sdílet kalendář %s a umožnit Vám přístup ke všem událostem v "
+"tomto kalendáři."
 
 #: lib/Kronolith.php:1936
 #, php-format
@@ -187,23 +191,24 @@ msgstr "%s si Vás přeje upozornit na \"%s\"."
 #, php-format
 msgid "%sAdvanced sharing.%s You can also return to the %sstandard settings%s."
 msgstr ""
+"%sPokročilé sdílení.%s Taky se můžete vrátit na %szákladní nastavení%s."
 
 #: templates/chunks/permissions.inc:10
 #, php-format
 msgid ""
 "%sShare with everyone%s (public) and %s %smake it searchable%s by everyone "
 "too"
-msgstr ""
+msgstr "%sSdílet se všemi%s (veřejný) a také %s %spovolit prohledávání%s všem"
 
 #: templates/chunks/permissions.inc:2
 #, php-format
 msgid "%sStandard sharing.%s You can also set %sadvanced sharing%s options."
-msgstr ""
+msgstr "%sJednoduché sdílení.%s Můžete také nastavit %spokročilé sdílení%s."
 
 #: templates/chunks/calendar.php:151
 #, php-format
 msgid "%sWarning:%s also %sdeletes all events%s currently in the calendar."
-msgstr ""
+msgstr "%sUpozornění:%s také %ssmaže všechny události%s v kalendáři."
 
 #: templates/contacts/contacts.inc:178
 msgid "* Add these by clicking Add *"
@@ -244,7 +249,7 @@ msgstr "AM"
 
 #: lib/Kronolith.php:870
 msgid "Accepted"
-msgstr "Přijato"
+msgstr "Akceptováno"
 
 #: lib/Kronolith.php:1550
 msgid "Access permissions"
@@ -483,29 +488,25 @@ msgstr "Celodenní událost"
 
 #: lib/Form/CreateResource.php:28 lib/Form/EditResource.php:36
 #: templates/chunks/calendar.php:369
-#, fuzzy
 msgid "Always Accept"
-msgstr "Vždy vyzývat"
+msgstr "Vždy akceptovat"
 
 #: lib/Form/CreateResource.php:29 lib/Form/EditResource.php:37
 #: templates/chunks/calendar.php:370
-#, fuzzy
 msgid "Always Decline"
-msgstr "Zamítnut"
+msgstr "Vždy odmítnout"
 
 #: lib/Kronolith.php:964 templates/search/search_advanced.inc:36
 msgid "Any"
 msgstr "Jakákoliv"
 
 #: lib/Ajax.php:137
-#, fuzzy
 msgid "Are you sure you want to delete this calendar and all the events in it?"
-msgstr "Skutečně chcete vymazat tuto virtuální složku?"
+msgstr "Skutečně chcete smazat tento kalendář spolu a všechny události v něm?"
 
 #: lib/Ajax.php:138
-#, fuzzy
 msgid "Are you sure you want to delete this task list and all the tasks in it?"
-msgstr "Skutečně chcete vymazat tuto virtuální složku?"
+msgstr "Skutečně chcete smazat tento seznam úkolů spolu a všechny úkoly v něm?"
 
 #: templates/dynamic/task.inc:49
 msgid "Assignee"
@@ -523,9 +524,9 @@ msgid ""
 "mail client supports iTip requests you can use this file to easily update "
 "your local copy of the event."
 msgstr ""
-"Soubor iCalendar je přiložen s informacemi o události. Pokud Váš emailový "
-"klient podporuje iTip žádosti, můžete použít tento soubor pro jednoduší "
-"aktualizaci lokálního kalendáře."
+"Soubor iCalendar s informacemi o události je v přílohe.. Pokud Váš e-mailový "
+"klient podporuje iTip žádosti, můžete použít tento soubor pro jednodušší "
+"aktualizaci Vašeho kalendáře."
 
 #: perms.php:64
 msgid "Attempt to edit a non-existent share."
@@ -583,17 +584,16 @@ msgstr "K_alendář"
 #: lib/Form/EditCalendar.php:105 templates/chunks/calendar.php:114
 #: templates/chunks/calendar.php:227
 msgid "CalDAV Account URL"
-msgstr ""
+msgstr "CalDAV URL účtu"
 
 #: lib/Form/EditCalendar.php:96 templates/chunks/calendar.php:109
 #: templates/chunks/calendar.php:222
-#, fuzzy
 msgid "CalDAV Subscription URL"
-msgstr "Popis Kalendáře"
+msgstr "CalDAV URL kalendáře"
 
 #: templates/edit/edit.inc:73
 msgid "Cal_endar"
-msgstr "Kal_endář"
+msgstr "_Kalendář"
 
 #: lib/Block/Month.php:22 lib/Block/Monthlist.php:22
 #: lib/Block/Prevmonthlist.php:22 lib/Block/Summary.php:26
@@ -602,9 +602,8 @@ msgid "Calendar"
 msgstr "Kalendář"
 
 #: templates/chunks/calendar.php:159 templates/chunks/calendar.php:396
-#, fuzzy
 msgid "Calendar ICS file"
-msgstr "Název Kalendáře"
+msgstr "Soubor ICS"
 
 #: lib/Block/Summary.php:17
 msgid "Calendar Summary"
@@ -950,9 +949,8 @@ msgid "Default Calendar"
 msgstr "Výchozí kalendář"
 
 #: templates/chunks/permissions.inc:85
-#, fuzzy
 msgid "Default users"
-msgstr "Implicitní"
+msgstr "Implicitní uživatelé"
 
 #: templates/chunks/permissions.inc:114 templates/chunks/permissions.inc:141
 #: templates/chunks/permissions.inc:169 templates/chunks/permissions.inc:222
@@ -963,9 +961,8 @@ msgstr "Implicitní"
 #: templates/perms/perms.inc:212 templates/perms/perms.inc:252
 #: templates/perms/perms.inc:283 templates/perms/perms.inc:301
 #: templates/perms/perms.inc:330 templates/perms/perms.inc:364
-#, fuzzy
 msgid "Delegate"
-msgstr "Přiděleno"
+msgstr "Delegovat"
 
 #: lib/Event.php:2543 lib/Event.php:3550 lib/Form/DeleteCalendar.php:34
 #: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
@@ -1166,14 +1163,12 @@ msgid "Email Address"
 msgstr "E-mailová adresa"
 
 #: templates/chunks/calendar.php:129
-#, fuzzy
 msgid "Embed Script"
-msgstr "Skript"
+msgstr "HTML kód"
 
 #: templates/chunks/calendar.php:130
-#, fuzzy
 msgid "Embed calendar on external website"
-msgstr "Zobrazit externí webstránku"
+msgstr "Umožňuje vložit kalendář do externí webové stránky"
 
 #: lib/Form/EditCalendar.php:144
 msgid "Embed code"
@@ -1352,9 +1347,8 @@ msgid "Export ICS file"
 msgstr "Exportovat ICS soubor"
 
 #: lib/Form/EditCalendar.php:133 templates/chunks/calendar.php:124
-#, fuzzy
 msgid "Feed URL"
-msgstr "Volná/Obsazená URL"
+msgstr "Atom URL"
 
 #: templates/contacts/contacts.inc:144
 msgid "Find"
@@ -1477,6 +1471,8 @@ msgid ""
 "If your email client doesn't support iTip requests you can use one of the "
 "following links to accept or decline the event."
 msgstr ""
+"Pokud Váš e-mailový klient nepodporuje iTip žádosti, můžete použít "
+"následující odkazy pro akceptování nebo odmítnutí události."
 
 #: templates/itip/notification.html.php:76
 #, php-format
@@ -1484,6 +1480,9 @@ msgid ""
 "If your email client doesn't support iTip requests you can use the following "
 "links to: %saccept%s, %saccept tentatively%s or %sdecline%s the event."
 msgstr ""
+"Pokud Váš e-mailový klient nepodporuje iTip žádosti, můžete použít "
+"následující odkazy pro %sakceptování%s, %spředběžné akceptování%s nebo "
+"%sodmítnutí%s události."
 
 #: templates/chunks/calendar.php:87
 msgid "Import"
@@ -1504,12 +1503,12 @@ msgstr "Importovat/Exportovat kalendář"
 
 #: lib/Ajax.php:143
 msgid "Importing calendar data. This may take a while..."
-msgstr ""
+msgstr "Importuji kalendářová data. Tato operace může chvíli trvat..."
 
 #: templates/chunks/calendar.php:148
 #, php-format
 msgid "Importing should %s %sreplace this calendar%s."
-msgstr ""
+msgstr "Importovaný soubor má %s %snahradit tento kalendář%s."
 
 #: templates/dynamic/tasks.inc:7
 msgid "Incomplete"
@@ -1520,19 +1519,18 @@ msgid "Individual Users"
 msgstr "Jednotliví uživatelé"
 
 #: lib/Api.php:285
-#, fuzzy
 msgid "Invalid calendar data supplied."
-msgstr "Data v kalendáři jsou neplatná"
+msgstr "Kalendářová data jsou neplatná."
 
 #: templates/share/notification.plain.php:1
 #, php-format
 msgid "Invitation from %s to the calendar \"%s\""
-msgstr ""
+msgstr "Pozvánka od %s ke kalendáři \"%s\""
 
 #: templates/share/notification.html.php:1
 #, php-format
 msgid "Invitation from %s to the calendar %s"
-msgstr ""
+msgstr "Pozvánka od %s ke kalendáři %s"
 
 #: templates/dynamic/edit.inc:275
 #, fuzzy
@@ -1553,11 +1551,11 @@ msgstr "Minulý týden"
 
 #: templates/chunks/calendar.php:132
 msgid "Learn how to embed other calendar views."
-msgstr ""
+msgstr "Zjistěte, jak vložit jiné kalendářové pohledy."
 
 #: templates/chunks/calendar.php:108
 msgid "Learn how to subscribe via CalDAV from calendar clients."
-msgstr ""
+msgstr "Zjistěte, jak se připojit z jiných klientů přes CalDAV."
 
 #: templates/data/export.inc:29
 msgid "Limit the time span to export:"
@@ -1609,7 +1607,7 @@ msgstr "Operace při přihlášení"
 #: feed/index.php:57
 #, php-format
 msgid "Login required for the requested feed (%s)."
-msgstr ""
+msgstr "Pro požadovaná data je nutné přihlášení (%s)."
 
 #: templates/dynamic/task.inc:33
 msgid "Low"
@@ -1621,9 +1619,8 @@ msgstr "Nejnižší"
 
 #: lib/Form/CreateResource.php:31 lib/Form/EditResource.php:39
 #: templates/chunks/calendar.php:371
-#, fuzzy
 msgid "Manual"
-msgstr "Leden"
+msgstr "Manuální"
 
 #: templates/dynamic/edit.inc:105
 msgid "Map"
@@ -2103,7 +2100,7 @@ msgstr "Rychlé vytvoření úkolu"
 
 #: lib/View/Sidebar.php:40
 msgid "Quick _insert"
-msgstr ""
+msgstr "Rychlé _vložení"
 
 #: templates/chunks/permissions.inc:101 templates/chunks/permissions.inc:128
 #: templates/chunks/permissions.inc:156 templates/chunks/permissions.inc:209
@@ -2114,15 +2111,8 @@ msgstr ""
 #: templates/perms/perms.inc:200 templates/perms/perms.inc:240
 #: templates/perms/perms.inc:271 templates/perms/perms.inc:298
 #: templates/perms/perms.inc:318 templates/perms/perms.inc:352
-#, fuzzy
 msgid "Read"
-msgstr ""
-"#-#-#-#-#  horde.po (Horde 3.0.9)  #-#-#-#-#\n"
-"Přečíst\n"
-"#-#-#-#-#  gollem.po (Gollem)  #-#-#-#-#\n"
-"Čtecí\n"
-"#-#-#-#-#  imp.po (IMP 4.1.4)  #-#-#-#-#\n"
-"Číst"
+msgstr "Číst"
 
 #: lib/Form/DeleteCalendar.php:31
 #, fuzzy, php-format
@@ -2337,9 +2327,8 @@ msgid "Required Attendees"
 msgstr "Povinní Účastníci"
 
 #: lib/FreeBusy/View.php:187
-#, fuzzy
 msgid "Required Resources"
-msgstr "Povinní Účastníci"
+msgstr "Požadované zdroje"
 
 #: lib/Event/Resource/Sql.php:77
 #, php-format
@@ -2363,13 +2352,12 @@ msgid "Resource Management"
 msgstr "Správce zdrojú"
 
 #: templates/chunks/calendar.php:365
-#, fuzzy
 msgid "Resource Response Type"
-msgstr "Opakovací Typ"
+msgstr "Způsob rezervace zdroje"
 
 #: lib/Driver/Resource/Sql.php:305
 msgid "Resource not valid."
-msgstr ""
+msgstr "Zdroj není validní."
 
 #: lib/Application.php:272 lib/Form/CreateResourceGroup.php:35
 #: lib/Form/EditResourceGroup.php:45 templates/chunks/calendar.php:422
@@ -2379,9 +2367,8 @@ msgid "Resources"
 msgstr "Zdroje"
 
 #: lib/Factory/Driver.php:74
-#, fuzzy
 msgid "Resources are disabled"
-msgstr "Pravidlo bylo Deaktivováno"
+msgstr "Zdroje jsou deaktivovány."
 
 #: templates/attendees/attendees.inc:50 templates/attendees/attendees.inc:87
 #: templates/view/view.inc:174 templates/view/view.inc:192
@@ -2502,9 +2489,8 @@ msgid "Select a new owner:"
 msgstr "Vybrat nového vlastníka:"
 
 #: templates/chunks/permissions.inc:191
-#, fuzzy
 msgid "Select a user"
-msgstr "Vybrat server"
+msgstr "Vyberte uživatele"
 
 #: templates/perms/perms.inc:222 templates/perms/perms.inc:224
 msgid "Select a user to add:"
@@ -2734,9 +2720,8 @@ msgid "Start Time"
 msgstr "Čas začátku"
 
 #: lib/Event.php:3225 templates/data/export.inc:39
-#, fuzzy
 msgid "Start Year"
-msgstr "Datum Začátku"
+msgstr "Rok začátku"
 
 #: templates/itip/notification.html.php:16
 msgid "Start:"
@@ -2768,29 +2753,27 @@ msgstr "Podepsat"
 
 #: templates/chunks/calendar.php:125
 msgid "Subscribe from a feed reader"
-msgstr ""
+msgstr "Umožňuje odebírat tento kalendář pomocí RSS čtečky"
 
 #: lib/Application.php:344 lib/Form/SubscribeRemoteCalendar.php:22
-#, fuzzy
 msgid "Subscribe to a Remote Calendar"
-msgstr "Upravit Vzdálené Kalendáře"
+msgstr "Odebírat vzdálený kalendář"
 
 #: templates/chunks/calendar.php:115 templates/chunks/calendar.php:228
 msgid "Subscribe to all your calendars from another calendar program"
-msgstr ""
+msgstr "Umožňuje synchronizaci všech Vašich kalendářů do externího programu"
 
 #: templates/chunks/calendar.php:110 templates/chunks/calendar.php:120
 msgid "Subscribe to this calendar from another calendar program"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto kalendáře do externího programu"
 
 #: templates/chunks/calendar.php:223 templates/chunks/calendar.php:233
 msgid "Subscribe to this task list from another calendar program"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto seznamu úkolů do externího programu"
 
 #: templates/chunks/calendar.php:83 templates/chunks/calendar.php:207
-#, fuzzy
 msgid "Subscription"
-msgstr "Popis"
+msgstr "Napojení"
 
 #: lib/Ajax/Application/Handler.php:1407
 #, fuzzy
@@ -2901,9 +2884,9 @@ msgstr ""
 
 #: calendars/create.php:31 lib/Ajax/Application/Handler.php:913
 #: resources/create.php:31 resources/groups/create.php:27
-#, fuzzy, php-format
+#, php-format
 msgid "The calendar \"%s\" has been created."
-msgstr "Kalendář \"%s\" byl smazán."
+msgstr "Kalendář \"%s\" byl vytvořen."
 
 #: calendars/delete.php:44 lib/Ajax/Application/Handler.php:1131
 #, php-format
@@ -2922,14 +2905,14 @@ msgid "The calendar \"%s\" has been saved."
 msgstr "Kalendář \"%s\" byl uložen."
 
 #: lib/Kronolith.php:1089
-#, fuzzy, php-format
+#, php-format
 msgid "The calendar %s returned the error: %s"
-msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+msgstr "Kalendář \"%s\" vrátil chybu: %s"
 
 #: data.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "The calendar could not be purged: %s"
-msgstr "Nelze vyčistit kontakty: %s"
+msgstr "Nelze vyčistit kalendář: %s"
 
 #: lib/Ajax.php:146
 msgid "The calendar title must not be empty."
@@ -3042,19 +3025,19 @@ msgstr "Požadovaný kontakt nebyl nalezen."
 
 #: lib/Ajax/Application/Handler.php:1175 lib/Ajax/Application/Handler.php:1192
 #: resources/delete.php:42
-#, fuzzy, php-format
+#, php-format
 msgid "The resource \"%s\" has been deleted."
-msgstr "Server \"%s\" byl vymazán."
+msgstr "Zdroj \"%s\" byl smazán."
 
 #: resources/edit.php:43
-#, fuzzy, php-format
+#, php-format
 msgid "The resource \"%s\" has been renamed to \"%s\"."
-msgstr "Adresář \"%s\" přejmenován na \"%s\"."
+msgstr "Zdroj \"%s\" byl přejmenován na \"%s\"."
 
 #: lib/Ajax/Application/Handler.php:1076 resources/edit.php:45
-#, fuzzy, php-format
+#, php-format
 msgid "The resource \"%s\" has been saved."
-msgstr "Server \"%s\" byl uložen."
+msgstr "Zdroj \"%s\" byl uložen."
 
 #: lib/Event.php:608
 #, fuzzy, php-format
@@ -3062,9 +3045,9 @@ msgid "The resource \"%s\" was locked. Please try again."
 msgstr "Vzdálený server je kaput. Prosíme zkuste to znovu později."
 
 #: resources/groups/delete.php:38
-#, fuzzy, php-format
+#, php-format
 msgid "The resource group \"%s\" has been deleted."
-msgstr "Server \"%s\" byl vymazán."
+msgstr "Skupina zdrojů \"%s\" byla smazána."
 
 #: resources/groups/edit.php:39
 #, fuzzy, php-format
@@ -3072,9 +3055,9 @@ msgid "The resource group \"%s\" has been renamed to \"%s\"."
 msgstr "Adresář \"%s\" přejmenován na \"%s\"."
 
 #: lib/Ajax/Application/Handler.php:1102 resources/groups/edit.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "The resource group \"%s\" has been saved."
-msgstr "Server \"%s\" byl uložen."
+msgstr "Skupina zdrojů \"%s\" byla uložena."
 
 #: lib/Ajax/Application/Handler.php:988
 #, php-format
@@ -3087,9 +3070,9 @@ msgid "The task list \"%s\" has been deleted."
 msgstr "Byl´smazán seznam úkolů \"%s\"."
 
 #: lib/Ajax/Application/Handler.php:1013
-#, fuzzy, php-format
+#, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "Kalendář \"%s\" byl přejmenován na \"%s\"."
+msgstr "Seznam úkolů \"%s\" byl přejmenován na \"%s\"."
 
 #: lib/Ajax/Application/Handler.php:1015
 #, php-format
@@ -3097,9 +3080,8 @@ msgid "The task list \"%s\" has been saved."
 msgstr "Byl uložen seznam úkolů \"%s\"."
 
 #: lib/Ajax.php:148
-#, fuzzy
 msgid "The task list title must not be empty."
-msgstr "Byl vytvořen seznam úkolů \"%s\"."
+msgstr "Název seznamu úkolů nesmí být prázdný."
 
 #: lib/Block/Summary.php:31
 #, fuzzy
@@ -3224,9 +3206,8 @@ msgid "Time span"
 msgstr "Časové Rozpětí "
 
 #: templates/alarm/mail.plain.php:12
-#, fuzzy
 msgid "Time:"
-msgstr "Čas Ukončení"
+msgstr "Čas:"
 
 #: templates/dynamic/edit.inc:58
 msgid "Timezone"
@@ -3243,16 +3224,15 @@ msgstr "Titul"
 
 #: templates/itip/notification.plain.php:33
 msgid "To accept the event tentatively:"
-msgstr ""
+msgstr "Pro prozatimní akceptování události:"
 
 #: templates/itip/notification.plain.php:28
 msgid "To accept the event:"
-msgstr ""
+msgstr "Pro akceptování události:"
 
 #: templates/itip/notification.plain.php:38
-#, fuzzy
 msgid "To decline the event:"
-msgstr "Nastala chyba při mazání události:"
+msgstr "Pro odmítnutí události:"
 
 #: lib/Form/EditCalendar.php:145
 msgid "To embed this calendar in another website, use the code above."
@@ -3459,12 +3439,12 @@ msgstr "St"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this upcoming event."
-msgstr ""
+msgstr "Dovolujeme si Vás upozornit na tuto blížící se událost."
 
 #: lib/Form/EditCalendar.php:121 templates/chunks/calendar.php:119
 #: templates/chunks/calendar.php:232
 msgid "WebDAV/ICS Subscription URL"
-msgstr ""
+msgstr "WebDAV/ICS URL"
 
 #: templates/dynamic/edit.inc:165 templates/dynamic/task.inc:120
 #: templates/month/head.inc:10 templates/view/view.inc:105
@@ -3720,9 +3700,8 @@ msgid ""
 msgstr ""
 
 #: templates/agenda/notification.html.php:1
-#, fuzzy
 msgid "Your daily agenda"
-msgstr "Váš implicitní kalendář"
+msgstr "Vaše denní agenda"
 
 #: templates/agenda/notification.plain.php:1
 #, fuzzy, php-format
@@ -3738,12 +3717,11 @@ msgid "[Unnamed event]"
 msgstr "[Událost bez názvu]"
 
 #: lib/Event/Resource/Sql.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "[Unnamed event] %s"
-msgstr "[Událost bez názvu]"
+msgstr "[Událost bez názvu] %s"
 
 #: templates/edit/edit.inc:172
-#, fuzzy
 msgid "_Alarm"
 msgstr "_Upozornění"
 
@@ -3765,11 +3743,11 @@ msgstr "_Importovat/Exportovat"
 
 #: lib/Application.php:165 lib/View/Sidebar.php:33
 msgid "_New Event"
-msgstr "_NNová Událost"
+msgstr "_Nová událost"
 
 #: lib/View/SidebarTasks.php:29
 msgid "_New Task"
-msgstr "_Nový Úkol"
+msgstr "_Nový úkol"
 
 #: lib/Application.php:133
 msgid "_Search"
@@ -3799,7 +3777,7 @@ msgstr "před začátkem události. Hodnota \"0\" vypne výchozí upomínku."
 
 #: lib/Event.php:2645 lib/Event/Resource/Sql.php:81
 msgid "busy"
-msgstr ""
+msgstr "obsazeno"
 
 #: lib/Event.php:403 lib/Event.php:416
 #, php-format
@@ -3892,24 +3870,20 @@ msgid "or"
 msgstr "nebo"
 
 #: templates/chunks/permissions.inc:31 templates/chunks/permissions.inc:45
-#, fuzzy
 msgid "read and edit the events"
-msgstr "Nastala chyba při úpravě události: %s"
+msgstr "číst a upravovat události"
 
 #: templates/chunks/permissions.inc:31 templates/chunks/permissions.inc:45
-#, fuzzy
 msgid "read and edit the tasks"
-msgstr "Nastala chyba při importování úkolu:"
+msgstr "číst a upravovat úkoly"
 
 #: templates/chunks/permissions.inc:30 templates/chunks/permissions.inc:44
-#, fuzzy
 msgid "read the events"
-msgstr "před začátkem události"
+msgstr "číst události"
 
 #: templates/chunks/permissions.inc:30 templates/chunks/permissions.inc:44
-#, fuzzy
 msgid "read the tasks"
-msgstr "Dokončit úkoly"
+msgstr "číst úkoly"
 
 #: templates/edit/edit.inc:384
 msgid "recurrences"

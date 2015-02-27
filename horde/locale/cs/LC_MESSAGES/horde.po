@@ -4,14 +4,14 @@
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
 # Petra Kostinkova <kostinkova.petra@active24.cz>, 2012
 # Michal Foist <foist.michal@active24.cz>, 2012
-# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.0.9\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-10-16 14:11+0100\n"
+"PO-Revision-Date: 2015-02-25 18:47+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -2549,7 +2549,7 @@ msgstr "Vymazat heslo"
 #: templates/admin/activesync.html.php:32
 #: templates/prefs/activesync.html.php:15
 msgid "Reset all device state"
-msgstr ""
+msgstr "Vynulovat stav všech zařízení"
 
 #: services/resetpassword.php:27
 msgid "Reset your password"
