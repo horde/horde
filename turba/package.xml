@@ -1944,6 +1944,46 @@
    </notes>
   </release>
   <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2014-12-03</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Use the SHOW permission to determine the sidebar address book list.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Fix export format of tags to vCard 3.0 categories (Bug #13800).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix adding tags to new contacts (Bug #13884).
+* [jan] Fix waiting for replication on LDAP backend.
+   </notes>
+  </release>
+  <release>
    <date>2014-06-04</date>
    <version>
     <release>4.3.0</release>

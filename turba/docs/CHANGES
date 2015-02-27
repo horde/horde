@@ -9,6 +9,28 @@ v4.3.0-git
 [jan] Support multi-value RDNs in LDAP DN attributes (horde@iotti.biz, Request
       #11889).
 
+------
+v4.2.6
+------
+
+[mjr] Fix adding tags to new contacts (Bug #13884).
+[jan] Fix waiting for replication on LDAP backend.
+
+
+------
+v4.2.5
+------
+
+[jan] Fix export format of tags to vCard 3.0 categories (Bug #13800).
+
+
+------
+v4.2.4
+------
+
+[jan] Use the SHOW permission to determine the sidebar address book list.
+>>>>>>> 957bc2d... BFN
+
 
 ------
 v4.2.3
