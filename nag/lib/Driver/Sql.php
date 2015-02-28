@@ -143,7 +143,7 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_id, task_name, task_uid, task_desc, task_start, task_due, '
             . 'task_priority, task_estimate, task_completed, '
             . 'task_alarm, task_alarm_methods, task_private, task_parent, '
-            . 'task_organizer, task_status, task_recurtype, task_recurinterval, task_recurenddate, '
+            . 'task_organizer, task_status, task_actual, task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
             . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -165,7 +165,8 @@ class Nag_Driver_Sql extends Nag_Driver
                         (int)$task['private'],
                         $task['parent'],
                         $task['organizer'],
-                        $task['status']);
+                        $task['status'],
+                        $task['actual']);
 
         $this->_addRecurrenceFields($values, $task);
 
@@ -207,6 +208,7 @@ class Nag_Driver_Sql extends Nag_Driver
      *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
      *                   information.
      *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
+     *     - actual: (OPTIONAL, float) The actual number of hours accumulated.
      *
      * @throws Nag_Exception
      */
@@ -229,6 +231,7 @@ class Nag_Driver_Sql extends Nag_Driver
                  'task_private = ?, ' .
                  'task_organizer = ?, ' .
                  'task_status = ?, ' .
+                 'task_actual = ?, ' .
                  'task_recurtype = ?, ' .
                  'task_recurinterval = ?, ' .
                  'task_recurenddate = ?, ' .
@@ -253,7 +256,8 @@ class Nag_Driver_Sql extends Nag_Driver
                         $task['parent'],
                         (int)$task['private'],
                         $task['organizer'],
-                        $task['status']);
+                        $task['status'],
+                        $task['actual']);
         $this->_addRecurrenceFields($values, $task);
         $values[] = $this->_tasklist;
         $values[] = $taskId;
@@ -608,7 +612,8 @@ class Nag_Driver_Sql extends Nag_Driver
             'private' => $row['task_private'],
             'recurrence' => $recurrence,
             'organizer' => $row['task_organizer'],
-            'status' => $row['task_status']
+            'status' => $row['task_status'],
+            'actual' => $row['task_actual']
         );
 
         if ($include_history) {

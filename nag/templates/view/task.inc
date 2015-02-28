@@ -64,6 +64,10 @@
   <td><?php echo htmlspecialchars($task->estimate); if ($task->hasSubTasks()) echo htmlspecialchars(sprintf(_(" (%s including sub-tasks)"), $task->estimation())) ?></td>
  </tr>
  <tr>
+  <td class="horde-label"><?php echo _("Actual Time") ?>:</td>
+  <td><?php echo htmlspecialchars($task->actual); if ($task->hasSubTasks()) echo htmlspecialchars(sprintf(_(" (%s including sub-tasks)"), $task->actuals())) ?></td>
+ </tr>
+ <tr>
   <td class="horde-label"><?php echo _("Completed?") ?>:</td>
   <td>
    <?php echo Nag::formatCompletion($task->completed) ?>

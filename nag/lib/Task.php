@@ -107,6 +107,13 @@ class Nag_Task
     public $estimate;
 
     /**
+     * The actual task length.
+     *
+     * @var float
+     */
+    public $actual;
+
+    /**
      * Whether the task is completed.
      *
      * @var boolean
@@ -555,6 +562,20 @@ class Nag_Task
             $estimate += $task->estimation();
         }
         return $estimate;
+    }
+
+    /**
+     * Returns the actual length for this and any sub tasks.
+     *
+     * @return integer  The actual length sum.
+     */
+    public function actuals()
+    {
+        $actual = $this->actual;
+        foreach ($this->children as $task) {
+            $actual += $task->actuals();
+        }
+        return $actual;
     }
 
     /**
@@ -1031,7 +1052,8 @@ class Nag_Task
             'recurrence' => $this->recurrence,
             'tags' => $this->tags,
             'organizer' => $this->organizer,
-            'status' => $this->status);
+            'status' => $this->status,
+            'actual' => $this->actual);
 
         return $hash;
     }
