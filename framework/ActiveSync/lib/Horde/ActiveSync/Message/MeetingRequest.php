@@ -140,7 +140,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             switch ($component->getType()) {
             case 'vEvent':
                 $this->_vEvent = $component;
-                $this->_vEvent($component, $method);
+                $this->_parsevEvent($component, $method);
                 break;
 
             case 'vTimeZone':
@@ -184,7 +184,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
      *
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _vEvent($vevent, $method = 'REQUEST')
+    protected function _parsevEvent($vevent, $method = 'REQUEST')
     {
         if ($method == 'REQUEST') {
             $this->responserequested = '1';
