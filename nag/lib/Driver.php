@@ -365,7 +365,7 @@ abstract class Nag_Driver
 
         /* Notify users about the changed event. */
         try {
-            $result = Nag::sendNotification('edit', $new_task, $task);
+            Nag::sendNotification('edit', $new_task, $task);
         } catch (Nag_Exception $e) {
             Horde::log($e, 'ERR');
         }
