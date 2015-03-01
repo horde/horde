@@ -1526,7 +1526,7 @@ class Nag_Task
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
 
-                    $parent = $this->_storage->getByUID($relation);
+                    $parent = $this->_storage->getByUID($relation, $this->tasklist);
                     $this->parent_id = $parent->id;
                     break;
                 }

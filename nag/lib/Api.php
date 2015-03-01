@@ -974,11 +974,16 @@ class Nag_Api extends Horde_Registry_Api
                     $task->fromiCalendar($content);
                     if (isset($task->uid)) {
                         try {
-                            $existing = $storage->getByUID($task->uid);
+                            $existing = $storage->getByUID($task->uid, null, false);
                             $task->owner = $existing->owner;
                             $storage->modify($existing->id, $task->toHash());
                         } catch ( Horde_Exception_NotFound $e ) {
-                            $storage->add($task->toHash());
+                            $hash = $task->toHash();
+                            unset($hash['tasklist_id']);
+                            unset($hash['task_id']);
+                            unset($hash['parent']);
+                            $storage->open($tasklist);
+                            $storage->add($hash);
                         }
                         $ids[] = $task->uid;
                     } else {

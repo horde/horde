@@ -84,6 +84,16 @@ abstract class Nag_Driver
     }
 
     /**
+     * Sets the currently open tasklist.
+     *
+     * @param  string $tasklist  The tasklist.
+     */
+    public function open($tasklist)
+    {
+        $this->_tasklist = $tasklist;
+    }
+
+    /**
      * Adds a task and handles notification.
      *
      * @param array $task  A hash with the following possible properties:

@@ -55,9 +55,35 @@ class Nag_Driver_Sql extends Nag_Driver
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uids)
+    public function getByUID($uids, $tasklists = null, $getall = true)
     {
-        return $this->_getBy($uids, 'task_uid');
+        $results = $this->_getBy($uids, 'task_uid', $tasklists);
+        if ($getall) {
+            return $results;
+        }
+
+        $owner_lists = Nag::listTasklists(true);
+        $task = null;
+        foreach ($results as $row) {
+            if (isset($owner_lists[$row->tasklist])) {
+                $task = $row;
+                break;
+            }
+        }
+        if (empty($task)) {
+            $readable_lists = Nag::listTasklists();
+            foreach ($results as $row) {
+                if (isset($readable_lists[$row->tasklist])) {
+                    $task = $row;
+                    break;
+                }
+            }
+        }
+
+        if (empty($task)) {
+            throw new Horde_Exception_NotFound();
+        }
+        return $task;
     }
 
     /**
@@ -70,7 +96,7 @@ class Nag_Driver_Sql extends Nag_Driver
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    protected function _getBy($taskIds, $column)
+    protected function _getBy($taskIds, $column, array $tasklists = null)
     {
         if (!is_array($taskIds)) {
             $query = 'SELECT * FROM nag_tasks WHERE ' . $column . ' = ?';
@@ -82,6 +108,10 @@ class Nag_Driver_Sql extends Nag_Driver
             $query = 'SELECT * FROM nag_tasks WHERE ' . $column . ' IN ('
                 . implode(',', array_fill(0, count($taskIds), '?')) . ')';
             $values = $taskIds;
+        }
+
+        if (!empty($tasklists)) {
+            $query .= ' AND task_owner IN (' . implode(',', array_fill(0, count($tasklists), '?')) . ')';
         }
 
         try {

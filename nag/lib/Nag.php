@@ -1829,6 +1829,7 @@ class Nag
         }
 
        /* Determine all notification-specific strings. */
+       $method = 'REQUEST';
        switch ($action) {
        case self::ITIP_CANCEL:
             /* Cancellation. */
@@ -1841,17 +1842,21 @@ class Nag
                 $view->header = sprintf(_("%s has cancelled an instance of the recurring \"%s\"."), $ident->getName(), $task->name);
             }
             break;
-        case self::ITIP_REQUEST:
         case self::ITIP_UPDATE:
+            if (!empty($task->organizer) && $task->organizer != Nag::getUserEmail($task->creator)) {
+                // Sending a progress update.
+                $method = 'REPLY';
+            } else {
+                $method = 'UPDATE';
+            }
+        case self::ITIP_REQUEST:
         default:
-            $method = 'REQUEST';
             if (empty($task->status) || $task->status == self::RESPONSE_NONE) {
                 /* Invitation. */
                 $filename = 'task-invitation.ics';
                 $view->subject = $task->name;
                 $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $task->name);
             } else {
-                $method = 'UPDATE';
                 $filename = 'task-update.ics';
                 $view->subject = sprintf(_("Updated: %s."), $task->name);
                 $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $task->name);
@@ -1891,7 +1896,9 @@ class Nag
         $multipart->addPart($inner);
         $multipart->addPart($ics2);
 
-        $recipient = new Horde_Mail_Rfc822_Address($email);
+        $recipient = $method != 'REPLY'
+            ? new Horde_Mail_Rfc822_Address($email)
+            : new Horde_Mail_Rfc822_Address($task->organizer);
 
         $mail = new Horde_Mime_Mail(
             array('Subject' => $view->subject,
