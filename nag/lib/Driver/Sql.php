@@ -146,7 +146,7 @@ class Nag_Driver_Sql extends Nag_Driver
             . 'task_organizer, task_status, task_actual, task_recurtype, task_recurinterval, task_recurenddate, '
             . 'task_recurcount, task_recurdays, task_exceptions, '
             . 'task_completions) '
-            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            . 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         $values = array($this->_tasklist,
                         $task['owner'],
