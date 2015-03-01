@@ -71,6 +71,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             $info['tasklist'] = $info['tasklist_id'];
             $result = $storage->modify($info['task_id'], $info);
             $method = Nag::ITIP_UPDATE;
+            $newid = array($info['task_id']);
         } else {
             /* Check permissions. */
             $perms = $this->getInjector()->getInstance('Horde_Core_Perms');
