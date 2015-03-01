@@ -635,4 +635,14 @@ class Hermes
         );
     }
 
+    public static function updateCostObject($slice)
+    {
+        global $registry;
+
+        list($app, $id) = explode(':', $slice['costobject']);
+        if ($registry->hasMethod('updateCostObject', strtolower($app))) {
+            $registry->callByPackage(strtolower($app), 'updateCostObject', array($id, $slice));
+            $GLOBALS['notification']->push(sprintf(_("Successfully updated the hours of cost object \"%s\"." . $slice->_type_name)), 'horde.success');
+        }
+    }
 }
