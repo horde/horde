@@ -1270,7 +1270,11 @@ class Nag_Task
         if ($this->completed) {
             $vTodo->setAttribute('STATUS', 'COMPLETED');
             $vTodo->setAttribute('COMPLETED', $this->completed_date ? $this->completed_date : $_SERVER['REQUEST_TIME']);
+            $vTodo->setAttribute('PERCENT-COMPLETE', '100');
         } else {
+            if (!empty($this->estimate)) {
+                $vTodo->setAttribute('PERCENT-COMPLETE', ($this->actual / $this->estimate) * 100);
+            }
             if ($v1) {
                 $vTodo->setAttribute('STATUS', 'NEEDS ACTION');
             } else {
