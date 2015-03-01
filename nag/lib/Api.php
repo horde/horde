@@ -1345,7 +1345,7 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
-     * Lists active tasks as cost objects.
+     * CostObject API: Lists active tasks as cost objects.
      *
      * @todo Implement $criteria parameter.
      *
@@ -1385,6 +1385,25 @@ class Nag_Api extends Horde_Registry_Api
             return array(array('category' => _("Tasks"),
                 'objects'  => array_values($result)));
         }
+    }
+
+    /**
+     * CostObject API:  Update a single costobject.
+     *
+     * @param string $id   The task id.
+     * @param array  $data The data to update. Currently support:
+     *   -: hours  The amount of hours to add to the existing actual hours.
+     */
+    public function updateCostObject($id, $data)
+    {
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create('');
+        $task = $storage->get($id);
+        if (!$GLOBALS['registry']->isAdmin() &&
+            !Nag::hasPermission($task->tasklist, Horde_Perms::EDIT)) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        $adjust = array('actual' => $task->actual += $data['hours']);
+        $this->updateTask($task->tasklist, $id, $adjust);
     }
 
     public function listTimeObjectCategories()
