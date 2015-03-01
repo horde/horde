@@ -22,6 +22,7 @@ class Nag
     /** iTip requests */
     const ITIP_REQUEST = 1;
     const ITIP_CANCEL  = 2;
+    const ITIP_UPDATE  = 3;
     const RANGE_THISANDFUTURE = 'THISANDFUTURE';
 
     /**
@@ -1841,6 +1842,7 @@ class Nag
             }
             break;
         case self::ITIP_REQUEST:
+        case self::ITIP_UPDATE:
         default:
             $method = 'REQUEST';
             if (empty($task->status) || $task->status == self::RESPONSE_NONE) {
@@ -1849,29 +1851,17 @@ class Nag
                 $view->subject = $task->name;
                 $view->header = sprintf(_("%s wishes to make you aware of \"%s\"."), $ident->getName(), $task->name);
             } else {
-                /* Update. */
+                $method = 'UPDATE';
                 $filename = 'task-update.ics';
                 $view->subject = sprintf(_("Updated: %s."), $task->name);
                 $view->header = sprintf(_("%s wants to notify you about changes of \"%s\"."), $ident->getName(), $task->name);
             }
-            Horde::debug($view);
             break;
         }
         $view->attendees = $email;
         $view->organizer = empty($task->organizer)
             ? $registry->convertUserName($task->creator, false)
             : $task->organizer;
-
-        if ($action == self::ITIP_REQUEST) {
-            // @todo
-            // $attend_link = Horde::url('attend.php', true, -1)
-            //     ->add(array('c' => $task->calendar,
-            //                 'e' => $task->id,
-            //                 'u' => $email));
-            // $view->linkAccept    = (string)$attend_link->add('a', 'accept');
-            // $view->linkTentative = (string)$attend_link->add('a', 'tentative');
-            // $view->linkDecline   = (string)$attend_link->add('a', 'decline');
-        }
 
         /* Build the iCalendar data */
         $iCal = new Horde_Icalendar();

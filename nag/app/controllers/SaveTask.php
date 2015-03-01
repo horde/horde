@@ -70,6 +70,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 ->create($info['old_tasklist']);
             $info['tasklist'] = $info['tasklist_id'];
             $result = $storage->modify($info['task_id'], $info);
+            $method = Nag::ITIP_UPDATE;
         } else {
             /* Check permissions. */
             $perms = $this->getInjector()->getInstance('Horde_Core_Perms');
@@ -91,9 +92,11 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(sprintf(_("There was a problem saving the task: %s."), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
-            if ($conf['assignees']['allow_external']) {
-                Nag::sendITipNotifications($storage->get($newid[0]), $notification, Nag::ITIP_REQUEST);
-            }
+            $method = Nag::ITIP_REQUEST;
+        }
+
+        if ($conf['assignees']['allow_external']) {
+            Nag::sendITipNotifications($storage->get($newid[0]), $notification, $method);
         }
 
         $notification->push(sprintf(_("Saved %s."), $info['name']), 'horde.success');
