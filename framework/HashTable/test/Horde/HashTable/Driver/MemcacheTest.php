@@ -26,7 +26,8 @@ class Horde_HashTable_Driver_MemcacheTest extends Horde_HashTable_Driver_TestBas
 {
     public static function setUpBeforeClass()
     {
-        if (($config = self::getConfig('HASHTABLE_MEMCACHE_TEST_CONFIG', __DIR__ . '/..')) &&
+        if (extension_loaded('memcache') &&
+            ($config = self::getConfig('HASHTABLE_MEMCACHE_TEST_CONFIG', __DIR__ . '/..')) &&
             isset($config['hashtable']['memcache'])) {
             $memcache = new Horde_Memcache(
                 array_merge(
