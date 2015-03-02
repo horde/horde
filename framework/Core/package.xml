@@ -30,7 +30,7 @@
  </developer>
  <date>2015-03-02</date>
  <version>
-  <release>2.19.1</release>
+  <release>2.19.2</release>
   <api>2.19.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Revert to using ECB mode for encryption, to not break existing credentials (Bug #13869).
-* [mjr] Fix replying to email from search results in some broken ActiveSync clients (Bug #13878).
-* [jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3839,6 +3837,19 @@
 * [jan] Revert to using ECB mode for encryption, to not break existing credentials (Bug #13869).
 * [mjr] Fix replying to email from search results in some broken ActiveSync clients (Bug #13878).
 * [jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.2</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
