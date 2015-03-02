@@ -29,15 +29,31 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
     public function testKeyserverRetrieve()
     {
-        $this->_ks->get('4DE5B969');
+        try {
+            $this->_ks->get('4DE5B969');
+        } catch (Horde_Crypt_Exception $e) {
+            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
     }
 
     public function testKeyserverRetrieveByEmail()
     {
-        $this->assertEquals(
-            '4DE5B969',
-            $this->_ks->getKeyID('jan@horde.org')
-        );
+        try {
+            $this->assertEquals(
+                '4DE5B969',
+                $this->_ks->getKeyID('jan@horde.org')
+            );
+        } catch (Horde_Crypt_Exception $e) {
+            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
     }
 
 }
