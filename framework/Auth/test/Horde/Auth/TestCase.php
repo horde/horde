@@ -21,7 +21,7 @@ class Horde_Auth_TestCase extends Horde_Test_Case
         return array(
             array('aprmd5', '$apr1$11CBbKXP$AvvMGBjr81bC/NSMZIxrG.', '11CBbKXP'),
             array('crypt', '8e3IWstJmsmxs', '8e'),
-            array('crypt-blowfish', '$2lXRrxYRR396', '$2lXRrxYRR396'),
+            array('crypt-blowfish', '$2a$08$xJOYeQ7koDohq69yZeFXNO5TvrTlFLs4NP2..EcZP57oeOVgXoxqy', '$2a$08$xJOYeQ7koDohq69yZeFXNO'),
             array('crypt-des', '45MibW6/G3XEY', '45'),
             array('crypt-md5', '$1$537a3a0e$CWyLVJdQKfxbKPBv/Efzm0', '$1$537a3a0e$'),
             array('md5-base64', 'OFj2IjCsPJFfMAxmQxLGPw==', ''),
