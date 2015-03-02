@@ -353,7 +353,7 @@ abstract class Wicked_Driver
         $this->removeAllAttachments($this->getPageId($pagename));
     }
 
-    abstract function searchTitles($searchtext);
+    abstract function searchTitles($searchtext, $begin = false);
 
     /**
      * Returns the charset used by the backend.

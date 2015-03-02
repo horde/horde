@@ -70,7 +70,10 @@ class Wicked_View_Helper_Navigation extends Horde_View_Helper_Base
             return '';
         }
 
-        $siblings = $wicked->searchTitles(substr($name, 0, strrpos($name, '/') + 1));
+        $siblings = $wicked->searchTitles(
+            substr($name, 0, strrpos($name, '/') + 1),
+            true
+        );
         usort(
             $siblings,
             function($a, $b) {
@@ -138,14 +141,9 @@ class Wicked_View_Helper_Navigation extends Horde_View_Helper_Base
      */
     public function subPages($name)
     {
-        $slashes = substr_count($name, '/') + 1;
-        $pages = $this->_getSubPages($name);
         $children = array();
-        foreach ($pages as $page) {
+        foreach ($this->_getSubPages($name) as $page) {
             $name = $page['page_name'];
-            if (substr_count($name, '/') != $slashes) {
-                continue;
-            }
             $children[$name] = '<li>' . Wicked::url($name)->link()
                 . $this->h($name) . '</a></li>';
         }
@@ -168,7 +166,13 @@ class Wicked_View_Helper_Navigation extends Horde_View_Helper_Base
         global $wicked;
 
         if (!isset($this->_subPages)) {
-            $this->_subPages = $wicked->searchTitles($name . '/');
+            $slashes = substr_count($name, '/') + 1;
+            $this->_subPages = array();
+            foreach ($wicked->searchTitles($name . '/', true) as $page) {
+                if (substr_count($page['page_name'], '/') == $slashes) {
+                    $this->_subPages[] = $page;
+                }
+            }
         }
 
         return $this->_subPages;
