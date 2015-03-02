@@ -166,7 +166,10 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      */
     protected function _vacationCode()
     {
-        $code = 'vacation :days ' . $this->_vars['days'] . ' ';
+        $code = 'vacation ';
+        if (!empty($this->_vars['days'])) {
+            $code .= ':days ' . $this->_vars['days'] . ' ';
+        }
         $addresses = $this->_vars['addresses'];
         $stringlist = '';
         if (count($addresses) > 1) {

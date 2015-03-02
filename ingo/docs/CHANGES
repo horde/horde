@@ -2,6 +2,7 @@
 v3.2.5-git
 ----------
 
+[jan] Fix Sieve error if days of vacation is unset (Bug #13890).
 
 
 ------

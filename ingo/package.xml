@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1550,7 +1550,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
    </notes>
   </release>
  </changelog>
