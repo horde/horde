@@ -305,16 +305,21 @@ class Horde_String
             $length = self::length($string, $charset) - $start;
         }
 
-        if ($length == 0) {
+        if ($length === 0) {
             return '';
         }
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
-
-            /* mb_substr() returns empty string on failure. */
-            if (strlen($ret)) {
+            $track_errors = ini_set('track_errors', 1);
+            $ret = @mb_substr(
+                $string,
+                $start,
+                $length,
+                self::_mbstringCharset($charset)
+            );
+            ini_set('track_errors', $track_errors);
+            if (!isset($php_errormsg)) {
                 return $ret;
             }
         }
