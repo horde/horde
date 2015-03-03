@@ -1,17 +1,37 @@
 <?php
-namespace True;
+/**
+ * Copyright 2014 TrueServer B.V.
+ * Copyright 2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (BSD). If you
+ * did not receive this file, see http://www.horde.org/licenses/bsd.
+ *
+ * @category  Horde
+ * @copyright 2014 TrueServer B.V.
+ * @copyright 2015 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @package   Idna
+ */
 
 /**
- * Punycode implementation as described in RFC 3492
+ * Punycode implementation as described in RFC 3492.
  *
- * @link http://tools.ietf.org/html/rfc3492
+ * Original code (v1.0.1; released under the MIT License):
+ *     https://github.com/true/php-punycode/
+ *
+ * @author    Renan Gonçalves <renan.saddam@gmail.com>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2014 TrueServer B.V.
+ * @copyright 2015 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd BSD
+ * @link      http://tools.ietf.org/html/rfc3492
+ * @package   Idna
  */
-class Punycode
+class Horde_Idna_Punycode
 {
-
     /**
-     * Bootstring parameter values
-     *
+     * Bootstring parameter values.
      */
     const BASE         = 36;
     const TMIN         = 1;
@@ -24,7 +44,7 @@ class Punycode
     const DELIMITER    = '-';
 
     /**
-     * Encode table
+     * Encode table.
      *
      * @param array
      */
@@ -35,7 +55,7 @@ class Punycode
     );
 
     /**
-     * Decode table
+     * Decode table.
      *
      * @param array
      */
@@ -49,14 +69,16 @@ class Punycode
     );
 
     /**
-     * Encode a domain to its Punycode version
+     * Encode a domain to its Punycode version.
      *
-     * @param string $input Domain name in Unicde to be encoded
-     * @return string Punycode representation in ASCII
+     * @param string $input  Domain name in Unicde to be encoded.
+     *
+     * @return string  Punycode representation in ASCII.
      */
     public function encode($input)
     {
         $parts = explode('.', $input);
+
         foreach ($parts as &$part) {
             $part = $this->_encodePart($part);
         }
@@ -65,10 +87,11 @@ class Punycode
     }
 
     /**
-     * Encode a part of a domain name, such as tld, to its Punycode version
+     * Encode a part of a domain name, such as tld, to its Punycode version.
      *
-     * @param string $input Part of a domain name
-     * @return string Punycode representation of a domain part
+     * @param string $input  Part of a domain name.
+     *
+     * @return string  Punycode representation of a domain part.
      */
     protected function _encodePart($input)
     {
@@ -94,19 +117,21 @@ class Punycode
         sort($codePoints['nonBasic']);
 
         $i = 0;
-        $length = mb_strlen($input);
+        $length = Horde_String::length($input, 'UTF-8');
+
         while ($h < $length) {
             $m = $codePoints['nonBasic'][$i++];
             $delta = $delta + ($m - $n) * ($h + 1);
             $n = $m;
 
             foreach ($codePoints['all'] as $c) {
-                if ($c < $n || $c < static::INITIAL_N) {
-                    $delta++;
+                if (($c < $n) || ($c < static::INITIAL_N)) {
+                    ++$delta;
                 }
+
                 if ($c === $n) {
                     $q = $delta;
-                    for ($k = static::BASE;; $k += static::BASE) {
+                    for ($k = static::BASE; ; $k += static::BASE) {
                         $t = $this->_calculateThreshold($k, $bias);
                         if ($q < $t) {
                             break;
@@ -121,43 +146,45 @@ class Punycode
                     $output .= static::$_encodeTable[$q];
                     $bias = $this->_adapt($delta, $h + 1, ($h === $b));
                     $delta = 0;
-                    $h++;
+                    ++$h;
                 }
             }
 
-            $delta++;
-            $n++;
+            ++$delta;
+            ++$n;
         }
 
         return static::PREFIX . $output;
     }
 
     /**
-     * Decode a Punycode domain name to its Unicode counterpart
+     * Decode a Punycode domain name to its Unicode counterpart.
      *
-     * @param string $input Domain name in Punycode
-     * @return string Unicode domain name
+     * @param string $input  Domain name in Punycode
+     *
+     * @return string  Unicode domain name.
      */
     public function decode($input)
     {
         $parts = explode('.', $input);
-        foreach ($parts as &$part) {
-            if (strpos($part, static::PREFIX) !== 0) {
-                continue;
-            }
 
-            $part = substr($part, strlen(static::PREFIX));
-            $part = $this->_decodePart($part);
+        foreach ($parts as &$part) {
+            if (strpos($part, static::PREFIX) === 0) {
+                $part = $this->_decodePart(
+                    substr($part, strlen(static::PREFIX))
+                );
+            }
         }
 
         return implode('.', $parts);
     }
 
     /**
-     * Decode a part of domain name, such as tld
+     * Decode a part of domain name, such as tld.
      *
-     * @param string $input Part of a domain name
-     * @return string Unicode domain part
+     * @param string $input  Part of a domain name.
+     *
+     * @return string  Unicode domain part.
      */
     protected function _decodePart($input)
     {
@@ -175,11 +202,12 @@ class Punycode
 
         $outputLength = strlen($output);
         $inputLength = strlen($input);
+
         while ($pos < $inputLength) {
             $oldi = $i;
             $w = 1;
 
-            for ($k = static::BASE;; $k += static::BASE) {
+            for ($k = static::BASE; ; $k += static::BASE) {
                 $digit = static::$_decodeTable[$input[$pos++]];
                 $i = $i + ($digit * $w);
                 $t = $this->_calculateThreshold($k, $bias);
@@ -194,37 +222,42 @@ class Punycode
             $bias = $this->_adapt($i - $oldi, ++$outputLength, ($oldi === 0));
             $n = $n + (int) ($i / $outputLength);
             $i = $i % ($outputLength);
-            $output = mb_substr($output, 0, $i) . $this->_codePointToChar($n) . mb_substr($output, $i, $outputLength - 1);
 
-            $i++;
+            $output = Horde_String::substr($output, 0, $i, 'UTF-8') .
+                $this->_codePointToChar($n) .
+                Horde_String::substr($output, $i, $outputLength - 1, 'UTF-8');
+
+            ++$i;
         }
 
         return $output;
     }
 
     /**
-     * Calculate the bias threshold to fall between TMIN and TMAX
+     * Calculate the bias threshold to fall between TMIN and TMAX.
      *
      * @param integer $k
      * @param integer $bias
+     *
      * @return integer
      */
     protected function _calculateThreshold($k, $bias)
     {
-        if ($k <= $bias + static::TMIN) {
+        if ($k <= ($bias + static::TMIN)) {
             return static::TMIN;
-        } elseif ($k >= $bias + static::TMAX) {
+        } elseif ($k >= ($bias + static::TMAX)) {
             return static::TMAX;
         }
         return $k - $bias;
     }
 
     /**
-     * Bias adaptation
+     * Bias adaptation.
      *
      * @param integer $delta
      * @param integer $numPoints
      * @param boolean $firstTime
+     *
      * @return integer
      */
     protected function _adapt($delta, $numPoints, $firstTime)
@@ -247,22 +280,24 @@ class Punycode
     }
 
     /**
-     * List code points for a given input
+     * List code points for a given input.
      *
      * @param string $input
-     * @return array Multi-dimension array with basic, non-basic and aggregated code points
+     *
+     * @return array  Multi-dimension array with basic, non-basic and
+     *                aggregated code points.
      */
     protected function _codePoints($input)
     {
         $codePoints = array(
             'all'      => array(),
             'basic'    => array(),
-            'nonBasic' => array(),
+            'nonBasic' => array()
         );
 
-        $length = mb_strlen($input);
-        for ($i = 0; $i < $length; $i++) {
-            $char = mb_substr($input, $i, 1);
+        $len = Horde_String::length($input, 'UTF-8');
+        for ($i = 0; $i < $len; ++$i) {
+            $char = Horde_String::substr($input, $i, 1, 'UTF-8');
             $code = $this->_charToCodePoint($char);
             if ($code < 128) {
                 $codePoints['all'][] = $codePoints['basic'][] = $code;
@@ -275,9 +310,10 @@ class Punycode
     }
 
     /**
-     * Convert a single or multi-byte character to its code point
+     * Convert a single or multi-byte character to its code point.
      *
      * @param string $char
+     *
      * @return integer
      */
     protected function _charToCodePoint($char)
@@ -289,15 +325,15 @@ class Punycode
             return (($code - 192) * 64) + (ord($char[1]) - 128);
         } elseif ($code < 240) {
             return (($code - 224) * 4096) + ((ord($char[1]) - 128) * 64) + (ord($char[2]) - 128);
-        } else {
-            return (($code - 240) * 262144) + ((ord($char[1]) - 128) * 4096) + ((ord($char[2]) - 128) * 64) + (ord($char[3]) - 128);
         }
+        return (($code - 240) * 262144) + ((ord($char[1]) - 128) * 4096) + ((ord($char[2]) - 128) * 64) + (ord($char[3]) - 128);
     }
 
     /**
      * Convert a code point to its single or multi-byte character
      *
      * @param integer $code
+     *
      * @return string
      */
     protected function _codePointToChar($code)
@@ -308,8 +344,8 @@ class Punycode
             return chr(($code >> 6) + 192) . chr(($code & 63) + 128);
         } elseif ($code <= 0xFFFF) {
             return chr(($code >> 12) + 224) . chr((($code >> 6) & 63) + 128) . chr(($code & 63) + 128);
-        } else {
-            return chr(($code >> 18) + 240) . chr((($code >> 12) & 63) + 128) . chr((($code >> 6) & 63) + 128) . chr(($code & 63) + 128);
         }
+        return chr(($code >> 18) + 240) . chr((($code >> 12) & 63) + 128) . chr((($code >> 6) & 63) + 128) . chr(($code & 63) + 128);
     }
+
 }

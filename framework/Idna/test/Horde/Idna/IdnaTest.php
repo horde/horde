@@ -1,52 +1,33 @@
 <?php
-namespace True;
-
-class PunycodeTest extends \PHPUnit_Framework_TestCase
+class IdnaTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * Make sure the right internal encoding is defined when testing
-     *
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        mb_internal_encoding('utf-8');
-    }
-
-    /**
-     * Test encoding Punycode
-     *
-     * @param string $decoded Decoded domain
-     * @param string $encoded Encoded domain
      * @dataProvider domainNamesProvider
      */
     public function testEncode($decoded, $encoded)
     {
-        $Punycode = new Punycode();
-        $result = $Punycode->encode($decoded);
-        $this->assertEquals($encoded, $result);
+        $idna = new Horde_Idna();
+
+        $this->assertEquals(
+            $encoded,
+            $idna->encode($decoded)
+        );
     }
 
     /**
-     * Test decoding Punycode
-     *
-     * @param string $decoded Decoded domain
-     * @param string $encoded Encoded domain
      * @dataProvider domainNamesProvider
      */
     public function testDecode($decoded, $encoded)
     {
-        $Punycode = new Punycode();
-        $result = $Punycode->decode($encoded);
-        $this->assertEquals($decoded, $result);
+        $idna = new Horde_Idna();
+
+        $this->assertEquals(
+            $decoded,
+            $idna->decode($encoded)
+        );
     }
 
     /**
-     * Provide domain names containing the decoded and encoded names
-     *
-     * @return array
      */
     public function domainNamesProvider()
     {
@@ -124,6 +105,10 @@ class PunycodeTest extends \PHPUnit_Framework_TestCase
             array(
                 'guangdong.广东',
                 'guangdong.xn--xhq521b',
+            ),
+            array(
+                'gwóźdź.pl',
+                'xn--gwd-hna98db.pl',
             ),
         );
     }

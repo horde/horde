@@ -34,11 +34,7 @@ class Horde_Idna
      */
     public static function encode($data)
     {
-        if (($backend = self::_getBackend()) === false) {
-            throw new Horde_Idna_Exception('No IDNA backend available.');
-        }
-
-        return $backend->encode($data);
+        return static::_getBackend()->encode($data);
     }
 
     /**
@@ -46,11 +42,7 @@ class Horde_Idna
      */
     public static function decode($data)
     {
-        if (($backend = self::_getBackend()) === false) {
-            throw new Horde_Idna_Exception('No IDNA backend available.');
-        }
-
-        return $backend->decode($data);
+        return static::_getBackend()->decode($data);
     }
 
     /**
@@ -61,21 +53,7 @@ class Horde_Idna
     protected static function _getBackend()
     {
         if (!isset(self::$_backend)) {
-            if (class_exists('Net_IDNA2')) {
-                self::$_backend = new Net_IDNA2();
-            } elseif (extension_loaded('mbstring')) {
-                if (file_exists(__DIR__ . '/Idna/vendor/autoload.php')) {
-                    require_once __DIR__ . '/Idna/vendor/autoload.php';
-                } else {
-                    require_once __DIR__ . '/../../bundle/vendor/autoload.php';
-                }
-                self::$_backend = new True\Punycode();
-                mb_internal_encoding('UTF-8');
-            } elseif (class_exists('Net_IDNA')) {
-                self::$_backend = new Net_IDNA();
-            } else {
-                self::$_backend = false;
-            }
+            self::$_backend = new Horde_Idna_Punycode();
         }
 
         return self::$_backend;
