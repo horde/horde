@@ -149,18 +149,21 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                 }
             } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                 $this->_logger->err(sprintf(
-                    'Returning HTTP 400 while handling %s command', $this->_get['Cmd']));
+                    'Returning HTTP 400 while handling %s command. Error is: %s',
+                    $this->_get['Cmd'], $e->getMessage()));
                $this->_handleError($e);
-               header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
+               header('HTTP/1.1 400 Invalid Request');
                exit;
             } catch (Horde_Exception_AuthenticationFailure $e) {
                 $this->_sendAuthenticationFailedHeaders();
                 exit;
             } catch (Horde_Exception $e) {
                 $this->_logger->err(sprintf(
-                    'Returning HTTP 500 while handling %s command.', $this->_get['Cmd']));
+                    'Returning HTTP 500 while handling %s command. Error is: %s',
+                    $this->_get['Cmd'],
+                    $e->getMessage()));
                 $this->_handleError($e);
-                header('HTTP/1.1 500 ' . $e->getMessage());
+                header('HTTP/1.1 500');
                 exit;
             }
             break;
