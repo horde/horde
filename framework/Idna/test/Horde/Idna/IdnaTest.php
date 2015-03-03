@@ -77,7 +77,6 @@ class IdnaTest extends \PHPUnit_Framework_TestCase
                 'உதாரணம்.பரிட்சை',
                 'xn--zkc6cc5bi7f6e.xn--hlcj6aya9esc7a',
             ),
-
             array(
                 'derhausüberwacher.de',
                 'xn--derhausberwacher-pzb.de',
