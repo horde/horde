@@ -1,0 +1,5 @@
+dn: cn=horde,cn=schema,cn=config
+objectClass: olcSchemaConfig
+cn: horde
+olcObjectClasses: {1}( 1.3.6.1.4.1.13040.2.2.2 NAME 'hordeGroup' DESC 'Horde G
+ roup' SUP top AUXILIARY MAY mail )

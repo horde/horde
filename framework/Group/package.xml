@@ -17,7 +17,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-17</date>
+ <date>2015-03-03</date>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add schema definition for LDAP groups.
 * [jan] Don&apos;t throw exception from listUsers() if group not found in LDAP directory (Bug #13879).
  </notes>
  <contents>
@@ -35,6 +36,10 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Group">
+      <dir name="ldap">
+       <file name="group.ldif" role="doc" />
+       <file name="group.schema" role="doc" />
+      </dir> <!-- /doc/Horde/Group/ldap -->
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Group -->
     </dir> <!-- /doc/Horde -->
@@ -141,6 +146,8 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Group/COPYING" />
+   <install as="ldap/group.ldif" name="doc/Horde/Group/ldap/group.ldif" />
+   <install as="ldap/group.schema" name="doc/Horde/Group/ldap/group.schema" />
    <install as="Horde/Group/Base.php" name="lib/Horde/Group/Base.php" />
    <install as="Horde/Group/Exception.php" name="lib/Horde/Group/Exception.php" />
    <install as="Horde/Group/Kolab.php" name="lib/Horde/Group/Kolab.php" />
@@ -471,9 +478,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-17</date>
+   <date>2015-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add schema definition for LDAP groups.
 * [jan] Don&apos;t throw exception from listUsers() if group not found in LDAP directory (Bug #13879).
    </notes>
   </release>
