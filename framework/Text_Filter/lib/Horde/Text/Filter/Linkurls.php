@@ -148,6 +148,7 @@ END_OF_REGEX;
             $target = ' target="' . $target . '"';
         }
 
+        $decoded = $orig_href;
         try {
             if (strlen($host = @parse_url($orig_href, PHP_URL_HOST))) {
                 $decoded = substr_replace(
