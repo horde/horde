@@ -149,7 +149,14 @@ END_OF_REGEX;
         }
 
         try {
-            $decoded = Horde_Idna::decode($orig_href);
+            if (strlen($host = @parse_url($orig_href, PHP_URL_HOST))) {
+                $decoded = substr_replace(
+                    $orig_href,
+                    Horde_Idna::decode($host),
+                    strpos($orig_href, $host),
+                    strlen($host)
+                );
+            }
         } catch (Horde_Idna_Exception $e) {}
 
         $replacement = '<a href="' . $href . '"' .
