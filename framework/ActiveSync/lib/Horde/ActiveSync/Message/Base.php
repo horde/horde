@@ -563,15 +563,17 @@ class Horde_ActiveSync_Message_Base
      *
      * @param string $ts  The timestamp
      *
-     * @return Horde_Date  The Horde_Date
+     * @return Horde_Date|boolean  The Horde_Date or false if unable to decode.
      */
     protected function _parseDate($ts)
     {
         if (preg_match("/(\d{4})[^0-9]*(\d{2})[^0-9]*(\d{2})(T(\d{2})[^0-9]*(\d{2})[^0-9]*(\d{2})(.\d+)?Z){0,1}$/", $ts, $matches)) {
-            return new Horde_Date($ts);
+            try {
+                return new Horde_Date($ts);
+            } catch (Horde_Date_Exception $e) {}
         }
 
-        throw new Horde_ActiveSync_Exception('Invalid date format');
+        return false;
     }
 
     /**
