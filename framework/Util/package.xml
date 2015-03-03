@@ -25,7 +25,7 @@
  </developer>
  <date>2015-03-03</date>
  <version>
-  <release>2.5.4</release>
+  <release>2.5.5</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix error detection when using Horde_String::substr() with mb_substr().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -738,6 +738,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix error detection when using Horde_String::substr() with mb_substr().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.5</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
