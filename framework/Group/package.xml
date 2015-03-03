@@ -19,7 +19,7 @@
  </lead>
  <date>2015-03-03</date>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add schema definition for LDAP groups.
-* [jan] Don&apos;t throw exception from listUsers() if group not found in LDAP directory (Bug #13879).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -483,6 +482,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] Add schema definition for LDAP groups.
 * [jan] Don&apos;t throw exception from listUsers() if group not found in LDAP directory (Bug #13879).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
