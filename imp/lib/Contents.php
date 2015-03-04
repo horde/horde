@@ -284,6 +284,7 @@ class IMP_Contents
         if (substr($id, -2) === '.0') {
             $rfc822 = true;
             $id = substr($id, 0, -2);
+            $options['mimeheaders'] = true;
         } else {
             $rfc822 = false;
         }
@@ -518,7 +519,7 @@ class IMP_Contents
     {
         $this->_buildMessage();
 
-        if (!$part = $this->_message->getPart($id)) {
+        if (!$part = $this->_message[$id]) {
             return null;
         }
 
@@ -534,7 +535,6 @@ class IMP_Contents
          * body of the main multipart message).  I'm pretty sure we never
          * want to download the body of that part here. */
         if (!empty($id) &&
-            (substr($id, -2) != '.0') &&
             empty($options['nocontents']) &&
             $this->_indices &&
             !$part->getContents(array('stream' => true))) {
@@ -774,7 +774,7 @@ class IMP_Contents
         $part['type'] = $mime_type;
 
         /* Is this part an attachment? */
-        $is_atc = $this->isAttachment($mime_type);
+        $is_atc = IMP_Mime_Attachment::isAttachment($mime_part);
 
         /* Get bytes/size information. */
         if (($mask & self::SUMMARY_BYTES) ||
@@ -819,7 +819,21 @@ class IMP_Contents
 
         /* Download column. */
         if ($is_atc && ($mask & self::SUMMARY_DOWNLOAD)) {
-            $part['download'] = $this->linkView($mime_part, 'download_attach', '', array('class' => 'iconImg downloadAtc', 'jstext' => _("Download")));
+            $part['download'] = $this->linkView(
+                $mime_part,
+                'download_attach',
+                '',
+                array(
+                    'attr' => array(
+                        /* Can't rely on base 'download' tag. Because XHTML
+                         * requires an attribute, have to put some sort of
+                         * filename in the attribute. */
+                        'download' => $mime_part->getName(true) ?: $mime_part->getPrimaryType()
+                    ),
+                    'class' => 'iconImg downloadAtc',
+                    'jstext' => _("Download")
+                )
+            );
             $part['download_url'] = $this->urlView($mime_part, 'download_attach');
         }
 
@@ -918,16 +932,20 @@ class IMP_Contents
      * @param integer $actionID           The actionID value.
      * @param string $text                The ESCAPED (!) link text.
      * @param array $options              Additional parameters:
+     * <pre>
+     *   - attr: (array) Additional attributed to set on the link.
      *   - class: (string) The CSS class to use.
      *   - jstext: (string) The JS text to use.
      *   - params: (array) A list of any additional parameters that need to be
      *             passed to the download/view page.
+     * </pre>
      *
      * @return string  A HTML href link to the download/view page.
      */
     public function linkView($mime_part, $actionID, $text, $options = array())
     {
         $options = array_merge(array(
+            'attr' => array(),
             'class' => null,
             'jstext' => $text,
             'params' => array()
@@ -937,7 +955,11 @@ class IMP_Contents
             $this->urlView($mime_part, $actionID, $options),
             $options['jstext'],
             $options['class'],
-            ($actionID == 'download_attach') ? null : strval(new Horde_Support_Randomid())
+            ($actionID == 'download_attach') ? null : strval(new Horde_Support_Randomid()),
+            '',
+            '',
+            '',
+            $options['attr']
         ) . $text . '</a>';
     }
 
@@ -985,37 +1007,6 @@ class IMP_Contents
     }
 
     /**
-     * Determines if a MIME type is an attachment.
-     * For IMP's purposes, an attachment is any MIME part that can be
-     * downloaded by itself (i.e. all the data needed to view the part is
-     * contained within the download data).
-     *
-     * @param string $mime_type  The MIME type.
-     *
-     * @return boolean  True if an attachment.
-     */
-    public function isAttachment($mime_type)
-    {
-        switch ($mime_type) {
-        case 'application/ms-tnef':
-            return false;
-        }
-
-        list($ptype,) = explode('/', $mime_type, 2);
-
-        switch ($ptype) {
-        case 'message':
-            return in_array($mime_type, array('message/rfc822', 'message/disposition-notification'));
-
-        case 'multipart':
-            return false;
-
-        default:
-            return true;
-        }
-    }
-
-    /**
      * Builds the "virtual" Horde_Mime_Part object by checking for embedded
      * parts.
      *
@@ -1030,7 +1021,10 @@ class IMP_Contents
                 return;
             }
             $this->_build = true;
-            $parts = array_keys($this->_message->contentTypeMap());
+            $parts = array();
+            foreach ($this->_message->partIterator() as $val) {
+                $parts[] = $val->getMimeId();
+            }
             $first_id = reset($parts);
         } else {
             $first_id = null;
@@ -1064,10 +1058,12 @@ class IMP_Contents
                 $viewer->setMIMEPart($mime_part);
                 $new_part = $viewer->getEmbeddedMimeParts();
                 if (!is_null($new_part)) {
-                    $mime_part->addPart($new_part);
+                    $mime_part[] = $new_part;
                     $mime_part->buildMimeIds($id);
                     $this->_embedded[] = $new_part->getMimeId();
-                    $to_process = array_merge($to_process, array_keys($new_part->contentTypeMap()));
+                    foreach ($new_part->partIterator() as $val) {
+                        $to_process[] = $val->getMimeId();
+                    }
                     $last_id = $id;
                 }
             }
@@ -1125,18 +1121,6 @@ class IMP_Contents
     }
 
     /**
-     * Returns the Content-Type map for the entire message, regenerating
-     * embedded parts if needed.
-     *
-     * @return array  See Horde_Mime_Part::contentTypeMap().
-     */
-    public function getContentTypeMap()
-    {
-        $this->_buildMessage();
-        return $this->_message->contentTypeMap();
-    }
-
-    /**
      * Returns the MIME part tree of the message.
      *
      * @param string $renderer  Either the tree renderer driver or a full
@@ -1150,7 +1134,11 @@ class IMP_Contents
         $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('mime-' . $this->getUid(), $renderer, array(
             'nosession' => true
         ));
-        $this->_addTreeNodes($tree, $this->_message);
+
+        foreach ($this->_message->partIterator() as $val) {
+            $this->_addTreeNodes($tree, $val);
+        }
+
         return $tree;
     }
 
@@ -1158,15 +1146,16 @@ class IMP_Contents
      * Adds MIME parts to the tree instance.
      *
      * @param Horde_Tree_Renderer_Base tree   A tree instance.
-     * @param Horde_Mime_Part $part           The MIME part to add to the
-     *                                        tree, including its sub-parts.
-     * @param string $parent                  The parent part's MIME id.
+     * @param Horde_Mime_Part $part           The MIME part to add.
      */
-    protected function _addTreeNodes($tree, $part, $parent = null)
+    protected function _addTreeNodes($tree, $part)
     {
         $mimeid = $part->getMimeId();
 
-        $summary_mask = self::SUMMARY_ICON_RAW | self::SUMMARY_DESCRIP_LINK | self::SUMMARY_SIZE | self::SUMMARY_DOWNLOAD;
+        $summary_mask = self::SUMMARY_ICON_RAW |
+            self::SUMMARY_DESCRIP_LINK |
+            self::SUMMARY_SIZE |
+            self::SUMMARY_DOWNLOAD;
         if ($GLOBALS['prefs']->getValue('strip_attachments')) {
             $summary_mask += self::SUMMARY_STRIP;
         }
@@ -1175,7 +1164,7 @@ class IMP_Contents
 
         $tree->addNode(array(
             'id' => $mimeid,
-            'parent' => $parent,
+            'parent' => is_null($part->parent) ? null : $part->parent->getMimeId(),
             'label' => sprintf(
                 '%s (%s) %s %s',
                 $summary['description'],
@@ -1188,10 +1177,6 @@ class IMP_Contents
                 'icon' => $summary['icon']
             )
         ));
-
-        foreach ($part->getParts() as $part) {
-            $this->_addTreeNodes($tree, $part, $mimeid);
-        }
     }
 
     /**
@@ -1203,9 +1188,11 @@ class IMP_Contents
     {
         $ret = array();
 
-        foreach ($this->getContentTypeMap() as $key => $val) {
-            if ($this->isAttachment($val)) {
-                $ret[] = $key;
+        $this->_buildMessage();
+
+        foreach ($this->_message->partIterator() as $val) {
+            if (IMP_Mime_Attachment::isAttachment($val)) {
+                $ret[] = $val->getMimeId();
             }
         }
 
@@ -1221,20 +1208,20 @@ class IMP_Contents
      */
     public function buildMessageContents($ignore = array())
     {
-        $message = $this->_message;
         $curr_ignore = null;
 
-        foreach ($message->contentTypeMap() as $key => $val) {
-            if (is_null($curr_ignore) && in_array($key, $ignore)) {
-                $curr_ignore = $key . '.';
-            } elseif (is_null($curr_ignore) ||
-                      (strpos($key, $curr_ignore) === false)) {
+        foreach ($this->_message->partIterator() as $val) {
+            $id = $val->getMimeId();
+
+            if (is_null($curr_ignore) && in_array($id, $ignore)) {
+                $curr_ignore = new Horde_Mime_Id($id);
+            } elseif (is_null($curr_ignore) || !$curr_ignore->isChild($id)) {
                 $curr_ignore = null;
-                if (($key != 0) &&
-                    ($val != 'message/rfc822') &&
-                    (strpos($val, 'multipart/') === false) &&
-                    ($part = $this->getMimePart($key))) {
-                    $message->alterPart($key, $part);
+                if (($id != 0) &&
+                    ($val->getType() != 'message/rfc822') &&
+                    ($val->getPrimaryType != 'multipart/') &&
+                    ($part = $this->getMimePart($id))) {
+                    $this->_message[$id] = $part;
                 }
             }
         }

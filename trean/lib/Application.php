@@ -126,4 +126,22 @@ class Trean_Application extends Horde_Registry_Application
         return Horde_Data::IMPORT_FILE;
     }
 
+    /**
+     */
+    public function removeUserData($user)
+    {
+        global $injector;
+
+        try {
+            $userId = current($injector->getInstance('Content_Users_Manager')->ensureUsers($user));
+            $bookmarks = $GLOBALS['trean_gateway']->listBookmarks('title', 0, 0, 0, $userId);
+            foreach ($bookmarks as $bookmark) {
+                $GLOBALS['trean_gateway']->removeBookmark($bookmark);
+            }
+        } catch (Content_Exception $e) {
+           throw new Trean_Exception(sprintf(_("There was an error removing bookmarks for %s. Details have been logged."), $user));
+           Horde::log($e, 'NOTICE');
+        }
+    }
+
 }

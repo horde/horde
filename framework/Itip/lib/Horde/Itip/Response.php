@@ -124,6 +124,11 @@ class Horde_Itip_Response
         return $vCal;
     }
 
+    protected function _setIcsFilename(Horde_Mime_Part &$message)
+    {
+        $message->setName('event-reply.ics');
+    }
+
     /**
      * Return the response as a MIME message.
      *
@@ -145,7 +150,7 @@ class Horde_Itip_Response
             $this->getIcalendar($type, $options)->exportvCalendar()
         );
         $message->setEOL("\r\n");
-        $message->setName('event-reply.ics');
+        $this->_setIcsFilename($message);
         $message->setContentTypeParameter('METHOD', 'REPLY');
 
         // Build the reply headers.

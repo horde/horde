@@ -830,7 +830,7 @@ abstract class Horde_Db_Adapter_Base implements Horde_Db_Adapter
     protected function _cacheKey($key)
     {
         if (!isset($this->_cachePrefix)) {
-            $this->_cachePrefix = get_class($this) . hash((PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'sha1', serialize($this->_config));
+            $this->_cachePrefix = get_class($this) . hash((version_compare(PHP_VERSION, '5.4', '>=')) ? 'fnv132' : 'sha1', serialize($this->_config));
         }
 
         return $this->_cachePrefix . $key;

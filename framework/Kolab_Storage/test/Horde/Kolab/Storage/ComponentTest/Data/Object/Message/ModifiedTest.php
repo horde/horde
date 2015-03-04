@@ -32,11 +32,6 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
-        if (version_compare(PHP_VERSION, '5.5.0', '>=') &&
-            version_compare(PHP_VERSION, '5.5.3', '<=')) {
-            $this->markTestSkipped('PHP version with broken quoted-printable-encode');
-        }
-
         $driver = new Horde_Kolab_Storage_Stub_Driver('user');
         $driver->setMessage('INBOX', 1, file_get_contents(__DIR__ . '/../../../../fixtures/note.eml'));
         $factory = new Horde_Kolab_Format_Factory();
@@ -90,14 +85,14 @@ Subject: ABC1234
 User-Agent: Horde::Kolab::Storage v@version@
 MIME-Version: 1.0
 X-Kolab-Type: application/x-vnd.kolab.note
-Content-Type: multipart/mixed; name="Kolab Groupware Data";
- boundary=""
+Content-Type: multipart/mixed; boundary="";
+ name="Kolab Groupware Data"
 Content-Disposition: attachment; filename="Kolab Groupware Data"
 
 This message is in MIME format.
 
 --=_
-Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
+Content-Type: text/plain; charset=utf-8; name="Kolab Groupware Information"
 Content-Disposition: inline; filename="Kolab Groupware Information"
 
 This is a Kolab Groupware object. To view this object you will need an email
@@ -106,10 +101,9 @@ clients please visit http://www.kolab.org/content/kolab-clients
 --=_
 Content-Type: application/x-vnd.kolab.note; name=kolab.xml
 Content-Disposition: inline; x-kolab-type=xml; filename=kolab.xml
-Content-Transfer-Encoding: quoted-printable
 
-<?xml version=3D"1.0" encoding=3D"UTF-8"?>
-<note version=3D"1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<note version="1.0">
   <uid>ABC1234</uid>
   <body/>
   <categories/>

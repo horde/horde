@@ -76,7 +76,7 @@
        <td class="allowTextSelection">
         <span class="messagePrintShow"><?php echo $this->h($this->fulldate) ?></span>
         <span class="messagePrintNoShow"><?php echo $this->h($this->localdate) ?></span>
-        <time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($this->datestamp) ?>"></time>
+        (<time class="msgHeaderDateRelative" is="time-ago" datetime="<?php echo $this->h($this->datestamp) ?>"></time>)
        </td>
       </tr>
 <?php endif; ?>
@@ -98,7 +98,7 @@
       </tr>
 <?php foreach ($this->user_hdrs as $val): ?>
       <tr>
-       <td class="label"><?php echo $this->h($val['name']) ?></td>
+       <td class="label"><?php echo $this->h($val['name']) ?>:</td>
        <td class="allowTextSelection"><?php echo $this->h($val['value']) ?></td>
       </tr>
 <?php endforeach; ?>

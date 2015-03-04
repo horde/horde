@@ -25,7 +25,7 @@
 class Horde_Mime_Filter_Encoding extends php_user_filter
 {
     /**
-     * Non CR/LF characters.
+     * Number of consecutive non-CR/LF characters.
      *
      * @var integer
      */
@@ -46,10 +46,8 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
      */
     public function filter($in, $out, &$consumed, $closing)
     {
-        $skip = ($this->params->body !== false);
-
         while ($bucket = stream_bucket_make_writeable($in)) {
-            if (!$skip) {
+            if ($this->params->body !== 'binary') {
                 $len = $bucket->datalen;
                 $str = $bucket->data;
 
@@ -60,7 +58,6 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
                     case 0:
                         /* Only binary data can have NULLs. */
                         $this->params->body = 'binary';
-                        $skip = true;
                         break 2;
 
                     case 10: // LF
@@ -74,7 +71,6 @@ class Horde_Mime_Filter_Encoding extends php_user_filter
                          * binary. */
                         if (++$this->_crlf > 998) {
                             $this->params->body = 'binary';
-                            $skip = true;
                             break 2;
                         } else if ($chr > 127) {
                             $this->params->body = '8bit';

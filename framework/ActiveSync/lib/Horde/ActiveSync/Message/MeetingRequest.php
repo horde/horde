@@ -140,7 +140,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             switch ($component->getType()) {
             case 'vEvent':
                 $this->_vEvent = $component;
-                $this->_vEvent($component, $method);
+                $this->_parsevEvent($component, $method);
                 break;
 
             case 'vTimeZone':
@@ -152,9 +152,17 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
             }
         }
 
+        // Ensure we actually have a vEvent to parse.
+        if (empty($this->_vEvent)) {
+            return;
+        }
+
         $tz = new Horde_Mapi_Timezone();
-        $this->timezone = $tz->getSyncTZFromOffsets(
-            $tz->getOffsetsFromDate(new Horde_Date()));
+        try {
+            $this->timezone = $tz->getSyncTZFromOffsets(
+                $tz->getOffsetsFromDate(new Horde_Date($this->_vEvent->getAttribute('DTSTART')))
+            );
+        } catch (Horde_Icalendar_Exception $e) {}
         $this->alldayevent = (int)$this->_isAllDay();
     }
 
@@ -176,7 +184,7 @@ class Horde_ActiveSync_Message_MeetingRequest extends Horde_ActiveSync_Message_B
      *
      * @throws Horde_ActiveSync_Exception
      */
-    protected function _vEvent($vevent, $method = 'REQUEST')
+    protected function _parsevEvent($vevent, $method = 'REQUEST')
     {
         if ($method == 'REQUEST') {
             $this->responserequested = '1';

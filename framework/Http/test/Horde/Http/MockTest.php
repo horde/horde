@@ -71,9 +71,10 @@ class Horde_Http_MockTest extends PHPUnit_Framework_TestCase
     public function testAddResponseHeader()
     {
         $mock = new Horde_Http_Request_Mock();
-        $mock->addResponse('Test', 404, 'http://example.org', array('test: TEST'));
+        $mock->addResponse('Test', 404, 'http://example.org', array('Test: TEST'));
         $client = new Horde_Http_Client(array('request' => $mock));
         $this->assertEquals('TEST', $client->get()->getHeader('test'));
+        $this->assertEquals(array('test' => 'TEST'), $client->get()->headers);
     }
 
     public function testAddStringResponses()
@@ -93,7 +94,7 @@ class Horde_Http_MockTest extends PHPUnit_Framework_TestCase
                 array('body' => 'A'),
                 array('code' => 404),
                 array('uri' => 'http://example.org'),
-                array('headers' => 'test: TEST'),
+                array('headers' => 'Test: TEST'),
             )
         );
         $client = new Horde_Http_Client(array('request' => $mock));
@@ -101,5 +102,6 @@ class Horde_Http_MockTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(404, $client->get()->code);
         $this->assertEquals('http://example.org', $client->get()->uri);
         $this->assertEquals('TEST', $client->get()->getHeader('test'));
+        $this->assertEquals(array('test' => 'TEST'), $client->get()->headers);
     }
 }

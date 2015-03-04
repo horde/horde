@@ -18,8 +18,8 @@
 <?php else: ?>
   <input name="source" type="hidden" value="<?php echo $this->source_list ?>" />
 <?php endif; ?>
-  <input id="btn_search" type="button" value="<?php echo _("Search") ?>" />
-  <input id="btn_clear" type="button" value="<?php echo _("Reset") ?>" />
+  <input id="btn_search" type="submit" value="<?php echo _("Search") ?>" />
+  <input id="btn_search_all" type="button" value="<?php echo _("Show All") ?>" />
  </p>
 
  <table>

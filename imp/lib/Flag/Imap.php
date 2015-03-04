@@ -22,7 +22,9 @@
  *
  * @property-read string $imapflag  The IMAP flag string.
  */
-abstract class IMP_Flag_Imap extends IMP_Flag_Base
+abstract class IMP_Flag_Imap
+extends IMP_Flag_Base
+implements IMP_Flag_Match_Flag
 {
     /**
      * The IMAP flag string used on the server.
@@ -46,9 +48,8 @@ abstract class IMP_Flag_Imap extends IMP_Flag_Base
     }
 
     /**
-     * @param array $data  List of IMAP flags.
      */
-    public function match($data)
+    public function matchFlag(array $data)
     {
         foreach ($data as $val) {
             if (strcasecmp($this->imapflag, $val) === 0) {

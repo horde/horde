@@ -437,17 +437,17 @@ class Horde_Util
             while ($it->valid()) {
                 if (!$it->isDot()) {
                     if ($it->isDir()) {
-                        rmdir($it->key());
+                        @rmdir($it->key());
                     } elseif ($it->isFile()) {
                         self::_secureDelete($it->key());
                     } else {
-                        unlink($it->key());
+                        @unlink($it->key());
                     }
                 }
                 $it->next();
             }
 
-            rmdir($val);
+            @rmdir($val);
         }
     }
 

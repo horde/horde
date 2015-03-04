@@ -119,7 +119,7 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
         $related = new Horde_Mime_Related($part);
 
         $ob = $related->cidReplace(
-            $part->getPart('1')->getContents(),
+            $part['1']->getContents(),
             array($this, 'callbackTestReplace')
         );
 

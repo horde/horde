@@ -772,7 +772,7 @@ class Horde_SyncMl_Sync
     public function getServerChange($change, $id)
     {
         $property = '_server_' . $change . 's';
-        return isset($this->$property[$id]) ? $this->$property[$id] : null;
+        return isset($this->{$property[$id]}) ? $this->{$property[$id]} : null;
     }
 
     /**
@@ -786,7 +786,7 @@ class Horde_SyncMl_Sync
     public function setServerChange($change, $sid, $cid)
     {
         $property = '_server_' . $change . 's';
-        $this->$property[$sid] = $cid;
+        $this->{$property[$sid]} = $cid;
     }
 
     /**
@@ -799,7 +799,7 @@ class Horde_SyncMl_Sync
     public function unsetServerChange($change, $id)
     {
         $property = '_server_' . $change . 's';
-        unset($this->$property[$id]);
+        unset($this->{$property[$id]});
     }
 
     /**

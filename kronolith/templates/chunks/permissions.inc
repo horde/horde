@@ -1,11 +1,11 @@
   <div id="kronolithC<?php echo $type ?>PBasic">
-    <div class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></div>
-    <div>
+    <p class="kronolithDialogInfo"><?php printf(_("%sStandard sharing.%s You can also set %sadvanced sharing%s options."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' .  $type . 'PMore">', '</a></strong>') ?></p>
+    <p>
       <input type="radio" id="kronolithC<?php echo $type ?>PNone" name="basic_perms" checked="checked" />
       <label for="kronolithC<?php echo $type ?>PNone"><?php echo $type == 'internal' ? _("Don't share this calendar") : _("Don't share this task list") ?></label><br />
-    </div>
+    </p>
     <?php if ($GLOBALS['registry']->isAdmin() || !empty($GLOBALS['conf']['share']['world'])): ?>
-    <div>
+    <p>
       <input type="radio" id="kronolithC<?php echo $type ?>PAll" name="basic_perms" />
       <?php printf(_("%sShare with everyone%s (public) and %s %smake it searchable%s by everyone too"),
                    '<label for="kronolithC' . $type . 'PAll">', '</label>',
@@ -13,9 +13,9 @@
                    '<label for="kronolithC' . $type . 'PAllShow">', '</label>')
       ?>
       <br />
-    </div>
+    </p>
     <?php endif; ?>
-    <div>
+    <p>
       <span<?php if (!count($groups)) echo ' style="display:none"' ?>>
         <?php printf(_("%s %sShare with the %s %sgroup%s and %sallow them to%s %s"),
                      '<input type="radio" id="kronolithC' . $type . 'PG" name="basic_perms" />',
@@ -33,22 +33,20 @@
         ?>
         <br />
       </span>
-    </div>
-    <div>
-      <?php printf(_("%s %sShare with the users:%s %s and %sallow them to%s %s"),
-                   '<input type="radio" id="kronolithC' . $type . 'PU" name="basic_perms" />',
-                   '<label for="kronolithC' . $type . 'PU">', '</label>',
-                   '<div><textarea id="kronolithC' . $type . 'PUList" cols="25" rows="3" class="kronolithLongField" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')"></textarea></div><div>',
-                   '<label for="kronolithC' . $type . 'PUPerms">', '</label>',
-                   '<select id="kronolithC' . $type . 'PUPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')">
-                      <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
-                      <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
-                   </select></div>')
-      ?>
-    </div>
+    </p>
+    <?php printf(_("%s %sShare with the users:%s %s and %sallow them to%s %s"),
+                 '<p><input type="radio" id="kronolithC' . $type . 'PU" name="basic_perms" />',
+                 '<label for="kronolithC' . $type . 'PU">', '</label></p>',
+                 '<textarea id="kronolithC' . $type . 'PUList" cols="25" rows="3" class="kronolithLongField" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')"></textarea><p>',
+                 '<label for="kronolithC' . $type . 'PUPerms">', '</label>',
+                 '<select id="kronolithC' . $type . 'PUPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')">
+                    <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
+                    <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
+                 </select></p>')
+    ?>
   </div>
   <div id="kronolithC<?php echo $type ?>PAdvanced" class="kronolithCPAdvanced" style="display:none">
-    <div class="kronolithDialogInfo"><?php printf(_("%sAdvanced sharing.%s You can also return to the %sstandard settings%s."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' . $type . 'PLess">', '</a></strong>') ?></div>
+    <p class="kronolithDialogInfo"><?php printf(_("%sAdvanced sharing.%s You can also return to the %sstandard settings%s."), '<strong>', '</strong>', '<strong><a href="#" id="kronolithC' . $type . 'PLess">', '</a></strong>') ?></p>
 
     <div class="kronolithCPAdvancedMore">
 

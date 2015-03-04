@@ -25,4 +25,13 @@ class Horde_Core_Auth_X509 extends Horde_Auth_X509
         return true;
     }
 
+    public function transparent()
+    {
+        if (parent::transparent()) {
+            $GLOBALS['registry']->setAuth($this->getCredential('userId'), $this->getCredential('credentials'));
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -30,16 +30,17 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
     {
         global $injector, $notification, $page_output;
 
-        $this->_assertCategory(Ingo_Storage::ACTION_WHITELIST, _("Whitelist"));
+        $this->_assertCategory('Ingo_Rule_System_Whitelist', _("Whitelist"));
 
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
+        $whitelist = $ingo_storage->getSystemRule('Ingo_Rule_System_Whitelist');
 
         /* Token checking & perform requested actions. */
         switch ($this->_checkToken(array('rule_update'))) {
         case 'rule_update':
             try {
-                Ingo::updateListFilter($this->vars->whitelist, Ingo_Storage::ACTION_WHITELIST);
+                $whitelist->addresses = $this->vars->whitelist;
+                $ingo_storage->updateRule($whitelist);
                 $notification->push(_("Changes saved."), 'horde.success');
                 Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
@@ -47,9 +48,6 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
             }
             break;
         }
-
-        /* Get the whitelist rule. */
-        $wl_rule = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS)->findRule(Ingo_Storage::ACTION_WHITELIST);
 
         /* Prepare the view. */
         $view = new Horde_View(array(
@@ -59,9 +57,9 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
         $view->addHelper('Horde_Core_View_Helper_Label');
         $view->addHelper('Text');
 
-        $view->disabled = !empty($wl_rule['disable']);
+        $view->disabled = $whitelist->disable;
         $view->formurl = $this->_addToken(self::url());
-        $view->whitelist = implode("\n", $whitelist->getWhitelist());
+        $view->whitelist = implode("\n", $whitelist->addresses);
 
         $page_output->addScriptFile('whitelist.js');
         $page_output->addInlineJsVars(array(

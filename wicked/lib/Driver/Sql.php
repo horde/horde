@@ -199,11 +199,26 @@ class Wicked_Driver_Sql extends Wicked_Driver
                                 'page_hits ASC', $limit);
     }
 
-    public function searchTitles($searchtext)
+    /**
+     * Finds pages with matches in the title.
+     *
+     * @param string $searchtext  The search expression (Google-like).
+     * @param boolean $begin      Search only at the begin of the titles?
+     *
+     * @return array  A list of pages.
+     * @throws Wicked_Exception
+     */
+    public function searchTitles($searchtext, $begin = false)
     {
         $searchtext = $this->_convertToDriver($searchtext);
         try {
-            $where = $this->_db->buildClause('page_name', 'LIKE', $searchtext);
+            $where = $this->_db->buildClause(
+                'page_name',
+                'LIKE',
+                $searchtext,
+                false,
+                array('begin' => $begin)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Wicked_Exception($e);
         }

@@ -1,7 +1,7 @@
 <thead>
  <tr class="">
   <th id="s<?php echo Nag::SORT_COMPLETION ?>"<?php if ($this->sortby == Nag::SORT_COMPLETION) echo ' class="' . $this->sortdirclass . '"' ?> width="2%">
-   <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_COMPLETION, Horde::img('checkbox.png', _("Completed?"))) ?>
+   <?php echo $this->headerWidget($this->baseurl, $this->sortdir, $this->sortby, Nag::SORT_COMPLETION, Horde::img('checked.png', _("Completed?"))) ?>
   </th>
 <?php if (in_array('priority', $this->columns)): ?>
   <th id="s<?php echo Nag::SORT_PRIORITY ?>" class="horde-split-left<?php if ($this->sortby == Nag::SORT_PRIORITY) echo ' ' . $this->sortdirclass ?>" width="2%">

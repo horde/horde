@@ -252,6 +252,9 @@ class IMP_Search_Query implements Serializable
             $qout = array();
 
             foreach ($this->mboxes as $mbox) {
+                if ($mbox->container) {
+                    continue;
+                }
                 $query = new Horde_Imap_Client_Search_Query();
                 foreach ($this->_criteria as $elt) {
                     $query = $elt->createQuery($mbox, $query);
@@ -322,6 +325,29 @@ class IMP_Search_Query implements Serializable
         foreach ($criteria as $val) {
             $this->add($val);
         }
+    }
+
+    /**
+     * Reduce the sorted return ID list by running search element callbacks..
+     *
+     * @param IMP_Mailbox $mbox  Mailbox.
+     * @param array $ids         Sorted ID list.
+     *
+     * @return array  Sorted ID list.
+     */
+    public function runElementCallbacks(IMP_Mailbox $mbox, array $ids)
+    {
+        foreach ($this->_criteria as $val) {
+            if (empty($ids)) {
+                break;
+            }
+
+            if ($val instanceof IMP_Search_Element_Callback) {
+                $ids = $val->searchCallback($mbox, $ids);
+            }
+        }
+
+        return $ids;
     }
 
     /* Serializable methods. */

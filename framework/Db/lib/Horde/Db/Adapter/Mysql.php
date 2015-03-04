@@ -104,9 +104,10 @@ class Horde_Db_Adapter_Mysql extends Horde_Db_Adapter_Base
      */
     public function disconnect()
     {
-        if ($this->_connection) { @mysql_close($this->_connection); }
-        $this->_connection = null;
-        $this->_active = false;
+        if ($this->_connection) {
+            @mysql_close($this->_connection);
+        }
+        parent::disconnect();
     }
 
     /**

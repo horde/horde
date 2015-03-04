@@ -131,6 +131,8 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
      */
     protected function _createDb($config, $sig = null, $cache = true)
     {
+        unset($config['driverconfig']);
+
         // Split read?
         if (!empty($config['splitread'])) {
             $read_config = $config['read'];

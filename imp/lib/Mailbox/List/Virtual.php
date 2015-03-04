@@ -45,11 +45,21 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
 
     /**
      */
-    protected function _buildMailboxProcess($mbox, $sorted)
+    protected function _buildMailboxProcess(IMP_Mailbox $mbox, $sorted)
     {
         if (count($sorted)) {
-            $this->_sortedMbox = array_merge($this->_sortedMbox, array_fill(0, count($sorted), strval($mbox)));
+            $imp_search = $GLOBALS['injector']->getInstance('IMP_Search');
+            $sorted = $imp_search[strval($this->_mailbox)]->runElementCallbacks(
+                $mbox, $sorted
+            );
+
+            $this->_sortedMbox = array_merge(
+                $this->_sortedMbox,
+                array_fill(0, count($sorted), strval($mbox))
+            );
         }
+
+        return $sorted;
     }
 
     /**

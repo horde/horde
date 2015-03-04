@@ -23,7 +23,7 @@
 class Horde_Idna
 {
     /**
-     * The backend object to use.
+     * The backend to use.
      *
      * @var mixed
      */
@@ -34,11 +34,16 @@ class Horde_Idna
      */
     public static function encode($data)
     {
-        if (($backend = self::_getBackend()) === false) {
-            throw new Horde_Idna_Exception('No IDNA backend available.');
-        }
+        switch ($backend = static::_getBackend()) {
+        case 'INTL':
+            return idn_to_ascii($data);
 
-        return $backend->encode($data);
+        case 'INTL_UTS46':
+            return idn_to_ascii($data, 0, INTL_IDNA_VARIANT_UTS46);
+
+        default:
+            return $backend->encode($data);
+        }
     }
 
     /**
@@ -46,11 +51,28 @@ class Horde_Idna
      */
     public static function decode($data)
     {
-        if (($backend = self::_getBackend()) === false) {
-            throw new Horde_Idna_Exception('No IDNA backend available.');
-        }
+        switch ($backend = static::_getBackend()) {
+        case 'INTL':
+        case 'INTL_UTS46':
+            $parts = explode('.', $data);
+            foreach ($parts as &$part) {
+                if (strpos($part, 'xn--') === 0) {
+                    switch ($backend) {
+                    case 'INTL':
+                        $part = idn_to_utf8($data);
+                        break;
 
-        return $backend->decode($data);
+                    case 'INTL_UTS46':
+                        $part = idn_to_utf8($data, 0, INTL_IDNA_VARIANT_UTS46);
+                        break;
+                    }
+                }
+            }
+            return implode('.', $parts);
+
+        default:
+            return $backend->decode($data);
+        }
     }
 
     /**
@@ -61,20 +83,13 @@ class Horde_Idna
     protected static function _getBackend()
     {
         if (!isset(self::$_backend)) {
-            if (extension_loaded('mbstring')) {
-                if (file_exists(__DIR__ . '/Idna/vendor/autoload.php')) {
-                    require_once __DIR__ . '/Idna/vendor/autoload.php';
-                } else {
-                    require_once __DIR__ . '/../../bundle/vendor/autoload.php';
-                }
-                self::$_backend = new True\Punycode();
-                mb_internal_encoding('UTF-8');
-            } elseif (class_exists('Net_IDNA2')) {
-                self::$_backend = new Net_IDNA2();
-            } elseif (class_exists('Net_IDNA')) {
-                self::$_backend = new Net_IDNA();
+            if (extension_loaded('intl')) {
+                /* Only available in PHP > 5.4.0 */
+                self::$_backend = defined('INTL_IDNA_VARIANT_UTS46')
+                    ? 'INTL_UTS46'
+                    : 'INTL';
             } else {
-                self::$_backend = false;
+                self::$_backend = new Horde_Idna_Punycode();
             }
         }
 

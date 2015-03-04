@@ -569,8 +569,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         );
 
         for ($id = 1; ; ++$id) {
-            $part = $message->getPart($id);
-            if (!$part) {
+            if (!($part = $message[$id])) {
                 break;
             }
 

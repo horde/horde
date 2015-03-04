@@ -10,7 +10,9 @@ var ImpSearch = {
 
     // The following variables are defined in PHP code:
     //   data, i_criteria, i_mboxes, i_recent, text
+
     criteria: {},
+    mbox_to_add: $H(),
     mboxes: $H(),
     saved_searches: {},
 
@@ -113,9 +115,6 @@ var ImpSearch = {
         }, this);
 
         if ($('search_criteria').childElements().size()) {
-            if ($('no_search_criteria').visible()) {
-                $('no_search_criteria', 'search_criteria').invoke('toggle');
-            }
             this.showOr(true);
         }
     },
@@ -128,27 +127,28 @@ var ImpSearch = {
 
     deleteCriteria: function(div)
     {
-        var first, keys;
+        var elts, tmp;
 
         delete this.criteria[div.identify()];
         div.remove();
 
-        keys = $('search_criteria').childElements().pluck('id');
-        if (keys.size()) {
-            first = keys.first();
+        elts = $('search_criteria').childElements();
 
-            if (this.criteria[first].t && this.criteria[first].t == 'or') {
-                $(first).remove();
-                delete this.criteria[first];
-                keys = [];
-            } else if ($(first).down().hasClassName('join')) {
-                $(first).down().remove();
+        if (elts.size()) {
+            tmp = elts.first();
+            if (!tmp.down('EM.join')) {
+                tmp = elts.last();
             }
-        }
 
-        if (!keys.size()) {
+            if (tmp.down('EM.join')) {
+                if (tmp.down('EM.joinOr')) {
+                    delete this.criteria[tmp.identify()];
+                    this.showOr(true);
+                }
+                tmp.down('EM.join').remove();
+            }
+        } else {
             this.showOr(false);
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
         }
     },
 
@@ -157,7 +157,6 @@ var ImpSearch = {
         var elts = $('search_criteria').childElements();
         if (elts.size()) {
             elts.invoke('remove');
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
             this.criteria = {};
             this.showOr(false);
         }
@@ -170,10 +169,12 @@ var ImpSearch = {
 
         if ($('search_criteria').childElements().size()) {
             if (this.criteria[$('search_criteria').childElements().last().readAttribute('id')].t != 'or') {
-                div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
+                div.insert(
+                    new Element('EM', { className: 'join' })
+                        .insert(this.text.and)
+                );
             }
         } else {
-            $('no_search_criteria', 'search_criteria').invoke('toggle');
             this.showOr(true);
         }
 
@@ -193,7 +194,11 @@ var ImpSearch = {
 
     insertOr: function()
     {
-        var div = new Element('DIV').insert(new Element('EM', { className: 'join joinOr' }).insert('--&nbsp;' + this.text.or + '&nbsp;--'));
+        var div = new Element('DIV').insert(
+            new Element('EM', { className: 'join joinOr' })
+                .insert('--&nbsp;' + this.text.or + '&nbsp;--')
+        );
+
         $('search_criteria_add').clear();
         $('search_criteria').insert(div);
         this.criteria[div.identify()] = { t: 'or' };
@@ -349,11 +354,9 @@ var ImpSearch = {
             if ($(first).down().hasClassName('join')) {
                 $(first).down().remove();
             }
-        }
-
-        if (!keys.size()) {
-            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
+        } else {
             $('search_mboxes_add').up().show();
+            $('search_mboxes').hide();
         }
     },
 
@@ -364,31 +367,34 @@ var ImpSearch = {
         if (elts.size()) {
             this.mboxes.values().each(this.disableMailbox.bind(this, false));
             elts.invoke('remove');
-            $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             $('search_mboxes_add').clear().up().show();
             this.mboxes = $H();
         }
+
+        this.mbox_to_add = $H();
     },
 
     insertMailbox: function(mbox, checked)
     {
+        if (!$('search_loaded').visible()) {
+            this.mbox_to_add.set(mbox, checked);
+            return;
+        }
+
         var div = new Element('DIV', { className: 'searchId' }),
             div2 = new Element('DIV', { className: 'searchElement' });
 
         if (mbox == this.allsearch) {
             this.resetMailboxes();
-            [ $('no_search_mboxes'), $('search_mboxes_add').up() ].invoke('hide');
-            $('search_mboxes').show();
+            $('search_mboxes_add').show().up().hide();
             div2.insert(
                 new Element('EM').insert(this.text.search_all.escapeHTML())
             ).insert(
                 new Element('A', { href: '#', className: 'iconImg searchuiImg searchuiDelete' })
             );
         } else {
-            if ($('search_mboxes').childElements().size()) {
+            if ($('search_mboxes').show().childElements().size()) {
                 div.insert(new Element('EM', { className: 'join' }).insert(this.text.and));
-            } else {
-                $('no_search_mboxes', 'search_mboxes').invoke('toggle');
             }
 
             div2.insert(
@@ -537,7 +543,7 @@ var ImpSearch = {
             this.resetMailboxes();
             return;
 
-        case 'search_dynamic_return':
+        case 'search_return':
             e.memo.hordecore_stop = true;
             window.parent.ImpBase.go('mbox', this.data.searchmbox);
             break;
@@ -552,11 +558,7 @@ var ImpSearch = {
             break;
 
         case 'show_unsub':
-            HordeCore.doAction('searchMailboxList', {
-                unsub: 1
-            }, {
-                callback: this.showUnsubCallback.bind(this)
-            });
+            this.loadMailboxList(1);
             elt.remove();
             e.memo.stop();
             break;
@@ -658,18 +660,34 @@ var ImpSearch = {
         );
     },
 
-    showUnsubCallback: function(r)
+    loadMailboxList: function(unsub)
     {
-        var sfa = $('search_mboxes_add'),
-            vals = sfa.select('[disabled]').pluck('value');
+        HordeCore.doAction('searchMailboxList', {
+            unsub: unsub
+        }, {
+            callback: function(r) {
+                var sfa = $('search_mboxes_add'),
+                    vals = sfa.select('[disabled]').pluck('value');
 
-        this.data.mbox_list = r.mbox_list;
-        sfa.update(r.tree);
-        vals.each(function(v) {
-            if (v.length) {
-                this.disableMailbox(true, v);
-            }
-        }, this);
+                this.data.mbox_list = r.mbox_list;
+                sfa.update(r.tree);
+
+                $('search_loading').hide();
+                $('search_loaded').show();
+
+                vals.each(function(v) {
+                    if (v.length) {
+                        this.disableMailbox(true, v);
+                    }
+                }, this);
+
+                this.mbox_to_add.each(function(pair) {
+                    this.insertMailbox(pair.key, pair.value);
+                }, this);
+
+                this.mbox_to_add = $H();
+            }.bind(this)
+        });
     },
 
     onDomLoad: function()
@@ -677,6 +695,11 @@ var ImpSearch = {
         if (!this.data) {
             this.onDomLoad.bind(this).delay(0.1);
             return;
+        }
+
+        /* Asynchronously load the mailbox list. */
+        if ($('search_loading')) {
+            this.loadMailboxList(0);
         }
 
         HordeCore.initHandler('click');

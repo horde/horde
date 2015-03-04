@@ -84,6 +84,16 @@ abstract class Nag_Driver
     }
 
     /**
+     * Sets the currently open tasklist.
+     *
+     * @param  string $tasklist  The tasklist.
+     */
+    public function open($tasklist)
+    {
+        $this->_tasklist = $tasklist;
+    }
+
+    /**
      * Adds a task and handles notification.
      *
      * @param array $task  A hash with the following possible properties:
@@ -365,7 +375,7 @@ abstract class Nag_Driver
 
         /* Notify users about the changed event. */
         try {
-            $result = Nag::sendNotification('edit', $new_task, $task);
+            Nag::sendNotification('edit', $new_task, $task);
         } catch (Nag_Exception $e) {
             Horde::log($e, 'ERR');
         }

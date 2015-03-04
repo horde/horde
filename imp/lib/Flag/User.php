@@ -81,7 +81,7 @@ class IMP_Flag_User extends IMP_Flag_Imap
              * of original string as flag. */
             if (!strlen($imapflag)) {
                 $imapflag = hash(
-                    (PHP_MINOR_VERSION >= 4) ? 'fnv132' : 'md5',
+                    (version_compare(PHP_VERSION, '5.4', '>=')) ? 'fnv132' : 'md5',
                     $value
                 );
             }

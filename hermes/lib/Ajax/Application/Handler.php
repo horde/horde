@@ -167,15 +167,16 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
             $id = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
                 ->enterTime($slice['employee'], $slice);
-            $new = $GLOBALS['injector']
+            $new = current($GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->getHours(array('id' => $id));
+                ->getHours(array('id' => $id)));
 
+            Hermes::updateCostObject($new);
             if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
                 $GLOBALS['notification']
                     ->push(_("Your time was successfully entered."), 'horde.success');
 
-                return current($new)->toJson();
+                return $new->toJson();
             } else {
                 $GLOBALS['notification']
                     ->push(sprintf(_("The time was successfully entered for %s."), $slice['employee']), 'horde.success');
@@ -514,8 +515,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                 $GLOBALS['notification']->push(sprintf(_("The time was successfully updated and saved to the time sheet of %s."), $slice['employee']), 'horde.success');
             }
 
-            $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
-            return current($new)->toJson();
+            $new = current($GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id'])));
+            Hermes::updateCostObject($new);
+            return $new->toJson();
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }

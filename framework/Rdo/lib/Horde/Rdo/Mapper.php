@@ -549,12 +549,12 @@ abstract class Horde_Rdo_Mapper implements Countable
         switch ($rel['type']) {
         case Horde_Rdo::ONE_TO_ONE:
         case Horde_Rdo::MANY_TO_ONE:
-            $ours->$rel['foreignKey'] = $theirs->$theirKey;
+            $ours->{$rel['foreignKey']} = $theirs->$theirKey;
             $ours->save();
             break;
 
         case Horde_Rdo::ONE_TO_MANY:
-            $theirs->$rel['foreignKey'] = $ours->$ourKey;
+            $theirs->{$rel['foreignKey']} = $ours->$ourKey;
             $theirs->save();
             break;
 
@@ -610,13 +610,13 @@ abstract class Horde_Rdo_Mapper implements Countable
         switch ($rel['type']) {
         case Horde_Rdo::ONE_TO_ONE:
         case Horde_Rdo::MANY_TO_ONE:
-            $ours->$rel['foreignKey'] = null;
+            $ours->{$rel['foreignKey']} = null;
             $ours->save();
             return 1;
             break;
 
         case Horde_Rdo::ONE_TO_MANY:
-            $theirs->$rel['foreignKey'] = null;
+            $theirs->{$rel['foreignKey']} = null;
             $theirs->save();
             return 1;
             break;

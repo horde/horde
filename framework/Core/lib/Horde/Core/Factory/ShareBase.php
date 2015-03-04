@@ -96,7 +96,10 @@ class Horde_Core_Factory_ShareBase extends Horde_Core_Factory_Base
         global $session;
 
         foreach ($this->_toCache as $sig => $val) {
-            $session->set($val[0], $val[1], $this->_instances[$sig]->getListCache());
+            try {
+                $session->set($val[0], $val[1], $this->_instances[$sig]->getListCache());
+            } catch (Horde_Exception $e) {
+            }
         }
     }
 

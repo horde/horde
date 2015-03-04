@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.
 * [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV access.
  </notes>
@@ -1267,6 +1268,32 @@
   </release>
   <release>
    <version>
+    <release>4.2.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix fatal error when using Mnemo without Nag installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [mjr] Fix using custom SQL configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.1.0</api></version>
    <stability>
@@ -1275,6 +1302,7 @@
    <date>2014-05-06</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Remove configuration option for database table.
 * [jan] Return ETags with browse() API method.
 * [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV access.
    </notes>

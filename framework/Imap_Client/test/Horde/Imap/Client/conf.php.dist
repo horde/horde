@@ -15,11 +15,7 @@ $conf['imapclient'] = array(
             // Test for XOAUTH2
             //'xoauth2_token' => ''
         ),
-
-        // Configuration for the Mongo cache driver test.
-        // Format: mongodb://[username:password@]host
-        'mongo' => null,
-    )
+    ),
 );
 
 $conf['pop3client'] = array(
@@ -36,9 +32,9 @@ $conf['pop3client'] = array(
             'secure' => true, // true, false, 'ssl', or 'tls'
             'debug' => null // e.g. 'php://output'
         ),
-
-        // Configuration for the Mongo cache driver test.
-        // Format: mongodb://[username:password@]host
-        'mongo' => null,
-    )
+    ),
 );
+
+// Configuration for the Mongo cache driver test.
+// Format: mongodb://[username:password@]host
+$conf['mongo'] = null;

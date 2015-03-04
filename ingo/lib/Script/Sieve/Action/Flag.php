@@ -38,10 +38,10 @@ abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
 
         if (isset($vars['flags'])) {
             $flag_map = array(
-                Ingo_Storage::FLAG_ANSWERED => '\Answered',
-                Ingo_Storage::FLAG_DELETED => '\Deleted',
-                Ingo_Storage::FLAG_FLAGGED => '\Flagged',
-                Ingo_Storage::FLAG_SEEN => '\Seen'
+                Ingo_Rule_User::FLAG_ANSWERED => '\Answered',
+                Ingo_Rule_User::FLAG_DELETED => '\Deleted',
+                Ingo_Rule_User::FLAG_FLAGGED => '\Flagged',
+                Ingo_Rule_User::FLAG_SEEN => '\Seen'
             );
 
             foreach ($flag_map as $key => $val) {

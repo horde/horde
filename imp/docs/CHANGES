@@ -2,6 +2,14 @@
 v7.0.0-git
 ----------
 
+[mms] Add backend configuration option to use body structure data to more
+      accurately determine whether a message contains attachments.
+[jan] Show warning on S/MIME page if personal certificate has expired.
+[mjr] Improve support for vTodo iTip handling.
+[mms] Add resent information to message header display.
+[mms] Added an option to the mailboxList API call to force inclusion of
+      unsubscribed mailboxes.
+[mms] Asynchronously load the mailbox list on the advanced search page.
 [mms] Automatically try to rotate embedded inline images when displaying a
       message.
 [mms] Add ability to add email groups to the address book.
@@ -50,10 +58,39 @@ v7.0.0-git
 
 
 ------
+v6.2.8
+------
+
+[jan] Fix protocol name in POP3 example backend configuration.
+[mms] Don't honor linked attachment limit configuration options if linked
+      attachments are disabled (Bug #13665).
+
+
+------
+v6.2.7
+------
+
+[jan] Fix regression with not being able to list users (Bug #13808).
+[mms] Fix rebuilding the folder tree translations when the language is changed
+      in a session (Bug #13821).
+
+
+------
+v6.2.6
+------
+
+[jan] Fix adding addresses from address book popup (Bug #13806).
+[mjr] Fix fatal error when viewing a vTodo with attendees.
+[jan] Make dependency on File_ASN1 optional.
+[mms] Fix double listing of mailboxes in certain instances when subscriptions
+      are active and unsubscribed mailboxes are shown.
+
+
+------
 v6.2.5
 ------
 
-=======
+[mms] Fix advanced search (Bug #13773).
 [mjr] Fix handling of iTips indicating a change to a series exception (Bug
       #13777).
 [mms] Fix parsing broken S/MIME messages that don't include the smime-type

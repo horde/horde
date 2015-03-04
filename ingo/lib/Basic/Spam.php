@@ -30,18 +30,15 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
     {
         global $injector, $notification;
 
-        $this->_assertCategory(Ingo_Storage::ACTION_SPAM, _("Spam filtering"));
-
-        /* Get the spam object and rule. */
-        $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $spam = $ingo_storage->retrieve(Ingo_Storage::ACTION_SPAM);
-        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $spam_id = $filters->findRuleId(Ingo_Storage::ACTION_SPAM);
-        $spam_rule = $filters->getRule($spam_id);
+        $this->_assertCategory('Ingo_Rule_System_Spam', _("Spam filtering"));
 
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
+
+        /* Get the spam object and rule. */
+        $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $spam = $ingo_storage->getSystemRule('Ingo_Rule_System_Spam');
 
         /* Build form. */
         $form = new Ingo_Form_Spam($this->vars);
@@ -56,28 +53,26 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
             $success = false;
 
             try {
-                $spam->setSpamFolder($this->validateMbox('folder'));
+                $spam->mailbox = $this->validateMbox('folder');
                 $success = true;
             } catch (Horde_Exception $e) {
                 $notification->push($e);
             }
 
-            $spam->setSpamLevel($this->vars->level);
+            $spam->level = $this->vars->level;
 
             try {
-                $ingo_storage->store($spam);
-                $notification->push(_("Changes saved."), 'horde.success');
                 if ($this->vars->submitbutton == _("Save and Enable")) {
-                    $filters->ruleEnable($spam_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Enabled"), 'horde.success');
-                    $spam_rule['disable'] = false;
+                    $spam->disable = false;
+                    $notify = _("Rule Enabled");
                 } elseif ($this->vars->submitbutton == _("Save and Disable")) {
-                    $filters->ruleDisable($spam_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Disabled"), 'horde.success');
-                    $spam_rule['disable'] = true;
+                    $spam->disable = true;
+                    $notify = _("Rule Disabled");
+                } else {
+                    $notify = _("Changes saved.");
                 }
+                $ingo_storage->updateRule($spam);
+                $notification->push($notify, 'horde.success');
                 Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
@@ -85,19 +80,19 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         }
 
         /* Add buttons depending on the above actions. */
-        $form->setCustomButtons($spam_rule['disable']);
+        $form->setCustomButtons($spam->disable);
 
         /* Set default values. */
-        $form->folder_var->type->setFolder($spam->getSpamFolder());
+        $form->folder_var->type->setFolder($spam->mailbox);
         if (!$form->isSubmitted()) {
-            $this->vars->level = $spam->getSpamLevel();
-            $this->vars->folder = $spam->getSpamFolder();
+            $this->vars->level = $spam->level;
+            $this->vars->folder = $spam->mailbox;
             $this->vars->actionID = '';
         }
 
         /* Set form title. */
         $form_title = _("Spam Filtering");
-        if (!empty($spam_rule['disable'])) {
+        if ($spam->disable) {
             $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
         }
         $form_title .= ' ' . Horde_Help::link('ingo', 'spam');

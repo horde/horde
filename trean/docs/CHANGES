@@ -2,6 +2,7 @@
 v1.2.0-git
 ----------
 
+[mjr] Added removeUserData API (Request #13688).
 [mjr] Fix missing CSS rules for blocks.
 [mjr] Add new block for displaying bookmarks tagged with a certain set of tags
       (Request #13020).

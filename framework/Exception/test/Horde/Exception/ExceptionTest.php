@@ -177,7 +177,7 @@ class Horde_Exception_ExceptionTest extends  PHPUnit_Framework_TestCase
 
     private function _loadPear()
     {
-        @require_once 'PEAR.php';
+        @include_once 'PEAR.php';
         if (!class_exists('PEAR_Error')) {
             $this->markTestSkipped('PEAR_Error is missing!');
         }

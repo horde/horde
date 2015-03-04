@@ -36,7 +36,7 @@ class Horde_Imap_Client_Socket_Connection_Base extends Horde\Socket\Client
 
     /**
      */
-    protected function _connect($host, $port, $timeout, $secure, $retries = 0)
+    protected function _connect($host, $port, $timeout, $secure, $context, $retries = 0)
     {
         if ($retries || !$this->_params['debug']->debug) {
             $timer = null;
@@ -56,7 +56,7 @@ class Horde_Imap_Client_Socket_Connection_Base extends Horde\Socket\Client
         }
 
         try {
-            parent::_connect($host, $port, $timeout, $secure, $retries);
+            parent::_connect($host, $port, $timeout, $secure, $context, $retries);
         } catch (Horde\Socket\Client\Exception $e) {
             $this->_params['debug']->info(sprintf(
                 'Connection failed: %s',

@@ -11,6 +11,9 @@
   <em class="prefsSmimeWarning"><?php echo _("S/MIME Personal Certificate support requires a secure web connection.") ?></em>
  </div>
 <?php elseif ($this->has_key): ?>
+<?php if ($this->expiredate): ?>
+ <p class="prefsSmimeWarning"><?php printf(_("Your S/MIME Personal Certificate has expired on %s at %s."), $this->expiredate, $this->expiretime) ?></p>
+<?php endif ?>
  <div>
   <table>
    <tr>

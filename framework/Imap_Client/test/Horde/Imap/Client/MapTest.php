@@ -94,8 +94,37 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCount()
+    {
+        $this->assertEquals(
+            6,
+            count($this->map)
+        );
+    }
+
+    /**
+     * @depends testCount
+     */
+    public function testClone()
+    {
+        $map2 = clone $this->map;
+        $map2->update(array(
+            1 => 1
+        ));
+
+        $this->assertEquals(
+            6,
+            count($this->map)
+        );
+        $this->assertEquals(
+            7,
+            count($map2)
+        );
+    }
+
     /**
      * @dataProvider lookupProvider
+     * @depends testClone
      */
     public function testLookup($range, $expected = null)
     {
@@ -134,6 +163,7 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider removeProvider
+     * @depends testClone
      */
     public function testRemove($range, $expected)
     {
@@ -218,14 +248,6 @@ class Horde_Imap_Client_MapTest extends PHPUnit_Framework_TestCase
                 1 => 1
             ),
             $map->map
-        );
-    }
-
-    public function testCount()
-    {
-        $this->assertEquals(
-            6,
-            count($this->map)
         );
     }
 

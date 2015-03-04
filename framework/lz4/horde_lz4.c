@@ -65,7 +65,7 @@ PHP_MINFO_FUNCTION(horde_lz4)
 }
 
 
-char horde_lz4_headerid = 'H';
+static char horde_lz4_headerid = 'H';
 
 
 PHP_FUNCTION(horde_lz4_compress)

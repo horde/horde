@@ -60,6 +60,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
      *                               OPTIONAL FIELDS:
      *                                'action-value' (only used if the
      *                                'action' requires it)
+     *                                'disable'
      * @param array $scriptparams  Array of parameters passed to
      *                             Ingo_Script_Procmail::.
      */
@@ -69,7 +70,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
         $this->_params = array_merge($this->_params, $scriptparams);
 
         switch ($params['action']) {
-        case Ingo_Storage::ACTION_KEEP:
+        case 'Ingo_Rule_User_Keep':
             // Note: you may have to set the DEFAULT variable in your
             // backend configuration.
             if (isset($this->_params['delivery_agent']) && isset($this->_params['delivery_mailbox_prefix'])) {
@@ -81,7 +82,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             }
             break;
 
-        case Ingo_Storage::ACTION_MOVE:
+        case 'Ingo_Rule_User_Move':
             if (isset($this->_params['delivery_agent']) && isset($this->_params['delivery_mailbox_prefix'])) {
                 $this->_action[] = '| ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . $this->procmailPath($params['action-value']);
             } elseif (isset($this->_params['delivery_agent'])) {
@@ -91,15 +92,15 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             }
             break;
 
-        case Ingo_Storage::ACTION_DISCARD:
+        case 'Ingo_Rule_User_Discard':
             $this->_action[] = '/dev/null';
             break;
 
-        case Ingo_Storage::ACTION_REDIRECT:
+        case 'Ingo_Rule_User_Redirect':
             $this->_action[] = '! ' . $params['action-value'];
             break;
 
-        case Ingo_Storage::ACTION_REDIRECTKEEP:
+        case 'Ingo_Rule_User_RedirectKeep':
             $this->_action[] = '{';
             $this->_action[] = '  :0 c';
             $this->_action[] = '  ! ' . $params['action-value'];
@@ -115,7 +116,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '}';
             break;
 
-        case Ingo_Storage::ACTION_REJECT:
+        case 'Ingo_Rule_User_Reject':
             $this->_action[] = '{';
             $this->_action[] = '  :0 h';
             $this->_action[] = '  SUBJECT=| formail -xSubject:';
@@ -142,7 +143,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '}';
             break;
 
-        case Ingo_Storage::ACTION_VACATION:
+        case 'Ingo_Rule_System_Vacation':
             $days = $params['action-value']['days'];
             $timed = !empty($params['action-value']['start']) &&
                 !empty($params['action-value']['end']);
@@ -214,7 +215,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '}';
             break;
 
-        case Ingo_Storage::ACTION_FORWARD:
+        case 'Ingo_Rule_System_Forward':
             /* Make sure that we prevent mail loops using 3 methods.
              *
              * First, we call sendmail -f to set the envelope sender to be the

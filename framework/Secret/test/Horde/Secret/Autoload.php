@@ -12,6 +12,4 @@
  * @link       http://pear.horde.org/index.php?package=Secret
  */
 
-/** Needed for PEAR_Error. */
-require_once 'PEAR.php';
 require_once __DIR__ . '/Stub/Message.php';

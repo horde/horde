@@ -97,7 +97,9 @@ implements Horde_Shutdown_Task
     {
         global $session;
 
-        return $session->get('imp', self::STORAGE_KEY, $session::TYPE_ARRAY);
+        return array_filter(
+            $session->get('imp', self::STORAGE_KEY, $session::TYPE_ARRAY)
+        );
     }
 
 }

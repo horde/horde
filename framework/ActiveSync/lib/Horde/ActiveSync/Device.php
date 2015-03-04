@@ -668,9 +668,11 @@ class Horde_ActiveSync_Device
             // iOS seems to support multiple collections for everything except Notes.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;
         } else if ($clientType == self::TYPE_ANDROID) {
-            // Special cases: Samsung's native EAS client doesn't support
-            // multiplex.
-            if (stripos($this->deviceType, 'samsung') === 0) {
+            // Special cases: These clients don't support non-multiplexed
+            // collections. Samsung's native client and HTCOnemini2.
+            if (stripos($this->deviceType, 'samsung') === 0 ||
+                stripos($this->model, 'HTCOnemini2') === 0 ||
+                $this->deviceType == 'HTCOnemini2') {
                 $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                     Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
@@ -680,12 +682,11 @@ class Horde_ActiveSync_Device
                 return;
             }
 
-            // All android before 4.4 KitKat requires multiplex. KitKat supports
-            // non-multiplexed calendars only.
+            // All android before 4.4 KitKat requires multiplex. KitKat and
+            // Android 5 native supports non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
-                preg_match('/(\d+\.\d+\.\d+)/', $this->properties[self::OS], $matches) &&
+                preg_match('/(\d+\.\d+(\.\d+)*)/', $this->properties[self::OS], $matches) &&
                 version_compare($matches[0], '4.4.0') >= 0) {
-
                 $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                     Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |

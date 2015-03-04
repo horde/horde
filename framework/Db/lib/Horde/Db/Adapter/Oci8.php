@@ -116,6 +116,17 @@ class Horde_Db_Adapter_Oci8 extends Horde_Db_Adapter_Base
         $this->execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'");
     }
 
+    /**
+     * Disconnect from db
+     */
+    public function disconnect()
+    {
+        if ($this->_connection) {
+            oci_close($this->_connection);
+        }
+        parent::disconnect();
+    }
+
 
     /*#########################################################################
     # Quoting

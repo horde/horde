@@ -36,7 +36,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part->getContentTypeParameter('boundary')
         );
 
-        $part_1 = $part->getPart(1);
+        $part_1 = $part[1];
         $this->assertEquals(
             'text/plain',
             $part_1->getType()
@@ -46,12 +46,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part_1->getContentTypeParameter('format')
         );
 
-        $part_2 = $part->getPart(2);
+        $part_2 = $part[2];
         $this->assertEquals(
             'message/rfc822',
             $part_2->getType()
         );
-        $part_2_2 = $part->getPart('2.2');
+        $part_2_2 = $part['2.2'];
         $this->assertEquals(
             'text/plain',
             $part_2_2->getType()
@@ -61,7 +61,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part_2_2->getDispositionParameter('filename')
         );
 
-        $part_3 = $part->getPart(3);
+        $part_3 = $part[3];
         $this->assertEquals(
             'image/png',
             $part_3->getType()
@@ -105,8 +105,10 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             'text/html');
         $this->assertEquals($map, $test_part->contentTypeMap());
 
-        $part_one = $test_part->getPart(1);
-        $this->assertEquals('', $test_part->getPart(1)->getDisposition());
+        $this->assertEquals(
+            '',
+            $test_part[1]->getDisposition()
+        );
     }
 
     public function testParsingMimeMessageWithEaiAddress()
@@ -142,7 +144,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             count($part->getParts())
         );
 
-        $part1 = $part->getPart(1);
+        $part1 = $part[1];
         $this->assertEquals(
             'text/plain',
             $part1->getType()
@@ -157,7 +159,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
         $this->assertNull($part1->getContentTypeParameter('filename'));
 
-        $part1 = $part->getPart(2);
+        $part1 = $part[2];
         $this->assertEquals(
             'text/plain',
             $part1->getType()
@@ -175,6 +177,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part->setType('text/plain');
         $part->setContents('123');
         $part->setBytes(3);
+        $part->setDisposition('attachment');
 
         $this->assertEquals(
             "Content-Type: text/plain\r\n" .
@@ -202,12 +205,12 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
 
         $this->assertSame(
-            $part->getPart('1'),
-            $part['1']
+            'text/plain',
+            $part['1']->getType()
         );
         $this->assertSame(
-            $part->getPart('3.1'),
-            $part['3.1']
+            'text/plain',
+            $part['3.1']->getType()
         );
 
         $part2 = new Horde_Mime_Part();
@@ -216,13 +219,13 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part['2'] = $part2;
         $this->assertSame(
             $part2,
-            $part->getPart('2')
+            $part['2']
         );
 
         unset($part['3']);
         $this->assertEquals(
             null,
-            $part->getPart('3')
+            $part['3']
         );
     }
 
@@ -310,7 +313,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             ),
             array(
                 'foo/bar',
-                Horde_Mime_Part::UNKNOWN . '/bar',
+                'x-foo/bar',
                 false
             )
         );
@@ -366,7 +369,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part2->setType('text/plain');
         $part2->setContents('foo');
 
-        $part->alterPart('2', $part2);
+        $part['2'] = $part2;
 
         $map = $part->contentTypeMap();
         $this->assertEquals(
@@ -402,6 +405,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
     {
         $part = new Horde_Mime_Part();
         $part->setType('text/plain');
+        $part->setContentTypeParameter('foo', 'bar');
         $part->setContents('Test');
 
         $part1 = unserialize(serialize($part));
@@ -409,6 +413,11 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Test',
             $part1->getContents()
+        );
+
+        $this->assertEquals(
+            array('foo' => 'bar'),
+            $part1->getAllContentTypeParameters()
         );
 
         $this->assertInternalType(
@@ -432,7 +441,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $part2->setType('text/plain');
         $part2->setContents('Foo');
 
-        $part->addPart($part2);
+        $part[] = $part2;
         $part->buildMimeIds();
 
         $part3 = clone $part;
@@ -446,7 +455,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals(
             'Foo',
-            $part3->getPart(1)->getContents()
+            $part3[1]->getContents()
         );
     }
 
@@ -471,7 +480,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('multipart/mixed');
-        $part2->addPart($part);
+        $part2[] = $part;
 
         $this->assertStringMatchesFormat(
             "This message is in MIME format.
@@ -491,7 +500,7 @@ C
     public function testFindBody()
     {
         $part = $this->_getTestPart();
-        $part31 = $part->getPart('3.1');
+        $part31 = $part['3.1'];
         $part31->setType('text/html');
 
         $this->assertEquals(
@@ -522,7 +531,7 @@ C
         for ($i = 0; $i < 100; ++$i) {
             $new_part = new Horde_Mime_Part();
             $new_part->setType('multipart/mixed');
-            $part->addPart($new_part);
+            $part[] = $new_part;
             $part = $new_part;
         }
 
@@ -530,7 +539,7 @@ C
         $new_part = new Horde_Mime_Part();
         $new_part->setType('text/plain');
         $new_part->setContents('Test');
-        $part->addPart($new_part);
+        $part[] = $new_part;
 
         $base_part->isBasePart(true);
         $base_part->buildMimeIds();
@@ -563,10 +572,9 @@ C
             $part->getContentTypeParameter('boundary')
         );
 
-        $part_1 = $part->getPart(1);
         $this->assertEquals(
             'text/plain',
-            $part_1->getType()
+            $part['1']->getType()
         );
     }
 
@@ -601,7 +609,7 @@ C
         $this->assertFalse(isset($part['2.2']));
 
         $multipart = $part['2.0'];
-        $multipart->addPart(new Horde_Mime_Part());
+        $multipart[] = new Horde_Mime_Part();
         $multipart->buildMimeIds('2.0');
 
         $this->assertTrue(isset($part['2']));
@@ -696,6 +704,257 @@ C
         );
     }
 
+    public function testIdSortingInMessageRfc822Part()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('message/rfc822');
+
+        $part1 = new Horde_Mime_Part();
+        $part1->setType('multipart/alternative');
+        $part[] = $part1;
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('text/plain');
+        $part1[] = $part2;
+
+        $part3 = new Horde_Mime_Part();
+        $part3->setType('text/html');
+        $part1[] = $part3;
+
+        $part->buildMimeIds();
+
+        $this->assertEquals(
+            array('1.0', '1', '1.1', '1.2'),
+            array_keys($part->contentTypeMap(true))
+        );
+    }
+
+    public function testNoOverwriteOfPartContentsWithItsOwnStreamData()
+    {
+        $text = 'foo';
+
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents($text);
+
+        $stream = $part->getContents(array('stream' => true));
+
+        $part->setContents($stream);
+
+        $this->assertEquals(
+            $text,
+            $part->getContents()
+        );
+    }
+
+    public function testNullCharactersNotAllowedInMimeHeaderData()
+    {
+        $part = new Horde_Mime_Part();
+
+        $part->setType("text/pl\0ain");
+        $this->assertEquals(
+            'text/plain',
+            $part->getType()
+        );
+
+        $part->setDisposition("inl\0ine");
+        $this->assertEquals(
+            'inline',
+            $part->getDisposition()
+        );
+
+        $part->setDispositionParameter('size', '123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getDispositionParameter('size')
+        );
+
+        $part->setDispositionParameter('foo', "foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getDispositionParameter('foo')
+        );
+
+        $part->setCharset("utf\0-8");
+        $this->assertEquals(
+            'utf-8',
+            $part->getCharset()
+        );
+
+        $part->setName("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getName()
+        );
+        $this->assertEquals(
+            'foobar',
+            $part->getDispositionParameter('filename')
+        );
+        $this->assertEquals(
+            'foobar',
+            $part->getContentTypeParameter('name')
+        );
+
+        $part->setLanguage("e\0n");
+        $this->assertEquals(
+            array('en'),
+            $part->getLanguage()
+        );
+
+        $part->setLanguage(array("e\0n", "d\0e"));
+        $this->assertEquals(
+            array('en', 'de'),
+            $part->getLanguage()
+        );
+
+        $part->setDuration('123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getDuration()
+        );
+
+        $part->setBytes('123' . "\0" . '456');
+        $this->assertEquals(
+            123456,
+            $part->getBytes()
+        );
+
+        $part->setDescription("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getDescription()
+        );
+
+        $part->setContentTypeParameter('foo', "foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getContentTypeParameter('foo')
+        );
+
+        $part->setContentId("foo\0bar");
+        $this->assertEquals(
+            'foobar',
+            $part->getContentId()
+        );
+    }
+
+    public function testSerializeUpgradeFromVersion1()
+    {
+        $data = base64_decode(
+            file_get_contents(__DIR__ . '/fixtures/mime_part_v1.txt')
+        );
+
+        $part = unserialize($data);
+
+        $this->assertEquals(
+            'text/plain',
+            $part->getType()
+        );
+
+        $this->assertEquals(
+            array('en'),
+            $part->getLanguage()
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getDescription()
+        );
+
+        $this->assertEquals(
+            'attachment',
+            $part->getDisposition()
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getDispositionParameter('foo')
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getDispositionParameter('filename')
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getContentTypeParameter('name')
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getContentTypeParameter('foo')
+        );
+
+        $this->assertEquals(
+            'us-ascii',
+            $part->getCharset()
+        );
+
+        $this->assertEquals(
+            array(),
+            $part->getParts()
+        );
+
+        $this->assertEquals(
+            '1',
+            $part->getMimeId()
+        );
+
+        $this->assertEquals(
+            "\n",
+            $part->getEOL()
+        );
+
+        $this->assertEquals(
+            'bar',
+            $part->getMetadata('foo')
+        );
+
+        $this->assertEquals(
+            'svl8CVtZEEO5bgqR-wFIFQ8@bigworm.curecanti.org',
+            $part->getContentId()
+        );
+
+        $this->assertEquals(
+            10,
+            $part->getDuration()
+        );
+
+        $this->assertEquals(
+            'foo',
+            $part->getContents()
+        );
+    }
+
+    public function testIteration()
+    {
+        $iterator = $this->_getTestPart()->partIterator();
+
+        $ids = array(
+            '0',
+            '1',
+            '2',
+            '3',
+            '3.1',
+            '3.2',
+            '3.2.1',
+            '3.2.2'
+        );
+        reset($ids);
+
+        foreach ($iterator as $val) {
+            $this->assertEquals(
+                current($ids),
+                $val->getMimeId()
+            );
+
+            next($ids);
+        }
+
+        $this->assertFalse(current($ids));
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
@@ -704,24 +963,43 @@ C
         $part1 = new Horde_Mime_Part();
         $part1->setType('text/plain');
         $part1->setContents('Test');
-        $part->addPart($part1);
+        $part[] = $part1;
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
-        $part->addPart($part2);
+        $part[] = $part2;
 
         $part3 = new Horde_Mime_Part();
         $part3->setType('multipart/mixed');
-        $part->addPart($part3);
+        $part[] = $part3;
 
         $part3_1 = new Horde_Mime_Part();
         $part3_1->setType('text/plain');
         $part3_1->setContents('Test 2');
-        $part3->addPart($part3_1);
+        $part3[] = $part3_1;
+
+        $part3_2 = new Horde_Mime_Part();
+        $part3_2->setType('multipart/mixed');
+        $part3[] = $part3_2;
+
+        $part3_2_1 = new Horde_Mime_Part();
+        $part3_2_1->setType('text/plain');
+        $part3_2_1->setContents('Test 3.2.1');
+        $part3_2[] = $part3_2_1;
+
+        $part3_2_2 = new Horde_Mime_Part();
+        $part3_2_2->setType('application/octet-stream');
+        $part3_2_2->setContents('Test 3.2.2');
+        $part3_2[] = $part3_2_2;
 
         $part->buildMimeIds();
 
         return $part;
     }
 
+    public function setUp()
+    {
+        Horde_Mime_Part::$defaultCharset =
+            Horde_Mime_Headers::$defaultCharset = 'us-ascii';
+    }
 }

@@ -4,6 +4,10 @@
  */
 class Turba_Form_AddContact extends Turba_Form_ContactBase
 {
+    /**
+     *
+     * @var Turba_Object
+     */
     protected $_contact = null;
 
     public function __construct($vars, Turba_Object $contact)

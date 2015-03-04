@@ -29,6 +29,18 @@ implements ArrayAccess, Countable, Iterator, Serializable
     const SERIALIZE_LIMIT = 500;
 
     /**
+     * The list of headers used by this class.
+     *
+     * @var array
+     */
+    public static $headersUsed = array(
+        'content-type',
+        'importance',
+        'list-post',
+        'x-priority'
+    );
+
+    /**
      * Has the internal message list changed?
      *
      * @var boolean
@@ -138,11 +150,9 @@ implements ArrayAccess, Countable, Iterator, Serializable
 
         $fetch_query->headers(
             'imp',
-            array(
-                'content-type',
-                'importance',
-                'list-post',
-                'x-priority'
+            array_merge(
+                self::$headersUsed,
+                IMP_Contents_Message::$headersUsed
             ),
             array(
                 'cache' => true,
@@ -154,7 +164,14 @@ implements ArrayAccess, Countable, Iterator, Serializable
         foreach ($to_process as $mbox => $ids) {
             try {
                 $imp_imap = IMP_Mailbox::get($mbox)->imp_imap;
-                $fetch_res = $imp_imap->fetch($mbox, $fetch_query, array(
+                if ($imp_imap->config->atc_structure) {
+                    $query = clone $fetch_query;
+                    $query->structure();
+                } else {
+                    $query = $fetch_query;
+                }
+
+                $fetch_res = $imp_imap->fetch($mbox, $query, array(
                     'ids' => $imp_imap->getIdsOb($ids)
                 ));
 
@@ -174,6 +191,7 @@ implements ArrayAccess, Countable, Iterator, Serializable
                         'idx' => $k,
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
+                        'structure' => $f->getStructure(),
                         'uid' => $uid
                     );
 
@@ -233,24 +251,43 @@ implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         foreach ($query_ob as $mbox => $val) {
+            $mbox_ob = IMP_Mailbox::get($mbox);
+
             if ($thread_sort) {
-                $this->_getThread($mbox, $val ? array('search' => $val) : array());
+                $this->_getThread(
+                    $mbox,
+                    $val ? array('search' => $val) : array()
+                );
                 $sorted = $this->_thread[$mbox]->messageList()->ids;
                 if ($sortpref->sortdir) {
                     $sorted = array_reverse($sorted);
                 }
             } else {
-                $res = IMP_Mailbox::get($mbox)->imp_imap->search($mbox, $val, array(
-                    'sort' => array($sortpref->sortby)
-                ));
+                try {
+                    $res = $mbox_ob->imp_imap->search($mbox, $val, array(
+                        'sort' => array($sortpref->sortby)
+                    ));
+                } catch (IMP_Imap_Exception $e) {
+                    switch ($e->getCode()) {
+                    case Horde_Imap_Client_Exception::MAILBOX_NOOPEN:
+                        if ($this->_mailbox->search) {
+                            /* Ignore non-existent mailboxes when in a search
+                             * mailbox. */
+                            continue 2;
+                        }
+                    }
+                    throw $e;
+                }
                 if ($sortpref->sortdir) {
                     $res['match']->reverse();
                 }
                 $sorted = $res['match']->ids;
             }
 
-            $this->_sorted = array_merge($this->_sorted, $sorted);
-            $this->_buildMailboxProcess($mbox, $sorted);
+            $this->_sorted = array_merge(
+                $this->_sorted,
+                $this->_buildMailboxProcess($mbox_ob, $sorted)
+            );
         }
     }
 
@@ -262,9 +299,16 @@ implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
+     * Run after the initial mailbox search is completed.
+     *
+     * @param IMP_Mailbox $mbox  Mailbox searched.
+     * @param array $sorted      Sorted list of UIDs.
+     *
+     * @return array  Sorted list of UIDs.
      */
-    protected function _buildMailboxProcess($mbox, $sorted)
+    protected function _buildMailboxProcess(IMP_Mailbox $mbox, $sorted)
     {
+        return $sorted;
     }
 
     /**

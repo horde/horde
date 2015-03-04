@@ -142,6 +142,30 @@ class Horde_Itip
     }
 
     /**
+     * Factory for generating a response object for a vTodo assignment request.
+     *
+     * @todo   This should be combined with self::factory.
+     *
+     * @param  Horde_Icalendar_Vtodo $todo     [description]
+     * @param  Horde_Itip_Resource   $resource [description]
+     * @return [type]                          [description]
+     */
+    public static function vTodoFactory(
+        Horde_Icalendar_Vtodo $todo,
+        Horde_Itip_Resource $resource
+    )
+    {
+        return new Horde_Itip(
+            new Horde_Itip_Response_Vtodo(
+                new Horde_Itip_Event_Vtodo(
+                    $todo
+                ),
+                $resource
+            )
+        );
+    }
+
+    /**
      * Factory for generating a response object for an iCalendar invitation.
      *
      * @param Horde_Icalendar_Vevent $vevent   The iCalendar request.

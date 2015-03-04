@@ -223,9 +223,9 @@ class Horde_Ldap_UtilTest extends Horde_Test_Case
      */
     public function testExplodeDN()
     {
-        $dn = 'OU=Sales+CN=J. Smith,dc=example,dc=net';
+        $dn = 'ou=Sales+CN=J. Smith,dc=example,dc=net';
         $expected_casefold_none = array(
-            array('CN=J. Smith', 'OU=Sales'),
+            array('CN=J. Smith', 'ou=Sales'),
             'dc=example',
             'dc=net'
         );

@@ -42,8 +42,10 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
      */
     public function create($driver = null, $params = null)
     {
+        global $conf, $injector;
+
         if (is_null($driver)) {
-            $driver = $GLOBALS['conf']['storage']['driver'];
+            $driver = $conf['storage']['driver'];
         }
         $driver = ucfirst(basename($driver));
 
@@ -53,8 +55,17 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
             }
 
             switch ($driver) {
+            case 'Nosql':
+                $nosql = $injector->getInstance('Horde_Core_Factory_Nosql')
+                    ->create('ingo', 'storage');
+                if ($nosql instanceof Horde_Mongo_Client) {
+                    $params['mongo_db'] = $nosql;
+                    $driver = 'Mongo';
+                }
+                break;
+
             case 'Sql':
-                $params['db'] = $GLOBALS['injector']->getInstance('Horde_Db_Adapter');
+                $params['db'] = $injector->getInstance('Horde_Db_Adapter');
                 $params['table_forwards'] = 'ingo_forwards';
                 $params['table_lists'] = 'ingo_lists';
                 $params['table_rules'] = 'ingo_rules';
@@ -67,7 +78,10 @@ class Ingo_Factory_Storage extends Horde_Core_Factory_Base
             if (class_exists($class)) {
                 $this->_instances[$driver] = new $class($params);
             } else {
-                throw new Ingo_Exception(sprintf(_("Unable to load the storage driver \"%s\"."), $class));
+                throw new Ingo_Exception(sprintf(
+                    _("Unable to load the storage driver \"%s\"."),
+                    $class
+                ));
             }
         }
 

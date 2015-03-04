@@ -3,21 +3,19 @@
  <input class="hidden" name="mboxes_form" id="mboxes_form" value="" />
 
  <h1 class="header">
-  <strong>
 <?php if ($this->edit_query_vfolder): ?>
-   <?php echo _("Edit Virtual Folder") ?>
+  <?php echo _("Edit Virtual Folder") ?>
 <?php elseif ($this->edit_query_filter): ?>
-   <?php echo _("Edit Filter") ?>
+  <?php echo _("Edit Filter") ?>
 <?php else: ?>
-   <?php echo _("Search") ?>
+  <?php echo _("Search") ?>
 <?php endif; ?>
-  </strong>
  </h1>
 
  <div class="item" id="recent_searches_div" style="display:none">
   <label for="recent_searches" class="hidden"><?php echo _("Recent Searches") ?>:</label>
   <select id="recent_searches">
-   <?php echo $this->optionTag('', _("Load a Recent Search") . ':') ?>
+   <?php echo $this->optionTag('', _("Load a Recent Search") . '...') ?>
   </select>
  </div>
 
@@ -26,12 +24,11 @@
  </div>
 
  <div class="item">
-  <div id="no_search_criteria"><?php echo _("No Search Criteria") ?></div>
-  <div id="search_criteria" style="display:none"></div>
+  <div id="search_criteria"></div>
 
   <div class="searchAdd">
    <select id="search_criteria_add">
-    <option value=""><?php echo _("Add search criteria") ?>:</option>
+    <option value=""><?php echo _("Add search criteria") ?>...</option>
     <option value="" disabled="disabled">- - - - - - - - -</option>
     <option value="or" style="display:none"><?php echo _("Add OR clause") ?></option>
     <option value="" disabled="disabled" style="display:none">- - - - - - - - -</option>
@@ -56,16 +53,16 @@
  </div>
 
  <div class="item">
-  <div id="no_search_mboxes"><?php echo _("No Search Mailboxes") ?></div>
-  <div id="search_mboxes" style="display:none"></div>
+  <div id="search_loading"><?php echo _("Loading...") ?></div>
+  <div id="search_loaded" style="display:none">
+   <div id="search_mboxes" style="display:none"></div>
 
-  <div class="searchAdd">
-   <select id="search_mboxes_add">
-    <?php echo $this->tree ?>
-   </select>
+   <div class="searchAdd">
+    <select id="search_mboxes_add"></select>
 <?php if ($this->subscribe): ?>
-   <a href="#" id="show_unsub"><?php echo _("Show Unsubscribed Mailboxes") ?></a>
+    <a href="#" id="show_unsub"><?php echo _("Show Unsubscribed Mailboxes") ?></a>
 <?php endif; ?>
+   </div>
   </div>
  </div>
 <?php endif; ?>
@@ -99,7 +96,7 @@
   </div>
  </div>
 
- <div class="control">
+ <div class="horde-form-buttons">
 <?php if ($this->edit_query): ?>
   <input type="button" id="search_submit" class="horde-default" value="<?php echo _("Save") ?>" />
   <input type="button" id="search_edit_query_cancel" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
@@ -108,7 +105,7 @@
   <input type="button" id="search_reset" value="<?php echo _("Reset") ?>" />
 <?php endif; ?>
 <?php if ($this->return_mailbox_val): ?>
-  <input type="button" id="search_dynamic_return" value="<?php echo $this->return_mailbox_val ?>" />
+  <input type="button" id="search_return" value="<?php echo $this->return_mailbox_val ?>" />
 <?php endif; ?>
  </div>
 </form>

@@ -154,7 +154,7 @@ class Whups_Form_Renderer_Comment extends Horde_Form_Renderer
                     array('text2html', 'simplemarkup', 'highlightquotes'),
                     array(
                         array('parselevel' => Horde_Text_Filter_Text2html::MICRO),
-                        array(),
+                        array('html' => true),
                         array('hideBlocks' => true)));
             if ($prefs->getValue('autolink_tickets') &&
                 $conf['prefs']['autolink_terms']) {

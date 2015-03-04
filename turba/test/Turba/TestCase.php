@@ -44,10 +44,11 @@ class Turba_TestCase extends PHPUnit_Framework_TestCase
                     'user' => 'test@example.com',
                     'app' => 'turba'
                 ),
-                'Horde_Prefs' => 'Prefs',
-                'Horde_Perms' => 'Perms',
+                'Horde_Cache' => 'Cache',
                 'Horde_Group' => 'Group',
                 'Horde_History' => 'History',
+                'Horde_Perms' => 'Perms',
+                'Horde_Prefs' => 'Prefs',
                 'Horde_Registry' => 'Registry',
             )
         );

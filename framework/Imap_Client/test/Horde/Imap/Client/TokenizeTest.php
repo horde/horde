@@ -466,4 +466,26 @@ EOT;
         );
     }
 
+    /**
+     * @expectedException LogicException
+     */
+    public function testClone()
+    {
+        $test = 'FOO BAR';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        clone $token;
+    }
+
+    /**
+     * @expectedException LogicException
+     */
+    public function testSerialize()
+    {
+        $test = 'FOO BAR';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        serialize($token);
+    }
+
 }

@@ -71,6 +71,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
      *                             OPTIONAL FIELDS:
      *                             'action-value' (only used if the
      *                             'action' requires it)
+     *                             'combine'
+     *                             'disable'
      * @param array $scriptparams  Array of parameters passed to
      *                             Ingo_Script_Maildrop::.
      */
@@ -81,35 +83,35 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
         $this->_action[] = 'exception {';
 
         switch ($params['action']) {
-        case Ingo_Storage::ACTION_KEEP:
+        case 'Ingo_Rule_User_Keep':
             $this->_action[] = '   to "${DEFAULT}"';
             break;
 
-        case Ingo_Storage::ACTION_MOVE:
+        case 'Ingo_Rule_User_Move':
             $this->_action[] = '   to ' . $this->maildropPath($params['action-value']);
             break;
 
-        case Ingo_Storage::ACTION_DISCARD:
+        case 'Ingo_Rule_User_Discard':
             $this->_action[] = '   exit';
             break;
 
-        case Ingo_Storage::ACTION_REDIRECT:
+        case 'Ingo_Rule_User_Redirect':
             $this->_action[] = '   to "! ' . $params['action-value'] . '"';
             break;
 
-        case Ingo_Storage::ACTION_REDIRECTKEEP:
+        case 'Ingo_Rule_User_RedirectKeep':
             $this->_action[] = '   cc "! ' . $params['action-value'] . '"';
             $this->_action[] = '   to "${DEFAULT}"';
             break;
 
-        case Ingo_Storage::ACTION_REJECT:
+        case 'Ingo_Rule_User_Reject':
             // EX_NOPERM (permanent failure)
             $this->_action[] = '   EXITCODE=77';
             $this->_action[] = '   echo "5.7.1 ' . $params['action-value'] . '"';
             $this->_action[] = '   exit';
             break;
 
-        case Ingo_Storage::ACTION_VACATION:
+        case 'Ingo_Rule_System_Vacation':
             $from = reset($params['action-value']['addresses']);
 
             /* Exclusion of addresses from vacation */
@@ -138,7 +140,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
             // Rule : Do not send responses to bulk or list messages
             if ($params['action-value']['ignorelist'] == 1) {
-                $params['combine'] = Ingo_Storage::COMBINE_ALL;
+                $params['combine'] = Ingo_Rule_User::COMBINE_ALL;
                 $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Precedence: (bulk|list|junk)/'));
                 $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<#@\[\]>/'));
                 $this->addCondition(array('match' => 'filter', 'field' => '', 'value' => '! /^Return-Path:.*<>/'));
@@ -180,7 +182,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
 
             break;
 
-        case Ingo_Storage::ACTION_FORWARD:
+        case 'Ingo_Rule_System_Forward':
         case Ingo_Script_Maildrop::MAILDROP_STORAGE_ACTION_STOREANDFORWARD:
             foreach ($params['action-value'] as $address) {
                 if (!empty($address)) {
@@ -205,7 +207,7 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
         $this->_action[] = '}';
 
         if (isset($params['combine']) &&
-            ($params['combine'] == Ingo_Storage::COMBINE_ALL)) {
+            ($params['combine'] == Ingo_Rule_User::COMBINE_ALL)) {
             $this->_combine = '&& ';
         } else {
             $this->_combine = '|| ';

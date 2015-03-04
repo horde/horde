@@ -352,24 +352,118 @@ class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
             Horde_String::pad('abc', 4, ' ', STR_PAD_RIGHT, 'utf-8'));
     }
 
-    public function testSubstr()
+    /**
+     * @dataProvider substrProvider
+     */
+    public function testSubstr($match, $string, $start, $length)
     {
-        $string = "Lörem ipsüm dölör sit ämet";
         $this->assertEquals(
-            't ämet',
-            Horde_String::substr($string, 20, null, 'utf-8'));
-        $this->assertEquals(
-            't ämet',
-            Horde_String::substr($string, -6, null, 'utf-8'));
-        $this->assertEquals(
-            'Lörem',
-            Horde_String::substr($string, 0, 5, 'utf-8'));
-        $this->assertEquals(
-            'Lörem',
-            Horde_String::substr($string, 0, -21, 'utf-8'));
-        $this->assertEquals(
-            'ipsüm',
-            Horde_String::substr($string, 6, 5, 'utf-8'));
+            $match,
+            Horde_String::substr($string, $start, $length, 'utf-8')
+        );
+    }
+
+    public function substrProvider()
+    {
+        return array(
+            array(
+                't ämet',
+                "Lörem ipsüm dölör sit ämet",
+                20,
+                null
+            ),
+            array(
+                't ämet',
+                "Lörem ipsüm dölör sit ämet",
+                -6,
+                null
+            ),
+            array(
+                'Lörem',
+                "Lörem ipsüm dölör sit ämet",
+                0,
+                5
+            ),
+            array(
+                'Lörem',
+                "Lörem ipsüm dölör sit ämet",
+                0,
+                -21
+            ),
+            array(
+                'ipsüm',
+                "Lörem ipsüm dölör sit ämet",
+                6,
+                5
+            ),
+            /* These are illegal UTF-8 encodings. */
+            array(
+                '',
+                base64_decode('2KvYpw=='),
+                2,
+                2
+            ),
+            array(
+                '',
+                base64_decode('2KU='),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('2KvYpw=='),
+                2,
+                2
+            ),
+            array(
+                '',
+                base64_decode('2KI='),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('5L6L'),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('5rWL'),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('5ris'),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('0L/RgNC40LzQtQ=='),
+                5,
+                5
+            ),
+            array(
+                '',
+                base64_decode('0LA='),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('4KSJ'),
+                1,
+                1
+            ),
+            array(
+                '',
+                base64_decode('4KSq4KSw4KSV'),
+                3,
+                3
+            ),
+        );
     }
 
     public function testWordwrap()

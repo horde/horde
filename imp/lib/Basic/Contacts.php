@@ -99,8 +99,6 @@ class IMP_Basic_Contacts extends IMP_Basic_Base
                     'bcc' => _("Bcc")
                 ),
                 'closed' => _("The message being composed has been closed."),
-                'load_all' => _("Load All Contacts"),
-                'search' => _("Search"),
                 'searching' => _("Searching..."),
                 'select' => _("You must select an address first.")
             )

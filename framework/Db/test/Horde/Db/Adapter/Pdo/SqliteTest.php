@@ -26,6 +26,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_TestBase
 {
     public static function setUpBeforeClass()
     {
+        self::$_reason = 'The sqlite adapter is not available';
         if (extension_loaded('pdo') &&
             in_array('sqlite', PDO::getAvailableDrivers())) {
             self::$_skip = false;

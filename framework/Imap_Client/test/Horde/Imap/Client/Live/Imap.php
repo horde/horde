@@ -562,7 +562,7 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
 
         try {
             $this->assertEquals(
-                array(3, 1, 4, 2),
+                array(3, 4, 1, 2),
                 $res['match']->ids
             );
         } catch (Exception $e) {

@@ -178,6 +178,8 @@ class Mnemo_Application extends Horde_Registry_Application
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
                                  array $params = array())
     {
+        global $registry;
+
         $add = Horde::url('memo.php', true)->add('actionID', 'add_memo');
 
         $tree->addNode(array(
@@ -191,7 +193,11 @@ class Mnemo_Application extends Horde_Registry_Application
             )
         ));
 
-        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $name => $notepad) {
+        $user = $registry->getAuth();
+        foreach (Mnemo::listNotepads(false, Horde_Perms::SHOW) as $name => $notepad) {
+            if (!$notepad->hasPermission($user, Horde_Perms::EDIT)) {
+                continue;
+            }
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',

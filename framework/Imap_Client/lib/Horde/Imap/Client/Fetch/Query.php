@@ -184,9 +184,12 @@ class Horde_Imap_Client_Fetch_Query implements ArrayAccess, Countable, Iterator
      */
     public function headers($label, $search, array $opts = array())
     {
-        $this->_data[Horde_Imap_Client::FETCH_HEADERS][$label] = array_merge($opts, array(
-            'headers' => $search
-        ));
+        $this->_data[Horde_Imap_Client::FETCH_HEADERS][$label] = array_merge(
+            $opts,
+            array(
+                'headers' => array_map('strval', $search)
+            )
+        );
     }
 
     /**

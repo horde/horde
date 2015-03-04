@@ -28,21 +28,10 @@ var IngoFilters = {
                         'reSortFilters',
                         {
                             sort: Object.toJSON(Sortable.sequence('filterslist'))
-                        },
-                        {
-                            callback: function() {
-                                /* Need to re-label the IDs to reflect new
-                                 * sort order. */
-                                var i = 0,
-                                    rows = $('filterslist').select('DIV.filtersRow');
-                                rows.invoke('writeAttribute', 'id', null);
-                                rows.each(function(r) {
-                                    r.writeAttribute('id', 'filtersrow_' + (i++));
-                                });
-                            }
                         }
                     );
                 },
+                format: /^[^_\-](?:[A-Za-z0-9]*)[_](.*)$/,
                 tag: 'div'
             });
         }

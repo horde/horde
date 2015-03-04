@@ -463,6 +463,19 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Update the filtertype for the specified collection.
+     *
+     * @param string $id           The collection id.
+     * @param integer $filtertype  The updated filtertype.
+     * @since 2.26.0
+     */
+    public function updateFiltertype($id, $filtertype)
+    {
+        $this->_data['collections'][$id]['filtertype'] = $filtertype;
+        $this->_markCollectionsDirty($id);
+    }
+
+    /**
      * Clear all synckeys from the known collections.
      *
      */
@@ -497,6 +510,7 @@ class Horde_ActiveSync_SyncCache
     public function removeConfirmedKey($key)
     {
         unset($this->_data['confirmed_synckeys'][$key]);
+        $this->_dirty['confirmed_synckeys'] = true;
     }
 
     /**

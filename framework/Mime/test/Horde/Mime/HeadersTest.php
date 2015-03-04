@@ -29,10 +29,24 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         $hdrs->addHeader('Resent-To', 'foo2@example.com');
         $hdrs->addHeader('Resent-To', 'foo3@example.com');
 
+        $ct = new Horde_Mime_Headers_ContentParam_ContentType(
+            null,
+            'text/plain; charset="iso-8859-1"'
+        );
+        $hdrs->addHeaderOb($ct);
+
+        $cd = new Horde_Mime_Headers_ContentParam_ContentDisposition(
+            null,
+            'attachment; filename="foo"'
+        );
+        $hdrs->addHeaderOb($cd);
+
         $hdrs2 = clone $hdrs;
 
         $hdrs->addHeader('To', 'bar@example.com');
         $hdrs->addHeader('Resent-To', 'bar2@example.com');
+        $ct['charset'] = 'utf-8';
+        $cd['filename'] = 'bar';
 
         $this->assertEquals(
             'foo@example.com',
@@ -41,6 +55,14 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('foo2@example.com', 'foo3@example.com'),
             $hdrs2['Resent-To']->value
+        );
+        $this->assertEquals(
+            array('charset' => 'iso-8859-1'),
+            $hdrs2['Content-Type']->params
+        );
+        $this->assertEquals(
+            array('filename' => 'foo'),
+            $hdrs2['Content-Disposition']->params
         );
     }
 
@@ -203,9 +225,9 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider headerCharsetConversionProvider
+     * @dataProvider headerEncodeProvider
      */
-    public function testHeaderCharsetConversion(
+    public function testHeaderEncode(
         $header, $values, $charset, $encoded
     )
     {
@@ -233,7 +255,7 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function headerCharsetConversionProvider()
+    public function headerEncodeProvider()
     {
         return array(
             /* Single address header */
@@ -258,6 +280,17 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
                 array(
                     '=?iso-8859-1?b?RW1wZuRuZ2Vy?= <recipient@example.com>',
                     'Foo <foo@example.com>'
+                )
+            ),
+            /* Bug #13814 */
+            array(
+                'Content-Description',
+                array(
+                    'AüA'
+                ),
+                'utf-8',
+                array(
+                    '=?utf-8?b?QcO8QQ==?='
                 )
             )
         );
@@ -659,6 +692,44 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
             array(
                 new Horde_Mime_Headers_Element_Single('To', 'foo@example.com'),
                 false
+            )
+        );
+    }
+
+    /**
+     * @dataProvider headerGenerationProvider
+     */
+    public function testHeaderGeneration($label, $data, $class)
+    {
+        $hdrs = new Horde_Mime_Headers();
+
+        $this->assertNull($hdrs[$label]);
+
+        $hdrs->addHeader($label, $data);
+
+        $ob = $hdrs[$label];
+
+        $this->assertNotNull($ob);
+        $this->assertInstanceOf($class, $ob);
+    }
+
+    public function headerGenerationProvider()
+    {
+        return array(
+            array(
+                'content-disposition',
+                'inline',
+                'Horde_Mime_Headers_ContentParam_ContentDisposition'
+            ),
+            array(
+                'content-language',
+                'en',
+                'Horde_Mime_Headers_ContentLanguage'
+            ),
+            array(
+                'content-type',
+                'text/plain',
+                'Horde_Mime_Headers_ContentParam_ContentType'
             )
         );
     }

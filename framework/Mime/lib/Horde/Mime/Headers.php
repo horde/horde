@@ -34,6 +34,8 @@ implements ArrayAccess, IteratorAggregate, Serializable
      * The default charset to use when parsing text parts with no charset
      * information.
      *
+     * @todo Make this a non-static property or pass as parameter to static
+     *       methods in Horde 6.
      * @var string
      */
     public static $defaultCharset = 'us-ascii';
@@ -118,7 +120,7 @@ implements ArrayAccess, IteratorAggregate, Serializable
                 if (!empty($opts['defserver'])) {
                     $sopts['defserver'] = $opts['defserver'];
                 }
-            } elseif ($ob instanceof Horde_Mime_Headers_ContentParams) {
+            } elseif ($ob instanceof Horde_Mime_Headers_ContentParam) {
                 $sopts['broken_rfc2231'] = !empty($opts['broken_rfc2231']);
                 if (!empty($opts['lang'])) {
                     $sopts['lang'] = $opts['lang'];
@@ -182,8 +184,9 @@ implements ArrayAccess, IteratorAggregate, Serializable
      *
      * @param string $header  The header name.
      * @param string $value   The header value (UTF-8).
+     * @param array $opts     DEPRECATED
      */
-    public function addHeader($header, $value)
+    public function addHeader($header, $value, array $opts = array())
     {
         /* Existing header? Add to that object. */
         $header = trim($header);
@@ -193,23 +196,17 @@ implements ArrayAccess, IteratorAggregate, Serializable
         }
 
         $classname = $this->_getHeaderClassName($header);
+        $ob = new $classname($header, $value);
 
         switch ($classname) {
-        case 'Horde_Mime_Headers_ContentParam':
-            /* TODO: BC */
-            if (empty($opts['params'])) {
-                $cd = $value;
-            } else {
-                $cd = new stdClass;
-                $cd->params = $opts['params'];
-                $cd->value = $value;
+        case 'Horde_Mime_Headers_ContentParam_ContentDisposition':
+        case 'Horde_Mime_Headers_ContentParam_ContentType':
+            /* BC */
+            if (!empty($opts['params'])) {
+                foreach ($opts['params'] as $key => $val) {
+                    $ob[$key] = $val;
+                }
             }
-
-            $ob = new $classname($header, $cd);
-            break;
-
-        default:
-            $ob = new $classname($header, $value);
             break;
         }
 
@@ -261,10 +258,16 @@ implements ArrayAccess, IteratorAggregate, Serializable
                 'Horde_Mime_Headers_Element_Single',
                 'Horde_Mime_Headers_AddressesMulti',
                 'Horde_Mime_Headers_Addresses',
-                'Horde_Mime_Headers_ContentParam',
+                'Horde_Mime_Headers_ContentDescription',
+                'Horde_Mime_Headers_ContentId',
+                'Horde_Mime_Headers_ContentLanguage',
+                'Horde_Mime_Headers_ContentParam_ContentDisposition',
+                'Horde_Mime_Headers_ContentParam_ContentType',
+                'Horde_Mime_Headers_ContentTransferEncoding',
                 'Horde_Mime_Headers_Date',
                 'Horde_Mime_Headers_Identification',
                 'Horde_Mime_Headers_MessageId',
+                'Horde_Mime_Headers_Mime',
                 'Horde_Mime_Headers_MimeVersion',
                 'Horde_Mime_Headers_Received',
                 'Horde_Mime_Headers_Subject',

@@ -3132,7 +3132,7 @@ KronolithCore = {
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.reset();
                 // Fall through.
             case 'tasklists':
-                $('kronolithCalendar' + type + 'LinkExport').up('span').hide();
+                $('kronolithCalendar' + type + 'LinkExport').up('li').hide();
                 break;
             case 'remote':
                 if (calendar) {
@@ -3185,7 +3185,7 @@ KronolithCore = {
             case 'tasklists':
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 if ($('kronolithCalendar' + type + 'LinkExport')) {
-                    $('kronolithCalendar' + type + 'LinkExport').up('span').show();
+                    $('kronolithCalendar' + type + 'LinkExport').up('li').show();
                     $('kronolithCalendar' + type + 'Export').href = type == 'internal'
                         ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
                         : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
@@ -3243,7 +3243,7 @@ KronolithCore = {
                 form.down('.kronolithCalendarSubscribe').hide();
                 form.down('.kronolithCalendarUnsubscribe').hide();
                 if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').up('span').show();
+                    $('kronolithCalendar' + type + 'LinkPerms').show();
                 }
                 if (!Object.isUndefined(info) && info.owner) {
                     this.setPermsFields(type, info.perms);
@@ -3286,7 +3286,7 @@ KronolithCore = {
                 }
                 form.down('.kronolithFormActions .kronolithSeparator').show();
                 if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').up('span').hide();
+                    $('kronolithCalendar' + type + 'LinkPerms').hide();
                 }
             } else {
                 form.down('.kronolithFormActions .kronolithSeparator').hide();
@@ -3578,7 +3578,6 @@ KronolithCore = {
         this.groupLoading = true;
         params.each(function(param) {
             var elm = $(param[0]), options = elm.childElements();
-            options.shift();
             options.invoke('remove');
             elm.up('form').disable();
         });
@@ -3793,7 +3792,8 @@ KronolithCore = {
                 var color = {
                     backgroundColor: cal.bg,
                     color: cal.fg
-                };
+                },
+                legendSpan;
                 id = data.calendar;
                 this.getCalendarList(type, cal.owner).select('div').each(function(element) {
                     if (element.retrieve('calendar') == id) {
@@ -3809,10 +3809,14 @@ KronolithCore = {
                         el.setStyle(color);
                     }
                 });
-                $('kronolith-legend').select('span').find(function(span) {
-                    return span.retrieve('calendarclass') == type &&
-                        span.retrieve('calendar') == id;
-                }).setStyle(color).update(cal.name.escapeHTML());
+                legendSpan = $('kronolith-legend').select('span')
+                    .find(function(span) {
+                        return span.retrieve('calendarclass') == type &&
+                            span.retrieve('calendar') == id;
+                    });
+                if (legendSpan) {
+                    legendSpan.setStyle(color).update(cal.name.escapeHTML());
+                }
                 Kronolith.conf.calendars[type][id] = cal;
             } else {
                 id = r.id;
@@ -5699,7 +5703,7 @@ KronolithCore = {
             this.duration = 60;
             $('kronolithEventEndDate').setValue(d.toString(Kronolith.conf.date_format));
             $('kronolithEventEndTime').setValue(d.toString(Kronolith.conf.time_format));
-            $('kronolithEventLinkExport').up('span').hide();
+            $('kronolithEventLinkExport').up('li').hide();
             $('kronolithEventSaveAsNew').hide();
             $('kronolithEventUrlDisplay').hide();
             $('kronolithEventUrl').show();
@@ -5992,7 +5996,7 @@ KronolithCore = {
         $('kronolithEventStatus').setValue(ev.x);
         $('kronolithEventDescription').setValue(ev.d);
         $('kronolithEventPrivate').setValue(ev.pv);
-        $('kronolithEventLinkExport').up('span').show();
+        $('kronolithEventLinkExport').up('li').show();
         $('kronolithEventExport').href = Kronolith.conf.URI_EVENT_EXPORT.interpolate({ id: ev.id, calendar: ev.c, type: ev.ty });
 
         /* Attendance and Status */
@@ -6534,7 +6538,7 @@ KronolithCore = {
         var prefix = 'kronolith' + (event ? 'Event' : 'Task');
         if (recur == 'Exception') {
             if (!$(prefix + 'RepeatException').visible()) {
-                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('p').invoke('hide');
                 $(prefix + 'RepeatException').show();
             }
         } else if (recur != 'None') {
@@ -6542,7 +6546,7 @@ KronolithCore = {
                 length = $(prefix + 'RepeatLength');
             this.lastRecurType = recur;
             if (!div.visible()) {
-                $(prefix + 'TabRecur').select('div').invoke('hide');
+                $(prefix + 'TabRecur').select('p').invoke('hide');
                 div.show();
                 length.show();
                 $(prefix + 'RepeatType').show();
@@ -6563,10 +6567,10 @@ KronolithCore = {
 
             if (length.down('input[name=recur_end_type][value=date]').checked) {
                 $(prefix + 'RecurDate').enable();
-                $(prefix + 'RecurPicker').setStyle({ visibility: 'visible' });
+                $(prefix + 'RecurPicker').show()
             } else {
                 $(prefix + 'RecurDate').disable();
-                $(prefix + 'RecurPicker').setStyle({ visibility: 'hidden' });
+                $(prefix + 'RecurPicker').hide()
             }
             if (length.down('input[name=recur_end_type][value=count]').checked) {
                 $(prefix + 'RecurCount').enable();
@@ -6574,7 +6578,7 @@ KronolithCore = {
                 $(prefix + 'RecurCount').disable();
             }
         } else {
-            $(prefix + 'TabRecur').select('div').invoke('hide');
+            $(prefix + 'TabRecur').select('p').invoke('hide');
             $(prefix + 'RepeatType').show();
         }
     },

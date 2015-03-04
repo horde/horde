@@ -166,7 +166,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
                                         isset($response->error->error) ? $response->error->error : null);
                 */
             }
-            throw new Horde_Rpc_Exception($http->getResponseBody());
+            throw new Horde_Rpc_Exception($result->getBody());
         } elseif ($result->code != 200) {
             throw new Horde_Rpc_Exception('Request couldn\'t be answered. Returned errorcode: "' . $result->code);
         }

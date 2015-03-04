@@ -97,7 +97,7 @@ class Horde_Mail_Autoconfig_AutoconfigTest extends Horde_Test_Case
             }
         }
 
-        return array(array(null));
+        return array(array(null, null));
     }
 
 }

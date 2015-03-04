@@ -35,16 +35,8 @@ Horde_Registry::appInit('ingo', array('cli' => true));
 if ($conf['storage']['driver'] != 'sql') {
     $cli->fatal('You need to configure an SQL storage backend in Ingo\'s configuration', __FILE__, __LINE__);
 }
-$prefs_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Prefs');
+$p_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Prefs');
 $sql_storage = $injector->getInstance('Ingo_Factory_Storage')->create('Sql');
-
-/* Rules to convert. */
-$rules = array(Ingo_Storage::ACTION_FILTERS,
-               Ingo_Storage::ACTION_BLACKLIST,
-               Ingo_Storage::ACTION_WHITELIST,
-               Ingo_Storage::ACTION_VACATION,
-               Ingo_Storage::ACTION_FORWARD,
-               Ingo_Storage::ACTION_SPAM);
 
 /* Update each user. */
 while (!feof(STDIN)) {
@@ -60,17 +52,14 @@ while (!feof(STDIN)) {
     $registry->setAuth($user, array());
     $session->set('ingo', 'current_share', ':' . $user);
 
-    foreach ($rules as $rule) {
-        $filter = $prefs_storage->retrieve($rule);
-        if ($rule == Ingo_Storage::ACTION_FILTERS) {
-            $new_filter = $sql_storage->retrieve(Ingo_Storage::ACTION_FILTERS, true);
-            foreach ($filter->getFilterList() as $rule) {
-                $new_filter->addRule($rule);
-                echo '.';
-            }
-        }
+    foreach ($p_storage as $val) {
+        $val->uid = ($val instanceof Ingo_System_Rule)
+            ? $sql_storage->getSystemRule(get_class($val))
+            : '';
+
         try {
-            $sql_storage->store($filter);
+            $sql_storage->updateRule($val);
+            echo '.';
         } catch (Horde_Exception $e) {
             $cli->writeln();
             $cli->message($e->getMessage(), 'cli.error');

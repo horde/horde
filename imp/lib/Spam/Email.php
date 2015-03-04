@@ -86,7 +86,7 @@ class IMP_Spam_Email implements IMP_Spam_Base
                 'stream' => true
             )));
 
-            $mime->addPart($rfc822);
+            $mime[] = $rfc822;
 
             $spam_headers = new Horde_Mime_Headers();
             $spam_headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());

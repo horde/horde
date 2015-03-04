@@ -191,6 +191,19 @@ var ImpCore = {
         }, this);
     },
 
+    buildResentHeader: function(elt, resent)
+    {
+        resent.each(function(r) {
+            elt.insert(
+                this.buildAddressLinks(
+                    r.from,
+                    new Element('DIV').addClassName('resentFrom')
+                        .insert(this.text.resent.sub('%s', r.date))
+                )
+            );
+        }, this);
+    },
+
     msgMetadata: function(md)
     {
         $A(md).each(function(a) {

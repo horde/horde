@@ -10,7 +10,7 @@
 <?php if (!$groups->readOnly()): ?>
 <p class="horde-content">
  <?php echo Horde::label('email', _("Email Address")) ?>
- <input type="text" name="email" id="email" size="50" value="<?php echo htmlspecialchars($group['email']) ?>" />
+ <input type="text" name="email" id="email" size="50" value="<?php if (isset($group['email'])) echo htmlspecialchars($group['email']) ?>" />
 </p>
 <?php endif; ?>
 

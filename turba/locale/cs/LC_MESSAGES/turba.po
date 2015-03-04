@@ -4,14 +4,14 @@
 # Pavel Chytil <pavel@chytil.tk>, 2001-2004.
 # Petra Kostinkova <kostinkova.petra@active24.cz>, 2012
 # Michal Foist <foist.michal@active24.cz>, 2012
-# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014
+# Michael Grafnetter <michael.grafnetter@outlook.com>, 2014-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Turba 2.0.5\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2014-11-03 16:51+0100\n"
+"PO-Revision-Date: 2015-02-25 18:47+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -134,7 +134,7 @@ msgstr "Adresář neexistuje"
 #: lib/Turba.php:668
 #, php-format
 msgid "Address book of %s"
-msgstr "Adresáře %s"
+msgstr "Adresář uživatele %s"
 
 #: data.php:262
 msgid "Address book successfully purged."
@@ -142,7 +142,7 @@ msgstr "Kontakty byly úspěšně vyčistěny."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:45
 msgid "Addressbook entry could not be loaded."
-msgstr "Záznam se nepodařilo načíst."
+msgstr "Položku adresáře se nepodařilo načíst."
 
 #: search.php:204 search.php:248
 msgid "Advanced Search"
@@ -558,15 +558,15 @@ msgstr "Upravit/prohlížet členy skupiny"
 
 #: config/attributes.php:306
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #: config/attributes.php:312
 msgid "Emails"
-msgstr "Emaily"
+msgstr "E-maily"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:54
 msgid "Entries"
-msgstr ""
+msgstr "Položky"
 
 #: lib/View/Browse.php:320 lib/View/Browse.php:387
 #, php-format
@@ -712,7 +712,7 @@ msgstr "Země domů"
 
 #: config/attributes.php:560
 msgid "Home Email"
-msgstr "Domácí E-mail"
+msgstr "Domácí e-mail"
 
 #: config/attributes.php:377
 msgid "Home Fax"
@@ -800,7 +800,7 @@ msgstr "Nesprávné unikátní ID kontaktu"
 
 #: lib/Api.php:1656 lib/Api.php:1741 lib/Api.php:1812
 msgid "Invalid email"
-msgstr "Neplatný email"
+msgstr "Neplatný e-mail"
 
 #: lib/Api.php:1664
 msgid "Invalid entry"
@@ -910,9 +910,8 @@ msgid "Missing DN in LDAP source configuration."
 msgstr "Chybějící DN u konfigurace zdroje LDAP."
 
 #: smartmobile.php:22
-#, fuzzy
 msgid "Mobile Addressbook"
-msgstr "Pine kontakty"
+msgstr "Mobilní adresář"
 
 #: config/attributes.php:354
 msgid "Mobile Phone"
@@ -1624,9 +1623,8 @@ msgid "There was an error importing the iCalendar data."
 msgstr "Při importování iCalendar dat došlo k chybě."
 
 #: lib/Application.php:825
-#, fuzzy
 msgid "There was an error importing the vCard data."
-msgstr "Při importování iCalendar dat došlo k chybě."
+msgstr "Při importu dat z vCard došlo k chybě."
 
 #: lib/Application.php:355 lib/Application.php:387 lib/Application.php:400
 #, php-format
@@ -1692,9 +1690,8 @@ msgid "View Contact"
 msgstr "Zobrazit kontakt"
 
 #: templates/smartmobile/entry.html.php:2
-#, fuzzy
 msgid "View Entry"
-msgstr "Zobrazit událost"
+msgstr "Zobrazit položku"
 
 #: config/prefs.php:133
 msgid "View to display by default:"
@@ -1731,7 +1728,7 @@ msgstr "Země do práce"
 
 #: config/attributes.php:554
 msgid "Work Email"
-msgstr "Pracovní E-mail"
+msgstr "Pracovní e-mail"
 
 #: config/attributes.php:572
 msgid "Work Fax"
@@ -1787,9 +1784,8 @@ msgid "You are not allowed to delete this addressbook."
 msgstr "Nemáte oprávnění smazat tento adresář."
 
 #: addressbooks/edit.php:31
-#, fuzzy
 msgid "You are not allowed to see this addressbook."
-msgstr "Nemáte oprávnění smazat tento adresář."
+msgstr "Nemáte oprávnění k prohlížení tohoto adresáře."
 
 #: lib/Driver/Facebook.php:214
 msgid ""

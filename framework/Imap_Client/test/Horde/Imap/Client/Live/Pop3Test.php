@@ -34,12 +34,21 @@ class Horde_Imap_Client_Live_Pop3Test extends Horde_Test_Case
 
         $c = self::getConfig('IMAPCLIENT_TEST_CONFIG_POP3', __DIR__ . '/../');
         if (!is_null($c) && !empty($c['pop3client'])) {
+            $key = 0;
+
             foreach ($c['pop3client'] as $val) {
                 if (!empty($val['enabled']) &&
                     !empty($val['client_config']['username']) &&
                     !empty($val['client_config']['password'])) {
+                    /* Create a temp class for each instance to ensure that
+                     * no @depends mixing between servers occurs. */
+                    $temp_class = 'Horde_Imap_Client_Live_Pop3_' . ++$key;
+                    eval(
+                        "class $temp_class extends Horde_Imap_Client_Live_Pop3 {}"
+                    );
+
                     Horde_Imap_Client_Live_Pop3::$config[] = $val;
-                    $suite->addTestSuite('Horde_Imap_Client_Live_Pop3');
+                    $suite->addTestSuite($temp_class);
                 }
             }
         }

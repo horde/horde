@@ -75,7 +75,7 @@ class Horde_Core_Db_Migration
                     dirname($dir) . '/package.xml', PEAR_VALIDATE_NORMAL
                 );
                 if ($package instanceof PEAR_Error) {
-                    Horde::log($package->getMessage(), Horde_Log::ERR);
+                    Horde::log(sprintf('%s: %s', $package->getMessage(), print_r($package->getUserInfo(), true)), Horde_Log::ERR);
                     continue;
                 }
                 $this->apps[] = $package->getName();

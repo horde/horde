@@ -50,7 +50,9 @@ class Ingo_Flist
         if ($registry->hasMethod('mail/mailboxList')) {
             try {
                 $view->create = $registry->hasMethod('mail/createMailbox');
-                $view->mboxes = $registry->call('mail/mailboxList');
+                $view->mboxes = $registry->mail->mailboxList(array(
+                    'unsub' => true
+                ));
 
                 $page_output->addScriptFile('new_folder.js');
                 $page_output->addInlineJsVars(array(

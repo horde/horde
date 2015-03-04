@@ -573,7 +573,7 @@ extends PHPUnit_Framework_TestCase
 
         $this->assertContains('Content-Disposition: attachment; filename="Kolab Groupware Data"', $driver->messages['INBOX'][0]);
         $this->assertContains('Content-Type: multipart/mixed;', $driver->messages['INBOX'][0]);
-        $this->assertContains('Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8', $driver->messages['INBOX'][0]);
+        $this->assertContains('Content-Type: text/plain; charset=utf-8; name="Kolab Groupware Information"', $driver->messages['INBOX'][0]);
         $this->assertContains('Content-Disposition: inline; filename="Kolab Groupware Information"', $driver->messages['INBOX'][0]);
         $this->assertContains(
             "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit http://www.kolab.org/content/kolab-clients",

@@ -64,8 +64,8 @@ abstract class Horde_History_Sql_Base extends Horde_History_TestBase
     {
         self::$migrator->migrate(1);
         self::$db->insert(
-            'INSERT INTO horde_histories (object_uid, history_ts, history_who, history_desc, history_action, history_extra) VALUES (?, ?, ?, ?, ?, ?)',
-            array('test_uid', time(), 'me', '', 'test_action', null)
+            'INSERT INTO horde_histories (history_id, object_uid, history_ts, history_who, history_desc, history_action, history_extra) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            array(1, 'test_uid', time(), 'me', '', 'test_action', null)
         );
         self::$migrator->up();
         self::$history->log('test_uid2', array('who' => 'me', 'action' => 'test_action'));

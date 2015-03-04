@@ -10,4 +10,4 @@
  */
 
 /** Needed for PEAR_Error. */
-@require_once 'PEAR.php';
+@include_once 'PEAR.php';

@@ -263,15 +263,16 @@ implements Horde_Kolab_Server_Schema_Interface
 
     /**
      * Stores the attribute definitions in the cache.
-     *
-     * @return Horde_Kolab_Server The concrete Horde_Kolab_Server reference.
      */
     public function shutdown()
     {
         if (isset($this->attributes)) {
             if (isset($this->cache)) {
                 foreach ($this->attributes as $key => $value) {
-                    $this->cache->set('attributes_' . $key, @serialize($value));
+                    try {
+                        $this->cache->set('attributes_' . $key, @serialize($value));
+                    } catch (Exception $e) {
+                    }
                 }
             }
         }

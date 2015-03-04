@@ -110,7 +110,18 @@ class Horde_ActiveSync_Imap_Adapter
             $imap->subscribeMailbox($mbox, true);
         } catch (Horde_Imap_Client_Exception $e) {
             if ($e->getCode() == Horde_Imap_Client_Exception::ALREADYEXISTS) {
-                throw new Horde_ActiveSync_Exception_FolderExists('Folder Exists!');
+                $this->_logger(sprintf(
+                    '[%s] Mailbox %s already exists, subscribing to it.',
+                    $this->_procid,
+                    $name
+                ));
+                try {
+                    $imap->subscribeMailbox($mbox, true);
+                } catch (Horde_Imap_Client_Exception $e) {
+                    // Exists, but could not subscribe to it, something is
+                    // *really* wrong.
+                    throw new Horde_ActiveSync_Exception_FolderExists('Folder Exists!');
+                }
             }
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -797,10 +808,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function renameMailbox($old, $new, $parent = null)
     {
-        if ($old == $new) {
-            return;
-        }
-
         if (!empty($parent)) {
             $ns = $this->_defaultNamespace();
             $new = $parent . $ns['delimiter'] . $new;
@@ -1268,6 +1275,11 @@ class Horde_ActiveSync_Imap_Adapter
                 $data = Horde_ActiveSync_Utils::ensureUtf8($mime_part->getContents(), $mime_part->getCharset());
                 $vCal = new Horde_Icalendar();
                 if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
+                    $classes = $vCal->getComponentClasses();
+                } else {
+                    $classes = array();
+                }
+                if (!empty($classes['horde_icalendar_vevent'])) {
                     try {
                         $method = $vCal->getAttribute('METHOD');
                         $eas_message->contentclass = 'urn:content-classes:calendarmessage';
@@ -1510,7 +1522,9 @@ class Horde_ActiveSync_Imap_Adapter
                 $search_res = $this->_getImapOb()->search(
                     $mbox,
                     $imap_query,
-                    array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_SAVE, Horde_Imap_Client::SEARCH_RESULTS_COUNT))
+                    array(
+                        'results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_SAVE, Horde_Imap_Client::SEARCH_RESULTS_COUNT),
+                        'sort' => array(Horde_Imap_Client::SORT_REVERSE, Horde_Imap_Client::SORT_ARRIVAL))
                 );
             } catch (Horde_Imap_Client_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);

@@ -185,6 +185,88 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
+     * Updates an attendee's response status for a specified task assignment.
+     *
+     * @param Horde_Icalendar_Vtodo $response  A Horde_Icalendar_Vtodo
+     *                                          object, with a valid UID
+     *                                          attribute that points to an
+     *                                          existing task.  This is
+     *                                          typically the vTodo portion
+     *                                          of an iTip task-request
+     *                                          response, with the attendee's
+     *                                          response in an ATTENDEE
+     *                                          parameter.
+     * @param string $sender                    The email address of the
+     *                                          person initiating the
+     *                                          update. Attendees are only
+     *                                          updated if this address
+     *                                          matches.
+     *
+     * @throws Nag_Exception, Horde_Exception_PermissionDenied
+     */
+    public function updateAttendee($response, $sender = null)
+    {
+        try {
+            $uid = $response->getAttribute('UID');
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        $task = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create('')->getByUID($uid);
+        $taskId = $task->id;
+        $owner = $task->owner;
+        if (!Nag::hasPermission($task->tasklist, Horde_Perms::EDIT)) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+
+        try {
+            $atnames = $response->getAttribute('ATTENDEE');
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Nag_Exception($e->getMessage());
+        }
+        if (!is_array($atnames)) {
+            $atnames = array($atnames);
+        }
+
+        $atparms = $response->getAttribute('ATTENDEE', true);
+        $found = false;
+        $error = _("No attendees have been updated because none of the provided email addresses have been found in the event's attendees list.");
+
+        foreach ($atnames as $index => $attendee) {
+            if ($response->getAttribute('VERSION') < 2) {
+                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                if (!$addr_ob->valid) {
+                    continue;
+                }
+
+                $attendee = $addr_ob->bare_address;
+                $name = $addr_ob->personal;
+            } else {
+                $attendee = str_ireplace('mailto:', '', $attendee);
+                $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
+            }
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create($task->assignee);
+            $all_addrs = $identity->getAll('from_addr');
+            if (in_array($attendee, $all_addrs)) {
+                if (is_null($sender) || $sender == $attendee) {
+                    $task->status = Nag::responseFromICal($atparms[$index]['PARTSTAT']);
+                    $found = true;
+                    break;
+                } else {
+                    $error = _("The attendee hasn't been updated because the update was not sent from the attendee.");
+                }
+            }
+        }
+        $task->save();
+
+        if (!$found) {
+            throw new Nag_Exception($error);
+        }
+    }
+
+    /**
      * Deletes a task list.
      *
      * @param string $id  A task list id.
@@ -892,11 +974,16 @@ class Nag_Api extends Horde_Registry_Api
                     $task->fromiCalendar($content);
                     if (isset($task->uid)) {
                         try {
-                            $existing = $storage->getByUID($task->uid);
+                            $existing = $storage->getByUID($task->uid, null, false);
                             $task->owner = $existing->owner;
                             $storage->modify($existing->id, $task->toHash());
                         } catch ( Horde_Exception_NotFound $e ) {
-                            $storage->add($task->toHash());
+                            $hash = $task->toHash();
+                            unset($hash['tasklist_id']);
+                            unset($hash['task_id']);
+                            unset($hash['parent']);
+                            $storage->open($tasklist);
+                            $storage->add($hash);
                         }
                         $ids[] = $task->uid;
                     } else {
@@ -1263,7 +1350,7 @@ class Nag_Api extends Horde_Registry_Api
     }
 
     /**
-     * Lists active tasks as cost objects.
+     * CostObject API: Lists active tasks as cost objects.
      *
      * @todo Implement $criteria parameter.
      *
@@ -1303,6 +1390,25 @@ class Nag_Api extends Horde_Registry_Api
             return array(array('category' => _("Tasks"),
                 'objects'  => array_values($result)));
         }
+    }
+
+    /**
+     * CostObject API:  Update a single costobject.
+     *
+     * @param string $id   The task id.
+     * @param array  $data The data to update. Currently support:
+     *   -: hours  The amount of hours to add to the existing actual hours.
+     */
+    public function updateCostObject($id, $data)
+    {
+        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create('');
+        $task = $storage->get($id);
+        if (!$GLOBALS['registry']->isAdmin() &&
+            !Nag::hasPermission($task->tasklist, Horde_Perms::EDIT)) {
+            throw new Horde_Exception_PermissionDenied();
+        }
+        $adjust = array('actual' => $task->actual += $data['hours']);
+        $this->updateTask($task->tasklist, $id, $adjust);
     }
 
     public function listTimeObjectCategories()

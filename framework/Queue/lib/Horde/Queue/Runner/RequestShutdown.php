@@ -9,10 +9,13 @@ class Horde_Queue_Runner_RequestShutdown extends Horde_Queue_Runner
 
     public function run()
     {
-        while ($tasks = $this->_storage->getMany()) {
-            foreach ($tasks as $task) {
-                $this->runTask($task);
+        try {
+            while ($tasks = $this->_storage->getMany()) {
+                foreach ($tasks as $task) {
+                    $this->runTask($task);
+                }
             }
+        } catch (Horde_Queue_Exception $e) {
         }
     }
 }

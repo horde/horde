@@ -106,7 +106,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check for global msgload task. */
         if (isset($this->_vars->msgload)) {
-            $this->queue->message($this->indices->mailbox->fromBuids(array($this->_vars->msgload)), true, true);
+            $this->queue->message(
+                $this->indices->mailbox->fromBuids(array($this->_vars->msgload)),
+                array(
+                    'peek' => true,
+                    'preview' => true
+                )
+            );
         }
 
         /* Check for global poll task. */

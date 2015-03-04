@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-13</date>
+ <date>2015-02-10</date>
  <version>
-  <release>2.4.9</release>
-  <api>2.3.0</api>
+  <release>2.5.1</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -2904,12 +2904,25 @@
   </release>
   <release>
    <version>
-    <release>2.4.9</release>
-    <api>2.3.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-13</date>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Add method to obtain all logged events.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

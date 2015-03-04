@@ -27,57 +27,51 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
      */
     protected function _init()
     {
-        global $injector, $notification;
+        global $injector, $notification, $registry;
 
-        $this->_assertCategory(Ingo_Storage::ACTION_VACATION, _("Vacation"));
-
-        /* Get vacation object and rules. */
-        $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-        $vacation = $ingo_storage->retrieve(Ingo_Storage::ACTION_VACATION);
-        $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
-        $vac_id = $filters->findRuleId(Ingo_Storage::ACTION_VACATION);
-        $vac_rule = $filters->getRule($vac_id);
-
-        /* Load libraries. */
+        $this->_assertCategory('Ingo_Rule_System_Vacation', _("Vacation"));
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
+
+        /* Get vacation object and rules. */
+        $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
+        $vacation = $ingo_storage->getSystemRule('Ingo_Rule_System_Vacation');
 
         /* Build form. */
         $form = new Ingo_Form_Vacation(
             $this->vars,
             '',
             null,
-            $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_VACATION)->availableCategoryFeatures(Ingo_Storage::ACTION_VACATION)
+            $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_VACATION)->availableCategoryFeatures('Ingo_Rule_System_Vacation')
         );
 
         /* Perform requested actions. Ingo_Form_Vacation does token checking
          * for us. */
         if ($form->validate($this->vars)) {
             $form->getInfo($this->vars, $info);
-            $vacation->setVacationAddresses(isset($info['addresses']) ? $info['addresses'] : '');
-            $vacation->setVacationDays($info['days']);
-            $vacation->setVacationExcludes($info['excludes']);
-            $vacation->setVacationIgnorelist(($info['ignorelist'] == 'on'));
-            $vacation->setVacationReason($info['reason']);
-            $vacation->setVacationSubject($info['subject']);
-            $vacation->setVacationStart($info['start']);
-            $vacation->setVacationEnd($info['end']);
+            $vacation->addresses = isset($info['addresses']) ? $info['addresses'] : '';
+            $vacation->days = $info['days'];
+            $vacation->exclude = $info['excludes'];
+            $vacation->ignore_list = ($info['ignorelist'] == 'on');
+            $vacation->reason = $info['reason'];
+            $vacation->subject = $info['subject'];
+            $vacation->start = $info['start'];
+            $vacation->end = $info['end'];
 
             try {
-                $ingo_storage->store($vacation);
-                $notification->push(_("Changes saved."), 'horde.success');
                 if ($this->vars->submitbutton == _("Save and Enable")) {
-                    $filters->ruleEnable($vac_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Enabled"), 'horde.success');
-                    $vac_rule['disable'] = false;
+                    $vacation->disable = false;
+                    $notify = _("Rule Enabled");
                 } elseif ($this->vars->get('submitbutton') == _("Save and Disable")) {
-                    $filters->ruleDisable($vac_id);
-                    $ingo_storage->store($filters);
-                    $notification->push(_("Rule Disabled"), 'horde.success');
-                    $vac_rule['disable'] = true;
+                    $vacation->disable = true;
+                    $notify = _("Rule Disabled");
+                } else {
+                    $notification->push(_("Changes saved."), 'horde.success');
                 }
+
+                $ingo_storage->updateRule($vacation);
+                $notification->push($notify, 'horde.success');
 
                 Ingo_Script_Util::update();
             } catch (Ingo_Exception $e) {
@@ -86,41 +80,41 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
         }
 
         /* Add buttons depending on the above actions. */
-        $form->setCustomButtons($vac_rule['disable']);
+        $form->setCustomButtons($vacation->disable);
 
         /* Make sure we have at least one address. */
-        if (!$vacation->getVacationAddresses()) {
+        if (!count($vacation)) {
             $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
             $addresses = implode("\n", $identity->getAll('from_addr'));
             /* Remove empty lines. */
             $addresses = trim(preg_replace('/\n+/', "\n", $addresses));
             if (empty($addresses)) {
-                $addresses = $GLOBALS['registry']->getAuth();
+                $addresses = $registry->getAuth();
             }
-            $vacation->setVacationAddresses($addresses);
+            $vacation->addresses = $addresses;
         }
 
         /* Set default values. */
         if (!$form->isSubmitted()) {
-            $this->vars->set('addresses', implode("\n", $vacation->getVacationAddresses()));
-            $this->vars->set('excludes', implode("\n", $vacation->getVacationExcludes()));
-            $this->vars->set('ignorelist', $vacation->getVacationIgnorelist());
-            $this->vars->set('days', $vacation->getVacationDays());
-            $this->vars->set('subject', $vacation->getVacationSubject());
-            $this->vars->set('reason', $vacation->getVacationReason());
-            $this->vars->set('start', $vacation->getVacationStart());
-            $this->vars->set('end', $vacation->getVacationEnd());
-            $this->vars->set('start_year', $vacation->getVacationStartYear());
-            $this->vars->set('start_month', $vacation->getVacationStartMonth() - 1);
-            $this->vars->set('start_day', $vacation->getVacationStartDay() - 1);
-            $this->vars->set('end_year', $vacation->getVacationEndYear());
-            $this->vars->set('end_month', $vacation->getVacationEndMonth() - 1);
-            $this->vars->set('end_day', $vacation->getVacationEndDay() - 1);
+            $this->vars->set('addresses', implode("\n", $vacation->addresses));
+            $this->vars->set('excludes', implode("\n", $vacation->exclude));
+            $this->vars->set('ignorelist', $vacation->ignore_list);
+            $this->vars->set('days', $vacation->days);
+            $this->vars->set('subject', $vacation->subject);
+            $this->vars->set('reason', $vacation->reason);
+            $this->vars->set('start', $vacation->start);
+            $this->vars->set('end', $vacation->end);
+            $this->vars->set('start_year', $vacation->start_year);
+            $this->vars->set('start_month', $vacation->start_month - 1);
+            $this->vars->set('start_day', $vacation->start_day - 1);
+            $this->vars->set('end_year', $vacation->end_year);
+            $this->vars->set('end_month', $vacation->end_month - 1);
+            $this->vars->set('end_day', $vacation->end_day - 1);
         }
 
         /* Set form title. */
         $form_title = _("Vacation");
-        if (!empty($vac_rule['disable'])) {
+        if ($vacation->disable) {
             $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
         }
         $form_title .= ' ' . Horde_Help::link('ingo', 'vacation');

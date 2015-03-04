@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-02-24</date>
  <version>
-  <release>2.24.1</release>
-  <api>2.24.0</api>
+  <release>2.26.1</release>
+  <api>2.26.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Detect stock Android 5.0 multiplex settings.
+* [mjr] Fix broken sync due to clients that send badly formatted date strings.
+* [mjr] Fix fatal error when dealing with iTip replies from vTodo requests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2621,10 +2623,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-02-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix moving a mailbox to a new parent (Bug #13839).
+* [mjr] Always send the attachmentsenabled policy, even when it&apos;s the default value of &apos;enabled&apos; (Bug #13827).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.25.0</release>
+    <api>2.25.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix handling of PARTIAL and EMPTY sync requests in certain cases (Bug #13863).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.26.0</release>
+    <api>2.26.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-23</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Return email search results in descending order by arrival date.
+* [mjr] Add HTCOne Mini to device detection and set multiplex ability accordingly.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.26.1</release>
+    <api>2.26.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Detect stock Android 5.0 multiplex settings.
+* [mjr] Fix broken sync due to clients that send badly formatted date strings.
+* [mjr] Fix fatal error when dealing with iTip replies from vTodo requests.
    </notes>
   </release>
  </changelog>

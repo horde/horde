@@ -19,13 +19,14 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Handler
+class Ingo_Ajax_Application_Smartmobile
+extends Horde_Core_Ajax_Application_Handler
 {
     /**
      * AJAX action: Get rule data.
      *
      * Variables used:
-     *   - rule: (integer) Rule number of the rule
+     *   - rule: (integer) Rule UID.
      *
      * @return object  An object with the following properties:
      *   - descrip: (string) Rule description.
@@ -45,15 +46,14 @@ class Ingo_Ajax_Application_Smartmobile extends Horde_Core_Ajax_Application_Hand
             $out->error = 1;
         } else {
             $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
-            $rule = $storage->retrieve(Ingo_Storage::ACTION_FILTERS)
-                ->getRule($this->vars->rule);
+            $rule = $storage->getRuleByUid($this->vars->rule);
 
             if (!$rule) {
                 $notification->push(_("Rule not found."), 'horde.error');
                 $out->error = 1;
             } else {
-                $out->descrip = trim($storage->ruleDescription($rule));
-                $out->label = $rule['name'];
+                $out->descrip = $rule->description();
+                $out->label = $rule->name;
             }
         }
 

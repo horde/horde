@@ -2,17 +2,15 @@
  <input type="hidden" name="reload" value="<?php echo $this->h($this->reload) ?>" />
  <input type="hidden" name="actionID" value="<?php echo $this->target ?>" />
 
- <table class="importKeyTable">
-  <tr>
-   <td class="header leftAlign nowrap"<?php if ($this->target == 'process_import_personal_certs'): ?> colspan="2"<?php endif; ?>>
+ <h1 class="header">
 <?php if ($this->target == 'process_import_public_key'): ?>
     <?php echo _("Import Public S/MIME Key") ?>
 <?php else: ?>
     <?php echo _("Import Personal S/MIME Certificate") ?>
 <?php endif; ?>
-   </td>
-  </tr>
+ </h1>
 
+ <table class="importKeyTable">
 <?php if ($this->target == 'process_import_public_key'): ?>
   <tr>
    <td class="item leftAlign">
@@ -71,13 +69,10 @@
    </td>
   </tr>
 <?php endif; ?>
-
-  <tr>
-   <td align="center" class="header nowrap">
-    <input type="submit" name="import" class="horde-default" value="<?php echo _("Import") ?>" />
-    <input type="submit" name="cancel" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
-   </td>
-  </tr>
  </table>
 
+ <p class="horde-form-buttons">
+  <input type="submit" name="import" class="horde-default" value="<?php echo _("Import") ?>" />
+  <input type="submit" name="cancel" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
+ </p>
 </form>

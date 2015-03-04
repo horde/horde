@@ -91,7 +91,10 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         $changed = $this->_base->changed(true);
 
         if (is_null($changed)) {
-            $this->_base->addTask('viewport', new IMP_Ajax_Application_Viewport($this->_base->indices->mailbox));
+            $this->_base->addTask(
+                'viewport',
+                new IMP_Ajax_Application_Viewport_Error($this->_base->indices->mailbox)
+            );
             return true;
         }
 

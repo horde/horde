@@ -39,7 +39,6 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
 
         $this->_db = $params['db'];
         $this->_params = $params;
-        $this->_params['table'] = isset($params['table']) ? $params['table'] : 'kronolith_storage';
     }
 
     /**
@@ -55,8 +54,7 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
     public function search($email, $private_only = false)
     {
         /* Build the SQL query. */
-        $query = sprintf('SELECT vfb_serialized FROM %s WHERE vfb_email = ? AND (vfb_owner = ?',
-                         $this->_params['table']);
+        $query = 'SELECT vfb_serialized FROM kronolith_storage WHERE vfb_email = ? AND (vfb_owner = ?';
         $values = array($email, $this->_user);
 
         if ($private_only) {
@@ -89,8 +87,7 @@ class Kronolith_Storage_Sql extends Kronolith_Storage
     public function store($email, $vfb, $public = false)
     {
         /* Build the SQL query. */
-        $query = sprintf('INSERT INTO %s (vfb_owner, vfb_email, vfb_serialized) VALUES (?, ?, ?)',
-                         $this->_params['table']);
+        $query = 'INSERT INTO kronolith_storage (vfb_owner, vfb_email, vfb_serialized) VALUES (?, ?, ?)';
         $values = array($public ? '' : $this->_user, $email, Horde_Serialize::serialize($vfb, Horde_Serialize::BASIC));
 
         /* Execute the query. */

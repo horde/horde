@@ -59,7 +59,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
         switch ($driver) {
         case 'Sql':
             $params = array_merge(Horde::getDriverConfig('calendar', 'sql'), $params);
-            if ($params['driverconfig'] != 'Horde') {
+            if ($params['driverconfig'] != 'horde') {
                 $customParams = $params;
                 unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
                 $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);

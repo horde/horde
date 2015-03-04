@@ -28,9 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-12-31</date>
+ <date>2015-02-16</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -39,10 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
-* [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
-* [mjr] Add option to inject a logger object.
-* [mjr] Improve support for decompressing TNEF data.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -339,11 +336,13 @@
     <dir name="Horde">
      <dir name="Compress">
       <dir name="fixtures">
+       <file name="Itip_Reply.eml" role="test" />
        <file name="TnefAttachments.txt" role="test" />
        <file name="TnefAttachmentsMultiple.txt" role="test" />
        <file name="TnefMeetingRequest.txt" role="test" />
        <file name="tnef_vnote" role="test" />
        <file name="tnef_vtodo_fixture.txt" role="test" />
+       <file name="winmail2.dat" role="test" />
       </dir> <!-- /test/Horde/Compress/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
@@ -400,6 +399,13 @@
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.5.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -540,11 +546,13 @@
    <install as="Horde/Compress/RarTest.php" name="test/Horde/Compress/RarTest.php" />
    <install as="Horde/Compress/TnefTest.php" name="test/Horde/Compress/TnefTest.php" />
    <install as="Horde/Compress/ZipTest.php" name="test/Horde/Compress/ZipTest.php" />
+   <install as="Horde/Compress/fixtures/Itip_Reply.eml" name="test/Horde/Compress/fixtures/Itip_Reply.eml" />
    <install as="Horde/Compress/fixtures/TnefAttachments.txt" name="test/Horde/Compress/fixtures/TnefAttachments.txt" />
    <install as="Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" name="test/Horde/Compress/fixtures/TnefAttachmentsMultiple.txt" />
    <install as="Horde/Compress/fixtures/TnefMeetingRequest.txt" name="test/Horde/Compress/fixtures/TnefMeetingRequest.txt" />
    <install as="Horde/Compress/fixtures/tnef_vnote" name="test/Horde/Compress/fixtures/tnef_vnote" />
    <install as="Horde/Compress/fixtures/tnef_vtodo_fixture.txt" name="test/Horde/Compress/fixtures/tnef_vtodo_fixture.txt" />
+   <install as="Horde/Compress/fixtures/winmail2.dat" name="test/Horde/Compress/fixtures/winmail2.dat" />
    </filelist>
  </phprelease>
  <changelog>
@@ -928,13 +936,27 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-31</date>
+   <date>2015-02-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix decoding of Unicode Strings in TNEF MAPI attributes.
 * [mjr] Fix possible fatal error when parsing certain types of Vtodo files.
 * [mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
 * [mjr] Add option to inject a logger object.
 * [mjr] Improve support for decompressing TNEF data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

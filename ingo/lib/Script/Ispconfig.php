@@ -44,11 +44,11 @@ class Ingo_Script_Ispconfig extends Ingo_Script_Base
      * @var array
      */
     protected $_categories = array(
-        Ingo_Storage::ACTION_VACATION,
+        'Ingo_Rule_System_Vacation'
     );
 
     protected $_categoryFeatures = array(
-        Ingo_Storage::ACTION_VACATION => array('period', 'reason'),
+        'Ingo_Rule_System_Vacation' => array('period', 'reason'),
     );
 
     /**
@@ -56,18 +56,19 @@ class Ingo_Script_Ispconfig extends Ingo_Script_Base
      */
     protected function _generate()
     {
-        $filters = $this->_params['storage']
-            ->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = Ingo_Storage_FilterIterator_Skip::create(
+            $this->_params['storage'],
+            $this->_params['skip']
+        );
 
-        foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
-            switch ($filter['action']) {
-            case Ingo_Storage::ACTION_VACATION:
+        foreach ($filters as $rule) {
+            switch (get_class($rule)) {
+            case 'Ingo_Rule_System_Vacation':
                 $this->_addItem(
                     Ingo::RULE_VACATION,
-                    new Ingo_Script_Ispconfig_Vacation(
-                        array('vacation' => $this->_params['storage']->retrieve(Ingo_Storage::ACTION_VACATION),
-                              'disable' => !empty($filter['disable']))
-                    )
+                    new Ingo_Script_Ispconfig_Vacation(array(
+                        'vacation' => $rule
+                    ))
                 );
                 break;
             }

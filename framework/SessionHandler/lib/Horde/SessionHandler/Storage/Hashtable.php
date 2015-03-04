@@ -192,24 +192,27 @@ class Horde_SessionHandler_Storage_Hashtable extends Horde_SessionHandler_Storag
      */
     public function trackGC()
     {
-        $this->_hash->lock($this->_trackID);
+        try {
+            $this->_hash->lock($this->_trackID);
 
-        if ($ids = $this->_getTrackIds()) {
-            $alter = false;
+            if ($ids = $this->_getTrackIds()) {
+                $alter = false;
 
-            foreach (array_keys($ids) as $key) {
-                if (!$this->_hash->exists($key)) {
-                    unset($ids[$key]);
-                    $alter = true;
+                foreach (array_keys($ids) as $key) {
+                    if (!$this->_hash->exists($key)) {
+                        unset($ids[$key]);
+                        $alter = true;
+                    }
+                }
+
+                if ($alter) {
+                    $this->_hash->set($this->_trackID, json_encode($ids));
                 }
             }
 
-            if ($alter) {
-                $this->_hash->set($this->_trackID, json_encode($ids));
-            }
+            $this->_hash->unlock($this->_trackID);
+        } catch (Horde_HashTable_Exception $e) {
         }
-
-        $this->_hash->unlock($this->_trackID);
     }
 
     /**

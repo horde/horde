@@ -30,7 +30,7 @@ extends Horde_Mime_Headers_Identification
      *
      * @param string $prefix  A unique prefix to use.
      *
-     * @return Horde_Mime_Headers_Single_Messageid  Message-ID header object.
+     * @return Horde_Mime_Headers_MessageId  Message-ID header object.
      */
     public static function create($prefix = 'Horde')
     {

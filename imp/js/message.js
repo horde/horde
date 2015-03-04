@@ -88,7 +88,12 @@ var ImpMessage = {
     {
         var elt = $('msgHeader' + hdr.capitalize());
         if (elt) {
-            elt.show().down('TD', 1).replace(ImpCore.buildAddressLinks(data, elt.down('TD', 1).clone(false), limit));
+            elt = elt.show().down('TD:last');
+            ImpCore.buildAddressLinks(data, elt, limit);
+            if (hdr === 'from' && this.resent) {
+                ImpCore.buildResentHeader(elt, this.resent);
+                delete this.resent;
+            }
         }
     },
 

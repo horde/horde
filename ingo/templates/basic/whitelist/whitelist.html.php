@@ -9,15 +9,16 @@
 <?php endif; ?>
  </h1>
 
- <div>
-  <em><?php echo $this->hordeLabel('whitelist', _("Wh_itelist addresses:")) ?></em>
+ <div class="whitelistDiv">
+  <em><?php echo $this->hordeLabel('whitelist', _("_Whitelist addresses:")) ?></em>
+  <?php echo $this->hordeHelp('ingo', 'whitelist-addresses') ?>
  </div>
 
- <div>
+ <div class="whitelistDiv">
   <textarea name="whitelist" id="whitelist" rows="15" cols="80"><?php echo $this->h($this->whitelist) ?></textarea>
  </div>
 
- <div class="control">
+ <div class="horde-form-buttons">
   <input class="horde-default" type="submit" value="<?php echo _("Save") ?>" />
   <input type="button" id="whitelist_return" value="<?php echo _("Return to Rules List") ?>" />
  </div>

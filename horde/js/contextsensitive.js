@@ -317,12 +317,19 @@ var ContextSensitive = Class.create({
         eltL = elt.getLayout();
         h = eltL.get('border-box-height');
         w = eltL.get('border-box-width');
-        elt.hide().setStyle({ visibility: 'visible' });
+        elt.hide().setStyle({
+            height: 'auto',
+            visibility: 'visible'
+        });
         v = document.viewport.getDimensions();
 
         // Make sure context window is entirely on screen
-        if ((y + h) > v.height) {
-            y = v.height - h - 2;
+        if ((y + h + 5) > v.height) {
+            y = Math.max(5, v.height - h - 5);
+
+            if (h - 10 > v.height) {
+                elt.setStyle({ height: (v.height - 10) + 'px' });
+            }
         }
 
         if ((x + w) > v.width) {

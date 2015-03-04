@@ -70,7 +70,7 @@ class Horde_Mapi_Timezone
      */
     public static function getOffsetsFromSyncTZ($data)
     {
-        if (PHP_MINOR_VERSION >= 5) {
+        if (version_compare(PHP_VERSION, '5.5', '>=')) {
             $format = 'lbias/Z64stdname/vstdyear/vstdmonth/vstdday/vstdweek/vstdhour/vstdminute/vstdsecond/vstdmillis/'
                 . 'lstdbias/Z64dstname/vdstyear/vdstmonth/vdstday/vdstweek/vdsthour/vdstminute/vdstsecond/vdstmillis/'
                 . 'ldstbias';
@@ -151,8 +151,12 @@ class Horde_Mapi_Timezone
         );
 
         $timezone = $date->toDateTime()->getTimezone();
-        list($std, $dst) = self::_getTransitions($timezone, $date);
-        if ($std) {
+        // If transition parsing failed, we won't have a multi-element array.
+        $transitions = self::_getTransitions($timezone, $date);
+        if (!empty($transitions)) {
+            list($std, $dst) = self::_getTransitions($timezone, $date);
+        }
+        if (!empty($std)) {
             $offsets['bias'] = $std['offset'] / 60 * -1;
             if ($dst) {
                 $offsets = self::_generateOffsetsForTransition($offsets, $std, 'std');
@@ -183,6 +187,10 @@ class Horde_Mapi_Timezone
             mktime(0, 0, 0, 12, 1, $date->year - 1),
             mktime(24, 0, 0, 12, 31, $date->year)
         );
+
+        if ($transitions === false) {
+            return array();
+        }
 
         foreach ($transitions as $i => $transition) {
             try {

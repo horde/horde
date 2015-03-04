@@ -459,26 +459,38 @@ extends PHPUnit_Framework_TestCase
     public function testAcceptResultContainsAcceptMimeMessage()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals("Mr. Test has accepted the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
+        $msg = $this->_getMimeMessage();
+        $this->assertEquals(
+            "Mr. Test has accepted the invitation to the following event:\n\nTest Invitation",
+            str_replace("\r", '', trim($msg[1]->getContents()))
+        );
     }
 
     public function testDenyResultContainsDeclineMimeMessage()
     {
         $this->_doImple('deny', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals("Mr. Test has declined the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
+        $msg = $this->_getMimeMessage();
+        $this->assertEquals(
+            "Mr. Test has declined the invitation to the following event:\n\nTest Invitation",
+            str_replace("\r", '', trim($msg[1]->getContents()))
+        );
     }
 
     public function testTentativeResultContainsTentativeMimeMessage()
     {
         $this->_doImple('tentative', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals("Mr. Test has tentatively accepted the invitation to the following event:\n\nTest Invitation", str_replace("\r", '', trim($this->_getMimeMessage()->getPart(1)->getContents())));
+        $msg = $this->_getMimeMessage();
+        $this->assertEquals(
+            "Mr. Test has tentatively accepted the invitation to the following event:\n\nTest Invitation",
+            str_replace("\r", '', trim($msg[1]->getContents()))
+        );
     }
 
     public function testResultMimeMessagePartTwoHasFileName()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $ics = $this->_getMimeMessage()->getPart(2);
-        if (!$ics) {
+        $msg = $this->_getMimeMessage();
+        if (!($ics = $msg[2])) {
             $this->fail('Missing second message part!');
         }
         $this->assertEquals('event-reply.ics', $ics->getName());
@@ -487,8 +499,8 @@ extends PHPUnit_Framework_TestCase
     public function testResultMimeMessagePartTwoHasContentTypeParameter()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $ics = $this->_getMimeMessage()->getPart(2);
-        if (!$ics) {
+        $msg = $this->_getMimeMessage();
+        if (!($ics = $msg[2])) {
             $this->fail('Missing second message part!');
         }
         $this->assertEquals('REPLY', $ics->getContentTypeParameter('METHOD'));
@@ -616,8 +628,7 @@ extends PHPUnit_Framework_TestCase
     private function _getIcalendar()
     {
         $part = $this->_getMimeMessage();
-        $ics = $part->getPart(2);
-        if (!$ics) {
+        if (!($ics = $part[2])) {
             $this->fail('Missing second message part!');
         }
         $iCal = new Horde_Icalendar();

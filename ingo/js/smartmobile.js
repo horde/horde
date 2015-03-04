@@ -39,7 +39,7 @@ var IngoMobile = {
         HordeMobile.doAction(
             'smartmobileRule',
             {
-                rule: purl.params.rulenum
+                rule: purl.params.uid
             },
             IngoMobile.ruleLoaded
         );

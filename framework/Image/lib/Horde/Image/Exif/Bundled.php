@@ -65,40 +65,31 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
      */
     protected function _readData($path)
     {
-        // There may be an elegant way to do this with one file handle.
         if (is_resource($path)) {
-            $in = $path;
-            rewind($in);
-            $seek = fopen('php://temp/', 'r+');
-            while (!feof($in)) {
-                fwrite($seek, fread($in, 65536));
-            }
-            rewind($in);
+            $in = new Horde_Stream_Existing(array('stream' => $path));
+            $in->rewind();
         } else {
-            $in = @fopen($path, 'rb');
-            $seek = @fopen($path, 'rb');
+            $in = new Horde_Stream_Existing(array('stream' => @fopen($path, 'rb')));
         }
-
         $globalOffset = 0;
         $result = array('Errors' => 0);
 
         // if the path was invalid, this error will catch it
-        if (!$in || !$seek) {
+        if (!$in) {
             $result['Errors'] = 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("The file could not be opened.");
             return $result;
         }
 
         // First 2 bytes of JPEG are 0xFFD8
-        $data = bin2hex(fread($in, 2));
+        $data = bin2hex($in->substring(0, 2));
         if ($data == 'ffd8') {
             $result['ValidJpeg'] = 1;
         } else {
             $result['ValidJpeg'] = 0;
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
@@ -109,18 +100,18 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         $result['ValidCOMData'] = 0;
 
         // Next 2 bytes are marker tag (0xFFE#)
-        $data = bin2hex(fread($in, 2));
-        $size = bin2hex(fread($in, 2));
+        $data = bin2hex($in->substring(0, 2));
+        $size = bin2hex($in->substring(0, 2));
 
         // Loop through markers till you get to FFE1 (Exif marker)
-        while(!feof($in) && $data != 'ffe1' && $data != 'ffc0' && $data != 'ffd9') {
+        while(!$in->eof() && $data != 'ffe1' && $data != 'ffc0' && $data != 'ffd9') {
             switch ($data) {
             case 'ffe0':
                 // JFIF Marker
                 $result['ValidJFIFData'] = 1;
                 $result['JFIF']['Size'] = hexdec($size);
                 if (hexdec($size) - 2 > 0) {
-                    $data = fread($in, hexdec($size) - 2);
+                    $data = $in->substring(0, hexdec($size) - 2);
                     $result['JFIF']['Data'] = $data;
                 }
                 $result['JFIF']['Identifier'] = substr($data, 0, 5);
@@ -133,7 +124,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 $result['ValidIPTCData'] = 1;
                 $result['IPTC']['Size'] = hexdec($size);
                 if (hexdec($size) - 2 > 0) {
-                    $data = fread($in, hexdec($size) - 2);
+                    $data = $in->substring(0, hexdec($size) - 2);
                     $result['IPTC']['Data'] = $data ;
                 }
                 $globalOffset += hexdec($size) + 2;
@@ -144,7 +135,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 $result['ValidAPP2Data'] = 1;
                 $result['APP2']['Size'] = hexdec($size);
                 if (hexdec($size) - 2 > 0) {
-                    $data = fread($in, hexdec($size) - 2);
+                    $data = $in->substring(0, hexdec($size) - 2);
                     $result['APP2']['Data'] = $data ;
                 }
                 $globalOffset += hexdec($size) + 2;
@@ -155,7 +146,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 $result['ValidCOMData'] = 1;
                 $result['COM']['Size'] = hexdec($size);
                 if (hexdec($size) - 2 > 0) {
-                    $data = fread($in, hexdec($size) - 2);
+                    $data = $in->substring(0, hexdec($size) - 2);
                     $result['COM']['Data'] = $data ;
                 }
                 $globalOffset += hexdec($size) + 2;
@@ -166,15 +157,14 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 break;
             }
 
-            $data = bin2hex(fread($in, 2));
-            $size = bin2hex(fread($in, 2));
+            $data = bin2hex($in->substring(0, 2));
+            $size = bin2hex($in->substring(0, 2));
         }
 
         if ($data != 'ffe1') {
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
@@ -184,10 +174,10 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         $result['APP1Size'] = hexdec($size);
 
         // Start of APP1 block starts with 'Exif' header (6 bytes)
-        $header = fread($in, 6);
+        $header = $in->substring(0, 6);
 
         // Then theres a TIFF header with 2 bytes of endieness (II or MM)
-        $header = fread($in, 2);
+        $header = $in->substring(0, 2);
         switch ($header) {
         case 'II':
             $intel = 1;
@@ -205,11 +195,15 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // 2 bytes of 0x002a
-        $tag = bin2hex(fread( $in, 2 ));
+        if (bin2hex($in->substring(0, 2)) != '002a') {
+            $result['Errors'] = $result['Errors'] + 1;
+            $result['Error'][$result['Errors']] = 'Unexpected value.';
+            return $result;
+        }
 
         // Then 4 bytes of offset to IFD0 (usually 8 which includes all 8 bytes
         // of TIFF header)
-        $offset = bin2hex(fread($in, 4));
+        $offset = bin2hex($in->substring(0, 4));
         if ($intel == 1) {
             $offset = Horde_Image_Exif::intel2Moto($offset);
         }
@@ -218,14 +212,13 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         if (hexdec($offset) > 100000) {
             $result['ValidEXIFData'] = 0;
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
         if (hexdec($offset) > 8) {
-            $unknown = fread($in, hexdec($offset) - 8);
+            $unknown = $in->substring(0, hexdec($offset) - 8);
         }
 
         // add 12 to the offset to account for TIFF header
@@ -233,7 +226,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 
         //===========================================================
         // Start of IFD0
-        $num = bin2hex(fread($in, 2));
+        $num = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
@@ -243,7 +236,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // 1000 entries is too much and is probably an error.
         if ($num < 1000) {
             for ($i = 0; $i < $num; $i++) {
-                $this->_readEntry($result, $in, $seek, $intel, 'IFD0', $globalOffset);
+                $this->_readEntry($result, $in, $intel, 'IFD0', $globalOffset);
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
@@ -251,7 +244,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // store offset to IFD1
-        $offset = bin2hex(fread($in, 4));
+        $offset = bin2hex($in->substring(0, 4));
         if ($intel == 1) {
             $offset = Horde_Image_Exif::intel2Moto($offset);
         }
@@ -261,23 +254,21 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         if (!isset($result['IFD0']['ExifOffset']) ||
             $result['IFD0']['ExifOffset'] == 0) {
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
         // seek to SubIFD (Value of ExifOffset tag) above.
         $ExitOffset = $result['IFD0']['ExifOffset'];
-        $v = fseek($in, $globalOffset + $ExitOffset);
-        if ($v == -1) {
+        if (!$in->seek($globalOffset + $ExifOffset, false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find SubIFD");
         }
 
         //===========================================================
         // Start of SubIFD
-        $num = bin2hex(fread($in, 2));
+        $num = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
@@ -287,7 +278,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // 1000 entries is too much and is probably an error.
         if ($num < 1000) {
             for ($i = 0; $i < $num; $i++) {
-                $this->_readEntry($result, $in, $seek, $intel, 'SubIFD', $globalOffset);
+                $this->_readEntry($result, $in, $intel, 'SubIFD', $globalOffset);
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
@@ -301,22 +292,20 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // Check for IFD1
         if (!isset($result['IFD1Offset']) || $result['IFD1Offset'] == 0) {
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
         // seek to IFD1
-        $v = fseek($in, $globalOffset + $result['IFD1Offset']);
-        if ($v == -1) {
+        if (!$in->seek($globalOffset + $result['IFD1Offset'], false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find IFD1");
         }
 
         //===========================================================
         // Start of IFD1
-        $num = bin2hex(fread($in, 2));
+        $num = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
@@ -326,7 +315,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // 1000 entries is too much and is probably an error.
         if ($num < 1000) {
             for ($i = 0; $i < $num; $i++) {
-                $this->_readEntry($result, $in, $seek, $intel, 'IFD1', $globalOffset);
+                $this->_readEntry($result, $in, $intel, 'IFD1', $globalOffset);
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
@@ -336,10 +325,10 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // include the thumbnail raw data...
         if ($result['IFD1']['JpegIFOffset'] > 0 &&
             $result['IFD1']['JpegIFByteCount'] > 0) {
-            $v = fseek($seek, $globalOffset + $result['IFD1']['JpegIFOffset']);
-            if ($v == 0) {
-                $data = fread($seek, $result['IFD1']['JpegIFByteCount']);
-            } else if ($v == -1) {
+            $cpos = $in->pos();
+            if ($in->seek($globalOffset + $result['IFD1']['JpegIFOffset'], false)) {
+                $data = $in->substring(0, $result['IFD1']['JpegIFByteCount']);
+            } else {
                 $result['Errors'] = $result['Errors'] + 1;
             }
             $result['IFD1']['ThumbnailData'] = $data;
@@ -349,22 +338,20 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         if (!isset($result['SubIFD']['ExifInteroperabilityOffset']) ||
             $result['SubIFD']['ExifInteroperabilityOffset'] == 0) {
             if (!is_resource($path)) {
-                fclose($in);
+                $in->close();
             }
-            fclose($seek);
             return $result;
         }
 
         // Seek to InteroperabilityIFD
-        $v = fseek($in, $globalOffset + $result['SubIFD']['ExifInteroperabilityOffset']);
-        if ($v == -1) {
+        if (!$in->seek($globalOffset + $result['SubIFD']['ExifInteroperabilityOffset'], false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find InteroperabilityIFD");
         }
 
         //===========================================================
         // Start of InteroperabilityIFD
-        $num = bin2hex(fread($in, 2));
+        $num = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $num = Horde_Image_Exif::intel2Moto($num);
         }
@@ -374,7 +361,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         // 1000 entries is too much and is probably an error.
         if ($num < 1000) {
             for ($i = 0; $i < $num; $i++) {
-                $this->_readEntry($result, $in, $seek, $intel, 'InteroperabilityIFD', $globalOffset);
+                $this->_readEntry($result, $in, $intel, 'InteroperabilityIFD', $globalOffset);
             }
         } else {
             $result['Errors'] = $result['Errors'] + 1;
@@ -382,9 +369,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         if (!is_resource($path)) {
-            fclose($in);
+            $in->close();
         }
-        fclose($seek);
+
         return $result;
     }
 
@@ -392,44 +379,42 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
      *
      * @param $result
      * @param $in
-     * @param $seek
      * @param $intel
      * @param $ifd_name
      * @param $globalOffset
      * @return unknown_type
      */
-    protected function _readEntry(&$result, $in, $seek, $intel, $ifd_name,
-                                  $globalOffset)
+    protected function _readEntry(&$result, $in, $intel, $ifd_name, $globalOffset)
     {
         // Still ok to read?
-        if (feof($in)) {
+        if ($in->eof()) {
             $result['Errors'] = $result['Errors'] + 1;
             return;
         }
 
         // 2 byte tag
-        $tag = bin2hex(fread($in, 2));
+        $tag = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $tag = Horde_Image_Exif::intel2Moto($tag);
         }
         $tag_name = $this->_lookupTag($tag);
 
         // 2 byte datatype
-        $type = bin2hex(fread($in, 2));
+        $type = bin2hex($in->substring(0, 2));
         if ($intel == 1) {
             $type = Horde_Image_Exif::intel2Moto($type);
         }
         $this->_lookupType($type, $size);
 
         // 4 byte number of elements
-        $count = bin2hex(fread($in, 4));
+        $count = bin2hex($in->substring(0, 4));
         if ($intel == 1) {
             $count = Horde_Image_Exif::intel2Moto($count);
         }
         $bytesofdata = $size * hexdec($count);
 
         // 4 byte value or pointer to value if larger than 4 bytes
-        $value = fread($in, 4);
+        $value = $in->substring(0, 4);
 
         // if datatype is 4 bytes or less, its the value
         if ($bytesofdata <= 4) {
@@ -441,10 +426,15 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 $value = Horde_Image_Exif::intel2Moto($value);
             }
             // offsets are from TIFF header which is 12 bytes from the start of file
-            $v = fseek($seek, $globalOffset+hexdec($value));
-            if ($v == 0) {
-                $data = fread($seek, $bytesofdata);
-            } elseif ($v == -1) {
+            // @todo can we just use
+            // $in->getString($globalOffset + hexdec($value), $globalOffset + hexdec($value) + $bytesofdata);
+            // ?? Not clear from Horde_Stream docs about expected behavior if
+            // eof is reached.
+            $cpos = $in->pos();
+            if ($in->seek($globalOffset + hexdec($value), false)) {
+                $data = $in->substring(0, $bytesofdata);
+                $in->seek($cpos, false);
+            } else {
                 $result['Errors'] = $result['Errors'] + 1;
             }
         } else {
@@ -480,7 +470,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
                 $result[$ifd_name]['KnownMaker'] = 0;
             }
             if ($parser) {
-                $parser->parse($data, $result, $seek, $globalOffset);
+                $cpos = $in->pos();
+                $parser->parse($data, $result, $in, $globalOffset);
+                $in->seek($cpos, false);
             }
             break;
 
@@ -488,7 +480,9 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             $formated_data = $this->_formatData($type, $tag, $intel, $data);
             $result[$ifd_name]['GPSInfo'] = $formated_data;
             $parser = new Horde_Image_Exif_Parser_Gps();
-            $parser->parse($data, $result, $formated_data, $seek, $globalOffset);
+            $cpos = $in->pos();
+            $parser->parse($data, $result, $formated_data, $in, $globalOffset);
+            $in->seek($cpos, false);
             break;
 
         default:

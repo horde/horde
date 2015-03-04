@@ -11,6 +11,104 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.8
+================
+
+  - Horde_Mime_Part
+
+    - $encodingTypes
+    - $mimeTypes
+
+      These static properties are deprecated.
+
+    - Iteration
+
+      The object can now be iterated through to access the subparts.
+      partIterator() can be used to obtain a RecursiveIteratorIterator that
+      will iterator through all descendants.
+      The $parent property has been added; it will be set, and is only
+      guaranteed to be accurate, during iteration.
+
+    - addPart()
+
+      This method is deprecated. Use array access to add a subpart (e.g.
+      $part[] = $new_part).
+
+    - alterPart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to alter a subpart.
+
+    - clearContentTypeParameter()
+
+      This method is deprecated. Use Horde_Mime_Part#setContentTypeParameter()
+      instead with null as the second argument to delete a Content-Type
+      parameter.
+
+    - contentTypeMap()
+
+      This method is deprecated. Use partIterator() to recursively iterate
+      through the parts instead.
+
+    - getPart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to obtain a subpart.
+
+    - setContentTypeParameter()
+
+      Passing null as the second argument will cause the Content-Type
+      parameter identified by the first argument to be deleted.
+
+    - setDispositionParameter()
+
+      Passing null as the second argument will cause the Content-Disposition
+      parameter identified by the first argument to be deleted.
+
+    - setDescription()
+
+      Passing null as the argument will cause the description to be deleted.
+
+    - removePart()
+
+      This method is deprecated. Use array access (with the MIME ID as the
+      key) to remove a subpart.
+
+  - Horde_Mime_Headers_ContentId
+  - Horde_Mime_Headers_ContentLanguage
+  - Horde_Mime_Headers_ContentParam_ContentDisposition
+  - Horde_Mime_Headers_ContentParam_ContentType
+  - Horde_Mime_Headers_ContentTransferEncoding
+  - Horde_Mime_Headers_Mime
+
+    These classes have been added.
+
+  - Horde_Mime_Headers_Element
+
+    - isDefault()
+
+      This method has been added.
+
+  - Horde_Mime_Headers_Extension_Mime
+
+    This interface has been added.
+
+  - Horde_Mime_Headers_ContentParam
+
+    - setContentParamValue()
+
+      This method has been added.
+
+
+
+Upgrading to 2.7
+================
+
+  - Horde_Mime_Headers_ContentDescription
+
+    This class has been added.
+
+
 Upgrading to 2.6
 ================
 
@@ -48,7 +146,7 @@ Upgrading to 2.5
 
     - generateMessageId()
 
-      This method is deprecated. Use Horde_Mime_Headers_Messageid::create()
+      This method is deprecated. Use Horde_Mime_Headers_MessageId::create()
       instead.
 
     - is8bit()

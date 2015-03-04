@@ -223,7 +223,7 @@ class Horde_Image_Exif_Parser_Olympus extends Horde_Image_Exif_Parser_Base
                 }
                 //offsets are from TIFF header which is 12 bytes from the start
                 //of the file
-                $v = fseek($seek, $globalOffset + hexdec($value));
+                // $v = fseek($seek, $globalOffset + hexdec($value));
                 $result['Errors'] = $result['Errors']++;
                 $data = '';
             }

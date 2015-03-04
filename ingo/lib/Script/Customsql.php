@@ -46,7 +46,7 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
      * @var array
      */
     protected $_categories = array(
-        Ingo_Storage::ACTION_VACATION,
+        'Ingo_Rule_System_Vacation'
     );
 
     /**
@@ -59,7 +59,7 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
      * @var array
      */
     protected $_categoryFeatures = array(
-        Ingo_Storage::ACTION_VACATION => array(
+        'Ingo_Rule_System_Vacation' => array(
             'subject', 'reason'
         )
     );
@@ -69,11 +69,14 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
      */
     protected function _generate()
     {
-        $filters = $this->_params['storage']
-             ->retrieve(Ingo_Storage::ACTION_FILTERS);
-        foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
-            switch ($filter['action']) {
-            case Ingo_Storage::ACTION_VACATION:
+        $filters = Ingo_Storage_FilterIterator_Skip::create(
+            $this->_params['storage'],
+            $this->_params['skip']
+        );
+
+        foreach ($filters as $rule) {
+            switch (get_class($rule)) {
+            case 'Ingo_Rule_System_Vacation':
                 $this->_addItem(
                     Ingo::RULE_VACATION,
                     new Ingo_Script_String(
@@ -81,16 +84,15 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
                                              Ingo::RULE_VACATION)
                     )
                 );
-                if (!empty($filter['disable'])) {
-                    break;
+                if (!$rule->disable) {
+                    $this->_addItem(
+                        Ingo::RULE_VACATION,
+                        new Ingo_Script_String(
+                            $this->_placeHolders($this->_params['vacation_set'],
+                                                 Ingo::RULE_VACATION)
+                        )
+                    );
                 }
-                $this->_addItem(
-                    Ingo::RULE_VACATION,
-                    new Ingo_Script_String(
-                        $this->_placeHolders($this->_params['vacation_set'],
-                                             Ingo::RULE_VACATION)
-                    )
-                );
                 break;
             }
         }
@@ -122,12 +124,11 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
 
         switch ($rule) {
         case Ingo::RULE_VACATION:
-            $vacation = $this->_params['storage']
-              ->retrieve(Ingo_Storage::ACTION_VACATION);
+            $vacation = $this->_params['storage']->getSystemRule('Ingo_Rule_System_Vacation');
             $search[] = '%m';
             $search[] = '%s';
-            $replace[] = $transport->quote($vacation->getVacationReason());
-            $replace[] = $transport->quote($vacation->getVacationSubject());
+            $replace[] = $transport->quote($vacation->reason);
+            $replace[] = $transport->quote($vacation->subject);
             break;
         }
 

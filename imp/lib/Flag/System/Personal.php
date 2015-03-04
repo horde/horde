@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Flag_System_Personal extends IMP_Flag_System_Match_Address
+class IMP_Flag_System_Personal
+extends IMP_Flag_Base
+implements IMP_Flag_Match_Address
 {
     /**
      */
@@ -38,9 +40,8 @@ class IMP_Flag_System_Personal extends IMP_Flag_System_Match_Address
     }
 
     /**
-     * @param string $data  E-mail address.
      */
-    public function match($data)
+    public function matchAddress($data)
     {
         return ($data instanceof Horde_Mail_Rfc822_List)
             ? $GLOBALS['injector']->getInstance('IMP_Identity')->hasAddress($data)

@@ -592,7 +592,7 @@ $_prefs['reply_lang'] = array(
 // See http://docs.cksource.com/CKEditor_3.x/Developers_Guide/Toolbar for
 // details on configuration
 $_prefs['ckeditor_buttons'] = array(
-    'value' => "[['Bold','Italic','Underline'],['Font','FontSize'],['TextColor','BGColor'],['Cut','Copy','Paste'],['Undo','Redo'],['Link','Unlink'],['Image','Table','Smiley','SpecialChar']]",
+    'value' => "[['Bold','Italic','Underline'],['Font','FontSize'],['TextColor','BGColor'],['Cut','Copy','Paste'],['Undo','Redo'],['NumberedList','BulletedList'],['Link','Unlink'],['Image','Table','Smiley','SpecialChar']]",
     // Very basic set of buttons:
     // 'value' => "['Bold','Italic','-','NumberedList','BulletedList','-','Link','Unlink']",
     // More advanced set of buttons (default for IMP < 6.2):

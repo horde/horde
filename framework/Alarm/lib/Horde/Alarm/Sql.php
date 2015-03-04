@@ -140,17 +140,31 @@ class Horde_Alarm_Sql extends Horde_Alarm
         if (!strlen($params) && strlen($alarm['alarm_params'])) {
             $params = $alarm['alarm_params'];
         }
+
+        try {
+            $params = @unserialize($params);
+        } catch (Exception $e) {
+            $params = array();
+        }
+
+        $internal = null;
+        if (!empty($alarm['alarm_internal'])) {
+            try {
+                $internal = @unserialize($alarm['alarm_internal']);
+            } catch (Exception $e) {}
+        }
+
         return array(
             'id' => $alarm['alarm_id'],
             'user' => $alarm['alarm_uid'],
             'start' => new Horde_Date($alarm['alarm_start'], 'UTC'),
             'end' => empty($alarm['alarm_end']) ? null : new Horde_Date($alarm['alarm_end'], 'UTC'),
             'methods' => @unserialize($alarm['alarm_methods']),
-            'params' => @unserialize($params),
+            'params' => $params,
             'title' => $this->_fromDriver($alarm['alarm_title']),
             'text' => $this->_fromDriver($alarm['alarm_text']),
             'snooze' => empty($alarm['alarm_snooze']) ? null : new Horde_Date($alarm['alarm_snooze'], 'UTC'),
-            'internal' => empty($alarm['alarm_internal']) ? null : @unserialize($alarm['alarm_internal'])
+            'internal' => $internal
         );
     }
 

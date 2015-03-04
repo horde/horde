@@ -62,7 +62,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
+            $show_msg = new IMP_Contents_Message($this->indices);
             $msg_res = $show_msg->showMessage();
         } catch (IMP_Exception $e) {
             $notification->notify(array(
@@ -74,17 +74,33 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             exit;
         }
 
+        /* Add 'maillog' and 'poll' data to the AJAX queue. */
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $ajax_queue->maillog($this->indices);
         $ajax_queue->poll($this->indices->mailbox);
 
         list(,$buid) = $this->indices->buids->getSingle();
 
         /* Need to be dynamically added, since formatting needs to be applied
          * via javascript. */
-        foreach (array('from', 'to', 'cc', 'bcc', 'log') as $val) {
-            if (!empty($msg_res[$val])) {
-                $js_vars['ImpMessage.' . $val] = $msg_res[$val];
+        foreach (array('from', 'to', 'cc', 'bcc') as $val) {
+            if ($tmp = $show_msg->getAddressHeader($val)) {
+                $js_vars['ImpMessage.' . $val] = $tmp;
             }
+        }
+        if ($resent = $show_msg->getResentData()) {
+            $resent_js = array();
+            foreach ($resent as $val) {
+                $resent_js[] = array(
+                    'date' => $val['date']->format($val['date']::DATE_LOCAL),
+                    'from' => $show_msg->getAddressHeader($val['from'])
+                );
+            }
+            $js_vars['ImpMessage.resent'] = $resent_js;
+        }
+
+        if (isset($msg_res['log'])) {
+            $js_vars['ImpMessage.log'] = $msg_res['log'];
         }
 
         $list_info = $show_msg->contents->getListInformation();
@@ -103,9 +119,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $js_vars['ImpMessage.mbox'] = $this->indices->mailbox->form_to;
         if (isset($msg_res['atc'])) {
             $js_vars['ImpMessage.msg_atc'] = $msg_res['atc'];
-            $this->js_text += array(
-                'atc_downloadall' => _("Download All (%s)")
-            );
+            $this->js_text['atc_downloadall'] = _("Download All (%s)");
         }
         if (isset($msg_res['md'])) {
             $js_vars['ImpMessage.msg_md'] = $msg_res['md'];
@@ -119,13 +133,22 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $this->_pages[] = 'message';
 
+        $subject = $show_msg->getSubject();
+        $this->view->subject = isset($subject['subjectlink'])
+            ? $subject['subjectlink']
+            : $subject['subject'];
+        $this->title = $subject['title'];
+
         /* Determine if compose mode is disabled. */
         if (IMP_Compose::canCompose()) {
             $this->view->qreply = $injector
                 ->getInstance('IMP_Dynamic_Compose_Common')
                 ->compose(
                     $this,
-                    array('title' => _("Message") . ': ' . $msg_res['subject']));
+                    array(
+                        'title' => _("Message") . ': ' . $subject['subject']
+                    )
+                );
 
             $this->_pages[] = 'qreply';
 
@@ -143,15 +166,12 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->view->show_view_all = empty($msg_res['onepart']);
         $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
 
-        $this->view->save_as = $msg_res['save_as'];
-        $this->view->subject = isset($msg_res['subjectlink'])
-            ? $msg_res['subjectlink']
-            : $msg_res['subject'];
+        $this->view->save_as = $show_msg->getSaveAs();
 
-        if (isset($msg_res['datestamp'])) {
-            $this->view->datestamp = $msg_res['datestamp'];
-            $this->view->fulldate = $msg_res['fulldate'];
-            $this->view->localdate = $msg_res['localdate'];
+        if ($date = $show_msg->getDateOb()) {
+            $this->view->datestamp = $date->format($date::DATE_ISO_8601);
+            $this->view->fulldate = $date->format($date::DATE_FORCE);
+            $this->view->localdate = $date->format($date::DATE_LOCAL);
             $this->view->addHelper('Text');
         }
 
@@ -167,7 +187,6 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         ));
         $this->view->status = Horde::endBuffer();
 
-        $this->title = $msg_res['title'];
         $this->view->title = $this->title;
     }
 

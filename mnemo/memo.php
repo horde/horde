@@ -64,6 +64,7 @@ function getShare($notepad)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('mnemo');
+$user = $registry->getAuth();
 
 /* Redirect to the notepad view if no action has been requested. */
 $memo_id = Horde_Util::getFormData('memo');
@@ -96,7 +97,7 @@ case 'add_memo':
             Horde::url('list.php', true)->redirect();
         }
     }
-    if (!getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+    if (!getShare($memolist_id)->hasPermission($user, Horde_Perms::EDIT)) {
         $notification->push(_("Access denied addings notes to this notepad."), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
@@ -110,7 +111,7 @@ case 'add_memo':
     break;
 
 case 'modify_memo':
-    if (!getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+    if (!getShare($memolist_id)->hasPermission($user, Horde_Perms::EDIT)) {
         $notification->push(_("Access denied editing note."), 'horde.error');
         Horde::url('list.php', true)->redirect();
     }
@@ -151,7 +152,7 @@ case 'save_memo':
     // Save the memolist in case saving fails Bug: 12855
     $memolist_id = $notepad_target;
 
-    if (!getShare($notepad_target)->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+    if (!getShare($notepad_target)->hasPermission($user, Horde_Perms::EDIT)) {
         $notification->push(
             _("Access denied saving note to this notepad."),
             'horde.error'
@@ -183,7 +184,7 @@ case 'save_memo':
                 ->create($memolist_original);
             if ($memolist_original != $notepad_target) {
                 /* Moving the note to another notepad. */
-                if (!getShare($memolist_original)->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+                if (!getShare($memolist_original)->hasPermission($user, Horde_Perms::DELETE)) {
                     $notification->push(_("Access denied moving the note."), 'horde.error');
                 } else {
                     $storage->move($memo_id, $notepad_target);
@@ -237,7 +238,7 @@ case 'save_memo':
 case 'delete_memos':
     /* Delete the note if we're provided with a valid note ID. */
     if (!is_null($memo_id) && Mnemo::getMemo($memolist_id, $memo_id)) {
-        if (getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+        if (getShare($memolist_id)->hasPermission($user, Horde_Perms::DELETE)) {
             $storage = $injector->getInstance('Mnemo_Factory_Driver')
                 ->create($memolist_id);
             try {
@@ -286,7 +287,10 @@ if (!$view->modify || !$view->passphrase) {
     $view->loadingImg = Horde::img('loading.gif', _("Loading..."));
     $view->notepads = array();
     if (!$prefs->isLocked('default_notepad')) {
-        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $id => $notepad) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::SHOW) as $id => $notepad) {
+            if (!$notepad->hasPermission($user, Horde_Perms::EDIT)) {
+                continue;
+            }
             $view->notepads[] = array(
                 'id' => $id,
                 'selected' => $id == $memolist_id,
@@ -296,7 +300,7 @@ if (!$view->modify || !$view->passphrase) {
     }
     $view->tags = implode(', ', $memo_tags);
     if ($memo_id &&
-        $mnemo_shares->getShare($memolist_id)->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+        $mnemo_shares->getShare($memolist_id)->hasPermission($user, Horde_Perms::DELETE)) {
         $view->delete = Horde::url('memo.php')->add(array(
             'memo' => $memo_id,
             'memolist' => $memolist_id,

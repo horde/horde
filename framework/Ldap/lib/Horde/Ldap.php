@@ -34,6 +34,7 @@ class Horde_Ldap
      * - user:           configuration parameters for {@link findUserDN()},
      *                   must contain 'uid', and may contain 'basedn'
      *                   entries.
+     * - timeout:        Connection timeout in seconds (defaults to 5).
      * - auto_reconnect: if true, the class will automatically
      *                   attempt to reconnect to the LDAP server in certain
      *                   failure conditions when attempting a search, or other
@@ -59,6 +60,7 @@ class Horde_Ldap
         'filter'          => '(objectClass=*)',
         'scope'           => 'sub',
         'user'            => array(),
+        'timeout'         => 5,
         'auto_reconnect'  => false,
         'min_backoff'     => 1,
         'current_backoff' => 1,
@@ -307,8 +309,21 @@ class Horde_Ldap
              * need it later. */
             $this->_config['hostspec'] = $host;
 
+            /* The ldap extension doesn't allow to provide connection timeouts
+             * and seems to default to 2 minutes. Open a socket manually
+             * instead to ping the server. */
+            $failed = true;
+            $url = @parse_url($host);
+            $sockhost = !empty($url['host']) ? $url['host'] : $host;
+            if ($fp = @fsockopen($sockhost, $this->_config['port'], $errno, $errstr, $this->_config['timeout'])) {
+                $failed = false;
+                fclose($fp);
+            }
+
             /* Attempt a connection. */
-            $this->_link = @ldap_connect($host, $this->_config['port']);
+            if (!$failed) {
+                $this->_link = @ldap_connect($host, $this->_config['port']);
+            }
             if (!$this->_link) {
                 $current_error = new Horde_Ldap_Exception('Could not connect to ' .  $host . ':' . $this->_config['port']);
                 $this->_downHostList[] = $host;
@@ -1023,12 +1038,18 @@ class Horde_Ldap
         }
 
         /* Make dn relative to parent. */
-        $base = Horde_Ldap_Util::explodeDN($dn, array('casefold' => 'none', 'reverse' => false, 'onlyvalues' => false));
-        $entry_rdn = array_shift($base);
-        $base = Horde_Ldap_Util::canonicalDN($base);
+        $options = array('casefold' => 'none');
+        $base = Horde_Ldap_Util::explodeDN($dn, $options);
+        $entry_rdn = '(&('
+            . Horde_Ldap_Util::canonicalDN(
+                array_shift($base),
+                array_merge($options, array('separator' => ')('))
+            )
+            . '))';
+        $base = Horde_Ldap_Util::canonicalDN($base, $options);
 
-        $result = @ldap_list($this->_link, $base, $entry_rdn, array(), 1, 1);
-        if (@ldap_count_entries($this->_link, $result)) {
+        $result = @ldap_list($this->_link, $base, $entry_rdn, array('dn'), 1, 1);
+        if ($result && @ldap_count_entries($this->_link, $result)) {
             return true;
         }
         if ($this->errorName(@ldap_errno($this->_link)) == 'LDAP_NO_SUCH_OBJECT') {

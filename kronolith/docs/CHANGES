@@ -3,12 +3,27 @@ v4.3.0-git
 ----------
 
 [rla] Handle external organizers and responses (Request #3965).
+[jan] Remove configuration options for database tables.
 [mjr] Honor the UID value sent from EAS clients directly in the message
       structure.
 [jan] Add entries for Tasks and Agenda to top menu.
 [mjr] Add Kronolith_Api::move().
 [jan] Return ETags with browse() API method.
 [jan] Add importing of calendar data from a URL.
+
+
+------
+v4.2.6
+------
+
+[mjr] Fix using custom SQL configuration parameters.
+
+
+------
+v4.2.5
+------
+[mjr] Fix generating calendar embed code (Bug #13828).
+[jan] Don't wipe out whole calendars when PUTing individual events via WebDAV.
 
 
 -------

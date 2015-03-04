@@ -231,6 +231,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      *   - personal: (mixed) Personal message info. Either a list of To
      *               addresses (Horde_Mail_Rfc822_List object) or the identity
      *               that matched the address list.
+     *   - structure: TODO
      *
      * @return array  A list of IMP_Flag_Base objects.
      */
@@ -241,7 +242,8 @@ class IMP_Flags implements ArrayAccess, Serializable
         $opts = array_merge(array(
             'flags' => array(),
             'headers' => null,
-            'personal' => null
+            'personal' => null,
+            'structure' => null
         ), $opts);
 
         if (!empty($opts['runhook']) && $this->_flaghook) {
@@ -262,20 +264,53 @@ class IMP_Flags implements ArrayAccess, Serializable
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {
-            if ($val instanceof IMP_Flag_System_Match_Address) {
-                if (!is_null($opts['personal']) &&
-                    $val->match($opts['personal'])) {
-                    $ret[] = $val;
+            if ($val instanceof IMP_Flag_Match_Order) {
+                $match = $val->matchOrder();
+            } else {
+                $match = array(
+                    'IMP_Flag_Match_Address',
+                    'IMP_Flag_Match_Flag',
+                    'IMP_Flag_Match_Header',
+                    'IMP_Flag_Match_Structure'
+                );
+            }
+
+            foreach ($match as $val2) {
+                if (!($val instanceof $val2)) {
+                    continue;
                 }
-            } elseif (($val instanceof IMP_Flag_Imap) ||
-                      ($val instanceof IMP_Flag_System_Match_Flag)) {
-                if ($val->match($opts['flags'])) {
-                    $ret[] = $val;
+
+                $res = null;
+
+                switch ($val2) {
+                case 'IMP_Flag_Match_Address':
+                    if (!is_null($opts['personal'])) {
+                        $res = $val->matchAddress($opts['personal']);
+                    }
+                    break;
+
+                case 'IMP_Flag_Match_Flag':
+                    $res = $val->matchFlag($opts['flags']);
+                    break;
+
+                case 'IMP_Flag_Match_Header':
+                    if (!is_null($opts['headers'])) {
+                        $res = $val->matchHeader($opts['headers']);
+                    }
+                    break;
+
+                case 'IMP_Flag_Match_Structure':
+                    if (!is_null($opts['structure'])) {
+                        $res = $val->matchStructure($opts['structure']);
+                    }
+                    break;
                 }
-            } elseif ($val instanceof IMP_Flag_System_Match_Header) {
-                if (!is_null($opts['headers']) &&
-                    $val->match($opts['headers'])) {
-                    $ret[] = $val;
+
+                if (is_bool($res)) {
+                    if ($res) {
+                        $ret[] = $val;
+                    }
+                    break;
                 }
             }
         }

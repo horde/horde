@@ -440,4 +440,22 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Nag_Ajax_Imple_TagAutoCompleter', array('id' => $varname));
         return $html;
     }
+
+    protected function _renderVarInput_NagContact($form, $var, $vars)
+    {
+        $name = $var->getVarName();
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+            ->create(
+                'Nag_Ajax_Imple_ContactAutoCompleter',
+                array('id' => $name)
+            );
+        return sprintf('<input type="text" name="%s" id="%s" value="%s" autocomplete="off"%s />',
+                       $name,
+                       $name,
+                       @htmlspecialchars($var->getValue($vars)),
+                       $this->_getActionScripts($form, $var))
+            . '<span id="' . $name . '_loading_img" style="display:none;">'
+            . Horde::img('loading.gif', _("Loading..."))
+            . '</span>';
+    }
 }

@@ -100,11 +100,14 @@ class Horde_Smtp_Connection extends Horde\Socket\Client
     /**
      * Read data from incoming stream.
      *
+     * @param integer $size  UNUSED: The number of bytes to read from the
+     *                       socket.
+     *
      * @return string  Line of data.
      *
      * @throws Horde_Smtp_Exception
      */
-    public function read()
+    public function read($size = null)
     {
         if (feof($this->_stream)) {
             $this->close();

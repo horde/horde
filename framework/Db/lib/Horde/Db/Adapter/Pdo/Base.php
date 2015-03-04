@@ -106,8 +106,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectAll($sql, $arg1=null, $arg2=null)
     {
-        $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetchAll(PDO::FETCH_ASSOC) : array();
+        $stmt = $this->execute($sql, $arg1, $arg2);
+        if (!$stmt) {
+            return array();
+        }
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Required to really close the connection.
+        $stmt = null;
+        return $result;
     }
 
     /**
@@ -122,8 +128,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectOne($sql, $arg1 = null, $arg2 = null)
     {
-        $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetch(PDO::FETCH_ASSOC) : array();
+        $stmt = $this->execute($sql, $arg1, $arg2);
+        if (!$stmt) {
+            return array();
+        }
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Required to really close the connection.
+        $stmt = null;
+        return $result;
     }
 
     /**
@@ -136,8 +148,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectValue($sql, $arg1=null, $arg2=null)
     {
-        $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetchColumn(0) : null;
+        $stmt = $this->execute($sql, $arg1, $arg2);
+        if (!$stmt) {
+            return null;
+        }
+        $result = $stmt->fetchColumn(0);
+        // Required to really close the connection.
+        $stmt = null;
+        return $result;
     }
 
     /**
@@ -150,8 +168,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectValues($sql, $arg1=null, $arg2=null)
     {
-        $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetchAll(PDO::FETCH_COLUMN, 0) : array();
+        $stmt = $this->execute($sql, $arg1, $arg2);
+        if (!$stmt) {
+            return null;
+        }
+        $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        // Required to really close the connection.
+        $stmt = null;
+        return $result;
     }
 
     /**
@@ -166,8 +190,14 @@ abstract class Horde_Db_Adapter_Pdo_Base extends Horde_Db_Adapter_Base
      */
     public function selectAssoc($sql, $arg1=null, $arg2=null)
     {
-        $result = $this->execute($sql, $arg1, $arg2);
-        return $result ? $result->fetchAll(PDO::FETCH_KEY_PAIR) : array();
+        $stmt = $this->execute($sql, $arg1, $arg2);
+        if (!$stmt) {
+            return null;
+        }
+        $result = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+        // Required to really close the connection.
+        $stmt = null;
+        return $result;
     }
 
     /**

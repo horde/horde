@@ -71,24 +71,6 @@ extends Horde_Mime_Headers_Element
             // Mail: RFC 3798
             'disposition-notification-options',
             'original-recipient',
-            // MIME: RFC 1864
-            'content-md5',
-            // MIME: RFC 2045
-            'content-transfer-encoding',
-            'content-id',
-            'content-description',
-            // MIME: RFC 2110
-            'content-base',
-            // MIME: RFC 2424
-            'content-duration',
-            // MIME: RFC 2557
-            'content-location',
-            // MIME: RFC 2912 [3]
-            'content-features',
-            // MIME: RFC 3282
-            'content-language',
-            // MIME: RFC 3297
-            'content-alternative',
             // Lists: RFC 2369
             'list-help',
             'list-unsubscribe',

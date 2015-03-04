@@ -1,7 +1,7 @@
 <div class="horde-buttonbar">
   <ul>
 <?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)): ?>
-<?php if (!$task->completed): ?>
+<?php if (!$task->completed && $task->childrenCompleted()): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $task->complete_link, 'title' => _("_Complete"), 'class' => 'nag-complete')) ?></li>
 <?php endif ?>
 <?php if (!$task->private || $task->owner == $GLOBALS['registry']->getAuth()): ?>
@@ -9,7 +9,7 @@
 <?php endif ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => Horde::url('task.php', true)->add(array('actionID' => 'add_task', 'tasklist_id' => $task->tasklist, 'parent_task' => $task->id)), 'title' => _("Create Subtask"), 'class' => 'nag-new')) ?></li>
 <?php endif ?>
-<?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)): ?>
+<?php if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE) && !$task->hasSubTasks()): ?>
     <li class="horde-icon"><?php echo Horde::widget(array('url' => $taskurl->add('actionID', 'delete_task'), 'onclick' => $prefs->getValue('delete_opt') ? 'return window.confirm(\'' . addslashes(_("Really delete this task?")) . '\');' : '', 'title' => _("_Delete"), 'class' => 'nag-delete')) ?></li>
 <?php endif ?>
 <?php if (Horde_Util::getFormData('have_search')): ?>
@@ -29,7 +29,13 @@
 <table cellspacing="0" width="100%">
  <tr>
   <td class="horde-label"><?php echo _("Assignee") ?>:</td>
-  <td width="100%"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+  <td width="100%" class="nag-status-<?php echo $task->status ?>"><?php echo Nag::formatAssignee($task->assignee, true) ?></td>
+ </tr>
+ <tr>
+  <td class="horde-label"><?php echo _("Organizer") ?>:</td>
+  <td>
+    <?php echo Nag::formatOrganizer($task->organizer, true) ?>
+  </td>
  </tr>
  <tr>
   <td class="horde-label"><?php echo _("Private?") ?>:</td>
@@ -58,6 +64,10 @@
   <td><?php echo htmlspecialchars($task->estimate); if ($task->hasSubTasks()) echo htmlspecialchars(sprintf(_(" (%s including sub-tasks)"), $task->estimation())) ?></td>
  </tr>
  <tr>
+  <td class="horde-label"><?php echo _("Actual Time") ?>:</td>
+  <td><?php echo htmlspecialchars($task->actual); if ($task->hasSubTasks()) echo htmlspecialchars(sprintf(_(" (%s including sub-tasks)"), $task->actuals())) ?></td>
+ </tr>
+ <tr>
   <td class="horde-label"><?php echo _("Completed?") ?>:</td>
   <td>
    <?php echo Nag::formatCompletion($task->completed) ?>
@@ -66,7 +76,6 @@
    <?php endif ?>
   </td>
  </tr>
-
 <?php if ($task->created): ?>
  <tr>
   <td class="horde-label"><?php echo _("Created") ?>:</td>

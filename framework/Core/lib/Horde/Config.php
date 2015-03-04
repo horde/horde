@@ -764,13 +764,13 @@ class Horde_Config
 
         $fields = array(
             'hostspec' => array(
-                '_type' => 'text',
+                '_type' => 'stringlist',
                 'required' => true,
-                'desc' => 'LDAP server/hostname',
-                'default' => $this->_default(
+                'desc' => 'LDAP server(s)/hostname(s)',
+                'default' => implode(',', $this->_default(
                     $ctx . '|hostspec',
-                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: '') : ''
-                )
+                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: array()) : array()
+                ))
             ),
 
             'port' => array(
@@ -790,6 +790,16 @@ class Horde_Config
                 'default' => $this->_default(
                     $ctx . '|tls',
                     $node ? ($xpath->evaluate('string(configboolean[@name="tls"])', $node) ?: false) : false
+                )
+            ),
+
+            'timeout' => array(
+                '_type' => 'int',
+                'required' => false,
+                'desc' => 'Connection timeout',
+                'default' => $this->_default(
+                    $ctx . '|port',
+                    $node ? ($xpath->evaluate('string(configinteger[@name="timeout"])', $node) ?: 5) : 5
                 )
             ),
 
@@ -1079,8 +1089,8 @@ class Horde_Config
                             'required' => false,
                             'desc' => 'Database name to use',
                             'default' => $this->_default(
-                                $ctx . '|database',
-                                $node ? ($xpath->evaluate('string(configstring[@name="database"])', $node) ?: '') : ''
+                                $ctx . '|dbname',
+                                $node ? ($xpath->evaluate('string(configstring[@name="dbname"])', $node) ?: '') : ''
                             )
                         )
                     )

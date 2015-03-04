@@ -15,18 +15,13 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        $config = self::getConfig('CRYPT_TEST_CONFIG');
-        if (!$config || empty($config['crypt']['gnupg'])) {
-            $this->markTestSkipped('Keyserver test has not been enabled.');
-        }
-
-        if (!is_executable($config['crypt']['gnupg'])) {
-            $this->markTestSkipped('GPG binary not found.');
+        if (!is_executable('/usr/bin/gpg')) {
+            $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');
         }
 
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
-                'program' => $config['crypt']['gnupg'],
+                'program' => '/usr/bin/gpg',
                 'temp' => sys_get_temp_dir()
             ))
         );
@@ -34,15 +29,31 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
     public function testKeyserverRetrieve()
     {
-        $this->_ks->get('4DE5B969');
+        try {
+            $this->_ks->get('4DE5B969');
+        } catch (Horde_Crypt_Exception $e) {
+            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
     }
 
     public function testKeyserverRetrieveByEmail()
     {
-        $this->assertEquals(
-            '4DE5B969',
-            $this->_ks->getKeyID('jan@horde.org')
-        );
+        try {
+            $this->assertEquals(
+                '4DE5B969',
+                $this->_ks->getKeyID('jan@horde.org')
+            );
+        } catch (Horde_Crypt_Exception $e) {
+            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
+        }
     }
 
 }

@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 1.9.0
+==================
+
+  - Horde_Smtp
+
+    - Constructor
+
+      Added the 'context' parameter.
+
+
 Upgrading to 1.8.0
 ==================
 

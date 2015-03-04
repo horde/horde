@@ -204,10 +204,12 @@ class Horde_ActiveSync_StateTest_Mongo_BaseTest extends Horde_ActiveSync_StateTe
 
     public static function tearDownAfterClass()
     {
-        try {
-            $mongo = new Horde_Mongo_Client();
-            $mongo->activesync_test->drop();
-        } catch (MongoConnectionException $e) {
+        if (class_exists('MongoDB')) {
+            try {
+                $mongo = new Horde_Mongo_Client();
+                $mongo->activesync_test->drop();
+            } catch (MongoConnectionException $e) {
+            }
         }
         parent::tearDownAfterClass();
     }

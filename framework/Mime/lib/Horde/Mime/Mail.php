@@ -435,9 +435,9 @@ class Horde_Mime_Mail
             if (!empty($this->_body) && !empty($this->_htmlBody)) {
                 $body->setType('multipart/alternative');
                 $this->_body->setDescription(Horde_Mime_Translation::t("Plaintext Version of Message"));
-                $body->addPart($this->_body);
+                $body[] = $this->_body;
                 $this->_htmlBody->setDescription(Horde_Mime_Translation::t("HTML Version of Message"));
-                $body->addPart($this->_htmlBody);
+                $body[] = $this->_htmlBody;
             } elseif (!empty($this->_htmlBody)) {
                 $body = $this->_htmlBody;
             } elseif (!empty($this->_body)) {
@@ -448,10 +448,10 @@ class Horde_Mime_Mail
                 $basepart->setType('multipart/mixed');
                 $basepart->isBasePart(true);
                 if ($body) {
-                    $basepart->addPart($body);
+                    $basepart[] = $body;
                 }
                 foreach ($this->_parts as $mime_part) {
-                    $basepart->addPart($mime_part);
+                    $basepart[] = $mime_part;
                 }
             } else {
                 $basepart = $body;

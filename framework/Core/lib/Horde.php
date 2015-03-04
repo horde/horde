@@ -834,15 +834,17 @@ class Horde
     /**
      * Returns an un-used access key from the label given.
      *
-     * @param string $label     The label to choose an access key from.
-     * @param boolean $nocheck  Don't check if the access key already has been
-     *                          used?
+     * @param string $label      The label to choose an access key from.
+     * @param boolean $nocheck   Don't check if the access key already has been
+     *                           used?
+     * @param boolean $shutdown  Is this called as a shutdown function?
      *
-     * @return string  A single lower case character access key or empty
-     *                 string if none can be found
+     * @return string  A single lower case character access key, or an empty
+     *                 string if no key can be found.
      */
-    public static function getAccessKey($label, $nocheck = false,
-                                        $shutdown = false)
+    public static function getAccessKey(
+        $label, $nocheck = false, $shutdown = false
+    )
     {
         /* Shutdown call for translators? */
         if ($shutdown) {
@@ -867,10 +869,11 @@ class Horde
             self::$_noAccessKey = !$GLOBALS['browser']->hasFeature('accesskey') || !$GLOBALS['prefs']->getValue('widget_accesskey');
         }
 
-        if (self::$_noAccessKey || !preg_match('/_([A-Za-z])/', $label, $match)) {
+        if (self::$_noAccessKey ||
+            !preg_match('/_(\w)/u', $label, $match)) {
             return '';
         }
-        $key = $match[1];
+        $key = Horde_String_Transliterate::toAscii($match[1]);
 
         /* Has this key already been used? */
         if (isset(self::$_used[strtolower($key)]) &&
@@ -887,6 +890,7 @@ class Horde
 
     /**
      * Strips an access key from a label.
+     *
      * For multibyte charset strings the access key gets removed completely,
      * otherwise only the underscore gets removed.
      *
@@ -896,7 +900,11 @@ class Horde
      */
     public static function stripAccessKey($label)
     {
-        return preg_replace('/_([A-Za-z])/', $GLOBALS['registry']->nlsconfig->curr_multibyte && preg_match('/[\x80-\xff]/', $label) ? '' : '\1', $label);
+        $replace = $GLOBALS['registry']->nlsconfig->curr_multibyte &&
+            preg_match('/[\x80-\xff]/', $label)
+            ? ''
+            : '$1';
+        return preg_replace('/_(\w)/u', $replace, $label);
     }
 
     /**
@@ -924,7 +932,11 @@ class Horde
                 '</span>' . ')';
         }
 
-        return str_replace('_' . $accessKey, '<span class="accessKey">' . $accessKey . '</span>', $label);
+        return preg_replace(
+            '/_(\w)/u',
+            '<span class="accessKey">$1</span>',
+            $label
+        );
     }
 
     /**

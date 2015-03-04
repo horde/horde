@@ -34,6 +34,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [rla] Handle external organizers and responses (Request #3965).
+* [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
 * [mjr] Add Kronolith_Api::move().
@@ -2488,6 +2489,33 @@
   </release>
   <release>
    <version>
+    <release>4.2.5</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix generating calendar embed code (Bug #13828).
+* [jan] Don&apos;t wipe out whole calendars when PUTing individual events via WebDAV.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-01-24</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix using custom SQL configuration parameters.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>4.3.0</release>
     <api>4.2.0</api></version>
    <stability>
@@ -2497,6 +2525,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Handle external organizers and responses (Request #3965).
+* [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
 * [mjr] Add Kronolith_Api::move().

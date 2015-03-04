@@ -32,20 +32,23 @@ class Horde_Http_Response_Peclhttp2 extends Horde_Http_Response_Base
     public function __construct($uri, \http\Client\Response $response)
     {
         try {
-            $parent = $response->getParentMessage();
-            $location = $parent->getHeader('Location');
-            $this->uri = $location;
-        } catch (HttpRuntimeException $e) {
+            $info = $response->getTransferInfo();
+        } catch (\http\Exception $e) {
+            throw new Horde_Http_Exception($e);
+        }
+        try {
+            $this->uri = $info->effective_url;
+        } catch (\http\Exception\RuntimeException $e) {
             $this->uri = $uri;
         }
 
         $this->httpVersion = $response->getHttpVersion();
-        $this->code = $response->getResponseCode();
+        $this->code = $info->response_code;
         $this->_response = $response;
         $this->_headers = new Horde_Support_CaseInsensitiveArray(
             $response->getHeaders()
         );
-        $this->headers = $this->_headers->getArrayCopy();
+        $this->headers = array_change_key_case($this->_headers->getArrayCopy());
     }
 
     public function getBody()

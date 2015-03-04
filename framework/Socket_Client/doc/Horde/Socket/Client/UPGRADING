@@ -11,8 +11,24 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.0.0
+==================
+
+  - Horde\Socket\Client
+
+    - Constructor
+
+      - The $host parameter accepts a protocol scheme prefix like 'unix://'.
+
+      - The $port parameter is optional.
+
+      - The $context parameter has been added before the $params parameter.
+
+    - getStatus(), gets(), read(), and write() have been added.
+
+
 Upgrading to 1.1.0
-===================
+==================
 
   - Horde\Socket\Client
 

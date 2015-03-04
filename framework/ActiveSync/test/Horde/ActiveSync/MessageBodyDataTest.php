@@ -19,6 +19,9 @@ class Horde_ActiveSync_MessageBodyDataTest extends Horde_Test_Case
         $imap_factory = new Horde_ActiveSync_Stub_ImapFactory();
         $imap_factory->fixture = $imap_client;
         $adapter = new Horde_ActiveSync_Imap_Adapter(array('factory' => $imap_factory));
+
+        $this->markTestSkipped("Can't use serialized Horde_Mime_Part");
+
         $horde_mime_fixture = 'TzoyMToiSG9yZGVfQWN0aXZlU3luY19NaW1lIjoyOntzOjg6IgAqAF9iYXNlIjtDOjE1OiJIb3JkZV9NaW1lX1BhcnQiOjI4MDp7YToyMDp7aTowO2k6MTtpOjE7czo0OiJ0ZXh0IjtpOjI7czo0OiJodG1sIjtpOjM7czoxNjoicXVvdGVkLXByaW50YWJsZSI7aTo0O2E6MDp7fWk6NTtzOjA6IiI7aTo2O3M6MDoiIjtpOjc7YToxOntzOjQ6InNpemUiO3M6NToiMzAzMzYiO31pOjg7YToxOntzOjc6ImNoYXJzZXQiO3M6NToidXRmLTgiO31pOjk7YTowOnt9aToxMDtzOjE6IjEiO2k6MTE7czoxOiIKIjtpOjEyO2E6MDp7fWk6MTM7TjtpOjE0O2k6MzAzMzY7aToxNTtOO2k6MTY7TjtpOjE3O2I6MDtpOjE4O2I6MDtpOjE5O047fX1zOjE4OiIAKgBfaGFzQXR0YWNobWVudHMiO047fQ==';
         $basePart = unserialize(base64_decode($horde_mime_fixture));
 
@@ -56,6 +59,9 @@ class Horde_ActiveSync_MessageBodyDataTest extends Horde_Test_Case
         $imap_factory = new Horde_ActiveSync_Stub_ImapFactory();
         $imap_factory->fixture = $imap_client;
         $adapter = new Horde_ActiveSync_Imap_Adapter(array('factory' => $imap_factory));
+
+        $this->markTestSkipped("Can't use serialized Horde_Mime_Part");
+
         $horde_mime_fixture = 'TzoyMToiSG9yZGVfQWN0aXZlU3luY19NaW1lIjoyOntzOjg6IgAqAF9iYXNlIjtDOjE1OiJIb3JkZV9NaW1lX1BhcnQiOjI4MDp7YToyMDp7aTowO2k6MTtpOjE7czo0OiJ0ZXh0IjtpOjI7czo0OiJodG1sIjtpOjM7czoxNjoicXVvdGVkLXByaW50YWJsZSI7aTo0O2E6MDp7fWk6NTtzOjA6IiI7aTo2O3M6MDoiIjtpOjc7YToxOntzOjQ6InNpemUiO3M6NToiMzAzMzYiO31pOjg7YToxOntzOjc6ImNoYXJzZXQiO3M6NToidXRmLTgiO31pOjk7YTowOnt9aToxMDtzOjE6IjEiO2k6MTE7czoxOiIKIjtpOjEyO2E6MDp7fWk6MTM7TjtpOjE0O2k6MzAzMzY7aToxNTtOO2k6MTY7TjtpOjE3O2I6MDtpOjE4O2I6MDtpOjE5O047fX1zOjE4OiIAKgBfaGFzQXR0YWNobWVudHMiO047fQ==';
         $basePart = unserialize(base64_decode($horde_mime_fixture));
 

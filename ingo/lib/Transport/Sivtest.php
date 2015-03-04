@@ -13,6 +13,8 @@
  * @package  Ingo
  */
 
+use \Horde\ManageSieve;
+
 /**
  * Ingo_Transport_Sivtest implements an Ingo transport driver to allow scripts
  * to be installed and set active via the Cyrus sivtest command line utility.
@@ -62,21 +64,17 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
             $this->_params['password'],
             $this->_params['hostspec']);
 
-        $this->_sieve = new Net_Sieve(
-            $this->_params['username'],
-            $this->_params['password'],
-            'unix://' . $this->_params['socket'],
-            0,
-            null,
-            null,
-            false,
-            true,
-            $this->_params['usetls']);
-
-        $res = $this->_sieve->getError();
-        if ($res instanceof PEAR_Error) {
-            unset($this->_sieve);
-            throw new Ingo_Exception($res);
+        try {
+            $this->_sieve = new ManageSieve(array(
+                'user'       => $this->_params['username'],
+                'password'   => $this->_params['password'],
+                'host'       => 'unix://' . $this->_params['socket'],
+                'port'       => null,
+                'bypassauth' => true,
+                'usetls'     => $this->_params['usetls']
+            ));
+        } catch (ManageSieve\Exception $e) {
+            throw new Ingo_Exception($e);
         }
     }
 
@@ -94,16 +92,16 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
     public function sivtestSocket($username, $password, $hostspec)
     {
         $command = '';
-        $error_return = '';
+        $error_return = null;
 
-        if (strtolower($this->_params['logintype']) == 'gssapi' &&
+        if (Horde_String::lower($this->_params['logintype']) == 'gssapi' &&
             isset($_SERVER['KRB5CCNAME'])) {
-            $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'];
+            $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'] . ' ';
         }
 
         $domain_socket = 'unix://' . $this->_params['socket'];
 
-        $command .= ' ' . $this->_params['command']
+        $command .= $this->_params['command']
             . ' -m ' . $this->_params['logintype']
             . ' -u ' . $username
             . ' -a ' . $username
@@ -121,14 +119,14 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
                 while (!file_exists($this->_params['socket'])) {
                     usleep(200000);
                     if ($attempts++ > 5) {
-                        $error_return = ': No socket after 10 seconds of trying!';
+                        $error_return = _("No socket after 10 seconds of trying");
                         continue 2;
                     }
                 }
             }
-            $socket = new Net_Socket();
-            $error = $socket->connect($domain_socket, 0, true, 30);
-            if (!($error instanceof PEAR_Error)) {
+            try {
+                $socket = new \Horde\Socket\Client($domain_socket, 0, 30);
+            } catch (Horde_Exception $error_return) {
                 break;
             }
 
@@ -136,32 +134,31 @@ class Ingo_Transport_Sivtest extends Ingo_Transport_Timsieved
             unlink($this->_params['socket']);
         }
 
-        if (!empty($error_return)) {
+        if ($error_return) {
             throw new Ingo_Exception($error_return);
         }
 
-        $status = $socket->getStatus();
-        if ($status instanceof PEAR_Error || $status['eof']) {
-            throw new Ingo_Exception(_("Failed to write to socket: (connection lost!)"));
+        try {
+            $status = $socket->getStatus();
+            if ($status['eof']) {
+                throw new Ingo_Exception(_("Failed to write to socket: (connection lost!)"));
+            }
+            $socket->write("CAPABILITY\r\n");
+        } catch (Horde_Exception $e) {
+            throw new Ingo_Exception(sprintf(_("Failed to write to socket:"), $e->getMessage()));
         }
 
-        $error = $socket->writeLine("CAPABILITY");
-        if ($error instanceof PEAR_Error) {
-            throw new Ingo_Exception(_("Failed to write to socket: " . $error->getMessage()));
+        try {
+            $result = rtrim($socket->gets(), "\r\n");
+        } catch (Horde_Exception $e) {
+            throw new Ingo_Exception(sprintf(_("Failed to read from socket:"), $e->getMessage()));
         }
-
-        $result = $socket->readLine();
-        if ($result instanceof PEAR_Error) {
-            throw new Ingo_Exception(_("Failed to read from socket: " . $error->getMessage()));
-        }
+        $socket->close();
 
         if (preg_match('|^bye \(referral "(sieve://)?([^"]+)|i',
                        $result, $matches)) {
-            $socket->disconnect();
-
             $this->sivtestSocket($username, $password, $matches[2]);
         } else {
-            $socket->disconnect();
             exec($command . ' > /dev/null 2>&1');
             sleep(1);
         }

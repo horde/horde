@@ -62,11 +62,31 @@ class Horde_Mime_Filter_EncodingTest extends Horde_Test_Case
                 false
             ),
             array(
+                "This is 7-bit\rdata\rwith\rCR\rline-endings.",
+                false,
+            ),
+            array(
+                "This is 7-bit\ndata\nwith\nLF\nline-endings.",
+                false
+            ),
+            array(
+                "This is 7-bit\r\ndata\nwith\rinconsistent\r\nline-endings.",
+                false
+            ),
+            array(
                 "This is 8-bit åå\r\ndata.",
                 '8bit'
             ),
             array(
                 str_repeat('A', 900) . "This is also 8-bit åå\r\ndata.",
+                '8bit'
+            ),
+            array(
+                "This is 8-bit åå\rdata\rwith\rCR\rline-endings.",
+                '8bit'
+            ),
+            array(
+                "This is 8-bit åå\ndata\nwith\nLF\nline-endings.",
                 '8bit'
             ),
             array(

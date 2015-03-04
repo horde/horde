@@ -112,6 +112,19 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals('android', strtolower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::TYPE_NINE, strtolower($device->clientType));
         $this->assertEquals(0, $device->multiplex);
+
+        // HTCOneMini2
+        $fixture = array(
+            'userAgent' => 'HTC', // Don't think this matters here.
+            'deviceType' => 'HTCOnemini2',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android 4.4.2', Horde_ActiveSync_Device::MODEL => 'HTCOnemini2')
+        );
+        $device = new Horde_ActiveSync_Device($state, $fixture);
+        $this->assertEquals(4, $device->getMajorVersion());
+        $this->assertEquals(4, $device->getMinorVersion());
+        $this->assertEquals('htconemini2', strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(15, $device->multiplex);
     }
 
     public function testPoomContactsDate()

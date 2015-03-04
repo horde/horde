@@ -25,6 +25,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const SPECIAL_TRASH           = 'trash';
     const SPECIAL_DRAFTS          = 'drafts';
     const SPECIAL_INBOX           = 'inbox';
+    const SPECIAL_OUTBOX          = 'outbox';
 
     const FOLDER_PART_CLASS       = 0;
     const FOLDER_PART_ID          = 1;
@@ -201,6 +202,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $injector->getInstance('Horde_Log_Logger')->notice(sprintf(
                     'Access granted based on transparent authentication of user %s, but ActiveSync client is requesting access for %s.',
                     $GLOBALS['registry']->getAuth(), $username));
+                $GLOBALS['registry']->clearAuth();
                 return false;
             }
             $this->_logger->info(sprintf(
@@ -1070,7 +1072,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 // SOFTDELETE
-                if (!$soft) {
+                if (!$soft = $refreshFilter) {
                     $sd = $folder->getSoftDeleteTimes();
                     if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
                         $soft = true;
@@ -1206,7 +1208,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $message = $this->_connector->calendar_export($id, array(
                     'protocolversion' => $this->_version,
-                    'truncation' => $collection['truncation'],
+                    'truncation' => empty($collection['truncation']) ? Horde_ActiveSync::TRUNCATION_9 : $collection['truncation'],
                     'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport']), $folder_id);
 
@@ -1950,21 +1952,30 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         // [Smart]Reply/[Smart]Forward?
-        try {
-            if ($forward === true) {
-                $mailer->setForward($message->source->folderid, $message->source->itemid);
-            } elseif (!empty($forward)) {
-                $mailer->setForward($parent, $forward);
+        if ($forward || $reply) {
+            $source = $message->source;
+            if ($source->longid) {
+                list($folderid, $itemid) = each(explode(':', $source, 2));
+            } elseif ($forward === true || $reply === true) {
+                $folderid = $source->folderid;
+                $itemid = $source->itemid;
             }
-            if ($reply === true) {
-                $mailer->setReply($message->source->folderid, $message->source->itemid);
-            } elseif (!empty($reply)) {
-                $mailer->setReply($parent, $reply);
+            try {
+                if ($forward === true) {
+                    $mailer->setForward($folderid, $itemid);
+                } elseif (!empty($forward)) {
+                    $mailer->setForward($parent, $forward);
+                }
+                if ($reply === true) {
+                    $mailer->setReply($folderid, $itemid);
+                } elseif (!empty($reply)) {
+                    $mailer->setReply($parent, $reply);
+                }
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                throw $e;
             }
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            $this->_endBuffer();
-            throw $e;
         }
 
         try {
@@ -2864,6 +2875,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_mailFolders = array($this->_buildDummyFolder(self::SPECIAL_INBOX));
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_DRAFTS);
+                $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_OUTBOX);
             } else {
                 $this->_logger->info(sprintf(
                     "[%s] Polling Horde_Core_ActiveSync_Driver::_getMailFolders()",
@@ -2928,6 +2941,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             $folder->serverid = $folder->_serverid = 'INBOX';
             $folder->displayname = Horde_Core_Translation::t("Inbox");
+            break;
+        case self::SPECIAL_DRAFTS:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
+            $folder->serverid = $folder->_serverid = 'DRAFTS';
+            $folder->displayname = Horde_Core_Translation::t("Drafts");
+            break;
+        case self::SPECIAL_OUTBOX:
+            $folder->type = Horde_ActiveSync::FOLDER_TYPE_OUTBOX;
+            $folder->serverid = $folder->_serverid = 'OUTBOX';
+            $folder->displayname = Horde_Core_Translation::t("Outbox");
             break;
         }
 

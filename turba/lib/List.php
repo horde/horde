@@ -61,6 +61,27 @@ class Turba_List implements Countable
     }
 
     /**
+     * Returns a filtered list of objects.
+     *
+     * @param  string $field  The field to filter on.
+     * @param  array $values  An array of values that $field must be equal to
+     *                        in order to be returned in the filtered list.
+     *
+     * @return Turba_List  The filtered list object.
+     */
+    public function filter($field, array $values)
+    {
+        $objects = new Turba_List();
+        foreach ($this->objects as $obj) {
+            if (in_array($obj->getValue($field), $values) !== false) {
+                $objects->insert($obj);
+            }
+        }
+
+        return $objects;
+    }
+
+    /**
      * Resets our internal pointer to the beginning of the list. Use this to
      * hide the internal storage (array, list, etc.) from client objects.
      *

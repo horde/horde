@@ -175,18 +175,6 @@ abstract class IMP_Flag_Base implements Serializable
     }
 
     /**
-     * Determines if the flag exists given some input data.
-     *
-     * @param mixed $data  The input data to check.
-     *
-     * @return boolean  True if flag exists.
-     */
-    public function match($data)
-    {
-        return false;
-    }
-
-    /**
      * Return the flag label.
      * Necessary evil as gettext strings can not be set directly to object
      * properties.

@@ -59,8 +59,8 @@ EOT;
             array('<IMG SRC="jav&#x0A;ascript:alert(\'XSS\');">', '<img/>'),
             array('<IMG SRC="jav&#x0D;ascript:alert(\'XSS\');">', '<img/>'),
             array("<IMG\nSRC\n=\nj\na\nv\na\ns\nc\nr\ni\np\nt\n:\na\nl\ne\nr\nt\n(\n'\nX\nS\nS\n'\n)\n\"\n>", '<img src="j" a="" v="" s="" c="" r="" i="" p="" t="" :="" l="" e="" x=""/>'),
-            array('<IMG SRC=java script:alert("XSS")>', '<img src="java"/>'),
-            array('<SCR IPT>alert("XSS")</SCR IPT>', '<scr/>'),
+            array("<IMG SRC=java\0script:alert(\"XSS\")>", '<img src="java"/>'),
+            array("<SCR\0IPT>alert(\"XSS\")</SCR\0IPT>", '<scr/>'),
             array('<IMG SRC=" &#14;  javascript:alert(\'XSS\');">', '<img src=" "/>'),
             array('<SCRIPT/XSS SRC="http://ha.ckers.org/xss.js"></SCRIPT>', ''),
             array('<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")>', ''),
@@ -160,7 +160,7 @@ EOT;
     public function testBug9567()
     {
         $text = quoted_printable_decode(
-            "pr=E9parer =E0 vendre d’ao=FBt"
+            "pr=E9parer =E0 vendre d\342\200\231ao=FBt"
         );
 
         $this->assertEquals(
@@ -180,7 +180,7 @@ EOT;
         $text = Horde_String::convertCharset(quoted_printable_decode(
             "pr=E9parer =E0 vendre d&#8217;ao=FBt&nbsp;;"
         ), 'windows-1252', 'UTF-8');
-        $expected = "préparer à vendre d’août ;";
+        $expected = "pr\303\251parer \303\240 vendre d\342\200\231ao\303\273t\302\240;";
 
         $this->assertEquals(
             $expected,

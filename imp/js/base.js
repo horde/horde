@@ -219,9 +219,14 @@ var ImpBase = {
         if (type == 'msg') {
             type = 'mbox';
             tmp = data.split(';');
-            data = tmp[0];
-            this.uid = tmp[1].parseViewportUidString().first();
-            // Fall through to the 'mbox' check below.
+            if (tmp[1]) {
+                data = tmp[0];
+                this.uid = tmp[1].parseViewportUidString().first();
+                // Fall through to the 'mbox' check below.
+            } else {
+                // Invalid formatted data.
+                data = '';
+            }
         }
 
         if (type == 'mbox' || Object.isUndefined(this.view)) {
@@ -268,6 +273,9 @@ var ImpBase = {
 
             this.highlightSidebar();
             this.setTitle(ImpCore.text.search);
+
+            $('horde-search').hide();
+
             $('impbase_iframe').insert(
                 new Element('IFRAME', {
                     src: HordeCore.addURLParam(ImpCore.conf.URI_SEARCH, data)
@@ -314,14 +322,16 @@ var ImpBase = {
 
         document.title = ImpCore.conf.name + ' :: ' + title;
 
-        if (unseen > 99 & unseen < 1000) {
-            opts.font = '8px Arial';
-            opts.offset = 1;
-            opts.width = 1;
-        }
+        if (unseen !== null) {
+            if (unseen > 99 & unseen < 1000) {
+                opts.font = '8px Arial';
+                opts.offset = 1;
+                opts.width = 1;
+            }
 
-        Tinycon.setOptions(opts);
-        Tinycon.setBubble(unseen);
+            Tinycon.setOptions(opts);
+            Tinycon.setBubble(unseen);
+        }
     },
 
     // id: (string) Either the ID of a sidebar element, or the name of a
@@ -389,6 +399,7 @@ var ImpBase = {
         if (this.view != f) {
             $('mailboxName').update(ImpCore.text.loading);
             this.viewswitch = true;
+            this.showViewportError(false);
 
             /* Don't cache results of search mailboxes - since we will need to
              * grab new copy if we ever return to it. */
@@ -520,8 +531,8 @@ var ImpBase = {
                             var links = [],
                                 title = [];
 
-                            r.from.each(function(f) {
-                                var display = (f.p || f.b).escapeHTML();
+                            (r.from || []).each(function(f) {
+                                var display = (f.p || f.g || f.b).escapeHTML();
 
                                 switch (ImpCore.getPref('qsearch_field')) {
                                 case 'all':
@@ -534,7 +545,7 @@ var ImpBase = {
                                 links.push(
                                     '<a class="msgFromLink" x-email="' + escapeAttr(Object.toJSON(f)) + '">' + display + '</a>'
                                 );
-                                title.push(escapeAttr(f.b));
+                                title.push(escapeAttr((f.b || f.v).truncate(50)));
                             });
 
                             r.from = ((r.fromlabel || '') + ' ' + links.join(', ')).strip();
@@ -703,7 +714,7 @@ var ImpBase = {
                     }
                     $('search_label').update(tmp.escapeHTML());
                 }
-                [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                [ $('search_edit') ].compact().invoke(this.viewport.getMetaData('noedit') ? 'hide' : 'show');
                 this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
@@ -717,6 +728,10 @@ var ImpBase = {
 
             this.updateTitle();
 
+            [ $('horde-search') ].compact().invoke(
+                (!this.isSearch() || this.isQSearch() || this.isFSearch()) ? 'show' : 'hide'
+            );
+
             if (this.viewswitch) {
                 if (this.selectedCount()) {
                     if (ImpCore.getPref('preview')) {
@@ -727,15 +742,7 @@ var ImpBase = {
                     this.resetSelected();
                 }
 
-                tmp = $('filter');
-                if (this.isSearch()) {
-                    tmp.hide();
-                    if (!this.search || !this.search.qsearch) {
-                        $('horde-search').hide();
-                    }
-                } else if (tmp)  {
-                    tmp.show();
-                }
+                [ $('filter') ].compact().invoke(this.isSearch() ? 'hide' : 'show');
 
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
@@ -857,13 +864,13 @@ var ImpBase = {
         container.observe('ViewPort:sliderStart', function() {
             var sc = $('slider_count'),
                 sb = $('msgSplitPane').down('.vpScroll'),
-                s = sb.viewportOffset();
+                s = sb.positionedOffset();
 
             this.updateSliderCount();
 
             sc.setStyle({
                 top: (s.top + sb.getHeight() - sc.getHeight()) + 'px',
-                right: (document.viewport.getWidth() - s.left) + 'px'
+                right: sb.getWidth() + 'px'
             }).show();
         }.bind(this));
 
@@ -1111,7 +1118,8 @@ var ImpBase = {
         case 'ctx_container_search':
         case 'ctx_mbox_search':
             this.go('search', {
-                mailbox: this.flist.getMbox(e).value()
+                mailbox: this.flist.getMbox(e).value(),
+                subfolder: ~~(id == 'ctx_container_search')
             });
             break;
 
@@ -1436,7 +1444,9 @@ var ImpBase = {
                 break;
             }
 
-            tmp = $('ctx_oa_undeleted', 'ctx_oa_blacklist', 'ctx_oa_whitelist');
+            [ $('ctx_oa_undelete') ].invoke(this.viewport.getMetaData('noundelete') ? 'hide' : 'show');
+
+            tmp = $('ctx_oa_blacklist', 'ctx_oa_whitelist');
             sel = this.viewport.getSelected();
 
             if ($('ctx_oa_setflag')) {
@@ -1451,22 +1461,22 @@ var ImpBase = {
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
-            if ((tmp = $('ctx_oa_purge_deleted'))) {
-                if (this.viewport.getMetaData('pop3')) {
-                    tmp.up().hide();
+            tmp = $('ctx_oa_purge_deleted');
+            if (this.viewport.getMetaData('nodeleteshow')) {
+                tmp.up().hide();
+            } else {
+                tmp.up().show();
+                if (this.viewport.getMetaData('noexpunge')) {
+                    tmp.hide();
                 } else {
-                    tmp.up().show();
-                    if (this.viewport.getMetaData('noexpunge')) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                        [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
-                    }
+                    tmp.show();
+                    [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
                 }
             }
 
             if ((tmp = $('ctx_oa_hide_deleted'))) {
-                if (this.isThreadSort() || this.viewport.getMetaData('pop3')) {
+                if (this.isThreadSort() ||
+                    this.viewport.getMetaData('nodeleteshow')) {
                     $(tmp, 'ctx_oa_show_deleted').invoke('hide');
                 } else if (this.viewport.getMetaData('delhide')) {
                     tmp.hide();
@@ -1509,7 +1519,7 @@ var ImpBase = {
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(ImpCore.getPref('preview') ? 'hide' : 'show');
             [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
-            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
+            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('noundelete') ? 'hide' : 'show');
 
             [ $('ctx_message_setflag').up() ].invoke((!this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
@@ -1649,9 +1659,8 @@ var ImpBase = {
 
     updateTitle: function()
     {
-        var elt,
-            label = this.viewport.getMetaData('label'),
-            unseen = 0;
+        var elt, unseen,
+            label = this.viewport.getMetaData('label');
 
         // 'label' will not be set if there has been an error retrieving data
         // from the server.
@@ -1663,8 +1672,11 @@ var ImpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
+            unseen = 0;
         } else if ((elt = this.flist.getMbox(this.view))) {
             unseen = elt.unseen();
+        } else {
+            unseen = null;
         }
 
         this.setTitle(label, unseen);
@@ -1854,37 +1866,52 @@ var ImpBase = {
             pm = $('previewMsg'),
             r = this.preview.get(mbox, uid);
 
-        pm.down('.msgHeaders').select('.address').invoke('fire', 'ImpBase:removeElt');
+        pm.down('.msgHeaders').select('.address')
+            .invoke('fire', 'ImpBase:removeElt');
 
-        // Add subject. Subject was already html encoded on server (subject
-        // may include links).
+        // Add subject. Subject was already html encoded on server (subject may
+        // include links).
         tmp = pm.select('.subject');
-        tmp.invoke('update', r.subject === null ? '[' + ImpCore.text.badsubject + ']' : (r.subjectlink || r.subject));
+        tmp.invoke('update', r.subject === null
+                   ? '[' + ImpCore.text.badsubject + ']'
+                   : (r.subjectlink || r.subject));
 
         // Add date
         if (r.localdate) {
-            $('msgHeadersColl').down('.date').show().update(r.localdate.escapeHTML());
-            $('msgHeaderDate').show().down('.date').update(r.localdate.escapeHTML()).insert(
-                // document.createElement(), with 2nd argument, required for
-                // Chrome
-                document.createElement('TIME', 'time-ago')
-                    .writeAttribute({
-                        className: 'msgHeaderDateRelative',
-                        datetime: r.datestamp,
-                        is: 'time-ago'
-                    })
-            );
+            $('msgHeadersColl').down('.date').show()
+                .update(r.localdate.escapeHTML());
+            $('msgHeaderDate').show().down('.date')
+                .update(r.localdate.escapeHTML() + ' (')
+                .insert(
+                    // document.createElement(), with 2nd argument, required
+                    // for Chrome
+                    document.createElement('TIME', 'time-ago')
+                        .writeAttribute({
+                            className: 'msgHeaderDateRelative',
+                            datetime: r.datestamp,
+                            is: 'time-ago'
+                        })
+                )
+                .insert(')');
         } else {
-            [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ].invoke('hide');
+            [ $('msgHeaderDate'), $('msgHeadersColl').down('.date') ]
+                .invoke('hide');
         }
 
         // Add from/to/cc/bcc headers
         [ 'from', 'to', 'cc', 'bcc' ].each(function(h) {
+            var elt = $('msgHeader' + h.capitalize());
+
             if (r[h]) {
                 this.updateHeader(h, r[h], true);
-                $('msgHeader' + h.capitalize()).show();
+                elt.show();
+
+                // Add resent information to from header.
+                if (h === 'from' && r.resent) {
+                    ImpCore.buildResentHeader(elt.down('TD:last'), r.resent);
+                }
             } else {
-                $('msgHeader' + h.capitalize()).hide();
+                elt.hide();
             }
         }, this);
 
@@ -2561,11 +2588,28 @@ var ImpBase = {
                 return;
             }
 
+            tmp = e;
             e = new Event(e);
             e.preventDefault();
             noelt = true;
-            if (!(kc === 17 || kc === 67)) { //CTRL + C
+
+            switch (kc) {
+            case 17:  // CTRL/Opera OSX Cmd
+            case 91:  // WebKit left OSX Cmd
+            case 93:  // WebKit right OSX Cmd
+            case 224: // Firefox OSX Cmd
+                break;
+
+            case 67:
+                if (tmp.metaKey || tmp.ctrlKey) {
+                    // Allow copy text action inside HTML IFRAME.
+                    break;
+                }
+                // Fall-through
+
+            default:
                 $$('IFRAME').invoke('blur');
+                break;
             }
         } else if (e.findElement('FORM')) {
             // Inside form, so ignore.
@@ -2792,11 +2836,10 @@ var ImpBase = {
 
         this.is_keydown = false;
 
-        if (elt.hasClassName('splitBarVertSidebar')) {
+        if (elt.getAttribute('id') == 'horde-slideleft') {
             ImpCore.setPref('splitbar_side', null);
             this.setSidebarWidth();
             e.memo.stop();
-            return;
         } else if (elt.hasClassName('vpRow')) {
             tmp = this.viewport.createSelection('domid', elt.identify());
 
@@ -3484,8 +3527,14 @@ var ImpBase = {
                     Effect.toggle(s, 'blind', {
                         beforeStart: (need.get(mbox.value()) ? this._loadMboxes.bind(this, mbox, base) : Prototype.emptyFunction),
                         afterFinish: function() {
-                            mbox.expand(!mbox.expand());
-                        },
+                            if (!mbox.expand()) {
+                                mbox.expand(true);
+                            } else if (mbox.hasChildren()) {
+                                mbox.expand(false);
+                            } else {
+                                s.hide();
+                            }
+                        }.bind(this),
                         duration: opts.noeffect ? 0 : 0.2,
                         queue: {
                             limit: 1,
@@ -4361,6 +4410,13 @@ var IMP_Flist_Mbox = Class.create({
         return (m_elt && m_elt.hasClassName('horde-subnavi-sub'))
             ? m_elt
             : null;
+    },
+
+    hasChildren: function()
+    {
+        var sub = this.subElement();
+
+        return (sub && sub.childElements().size());
     },
 
     parentElement: function()

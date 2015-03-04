@@ -512,7 +512,6 @@ var ImpCompose = {
             ImpCore.doAction(action, this.actionParams({
                 data: Object.toJSON(params)
             }), {
-                ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, {
                     changed: changed,
                     rte: !active
@@ -526,16 +525,25 @@ var ImpCompose = {
 
     RTELoading: function(show, notxt)
     {
-        var o;
+        var loading = $('rteloading'),
+            opts = {
+                duration: 0.1,
+                queue: {
+                    limit: 1,
+                    scope: 'rteloading'
+                }
+            };
 
         if (show) {
-            $('rteloading').clonePosition('composeMessageParent').show();
-            if (!notxt) {
-                o = $('rteloading').viewportOffset();
-                $('rteloadingtxt').setStyle({ top: (o.top + 15) + 'px', left: (o.left + 15) + 'px' }).show();
-            }
+            loading.appear(Object.extend(opts, {
+                afterSetup: function() {
+                    [ loading.down('SPAN') ].invoke(notxt ? 'hide' : 'show');
+                    loading.clonePosition('composeMessageParent');
+                }
+            }));
         } else {
-            $('rteloading', 'rteloadingtxt').invoke('hide');
+            Effect.Queues.get('rteloading').invoke('cancel');
+            loading.fade(opts);
         }
     },
 
@@ -953,9 +961,8 @@ var ImpCompose = {
         }
 
         $('composeMessage').setStyle({ height: mah + 'px' });
-
-        if ($('rteloading').visible()) {
-            this.RTELoading(true);
+        if (this.rte) {
+            $('rteloading').clonePosition('composeMessageParent');
         }
     },
 
@@ -1746,7 +1753,9 @@ ImpCompose.classes.Attachlist = Class.create({
     // data: (Element | Event object | array)
     uploadAttach: function(data, params, callback)
     {
-        var li, out = $H();
+        var li, tmp,
+            out = $H()
+            u = $('upload');
 
         if (Object.isElement(data)) {
             if (!data.files) {
@@ -1847,6 +1856,22 @@ ImpCompose.classes.Attachlist = Class.create({
 
             out.set(this.ajax_atc_id, d);
         }, this);
+
+        /* Reset upload FORM element so that this function will trigger
+         * again. */
+        u.clear();
+        if (u.getValue()) {
+            /* File upload is read-only (IE <= 10). Move to a temporary form
+             * element, reset that form, and move the element back to the
+             * original form. Can't do in place since this would be a form
+             * within a form. Don't use clone since we don't want to duplicate
+             * event handlers. */
+            tmp = new Element('FORM').hide().insert(u.remove());
+            $('compose').insert({ after: tmp });
+            tmp.reset();
+            $('upload_add').insert({ top: u.remove() });
+            tmp.remove();
+        }
 
         return out;
     },

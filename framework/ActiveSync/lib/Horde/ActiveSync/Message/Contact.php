@@ -394,11 +394,13 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
      *
      * @param string $ts  The timestamp
      *
-     * @return Horde_Date  The Horde_Date object, in UTC.
+     * @return Horde_Date|boolean  The Horde_Date object (UTC) or false if
+     *     unable to parse the date.
      */
     protected function _parseDate($ts)
     {
         $date = parent::_parseDate($ts);
+
         // Since some clients send the date as YYYY-MM-DD only, the best we can
         // do is assume that it is in the same timezone as the user's default
         // timezone - so convert it to UTC and be done with it.

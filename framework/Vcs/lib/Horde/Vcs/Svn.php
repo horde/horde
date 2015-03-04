@@ -98,7 +98,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
         $this->assertValidRevision($rev);
 
         $command = $this->getCommand() . ' annotate -r ' . escapeshellarg('1:' . $rev) . ' ' . escapeshellarg($fileob->getPath()) . ' 2>&1';
-        $pipe = popen($command, 'r');
+        $pipe = $this->popen($command);
         if (!$pipe) {
             throw new Horde_Vcs_Exception('Failed to execute svn annotate: ' . $command);
         }
@@ -137,7 +137,7 @@ class Horde_Vcs_Svn extends Horde_Vcs_Base
     {
         $this->assertValidRevision($rev);
 
-        if ($RCS = popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1', VC_WINDOWS ? 'rb' : 'r')) {
+        if ($RCS = $this->popen($this->getCommand() . ' cat -r ' . escapeshellarg($rev) . ' ' . escapeshellarg($fullname) . ' 2>&1')) {
             return $RCS;
         }
 

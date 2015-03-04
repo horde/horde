@@ -38,25 +38,4 @@ class Horde_Core_Secret extends Horde_Secret
         return parent::clearKey(self::HORDE_KEYNAME);
     }
 
-    /**
-     */
-    protected function _getCipherOb($key)
-    {
-        global $conf;
-
-        if (!isset($this->_cipherCache[self::HORDE_KEYNAME])) {
-            /* Use more secure CBC mode (rather than ECB). This requires an
-             * IV, so use the global 'secret_key'. */
-            $this->_cipherCache[self::HORDE_KEYNAME] = new Horde_Crypt_Blowfish(
-                substr($key, 0, 56),
-                array(
-                    'cipher' => 'cbc',
-                    'iv' => $conf['secret_key']
-                )
-            );
-        }
-
-        return $this->_cipherCache[self::HORDE_KEYNAME];
-    }
-
 }

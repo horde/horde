@@ -746,7 +746,7 @@ extends Horde_Core_Ajax_Application_Handler
      */
     public function addressHeader()
     {
-        $show_msg = new IMP_Ajax_Application_ShowMessage($this->_base->indices);
+        $show_msg = new IMP_Contents_Message($this->_base->indices);
 
         $hdr = $this->vars->header;
 
@@ -777,7 +777,7 @@ extends Horde_Core_Ajax_Application_Handler
     {
         $result = new stdClass;
 
-        $show_msg = new IMP_Ajax_Application_ShowMessage($this->_base->indices);
+        $show_msg = new IMP_Contents_Message($this->_base->indices);
         $msg_output = $show_msg->getInlineOutput($this->vars->mimeid);
 
         $result = new stdClass;

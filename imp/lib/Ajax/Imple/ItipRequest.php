@@ -116,21 +116,44 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
             case 'update':
                 // vEvent reply.
-                if ($registry->hasMethod('calendar/updateAttendee')) {
-                    try {
-                        if ($tmp = $contents->getHeader()->getHeader('from')) {
-                            $registry->call('calendar/updateAttendee', array(
-                                $components[$key],
-                                $tmp->getAddressList(true)->first()->bare_address
-                            ));
-                            $notification->push(_("Respondent Status Updated."), 'horde.success');
-                            $result = true;
+                // vTodo reply.
+                switch ($components[$key]->getType()) {
+                case 'vEvent':
+                    if ($registry->hasMethod('calendar/updateAttendee')) {
+                        try {
+                            if ($tmp = $contents->getHeader()->getHeader('from')) {
+                                $registry->call('calendar/updateAttendee', array(
+                                    $components[$key],
+                                    $tmp->getAddressList(true)->first()->bare_address
+                                ));
+                                $notification->push(_("Respondent Status Updated."), 'horde.success');
+                                $result = true;
+                            }
+                        } catch (Horde_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
                         }
-                    } catch (Horde_Exception $e) {
-                        $notification->push(sprintf(_("There was an error updating the event: %s"), $e->getMessage()), 'horde.error');
+                    } else {
+                        $notification->push(_("This action is not supported."), 'horde.warning');
                     }
-                } else {
-                    $notification->push(_("This action is not supported."), 'horde.warning');
+                    break;
+                case 'vTodo':
+                    if ($registry->hasMethod('tasks/updateAttendee')) {
+                        try {
+                            if ($tmp = $contents->getHeader()->getHeader('from')) {
+                                $registry->call('tasks/updateAttendee', array(
+                                    $components[$key],
+                                    $tmp->getAddressList(true)->first()->bare_address
+                                ));
+                                $notification->push(_("Respondent Status Updated."), 'horde.success');
+                                $result = true;
+                            }
+                        } catch (Horde_Exception $e) {
+                            $notification->push(sprintf(_("There was an error updating the task: %s"), $e->getMessage()), 'horde.error');
+                        }
+                    } else {
+                        $notification->push(_("This action is not supported."), 'horde.warning');
+                    }
+                    break;
                 }
                 break;
 
@@ -214,14 +237,19 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             case 'tentative':
                 // vEvent request.
                 if (isset($components[$key]) &&
-                    ($components[$key]->getType() == 'vEvent')) {
+                    ($components[$key]->getType() == 'vEvent' ||
+                     $components[$key]->getType() == 'vTodo')) {
                     $vEvent = $components[$key];
 
-                    $resource = new Horde_Itip_Resource_Identity(
-                        $injector->getInstance('IMP_Identity'),
-                        $vEvent->getAttribute('ATTENDEE'),
-                        $vars->identity
-                    );
+                    try {
+                        $resource = new Horde_Itip_Resource_Identity(
+                            $injector->getInstance('IMP_Identity'),
+                            $vEvent->getAttribute('ATTENDEE'),
+                            $vars->identity
+                        );
+                    } catch (Horde_Icalendar_Exception $e) {
+                        throw new Horde_Itip_Exception('No ATTENDEE data, unable to reply.');
+                    }
 
                     switch ($action) {
                     case 'accept':
@@ -239,12 +267,20 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     }
 
                     try {
-                        // Send the reply.
-                        Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
-                            $type,
-                            new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
-                            $injector->getInstance('IMP_Mail')
-                        );
+                        if ($vEvent->getType() == 'vEvent') {
+                            // Send the reply.
+                            Horde_Itip::factory($vEvent, $resource)->sendMultiPartResponse(
+                                $type,
+                                new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
+                                $injector->getInstance('IMP_Mail')
+                            );
+                        } elseif ($vEvent->getType() == 'vTodo') {
+                            Horde_Itip::vTodoFactory($vEvent, $resource)->sendMultiPartResponse(
+                                $type,
+                                new Horde_Core_Itip_Response_Options_Horde('UTF-8', array()),
+                                $injector->getInstance('IMP_Mail')
+                            );
+                        }
                         $notification->push(_("Reply Sent."), 'horde.success');
                         $result = true;
                     } catch (Horde_Itip_Exception $e) {
@@ -330,8 +366,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     $ics->setContentTypeParameter('METHOD', 'REPLY');
 
                     $mime = new Horde_Mime_Part();
-                    $mime->addPart($body);
-                    $mime->addPart($ics);
+                    $mime[] = $body;
+                    $mime[] = $ics;
 
                     // Build the reply headers.
                     $msg_headers = new Horde_Mime_Headers();

@@ -34,7 +34,7 @@ abstract class Horde_Imap_Client_Base
 implements Serializable, SplObserver
 {
     /** Serialized version. */
-    const VERSION = 2;
+    const VERSION = 3;
 
     /** Cache names for miscellaneous data. */
     const CACHE_MODSEQ = '_m';
@@ -196,6 +196,8 @@ implements Serializable, SplObserver
      *               default server comparator. See setComparator() for
      *               format.
      *               DEFAULT: Use the server default
+     * - context: (array) Any context parameters passed to
+     *            stream_create_context(). @since 2.27.0
      * - debug: (string) If set, will output debug information to the stream
      *          provided. The value can be any PHP supported wrapper that can
      *          be opened via PHP's fopen() function.
@@ -241,6 +243,7 @@ implements Serializable, SplObserver
 
         // Default values.
         $params = array_merge(array(
+            'context' => array(),
             'hostspec' => 'localhost',
             'secure' => false,
             'timeout' => 30
@@ -322,7 +325,10 @@ implements Serializable, SplObserver
      */
     public function shutdown()
     {
-        $this->logout();
+        try {
+            $this->logout();
+        } catch (Horde_Imap_Exception $e) {
+        }
     }
 
     /**

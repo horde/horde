@@ -2,9 +2,10 @@
 $conf['smtp'] = array(
     'debug' => null,  // e.g. 'php://output'
     'host' => '',
-    'password' => '',
+    'localhost' => '',
+    'pass' => '',
     'port' => '',
     'secure' => '',  // empty, 'ssl', or 'tls'
-    'username' => '',
+    'user' => '',
     // 'xoauth2_token' => ''
 );

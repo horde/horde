@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-09</date>
+ <date>2015-03-02</date>
  <version>
-  <release>2.18.4</release>
-  <api>2.18.0</api>
+  <release>2.19.2</release>
+  <api>2.19.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
-* [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
+* [mjr] Fix combination X509 and http plain authentication with ActiveSync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3807,16 +3806,50 @@
   </release>
   <release>
    <version>
-    <release>2.18.4</release>
-    <api>2.18.0</api></version>
+    <release>2.19.0</release>
+    <api>2.19.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix notice when deleting identities.
+* [jan] Fix NoSQL database name setting getting lost during configuration.
+* [jan] Allow to configure multiple LDAP servers and timeout value.
+* [mjr] Fixes for using ActiveSync without email sync enabled on Android 5 (Niklas Forsdahl &lt;niklas@creamarketing.com&gt;).
+* [mms] Calling an application&apos;s changeLanguage method on language change now handled by Horde_Registry.
+* [jan] Support non-ascii latin characters as access keys.
 * [mms] Use more secure CBC block cipher mode when storing encrypted Blowfish data inside the session.
 * [mms] If compressing/packaging javascript files, don&apos;t use pre-compressed version (if one exists) when generating.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.1</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Revert to using ECB mode for encryption, to not break existing credentials (Bug #13869).
+* [mjr] Fix replying to email from search results in some broken ActiveSync clients (Bug #13878).
+* [jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.19.2</release>
+    <api>2.19.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix combination X509 and http plain authentication with ActiveSync.
    </notes>
   </release>
  </changelog>

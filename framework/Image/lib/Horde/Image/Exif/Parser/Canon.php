@@ -542,14 +542,11 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 }
                 //offsets are from TIFF header which is 12 bytes from the start
                 //of the file
-                $v = fseek($seek, $globalOffset + hexdec($value));
                 $exiferFileSize = 0;
-                if ($v == 0 && $bytesofdata < $exiferFileSize) {
-                    $data = fread($seek, $bytesofdata);
-                } elseif ($v == -1) {
-                    $result['Errors'] = $result['Errors']++;
-                    $data = '';
+                if ($seek->seek($globalOffset + hexdec($value), false) && $bytesofdata < $exiferFileSize) {
+                    $data = $seek->substring(0, $bytesofdata);
                 } else {
+                    $result['Errors'] = $result['Errors']++;
                     $data = '';
                 }
             }

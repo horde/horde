@@ -73,7 +73,7 @@ X-Horde-Alarm: This is a personal alarm.
 Message-ID: <%d.Horde.%s@%s>
 User-Agent: Horde Application Framework 5
 Date: %s, %d %s %s %d:%d:%d %s%d
-Content-Type: text/plain; charset=UTF-8; format=flowed; DelSp=Yes
+Content-Type: text/plain; charset=%s; format=flowed; DelSp=Yes
 MIME-Version: 1.0';
         $body = "Action is required.\n";
 

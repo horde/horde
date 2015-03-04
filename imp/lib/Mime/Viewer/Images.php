@@ -222,9 +222,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
 
     /**
      */
-    protected function _renderImgData($base64 = null)
+    protected function _renderImgData($base64 = false)
     {
         $data = $this->_mimepart->getContents(array('stream' => true));
+
         if ($base64) {
             stream_filter_append(
                 $data,
@@ -232,6 +233,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 STREAM_FILTER_READ
             );
         }
+
         return array(
             $this->_mimepart->getMimeId() => array(
                 'data' => $data,
@@ -311,6 +313,8 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     {
         global $browser;
 
+        $view = null;
+
         switch ($type) {
         case 'view_thumbnail':
             if ($this->getConfigParam('thumbnails_dataurl') &&
@@ -320,10 +324,13 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
                 $src = Horde_Url_Data::create($thumb['type'], $thumb['data']);
                 break;
             }
+
+            $view = 'view_thumbnail';
+
             // Fall-through
 
         default:
-            $src = $this->_imgDataUrl();
+            $src = $this->_imgDataUrl($view);
             break;
         }
 
@@ -331,14 +338,19 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
     }
 
     /**
+     * Output the URL to view image data.
+     *
+     * @param string $view  View type: 'data' or 'view_thumbnail'.
+     *
+     * @return Horde_Url  URL.
      */
-    protected function _imgDataUrl()
+    protected function _imgDataUrl($view = 'data')
     {
         return $this->getConfigParam('imp_contents')->urlView(
             $this->_mimepart,
             'view_attach',
             array(
-                'params' => array('imp_img_view' => 'data')
+                'params' => array('imp_img_view' => $view)
             )
         );
     }

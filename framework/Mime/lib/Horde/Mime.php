@@ -283,12 +283,11 @@ class Horde_Mime
     /* Deprecated methods. */
 
     /**
-     * @deprecated  Use Horde_Mime_Headers#generateMessageId() instead.
+     * @deprecated  Use Horde_Mime_Headers_MessageId::create() instead.
      */
     public static function generateMessageId()
     {
-        $hdr = new Horde_Mime_Headers();
-        return $hdr->generateMessageId();
+        return Horde_Mime_Headers_MessageId::create()->value;
     }
 
     /**

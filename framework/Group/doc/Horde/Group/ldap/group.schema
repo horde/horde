@@ -1,0 +1,9 @@
+# This schema depends on:
+# - core.schema
+
+objectclass ( 1.3.6.1.4.1.13040.2.2.2
+    NAME 'hordeGroup'
+    DESC 'Horde Group'
+    SUP top
+    AUXILIARY
+    MAY ( mail ) )

@@ -2,9 +2,24 @@
 v4.3.0-git
 ----------
 
+[jan] Remove configuration option for database table.
 [jan] Return ETags with browse() API method.
 [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV
       access.
+
+
+------
+v4.2.6
+------
+
+[mjr] Fix using custom SQL configuration parameters.
+
+
+------
+v4.2.5
+------
+
+[mjr] Fix fatal error when using Mnemo without Nag installed.
 
 
 ------

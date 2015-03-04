@@ -59,6 +59,7 @@ foreach ($addressBooks as $key => $entry) {
     $shareSources[$key] = $entry['type'] != 'vbook';
 }
 
+// Criteria is from "basic" search only.
 $criteria = $vars->criteria;
 $val = $vars->val;
 try {
@@ -84,6 +85,9 @@ if ($driver) {
                     $criteria[$key] = $value;
                 }
             }
+        }
+        if ($conf['tags']['enabled']) {
+            $criteria['tags'] = $vars->tags;
         }
         if (count($criteria) || $browsable) {
             $do_search = true;
@@ -174,10 +178,11 @@ if ($driver) {
             }
         } else {
             try {
-                if ((($search_mode == 'basic') &&
+                if (($search_mode == 'basic' &&
                      ($results = $driver->search($criteria, null, 'OR'))) ||
                     (($search_mode == 'advanced') &&
                      ($results = $driver->search($criteria)))) {
+
                     /* Read the columns to display from the preferences. */
                     $sources = Turba::getColumns();
                     $columns = isset($sources[$source])
@@ -246,6 +251,13 @@ case 'basic':
 
 case 'advanced':
     $title = _("Advanced Search");
+    /* Include the tag field? */
+    if (($tagger = $injector->getInstance('Turba_Tagger')) &&
+       !($tagger instanceof Horde_Core_Tagger_Null)) {
+        $searchView->tag = true;
+        $injector->getInstance('Horde_Core_Factory_Imple')->create('Turba_Ajax_Imple_TagAutoCompleter', array('id' => 'tags'));
+    }
+
     if (isset($results)) {
         $page_output->addInlineJsVars(array(
             'TurbaSearch.advanced' => true

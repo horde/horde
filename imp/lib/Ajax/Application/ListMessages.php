@@ -40,15 +40,28 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $injector, $notification;
+        global $injector, $notification, $prefs;
 
         $is_search = false;
         $mbox = IMP_Mailbox::get($args['mbox']);
         $sortpref = $mbox->getSort(true);
 
+        /* Create the base object. */
+        $result = new IMP_Ajax_Application_Viewport($mbox);
+
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {
             $qsearch_mbox = IMP_Mailbox::formFrom($args['qsearchmbox']);
+
+            /* Sanity checking: qsearchmbox cannot be a search mailbox
+             * itself. */
+            if ($qsearch_mbox->search) {
+                $notification->push(
+                    _("Error in displaying search results."),
+                    'horde.error'
+                );
+                return $result;
+            }
 
             if (strlen($args['qsearchfilter'])) {
                 $injector->getInstance('IMP_Search')->applyFilter($args['qsearchfilter'], array($qsearch_mbox), $mbox);
@@ -116,14 +129,12 @@ class IMP_Ajax_Application_ListMessages
             $mbox->filterOnDisplay();
         }
 
+        $result->label = $mbox->label;
+
         /* Optimization: saves at least a STATUS and an EXAMINE call since
          * we will eventually open mailbox READ-WRITE. */
         $imp_imap = $mbox->imp_imap;
         $imp_imap->openMailbox($mbox, Horde_Imap_Client::OPEN_READWRITE);
-
-        /* Create the base object. */
-        $result = new IMP_Ajax_Application_Viewport($mbox);
-        $result->label = $mbox->label;
 
         if ($is_search) {
             /* For search mailboxes, we need to invalidate all browser data
@@ -177,6 +188,8 @@ class IMP_Ajax_Application_ListMessages
             $injector->getInstance('IMP_Ajax_Queue')->quota($mbox, true);
 
             if (!$mbox->is_imap) {
+                $result->setMetadata('nodeleteshow', 1);
+                $result->setMetadata('noundelete', 1);
                 $result->setMetadata('pop3', 1);
             }
             if ($sortpref->sortby_locked) {
@@ -213,6 +226,13 @@ class IMP_Ajax_Application_ListMessages
                 $result->setMetadata('spam_show', 1);
             }
 
+            if ($prefs->getValue('use_trash')) {
+                $result->setMetadata('nodeleteshow', 1);
+                if (!$mbox->vtrash) {
+                    $result->setMetadata('noundelete', 1);
+                }
+            }
+
             $result->addFlagMetadata();
         }
 
@@ -237,7 +257,8 @@ class IMP_Ajax_Application_ListMessages
         if ($mbox->readonly) {
             $result->setMetadata('readonly', 1);
             $result->setMetadata('nodelete', 1);
-            $result->setMetadata('expunge', 1);
+            $result->setMetadata('nodeleteshow', 1);
+            $result->setMetadata('noundelete', 1);
         } else {
             if (!$mbox->access_deletemsgs) {
                 $result->setMetadata('nodelete', 1);
@@ -260,7 +281,14 @@ class IMP_Ajax_Application_ListMessages
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
             if (!$mbox->exists) {
-                $notification->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
+                $notification->push(
+                    sprintf(
+                        _("Mailbox %s does not exist."),
+                        $mbox->label
+                    ),
+                    'horde.error'
+                );
+                $result = new IMP_Ajax_Application_Viewport_Error($mbox);
             }
 
             if (!empty($args['change'])) {
@@ -435,8 +463,9 @@ class IMP_Ajax_Application_ListMessages
                     ? array_map('strval', $imp_flags->parse(array(
                           'flags' => $ob['flags'],
                           'headers' => $ob['headers'],
+                          'personal' => $ob['envelope']->to,
                           'runhook' => $ob,
-                          'personal' => $ob['envelope']->to
+                          'structure' => $ob['structure']
                       )))
                     : array()
             );
@@ -451,10 +480,15 @@ class IMP_Ajax_Application_ListMessages
 
             /* Format the From: Header. */
             $getfrom = $imp_ui->getFrom($ob['envelope']);
-            $from_ob = new IMP_Ajax_Addresses($getfrom['from_list']);
-            $msg['from'] = $from_ob->toArray()->addr;
-            if (isset($getfrom['from_label'])) {
-                $msg['fromlabel'] = $getfrom['from_label'];
+            if (count($getfrom['from_list'])) {
+                $from_ob = new IMP_Ajax_Addresses($getfrom['from_list']);
+                $msg['from'] = $from_ob->toArray()->addr;
+                if (isset($getfrom['from_label'])) {
+                    $msg['fromlabel'] = $getfrom['from_label'];
+                }
+            } else {
+                $msg['from'] = array();
+                $msg['fromlabel'] = $getfrom['from'];
             }
 
             /* Format the Subject: Header. */

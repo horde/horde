@@ -181,10 +181,9 @@ class Horde_Image_Exif_Parser_Sanyo extends Horde_Image_Exif_Parser_Base
                 }
                 //offsets are from TIFF header which is 12 bytes from the start
                 //of the file
-                $v = fseek($seek, $globalOffset + hexdec($value));
-                if ($v == 0) {
-                    $data = fread($seek, $bytesofdata);
-                } elseif ($v == -1) {
+                if ($seek->seek($globalOffset + hexdec($value))) {
+                    $data = $seek->substring(0, $bytesofdata);
+                } else {
                     $result['Errors'] = $result['Errors']++;
                 }
             }

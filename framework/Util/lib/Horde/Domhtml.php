@@ -248,7 +248,7 @@ class Horde_Domhtml implements Iterator
      */
     protected function _loadHTML($html)
     {
-        if (PHP_MINOR_VERSION >= 4) {
+        if (version_compare(PHP_VERSION, '5.4', '>=')) {
             $mask = defined('LIBXML_PARSEHUGE')
                 ? LIBXML_PARSEHUGE
                 : 0;

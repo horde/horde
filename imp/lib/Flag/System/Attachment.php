@@ -20,7 +20,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
+class IMP_Flag_System_Attachment
+extends IMP_Flag_Base
+implements IMP_Flag_Match_Header, IMP_Flag_Match_Order, IMP_Flag_Match_Structure
 {
     /**
      */
@@ -38,17 +40,41 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
     }
 
     /**
-     * @param Horde_Mime_Headers $data
      */
-    public function match($data)
+    public function matchOrder()
     {
-        if (!($ctype = $data['Content-Type'])) {
-            return false;
+        return array(
+            'IMP_Flag_Match_Structure',
+            'IMP_Flag_Match_Header'
+        );
+    }
+
+    /**
+     */
+    public function matchHeader(Horde_Mime_Headers $data)
+    {
+        if ($ctype = $data['Content-Type']) {
+            @list($primary, $sub) = explode('/', $ctype->value, 2);
+            if (($primary == 'multipart') &&
+                !in_array($sub, array('alternative', 'encrypt', 'related', 'signed'))) {
+                return true;
+            }
         }
 
-        @list($primary, $sub) = explode('/', $ctype->value, 2);
-        return (($primary == 'multipart') &&
-            !in_array($sub, array('alternative', 'encrypt', 'related', 'signed')));
+        return null;
+    }
+
+    /**
+     */
+    public function matchStructure(Horde_Mime_Part $data)
+    {
+        foreach ($data->partIterator() as $val) {
+            if (IMP_Mime_Attachment::isAttachment($val)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

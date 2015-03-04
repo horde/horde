@@ -642,7 +642,6 @@ class IMP_Imap implements Serializable
         case 'store':
         case 'subscribeMailbox':
         case 'sync':
-        case 'thread':
             // Horde_Imap_Client_Mailbox: these calls all have the mailbox as
             // their first parameter.
             $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
@@ -697,6 +696,13 @@ class IMP_Imap implements Serializable
                 return $this->_status($params);
             }
             $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            break;
+
+        case 'thread':
+            $params[0] = IMP_Mailbox::getImapMboxOb($params[0]);
+            if (isset($params[1]['search'])) {
+                $params[1]['search']->charset('UTF-8', false);
+            }
             break;
 
         default:

@@ -20,7 +20,7 @@ ini_set('allow_url_include', 0);
 ini_set('tidy.clean_output', 0);
 
 // TODO: Removed from PHP as of 5.4.0
-if (PHP_MINOR_VERSION < 4) {
+if (version_compare(PHP_VERSION, '5.4', '<')) {
     ini_set('magic_quotes_runtime', 0);
     ini_set('magic_quotes_sybase', 0);
 }

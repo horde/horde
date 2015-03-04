@@ -83,26 +83,41 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Returns the list of mailboxes.
      *
+     * @param array $opts  Additional options:
+     * <pre>
+     *   - unsub: (boolean) If true, return unsubscribed mailboxes.
+     * </pre>
+     *
      * @return array  The list of IMAP mailboxes. A list of arrays with the
      *                following keys:
+     * <pre>
      *   - d: (string) The namespace delimiter.
      *   - label: (string) Human readable label (UTF-8).
      *   - level: (integer) The child level of this element.
      *   - ob: (Horde_Imap_Client_Mailbox) A mailbox object.
      *   - subscribed: (boolean) True if mailbox is subscribed.
+     * </pre>
      */
-    public function mailboxList()
+    public function mailboxList(array $opts = array())
     {
         global $injector;
 
-        $iterator = new IMP_Ftree_IteratorFilter(
-            $injector->getInstance('IMP_Ftree')
-        );
+        $ftree = $injector->getInstance('IMP_Ftree');
+
+        if (!empty($opts['unsub'])) {
+            /* Make sure unsubscribed mailboxes are loaded. */
+            $ftree->loadUnsubscribed();
+        }
+
+        $iterator = new IMP_Ftree_IteratorFilter($ftree);
         $iterator->add(array(
             $iterator::CONTAINERS,
             $iterator::REMOTE,
             $iterator::VFOLDER
         ));
+        if (!empty($opts['unsub'])) {
+            $iterator->remove($iterator::UNSUB);
+        }
         $mboxes = array();
 
         foreach ($iterator as $val) {
@@ -110,8 +125,6 @@ class IMP_Api extends Horde_Registry_Api
             $sub = $mbox_ob->sub;
 
             $mboxes[] = array(
-                // TODO: Remove for IMP 7.
-                'a' => $sub ? 8 : 0,
                 'd' => $mbox_ob->namespace_delimiter,
                 'label' => $mbox_ob->label,
                 'level' => $val->level,

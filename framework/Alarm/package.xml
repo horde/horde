@@ -10,9 +10,9 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-06</date>
+ <date>2015-02-10</date>
  <version>
-  <release>2.2.4</release>
+  <release>2.2.5</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -942,7 +942,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-06</date>
+   <date>2015-02-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix fatal errors when stored alarm data cannot be unserialized.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.5</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

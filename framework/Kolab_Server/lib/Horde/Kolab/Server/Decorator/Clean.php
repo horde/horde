@@ -250,7 +250,7 @@ implements Horde_Kolab_Server_Interface
     /**
      * Cleanup the server.
      *
-     * @return NULL
+     * @throws Horde_Kolab_Server_Exception
      */
     public function cleanup()
     {
@@ -264,6 +264,9 @@ implements Horde_Kolab_Server_Interface
      */
     public function __destruct()
     {
-        $this->cleanup();
+        try {
+            $this->cleanup();
+        } catch (Horde_Kolab_Server_Exception $e) {
+        }
     }
 }

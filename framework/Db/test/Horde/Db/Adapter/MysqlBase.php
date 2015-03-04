@@ -33,6 +33,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
     public static function setUpBeforeClass()
     {
+        self::$_reason = 'The MySQL adapter is not available';
         if (static::_available()) {
             self::$_skip = false;
             list($conn,) = static::_getConnection();
@@ -236,10 +237,15 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
         $this->_conn->delete('DELETE FROM users');
 
         $this->_conn->addColumn('users', 'intelligence_quotient', 'tinyint');
-        $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
-
-        $jonnyg = (object)$this->_conn->selectOne('SELECT * FROM users');
-        $this->assertEquals('127', $jonnyg->intelligence_quotient);
+        try {
+            $this->_conn->insert('INSERT INTO users (intelligence_quotient) VALUES (300)');
+            $jonnyg = (object)$this->_conn->selectOne('SELECT * FROM users');
+            $this->assertEquals('127', $jonnyg->intelligence_quotient);
+        } catch (Horde_Db_Exception $e) {
+            if (strpos($e->getMessage(), "Out of range value for column 'intelligence_quotient' at row 1") === false) {
+                throw $e;
+            }
+        }
     }
 
     public function testTableAliasLength()
@@ -325,13 +331,19 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
         $this->_conn->execute('INSERT INTO testings (id, foo) VALUES (1, -1)');
 
-        $this->_conn->changeColumn('testings', 'foo', 'integer', array('unsigned' => true));
+        try {
+            $this->_conn->changeColumn('testings', 'foo', 'integer', array('unsigned' => true));
 
-        $afterChange = $this->_getColumn('testings', 'foo');
-        $this->assertTrue($afterChange->isUnsigned());
-
-        $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
-        $this->assertEquals(0, $row->foo);
+            $afterChange = $this->_getColumn('testings', 'foo');
+            $this->assertTrue($afterChange->isUnsigned());
+    
+            $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
+            $this->assertEquals(0, $row->foo);
+        } catch (Horde_Db_Exception $e) {
+            if (strpos($e->getMessage(), "Out of range value for column 'foo' at row 1") === false) {
+                throw $e;
+            }
+        }
     }
 
     public function testRenameColumn()
