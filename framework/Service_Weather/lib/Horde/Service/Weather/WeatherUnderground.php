@@ -369,7 +369,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         if ((!empty($this->_cache) && !$results = $this->_cache->get($cachekey, $lifetime)) ||
             empty($this->_cache)) {
             $url = new Horde_Url($url);
-            $response = $this->_http->get($url);
+            $response = $this->_http->get((string)$url);
             if (!$response->code == '200') {
                 throw new Horde_Service_Weather_Exception($response->code);
             }
