@@ -53,10 +53,22 @@ class Horde_Idna
     {
         switch ($backend = static::_getBackend()) {
         case 'INTL':
-            return idn_to_utf8($data);
-
         case 'INTL_UTS46':
-            return idn_to_utf8($data, 0, INTL_IDNA_VARIANT_UTS46);
+            $parts = explode('.', $data);
+            foreach ($parts as &$part) {
+                if (strpos($part, 'xn--') === 0) {
+                    switch ($backend) {
+                    case 'INTL':
+                        $part = idn_to_utf8($data);
+                        break;
+
+                    case 'INTL_UTS46':
+                        $part = idn_to_utf8($data, 0, INTL_IDNA_VARIANT_UTS46);
+                        break;
+                    }
+                }
+            }
+            return implode('.', $parts);
 
         default:
             return $backend->decode($data);
