@@ -499,11 +499,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
-<<<<<<< HEAD
-            ' event_exceptionoriginaldate, event_organizer FROM ' . $this->_params['table'] .
-=======
-            ' event_exceptionoriginaldate FROM kronolith_events' .
->>>>>>> upstream/master
+            ' event_exceptionoriginaldate, event_organizer FROM kronolith_events' . 
             ' WHERE event_uid = ?';
         $values = array((string)$uid);
 
