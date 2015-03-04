@@ -59,11 +59,11 @@ class Horde_Idna
                 if (strpos($part, 'xn--') === 0) {
                     switch ($backend) {
                     case 'INTL':
-                        $part = idn_to_utf8($data);
+                        $part = idn_to_utf8($part);
                         break;
 
                     case 'INTL_UTS46':
-                        $part = idn_to_utf8($data, 0, INTL_IDNA_VARIANT_UTS46);
+                        $part = idn_to_utf8($part, 0, INTL_IDNA_VARIANT_UTS46);
                         break;
                     }
                 }
