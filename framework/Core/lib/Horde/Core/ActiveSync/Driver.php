@@ -202,6 +202,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $injector->getInstance('Horde_Log_Logger')->notice(sprintf(
                     'Access granted based on transparent authentication of user %s, but ActiveSync client is requesting access for %s.',
                     $GLOBALS['registry']->getAuth(), $username));
+                $GLOBALS['registry']->clearAuth();
                 return false;
             }
             $this->_logger->info(sprintf(
