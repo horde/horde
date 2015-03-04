@@ -49,7 +49,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
     public function send()
     {
         $method = $this->method;
-        $uri = $this->uri;
+        $uri = (string)$this->uri;
         $headers = $this->headers;
         $data = $this->data;
         if (is_array($data)) {

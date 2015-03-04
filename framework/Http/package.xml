@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Allow to pass Horde_Url objects as URI (Bug #13897).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -523,7 +523,7 @@
    <date>2015-03-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Allow to pass Horde_Url objects as URI (Bug #13897).
    </notes>
   </release>
  </changelog>

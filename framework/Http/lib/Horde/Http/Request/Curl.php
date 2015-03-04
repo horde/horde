@@ -53,7 +53,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
     public function send()
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->uri);
+        curl_setopt($curl, CURLOPT_URL, (string)$this->uri);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, true);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
@@ -123,7 +123,7 @@ class Horde_Http_Request_Curl extends Horde_Http_Request_Base
             throw new Horde_Http_Exception(curl_error($curl), curl_errno($curl));
         }
         $info = curl_getinfo($curl);
-        return new Horde_Http_Response_Curl($this->uri, $result, $info);
+        return new Horde_Http_Response_Curl((string)$this->uri, $result, $info);
     }
 
     /**
