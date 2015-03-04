@@ -14,7 +14,7 @@ class Horde_Service_Facebook_Request_Graph extends Horde_Service_Facebook_Reques
     /**
      * API Endpoint to call.
      *
-     * @var string
+     * @var Horde_Url
      */
     protected $_endpoint;
 
