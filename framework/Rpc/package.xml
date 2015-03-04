@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix fatal error when using pecl_http2.
 * [mjr] Fix possible PHP error when returning HTTP 500 response.
  </notes>
  <contents>
@@ -874,6 +875,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix fatal error when using pecl_http2.
 * [mjr] Fix possible PHP error when returning HTTP 500 response.
    </notes>
   </release>
