@@ -806,6 +806,11 @@ class Kronolith_Application extends Horde_Registry_Application
     }
 
     /**
+     * Add or update an event from DAV
+     *
+     * @param string $collection  An external collection ID.
+     * @param string $object      An external object ID.
+     * @param string $data        Icalendar data
      */
     public function davPutObject($collection, $object, $data)
     {
@@ -868,9 +873,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 $dav->addObjectMap($id, $object, $internal);
             }
 
-            // Send iTip messages.
+            // Send iTip messages unless organizer is external.
             // Notifications will get lost, there is no way to return messages
             // to clients.
+            if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
+                return;
+            }
             Kronolith::sendITipNotifications(
                 $event,
                 new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
@@ -905,9 +913,12 @@ class Kronolith_Application extends Horde_Registry_Application
         } catch (Horde_Dav_Exception $e) {
         }
 
-        // Send iTip messages.
+        // Send iTip messages unless organizer is external.
         // Notifications will get lost, there is no way to return messages to
         // clients.
+        if ($event->organizer && !Kronolith::isUserEmail($event->creator, $event->organizer)) {
+            return;
+        }
         Kronolith::sendITipNotifications(
             $event,
             new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),

@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[rla] Handle external organizers and responses (Request #3965).
 [jan] Remove configuration options for database tables.
 [mjr] Honor the UID value sent from EAS clients directly in the message
       structure.

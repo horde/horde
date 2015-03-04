@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2015-01-17</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Handle external organizers and responses (Request #3965).
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
@@ -501,6 +502,7 @@
     <file name="20_kronolith_upgrade_timezone.php" role="horde" />
     <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
+    <file name="23_kronolith_remote_organizer.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -1328,6 +1330,7 @@
    <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
    <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
+   <install as="kronolith/migration/23_kronolith_remote_organizer.php" name="migration/23_kronolith_remote_organizer.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -2518,9 +2521,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2015-01-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Handle external organizers and responses (Request #3965).
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
