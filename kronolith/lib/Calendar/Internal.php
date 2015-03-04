@@ -122,6 +122,16 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
     }
 
     /**
+     * Returns the CalDAV URL to this calendar.
+     *
+     * @return string  This calendar's CalDAV URL.
+     */
+    public function caldavUrl()
+    {
+        return $this->_caldavUrl($this->_share->getName(), 'calendar');
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.
@@ -143,21 +153,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
             $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)
         );
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
-        try {
-            $hash['caldav'] = Horde::url(
-                $registry->get('webroot', 'horde')
-                    . ($conf['urls']['pretty'] == 'rewrite'
-                        ? '/rpc/calendars/'
-                        : '/rpc.php/calendars/'),
-                true,
-                -1
-            )
-                . $registry->convertUsername($registry->getAuth(), false) . '/'
-                . $injector->getInstance('Horde_Dav_Storage')
-                    ->getExternalCollectionId($id, 'calendar')
-                . '/';
-        } catch (Horde_Exception $e) {
-        }
+        $hash['caldav'] = $this->caldavUrl();
         $hash['sub'] = Horde::url(
             $registry->get('webroot', 'horde')
                 . ($conf['urls']['pretty'] == 'rewrite'

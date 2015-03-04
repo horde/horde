@@ -53,6 +53,14 @@ The 'table' configuration options have been removed, the database tables have
 fixed names now.
 
 
+Hooks (hooks.php)
+-----------------
+
+The following hooks have been added::
+
+   caldav_url
+
+
 Upgrading Kronolith from 2.3.x to 3.x
 =====================================
 

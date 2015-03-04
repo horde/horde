@@ -36,6 +36,16 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
     }
 
     /**
+     * Returns the CalDAV URL to this calendar.
+     *
+     * @return string  This calendar's CalDAV URL.
+     */
+    public function caldavUrl()
+    {
+        return $this->_caldavUrl($this->_share->getName(), 'tasks');
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.
@@ -62,21 +72,7 @@ class Kronolith_Calendar_External_Tasks extends Kronolith_Calendar_External
             $registry->getAuth(),
             Horde_Perms::EDIT
         );
-        try {
-            $hash['caldav'] = Horde::url(
-                $registry->get('webroot', 'horde')
-                    . ($conf['urls']['pretty'] == 'rewrite'
-                        ? '/rpc/calendars/'
-                        : '/rpc.php/calendars/'),
-                true,
-                -1
-            )
-                . $registry->convertUsername($registry->getAuth(), false) . '/'
-                . $injector->getInstance('Horde_Dav_Storage')
-                    ->getExternalCollectionId($this->_share->getName(), 'tasks')
-                . '/';
-        } catch (Horde_Exception $e) {
-        }
+        $hash['caldav'] = $this->caldavUrl();
         $hash['sub'] = Horde::url(
             $registry->get('webroot', 'horde')
                 . ($conf['urls']['pretty'] == 'rewrite'

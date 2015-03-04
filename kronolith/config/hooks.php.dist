@@ -32,4 +32,54 @@ class Kronolith_Hooks
 //        throw new Horde_Exception('Unknown action');
 //     }
 
+    /**
+     * Customizes the original CalDAV URLs presented in the user interface.
+     *
+     * May for example be used to add some realm to user names that would
+     * otherwise be picked from the login screen.
+     *
+     * The following Horde hook examples may pick this information up, when
+     * using IMP for authentication:
+     *
+     * <code>
+     * public function pushapp()
+     * {
+     *     if (strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+     *         preg_match('/^(.*)@([^\/]*)(.*)$/', $_SERVER['REQUEST_URI'], $m)) {
+     *         // Restore to the original URL that Horde understands, but save
+     *         // the realm part.
+     *         $_SERVER['REQUEST_URI'] = $m[1] . $m[3];
+     *         putenv('REALM=' . basename($m[2]));
+     *     }
+     * }
+     * 
+     * public function preauthenticate($userId, $credentials)
+     * {
+     *     $result = array($userId, $credentials);
+     *     if ($credentials['authMethod'] == 'authenticate' &&
+     *         strpos($_SERVER['REQUEST_URI'], '/rpc') &&
+     *         ($realm = getenv('REALM'))) {
+     *         // If this was realm'ed RPC request, pick the correct server
+     *         // from IMP's backend configuration. Assuming that the used
+     *         // realms match backend keys.
+     *         $result['credentials']['server'] = $realm;
+     *     }
+     *     return $result;
+     * }
+     * </code>
+     *
+     * @param string $base      The base part of the URL.
+     * @param string $user      The user part of the URL.
+     * @param string $resource  The resource part of the URL.
+     */
+//    public function caldav_url($base, $user, $resource)
+//    {
+//        // Example 1: return unaltered
+//        //return $base . '/' . $user . '/' . $resource;
+//
+//        // Example 2: append realm to user name
+//        $server = $GLOBALS['registry']->mail->server();
+//        return $base . '/' . $user . '@' . $server['hostspec'] . '/' . $resource;
+//    }
+
 }

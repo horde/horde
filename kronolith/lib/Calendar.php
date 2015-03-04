@@ -120,6 +120,54 @@ abstract class Kronolith_Calendar
     abstract public function display();
 
     /**
+     * Returns the CalDAV URL to this calendar.
+     *
+     * @return string  This calendar's CalDAV URL.
+     */
+    public function caldavUrl()
+    {
+        throw new LogicException('CalDAV is only available for internal calendars');
+    }
+
+    /**
+     * Returns the CalDAV URL for a calendar or task list.
+     *
+     * @param string $id         A collection ID.
+     * @param string $interface  The collection's application.
+     *
+     * @return string  The collection's CalDAV URL.
+     */
+    protected function _caldavUrl($id, $interface)
+    {
+        global $conf, $injector, $registry;
+
+        try {
+            $parts = array(
+                Horde::url(
+                    $registry->get('webroot', 'horde')
+                        . ($conf['urls']['pretty'] == 'rewrite'
+                            ? '/rpc/calendars'
+                            : '/rpc.php/calendars'),
+                    true,
+                    -1
+                ),
+                $registry->convertUsername($registry->getAuth(), false),
+                $injector->getInstance('Horde_Dav_Storage')
+                    ->getExternalCollectionId($id, $interface) . '/'
+            );
+        } catch (Horde_Exception $e) {
+            return null;
+        }
+        try {
+            return $GLOBALS['injector']
+                ->getInstance('Horde_Core_Hooks')
+                ->callHook('caldav_url', 'kronolith', $parts);
+        } catch (Horde_Exception_HookNotSet $e) {
+            return implode('/', $parts);
+        }
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.

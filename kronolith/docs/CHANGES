@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Add hook to customize CalDAV URLs.
 [jan] Remove configuration options for database tables.
 [mjr] Honor the UID value sent from EAS clients directly in the message
       structure.

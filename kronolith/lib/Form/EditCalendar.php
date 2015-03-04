@@ -24,7 +24,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
 
     public function __construct($vars, $calendar)
     {
-        global $conf, $injector, $registry;
+        global $calendar_manager, $conf, $injector, $registry;
 
         $this->_calendar = $calendar;
 
@@ -75,31 +75,38 @@ class Kronolith_Form_EditCalendar extends Horde_Form
         );
 
         /* Subscription URLs. */
+        $calendarObject = $calendar_manager->getEntry(
+            Kronolith::ALL_CALENDARS,
+            $calendar->getName()
+        );
         $url = $registry->get('webroot', 'horde');
         if (isset($conf['urls']['pretty']) &&
             $conf['urls']['pretty'] == 'rewrite') {
             $webdavUrl = $url . '/rpc/kronolith/';
-            $caldavUrl = $url . '/rpc/calendars/';
             $accountUrl = $url . '/rpc/';
         } else {
             $webdavUrl = $url . '/rpc.php/kronolith/';
-            $caldavUrl = $url . '/rpc.php/calendars/';
             $accountUrl = $url . '/rpc.php/';
         }
-        try {
-            $accountUrl = Horde::url($accountUrl, true, -1)
-                . 'principals/' . $registry->convertUsername($registry->getAuth(), false) . '/';
-            $caldavUrl = Horde::url($caldavUrl, true, -1)
-                . $registry->convertUsername($registry->getAuth(), false)
-                    . '/'
-                . $injector->getInstance('Horde_Dav_Storage')->getExternalCollectionId($calendar->getName(), 'calendar')
-                . '/';
+        $caldavUrl = $calendarObject->caldavUrl();
+        if ($caldavUrl) {
+            $accountParts = array(
+                Horde::url($accountUrl, true, -1) . 'principals',
+                $registry->convertUsername($registry->getAuth(), false),
+                ''
+            );
+            try {
+                $accountUrl = $injector->getInstance('Horde_Core_Hooks')
+                    ->callHook('caldav_url', 'kronolith', $accountParts);
+            } catch (Horde_Exception_HookNotSet $e) {
+                $accountUrl = implode('/', $accountParts);
+            }
             $this->addVariable(
                  _("CalDAV Subscription URL"), '', 'link', false, false, null,
                  array(array(
                      'url' => $caldavUrl,
                      'text' => $caldavUrl,
-                 'title' => _("Copy this URL to a CalDAV client to subscribe to this calendar"),
+                     'title' => _("Copy this URL to a CalDAV client to subscribe to this calendar"),
                      'target' => '_blank')
                  )
             );
@@ -108,11 +115,10 @@ class Kronolith_Form_EditCalendar extends Horde_Form
                  array(array(
                      'url' => $accountUrl,
                      'text' => $accountUrl,
-                 'title' => _("Copy this URL to a CalDAV client to subscribe to all your calendars"),
+                     'title' => _("Copy this URL to a CalDAV client to subscribe to all your calendars"),
                      'target' => '_blank')
                  )
             );
-        } catch (Horde_Exception $e) {
         }
         $webdavUrl = Horde::url($webdavUrl, true, -1)
             . ($calendar->get('owner')

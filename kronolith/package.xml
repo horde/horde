@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add hook to customize CalDAV URLs.
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
@@ -2521,6 +2522,7 @@
    <date>2014-06-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add hook to customize CalDAV URLs.
 * [jan] Remove configuration options for database tables.
 * [mjr] Honor the UID value sent from EAS clients directly in the message structure.
 * [jan] Add entries for Tasks and Agenda to top menu.
