@@ -38,6 +38,7 @@ class Horde_Http_TestBase extends Horde_Test_Case
 
     public function testRequest()
     {
+        $this->_skipMissingConfig();
         $client = new Horde_Http_Client(
             array('request' => new self::$_requestClass())
         );
