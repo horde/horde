@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-24</date>
+ <date>2015-03-04</date>
  <version>
   <release>2.26.1</release>
   <api>2.26.0</api>
@@ -2664,7 +2664,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-24</date>
+   <date>2015-03-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Detect stock Android 5.0 multiplex settings.
