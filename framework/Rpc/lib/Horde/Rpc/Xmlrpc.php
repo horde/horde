@@ -101,7 +101,7 @@ class Horde_Rpc_Xmlrpc extends Horde_Rpc
             'User-Agent' => 'Horde RPC client',
             'Content-Type' => 'text/xml');
         try {
-            $result = $client->post($url, xmlrpc_encode_request($method, $params), $headers);
+            $result = $client->post((string)$url, xmlrpc_encode_request($method, $params), $headers);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Rpc_Exception($e);
         }

@@ -147,7 +147,7 @@ class Horde_Rpc_Jsonrpc extends Horde_Rpc
         }
         $data = Horde_Serialize::serialize($data, Horde_Serialize::JSON);
         try {
-            $result = $client->post($url, $data, $headers);
+            $result = $client->post((string)$url, $data, $headers);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Rpc_Exception($e->getMessage());
         }
