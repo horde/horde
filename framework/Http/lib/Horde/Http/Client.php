@@ -18,9 +18,9 @@
  *
  * @property       boolean      $httpMethodOverride
  *                              @see $_httpMethodOverride
- * @property-write string       $request.uri
  * @property       Horde_Http_Request_Base $request
  *                              A concrete request instance.
+ * @property-write string|Horde_Url $request.uri
  *                              Default URI if not specified for individual
  *                              requests.
  * @property-write array        $request.headers
@@ -203,13 +203,15 @@ class Horde_Http_Client
     /**
      * Sends an HTTP request.
      *
-     * @param string $method  HTTP request method (GET, PUT, etc.)
-     * @param string $uri     URI to request, if different from $this->uri
-     * @param mixed $data     Request data. Can be an array of form data that
-     *                        will be encoded automatically, or a raw string.
-     * @param array $headers  Any headers specific to this request. They will
-     *                        be combined with $this->_headers, and override
-     *                        headers of the same name for this request only.
+     * @param string $method         HTTP request method (GET, PUT, etc.)
+     * @param string|Horde_Url $uri  URI to request, if different from
+     *                               $this->uri
+     * @param string|array $data     Request data. Array of form data that will
+     *                               be encoded automatically, or a raw string.
+     * @param array $headers         Any headers specific to this request. They
+     *                               will be combined with $this->_headers, and
+     *                               override headers of the same name for this
+     *                               request only.
      *
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base

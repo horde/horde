@@ -72,7 +72,7 @@ class Horde_Http_Request_Peclhttp2 extends Horde_Http_Request_PeclhttpBase
             $body->append($data);
         }
 
-        $httpRequest = new \http\Client\Request($this->method, $this->uri, $this->headers, $body);
+        $httpRequest = new \http\Client\Request($this->method, (string)$this->uri, $this->headers, $body);
 
         $client->setOptions($this->_httpOptions());
 
@@ -85,6 +85,6 @@ class Horde_Http_Request_Peclhttp2 extends Horde_Http_Request_PeclhttpBase
             throw new Horde_Http_Exception($e);
         }
 
-        return new Horde_Http_Response_Peclhttp2($this->uri, $httpResponse);
+        return new Horde_Http_Response_Peclhttp2((string)$this->uri, $httpResponse);
     }
 }

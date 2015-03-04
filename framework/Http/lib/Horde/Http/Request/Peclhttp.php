@@ -56,7 +56,7 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_PeclhttpBase
             throw new Horde_Http_Exception('Method ' . $this->method . ' not supported.');
         }
 
-        $httpRequest = new HttpRequest($this->uri, constant('HTTP_METH_' . $this->method));
+        $httpRequest = new HttpRequest((string)$this->uri, constant('HTTP_METH_' . $this->method));
 
         $data = $this->data;
         if (is_array($data)) {
@@ -81,6 +81,6 @@ class Horde_Http_Request_Peclhttp extends Horde_Http_Request_PeclhttpBase
             }
         }
 
-        return new Horde_Http_Response_Peclhttp($this->uri, $httpResponse);
+        return new Horde_Http_Response_Peclhttp((string)$this->uri, $httpResponse);
     }
 }

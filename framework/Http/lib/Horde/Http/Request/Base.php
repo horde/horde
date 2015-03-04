@@ -14,7 +14,7 @@
  * @category Horde
  * @package  Http
  *
- * @property string  $uri            Default URI if not specified for
+ * @property string|Horde_Url $uri   Default URI if not specified for
  *                                   individual requests.
  * @property array   $headers        Hash with additional request headers.
  * @property string  $method         Default request method if not specified
