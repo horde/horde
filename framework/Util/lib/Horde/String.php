@@ -313,15 +313,10 @@ class Horde_String
 
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
-            $track_errors = ini_set('track_errors', 1);
-            $ret = @mb_substr(
-                $string,
-                $start,
-                $length,
-                self::_mbstringCharset($charset)
-            );
-            ini_set('track_errors', $track_errors);
-            if (!isset($php_errormsg)) {
+            $ret = @mb_substr($string, $start, $length, self::_mbstringCharset($charset));
+
+            /* mb_substr() returns empty string on failure. */
+            if (strlen($ret)) {
                 return $ret;
             }
             $error = true;
