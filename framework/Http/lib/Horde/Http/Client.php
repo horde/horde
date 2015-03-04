@@ -15,6 +15,48 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
+ *
+ * @property       boolean      $httpMethodOverride
+ *                              @see $_httpMethodOverride
+ * @property-write string       $request.uri
+ * @property       Horde_Http_Request_Base $request
+ *                              A concrete request instance.
+ *                              Default URI if not specified for individual
+ *                              requests.
+ * @property-write array        $request.headers
+ *                              Hash with additional request headers.
+ * @property-write string       $request.method
+ *                              Default request method if not specified for
+ *                              individual requests.
+ * @property-write array|string $request.data
+ *                              POST data fields or POST/PUT data body.
+ * @property-write string       $request.username
+ *                              Authentication user name.
+ * @property-write string       $request.password
+ *                              Authentication password.
+ * @property-write string       $request.authenticationScheme
+ *                              Authentication method, one of the
+ *                              Horde_Http::AUTH_* constants.
+ * @property-write string       $request.proxyServer
+ *                              Host name of a proxy server.
+ * @property-write integer      $request.proxyPort
+ *                              Port number of a proxy server.
+ * @property-write integer      $request.proxyType
+ *                              Proxy server type, one of the
+ *                              Horde_Http::PROXY_* constants.
+ * @property-write string       $request.proxyUsername
+ *                              Proxy authentication user name.
+ * @property-write string       $request.proxyPassword
+ *                              Proxy authentication password.
+ * @property-write string       $request.proxyAuthenticationScheme
+ *                              Proxy authentication method, one of the
+ *                              Horde_Http::AUTH_* constants.
+ * @property-write integer      $request.redirects
+ *                              Maximum number of redirects to follow.
+ * @property-write integer      $request.timeout
+ *                              Timeout in seconds.
+ * @property-write boolean      $request.verifyPeer
+ *                              Verify SSL peer certificates?
  */
 class Horde_Http_Client
 {
@@ -51,41 +93,8 @@ class Horde_Http_Client
      * Horde_Http_Client constructor.
      *
      * @param array $args Any Http_Client settings to initialize in the
-     *                    constructor. Available settings are:
-     *                    - client.httpMethodOverride: (boolean) @see
-     *                      $_httpMethodOverride
-     *                    - request: (array) See below for possible hash keys.
-     *                    - request.uri (string) Default URI if not specified
-     *                      for individual requests.
-     *                    - request.headers: (array) Hash with additional
-     *                      request headers.
-     *                    - request.method: (string) Default request method if
-     *                      not specified for individual requests.
-     *                    - request.data: (array|string) POST data fields or
-     *                      POST/PUT data body.
-     *                    - request.username: (string) Authentication user name.
-     *                    - request.password: (string) Authentication password.
-     *                    - request.authenticationScheme: (string)
-     *                      Authentication method, one of the
-     *                      Horde_Http::AUTH_* constants.
-     *                    - request.proxyServer: (string) Host name of a proxy
-     *                      server.
-     *                    - request.proxyPort: (integer) Port number of a proxy
-     *                      server.
-     *                    - request.proxyType: (integer) Proxy server type, one
-     *                      of the Horde_Http::PROXY_* constants.
-     *                    - request.proxyUsername: (string) Proxy authentication
-     *                      user name.
-     *                    - request.proxyPassword: (string) Proxy authentication
-     *                      password.
-     *                    - request.proxyAuthenticationScheme: (string) Proxy
-     *                      authentication method, one of the
-     *                      Horde_Http::AUTH_* constants.
-     *                    - request.redirects: (integer) Maximum number of
-     *                      redirects to follow.
-     *                    - request.timeout: (integer) Timeout in seconds.
-     *                    - request.verifyPeer: (boolean) Verify SSL peer
-     *                      certificates?
+     *                    constructor. See the class properties for available
+     *                    settings.
      */
     public function __construct($args = array())
     {
@@ -145,7 +154,10 @@ class Horde_Http_Client
     public function put($uri = null, $data = null, $headers = array())
     {
         if ($this->_httpMethodOverride) {
-            $headers = array_merge(array('X-HTTP-Method-Override' => 'PUT'), $headers);
+            $headers = array_merge(
+                array('X-HTTP-Method-Override' => 'PUT'),
+                $headers
+            );
             return $this->post($uri, $data, $headers);
         }
 
@@ -164,7 +176,10 @@ class Horde_Http_Client
     public function delete($uri = null, $headers = array())
     {
         if ($this->_httpMethodOverride) {
-            $headers = array_merge(array('X-HTTP-Method-Override' => 'DELETE'), $headers);
+            $headers = array_merge(
+                array('X-HTTP-Method-Override' => 'DELETE'),
+                $headers
+            );
             return $this->post($uri, null, $headers);
         }
 
@@ -199,7 +214,9 @@ class Horde_Http_Client
      * @throws Horde_Http_Exception
      * @return Horde_Http_Response_Base
      */
-    public function request($method, $uri = null, $data = null, $headers = array())
+    public function request(
+        $method, $uri = null, $data = null, $headers = array()
+    )
     {
         if ($method !== null) {
             $this->request->method = $method;

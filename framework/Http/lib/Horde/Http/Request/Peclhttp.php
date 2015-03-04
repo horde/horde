@@ -17,7 +17,9 @@
 class Horde_Http_Request_Peclhttp extends Horde_Http_Request_PeclhttpBase
 {
     /**
-     * Map of HTTP authentication schemes from Horde_Http constants to HTTP_AUTH constants.
+     * Map of HTTP authentication schemes from Horde_Http constants to
+     * HTTP_AUTH constants.
+     *
      * @var array
      */
     protected $_httpAuthSchemes = array(

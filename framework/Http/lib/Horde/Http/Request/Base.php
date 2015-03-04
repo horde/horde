@@ -13,6 +13,28 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Http
+ *
+ * @property string  $uri            Default URI if not specified for
+ *                                   individual requests.
+ * @property array   $headers        Hash with additional request headers.
+ * @property string  $method         Default request method if not specified
+ *                                   for individual requests.
+ * @property array|string $data      POST data fields or POST/PUT data body.
+ * @property string  $username       Authentication user name.
+ * @property string  $password       Authentication password.
+ * @property string  $authenticationScheme  Authentication method, one of the
+ *                                   Horde_Http::AUTH_* constants.
+ * @property string  $proxyServer    Host name of a proxy server.
+ * @property integer $proxyPort      Port number of a proxy server.
+ * @property integer $proxyType      Proxy server type, one of the
+ *                                   Horde_Http::PROXY_* constants.
+ * @property string  $proxyUsername  Proxy authentication user name.
+ * @property string  $proxyPassword  Proxy authentication password.
+ * @property string  $proxyAuthenticationScheme  Proxy authentication method,
+ *                                   one of the Horde_Http::AUTH_* constants.
+ * @property integer $redirects      Maximum number of redirects to follow.
+ * @property integer $timeout        Timeout in seconds.
+ * @property boolean $verifyPeer     Verify SSL peer certificates?
  */
 abstract class Horde_Http_Request_Base
 {
