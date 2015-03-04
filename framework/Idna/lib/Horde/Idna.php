@@ -23,7 +23,7 @@
 class Horde_Idna
 {
     /**
-     * The backend object to use.
+     * The backend to use.
      *
      * @var mixed
      */
@@ -34,7 +34,16 @@ class Horde_Idna
      */
     public static function encode($data)
     {
-        return static::_getBackend()->encode($data);
+        switch ($backend = static::_getBackend()) {
+        case 'INTL':
+            return idn_to_ascii($data);
+
+        case 'INTL_UTS46':
+            return idn_to_ascii($data, 0, INTL_IDNA_VARIANT_UTS46);
+
+        default:
+            return $backend->encode($data);
+        }
     }
 
     /**
@@ -42,7 +51,16 @@ class Horde_Idna
      */
     public static function decode($data)
     {
-        return static::_getBackend()->decode($data);
+        switch ($backend = static::_getBackend()) {
+        case 'INTL':
+            return idn_to_utf8($data);
+
+        case 'INTL_UTS46':
+            return idn_to_utf8($data, 0, INTL_IDNA_VARIANT_UTS46);
+
+        default:
+            return $backend->decode($data);
+        }
     }
 
     /**
@@ -53,7 +71,14 @@ class Horde_Idna
     protected static function _getBackend()
     {
         if (!isset(self::$_backend)) {
-            self::$_backend = new Horde_Idna_Punycode();
+            if (extension_loaded('intl')) {
+                /* Only available in PHP > 5.4.0 */
+                self::$_backend = defined('INTL_IDNA_VARIANT_UTS46')
+                    ? 'INTL_UTS46'
+                    : 'INTL';
+            } else {
+                self::$_backend = new Horde_Idna_Punycode();
+            }
         }
 
         return self::$_backend;

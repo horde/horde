@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Horde_Idna package is now an exclusive wrapper to a Horde-modified version of the true/php-punycode package.
+* [mms] Use intl extension, if installed, and fallback to a locally-patched version of the true/php-punycode package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -70,6 +70,8 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+  </required>
+  <optional>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
@@ -77,7 +79,10 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-  </required>
+   <extension>
+    <name>intl</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -130,7 +135,7 @@
    <date>2015-03-03</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* [mms] Horde_Idna package is now an exclusive wrapper to a Horde-modified version of the true/php-punycode package.
+* [mms] Use intl extension, if installed, and fallback to a locally-patched version of the true/php-punycode package.
    </notes>
   </release>
  </changelog>
