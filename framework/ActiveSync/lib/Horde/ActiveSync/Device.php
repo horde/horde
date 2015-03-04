@@ -682,12 +682,11 @@ class Horde_ActiveSync_Device
                 return;
             }
 
-            // All android before 4.4 KitKat requires multiplex. KitKat supports
-            // non-multiplexed calendars only.
+            // All android before 4.4 KitKat requires multiplex. KitKat and
+            // Android 5 native supports non-multiplexed calendars only.
             if (!empty($this->properties[self::OS]) &&
-                preg_match('/(\d+\.\d+\.\d+)/', $this->properties[self::OS], $matches) &&
+                preg_match('/(\d+\.\d+(\.\d+)*)/', $this->properties[self::OS], $matches) &&
                 version_compare($matches[0], '4.4.0') >= 0) {
-
                 $this->_properties['properties'][self::MULTIPLEX] =
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                     Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
