@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Detect stock Android 5.0 multiplex settings.
+* [mjr] Fix broken sync due to clients that send badly formatted date strings.
 * [mjr] Fix fatal error when dealing with iTip replies from vTodo requests.
  </notes>
  <contents>
@@ -2665,6 +2667,8 @@
    <date>2015-02-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Detect stock Android 5.0 multiplex settings.
+* [mjr] Fix broken sync due to clients that send badly formatted date strings.
 * [mjr] Fix fatal error when dealing with iTip replies from vTodo requests.
    </notes>
   </release>
