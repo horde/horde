@@ -2,6 +2,8 @@
 v6.2.8-git
 ----------
 
+[mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
+      -> HTML compose mode.
 [jan] Fix protocol name in POP3 example backend configuration.
 [mms] Don't honor linked attachment limit configuration options if linked
       attachments are disabled (Bug #13665).

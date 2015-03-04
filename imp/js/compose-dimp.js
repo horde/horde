@@ -581,8 +581,13 @@ var DimpCompose = {
             this.rte = new IMP_Editor('composeMessage', config);
 
             this.rte.editor.on('getData', function(evt) {
-                var elt = new Element('SPAN').insert(evt.data.dataValue),
-                    elts = elt.select('IMG[dropatc_id]');
+                var elt = new Element('SPAN'), elts;
+
+                /* Don't use prototype's insert() since we don't want any
+                 * scripts that may exist in the text data to be eval'd. */
+                elt.innerHTML = evt.data.dataValue;
+                elts = elt.select('IMG[dropatc_id]');
+
                 if (elts.size()) {
                     elts.invoke('writeAttribute', 'dropatc_id', null);
                     elts.invoke('writeAttribute', 'src', null);
