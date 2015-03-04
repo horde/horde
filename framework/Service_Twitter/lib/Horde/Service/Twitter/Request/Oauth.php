@@ -35,7 +35,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
         $url = ($url instanceof Horde_Url) ? $url : new Horde_Url($url);
         $url->add($params);
         try {
-            $response = $this->_twitter->getHttpClient()->get($url->setRaw(true), array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
+            $response = $this->_twitter->getHttpClient()->get((string)$url->setRaw(true), array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }
@@ -70,7 +70,7 @@ class Horde_Service_Twitter_Request_Oauth extends Horde_Service_Twitter_Request
                        $this->_twitter->auth->getAccessToken($this->_request));
         $url = ($url instanceof Horde_Url) ? $url : new Horde_Url($url);
         try {
-            $response = $this->_twitter->getHttpClient()->post($url->setRaw(true), $params, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
+            $response = $this->_twitter->getHttpClient()->post((string)$url->setRaw(true), $params, array('Authorization' => $request->buildAuthorizationHeader('Twitter API')));
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e);
         }
