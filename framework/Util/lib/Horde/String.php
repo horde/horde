@@ -309,6 +309,8 @@ class Horde_String
             return '';
         }
 
+        $error = false;
+
         /* Try mbstring. */
         if (Horde_Util::extensionExists('mbstring')) {
             $track_errors = ini_set('track_errors', 1);
@@ -322,6 +324,7 @@ class Horde_String
             if (!isset($php_errormsg)) {
                 return $ret;
             }
+            $error = true;
         }
 
         /* Try iconv. */
@@ -332,6 +335,7 @@ class Horde_String
             if ($ret !== false) {
                 return $ret;
             }
+            $error = true;
         }
 
         /* Try intl. */
@@ -350,9 +354,12 @@ class Horde_String
             if ($ret !== false) {
                 return $ret;
             }
+            $error = true;
         }
 
-        return substr($string, $start, $length);
+        return $error
+            ? ''
+            : substr($string, $start, $length);
     }
 
     /**

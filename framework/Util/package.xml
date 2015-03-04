@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix handling broken text input with all multibyte drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -750,7 +750,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-03-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix handling broken text input with all multibyte drivers.
    </notes>
   </release>
  </changelog>
