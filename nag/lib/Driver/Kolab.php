@@ -156,22 +156,63 @@ class Nag_Driver_Kolab extends Nag_Driver
 
 
     /**
-     * Retrieves one task from the database by UID.
+     * Retrieves one or multiple tasks from the database by UID.
      *
-     * @param string $uid  The UID of the task to retrieve.
+     * @param string|array $uid  The UID(s) of the task to retrieve.
+     * @param array $tasklists   An optional array of tasklists to search.
+     * @param boolean $getall    If true, return all instances of the task,
+     *                           otherwise only one. Attempts to find the
+     *                           instance owned by the current user.
      *
-     * @return array  The array of task attributes.
+     * @return Nag_Task  A Nag_Task object.
+     * @throws Horde_Exception_NotFound
+     * @throws Nag_Exception
      */
-    public function getByUID($uid)
+    public function getByUID($uids, array $tasklists = null, $getall = true)
     {
-        foreach (array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)) as $tasklist) {
+        if (!is_array($tasklists)) {
+            $tasklists = array_keys(Nag::listTasklists(false, Horde_Perms::READ, false));
+        }
+
+        $results = array();
+        foreach ($tasklists as $tasklist) {
             $this->_tasklist = $tasklist;
             try {
-                return $this->get(Horde_Url::uriB64Encode($uid));
+                $results[] = $this->get(Horde_Url::uriB64Encode($uid));
             } catch (Horde_Exception_NotFound $e) {
             }
         }
-        throw new Horde_Exception_NotFound();
+        if ($getall && count($results) == 1) {
+            return $results[0];
+        } elseif ($getall) {
+            $task = new Nag_Task();
+            foreach ($results as $row) {
+                $task->add($row);
+            }
+        } else {
+            $ownerlists = Nag::listTasklists(true);
+            $task = null;
+            foreach ($results as $row) {
+                if (isset($ownerlists[$row->tasklist])) {
+                    $task = $row;
+                    break;
+                }
+            }
+            if (empty($task)) {
+                $readablelists = Nag::listTasklists();
+                foreach ($results as $row) {
+                    if (isset($readablelists[$row->tasklist])) {
+                        $task = $row;
+                        break;
+                    }
+                }
+            }
+        }
+        if (empty($task)) {
+            throw new Horde_Exception_NotFound();
+        }
+
+        return $task;
     }
 
     /**
