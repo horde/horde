@@ -662,16 +662,17 @@ class Turba_Driver implements Countable
         global $injector;
 
         if (empty($tags)) {
-            return $this->_toTurbaObjects($objects, $sort_order);
+            return $this->_toTurbaObjects($objects);
         }
-        $tag_results = $injector->getInstance('Turba_Tagger')->search($tags, array('list' => $this->_name));
+        $tag_results = $injector->getInstance('Turba_Tagger')
+            ->search($tags, array('list' => $this->_name));
 
         // Short circuit if we know we have no tag hits.
         if (!$tag_results) {
             return new Turba_List();
         }
 
-        $list = $this->_toTurbaObjects($objects, $sort_order);
+        $list = $this->_toTurbaObjects($objects);
         return $list->filter('__uid', $tag_results);
     }
 
