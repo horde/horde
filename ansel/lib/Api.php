@@ -25,6 +25,8 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function browse($path = '', array $properties = array())
     {
+        global $injector, $registry;
+
         // Default properties.
         if (!$properties) {
             $properties = array('name', 'icon', 'browseable');
@@ -36,7 +38,7 @@ class Ansel_Api extends Horde_Registry_Api
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        $storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
+        $storage = $injector->getInstance('Ansel_Storage');
         if (empty($path)) {
             $owners = array();
             $galleries = $storage->listGalleries(array('all_levels' => false));
@@ -46,22 +48,27 @@ class Ansel_Api extends Horde_Registry_Api
 
             $results = array();
             foreach (array_keys($owners) as $owner) {
+                $path = 'ansel/' . $registry->convertUsername($owner, false);
                 if (in_array('name', $properties)) {
-                    $results['ansel/' . $owner]['name'] = $owner;
+                    $results[$path]['name'] = $injector
+                        ->getInstance('Horde_Core_Factory_Identity')
+                        ->create($owner)
+                        ->getName();
                 }
                 if (in_array('icon', $properties)) {
-                    $results['ansel/' . $owner]['icon'] = Horde_Themes::img('user.png');
+                    $results[$path]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results['ansel/' . $owner]['browseable'] = true;
+                    $results[$path]['browseable'] = true;
                 }
             }
             return $results;
         } else {
             if (count($parts) == 1) {
-                // This request is for all galleries owned by the requested user.
+                // This request is for all galleries owned by the requested
+                // user.
                 $galleries = $storage->listGalleries(
-                    array('attributes' => $parts[0],
+                    array('attributes' => $registry->convertUsername($parts[0], true),
                           'all_levels' => false));
                 $images = array();
             } elseif ($this->galleryExists(end($parts))) {
@@ -79,7 +86,7 @@ class Ansel_Api extends Horde_Registry_Api
 
             } elseif (count($parts) > 2 &&
                       $this->galleryExists($parts[count($parts) - 2]) &&
-                      ($image = $GLOBALS['injector']->getInstance('Ansel_Storage')->getImage(end($parts)))) {
+                      ($image = $injector->getInstance('Ansel_Storage')->getImage(end($parts)))) {
 
                 return array(
                     'data' => $image->raw(),
@@ -106,7 +113,7 @@ class Ansel_Api extends Horde_Registry_Api
                 }
                 if (in_array('browseable', $properties)) {
                     $results[$retpath]['browseable'] = $gallery->hasPermission(
-                        $GLOBALS['registry']->getAuth(), Horde_Perms::READ);
+                        $registry->getAuth(), Horde_Perms::READ);
                 }
             }
 
