@@ -54,6 +54,7 @@ Configuration Options (conf.php)
 The following options have been removed::
 
    $conf['compose']['use_vfs']
+   $conf['user']['allow_view_source'] (use 'view_msg_source' permission)
 
 
 Hooks (hooks.php)
@@ -103,6 +104,12 @@ Server Options (backends.php)
 -----------------------------
 
 The 'atc_structure' option has been added.
+
+
+Permissions
+-----------
+
+The 'view_msg_source' permission has been added.
 
 
 API Changes

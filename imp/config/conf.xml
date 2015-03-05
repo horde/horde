@@ -1,13 +1,6 @@
 <?xml version="1.0"?>
 <!-- $Id$ -->
 <configuration>
- <configtab name="user" desc="User Capabilities and Constraints">
-  <configsection name="user">
-   <configboolean name="allow_view_source" desc="If true, a user will be
-   allowed to view the raw source of a message.">true</configboolean>
-  </configsection>
- </configtab>
-
  <configtab name="server" desc="Server">
   <configsection name="server">
    <configswitch name="server_list" desc="Display a list of servers for users

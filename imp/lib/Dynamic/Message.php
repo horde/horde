@@ -27,7 +27,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output;
+        global $injector, $notification, $page_output;
 
         if (!$this->indices) {
             throw new IMP_Exception(_("No message index given."));
@@ -164,7 +164,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->view->show_spam = $real_mbox->spam_show;
 
         $this->view->show_view_all = empty($msg_res['onepart']);
-        $this->view->show_view_source = !empty($conf['user']['allow_view_source']);
+        $this->view->show_view_source = $injector->getInstance('Horde_Core_Perms')->hasAppPermission('view_msg_source');
 
         $this->view->save_as = $show_msg->getSaveAs();
 

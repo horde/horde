@@ -97,6 +97,11 @@ class IMP_Perms
                 'imaponly' => true,
                 'title' => _("Maximum Number of Mailboxes"),
                 'type' => 'int'
+            ),
+            'view_msg_source' => array(
+                'global' => true,
+                'title' => _("Allow viewing of message source?"),
+                'type' => 'boolean'
             )
         );
     }

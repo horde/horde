@@ -134,7 +134,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _addMailboxVars()
     {
-        global $conf, $injector, $prefs, $registry;
+        global $injector, $prefs, $registry;
 
         /* Does server support ACLs? */
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -343,7 +343,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if (!$registry->hasLink('mail/newEmailFilter')) {
             unset($context['ctx_message']['addfilter']);
         }
-        if (empty($conf['user']['allow_view_source'])) {
+
+        $view_source = $injector->getInstance('Horde_Core_Perms')->hasAppPermission('view_msg_source');
+        if (!$view_source) {
             unset($context['ctx_message']['_sub3']);
         }
 
@@ -463,7 +465,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'listinfo' => _("List Info")
         );
 
-        if (empty($conf['user']['allow_view_source'])) {
+        if (!$view_source) {
             unset($context['ctx_preview']['viewsource']);
         }
 
