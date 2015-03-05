@@ -2,6 +2,8 @@
 v5.2.5-git
 ----------
 
+[mjr] Fix display of Facebook block by removing no longer allowed notification
+      data.
 
 
 ------
