@@ -95,6 +95,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
 
         case 'Html':
             $params['browser'] = $GLOBALS['browser'];
+            $params['dns'] = $this->_injector->getInstance('Net_DNS2_Resolver');
             $params['external_callback'] = array('Horde', 'externalUrl');
             break;
 
