@@ -170,7 +170,7 @@ class Ansel_Api extends Horde_Registry_Api
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        if (count($parts) < 3) {
+        if (count($parts) < 2) {
             throw new Horde_Exception_NotFound("Gallery does not exist");
         }
         $image_name = array_pop($parts);
