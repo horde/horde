@@ -112,6 +112,7 @@ class Nag_Driver_Sql extends Nag_Driver
 
         if (!empty($tasklists)) {
             $query .= ' AND task_owner IN (' . implode(',', array_fill(0, count($tasklists), '?')) . ')';
+            $values = array_merge($values, $tasklists);
         }
 
         try {
