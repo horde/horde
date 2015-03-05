@@ -165,10 +165,16 @@ class Kronolith_Api extends Horde_Registry_Api
             $owner = $calendar->get('owner')
                 ? $registry->convertUsername($calendar->get('owner'), false)
                 : '-system-';
+            $dav = $injector->getInstance('Horde_Dav_Storage');
             $results = array();
             foreach ($events as $dayevents) {
                 foreach ($dayevents as $event) {
-                    $key = 'kronolith/' . $path . '/' . $event->id;
+                    $id = $event->id;
+                    try {
+                        $id = $dav->getExternalObjectId($id, $parts[1]) ?: $id;
+                    } catch (Horde_Dav_Exception $e) {
+                    }
+                    $key = 'kronolith/' . $path . '/' . $id;
                     if (in_array('modified', $properties) ||
                         in_array('etag', $properties)) {
                         $modified = $this->modified($event->uid, $parts[1]);
@@ -209,7 +215,14 @@ class Kronolith_Api extends Horde_Registry_Api
             if (count($parts) == 3 &&
                 array_key_exists($parts[1], Kronolith::listInternalCalendars(false, Horde_Perms::READ))) {
                 // This request is for a specific item within a given calendar.
-                $event = Kronolith::getDriver(null, $parts[1])->getEvent($parts[2]);
+                $dav = $injector->getInstance('Horde_Dav_Storage');
+                $object = $parts[2];
+                try {
+                    $object = $dav->getInternalObjectId($object, $parts[1])
+                        ?: $object;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                $event = Kronolith::getDriver(null, $parts[1])->getEvent($object);
 
                 $result = array(
                     'data' => $this->export($event->uid, 'text/calendar'),
@@ -249,41 +262,44 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
+        global $injector;
+
         if (substr($path, 0, 9) == 'kronolith') {
             $path = substr($path, 9);
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        if (count($parts) == 2 && substr($parts[1], -4) == '.ics') {
-            // Workaround for WebDAV clients that are not smart enough to send
-            // the right content type.  Assume text/calendar.
-            if ($content_type == 'application/octet-stream') {
-                $content_type = 'text/calendar';
-            }
-            $calendar = substr($parts[1], 0, -4);
+        $complete_list = count($parts) == 2;
+        $file = $parts[count($parts) - 1];
+        if ($complete_list && substr($file, -4) == '.ics') {
+            $external = substr($file, 0, -4);
         } elseif (count($parts) == 3) {
-            $calendar = $parts[1];
-            // Workaround for WebDAV clients that are not smart enough to send
-            // the right content type.  Assume text/calendar.
-            if ($content_type == 'application/octet-stream') {
-                $content_type = 'text/calendar';
-            }
+            $external = $parts[1];
         } else {
             throw new Kronolith_Exception(_("Invalid calendar data supplied."));
         }
 
+        // Workaround for WebDAV clients that are not smart enough to send the
+        // right content type.  Assume text/calendar.
+        if ($content_type == 'application/octet-stream') {
+            $content_type = 'text/calendar';
+        }
+
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $calendar = $dav->getInternalCollectionId($external, 'kronolith') ?: $external;
         if (!Kronolith::hasPermission($calendar, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a calendar based on the
-            // filename in the case that the requested calendar does not
-            // exist?
-            throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
+            // filename in the case that the requested calendar does not exist?
+            throw new Kronolith_Exception(
+                _("Calendar does not exist or no permission to edit")
+            );
         }
 
         // Store all currently existings UIDs. Use this info to delete UIDs not
         // present in $content after processing.
         $ids = array();
-        if (count($parts) == 2) {
+        if ($complete_list) {
             $uids_remove = array_flip($this->listUids($calendar));
         } else {
             $uids_remove = array();
@@ -302,67 +318,93 @@ class Kronolith_Api extends Horde_Registry_Api
             }
 
             $kronolith_driver = Kronolith::getDriver();
-            $kronolith_driver->open($parts[1]);
-            $history = $GLOBALS['injector']->getInstance('Horde_History');
+            $kronolith_driver->open($calendar);
+            $history = $injector->getInstance('Horde_History');
             foreach ($iCal->getComponents() as $content) {
-                if ($content instanceof Horde_Icalendar_Vevent) {
-                    $event = $kronolith_driver->getEvent();
-                    $event->fromiCalendar($content);
-                    $uid = $event->uid;
-                    if ($uid) {
-                        // Remove from uids_remove list so we won't delete in
-                        // the end.
-                        unset($uids_remove[$uid]);
-                        try {
-                            $existing_event = $kronolith_driver->getByUID(
-                                $uid, array($calendar)
-                            );
-                            // Check if our event is newer then the existing -
-                            // get the event's history.
-                            $created = $modified = null;
+                if (!($content instanceof Horde_Icalendar_Vevent)) {
+                    continue;
+                }
+                $event = $kronolith_driver->getEvent();
+                $event->fromiCalendar($content);
+                $uid = $event->uid;
+                if ($uid) {
+                    // Remove from uids_remove list so we won't delete in the
+                    // end.
+                    unset($uids_remove[$uid]);
+                }
+                $existing_event = null;
+                if (!$complete_list) {
+                    try {
+                        $existing_id = $dav->getInternalObjectId($file, $calendar)
+                            ?: $file;
+                    } catch (Horde_Dav_Exception $e) {
+                        $existing_id = $file;
+                    }
+                    try {
+                        $existing_event = $kronolith_driver
+                            ->getEvent($existing_id);
+                    } catch (Horde_Exception_NotFound $e) {
+                        if (isset($uid)) {
                             try {
-                                $created = $history->getActionTimestamp(
-                                    'kronolith:' . $calendar . ':' . $uid,
-                                    'add'
-                                );
-                                $modified = $history->getActionTimestamp(
-                                    'kronolith:' . $calendar . ':' . $uid,
-                                    'modify'
-                                );
-                                /* The history driver returns 0 for not
-                                 * found. If 0 or null does not matter, strip
-                                 * this */
-                                if ($created == 0) {
-                                    $created = null;
-                                }
-                                if ($modified == 0) {
-                                    $modified = null;
-                                }
-                            } catch (Horde_Exception $e) {
+                                $existing = $kronolith_driver->getByUID($uid, array($calendar));
+                            } catch (Horde_Exception_NotFound $e) {
                             }
-                            if (empty($modified) && !empty($created)) {
-                                $modified = $created;
-                            }
-                            try {
-                                if (!empty($modified) &&
-                                    $modified >= $content->getAttribute('LAST-MODIFIED')) {
-                                    // LAST-MODIFIED timestamp of existing
-                                    // entry is newer: don't replace it.
-                                    continue;
-                                }
-                            } catch (Horde_Icalendar_Exception $e) {
-                            }
-
-                            // Don't change creator/owner.
-                            $event->creator = $existing_event->creator;
-                        } catch (Horde_Exception_NotFound $e) {
                         }
                     }
-
-                    // Save entry.
-                    $event->save();
-                    $ids[] = $event->uid;
+                } elseif ($uid) {
+                    try {
+                        $existing_event = $kronolith_driver->getByUID(
+                            $uid, array($calendar)
+                        );
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
                 }
+                if ($existing_event) {
+                    // Check if our event is newer then the existing - get the
+                    // event's history.
+                    $created = $modified = null;
+                    try {
+                        $created = $history->getActionTimestamp(
+                            'kronolith:' . $calendar . ':' . $uid,
+                            'add'
+                        );
+                        $modified = $history->getActionTimestamp(
+                            'kronolith:' . $calendar . ':' . $uid,
+                            'modify'
+                        );
+                        /* The history driver returns 0 for not found. If 0
+                         * or null does not matter, strip this */
+                        if ($created == 0) {
+                            $created = null;
+                        }
+                        if ($modified == 0) {
+                            $modified = null;
+                        }
+                    } catch (Horde_Exception $e) {
+                    }
+                    if (empty($modified) && !empty($created)) {
+                        $modified = $created;
+                    }
+                    try {
+                        if (!empty($modified) &&
+                            $modified >= $content->getAttribute('LAST-MODIFIED')) {
+                            // LAST-MODIFIED timestamp of existing
+                            // entry is newer: don't replace it.
+                            continue;
+                        }
+                    } catch (Horde_Icalendar_Exception $e) {
+                    }
+
+                    // Don't change creator/owner.
+                    $event->creator = $existing_event->creator;
+                }
+
+                // Save entry.
+                $id = $event->save();
+                if (!$existing_event) {
+                    $dav->addObjectMap($id, $file, $calendar);
+                }
+                $ids[] = $event->uid;
             }
             break;
 
@@ -388,6 +430,8 @@ class Kronolith_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
+        global $injector;
+
         if (substr($path, 0, 9) == 'kronolith') {
             $path = substr($path, 9);
         }
@@ -402,18 +446,26 @@ class Kronolith_Api extends Horde_Registry_Api
 
         if (!(count($parts) == 2 || count($parts) == 3) ||
             !Kronolith::hasPermission($calendarId, Horde_Perms::DELETE)) {
-                throw new Kronolith_Exception(_("Calendar does not exist or no permission to delete"));
+                throw new Kronolith_Exception(
+                    _("Calendar does not exist or no permission to delete")
+                );
             }
 
         if (count($parts) == 3) {
             // Delete just a single entry
-            Kronolith::getDriver(null, $calendarId)->deleteEvent($parts[2]);
+            $dav = $injector->getInstance('Horde_Dav_Storage');
+            $id = $parts[2];
+            try {
+                $id = $dav->getInternalObjectId($id, $calendarId) ?: $id;
+            } catch (Horde_Dav_Exception $e) {
+            }
+            Kronolith::getDriver(null, $calendarId)->deleteEvent($id);
         } else {
             // Delete the entire calendar
             try {
                 Kronolith::getDriver()->delete($calendarId);
                 // Remove share and all groups/permissions.
-                $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
+                $kronolith_shares = $injector->getInstance('Kronolith_Shares');
                 $share = $kronolith_shares->getShare($calendarId);
                 $kronolith_shares->removeShare($share);
             } catch (Exception $e) {

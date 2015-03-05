@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Keep original file names when PUTing notes via WebDAV.
 [jan] Remove configuration option for database table.
 [jan] Return ETags with browse() API method.
 [jan] Add browse(), put(), and path_delete() methods to API to support WebDAV

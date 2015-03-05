@@ -172,12 +172,18 @@ class Mnemo_Api extends Horde_Registry_Api
             $owner = $notepad->get('owner')
                 ? $registry->convertUsername($notepad->get('owner'), false)
                 : '-system-';
+            $dav = $injector->getInstance('Horde_Dav_Storage');
             $results = array();
             foreach ($storage->listMemos() as $memo) {
                 $body = $memo['body'] instanceof Mnemo_Exception
                     ? $memo['body']->getMessage()
                     : $memo['body'];
-                $key = 'mnemo/' . $parts[0] . '/' . $parts[1] . '/' . $memo['memo_id'];
+                $id = $memo['memo_id'];
+                try {
+                    $id = $dav->getExternalObjectId($id, $parts[1]) ?: $id;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                $key = 'mnemo/' . $parts[0] . '/' . $parts[1] . '/' . $id;
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = $memo['desc'];
                 }
@@ -223,8 +229,15 @@ class Mnemo_Api extends Horde_Registry_Api
                 $storage = $injector->getInstance('Mnemo_Factory_Driver')
                     ->create($parts[1]);
                 $storage->retrieve();
+                $dav = $injector->getInstance('Horde_Dav_Storage');
+                $object = $parts[2];
                 try {
-                    $memo = $storage->get($parts[2]);
+                    $object = $dav->getInternalObjectId($object, $parts[1])
+                        ?: $object;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                try {
+                    $memo = $storage->get($object);
                 } catch (Mnemo_Exception $e) {
                     throw new Mnemo_Exception($e->getMessage(), 500);
                 }
@@ -258,6 +271,8 @@ class Mnemo_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
+        global $injector, $registry;
+
         if (substr($path, 0, 5) == 'mnemo') {
             $path = substr($path, 5);
         }
@@ -278,19 +293,30 @@ class Mnemo_Api extends Horde_Registry_Api
             $content_type = 'text/plain';
         }
         if ($content_type != 'text/plain') {
-            throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"), $content_type), 400);
+            throw new Mnemo_Exception(
+                sprintf(_("Unsupported Content-Type: %s"), $content_type),
+                400
+            );
         }
 
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $notepad = $dav->getInternalCollectionId($notepad, 'mnemo') ?: $notepad;
         if (!Mnemo::hasPermission($notepad, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a notepad based on the
             // filename in the case that the requested notepad does not exist?
-            throw new Mnemo_Exception(_("Notepad does not exist or no permission to edit"), 403);
+            throw new Mnemo_Exception(
+                _("Notepad does not exist or no permission to edit"),
+                403
+            );
         }
 
-        $storage = $GLOBALS['injector']
-            ->getInstance('Mnemo_Factory_Driver')
+        $storage = $injector->getInstance('Mnemo_Factory_Driver')
             ->create($notepad);
 
+        try {
+            $id = $dav->getInternalObjectId($id, $notepad) ?: $id;
+        } catch (Horde_Dav_Exception $e) {
+        }
         try {
             $memo = $storage->get($id);
             if ($memo->encrypted) {
@@ -308,14 +334,15 @@ class Mnemo_Api extends Horde_Registry_Api
             }
         } catch (Horde_Exception_NotFound $e) {
             try {
-                $id = $storage->add(
+                $newId = $storage->add(
                     $storage->getMemoDescription($content),
                     $content
                 );
+                $dav->addObjectMap($newId, $id, $notepad);
             } catch (Mnemo_Exception $e) {
                 throw new Mnemo_Exception($e->getMessage(), 500);
             }
-            $memo = $storage->get($id);
+            $memo = $storage->get($newId);
         }
 
         return array($memo['uid']);
@@ -331,6 +358,8 @@ class Mnemo_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
+        global $injector;
+
         if (substr($path, 0, 5) == 'mnemo') {
             $path = substr($path, 5);
         }
@@ -346,14 +375,21 @@ class Mnemo_Api extends Horde_Registry_Api
 
         /* Create a Mnemo storage instance. */
         try {
-            $storage = $GLOBALS['injector']
+            $storage = $injector
                 ->getInstance('Mnemo_Factory_Driver')
                 ->create($notepadID);
         } catch (Mnemo_Exception $e) {
             throw new Mnemo_Exception(sprintf(_("Connection failed: %s"), $e->getMessage()), 500);
         }
 
-        return $storage->delete($parts[2]);
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $id = $parts[2];
+        try {
+            $id = $dav->getInternalObjectId($id, $notepadID) ?: $id;
+        } catch (Horde_Dav_Exception $e) {
+        }
+
+        return $storage->delete($id);
     }
 
     /**

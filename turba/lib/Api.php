@@ -327,8 +327,14 @@ class Turba_Api extends Horde_Registry_Api
 
             $curpath = 'turba/' . $registry->convertUsername($parts[0], false) . '/' . $parts[1] . '/';
 
+            $dav = $injector->getInstance('Horde_Dav_Storage');
             while ($contact = $contacts->next()) {
-                $key = $curpath . $contact->getValue('__key');
+                $id = $contact->getValue('__key');
+                try {
+                    $id = $dav->getExternalObjectId($id, $parts[1]) ?: $id;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                $key = $curpath . $id;
                 if (in_array('name', $properties)) {
                     $results[$key]['name'] = Turba::formatName($contact);
                 }
@@ -371,8 +377,14 @@ class Turba_Api extends Horde_Registry_Api
 
             // Load the Turba driver.
             $driver = $injector->getInstance('Turba_Factory_Driver')->create($parts[1]);
-
-            $contact = $driver->getObject($parts[2]);
+            $dav = $injector->getInstance('Horde_Dav_Storage');
+            $object = $parts[2];
+            try {
+                $object = $dav->getInternalObjectId($object, $parts[1])
+                    ?: $object;
+            } catch (Horde_Dav_Exception $e) {
+            }
+            $contact = $driver->getObject($object);
 
             $result = array(
                 'data' => $driver->tovCard($contact, '2.1', null, true)->exportVcalendar(),
@@ -398,6 +410,8 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
+        global $injector;
+
         // Strip off the application name if present
         if (substr($path, 0, 5) == 'turba') {
             $path = substr($path, 5);
@@ -414,7 +428,14 @@ class Turba_Api extends Horde_Registry_Api
             throw new Turba_Exception(_("Address book does not exist"));
         }
 
-        return $GLOBALS['injector']->getInstance('Turba_Factory_Driver')->create($parts[1])->delete($parts[2]);
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $id = $parts[2];
+        try {
+            $id = $dav->getInternalObjectId($id, $parts[1]) ?: $id;
+        } catch (Horde_Dav_Exception $e) {
+        }
+
+        return $injector->getInstance('Turba_Factory_Driver')->create($parts[1])->delete($id);
     }
 
     /**

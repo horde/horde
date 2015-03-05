@@ -454,8 +454,14 @@ class Nag_Api extends Horde_Registry_Api
                 : '-system-';
             $results = array();
             $storage->tasks->reset();
+            $dav = $injector->getInstance('Horde_Dav_Storage');
             while ($task = $storage->tasks->each()) {
-                $key = 'nag/' . $parts[0] . '/' . $parts[1] . '/' . $task->id;
+                $id = $task->id;
+                try {
+                    $id = $dav->getExternalObjectId($id, $parts[1]) ?: $id;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                $key = 'nag/' . $parts[0] . '/' . $parts[1] . '/' . $id;
                 if (in_array('modified', $properties) ||
                     in_array('etag', $properties)) {
                     $modified = $this->modified($task->uid, $parts[1]);
@@ -502,8 +508,15 @@ class Nag_Api extends Horde_Registry_Api
                 $storage = $injector->getInstance('Nag_Factory_Driver')
                     ->create($parts[1]);
                 $storage->retrieve();
+                $dav = $injector->getInstance('Horde_Dav_Storage');
+                $object = $parts[2];
                 try {
-                    $task = $storage->get($parts[2]);
+                    $object = $dav->getInternalObjectId($object, $parts[1])
+                        ?: $object;
+                } catch (Horde_Dav_Exception $e) {
+                }
+                try {
+                    $task = $storage->get($object);
                 } catch (Nag_Exception $e) {
                     throw new Nag_Exception($e->getMessage(), 500);
                 }
@@ -535,48 +548,53 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
+        global $injector, $registry;
+
         if (substr($path, 0, 3) == 'nag') {
             $path = substr($path, 3);
         }
         $path = trim($path, '/');
         $parts = explode('/', $path);
 
-        if (count($parts) == 2 &&
-            substr($parts[1], -4) == '.ics') {
-            // Workaround for WebDAV clients that are not smart enough to send
-            // the right content type.  Assume text/calendar.
-            if ($content_type == 'application/octet-stream') {
-                $content_type = 'text/calendar';
-            }
-            $tasklist = substr($parts[1], 0, -4);
-        } elseif (count($parts) == 3) {
-            $tasklist = $parts[1];
-            // Workaround for WebDAV clients that are not smart enough to send
-            // the right content type.  Assume the same format we send
-            // individual tasklist items: text/calendar
-            if ($content_type == 'application/octet-stream') {
-                $content_type = 'text/calendar';
-            }
+        $complete_list = count($parts) == 2;
+        $file = $parts[count($parts) - 1];
+        if ($complete_list && substr($file, -4) == '.ics') {
+            $external = substr($file, 0, -4);
+        } elseif (!$complete_list) {
+            $external = $parts[1];
         } else {
             throw new Nag_Exception(_("Invalid task list name supplied."), 403);
         }
 
+        // Workaround for WebDAV clients that are not smart enough to send the
+        // right content type.  Assume text/calendar.
+        if ($content_type == 'application/octet-stream') {
+            $content_type = 'text/calendar';
+        }
+
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $tasklist = $dav->getInternalCollectionId($external, 'nag') ?: $external;
         if (!Nag::hasPermission($tasklist, Horde_Perms::EDIT)) {
             // FIXME: Should we attempt to create a tasklist based on the
             // filename in the case that the requested tasklist does not exist?
-            throw new Nag_Exception(_("Task list does not exist or no permission to edit"), 403);
+            throw new Nag_Exception(
+                _("Task list does not exist or no permission to edit"),
+                403
+            );
         }
 
         // Store all currently existings UIDs. Use this info to delete UIDs not
         // present in $content after processing.
         $ids = array();
-        if (count($parts) == 2) {
+        if ($complete_list) {
             $uids_remove = array_flip($this->listUids($tasklist));
         } else {
             $uids_remove = array();
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklist);
+        $storage = $injector
+            ->getInstance('Nag_Factory_Driver')
+            ->create($tasklist);
 
         switch ($content_type) {
         case 'text/calendar':
@@ -584,7 +602,10 @@ class Nag_Api extends Horde_Registry_Api
             $iCal = new Horde_Icalendar();
             if (!($content instanceof Horde_Icalendar_Vtodo)) {
                 if (!$iCal->parsevCalendar($content)) {
-                    throw new Nag_Exception(_("There was an error importing the iCalendar data."), 400);
+                    throw new Nag_Exception(
+                        _("There was an error importing the iCalendar data."),
+                        400
+                    );
                 }
             } else {
                 $iCal->addComponent($content);
@@ -598,27 +619,48 @@ class Nag_Api extends Horde_Registry_Api
                 $task->fromiCalendar($content);
                 $task->tasklist = $tasklist;
                 $create = true;
-                if (isset($task->uid)) {
+                if ($complete_list) {
+                    if (isset($task->uid)) {
+                        try {
+                            $existing = $storage->getByUID($task->uid, array($tasklist));
+                            $create = false;
+                        } catch (Horde_Exception_NotFound $e) {
+                        }
+                    }
+                } else {
                     try {
-                        $existing = $storage->getByUID($task->uid);
+                        $existing_id = $dav->getInternalObjectId($file, $tasklist)
+                            ?: $file;
+                    } catch (Horde_Dav_Exception $e) {
+                        $existing_id = $file;
+                    }
+                    try {
+                        $existing = $storage->get($existing_id);
                         $create = false;
                     } catch (Horde_Exception_NotFound $e) {
+                        if (isset($task->uid)) {
+                            try {
+                                $existing = $storage->getByUID($task->uid, array($tasklist));
+                                $create = false;
+                            } catch (Horde_Exception_NotFound $e) {
+                            }
+                        }
                     }
                 }
                 if (!$create) {
-                    // Entry exists, remove from uids_remove list so we
-                    // won't delete in the end.
+                    // Entry exists, remove from uids_remove list so we won't
+                    // delete in the end.
                     unset($uids_remove[$task->uid]);
                     if ($existing->private &&
-                        $existing->owner != $GLOBALS['registry']->getAuth()) {
+                        $existing->owner != $registry->getAuth()) {
                         continue;
                     }
-                    // Check if our task is newer then the existing - get
-                    // the task's history.
-                    $history = $GLOBALS['injector']->getInstance('Horde_History');
+                    // Check if our task is newer then the existing - get the
+                    // task's history.
                     $created = $modified = null;
                     try {
-                        $log = $history->getHistory('nag:' . $tasklist . ':' . $task->uid);
+                        $log = $injector->getInstance('Horde_History')
+                            ->getHistory('nag:' . $tasklist . ':' . $task->uid);
                         foreach ($log as $entry) {
                             switch ($entry['action']) {
                             case 'add':
@@ -656,6 +698,7 @@ class Nag_Api extends Horde_Registry_Api
                     } catch (Nag_Exception $e) {
                         throw new Nag_Exception($e->getMessage(), 500);
                     }
+                    $dav->addObjectMap($newTask[0], $file, $tasklist);
                     // use UID rather than ID
                     $ids[] = $newTask[1];
                 }
@@ -685,6 +728,8 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function path_delete($path)
     {
+        global $injector, $nag_shares;
+
         if (substr($path, 0, 3) == 'nag') {
             $path = substr($path, 3);
         }
@@ -696,7 +741,10 @@ class Nag_Api extends Horde_Registry_Api
             // Allow users to delete tasklists but not create them via WebDAV
             // will be more confusing than helpful.  They are, however, still
             // able to delete individual task items within the tasklist folder.
-            throw Nag_Exception(_("Deleting entire task lists is not supported."), 403);
+            throw Nag_Exception(
+                _("Deleting entire task lists is not supported."),
+                403
+            );
             // To re-enable the functionality just remove this if {} block.
         }
 
@@ -709,19 +757,32 @@ class Nag_Api extends Horde_Registry_Api
         if (!(count($parts) == 2 || count($parts) == 3) ||
             !Nag::hasPermission($tasklistID, Horde_Perms::DELETE)) {
 
-            throw new Nag_Exception(_("Task list does not exist or no permission to delete"), 403);
+            throw new Nag_Exception(
+                _("Task list does not exist or no permission to delete"),
+                403
+            );
         }
 
         /* Create a Nag storage instance. */
         try {
-            $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($tasklistID);
+            $storage = $injector->getInstance('Nag_Factory_Driver')
+                ->create($tasklistID);
             $storage->retrieve();
         } catch (Nag_Exception $e) {
-            throw new Nag_Exception(sprintf(_("Connection failed: %s"), $e->getMessage()), 500);
+            throw new Nag_Exception(
+                sprintf(_("Connection failed: %s"), $e->getMessage()),
+                500
+            );
         }
         if (count($parts) == 3) {
             // Delete just a single entry
-            return $storage->delete($parts[2]);
+            $dav = $injector->getInstance('Horde_Dav_Storage');
+            $id = $parts[2];
+            try {
+                $id = $dav->getInternalObjectId($id, $tasklistID) ?: $id;
+            } catch (Horde_Dav_Exception $e) {
+            }
+            return $storage->delete($id);
         } else {
             // Delete the entire task list
             try {
@@ -731,9 +792,9 @@ class Nag_Api extends Horde_Registry_Api
             }
 
             // Remove share and all groups/permissions.
-            $share = $GLOBALS['nag_shares']->getShare($tasklistID);
+            $share = $nag_shares->getShare($tasklistID);
             try {
-                $GLOBALS['nag_shares']->removeShare($share);
+                $nag_shares->removeShare($share);
             } catch (Horde_Share_Exception $e) {
                 throw new Nag_Exception($e->getMessage());
             }

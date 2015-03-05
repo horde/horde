@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.
 * [jan] Fall back to sort by name if sort criteria are equal.
@@ -1649,6 +1650,7 @@
    <date>2015-02-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.
 * [jan] Fall back to sort by name if sort criteria are equal.
