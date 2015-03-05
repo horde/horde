@@ -90,27 +90,28 @@ class Mnemo_Api extends Horde_Registry_Api
 
             $results = array();
             foreach (array_keys($owners) as $owner) {
+                $path = 'mnemo/' . $registry->convertUsername($owner, false);
                 if (in_array('name', $properties)) {
-                    $results['mnemo/' . $owner]['name'] = $injector
+                    $results[$path]['name'] = $injector
                         ->getInstance('Horde_Core_Factory_Identity')
                         ->create($owner)
                         ->getName();
                 }
                 if (in_array('icon', $properties)) {
-                    $results['mnemo/' . $owner]['icon'] = Horde_Themes::img('user.png');
+                    $results[$path]['icon'] = Horde_Themes::img('user.png');
                 }
                 if (in_array('browseable', $properties)) {
-                    $results['mnemo/' . $owner]['browseable'] = true;
+                    $results[$path]['browseable'] = true;
                 }
                 if (in_array('read-only', $properties)) {
-                    $results['mnemo/' . $owner]['read-only'] = true;
+                    $results[$path]['read-only'] = true;
                 }
             }
             return $results;
 
         } elseif (count($parts) == 1) {
             // This request is for all notepads owned by the requested user
-            $owner = $parts[0] == '-system-' ? '' : $parts[0];
+            $owner = $parts[0] == '-system-' ? '' : $registry->convertUsername($parts[0], true);
             $notepads = $mnemo_shares->listShares(
                 $currentUser,
                 array('perm' => Horde_Perms::SHOW,
@@ -130,7 +131,9 @@ class Mnemo_Api extends Horde_Registry_Api
                     $results[$retpath]['displayname'] = Mnemo::getLabel($notepad);
                 }
                 if (in_array('owner', $properties)) {
-                    $results[$retpath]['owner'] = $notepad->get('owner') ?: '-system-';
+                    $results[$retpath]['owner'] = $notepad->get('owner')
+                        ? $registry->convertUsername($notepad->get('owner'), false)
+                        : '-system-';
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('mnemo.png');
@@ -166,6 +169,9 @@ class Mnemo_Api extends Horde_Registry_Api
                 throw new Mnemo_Exception($e->getMessage, 500);
             }
             $icon = Horde_Themes::img('mnemo.png');
+            $owner = $notepad->get('owner')
+                ? $registry->convertUsername($notepad->get('owner'), false)
+                : '-system-';
             $results = array();
             foreach ($storage->listMemos() as $memo) {
                 $body = $memo['body'] instanceof Mnemo_Exception
@@ -176,7 +182,7 @@ class Mnemo_Api extends Horde_Registry_Api
                     $results[$key]['name'] = $memo['desc'];
                 }
                 if (in_array('owner', $properties)) {
-                    $results[$key]['owner'] = $notepad->get('owner') ?: '-system-';
+                    $results[$key]['owner'] = $owner;
                 }
                 if (in_array('icon', $properties)) {
                     $results[$key]['icon'] = $icon;
