@@ -67,11 +67,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
                 'name' => _("Maximum number of entries to display"),
                 'default' => '20'
             ),
-            'notifications' => array(
-                'type' => 'boolean',
-                'name' => _("Show notifications"),
-                'default' => true
-            ),
             'height' => array(
                  'name' => _("Height of stream content (width automatically adjusts to block)"),
                  'type' => 'int',
@@ -119,7 +114,6 @@ class Horde_Block_FbStream extends Horde_Core_Block
                endpoint: '{$endpoint}',
                content: '{$instance}_fbcontent',
                status: '{$instance}_currentStatus',
-               notifications: '{$instance}_fbnotifications',
                getmore: '{$instance}_getmore',
                'input': '{$instance}_newStatus',
                'button': '{$instance}_button',
@@ -132,9 +126,6 @@ EOT;
 
         // Start building the block UI.
         $html .= '<div style="padding: 8px 8px 0 8px">';
-        if (!empty($this->_params['notifications'])) {
-            $html .= '<div class="fbinfobox" id="' . $instance . '_fbnotifications"></div>';
-        }
 
         try {
             $fbperms = $facebook->users->getAppPermissions();

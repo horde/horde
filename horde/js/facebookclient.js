@@ -18,7 +18,6 @@ var Horde_Facebook = Class.create({
      * opts.refreshrate
      * opts.content
      * opts.endpoint,
-     * opts.notifications
      * opts.getmore
      * opts.button
      * opts.instance
@@ -113,7 +112,6 @@ var Horde_Facebook = Class.create({
     getNewEntries: function()
     {
         var params = {
-            'notifications': this.opts.notifications,
             'oldest': this.oldest,
             'newest': this.newest,
             'instance': this.opts.instance,
@@ -128,7 +126,6 @@ var Horde_Facebook = Class.create({
     _getNewEntriesCallback: function(response)
     {
         $(this.opts.content).insert({ 'top': response.c });
-        $(this.opts.notifications).update(response.nt);
 
         this.newest = response.n;
         if (!this.oldest) {
