@@ -2,8 +2,6 @@
 v5.3.0-git
 ----------
 
-[mjr] Fix display of Facebook block by removing no longer allowed notification
-      data.
 [mjr] Add configuration switch for disabling maillog synchronization with EAS
       clients (Bug #13747).
 [jan] Add inverse tree icons.
@@ -12,6 +10,14 @@ v5.3.0-git
 [mms] Add the 'time_format_mini' preference.
 [mjr] Display ActiveSync client lastSyncTime in user's timezone (Request
       #13200).
+
+
+------
+v5.2.5
+------
+
+[mjr] Fix display of Facebook block by removing no longer allowed notification
+      data.
 
 
 ------
