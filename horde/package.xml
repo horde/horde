@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mjr] Fix display of Facebook block by removing no longer allowed notification data.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
@@ -4117,6 +4118,7 @@
    <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mjr] Fix display of Facebook block by removing no longer allowed notification data.
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
 * [jan] Add inverse tree icons.
 * [mms] Add Hashtable Administration page.
