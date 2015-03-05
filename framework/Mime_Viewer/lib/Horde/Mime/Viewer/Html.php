@@ -65,6 +65,8 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
      *                                    rendered.
      * @param array $conf                 Configuration:
      *   - browser: (Horde_Browser) A browser object.
+     *   - dns: (Net_DNS2_Resolver) A DNS resolver object; used in phishing
+     *          analysis (@since 2.1.0).
      *   - external_callback: (callback) A callback function that a href URL
      *                        is passed through. The function must take the
      *                        original URL as the first parameter.
@@ -291,8 +293,19 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
                 $text_url['path'] = substr($text_url['path'], 0, $pos);
             }
 
+            /* Quick test to see if this looks like a FQDN/host. */
             if (!preg_match("/^[^\.\s\/]+(?:\.[^\.\s]+)+$/", $text_url['path'])) {
                 return false;
+            }
+
+            /* Optional test to see if this hostname actually exists. */
+            if ($dns = $this->getConfigParam('dns')) {
+                try {
+                    $dns->query($text_url['path'], 'A');
+                } catch (Net_DNS2_Exception $e) {
+                    /* Not found. */
+                    return false;
+                }
             }
 
             $text_url['host'] = $text_url['path'];

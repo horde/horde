@@ -12,8 +12,8 @@
  </lead>
  <date>2014-11-18</date>
  <version>
-  <release>2.0.9</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add optional support to determine if link text is a hostname when doing phishing analysis for the HTML driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -486,6 +486,12 @@
     <name>xml</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Net_DNS2</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
@@ -1021,15 +1027,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.9</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2014-11-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add optional support to determine if link text is a hostname when doing phishing analysis for the HTML driver.
    </notes>
   </release>
  </changelog>
