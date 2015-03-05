@@ -239,7 +239,7 @@ class Kronolith_Driver
      * @throws Kronolith_Exception
      * @throws Horde_Exception_NotFound
      */
-    public function getEvent()
+    public function getEvent($eventId = null)
     {
         throw new Kronolith_Exception($this->_errormsg);
     }
