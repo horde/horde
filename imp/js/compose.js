@@ -608,8 +608,6 @@ var ImpCompose = {
             );
         }
 
-        this.rteInit(opts.rte);
-
         if (this.rte && opts.rte) {
             if (this.rte.busy()) {
                 this.setMessageText.bind(this, opts, r).delay(0.1);
@@ -618,9 +616,12 @@ var ImpCompose = {
             this.rte.setData(r.text.body);
         } else {
             ta.setValue(r.text.body);
+            this.rteInit(opts.rte);
         }
 
-        this.RTELoading(false);
+        if (!opts.rte) {
+            this.RTELoading(false);
+        }
 
         this.setSignature(opts.rte, r.text.sig ? r.text.sig : this.identities[$F('identity')]);
 
