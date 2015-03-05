@@ -540,7 +540,7 @@ the PEAR installation you just created, e.g.::
 
 Finally configure your web server in some way to point PHP's ``include_path``
 setting to the PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment
-variable to the web root::
+variable to the directory used during the config-create command::
 
    php_value include_path /var/www/horde/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
