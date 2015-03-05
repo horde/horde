@@ -64,6 +64,13 @@ class Ansel_Api extends Horde_Registry_Api
             }
             return $results;
         } else {
+            $dav = $injector->getInstance('Horde_Dav_Storage');
+            $object = end($parts);
+            try {
+                $object = $dav->getInternalObjectId($object, $parts[count($parts) - 2])
+                    ?: $object;
+            } catch (Horde_Dav_Exception $e) {
+            }
             if (count($parts) == 1) {
                 // This request is for all galleries owned by the requested
                 // user.
@@ -86,7 +93,7 @@ class Ansel_Api extends Horde_Registry_Api
 
             } elseif (count($parts) > 2 &&
                       $this->galleryExists($parts[count($parts) - 2]) &&
-                      ($image = $injector->getInstance('Ansel_Storage')->getImage(end($parts)))) {
+                      ($image = $injector->getInstance('Ansel_Storage')->getImage($object))) {
 
                 return array(
                     'data' => $image->raw(),
@@ -117,7 +124,12 @@ class Ansel_Api extends Horde_Registry_Api
                 }
             }
 
+            $dav = $injector->getInstance('Horde_Dav_Storage');
             foreach ($images as $imageId => $image) {
+                try {
+                    $imageId = $dav->getExternalObjectId($imageId, $parts[count($parts) - 1]) ?: $imageId;
+                } catch (Horde_Dav_Exception $e) {
+                }
                 $retpath = 'ansel/' . implode('/', $parts) . '/' . $imageId;
                 if (in_array('name', $properties)) {
                     $results[$retpath]['name'] = $image['name'];
@@ -164,6 +176,8 @@ class Ansel_Api extends Horde_Registry_Api
      */
     public function put($path, $content, $content_type)
     {
+        global $injector, $registry;
+
         if (substr($path, 0, 5) == 'ansel') {
             $path = substr($path, 9);
         }
@@ -175,19 +189,26 @@ class Ansel_Api extends Horde_Registry_Api
         }
         $image_name = array_pop($parts);
         $gallery_id = end($parts);
-        if (!$GLOBALS['injector']->getInstance('Ansel_Storage')->galleryExists($gallery_id)) {
+        $dav = $injector->getInstance('Horde_Dav_Storage');
+        $gallery_id = $dav->getInternalCollectionId($gallery_id, 'ansel')
+            ?: $gallery_id;
+        $storage = $injector->getInstance('Ansel_Storage');
+        if (!$storage->galleryExists($gallery_id)) {
             throw new Horde_Exception_NotFound("Gallery does not exist");
         }
-        $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($gallery_id);
-        if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+        $gallery = $storage->getGallery($gallery_id);
+        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied(_("Access denied adding photos to this gallery."));
         }
 
-        return $gallery->addImage(array(
+        $id = $gallery->addImage(array(
             'image_type' => $content_type,
             'image_filename' => $image_name,
             'image_caption' => '',
             'data' => $content));
+        $dav->addObjectMap($id, $image_name, $gallery_id);
+
+        return $id;
     }
 
     /**

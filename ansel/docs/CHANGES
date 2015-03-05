@@ -2,6 +2,7 @@
 v3.0.2-git
 ----------
 
+[jan] Keep original file names when PUTing images via WebDAV.
 [jan] Fix closure compiler errors (Bug #13596).
 [jan] Return ETags with browse() API method.
 [mjr] Fix fatal divide by zero error due to incorrectly named variable.
