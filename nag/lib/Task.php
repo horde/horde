@@ -1472,38 +1472,37 @@ class Nag_Task
         // If an attendee matches our from_addr, add current user as assignee.
         try {
             $atnames = $vTodo->getAttribute('ATTENDEE');
+            if (!is_array($atnames)) {
+                $atnames = array($atnames);
+            }
+            $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
+            $all_addrs = $identity->getAll('from_addr');
+            foreach ($atnames as $index => $attendee) {
+                if ($vTodo->getAttribute('VERSION') < 2) {
+                    $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                    if (!$addr_ob->valid) {
+                        continue;
+                    }
+                    $attendee = $addr_ob->bare_address;
+                    $name = $addr_ob->personal;
+                } else {
+                    $attendee = str_ireplace('mailto:', '', $attendee);
+                    $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
+                    if (!$addr_ob->valid) {
+                        continue;
+                    }
+                    $attendee = $addr_ob->bare_address;
+                    $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
+                }
+                if (in_array($attendee, $all_addrs) !== false) {
+                    $this->assignee = $GLOBALS['conf']['assignees']['allow_external'] ? $attendee : $GLOBALS['registry']->getAuth();
+                    $this->status = Nag::RESPONSE_ACCEPTED;
+                    break;
+                } elseif ($GLOBALS['conf']['assignees']['allow_external']) {
+                    $this->assignee = $attendee;
+                }
+            }
         } catch (Horde_Icalendar_Exception $e) {
-            throw new Nag_Exception($e->getMessage());
-        }
-        if (!is_array($atnames)) {
-            $atnames = array($atnames);
-        }
-        $identity = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Identity')->create();
-        $all_addrs = $identity->getAll('from_addr');
-        foreach ($atnames as $index => $attendee) {
-            if ($vTodo->getAttribute('VERSION') < 2) {
-                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
-                if (!$addr_ob->valid) {
-                    continue;
-                }
-                $attendee = $addr_ob->bare_address;
-                $name = $addr_ob->personal;
-            } else {
-                $attendee = str_ireplace('mailto:', '', $attendee);
-                $addr_ob = new Horde_Mail_Rfc822_Address($attendee);
-                if (!$addr_ob->valid) {
-                    continue;
-                }
-                $attendee = $addr_ob->bare_address;
-                $name = isset($atparms[$index]['CN']) ? $atparms[$index]['CN'] : null;
-            }
-            if (in_array($attendee, $all_addrs) !== false) {
-                $this->assignee = $GLOBALS['conf']['assignees']['allow_external'] ? $attendee : $GLOBALS['registry']->getAuth();
-                $this->status = Nag::RESPONSE_ACCEPTED;
-                break;
-            } elseif ($GLOBALS['conf']['assignees']['allow_external']) {
-                $this->assignee = $attendee;
-            }
         }
 
         // Default to current user as organizer
