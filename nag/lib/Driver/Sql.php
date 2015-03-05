@@ -50,12 +50,16 @@ class Nag_Driver_Sql extends Nag_Driver
      * Retrieves one or multiple tasks from the database by UID.
      *
      * @param string|array $uid  The UID(s) of the task to retrieve.
+     * @param array $tasklists   An optional array of tasklists to search.
+     * @param boolean $getall    If true, return all instances of the task,
+     *                           otherwise only one. Attempts to find the
+     *                           instance owned by the current user.
      *
      * @return Nag_Task  A Nag_Task object.
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uids, $tasklists = null, $getall = true)
+    public function getByUID($uids, array $tasklists = null, $getall = true)
     {
         $results = $this->_getBy($uids, 'task_uid', $tasklists);
         if ($getall) {
