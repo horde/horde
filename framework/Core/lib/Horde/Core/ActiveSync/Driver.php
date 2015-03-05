@@ -3345,10 +3345,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_verbs[$mid] = $last;
         }
         $this->_logger->info(sprintf(
-            '[%s] Fetching verb for %s: %s',
+            '[%s] Fetching verb for %s.',
             $this->_pid,
-            $mid,
-            $this->_verbs[$mid]
+            $mid
         ));
 
         return $this->_verbs[$mid];
