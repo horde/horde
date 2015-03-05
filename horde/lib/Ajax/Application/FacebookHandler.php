@@ -26,7 +26,6 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
      * - filter:
      * - oldest:
      * - newest:
-     * - notifications:
      * - instance:
      *
      *
@@ -51,24 +50,6 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
             return $html;
         }
 
-        // Notifications
-        $n_html = '';
-        if ($this->vars->notifications) {
-            try {
-                $notifications = $facebook->notifications->get();
-                $n_html =  _("New Messages:")
-                . ' ' . $notifications['messages']['unread']
-                . ' ' . _("Pokes:") . ' ' . $notifications['pokes']['unread']
-                . ' ' . _("Friend Requests:") . ' ' . count($notifications['friend_requests'])
-                . ' ' . _("Event Invites:") . ' ' . count($notifications['event_invites']);
-            } catch (Horde_Service_Facebook_Exception $e) {
-                $html = sprintf(_("There was an error making the request: %s"), $e->getMessage());
-                $html .= sprintf(_("You can also check your Facebook settings in your %s."), $url->link() . _("preferences") . '</a>');
-
-                return $html;
-            }
-        }
-
         // Parse the posts.
         $posts = $stream->data;
         $newest = new Horde_Date($posts[0]->created_time);
@@ -85,8 +66,7 @@ class Horde_Ajax_Application_FacebookHandler extends Horde_Core_Ajax_Application
         return array(
             'o' => $oldest,
             'n' => $newest,
-            'c' => $html,
-            'nt' => $n_html
+            'c' => $html
         );
     }
 
