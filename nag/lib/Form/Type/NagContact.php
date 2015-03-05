@@ -6,6 +6,9 @@ class Nag_Form_Type_NagContact extends Horde_Form_Type
 {
     public function isValid(&$var, &$vars, $value, &$message)
     {
+        if (empty($value)) {
+            return true;
+        }
         $email = new Horde_Mail_Rfc822_Address($value);
         return $email->valid;
     }
