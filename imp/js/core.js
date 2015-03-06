@@ -287,16 +287,20 @@ var ImpCore = {
             tmp = $('msgloglist');
 
         log.each(function(entry) {
-            df.appendChild(
-                new Element('LI')
-                    .insert(
-                        new Element('SPAN', {
-                            className: 'iconImg imp-' + entry.t
-                        })
-                    ).insert(
-                        entry.m.escapeHTML()
-                    )
-            );
+            var li = new Element('LI')
+                .insert(
+                    new Element('SPAN', {
+                        className: 'iconImg imp-' + entry.t
+                    })
+                ).insert(
+                    entry.m.escapeHTML()
+                );
+            if (entry.s) {
+                li = li.wrap('A', {
+                    className: 'imp-maillog-sent'
+                }).store('msgid', entry.s);
+            }
+            df.appendChild(li);
         });
 
         tmp.childElements().invoke('remove');

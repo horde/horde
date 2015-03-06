@@ -69,7 +69,7 @@ span.iconImg {
     padding-right: 3px;
 }
 
-/* Growler notification styles. */
+/* Maillog. */
 .imp-reply {
     background-image: url("../graphics/answered.png");
 }
@@ -78,4 +78,7 @@ span.iconImg {
 }
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
+}
+.imp-maillog-sent {
+    color: #36525d !important;
 }

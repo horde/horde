@@ -807,7 +807,11 @@ class IMP_Ajax_Queue
 
                     foreach ($l as $v3) {
                         $tmp[] = array(
+                            // 'm' = message
                             'm' => $v3->message,
+                            // 's' = sent message-id
+                            's' => $v3->msg_id,
+                            // 't' = type
                             't' => $v3->action
                         );
                     }
