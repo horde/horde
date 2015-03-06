@@ -284,7 +284,7 @@ class Horde_Mime_Viewer_Html extends Horde_Mime_Viewer_Base
              * (most likely the link text is something like a shortened
              * filename). */
             if (isset($href_url['path']) &&
-                preg_match("/" . preg_quote($text_url['path']) . "$/", $href_url['path'])) {
+                preg_match("/" . preg_quote($text_url['path'], '/') . "$/", $href_url['path'])) {
                 return false;
             }
 
