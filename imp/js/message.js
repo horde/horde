@@ -261,7 +261,15 @@ var ImpMessage = {
     {
         var mb = $('msgData').down('DIV.messageBody');
 
-        mb.setStyle({ height: Math.max(document.viewport.getHeight() - mb.cumulativeOffset()[1] - parseInt(mb.getStyle('paddingTop'), 10) - parseInt(mb.getStyle('paddingBottom'), 10), 0) + 'px' });
+        mb.setStyle({
+            height: Math.max(
+                        document.viewport.getHeight() -
+                            mb.cumulativeOffset()[1] -
+                            parseInt(mb.getStyle('paddingTop'), 10) -
+                            parseInt(mb.getStyle('paddingBottom'), 10),
+                         0
+                    ) + 'px'
+        });
     },
 
     _mimeTreeCallback: function(r)
