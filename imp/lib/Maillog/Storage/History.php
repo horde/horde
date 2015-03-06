@@ -58,17 +58,10 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
             return false;
         }
 
-        $data = array(
+        $data = array_merge($log->addData(), array(
             'action' => $log->action,
             'ts' => $log->timestamp
-        );
-
-        switch ($log->action) {
-        case 'forward':
-        case 'redirect':
-            $data['recipients'] = $log->recipients;
-            break;
-        }
+        ));
 
         try {
             $this->_history->log($this->_getUniqueHistoryId($msg), $data);
@@ -116,41 +109,29 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
             return $out;
         }
 
+        $drivers = array(
+            'forward' => 'IMP_Maillog_Log_Forward',
+            'mdn' => 'IMP_Maillog_Log_Mdn',
+            'redirect' => 'IMP_Maillog_Log_Redirect',
+            'reply' => 'IMP_Maillog_Log_Reply',
+            'reply_all' => 'IMP_Maillog_Log_Replyall',
+            'reply_list' => 'IMP_Maillog_Log_Replylist',
+        );
+
         foreach ($history as $val) {
-            switch ($val['action']) {
-            case 'forward':
-                $ob = new IMP_Maillog_Log_Forward($val['recipients']);
-                break;
-
-            case 'mdn':
-                $ob = new IMP_Maillog_Log_Mdn();
-                break;
-
-            case 'redirect':
-                $ob = new IMP_Maillog_Log_Redirect($val['recipients']);
-                break;
-
-            case 'reply':
-                $ob = new IMP_Maillog_Log_Reply();
-                break;
-
-            case 'reply_all':
-                $ob = new IMP_Maillog_Log_Replyall();
-                break;
-
-            case 'reply_list':
-                $ob = new IMP_Maillog_Log_Replylist();
-                break;
-
-            default:
-                continue 2;
+            if (!isset($drivers[$val['action']])) {
+                continue;
             }
+
+            $ob = new $drivers[$val['action']]();
 
             if (!empty($types) && !in_array(get_class($ob), $types)) {
                 continue;
             }
 
             $ob->timestamp = $val['ts'];
+
+            $ob->parseData($val);
 
             $out[] = $ob;
         }

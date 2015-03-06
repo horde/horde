@@ -87,6 +87,25 @@ abstract class IMP_Maillog_Log_Base
     }
 
     /**
+     * Add entry specific data to the backend storage.
+     *
+     * @return array  An array of key -> value pairs to add.
+     */
+    public function addData()
+    {
+        return array();
+    }
+
+    /**
+     * Parse entry specific data retrieved from the backend storage.
+     *
+     * @param array $data  An array of key -> value pairs.
+     */
+    public function parseData(array $data)
+    {
+    }
+
+    /**
      * The log message.
      *
      * @return string  Log message.

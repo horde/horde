@@ -40,7 +40,7 @@ class IMP_Maillog_Log_Redirect extends IMP_Maillog_Log_Base
      *
      * @param string $recipients  Recipient list.
      */
-    public function __construct($recipients)
+    public function __construct($recipients = null)
     {
         $this->_recipients = strval($recipients);
     }
@@ -55,6 +55,22 @@ class IMP_Maillog_Log_Redirect extends IMP_Maillog_Log_Base
         }
 
         return parent::__get($name);
+    }
+
+    /**
+     */
+    public function addData()
+    {
+        return array(
+            'recipients' => $this->recipients
+        );
+    }
+
+    /**
+     */
+    public function parseData(array $data)
+    {
+        $this->_recipients = $data['recipients'];
     }
 
     /**
