@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-03-04</date>
+ <date>2015-03-06</date>
  <version>
-  <release>2.19.3</release>
-  <api>2.19.0</api>
+  <release>2.20.0</release>
+  <api>2.20.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -407,6 +407,9 @@
        <dir name="Identity">
         <file name="UsernameHook.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Factory/Identity -->
+       <dir name="Secret">
+        <file name="Cbc.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Factory/Secret -->
        <file name="ActiveSyncBackend.php" role="php" />
        <file name="ActiveSyncServer.php" role="php" />
        <file name="ActiveSyncState.php" role="php" />
@@ -572,6 +575,9 @@
         <file name="Sortable.php" role="php" />
        </dir> <!-- /lib/Horde/Core/Script/Package -->
       </dir> <!-- /lib/Horde/Core/Script -->
+      <dir name="Secret">
+       <file name="Cbc.php" role="php" />
+      </dir> <!-- /lib/Horde/Core/Secret -->
       <dir name="Share">
        <file name="Driver.php" role="php" />
        <file name="FactoryCallback.php" role="php" />
@@ -1880,6 +1886,7 @@
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
    <install as="Horde/Core/Factory/Identity/UsernameHook.php" name="lib/Horde/Core/Factory/Identity/UsernameHook.php" />
+   <install as="Horde/Core/Factory/Secret/Cbc.php" name="lib/Horde/Core/Factory/Secret/Cbc.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/HashTable/PersistentSession.php" name="lib/Horde/Core/HashTable/PersistentSession.php" />
    <install as="Horde/Core/HashTable/Vfs.php" name="lib/Horde/Core/HashTable/Vfs.php" />
@@ -1918,6 +1925,7 @@
    <install as="Horde/Core/Script/Package/Keynavlist.php" name="lib/Horde/Core/Script/Package/Keynavlist.php" />
    <install as="Horde/Core/Script/Package/Popup.php" name="lib/Horde/Core/Script/Package/Popup.php" />
    <install as="Horde/Core/Script/Package/Sortable.php" name="lib/Horde/Core/Script/Package/Sortable.php" />
+   <install as="Horde/Core/Secret/Cbc.php" name="lib/Horde/Core/Secret/Cbc.php" />
    <install as="Horde/Core/Share/Driver.php" name="lib/Horde/Core/Share/Driver.php" />
    <install as="Horde/Core/Share/FactoryCallback.php" name="lib/Horde/Core/Share/FactoryCallback.php" />
    <install as="Horde/Core/Smartmobile/Url.php" name="lib/Horde/Core/Smartmobile/Url.php" />
@@ -3854,15 +3862,15 @@
   </release>
   <release>
    <version>
-    <release>2.19.3</release>
-    <api>2.19.0</api></version>
+    <release>2.20.0</release>
+    <api>2.20.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-04</date>
+   <date>2015-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).
    </notes>
   </release>
  </changelog>

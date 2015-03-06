@@ -432,6 +432,7 @@ class Horde_Registry implements Horde_Shutdown_Task
             'Horde_Routes_Mapper' => 'Horde_Core_Factory_Mapper',
             'Horde_Routes_Matcher' => 'Horde_Core_Factory_Matcher',
             'Horde_Secret' => 'Horde_Core_Factory_Secret',
+            'Horde_Secret_Cbc' => 'Horde_Core_Factory_Secret_Cbc',
             'Horde_Service_Facebook' => 'Horde_Core_Factory_Facebook',
             'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
             'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',

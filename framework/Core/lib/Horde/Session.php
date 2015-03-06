@@ -277,7 +277,7 @@ class Horde_Session
         $this->_data = array();
         $this->_start();
 
-        $GLOBALS['injector']->getInstance('Horde_Secret')->setKey();
+        $GLOBALS['injector']->getInstance('Horde_Secret_Cbc')->setKey();
 
         $this->_cleansession = true;
 
@@ -303,7 +303,7 @@ class Horde_Session
             session_destroy();
         }
         $this->_cleansession = true;
-        $GLOBALS['injector']->getInstance('Horde_Secret')->clearKey();
+        $GLOBALS['injector']->getInstance('Horde_Secret_Cbc')->clearKey();
     }
 
     /**
@@ -355,7 +355,7 @@ class Horde_Session
             }
 
             if (isset($this->_data[self::ENCRYPTED][$app][$name])) {
-                $secret = $injector->getInstance('Horde_Secret');
+                $secret = $injector->getInstance('Horde_Secret_Cbc');
                 $value = strval($secret->read($secret->getKey(), $value));
             }
 
@@ -427,7 +427,7 @@ class Horde_Session
             $value = $injector->getInstance('Horde_Pack')->pack($value, $opts);
 
             if ($mask & self::ENCRYPT) {
-                $secret = $injector->getInstance('Horde_Secret');
+                $secret = $injector->getInstance('Horde_Secret_Cbc');
                 $value = $secret->write($secret->getKey(), $value);
                 $this->_data[self::ENCRYPTED][$app][$name] = true;
             }
