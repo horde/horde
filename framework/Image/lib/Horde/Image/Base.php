@@ -455,13 +455,21 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @return Horde_Image_Base
      */
-    abstract function getImageAtIndex($index);
+    public function getImageAtIndex($index)
+    {
+        if ($index > 0) {
+            throw new Horde_Image_Exception('Image index out of bounds.');
+        }
+    }
 
     /**
      * Return the number of image pages available in the image object.
      *
      * @return integer
      */
-    abstract function getImagePageCount();
+    public function getImagePageCount()
+    {
+        return 1;
+    }
 
 }

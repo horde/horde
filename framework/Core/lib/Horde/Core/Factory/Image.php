@@ -19,6 +19,10 @@ class Horde_Core_Factory_Image extends Horde_Core_Factory_Base
         global $conf;
 
         $driver = $conf['image']['driver'];
+        if (empty($driver)) {
+            $driver = 'Null';
+        }
+
         $class = $this->_getDriverName($driver, 'Horde_Image');
 
         $context = array(

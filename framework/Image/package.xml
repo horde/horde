@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-03-06</date>
  <version>
-  <release>2.2.1</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add Null driver for basics like just displaying the image.
 * [mjr] Fix incorrect color renderings in certain situations.
  </notes>
  <contents>
@@ -106,6 +107,7 @@
       <file name="Gd.php" role="php" />
       <file name="Im.php" role="php" />
       <file name="Imagick.php" role="php" />
+      <file name="Null.php" role="php" />
       <file name="Png.php" role="php" />
       <file name="rgb.php" role="php" />
       <file name="Svg.php" role="php" />
@@ -493,6 +495,7 @@
    <install as="Horde/Image/Gd.php" name="lib/Horde/Image/Gd.php" />
    <install as="Horde/Image/Im.php" name="lib/Horde/Image/Im.php" />
    <install as="Horde/Image/Imagick.php" name="lib/Horde/Image/Imagick.php" />
+   <install as="Horde/Image/Null.php" name="lib/Horde/Image/Null.php" />
    <install as="Horde/Image/Png.php" name="lib/Horde/Image/Png.php" />
    <install as="Horde/Image/rgb.php" name="lib/Horde/Image/rgb.php" />
    <install as="Horde/Image/Svg.php" name="lib/Horde/Image/Svg.php" />
@@ -1067,14 +1070,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.2.1</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add Null driver for basics like just displaying the image.
 * [mjr] Fix incorrect color renderings in certain situations.
    </notes>
   </release>
