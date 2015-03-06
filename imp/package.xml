@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-26</date>
+ <date>2015-03-06</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Store message ID of the sent message when saving maillog history.
 * [mms] Add backend configuration option to use body structure data to more accurately determine whether a message contains attachments.
 * [jan] Show warning on S/MIME page if personal certificate has expired.
 * [mjr] Improve support for vTodo iTip handling.
@@ -407,6 +408,7 @@
       <file name="Reply.php" role="horde" />
       <file name="Replyall.php" role="horde" />
       <file name="Replylist.php" role="horde" />
+      <file name="Sentmail.php" role="horde" />
      </dir> <!-- /lib/Maillog/Log -->
      <dir name="Storage">
       <file name="Base.php" role="horde" />
@@ -1765,6 +1767,7 @@
    <install as="imp/lib/Maillog/Log/Reply.php" name="lib/Maillog/Log/Reply.php" />
    <install as="imp/lib/Maillog/Log/Replyall.php" name="lib/Maillog/Log/Replyall.php" />
    <install as="imp/lib/Maillog/Log/Replylist.php" name="lib/Maillog/Log/Replylist.php" />
+   <install as="imp/lib/Maillog/Log/Sentmail.php" name="lib/Maillog/Log/Sentmail.php" />
    <install as="imp/lib/Maillog/Storage/Base.php" name="lib/Maillog/Storage/Base.php" />
    <install as="imp/lib/Maillog/Storage/Composite.php" name="lib/Maillog/Storage/Composite.php" />
    <install as="imp/lib/Maillog/Storage/History.php" name="lib/Maillog/Storage/History.php" />

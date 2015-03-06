@@ -446,7 +446,9 @@ class IMP_Api extends Horde_Registry_Api
     {
         switch ($action) {
         case 'forward':
-            $log = new IMP_Maillog_Log_Forward($data['recipients']);
+            $log = new IMP_Maillog_Log_Forward(array(
+                'recipients' => $data['recipients']
+            ));
             break;
 
         case 'mdn':
@@ -454,7 +456,9 @@ class IMP_Api extends Horde_Registry_Api
             break;
 
         case 'redirect':
-            $log = new IMP_Maillog_Log_Redirect($data['recipients']);
+            $log = new IMP_Maillog_Log_Redirect(array(
+                'recipients' => $data['recipients']
+            ));
             break;
 
         case 'reply':

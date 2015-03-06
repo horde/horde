@@ -909,27 +909,34 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->_replytype) {
             /* Log the reply. */
             if ($indices = $this->getMetadata('indices')) {
+                $log_data = array(
+                    'msgid' => reset($headers['Message-ID']->getIdentificationOb()->ids)
+                );
+
                 switch ($this->_replytype) {
                 case self::FORWARD:
                 case self::FORWARD_ATTACH:
                 case self::FORWARD_BODY:
                 case self::FORWARD_BOTH:
-                    $log = new IMP_Maillog_Log_Forward($recipients);
+                    $ob = 'IMP_Maillog_Log_Forward';
+                    $log_data['recipients'] = $recipients;
                     break;
 
                 case self::REPLY:
                 case self::REPLY_SENDER:
-                    $log = new IMP_Maillog_Log_Reply();
+                    $ob = 'IMP_Maillog_Log_Reply';
                     break;
 
                 case IMP_Compose::REPLY_ALL:
-                    $log = new IMP_Maillog_Log_Replyall();
+                    $ob = 'IMP_Maillog_Log_Replyall';
                     break;
 
                 case IMP_Compose::REPLY_LIST:
-                    $log = new IMP_Maillog_Log_Replylist();
+                    $ob = 'IMP_Maillog_Log_Replylist';
                     break;
                 }
+
+                $log = new $ob($log_data);
 
                 $log_msgs = array();
                 foreach ($indices as $val) {
@@ -2520,12 +2527,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 Horde::log(sprintf("%s Redirected message sent to %s from %s", $_SERVER['REMOTE_ADDR'], $recipients, $registry->getAuth()), 'INFO');
 
                 if ($log && ($tmp = $headers['Message-ID'])) {
-                    $msg_id = reset($tmp->getIdentificationob()->ids);
+                    $msg_id = reset($tmp->getIdentificationOb()->ids);
 
                     /* Store history information. */
                     $injector->getInstance('IMP_Maillog')->log(
                         new IMP_Maillog_Message($msg_id),
-                        new IMP_Maillog_Log_Redirect($recipients)
+                        new IMP_Maillog_Log_Redirect(array(
+                            'msgid' => reset($resent_headers->getIdentificationOb()->ids),
+                            'recipients' => $recipients
+                        ))
                     );
 
                     $injector->getInstance('IMP_Sentmail')->log(

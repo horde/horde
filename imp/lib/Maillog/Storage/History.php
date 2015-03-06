@@ -123,15 +123,13 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
                 continue;
             }
 
-            $ob = new $drivers[$val['action']]();
+            $ob = new $drivers[$val['action']]($val);
 
             if (!empty($types) && !in_array(get_class($ob), $types)) {
                 continue;
             }
 
             $ob->timestamp = $val['ts'];
-
-            $ob->parseData($val);
 
             $out[] = $ob;
         }

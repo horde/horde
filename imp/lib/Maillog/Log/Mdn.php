@@ -20,7 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Maillog_Log_Mdn extends IMP_Maillog_Log_Base
+class IMP_Maillog_Log_Mdn
+extends IMP_Maillog_Log_Base
 {
     /**
      */

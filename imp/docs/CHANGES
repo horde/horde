@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mms] Store message ID of the sent message when saving maillog history.
 [mms] Add backend configuration option to use body structure data to more
       accurately determine whether a message contains attachments.
 [jan] Show warning on S/MIME page if personal certificate has expired.

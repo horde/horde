@@ -42,6 +42,15 @@ abstract class IMP_Maillog_Log_Base
     protected $_timestamp;
 
     /**
+     * Constructor.
+     *
+     * @param array $params  Parameters.
+     */
+    public function __construct(array $params = array())
+    {
+    }
+
+    /**
      */
     public function __get($name)
     {
@@ -94,15 +103,6 @@ abstract class IMP_Maillog_Log_Base
     public function addData()
     {
         return array();
-    }
-
-    /**
-     * Parse entry specific data retrieved from the backend storage.
-     *
-     * @param array $data  An array of key -> value pairs.
-     */
-    public function parseData(array $data)
-    {
     }
 
     /**

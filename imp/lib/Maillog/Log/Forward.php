@@ -22,7 +22,8 @@
  *
  * @property-read string $recipients  List of recipients.
  */
-class IMP_Maillog_Log_Forward extends IMP_Maillog_Log_Base
+class IMP_Maillog_Log_Forward
+extends IMP_Maillog_Log_Sentmail
 {
     /**
      */
@@ -36,13 +37,13 @@ class IMP_Maillog_Log_Forward extends IMP_Maillog_Log_Base
     protected $_recipients;
 
     /**
-     * Constructor.
-     *
-     * @param string $recipients  Recipient list.
+     * @param array $params  Parameters:
+     *   - recipients: (string) Recipient list.
      */
-    public function __construct($recipients = null)
+    public function __construct(array $params = array())
     {
-        $this->_recipients = strval($recipients);
+        $this->_recipients = strval($params['recipients']);
+        parent::__construct($params);
     }
 
     /**
@@ -61,16 +62,9 @@ class IMP_Maillog_Log_Forward extends IMP_Maillog_Log_Base
      */
     public function addData()
     {
-        return array(
+        return array_merge(parent::addData(), array(
             'recipients' => $this->recipients
-        );
-    }
-
-    /**
-     */
-    public function parseData(array $data)
-    {
-        $this->_recipients = $data['recipients'];
+        ));
     }
 
     /**
