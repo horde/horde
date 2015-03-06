@@ -28,6 +28,7 @@ var ImpCompose = {
     // old_action,
     // old_bcc,
     // old_identity,
+    // popup_link,
     // rte_sig,
     // sc_submit,
     // skip_spellcheck,
@@ -95,7 +96,7 @@ var ImpCompose = {
     {
         if (ImpCore.conf.qreply) {
             this.closeQReply();
-        } else if (HordeCore.baseWindow() != window) {
+        } else if (this.popup_link || (HordeCore.baseWindow() != window)) {
             // We are only checking whether window.close can be done, not the
             // current status of the opening window.
             window.close();
@@ -1565,6 +1566,13 @@ var ImpCompose = {
 
         $('impLoading').hide();
         $('composeContainer', 'compose').compact().invoke('show');
+
+        if (this.popup_link) {
+            window.resizeBy(
+                Math.min(800, HordeCore.conf.popup_width) - document.viewport.getWidth(),
+                Math.min(1000, HordeCore.conf.popup_height) - document.viewport.getHeight()
+            );
+        }
 
         this.doTasks();
 

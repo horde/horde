@@ -123,7 +123,9 @@ class IMP_Compose_Link
      */
     public function composeLinkSimpleCallback($url)
     {
-        return "javascript:void(window.open('" . strval($url) . "','','width=820,height=610,status=1,scrollbars=yes,resizable=yes'))";
+        $url->add('popup_link', 1);
+
+        return "javascript:void(window.open('" . strval($url) . "','','width=800,height=600,status=1,scrollbars=yes,resizable=yes'))";
     }
 
     /**

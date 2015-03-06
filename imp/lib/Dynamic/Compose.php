@@ -30,6 +30,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
      *   - cc: CC addresses.
      *   - cc_json: JSON encoded addresses to send to. Overwrites 'cc'.
      *   - identity: Force message to use this identity by default.
+     *   - popup_link: Compose window generated via a popup link.
      *   - subject: Subject to use.
      *   - type: redirect, reply, reply_auto, reply_all, reply_list,
      *           forward_attach, forward_auto, forward_body, forward_both,
@@ -238,6 +239,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $this->view->compose = $injector->getInstance('IMP_Dynamic_Compose_Common')->compose($this, $compose_opts);
 
         $page_output->addInlineJsVars(array(
+            'ImpCompose.popup_link' => intval($this->vars->popup_link),
             'ImpCompose.onload_show' => $onload,
             'ImpCompose.tasks' => $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks()
         ));
