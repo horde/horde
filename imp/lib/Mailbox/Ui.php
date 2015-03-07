@@ -23,7 +23,7 @@
 class IMP_Mailbox_Ui
 {
     /**
-     * Cached drafts sent-mail mailbox..
+     * Cached drafts sent-mail mailbox.
      *
      * @var array
      */
