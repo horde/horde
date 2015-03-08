@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"POT-Creation-Date: 2015-03-08 19:18-0300\n"
 "PO-Revision-Date: 2013-11-21 22:54-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -168,7 +168,7 @@ msgstr "Registro do log de alterações"
 msgid "Change references to this page from:"
 msgstr "Alterar referências para essa página de:"
 
-#: lib/Page/MergeOrRename.php:250
+#: lib/Page/MergeOrRename.php:235
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr "Referências alteradas de %s para %s"
@@ -285,7 +285,7 @@ msgstr "Editar Versão"
 msgid "Edit Version %s"
 msgstr "Editar Versão %s"
 
-#: lib/Page/MergeOrRename.php:244
+#: lib/Page/MergeOrRename.php:268
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Erro ao retornar %s: %s"
