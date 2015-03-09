@@ -606,7 +606,7 @@ class Horde_Icalendar
                     preg_match_all('/;(([^;=]*)(=("[^"]*"|[^;]*))?)/', $parts[2], $param_parts);
                     foreach ($param_parts[2] as $key => $paramName) {
                         $paramName = Horde_String::upper($paramName);
-                        $paramValue = $param_parts[4][$key];
+                        $paramValue = Horde_String::upper($param_parts[4][$key]);
                         if ($paramName == 'TYPE') {
                             $paramValue = preg_split('/(?<!\\\\),/', $paramValue);
                             if (count($paramValue) == 1) {
