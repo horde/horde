@@ -403,7 +403,7 @@ var ImpCore = {
     /* Mouse click handler. */
     clickHandler: function(e)
     {
-        var args, tmp, text,
+        var args, cnames, text, tmp,
             elt = e.element();
 
         if (!elt.match('A')) {
@@ -454,7 +454,9 @@ var ImpCore = {
             return;
         }
 
-        if (elt.hasClassName('largeaddrspan_active') &&
+        cnames = $w(elt.className);
+
+        if ((cnames.indexOf('largeaddrspan_active') !== -1) &&
             !e.memo.element().hasClassName('horde-button')) {
             if (e.memo.element().hasClassName('largeaddrlistlimit')) {
                 e.memo.element().hide();
@@ -463,6 +465,15 @@ var ImpCore = {
                 tmp = elt.down();
                 [ tmp.down(), tmp.down(1), tmp.next() ].invoke('toggle');
             }
+        } else if (cnames.indexOf('imp-maillog-sent') !== -1) {
+            HordeCore.popupWindow(this.conf.URI_MAILLOG, {
+                msgid: elt.retrieve('msgid'),
+                type: elt.retrieve('type')
+            }, {
+                height: Math.min(1000, HordeCore.conf.popup_height),
+                name: 'maillog' + new Date().getTime()
+            });
+            e.memo.stop();
         }
     },
 

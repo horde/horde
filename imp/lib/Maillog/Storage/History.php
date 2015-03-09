@@ -23,6 +23,20 @@
 class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
 {
     /**
+     * Mapping of driver actions -> class names.
+     *
+     * @var array
+     */
+    public static $drivers = array(
+        'forward' => 'IMP_Maillog_Log_Forward',
+        'mdn' => 'IMP_Maillog_Log_Mdn',
+        'redirect' => 'IMP_Maillog_Log_Redirect',
+        'reply' => 'IMP_Maillog_Log_Reply',
+        'reply_all' => 'IMP_Maillog_Log_Replyall',
+        'reply_list' => 'IMP_Maillog_Log_Replylist'
+    );
+
+    /**
      * History object.
      *
      * @var Horde_History
@@ -109,21 +123,12 @@ class IMP_Maillog_Storage_History extends IMP_Maillog_Storage_Base
             return $out;
         }
 
-        $drivers = array(
-            'forward' => 'IMP_Maillog_Log_Forward',
-            'mdn' => 'IMP_Maillog_Log_Mdn',
-            'redirect' => 'IMP_Maillog_Log_Redirect',
-            'reply' => 'IMP_Maillog_Log_Reply',
-            'reply_all' => 'IMP_Maillog_Log_Replyall',
-            'reply_list' => 'IMP_Maillog_Log_Replylist',
-        );
-
         foreach ($history as $val) {
-            if (!isset($drivers[$val['action']])) {
+            if (!isset(static::$drivers[$val['action']])) {
                 continue;
             }
 
-            $ob = new $drivers[$val['action']]($val);
+            $ob = new static::$drivers[$val['action']]($val);
 
             if (!empty($types) && !in_array(get_class($ob), $types)) {
                 continue;

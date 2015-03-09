@@ -30,6 +30,13 @@ extends IMP_Maillog_Log_Sentmail
     protected $_action = 'redirect';
 
     /**
+     * Message ID header label.
+     *
+     * @var string
+     */
+    protected $_msgidHeader = 'Resent-Message-ID';
+
+    /**
      * List of recipients.
      *
      * @var string

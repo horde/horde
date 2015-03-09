@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Sent-mail maillog entries are now linked to a viewable representation of
+      the sent message, if it still exists on the server.
 [mms] Store message ID of the sent message when saving maillog history.
 [mms] Add backend configuration option to use body structure data to more
       accurately determine whether a message contains attachments.

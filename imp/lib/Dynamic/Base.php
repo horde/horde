@@ -129,6 +129,7 @@ abstract class IMP_Dynamic_Base
         $this->js_conf = array_filter(array(
             // URL variables
             'URI_COMPOSE' => strval(IMP_Dynamic_Compose::url()->setRaw(true)),
+            'URI_MAILLOG' => strval(IMP_Dynamic_Maillog::url()->setRaw(true)),
             'URI_VIEW' => strval(Horde::url('view.php')->add(IMP_Contents_View::addToken())),
 
             // Other variables
