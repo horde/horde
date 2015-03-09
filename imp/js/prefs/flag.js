@@ -34,28 +34,33 @@ var ImpFlagPrefs = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(), elt2;
+        var cnames, elt2,
+            elt = e.element();
 
         if (elt.readAttribute('id') == 'new_button') {
             this.addFlag();
-        } else if (elt.hasClassName('flagcolorpicker')) {
-            elt2 = elt.previous('INPUT');
-            new ColorPicker({
-                color: $F(elt2),
-                draggable: true,
-                offsetParent: elt,
-                resizable: true,
-                update: [
-                    [ elt2, 'value' ],
-                    [ elt2, 'background' ]
-                ]
-            });
-            e.memo.stop();
-        } else if (elt.hasClassName('flagdelete')) {
-            if (window.confirm(this.confirm_delete)) {
-                this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
+        } else {
+            cnames = $w(elt.className);
+
+            if (cnames.indexOf('flagcolorpicker') !== -1) {
+                elt2 = elt.previous('INPUT');
+                new ColorPicker({
+                    color: $F(elt2),
+                    draggable: true,
+                    offsetParent: elt,
+                    resizable: true,
+                    update: [
+                        [ elt2, 'value' ],
+                        [ elt2, 'background' ]
+                    ]
+                });
+                e.memo.stop();
+            } else if (cnames.indexOf('flagdelete') !== -1) {
+                if (window.confirm(this.confirm_delete)) {
+                    this._sendData('delete', elt.previous('INPUT').readAttribute('id'));
+                }
+                e.memo.stop();
             }
-            e.memo.stop();
         }
     },
 

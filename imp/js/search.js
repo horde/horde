@@ -530,7 +530,8 @@ var ImpSearch = {
 
     clickHandler: function(e)
     {
-        var elt = e.element();
+        var cnames,
+            elt = e.element();
 
         switch (elt.readAttribute('id')) {
         case 'search_submit':
@@ -564,17 +565,19 @@ var ImpSearch = {
             break;
 
         default:
-            if (elt.hasClassName('searchuiDelete')) {
+            cnames = $w(elt.className);
+
+            if (cnames.indexOf('searchuiDelete') !== -1) {
                 if (elt.up('#search_criteria')) {
                     this.deleteCriteria(elt.up('DIV.searchId'));
                 } else {
                     this.deleteMailbox(elt.up('DIV.searchId'));
                 }
                 e.memo.stop();
-            } else if (elt.hasClassName('calendarImg')) {
+            } else if (cnames.indexOf('calendarImg') !== -1) {
                 Horde_Calendar.open(elt.identify(), this.criteria[elt.up('DIV.searchId').identify()].v);
                 e.memo.stop();
-            } else if (elt.hasClassName('closeImg') &&
+            } else if ((cnames.indexOf('closeImg') !== -1) &&
                        (elt.up('SPAN.beginDate') || elt.up('SPAN.endDate'))) {
                 this.updateDate(
                     elt.up('DIV.searchId').identify(),

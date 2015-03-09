@@ -2862,7 +2862,7 @@ var ImpBase = {
 
     clickHandler: function(e)
     {
-        var tmp,
+        var cnames, tmp,
             elt = e.element(),
             id = elt.readAttribute('id');
 
@@ -3042,7 +3042,9 @@ var ImpBase = {
             break;
 
         default:
-            if (elt.hasClassName('printAtc')) {
+            cnames = $w(elt.className);
+
+            if (cnames.indexOf('printAtc') !== -1) {
                 HordeCore.popupWindow(
                     ImpCore.conf.URI_VIEW,
                     this.preview.popupWindowParams({
@@ -3055,7 +3057,7 @@ var ImpBase = {
                     }
                 );
                 e.memo.stop();
-            } else if (elt.hasClassName('stripAtc')) {
+            } else if (cnames.indexOf('stripAtc') !== -1) {
                 if (window.confirm(ImpCore.text.strip_warn)) {
                     ImpCore.doAction('stripAttachment', this.addViewportParams().merge({
                         id: elt.readAttribute('mimeid')
@@ -3072,7 +3074,7 @@ var ImpBase = {
                     });
                 }
                 e.memo.stop();
-            } else if (elt.hasClassName('flagcolorpicker')) {
+            } else if (cnames.indexOf('flagcolorpicker') !== -1) {
                 tmp = elt.previous('INPUT');
                 this.colorpicker = new ColorPicker({
                     color: $F(tmp) || '#fff',
@@ -3085,7 +3087,7 @@ var ImpBase = {
                     ]
                 });
                 e.memo.stop();
-            } else if (elt.hasClassName('imp-sidebar-remote')) {
+            } else if (cnames.indexOf('imp-sidebar-remote') !== -1) {
                 elt = this.flist.getMbox(elt);
                 this.dialogDisplay({
                     form: $('sidebar_remote_redbox').down().clone(true),

@@ -115,7 +115,7 @@ var ImpMessage = {
     /* Click handlers. */
     clickHandler: function(e)
     {
-        var base;
+        var base, cnames;
 
         switch (e.element().readAttribute('id')) {
         case 'windowclose':
@@ -210,7 +210,9 @@ var ImpMessage = {
             break;
 
         default:
-            if (e.element().hasClassName('printAtc')) {
+            cnames = $w(e.element().className);
+
+            if (cnames.indexOf('printAtc') !== -1) {
                 HordeCore.popupWindow(ImpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
                     buid: this.buid,
@@ -221,7 +223,7 @@ var ImpMessage = {
                     onload: IMP_JS.printWindow
                 });
                 e.memo.stop();
-            } else if (e.element().hasClassName('stripAtc')) {
+            } else if (cnames.indexOf('stripAtc') !== -1) {
                 if (window.confirm(ImpCore.text.strip_warn)) {
                     ImpCore.reloadMessage({
                         actionID: 'strip_attachment',

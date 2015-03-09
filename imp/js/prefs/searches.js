@@ -13,14 +13,15 @@ var ImpSearchesPrefs = {
 
     clickHandler: function(e)
     {
-        var elt = e.element();
+        var elt = e.element(),
+            cnames = $w(elt.className);
 
-        if (elt.hasClassName('filterdelete')) {
+        if (cnames.indexOf('filterdelete') !== -1) {
             if (window.confirm(this.confirm_delete_filter)) {
                 this._sendData('delete', elt.up().previous('.enabled').down('INPUT').readAttribute('name'));
             }
             e.memo.stop();
-        } else if (elt.hasClassName('vfolderdelete')) {
+        } else if (cnames.indexOf('vfolderdelete') !== -1) {
             if (window.confirm(this.confirm_delete_vfolder)) {
                 this._sendData('delete', elt.up().previous('.enabled').down('INPUT').readAttribute('name'));
             }
