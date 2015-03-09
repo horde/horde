@@ -296,9 +296,12 @@ var ImpCore = {
                     entry.m.escapeHTML()
                 );
             if (entry.s) {
-                li = li.wrap('A', {
-                    className: 'imp-maillog-sent'
-                }).store('msgid', entry.s);
+                li = li
+                    .wrap('A', {
+                        className: 'imp-maillog-sent'
+                    })
+                    .store('msgid', entry.s)
+                    .store('type', entry.t);
             }
             df.appendChild(li);
         });

@@ -806,14 +806,14 @@ class IMP_Ajax_Queue
                     $tmp = array();
 
                     foreach ($l as $v3) {
-                        $tmp[] = array(
+                        $tmp[] = array_filter(array(
                             // 'm' = message
                             'm' => $v3->message,
                             // 's' = sent message-id
-                            's' => $v3->msg_id,
+                            's' => $v3->searchMailboxes() ? $v3->msg_id : null,
                             // 't' = type
                             't' => $v3->action
-                        );
+                        ));
                     }
 
                     if ($tmp) {

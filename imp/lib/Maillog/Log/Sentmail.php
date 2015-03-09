@@ -70,4 +70,30 @@ extends IMP_Maillog_Log_Base
         )));
     }
 
+    /**
+     * Return the mailboxes that can be searched to find the sent message.
+     *
+     * @return array  Array of arrays; each array is a group of mailboxes to
+     *                search in order of priority.
+     */
+    public function searchMailboxes()
+    {
+        $out = array();
+
+        $special = IMP_Mailbox::getSpecialMailboxes();
+
+        /* Check for sent-mail mailbox(es) first. */
+        if (!empty($special[IMP_Mailbox::SPECIAL_SENT])) {
+            $out[] = $special[IMP_Mailbox::SPECIAL_SENT];
+        }
+
+        /* Add trash mailbox as backup. */
+        if (!empty($special[IMP_Mailbox::SPECIAL_TRASH]) &&
+            !$special[IMP_Mailbox::SPECIAL_TRASH]->vtrash) {
+            $out[] = array($special[IMP_Mailbox::SPECIAL_TRASH]);
+        }
+
+        return $out;
+    }
+
 }
