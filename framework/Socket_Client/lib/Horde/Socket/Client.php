@@ -60,10 +60,9 @@ class Client
     /**
      * Constructor.
      *
-     * @param string $host      Hostname of remote server. Optionally with
-     *                          protocol prefix (@since 1.2.0).
-     * @param integer $port     Port number of remote server (optional
-     *                          @since 1.2.0).
+     * @param string $host      Hostname of remote server (can contain
+     *                          protocol prefx).
+     * @param integer $port     Port number of remote server.
      * @param integer $timeout  Connection timeout (in seconds).
      * @param mixed $secure     Security layer requested. One of:
      *   - false: (No encryption) [DEFAULT]
@@ -72,7 +71,7 @@ class Client
      *   - 'sslv3': (Force SSL version 2)
      *   - 'tls': (TLS; started via protocol-level negotation over unencrypted
      *     channel)
-     *   - 'tlsv1': (TLS version 1.x connection) (@since 1.1.0)
+     *   - 'tlsv1': (TLS version 1.x connection)
      *   - true: (TLS if available/necessary)
      * @param array $context    Any context parameters passed to
      *                          stream_create_context().
