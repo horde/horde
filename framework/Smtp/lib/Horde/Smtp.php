@@ -600,7 +600,7 @@ class Horde_Smtp implements Serializable
             }
         }
 
-        if (is_null($body) && $this->_debug->active) {
+        if (is_null($body) && $this->_debug->active && $this->data_8bit) {
             /* Only output extended 7bit command if debug is active (it is
              * default and does not need to be explicitly declared). */
             $body = ' BODY=7BIT';
