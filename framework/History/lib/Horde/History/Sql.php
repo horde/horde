@@ -355,7 +355,9 @@ class Horde_History_Sql extends Horde_History
     {
         try {
             $result = $this->_db->insert('INSERT INTO horde_histories_modseq (history_modseqempty) VALUES(0)');
-            $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq <> ?', array($result));
+            // Don't completely empty the table to prevent sequence from being reset
+            // when using certain RDBMS, like postgres (see Bug #13876).
+            $this->_db->delete('DELETE FROM horde_histories_modseq WHERE history_modseq < (? - 25)', array($result));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_History_Exception($e);
         }
