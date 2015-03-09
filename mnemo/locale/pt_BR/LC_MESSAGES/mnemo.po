@@ -50,8 +50,12 @@ msgid "Access denied saving note to this notepad."
 msgstr "Acesso negado ao gravar anotação a este bloco de anotações."
 
 #: config/prefs.php:149
-msgid "All state removed for your ActiveSync devices. They will resynchronize next time they connect to the server."
-msgstr "Todos os estados removidos para seus dispositivos ActiveSync. Eles serão resincronizados na próxima vez que conectarem ao servidor."
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Todos os estados removidos para seus dispositivos ActiveSync. Eles serão "
+"resincronizados na próxima vez que conectarem ao servidor."
 
 #: lib/Block/Note.php:91
 #, php-format
@@ -70,15 +74,12 @@ msgstr "Ascendente"
 msgid "Body"
 msgstr "Corpo"
 
-#: data.php:21
-#: templates/data/import.inc:10
+#: data.php:21 templates/data/import.inc:10
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Form/DeleteNotepad.php:36
-#: lib/Form/DeleteNotepad.php:43
-#: lib/Form/EditNotepad.php:78
-#: lib/Form/EditNotepad.php:95
+#: lib/Form/DeleteNotepad.php:36 lib/Form/DeleteNotepad.php:43
+#: lib/Form/EditNotepad.php:78 lib/Form/EditNotepad.php:95
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -92,7 +93,9 @@ msgstr "Alterar as preferências de ordenação e exibição de anotações."
 
 #: config/prefs.php:28
 msgid "Choose the Notepads to use for synchronization with external devices."
-msgstr "Escolha o bloco de notas para usar em sincronização com dispositivos externos."
+msgstr ""
+"Escolha o bloco de notas para usar em sincronização com dispositivos "
+"externos."
 
 #: config/prefs.php:21
 msgid "Choose your default Notepad."
@@ -122,8 +125,7 @@ msgstr "Criado"
 msgid "Date"
 msgstr "Data"
 
-#: templates/memo/memo.html.php:13
-#: templates/view/view.html.php:58
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
 msgid "Decrypt"
 msgstr "Descriptografar"
 
@@ -139,10 +141,8 @@ msgstr "Critério padrão de ordenação:"
 msgid "Default sorting direction:"
 msgstr "Direção de ordenação padrão:"
 
-#: lib/Form/DeleteNotepad.php:35
-#: lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90
-#: templates/memo/memo.html.php:33
+#: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.html.php:33
 msgid "Delete"
 msgstr "Excluir"
 
@@ -163,8 +163,7 @@ msgstr "Comportamento do botão de exclusão"
 msgid "Descending"
 msgstr "Descendente"
 
-#: lib/Form/CreateNotepad.php:23
-#: lib/Form/EditNotepad.php:53
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:53
 msgid "Description"
 msgstr "Descrição"
 
@@ -186,26 +185,26 @@ msgstr "Editar \"%s\""
 msgid "Edit %s"
 msgstr "Editar %s"
 
-#: lib/Block/Summary.php:67
-#: lib/Block/Summary.php:68
-#: list.php:78
+#: lib/Block/Summary.php:67 lib/Block/Summary.php:68 list.php:78
 msgid "Edit Note"
 msgstr "Editar Anotação"
 
-#: memo.php:139
-#: memo.php:171
+#: memo.php:139 memo.php:171
 #, php-format
 msgid "Edit: %s"
 msgstr "Editar: %s"
 
-#: lib/Block/Summary.php:85
-#: list.php:141
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
 msgstr "Anotação em Branco"
 
 #: lib/Driver.php:315
-msgid "Encryption support has not been configured, please contact your administrator."
-msgstr "Suporte para criptografia não foi configurado, por favor contate seu administrador."
+msgid ""
+"Encryption support has not been configured, please contact your "
+"administrator."
+msgstr ""
+"Suporte para criptografia não foi configurado, por favor contate seu "
+"administrador."
 
 #: templates/data/export.inc:14
 msgid "Export"
@@ -224,8 +223,7 @@ msgstr "Falha ao obter informação Kolab para bloco de notas %s: %s"
 msgid "For"
 msgstr "Para"
 
-#: config/prefs.php:12
-#: config/prefs.php:33
+#: config/prefs.php:12 config/prefs.php:33
 msgid "General Preferences"
 msgstr "Preferências Gerais"
 
@@ -268,7 +266,8 @@ msgstr "Mais Opções..."
 
 #: lib/Api.php:438
 msgid "Multiple iCalendar components found; only one vNote is supported."
-msgstr "Múltiplos componentes iCalendar encontrados; somente um vNote é suportado."
+msgstr ""
+"Múltiplos componentes iCalendar encontrados; somente um vNote é suportado."
 
 #: lib/Application.php:120
 msgid "My Notepads"
@@ -278,14 +277,11 @@ msgstr "Meus Blocos de Anotações"
 msgid "My Notes"
 msgstr "Minhas Anotações"
 
-#: lib/Form/CreateNotepad.php:22
-#: lib/Form/EditNotepad.php:39
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:39
 msgid "Name"
 msgstr "Nome"
 
-#: lib/Application.php:188
-#: memo.php:110
-#: memo.php:163
+#: lib/Application.php:188 memo.php:110 memo.php:163
 msgid "New Note"
 msgstr "Nova Anotação"
 
@@ -293,8 +289,7 @@ msgstr "Nova Anotação"
 msgid "Next"
 msgstr "Próxima"
 
-#: lib/Api.php:274
-#: lib/Api.php:431
+#: lib/Api.php:274 lib/Api.php:431
 msgid "No iCalendar data was found."
 msgstr "Nenhum dado iCalendar foi encontrado."
 
@@ -330,10 +325,7 @@ msgstr "Texto da Anotação"
 msgid "Note _Text"
 msgstr "_Texto da Anotação"
 
-#: memo.php:126
-#: memo.php:168
-#: note/pdf.php:52
-#: view.php:55
+#: memo.php:126 memo.php:168 note/pdf.php:52 view.php:55
 msgid "Note not found."
 msgstr "Anotação não encontrada."
 
@@ -341,13 +333,11 @@ msgstr "Anotação não encontrada."
 msgid "Note_pad:"
 msgstr "Bloco de _notas:"
 
-#: config/prefs.php:53
-#: list.php:87
+#: config/prefs.php:53 list.php:87
 msgid "Notepad"
 msgstr "Bloco de Anotações"
 
-#: config/prefs.php:19
-#: config/prefs.php:26
+#: config/prefs.php:19 config/prefs.php:26
 msgid "Notepad and Share Preferences"
 msgstr "Preferências de Bloco de Notas e Compartilhamento"
 
@@ -374,15 +364,18 @@ msgstr "Permissão negada"
 
 #: lib/Form/DeleteNotepad.php:32
 #, php-format
-msgid "Really delete the notepad \"%s\"? This cannot be undone and all data on this notepad will be permanently removed."
-msgstr "Realmente apagar o bloco de anotações \"%s\"? Isto não pode ser desfeito e todos os dados neste bloco de anotações será permanentemente removido."
+msgid ""
+"Really delete the notepad \"%s\"? This cannot be undone and all data on this "
+"notepad will be permanently removed."
+msgstr ""
+"Realmente apagar o bloco de anotações \"%s\"? Isto não pode ser desfeito e "
+"todos os dados neste bloco de anotações será permanentemente removido."
 
 #: view.php:152
 msgid "Really delete this note?"
 msgstr "Realmente excluir esta anotação?"
 
-#: lib/Form/EditNotepad.php:76
-#: lib/Form/EditNotepad.php:85
+#: lib/Form/EditNotepad.php:76 lib/Form/EditNotepad.php:85
 #: templates/memo/memo.html.php:31
 msgid "Save"
 msgstr "Gravar"
@@ -391,17 +384,12 @@ msgstr "Gravar"
 msgid "Save as PDF"
 msgstr "Gravar como PDF"
 
-#: lib/Application.php:216
-#: lib/Form/Search.php:22
-#: lib/Form/Search.php:30
-#: list.php:59
-#: search.php:24
-#: templates/list/header.html.php:4
+#: lib/Application.php:216 lib/Form/Search.php:22 lib/Form/Search.php:30
+#: list.php:59 search.php:24 templates/list/header.html.php:4
 msgid "Search"
 msgstr "Pesquisar"
 
-#: list.php:52
-#: notes/index.php:44
+#: list.php:52 notes/index.php:44
 msgid "Search Results"
 msgstr "Resultados da Pesquisa"
 
@@ -418,8 +406,12 @@ msgid "Select the format of the source file:"
 msgstr "Selecione o formato do arquivo de origem:"
 
 #: config/prefs.php:109
-msgid "Select the notepads that, in addition to the default, should be used for synchronization with external devices:"
-msgstr "Selecione os bloco de notas que, em adição ao padrão, devem ser usados para sincronização com dispositivos externos:"
+msgid ""
+"Select the notepads that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Selecione os bloco de notas que, em adição ao padrão, devem ser usados para "
+"sincronização com dispositivos externos:"
 
 #: lib/Application.php:133
 msgid "Shared Notepads"
@@ -427,7 +419,9 @@ msgstr "Blocos de Anotações Compartilhados"
 
 #: config/prefs.php:44
 msgid "Should the Notepad be shown in its own column in the List view?"
-msgstr "O Bloco de Anotações deve ser exibido na respectiva coluna na exibição de Lista?"
+msgstr ""
+"O Bloco de Anotações deve ser exibido na respectiva coluna na exibição de "
+"Lista?"
 
 #: lib/Block/Summary.php:36
 msgid "Show action buttons?"
@@ -462,8 +456,7 @@ msgstr "Sistema"
 msgid "T_ags:"
 msgstr "Et_iquetas:"
 
-#: data.php:43
-#: templates/view/view.html.php:23
+#: data.php:43 templates/view/view.html.php:23
 msgid "Tags"
 msgstr "Palavras-chaves"
 
@@ -473,8 +466,12 @@ msgid "The %s file didn't contain any notes."
 msgstr "O arquivo %s não continha nenhuma anotação."
 
 #: lib/Application.php:62
-msgid "The Content_Tagger class could not be found. Make sure the Content application is installed."
-msgstr "A classe Content_Tagger não foi encontrada. Verifique se a aplicação Content está instalada."
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
+msgstr ""
+"A classe Content_Tagger não foi encontrada. Verifique se a aplicação Content "
+"está instalada."
 
 #: memo.php:246
 msgid "The note was deleted."
@@ -514,15 +511,16 @@ msgstr "Houve um erro ao comunicar com o servidor ActiveSync: %s"
 msgid "There was an error importing the data: %s"
 msgstr "Houve um erro ao importar os dados: %s"
 
-#: lib/Api.php:268
-#: lib/Api.php:425
+#: lib/Api.php:268 lib/Api.php:425
 msgid "There was an error importing the iCalendar data."
 msgstr "Houve um erro ao importar os dados do iCalendar."
 
 #: lib/Application.php:263
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
-msgstr "Houve um erro ao remover anotações para %s. Detalhes foram registrados no log."
+msgstr ""
+"Houve um erro ao remover anotações para %s. Detalhes foram registrados no "
+"log."
 
 #: memo.php:248
 #, php-format
@@ -534,9 +532,7 @@ msgstr "Houve um erro ao remover a anotação: %s"
 msgid "There was an error saving the note: %s"
 msgstr "Houve um erro ao gravar a anotação: %s"
 
-#: memo.php:60
-#: note/pdf.php:42
-#: view.php:45
+#: memo.php:60 note/pdf.php:42 view.php:45
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Houve um erro ao exibir este bloco de anotações: %s"
@@ -545,25 +541,23 @@ msgstr "Houve um erro ao exibir este bloco de anotações: %s"
 msgid "This file format is not supported."
 msgstr "Este formato de arquivo não é suportado."
 
-#: memo.php:39
-#: view.php:77
+#: memo.php:39 view.php:77
 msgid "This note cannot be decrypted:"
 msgstr "Esta anotação não pode ser descriptografada:"
 
-#: memo.php:32
-#: memo.php:42
-#: view.php:72
-#: view.php:80
-msgid "This note has been encrypted, and cannot be decrypted without a secure web connection"
-msgstr "Essa anotação foi criptografada, e não pode ser descriptografada sem uma conexão de internet segura"
+#: memo.php:32 memo.php:42 view.php:72 view.php:80
+msgid ""
+"This note has been encrypted, and cannot be decrypted without a secure web "
+"connection"
+msgstr ""
+"Essa anotação foi criptografada, e não pode ser descriptografada sem uma "
+"conexão de internet segura"
 
-#: memo.php:29
-#: view.php:69
+#: memo.php:29 view.php:69
 msgid "This note has been encrypted, please provide the password."
 msgstr "Esta anotação foi criptografada, por favor forneça a senha."
 
-#: lib/Driver/Kolab.php:321
-#: lib/Driver/Sql.php:331
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
 msgid "This note has been encrypted."
 msgstr "Esta anotação foi criptografada."
 
@@ -571,9 +565,7 @@ msgstr "Esta anotação foi criptografada."
 msgid "Title"
 msgstr "Título"
 
-#: lib/Api.php:312
-#: lib/Api.php:364
-#: lib/Api.php:453
+#: lib/Api.php:312 lib/Api.php:364 lib/Api.php:453
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Tipo de Conteúdo não suportado: %s"
@@ -586,9 +578,7 @@ msgstr "Ver anotação"
 msgid "Which Notepad should the notes be added to?"
 msgstr "Em qual Bloco de Anotações as anotações deverão ser adicionadas?"
 
-#: data.php:34
-#: data.php:87
-#: memo.php:86
+#: data.php:34 data.php:87 memo.php:86
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Você não pode criar mais do que %d anotações."
@@ -605,8 +595,7 @@ msgstr "Você não pode ver este bloco de anotações."
 msgid "You do not have permission to edit this note."
 msgstr "Você não tem permissão para editar esta anotação."
 
-#: note/pdf.php:46
-#: view.php:49
+#: note/pdf.php:46 view.php:49
 msgid "You do not have permission to view this notepad."
 msgstr "Você não tem permissão para ver este bloco de anotações."
 
@@ -638,8 +627,7 @@ msgstr "_Listar Anotações"
 msgid "_New Note"
 msgstr "_Nova Anotação"
 
-#: templates/memo/memo.html.php:11
-#: templates/view/view.html.php:56
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
 msgid "_Password"
 msgstr "_Senha"
 
@@ -655,14 +643,12 @@ msgstr "_Repete:"
 msgid "_Search"
 msgstr "Pe_squisar"
 
-#: lib/Driver/Sql.php:366
-#: lib/Driver/Sql.php:375
+#: lib/Driver/Sql.php:366 lib/Driver/Sql.php:375
 #, php-format
 msgid "by %s"
 msgstr "por %s"
 
-#: lib/Driver/Sql.php:368
-#: lib/Driver/Sql.php:377
+#: lib/Driver/Sql.php:368 lib/Driver/Sql.php:377
 msgid "by me"
 msgstr "por mim"
 
@@ -671,13 +657,10 @@ msgstr "por mim"
 msgid "in %s"
 msgstr "em %s"
 
-#: lib/Application.php:301
-#: templates/data/export.inc:3
+#: lib/Application.php:301 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "anotacoes.csv"
 
-#: data.php:22
-#: templates/data/import.inc:11
+#: data.php:22 templates/data/import.inc:11
 msgid "vNote"
 msgstr "vNote"
-

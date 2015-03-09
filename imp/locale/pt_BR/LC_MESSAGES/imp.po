@@ -5976,8 +5976,8 @@ msgstr "Você está"
 
 #: templates/basic/folders/folders_confirm.html.php:13
 msgid ""
-"You are attempting to delete all messages contained in the following mailbox"
-"(es)."
+"You are attempting to delete all messages contained in the following "
+"mailbox(es)."
 msgstr ""
 "Você está tentando excluir todas as mensagens da(s) seguinte(s) pasta(s)."
 

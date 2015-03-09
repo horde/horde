@@ -126,10 +126,8 @@ msgstr "Começa com"
 msgid "Bind failed: (%s) %s"
 msgstr "A conexão falhou: (%s) %s"
 
-#: lib/Basic/Blacklist.php:32
-#: lib/Basic/Filters.php:200
-#: lib/Block/Overview.php:101
-#: lib/Smartmobile.php:85
+#: lib/Basic/Blacklist.php:32 lib/Basic/Filters.php:200
+#: lib/Block/Overview.php:101 lib/Smartmobile.php:85
 #: templates/basic/blacklist/blacklist.html.php:5
 msgid "Blacklist"
 msgstr "Lista Negra"
@@ -138,8 +136,7 @@ msgstr "Lista Negra"
 msgid "Blacklist Edit"
 msgstr "Editar Lista Negra"
 
-#: lib/Script/Maildrop.php:176
-#: lib/Script/Procmail.php:231
+#: lib/Script/Maildrop.php:176 lib/Script/Procmail.php:231
 #: lib/Script/Sieve.php:237
 msgid "Blacklisted Addresses"
 msgstr "Endereços na Lista Negra"
@@ -148,8 +145,7 @@ msgstr "Endereços na Lista Negra"
 msgid "Body"
 msgstr "Corpo"
 
-#: lib/Storage.php:343
-#: templates/basic/rule/rule.html.php:93
+#: lib/Storage.php:343 templates/basic/rule/rule.html.php:93
 msgid "Case Sensitive"
 msgstr "Sensível à Caixa"
 
@@ -157,12 +153,8 @@ msgstr "Sensível à Caixa"
 msgid "Cc"
 msgstr "Cc"
 
-#: lib/Basic/Blacklist.php:66
-#: lib/Basic/Forward.php:56
-#: lib/Basic/Rule.php:195
-#: lib/Basic/Spam.php:69
-#: lib/Basic/Vacation.php:69
-#: lib/Basic/Whitelist.php:43
+#: lib/Basic/Blacklist.php:66 lib/Basic/Forward.php:56 lib/Basic/Rule.php:195
+#: lib/Basic/Spam.php:69 lib/Basic/Vacation.php:69 lib/Basic/Whitelist.php:43
 msgid "Changes saved."
 msgstr "Alterações gravadas."
 
@@ -183,8 +175,7 @@ msgstr "Copiar"
 msgid "Copy %s"
 msgstr "Copiar %s"
 
-#: lib/Storage/Filters.php:227
-#: lib/Storage/Filters/Sql.php:240
+#: lib/Storage/Filters.php:227 lib/Storage/Filters/Sql.php:240
 #, php-format
 msgid "Copy of %s"
 msgstr "Copiar de %s"
@@ -197,8 +188,7 @@ msgstr "Não foi possível validar pasta IMAP."
 msgid "Create new folder"
 msgstr "Criar nova pasta"
 
-#: lib/Script/Maildrop/Comment.php:43
-#: lib/Script/Procmail/Comment.php:43
+#: lib/Script/Maildrop/Comment.php:43 lib/Script/Procmail/Comment.php:43
 msgid "DISABLED: "
 msgstr "DESATIVADA: "
 
@@ -256,9 +246,7 @@ msgstr "Destino (Para, Co, Cco, etc.)"
 msgid "Disable %s"
 msgstr "Desativar %s "
 
-#: lib/Basic/Forward.php:86
-#: lib/Basic/Spam.php:101
-#: lib/Basic/Vacation.php:124
+#: lib/Basic/Forward.php:86 lib/Basic/Spam.php:101 lib/Basic/Vacation.php:124
 #: templates/basic/blacklist/blacklist.html.php:8
 #: templates/basic/filters/filters.html.php:56
 #: templates/basic/rule/rule.html.php:14
@@ -302,16 +290,13 @@ msgstr "Não corresponde a (com coringas)"
 msgid "Doesn't match regular expression"
 msgstr "Não corresponde à expressão regular"
 
-#: lib/Block/Overview.php:63
-#: lib/Block/Overview.php:74
-#: lib/Block/Overview.php:89
-#: lib/Block/Overview.php:100
+#: lib/Block/Overview.php:63 lib/Block/Overview.php:74
+#: lib/Block/Overview.php:89 lib/Block/Overview.php:100
 #: lib/Block/Overview.php:111
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/Basic/Filters.php:263
-#: lib/Basic/Filters.php:265
+#: lib/Basic/Filters.php:263 lib/Basic/Filters.php:265
 #, php-format
 msgid "Edit %s"
 msgstr "Editar %s"
@@ -333,10 +318,8 @@ msgstr "Termina com"
 msgid "Equal to"
 msgstr "Igual a"
 
-#: lib/Transport/Ldap.php:146
-#: lib/Transport/Ldap.php:158
-#: lib/Transport/Ldap.php:167
-#: lib/Transport/Ldap.php:177
+#: lib/Transport/Ldap.php:146 lib/Transport/Ldap.php:158
+#: lib/Transport/Ldap.php:167 lib/Transport/Ldap.php:177
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
 msgstr "Erro ao obter o script atual: (%d) %s"
@@ -420,12 +403,18 @@ msgstr "Atividade do Filtro: %s mensagem(ns) movida(s) para a pasta \"%s\"."
 #: lib/Script/Imap.php:183
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
-msgstr "Atividade do Filtro: %s mensagem(ns) que correspondeu(ram) a lista negra foi(ram) excluída(s)."
+msgstr ""
+"Atividade do Filtro: %s mensagem(ns) que correspondeu(ram) a lista negra "
+"foi(ram) excluída(s)."
 
 #: lib/Script/Imap.php:329
 #, php-format
-msgid "Filter activity: The message \"%s\" from \"%s\" has been copied to the folder \"%s\"."
-msgstr "Atividade do filtro: A mensagem \"%s\" de \"%s\" foi copiada para a pasta \"%s\"."
+msgid ""
+"Filter activity: The message \"%s\" from \"%s\" has been copied to the "
+"folder \"%s\"."
+msgstr ""
+"Atividade do filtro: A mensagem \"%s\" de \"%s\" foi copiada para a pasta "
+"\"%s\"."
 
 #: lib/Script/Imap.php:307
 #, php-format
@@ -434,8 +423,12 @@ msgstr "Atividade do Filtro: A mensagem \"%s\" de \"%s\" foi excluída."
 
 #: lib/Script/Imap.php:281
 #, php-format
-msgid "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder \"%s\"."
-msgstr "Atividade do Filtro: A mensagem \"%s\" de \"%s\"foi movida para a pasta \"%s\"."
+msgid ""
+"Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
+"\"%s\"."
+msgstr ""
+"Atividade do Filtro: A mensagem \"%s\" de \"%s\"foi movida para a pasta \"%s"
+"\"."
 
 #: lib/Basic/Rule.php:94
 msgid "Filter not found."
@@ -453,11 +446,8 @@ msgstr "Pasta para receber spam:"
 msgid "For an incoming message that matches:"
 msgstr "Para uma nova mensagem que corresponda:"
 
-#: lib/Basic/Filters.php:227
-#: lib/Basic/Forward.php:33
-#: lib/Basic/Forward.php:84
-#: lib/Block/Overview.php:75
-#: lib/Smartmobile.php:100
+#: lib/Basic/Filters.php:227 lib/Basic/Forward.php:33 lib/Basic/Forward.php:84
+#: lib/Block/Overview.php:75 lib/Smartmobile.php:100
 msgid "Forward"
 msgstr "Encaminhar"
 
@@ -465,8 +455,7 @@ msgstr "Encaminhar"
 msgid "Forward Keep Action"
 msgstr "Encaminhar Manter Ação"
 
-#: lib/Script/Maildrop.php:227
-#: lib/Script/Procmail.php:313
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:313
 #: lib/Script/Sieve.php:193
 msgid "Forwards"
 msgstr "Redirecionamentos"
@@ -495,8 +484,7 @@ msgstr "Maior que"
 msgid "Greater than or equal to"
 msgstr "Maior ou igual a"
 
-#: lib/Ajax/Application/Smartmobile.php:44
-#: lib/Basic/Rule.php:54
+#: lib/Ajax/Application/Smartmobile.php:44 lib/Basic/Rule.php:54
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr "Regras individuais não são suportadas pelo driver de filtro atual."
 
@@ -517,8 +505,11 @@ msgid "Keep a copy of messages in this account?"
 msgstr "Manter uma cópia das mensagens nesta conta?"
 
 #: lib/Transport/Ldap.php:35
-msgid "LDAP support is required but the LDAP module is not available or not loaded."
-msgstr "É obrigatório suporte a LDAP mas o módulo LDAP não está disponível ou não foi carregado."
+msgid ""
+"LDAP support is required but the LDAP module is not available or not loaded."
+msgstr ""
+"É obrigatório suporte a LDAP mas o módulo LDAP não está disponível ou não "
+"foi carregado."
 
 #: templates/smartmobile/rule.html.php:6
 msgid "Label"
@@ -567,13 +558,22 @@ msgstr "Número máximo de endereços na lista negra."
 
 #: lib/Storage/Blacklist.php:46
 #, php-format
-msgid "Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to blacklist."
-msgstr "Excedeu o número máximo de endereços na lista negra (Total de endereços: %s, Máximo de endereços: %s).  Não consegui adicionar novos endereços à lista negra."
+msgid ""
+"Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
+"Maximum addresses: %s).  Could not add new addresses to blacklist."
+msgstr ""
+"Excedeu o número máximo de endereços na lista negra (Total de endereços: %s, "
+"Máximo de endereços: %s).  Não consegui adicionar novos endereços à lista "
+"negra."
 
 #: lib/Storage/Forward.php:49
 #, php-format
-msgid "Maximum number of forward addresses exceeded (Total addresses: %s, Maximum addresses: %s)."
-msgstr "Número máximo de endereços de encaminhamento excedido (Total de endereços: %s, Máximo de endereços: %s)."
+msgid ""
+"Maximum number of forward addresses exceeded (Total addresses: %s, Maximum "
+"addresses: %s)."
+msgstr ""
+"Número máximo de endereços de encaminhamento excedido (Total de endereços: "
+"%s, Máximo de endereços: %s)."
 
 #: lib/Perms.php:43
 msgid "Maximum number of forward addresses."
@@ -589,12 +589,21 @@ msgstr "Número máximo de endereços na lista branca."
 
 #: lib/Storage/Whitelist.php:50
 #, php-format
-msgid "Maximum number of whitelisted addresses exceeded (Total addresses: %s, Maximum addresses: %s).  Could not add new addresses to whitelist."
-msgstr "Excedeu o número máximo de endereços na lista branca (Total de endereços: %s, Máximo de endereços: %s).  Não consegui adicionar novos endereços à lista branca."
+msgid ""
+"Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
+"Maximum addresses: %s).  Could not add new addresses to whitelist."
+msgstr ""
+"Excedeu o número máximo de endereços na lista branca (Total de endereços: "
+"%s, Máximo de endereços: %s).  Não consegui adicionar novos endereços à "
+"lista branca."
 
 #: lib/Form/Spam.php:35
-msgid "Messages with a likely spam score greater than or equal to this number will be treated as spam."
-msgstr "Mensagens com um índice de spam maior ou igual a esse número serão tratadas como spam."
+msgid ""
+"Messages with a likely spam score greater than or equal to this number will "
+"be treated as spam."
+msgstr ""
+"Mensagens com um índice de spam maior ou igual a esse número serão tratadas "
+"como spam."
 
 #: lib/Script/Sieve/Action/Notify.php:80
 msgid "Missing address to notify"
@@ -620,8 +629,7 @@ msgstr "Celular"
 msgid "My email addresses:"
 msgstr "Meus endereços de e-mail:"
 
-#: lib/Application.php:194
-#: lib/Storage/Filters.php:123
+#: lib/Application.php:194 lib/Storage/Filters.php:123
 #: templates/basic/filters/filters.html.php:29
 msgid "New Rule"
 msgstr "Nova Regra"
@@ -648,8 +656,7 @@ msgstr "Nenhum driver configurado em backends.php"
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "Nenhum filtro. Clique em \"%s\" para criar um novo filtro."
 
-#: lib/Script/Sieve/Test/Exists.php:49
-#: lib/Script/Sieve/Test/Header.php:84
+#: lib/Script/Sieve/Test/Exists.php:49 lib/Script/Sieve/Test/Header.php:84
 #: lib/Script/Sieve/Test/Relational.php:106
 msgid "No headers specified"
 msgstr "Nenhum cabeçalho especificado"
@@ -662,8 +669,7 @@ msgstr "Sem regras"
 msgid "No script generated."
 msgstr "Nenhuma rotina gerada."
 
-#: lib/Script/Sieve/Test/Body.php:80
-#: lib/Script/Sieve/Test/Header.php:100
+#: lib/Script/Sieve/Test/Body.php:80 lib/Script/Sieve/Test/Header.php:100
 msgid "No strings specified"
 msgstr "Nenhuma string especificada"
 
@@ -728,8 +734,11 @@ msgid "Reject with reason..."
 msgstr "Rejeitar com o motivo..."
 
 #: lib/Storage.php:323
-msgid "Removing user data is not supported with the current filter storage backend."
-msgstr "Remoção de dados de usuário não é suportado com a estrutura atual de armazenamento de filtro."
+msgid ""
+"Removing user data is not supported with the current filter storage backend."
+msgstr ""
+"Remoção de dados de usuário não é suportado com a estrutura atual de "
+"armazenamento de filtro."
 
 #: config/fields.php:56
 msgid "Resent-From"
@@ -743,11 +752,8 @@ msgstr "Reenviado-Para"
 msgid "Return to Filters List"
 msgstr "Retornar para a Lista de Filtros"
 
-#: lib/Basic/Forward.php:35
-#: lib/Basic/Spam.php:42
-#: lib/Basic/Vacation.php:42
-#: lib/Form/Base.php:56
-#: templates/basic/blacklist/blacklist.html.php:43
+#: lib/Basic/Forward.php:35 lib/Basic/Spam.php:42 lib/Basic/Vacation.php:42
+#: lib/Form/Base.php:56 templates/basic/blacklist/blacklist.html.php:43
 #: templates/basic/whitelist/whitelist.html.php:22
 msgid "Return to Rules List"
 msgstr "Retornar para a Lista de Regras"
@@ -772,15 +778,11 @@ msgstr "Regra \"%s\" desabilitada."
 msgid "Rule \"%s\" enabled."
 msgstr "Regra \"%s\" habilitada."
 
-#: lib/Basic/Forward.php:65
-#: lib/Basic/Spam.php:78
-#: lib/Basic/Vacation.php:78
+#: lib/Basic/Forward.php:65 lib/Basic/Spam.php:78 lib/Basic/Vacation.php:78
 msgid "Rule Disabled"
 msgstr "Regra Desativada"
 
-#: lib/Basic/Forward.php:60
-#: lib/Basic/Spam.php:73
-#: lib/Basic/Vacation.php:73
+#: lib/Basic/Forward.php:60 lib/Basic/Spam.php:73 lib/Basic/Vacation.php:73
 msgid "Rule Enabled"
 msgstr "Regra Ativada"
 
@@ -832,11 +834,8 @@ msgstr "O STARTTLS falhou: (%s) %s"
 msgid "S_pam"
 msgstr "S_pam"
 
-#: lib/Form/Base.php:50
-#: lib/Form/Forward.php:32
-#: lib/Form/Spam.php:43
-#: lib/Form/Vacation.php:79
-#: templates/basic/blacklist/blacklist.html.php:42
+#: lib/Form/Base.php:50 lib/Form/Forward.php:32 lib/Form/Spam.php:43
+#: lib/Form/Vacation.php:79 templates/basic/blacklist/blacklist.html.php:42
 #: templates/basic/rule/rule.html.php:164
 #: templates/basic/whitelist/whitelist.html.php:21
 msgid "Save"
@@ -846,16 +845,12 @@ msgstr "Gravar"
 msgid "Save Settings"
 msgstr "Gravar Configurações"
 
-#: lib/Basic/Forward.php:62
-#: lib/Basic/Spam.php:75
-#: lib/Basic/Vacation.php:75
+#: lib/Basic/Forward.php:62 lib/Basic/Spam.php:75 lib/Basic/Vacation.php:75
 #: lib/Form/Base.php:54
 msgid "Save and Disable"
 msgstr "Gravar e Desabilitar"
 
-#: lib/Basic/Forward.php:57
-#: lib/Basic/Spam.php:70
-#: lib/Basic/Vacation.php:70
+#: lib/Basic/Forward.php:57 lib/Basic/Spam.php:70 lib/Basic/Vacation.php:70
 #: lib/Form/Base.php:52
 msgid "Save and Enable"
 msgstr "Gravar e Habilitar"
@@ -897,13 +892,11 @@ msgstr "Lida"
 msgid "Select a field"
 msgstr "Selecione um campo"
 
-#: templates/basic/menu/menu.html.php:4
-#: templates/basic/menu/menu.html.php:6
+#: templates/basic/menu/menu.html.php:4 templates/basic/menu/menu.html.php:6
 msgid "Select ruleset to display"
 msgstr "Selecione conjunto de regras para exibir"
 
-#: lib/Basic/Rule.php:322
-#: templates/basic/blacklist/blacklist.html.php:28
+#: lib/Basic/Rule.php:322 templates/basic/blacklist/blacklist.html.php:28
 msgid "Select target folder"
 msgstr "Selecione a pasta destino"
 
@@ -939,16 +932,13 @@ msgstr "Tamanho"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Origem (De, Responder-para, etc.)"
 
-#: lib/Basic/Filters.php:236
-#: lib/Block/Overview.php:112
-#: lib/Script/Maildrop.php:296
-#: lib/Script/Sieve.php:404
+#: lib/Basic/Filters.php:236 lib/Block/Overview.php:112
+#: lib/Script/Maildrop.php:296 lib/Script/Sieve.php:404
 #: lib/Smartmobile.php:105
 msgid "Spam Filter"
 msgstr "Filtro de Spam"
 
-#: lib/Basic/Spam.php:99
-#: lib/Basic/Spam.php:106
+#: lib/Basic/Spam.php:99 lib/Basic/Spam.php:106
 msgid "Spam Filtering"
 msgstr "Filtragem de Spam"
 
@@ -1025,14 +1015,10 @@ msgstr "Impossível carregar o driver de transporte \"%s\"."
 msgid "User header"
 msgstr "Cabeçalho de usuário"
 
-#: lib/Basic/Filters.php:218
-#: lib/Basic/Vacation.php:32
-#: lib/Basic/Vacation.php:122
-#: lib/Block/Overview.php:64
-#: lib/Script/Maildrop.php:259
-#: lib/Script/Procmail.php:292
-#: lib/Script/Sieve.php:377
-#: lib/Smartmobile.php:95
+#: lib/Basic/Filters.php:218 lib/Basic/Vacation.php:32
+#: lib/Basic/Vacation.php:122 lib/Block/Overview.php:64
+#: lib/Script/Maildrop.php:259 lib/Script/Procmail.php:292
+#: lib/Script/Sieve.php:377 lib/Smartmobile.php:95
 msgid "Vacation"
 msgstr "Férias"
 
@@ -1060,10 +1046,8 @@ msgstr "Ver Regra"
 msgid "Wh_itelist addresses:"
 msgstr "Endereços na _Lista Branca:"
 
-#: lib/Basic/Filters.php:209
-#: lib/Basic/Whitelist.php:33
-#: lib/Block/Overview.php:90
-#: lib/Smartmobile.php:90
+#: lib/Basic/Filters.php:209 lib/Basic/Whitelist.php:33
+#: lib/Block/Overview.php:90 lib/Smartmobile.php:90
 #: templates/basic/whitelist/whitelist.html.php:5
 msgid "Whitelist"
 msgstr "Lista Branca"
@@ -1072,8 +1056,7 @@ msgstr "Lista Branca"
 msgid "Whitelist Edit"
 msgstr "Editar Lista Branca"
 
-#: lib/Script/Maildrop.php:204
-#: lib/Script/Procmail.php:259
+#: lib/Script/Maildrop.php:204 lib/Script/Procmail.php:259
 #: lib/Script/Sieve.php:298
 msgid "Whitelisted Addresses"
 msgstr "Endereços na Lista Branca"
@@ -1094,34 +1077,36 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: lib/Basic/Filters.php:104
-#: lib/Basic/Rule.php:356
+#: lib/Basic/Filters.php:104 lib/Basic/Rule.php:356
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Você não pode cirar mais do que %d regras."
 
-#: lib/Basic/Filters.php:96
-#: lib/Basic/Rule.php:38
+#: lib/Basic/Filters.php:96 lib/Basic/Rule.php:38
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Você não pode criar ou editar regras configuráveis."
 
 #: lib/Form/Vacation.php:54
-msgid "You can use placeholders like %NAME% in the vacation message. See the online help for details."
-msgstr "Você pode usar variáveis como %NAME% na mensagem de férias. Veja a ajuda online para detalhes."
+msgid ""
+"You can use placeholders like %NAME% in the vacation message. See the online "
+"help for details."
+msgstr ""
+"Você pode usar variáveis como %NAME% na mensagem de férias. Veja a ajuda "
+"online para detalhes."
 
 #: lib/Basic/Rule.php:127
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
-msgstr "Você não pode criar condições vazias. Por favor preencha um valor para \"%s\"."
+msgstr ""
+"Você não pode criar condições vazias. Por favor preencha um valor para \"%s"
+"\"."
 
 #: lib/Basic/Filters.php:80
 msgid "You do not have permission to delete filter rules."
 msgstr "Você não tem permissão de excluir regras de filtro."
 
-#: lib/Ajax/Application/Filters.php:38
-#: lib/Basic/Filters.php:73
-#: lib/Basic/Filters.php:139
-#: lib/Basic/Rule.php:44
+#: lib/Ajax/Application/Filters.php:38 lib/Basic/Filters.php:73
+#: lib/Basic/Filters.php:139 lib/Basic/Rule.php:44
 msgid "You do not have permission to edit filter rules."
 msgstr "Você não tem permissão de editar regras de filtro."
 
@@ -1133,15 +1118,11 @@ msgstr "Você tem uma nova mensagem"
 msgid "You need to select at least one field to match."
 msgstr "Você deve selecionar pelo menos um campo para correspondência."
 
-#: lib/Script/Imap.php:283
-#: lib/Script/Imap.php:309
-#: lib/Script/Imap.php:331
+#: lib/Script/Imap.php:283 lib/Script/Imap.php:309 lib/Script/Imap.php:331
 msgid "[No Sender]"
 msgstr "[Sem Remetente]"
 
-#: lib/Script/Imap.php:282
-#: lib/Script/Imap.php:308
-#: lib/Script/Imap.php:330
+#: lib/Script/Imap.php:282 lib/Script/Imap.php:308 lib/Script/Imap.php:330
 msgid "[No Subject]"
 msgstr "[Sem Assunto]"
 
@@ -1204,4 +1185,3 @@ msgstr "ou"
 #: lib/Script/Procmail.php:136
 msgid "procmail script generated by Ingo"
 msgstr "rotina do procmail gerada pelo Ingo"
-
