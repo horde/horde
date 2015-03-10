@@ -240,12 +240,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $has_session = (bool)$registry->getAuth();
 
         /* Set up the base message now. */
-        $base = $this->_createMimeMessage(new Horde_Mail_Rfc822_List(), $message, array(
-            'html' => !empty($opts['html']),
-            'noattach' => !$has_session,
-            'nofinal' => true
-        ));
-        $base->isBasePart(true);
+        $base = $this->_createMimeMessage(
+            new Horde_Mail_Rfc822_List(),
+            $message,
+            array(
+                'html' => !empty($opts['html']),
+                'noattach' => !$has_session,
+                'nofinal' => true
+            )
+        );
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -876,7 +879,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             try {
-                $this->_prepSendMessageAssert($val['recipients'], $headers, $val['base']);
+                $this->_prepSendMessageAssert(
+                    $val['recipients'],
+                    $headers,
+                    $val['base']
+                );
                 $this->sendMessage($val['recipients'], $headers, $val['base']);
 
                 /* Store history information. */
@@ -1240,9 +1247,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessageAssert(Horde_Mail_Rfc822_List $email,
-                                              Horde_Mime_Headers $headers = null,
-                                              Horde_Mime_Part $message = null)
+    protected function _prepSendMessageAssert(
+        Horde_Mail_Rfc822_List $email,
+        Horde_Mime_Headers $headers = null,
+        Horde_Mime_Part $message = null
+    )
     {
         global $injector;
 
@@ -1523,7 +1532,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             if (!empty($check) &&
                 preg_match('/\b(' . implode('|', array_map('preg_quote', $check, array_fill(0, count($check), '/'))) . ')\b/i', $body, $matches)) {
-                throw IMP_Compose_Exception::createAndLog('DEBUG', sprintf(_("Found the word %s in the message text although there are no files attached to the message. Did you forget to attach a file? (This check will not be performed again for this message.)"), $matches[0]));
+                throw IMP_Compose_Exception::createAndLog(
+                    'DEBUG',
+                    sprintf(
+                        _("Found the word %s in the message text although there are no files attached to the message. Did you forget to attach a file? (This check will not be performed again for this message.)"),
+                        $matches[0]
+                    )
+                );
             }
         }
 
@@ -1595,7 +1610,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if (strlen($html_trailer)) {
                     $t_dom = new Horde_Domhtml($html_trailer, 'UTF-8');
                     foreach ($t_dom->getBody()->childNodes as $child) {
-                        $body_html_body->appendChild($body_html->dom->importNode($child, true));
+                        $body_html_body->appendChild(
+                            $body_html->dom->importNode($child, true)
+                        );
                     }
                 }
             }

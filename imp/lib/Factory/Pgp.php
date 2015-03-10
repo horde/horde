@@ -29,18 +29,21 @@ class IMP_Factory_Pgp extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
+        global $conf;
+
         $params = array(
-            'program' => $GLOBALS['conf']['gnupg']['path']
+            'program' => $conf['gnupg']['path']
         );
 
-        if (isset($GLOBALS['conf']['http']['proxy']['proxy_host'])) {
-            $params['proxy_host'] = $GLOBALS['conf']['http']['proxy']['proxy_host'];
-            if (isset($GLOBALS['conf']['http']['proxy']['proxy_port'])) {
-                $params['proxy_port'] = $GLOBALS['conf']['http']['proxy']['proxy_port'];
+        if (isset($conf['http']['proxy']['proxy_host'])) {
+            $params['proxy_host'] = $conf['http']['proxy']['proxy_host'];
+            if (isset($conf['http']['proxy']['proxy_port'])) {
+                $params['proxy_port'] = $conf['http']['proxy']['proxy_port'];
             }
         }
 
-        return $injector->getInstance('Horde_Core_Factory_Crypt')->create('IMP_Crypt_Pgp', $params);
+        return $injector->getInstance('Horde_Core_Factory_Crypt')
+            ->create('IMP_Crypt_Pgp', $params);
     }
 
 }

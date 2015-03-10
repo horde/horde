@@ -224,7 +224,11 @@ class IMP_Hooks
      *
      * @throws IMP_Compose_Exception
      */
-//    public function pre_sent($message, $headers, $compose)
+//    public function pre_sent(
+//        Horde_Mime_Part $message,
+//        Horde_Mime_Header $headers,
+//        IMP_Compose $compose
+//    )
 //    {
 //        // Example #1: Add custom headers to outgoing message.
 //        $custom_hdrs = array();
