@@ -57,10 +57,10 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://example.com/hordeurl/test.php?' . $sname,
             'http://example.com/hordeurl/test.php',
             'http://example.com/hordeurl/test.php?' . $sname,
-            'http://example.com/hordeurl/test.php',
-            'http://example.com/hordeurl/test.php?' . $sname,
-            'http://example.com/hordeurl/test.php',
-            'http://example.com/hordeurl/test.php?' . $sname,
+            'http://example.com:443/hordeurl/test.php',
+            'http://example.com:443/hordeurl/test.php?' . $sname,
+            'http://example.com:443/hordeurl/test.php',
+            'http://example.com:443/hordeurl/test.php?' . $sname,
             '/hordeurl/test.php?foo=1',
             '/hordeurl/test.php?foo=1&amp;' . $sname,
             '/hordeurl/test.php?foo=1',
@@ -105,10 +105,10 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://example.com/hordeurl/test.php?foo=1&' . $sname,
             'http://example.com/hordeurl/test.php?foo=1',
             'http://example.com/hordeurl/test.php?foo=1&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1',
-            'http://example.com/hordeurl/test.php?foo=1&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1',
-            'http://example.com/hordeurl/test.php?foo=1&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1',
+            'http://example.com:443/hordeurl/test.php?foo=1&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1',
+            'http://example.com:443/hordeurl/test.php?foo=1&' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2',
             '/hordeurl/test.php?foo=1&amp;bar=2&amp;' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2',
@@ -153,10 +153,10 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
             'http://example.com/hordeurl/test.php?foo=1&bar=2',
             'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2',
             '/hordeurl/test.php?foo=1&amp;bar=2&amp;' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2',
@@ -201,10 +201,10 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
             'http://example.com/hordeurl/test.php?foo=1&bar=2',
             'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2&amp;baz=3',
             '/hordeurl/test.php?foo=1&amp;bar=2&amp;baz=3&amp;' . $sname,
             '/hordeurl/test.php?foo=1&amp;bar=2&amp;baz=3',
@@ -249,10 +249,10 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
             'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
             'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3',
             'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3',
-            'http://example.com/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&baz=3',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&baz=3',
+            'http://example.com:443/hordeurl/test.php?foo=1&bar=2&baz=3&' . $sname,
         );
 
         $uris = array(
@@ -405,9 +405,9 @@ class Horde_Core_UrlTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
 
         // This fails since the port is always ignored. Not sure if this is intended or not.
-        // $GLOBALS['conf']['use_ssl'] = 3;
-        // $GLOBALS['conf']['server']['port'] = 1234;
-        // $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
+        $GLOBALS['conf']['use_ssl'] = 3;
+        $GLOBALS['conf']['server']['port'] = 1234;
+        $this->assertEquals('http://example.com:1234/hordeurl/test/', Horde::selfUrl(false, true, true));
     }
 }
 
