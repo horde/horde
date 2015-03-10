@@ -12,7 +12,7 @@
  </lead>
  <date>2015-03-10</date>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add parameter for stream context settings (Request #13730).
-* [jan] Allow to pass hostname with protocol scheme prefix.
-* [jan] Add getStatus(), gets(), read(), and write().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -149,6 +147,19 @@
 * [jan] Add parameter for stream context settings (Request #13730).
 * [jan] Allow to pass hostname with protocol scheme prefix.
 * [jan] Add getStatus(), gets(), read(), and write().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
