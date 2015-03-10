@@ -1,46 +1,11 @@
 <?php
-/**
- * PHPUnit
+/*
+ * This file is part of PHPUnit.
  *
- * Copyright (c) 2001-2014, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package    PHPUnit
- * @subpackage TextUI
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      File available since Release 2.0.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 use SebastianBergmann\Environment\Console;
@@ -51,7 +16,7 @@ use SebastianBergmann\Environment\Console;
  * @package    PHPUnit
  * @subpackage TextUI
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
@@ -129,38 +94,53 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
     protected $verbose = false;
 
     /**
+     * @var integer
+     */
+    private $numberOfColumns;
+
+    /**
      * Constructor.
      *
      * @param  mixed                       $out
      * @param  boolean                     $verbose
      * @param  boolean                     $colors
      * @param  boolean                     $debug
+     * @param  integer|string              $numberOfColumns
      * @throws PHPUnit_Framework_Exception
      * @since  Method available since Release 3.0.0
      */
-    public function __construct($out = null, $verbose = false, $colors = false, $debug = false)
+    public function __construct($out = null, $verbose = false, $colors = false, $debug = false, $numberOfColumns = 80)
     {
         parent::__construct($out);
 
-        if (is_bool($verbose)) {
-            $this->verbose = $verbose;
-        } else {
+        if (!is_bool($verbose)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'boolean');
         }
 
-        if (is_bool($colors)) {
-            $console = new Console;
-
-            $this->colors = $colors && $console->hasColorSupport();
-        } else {
+        if (!is_bool($colors)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(3, 'boolean');
         }
 
-        if (is_bool($debug)) {
-            $this->debug = $debug;
-        } else {
+        if (!is_bool($debug)) {
             throw PHPUnit_Util_InvalidArgumentHelper::factory(4, 'boolean');
         }
+
+        if (!is_int($numberOfColumns) && $numberOfColumns != 'max') {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(5, 'integer or "max"');
+        }
+
+        $console = new Console;
+
+        $maxNumberOfColumns = $console->getNumberOfColumns();
+
+        if ($numberOfColumns == 'max' || $numberOfColumns > $maxNumberOfColumns) {
+            $numberOfColumns = $maxNumberOfColumns;
+        }
+
+        $this->numberOfColumns = $numberOfColumns;
+        $this->verbose         = $verbose;
+        $this->colors          = $colors && $console->hasColorSupport();
+        $this->debug           = $debug;
     }
 
     /**
@@ -495,7 +475,7 @@ class PHPUnit_TextUI_ResultPrinter extends PHPUnit_Util_Printer implements PHPUn
         if ($this->numTests == -1) {
             $this->numTests      = count($suite);
             $this->numTestsWidth = strlen((string) $this->numTests);
-            $this->maxColumn     = 69 - (2 * $this->numTestsWidth);
+            $this->maxColumn     = $this->numberOfColumns - strlen('  /  (XXX%)') - (2 * $this->numTestsWidth);
         }
     }
 

@@ -1,46 +1,11 @@
 <?php
-/**
- * PHPUnit
+/*
+ * This file is part of PHPUnit.
  *
- * Copyright (c) 2001-2014, Sebastian Bergmann <sebastian@phpunit.de>.
- * All rights reserved.
+ * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- *   * Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- *
- *   * Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in
- *     the documentation and/or other materials provided with the
- *     distribution.
- *
- *   * Neither the name of Sebastian Bergmann nor the names of his
- *     contributors may be used to endorse or promote products derived
- *     from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
- * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
- * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- *
- * @package    PHPUnit
- * @subpackage TextUI
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      File available since Release 3.0.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 /**
@@ -50,7 +15,7 @@
  * @package    PHPUnit
  * @subpackage TextUI
  * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  2001-2014 Sebastian Bergmann <sebastian@phpunit.de>
+ * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  * @since      Class available since Release 3.0.0
@@ -77,6 +42,7 @@ class PHPUnit_TextUI_Command
     protected $longOptions = array(
       'colors' => null,
       'bootstrap=' => null,
+      'columns=' => null,
       'configuration=' => null,
       'coverage-clover=' => null,
       'coverage-crap4j=' => null,
@@ -288,6 +254,15 @@ class PHPUnit_TextUI_Command
                     }
                 break;
 
+                case '--columns': {
+                    if (is_numeric($option[1])) {
+                        $this->arguments['columns'] = (int) $option[1];
+                    } elseif ($option[1] == 'max') {
+                        $this->arguments['columns'] = 'max';
+                    }
+                }
+                break;
+
                 case 'c':
                 case '--configuration': {
                     $this->arguments['configuration'] = $option[1];
@@ -460,12 +435,12 @@ class PHPUnit_TextUI_Command
                 break;
 
                 case '--tap': {
-                    $this->arguments['printer'] = new PHPUnit_Util_Log_TAP;
+                    $this->arguments['printer'] = 'PHPUnit_Util_Log_TAP';
                     }
                 break;
 
                 case '--testdox': {
-                    $this->arguments['printer'] = new PHPUnit_Util_TestDox_ResultPrinter_Text;
+                    $this->arguments['printer'] = 'PHPUnit_Util_TestDox_ResultPrinter_Text';
                     }
                 break;
 
@@ -537,6 +512,7 @@ class PHPUnit_TextUI_Command
                     $this->arguments['disallowTestOutput']         = true;
                     $this->arguments['enforceTimeLimit']           = true;
                     $this->arguments['disallowTodoAnnotatedTests'] = true;
+                    $this->arguments['deprecatedStrictModeOption'] = true;
                     }
                 break;
 
@@ -594,11 +570,6 @@ class PHPUnit_TextUI_Command
             );
         }
 
-        if (isset($this->arguments['printer']) &&
-            is_string($this->arguments['printer'])) {
-            $this->arguments['printer'] = $this->handlePrinter($this->arguments['printer']);
-        }
-
         if ($this->arguments['loader'] !== null) {
             $this->arguments['loader'] = $this->handleLoader($this->arguments['loader']);
         }
@@ -654,11 +625,8 @@ class PHPUnit_TextUI_Command
             /**
              * Issue #657
              */
-            if (isset($phpunit['stderr']) && $phpunit['stderr'] == true) {
-                $this->arguments['printer'] = new PHPUnit_TextUI_ResultPrinter(
-                    'php://stderr',
-                    isset($this->arguments['verbose']) ? $this->arguments['verbose'] : false
-                );
+            if (isset($phpunit['stderr']) && ! isset($this->arguments['stderr'])) {
+                $this->arguments['stderr'] = $phpunit['stderr'];
             }
 
             if (isset($phpunit['printerClass'])) {
@@ -701,6 +669,11 @@ class PHPUnit_TextUI_Command
             }
         } elseif (isset($this->arguments['bootstrap'])) {
             $this->handleBootstrap($this->arguments['bootstrap']);
+        }
+
+        if (isset($this->arguments['printer']) &&
+            is_string($this->arguments['printer'])) {
+            $this->arguments['printer'] = $this->handlePrinter($this->arguments['printer']);
         }
 
         if (isset($this->arguments['test']) && is_string($this->arguments['test']) && substr($this->arguments['test'], -5, 5) == '.phpt') {
@@ -794,7 +767,9 @@ class PHPUnit_TextUI_Command
                     return $printerClass;
                 }
 
-                return $class->newInstance();
+                $outputStream = isset($this->arguments['stderr']) ? 'php://stderr' : null;
+
+                return $class->newInstance($outputStream);
             }
         }
 
@@ -932,13 +907,14 @@ Test Execution Options:
   --disallow-test-output    Be strict about output during tests.
   --enforce-time-limit      Enforce time limit based on test size.
   --disallow-todo-tests     Disallow @todo-annotated tests.
-  --strict                  Run tests in strict mode (enables all of the above).
 
   --process-isolation       Run each test in a separate PHP process.
   --no-globals-backup       Do not backup and restore \$GLOBALS for each test.
   --static-backup           Backup and restore static attributes for each test.
 
   --colors                  Use colors in output.
+  --columns <n>             Number of columns to use for progress outout.
+  --columns max             Use maximum number of columns for progress outout.
   --stderr                  Write to STDERR instead of STDOUT.
   --stop-on-error           Stop execution upon first error.
   --stop-on-failure         Stop execution upon first error or failure.

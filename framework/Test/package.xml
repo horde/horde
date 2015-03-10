@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-03-10</date>
  <version>
   <release>2.5.1</release>
   <api>2.5.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Update to PHPUnit 4.5.0 and dependencies.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -95,6 +95,301 @@
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/doctrine/instantiator -->
      </dir> <!-- /bundle/vendor/doctrine -->
+     <dir name="phpdocumentor">
+      <dir name="reflection-docblock">
+       <dir name="src">
+        <dir name="phpDocumentor">
+         <dir name="Reflection">
+          <dir name="DocBlock">
+           <dir name="Tag">
+            <file name="AuthorTag.php" role="php" />
+            <file name="CoversTag.php" role="php" />
+            <file name="DeprecatedTag.php" role="php" />
+            <file name="ExampleTag.php" role="php" />
+            <file name="LinkTag.php" role="php" />
+            <file name="MethodTag.php" role="php" />
+            <file name="ParamTag.php" role="php" />
+            <file name="PropertyReadTag.php" role="php" />
+            <file name="PropertyTag.php" role="php" />
+            <file name="PropertyWriteTag.php" role="php" />
+            <file name="ReturnTag.php" role="php" />
+            <file name="SeeTag.php" role="php" />
+            <file name="SinceTag.php" role="php" />
+            <file name="SourceTag.php" role="php" />
+            <file name="ThrowsTag.php" role="php" />
+            <file name="UsesTag.php" role="php" />
+            <file name="VarTag.php" role="php" />
+            <file name="VersionTag.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag -->
+           <dir name="Type">
+            <file name="Collection.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type -->
+           <file name="Context.php" role="php" />
+           <file name="Description.php" role="php" />
+           <file name="Location.php" role="php" />
+           <file name="Serializer.php" role="php" />
+           <file name="Tag.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock -->
+          <file name="DocBlock.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor -->
+       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/src -->
+       <dir name="tests">
+        <dir name="phpDocumentor">
+         <dir name="Reflection">
+          <dir name="DocBlock">
+           <dir name="Tag">
+            <file name="CoversTagTest.php" role="php" />
+            <file name="DeprecatedTagTest.php" role="php" />
+            <file name="ExampleTagTest.php" role="php" />
+            <file name="LinkTagTest.php" role="php" />
+            <file name="MethodTagTest.php" role="php" />
+            <file name="ParamTagTest.php" role="php" />
+            <file name="ReturnTagTest.php" role="php" />
+            <file name="SeeTagTest.php" role="php" />
+            <file name="SinceTagTest.php" role="php" />
+            <file name="SourceTagTest.php" role="php" />
+            <file name="ThrowsTagTest.php" role="php" />
+            <file name="UsesTagTest.php" role="php" />
+            <file name="VarTagTest.php" role="php" />
+            <file name="VersionTagTest.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag -->
+           <dir name="Type">
+            <file name="CollectionTest.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type -->
+           <file name="DescriptionTest.php" role="php" />
+           <file name="TagTest.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock -->
+          <file name="DocBlockTest.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection -->
+        </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor -->
+       </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock/tests -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/phpdocumentor/reflection-docblock -->
+     </dir> <!-- /bundle/vendor/phpdocumentor -->
+     <dir name="phpspec">
+      <dir name="prophecy">
+       <dir name="spec">
+        <dir name="Prophecy">
+         <dir name="Argument">
+          <dir name="Token">
+           <file name="AnyValuesTokenSpec.php" role="php" />
+           <file name="AnyValueTokenSpec.php" role="php" />
+           <file name="ArrayCountTokenSpec.php" role="php" />
+           <file name="ArrayEntryTokenSpec.php" role="php" />
+           <file name="ArrayEveryEntryTokenSpec.php" role="php" />
+           <file name="CallbackTokenSpec.php" role="php" />
+           <file name="ExactValueTokenSpec.php" role="php" />
+           <file name="IdenticalValueTokenSpec.php" role="php" />
+           <file name="LogicalAndTokenSpec.php" role="php" />
+           <file name="LogicalNotTokenSpec.php" role="php" />
+           <file name="ObjectStateTokenSpec.php" role="php" />
+           <file name="StringContainsTokenSpec.php" role="php" />
+           <file name="TypeTokenSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token -->
+          <file name="ArgumentsWildcardSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument -->
+         <dir name="Call">
+          <file name="CallCenterSpec.php" role="php" />
+          <file name="CallSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Call -->
+         <dir name="Doubler">
+          <dir name="ClassPatch">
+           <file name="DisableConstructorPatchSpec.php" role="php" />
+           <file name="HhvmExceptionPatchSpec.php" role="php" />
+           <file name="KeywordPatchSpec.php" role="php" />
+           <file name="MagicCallPatchSpec.php" role="php" />
+           <file name="ProphecySubjectPatchSpec.php" role="php" />
+           <file name="ReflectionClassNewInstancePatchSpec.php" role="php" />
+           <file name="SplFileInfoPatchSpec.php" role="php" />
+           <file name="TraversablePatchSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch -->
+          <dir name="Generator">
+           <dir name="Node">
+            <file name="ArgumentNodeSpec.php" role="php" />
+            <file name="ClassNodeSpec.php" role="php" />
+            <file name="MethodNodeSpec.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node -->
+           <file name="ClassCodeGeneratorSpec.php" role="php" />
+           <file name="ClassCreatorSpec.php" role="php" />
+           <file name="ClassMirrorSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator -->
+          <file name="DoublerSpec.php" role="php" />
+          <file name="LazyDoubleSpec.php" role="php" />
+          <file name="NameGeneratorSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler -->
+         <dir name="Exception">
+          <dir name="Call">
+           <file name="UnexpectedCallExceptionSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Call -->
+          <dir name="Doubler">
+           <file name="ClassCreatorExceptionSpec.php" role="php" />
+           <file name="ClassMirrorExceptionSpec.php" role="php" />
+           <file name="ClassNotFoundExceptionSpec.php" role="php" />
+           <file name="DoubleExceptionSpec.php" role="php" />
+           <file name="InterfaceNotFoundExceptionSpec.php" role="php" />
+           <file name="MethodNotFoundExceptionSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler -->
+          <dir name="Prediction">
+           <file name="AggregateExceptionSpec.php" role="php" />
+           <file name="NoCallsExceptionSpec.php" role="php" />
+           <file name="UnexpectedCallsCountExceptionSpec.php" role="php" />
+           <file name="UnexpectedCallsExceptionSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction -->
+          <dir name="Prophecy">
+           <file name="MethodProphecyExceptionSpec.php" role="php" />
+           <file name="ObjectProphecyExceptionSpec.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prophecy -->
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception -->
+         <dir name="Prediction">
+          <file name="CallbackPredictionSpec.php" role="php" />
+          <file name="CallPredictionSpec.php" role="php" />
+          <file name="CallTimesPredictionSpec.php" role="php" />
+          <file name="NoCallsPredictionSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Prediction -->
+         <dir name="Promise">
+          <file name="CallbackPromiseSpec.php" role="php" />
+          <file name="ReturnArgumentPromiseSpec.php" role="php" />
+          <file name="ReturnPromiseSpec.php" role="php" />
+          <file name="ThrowPromiseSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Promise -->
+         <dir name="Prophecy">
+          <file name="MethodProphecySpec.php" role="php" />
+          <file name="ObjectProphecySpec.php" role="php" />
+          <file name="RevealerSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Prophecy -->
+         <dir name="Util">
+          <file name="StringUtilSpec.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy/Util -->
+         <file name="ArgumentSpec.php" role="php" />
+         <file name="ProphetSpec.php" role="php" />
+        </dir> <!-- /bundle/vendor/phpspec/prophecy/spec/Prophecy -->
+       </dir> <!-- /bundle/vendor/phpspec/prophecy/spec -->
+       <dir name="src">
+        <dir name="Prophecy">
+         <dir name="Argument">
+          <dir name="Token">
+           <file name="AnyValuesToken.php" role="php" />
+           <file name="AnyValueToken.php" role="php" />
+           <file name="ArrayCountToken.php" role="php" />
+           <file name="ArrayEntryToken.php" role="php" />
+           <file name="ArrayEveryEntryToken.php" role="php" />
+           <file name="CallbackToken.php" role="php" />
+           <file name="ExactValueToken.php" role="php" />
+           <file name="IdenticalValueToken.php" role="php" />
+           <file name="LogicalAndToken.php" role="php" />
+           <file name="LogicalNotToken.php" role="php" />
+           <file name="ObjectStateToken.php" role="php" />
+           <file name="StringContainsToken.php" role="php" />
+           <file name="TokenInterface.php" role="php" />
+           <file name="TypeToken.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token -->
+          <file name="ArgumentsWildcard.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Argument -->
+         <dir name="Call">
+          <file name="Call.php" role="php" />
+          <file name="CallCenter.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Call -->
+         <dir name="Doubler">
+          <dir name="ClassPatch">
+           <file name="ClassPatchInterface.php" role="php" />
+           <file name="DisableConstructorPatch.php" role="php" />
+           <file name="HhvmExceptionPatch.php" role="php" />
+           <file name="KeywordPatch.php" role="php" />
+           <file name="MagicCallPatch.php" role="php" />
+           <file name="ProphecySubjectPatch.php" role="php" />
+           <file name="ReflectionClassNewInstancePatch.php" role="php" />
+           <file name="SplFileInfoPatch.php" role="php" />
+           <file name="TraversablePatch.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch -->
+          <dir name="Generator">
+           <dir name="Node">
+            <file name="ArgumentNode.php" role="php" />
+            <file name="ClassNode.php" role="php" />
+            <file name="MethodNode.php" role="php" />
+           </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node -->
+           <file name="ClassCodeGenerator.php" role="php" />
+           <file name="ClassCreator.php" role="php" />
+           <file name="ClassMirror.php" role="php" />
+           <file name="ReflectionInterface.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator -->
+          <file name="CachedDoubler.php" role="php" />
+          <file name="DoubleInterface.php" role="php" />
+          <file name="Doubler.php" role="php" />
+          <file name="LazyDouble.php" role="php" />
+          <file name="NameGenerator.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler -->
+         <dir name="Exception">
+          <dir name="Call">
+           <file name="UnexpectedCallException.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Call -->
+          <dir name="Doubler">
+           <file name="ClassCreatorException.php" role="php" />
+           <file name="ClassMirrorException.php" role="php" />
+           <file name="ClassNotFoundException.php" role="php" />
+           <file name="DoubleException.php" role="php" />
+           <file name="DoublerException.php" role="php" />
+           <file name="InterfaceNotFoundException.php" role="php" />
+           <file name="MethodNotFoundException.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler -->
+          <dir name="Prediction">
+           <file name="AggregateException.php" role="php" />
+           <file name="FailedPredictionException.php" role="php" />
+           <file name="NoCallsException.php" role="php" />
+           <file name="PredictionException.php" role="php" />
+           <file name="UnexpectedCallsCountException.php" role="php" />
+           <file name="UnexpectedCallsException.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction -->
+          <dir name="Prophecy">
+           <file name="MethodProphecyException.php" role="php" />
+           <file name="ObjectProphecyException.php" role="php" />
+           <file name="ProphecyException.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy -->
+          <file name="Exception.php" role="php" />
+          <file name="InvalidArgumentException.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Exception -->
+         <dir name="Prediction">
+          <file name="CallbackPrediction.php" role="php" />
+          <file name="CallPrediction.php" role="php" />
+          <file name="CallTimesPrediction.php" role="php" />
+          <file name="NoCallsPrediction.php" role="php" />
+          <file name="PredictionInterface.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction -->
+         <dir name="Promise">
+          <file name="CallbackPromise.php" role="php" />
+          <file name="PromiseInterface.php" role="php" />
+          <file name="ReturnArgumentPromise.php" role="php" />
+          <file name="ReturnPromise.php" role="php" />
+          <file name="ThrowPromise.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Promise -->
+         <dir name="Prophecy">
+          <file name="MethodProphecy.php" role="php" />
+          <file name="ObjectProphecy.php" role="php" />
+          <file name="ProphecyInterface.php" role="php" />
+          <file name="ProphecySubjectInterface.php" role="php" />
+          <file name="Revealer.php" role="php" />
+          <file name="RevealerInterface.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy -->
+         <dir name="Util">
+          <file name="ExportUtil.php" role="php" />
+          <file name="StringUtil.php" role="php" />
+         </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy/Util -->
+         <file name="Argument.php" role="php" />
+         <file name="Prophet.php" role="php" />
+        </dir> <!-- /bundle/vendor/phpspec/prophecy/src/Prophecy -->
+       </dir> <!-- /bundle/vendor/phpspec/prophecy/src -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="CHANGES.md" role="php" />
+       <file name="CONTRIBUTING.md" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/phpspec/prophecy -->
+     </dir> <!-- /bundle/vendor/phpspec -->
      <dir name="phpunit">
       <dir name="php-code-coverage">
        <dir name="build">
@@ -127,6 +422,7 @@
               <file name="glyphicons-halflings-regular.svg" role="php" />
               <file name="glyphicons-halflings-regular.ttf" role="php" />
               <file name="glyphicons-halflings-regular.woff" role="php" />
+              <file name="glyphicons-halflings-regular.woff2" role="php" />
              </dir> <!-- /bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts -->
              <dir name="js">
               <file name="bootstrap.min.js" role="php" />
@@ -408,7 +704,6 @@
         <file name="phar-version.php" role="php" />
         <file name="phpmd.xml" role="php" />
         <file name="travis-ci-fail.xml" role="php" />
-        <file name="travis-ci.xml" role="php" />
        </dir> <!-- /bundle/vendor/phpunit/phpunit/build -->
        <dir name="src">
         <dir name="Extensions">
@@ -699,6 +994,9 @@
           <dir name="1472">
            <file name="Issue1472Test.php" role="php" />
           </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1472 -->
+          <dir name="1570">
+           <file name="Issue1570Test.php" role="php" />
+          </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1570 -->
           <file name="74.phpt" role="php" />
           <file name="244.phpt" role="php" />
           <file name="322.phpt" role="php" />
@@ -725,6 +1023,7 @@
           <file name="1468.phpt" role="php" />
           <file name="1471.phpt" role="php" />
           <file name="1472.phpt" role="php" />
+          <file name="1570.phpt" role="php" />
          </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/Regression/GitHub -->
          <file name="523.phpt" role="php" />
          <file name="578.phpt" role="php" />
@@ -797,9 +1096,9 @@
          <file name="log-xml.phpt" role="php" />
          <file name="output-isolation.phpt" role="php" />
          <file name="repeat.phpt" role="php" />
-         <file name="strict-incomplete.phpt" role="php" />
-         <file name="strict-isolation.phpt" role="php" />
-         <file name="strict.phpt" role="php" />
+         <file name="report-useless-tests-incomplete.phpt" role="php" />
+         <file name="report-useless-tests-isolation.phpt" role="php" />
+         <file name="report-useless-tests.phpt" role="php" />
          <file name="tap.phpt" role="php" />
          <file name="test-suffix-multiple.phpt" role="php" />
          <file name="test-suffix-single.phpt" role="php" />
@@ -943,7 +1242,6 @@
          <file name="ThrowNoExceptionTestCase.php" role="php" />
          <file name="WasRun.php" role="php" />
         </dir> <!-- /bundle/vendor/phpunit/phpunit/tests/_files -->
-        <file name="bootstrap-travis.php" role="php" />
         <file name="bootstrap.php" role="php" />
        </dir> <!-- /bundle/vendor/phpunit/phpunit/tests -->
        <file name=".gitattributes" role="php" />
@@ -1248,8 +1546,6 @@
       </dir> <!-- /bundle/vendor/sebastian/environment -->
       <dir name="exporter">
        <dir name="src">
-        <file name="Context.php" role="php" />
-        <file name="Exception.php" role="php" />
         <file name="Exporter.php" role="php" />
        </dir> <!-- /bundle/vendor/sebastian/exporter/src -->
        <dir name="tests">
@@ -1288,6 +1584,22 @@
        <file name="LICENSE" role="php" />
        <file name="README.md" role="php" />
       </dir> <!-- /bundle/vendor/sebastian/global-state -->
+      <dir name="recursion-context">
+       <dir name="src">
+        <file name="Context.php" role="php" />
+        <file name="Exception.php" role="php" />
+        <file name="InvalidArgumentException.php" role="php" />
+       </dir> <!-- /bundle/vendor/sebastian/recursion-context/src -->
+       <dir name="tests">
+        <file name="ContextTest.php" role="php" />
+       </dir> <!-- /bundle/vendor/sebastian/recursion-context/tests -->
+       <file name=".gitignore" role="php" />
+       <file name=".travis.yml" role="php" />
+       <file name="build.xml" role="php" />
+       <file name="LICENSE" role="php" />
+       <file name="phpunit.xml.dist" role="php" />
+       <file name="README.md" role="php" />
+      </dir> <!-- /bundle/vendor/sebastian/recursion-context -->
       <dir name="version">
        <dir name="build">
         <file name="package.xml" role="php" />
@@ -1511,6 +1823,197 @@
    <install as="Horde/Test/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/UnserializeExceptionArrayObjectAsset.php" name="bundle/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/UnserializeExceptionArrayObjectAsset.php" />
    <install as="Horde/Test/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/WakeUpNoticesAsset.php" name="bundle/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/WakeUpNoticesAsset.php" />
    <install as="Horde/Test/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/XMLReaderAsset.php" name="bundle/vendor/doctrine/instantiator/tests/DoctrineTest/InstantiatorTestAsset/XMLReaderAsset.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.gitignore" name="bundle/vendor/phpdocumentor/reflection-docblock/.gitignore" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/.travis.yml" name="bundle/vendor/phpdocumentor/reflection-docblock/.travis.yml" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/LICENSE" name="bundle/vendor/phpdocumentor/reflection-docblock/LICENSE" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" name="bundle/vendor/phpdocumentor/reflection-docblock/phpunit.xml.dist" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/README.md" name="bundle/vendor/phpdocumentor/reflection-docblock/README.md" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Context.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Description.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Location.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Serializer.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/AuthorTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/CoversTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ExampleTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/LinkTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/MethodTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ParamTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyReadTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/PropertyWriteTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ReturnTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SeeTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SinceTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/SourceTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/UsesTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VarTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Tag/VersionTag.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" name="bundle/vendor/phpdocumentor/reflection-docblock/src/phpDocumentor/Reflection/DocBlock/Type/Collection.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlockTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlockTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/DescriptionTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/DescriptionTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/TagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/TagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/CoversTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/CoversTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/DeprecatedTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ExampleTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ExampleTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/LinkTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/LinkTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/MethodTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/MethodTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ParamTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ParamTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ReturnTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ReturnTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SeeTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SeeTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SinceTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SinceTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SourceTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/SourceTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/ThrowsTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/UsesTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/UsesTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VarTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Tag/VersionTagTest.php" />
+   <install as="Horde/Test/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" name="bundle/vendor/phpdocumentor/reflection-docblock/tests/phpDocumentor/Reflection/DocBlock/Type/CollectionTest.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/.gitignore" name="bundle/vendor/phpspec/prophecy/.gitignore" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/.travis.yml" name="bundle/vendor/phpspec/prophecy/.travis.yml" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/CHANGES.md" name="bundle/vendor/phpspec/prophecy/CHANGES.md" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/CONTRIBUTING.md" name="bundle/vendor/phpspec/prophecy/CONTRIBUTING.md" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/LICENSE" name="bundle/vendor/phpspec/prophecy/LICENSE" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/README.md" name="bundle/vendor/phpspec/prophecy/README.md" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/ArgumentSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/ArgumentSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/ProphetSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/ProphetSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/ArgumentsWildcardSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/ArgumentsWildcardSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/AnyValuesTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/AnyValuesTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/AnyValueTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/AnyValueTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayCountTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayCountTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayEntryTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayEntryTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayEveryEntryTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ArrayEveryEntryTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/CallbackTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/CallbackTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ExactValueTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ExactValueTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/IdenticalValueTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/IdenticalValueTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/LogicalAndTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/LogicalAndTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/LogicalNotTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/LogicalNotTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ObjectStateTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/ObjectStateTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/StringContainsTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/StringContainsTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/TypeTokenSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Argument/Token/TypeTokenSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Call/CallCenterSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Call/CallCenterSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Call/CallSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Call/CallSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/DoublerSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/DoublerSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/LazyDoubleSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/LazyDoubleSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/NameGeneratorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/NameGeneratorSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/DisableConstructorPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/DisableConstructorPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/HhvmExceptionPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/HhvmExceptionPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/KeywordPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/KeywordPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/MagicCallPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/MagicCallPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/ProphecySubjectPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/ProphecySubjectPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/ReflectionClassNewInstancePatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/ReflectionClassNewInstancePatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/SplFileInfoPatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/SplFileInfoPatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/TraversablePatchSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/ClassPatch/TraversablePatchSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCodeGeneratorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCodeGeneratorSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCreatorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassCreatorSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassMirrorSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/ClassMirrorSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ArgumentNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ArgumentNodeSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ClassNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/ClassNodeSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/MethodNodeSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Doubler/Generator/Node/MethodNodeSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Call/UnexpectedCallExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Call/UnexpectedCallExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassCreatorExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassCreatorExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassMirrorExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassMirrorExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassNotFoundExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/ClassNotFoundExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/DoubleExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/DoubleExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/InterfaceNotFoundExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/InterfaceNotFoundExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/MethodNotFoundExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Doubler/MethodNotFoundExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/AggregateExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/AggregateExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/NoCallsExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/NoCallsExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/UnexpectedCallsCountExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/UnexpectedCallsCountExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/UnexpectedCallsExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prediction/UnexpectedCallsExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prophecy/MethodProphecyExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prophecy/MethodProphecyExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prophecy/ObjectProphecyExceptionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Exception/Prophecy/ObjectProphecyExceptionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallbackPredictionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallbackPredictionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallPredictionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallPredictionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallTimesPredictionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prediction/CallTimesPredictionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prediction/NoCallsPredictionSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prediction/NoCallsPredictionSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Promise/CallbackPromiseSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Promise/CallbackPromiseSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Promise/ReturnArgumentPromiseSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Promise/ReturnArgumentPromiseSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Promise/ReturnPromiseSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Promise/ReturnPromiseSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Promise/ThrowPromiseSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Promise/ThrowPromiseSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/MethodProphecySpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/MethodProphecySpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/ObjectProphecySpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/ObjectProphecySpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/RevealerSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Prophecy/RevealerSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/spec/Prophecy/Util/StringUtilSpec.php" name="bundle/vendor/phpspec/prophecy/spec/Prophecy/Util/StringUtilSpec.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophet.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophet.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/ArgumentsWildcard.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/ArgumentsWildcard.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValuesToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValuesToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValueToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/AnyValueToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayCountToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayCountToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayEntryToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayEntryToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayEveryEntryToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ArrayEveryEntryToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/CallbackToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/CallbackToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ExactValueToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ExactValueToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/IdenticalValueToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/IdenticalValueToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/LogicalAndToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/LogicalAndToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/LogicalNotToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/LogicalNotToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ObjectStateToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/ObjectStateToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/StringContainsToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/StringContainsToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/TokenInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/TokenInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/TypeToken.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Argument/Token/TypeToken.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Call/Call.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Call/Call.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Call/CallCenter.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Call/CallCenter.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/CachedDoubler.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/CachedDoubler.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/DoubleInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/DoubleInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Doubler.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Doubler.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/LazyDouble.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/LazyDouble.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/NameGenerator.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/NameGenerator.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ClassPatchInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ClassPatchInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/DisableConstructorPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/DisableConstructorPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/HhvmExceptionPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/HhvmExceptionPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/KeywordPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/KeywordPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/MagicCallPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/MagicCallPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ProphecySubjectPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ProphecySubjectPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ReflectionClassNewInstancePatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/ReflectionClassNewInstancePatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/SplFileInfoPatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/SplFileInfoPatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/TraversablePatch.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/ClassPatch/TraversablePatch.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassCodeGenerator.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassCodeGenerator.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassCreator.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassCreator.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassMirror.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ClassMirror.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ReflectionInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/ReflectionInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ArgumentNode.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ArgumentNode.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ClassNode.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/ClassNode.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/MethodNode.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Doubler/Generator/Node/MethodNode.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Exception.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Exception.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/InvalidArgumentException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/InvalidArgumentException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Call/UnexpectedCallException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Call/UnexpectedCallException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassCreatorException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassCreatorException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassMirrorException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassMirrorException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassNotFoundException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/ClassNotFoundException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/DoubleException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/DoubleException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/DoublerException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/DoublerException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/InterfaceNotFoundException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/InterfaceNotFoundException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/MethodNotFoundException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Doubler/MethodNotFoundException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/AggregateException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/AggregateException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/FailedPredictionException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/FailedPredictionException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/NoCallsException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/NoCallsException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/PredictionException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/PredictionException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/UnexpectedCallsCountException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/UnexpectedCallsCountException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/UnexpectedCallsException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prediction/UnexpectedCallsException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/MethodProphecyException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/MethodProphecyException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/ObjectProphecyException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/ObjectProphecyException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/ProphecyException.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Exception/Prophecy/ProphecyException.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallbackPrediction.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallbackPrediction.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallPrediction.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallPrediction.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallTimesPrediction.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction/CallTimesPrediction.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prediction/NoCallsPrediction.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction/NoCallsPrediction.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prediction/PredictionInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prediction/PredictionInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Promise/CallbackPromise.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Promise/CallbackPromise.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Promise/PromiseInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Promise/PromiseInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Promise/ReturnArgumentPromise.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Promise/ReturnArgumentPromise.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Promise/ReturnPromise.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Promise/ReturnPromise.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Promise/ThrowPromise.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Promise/ThrowPromise.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/MethodProphecy.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/MethodProphecy.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ObjectProphecy.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ObjectProphecy.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ProphecyInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ProphecyInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ProphecySubjectInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/ProphecySubjectInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/Revealer.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/Revealer.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Prophecy/RevealerInterface.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Prophecy/RevealerInterface.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Util/ExportUtil.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Util/ExportUtil.php" />
+   <install as="Horde/Test/vendor/phpspec/prophecy/src/Prophecy/Util/StringUtil.php" name="bundle/vendor/phpspec/prophecy/src/Prophecy/Util/StringUtil.php" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.gitattributes" name="bundle/vendor/phpunit/php-code-coverage/.gitattributes" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.gitignore" name="bundle/vendor/phpunit/php-code-coverage/.gitignore" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/.travis.yml" name="bundle/vendor/phpunit/php-code-coverage/.travis.yml" />
@@ -1556,6 +2059,7 @@
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.svg" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.svg" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.ttf" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.ttf" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.woff" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.woff" />
+   <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.woff2" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/fonts/glyphicons-halflings-regular.woff2" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/bootstrap.min.js" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/bootstrap.min.js" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/d3.min.js" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/d3.min.js" />
    <install as="Horde/Test/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/holder.js" name="bundle/vendor/phpunit/php-code-coverage/src/CodeCoverage/Report/HTML/Renderer/Template/js/holder.js" />
@@ -1720,7 +2224,6 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/build/phar-version.php" name="bundle/vendor/phpunit/phpunit/build/phar-version.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/build/phpmd.xml" name="bundle/vendor/phpunit/phpunit/build/phpmd.xml" />
    <install as="Horde/Test/vendor/phpunit/phpunit/build/travis-ci-fail.xml" name="bundle/vendor/phpunit/phpunit/build/travis-ci-fail.xml" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/build/travis-ci.xml" name="bundle/vendor/phpunit/phpunit/build/travis-ci.xml" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Exception.php" name="bundle/vendor/phpunit/phpunit/src/Exception.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/GroupTestSuite.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/GroupTestSuite.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Extensions/PhptTestCase.php" name="bundle/vendor/phpunit/phpunit/src/Extensions/PhptTestCase.php" />
@@ -1844,7 +2347,6 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/HTML.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/HTML.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php" name="bundle/vendor/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/bootstrap-travis.php" name="bundle/vendor/phpunit/phpunit/tests/bootstrap-travis.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/bootstrap.php" name="bundle/vendor/phpunit/phpunit/tests/bootstrap.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Extensions/RepeatedTestTest.php" name="bundle/vendor/phpunit/phpunit/tests/Extensions/RepeatedTestTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Fail/fail.phpt" name="bundle/vendor/phpunit/phpunit/tests/Fail/fail.phpt" />
@@ -1900,6 +2402,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1468.phpt" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1468.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1471.phpt" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1471.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1472.phpt" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1472.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1570.phpt" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1570.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/74/Issue74Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/74/Issue74Test.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/74/NewException.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/74/NewException.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/244/Issue244Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/244/Issue244Test.php" />
@@ -1934,6 +2437,7 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1468/Issue1468Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1468/Issue1468Test.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1471/Issue1471Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1471/Issue1471Test.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1472/Issue1472Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1472/Issue1472Test.php" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/Regression/GitHub/1570/Issue1570Test.php" name="bundle/vendor/phpunit/phpunit/tests/Regression/GitHub/1570/Issue1570Test.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/Runner/BaseTestRunnerTest.php" name="bundle/vendor/phpunit/phpunit/tests/Runner/BaseTestRunnerTest.php" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/abstract-test-class.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/abstract-test-class.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/concrete-test-class.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/concrete-test-class.phpt" />
@@ -1996,9 +2500,9 @@
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/log-xml.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/output-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/output-isolation.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/repeat.phpt" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/strict-incomplete.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/strict-incomplete.phpt" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/strict-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/strict-isolation.phpt" />
-   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/strict.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/strict.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests-incomplete.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests-incomplete.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests-isolation.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests-isolation.phpt" />
+   <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/report-useless-tests.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/tap.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/tap.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/test-suffix-multiple.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/test-suffix-multiple.phpt" />
    <install as="Horde/Test/vendor/phpunit/phpunit/tests/TextUI/test-suffix-single.phpt" name="bundle/vendor/phpunit/phpunit/tests/TextUI/test-suffix-single.phpt" />
@@ -2349,8 +2853,6 @@
    <install as="Horde/Test/vendor/sebastian/exporter/LICENSE" name="bundle/vendor/sebastian/exporter/LICENSE" />
    <install as="Horde/Test/vendor/sebastian/exporter/phpunit.xml.dist" name="bundle/vendor/sebastian/exporter/phpunit.xml.dist" />
    <install as="Horde/Test/vendor/sebastian/exporter/README.md" name="bundle/vendor/sebastian/exporter/README.md" />
-   <install as="Horde/Test/vendor/sebastian/exporter/src/Context.php" name="bundle/vendor/sebastian/exporter/src/Context.php" />
-   <install as="Horde/Test/vendor/sebastian/exporter/src/Exception.php" name="bundle/vendor/sebastian/exporter/src/Exception.php" />
    <install as="Horde/Test/vendor/sebastian/exporter/src/Exporter.php" name="bundle/vendor/sebastian/exporter/src/Exporter.php" />
    <install as="Horde/Test/vendor/sebastian/exporter/tests/ExporterTest.php" name="bundle/vendor/sebastian/exporter/tests/ExporterTest.php" />
    <install as="Horde/Test/vendor/sebastian/global-state/.gitignore" name="bundle/vendor/sebastian/global-state/.gitignore" />
@@ -2369,6 +2871,16 @@
    <install as="Horde/Test/vendor/sebastian/global-state/tests/_fixture/BlacklistedClass.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedClass.php" />
    <install as="Horde/Test/vendor/sebastian/global-state/tests/_fixture/BlacklistedImplementor.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedImplementor.php" />
    <install as="Horde/Test/vendor/sebastian/global-state/tests/_fixture/BlacklistedInterface.php" name="bundle/vendor/sebastian/global-state/tests/_fixture/BlacklistedInterface.php" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/.gitignore" name="bundle/vendor/sebastian/recursion-context/.gitignore" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/.travis.yml" name="bundle/vendor/sebastian/recursion-context/.travis.yml" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/build.xml" name="bundle/vendor/sebastian/recursion-context/build.xml" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/LICENSE" name="bundle/vendor/sebastian/recursion-context/LICENSE" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/phpunit.xml.dist" name="bundle/vendor/sebastian/recursion-context/phpunit.xml.dist" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/README.md" name="bundle/vendor/sebastian/recursion-context/README.md" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/src/Context.php" name="bundle/vendor/sebastian/recursion-context/src/Context.php" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/src/Exception.php" name="bundle/vendor/sebastian/recursion-context/src/Exception.php" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/src/InvalidArgumentException.php" name="bundle/vendor/sebastian/recursion-context/src/InvalidArgumentException.php" />
+   <install as="Horde/Test/vendor/sebastian/recursion-context/tests/ContextTest.php" name="bundle/vendor/sebastian/recursion-context/tests/ContextTest.php" />
    <install as="Horde/Test/vendor/sebastian/version/.gitattributes" name="bundle/vendor/sebastian/version/.gitattributes" />
    <install as="Horde/Test/vendor/sebastian/version/.gitignore" name="bundle/vendor/sebastian/version/.gitignore" />
    <install as="Horde/Test/vendor/sebastian/version/build.xml" name="bundle/vendor/sebastian/version/build.xml" />
@@ -2922,10 +3434,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-03-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Update to PHPUnit 4.5.0 and dependencies.
    </notes>
   </release>
  </changelog>
