@@ -93,6 +93,16 @@
   </p>
 </div>
 
+<div id="kronolithEventAttend" style="display:none">
+  <label for="kronolithEventAttendance"><?php echo _("Attendance") ?>:</label>
+  <select name="attendance" id="kronolithEventAttendance" tabindex="8">
+    <option value="<?php echo Kronolith::RESPONSE_NONE ?>" selected="selected"><?php echo _("Not Decided") ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_TENTATIVE ?>"><?php echo _("Tentative") ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_ACCEPTED ?>"><?php echo _("Confirmed") ?></option>
+    <option value="<?php echo Kronolith::RESPONSE_DECLINED ?>"><?php echo _("Cancelled") ?></option>
+  </select>
+</div>
+
 <div>
   <p>
     <label for="kronolithEventTarget"><?php echo _("Add event to") ?>:</label>
