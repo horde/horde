@@ -198,4 +198,8 @@ class Ingo_Upgrade_Storage_Prefs_v4 extends Ingo_Storage_Prefs
             $this->_storeBackend(self::STORE_ADD, $val);
         }
     }
+
+    protected function _load()
+    {
+    }
 }
