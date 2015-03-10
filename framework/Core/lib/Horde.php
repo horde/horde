@@ -443,9 +443,9 @@ class Horde
                 break;
 
             case self::SSL_ONLY_LOGIN:
-                $server_port = '';
                 if (!empty($opts['force_ssl'])) {
                     $protocol = 'https';
+                    $server_port = '';
                 }
                 break;
             }
