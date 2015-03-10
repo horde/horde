@@ -106,7 +106,7 @@ class Horde_Image_Im extends Horde_Image_Base
         } elseif (!empty($params['data'])) {
             $this->loadString($params['data']);
         } else {
-            $cmd = "-size {$this->_width}x{$this->_height} xc:{$this->_background} +profile \"*\" {$this->_type}:__FILEOUT__";
+            $cmd = "-size {$this->_width}x{$this->_height} xc:{$this->_background} -strip {$this->_type}:__FILEOUT__";
             $this->executeConvertCmd($cmd);
         }
     }
@@ -151,7 +151,7 @@ class Horde_Image_Im extends Horde_Image_Base
             $command = $this->_convert . ' ' . implode(' ', $this->_operations)
                 . ' "' . $tmpin . '"\'[' . $index . ']\' '
                 . implode(' ', $this->_postSrcOperations)
-                . ' +profile "*" ' . $this->_type . ':"' . $tmpout . '" 2>&1';
+                . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
             $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
             exec($command, $output, $retval);
             if ($retval) {

@@ -149,6 +149,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function raw($convert = false)
     {
         try {
+            $this->_imagick->stripImage();
             return $this->_imagick->getImageBlob();
         } catch (ImagickException $e) {
             throw Horde_Image_Exception($e);
