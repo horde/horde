@@ -15,6 +15,10 @@
  */
 class Horde
 {
+    const SSL_NEVER        = 0;
+    const SSL_ALWAYS       = 1;
+    const SSL_AUTO         = 2;
+    const SSL_ONLY_LOGIN   = 3;
     /**
      * The current buffer level.
      *
@@ -428,17 +432,17 @@ class Horde
 
             $protocol = 'http';
             switch ($GLOBALS['conf']['use_ssl']) {
-            case 1:
+            case self::SSL_ALWAYS:
                 $protocol = 'https';
                 break;
 
-            case 2:
+            case self::SSL_AUTO:
                 if ($GLOBALS['browser']->usingSSLConnection()) {
                     $protocol = 'https';
                 }
                 break;
 
-            case 3:
+            case self::SSL_ONLY_LOGIN:
                 $server_port = '';
                 if (!empty($opts['force_ssl'])) {
                     $protocol = 'https';
@@ -1005,7 +1009,7 @@ class Horde
     public static function redirect($url)
     {
         if ($GLOBALS['browser']->isBrowser('msie') &&
-            ($GLOBALS['conf']['use_ssl'] == 3) &&
+            ($GLOBALS['conf']['use_ssl'] == self::SSL_ONLY_LOGIN) &&
             (strlen($url) < 160)) {
             header('Refresh: 0; URL=' . $url);
         } else {
