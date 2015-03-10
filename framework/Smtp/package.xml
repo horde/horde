@@ -12,7 +12,7 @@
  </lead>
  <date>2015-03-10</date>
  <version>
-  <release>1.9.0</release>
+  <release>1.9.1</release>
   <api>1.9.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix sending BODY keyword when debugging and SMTP server does not support 8BITMIME extension.
-* [jan] Add parameter for stream context settings (Request #13730).
-* [jan] Fix notice if server doesn&apos;t support ENHANCEDSTATUSCODES.
-* [mms] Add &apos;localhost&apos; parameter to Horde_Smtp (Request #13832).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -489,6 +486,19 @@
 * [jan] Add parameter for stream context settings (Request #13730).
 * [jan] Fix notice if server doesn&apos;t support ENHANCEDSTATUSCODES.
 * [mms] Add &apos;localhost&apos; parameter to Horde_Smtp (Request #13832).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.1</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-03-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
