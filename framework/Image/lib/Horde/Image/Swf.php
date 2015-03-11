@@ -82,9 +82,7 @@ class Horde_Image_Swf extends Horde_Image_Base
     {
         ob_start();
         $this->_movie->output();
-        $data = ob_get_contents();
-        ob_end_clean();
-
+        $data = ob_get_clean();
         return $data;
     }
 
