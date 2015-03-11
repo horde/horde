@@ -68,8 +68,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
      */
     protected function _initSmime()
     {
-        if (is_null($this->_impsmime) &&
-            $GLOBALS['prefs']->getValue('use_smime')) {
+        if (is_null($this->_impsmime) && IMP_Crypt_Smime::enabled()) {
             try {
                 $this->_impsmime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
                 $this->_impsmime->checkForOpenSSL();
@@ -276,8 +275,10 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             'wrap' => 'mimePartWrap'
         );
 
-        if (!$GLOBALS['prefs']->getValue('use_smime')) {
-            $status->addText(_("S/MIME support is not enabled so the digital signature is unable to be verified."));
+        if (!IMP_Crypt_Smime::enabled()) {
+            $status->addText(
+                _("S/MIME support is not enabled so the digital signature is unable to be verified.")
+            );
             return null;
         }
 

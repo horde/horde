@@ -47,7 +47,7 @@ class IMP_Compose_Ui
             $enc_opts += $injector->getInstance('IMP_Crypt_Pgp')->encryptList();
         }
 
-        if ($prefs->getValue('use_smime')) {
+        if (IMP_Crypt_Smime::enabled()) {
             $enc_opts += $injector->getInstance('IMP_Crypt_Smime')->encryptList();
         }
 

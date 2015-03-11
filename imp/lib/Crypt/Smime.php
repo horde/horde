@@ -32,6 +32,20 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     const SIGNENC = 'smime_signenc';
 
     /**
+     * Return whether PGP support is current enabled in IMP.
+     *
+     * @return boolean  True if PGP support is enabled.
+     */
+    public static function enabled()
+    {
+        global $conf, $prefs;
+
+        return (!empty($conf['openssl']['path']) &&
+                $prefs->getValue('use_smime') &&
+                Horde_Util::extensionExists('openssl'));
+    }
+
+    /**
      * Return the list of available encryption options for composing.
      *
      * @return array  Keys are encryption type constants, values are gettext
