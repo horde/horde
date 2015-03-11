@@ -280,7 +280,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param boolean $ratio        Maintain original aspect ratio.
      * @param boolean $keepProfile  Keep the image meta data (unused).
      */
-    public function resize($width, $height, $ratio = true)
+    public function resize($width, $height, $ratio = true, $keepProfile = false)
     {
         /* Abort if we're asked to divide by zero, truncate the image
          * completely in either direction, or there is no image data. */
