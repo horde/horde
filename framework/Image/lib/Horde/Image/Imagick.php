@@ -128,15 +128,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         // Parent function loads image data into $this->_data
         parent::loadFile($filename);
-        $this->_imagick->clear();
-        try {
-            $this->_imagick->readImageBlob($this->_data);
-            $this->_imagick->setImageFormat($this->_type);
-            $this->_imagick->setIteratorIndex(0);
-        } catch (ImagickException $e) {
-            throw new Horde_Image_Exception($e);
-        }
-        unset($this->_data);
+        $this->loadString($this->_data);
     }
 
     /**
