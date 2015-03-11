@@ -1,18 +1,30 @@
 <?php
 /**
- * Image effect for rounding image corners.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Image effect for round image corners.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
 {
     /**
      * Valid parameters:
-     *
-     *  radius - Radius of rounded corners.
+     *   - radius: (integer) Radius of rounded corners.
      *
      * @var array
      */
@@ -21,6 +33,9 @@ class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
                                'border' => 0,
                                'bordercolor' => 'none');
 
+    /**
+     * Applies the effect.
+     */
     public function apply()
     {
         /* Use imagick extension if available */

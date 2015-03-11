@@ -1,14 +1,31 @@
 <?php
 /**
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    James Heinrich <info@silisoftware.com>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
  * Image effect for adding a drop shadow.
  *
  * This algorithm is from the phpThumb project available at
  * http://phpthumb.sourceforge.net and all credit for this script should go to
- * James Heinrich <info@silisoftware.com>.  Modifications made to the code
- * to fit it within the Horde framework and to adjust for our coding standards.
+ * James Heinrich <info@silisoftware.com>.  Modifications made to the code to
+ * fit it within the Horde framework and to adjust for our coding standards.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    James Heinrich <info@silisoftware.com>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Gd_DropShadow extends Horde_Image_Effect
 {
@@ -26,9 +43,7 @@ class Horde_Image_Effect_Gd_DropShadow extends Horde_Image_Effect
                                'fade' => 10);
 
     /**
-     * Apply the drop_shadow effect.
-     *
-     * @return boolean
+     * Applies the effect.
      */
     public function apply()
     {

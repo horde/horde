@@ -1,16 +1,30 @@
 <?php
 /**
- * This class implements the Horde_Image:: API for the PHP GD
- * extension.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * This class implements the Horde_Image API for the PHP GD extension.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ *
+ * @property-read  resource $_im  The underlaying image resource.
  */
 class Horde_Image_Gd extends Horde_Image_Base
 {
@@ -18,7 +32,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Capabilites of this driver.
      *
-     * @var array
+     * @var string[]
      */
     protected $_capabilities = array('resize',
                                      'crop',
@@ -31,18 +45,16 @@ class Horde_Image_Gd extends Horde_Image_Base
                                      'canvas');
 
     /**
-     * GD Image resource for the current image data.
+     * GD image resource for the current image data.
      *
      * @var resource
      */
     protected $_im;
 
     /**
-     * Const'r
+     * Constructor.
      *
-     * @param $params
-     *
-     * @return Horde_Image_gd
+     * @see Horde_Image_Base::_construct
      */
     public function __construct($params, $context = array())
     {
@@ -57,6 +69,8 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
     }
 
+    /**
+     */
     public function __get($property)
     {
         switch ($property) {
@@ -66,7 +80,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Display the current image.
+     * Displays the current image.
      */
     public function display()
     {
@@ -78,7 +92,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Returns the raw data for this image.
      *
-     * @param boolean $convert (ignored)
+     * @param boolean $convert  Ignored for Gd driver.
      *
      * @return string  The raw image data.
      */
@@ -94,7 +108,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Reset the image data.
+     * Resets the image data to defaults.
      */
     public function reset()
     {
@@ -107,7 +121,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Get the height and width of the current image.
+     * Returns the height and width of the current image data.
      *
      * @return array  An hash with 'width' containing the width,
      *                'height' containing the height of the image.
@@ -126,11 +140,12 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Creates a color that can be accessed in this object. When a
-     * color is set, the integer resource of it is returned.
+     * Creates a color that can be accessed in this object.
      *
-     * @param string $name  The name of the color.
-     * @param int $alpha    Alpha transparency (0 - 127)
+     * When a color is set, the integer resource of it is returned.
+     *
+     * @param string $name    The name of the color.
+     * @param integer $alpha  Alpha transparency (0 - 127).
      *
      * @return integer  The resource of the color that can be passed to GD.
      */
@@ -147,11 +162,11 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Get numeric font size from textual description
+     * Returns the numeric font size a from textual description.
      *
-     * @param string $font  The textual size description
+     * @param string $font  A textual size description.
      *
-     * @return integer
+     * @return integer  The font size supported by GD.
      */
     private function _getFont($font)
     {
@@ -175,11 +190,9 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Load the image data from a string.
+     * Loads the image data from a string.
      *
      * @param string $image_data  The data to use for the image.
-     *
-     * @return void
      */
     public function loadString($image_data)
     {
@@ -187,14 +200,10 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Load the image data from a file.
+     * Loads the image data from a file.
      *
      * @param string $filename  The full path and filename to the file to load
-     *                          the image data from. The filename will also be
-     *                          used for the image id.
-     *
-     * @return boolean
-     * @throws Horde_Image_Exception
+     *                          the image data from.
      */
     public function loadFile($filename)
     {
@@ -233,19 +242,17 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Resize the current image.
+     * Resizes the current image.
      *
-     * @param integer $width      The new width.
-     * @param integer $height     The new height.
-     * @param boolean $ratio      Maintain original aspect ratio.
-     *
-     * @return boolean
+     * @param integer $width        The new width.
+     * @param integer $height       The new height.
+     * @param boolean $ratio        Maintain original aspect ratio.
+     * @param boolean $keepProfile  Keep the image meta data (unused).
      */
     public function resize($width, $height, $ratio = true)
     {
         /* Abort if we're asked to divide by zero, truncate the image
-         * completely in either direction, or there is no image data.
-         */
+         * completely in either direction, or there is no image data. */
         if (!$width || !$height || !is_resource($this->_im)) {
             throw new Horde_Image_Exception('Unable to resize image.');
         }
@@ -261,7 +268,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $im = $this->_im;
         $this->_im = $this->create($width, $height);
 
-        /* Reset geometry since it will change */
+        /* Reset geometry since it will change. */
         $this->_width = 0;
         $this->_height = 0;
 
@@ -274,12 +281,12 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Crop the current image.
+     * Crops the current image.
      *
-     * @param integer $x1  The top left corner of the cropped image.
-     * @param integer $y1  The top right corner of the cropped image.
-     * @param integer $x2  The bottom left corner of the cropped image.
-     * @param integer $y2  The bottom right corner of the cropped image.
+     * @param integer $x1  x for the top left corner.
+     * @param integer $y1  y for the top left corner.
+     * @param integer $x2  x for the bottom right corner.
+     * @param integer $y2  y for the bottom right corner.
      */
     public function crop($x1, $y1, $x2, $y2)
     {
@@ -291,11 +298,11 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Rotate the current image.
+     * Rotates the current image.
      *
-     * @param integer $angle       The angle to rotate the image by,
-     *                             in the clockwise direction
-     * @param integer $background  The background color to fill any triangles
+     * @param integer $angle      The angle to rotate the image by, in the
+     *                            clockwise direction.
+     * @param string $background  The background color to fill any triangles.
      */
     public function rotate($angle, $background = 'white')
     {
@@ -328,7 +335,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Flip the current image.
+     * Flips the current image.
      */
     public function flip()
     {
@@ -344,7 +351,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Mirror the current image.
+     * Mirrors the current image.
      */
     public function mirror()
     {
@@ -360,7 +367,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Convert the current image to grayscale.
+     * Converts the current image to grayscale.
      */
     public function grayscale()
     {
@@ -380,13 +387,9 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Sepia filter.
+     * Applies a sepia filter.
      *
-     * Basically turns the image to grayscale and then adds some
-     * defined tint on it (R += 30, G += 43, B += -23) so it will
-     * appear to be a very old picture.
-     *
-     * @param integer $threshold  (Ignored in GD driver for now)
+     * @param integer $threshold  Extent of sepia effect.
      */
     public function sepia($threshold = 85)
     {
@@ -414,13 +417,15 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Yellowize filter.
+     * Applies a yellow filter.
      *
-     * Adds a layer of yellow that can be transparent or solid. If
-     * $intensityA is 255 the image will be 0% transparent (solid).
+     * Adds a layer of yellow that can be transparent or solid. If $intensityY
+     * is 255 the image will be 0% transparent (solid).
      *
-     * @param integer $intensityY  How strong should the yellow (red and green) be? (0-255)
-     * @param integer $intensityB  How weak should the blue be? (>= 2, in the positive limit it will be make BLUE 0)
+     * @param integer $intensityY  How strong should the yellow (red and green)
+     *                             be? (0-255)
+     * @param integer $intensityB  How weak should the blue be? (>= 2, in the
+     *                             positive limit it will be make BLUE 0)
      */
     public function yellowize($intensityY = 50, $intensityB = 3)
     {
@@ -439,23 +444,20 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draws a text string on the image in a specified location, with
-     * the specified style information.
+     * Draws a text string on the image in a specified location, with the
+     * specified style information.
      *
-     * @param string  $string     The text to draw.
+     * @param string $text        The text to draw.
      * @param integer $x          The left x coordinate of the start of the
      *                            text string.
      * @param integer $y          The top y coordinate of the start of the text
      *                            string.
-     * @param string  $font       The font identifier you want to use for the
-     *                            text (ignored for GD - font determined by
-     *                            $fontsize).
-     * @param string  $color      The color that you want the text displayed in.
+     * @param string $font        The font identifier you want to use for the
+     *                            text.
+     * @param string $color       The color that you want the text displayed in.
      * @param integer $direction  An integer that specifies the orientation of
      *                            the text.
-     * @param string  $fontsize   The font (size) to use.
-     *
-     * @return boolean
+     * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0, $fontsize = 'small')
     {
@@ -476,10 +478,10 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a circle.
+     * Draws a circle.
      *
-     * @param integer $x     The x co-ordinate of the centre.
-     * @param integer $y     The y co-ordinate of the centre.
+     * @param integer $x     The x coordinate of the centre.
+     * @param integer $y     The y coordinate of the centre.
      * @param integer $r     The radius of the circle.
      * @param string $color  The line color of the circle.
      * @param string $fill   The color to fill the circle.
@@ -501,7 +503,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a polygon based on a set of vertices.
+     * Draws a polygon based on a set of vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -528,14 +530,14 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
      * @param integer $width   The width of the rectangle.
      * @param integer $height  The height of the rectangle.
      * @param string $color    The line color of the rectangle.
-     * @param string $fill     The color to fill the rectangle with.
+     * @param string $fill     The color to fill the rectangle.
      */
     public function rectangle($x, $y, $width, $height, $color = 'black', $fill = 'none')
     {
@@ -551,15 +553,15 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a rounded rectangle.
+     * Draws a rounded rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
      * @param integer $width   The width of the rectangle.
      * @param integer $height  The height of the rectangle.
      * @param integer $round   The width of the corner rounding.
-     * @param string $color    The line color of the rectangle.
-     * @param string $fill     The color to fill the rounded rectangle with.
+     * @param string  $color   The line color of the rectangle.
+     * @param string  $fill    The color to fill the rounded rectangle with.
      */
     public function roundedRectangle($x, $y, $width, $height, $round, $color = 'black', $fill = 'none')
     {
@@ -622,12 +624,12 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a line.
+     * Draws a line.
      *
-     * @param integer $x0    The x co-ordinate of the start.
-     * @param integer $y0    The y co-ordinate of the start.
-     * @param integer $x1    The x co-ordinate of the end.
-     * @param integer $y1    The y co-ordinate of the end.
+     * @param integer $x0    The x coordinate of the start.
+     * @param integer $y0    The y coordinate of the start.
+     * @param integer $x1    The x coordinate of the end.
+     * @param integer $y1    The y coordinate of the end.
      * @param string $color  The line color.
      * @param string $width  The width of the line.
      */
@@ -639,22 +641,21 @@ class Horde_Image_Gd extends Horde_Image_Base
         if ($width == 1) {
             $this->call('imageLine', array($this->_im, $x1, $y1, $x2, $y2, $c));
         } elseif ($x1 == $x2) {
-            // For vertical lines, we can just draw a vertical
-            // rectangle.
+            // For vertical lines, we can just draw a vertical rectangle.
             $left = $x1 - floor(($width - 1) / 2);
             $right = $x1 + floor($width / 2);
             $this->call('imageFilledRectangle', array($this->_im, $left, $y1, $right, $y2, $c));
         } elseif ($y1 == $y2) {
-            // For horizontal lines, we can just draw a horizontal
-            // filled rectangle.
+            // For horizontal lines, we can just draw a horizontal filled
+            // rectangle.
             $top = $y1 - floor($width / 2);
             $bottom = $y1 + floor(($width - 1) / 2);
             $this->call('imageFilledRectangle', array($this->_im, $x1, $top, $x2, $bottom, $c));
         } else {
             // Angled lines.
 
-            // Make sure that the end points of the line are
-            // perpendicular to the line itself.
+            // Make sure that the end points of the line are perpendicular to
+            // the line itself.
             $a = atan2($y1 - $y2, $x2 - $x1);
             $dx = (sin($a) * $width / 2);
             $dy = (cos($a) * $width / 2);
@@ -665,7 +666,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a dashed line.
+     * Draws a dashed line.
      *
      * @param integer $x0           The x co-ordinate of the start.
      * @param integer $y0           The y co-ordinate of the start.
@@ -673,8 +674,8 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param integer $y1           The y co-ordinate of the end.
      * @param string $color         The line color.
      * @param string $width         The width of the line.
-     * @param integer $dash_length  The length of a dash on the dashed line
-     * @param integer $dash_space   The length of a space in the dashed line
+     * @param integer $dash_length  The length of a dash on the dashed line.
+     * @param integer $dash_space   The length of a space in the dashed line.
      */
     public function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
     {
@@ -696,8 +697,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw a polyline (a non-closed, non-filled polygon) based on a
-     * set of vertices.
+     * Draws a polyline (a non-closed, non-filled polygon) based on a set of
+     * vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -719,10 +720,12 @@ class Horde_Image_Gd extends Horde_Image_Base
     }
 
     /**
-     * Draw an arc.
+     * Draws an arc.
      *
-     * @param integer $x      The x co-ordinate of the centre.
-     * @param integer $y      The y co-ordinate of the centre.
+     * @todo
+     *
+     * @param integer $x      The x coordinate of the centre.
+     * @param integer $y      The y coordinate of the centre.
      * @param integer $r      The radius of the arc.
      * @param integer $start  The start angle of the arc.
      * @param integer $end    The end angle of the arc.
@@ -747,6 +750,7 @@ class Horde_Image_Gd extends Horde_Image_Base
 
     /**
      * Creates an image of the given size.
+     *
      * If possible the function returns a true color image.
      *
      * @param integer $width   The image width.
@@ -771,7 +775,7 @@ class Horde_Image_Gd extends Horde_Image_Base
      * @param string $function  The name of the function to wrap.
      * @param array $params     An array with all parameters for that function.
      *
-     * @return mixed  The result of the function call
+     * @return mixed  The result of the function call.
      * @throws Horde_Image_Exception
      */
     public function call($function, $params = null)
@@ -792,9 +796,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Applies the specified mask to the image.
      *
-     * @param resource $gdimg_mask  The gd image resource representing the mask
-     *
-     * @return boolean
+     * @param resource $mask  The gd image resource representing the mask
      */
     public function applyMask($gdimg_mask)
     {

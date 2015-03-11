@@ -1,18 +1,30 @@
 <?php
 /**
- * Image effect for rounding image corners.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Image effect for round image corners.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
 {
     /**
      * Valid parameters:
-     *
-     *  radius - Radius of rounded corners.
+     *   - radius: (integer) Radius of rounded corners.
      *
      * @var array
      */
@@ -49,10 +61,10 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
             $new->destroy();
         }
 
-        // If we have a background other than 'none' we need to
-        // compose two images together to make sure we *have* a background. We
-        // can't use border because we don't want to extend the image area, just
-        // fill in the parts removed by the rounding.
+        // If we have a background other than 'none' we need to compose two
+        // images together to make sure we *have* a background. We can't use
+        // border because we don't want to extend the image area, just fill in
+        // the parts removed by the rounding.
         if ($this->_params['background'] != 'none') {
             $size = $this->_image->getDimensions();
             $new = new Imagick();

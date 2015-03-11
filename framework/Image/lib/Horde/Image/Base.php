@@ -1,16 +1,29 @@
 <?php
 /**
- * This class defines the Horde_Image:: API, and also provides some
- * utility functions, such as generating highlights of a color.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * This class defines the Horde_Image API, and also provides some utility
+ * functions, such as generating highlights of a color.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 abstract class Horde_Image_Base extends EmptyIterator
 {
@@ -29,13 +42,6 @@ abstract class Horde_Image_Base extends EmptyIterator
     protected $_capabilities = array();
 
     /**
-     * Observers.
-     *
-     * @var array
-     */
-    protected $_observers = array();
-
-    /**
      * The current image data.
      *
      * @var string
@@ -43,7 +49,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     protected $_data = '';
 
     /**
-     * Logger
+     * Logger.
      */
     protected $_logger;
 
@@ -93,19 +99,18 @@ abstract class Horde_Image_Base extends EmptyIterator
      * Constructor.
      *
      * @param array $params   The image object parameters. Values include:
-     *<pre>
-     *   (optional)width  - The desired image width
-     *   (optional)height - The desired image height
-     *   (optional)type   - The image type (png, jpeg etc...) If not provided,
-     *                      or set by the setType method, any image output will
-     *                      be converted to the default image type of png.
-     *   (optional)data   - The image binary data.
-     *</pre>
-     * @param array $context  The object context - configuration, injected objects
-     *<pre>
-     *   (required)tmpdir - Temporary directory
-     *   (optional)logger - The logger
-     *</pre>
+     *                        - background: (string) The background color.
+     *                                      DEFAULT: white.
+     *                        - data: (string) The image binary data.
+     *                        - height: (integer) The desired image height.
+     *                        - type: (string) The output image type (png, jpeg
+     *                                etc.). DEFAULT: png.
+     *                        - width: (integer) The desired image width.
+     * @param array $context  The object context - configuration, injected
+     *                        objects:
+     *                        - logger: (Horde_Log_Logger) A logger.
+     *                        - tmpdir: [REQUIRED] (string) Temporary directory.
+     *
      * @throws InvalidArgumentException
      */
     protected function __construct($params, $context = array())
@@ -140,9 +145,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Getter for the capabilities array
+     * Returns the capabilities.
      *
-     * @return array
+     * @return array  A list of backend capabilities.
      */
     public function getCapabilities()
     {
@@ -150,11 +155,11 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Check the existence of a particular capability.
+     * Checks the existence of a particular capability.
      *
      * @param string $capability  The capability to check for.
      *
-     * @return boolean
+     * @return boolean  True if the backend has this capability.
      */
     public function hasCapability($capability)
     {
@@ -162,7 +167,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Generate image headers.
+     * Sends HTTP headers for the image.
      */
     public function headers()
     {
@@ -170,9 +175,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Return the content type for this image.
+     * Returns the MIME type for this image.
      *
-     * @return string  The content type for this image.
+     * @return string  The MIME type for this image.
      */
     public function getContentType()
     {
@@ -180,9 +185,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Getter for the simplified image type.
+     * Returns the image type.
      *
-     * @return string  The type of image (png, jpg, etc...)
+     * @return string  The type of this image (png, jpg, etc.).
      */
     public function getType()
     {
@@ -190,11 +195,11 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Setter for the image type.
+     * Sets the output image type.
      *
-     * @param string $type  The simple type for the imag (png, jpg, etc...)
+     * @param string $type  An image type (png, jpg, etc.)
      *
-     * @return void
+     * @return string  The previous image type.
      */
     public function setType($type)
     {
@@ -209,8 +214,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Draw a shaped point at the specified (x,y) point. Useful for
-     * scatter diagrams, debug points, etc. Draws squares, circles,
+     * Draws a shaped point at the specified (x,y) point.
+     *
+     * Useful for scatter diagrams, debug points, etc. Draws squares, circles,
      * diamonds, and triangles.
      *
      * @param integer $x     The x coordinate of the point to brush.
@@ -248,7 +254,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Reset the image data to defaults.
+     * Resets the image data to defaults.
      */
     public function reset()
     {
@@ -259,7 +265,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Get the height and width of the current image data.
+     * Returns the height and width of the current image data.
      *
      * @return array  An hash with 'width' containing the width,
      *                'height' containing the height of the image.
@@ -279,9 +285,8 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Load the image data from a string.
+     * Loads the image data from a string.
      *
-     * @param string $id          An arbitrary id for the image.
      * @param string $image_data  The data to use for the image.
      */
     public function loadString($image_data)
@@ -291,14 +296,11 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Load the image data from a file.
+     * Loads the image data from a file.
      *
      * @param string $filename  The full path and filename to the file to load
-     *                          the image data from. The filename will also be
-     *                          used for the image id.
+     *                          the image data from.
      *
-     * @return mixed  True if successful or already loaded, PEAR Error if file
-     *                does not exist or could not be loaded.
      * @throws Horde_Image_Exception
      */
     public function loadFile($filename)
@@ -315,12 +317,13 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Ouputs image data to file.  If $data is false, outputs current
-     * image data after performing any pending operations on the data.
-     * If $data contains raw image data, outputs that data to file without
-     * regard for $this->_data
+     * Saves image data to file.
      *
-     * @param mixed  String of binary image data | false
+     * If $data is false, saves current image data after performing any pending
+     * operations on the data.  If $data contains raw image data, saves that
+     * data to file without regard for the current image data.
+     *
+     * @param string  String of binary image data.
      *
      * @return string  Path to temporary file.
      */
@@ -334,7 +337,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Display the current image.
+     * Displays the current image.
      */
     public function display()
     {
@@ -359,10 +362,8 @@ abstract class Horde_Image_Base extends EmptyIterator
     /**
      * Attempts to apply requested effect to this image.
      *
-     * @param string $type    The type of effect to apply.
-     * @param array $params   Any parameters for the effect.
-     *
-     * @return boolean
+     * @param string $type   The type of effect to apply.
+     * @param array $params  Any parameters for the effect.
      */
     public function addEffect($type, $params)
     {
@@ -374,7 +375,7 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Load a list of available effects for this driver.
+     * Returns a list of available effects for this driver.
      */
     public function getLoadedEffects()
     {
@@ -410,23 +411,28 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Apply any effects in the effect queue.
+     * Applies any effects in the effect queue.
      */
     public function applyEffects()
     {
         $this->raw();
     }
 
+    /**
+     * Returns the current temporary directory.
+     *
+     * @return string  The current temporary directory.
+     */
     public function getTmpDir()
     {
         return $this->_tmpdir;
     }
 
     /**
-     * Utility function to zero out cached geometry information. Shouldn't
-     * really be called from client code, but is needed since Effects may need
-     * to clear these.
+     * Utility function to zero out cached geometry information.
      *
+     * Shouldn't really be called from client code, but is needed since effects
+     * may need to clear these.
      */
     public function clearGeometry()
     {
@@ -434,6 +440,11 @@ abstract class Horde_Image_Base extends EmptyIterator
         $this->_width = 0;
     }
 
+    /**
+     * Logs a message at debug level.
+     *
+     * @param string $message  The log message.
+     */
     protected function _logDebug($message)
     {
         if (!empty($this->_logger)) {
@@ -441,6 +452,11 @@ abstract class Horde_Image_Base extends EmptyIterator
         }
     }
 
+    /**
+     * Logs a message at error level.
+     *
+     * @param string $message  The log message.
+     */
     protected function _logErr($message)
     {
         if (!empty($this->_logger)) {
@@ -449,11 +465,11 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Request a specific image from the collection of images.
+     * Returns a specific image from the pages of images.
      *
-     * @param integer $index  The index to return
+     * @param integer $index  The index to return.
      *
-     * @return Horde_Image_Base
+     * @return Horde_Image_Base  The requested image
      */
     public function getImageAtIndex($index)
     {
@@ -463,9 +479,9 @@ abstract class Horde_Image_Base extends EmptyIterator
     }
 
     /**
-     * Return the number of image pages available in the image object.
+     * Returns the number of image pages available in the image object.
      *
-     * @return integer
+     * @return integer  The number of images.
      */
     public function getImagePageCount()
     {

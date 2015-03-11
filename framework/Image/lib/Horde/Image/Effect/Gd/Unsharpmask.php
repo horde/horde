@@ -1,18 +1,49 @@
 <?php
 /**
+ * Copyright 2003 Torstein Hønsi <thoensi@netcom.no>
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Torstein Hønsi <thoensi@netcom.no>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
  * Unsharp mask Image effect.
  *
- * Unsharp mask algorithm by Torstein H�nsi 2003 <thoensi_at_netcom_dot_no>
+ * Unsharp mask algorithm by Torstein Hønsi 2003 <thoensi_at_netcom_dot_no>
  * From: http://www.vikjavev.com/hovudsida/umtestside.php
  *
- * @package Image
+ * @author    Torstein Hønsi <thoensi@netcom.no>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2003 Torstein Hønsi <thoensi@netcom.no>
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
 {
     /**
      * Valid parameters:
-     *
-     * @TODO
+     *   - radius: (float) Thickness of the sharpened edge. Should be greater
+     *             than sigma (or 0, and imagick will attempt to auto choose).
+     *             In general, radius should be roughly output dpi / 150.  So
+     *             for display purposes a radius of 0.5 is suggested.
+     *   - amount: (float) Amount of the difference between original and the
+     *             blur image that gets added back to the original. Can be
+     *             thought of as the "strength" of the effect. Too high may
+     *             cause blocking of shadows and highlights. Given a decimal
+     *             value indicating percentage, e.g. 1.2 = 120%
+     *   - threshold: (float) Determines how large the brightness delta between
+     *                adjacent pixels needs to be to sharpen the edge.  Larger
+     *                values == less sharpening. Useful for preventing noisy
+     *                images from being oversharpened.
      *
      * @var array
      */
@@ -21,9 +52,7 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
                                'threshold' => 0);
 
     /**
-     * Apply the unsharp_mask effect.
-     *
-     * @return mixed true
+     * Applies the effect.
      */
     public function apply()
     {
@@ -66,24 +95,34 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
         //
         //////////////////////////////////////////////////
 
-        // Move copies of the image around one pixel at the time and merge them with weight
-        // according to the matrix. The same matrix is simply repeated for higher radii.
+        // Move copies of the image around one pixel at the time and merge them
+        // with weight according to the matrix. The same matrix is simply
+        // repeated for higher radii.
         for ($i = 0; $i < $radius; $i++)    {
-            ImageCopy     ($imgBlur, $imgCanvas, 0, 0, 1, 1, $w - 1, $h - 1);            // up left
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 1, 0, 0, $w,     $h,     50);        // down right
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 1, 0, $w - 1, $h,     33.33333);  // down left
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 1, $w,     $h - 1, 25);        // up right
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 1, 0, $w - 1, $h,     33.33333);  // left
-            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 0, $w,     $h,     25);        // right
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 1, $w,     $h - 1, 20 );       // up
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 0, 0, $w,     $h,     16.666667); // down
-            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 0, $w,     $h,     50);        // center
+            // up left
+            ImageCopy     ($imgBlur, $imgCanvas, 0, 0, 1, 1, $w - 1, $h - 1);
+            // down right
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 1, 0, 0, $w,     $h,     50);
+            // down left
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 1, 0, $w - 1, $h,     33.33333);
+            // up right
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 1, $w,     $h - 1, 25);
+            // left
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 1, 0, $w - 1, $h,     33.33333);
+            // right
+            ImageCopyMerge($imgBlur, $imgCanvas, 1, 0, 0, 0, $w,     $h,     25);
+            // up
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 1, $w,     $h - 1, 20 );
+            // down
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 1, 0, 0, $w,     $h,     16.666667);
+            // center
+            ImageCopyMerge($imgBlur, $imgCanvas, 0, 0, 0, 0, $w,     $h,     50);
             ImageCopy     ($imgCanvas, $imgBlur, 0, 0, 0, 0, $w,     $h);
 
-            // During the loop above the blurred copy darkens, possibly due to a roundoff
-            // error. Therefore the sharp picture has to go through the same loop to
-            // produce a similar image for comparison. This is not a good thing, as processing
-            // time increases heavily.
+            // During the loop above the blurred copy darkens, possibly due to
+            // a roundoff error. Therefore the sharp picture has to go through
+            // the same loop to produce a similar image for comparison. This is
+            // not a good thing, as processing time increases heavily.
             ImageCopy     ($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 50);
             ImageCopyMerge($imgBlur2, $imgCanvas2, 0, 0, 0, 0, $w, $h, 33.33333);

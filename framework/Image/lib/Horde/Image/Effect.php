@@ -1,11 +1,29 @@
 <?php
 /**
- * The Horde_Image_Effect parent class defines a general API for
- * ways to apply effects to Horde_Image objects.
+ * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * The Horde_Image_Effect parent class defines a general API for ways to apply
+ * effects to Horde_Image objects.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect
 {
@@ -23,6 +41,9 @@ class Horde_Image_Effect
      */
     protected $_image = null;
 
+    /**
+     * Logger.
+     */
     protected $_logger;
 
     /**
@@ -53,11 +74,25 @@ class Horde_Image_Effect
         $this->_image = &$image;
     }
 
+    /**
+     * Attaches a logger.
+     *
+     * @param Horde_Log_Logger $logger  A logger.
+     */
     public function setLogger($logger)
     {
         $this->_logger = $logger;
     }
 
+    /**
+     * Effect factory.
+     *
+     * @param string $type    An effect name.
+     * @param string $driver  An image driver name.
+     * @param array $params   Any effect parameters.
+     *
+     * @return Horde_Image_Effect  An effect instance.
+     */
     public static function factory($type, $driver, $params)
     {
         if (is_array($type)) {

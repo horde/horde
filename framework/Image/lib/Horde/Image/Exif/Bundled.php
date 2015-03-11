@@ -1,10 +1,5 @@
 <?php
 /**
- * Class for dealing with Exif data using a bundled PHP library based on the
- * Exifer code written by and Copyright 2003 Jake Olefsky
- * See: http://www.offsky.com/software/exif/index.php
- *
- * ---
  * This file is licensed under the GPL as stated in Jake Olefsky's original
  * code. Jake has given Horde permission to incorporate Exifer into our
  * codebase.
@@ -18,14 +13,29 @@
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
  * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details. http://www.horde.org/licenses/gpl
- * ---
  *
  * The original Exifer library has been heavily modified and refactored. All
  * modifications are
+ *
+ * Copyright 2003 Jake Olefsky
  * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author   Jake Olefsky <jake@olefsky.com>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Image
+ */
+
+/**
+ * Class for dealing with Exif data using a bundled PHP library based on the
+ * Exifer code written by and Copyright 2003 Jake Olefsky
+ *
+ * @see       http://www.offsky.com/software/exif/index.php
+ * @author    Jake Olefsky <jake@olefsky.com>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2009-2015 Horde LLC
+ * @package   Image
  */
 class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
 {

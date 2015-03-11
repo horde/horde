@@ -1,23 +1,37 @@
 <?php
 /**
- * This class implements the Horde_Image:: API for ImageMagick.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * ImageMagick driver for the Horde_Image API.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ *
+ * @property-read  Imagick $imagick  The underlaying Imagick object.
  */
 class Horde_Image_Im extends Horde_Image_Base
 {
     /**
      * Capabilites of this driver.
      *
-     * @var array
+     * @var string[]
      */
     protected $_capabilities = array(
         'resize',
@@ -32,8 +46,8 @@ class Horde_Image_Im extends Horde_Image_Base
         'pdf');
 
     /**
-     * Operations to be performed before the source filename is specified on the
-     * command line.
+     * Operations to be performed before the source filename is specified on
+     * the command line.
      *
      * @var array
      */
@@ -49,36 +63,38 @@ class Horde_Image_Im extends Horde_Image_Base
 
     /**
      * An array of temporary filenames that need to be unlinked at the end of
-     * processing. Use addFileToClean() from client code (Effects) to add files
-     * to this array.
+     * processing.
+     *
+     * Use addFileToClean() from client code (effects) to add files to this
+     * array.
      *
      * @var array
      */
     protected $_toClean = array();
 
     /**
-     * Path to the convert binary
+     * Path to the convert binary.
      *
-     * @string
+     * @var string
      */
     protected $_convert = '';
 
     /**
-     * Path to the identify binary
+     * Path to the identify binary.
      *
-     * @string
+     * @var string
      */
     protected $_identify;
 
     /**
-     * Cache the number of image pages
+     * Cache for the number of image pages.
      *
      * @var integer
      */
     private $_pages;
 
     /**
-     * Track current page for the iterator
+     * The current page for the iterator.
      *
      * @var integer
      */
@@ -112,9 +128,13 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Publically visible raw method.
+     * Returns the raw data for this image.
      *
-     * @see self::_raw
+     * @param boolean $convert  If true, the image data will be returned in the
+     *                          target format, independently from any image
+     *                          operations.
+     *
+     * @return string  The raw image data.
      */
     public function raw($convert = false)
     {
@@ -124,11 +144,12 @@ class Horde_Image_Im extends Horde_Image_Base
     /**
      * Returns the raw data for this image.
      *
-     * @param boolean $convert  If true, the image data will be returned in the
-     *                          target format, even if no other image operations
-     *                          are present, otherwise, if no operations are
-     *                          present, the current raw data is returned
-     *                          unmodified.
+     * @param boolean $convert         If true, the image data will be returned
+     *                                 in the target format, independently from
+     *                                 any image operations.
+     * @param integer $index           An image index.
+     * @param boolean $preserver_data  Return the converted image but preserve
+     *                                 the current internal image data.
      *
      * @return string  The raw image data.
      */
@@ -177,7 +198,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Reset the image data.
+     * Resets the image data.
      */
     public function reset()
     {
@@ -188,7 +209,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Resize the current image. This operation takes place immediately.
+     * Resizes the current image.
      *
      * @param integer $width        The new width.
      * @param integer $height       The new height.
@@ -205,21 +226,23 @@ class Horde_Image_Im extends Horde_Image_Base
         } else {
             $this->_postSrcOperations[] = (($keepProfile) ? "-resize" : "-thumbnail") . " {$width}x{$height}!";
         }
-        // Reset the width and height instance variables since after resize
-        // we don't know the *exact* dimensions yet (especially if we maintained
-        // aspect ratio.
+
         // Refresh the data
         $this->raw();
+
+        // Reset the width and height instance variables since after resize we
+        // don't know the *exact* dimensions yet (especially if we maintained
+        // aspect ratio.
         $this->clearGeometry();
     }
 
     /**
-     * Crop the current image.
+     * Crops the current image.
      *
-     * @param integer $x1  x for the top left corner
-     * @param integer $y1  y for the top left corner
-     * @param integer $x2  x for the bottom right corner of the cropped image.
-     * @param integer $y2  y for the bottom right corner of the cropped image.
+     * @param integer $x1  x for the top left corner.
+     * @param integer $y1  y for the top left corner.
+     * @param integer $x2  x for the bottom right corner.
+     * @param integer $y2  y for the bottom right corner.
      */
     public function crop($x1, $y1, $x2, $y2)
     {
@@ -232,7 +255,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Rotate the current image. This is an atomic operation.
+     * Rotates the current image.
      *
      * @param integer $angle       The angle to rotate the image by,
      *                             in the clockwise direction.
@@ -249,7 +272,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Flip the current image.
+     * Flips the current image.
      */
     public function flip()
     {
@@ -257,7 +280,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Mirror the current image.
+     * Mirrors the current image.
      */
     public function mirror()
     {
@@ -265,7 +288,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Convert the current image to grayscale.
+     * Converts the current image to grayscale.
      */
     public function grayscale()
     {
@@ -273,7 +296,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Sepia filter.
+     * Applies a sepia filter.
      *
      * @param integer $threshold  Extent of sepia effect.
      */
@@ -283,19 +306,24 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draws a text string on the image in a specified location, with
-     * the specified style information.
+     * Draws a text string on the image in a specified location, with the
+     * specified style information.
      *
-     * @TODO: Need to differentiate between the stroke (border) and the fill color,
-     *        but this is a BC break, since we were just not providing a border.
+     * @TODO: Need to differentiate between the stroke (border) and the fill
+     *        color, but this is a BC break, since we were just not providing a
+     *        border.
      *
-     * @param string  $text       The text to draw.
-     * @param integer $x          The left x coordinate of the start of the text string.
-     * @param integer $y          The top y coordinate of the start of the text string.
-     * @param string  $font       The font identifier you want to use for the text.
-     * @param string  $color      The color that you want the text displayed in.
-     * @param integer $direction  An integer that specifies the orientation of the text.
-     * @param string  $fontsize   Size of the font (small, medium, large, giant)
+     * @param string $text        The text to draw.
+     * @param integer $x          The left x coordinate of the start of the
+     *                            text string.
+     * @param integer $y          The top y coordinate of the start of the text
+     *                            string.
+     * @param string $font        The font identifier you want to use for the
+     *                            text.
+     * @param string $color       The color that you want the text displayed in.
+     * @param integer $direction  An integer that specifies the orientation of
+     *                            the text.
+     * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
@@ -305,7 +333,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a circle.
+     * Draws a circle.
      *
      * @param integer $x     The x coordinate of the centre.
      * @param integer $y     The y coordinate of the centre.
@@ -320,7 +348,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a polygon based on a set of vertices.
+     * Draws a polygon based on a set of vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -337,7 +365,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -354,7 +382,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a rounded rectangle.
+     * Draws a rounded rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -372,7 +400,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a line.
+     * Draws a line.
      *
      * @param integer $x0     The x coordinate of the start.
      * @param integer $y0     The y coordinate of the start.
@@ -387,7 +415,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw a dashed line.
+     * Draws a dashed line.
      *
      * @param integer $x0           The x co-ordinate of the start.
      * @param integer $y0           The y co-ordinate of the start.
@@ -398,14 +426,17 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param integer $dash_length  The length of a dash on the dashed line
      * @param integer $dash_space   The length of a space in the dashed line
      */
-    public function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
+    public function dashedLine(
+        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $dash_space = 2
+    )
     {
        $this->_operations[] = "-stroke $color -strokewidth $width -draw \"line $x0,$y0 $x1,$y1\"";
     }
 
     /**
-     * Draw a polyline (a non-closed, non-filled polygon) based on a
-     * set of vertices.
+     * Draws a polyline (a non-closed, non-filled polygon) based on a set of
+     * vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -422,7 +453,7 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Draw an arc.
+     * Draws an arc.
      *
      * @param integer $x      The x coordinate of the centre.
      * @param integer $y      The y coordinate of the centre.
@@ -482,6 +513,9 @@ class Horde_Image_Im extends Horde_Image_Base
         }
     }
 
+    /**
+     * Applies any effects in the effect queue.
+     */
     public function applyEffects()
     {
         $this->raw();
@@ -491,20 +525,19 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Method to execute a raw command directly in convert. Useful for executing
-     * more involved operations that may require multiple convert commands
-     * piped into each other for example. Really designed for use by im based
-     * Horde_Image_Effect objects..
+     * Method to execute a raw command directly in convert.
+     *
+     * Useful for executing more involved operations that may require multiple
+     * convert commands piped into each other for example. Really designed for
+     * use by Im based Horde_Image_Effect objects.
      *
      * The input and output files are quoted and substituted for __FILEIN__ and
-     * __FILEOUT__ respectfully. In order to support piped convert commands, the
-     * path to the convert command is substitued for __CONVERT__ (but the
+     * __FILEOUT__ respectfully. In order to support piped convert commands,
+     * the path to the convert command is substitued for __CONVERT__ (but the
      * initial convert command is added automatically).
      *
      * @param string $cmd    The command string, with substitutable tokens
      * @param array $values  Any values that should be substituted for tokens.
-     *
-     * @return
      */
     public function executeConvertCmd($cmd, $values = array())
     {
@@ -539,10 +572,11 @@ class Horde_Image_Im extends Horde_Image_Base
     }
 
     /**
-     * Get the version of the convert command available. This needs to be
-     * publicly visable since it's used by various Effects.
+     * Returns the version of the convert command available.
      *
-     * @return A version string suitable for using in version_compare()
+     * This needs to be publicly visable since it's used by various effects.
+     *
+     * @return string  A version string suitable for using in version_compare().
      */
     public function getIMVersion()
     {

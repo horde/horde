@@ -1,17 +1,30 @@
 <?php
 /**
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
  * General class for fetching and parsing EXIF information from images.
  *
  * Works equally well with either the built in php exif functions (if PHP
- * compiled with exif support), the Exiftool package (more complete but slower),
- * or the bundled exif library.
+ * compiled with exif support), the Exiftool package (more complete but
+ * slower), or the bundled exif library.
  *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
- * @author Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2003-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Exif
 {
@@ -53,12 +66,13 @@ class Horde_Image_Exif
     }
 
     /**
-     * Converts from Intel to Motorola endien.  Just reverses the bytes
-     * (assumes hex is passed in)
+     * Converts from Intel to Motorola endien.
      *
-     * @param $intel
+     * Just reverses the bytes (assumes hex is passed in)
      *
-     * @return
+     * @param string $intel
+     *
+     * @return string
      */
     public static function intel2Moto($intel)
     {
@@ -72,7 +86,7 @@ class Horde_Image_Exif
     }
 
     /**
-     * Obtain an array of supported meta data fields.
+     * Obtains an array of supported meta data fields.
      *
      * @TODO: This should probably be extended by the subclass?
      *
@@ -149,7 +163,7 @@ class Horde_Image_Exif
     }
 
     /**
-     * Return a list of metadata fields that can by used for image titles.
+     * Returns a list of metadata fields that can by used for image titles.
      *
      * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
      *                       specifying the driver in use.
@@ -182,7 +196,8 @@ class Horde_Image_Exif
     }
 
     /**
-     * Return a list of metadata fields that can by used for image descriptions.
+     * Returns a list of metadata fields that can by used for image
+     * descriptions.
      *
      * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
      *                       specifying the driver in use.
@@ -216,10 +231,10 @@ class Horde_Image_Exif
     }
 
     /**
-     * Return a flattened array of supported metadata fields.
+     * Returns a flattened array of supported metadata fields.
      *
-     * @param mixed $driver  A Horde_Image_Exif_Base instance or a string
-     *                       specifying the driver in use.
+     * @param mixed $driver              A Horde_Image_Exif_Base instance or a
+     *                                   string specifying the driver in use.
      * @param boolean $description_only  Only return the field descriptions.
      *
      * @return array
@@ -274,6 +289,7 @@ class Horde_Image_Exif
 
     /**
      * Converts a floating point number into a fraction.
+     *
      * Many thanks to Matthieu Froment for this code.
      *
      * (Ported from the Exifer library).
@@ -317,7 +333,8 @@ class Horde_Image_Exif
     }
 
     /**
-     * Convert an exif field into human-readable form.
+     * Converts an exif field into human-readable form.
+     *
      * Some of these cases are ported from the Exifer library, others were
      * changed from their implementation where the EXIF standard dictated
      * different behaviour.

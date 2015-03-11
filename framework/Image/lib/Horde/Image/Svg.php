@@ -1,17 +1,32 @@
 <?php
 /**
- * This class implements the Horde_Image:: API for SVG.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * This class implements the Horde_Image:: API for SVG.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Svg extends Horde_Image_Base
 {
+    /**
+     * SVG document handle.
+     *
+     * @var XML_SVG
+     */
     protected $_svg;
 
     /**
@@ -21,6 +36,11 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     protected $_capabilities = array('canvas');
 
+    /**
+     * Constructor.
+     *
+     * @see Horde_Image_Base::_construct
+     */
     public function __construct($params)
     {
         parent::__construct($params);
@@ -28,18 +48,26 @@ class Horde_Image_Svg extends Horde_Image_Base
                                                  'height' => $this->_height));
     }
 
+    /**
+     * Returns the MIME type for this image.
+     *
+     * @return string  The MIME type for this image.
+     */
     public function getContentType()
     {
         return 'image/svg+xml';
     }
 
+    /**
+     * Displays the current image.
+     */
     public function display()
     {
         $this->_svg->printElement();
     }
 
     /**
-     * Return the raw data for this image.
+     * Returns the raw data for this image.
      *
      * @return string  The raw image data.
      */
@@ -77,15 +105,20 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draws a text string on the image in a specified location, with
-     * the specified style information.
+     * Draws a text string on the image in a specified location, with the
+     * specified style information.
      *
-     * @param string  $text       The text to draw.
-     * @param integer $x          The left x coordinate of the start of the text string.
-     * @param integer $y          The top y coordinate of the start of the text string.
-     * @param string  $font       The font identifier you want to use for the text.
-     * @param string  $color      The color that you want the text displayed in.
-     * @param integer $direction  An integer that specifies the orientation of the text.
+     * @param string $text        The text to draw.
+     * @param integer $x          The left x coordinate of the start of the
+     *                            text string.
+     * @param integer $y          The top y coordinate of the start of the text
+     *                            string.
+     * @param string $font        The font identifier you want to use for the
+     *                            text.
+     * @param string $color       The color that you want the text displayed in.
+     * @param integer $direction  An integer that specifies the orientation of
+     *                            the text.
+     * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0)
     {
@@ -100,7 +133,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a circle.
+     * Draws a circle.
      *
      * @param integer $x      The x coordinate of the centre.
      * @param integer $y      The y coordinate of the centre.
@@ -124,7 +157,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a polygon based on a set of vertices.
+     * Draws a polygon based on a set of vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -151,7 +184,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -177,7 +210,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rounded rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -185,7 +218,7 @@ class Horde_Image_Svg extends Horde_Image_Base
      * @param integer $height  The height of the rectangle.
      * @param integer $round   The width of the corner rounding.
      * @param string  $color   The line color of the rectangle.
-     * @param string  $fill    The color to fill the rectangle.
+     * @param string  $fill    The color to fill the rounded rectangle with.
      */
     public function roundedRectangle($x, $y, $width, $height, $round, $color, $fill)
     {
@@ -206,7 +239,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a line.
+     * Draws a line.
      *
      * @param integer $x0     The x coordinate of the start.
      * @param integer $y0     The y coordinate of the start.
@@ -226,7 +259,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a dashed line.
+     * Draws a dashed line.
      *
      * @param integer $x0           The x coordinate of the start.
      * @param integer $y0           The y coordinate of the start.
@@ -248,8 +281,8 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw a polyline (a non-closed, non-filled polygon) based on a
-     * set of vertices.
+     * Draws a polyline (a non-closed, non-filled polygon) based on a set of
+     * vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -278,15 +311,15 @@ class Horde_Image_Svg extends Horde_Image_Base
     }
 
     /**
-     * Draw an arc.
+     * Draws an arc.
      *
      * @param integer $x      The x coordinate of the centre.
      * @param integer $y      The y coordinate of the centre.
      * @param integer $r      The radius of the arc.
      * @param integer $start  The start angle of the arc.
      * @param integer $end    The end angle of the arc.
-     * @param string  $color  The line color of the arc.
-     * @param string  $fill   The fill color of the arc (defaults to none).
+     * @param string $color   The line color of the arc.
+     * @param string $fill    The fill color of the arc (defaults to none).
      */
     public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = null)
     {

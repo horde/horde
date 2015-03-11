@@ -1,11 +1,24 @@
 <?php
 /**
- * Image effect for adding a drop shadow.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Image effect for adding a drop shadow.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
 {
@@ -26,9 +39,7 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
                                'background' => 'none');
 
     /**
-     * Apply the effect.
-     *
-     * @return boolean
+     * Applies the effect.
      */
     public function apply()
     {

@@ -1,22 +1,31 @@
 <?php
 /**
- * This class implements the Horde_Image:: API for SWF, using the PHP
- * Ming extension.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Swf extends Horde_Image_Base {
 
+/**
+ * This class implements the Horde_Image API for SWF, using the PHP Ming
+ * extension.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
     /**
      * Capabilites of this driver.
      *
-     * @var array
+     * @var string[]
      */
     var $_capabilities = array('canvas');
 
@@ -28,6 +37,11 @@ class Horde_Image_Swf extends Horde_Image_Base {
     var $_movie;
 
     function Horde_Image_swf($params)
+    /**
+     * Constructor.
+     *
+     * @see Horde_Image_Base::_construct
+     */
     {
         parent::Horde_Image($params);
 
@@ -40,12 +54,17 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     function getContentType()
+    /**
+     * Returns the MIME type for this image.
+     *
+     * @return string  The MIME type for this image.
+     */
     {
         return 'application/x-shockwave-flash';
     }
 
     /**
-     * Display the movie.
+     * Displays the current image.
      */
     function display()
     {
@@ -54,7 +73,7 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Return the raw data for this image.
+     * Returns the raw data for this image.
      *
      * @return string  The raw image data.
      */
@@ -69,8 +88,9 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Creates a color that can be accessed in this object. When a
-     * color is set, the rgba values are returned in an array.
+     * Creates a color that can be accessed in this object.
+     *
+     * When a color is set, the rgba values are returned in an array.
      *
      * @param string $name  The name of the color.
      *
@@ -86,6 +106,13 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     function getFont($font)
+    /**
+     * Translates font names.
+     *
+     * @param string $font  A font name.
+     *
+     * @return string  An SWF font name.
+     */
     {
         switch ($font) {
         case 'sans-serif':
@@ -103,15 +130,20 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draws a text string on the image in a specified location, with
-     * the specified style information.
+     * Draws a text string on the image in a specified location, with the
+     * specified style information.
      *
-     * @param string  $text       The text to draw.
-     * @param integer $x          The left x coordinate of the start of the text string.
-     * @param integer $y          The top y coordinate of the start of the text string.
-     * @param string  $font       The font identifier you want to use for the text.
-     * @param string  $color      The color that you want the text displayed in.
-     * @param integer $direction  An integer that specifies the orientation of the text.
+     * @param string $text        The text to draw.
+     * @param integer $x          The left x coordinate of the start of the
+     *                            text string.
+     * @param integer $y          The top y coordinate of the start of the text
+     *                            string.
+     * @param string $font        The font identifier you want to use for the
+     *                            text.
+     * @param string $color       The color that you want the text displayed in.
+     * @param integer $direction  An integer that specifies the orientation of
+     *                            the text.
+     * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0)
     {
@@ -134,7 +166,7 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a circle.
+     * Draws a circle.
      *
      * @param integer $x      The x co-ordinate of the centre.
      * @param integer $y      The y co-ordinate of the centre.
@@ -172,7 +204,7 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a polygon based on a set of vertices.
+     * Draws a polygon based on a set of vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -214,14 +246,14 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
      * @param integer $width   The width of the rectangle.
      * @param integer $height  The height of the rectangle.
-     * @param string  $color   The line color of the rectangle.
-     * @param string  $fill    The color to fill the rectangle.
+     * @param string $color    The line color of the rectangle.
+     * @param string $fill     The color to fill the rectangle.
      */
     function rectangle($x, $y, $width, $height, $color, $fill = 'none')
     {
@@ -234,7 +266,7 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rounded rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -325,14 +357,14 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a line.
+     * Draws a line.
      *
-     * @param integer $x0     The x co-ordinate of the start.
-     * @param integer $y0     The y co-ordinate of the start.
-     * @param integer $x1     The x co-ordinate of the end.
-     * @param integer $y1     The y co-ordinate of the end.
-     * @param string  $color  The line color.
-     * @param string  $width  The width of the line.
+     * @param integer $x0    The x coordinate of the start.
+     * @param integer $y0    The y coordinate of the start.
+     * @param integer $x1    The x coordinate of the end.
+     * @param integer $y1    The y coordinate of the end.
+     * @param string $color  The line color.
+     * @param string $width  The width of the line.
      */
     function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
     {
@@ -351,16 +383,16 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a dashed line.
+     * Draws a dashed line.
      *
      * @param integer $x0           The x co-ordinate of the start.
      * @param integer $y0           The y co-ordinate of the start.
      * @param integer $x1           The x co-ordinate of the end.
      * @param integer $y1           The y co-ordinate of the end.
-     * @param string  $color        The line color.
-     * @param string  $width        The width of the line.
-     * @param integer $dash_length  The length of a dash on the dashed line
-     * @param integer $dash_space   The length of a space in the dashed line
+     * @param string $color         The line color.
+     * @param string $width         The width of the line.
+     * @param integer $dash_length  The length of a dash on the dashed line.
+     * @param integer $dash_space   The length of a space in the dashed line.
      */
     function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
     {
@@ -385,13 +417,13 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a polyline (a non-closed, non-filled polygon) based on a
-     * set of vertices.
+     * Draws a polyline (a non-closed, non-filled polygon) based on a set of
+     * vertices.
      *
-     * @param array   $vertices  An array of x and y labeled arrays
-     *                           (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
-     * @param string  $color     The color you want to draw the line with.
-     * @param string  $width     The width of the line.
+     * @param array $vertices  An array of x and y labeled arrays
+     *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
+     * @param string $color    The color you want to draw the line with.
+     * @param string $width    The width of the line.
      */
     function polyline($verts, $color, $width = 1)
     {
@@ -413,7 +445,7 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw an arc.
+     * Draws an arc.
      *
      * @param integer $x      The x co-ordinate of the centre.
      * @param integer $y      The y co-ordinate of the centre.
@@ -472,16 +504,15 @@ class Horde_Image_Swf extends Horde_Image_Base {
     }
 
     /**
-     * Draw a rectangle filled with a gradient from $color1 to
-     * $color2.
+     * Draws a rectangle filled with a gradient.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
      * @param integer $width   The width of the rectangle.
      * @param integer $height  The height of the rectangle.
-     * @param string  $color   The outline color of the rectangle.
-     * @param string  $fill1   The name of the start color for the gradient.
-     * @param string  $fill2   The name of the end color for the gradient.
+     * @param string $color    The outline color of the rectangle.
+     * @param string $fill1    The name of the start color for the gradient.
+     * @param string $fill2    The name of the end color for the gradient.
      */
     function gradientRectangle($x, $y, $width, $height, $color = 'black', $fill1 = 'black', $fill2 = 'white')
     {

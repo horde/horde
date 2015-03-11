@@ -1,19 +1,29 @@
 <?php
 /**
- * This class implements the Horde_Image:: API for PNG images. It
- * mainly provides some utility functions, such as the ability to make
- * pixels or solid images for now.
- *
  * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Image
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Png extends Horde_Image_Base {
 
+/**
+ * This class implements the Horde_Image API for PNG images.
+ *
+ * It mainly provides some utility functions, such as the ability to make
+ * pixels or solid images for now.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @copyright 2003-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
     /**
      * The array of pixel data.
      *
@@ -69,12 +79,17 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     function getContentType()
+    /**
+     * Returns the MIME type for this image.
+     *
+     * @return string  The MIME type for this image.
+     */
     {
         return 'image/png';
     }
 
     /**
-     * Return the raw data for this image.
+     * Returns the raw data for this image.
      *
      * @return string  The raw image data.
      */
@@ -95,7 +110,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Reset the image data.
+     * Resets the image data to defaults.
      */
     function reset()
     {
@@ -104,14 +119,14 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
      * @param integer $width   The width of the rectangle.
      * @param integer $height  The height of the rectangle.
      * @param string $color    The line color of the rectangle.
-     * @param string $fill     The color to fill the rectangle with.
+     * @param string $fill     The color to fill the rectangle.
      */
     function rectangle($x, $y, $width, $height, $color = 'black', $fill = 'none')
     {
@@ -136,7 +151,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create the PNG file header.
+     * Creates the PNG file header.
      */
     function _header()
     {
@@ -144,7 +159,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create Image Header block.
+     * Creates the IHDR block.
      */
     function _IHDR()
     {
@@ -153,7 +168,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create IEND block.
+     * Creates the IEND block.
      */
     function _IEND()
     {
@@ -162,7 +177,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create Image Data block.
+     * Creates the IDAT block.
      */
     function _IDAT()
     {
@@ -201,7 +216,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create tEXt block.
+     * Creates the tEXt block.
      */
     function _tEXt($keyword, $text)
     {
@@ -210,7 +225,9 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Create last modified time block.
+     * Creates the tIME block.
+     *
+     * @param integer $date  A timestamp.
      */
     function _tIME($date = null)
     {
@@ -223,7 +240,7 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Calculate an Adler32 checksum for a string.
+     * Calculates an Adler32 checksum for a string.
      */
     function _Adler32($input)
     {
@@ -238,11 +255,11 @@ class Horde_Image_Png extends Horde_Image_Base {
     }
 
     /**
-     * Request a specific image from the collection of images.
+     * Requests a specific image from the collection of images.
      *
      * @param integer $index  The index to return
      *
-     * @return Horde_Image_Base
+     * @return Horde_Image_Png
      * @throws Horde_Image_Exception
      */
     public function getImageAtIndex($index)
@@ -250,14 +267,13 @@ class Horde_Image_Png extends Horde_Image_Base {
         if ($index > 0) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
-
         return clone($this);
     }
 
     /**
-     * Return the number of image pages available in the image object.
+     * Returns the number of image pages available in the image object.
      *
-     * @return integer
+     * @return integer  The number of images.
      */
     public function getImagePageCount()
     {

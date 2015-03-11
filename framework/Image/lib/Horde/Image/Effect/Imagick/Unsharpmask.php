@@ -1,38 +1,43 @@
 <?php
 /**
- * Image effect for applying an unsharpmask.
- *
  * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Unsharp mask Image effect.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2010-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Imagick_Unsharpmask extends Horde_Image_Effect
 {
     /**
-     *
      * Valid parameters:
-     *
-     *  (float)radius - Thickness of the sharpened edge. Should be greater then
-     *                  sigma (or 0, and imagick will attempt to auto choose).
-     *                  In general, radius should be roughly output dpi / 150.
-     *                  So for display purposes a radius of 0.5 is suggested.
-     *
-     *  (float)amount - Amount of the difference between original and the
-     *                  blur image that gets added back to the original. Can be
-     *                  thought of as the "strength" of the effect. Too high
-     *                  may cause blocking of shadows and highlights. Given
-     *                  a decimal value indicating percentage, e.g. 1.2 = 120%
-     *
-     *  (float)threshold - Determines how large the brightness delta between
-     *                     adjacent pixels needs to be to sharpen the edge.
-     *                     Larger values == less sharpening. Useful for
-     *                     preventing noisy images from being oversharpened.
-     *
-     *  (integer)channel - Which channel to apply the sharpening to.
+     *   - radius: (float) Thickness of the sharpened edge. Should be greater
+     *             than sigma (or 0, and imagick will attempt to auto choose).
+     *             In general, radius should be roughly output dpi / 150.  So
+     *             for display purposes a radius of 0.5 is suggested.
+     *   - amount: (float) Amount of the difference between original and the
+     *             blur image that gets added back to the original. Can be
+     *             thought of as the "strength" of the effect. Too high may
+     *             cause blocking of shadows and highlights. Given a decimal
+     *             value indicating percentage, e.g. 1.2 = 120%
+     *   - threshold: (float) Determines how large the brightness delta between
+     *                adjacent pixels needs to be to sharpen the edge.  Larger
+     *                values == less sharpening. Useful for preventing noisy
+     *                images from being oversharpened.
+     *   - channel: (integer) Which channel to apply the sharpening to.
      *
      * @var array
      */
@@ -41,6 +46,9 @@ class Horde_Image_Effect_Imagick_Unsharpmask extends Horde_Image_Effect
                                'threshold' => 0.05,
                                'channel' => Imagick::CHANNEL_ALL);
 
+    /**
+     * Applies the effect.
+     */
     public function apply()
     {
         /* Calculate appropriate sigma:

@@ -1,35 +1,48 @@
 <?php
 /**
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    James Heinrich <info@silisoftware.com>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
  * Image effect for round image corners.
  *
  * This algorithm is from the phpThumb project available at
- * http://phpthumb.sourceforge.net and all credit (and complaints ;) for this
- * script should go to James Heinrich <info@silisoftware.com>.  Modifications
- * made to the code to fit it within the Horde framework and to adjust for our
- * coding standards.
+ * http://phpthumb.sourceforge.net and all credit for this script should go to
+ * James Heinrich <info@silisoftware.com>.  Modifications made to the code to
+ * fit it within the Horde framework and to adjust for our coding standards.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    James Heinrich <info@silisoftware.com>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Gd_RoundCorners extends Horde_Image_Effect
 {
     /**
      * Valid parameters:
-     *
-     * radius - Radius of rounded corners.
+     *   - radius: (integer) Radius of rounded corners.
      *
      * @var array
      */
     protected $_params = array('radius' => 10);
 
     /**
-     * Apply the round_corners effect.
-     *
-     * @return boolean
+     * Applies the effect.
      */
     public function apply()
     {
-        // Original comments from phpThumb projet:
+        // Original comments from phpThumb project:
         // generate mask at twice desired resolution and downsample afterwards
         // for easy antialiasing mask is generated as a white double-size
         // elipse on a triple-size black background and copy-paste-resampled

@@ -1,21 +1,35 @@
 <?php
 /**
- * Image effect for watermarking images with text for the GD driver..
+ * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Image effect for watermarking images with text.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
 {
     /**
      * Valid parameters for watermark effects:
-     *
-     *   text (required)  - The text of the watermark.
-     *   halign           - The horizontal placement
-     *   valign           - The vertical placement
-     *   font             - The font name or family to use
-     *   fontsize         - The size of the font to use
-     *                      (small, medium, large, giant)
+     *   - text:     [REQUIRED] (string) The text of the watermark.
+     *   - halign:   (string) The horizontal placement
+     *   - valign:   (string) The vertical placement
+     *   - font:     (string) The font name or family to use
+     *   - fontsize: (string) The size of the font to use (small, medium,
+     *               large, giant)
      *
      * @var array
      */
@@ -24,7 +38,7 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
                                'font' => 'courier',
                                'fontsize' => 'small');
     /**
-     * Add the watermark
+     * Applies the effect.
      */
     public function apply()
     {
@@ -44,7 +58,8 @@ class Horde_Image_Effect_Gd_TextWatermark extends Horde_Image_Effect
         $fontwidth = $this->_image->call('imageFontWidth', array($f));
         $fontheight = $this->_image->call('imageFontHeight', array($f));
 
-        // So that shadow is not off the image with right align and bottom valign.
+        // So that shadow is not off the image with right align and bottom
+        // valign.
         $margin = floor($padding + $drop) / 2;
         if ($maxwidth) {
             $maxcharsperline = floor(($maxwidth - ($margin * 2)) / $fontwidth);

@@ -1,15 +1,22 @@
 <?php
 /**
- * Base class for Horde_Image_Exif drivers.
- *
  * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @package Image
+ * @package  Image
+ */
+
+/**
+ * Base class for Horde_Image_Exif drivers.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2009-2015 Horde LLC
+ * @package   Image
  */
 abstract class Horde_Image_Exif_Base
 {

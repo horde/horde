@@ -1,45 +1,50 @@
 <?php
 /**
- * Effect for composing multiple images into a single image.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Effect for composing multiple images into a single image.
  *
  * The technique for the Polaroid-like stack using the Imagick extension is
  * credited to Mikko Koppanen and is documented at http://valokuva.org
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
 {
     /**
-     * Valid parameters for the stack effect
-     *
-     * images           -    An array of Horde_Image objects to stack. Images
-     *                       are stacked in a FIFO manner, so that the top-most
-     *                       image is the last one in this array.
-     *
-     * type             -    Determines the style for the composition.
-     *                       'plain' or 'polaroid' are supported.
-     *
-     * resize_height    -    The height that each individual thumbnail
-     *                       should be resized to before composing on the image.
-     *
-     * padding          -    How much padding should we ensure is left around
-     *                       the active image area?
-     *
-     * background       -    The background canvas color - this is used as the
-     *                       color to set any padding to.
-     *
-     * bordercolor      -    If using type 'plain' this sets the color of the
-     *                       border that each individual thumbnail gets.
-     *
-     * borderwidth      -    If using type 'plain' this sets the width of the
-     *                       border on each individual thumbnail.
-     *
-     * offset           -    If using type 'plain' this determines the amount of
-     *                       x and y offset to give each successive image when
-     *                       it is placed on the top of the stack.
+     * Valid parameters for the stack effect:
+     *   - images: (array) An array of Horde_Image objects to stack. Images
+     *             are stacked in a FIFO manner, so that the top-most image is
+     *             the last one in this array.
+     *   - type: (string) Determines the style for the composition.
+     *           'plain' or 'polaroid' are supported.
+     *   - resize_height: (integer) The height that each individual thumbnail
+     *                    should be resized to before composing on the image.
+     *   - padding: (integer) How much padding should we ensure is left around
+     *              the active image area?
+     *   - background: (string) The background canvas color - this is used as
+     *                 the color to set any padding to.
+     *   - bordercolor: (string) If using type 'plain' this sets the color of
+     *                  the border that each individual thumbnail gets.
+     *   - borderwidth: (integer) If using type 'plain' this sets the width of
+     *                  the border on each individual thumbnail.
+     *   - offset: (integer) If using type 'plain' this determines the amount
+     *             of x and y offset to give each successive image when it is
+     *             placed on the top of the stack.
      *
      * @var array
      */
@@ -53,8 +58,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                                'offset' => 5);
 
     /**
-     * Create the photo_stack
-     *
+     * Applies the effect.
      */
     public function apply()
     {

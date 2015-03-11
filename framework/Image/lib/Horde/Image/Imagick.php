@@ -1,19 +1,31 @@
 <?php
 /**
- * Imagick driver for the Horde_Image API
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Imagick driver for the Horde_Image API.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ *
+ * @property-read  Imagick $imagick  The underlaying Imagick object.
  */
 class Horde_Image_Imagick extends Horde_Image_Base
 {
     /**
-     * The underlaying Imagick object
+     * The underlaying Imagick object.
      *
      * @var Imagick
      */
@@ -77,12 +89,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Load image data from a string.
+     * Loads the image data from a string.
      *
-     * @param string $id
-     * @param string $image_data
+     * @param string $image_data  The data to use for the image.
      *
-     * @return void
+     * @throws Horde_Image_Exception
      */
     public function loadString($image_data)
     {
@@ -99,17 +110,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Load the image data from a file.
+     * Loads the image data from a file.
      *
      * @param string $filename  The full path and filename to the file to load
-     *                          the image data from. The filename will also be
-     *                          used for the image id.
+     *                          the image data from.
      *
-     * @return mixed
+     * @throws Horde_Image_Exception
      */
     public function loadFile($filename)
     {
-        // parent function loads image data into $this->_data
+        // Parent function loads image data into $this->_data
         parent::loadFile($filename);
         $this->_imagick->clear();
         try {
@@ -123,9 +133,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Set the image type
+     * Sets the output image type.
      *
-     * @see Horde_Image_Base::setType()
+     * @param string $type  An image type (png, jpg, etc.)
+     *
+     * @return string  The previous image type.
      */
     public function setType($type)
     {
@@ -135,12 +147,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         } catch (ImagickException $e) {
             // Don't care about an empty wand here.
         }
-
         return $old;
     }
 
-    /*
-     * Return the raw image data.
+    /**
+     * Returns the raw data for this image.
      *
      * @param boolean $convert  Ignored for imagick driver.
      *
@@ -152,10 +163,13 @@ class Horde_Image_Imagick extends Horde_Image_Base
             $this->_imagick->stripImage();
             return $this->_imagick->getImageBlob();
         } catch (ImagickException $e) {
-            throw Horde_Image_Exception($e);
+            throw new Horde_Image_Exception($e);
         }
     }
 
+    /**
+     * Resets the image data to defaults.
+     */
     public function reset()
     {
         parent::reset();
@@ -185,11 +199,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * *ALWAYS* use getDimensions() to get image geometry...instance
-     * variables only cache geometry until it changes, then they go
-     * to zero.
+     * Returns the height and width of the current image data.
      *
-     * @return array of geometry information.
+     * @return array  An hash with 'width' containing the width,
+     *                'height' containing the height of the image.
      */
     public function getDimensions()
     {
@@ -211,12 +224,12 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Crop the current image.
+     * Crops the current image.
      *
-     * @param integer $x1  x for the top left corner
-     * @param integer $y1  y for the top left corner
-     * @param integer $x2  x for the bottom right corner of the cropped image.
-     * @param integer $y2  y for the bottom right corner of the cropped image.
+     * @param integer $x1  x for the top left corner.
+     * @param integer $y1  y for the top left corner.
+     * @param integer $x2  x for the bottom right corner.
+     * @param integer $y2  y for the bottom right corner.
      */
     public function crop($x1, $y1, $x2, $y2)
     {
@@ -230,11 +243,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Rotate the current image.
+     * Rotates the current image.
      *
-     * @param integer $angle       The angle to rotate the image by,
-     *                             in the clockwise direction.
-     * @param integer $background  The background color to fill any triangles.
+     * @param integer $angle      The angle to rotate the image by, in the
+     *                            clockwise direction.
+     * @param string $background  The background color to fill any triangles.
      */
     public function rotate($angle, $background = 'white')
     {
@@ -247,7 +260,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Flip the current image.
+     * Flips the current image.
      */
     public function flip()
     {
@@ -259,7 +272,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Mirror the current image.
+     * Mirrors the current image.
      */
     public function mirror()
     {
@@ -271,7 +284,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Convert the current image to grayscale.
+     * Converts the current image to grayscale.
      */
     public function grayscale()
     {
@@ -283,7 +296,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Sepia filter.
+     * Applies a sepia filter.
      *
      * @param integer $threshold  Extent of sepia effect.
      */
@@ -297,19 +310,24 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draws a text string on the image in a specified location, with
-     * the specified style information.
+     * Draws a text string on the image in a specified location, with the
+     * specified style information.
      *
-     * @TODO: Need to differentiate between the stroke (border) and the fill color,
-     *        but this is a BC break, since we were just not providing a border.
+     * @TODO: Need to differentiate between the stroke (border) and the fill
+     *        color, but this is a BC break, since we were just not providing a
+     *        border.
      *
-     * @param string  $text       The text to draw.
-     * @param integer $x          The left x coordinate of the start of the text string.
-     * @param integer $y          The top y coordinate of the start of the text string.
-     * @param string  $font       The font identifier you want to use for the text.
-     * @param string  $color      The color that you want the text displayed in.
-     * @param integer $direction  An integer that specifies the orientation of the text.
-     * @param string  $fontsize   Size of the font (small, medium, large, giant)
+     * @param string $text        The text to draw.
+     * @param integer $x          The left x coordinate of the start of the
+     *                            text string.
+     * @param integer $y          The top y coordinate of the start of the text
+     *                            string.
+     * @param string $font        The font identifier you want to use for the
+     *                            text.
+     * @param string $color       The color that you want the text displayed in.
+     * @param integer $direction  An integer that specifies the orientation of
+     *                            the text.
+     * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
     public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
     {
@@ -331,7 +349,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a circle.
+     * Draws a circle.
      *
      * @param integer $x     The x coordinate of the centre.
      * @param integer $y     The y coordinate of the centre.
@@ -354,7 +372,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a polygon based on a set of vertices.
+     * Draws a polygon based on a set of vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -376,7 +394,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a rectangle.
+     * Draws a rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -400,7 +418,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a rounded rectangle.
+     * Draws a rounded rectangle.
      *
      * @param integer $x       The left x-coordinate of the rectangle.
      * @param integer $y       The top y-coordinate of the rectangle.
@@ -425,14 +443,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a line.
+     * Draws a line.
      *
-     * @param integer $x0     The x coordinate of the start.
-     * @param integer $y0     The y coordinate of the start.
-     * @param integer $x1     The x coordinate of the end.
-     * @param integer $y1     The y coordinate of the end.
-     * @param string $color   The line color.
-     * @param string $width   The width of the line.
+     * @param integer $x0    The x coordinate of the start.
+     * @param integer $y0    The y coordinate of the start.
+     * @param integer $x1    The x coordinate of the end.
+     * @param integer $y1    The y coordinate of the end.
+     * @param string $color  The line color.
+     * @param string $width  The width of the line.
      */
     public function line($x0, $y0, $x1, $y1, $color = 'black', $width = 1)
     {
@@ -449,7 +467,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a dashed line.
+     * Draws a dashed line.
      *
      * @param integer $x0           The x co-ordinate of the start.
      * @param integer $y0           The y co-ordinate of the start.
@@ -457,8 +475,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param integer $y1           The y co-ordinate of the end.
      * @param string $color         The line color.
      * @param string $width         The width of the line.
-     * @param integer $dash_length  The length of a dash on the dashed line
-     * @param integer $dash_space   The length of a space in the dashed line
+     * @param integer $dash_length  The length of a dash on the dashed line.
+     * @param integer $dash_space   The length of a space in the dashed line.
      */
     public function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
     {
@@ -476,8 +494,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw a polyline (a non-closed, non-filled polygon) based on a
-     * set of vertices.
+     * Draws a polyline (a non-closed, non-filled polygon) based on a set of
+     * vertices.
      *
      * @param array $vertices  An array of x and y labeled arrays
      *                         (eg. $vertices[0]['x'], $vertices[0]['y'], ...).
@@ -500,28 +518,31 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Draw an arc.
-     *
-     * @TODO
+     * Draws an arc.
      *
      * @param integer $x      The x coordinate of the centre.
      * @param integer $y      The y coordinate of the centre.
      * @param integer $r      The radius of the arc.
      * @param integer $start  The start angle of the arc.
      * @param integer $end    The end angle of the arc.
-     * @param string  $color  The line color of the arc.
-     * @param string  $fill   The fill color of the arc (defaults to none).
+     * @param string $color   The line color of the arc.
+     * @param string $fill    The fill color of the arc (defaults to none).
      */
     public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = 'none')
     {
         throw new Horde_Image_Exception('Not Yet Implemented.');
     }
 
+    /**
+     * Applies any effects in the effect queue.
+     */
     public function applyEffects()
     {
         // noop for this driver.
     }
 
+    /**
+     */
     public function __get($property)
     {
         switch ($property) {
@@ -531,15 +552,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Utility function to wrap Imagick::borderImage. Use when you don't want
-     * to replace all pixels in the clipping area with the border color i.e.
-     * you want to "frame" the existing image. Preserves transparency etc...
+     * Utility function to wrap Imagick::borderImage.
+     *
+     * Use when you don't want to replace all pixels in the clipping area with
+     * the border color i.e.  you want to "frame" the existing image. Preserves
+     * transparency etc.
      *
      * @param Imagick &$image  The Imagick object to border.
-     * @param integer $width
-     * @param integer $height
-     *
-     * @return void
+     * @param string $color    The border color.
+     * @param integer $width   The image width including the border.
+     * @param integer $height  The image height including the border.
      */
     public static function frameImage(&$image, $color, $width, $height)
     {
@@ -558,9 +580,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Reset the imagick iterator to the first image in the set.
-     *
-     * @return void
+     * Resets the Imagick iterator to the first image in the set.
      */
     public function rewind()
     {
@@ -570,7 +590,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Return the current image from the internal iterator.
+     * Returns the current image from the internal iterator.
      *
      * @return Horde_Image_Imagick
      */
@@ -579,12 +599,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $this->_logDebug('Horde_Image_Imagick#current');
         $params = array('data' => $this->raw());
         $image = new Horde_Image_Imagick($params, $this->_context);
-
         return $image;
     }
 
     /**
-     * Get the index of the internal iterator.
+     * Returns the index of the internal iterator.
      *
      * @return integer
      */
@@ -595,7 +614,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Advance the iterator
+     * Advances the iterator.
      *
      * @return Horde_Image_Imagick
      */
@@ -622,11 +641,11 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Request a specific image from the collection of images.
+     * Returns a specific image from the pages of images.
      *
-     * @param integer $index  The index to return
+     * @param integer $index  The index to return.
      *
-     * @return Horde_Image_Base
+     * @return Horde_Image_Imagick  The requested image
      */
     public function getImageAtIndex($index)
     {
@@ -643,9 +662,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Return the number of image pages available in the image object.
+     * Returns the number of image pages available in the image object.
      *
-     * @return integer
+     * @return integer  The number of images.
      */
     public function getImagePageCount()
     {

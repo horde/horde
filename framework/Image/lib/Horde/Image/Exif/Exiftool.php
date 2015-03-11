@@ -1,14 +1,22 @@
 <?php
 /**
- * Exiftool driver for reading/writing image meta data
- *
  * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author   Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @package  Image
+ */
+
+/**
+ * Exiftool driver for reading/writing image meta data
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2009-2015 Horde LLC
+ * @package   Image
  */
 class Horde_Image_Exif_Exiftool extends Horde_Image_Exif_Base
 {

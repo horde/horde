@@ -1,28 +1,33 @@
 <?php
 /**
- * Effect for creating a polaroid looking image.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * Effect for creating a polaroid looking image.
+ *
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @category  Horde
+ * @copyright 2007-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Effect_Im_PolaroidImage extends Horde_Image_Effect
 {
     /**
-     * Valid parameters for the polaroid effect
+     * Valid parameters for the polaroid effect:
+     *   - background: (string) The color of the image background.
+     *   - angle: (integer) Angle to rotate the image.
+     *   - shadowcolor: (string) The color of the image shadow.
      *
-     * resize_height    -    The height that each individual thumbnail
-     *                       should be resized to before composing on the image.
-     *
-     * background       -    The color of the image background.
-     *
-     * angle            -    Angle to rotate the image.
-     *
-     * shadowcolor      -    The color of the image shadow.
-     */
-
-    /**
      * @var array
      */
     protected $_params = array('background' => 'none',
@@ -30,8 +35,7 @@ class Horde_Image_Effect_Im_PolaroidImage extends Horde_Image_Effect
                                'shadowcolor' => 'black');
 
     /**
-     * Create the effect
-     *
+     * Applies the effect.
      */
     public function apply()
     {

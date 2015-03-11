@@ -1,25 +1,39 @@
 <?php
 /**
- * This class provides some utility functions, such as generating highlights
- * of a color as well as a factory method responsible for creating a concrete
- * Horde_Image driver.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Image
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
+ */
+
+/**
+ * This class provides some utility functions, such as generating highlights
+ * of a color.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image
 {
     /**
-     * Calculate a lighter (or darker) version of a color.
+     * Calculates a lighter (or darker) version of a color.
      *
-     * @param string $color   An HTML color, e.g.: #ffffcc.
-     * @param string $factor  TODO
+     * @param string $color    An HTML color, e.g.: #ffffcc.
+     * @param integer $factor  The brightness difference between -0xff and
+     *                         +0xff. Plus values raise the brightness,
+     *                         negative values reduce it.
      *
      * @return string  A modified HTML color.
      */
@@ -35,10 +49,12 @@ class Horde_Image
     }
 
     /**
-     * Calculate a more intense version of a color.
+     * Calculates a more intense version of a color.
      *
-     * @param string $color   An HTML color, e.g.: #ffffcc.
-     * @param string $factor  TODO
+     * @param string $color    An HTML color, e.g.: #ffffcc.
+     * @param integer $factor  The intensity difference between -0xff and
+     *                         +0xff. Plus values raise the intensity,
+     *                         negative values reduce it.
      *
      * @return string  A more intense HTML color.
      */
@@ -86,12 +102,17 @@ class Horde_Image
     public static function brightness($color)
     {
         list($r, $g, $b) = self::getColor($color);
-
         return round((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
     }
 
     /**
-     * @TODO
+     * Calculates the grayscale value of a color.
+     *
+     * @param integer $r  A red value.
+     * @param integer $g  A green value.
+     * @param integer $b  A blue value.
+     *
+     * @return integer  The grayscale value of the color.
      */
     public static function grayscaleValue($r, $g, $b)
     {
@@ -99,7 +120,13 @@ class Horde_Image
     }
 
     /**
-     * @TODO
+     * Turns an RGB value into grayscale.
+     *
+     * @param integer[] $originalPixel  A hash with 'red', 'green', and 'blue'
+     *                                  values.
+     *
+     * @return integer[]  A hash with 'red', 'green', and 'blue' values for the
+     *                    corresponding gray color.
      */
     public static function grayscalePixel($originalPixel)
     {
@@ -112,7 +139,7 @@ class Horde_Image
      *
      * @param string $color  An HTML color, e.g.: #ffffcc or #ffc.
      *
-     * @return array  Array with three elements: red, green, and blue.
+     * @return integer[]  Array with three elements: red, green, and blue.
      */
     public static function getColor($color)
     {
@@ -134,9 +161,9 @@ class Horde_Image
     }
 
     /**
-     * Get the RGB value for a given colorname.
+     * Returns the RGB values for an HTML color name.
      *
-     * @param string $colorname  The colorname
+     * @param string $colorname  A color name.
      *
      * @return array  An array of RGB values.
      */
@@ -149,9 +176,9 @@ class Horde_Image
     }
 
     /**
-     * Get the hex representation of the given colorname.
+     * Returns the hexadecimal representation of an HTML color name.
      *
-     * @param string $colorname  The colorname
+     * @param string $colorname  A color name.
      *
      * @return string  The hex representation of the color.
      */
@@ -167,18 +194,16 @@ class Horde_Image
     }
 
     /**
-     * Get an x,y pair on circle, assuming center is 0,0.
+     * Returns an x,y pair on circle, assuming center is 0,0.
      *
-     * @access private
-     *
-     * @param double $degrees    The degrees of arc to get the point for.
+     * @param float $degrees     The degrees of arc to get the point for.
      * @param integer $diameter  The diameter of the circle.
      *
      * @return array  (x coordinate, y coordinate) of the point.
      */
     public static function circlePoint($degrees, $diameter)
     {
-        // Avoid problems with doubles.
+        // Avoid problems with floats.
         $degrees += 0.0001;
 
         return array(cos(deg2rad($degrees)) * ($diameter / 2),
@@ -186,16 +211,16 @@ class Horde_Image
     }
 
     /**
-     * Get point coordinates at the limits of an arc. Only valid for
-     * angles ($end - $start) <= 45 degrees.
+     * Returns point coordinates at the limits of an arc.
      *
-     * @access private
+     * Only valid for angles ($end - $start) <= 45 degrees.
      *
      * @param integer $r      The radius of the arc.
      * @param integer $start  The starting angle.
      * @param integer $end    The ending angle.
      *
-     * @return array  The start point, end point, and anchor point.
+     * @return array  The start point (x1,y1), end point (x2,y2), and anchor
+     *                point (x3,y3).
      */
     public static function arcPoints($r, $start, $end)
     {
@@ -217,7 +242,7 @@ class Horde_Image
     }
 
     /**
-     * Return point size for font
+     * Returns the point size for an HTML font size name.
      */
     public static function getFontSize($fontsize)
     {

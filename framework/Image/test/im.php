@@ -194,7 +194,7 @@ case 'testPolylineCircleLineText':
     // Thicker verticle green line
     $image->line(5, 30, 5, 200, 'green', 5);
 
-    //Thinner verticle blue line
+    // Thinner verticle blue line
     $image->line(20, 60, 20, 200, 'blue', 2);
 
     // Yellow checkmark

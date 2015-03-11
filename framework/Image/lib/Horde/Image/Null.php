@@ -5,18 +5,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Image
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 
 /**
- * This class implements only the basic Horde_Image API.
- *
  * It's a fallback to still be able to use API even if no image manipulation
  * service is available.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Image
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Image
  */
 class Horde_Image_Null extends Horde_Image_Base
 {
