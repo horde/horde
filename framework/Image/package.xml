@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-06</date>
+ <date>2015-03-11</date>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix some HTML color name to RGB value mappings.
+* [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
 * [jan] Add Null driver for basics like just displaying the image.
 * [mjr] Fix incorrect color renderings in certain situations.
  </notes>
@@ -44,6 +46,7 @@
      <dir name="Image">
       <file name="COPYING" role="doc" />
       <file name="COPYING-EXIF" role="doc" />
+      <file name="UPGRADING" role="doc" />
      </dir> <!-- /doc/Horde/Image -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -109,7 +112,7 @@
       <file name="Imagick.php" role="php" />
       <file name="Null.php" role="php" />
       <file name="Png.php" role="php" />
-      <file name="rgb.php" role="php" />
+      <file name="Rgb.php" role="php" />
       <file name="Svg.php" role="php" />
       <file name="Swf.php" role="php" />
       <file name="Translation.php" role="php">
@@ -487,6 +490,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Image/COPYING" />
    <install as="COPYING-EXIF" name="doc/Horde/Image/COPYING-EXIF" />
+   <install as="UPGRADING" name="doc/Horde/Image/UPGRADING" />
    <install as="Horde/Image.php" name="lib/Horde/Image.php" />
    <install as="Horde/Image/Base.php" name="lib/Horde/Image/Base.php" />
    <install as="Horde/Image/Effect.php" name="lib/Horde/Image/Effect.php" />
@@ -497,7 +501,7 @@
    <install as="Horde/Image/Imagick.php" name="lib/Horde/Image/Imagick.php" />
    <install as="Horde/Image/Null.php" name="lib/Horde/Image/Null.php" />
    <install as="Horde/Image/Png.php" name="lib/Horde/Image/Png.php" />
-   <install as="Horde/Image/rgb.php" name="lib/Horde/Image/rgb.php" />
+   <install as="Horde/Image/Rgb.php" name="lib/Horde/Image/Rgb.php" />
    <install as="Horde/Image/Svg.php" name="lib/Horde/Image/Svg.php" />
    <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
    <install as="Horde/Image/Translation.php" name="lib/Horde/Image/Translation.php" />
@@ -1075,9 +1079,11 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-06</date>
+   <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix some HTML color name to RGB value mappings.
+* [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
 * [jan] Add Null driver for basics like just displaying the image.
 * [mjr] Fix incorrect color renderings in certain situations.
    </notes>

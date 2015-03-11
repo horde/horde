@@ -177,9 +177,8 @@ class Horde_Image
      */
     public static function getRGB($colorname)
     {
-        require_once __DIR__ . '/Image/rgb.php';
-        return isset($GLOBALS['horde_image_rgb_colors'][$colorname]) ?
-            $GLOBALS['horde_image_rgb_colors'][$colorname] :
+        return isset(Horde_Image_Rgb::$colors[$colorname]) ?
+            Horde_Image_Rgb::$colors[$colorname] :
             array(0, 0, 0);
     }
 
@@ -192,13 +191,10 @@ class Horde_Image
      */
     public static function getHexColor($colorname)
     {
-        require_once __DIR__ . '/Image/rgb.php';
-        if (isset($GLOBALS['horde_image_rgb_colors'][$colorname])) {
-            list($r, $g, $b) = $GLOBALS['horde_image_rgb_colors'][$colorname];
-            return '#' . str_pad(dechex(min($r, 255)), 2, '0', STR_PAD_LEFT) . str_pad(dechex(min($g, 255)), 2, '0', STR_PAD_LEFT) . str_pad(dechex(min($b, 255)), 2, '0', STR_PAD_LEFT);
-        } else {
-            return 'black';
-        }
+        list($r, $g, $b) = self::getRGB($colorname);
+        return '#' . str_pad(dechex(min($r, 255)), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex(min($g, 255)), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex(min($b, 255)), 2, '0', STR_PAD_LEFT);
     }
 
     /**
