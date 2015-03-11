@@ -179,19 +179,17 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
 
     /**
      * Returns the params needed to encrypt a message being sent to the
-     * specified email address.
+     * specified email address(es).
      *
-     * @param Horde_Mail_Rfc822_Address $address  The e-mail address of the
-     *                                            recipient.
+     * @param Horde_Mail_Rfc822_List $addr  The recipient addresses.
      *
      * @return array  The list of parameters needed by encrypt().
      * @throws Horde_Crypt_Exception
      */
-    protected function _encryptParameters(Horde_Mail_Rfc822_Address $address)
+    protected function _encryptParameters(Horde_Mail_Rfc822_List $addr)
     {
-        /* We can only encrypt if we are sending to a single person. */
         return array(
-            'pubkey' => $this->getPublicKey($address->bare_address),
+            'pubkey' => array_map(array($this, 'getPublicKey'), $addr->bare_addresses),
             'type' => 'message'
         );
     }
@@ -389,17 +387,19 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     /**
      * Encrypt a MIME_Part using S/MIME using IMP defaults.
      *
-     * @param Horde_Mime_Part $mime_part             The object to encrypt.
-     * @param Horde_Mail_Rfc822_Address $to_address  The e-mail address of the
-     *                                               key to use for encryption.
+     * @param Horde_Mime_Part $mime_part     The object to encrypt.
+     * @param Horde_Mail_Rfc822_List $recip  The recipient address(es).
      *
-     * @return MIME_Part  See Horde_Crypt_Smime::encryptMIMEPart().
+     * @return Horde_Mime_Part  See Horde_Crypt_Smime::encryptMIMEPart().
      * @throws Horde_Crypt_Exception
      */
     public function IMPencryptMIMEPart($mime_part,
-                                       Horde_Mail_Rfc822_Address $to_address)
+                                       Horde_Mail_Rfc822_List $recip)
     {
-        return $this->encryptMIMEPart($mime_part, $this->_encryptParameters($to_address));
+        return $this->encryptMIMEPart(
+            $mime_part,
+            $this->_encryptParameters($recip)
+        );
     }
 
     /**
@@ -418,18 +418,21 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     /**
      * Sign and encrypt a MIME_Part using S/MIME using IMP defaults.
      *
-     * @param Horde_Mime_Part $mime_part             The object to sign and
-     *                                               encrypt.
-     * @param Horde_Mail_Rfc822_Address $to_address  The e-mail address of the
-     *                                               key to use for encryption.
+     * @param Horde_Mime_Part $mime_part     The object to sign and encrypt.
+     * @param Horde_Mail_Rfc822_List $recip  The recipient address(es).
      *
-     * @return MIME_Part  See Horde_Crypt_Smime::signAndencryptMIMEPart().
+     * @return Horde_Mime_Part  See
+     *                          Horde_Crypt_Smime::signAndencryptMIMEPart().
      * @throws Horde_Crypt_Exception
      */
     public function IMPsignAndEncryptMIMEPart($mime_part,
-                                              Horde_Mail_Rfc822_Address $to_address)
+                                              Horde_Mail_Rfc822_List $recip)
     {
-        return $this->signAndEncryptMIMEPart($mime_part, $this->_signParameters(), $this->_encryptParameters($to_address));
+        return $this->signAndEncryptMIMEPart(
+            $mime_part,
+            $this->_signParameters(),
+            $this->_encryptParameters($recip)
+        );
     }
 
     /**
