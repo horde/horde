@@ -227,7 +227,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         $info = $this->call('getimagesize', array($filename));
         if (is_array($info)) {
             switch ($info[2]) {
-            case 1:
+            case IMAGETYPE_GIF:
                 if (function_exists('imagecreatefromgif')) {
                     $this->_im = $this->call(
                         'imagecreatefromgif',
@@ -235,19 +235,19 @@ class Horde_Image_Gd extends Horde_Image_Base
                     );
                 }
                 break;
-            case 2:
+            case IMAGETYPE_JPEG:
                 $this->_im = $this->call(
                     'imagecreatefromjpeg',
                     array($filename)
                 );
                 break;
-            case 3:
+            case IMAGETYPE_PNG:
                 $this->_im = $this->call(
                     'imagecreatefrompng',
                     array($filename)
                 );
                 break;
-            case 15:
+            case IMAGETYPE_WBMP:
                 if (function_exists('imagecreatefromgwbmp')) {
                     $this->_im = $this->call(
                         'imagecreatefromgwbmp',
@@ -255,7 +255,7 @@ class Horde_Image_Gd extends Horde_Image_Base
                     );
                 }
                 break;
-            case 16:
+            case IMAGETYPE_XBM:
                 $this->_im = $this->call(
                     'imagecreatefromxbm',
                     array($filename)
