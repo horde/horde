@@ -167,32 +167,29 @@ class Horde_Image_Im extends Horde_Image_Base
         }
 
         $tmpin = $this->toFile($this->_data);
-
-        // Perform convert command if needed
-        if (count($this->_operations) || count($this->_postSrcOperations) || $convert) {
-            $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
-            $command = $this->_convert . ' ' . implode(' ', $this->_operations)
-                . ' "' . $tmpin . '"\'[' . $index . ']\' '
-                . implode(' ', $this->_postSrcOperations)
-                . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
-            $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
-            exec($command, $output, $retval);
-            if ($retval) {
-                $error = sprintf("Error running command: %s", $command . "\n" . implode("\n", $output));
-                $this->_logErr($error);
-                throw new Horde_Image_Exception($error);
-            }
-
-            /* Empty the operations queue */
-            $this->_operations = array();
-            $this->_postSrcOperations = array();
-
-            /* Load the result */
-            $return = file_get_contents($tmpout);
-            if (!$preserve_data) {
-                $this->_data = $return;
-            }
+        $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
+        $command = $this->_convert . ' ' . implode(' ', $this->_operations)
+            . ' "' . $tmpin . '"\'[' . $index . ']\' '
+            . implode(' ', $this->_postSrcOperations)
+            . ' -strip ' . $this->_type . ':"' . $tmpout . '" 2>&1';
+        $this->_logDebug(sprintf("convert command executed by Horde_Image_im::raw(): %s", $command));
+        exec($command, $output, $retval);
+        if ($retval) {
+            $error = sprintf("Error running command: %s", $command . "\n" . implode("\n", $output));
+            $this->_logErr($error);
+            throw new Horde_Image_Exception($error);
         }
+
+        /* Empty the operations queue */
+        $this->_operations = array();
+        $this->_postSrcOperations = array();
+
+        /* Load the result */
+        $return = file_get_contents($tmpout);
+        if (!$preserve_data) {
+            $this->_data = $return;
+        }
+
         @unlink($tmpin);
         @unlink($tmpout);
 
