@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix autoloading of effect classes.
 * [jan] Fix border effect with GD driver.
 * [jan] Don&apos;t error out in effects if a logger hasn&apos;t been set.
 * [jan] Make getImageAtIndex() always return an image.
@@ -1089,6 +1090,7 @@ Initial release as a PEAR package
    <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix autoloading of effect classes.
 * [jan] Fix border effect with GD driver.
 * [jan] Don&apos;t error out in effects if a logger hasn&apos;t been set.
 * [jan] Make getImageAtIndex() always return an image.

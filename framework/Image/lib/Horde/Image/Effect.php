@@ -99,30 +99,21 @@ class Horde_Image_Effect
         // assume there is a vanilla effect object around.
         $class = 'Horde_Image_Effect_' . $driver . '_' . $type;
         $vclass = 'Horde_Image_Effect_' . $type;
-        if (!class_exists($class) && !class_exists($vclass)) {
-            if (!empty($app)) {
-                $path = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Image/Effect/' . $driver . '/' . $type . '.php';
-            } else {
-                $path = 'Horde/Image/Effect/' . $driver . '/' . $type . '.php';
-            }
-
-            @include_once $path;
-            if (!class_exists($class)) {
-                 if (!empty($app)) {
-                    $path = $GLOBALS['registry']->get('fileroot', $app) . '/lib/Image/Effect/' . $type . '.php';
-                } else {
-                    $path = 'Horde/Image/Effect/' . $type . '.php';
-                }
-                $class = $vclass;
-                @include_once $path;
-            }
-        }
         
         if (class_exists($class)) {
             $effect = new $class($params);
+        } elseif (class_exists($vclass)) {
+            $effect = new $vclass($params);
         } else {
-            $params['logger']->err(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
-            throw new Horde_Image_Exception(sprintf("Horde_Image_Effect %s for %s driver not found.", $type, $driver));
+            $message = sprintf(
+                'Horde_Image Effect "%s" for "%s" driver not found.',
+                $type,
+                $driver
+            );
+            if (!empty($params['logger'])) {
+                $params['logger']->err($message);
+            }
+            throw new Horde_Image_Exception($message);
         }
 
         if (!empty($params['logger'])) {
