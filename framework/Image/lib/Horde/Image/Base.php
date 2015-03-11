@@ -491,6 +491,8 @@ abstract class Horde_Image_Base extends EmptyIterator
         if ($index > 0) {
             throw new Horde_Image_Exception('Image index out of bounds.');
         }
+        $class = get_class($this);
+        return new $class(array('data' => $this->raw()), $this->_context);
     }
 
     /**
