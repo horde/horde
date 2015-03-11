@@ -293,7 +293,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
                     break;
 
                 case 3:
-                    if (($text === 'NIL') || (strcasecmp($text, 'NIL') === 0)) {
+                    if (strcasecmp($text, 'NIL') === 0) {
                         $text = null;
                     }
                     break;
