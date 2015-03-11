@@ -28,6 +28,12 @@
  */
 class Horde_Image_Gd extends Horde_Image_Base
 {
+    /**
+     * Allocated color resources.
+     *
+     * @var int[]
+     */
+    protected $_colors = array();
 
     /**
      * Capabilites of this driver.
@@ -154,14 +160,22 @@ class Horde_Image_Gd extends Horde_Image_Base
      */
     private function _allocateColor($name, $alpha = 0)
     {
-        static $colors = array();
-
-        if (empty($colors[$name])) {
-            list($r, $g, $b) = self::getRGB($name);
-            $colors[$name] = $this->call('imageColorAllocateAlpha', array($this->_im, $r, $g, $b, $alpha));
+        if (empty($this->_colors[$name])) {
+            if ($name == 'none') {
+                $this->_colors[$name] = $this->call(
+                    'imageColorAllocateAlpha',
+                    array($this->_im, 0, 0, 0, 127)
+                );
+            } else {
+                list($r, $g, $b) = Horde_Image::getRGB($name);
+                $this->_colors[$name] = $this->call(
+                    'imageColorAllocateAlpha',
+                    array($this->_im, $r, $g, $b, $alpha)
+                );
+            }
         }
 
-        return $colors[$name];
+        return $this->_colors[$name];
     }
 
     /**
