@@ -690,49 +690,67 @@ class Horde_Image_Gd extends Horde_Image_Base
         $c = $this->_allocateColor($color);
 
         // Set corner points to avoid lots of redundant math.
-        $x1 = $x + $round;
-        $y1 = $y + $round;
+        $xul = $x + $round;
+        $yul = $y + $round;
 
-        $x2 = $x + $width - $round;
-        $y2 = $y + $round;
+        $xur = $x + $width - $round;
+        $yur = $y + $round;
 
-        $x3 = $x + $width - $round;
-        $y3 = $y + $height - $round;
+        $xlr = $x + $width - $round;
+        $ylr = $y + $height - $round;
 
-        $x4 = $x + $round;
-        $y4 = $y + $height - $round;
+        $xll = $x + $round;
+        $yll = $y + $height - $round;
 
         $r = $round * 2;
 
         // Calculate the upper left arc.
-        $p1 = Horde_Image::arcPoints($round, 180, 225);
-        $p2 = Horde_Image::arcPoints($round, 225, 270);
+        $pul = Horde_Image::arcPoints($round, 180, 270);
 
         // Calculate the upper right arc.
-        $p3 = Horde_Image::arcPoints($round, 270, 315);
-        $p4 = Horde_Image::arcPoints($round, 315, 360);
+        $pur = Horde_Image::arcPoints($round, 270, 360);
 
         // Calculate the lower right arc.
-        $p5 = Horde_Image::arcPoints($round, 0, 45);
-        $p6 = Horde_Image::arcPoints($round, 45, 90);
+        $plr = Horde_Image::arcPoints($round, 0, 90);
 
         // Calculate the lower left arc.
-        $p7 = Horde_Image::arcPoints($round, 90, 135);
-        $p8 = Horde_Image::arcPoints($round, 135, 180);
+        $pll = Horde_Image::arcPoints($round, 90, 180);
 
-        // Draw the corners - upper left, upper right, lower right,
-        // lower left.
-        $this->call('imageArc', array($this->_im, $x1, $y1, $r, $r, 180, 270, $c));
-        $this->call('imageArc', array($this->_im, $x2, $y2, $r, $r, 270, 360, $c));
-        $this->call('imageArc', array($this->_im, $x3, $y3, $r, $r, 0, 90, $c));
-        $this->call('imageArc', array($this->_im, $x4, $y4, $r, $r, 90, 180, $c));
+        // Draw the corners - upper left, upper right, lower right, lower left.
+        $this->call(
+            'imageArc',
+            array($this->_im, $xul, $yul, $r, $r, 180, 270, $c)
+        );
+        $this->call(
+            'imageArc',
+            array($this->_im, $xur, $yur, $r, $r, 270, 360, $c)
+        );
+        $this->call(
+            'imageArc',
+            array($this->_im, $xlr, $ylr, $r, $r, 0, 90, $c)
+        );
+        $this->call(
+            'imageArc',
+            array($this->_im, $xll, $yll, $r, $r, 90, 180, $c)
+        );
 
         // Draw the connecting sides - top, right, bottom, left.
-        $this->call('imageLine', array($this->_im, $x1 + $p2['x2'], $y1 + $p2['y2'], $x2 + $p3['x1'], $y2 + $p3['y1'], $c));
-        $this->call('imageLine', array($this->_im, $x2 + $p4['x2'], $y2 + $p4['y2'], $x3 + $p5['x1'], $y3 + $p5['y1'], $c));
-        $this->call('imageLine', array($this->_im, $x3 + $p6['x2'], $y3 + $p6['y2'], $x4 + $p7['x1'], $y4 + $p7['y1'], $c));
-        $this->call('imageLine', array($this->_im, $x4 + $p8['x2'], $y4 + $p8['y2'], $x1 + $p1['x1'], $y1 + $p1['y1'], $c));
-
+        $this->call(
+            'imageLine',
+            array($this->_im, $xul, $y, $xur, $y, $c)
+        );
+        $this->call(
+            'imageLine',
+            array($this->_im, $x + $width, $yur, $x + $width, $ylr, $c)
+        );
+        $this->call(
+            'imageLine',
+            array($this->_im, $xlr, $y + $height, $xll, $y + $height, $c)
+        );
+        $this->call(
+            'imageLine',
+            array($this->_im, $x, $yll, $x, $yul, $c)
+        );
 
         if ($fill != 'none') {
             $f = $this->_allocateColor($fill);
