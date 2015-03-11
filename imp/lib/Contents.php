@@ -1200,36 +1200,6 @@ class IMP_Contents
     }
 
     /**
-     * Injects body contents into the base Horde_Mime_part object.
-     *
-     * @param array $ignore  A list of MIME IDs to ignore.
-     *
-     * @return Horde_Mime_Part  The part with body contents set.
-     */
-    public function buildMessageContents($ignore = array())
-    {
-        $curr_ignore = null;
-
-        foreach ($this->_message->partIterator() as $val) {
-            $id = $val->getMimeId();
-
-            if (is_null($curr_ignore) && in_array($id, $ignore)) {
-                $curr_ignore = new Horde_Mime_Id($id);
-            } elseif (is_null($curr_ignore) || !$curr_ignore->isChild($id)) {
-                $curr_ignore = null;
-                if (($id != 0) &&
-                    ($val->getType() != 'message/rfc822') &&
-                    ($val->getPrimaryType != 'multipart/') &&
-                    ($part = $this->getMimePart($id))) {
-                    $this->_message[$id] = $part;
-                }
-            }
-        }
-
-        return $message;
-    }
-
-    /**
      * Determines if a given MIME part ID is a part of embedded data.
      *
      * @param string $mime_id  The MIME ID.
