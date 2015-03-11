@@ -491,14 +491,14 @@ case 'testPolaroidstackBlueBG':
  */
 function getImageObject($params = array())
 {
-    global $conf, $driver;
+    global $convert, $driver, $identify;
 
     $context = array(
         'tmpdir' => Horde::getTempdir(),
     );
     if ($driver == 'Im') {
-        $context['convert'] = $conf['image']['convert'];
-        $context['identify'] = $conf['image']['identify'];
+        $context['convert'] = $convert;
+        $context['identify'] = $identify;
     }
     // Use the default
     $class = 'Horde_Image_' . $driver;
