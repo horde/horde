@@ -144,7 +144,14 @@ abstract class Horde_Image_Base extends EmptyIterator
         if (!empty($params['background'])) {
             $this->_background = $params['background'];
         }
+    }
 
+    /**
+     * Catch-all method so that we don't error out when calling an unsupported
+     * manipulation method.
+     */
+    public function __call($method, $args)
+    {
     }
 
     /**

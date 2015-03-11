@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t error our when calling unsupported manipulation methods.
 * [jan] Make Horde_Image::arcPoints() work with any angles.
 * [jan] Fix some HTML color name to RGB value mappings.
 * [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
@@ -1083,6 +1084,7 @@ Initial release as a PEAR package
    <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t error our when calling unsupported manipulation methods.
 * [jan] Make Horde_Image::arcPoints() work with any angles.
 * [jan] Fix some HTML color name to RGB value mappings.
 * [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
