@@ -14,6 +14,10 @@ This lists the API changes between releases of the package.
 Upgrading to 2.3.0
 ==================
 
+  - Horde_Image_Effect_Gd_Border
+
+    Replaces and fixes the generic border effect implementation.
+
   - Horde_Image_Rgb
 
     This class holds a map from HTML color names to RGB values and replace the

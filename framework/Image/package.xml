@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix border effect with GD driver.
 * [jan] Don&apos;t error out in effects if a logger hasn&apos;t been set.
 * [jan] Make getImageAtIndex() always return an image.
 * [jan] Don&apos;t error our when calling unsupported manipulation methods.
@@ -59,6 +60,7 @@
      <dir name="Image">
       <dir name="Effect">
        <dir name="Gd">
+        <file name="Border.php" role="php" />
         <file name="DropShadow.php" role="php" />
         <file name="RoundCorners.php" role="php" />
         <file name="TextWatermark.php" role="php" />
@@ -510,6 +512,7 @@
    <install as="Horde/Image/Swf.php" name="lib/Horde/Image/Swf.php" />
    <install as="Horde/Image/Translation.php" name="lib/Horde/Image/Translation.php" />
    <install as="Horde/Image/Effect/Border.php" name="lib/Horde/Image/Effect/Border.php" />
+   <install as="Horde/Image/Effect/Gd/Border.php" name="lib/Horde/Image/Effect/Gd/Border.php" />
    <install as="Horde/Image/Effect/Gd/DropShadow.php" name="lib/Horde/Image/Effect/Gd/DropShadow.php" />
    <install as="Horde/Image/Effect/Gd/RoundCorners.php" name="lib/Horde/Image/Effect/Gd/RoundCorners.php" />
    <install as="Horde/Image/Effect/Gd/TextWatermark.php" name="lib/Horde/Image/Effect/Gd/TextWatermark.php" />
@@ -1086,6 +1089,7 @@ Initial release as a PEAR package
    <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix border effect with GD driver.
 * [jan] Don&apos;t error out in effects if a logger hasn&apos;t been set.
 * [jan] Make getImageAtIndex() always return an image.
 * [jan] Don&apos;t error our when calling unsupported manipulation methods.
