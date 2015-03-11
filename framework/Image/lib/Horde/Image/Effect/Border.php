@@ -30,11 +30,11 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect
      *
      * @var array
      */
-    var $_params = array('padding' => 0,
-                         'borderColor' => 'black',
-                         'fillColor' => 'white',
-                         'lineWidth' => 1,
-                         'roundWidth' => 0);
+    protected $_params = array(
+        'bordercolor' => 'black',
+        'borderwidth' => 1,
+        'preserve' => true
+    );
 
     /**
      * Draws the border.
@@ -43,7 +43,7 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect
      * every pixel inside the border clipping will be overwritten with the
      * background color.
      */
-    function apply()
+    public function apply()
     {
         $o = $this->_params;
 
@@ -59,5 +59,4 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect
             $this->_image->rectangle($x, $y, $width, $height, $o['borderColor'], $o['fillColor']);
         }
     }
-
 }

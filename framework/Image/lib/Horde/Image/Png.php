@@ -30,42 +30,42 @@ class Horde_Image_Png extends Horde_Image_Base
      *
      * @var array
      */
-    var $_img = array();
+    protected $_img = array();
 
     /**
      * Color depth (only 8 and 16 implemented).
      *
      * @var integer
      */
-    var $_colorDepth = 8;
+    protected $_colorDepth = 8;
 
     /**
      * Color type (only 2 (true color) implemented).
      *
      * @var integer
      */
-    var $_colorType = 2;
+    protected $_colorType = 2;
 
     /**
      * Compression method (0 is the only current valid value).
      *
      * @var integer
      */
-    var $_compressionMethod = 0;
+    protected $_compressionMethod = 0;
 
     /**
      * Filter method (0 is the only current valid value).
      *
      * @var integer
      */
-    var $_filterMethod = 0;
+    protected $_filterMethod = 0;
 
     /**
      * Interlace method (only 0 (no interlace) implemented).
      *
      * @var integer
      */
-    var $_interlaceMethod = 0;
+    protected $_interlaceMethod = 0;
 
     /**
      * PNG image constructor.
@@ -82,12 +82,12 @@ class Horde_Image_Png extends Horde_Image_Base
         }
     }
 
-    function getContentType()
     /**
      * Returns the MIME type for this image.
      *
      * @return string  The MIME type for this image.
      */
+    public function getContentType()
     {
         return 'image/png';
     }
@@ -97,7 +97,7 @@ class Horde_Image_Png extends Horde_Image_Base
      *
      * @return string  The raw image data.
      */
-    function raw()
+    public function raw()
     {
         return $this->_header()
             . $this->_IHDR()
@@ -115,7 +115,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Resets the image data to defaults.
      */
-    function reset()
+    public function reset()
     {
         parent::reset();
         $this->_img = array();
@@ -131,7 +131,9 @@ class Horde_Image_Png extends Horde_Image_Base
      * @param string $color    The line color of the rectangle.
      * @param string $fill     The color to fill the rectangle.
      */
-    function rectangle($x, $y, $width, $height, $color = 'black', $fill = 'none')
+    public function rectangle(
+        $x, $y, $width, $height, $color = 'black', $fill = 'none'
+    )
     {
         list($r, $g, $b) = Horde_Image::getRGB($color);
         if ($fill != 'none') {
@@ -156,7 +158,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Creates the PNG file header.
      */
-    function _header()
+    protected function _header()
     {
         return pack('CCCCCCCC', 137, 80, 78, 71, 13, 10, 26, 10);
     }
@@ -164,7 +166,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Creates the IHDR block.
      */
-    function _IHDR()
+    protected function _IHDR()
     {
         $data = pack(
             'a4NNCCCCC',
@@ -189,7 +191,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Creates the IEND block.
      */
-    function _IEND()
+    protected function _IEND()
     {
         $data = 'IEND';
         return pack(
@@ -203,7 +205,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Creates the IDAT block.
      */
-    function _IDAT()
+    protected function _IDAT()
     {
         $data = '';
         $prevscanline = null;
@@ -275,7 +277,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Creates the tEXt block.
      */
-    function _tEXt($keyword, $text)
+    protected function _tEXt($keyword, $text)
     {
         $data = 'tEXt' . $keyword . "\0" . $text;
 
@@ -292,7 +294,7 @@ class Horde_Image_Png extends Horde_Image_Base
      *
      * @param integer $date  A timestamp.
      */
-    function _tIME($date = null)
+    protected function _tIME($date = null)
     {
         if (is_null($date)) {
             $date = time();
@@ -320,7 +322,7 @@ class Horde_Image_Png extends Horde_Image_Base
     /**
      * Calculates an Adler32 checksum for a string.
      */
-    function _Adler32($input)
+    protected function _Adler32($input)
     {
         $s1 = 1;
         $s2 = 0;

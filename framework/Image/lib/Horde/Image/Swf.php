@@ -28,23 +28,23 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @var string[]
      */
-    var $_capabilities = array('canvas');
+    protected $_capabilities = array('canvas');
 
     /**
      * SWF root movie.
      *
      * @var resource
      */
-    var $_movie;
+    protected $_movie;
 
-    function Horde_Image_swf($params)
     /**
      * Constructor.
      *
      * @see Horde_Image_Base::_construct
      */
+    public function __construct($params, $context = array())
     {
-        parent::Horde_Image($params);
+        parent::__construct($params, $context);
 
         $this->_movie = new SWFMovie();
         $this->_movie->setDimension($this->_width, $this->_height);
@@ -54,12 +54,12 @@ class Horde_Image_Swf extends Horde_Image_Base
         $this->_movie->setRate(30);
     }
 
-    function getContentType()
     /**
      * Returns the MIME type for this image.
      *
      * @return string  The MIME type for this image.
      */
+    public function getContentType()
     {
         return 'application/x-shockwave-flash';
     }
@@ -67,7 +67,7 @@ class Horde_Image_Swf extends Horde_Image_Base
     /**
      * Displays the current image.
      */
-    function display()
+    public function display()
     {
         $this->headers();
         $this->_movie->output();
@@ -78,7 +78,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @return string  The raw image data.
      */
-    function raw()
+    public function raw()
     {
         ob_start();
         $this->_movie->output();
@@ -97,13 +97,12 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @return array  The red, green, blue, alpha values of the color.
      */
-    function allocateColor($name)
+    public function allocateColor($name)
     {
         list($r, $g, $b) = $this->getRGB($name);
         return array('red' => $r, 'green' => $g, 'blue' => $b, 'alpha' => 255);
     }
 
-    function getFont($font)
     /**
      * Translates font names.
      *
@@ -111,6 +110,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @return string  An SWF font name.
      */
+    public function getFont($font)
     {
         switch ($font) {
         case 'sans-serif':
@@ -140,7 +140,9 @@ class Horde_Image_Swf extends Horde_Image_Base
      *                            the text.
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
-    function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0)
+    public function text(
+        $string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0
+    )
     {
         $color = $this->allocateColor($color);
 
@@ -169,7 +171,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string  $color  The line color of the circle.
      * @param string  $fill   The color to fill the circle.
      */
-    function circle($x, $y, $r, $color, $fill = 'none')
+    public function circle($x, $y, $r, $color, $fill = 'none')
     {
         $s = new SWFShape();
         $color = $this->allocateColor($color);
@@ -213,7 +215,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color    The color you want to draw the polygon with.
      * @param string $fill     The color to fill the polygon.
      */
-    function polygon($verts, $color, $fill = 'none')
+    public function polygon($verts, $color, $fill = 'none')
     {
         $color = $this->allocateColor($color);
 
@@ -262,7 +264,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color    The line color of the rectangle.
      * @param string $fill     The color to fill the rectangle.
      */
-    function rectangle($x, $y, $width, $height, $color, $fill = 'none')
+    public function rectangle($x, $y, $width, $height, $color, $fill = 'none')
     {
         $verts[0] = array('x' => $x, 'y' => $y);
         $verts[1] = array('x' => $x + $width, 'y' => $y);
@@ -283,7 +285,9 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color    The line color of the rectangle.
      * @param string $fill     The color to fill the rectangle.
      */
-    function roundedRectangle($x, $y, $width, $height, $round, $color = 'black', $fill = 'none')
+    public function roundedRectangle(
+        $x, $y, $width, $height, $round, $color = 'black', $fill = 'none'
+    )
     {
         if ($round <= 0) {
             // Optimize out any calls with no corner rounding.
@@ -396,7 +400,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color  The line color.
      * @param string $width  The width of the line.
      */
-    function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
+    public function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
     {
         $color = $this->allocateColor($color);
         if (!is_array($color)) {
@@ -429,7 +433,10 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param integer $dash_length  The length of a dash on the dashed line.
      * @param integer $dash_space   The length of a space in the dashed line.
      */
-    function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
+    public function dashedLine(
+        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $dash_space = 2
+    )
     {
         // Get the length of the line in pixels.
         $line_length = max(
@@ -463,7 +470,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color    The color you want to draw the line with.
      * @param string $width    The width of the line.
      */
-    function polyline($verts, $color, $width = 1)
+    public function polyline($verts, $color, $width = 1)
     {
         $color = $this->allocateColor($color);
 
@@ -499,7 +506,9 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $color   The line color of the arc.
      * @param string $fill    The fill color of the arc.
      */
-    function arc($x, $y, $r, $start, $end, $color = 'black', $fill = 'none')
+    public function arc(
+        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
+    )
     {
         $s = new SWFShape();
         $color = $this->allocateColor($color);
@@ -575,7 +584,10 @@ class Horde_Image_Swf extends Horde_Image_Base
      * @param string $fill1    The name of the start color for the gradient.
      * @param string $fill2    The name of the end color for the gradient.
      */
-    function gradientRectangle($x, $y, $width, $height, $color = 'black', $fill1 = 'black', $fill2 = 'white')
+    public function gradientRectangle(
+        $x, $y, $width, $height, $color = 'black',
+        $fill1 = 'black', $fill2 = 'white'
+    )
     {
         $s = new SWFShape();
 
