@@ -79,7 +79,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
             $this->_width = max(array($this->_width, 1));
             $this->_height = max(array($this->_height, 1));
             try {
-                $this->_imagick->newImage($this->_width, $this->_height, $this->_background);
+                $color = new ImagickPixel($this->_background);
+                $this->_imagick->newImage(
+                    $this->_width, $this->_height, $color
+                );
             } catch (ImagickException $e) {
                 throw new Horde_Image_Exception($e);
             }
