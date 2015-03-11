@@ -54,6 +54,7 @@ class Horde_Image_Effect
      */
     public function __construct($params = array())
     {
+        $this->_logger = new Horde_Support_Stub();
         foreach ($params as $key => $val) {
             $this->_params[$key] = $val;
         }
