@@ -307,7 +307,6 @@ class Horde_Image_Gd extends Horde_Image_Base
         $this->_width = 0;
         $this->_height = 0;
 
-        $this->call('imageFill', array($this->_im, 0, 0, $this->call('imageColorAllocate', array($this->_im, 255, 255, 255))));
         try {
             $this->call(
                 'imageCopyResampled',
@@ -943,6 +942,8 @@ class Horde_Image_Gd extends Horde_Image_Base
         if (!is_resource($result)) {
             throw new Horde_Image_Exception('Could not create image.');
         }
+        $this->call('imagesavealpha', array($result, true));
+        $this->call('imagealphablending', array($result, false));
 
         return $result;
     }
