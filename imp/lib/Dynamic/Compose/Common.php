@@ -134,7 +134,7 @@ class IMP_Dynamic_Compose_Common
 
         $view->priority = $prefs->getValue('set_priority');
         if (!$prefs->isLocked('default_encrypt') &&
-            ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
+            (IMP_Crypt_Pgp::enabled() || $prefs->getValue('use_smime'))) {
             $view->encrypt = $prefs->getValue('default_encrypt');
         }
 

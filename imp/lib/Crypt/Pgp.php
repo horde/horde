@@ -34,6 +34,18 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     const SYM_SIGNENC = 'pgp_syn_sign';
 
     /**
+     * Return whether PGP support is current enabled in IMP.
+     *
+     * @return boolean  True if PGP support is enabled.
+     */
+    public static function enabled()
+    {
+        global $conf, $prefs;
+
+        return (!empty($conf['gnupg']['path']) && $prefs->getValue('use_pgp'));
+    }
+
+    /**
      * Return the list of available encryption options for composing.
      *
      * @return array  Keys are encryption type constants, values are gettext

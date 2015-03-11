@@ -36,7 +36,7 @@ class IMP_Script_Package_Compose extends Horde_Script_Package
         $this->_files[] = new Horde_Script_File_JsDir('imp.js', 'imp');
 
         if (!$prefs->isLocked('default_encrypt') &&
-            ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
+            (IMP_Crypt_Pgp::enabled() || $prefs->getValue('use_smime'))) {
             $page_output->addScriptPackage('Horde_Core_Script_Package_Dialog');
             $this->_files[] = new Horde_Script_File_JsDir('passphrase.js', 'imp');
         }

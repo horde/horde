@@ -34,7 +34,7 @@ class IMP_Compose_Ui
      */
     public function encryptList($default = null, $returnList = false)
     {
-        global $conf, $injector, $prefs;
+        global $injector, $prefs;
 
         if (is_null($default)) {
             $default = $prefs->getValue('default_encrypt');
@@ -43,7 +43,7 @@ class IMP_Compose_Ui
         $enc_opts = array();
         $output = '';
 
-        if (!empty($conf['gnupg']['path']) && $prefs->getValue('use_pgp')) {
+        if (IMP_Crypt_Pgp::enabled()) {
             $enc_opts += $injector->getInstance('IMP_Crypt_Pgp')->encryptList();
         }
 

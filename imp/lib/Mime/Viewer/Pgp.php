@@ -201,9 +201,10 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         );
 
         /* Is PGP active? */
-        if (empty($GLOBALS['conf']['gnupg']['path']) ||
-            !$GLOBALS['prefs']->getValue('use_pgp')) {
-            $status->addText(_("The data in this part has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted."));
+        if (IMP_Crypt_Pgp::enabled()) {
+            $status->addText(
+                _("The data in this part has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted.")
+            );
             return null;
         }
 
@@ -352,8 +353,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     protected function _outputPGPKey()
     {
         /* Is PGP active? */
-        if (empty($GLOBALS['conf']['gnupg']['path']) ||
-            !$GLOBALS['prefs']->getValue('use_pgp')) {
+        if (!IMP_Crypt_Pgp::enabled()) {
             return array();
         }
 
@@ -367,8 +367,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $imp_contents = $this->getConfigParam('imp_contents');
         $mime_id = $this->_mimepart->getMimeId();
 
-        if ($GLOBALS['prefs']->getValue('use_pgp') &&
-            $GLOBALS['prefs']->getValue('add_source') &&
+        if ($GLOBALS['prefs']->getValue('add_source') &&
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
             // TODO: Check for key existence.
             $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
@@ -396,7 +395,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
      */
     protected function _outputPGPSigned()
     {
-        global $conf, $injector, $prefs, $session;
+        global $injector, $prefs, $session;
 
         $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
@@ -407,7 +406,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $id_ob = new Horde_Mime_Id($signed_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
-        if (!$prefs->getValue('use_pgp') || empty($conf['gnupg']['path'])) {
+        if (!IMP_Crypt_Pgp::enabled()) {
             return array(
                 $sig_id => null
             );
