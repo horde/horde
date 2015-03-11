@@ -195,19 +195,35 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function signMIMEPart($mime_part, $params)
     {
         /* Sign the part as a message */
-        $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
+        $message = $this->encrypt(
+            $mime_part->toString(array(
+                'headers' => true,
+                'canonical' => true
+            )),
+            $params
+        );
 
         /* Break the result into its components */
-        $mime_message = Horde_Mime_Part::parseMessage($message, array('forcemime' => true));
+        $mime_message = Horde_Mime_Part::parseMessage(
+            $message,
+            array('forcemime' => true)
+        );
 
         $smime_sign = $mime_message->getPart('2');
-        $smime_sign->setDescription(Horde_Crypt_Translation::t("S/MIME Signature"));
+        $smime_sign->setDescription(
+            Horde_Crypt_Translation::t("S/MIME Signature")
+        );
         $smime_sign->setTransferEncoding('base64', array('send' => true));
 
         $smime_part = new Horde_Mime_Part();
         $smime_part->setType('multipart/signed');
-        $smime_part->setContents("This is a cryptographically signed message in MIME format.\n");
-        $smime_part->setContentTypeParameter('protocol', 'application/pkcs7-signature');
+        $smime_part->setContents(
+            "This is a cryptographically signed message in MIME format.\n"
+        );
+        $smime_part->setContentTypeParameter(
+            'protocol',
+            'application/pkcs7-signature'
+        );
         // Per RFC 5751 [3.4.3.2], 'sha1' has been deprecated for 'sha-1'.
         $smime_part->setContentTypeParameter('micalg', 'sha-1');
         $smime_part->addPart($mime_part);
@@ -230,16 +246,27 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function encryptMIMEPart($mime_part, $params = array())
     {
         /* Sign the part as a message */
-        $message = $this->encrypt($mime_part->toString(array('headers' => true, 'canonical' => true)), $params);
+        $message = $this->encrypt(
+            $mime_part->toString(array(
+                'headers' => true,
+                'canonical' => true
+            )),
+            $params
+        );
 
         $msg = new Horde_Mime_Part();
         $msg->setCharset($this->_params['email_charset']);
         $msg->setHeaderCharset('UTF-8');
-        $msg->setDescription(Horde_Crypt_Translation::t("S/MIME Encrypted Message"));
+        $msg->setDescription(
+            Horde_Crypt_Translation::t("S/MIME Encrypted Message")
+        );
         $msg->setDisposition('inline');
         $msg->setType('application/pkcs7-mime');
         $msg->setContentTypeParameter('smime-type', 'enveloped-data');
-        $msg->setContents(substr($message, strpos($message, "\n\n") + 2), array('encoding' => 'base64'));
+        $msg->setContents(
+            substr($message, strpos($message, "\n\n") + 2),
+            array('encoding' => 'base64')
+        );
 
         return $msg;
     }
@@ -263,7 +290,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
     {
         /* Check for required parameters. */
         if (!isset($params['pubkey'])) {
-            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("A public S/MIME key is required to encrypt a message."));
+            throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t(
+                "A public S/MIME key is required to encrypt a message."
+            ));
         }
 
         /* Create temp files for input/output. */
@@ -288,15 +317,23 @@ class Horde_Crypt_Smime extends Horde_Crypt
         }
 
         foreach ($ciphers as $val) {
-            if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
-                $result = file_get_contents($output);
-                if (!empty($result)) {
-                    return $this->_fixContentType($result, 'message');
-                }
+            $success = openssl_pkcs7_encrypt(
+                $input,
+                $output,
+                $params['pubkey'],
+                array(),
+                0,
+                $val
+            );
+
+            if ($success && ($result = file_get_contents($output))) {
+                return $this->_fixContentType($result, 'message');
             }
         }
 
-        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t("Could not S/MIME encrypt message."));
+        throw new Horde_Crypt_Exception(Horde_Crypt_Translation::t(
+            "Could not S/MIME encrypt message."
+        ));
     }
 
     /**
