@@ -10,7 +10,6 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
-class Horde_Image_Png extends Horde_Image_Base {
 
 /**
  * This class implements the Horde_Image API for PNG images.
@@ -24,6 +23,8 @@ class Horde_Image_Png extends Horde_Image_Base {
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
+class Horde_Image_Png extends Horde_Image_Base
+{
     /**
      * The array of pixel data.
      *
@@ -74,7 +75,10 @@ class Horde_Image_Png extends Horde_Image_Base {
         parent::__construct($params, $context);
 
         if (!empty($params['width'])) {
-            $this->rectangle(0, 0, $params['width'], $params['height'], $this->_background, $this->_background);
+            $this->rectangle(
+                0, 0, $params['width'], $params['height'],
+                $this->_background, $this->_background
+            );
         }
     }
 
@@ -95,18 +99,17 @@ class Horde_Image_Png extends Horde_Image_Base {
      */
     function raw()
     {
-        return
-            $this->_header() .
-            $this->_IHDR() .
+        return $this->_header()
+            . $this->_IHDR()
 
             /* Say what created the image file. */
-            $this->_tEXt('Software', 'Horde Framework Image_png Class') .
+            . $this->_tEXt('Software', 'Horde_Image_Png')
 
             /* Set the last modified date/time. */
-            $this->_tIME() .
+            . $this->_tIME()
 
-            $this->_IDAT() .
-            $this->_IEND();
+            . $this->_IDAT()
+            . $this->_IEND();
     }
 
     /**
@@ -163,8 +166,24 @@ class Horde_Image_Png extends Horde_Image_Base {
      */
     function _IHDR()
     {
-        $data = pack('a4NNCCCCC', 'IHDR', $this->_width, $this->_height, $this->_colorDepth, $this->_colorType, $this->_compressionMethod, $this->_filterMethod, $this->_interlaceMethod);
-        return pack('Na' . strlen($data) . 'N', strlen($data) - 4, $data, crc32($data));
+        $data = pack(
+            'a4NNCCCCC',
+            'IHDR',
+            $this->_width,
+            $this->_height,
+            $this->_colorDepth,
+            $this->_colorType,
+            $this->_compressionMethod,
+            $this->_filterMethod,
+            $this->_interlaceMethod
+        );
+
+        return pack(
+            'Na' . strlen($data) . 'N',
+            strlen($data) - 4,
+            $data,
+            crc32($data)
+        );
     }
 
     /**
@@ -173,7 +192,12 @@ class Horde_Image_Png extends Horde_Image_Base {
     function _IEND()
     {
         $data = 'IEND';
-        return pack('Na' . strlen($data) . 'N', strlen($data) - 4, $data, crc32($data));
+        return pack(
+            'Na' . strlen($data) . 'N',
+            strlen($data) - 4,
+            $data,
+            crc32($data)
+        );
     }
 
     /**
@@ -189,9 +213,19 @@ class Horde_Image_Png extends Horde_Image_Base {
             $data .= chr($filter);
             for ($j = 0; $j < $this->_width; $j++) {
                 if ($this->_colorDepth == 8) {
-                    $scanline[$j] = pack('CCC', $this->_img[$i][$j]['r'], $this->_img[$i][$j]['g'], $this->_img[$i][$j]['b']);
+                    $scanline[$j] = pack(
+                        'CCC',
+                        $this->_img[$i][$j]['r'],
+                        $this->_img[$i][$j]['g'],
+                        $this->_img[$i][$j]['b']
+                    );
                 } elseif ($this->_colorDepth == 16) {
-                    $scanline[$j] = pack('nnn', $this->_img[$i][$j]['r'] << 8, $this->_img[$i][$j]['g'] << 8, $this->_img[$i][$j]['b'] << 8);
+                    $scanline[$j] = pack(
+                        'nnn',
+                        $this->_img[$i][$j]['r'] << 8,
+                        $this->_img[$i][$j]['g'] << 8,
+                        $this->_img[$i][$j]['b'] << 8
+                    );
                 }
 
                 if ($filter == 0) {
@@ -201,9 +235,19 @@ class Horde_Image_Png extends Horde_Image_Base {
                     /* Up Filter. */
                     $pixel = $scanline[$j] - $prevscanline[$j];
                     if ($this->_colorDepth == 8) {
-                        $data .= pack('CCC', $pixel >> 16, ($pixel >> 8) & 0xFF, $pixel & 0xFF);
+                        $data .= pack(
+                            'CCC',
+                            $pixel >> 16,
+                            ($pixel >> 8) & 0xFF,
+                            $pixel & 0xFF
+                        );
                     } elseif ($this->_colorDepth == 16) {
-                        $data .= pack('nnn', ($pixel >> 32), ($pixel >> 16) & 0xFFFF, $pixel & 0xFFFF);
+                        $data .= pack(
+                            'nnn',
+                            ($pixel >> 32),
+                            ($pixel >> 16) & 0xFFFF,
+                            $pixel & 0xFFFF
+                        );
                     }
                 }
             }
@@ -211,8 +255,21 @@ class Horde_Image_Png extends Horde_Image_Base {
         }
         $compressed = gzdeflate($data, 9);
 
-        $data = 'IDAT' . pack('CCa' . strlen($compressed) . 'a4', 0x78, 0x01, $compressed, $this->_Adler32($data));
-        return pack('Na' . strlen($data) . 'N', strlen($data) - 4, $data, crc32($data));
+        $data = 'IDAT'
+            . pack(
+                'CCa' . strlen($compressed) . 'a4',
+                0x78,
+                0x01,
+                $compressed,
+                $this->_Adler32($data)
+            );
+
+        return pack(
+            'Na' . strlen($data) . 'N',
+            strlen($data) - 4,
+            $data,
+            crc32($data)
+        );
     }
 
     /**
@@ -221,7 +278,13 @@ class Horde_Image_Png extends Horde_Image_Base {
     function _tEXt($keyword, $text)
     {
         $data = 'tEXt' . $keyword . "\0" . $text;
-        return pack('Na' . strlen($data) . 'N', strlen($data) - 4, $data, crc32($data));
+
+        return pack(
+            'Na' . strlen($data) . 'N',
+            strlen($data) - 4,
+            $data,
+            crc32($data)
+        );
     }
 
     /**
@@ -235,8 +298,23 @@ class Horde_Image_Png extends Horde_Image_Base {
             $date = time();
         }
 
-        $data = 'tIME' . pack('nCCCCC', intval(date('Y', $date)), intval(date('m', $date)), intval(date('j', $date)), intval(date('G', $date)), intval(date('i', $date)), intval(date('s', $date)));
-        return pack('Na' . strlen($data) . 'N', strlen($data) - 4, $data, crc32($data));
+        $data = 'tIME'
+            . pack(
+                'nCCCCC',
+                intval(date('Y', $date)),
+                intval(date('m', $date)),
+                intval(date('j', $date)),
+                intval(date('G', $date)),
+                intval(date('i', $date)),
+                intval(date('s', $date))
+            );
+
+        return pack(
+            'Na' . strlen($data) . 'N',
+            strlen($data) - 4,
+            $data,
+            crc32($data)
+        );
     }
 
     /**

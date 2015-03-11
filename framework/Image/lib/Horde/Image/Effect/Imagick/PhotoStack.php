@@ -48,14 +48,16 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('type' => 'plain',
-                               'resize_height' => '150',
-                               'padding' => 0,
-                               'background' => 'none',
-                               'bordercolor' => '#333',
-                               'borderwidth' => 1,
-                               'borderrounding' => 10,
-                               'offset' => 5);
+    protected $_params = array(
+        'type'           => 'plain',
+        'resize_height'  => '150',
+        'padding'        => 0,
+        'background'     => 'none',
+        'bordercolor'    => '#333',
+        'borderwidth'    => 1,
+        'borderrounding' => 10,
+        'offset'         => 5
+    );
 
     /**
      * Applies the effect.
@@ -64,7 +66,7 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
     {
         $i = 1;
         $cnt = count($this->_params['images']);
-        if ($cnt <=0) {
+        if ($cnt <= 0) {
             throw new Horde_Image_Exception('No Images provided.');
         }
         if (!method_exists($this->_image->imagick, 'polaroidImage') ||
@@ -108,9 +110,11 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 if ($this->_params['type'] == 'rounded') {
                     $imgk = $this->_roundBorder($imgk);
                 } else {
-                    $imgk->borderImage($this->_params['bordercolor'],
-                                       $this->_params['borderwidth'],
-                                       $this->_params['borderwidth']);
+                    $imgk->borderImage(
+                        $this->_params['bordercolor'],
+                        $this->_params['borderwidth'],
+                        $this->_params['borderwidth']
+                    );
                 }
                 // Only shadow the bottom image for 'plain' stacks
                 if (!$haveBottom) {
@@ -127,22 +131,26 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 $geo = $imgk->getImageGeometry();
                 $length = max(
                     $length,
-                    sqrt(pow($geo['height'], 2) + pow($geo['width'], 2)));
+                    sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
+                );
 
                 $imgs[] = $imgk;
             }
             break;
+
         case 'polaroid':
             foreach ($this->_params['images'] as $image) {
-                //@TODO: instead of doing $image->raw(), we might be able to clone
-                //         the imagick object if we can do it cleanly might
-                //         be faster, less memory intensive?
-                $imgk= new Imagick();
+                // @TODO: instead of doing $image->raw(), we might be able to
+                //        clone the imagick object if we can do it cleanly
+                //        might be faster, less memory intensive?
+                $imgk = new Imagick();
                 $imgk->clear();
                 $imgk->readImageBlob($image->raw());
-                $imgk->thumbnailImage($this->_params['resize_height'],
-                                      $this->_params['resize_height'],
-                                      true);
+                $imgk->thumbnailImage(
+                    $this->_params['resize_height'],
+                    $this->_params['resize_height'],
+                    true
+                );
                 $imgk->setImageBackgroundColor('black');
                 if ($i++ == $cnt) {
                     $angle = 0;
@@ -158,7 +166,8 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 $geo = $imgk->getImageGeometry();
                 $length = max(
                     $length,
-                    sqrt(pow($geo['height'], 2) + pow($geo['width'], 2)));
+                    sqrt(pow($geo['height'], 2) + pow($geo['width'], 2))
+                );
 
                 $imgs[] = $imgk;
             }
@@ -166,8 +175,10 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         }
 
         // Make sure the background canvas is large enough to hold it all.
-        $this->_image->imagick->thumbnailImage($length * 1.5 + 20,
-                                               $length * 1.5 + 20);
+        $this->_image->imagick->thumbnailImage(
+            $length * 1.5 + 20,
+            $length * 1.5 + 20
+        );
 
         // x and y offsets.
         $xo = $yo = (count($imgs) + 1) * $this->_params['offset'];
@@ -180,7 +191,9 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 $xo -= $this->_params['offset'];
                 $yo -= $this->_params['offset'];
             }
-            $this->_image->imagick->compositeImage($image, Imagick::COMPOSITE_OVER, $xo, $yo);
+            $this->_image->imagick->compositeImage(
+                $image, Imagick::COMPOSITE_OVER, $xo, $yo
+            );
             $image->removeImage();
             $image->destroy();
         }
@@ -188,7 +201,8 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         // Trim the canvas before resizing to keep the thumbnails as large as
         // possible.
         $this->_image->imagick->trimImage(0);
-        if ($this->_params['padding'] || $this->_params['background'] != 'none') {
+        if ($this->_params['padding'] ||
+            $this->_params['background'] != 'none') {
             $this->_image->imagick->borderImage(
                 new ImagickPixel($this->_params['background']),
                 $this->_params['padding'],
@@ -205,17 +219,21 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
         $new = new Horde_Image_Imagick(array(), $context);
         $new->loadString($image->getImageBlob());
         $image->destroy();
-        $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111'));
+        $new->addEffect(
+            'RoundCorners',
+            array('border' => 2, 'bordercolor' => '#111')
+        );
         $new->applyEffects();
         $return = new Imagick();
-        $return->newImage($size['width'] + $this->_params['borderwidth'],
-                          $size['height'] + $this->_params['borderwidth'],
-                          $this->_params['bordercolor']);
+        $return->newImage(
+            $size['width'] + $this->_params['borderwidth'],
+            $size['height'] + $this->_params['borderwidth'],
+            $this->_params['bordercolor']
+        );
         $return->setImageFormat($this->_image->getType());
         $return->clear();
         $return->readImageBlob($new->raw());
 
         return $return;
     }
-
 }

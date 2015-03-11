@@ -28,34 +28,42 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('radius' => 10,
-                               'background' => 'none',
-                               'border' => 0,
-                               'bordercolor' => 'none');
+    protected $_params = array(
+        'radius'      => 10,
+        'background'  => 'none',
+        'border'      => 0,
+        'bordercolor' => 'none'
+    );
 
     public function apply()
     {
         if (!method_exists($this->_image->imagick, 'roundCorners')) {
-                throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library (> 6.2.8) to use the RoundCorners effect.');
+            throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library (> 6.2.8) to use the RoundCorners effect.');
         }
 
         $round = $this->_params['radius'];
-        $result = $this->_image->imagick->roundCorners($round, $round);
+        $this->_image->imagick->roundCorners($round, $round);
 
         // Using a border?
         if ($this->_params['bordercolor'] != 'none' &&
             $this->_params['border'] > 0) {
-
             $size = $this->_image->getDimensions();
 
             $new = new Imagick();
-            $new->newImage($size['width'] + $this->_params['border'],
-                           $size['height'] + $this->_params['border'],
-                           $this->_params['bordercolor']);
+            $new->newImage(
+                $size['width'] + $this->_params['border'],
+                $size['height'] + $this->_params['border'],
+                $this->_params['bordercolor']
+            );
             $new->setImageFormat($this->_image->getType());
 
             $new->roundCorners($round, $round);
-            $new->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 1, 1);
+            $new->compositeImage(
+                $this->_image->imagick,
+                Imagick::COMPOSITE_OVER,
+                round($this->_params['border'] / 2),
+                round($this->_params['border'] / 2)
+            );
             $this->_image->imagick->clear();
             $this->_image->imagick->addImage($new);
             $new->destroy();
@@ -68,11 +76,17 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
         if ($this->_params['background'] != 'none') {
             $size = $this->_image->getDimensions();
             $new = new Imagick();
-            $new->newImage($size['width'],
-                           $size['height'],
-                           $this->_params['background']);
+            $new->newImage(
+                $size['width'],
+                $size['height'],
+                $this->_params['background']
+            );
             $new->setImageFormat($this->_image->getType());
-            $new->compositeImage($this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0);
+            $new->compositeImage(
+                $this->_image->imagick,
+                Imagick::COMPOSITE_OVER,
+                0, 0
+            );
             $this->_image->imagick->clear();
             $this->_image->imagick->addImage($new);
             $new->destroy();
@@ -83,5 +97,4 @@ class Horde_Image_Effect_Imagick_RoundCorners extends Horde_Image_Effect
 
         return true;
     }
-
 }

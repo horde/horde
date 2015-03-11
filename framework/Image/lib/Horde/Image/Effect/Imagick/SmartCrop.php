@@ -60,7 +60,9 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         // Existing AR
         $ar0 = $w0 / $h0;
 
-        $this->_logger->debug(sprintf("SmartCrop: %d x %d => %d x %d ", $w0, $h0, $w, $h));
+        $this->_logger->debug(
+            sprintf("SmartCrop: %d x %d => %d x %d ", $w0, $h0, $w, $h)
+        );
         $this->_logger->debug('OAR: ' . $ar0);
         $this->_logger->debug('TAR: ' . $ar);
 
@@ -112,10 +114,7 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $n = 10000;
         $maxbetanorm = 0;
         $maxfile = '';
-        $maxparam = array('w' => 0,
-                          'h' => 0,
-                          'x' => 0,
-                          'y' => 0);
+        $maxparam = array('w' => 0, 'h' => 0, 'x' => 0, 'y' => 0);
 
         for ($k = 0; $k < $nk; $k++) {
             $hcrop = round($hcrop0 - $k * $hinc);
@@ -168,5 +167,4 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $this->_image->imagick->scaleImage($w, $h);
         $img->destroy();
     }
-
 }

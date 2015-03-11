@@ -33,10 +33,12 @@ class Horde_Image_Effect_Imagick_TextWatermark extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('halign' => 'right',
-                               'valign' => 'bottom',
-                               'font' => 'courier',
-                               'fontsize' => 'small');
+    protected $_params = array(
+        'halign'   => 'right',
+        'valign'   => 'bottom',
+        'font'     => 'courier',
+        'fontsize' => 'small'
+    );
 
     /**
      * Applies the effect.
@@ -74,11 +76,11 @@ class Horde_Image_Effect_Imagick_TextWatermark extends Horde_Image_Effect
         } else {
             $gravity = $v . $h;
         }
+
         /* Determine font point size */
         $point = Horde_Image::getFontSize($this->_params['fontsize']);
 
         //@TODO:
         throw new Horde_Image_Exception('Not Yet Implemented.');
     }
-
 }

@@ -110,13 +110,15 @@ class Horde_Image_Im extends Horde_Image_Base
         parent::__construct($params, $context);
 
         if (empty($context['convert'])) {
-            throw new InvalidArgumentException('A path to the convert binary is required.');
+            throw new InvalidArgumentException(
+                'A path to the convert binary is required.'
+            );
         }
         $this->_convert = $context['convert'];
-
         if (!empty($context['identify'])) {
             $this->_identify = $context['identify'];
         }
+
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
         } elseif (!empty($params['data'])) {
@@ -222,9 +224,13 @@ class Horde_Image_Im extends Horde_Image_Base
         $resHeight = $height * 2;
         $this->_operations[] = "-size {$resWidth}x{$resHeight}";
         if ($ratio) {
-            $this->_postSrcOperations[] = (($keepProfile) ? "-resize" : "-thumbnail") . " {$width}x{$height}";
+            $this->_postSrcOperations[] =
+                ($keepProfile ? '-resize' : '-thumbnail')
+                . " {$width}x{$height}";
         } else {
-            $this->_postSrcOperations[] = (($keepProfile) ? "-resize" : "-thumbnail") . " {$width}x{$height}!";
+            $this->_postSrcOperations[] =
+                ($keepProfile ? '-resize' : '-thumbnail')
+                . " {$width}x{$height}!";
         }
 
         // Refresh the data
@@ -300,7 +306,7 @@ class Horde_Image_Im extends Horde_Image_Base
      *
      * @param integer $threshold  Extent of sepia effect.
      */
-    public function sepia($threshold =  85)
+    public function sepia($threshold = 85)
     {
         $this->_operations[] = '-sepia-tone ' . $threshold . '%';
     }
@@ -325,11 +331,16 @@ class Horde_Image_Im extends Horde_Image_Base
      *                            the text.
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
-    public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
+    public function text(
+        $string, $x, $y, $font = '', $color = 'black', $direction = 0,
+        $fontsize = 'small'
+    )
     {
         $string = addslashes('"' . $string . '"');
         $fontsize = Horde_Image::getFontSize($fontsize);
-        $this->_postSrcOperations[] = "-fill $color " . (!empty($font) ? "-font $font" : '') . " -pointsize $fontsize -gravity northwest -draw \"text $x,$y $string\" -fill none";
+        $this->_postSrcOperations[] = "-fill $color "
+            . (!empty($font) ? "-font $font" : '')
+            . " -pointsize $fontsize -gravity northwest -draw \"text $x,$y $string\" -fill none";
     }
 
     /**
@@ -392,7 +403,9 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string  $color   The line color of the rectangle.
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
-    public function roundedRectangle($x, $y, $width, $height, $round, $color, $fill)
+    public function roundedRectangle(
+        $x, $y, $width, $height, $round, $color, $fill
+    )
     {
         $x1 = $x + $width;
         $y1 = $y + $height;
@@ -463,7 +476,9 @@ class Horde_Image_Im extends Horde_Image_Base
      * @param string  $color  The line color of the arc.
      * @param string  $fill   The fill color of the arc (defaults to none).
      */
-    public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = 'none')
+    public function arc(
+        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
+    )
     {
         // Split up arcs greater than 180 degrees into two pieces.
         $this->_postSrcOperations[] = "-stroke $color -fill $fill";
@@ -552,9 +567,11 @@ class Horde_Image_Im extends Horde_Image_Base
         $tmpout = Horde_Util::getTempFile('img', false, $this->_tmpdir);
 
         // Substitue them in the cmd string
-        $cmd = str_replace(array('__FILEIN__', '__FILEOUT__', '__CONVERT__'),
-                           array('"' . $tmpin . '"', '"' . $tmpout . '"', $this->_convert),
-                           $cmd);
+        $cmd = str_replace(
+            array('__FILEIN__', '__FILEOUT__', '__CONVERT__'),
+            array('"' . $tmpin . '"', '"' . $tmpout . '"', $this->_convert),
+            $cmd
+        );
 
         //TODO: See what else needs to be replaced.
         $cmd = $this->_convert . ' ' . $cmd . ' 2>&1';

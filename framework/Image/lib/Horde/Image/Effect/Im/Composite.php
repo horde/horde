@@ -49,7 +49,8 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
         }
 
         if (isset($this->_params['x']) && isset($this->_params['y'])) {
-            $geometry = ' -geometry +' . $this->_params['x'] . '+' . $this->_params['y'] . ' ';
+            $geometry = ' -geometry +' . $this->_params['x']
+                . '+' . $this->_params['y'] . ' ';
         }
         if (isset($this->_params['compose'])) {
             // The -matte ensures that the destination (background) image has
@@ -57,7 +58,7 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
             $compose = ' -compose ' . $this->_params['compose'] . ' -matte';
         }
 
-        foreach($this->_params['images'] as $image) {
+        foreach ($this->_params['images'] as $image) {
             $temp = $image->toFile();
             $this->_image->addFileToClean($temp);
             $ops .= ' ' . $temp . $gravity . $compose . ' -composite';
@@ -67,5 +68,4 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
 
         return true;
     }
-
 }

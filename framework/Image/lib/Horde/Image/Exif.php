@@ -78,10 +78,9 @@ class Horde_Image_Exif
     {
         $len  = strlen($intel);
         $moto = '';
-        for($i = 0; $i <= $len; $i += 2) {
-            $moto .= substr($intel, $len-$i, 2);
+        for ($i = 0; $i <= $len; $i += 2) {
+            $moto .= substr($intel, $len - $i, 2);
         }
-
         return $moto;
     }
 
@@ -273,14 +272,21 @@ class Horde_Image_Exif
     {
         if ($data > 0) {
             if ($data > 1) {
-                return sprintf(Horde_Image_Translation::t("%d sec"), round($data, 2));
+                return sprintf(
+                    Horde_Image_Translation::t("%d sec"),
+                    round($data, 2)
+                );
             } else {
                 $n = $d = 0;
                 self::_convertToFraction($data, $n, $d);
                 if ($n <> 1) {
-                    return sprintf(Horde_Image_Translation::t("%4f sec"), $n / $d);
+                    return sprintf(
+                        Horde_Image_Translation::t("%4f sec"), $n / $d
+                    );
                 }
-                return sprintf(Horde_Image_Translation::t("%s / %s sec"), $n, $d);
+                return sprintf(
+                    Horde_Image_Translation::t("%s / %s sec"), $n, $d
+                );
             }
         } else {
             return Horde_Image_Translation::t("Bulb");

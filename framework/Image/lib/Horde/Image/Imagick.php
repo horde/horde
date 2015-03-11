@@ -62,10 +62,14 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function __construct($params, $context = array())
     {
         if (!Horde_Util::loadExtension('imagick')) {
-            throw new Horde_Image_Exception('Required PECL Imagick extension not found.');
+            throw new Horde_Image_Exception(
+                'Required PECL Imagick extension not found.'
+            );
         }
+
         parent::__construct($params, $context);
         ini_set('imagick.locale_fix', 1);
+
         $this->_imagick = new Imagick();
         if (!empty($params['filename'])) {
             $this->loadFile($params['filename']);
@@ -211,15 +215,13 @@ class Horde_Image_Imagick extends Horde_Image_Base
                 $size = $this->_imagick->getImageGeometry();
             } catch (ImagickException $e) {
                 return array('width' => 0, 'height' => 0);
-                //throw new Horde_Image_Exception($e);
             }
 
             $this->_height = $size['height'];
             $this->_width = $size['width'];
         }
 
-        return array('width' => $this->_width,
-                     'height' => $this->_height);
+        return array('width' => $this->_width, 'height' => $this->_height);
 
     }
 
@@ -300,7 +302,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *
      * @param integer $threshold  Extent of sepia effect.
      */
-    public function sepia($threshold =  85)
+    public function sepia($threshold = 85)
     {
         try {
             $this->_imagick->sepiaToneImage($threshold);
@@ -329,7 +331,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
      *                            the text.
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
-    public function text($string, $x, $y, $font = '', $color = 'black', $direction = 0, $fontsize = 'small')
+    public function text(
+        $string, $x, $y, $font = '', $color = 'black', $direction = 0,
+        $fontsize = 'small'
+    )
     {
         $fontsize = Horde_Image::getFontSize($fontsize);
         $pixel = new ImagickPixel($color);
@@ -341,7 +346,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setFontSize($fontsize);
         $draw->setGravity(Imagick::GRAVITY_NORTHWEST);
         try {
-            $res = $this->_imagick->annotateImage($draw, $x, $y, $direction, $string);
+            $this->_imagick->annotateImage($draw, $x, $y, $direction, $string);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -364,7 +369,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->circle($x, $y, $r + $x, $y);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -386,7 +391,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->polygon($verts);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -410,7 +415,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->rectangle($x, $y, $x + $width, $y + $height);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -428,14 +433,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string  $color   The line color of the rectangle.
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
-    public function roundedRectangle($x, $y, $width, $height, $round, $color, $fill)
+    public function roundedRectangle(
+        $x, $y, $width, $height, $round, $color, $fill
+    )
     {
         $draw = new ImagickDraw();
         $draw->setStrokeColor(new ImagickPixel($color));
         $draw->setFillColor(new ImagickPixel($fill));
         $draw->roundRectangle($x, $y, $x + $width, $y + $height, $round, $round);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -459,7 +466,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeWidth($width);
         $draw->line($x0, $y0, $x1, $y1);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw Horde_Image_Exception($e);
         }
@@ -478,7 +485,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param integer $dash_length  The length of a dash on the dashed line.
      * @param integer $dash_space   The length of a space in the dashed line.
      */
-    public function dashedLine($x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
+    public function dashedLine(
+        $x0, $y0, $x1, $y1, $color = 'black', $width = 1, $dash_length = 2,
+        $dash_space = 2
+    )
     {
         $draw = new ImagickDraw();
         $draw->setStrokeColor(new ImagickPixel($color));
@@ -486,7 +496,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setStrokeDashArray(array($dash_length, $dash_space));
         $draw->line($x0, $y0, $x1, $y1);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImageException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -510,7 +520,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $draw->setFillColor(new ImagickPixel('none'));
         $draw->polyline($verts);
         try {
-            $res = $this->_imagick->drawImage($draw);
+            $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
@@ -528,7 +538,9 @@ class Horde_Image_Imagick extends Horde_Image_Base
      * @param string $color   The line color of the arc.
      * @param string $fill    The fill color of the arc (defaults to none).
      */
-    public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = 'none')
+    public function arc(
+        $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
+    )
     {
         throw new Horde_Image_Exception('Not Yet Implemented.');
     }
@@ -546,7 +558,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function __get($property)
     {
         switch ($property) {
-        case "imagick":
+        case 'imagick':
             return $this->_imagick;
         }
     }

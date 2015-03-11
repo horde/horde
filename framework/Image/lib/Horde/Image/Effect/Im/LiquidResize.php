@@ -44,11 +44,14 @@ class Horde_Image_Effect_Im_LiquidResize extends Horde_Image_Effect
 
         $this->_image->addOperation("-size {$resWidth}x{$resHeight}");
         if ($this->_params->get('ratio', true)) {
-            $this->_image->addPostSrcOperation('-liquid-rescale' . " {$this->_params->width}x{$this->_params->height}");
+            $this->_image->addPostSrcOperation(
+                "-liquid-rescale {$this->_params->width}x{$this->_params->height}"
+            );
         } else {
-            $this->_image->addPostSrcOperation('-liquid-rescale' . " {$this->_params->width}x{$this->_params->height}!");
+            $this->_image->addPostSrcOperation(
+                "-liquid-rescale {$this->_params->width}x{$this->_params->height}!"
+            );
         }
         $this->_image->clearGeometry();
     }
-
 }

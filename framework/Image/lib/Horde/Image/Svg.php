@@ -44,8 +44,10 @@ class Horde_Image_Svg extends Horde_Image_Base
     public function __construct($params)
     {
         parent::__construct($params);
-        $this->_svg = new XML_SVG_Document(array('width' => $this->_width,
-                                                 'height' => $this->_height));
+        $this->_svg = new XML_SVG_Document(array(
+            'width' => $this->_width,
+            'height' => $this->_height
+        ));
     }
 
     /**
@@ -88,13 +90,23 @@ class Horde_Image_Svg extends Horde_Image_Base
     {
         $defs = new XML_SVG_Defs();
         $filter = new XML_SVG_Filter(array('id' => $id));
-        $filter->addPrimitive('GaussianBlur', array('in' => 'SourceAlpha',
-                                                    'stdDeviation' => 2,
-                                                    'result' => 'blur'));
-        $filter->addPrimitive('Offset', array('in' => 'blur',
-                                              'dx' => 4,
-                                              'dy' => 4,
-                                              'result' => 'offsetBlur'));
+        $filter->addPrimitive(
+            'GaussianBlur',
+            array(
+                'in'           => 'SourceAlpha',
+                'stdDeviation' => 2,
+                'result'       => 'blur'
+            )
+        );
+        $filter->addPrimitive(
+            'Offset',
+            array(
+                'in'     => 'blur',
+                'dx'     => 4,
+                'dy'     => 4,
+                'result' => 'offsetBlur'
+            )
+        );
         $merge = new XML_SVG_FilterPrimitive('Merge');
         $merge->addMergeNode('offsetBlur');
         $merge->addMergeNode('SourceGraphic');
@@ -120,16 +132,21 @@ class Horde_Image_Svg extends Horde_Image_Base
      *                            the text.
      * @param string $fontsize    Size of the font (small, medium, large, giant)
      */
-    public function text($string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0)
+    public function text(
+        $string, $x, $y, $font = 'monospace', $color = 'black', $direction = 0
+    )
     {
         $height = 12;
-        $style = 'font-family:' . $font . ';font-height:' . $height . 'px;fill:' . $this->getHexColor($color) . ';text-anchor:start;';
+        $style = 'font-family:' . $font . ';font-height:' . $height
+            . 'px;fill:' . $this->getHexColor($color) . ';text-anchor:start;';
         $transform = 'rotate(' . $direction . ',' . $x . ',' . $y . ')';
-        $this->_svg->addChild(new XML_SVG_Text(array('text' => $string,
-                                                     'x' => (int)$x,
-                                                     'y' => (int)$y + $height,
-                                                     'transform' => $transform,
-                                                     'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Text(array(
+            'text'      => $string,
+            'x'         => (int)$x,
+            'y'         => (int)$y + $height,
+            'transform' => $transform,
+            'style'     => $style
+        )));
     }
 
     /**
@@ -150,10 +167,12 @@ class Horde_Image_Svg extends Horde_Image_Base
         }
         $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
 
-        $this->_svg->addChild(new XML_SVG_Circle(array('cx' => $x,
-                                                       'cy' => $y,
-                                                       'r' => $r,
-                                                       'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Circle(array(
+            'cx'    => $x,
+            'cy'    => $y,
+            'r'     => $r,
+            'style' => $style
+        )));
     }
 
     /**
@@ -179,8 +198,10 @@ class Horde_Image_Svg extends Horde_Image_Base
         }
         $points = trim($points);
 
-        $this->_svg->addChild(new XML_SVG_Polygon(array('points' => $points,
-                                                        'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Polygon(array(
+            'points' => $points,
+            'style'  => $style
+        )));
     }
 
     /**
@@ -202,11 +223,13 @@ class Horde_Image_Svg extends Horde_Image_Base
         }
         $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
 
-        $this->_svg->addChild(new XML_SVG_Rect(array('x' => $x,
-                                                     'y' => $y,
-                                                     'width' => $width,
-                                                     'height' => $height,
-                                                     'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Rect(array(
+            'x'      => $x,
+            'y'      => $y,
+            'width'  => $width,
+            'height' => $height,
+            'style'  => $style
+        )));
     }
 
     /**
@@ -220,7 +243,9 @@ class Horde_Image_Svg extends Horde_Image_Base
      * @param string  $color   The line color of the rectangle.
      * @param string  $fill    The color to fill the rounded rectangle with.
      */
-    public function roundedRectangle($x, $y, $width, $height, $round, $color, $fill)
+    public function roundedRectangle(
+        $x, $y, $width, $height, $round, $color, $fill
+    )
     {
         if (!empty($fill)) {
             $style = 'fill:' . $this->getHexColor($fill) . '; ';
@@ -229,13 +254,15 @@ class Horde_Image_Svg extends Horde_Image_Base
         }
         $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
 
-        $this->_svg->addChild(new XML_SVG_Rect(array('x' => $x,
-                                                     'y' => $y,
-                                                     'rx' => $round,
-                                                     'ry' => $round,
-                                                     'width' => $width,
-                                                     'height' => $height,
-                                                     'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Rect(
+            array('x'      => $x,
+                  'y'      => $y,
+                  'rx'     => $round,
+                  'ry'     => $round,
+                  'width'  => $width,
+                  'height' => $height,
+                  'style'  => $style
+        )));
     }
 
     /**
@@ -250,12 +277,15 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
     {
-        $style = 'stroke:' . $this->getHexColor($color) . '; stroke-width:' . (int)$width;
-        $this->_svg->addChild(new XML_SVG_Line(array('x1' => $x1,
-                                                     'y1' => $y1,
-                                                     'x2' => $x2,
-                                                     'y2' => $y2,
-                                                     'style' => $style)));
+        $style = 'stroke:' . $this->getHexColor($color)
+            . '; stroke-width:' . (int)$width;
+        $this->_svg->addChild(new XML_SVG_Line(array(
+            'x1'    => $x1,
+            'y1'    => $y1,
+            'x2'    => $x2,
+            'y2'    => $y2,
+            'style' => $style
+        )));
     }
 
     /**
@@ -270,14 +300,21 @@ class Horde_Image_Svg extends Horde_Image_Base
      * @param integer $dash_length  The length of a dash on the dashed line
      * @param integer $dash_space   The length of a space in the dashed line
      */
-    public function dashedLine($x1, $y1, $x2, $y2, $color = 'black', $width = 1, $dash_length = 2, $dash_space = 2)
+    public function dashedLine(
+        $x1, $y1, $x2, $y2, $color = 'black', $width = 1, $dash_length = 2,
+        $dash_space = 2
+    )
     {
-        $style = 'stroke:' . $this->getHexColor($color) . '; stroke-width:' . (int)$width . '; stroke-dasharray:' . $dash_length . ',' . $dash_space . ';';
-        $this->_svg->addChild(new XML_SVG_Line(array('x1' => $x1,
-                                                     'y1' => $y1,
-                                                     'x2' => $x2,
-                                                     'y2' => $y2,
-                                                     'style' => $style)));
+        $style = 'stroke:' . $this->getHexColor($color)
+            . '; stroke-width:' . (int)$width
+            . '; stroke-dasharray:' . $dash_length . ',' . $dash_space . ';';
+        $this->_svg->addChild(new XML_SVG_Line(array(
+            'x1'    => $x1,
+            'y1'    => $y1,
+            'x2'    => $x2,
+            'y2'    => $y2,
+            'style' => $style
+        )));
     }
 
     /**
@@ -291,7 +328,8 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function polyline($verts, $color, $width = 1)
     {
-        $style = 'stroke:' . $this->getHexColor($color) . '; stroke-width:' . $width . ';fill:none;';
+        $style = 'stroke:' . $this->getHexColor($color)
+            . '; stroke-width:' . $width . ';fill:none;';
 
         // Calculate the path entry.
         $path = '';
@@ -306,8 +344,10 @@ class Horde_Image_Svg extends Horde_Image_Base
             }
         }
 
-        $this->_svg->addChild(new XML_SVG_Path(array('d' => $path,
-                                                     'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Path(array(
+            'd' => $path,
+            'style' => $style
+        )));
     }
 
     /**
@@ -321,7 +361,9 @@ class Horde_Image_Svg extends Horde_Image_Base
      * @param string $color   The line color of the arc.
      * @param string $fill    The fill color of the arc (defaults to none).
      */
-    public function arc($x, $y, $r, $start, $end, $color = 'black', $fill = null)
+    public function arc(
+        $x, $y, $r, $start, $end, $color = 'black', $fill = null
+    )
     {
         if (!empty($fill)) {
             $style = 'fill:' . $this->getHexColor($fill) . '; ';
@@ -364,8 +406,10 @@ class Horde_Image_Svg extends Horde_Image_Base
 
         $path = trim($path);
 
-        $this->_svg->addChild(new XML_SVG_Path(array('d' => $path,
-                                                     'style' => $style)));
+        $this->_svg->addChild(new XML_SVG_Path(array(
+            'd' => $path,
+            'style' => $style
+        )));
     }
 
 }

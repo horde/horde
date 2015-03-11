@@ -45,7 +45,9 @@ class Horde_Image
         $g = min(max($g + $factor, 0), 255);
         $b = min(max($b + $factor, 0), 255);
 
-        return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT) . str_pad(dechex($g), 2, '0', STR_PAD_LEFT) . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
+        return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex($g), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -89,7 +91,9 @@ class Horde_Image
         $g = min(max($g, 0), 255);
         $b = min(max($b, 0), 255);
 
-        return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT) . str_pad(dechex($g), 2, '0', STR_PAD_LEFT) . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
+        return '#' . str_pad(dechex($r), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex($g), 2, '0', STR_PAD_LEFT)
+            . str_pad(dechex($b), 2, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -130,8 +134,12 @@ class Horde_Image
      */
     public static function grayscalePixel($originalPixel)
     {
-        $gray = Horde_Image::grayscaleValue($originalPixel['red'], $originalPixel['green'], $originalPixel['blue']);
-        return array('red'=>$gray, 'green'=>$gray, 'blue'=>$gray);
+        $gray = Horde_Image::grayscaleValue(
+            $originalPixel['red'],
+            $originalPixel['green'],
+            $originalPixel['blue']
+        );
+        return array('red' => $gray, 'green' => $gray, 'blue' => $gray);
     }
 
     /**
@@ -248,19 +256,14 @@ class Horde_Image
     {
         switch ($fontsize) {
         case 'medium':
-            $point = 18;
-            break;
+            return 18;
         case 'large':
-            $point = 24;
-            break;
+            return 24;
         case 'giant':
-            $point = 30;
-            break;
+            return 30;
         default:
-            $point = 12;
+            return 12;
         }
-
-        return $point;
     }
 
 }

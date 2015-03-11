@@ -45,13 +45,17 @@ class Horde_Image_Effect_Imagick_LiquidResize extends Horde_Image_Effect
             // Only supported if ImageMagick is compiled against lqr library.
             if (method_exists($this->_image->imagick, 'liquidRescaleImage')) {
                 $this->_image->imagick->liquidRescaleImage(
-                    $this->_params->width, $this->_params->height, $this->_params->delta_x, $this->_params->rigidity);
+                    $this->_params->width, $this->_params->height,
+                    $this->_params->delta_x,
+                    $this->_params->rigidity
+                );
             } else {
-                throw new Horde_Image_Exception('Missing support for lqr in ImageMagick.');
+                throw new Horde_Image_Exception(
+                    'Missing support for lqr in ImageMagick.'
+                );
             }
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }
     }
-
 }

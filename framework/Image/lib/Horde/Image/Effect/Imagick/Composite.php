@@ -51,9 +51,12 @@ class Horde_Image_Effect_Imagick_Composite extends Horde_Image_Effect
                 $x = $this->_params['x'];
                 $y = $this->_params['y'];
             }
-            $this->_image->_imagick->compositeImage($topimg, Imagick::COMPOSITE_OVER, $x, $y);
+            $this->_image->_imagick->compositeImage(
+                $topimg,
+                Imagick::COMPOSITE_OVER,
+                $x, $y
+            );
         }
         return true;
     }
-
 }

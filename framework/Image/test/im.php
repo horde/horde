@@ -441,8 +441,8 @@ case 'testRoundstackBlueBG':
 case 'testPolaroidstackTransparentBG':
     $time = xdebug_time_index();
     $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-              getImageObject(array('filename' => 'img2.jpg')),
-              getImageObject(array('filename' => 'img3.jpg')));
+                  getImageObject(array('filename' => 'img2.jpg')),
+                  getImageObject(array('filename' => 'img3.jpg')));
     $baseImg = getImageObject(array('width' => 1,
                                     'height' => 1,
                                     'background' => 'none'));
@@ -462,8 +462,8 @@ case 'testPolaroidstackTransparentBG':
 
 case 'testPolaroidstackBlueBG':
     $imgs = array(getImageObject(array('filename' => 'img1.jpg')),
-              getImageObject(array('filename' => 'img2.jpg')),
-              getImageObject(array('filename' => 'img3.jpg')));
+                  getImageObject(array('filename' => 'img2.jpg')),
+                  getImageObject(array('filename' => 'img3.jpg')));
     $baseImg = getImageObject(array('width' => 1,
                                     'height' => 1,
                                     'background' => 'none'));

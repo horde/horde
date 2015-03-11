@@ -48,14 +48,16 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('type' => 'plain',
-                               'resize_height' => '150',
-                               'padding' => 0,
-                               'background' => 'none',
-                               'bordercolor' => '#333',
-                               'borderwidth' => 1,
-                               'borderrounding' => 10,
-                               'offset' => 5);
+    protected $_params = array(
+        'type'           => 'plain',
+        'resize_height'  => '150',
+        'padding'        => 0,
+        'background'     => 'none',
+        'bordercolor'    => '#333',
+        'borderwidth'    => 1,
+        'borderrounding' => 10,
+        'offset'         => 5
+    );
 
     /**
      * Applies the effect.
@@ -64,7 +66,7 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
     {
         $i = 1;
         $cnt = count($this->_params['images']);
-        if ($cnt <=0) {
+        if ($cnt <= 0) {
             throw new Horde_Image_Exception('No Images provided.');
         }
 
@@ -76,13 +78,17 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
         case 'rounded':
             // Get top image dimensions, then force each bottom image to the
             // same dimensions.
-            $this->_params['images'][$cnt - 1]->resize($this->_params['resize_height'],
-                                                       $this->_params['resize_height'],
-                                                       true);
+            $this->_params['images'][$cnt - 1]->resize(
+                $this->_params['resize_height'],
+                $this->_params['resize_height'],
+                true
+            );
             $size = $this->_params['images'][$cnt - 1]->getDimensions();
-            $xo = $yo = (count($this->_params['images'])) * $this->_params['offset'];
+            $xo = $yo = count($this->_params['images'])
+                * $this->_params['offset'];
             $ops = '';
             $haveBottom = false;
+
             foreach ($this->_params['images'] as $image) {
                 $image->resize($size['height'], $size['width'], false);
                 $xo -= $this->_params['offset'];
@@ -94,14 +100,22 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                     $temp = $image->toFile();
                 }
                 $this->_image->addFileToClean($temp);
-                $ops .= ' \( ' . $temp . ' -background none -thumbnail ' . $size['width'] . 'x' . $size['height'] . '! -repage +' . $xo . '+' . $yo . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ' ) . ((!$haveBottom) ? '\( +clone -shadow 80x3+4+4 \) +swap -mosaic' : '') . ' \) ';
+                $ops .= ' \( ' . $temp . ' -background none -thumbnail '
+                    . $size['width'] . 'x' . $size['height']
+                    . '! -repage +' . $xo . '+' . $yo
+                    . ($this->_params['type'] == 'plain' ? ' -bordercolor "#333" -border 1 ' : ' ' )
+                    . ((!$haveBottom) ? '\( +clone -shadow 80x3+4+4 \) +swap -mosaic' : '')
+                    . ' \) ';
                 $haveBottom = true;
             }
 
             // The first -background none option below is only honored in
             // convert versions before 6.4 it seems. Without it specified as
             // none here, all stacks come out with a white background.
-            $this->_image->addPostSrcOperation($ops . ' -background ' . $this->_params['background'] . ' -mosaic -bordercolor ' . $this->_params['background'] . ' -border ' . $this->_params['padding']);
+            $this->_image->addPostSrcOperation(
+                $ops . ' -background ' . $this->_params['background']
+                . ' -mosaic -bordercolor ' . $this->_params['background']
+                . ' -border ' . $this->_params['padding']);
             break;
 
         case 'polaroid':
@@ -123,9 +137,19 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                             $angle = $angle * -1;
                         }
                     }
-                    $ops .= ' \( ' . $temp . ' -geometry +' . mt_rand(1, $this->_params['resize_height']) . '+' . mt_rand(1, $this->_params['resize_height']) . ' -thumbnail \'' . $this->_params['resize_height'] . 'x' . $this->_params['resize_height'] . '>\' -bordercolor Snow -border 1 -polaroid ' . $angle . ' \) ';
+                    $ops .= ' \( ' . $temp
+                        . ' -geometry +'
+                        . mt_rand(1, $this->_params['resize_height'])
+                        . '+' . mt_rand(1, $this->_params['resize_height'])
+                        . ' -thumbnail \'' . $this->_params['resize_height']
+                        . 'x' . $this->_params['resize_height']
+                        . '>\' -bordercolor Snow -border 1 -polaroid '
+                        . $angle . ' \) ';
                 }
-                $this->_image->addPostSrcOperation('-background none' . $ops . '-mosaic -bordercolor ' . $this->_params['background'] . ' -border ' . $this->_params['padding']);
+                $this->_image->addPostSrcOperation(
+                    '-background none' . $ops
+                    . '-mosaic -bordercolor ' . $this->_params['background']
+                    . ' -border ' . $this->_params['padding']);
             } else {
                 // An attempt at a -polaroid command free version of this
                 // effect based on various examples and ideas at
@@ -142,9 +166,17 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
                             $angle = $angle * -1;
                         }
                     }
-                    $ops .= '\( ' . $temp . ' -thumbnail \'' . $this->_params['resize_height'] . 'x' . $this->_params['resize_height']. '>\' -bordercolor "#eee" -border 4 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate ' . $angle . ' -background none \( +clone -shadow 60x4+4+4 \) +swap -background none -flatten \) ';
+                    $ops .= '\( ' . $temp . ' -thumbnail \''
+                        . $this->_params['resize_height']
+                        . 'x' . $this->_params['resize_height']
+                        . '>\' -bordercolor "#eee" -border 4 -bordercolor grey90 -border 1 -bordercolor none -background none -rotate '
+                        . $angle . ' -background none \( +clone -shadow 60x4+4+4 \) +swap -background none -flatten \) ';
                 }
-                $this->_image->addPostSrcOperation('-background none ' . $ops . '-mosaic -trim +repage -bordercolor ' . $this->_params['background'] . ' -border ' . $this->_params['padding']);
+                $this->_image->addPostSrcOperation(
+                    '-background none ' . $ops
+                    . '-mosaic -trim +repage -bordercolor '
+                    . $this->_params['background']
+                    . ' -border ' . $this->_params['padding']);
             }
             break;
         }
@@ -154,15 +186,23 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
 
     private function _roundBorder($image)
     {
-        $context = array('tmpdir' => $this->_image->getTmpDir(),
-                         'convert' => $this->_image->getConvertPath());
+        $context = array(
+            'tmpdir' => $this->_image->getTmpDir(),
+            'convert' => $this->_image->getConvertPath()
+        );
 
         $size = $image->getDimensions();
         $new = new Horde_Image_Im(array('data' => $image->raw()), $context);
-        $new->addEffect('RoundCorners', array('border' => 2, 'bordercolor' => '#111', 'background' => 'none'));
+        $new->addEffect(
+            'RoundCorners',
+            array(
+                'border' => 2,
+                'bordercolor' => '#111',
+                'background' => 'none'
+            )
+        );
         $new->applyEffects();
 
         return $new->toFile();
     }
-
 }

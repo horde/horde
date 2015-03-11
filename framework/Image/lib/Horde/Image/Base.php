@@ -119,10 +119,15 @@ abstract class Horde_Image_Base extends EmptyIterator
         $this->_context = $context;
 
         if (empty($context['tmpdir'])) {
-            throw new InvalidArgumentException('A path to a temporary directory is required.');
+            throw new InvalidArgumentException(
+                'A path to a temporary directory is required.'
+            );
+        }
+        $this->_tmpdir = $context['tmpdir'];
+        if (!empty($context['logger'])) {
+            $this->_logger = $context['logger'];
         }
 
-        $this->_tmpdir = $context['tmpdir'];
         if (isset($params['width'])) {
             $this->_width = $params['width'];
         }
@@ -136,12 +141,10 @@ abstract class Horde_Image_Base extends EmptyIterator
             }
             $this->_type = $params['type'];
         }
-
-        if (!empty($context['logger'])) {
-            $this->_logger = $context['logger'];
+        if (!empty($params['background'])) {
+            $this->_background = $params['background'];
         }
 
-        $this->_background = isset($params['background']) ? $params['background'] : 'white';
     }
 
     /**
@@ -280,8 +283,7 @@ abstract class Horde_Image_Base extends EmptyIterator
             unlink($tmp);
         }
 
-        return array('width' => $this->_width,
-                     'height' => $this->_height);
+        return array('width' => $this->_width, 'height' => $this->_height);
     }
 
     /**
@@ -307,10 +309,14 @@ abstract class Horde_Image_Base extends EmptyIterator
     {
         $this->reset();
         if (!file_exists($filename)) {
-            throw new Horde_Image_Exception(sprintf("The image file, %s, does not exist.", $filename));
+            throw new Horde_Image_Exception(
+                sprintf("The image file, %s, does not exist.", $filename)
+            );
         }
         if (!$this->_data = file_get_contents($filename)) {
-            throw new Horde_Image_Exception(sprintf("Could not load the image file %s", $filename));
+            throw new Horde_Image_Exception(
+                sprintf("Could not load the image file %s", $filename)
+            );
         }
 
         return true;
@@ -327,11 +333,11 @@ abstract class Horde_Image_Base extends EmptyIterator
      *
      * @return string  Path to temporary file.
      */
-    public function toFile($data = false)
+    public function toFile($data = null)
     {
         $tmp = Horde_Util::getTempFile('img', false, $this->_tmpdir);
-        $fp = @fopen($tmp, 'wb');
-        fwrite($fp, $data ? $data : $this->raw());
+        $fp = fopen($tmp, 'wb');
+        fwrite($fp, $data ?: $this->raw());
         fclose($fp);
         return $tmp;
     }
@@ -388,7 +394,9 @@ abstract class Horde_Image_Base extends EmptyIterator
                 if ($handle = opendir($path)) {
                     while (($file = readdir($handle)) !== false) {
                         if (substr($file, -4, 4) == '.php') {
-                            $this->_loadedEffects[] = substr($file, 0, strlen($file) - 4);
+                            $this->_loadedEffects[] = substr(
+                                $file, 0, strlen($file) - 4
+                            );
                         }
                     }
                 }
@@ -400,7 +408,9 @@ abstract class Horde_Image_Base extends EmptyIterator
                 if ($handle = opendir($path)) {
                     while (($file = readdir($handle)) !== false) {
                         if (substr($file, -4, 4) == '.php') {
-                            $this->_loadedEffects[] = substr($file, 0, strlen($file) - 4);
+                            $this->_loadedEffects[] = substr(
+                                $file, 0, strlen($file) - 4
+                            );
                         }
                     }
                 }

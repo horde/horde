@@ -10,11 +10,6 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
-class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect
-{
-    protected $_params = array('bordercolor' => 'black',
-                               'borderwidth' => 1,
-                               'preserve' => true);
 
 /**
  * Image border decorator for the Horde_Image package.
@@ -25,6 +20,8 @@ class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
+class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect_Border
+{
     /**
      * Draws the border.
      *
@@ -35,18 +32,20 @@ class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect
     public function apply()
     {
         if ($this->_params['preserve']) {
-            Horde_Image_Imagick::frameImage($this->_image->imagick,
-                                             $this->_params['bordercolor'],
-                                             $this->_params['borderwidth'],
-                                             $this->_params['borderwidth']);
+            Horde_Image_Imagick::frameImage(
+                $this->_image->imagick,
+                $this->_params['bordercolor'],
+                $this->_params['borderwidth'],
+                $this->_params['borderwidth']
+            );
         } else {
             $this->_image->imagick->borderImage(
                 new ImagickPixel($this->_params['bordercolor']),
                 $this->_params['borderwidth'],
-                $this->_params['borderwidth']);
+                $this->_params['borderwidth']
+            );
         }
 
         return true;
     }
-
 }

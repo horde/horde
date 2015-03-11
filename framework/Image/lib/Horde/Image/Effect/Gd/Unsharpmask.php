@@ -47,9 +47,11 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('amount' => 0,
-                               'radius' => 0,
-                               'threshold' => 0);
+    protected $_params = array(
+        'amount' => 0,
+        'radius' => 0,
+        'threshold' => 0
+    );
 
     /**
      * Applies the effect.
@@ -137,9 +139,8 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
 
         // Calculate the difference between the blurred pixels and the original
         // and set the pixels
-        for ($x = 0; $x < $w; $x++) { // each row
-            for ($y = 0; $y < $h; $y++) { // each pixel
-
+        for ($x = 0; $x < $w; $x++) {
+            for ($y = 0; $y < $h; $y++) {
                 $rgbOrig = ImageColorAt($imgCanvas2, $x, $y);
                 $rOrig = (($rgbOrig >> 16) & 0xFF);
                 $gOrig = (($rgbOrig >>  8) & 0xFF);
@@ -150,11 +151,18 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
                 $gBlur = (($rgbBlur >>  8) & 0xFF);
                 $bBlur =  ($rgbBlur        & 0xFF);
 
-                // When the masked pixels differ less from the original
-                // than the threshold specifies, they are set to their original value.
-                $rNew = (abs($rOrig - $rBlur) >= $threshold) ? max(0, min(255, ($amount * ($rOrig - $rBlur)) + $rOrig)) : $rOrig;
-                $gNew = (abs($gOrig - $gBlur) >= $threshold) ? max(0, min(255, ($amount * ($gOrig - $gBlur)) + $gOrig)) : $gOrig;
-                $bNew = (abs($bOrig - $bBlur) >= $threshold) ? max(0, min(255, ($amount * ($bOrig - $bBlur)) + $bOrig)) : $bOrig;
+                // When the masked pixels differ less from the original than
+                // the threshold specifies, they are set to their original
+                // value.
+                $rNew = (abs($rOrig - $rBlur) >= $threshold)
+                    ? max(0, min(255, ($amount * ($rOrig - $rBlur)) + $rOrig))
+                    : $rOrig;
+                $gNew = (abs($gOrig - $gBlur) >= $threshold)
+                    ? max(0, min(255, ($amount * ($gOrig - $gBlur)) + $gOrig))
+                    : $gOrig;
+                $bNew = (abs($bOrig - $bBlur) >= $threshold)
+                    ? max(0, min(255, ($amount * ($bOrig - $bBlur)) + $bOrig))
+                    : $bOrig;
 
                 if (($rOrig != $rNew) || ($gOrig != $gNew) || ($bOrig != $bNew)) {
                     $pixCol = ImageColorAllocate($img, $rNew, $gNew, $bNew);

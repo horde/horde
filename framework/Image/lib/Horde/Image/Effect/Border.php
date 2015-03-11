@@ -10,7 +10,6 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
-class Horde_Image_Effect_Border extends Horde_Image_Effect {
 
 /**
  * Image border decorator for the Horde_Image package.
@@ -21,6 +20,8 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect {
  * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package   Image
  */
+class Horde_Image_Effect_Border extends Horde_Image_Effect
+{
     /**
      * Valid parameters for border effects:
      *   - bordercolor: Border color. Defaults to black.

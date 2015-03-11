@@ -40,9 +40,11 @@ class Horde_Image_Effect_Im_Unsharpmask extends Horde_Image_Effect
      *
      * @var array
      */
-    protected $_params = array('radius' => 0.5,
-                               'amount' => 1,
-                               'threshold' => 0.05);
+    protected $_params = array(
+        'radius' => 0.5,
+        'amount' => 1,
+        'threshold' => 0.05
+    );
 
     /**
      * Applies the effect.
@@ -50,16 +52,17 @@ class Horde_Image_Effect_Im_Unsharpmask extends Horde_Image_Effect
     public function apply()
     {
         /* Calculate appropriate sigma:
-         * Determines how the sharpening is graduated away from
-         * the center pixel of the sharpened edge. In general,
-         * if radius < 1, then sigma = radius else sigma = sqrt(radius)
-         */
-        $this->_params['sigma'] = ($this->_params['radius'] < 1) ?
-                $this->_params['radius'] : sqrt($this->_params['radius']);
+         * Determines how the sharpening is graduated away from the center
+         * pixel of the sharpened edge. In general, if radius < 1, then sigma =
+         * radius else sigma = sqrt(radius) */
+        $this->_params['sigma'] = ($this->_params['radius'] < 1)
+            ? $this->_params['radius']
+            : sqrt($this->_params['radius']);
 
-        $this->_image->addPostSrcOperation("-unsharp {$this->_params['radius']}x{$this->_params['sigma']}+{$this->_params['amount']}+{$this->_params['threshold']}");
+        $this->_image->addPostSrcOperation(
+            "-unsharp {$this->_params['radius']}x{$this->_params['sigma']}+{$this->_params['amount']}+{$this->_params['threshold']}"
+        );
 
         return true;
     }
-
 }
