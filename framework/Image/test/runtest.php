@@ -48,12 +48,17 @@ $allTests = array(
  </head>
  <body style="background-color:gray">
 <table width="50%">
- <thead><td>Effect</td><td>Im</td><td>Imagick</td></thead>
+ <thead><td>Effect</td><td>Im</td><td>Imagick</td><td>Gd</td></thead>
 <?php
 $url = new Horde_Url('im.php');
 foreach ($allTests as $name => $description) {
-    echo '<tr><td text-align="top">' . $description . '</td><td><img src="' . $url->copy()->add('test', $name) . '" /></td>' .
-    '<td text-align="top"><img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Imagick')) . '" /></td></tr>';
+    echo '<tr><td text-align="top">' . $description . '</td><td>';
+    echo '<img src="' . $url->copy()->add('test', $name) . '" />';
+    echo '</td><td text-align="top">';
+    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Imagick')) . '" />';
+    echo '</td><td text-align="top">';
+    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Gd')) . '" />';
+    echo '</td></tr>';
 }
 echo '</table>';
 ?></body></html>
