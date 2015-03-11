@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Enable antialiasing in GD backend if available.
 * [jan] Implement Horde_Image_Imagick::arc().
 * [jan] Fix rounded rectangle drawing with GD backend.
 * [jan] Fix transparency issues with GD backend.
@@ -1093,6 +1094,7 @@ Initial release as a PEAR package
    <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Enable antialiasing in GD backend if available.
 * [jan] Implement Horde_Image_Imagick::arc().
 * [jan] Fix rounded rectangle drawing with GD backend.
 * [jan] Fix transparency issues with GD backend.

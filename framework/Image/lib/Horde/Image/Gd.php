@@ -960,6 +960,9 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
         $this->call('imagesavealpha', array($result, true));
         $this->call('imagealphablending', array($result, false));
+        if (function_exists('imageantialias')) {
+            $this->call('imageantialias', array($result, true));
+        }
 
         return $result;
     }
