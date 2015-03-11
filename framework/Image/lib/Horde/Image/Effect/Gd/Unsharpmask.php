@@ -174,8 +174,5 @@ class Horde_Image_Effect_Gd_Unsharpmask extends Horde_Image_Effect
         ImageDestroy($imgCanvas2);
         ImageDestroy($imgBlur);
         ImageDestroy($imgBlur2);
-
-        return true;
     }
-
 }

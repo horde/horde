@@ -72,7 +72,5 @@ class Horde_Image_Effect_Imagick_Unsharpmask extends Horde_Image_Effect
         } catch (Imagick_Exception $e) {
             throw new Horde_Image_Exception($e);
         }
-
-        return true;
     }
 }

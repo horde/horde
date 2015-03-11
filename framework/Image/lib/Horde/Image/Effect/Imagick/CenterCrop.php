@@ -41,7 +41,5 @@ class Horde_Image_Effect_Imagick_CenterCrop extends Horde_Image_Effect
             $this->_params->width, $this->_params->height
         );
         $this->_image->clearGeometry();
-
-        return;
     }
 }

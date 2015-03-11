@@ -65,7 +65,5 @@ class Horde_Image_Effect_Im_Composite extends Horde_Image_Effect
         }
         $this->_image->addOperation($geometry);
         $this->_image->addPostSrcOperation($ops);
-
-        return true;
     }
 }

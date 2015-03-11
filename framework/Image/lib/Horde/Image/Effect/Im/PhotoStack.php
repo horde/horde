@@ -180,8 +180,6 @@ class Horde_Image_Effect_Im_PhotoStack extends Horde_Image_Effect
             }
             break;
         }
-
-        return true;
     }
 
     private function _roundBorder($image)

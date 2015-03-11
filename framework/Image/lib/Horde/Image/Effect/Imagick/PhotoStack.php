@@ -208,8 +208,6 @@ class Horde_Image_Effect_Imagick_PhotoStack extends Horde_Image_Effect
                 $this->_params['padding'],
                 $this->_params['padding']);
         }
-
-        return true;
     }
 
     private function _roundBorder($image)

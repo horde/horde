@@ -35,8 +35,7 @@ class Horde_Image_Effect_Im_Border extends Horde_Image_Effect_Border
             "-bordercolor \"%s\" %s -border %s",
             $this->_params['bordercolor'],
             (!empty($this->_params['preserve']) ? '-compose Copy' : ''),
-            $this->_params['borderwidth']));
-
-        return true;
+            $this->_params['borderwidth']
+        ));
     }
 }

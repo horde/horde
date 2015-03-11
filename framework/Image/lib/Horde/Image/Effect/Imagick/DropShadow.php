@@ -75,7 +75,5 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
         $shadow->destroy();
 
         $this->_image->clearGeometry();
-
-        return true;
     }
 }

@@ -92,8 +92,7 @@ class Horde_Image_Gd extends Horde_Image_Base
     public function display()
     {
         $this->headers();
-
-        return $this->call('image' . $this->_type, array($this->_im));
+        $this->call('image' . $this->_type, array($this->_im));
     }
 
     /**
@@ -121,10 +120,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         parent::reset();
         if (is_resource($this->_im)) {
-            return $this->call('imageDestroy', array($this->_im));
+            $this->call('imageDestroy', array($this->_im));
         }
-
-        return true;
     }
 
     /**
@@ -254,7 +251,7 @@ class Horde_Image_Gd extends Horde_Image_Base
         }
 
         if (is_resource($this->_im)) {
-            return true;
+            return;
         }
 
         parent::loadFile($filename);
@@ -673,7 +670,8 @@ class Horde_Image_Gd extends Horde_Image_Base
     {
         if ($round <= 0) {
             // Optimize out any calls with no corner rounding.
-            return $this->rectangle($x, $y, $width, $height, $color, $fill);
+            $this->rectangle($x, $y, $width, $height, $color, $fill);
+            return;
         }
 
         $c = $this->_allocateColor($color);

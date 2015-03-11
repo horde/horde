@@ -155,7 +155,5 @@ class Horde_Image_Effect_Gd_DropShadow extends Horde_Image_Effect
         );
 
         $this->_image->call('imageDestroy', array($temp));
-
-        return true;
     }
 }

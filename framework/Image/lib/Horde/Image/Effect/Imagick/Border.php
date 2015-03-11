@@ -45,7 +45,5 @@ class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect_Border
                 $this->_params['borderwidth']
             );
         }
-
-        return true;
     }
 }

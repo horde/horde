@@ -60,7 +60,5 @@ class Horde_Image_Effect_Im_PolaroidImage extends Horde_Image_Effect
                 $this->_params['background']
             ));
         }
-
-        return true;
     }
 }

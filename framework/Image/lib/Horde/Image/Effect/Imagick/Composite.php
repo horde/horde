@@ -57,6 +57,5 @@ class Horde_Image_Effect_Imagick_Composite extends Horde_Image_Effect
                 $x, $y
             );
         }
-        return true;
     }
 }

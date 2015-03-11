@@ -158,8 +158,6 @@ class Horde_Image_Swf extends Horde_Image_Base
         $t = $this->_movie->add($text);
         $t->moveTo($x, $y);
         $t->rotate($direction);
-
-        return $t;
     }
 
     /**
@@ -204,7 +202,7 @@ class Horde_Image_Swf extends Horde_Image_Base
         $s->drawCurveTo($x + $a, $y + $r, $x + $b, $y + $b);
         $s->drawCurveTo($x + $r, $y + $a, $x + $r, $y);
 
-        return $this->_movie->add($s);
+        $this->_movie->add($s);
     }
 
     /**
@@ -271,7 +269,7 @@ class Horde_Image_Swf extends Horde_Image_Base
         $verts[2] = array('x' => $x + $width, 'y' => $y + $height);
         $verts[3] = array('x' => $x, 'y' => $y + $height);
 
-        return $this->polygon($verts, $color, $fill);
+        $this->polygon($verts, $color, $fill);
     }
 
     /**
@@ -385,7 +383,7 @@ class Horde_Image_Swf extends Horde_Image_Base
         // Close the shape.
         $s->drawLineTo($x1 + $p1['x1'], $y1 + $p1['y1']);
 
-        return $this->_movie->add($s);
+        $this->_movie->add($s);
     }
 
     /**
@@ -487,7 +485,7 @@ class Horde_Image_Swf extends Horde_Image_Base
             $shape->drawLineTo($value['x'], $value['y']);
         }
 
-        return $this->_movie->add($shape);
+        $this->_movie->add($shape);
     }
 
     /**
@@ -563,7 +561,7 @@ class Horde_Image_Swf extends Horde_Image_Base
             }
         }
 
-        return $this->_movie->add($s);
+        $this->_movie->add($s);
     }
 
     /**
@@ -632,7 +630,6 @@ class Horde_Image_Swf extends Horde_Image_Base
         }
         $s->drawLineTo($first_x, $first_y);
 
-        return $this->_movie->add($s);
+        $this->_movie->add($s);
     }
-
 }

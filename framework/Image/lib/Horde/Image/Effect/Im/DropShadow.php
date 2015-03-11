@@ -55,7 +55,5 @@ class Horde_Image_Effect_Im_DropShadow extends Horde_Image_Effect
             . ' -border ' . $this->_params['padding']
         );
         $this->_image->clearGeometry();
-
-        return true;
     }
 }

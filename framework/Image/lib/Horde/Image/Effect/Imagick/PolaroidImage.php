@@ -69,7 +69,5 @@ class Horde_Image_Effect_Imagick_PolaroidImage extends Horde_Image_Effect
         $this->_image->imagick->clear();
         $this->_image->imagick->addImage($imk);
         $imk->destroy();
-
-        return true;
     }
 }

@@ -48,7 +48,5 @@ class Horde_Image_Effect_Im_CenterCrop extends Horde_Image_Effect
         }
         $this->_image->addPostSrcOperation($command);
         $this->_image->clearGeometry();
-
-        return;
     }
 }

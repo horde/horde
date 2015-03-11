@@ -118,7 +118,5 @@ class Horde_Image_Effect_Gd_RoundCorners extends Horde_Image_Effect
         $this->_image->_applyMask($mask);
         $this->_image->call('imageDestroy', array($mask));
         $this->_image->call('imageDestroy', array($maskTriple));
-        
-        return true;
     }
 }

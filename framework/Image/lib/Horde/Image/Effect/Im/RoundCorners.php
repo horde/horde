@@ -63,7 +63,5 @@ class Horde_Image_Effect_Im_RoundCorners extends Horde_Image_Effect
 
         // Reset width/height since these might have changed
         $this->_image->clearGeometry();
-
-        return true;
     }
 }

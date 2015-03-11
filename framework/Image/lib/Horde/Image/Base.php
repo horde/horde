@@ -325,8 +325,6 @@ abstract class Horde_Image_Base extends EmptyIterator
                 sprintf("Could not load the image file %s", $filename)
             );
         }
-
-        return true;
     }
 
     /**
@@ -384,7 +382,7 @@ abstract class Horde_Image_Base extends EmptyIterator
         $params['logger'] = $this->_logger;
         $effect = Horde_Image_Effect::factory($type, $class, $params);
         $effect->setImageObject($this);
-        return $effect->apply();
+        $effect->apply();
     }
 
     /**
