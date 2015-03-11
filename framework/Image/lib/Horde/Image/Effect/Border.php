@@ -45,18 +45,14 @@ class Horde_Image_Effect_Border extends Horde_Image_Effect
      */
     public function apply()
     {
-        $o = $this->_params;
-
-        $d = $this->_image->getDimensions();
-        $x = $o['padding'];
-        $y = $o['padding'];
-        $width = $d['width'] - (2 * $o['padding']);
-        $height = $d['height'] - (2 * $o['padding']);
-
-        if ($o['roundWidth'] > 0) {
-            $this->_image->roundedRectangle($x, $y, $width, $height, $o['roundWidth'], $o['borderColor'], $o['fillColor']);
-        } else {
-            $this->_image->rectangle($x, $y, $width, $height, $o['borderColor'], $o['fillColor']);
-        }
+        $dimension = $this->_image->getDimensions();
+        $this->_image->rectangle(
+            0,
+            0,
+            $dimension['width'],
+            $dimension['height'],
+            $this->_params['bordercolor'],
+            'none'
+        );
     }
 }
