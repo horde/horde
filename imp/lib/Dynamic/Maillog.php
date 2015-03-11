@@ -31,7 +31,7 @@ class IMP_Dynamic_Maillog extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $notification, $page_output;
+        global $page_output;
 
         if (isset($this->vars->msgid) &&
             isset($this->vars->type) &&
