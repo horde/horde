@@ -1078,15 +1078,6 @@ class Horde_Image_Gd extends Horde_Image_Base
 
         $this->call('imageDestroy', array($mask_blendtemp));
         $this->call('imageDestroy', array($mask_resized));
-
-        return true;
-    }
-
-    protected function _allocateColorAlpha($gdimg_hexcolorallocate, $r, $g, $b , $alpha = false)
-    {
-        $result = $this->call('imageColorAllocateAlpha', array($gdimg_hexcolorallocate, $r, $g, $b, intval($alpha)));
-        $result = $this->call('imageColorAllocate', array($gdimg_hexcolorallocate, $r, $g, $b));
-        return $result;
     }
 
 }
