@@ -888,8 +888,6 @@ class Horde_Image_Gd extends Horde_Image_Base
     /**
      * Draws an arc.
      *
-     * @todo
-     *
      * @param integer $x      The x coordinate of the centre.
      * @param integer $y      The y coordinate of the centre.
      * @param integer $r      The radius of the arc.

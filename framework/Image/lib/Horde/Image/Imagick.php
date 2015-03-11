@@ -542,7 +542,57 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
     )
     {
-        throw new Horde_Image_Exception('Not Yet Implemented.');
+        $draw = new ImagickDraw();
+        $draw->setStrokeColor(new ImagickPixel($color));
+        $draw->setFillColor(new ImagickPixel($fill));
+        $points = Horde_Image::arcPoints($r, $start, $end);
+        $points['x1'] += $x;
+        $points['x2'] += $x;
+        $points['x3'] += $x;
+        $points['y1'] += $y;
+        $points['y2'] += $y;
+        $points['y3'] += $y;
+        $draw->arc($x - $r, $y - $r, $x + $r, $y + $r, $start, $end);
+
+        // If filled, draw the outline.
+        if (!empty($fill)) {
+            $mid = round(($start + $end) / 2);
+            list($x1, $y1) = Horde_Image::circlePoint($start, $r * 2);
+            list($x2, $y2) = Horde_Image::circlePoint($mid, $r * 2);
+            list($x3, $y3) = Horde_Image::circlePoint($end, $r * 2);
+
+            $verts = array(
+                array('x' => $x + round($x3), 'y' => $y + round($y3)),
+                array('x' => $x, 'y' => $y),
+                array('x' => $x + round($x1), 'y' => $y + round($y1))
+            );
+
+            if ($mid > 90) {
+                $verts1 = array(
+                    array('x' => $x + round($x2), 'y' => $y + round($y2)),
+                    array('x' => $x, 'y' => $y),
+                    array('x' => $x + round($x1), 'y' => $y + round($y1))
+                );
+                $verts2 = array(
+                    array('x' => $x + round($x3), 'y' => $y + round($y3)),
+                    array('x' => $x, 'y' => $y),
+                    array('x' => $x + round($x2), 'y' => $y + round($y2))
+                );
+
+                $this->polygon($verts1, $fill, $fill);
+                $this->polygon($verts2, $fill, $fill);
+            } else {
+                $this->polygon($verts, $fill, $fill);
+            }
+
+            $this->polyline($verts, $color);
+        }
+        try {
+            $this->_imagick->drawImage($draw);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
+        $draw->destroy();
     }
 
     /**
