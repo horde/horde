@@ -217,8 +217,6 @@ class Horde_Image
     /**
      * Returns point coordinates at the limits of an arc.
      *
-     * Only valid for angles ($end - $start) <= 45 degrees.
-     *
      * @param integer $r      The radius of the arc.
      * @param integer $start  The starting angle.
      * @param integer $end    The ending angle.
@@ -237,10 +235,39 @@ class Horde_Image
         $pts['y2'] = $r * sin(deg2rad($end));
 
         // Anchor point.
-        $a3 = ($start + $end) / 2;
-        $r3 = $r / cos(deg2rad(($end - $start) / 2));
-        $pts['x3'] = $r3 * cos(deg2rad($a3));
-        $pts['y3'] = $r3 * sin(deg2rad($a3));
+        $pts['x3'] = $pts['y3'] = 0;
+
+        // Shift to positive.
+        if ($pts['x1'] < 0) {
+            $pts['x2'] += abs($pts['x1']);
+            $pts['x3'] += abs($pts['x1']);
+            $pts['x1'] = 0;
+        }
+        if ($pts['x2'] < 0) {
+            $pts['x1'] += abs($pts['x2']);
+            $pts['x3'] += abs($pts['x2']);
+            $pts['x2'] = 0;
+        }
+        if ($pts['x3'] < 0) {
+            $pts['x1'] += abs($pts['x3']);
+            $pts['x2'] += abs($pts['x3']);
+            $pts['x3'] = 0;
+        }
+        if ($pts['y1'] < 0) {
+            $pts['y2'] += abs($pts['y1']);
+            $pts['y3'] += abs($pts['y1']);
+            $pts['y1'] = 0;
+        }
+        if ($pts['y2'] < 0) {
+            $pts['y1'] += abs($pts['y2']);
+            $pts['y3'] += abs($pts['y2']);
+            $pts['y2'] = 0;
+        }
+        if ($pts['y3'] < 0) {
+            $pts['y1'] += abs($pts['y3']);
+            $pts['y2'] += abs($pts['y3']);
+            $pts['y3'] = 0;
+        }
 
         return $pts;
     }
