@@ -241,7 +241,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Set up the base message now. */
         $base = $this->_createMimeMessage(
-            new Horde_Mail_Rfc822_List(),
             $message,
             array(
                 'html' => !empty($opts['html']),
@@ -751,30 +750,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $injector, $prefs, $registry, $session;
 
-        /* We need at least one recipient & RFC 2822 requires that no 8-bit
-         * characters can be in the address fields. */
-        $recip = $this->recipientList($header);
-        if (!count($recip['list'])) {
-            if ($recip['has_input']) {
-                throw new IMP_Compose_Exception(_("Invalid e-mail address."));
-            }
-            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
-        }
-        $header = array_merge($header, $recip['header']);
-
-        /* Check for correct identity usage. */
-        if (!$this->getMetadata('identity_check') &&
-            (count($recip['list']) === 1)) {
-            $identity_search = $identity->getMatchingIdentity($recip['list'], false);
-            if (!is_null($identity_search) &&
-                ($identity->getDefault() != $identity_search)) {
-                $this->_setMetadata('identity_check', true);
-
-                $e = new IMP_Compose_Exception(_("Recipient address does not match the currently selected identity."));
-                $e->tied_identity = $identity_search;
-                throw $e;
-            }
-        }
+        /* Set up defaults. */
+        $opts = array_merge(array(
+            'encrypt' => IMP::ENCRYPT_NONE
+        ), $opts);
 
         /* Check body size of message. */
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -785,64 +764,49 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 (strlen($body) - $imp_imap->max_compose_bodysize)
             ));
         }
-
-        $from = new Horde_Mail_Rfc822_Address($header['from']);
-        if (is_null($from->host)) {
-            $from->host = $imp_imap->config->maildomain;
+        /* We need at least one recipient. */
+        $recip = $this->recipientList($header);
+        if (!count($recip['list'])) {
+            if ($recip['has_input']) {
+                throw new IMP_Compose_Exception(_("Invalid e-mail address."));
+            }
+            throw new IMP_Compose_Exception(
+                _("Need at least one message recipient.")
+            );
         }
 
-        /* Prepare the array of messages to send out.  May be more
-         * than one if we are encrypting for multiple recipients or
-         * are storing an encrypted message locally. */
-        $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
-        $send_msgs = array();
-        $msg_options = array(
-            'encrypt' => $encrypt,
-            'html' => !empty($opts['html']),
-            'identity' => $identity,
-            'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
-            'signature' => is_null($opts['signature']) ? $identity : $opts['signature'],
-            'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
-        );
+        /* Recipient checks. */
+        $this->_prepSendMessageAssert($recip['list']);
 
-        /* Must encrypt & send the message one recipient at a time. */
-        if ($prefs->getValue('use_smime') &&
-            in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGNENC))) {
-            foreach ($recip['list'] as $val) {
-                $list_ob = new Horde_Mail_Rfc822_List($val);
-                $send_msgs[] = array(
-                    'base' => $this->_createMimeMessage($list_ob, $body, $msg_options),
-                    'recipients' => $list_ob
-                );
-            }
-
-            /* Must target the encryption for the sender before saving message
-             * in sent-mail. */
-            $save_msg = $this->_createMimeMessage(IMP::parseAddressList($header['from']), $body, $msg_options);
-        } else {
-            /* Can send in clear-text all at once, or PGP can encrypt
-             * multiple addresses in the same message. */
-            $msg_options['from'] = $from;
-            $save_msg = $this->_createMimeMessage($recip['list'], $body, $msg_options);
-            $send_msgs[] = array(
-                'base' => $save_msg,
-                'recipients' => $recip['list']
+        /* Check for correct identity usage. */
+        if (!$this->getMetadata('identity_check') &&
+            (count($recip['list']) === 1)) {
+            $identity_search = $identity->getMatchingIdentity(
+                $recip['list'],
+                false
             );
+            if (!is_null($identity_search) &&
+                ($identity->getDefault() != $identity_search)) {
+                $this->_setMetadata('identity_check', true);
+
+                $e = new IMP_Compose_Exception(
+                    _("Recipient address does not match the currently selected identity.")
+                );
+                $e->tied_identity = $identity_search;
+                throw $e;
+            }
         }
 
         /* Initalize a header object for the outgoing message. */
         $headers = $this->_prepareHeaders($header, $opts);
+        $bcc = isset($header['bcc'])
+            ? $header['bcc']
+            : null;
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addHeaderOb(
             Horde_Core_Mime_Headers_Received::createHordeHop()
         );
-
-        /* Add Reply-To header. */
-        if (!empty($header['replyto']) &&
-            ($header['replyto'] != $from->bare_address)) {
-            $headers->addHeader('Reply-to', $header['replyto']);
-        }
 
         /* Add the 'User-Agent' header. */
         $headers->addHeaderOb(Horde_Mime_Headers_UserAgent::create(
@@ -856,69 +820,86 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $headers->addHeader('Accept-Language', implode(',', $lang));
         }
 
-        /* Send the messages out now. */
-        $sentmail = $injector->getInstance('IMP_Sentmail');
+        $message = $this->_createMimeMessage($body, array(
+            'html' => !empty($opts['html']),
+            'identity' => $identity,
+            'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
+            'recip' => $recip['list'],
+            'signature' => is_null($opts['signature']) ? $identity : $opts['signature'],
+            'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
+        ));
 
-        foreach ($send_msgs as $val) {
-            switch (intval($this->replyType(true))) {
-            case self::REPLY:
-                $senttype = IMP_Sentmail::REPLY;
-                break;
+        /* Pass to hook to allow alteration of message details. */
+        try {
+            $injector->getInstance('Horde_Core_Hooks')->callHook(
+                'pre_sent',
+                'imp',
+                array($message, $headers, $this)
+            );
 
-            case self::FORWARD:
-                $senttype = IMP_Sentmail::FORWARD;
-                break;
-
-            case self::REDIRECT:
-                $senttype = IMP_Sentmail::REDIRECT;
-                break;
-
-            default:
-                $senttype = IMP_Sentmail::NEWMSG;
-                break;
-            }
-
-            try {
-                $this->_prepSendMessageAssert(
-                    $val['recipients'],
-                    $headers,
-                    $val['base']
-                );
-                $this->sendMessage($val['recipients'], $headers, $val['base']);
-
-                /* Store history information. */
-                if ($msg_id = $headers['Message-ID']) {
-                    $sentmail->log(
-                        $senttype,
-                        reset($msg_id->getIdentificationOb()->ids),
-                        $val['recipients'],
-                        true
-                    );
+            /* Re-parse headers to determine up-to-date recipient list. */
+            $tmp_recip = array();
+            foreach (array('to', 'cc', 'bcc') as $val) {
+                if ($tmp_hdr = $headers[$val]) {
+                    $tmp_recip[$val] = $tmp_hdr->getAddressList();
                 }
-            } catch (IMP_Compose_Exception_Address $e) {
-                throw $e;
-            } catch (IMP_Compose_Exception $e) {
-                /* Unsuccessful send. */
-                if ($e->log()) {
-                    $sentmail->log(
-                        $senttype,
-                        reset($headers['Message-ID']->getIdentificationOb()->ids),
-                        $val['recipients'],
-                        false
-                    );
-                }
-                throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
+            $recip = $this->recipientList($tmp_recip);
+            if (isset($tmp_recip['bcc'])) {
+                $bcc = $tmp_recip['bcc'];
+                unset($headers['bcc']);
+            } else {
+                $bcc = null;
+            }
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        /* Get from address. Done after pre_sent hook since from address could
+         * be changed by hook. */
+        $from = $headers['from']->getAddressList(true);
+        if (is_null($from->host)) {
+            $from->host = $imp_imap->config->maildomain;
         }
 
-        $recipients = strval($recip['list']);
+        /* Add Reply-To header. Done after pre_sent hook since from address
+         * could be change by hook and/or Reply-To was set by hook. */
+        if (!empty($header['replyto']) &&
+            ($header['replyto'] != $from->bare_address) &&
+            !isset($headers['reply-to'])) {
+            $headers->addHeader('Reply-to', $header['replyto']);
+        }
+
+        $message = $this->_encryptMessage(
+            $message,
+            $opts['encrypt'],
+            $recip['list'],
+            $from
+        );
+
+        /* Send the messages out now. */
+        try {
+            $this->sendMessage($recip['list'], $headers, $message);
+
+            /* Store history information. Even if history is inactive, this
+             * will provide Message ID of message. */
+            $msgid = $this->_logSentmail($headers, $recip['list'], true);
+        } catch (IMP_Compose_Exception_Address $e) {
+            throw $e;
+        } catch (IMP_Compose_Exception $e) {
+            /* Unsuccessful send. */
+            if ($e->log()) {
+                $this->_logSentmail($headers, $recip['list'], false);
+            }
+
+            throw new IMP_Compose_Exception(sprintf(
+                _("There was an error sending your message: %s"),
+                $e->getMessage()
+            ));
+        }
 
         if ($this->_replytype) {
             /* Log the reply. */
             if ($indices = $this->getMetadata('indices')) {
-                $log_data = array(
-                    'msgid' => reset($headers['Message-ID']->getIdentificationOb()->ids)
-                );
+                $log_data = array('msgid' => $msgid);
 
                 switch ($this->_replytype) {
                 case self::FORWARD:
@@ -926,7 +907,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 case self::FORWARD_BODY:
                 case self::FORWARD_BOTH:
                     $ob = 'IMP_Maillog_Log_Forward';
-                    $log_data['recipients'] = $recipients;
+                    $log_data['recipients'] = strval($recip['list']);
                     break;
 
                 case self::REPLY:
@@ -980,7 +961,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         Horde::log(
             sprintf(
                 "Message sent to %s from %s (%s)",
-                $recipients,
+                strval($recip['list']),
                 $registry->getAuth(),
                 $session->get('horde', 'auth/remoteAddr')
             ),
@@ -988,7 +969,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         );
 
         /* Save message to the sent mail mailbox. */
-        $this->_saveToSentMail($header, $headers, $save_msg, $recip['list'], $opts);
+        $this->_saveToSentMail(
+            $bcc,
+            $headers,
+            $message,
+            $recip['list'],
+            $opts
+        );
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
@@ -1001,21 +988,216 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $injector->getInstance('Horde_Core_Hooks')->callHook(
                 'post_sent',
                 'imp',
-                array($save_msg['msg'], $headers)
+                array($message, $headers)
             );
         } catch (Horde_Exception_HookNotSet $e) {}
     }
 
     /**
+     * Encrypt an outgoing message.
+     *
+     * @param Horde_Mime_Part $msg             Outgoing message.
+     * @param integer $encrypt                 Encryption type.
+     * @param Horde_Mail_Rfc822_List $recip    Recipient list.
+     * @param Horde_Mail_Rfc822_Address $from  Sending address.
+     *
+     * @return Horde_Mime_Part $msg  Processed outgoing message.
+     */
+    protected function _encryptMessage(
+        Horde_Mime_Part $msg,
+        $encrypt,
+        Horde_Mail_Rfc822_List $recip,
+        Horde_Mail_Rfc822_Address $from
+    )
+    {
+        global $injector;
+
+        /* Add personal address to encrypted message. */
+        switch ($encrypt) {
+        case IMP_Crypt_Pgp::ENCRYPT:
+        case IMP_Crypt_Pgp::SIGNENC:
+        case IMP_Crypt_Pgp::SYM_ENCRYPT:
+        case IMP_Crypt_Pgp::SYM_SIGNENC:
+        case IMP_Crypt_Smime::ENCRYPT:
+        case IMP_Crypt_Smime::SIGNENC:
+            $recip2 = clone $recip;
+            $recip2->add($from);
+            break;
+        }
+
+        switch ($encrypt) {
+        case IMP_Crypt_Pgp::ENCRYPT:
+        case IMP_Crypt_Pgp::SIGN:
+        case IMP_Crypt_Pgp::SIGNENC:
+        case IMP_Crypt_Pgp::SYM_ENCRYPT:
+        case IMP_Crypt_Pgp::SYM_SIGNENC:
+            if (!IMP_Crypt_Pgp::enabled()) {
+                break;
+            }
+
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+
+            switch ($encrypt) {
+            case IMP_Crypt_Pgp::SIGN:
+            case IMP_Crypt_Pgp::SIGNENC:
+            case IMP_Crypt_Pgp::SYM_SIGNENC:
+                /* Check to see if we have the user's passphrase yet. */
+                $passphrase = $imp_pgp->getPassphrase('personal');
+                if (empty($passphrase)) {
+                    $e = new IMP_Compose_Exception(
+                        _("PGP: Need passphrase for personal private key.")
+                    );
+                    $e->encrypt = 'pgp_passphrase_dialog';
+                    throw $e;
+                }
+                break;
+
+            case IMP_Crypt_Pgp::SYM_ENCRYPT:
+            case IMP_Crypt_Pgp::SYM_SIGNENC:
+                /* Check to see if we have the user's symmetric passphrase
+                 * yet. */
+                $symmetric_passphrase = $imp_pgp->getPassphrase(
+                    'symmetric',
+                    'imp_compose_' . $this->_cacheid
+                );
+                if (empty($symmetric_passphrase)) {
+                    $e = new IMP_Compose_Exception(
+                        _("PGP: Need passphrase to encrypt your message with.")
+                    );
+                    $e->encrypt = 'pgp_symmetric_passphrase_dialog';
+                    throw $e;
+                }
+                break;
+            }
+
+            /* Do the encryption/signing requested. */
+            try {
+                switch ($encrypt) {
+                case IMP_Crypt_Pgp::SIGN:
+                    $msg2 = $imp_pgp->impSignMimePart($msg);
+                    $this->_setMetadata('encrypt_sign', true);
+                    return $msg2;
+
+                case IMP_Crypt_Pgp::ENCRYPT:
+                case IMP_Crypt_Pgp::SYM_ENCRYPT:
+                    return $imp_pgp->IMPencryptMIMEPart(
+                        $msg,
+                        $recip2,
+                        ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null
+                    );
+
+                case IMP_Crypt_Pgp::SIGNENC:
+                case IMP_Crypt_Pgp::SYM_SIGNENC:
+                    return $imp_pgp->IMPsignAndEncryptMIMEPart(
+                        $msg,
+                        $recip2,
+                        ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null
+                    );
+                    break;
+                }
+            } catch (Horde_Exception $e) {
+                throw new IMP_Compose_Exception(
+                    _("PGP Error: ") . $e->getMessage(), $e->getCode()
+                );
+            }
+            break;
+
+        case IMP_Crypt_Smime::ENCRYPT:
+        case IMP_Crypt_Smime::SIGN:
+        case IMP_Crypt_Smime::SIGNENC:
+            if (!IMP_Crypt_Smime::enabled()) {
+                break;
+            }
+
+            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+
+            /* Check to see if we have the user's passphrase yet. */
+            switch ($encrypt) {
+            case IMP_Crypt_Smime::SIGN:
+            case IMP_Crypt_Smime::SIGNENC:
+                if (($passphrase = $imp_smime->getPassphrase()) === false) {
+                    $e = new IMP_Compose_Exception(
+                        _("S/MIME Error: Need passphrase for personal private key.")
+                    );
+                    $e->encrypt = 'smime_passphrase_dialog';
+                    throw $e;
+                }
+                break;
+            }
+
+            /* Do the encryption/signing requested. */
+            try {
+                switch ($encrypt) {
+                case IMP_Crypt_Smime::SIGN:
+                    $msg2 = $imp_smime->IMPsignMIMEPart($msg);
+                    $this->_setMetadata('encrypt_sign', true);
+                    return $msg2;
+
+                case IMP_Crypt_Smime::ENCRYPT:
+                    return $imp_smime->IMPencryptMIMEPart($msg, $recip2);
+
+                case IMP_Crypt_Smime::SIGNENC:
+                    return $imp_smime->IMPsignAndEncryptMIMEPart($msg, $recip2);
+                }
+            } catch (Horde_Exception $e) {
+                throw new IMP_Compose_Exception(
+                    _("S/MIME Error: ") . $e->getMessage(), $e->getCode()
+                );
+            }
+            break;
+        }
+
+        return $msg;
+    }
+
+    /**
+     * Log a sent action to the sentmail backend.
+     *
+     * @param Horde_Mime_Headers $headers    Message headers.
+     * @param Horde_Mail_Rfc822_List $recip  Message recipients.
+     * @param boolean $success               Send success.
+     *
+     * @return string  Message-ID value.
+     */
+    protected function _logSentmail(
+        Horde_Mime_Headers $headers,
+        Horde_Mail_Rfc822_List $recip,
+        $success
+    )
+    {
+        global $injector;
+
+        $msgid = ($hdr = $headers['Message-ID'])
+            ? reset($hdr->getIdentificationOb()->ids)
+            : null;
+        $mapping = array(
+            self::REPLY => IMP_Sentmail::REPLY,
+            self::FORWARD => IMP_Sentmail::FORWARD,
+            self::REDIRECT => IMP_Sentmail::REDIRECT
+        );
+        $reply_type = intval($this->replyType(true));
+
+        $injector->getInstance('IMP_Sentmail')->log(
+            isset($mapping[$reply_type]) ? $mapping[$reply_type] : IMP_Sentmail::NEWMSG,
+            $msgid,
+            $recip,
+            $success
+        );
+
+        return $msgid;
+    }
+
+    /**
      * Save message to sent-mail mailbox, if configured to do so.
      *
-     * @param array $header                   See buildAndSendMessage().
+     * @param string $bcc                     List of BCC addresses.
      * @param Horde_Mime_Headers $headers     Headers object.
      * @param Horde_Mime_Part $save_msg       Message data to save.
      * @param Horde_Mail_Rfc822_List $recips  Recipient list.
      * @param array $opts                     See buildAndSendMessage()
      */
-    protected function _saveToSentMail($header,
+    protected function _saveToSentMail(
+        $bcc,
         Horde_Mime_Headers $headers,
         Horde_Mime_Part $save_msg,
         Horde_Mail_Rfc822_List $recips,
@@ -1051,8 +1233,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Keep Bcc: headers on saved messages. */
-        if (count($header['bcc'])) {
-            $headers->addHeader('Bcc', $header['bcc']);
+        if (count($bcc)) {
+            $headers->addHeader('Bcc', $bcc);
         }
 
         /* Strip attachments if requested. */
@@ -1237,21 +1419,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Additonal checks to do if this is a user-generated compose message.
+     * Recipiet checks to do if this is a user-generated compose message.
      *
      * @param Horde_Mail_Rfc822_List $email  The e-mail list to send to.
-     * @param Horde_Mime_Headers $headers    The object holding this message's
-     *                                       headers.
-     * @param Horde_Mime_Part $message       The object that contains the text
-     *                                       to send.
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _prepSendMessageAssert(
-        Horde_Mail_Rfc822_List $email,
-        Horde_Mime_Headers $headers = null,
-        Horde_Mime_Part $message = null
-    )
+    protected function _prepSendMessageAssert(Horde_Mail_Rfc822_List $email)
     {
         global $injector;
 
@@ -1283,17 +1457,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 ),
                 $imp_imap->max_compose_recipients
             ));
-        }
-
-        /* Pass to hook to allow alteration of message details. */
-        if (!is_null($message)) {
-            try {
-                $injector->getInstance('Horde_Core_Hooks')->callHook(
-                    'pre_sent',
-                    'imp',
-                    array($message, $headers, $this)
-                );
-            } catch (Horde_Exception_HookNotSet $e) {}
         }
     }
 
@@ -1462,31 +1625,26 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Create the base Horde_Mime_Part for sending.
      *
-     * @param Horde_Mail_Rfc822_List $to  The recipient list.
      * @param string $body                Message body.
      * @param array $options              Additional options:
-     *   - encrypt: (integer) The encryption flag.
-     *   - from: (Horde_Mail_Rfc822_Address) The outgoing from address (only
-     *           needed for multiple PGP encryption).
      *   - html: (boolean) Is this a HTML message?
      *   - identity: (IMP_Prefs_Identity) Identity of the sender.
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
+     *   - recip: (Horde_Mail_Rfc822_List) The recipient list.
      *   - signature: (IMP_Prefs_Identity|string) If set, add the signature to
      *                the message.
      *   - vcard_attach: (string) If set, attach user's vcard to message.
      *
-     * @return Horde_Mime_Part  The MIME message to send.
+     * @return Horde_Mime_Part  The base MIME part.
      *
      * @throws Horde_Exception
      * @throws IMP_Compose_Exception
      */
-    protected function _createMimeMessage(
-        Horde_Mail_Rfc822_List $to, $body, array $options = array()
-    )
+    protected function _createMimeMessage($body, array $options = array())
     {
-        global $conf, $injector, $prefs, $registry;
+        global $injector, $prefs, $registry;
 
         /* Get body text. */
         if (empty($options['html'])) {
@@ -1584,17 +1742,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         /* Get trailer text (if any). */
-        if (empty($options['nofinal'])) {
+        if (empty($options['nofinal']) && !empty($options['recip'])) {
             try {
                 $trailer = $hooks->callHook(
                     'trailer',
                     'imp',
-                    array(false, $options['identity'], $to)
+                    array(false, $options['identity'], $options['recip'])
                 );
                 $html_trailer = $hooks->callHook(
                     'trailer',
                     'imp',
-                    array(true, $options['identity'], $to)
+                    array(true, $options['identity'], $options['recip'])
                 );
             } catch (Horde_Exception_HookNotSet $e) {
                 $trailer = $html_trailer = null;
@@ -1750,106 +1908,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
          * Assume this is what the user wants. */
         if (is_null($base)) {
             $base = $textBody;
-        }
-
-        /* Set up the base message now. */
-        $encrypt = empty($options['encrypt'])
-            ? IMP::ENCRYPT_NONE
-            : $options['encrypt'];
-        if ($prefs->getValue('use_pgp') &&
-            !empty($conf['gnupg']['path']) &&
-            in_array($encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGN, IMP_Crypt_Pgp::SIGNENC, IMP_Crypt_Pgp::SYM_ENCRYPT, IMP_Crypt_Pgp::SYM_SIGNENC))) {
-            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
-            $symmetric_passphrase = null;
-
-            switch ($encrypt) {
-            case IMP_Crypt_Pgp::SIGN:
-            case IMP_Crypt_Pgp::SIGNENC:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
-                /* Check to see if we have the user's passphrase yet. */
-                $passphrase = $imp_pgp->getPassphrase('personal');
-                if (empty($passphrase)) {
-                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase for personal private key."));
-                    $e->encrypt = 'pgp_passphrase_dialog';
-                    throw $e;
-                }
-                break;
-
-            case IMP_Crypt_Pgp::SYM_ENCRYPT:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
-                /* Check to see if we have the user's symmetric passphrase
-                 * yet. */
-                $symmetric_passphrase = $imp_pgp->getPassphrase('symmetric', 'imp_compose_' . $this->_cacheid);
-                if (empty($symmetric_passphrase)) {
-                    $e = new IMP_Compose_Exception(_("PGP: Need passphrase to encrypt your message with."));
-                    $e->encrypt = 'pgp_symmetric_passphrase_dialog';
-                    throw $e;
-                }
-                break;
-            }
-
-            /* Do the encryption/signing requested. */
-            try {
-                switch ($encrypt) {
-                case IMP_Crypt_Pgp::SIGN:
-                    $base = $imp_pgp->impSignMimePart($base);
-                    $this->_setMetadata('encrypt_sign', true);
-                    break;
-
-                case IMP_Crypt_Pgp::ENCRYPT:
-                case IMP_Crypt_Pgp::SYM_ENCRYPT:
-                    $to_list = clone $to;
-                    if (count($options['from'])) {
-                        $to_list->add($options['from']);
-                    }
-                    $base = $imp_pgp->IMPencryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null);
-                    break;
-
-                case IMP_Crypt_Pgp::SIGNENC:
-                case IMP_Crypt_Pgp::SYM_SIGNENC:
-                    $to_list = clone $to;
-                    if (count($options['from'])) {
-                        $to_list->add($options['from']);
-                    }
-                    $base = $imp_pgp->IMPsignAndEncryptMIMEPart($base, $to_list, ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null);
-                    break;
-                }
-            } catch (Horde_Exception $e) {
-                throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
-            }
-        } elseif ($prefs->getValue('use_smime') &&
-                  in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
-            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
-
-            /* Check to see if we have the user's passphrase yet. */
-            if (in_array($encrypt, array(IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
-                $passphrase = $imp_smime->getPassphrase();
-                if ($passphrase === false) {
-                    $e = new IMP_Compose_Exception(_("S/MIME Error: Need passphrase for personal private key."));
-                    $e->encrypt = 'smime_passphrase_dialog';
-                    throw $e;
-                }
-            }
-
-            /* Do the encryption/signing requested. */
-            try {
-                switch ($encrypt) {
-                case IMP_Crypt_Smime::SIGN:
-                    $base = $imp_smime->IMPsignMIMEPart($base);
-                    $this->_setMetadata('encrypt_sign', true);
-                    break;
-
-                case IMP_Crypt_Smime::ENCRYPT:
-                    $base = $imp_smime->IMPencryptMIMEPart($base, $to[0]);
-                    break;
-
-                case IMP_Crypt_Smime::SIGNENC:
-                    $base = $imp_smime->IMPsignAndEncryptMIMEPart($base, $to[0]);
-                    break;
-                }
-            } catch (Horde_Exception $e) {
-                throw new IMP_Compose_Exception(_("S/MIME Error: ") . $e->getMessage(), $e->getCode());
-            }
         }
 
         /* Flag this as the base part and rebuild MIME IDs. */

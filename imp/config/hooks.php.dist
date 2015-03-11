@@ -271,7 +271,11 @@ class IMP_Hooks
      *                                      text will be used.
      * @param IMP_Prefs_Identity $identity  The identity object of the sender.
      * @param Horde_Mail_Rfc822_List $to    The list of addresses the message
-     *                                      is being sent to.
+     *                                      is being sent to. (Note: this list
+     *                                      is calculated before the pre_sent
+     *                                      hook is executed, so any
+     *                                      recipients added in that hook will
+     *                                      not be seen here.)
      *
      * @return string  The trailer text to be used.
      */
