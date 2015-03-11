@@ -177,27 +177,6 @@ class Horde_Image_Imagick extends Horde_Image_Base
     }
 
     /**
-     * Resize current image.
-     *
-     * @see Horde_Image_im::resize()
-     *
-     * @return void
-     */
-    public function resize($width, $height, $ratio = true, $keepProfile = false)
-    {
-        try {
-            if ($keepProfile) {
-                $this->_imagick->resizeImage($width, $height, $ratio);
-            } else {
-                $this->_imagick->thumbnailImage($width, $height, $ratio);
-            }
-        } catch (ImagickException $e) {
-            throw new Horde_Image_Exception($e);
-        }
-        $this->clearGeometry();
-    }
-
-    /**
      * Returns the height and width of the current image data.
      *
      * @return array  An hash with 'width' containing the width,
@@ -217,7 +196,28 @@ class Horde_Image_Imagick extends Horde_Image_Base
         }
 
         return array('width' => $this->_width, 'height' => $this->_height);
+    }
 
+    /**
+     * Resizes the current image.
+     *
+     * @param integer $width        The new width.
+     * @param integer $height       The new height.
+     * @param boolean $ratio        Maintain original aspect ratio.
+     * @param boolean $keepProfile  Keep the image meta data.
+     */
+    public function resize($width, $height, $ratio = true, $keepProfile = false)
+    {
+        try {
+            if ($keepProfile) {
+                $this->_imagick->resizeImage($width, $height, $ratio);
+            } else {
+                $this->_imagick->thumbnailImage($width, $height, $ratio);
+            }
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
+        $this->clearGeometry();
     }
 
     /**
