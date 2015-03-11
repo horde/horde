@@ -707,7 +707,7 @@ class Horde_Image_Imagick extends Horde_Image_Base
     public function getImageAtIndex($index)
     {
         if ($index >= $this->_imagick->getNumberImages()) {
-            throw Horde_Image_Exception('Image index out of bounds.');
+            throw new Horde_Image_Exception('Image index out of bounds.');
         }
 
         $currentIndex = $this->_imagick->getIteratorIndex();
