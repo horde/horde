@@ -32,7 +32,6 @@ class IMP_Contents_InlineOutput
      *   - mask: (integer) The mask needed for a getSummary() call.
      *   - mimeid: (string) Restrict output to this MIME ID (and children).
      *   - part_info_display: (array) The list of summary fields to display.
-     *   - show_parts: (string) The value of the 'parts_display' pref.
      *
      * @return array  An array with the following keys:
      *   - atc_parts: (array) The list of attachment MIME IDs.
@@ -62,9 +61,7 @@ class IMP_Contents_InlineOutput
         $part_info_display = isset($options['part_info_display'])
             ? $options['part_info_display']
             : array();
-        $show_parts = isset($options['show_parts'])
-            ? $options['show_parts']
-            : $prefs->getValue('parts_display');
+        $show_parts = $prefs->getValue('parts_display');
 
         foreach ($contents->getMIMEMessage()->partIterator() as $part) {
             $mime_id = $part->getMimeId();
