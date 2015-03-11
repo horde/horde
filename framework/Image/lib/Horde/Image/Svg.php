@@ -65,6 +65,7 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function display()
     {
+        $this->headers();
         $this->_svg->printElement();
     }
 
