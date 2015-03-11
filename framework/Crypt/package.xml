@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1074,7 +1074,7 @@ Initial release as a PEAR package
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
    </notes>
   </release>
  </changelog>

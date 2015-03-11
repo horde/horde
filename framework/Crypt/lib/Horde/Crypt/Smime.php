@@ -276,12 +276,16 @@ class Horde_Crypt_Smime extends Horde_Crypt
 
         /* Encrypt the document. */
         $ciphers = array(
-            OPENSSL_CIPHER_3DES,
-            OPENSSL_CIPHER_DES,
-            OPENSSL_CIPHER_RC2_128,
-            OPENSSL_CIPHER_RC2_64,
-            OPENSSL_CIPHER_RC2_40
+            // SHOULD- support (RFC 5751 [2.7])
+            OPENSSL_CIPHER_3DES
         );
+        if (defined('OPENSSL_CIPHER_AES_128_CBC')) {
+            // MUST support (RFC 5751 [2.7])
+            array_unshift($ciphers, OPENSSL_CIPHER_AES_128_CBC);
+            // SHOULD+ support (RFC 5751 [2.7])
+            array_unshift($ciphers, OPENSSL_CIPHER_AES_192_CBC);
+            array_unshift($ciphers, OPENSSL_CIPHER_AES_256_CBC);
+        }
 
         foreach ($ciphers as $val) {
             if (openssl_pkcs7_encrypt($input, $output, $params['pubkey'], array(), 0, $val)) {
