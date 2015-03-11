@@ -276,12 +276,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
      *
      * @param string $text   The text to be encrypted.
      * @param array $params  The parameters needed for encryption.
-     * <pre>
-     * Parameters:
-     * ===========
-     * 'type'   => 'message' (REQUIRED)
-     * 'pubkey' => public key (REQUIRED)
-     * </pre>
+     *   - type: (string) [REQUIRED] 'message'.
+     *   - pubkey: (mixed) [REQUIRED] Public key/cert or array of public
+     *             keys/certs.
      *
      * @return string  The encrypted message.
      * @throws Horde_Crypt_Exception
