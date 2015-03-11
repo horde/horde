@@ -49,8 +49,8 @@ class Horde_Image_Swf extends Horde_Image_Base
         $this->_movie = new SWFMovie();
         $this->_movie->setDimension($this->_width, $this->_height);
 
-        // FIXME: honor the 'background' parameter here.
-        $this->_movie->setBackground(0xff, 0xff, 0xff);
+        $color = Horde_Image::getRGB($this->_background);
+        $this->_movie->setBackground($color[0], $color[1], $color[2]);
         $this->_movie->setRate(30);
     }
 
