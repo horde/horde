@@ -496,22 +496,23 @@ class Horde_Image_Im extends Horde_Image_Base
             list($x2, $y2) = Horde_Image::circlePoint($mid, $r * 2);
             list($x3, $y3) = Horde_Image::circlePoint($end, $r * 2);
 
-            // This seems to result in slightly better placement of
-            // pie slices.
-            $x++;
-            $y++;
-
-            $verts = array(array('x' => $x + $x3, 'y' => $y + $y3),
-                           array('x' => $x, 'y' => $y),
-                           array('x' => $x + $x1, 'y' => $y + $y1));
+            $verts = array(
+                array('x' => $x + round($x3), 'y' => $y + round($y3)),
+                array('x' => $x, 'y' => $y),
+                array('x' => $x + round($x1), 'y' => $y + round($y1))
+            );
 
             if ($mid > 90) {
-                $verts1 = array(array('x' => $x + $x2, 'y' => $y + $y2),
-                                array('x' => $x, 'y' => $y),
-                                array('x' => $x + $x1, 'y' => $y + $y1));
-                $verts2 = array(array('x' => $x + $x3, 'y' => $y + $y3),
-                                array('x' => $x, 'y' => $y),
-                                array('x' => $x + $x2, 'y' => $y + $y2));
+                $verts1 = array(
+                    array('x' => $x + round($x2), 'y' => $y + round($y2)),
+                    array('x' => $x, 'y' => $y),
+                    array('x' => $x + round($x1), 'y' => $y + round($y1))
+                );
+                $verts2 = array(
+                    array('x' => $x + round($x3), 'y' => $y + round($y3)),
+                    array('x' => $x, 'y' => $y),
+                    array('x' => $x + round($x2), 'y' => $y + round($y2))
+                );
 
                 $this->polygon($verts1, $fill, $fill);
                 $this->polygon($verts2, $fill, $fill);
