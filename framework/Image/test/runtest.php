@@ -4,7 +4,10 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
+Horde_Registry::appInit(
+    'horde',
+    array('authentication' => 'none', 'session_control' => 'none')
+);
 
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',

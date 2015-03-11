@@ -9,7 +9,10 @@
  */
 
 require_once __DIR__ . '/../lib/Application.php';
-Horde_Registry::appInit('horde', array('authentication' => 'none'));
+Horde_Registry::appInit(
+    'horde',
+    array('authentication' => 'none', 'session_control' => 'none')
+);
 
 // Putting these here so they don't interfere with timing/memory data when
 // profiling.
