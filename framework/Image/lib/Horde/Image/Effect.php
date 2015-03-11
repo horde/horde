@@ -64,15 +64,10 @@ class Horde_Image_Effect
      * Bind this effect to a Horde_Image object.
      *
      * @param Horde_Image $image  The Horde_Image object
-     *
-     * @TODO: Can we get rid of the reference here? (Looks OK for GD, but need
-     *        to test im/imagick also).
-     *
-     * @return void
      */
-    public function setImageObject(&$image)
+    public function setImageObject($image)
     {
-        $this->_image = &$image;
+        $this->_image = $image;
     }
 
     /**
