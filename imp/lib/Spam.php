@@ -182,11 +182,17 @@ class IMP_Spam
                 if ($msg_count === false) {
                     $result = 0;
                 } else {
-                    if ($msg_count == 1) {
-                        $notification->push(_("The message has been deleted."), 'horde.message');
-                    } else {
-                        $notification->push(sprintf(_("%d messages have been deleted."), $msg_count), 'horde.message');
-                    }
+                    $notification->push(
+                        ngettext(
+                            _("The message has been deleted."),
+                            sprintf(
+                                _("%d messages have been deleted."),
+                                $msg_count
+                            ),
+                            $msg_count
+                        ),
+                        'horde.message'
+                    );
                 }
                 break;
 
