@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-11</date>
+ <date>2015-03-12</date>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -413,6 +413,7 @@
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
     <file name=".htaccess" role="test" />
+    <file name="error.png" role="test" />
     <file name="gd.php" role="test" />
     <file name="im.php" role="test" />
     <file name="img1.jpg" role="test" />
@@ -647,6 +648,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Image.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Image.po" name="locale/zh_TW/LC_MESSAGES/Horde_Image.po" />
    <install as=".htaccess" name="test/.htaccess" />
+   <install as="error.png" name="test/error.png" />
    <install as="gd.php" name="test/gd.php" />
    <install as="im.php" name="test/im.php" />
    <install as="img1.jpg" name="test/img1.jpg" />
@@ -1097,7 +1099,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-11</date>
+   <date>2015-03-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix catching exceptions from imagick extension.
