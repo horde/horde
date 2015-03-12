@@ -324,7 +324,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             $query = sprintf(
                 'UPDATE %s SET rule_name = ?, rule_action = ?, ' .
                 'rule_value = ?, rule_flags = ?, rule_conditions = ?, ' .
-                'rule_combine = ?, rule_stop = ?, rule_active = ?, ' .
+                'rule_combine = ?, rule_stop = ?, rule_active = ? ' .
                 'WHERE rule_id = ? AND rule_owner = ?',
                 $this->_params['table_rules']
             );
