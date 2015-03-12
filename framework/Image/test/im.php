@@ -153,9 +153,9 @@ case 'testTransparentPrimitivesReversed':
 case 'testTransparentBGWithBorder':
     $time = xdebug_time_index();
     // Same as above, but with border.
-     $image = getImageObject(array('height' => '200',
-                                   'width' => '200',
-                                   'background' => 'none'));
+    $image = getImageObject(array('height' => '200',
+                                  'width' => '200',
+                                  'background' => 'none'));
     $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
     $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
     $image->circle(30, 30, 30, 'black', 'blue');
@@ -516,7 +516,6 @@ function logThis($effect, $time, $memory)
 
     $logger->debug("$driver, $effect, $time, $memory");
 
-//    global $driver, $logger;
 //    $db = $GLOBALS['injector']->getInstance('Horde_Db_Base');
 //    $sql = "INSERT INTO image_tests (test, driver, peak_memory, execution_time) VALUES (?, ?, ?, ?);";
 //    $db->insert($sql, array('test' => $effect,
