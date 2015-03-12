@@ -97,7 +97,7 @@ class Horde_Image_Swf extends Horde_Image_Base
      */
     public function allocateColor($name)
     {
-        list($r, $g, $b) = $this->getRGB($name);
+        list($r, $g, $b) = Horde_Image::getRGB($name);
         return array('red' => $r, 'green' => $g, 'blue' => $b, 'alpha' => 255);
     }
 

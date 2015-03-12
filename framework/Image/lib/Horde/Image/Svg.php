@@ -139,7 +139,7 @@ class Horde_Image_Svg extends Horde_Image_Base
     {
         $height = 12;
         $style = 'font-family:' . $font . ';font-height:' . $height
-            . 'px;fill:' . $this->getHexColor($color) . ';text-anchor:start;';
+            . 'px;fill:' . Horde_Image::getHexColor($color) . ';text-anchor:start;';
         $transform = 'rotate(' . $direction . ',' . $x . ',' . $y . ')';
         $this->_svg->addChild(new XML_SVG_Text(array(
             'text'      => $string,
@@ -162,11 +162,11 @@ class Horde_Image_Svg extends Horde_Image_Base
     public function circle($x, $y, $r, $color, $fill = null)
     {
         if (!empty($fill)) {
-            $style = 'fill:' . $this->getHexColor($fill) . '; ';
+            $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
         }
-        $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
+        $style .= 'stroke:' . Horde_Image::getHexColor($color) . '; stroke-width:1';
 
         $this->_svg->addChild(new XML_SVG_Circle(array(
             'cx'    => $x,
@@ -187,11 +187,11 @@ class Horde_Image_Svg extends Horde_Image_Base
     public function polygon($verts, $color, $fill = null)
     {
         if (!empty($fill)) {
-            $style = 'fill:' . $this->getHexColor($fill) . '; ';
+            $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
         }
-        $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
+        $style .= 'stroke:' . Horde_Image::getHexColor($color) . '; stroke-width:1';
 
         $points = '';
         foreach ($verts as $v) {
@@ -218,11 +218,11 @@ class Horde_Image_Svg extends Horde_Image_Base
     public function rectangle($x, $y, $width, $height, $color, $fill = null)
     {
         if (!empty($fill)) {
-            $style = 'fill:' . $this->getHexColor($fill) . '; ';
+            $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
         }
-        $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
+        $style .= 'stroke:' . Horde_Image::getHexColor($color) . '; stroke-width:1';
 
         $this->_svg->addChild(new XML_SVG_Rect(array(
             'x'      => $x,
@@ -249,11 +249,11 @@ class Horde_Image_Svg extends Horde_Image_Base
     )
     {
         if (!empty($fill)) {
-            $style = 'fill:' . $this->getHexColor($fill) . '; ';
+            $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
         }
-        $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
+        $style .= 'stroke:' . Horde_Image::getHexColor($color) . '; stroke-width:1';
 
         $this->_svg->addChild(new XML_SVG_Rect(
             array('x'      => $x,
@@ -278,7 +278,7 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function line($x1, $y1, $x2, $y2, $color = 'black', $width = 1)
     {
-        $style = 'stroke:' . $this->getHexColor($color)
+        $style = 'stroke:' . Horde_Image::getHexColor($color)
             . '; stroke-width:' . (int)$width;
         $this->_svg->addChild(new XML_SVG_Line(array(
             'x1'    => $x1,
@@ -306,7 +306,7 @@ class Horde_Image_Svg extends Horde_Image_Base
         $dash_space = 2
     )
     {
-        $style = 'stroke:' . $this->getHexColor($color)
+        $style = 'stroke:' . Horde_Image::getHexColor($color)
             . '; stroke-width:' . (int)$width
             . '; stroke-dasharray:' . $dash_length . ',' . $dash_space . ';';
         $this->_svg->addChild(new XML_SVG_Line(array(
@@ -329,7 +329,7 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function polyline($verts, $color, $width = 1)
     {
-        $style = 'stroke:' . $this->getHexColor($color)
+        $style = 'stroke:' . Horde_Image::getHexColor($color)
             . '; stroke-width:' . $width . ';fill:none;';
 
         // Calculate the path entry.
@@ -367,11 +367,11 @@ class Horde_Image_Svg extends Horde_Image_Base
     )
     {
         if (!empty($fill)) {
-            $style = 'fill:' . $this->getHexColor($fill) . '; ';
+            $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
         }
-        $style .= 'stroke:' . $this->getHexColor($color) . '; stroke-width:1';
+        $style .= 'stroke:' . Horde_Image::getHexColor($color) . '; stroke-width:1';
 
         $mid = round(($start + $end) / 2);
 
