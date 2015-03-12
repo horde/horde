@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix setting background color in SVG backend.
 * [jan] Add &apos;ratio&apos; parameter to Horde_Image_Effect_Imagick_LiquidResize.
 * [jan] Fix catching exceptions from imagick extension.
 * [jan] Complete the backends&apos; capabilities properties.
@@ -1103,6 +1104,7 @@ Initial release as a PEAR package
    <date>2015-03-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix setting background color in SVG backend.
 * [jan] Add &apos;ratio&apos; parameter to Horde_Image_Effect_Imagick_LiquidResize.
 * [jan] Fix catching exceptions from imagick extension.
 * [jan] Complete the backends&apos; capabilities properties.

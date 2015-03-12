@@ -56,8 +56,15 @@ class Horde_Image_Svg extends Horde_Image_Base
         parent::__construct($params, $context);
         $this->_svg = new XML_SVG_Document(array(
             'width' => $this->_width,
-            'height' => $this->_height
+            'height' => $this->_height,
         ));
+        if ($this->_background != 'none') {
+            $this->rectangle(
+                0, 0,
+                $this->_width, $this->_height,
+                $this->_background, $this->_background
+            );
+        }
     }
 
     /**
