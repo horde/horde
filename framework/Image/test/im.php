@@ -45,6 +45,7 @@ case 'crop':
     $time = xdebug_time_index() - $time;
     $memory = xdebug_peak_memory_usage();
     logThis($test, $time, $memory);
+    exit;
 
 case 'liquid':
     $time = xdebug_time_index();
