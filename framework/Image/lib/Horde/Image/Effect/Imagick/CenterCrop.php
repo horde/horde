@@ -37,9 +37,13 @@ class Horde_Image_Effect_Imagick_CenterCrop extends Horde_Image_Effect
     public function apply()
     {
         $this->_params = new Horde_Support_Array($this->_params);
-        $this->_image->imagick->cropThumbnailImage(
-            $this->_params->width, $this->_params->height
-        );
-        $this->_image->clearGeometry();
+        try {
+            $this->_image->imagick->cropThumbnailImage(
+                $this->_params->width, $this->_params->height
+            );
+            $this->_image->clearGeometry();
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
     }
 }

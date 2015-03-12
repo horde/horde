@@ -91,6 +91,10 @@ class Horde_Image_Imagick extends Horde_Image_Base
             $this->_height = max(array($this->_height, 1));
             try {
                 $color = new ImagickPixel($this->_background);
+            } catch (ImagickPixelException $e) {
+                throw new Horde_Image_Exception($e);
+            }
+            try {
                 $this->_imagick->newImage(
                     $this->_width, $this->_height, $color
                 );
@@ -343,14 +347,22 @@ class Horde_Image_Imagick extends Horde_Image_Base
     )
     {
         $fontsize = Horde_Image::getFontSize($fontsize);
-        $pixel = new ImagickPixel($color);
-        $draw = new ImagickDraw();
-        $draw->setFillColor($pixel);
-        if (!empty($font)) {
-            $draw->setFont($font);
+        try {
+            $pixel = new ImagickPixel($color);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
         }
-        $draw->setFontSize($fontsize);
-        $draw->setGravity(Imagick::GRAVITY_NORTHWEST);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setFillColor($pixel);
+            if (!empty($font)) {
+                $draw->setFont($font);
+            }
+            $draw->setFontSize($fontsize);
+            $draw->setGravity(Imagick::GRAVITY_NORTHWEST);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->annotateImage($draw, $x, $y, $direction, $string);
         } catch (ImagickException $e) {
@@ -370,10 +382,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function circle($x, $y, $r, $color, $fill = 'none')
     {
-        $draw = new ImagickDraw();
-        $draw->setFillColor(new ImagickPixel($fill));
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->circle($x, $y, $r + $x, $y);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setFillColor(new ImagickPixel($fill));
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->circle($x, $y, $r + $x, $y);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -392,10 +410,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function polygon($verts, $color, $fill = 'none')
     {
-        $draw = new ImagickDraw();
-        $draw->setFillColor(new ImagickPixel($fill));
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->polygon($verts);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setFillColor(new ImagickPixel($fill));
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->polygon($verts);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -416,10 +440,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function rectangle($x, $y, $width, $height, $color, $fill = 'none')
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setFillColor(new ImagickPixel($fill));
-        $draw->rectangle($x, $y, $x + $width, $y + $height);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setFillColor(new ImagickPixel($fill));
+            $draw->rectangle($x, $y, $x + $width, $y + $height);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -443,10 +473,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $x, $y, $width, $height, $round, $color, $fill
     )
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setFillColor(new ImagickPixel($fill));
-        $draw->roundRectangle($x, $y, $x + $width, $y + $height, $round, $round);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setFillColor(new ImagickPixel($fill));
+            $draw->roundRectangle($x, $y, $x + $width, $y + $height, $round, $round);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -467,10 +503,16 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function line($x0, $y0, $x1, $y1, $color = 'black', $width = 1)
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setStrokeWidth($width);
-        $draw->line($x0, $y0, $x1, $y1);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setStrokeWidth($width);
+            $draw->line($x0, $y0, $x1, $y1);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -496,11 +538,17 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $dash_space = 2
     )
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setStrokeWidth($width);
-        $draw->setStrokeDashArray(array($dash_length, $dash_space));
-        $draw->line($x0, $y0, $x1, $y1);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setStrokeWidth($width);
+            $draw->setStrokeDashArray(array($dash_length, $dash_space));
+            $draw->line($x0, $y0, $x1, $y1);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImageException $e) {
@@ -520,11 +568,17 @@ class Horde_Image_Imagick extends Horde_Image_Base
      */
     public function polyline($verts, $color, $width = 1)
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setStrokeWidth($width);
-        $draw->setFillColor(new ImagickPixel('none'));
-        $draw->polyline($verts);
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setStrokeWidth($width);
+            $draw->setFillColor(new ImagickPixel('none'));
+            $draw->polyline($verts);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
         try {
             $this->_imagick->drawImage($draw);
         } catch (ImagickException $e) {
@@ -548,9 +602,6 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $x, $y, $r, $start, $end, $color = 'black', $fill = 'none'
     )
     {
-        $draw = new ImagickDraw();
-        $draw->setStrokeColor(new ImagickPixel($color));
-        $draw->setFillColor(new ImagickPixel($fill));
         $points = Horde_Image::arcPoints($r, $start, $end);
         $points['x1'] += $x;
         $points['x2'] += $x;
@@ -558,7 +609,17 @@ class Horde_Image_Imagick extends Horde_Image_Base
         $points['y1'] += $y;
         $points['y2'] += $y;
         $points['y3'] += $y;
-        $draw->arc($x - $r, $y - $r, $x + $r, $y + $r, $start, $end);
+
+        try {
+            $draw = new ImagickDraw();
+            $draw->setStrokeColor(new ImagickPixel($color));
+            $draw->setFillColor(new ImagickPixel($fill));
+            $draw->arc($x - $r, $y - $r, $x + $r, $y + $r, $start, $end);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        }
 
         // If filled, draw the outline.
         if (!empty($fill)) {
@@ -641,6 +702,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
             $border->compositeImage($image, Imagick::COMPOSITE_COPY, $width, $height);
             $image->clear();
             $image->addImage($border);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
         } catch (ImagickException $e) {
             throw new Horde_Image_Exception($e);
         }

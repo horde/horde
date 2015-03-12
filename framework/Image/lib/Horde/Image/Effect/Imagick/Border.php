@@ -39,11 +39,17 @@ class Horde_Image_Effect_Imagick_Border extends Horde_Image_Effect_Border
                 $this->_params['borderwidth']
             );
         } else {
-            $this->_image->imagick->borderImage(
-                new ImagickPixel($this->_params['bordercolor']),
-                $this->_params['borderwidth'],
-                $this->_params['borderwidth']
-            );
+            try {
+                $this->_image->imagick->borderImage(
+                    new ImagickPixel($this->_params['bordercolor']),
+                    $this->_params['borderwidth'],
+                    $this->_params['borderwidth']
+                );
+            } catch (ImagickPixelException $e) {
+                throw new Horde_Image_Exception($e);
+            } catch (ImagickException $e) {
+                throw new Horde_Image_Exception($e);
+            }
         }
     }
 }

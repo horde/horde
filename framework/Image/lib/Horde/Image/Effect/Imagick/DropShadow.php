@@ -50,28 +50,34 @@ class Horde_Image_Effect_Imagick_DropShadow extends Horde_Image_Effect
         // the distance of the shadow is determined *solely* by the sigma value
         // which makes it pretty much impossible to have Imagick shadows look
         // identical to Im shadows...
-        $shadow = $this->_image->imagick->clone();
-        $shadow->setImageBackgroundColor(new ImagickPixel('black'));
-        $shadow->shadowImage(
-            80,
-            $this->_params['fade'],
-            $this->_params['distance'],
-            $this->_params['distance']
-        );
-
-        $shadow->compositeImage(
-            $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
-        );
-
-        if ($this->_params['padding']) {
-            $shadow->borderImage(
-                $this->_params['background'],
-                $this->_params['padding'],
-                $this->_params['padding']
+        try {
+            $shadow = $this->_image->imagick->clone();
+            $shadow->setImageBackgroundColor(new ImagickPixel('black'));
+            $shadow->shadowImage(
+                80,
+                $this->_params['fade'],
+                $this->_params['distance'],
+                $this->_params['distance']
             );
+
+            $shadow->compositeImage(
+                $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
+            );
+
+            if ($this->_params['padding']) {
+                $shadow->borderImage(
+                    $this->_params['background'],
+                    $this->_params['padding'],
+                    $this->_params['padding']
+                );
+            }
+            $this->_image->imagick->clear();
+            $this->_image->imagick->addImage($shadow);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
-        $this->_image->imagick->clear();
-        $this->_image->imagick->addImage($shadow);
         $shadow->destroy();
 
         $this->_image->clearGeometry();

@@ -67,23 +67,29 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $this->_logger->debug('TAR: ' . $ar);
 
 
-        // Compute COE
-        $img = $this->_image->imagick->clone();
-        $img->edgeImage($r);
-        $img->modulateImage(100,0,100);
-        $img->blackThresholdImage("#0f0f0f");
+        try {
+            // Compute COE
+            $img = $this->_image->imagick->clone();
+            $img->edgeImage($r);
+            $img->modulateImage(100,0,100);
+            $img->blackThresholdImage("#0f0f0f");
 
-        $xcenter = $ycenter = $sum = 0;
-        $n = 100000;
-        for ($k = 0; $k < $n; $k++) {
-            $i = mt_rand(0, $w0 - 1);
-            $j = mt_rand(0, $h0 - 1);
-            $pixel = $img->getImagePixelColor($i, $j);
-            $val = $pixel->getColor();
-            $val = $val['b'];
-            $sum += $val;
-            $xcenter = $xcenter + ($i + 1) * $val;
-            $ycenter = $ycenter + ($j + 1) * $val;
+            $xcenter = $ycenter = $sum = 0;
+            $n = 100000;
+            for ($k = 0; $k < $n; $k++) {
+                $i = mt_rand(0, $w0 - 1);
+                $j = mt_rand(0, $h0 - 1);
+                $pixel = $img->getImagePixelColor($i, $j);
+                $val = $pixel->getColor();
+                $val = $val['b'];
+                $sum += $val;
+                $xcenter = $xcenter + ($i + 1) * $val;
+                $ycenter = $ycenter + ($j + 1) * $val;
+            }
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
         $xcenter /= $sum;
         $ycenter /= $sum;
@@ -116,55 +122,61 @@ class Horde_Image_Effect_Imagick_SmartCrop extends Horde_Image_Effect
         $maxfile = '';
         $maxparam = array('w' => 0, 'h' => 0, 'x' => 0, 'y' => 0);
 
-        for ($k = 0; $k < $nk; $k++) {
-            $hcrop = round($hcrop0 - $k * $hinc);
-            $wcrop = round($wcrop0 - $k * $winc);
-            $xcrop = $xcenter - $wcrop / 2;
-            $ycrop = $ycenter - $hcrop / 2;
-            if ($xcrop < 0) {
-                $xcrop = 0;
-            }
-            if ($xcrop + $wcrop > $w0) {
-                $xcrop = $w0 - $wcrop;
-            }
-            if ($ycrop < 0) {
-                $ycrop = 0;
-            }
-            if ($ycrop+$hcrop > $h0) {
-                $ycrop = $h0 - $hcrop;
-            }
-            $this->_logger->debug("crop: $wcrop, $hcrop, $xcrop, $ycrop");
+        try {
+            for ($k = 0; $k < $nk; $k++) {
+                $hcrop = round($hcrop0 - $k * $hinc);
+                $wcrop = round($wcrop0 - $k * $winc);
+                $xcrop = $xcenter - $wcrop / 2;
+                $ycrop = $ycenter - $hcrop / 2;
+                if ($xcrop < 0) {
+                    $xcrop = 0;
+                }
+                if ($xcrop + $wcrop > $w0) {
+                    $xcrop = $w0 - $wcrop;
+                }
+                if ($ycrop < 0) {
+                    $ycrop = 0;
+                }
+                if ($ycrop+$hcrop > $h0) {
+                    $ycrop = $h0 - $hcrop;
+                }
+                $this->_logger->debug("crop: $wcrop, $hcrop, $xcrop, $ycrop");
 
-            $beta = 0;
-            for ($c = 0; $c < $n; $c++) {
-                $i = mt_rand(0, $wcrop - 1);
-                $j = mt_rand(0, $hcrop - 1);
-                $pixel = $img->getImagePixelColor($xcrop + $i, $ycrop + $j);
-                $val = $pixel->getColor();
-                $beta += $val['b'];// & 0xFF;
+                $beta = 0;
+                for ($c = 0; $c < $n; $c++) {
+                    $i = mt_rand(0, $wcrop - 1);
+                    $j = mt_rand(0, $hcrop - 1);
+                    $pixel = $img->getImagePixelColor($xcrop + $i, $ycrop + $j);
+                    $val = $pixel->getColor();
+                    $beta += $val['b'];// & 0xFF;
+                }
+
+                $area = $wcrop * $hcrop;
+                $betanorm = $beta / ($n * pow($area, $gamma - 1));
+
+                // best image found, save the params
+                if ($betanorm > $maxbetanorm) {
+                    $this->_logger->debug('Found best');
+                    $maxbetanorm = $betanorm;
+                    $maxparam['w'] = $wcrop;
+                    $maxparam['h'] = $hcrop;
+                    $maxparam['x'] = $xcrop;
+                    $maxparam['y'] = $ycrop;
+                }
             }
 
-            $area = $wcrop * $hcrop;
-            $betanorm = $beta / ($n * pow($area, $gamma - 1));
-
-            // best image found, save the params
-            if ($betanorm > $maxbetanorm) {
-                $this->_logger->debug('Found best');
-                $maxbetanorm = $betanorm;
-                $maxparam['w'] = $wcrop;
-                $maxparam['h'] = $hcrop;
-                $maxparam['x'] = $xcrop;
-                $maxparam['y'] = $ycrop;
-            }
+            $this->_logger->debug('Cropping');
+            // Crop to best
+            $this->_image->imagick->cropImage($maxparam['w'],
+                                              $maxparam['h'],
+                                              $maxparam['x'],
+                                              $maxparam['y']);
+            $this->_image->imagick->scaleImage($w, $h);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
-
-        $this->_logger->debug('Cropping');
-        // Crop to best
-        $this->_image->imagick->cropImage($maxparam['w'],
-                                          $maxparam['h'],
-                                          $maxparam['x'],
-                                          $maxparam['y']);
-        $this->_image->imagick->scaleImage($w, $h);
         $img->destroy();
     }
 }

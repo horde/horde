@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix catching exceptions from imagick extension.
 * [jan] Complete the backends&apos; capabilities properties.
 * [jan] Fix SVG and SWF backends.
 * [jan] Fix setting background color in Horde_Image_Swf constructor.
@@ -1099,6 +1100,7 @@ Initial release as a PEAR package
    <date>2015-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix catching exceptions from imagick extension.
 * [jan] Complete the backends&apos; capabilities properties.
 * [jan] Fix SVG and SWF backends.
 * [jan] Fix setting background color in Horde_Image_Swf constructor.

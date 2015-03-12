@@ -43,31 +43,40 @@ class Horde_Image_Effect_Imagick_PolaroidImage extends Horde_Image_Effect
     {
         if (!method_exists($this->_image->imagick, 'polaroidImage') ||
             !method_exists($this->_image->imagick, 'trimImage')) {
-                throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library to use the PolaroidImage effect.');
+            throw new Horde_Image_Exception('Your version of Imagick is not compiled against a recent enough ImageMagick library to use the PolaroidImage effect.');
         }
 
-        // This determines the color of the underlying shadow.
-        $this->_image->imagick->setImageBackgroundColor(
-            new ImagickPixel($this->_params['shadowcolor'])
-        );
-        $this->_image->imagick->polaroidImage(
-            new ImagickDraw(), $this->_params['angle']
-        );
+        try {
+            // This determines the color of the underlying shadow.
+            $this->_image->imagick->setImageBackgroundColor(
+                new ImagickPixel($this->_params['shadowcolor'])
+            );
+            $this->_image->imagick->polaroidImage(
+                new ImagickDraw(), $this->_params['angle']
+            );
 
 
-        // We need to create a new image to composite the polaroid over.
-        // (yes, even if it's a transparent background evidently)
-        $size = $this->_image->getDimensions();
-        $imk = new Imagick();
-        $imk->newImage(
-            $size['width'], $size['height'], $this->_params['background']
-        );
-        $imk->setImageFormat($this->_image->getType());
-        $result = $imk->compositeImage(
-            $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
-        );
-        $this->_image->imagick->clear();
-        $this->_image->imagick->addImage($imk);
+            // We need to create a new image to composite the polaroid over.
+            // (yes, even if it's a transparent background evidently)
+            $size = $this->_image->getDimensions();
+            $imk = new Imagick();
+            $imk->newImage(
+                $size['width'], $size['height'], $this->_params['background']
+            );
+            $imk->setImageFormat($this->_image->getType());
+            $result = $imk->compositeImage(
+                $this->_image->imagick, Imagick::COMPOSITE_OVER, 0, 0
+            );
+            $this->_image->imagick->clear();
+            $this->_image->imagick->addImage($imk);
+        } catch (ImagickPixelException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickDrawException $e) {
+            throw new Horde_Image_Exception($e);
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
+        }
+
         $imk->destroy();
     }
 }

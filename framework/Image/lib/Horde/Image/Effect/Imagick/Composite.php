@@ -37,25 +37,29 @@ class Horde_Image_Effect_Imagick_Composite extends Horde_Image_Effect
      */
     public function apply()
     {
-        foreach ($this->_params['images'] as $image) {
-            $topimg = new Imagick();
-            $topimg->clear();
-            $topimg->readImageBlob($image->raw());
+        try {
+            foreach ($this->_params['images'] as $image) {
+                $topimg = new Imagick();
+                $topimg->clear();
+                $topimg->readImageBlob($image->raw());
 
-            /* Calculate center for composite (gravity center) */
-            $geometry = $this->_image->imagick->getImageGeometry();
-            $x = $geometry['width'] / 2;
-            $y = $geometry['height'] / 2;
+                /* Calculate center for composite (gravity center) */
+                $geometry = $this->_image->imagick->getImageGeometry();
+                $x = $geometry['width'] / 2;
+                $y = $geometry['height'] / 2;
 
-            if (isset($this->_params['x']) && isset($this->_params['y'])) {
-                $x = $this->_params['x'];
-                $y = $this->_params['y'];
+                if (isset($this->_params['x']) && isset($this->_params['y'])) {
+                    $x = $this->_params['x'];
+                    $y = $this->_params['y'];
+                }
+                $this->_image->_imagick->compositeImage(
+                    $topimg,
+                    Imagick::COMPOSITE_OVER,
+                    $x, $y
+                );
             }
-            $this->_image->_imagick->compositeImage(
-                $topimg,
-                Imagick::COMPOSITE_OVER,
-                $x, $y
-            );
+        } catch (ImagickException $e) {
+            throw new Horde_Image_Exception($e);
         }
     }
 }
