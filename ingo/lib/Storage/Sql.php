@@ -267,7 +267,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
         switch ($action) {
         case self::STORE_ADD:
             try {
-                $max = $this->_db->selectValue(
+                $max = $this->_params['db']->selectValue(
                     'SELECT MAX(rule_order) FROM %s',
                     $this->_params['table_rules']
                 );
@@ -298,7 +298,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             );
 
             try {
-                $rule->uid = $this->_db->insert($query, $values);
+                $rule->uid = $this->_params['db']->insert($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
@@ -314,7 +314,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             try {
                 /* No need to alter rule order; it is no longer contiguous,
                  * but that doesn't affect sort order. */
-                $this->_db->delete($query, $values);
+                $this->_params['db']->delete($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
@@ -344,7 +344,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
             );
 
             try {
-                $this->_db->update($query, $values);
+                $this->_params['db']->update($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
@@ -360,16 +360,16 @@ class Ingo_Storage_Sql extends Ingo_Storage
                  $this->_params['table_rules']
             );
 
-            $this->_db->beginDbTransaction();
+            $this->_params['db']->beginDbTransaction();
             try {
                 foreach ($this->_rules as $key => $val) {
-                    $this->_db->update($query, array($key, $val->uid));
+                    $this->_params['db']->update($query, array($key, $val->uid));
                 }
             } catch (Horde_Db_Exception $e) {
-                $this->_db->rollbackDbTransaction();
+                $this->_params['db']->rollbackDbTransaction();
                 throw new Ingo_Exception($e);
             }
-            $this->_db->commitDbTransaction();
+            $this->_params['db']->commitDbTransaction();
             break;
         }
 
@@ -403,7 +403,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                 );
 
 
-                $this->_db->beginDbTransaction();
+                $this->_params['db']->beginDbTransaction();
                 try {
                     foreach ($rule->addresses as $address) {
                         $this->_params['db']->insert(
