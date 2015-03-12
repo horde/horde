@@ -263,7 +263,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
                     null,
                     null,
                     null,
-                    $rule->description
+                    $rule->description()
                 ) . htmlspecialchars($rule->name) . '</a>';
             } else {
                 $entry['descriplink'] = Horde::link(
