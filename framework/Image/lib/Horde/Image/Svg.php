@@ -234,7 +234,7 @@ class Horde_Image_Svg extends Horde_Image_Base
      */
     public function rectangle($x, $y, $width, $height, $color, $fill = null)
     {
-        if (!empty($fill)) {
+        if (!empty($fill) && $fill != 'none') {
             $style = 'fill:' . Horde_Image::getHexColor($fill) . '; ';
         } else {
             $style = 'fill:none;';
