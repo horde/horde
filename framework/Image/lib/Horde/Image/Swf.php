@@ -28,7 +28,17 @@ class Horde_Image_Swf extends Horde_Image_Base
      *
      * @var string[]
      */
-    protected $_capabilities = array('canvas');
+    protected $_capabilities = array(
+        'canvas',
+        'circle',
+        'dashedLine',
+        'line',
+        'polygon',
+        'polyline',
+        'rectangle',
+        'roundedRectangle',
+        'text',
+    );
 
     /**
      * SWF root movie.

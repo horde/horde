@@ -34,16 +34,26 @@ class Horde_Image_Im extends Horde_Image_Base
      * @var string[]
      */
     protected $_capabilities = array(
-        'resize',
-        'crop',
-        'rotate',
-        'grayscale',
-        'flip',
-        'mirror',
-        'sepia',
+        'arc',
         'canvas',
+        'circle',
+        'crop',
+        'dashedLine',
+        'flip',
+        'grayscale',
+        'line',
+        'mirror',
         'multipage',
-        'pdf');
+        'pdf',
+        'polygon',
+        'polyline',
+        'rectangle',
+        'resize',
+        'rotate',
+        'roundedRectangle',
+        'sepia',
+        'text',
+    );
 
     /**
      * Operations to be performed before the source filename is specified on

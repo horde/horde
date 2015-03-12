@@ -42,20 +42,31 @@ class Horde_Image_Imagick extends Horde_Image_Base
     /**
      * Capabilites of this driver.
      *
-     * @var array
+     * @var string[]
      */
-    protected $_capabilities = array('resize',
-                                     'crop',
-                                     'rotate',
-                                     'grayscale',
-                                     'flip',
-                                     'mirror',
-                                     'sepia',
-                                     'canvas',
-                                     'multipage',
-                                     'pdf');
+    protected $_capabilities = array(
+        'canvas',
+        'circle',
+        'crop',
+        'dashedLine',
+        'flip',
+        'grayscale',
+        'line',
+        'mirror',
+        'multipage',
+        'pdf',
+        'polygon',
+        'polyline',
+        'rectangle',
+        'resize',
+        'rotate',
+        'roundedRectangle',
+        'sepia',
+        'text',
+    );
+
     /**
-     * Const'r
+     * Constructor.
      *
      * @see Horde_Image_Base::_construct
      */

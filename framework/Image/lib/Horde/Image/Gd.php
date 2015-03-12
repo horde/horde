@@ -40,15 +40,25 @@ class Horde_Image_Gd extends Horde_Image_Base
      *
      * @var string[]
      */
-    protected $_capabilities = array('resize',
-                                     'crop',
-                                     'rotate',
-                                     'flip',
-                                     'mirror',
-                                     'grayscale',
-                                     'sepia',
-                                     'yellowize',
-                                     'canvas');
+    protected $_capabilities = array(
+        'canvas',
+        'circle',
+        'crop',
+        'dashedLine',
+        'flip',
+        'grayscale',
+        'line',
+        'mirror',
+        'polygon',
+        'polyline',
+        'rectangle',
+        'resize',
+        'rotate',
+        'roundedRectangle',
+        'sepia',
+        'text',
+        'yellowize',
+    );
 
     /**
      * GD image resource for the current image data.

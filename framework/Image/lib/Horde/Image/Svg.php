@@ -34,7 +34,17 @@ class Horde_Image_Svg extends Horde_Image_Base
      *
      * @var array
      */
-    protected $_capabilities = array('canvas');
+    protected $_capabilities = array(
+        'canvas',
+        'circle',
+        'dashedLine',
+        'line',
+        'polygon',
+        'polyline',
+        'rectangle',
+        'roundedRectangle',
+        'text',
+    );
 
     /**
      * Constructor.
