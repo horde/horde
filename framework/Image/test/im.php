@@ -207,7 +207,7 @@ case 'testPolylineCircleLineText':
                            array('x' => 150, 'y' => 140)),
                      'yellow', 4);
 
-    $image->text('Hello World', 60, 10, 'Arial', 'black', 0, 'large');
+    $image->text('Hello World', 60, 10, '', 'black', 0, 'large');
     $image->display();
     break;
 
