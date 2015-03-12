@@ -809,7 +809,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         );
 
         /* Add the 'User-Agent' header. */
-        $headers->addHeaderOb(Horde_Mime_Headers_UserAgent::create(
+        $headers->addHeaderOb(new Horde_Mime_Headers_UserAgent(
+            null,
             empty($opts['useragent'])
                 ? 'Internet Messaging Program (IMP) ' . $registry->getVersion()
                 : $opts['useragent']
