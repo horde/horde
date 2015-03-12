@@ -219,23 +219,16 @@ class IMP_Auth
      * Perform post-login tasks. Session creation requires the full IMP
      * environment, which is not available until this callback.
      *
-     * The following global IMP session variables are created by this method:
-     *   - file_upload: (integer) If file uploads are allowed, the max size.
-     *
      * @throws Horde_Exception
      */
     public static function authenticateCallback()
     {
-        global $browser, $injector, $session;
+        global $injector;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Perform post-login tasks for IMAP object. */
         $imp_imap->doPostLoginTasks();
-
-        /* Does the server allow file uploads? If yes, store the
-         * value, in bytes, of the maximum file size. */
-        $session->set('imp', 'file_upload', $browser->allowFileUploads());
 
         self::_log(true, $imp_imap);
     }

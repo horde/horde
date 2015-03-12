@@ -203,7 +203,7 @@ class IMP_Ajax_Queue
             if (($addl = $this->_compose->additionalAttachmentsAllowed()) !== true) {
                 $compose->atclimit = $addl;
             }
-            $compose->atcmax = $this->_compose->maxAttachmentSize();
+            $compose->atcmax = IMP_Compose::maxAttachmentSize();
             $compose->cacheid = $this->_compose->getCacheId();
             $compose->hmac = $this->_compose->getHmac();
 

@@ -26,7 +26,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $injector, $page_output, $registry, $session;
+        global $browser, $injector, $page_output, $registry;
 
         $page_output->addScriptFile('base.js');
         $page_output->addScriptFile('passphrase.js');
@@ -116,7 +116,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->view->sidebar = $sidebar->render();
 
-        $this->view->max_fsize = intval($session->get('imp', 'file_upload'));
+        $this->view->max_fsize = intval($browser->allowFileUploads());
 
         $page_output->noDnsPrefetch();
 

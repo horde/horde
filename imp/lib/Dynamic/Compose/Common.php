@@ -78,7 +78,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _compose($base, $view, $args)
     {
-        global $injector, $registry, $page_output, $prefs, $session;
+        global $injector, $registry, $page_output, $prefs;
 
         $view->title = $args['title'];
 
@@ -117,7 +117,7 @@ class IMP_Dynamic_Compose_Common
 
         if (IMP_Compose::canUploadAttachment()) {
             $view->attach = true;
-            $view->max_size = $session->get('imp', 'file_upload');
+            $view->max_size = IMP_Compose::maxAttachmentSize();
             $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
         } else {
             $view->attach = false;

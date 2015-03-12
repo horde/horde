@@ -32,7 +32,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $conf, $injector, $page_output, $prefs, $session;
+        global $browser, $conf, $injector, $page_output, $prefs;
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
@@ -95,7 +95,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     ), true);
                 }
 
-                if ($session->get('imp', 'file_upload')) {
+                if ($browser->allowFileUploads()) {
                     $view->import_pgp_private = true;
                     $page_output->addInlineScript(array(
                         '$("import_pgp_personal").observe("click", function(e) { ' . Horde::popupJs($pgp_url, array('params' => array('actionID' => 'import_personal_key', 'reload' => base64_encode($ui->selfUrl()->setRaw(true))), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'

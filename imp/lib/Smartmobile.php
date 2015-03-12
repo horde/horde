@@ -107,7 +107,7 @@ class IMP_Smartmobile
      */
     protected function _initPages()
     {
-        global $injector, $prefs, $registry, $session;
+        global $injector, $prefs, $registry;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
@@ -138,7 +138,7 @@ class IMP_Smartmobile
 
             if (IMP_Compose::canUploadAttachment()) {
                 $this->view->attach = true;
-                $this->view->max_size = $session->get('imp', 'file_upload');
+                $this->view->max_size = IMP_Compose::maxAttachmentSize();
             }
         }
     }

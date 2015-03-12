@@ -32,7 +32,7 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $session;
+        global $browser, $injector, $page_output, $prefs;
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
@@ -84,7 +84,7 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
                 $page_output->addInlineScript(array(
                     '$("delete_smime_personal").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Are you sure you want to delete your keypair? (This is NOT recommended!)")) . ')) { e.stop(); } })'
                 ), true);
-            } elseif ($session->get('imp', 'file_upload')) {
+            } elseif ($browser->allowFileUploads()) {
                 $view->import = true;
                 $page_output->addInlineScript(array(
                     '$("import_smime_personal").observe("click", function(e) { ' . Horde::popupJs($smime_url, array('params' => array('actionID' => 'import_personal_certs', 'reload' => base64_encode($ui->selfUrl()->setRaw(true))), 'height' => 275, 'width' => 750, 'urlencode' => true)) . '; e.stop(); })'

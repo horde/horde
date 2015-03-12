@@ -2847,20 +2847,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * What is the maximum attachment size?
-     *
-     * @return integer  The maximum attachment size (in bytes).
-     */
-    public function maxAttachmentSize()
-    {
-        $size = $GLOBALS['session']->get('imp', 'file_upload');
-
-        return empty($GLOBALS['conf']['compose']['attach_size_limit'])
-            ? $size
-            : min($size, $GLOBALS['conf']['compose']['attach_size_limit']);
-    }
-
-    /**
      * Clean outgoing HTML (remove unexpected data URLs).
      *
      * @param Horde_Domhtml $html  The HTML data.
@@ -3609,7 +3595,23 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public static function canUploadAttachment()
     {
-        return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+        return (self::maxAttachmentSize() != 0);
+    }
+
+    /**
+     * What is the maximum attachment size?
+     *
+     * @return integer  The maximum attachment size (in bytes).
+     */
+    public static function maxAttachmentSize()
+    {
+        global $browser, $conf;
+
+        $size = $browser->allowFileUploads();
+
+        return empty($conf['compose']['attach_size_limit'])
+            ? $size
+            : min($size, $conf['compose']['attach_size_limit']);
     }
 
     /**

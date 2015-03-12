@@ -32,7 +32,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $session;
+        global $browser, $injector, $page_output, $prefs;
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
@@ -72,7 +72,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
             $view->pubkey_list = $plist;
         }
 
-        if ($session->get('imp', 'file_upload')) {
+        if ($browser->allowFileUploads()) {
             $view->can_import = true;
             $view->no_source = !$prefs->getValue('add_source');
             if (!$view->no_source) {
