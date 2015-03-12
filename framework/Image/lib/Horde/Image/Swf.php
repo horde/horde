@@ -481,57 +481,21 @@ class Horde_Image_Swf extends Horde_Image_Base
 
         if ($fill != 'none') {
             $fillColor = $this->allocateColor($fill);
-            $f = $s->addFill(
+            $s->setRightFill(
                 $fillColor['red'],
                 $fillColor['green'],
                 $fillColor['blue'],
                 $fillColor['alpha']
             );
-            $s->setRightFill($f);
         }
 
-        if ($end - $start <= 45) {
-            $pts = Horde_Image::arcPoints($r, $start, $end);
-            $s->movePenTo($x, $y);
-            $s->drawLineTo($pts['x1'] + $x, $pts['y1'] + $y);
-            $s->drawCurveTo(
-                $pts['x3'] + $x, $pts['y3'] + $y,
-                $pts['x2'] + $x, $pts['y2'] + $y
-            );
-            $s->drawLineTo($x, $y);
-        } else {
-            $sections = ceil(($end - $start) / 45);
-            for ($i = 0; $i < $sections; $i++) {
-                $pts = Horde_Image::arcPoints(
-                    $r,
-                    $start + ($i * 45),
-                    ($start + (($i + 1) * 45) > $end)
-                        ? $end
-                        : ($start + (($i + 1) * 45))
-                );
-
-                // If we are on the first section, move the pen to the centre
-                // and draw out to the edge.
-                if ($i == 0 && $fill != 'none') {
-                    $s->movePenTo($x, $y);
-                    $s->drawLineTo($pts['x1'] + $x, $pts['y1'] + $y);
-                } else {
-                    $s->movePenTo($pts['x1'] + $x, $pts['y1'] + $y);
-                }
-
-                // Draw the arc.
-                $s->drawCurveTo(
-                    $pts['x3'] + $x, $pts['y3'] + $y,
-                    $pts['x2'] + $x, $pts['y2'] + $y
-                );
-            }
-
-            if ($fill != 'none') {
-                // Draw a line from the edge back to the centre to close
-                // off the segment.
-                $s->drawLineTo($x, $y);
-            }
-        }
+        $pts = Horde_Image::arcPoints($r, $start, $end);
+        $s->movePenTo($x, $y);
+        $s->drawArc($r, $start + 90, $end + 90);
+        $s->movePenTo($x, $y);
+        $s->drawLineTo(round($pts['x1']) + $x, round($pts['y1']) + $y);
+        $s->movePenTo($x, $y);
+        $s->drawLineTo(round($pts['x2']) + $x, round($pts['y2']) + $y);
 
         $this->_movie->add($s);
     }
