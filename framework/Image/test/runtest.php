@@ -9,6 +9,8 @@ Horde_Registry::appInit(
     array('authentication' => 'none', 'session_control' => 'none')
 );
 
+header('Content-Type: text/html');
+
 $allTests = array(
     'testInitialState' => 'Test initial state. Solid blue square',
     'testDefaultImageFormatDuringLoad' => 'Should load as default image type of PNG even though source file is JPG',
@@ -45,10 +47,15 @@ $allTests = array(
 <html>
  <head>
   <title>Horde_Image Tests</title>
+  <style type="text/css">
+  img {
+      max-width: 600px;
+  }
+  </style>
  </head>
  <body style="background-color:gray">
-<table width="50%">
- <thead><td>Effect</td><td>Im</td><td>Imagick</td><td>Gd</td></thead>
+<table>
+ <thead><td>Effect</td><td>Im</td><td>Imagick</td><td>Gd</td><td>Svg</td></thead>
 <?php
 $url = new Horde_Url('im.php');
 foreach ($allTests as $name => $description) {
@@ -58,6 +65,8 @@ foreach ($allTests as $name => $description) {
     echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Imagick')) . '" />';
     echo '</td><td text-align="top">';
     echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Gd')) . '" />';
+    echo '</td><td text-align="top">';
+    echo '<img src="' . $url->copy()->add(array('test' => $name, 'driver' => 'Svg')) . '" />';
     echo '</td></tr>';
 }
 echo '</table>';
