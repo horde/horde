@@ -866,7 +866,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!empty($header['replyto']) &&
             ($header['replyto'] != $from->bare_address) &&
             !isset($headers['reply-to'])) {
-            $headers->addHeader('Reply-to', $header['replyto']);
+            $headers->addHeader('Reply-To', $header['replyto']);
         }
 
         $message = $this->_encryptMessage(
