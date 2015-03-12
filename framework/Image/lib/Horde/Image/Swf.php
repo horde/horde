@@ -318,68 +318,37 @@ class Horde_Image_Swf extends Horde_Image_Base
         $x4 = $x + $round;
         $y4 = $y + $height - $round;
 
-        // Start in the upper left.
-        $p1 = Horde_Image::arcPoints($round, 180, 225);
-        $p2 = Horde_Image::arcPoints($round, 225, 270);
-
-        // Start at the lower left corner of the top left curve.
-        $s->movePenTo($x1 + $p1['x1'], $y1 + $p1['y1']);
-
         // Draw the upper left corner.
-        $s->drawCurveTo(
-            $x1 + $p1['x3'], $y1 + $p1['y3'], $x1 + $p1['x2'], $y1 + $p1['y2']
-        );
-        $s->drawCurveTo(
-            $x1 + $p2['x3'], $y1 + $p2['y3'], $x1 + $p2['x2'], $y1 + $p2['y2']
-        );
-
-        // Calculate the upper right points.
-        $p3 = Horde_Image::arcPoints($round, 270, 315);
-        $p4 = Horde_Image::arcPoints($round, 315, 360);
+        $s->movePenTo($x1, $y2);
+        $s->drawArc($round, 270, 360);
 
         // Connect the top left and right curves.
-        $s->drawLineTo($x2 + $p3['x1'], $y2 + $p3['y1']);
+        $s->movePenTo($x1, $y);
+        $s->drawLineTo($x2, $y);
 
         // Draw the upper right corner.
-        $s->drawCurveTo(
-            $x2 + $p3['x3'], $y2 + $p3['y3'], $x2 + $p3['x2'], $y2 + $p3['y2']
-        );
-        $s->drawCurveTo(
-            $x2 + $p4['x3'], $y2 + $p4['y3'], $x2 + $p4['x2'], $y2 + $p4['y2']
-        );
-
-        // Calculate the lower right points.
-        $p5 = Horde_Image::arcPoints($round, 0, 45);
-        $p6 = Horde_Image::arcPoints($round, 45, 90);
+        $s->movePenTo($x2, $y2);
+        $s->drawArc($round, 0, 90);
 
         // Connect the top right and lower right curves.
-        $s->drawLineTo($x3 + $p5['x1'], $y3 + $p5['y1']);
+        $s->movePenTo($x + $width, $y2);
+        $s->drawLineTo($x + $width, $y3);
 
         // Draw the lower right corner.
-        $s->drawCurveTo(
-            $x3 + $p5['x3'], $y3 + $p5['y3'], $x3 + $p5['x2'], $y3 + $p5['y2']
-        );
-        $s->drawCurveTo(
-            $x3 + $p6['x3'], $y3 + $p6['y3'], $x3 + $p6['x2'], $y3 + $p6['y2']
-        );
-
-        // Calculate the lower left points.
-        $p7 = Horde_Image::arcPoints($round, 90, 135);
-        $p8 = Horde_Image::arcPoints($round, 135, 180);
+        $s->movePenTo($x3, $y3);
+        $s->drawArc($round, 90, 180);
 
         // Connect the bottom right and bottom left curves.
-        $s->drawLineTo($x4 + $p7['x1'], $y4 + $p7['y1']);
+        $s->movePenTo($x3, $y + $height);
+        $s->drawLineTo($x4, $y + $height);
 
         // Draw the lower left corner.
-        $s->drawCurveTo(
-            $x4 + $p7['x3'], $y4 + $p7['y3'], $x4 + $p7['x2'], $y4 + $p7['y2']
-        );
-        $s->drawCurveTo(
-            $x4 + $p8['x3'], $y4 + $p8['y3'], $x4 + $p8['x2'], $y4 + $p8['y2']
-        );
+        $s->movePenTo($x4, $y4);
+        $s->drawArc($round, 180, 270);
 
-        // Close the shape.
-        $s->drawLineTo($x1 + $p1['x1'], $y1 + $p1['y1']);
+        // Connect the bottom left and top left curves.
+        $s->movePenTo($x, $y4);
+        $s->drawLineTo($x, $y1);
 
         $this->_movie->add($s);
     }
