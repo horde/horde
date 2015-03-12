@@ -41,9 +41,9 @@ class Horde_Image_Svg extends Horde_Image_Base
      *
      * @see Horde_Image_Base::_construct
      */
-    public function __construct($params)
+    public function __construct($params, $context = array())
     {
-        parent::__construct($params);
+        parent::__construct($params, $context);
         $this->_svg = new XML_SVG_Document(array(
             'width' => $this->_width,
             'height' => $this->_height
