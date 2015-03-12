@@ -2477,7 +2477,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function forwardMultipleMessages(IMP_Indices $indices)
     {
-        global $injector, $prefs, $session;
+        global $injector, $prefs;
 
         $this->_setMetadata('indices', $indices);
         $this->_replytype = self::FORWARD_ATTACH;
@@ -2486,7 +2486,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         return array(
             'body' => '',
-            'format' => ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail')) ? 'html' : 'text',
+            'format' => ($prefs->getValue('compose_html') && self::canHtmlCompose()) ? 'html' : 'text',
             'identity' => $injector->getInstance('IMP_Identity')->getDefault(),
             'subject' => $subject,
             'title' => $subject,
@@ -3119,7 +3119,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _getMessageText($contents, array $options = array())
     {
-        global $conf, $injector, $notification, $prefs, $session;
+        global $conf, $injector, $notification, $prefs;
 
         $body_id = null;
         $mode = 'text';
@@ -3128,7 +3128,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         ), $options);
 
         if (!empty($options['html']) &&
-            $session->get('imp', 'rteavail') &&
+            self::canHtmlCompose() &&
             (($body_id = $contents->findBody('html')) !== null)) {
             $mime_message = $contents->getMIMEMessage();
 
@@ -3610,6 +3610,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public static function canUploadAttachment()
     {
         return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+    }
+
+    /**
+     * Is the HTML editor available for compostion?
+     *
+     * @return boolean  True if HTML editor is available.
+     */
+    public static function canHtmlCompose()
+    {
+        global $injector;
+
+        return $injector->getInstance('Horde_Editor')->supportedByBrowser();
     }
 
     /**

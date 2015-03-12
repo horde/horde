@@ -68,7 +68,7 @@ $_prefs['signature_html_select'] = array(
     'handler' => 'IMP_Prefs_Special_HtmlSignature',
     'requires_nolock' => array('signature_html'),
     'suppress' => function() {
-        return !$GLOBALS['session']->get('imp', 'rteavail');
+        return !IMP_Compose::canHtmlCompose();
     }
 );
 

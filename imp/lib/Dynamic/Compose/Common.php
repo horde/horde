@@ -89,7 +89,7 @@ class IMP_Dynamic_Compose_Common
         /* Generate identities list. */
         $this->_addIdentityJs();
 
-        if ($session->get('imp', 'rteavail')) {
+        if (IMP_Compose::canHtmlCompose()) {
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
 

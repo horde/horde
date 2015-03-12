@@ -41,7 +41,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $page_output, $prefs, $session;
+        global $injector, $notification, $page_output, $prefs;
 
         $alist = $injector->getInstance('IMP_Dynamic_AddressList');
         $clink = new IMP_Compose_Link($this->vars);
@@ -198,7 +198,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'new':
         case 'template_new':
         default:
-            $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
+            $show_editor = ($prefs->getValue('compose_html') && IMP_Compose::canHtmlCompose());
 
             $onload = $compose_ajax->getBaseResponse();
             $onload->body = isset($clink->args['body'])

@@ -28,7 +28,7 @@ class IMP_Script_Package_Compose extends Horde_Script_Package
      */
     public function __construct()
     {
-        global $page_output, $prefs, $registry, $session;
+        global $page_output, $prefs, $registry;
 
         $this->_files[] = new Horde_Script_File_JsDir('compose.js', 'imp');
         $this->_files[] = new Horde_Script_File_JsDir('draghandler.js', 'imp');
@@ -41,7 +41,7 @@ class IMP_Script_Package_Compose extends Horde_Script_Package
             $this->_files[] = new Horde_Script_File_JsDir('passphrase.js', 'imp');
         }
 
-        if (!$session->get('imp', 'rteavail')) {
+        if (!IMP_Compose::canHtmlCompose()) {
             return;
         }
 

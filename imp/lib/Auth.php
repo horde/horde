@@ -221,7 +221,6 @@ class IMP_Auth
      *
      * The following global IMP session variables are created by this method:
      *   - file_upload: (integer) If file uploads are allowed, the max size.
-     *   - rteavail: (boolean) Is the HTML editor available?
      *
      * @throws Horde_Exception
      */
@@ -237,9 +236,6 @@ class IMP_Auth
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
         $session->set('imp', 'file_upload', $browser->allowFileUploads());
-
-        /* Is the HTML editor available? */
-        $session->set('imp', 'rteavail', $injector->getInstance('Horde_Editor')->supportedByBrowser());
 
         self::_log(true, $imp_imap);
     }
