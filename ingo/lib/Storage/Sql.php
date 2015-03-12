@@ -402,7 +402,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
                         $this->_params['table_lists']
                 );
 
-
                 $this->_params['db']->beginDbTransaction();
                 try {
                     foreach ($rule->addresses as $address) {
