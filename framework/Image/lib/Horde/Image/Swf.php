@@ -144,16 +144,12 @@ class Horde_Image_Swf extends Horde_Image_Base
     {
         $color = $this->allocateColor($color);
 
-        if (!strncasecmp(PHP_OS, 'WIN', 3)) {
-            $text = new SWFTextField(SWFTEXTFIELD_NOEDIT);
-        } else {
-            $text = new SWFText();
-        }
+        $text = new SWFTextField(SWFTEXTFIELD_NOEDIT);
         $text->setColor(
             $color['red'], $color['green'], $color['blue'], $color['alpha']
         );
+        $text->setFont(new SWFBrowserFont($this->getFont($font)));
         $text->addString($string);
-        $text->setFont(new SWFFont($this->getFont($font)));
 
         $t = $this->_movie->add($text);
         $t->moveTo($x, $y);
