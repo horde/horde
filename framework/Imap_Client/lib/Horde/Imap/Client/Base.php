@@ -396,7 +396,7 @@ implements Serializable, SplObserver
         case 'search_charset':
             if (!isset($this->_init['search_charset'])) {
                 $this->_init['search_charset'] = new Horde_Imap_Client_Data_SearchCharset();
-               $this->_init['search_charset']->attach($this);
+                $this->_init['search_charset']->attach($this);
             }
             $this->_init['search_charset']->setBaseOb($this);
             return $this->_init['search_charset'];
