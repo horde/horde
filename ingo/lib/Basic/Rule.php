@@ -207,7 +207,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         foreach ($flags as $val) {
             $tmp |= $val;
         }
-        $tmp->flags = $tmp;
+        $rule->flags = $tmp;
 
         /* Run through action handlers. */
         switch ($actionID) {
