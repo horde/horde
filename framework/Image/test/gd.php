@@ -3,9 +3,12 @@
  * @package Image
  */
 
-$context = array(
-    'tmpdir' => Horde::getTempdir(),
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit(
+    'horde',
+    array('authentication' => 'none', 'session_control' => 'none')
 );
+
 $image = new Horde_Image_Gd(
     array('height' => 400, 'width' => 400),
     array('tmpdir' => Horde::getTempdir())

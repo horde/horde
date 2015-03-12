@@ -3,9 +3,16 @@
  * @package Image
  */
 
-require_once __DIR__ . '/../Image/Svg.php';
+require_once __DIR__ . '/../lib/Application.php';
+Horde_Registry::appInit(
+    'horde',
+    array('authentication' => 'none', 'session_control' => 'none')
+);
 
-$image = new Horde_Image_svg(array('height' => 400, 'width' => 400));
+$image = new Horde_Image_Svg(
+    array('height' => 400, 'width' => 400),
+    array('tmpdir' => Horde::getTempdir())
+);
 
 $image->rectangle(30, 30, 100, 60, 'black', 'yellow');
 $image->roundedRectangle(30, 30, 100, 60, 15, 'black', 'red');
