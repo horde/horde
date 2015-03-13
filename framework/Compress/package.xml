@@ -39,7 +39,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix fatal error due to incorrect class name case (Ralph Becker &lt;rb@stylite.de&gt;)
+* [mms] Fix leaking Horde_Date exceptions.
+* [mjr] Improve detection of ORGANIZER when decoding MAPI encoded vTODOs.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -956,7 +958,9 @@ Initial release as a PEAR package
    <date>2015-02-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix fatal error due to incorrect class name case (Ralph Becker &lt;rb@stylite.de&gt;)
+* [mms] Fix leaking Horde_Date exceptions.
+* [mjr] Improve detection of ORGANIZER when decoding MAPI encoded vTODOs.
    </notes>
   </release>
  </changelog>
