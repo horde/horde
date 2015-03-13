@@ -856,7 +856,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Get from address. Done after pre_sent hook since from address could
          * be changed by hook. */
-        $from = $headers['from']->getAddressList(true);
+        $from = $headers['from']->getAddressList(true)->first();
         if (is_null($from->host)) {
             $from->host = $imp_imap->config->maildomain;
         }
