@@ -513,7 +513,7 @@ var ImpCore = {
         switch (e.memo) {
         case 'ctx_contacts':
             tmp = $(e.memo).down('DIV');
-            tmp2 = e.element().retrieve('email');
+            tmp2 = e.findElement('A').retrieve('email');
             tmp.hide().childElements().invoke('remove');
 
             if (!tmp2) {
