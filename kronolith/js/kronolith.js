@@ -6353,6 +6353,9 @@ KronolithCore = {
         if (!start) {
             start = Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format);
         }
+        if (Object.isString(start)){
+            start = Date.parseExact(start, Kronolith.conf.date_format);   
+        }
         var end = start.clone().add(1).days(),
             width = td.getWidth(),
             fbs = this.parseDate(fb.s),
