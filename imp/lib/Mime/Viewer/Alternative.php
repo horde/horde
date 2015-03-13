@@ -84,7 +84,7 @@ class IMP_Mime_Viewer_Alternative extends Horde_Mime_Viewer_Base
                  * alternative_display is not 'html'. */
                 (!$prefer_plain ||
                  (($val->getType() != 'text/html') &&
-                  ($val->getPrimaryType() != 'text')))) {
+                  ($val->getPrimaryType() == 'text')))) {
                 $display_ids[strval($id)] = true;
             }
         }
