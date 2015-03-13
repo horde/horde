@@ -2691,7 +2691,7 @@ abstract class Kronolith_Event
      */
     public function hasAttendee($email)
     {
-        return isset($this->attendees[$email]);
+        return isset($this->attendees[Horde_String::lower($email)]);
     }
 
     /**
