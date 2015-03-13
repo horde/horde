@@ -6308,7 +6308,7 @@ KronolithCore = {
         }
     },
 
-    getFBDate: function ()
+    getFBDate: function()
     {
         var startDate = $('kronolithFBDate').innerHTML.split(' ');
         if (startDate.length > 1) {
