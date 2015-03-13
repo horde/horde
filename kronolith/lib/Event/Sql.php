@@ -131,7 +131,7 @@ class Kronolith_Event_Sql extends Kronolith_Event
         if (isset($SQLEvent['event_attendees'])) {
             $attendees = unserialize($SQLEvent['event_attendees']);
             if ($attendees) {
-                $this->attendees = array_change_key_case($driver->convertFromDriver($attendees));
+                $this->attendees = $driver->convertFromDriver($attendees);
             }
         }
         if (isset($SQLEvent['event_resources'])) {

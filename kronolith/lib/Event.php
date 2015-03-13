@@ -2684,14 +2684,23 @@ abstract class Kronolith_Event
      * Checks to see whether the specified attendee is associated with the
      * current event.
      *
-     * @param string $email  The email address of the attendee.
-     *
+     * @param string $email            The email address of the attendee.
+     * @param boolean $case_sensitive  Match in a case sensitive manner.
+     *                                 @since 4.3.0
      * @return boolean  True if the specified attendee is present for this
      *                  event.
      */
-    public function hasAttendee($email)
+    public function hasAttendee($email, $case_sensitive = false)
     {
-        return isset($this->attendees[Horde_String::lower($email)]);
+        $email = new Horde_Mail_Rfc822_Address($email);
+        foreach (array_keys($this->attendees) as $attendee) {
+            if (($case_sensitive && $email->match($attendee)) ||
+                (!$case_sensitive && $email->matchInsensitive($email))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
