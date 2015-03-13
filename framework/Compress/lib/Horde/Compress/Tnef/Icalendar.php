@@ -23,7 +23,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
  */
-class Horde_Compress_Tnef_ICalendar extends Horde_Compress_Tnef_Object
+class Horde_Compress_Tnef_Icalendar extends Horde_Compress_Tnef_Object
 {
     const PART_ACTION    = 'NEEDS-ACTION';
     const PART_TENTATIVE = 'TENTATIVE';
