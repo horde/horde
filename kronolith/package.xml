@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 * [jan] Fix duplicate group names in sharing dialog.
 * [jan] Fix JavaScript error when saving an unselected calendar.
 * [mjr] Fix using custom SQL configuration parameters.
@@ -2517,6 +2518,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 * [jan] Fix duplicate group names in sharing dialog.
 * [jan] Fix JavaScript error when saving an unselected calendar.
 * [mjr] Fix using custom SQL configuration parameters.
