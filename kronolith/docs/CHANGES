@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[mjr] Enforce case on attendee user part, but add attendee to event if only
+      only the case differs (Bug #13905).
 [jan] Keep original file names when PUTing events via WebDAV.
 [jan] Add hook to customize CalDAV URLs.
 [jan] Remove configuration options for database tables.
