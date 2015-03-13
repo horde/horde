@@ -663,6 +663,8 @@ class Horde_Compress_Tnef extends Horde_Compress_Base
                 $value = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_decodeAttribute($data)), 'UTC');
             } catch (Horde_Mapi_Exception $e) {
                 throw new Horde_Compress_Exception($e);
+            } catch (Horde_Date_Exception $e) {
+                throw new Horde_Compress_Exception($e);
             }
             break;
         case self::AFROM:

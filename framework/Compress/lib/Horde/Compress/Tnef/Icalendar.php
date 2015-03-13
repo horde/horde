@@ -286,12 +286,16 @@ class Horde_Compress_Tnef_Icalendar extends Horde_Compress_Tnef_Object
                     $this->_created = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 } catch (Horde_Mapi_Exception $e) {
                     throw new Horde_Compress_Exception($e);
+                } catch (Horde_Date_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
                 }
                 break;
             case Horde_Compress_Tnef::MAPI_MODIFICATION_TIME:
                 try {
                     $this->_modified = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                } catch (Horde_Date_Exception $e) {
                     throw new Horde_Compress_Exception($e);
                 }
                 break;
@@ -318,12 +322,16 @@ class Horde_Compress_Tnef_Icalendar extends Horde_Compress_Tnef_Object
                     $this->_startUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 } catch (Horde_Mapi_Exception $e) {
                     throw new Horde_Compress_Exception($e);
+                } catch (Horde_Date_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
                 }
                 break;
             case Horde_Compress_Tnef::MAPI_APPOINTMENT_END_WHOLE:
                 try {
                     $this->_endUtc = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value), 'UTC');
                 } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                } catch (Horde_Date_Exception $e) {
                     throw new Horde_Compress_Exception($e);
                 }
                 break;
@@ -449,6 +457,8 @@ class Horde_Compress_Tnef_Icalendar extends Horde_Compress_Tnef_Object
             $startDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
             $endDate = new Horde_Date(Horde_Mapi::filetimeToUnixtime($this->_geti($value, 32)));
         } catch (Horde_Mapi_Exception $e) {
+            throw new Horde_Compress_Exception($e);
+        } catch (Horde_Date_Exception $e) {
             throw new Horde_Compress_Exception($e);
         }
 

@@ -277,11 +277,21 @@ class Horde_Compress_Tnef_VTodo extends Horde_Compress_Tnef_Object
                 $this->_bodyHtml = $value;
                 break;
             case self::MAPI_TASK_COMMONSTART:
-                $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                try {
+                    $this->_start = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                } catch (Horde_Date_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 $this->_start = $this->_start->timestamp();
                 break;
             case self::MAPI_TASK_COMMONEND:
-                $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                try {
+                    $this->_due = new Horde_Date(Horde_Mapi::filetimeToUnixtime($value));
+                } catch (Horde_Mapi_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                } catch (Horde_Date_Exception $e) {
+                    throw new Horde_Compress_Exception($e);
+                }
                 $this->_due = $this->_due->timestamp();
                 break;
             }
