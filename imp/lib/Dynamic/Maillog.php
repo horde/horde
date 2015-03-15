@@ -43,7 +43,8 @@ class IMP_Dynamic_Maillog extends IMP_Dynamic_Base
             $query = $log->searchQuery();
 
             foreach ($log->searchMailboxes() as $val) {
-                if ($indices = $val->runSearchQuery($query)) {
+                $indices = $val->runSearchQuery($query);
+                if (count($indices)) {
                     list($mbox, $uid) = $indices->getSingle();
                     $url = IMP_Dynamic_Message::url();
                     $url->add($mbox->urlParams($uid));
