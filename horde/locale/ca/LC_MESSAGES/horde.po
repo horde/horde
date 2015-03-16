@@ -2,135 +2,174 @@
 # Copyright 2004-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Jordi Giralt <projecte.k2@upcnet.es>, 2006.
+# correuUPC <admin.atic@upcnet.es>, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.05\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 02:42+0200\n"
-"PO-Revision-Date: 2007-01-26 13:22+0100\n"
-"Last-Translator: Jordi Giralt <projectek2@upcnet.es>\n"
+"POT-Creation-Date: 2015-03-12 09:37+0100\n"
+"PO-Revision-Date: 2015-03-16 18:13+0100\n"
+"Last-Translator: correuUPC <admin.atic@upcnet.es>\n"
 "Language-Team: Catalan <dev@lists.horde.org>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.4\n"
 
-#: lib/Block/weatherdotcom.php:260 lib/Block/weatherdotcom.php:363
-#: lib/Block/weatherdotcom.php:409
-msgid " at "
-msgstr "en"
-
-#: admin/groups.php:50
-#, fuzzy, php-format
+#: admin/groups.php:32
+#, php-format
 msgid "\"%s\" was added to the groups system."
-msgstr "L'article s'ha _publicat al menys a N grups:"
+msgstr "\"%s\" va ser afegit al sistema de grups."
 
-#: admin/perms/addchild.php:43
+#: admin/perms/addchild.php:49
 #, php-format
 msgid "\"%s\" was added to the permissions system."
 msgstr "S'ha afegit '%s' al sistema de llicències."
 
-#: admin/groups.php:56 admin/perms/addchild.php:47
-#, fuzzy, php-format
+#: admin/perms/addchild.php:53
+#, php-format
 msgid "\"%s\" was not created: %s."
-msgstr "%1 no s'ha trobat."
+msgstr "\"%s\" no es va crear: %s."
 
-#: lib/Block/account.php:83
+#: lib/Block/Account.php:80
 #, php-format
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB utilitzats de %.2fMB permesos (%.2f%%)"
 
-#: lib/Block/weatherdotcom.php:241
+#: lib/Block/Weather.php:212
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s i %s"
 
-#: lib/Block/account.php:708 lib/Block/account.php:720
+#: lib/Block/Account/Ldap.php:228 lib/Block/Account/Ldap.php:243
 #, php-format
 msgid "%d days until your password expires."
 msgstr "%d dies fins que la contrasenya caduqui."
 
-#: lib/Block/metar.php:281
-#, fuzzy, php-format
+#: lib/Block/Metar.php:260
+#, php-format
 msgid "%d minutes"
-msgstr "%s minuts"
+msgstr "%d minuts"
 
-#: services/facebook.php:114
+#: lib/Ajax/Application/FacebookHandler.php:241
 #, php-format
 msgid "%d person likes this"
 msgid_plural "%d persons like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d persona li agrada"
+msgstr[1] "%d persones els agrada"
 
 #: templates/admin/user/list.inc:4
-#, fuzzy, php-format
+#, php-format
 msgid "%d to %d of %d"
-msgstr "%s al %s de %s"
+msgstr "%d al %d de %d"
 
-#: lib/Block/weatherdotcom.php:288
+#: lib/Block/Weather.php:252
 #, php-format
 msgid "%d-day forecast"
 msgstr "previsió per al dia %d"
 
-#: services/logintasks.php:83
+#: services/logintasks.php:91
 #, php-format
 msgid "%s - Notice"
 msgstr "Avís - %s"
 
-#: admin/config/config.php:21 admin/config/index.php:226
-#, fuzzy, php-format
+#: admin/config/config.php:28 admin/config/index.php:465
+#, php-format
 msgid "%s Configuration"
-msgstr "Es genera la configuració %s"
+msgstr "Configuració de %s"
 
-#: services/logintasks.php:64
-#, fuzzy, php-format
+#: services/logintasks.php:71
+#, php-format
 msgid "%s Tasks - Confirmation"
-msgstr "Contrasenya amb confirmació"
+msgstr "%s Tasques - Confirmació"
 
-#: services/logintasks.php:74
+#: services/logintasks.php:81
 #, php-format
 msgid "%s Terms of Agreement"
 msgstr "Condicions del contracte %s"
 
-#: lib/Block/metar.php:154 lib/Block/metar.php:160 lib/Block/metar.php:234
-#: lib/Block/metar.php:340 lib/Block/metar.php:346
+#: lib/Block/Metar.php:133 lib/Block/Metar.php:139 lib/Block/Metar.php:213
+#: lib/Block/Metar.php:319 lib/Block/Metar.php:325
 #, php-format
 msgid "%s at %s %s"
 msgstr "%s en %s %s"
 
-#: services/logintasks.php:63
-#, fuzzy, php-format
-msgid ""
-"%s is ready to perform the tasks checked below. Check the box for any "
-"operation(s) you want to perform at this time."
-msgstr ""
-"Marca a la casella l'operació o operacions que desitgis executar en aquesta "
-"ocasió."
-
-#: lib/Block/vatid.php:58
+#: templates/prefs/twitter.html.php:9
 #, php-format
-msgid "%s not found."
-msgstr "No s'ha trobat %s."
+msgid "%s can interact with your Twitter account"
+msgstr "%s pot interactuar amb el teu compte de Twitter"
 
-#: lib/Block/weatherdotcom.php:367 lib/Block/weatherdotcom.php:412
-msgid ", gusting "
-msgstr ", ventós %s %s "
+#: templates/prefs/facebook.html.php:48
+#, php-format
+msgid "%s cannot read information about your Facebook friends."
+msgstr ""
+"%s no pot assignar missatges d'estat o publicar qualsevol contingut al "
+"Facebook."
 
-#: lib/Block/metar.php:183 lib/Block/metar.php:188
+#: templates/prefs/facebook.html.php:34
+#, php-format
+msgid ""
+"%s cannot read your stream messages and various other Facebook data items."
+msgstr ""
+"%s no pot assignar missatges d'estat o publicar qualsevol contingut al "
+"Facebook."
+
+#: templates/prefs/facebook.html.php:20
+#, php-format
+msgid ""
+"%s cannot set your status messages or publish other content to Facebook."
+msgstr ""
+"%s no pot assignar missatges d'estat o publicar qualsevol contingut al "
+"Facebook."
+
+#: services/logintasks.php:72
+#, php-format
+msgid ""
+"%s is ready to perform the tasks below. Select each operation to run at this "
+"time."
+msgstr ""
+"%s està llest per realitzar les tasques que s'han seleccionat a sota. "
+"Comprova la caixa per qualsevol operació(ns) que vols realitzar en aquest "
+"moment"
+
+#: lib/Block/Metar.php:162 lib/Block/Metar.php:167
 #, php-format
 msgid ", gusting %s %s"
 msgstr ", ventós %s %s "
 
-#: lib/Block/metar.php:196
+#: lib/Block/Metar.php:175
 #, php-format
 msgid ", variable from %s to %s"
 msgstr ", variable de %s a %s"
 
-#: lib/Block/time.php:26
+#
+#: lib/Application.php:336
+msgid "1 Day"
+msgstr "Proper dia"
+
+#
+#: lib/Application.php:340
+msgid "1 Month"
+msgstr "Mes"
+
+#
+#: lib/Application.php:338
+msgid "1 Week"
+msgstr "Setmana"
+
+#: lib/Block/Time.php:31
 msgid "12 Hour Format"
 msgstr "format de 12 hores"
 
-#: lib/Block/time.php:25
+#
+#: lib/Application.php:339
+msgid "2 Weeks"
+msgstr "Setmana"
+
+#: lib/Block/Time.php:30
 msgid "24 Hour Format"
 msgstr "format de 24 hores"
 
@@ -138,407 +177,363 @@ msgstr "format de 24 hores"
 msgid "24 hours"
 msgstr "24 hores"
 
-#: templates/prefs/facebook.html:15
-msgid ""
-"<tag:app_name /> can interact with your Facebook account, but you must login "
-"to Facebook manually each time."
-msgstr ""
+#
+#: config/prefs.local.20150127.php:491 config/prefs.local.20150127.php:493
+#: config/prefs.php:487 config/prefs.php:489
+msgid "24-hour format"
+msgstr "format de 24 hores"
 
-#: templates/prefs/facebook.html:38
-msgid "<tag:app_name /> cannot read your stream messages."
-msgstr ""
+#
+#: lib/Application.php:337
+msgid "3 Days"
+msgstr "Proper dia"
 
-#: templates/prefs/facebook.html:26
-msgid ""
-"<tag:app_name /> cannot set your status messages or publish other content to "
-"Facebook."
-msgstr ""
-
-#: templates/prefs/twitter.html:9
-msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
-
-#: services/keyboard.php:46
-#, fuzzy
-msgid "A characters"
-msgstr "Nombre de caràcters"
-
-#: lib/Block/metar.php:117
-msgid "A database backend is required for this block."
-msgstr "Per a aquest bloc es necessita un motor de bases de dades."
-
-#: admin/activesync.php:35
+#: admin/activesync.php:40
 msgid ""
 "A device wipe has been requested. Device will be wiped on next "
 "syncronization attempt."
 msgstr ""
+"S'ha solicitat esborrar un dispositiu. El dispositiu s'esborrarà el proper "
+"cop que s'intenti sincronitzar."
 
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "A newer version (%s) exists."
-msgstr ""
+msgstr "Existeix una nova versió (%s)."
 
-#: lib/Prefs/Ui.php:743
+#: lib/Prefs/Special/Activesync.php:112
 #, php-format
 msgid ""
 "A remote wipe for device id %s has been initiated. The device will be wiped "
 "during the next synchronisation."
 msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:7
-msgid "AM Clouds"
-msgstr "Núvols al matí"
-
-#: lib/Block/weatherdotcom_strings.php:8
-#, fuzzy
-msgid "AM Drizzle"
-msgstr "Plugim feble"
-
-#: lib/Block/weatherdotcom_strings.php:9
-#, fuzzy
-msgid "AM Fog"
-msgstr "Boira"
-
-#: lib/Block/weatherdotcom_strings.php:10
-msgid "AM Light Rain"
-msgstr "Pluja feble al matí"
-
-#: lib/Block/weatherdotcom_strings.php:11
-msgid "AM Light Snow"
-msgstr "Volves de neu febles"
-
-#: lib/Block/weatherdotcom_strings.php:12
-msgid "AM Rain"
-msgstr "Pluja al matí"
-
-#: lib/Block/weatherdotcom_strings.php:13
-msgid "AM Showers"
-msgstr "Ruixats al matí"
-
-#: lib/Block/weatherdotcom_strings.php:14
-#, fuzzy
-msgid "AM Snow"
-msgstr "Nevades de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:15
-msgid "AM Snow Showers"
-msgstr "Xàfecs de neu al matí."
-
-#: lib/Block/weatherdotcom_strings.php:16
-#, fuzzy
-msgid "AM Sun"
-msgstr "Sol de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:17
-#, fuzzy
-msgid "AM T-Showers"
-msgstr "Ruixats al matí"
-
-#: lib/Block/weatherdotcom_strings.php:18
-#, fuzzy
-msgid "AM T-Storms"
-msgstr "Tempestes de tarda"
+"S'ha iniciat una neteja remota pel dispositiu %s. El dispositu s'esborrarà "
+"el proper cop que s'intenti sincronitzar."
 
 #: templates/data/datetime.inc:110 templates/data/time.inc:29
 msgid "AM/PM"
 msgstr "AM/PM"
 
-#: lib/Block/account.php:3
+#: lib/Block/Account.php:19
 msgid "Account Information"
 msgstr "_Informació del compte"
 
-#: config/prefs.php.dist:276
+#: config/prefs.local.20150127.php:330 config/prefs.php:326
 msgid "Account Password"
 msgstr "Contrasenya del compte"
 
-#: admin/activesync.php:126
-#, fuzzy
+#: templates/activesync/device_table.html.php:8
 msgid "Actions"
-msgstr "Opcions"
+msgstr "Accions"
 
-#: config/prefs.php.dist:676
+#: config/prefs.local.20150127.php:740 config/prefs.php:736
+#: lib/Application.php:211
 msgid "ActiveSync"
-msgstr ""
+msgstr "ActiveSync"
 
-#: admin/activesync.php:71
-#, fuzzy
-msgid "ActiveSync Device Administration"
-msgstr "Administració d'usuaris"
+#
+#: admin/activesync.php:108
+msgid "ActiveSync Administration"
+msgstr "Administració de Dispositius ActiveSync"
 
-#: admin/activesync.php:199 lib/Api.php:80
+#: lib/Api.php:93 templates/admin/activesync.html.php:6
 msgid "ActiveSync Devices"
-msgstr ""
+msgstr "Dispositius ActiveSync"
 
-#: admin/activesync.php:20 lib/Prefs/Ui.php:376
+#: admin/activesync.php:24 lib/Api.php:720 lib/Api.php:781
+#: lib/Prefs/Special/Activesync.php:32
 msgid "ActiveSync not activated."
-msgstr ""
+msgstr "ActiveSync no activat."
 
-#: templates/admin/groups/addchild.inc:12 templates/portal/add.inc:14
+#: templates/admin/groups/add.inc:12 templates/portal/add.inc:14
 msgid "Add"
-msgstr "Afegir"
+msgstr "Afegeix"
 
-#: services/portal/index.php:68
+#: templates/portal/new.inc:2
 msgid "Add Content"
-msgstr ""
+msgstr "Afegeix Contingut"
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Afegir a continuació:"
+msgstr "Afegeix a continuació:"
 
-#: templates/admin/groups/edit.inc:49
+#: templates/admin/groups/edit.inc:55
 msgid "Add Members"
-msgstr "Afegir membres"
+msgstr "Afegeix membres"
 
-#: admin/groups.php:253 templates/admin/groups/addchild.inc:7
-#, fuzzy, php-format
-msgid "Add a child group to \"%s\""
-msgstr "Afegeix al grup existent"
+#
+#: templates/admin/groups/add.inc:6
+msgid "Add a group"
+msgstr "Afegeix un nou grup"
 
-#: admin/groups.php:238
-#, fuzzy
-msgid "Add a new group"
-msgstr "Afegir un nou grup"
-
-#: admin/user.php:21
+#: admin/user.php:26
 msgid "Add a new user:"
-msgstr "Afegir un nou usuari:"
+msgstr "Afegeix un nou usuari:"
 
-#: admin/alarms.php:22
-#, fuzzy
+#: admin/alarms.php:27
 msgid "Add new alarm"
-msgstr "Afegir un nou usuari:"
+msgstr "Afegeix un nou usuari:"
 
-#: templates/data/csvmap.inc:92
+#: templates/data/csvmap.inc:93
 msgid "Add pair"
-msgstr "Afegir una parella"
+msgstr "Afegeix una parella"
 
-#: admin/user.php:22
+#: admin/user.php:27
 msgid "Add user"
-msgstr "Afegir un usuari"
+msgstr "Afegeix un usuari"
 
-#: admin/signup_confirm.php:80 admin/user.php:92
-#, fuzzy, php-format
+#: admin/signup_confirm.php:82 admin/user.php:93
+#, php-format
 msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"S'ha afegit '%s' al sistema, però no s'ha pogut afegir més dades sobre "
+"S'ha afegit \"%s\" al sistema, però no s'ha pogut afegir més dades sobre "
 "l'alta: %s"
 
-#: signup.php:44
-#, fuzzy, php-format
+#: signup.php:47
+#, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "S'ha afegit '%s' al sistema. Ara ja pot iniciar la sessió."
+msgstr "S'ha afegit \"%s\" al sistema. Ara ja pot iniciar la sessió."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
 msgstr "S'ha inhabilitat l'opció d'afegir usuaris."
 
-#: lib/Block/vatid.php:101
+#: lib/Block/Vatid.php:97
 msgid "Address"
 msgstr "Adreça"
 
-#: config/registry.php.dist:142
+#: config/registry.php:134
 msgid "Address Book"
 msgstr "Llibreta d'adreces"
 
-#: admin/alarms.php:26
-#, fuzzy
+#
+#: lib/Application.php:55
+msgid "Administration"
+msgstr "Administració d'usuaris"
+
+#: admin/alarms.php:31
 msgid "Alarm end"
-msgstr "Armènia"
+msgstr "Fi de l'alarma"
 
-#: admin/alarms.php:28
+#: admin/alarms.php:33
 msgid "Alarm methods"
-msgstr ""
+msgstr "Mètodes d'alarma"
 
-#: admin/alarms.php:25
+#: admin/alarms.php:30
 msgid "Alarm start"
-msgstr ""
+msgstr "Inicia l'alarma"
 
-#: admin/alarms.php:27
-#, fuzzy
+#: admin/alarms.php:32
 msgid "Alarm text"
-msgstr "Text indicador"
+msgstr "Text d'alarma"
 
-#: admin/alarms.php:24
-#, fuzzy
+#: admin/alarms.php:29
 msgid "Alarm title"
-msgstr "Títols de les columnes"
+msgstr "Títol de l'alarma"
 
-#: admin/alarms.php:133
-#, fuzzy
+#: admin/alarms.php:146
 msgid "Alarms"
-msgstr "Àlies"
+msgstr "Alarmes"
 
-#: lib/Block/fortune.php:94
+#: admin/alarms.php:121
+msgid "Alarms have been disabled in the configuration"
+msgstr "Les alarmes s'han deshabilitat en la configuració"
+
+#: lib/Block/Fortune.php:93
 msgid "All"
 msgstr "Tots"
 
-#: templates/shares/edit.inc:58
+#: templates/shares/edit.inc:62
 msgid "All Authenticated Users"
 msgstr "Tots els usuaris autenticats"
 
-#: admin/groups.php:26 admin/groups.php:244
-msgid "All Groups"
-msgstr "Tots els grups"
-
-#: admin/activesync.php:50
+#: admin/activesync.php:58
 msgid "All policy keys successfully reset."
-msgstr ""
+msgstr "Ressetejades amb èxit totes les polítiques de claus."
 
-#: lib/Prefs/Ui.php:753
+#
+#: lib/Prefs/Special/Activesync.php:127
 msgid ""
-"All state removed for your devices. They will resynchronize next time they "
-"connect to the server."
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
 msgstr ""
+"Eliminat l'estat de tots els teus dispositius. Es resincronitzarant el "
+"proper cop que es connectin al servidor"
 
-#: lib/Prefs/Ui.php:724
+#: lib/Prefs/Special/Syncml.php:76
 msgid "All synchronization sessions deleted."
-msgstr ""
+msgstr "Esborrades totes les sessions de sincronització."
 
-#: config/prefs.php.dist:644
+#: lib/Application.php:247
+msgid "Allow alphanumeric"
+msgstr "Permetre alfanumèric"
+
+#
+#: lib/Application.php:248
+msgid "Allow any"
+msgstr "Permetre regles"
+
+#
+#: lib/Application.php:226
+msgid "Allow non-provisionable devices"
+msgstr "Reaprovisionament de tots els dispositius"
+
+#: lib/Application.php:246
+msgid "Allow only numeric"
+msgstr "Permetre només numèric"
+
+#: config/prefs.local.20150127.php:695 config/prefs.php:691
 msgid "Alternate IMSP Login"
 msgstr "Accés IMSP alternatiu"
 
-#: config/prefs.php.dist:658
+#: config/prefs.local.20150127.php:712 config/prefs.php:708
 msgid "Alternate IMSP Password"
 msgstr "Contrasenya IMSP alternativa"
 
-#: config/prefs.php.dist:652
+#: config/prefs.local.20150127.php:706 config/prefs.php:702
 msgid "Alternate IMSP Username"
 msgstr "Nom d'usuari IMSP alternatiu"
 
-#: services/resetpassword.php:31
+#: services/resetpassword.php:35
 msgid "Alternate email address"
 msgstr "Adreça electrònica alternativa"
 
-#: lib/Block/weatherdotcom.php:170
-msgid "An unknown error has occured."
-msgstr "S'ha produït un error desconegut."
-
-#: services/resetpassword.php:48
+#: services/resetpassword.php:52
 msgid "Answer"
 msgstr "Resposta"
 
-#: templates/data/csvmap.inc:112 templates/admin/config/index.html:11
+#: templates/admin/config/index.html.php:27 templates/data/csvmap.inc:113
 msgid "Application"
 msgstr "Aplicació"
 
-#: admin/phpshell.php:44
-#, fuzzy
-msgid "Application Context: "
-msgstr "Llista d'aplicacions"
+#
+#: templates/admin/phpshell.html.php:6
+msgid "Application Context"
+msgstr "Context d'aplicació:"
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr "Llista d'aplicacions"
-
-#: admin/config/index.php:160
+#: admin/config/index.php:257
 msgid "Application is ready."
 msgstr "L'aplicació és a punt."
 
-#: admin/config/index.php:95 admin/config/index.php:127
-#, fuzzy
-msgid "Application is up-to-date."
-msgstr "L'aplicació és a punt."
-
-#: templates/admin/user/approve.inc:33
+#: templates/admin/user/approve.inc:34
 msgid "Approve"
 msgstr "Aprovar"
 
-#: config/nls.php:167
+#: config/nls.php:168
 msgid "Arabic (Windows-1256)"
 msgstr "Aràbic (Windows-1256"
 
-#: admin/alarms.php:123
-#, fuzzy, php-format
+#: admin/alarms.php:134
+#, php-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr "Voleu esborrar '%s' i tots els subgrups?"
+msgstr "Estàs segur d'esborrar '%s'?"
 
 #: templates/admin/user/removequeued.inc:10
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you want to remove the signup request for \"%s\"?"
-msgstr "Voleu suprimir la sol·licitud d'alta a %s?"
+msgstr "Estàs segur de suprimir la sol·licitud d'alta a \"%s\"?"
 
 #: templates/admin/groups/delete.inc:7
-#, fuzzy, php-format
-msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Voleu esborrar '%s' i tots els subgrups?"
+#, php-format
+msgid "Are you sure you wish to delete \"%s\"?"
+msgstr "Estàs segur d'esborrar '%s'?"
 
-#: config/nls.php:168
+#: config/nls.php:169
 msgid "Armenian (ARMSCII-8)"
 msgstr "Armeni (ARMSCII-8)"
 
-#: lib/Block/fortune.php:35
+#: lib/Block/Fortune.php:35
 msgid "Art"
 msgstr "Art"
 
-#: lib/Block/fortune.php:36
+#: lib/Block/Fortune.php:36
 msgid "Ascii Art"
 msgstr "gràfic ASCII"
 
-#: templates/problem/problem.inc:43
-msgid "Attachment"
-msgstr ""
+#
+#: lib/LoginTasks/Task/AdminCheck.php:57
+msgid "At least one database schema is outdated."
+msgstr "Heu de seleccionar un compte que vulgueu eliminar."
 
-#: admin/groups.php:72
+#: templates/problem/problem.inc:22
+msgid "Attachment"
+msgstr "Fitxer annexat"
+
+#
+#: lib/Application.php:270
+msgid "Attachment Download"
+msgstr "Fitxer annexat"
+
+#: admin/groups.php:56
 msgid "Attempt to delete a non-existent group."
 msgstr "S'ha intentat suprimir un grup no existent."
 
-#: admin/perms/delete.php:24
+#: admin/perms/delete.php:30
 msgid "Attempt to delete a non-existent permission."
 msgstr "S'ha intentat suprimir una autorització no existent."
 
-#: admin/perms/edit.php:92
+#: admin/perms/edit.php:119
 msgid "Attempt to edit a non-existent permission."
 msgstr "S'ha intentat editar una autorització no existent."
 
-#: services/shares/edit.php:66
+#: services/shares/edit.php:70
 msgid "Attempt to edit a non-existent share."
 msgstr "S'ha intentat editar un recurs compartit no existent."
 
-#: admin/sessions.php:40
-#, fuzzy
-msgid "Authenticated to:"
-msgstr "Tots els usuaris autenticats"
+#
+#: templates/admin/sessions.html.php:11
+msgid "Authenticated Applications"
+msgstr "Autenticat a:"
 
-#: templates/prefs/facebook.html:27
+#
+#: templates/prefs/facebook.html.php:23 templates/prefs/facebook.html.php:37
+#: templates/prefs/facebook.html.php:51 templates/prefs/facebook.html.php:63
+#: templates/prefs/twitter.html.php:18
+msgid "Authorize"
+msgstr "Autoritza la lectura: "
+
+#: templates/prefs/facebook.html.php:49
+msgid "Authorize Access to Friends Data"
+msgstr "Autoritzar l'accés a les dades d'amics"
+
+#: templates/prefs/facebook.html.php:21
 msgid "Authorize Publish"
-msgstr ""
+msgstr "Autoritza la publicació"
 
-#: templates/prefs/facebook.html:39
-msgid "Authorize Read:"
-msgstr ""
+#
+#: templates/prefs/facebook.html.php:35
+msgid "Authorize Read"
+msgstr "Autoritza la lectura: "
 
-#: templates/prefs/facebook.html:16
-msgid "Authorize an infinite session:"
-msgstr ""
+#: templates/login/login.inc:24 templates/login/smartmobile.html.php:31
+#: themes/upc1/templates/login/login.inc:23
+msgid "Automatic"
+msgstr "Automàtic"
 
-#: templates/data/csvmap.inc:70
+#: templates/data/csvmap.inc:71
 msgid "Available fields:"
 msgstr "Camps disponibles:"
 
-#: themes/azur/info.php:6
-msgid "Azur"
-msgstr ""
-
-#: lib/Block/fortune.php:37
+#: lib/Block/Fortune.php:37
 msgid "BOFH Excuses"
 msgstr "BOFH Excuses"
 
-#: config/nls.php:169
+#: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
 msgstr "Bàltic (ISO-8859-13)"
 
-#: themes/barbie/info.php:2
-#, fuzzy
-msgid "Barbie"
-msgstr "Bahrain"
+#: templates/login/login.inc:26 templates/login/smartmobile.html.php:33
+#: themes/upc1/templates/login/login.inc:25
+msgid "Basic"
+msgstr "Bàsic"
 
-#: util/icon_browser.php:34
-#, fuzzy, php-format
-msgid "Base graphics directory \"%s\" not found."
-msgstr "No s'ha trobat el directori de gràfics bàsics '%s'"
+#
+#: templates/activesync/device_table.html.php:43
+msgid "Block"
+msgstr "Tipus de bloc"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -548,84 +543,68 @@ msgstr "Paràmetres del bloc"
 msgid "Block Type"
 msgstr "Tipus de bloc"
 
-#: themes/bluemoon/info.php:2
-#, fuzzy
-msgid "Blue Moon"
-msgstr "Lluna nova"
+#
+#: lib/Application.php:303
+msgid "Bluetooth"
+msgstr "Lluna blava"
 
-#: themes/bluewhite/info.php:2
-#, fuzzy
-msgid "Blue and White"
-msgstr "Idioma i hora"
-
-#: config/registry.php.dist:226
+#: config/registry.php:185
 msgid "Bookmarks"
 msgstr "Marcadors"
 
-#: lib/Block/fortune.php:103
+#: lib/Block/Fortune.php:103
 msgid "Both"
 msgstr "Ambdós"
 
-#: themes/brown/info.php:2
-#, fuzzy
-msgid "Brown"
-msgstr "Botswana"
+#: config/prefs.local.20150127.php:756 config/prefs.php:752
+msgid "Bottom"
+msgstr "A baix"
 
-#: admin/sessions.php:38
-#, fuzzy
-msgid "Browser:"
-msgstr "Files:"
+#
+#: templates/admin/sessions.html.php:9
+msgid "Browser"
+msgstr "Navegador:"
 
-#: themes/burntorange/info.php:7
-msgid "Burnt Orange"
-msgstr ""
+#: templates/activesync/device_table.html.php:29
+msgid "Cached Heartbeat (seconds)"
+msgstr "Heartbeat en memòria cau (segons)"
 
-#: lib/Block/weatherdotcom.php:166
-msgid "Cache init was not completed."
-msgstr "No s'ha finalitzat el procés d'inicialització de la memòria cau"
-
-#: config/registry.php.dist:157
+#: config/registry.php:120
 msgid "Calendar"
-msgstr "Calendari"
+msgstr "Agenda"
 
-#: lib/Block/weatherdotcom.php:250
-msgid "Calm"
-msgstr "Calma"
+#: lib/Application.php:291
+msgid "Camera"
+msgstr "Camèra"
 
-#: themes/camouflage/info.php:2
-msgid "Camouflage"
-msgstr ""
-
-#: admin/user.php:115 admin/user.php:135 templates/admin/groups/delete.inc:11
-#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+#: admin/user.php:115 admin/user.php:138 templates/admin/groups/delete.inc:12
+#: templates/admin/user/clear.inc:14 templates/admin/user/remove.inc:15
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
-#: templates/problem/problem.inc:58
+#: templates/problem/problem.inc:37
 msgid "Cancel Problem Report"
-msgstr "Cancel·lar l'informe de problemes."
+msgstr "Cancel·la l'informe de problemes."
 
-#: admin/activesync.php:183 templates/prefs/activesync.html:31
-#, fuzzy
+#: templates/activesync/device_table.html.php:36
 msgid "Cancel Wipe"
-msgstr "Cancel·lar"
+msgstr "Cancel·la la neteja"
 
-#: services/resetpassword.php:17
-#, fuzzy
+#: services/resetpassword.php:23
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 "És impossible reiniciar la contrasenya automàticament, posa't en contacte "
-"amb l'administrador del sistema."
+"amb l'administrador."
 
-#: config/prefs.php.dist:440
+#: config/prefs.local.20150127.php:515 config/prefs.php:511
 msgid "Categories and Labels"
 msgstr "Categories i etiquetes"
 
-#: config/nls.php:170
+#: config/nls.php:171
 msgid "Celtic (ISO-8859-14)"
 msgstr "Cèltic (ISO-8859-14)"
 
-#: config/nls.php:171
+#: config/nls.php:172
 msgid "Central European (ISO-8859-2)"
 msgstr "Europa central (ISO-8859-2)"
 
@@ -633,200 +612,184 @@ msgstr "Europa central (ISO-8859-2)"
 msgid "Change"
 msgstr "Desfés"
 
-#: services/changepassword.php:23
-#, fuzzy
+#
+#: lib/Block/Weather.php:134
+msgid "Change Location"
+msgstr "Sentit de classificació."
+
+#: services/changepassword.php:26
 msgid "Change Your Password"
-msgstr "Canviar la contrasenya"
+msgstr "Canvia la contrasenya"
 
-#: config/prefs.php.dist:214
-msgid ""
-"Change the name and address that people see when they read and reply to your "
-"emails."
-msgstr ""
-"Canvieu el nom i l'adreça que són visibles quan es llegeixen o es responen "
-"els vostres missatges de correu electrònic."
+#
+#: config/prefs.local.20150127.php:264 config/prefs.php:264
+msgid "Change your personal information."
+msgstr "Canviar opcions de classificació d'arxius."
 
-#: services/changepassword.php:17
+#: services/changepassword.php:20
 msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
 msgstr ""
-"La configuració actual no suporta el canvi de contrasenyes. Posi's en "
+"La configuració actual no suporta el canvi de contrasenyes. Posa't en "
 "contacte amb l'administrador del sistema.  "
 
-#: lib/Block/vatid.php:45
-#, fuzzy
+#: lib/Block/Vatid.php:42
 msgid "Check"
-msgstr "Xile"
+msgstr "Comprova"
 
-#: templates/admin/config/index.html:4
+#: templates/admin/config/index.html.php:4
 msgid "Check for newer versions"
-msgstr ""
+msgstr "Comprova noves versions"
 
-#: lib/Block/vatid.php:47
-#, fuzzy
+#: lib/Block/Vatid.php:45
 msgid "Checking"
-msgstr "Verifica l'enllaç..."
+msgstr "Comprovant"
 
-#: templates/admin/groups/addchild.inc:10
-#, fuzzy
-msgid "Child"
-msgstr "Xile"
-
-#: config/nls.php:172
+#: config/nls.php:173
 msgid "Chinese Simplified (GB2312)"
 msgstr "Xinès simplificat (GB2312)"
 
-#: config/nls.php:173
+#: config/nls.php:174
 msgid "Chinese Traditional (Big5)"
 msgstr "Xinès tradicional (Big5)"
 
-#: services/obrowser/index.php:91
-#, fuzzy, php-format
+#: services/obrowser/index.php:61
+#, php-format
 msgid "Choose %s"
-msgstr "Cursos"
+msgstr "Tria  %s"
 
-#: config/prefs.php.dist:403
-#, fuzzy
+#: config/prefs.local.20150127.php:483 config/prefs.php:479
 msgid "Choose how to display dates (abbreviated format):"
-msgstr "Tria com vols visualitzar les dates:"
+msgstr "Tria com vols visualitzar les dates (format abreviat):"
 
-#: config/prefs.php.dist:377
-#, fuzzy
+#: config/prefs.local.20150127.php:459 config/prefs.php:455
 msgid "Choose how to display dates (full format):"
-msgstr "Tria com vols visualitzar les dates:"
+msgstr "Tria com vols visualitzar les dates (format complert):"
 
-#: config/prefs.php.dist:419
-#, fuzzy
+#: config/prefs.local.20150127.php:496 config/prefs.php:492
 msgid "Choose how to display times:"
-msgstr "Tria com vols visualitzar les dates:"
+msgstr "Tria com vols visualitzar el temps:"
 
-#: lib/Block/weatherdotcom_strings.php:19
-msgid "Clear"
-msgstr "Eliminar"
+#: lib/Prefs/Special/Activesync.php:67
+msgid "Class"
+msgstr "Classe"
 
-#: admin/sqlshell.php:109
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "Buida la consulta"
 
-#: templates/admin/user/clear.inc:5
+#: templates/admin/user/clear.inc:7
 #, php-format
 msgid "Clear out user: %s"
 msgstr "Esborra l'usuari: %s"
 
-#: templates/admin/user/clear.inc:11
+#: templates/admin/user/clear.inc:13
 msgid "Clear user"
 msgstr "Esborra l'usuari"
 
-#: templates/admin/user/list.inc:37
+#: templates/admin/user/list.inc:35
 msgid "Clear user data"
 msgstr "Esborra les dades de l'usuari"
-
-#: lib/Block/weatherdotcom_strings.php:20
-#, fuzzy
-msgid "Clearing Early"
-msgstr "Pluja a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:21
-msgid "Clearing Late"
-msgstr "S'aclarirà cap al tard."
 
 #: templates/prefs/addressbooks.html:3
 msgid ""
 "Click on one of your selected address books and then select all fields to "
 "search."
 msgstr ""
+"Clica a una de les llibretes d'adreces seleccionades i selecciona tots els "
+"camps de cerca."
 
-#: templates/logintasks/logintasks.html:38
+#: templates/logintasks/logintasks.html.php:32
+#: templates/logintasks/smartmobile.html.php:52
 msgid "Click to Continue"
 msgstr "Premi per continuar"
 
-#: templates/prefs/syncml.html:13
+#: templates/prefs/syncml.html.php:13
 msgid "Client Anchor"
-msgstr ""
+msgstr "Àncora de client"
 
-#: services/keyboard.php:154 templates/shares/edit.inc:12
+#: templates/shares/edit.inc:13
 msgid "Close Window"
 msgstr "Tanca la finestra"
 
-#: lib/Block/metar.php:239
+#: lib/Block/Metar.php:218
 msgid "Clouds"
 msgstr "Núvols"
 
-#: lib/Block/weatherdotcom_strings.php:22
-msgid "Clouds Early"
-msgstr "Núvols a primera hora"
+#: lib/Application.php:263
+msgid "Codeword frequency"
+msgstr "Freqüència de codis"
 
-#: lib/Block/weatherdotcom_strings.php:23
-#, fuzzy
-msgid "Clouds Late"
-msgstr "Núvols"
-
-#: lib/Block/weatherdotcom_strings.php:24
-msgid "Cloudy"
-msgstr "Ennuvolat"
-
-#: admin/sessions.php:31
-#, fuzzy
+#: lib/View/Sidebar.php:65 templates/sidebar/_container.html.php:14
 msgid "Collapse"
-msgstr "Reduïu la barra lateral"
+msgstr "Redueix"
 
-#: templates/sidebar/sidebar.inc:3
-msgid "Collapse Sidebar"
-msgstr "Reduïu la barra lateral"
+#
+#: lib/Prefs/Special/Activesync.php:66
+msgid "Collection id"
+msgstr "ID de la col·lecció"
 
-#: lib/Prefs/Ui.php:237
+#: templates/prefs/category.html.php:12 templates/prefs/category.html.php:23
+#: templates/prefs/category.html.php:35
 msgid "Color Picker"
 msgstr "Selector de color"
 
-#: admin/cmdshell.php:20 admin/cmdshell.php:42
+#: config/registry.php:249
+msgid "Comics"
+msgstr "Còmics"
+
+#: templates/admin/cmdshell.html.php:2 templates/admin/cmdshell.html.php:17
 msgid "Command"
 msgstr "Ordre"
 
-#: admin/cmdshell.php:14
+#: admin/cmdshell.php:19
 msgid "Command Shell"
 msgstr "Consola"
 
-#: services/facebook.php:101
-#, fuzzy, php-format
+#: lib/Ajax/Application/FacebookHandler.php:182
+#, php-format
 msgid "Comments: %d"
-msgstr "Comentari"
+msgstr "Comentaris: %d"
 
-#: lib/Block/fortune.php:38
+#
+#: templates/admin/activesync.html.php:16
+msgid "Common Name"
+msgstr "El vostre nom"
+
+#: lib/Block/Fortune.php:38
 msgid "Computers"
 msgstr "Ordinadors"
 
-#: lib/Block/weatherdotcom.php:300
+#: lib/Block/Weather.php:265
 msgid "Condition"
 msgstr "Condició"
 
-#: lib/Block/metar.php:244
+#: lib/Block/Metar.php:223
 msgid "Conditions"
 msgstr "Condicions"
 
-#: admin/config/config.php:65 templates/admin/config/config.html:9
-#, fuzzy
+#: admin/config/config.php:59 templates/admin/config/config.html.php:11
 msgid "Configuration"
-msgstr "Restaurar la configuració"
+msgstr "Configuració"
 
-#: admin/config/diff.php:80
+#: admin/config/diff.php:90
 msgid "Configuration Differences"
 msgstr "Diferències de configuració"
 
-#: config/prefs.php.dist:665
+#: config/prefs.local.20150127.php:722 config/prefs.php:718
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
-msgstr ""
+msgstr "Configuració per sincronitzar amb PDAs, Smartphones i Outlook."
 
-#: admin/config/index.php:155
+#: admin/config/index.php:252
 msgid "Configuration is out of date."
 msgstr "La configuració no està actualitzada."
 
-#: templates/admin/config/index.html:61
-#, fuzzy
+#: templates/admin/config/index.html.php:79
 msgid "Configuration upgrade scripts available"
-msgstr "Hi ha seqüències d'actualització de la configuració"
+msgstr "Hi ha disponibles seqüències d'actualització de la configuració"
 
-#: admin/config/index.php:111
+#: admin/config/index.php:189
 #, php-format
 msgid "Configure %s"
 msgstr "Configura %s"
@@ -835,50 +798,51 @@ msgstr "Configura %s"
 msgid "Confirm Password"
 msgstr "Confirmar la contrasenya"
 
-#: services/changepassword.php:25 services/resetpassword.php:25
+#: services/changepassword.php:28 services/resetpassword.php:29
 msgid "Continue"
 msgstr "Continuar"
 
-#: lib/Block/fortune.php:39
+#: lib/Block/Fortune.php:39
 msgid "Cookie"
 msgstr "Galeta"
 
-#: themes/cornflower/info.php:2
-#, fuzzy
-msgid "Cornflower"
-msgstr "Color"
-
-#: lib/Block/account.php:484
-msgid "Could not bind to LDAP server."
-msgstr "No es pot connectar amb el servidor LDAP."
-
-#: lib/Block/account.php:463
-#, fuzzy
-msgid "Could not connect to LDAP server."
-msgstr "No s'ha pogut connectar al servidor de POP %s"
-
-#: admin/config/index.php:27
-#, fuzzy, php-format
+#: admin/config/index.php:32
+#, php-format
 msgid "Could not connect to server \"%s\" using FTP: %s"
-msgstr "No s'ha pogut connectar al servidor POP a %s"
+msgstr "No s'ha pogut connectar al servidor \"%s\" mitjançant FTP: %s"
 
-#: admin/config/index.php:66
-#, fuzzy
+#: admin/config/index.php:95
 msgid "Could not contact server. Try again later."
-msgstr "No s'ha pogut connectar al servidor POP a %s"
+msgstr "No s'ha pogut connectar al servidor. Prova-ho després."
 
 #: admin/config/scripts.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete configuration upgrade script \"%s\"."
-msgstr "No s'ha pogut esborrar la seqüència d'actualització instal·lada '%s'."
-
-#: templates/prefs/twitter.html:14
-msgid ""
-"Could not find authorization for <tag:appname /> to interact with your "
-"Twitter account"
 msgstr ""
+"No s'ha pogut esborrar la seqüència d'actualització instal·lada \"%s\"."
 
-#: services/resetpassword.php:92
+#: templates/prefs/facebook.html.php:58
+#, php-format
+msgid ""
+"Could not find authorization for \"%s\" to interact with your Facebook "
+"account. This means that either you have not yet authorized your Facebook "
+"account to interact with \"%s\", or your authorization has expired and must "
+"be renewed."
+msgstr ""
+"No s'ha pogut trobar una autorització perquè \"%s\" s'interactuï amb el se "
+"compte de Facebook. Això vol dir que bé no ha autoritzat encara que la seva "
+"compte de Facebook interactuï amb \"%s\", o que l'autorització ha caducat i "
+"precisa ser renovada "
+
+#: templates/prefs/twitter.html.php:15
+#, php-format
+msgid ""
+"Could not find authorization for %s to interact with your Twitter account"
+msgstr ""
+"No s'ha trobat autorització per %s perquè interaccioni amb el teu compte a "
+"Twitter."
+
+#: services/resetpassword.php:104
 msgid ""
 "Could not reset the password for the requested user. Some or all of the "
 "details are not correct. Try again or contact your administrator if you need "
@@ -888,27 +852,31 @@ msgstr ""
 "detalls o tots no són correctes. Tornar-ho a intentar o, per a més "
 "informació, posa't en contacte amb l'administrador del sistema."
 
-#: admin/config/config.php:43
+#: admin/config/config.php:52
 msgid "Could not revert configuration."
 msgstr "No s'ha pogut restaurar la configuració."
 
-#: admin/config/index.php:41
+#: admin/config/index.php:46
 #, php-format
 msgid "Could not save a backup configuation: %s"
 msgstr "No s'ha pogut desar una configuració de seguretat: %s"
 
 #: admin/config/scripts.php:94
-#, fuzzy, php-format
-msgid "Could not save configuration upgrade script to: \"%s\"."
-msgstr "No s'ha pogut desar la seqüència d'actualització instal·lada en: '%s'."
-
-#: admin/config/config.php:53
 #, php-format
-msgid "Could not save the backup configuration file %s."
+msgid "Could not save configuration upgrade script to: \"%s\"."
 msgstr ""
-"No s'ha pogut desar la còpia de seguretat de l'arxiu de configuració %s."
+"No s'ha pogut desar la seqüència d'actualització instal·lada en: \"%s\"."
 
-#: admin/config/config.php:65
+#: admin/config/index.php:116
+#, php-format
+msgid ""
+"Could not save the configuration file %s. Use one of the options below to "
+"save the code."
+msgstr ""
+"No s'ha pogut desar l'arxiu de configuració %s. Pots utilitzar una de les "
+"opcions per tornar a desar el codi."
+
+#: admin/config/config.php:59
 #, php-format
 msgid ""
 "Could not save the configuration file %s. You can either use one of the "
@@ -918,12 +886,12 @@ msgstr ""
 "opcions per tornar a desar el codi en %s o bé copiar manualment el codi "
 "següent en %s."
 
-#: admin/config/index.php:51
-#, fuzzy, php-format
+#: admin/config/index.php:56
+#, php-format
 msgid "Could not write configuration for \"%s\": %s"
-msgstr "No s'ha pogut examinar el port per a"
+msgstr "No s'ha pogut escriure la configuració per \"%s\": %s"
 
-#: lib/Block/vatid.php:91
+#: lib/Block/Vatid.php:85
 msgid "Country"
 msgstr "País"
 
@@ -931,48 +899,57 @@ msgstr "País"
 msgid "Create"
 msgstr "Crear"
 
-#: templates/prefs/identityselect.html:22
-#, fuzzy
+#: templates/prefs/identityselect.html:26
+#: templates/prefs/identityselect.orig.html:26
 msgid "Create New Identity"
-msgstr "Identitat predeterminada"
+msgstr "Crea una nova identitat"
 
-#: lib/Block/moon.php:24
+#: lib/Block/Moon.php:25
 msgid "Current 4 Phases"
 msgstr "4 fases actuals"
 
 #: templates/admin/alarms/list.html.php:2
-#, fuzzy
 msgid "Current Alarms"
-msgstr "Usuaris internacionals"
+msgstr "Alarmes Actuals"
 
-#: admin/sessions.php:23
-#, fuzzy
+#
+#: templates/admin/locks/list.html.php:2
+msgid "Current Locks"
+msgstr "Actual"
+
+#: templates/admin/sessions.html.php:2 templates/admin/sessions.html.php:27
 msgid "Current Sessions"
-msgstr "Desa les sessions"
+msgstr "Sessions Actuals"
 
-#: lib/Block/time.php:3 lib/Block/time.php:36
+#: lib/Block/Time.php:17
 msgid "Current Time"
 msgstr "Temps actual"
 
-#: lib/Block/metar.php:31
+#: lib/Block/Metar.php:30
 msgid "Current Weather"
 msgstr "Temps actual"
 
-#: lib/Block/weatherdotcom.php:279
-msgid "Current condition: "
+#
+#: lib/Block/Weather.php:244
+msgid "Current condition"
 msgstr "Condició actual:"
 
-#: config/nls.php:174
+#: config/nls.php:175
 msgid "Cyrillic (KOI8-R)"
 msgstr "Ciríl·lic (KOI8-R)"
 
-#: config/nls.php:175
+#: config/nls.php:176
 msgid "Cyrillic (Windows-1251)"
 msgstr "Ciríl·lic (Windows-1251)"
 
-#: config/nls.php:176
+#: config/nls.php:177
 msgid "Cyrillic/Ukrainian (KOI8-U)"
 msgstr "Ciríl·lic/Ucraïnès (KOI8-U)"
+
+#
+#: admin/config/index.php:272 admin/config/index.php:324
+msgid "DB access is not configured."
+msgstr "La contrasenya antiga no és correcta."
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -981,184 +958,199 @@ msgstr "Ciríl·lic/Ucraïnès (KOI8-U)"
 msgid "DD"
 msgstr "DD"
 
-#: templates/data/csvmap.inc:101
-#, fuzzy
+#: templates/data/csvmap.inc:102
 msgid "Data"
-msgstr "Data"
+msgstr "Dades"
 
-#: admin/datatree.php:62
-#, fuzzy
-msgid "DataTree"
-msgstr "_Arbre de dades"
-
-#: admin/datatree.php:59
-msgid "DataTree Browser"
-msgstr "Navegador de DataTree"
-
-#: templates/prefs/syncml.html:11
-#, fuzzy
+#: templates/admin/config/index.html.php:30 templates/prefs/syncml.html.php:11
 msgid "Database"
-msgstr "Llistar les bases de dades"
+msgstr "Base de dades"
 
-#: lib/Block/vatid.php:94
+#: admin/config/index.php:73
+msgid ""
+"Database migration files not found. Please check PEAR's data_dir "
+"configuration setting."
+msgstr ""
+"No s'han trobat els fitxers de migració de la base de dades. Si us plau, "
+"reviseu la configuració del directori de dades PEAR."
+
+#: lib/Block/Vatid.php:88
 msgid "Date"
 msgstr "Data"
 
-#: templates/admin/user/approve.inc:23
+#: templates/admin/user/approve.inc:24
 msgid "Date Received"
 msgstr "S'ha rebut la data"
 
 #: templates/data/datetime.inc:70 templates/data/datetime.inc:71
 #, php-format
 msgid "Date: %s; time: %s"
-msgstr ""
+msgstr "Data: %s; hora: %s"
 
-#: lib/Block/weatherdotcom.php:295 lib/Block/weatherdotcom.php:324
+#: lib/Block/Weather.php:260
 msgid "Day"
 msgstr "Dia"
 
-#: lib/Prefs/Ui.php:69 lib/Prefs/Ui.php:74
+#: config/prefs.local.20150127.php:387 config/prefs.local.20150127.php:408
+#: config/prefs.local.20150127.php:421 config/prefs.local.20150127.php:490
+#: config/prefs.php:383 config/prefs.php:404 config/prefs.php:417
+#: config/prefs.php:486 themes/default/info.php:2
 msgid "Default"
 msgstr "Predeterminat"
 
-#: lib/Prefs/Ui.php:252 lib/Prefs/Ui.php:282
+#: templates/prefs/category.html.php:7 templates/prefs/category.html.php:30
 msgid "Default Color"
 msgstr "Color predeterminat"
 
-#: lib/Block/account.php:78
-#, fuzzy
+#: lib/Block/Account.php:76
 msgid "Default Shell"
-msgstr "Intèrpret per omissió"
+msgstr "Intèrpret per defecte"
 
-#: lib/Block/fortune.php:40
+#
+#: config/prefs.local.20150127.php:411 config/prefs.php:407
+msgid "Default charset for sending e-mail messages:"
+msgstr "El vostre métode de xifratge predeterminat per enviar missatges:"
+
+#: config/prefs.local.20150127.php:301 config/prefs.php:296
+msgid "Default location to use for location-aware features."
+msgstr "Ubicació per omissió utilitzada per a les opcions que ho necessitin."
+
+#: lib/Block/Fortune.php:40
 msgid "Definitions"
 msgstr "Definicions"
 
-#: admin/groups.php:68 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:63
-#: templates/shares/edit.inc:83 templates/shares/edit.inc:98
-#: templates/shares/edit.inc:118 templates/shares/edit.inc:134
-#: templates/shares/edit.inc:154 templates/shares/edit.inc:169
-#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
-#: templates/shares/edit.inc:255 templates/shares/edit.inc:271
-#: templates/shares/edit.inc:291 templates/shares/edit.inc:320
-#: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
-#: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
+#: admin/groups.php:52 templates/admin/groups/delete.inc:11
+#: templates/admin/user/list.inc:32 templates/prefs/syncml.html.php:14
+#: templates/prefs/syncml.html.php:23 templates/shares/edit.inc:67
+#: templates/shares/edit.inc:87 templates/shares/edit.inc:102
+#: templates/shares/edit.inc:122 templates/shares/edit.inc:138
+#: templates/shares/edit.inc:158 templates/shares/edit.inc:173
+#: templates/shares/edit.inc:197 templates/shares/edit.inc:232
+#: templates/shares/edit.inc:259 templates/shares/edit.inc:275
+#: templates/shares/edit.inc:300 templates/shares/edit.inc:329
+#: templates/prefs/identityselect.html:32
+#: templates/prefs/identityselect.orig.html:32 templates/prefs/rpc.html:35
 msgid "Delete"
 msgstr "Suprimir"
 
-#: admin/alarms.php:122 admin/groups.php:254
-#, fuzzy, php-format
+#: admin/alarms.php:133 admin/groups.php:208
+#, php-format
 msgid "Delete \"%s\""
-msgstr "Suprimir"
+msgstr "Suprimeix \"%s\""
 
-#: templates/prefs/syncml.html:30
+#: templates/prefs/syncml.html.php:30
 msgid "Delete All SyncML Data"
-msgstr ""
+msgstr "Esborra tota les meves dades SyncML"
 
-#: admin/groups.php:215
+#: admin/groups.php:181
 msgid "Delete Group"
 msgstr "Suprimir grup"
 
 #: admin/config/scripts.php:33
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted configuration upgrade script \"%s\"."
-msgstr "S'ha suprimit la seqüència d'actualització instal·lada '%s'."
+msgstr "S'ha suprimit la seqüència d'actualització instal·lada \"%s\"."
 
-#: lib/Prefs/Ui.php:717
+#: lib/Prefs/Special/Syncml.php:68
 #, php-format
 msgid "Deleted synchronization session for device \"%s\" and database \"%s\"."
 msgstr ""
+"Esborrades totes les sessions de sincronització pel dispositiu \"%s\" i base "
+"de dades \"%s\"."
 
-#: templates/problem/problem.inc:27
+#: templates/problem/problem.inc:6
 msgid "Describe the Problem"
 msgstr "Descriviu el problema"
 
-#: config/registry.php.dist:239
+#: config/registry.php:209
 msgid "Development"
 msgstr "Desenvolupament"
 
-#: templates/prefs/activesync.html:20 templates/prefs/syncml.html:10
-#, fuzzy
+#: templates/activesync/device_table.html.php:4
+#: templates/prefs/syncml.html.php:10
 msgid "Device"
-msgstr "Visualització prèvia"
+msgstr "Dispositiu"
 
-#: admin/activesync.php:119
-msgid "Device ID"
-msgstr ""
+#
+#: templates/admin/activesync.html.php:11
+msgid "Device Id"
+msgstr "ID del dispositiu"
 
-#: templates/prefs/activesync.html:11
-#, fuzzy
+#
+#: templates/activesync/device_table.html.php:7
+msgid "Device Information"
+msgstr "Informació"
+
+#: templates/prefs/activesync.html.php:20
 msgid "Device Management"
-msgstr "Gestor d'arxius"
+msgstr "Gestor de dispositius"
 
-#: lib/Prefs/Ui.php:432
-msgid "Device id:"
-msgstr ""
+#
+#: templates/admin/activesync.html.php:10
+msgid "Device Type"
+msgstr "Dispositiu"
 
-#: admin/activesync.php:167 lib/Prefs/Ui.php:420
-msgid "Device is wiped"
+#
+#: lib/Application.php:323
+msgid "Device encryption"
+msgstr "Sense xifratge"
+
+#
+#: templates/activesync/device_table.html.php:16
+msgid "Device is Blocked."
+msgstr "El dispositiu s'esborra"
+
+#: templates/activesync/device_table.html.php:14
+msgid "Device is Wiped. Remove device state to allow device to reconnect."
 msgstr ""
+"El dispositiu s'ha netejat. Elimineu l'estat del dispositiu per permetre "
+"tornar a connectar."
+
+#: admin/activesync.php:53
+msgid "Device successfully removed."
+msgstr "Dispositiu esborrat satisfactòriament"
 
 #: admin/activesync.php:45
-#, fuzzy
-msgid "Device successfully removed."
-msgstr "S'ha escrit correctament '%s'"
-
-#: admin/activesync.php:40
 msgid "Device wipe successfully canceled."
-msgstr ""
+msgstr "S'ha cancel·lat satisfactòriament l'esborrat del dispositiu."
 
-#: lib/Block/metar.php:212
+#: lib/Block/Metar.php:191
 msgid "Dew Point"
 msgstr "Punt de rosada"
 
-#: lib/Block/metar.php:289
+#: lib/Block/Metar.php:268
 msgid "Dew Point for last hour: "
 msgstr "Punt de rosada de la darrera hora:"
 
-#: lib/Block/weatherdotcom.php:231
-msgid "Dew point: "
+#
+#: lib/Block/Weather.php:195
+msgid "Dew point"
 msgstr "Punt de rosada: "
 
-#: templates/prefs/facebook.html:11 templates/prefs/facebook.html:22
-#: templates/prefs/facebook.html:34 templates/prefs/twitter.html:10
-#, fuzzy
+#: templates/prefs/facebook.html.php:18 templates/prefs/facebook.html.php:32
+#: templates/prefs/facebook.html.php:46 templates/prefs/twitter.html.php:11
 msgid "Disable"
-msgstr "Llistar les taules"
+msgstr "Desactivat"
 
-#: config/prefs.php.dist:345
+#: lib/Application.php:227
+msgid "Disable (not recommended)"
+msgstr "Desactivat (desaconsellat)"
+
+#: config/prefs.local.20150127.php:429 config/prefs.php:425
 msgid "Display 24-hour times?"
 msgstr "Vols visualitzar-ho en format de 24 hores?"
 
-#: config/prefs.php.dist:468
-#, fuzzy
+#: config/prefs.local.20150127.php:540 config/prefs.php:536
 msgid "Display Preferences"
-msgstr "Visualitza els detalls del pronòstic"
+msgstr "Visualitza les preferències"
 
-#: lib/Block/weatherdotcom.php:86
-#, fuzzy
+#: lib/Block/Weather.php:104
 msgid "Display detailed forecast"
-msgstr "Visualitza els detalls del pronòstic"
+msgstr "Visualitza el pronòstic detallat"
 
-#: lib/Block/metar.php:84
+#: lib/Block/Metar.php:72
 msgid "Display forecast (TAF)"
 msgstr "Mostra la previsió (TAF)"
-
-#: scripts/import_squirrelmail_prefs.php:77
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "No ho suprimiu"
-
-#: scripts/import_squirrelmail_prefs.php:44
-#: scripts/import_squirrelmail_prefs.php:145
-#, fuzzy
-msgid "Do not use Sent"
-msgstr "No ho suprimiu"
-
-#: scripts/import_squirrelmail_prefs.php:183
-msgid "Do not use Trash"
-msgstr ""
 
 #: templates/data/csvinfo.inc:12 templates/data/tsvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
@@ -1166,90 +1158,87 @@ msgstr ""
 "La primera fila conté els noms dels camps? En cas afirmatiu, activa aquesta "
 "casella:"
 
-#: templates/login/login.inc:72
+#: templates/login/login.inc:83 themes/upc1/templates/login/login.inc:80
 msgid "Don't have an account? Sign up."
 msgstr "No disposa de compte? Sol·liciti-la. "
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:61
-#, fuzzy
-msgid "Done"
-msgstr "Cap"
-
-#: admin/config/index.php:92 admin/config/index.php:124
+#: admin/config/index.php:171 admin/config/index.php:215
+#: admin/config/index.php:348 admin/config/index.php:374
 #, php-format
 msgid "Download %s"
 msgstr "Descarregar %s"
 
-#: admin/config/index.php:179
+#: admin/config/index.php:400
 msgid "Download generated configuration as PHP script."
 msgstr "Descarregar la configuració generada com una seqüència PHP."
 
-#: lib/Block/weatherdotcom_strings.php:25
-#, fuzzy
-msgid "Drizzle"
-msgstr "Plugim feble"
-
-#: lib/Block/fortune.php:41
+#: lib/Block/Fortune.php:41
 msgid "Drugs"
 msgstr "Drogues"
 
-#: services/keyboard.php:64
-#, fuzzy
-msgid "E characters"
-msgstr "Nombre de caràcters"
+#: templates/login/login.inc:27 templates/login/smartmobile.html.php:34
+#: themes/upc1/templates/login/login.inc:26
+msgid "Dynamic"
+msgstr "Dinàmic"
 
-#: lib/Block/vatid.php:3
+#: lib/Block/Vatid.php:14
 msgid "EU VAT identification"
-msgstr ""
+msgstr "Nombre d'Identificació Fiscal d'EU (VAT)"
 
-#: templates/shares/edit.inc:62 templates/shares/edit.inc:79
-#: templates/shares/edit.inc:97 templates/shares/edit.inc:114
-#: templates/shares/edit.inc:133 templates/shares/edit.inc:150
-#: templates/shares/edit.inc:168 templates/shares/edit.inc:189
-#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
-#: templates/shares/edit.inc:270 templates/shares/edit.inc:287
-#: templates/shares/edit.inc:316
+#: lib/View/Sidebar.php:223 templates/shares/edit.inc:66
+#: templates/shares/edit.inc:83 templates/shares/edit.inc:101
+#: templates/shares/edit.inc:118 templates/shares/edit.inc:137
+#: templates/shares/edit.inc:154 templates/shares/edit.inc:172
+#: templates/shares/edit.inc:193 templates/shares/edit.inc:228
+#: templates/shares/edit.inc:255 templates/shares/edit.inc:274
+#: templates/shares/edit.inc:296 templates/shares/edit.inc:325
 msgid "Edit"
 msgstr "Edita"
 
-#: admin/alarms.php:89
-#, fuzzy, php-format
+#: admin/alarms.php:94
+#, php-format
 msgid "Edit \"%s\""
-msgstr "S'ha actualitzat  \"%s\"."
+msgstr "Edita  \"%s\"."
 
-#: admin/groups.php:214
-msgid "Edit Group"
-msgstr "Edita grup"
-
-#: templates/prefs/app.html:7
-#, fuzzy
+#: templates/prefs/app.html:6 templates/prefs/app.orig.html:6
 msgid "Edit Preferences for"
-msgstr "Edita permisos de %s"
+msgstr "Edita les Preferències per"
 
-#: services/shares/edit.php:259
-#, fuzzy
+#: services/shares/edit.php:249
 msgid "Edit permissions"
 msgstr "Edita permisos"
 
-#: services/shares/edit.php:260 templates/shares/edit.inc:14
-#, fuzzy, php-format
+#: services/shares/edit.php:248 templates/shares/edit.inc:15
+#, php-format
 msgid "Edit permissions for \"%s\""
-msgstr "Edita els grups per %s"
+msgstr "Edita els permisos per \"%s\""
 
-#: lib/Block/fortune.php:42
+#: lib/Block/Fortune.php:42
 msgid "Education"
 msgstr "Educació"
 
-#: templates/admin/groups/edit.inc:11 templates/admin/user/update.inc:45
+#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
 msgid "Email Address"
 msgstr "Adreça electrònica"
 
-#: lib/Prefs/Ui.php:225
-#, fuzzy
-msgid "Enter a name for the new category:"
-msgstr "Introduïu un nom per a la nova categoria:"
+#
+#: lib/Application.php:225
+msgid "Enable"
+msgstr "Activat"
 
-#: config/prefs.php.dist:288
+#: templates/admin/locks/list.html.php:14
+msgid "End Time"
+msgstr "Hora de finalització"
+
+#: lib/Block/Weather.php:92
+msgid "English"
+msgstr "Anglès"
+
+#: lib/Prefs/Special/Category.php:32
+msgid "Enter a name for the new category:"
+msgstr "Introdueix un nom per la nova categoria:"
+
+#: config/prefs.local.20150127.php:350 config/prefs.php:346
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
@@ -1257,183 +1246,165 @@ msgstr ""
 "Introduïu una pregunta de seguretat que se us formularà si us cal reiniciar "
 "la contrasenya, per exemple 'com es diu el vostre animal de companyia?':"
 
-#: lib/Block/metar.php:41 lib/Block/weatherdotcom.php:50
-msgid "Error"
-msgstr "Error"
+#
+#: lib/Ajax/Application/FacebookHandler.php:264
+msgid ""
+"Error connecting to Facebook. Details have been logged for the administrator."
+msgstr ""
+"Error connectant a Twitter. %s Els detalls s'han enregistrat per a "
+"l'administrador."
 
-#: lib/Prefs/Ui.php:577 services/twitter.php:128 services/twitter.php:151
-#, fuzzy, php-format
+#
+#: lib/Ajax/Application/TwitterHandler.php:284 services/twitter/index.php:27
+msgid ""
+"Error connecting to Twitter. Details have been logged for the administrator."
+msgstr ""
+"Error connectant a Twitter. %s Els detalls s'han enregistrat per a "
+"l'administrador."
+
+#: lib/Prefs/Special/Twitter.php:54
+#, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
 "administrator."
-msgstr "Els detalls han estat registrats per a l'administrador."
+msgstr ""
+"Error connectant a Twitter. %s Els detalls s'han enregistrat per a "
+"l'administrador."
 
-#: lib/Prefs/Ui.php:715
-#, fuzzy
+#: lib/Prefs/Special/Syncml.php:70
 msgid "Error deleting synchronization session:"
-msgstr "S'ha produït un error en eliminar el registre actual de dades: %s"
+msgstr "Error eliminiant la sessió de sincronització:"
 
-#: lib/Prefs/Ui.php:722
-#, fuzzy
+#: lib/Prefs/Special/Syncml.php:78
 msgid "Error deleting synchronization sessions:"
-msgstr "S'ha produït un error en eliminar el registre actual de dades: %s"
+msgstr "Error eliminant les sessions de sincronització:"
 
-#: services/changepassword.php:61
-#, fuzzy, php-format
+#: services/changepassword.php:54
+#, php-format
 msgid "Error updating password: %s"
-msgstr "Error de reinicialització de contrasenya."
+msgstr "Error d'actualització de contrasenya: %s"
 
-#: lib/Block/fortune.php:43
+#: lib/Block/Fortune.php:43
 msgid "Ethnic"
 msgstr "Ètnic"
 
-#: services/facebook.php:69
+#: lib/Ajax/Application/FacebookHandler.php:63
 msgid "Event Invites:"
-msgstr ""
+msgstr "Convidats a l'esdeveniment:"
 
-#: templates/portal/layout.inc:101 config/prefs.php.dist:520
+#: config/prefs.local.20150127.php:599 config/prefs.php:595
+#: templates/portal/layout.inc:101
 msgid "Every 15 minutes"
 msgstr "Cada 15 minuts"
 
-#: config/prefs.php.dist:559
+#: config/prefs.local.20150127.php:618 config/prefs.php:614
 msgid "Every 2 minutes"
 msgstr "Cada 2 minuts"
 
-#: templates/portal/layout.inc:98 config/prefs.php.dist:517
-#: config/prefs.php.dist:557
+#: config/prefs.local.20150127.php:596 config/prefs.local.20150127.php:616
+#: config/prefs.php:592 config/prefs.php:612 templates/portal/layout.inc:98
 msgid "Every 30 seconds"
 msgstr "Cada 30 segons"
 
-#: templates/portal/layout.inc:100 config/prefs.php.dist:519
-#: config/prefs.php.dist:560
+#: config/prefs.local.20150127.php:598 config/prefs.local.20150127.php:619
+#: config/prefs.php:594 config/prefs.php:615 templates/portal/layout.inc:100
 msgid "Every 5 minutes"
 msgstr "Cada 5 minuts"
 
-#: templates/portal/layout.inc:102 config/prefs.php.dist:521
+#: config/prefs.local.20150127.php:600 config/prefs.php:596
+#: templates/portal/layout.inc:102
 msgid "Every half hour"
 msgstr "Cada mitja hora"
 
 #: templates/portal/layout.inc:103
-#, fuzzy
 msgid "Every hour"
-msgstr "Cada mitja hora"
+msgstr "Cada hora"
 
-#: templates/portal/layout.inc:99 config/prefs.php.dist:518
-#: config/prefs.php.dist:558
+#: config/prefs.local.20150127.php:597 config/prefs.local.20150127.php:617
+#: config/prefs.php:593 config/prefs.php:613 templates/portal/layout.inc:99
 msgid "Every minute"
 msgstr "Cada minut"
 
-#: templates/data/datemap.inc:24
+#: templates/data/datemap.inc:27
 msgid "Example values:"
 msgstr "Valors d'exemple:"
 
-#: admin/cmdshell.php:48 admin/phpshell.php:55 admin/sqlshell.php:108
+#: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "Executa"
 
-#: admin/sessions.php:30
+#: lib/View/Sidebar.php:66 templates/sidebar/_container.html.php:14
 msgid "Expand"
 msgstr "Expandeix"
 
-#: lib/Block/iframe.php:29
+#: lib/Block/Iframe.php:38
 msgid "Extra Large"
-msgstr ""
+msgstr "Extra Llarg"
 
-#: templates/admin/config/index.html:74
-#, fuzzy
+#: templates/admin/config/index.html.php:93
 msgid "FTP upload of configuration"
-msgstr "S'ha desat la configuració de %s."
+msgstr "Puja la configuració per FTP"
 
-#: config/prefs.php.dist:604
+#: config/prefs.local.20150127.php:643 config/prefs.php:639
 msgid "Facebook Integration"
-msgstr ""
+msgstr "Integració amb Facebook"
 
-#: themes/fadetogreen/info.php:9
-msgid "Fade to Green"
-msgstr ""
+#: lib/Application.php:258
+msgid "Failed unlock attempts before device is wiped"
+msgstr "Intents fallits de desbloqueig abans que el dispositiu sigui esborrat"
 
-#: lib/Block/weatherdotcom_strings.php:26
-msgid "Fair"
-msgstr "Clar"
+#
+#: lib/Block/TwitterTimeline.php:120 templates/block/twitter_tweet.html.php:37
+msgid "Favorite"
+msgstr "Escriptura"
 
-#: lib/Block/feed.php:41
+#: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr ""
+msgstr "Introdueix"
 
-#: lib/Block/feed.php:17
-#, fuzzy
+#: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Adreça particular"
+msgstr "Introdueix l'Adreça"
 
-#: lib/Block/metar.php:215
+#: lib/Block/Metar.php:194
 msgid "Feels Like"
 msgstr "Se sent com"
 
-#: lib/Block/weatherdotcom.php:235
-msgid "Feels like: "
-msgstr "Se sent com:"
-
-#: lib/Block/weatherdotcom_strings.php:27
-msgid "Few Showers"
-msgstr "Poques pluges"
-
-#: lib/Block/weatherdotcom_strings.php:28
-msgid "Few Snow Showers"
-msgstr "Pocs xàfecs de neu"
-
-#: templates/prefs/addressbooks.html:17
+#
+#: templates/prefs/addressbooks.html:15
 msgid "Fields to search"
-msgstr ""
+msgstr "El formulari de cerca de més avall"
 
-#: config/registry.php.dist:340
+#: config/registry.php:315
 msgid "File Manager"
 msgstr "Gestor d'arxius"
 
-#: lib/Block/fb_stream.php:82
-#, fuzzy
+#: lib/Block/FbStream.php:61
 msgid "Filter"
-msgstr "Filtres"
+msgstr "Filtra"
 
-#: config/registry.php.dist:93
+#: config/registry.php:90
 msgid "Filters"
 msgstr "Filtres"
 
-#: lib/Block/moon.php:164
+#: lib/Block/Moon.php:165
 msgid "First Half"
 msgstr "Primera meitat"
 
-#: lib/Block/moon.php:72 lib/Block/moon.php:74
+#: lib/Block/Moon.php:72 lib/Block/Moon.php:74
 msgid "First Quarter"
 msgstr "Primer quart"
 
-#: lib/Block/weatherdotcom_strings.php:29
-msgid "Fog"
-msgstr "Boira"
-
-#: lib/Block/weatherdotcom_strings.php:30
-#, fuzzy
-msgid "Fog Early"
-msgstr "Núvols a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:31
-#, fuzzy
-msgid "Fog Late"
-msgstr "Coma flotant"
-
-#: lib/Block/weatherdotcom_strings.php:32
-#, fuzzy
-msgid "Foggy"
-msgstr "Boira"
-
-#: lib/Block/fortune.php:44
+#: lib/Block/Fortune.php:44
 msgid "Food"
 msgstr "Menjar"
 
-#: lib/Block/metar.php:329
+#: lib/Block/Metar.php:308
 msgid "Forecast (TAF)"
 msgstr "Previsió (TAF)"
 
-#: lib/Block/weatherdotcom.php:74
+#: lib/Block/Weather.php:98
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
@@ -1441,159 +1412,149 @@ msgstr ""
 "Previsió per als dies (tingueu present que la previsió facilitada comprèn el "
 "dia i la nit: un nombre elevat podria tenir com a resultat un bloc ample."
 
-#: templates/login/login.inc:81
+#: templates/login/login.inc:90 themes/upc1/templates/login/login.inc:87
 msgid "Forgot your password?"
 msgstr "Heu oblidat la contrasenya?"
 
-#: lib/Block/fortune.php:28
+#
+#: config/registry.php:344
+msgid "Forms"
+msgstr "Tempestes"
+
+#: lib/Block/Fortune.php:25
 msgid "Fortune"
 msgstr "Dita"
 
-#: lib/Block/fortune.php:106
+#: lib/Block/Fortune.php:108
 msgid "Fortune type"
 msgstr "Tipus de dites"
 
-#: lib/Block/fortune.php:45
+#: lib/Block/Fortune.php:45
 msgid "Fortunes"
 msgstr "Dites"
 
-#: lib/Block/fortune.php:46
+#: lib/Block/Fortune.php:46
 msgid "Fortunes 2"
 msgstr "Dites 2"
 
-#: config/registry.php.dist:376
+#: config/registry.php:338
 msgid "Forums"
 msgstr "Fòrums"
 
-#: config/registry.php.dist:113
-msgid "Forwards"
-msgstr "Reenviaments"
-
-#: lib/Block/weatherdotcom_strings.php:33
-#, fuzzy
-msgid "Freezing Drizzle"
-msgstr "Plugims gelats"
-
-#: services/facebook.php:68
+#: lib/Ajax/Application/FacebookHandler.php:62
 msgid "Friend Requests:"
-msgstr ""
+msgstr "Peticions d'amistat:"
 
-#: lib/Block/weatherdotcom.php:252 lib/Block/weatherdotcom.php:362
-#: lib/Block/weatherdotcom.php:408
-msgid "From the "
-msgstr "Des del"
+#
+#: templates/prefs/facebook.html.php:44
+msgid "Friends enabled."
+msgstr "Lectura activada"
 
-#: templates/problem/problem.inc:48
+#: lib/Block/Weather.php:221
+#, php-format
+msgid "From the %s (%s &deg;) at %s %s"
+msgstr "des del %s (%s) a les %s %s"
+
+#: lib/Block/Weather.php:332
+#, php-format
+msgid "From the %s at %s %s"
+msgstr "des del %s a les %s %s"
+
+#: templates/problem/problem.inc:27
 msgid "Full Description"
 msgstr "Descripció completa"
 
-#: lib/Block/moon.php:79 lib/Block/moon.php:174
+#: lib/Block/Moon.php:79 lib/Block/Moon.php:175
 msgid "Full Moon"
 msgstr "Lluna plena"
 
-#: lib/Block/account.php:68 templates/admin/user/update.inc:37
+#: lib/Block/Account.php:70 templates/admin/user/update.inc:37
 msgid "Full Name"
 msgstr "Nom complet"
 
-#: admin/config/config.php:31
+#: admin/config/config.php:36
 #, php-format
 msgid "Generate %s Configuration"
 msgstr "Es genera la configuració %s"
 
-#: templates/admin/config/config.html:6
+#: templates/admin/config/config.html.php:6
 msgid "Generated Code"
 msgstr "Codi generat"
 
-#: lib/Block/fb_stream.php:192 lib/Block/twitter_timeline.php:171
+#: lib/Block/FbStream.php:161 templates/block/twitter-layout.html.php:35
 msgid "Get More"
-msgstr ""
+msgstr "Aconsegueix-ne més"
 
-#: templates/prefs/app.html:10
+#: templates/prefs/app.html:9 templates/prefs/app.html:28
+#: templates/prefs/app.orig.html:9
 msgid "Global Preferences"
-msgstr ""
+msgstr "Preferències Globals"
 
-#: templates/prefs/app.html:17
+#: templates/prefs/app.html:16 templates/prefs/app.orig.html:16
 msgid "Go"
 msgstr "Anar a"
 
-#: lib/Block/fortune.php:47
+#: lib/Block/Fortune.php:47
 msgid "Goedel"
 msgstr "Gödel"
 
-#: lib/Block/google.php:3 lib/Block/google.php:19
+#: lib/Block/Google.php:14
 msgid "Google Search"
 msgstr "Cerca al Google"
 
-#: lib/Block/google.php:30
-msgid "Google search is not enabled."
-msgstr ""
-
-#: config/nls.php:177
+#: config/nls.php:178
 msgid "Greek (ISO-8859-7)"
 msgstr "Grec (ISO-8859-7)"
 
-#: themes/green/info.php:2
-#, fuzzy
-msgid "Green"
-msgstr "Grècia"
-
-#: themes/grey/info.php:2
-#, fuzzy
-msgid "Grey"
-msgstr "Guernsey"
-
-#: admin/groups.php:195
+#: admin/groups.php:161
 msgid "Group Administration"
 msgstr "Gestió de grups"
 
-#: admin/groups.php:44
-#, fuzzy, php-format
-msgid "Group was not created: %s."
-msgstr "%1 no s'ha trobat."
+#
+#: templates/admin/groups/add.inc:10
+msgid "Group name"
+msgstr "Grup"
 
-#: admin/groups.php:268 templates/shares/edit.inc:266
+#: admin/groups.php:35
+#, php-format
+msgid "Group was not created: %s."
+msgstr "El grup no s'ha creat: %s"
+
+#: admin/groups.php:221 templates/shares/edit.inc:270
 msgid "Groups"
 msgstr "Grups"
 
-#: templates/shares/edit.inc:93
+#: templates/shares/edit.inc:97
 msgid "Guest Permissions"
 msgstr "Permisos dels visitants"
 
-#: lib/Block/weatherdotcom_strings.php:34
-msgid "Haze"
-msgstr "Calitja"
+#
+#: lib/Application.php:327
+msgid "HTML Email"
+msgstr "Correu HTML"
 
-#: lib/Block/weatherdotcom_strings.php:35
-msgid "Heavy Rain"
-msgstr ""
-
-#: lib/Block/weatherdotcom_strings.php:36
-#, fuzzy
-msgid "Heavy T-Storm"
-msgstr "Heavy Metal"
-
-#: config/nls.php:178
+#: config/nls.php:179
 msgid "Hebrew (ISO-8859-8-I)"
 msgstr "Hebreu (ISO-8859-8-I)"
 
-#: lib/Block/iframe.php:24
+#: lib/Block/Iframe.php:32
 msgid "Height"
 msgstr "Alçada"
 
-#: lib/Block/fb_stream.php:92 lib/Block/twitter_timeline.php:87
-msgid "Height of map (width automatically adjusts to block)"
-msgstr ""
+#
+#: lib/Block/FbStream.php:76 lib/Block/TwitterTimeline.php:64
+msgid "Height of stream content (width automatically adjusts to block)"
+msgstr "Algura del mapa (l'amplada s'ajusta al bloc automàticament)"
 
-#: services/help/index.php:17 templates/help/index.inc:4
+#: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
 msgstr "Ajuda"
 
-#: services/help/index.php:70
-#, fuzzy
+#: services/help/index.php:94
 msgid "Help _Topics"
-msgstr "Llista dels temes d'ajuda"
+msgstr "Temes d'ajuda"
 
-#: lib/Block/moon.php:27
+#: lib/Block/Moon.php:28
 msgid "Hemisphere"
 msgstr "Hemisferi"
 
@@ -1601,83 +1562,58 @@ msgstr "Hemisferi"
 msgid "Here is the beginning of the file:"
 msgstr "Aquest és l'inici del fitxer:"
 
-#: themes/hi-contrast/info.php:3
-#, fuzzy
-msgid "Hi-Contrast"
-msgstr "%d contactes"
-
-#: templates/prefs/app.html:23
+#: templates/prefs/app.html:23 templates/prefs/app.orig.html:23
 msgid "Hide Advanced Preferences"
-msgstr ""
+msgstr "Amaga les Preferències Avançades"
 
-#: services/portal/cloud_search.php:33
-#, fuzzy
+#: services/portal/cloud_search.php:40
 msgid "Hide Results"
-msgstr "Resultats"
+msgstr "Amaga Resultats"
 
-#: lib/Block/weatherdotcom_strings.php:100
-msgid "High"
-msgstr "Alt"
-
-#: lib/Block/account.php:73
-#, fuzzy
+#: lib/Block/Account.php:73
 msgid "Home Directory"
-msgstr "Directori d'usuari"
+msgstr "Directori d'inici"
 
-#: config/registry.php.dist:76
+#: config/registry.php:77
 msgid "Horde"
 msgstr "Horde"
 
-#: themes/hordeweb/info.php:2
-msgid "Horde Website"
-msgstr ""
-
-#: templates/data/csvinfo.inc:21
+#: templates/data/csvinfo.inc:18
 msgid "How many fields (columns) are there?"
 msgstr "Quants camps (columnes) hi ha?"
 
-#: lib/Block/feed.php:21
+#: lib/Block/Feed.php:36
 msgid "How many seconds before we check for new articles?"
-msgstr ""
+msgstr "Cada quants segons comprovem si hi ha nous articles?"
 
-#: lib/Block/metar.php:225 lib/Block/weatherdotcom.php:303
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:233 lib/Block/Weather.php:273
 msgid "Humidity"
 msgstr "Humitat"
 
-#: lib/Block/weatherdotcom.php:263
-msgid "Humidity: "
-msgstr "Humitat:"
-
-#: lib/Block/fortune.php:48
+#: lib/Block/Fortune.php:48
 msgid "Humorists"
 msgstr "Humoristes"
 
-#: services/keyboard.php:78
-#, fuzzy
-msgid "I characters"
-msgstr "Nombre de caràcters"
+#: templates/admin/activesync.html.php:15
+msgid "IMEI"
+msgstr "IMEI"
 
-#: config/prefs.php.dist:545
-msgid "Icons Only"
-msgstr "Només icones"
-
-#: util/icon_browser.php:53
+#: util/icon_browser.php:40
 #, php-format
 msgid "Icons for %s"
 msgstr "Icones de %s"
 
-#: config/prefs.php.dist:546
-msgid "Icons with text"
-msgstr "Icones amb text"
+#: templates/prefs/activesync.html.php:2
+msgid "Identity to use when sending email via ActiveSync."
+msgstr "Identitat utilitzada en enviar correu mitjançant ActiveSync."
 
-#: themes/ideas/info.php:2
-#, fuzzy
-msgid "Ideas"
-msgstr "Índia"
-
-#: config/prefs.php.dist:226
+#: config/prefs.local.20150127.php:274 config/prefs.php:274
 msgid "Identity's name:"
 msgstr "Nom d'identitat:"
+
+#: templates/login/login.inc:96
+msgid "If you forgot your password, click "
+msgstr "Si heu oblidat la contrasenya, cliqueu "
 
 #: templates/data/csvinfo.inc:7 templates/data/csvmap.inc:54
 #: templates/data/datemap.inc:7 templates/data/tsvinfo.inc:7
@@ -1685,7 +1621,7 @@ msgstr "Nom d'identitat:"
 msgid "Import, Step %d"
 msgstr "Importació, pas %d"
 
-#: templates/data/datemap.inc:15
+#: templates/data/datemap.inc:18
 #, php-format
 msgid "Imported field: %s"
 msgstr "Camp importat: %s"
@@ -1694,9 +1630,9 @@ msgstr "Camp importat: %s"
 msgid "Imported fields:"
 msgstr "Camps importats:"
 
-#: lib/Block/twitter_timeline.php:136
+#: lib/Block/TwitterTimeline.php:113
 msgid "In reply to:"
-msgstr ""
+msgstr "En resposta a:"
 
 #: templates/data/csvmap.inc:57
 msgid ""
@@ -1705,8 +1641,12 @@ msgid ""
 "Then hit \"Add pair\" to mark them for the import. Once your are finished "
 "hit \"Next\"."
 msgstr ""
+"A la llista de sota selecciona ambdós, un camp importat des d'un fitxer "
+"orígen a l'esquerra, i el fitxer que concorda disponible a la teva agenda de "
+"la dreta. Llavors apreta \"Afegeix parella\" per marcar-los i importar-los. "
+"Un cop hagis finalitzat apreta \"Següent\"."
 
-#: services/resetpassword.php:50
+#: services/resetpassword.php:58
 msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
@@ -1714,303 +1654,264 @@ msgstr ""
 "S'ha facilitat un nom d'usuari o una adreça alternativa incorrectes. Torneu-"
 "ho a intentar o poseu-vos en contacte amb l'administrador per a més ajuda."
 
-#: templates/shares/edit.inc:164
+#: templates/shares/edit.inc:168
 msgid "Individual Users"
 msgstr "Usuaris individuals"
 
-#: templates/prefs/facebook.html:10
-#, fuzzy
-msgid "Infinite sessions enabled."
-msgstr "Ha fallat el llistat de sessions: %s"
-
-#: config/registry.php.dist:281
+#: config/registry.php:243
 msgid "Information"
 msgstr "Informació"
 
-#: lib/Block/weatherdotcom.php:332
-msgid "Information no longer available."
-msgstr "La informació ja no està disponible."
-
-#: templates/admin/groups/edit.inc:36
+#: templates/admin/groups/edit.inc:42
 msgid "Inherited Members"
 msgstr "Consulta membres"
 
-#: config/prefs.php.dist:304
+#: config/prefs.local.20150127.php:362 config/prefs.php:358
 msgid "Insert an email address to which you can receive the new password:"
 msgstr ""
 "Insereix una adreça de correu per rebre la nova contrasenyaInseriu una "
 "adreça electrònica a la qual podeu rebre la nova contrasenya:"
 
-#: config/prefs.php.dist:296
+#: config/prefs.local.20150127.php:356 config/prefs.php:352
 msgid "Insert the required answer to the security question:"
 msgstr "Inseriu la resposta a la pregunta de seguretat:"
 
-#: lib/Block/vatid.php:52
-#, fuzzy
+#: lib/Block/Vatid.php:61
 msgid "Invalid VAT identification number format."
-msgstr "El format de l'arxiu no és vàlid."
+msgstr "Format del nombre d'identificació VAT és invalid."
 
-#: admin/signup_confirm.php:43
-#, fuzzy, php-format
+#: admin/signup_confirm.php:45
+#, php-format
 msgid "Invalid action %s"
-msgstr "Aplicació no vàlida."
+msgstr "Acció invalida %s"
 
-#: admin/config/config.php:24
+#: admin/config/config.php:31
 msgid "Invalid application."
 msgstr "Aplicació no vàlida."
 
-#: admin/signup_confirm.php:33
-#, fuzzy
+#: admin/signup_confirm.php:35
 msgid "Invalid hash."
-msgstr "L'identificador del lot no és vàlid"
+msgstr "Hash invàlid."
 
-#: lib/Block/weatherdotcom.php:180
-msgid "Invalid license key."
-msgstr "La clau de la llicència no és vàlida."
-
-#: lib/Block/weatherdotcom.php:174
-msgid "Invalid location provided."
-msgstr "La ubicació que heu proporcionat no és vàlida."
-
-#: admin/perms/addchild.php:23
+#: admin/perms/addchild.php:29
 msgid "Invalid parent permission."
 msgstr "L'autorització paterna no és vàlida."
 
-#: lib/Block/weatherdotcom.php:176
-msgid "Invalid partner id."
-msgstr "El codi d'identificació de soci no és vàlid."
+#: config/registry.php:296
+msgid "Inventory"
+msgstr "Inventari"
 
-#: lib/Block/weatherdotcom.php:178
-msgid "Invalid product code."
-msgstr "El codi del producte no és vàlid."
-
-#: lib/Block/weatherdotcom_strings.php:37
-msgid "Isolated T-Storms"
-msgstr "Tempestes aïllades"
-
-#: config/nls.php:179
+#: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
 msgstr "Japonès (ISO-2002-JP)"
 
-#: lib/Block/twitter_timeline.php:138
-msgid "Just now..."
+#: login.php:167
+msgid ""
+"JavaScript is either disabled or not available on your browser. You are "
+"restricted to the minimal view."
 msgstr ""
+"O el seu navegador no disposa de JavaScript o està desactivat. Està limitat "
+"a la vista Mínima."
 
-#: lib/Block/fortune.php:49
+#: lib/Block/TwitterTimeline.php:114
+msgid "Just now..."
+msgstr "Ara mateix..."
+
+#: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
 msgstr "Kernel Newbies"
 
-#: services/help/index.php:138
+#: services/help/index.php:161
 msgid "Keyword"
-msgstr ""
+msgstr "Paraula clau"
 
-#: lib/Block/fortune.php:50
+#: lib/Block/Fortune.php:50
 msgid "Kids"
 msgstr "Nois"
 
-#: themes/kolab/info.php:7
+#: config/registry.php:304
 msgid "Kolab"
-msgstr ""
+msgstr "Kolab"
 
-#: config/nls.php:180
+#: config/nls.php:181
 msgid "Korean (EUC-KR)"
 msgstr "Coreà (EUC-KR)"
 
-#: login.php:314 templates/login/login.inc:49
+#: login.php:365
 msgid "Language"
 msgstr "Idioma"
 
-#: lib/Block/iframe.php:28
-#, fuzzy
+#: lib/Block/Iframe.php:37
 msgid "Large"
-msgstr "Objectiu:"
+msgstr "Gros"
 
-#: lib/Block/moon.php:167
+#: lib/Block/Moon.php:168
 msgid "Last Half"
 msgstr "Darrera meitat"
 
-#: lib/Block/account.php:91
+#: lib/Block/Account.php:86
 msgid "Last Password Change"
 msgstr "Darrer canvi de contrasenya"
 
-#: lib/Block/moon.php:84 lib/Block/moon.php:86
+#: lib/Block/Moon.php:85 lib/Block/Moon.php:87
 msgid "Last Quarter"
 msgstr "Darrer quart"
 
-#: admin/activesync.php:98 templates/prefs/activesync.html:21
-#, fuzzy
+#: templates/activesync/device_table.html.php:5
 msgid "Last Sync Time"
-msgstr "Idioma i hora"
+msgstr "L'última hora sincronitzada"
 
-#: lib/Block/metar.php:146
+#: lib/Block/Metar.php:125
 msgid "Last Updated:"
 msgstr "Darrera actualització:"
 
-#: lib/LoginTasks/Task/LastLogin.php:46
+#: lib/LoginTasks/Task/LastLogin.php:52
 #, php-format
 msgid "Last login: %s"
 msgstr "Darrera connexió: %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:48
+#: lib/LoginTasks/Task/LastLogin.php:54
 #, php-format
 msgid "Last login: %s from %s"
 msgstr "Darrera connexió: %s de %s"
 
-#: lib/LoginTasks/Task/LastLogin.php:44
+#: lib/LoginTasks/Task/LastLogin.php:50
 msgid "Last login: Never"
 msgstr "Darrera connexió:"
 
-#: lib/Block/twitter_timeline.php:168
-#, fuzzy
+#
+#: lib/Prefs/Special/Activesync.php:69
+msgid "Last synckey"
+msgstr "L'última hora sincronitzada"
+
+#: templates/block/twitter-layout.html.php:19
 msgid "Latest"
-msgstr "Lesotho"
+msgstr "Últim"
 
-#: themes/lavander/info.php:2
-#, fuzzy
-msgid "Lavender"
-msgstr "Calendari"
-
-#: lib/Block/fortune.php:51
+#: lib/Block/Fortune.php:51
 msgid "Law"
 msgstr "Llei"
 
-#: themes/lightblue/info.php:2
-#, fuzzy
-msgid "Light Blue"
-msgstr "Valors de la dreta"
-
-#: lib/Block/weatherdotcom_strings.php:38
-msgid "Light Drizzle"
-msgstr "Plugim feble"
-
-#: lib/Block/weatherdotcom_strings.php:39
-msgid "Light Rain"
-msgstr "Pluja feble"
-
-#: lib/Block/weatherdotcom_strings.php:40
-msgid "Light Rain Early"
-msgstr "Pluja feble a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:41
-msgid "Light Rain Late"
-msgstr "Pluja feble cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:42
-msgid "Light Rain Shower"
-msgstr "Ruixat feble"
-
-#: lib/Block/weatherdotcom_strings.php:43
-msgid "Light Rain with Thunder"
-msgstr "Ruixat feble amb trons"
-
-#: lib/Block/weatherdotcom_strings.php:44
-msgid "Light Snow"
-msgstr "Nevada feble"
-
-#: lib/Block/weatherdotcom_strings.php:45
-#, fuzzy
-msgid "Light Snow Early"
-msgstr "Pluja feble a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:46
-#, fuzzy
-msgid "Light Snow Late"
-msgstr "Pluja feble cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:47
-msgid "Light Snow Shower"
-msgstr "Xàfec de neu feble"
-
-#: services/facebook.php:105
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:225
 msgid "Like"
-msgstr "Enllaç"
+msgstr "Agrada"
 
-#: lib/Block/fortune.php:52
+#: lib/Block/Fortune.php:52
 msgid "Limerick"
 msgstr "Limerick"
 
-#: lib/Block/fortune.php:53
+#: lib/Block/Fortune.php:53
 msgid "Linux Cookie"
 msgstr "Galeta Linux"
 
-#: admin/sqlshell.php:113
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "Llistar les taules"
 
-#: admin/alarms.php:130
-#, fuzzy, php-format
+#: admin/alarms.php:141
+#, php-format
 msgid "Listing alarms failed: %s"
-msgstr "Ha fallat el llistat d'usuaris: %s"
+msgstr "Ha fallat el llistat d'alarmes: %s"
 
-#: admin/sessions.php:62
+#: admin/locks.php:57
+#, php-format
+msgid "Listing locks failed: %s"
+msgstr "Ha fallat el llistat d'alarmes: %s"
+
+#: templates/admin/sessions.html.php:29
 #, php-format
 msgid "Listing sessions failed: %s"
 msgstr "Ha fallat el llistat de sessions: %s"
+
+#: templates/admin/user/listfail.inc:5
+#, php-format
+msgid "Listing users failed with this error message: %s"
+msgstr "El llistat d'usuaris ha fallat amb el següent missatge d'error: %s"
+
+#
+#: templates/admin/user/listfail.inc:2
+msgid "Listing users failed."
+msgstr "La llista d'usuaris està inhabilitada."
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
 msgstr "La llista d'usuaris està inhabilitada."
 
-#: lib/Block/fortune.php:54
+#: lib/Block/Fortune.php:54
 msgid "Literature"
 msgstr "Bibliografia"
 
-#: lib/Block/weatherdotcom.php:215
-msgid "Local time: "
-msgstr "Hora local: "
+#: lib/Block/Weather.php:173
+#, php-format
+msgid "Local time: %s %s (UTC %s)"
+msgstr "Hora local:  %s %s (UTC %s)"
 
-#: config/prefs.php.dist:313
+#: config/prefs.local.20150127.php:371 config/prefs.php:367
 msgid "Locale and Time"
 msgstr "Idioma i hora"
 
-#: lib/Block/metar.php:64 lib/Block/sunrise.php:20
-#: lib/Block/weatherdotcom.php:59
+#: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:84
 msgid "Location"
 msgstr "Ubicació"
 
-#: login.php:261 templates/login/login.inc:64
+#
+#: templates/admin/user/update.inc:54
+msgid "Lock User"
+msgstr "Usuari"
+
+#
+#: admin/locks.php:61
+msgid "Locks"
+msgstr "Usuari"
+
+#: login.php:291 templates/login/login.inc:72
+#: templates/topbar/_menubar.html.php:10
+#: themes/upc1/templates/login/login.inc:69
 msgid "Log in"
 msgstr "Inicia la sessió"
 
-#: lib/Block/account.php:64
-#, fuzzy
-msgid "Login"
-msgstr "Entrada"
+#
+#: templates/portal/smartmobile.inc:5 templates/topbar/_menubar.html.php:8
+msgid "Log out"
+msgstr "Sur_t"
 
-#: login.php:286
+#
+#: templates/prefs/facebook.html.php:8
+msgid "Logged in to Facebook"
+msgstr "Connectat a Facebook"
+
+#: login.php:320
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
 "Hi ha hagut un error de connexió perquè heu introduït incorrectament el nom "
 "d'usuari o la contrasenya."
 
-#: login.php:282
+#: login.php:316
 msgid "Login failed."
 msgstr "Ha fallat la connexió."
 
-#: templates/prefs/facebook.html:46
-msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+#: login.php:399
+#, php-format
+msgid "Login to %s"
+msgstr "Ves a %s"
 
-#: templates/prefs/twitter.html:21
-msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+#: templates/prefs/facebook.html.php:62
+#, php-format
+msgid "Login to Facebook and authorize %s"
+msgstr "Entra al Facebook i autoritza %s"
 
-#: lib/Block/fortune.php:55
+#: templates/prefs/twitter.html.php:18
+#, php-format
+msgid "Login to Twitter and authorize %s"
+msgstr "Entra al Twitter i autoritza %s"
+
+#: templates/prefs/facebook.html.php:10
+msgid "Logout"
+msgstr "Sortir"
+
+#: lib/Block/Fortune.php:55
 msgid "Love"
 msgstr "Amor"
-
-#: lib/Block/weatherdotcom_strings.php:98
-msgid "Low"
-msgstr "Baix"
-
-#: themes/luc/info.php:2
-msgid "Loyola"
-msgstr ""
-
-#: themes/lucblue/info.php:2
-msgid "Loyola Blue"
-msgstr ""
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -2019,19 +1920,19 @@ msgstr ""
 msgid "MM"
 msgstr "MM"
 
-#: lib/Block/fortune.php:56
+#: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Màgic"
 
-#: config/registry.php.dist:85
+#: config/registry.php:82
 msgid "Mail"
-msgstr "Correu electrònic"
+msgstr "Correu"
 
-#: config/registry.php.dist:403
+#: config/registry.php:349
 msgid "Mail Admin"
 msgstr "Administrador de correu"
 
-#: config/prefs.php.dist:441
+#: config/prefs.local.20150127.php:516 config/prefs.php:512
 msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
@@ -2039,183 +1940,191 @@ msgstr ""
 "Gestioneu la llista de categories amb les quals heu d'etiquetar els "
 "elements, i els colors associats amb aquestes categories."
 
-#: config/prefs.php.dist:677
+#: config/prefs.local.20150127.php:741 config/prefs.php:737
 msgid "Manage your ActiveSync devices."
-msgstr ""
+msgstr "Gestiona els dispositius ActiveSync"
 
-#: templates/data/csvmap.inc:96
-#, fuzzy
+#: templates/data/csvmap.inc:97
 msgid "Matching fields:"
-msgstr "Camps que coincideixin"
+msgstr "Camps que coincideixin:"
 
-#: lib/Block/metar.php:301
+#: lib/Block/Metar.php:280
 msgid "Max temp last 24 hours: "
 msgstr "Temperatura màxima de les darreres 24 hores: "
 
-#: lib/Block/metar.php:293
+#: lib/Block/Metar.php:272
 msgid "Max temp last 6 hours: "
 msgstr "Temperatura màxima de les darreres 6 hores: "
 
-#: lib/Application.php:38
-#, fuzzy
+#
+#: lib/Application.php:331
+msgid "Maximum Email age"
+msgstr "Nombre màxim de pàgines"
+
+#: lib/Application.php:51
 msgid "Maximum Number of Portal Blocks"
-msgstr "Nombre màxim de galetes permeses:"
+msgstr "Nombre màxim de blocs de portal"
 
-#: lib/Block/fb_stream.php:86
-#, fuzzy
+#
+#: lib/Application.php:275
+msgid "Maximum attachment size in bytes"
+msgstr "Mida màxima del fitxer adjunt"
+
+#
+#: lib/Application.php:216
+msgid "Maximum number of devices"
+msgstr "Nombre màxim de pàgines"
+
+#: lib/Block/FbStream.php:67
 msgid "Maximum number of entries to display"
-msgstr "Nombre màxim de galetes permeses:"
+msgstr "Nombre màxim d'entrades per mostrar"
 
-#: lib/Block/fortune.php:57
+#: lib/Block/Fortune.php:57
 msgid "Medicine"
 msgstr "Medicina"
 
-#: lib/Block/iframe.php:27
-#, fuzzy
+#: lib/Block/Iframe.php:36
 msgid "Medium"
-msgstr "Bèlgica"
+msgstr "Mitjà"
 
-#: templates/admin/groups/edit.inc:17
+#: templates/admin/groups/edit.inc:18
 msgid "Members"
 msgstr "Membres"
 
-#: config/prefs.php.dist:548
-msgid "Menu mode:"
-msgstr "Tipus de menú:"
+#
+#: templates/block/twitter-layout.html.php:25
+msgid "Mentions"
+msgstr "Definicions"
 
-#: lib/Block/metar.php:5
+#: lib/Block/Metar.php:23
 msgid "Metar Weather"
 msgstr "Temps de METAR"
 
-#: lib/Block/metar.php:42
-msgid "Metar block not available."
-msgstr "El bloc METAR no està disponible."
-
-#: lib/Block/metar.php:110
-msgid ""
-"Metar block not available. Details have been logged for the administrator."
-msgstr ""
-"El bloc METAR no està disponible. Els detalls han estat registrats per a "
-"l'administrador."
-
-#: lib/Block/weatherdotcom.php:168
-msgid "MetarDB is not connected."
-msgstr "La base de dades METAR no està connectada."
-
-#: lib/Block/metar.php:74 lib/Block/weatherdotcom.php:69
+#: lib/Block/Metar.php:62 lib/Block/Weather.php:93
 msgid "Metric"
 msgstr "Mètric"
 
-#: lib/Block/metar.php:305
+#: lib/Block/Metar.php:284
 msgid "Min temp last 24 hours: "
 msgstr "Temperatura mínima de les darreres 24 hores: "
 
-#: lib/Block/metar.php:297
+#: lib/Block/Metar.php:276
 msgid "Min temp last 6 hours: "
 msgstr "Temperatura mínima de les darreres 6 hores: "
 
-#: lib/Block/fortune.php:58
+#: lib/Application.php:237
+msgid "Minimum PIN length"
+msgstr "Longitud mínima de PIN"
+
+#: lib/Block/Fortune.php:58
 msgid "Miscellaneous"
 msgstr "Miscel·lani"
 
-#: admin/config/index.php:135
-#, fuzzy
-msgid ""
-"Missing configuration. You must generate it before using this application."
-msgstr ""
-"Falta la configuració. L'heu de generar ara si voleu utilitzar aquesta "
-"aplicació."
+#: admin/config/index.php:229
+msgid "Missing configuration."
+msgstr "Configuració de %s"
 
-#: lib/Block/weatherdotcom_strings.php:48
-msgid "Mist"
-msgstr ""
+#: templates/login/login.inc:29 templates/login/smartmobile.html.php:36
+#: themes/upc1/templates/login/login.inc:28
+msgid "Mobile (Minimal)"
+msgstr "Mòbil (Mínim)"
 
-#: lib/Block/weatherdotcom_strings.php:99
-msgid "Moderate"
+#: templates/login/login.inc:30 templates/login/smartmobile.html.php:37
+#: themes/upc1/templates/login/login.inc:29
+msgid "Mobile (No JavaScript)"
+msgstr "Mòbil (sense JavaScript)"
+
+#: templates/login/login.inc:28 templates/login/smartmobile.html.php:35
+#: themes/upc1/templates/login/login.inc:27
+msgid "Mobile (Smartphone/Tablet)"
+msgstr "Mòbil (Smartphone/Tablet)"
+
+#: templates/portal/smartmobile.inc:12
+msgid "Mobile Optimized Apps"
+msgstr "Aplicacions optimitzades per a mòbils"
+
+#
+#: templates/login/login.inc:21 templates/login/smartmobile.html.php:29
+#: themes/upc1/templates/login/login.inc:20
+msgid "Mode"
 msgstr "Moderat"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:57
-#, php-format
-msgid "Modified sequence for %s"
-msgstr ""
+#
+#: templates/admin/activesync.html.php:14
+msgid "Model"
+msgstr "Moderat"
 
-#: config/prefs.php.dist:430
-#, fuzzy
+#
+#: admin/config/index.php:174 admin/config/index.php:218
+#: admin/config/index.php:351 admin/config/index.php:377
+msgid "Module is up-to-date."
+msgstr "El mòdul està actualitzat."
+
+#: config/prefs.local.20150127.php:504 config/prefs.php:500
 msgid "Monday"
-msgstr "Avui"
+msgstr "dilluns"
 
-#: lib/Block/moon.php:3 lib/Block/moon.php:14
+#: lib/Block/Moon.php:13
 msgid "Moon Phases"
 msgstr "Fases lunars"
 
-#: lib/Block/weatherdotcom_strings.php:49
-msgid "Mostly Clear"
-msgstr "Majoritàriament descobert"
-
-#: lib/Block/weatherdotcom_strings.php:50
-msgid "Mostly Cloudy"
-msgstr "Majoritàriament ennuvolat"
-
-#: lib/Block/weatherdotcom_strings.php:51
-#, fuzzy
-msgid "Mostly Cloudy and Windy"
-msgstr "Majoritàriament ennuvolat"
-
-#: lib/Block/weatherdotcom_strings.php:52
-msgid "Mostly Sunny"
-msgstr "Majoritàriament assolellat"
-
-#: themes/mozilla/info.php:2
-msgid "Mozilla"
-msgstr ""
-
-#: config/registry.php.dist:333
+#: config/registry.php:309
 msgid "My Account"
 msgstr "El meu compte"
 
-#: lib/Block/account.php:27
+#: lib/Block/Account.php:26
 msgid "My Account Information"
 msgstr "La meva identitat"
 
-#: lib/Block/fb_stream.php:3 lib/Block/fb_stream.php:105
+#: lib/Block/FbStream.php:38
 msgid "My Facebook Stream"
-msgstr ""
+msgstr "El "
 
-#: services/portal/index.php:62
+#: services/portal/index.php:45
 msgid "My Portal"
 msgstr "El meu portal"
 
-#: services/portal/edit.php:36
+#: services/portal/edit.php:37
 msgid "My Portal Layout"
 msgstr "Disseny del meu portal"
 
-#: templates/logintasks/logintasks.html:35
+#: lib/Block/Weather.php:322 lib/Block/Weather.php:326
+#: lib/Block/Weather.php:342
+msgid "N/A"
+msgstr "N/A"
+
+#: templates/logintasks/logintasks.html.php:29
+#: templates/logintasks/smartmobile.html.php:45
 msgid "NO, I Do NOT Agree"
 msgstr "NO, NO hi estic d'acord"
 
-#: lib/Block/vatid.php:98
+#: templates/admin/activesync.html.php:37
+#: templates/prefs/activesync.html.php:36
+msgid ""
+"NOTE: WIPING A DEVICE MAY RESET IT TO FACTORY DEFAULTS. PLEASE MAKE SURE YOU "
+"REALLY WANT TO DO THIS BEFORE REQUESTING A WIPE"
+msgstr ""
+"OBSERVACIÓ: L'ESBORRAT D'UN DISPOSITIU POT REINICIAR-LO A L'ESTAT INICIAL DE "
+"FÀBRICA. ASSEGUREU-VOS QUE REALMENT VOL FER-HO ABANS DE EXECUTAR-HO."
+
+#: lib/Block/Vatid.php:93
 msgid "Name"
 msgstr "Nom"
 
-#: themes/NeXTgrey/info.php:2
-msgid "NeXT"
-msgstr ""
-
-#: templates/portal/layout.inc:97 config/prefs.php.dist:516
-#: config/prefs.php.dist:556
+#: config/prefs.local.20150127.php:595 config/prefs.local.20150127.php:615
+#: config/prefs.php:591 config/prefs.php:611 templates/portal/layout.inc:97
 msgid "Never"
 msgstr "Mai"
 
-#: templates/prefs/category.html:3
+#: templates/prefs/category.html.php:43
 msgid "New Category"
 msgstr "Nova categoria"
 
-#: services/facebook.php:65
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:59
 msgid "New Messages:"
-msgstr "Missatge"
+msgstr "Missatges nous:"
 
-#: lib/Block/moon.php:44 lib/Block/moon.php:66 lib/Block/moon.php:172
+#: lib/Block/Moon.php:47 lib/Block/Moon.php:65 lib/Block/Moon.php:173
 msgid "New Moon"
 msgstr "Lluna nova"
 
@@ -2223,7 +2132,7 @@ msgstr "Lluna nova"
 msgid "New Username (optional)"
 msgstr "Nou nom d'usuari (opcional)"
 
-#: services/changepassword.php:29
+#: services/changepassword.php:31
 msgid "New password"
 msgstr "Nova contrasenya"
 
@@ -2231,50 +2140,45 @@ msgstr "Nova contrasenya"
 msgid "New passwords don't match."
 msgstr "Les noves contrasenyes no coincideixen."
 
-#: lib/Block/fortune.php:59 config/registry.php.dist:288
+#: config/registry.php:254 lib/Block/Fortune.php:59
 msgid "News"
 msgstr "Missatges"
 
-#: templates/data/csvinfo.inc:25 templates/data/csvmap.inc:119
-#: templates/data/datemap.inc:41 templates/data/tsvinfo.inc:15
+#: templates/data/csvinfo.inc:23 templates/data/csvmap.inc:123
+#: templates/data/datemap.inc:46 templates/data/tsvinfo.inc:17
 msgid "Next"
 msgstr "Següent"
 
-#: lib/Block/moon.php:25
+#: lib/Block/Moon.php:26
 msgid "Next 4 Phases"
 msgstr "4 fases següents"
 
-#: lib/Block/weatherdotcom.php:382
-msgid "Night"
-msgstr "Nit"
-
 #: templates/prefs/alarm.html:32
-#, fuzzy
 msgid "No Sound"
-msgstr "No s'ha trobat."
+msgstr "Sense so"
 
-#: templates/admin/config/diff.html:9
+#: templates/admin/config/diff.html.php:2
 msgid "No available configuration data to show differences for."
 msgstr "No es disposen de dades de configuració per mostrar les diferències."
 
-#: admin/config/diff.php:39
+#: admin/config/diff.php:49
 msgid "No change."
 msgstr "Sense canvis."
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:70
 msgid "No icons found."
 msgstr "No s'ha trobat cap icona."
 
-#: lib/Block/metar.php:121 lib/Block/sunrise.php:38
-#: lib/Block/weatherdotcom.php:133
+#
+#: templates/sidebar/_container.html.php:30
+msgid "No items to display"
+msgstr "Sense tasques visibles"
+
+#: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
 msgstr "No s'ha definit una ubicació."
 
-#: lib/Block/weatherdotcom.php:172
-msgid "No location provided."
-msgstr "No s'ha facilitat una ubicació."
-
-#: lib/Block/fortune.php:101
+#: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
 msgstr "No es permeten les dites ofensives."
 
@@ -2282,79 +2186,104 @@ msgstr "No es permeten les dites ofensives."
 msgid "No pending signups."
 msgstr "No hi ha altes pendents."
 
-#: admin/config/index.php:89 admin/config/index.php:121
-msgid "No stable version exists yet."
+#: lib/Application.php:344
+msgid "No push while roaming"
+msgstr "No actualitzar mentre s'estigui en itinerància"
+
+#
+#: services/resetpassword.php:54
+msgid "No security question has been set. Please contact your administrator."
 msgstr ""
+"S'ha reiniciat la teva contrasenya, revisa el correu electrònic i inicia la "
+"sessió amb la nova contrasenya."
 
-#: lib/Block/weatherdotcom.php:143
-msgid "No temporary directory available for cache."
-msgstr "No es disposa de cap directori temporal per a la memòria cau."
+#: admin/config/index.php:168 admin/config/index.php:212
+#: admin/config/index.php:345 admin/config/index.php:371
+msgid "No stable version exists yet."
+msgstr "Existeix una nova versió (%s)."
 
-#: admin/signup_confirm.php:57
-#, fuzzy
+#: admin/signup_confirm.php:59
 msgid "No username specified."
-msgstr "No s'ha especificat un nom."
+msgstr "No s'ha especificat un nom d'usuari."
 
-#: admin/config/index.php:140
+#: admin/config/index.php:235
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
 "No s'ha trobat la versió en la configuració original. Regenereu la "
 "configuració."
 
-#: admin/config/index.php:148
+#: admin/config/index.php:244
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
 "No s'ha trobat la versió en la configuració. Regenereu la configuració."
 
-#: lib/Prefs/Ui.php:411 templates/prefs/activesync.html:43
-#: templates/prefs/identityselect.html:20 templates/prefs/syncml.html:34
+#
+#: admin/config/index.php:296
+msgid "NoSQL indices are ready."
+msgstr "Icones de %s"
+
+#: admin/config/index.php:291
+#, php-format
+msgid "NoSQL indices for %s"
+msgstr "Icones de %s"
+
+#
+#: admin/config/index.php:293
+msgid "NoSQL indices out of date."
+msgstr "La configuració no està actualitzada."
+
+#: templates/activesync/device_table.html.php:23
+#: templates/admin/activesync.html.php:28
+#: templates/prefs/activesync.html.php:30 templates/prefs/syncml.html.php:34
 msgid "None"
 msgstr "Cap"
 
-#: config/nls.php:181
+#: config/nls.php:182
 msgid "Nordic (ISO-8859-10)"
 msgstr "Nòrdic (ISO-8859-10)"
 
-#: lib/Block/moon.php:30 lib/Block/moon.php:58
+#: lib/Block/Moon.php:31 lib/Block/Moon.php:59
 msgid "Northern Hemisphere"
 msgstr "Hemisferi nord"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:426
-#, fuzzy
+#: templates/activesync/device_table.html.php:18
 msgid "Not Provisioned"
-msgstr "Edita permís"
+msgstr "No s'ha proveit"
 
-#: config/registry.php.dist:211
+#: config/registry.php:169
 msgid "Notes"
 msgstr "Notes"
 
-#: services/obrowser/index.php:32
+#: services/obrowser/index.php:36
 msgid "Nothing to browse, go back."
 msgstr "No hi ha res a visualitzar, retrocediu."
 
-#: lib/Block/feed.php:18
-#, fuzzy
+#: lib/Block/Feed.php:31
 msgid "Number of articles to display"
-msgstr "Nombre de caràcters"
+msgstr "Nombre d'articles per mostrar"
 
-#: lib/Block/twitter_timeline.php:91
+#: lib/Block/TwitterTimeline.php:69
 msgid "Number of seconds to wait to refresh"
-msgstr ""
+msgstr "Nombre de segons fins refrescar"
 
-#: services/keyboard.php:92
-#, fuzzy
-msgid "O characters"
-msgstr "Nombre de caràcters"
+#: templates/admin/activesync.html.php:17
+msgid "OS"
+msgstr "SO"
 
-#: templates/shares/edit.inc:129
+#
+#: templates/services/obrowser.html.php:5
+msgid "Object Browser"
+msgstr "Creador de l'objecte"
+
+#: templates/shares/edit.inc:133
 msgid "Object Creator"
 msgstr "Creador de l'objecte"
 
-#: lib/Block/fortune.php:99
+#: lib/Block/Fortune.php:98
 msgid "Offense filter"
 msgstr "Filtre d'infraccions"
 
-#: config/registry.php.dist:301
+#: config/registry.php:266
 msgid "Office"
 msgstr "Oficina"
 
@@ -2362,7 +2291,7 @@ msgstr "Oficina"
 msgid "Old and new passwords must be different."
 msgstr "La contrasenya antiga i la nova han de ser diferents."
 
-#: services/changepassword.php:28
+#: services/changepassword.php:30
 msgid "Old password"
 msgstr "Contrasenya antiga"
 
@@ -2370,11 +2299,11 @@ msgstr "Contrasenya antiga"
 msgid "Old password is not correct."
 msgstr "La contrasenya antiga no és correcta."
 
-#: lib/Block/fortune.php:102
+#: lib/Block/Fortune.php:102
 msgid "Only offensive fortunes"
 msgstr "Només missatges ofensius"
 
-#: services/shares/edit.php:83
+#: services/shares/edit.php:91
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -2382,140 +2311,82 @@ msgstr ""
 "Només el propietari o l'administrador de sistemes pot canviar la propietat o "
 "els permisos del propietari per a recursos compartits"
 
-#: lib/Block/fortune.php:60
+#: lib/Block/Fortune.php:60
 msgid "Operating System"
 msgstr "Sistema operatiu"
 
-#: templates/shares/edit.inc:236
-#, fuzzy
+#: templates/shares/edit.inc:240
 msgid "Or enter a user name:"
-msgstr "Tria un nom d'usuari"
+msgstr "O introdueix un nom d'usuari:"
 
-#: config/registry.php.dist:135
-msgid "Organizing"
-msgstr "S'està organitzant"
-
-#: services/keyboard.php:124
-msgid "Other"
-msgstr "Altre"
-
-#: config/prefs.php.dist:467 config/prefs.php.dist:582
-#: config/prefs.php.dist:603 config/prefs.php.dist:624
-#: config/prefs.php.dist:643 config/prefs.php.dist:663
-#: config/prefs.php.dist:675
+#: config/prefs.local.20150127.php:539 config/prefs.local.20150127.php:642
+#: config/prefs.local.20150127.php:668 config/prefs.local.20150127.php:694
+#: config/prefs.local.20150127.php:720 config/prefs.local.20150127.php:739
+#: config/prefs.php:535 config/prefs.php:638 config/prefs.php:664
+#: config/prefs.php:690 config/prefs.php:716 config/prefs.php:735
 msgid "Other Information"
 msgstr "Altra informació"
 
-#: services/keyboard.php:122
-#, fuzzy
-msgid "Other characters"
-msgstr "Nombre de caràcters"
+#: templates/login/smartmobile.html.php:18
+msgid "Other Options"
+msgstr "Altres opcions"
 
-#: templates/shares/edit.inc:30
-#, fuzzy
+#
+#: config/registry.php:180
+msgid "Others"
+msgstr "Altre"
+
+#: templates/shares/edit.inc:34
 msgid "Owner"
-msgstr "List-Owner"
+msgstr "Propietari"
 
-#: templates/shares/edit.inc:36 templates/shares/edit.inc:45
-#, fuzzy
+#: templates/shares/edit.inc:40 templates/shares/edit.inc:49
 msgid "Owner:"
-msgstr "List-Owner"
+msgstr "Propietari:"
 
-#: admin/phpshell.php:51
+#: templates/admin/phpshell.html.php:15
 msgid "PHP"
-msgstr ""
+msgstr "PHP"
 
-#: admin/phpshell.php:71
+#: templates/admin/phpshell.html.php:27
 msgid "PHP Code"
 msgstr "Codi PHP"
 
-#: admin/phpshell.php:32
+#: admin/phpshell.php:38
 msgid "PHP Shell"
 msgstr "Intèrpret d'ordres PHP"
 
-#: lib/Block/weatherdotcom_strings.php:54
-#, fuzzy
-msgid "PM Clouds"
-msgstr "Núvols al matí"
+#: lib/Application.php:307
+msgid "POP/IMAP Email accounts"
+msgstr "Comptes de correu POP/IMAP"
 
-#: lib/Block/weatherdotcom_strings.php:55
-#, fuzzy
-msgid "PM Drizzle"
-msgstr "Plugim feble"
-
-#: lib/Block/weatherdotcom_strings.php:56
-#, fuzzy
-msgid "PM Fog"
-msgstr "Boira"
-
-#: lib/Block/weatherdotcom_strings.php:57
-msgid "PM Light Rain"
-msgstr "Plugims de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:58
-#, fuzzy
-msgid "PM Light Snow"
-msgstr "Volves de neu febles"
-
-#: lib/Block/weatherdotcom_strings.php:59
-msgid "PM Rain"
-msgstr "PM pluja"
-
-#: lib/Block/weatherdotcom_strings.php:60
-msgid "PM Showers"
-msgstr "Pluges de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:61
-msgid "PM Snow"
-msgstr "Nevades de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:62
-msgid "PM Snow Showers"
-msgstr "Xàfecs de neu a la tarda"
-
-#: lib/Block/weatherdotcom_strings.php:63
-msgid "PM Sun"
-msgstr "Sol de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:64
-#, fuzzy
-msgid "PM T-Showers"
-msgstr "Pluges de tarda"
-
-#: lib/Block/weatherdotcom_strings.php:65
-msgid "PM T-Storms"
-msgstr "Tempestes de tarda"
-
-#: lib/Block/account.php:287
+#: lib/Block/Account/Localhost.php:53
 msgid "POSIX extension is missing"
 msgstr "No es troba l'extensió POSIX."
 
-#: lib/Api.php:62
+#: lib/Api.php:75
 msgid "P_HP Shell"
 msgstr "Intèrpret d'ordres P_HP"
 
-#: lib/Block/weatherdotcom_strings.php:53
-msgid "Partly Cloudy"
-msgstr "Parcialment ennuvolat"
-
-#: admin/config/index.php:192 admin/user.php:35 admin/user.php:49 login.php:81
-#: templates/admin/user/update.inc:20 config/registry.php.dist:355
+#: login.php:211 admin/config/index.php:421 admin/user.php:39
+#: admin/user.php:53 config/registry.php:327
+#: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Contrasenya"
 
-#: services/changepassword.php:52
+#: lib/Application.php:242
+msgid "Password Complexity"
+msgstr "Complexitat de la contrasenya"
+
+#: services/changepassword.php:47
 msgid "Password changed successfully."
 msgstr "La contrasenya s'ha canviat amb èxit."
 
-#: lib/Prefs/Ui.php:326
-msgid "Password:"
-msgstr "Contrasenya:"
-
-#: admin/user.php:168 admin/user.php:220
+#: admin/user.php:175 admin/user.php:235
 msgid "Passwords must match."
 msgstr "Les contrasenyes han de coincidir."
 
-#: admin/sqlshell.php:100
+#: templates/admin/sqlshell.html.php:43
 msgid "Paste"
 msgstr "Enganxar"
 
@@ -2523,707 +2394,629 @@ msgstr "Enganxar"
 msgid "Pending Signups:"
 msgstr "Altes pendents:"
 
-#: lib/Block/fortune.php:61
+#: lib/Block/Fortune.php:61
 msgid "People"
 msgstr "Gent"
 
-#: templates/logintasks/logintasks.html:30
-#, fuzzy
+#: templates/logintasks/logintasks.html.php:24
 msgid "Perform Login Tasks"
-msgstr "Tasques d'inici de sessió"
+msgstr "Executa Tasques d'Autenticació"
 
-#: admin/perms/delete.php:42
+#: admin/perms/delete.php:48
 #, php-format
 msgid "Permission \"%s\" not deleted."
 msgstr "Permís \"%s\" no eliminat."
 
-#: admin/perms/index.php:23
-#, fuzzy
+#
+#: admin/perms/index.php:29
 msgid "Permissions"
 msgstr "Permisos"
 
-#: admin/perms/addchild.php:51 admin/perms/delete.php:46
-#: admin/perms/edit.php:110 admin/perms/index.php:17
+#: admin/perms/addchild.php:58 admin/perms/delete.php:53
+#: admin/perms/edit.php:150 admin/perms/index.php:23
 msgid "Permissions Administration"
 msgstr "Administrador de permisos"
 
-#: config/prefs.php.dist:213
+#: config/prefs.local.20150127.php:263 config/prefs.php:263
 msgid "Personal Information"
 msgstr "Dades personals"
 
-#: lib/Block/fortune.php:62
+#: lib/Block/Fortune.php:62
 msgid "Pets"
 msgstr "Animals de companyia"
 
-#: config/registry.php.dist:385
+#
+#: templates/admin/activesync.html.php:19
+msgid "Phone Number"
+msgstr "Novembre"
+
+#: config/registry.php:197
 msgid "Photos"
 msgstr "Fotos"
 
-#: lib/Block/fortune.php:63
+#: lib/Block/Fortune.php:63
 msgid "Platitudes"
 msgstr "Tòpics"
 
-#: login.php:87
-#, fuzzy
+#: login.php:217
 msgid "Please enter a password."
-msgstr "Introduïu una hora vàlida."
+msgstr "Si us plau introdueix la contrasenya."
 
-#: login.php:86
-#, fuzzy
+#: login.php:216
 msgid "Please enter a username."
-msgstr "Introduïu una hora vàlida."
+msgstr "Si us plau introdueix un nom d'usuari."
 
-#: templates/problem/problem.inc:7
+#: services/problem.php:156
 msgid "Please provide a summary of the problem."
 msgstr "Proporcioneu un resum del problema."
 
-#: services/logintasks.php:73
+#: services/logintasks.php:82
 msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
 "Llegeixi el text següent. Ha d'acceptar els termes si vol usar el sistema.  "
 
-#: services/facebook.php:67
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:61
 msgid "Pokes:"
-msgstr "Animals de companyia"
+msgstr "Tocs:"
 
-#: admin/activesync.php:105
-#, fuzzy
-msgid "Policy Key"
-msgstr "Clau pública"
-
-#: lib/Prefs/Ui.php:432
-#, fuzzy
-msgid "Policy Key:"
-msgstr "Clau pública"
-
-#: lib/Block/fortune.php:64
+#: lib/Block/Fortune.php:64
 msgid "Politics"
 msgstr "Política"
 
-#: services/facebook.php:101
+#: config/prefs.local.20150127.php:755 config/prefs.php:751
+msgid ""
+"Position of reply text when replying to email on your device. Note that some "
+"devices will always send the citation string at the end of the reply text."
+msgstr ""
+"Posició del text de resposta quan es respon a un correu electrònic al "
+"dispositiu. Tingueu en compte que alguns dispositius poden enviar la cita "
+"del missatge original al final del text de resposta."
+
+#: lib/Block/FbStream.php:143
+msgid "Post"
+msgstr "Enviar"
+
+#: lib/Ajax/Application/FacebookHandler.php:177
 #, php-format
 msgid "Posted %s"
-msgstr ""
+msgstr "Publicat %s"
 
 #: templates/block/twitter_tweet.html.php:26
-#, fuzzy, php-format
+#, php-format
 msgid "Posted %s via %s"
-msgstr "%d %s i %s"
+msgstr "Publicat %s via %s"
 
-#: themes/postnuke/info.php:2
-#, fuzzy
-msgid "Postnuke"
-msgstr "Continuar"
-
-#: lib/Block/metar.php:261 lib/Block/metar.php:266
-#, fuzzy, php-format
+#: lib/Block/Metar.php:240 lib/Block/Metar.php:245
+#, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
-msgstr[0] "Precipitació durant la darrera %s hora o hores: "
-msgstr[1] "Precipitació durant la darrera %s hora o hores: "
+msgstr[0] "Precipitació durant la darrera %d hora: "
+msgstr[1] "Precipitació durant les darreres %d hores: "
 
-#: lib/Block/weatherdotcom.php:301
-msgid "Precipitation<br />chance"
-msgstr "Probabilitat<br />de precipitació"
+#: lib/Block/Weather.php:269
+#, php-format
+msgid "Precipitation%schance"
+msgstr "Probabilitat%sde precipitació"
 
-#: lib/Block/metar.php:220
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:206
 msgid "Pressure"
 msgstr "Pressió"
 
-#: lib/Block/metar.php:254
+#: lib/Block/Metar.php:233
 msgid "Pressure at sea level: "
 msgstr "Pressió al nivell del mar:"
 
-#: lib/Block/weatherdotcom.php:239
-msgid "Pressure: "
-msgstr "Pressió: "
+#: templates/admin/locks/list.html.php:11
+msgid "Principal"
+msgstr "Director"
 
-#: services/problem.php:145
+#: services/problem.php:161
 msgid "Problem Description"
 msgstr "Descripció del problema"
 
-#: admin/activesync.php:171 lib/Prefs/Ui.php:425
-#, fuzzy
+#: templates/activesync/device_table.html.php:18
 msgid "Provisioned"
-msgstr "Permís"
+msgstr "Provist"
 
-#: templates/prefs/facebook.html:21
+#
+#: lib/Application.php:221
+msgid "Provisioning"
+msgstr "Provist"
+
+#: templates/prefs/facebook.html.php:16
 msgid "Publish enabled."
-msgstr ""
+msgstr "Publicació activada."
 
-#: themes/purple/info.php:2
-msgid "Purple Horde"
-msgstr ""
-
-#: admin/sqlshell.php:50
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "Consulta"
 
-#: lib/Block/account.php:83
-#, fuzzy
+#: lib/Block/Account.php:79
 msgid "Quota"
-msgstr "Qatar"
+msgstr "Quota"
 
-#: lib/Block/weatherdotcom_strings.php:66
-msgid "Rain"
-msgstr "Pluja"
-
-#: lib/Block/weatherdotcom_strings.php:67
-msgid "Rain Early"
-msgstr "Pluja a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:68
-msgid "Rain Late"
-msgstr "Pluja cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:69
-msgid "Rain Shower"
-msgstr "Ruixat"
-
-#: lib/Block/weatherdotcom_strings.php:70
-msgid "Rain and Snow"
-msgstr "Pluja i new"
-
-#: lib/Block/weatherdotcom_strings.php:71
-msgid "Rain to Snow"
-msgstr "Aiguaneu"
-
-#: lib/Block/fortune.php:6
+#: lib/Block/Fortune.php:18
 msgid "Random Fortune"
 msgstr "Dita aleatòria"
 
-#: templates/shares/edit.inc:61 templates/shares/edit.inc:75
-#: templates/shares/edit.inc:96 templates/shares/edit.inc:110
-#: templates/shares/edit.inc:132 templates/shares/edit.inc:146
-#: templates/shares/edit.inc:167 templates/shares/edit.inc:185
-#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
-#: templates/shares/edit.inc:269 templates/shares/edit.inc:283
-#: templates/shares/edit.inc:312
+#: templates/shares/edit.inc:65 templates/shares/edit.inc:79
+#: templates/shares/edit.inc:100 templates/shares/edit.inc:114
+#: templates/shares/edit.inc:136 templates/shares/edit.inc:150
+#: templates/shares/edit.inc:171 templates/shares/edit.inc:189
+#: templates/shares/edit.inc:224 templates/shares/edit.inc:251
+#: templates/shares/edit.inc:273 templates/shares/edit.inc:292
+#: templates/shares/edit.inc:321
 msgid "Read"
 msgstr "Llegiu"
 
-#: templates/prefs/facebook.html:33
-#, fuzzy
-msgid "Read enabled"
-msgstr "Llegiu els missatges"
+#
+#: templates/prefs/facebook.html.php:30
+msgid "Read enabled."
+msgstr "Lectura activada"
 
-#: templates/admin/user/remove.inc:8
-#, fuzzy, php-format
+#: templates/admin/user/remove.inc:11
+#, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
-msgstr "Confirmeu que voleu suprimir %s? Aquesta operació no es pot desfer."
+msgstr ""
+"Confirmeu que voleu suprimir \"%s\"? Aquesta operació no es pot desfer."
 
-#: templates/admin/user/clear.inc:8
-#, fuzzy, php-format
+#: templates/admin/user/clear.inc:10
+#, php-format
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Confirmeu que voleu suprimir les dades de l'usuari per a l'usuari %s? "
+"Confirmeu que voleu suprimir les dades de l'usuari per a l'usuari \"%s\"? "
 "Aquesta operació no es pot desfer."
 
-#: config/prefs.php.dist:562
+#: config/prefs.local.20150127.php:621 config/prefs.php:617
 msgid "Refresh Dynamic Menu Elements:"
 msgstr "Refrescar els elements del menú dinàmics"
 
-#: config/prefs.php.dist:523
+#: config/prefs.local.20150127.php:602 config/prefs.php:598
 msgid "Refresh Portal View:"
 msgstr "Refrescar la visualització del portal"
 
 #: templates/portal/layout.inc:94
-#, fuzzy
 msgid "Refresh rate:"
-msgstr "Refrescar la visualització del portal"
+msgstr "Quota de refresc"
 
-#: admin/activesync.php:134
-msgid "Registered User Devices"
-msgstr ""
+#
+#: templates/portal/smartmobile.inc:22
+msgid "Regular Apps"
+msgstr "Expressió regular"
 
-#: lib/Block/metar.php:321
+#: lib/Block/Metar.php:300
 msgid "Remarks"
 msgstr "Comentaris"
 
-#: admin/sessions.php:39 admin/sessions.php:50
-#, fuzzy
-msgid "Remote Host:"
-msgstr "Suprimir el"
+#
+#: templates/admin/sessions.html.php:10
+msgid "Remote Host"
+msgstr "Host Remot:"
 
-#: config/prefs.php.dist:583
-msgid "Remote Servers"
-msgstr "Servidors remots"
-
-#: lib/Prefs/Ui.php:324
-msgid "Remote URL (http://www.example.com/horde):"
-msgstr "URL remot (https://vader.upc.es/horde):"
-
-#: admin/activesync.php:185 templates/admin/groups/edit.inc:23
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: templates/activesync/device_table.html.php:38
+#: templates/admin/groups/edit.inc:25 templates/admin/user/approve.inc:41
+#: templates/admin/user/removequeued.inc:13
 msgid "Remove"
-msgstr "Suprimir"
+msgstr "Suprimeix"
 
-#: templates/data/csvmap.inc:118
+#: templates/data/csvmap.inc:119
 msgid "Remove pair"
-msgstr "Suprimir la parella"
+msgstr "Suprimeix la parella"
 
-#: admin/config/index.php:211
+#: admin/config/index.php:440
 msgid "Remove saved script from server's temporary directory."
-msgstr "Suprimir la seqüència desada del directori temporal del servidor."
+msgstr "Suprimeix la seqüència desada del directori temporal del servidor."
 
-#: templates/admin/user/remove.inc:11
+#: templates/admin/user/remove.inc:14
 msgid "Remove user"
-msgstr "Suprimir l'usuari"
+msgstr "Suprimeix l'usuari"
 
-#: templates/admin/user/remove.inc:5
+#: templates/admin/user/remove.inc:8
 #, php-format
 msgid "Remove user: %s"
-msgstr "Suprimir l'usuari: %s"
+msgstr "Suprimeix l'usuari: %s"
 
 #: templates/block/twitter_tweet.html.php:34
-#, fuzzy
 msgid "Reply"
-msgstr "Nepal"
+msgstr "Contesta"
 
-#: admin/activesync.php:138
-#, fuzzy
-msgid "Reprovision All Devices"
-msgstr "Permis denegat"
+#
+#: lib/Application.php:232
+msgid "Require PIN"
+msgstr "Sol·licitat"
 
-#: lib/Block/weatherdotcom.php:160
-msgid "Requested service could not be found."
-msgstr "No s'ha trobat el servei sol·licitat."
+#
+#: lib/Application.php:315
+msgid "Require S/MIME Encryption"
+msgstr "Controleu el suport de S/MIME per a %s."
 
-#: admin/user.php:22 templates/admin/user/update.inc:54
+#
+#: lib/Application.php:319
+msgid "Require S/MIME Signature"
+msgstr "Missatge signat amb S/MIME"
+
+#: admin/user.php:27 templates/admin/user/update.inc:64
 #: templates/prefs/rpc.html:36
 msgid "Reset"
 msgstr "Reinicia"
 
-#: services/resetpassword.php:45
+#: services/resetpassword.php:49
 msgid "Reset Password"
 msgstr "Reiniciar la contrasenya"
 
-#: services/resetpassword.php:23
-msgid "Reset Your Password"
+#: templates/admin/activesync.html.php:32
+#: templates/prefs/activesync.html.php:15
+msgid "Reset all device state"
+msgstr "Netejar l'estat del dispositiu"
+
+#
+#: services/resetpassword.php:27
+msgid "Reset your password"
 msgstr "Reiniciar la contrasenya"
 
-#: templates/prefs/activesync.html:6
-msgid ""
-"Reset all device state. This will cause your devices to resyncronize all "
-"items."
-msgstr ""
-
-#: admin/sqlshell.php:111
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "Recupera la darrera consulta"
 
-#: admin/cmdshell.php:23 admin/phpshell.php:74 admin/sqlshell.php:53
+#: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "Resultats"
 
-#: services/portal/cloud_search.php:30
-#, fuzzy, php-format
+#: services/portal/cloud_search.php:37
+#, php-format
 msgid "Results for %s"
-msgstr "Resultats"
-
-#: templates/prefs/end.html:7
-#, fuzzy
-msgid "Return to Main Screen"
-msgstr "Torna a opcions"
+msgstr "Resultats sobre %s"
 
 #: templates/block/twitter_tweet.html.php:35
-#, fuzzy
 msgid "Retweet"
-msgstr "Reinicia"
+msgstr "Repiula"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Repiulat per %s"
 
-#: services/changepassword.php:30
+#: services/changepassword.php:32
 msgid "Retype new password"
 msgstr "Reescribir contrasenya nova "
 
-#: admin/config/config.php:33 admin/config/config.php:37
+#: admin/config/config.php:38 admin/config/config.php:47
 msgid "Revert Configuration"
 msgstr "Restaurar la configuració"
 
-#: lib/Block/fortune.php:65
+#: lib/Block/Fortune.php:65
 msgid "Riddles"
 msgstr "Enigmes"
 
-#: admin/sqlshell.php:101
+#: templates/admin/sqlshell.html.php:44
 msgid "Run"
 msgstr "Executar"
 
-#: admin/sqlshell.php:14
+#
+#: templates/logintasks/smartmobile.html.php:29
+msgid "Run Login Tasks"
+msgstr "Evita les Tasques d'Accés"
+
+#: lib/Application.php:287
+msgid "SD card"
+msgstr "Targeta SD"
+
+#
+#: lib/Application.php:280
+msgid "SD card encryption"
+msgstr "Sense xifratge"
+
+#
+#: lib/Application.php:295
+msgid "SMS Text messages"
+msgstr "Missatges contestats"
+
+#
+#: admin/config/index.php:278 admin/config/index.php:331
+msgid "SQL DB schema is out of date."
+msgstr "La configuració no està actualitzada."
+
+#
+#: admin/config/index.php:283 admin/config/index.php:336
+msgid "SQL DB schema is ready."
+msgstr "La configuració està actualitzada."
+
+#: admin/sqlshell.php:23
 msgid "SQL Shell"
 msgstr "Intèrpret d'ordres SQL"
 
-#: config/registry.php.dist:363
-msgid "SSH"
-msgstr "SSH"
-
-#: lib/Api.php:67
+#: lib/Api.php:80
 msgid "S_QL Shell"
 msgstr "Intèrpret d'ordres SQL"
 
-#: templates/portal/layout.inc:115 templates/prefs/end.html:3
+#: templates/portal/layout.inc:115 templates/prefs/end.html:4
 msgid "Save"
 msgstr "Desa"
 
-#: templates/admin/groups/edit.inc:63 templates/shares/edit.inc:330
+#: templates/admin/groups/edit.inc:71 templates/shares/edit.inc:336
 #, php-format
 msgid "Save \"%s\""
 msgstr "Desa \"%s\""
 
-#: templates/shares/edit.inc:331
-#, fuzzy
+#: templates/shares/edit.inc:337
 msgid "Save and Finish"
-msgstr "Sao Tomé i Príncipe"
+msgstr "Desa i Acaba"
 
-#: admin/config/index.php:183
+#: admin/config/index.php:408
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
 msgstr ""
-"Deseu la configuració generada com una seqüència PHP en el directori "
-"temporal del servidor."
+"Desa la configuració generada com una seqüència PHP en el directori temporal "
+"del servidor."
 
 #: admin/config/scripts.php:92
-#, fuzzy, php-format
+#, php-format
 msgid "Saved configuration upgrade script to: \"%s\"."
 msgstr "S'ha desat la seqüència actualitzada de configuració a: \"%s\"."
 
-#: lib/Block/weatherdotcom_strings.php:72
-#, fuzzy
-msgid "Scattered Showers"
-msgstr "Tempestes disperses"
-
-#: lib/Block/weatherdotcom_strings.php:73
-msgid "Scattered T-Storms"
-msgstr "Tempestes disperses"
-
-#: lib/Block/fortune.php:66
+#: lib/Block/Fortune.php:66
 msgid "Science"
 msgstr "Ciència"
 
-#: services/help/index.php:71
-#, fuzzy
+#: templates/admin/locks/list.html.php:10
+msgid "Scope"
+msgstr "Àmbit"
+
+#
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "Cerca"
 
-#: services/help/index.php:134 templates/admin/user/list.inc:16
+#: lib/View/Topbar.php:59 services/help/index.php:156
+#: templates/admin/activesync.html.php:22 templates/admin/user/list.inc:14
 msgid "Search"
 msgstr "Cerca"
 
-#: templates/admin/user/list.inc:14
-#, fuzzy
+#: templates/admin/activesync.html.php:7 templates/admin/user/list.inc:12
 msgid "Search:"
-msgstr "Cerca"
+msgstr "Cerca:"
 
-#: templates/shares/edit.inc:298 templates/shares/edit.inc:300
-#, fuzzy
+#: lib/Application.php:253
+msgid "Seconds of inactivity before device should lock"
+msgstr "Segons d'inactivitat abans que el dispositiu hagi de bloquejar-se"
+
+#: templates/shares/edit.inc:307 templates/shares/edit.inc:309
 msgid "Select a group to add:"
-msgstr "Seleccionar un grup que vulgueu afegir"
+msgstr "Selecciona un grup i afegeix-lo:"
 
-#: templates/shares/edit.inc:38
-#, fuzzy
+#: templates/shares/edit.inc:42
 msgid "Select a new owner:"
-msgstr "Seleccioneu un nou propietari"
+msgstr "Selecciona un nou propietari"
 
 #: templates/prefs/rpc.html:4
 msgid "Select a server"
-msgstr "Seleccioneu un servidor"
+msgstr "Selecciona un servidor"
 
-#: templates/shares/edit.inc:202 templates/shares/edit.inc:204
-#, fuzzy
+#: templates/shares/edit.inc:206 templates/shares/edit.inc:208
 msgid "Select a user to add:"
-msgstr "Seleccioneu un usuari que vulgueu afegir"
+msgstr "Selecciona un usuari per afegir:"
 
 #: templates/prefs/addressbooks.html:5
 msgid "Select all fields to search when expanding addresses."
-msgstr ""
-
-#: services/keyboard.php:38
-msgid ""
-"Select the characters you need from the boxes below. You can then copy and "
-"paste them from the text area."
-msgstr ""
-"Seleccioneu els caràcters que necessiteu de les caselles de sota. Podeu "
-"copiar-los i enganxar-los de l'àrea de text."
+msgstr "Selecciona els camps per cercar quan ampliis adreces."
 
 #: templates/data/datetime.inc:57
-#, fuzzy
 msgid "Select the date and time format:"
-msgstr "Seleccionar el format de la data:"
+msgstr "Selecciona el format de la data:"
 
 #: templates/data/date.inc:34 templates/data/datetime.inc:76
 msgid "Select the date delimiter:"
-msgstr "Seleccionar el delimitador de la data:"
+msgstr "Selecciona el delimitador de la data:"
 
 #: templates/data/date.inc:44 templates/data/datetime.inc:86
 msgid "Select the date format:"
-msgstr "Seleccionar el format de la data:"
+msgstr "Selecciona el format de la data:"
 
 #: templates/data/datetime.inc:66
-#, fuzzy
 msgid "Select the day and time order:"
-msgstr "Seleccionar el format de la data:"
+msgstr "Selecciona el format de la data:"
+
+#: templates/prefs/identityselect.html:15
+msgid "Select the identity you want to change"
+msgstr "Selecciona la identitat que vols canviar"
 
 #: templates/data/datetime.inc:97 templates/data/time.inc:16
 msgid "Select the time delimiter:"
-msgstr "Seleccionar el delimitador de l'hora:"
+msgstr "Selecciona el delimitador de l'hora:"
 
 #: templates/data/datetime.inc:106 templates/data/time.inc:25
 msgid "Select the time format:"
-msgstr "Seleccionar el format de l'hora:"
+msgstr "Selecciona el format de l'hora:"
 
-#: config/prefs.php.dist:509
+#: config/prefs.local.20150127.php:588 config/prefs.php:584
 msgid "Select your color scheme."
-msgstr "Seleccionar la combinació de colors."
+msgstr "Selecciona la combinació de colors."
 
-#: config/prefs.php.dist:328
+#: config/prefs.local.20150127.php:384 config/prefs.php:380
 msgid "Select your preferred language:"
-msgstr "Seleccionar l'idioma preferit:"
+msgstr "Selecciona l'idioma preferit:"
 
-#: templates/problem/problem.inc:57
+#: templates/problem/problem.inc:36
 msgid "Send Problem Report"
 msgstr "Enviar l'informe dels problemes"
 
-#: lib/Block/metar.php:311
+#: lib/Block/Metar.php:290
 msgid "Sensor: "
 msgstr "Sensor: "
 
-#: templates/prefs/syncml.html:12
-#, fuzzy
+#
+#: lib/Prefs/Special/Activesync.php:68
+msgid "Server Id"
+msgstr "Servidor"
+
+#: templates/prefs/syncml.html.php:12
 msgid "Server Time"
-msgstr "Hora de lliurament"
+msgstr "Hora del servidor"
 
-#: lib/Block/weatherdotcom.php:164
-msgid "Server data wrong or not available."
-msgstr "Les dades del servidor són incorrectes o no estan disponibles."
+#
+#: admin/sessions.php:67
+msgid "Session Administration"
+msgstr "Administrador de permisos"
 
-#: admin/sessions.php:14
-msgid "Session Admin"
-msgstr "Administració de sessió"
+#
+#: templates/admin/sessions.html.php:8
+msgid "Session Timestamp"
+msgstr "Marca de Temps de la Sessió:"
 
-#: admin/sessions.php:37
-#, fuzzy
-msgid "Session Timestamp:"
-msgstr "Sessions"
-
-#: lib/Api.php:57
-#, fuzzy
+#
+#: lib/Api.php:70
 msgid "Sessions"
 msgstr "Sessions"
 
-#: config/prefs.php.dist:277
-#, fuzzy
+#: config/prefs.local.20150127.php:331 config/prefs.php:327
 msgid ""
 "Set preferences to allow you to reset your password if you ever forget it."
 msgstr ""
-"Defineix les opcions que us permeten reiniciar la contrasenya si mai "
-"l'oblideu."
+"Defineix les opcions que et  permeten reiniciar la contrasenya si mai "
+"l'oblides."
 
-#: config/prefs.php.dist:605
+#: config/prefs.local.20150127.php:644 config/prefs.php:640
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Defineix la integració amb el compte de Facebook"
 
-#: config/prefs.php.dist:626
+#: config/prefs.local.20150127.php:670 config/prefs.php:666
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Defineix la integració amb el compte de Twitter."
 
-#: config/prefs.php.dist:584
-msgid "Set up remote servers that you want to access from your portal."
-msgstr "Definiu els servidors remots a què voleu accedir des del portal."
-
-#: config/prefs.php.dist:314
-#, fuzzy
+#: config/prefs.local.20150127.php:372 config/prefs.php:368
 msgid "Set your preferred language, timezone and date preferences."
-msgstr ""
-"Definiu el vostre idioma preferit, la zona horària i les opcions de data."
+msgstr "Defineix l'idioma preferit, la zona horària i les opcions de data."
 
-#: config/prefs.php.dist:469
-#, fuzzy
+#: config/prefs.local.20150127.php:541 config/prefs.php:537
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
-"Definiu l'aplicació d'inici, la combinació de colors, el refrescament de les "
-"pàgines i altres opcions de visualització."
+"Defineix l'aplicació d'inici, la combinació de colors, el refrescament de "
+"les pàgines i altres opcions de visualització."
 
-#: lib/Block/weatherdotcom.php:190
-msgid "Several locations possible with the parameter: "
-msgstr "Hi ha diverses ubicacions possibles amb el paràmetre: "
+#: lib/Block/Weather.php:150
+#, php-format
+msgid "Several locations possible with the parameter: %s"
+msgstr "Hi ha diverses ubicacions possibles amb el paràmetre: %s "
 
-#: templates/problem/problem.inc:38
+#: templates/problem/problem.inc:17
 msgid "Short Summary"
 msgstr "Resum breu"
 
-#: config/prefs.php.dist:570
+#: config/prefs.local.20150127.php:628 config/prefs.php:624
 msgid "Should access keys be defined for most links?"
 msgstr "Voleu definir les claus d'accés per a la major part d'enllaços?"
 
-#: templates/shares/edit.inc:60 templates/shares/edit.inc:71
-#: templates/shares/edit.inc:95 templates/shares/edit.inc:106
-#: templates/shares/edit.inc:131 templates/shares/edit.inc:142
-#: templates/shares/edit.inc:166 templates/shares/edit.inc:181
-#: templates/shares/edit.inc:216 templates/shares/edit.inc:243
-#: templates/shares/edit.inc:268 templates/shares/edit.inc:279
-#: templates/shares/edit.inc:308
+#: templates/shares/edit.inc:64 templates/shares/edit.inc:75
+#: templates/shares/edit.inc:99 templates/shares/edit.inc:110
+#: templates/shares/edit.inc:135 templates/shares/edit.inc:146
+#: templates/shares/edit.inc:170 templates/shares/edit.inc:185
+#: templates/shares/edit.inc:220 templates/shares/edit.inc:247
+#: templates/shares/edit.inc:272 templates/shares/edit.inc:288
+#: templates/shares/edit.inc:317
 msgid "Show"
 msgstr "Mostra"
 
-#: templates/prefs/app.html:21
-#, fuzzy
+#: templates/prefs/app.html:21 templates/prefs/app.orig.html:21
 msgid "Show Advanced Preferences"
-msgstr "mostrar diferències"
+msgstr "Mostra les Preferències Avançades"
 
-#: admin/config/index.php:173
+#
+#: templates/prefs/end.html:8
+msgid "Show All Preferences Groups"
+msgstr "Mostra les Preferències Avançades"
+
+#: admin/config/index.php:390
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
 msgstr "Mostra les diferències entre la configuració desada i la nova."
 
-#: lib/Block/feed.php:24
+#: lib/Block/Feed.php:41
 msgid "Show extra detail?"
-msgstr ""
+msgstr "Vols més detalls?"
 
-#: config/prefs.php.dist:491
+#: config/prefs.local.20150127.php:573 config/prefs.php:569
 msgid "Show last login time when logging in?"
-msgstr "Voleu visualitzar l'hora de la darrera sessió en iniciar?"
+msgstr "Vols visualitzar l'hora de la darrera sessió en iniciar?"
 
-#: lib/Block/fb_stream.php:89
-#, fuzzy
+#: lib/Block/FbStream.php:72
 msgid "Show notifications"
-msgstr "Notificació de recepció"
+msgstr "Mostra les notificacions"
 
-#: config/prefs.php.dist:530
-#, php-format
-msgid "Show the %s Menu on the left?"
-msgstr "Voleu visualitzar el menú %s de l'esquerra?"
-
-#: lib/Block/weatherdotcom_strings.php:74
-msgid "Showers"
-msgstr "Ruixats"
-
-#: lib/Block/weatherdotcom_strings.php:75
-msgid "Showers Early"
-msgstr "Ruixats a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:76
-msgid "Showers Late"
-msgstr "Ruixats cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:77
-msgid "Showers in the Vicinity"
-msgstr "Ruixats a la rodalia"
-
-#: themes/simplex/info.php:2
-msgid "Simplex"
-msgstr ""
-
-#: templates/logintasks/logintasks.html:31
-#, fuzzy
+#: templates/logintasks/logintasks.html.php:25
+#: templates/logintasks/smartmobile.html.php:33
 msgid "Skip Login Tasks"
-msgstr "Tasques d'inici de sessió"
+msgstr "Evita les Tasques d'Accés"
 
-#: lib/Block/iframe.php:26
-#, fuzzy
+#: lib/Block/Iframe.php:35
 msgid "Small"
-msgstr "Somàlia"
+msgstr "Petit"
 
-#: lib/Block/weatherdotcom_strings.php:78
-msgid "Snow"
-msgstr "Nevada"
-
-#: lib/Block/weatherdotcom_strings.php:79
-#, fuzzy
-msgid "Snow Early"
-msgstr "Ruixats a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:80
-#, fuzzy
-msgid "Snow Late"
-msgstr "Ruixats cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:81
-msgid "Snow Shower"
-msgstr "Xàfec de neu"
-
-#: lib/Block/weatherdotcom_strings.php:82
-msgid "Snow Showers"
-msgstr "Xàfecs de neu"
-
-#: lib/Block/weatherdotcom_strings.php:83
-msgid "Snow Showers Early"
-msgstr "Xàfecs de neu a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:84
-msgid "Snow Showers Late"
-msgstr "Xàfecs de neu cap al tard"
-
-#: lib/Block/metar.php:273
+#: lib/Block/Metar.php:252
 msgid "Snow depth: "
 msgstr "Gruix de neu: "
 
-#: lib/Block/metar.php:277
+#: lib/Block/Metar.php:256
 msgid "Snow equivalent in water: "
 msgstr "Equivalent de la neu en aigua: "
 
-#: lib/Block/fortune.php:67
+#: lib/Block/Fortune.php:67
 msgid "Songs & Poems"
 msgstr "Cançons i poemes"
 
-#: config/nls.php:182
+#: config/nls.php:183
 msgid "South European (ISO-8859-3)"
 msgstr "Sud-europeu (ISO-8859-3)"
 
-#: lib/Block/moon.php:31 lib/Block/moon.php:60
+#: lib/Block/Moon.php:32 lib/Block/Moon.php:60
 msgid "Southern Hemisphere"
 msgstr "Hemisferi sud"
 
-#: config/registry.php.dist:102
+#: config/registry.php:106
 msgid "Spam"
 msgstr "Correu brossa"
 
-#: services/keyboard.php:14
-msgid "Special Character Input"
-msgstr "Escriptura de caràcters especials"
-
-#: lib/Block/fortune.php:68
+#: lib/Block/Fortune.php:68
 msgid "Sports"
 msgstr "Esports"
 
-#: lib/Block/metar.php:73 lib/Block/weatherdotcom.php:68
+#: lib/Block/Metar.php:61
 msgid "Standard"
 msgstr "Estàndard"
 
-#: lib/Block/fortune.php:69
+#: lib/Block/Fortune.php:69
 msgid "Star Trek"
 msgstr "Star Trek"
 
-#: templates/prefs/activesync.html:2
-msgid "State Management"
-msgstr ""
+#: templates/admin/locks/list.html.php:13
+msgid "Start Time"
+msgstr "Hora d'inici"
 
-#: admin/activesync.php:112 templates/admin/config/index.html:17
-#: templates/prefs/activesync.html:22
+#: templates/prefs/activesync.html.php:13
+msgid "State Management"
+msgstr "Gestiona l'Estat"
+
+#: templates/activesync/device_table.html.php:6
+#: templates/admin/config/index.html.php:33
 msgid "Status"
 msgstr "Estat"
 
-#: services/facebook.php:144
+#: lib/Ajax/Application/FacebookHandler.php:106
 msgid "Status unable to be set."
-msgstr ""
+msgstr "No és possible d'establir l'estat."
 
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr "Subdirectori \"%s\" no trobat."
+#: templates/block/twitter-layout.html.php:24
+msgid "Stream"
+msgstr "Corrent"
 
-#: signup.php:52
+#: signup.php:55
 #, php-format
 msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
@@ -3232,321 +3025,257 @@ msgstr ""
 "S'ha enviat una sol·licitud d'alta de \"%s\" en el sistema. No podrà iniciar "
 "sessió fins que s'hagi aprovat la sol·licitud. "
 
-#: services/facebook.php:38
-msgid "Succesfully connected your Facebook account."
-msgstr ""
+#
+#: services/facebook/index.php:48
+msgid "Succesfully connected your Facebook account or updated permissions."
+msgstr "Connecta't de forma satisfactòria  al compte de Facebook."
 
-#: admin/sqlshell.php:88
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "Èxit"
 
-#: admin/signup_confirm.php:85 admin/user.php:100
+#: admin/signup_confirm.php:87 admin/user.php:101
 #, php-format
 msgid "Successfully added \"%s\" to the system."
 msgstr "\"%s\" afegit al sistema amb èxit."
 
-#: admin/user.php:138
+#: admin/user.php:147
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
 msgstr "S'han eliminat correctament les dades de l'usuari \"%s\" del sistema. "
 
-#: admin/groups.php:78 admin/perms/delete.php:36
+#: admin/groups.php:63 admin/perms/delete.php:42
 #, php-format
 msgid "Successfully deleted \"%s\"."
 msgstr "\"%s\" Eliminat amb èxit."
 
-#: admin/user.php:118
+#: admin/user.php:124
 #, php-format
 msgid "Successfully removed \"%s\" from the system."
 msgstr "\"%s\" eliminat del sistema amb èxit"
 
-#: admin/config/config.php:40
+#: admin/config/config.php:49
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
 "S'ha restaurat correctament la configuració. Actualitzeu per veure els "
 "canvis."
 
-#: admin/config/index.php:39
+#: admin/config/index.php:44
 msgid "Successfully saved backup configuration."
 msgstr "S'ha desat correctament la configuració de còpia."
 
-#: admin/config/config.php:51
-#, php-format
-msgid "Successfully saved the backup configuration file %s."
-msgstr "S'ha desat correctament l'arxiu de la configuració de còpia %s."
-
-#: admin/user.php:184
+#: admin/user.php:199
 #, php-format
 msgid "Successfully updated \"%s\""
 msgstr "\"%s\" actualitzat correctament"
 
-#: admin/config/config.php:60 admin/config/index.php:47
+#: admin/config/index.php:52
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "S'ha escrit correctament '%s'"
 
-#: lib/Block/sunrise.php:63
+#: lib/Block/Sunrise.php:70
 msgid "Sun Rise"
 msgstr "Sortida del sol"
 
-#: lib/Block/sunrise.php:66
+#: lib/Block/Sunrise.php:73
 msgid "Sun Set"
 msgstr "Posta del sol"
 
-#: config/prefs.php.dist:429
-#, fuzzy
+#: config/prefs.local.20150127.php:503 config/prefs.php:499
 msgid "Sunday"
-msgstr "Sudan"
+msgstr "Diumenge"
 
-#: lib/Block/weatherdotcom_strings.php:85
-msgid "Sunny"
-msgstr "Assolellat"
-
-#: lib/Block/weatherdotcom.php:220
+#: lib/Block/Weather.php:180 lib/Block/Weather.php:181
 msgid "Sunrise"
 msgstr "Sortida del sol"
 
-#: lib/Block/sunrise.php:3 lib/Block/sunrise.php:14
+#: lib/Block/Sunrise.php:13
 msgid "Sunrise/Sunset"
 msgstr "Sortida del sol/Posta del sol"
 
-#: lib/Block/weatherdotcom.php:219
-msgid "Sunrise: "
-msgstr "Sortida del sol: "
-
-#: lib/Block/weatherdotcom.php:223
+#: lib/Block/Weather.php:183 lib/Block/Weather.php:184
 msgid "Sunset"
 msgstr "Posta del sol"
 
-#: lib/Block/weatherdotcom.php:222
-msgid "Sunset: "
-msgstr "Posta del sol:"
+#: lib/Application.php:335
+msgid "Sync all"
+msgstr "Sincronitzar tots"
 
-#: config/prefs.php.dist:664
+#: config/prefs.local.20150127.php:721 config/prefs.php:717
 msgid "SyncML"
-msgstr ""
+msgstr "SyncML"
 
-#: lib/Block/feed.php:3
+#: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr ""
+msgstr "Canal Sindicat"
 
-#: lib/Block/weatherdotcom_strings.php:86
-#, fuzzy
-msgid "T-Showers"
-msgstr "Ruixats"
-
-#: lib/Block/weatherdotcom_strings.php:87
-#, fuzzy
-msgid "T-Showers Early"
-msgstr "Ruixats a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:88
-#, fuzzy
-msgid "T-Showers Late"
-msgstr "Ruixats cap al tard"
-
-#: lib/Block/weatherdotcom_strings.php:89
-msgid "T-Storm"
-msgstr "Tempesta"
-
-#: lib/Block/weatherdotcom_strings.php:90
-msgid "T-Storm and Windy"
-msgstr "Tempesta i ventós"
-
-#: lib/Block/weatherdotcom_strings.php:91
-msgid "T-Storms"
-msgstr "Tempestes"
-
-#: lib/Block/weatherdotcom_strings.php:92
-#, fuzzy
-msgid "T-Storms Early"
-msgstr "Ruixats a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:93
-#, fuzzy
-msgid "T-Storms Late"
-msgstr "Tempestes"
-
-#: lib/Block/cloud.php:3 lib/Block/cloud.php:23
-#, fuzzy
+#: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
-msgstr "Núvols al matí"
+msgstr "Núvol d'etiquetes"
 
-#: themes/tango-blue/info.php:24
-msgid "Tango Blue"
-msgstr ""
-
-#: config/registry.php.dist:184
+#: config/registry.php:155
 msgid "Tasks"
 msgstr "Tasques"
 
-#: themes/gennevilliers/info.php:12
-#, fuzzy
-msgid "Teal"
-msgstr "Nepal"
-
-#: lib/Block/metar.php:285
+#: lib/Block/Metar.php:264
 msgid "Temp for last hour: "
 msgstr "Temperatura durant la darrera hora: "
 
-#: lib/Block/metar.php:209
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:190
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: lib/Block/weatherdotcom.php:227
-msgid "Temperature: "
-msgstr "Temperatura: "
-
-#: lib/Block/weatherdotcom.php:296
+#: lib/Block/Weather.php:261
 #, php-format
-msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
+msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatura<br />(%sAlta%s/%sBaixa%s) &graus;%s"
 
-#: lib/Prefs/Ui.php:518 services/facebook.php:31
+#: lib/Prefs/Special/Facebook.php:79 services/facebook/index.php:57
 msgid "Temporarily unable to connect with Facebook, Please try again."
 msgstr ""
+"No és possible de connectar amb Facebook de forma temporal. Si us plau, "
+"prova-ho de nou."
 
-#: lib/Block/twitter_timeline.php:122
-#, fuzzy
+#: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
 msgstr ""
-"S'ha produït un error en actualitzar els detalls de contacte. Torneu-ho a "
-"intentar més tard."
+"No és possible de connectar amb Twitter de forma temporal. Si us plau, prova-"
+"ho de nou."
 
-#: services/keyboard.php:148
-#, fuzzy
-msgid "Text Area"
-msgstr "Alineació de text"
-
-#: config/prefs.php.dist:544
-msgid "Text Only"
-msgstr "Només text"
-
-#: config/nls.php:183
+#: config/nls.php:184
 msgid "Thai (TIS-620)"
 msgstr "Tailandès (TIS-620)"
 
-#: lib/Prefs/Ui.php:747
-#, fuzzy, php-format
+#: lib/Prefs/Special/Activesync.php:118
+#, php-format
 msgid "The Remote Wipe for device id %s has been cancelled."
-msgstr "S'ha suprimit el servidor \"%s\"."
+msgstr "S'ha cancel·lat l'esborrat remot del despositiu id %s."
 
-#: admin/alarms.php:81
-#, fuzzy
+#: admin/alarms.php:86
 msgid "The alarm has been deleted."
-msgstr "S'ha suprimit el servidor \"%s\"."
+msgstr "L'alarma s'ha suprimit."
 
-#: admin/alarms.php:70
-#, fuzzy
+#: admin/alarms.php:75
 msgid "The alarm has been saved."
-msgstr "S'ha desat el servidor \"%s\"."
+msgstr "L'alarma s'ha guardat."
 
-#: config/prefs.php.dist:246
-msgid "The default e-mail address to use with this identity:"
+#: admin/config/index.php:119
+#, php-format
+msgid ""
+"The configuration for %s cannot be updated automatically. Please update the "
+"configuration manually."
 msgstr ""
+"No es pot actualitzar automàticament la configuració de %s. Si us plau faci-"
+"ho de forma manual."
 
-#: lib/Block/vatid.php:76
+#: config/prefs.local.20150127.php:294 config/prefs.php:290
+msgid "The default e-mail address to use with this identity:"
+msgstr "L'e-mail per defect per utilitzar amb aquesta identitat:"
+
+#
+#: admin/locks.php:24
+msgid "The lock has been removed."
+msgstr "L'alarma s'ha guardat."
+
+#: lib/Block/Vatid.php:116
 msgid ""
 "The member state service could not be reached in time. Try again later or "
 "with a different member state."
 msgstr ""
+"No s'ha pogut contactar a temps amb el servei de l'Estat Membre. Prova-ho "
+"després amb un altre Estat Membre."
 
-#: lib/Block/vatid.php:73
+#: lib/Block/Vatid.php:112
 msgid ""
 "The member state service is currently not available. Try again later or with "
 "a different member state."
 msgstr ""
+"El servei de l'Estat Membre no està disponible. Prova-ho després amb un "
+"altre Estat Membre."
 
-#: lib/Block/vatid.php:67
+#: lib/Block/Vatid.php:104
 msgid "The provided country code is invalid."
-msgstr ""
+msgstr "El codi de país no és vàlid"
 
-#: lib/Prefs/Ui.php:681
-#, php-format
-msgid "The server \"%s\" has been deleted."
-msgstr "S'ha suprimit el servidor \"%s\"."
-
-#: lib/Prefs/Ui.php:676
-#, php-format
-msgid "The server \"%s\" has been saved."
-msgstr "S'ha desat el servidor \"%s\"."
-
-#: lib/Block/vatid.php:70
+#: lib/Block/Vatid.php:108
 msgid "The service is currently not available. Try again later."
-msgstr ""
+msgstr "El servei no està disponible actualment. Prova-ho més tard."
 
-#: lib/Block/vatid.php:79
+#: lib/Block/Vatid.php:120
 msgid "The service is currently too busy. Try again later."
-msgstr ""
+msgstr "El servei està massa ocupat actualment. Prova-ho més tard."
 
-#: admin/user.php:209
-#, fuzzy, php-format
+#: admin/user.php:224
+#, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "S'ha eliminat la sol·licitud d'alta de %s."
+msgstr "S'ha eliminat la sol·licitud d'alta de \"%s\"."
 
-#: admin/signup_confirm.php:39
-#, fuzzy, php-format
+#: admin/signup_confirm.php:41
+#, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "S'ha eliminat la sol·licitud d'alta de %s."
+msgstr "S'ha eliminat la sol·licitud d'alta de l'usuari \"%s\"."
 
-#: lib/LoginTasks/Task/TestScriptActive.php:38
+#: lib/Prefs/Special/Activesync.php:133
+#, php-format
+msgid ""
+"The state for device id %s has been reset. It will resynchronize next time "
+"it connects to the server."
+msgstr ""
+"Eliminat l'estat del dispositiu %s. Es resincronitzarant el proper cop que "
+"es connectin al servidor"
+
+#: lib/LoginTasks/Task/AdminCheck.php:47
 msgid ""
 "The test script is currently enabled. For security reasons, disable test "
 "scripts when you are done testing (see horde/docs/INSTALL)."
 msgstr ""
+"La seqüència de test està activada. Per raons de seguretat, desactiva la "
+"seqüència de test quan hagis acabat de testejar (veure horde/docs/INSTALL)."
 
-#: admin/signup_confirm.php:60 admin/user.php:72
-#, fuzzy, php-format
-msgid "The user \"%s\" already exists."
-msgstr "Ja existeix un compte amb nom d'usuari \"%s\"."
-
-#: services/shares/edit.php:85 services/shares/edit.php:177
-#, fuzzy, php-format
-msgid "The user \"%s\" does not exist."
-msgstr "No existeix l'arxiu temporal \"%s\"."
-
-#: lib/Block/weatherdotcom.php:51 lib/Block/weatherdotcom.php:106
-msgid "The weather.com block is not available."
-msgstr "El bloc weather.com no està disponible."
-
-#: lib/Prefs/Ui.php:46
-#, fuzzy
-msgid "Theme directory can't be opened"
-msgstr "No s'ha  trobat el directori de Temes \"%s\". "
-
-#: util/icon_browser.php:28
+#: admin/signup_confirm.php:62 admin/user.php:73
 #, php-format
-msgid "Themes directory \"%s\" not found."
-msgstr "No s'ha  trobat el directori de Temes \"%s\". "
+msgid "The user \"%s\" already exists."
+msgstr "Ja existeix l'usuari \"%s\"."
 
-#: admin/signup_confirm.php:74 admin/user.php:84 signup.php:38 signup.php:59
+#: services/shares/edit.php:93 services/shares/edit.php:178
+#, php-format
+msgid "The user \"%s\" does not exist."
+msgstr "No existeix l'usuari \"%s\"."
+
+#: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
 #, php-format
 msgid "There was a problem adding \"%s\" to the system: %s"
 msgstr "Hi ha hagut un problema afegint \"%s\" al sistema: %s"
 
-#: admin/user.php:140
+#: admin/user.php:149
 #, php-format
 msgid "There was a problem clearing data for user \"%s\" from the system: "
 msgstr ""
 "Hi ha hagut un problema en esborrar informació de l'usuari \"%s\" del "
 "sistema:"
 
-#: admin/user.php:120
+#: admin/user.php:126
 #, php-format
 msgid "There was a problem removing \"%s\" from the system: "
 msgstr "Hi ha hagut un problema en eliminarr \"%s\" del sistema: "
 
-#: admin/user.php:173
+#: admin/user.php:180
 #, php-format
 msgid "There was a problem updating \"%s\": %s"
 msgstr "Hi ha hagut algun problema actualitzant \"%s\": %s"
 
-#: lib/Block/twitter_timeline.php:110 lib/Block/twitter_timeline.php:126
-#, fuzzy, php-format
-msgid "There was an error contacting Twitter: %s"
-msgstr "S'ha produït un error en importar les dades iCalendar."
+#: lib/Prefs/Special/Activesync.php:136
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "S'ha produït un error en contactar Twitter: %s"
 
-#: admin/config/config.php:70
+#: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:105
+#, php-format
+msgid "There was an error contacting Twitter: %s"
+msgstr "S'ha produït un error en contactar Twitter: %s"
+
+#: admin/config/config.php:62
 msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
@@ -3554,161 +3283,200 @@ msgstr ""
 "S'ha produït un error en el formulari de configuració. Potser us heu "
 "descuidat d'emplenar un camp necessari."
 
-#: lib/Block/fb_stream.php:158 lib/Block/fb_stream.php:183
-#: services/facebook.php:54 services/facebook.php:71
-#, fuzzy, php-format
+#: lib/Ajax/Application/FacebookHandler.php:48
+#: lib/Ajax/Application/FacebookHandler.php:65 lib/Block/FbStream.php:153
+#, php-format
 msgid "There was an error making the request: %s"
-msgstr "S'ha produït un error en importar les dades de contacte."
+msgstr "Hi ha hagut un error executant la comanda: %s"
 
-#: lib/Api.php:284
+#: services/facebook/index.php:52
+msgid ""
+"There was an error obtaining your Facebook session. Please try again later."
+msgstr ""
+"S'ha produït un error en obtenir la sessió Facebook. Torneu a provar més "
+"endavant."
+
+#: lib/Application.php:202
 #, php-format
 msgid ""
 "There was an error removing global data for %s. Details have been logged."
 msgstr ""
+"Hi ha hagut un error esborrant dades globals per %s. Els detalls han quedat "
+"enregistrats."
 
-#: lib/Block/vatid.php:89
+#
+#: services/facebook/index.php:67
+msgid "There was an error with the requested permissions"
+msgstr "S'ha produït un error en moure l'acte: %s"
+
+#: lib/Block/Vatid.php:82
 msgid "This VAT identification number is invalid."
-msgstr ""
+msgstr "Aquest Nombre d'Identificació Fiscal (VAT) és invalid"
 
-#: lib/Block/vatid.php:86
+#: lib/Block/Vatid.php:79
 msgid "This VAT identification number is valid."
-msgstr ""
+msgstr "Aquest Nombre d'Identificació Fiscal (VAT) és valid"
 
-#: lib/Block/weatherdotcom_strings.php:94
-msgid "Thunder"
-msgstr "Tro"
+#
+#: templates/admin/activesync.html.php:33
+msgid "This will cause all devices to resyncronize all items."
+msgstr "Reinicia l'estat de tots els dispositius. "
 
-#: config/registry.php.dist:260
+#
+#: templates/prefs/activesync.html.php:16
+msgid "This will cause your devices to resyncronize all items."
+msgstr "Reinicia l'estat de tots els dispositius. "
+
+#: config/registry.php:226
 msgid "Tickets"
 msgstr "Tiquets"
 
-#: config/registry.php.dist:308
+#: config/registry.php:272
 msgid "Time Tracking"
 msgstr "Control de temps"
 
-#: lib/Block/time.php:23
+#: lib/Block/Time.php:27
 msgid "Time format"
 msgstr "Format horari"
 
 #: templates/data/datetime.inc:60 templates/data/datetime.inc:69
-#, fuzzy
 msgid "Timestamp or unknown"
-msgstr "Nom de host desconegut"
+msgstr "Marca de temps o desconeguda"
 
-#: templates/prefs/syncml.html:2
+#: templates/prefs/syncml.html.php:2
 msgid "Timestamps of successful synchronization sessions"
-msgstr ""
+msgstr "Marca de temps de sessions de sincronització satisfactòries"
 
-#: lib/Block/iframe.php:22
+#: lib/Block/Iframe.php:28
 msgid "Title"
 msgstr "Títol"
 
-#: templates/data/csvmap.inc:95
+#: templates/data/csvmap.inc:96
 msgid ""
 "To exclude a particular field form the import or to correct a wrong match "
 "select a field in the lists below and hit \"Remove pair\"."
 msgstr ""
+"Per excloure un camp en particular des de l'importació o per corregir una "
+"coincidència errònia, selecciona un camp de la següent llista i pareta "
+"\"Eliminar parella\""
 
-#: templates/prefs/addressbooks.html:10
-#, fuzzy
+#: templates/prefs/addressbooks.html:8
 msgid ""
 "To select multiple fields, hold down the Control (PC) or Command (Mac) while "
 "clicking."
 msgstr ""
-"Per seleccionar diversos elements, mantingueu pitjada la tecla Control (PC) "
-"o Command (Mac) mentre cliqueu."
+"Per seleccionar diversos camps, mantingueu pitjada la tecla Control (PC) o "
+"Command (Mac) mentre cliques."
 
-#: lib/Block/weatherdotcom.php:313
+#: lib/Block/Weather.php:294
 msgid "Today"
 msgstr "Avui"
 
-#: lib/Block/weatherdotcom.php:315
+#: lib/Block/Weather.php:296
 msgid "Tomorrow"
 msgstr "Demà"
 
-#: lib/Block/fortune.php:70
+#
+#: config/prefs.local.20150127.php:756 config/prefs.php:752
+msgid "Top"
+msgstr "Per a"
+
+#: lib/Block/Fortune.php:70
 msgid "Translations"
 msgstr "Traduccions"
 
-#: config/nls.php:184
+#: config/nls.php:185
 msgid "Turkish (ISO-8859-9)"
 msgstr "Turc (ISO-8859-9)"
 
-#: lib/Block/twitter_timeline.php:166
-#, fuzzy
+#: templates/block/twitter-layout.html.php:15
 msgid "Tweet"
-msgstr "Text"
+msgstr "Piulada"
 
-#: config/prefs.php.dist:625
-#, fuzzy
+#: config/prefs.local.20150127.php:669 config/prefs.php:665
 msgid "Twitter Integration"
-msgstr "Altra informació"
+msgstr "Integració de Twitter"
 
-#: lib/Block/twitter_timeline.php:23 lib/Block/twitter_timeline.php:64
-#: lib/Block/twitter_timeline.php:74 lib/Block/twitter_timeline.php:78
-#, php-format
+#: lib/Block/TwitterTimeline.php:35
 msgid "Twitter Timeline"
-msgstr ""
+msgstr "Timline de Twitter"
 
-#: lib/Block/twitter_timeline.php:70
-#, fuzzy, php-format
+#: lib/Block/TwitterTimeline.php:51
+#, php-format
 msgid "Twitter Timeline for %s"
-msgstr "Edita permisos de %s"
+msgstr "El Timeline de Twitter per %s"
 
-#: services/keyboard.php:108
-#, fuzzy
-msgid "U characters"
-msgstr "Nombre de caràcters"
+#
+#: lib/Ajax/Application/TwitterHandler.php:37
+msgid "Twitter not enabled."
+msgstr "No s'ha trobat el filtre."
 
-#: lib/Block/weatherdotcom.php:273
-msgid "U.V. index: "
-msgstr "Índex UV: "
-
-#: lib/Block/iframe.php:19
+#: lib/Block/Iframe.php:23
 msgid "URL"
 msgstr "URL"
 
-#: services/twitter.php:64
-#, php-format
-msgid "Unable to contact Twitter. Please try again later. Error returned: %s"
-msgstr ""
-
-#: admin/groups.php:82 admin/perms/delete.php:39
+#: admin/groups.php:66 admin/perms/delete.php:45
 #, php-format
 msgid "Unable to delete \"%s\": %s."
 msgstr "No es pot eliminar \"%s\":%s"
 
-#: scripts/upgrades/2008-08-29_fix_mdb2_sequences.php:55
-#, fuzzy, php-format
-msgid "Unable to modify the sequence for %s: %s"
-msgstr "No es pot eliminar \"%s\":%s"
-
-#: services/facebook.php:175
-#, fuzzy
+#: lib/Ajax/Application/FacebookHandler.php:138
 msgid "Unable to set like."
-msgstr "No s'ha pogut crear l'arxiu VFS."
+msgstr "No s'ha pogut establir el m'agrada."
 
-#: templates/prefs/end.html:4
+#: services/facebook/index.php:36
+msgid "Unable to validate the request token. Please try your request again."
+msgstr ""
+"No s'ha pogut validar el testimoni de sol·licitud. Si us plau torni a "
+"realitzar de nou la seva sol·licitud."
+
+#
+#: admin/activesync.php:98 lib/Prefs/Special/Activesync.php:61
+msgid "Unavailable"
+msgstr "El servei no està disponible"
+
+#
+#: templates/activesync/device_table.html.php:41
+msgid "Unblock"
+msgstr "Tipus de bloc"
+
+#: templates/prefs/end.html:5
 msgid "Undo Changes"
 msgstr "Desfés els canvis"
 
-#: lib/Prefs/Ui.php:266
+#
+#: lib/Block/TwitterTimeline.php:121 templates/block/twitter_tweet.html.php:39
+msgid "Unfavorite"
+msgstr "Escriptura"
+
+#: templates/prefs/category.html.php:18
 msgid "Unfiled"
 msgstr "Sense categoria"
 
-#: config/nls.php:185
+#: config/nls.php:186
 msgid "Unicode (UTF-8)"
 msgstr "Unicode (UTF-8)"
 
-#: lib/Block/metar.php:70 lib/Block/weatherdotcom.php:64
+#: lib/Block/Metar.php:58 lib/Block/Weather.php:89
 msgid "Units"
 msgstr "Unitats"
 
-#: lib/Block/weatherdotcom.php:162
-msgid "Unknown location provided."
-msgstr "S'ha proporcionat una ubicació desconeguda."
+#
+#: admin/sessions.php:36
+msgid "Unknown"
+msgstr "Data desconeguda"
 
-#: lib/Block/fb_stream.php:179 templates/admin/user/list.inc:36
+#
+#: admin/locks.php:43
+msgid "Unlock"
+msgstr "Tipus de bloc"
+
+#
+#: lib/Api.php:723 lib/Api.php:784
+msgid "Unsupported action."
+msgstr "Tipus de contingut no suportat: %s "
+
+#: templates/admin/user/list.inc:34
 msgid "Update"
 msgstr "Actualitzar"
 
@@ -3717,252 +3485,259 @@ msgstr "Actualitzar"
 msgid "Update %s"
 msgstr "Actualitzar %s"
 
-#: templates/admin/user/update.inc:53
+#: admin/config/index.php:192 admin/config/index.php:310
+#, php-format
+msgid "Update %s schema"
+msgstr "Actualitzar %s"
+
+#
+#: templates/admin/config/index.html.php:19
+msgid "Update all DB schemas"
+msgstr "Actualitzar %s"
+
+#
+#: templates/admin/config/index.html.php:11
+msgid "Update all configurations"
+msgstr "Es genera la configuració %s"
+
+#: templates/admin/user/update.inc:63
 msgid "Update user"
 msgstr "Actualitzar l'usuari"
 
-#: admin/groups.php:144 admin/perms/edit.php:104 services/shares/edit.php:249
+#: admin/groups.php:105 admin/perms/edit.php:131 services/shares/edit.php:241
 #, php-format
 msgid "Updated \"%s\"."
 msgstr "S'ha actualitzat  \"%s\"."
 
-#: admin/config/index.php:190
+#: admin/config/index.php:134
+#, php-format
+msgid "Updated schema for %s."
+msgstr "Actualitzat: %s."
+
+#: admin/config/index.php:419
 msgid "Upload"
 msgstr "Carregar"
 
-#: admin/config/index.php:198
-#, fuzzy
+#: admin/config/index.php:427
 msgid "Uploaded all application configuration files to the server."
-msgstr ""
-"S'ha carregat al servidor tots els arxius de configuració d'aplicacions."
+msgstr "Carregats tots els fitxers de configuració de l'aplicació al servidor."
 
-#: config/prefs.php.dist:645
+#: lib/Prefs/Special/Activesync.php:81
+msgid "Use Horde Default"
+msgstr "Usa els valors predeterminats de l'Horde"
+
+#: config/prefs.local.20150127.php:696 config/prefs.php:692
 msgid "Use if name/password is different for IMSP server."
 msgstr "Utilitzeu si el nom o la contrasenya són diferents al servidor IMSP."
 
-#: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
-#, fuzzy
+#
+#: templates/activesync/device_table.html.php:3
+#: templates/admin/groups/edit.inc:23 templates/admin/groups/edit.inc:68
+#: templates/admin/locks/list.html.php:12 templates/admin/sessions.html.php:7
 msgid "User"
 msgstr "Usuari"
 
-#: admin/user.php:224
+#: admin/user.php:240
 msgid "User Administration"
 msgstr "Administració d'usuaris"
 
-#: lib/Prefs/Ui.php:432
-#, fuzzy
-msgid "User Agent:"
-msgstr "Utilitzar l'actual: %s"
+#
+#: templates/admin/activesync.html.php:12
+msgid "User Agent"
+msgstr "Agent d'usuari:"
 
-#: signup.php:67
+#
+#: lib/Block/Account.php:68
+msgid "User Name"
+msgstr "Nom d'usuari"
+
+#: signup.php:74
 msgid "User Registration"
 msgstr "Registre d'usuaris"
 
-#: admin/signup_confirm.php:18 signup.php:19
+#: signup.php:22 admin/signup_confirm.php:23
 msgid "User Registration has been disabled for this site."
 msgstr "El registre d'usuaris d'aquest lloc està inhabilitat."
 
-#: admin/signup_confirm.php:25 signup.php:27
-#, fuzzy
+#: signup.php:30 admin/signup_confirm.php:30
 msgid "User Registration is not properly configured for this site."
-msgstr "El registre d'usuaris d'aquest lloc està inhabilitat."
+msgstr "El registre d'usuaris no s'ha configurat correctament per aquesta web."
 
-#: lib/Block/account.php:561
+#: lib/Block/Account/Ldap.php:101
 msgid "User account not found"
 msgstr "Compte d'usuari no trobat."
 
-#: templates/shares/edit.inc:238
-#, fuzzy
+#: templates/shares/edit.inc:242
 msgid "User to add:"
-msgstr "Seleccioneu un usuari que vulgueu afegir"
+msgstr "Usuari per afegir:"
 
-#: admin/config/index.php:191 admin/user.php:32 admin/user.php:48 login.php:76
-#: services/resetpassword.php:29 templates/admin/user/approve.inc:22
+#: login.php:206 admin/config/index.php:420 admin/user.php:36
+#: admin/user.php:52 services/resetpassword.php:33
+#: templates/admin/activesync.html.php:9 templates/admin/user/approve.inc:23
 msgid "Username"
 msgstr "Nom d'usuari"
 
-#: lib/Prefs/Ui.php:325
-msgid "Username:"
-msgstr "Nom d'usuari:"
-
-#: templates/admin/groups/edit.inc:53
-#, fuzzy
+#: templates/admin/groups/edit.inc:59
 msgid "Users"
-msgstr "_Usuaris"
+msgstr "Usuaris"
 
 #: templates/admin/user/list.inc:2
 msgid "Users in the system:"
 msgstr "Usuaris del sistema:"
 
-#: lib/Block/vatid.php:19
+#: lib/Block/Vatid.php:21
 msgid "VAT id number verification"
-msgstr ""
+msgstr "Valicació del Nombre d'Identificació Fiscal (VAT)"
 
-#: lib/Block/vatid.php:42
+#: lib/Block/Vatid.php:40
 msgid "VAT identification number:"
-msgstr ""
+msgstr "Nombre d'Identifiació Fiscal (VAT):"
 
-#: lib/Block/vatid.php:93
-#, fuzzy
+#: lib/Block/Vatid.php:87
 msgid "VAT number"
-msgstr "Nombre"
+msgstr "Nombre d'Identificació Fiscal (VAT)"
 
-#: config/registry.php.dist:122
-msgid "Vacation"
-msgstr "Absència"
+#
+#: templates/admin/activesync.html.php:18
+msgid "Version"
+msgstr "Versió"
 
-#: lib/Block/weatherdotcom.php:248
-msgid "Variable"
-msgstr "Variable"
+#
+#: templates/admin/config/index.html.php:37
+msgid "Version Check"
+msgstr "Control de versions"
 
-#: config/registry.php.dist:246
+#: config/registry.php:215
 msgid "Version Control"
 msgstr "Control de versions"
 
-#: lib/Block/weatherdotcom_strings.php:101
-msgid "Very High"
-msgstr "Molt alt"
-
-#: config/nls.php:186
+#: config/nls.php:187
 msgid "Vietnamese (VISCII)"
 msgstr "Vietnamita (VISCII)"
 
-#: lib/Block/iframe.php:3
+#: lib/Block/Iframe.php:13
 msgid "View an external web page"
 msgstr "Visualitzar una pàgina web externa"
 
-#: lib/Block/metar.php:204
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:238
 msgid "Visibility"
 msgstr "Visibilitat"
 
-#: lib/Block/weatherdotcom.php:267
-msgid "Visibility: "
-msgstr "Visibilitat: "
-
-#: lib/Block/account.php:98
+#: lib/Block/Account.php:96
 msgid "Warning"
 msgstr "Avís"
 
-#: lib/Block/weatherdotcom.php:32
-msgid "Weather Forecast"
-msgstr "Previsió del temps"
+#: templates/login/login.inc:44 themes/upc1/templates/login/login.inc:43
+msgid "Warning: Your Caps Lock key is on!"
+msgstr "Avís: Té actiu el bloqueig de majúscules!"
 
-#: lib/Block/weatherdotcom.php:429
+#
+#: lib/Block/Weather.php:46 lib/Block/Weather.php:73
+msgid "Weather"
+msgstr "Temps de METAR"
+
+#: lib/Block/Weather.php:354 lib/Block/Weather.php:362
 msgid "Weather data provided by"
 msgstr "Informació meteorològica proporcionada per"
 
-#: config/registry.php.dist:369
+#: config/registry.php:332
 msgid "Web Site"
 msgstr "Lloc web"
 
-#: services/portal/mobile.php:29
+#
+#: lib/Application.php:311
+msgid "Web browser"
+msgstr "Navegador:"
+
+#: services/portal/smartmobile.php:44
 msgid "Welcome"
 msgstr "Benvinguts"
 
-#: templates/login/login.inc:5 templates/login/mobile.inc:1
-#, php-format
-msgid "Welcome to %s"
-msgstr "Benvinguts a %s"
-
-#: templates/portal/mobile.inc:1
+#: templates/portal/smartmobile.inc:3
 #, php-format
 msgid "Welcome, %s"
 msgstr "Benvinguts, %s"
 
-#: config/nls.php:187
+#: config/nls.php:188
 msgid "Western (ISO-8859-1)"
 msgstr "Occidental (ISO-8859-1)"
 
-#: config/nls.php:188
+#: config/nls.php:189
 msgid "Western (ISO-8859-15)"
 msgstr "Occidental (ISO-8859-15)"
 
-#: config/prefs.php.dist:483
+#: config/prefs.local.20150127.php:553 config/prefs.php:549
 #, php-format
 msgid "What application should %s display after login?"
 msgstr "Quina aplicació hauria de mostrar %s en iniciar la sessió?"
 
-#: lib/Block/twitter_timeline.php:131
+#: lib/Block/TwitterTimeline.php:110
 msgid "What are you working on now?"
-msgstr ""
+msgstr "En què estàs treballant ara?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
 msgstr "Quin és el caràcter delimitador?"
 
-#: templates/data/csvinfo.inc:17
+#: templates/data/csvinfo.inc:16
 msgid "What is the quote character?"
 msgstr "Quin és el caràcter de citació?"
 
-#: lib/Block/fb_stream.php:165
-msgid "What's on your mind?"
-msgstr ""
-
-#: config/prefs.php.dist:427
+#: config/prefs.local.20150127.php:506 config/prefs.php:502
 msgid "Which day would you like to be displayed as the first day of the week?"
-msgstr ""
+msgstr "Quin dia prefereixes que es mostri com a primer dia de la setmana?"
 
-#: lib/Block/moon.php:21
+#: lib/Block/Moon.php:22
 msgid "Which phases"
 msgstr "Quines fases"
 
-#: config/prefs.php.dist:536
-#, fuzzy, php-format
+#: config/prefs.local.20150127.php:608 config/prefs.php:604
+#, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Voleu visualitzar el menú %s de l'esquerra?"
+msgstr "L'amplada del menu %s de l'esquerra:"
 
-#: config/registry.php.dist:394
+#: lib/Application.php:299
+msgid "Wifi"
+msgstr "Wifi"
+
+#: config/registry.php:203
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/weatherdotcom.php:303 lib/Block/weatherdotcom_strings.php:95
+#: lib/Block/Weather.php:219 lib/Block/Weather.php:277
 msgid "Wind"
 msgstr "Vent"
 
-#: lib/Block/weatherdotcom_strings.php:96
-msgid "Wind Early"
-msgstr "Vent a primera hora"
-
-#: lib/Block/weatherdotcom_strings.php:97
-#, fuzzy
-msgid "Wind Late"
-msgstr "Pluja cap al tard"
-
-#: lib/Block/metar.php:79
+#: lib/Block/Metar.php:67
 msgid "Wind speed in knots"
 msgstr "Velocitat del vent en nusos"
 
-#: lib/Block/metar.php:151
+#: lib/Block/Metar.php:130
 msgid "Wind:"
 msgstr "Vent:"
 
-#: lib/Block/weatherdotcom.php:246
-msgid "Wind: "
-msgstr "Vent: "
-
-#: lib/Block/account.php:634
-#, fuzzy
-msgid "Windows"
-msgstr "Vent"
-
-#: admin/activesync.php:181 templates/prefs/activesync.html:28
-#, fuzzy
+#: templates/activesync/device_table.html.php:33
 msgid "Wipe"
-msgstr "Dc."
+msgstr "Esborra"
 
-#: admin/activesync.php:162 lib/Prefs/Ui.php:415
-msgid "Wipe is pending"
-msgstr ""
+#
+#: templates/activesync/device_table.html.php:12
+msgid "Wipe Pending"
+msgstr "Pendent d'esborrat"
 
-#: lib/Block/fortune.php:71
+#: lib/Block/Fortune.php:71
 msgid "Wisdom"
 msgstr "Saviesa"
 
-#: lib/Block/fortune.php:72
+#: templates/block/facebook_story.html.php:48
+msgid "With "
+msgstr "Con "
+
+#: lib/Block/Fortune.php:72
 msgid "Work"
 msgstr "Feina"
 
-#: config/registry.php.dist:275
+#: config/registry.php:238
 msgid "X-Ref"
 msgstr "X-Ref"
 
@@ -3973,155 +3748,149 @@ msgstr "X-Ref"
 msgid "YY"
 msgstr "AA"
 
-#: templates/logintasks/logintasks.html:34
+#: templates/logintasks/logintasks.html.php:28
+#: templates/logintasks/smartmobile.html.php:42
 msgid "Yes, I Agree"
 msgstr "Sí, ho accepto"
 
-#: services/facebook.php:110 services/facebook.php:169
+#: lib/Ajax/Application/FacebookHandler.php:131
+#: lib/Ajax/Application/FacebookHandler.php:233
 #, php-format
 msgid "You and %d other person likes this"
 msgid_plural "You and %d other people like this"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Agrada a tu i a %d altra persona"
+msgstr[1] "Agrada a tu i a %d altres persones"
 
-#: lib/Api.php:301
-#, fuzzy
+#: lib/Api.php:250
 msgid "You are not allowed to add groups."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per afegir grups."
 
-#: lib/Api.php:476
-#, fuzzy
+#: lib/Api.php:348
 msgid "You are not allowed to add shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per afegir comparticions."
 
-#: lib/Api.php:350 lib/Api.php:373 lib/Api.php:399 lib/Api.php:422
-#, fuzzy
+#: lib/Api.php:285 lib/Api.php:304
 msgid "You are not allowed to change groups."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens per mís per canviar grups."
 
-#: lib/Api.php:561 lib/Api.php:598 lib/Api.php:640 lib/Api.php:667
-#, fuzzy
+#: lib/Api.php:422 lib/Api.php:455 lib/Api.php:485 lib/Api.php:506
 msgid "You are not allowed to change shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per canviar comparticions."
 
-#: lib/Api.php:327
-#, fuzzy
+#: lib/Api.php:268
 msgid "You are not allowed to delete groups."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per esborrar grups."
 
-#: lib/Api.php:505
-#, fuzzy
+#: lib/Api.php:369
 msgid "You are not allowed to delete shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per eliminar comparticions."
 
-#: lib/Api.php:820
-#, fuzzy
+#: lib/Api.php:637
 msgid "You are not allowed to list groups of shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per llistar els grups de comparticions."
 
-#: lib/Api.php:702 lib/Api.php:744
-#, fuzzy
+#: lib/Api.php:528 lib/Api.php:566
 msgid "You are not allowed to list share permissions."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per llistar permisos compartits."
 
-#: lib/Api.php:532
-#, fuzzy
+#: lib/Api.php:390
 msgid "You are not allowed to list shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per llistar les comparticions."
 
-#: lib/Api.php:448
-#, fuzzy
+#: lib/Api.php:324
 msgid "You are not allowed to list users of groups."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per llistar els usuaris de grups."
 
-#: lib/Api.php:786
-#, fuzzy
+#: lib/Api.php:605
 msgid "You are not allowed to list users of shares."
-msgstr "No està autoritzat a crear més de %d blocs."
+msgstr "No tens permís per llistar els usuaris que comparteixen."
 
-#: lib/Api.php:216
-#, fuzzy
-msgid "You are not allowed to remove user data."
-msgstr "No està autoritzat a crear més de %d blocs."
+#: lib/Block/FbStream.php:107
+#, php-format
+msgid ""
+"You are not connected to your Facebook account. You should check your "
+"Facebook settings in your %s."
+msgstr ""
+"No has connectat correctament al teu compte de Facebook amb Horde. Hauries "
+"de revisar la configuració del Facebook a %s."
 
-#: lib/Block/fb_stream.php:159 lib/Block/fb_stream.php:184
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:154
 #, php-format
 msgid "You can also check your Facebook settings in your %s."
-msgstr ""
+msgstr "Comprova la configuració del Facebook a %s."
 
-#: lib/LoginTasks/Task/TosAgreement.php:54
+#: lib/LoginTasks/Task/TosAgreement.php:66
 msgid ""
 "You did not agree to the Terms of Service agreement, so you were not allowed "
 "to login."
 msgstr ""
+"No has acceptat l'acord de Servei, per tant, no pots accedir al sistema."
 
-#: login.php:278
+#: login.php:312
 msgid "You have been logged out."
 msgstr "Heu sortit de la sessió."
 
-#: lib/Block/fb_stream.php:124
-#, php-format
-msgid ""
-"You have not properly connected your Facebook account with Horde. You should "
-"check your Facebook settings in your %s."
-msgstr ""
+#
+#: services/facebook/index.php:65
+msgid "You have denied the requested permissions."
+msgstr "No tens permís per llistar permisos compartits."
 
-#: lib/Block/twitter_timeline.php:182
+#: lib/Block/TwitterTimeline.php:168
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
 "check your Twitter settings in your %s."
 msgstr ""
+"No has connectat correctament al teu compte de Twitter amb Horde. Hauries de "
+"revisar la configuració del Twitter a %s."
 
-#: services/facebook.php:112 services/facebook.php:163
-#: services/facebook.php:171
+#: lib/Ajax/Application/FacebookHandler.php:125
+#: lib/Ajax/Application/FacebookHandler.php:133
+#: lib/Ajax/Application/FacebookHandler.php:236
 msgid "You like this"
-msgstr ""
+msgstr "M'agrada"
 
-#: templates/problem/problem.inc:11
+#: services/problem.php:155
 msgid "You must describe the problem before you can send the problem report."
 msgstr "Heu de descriure el problema abans d'enviar-ne l'informe."
 
-#: lib/Prefs/Ui.php:679
-msgid "You must select an server to be deleted."
-msgstr "Heu de seleccionar un servidor que vulgueu eliminar."
-
-#: admin/user.php:134
+#: admin/user.php:142
 msgid "You must specify a username to clear out."
 msgstr "Heu d'especificar un nom d'usuari que vulgueu esborrar."
 
-#: admin/user.php:114
+#: admin/user.php:119
 msgid "You must specify a username to remove."
 msgstr "Heu d'especificar un nom d'usuari que vulgueu suprimir."
 
-#: admin/user.php:70
+#: admin/user.php:71
 msgid "You must specify the username to add."
 msgstr "Heu d'especificar quin nom d'usuari voleu afegir."
 
-#: admin/user.php:164
+#: admin/user.php:171
 msgid "You must specify the username to update."
 msgstr "Heu d'especificar el nom d'usuari que voleu actualitzar."
 
-#: templates/problem/problem.inc:34
+#: templates/problem/problem.inc:13
 msgid "Your Email Address"
 msgstr "La vostra adreça electrònica"
 
-#: config/prefs.php.dist:212 config/prefs.php.dist:275
-#: config/prefs.php.dist:312 config/prefs.php.dist:439
+#: config/prefs.local.20150127.php:262 config/prefs.local.20150127.php:329
+#: config/prefs.local.20150127.php:370 config/prefs.local.20150127.php:514
+#: config/prefs.php:262 config/prefs.php:325 config/prefs.php:366
+#: config/prefs.php:510
 msgid "Your Information"
 msgstr "La vostra informació"
 
-#: login.php:270
-#, fuzzy
+#: login.php:300
 msgid ""
 "Your Internet Address has changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"La vostra adreça d'Internet ha canviat des que heu començat la sessió %s. "
-"Per raons de seguretat, heu de reiniciar la sessió."
+"La vostra adreça d'Internet ha canviat des que heu començat la sessió. Per "
+"raons de seguretat, heu de reiniciar la sessió."
 
-#: templates/problem/problem.inc:30
+#: templates/problem/problem.inc:9
 msgid "Your Name"
 msgstr "El vostre nom"
 
@@ -4143,171 +3912,172 @@ msgstr ""
 "El vostre motor d'autenticació no permet que es llistin els usuaris, o bé "
 "per alguna raó aquesta característica està inhabilitada."
 
-#: login.php:274
-#, fuzzy
+#: login.php:304
 msgid ""
 "Your browser appears to have changed since the beginning of your session. To "
 "protect your security, you must login again."
 msgstr ""
-"Sembla que el navegador ha canviat des que vau començar la sessió %s. Per "
-"raons de seguretat, heu de tornar a entrar al sistema."
+"Sembla que el navegador ha canviat des que vas començar la sessió %s. Per "
+"raons de seguretat, has de tornar a entrar al sistema."
 
-#: lib/Block/iframe.php:58
+#: lib/Block/Iframe.php:69
 msgid "Your browser does not support this feature."
 msgstr "El vostre navegador no accepta aquesta característica."
 
-#: config/prefs.php.dist:337
+#: config/prefs.local.20150127.php:418 config/prefs.php:414
 msgid "Your current time zone:"
 msgstr "Zona horària actual:"
 
-#: config/prefs.php.dist:236
+#: templates/prefs/identityselect.html:3
+msgid "Your default identity"
+msgstr "La teva identitat predeterminada"
+
+#: config/prefs.php:302
+msgid "Your default identity:"
+msgstr "La teva identitat predeterminada:"
+
+#: config/prefs.local.20150127.php:282 config/prefs.php:282
 msgid "Your full name:"
 msgstr "Nom complet:"
 
-#: login.php:290
+#: login.php:324
 msgid "Your login has expired."
 msgstr "S'ha esgotat el temps de connexió"
 
-#: services/resetpassword.php:74
+#: services/resetpassword.php:82
 #, php-format
 msgid "Your new password for %s is: %s"
 msgstr "La nova contrasenya per a %s és: %s"
 
-#: services/resetpassword.php:73
+#: services/resetpassword.php:89
 msgid "Your password has been reset"
-msgstr "S'ha reiniciat la vostra contrasenya"
+msgstr "S'ha reiniciat la teva contrasenya"
 
-#: services/resetpassword.php:87
-#, fuzzy
+#: services/resetpassword.php:99
 msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"S'ha reiniciat la vostra contrasenya, revisa el correu electrònic i inicia "
-"la sessió amb la nova contrasenya."
+"S'ha reiniciat la teva contrasenya, revisa el correu electrònic i inicia la "
+"sessió amb la nova contrasenya."
 
-#: services/resetpassword.php:82
+#: services/resetpassword.php:94
 msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"S'ha reiniciat la vostra contrasenya, revisa el correu electrònic i inicia "
-"la sessió amb la nova contrasenya."
+"S'ha reiniciat la teva contrasenya, revisa el correu electrònic i inicia la "
+"sessió amb la nova contrasenya."
 
-#: lib/Block/account.php:689 lib/Block/account.php:704
-#, fuzzy
+#
+#: services/changepassword.php:50
+msgid ""
+"Your password has been succesfully changed. You need to re-login to the "
+"system with your new password."
+msgstr ""
+"S'ha reiniciat la teva contrasenya, revisa el correu electrònic i inicia la "
+"sessió amb la nova contrasenya."
+
+#: lib/Block/Account/Ldap.php:212 lib/Block/Account/Ldap.php:224
 msgid "Your password has expired"
-msgstr "La seva contrasenya ha caducat."
+msgstr "La teva contrasenya ha caducat."
 
 #: login.php:178
 msgid "Your password has expired."
-msgstr "La seva contrasenya ha caducat."
+msgstr "La teva contrasenya ha caducat."
 
-#: lib/Prefs/Ui.php:322
-msgid "Your remote servers:"
-msgstr "Servidors remots:"
-
-#: login.php:266
-#, fuzzy
+#: login.php:296
 msgid "Your session has expired. Please login again."
-msgstr ""
-"La vostra sessió en %s ha expirat. Si us plau, inicieu una nova sessió."
+msgstr "Ha caducat la teva sessió. Si us plau accedeix de nou."
 
-#: lib/Block/fortune.php:73
+#
+#: login.php:308
+msgid ""
+"Your session length has exceeded the maximum amount of time allowed. Please "
+"login again."
+msgstr "Ha caducat la teva sessió. Si us plau accedeix de nou."
+
+#: lib/Block/Fortune.php:73
 msgid "Zippy"
 msgstr "Zippy"
 
-#: services/problem.php:107
+#: services/problem.php:112
 msgid "[Problem Report]"
 msgstr "[Informe del problema]"
 
-#: admin/sessions.php:39
-#, fuzzy
-msgid "[Unknown]"
-msgstr "Desconegut"
-
-#: lib/Api.php:47
-#, fuzzy
+#: lib/Api.php:65
 msgid "_Alarms"
-msgstr "Àlies"
+msgstr "_Alarmes"
 
-#: lib/Api.php:72
+#: lib/Api.php:85
 msgid "_CLI"
 msgstr "_CLI"
 
-#: lib/Api.php:27
-#, fuzzy
+#: lib/Api.php:40
 msgid "_Configuration"
-msgstr "Restaurar la configuració"
+msgstr "_Configuració"
 
-#: lib/Api.php:52
-msgid "_DataTree"
-msgstr "_Arbre de dades"
-
-#: lib/Api.php:37
+#: lib/Api.php:50
 msgid "_Groups"
 msgstr "_Grups"
 
-#: lib/Api.php:42
+#
+#: lib/Api.php:60
+msgid "_Locks"
+msgstr "Usuari"
+
+#: lib/Api.php:55
 msgid "_Permissions"
 msgstr "_Permisos"
 
-#: lib/Api.php:32
+#: lib/Api.php:45
 msgid "_Users"
 msgstr "_Usuaris"
 
-#: services/problem.php:56
+#: services/problem.php:59
 msgid "attachment"
-msgstr ""
+msgstr "fitxer adjunt"
 
-#: lib/Block/metar.php:167 lib/Block/metar.php:353
+#: lib/Block/Metar.php:146 lib/Block/Metar.php:332
 #, php-format
 msgid "calm"
 msgstr "calma"
 
-#: lib/Block/weatherdotcom_strings.php:102
-msgid "falling"
-msgstr "està caient"
-
-#: lib/Block/metar.php:169 lib/Block/metar.php:355 lib/Block/metar.php:381
+#: lib/Block/Metar.php:148 lib/Block/Metar.php:334 lib/Block/Metar.php:360
 #, php-format
 msgid "from the %s (%s) at %s %s"
 msgstr "des del %s (%s) a les %s %s"
 
-#: lib/Block/weatherdotcom.php:254
+#: lib/Block/Weather.php:227 lib/Block/Weather.php:337
 msgid "gusting"
 msgstr "ventós"
 
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "inline"
 msgstr "insereix"
 
-#: lib/Block/fb_stream.php:124 lib/Block/fb_stream.php:159
-#: lib/Block/fb_stream.php:184 lib/Block/twitter_timeline.php:182
-#: services/facebook.php:55 services/facebook.php:72
+#: lib/Ajax/Application/FacebookHandler.php:49
+#: lib/Ajax/Application/FacebookHandler.php:66 lib/Block/FbStream.php:108
+#: lib/Block/FbStream.php:154 lib/Block/TwitterTimeline.php:168
 msgid "preferences"
-msgstr ""
+msgstr "preferències"
 
-#: lib/Block/weatherdotcom_strings.php:104
-msgid "rising"
-msgstr "està pujant"
-
-#: admin/config/config.php:80
+#: admin/config/config.php:75
 msgid "show differences"
 msgstr "mostrar diferències"
 
-#: lib/Block/weatherdotcom_strings.php:103
-msgid "steady"
-msgstr "constant"
+#: templates/login/login.inc:96
+msgid "to recover it."
+msgstr "per recuperar-la."
 
-#: admin/user.php:35 admin/user.php:49
+#: admin/user.php:39 admin/user.php:53
 msgid "type the password twice to confirm"
 msgstr "teclegeu la contrasenya dues vegades per confirmar-la"
 
-#: admin/config/diff.php:51 admin/config/diff.php:63
+#: admin/config/diff.php:61 admin/config/diff.php:71
 msgid "unified"
 msgstr "unificat"
 
-#: lib/Block/weatherdotcom.php:6
-msgid "weather.com"
-msgstr "weather.com"
+#: themes/upc1/info.php:5
+msgid "upc1"
+msgstr "upc1"
