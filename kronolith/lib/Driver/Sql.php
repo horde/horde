@@ -343,7 +343,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             }
         }
         $q = 'SELECT event_id, event_uid, event_description, event_location,' .
-            ' event_private, event_status, event_attendees,' .
+            ' event_private, event_status, event_attendees, event_organizer,' .
             ' event_title, event_recurcount, event_url, event_timezone,' .
             ' event_recurtype, event_recurenddate, event_recurinterval,' .
             ' event_recurdays, event_start, event_end, event_allday,' .
@@ -458,7 +458,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources,' .
-            ' event_baseid, event_exceptionoriginaldate FROM ' .
+            ' event_baseid, event_exceptionoriginaldate, event_organizer FROM ' .
             'kronolith_events WHERE event_id = ? AND calendar_id = ?';
 
         $values = array($eventId, $this->calendar);
@@ -499,7 +499,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             ' event_recurdays, event_start, event_end, event_allday,' .
             ' event_alarm, event_alarm_methods, event_modified,' .
             ' event_exceptions, event_creator_id, event_resources, event_baseid,' .
-            ' event_exceptionoriginaldate FROM kronolith_events' .
+            ' event_exceptionoriginaldate, event_organizer FROM kronolith_events' . 
             ' WHERE event_uid = ?';
         $values = array((string)$uid);
 
