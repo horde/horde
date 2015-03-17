@@ -986,10 +986,9 @@ abstract class Kronolith_Event
             // exceptions. Any exceptions left should represent exceptions with
             // no replacement.
             $exceptions = $this->recurrence->getExceptions();
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $search = new stdClass();
             $search->baseid = $this->uid;
-            $results = $kronolith_driver->search($search);
+            $results = $this->getDriver()->search($search);
             foreach ($results as $days) {
                 foreach ($days as $exceptionEvent) {
                     // Need to change the UID so it links to the original
@@ -1428,7 +1427,7 @@ abstract class Kronolith_Event
                 /* Delete all existing exceptions to this event if it already
                  * exists */
                 if (!empty($this->uid)) {
-                    $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+                    $kronolith_driver = $this->getDriver();
                     $search = new StdClass();
                     $search->baseid = $this->uid;
                     $results = $kronolith_driver->search($search);
@@ -1458,13 +1457,12 @@ abstract class Kronolith_Event
         // RECURRENCE-ID indicates that this event represents an exception
         try {
             $this->recurrenceid = $vEvent->getAttribute('RECURRENCE-ID');
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             $originaldt = new Horde_Date($this->recurrenceid);
             $this->exceptionoriginaldate = $originaldt;
             $this->baseid = $this->uid;
             $this->uid = null;
             try {
-                $originalEvent = $kronolith_driver->getByUID($this->baseid);
+                $originalEvent = $this->getDriver()->getByUID($this->baseid);
                 $originalEvent->recurrence->addException(
                     $originaldt->format('Y'),
                     $originaldt->format('m'),
@@ -1558,10 +1556,10 @@ abstract class Kronolith_Event
         /* Recurrence */
         if ($rrule = $message->getRecurrence()) {
             /* Exceptions */
-            $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
             /* Since AS keeps exceptions as part of the original event, we need
              * to delete all existing exceptions and re-create them. The only
              * drawback to this is that the UIDs will change. */
+            $kronolith_driver = $this->getDriver();
             $this->recurrence = $rrule;
             if (!empty($this->uid)) {
                 $search = new StdClass();
@@ -2594,12 +2592,11 @@ abstract class Kronolith_Event
             return array();
         }
         $return = array();
-        $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
         $search = new StdClass();
         $search->start = $this->recurrence->getRecurStart();
         $search->end = $this->recurrence->getRecurEnd();
         $search->baseid = $this->uid;
-        $results = $kronolith_driver->search($search);
+        $results = $this->getDriver()->search($search);
         if (!$flat) {
             return $results;
         }
