@@ -38,7 +38,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
      * @var array
      */
     protected $_turbaAttr = array(
-        'name', 'firstname', 'lastname', 'email', 'alias',
+        'name', 'firstname', 'lastname', 'email', 'emails', 'alias',
         'homeAddress', 'homeStreet', 'homeCity',
         'homeProvince', 'homePostalCode', 'homeCountry',
         'workAddress', 'workStreet', 'workCity', 'workProvince',
@@ -58,6 +58,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
         'firstname' => 'givenName',
         'lastname' => 'sn',
         'email' => 'mail',
+        'emails' => 'mail',
         'alias' => 'mozillaNickname',
         'homePhone' => 'homePhone',
         'workPhone' => 'telephoneNumber',
