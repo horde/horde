@@ -6395,9 +6395,12 @@ KronolithCore = {
 
     fbStartDateOnChange: function()
     {
-        this.fbStartDateHandler($F('kronolithEventStartDate'));
+        this.fbStartDateHandler(Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format));
     },
 
+    /**
+     * @param Date start  The start date.
+     */
     fbStartDateHandler: function(start)
     {
         this.updateFBDate(start);
@@ -6816,14 +6819,14 @@ KronolithCore = {
     {
         switch (field) {
         case 'kronolithEventStartDate':
-            this.fbStartDateHandler($F(field));
+            this.fbStartDateHandler(Date.parseExact($F(field), Kronolith.conf.date_format));
         case 'kronolithEventStartTime':
             this.updateEndTime();
             break;
         case 'kronolithEventEndDate':
         case 'kronolithEventEndTime':
             this.updateStartTime();
-            this.fbStartDateHandler($F('kronolithEventStartDate'));
+            this.fbStartDateHandler(Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format));
             break;
         }
     },
