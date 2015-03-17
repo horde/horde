@@ -20,7 +20,7 @@ class Whups_Form_Admin_AddAttribute extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addVariable(_("Attribute Name"), 'attribute_name', 'text', true);
         $this->addVariable(
-          _("Attribute Description"), 'attribute_description', 'text', true);
+          _("Attribute Description"), 'attribute_description', 'text', false);
         $this->addVariable(
           _("Required Attribute?"), 'attribute_required', 'boolean', false);
 

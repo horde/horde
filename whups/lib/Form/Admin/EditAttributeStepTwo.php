@@ -27,7 +27,7 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
             _("Attribute Name"), 'attribute_name', 'text', true);
         $pname->setDefault($info['name']);
         $pdesc = &$this->addVariable(
-            _("Attribute Description"), 'attribute_description', 'text', true);
+            _("Attribute Description"), 'attribute_description', 'text', false);
         $pdesc->setDefault($info['description']);
         $preq = &$this->addVariable(
             _("Required Attribute?"), 'attribute_required', 'boolean', false);
