@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Added an index to find base events of recurrence exceptions faster.
+* [jan] Fix finding duplicate events by UID.
 * [mjr] Fix updating FB data when start date changes.
 * [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 * [jan] Fix duplicate group names in sharing dialog.
@@ -2521,6 +2523,8 @@
    <date>2015-03-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Added an index to find base events of recurrence exceptions faster.
+* [jan] Fix finding duplicate events by UID.
 * [mjr] Fix updating FB data when start date changes.
 * [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 * [jan] Fix duplicate group names in sharing dialog.
