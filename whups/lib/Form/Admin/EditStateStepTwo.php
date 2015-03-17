@@ -23,13 +23,13 @@ class Whups_Form_Admin_EditStateStepTwo extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'state', 'int', true, true);
 
-        $sname = &$this->addVariable(_("State Name"), 'name', 'text', true);
+        $sname = $this->addVariable(_("State Name"), 'name', 'text', true);
         $sname->setDefault($info['name']);
 
-        $sdesc = &$this->addVariable(_("State Description"), 'description', 'text', true);
+        $sdesc = $this->addVariable(_("State Description"), 'description', 'text', true);
         $sdesc->setDefault($info['description']);
 
-        $scat = &$this->addVariable(_("State Category"), 'category', 'enum', true, false, null, array($GLOBALS['whups_driver']->getCategories()));
+        $scat = $this->addVariable(_("State Category"), 'category', 'enum', true, false, null, array($GLOBALS['whups_driver']->getCategories()));
         $scat->setDefault($info['category']);
     }
 

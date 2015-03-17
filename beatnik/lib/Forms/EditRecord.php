@@ -34,7 +34,7 @@ class EditRecord extends Horde_Form
             $types = array('soa' => _('SOA (Start of Authority)'));
         }
         $action = &Horde_Form_Action::factory('reload');
-        $select = &$this->addVariable(_("Record Type"), 'rectype', 'enum', true,
+        $select = $this->addVariable(_("Record Type"), 'rectype', 'enum', true,
 		                              false, null, array($types, true));
         $select->setAction($action);
         $select->setOption('trackchange', true);

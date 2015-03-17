@@ -46,7 +46,7 @@ $form->setButtons(true, true);
 $form->addHidden('', 'virtual_id', 'int', false);
 $form->addHidden('', 'domain', 'text', false);
 $form->addVariable(_("Virtual Email"), 'stripped_email', 'text', true, false, sprintf(_("Enter a virtual email address @%s and then indicate below where mail sent to that address is to be delivered. The address must begin with an alphanumerical character, it must contain only alphanumerical and '._-' characters, and must end with an alphanumerical character."), $domain), array('~^[a-zA-Z0-9]{1,1}[a-zA-Z0-9._-]*[a-zA-Z0-9]$~'));
-$var = &$form->addVariable(_("Destination type"), 'destination_type', 'enum',
+$var = $form->addVariable(_("Destination type"), 'destination_type', 'enum',
                            true, false, null,
                            array(array('local' => _("Local user"),
                                        'remote' => _("Remote address"))));

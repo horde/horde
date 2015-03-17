@@ -25,10 +25,10 @@ class Whups_Form_Admin_EditPriorityStepTwo extends Horde_Form
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'priority', 'int', true, true);
 
-        $pname = &$this->addVariable(_("Priority Name"), 'name', 'text', true);
+        $pname = $this->addVariable(_("Priority Name"), 'name', 'text', true);
         $pname->setDefault($info['name']);
 
-        $pdesc = &$this->addVariable(_("Priority Description"), 'description', 'text', true);
+        $pdesc = $this->addVariable(_("Priority Description"), 'description', 'text', true);
         $pdesc->setDefault($info['description']);
     }
 

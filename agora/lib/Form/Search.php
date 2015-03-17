@@ -39,11 +39,11 @@ class Agora_Form_Search extends Horde_Form {
         }
 
         $this->addVariable(_("Keywords"), 'keywords', 'text', false);
-        $var = &$this->addVariable(_("Require all keywords?"), 'allkeywords',
+        $var = $this->addVariable(_("Require all keywords?"), 'allkeywords',
                                    'boolean', false);
         $var->setDefault(true);
 
-        $var = &$this->addVariable(_("Search in subjects?"),
+        $var = $this->addVariable(_("Search in subjects?"),
                                    'searchsubjects', 'boolean', false);
         $var->setDefault(true);
 

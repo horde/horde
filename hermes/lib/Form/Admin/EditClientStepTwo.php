@@ -33,15 +33,15 @@ class Hermes_Form_Admin_EditClientStepTwo extends Horde_Form
         }
 
         $this->addHidden('', 'client', 'text', true, true);
-        $name = &$this->addVariable(_("Client"), 'name', $stype, false, true, null, $type_params);
+        $name = $this->addVariable(_("Client"), 'name', $stype, false, true, null, $type_params);
         $name->setDefault($info['name']);
 
-        $enterdescription = &$this->addVariable(sprintf(_("Should users enter descriptions of their timeslices for this client? If not, the description will automatically be \"%s\"."), _("See Attached Timesheet")), 'enterdescription', 'boolean', true);
+        $enterdescription = $this->addVariable(sprintf(_("Should users enter descriptions of their timeslices for this client? If not, the description will automatically be \"%s\"."), _("See Attached Timesheet")), 'enterdescription', 'boolean', true);
         if (!empty($info['enterdescription'])) {
             $enterdescription->setDefault($info['enterdescription']);
         }
 
-        $exportid = &$this->addVariable(_("ID for this client when exporting data, if different from the name displayed above."), 'exportid', 'text', false);
+        $exportid = $this->addVariable(_("ID for this client when exporting data, if different from the name displayed above."), 'exportid', 'text', false);
         if (!empty($info['exportid'])) {
             $exportid->setDefault($info['exportid']);
         }

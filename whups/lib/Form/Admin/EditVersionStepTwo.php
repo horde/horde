@@ -25,12 +25,12 @@ class Whups_Form_Admin_EditVersionStepTwo extends Horde_Form
         $this->addHidden('', 'queue', 'int', true, true);
         $this->addHidden('', 'version', 'int', true, true);
 
-        $vname = &$this->addVariable(_("Version Name"), 'name', 'text', true);
+        $vname = $this->addVariable(_("Version Name"), 'name', 'text', true);
         $vname->setDefault($info['name']);
 
-        $vdesc = &$this->addVariable(_("Version Description"), 'description', 'text', true);
+        $vdesc = $this->addVariable(_("Version Description"), 'description', 'text', true);
         $vdesc->setDefault($info['description']);
-        $vactive = &$this->addVariable(_("Version Active?"), 'active', 'boolean', false);
+        $vactive = $this->addVariable(_("Version Active?"), 'active', 'boolean', false);
         $vactive->setDefault($info['active']);
     }
 

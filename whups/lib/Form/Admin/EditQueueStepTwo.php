@@ -32,33 +32,33 @@ class Whups_Form_Admin_EditQueueStepTwo extends Horde_Form
         $this->setTitle(sprintf(_("Edit %s"), $info['name']));
         $this->addHidden('', 'queue', 'int', true, true);
 
-        $mname = &$this->addVariable(
+        $mname = $this->addVariable(
             _("Queue Name"), 'name', 'text', true, $info['readonly']);
         $mname->setDefault($info['name']);
 
-        $mdesc = &$this->addVariable(
+        $mdesc = $this->addVariable(
             _("Queue Description"), 'description', 'text', true, $info['readonly']);
         $mdesc->setDefault($info['description']);
 
-        $mslug = &$this->addVariable(
+        $mslug = $this->addVariable(
             _("Queue Slug"), 'slug', 'text', false, $info['readonly']);
         $mslug->setDefault($info['slug']);
 
-        $memail = &$this->addVariable(
+        $memail = $this->addVariable(
             _("Queue Email"), 'email', 'email', false, $info['readonly']);
         $memail->setDefault($info['email']);
 
         $types = $whups_driver->getAllTypes();
-        $mtypes = &$this->addVariable(
+        $mtypes = $this->addVariable(
             _("Ticket Types associated with this Queue"), 'types', 'set', true,
             false, null, array($types));
         $mtypes->setDefault(array_keys($whups_driver->getTypes($queue)));
-        $mdefaults = &$this->addVariable(
+        $mdefaults = $this->addVariable(
             _("Default Ticket Type"), 'default', 'enum', false, false, null, array($types));
         $mdefaults->setDefault($whups_driver->getDefaultType($queue));
 
         /* Versioned and version link. */
-        $mversioned = &$this->addVariable(
+        $mversioned = $this->addVariable(
             _("Keep a set of versions for this queue?"), 'versioned',
             'boolean', false, $info['readonly']);
         $mversioned->setDefault($info['versioned']);
@@ -76,7 +76,7 @@ class Whups_Form_Admin_EditQueueStepTwo extends Horde_Form
             $f_users[$user] = Whups::formatUser($user);
         }
         asort($f_users);
-        $musers = &$this->addVariable(_("Users responsible for this Queue"),
+        $musers = $this->addVariable(_("Users responsible for this Queue"),
                                       'users', 'set', false, true, null,
                                       array($f_users));
         $musers->setDefault($whups_driver->getQueueUsers($queue));

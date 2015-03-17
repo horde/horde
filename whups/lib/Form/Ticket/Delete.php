@@ -17,7 +17,7 @@ class Whups_Form_Ticket_Delete extends Horde_Form
         $info = $GLOBALS['whups_driver']->getTicketDetails($vars->get('id'));
         $this->_queue = $info['queue'];
         $this->addHidden('', 'id', 'int', true, true);
-        $summary = &$this->addVariable(_("Summary"), 'summary', 'text', false,
+        $summary = $this->addVariable(_("Summary"), 'summary', 'text', false,
                                        true);
         $summary->setDefault($info['summary']);
         $yesno = array(0 => _("No"), 1 => _("Yes"));

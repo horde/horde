@@ -52,7 +52,7 @@ $form->addHidden('', 'old_form_action', 'text', false);
 $form->addVariable(_("Name"), 'form_name', 'text', true);
 
 /* Selectable action drivers and update form based on selection. */
-$v = &$form->addVariable(_("Action"), 'form_action', 'enum', true, false, null, array(array('' => _("-- select --")) + $actions));
+$v = $form->addVariable(_("Action"), 'form_action', 'enum', true, false, null, array(array('' => _("-- select --")) + $actions));
 $v->setAction(Horde_Form_Action::factory('submit'));
 $v->setHelp('form-action');
 
@@ -72,11 +72,11 @@ if (!empty($action_params)) {
 }
 
 /* Set default language for the form. */
-$v = &$form->addVariable(_("Default language"), 'form_params[language]', 'enum', false, false, null, array($registry->nlsconfig->languages, _("-- default configured --")));
+$v = $form->addVariable(_("Default language"), 'form_params[language]', 'enum', false, false, null, array($registry->nlsconfig->languages, _("-- default configured --")));
 $v->setOption('htmlchars', true);
 
 /* TODO: set up Ulaform to insert any javascript saved here into the form. */
-$v = &$form->addVariable(_("Javascript to execute on form \"submit\":"), 'form_onsubmit', 'longtext', false, false, null, array(3, 40));
+$v = $form->addVariable(_("Javascript to execute on form \"submit\":"), 'form_onsubmit', 'longtext', false, false, null, array(3, 40));
 $v->setHelp('on-submit');
 
 /* Set up the action choice fields. */

@@ -110,7 +110,7 @@ class Horde_Config_Form extends Horde_Form
                 $name = '$conf[' . implode('][', explode('|', $prefixedname)) . ']';
                 $desc = $configitem['desc'];
 
-                $v = &$this->addVariable($name, $varname, 'enum', true, false, $desc, array($var_params, $select_option));
+                $v = $this->addVariable($name, $varname, 'enum', true, false, $desc, array($var_params, $select_option));
                 if (array_key_exists('default', $configitem)) {
                     $v->setDefault($configitem['default']);
                     if ($this->_fillvars) {
@@ -149,7 +149,7 @@ class Horde_Config_Form extends Horde_Form
                     }
                 }
 
-                $v = &$this->addVariable($name, $varname, $type, $required, false, $desc, $var_params);
+                $v = $this->addVariable($name, $varname, $type, $required, false, $desc, $var_params);
                 if (isset($configitem['default'])) {
                     $v->setDefault($configitem['default']);
                     if ($this->_fillvars) {

@@ -29,7 +29,7 @@ class Hermes_Form_Search extends Horde_Form
                 _("Employees"), 'employees', $type[0], false, false, null, array($type[1]));
         }
         $type = $this->getClientsType();
-        $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
+        $cli = $this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
         $cli->setAction(Horde_Form_Action::factory('submit'));
         $cli->setOption('trackchange', true);
 

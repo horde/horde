@@ -42,7 +42,7 @@ $form->addHidden('', 'agora', 'text', false);
 $form->addHidden('', 'scope', 'text', false);
 
 $forums_list = Agora::formatCategoryTree($messages->getForums(0, false));
-$v = &$form->addVariable(_("Forum"), 'new_forum_id', 'enum', true, false, null, array($forums_list));
+$v = $form->addVariable(_("Forum"), 'new_forum_id', 'enum', true, false, null, array($forums_list));
 $v->setDefault($forum_id);
 
 /* Validate the form. */

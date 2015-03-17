@@ -31,7 +31,7 @@ class Whups_Form_Admin_DefaultState extends Horde_Form
         }
 
         $this->addHidden('', 'type', 'int', true, true);
-        $var = &$this->addVariable(
+        $var = $this->addVariable(
             _("State Name"), 'state', $stype, false, false, null, $type_params);
         $var->setDefault($GLOBALS['whups_driver']->getDefaultState($vars->get('type')));
     }

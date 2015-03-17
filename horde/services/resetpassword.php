@@ -30,7 +30,7 @@ $form->setButtons(_("Continue"));
 
 /* Set up the fields for the username and alternate email. */
 $form->addHidden('', 'url', 'text', false);
-$v = &$form->addVariable(_("Username"), 'username', 'text', true);
+$v = $form->addVariable(_("Username"), 'username', 'text', true);
 $v->setOption('trackchange', true);
 $form->addVariable(_("Alternate email address"), 'email', 'email', true);
 $can_validate = false;

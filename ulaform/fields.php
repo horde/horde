@@ -40,7 +40,7 @@ $fieldform->addVariable(_("Internal name"), 'field_name', 'text', false, false, 
 
 /* Set up the field type selection, with a submit action. */
 $fields = Ulaform::getFieldTypes();
-$v = &$fieldform->addVariable(_("Type"), 'field_type', 'enum', true, false, null, array($fields, true));
+$v = $fieldform->addVariable(_("Type"), 'field_type', 'enum', true, false, null, array($fields, true));
 $v->setAction(Horde_Form_Action::factory('submit'));
 $v->setOption('trackchange', true);
 

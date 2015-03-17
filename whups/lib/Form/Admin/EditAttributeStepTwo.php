@@ -23,17 +23,17 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
 
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'attribute', 'int', true, true);
-        $pname = &$this->addVariable(
+        $pname = $this->addVariable(
             _("Attribute Name"), 'attribute_name', 'text', true);
         $pname->setDefault($info['name']);
-        $pdesc = &$this->addVariable(
+        $pdesc = $this->addVariable(
             _("Attribute Description"), 'attribute_description', 'text', false);
         $pdesc->setDefault($info['description']);
-        $preq = &$this->addVariable(
+        $preq = $this->addVariable(
             _("Required Attribute?"), 'attribute_required', 'boolean', false);
         $preq->setDefault($info['required']);
 
-        $ptype = &$this->addVariable(
+        $ptype = $this->addVariable(
             _("Attribute Type"), 'attribute_type', 'enum', true, false, null,
             array(Whups::fieldTypeNames()));
         $ptype->setAction(
@@ -47,7 +47,7 @@ class Whups_Form_Admin_EditAttributeStepTwo extends Horde_Form
             $type = $info['type'];
         }
         foreach (Whups::fieldTypeParams($type) as $param => $param_info) {
-            $pparam = &$this->addVariable(
+            $pparam = $this->addVariable(
                 $param_info['label'],
                 'attribute_params[' . $param . ']',
                 $param_info['type'],
