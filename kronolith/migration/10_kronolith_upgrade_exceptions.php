@@ -1,6 +1,6 @@
 <?php
 /**
- * Adds url field
+ * Adds fields for recurring event exceptions.
  *
  * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
