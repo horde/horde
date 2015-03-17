@@ -584,7 +584,7 @@ class IMP_Contents_Message
 
                     if ($contents_mask) {
                         $msgtext[$mime_id] = array(
-                            'text' => $this->_formatSummary($mime_id, $contents_mask, true)
+                            'text' => $this->_formatSummary($this->contents->getSummary($mime_id, $contents_mask), true)
                         );
                     }
                 }
@@ -603,7 +603,7 @@ class IMP_Contents_Message
                 if ($contents_mask &&
                     IMP_Mime_Attachment::isAttachment($part)) {
                     $msgtext[$mime_id] = array(
-                        'text' => $this->_formatSummary($mime_id, $contents_mask, true)
+                        'text' => $this->_formatSummary($this->contents->getSummary($mime_id, $contents_mask), true)
                     );
                 }
                 continue;
@@ -618,7 +618,7 @@ class IMP_Contents_Message
                 }
 
                 $part_text = ($contents_mask && empty($info['nosummary']))
-                    ? $this->_formatSummary($id, $contents_mask, !empty($info['attach']))
+                    ? $this->_formatSummary($this->contents->getSummary($id, $contents_mask), !empty($info['attach']))
                     : '';
 
                 if (empty($info['attach'])) {
@@ -714,17 +714,14 @@ class IMP_Contents_Message
     /**
      * Prints out a MIME summary (in HTML).
      *
-     * @param string $id     The MIME ID.
-     * @param integer $mask  A bitmask indicating what summary information to
-     *                       return.
-     * @param boolean $atc   Is this an attachment?
+     * @param array $summary  Summary information.
+     * @param boolean $atc    Is this an attachment?
      *
      * @return string  The formatted summary string.
      */
-    protected function _formatSummary($id, $mask, $atc = false)
+    protected function _formatSummary($summary, $atc = false)
     {
         $display = array('icon', 'description', 'size', 'download', 'print');
-        $summary = $this->contents->getSummary($id, $mask);
         $tmp_summary = array();
 
         foreach ($display as $val) {
