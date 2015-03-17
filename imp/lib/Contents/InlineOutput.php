@@ -27,8 +27,6 @@ class IMP_Contents_InlineOutput
      *
      * @param IMP_Contents $contents  Contents object.
      * @param array $options          Options:
-     *   - display_mask: (integer) The mask of display view type to render
-     *                   inline (DEFAULT: RENDER_INLINE_AUTO).
      *   - mask: (integer) The mask needed for a getSummary() call.
      *   - mimeid: (string) Restrict output to this MIME ID (and children).
      *   - part_info_display: (array) The list of summary fields to display.
@@ -52,9 +50,6 @@ class IMP_Contents_InlineOutput
         $contents_mask = isset($options['mask'])
             ? $options['mask']
             : 0;
-        $display_mask = isset($options['display_mask'])
-            ? $options['display_mask']
-            : $contents::RENDER_INLINE_AUTO;
         $mimeid_filter = isset($options['mimeid'])
             ? new Horde_Mime_Id($options['mimeid'])
             : null;
@@ -78,7 +73,7 @@ class IMP_Contents_InlineOutput
                  continue;
             }
 
-            if (!($render_mode = $contents->canDisplay($mime_id, $display_mask))) {
+            if (!($render_mode = $contents->canDisplay($mime_id, IMP_Contents::RENDER_INLINE_AUTO))) {
                 if (IMP_Mime_Attachment::isAttachment($part)) {
                     if ($show_parts == 'atc') {
                         $atc_parts[$mime_id] = 1;
