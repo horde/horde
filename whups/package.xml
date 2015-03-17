@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Don&apos;t make attribute description a required field.
 * [jan] Fix fatal error when assigning a ticket in certain use cases (Bug #13731).
  </notes>
  <contents>
@@ -1149,6 +1150,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Don&apos;t make attribute description a required field.
 * [jan] Fix fatal error when assigning a ticket in certain use cases (Bug #13731).
    </notes>
   </release>
