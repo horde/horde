@@ -68,15 +68,6 @@ class IMP_Contents_Message
     protected $_indices;
 
     /**
-     * Default list of part info elements to display.
-     *
-     * @var array
-     */
-    public $part_info = array(
-        'icon', 'description', 'size', 'download'
-    );
-
-    /**
      * Don't seen seen flag?
      *
      * @var boolean
@@ -163,7 +154,6 @@ class IMP_Contents_Message
 
         // Create message text and attachment list.
         $result['msgtext'] = '';
-        $part_info = $this->part_info;
         $show_parts = $prefs->getValue('parts_display');
 
         /* Do MDN processing now. */
@@ -208,19 +198,21 @@ class IMP_Contents_Message
         if (!empty($inlineout['atc_parts'])) {
             $partlist = array();
 
+            $contents_mask = IMP_Contents::SUMMARY_DESCRIP |
+                IMP_Contents::SUMMARY_DESCRIP_LINK |
+                IMP_Contents::SUMMARY_DOWNLOAD |
+                IMP_Contents::SUMMARY_ICON |
+                IMP_Contents::SUMMARY_SIZE;
+
+            $part_info = array(
+                'icon', 'description', 'size', 'download', 'description_raw',
+                'download_url'
+            );
             if ($show_parts == 'all') {
                 array_unshift($part_info, 'id');
             }
 
             foreach ($inlineout['atc_parts'] as $id) {
-                $contents_mask = IMP_Contents::SUMMARY_DESCRIP |
-                    IMP_Contents::SUMMARY_DESCRIP_LINK |
-                    IMP_Contents::SUMMARY_DOWNLOAD |
-                    IMP_Contents::SUMMARY_ICON |
-                    IMP_Contents::SUMMARY_SIZE;
-                $part_info[] = 'description_raw';
-                $part_info[] = 'download_url';
-
                 $summary = $this->contents->getSummary($id, $contents_mask);
                 $tmp = array();
                 foreach ($part_info as $val) {
@@ -731,7 +723,7 @@ class IMP_Contents_Message
      */
     protected function _formatSummary($id, $mask, $atc = false)
     {
-        $display = array_merge($this->part_info, array('print'));
+        $display = array('icon', 'description', 'size', 'download', 'print');
         $summary = $this->contents->getSummary($id, $mask);
         $tmp_summary = array();
 
