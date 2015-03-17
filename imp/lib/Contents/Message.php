@@ -340,13 +340,9 @@ class IMP_Contents_Message
             break;
         }
 
-        $part_info_display = $this->part_info;
-        $part_info_display[] = 'print';
-
         return $this->_getInlineOutput(array(
             'mask' => $contents_mask,
-            'mimeid' => $mimeid,
-            'part_info_display' => $part_info_display
+            'mimeid' => $mimeid
         ));
     }
 
@@ -554,7 +550,6 @@ class IMP_Contents_Message
      * @param array $options  Options:
      *   - mask: (integer) The mask needed for a getSummary() call.
      *   - mimeid: (string) Restrict output to this MIME ID (and children).
-     *   - part_info_display: (array) The list of summary fields to display.
      *
      * @return array  See getInlineOutput().
      */
@@ -572,9 +567,6 @@ class IMP_Contents_Message
         $mimeid_filter = isset($options['mimeid'])
             ? new Horde_Mime_Id($options['mimeid'])
             : null;
-        $part_info_display = isset($options['part_info_display'])
-            ? $options['part_info_display']
-            : array();
         $show_parts = $prefs->getValue('parts_display');
 
         foreach ($this->contents->getMIMEMessage()->partIterator() as $part) {
@@ -600,7 +592,7 @@ class IMP_Contents_Message
 
                     if ($contents_mask) {
                         $msgtext[$mime_id] = array(
-                            'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)
+                            'text' => $this->_formatSummary($mime_id, $contents_mask, true)
                         );
                     }
                 }
@@ -619,7 +611,7 @@ class IMP_Contents_Message
                 if ($contents_mask &&
                     IMP_Mime_Attachment::isAttachment($part)) {
                     $msgtext[$mime_id] = array(
-                        'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)
+                        'text' => $this->_formatSummary($mime_id, $contents_mask, true)
                     );
                 }
                 continue;
@@ -634,7 +626,7 @@ class IMP_Contents_Message
                 }
 
                 $part_text = ($contents_mask && empty($info['nosummary']))
-                    ? $this->_formatSummary($id, $contents_mask, $part_info_display, !empty($info['attach']))
+                    ? $this->_formatSummary($id, $contents_mask, !empty($info['attach']))
                     : '';
 
                 if (empty($info['attach'])) {
@@ -730,16 +722,16 @@ class IMP_Contents_Message
     /**
      * Prints out a MIME summary (in HTML).
      *
-     * @param string $id              The MIME ID.
-     * @param integer $mask           A bitmask indicating what summary
-     *                                information to return.
-     * @param array $display          The fields to display (in this order).
-     * @param boolean $atc            Is this an attachment?
+     * @param string $id     The MIME ID.
+     * @param integer $mask  A bitmask indicating what summary information to
+     *                       return.
+     * @param boolean $atc   Is this an attachment?
      *
      * @return string  The formatted summary string.
      */
-    protected function _formatSummary($id, $mask, $display, $atc = false)
+    protected function _formatSummary($id, $mask, $atc = false)
     {
+        $display = array_merge($this->part_info, array('print'));
         $summary = $this->contents->getSummary($id, $mask);
         $tmp_summary = array();
 
