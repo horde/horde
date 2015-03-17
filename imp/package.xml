@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-09</date>
+ <date>2015-03-17</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -243,7 +243,6 @@
      <file name="Image.php" role="horde" />
     </dir> <!-- /lib/Contacts -->
     <dir name="Contents">
-     <file name="InlineOutput.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
@@ -1652,7 +1651,6 @@
    <install as="imp/lib/Contacts/Avatar/Unknown.php" name="lib/Contacts/Avatar/Unknown.php" />
    <install as="imp/lib/Contacts/Flag/Backend.php" name="lib/Contacts/Flag/Backend.php" />
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
-   <install as="imp/lib/Contents/InlineOutput.php" name="lib/Contents/InlineOutput.php" />
    <install as="imp/lib/Contents/Message.php" name="lib/Contents/Message.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
