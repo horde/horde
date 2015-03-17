@@ -799,11 +799,10 @@ class Kronolith_Api extends Horde_Registry_Api
     {
         $event = $driver->getEvent();
         $event->fromiCalendar($content);
-        // Check if the entry already exists in the data source,
-        // first by UID.
+        // Check if the entry already exists in the data source, first by UID.
         if (!$exception) {
             try {
-                $driver->getByUID($uid, array($driver->calendar));
+                $driver->getByUID($event->uid, array($driver->calendar));
                 throw new Kronolith_Exception(sprintf(_("%s Already Exists"), $event->uid));
             } catch (Horde_Exception $e) {}
         }
@@ -811,7 +810,7 @@ class Kronolith_Api extends Horde_Registry_Api
         $result = $driver->search($event);
         // Check if the match really is an exact match:
         if (is_array($result) && count($result) > 0) {
-            foreach($result as $match) {
+            foreach ($result as $match) {
                 if ($match->start == $event->start &&
                     $match->end == $event->end &&
                     $match->title == $event->title &&
