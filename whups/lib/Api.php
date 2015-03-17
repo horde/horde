@@ -608,7 +608,8 @@ class Whups_Api extends Horde_Registry_Api
              * hour estimates. */
             $attributes = $whups_driver->getTicketAttributesWithNames($ticket['id']);
             foreach ($attributes as $k => $v) {
-                if (strtolower($k) == _("estimated time")) {
+                if (Horde_String::lower($k) == _("estimated time") ||
+                    Horde_String::lower($k) == 'estimated time') {
                     if (!empty($v)) {
                         $result[$ticket['id']]['estimate'] = (double) $v;
                     }
