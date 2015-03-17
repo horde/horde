@@ -590,9 +590,9 @@ abstract class Kronolith_Event
         // the event will be removed from the resource calendar anyway.
         if ($this->status != Kronolith::STATUS_CANCELLED) {
             foreach (array_keys($this->getResources()) as $id) {
-                /* Get the resource and protect against infinite recursion in case
-                 * someone is silly enough to add a resource to it's own event.*/
-
+                /* Get the resource and protect against infinite recursion in
+                 * case someone is silly enough to add a resource to it's own
+                 * event.*/
                 $resource = Kronolith::getDriver('Resource')->getResource($id);
                 $rcal = $resource->get('calendar');
                 if ($rcal == $this->calendar) {
@@ -610,8 +610,8 @@ abstract class Kronolith_Event
                 }
                 if ($haveLock && !$lock[$resource->getId()]) {
                     // Already locked
-                    // For now, just fail. Not sure how else to capture the locked
-                    // resources and notify the user.
+                    // For now, just fail. Not sure how else to capture the
+                    // locked resources and notify the user.
                     throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
                 } else {
                     $response = $resource->getResponse($this);
@@ -1425,8 +1425,8 @@ abstract class Kronolith_Event
                     $this->recurrence->fromRRule10($rrule);
                 }
 
-                /* Delete all existing exceptions to this event if it
-                 * already exists */
+                /* Delete all existing exceptions to this event if it already
+                 * exists */
                 if (!empty($this->uid)) {
                     $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
                     $search = new StdClass();
@@ -1557,13 +1557,11 @@ abstract class Kronolith_Event
 
         /* Recurrence */
         if ($rrule = $message->getRecurrence()) {
-
             /* Exceptions */
-            /* Since AS keeps exceptions as part of the original event, we need to
-             * delete all existing exceptions and re-create them. The only drawback
-             * to this is that the UIDs will change.
-             */
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
+            /* Since AS keeps exceptions as part of the original event, we need
+             * to delete all existing exceptions and re-create them. The only
+             * drawback to this is that the UIDs will change. */
             $this->recurrence = $rrule;
             if (!empty($this->uid)) {
                 $search = new StdClass();
