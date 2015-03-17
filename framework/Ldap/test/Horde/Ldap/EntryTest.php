@@ -10,14 +10,6 @@
 
 class Horde_Ldap_EntryTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
-    public function testCreateFreshFail()
-    {
-        $entry = Horde_Ldap_Entry::createFresh('cn=test', 'I should be an array');
-    }
-
     public function testCreateFreshSuccess()
     {
         $entry = Horde_Ldap_Entry::createFresh('cn=test',
