@@ -49,13 +49,13 @@ class Whups_Form_Ticket_CreateStepFour extends Horde_Form
 
         if (count($f_users)) {
             asort($f_users);
-            $owners = &$this->addVariable(_("Owners"), 'owners', 'multienum',
+            $owners = $this->addVariable(_("Owners"), 'owners', 'multienum',
                                           false, false, null, array($f_users));
         }
 
         if (count($f_groups)) {
             asort($f_groups);
-            $group_owners = &$this->addVariable(_("Group Owners"),
+            $group_owners = $this->addVariable(_("Group Owners"),
                                                 'group_owners', 'multienum',
                                                 false, false, null,
                                                 array($f_groups));

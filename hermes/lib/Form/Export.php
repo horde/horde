@@ -39,7 +39,7 @@ class Hermes_Form_Export extends Horde_Form
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $yesno = array('yes' => _("Yes"),
                            'no' => _("No"));
-            $var = &$this->addVariable(_("Mark the time as exported?"),
+            $var = $this->addVariable(_("Mark the time as exported?"),
                                        'mark_exported', 'enum', true, false,
                                        null, array($yesno));
             $var->setDefault('no');

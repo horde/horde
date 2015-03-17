@@ -59,13 +59,13 @@ class Whups_Form_Ticket_CreateStepThree extends Horde_Form
             $f_state = &$this->addHidden(
                 _("Ticket State"), 'state', 'enum', true, false, null, array($states));
         } else {
-            $f_state = &$this->addVariable(
+            $f_state = $this->addVariable(
                 _("Ticket State"), 'state', 'enum', true, false, null, array($states));
             $f_state->setDefault(
                 $whups_driver->getDefaultState($vars->get('type')));
         }
 
-        $f_priority = &$this->addVariable(
+        $f_priority = $this->addVariable(
             _("Priority"), 'priority', 'enum', true, false, null,
             array($whups_driver->getPriorities($vars->get('type'))));
         $f_priority->setDefault(

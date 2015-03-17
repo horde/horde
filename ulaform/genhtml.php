@@ -42,7 +42,7 @@ $form->addHidden('', 'form_id', 'int', false);
 $form->addHidden('', 'old_type', 'text', false);
 
 $embed_types = array('php_pear' => _("PHP using PEAR classes"), 'iframe' => _("iframe"));
-$v = &$form->addVariable(_("Select how you wish to embed the form"), 'type', 'enum', true, false, null, array($embed_types, true));
+$v = $form->addVariable(_("Select how you wish to embed the form"), 'type', 'enum', true, false, null, array($embed_types, true));
 $v->setAction(Horde_Form_Action::factory('submit'));
 
 switch ($type) {

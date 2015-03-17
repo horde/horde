@@ -24,7 +24,7 @@ class Whups_Form_Admin_AddAttribute extends Horde_Form
         $this->addVariable(
           _("Required Attribute?"), 'attribute_required', 'boolean', false);
 
-        $v = &$this->addVariable(
+        $v = $this->addVariable(
           _("Attribute Type"), 'attribute_type', 'enum', true, false, null,
           array(Whups::fieldTypeNames()));
         $v->setDefault('text');

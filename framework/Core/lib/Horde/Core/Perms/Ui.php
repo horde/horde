@@ -422,7 +422,7 @@ class Horde_Core_Perms_Ui
                 $this->_form->addVariable($group_html, 'g_n[v]', $this->_type, false, false, null, $params);
             }
             foreach ($perm_val as $g_id => $g_perms) {
-                $var = &$this->_form->addVariable(isset($group_list[$g_id]) ? $group_list[$g_id] : $g_id, 'g_v[' . $g_id . ']', $this->_type, false, false, null, $params);
+                $var = $this->_form->addVariable(isset($group_list[$g_id]) ? $group_list[$g_id] : $g_id, 'g_v[' . $g_id . ']', $this->_type, false, false, null, $params);
                 $var->setDefault($g_perms);
             }
         }

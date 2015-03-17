@@ -39,7 +39,7 @@ class Whups_Form_Ticket_CreateStepTwo extends Horde_Form
                 $type_params[] = _("Choose:");
             }
         }
-        $types = &$this->addVariable(
+        $types = $this->addVariable(
             _("Ticket Type"), 'type', $typetype, true, false, null, $type_params);
         $types->setDefault($type);
 

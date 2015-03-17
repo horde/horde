@@ -25,11 +25,11 @@ class Whups_Form_Admin_CloneType extends Horde_Form
         $this->setButtons(_("Clone"));
         $this->addHidden('', 'type', 'int', true, true);
 
-        $tname = &$this->addVariable(
+        $tname = $this->addVariable(
             _("Name of the cloned copy"), 'name', 'text', true);
         $tname->setDefault(sprintf(_("Copy of %s"), $info['name']));
 
-        $tdesc = &$this->addVariable(
+        $tdesc = $this->addVariable(
             _("Clone Description"), 'description', 'text', true);
         $tdesc->setDefault($info['description']);
     }

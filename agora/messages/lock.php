@@ -41,7 +41,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $form = new Horde_Form($vars, sprintf(_("Locking thread \"%s\""), $message['message_subject']));
 $form->setButtons(_("Update"), true);
 $form->addHidden('', 'agora', 'text', false);
-$v = &$form->addVariable(_("Allow replies in this thread"), 'message_lock', 'radio', true, false, null, array(array('0' => _("Yes, allow replies"), '1' => _("No, do not allow replies"))));
+$v = $form->addVariable(_("Allow replies in this thread"), 'message_lock', 'radio', true, false, null, array(array('0' => _("Yes, allow replies"), '1' => _("No, do not allow replies"))));
 $v->setDefault('0');
 
 if ($form->validate()) {

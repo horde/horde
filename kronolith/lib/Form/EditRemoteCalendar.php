@@ -23,7 +23,7 @@ class Kronolith_Form_EditRemoteCalendar extends Horde_Form
 
         $this->addHidden('', 'url', 'text', true);
         $this->addVariable(_("Name"), 'name', 'text', true);
-        $v = &$this->addVariable(_("URL"), 'new_url', 'text', true);
+        $v = $this->addVariable(_("URL"), 'new_url', 'text', true);
         $v->setDefault($vars->get('url'));
         $this->addVariable(_("Username"), 'user', 'text', false);
         $this->addVariable(_("Password"), 'password', 'password', false);

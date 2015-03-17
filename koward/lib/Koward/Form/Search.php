@@ -67,7 +67,7 @@ class Koward_Form_Search extends Horde_Form {
                 $params = isset($attribute['params']) ? $attribute['params'] : array();
                 $desc = isset($attribute['desc']) ? $attribute['desc'] : null;
 
-                $v = &$this->addVariable($attribute['label'], 'object[' . $key . ']', $attribute['type'], $attribute['required'], null, $desc, $params);
+                $v = $this->addVariable($attribute['label'], 'object[' . $key . ']', $attribute['type'], $attribute['required'], null, $desc, $params);
             }
 
             if (isset($attribute['default'])) {

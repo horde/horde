@@ -20,7 +20,7 @@ class Whups_Form_Admin_AddVersion extends Horde_Form
         $this->addHidden('', 'queue', 'int', true, true);
         $this->addVariable(_("Version Name"), 'name', 'text', true);
         $this->addVariable(_("Version Description"), 'description', 'text', true);
-        $vactive = &$this->addVariable(_("Version Active?"), 'active', 'boolean', false);
+        $vactive = $this->addVariable(_("Version Active?"), 'active', 'boolean', false);
         $vactive->setDefault(true);
     }
 

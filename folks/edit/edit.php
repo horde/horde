@@ -26,7 +26,7 @@ $form->addVariable(_("Email"), 'user_email', 'email', true);
 $form->addVariable(_("Birthday"), 'user_birthday', 'monthdayyear', false, false, null, array(date('Y')-90, date('Y')-10, '%Y%m%d', '%Y%m%d'));
 $form->addVariable(_("Gender"), 'user_gender', 'enum', false, false, null, array(array(1 => _("Male"), 2 => _("Female")), _("--- Select ---")));
 $form->addVariable(_("City"), 'user_city', 'text', false);
-$v = &$form->addVariable(_("Country"), 'user_country', 'enum', false, false, null, array(Folks::getCountries()));
+$v = $form->addVariable(_("Country"), 'user_country', 'enum', false, false, null, array(Folks::getCountries()));
 $v->setDefault('SI');
 $form->addVariable(_("Homepage"), 'user_url', 'text', false);
 

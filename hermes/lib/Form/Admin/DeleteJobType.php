@@ -29,7 +29,7 @@ class Hermes_Form_Admin_DeleteJobType extends Horde_Form
 
         $this->addHidden('', 'jobtype', 'int', true, true);
 
-        $sname = &$this->addVariable(_("Job Type"), 'name', 'text', false, true);
+        $sname = $this->addVariable(_("Job Type"), 'name', 'text', false, true);
         $sname->setDefault($info['name']);
 
         $this->addVariable(

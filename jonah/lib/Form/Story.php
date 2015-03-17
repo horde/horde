@@ -50,13 +50,13 @@ class Jonah_Form_Story extends Horde_Form
             $date_params = array();
         }
 
-        $d = &$this->addVariable(_("Or publish on this date:"), 'publish_date', 'monthdayyear', false, false, null, $date_params);
+        $d = $this->addVariable(_("Or publish on this date:"), 'publish_date', 'monthdayyear', false, false, null, $date_params);
         $d->setDefault($published);
 
-        $t = &$this->addVariable('', 'publish_time', 'hourminutesecond', false);
+        $t = $this->addVariable('', 'publish_time', 'hourminutesecond', false);
         $t->setDefault($published);
 
-        $v = &$this->addVariable(_("Story body type"), 'body_type', 'enum', false, false, null, array(Jonah::getBodyTypes()));
+        $v = $this->addVariable(_("Story body type"), 'body_type', 'enum', false, false, null, array(Jonah::getBodyTypes()));
         $v->setAction(Horde_Form_Action::factory('submit'));
         $v->setOption('trackchange', true);
 

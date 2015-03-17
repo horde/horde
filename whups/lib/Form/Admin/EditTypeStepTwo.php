@@ -24,16 +24,16 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
 
         $this->addHidden('', 'type', 'int', true, true);
 
-        $tname = &$this->addVariable(_("Type Name"), 'name', 'text', true);
+        $tname = $this->addVariable(_("Type Name"), 'name', 'text', true);
         $tname->setDefault($info['name']);
 
-        $tdesc = &$this->addVariable(
+        $tdesc = $this->addVariable(
             _("Type Description"), 'description', 'text', true);
         $tdesc->setDefault($info['description']);
 
         /* States. */
         $states = $whups_driver->getStates($type);
-        $tstates = &$this->addVariable(
+        $tstates = $this->addVariable(
             _("States for this Type"), 'state', 'set', false, true, null,
             array($states));
         $tstates->setDefault(array_keys($states));
@@ -50,7 +50,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
 
         /* Priorities. */
         $priorities = $whups_driver->getPriorities($type);
-        $tpriorities = &$this->addVariable(_("Priorities for this Type"),
+        $tpriorities = $this->addVariable(_("Priorities for this Type"),
                                            'priority', 'set', false, true, null,
                                            array($priorities));
         $tpriorities->setDefault(array_keys($priorities));
@@ -71,7 +71,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
         foreach ($attributes as $key => $attribute) {
             $params[$key] = $attribute['human_name'];
         }
-        $tattributes = &$this->addVariable(_("Attributes for this Type"),
+        $tattributes = $this->addVariable(_("Attributes for this Type"),
                                            'attribute', 'set', false, true,
                                            null, array($params));
         $tattributes->setDefault(array_keys($attributes));
@@ -87,7 +87,7 @@ class Whups_Form_Admin_EditTypeStepTwo extends Horde_Form
         foreach ($replies as $key => $reply) {
             $params[$key] = $reply['reply_name'];
         }
-        $treplies = &$this->addVariable(_("Form Replies for this Type"),
+        $treplies = $this->addVariable(_("Form Replies for this Type"),
                                         'reply', 'set', false, true, null,
                                         array($params));
         $treplies->setDefault(array_keys($replies));

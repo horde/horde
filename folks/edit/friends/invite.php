@@ -23,10 +23,10 @@ $friends = Folks_Friends::singleton();
 $form = new Horde_Form($vars, $title, 'invite');
 $form->addVariable(_("Friend's e-mail"), 'email', 'email', true);
 
-$v = &$form->addVariable(_("Subject"), 'subject', 'text', true);
+$v = $form->addVariable(_("Subject"), 'subject', 'text', true);
 $v->setDefault(sprintf(_("%s Invited to join %s."), ucfirst($GLOBALS['registry']->getAuth()), $registry->get('name', 'horde')));
 
-$v = &$form->addVariable(_("Body"), 'body', 'longtext', true);
+$v = $form->addVariable(_("Body"), 'body', 'longtext', true);
 try {
     $body = Horde::loadConfiguration('invite.php', 'body', 'folks');
     $body = sprintf($body, $registry->get('name', 'horde'),

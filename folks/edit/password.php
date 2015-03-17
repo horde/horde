@@ -179,10 +179,10 @@ if (Horde_Util::getPost('formname') == 'security') {
 $form_security = new Horde_Form($vars, _("Security question used when reseting password"), 'security');
 $form_security->setButtons(_("Continue"), _("Reset"));
 if (!$prefs->isLocked('security_question')) {
-    $v = &$form_security->addVariable(_("Security question"), 'security_question', 'text', true);
+    $v = $form_security->addVariable(_("Security question"), 'security_question', 'text', true);
     $v->setDefault($prefs->getValue('security_question'));
 }
-$v = &$form_security->addVariable(_("Security answer"), 'security_answer', 'text', true);
+$v = $form_security->addVariable(_("Security answer"), 'security_answer', 'text', true);
 $v->setDefault($prefs->getValue('security_answer'));
 
 $page_output->header(array(

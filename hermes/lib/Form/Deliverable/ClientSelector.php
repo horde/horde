@@ -18,7 +18,7 @@ class Hermes_Form_Deliverable_ClientSelector extends Horde_Form
         $action = &Horde_Form_Action::factory('submit');
         list($clienttype, $clientparams) = $this->getClientType();
 
-        $cli = &$this->addVariable(_("Client"), 'client_id', $clienttype, true, false, null, $clientparams);
+        $cli = $this->addVariable(_("Client"), 'client_id', $clienttype, true, false, null, $clientparams);
         $cli->setAction($action);
         $this->setButtons(_("Edit Deliverables"));
     }

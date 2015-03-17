@@ -47,7 +47,7 @@ foreach ($messages->getThreads(0, false, 'message_subject', 0) as $thread) {
     $threads_list[$thread['message_id']] = $thread['message_subject'];
 }
 
-$v = &$form->addVariable(_("With Thread: "), 'new_thread_id', 'enum', true, false, null, array($threads_list));
+$v = $form->addVariable(_("With Thread: "), 'new_thread_id', 'enum', true, false, null, array($threads_list));
 $v->setAction($action_submit);
 $v->setOption('trackchange', true);
 

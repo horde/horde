@@ -22,10 +22,10 @@ class Whups_Form_Admin_EditReplyStepTwo extends Horde_Form
 
         $this->addHidden('', 'type', 'int', true, true);
         $this->addHidden('', 'reply', 'int', true, true);
-        $pname = &$this->addVariable(
+        $pname = $this->addVariable(
             _("Form Reply Name"), 'reply_name', 'text', true);
         $pname->setDefault($info['reply_name']);
-        $ptext = &$this->addVariable(
+        $ptext = $this->addVariable(
             _("Form Reply Text"), 'reply_text', 'longtext', true);
         $ptext->setDefault($info['reply_text']);
 

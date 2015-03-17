@@ -79,7 +79,7 @@ $form->setTitle($title);
 $form->setButtons(_("Send"));
 $form->addHidden('', 'channel_id', 'int', false);
 $form->addHidden('', 'id', 'int', false);
-$v = &$form->addVariable(_("From"), 'from', 'email', true, false);
+$v = $form->addVariable(_("From"), 'from', 'email', true, false);
 if ($GLOBALS['registry']->getAuth()) {
     $v->setDefault($injector->getInstance('Horde_Core_Factory_Identity')->create()->getValue('from_addr'));
 }
