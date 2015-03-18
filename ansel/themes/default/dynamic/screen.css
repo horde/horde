@@ -182,3 +182,8 @@
     overflow: auto;
     height: 300px;
 }
+
+#anseluploader {
+    position: relative;
+    z-index: 9999;
+}
