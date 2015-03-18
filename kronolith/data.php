@@ -199,7 +199,14 @@ if (is_array($next_step)) {
 
     if (!empty($ical)) {
         $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
-        $ical_importer->process();
+        try {
+            $ical_importer->process();
+        } catch (Kronolith_Exception $e) {
+            $msg = _("Can't create a new event.")
+                . ' ' . sprintf(_("This is what the server said: %s"), $e->getMessage());
+            $notification->push($msg, 'horde.error');
+            $error = true;
+        }
     }
 
     if (!$error) {
