@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-17</date>
+ <date>2015-03-18</date>
  <version>
   <release>4.2.6</release>
   <api>4.2.0</api>
@@ -198,6 +198,12 @@
      <file name="Mysql.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Geo -->
+    <dir name="Icalendar">
+     <dir name="Handler">
+      <file name="Base.php" role="horde" />
+      <file name="Dav.php" role="horde" />
+     </dir> <!-- /lib/Icalendar/Handler -->
+     </dir> <!-- /lib/Icalendar -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -1204,6 +1210,8 @@
    <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
    <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Base.php" name="lib/Icalendar/Handler/Base.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Dav.php" name="lib/Icalendar/Handler/Dav.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
