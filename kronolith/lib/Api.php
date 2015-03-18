@@ -747,33 +747,8 @@ class Kronolith_Api extends Horde_Registry_Api
             if (count($components) == 0) {
                 throw new Kronolith_Exception(_("No iCalendar data was found."));
             }
-
-            $ids = array();
-            $recurrences = array();
-            foreach ($components as $content) {
-                if ($content instanceof Horde_Icalendar_Vevent) {
-                    // Need to ensure that the original recurring event is
-                    // added before any of the instance exceptions. Easiest way
-                    // to do that is just add all the recurrence-id entries last
-                    try {
-                        $content->getAttribute('RECURRENCE-ID');
-                        $recurrences[] = $content;
-                    } catch (Horde_Icalendar_Exception $e) {
-                        $ids[] = $this->_addiCalEvent($content, $kronolith_driver);
-                    }
-                }
-            }
-
-            if (count($ids) == 0) {
-                throw new Kronolith_Exception(_("No iCalendar data was found."));
-            }
-
-            // Now add all the exception instances
-            foreach ($recurrences as $recurrence) {
-                $ids[] = $this->_addiCalEvent($recurrence, $kronolith_driver, true);
-            }
-
-            return $ids;
+            $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
+            return $ical_importer->process();
 
             case 'activesync':
                 $event = $kronolith_driver->getEvent();
