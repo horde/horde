@@ -767,9 +767,9 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     public function initPartialSync()
     {
 
-        // PARTIAL is allowed without a <collection> tag if the
-        // waitinterval, heartbeat, or windowsize changed. So, short circuit
-        // the logic for checking for changed collections in this case.
+        // PARTIAL is allowed without a <collection> tag if the waitinterval,
+        // heartbeat, or windowsize changed. So, short circuit the logic for
+        // checking for changed collections in this case.
         if (empty($this->_collections)) {
             $this->_logger->err('No collections in collection handler, loading full collection set from cache.');
             $this->loadCollectionsFromCache();
@@ -844,11 +844,12 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
                     $this->_unchangedCount++;
                 }
                 // Unset in tempSyncCache, since we have it from device.
-                // Afterwards, anything left in tempSyncCache needs to be
-                // added to _collections (this is done in self::_haveNoChangesInPartialSync())
+                // Afterwards, anything left in tempSyncCache needs to be added
+                // to _collections (this is done in
+                // self::_haveNoChangesInPartialSync()).
                 $this->_tempSyncCache->removeCollection($key);
 
-                // Remove keys from confirmed synckeys array and count them
+                // Remove keys from confirmed synckeys array and count them.
                 if (isset($value['synckey'])) {
                     if (isset($this->_cache->confirmed_synckeys[$value['synckey']])) {
                         $this->_logger->info(sprintf(
