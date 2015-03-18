@@ -95,9 +95,9 @@ class Ingo_Api extends Horde_Registry_Api
 
         if (!empty($addresses)) {
             try {
-                $bl = $injector->getInstance('Ingo_Factory_Storage')->create()
-                    ->getSystemRule('Ingo_Rule_System_Blacklist')->addresses;
-                $bl->addAddresses($addresses);
+                $injector->getInstance('Ingo_Factory_Storage')->create()
+                    ->getSystemRule('Ingo_Rule_System_Blacklist')
+                    ->addAddresses($addresses);
                 Ingo_Script_Util::update(false);
                 foreach ($addresses as $from) {
                     $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
@@ -118,9 +118,9 @@ class Ingo_Api extends Horde_Registry_Api
         global $injector, $notification;
 
         try {
-            $wl = $injector->getInstance('Ingo_Factory_Storage')->create()
-                ->getSystemRule('Ingo_Rule_System_Whitelist')->addresses;
-            $wl->addAddresses($addresses);
+            $injector->getInstance('Ingo_Factory_Storage')->create()
+                ->getSystemRule('Ingo_Rule_System_Whitelist')
+                ->addAddresses($addresses);
             Ingo_Script_Util::update(false);
             foreach ($addresses as $from) {
                 $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
