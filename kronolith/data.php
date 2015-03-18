@@ -139,6 +139,8 @@ if (is_array($next_step)) {
     }
 
     $recurrences = array();
+    $ical = null;
+
     foreach ($next_step as $row) {
         if ($max_events !== true && $num_events >= $max_events) {
             Horde::permissionDeniedError(
@@ -148,6 +150,18 @@ if (is_array($next_step)) {
             );
             break;
         }
+
+        if ($row instanceof Horde_Icalendar_Vevent) {
+            if (!$ical) {
+                $ical = new Horde_Icalendar();
+            }
+            $ical->addComponent($row);
+            if ($max_events !== true) {
+                $num_events++;
+            }
+            continue;
+        }
+
         try {
             $event = $kronolith_driver->getEvent();
         } catch (Exception $e) {
@@ -157,17 +171,7 @@ if (is_array($next_step)) {
             $error = true;
             break;
         }
-        if ($row instanceof Horde_Icalendar_Vevent) {
-            // RECURRENCE-ID entries must be imported after the original
-            // recurring event is imported.
-            try {
-                $row->getAttribute('RECURRENCE-ID');
-                $recurrences[] = $row;
-                continue;
-            } catch (Horde_Icalendar_Exception $e) {
-                $event->fromiCalendar($row);
-            }
-        } elseif ($row instanceof Horde_Icalendar) {
+        if ($row instanceof Horde_Icalendar) {
             // Skip other iCalendar components for now.
             continue;
         } else {
@@ -193,17 +197,9 @@ if (is_array($next_step)) {
         }
     }
 
-    // Any RECURRENCE-ID entries?
-    foreach ($recurrences as $recurrence) {
-        $event = $kronolith_driver->getEvent();
-        try {
-            $event->fromiCalendar($recurrence);
-            $event->save();
-        } catch (Exception $e) {
-            $notification->push($e, 'horde.error');
-            $error = true;
-            break;
-        }
+    if (!empty($ical)) {
+        $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
+        $ical_importer->process();
     }
 
     if (!$error) {
