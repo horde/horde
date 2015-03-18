@@ -192,7 +192,7 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
                     $this->_action[] = '       -a"From: <' . $address . '>" \\';
                     $this->_action[] = '       -A"X-Loop: ' . $address . '" \\';
-                    $reason = Ingo_Script_Util::vacationReason(
+                    $reason = Ingo_Rule_System_Vacation::vacationReason(
                         $params['action-value']['reason'],
                         $params['action-value']['start'],
                         $params['action-value']['end']

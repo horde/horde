@@ -206,4 +206,37 @@ implements Ingo_Rule_System
         }
     }
 
+    /**
+     * Returns the vacation reason with all placeholder replaced.
+     *
+     * @param string $reason  The vacation reason including placeholders.
+     * @param integer $start  The vacation start timestamp.
+     * @param integer $end    The vacation end timestamp.
+     *
+     * @return string  The vacation reason suitable for usage in the filter
+     *                 scripts.
+     */
+    public static function vacationReason($reason, $start, $end)
+    {
+        global $injector, $prefs;
+
+        $format = $prefs->getValue('date_format');
+        $identity = $injector->getInstance('Horde_Core_Factory_Identity')
+            ->create(Ingo::getUser());
+
+        $replace = array(
+            '%NAME%' => $identity->getName(),
+            '%EMAIL%' => $identity->getDefaultFromAddress(),
+            '%SIGNATURE%' => $identity->getValue('signature'),
+            '%STARTDATE%' => $start ? strftime($format, $start) : '',
+            '%ENDDATE%' => $end ? strftime($format, $end) : ''
+        );
+
+        return str_replace(
+            array_keys($replace),
+            array_values($replace),
+            $reason
+        );
+    }
+
 }

@@ -309,7 +309,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         $this->_addItem(
             Ingo::RULE_VACATION,
             new Ingo_Script_String(
-                Ingo_Script_Util::vacationReason(
+                Ingo_Rule_System_Vacation::vacationReason(
                     $rule->reason,
                     $rule->start,
                     $rule->end
