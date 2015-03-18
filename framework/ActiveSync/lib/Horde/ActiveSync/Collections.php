@@ -773,6 +773,10 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
         if (empty($this->_collections)) {
             $this->_logger->err('No collections in collection handler, loading full collection set from cache.');
             $this->loadCollectionsFromCache();
+
+            // Need this for all PARTIAL sync requests.
+            $this->_tempSyncCache = clone $this->_cache;
+
             foreach ($this->_collections as $value) {
                 // Remove keys from confirmed synckeys array and count them
                 if (isset($value['synckey'])) {
