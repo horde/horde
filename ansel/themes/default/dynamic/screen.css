@@ -143,7 +143,8 @@
 
 .ansel-imageview-main img {
     position: absolute;
-    /*display: block;*/
+    max-height: 100%;
+    height: auto;
     margin: auto;
     top: 0;
     left: 0;
