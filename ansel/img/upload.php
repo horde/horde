@@ -48,8 +48,9 @@ $view = new Ansel_View_Upload(
         'return_target' => $return_url->toString(true, true)));
 if (!$prefs->getValue('force_old_uploader', 'false')) {
     $view->run();
+} else {
+    $nojs = $view->handleLegacy();
 }
-$nojs = $view->handleLegacy();
 
 $page_output->header(array(
     'title' => _("Add Photo")
