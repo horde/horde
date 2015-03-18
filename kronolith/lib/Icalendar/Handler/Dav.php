@@ -1,0 +1,150 @@
+<?php
+/**
+ * Copyright 2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
+ * @category Horde
+ */
+
+/**
+ * Wraps logic responsible for importing iCalendar data via DAV taking into
+ * account necessary steps to deal with recurrence series and exceptions.
+ *
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Kronolith
+ * @category Horde
+ */
+class Kronolith_Icalendar_Handler_Dav extends Kronolith_Icalendar_Handler_Base
+{
+    /**
+     * The DAV storage driver.
+     *
+     * @var Horde_Dav_Storage_Base
+     */
+    protected $_dav;
+
+    /**
+     * The calendar id to be imported into.
+     *
+     * @var string
+     */
+    protected $_calendar;
+
+    /**
+     * Temporary cache of the existing copy of an event being replaced.
+     *
+     * @var Kronolith_Event
+     */
+    protected $_existingEvent;
+
+    /**
+     *
+     * @param Horde_Icalendar  $iCal    The iCalendar data.
+     * @param Kronolith_Driver $driver  The Kronolith driver.
+     * @param array            $params  Any additional parameters needed for
+     *                                  the importer. For this driver we
+     *                                  require: 'object' - contains the DAV
+     *                                  identifier for the (base) event.
+     */
+    public function __construct(
+        Horde_Icalendar $iCal, Kronolith_Driver $driver, $params = array())
+    {
+        parent::__construct($iCal, $driver, $params);
+        $this->_dav = $GLOBALS['injector']->getInstance('Horde_Dav_Storage');
+        $this->_calendar = $this->_driver->calendar;
+    }
+
+    /**
+     * Responsible for any logic needed before the event is saved. Called for
+     * EVERY component in the iCalendar object. Returning false from this method
+     * will cause the current component to be ignored. Returning true causes it
+     * to be processed.
+     *
+     * @param  Horde_Icalendar $component  The iCalendar component.
+     *
+     * @return boolean  True to continue processing, false to ignore.
+     */
+    protected function _preSave($component)
+    {
+        // Short circuit if we know we don't pass the parent test.
+        if (!parent::_preSave($component)) {
+            return false;
+        }
+
+        // Ensure we start with a fresh state.
+        $this->_existingEvent = null;
+
+        // Get the internal id of the existing copy of the event, if it exists.
+        try {
+            $existing_id = $this->_dav->getInternalObjectId($this->_params['object'], $this->_calendar)
+                ?: preg_replace('/\.ics$/', '', $this->_params['object']);
+        } catch (Horde_Dav_Exception $e) {
+            $existing_id = $this->_params['object'];
+        }
+
+        // Check that we don't have newer information already on the server.
+        try {
+            // Exception event, so we can't compare timestamps using ids.
+            // Instead look for baseid/recurrence-id.
+            $rid = $component->getAttribute('RECURRENCE-ID');
+            $uid = $component->getAttribute('UID');
+            if (!empty($rid) && !empty($uid)) {
+                $search = new stdClass();
+                $search->baseid = $uid;
+                $search->recurrenceid = $rid;
+                $results = $this->_driver->search($search);
+                foreach ($results as $days) {
+                    foreach ($days as $exception) {
+                        // Should only be one...
+                        $modified = $exception->modified
+                            ?: $exception->created;
+                    }
+                }
+            }
+        } catch (Horde_Icalendar_Exception $e) {
+            // Base event or event with no recurrence.
+           try {
+                $this->_existingEvent = $this->_driver->getEvent($existing_id);
+                $this->_existingEvent->loadHistory();
+                $modified = $this->_existingEvent->modified
+                    ?: $this->_existingEvent->created;
+            } catch (Horde_Exception_NotFound $e) {
+                $this->_existingEvent = null;
+            }
+        }
+
+        try {
+            if (!empty($modified) &&
+                $component->getAttribute('LAST-MODIFIED') < $modified->timestamp()) {
+                 /* LAST-MODIFIED timestamp of existing entry is newer:
+                 * don't replace it. */
+                return false;
+            }
+        } catch (Horde_Icalendar_Exception $e) {}
+
+        return true;
+    }
+
+    protected function _postSave(Kronolith_Event $event)
+    {
+        if (!$this->_dav->getInternalObjectId($this->_params['object'], $this->_calendar)) {
+            $this->_dav->addObjectMap($event->id, $this->_params['object'], $this->_calendar);
+        }
+
+        // Send iTip messages.
+        // Notifications will get lost, there is no way to return messages
+        // to clients.
+        Kronolith::sendITipNotifications(
+            $event,
+            new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
+            Kronolith::ITIP_REQUEST
+        );
+    }
+
+}
