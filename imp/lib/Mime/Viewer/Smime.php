@@ -254,9 +254,16 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         $iterator = $this->_mimepart->partIterator();
         $iterator->rewind();
 
-        $base_id = $iterator->current()->getMimeId();
+        if (!$curr = $iterator->current()) {
+            return null;
+        }
+        $base_id = $curr->getMimeId();
+
         $iterator->next();
-        $data_id = $iterator->current()->getMimeId();
+        if (!$curr = $iterator->current()) {
+            return null;
+        }
+        $data_id = $curr->getMimeId();
 
         $id_ob = new Horde_Mime_Id($data_id);
         $sig_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
