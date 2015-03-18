@@ -32,10 +32,22 @@ class Ingo_Form_Spam extends Ingo_Form_Base
     {
         parent::__construct($vars, $title, $name);
 
-        $v = $this->addVariable(_("Spam Level:"), 'level', 'int', true, false, _("Messages with a likely spam score greater than or equal to this number will be treated as spam."));
+        $v = $this->addVariable(
+            _("Spam Level:"),
+            'level',
+            'int',
+            true,
+            false,
+            _("Messages with a likely spam score greater than or equal to this number will be treated as spam.")
+        );
         $v->setHelp('spam-level');
 
-        $this->folder_var = $this->addVariable(_("Folder to receive spam:"), 'folder', 'ingo_folders', false);
+        $this->folder_var = $this->addVariable(
+            _("Folder to receive spam:"),
+            'folder',
+            'ingo_folders',
+            false
+        );
         $this->folder_var->setHelp('spam-folder');
         $this->addHidden('', 'actionID', 'text', false);
         $this->addHidden('', 'folder_new', 'text', false);
