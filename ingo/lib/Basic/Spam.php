@@ -113,31 +113,3 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
     }
 
 }
-
-
-/**
- * Dummy class to hold the select box created by {@link Ingo_Flist::select()}.
- *
- * @see Horde_Core_Ui_VarRenderer_Ingo
- * @see Ingo_Flist::select()
- */
-class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
-
-    var $_folder;
-
-    function isValid(&$var, &$vars, $value, &$message)
-    {
-        return true;
-    }
-
-    function getFolder()
-    {
-        return $this->_folder;
-    }
-
-    function setFolder($folder)
-    {
-        $this->_folder = $folder;
-    }
-
-}
