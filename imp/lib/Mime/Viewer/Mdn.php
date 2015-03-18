@@ -63,14 +63,6 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
      */
     protected function _renderInfo()
     {
-        $mdn_id = $this->_mimepart->getMimeId();
-
-        $status = new IMP_Mime_Status(
-            $this->_mimepart,
-            _("A message you have sent has resulted in a return notification from the recipient.")
-        );
-        $status->icon('info_icon.png', _("Info"));
-
         /* RFC 3798 [3]: There are three parts to a delivery status
          * multipart/report message:
          *   (1) Human readable message
@@ -80,7 +72,40 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         /* Get the human readable message. */
         $iterator = $this->_mimepart->partIterator(false);
         $iterator->rewind();
-        $part1_id = $iterator->current()->getMimeId();
+        $ret = $this->_parseMdn($iterator->current());
+
+        $status = new IMP_Mime_Status(
+            $this->_mimepart,
+            _("A message you have sent has resulted in a return notification from the recipient.")
+        );
+        $status->icon('info_icon.png', _("Info"));
+
+        $ret[$this->_mimepart->getMimeId()] = array(
+            'data' => '',
+            'status' => $status,
+            'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
+            'wrap' => 'mimePartWrap'
+        );
+
+        return $ret;
+    }
+
+    /**
+     * Parse the MDN part.
+     *
+     * @param Horde_Mime_Part $part  MDN part.
+     *
+     * @return array  See parent::render().
+     */
+    protected function _parseMdn($part)
+    {
+        $ret = array();
+
+        if (!$part) {
+            return $ret;
+        }
+
+        $part1_id = $part->getMimeId();
         $id_ob = new Horde_Mime_Id($part1_id);
 
         /* Ignore the technical details.
@@ -92,10 +117,10 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         $imp_contents = $this->getConfigParam('imp_contents');
         $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
 
-        if ($part = $imp_contents->getMimePart($part3_id)) {
+        if ($part2 = $imp_contents->getMimePart($part3_id)) {
             $status->addText(
                 $imp_contents->linkViewJS(
-                    $part,
+                    $part2,
                     'view_attach',
                     _("View the text of the sent message."),
                     array(
@@ -107,17 +132,10 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
                 )
             );
 
-            foreach ($part->partIterator() as $val) {
+            foreach ($part2->partIterator() as $val) {
                 $ret[$val->getMimeId()] = null;
             }
         }
-
-        $ret[$mdn_id] = array(
-            'data' => '',
-            'status' => $status,
-            'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
-            'wrap' => 'mimePartWrap'
-        );
 
         return $ret;
     }
