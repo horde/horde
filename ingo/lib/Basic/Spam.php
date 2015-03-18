@@ -132,7 +132,12 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
     {
-        return true;
+        if (strlen($value)) {
+            return true;
+        }
+
+        $message = _("A target folder is required.");
+        return false;
     }
 
     function getFolder()
