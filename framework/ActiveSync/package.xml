@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix PARTIAL SYNC handling when no COLLECTIONS are provided (Bug #13912).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2680,7 +2680,7 @@
    <date>2015-03-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix PARTIAL SYNC handling when no COLLECTIONS are provided (Bug #13912).
    </notes>
   </release>
  </changelog>
