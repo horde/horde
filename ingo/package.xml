@@ -1585,6 +1585,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Enforce selection of a target folder for the spam filter in the UI (Bug #13917).
 * [jan] Fix Sieve error if days of vacation is unset (Bug #13890).
    </notes>
   </release>

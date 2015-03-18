@@ -9,6 +9,15 @@ v3.3.0-git
 
 
 ------
+v3.2.5
+------
+
+[mms] Enforce selection of a target folder for the spam filter in the UI (Bug
+      #13917).
+[jan] Fix Sieve error if days of vacation is unset (Bug #13890).
+
+
+------
 v3.2.4
 ------
 
