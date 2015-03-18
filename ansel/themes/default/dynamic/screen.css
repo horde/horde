@@ -137,23 +137,23 @@
 }
 
 .ansel-imageview-main {
-    height: 100%;
-    margin-right: 320px;
+    position: relative;
+    height: 80%;
 }
 
 .ansel-imageview-main img {
-    margin-top: auto;
-    margin-bottom: auto;
-    max-width: 100%;
+    position: absolute;
+    /*display: block;*/
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .ansel-imageview-bar {
-    position: absolute;
-    top: 0;
-    right: 0;
     color: #ffffff;
     background-color: #333333;
-    height: 100%;
-    width: 300px;
+    height: 20%;
 }
 
 .ansel-imageview-close {
@@ -165,9 +165,9 @@
 }
 
 .ansel-image-title {
-    font-size: 18px;
+    font-size: 20px;
     margin: 10px;
-    line-height: 18px;
+    line-height: 20px;
 }
 
 .ansel-image-desc, .ansel-image-date, .horde-tags {
