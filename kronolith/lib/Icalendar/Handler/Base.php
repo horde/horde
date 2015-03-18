@@ -68,11 +68,16 @@ class Kronolith_Icalendar_Handler_Base
      * Process the iCalendar data.
      *
      * @return array A hash of UID => id.
+     * @throws Kronolith_Exception
      */
     protected function _process()
     {
         $ids = array();
-        foreach ($this->_iCal->getComponents() as $component) {
+        $components = $this->_iCal->getComponents();
+        if (count($components) == 0) {
+            throw new Kronolith_Exception(_("No iCalendar data was found."));
+        }
+        foreach ($components as $component) {
             if (!$this->_preSave($component)) {
                 continue;
             }

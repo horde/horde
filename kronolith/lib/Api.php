@@ -808,10 +808,6 @@ class Kronolith_Api extends Horde_Registry_Api
                 $iCal->addComponent($content);
             }
 
-            $components = $iCal->getComponents();
-            if (count($components) == 0) {
-                throw new Kronolith_Exception(_("No iCalendar data was found."));
-            }
             $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
             return $ical_importer->process();
 
