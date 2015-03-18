@@ -1533,8 +1533,6 @@ abstract class Kronolith_Event
             $this->recurrence = $rrule;
             if (!empty($this->uid)) {
                 $search = new StdClass();
-                $search->start = $rrule->getRecurStart();
-                $search->end = $rrule->getRecurEnd();
                 $search->baseid = $this->uid;
                 $results = $kronolith_driver->search($search);
                 foreach ($results as $days) {
