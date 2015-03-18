@@ -257,13 +257,6 @@ class Ingo_Storage_Sql extends Ingo_Storage
      */
     protected function _storeBackend($action, $rule)
     {
-        // TODO: Code is not tested; prevent against destructive action
-        $GLOBALS['notification']->push(
-            'Saving rules to the SQL driver is currently disabled, as this code is untested and may destroy your data. Uncomment the code in Ingo_Storage_Sql to enable testing and allow rules to be saved.',
-            'horde.error'
-        );
-        return;
-
         switch ($action) {
         case self::STORE_ADD:
             try {
