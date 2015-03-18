@@ -42,7 +42,8 @@ class Ingo_Basic_Whitelist extends Ingo_Basic_Base
                 $whitelist->addresses = $this->vars->whitelist;
                 $ingo_storage->updateRule($whitelist);
                 $notification->push(_("Changes saved."), 'horde.success');
-                Ingo_Script_Util::update();
+
+                $injector->getInstance('Ingo_Factory_Script')->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

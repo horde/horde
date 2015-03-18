@@ -378,4 +378,42 @@ abstract class Ingo_Script_Base
         );
     }
 
+    /**
+     * Connects to the backend, uploads the scripts and sets them active.
+     *
+     * @param boolean $activate     Activate the script?
+     * @param boolean $auto_update  Only update if auto_update is active?
+     *
+     * @throws Ingo_Exception
+     */
+    public function activate($activate = true, $auto_update = true)
+    {
+        global $injector, $prefs;
+
+        if (!$this->hasFeature('script_file') ||
+            ($auto_update && !$prefs->getValue('auto_update'))) {
+            return;
+        }
+
+        $transport = $injector->getInstance('Ingo_Factory_Transport');
+
+        foreach ($this->generate() as $val) {
+            if (!$activate) {
+                $val['script'] = '';
+            }
+            try {
+                $transport->create($val['transport'])->setScriptActive($val);
+            } catch (Ingo_Exception $e) {
+                $msg = $activate
+                  ? _("There was an error activating the script.")
+                  : _("There was an error deactivating the script.");
+                throw new Ingo_Exception(sprintf(
+                    _("%s The driver said: %s"),
+                    $msg,
+                    $e->getMessage()
+                ));
+            }
+        }
+    }
+
 }

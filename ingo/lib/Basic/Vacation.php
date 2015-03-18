@@ -73,7 +73,7 @@ class Ingo_Basic_Vacation extends Ingo_Basic_Base
                 $ingo_storage->updateRule($vacation);
                 $notification->push($notify, 'horde.success');
 
-                Ingo_Script_Util::update();
+                $injector->getInstance('Ingo_Factory_Script')->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

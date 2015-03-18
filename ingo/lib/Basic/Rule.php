@@ -58,8 +58,8 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         }
 
         /* Load the Ingo_Script:: driver. */
-        $ingo_script = $injector->getInstance('Ingo_Factory_Script')
-            ->create(Ingo::RULE_FILTER);
+        $ingo_script_factory = $injector->getInstance('Ingo_Factory_Script');
+        $ingo_script = $ingo_script_factory->create(Ingo::RULE_FILTER);
 
         /* Redirect if no rules are available. */
         $availActions = $ingo_script->availableActions();
@@ -224,7 +224,7 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
             $notification->push(_("Changes saved."), 'horde.success');
 
             try {
-                Ingo_Script_Util::update();
+                $ingo_script_factory->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e, 'horde.error');
             }

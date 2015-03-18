@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-25</date>
+ <date>2015-03-18</date>
  <version>
   <release>3.3.0</release>
   <api>3.2.0</api>
@@ -207,7 +207,6 @@
      <file name="Procmail.php" role="horde" />
      <file name="Sieve.php" role="horde" />
      <file name="String.php" role="horde" />
-     <file name="Util.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="FilterIterator">
@@ -755,7 +754,6 @@
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
    <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
-   <install as="ingo/lib/Script/Util.php" name="lib/Script/Util.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
@@ -1590,7 +1588,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-02-25</date>
+   <date>2015-03-18</date>
    <version>
     <release>3.3.0</release>
     <api>3.2.0</api>

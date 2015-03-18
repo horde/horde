@@ -93,18 +93,20 @@ class Ingo_Api extends Horde_Registry_Api
     {
         global $injector, $notification;
 
-        if (!empty($addresses)) {
-            try {
-                $injector->getInstance('Ingo_Factory_Storage')->create()
-                    ->getSystemRule('Ingo_Rule_System_Blacklist')
-                    ->addAddresses($addresses);
-                Ingo_Script_Util::update(false);
-                foreach ($addresses as $from) {
-                    $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
-                }
-            } catch (Ingo_Exception $e) {
-                $notification->push($e);
+        if (empty($addresses)) {
+            return;
+        }
+
+        try {
+            $injector->getInstance('Ingo_Factory_Storage')->create()
+                ->getSystemRule('Ingo_Rule_System_Blacklist')
+                ->addAddresses($addresses);
+            $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
+            foreach ($addresses as $from) {
+                $notification->push(sprintf(_("The address \"%s\" has been added to your blacklist."), $from));
             }
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
         }
     }
 
@@ -121,7 +123,7 @@ class Ingo_Api extends Horde_Registry_Api
             $injector->getInstance('Ingo_Factory_Storage')->create()
                 ->getSystemRule('Ingo_Rule_System_Whitelist')
                 ->addAddresses($addresses);
-            Ingo_Script_Util::update(false);
+            $injector->getInstance('Ingo_Factory_Script')->activateAll(false);
             foreach ($addresses as $from) {
                 $notification->push(sprintf(_("The address \"%s\" has been added to your whitelist."), $from));
             }
@@ -231,7 +233,7 @@ class Ingo_Api extends Horde_Registry_Api
 
         $ingo_storage->updateRule($vacation);
 
-        Ingo_Script_Util::update();
+        $injector->getInstance('Ingo_Factory_Script')->activateAll();
     }
 
     /**
@@ -276,7 +278,8 @@ class Ingo_Api extends Horde_Registry_Api
         $v = $ingo_storage->getSystemRule('Ingo_Rule_System_Vacation');
         $v->disable = true;
         $ingo_storage->updateRule($v);
-        Ingo_Script_Util::update();
+
+        $injector->getInstance('Ingo_Factory_Script')->activateAll();
     }
 
 }

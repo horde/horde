@@ -140,7 +140,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
             /* Save changes */
             if ($success) {
                 try {
-                    Ingo_Script_Util::update();
+                    $factory->activateAll();
                 } catch (Ingo_Exception $e) {
                     $notification->push($e->getMessage(), 'horde.error');
                 }

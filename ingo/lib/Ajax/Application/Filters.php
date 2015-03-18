@@ -50,7 +50,7 @@ class Ingo_Ajax_Application_Filters extends Horde_Core_Ajax_Application_Handler
         }
 
         try {
-            Ingo_Script_Util::update();
+            $injector->getInstance('Ingo_Factory_Script')->activateAll();
         } catch (Ingo_Exception $e) {
             $notification->push($e, 'horde.warning');
         }

@@ -185,4 +185,17 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
         }
         return false;
     }
+
+    /**
+     * Activate all scripts.
+     *
+     * @param boolean $auto_update  Only update if auto_update is active?
+     */
+    public function activateAll($auto_update = true)
+    {
+        foreach ($this->createAll() as $driver) {
+            $driver->activate(true, $auto_update);
+        }
+    }
+
 }
