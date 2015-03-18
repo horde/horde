@@ -821,62 +821,10 @@ class Kronolith_Application extends Horde_Registry_Application
         if (!$ical->parsevCalendar($data)) {
             throw new Kronolith_Exception(_("There was an error importing the iCalendar data."));
         }
-
-        $kronolith_driver = Kronolith::getDriver(null, $internal);
-
-        foreach ($ical->getComponents() as $content) {
-            if (!($content instanceof Horde_Icalendar_Vevent)) {
-                continue;
-            }
-
-            $event = $kronolith_driver->getEvent();
-            $event->fromiCalendar($content, true);
-
-            try {
-                try {
-                    $existing_id = $dav->getInternalObjectId($object, $internal)
-                        ?: preg_replace('/\.ics$/', '', $object);
-                } catch (Horde_Dav_Exception $e) {
-                    $existing_id = $object;
-                }
-                $existing_event = $kronolith_driver->getEvent($existing_id);
-                /* Check if our event is newer then the existing - get the
-                 * event's history. */
-                $existing_event->loadHistory();
-                $modified = $existing_event->modified
-                    ?: $existing_event->created;
-                try {
-                    if (!empty($modified) &&
-                        $content->getAttribute('LAST-MODIFIED') < $modified->timestamp()) {
-                        /* LAST-MODIFIED timestamp of existing entry is newer:
-                         * don't replace it. */
-                        continue;
-                    }
-                } catch (Horde_Icalendar_Exception $e) {
-                }
-
-                // Don't change creator/owner.
-                $event->creator = $existing_event->creator;
-            } catch (Horde_Exception_NotFound $e) {
-                $existing_event = null;
-            }
-
-            // Save entry.
-            $id = $event->save();
-
-            if (!$existing_event) {
-                $dav->addObjectMap($id, $object, $internal);
-            }
-
-            // Send iTip messages.
-            // Notifications will get lost, there is no way to return messages
-            // to clients.
-            Kronolith::sendITipNotifications(
-                $event,
-                new Horde_Notification_Handler(new Horde_Notification_Storage_Object()),
-                Kronolith::ITIP_REQUEST
-            );
-        }
+        $importer = new Kronolith_Icalendar_Handler_Dav(
+            $ical, Kronolith::getDriver(null, $internal), array('object' => $object)
+        );
+        $importer->process();
     }
 
     /**

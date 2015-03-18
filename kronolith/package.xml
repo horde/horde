@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2015-03-18</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -200,6 +200,12 @@
      <file name="Mysql.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Geo -->
+    <dir name="Icalendar">
+     <dir name="Handler">
+      <file name="Base.php" role="horde" />
+      <file name="Dav.php" role="horde" />
+     </dir> <!-- /lib/Icalendar/Handler -->
+     </dir> <!-- /lib/Icalendar -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
       <file name="Upgrade.php" role="horde" />
@@ -504,6 +510,7 @@
     <file name="20_kronolith_upgrade_timezone.php" role="horde" />
     <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
+    <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -1205,6 +1212,8 @@
    <install as="kronolith/lib/Geo/Base.php" name="lib/Geo/Base.php" />
    <install as="kronolith/lib/Geo/Mysql.php" name="lib/Geo/Mysql.php" />
    <install as="kronolith/lib/Geo/Sql.php" name="lib/Geo/Sql.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Base.php" name="lib/Icalendar/Handler/Base.php" />
+   <install as="kronolith/lib/Icalendar/Handler/Dav.php" name="lib/Icalendar/Handler/Dav.php" />
    <install as="kronolith/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="kronolith/lib/LoginTasks/Task/PurgeEvents.php" name="lib/LoginTasks/Task/PurgeEvents.php" />
    <install as="kronolith/lib/Prefs/Special/DefaultAlarm.php" name="lib/Prefs/Special/DefaultAlarm.php" />
@@ -1331,6 +1340,7 @@
    <install as="kronolith/migration/20_kronolith_upgrade_timezone.php" name="migration/20_kronolith_upgrade_timezone.php" />
    <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
+   <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -2525,7 +2535,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2015-03-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).

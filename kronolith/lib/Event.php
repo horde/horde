@@ -1424,20 +1424,6 @@ abstract class Kronolith_Event
                     $this->recurrence->fromRRule10($rrule);
                 }
 
-                /* Delete all existing exceptions to this event if it already
-                 * exists */
-                if (!empty($this->uid)) {
-                    $kronolith_driver = $this->getDriver();
-                    $search = new StdClass();
-                    $search->baseid = $this->uid;
-                    $results = $kronolith_driver->search($search);
-                    foreach ($results as $days) {
-                        foreach ($days as $exception) {
-                            $kronolith_driver->deleteEvent($exception->id);
-                        }
-                    }
-                }
-
                 // Exceptions. EXDATE represents deleted events, just add the
                 // exception, no new event is needed.
                 $exdates = $vEvent->getAttributeValues('EXDATE');
