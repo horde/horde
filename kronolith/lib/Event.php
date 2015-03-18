@@ -2577,8 +2577,6 @@ abstract class Kronolith_Event
         }
         $return = array();
         $search = new StdClass();
-        $search->start = $this->recurrence->getRecurStart();
-        $search->end = $this->recurrence->getRecurEnd();
         $search->baseid = $this->uid;
         $results = $this->getDriver()->search($search);
 
