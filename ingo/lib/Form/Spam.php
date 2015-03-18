@@ -46,7 +46,7 @@ class Ingo_Form_Spam extends Ingo_Form_Base
             _("Folder to receive spam:"),
             'folder',
             'ingo_folders',
-            false
+            true
         );
         $this->folder_var->setHelp('spam-folder');
         $this->addHidden('', 'actionID', 'text', false);
@@ -87,7 +87,12 @@ class Horde_Form_Type_ingo_folders extends Horde_Form_Type
 
     function isValid(&$var, &$vars, $value, &$message)
     {
-        return true;
+        if (strlen($value)) {
+            return true;
+        }
+
+        $message = _("A target folder is required.");
+        return false;
     }
 
     function getFolder()
