@@ -135,7 +135,9 @@ abstract class Nag_Driver
                   'parent' => '',
                   'private' => false,
                   'owner' => $GLOBALS['registry']->getAuth(),
+                  'organizer' => null,
                   'assignee' => null,
+                  'status' => null,
                   'completed_date' => 0,
                   'recurrence' => null),
             $task
