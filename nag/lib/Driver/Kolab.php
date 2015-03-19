@@ -319,7 +319,6 @@ class Nag_Driver_Kolab extends Nag_Driver
         $object = array(
             'summary' => $task['name'],
             'body' => $task['desc'],
-            //@todo: Match Horde/Kolab priority values
             'priority' => $task['priority'],
             'parent' => $task['parent'],
         );
