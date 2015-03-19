@@ -356,6 +356,9 @@ class Nag_Driver_Kolab extends Nag_Driver
         if ($task['estimate'] !== 0.0) {
             $object['horde-estimate'] = number_format((float)$task['estimate'], 2);
         }
+        if ($task['actual'] !== 0.0) {
+            $object['horde-actual'] = number_format((float)$task['actual'], 2);
+        }
         if ($task['methods'] !== null) {
             $object['horde-alarm-methods'] = serialize($task['methods']);
         }
