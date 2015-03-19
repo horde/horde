@@ -500,7 +500,7 @@ var ImpCore = {
 
         case 'ctx_contacts_new':
             this.compose('new', {
-                to_json: Object.toJSON(baseelt.retrieve('email'))
+                to: baseelt.retrieve('email').v
             });
             break;
         }
