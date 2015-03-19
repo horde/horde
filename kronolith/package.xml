@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
 * [jan] Add hook to customize CalDAV URLs.
@@ -2538,6 +2539,7 @@
    <date>2015-03-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
 * [jan] Add hook to customize CalDAV URLs.

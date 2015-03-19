@@ -77,6 +77,26 @@ html, body {
 #kronolithQuickEvent.kronolithNewTask {
     background-image: url("../graphics/new_task.png");
 }
+#horde-sidebar div.horde-resources .horde-resource-edit-000,
+#horde-sidebar div.horde-resources .horde-resource-edit-fff {
+    margin-right: 5px;
+}
+/* @todo move to horde. */
+#horde-sidebar div.horde-resources .horde-resource-refresh-000,
+#horde-sidebar div.horde-resources .horde-resource-refresh-fff {
+    float: right;
+    display: block;
+    background: url("../graphics/refresh-sidebar-000.png") no-repeat;
+    margin: 2px 10px 0 0;
+    width: 17px;
+    height: 17px;
+    text-indent: -10000px;
+    overflow: hidden;
+    cursor: pointer;
+}
+#horde-sidebar div.horde-resources .horde-resource-refresh-fff {
+    background-image: url("../graphics/refresh-sidebar-fff.png");
+}
 
 /* Quick edit */
 #kronolithQuickinsert {

@@ -956,6 +956,10 @@ KronolithCore = {
             .store('calendar', id)
             .store('calendarclass', type)
             .setStyle({ backgroundColor: cal.bg, color: cal.fg });
+        calendar.insert(
+            new Element('span', { className: 'horde-resource-refresh-' + cal.fg.substring(1) })
+                .setStyle({ backgroundColor: cal.bg, color: cal.fg })
+                .insert('&#8634;'));
         if (type != 'holiday' && type != 'external') {
             calendar.insert(
                 new Element('span', { className: 'horde-resource-edit-' + cal.fg.substring(1) })
@@ -4990,6 +4994,23 @@ KronolithCore = {
             case 'horde-resource-edit-000':
             case 'horde-resource-edit-fff':
                 this.go('calendar:' + elt.up().retrieve('calendarclass') + '|' + elt.up().retrieve('calendar'));
+                e.stop();
+                return;
+
+            case 'horde-resource-refresh-000':
+            case 'horde-resource-refresh-fff':
+                var type = elt.up().retrieve('calendarclass'),
+                    calendar = elt.up().retrieve('calendar'),
+                    tasklist = calendar.substr(6);
+                if (type == 'tasklists') {
+                    this.deleteTasksCache(tasklist);
+                    this.loadTasks(this.tasktype, [ tasklist ]);
+                } else {
+                    // We want to always delete the cache, even if we are not
+                    // in a calendar view.
+                    this.deleteCache([type, calendar]);
+                    this.loadCalendar(type, calendar);
+                }
                 e.stop();
                 return;
 
