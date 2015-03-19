@@ -97,6 +97,8 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Build a task based a data array
      *
+     * @todo Use 'organizer' but migrate old format.
+     *
      * @param array  $task     The data for the task
      *
      * @return array  The converted data array representing the task
@@ -291,6 +293,8 @@ class Nag_Driver_Kolab extends Nag_Driver
 
     /**
      * Retrieve the Kolab object representations for the task.
+     *
+     * @todo Use 'organizer' but migrate old format.
      *
      * @param array $task  A hash with the following possible properties:
      *     - actual: (float) The actual number of hours accumulated.
