@@ -218,8 +218,10 @@ abstract class Nag_Driver
          * task complete might only shift the due date to the next
          * recurrence. */
         $task_completed = $task->completed;
-        if (isset($properties['completed']) &&
-            $properties['completed'] != $task->completed) {
+        $completed_changed = isset($properties['completed']) &&
+            $properties['completed'] != $task->completed;
+        $new_completed = !empty($properties['completed']);
+        if ($completed_changed) {
             if (isset($properties['recurrence'])) {
                 if ($task->recurs()) {
                     $completions = $task->recurrence->completions;
@@ -302,7 +304,7 @@ abstract class Nag_Driver
         /* Update alarm if necessary. */
         $horde_alarm = $GLOBALS['injector']->getInstance('Horde_Alarm');
         if ((isset($properties['alarm']) && empty($properties['alarm'])) ||
-            !empty($properties['completed']) || empty($task->due)) {
+            $new_completed || empty($task->due)) {
             $horde_alarm->delete($task->uid);
         } else {
             $task = $this->get($taskId);
@@ -348,10 +350,9 @@ abstract class Nag_Driver
         }
 
         /* Log completion status changes. */
-        if (isset($properties['completed']) &&
-            $task->completed != $properties['completed']) {
+        if ($completed_changed) {
             $attributes = array('action' => 'complete');
-            if (!$properties['completed']) {
+            if (!$new_completed) {
                 $attributes['ts'] = 0;
             }
             try {
