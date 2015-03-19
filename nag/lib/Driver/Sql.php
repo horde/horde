@@ -145,26 +145,23 @@ class Nag_Driver_Sql extends Nag_Driver
      * Adds a task to the backend storage.
      *
      * @param array $task  A hash with the following possible properties:
-     *     - name: (string) The name (short) of the task.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, array) The task tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
-     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
+     *     - uid: (string) A Unique Identifier for the task.
      *
      * @return string  The Nag ID of the new task.
      * @throws Nag_Exception
@@ -221,29 +218,25 @@ class Nag_Driver_Sql extends Nag_Driver
      *
      * @param string $taskId  The task to modify.
      * @param array $properties  A hash with the following possible properties:
-     *     - id: (string) The task to modify.
-     *     - name: (string) The name (short) of the task.
+     *     - actual: (float) The actual number of hours accumulated.
+     *     - alarm: (integer) The alarm associated with the task.
+     *     - assignee: (string) The assignee of the event.
+     *     - completed: (integer) The completion state of the task.
+     *     - completed_date: (integer) The task's completion date.
      *     - desc: (string) The description (long) of the task.
-     *     - start: (OPTIONAL, integer) The start date of the task.
-     *     - due: (OPTIONAL, integer) The due date of the task.
-     *     - priority: (OPTIONAL, integer) The priority of the task.
-     *     - estimate: (OPTIONAL, float) The estimated time to complete the
-     *                 task.
-     *     - completed: (OPTIONAL, integer) The completion state of the task.
-     *     - tags: (OPTIONAL, array) The task tags.
-     *     - alarm: (OPTIONAL, integer) The alarm associated with the task.
-     *     - methods: (OPTIONAL, array) The overridden alarm notification
-     *                methods.
-     *     - uid: (OPTIONAL, string) A Unique Identifier for the task.
-     *     - parent: (OPTIONAL, string) The parent task.
-     *     - private: (OPTIONAL, boolean) Whether the task is private.
-     *     - owner: (OPTIONAL, string) The owner of the event.
-     *     - assignee: (OPTIONAL, string) The assignee of the event.
-     *     - completed_date: (OPTIONAL, integer) The task's completion date.
-     *     - recurrence: (OPTIONAL, Horde_Date_Recurrence|array) Recurrence
-     *                   information.
-     *     - organizer: (OPTIONAL, string) The organizer/owner of the task.
-     *     - actual: (OPTIONAL, float) The actual number of hours accumulated.
+     *     - due: (integer) The due date of the task.
+     *     - estimate: (float) The estimated time to complete the task.
+     *     - methods: (array) The overridden alarm notification methods.
+     *     - name: (string) The name (short) of the task.
+     *     - organizer: (string) The organizer/owner of the task.
+     *     - owner: (string) The owner of the event.
+     *     - parent: (string) The parent task.
+     *     - priority: (integer) The priority of the task.
+     *     - private: (boolean) Whether the task is private.
+     *     - recurrence: (Horde_Date_Recurrence|array) Recurrence information.
+     *     - start: (integer) The start date of the task.
+     *     - tags: (array) The task tags.
+     *     - uid: (string) A Unique Identifier for the task.
      *
      * @throws Nag_Exception
      */
