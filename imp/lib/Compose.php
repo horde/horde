@@ -275,10 +275,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $headers = array_merge($headers, $recip_list['header']);
 
         /* Initalize a header object for the draft. */
-        $draft_headers = $this->_prepareHeaders(
-            $headers,
-            array_merge($opts, array('bcc' => true))
-        );
+        $draft_headers = $this->_prepareHeaders($headers, $opts);
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
@@ -799,9 +796,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Initalize a header object for the outgoing message. */
         $headers = $this->_prepareHeaders($header, $opts);
-        $bcc = isset($header['bcc'])
-            ? $header['bcc']
-            : null;
 
         /* Add a Received header for the hop from browser to server. */
         $headers->addHeaderOb(
@@ -846,12 +840,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 }
             }
             $recip = $this->recipientList($tmp_recip);
-            if (isset($tmp_recip['bcc'])) {
-                $bcc = $tmp_recip['bcc'];
-                unset($headers['bcc']);
-            } else {
-                $bcc = null;
-            }
         } catch (Horde_Exception_HookNotSet $e) {}
 
         /* Get from address. Done after pre_sent hook since from address could
@@ -970,13 +958,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         );
 
         /* Save message to the sent mail mailbox. */
-        $this->_saveToSentMail(
-            $bcc,
-            $headers,
-            $message,
-            $recip['list'],
-            $opts
-        );
+        $this->_saveToSentMail($headers, $message, $recip['list'], $opts);
 
         /* Delete the attachment data. */
         $this->deleteAllAttachments();
@@ -1191,14 +1173,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Save message to sent-mail mailbox, if configured to do so.
      *
-     * @param string $bcc                     List of BCC addresses.
      * @param Horde_Mime_Headers $headers     Headers object.
      * @param Horde_Mime_Part $save_msg       Message data to save.
      * @param Horde_Mail_Rfc822_List $recips  Recipient list.
      * @param array $opts                     See buildAndSendMessage()
      */
     protected function _saveToSentMail(
-        $bcc,
         Horde_Mime_Headers $headers,
         Horde_Mime_Part $save_msg,
         Horde_Mail_Rfc822_List $recips,
@@ -1231,11 +1211,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 ));
                 return;
             }
-        }
-
-        /* Keep Bcc: headers on saved messages. */
-        if (count($bcc)) {
-            $headers->addHeader('Bcc', $bcc);
         }
 
         /* Strip attachments if requested. */
@@ -1291,7 +1266,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @param array $headers  Array with 'from', 'to', 'cc', 'bcc', and
      *                        'subject' values.
      * @param array $opts     An array of options w/the following keys:
-     *   - bcc: (boolean) Add BCC header to output.
      *   - priority: (string) The message priority ('high', 'normal', 'low').
      *
      * @return Horde_Mime_Headers  Headers object with the appropriate headers
@@ -1304,13 +1278,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $ob->addHeaderOb(Horde_Mime_Headers_Date::create());
         $ob->addHeaderOb(Horde_Mime_Headers_MessageId::create());
 
-        $hdrs = array_filter(array(
+        $hdrs = array(
             'From' => 'from',
             'To' => 'to',
             'Cc' => 'cc',
-            'Bcc' => empty($opts['bcc']) ? null : 'bcc',
+            'Bcc' => 'bcc',
             'Subject' => 'subject'
-        ));
+        );
 
         foreach ($hdrs as $key => $val) {
             if (isset($headers[$val]) &&
@@ -1378,6 +1352,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($this->getMetadata('encrypt_sign')) {
             /* Signing requires that the body not be altered in transport. */
             $opts['encode'] = Horde_Mime_Part::ENCODE_7BIT;
+        }
+
+        /* Remove Bcc header if it exists. */
+        if (isset($headers['bcc'])) {
+            $headers = clone $headers;
+            unset($headers['bcc']);
         }
 
         try {
