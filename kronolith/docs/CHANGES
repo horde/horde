@@ -2,6 +2,7 @@
 v4.2.6-git
 ----------
 
+[mjr] Fix creating recurrence exceptions from CalDAV clients.
 [jan] Added an index to find base events of recurrence exceptions faster.
 [jan] Fix finding duplicate events by UID.
 [mjr] Fix updating FB data when start date changes.
