@@ -152,6 +152,9 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
             $ret[$val->getMimeId()] = null;
         }
 
+        /* Don't handle human-readable part. */
+        unset($ret[$part1_id]);
+
         $ret[$this->_mimepart->getMimeId()] = array(
             'data' => '',
             'status' => $status,
