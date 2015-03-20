@@ -504,11 +504,15 @@ class Kronolith_Driver
 
         /* Remove any CalDAV mappings. */
         try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalObjectId($event->id, $event->calendar);
+            $davStorage = $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage');
+            try {
+                $davStorage
+                    ->deleteInternalObjectId($event->id, $event->calendar);
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+            }
         } catch (Horde_Exception $e) {
-            Horde::log($e);
         }
 
         /* See if this event represents an exception - if so, touch the base
