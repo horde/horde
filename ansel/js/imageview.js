@@ -38,35 +38,21 @@ AnselImageView = Class.create({
 
     buildDomSturcture: function()
     {
+        var close = new Element('a' , { class: this.opts.closeClass }).update('[close]');
+
         this.main = $('imageviewmain');
         this.imagediv = $('imageviewimage');
         this.bar = $('bottombar');
         this.topbar = $('topbar');
         this.sub = $('AnselImageViewSub');
-        // var  bar, close, main;
-
-        // this.topbar = new Element('div', { class: 'ansel-imageview-topbar' });
-
-        // // @todo - these are temp placeholders
-        // this.topbar.insert(new Element('div', { }).insert('[breadcrumbs] [left] [right]'));
-
-        // this.imagediv = new Element('div', { class: this.opts.mainClass });
-        // this.bar = new Element('div', { class: this.opts.barClass });
-        var close = new Element('a' , { class: this.opts.closeClass }).update('[close]');
         close.observe('click', function(e) { $(this.opts.container).fire('AnselImageView:close'); }.bind(this));
         this.topbar.insert(close);
-        // this.bar.insert(new Element('div', { id: 'AnselViewImageMeta' }));
-
-        // this.main = new Element('div', { class: 'ansel-imageview-main' });
-        // this.sub = new Element('div', { class: 'ansel-imageview-sub' });
-        // this.main.insert(this.topbar).insert(this.imagediv).insert(this.bar);
-        // $(this.opts.container).insert(this.main).insert(this.sub.update('<br />foobar<div>foo bar</div>'));
     },
 
     reset: function()
     {
-        //$(this.opts.container).update();
-        this.buildDomSturcture();
+        this.imagediv.update();
+        $('AnselViewImageData').update();
     },
 
     showImage: function(im)
@@ -78,7 +64,6 @@ AnselImageView = Class.create({
         this.imagediv.update(img);
         this.buildImageMetadata(im);
         this.onResize();
-//        this.bar.down('div').update(this.buildImageMetadata(im));
     },
 
     buildImageMetadata: function(im)
