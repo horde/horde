@@ -123,7 +123,14 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
         );
 
         if ($machine) {
-            $parse = Horde_Mime_Headers::parseHeaders($machine->getContents());
+            $parse = Horde_Mime_Headers::parseHeaders(
+                /* Remove extra line endings. */
+                preg_replace(
+                    '/\n{2,}/',
+                    "\n",
+                    strtr($machine->getContents(), "\r", "\n")
+                )
+            );
 
             if (isset($parse['Final-Recipient'])) {
                 list(,$recip) = explode(
