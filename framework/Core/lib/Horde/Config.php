@@ -762,15 +762,16 @@ class Horde_Config
             $xpath = new DOMXPath($node->ownerDocument);
         }
 
+        $host = $node
+            ? explode(',', ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: ''))
+            : array();
+        $host = $this->_default($ctx . '|hostspec', $host);
         $fields = array(
             'hostspec' => array(
                 '_type' => 'stringlist',
                 'required' => true,
                 'desc' => 'LDAP server(s)/hostname(s)',
-                'default' => implode(',', $this->_default(
-                    $ctx . '|hostspec',
-                    $node ? ($xpath->evaluate('string(configstring[@name="hostspec"])', $node) ?: array()) : array()
-                ))
+                'default' => is_array($host) ? implode(',', $host) : $host,
             ),
 
             'port' => array(
