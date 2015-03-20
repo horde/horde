@@ -244,23 +244,19 @@ class Hermes
      */
     public static function getCostObjectByID($id, $employee = false)
     {
-        static $cost_objects = array();
-
         if (strpos($id, ':') !== false) {
             list($app, $app_id) = explode(':', $id, 2);
             $filter = array();
             if ($employee) {
                 $filter['user'] = $employee;
             }
-            if (!isset($cost_objects[$app][$employee])) {
-                $results = $GLOBALS['registry']->callByPackage($app, 'listCostObjects', array($filter));
-                $cost_objects[$app][$employee] = $results;
-            }
+            $results = $GLOBALS['registry']->callByPackage($app, 'listCostObjects', array($filter));
+            $cost_objects = $results;
 
-            foreach (array_keys($cost_objects[$app][$employee]) as $catkey) {
-                foreach (array_keys($cost_objects[$app][$employee][$catkey]['objects']) as $objkey) {
-                    if ($cost_objects[$app][$employee][$catkey]['objects'][$objkey]['id'] == $app_id) {
-                        return $cost_objects[$app][$employee][$catkey]['objects'][$objkey];
+            foreach (array_keys($cost_objects) as $catkey) {
+                foreach (array_keys($cost_objects[$catkey]['objects']) as $objkey) {
+                    if ($cost_objects[$catkey]['objects'][$objkey]['id'] == $app_id) {
+                        return $cost_objects[$catkey]['objects'][$objkey];
                     }
                 }
             }
