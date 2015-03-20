@@ -107,6 +107,10 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
                 foreach ($this->_mimepart->partIterator() as $val) {
                     $ret[$val->getMimeId()] = null;
                 }
+
+                /* Allow the human readable part to be displayed
+                 * separately. */
+                unset($ret[$part1_id]);
             }
             break;
 
