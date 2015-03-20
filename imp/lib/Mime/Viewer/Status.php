@@ -63,104 +63,129 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
      */
     protected function _renderInfo()
     {
-        /* RFC 3464 [2]: There are three parts to a delivery status
-         * multipart/report message:
-         *   (1) Human readable message
-         *   (2) Machine parsable body part (message/delivery-status)
-         *   (3) Returned message (optional)
-         *
-         * Information on the message status is found in the 'Action' field
-         * located in part #2 (RFC 3464 [2.3.3]). It can be either 'failed',
-         * 'delayed', 'delivered', 'relayed', or 'expanded'. */
+        $imp_contents = $this->getConfigParam('imp_contents');
+        $machine = $original = $status = null;
+        $mime_id = $this->_mimepart->getMimeId();
+        $ret = array();
 
-        if (count($this->_mimepart) < 2) {
-            return array();
+        switch ($this->_mimepart->getType()) {
+        case 'message/delivery-status':
+            $machine = $imp_contents->getMimePart($mime_id);
+            break;
+
+        case 'multipart/report':
+            /* RFC 3464 [2]: There are three parts to a delivery status
+             * multipart/report message:
+             *   (1) Human readable message
+             *   (2) Machine parsable body part (message/delivery-status)
+             *   (3) Returned message (optional) */
+            $iterator = $this->_mimepart->partIterator(false);
+            $iterator->rewind();
+
+            if (!($curr = $iterator->current())) {
+                break;
+            }
+
+            $part1_id = $curr->getMimeId();
+            $id_ob = new Horde_Mime_Id($part1_id);
+
+            /* Technical details. */
+            $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
+            $ret[$id_ob->id] = null;
+            $machine = $imp_contents->getMimePart($id_ob->id);
+
+            /* Returned message. */
+            $original = $imp_contents->getMimePart(
+                $id_ob->idArithmetic($id_ob::ID_NEXT)
+            );
+
+            if ($original) {
+                foreach ($this->_mimepart->partIterator() as $val) {
+                    $ret[$val->getMimeId()] = null;
+                }
+
+                /* Allow the human readable part to be displayed
+                 * separately. */
+                unset($ret[$part1_id]);
+            }
+            break;
         }
 
-        $iterator = $this->_mimepart->partIterator(false);
-        $iterator->rewind();
-        $part1_id = $iterator->current()->getMimeId();
+        if (!$machine) {
+            return array($mime_id => null);
+        }
 
-        $id_ob = new Horde_Mime_Id($part1_id);
-        $part2_id = $id_ob->id = $id_ob->idArithmetic($id_ob::ID_NEXT);
-        $part3_id = $id_ob->idArithmetic($id_ob::ID_NEXT);
+        $parse = Horde_Mime_Headers::parseHeaders(
+            /* Remove extra line endings. */
+            preg_replace(
+                '/\n{2,}/',
+                "\n",
+                strtr($machine->getContents(), "\r", "\n")
+            )
+        );
 
-        /* Get the action first - it appears in the second part. */
-        $action = null;
-        $imp_contents = $this->getConfigParam('imp_contents');
-        $part2 = $imp_contents->getMimePart($part2_id);
-
-        foreach (explode("\n", $part2->getContents()) as $line) {
-            if (stristr($line, 'Action:') !== false) {
-                $action = strtolower(trim(substr($line, strpos($line, ':') + 1)));
-                if (strpos($action, ' ') !== false) {
-                    $action = substr($action, 0, strpos($action, ' '));
-                }
+        /* Information on the message status is found in the 'Action'
+         * field located in part #2 (RFC 3464 [2.3.3]). */
+        if (isset($parse['Action'])) {
+            switch (trim($parse['Action']->value_single)) {
+            case 'failed':
+            case 'delayed':
+                $msg_link = _("View details of the returned message.");
+                $status_action = IMP_Mime_Status::ERROR;
+                $status_msg = _("ERROR: Your message could not be delivered.");
                 break;
+
+            case 'delivered':
+            case 'expanded':
+            case 'relayed':
+                $msg_link = _("View details of the delivered message.");
+                $status_action = IMP_Mime_Status::SUCCESS;
+                $status_msg = _("Your message was successfully delivered.");
+                break;
+            }
+
+            if (isset($msg_link)) {
+                $status = new IMP_Mime_Status($this->_mimepart, $status_msg);
+                $status->action($status_action);
+
+                if (isset($parse['Final-Recipient'])) {
+                    list(,$recip) = explode(
+                        ';',
+                        $parse['Final-Recipient']->value_single
+                    );
+
+                    if ($recip) {
+                        $status->addText(sprintf(
+                            _("Recipient: %s"),
+                            trim($recip)
+                        ));
+                    }
+                }
+
+                /* Display a link to the returned message, if it exists. */
+                if ($original) {
+                    $status->addText(
+                        $imp_contents->linkViewJS(
+                            $original,
+                            'view_attach',
+                            $msg_link,
+                            array(
+                                'params' => array(
+                                    'ctype' => 'message/rfc822'
+                                )
+                            )
+                        )
+                    );
+                }
             }
         }
 
-        if (is_null($action)) {
-            return array();
-        }
-
-        /* Get the correct text strings for the action type. */
-        switch ($action) {
-        case 'failed':
-        case 'delayed':
-            $status = new IMP_Mime_Status(
-                $this->_mimepart,
-                _("ERROR: Your message could not be delivered.")
-            );
-            $status->action(IMP_Mime_Status::ERROR);
-            $msg_link = _("View details of the returned message.");
-            break;
-
-        case 'delivered':
-        case 'expanded':
-        case 'relayed':
-            $status = new IMP_Mime_Status(
-                $this->_mimepart,
-                _("Your message was successfully delivered.")
-            );
-            $status->action(IMP_Mime_Status::SUCCESS);
-            $msg_link = _("View details of the delivered message.");
-            break;
-
-        default:
-            return array();
-        }
-
-        /* Display a link to the returned message, if it exists. */
-        if ($part3 = $imp_contents->getMimePart($part3_id)) {
-            $status->addText(
-                $imp_contents->linkViewJS(
-                    $part3,
-                    'view_attach',
-                    $msg_link,
-                    array(
-                        'params' => array(
-                            'ctype' => 'message/rfc822'
-                        )
-                    )
-                )
-            );
-        }
-
-        $ret = array();
-        foreach ($iterator as $val) {
-            $ret[$val->getMimeId()] = null;
-        }
-
-        /* Don't handle human-readable part. */
-        unset($ret[$part1_id]);
-
-        $ret[$this->_mimepart->getMimeId()] = array(
+        $ret[$mime_id] = array_filter(array(
             'data' => '',
-            'status' => $status,
+            'status' => $status ?: null,
             'type' => 'text/html; charset=' . $this->getConfigParam('charset'),
             'wrap' => 'mimePartWrap'
-        );
+        ));
 
         return $ret;
     }
