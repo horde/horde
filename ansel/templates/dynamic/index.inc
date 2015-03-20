@@ -64,7 +64,7 @@
               <div id="AnselViewImageData"></div>
             </div>
           </div>
-          <div id="AnselImageViewSub" class="ansel-imageview-sub">FOO</div>
+          <div id="AnselImageViewSub" class="ansel-imageview-sub">[metadata]</div>
         </div>
         <!-- End Image View Overlay -->
 
