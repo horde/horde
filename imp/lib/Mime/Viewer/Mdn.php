@@ -64,7 +64,7 @@ class IMP_Mime_Viewer_Mdn extends Horde_Mime_Viewer_Base
     protected function _renderInfo()
     {
         $imp_contents = $this->getConfigParam('imp_contents');
-        $original = null;
+        $machine = $original = null;
         $ret = array();
 
         switch ($this->_mimepart->getType()) {
