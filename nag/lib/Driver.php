@@ -423,11 +423,15 @@ abstract class Nag_Driver
 
         /* Remove any CalDAV mappings. */
         try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Dav_Storage')
-                ->deleteInternalObjectId($task->id, $task->tasklist);
+            $davStorage = $GLOBALS['injector']
+                ->getInstance('Horde_Dav_Storage');
+            try {
+                $davStorage
+                    ->deleteInternalObjectId($task->id, $task->tasklist);
+            } catch (Horde_Exception $e) {
+                Horde::log($e);
+            }
         } catch (Horde_Exception $e) {
-            Horde::log($e);
         }
     }
 
