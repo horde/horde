@@ -56,7 +56,16 @@
         <!-- End Galleries -->
 
         <!-- Image view overlay -->
-        <div id="anselViewImage" style="display:none;"></div>
+        <div id="anselViewImage" style="display:none;">
+          <div id="imageviewmain" class="ansel-imageview-main">
+            <div id="topbar" class="ansel-imageview-topbar">[breadcrumbs][left][right]</div>
+            <div id="imageviewimage" class="ansel-imageview-image"></div>
+            <div id = "bottombar" class="ansel-imageview-bar">
+              <div id="AnselViewImageData"></div>
+            </div>
+          </div>
+          <div id="AnselImageViewSub" class="ansel-imageview-sub">FOO</div>
+        </div>
         <!-- End Image View Overlay -->
 
     </div>

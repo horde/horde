@@ -44,9 +44,9 @@
  *                           the current length of the images array and y is
  *                           the current size of the galleries hash.
  *
- *      - AnselLayout:galleryClick  Fired when a gallery tile is clicked on.
- *                                  Memo contains an object with the gallery id
- *                                  in the 'gid' property.
+ *     - AnselLayout:galleryClick  Fired when a gallery tile is clicked on.
+ *                                 Memo contains an object with the gallery id
+ *                                 in the 'gid' property.
  *
  *
  *

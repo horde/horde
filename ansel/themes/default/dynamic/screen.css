@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 #RB_overlay {
     opacity: 1;
 }
@@ -129,19 +133,32 @@
 #anselViewImage {
     position: fixed;
     z-index: 999;
-    background-color: #000000;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
+    overflow: scroll;
 }
-
 .ansel-imageview-main {
+    color: #ffffff;
+    background-color: #333333;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.ansel-imageview-sub {
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+}
+.ansel-imageview-image {
+    background-color: #000000;
     position: relative;
-    height: 80%;
+/*    height: 80%;*/
 }
 
-.ansel-imageview-main img {
+.ansel-imageview-image img {
     position: absolute;
     max-height: 100%;
     height: auto;
@@ -152,36 +169,54 @@
     bottom: 0;
 }
 .ansel-imageview-bar {
-    color: #ffffff;
+    padding: 10px;
     background-color: #333333;
-    height: 20%;
+}
+
+.ansel-imageview-topbar {
+    height: 20px;
+    padding: 5px;
 }
 
 .ansel-imageview-close {
-    background: no-repeat url('../graphics/close.png');
+    /*background: no-repeat url('../graphics/close.png');*/
+    color: #ffffff;
     position: absolute;
     right: 25px;
-    width: 28px;
-    height: 28px;
+    /*width: 28px;*/
+    /*height: 28px;*/
+    /*margin: 15px;*/*/
 }
 
 .ansel-image-title {
     font-size: 20px;
-    margin: 10px;
     line-height: 20px;
 }
 
-.ansel-image-desc, .ansel-image-date, .horde-tags {
+.ansel-image-desc, .ansel-image-date, .horde-tags, .ansel-image-links {
     font-size: 14px;
-    margin: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
 }
+
 .ansel-image-desc {
     line-height: 18px;
+    margin:5px;
 }
 
 .ansel-uploader-filelist {
     overflow: auto;
     height: 300px;
+}
+.ansel-image-leftmeta {
+    float: left;
+    width: 60%;
+}
+.ansel-image-rightmeta {
+    float: right;
+    width: 38%;
+    text-align: right;
 }
 
 #anseluploader {
