@@ -862,15 +862,17 @@ class Whups_Driver_Sql extends Whups_Driver
     /**
      * Returns tickets by searching for its properties.
      *
-     * @param array $info        An array of properties to search for.
-     * @param boolean $munge     Munge the query (?)
-     * @param boolean $perowner  Group the results per owner?
+     * @param array $info           An array of properties to search for.
+     * @param boolean $munge        Munge the query (?)
+     * @param boolean $perowner     Group the results per owner?
+     * @param boolean $format_name  If false, do not format the username.
+     *                              @since 3.1.0
      *
      * @return array  An array of ticket information hashes.
      * @throws Whups_Exception
      */
-    public function getTicketsByProperties(array $info, $munge = true,
-                                           $perowner = false)
+    public function getTicketsByProperties(
+        array $info, $munge = true, $perowner = false, $format_name = true)
     {
         if (isset($info['queue']) && !count($info['queue'])) {
             return array();
@@ -1109,7 +1111,9 @@ class Whups_Driver_Sql extends Whups_Driver
                         $ticket['version_link'] = $versions[$ticket['version']]['link'];
                     }
                 }
-                $ticket['requester_formatted'] = Whups::formatUser($ticket['user_id_requester'], false, true, true);
+                $ticket['requester_formatted'] = $format_name
+                    ? Whups::formatUser($ticket['user_id_requester'], false, true, true)
+                    : $ticket['user_id_requester'];
             }
             $tickets[$ticket['id']] = $ticket;
         }
@@ -1117,7 +1121,9 @@ class Whups_Driver_Sql extends Whups_Driver
         foreach ($this->getOwners(array_keys($tickets)) as $id => $owners) {
             $tickets[$id]['owners'] = $owners;
             foreach($owners as $owner) {
-                $tickets[$id]['owners_formatted'][] = Whups::formatUser($owner, false, true, true);
+                $tickets[$id]['owners_formatted'][] = $format_name
+                    ? Whups::formatUser($owner, false, true, true)
+                    : $owner;
             }
         }
         $attributes = $this->getTicketAttributesWithNames(array_keys($tickets));

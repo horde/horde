@@ -598,7 +598,7 @@ class Whups_Api extends Horde_Registry_Api
             $info['id'] = $criteria['id'];
         }
 
-        $tickets = $whups_driver->getTicketsByProperties($info);
+        $tickets = $whups_driver->getTicketsByProperties($info, true, false, false);
         $result = array();
         foreach ($tickets as $ticket) {
             $result[$ticket['id']] = array(
