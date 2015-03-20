@@ -299,7 +299,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     $hour['_costobject_name'] = '';
                 } else {
                     try {
-                        $costobject = Hermes::getCostObjectByID($hour['costobject']);
+                        if (!empty($filters['employee'])) {
+                            $employee = $filters['employee'];
+                        } else {
+                            $employee = false;
+                        }
+                        $costobject = Hermes::getCostObjectByID($hour['costobject'], $employee);
                         $hour['_costobject_name'] = $costobject['name'];
                     } catch (Horde_Exception $e) {
                         $hour['_costobject_name'] = sprintf(_("Error: %s"), $e->getMessage());
