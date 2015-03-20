@@ -10,7 +10,7 @@ class Turba_Form_AddContact extends Turba_Form_ContactBase
      */
     protected $_contact = null;
 
-    public function __construct($vars, Turba_Object $contact)
+    public function __construct($vars, Turba_Object $contact = null)
     {
         // @TODO: $addSources should be injected
         global $addSources, $notification;
