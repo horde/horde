@@ -64,6 +64,7 @@ AnselImageView = Class.create({
         this.imagediv.update(img);
         this.buildImageMetadata(im);
         this.onResize();
+        this.enableKeyboardNav();
     },
 
     buildImageMetadata: function(im)
@@ -86,6 +87,33 @@ AnselImageView = Class.create({
         // });
 
         $('AnselViewImageData').update(this.leftdiv).insert(this.rightdiv);
+    },
+
+    enableKeyboardNav: function() {
+        document.observe('keydown', this.keyboardAction.bind(this));
+    },
+
+    disableKeyboardNav: function() {
+        document.stopObserving('keydown', this.keyboardAction.bind(this));
+    },
+
+    keyboardAction: function(e) {
+        var keycode = e.keyCode, escapeKey, key;
+        if (e.DOM_VK_ESCAPE) {  // mozilla
+            escapeKey = e.DOM_VK_ESCAPE;
+        } else { // ie
+            escapeKey = 27;
+        }
+
+        key = String.fromCharCode(keycode).toLowerCase();
+        console.log(key);
+        if (key.match(/x|o|c/) || (keycode == escapeKey)){ // close lightbox
+            $(this.opts.container).fire('AnselImageView:close');
+        } else if ((key == 'p') || (keycode == 37)){ // display previous image
+            $(this.opts.container).fire('AnselImageView:previous');
+        } else if ((key == 'n') || (keycode == 39)){ // display next image
+            $(this.opts.container).fire('AnselImageView:next');
+        }
     },
 
     onResize: function()
