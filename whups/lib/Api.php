@@ -589,7 +589,7 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array();
         if (!empty($criteria['user'])) {
-            $info['owner'] = 'user:' . $GLOBALS['registry']->getAuth();
+            $info['owner'] = 'user:' . $criteria['user'];
         }
         if (!empty($criteria['active'])) {
             $info['nores'] = true;
