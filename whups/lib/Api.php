@@ -589,7 +589,14 @@ class Whups_Api extends Horde_Registry_Api
 
         $info = array();
         if (!empty($criteria['user'])) {
-            $info['owner'] = 'user:' . $criteria['user'];
+            if (is_array($criteria['user'])) {
+                $info['owner'] = array_map(
+                    function($input) { return 'user:' . $input; },
+                    $criteria['user']
+                );
+            } else {
+                $info['owner'] = 'user:' . $criteria['user'];
+            }
         }
         if (!empty($criteria['active'])) {
             $info['nores'] = true;
