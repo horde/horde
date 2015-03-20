@@ -132,7 +132,6 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '--no-secmem-warning',
             '--no-options',
             '--no-default-keyring',
-            '--pinentry-mode loopback',
             '--yes',
             '--homedir ' . $this->_tempdir
         );
