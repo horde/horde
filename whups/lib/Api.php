@@ -606,15 +606,18 @@ class Whups_Api extends Horde_Registry_Api
               'active' => ($ticket['state_category'] != 'resolved'),
               'name'   => sprintf(
                 _("Ticket %s - %s"), $ticket['id'], $ticket['summary']));
-
-            /* If the user has an estimate attribute, use that for cost object
-             * hour estimates. */
-            $attributes = $whups_driver->getTicketAttributesWithNames($ticket['id']);
+        }
+        /* If the user has an estimate attribute, use that for cost object
+         * hour estimates. */
+        $ticket_ids = array_map(function($item) {
+            return $item['id'];
+        }, $tickets);
+        $att_list = $whups_driver->getTicketAttributesWithNames($ticket_ids);
+        foreach ($att_list as $attributes) {
             foreach ($attributes as $k => $v) {
-                if (Horde_String::lower($k) == _("estimated time") ||
-                    Horde_String::lower($k) == 'estimated time') {
-                    if (!empty($v)) {
-                        $result[$ticket['id']]['estimate'] = (double) $v;
+                if (strtolower($v['attribute_name']) == _("estimated time")) {
+                    if (!empty($v['attribute_value'])) {
+                        $result[$k['id']]['estimate'] = (double) $v['attribute_value'];
                     }
                 }
             }
