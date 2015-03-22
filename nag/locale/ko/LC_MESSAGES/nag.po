@@ -2,14 +2,14 @@
 # Copyright 2002 J.I Kim.
 # J.I Kim <aporie@netian.com>, 2002.
 # Deokgon Kim <dgkim@dgkim.net>, 2014.
-#
+# Josh Kim <joshkkim@gmail.com>, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: Nag 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-17 16:49+0900\n"
-"PO-Revision-Date: 2014-03-17 16:00+0900\n"
-"Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
+"PO-Revision-Date: 2014-08-29 15:09+0900\n"
+"Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: Korean <dev@lists.horde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,156 +18,147 @@ msgstr ""
 #: templates/view/task.inc:57
 #, php-format
 msgid " (%s including sub-tasks)"
-msgstr ""
+msgstr "(하위 과제 포함 %s개)"
 
 #: lib/Nag.php:111
 #, php-format
 msgid "%d hour"
-msgstr "%d 시"
+msgstr "%d시간"
 
 #: lib/Nag.php:113
 #, php-format
 msgid "%d hour, %d minute"
-msgstr "%d 시, %d 분"
+msgstr "%d시간, %d분"
 
 #: lib/Nag.php:115
 #, php-format
 msgid "%d hour, %d minutes"
-msgstr "%d 시, %d 분"
+msgstr "%d시간, %d분"
 
 #: lib/Nag.php:103
 #, php-format
 msgid "%d hours"
-msgstr "%d 시"
+msgstr "%d시간"
 
 #: lib/Nag.php:105
 #, php-format
 msgid "%d hours, %d minute"
-msgstr "%d 시, %d 분"
+msgstr "%d시간, %d분"
 
 #: lib/Nag.php:107
 #, php-format
 msgid "%d hours, %d minutes"
-msgstr "%d 시, %d 분"
+msgstr "%d시간, %d분"
 
 #: lib/Nag.php:121
 #, php-format
 msgid "%d minute"
-msgstr "%d 분"
+msgstr "%d분"
 
 #: lib/Nag.php:123
 #, php-format
 msgid "%d minutes"
-msgstr "%d 분"
+msgstr "%d분"
 
 #: lib/Ui/VarRenderer/Nag.php:380
-#, php-format
+#, fuzzy, php-format
 msgid "%s %s days of %s"
-msgstr "%s %s, 기준 날짜 : %s"
+msgstr "%s 매일 %s 반복 또는 %s매 %s 일 %s마다 반복"
 
 #: lib/Nag.php:738
 #, fuzzy, php-format
 msgid "%s at %s"
-msgstr "%d / %d (메시지: %d)"
+msgstr "%s, %s"
 
 #: lib/Block/Summary.php:122 lib/Nag.php:913
-#, fuzzy, php-format
+#, php-format
 msgid "%s is due in %s"
-msgstr "%d 항목 (%s)"
+msgstr "%s(이)가 %s 내에 만기임"
 
 #: lib/Block/Summary.php:119 lib/Nag.php:911
-#, fuzzy, php-format
+#, php-format
 msgid "%s is due now."
-msgstr "%s 가 지금 시작합니다."
+msgstr "%s(이)가 지금 만기입니다."
 
 #: lib/CompleteTask.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "%s is now incomplete."
-msgstr "%s 가 지금 시작합니다."
+msgstr "%s(이)가 이제 미완료 상태입니다."
 
 #: lib/CompleteTask.php:27
-#, fuzzy, php-format
+#, php-format
 msgid "%s is still incomplete."
-msgstr "%s 가 지금 시작합니다."
+msgstr "%s(이)가 아직 미완료 상태입니다."
 
 #: data.php:163
 #, php-format
 msgid "%s successfully imported"
-msgstr "%s 성공적으로 가져옴"
+msgstr "%s(을)를 성공적으로 가져옴"
 
 #: lib/Form/Task.php:42 lib/Nag.php:689
-#, fuzzy
 msgid "(highest)"
-msgstr "높음"
+msgstr "(가장 높음)"
 
 #: lib/Form/Task.php:46 lib/Nag.php:689
 msgid "(lowest)"
-msgstr ""
+msgstr "(가장 낮음)"
 
 #: lib/Form/Type/NagRecurrence.php:133
 msgid "A due date is necessary to enable recurrences."
-msgstr ""
+msgstr "반복을 사용하려면 만기일이 필요합니다."
 
 #: lib/Form/Type/NagAlarm.php:30
 msgid "A due date must be set to enable alarms."
-msgstr ""
+msgstr "알림을 사용하려면 만기일을 설정해야 합니다."
 
 #: lib/CompleteTask.php:17
-#, fuzzy
 msgid "Access denied completing this task."
-msgstr "메모를 옮기는데 거부당했습니다."
+msgstr "이 과제를 완료하기 위한 접근이 거부됐습니다."
 
 #: app/controllers/SaveTask.php:34
-#, fuzzy
 msgid "Access denied deleting task"
-msgstr "메모를 삭제하는데 거부당했습니다."
+msgstr "과제를 삭제하기 위한 접근이 거부됐습니다"
 
 #: task.php:23
-#, fuzzy
 msgid "Access denied deleting task."
-msgstr "메모를 삭제하는데 거부당했습니다."
+msgstr "과제를 삭제하기 위한 접근이 거부됐습니다."
 
 #: app/controllers/SaveTask.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "Access denied deleting task: %s"
-msgstr "메모를 삭제하는데 거부당했습니다."
+msgstr "과제를 삭제하기 위한 접근이 거부됐습니다: %s"
 
 #: task.php:96 task.php:102
-#, fuzzy
 msgid "Access denied editing task."
-msgstr "메모를 삭제하는데 거부당했습니다."
+msgstr "과제를 편집하기 위한 접근이 거부됐습니다"
 
 #: task.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "Access denied editing task: %s"
-msgstr "메모를 삭제하는데 거부당했습니다."
+msgstr "과제를  편집하기 위한 접근이 거부됐습니다: %s"
 
 #: lib/Driver.php:263
-#, fuzzy
 msgid "Access denied moving the task to this task list."
-msgstr "이 메모장에 메모를 저장하는데 거부당했습니다."
+msgstr "과제를 이 과제목록으로 이동하기 위한 접근이 거부됐습니다"
 
 #: lib/Driver.php:251
-#, fuzzy
 msgid "Access denied removing task from this task list."
-msgstr "이 메모장에 메모를 저장하는데 거부당했습니다."
+msgstr "과제를 이 과제목록에서 제거하기 위한 접근이 거부됐습니다."
 
 #: app/controllers/SaveTask.php:61
-#, fuzzy
 msgid "Access denied saving task to this task list."
-msgstr "이 메모장에 메모를 저장하는데 거부당했습니다."
+msgstr "과제를 이 과제목록에 저장하기 위한 접근이 거부됐습니다"
 
 #: app/controllers/SaveTask.php:57
-#, fuzzy, php-format
+#, php-format
 msgid "Access denied saving task: %s"
-msgstr "메모를 옮기는데 거부당했습니다."
+msgstr "과제를 저장하기 위한 접근이 거부됐습니다: %s"
 
 #: quick.php:13
-#, fuzzy, php-format
+#, php-format
 msgid "Added %d task"
 msgid_plural "Added %d tasks"
-msgstr[0] "%d개의 작업"
-msgstr[1] "%d개의 작업"
+msgstr[0] "%d개의 과제를 추가함"
 
 #: data.php:51 lib/Form/Task.php:121 templates/view/task.inc:48
 msgid "Alarm"
@@ -175,41 +166,40 @@ msgstr "알림"
 
 #: lib/Form/Search.php:53
 msgid "All"
-msgstr "모두 선택"
+msgstr "모두"
 
 #: lib/Smartmobile.php:121
 msgid "All Tasks"
-msgstr "전체 작업"
+msgstr "모든 과제"
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:81
-#, fuzzy, php-format
+#, php-format
 msgid "All completed tasks older than %d days will be permanently deleted."
-msgstr "\"%s\" 편지함에서 %s 일보다 오래된 편지를 지웁니다."
+msgstr "%d일 이상 경과된 모든 완료된 과제를 영구적으로 삭제합니다."
 
 #: config/prefs.php:316
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
 msgstr ""
+"액티브싱크 장치에 대한 모든 상태가 제거됐습니다. 다음에 장치가 서버에 연결할 "
+"때 다시 동기화합니다."
 
 #: config/prefs.php:224 templates/data/export.inc:34
-#, fuzzy
 msgid "All tasks"
-msgstr "%d개의 작업"
+msgstr "모든 과제"
 
 #: lib/Block/Summary.php:76
-#, fuzzy
 msgid "Always show completed and future tasks?"
-msgstr "목록에서 완료된 작업 보여주기?"
+msgstr "완료 및 향후 과제를 항상 표시할까요?"
 
 #: lib/Block/Summary.php:71
-#, fuzzy
 msgid "Always show overdue tasks?"
-msgstr "목록에서 완료된 작업 보여주기?"
+msgstr "만기된 과제를 항상 표시할까요?"
 
 #: lib/Form/Type/NagMethod.php:42
 msgid "An alarm must be set to specify a notification method"
-msgstr ""
+msgstr "알림 방식을 지정하려면 알림을 설정해야 합니다."
 
 #: config/prefs.php:114
 msgid "Ascending"
@@ -219,11 +209,11 @@ msgstr "오름차순"
 #: lib/Form/Task.php:112 templates/list/task_headers.html.php:37
 #: templates/smartmobile/taskform.html.php:19 templates/view/task.inc:30
 msgid "Assignee"
-msgstr "할당"
+msgstr "할당자"
 
 #: lib/Block/Summary.php:41
 msgid "Block title"
-msgstr ""
+msgstr "제목 차단"
 
 #: data.php:22
 msgid "CSV"
@@ -249,7 +239,7 @@ msgstr "취소"
 
 #: lib/Driver/Smartlist.php:43
 msgid "Cannot add tasks to smart lists."
-msgstr ""
+msgstr "스마트 목록에 과제를 추가할 수 없습니다."
 
 #: lib/Form/EditTaskList.php:150
 msgid "Change Permissions"
@@ -257,97 +247,94 @@ msgstr "권한 변경"
 
 #: config/prefs.php:14
 msgid "Change your task sorting and display preferences."
-msgstr "작업을 표시하는 방법, 정렬하는 방법을 설정합니다."
+msgstr "과제 정렬 기준 및 화면 설정을 변경합니다."
 
 #: lib/Nag.php:1105
-#, fuzzy, php-format
+#, php-format
 msgid "Changed alarm from %s to %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "알림을 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1084
-#, fuzzy, php-format
+#, php-format
 msgid "Changed assignee from \"%s\" to \"%s\""
-msgstr "1개의 작업이 우선순위 %d로 변경되었습니다."
+msgstr "할당자를 \"%s\"에서 \"%s\"(으)로 변경함"
 
 #: lib/Nag.php:1120
-#, fuzzy, php-format
+#, php-format
 msgid "Changed completion from %s to %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "완료 상태를 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1125
-#, fuzzy
 msgid "Changed description"
-msgstr "권한 변경"
+msgstr "설명을 변경함"
 
 #: lib/Nag.php:1093
-#, fuzzy, php-format
+#, php-format
 msgid "Changed due date from %s to %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "만기일을 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1115
-#, fuzzy, php-format
+#, php-format
 msgid "Changed estimate from %s to %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "예상일을 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1052
-#, fuzzy, php-format
+#, php-format
 msgid "Changed name from \"%s\" to \"%s\""
-msgstr "1개의 작업이 우선순위 %d로 변경되었습니다."
+msgstr "이름을 \"%s\"에서 \"%s\"(으)로 변경함"
 
 #: lib/Nag.php:1066
-#, fuzzy, php-format
+#, php-format
 msgid "Changed parent task from \"%s\" to \"%s\""
-msgstr "1개의 작업이 우선순위 %d로 변경되었습니다."
+msgstr "상위 과제를 \"%s\"에서 \"%s\"(으)로 변경함"
 
 #: lib/Nag.php:1110
-#, fuzzy, php-format
+#, php-format
 msgid "Changed priority from %s to %s"
-msgstr "1개의 작업이 우선순위 %d로 변경되었습니다."
+msgstr "우선 순위를 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1099
-#, fuzzy, php-format
+#, php-format
 msgid "Changed start date from %s to %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "시작일을 %s에서 %s(으)로 변경함"
 
 #: lib/Nag.php:1058
-#, fuzzy, php-format
+#, php-format
 msgid "Changed task list from \"%s\" to \"%s\""
-msgstr "1개의 작업이 우선순위 %d로 변경되었습니다."
+msgstr "과제목록을 \"%s\"에서 \"%s\"(으)로 변경함"
 
 #: lib/Nag.php:1049
-#, fuzzy
 msgid "Changes made for this task:"
-msgstr "%s로부터 전달된 편지"
+msgstr "이 과제에 대한 변경사항:"
 
 #: lib/Prefs/Special/TaskAlarms.php:29
 msgid "Choose how you want to receive reminders for tasks with alarms:"
-msgstr "작업 알림을 받는 방법:"
+msgstr "알림이 설정된 과제에 대한 알림을 받을 방법을 선택하세요:"
 
 #: config/prefs.php:185
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted tasks by email:"
-msgstr "작업이 생성되거나 편집, 삭제되었을 때 메일로 받기:"
+msgstr "과제의 생성, 편집 및 삭제에 대한 이메일을 받고 싶은 경우 선택하세요:"
 
 #: config/prefs.php:49
 msgid "Choose if you want to be notified of task changes and task alarms."
-msgstr "작업 목록 변경에 대한 알림을 설정합니다."
+msgstr "과제 변경사항 및 과제 알림에 대한 알림을 받고 싶을 경우 선택합니다."
 
 #: config/prefs.php:42
 msgid "Choose the task lists to use for synchronization with external devices."
-msgstr "외부기기와 동기화에 사용할 작업 목록을 설정합니다."
+msgstr "외부 장치와 동기화할 때 사용할 과제목록을 선택합니다."
 
 #: config/prefs.php:35
 msgid "Choose your default task list."
-msgstr "기본 작업 목록을 설정합니다."
+msgstr "기본 과제목록을 선택합니다."
 
 #: lib/Form/EditTaskList.php:79
 msgid "Click or copy this URL to display this task list"
-msgstr ""
+msgstr "이 과제목록을 표시하려면 이 URL을 클릭 또는 복사하세요."
 
 #: templates/javascript_defs.php:15
-#, fuzzy
 msgid "Close"
-msgstr "새 편지"
+msgstr "닫기"
 
 #: templates/list/header.html.php:10
 msgid "Close Search"
@@ -358,43 +345,40 @@ msgid "Color"
 msgstr "색상"
 
 #: lib/Block/Summary.php:189 templates/list/_task.html.php:10
-#, fuzzy, php-format
+#, php-format
 msgid "Complete \"%s\""
-msgstr "작업 완료"
+msgstr "\"%s\" 완료하기"
 
 #: config/prefs.php:226
-#, fuzzy
 msgid "Complete tasks"
-msgstr "작업 완료"
+msgstr "과제 완료하기"
 
 #: lib/Block/Summary.php:187 lib/Form/Search.php:54 lib/Nag.php:753
 #: templates/smartmobile/taskform.html.php:55
 msgid "Completed"
-msgstr "완료된 작업"
+msgstr "완료함"
 
 #: lib/CompleteTask.php:24
-#, fuzzy, php-format
+#, php-format
 msgid "Completed %s."
-msgstr "새 편지"
+msgstr "%s(을) 완료했습니다."
 
 #: templates/list/_task.html.php:15
 msgid "Completed parent task, mark it as incomplete first"
-msgstr ""
+msgstr "완료한 상위 과제, 먼저 미완료로 표시하세요"
 
 #: templates/data/export.inc:37
-#, fuzzy
 msgid "Completed tasks"
-msgstr "작업 완료"
+msgstr "완료한 과제"
 
 #: config/prefs.php:84 config/prefs.php:101 lib/Form/Task.php:132
 #: templates/list/task_headers.html.php:4 templates/view/task.inc:60
 msgid "Completed?"
-msgstr "완료 여부"
+msgstr "완료했습니까?"
 
 #: data.php:57
-#, fuzzy
 msgid "Completion Date"
-msgstr "완료 상태"
+msgstr "완료일"
 
 #: data.php:56
 msgid "Completion Status"
@@ -403,59 +387,56 @@ msgstr "완료 상태"
 #: lib/Api.php:628
 #, php-format
 msgid "Connection failed: %s"
-msgstr "연결 실패: %s"
+msgstr "연결을 실패했습니다: %s"
 
 #: lib/Form/EditTaskList.php:120
 msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
-msgstr ""
+msgstr "모든 과제목록을 구독하려면 이 URL을 CalDAV 클라이언트에 복사하세요."
 
 #: lib/Form/EditTaskList.php:111
 msgid "Copy this URL to a CalDAV client to subscribe to this task list"
-msgstr ""
+msgstr "이 과제목록을 구독하려면 이 URL을 CalDAV 클라이언트에 복사하세요."
 
 #: lib/Form/EditTaskList.php:136
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
 msgstr ""
+"모든 과제목록을 구독하려면 이 URL을 WebDAV 또는 ICA 클라이언트에 복사하세요."
 
 #: lib/Form/CreateTaskList.php:33 templates/quick.inc:8
 msgid "Create"
-msgstr "만들기"
+msgstr "생성"
 
 #: templates/view/task.inc:10
-#, fuzzy
 msgid "Create Subtask"
-msgstr "목록으로 돌아가기"
+msgstr "하위 과제 생성"
 
 #: lib/Form/CreateTaskList.php:21
 msgid "Create Task List"
-msgstr "작업 목록 생성"
+msgstr "과제목록 생성"
 
 #: lib/Application.php:146
-#, fuzzy
 msgid "Create a new Task List"
-msgstr "새 템플릿 작성"
+msgstr "새로운 과제목록 생성"
 
 #: templates/view/task.inc:71
 msgid "Created"
-msgstr "생성"
+msgstr "생성일"
 
 #: lib/Ui/VarRenderer/Nag.php:207
 msgid "Daily: Recurs every"
-msgstr "매일: 발생일 "
+msgstr "매일: 다음 주기마다 반복"
 
 #: lib/Ui/VarRenderer/Nag.php:111 lib/Ui/VarRenderer/Nag.php:411
 msgid "Date"
 msgstr "날짜"
 
 #: templates/alarm/mail.html.php:13
-#, fuzzy
 msgid "Date and time:"
-msgstr "시간 및 일자 설정"
+msgstr "날짜 및 시간:"
 
 #: templates/alarm/mail.plain.php:7
-#, fuzzy
 msgid "Date:"
-msgstr "날짜"
+msgstr "날짜:"
 
 #: lib/Nag.php:785 lib/Ui/VarRenderer/Nag.php:43
 msgid "Day(s)"
@@ -463,15 +444,15 @@ msgstr "일"
 
 #: config/prefs.php:34
 msgid "Default Task List"
-msgstr "기본 작업 목록"
+msgstr "기본 과제목록"
 
 #: config/prefs.php:28
 msgid "Defaults for new tasks"
-msgstr "새 작업의 기본값을 설정합니다."
+msgstr "새로운 과제에 대한 기본 값"
 
 #: lib/Form/Task.php:119
 msgid "Delay Start Until"
-msgstr "지연 시작 시점"
+msgstr "다음 기간까지 시작 지연"
 
 #: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:163
 #: lib/Form/EditTaskList.php:178 lib/Form/Task.php:144
@@ -486,25 +467,25 @@ msgstr "%s 삭제"
 
 #: lib/Form/Search.php:66
 msgid "Delete Smart List"
-msgstr "검색 결과 삭제"
+msgstr "스마트 목록 삭제"
 
 #: config/prefs.php:21
 msgid "Delete behaviour"
-msgstr "삭제 동작방법을 설정합니다."
+msgstr "삭제 동작"
 
 #: task.php:34
 #, php-format
 msgid "Deleted %s."
-msgstr "%s 삭제됨."
+msgstr "%s(을) 삭제했습니다."
 
 #: config/prefs.php:20
 msgid "Deleting Tasks"
-msgstr "작업 삭제"
+msgstr "과제 삭제"
 
 #: lib/Api.php:607
 #, fuzzy
 msgid "Deleting entire tasklists is not supported."
-msgstr "이런 파일 형태를 지원하지 않습니다."
+msgstr "전체 과제목록 삭제는 지원하지 않습니다."
 
 #: config/prefs.php:115
 msgid "Descending"
@@ -517,9 +498,8 @@ msgid "Description"
 msgstr "설명"
 
 #: templates/alarm/mail.html.php:23
-#, fuzzy
 msgid "Description:"
-msgstr "설명"
+msgstr "설명:"
 
 #: config/prefs.php:13
 msgid "Display Preferences"
@@ -527,56 +507,55 @@ msgstr "표시 설정"
 
 #: lib/Form/EditTaskList.php:75
 msgid "Display URL"
-msgstr "웹 URL"
+msgstr "URL 표시"
 
 #: config/prefs.php:124
 msgid "Do you want to confirm deleting entries?"
-msgstr "항목 삭제시 확인?"
+msgstr "입력내용 삭제를 확인하시겠습니까?"
 
 #: config/prefs.php:192
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the task?"
-msgstr "내가 수정하거나 편집한 것은 알림 받지 않기"
+msgstr "과제를 추가, 변경 또는 삭제할 경우 알림을 보내지 않을까요?"
 
 #: data.php:50 lib/Form/Task.php:117 templates/view/task.inc:44
 msgid "Due By"
-msgstr "완료 일자"
+msgstr "만기일"
 
 #: config/prefs.php:68 config/prefs.php:82 config/prefs.php:99
 #: templates/smartmobile/taskform.html.php:34
 msgid "Due Date"
-msgstr "일자"
+msgstr "만기일"
 
 #: lib/Ui/VarRenderer/Nag.php:110
-#, fuzzy
 msgid "Due date specified."
-msgstr "문자열 입력 오류"
+msgstr "만기일이 지정됐습니다."
 
 #: lib/Form/Search.php:60
 msgid "Due date:"
-msgstr "기한:"
+msgstr "만기일:"
 
 #: lib/Ui/VarRenderer/Nag.php:384
 msgid "E.g., Is due within 2 days of today"
-msgstr "예. 다음 날수 이내 : 2, 기준날짜 : today"
+msgstr "예시: 오늘부터 2일 내 만기"
 
 #: lib/Block/Summary.php:180 templates/list/_task.html.php:37
 #, php-format
 msgid "Edit \"%s\""
-msgstr "편집 \" %s \""
+msgstr "\"%s\" 편집"
 
 #: lib/Form/EditTaskList.php:43
 #, php-format
 msgid "Edit %s"
-msgstr "%s 수정"
+msgstr "%s 편집"
 
 #: templates/list/task_headers.html.php:16
 msgid "Edit Task"
-msgstr "작업 수정"
+msgstr "과제 편집"
 
 #: templates/list/header.html.php:4
 msgid "Edit criteria"
-msgstr "검색 조건 수정"
+msgstr "조건 편집"
 
 #: app/controllers/SaveTask.php:12 task.php:109
 #, php-format
@@ -586,7 +565,7 @@ msgstr "편집: %s"
 #: search.php:28
 #, php-format
 msgid "Editing Smart List \"%s\""
-msgstr "검색 결과 \"%s\" 수정"
+msgstr "스마트 목록 \"%s\"(을)를 편집하는 중"
 
 #: templates/quick.inc:5
 msgid ""
@@ -595,15 +574,19 @@ msgid ""
 "cleaning next Thursday\". Tags may be added by prefixing them with the \"#\" "
 "character."
 msgstr ""
+"행마다 과제를 하나씩 입력하세요. 하위 과제를 생성하려면 상위 과제 아래에 들"
+"여 쓰세요. \"내일까지 빨래하기\" 또는 \"다음 주 목요일까지 드라이 클리닝 가지"
+"러가기\"와 같이 만기일을 포함하세요. \"#\" 문자를 접두사로 사용하여 태그를 추"
+"가할 수 있습니다."
 
 #: app/controllers/SaveTask.php:43 task.php:39
-#, fuzzy, php-format
+#, php-format
 msgid "Error deleting task: %s"
-msgstr "파일 이름 변경 오류: "
+msgstr "과제를 삭제하는 도중 오류 발생: %s"
 
 #: templates/smartmobile/taskform.html.php:50
 msgid "Estimate"
-msgstr "예상 시간"
+msgstr "예상"
 
 #: config/prefs.php:70 config/prefs.php:85 config/prefs.php:102 data.php:55
 #: lib/Form/Task.php:131 templates/list/task_headers.html.php:33
@@ -616,109 +599,102 @@ msgid "Export"
 msgstr "내보내기"
 
 #: templates/data/export.inc:6
-#, fuzzy
 msgid "Export Tasks"
-msgstr "메모 내보내기"
+msgstr "과제 내보내기"
 
 #: config/prefs.php:55
 msgid "External Data"
-msgstr ""
+msgstr "외부 데이터"
 
 #: lib/Ui/VarRenderer/Nag.php:246
 msgid "Fr"
 msgstr "금"
 
 #: config/prefs.php:227 templates/data/export.inc:36
-#, fuzzy
 msgid "Future tasks"
-msgstr "앞으로"
+msgstr "향후 과제"
 
 #: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
 msgid "General Preferences"
-msgstr "일반설정"
+msgstr "일반 설정"
 
 #: templates/smartmobile/taskform.html.php:41
-#, fuzzy
 msgid "Highest"
-msgstr "높음"
+msgstr "가장 높음"
 
 #: lib/Nag.php:788 lib/Ui/VarRenderer/Nag.php:42
 msgid "Hour(s)"
-msgstr "시"
+msgstr "시간"
 
 #: templates/data/import.inc:7
-#, fuzzy, php-format
+#, php-format
 msgid "Import Tasks, Step %d"
-msgstr "가져오기, 단계 %s"
+msgstr "과제 가져오기, %d 번째 단계"
 
 #: data.php:176
 msgid "Import/Export Tasks"
-msgstr "가져오기/내보내기"
+msgstr "과제 가져오기/내보내기"
 
 #: lib/View/List.php:104
 msgid "Incom_plete tasks"
-msgstr "미완료 작업"
+msgstr "미완료 과제"
 
 #: lib/Form/Search.php:55
 msgid "Incomplete"
-msgstr "미완료 작업"
+msgstr "미완료"
 
 #: templates/list/_task.html.php:7
 msgid "Incomplete sub tasks, complete them first"
-msgstr ""
+msgstr "미완료 하위 과제, 먼저 완료하세요"
 
 #: config/prefs.php:225 templates/data/export.inc:35
-#, fuzzy
 msgid "Incomplete tasks"
-msgstr "작업 완료"
+msgstr "미완료 과제"
 
 #: lib/Api.php:338
 #, fuzzy
 msgid "Invalid tasklist file requested."
-msgstr "잘못된 주소록"
+msgstr "잘못된 과제목록 파일을 요청했습니다."
 
 #: lib/Api.php:472
 #, fuzzy
 msgid "Invalid tasklist name supplied."
-msgstr "문자열 입력 오류"
+msgstr "잘못된 과제목록 이름이 제공됐습니다."
 
 #: lib/Api.php:354
 #, fuzzy
 msgid "Invalid tasklist requested."
-msgstr "잘못된 주소록"
+msgstr "잘못된 과제목록을 요청했습니다."
 
 #: lib/Ui/VarRenderer/Nag.php:381
 msgid "Is due within"
-msgstr "다음 날수 이내 : "
+msgstr "다음 기간 내에 만기함"
 
 #: templates/view/task.inc:78
 msgid "Last Modified"
-msgstr "마지막 수정"
+msgstr "최근 수정일"
 
 #: templates/smartmobile/lists.html.php:2
 #: templates/smartmobile/main.html.php:2
-#, fuzzy
 msgid "Lists"
-msgstr "리스트"
+msgstr "목록"
 
 #: lib/Ui/VarRenderer/Nag.php:438
-#, fuzzy
 msgid "Loading..."
-msgstr "찾는중..."
+msgstr "불러오는 중..."
 
 #: templates/smartmobile/taskform.html.php:45
 msgid "Lowest"
 msgstr "가장 낮음"
 
 #: templates/list/_task.html.php:18
-#, fuzzy, php-format
+#, php-format
 msgid "Mark \"%s\" as incomplete"
-msgstr "%d개의 작업이 완료상태로 설정되었습니다."
+msgstr "\"%s\"(을)를 미완료로 표시"
 
 #: lib/Application.php:74
-#, fuzzy
 msgid "Maximum Number of Tasks"
-msgstr "최대 메모 갯수"
+msgstr "최대 과제 개수"
 
 #: lib/Nag.php:791 lib/Ui/VarRenderer/Nag.php:42
 msgid "Minute(s)"
@@ -726,16 +702,15 @@ msgstr "분"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:81
 msgid "Missing required task id"
-msgstr ""
+msgstr "필요한 과제 ID가 누락됨"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:85
 msgid "Missing required tasklist"
-msgstr ""
+msgstr "필요한 과제목록이 누락됨"
 
 #: lib/Nag.php:607
-#, fuzzy
 msgid "Missing valid search criteria"
-msgstr "검색 조건 추가"
+msgstr "유효한 검색 조건이 누락됨"
 
 #: lib/Ui/VarRenderer/Nag.php:234
 msgid "Mo"
@@ -743,26 +718,25 @@ msgstr "월"
 
 #: lib/Ui/VarRenderer/Nag.php:267 lib/Ui/VarRenderer/Nag.php:282
 msgid "Monthly: Recurs every"
-msgstr "월마다: 발생월 "
+msgstr "매월: 다음 주기마다 반복"
 
 #: templates/list/header.html.php:11
 msgid "More Options..."
-msgstr "추가 선택사항..."
+msgstr "추가 옵션..."
 
 #: lib/Api.php:1203
-#, fuzzy
 msgid "Multiple iCalendar components found; only one vTodo is supported."
-msgstr "여러개의 일정항목(iCal)이 발견됨 ; 단 하나만 메모항목(vNote) 가능."
+msgstr "다중 iCalendar 구성요소를 찾았습니다; 하나의 vTodo만 지원합니다."
 
 #: lib/Application.php:139
 msgid "My Task Lists"
-msgstr "내 작업 목록"
+msgstr "내 과제목록"
 
 #: lib/View/List.php:74 smartmobile.php:21
 #: templates/smartmobile/main.html.php:2
 #: templates/smartmobile/taskform.html.php:2
 msgid "My Tasks"
-msgstr "내 작업"
+msgstr "내 과제"
 
 #: templates/list/task_headers.html.php:19
 msgid "Na_me"
@@ -775,18 +749,17 @@ msgstr "이름"
 
 #: config/prefs.php:131
 msgid "Never"
-msgstr "사용안함"
+msgstr "하지 않음"
 
 #: templates/smartmobile/main.html.php:12
-#, fuzzy
 msgid "New"
-msgstr "새 메일"
+msgstr "새로 만들기"
 
 #: app/controllers/SaveTask.php:12 lib/Application.php:302
 #: lib/Smartmobile.php:122 task.php:84 test/Nag/Unit/Form/Task/Base.php:72
 #: test/Nag/Unit/Form/Task/Base.php:86
 msgid "New Task"
-msgstr "새 작업"
+msgstr "새 과제"
 
 #: templates/data/import.inc:42
 msgid "Next"
@@ -794,70 +767,63 @@ msgstr "다음"
 
 #: config/prefs.php:180
 msgid "No"
-msgstr "없음"
+msgstr "아니오"
 
 #: lib/Ui/VarRenderer/Nag.php:408
 msgid "No delay"
-msgstr "지연 시점 없음"
+msgstr "지연 없음"
 
 #: lib/Ui/VarRenderer/Nag.php:108
 msgid "No due date."
-msgstr "기한 없음"
+msgstr "만기일이 없습니다."
 
 #: lib/Ui/VarRenderer/Nag.php:346
 msgid "No end date"
-msgstr "종료일 없음"
+msgstr "종료일이 없습니다."
 
 #: lib/Api.php:874 lib/Api.php:903 lib/Api.php:1210
 msgid "No iCalendar data was found."
-msgstr "일정항목(iCal)이 없음."
+msgstr "iCalendar 데이터를 찾을 수 없습니다."
 
 #: lib/Form/Task.php:72
 msgid "No parent task"
-msgstr "상위 작업 없음"
+msgstr "상위 과제가 없음"
 
 #: lib/Ui/VarRenderer/Nag.php:194
-#, fuzzy
 msgid "No recurrence"
-msgstr "반복 일"
+msgstr "반복 없음"
 
 #: lib/Nag.php:931
 msgid "No task lists are available to guests."
-msgstr ""
+msgstr "방문객이 사용 가능한 과제목록이 없습니다."
 
 #: quick.php:15 quick.php:18
-#, fuzzy
 msgid "No tasks have been added."
-msgstr "변경된 업무가 없습니다."
+msgstr "추가된 과제가 없습니다."
 
 #: templates/list.html.php:76
-#, fuzzy
 msgid "No tasks match"
-msgstr "일치하는 메모 없음"
+msgstr "일치하는 과제가 없음"
 
 #: lib/Block/Summary.php:231 templates/smartmobile/main.html.php:5
-#, fuzzy
 msgid "No tasks to display"
-msgstr "표시할 메모가 없음"
+msgstr "표시할 과제가 없음"
 
 #: lib/Form/Task.php:113 lib/Nag.php:795 lib/Ui/VarRenderer/Nag.php:58
 msgid "None"
 msgstr "없음"
 
 #: lib/Nag.php:754
-#, fuzzy
 msgid "Not Completed"
-msgstr "새 편지"
+msgstr "미완료"
 
 #: templates/view/task.inc:36
-#, fuzzy
 msgid "Not Private"
-msgstr "전체 이름:"
+msgstr "비공개 아님"
 
 #: lib/Api.php:666
-#, fuzzy
 msgid "Not configured"
-msgstr "Nag가 정상적으로 설정되어 있지 않습니다."
+msgstr "구성하지 않음"
 
 #: lib/Form/Task.php:124
 msgid "Notification"
@@ -869,15 +835,15 @@ msgstr "알림"
 
 #: config/prefs.php:182
 msgid "On all shown task lists"
-msgstr "보이는 모든 작업 목록"
+msgstr "표시된 모든 과제목록에 대해"
 
 #: config/prefs.php:183
 msgid "On all task lists I have read access to"
-msgstr "내가 볼수 있는 모든 작업 목록"
+msgstr "읽기 권한이 있는 모든 과제목록에 대해"
 
 #: config/prefs.php:181
 msgid "On my task lists only"
-msgstr "내 작업 목록만"
+msgstr "내 과제목록에 대해서만"
 
 #: lib/Form/EditTaskList.php:51
 msgid "Owner"
@@ -885,51 +851,47 @@ msgstr "소유자"
 
 #: templates/list/task_headers.html.php:12
 msgid "P_ri"
-msgstr "우선순위_P"
+msgstr "순위"
 
 #: lib/Form/Task.php:82
 msgid "Parent task"
-msgstr "상위 작업"
+msgstr "상위 과제"
 
 #: config/prefs.php:66 config/prefs.php:80 config/prefs.php:97 data.php:53
 #: lib/Form/Task.php:127 templates/smartmobile/taskform.html.php:39
 #: templates/view/task.inc:52
 msgid "Priority"
-msgstr "우선순위"
+msgstr "우선 순위"
 
 #: templates/smartmobile/taskform.html.php:24 templates/view/task.inc:36
-#, fuzzy
 msgid "Private"
-msgstr "전체 이름:"
+msgstr "비공개"
 
 #: data.php:54 lib/Task.php:751
-#, fuzzy
 msgid "Private Task"
-msgstr "저장"
+msgstr "비공개 과제"
 
 #: lib/Form/Task.php:116 templates/view/task.inc:34
 msgid "Private?"
-msgstr "개인 작업"
+msgstr "비공개?"
 
 #: config/prefs.php:132
 msgid "Purge completed tasks how often:"
-msgstr "완료된작업 삭제주기:"
+msgstr "완료한 과제는 얼마나 자주 제거할까요:"
 
 #: config/prefs.php:138
 msgid "Purge completed tasks older than this amount of days."
-msgstr "다음 날짜보다 오래경과한 완료된 작업을 삭제합니다."
+msgstr "이 기간을 경과한 완료된 과제를 제거합니다."
 
 #: lib/LoginTasks/Task/PurgeCompleted.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Purging %d completed task."
 msgid_plural "Purging %d completed tasks."
-msgstr[0] "작업 완료"
-msgstr[1] "작업 완료"
+msgstr[0] "%d개의 완료한 작업을 삭제합니다."
 
 #: templates/quick.inc:2
-#, fuzzy
 msgid "Quick Task Creation"
-msgstr "%s 유지관리 작업 - 확인"
+msgstr "빠른 과제 생성"
 
 #: lib/Form/DeleteTaskList.php:38
 #, php-format
@@ -937,41 +899,36 @@ msgid ""
 "Really delete the task list \"%s\"? This cannot be undone and all data on "
 "this task list will be permanently removed."
 msgstr ""
-"작업 목록 \"%s\"을 정말로 삭제합니까? 이번 작업은 취소될 수 없으며 메모 내용"
-"은 영구적으로 제거됩니다."
+"정말로 과제목록 \"%s\"(을)를 삭제하시겠습니까? 이 작업은 취소할 수 없으며 "
+"이 작업 목록의 모든 데이터가 영구적으로 삭제됩니다."
 
 #: templates/view/task.inc:13
-#, fuzzy
 msgid "Really delete this task?"
-msgstr "이 메모를 정말 삭제합니까?"
+msgstr "정말로 이 과제를 삭제할까요?"
 
 #: lib/Ui/VarRenderer/Nag.php:344
 msgid "Recur Until"
-msgstr "종료 일"
+msgstr "다음 기간까지 반복"
 
 #: lib/Form/Task.php:130
-#, fuzzy
 msgid "Recurrence"
-msgstr "반복 일"
+msgstr "반복"
 
 #: lib/View/List.php:420
-#, fuzzy
 msgid "Remove from search"
-msgstr "페어(pair) 삭제"
+msgstr "검색에서 제거"
 
 #: lib/Form/Search.php:65 lib/Form/Search.php:72
 msgid "Reset"
-msgstr "취소"
+msgstr "초기화"
 
 #: lib/Form/Task.php:150
-#, fuzzy
 msgid "Return to Search Results"
-msgstr "검색 결과"
+msgstr "검색 결과로 돌아가기"
 
 #: templates/view/task.inc:16
-#, fuzzy
 msgid "Return to search results"
-msgstr "검색 결과"
+msgstr "검색 결과로 돌아가기"
 
 #: lib/Ui/VarRenderer/Nag.php:249
 msgid "Sa"
@@ -984,25 +941,25 @@ msgstr "저장"
 
 #: templates/smartmobile/taskform.html.php:61
 msgid "Save Task"
-msgstr "저장"
+msgstr "과제 저장"
 
 #: lib/Form/Task.php:147
 msgid "Save and New"
-msgstr "저장하고 새 작업 추가"
+msgstr "저장 및 새로 만들기"
 
 #: lib/Form/Search.php:68
 msgid "Save this search as a Smart List?"
-msgstr "검색 결과 저장하기"
+msgstr "이 검색을 스마트 목록에 저장할까요?"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:192
-#, fuzzy, php-format
+#, php-format
 msgid "Saved %s"
-msgstr "다른이름으로 저장"
+msgstr "%s(을)를 저장함"
 
 #: app/controllers/SaveTask.php:94
 #, php-format
 msgid "Saved %s."
-msgstr "%s 저장됨."
+msgstr "%s(을)를 저장했습니다."
 
 #: lib/Application.php:326 lib/Form/Search.php:72 search.php:17 search.php:30
 #: templates/list/header.html.php:6
@@ -1011,153 +968,142 @@ msgstr "검색"
 
 #: lib/Form/Search.php:31
 msgid "Search In:"
-msgstr "검색 항목"
+msgstr "다음 위치에서 검색:"
 
 #: lib/Form/Search.php:29
 msgid "Search Text:"
-msgstr "검색어"
+msgstr "검색 내용:"
 
 #: lib/Form/Search.php:46
 msgid "Search:"
-msgstr "검색 대상"
+msgstr "검색:"
 
 #: lib/View/List.php:332
-#, fuzzy, php-format
+#, php-format
 msgid "Search: Results for"
-msgstr "검색 결과"
+msgstr "다음에 대한 검색: 결과:"
 
 #: config/prefs.php:72
 msgid "Select the columns that should be shown in the list view:"
-msgstr "목록에서 보여줄 항목을 선택하십시오:"
+msgstr "목록 화면에 표시할 열을 선택하세요:"
 
 #: templates/data/export.inc:11
 msgid "Select the export format:"
-msgstr "내보내기 형태 선택:"
+msgstr "내보내기 형식을 선택하세요:"
 
 #: templates/data/import.inc:36
 msgid "Select the file to import:"
-msgstr "임포트할 파일 선택:"
+msgstr "가져올 파일을 선택하세요:"
 
 #: templates/data/import.inc:12
 msgid "Select the format of the source file:"
-msgstr "원본 파일 형태 선택:"
+msgstr "원본 파일의 형식을 선택하세요:"
 
 #: templates/data/export.inc:20
-#, fuzzy
 msgid "Select the task list(s) to export from:"
-msgstr "내보낼 주소록 선택:"
+msgstr "내보낼 과제목록을 선택하세요:"
 
 #: templates/data/export.inc:32
-#, fuzzy
 msgid "Select the task states to export:"
-msgstr "익스포트할 형식 선택:"
+msgstr "내보낼 과제 상태를 선택하세요:"
 
 #: config/prefs.php:276
+#, fuzzy
 msgid ""
 "Select the tasklists that, in addition to the default, should be used for "
 "synchronization with external devices:"
 msgstr ""
-"기본 작업 목록과 더불어 외부기기와 동기화에 사용할 작업 목록을 선택하십시오:"
+"기본 메모장에 추가적으로 외부 장치와 동기화할 때 사용할 메모장을 선택하세요:"
 
 #: lib/Ui/VarRenderer/Nag.php:357
-#, fuzzy
 msgid "Set recurrence end date"
-msgstr "반복 종료일"
+msgstr "반복 종료일 설정"
 
 #: lib/Application.php:152
 msgid "Shared Task Lists"
-msgstr "공유 작업 목록"
+msgstr "공유 과제목록"
 
 #: lib/Block/Summary.php:51
 msgid "Show action buttons?"
-msgstr "처리 버튼 보이기?"
+msgstr "동작 버튼을 표시할까요?"
 
 #: config/prefs.php:229
-#, fuzzy
 msgid "Show complete, incomplete, or all tasks in the task list?"
-msgstr "목록에서 완료된 작업 보여주기?"
+msgstr "완료, 미완료 또는 모든 목록을 과제목록에 표시할까요?"
 
 #: config/prefs.php:213
 msgid "Show data from any of these other applications in your task list?"
-msgstr ""
+msgstr "과제목록에 다른 모든 응용 프로그램의 데이터를 표시할까요?"
 
 #: config/prefs.php:56
 msgid "Show data from other applications or sources."
-msgstr ""
+msgstr "기타 응용 프로그램 또는 소스의 데이터를 표시합니다."
 
 #: lib/Block/Summary.php:56
-#, fuzzy
 msgid "Show due dates?"
-msgstr "일자 없슴."
+msgstr "만료일을 표시할까요?"
 
 #: lib/Block/Summary.php:46
-#, fuzzy
 msgid "Show priorities?"
-msgstr "우선순위 낮음"
+msgstr "우선 순위를 표시할까요?"
 
 #: lib/Block/Summary.php:66
-#, fuzzy
 msgid "Show task alarms?"
-msgstr "일정에서 할일 보기"
+msgstr "과제 알림을 표시할까요?"
 
 #: lib/Block/Summary.php:61
-#, fuzzy
 msgid "Show tasklist name?"
-msgstr "메모장 이름 보이기?"
+msgstr "과제목록명을 표시할까요?"
 
 #: lib/Block/Summary.php:81
-#, fuzzy
 msgid "Show tasks from these tasklists"
-msgstr "이 분류들 메모 보이기"
+msgstr "이 과제목록의 과제를 표시"
 
 #: lib/Form/Search.php:69
 msgid "Smart List Name:"
-msgstr "검색결과 이름:"
+msgstr "스마트 목록 이름:"
 
 #: lib/View/List.php:377
-#, fuzzy
 msgid "Smart List deleted successfully"
-msgstr "편지가 성공적으로 전달되었습니다."
+msgstr "스마트 목록을 성공적으로 삭제함"
 
 #: lib/Form/Search.php:64
 msgid "SmartList Name:"
-msgstr "검색 결과 이름:"
+msgstr "스마트 목록 이름:"
 
 #: config/prefs.php:117
 msgid "Sort direction:"
-msgstr "정렬 방식"
+msgstr "정렬 방향:"
 
 #: config/prefs.php:89
 msgid "Sort tasks by:"
-msgstr "정렬 순서:"
+msgstr "과제 정렬 기준:"
 
 #: data.php:52
-#, fuzzy
 msgid "Start"
-msgstr "시작 일자"
+msgstr "시작"
 
 #: config/prefs.php:69 config/prefs.php:83 config/prefs.php:100
 #: templates/smartmobile/taskform.html.php:29 templates/view/task.inc:40
 msgid "Start Date"
-msgstr "시작 일자"
+msgstr "시작일"
 
 #: lib/Ui/VarRenderer/Nag.php:410
-#, fuzzy
 msgid "Start date specified."
-msgstr "문자열 입력 오류"
+msgstr "시작일이 지정됐습니다."
 
 #: lib/Ui/VarRenderer/Nag.php:252
 msgid "Su"
 msgstr "일"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:115
-#, fuzzy
 msgid "Successfully deleted"
-msgstr "'%s'가 시스템에 추가되었습니다."
+msgstr "성공적으로 삭제함"
 
 #: config/prefs.php:328
+#, fuzzy
 msgid "Support separate collections?"
-msgstr ""
+msgstr "개별 주소록을 지원할까요?"
 
 #: config/prefs.php:41
 msgid "Synchronization Preferences"
@@ -1168,243 +1114,233 @@ msgid "System"
 msgstr "시스템"
 
 #: lib/Form/CreateTaskList.php:28 lib/Form/EditTaskList.php:65
-#, fuzzy
 msgid "System Task List"
-msgstr "작업 목록"
+msgstr "시스템 과제목록"
 
 #: lib/Form/CreateTaskList.php:29 lib/Form/EditTaskList.php:66
 msgid ""
 "System task lists don't have an owner. Only administrators can change the "
 "task list settings and permissions."
 msgstr ""
+"시스템 과제목록은 소유자가 없습니다. 오직 관리자만 과제목록 설정 및 권한을 "
+"변경할 수 있습니다."
 
 #: lib/Form/Search.php:44
 msgid "Tagged with:"
-msgstr "태그:"
+msgstr "다음으로 태그함:"
 
 #: data.php:59 lib/Form/Task.php:86
 msgid "Tags"
 msgstr "태그"
 
 #: templates/list/_task.html.php:60
-#, fuzzy
 msgid "Task Alarm"
-msgstr "작업 이름"
+msgstr "과제 알림"
 
 #: templates/list/task_headers.html.php:22
-#, fuzzy
 msgid "Task Alarm?"
-msgstr "작업 이름"
+msgstr "과제 알림을 추가할까요?"
 
 #: config/prefs.php:27
 msgid "Task Defaults"
-msgstr "작업 기본설정"
+msgstr "과제 기본 값"
 
 #: config/prefs.php:65 config/prefs.php:87 config/prefs.php:104
 #: lib/Form/Task.php:59
 msgid "Task List"
-msgstr "작업 목록"
+msgstr "과제목록"
 
 #: config/prefs.php:33 config/prefs.php:40 config/prefs.php:47
 #: config/prefs.php:54
 msgid "Task List and Share Preferences"
-msgstr "작업 목록과 공유 설정"
+msgstr "과제목록 및 공유 설정"
 
 #: config/prefs.php:81 config/prefs.php:98
 msgid "Task Name"
-msgstr "작업 이름"
+msgstr "과제 이름"
 
 #: templates/list/_task.html.php:58
 msgid "Task Note"
-msgstr "작업 노트"
+msgstr "과제 메모"
 
 #: templates/list/task_headers.html.php:21
 msgid "Task Note?"
-msgstr "작업 노트?"
+msgstr "과제 메모를 추가할까요?"
 
 #: lib/Nag.php:1031
-#, fuzzy
 msgid "Task added:"
-msgstr "작업 이름"
+msgstr "과제를 추가함:"
 
 #: lib/Nag.php:1130
-#, fuzzy
 msgid "Task deleted:"
-msgstr "파일 삭제: "
+msgstr "과제를 삭제함:"
 
 #: lib/Nag.php:1147
-#, fuzzy
 msgid "Task description:"
-msgstr "설명"
+msgstr "과제 설명:"
 
 #: lib/Tasklists/Default.php:45
 #, php-format
 msgid "Task list of %s"
-msgstr "%s의 작업 목록"
+msgstr "%s의 과제목록"
 
 #: lib/Nag.php:1042
 msgid "Task modified:"
-msgstr "작업 수정됨:"
+msgstr "과제를 수정함:"
 
 #: view.php:19 view.php:37
-#, fuzzy
 msgid "Task not found"
-msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+msgstr "과제를 찾을 수 없음"
 
 #: task.php:100
-#, fuzzy
 msgid "Task not found."
-msgstr "통지 리스너 %s을(를) 찾을 수 없습니다."
+msgstr "과제를 찾을 수 없습니다."
 
 #: app/controllers/SaveTask.php:46
-#, fuzzy
 msgid "Task successfully deleted"
-msgstr "'%s'가 시스템에 추가되었습니다."
+msgstr "과제를 성공적으로 삭제함"
 
 #: lib/Api.php:620
 #, fuzzy
 msgid "Tasklist does not exist or no permission to delete"
-msgstr "당신은 이 메모를 수정할 수 없습니다."
+msgstr "과제목록이 존재하지 않거나 삭제 권한이 없음"
 
 #: lib/Api.php:478
 #, fuzzy
 msgid "Tasklist does not exist or no permission to edit"
-msgstr "당신은 이 메모를 수정할 수 없습니다."
+msgstr "과제목록이 존재하지 않거나 편집 권한이 없음"
 
 #: lib/Api.php:1293 lib/Tasklists/Kolab.php:41
 msgid "Tasks"
-msgstr "작업"
+msgstr "과제"
 
 #: lib/Block/Summary.php:12
-#, fuzzy
 msgid "Tasks Summary"
-msgstr "요약"
+msgstr "과제 요약"
 
 #: lib/Api.php:300
-#, fuzzy, php-format
+#, php-format
 msgid "Tasks from %s"
-msgstr "%s의 편지"
+msgstr "%s의 과제"
 
 #: lib/Ui/VarRenderer/Nag.php:243
 msgid "Th"
 msgstr "목"
 
 #: data.php:160
-#, fuzzy, php-format
+#, php-format
 msgid "The %s file didn't contain any tasks."
-msgstr "파일 \"%s\"에는 메모가 없습니다."
+msgstr "%s 파일에 과제가 없습니다."
 
 #: lib/Driver.php:56
-#, fuzzy
 msgid "The Tasks backend is not currently available."
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "현재 과제 백앤드를 사용할 수 없습니다."
 
 #: lib/Factory/Driver.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "The Tasks backend is not currently available: %s"
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "현재 과제 백엔드를 사용할 수 없습니다: %s"
 
 #: config/prefs.php:163
 msgid "The current hour"
-msgstr "현재 시각"
+msgstr "현재 시간"
 
 #: lib/Nag.php:1035
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The task \"%s\" has been added to task list \"%s\", with a due date of: %s."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr ""
+"과제  \"%s\"(이)가  과제목록 \"%s\"에 추가됐고, 만료일은 다음과 같습니다: %s"
 
 #: lib/Nag.php:1036
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been added to task list \"%s\"."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제  \"%s\"(이)가 과제목록  \"%s\"에 추가됐습니다."
 
 #: lib/Nag.php:1134
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been deleted from task list \"%s\"."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제  \"%s\"(이)가 과제목록  \"%s\"에서 삭제됐습니다."
 
 #: lib/Nag.php:1045
-#, fuzzy, php-format
+#, php-format
 msgid "The task \"%s\" has been edited on task list \"%s\"."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제  \"%s\"(이)가 과제목록  \"%s\"에서 편집됐습니다."
 
 #: tasklists/create.php:25
 #, php-format
 msgid "The task list \"%s\" has been created."
-msgstr "작업 목록 \"%s\"이 생성됨."
+msgstr "과제  \"%s\"(이)가 생성됐습니다."
 
 #: tasklists/delete.php:37
 #, php-format
 msgid "The task list \"%s\" has been deleted."
-msgstr "작업 목록 \"%s\"이 삭제됨."
+msgstr "과제  \"%s\"(이)가 삭제됐습니다."
 
 #: tasklists/edit.php:39
 #, php-format
 msgid "The task list \"%s\" has been renamed to \"%s\"."
-msgstr "작업 목록 \"%s\"이 \"%s\"으로 변경됨."
+msgstr "과제목록 \"%s\"의 이름이 \"%s\"(으)로 변경됐습니다."
 
 #: tasklists/edit.php:41
 #, php-format
 msgid "The task list \"%s\" has been saved."
-msgstr "작업 목록 \"%s\"이 저장됨."
+msgstr "과제목록 \"%s\"(을)를 저장했습니다."
 
 #: config/prefs.php:106
 msgid "Then:"
-msgstr "다음 조건:"
+msgstr "2차 정렬 기준:"
 
 #: templates/list.html.php:30
 msgid "There are no tasks matching the current criteria."
-msgstr "현재 조건에 맞는 메모가 없음."
+msgstr "현재 조건에 일치하는 과제가 없습니다."
 
 #: lib/CompleteTask.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "There was a problem completing %s: %s"
-msgstr "'%s'를 시스템에 추가할 수 없습니다."
+msgstr "%s(을)를 완료하는 도중 문제가 발생했습니다: %s"
 
 #: task.php:30
-#, fuzzy, php-format
+#, php-format
 msgid "There was a problem deleting %s: %s"
-msgstr "'%s'를 시스템에 추가할 수 없습니다."
+msgstr "%s(을)를 삭제하는 도중 문제가 발생했습니다: %s"
 
 #: app/controllers/SaveTask.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "There was a problem saving the task: %s."
-msgstr "작업 삭제에 문제가 발생했습니다."
+msgstr "과제를 저장하는 도중 문제가 발생했습니다: %s"
 
 #: config/prefs.php:318
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
-msgstr "데이타 임포트 오류"
+msgstr "액티브싱크 서버와 통신하는 도중 오류가 발생했습니다: %s"
 
 #: data.php:150
 #, php-format
 msgid "There was an error importing the data: %s"
-msgstr "자료를 가져오는중 오류가 발생했습니다: %s"
+msgstr "데이터를 가져오는 도중 오류가 발생했습니다: %s"
 
 #: lib/Api.php:494 lib/Api.php:866 lib/Api.php:1195 lib/Application.php:551
 msgid "There was an error importing the iCalendar data."
-msgstr "인터넷일정(iCalendar)를 가져오는중 오류가 발생했습니다."
+msgstr "iCalendar를 가져오는 도중 오류가 발생했습니다."
 
 #: lib/Application.php:233
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error removing tasks for %s. Details have been logged."
 msgstr ""
-"\"%s\"의 자료를 지우는중 에러가 발생하였습니다. 세부내용은 로깅되었습니다."
+"%s의 과제를 제거하는 도중 오류가 발생했습니다. 세부사항이 기록됐습니다."
 
 #: data.php:95
 msgid "This file format is not supported."
-msgstr "이런 파일 형태를 지원하지 않습니다."
+msgstr "이 파일 형식은 지원하지 않습니다."
 
 #: lib/Ui/VarRenderer/Nag.php:130
-#, fuzzy
 msgid "Time"
-msgstr "종료 시간"
+msgstr "시간"
 
 #: templates/alarm/mail.plain.php:9
-#, fuzzy
 msgid "Time:"
-msgstr "종료 시간"
+msgstr "시간:"
 
 #: templates/smartmobile/taskform.html.php:9
 msgid "Title"
@@ -1416,44 +1352,44 @@ msgstr "화"
 
 #: lib/Nag.php:1089
 msgid "Turned privacy off"
-msgstr ""
+msgstr "비공개를 해제함"
 
 #: lib/Nag.php:1089
 msgid "Turned privacy on"
-msgstr ""
+msgstr "비공개를 설정함"
 
 #: lib/Api.php:638
 #, fuzzy, php-format
 msgid "Unable to delete tasklist \"%s\": %s"
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
+msgstr "\"%s\"(을)를 삭제할 수 없음: %s."
 
 #: lib/Factory/Driver.php:70
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "%s 정의를 읽을 수 없습니다."
+msgstr "%s의 정의를 불러올 수 없습니다."
 
 #: lib/Nag.php:614
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to save task list \"%s\": %s"
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
+msgstr "과제목록 \"%s\"(을)를 저장할 수 없음: %s"
 
 #: data.php:58
 msgid "Unique ID"
-msgstr ""
+msgstr "고유 ID"
 
 #: lib/Api.php:574 lib/Api.php:920 lib/Api.php:1044 lib/Api.php:1109
 #: lib/Api.php:1227
 #, php-format
 msgid "Unsupported Content-Type: %s"
-msgstr "지원하지 않는 내용형식: %s"
+msgstr "미지원 콘텐츠 유형: %s"
 
 #: lib/Ui/VarRenderer/Nag.php:159
 msgid "Use custom notification method"
-msgstr "사용자설정 알림 사용"
+msgstr "사용자 정의 알림 방식을 사용"
 
 #: lib/Ui/VarRenderer/Nag.php:151
 msgid "Use default notification method"
-msgstr "기본 알림 방법 사용"
+msgstr "기본 알림 방식을 사용"
 
 #: lib/Ui/VarRenderer/Nag.php:240
 msgid "We"
@@ -1461,78 +1397,75 @@ msgstr "수"
 
 #: templates/alarm/mail.plain.php:1
 msgid "We would like to remind you of this due task."
-msgstr ""
+msgstr "이 과제가 만기함을 알려드립니다."
 
 #: lib/Form/EditTaskList.php:132
 msgid "WebDAV/ICS Subscription URL"
-msgstr "WebDAV/ICS 구독 URL"
+msgstr "WebDAV/ICA 구독 URL"
 
 #: lib/Nag.php:782 lib/Ui/VarRenderer/Nag.php:43
 msgid "Week(s)"
-msgstr "번째 주에 "
+msgstr "주"
 
 #: lib/Ui/VarRenderer/Nag.php:231
 msgid "Weekly: Recurs every"
-msgstr "주마다 발생: 발생주 "
+msgstr "매주: 다음 주기마다 반복"
 
 #: config/prefs.php:161
 msgid "What do you want to be the default due time for tasks?"
-msgstr "기한에서 시각은 어떻게 합니까?"
+msgstr "과제의 기본 만기일은 언제입니까?"
 
 #: config/prefs.php:153
 msgid ""
 "When creating a new task, how many days in the future should the default due "
 "date be (0 means today)?"
-msgstr "새 작업을 생성할 때, 완료기한을 몇일로 둘까요? (0은 오늘의미)"
+msgstr ""
+"새로운 과제를 생성할 때 기본 만기일을 며칠 후로 설정하시겠습니까?('0'은 '당"
+"일'입니다)"
 
 #: config/prefs.php:145
 msgid "When creating a new task, should it default to having a due date?"
-msgstr "새 작업을 생성할 때, 기본으로 기한두기"
+msgstr "새로운 과제를 생성할 때 만료일을 기본으로 설정하시겠습니까?"
 
 #: templates/data/import.inc:21
 #, fuzzy
 msgid "Which tasklist should the tasks be added to?"
-msgstr "어느 메모장에 메모를 추가하시겠습니까?"
+msgstr "과제를 어느 과제목록에 추가할까요?"
 
 #: lib/Ui/VarRenderer/Nag.php:297 lib/Ui/VarRenderer/Nag.php:312
 #: lib/Ui/VarRenderer/Nag.php:327
 msgid "Yearly: Recurs every"
-msgstr "년마다: 발생년"
+msgstr "매년: 다음 주기마다 반복"
 
 #: lib/Nag.php:598
-#, fuzzy
 msgid "You are not allowed to change this task list."
-msgstr "SQL 서버에 접속할 수 없습니다."
+msgstr "이 과제목록을 변경할 수 없습니다."
 
 #: data.php:38 data.php:114 task.php:73
-#, fuzzy, php-format
+#, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "%d개 이상의 메모를 작성할 수 없습니다."
+msgstr "과제를 %d개 이상  생성할 수 없습니다."
 
 #: lib/Nag.php:631 tasklists/delete.php:27
-#, fuzzy
 msgid "You are not allowed to delete this task list."
-msgstr "당신은 이 메모장을 제거할 수 없습니다."
+msgstr "이 과제목록을 삭제할 수 없습니다."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:106
-#, fuzzy
 msgid "You are not allowed to delete this task."
-msgstr "당신은 이 메모장을 제거할 수 없습니다."
+msgstr "이 과제를 삭제할 수 없습니다."
 
 #: lib/Api.php:137
-#, fuzzy
 msgid "You are not allowed to retrieve this task list."
-msgstr "당신은 이 메모장을 볼 수 없습니다."
+msgstr "이 과제목록을 검색할 수 없습니다."
 
 #: tasklists/edit.php:28
-#, fuzzy
 msgid "You are not allowed to see this task list."
-msgstr "당신은 이 메모장을 볼 수 없습니다."
+msgstr "이 과제목록을 볼 수 없습니다."
 
 #: view.php:48
 #, fuzzy
 msgid "You do not have permission to view this tasklist."
-msgstr "당신은 이 메모장을 볼 수 없습니다."
+msgstr "이 과제목록을 표시할 권한이 없습니다."
 
 #: templates/alarm/mail.html.php:35
 #, php-format
@@ -1541,26 +1474,25 @@ msgid ""
 "reminders of due tasks with alarms. You can change this if you %slogin to "
 "the task list%s and change your preferences."
 msgstr ""
+"이 메시지를 받은 이유는 과제목록이 만기한 과제에 대한 알림을 보내도록 구성됐"
+"기 때문입니다. 이 설정은 %s과제목록에 로그인하여%s 하여 변경할 수 있습니다."
 
 #: lib/Nag.php:1032
-#, fuzzy
 msgid "You requested to be notified when tasks are added to your task lists."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제목록에 과제가 추가되면 알림을 받도록 요청했습니다."
 
 #: lib/Nag.php:1132
-#, fuzzy
 msgid ""
 "You requested to be notified when tasks are deleted from your task lists."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제목록에서 과제가 삭제되면 알림을 받도록 요청했습니다."
 
 #: lib/Nag.php:1043
-#, fuzzy
 msgid "You requested to be notified when tasks are edited on your task lists."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제목록에서 과제가 편집되면 알림을 받도록 요청했습니다."
 
 #: config/prefs.php:238
 msgid "Your default task list:"
-msgstr "기본 작업 목록:"
+msgstr "기본 과제목록:"
 
 #: lib/Block/Summary.php:116 lib/Block/Summary.php:216
 #: templates/list/_task.html.php:47
@@ -1569,93 +1501,89 @@ msgstr "[없음]"
 
 #: lib/View/List.php:103
 msgid "_All tasks"
-msgstr "전체 작업_A"
+msgstr "모든 과제"
 
 #: templates/view/task.inc:5
 msgid "_Complete"
-msgstr "완료 처리"
+msgstr "완료"
 
 #: lib/View/List.php:106
 msgid "_Completed tasks"
-msgstr "완료된 작업"
+msgstr "완료한 과제"
 
 #: templates/view/task.inc:13
 msgid "_Delete"
-msgstr "지우기_D"
+msgstr "삭제"
 
 #: templates/list/task_headers.html.php:25
 msgid "_Due Date"
-msgstr "기한"
+msgstr "만기일"
 
 #: templates/view/task.inc:8
 msgid "_Edit"
-msgstr "수정_E"
+msgstr "편집"
 
 #: lib/View/List.php:105
 msgid "_Future tasks"
-msgstr "미래 작업_F"
+msgstr "향후 과제"
 
 #: lib/Application.php:96
 msgid "_Import/Export"
-msgstr "가져오기/내보내기_I"
+msgstr "가져오기/내보내기"
 
 #: lib/Application.php:89
 msgid "_List Tasks"
-msgstr "작업 목록_L"
+msgstr "과제목록"
 
 #: lib/Application.php:115
 msgid "_New Task"
-msgstr "새 작업_N"
+msgstr "새 과제"
 
 #: lib/Application.php:125
 msgid "_Quick Add"
-msgstr ""
+msgstr "빠른 추가"
 
 #: lib/Application.php:92
 msgid "_Search"
-msgstr "검색_S"
+msgstr "검색"
 
 #: templates/list/task_headers.html.php:29
-#, fuzzy
 msgid "_Start Date"
-msgstr "시작 일자"
+msgstr "시작일"
 
 #: templates/list/task_headers.html.php:8
-#, fuzzy
 msgid "_Task List"
-msgstr "작업 목록"
+msgstr "과제목록"
 
 #: config/prefs.php:169
-#, fuzzy
 msgid "am"
-msgstr "이름"
+msgstr "am"
 
 #: lib/View/List.php:342 lib/View/List.php:351
 msgid "and"
-msgstr "그리고"
+msgstr "또한"
 
 #: lib/View/List.php:355
 #, php-format
 msgid "and tagged with %s"
-msgstr ""
+msgstr "또한 %s(으)로 태그됨"
 
 #: lib/Ui/VarRenderer/Nag.php:126
 msgid "at"
-msgstr "시간"
+msgstr ""
 
 #: lib/Driver/Sql.php:616 lib/Driver/Sql.php:625
 #, php-format
 msgid "by %s"
-msgstr "%s의"
+msgstr "에 %s(이)가"
 
 #: lib/Driver/Sql.php:618 lib/Driver/Sql.php:627
 msgid "by me"
-msgstr "본인"
+msgstr "에 내가"
 
 #: lib/Nag.php:1121 lib/Nag.php:1122
-#, fuzzy
 msgid "completed"
-msgstr "새 편지"
+msgstr "완료함"
 
 #: lib/Ui/VarRenderer/Nag.php:209
 msgid "day(s)"
@@ -1664,97 +1592,89 @@ msgstr "일"
 #: lib/View/List.php:347
 #, php-format
 msgid "due date within %d days of %s"
-msgstr "다음 날수이내 : %d 기준 : %s"
+msgstr "만기일 %s %d일 남음"
 
 #: data.php:23
-#, fuzzy
 msgid "iCalendar (vTodo)"
-msgstr "달력"
+msgstr "iCalendar (vTodo)"
 
 #: lib/Application.php:314
 #, php-format
 msgid "in %s"
-msgstr "작업 목록 \"%s\""
+msgstr "%s 내"
 
 #: lib/Ui/VarRenderer/Nag.php:269 lib/Ui/VarRenderer/Nag.php:284
 msgid "month(s)"
-msgstr "월"
+msgstr "개월"
 
 #: lib/Nag.php:1094 lib/Nag.php:1095
 msgid "no due date"
-msgstr "기한 없음"
+msgstr "만기일 없음"
 
 #: lib/Nag.php:1067 lib/Nag.php:1068
-#, fuzzy
 msgid "no parent"
-msgstr "상위로"
+msgstr "상위 과제 없음"
 
 #: lib/Nag.php:1100 lib/Nag.php:1101
-#, fuzzy
 msgid "no start date"
-msgstr "시작 일자"
+msgstr "시작일 없음"
 
 #: lib/Nag.php:119
 msgid "no time"
-msgstr "시간 없슴"
+msgstr "시간 없음"
 
 #: lib/Nag.php:1121 lib/Nag.php:1122
-#, fuzzy
 msgid "not completed"
-msgstr "새 편지"
+msgstr "미완료"
 
 #: lib/Ui/VarRenderer/Nag.php:269
 msgid "on the same date"
-msgstr " 같은날에"
+msgstr "같은 날에"
 
 #: lib/Ui/VarRenderer/Nag.php:284
 msgid "on the same weekday"
-msgstr " 같은 주에"
+msgstr "같은 요일에"
 
 #: config/prefs.php:169
-#, fuzzy
 msgid "pm"
-msgstr "스팸편지함"
+msgstr "pm"
 
 #: lib/Ui/VarRenderer/Nag.php:368
-#, fuzzy
 msgid "recurrences"
-msgstr "반복 일"
+msgstr "반복"
 
 #: lib/View/List.php:338
 msgid "tasks"
-msgstr "작업"
+msgstr "과제"
 
 #: lib/Application.php:390 templates/data/export.inc:1
-#, fuzzy
 msgid "tasks.csv"
-msgstr "notes.csv"
+msgstr "tasks.csv"
 
 #: lib/Application.php:404
-#, fuzzy
 msgid "tasks.ics"
-msgstr "notes.csv"
+msgstr "tasks.ics"
 
 #: lib/Ui/VarRenderer/Nag.php:233
+#, fuzzy
 msgid "week(s) on:"
-msgstr "번째 주에:"
+msgstr "번째 주 다음 요일마다"
 
 #: lib/View/List.php:344 lib/View/List.php:353
-#, fuzzy
 msgid "with"
-msgstr "수정"
+msgstr ""
 
 #: lib/Ui/VarRenderer/Nag.php:299
-#, fuzzy
 msgid "year(s) on the same date"
-msgstr " 같은날에"
+msgstr "년마다 같은 날짜"
 
 #: lib/Ui/VarRenderer/Nag.php:314
-#, fuzzy
 msgid "year(s) on the same day of the year"
-msgstr " 같은날에"
+msgstr "년마다 그 해의 같은 날짜"
 
 #: lib/Ui/VarRenderer/Nag.php:329
-#, fuzzy
 msgid "year(s) on the same weekday and month of the year"
-msgstr " 같은날에"
+msgstr "년마다 그 해의 같은 달과 같은 요일"
+
+#~ msgid "Tasks not found"
+#~ msgstr "과제를 찾을 수 없음"

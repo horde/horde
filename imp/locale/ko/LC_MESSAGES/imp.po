@@ -5,13 +5,14 @@
 #
 # Jinhyok Heo <novembre@ournature.org>, 2001
 # Deokgon Kim <dgkim@dgkim.net>, 2014
+# Josh Kim <joshkkim@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP 4.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-03-17 16:46+0900\n"
-"PO-Revision-Date: 2014-04-21 16:20+0900\n"
-"Last-Translator: Deokgon Kim <dgkim@dgkim.net>\n"
+"PO-Revision-Date: 2014-08-29 14:57+0900\n"
+"Last-Translator: Josh Kim <joshkkim@gmail.com>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,261 +27,251 @@ msgstr " : "
 #: lib/Prefs/Identity.php:528
 #, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "\"%s\"는 잘못된 메일주소입니다."
+msgstr "\"%s\"은(는) 잘못된 이메일 주소입니다."
 
 #: lib/LoginTasks/Task/RenameSentmailMonthly.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" mailbox being renamed at the start of the month."
-msgstr "%s 편지함의 이름을 매월초 변경합니다."
+msgstr "월초에 \"%s\" 편지함을 다른 이름으로 변경합니다."
 
 #: lib/Ajax/Application/ShowMessage.php:309
-#, fuzzy, php-format
+#, php-format
 msgid "%d Attachment"
 msgid_plural "%d Attachments"
-msgstr[0] "파일첨부"
-msgstr[1] "파일첨부"
+msgstr[0] "%d개의 첨부파일"
 
 #: lib/Dynamic/Compose/Common.php:253
-#, fuzzy, php-format
+#, php-format
 msgid "%d Attachments"
-msgstr "파일첨부"
+msgstr "%d개의 첨부파일"
 
 #: lib/Basic/Mailbox.php:400 lib/Basic/Mailbox.php:401
 #: lib/Basic/Thread.php:180
-#, fuzzy, php-format
+#, php-format
 msgid "%d Messages"
-msgstr "편지 없음"
+msgstr "%d개의 메시지"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:791
-#, fuzzy, php-format
+#, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
-msgstr[0] "%s로부터 전달된 편지"
-msgstr[1] "%s로부터 전달된 편지"
+msgstr[0] "\"%s\"에서 %d개의 메시지를 제거했습니다."
 
 #: lib/Dynamic/Mailbox.php:504 lib/Smartmobile.php:176
 #, php-format
 msgid "%d messages"
-msgstr "%d개의 편지"
+msgstr "%d개의 메시지"
 
 #: lib/Spam.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "%d messages have been deleted."
-msgstr "%d개 편지 삭제됨. "
+msgstr "%d개의 메시지를 삭제했습니다."
 
 #: lib/Spam.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "%d messages have been reported as innocent."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "%d개의 메시지 정상 메일로 보고했습니다."
 
 #: lib/Spam.php:147
-#, fuzzy, php-format
+#, php-format
 msgid "%d messages have been reported as spam."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "%d개의 메시지를 스팸 메일로 보고했습니다."
 
 #: lib/Mime/Viewer/Audio.php:60 lib/Mime/Viewer/Video.php:88
 #, php-format
 msgid "%d minute"
-msgstr "%d 분"
+msgstr "%d분"
 
 #: lib/Mime/Viewer/Audio.php:60 lib/Mime/Viewer/Video.php:88
 #, php-format
 msgid "%d minutes"
-msgstr "%d 분"
+msgstr "%d분"
 
 #: lib/Block/Newmail.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "%d more unseen message..."
 msgid_plural "%d more unseen messages..."
-msgstr[0] "읽지 않은 편지가 있는 편지함 없음"
-msgstr[1] "읽지 않은 편지가 있는 편지함 없음"
+msgstr[0] "%d개의 읽지 않은 메시지가 더 있습니다..."
 
 #: lib/Minimal/Mailbox.php:114
-#, fuzzy, php-format
+#, php-format
 msgid "%d of %d"
-msgstr "%d / %d 페이지"
+msgstr "%d, 총 %d"
 
 #: lib/Dynamic/Compose/Common.php:255
-#, fuzzy, php-format
+#, php-format
 msgid "%d recipients"
-msgstr "알수 없는 수신인"
+msgstr "%d명의 받는 사람"
 
 #: lib/Mime/Viewer/Audio.php:67 lib/Mime/Viewer/Video.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%d second"
-msgstr "읽지않음"
+msgstr "%d초"
 
 #: lib/Mime/Viewer/Audio.php:67 lib/Mime/Viewer/Video.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%d seconds"
-msgstr "읽지않음"
+msgstr "%d초"
 
 #: lib/Minimal/Mailbox.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "%d total"
-msgstr "%d개의 작업"
+msgstr "총 %d개"
 
 #: lib/Minimal/Mailbox.php:109
-#, fuzzy, php-format
+#, php-format
 msgid "%d unseen"
-msgstr "읽지않음"
+msgstr "%d개 읽지 않음"
 
 #: lib/Search/Element/Text.php:62
-#, fuzzy, php-format
+#, php-format
 msgid "%s for '%s'"
-msgstr "%s에게 소개"
+msgstr "'%s'의 %s"
 
 #: lib/Mime/Viewer/Itip.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "%s has cancelled \"%s\"."
-msgstr "편지함 \"%s\"이 \"%s\"에 성공적으로 추가되었습니다."
+msgstr "%s이(가) \"%s\"을(를) 취소했습니다."
 
 #: lib/Mime/Viewer/Itip.php:349
-#, fuzzy, php-format
+#, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
-msgstr ""
-"#-#-#-#-#  imp.po (IMP 4.0-cvs)  #-#-#-#-#\n"
-"#-#-#-#-#  kronolith.po (Kronolith 2.0-cvs)  #-#-#-#-#\n"
-"편지함 \"%s\"이 \"%s\"에 성공적으로 추가되었습니다."
+msgstr "%s이(가) 반복하는 \"%s\"의 요청을 취소했습니다."
 
 #: lib/Mime/Viewer/Itip.php:319
-#, fuzzy, php-format
+#, php-format
 msgid "%s has replied to the invitation to \"%s\"."
-msgstr "%s 정의를 읽을 수 없습니다."
+msgstr "%s이(가) \"%s\"에 대한 초대에 회신했습니다."
 
 #: lib/Mime/Viewer/Itip.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "%s has sent you free/busy information."
-msgstr "데이타 임포트 오류"
+msgstr "%s이(가) 한가함/바쁨 정보를 보냈습니다."
 
 #: lib/Spam/Email.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "%s report from %s"
-msgstr "%s의 편지"
+msgstr "%s이(가) 보낸 %s 보고서"
 
 #: lib/Mime/Viewer/Itip.php:174
-#, fuzzy, php-format
+#, php-format
 msgid "%s requests your free/busy information."
-msgstr "편지 서버 정보사항"
+msgstr "%s이(가) 한가함/바쁨 정보를 요청합니다."
 
 #: lib/Dynamic/Mailbox.php:517
 #, php-format
 msgid "%s selected."
-msgstr "%s 선택됨."
+msgstr "%s를 선택했습니다."
 
 #: lib/Message.php:447
-#, fuzzy, php-format
+#, php-format
 msgid "%s was successfully added to \"%s\"."
-msgstr "편지함 \"%s\"이 \"%s\"에 성공적으로 추가되었습니다."
+msgstr "%s을(를) \"%s\"에 성공적으로 추가했습니다."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:618
-#, fuzzy, php-format
+#, php-format
 msgid "%s was successfully added to your address book."
-msgstr "\"%s\"가 주소록에 추가되었습니다."
+msgstr "%s을(를) 주소록에 성공적으로 추가했습니다."
 
 #: lib/Mime/Viewer/Itip.php:314
-#, fuzzy, php-format
+#, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
-msgstr "%s 정의를 읽을 수 없습니다."
+msgstr "%s이(가) \"%s\"에 대한 최신 정보를 받길 원합니다."
 
 #: lib/Basic/Message.php:295 lib/Basic/Message.php:299
-#, fuzzy, php-format
+#, php-format
 msgid "%s: %s"
-msgstr "할일: %s"
+msgstr "%s: %s"
 
 #: lib/Compose.php:2457
-#, fuzzy, php-format
+#, php-format
 msgid "%u Forwarded Messages"
-msgstr "전달: %u 전달 편지"
+msgstr "%u개의 전달한 메시지"
 
 #: rss.php:85
 #, fuzzy, php-format
 msgid "%u of %u messages in %s unread."
-msgstr "%s의 편지 보기"
+msgstr "전달: %u 전달 편지"
 
 #: lib/Basic/Message.php:893
-#, fuzzy, php-format
+#, php-format
 msgid "(%d of %d)"
-msgstr "%d / %d 페이지"
+msgstr "(%d, 총 %d)"
 
 #: lib/Minimal/Message.php:325
-#, fuzzy, php-format
+#, php-format
 msgid "(Message %d of %d)"
-msgstr "%d / %d 페이지"
+msgstr "(총 %d개의 메시지 중 %d번 째 메시지)"
 
 #: lib/Dynamic/Mailbox.php:503 lib/Smartmobile.php:175
 msgid "1 message"
-msgstr "1개의 편지"
+msgstr "1개의 메시지"
 
 #: config/prefs.php:1578
 msgid "100 characters"
-msgstr "100자"
+msgstr "100개의 문자"
 
 #: config/prefs.php:1581
 msgid "1000 characters"
-msgstr "1000자"
+msgstr "1000개의 문자"
 
 #: config/prefs.php:1579
 msgid "250 characters"
-msgstr "250자"
+msgstr "250개의 문자"
 
 #: config/prefs.php:1580
 msgid "500 characters"
-msgstr "500자"
+msgstr "500개의 문자"
 
 #: lib/Mime/Viewer/Pgp.php:355
-#, fuzzy
 msgid "A PGP Public Key is attached to the message."
-msgstr "%s라는 큰 그림이 편지에 첨부되었습니다."
+msgstr "PGP 공개 키를 메시지에 첨부했습니다."
 
 #: lib/Prefs/Special/Acl.php:171
-#, fuzzy, php-format
+#, php-format
 msgid "ACL for \"%s\" successfully created for the mailbox \"%s\"."
-msgstr "편지함 \"%s\"가 \"%s\"로 바뀌었습니다."
+msgstr "\"%s\"에 대한 ACL을 편지함 \"%s\"에 성공적으로 생성했습니다."
 
 #: templates/dynamic/compose.html.php:18
-#, fuzzy
 msgid "Accesskey Esc"
-msgstr " (단축키 %s)"
+msgstr "접근키 Esc"
 
 #: lib/Prefs/Special/Remote.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "Account \"%s\" added."
-msgstr "%s 추가됨."
+msgstr "계정 \"%s\"을(를) 추가했습니다."
 
 #: lib/Prefs/Special/Remote.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "Account \"%s\" deleted."
-msgstr "파일 삭제: "
+msgstr "계정 \"%s\"을(를) 삭제했습니다."
 
 #: templates/minimal/mailbox.html.php:28
-#, fuzzy
 msgid "Action"
-msgstr "실행"
+msgstr "동작"
 
 #: templates/itip/action.html.php:102 templates/itip/action.html.php:104
 #: templates/prefs/searches.html.php:10 templates/prefs/searches.html.php:49
 msgid "Actions"
-msgstr "실행"
+msgstr "동작"
 
 #: lib/Message/Ui.php:251 lib/Message/Ui.php:280
-#, fuzzy, php-format
+#, php-format
 msgid "Add %s to my Address Book"
-msgstr "\"%s\"를 주소록에 추가"
+msgstr "내 주소록에 %s을(를) 추가"
 
 #: templates/prefs/remote.html.php:103
-#, fuzzy
 msgid "Add Account"
-msgstr "계정 관리"
+msgstr "계정 추가"
 
 #: templates/dynamic/compose.html.php:160
 #: templates/smartmobile/compose.html.php:79
 msgid "Add Attachment"
-msgstr "파일 첨부"
+msgstr "첨부파일 추가"
 
 #: templates/dynamic/compose.html.php:138
 msgid "Add Bcc"
-msgstr "숨은 참조 추가"
+msgstr "숨은참조 추가"
 
 #: templates/dynamic/compose.html.php:137
 msgid "Add Cc"
@@ -288,7 +279,7 @@ msgstr "참조 추가"
 
 #: templates/search/search.html.php:36
 msgid "Add OR clause"
-msgstr "혹은 조건 추가"
+msgstr "'또는' 조항 추가"
 
 #: templates/search/search.html.php:34
 msgid "Add search criteria"
@@ -296,35 +287,34 @@ msgstr "검색 조건 추가"
 
 #: lib/Search/Ui.php:62
 msgid "Add search mailbox:"
-msgstr "편지함 추가:"
+msgstr "검색 편지함 추가:"
 
 #: templates/contacts/contacts.html.php:49
-#, fuzzy
 msgid "Add these by clicking OK"
-msgstr "* OK를 클릭하여 추가하세요 *"
+msgstr "OK를 클릭하여 추가"
 
 #: lib/Dynamic/Base.php:158
 msgid "Add to Address Book"
-msgstr "주소록에 추가"
+msgstr "내 주소록에 추가"
 
 #: lib/Ajax/Application/Handler/ComposeAttach.php:84 lib/Basic/Compose.php:189
 #: lib/Minimal/Compose.php:108
 #, php-format
 msgid "Added \"%s\" as an attachment."
-msgstr "첨부파일(\"%s\") 추가됨"
+msgstr "\"%s\"을(를) 첨부파일로 추가했습니다."
 
 #: lib/Prefs/Special/Flag.php:104
 #, php-format
 msgid "Added flag \"%s\"."
-msgstr "새로운 태그 \"%s\" 추가됨"
+msgstr "깃발 \"%s\"을(를) 추가했습니다."
 
 #: config/prefs.php:1095
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
 msgstr ""
-"편지 볼 때 추가로 보여줄 머릿말(header): <em>(한 줄에 머릿말 하나씩 쓰세요.)"
-"</em>"
+"메시지를 볼 때 표시할 추가적인 머리글: <em>(각 머리글을 한 줄씩 입력하세요)</"
+"em>"
 
 #: lib/Basic/Compose.php:774 lib/Basic/Compose.php:890
 #: lib/Basic/Contacts.php:117 templates/basic/compose/redirect.html.php:20
@@ -341,308 +331,280 @@ msgid ""
 "Addresses to BCC all messages: <em>(optional, enter each address on a new "
 "line)</em>"
 msgstr ""
-"모든 편지에 추가할 숨은참조 주소: <em>(선택사항, 한 줄에 주소 하나씩)</em>"
+"모든 메시지에 숨은 참조를 포함할 주소: <em>(옵션, 주소를 한 줄씩 입력하세"
+"요)</em>"
 
 #: config/prefs.php:40
 msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
-msgstr "이 계정에 연결된 메일 주소: <em>(선택사항, 한 줄에 주소 하나씩)</em>"
+msgstr ""
+"이 신원에 명시적으로 연결할 주소: <em>(옵션, 각 주소를 한 줄씩 입력하세요)</"
+"em>"
 
 #: lib/Imap/Acl.php:184
-#, fuzzy
 msgid "Administer"
-msgstr "Horde 사용자 관리"
+msgstr "관리"
 
 #: lib/Dynamic/Mailbox.php:461
-#, fuzzy
 msgid "Advanced Search..."
-msgstr "고급 검색"
+msgstr "고급 검색..."
 
 #: lib/Search/Element/Daterange.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "After '%s'"
-msgstr "'%s' 삭제"
+msgstr "'%s' 이후"
 
 #: templates/prefs/acl.html.php:44 templates/prefs/acl.html.php:79
 msgid "All"
-msgstr "모두 선택"
+msgstr "모두"
 
 #: lib/Search/Query.php:278 templates/search/search-all.html.php:2
-#, fuzzy
 msgid "All Mailboxes"
-msgstr "우편함"
+msgstr "모든 편지함"
 
 #: lib/Dynamic/Mailbox.php:431
 msgid "All Parts"
-msgstr "전체 내용"
+msgstr "모든 부분"
 
 #: lib/Basic/Folders.php:54
-#, fuzzy
 msgid ""
 "All messages in the following mailbox(es) will be downloaded into one MBOX "
 "file:"
-msgstr "다음 편지함의 모든 편지를 하나의 MBOX 파일로 다운로드합니다."
+msgstr "다음 편지함에 있는 모든 메시지가 하나의 MBOX 파일로 다운로드 됩니다:"
 
 #: lib/LoginTasks/Task/PurgeSentmail.php:97
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "All messages in the mailbox \"%s\" older than %s days will be permanently "
 "deleted."
 msgid_plural ""
 "All messages in the mailboxes \"%s\" older than %s days will be permanently "
 "deleted."
-msgstr[0] "\"%s\" 편지함에서 %s 일보다 오래된 편지를 지웁니다."
-msgstr[1] "\"%s\" 편지함에서 %s 일보다 오래된 편지를 지웁니다."
+msgstr[0] ""
+"\"%s\" 편지함의 %s일 이상 경과한 모든 메시지가 영구적으로 삭제됩니다."
 
 #: lib/LoginTasks/Task/PurgeSpam.php:81 lib/LoginTasks/Task/PurgeTrash.php:83
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "All messages in your \"%s\" mailbox older than %s days will be permanently "
 "deleted."
-msgstr "\"%s\" 편지함에서 %s 일보다 오래된 편지를 지웁니다."
+msgstr "\"%s\" 편지함의 %s일 이상 경과한 모든 메시지가 영구적으로 삭제됩니다."
 
 #: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:56
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
-msgstr "%s 개월보다 오래된 편지의 링크 첨부 파일을 지웁니다."
+msgstr "%s개월 이상 경과을 모든 링크된 첨부파일을 삭제합니다."
 
 #: lib/LoginTasks/Task/DeleteSentmailMonthly.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "All old sent-mail mailboxes more than %s months old will be deleted."
-msgstr "%s 개월보다 오래된 보낸편지함을 모두 지웁니다."
+msgstr "보낸 편지함의 %s개월 이상 경과된 모든 메일을 삭제합니다."
 
 #: lib/Prefs/Special/Acl.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "All rights on mailbox \"%s\" successfully removed for \"%s\"."
-msgstr "편지함 \"%s\"이 \"%s\"로 변경되었습니다."
+msgstr "편지함 \"%s\"의 \"%s\"에 대한 모든 권한을 성공적으로 제거했습니다."
 
 #: config/prefs.php:996
 msgid "Allow attachments to be stripped from messages?"
-msgstr "메일에서 첨부파일 삭제 기능 사용하기"
+msgstr "메시지에서 첨부파일을 제거하는 작업을 허용할까요?"
 
 #: config/prefs.php:283
 msgid "Allow filter rules to be applied in any mailbox?"
-msgstr "모든 편지함에 필터 규칙을 적용할 수 있게 할까요?"
+msgstr "모든 편지함에 필터 규칙을 적용할까요?"
 
 #: lib/Perms.php:40
-#, fuzzy
 msgid "Allow folder navigation?"
-msgstr "편지함 탐색기"
+msgstr "폴더 탐색을 허용할까요?"
 
 #: config/prefs.php:1119
-#, fuzzy
 msgid "Always prompt"
-msgstr "항상"
+msgstr "항상 물음"
 
 #: lib/Minimal/Compose.php:488
-#, fuzzy
 msgid "Ambiguous address found."
-msgstr "주소록 없음"
+msgstr "모호한 주소를 발견했습니다."
 
 #: lib/Message.php:587
-#, fuzzy
 msgid "An error occured while attempting to strip the attachment."
-msgstr "새 항목 추가시 알수 없는 오류 발생."
+msgstr "첨부파일을 제거하는 동안 오류가 발생했습니다."
 
 #: lib/Message.php:422
-#, fuzzy
 msgid "An unknown error occured while creating the new note."
-msgstr "새 항목 추가시 알수 없는 오류 발생."
+msgstr "새 메모를 생성하는 동안 알 수 없는 오류가 발생했습니다."
 
 #: lib/Message.php:418
-#, fuzzy
 msgid "An unknown error occured while creating the new task."
-msgstr "새 항목 추가시 알수 없는 오류 발생."
+msgstr "새로운 과제를 생성하는 동안 알 수 없는 오류가 발생했습니다."
 
 #: lib/Mime/Viewer/Itip.php:521
-#, fuzzy
 msgid "An unknown person"
-msgstr "<b>치명적인 오류 발생:</b>"
+msgstr "알 수 없는 사람"
 
 #: lib/Flag/Imap/Answered.php:41
 msgid "Answered"
-msgstr "답장함"
+msgstr "응답함"
 
 #: lib/Dynamic/Mailbox.php:450 templates/basic/mailbox/header.html.php:13
 msgid "Apply Filters"
-msgstr "필터 적용하기"
+msgstr "필터 적용"
 
 #: config/prefs.php:263
 msgid "Apply filter rules upon logging on?"
-msgstr "로그인할 때 필터 적용"
+msgstr "로그인 시 필터 규칙을 적용할까요?"
 
 #: config/prefs.php:273
-#, fuzzy
 msgid "Apply filter rules whenever Inbox is displayed?"
-msgstr "받은편지함 갱신시 필터 적용"
+msgstr "받은 편지함이 보여질 때마다 필더 규칙을 적용할까요?"
 
 #: lib/Basic/Message.php:839
-#, fuzzy
 msgid "Are you sure you want to PERMANENTLY delete all attachments?"
-msgstr "이 첨부파일을 영원히 지우겠습니까?"
+msgstr "정말로 모든 첨부파일을 영구적으로 삭제하시겠습니까?"
 
 #: lib/Basic/Message.php:556
-#, fuzzy
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
-msgstr "이 편지를 영원히 지우겠습니까?"
+msgstr "정말로 이 메시지를 영구적으로 삭제하시겠습니까?"
 
 #: lib/Basic/Thread.php:175
-#, fuzzy
 msgid "Are you sure you want to delete all messages in this thread?"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 타래글의 모든 메시지를 삭제하시겠습니까?"
 
 #: lib/Basic/Mailbox.php:365
-#, fuzzy
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 가상 폴더 정의를 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/Remote.php:41
-#, fuzzy
 msgid "Are you sure you want to delete this account?"
-msgstr "이 태그를 삭제하시겠습니까?"
+msgstr "정말로 이 계정을 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/Searches.php:106
-#, fuzzy
 msgid "Are you sure you want to delete this filter?"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 필터를 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/Flag.php:49
 msgid "Are you sure you want to delete this flag?"
-msgstr "이 태그를 삭제하시겠습니까?"
+msgstr "정말로 이 깃발을 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/PgpPublicKey.php:69
 #: lib/Prefs/Special/SmimePublicKey.php:66
-#, fuzzy
 msgid "Are you sure you want to delete this public key?"
-msgstr "이 편지를 영원히 지우겠습니까?"
+msgstr "정말로 이 공개용 키를 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/Searches.php:107
-#, fuzzy
 msgid "Are you sure you want to delete this virtual folder?"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 가상 폴더를 삭제하시겠습니까?"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:76
 #: lib/Prefs/Special/SmimePrivateKey.php:72
-#, fuzzy
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 키 페어를 삭제하시겠습니까?(이 작업을 추천하지 않습니다!)"
 
 #: lib/Basic/Compose.php:741
 msgid "Are you sure you want to do this?"
-msgstr "계속 진행하시겠습니까?"
+msgstr "정말로 이 작업을 수행하시겠습니까?"
 
 #: lib/Basic/Mailbox.php:363
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
-msgstr "이 편지를 영원히 지우겠습니까?"
+msgstr "정말로 이 메시지를 영구적으로 삭제하시겠습니까?"
 
 #: lib/Basic/Message.php:818 lib/Dynamic/Base.php:198
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
-msgstr "이 첨부파일을 영원히 지우겠습니까?"
+msgstr "정말로 이 첨부파일을 영구적으로 삭제하시겠습니까?"
 
 #: lib/Basic/Mailbox.php:364
-#, fuzzy
 msgid "Are you sure you wish to delete all mail in this mailbox?"
-msgstr "이 메시지를 영원히 삭제하시겠습니까?"
+msgstr "정말로 이 편지함의 모든 메일을 삭제하시겠습니까?"
 
 #: lib/Application.php:235
-#, fuzzy
 msgid "Are you sure you wish to empty your spam mailbox?"
-msgstr "지운편지함(Trash)을 비우시겠습니까?"
+msgstr "정말로 스팸편지함을 비우시겠습니까?"
 
 #: lib/Application.php:222
-#, fuzzy
 msgid "Are you sure you wish to empty your trash mailbox?"
-msgstr "지운편지함(Trash)을 비우시겠습니까?"
+msgstr "정말로 지운편지함을 비우시겠습니까?"
 
 #: lib/Basic/Mailbox.php:366 lib/Basic/Message.php:401
 #: templates/smartmobile/message.html.php:89
-#, fuzzy
 msgid "Are you sure you wish to report this message as innocent?"
-msgstr "이 편지를 영원히 지우겠습니까?"
+msgstr "정말로 이 메시지를 정상으로 보고하시겠습니까?"
 
 #: lib/Basic/Mailbox.php:372 lib/Basic/Message.php:404
 #: templates/smartmobile/message.html.php:104
-#, fuzzy
 msgid "Are you sure you wish to report this message as spam?"
-msgstr "이 편지를 영원히 지우겠습니까?"
+msgstr "정말로 이 메시지를 스팸으로 보고하시겠습니까?"
 
 #: lib/Dynamic/Mailbox.php:229
 msgid "Arrival Time"
 msgstr "도착 시간"
 
 #: config/prefs.php:1531
-#, fuzzy
 msgid "Arrival time on server"
-msgstr "도착 시간"
+msgstr "서버에 도착한 시간"
 
 #: lib/Basic/Message.php:609 lib/Dynamic/Base.php:174
 msgid "As Attachment"
-msgstr "파일첨부로"
+msgstr "첨부파일로"
 
 #: config/prefs.php:744
-#, fuzzy
 msgid "As attachment"
-msgstr "파일첨부"
+msgstr "첨부파일로"
 
 #: config/prefs.php:746
-#, fuzzy
 msgid "As both body text and an attachment"
-msgstr "첨부파일(\"%s\") 추가됨"
+msgstr "본문 내용 및 첨부파일로"
 
 #: config/prefs.php:1511
 msgid "Ascending"
 msgstr "오름차순"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:758
-#, fuzzy
 msgid "At least one attachment could not be deleted."
-msgstr "먼저 삭제할 식별자를 선택해야 합니다."
+msgstr "1개 이상의 첨부파일을 삭제할 수 없습니다."
 
 #: lib/Dynamic/Compose/Common.php:187
 msgid "Attach contact information"
 msgstr "연락처 정보 첨부"
 
 #: templates/minimal/compose.html.php:66
-#, fuzzy
 msgid "Attach:"
-msgstr "파일 첨부"
+msgstr "첨부:"
 
 #: lib/Compose.php:3106
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
-msgstr "%s는 파일첨부 크기 한계를 초과하여 첨부되지 않았습니다."
+msgstr ""
+"첨부된 파일 \"%s\"(은)는 첨부파일 크기 제한을 초과했습니다. 파일이 첨부되지 "
+"않았습니다."
 
 #: lib/Compose.php:3106
-#, fuzzy
 msgid "Attached file exceeds the attachment size limits. File NOT attached."
-msgstr "%s는 파일첨부 크기 한계를 초과하여 첨부되지 않았습니다."
+msgstr ""
+"첨부된 파일이 첨부파일 크기 제한을 초과했습니다. 파일이 첨부되지 않았습니다."
 
 #: templates/minimal/message.html.php:14
 msgid "Attachment"
-msgstr "파일첨부"
+msgstr "첨부파일"
 
 #: attachment.php:53
-#, fuzzy, php-format
+#, php-format
 msgid "Attachment %s deleted."
-msgstr "메모가 삭제되었습니다."
+msgstr "첨부파일 %s을(를) 삭제했습니다."
 
 #: lib/Basic/Message.php:619 lib/Dynamic/Base.php:176
 msgid "Attachment and Body Text"
-msgstr "첨부와 본문내용으로"
+msgstr "첨부파일 및 본문 내용"
 
 #: attachment.php:55
-#, fuzzy
 msgid "Attachment doesn't exist."
-msgstr "파일 첨부"
+msgstr "첨부파일이 존재하지 않습니다."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:878 lib/Basic/Message.php:181
 #: lib/Dynamic/Message.php:52
-#, fuzzy
 msgid "Attachment successfully stripped."
-msgstr "폴더 \"%s\"이 삭제되었습니다."
+msgstr "첨부파일을 성공적으로 제거했습니다."
 
 #: lib/Basic/Compose.php:909 lib/Basic/Message.php:849
 #: lib/Basic/Message.php:881 lib/Compose.php:2708 lib/Compose.php:2715
@@ -650,64 +612,62 @@ msgstr "폴더 \"%s\"이 삭제되었습니다."
 #: templates/dynamic/message.html.php:82
 #: templates/smartmobile/compose.html.php:72
 msgid "Attachments"
-msgstr "파일 첨부"
+msgstr "첨부파일"
 
 #: templates/smartmobile/compose.html.php:63
-#, fuzzy
 msgid "Attachments..."
-msgstr "파일 첨부"
+msgstr "첨부파일..."
 
 #: templates/itip/action.html.php:62
-#, fuzzy
 msgid "Attendees"
-msgstr "파일 첨부"
+msgstr "참가자"
 
 #: templates/prefs/remote.html.php:84
 #, fuzzy
 msgid "Auto"
-msgstr "시간"
+msgstr "자동"
 
 #: lib/Search/Element/Autogenerated.php:61
 #: lib/Search/Filter/Autogenerated.php:30
 msgid "Automatically Generated Messages"
-msgstr "자동으로 작성된 편지"
+msgstr "자동 생성된 메시지"
 
 #: lib/Basic/Message.php:513 lib/Basic/Thread.php:140
 #, php-format
 msgid "Bac_k to %s"
-msgstr "_k%s로 돌아가기"
+msgstr "%s(으)로 돌아가기"
 
 #: config/prefs.php:293 config/prefs.php:599 config/prefs.php:605
 #: config/prefs.php:1149 config/prefs.php:1214 config/prefs.php:1316
 #: config/prefs.php:1540 config/prefs.php:1551 config/prefs.php:1570
 msgid "Basic view only"
-msgstr "기본 보기 전용"
+msgstr "기본 화면에서만"
 
 #: lib/Basic/Search.php:73 lib/Message/Ui.php:37
 #: templates/contacts/contacts.html.php:43
 #: templates/dynamic/compose.html.php:127
 #: templates/dynamic/mailbox.html.php:132
 msgid "Bcc"
-msgstr "숨은참조"
+msgstr "숨은 참조"
 
 #: lib/Search/Element/Daterange.php:106
-#, fuzzy, php-format
+#, php-format
 msgid "Before '%s'"
-msgstr "_R새로 읽기"
+msgstr "'%s' 이전"
 
 #: lib/Search/Element/Daterange.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "Between '%s' and '%s'"
-msgstr "%d / %d (메시지: %d)"
+msgstr "'%s' 및 '%s' 사이"
 
 #: lib/Dynamic/Mailbox.php:319 lib/Dynamic/Mailbox.php:392
 msgid "Blacklist"
-msgstr "수신거부"
+msgstr "수신 차단 목록에 추가"
 
 #: config/prefs.php:1017
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
-msgstr "요청이 없다면 HTML 메일의 그림을 막기"
+msgstr "이미지를 구체적으로 불러올 것을 요청하지 않는 한 이미지를 차단할까요?"
 
 #: lib/Basic/Search.php:85 lib/Dynamic/Mailbox.php:456
 #: templates/smartmobile/search.html.php:10
@@ -716,17 +676,17 @@ msgstr "본문"
 
 #: config/prefs.php:541
 msgid "Bottom"
-msgstr "하단"
+msgstr "아래"
 
 #: lib/Basic/Search.php:118 lib/Search/Element/Bulk.php:53
 #: lib/Search/Filter/Bulk.php:30
 msgid "Bulk Messages"
-msgstr "대량메일 없음"
+msgstr "대량 메시지"
 
 #: lib/Compose.php:1630
-#, fuzzy, php-format
+#, php-format
 msgid "Can't attach contact information: %s"
-msgstr "첨부파일 정보 새로고침"
+msgstr "연락처 정보를 첨부할 수 없습니다: %s"
 
 #: lib/Minimal/Compose.php:335 templates/basic/compose/redirect.html.php:53
 #: templates/basic/folders/folders_confirm.html.php:27
@@ -748,18 +708,21 @@ msgstr "취소"
 #: templates/basic/compose/compose.html.php:29
 #: templates/basic/compose/compose.html.php:230
 msgid "Cancel Message"
-msgstr "편지 취소"
+msgstr "메시지 취소"
 
 #: lib/Dynamic/Compose/Common.php:252
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
 "Are you sure you want to do this?"
-msgstr "취소하면 이 편지의 내용은 영구히 지워지게 됩니다.계속하시겠습니까?"
+msgstr ""
+"이 메시지를 취소하면 내용 및 자동으로 저장된 작성 중인 메시지가 영구적으로 삭"
+"제됩니다.\n"
+"그래도 이 작업을 수행하시겠습니까?"
 
 #: lib/Basic/Compose.php:741
 msgid "Cancelling this message will permanently discard its contents."
-msgstr "취소하면 이 편지의 내용은 영구히 지워지게 됩니다."
+msgstr "이 메시지를 취소하면 메시지 내용이 영구적으로 삭제됩니다."
 
 #: lib/Basic/Search.php:69 lib/Compose.php:2501 lib/Message/Ui.php:36
 #: templates/contacts/contacts.html.php:42
@@ -769,19 +732,16 @@ msgid "Cc"
 msgstr "참조"
 
 #: templates/smartmobile/compose.html.php:29
-#, fuzzy
 msgid "Cc:"
-msgstr "참조"
+msgstr "Cc:"
 
 #: lib/Minimal/Compose.php:51
-#, fuzzy
 msgid "Cc: "
-msgstr "참조"
+msgstr "Cc:"
 
 #: lib/Mime/Viewer/Itip.php:647
-#, fuzzy
 msgid "Chair Person"
-msgstr "개인 편지"
+msgstr "주최자"
 
 #: templates/prefs/acl.html.php:97
 msgid "Change"
@@ -790,241 +750,228 @@ msgstr "변경"
 #: config/prefs.php:1450
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
-msgstr "편지함에서 메일 목록을 보여주는 방법을 설저합니다."
+msgstr "편지함의 메시지 목록 표시 화면에 대한 기본 표시 설정을 변경합니다."
 
 #: config/prefs.php:1618
 msgid "Change folder navigation display preferences."
-msgstr "편지함 목록을 표시하는 방법을 설정합니다."
+msgstr "폴더 탐색 화면의 설정을 변경합니다."
 
 #: config/prefs.php:16
 msgid ""
 "Change the name, address, and signature that people see when they read and "
 "reply to your email."
-msgstr "편지를 보낼 때 사용할 이름, 주소, 서명을 변경합니다."
+msgstr ""
+"편지를 보낼 때 받는 사람이 이메일을 읽고 회신할 때 표시할 이름, 주소 및 서명"
+"을 변경합니다."
 
 #: templates/basic/folders/actions.html.php:14
 #: templates/basic/mailbox/message_headers.html.php:5
-#, fuzzy
 msgid "Check All/None"
-msgstr "선택"
+msgstr "모두 확인/확인 취소"
 
 #: lib/Compose/Ui.php:77 templates/dynamic/compose.html.php:34
-#, fuzzy
 msgid "Check Spelling"
-msgstr "_k링크 검사..."
+msgstr "맞춤법 검사"
 
 #: templates/basic/folders/actions.html.php:13
 #: templates/basic/mailbox/message_headers.html.php:6
 msgid "Check _All/None"
-msgstr "선택"
+msgstr "모두 확인/확인 취소"
 
 #: lib/Dynamic/Mailbox.php:357 templates/basic/folders/actions.html.php:36
-#, fuzzy
 msgid "Check for New Mail"
-msgstr "편지함에서 새 메일 검사"
+msgstr "새로운 메일 확인"
 
 #: config/prefs.php:496
 msgid "Check spelling before sending a message?"
-msgstr "편지 보내기 전 철자 검사하기"
+msgstr "메시지를 보내기 전에 맞춤법 검사를 실행할까요?"
 
 #: lib/Compose/Ui.php:78 lib/Dynamic/Mailbox.php:489
-#, fuzzy
 msgid "Checking..."
-msgstr "_k링크 검사..."
+msgstr "확인하는 중..."
 
 #: templates/basic/folders/actions.html.php:18
 #: templates/basic/folders/actions.html.php:20
-#, fuzzy
 msgid "Choose Action"
-msgstr "선택사항:"
+msgstr "동작 선택"
 
 #: config/prefs.php:956
-#, fuzzy
 msgid "Choose the address book to use when adding addresses."
-msgstr "주소를 추가시 주소록 사용."
+msgstr "주소를 추가할 때 사용할 주소록을 선택하세요."
 
 #: templates/dynamic/mailbox.html.php:60
 msgid "Clear Search"
-msgstr "검색항목 초기화"
+msgstr "검색 초기화"
 
 #: lib/Basic/Mailbox.php:643 lib/Dynamic/Mailbox.php:403
 msgid "Clear Sort"
-msgstr "분류 초기화"
+msgstr "정렬 초기화"
 
 #: lib/Mime/Viewer/Images.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Click %s to convert the image file into a format your browser can attempt to "
 "view."
-msgstr "브라우져가 볼 수 있는 형식으로 그림 파일을 변환하려면 %s를 누르세요."
+msgstr ""
+"이미지 파일을 브라우저가 표시할 수 있는 형식으로 변환하려면 %s을(를) 클릭하세"
+"요."
 
 #: lib/Contents.php:611
-#, fuzzy, php-format
+#, php-format
 msgid "Click %s to download the data."
-msgstr "이미지를 내려받으려면 %s를 누르세요."
+msgstr "데이터를 다운로드하려면 %s을(를) 클릭하세요."
 
 #: lib/Filter.php:133
 #, php-format
 msgid "Click %s to go to %s management page."
-msgstr "%s를 누르면 %s 관리페이지로 갑니다."
+msgstr "%s 관리 페이지로 이동하려면 %s을(를) 클릭하세요."
 
 #: lib/Ajax/Application/ShowMessage.php:282 lib/Basic/Message.php:792
-#, fuzzy, php-format
+#, php-format
 msgid "Click %s to send the notification message."
-msgstr "이미지를 내려받으려면 %s를 누르세요."
+msgstr "알림 메시지를 보내려면 %s을(를) 클릭하세요."
 
 #: lib/Mime/Viewer/Pgp.php:469 lib/Mime/Viewer/Pgp.php:473
-#, fuzzy
 msgid "Click HERE to verify the message."
-msgstr "이미지를 내려받으려면 %s를 누르세요."
+msgstr "메시지를 확인하려면 여기를 클릭하세요."
 
 #: templates/dynamic/mailbox.html.php:180
-#, fuzzy
 msgid "Click HERE to view the message in a new window."
-msgstr "새 창에서 첨부를 보려면 %s를 누르세요."
+msgstr "메시지를 새 창에서 보려면 여기를 클릭하세요."
 
 #: templates/prefs/mailto.html.php:3
 #, php-format
 msgid "Click here to open all mailto: links using %s."
-msgstr "mailto: 링크에 대하여, %s을 통해 열리도록 구성하기"
+msgstr "%s을(를) 사용하여 모든 mailto: 링크를 열려면 여기를 클릭하세요."
 
 #: lib/Compose/LinkedAttachment.php:224
-#, fuzzy
 msgid "Click on the following link to permanently delete the attachment:"
-msgstr "이 작업을 완전히 삭제하시겠습니까?"
+msgstr "첨부파일을 영구적으로 삭제하려면 다음 링크를 클릭하세요:"
 
 #: config/prefs.php:1547
 msgid "Clicking on the address will compose a new message to the sender"
-msgstr "주소를 클릭하면 보낸이에게 새 편지를 씁니다."
+msgstr "주소를 클릭하면 보내는 사람에게 새 메시지를 작성합니다"
 
 #: config/prefs.php:1548
 msgid "Clicking on the address will open the message to be read"
-msgstr "주소를 클릭하면 편지를 보여줍니다."
+msgstr "주소를 클릭하면 읽을 메시지를 엽니다"
 
 #: templates/smartmobile/compose.html.php:83
-#, fuzzy
 msgid "Close"
-msgstr "새 편지"
+msgstr "닫기"
 
 #: config/prefs.php:790
 msgid "Close the compose window after saving a draft?"
-msgstr "임시보관함에 저장 후 작성창 닫기"
+msgstr "작성 중인 메시지를 저장한 후에 작성 창을 닫을까요?"
 
 #: lib/Basic/Compose.php:1147
 msgid "Close this window"
-msgstr "창 닫기"
+msgstr "이 창 닫기"
 
 #: lib/Basic/Folders.php:404 lib/Dynamic/Mailbox.php:226
 #: lib/Dynamic/Mailbox.php:287 lib/Dynamic/Mailbox.php:366
 msgid "Collapse All"
-msgstr "모두 닫기"
+msgstr "모두 접기"
 
 #: templates/dynamic/mailbox.html.php:112
-#, fuzzy
 msgid "Collapse Headers"
-msgstr "편지함 닫기"
+msgstr "머리글 접기"
 
 #: templates/prefs/flags.html.php:8
 msgid "Color"
 msgstr "색상"
 
 #: templates/prefs/pgpprivatekey.html.php:65
-#, fuzzy
 msgid "Comment"
-msgstr "회사"
+msgstr "의견"
 
 #: lib/Mime/Viewer/Itip.php:598
-#, fuzzy
 msgid "Completed"
-msgstr "새 편지"
+msgstr "완료됨"
 
 #: config/prefs.php:475 config/prefs.php:627 config/prefs.php:673
 #: config/prefs.php:730 config/prefs.php:764 config/prefs.php:818
 #: config/prefs.php:887
 msgid "Compose"
-msgstr "작성하기"
+msgstr "작성"
 
 #: lib/Minimal/Compose.php:46
-#, fuzzy
 msgid "Compose Message"
-msgstr "편지 작성 (%s)"
+msgstr "메시지 작성"
 
 #: config/prefs.php:628
 msgid "Compose Templates"
-msgstr "템플릿"
+msgstr "작성 서식"
 
 #: templates/prefs/composetemplates.html.php:3
 msgid "Compose Templates mailbox:"
-msgstr "템플릿 편지함 선택:"
+msgstr "서식 편지함 작성:"
 
 #: config/prefs.php:599
 msgid "Compose messages in a separate window?"
-msgstr "새 창에서 편지 작성"
+msgstr "별도의 창에서 메시지를 작성할까요?"
 
 #: config/prefs.php:476
 msgid "Composition"
-msgstr "편지 작성"
+msgstr "작성"
 
 #: config/prefs.php:404
 msgid "Configure S/MIME encryption support."
-msgstr "S/MIME 보안메일을 구성합니다."
+msgstr "S/MIME 암호화 지원을 구성합니다."
 
 #: config/prefs.php:1398
 msgid "Configure flag highlighting."
-msgstr "태그 강조를 구성합니다."
+msgstr "깃발 강조를 구성합니다."
 
 #: config/prefs.php:304
 msgid "Configure how event or meeting requests should be handled."
-msgstr "일정이나 약속요청에 대한 처리방법을 구성합니다."
+msgstr "일정 또는 미팅 요청을 처리하는 방법을 구성합니다."
 
 #: config/prefs.php:976
 msgid "Configure how messages are displayed."
-msgstr "메일이 보여지는 방법을 설정합니다."
+msgstr "메시지를 표시하는 방법을 구성합니다."
 
 #: config/prefs.php:732
-#, fuzzy
 msgid "Configure how you forward mail."
-msgstr "편지 보내는 방법 설정합니다."
+msgstr "메일을 전달하는 방법을 구성합니다."
 
 #: config/prefs.php:675
 msgid "Configure how you reply to mail."
-msgstr "편지 답장 방법을 설정합니다."
+msgstr "메일을 회신하는 방법을 구성합니다."
 
 #: config/prefs.php:477
 msgid "Configure how you send mail."
-msgstr "편지 보내는 방법 설정합니다."
+msgstr "메일을 보내는 방법을 구성합니다."
 
 #: config/prefs.php:1432
-#, fuzzy
 msgid "Configure message printing."
-msgstr "편지 보는 방법을 설정합니다."
+msgstr "메일 인쇄를 구성합니다."
 
 #: config/prefs.php:137
-#, fuzzy
 msgid "Configure remote mail accounts to display."
-msgstr "메일이 보여지는 방법을 설정합니다."
+msgstr "표시할 원격 메일 계정을 구성합니다."
 
 #: config/prefs.php:1259
 msgid "Configure spam reporting."
-msgstr "스팸 보고 방법을 설정합니다."
+msgstr "스팸 보고 기능을 구성합니다."
 
 #: lib/Basic/Search.php:122
 msgid "Contains Attachment(s)"
-msgstr "첨부파일 포함여부"
+msgstr "첨부파일을 포함하고 있음"
 
 #: config/prefs.php:1351
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
-msgstr "새 편지 도착 알림 사용 설정"
+msgstr "새로운 메일 확인 주기 및 새로운 메일 도착 시 알림 여부를 관리합니다."
 
 #: lib/Mime/Viewer/Html.php:118
 msgid "Convert HTML data to plain text and view in new window."
-msgstr "새 창에서 HTML 메일 내용을 평문으로 변환하여 보기."
+msgstr "HTML 데이터를 일반 텍스트로 변환하고 새 창에 표시합니다."
 
 #: config/prefs.php:1074
 msgid "Convert textual emoticons into graphical ones?"
-msgstr "문자 이모티콘을 그림으로 바꿀까요?"
+msgstr "문자 이모티콘을 그래픽으로 변환할까요?"
 
 #: lib/Basic/Mailbox.php:567 lib/Basic/Message.php:493
 #: templates/smartmobile/copymove.html.php:11
@@ -1032,72 +979,64 @@ msgid "Copy"
 msgstr "복사"
 
 #: lib/Dynamic/Mailbox.php:490
-#, php-format
+#, fuzzy, php-format
 msgid "Copy %s to %s"
 msgid_plural "Copy %s to %s"
-msgstr[0] "%s를 %s으로 복사"
-msgstr[1] "%s를 %s으로 복사"
+msgstr[0] "%s을(를) %s(으)로 복사"
 
 #: templates/smartmobile/copymove.html.php:3
 #: templates/smartmobile/message.html.php:70
-#, fuzzy
 msgid "Copy/Move"
-msgstr "작성하기"
+msgstr "복사/이동"
 
 #: lib/Compose.php:2964
-#, fuzzy, php-format
+#, php-format
 msgid "Could not attach %s to the message."
-msgstr "%s개의 새 편지가 있습니다."
+msgstr "메시지에 %s을(를) 첨부할 수 없습니다."
 
 #: lib/Ajax/Application/Handler/Remote.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Could not authenticate to %s."
-msgstr "편지로 가기"
+msgstr "%s에 인증할 수 없습니다."
 
 #: lib/Mailbox.php:819
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete Virtual Folder \"%s\"."
-msgstr "Horde가 바르게 설정되지 않았습니다."
+msgstr "가상 폴더 \"%s\"을(를) 삭제할 수 없습니다."
 
 #: lib/Message.php:822
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
-msgstr "\"%s\"로부터 편지 지우기 실패. 서버의 오류: "
+msgstr "%s에서 메시지를 삭제할 수 없습니다. 이 편지함은 읽기 전용입니다."
 
 #: lib/Compose/View.php:39 lib/Compose/View.php:54
-#, fuzzy
 msgid "Could not display attachment data."
-msgstr "첨부파일을 어떻게 표시하기를 원하십니까?"
+msgstr "첨부파일 데이터를 표시할 수 없습니다."
 
 #: lib/Ajax/Application/Handler/Remote.php:48
-#, fuzzy
 msgid "Could not find remote server configuration."
-msgstr "Horde가 바르게 설정되지 않았습니다."
+msgstr "원격 서버 구성을 발견하지 못했습니다."
 
 #: lib/Basic/Listinfo.php:36 lib/Basic/Thread.php:48
-#, fuzzy
 msgid "Could not load message."
-msgstr "편지로 가기"
+msgstr "메시지를 불러올 수 없습니다."
 
 #: lib/Basic/Compose.php:364 lib/Basic/Compose.php:1103
 #: lib/Dynamic/Compose.php:276 lib/Minimal/Compose.php:515
-#, fuzzy
 msgid "Could not retrieve message data from the mail server."
-msgstr "\"%s\"로부터 편지 지우기 실패. 서버의 오류: "
+msgstr "메일 서버에서 메시지 데이터를 가져올 수 없습니다."
 
 #: templates/basic/folders/actions.html.php:23
 msgid "Create"
-msgstr "만들기"
+msgstr "생성"
 
 #: lib/Dynamic/Base.php:169 lib/Dynamic/Mailbox.php:321
-#, fuzzy
 msgid "Create Filter"
-msgstr "새로운 폴더 만들기"
+msgstr "필터 생성"
 
 #: templates/prefs/pgpprivatekey.html.php:125
-#, fuzzy
 msgid "Create Keys"
-msgstr "만들기"
+msgstr "키 생성"
 
 #: lib/Dynamic/Mailbox.php:247 lib/Dynamic/Mailbox.php:283
 #: templates/basic/flist/flist.html.php:11
@@ -1106,60 +1045,57 @@ msgstr "편지함 생성"
 
 #: lib/Dynamic/Mailbox.php:506
 msgid "Create New Flag..."
-msgstr "새 태그 만들기..."
+msgstr "새로운 깃발 생성..."
 
 #: lib/Basic/Mailbox.php:657 lib/Dynamic/Mailbox.php:265
-#, fuzzy
 msgid "Create New Template"
-msgstr "새로운 일정 생성"
+msgstr "새로운 서식 생성"
 
 #: lib/Prefs/Special/Sentmail.php:47
-#, fuzzy
 msgid "Create a new sent-mail mailbox"
-msgstr "새 보낸편지함 만들기"
+msgstr "새로운 보낸 편지함 생성"
 
 #: config/prefs.php:199
 msgid ""
 "Create filtering rules to organize your incoming mail, sort it into "
 "mailboxes, and delete spam."
-msgstr "메일을 편지함에 분류하거나, 스팸을 삭제하는 등의 필터 규칙을 정합니다."
+msgstr ""
+"받는 메일을 정리하고, 편지함에 분류하고, 스팸을 삭제하기 위한 필터 규칙을 생"
+"성합니다."
 
 #: lib/Dynamic/Mailbox.php:491
-#, fuzzy
 msgid "Create mailbox:"
-msgstr "외부 편지함:"
+msgstr "편지함 생성:"
 
 #: config/prefs.php:647
 msgid "Create new Template"
-msgstr "새 템플릿 작성"
+msgstr "새로운 서식 생성"
 
 #: lib/Dynamic/Mailbox.php:219 lib/Dynamic/Mailbox.php:350
-#, fuzzy
 msgid "Create subfolder"
-msgstr "새 편지함 만들기"
+msgstr "하위 폴더 생성"
 
 #: lib/Dynamic/Mailbox.php:492
-#, fuzzy, php-format
+#, php-format
 msgid "Create subfolder of %s:"
-msgstr "새 편지함 만들기"
+msgstr "%s의 하위 폴더 생성:"
 
 #: templates/basic/compose/compose.html.php:321
-#, fuzzy
 msgid "Current Attachments"
-msgstr "파일 첨부"
+msgstr "현재 첨부파일"
 
 #: lib/Prefs/Special/Acl.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "Current access to %s"
-msgstr "현재 URL은"
+msgstr "현재 %s에 대한 접근"
 
 #: lib/Basic/Search.php:81
 msgid "Custom Header"
-msgstr "메일 헤더"
+msgstr "사용자 정의 머리글"
 
 #: lib/Basic/Search.php:492
 msgid "Custom Header:"
-msgstr "메일 헤더명:"
+msgstr "사용자 정의 머리글:"
 
 #: lib/Basic/Mailbox.php:748
 msgid "Dat_e"
@@ -1172,55 +1108,48 @@ msgid "Date"
 msgstr "날짜"
 
 #: lib/Basic/Search.php:493
-#, fuzzy
 msgid "Date Reset"
-msgstr "수신 날짜:"
+msgstr "날짜 초기화"
 
 #: lib/Basic/Search.php:494
-#, fuzzy
 msgid "Date Selection"
-msgstr "선택 취소"
+msgstr "날짜 선택"
 
 #: lib/Search/Element/Date.php:75
-#, fuzzy
 msgid "Date Since"
-msgstr "수신 날짜:"
+msgstr "다음 날짜부터"
 
 #: lib/Search/Element/Date.php:71
-#, fuzzy
 msgid "Date Until"
-msgstr "종료 일"
+msgstr "다음 날짜까지"
 
 #: config/prefs.php:1532
-#, fuzzy
 msgid "Date in message headers"
-msgstr "지워진 편지"
+msgstr "메시지 머리글의 날짜"
 
 #: templates/search/search.html.php:115
 msgid "Days"
 msgstr "일"
 
 #: lib/Mime/Viewer/Itip.php:589
-#, fuzzy
 msgid "Declined"
-msgstr "지워짐"
+msgstr "거절함"
 
 #: config/prefs.php:513
 msgid "Default method to compose messages:"
-msgstr "메일을 작성할 때 사용할 메일 형태:"
+msgstr "기본 메시지 작성방식:"
 
 #: config/prefs.php:1504
 msgid "Default sorting criteria:"
-msgstr "기본 정렬 항목:"
+msgstr "기본 정렬기준:"
 
 #: config/prefs.php:1514
 msgid "Default sorting direction:"
-msgstr "기본 정렬 방법"
+msgstr "기본 정렬방향:"
 
 #: lib/Mime/Viewer/Itip.php:595
-#, fuzzy
 msgid "Delegated"
-msgstr "지워짐"
+msgstr "위임됨"
 
 #: lib/Dynamic/Compose/Common.php:177 lib/Dynamic/Mailbox.php:322
 #: lib/Dynamic/Mailbox.php:353 lib/Imap/Acl.php:196
@@ -1233,94 +1162,90 @@ msgstr "지워짐"
 #: templates/smartmobile/mailbox.html.php:28
 #: templates/smartmobile/message.html.php:22
 msgid "Delete"
-msgstr "지우기"
+msgstr "삭제"
 
 #: lib/Prefs/Special/PgpPublicKey.php:69
 #: lib/Prefs/Special/SmimePublicKey.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Delete %s Public Key"
-msgstr "전체 이름:"
+msgstr "%s 공개용 키 삭제"
 
 #: templates/prefs/pgpprivatekey.html.php:46
-#, fuzzy
 msgid "Delete Current Keys"
-msgstr "일정 삭제"
+msgstr "현재 키 삭제"
 
 #: lib/Basic/Thread.php:173
-#, fuzzy
 msgid "Delete Thread"
-msgstr "작업 삭제"
+msgstr "타래글 삭제"
 
 #: lib/Dynamic/Mailbox.php:276
 msgid "Delete Virtual Folder"
-msgstr "간편분류함 지우기"
+msgstr "가상 폴더 삭제"
 
 #: lib/Dynamic/Mailbox.php:494
-#, fuzzy, php-format
+#, php-format
 msgid "Delete all subfolders of %s?"
-msgstr "간편 편지함 지우기"
+msgstr "%s 모든 하위 폴더를 삭제할까요?"
 
 #: config/prefs.php:563
-#, fuzzy
 msgid "Delete linked attachments after this many months (0 to never delete):"
-msgstr "%s 개월보다 오래된 편지의 링크 첨부 파일을 지웁니다."
+msgstr ""
+"링크된 첨부파일을 다음 기간(개월) 경과 후 삭제('삭제하지 않음'은 '0'으로 설"
+"정):"
 
 #: config/prefs.php:1290
 msgid "Delete message"
-msgstr "메일 삭제"
+msgstr "메시지 삭제"
 
 #: lib/Imap/Acl.php:195
-#, fuzzy
 msgid "Delete messages"
-msgstr "지워진 편지"
+msgstr "메시지 삭제"
 
 #: config/prefs.php:853
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete):"
-msgstr "몇 개월보다 오래된 보낸편지함을 모두 지웁니다.(0은 지우지 않음):"
+msgstr ""
+"오래된 보낸 편지함을 다음 기간(개월) 경과 후 삭제('삭제하지 않음'은 '0'으로 "
+"설정):"
 
 #: lib/Dynamic/Mailbox.php:221
-#, fuzzy
 msgid "Delete subfolders"
-msgstr "편지함 지우기"
+msgstr "하위 폴더 삭제"
 
 #: lib/Imap/Acl.php:192
-#, fuzzy
 msgid "Delete/Rename Mailbox"
-msgstr "외부 편지함:"
+msgstr "편지함 삭제/이름 변경"
 
 #: templates/basic/compose/compose.html.php:348
-#, fuzzy
 msgid "Delete?"
-msgstr "지우기"
+msgstr "삭제할까요?"
 
 #: lib/Flag/Imap/Deleted.php:45
 msgid "Deleted"
-msgstr "삭제됨"
+msgstr "삭제함"
 
 #: lib/Mailbox.php:815
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted Virtual Folder \"%s\"."
-msgstr "간편 편지함 지우기"
+msgstr "가상 폴더 \"%s\"을(를) 삭제했습니다."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:749 lib/Basic/Compose.php:174
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted attachment \"%s\"."
-msgstr "첨부파일 \"%s\" 삭제짐"
+msgstr "첨부파일 \"%s\"을(를) 삭제했습니다."
 
 #: lib/Prefs/Special/Flag.php:122
 #, php-format
 msgid "Deleted flag \"%s\"."
-msgstr "태그 \"%s\" 삭제됨"
+msgstr "깃발 \"%s\"을(를) 삭제했습니다."
 
 #: config/prefs.php:1137
 msgid "Deleting and Moving Messages"
-msgstr "편지 지우기 및 이동"
+msgstr "메시지 삭제 및 이동"
 
 #: lib/Mime/Viewer/Itip.php:227
-#, fuzzy
 msgid "Deny request for free/busy information"
-msgstr "편지 서버 정보사항"
+msgstr "한가함/바쁨 정보 요청 거부"
 
 #: config/prefs.php:1512
 msgid "Descending"
@@ -1329,401 +1254,361 @@ msgstr "내림차순"
 #: templates/basic/compose/compose.html.php:340
 #: templates/itip/action.html.php:40
 msgid "Description"
-msgstr "첨부 설명:"
+msgstr "설명"
 
 #: templates/prefs/pgpprivatekey.html.php:22
 #: templates/prefs/pgpprivatekey.html.php:36
 #: templates/prefs/pgppublickey.html.php:21
 #: templates/prefs/smimeprivatekey.html.php:22
 #: templates/prefs/smimepublickey.html.php:23
-#, fuzzy
 msgid "Details"
-msgstr "일별"
+msgstr "세부사항"
 
 #: config/prefs.php:1068
 msgid "Dim signatures?"
-msgstr "서명을 흐릿하게 표시"
+msgstr "서명을 흐리게 표시할까요?"
 
 #: lib/Minimal/Compose.php:340 templates/basic/compose/compose.html.php:31
 #: templates/dynamic/compose.html.php:45 templates/minimal/compose.html.php:58
 #: templates/smartmobile/compose.html.php:58
 msgid "Discard Draft"
-msgstr "임시작성 버리기"
+msgstr "작성 중인 메시지 삭제"
 
 #: config/prefs.php:605
 msgid "Display confirmation in popup window after sending a message?"
-msgstr "편지를 보내고 나서 확인 표시 하기"
+msgstr "메일을 보낸 후 확인 메시지를 팝업 창으로 표시할까요?"
 
 #: config/prefs.php:1375
 msgid "Display notification when new mail arrives?"
-msgstr "새 메일 도착시 알림"
+msgstr "새로운 메일이 도착하면 알림을 표시할까요?"
 
 #: config/prefs.php:1316
 msgid "Display the \"Empty Spam\" link in the menubar?"
-msgstr "'스팸편지함 비움'을 메뉴바에 보이기"
+msgstr "메뉴 바에 \"스팸 편지함 비우기\" 링크를 표시할까요?"
 
 #: config/prefs.php:1214
 msgid "Display the \"Empty Trash\" link in the menubar?"
-msgstr "'지운편지함 비움'을 메뉴바에 보이기"
+msgstr "메뉴 바에 \"지운 편지함 비우기\" 링크를 표시할까요?"
 
 #: templates/minimal/mailbox.html.php:36
-#, fuzzy
 msgid "Do Action"
-msgstr "실행"
+msgstr "실행 동작"
 
 #: lib/Basic/Search.php:501 templates/basic/search/search-basic.html.php:24
 #: templates/basic/search/search-basic.html.php:38
 msgid "Do NOT Match"
-msgstr "일치하지 않음"
+msgstr "다음과 일치하지 않음"
 
 #: lib/Dynamic/Mailbox.php:358 templates/basic/folders/actions.html.php:37
-#, fuzzy
 msgid "Do Not Check for New Mail"
-msgstr "새 편지 검사하지 않음"
+msgstr "새로운 메일을 확인하지 않음"
 
 #: config/prefs.php:1549
 msgid "Do not generate a link in the From: column"
-msgstr "받는사람 항목에 링크를 만들지 않습니다."
+msgstr "받는 사람 열에 링크를 생성하지 않음"
 
 #: config/prefs.php:833
 msgid "Do not save attachments"
-msgstr "첨부파일 저장안함"
+msgstr "첨부파일을 저장하지 않음"
 
 #: config/prefs.php:1083
 msgid "Do not show parts"
-msgstr "모두 가리기"
+msgstr "일부를 화면에서 숨기기"
 
 #: lib/Dynamic/Mailbox.php:445
 msgid "Don't Show"
-msgstr "표시된 것 숨기기"
+msgstr "숨기기"
 
 #: lib/Contents.php:867 templates/basic/folders/actions.html.php:41
 #: templates/minimal/message.html.php:22
-#, fuzzy
 msgid "Download"
-msgstr "%s 내려받기"
+msgstr "다운로드"
 
 #: lib/Contents.php:878
 #, php-format
 msgid "Download %s in .zip Format"
-msgstr "%s를 압축파일(zip)으로 내려받기"
+msgstr "%s을(를) .zip 형식으로 다운로드"
 
 #: templates/basic/folders/actions.html.php:42
-#, fuzzy
 msgid "Download (.zip format)"
-msgstr "압축파일(zip)로 내려받기"
+msgstr "다운로드(.zip 형식)"
 
 #: lib/Basic/Message.php:826
 msgid "Download All Attachments (in .zip file)"
-msgstr "압축파일(zip)로 한 번에 내려받기"
+msgstr "모든 첨부파일 다운로드(.zip 파일)"
 
 #: lib/Minimal/Messagepart.php:37
-#, fuzzy
 msgid "Download Attachment"
-msgstr "파일첨부"
+msgstr "첨부파일 다운로드"
 
 #: templates/minimal/messagepart.html.php:5
-#, fuzzy
 msgid "Download attachment:"
-msgstr "압축파일(zip)로 한 번에 내려받기"
+msgstr "첨부파일 다운로드:"
 
 #: lib/Compose.php:2735
-#, fuzzy
 msgid "Download link"
-msgstr "%s 내려받기"
+msgstr "다운로드 링크"
 
 #: lib/Compose.php:2728
-#, fuzzy, php-format
+#, php-format
 msgid "Download link: %s"
-msgstr "%s 내려받기"
+msgstr "다운로드 링크: %s"
 
 #: lib/Flag/Imap/Draft.php:45
 msgid "Draft"
-msgstr "임시편지"
+msgstr "작성 중인 메시지"
 
 #: config/prefs.php:765 lib/Mailbox.php:1571 lib/Mailbox.php:1666
 msgid "Drafts"
-msgstr "임시보관함"
+msgstr "임시 보관함"
 
 #: templates/prefs/drafts.html.php:3
 msgid "Drafts mailbox:"
-msgstr "임시보관함:"
+msgstr "임시 보관함:"
 
 #: templates/prefs/pgpprivatekey.html.php:76
 msgid "E-mail Address"
-msgstr "이메일 주소:"
+msgstr "이메일 주소"
 
 #: lib/Basic/Mailbox.php:931
-#, fuzzy
 msgid "END"
-msgstr "그리고"
+msgstr "끝"
 
 #: lib/Mime/Viewer/Status.php:110
-#, fuzzy
 msgid "ERROR: Your message could not be delivered."
-msgstr "편지가 성공적으로 전송되었습니다."
+msgstr "오류: 메시지가 전송되지 않았습니다."
 
 #: lib/Ftree.php:1096
 msgid "Edit"
 msgstr "편집"
 
 #: lib/Dynamic/Mailbox.php:373
-#, fuzzy
 msgid "Edit ACL"
-msgstr "편집"
+msgstr "ACL 편집"
 
 #: templates/search/search.html.php:10
-#, fuzzy
 msgid "Edit Filter"
-msgstr "필터 수정"
+msgstr "필터 편집"
 
 #: lib/Dynamic/Mailbox.php:496
 msgid "Edit Flags..."
-msgstr "태그 수정..."
+msgstr "깃발 편집..."
 
 #: templates/smartmobile/mailbox.html.php:12
-#, fuzzy
 msgid "Edit Search"
-msgstr "간단한 검색"
+msgstr "검색 편집"
 
 #: lib/Basic/Mailbox.php:434 templates/dynamic/mailbox.html.php:62
-#, fuzzy
 msgid "Edit Search Query"
-msgstr "검색항목 초기화"
+msgstr "검색어 편집"
 
 #: lib/Basic/Mailbox.php:651 lib/Dynamic/Mailbox.php:264
 #: lib/Dynamic/Mailbox.php:306
-#, fuzzy
 msgid "Edit Template"
-msgstr "필터 수정"
+msgstr "서식 편집"
 
 #: lib/Basic/Mailbox.php:431 lib/Dynamic/Mailbox.php:275 lib/Ftree.php:1096
 #: templates/search/search.html.php:8
 msgid "Edit Virtual Folder"
-msgstr "간편분류함 편집"
+msgstr "가상 폴더 편집"
 
 #: lib/Dynamic/Mailbox.php:270
 msgid "Edit Virtual Folders"
-msgstr "간편분류함 수정"
+msgstr "가상 폴더 편집"
 
 #: config/prefs.php:747 lib/Basic/Message.php:632 lib/Dynamic/Base.php:178
 #: lib/Minimal/Message.php:249
 msgid "Edit as New"
-msgstr "편집으로 작성하기"
+msgstr "새로운 메일로 편집"
 
 #: config/prefs.php:629
 msgid "Edit compose templates."
-msgstr "템플릿 보관함을 구성합니다."
+msgstr "작성 서식을 편집합니다."
 
 #: config/prefs.php:228
 msgid "Edit your Blacklist"
-msgstr "수신거부 목록 수정"
+msgstr "수신 거부 목록 편집"
 
 #: config/prefs.php:210
 msgid "Edit your Filter Rules"
-msgstr "필터 규칙 수정"
+msgstr "필터 규칙 편집"
 
 #: config/prefs.php:246
 msgid "Edit your Whitelist"
-msgstr "수신승인 목록 수정"
+msgstr "수신 허용 목록 편집"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:1185
-#, fuzzy
 msgid "Editing group lists not currently supported."
-msgstr "이런 파일 형태를 지원하지 않습니다."
+msgstr "현재 그룹 목록 편집을 지원하지 않습니다."
 
 #: lib/Message.php:852
-#, fuzzy, php-format
+#, php-format
 msgid "Emptied all messages from %s."
-msgstr "%s로부터 전달된 편지"
+msgstr "%s에서 모든 메시지를 비웠습니다."
 
 #: lib/Message.php:828
-#, fuzzy
 msgid "Emptied all messages from Virtual Trash Folder."
-msgstr "%s로부터 전달된 편지"
+msgstr "가상 지운 편지함으로부터 모든 메시지를 비웠습니다."
 
 #: lib/Dynamic/Mailbox.php:352 templates/basic/folders/actions.html.php:27
-#, fuzzy
 msgid "Empty"
-msgstr "메모 비우기"
+msgstr "비우기"
 
 #: templates/basic/mailbox/header.html.php:33
-#, fuzzy
 msgid "Empty Mailbox"
-msgstr "외부 편지함:"
+msgstr "편지함 비우기"
 
 #: lib/Application.php:236
-#, fuzzy
 msgid "Empty _Spam"
-msgstr "_t지운편지함 비움"
+msgstr "스팸 편지함 비우기"
 
 #: lib/Application.php:223
 msgid "Empty _Trash"
-msgstr "_t지운편지함 비움"
+msgstr "지운 편지함 비우기"
 
 #: config/prefs.php:426
 msgid "Enable S/MIME functionality?"
-msgstr "S/MIME 기능 활성화"
+msgstr "S/MIME 기능을 활성화할까요?"
 
 #: config/prefs.php:1570
-#, fuzzy
 msgid "Enable message previews?"
-msgstr "%s로부터 전달된 편지"
+msgstr "메시지 미리보기를 활성화할까요?"
 
 #: templates/prefs/searches.html.php:9 templates/prefs/searches.html.php:48
 msgid "Enabled?"
-msgstr "사용?"
+msgstr "활성화됐습니까?"
 
 #: templates/basic/compose/compose.html.php:238
 msgid "Encr_yption Options"
-msgstr "_y암호화 옵션"
+msgstr "암호화 옵션"
 
 #: templates/dynamic/compose.html.php:85
 msgid "Encryption"
-msgstr "보안"
+msgstr "암호화"
 
 #: templates/itip/action.html.php:13
-#, fuzzy
 msgid "End"
-msgstr "확장"
+msgstr "끝"
 
 #: lib/Compose.php:2223
 msgid "End forwarded message"
-msgstr "전달 편지 끝"
+msgstr "전달한 메시지 종료"
 
 #: lib/Compose.php:2041
-#, fuzzy
 msgid "End message"
-msgstr "옛날 편지"
+msgstr "메시지 종료"
 
 #: lib/Compose.php:2041
-#, fuzzy, php-format
+#, php-format
 msgid "End message from %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "%s이(가) 보낸 메시지 종료"
 
 #: lib/Prefs/Special/ComposeTemplates.php:45
-#, fuzzy
 msgid "Enter the name for your new compose templates mailbox."
-msgstr "새 보낸편지함의 이름 입력"
+msgstr "새로운 작성 서식 편지함의 이름을 입력하세요."
 
 #: lib/Prefs/Special/Drafts.php:39
-#, fuzzy
 msgid "Enter the name for your new drafts mailbox."
-msgstr "새 임시보관함의 이름 입력"
+msgstr "새로운 임시 보관함의 이름을 입력하세요."
 
 #: lib/Prefs/Special/Spam.php:39
-#, fuzzy
 msgid "Enter the name for your new spam mailbox."
-msgstr "새 보낸편지함의 이름 입력"
+msgstr "새로운 스팸 편지함의 이름을 입력하세요."
 
 #: lib/Prefs/Special/Trash.php:39
-#, fuzzy
 msgid "Enter the name for your new trash mailbox."
-msgstr "새 지운편지함 이름 입력"
+msgstr "새로운 지운 편지함의 이름을 입력하세요."
 
 #: lib/Basic/Search.php:89 lib/Dynamic/Mailbox.php:455
 #: templates/basic/search/search-basic.html.php:20
 #: templates/smartmobile/search.html.php:9
 msgid "Entire Message"
-msgstr "전체 본문"
+msgstr "전체 메시지"
 
 #: lib/Basic/Message.php:161 lib/Basic/Thread.php:57 lib/Compose.php:1338
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
-msgstr "\"%s\"가 주소록에 추가되었습니다."
+msgstr "입력내용 \"%s\"을(를) 주소록에 성공적으로 추가했습니다."
 
 #: lib/Mime/Status.php:84
 msgid "Error"
 msgstr "오류"
 
 #: lib/Ajax/Imple/ItipRequest.php:309 lib/Ajax/Imple/ItipRequest.php:420
-#, fuzzy, php-format
+#, php-format
 msgid "Error sending reply: %s."
-msgstr "파일 이름 변경 오류: "
+msgstr "회신을 보내는 동안 오류가 발생했습니다: %s"
 
 #: lib/Compose.php:2333
-#, fuzzy
 msgid "Error when redirecting message."
-msgstr "편지 전달"
+msgstr "메시지를 재전송하는 동안 오류가 발생했습니다."
 
 #: config/prefs.php:303
 msgid "Event Requests"
-msgstr "인터넷 일정 요청"
+msgstr "일정 요청"
 
 #: lib/Ajax/Imple/ItipRequest.php:106
-#, fuzzy
 msgid "Event successfully deleted."
-msgstr "'%s'가 시스템에 추가되었습니다."
+msgstr "일정이 성공적으로 삭제됨."
 
 #: config/prefs.php:1366
 msgid "Every 15 minutes"
-msgstr "15분"
+msgstr "15분 마다"
 
 #: config/prefs.php:1363
 msgid "Every 30 seconds"
-msgstr "30초마다"
+msgstr "30초 마다"
 
 #: config/prefs.php:808 config/prefs.php:1365
 msgid "Every 5 minutes"
-msgstr "5분마다"
+msgstr "5분 마다"
 
 #: config/prefs.php:1367
 msgid "Every half hour"
-msgstr "30분마다"
+msgstr "30분 마다"
 
 #: config/prefs.php:807 config/prefs.php:1364
 msgid "Every minute"
-msgstr "매분마다"
+msgstr "1분 마다"
 
 #: lib/Smartmobile.php:172 templates/basic/mailbox/header.html.php:22
-#, fuzzy
 msgid "Exit Search"
-msgstr "간단한 검색"
+msgstr "검색 나가기"
 
 #: lib/Basic/Folders.php:396 lib/Dynamic/Mailbox.php:225
 #: lib/Dynamic/Mailbox.php:286 lib/Dynamic/Mailbox.php:365
 msgid "Expand All"
-msgstr "모두 확장"
+msgstr "모두 펼치기"
 
 #: templates/dynamic/mailbox.html.php:78
-#, fuzzy
 msgid "Expand Headers"
-msgstr "이름 완성"
+msgstr "머리글 펼치기"
 
 #: lib/Minimal/Compose.php:107 lib/Minimal/Compose.php:162
 #: templates/minimal/compose.html.php:55
 #: templates/minimal/redirect.html.php:28
 msgid "Expand Names"
-msgstr "이름 완성"
+msgstr "이름 펼치기"
 
 #: config/prefs.php:1642
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "편지함 목록을 볼 때 기본으로 전체 편지함 확장하기"
+msgstr "폴더 화면에서 전체 폴더 구조를 기본으로 펼칠까요?"
 
 #: templates/prefs/pgpprivatekey.html.php:107
-#, fuzzy
 msgid "Expiration"
-msgstr "기간"
+msgstr "만료"
 
 #: lib/Dynamic/Mailbox.php:369
-#, fuzzy
 msgid "Export"
-msgstr ""
-"#-#-#-#-#  mnemo.po (mnemo)  #-#-#-#-#\n"
-"내보내기\n"
-"#-#-#-#-#  kronolith.po (Kronolith 2.0-cvs)  #-#-#-#-#\n"
-"익스포트\n"
-"#-#-#-#-#  turba.po (Turba 2.0-cvs)  #-#-#-#-#\n"
-"내보내기"
+msgstr "내보내기"
 
 #: templates/basic/folders/actions.html.php:29
-#, fuzzy
 msgid "Expunge"
-msgstr "자동완성"
+msgstr "지우기"
 
 #: lib/Application.php:260
 msgid "Fi_lters"
-msgstr "_L필터"
+msgstr "필터"
 
 #: lib/Basic/Compose.php:744 templates/basic/compose/compose.html.php:285
 msgid "File"
@@ -1737,46 +1622,43 @@ msgstr "필터"
 #: lib/Basic/Search.php:294
 #, php-format
 msgid "Filter \"%s\" created succesfully."
-msgstr "간편 필터 \"%s\"가 생성되었습니다."
+msgstr "필터 \"%s\"을(를) 성공적으로 생성했습니다."
 
 #: lib/Prefs/Special/Searches.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "Filter \"%s\" deleted."
-msgstr "파일 삭제: "
+msgstr "필터 \"%s\"을(를) 삭제했습니다."
 
 #: lib/Basic/Search.php:290
 #, php-format
 msgid "Filter \"%s\" edited successfully."
-msgstr "간편분류 \"%s\"가 수정되었습니다."
+msgstr "필터 \"%s\"을(를) 성공적으로 편집했습니다."
 
 #: lib/Dynamic/Mailbox.php:443
 msgid "Filter By"
-msgstr "분류하여 보기"
+msgstr "필터 조건:"
 
 #: templates/basic/mailbox/navbar.html.php:58
 #: templates/basic/mailbox/navbar.html.php:60
-#, fuzzy
 msgid "Filter Messages"
-msgstr "모든 메시지 필터"
+msgstr "메시지 필터"
 
 #: templates/smartmobile/folders.html.php:5
-#, fuzzy
 msgid "Filter mailboxes..."
-msgstr "필터 큐칙"
+msgstr "편지함 필터..."
 
 #: config/prefs.php:990
-#, fuzzy
 msgid "Filter message content for unwanted text (e.g. profanity)?"
-msgstr "비속어가 든 내용의 편지 필터링"
+msgstr "원치 않는 내용(예: 비속어)에 대한 메시지 내용을 걸러낼까요?"
 
 #: config/prefs.php:198
 msgid "Filters"
 msgstr "필터"
 
 #: lib/Filter.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "Filters: %s management page"
-msgstr "필터: % 관리 페이지"
+msgstr "필터: %s 관리 페이지"
 
 #: templates/contacts/contacts.html.php:12
 msgid "Find"
@@ -1784,63 +1666,59 @@ msgstr "찾기"
 
 #: config/prefs.php:1480
 msgid "First (oldest) Unseen Message"
-msgstr "읽지 않은 가장 오래된 메일"
+msgstr "첫 번째(가장 오래된) 읽지 않은 메시지"
 
 #: config/prefs.php:1482 lib/Minimal/Mailbox.php:204
 #: templates/basic/mailbox/navbar.html.php:8
 msgid "First Page"
-msgstr "첫페이지"
+msgstr "첫 번째 페이지"
 
 #: lib/Dynamic/Mailbox.php:507
 msgid "Flag Name:"
-msgstr "태그 이름:"
+msgstr "깃발명:"
 
 #: lib/Flags.php:183
-#, fuzzy
 msgid "Flag name already exists."
-msgstr "\"%s\"는 이미 있습니다."
+msgstr "깃발명이 이미 존재합니다."
 
 #: lib/Flag/Imap/Flagged.php:45
 msgid "Flagged for Followup"
-msgstr "후속 처리 요망"
+msgstr "사후관리를 위해 깃발 표시함"
 
 #: config/prefs.php:1397
 msgid "Flags"
-msgstr "레이블 및 태그"
+msgstr "깃발"
 
 #: lib/Basic/Mailbox.php:683 lib/Basic/Message.php:603
 msgid "Fo_rward"
-msgstr "_r전달"
+msgstr "전달"
 
 #: lib/Mailbox.php:1640
-#, fuzzy
 msgid "Folder"
-msgstr "_F편지함"
+msgstr "폴더"
 
 #: lib/Dynamic/Mailbox.php:90
 msgid "Folder Actions"
-msgstr "편지함 작업"
+msgstr "폴더 동작"
 
 #: lib/Basic/Folders.php:274
 #: templates/basic/folders/folders_confirm.html.php:6
-#, fuzzy
 msgid "Folder Actions - Confirmation"
-msgstr "삭제 확인"
+msgstr "폴더 동작 - 확인"
 
 #: config/prefs.php:1617
 msgid "Folder Display"
-msgstr "편지함 목록 보기"
+msgstr "폴더 화면"
 
 #: lib/Basic/Folders.php:338 templates/prefs/initialpage.html.php:7
 msgid "Folder Navigator"
-msgstr "편지함 탐색기"
+msgstr "폴더 탐색기"
 
 #: lib/Minimal/Base.php:93 lib/Minimal/Folders.php:66 lib/Smartmobile.php:173
 #: templates/smartmobile/folders.html.php:2
 #: templates/smartmobile/mailbox.html.php:2
-#, fuzzy
 msgid "Folders"
-msgstr "_F편지함"
+msgstr "폴더"
 
 #: lib/Compose.php:2165 lib/Compose.php:2168 lib/Dynamic/Mailbox.php:310
 #: lib/Minimal/Compose.php:222 lib/Minimal/Message.php:247
@@ -1855,26 +1733,25 @@ msgid "Forwarded"
 msgstr "전달함"
 
 #: lib/Compose.php:2442
-#, fuzzy
 msgid "Forwarded Message"
-msgstr "전달된 편지"
+msgstr "전달한 메시지"
 
 #: lib/Compose.php:2221
 msgid "Forwarded message"
-msgstr "전달된 편지"
+msgstr "전달한 메시지"
 
 #: lib/Compose.php:2221
 #, php-format
 msgid "Forwarded message from %s"
-msgstr "%s로부터 전달된 편지"
+msgstr "%s이(가) 전달한 메시지"
 
 #: config/prefs.php:731
 msgid "Forwards"
-msgstr "전달"
+msgstr "전달한 메시지"
 
 #: lib/Basic/Mailbox.php:733
 msgid "Fro_m"
-msgstr "_m보낸사람"
+msgstr "보내는 사람"
 
 #: lib/Basic/Search.php:57 lib/Compose.php:2485 lib/Dynamic/Mailbox.php:173
 #: lib/Dynamic/Mailbox.php:251 lib/Dynamic/Mailbox.php:457
@@ -1885,45 +1762,43 @@ msgstr "_m보낸사람"
 #: templates/smartmobile/search.html.php:11
 #: templates/thread/thread.html.php:21
 msgid "From"
-msgstr "보낸사람"
+msgstr "보내는 사람"
 
 #: config/prefs.php:1498
 msgid "From Address"
-msgstr "보낸사람 주소"
+msgstr "보내는 사람 주소"
 
 #: lib/Mailbox/Ui.php:88 templates/minimal/compose.html.php:7
 #: templates/smartmobile/compose.html.php:15
-#, fuzzy
 msgid "From:"
-msgstr "보낸사람"
+msgstr "보내는 사람:"
 
 #: config/prefs.php:14 config/prefs.php:109 config/prefs.php:135
 #: config/prefs.php:161 config/prefs.php:197 config/prefs.php:302
 #: config/prefs.php:319 config/prefs.php:402
 msgid "General"
-msgstr "일반설정"
+msgstr "일반"
 
 #: templates/itip/action.html.php:112
 msgid "Go"
 msgstr "가기"
 
 #: templates/basic/search/search-basic.html.php:43
-#, fuzzy
 msgid "Go to Advanced Search Page..."
-msgstr "고급 검색"
+msgstr "고급 검색 페이지로 가기..."
 
 #: lib/Basic/Thread.php:139
 msgid "Go to Message"
-msgstr "편지로 가기"
+msgstr "메시지로 가기"
 
 #: lib/Contacts.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Go to address book entry of \"%s\""
-msgstr "주소록 입력"
+msgstr "\"%s\"의 주소록 입력내용으로 가기"
 
 #: lib/Block/Newmail.php:66
 msgid "Go to your Inbox..."
-msgstr "받은편지함으로 이동..."
+msgstr "받은 편지함으로 가기..."
 
 #: lib/Ajax/Application/ShowMessage.php:282 lib/Basic/Message.php:792
 #: lib/Contents.php:611 lib/Filter.php:132 lib/Mime/Viewer/Appledouble.php:97
@@ -1934,45 +1809,40 @@ msgid "HERE"
 msgstr "여기"
 
 #: lib/Compose.php:1558
-#, fuzzy
 msgid "HTML Message"
-msgstr "편지"
+msgstr "HTML 메시지"
 
 #: templates/dynamic/compose.html.php:57
-#, fuzzy
 msgid "HTML composition"
-msgstr "HTML 작성모드로 전환"
+msgstr "HTML 작성"
 
 #: lib/Basic/Message.php:714
 msgid "Headers"
-msgstr "머릿글"
+msgstr "머리글"
 
 #: config/prefs.php:1059
 msgid "Hidden"
-msgstr "감추기"
+msgstr "숨김"
 
 #: config/prefs.php:1057
-#, fuzzy
 msgid "Hidden in List Messages"
-msgstr "읽지 않은 메일만 필터"
+msgstr "메시지 목록에서 숨김"
 
 #: config/prefs.php:1056
 msgid "Hidden in Thread View"
-msgstr "댓글보기에서 감추기"
+msgstr "타래글에서 숨김"
 
 #: config/prefs.php:1058
-#, fuzzy
 msgid "Hidden in Thread View and List Messages"
-msgstr "댓글보기에서 감추기"
+msgstr "글타래 화면 및 메시지 목록에서 숨김"
 
 #: lib/Message/Ui.php:303 templates/dynamic/header.html.php:5
-#, fuzzy
 msgid "Hide Addresses"
-msgstr "집 주소"
+msgstr "주소 숨기기"
 
 #: lib/Basic/Mailbox.php:291 lib/Dynamic/Mailbox.php:400
 msgid "Hide Deleted"
-msgstr "지워진 편지 숨기기"
+msgstr "삭제된 메시지 숨기기"
 
 #: lib/Dynamic/Mailbox.php:383
 msgid "Hide Preview"
@@ -1980,12 +1850,11 @@ msgstr "미리보기 숨기기"
 
 #: lib/Basic/Folders.php:377 lib/Dynamic/Mailbox.php:284
 msgid "Hide Unsubscribed"
-msgstr "사용하지 않는 편지함 숨김"
+msgstr "구독 해지한 메시지 숨기기"
 
 #: config/prefs.php:1208
-#, fuzzy
 msgid "Hide deleted messages even if using the Trash mailbox?"
-msgstr "지운편지함에서 오래된 편지 지울까요?"
+msgstr "지운 편지함을 사용할 경우에도 삭제된 메시지를 숨길까요?"
 
 #: lib/Basic/Compose.php:865 lib/Basic/Message.php:306
 #: lib/Dynamic/Compose/Common.php:220
@@ -1994,38 +1863,35 @@ msgstr "높음"
 
 #: lib/Basic/Message.php:306 lib/Flag/System/HighPriority.php:45
 msgid "High Priority"
-msgstr "우선순위 높음"
+msgstr "높은 우선 순위"
 
 #: lib/Dynamic/Mailbox.php:385
 msgid "Horizontal Layout"
-msgstr "수평 배치"
+msgstr "수평 레이아웃"
 
 #: config/prefs.php:1061
 msgid ""
 "How should large blocks of quoted text be shown by default? (Toggling the "
 "block will always be available)."
 msgstr ""
-"긴 인용글의 경우 기본으로 보여줄까요, 아니면 감출까요? 어떤 것을 선택하더라"
-"도, 간단히 전환할 수 있습니다."
+"인용문의 큰 블록을 어떻게 기본적으로 표시할까요?(블럭 토글링은 언제나 사용 가"
+"능합니다.)"
 
 #: config/prefs.php:712
-#, fuzzy
 msgid "How to attribute quoted lines in a reply?"
-msgstr "답장에 사용할 인용문:"
+msgstr "회신 시 인용문을 어떻게 표시할까요?"
 
 #: templates/prefs/flags.html.php:7
 msgid "Icon"
 msgstr "아이콘"
 
 #: templates/basic/folders/folders_confirm.html.php:16
-#, fuzzy
 msgid "If you continue, all messages in the mailbox(es) will be lost!"
-msgstr "편지함의 모든 편지가 지워집니다!"
+msgstr "계속할 경우, 편지함 내 모든 메시지를 잃게 됩니다!"
 
 #: lib/Mime/Viewer/Html.php:253
-#, fuzzy
 msgid "Images have been blocked in this message part."
-msgstr "내용이 없습니다."
+msgstr "이 메시지 부분에서 이미지를 차단했습니다."
 
 #: lib/Dynamic/Mailbox.php:370 templates/basic/folders/import.html.php:16
 #: templates/pgp/import_key.html.php:68 templates/smime/import_key.html.php:77
@@ -2033,82 +1899,74 @@ msgid "Import"
 msgstr "가져오기"
 
 #: templates/prefs/pgpprivatekey.html.php:127
-#, fuzzy
 msgid "Import Key"
-msgstr "읽어오기(임포트)"
+msgstr "가져오기 키"
 
 #: templates/basic/folders/actions.html.php:44
 #: templates/basic/folders/import.html.php:7
 msgid "Import Messages"
-msgstr "편지 가져오기"
+msgstr "메시지 가져오기"
 
 #: lib/Basic/Pgp.php:151
-#, fuzzy
 msgid "Import PGP Key"
-msgstr "읽어오기(임포트)"
+msgstr "PGP 키 가져오기"
 
 #: templates/prefs/smimeprivatekey.html.php:47
 msgid "Import Personal Certificate"
 msgstr "개인 인증서 가져오기"
 
 #: templates/pgp/import_key.html.php:11 templates/pgp/import_key.html.php:34
-#, fuzzy
 msgid "Import Personal Key"
-msgstr "읽어오기(임포트)"
+msgstr "개인 키 가져오기"
 
 #: lib/Basic/Smime.php:131 templates/smime/import_key.html.php:11
 msgid "Import Personal S/MIME Certificate"
-msgstr "S/MIME 개인인증서 가져오기"
+msgstr "개인 S/MIME 인증서 가져오기"
 
 #: templates/pgp/import_key.html.php:32
 #: templates/prefs/pgppublickey.html.php:40
 #: templates/prefs/smimepublickey.html.php:40
 msgid "Import Public Key"
-msgstr "공개 인증서 가져오기"
+msgstr "공개용 키 가져오기"
 
 #: templates/pgp/import_key.html.php:9
-#, fuzzy
 msgid "Import Public PGP Key"
-msgstr "읽어오기(임포트)"
+msgstr "공개용 PGP 키 가져오기"
 
 #: templates/smime/import_key.html.php:9
-#, fuzzy
 msgid "Import Public S/MIME Key"
-msgstr "전체 이름:"
+msgstr "공개용 S/MIME 키 가져오기"
 
 #: templates/basic/folders/import.html.php:12
-#, fuzzy
 msgid "Import mbox or .eml file"
-msgstr "mbox 파일 가져오기 "
+msgstr "mbox 또는 .eml 파일 가져오기"
 
 #: lib/Mbox/Import.php:61
-#, fuzzy, php-format
+#, php-format
 msgid "Imported %d message from %s."
 msgid_plural "Imported %d messages from %s"
-msgstr[0] "%s에서 %d개 편지 가져옴"
-msgstr[1] "%s에서 %d개 편지 가져옴"
+msgstr[0] "%s에서 %d개의 메시지를 가져왔습니다."
 
 #: lib/Basic/Message.php:614 lib/Dynamic/Base.php:175
 msgid "In Body Text"
-msgstr "본문 내용으로"
+msgstr "본문 내용"
 
 #: config/prefs.php:745
-#, fuzzy
 msgid "In the body text"
-msgstr "편지 본문 없음"
+msgstr "본문 내용에"
 
 #: lib/Mailbox.php:1559 lib/Mailbox.php:1654 lib/Minimal/Base.php:83
 #: lib/Remote.php:107
 msgid "Inbox"
-msgstr "받은편지함"
+msgstr "받은 편지함"
 
 #: config/prefs.php:696
 msgid "Include a brief summary of the original message's header in a reply?"
-msgstr "답장에 간단한 머릿말 요약 포함"
+msgstr "회신에 간략한 머리말 요약을 포함할까요?"
 
 #: config/prefs.php:705
 msgid "Include original message in a reply?"
-msgstr "답장에 기존 편지를 포함할까요?"
+msgstr "회신에 원문 메시지를 포함할까요?"
 
 #: lib/Mime/Viewer/Mdn.php:70
 msgid "Info"
@@ -2116,72 +1974,62 @@ msgstr "정보"
 
 #: lib/Prefs/Special/PgpPublicKey.php:68
 #: lib/Prefs/Special/SmimePublicKey.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Information on %s Public Key"
-msgstr "전체 이름:"
+msgstr "%s 공개용 키에 대한 정보"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:52
-#, fuzzy
 msgid "Information on Personal Public Key"
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "개인용 공개용 키에 대한 정보"
 
 #: templates/dynamic/mailbox.html.php:41 templates/dynamic/message.html.php:24
 #: templates/smartmobile/mailbox.html.php:22
 #: templates/smartmobile/mailbox.html.php:34
 #: templates/smartmobile/message.html.php:65
-#, fuzzy
 msgid "Innocent"
-msgstr "스팸 고발"
+msgstr "정상"
 
 #: lib/Imap/Acl.php:176
-#, fuzzy
 msgid "Insert"
-msgstr "선택 반전"
+msgstr "삽입"
 
 #: lib/Imap/Acl.php:175
-#, fuzzy
 msgid "Insert messages"
-msgstr "답장한 편지"
+msgstr "메시지 삽입"
 
 #: lib/Dynamic/Mailbox.php:486 lib/Mailbox/Ui.php:92 lib/Smartmobile.php:180
 msgid "Invalid Address"
 msgstr "잘못된 주소"
 
 #: lib/Mime/Viewer/Smime.php:282
-#, fuzzy
 msgid "Invalid S/MIME data."
-msgstr "잘못된 이름."
+msgstr "잘못된 S/MIME 데이터입니다."
 
 #: lib/Dynamic/Mailbox.php:487
-#, fuzzy
 msgid "Invalid Subject"
-msgstr "잘못된 객체 아이디"
+msgstr "잘못된 제목"
 
 #: lib/Flag/User.php:68
-#, fuzzy
 msgid "Invalid characters in flag name."
-msgstr "잘못된 이메일 주소: %s"
+msgstr "깃발명에 잘못된 문자가 존재합니다."
 
 #: lib/Compose.php:1279
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid e-mail address (%s)."
-msgstr "잘못된 이메일 주소: %s"
+msgstr "잘못된 이메일 주소(%s)입니다."
 
 #: lib/Compose.php:744
-#, fuzzy
 msgid "Invalid e-mail address."
-msgstr "잘못된 주소"
+msgstr "잘못된 이메일 주소입니다."
 
 #: lib/Basic/Smime.php:195
-#, fuzzy
 msgid "Invalid key"
-msgstr "잘못된 이름."
+msgstr "잘못된 키"
 
 #: lib/Ajax/Application/Handler/Passphrase.php:57
 #: lib/Ajax/Application/Handler/Passphrase.php:71
-#, fuzzy
 msgid "Invalid passphrase entered."
-msgstr "잘못된 주소록"
+msgstr "잘못된 암호를 입력했습니다."
 
 #: lib/Flag/Imap/Junk.php:42
 msgid "Junk"
@@ -2190,11 +2038,11 @@ msgstr "스팸"
 #: templates/prefs/flags.html.php:6 templates/prefs/remote.html.php:8
 #: templates/prefs/remote.html.php:65 templates/search/search.html.php:95
 msgid "Label"
-msgstr "레이블"
+msgstr "라벨"
 
 #: config/prefs.php:1481
 msgid "Last (newest) Unseen Message"
-msgstr "읽지 않은 최신 메일"
+msgstr "최신(새로운) 읽지 않은 메시지"
 
 #: config/prefs.php:1483 lib/Minimal/Mailbox.php:209
 #: templates/basic/mailbox/navbar.html.php:25
@@ -2203,64 +2051,56 @@ msgstr "마지막 페이지"
 
 #: lib/Imap/Acl.php:160
 msgid "List"
-msgstr "리스트"
+msgstr "목록 표시"
 
 #: lib/Dynamic/Mailbox.php:433 templates/dynamic/message.html.php:65
-#, fuzzy
 msgid "List Info"
-msgstr "리스트"
+msgstr "정보 목록 표시"
 
 #: config/prefs.php:911
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
 msgstr ""
-"주소록 화면을 출력할때 모든 주소를 출력할까요? (선택하지 않으면, 직접 검색한 "
-"주소만 볼 수 있습니다.)"
+"연락처 화면을 불러올 때 모든 연락처 목록을 표시할까요? (비활성화할 경우, 직"
+"접 검색한 연락처만 보게 됩니다.)"
 
 #: templates/dynamic/header.html.php:8
-#, fuzzy
 msgid "Load All Addresses"
-msgstr "이메일 주소"
+msgstr "모든 주소 불러오기"
 
 #: lib/Smartmobile.php:177
-#, fuzzy
 msgid "Load More Messages..."
-msgstr "편지로 가기"
+msgstr "더 많은 메시지 불러오기..."
 
 #: templates/search/search.html.php:20
-#, fuzzy
 msgid "Load a Recent Search"
-msgstr "편지 찾기"
+msgstr "최근 검색 불러오기"
 
 #: lib/Basic/Search.php:496 lib/Dynamic/Base.php:197
 #: lib/Mime/Viewer/Html.php:93 templates/dynamic/compose-base.html.php:4
 #: templates/dynamic/mailbox.html.php:2
 #: templates/dynamic/mailbox_subinfo.html.php:5
 #: templates/dynamic/message.html.php:4 templates/dynamic/sidebar.html.php:1
-#, fuzzy
 msgid "Loading..."
-msgstr "찾는중..."
+msgstr "불러오는 중..."
 
 #: templates/itip/action.html.php:47
-#, fuzzy
 msgid "Location"
-msgstr "실행"
+msgstr "위치"
 
 #: lib/Dynamic/Mailbox.php:248
-#, fuzzy
 msgid "Log Out"
-msgstr "_L로그아웃"
+msgstr "로그아웃"
 
 #: lib/Minimal/Base.php:96
-#, fuzzy
 msgid "Log out"
-msgstr "_L로그아웃"
+msgstr "로그아웃"
 
 #: lib/Ajax/Application/Handler/Remote.php:124
-#, fuzzy, php-format
+#, php-format
 msgid "Logged out of %s."
-msgstr "%s의 메모장"
+msgstr "%s에서 로그아웃했습니다."
 
 #: lib/Basic/Compose.php:867 lib/Basic/Message.php:311
 #: lib/Dynamic/Compose/Common.php:229
@@ -2269,12 +2109,11 @@ msgstr "낮음"
 
 #: lib/Basic/Message.php:311 lib/Flag/System/LowPriority.php:37
 msgid "Low Priority"
-msgstr "우선순위 낮음"
+msgstr "낮은 우선 순위"
 
 #: lib/Mime/Viewer/Appledouble.php:99
-#, fuzzy
 msgid "Macintosh File"
-msgstr "편지 필터"
+msgstr "맥킨토시 파일"
 
 #: smartmobile.php:24
 msgid "Mail"
@@ -2287,86 +2126,77 @@ msgid "Mailbox"
 msgstr "편지함"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:80 lib/Basic/Folders.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "Mailbox \"%s\" already exists."
-msgstr "\"%s\"는 이미 있습니다."
+msgstr "편지함 \"%s\"이(가) 이미 존재합니다."
 
 #: lib/Ajax/Application/ListMessages.php:265
-#, fuzzy, php-format
+#, php-format
 msgid "Mailbox %s does not exist."
-msgstr "식별자 \"%s\" 가 삭제되었습니다."
+msgstr "편지함 \"%s\"이(가) 존재하지 않습니다."
 
 #: config/prefs.php:1449
 msgid "Mailbox Display"
-msgstr "메일목록 표시방법"
+msgstr "편지함 화면"
 
 #: lib/Basic/Folders.php:322 templates/basic/folders/folders_size.html.php:2
-#, fuzzy
 msgid "Mailbox Sizes"
-msgstr "우편함 파일"
+msgstr "편지함 크기"
 
 #: lib/Block/Summary.php:35
-#, fuzzy
 msgid "Mailbox Summary"
-msgstr "메모 요약"
+msgstr "편지함 요약"
 
 #: templates/basic/flist/flist.html.php:16
-#, fuzzy
 msgid "Mailboxes"
-msgstr "우편함"
+msgstr "편지함"
 
 #: lib/Basic/Listinfo.php:54 templates/listinfo/listinfo.html.php:2
-#, fuzzy
 msgid "Mailing List Information"
-msgstr "메일링리스트 정보 보기"
+msgstr "메일 발송 목록 정보"
 
 #: lib/Flag/System/List.php:37
 msgid "Mailing List Message"
-msgstr "메일링리스트 편지"
+msgstr "메일 발송 목록 메시지"
 
 #: lib/Basic/Search.php:126 lib/Search/Element/Mailinglist.php:52
 #: lib/Search/Filter/Mailinglist.php:30
 msgid "Mailing List Messages"
-msgstr "메일링리스트 메일"
+msgstr "메일 발송 목록 메시지"
 
 #: config/prefs.php:766
 msgid "Manage message drafts."
-msgstr "임시보관함을 관리합니다."
+msgstr "작성 중인 메시지를 관리합니다."
 
 #: config/prefs.php:820
 msgid "Manage sent mail."
-msgstr "보낸편지함에 관리합니다."
+msgstr "보낸 메일을 관리합니다."
 
 #: config/prefs.php:163
 msgid "Manage your saved searches"
-msgstr "간편분류함과 간편분류를 관리합니다."
+msgstr "저장된 검색 관리"
 
 #: templates/basic/folders/actions.html.php:39
-#, fuzzy
 msgid "Mark All Messages as Seen"
-msgstr "편지함의 모든 편지를 읽음으로 표시"
+msgstr "모든 메시지를 읽음으로 표시"
 
 #: templates/basic/folders/actions.html.php:40
-#, fuzzy
 msgid "Mark All Messages as Unseen"
-msgstr "편지함의 모든 편지를 읽지 않음으로 표시"
+msgstr "모든 메시지를 읽지 않음으로 표시"
 
 #: templates/basic/message/navbar_navigate.html.php:25
 #: templates/basic/message/navbar_navigate.html.php:27
-#, fuzzy
 msgid "Mark Message"
-msgstr "메시지 구분"
+msgstr "메시지 표시"
 
 #: templates/basic/mailbox/navbar.html.php:38
 #: templates/basic/mailbox/navbar.html.php:40
-#, fuzzy
 msgid "Mark Messages"
-msgstr "메시지 구분"
+msgstr "메시지 표시"
 
 #: lib/Dynamic/Mailbox.php:355
-#, fuzzy
 msgid "Mark all as"
-msgstr "편지 표시:"
+msgstr "모두 다음으로 표시"
 
 #: lib/Dynamic/Mailbox.php:313 lib/Dynamic/Mailbox.php:389
 msgid "Mark as"
@@ -2375,162 +2205,152 @@ msgstr "표시"
 #: templates/basic/mailbox/navbar.html.php:42
 #: templates/basic/message/navbar_navigate.html.php:29
 msgid "Mark as:"
-msgstr "편지 표시:"
+msgstr "표시:"
 
 #: config/prefs.php:1041
 msgid "Mark different levels of quoting with different colors?"
-msgstr "인용 단계마다 다른 색으로 표시를 할까요?"
+msgstr "다른 수준의 인용문을 다른 색상으로 표시할까요?"
 
 #: config/prefs.php:1156
-#, fuzzy
 msgid "Mark messages as seen when deleting?"
-msgstr "_k지워진 메시지로 표시"
+msgstr "삭제할 때 메시지를 읽음으로 표시할까요?"
 
 #: config/prefs.php:1048
 msgid "Mark simple markup?"
-msgstr "간단한 markup을 표시할까요?"
+msgstr "간단한 마크업을 표시할까요?"
 
 #: templates/basic/compose/compose.html.php:291
 msgid "Maximum Attachment Size"
-msgstr "첨부파일 최대 크기"
+msgstr "최대 첨부파일 크기"
 
 #: lib/Perms.php:100
-#, fuzzy
 msgid "Maximum Number of Mailboxes"
-msgstr "최대 메모 갯수"
+msgstr "최대 편지함 개수"
 
 #: lib/Perms.php:70
-#, fuzzy
 msgid "Maximum Number of Recipients per Message"
-msgstr "최대 메모 갯수"
+msgstr "메시지 당 최대 받는 사람의 수"
 
 #: templates/basic/compose/compose.html.php:278
-#, fuzzy
 msgid "Maximum number of attachments reached."
-msgstr "최대 페이지수"
+msgstr "최대 첨부파일 개수에 도달했습니다."
 
 #: config/prefs.php:974 config/prefs.php:1136 config/prefs.php:1257
 #: config/prefs.php:1349 config/prefs.php:1396 config/prefs.php:1430
 #: lib/Compose.php:2035 lib/Contents.php:1365 lib/Dynamic/Message.php:113
 msgid "Message"
-msgstr "편지"
+msgstr "메시지"
 
 #: lib/Ajax/Application/Handler/Common.php:636
-#, fuzzy, php-format
+#, php-format
 msgid "Message \"%s\" redirected successfully."
-msgstr "편지가 성공적으로 전달되었습니다."
+msgstr "메시지 \"%s\"을(를) 성공적으로 재전송했습니다."
 
 #: lib/Ajax/Application/Handler/Common.php:556
-#, fuzzy, php-format
+#, php-format
 msgid "Message \"%s\" sent successfully."
-msgstr "편지가 성공적으로 보내졌습니다."
+msgstr "메시지 \"%s\"을(를) 성공적으로 보냈습니다."
 
 #: lib/Search/Element/Text.php:59
 #: templates/basic/search/search-basic.html.php:19
-#, fuzzy
 msgid "Message Body"
-msgstr "편지함 선택"
+msgstr "메시지 본문"
 
 #: lib/Minimal/Compose.php:404
 msgid "Message Composition"
-msgstr "편지 작성"
+msgstr "메시지 작성"
 
 #: lib/Dynamic/Mailbox.php:230
 msgid "Message Date"
-msgstr "편지 날짜"
+msgstr "메시지 날짜"
 
 #: templates/dynamic/mailbox.html.php:153
-#, fuzzy
 msgid "Message Log"
-msgstr "편지함 선택"
+msgstr "메시지 기록"
 
 #: config/prefs.php:1501
 msgid "Message Size"
-msgstr "편지 크기"
+msgstr "메시지 크기"
 
 #: lib/Basic/Message.php:664 lib/Contents/View.php:191
 msgid "Message Source"
-msgstr "편지 소스보기"
+msgstr "메시지 소스"
 
 #: lib/Basic/Compose.php:1138
-#, fuzzy
 msgid "Message Successfully Sent"
-msgstr "편지가 성공적으로 보내졌습니다."
+msgstr "메시지를 성공적으로 보냄"
 
 #: lib/Compose.php:2035
 #, php-format
 msgid "Message from %s"
-msgstr "%s의 편지"
+msgstr "%s이(가) 보낸 메시지"
 
 #: lib/Flag/System/Attachment.php:37
 msgid "Message has Attachments"
-msgstr "첨부파일 포함"
+msgstr "메시지에 첨부파일이 존재함"
 
 #: lib/Flag/System/Encrypted.php:37
 msgid "Message is Encrypted"
-msgstr "암호화됨"
+msgstr "메시지가 암호화됨"
 
 #: lib/Flag/System/Signed.php:37
 msgid "Message is Signed"
-msgstr "전자서명 포함"
+msgstr "메시지가 서명됨"
 
 #: lib/Ajax/Application/Handler/Common.php:636 lib/Basic/Compose.php:412
 #: lib/Basic/Compose.php:418 lib/Minimal/Compose.php:236
-#, fuzzy
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
-msgstr[0] "편지가 성공적으로 전달되었습니다."
-msgstr[1] "편지가 성공적으로 전달되었습니다."
+msgstr[0] "메시지를 성공적으로 재전송했습니다."
 
 #: lib/Compose.php:1003
-#, fuzzy, php-format
+#, php-format
 msgid "Message sent successfully, but not saved to %s."
-msgstr "편지가 성공적으로 발송되었지만, %s에 저장되지 않았습니다."
+msgstr "메시지를 성공적으로 보냈으나, %s에 저장되지 않았습니다."
 
 #: lib/Ajax/Application/Handler/Common.php:556 lib/Basic/Compose.php:552
 #: lib/Basic/Compose.php:558 lib/Minimal/Compose.php:320
 msgid "Message sent successfully."
-msgstr "편지가 성공적으로 보내졌습니다."
+msgstr "메시지를 성공적으로 보냈습니다."
 
 #: templates/minimal/compose.html.php:43
-#, fuzzy
 msgid "Message:"
-msgstr "편지"
+msgstr "메시지:"
 
 #: lib/Dynamic/Mailbox.php:518
-#, fuzzy, php-format
+#, php-format
 msgid "Messages %d - %d"
-msgstr "%d / %d 페이지"
+msgstr "Messages %d 번째 - %d 번째"
 
 #: lib/Search/Filter/Contacts.php:31
 msgid "Messages From Personal Contacts"
-msgstr "개인주소록에 포함된 사람의 편지"
+msgstr "개인 연락처의 보낸 메시지"
 
 #: config/prefs.php:1540
 msgid "Messages per page in the mailbox view."
-msgstr "편지함 페이지당 편지 갯수"
+msgstr "편지함 화면에 표시될 페이지 당 메시지 개수입니다."
 
 #: lib/Basic/Mailbox.php:251
+#, fuzzy
 msgid "Messages to"
-msgstr "편지함 선택"
+msgstr "메시지"
 
 #: lib/Search/Filter/Attachment.php:30
 msgid "Messages with Attachments"
-msgstr "첨부파일이 있는 메일"
+msgstr "첨부파일이 포함된 메시지"
 
 #: config/prefs.php:311
 msgid "Minutes needed to consider a event as non-conflicting in iTip"
-msgstr "인터넷일정(iTip)에서 중복으로 간주하지 않을 시간 단위(분)"
+msgstr "iTip에서 일정이 충돌하지 않음을 고려하는 데 필요한 시간(분)"
 
 #: templates/search/search.html.php:116
 msgid "Months"
-msgstr "월"
+msgstr "개월"
 
 #: templates/smartmobile/compose.html.php:48
 #: templates/smartmobile/message.html.php:26
-#, fuzzy
 msgid "More..."
-msgstr "추가 선택사항..."
+msgstr "더 보기..."
 
 #: lib/Basic/Mailbox.php:561 lib/Basic/Message.php:487
 #: templates/smartmobile/copymove.html.php:12
@@ -2538,76 +2358,72 @@ msgid "Move"
 msgstr "이동"
 
 #: lib/Dynamic/Mailbox.php:505
-#, php-format
+#, fuzzy, php-format
 msgid "Move %s to %s"
 msgid_plural "Move %s to %s"
-msgstr[0] "%s를 %s으로 이동"
-msgstr[1] "%s를 %s으로 이동"
+msgstr[0] "%s을(를) %s(으)로 이동"
 
 #: config/prefs.php:1162
 msgid ""
 "Move deleted messages to your Trash mailbox instead of marking them as "
 "deleted in the current mailbox?"
-msgstr "편지를 지우면, 지움 표시를 하는 대신 지운편지함으로 이동합니다."
+msgstr ""
+"삭제된 메시지를 현재 편지함에서 삭제된 것으로 표시하는 대신 지운 편지함으로 "
+"이동할까요?"
 
 #: config/prefs.php:1304
 msgid "Move to Inbox"
-msgstr "받은편지함으로 이동"
+msgstr "받은 편지함으로 이동"
 
 #: config/prefs.php:1293
 msgid "Move to Spam mailbox"
-msgstr "스팸편지함으로 이동"
+msgstr "스팸 편지함으로 이동"
 
 #: lib/Basic/Thread.php:202 templates/thread/thread.html.php:2
-#, fuzzy
 msgid "Multiple Message View"
-msgstr "편지 보기"
+msgstr "다중 메시지 화면"
 
 #: config/prefs.php:1496
 msgid "NONE"
-msgstr "없음"
+msgstr "설정되지 않음"
 
 #: templates/itip/action.html.php:67
 msgid "Name"
 msgstr "이름"
 
 #: lib/Compose/LinkedAttachment.php:221
-#, fuzzy, php-format
+#, php-format
 msgid "Name: %s"
-msgstr "이름"
+msgstr "이름: %s"
 
 #: lib/Basic/Search.php:498
-#, fuzzy
 msgid "Need at least one date in the date range search."
-msgstr "검색할 최소한 한개의 편지함을 선택하세요."
+msgstr "날짜 범위 기준으로 검색 시 최소 1개의 일자가 필요합니다."
 
 #: lib/Compose.php:746
-#, fuzzy
 msgid "Need at least one message recipient."
-msgstr "받는사람을 입력하세요."
+msgstr "메시지를 보내려면 최소 1명의 받는 사람이 필요합니다."
 
 #: lib/Mime/Viewer/Itip.php:606
-#, fuzzy
 msgid "Needs Action"
-msgstr "실행"
+msgstr "동작 필요"
 
 #: config/prefs.php:863 config/prefs.php:1225 config/prefs.php:1325
 #: config/prefs.php:1362 templates/prefs/remote.html.php:51
 msgid "Never"
-msgstr "사용하지 않음"
+msgstr "없음"
 
 #: config/prefs.php:1118
-#, fuzzy
 msgid "Never send read receipt"
-msgstr "답장 요청"
+msgstr "읽음 확인을 보내지 않음"
 
 #: templates/prefs/flags.html.php:46
 msgid "New Flag"
-msgstr "새로운 태그"
+msgstr "새로운 깃발"
 
 #: config/prefs.php:1350
 msgid "New Mail"
-msgstr "새로운 편지"
+msgstr "새로운 메일"
 
 #: lib/Application.php:438 lib/Basic/Compose.php:207
 #: lib/Basic/Compose.php:1151 lib/Compose.php:2145 lib/Dynamic/Base.php:157
@@ -2621,32 +2437,30 @@ msgid "New Message"
 msgstr "새 메시지"
 
 #: lib/Basic/Mailbox.php:944 lib/Message/Ui.php:241 lib/Message/Ui.php:270
-#, fuzzy, php-format
+#, php-format
 msgid "New Message to %s"
-msgstr "메시지"
+msgstr "%s에게 새로운 메시지 보내기"
 
 #: lib/Minimal/Mailbox.php:196
-#, fuzzy, php-format
+#, php-format
 msgid "New Search in %s"
-msgstr "%s 검색"
+msgstr "%s에서 새로 검색"
 
 #: templates/prefs/acl.html.php:58
-#, fuzzy
 msgid "New User"
-msgstr "새 편지함"
+msgstr "새로운 사용자"
 
 #: config/prefs.php:1369
 msgid "New mail poll interval on mailbox page:"
-msgstr "새로운 메일 확인 주기:"
+msgstr "편지함 페이지에서 새로운 메일 확인 주기:"
 
 #: templates/smartmobile/copymove.html.php:16
-#, fuzzy
 msgid "New mailbox name:"
-msgstr "우편함 파일"
+msgstr "새로운 편지함 이름:"
 
 #: lib/Block/Newmail.php:35
 msgid "Newest Unseen Messages"
-msgstr "최신 읽지 않은 메일"
+msgstr "새로운 읽지 않은 메시지"
 
 #: templates/smartmobile/message.html.php:77
 msgid "Next"
@@ -2654,7 +2468,7 @@ msgstr "다음"
 
 #: lib/Basic/Message.php:525 lib/Minimal/Message.php:260
 msgid "Next Message"
-msgstr "다음 편지"
+msgstr "다음 메시지"
 
 #: lib/Minimal/Mailbox.php:208 templates/basic/mailbox/navbar.html.php:20
 msgid "Next Page"
@@ -2667,112 +2481,97 @@ msgid "No"
 msgstr "아니오"
 
 #: templates/prefs/pgpprivatekey.html.php:111
-#, fuzzy
 msgid "No Expiration"
-msgstr "메일 서버 정보사항"
+msgstr "만료일 없음"
 
 #: templates/prefs/pgppublickey.html.php:28
 #: templates/prefs/smimepublickey.html.php:12
 msgid "No Keys in Keyring"
-msgstr "공개 인증서가 없음"
+msgstr "키링에 키가 존재하지 않음"
 
 #: lib/Basic/Mailbox.php:397 rss.php:84
 msgid "No Messages"
-msgstr "편지 없음"
+msgstr "메시지가 없음"
 
 #: lib/Basic/Mailbox.php:915
-#, fuzzy
 msgid "No Preview Text"
-msgstr "메모 내용"
+msgstr "미리 보기 내용이 없음"
 
 #: templates/search/search.html.php:29
 msgid "No Search Criteria"
-msgstr "검색 조건 없음"
+msgstr "검색 조건이 없음"
 
 #: templates/search/search.html.php:59
-#, fuzzy
 msgid "No Search Mailboxes"
-msgstr "편지 검색"
+msgstr "검색 편지함이 없음"
 
 #: lib/Dynamic/Mailbox.php:258
-#, fuzzy
 msgid "No Sort"
-msgstr "임시편지 아님"
+msgstr "정렬 없음"
 
 #: templates/prefs/newmailaudio.html.php:9
 msgid "No Sound"
-msgstr "알림음 없음"
+msgstr "소리 없음"
 
 #: lib/Spam.php:124
-#, fuzzy
 msgid "No Subject"
-msgstr "[제목 없음]"
+msgstr "제목 없음"
 
 #: lib/Dynamic/Mailbox.php:242
-#, fuzzy
 msgid "No actions available"
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "사용 가능한 동작이 없음"
 
 #: lib/Basic/Folders.php:193
-#, fuzzy
 msgid "No mailboxes were specified"
-msgstr "편지함을 선택하세요"
+msgstr "편지함이 지정되지 않음"
 
 #: lib/Block/Summary.php:104
-#, fuzzy
 msgid "No mailboxes with unseen messages"
-msgstr "읽지 않은 편지가 있는 편지함 없음"
+msgstr "읽지 않은 메시지가 있는 편지함이 없음"
 
 #: lib/Compose.php:2066
 msgid "No message body text"
-msgstr "편지 본문 없음"
+msgstr "메시지 본문 내용이 없음"
 
 #: lib/Dynamic/Message.php:33
-#, fuzzy
 msgid "No message index given."
-msgstr "편지 본문 없음"
+msgstr "메시지 색인이 제공되지 않았습니다."
 
 #: lib/Dynamic/Mailbox.php:502 lib/Smartmobile.php:174
 msgid "No messages"
-msgstr "0개의 편지"
+msgstr "0개의 메시지"
 
 #: lib/Dynamic/Mailbox.php:521
-#, fuzzy
 msgid "No messages matched the search query."
-msgstr "찾는 편지가 없습니다."
+msgstr "검색 쿼리와 일치하는 메시지가 없습니다."
 
 #: templates/basic/mailbox/empty_mailbox.html.php:4
-#, fuzzy
 msgid "No messages matched your search criteria."
-msgstr "찾는 편지가 없습니다."
+msgstr "검색 조건에 일치하는 메시지가 없습니다."
 
 #: templates/minimal/mailbox.html.php:41
-#, fuzzy
 msgid "No messages."
-msgstr "편지 없음"
+msgstr "메시지가 없습니다."
 
 #: templates/prefs/smimeprivatekey.html.php:43
 msgid "No personal certificate"
 msgstr "개인 인증서 없음"
 
 #: templates/prefs/remote.html.php:97
-#, fuzzy
 msgid "No remote accounts configured"
-msgstr "Nag가 정상적으로 설정되어 있지 않습니다."
+msgstr "원격 계정이 구성되지 않음"
 
 #: lib/Basic/Searchbasic.php:81
-#, fuzzy
 msgid "No search criteria specified."
-msgstr "편지함을 선택하세요"
+msgstr "검색 조건이 지정되지 않았습니다."
 
 #: lib/Dynamic/Compose/Common.php:256
-#, fuzzy
 msgid "No spelling errors found."
-msgstr "철자 오류 없음"
+msgstr "맞춤법 오류를 발견하지 못했습니다."
 
 #: lib/Block/Newmail.php:68
 msgid "No unread messages"
-msgstr "읽지 않은 메일 없음"
+msgstr "읽지 않은 메시지가 없음"
 
 #: lib/Compose/Ui.php:223 lib/Mime/Viewer/Itip.php:388
 #: lib/Mime/Viewer/Itip.php:543
@@ -2783,7 +2582,7 @@ msgstr "읽지 않은 메일 없음"
 #: templates/prefs/drafts.html.php:7 templates/prefs/sentmail.html.php:7
 #: templates/prefs/spam.html.php:7 templates/prefs/trash.html.php:7
 msgid "None"
-msgstr "모두 선택 안함"
+msgstr "없음"
 
 #: lib/Basic/Compose.php:866 lib/Dynamic/Compose/Common.php:224
 msgid "Normal"
@@ -2792,159 +2591,146 @@ msgstr "보통"
 #: lib/Flag/Base.php:182
 #, php-format
 msgid "Not %s"
-msgstr "%s을 뺀 것"
+msgstr "%s이(가) 아님"
 
 #: lib/Flag/Imap/NotJunk.php:38
 msgid "Not Junk"
-msgstr "스팸 아님"
+msgstr "정상"
 
 #: lib/Crypt/Pgp.php:151 lib/Crypt/Smime.php:159
-#, fuzzy
 msgid "Not a valid public key."
-msgstr "잘못된 이름."
+msgstr "올바른 공개용 키가 아닙니다."
 
 #: templates/basic/flist/flist.html.php:60
 #: templates/basic/flist/flist.html.php:63
-#, fuzzy
 msgid "Notepads"
-msgstr "메모장"
+msgstr "노트패드"
 
 #: config/prefs.php:1289 config/prefs.php:1303
 msgid "Nothing"
-msgstr "아무것도 하지 않기"
+msgstr "아무 것도 하지 않음"
 
 #: templates/contacts/contacts.html.php:68
 msgid "OK"
-msgstr "확인"
+msgstr "OK"
 
 #: lib/Basic/Search.php:502 lib/Search/Element/Or.php:39
 #: templates/pgp/import_key.html.php:49 templates/smime/import_key.html.php:36
 msgid "OR"
-msgstr "혹은"
+msgstr "또는"
 
 #: lib/LoginTasks/Task/DeleteSentmailMonthly.php:72
-#, fuzzy
 msgid "Old sent-mail mailboxes being purged."
-msgstr "보낸편지함(Sent)의 오래된 편지를 지우고 있습니다."
+msgstr "오래된 보낸 편지함을 비우고 있습니다."
 
 #: lib/Basic/Search.php:97 lib/Search/Element/Within.php:79
 msgid "Older Than"
-msgstr "보다 오래된"
+msgstr "다음 보다 오래됨"
 
 #: lib/Search/Element/Daterange.php:113
-#, fuzzy, php-format
+#, php-format
 msgid "On '%s'"
-msgstr "수정 '%s'"
+msgstr "'%s' 날짜와 일치함"
 
 #: lib/Basic/Folders.php:56
-#, fuzzy
 msgid "Only one mailbox should be selected for this action."
-msgstr "실행할 하나의 편지함을 선택하세요."
+msgstr "이 동작에서는 1개의 편지함만 선택해야 합니다."
 
 #: templates/dynamic/mailbox.html.php:88
 msgid "Open in new window"
-msgstr "새 창에서 보기"
+msgstr "새 창에서 열기"
 
 #: lib/Mailbox.php:1636
 msgid "Opened Folder"
-msgstr "열린 편지함"
+msgstr "열린 폴더"
 
 #: templates/dynamic/mailbox.html.php:21
 msgid "Other"
-msgstr "기타"
+msgstr "기타 옵션"
 
 #: templates/dynamic/compose.html.php:91 templates/dynamic/mailbox.html.php:75
 #: templates/dynamic/mailbox.html.php:106
 msgid "Other Options"
-msgstr "기타 설정"
+msgstr "기타 옵션"
 
 #: lib/Mailbox.php:1524
-#, fuzzy
 msgid "Other Users"
-msgstr "기타"
+msgstr "기타 사용자"
 
 #: lib/Crypt/Pgp.php:45
-#, fuzzy
 msgid "PGP Encrypt Message"
-msgstr "편지로 가기"
+msgstr "메시지 PGP 암호화하기"
 
 #: lib/Compose.php:1707
-#, fuzzy
 msgid "PGP Error: "
-msgstr "읽어오기(임포트) 오류: "
+msgstr "PGP 오류:"
 
 #: lib/Basic/Pgp.php:55
-#, fuzzy, php-format
+#, php-format
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
-msgstr "편지함 \"%s\"이 삭제되었습니다."
+msgstr "\"%s (%s)\"에 대한 PGP 공개 키를 성공적으로 추가했습니다."
 
 #: lib/Prefs/Special/PgpPublicKey.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
-msgstr "편지함 \"%s\"이 삭제되었습니다."
+msgstr "\"%s\"에 대한 PGP 공개 키를 성공적으로 삭제했습니다."
 
 #: templates/prefs/pgppublickey.html.php:4
-#, fuzzy
 msgid "PGP Public Keyring"
-msgstr "전체 이름:"
+msgstr "PGP 공개용 키 링"
 
 #: lib/Crypt/Pgp.php:50
-#, fuzzy
 msgid "PGP Sign Message"
-msgstr "편지 전송"
+msgstr "PGP 서명 메시지"
 
 #: lib/Crypt/Pgp.php:51
-#, fuzzy
 msgid "PGP Sign/Encrypt Message"
-msgstr "편지 전송"
+msgstr "PGP 서명/암호화 메시지"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:169
-#, fuzzy
 msgid "PGP passphrase successfully unloaded."
-msgstr "편지가 발송되었지만, 저장되지 않았습니다."
+msgstr "PGP 암호를 성공적으로 언로드했습니다."
 
 #: templates/basic/mailbox/navbar.html.php:17
-#, fuzzy
 msgid "Page"
-msgstr "마지막 페이지"
+msgstr "페이지"
 
 #: lib/Basic/Mailbox.php:400
 #, php-format
 msgid "Page %d of %d"
-msgstr "%d / %d 페이지"
+msgstr "%d 페이지, 전체 %d 페이지"
 
 #: lib/Ajax/Application/ShowMessage.php:308 lib/Basic/Message.php:881
 #: lib/Dynamic/Base.php:195
 msgid "Parts"
-msgstr "부분"
+msgstr "일부"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:138
-#, fuzzy
 msgid "Passphrases do not match"
-msgstr "암호가 일치하지 않습니다."
+msgstr "암호가 일치하지 않음"
 
 #: templates/smime/import_key.html.php:60
 msgid "Password"
 msgstr "암호"
 
 #: lib/Dynamic/Mailbox.php:512
-#, fuzzy, php-format
+#, php-format
 msgid "Password for %s:"
-msgstr "암호"
+msgstr "%s에 대한 암호:"
 
 #: lib/Dynamic/Mailbox.php:493
-#, fuzzy, php-format
+#, php-format
 msgid "Permanently delete %s?"
-msgstr "이 일정을 완전히 삭제하시겠습니까?"
+msgstr "%s을(를) 영구적으로 삭제할까요?"
 
 #: lib/Dynamic/Mailbox.php:497
-#, fuzzy, php-format
+#, php-format
 msgid "Permanently delete all %d messages in %s?"
-msgstr "이 일정을 완전히 삭제하시겠습니까?"
+msgstr "%s의 모든 %d개의 메시지를 영구적으로 삭제할까요?"
 
 #: lib/Flag/System/Personal.php:37
 msgid "Personal"
-msgstr "개인편지"
+msgstr "개인"
 
 #: config/prefs.php:15
 msgid "Personal Information"
@@ -2953,115 +2739,100 @@ msgstr "개인 정보"
 #: lib/Basic/Search.php:130 lib/Search/Element/Personal.php:70
 #: lib/Search/Filter/Personal.php:30
 msgid "Personal Messages"
-msgstr "개인 편지"
+msgstr "개인 메시지"
 
 #: lib/Basic/Pgp.php:88
-#, fuzzy
 msgid "Personal PGP key successfully added."
-msgstr "%s 파일이 임포트되었습니다."
+msgstr "개인 PGP 키를 성공적으로 추가했습니다."
 
 #: lib/Prefs/Special/PgpPrivateKey.php:155
-#, fuzzy
 msgid "Personal PGP keypair generated successfully."
-msgstr "편지가 성공적으로 전달되었습니다."
+msgstr "개인 PGP 키 페어를 성공적으로 생성했습니다."
 
 #: lib/Prefs/Special/PgpPrivateKey.php:117
-#, fuzzy
 msgid "Personal PGP keys deleted successfully."
-msgstr "편지가 성공적으로 전달되었습니다."
+msgstr "개인 PGP 키를 성공적으로 삭제했습니다."
 
 #: lib/Prefs/Special/SmimePrivateKey.php:93
-#, fuzzy
 msgid "Personal S/MIME keys deleted successfully."
-msgstr "편지가 성공적으로 전달되었습니다."
+msgstr "개인 S/MIME 키를 성공적으로 삭제했습니다."
 
 #: config/prefs.php:510
 msgid "Plain Text"
-msgstr "평문"
+msgstr "일반 텍스트"
 
 #: lib/Compose.php:1573
-#, fuzzy
 msgid "Plaintext Message"
-msgstr "다음 편지"
+msgstr "일반 텍스트 메시지"
 
 #: templates/prefs/newmailaudio.html.php:3
 msgid ""
 "Play a sound when receiving new mail? Although most browsers support "
 "embedded sound files, some may require a plugin."
 msgstr ""
-"새로운 메일 도착 알림음. 대다수의 브라우저가 기능을 지원하지만, 어떤 브라우저"
-"는 플러그인이 필요할 수 있습니다."
+"새로운 메일이 도착하면 소리를 재생할까요? 대부분의 브라우저가 내장된 소리 파"
+"일을 지원하긴 하나, 일부는 플러그인이 필요할 수도 있습니다."
 
 #: lib/Application.php:349
-#, fuzzy
 msgid "Please choose a mail server."
-msgstr "메일서버 종류 선택:"
+msgstr "메일 서버를 선택해주세요."
 
 #: lib/Basic/Mailbox.php:368 lib/Basic/Message.php:403
-#, fuzzy
 msgid "Please enter a name for the new mailbox:"
-msgstr "새 편지함의 이름을 입력하세요:"
+msgstr "새로운 편지함의 이름을 입력해주세요."
 
 #: lib/Prefs/Special/Flag.php:48
 msgid "Please enter the label for the new flag:"
-msgstr "새로운 태그의 이름을 입력하세요:"
+msgstr "새로운 깃발에 대한 라벨을 입력해주세요:"
 
 #: lib/Basic/Folders.php:61 lib/Basic/Folders.php:62
-#, fuzzy
 msgid "Please enter the name of the new mailbox:"
-msgstr "새로운 리스트의 이름을 입력하세요:"
+msgstr "새로운 편지함의 이름을 입력해주세요:"
 
 #: lib/Basic/Folders.php:58
 msgid "Please enter the new name:"
-msgstr "새 이름을 입력하세요:"
+msgstr "새로운 이름을 입력해주세요:"
 
 #: lib/Basic/Folders.php:59
-#, fuzzy
 msgid "Please select a mailbox before you perform this action."
-msgstr "실행전에 편지함을 선택하세요."
+msgstr "이 동작을 수행하기 전에 편지함을 선택해주세요:"
 
 #: templates/contacts/contacts.html.php:33
-#, fuzzy
 msgid "Please select address(es)"
-msgstr "* 주소를 선택하세요 *"
+msgstr "주소를 선택해주세요"
 
 #: lib/Basic/Search.php:499
-#, fuzzy
 msgid "Please select at least one mailbox to search."
-msgstr "검색할 최소한 한개의 편지함을 선택하세요."
+msgstr "검색할 최소 1개의 편지함을 선택해주세요:"
 
 #: lib/Basic/Search.php:497
-#, fuzzy
 msgid "Please select at least one search criteria."
-msgstr "검색할 최소한 한개의 편지함을 선택하세요."
+msgstr "최소 1개의 검색 조건을 선택해주세요."
 
 #: templates/prefs/remote.html.php:39 templates/prefs/remote.html.php:69
-#, fuzzy
 msgid "Port"
-msgstr "붙이기"
+msgstr "포트"
 
 #: lib/Imap/Acl.php:180 templates/prefs/acl.html.php:40
 #: templates/prefs/acl.html.php:75
-#, fuzzy
 msgid "Post"
-msgstr "붙이기"
+msgstr "게시"
 
 #: config/prefs.php:58
 msgid "Precede your text signature with dashes ('-- ')?"
-msgstr "서명앞에 서명구분자('-- ') 넣기"
+msgstr "텍스트 서명 앞에 점선('--')으로 표시할까요?"
 
 #: lib/Basic/Compose.php:1046
 msgid "Preview"
-msgstr "미리보기"
+msgstr "미리 보기"
 
 #: templates/smartmobile/message.html.php:74
-#, fuzzy
 msgid "Previous"
-msgstr "이전 일"
+msgstr "이전"
 
 #: lib/Basic/Message.php:518 lib/Minimal/Message.php:254
 msgid "Previous Message"
-msgstr "이전 편지"
+msgstr "이전 메시지"
 
 #: lib/Minimal/Mailbox.php:205 templates/basic/mailbox/navbar.html.php:13
 msgid "Previous Page"
@@ -3072,12 +2843,10 @@ msgid "Print"
 msgstr "인쇄"
 
 #: lib/Contents/View.php:260
-#, fuzzy
 msgid "Printed By"
-msgstr "인쇄"
+msgstr "인쇄자:"
 
 #: config/prefs.php:1431
-#, fuzzy
 msgid "Printing"
 msgstr "인쇄"
 
@@ -3085,131 +2854,119 @@ msgstr "인쇄"
 #: lib/Minimal/Message.php:175 templates/dynamic/compose.html.php:79
 #: templates/itip/action.html.php:20
 msgid "Priority"
-msgstr "우선순위"
+msgstr "우선 순위"
 
 #: templates/smime/import_key.html.php:66
 msgid "Private Key Password"
-msgstr "개인키 비밀번호"
+msgstr "비공개 키 암호"
 
 #: lib/Crypt/Pgp.php:679
-#, fuzzy
 msgid "Public PGP keyserver support has been disabled."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "공개 PGP 키 서버 지원을 비활성화했습니다."
 
 #: lib/Basic/Mailbox.php:480 lib/Basic/Mailbox.php:631
 msgid "Pur_ge Deleted"
-msgstr "_g지운 편지 비우기"
+msgstr "지운 편지함 비우기"
 
 #: lib/Dynamic/Mailbox.php:396 lib/Minimal/Mailbox.php:188
 msgid "Purge Deleted"
-msgstr "지운 편지 비우기"
+msgstr "지운 메시지 비우기"
 
 #: config/prefs.php:1326
 msgid "Purge Spam mailbox how often:"
-msgstr "스팸편지함 비우기 실행주기:"
+msgstr "스팸 편지함 비움 주기:"
 
 #: config/prefs.php:1226
 msgid "Purge Trash how often:"
-msgstr "지운편지함 비우기 실행주기:"
+msgstr "지운 편지함 비움 주기:"
 
 #: lib/Imap/Acl.php:199
-#, fuzzy
 msgid "Purge messages"
-msgstr "새 편지"
+msgstr "메시지 비우기"
 
 #: config/prefs.php:1336
-#, fuzzy
 msgid "Purge messages in Spam mailbox older than this amount of days."
-msgstr "지정된 일 수보다 오래된 오래된 편지 지운편지함에서 지우기"
+msgstr "스팸 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:1238
-#, fuzzy
 msgid "Purge messages in Trash mailbox older than this amount of days."
-msgstr "지정된 일 수보다 오래된 오래된 편지 지운편지함에서 지우기"
+msgstr "지운 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:874
-#, fuzzy
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
-msgstr "지정된 일 수보다 오래된 오래된 편지 지운편지함에서 지우기"
+msgstr "보낸 편지함에서 다음 날짜보다 오래된 메시지를 비웁니다."
 
 #: config/prefs.php:864
 msgid "Purge sent mail how often:"
-msgstr "보낸편지함 비우기 실행주기:"
+msgstr "보낸 메일 비우기 주기:"
 
 #: lib/LoginTasks/Task/PurgeSpam.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "Purging %d message from Spam mailbox."
 msgid_plural "Purging %d messages from Spam mailbox."
-msgstr[0] "지운편지함에서 %d개 편지를 지움"
-msgstr[1] "지운편지함에서 %d개 편지를 지움"
+msgstr[0] "스팸 편지함에서 %d개의 메시지를 비우는 중입니다."
 
 #: lib/LoginTasks/Task/PurgeTrash.php:71
-#, fuzzy, php-format
+#, php-format
 msgid "Purging %d message from Trash mailbox."
 msgid_plural "Purging %d messages from Trash mailbox."
-msgstr[0] "지운편지함에서 %d개 편지를 지움"
-msgstr[1] "지운편지함에서 %d개 편지를 지움"
+msgstr[0] "지운 편지함에서 %d개의 메시지를 비우는 중입니다."
 
 #: lib/LoginTasks/Task/PurgeSentmail.php:74
-#, fuzzy, php-format
+#, php-format
 msgid "Purging %d messages from sent-mail mailbox."
-msgstr "지운편지함에서 %d개 편지를 지움"
+msgstr "보낸 편지함에서 %d개의 메시지를 비우는 중입니다."
 
 #: lib/LoginTasks/Task/PurgeSentmail.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Purging 1 message from sent-mail mailbox %s."
-msgstr "지운편지함에서 %d개 편지를 지움"
+msgstr "보낸 편지함 %s에서 1개의 메시지를 비우는 중입니다."
 
 #: config/prefs.php:709
 #, php-format
 msgid "Quoting %f:"
-msgstr "%f wrote:"
+msgstr "%f을(를) 인용합니다:"
 
 #: lib/Imap/Acl.php:164 templates/prefs/acl.html.php:39
 #: templates/prefs/acl.html.php:74
-#, fuzzy
 msgid "Read"
-msgstr "읽지 않은 메일"
+msgstr "읽음"
 
 #: lib/Dynamic/Compose/Common.php:164
 msgid "Read Receipt"
-msgstr "수신 확인"
+msgstr "읽음 확인"
 
 #: lib/Imap/Acl.php:163
-#, fuzzy
 msgid "Read messages"
-msgstr "새 편지"
+msgstr "읽은 메시지"
 
 #: lib/Minimal/Mailbox.php:117 templates/basic/mailbox/header.html.php:4
 #: templates/basic/subinfo.html.php:8
 #: templates/dynamic/mailbox_subinfo.html.php:6
-#, fuzzy
 msgid "Read-Only"
-msgstr "읽지 않은 메일"
+msgstr "읽기 전용"
 
 #: lib/Dynamic/Mailbox.php:289
 msgid "Rebuild Folder List"
-msgstr "편지함 목록 갱신"
+msgstr "폴더 목록 재생성"
 
 #: templates/search/search.html.php:18
-#, fuzzy
 msgid "Recent Searches"
-msgstr "편지 찾기"
+msgstr "최근 검색"
 
 #: lib/Basic/Search.php:61 lib/Dynamic/Mailbox.php:458
 #: templates/basic/search/search-basic.html.php:17
 #: templates/smartmobile/search.html.php:12
 msgid "Recipients (To/Cc/Bcc)"
-msgstr "수신인(수신/참조/숨은참조)"
+msgstr "받는 사람(To/CC/Bcc)"
 
 #: templates/itip/action.html.php:54
-#, fuzzy
 msgid "Recurrence"
-msgstr "반복 일"
+msgstr "반복"
 
 #: lib/Basic/Message.php:626 lib/Basic/Message.php:706
 msgid "Redirec_t"
-msgstr "_T바로 전달"
+msgstr "재전송"
 
 #: lib/Basic/Compose.php:400 lib/Basic/Mailbox.php:688
 #: lib/Dynamic/Base.php:180 lib/Dynamic/Compose.php:150
@@ -3221,8 +2978,7 @@ msgstr "_T바로 전달"
 #: templates/smartmobile/message.html.php:55
 msgid "Redirect"
 msgid_plural "Redirect Messages"
-msgstr[0] "바로 전달"
-msgstr[1] "바로 전달"
+msgstr[0] "재전송"
 
 #: lib/Minimal/Folders.php:58 lib/Minimal/Mailbox.php:181
 #: templates/basic/mailbox/header.html.php:9
@@ -3230,90 +2986,82 @@ msgstr[1] "바로 전달"
 #: templates/smartmobile/folders.html.php:9
 #: templates/smartmobile/mailbox.html.php:9
 msgid "Refresh"
-msgstr "새로고침"
+msgstr "새로 고침"
 
 #: templates/dynamic/mailbox.html.php:61
-#, fuzzy
 msgid "Refresh Search Results"
-msgstr "검색 결과"
+msgstr "검색 결과를 새로 고침"
 
 #: lib/Mime/Viewer/Itip.php:212
-#, fuzzy
 msgid "Remember the free/busy information."
-msgstr "편지 서버 정보사항"
+msgstr "한가함/바쁨 정보를 기억합니다."
 
 #: config/prefs.php:1640
 msgid "Remember the last view"
-msgstr "마지막 화면 기억"
+msgstr "최근 화면을 기억함"
 
 #: lib/Mailbox.php:1646
-#, fuzzy
 msgid "Remote Account"
-msgstr "칼럼 삭제"
+msgstr "원격 계정"
 
 #: config/prefs.php:136 lib/Mailbox.php:1520
-#, fuzzy
 msgid "Remote Accounts"
-msgstr "칼럼 삭제"
+msgstr "원격 계정제거"
 
 #: templates/contacts/contacts.html.php:59
-#, fuzzy
 msgid "Remove"
-msgstr "페어(pair) 삭제"
+msgstr "제거"
 
 #: lib/Dynamic/Mailbox.php:220 lib/Dynamic/Mailbox.php:351
 #: templates/basic/folders/actions.html.php:25
-#, fuzzy
 msgid "Rename"
-msgstr "이름 변경 "
+msgstr "이름 변경"
 
 #: lib/Dynamic/Mailbox.php:513
-#, fuzzy, php-format
+#, php-format
 msgid "Rename %s to:"
-msgstr "이름 변경 "
+msgstr "%s의 이름을 다음으로 변경:"
 
 #: config/prefs.php:842
 msgid "Rename sent mail mailbox at beginning of month?"
-msgstr "보낸편지함(Sent) 이름을 매월초 변경하기"
+msgstr "월초에 보낸 편지함의 이름을 변경할까요?"
 
 #: lib/Mailbox.php:884
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
-msgstr "\"%s\"를 \"%s\"로 이름을 변경하지 못했습니다. 서버 오류: "
+msgstr ""
+"\"%s\"의 이름을 \"%s\"(으)로 변경하는데 실패했습니다. 서버가 다음과 같이 응답"
+"했습니다"
 
 #: config/prefs.php:674
 msgid "Replies"
-msgstr "답장"
+msgstr "회신"
 
 #: lib/Dynamic/Compose.php:101 lib/Dynamic/Mailbox.php:309
 #: lib/Minimal/Compose.php:206 lib/Minimal/Message.php:233
 #: lib/Notification/Event/Status.php:39 templates/dynamic/mailbox.html.php:29
 #: templates/dynamic/message.html.php:12
 msgid "Reply"
-msgstr "답장"
+msgstr "회신"
 
 #: templates/smartmobile/message.html.php:33
-#, fuzzy
 msgid "Reply (Auto)"
-msgstr "전체 회신"
+msgstr "회신(자동)"
 
 #: lib/Minimal/Message.php:244
-#, fuzzy
 msgid "Reply All"
-msgstr "전체 회신"
+msgstr "모두 회신"
 
 #: lib/Ajax/Imple/ItipRequest.php:306 lib/Ajax/Imple/ItipRequest.php:417
-#, fuzzy
 msgid "Reply Sent."
-msgstr "회신:"
+msgstr "회신을 보냈습니다."
 
 #: templates/basic/compose/compose.html.php:160
 #: templates/basic/compose/compose.html.php:174
 #: templates/dynamic/compose.html.php:177
 #: templates/dynamic/compose.html.php:181
-#, fuzzy
 msgid "Reply To Sender instead"
-msgstr "리스트 회신"
+msgstr "보낸 사람에게 대신 회신"
 
 #: lib/Dynamic/Compose.php:105 templates/smartmobile/message.html.php:39
 msgid "Reply to All"
@@ -3326,35 +3074,31 @@ msgstr "전체 회신:"
 #: lib/Dynamic/Compose.php:109 lib/Minimal/Message.php:236
 #: templates/smartmobile/message.html.php:42
 msgid "Reply to List"
-msgstr "리스트 회신"
+msgstr "목록 회신"
 
 #: lib/Basic/Compose.php:339
 msgid "Reply to List:"
-msgstr "리스트 회신:"
+msgstr "목록 회신:"
 
 #: templates/smartmobile/message.html.php:36
-#, fuzzy
 msgid "Reply to Sender"
-msgstr "회신:"
+msgstr "보낸 사람에게 회신"
 
 #: lib/Mime/Viewer/Itip.php:215 lib/Mime/Viewer/Itip.php:224
-#, fuzzy
 msgid "Reply with Not Supported Message"
-msgstr "읽지 않은 첫번째 편지가 있는 페이지"
+msgstr "미지원 메시지로 회신"
 
 #: lib/Mime/Viewer/Itip.php:221
-#, fuzzy
 msgid "Reply with requested free/busy information."
-msgstr "데이타 임포트 오류"
+msgstr "요청한 한가함/바쁨 정보로 회신합니다."
 
 #: lib/Compose.php:2489 lib/Message/Ui.php:38
 msgid "Reply-To"
-msgstr "회신:"
+msgstr "회신"
 
 #: templates/smartmobile/message.html.php:24
-#, fuzzy
 msgid "Reply..."
-msgstr "회신"
+msgstr "회신..."
 
 #: lib/Basic/Compose.php:314
 msgid "Reply:"
@@ -3362,158 +3106,142 @@ msgstr "회신:"
 
 #: templates/smartmobile/message.html.php:92
 #: templates/smartmobile/message.html.php:107
-#, fuzzy
 msgid "Report"
-msgstr "가져오기"
+msgstr "보고"
 
 #: templates/minimal/mailbox.html.php:34
-#, fuzzy
 msgid "Report As Innocent"
-msgstr "스팸 고발"
+msgstr "정상으로 보고"
 
 #: templates/minimal/mailbox.html.php:33
-#, fuzzy
 msgid "Report As Spam"
-msgstr "스팸 고발"
+msgstr "스팸으로 보고"
 
 #: lib/Basic/Mailbox.php:704 lib/Basic/Message.php:698
 #: lib/Dynamic/Mailbox.php:318 lib/Minimal/Message.php:273
 #: templates/smartmobile/message.html.php:85
-#, fuzzy
 msgid "Report as Innocent"
-msgstr "스팸 고발"
+msgstr "정상으로 보고"
 
 #: lib/Basic/Mailbox.php:696 lib/Basic/Message.php:689
 #: lib/Dynamic/Mailbox.php:317 lib/Minimal/Message.php:269
 #: templates/smartmobile/message.html.php:100
 msgid "Report as Spam"
-msgstr "스팸 고발"
+msgstr "스팸으로 보고"
 
 #: templates/basic/compose/compose.html.php:138
 msgid "Request a _Read Receipt"
-msgstr "_R답장 요청"
+msgstr "읽음 확인 요청"
 
 #: config/prefs.php:578
 msgid "Request read receipts?"
-msgstr "답장 요청"
+msgstr "읽음 확인을 요청할까요?"
 
 #: lib/Ajax/Application/ShowMessage.php:87 lib/Basic/Mailbox.php:98
-#, fuzzy
 msgid "Requested message not found."
-msgstr "서명을 변경할 수 없습니다."
+msgstr "요청한 메시지를 발견하지 못했습니다."
 
 #: templates/prefs/remote.html.php:49
-#, fuzzy
 msgid "Required"
-msgstr "소스"
+msgstr "필수"
 
 #: lib/Mime/Viewer/Itip.php:643
-#, fuzzy
 msgid "Required Participant"
-msgstr "답장 요청"
+msgstr "필수 참가자"
 
 #: templates/basic/search/search-basic.html.php:50
 #: templates/contacts/contacts.html.php:25
 #: templates/search/search.html.php:106
 msgid "Reset"
-msgstr "새로작성"
+msgstr "초기화"
 
 #: lib/Dynamic/Mailbox.php:516
-#, fuzzy, php-format
+#, php-format
 msgid "Results are %d Minutes Old"
-msgstr "검색 결과"
+msgstr "%d분 전 결과입니다"
 
 #: lib/Basic/Message.php:673 templates/dynamic/mailbox.html.php:45
 msgid "Resume"
-msgstr "재작성"
+msgstr "이어 쓰기"
 
 #: lib/Dynamic/Mailbox.php:304 templates/dynamic/mailbox.html.php:94
 msgid "Resume Draft"
-msgstr "재작성하기"
+msgstr "작성 중인 메시지 이어서 쓰기"
 
 #: lib/Compose/Ui.php:80
-#, fuzzy
 msgid "Resume Editing"
-msgstr "재작성"
+msgstr "편집 계속하기"
 
 #: lib/Basic/Search.php:512
 #, php-format
 msgid "Return to %s"
-msgstr "%s으로 돌아가기"
+msgstr "%s(으)로 돌아가기"
 
 #: templates/basic/folders/folders_size.html.php:41
-#, fuzzy
 msgid "Return to Folders View"
-msgstr "필터 목록으로 돌아가기"
+msgstr "폴더 화면으로 돌아가기"
 
 #: templates/minimal/messagepart.html.php:15
-#, fuzzy
 msgid "Return to message view"
-msgstr "규칙 목록로 돌아가기"
+msgstr "메시지 화면으로 돌아기"
 
 #: config/prefs.php:1149
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
-msgstr "편지의 삭제, 이동, 복사후에는 편지함으로 돌아가기?"
+msgstr "메시지 삭제, 이동 또는 복사 후 목록 화면으로 돌아갈까요?"
 
 #: config/prefs.php:511
 msgid "Rich Text (HTML)"
-msgstr "HTML"
+msgstr "서식 있는 텍스트(HTML)"
 
 #: templates/itip/action.html.php:68
 msgid "Role"
 msgstr "역할"
 
 #: templates/minimal/search.html.php:9
-#, fuzzy
 msgid "Run Search"
-msgstr "간단한 검색"
+msgstr "검색 실행"
 
 #: lib/Crypt/Smime.php:47
 msgid "S/MIME Encrypt Message"
-msgstr "S/MIME 암호화"
+msgstr "메시지를 S/MIME 암호화하기"
 
 #: lib/Compose.php:1740
-#, fuzzy
 msgid "S/MIME Error: "
-msgstr "읽어오기(임포트) 오류: "
+msgstr "S/MIME 오류:"
 
 #: lib/Basic/Smime.php:194
-#, fuzzy
 msgid "S/MIME Key Information"
-msgstr "편지 서버 정보사항"
+msgstr "S/MIME 키 정보"
 
 #: lib/Prefs/Special/SmimePublicKey.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
-msgstr "편지함 \"%s\"이 삭제되었습니다."
+msgstr "\"%s\"에 대한 S/MIME 공개 키를 성공적으로 삭제했습니다."
 
 #: templates/prefs/smimepublickey.html.php:4
 msgid "S/MIME Public Keyring"
-msgstr "S/MIME 공개 인증서 목록"
+msgstr "S/MIME 공개용 키 링"
 
 #: lib/Basic/Smime.php:96
-#, fuzzy
 msgid "S/MIME Public/Private Keypair successfully added."
-msgstr "서명이 변경되었습니다."
+msgstr "S/MIME 공개/개인 키 페어를 성공적으로 추가했습니다."
 
 #: lib/Crypt/Smime.php:53
 msgid "S/MIME Sign Message"
-msgstr "S/MIME 전자서명"
+msgstr "S/MIME 서명 메시지"
 
 #: lib/Crypt/Smime.php:54
 msgid "S/MIME Sign/Encrypt Message"
-msgstr "S/MIME 전자서명 및 암호화"
+msgstr "S/MIME 서명/암호화 메시지"
 
 #: lib/Prefs/Special/SmimePrivateKey.php:96
-#, fuzzy
 msgid "S/MIME passphrase successfully unloaded."
-msgstr "편지가 발송되었지만, 저장되지 않았습니다."
+msgstr "S/MIME 암호를 성공적으로 언로드했습니다."
 
 #: lib/Basic/Smime.php:51
-#, fuzzy
 msgid "S/MIME public key successfully added."
-msgstr "%s 파일이 임포트되었습니다."
+msgstr "S/MIME 공개 키를 성공적으로 추가했습니다."
 
 #: config/prefs.php:431
 msgid ""
@@ -3521,17 +3249,17 @@ msgid ""
 "currently set to disable popup windows, you must change this setting or else "
 "the S/MIME features will not work correctly."
 msgstr ""
-"S/MIME 지원기능은 팝업창을 사용합니다. 사용중인 브라우저가 현재 팝업창을 제한"
-"하고 있다면, S/MIME기능이 제대로 동작하지 않습니다."
+"S/MIME 지원을 위해서는 팝업 창을 사용해야 합니다. 현재 브라우저에서 팝업 창"
+"을 차단하도록 설정했을 경우, 설정을 변경하지 않으면 S/MIME 기능이 제대로 작동"
+"하지 않습니다."
 
 #: templates/basic/compose/compose.html.php:77
 msgid "S_ubject"
-msgstr "_u제목"
+msgstr "제목"
 
 #: templates/basic/compose/compose.html.php:121
-#, fuzzy
 msgid "Sa_ve a copy in"
-msgstr "_v에 복사본 저장하기"
+msgstr "사본 저장 위치"
 
 #: lib/Basic/Message.php:681
 msgid "Sa_ve as"
@@ -3543,13 +3271,12 @@ msgid "Save"
 msgstr "저장"
 
 #: lib/Ajax/Application/ShowMessage.php:311
-#, fuzzy
 msgid "Save All"
-msgstr "모두 변경"
+msgstr "모두 저장"
 
 #: lib/Dynamic/Compose/Common.php:173
 msgid "Save Attachments in Sent Mailbox"
-msgstr "첨부파일을 보낸편지함에 저장"
+msgstr "첨부파일을 보낸 편지함에 저장"
 
 #: lib/Minimal/Compose.php:244 lib/Minimal/Compose.php:247
 #: lib/Minimal/Compose.php:294 templates/basic/compose/compose.html.php:24
@@ -3557,104 +3284,99 @@ msgstr "첨부파일을 보낸편지함에 저장"
 #: templates/minimal/compose.html.php:53
 #: templates/smartmobile/compose.html.php:55
 msgid "Save Draft"
-msgstr "임시보관함에 저장"
+msgstr "작성 중인 메시지 저장"
 
 #: lib/Basic/Saveimage.php:79
-#, fuzzy
 msgid "Save Image"
-msgstr "다른이름으로 저장"
+msgstr "이미지 저장"
 
 #: templates/search/search.html.php:74
 msgid "Save Search"
-msgstr "검색결과 저장"
+msgstr "검색 저장"
 
 #: templates/basic/compose/compose.html.php:27
 #: templates/basic/compose/compose.html.php:228
 #: templates/dynamic/compose.html.php:29
 msgid "Save Template"
-msgstr "템플릿 저장"
+msgstr "서식 저장"
 
 #: templates/basic/compose/compose.html.php:24
 #: templates/basic/compose/compose.html.php:225
 msgid "Save _Draft"
-msgstr "임시보관함에 저장"
+msgstr "작성 중인 메시지 저장"
 
 #: templates/dynamic/compose.html.php:39
 msgid "Save as Draft"
-msgstr "임시보관함에 저장"
+msgstr "임시 보관함에 저장"
 
 #: config/prefs.php:832
 msgid "Save attachments"
-msgstr "첨부파일 저장함"
+msgstr "첨부파일 저장"
 
 #: config/prefs.php:835
 msgid "Save attachments in the sent-mail message?"
-msgstr "첨부파일을 보낸편지함 저장여부"
+msgstr "보낸 편지함의 메시지에 첨부파일을 저장할까요?"
 
 #: lib/Basic/Compose.php:1016
-#, fuzzy
 msgid "Save attachments with message in sent-mail mailbox?"
-msgstr "첨부파일을 보낸편지함에 저장할까요?"
+msgstr "첨부파일을 메시지와 함께 보낸 편지함에 저장할까요?"
 
 #: config/prefs.php:797
 msgid "Save drafts as unseen?"
-msgstr "임시편지를 읽지 않음 상태로 저장"
+msgstr "작성 중인 메시지를 읽지 않음으로 저장할까요?"
 
 #: config/prefs.php:810
-#, fuzzy
 msgid "Save drafts automatically while composing?"
-msgstr "받는사람을 자동으로 주소록에 추가할까요?"
+msgstr "작성 중인 메시지를 임시 보관함에 자동으로 저장할까요?"
 
 #: templates/dynamic/compose.html.php:65
 msgid "Save in"
-msgstr "보관"
+msgstr "저장 위치"
 
 #: config/prefs.php:903
 msgid "Save recipients automatically to the default address book?"
-msgstr "받는사람을 자동으로 주소록에 추가할까요?"
+msgstr "기본 주소록에 받는 사람을 자동으로 저장할까요?"
 
 #: templates/dynamic/compose.html.php:73
-#, fuzzy
 msgid "Save sent mail"
-msgstr "보낸편지함에 저장"
+msgstr "보낸 메일 저장"
 
 #: config/prefs.php:86
 msgid "Save sent mail?"
-msgstr "보낸편지함에 저장"
+msgstr "보낸 메일을 저장할까요?"
 
 #: lib/Mime/Viewer/Smime.php:342
 msgid "Save the certificate to your Address Book."
-msgstr "주소록에 인증서 저장하기"
+msgstr "인증서를 주소록에 저장합니다."
 
 #: lib/Mime/Viewer/Pgp.php:370
-#, fuzzy
 msgid "Save the key to your address book."
-msgstr "탐색가능한 주소록이 없습니다."
+msgstr "키를 주소록에 저장"
 
 #: config/prefs.php:162
 msgid "Saved Searches"
-msgstr "간편분류함"
+msgstr "저장된 검색"
 
 #: lib/Basic/Search.php:500
-#, fuzzy
 msgid "Saved searches require a label."
-msgstr "간편편지함은 이름이 필요합니다."
+msgstr "저장된 검색에는 라벨이 필요합니다."
 
 #: lib/Compose.php:327
-#, fuzzy
 msgid "Saving the draft failed. Could not create a drafts mailbox."
-msgstr "임시편지 저장 오류. 서버의 오류: %s"
+msgstr ""
+"작성 중인 메시지를 저장하는데 실패했습니다. 임시 보관함을 생성할 수 없습니다."
 
 #: lib/Compose.php:322
-#, fuzzy
 msgid "Saving the draft failed. No drafts mailbox specified."
-msgstr "임시편지 저장 오류. 서버의 오류: %s"
+msgstr ""
+"작성 중인 메시지를 저장하는데 실패했습니다. 임시 보관함이 지정되지 않았습니"
+"다."
 
 #: lib/Compose.php:255
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Saving the message failed because it contains an invalid e-mail address: %s."
-msgstr "임시편지 저장 오류. 서버의 오류: %s"
+msgstr "잘못된 이메일 주소를 포함하고 있어 메시지 저장하는데 했습니다: %s"
 
 #: lib/Application.php:466 lib/Basic/Search.php:520
 #: lib/Basic/Searchbasic.php:120 lib/Dynamic/Mailbox.php:223
@@ -3676,35 +3398,32 @@ msgstr "%s 검색"
 #: lib/Search/Query.php:285
 #, php-format
 msgid "Search %s in %s"
-msgstr "%s으로 %s보기"
+msgstr "%s 검색, 위치: %s"
 
 #: lib/Dynamic/Mailbox.php:515
-#, fuzzy, php-format
+#, php-format
 msgid "Search (%s)"
-msgstr "%s 검색"
+msgstr "(%s) 검색"
 
 #: lib/Basic/Search.php:503
-#, fuzzy
 msgid "Search All Mailboxes"
-msgstr "편지 검색"
+msgstr "모든 편지함 검색"
 
 #: templates/search/search.html.php:25
 msgid "Search Criteria"
 msgstr "검색 조건"
 
 #: templates/basic/search/search-basic.html.php:11
-#, fuzzy
 msgid "Search Criteria:"
-msgstr "검색 실패"
+msgstr "검색 조건:"
 
 #: templates/basic/search/search-basic.html.php:28
-#, fuzzy
 msgid "Search Flags:"
-msgstr "%s 검색"
+msgstr "검색 깃발:"
 
 #: templates/search/search.html.php:55
 msgid "Search Mailboxes"
-msgstr "검색할 편지함"
+msgstr "편지함 검색"
 
 #: lib/Search/Query.php:144 lib/Smartmobile.php:182
 #: templates/contacts/contacts.html.php:31
@@ -3713,27 +3432,23 @@ msgstr "검색 결과"
 
 #: lib/Basic/Search.php:504
 msgid "Search Term:"
-msgstr "검색 문자열"
+msgstr "검색 기간:"
 
 #: lib/Basic/Search.php:505
-#, fuzzy
 msgid "Search all subfolders?"
-msgstr "보낸 편지함:"
+msgstr "모든 하위 폴더를 검색할까요?"
 
 #: templates/minimal/search.html.php:5
-#, fuzzy
 msgid "Search:"
-msgstr "검색"
+msgstr "검색:"
 
 #: lib/Basic/Searchbasic.php:32
-#, fuzzy
 msgid "Searching is not available."
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "검색도구를 사용할 수 없습니다."
 
 #: templates/prefs/remote.html.php:70
-#, fuzzy
 msgid "Secure"
-msgstr "서버"
+msgstr "보안"
 
 #: lib/Dynamic/Mailbox.php:236 lib/Flag/Imap/Seen.php:42
 msgid "Seen"
@@ -3741,7 +3456,7 @@ msgstr "읽음"
 
 #: templates/itip/action.html.php:106
 msgid "Select"
-msgstr "편지 선택"
+msgstr "선택"
 
 #: templates/dynamic/mailbox.html.php:188
 #: templates/dynamic/mailbox.html.php:205
@@ -3750,17 +3465,15 @@ msgstr "모두 선택"
 
 #: config/prefs.php:889
 msgid "Select address book sources for adding/searching."
-msgstr "주소 검색 및 추가를 위한 주소록 선택합니다."
+msgstr "연락처를 추가/검색할 주소록의 소스를 선택합니다."
 
 #: templates/saveimage/saveimage.html.php:8
-#, fuzzy
 msgid "Select the gallery to save the image in."
-msgstr "로그인후에 출력할 일정 선택:"
+msgstr "이미지를 저장할 갤러리를 선택하세요."
 
 #: templates/contacts/contacts.html.php:47
-#, fuzzy
 msgid "Selected Addresses"
-msgstr "선택된 주소록:"
+msgstr "선택한 주소"
 
 #: lib/Minimal/Compose.php:245 lib/Minimal/Compose.php:253
 #: lib/Minimal/Compose.php:306 templates/dynamic/compose.html.php:23
@@ -3769,37 +3482,36 @@ msgid "Send"
 msgstr "보내기"
 
 #: lib/Mime/Viewer/Itip.php:315
-#, fuzzy
 msgid "Send Latest Information"
-msgstr "편지 서버 정보사항"
+msgstr "최신 정보 보내기"
 
 #: templates/basic/compose/compose.html.php:21
 #: templates/basic/compose/compose.html.php:222
 #: templates/smartmobile/compose.html.php:46
 msgid "Send Message"
-msgstr "편지 보내기"
+msgstr "메시지 "
 
 #: lib/Mime/Viewer/Smime.php:326 lib/Mime/Viewer/Smime.php:345
 #, php-format
 msgid "Sender: %s"
-msgstr "보낸이: %s"
+msgstr "보내는 사람: %s"
 
 #: lib/Mailbox.php:1576 lib/Mailbox.php:1581 lib/Mailbox.php:1685
 msgid "Sent"
-msgstr "보낸편지함"
+msgstr "보낸 편지함"
 
 #: lib/Compose/LinkedAttachment.php:223
-#, fuzzy, php-format
+#, php-format
 msgid "Sent Date: %s"
-msgstr "날짜: "
+msgstr "보낸 날짜: %s"
 
 #: config/prefs.php:819
 msgid "Sent Mail"
-msgstr "보낸 편지"
+msgstr "보낸 메일"
 
 #: templates/prefs/sentmail.html.php:3
 msgid "Sent mail mailbox:"
-msgstr "보낸편지함 선택:"
+msgstr "보낸 편지함:"
 
 #: lib/Application.php:341 templates/prefs/remote.html.php:25
 #: templates/prefs/remote.html.php:67
@@ -3807,133 +3519,119 @@ msgid "Server"
 msgstr "서버"
 
 #: templates/prefs/specialuse.html.php:3
-#, fuzzy
 msgid "Server Suggestion"
-msgstr "제안"
+msgstr "서버 제안"
 
 #: lib/Imap/Acl.php:183
-#, fuzzy
 msgid "Set permissions for other users"
-msgstr "%s 권한 수정"
+msgstr "다른 사용자의 권한 설정"
 
 #: config/prefs.php:1138
 msgid "Set preferences for what happens when you move and delete messages."
-msgstr "편지 삭제 및 이동시 환경 설정"
+msgstr "메시지를 이동 또는 삭제할 때 동작을 설정합니다."
 
 #: config/prefs.php:110
-#, fuzzy
 msgid "Share Mailboxes"
-msgstr "보낸 편지함:"
+msgstr "공용 편지함"
 
 #: lib/Mailbox.php:1526
-#, fuzzy
 msgid "Shared"
-msgstr "공유 편지함"
+msgstr "공유함"
 
 #: config/prefs.php:439
 msgid "Should S/MIME signed messages be automatically verified when viewed?"
-msgstr "S/MIME 전자서명된 메일에 대하여 자동으로 검증하기"
+msgstr "S/MIME 서명 메시지를 표시할 때 자동으로 확인할까요?"
 
 #: lib/Message/Ui.php:302 templates/dynamic/header.html.php:4
-#, fuzzy, php-format
+#, php-format
 msgid "Show Addresses (%d)"
-msgstr "받는사람 주소"
+msgstr "주소 (%d) 표시"
 
 #: lib/Basic/Folders.php:378 templates/minimal/message.html.php:7
 #: templates/smartmobile/folders.html.php:10
 msgid "Show All"
-msgstr "모두 보기"
+msgstr "모두 표시"
 
 #: lib/Basic/Message.php:727
 msgid "Show All Headers"
-msgstr "모든 머릿글 보기"
+msgstr "모든 머리글 표시"
 
 #: lib/Dynamic/Mailbox.php:285 lib/Minimal/Folders.php:61
-#, fuzzy
 msgid "Show All Mailboxes"
-msgstr "모든 편지함 보기"
+msgstr "모든 편지함 표시"
 
 #: lib/Basic/Message.php:810
-#, fuzzy
 msgid "Show All Parts"
-msgstr "모든 머릿글 보기"
+msgstr "모든 부분 표시"
 
 #: lib/Basic/Message.php:720
-#, fuzzy
 msgid "Show Common Headers"
-msgstr "모든 머릿글 보기"
+msgstr "공통 머리글 표시"
 
 #: lib/Basic/Mailbox.php:289 lib/Dynamic/Mailbox.php:399
 msgid "Show Deleted"
-msgstr "지워진 편지 보기"
+msgstr "삭제된 메일 표시"
 
 #: lib/Basic/Message.php:739
 msgid "Show Mailing List Information"
-msgstr "메일링리스트 정보 보기"
+msgstr "메일 발송 목록 정보 표시"
 
 #: lib/Dynamic/Mailbox.php:444
 msgid "Show Only"
-msgstr "표시된 것만 보기"
+msgstr "표시"
 
 #: templates/basic/mailbox/navbar.html.php:63
-#, fuzzy
 msgid "Show Only:"
-msgstr "보여주기"
+msgstr "표시:"
 
 #: templates/smartmobile/folders.html.php:11
-#, fuzzy
 msgid "Show Polled"
-msgstr "모두 보기"
+msgstr "확인함 표시"
 
 #: lib/Dynamic/Mailbox.php:384
 msgid "Show Preview"
-msgstr "미리보기 보이기"
+msgstr "미리 보기 표시"
 
 #: templates/basic/folders/actions.html.php:46
-#, fuzzy
 msgid "Show Size"
-msgstr "리스트 보기"
+msgstr "크기 표시"
 
 #: lib/Minimal/Folders.php:61
-#, fuzzy
 msgid "Show Subscribed Mailboxes"
-msgstr "사용하는 편지함만 보기"
+msgstr "구독한 편지함 표시"
 
 #: templates/search/search.html.php:67
-#, fuzzy
 msgid "Show Unsubscribed Mailboxes"
-msgstr "사용하지 않는 편지함 보기"
+msgstr "구독 해지한 편지함 표시"
 
 #: config/prefs.php:1082
 msgid "Show all attachments"
-msgstr "첨부파일보기"
+msgstr "모든 첨부파일 표시"
 
 #: config/prefs.php:1081
 msgid "Show all parts"
-msgstr "모든 메일 조각 보기"
+msgstr "모든 부분 표시"
 
 #: config/prefs.php:293
 msgid "Show the filter icon on the menubar?"
-msgstr "메뉴바에 필터 아이콘을 보여줄까요?"
+msgstr "메뉴 바에 필터 아이콘을 표시할까요?"
 
 #: config/prefs.php:80
-#, fuzzy
 msgid "Show the signature on the compose screen?"
-msgstr "메뉴바에 필터 아이콘을 보여줄까요?"
+msgstr "작성 화면에 서명을 표시할까요?"
 
 #: config/prefs.php:1055
 msgid "Shown"
-msgstr "보여주기"
+msgstr "표시함"
 
 #: lib/Basic/Mailbox.php:753
 msgid "Si_ze"
-msgstr "_z크기"
+msgstr "크기"
 
 #: templates/basic/compose/compose.html.php:207
 #: templates/dynamic/compose.html.php:209
-#, fuzzy
 msgid "Signature"
-msgstr "서명을 흐릿하게 표시"
+msgstr "서명"
 
 #: lib/Dynamic/Mailbox.php:209 templates/basic/compose/compose.html.php:331
 #: templates/basic/folders/folders_size.html.php:10
@@ -3942,46 +3640,43 @@ msgstr "크기"
 
 #: lib/Basic/Search.php:106
 msgid "Size (KB) <"
-msgstr "크기 (KB) <"
+msgstr "크기(KB) <"
 
 #: lib/Basic/Search.php:111
 msgid "Size (KB) >"
-msgstr "크기 (KB) >"
+msgstr "크기(KB) >"
 
 #: lib/Search/Element/Size.php:62
-#, fuzzy
 msgid "Size - Greater Than (KB)"
-msgstr "링크 만들기"
+msgstr "크기 - 다음 보다 큼(KB)"
 
 #: templates/dynamic/mailbox.html.php:208
-#, fuzzy
 msgid "Sort"
-msgstr "또는"
+msgstr "정렬"
 
 #: lib/Basic/Mailbox.php:747
-#, fuzzy
 msgid "Sort by Date"
-msgstr "일자로 정렬"
+msgstr "날짜 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:732
 msgid "Sort by From Address"
-msgstr "보낸사람 정렬"
+msgstr "보낸 주소 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:752
 msgid "Sort by Message Size"
-msgstr "편지 크기 정렬"
+msgstr "메시지 크기 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:742
 msgid "Sort by Subject"
-msgstr "제목 정렬"
+msgstr "제목 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:737
 msgid "Sort by Thread"
-msgstr "댓글보기 정렬"
+msgstr "타래글 기준으로 정렬"
 
 #: lib/Basic/Mailbox.php:727
 msgid "Sort by To Address"
-msgstr "받는사람 정렬"
+msgstr "보내는 주소 기준으로 정렬"
 
 #: lib/Mailbox.php:1589 lib/Mailbox.php:1672
 #: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
@@ -3989,7 +3684,7 @@ msgstr "받는사람 정렬"
 #: templates/smartmobile/mailbox.html.php:31
 #: templates/smartmobile/message.html.php:60
 msgid "Spam"
-msgstr "스팸편지함"
+msgstr "스팸 편지함"
 
 #: config/prefs.php:1258
 msgid "Spam Reporting"
@@ -3997,39 +3692,35 @@ msgstr "스팸 보고"
 
 #: templates/prefs/spam.html.php:3
 msgid "Spam mailbox:"
-msgstr "스팸편지함:"
+msgstr "스팸 편지함:"
 
 #: lib/Compose/Ui.php:79
-#, fuzzy
 msgid "Spell Check Failed"
-msgstr "철자 검사기"
+msgstr "맞춤법 검사를 실패함"
 
 #: templates/itip/action.html.php:6
-#, fuzzy
 msgid "Start"
-msgstr "시작 일자"
+msgstr "시작"
 
 #: templates/smartmobile/search.html.php:16
-#, fuzzy
 msgid "Start Search"
-msgstr "검색항목 초기화"
+msgstr "검색 시작"
 
 #: templates/itip/action.html.php:69
 msgid "Status"
 msgstr "상태"
 
 #: lib/Basic/Message.php:836
-#, fuzzy
 msgid "Strip All Attachments"
-msgstr "첨부파일 제거"
+msgstr "모든 첨부파일 분리"
 
 #: lib/Contents.php:912
 msgid "Strip Attachment"
-msgstr "첨부파일 제거"
+msgstr "첨부파일 분리"
 
 #: lib/Basic/Mailbox.php:743
 msgid "Sub_ject"
-msgstr "_J제목"
+msgstr "제목"
 
 #: config/prefs.php:1500 lib/Basic/Search.php:77 lib/Compose.php:2493
 #: lib/Dynamic/Mailbox.php:184 lib/Dynamic/Mailbox.php:253
@@ -4043,489 +3734,453 @@ msgstr "제목"
 
 #: templates/minimal/compose.html.php:38
 #: templates/smartmobile/compose.html.php:36
-#, fuzzy
 msgid "Subject:"
-msgstr "제목"
+msgstr "제목:"
 
 #: templates/basic/search/search-basic.html.php:49
 #: templates/saveimage/saveimage.html.php:19
 #: templates/search/search.html.php:105
 #: templates/smartmobile/copymove.html.php:19
 msgid "Submit"
-msgstr "입력"
+msgstr "제출"
 
 #: lib/Dynamic/Mailbox.php:359 templates/basic/folders/actions.html.php:32
-#, fuzzy
 msgid "Subscribe"
-msgstr "사용하지 않는 편지함 보기"
+msgstr "구독"
 
 #: lib/Dynamic/Mailbox.php:526
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribe to %s?"
-msgstr "편지함 사용하기"
+msgstr "%s을(를) 구독할까요?"
 
 #: lib/Dynamic/Mailbox.php:527
-#, fuzzy, php-format
+#, php-format
 msgid "Subscribe to all subfolders of %s?"
-msgstr "편지함 사용하기"
+msgstr "%s의 모든 하위폴더를 구독할까요?"
 
 #: lib/Mime/Status.php:88
 msgid "Success"
 msgstr "성공"
 
 #: lib/Ajax/Imple/ImportEncryptKey.php:88
-#, fuzzy
 msgid "Successfully added certificate from message."
-msgstr "'%s'가 시스템에 추가되었습니다."
+msgstr "메시지로부터 인증서를 성공적으로 추가했습니다."
 
 #: lib/Ajax/Imple/ImportEncryptKey.php:76
-#, fuzzy
 msgid "Successfully added public key from message."
-msgstr "'%s'가 시스템에 추가되었습니다."
+msgstr "메시지로부터 공개용 키를 성공적으로 추가했습니다."
 
 #: lib/Ajax/Application/Handler/Remote.php:63
-#, fuzzy, php-format
+#, php-format
 msgid "Successfully authenticated to %s."
-msgstr "%s가 %s에 성공적으로 추가됨"
+msgstr "%s에 성공적으로 인증했습니다."
 
 #: templates/basic/folders/folders_size.html.php:30
-#, fuzzy
 msgid "Sum"
-msgstr "일"
+msgstr "합계"
 
 #: templates/itip/action.html.php:27
-#, fuzzy
 msgid "Summary"
-msgstr "나의 요약:"
+msgstr "요약"
 
 #: lib/Basic/Compose.php:963 templates/basic/compose/compose.html.php:147
-#, fuzzy
 msgid "Switch Composition Method"
-msgstr "HTML 작성모드로 전환"
+msgstr "작성 방법 전환"
 
 #: templates/basic/compose/compose.html.php:148
 msgid "Switch to HTML composition"
-msgstr "HTML 작성모드로 전환"
+msgstr "HTML 작성으로 전환"
 
 #: templates/basic/compose/compose.html.php:148
 msgid "Switch to plain text composition"
-msgstr "텍스트 작성모드로 전환"
+msgstr "평문 작성으로 전환"
 
 #: templates/basic/message/navbar_navigate.html.php:44
-#, fuzzy
 msgid "Target Mailbox"
-msgstr "외부 편지함:"
+msgstr "대상 편지함"
 
 #: templates/basic/mailbox/navbar.html.php:95
-#, fuzzy
 msgid "Target Mailbox:"
-msgstr "외부 편지함:"
+msgstr "대상 편지함:"
 
 #: templates/basic/flist/flist.html.php:43
 #: templates/basic/flist/flist.html.php:46
-#, fuzzy
 msgid "Task Lists"
-msgstr "작업 목록"
+msgstr "과제 목록"
 
 #: templates/basic/compose/compose.html.php:197
 msgid "Te_xt"
-msgstr "_x본문"
+msgstr "내용"
 
 #: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Status.php:111
 #: lib/Mime/Viewer/Status.php:123
-#, fuzzy
 msgid "Technical details"
-msgstr "자세히"
+msgstr "기술적 세부사항"
 
 #: lib/Mime/Viewer/Status.php:123
-#, fuzzy, php-format
+#, php-format
 msgid "Technical message details can be viewed %s."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "%s 메시지에 대한 기술적 세부사항을 볼 수 있습니다."
 
 #: lib/Contents.php:1371
-#, fuzzy
 msgid "Text"
-msgstr "_x본문"
+msgstr "내용"
 
 #: templates/smartmobile/compose.html.php:39
-#, fuzzy
 msgid "Text:"
-msgstr "_x본문"
+msgstr "내용:"
 
 #: config/prefs.php:1551
 msgid "The From: column of the message should be linked:"
-msgstr "받는사람 항목이 연결될 곳 선택하기"
+msgstr "메시지의 보내는 사람: 열을 다음과 같이 연결하는 것이 좋습니다:"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:824
-#, fuzzy
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
-msgstr "편지함 \"%s\"가 만들어지지 않았습니다. 서버 오류: "
+msgstr "메시지 확인 알림을 보내지 못했습니다. 서버가 다음과 같이 응답했습니다"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:835
-#, fuzzy
 msgid "The Message Disposition Notification was sent successfully."
-msgstr "편지가 성공적으로 보내졌습니다."
+msgstr "메시지 읽음 알림을 성공적으로 보냈습니다."
 
 #: templates/dynamic/compose.html.php:157
-#, fuzzy
 msgid "The attachment limit has been reached."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "첨부파일 제한용량에 도달했습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:73 lib/Mime/Viewer/Itip.php:89
-#, fuzzy
 msgid "The calendar data is invalid"
-msgstr "일정항목(iCal)이 없음."
+msgstr "달력 데이터가 잘못되었음"
 
 #: lib/LoginTasks/Task/RenameSentmailMonthly.php:114
-#, fuzzy, php-format
+#, php-format
 msgid "The current sent-mail mailbox(es) \"%s\" will be renamed."
-msgstr "현재 편지함 \"%s\"를 \"%s\"로 변경합니다."
+msgstr "현재 보낸 편지함 \"%s\"의 이름이 변경됩니다."
 
 #: lib/Mime/Viewer/Smime.php:263
 msgid "The data in this part has been digitally signed via S/MIME."
-msgstr "이 내용은 S/MIME으로 전자서명되었습니다."
+msgstr "이 부분의 데이터를 S/MIME로 디지털 서명했습니다."
 
 #: lib/Mime/Viewer/Pgp.php:223 lib/Mime/Viewer/Pgp.php:254
-#, fuzzy
 msgid "The data in this part has been encrypted via PGP."
-msgstr "이 메모가 암호화 되었습니다."
+msgstr "이 부분의 데이터를 PGP로 암호화했습니다."
 
 #: lib/Mime/Viewer/Smime.php:169
 msgid "The data in this part has been encrypted via S/MIME."
-msgstr "이 내용은 S/MIME으로 암호화 되었습니다."
+msgstr "이 부분의 데이터를 S/MIME로 암호화했습니다."
 
 #: config/prefs.php:1109
-#, fuzzy
 msgid "The default charset for messages:"
-msgstr "편지 보낼 때 사용할 기본 문자셋:"
+msgstr "메시지에 사용될 기본 문자조합:"
 
 #: lib/Compose.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "The draft has been saved to the \"%s\" mailbox."
-msgstr "작성 중인 편지가 '%s' 편지함에 저장되었습니다."
+msgstr "작성 중인 메시지를  \"%s\" 편지함에 저장했습니다."
 
 #: lib/Compose.php:352
-#, fuzzy
 msgid "The draft was not successfully saved."
-msgstr "서명이 변경되었습니다."
+msgstr "작성 중인 메시지를 성공적으로 저장하지 못했습니다."
 
 #: templates/prefs/imagereplacement.html.php:2
-#, fuzzy
 msgid ""
 "The list of addresses that will NOT have their images blocked by default "
 "(enter each address on a new line)"
 msgstr ""
-"모든 편지에 추가할 숨은참조 주소: <i>(선택사항이며, 한 줄에 주소 하나씩 쓰세"
-"요.)</i>"
+"기본으로 이미지를 차단하지 않을 이메일 주소 목록(각 이메일 주소를 한 줄씩 입"
+"력하세요)"
 
 #: lib/Ajax/Application/Handler/Dynamic.php:193
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" is already empty."
-msgstr "편지함 \"%s\"는 이미 비어있음."
+msgstr "편지함  \"%s\"(은)는 이미 비어 습니다."
 
 #: lib/Basic/Folders.php:241 lib/Mailbox.php:835
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" may not be deleted."
-msgstr "계정 \"%s\" 가 지워졌습니다."
+msgstr "편지함  \"%s\"(은)는 삭제되지 않을 수 있습니다."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:187 lib/Basic/Folders.php:248
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" may not be emptied."
-msgstr "편지함 \"%s\"는 이미 비어있음."
+msgstr "편지함  \"%s\"(은)는 비워지지 않을 수 있습니다."
 
 #: lib/Mailbox.php:874
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" may not be renamed."
-msgstr "계정 \"%s\" 가 저장되었습니다."
+msgstr "편지함  \"%s\"의 이름이 변경되지 않을 수 있습니다."
 
 #: lib/Mailbox.php:776
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" was not created. This is what the server said"
-msgstr "편지함 \"%s\"가 만들어지지 않았습니다. 서버 오류: "
+msgstr ""
+"편지함  \"%s\"을(를) 생성하지 않았습니다. 서버가 다음과 같이 응답했습니다"
 
 #: lib/Mailbox.php:844
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" was not deleted. This is what the server said"
-msgstr "편지함 \"%s\"가 지워지지 않았습니다. 서버 오류: "
+msgstr ""
+"편지함  \"%s\"을(를) 삭제하지 않았습니다. 서버가 다음과 같이 응답했습니다"
 
 #: lib/Mailbox.php:780
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" was successfully created."
-msgstr "편지함 \"%s\"가 만들어졌습니다."
+msgstr "편지함  \"%s\"을(를) 성공적으로 생성했습니다."
 
 #: lib/Mailbox.php:841
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" was successfully deleted."
-msgstr "편지함 \"%s\"가 지워졌습니다."
+msgstr "편지함  \"%s\"을(를) 성공적으로 삭제했습니다."
 
 #: lib/Mailbox.php:888
-#, fuzzy, php-format
+#, php-format
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
-msgstr "편지함 \"%s\"가 \"%s\"로 바뀌었습니다."
+msgstr "편지함  \"%s\"의 이름을 \"%s\"(으)로 성공적으로 변경했습니다."
 
 #: lib/Message.php:838
 #, php-format
 msgid "The mailbox %s is already empty."
-msgstr "편지함 \"%s\"는 이미 비어있음."
+msgstr "편지함  %s(은)는 이미 비었습니다."
 
 #: lib/Spam.php:130
-#, fuzzy, php-format
+#, php-format
 msgid "The message \"%s\" has been reported as innocent."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "메시지 \"%s\"을(를) 정상으로 보고했습니다."
 
 #: lib/Spam.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "The message \"%s\" has been reported as spam."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "메시지 \"%s\"을(를) 스팸으로 보고했습니다."
 
 #: lib/Basic/Contacts.php:110
-#, fuzzy
 msgid "The message being composed has been closed."
-msgstr "편지 삭제됨"
+msgstr "작성중이 메시지가 닫혔습니다."
 
 #: lib/Basic/Compose.php:745 lib/Smartmobile.php:181
-#, fuzzy
 msgid "The message does not have a Subject entered."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "메시지에 제목이 입력되지 않았습니다."
 
 #: lib/Dynamic/Compose/Common.php:254
-#, fuzzy
 msgid "The message does not have a subject entered."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "메시지에 제목이 입력되지 않았습니다."
 
 #: lib/Spam.php:131
-#, fuzzy, php-format
+#, php-format
 msgid "The message from \"%s\" has been reported as innocent."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "\"%s\"이(가) 보낸 메시지를 정상 메일로 보고했습니다."
 
 #: lib/Spam.php:137
-#, fuzzy, php-format
+#, php-format
 msgid "The message from \"%s\" has been reported as spam."
-msgstr "이 편지는 시스템 관리자에게 스팸으로 보고되었습니다."
+msgstr "\"%s\"이(가) 보낸 메시지를 스팸 메일로 보고했습니다."
 
 #: lib/Filter.php:76 lib/Spam.php:201
-#, fuzzy
 msgid "The message has been deleted."
 msgid_plural "The messages have been deleted."
-msgstr[0] "편지 삭제됨"
-msgstr[1] "편지 삭제됨"
+msgstr[0] "메시지를 삭제했습니다."
 
 #: lib/Block/Newmail.php:45
-#, fuzzy
 msgid "The number of unseen messages to show"
-msgstr "편지 전달"
+msgstr "표시될 읽지 않은 메시지 개수"
 
 #: lib/Dynamic/Mailbox.php:500
-#, fuzzy
 msgid "The server is still generating the message list."
-msgstr "임시편지 저장 오류"
+msgstr "서버가 아직도 메시지 목록을 생성하고 있습니다."
 
 #: lib/Dynamic/Mailbox.php:501
-#, fuzzy
 msgid "The server was unable to generate the message list."
-msgstr "내용이 없습니다."
+msgstr "서버가 메시지 목록을 생성할 수 없었습니다."
 
 #: lib/Message.php:100
-#, fuzzy
 msgid "The source directory is read-only."
-msgstr "이 주소록은 읽기 전용입니다."
+msgstr "원본 디렉터리가 읽기 전용입니다."
 
 #: lib/Message.php:96
-#, fuzzy
 msgid "The target directory is read-only."
-msgstr "이 주소록은 읽기 전용입니다."
+msgstr "대상 디렉터리가 읽기 전용입니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:238
-#, fuzzy
 msgid "The task has been added to your tasklist."
-msgstr "주소 \"%s\"는 %s에 추가되었습니다."
+msgstr "과제를 과제 목록에 추가했습니다."
 
 #: lib/Compose.php:686
-#, fuzzy
 msgid "The template has been saved."
-msgstr "식별자 \"%s\" 가 저장되었습니다."
+msgstr "서식을저장했습니다."
 
 #: lib/Compose.php:683
-#, fuzzy
 msgid "The template was not successfully saved."
-msgstr "서명이 변경되었습니다."
+msgstr "서식이 성공적으로 저장되지 않았습니다."
 
 #: lib/Mime/Viewer/Status.php:127
 msgid "The text of the message"
-msgstr "편지 내용"
+msgstr "메시지의 내용"
 
 #: lib/Mime/Viewer/Status.php:126
-#, fuzzy, php-format
+#, php-format
 msgid "The text of the message can be viewed %s."
-msgstr "편지 내용"
+msgstr "%s 메시지의 내용을 볼 수 있습니다."
 
 #: lib/Mime/Viewer/Status.php:115
-#, fuzzy
 msgid "The text of the returned message"
-msgstr "편지 전달"
+msgstr "반송된 메시지의 내용"
 
 #: lib/Mime/Viewer/Status.php:114
-#, fuzzy, php-format
+#, php-format
 msgid "The text of the returned message can be viewed %s."
-msgstr "편지 전달"
+msgstr "%s 반송된 메시지의 내용을 볼 수 있습니다."
 
 #: lib/Mime/Viewer/Mdn.php:94
-#, fuzzy
 msgid "The text of the sent message"
-msgstr "편지 전달"
+msgstr "보낸 메시지의 내용"
 
 #: lib/Mime/Viewer/Mdn.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "The text of the sent message can be viewed %s."
-msgstr "편지 전달"
+msgstr "%s 보낸 메시지의 내용을 볼 수 있습니다."
 
 #: lib/Mbox/Import.php:145
-#, fuzzy
 msgid "The uploaded file cannot be opened."
-msgstr "%s를 완성할 수 없습니다."
+msgstr "업로드된 파일을 열 수 없습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:218 lib/Mime/Viewer/Itip.php:207
-#, fuzzy
 msgid "The user's free/busy information was sucessfully stored."
-msgstr "서명이 변경되었습니다."
+msgstr "사용자의 한가함/바쁨 정보를 성공적으로 저장했습니다."
 
 #: lib/Dynamic/Mailbox.php:520
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
-msgstr "이 편지함에 편지가 없습니다."
+msgstr "이 편지함에 메시지가 없습니다."
 
 #: lib/Message.php:89
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "편지를 \"%s\"로 복사 오류. 서버 오류: "
+msgstr ""
+"메시지를 \"%s\"에서 \"%s\"(으)로 복사하는 동안 오류가 발생했습니다. 서버가 다"
+"음과 같이 응답했습니다"
 
 #: lib/Message.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error deleting messages from the mailbox \"%s\"."
-msgstr "편지 지우기 오류. 서버의 오류: "
+msgstr "편지함 \"%s\"에서 메시지를 삭제하는 동안 오류가 발생했습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:109
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error deleting the event: %s"
-msgstr "데이타 임포트 오류"
+msgstr "일정을 삭제하는 동안 오류가 발생했습니다: %s"
 
 #: lib/Message.php:686
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error flagging messages in the mailbox \"%s\": %s."
-msgstr "편지함 \"%s\"에서 편지 표시오류. 서버의 오류: "
+msgstr ""
+"편지함 \"%s\"에서 메시지에 깃발을 표시하는 동안 오류가 발생했습니다: %s"
 
 #: lib/Mbox/Import.php:58
 #, php-format
 msgid "There was an error importing %s."
-msgstr "%s 가져오기 오류"
+msgstr "%s을(를) 가져오는 동안 오류가 발생했습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:206
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error importing the event: %s"
-msgstr "데이타 임포트 오류"
+msgstr "일정을 가져오는 동안 오류가 발생했습니다: %s"
 
 #: lib/Ajax/Imple/ItipRequest.php:247
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error importing the task: %s"
-msgstr "가져오기 오류: %s"
+msgstr "과제를 가져오는 동안 오류가 발생했습니다: %s"
 
 #: lib/Ajax/Imple/ItipRequest.php:221 lib/Mime/Viewer/Itip.php:209
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error importing user's free/busy information: %s"
-msgstr "데이타 임포트 오류"
+msgstr "한가함/바쁨 정보를 가져오는 동안 오류가 발생했습니다: %s"
 
 #: lib/Message.php:85
 #, php-format
 msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
-msgstr "\"%s\"에서 \"%s\"로 이동 오류. 서버 오류: "
+msgstr ""
+"메시지를 \"%s\"에서 \"%s\"(으)로 이동하는 동안 오류가 발생했습니다. 서버가 다"
+"음과 같이 응답했습니다"
 
 #: lib/Compose.php:881
 #, php-format
 msgid "There was an error sending your message: %s"
-msgstr "편지 보내기 오류: %s"
+msgstr "메시지를 보내는 동안 오류가 발생했습니다: %s"
 
 #: lib/Ajax/Imple/ItipRequest.php:128 lib/Mime/Viewer/Itip.php:331
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error updating the event: %s"
-msgstr "데이타 임포트 오류"
+msgstr "일정을 업데이트하는 동안 오류가 발생했습니다: %s"
 
 #: lib/Ajax/Imple/ItipRequest.php:183
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "There was an error updating the event: %s Trying to import the event instead."
-msgstr "데이타 임포트 오류"
+msgstr ""
+"일정을 업데이트하는 동안 오류가 발생했습니다: %s이(가) 대신 일정을 가져오려"
+"고 합니다."
 
 #: lib/Minimal/Mailbox.php:71
-#, fuzzy
 msgid "There was an error viewing the requested message."
-msgstr "데이타 임포트 오류"
+msgstr "요청한 메시지를 표시하는 동안 오류가 발생했습니다."
 
 #: lib/Ajax/Imple/ItipRequest.php:112 lib/Ajax/Imple/ItipRequest.php:131
 #: lib/Ajax/Imple/ItipRequest.php:210 lib/Ajax/Imple/ItipRequest.php:224
 #: lib/Ajax/Imple/ItipRequest.php:250 lib/Ajax/Imple/ItipRequest.php:256
 #: lib/Ajax/Imple/ItipRequest.php:312 lib/Ajax/Imple/ItipRequest.php:430
-#, fuzzy
 msgid "This action is not supported."
-msgstr "이런 파일 형태를 지원하지 않습니다."
+msgstr "이 동작은 지원되지 않습니다."
 
 #: lib/Mime/Viewer/Images.php:172
-#, fuzzy
 msgid "This is a thumbnail of an image attachment."
-msgstr "이 그림의 썸네일을 보려면 %s를 누르세요."
+msgstr "이미지 첨부파일의 섬네일입니다."
 
 #: lib/Message.php:194 lib/Message.php:650
-#, fuzzy
 msgid "This mailbox is read-only."
-msgstr "이 주소록은 읽기 전용입니다."
+msgstr "편지함이 읽기 전용입니다."
 
 #: lib/Basic/Folders.php:55
 msgid "This may take some time. Are you sure you want to continue?"
-msgstr "이작업은 약간의 시간이 소요됩니다. 계속진행하시겠습니까?"
+msgstr "다소 시간이 걸릴 수 있습니다. 정말로 계속하시겠습니까?"
 
 #: lib/Mime/Viewer/Html.php:116
 msgid ""
 "This message part contains HTML data, but inline HTML display is disabled."
 msgstr ""
-"메일이 HTML로 작성되었습니다. HTML 바로보기가 비활성화되어있어 표시하지 않았"
-"습니다."
+"메시지 부분이 HTML 데이터를 포함하고 있으나 본문 HTML 표시가 비활성화됐습니"
+"다."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:130 lib/Basic/Message.php:503
+#, fuzzy
 msgid "This message to"
-msgstr "편지 이동하기"
+msgstr "메세지"
 
 #: lib/Minimal/Messagepart.php:49
-#, fuzzy
 msgid "This part is empty."
-msgstr "작업목록이 없습니다."
+msgstr "일부가 비어있습니다."
 
 #: config/prefs.php:1502 lib/Dynamic/Mailbox.php:254
 msgid "Thread"
-msgstr "대화"
+msgstr "타래글"
 
 #: templates/thread/thread.html.php:2
-#, fuzzy
 msgid "Thread Display"
-msgstr "기본 표시"
+msgstr "타래글 표시"
 
 #: lib/Basic/Thread.php:126
-#, fuzzy
 msgid "Thread List"
-msgstr "댓글 보기"
+msgstr "타래글 목록"
 
 #: lib/Dynamic/Mailbox.php:261
-#, fuzzy
 msgid "Thread Sort"
-msgstr "_T댓글순"
+msgstr "타래글 정렬"
 
 #: lib/Basic/Thread.php:201
 msgid "Thread View"
-msgstr "댓글 보기"
+msgstr "타래글 화면"
 
 #: lib/Basic/Mailbox.php:728 lib/Basic/Search.php:65 lib/Compose.php:2497
 #: lib/Dynamic/Mailbox.php:179 lib/Dynamic/Mailbox.php:252
@@ -4534,55 +4189,51 @@ msgstr "댓글 보기"
 #: templates/dynamic/compose.html.php:109
 #: templates/dynamic/mailbox.html.php:124 templates/thread/thread.html.php:21
 msgid "To"
-msgstr "받는사람"
+msgstr "받는 사람"
 
 #: config/prefs.php:1499
 msgid "To Address"
-msgstr "받는사람 주소"
+msgstr "받는 주소"
 
 #: lib/Dynamic/Base.php:163
 msgid "To All"
-msgstr "모두에게"
+msgstr "전체 회신"
 
 #: lib/Dynamic/Base.php:164
-#, fuzzy
 msgid "To List"
-msgstr "작업 목록"
+msgstr "목록 받음"
 
 #: lib/Basic/Message.php:575 lib/Dynamic/Base.php:162
 msgid "To Sender"
-msgstr "보낸 사람에게"
+msgstr "회신"
 
 #: lib/Basic/Message.php:594
 msgid "To _All"
-msgstr "모두 에게"
+msgstr "전체 회신"
 
 #: lib/Basic/Message.php:582
-#, fuzzy
 msgid "To _List"
-msgstr "_l리스트 보기"
+msgstr "목록 보냄"
 
 #: lib/Basic/Thread.php:109 lib/Basic/Thread.php:110 lib/Mailbox/Ui.php:75
 #: templates/dynamic/redirect.html.php:14
 #: templates/smartmobile/compose.html.php:7
 #: templates/smartmobile/compose.html.php:22
-#, fuzzy
 msgid "To:"
-msgstr "받는사람"
+msgstr "받는 사람:"
 
 #: lib/Minimal/Compose.php:50
-#, fuzzy
 msgid "To: "
-msgstr "받는사람"
+msgstr "받는 사람:"
 
 #: lib/Message/Ui.php:167
-#, fuzzy, php-format
+#, php-format
 msgid "Today, %s %s"
-msgstr "%d / %d (메시지: %d)"
+msgstr "오늘, %s %s"
 
 #: config/prefs.php:540
 msgid "Top"
-msgstr "상단"
+msgstr "위"
 
 #: lib/Block/Summary.php:107
 msgid "Total"
@@ -4590,155 +4241,140 @@ msgstr "전체"
 
 #: lib/Mailbox.php:1593 lib/Mailbox.php:1678
 msgid "Trash"
-msgstr "지운편지함"
+msgstr "지운 편지함"
 
 #: templates/prefs/trash.html.php:3
 msgid "Trash mailbox:"
-msgstr "지운편지함:"
+msgstr "지운 편지함:"
 
 #: templates/prefs/remote.html.php:15 templates/prefs/remote.html.php:66
 #: templates/search/search.html.php:86
 msgid "Type"
-msgstr "형태"
+msgstr "유형"
 
 #: lib/Compose/LinkedAttachment.php:222
-#, fuzzy, php-format
+#, php-format
 msgid "Type: %s"
-msgstr "할일: %s"
+msgstr "유형: %s"
 
 #: lib/Quota/Hook.php:46 lib/Quota/Imap.php:47
-#, fuzzy
 msgid "Unable to retrieve quota"
-msgstr "VFS 파일 %s/%s을(를) 변경할 수 없습니다."
+msgstr "제한용량 정보를 가져올 수 없음"
 
 #: lib/Basic/Message.php:546 lib/Dynamic/Mailbox.php:323
 #: lib/Dynamic/Mailbox.php:397 lib/Minimal/Message.php:223
 #: templates/minimal/mailbox.html.php:31
 msgid "Undelete"
-msgstr "복구"
+msgstr "삭제 취소"
 
 #: lib/Ajax/Application/ShowMessage.php:448 lib/Mailbox/Ui.php:81
 #: lib/Message/Ui.php:295
 msgid "Undisclosed Recipients"
-msgstr "알수 없는 수신인"
+msgstr "비공개 수신인"
 
 #: lib/Mime/Viewer/Itip.php:639
 msgid "Unknown"
-msgstr "알수 없슴"
+msgstr "알 수 없음"
 
 #: lib/Mailbox/Ui.php:144
-#, fuzzy
 msgid "Unknown Date"
-msgstr "알수 없는 작업"
+msgstr "알 수 없는 날짜"
 
 #: lib/Mime/Viewer/Itip.php:387
-#, fuzzy
 msgid "Unknown Meeting"
-msgstr "알 수 없는 수신인"
+msgstr "알 수 없는 미팅"
 
 #: lib/Mime/Viewer/Itip.php:542
-#, fuzzy
 msgid "Unknown Task"
-msgstr "알수 없는 작업"
+msgstr "알 수 없는 과제"
 
 #: lib/Dynamic/Mailbox.php:314 lib/Dynamic/Mailbox.php:390
 msgid "Unmark as"
-msgstr "표시지우기"
+msgstr "표시 해제"
 
 #: templates/basic/mailbox/navbar.html.php:47
 #: templates/basic/message/navbar_navigate.html.php:34
-#, fuzzy
 msgid "Unmark as:"
-msgstr "편지 표시:"
+msgstr "표시 해제:"
 
 #: lib/Block/Summary.php:107 lib/Dynamic/Mailbox.php:237
 #: lib/Flag/System/Unseen.php:47
 msgid "Unseen"
-msgstr "읽지않음"
+msgstr "읽지 않음"
 
 #: lib/Dynamic/Mailbox.php:360 templates/basic/folders/actions.html.php:33
-#, fuzzy
 msgid "Unsubscribe"
-msgstr "사용하지 않는 편지함 숨김"
+msgstr "구독 해제"
 
 #: lib/Dynamic/Mailbox.php:528
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribe to %s?"
-msgstr "편지함 사용하지 않음"
+msgstr " %s의 구독을 해제할까요?"
 
 #: lib/Dynamic/Mailbox.php:529
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribe to all subfolders of %s?"
-msgstr "편지함 사용하지 않음"
+msgstr " %s의 모든 하위 폴더로부터 구독을 해제할까요?"
 
 #: templates/basic/compose/compose.html.php:298
-#, fuzzy
 msgid "Update"
-msgstr "일자"
+msgstr "업데이트"
 
 #: templates/pgp/import_key.html.php:58 templates/smime/import_key.html.php:46
 msgid "Upload"
-msgstr "파일 올리기"
+msgstr "업로드"
 
 #: lib/Dynamic/Compose/Common.php:258
-#, fuzzy
 msgid "Uploading..."
-msgstr "파일 올리기"
+msgstr "업로드하는 중..."
 
 #: templates/prefs/sentmail.html.php:8
 msgid "Use Default Value"
-msgstr "기본값 사용"
+msgstr "기본 값 사용"
 
 #: config/prefs.php:1628
 msgid "Use IMAP mailbox subscriptions?"
-msgstr "IMAP 편지함 Subscription 사용"
+msgstr "IMAP 편지함 구독을 사용할까요?"
 
 #: templates/prefs/trash.html.php:9
-#, fuzzy
 msgid "Use Virtual Trash"
-msgstr "간편 지운편지함사용"
+msgstr "가상 지운 편지함 사용"
 
 #: templates/prefs/remote.html.php:50
-#, fuzzy
 msgid "Use if available"
-msgstr "이용가능한 선택사항이 없습니다."
+msgstr "사용 가능할 경우 사용"
 
 #: config/prefs.php:689
-#, fuzzy
 msgid "Use the charset of the original message when replying?"
-msgstr "답장에 기존 편지를 포함할까요?"
+msgstr "회신 시 원본 메시지의 문자 조합을 사용할까요?"
 
 #: templates/prefs/acl.html.php:12
-#, fuzzy
 msgid "User"
-msgstr "사용자명"
+msgstr "사용자"
 
 #: lib/Dynamic/Mailbox.php:511
 msgid "User Options"
-msgstr "사용자 설정"
+msgstr "사용자 옵션"
 
 #: lib/Imap/Acl.php:159
-#, fuzzy
 msgid "User can see the mailbox"
-msgstr "이 편지함에 편지가 없습니다."
+msgstr "사용자가 편지함을 볼 수 있음"
 
 #: templates/prefs/remote.html.php:32 templates/prefs/remote.html.php:68
 msgid "Username"
 msgstr "사용자명"
 
 #: lib/Dynamic/Base.php:199
-#, fuzzy
 msgid "Verifying..."
-msgstr "찾는중..."
+msgstr "확인하는 중..."
 
 #: lib/Dynamic/Mailbox.php:386
 msgid "Vertical Layout"
-msgstr "수직 배치"
+msgstr "수직 레이아웃"
 
 #: lib/Contents.php:1374
-#, fuzzy
 msgid "Video"
-msgstr "보기"
+msgstr "비디오"
 
 #: templates/minimal/message.html.php:19
 #: templates/prefs/pgpprivatekey.html.php:21
@@ -4748,134 +4384,124 @@ msgstr "보기"
 #: templates/prefs/smimeprivatekey.html.php:31
 #: templates/prefs/smimepublickey.html.php:22
 msgid "View"
-msgstr "보기"
+msgstr "화면"
 
 #: lib/Contents.php:852 lib/Contents.php:1021 lib/Mime/Viewer/Zip.php:107
 #, php-format
 msgid "View %s"
-msgstr "%s 보기"
+msgstr "%s 표시"
 
 #: lib/Prefs/Special/PgpPublicKey.php:67
 #: lib/Prefs/Special/SmimePublicKey.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "View %s Public Key"
-msgstr "전체 이름:"
+msgstr "%s의 공개용 키 표시"
 
 #: templates/dynamic/message.html.php:57
-#, fuzzy
 msgid "View All Parts"
-msgstr "%s 보기"
+msgstr "모든 부분 표시"
 
 #: lib/Mime/Viewer/Images.php:177 lib/Mime/Viewer/Images.php:181
 #: lib/Minimal/Messagepart.php:44
-#, fuzzy
 msgid "View Attachment"
-msgstr "파일첨부"
+msgstr "첨부파일 표시"
 
 #: templates/minimal/message.html.php:38
-#, fuzzy
 msgid "View Full Message"
-msgstr "모든 메시지 필터"
+msgstr "전체 메시지 표시"
 
 #: lib/Mime/Viewer/Html.php:76 lib/Mime/Viewer/Html.php:117
 msgid "View HTML data in new window."
-msgstr "새 창에서 HTML 내용 보기"
+msgstr "새 창에서 HTML 데이터를 표시합니다."
 
 #: lib/Dynamic/Mailbox.php:307
 msgid "View Message"
-msgstr "편지 보기"
+msgstr "메시지 표시"
 
 #: lib/Basic/Mailbox.php:711
-#, fuzzy
 msgid "View Messages"
-msgstr "메시지"
+msgstr "메시지 표시"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:51
-#, fuzzy
 msgid "View Personal Public Key"
-msgstr "전체 이름:"
+msgstr "개인 공개 키 표시"
 
 #: lib/Dynamic/Mailbox.php:326 lib/Dynamic/Mailbox.php:430
 #: templates/dynamic/message.html.php:43
 msgid "View Source"
-msgstr "메시지 소스 보기"
+msgstr "소스 표시"
 
 #: lib/Dynamic/Mailbox.php:432
 msgid "View Thread"
-msgstr "대화 보기"
+msgstr "타래글 표시"
 
 #: lib/Mime/Viewer/Smime.php:327
-#, fuzzy
 msgid "View certificate details"
-msgstr "작업 자세히 보기"
+msgstr "인증서 세부사항 표시"
 
 #: lib/Ajax/Imple/ItipRequest.php:173 lib/Ajax/Imple/ItipRequest.php:174
 #: lib/Ajax/Imple/ItipRequest.php:197 lib/Ajax/Imple/ItipRequest.php:198
-#, fuzzy
 msgid "View event"
-msgstr "메모 보기"
+msgstr "일정 표시"
 
 #: lib/Mime/Viewer/Pgp.php:372
-#, fuzzy
 msgid "View key details."
-msgstr "작업 자세히 보기"
+msgstr "키 세부사항을 표시합니다."
 
 #: lib/Basic/Mailbox.php:858
 #, php-format
 msgid "View messages in %s"
-msgstr "%s의 편지 보기"
+msgstr "%s에서 메시지 표시"
 
 #: templates/prefs/initialpage.html.php:3
 msgid "View or mailbox to display after login:"
-msgstr "로그인 후 보여줄 곳"
+msgstr "로그인 후 보여질 화면 또는 편지함:"
 
 #: lib/Ajax/Imple/ItipRequest.php:239 lib/Ajax/Imple/ItipRequest.php:240
-#, fuzzy
 msgid "View task"
-msgstr "%s 보기"
+msgstr "과제 표시"
 
 #: config/prefs.php:975
 msgid "Viewing"
-msgstr "메일 보기"
+msgstr "보기"
 
 #: lib/Basic/Mailbox.php:384 lib/Basic/Mailbox.php:385
 #: templates/prefs/searches.html.php:8 templates/search/search.html.php:90
 msgid "Virtual Folder"
-msgstr "간편분류함"
+msgstr "가상 폴더"
 
 #: lib/Basic/Search.php:312
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
-msgstr "간편분류함 \"%s\"가 생성되었습니다."
+msgstr "가상 폴더\"%s\"을(를) 성공적으로 생성했습니다."
 
 #: lib/Prefs/Special/Searches.php:128
 #, php-format
 msgid "Virtual Folder \"%s\" deleted."
-msgstr "간편분류함 \"%s\"가 삭제되었습니다."
+msgstr "가상 폴더\"%s\"을(를) 삭제했습니다."
 
 #: lib/Basic/Search.php:309
 #, php-format
 msgid "Virtual Folder \"%s\" edited successfully."
-msgstr "간편분류함 \"%s\"가 수정되었습니다."
+msgstr "가상 폴더\"%s\"을(를) 성공적으로 편집했습니다."
 
 #: lib/Dynamic/Mailbox.php:519
 #, php-format
 msgid "Virtual Folder: %s"
-msgstr "간편분류함: %s"
+msgstr "가상 폴더: %s"
 
 #: lib/Dynamic/Mailbox.php:268 lib/Mailbox.php:1522
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
-msgstr "간편분류함"
+msgstr "가상 폴더"
 
 #: lib/Search/Vfolder/Vinbox.php:31
 msgid "Virtual Inbox"
-msgstr "간편 받은편지함"
+msgstr "가상 받은 편지함"
 
 #: lib/Search/Vfolder/Vtrash.php:38
-#, fuzzy
 msgid "Virtual Trash"
-msgstr "간편 지운편지함"
+msgstr "가상 지운 편지함"
 
 #: lib/Contents.php:613 lib/Mime/Status.php:92
 msgid "Warning"
@@ -4883,36 +4509,35 @@ msgstr "경고"
 
 #: config/prefs.php:1306
 msgid "What to do with messages after they have been reported as innocent?"
-msgstr "메일을 시스템 관리자에게 스팸이 아님으로 보고후 동작"
+msgstr "정상으로 보고한 후 어떻게 메시지를 처리할까요?"
 
 #: config/prefs.php:1285
 msgid "What to do with messages after they have been reported as spam?"
-msgstr "메일을 시스템 관리자에게 스팸으로 보고후 동작"
+msgstr "스팸으로 보고한 후 어떻게 메시지를 처리할까요?"
 
 #: config/prefs.php:1485
 msgid "When opening a mailbox for the first time, where do you want to start?"
-msgstr "편지함을 열었을 때, 어떤 메일부터 표시하기를 원하십니까?"
+msgstr "편지함을 처음으로 열 때 어디에서 시작할까요?"
 
 #: config/prefs.php:685
 msgid "When replying, use the same format as the original message?"
-msgstr "답장을 할 때, 원래 메시지와 같은 형태 사용"
+msgstr "회신할 때 원본 메시지와 동일한 형식을 사용할까요?"
 
 #: config/prefs.php:543
 msgid "Where should the cursor be located in the compose text area by default?"
-msgstr "본문 작성시 커서가 위치할 부분:"
+msgstr "작성 내용 영역에서 커서의 기본 위치는 어디인가요?"
 
 #: config/prefs.php:1085
 msgid "Which message parts do you want to display in the summary?"
-msgstr "요약부에 보여줄 내용"
+msgstr "요약에서 메시지의 어느 부분을 표시할까요?"
 
 #: lib/Dynamic/Mailbox.php:320 lib/Dynamic/Mailbox.php:393
 msgid "Whitelist"
-msgstr "수신승인"
+msgstr "수신 허용 목록에 추가"
 
 #: templates/prefs/acl.html.php:42 templates/prefs/acl.html.php:77
-#, fuzzy
 msgid "Write"
-msgstr "인쇄"
+msgstr "쓰기"
 
 #: templates/search/search.html.php:117
 msgid "Years"
@@ -4928,214 +4553,194 @@ msgstr "예"
 #: templates/dynamic/compose.html.php:176
 #, fuzzy
 msgid "You are"
-msgstr "이름:"
+msgstr "다음으로 로그온되어 있음:"
 
 #: templates/basic/folders/folders_confirm.html.php:13
-#, fuzzy
 msgid ""
-"You are attempting to delete all messages contained in the following mailbox"
-"(es)."
-msgstr "아래의 편지함을 지우려고 합니다: "
+"You are attempting to delete all messages contained in the following "
+"mailbox(es)."
+msgstr "다음 편지함에 있는 모든 메시지를 삭제하려고 합니다."
 
 #: templates/basic/folders/folders_confirm.html.php:11
-#, fuzzy
 msgid "You are attempting to delete the following mailbox(es)."
-msgstr "아래의 편지함을 지우려고 합니다: "
+msgstr "다음 편지함을 삭제하려고 합니다."
 
 #: lib/Basic/Mailbox.php:368 lib/Basic/Message.php:403
-#, fuzzy
 msgid "You are copying/moving to a new mailbox."
-msgstr "새 폴더로 복사/이동 하려고 합니다."
+msgstr "새 편지함으로 복사/이동하고 있습니다."
 
 #: lib/Basic/Folders.php:60
-#, fuzzy
 msgid "You are creating a subfolder to"
-msgstr "하위 편지함을 만듭니다. "
+msgstr "하위 폴더를 다음 위치에 생성하는 중입니다:"
 
 #: lib/Basic/Folders.php:62
-#, fuzzy
 msgid "You are creating a top-level mailbox."
-msgstr "상위 편지함을 만듭니다. "
+msgstr "최상위 수준의 편지함을 생성하는 중입니다."
 
 #: lib/Mailbox.php:749
-#, fuzzy
 msgid "You are not allowed to create mailboxes."
-msgstr "%d개 이상의 메모를 작성할 수 없습니다."
+msgstr "편지함을 생성할 수 없습니다."
 
 #: lib/Mailbox.php:757
-#, fuzzy, php-format
+#, php-format
 msgid "You are not allowed to create more than %d mailboxes."
-msgstr "%d개 이상의 메모를 작성할 수 없습니다."
+msgstr "%d개 이상의 편지함을 생성할 수 없습니다."
 
 #: lib/Compose.php:1194
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipient within %d "
 "hours."
 msgid_plural ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
-msgstr[0] "%d개 이상의 메모를 작성할 수 없습니다."
-msgstr[1] "%d개 이상의 메모를 작성할 수 없습니다."
+msgstr[0] "%d시간 이내에 %d명의 받는 사람에게 메시지를 전송할 수 없습니다."
 
 #: lib/Compose.php:1209
-#, fuzzy, php-format
+#, php-format
 msgid "You are not allowed to send messages to more than %d recipient."
 msgid_plural "You are not allowed to send messages to more than %d recipients."
-msgstr[0] "%d개 이상의 메모를 작성할 수 없습니다."
-msgstr[1] "%d개 이상의 메모를 작성할 수 없습니다."
+msgstr[0] "%d명 이상의 받는 사람에게 메시지를 보낼 수 없습니다."
 
 #: lib/Basic/Folders.php:57
-#, fuzzy
 msgid "You are renaming the mailbox:"
-msgstr "편지함 이름 변경: "
+msgstr "다음 편지함의 이름을 변경하는 중입니다:"
 
 #: templates/basic/compose/compose.html.php:173
 #: templates/dynamic/compose.html.php:180
-#, fuzzy
 msgid "You are replying to a mailing list"
-msgstr "새로운 리스트를 만듭니다."
+msgstr "편지 발송 목록에 회신하는 중입니다"
 
 #: lib/Mailbox.php:919
-#, fuzzy, php-format
+#, php-format
 msgid "You cannot unsubscribe from \"%s\"."
-msgstr "\"%s\" 편지함을 사용하지 않습니다."
+msgstr "\"%s\"의 구독을 해지할 수 없습니다."
 
 #: lib/Prefs/Special/Acl.php:48
-#, fuzzy
 msgid "You do not have permission to change access to this mailbox."
-msgstr "당신은 이 메모를 수정할 수 없습니다."
+msgstr "이 편지함에 대한 접근 권한을 변경할 수 없습니다."
 
 #: lib/Imap/Acl.php:64
-#, fuzzy
 msgid "You do not have permission to view the ACLs on this mailbox."
-msgstr "당신은 이 메모장을 볼 수 없습니다."
+msgstr "이 편지함에 대한 ACL 표시 권한을 변경할 수 없습니다."
 
 #: lib/Maillog/Log/Forward.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "You forwarded this message on %s to: %s."
-msgstr "편지 전달"
+msgstr "이 메시지를 %s에 다음에게 전달했습니다: %s"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:105
 #, php-format
 msgid "You have %d new mail message in %s."
 msgid_plural "You have %d new mail messages in %s."
-msgstr[0] "%d개의 새 편지가 %s에 있습니다."
-msgstr[1] "%d개의 새 편지가 %s에 있습니다."
+msgstr[0] "%s에 %d개의 새로운 메일 메시지가 있습니다."
 
 #: lib/Basic/Compose.php:107
-#, fuzzy
 msgid "You have already submitted this page."
-msgstr "1개의 새 편지가 있습니다."
+msgstr "이 페이지를 이미 제출했습니다."
 
 #: lib/Ajax/Application/Handler/Dynamic.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "You may not delete \"%s\"."
-msgstr "%s를 삭제할 수 없습니다."
+msgstr "\"%s\"(을) 삭제할 수 없습니다."
 
 #: lib/Basic/Mailbox.php:374 lib/Basic/Message.php:405
 msgid "You must select a target mailbox first."
-msgstr "대상 편지함을 먼저 선택해야 합니다."
+msgstr "먼저 대상 편지함을 선택해야 합니다."
 
 #: lib/Basic/Contacts.php:111
 msgid "You must select an address first."
-msgstr "주소를 먼저 선택해야 합니다."
+msgstr "먼저 주소를 선택해야 합니다."
 
 #: lib/Basic/Mailbox.php:370 lib/Basic/Mailbox.php:373
 msgid "You must select at least one message first."
-msgstr "편지를 먼저 선택하세요."
+msgstr "먼저 최소 하나의 메시지를 선택해야 합니다."
 
 #: lib/Basic/Mailbox.php:371
-#, fuzzy
 msgid "You must select only one message for this action."
-msgstr "편지를 먼저 선택하세요."
+msgstr "이 동작을 위해서는 하나의 메시지만 선택해야 합니다."
 
 #: lib/Basic/Compose.php:746
 msgid "You must specify a recipient."
-msgstr "수신인이 없습니다."
+msgstr "받는 사람을 지정해야 합니다."
 
 #: lib/Maillog/Log/Redirect.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "You redirected this message on %s to: %s."
-msgstr "편지 전달"
+msgstr "%s에 메시지를 다음에게 재전송했습니다: %s"
 
 #: lib/Maillog/Log/Replyall.php:34
-#, fuzzy, php-format
+#, php-format
 msgid "You replied to all recipients of this message on %s."
-msgstr "%s에 답장 보냄."
+msgstr "%s에 이 메시지를 받는 모든 사람에게 회신했습니다."
 
 #: lib/Maillog/Log/Reply.php:34
 #, php-format
 msgid "You replied to this message on %s."
-msgstr "%s에 답장 보냄."
+msgstr "%s에 이 메시지에 회신했습니다."
 
 #: lib/Maillog/Log/Replylist.php:34
-#, fuzzy, php-format
+#, php-format
 msgid "You replied to this message via the mailing list on %s."
-msgstr "%s에 답장 보냄."
+msgstr "%s에 메일 발송 목록을 통해 메시지에 회신했습니다."
 
 #: lib/Mailbox.php:929
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
-msgstr "\"%s\" 편지함 사용하기 오류. 서버의 오류: "
+msgstr "\"%s\"을(를) 구독하지 않았습니다. 서버가 다음과 같이 응답했습니다"
 
 #: lib/Mailbox.php:931
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
-msgstr "\"%s\" 편지함 사용하지 않음 오류. 서버의 오류: "
+msgstr "\"%s\"의 구독을 해지하지 않았습니다. 서버가 다음과 같이 응답했습니다"
 
 #: lib/Mailbox.php:967
-#, fuzzy, php-format
+#, php-format
 msgid "You were successfully subscribed to \"%s\" and all subfolders."
-msgstr "\"%s\" 편지함을 사용합니다."
+msgstr "\"%s\" 및 모든 하위 폴더를 성공적으로 구독했습니다."
 
 #: lib/Mailbox.php:945
-#, fuzzy, php-format
+#, php-format
 msgid "You were successfully subscribed to \"%s\"."
-msgstr "\"%s\" 편지함을 사용합니다."
+msgstr "\"%s\"을(를) 성공적으로 구독했습니다."
 
 #: lib/Mailbox.php:968
-#, fuzzy, php-format
+#, php-format
 msgid "You were successfully unsubscribed from \"%s\" and all subfolders."
-msgstr "\"%s\" 편지함을 사용하지 않습니다."
+msgstr "\"%s\" 및 모든 하위 폴더의 구독을 성공적으로 해지했습니다."
 
 #: lib/Mailbox.php:946
-#, fuzzy, php-format
+#, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
-msgstr "\"%s\" 편지함을 사용하지 않습니다."
+msgstr "\"%s\"의 구독을 성공적으로 해지했습니다."
 
 #: lib/Basic/Search.php:101 lib/Search/Element/Within.php:80
 msgid "Younger Than"
-msgstr "보다 최근의"
+msgstr "다음보다 오래되지 않음"
 
 #: templates/prefs/pgpprivatekey.html.php:54
-#, fuzzy
 msgid "Your Name"
-msgstr "이름:"
+msgstr "이름"
 
 #: templates/prefs/pgpprivatekey.html.php:4
-#, fuzzy
 msgid "Your PGP Public/Private Keys"
-msgstr "전체 이름:"
+msgstr "PGP 공개/비공개 키"
 
 #: templates/prefs/pgpprivatekey.html.php:31
-#, fuzzy
 msgid "Your Private Key"
-msgstr "전체 이름:"
+msgstr "비공개 키"
 
 #: templates/prefs/smimeprivatekey.html.php:18
-#, fuzzy
 msgid "Your Public Certificate"
-msgstr "전체 이름:"
+msgstr "공개 인증서"
 
 #: templates/prefs/pgpprivatekey.html.php:18
-#, fuzzy
 msgid "Your Public Key"
-msgstr "전체 이름:"
+msgstr "공개 키"
 
 #: config/prefs.php:28
 msgid "Your Reply-to: address: <em>(optional)</em>"
-msgstr "답장받을 주소: <em>(선택사항)</em>"
+msgstr "회신: 주소: <em>(옵션)</em>"
 
 #: templates/prefs/smimeprivatekey.html.php:4
 msgid "Your S/MIME Personal Certificate"
@@ -5144,27 +4749,26 @@ msgstr "S/MIME 개인 인증서"
 #: config/prefs.php:34
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
-msgstr "다른 메일 주소: <em>(선택사항, 한 줄에 주소 하나씩)</em>"
+msgstr "별칭 주소: <em>(옵션, 각 주소를 한 줄씩 입력하세요)</em>"
 
 #: lib/Mime/Viewer/Images.php:133
 msgid "Your browser does not support inline display of this image type."
-msgstr "브라우져가 이 그림 형식을 표시하지 못합니다."
+msgstr "브라우저가 이미지 유형에 대한 본문 표시를 지원하지 않습니다."
 
 #: templates/prefs/encrypt.html.php:3
 msgid "Your default encryption method for sending messages:"
-msgstr "메일을 보낼때 기본으로 사용할 보안방법:"
+msgstr "메시지를 보낼 때 사용할 기본 암호화 방식:"
 
 #: lib/Mime/Viewer/Status.php:122
 msgid "Your message was successfully delivered."
-msgstr "편지가 성공적으로 전송되었습니다."
+msgstr "메시지를 성공적으로 전달했습니다."
 
 #: templates/prefs/signaturehtml.html.php:2
 msgid ""
 "Your signature to use when composing with the HTML editor (if empty, the "
 "text signature will be used)"
 msgstr ""
-"HTML 메일 작성시 아래 HTML 서명이 들어가며, 아래를 비워두면위쪽 일반 서명이 "
-"포함됩니다."
+"HTML 편집기로 작성할 때 사용할 서명(비어둘 경우, 텍스트 서명이 사용됩니다)"
 
 #: config/prefs.php:52
 msgid "Your signature:"
@@ -5178,100 +4782,95 @@ msgid "[No Subject]"
 msgstr "[제목 없음]"
 
 #: lib/Compose.php:2824
-#, fuzzy
 msgid "[Truncated Text]"
-msgstr "교정된 본문"
+msgstr "[생략된 내용]"
 
 #: lib/Basic/Compose.php:846
 msgid "_Bcc"
-msgstr "_B숨은참조"
+msgstr "Bcc"
 
 #: lib/Basic/Mailbox.php:667 lib/Basic/Message.php:648
 msgid "_Blacklist"
-msgstr "_B수신거부"
+msgstr "수신 거부"
 
 #: lib/Basic/Compose.php:845
 msgid "_Cc"
-msgstr "_C참조"
+msgstr "Cc"
 
 #: lib/Basic/Mailbox.php:600 lib/Basic/Message.php:552
 msgid "_Delete"
-msgstr "_D지우기"
+msgstr "삭제"
 
 #: lib/Application.php:244
 msgid "_Folders"
-msgstr "_F편지함"
+msgstr "폴더"
 
 #: templates/basic/compose/compose.html.php:38
 msgid "_Identity"
-msgstr "_I식별자"
+msgstr "신원"
 
 #: lib/Basic/Message.php:662
 msgid "_Message Source"
-msgstr "_M편지 소스보기"
+msgstr "메시지 소스"
 
 #: lib/Application.php:277
-#, fuzzy
 msgid "_New Message"
-msgstr "메시지"
+msgstr "새 메시지"
 
 #: templates/basic/compose/compose.html.php:87
 msgid "_Priority"
-msgstr "_P중요도"
+msgstr "우선 순위"
 
 #: lib/Basic/Folders.php:370
-#, fuzzy
 msgid "_Refresh"
-msgstr "새로 읽기"
+msgstr "새로 고침"
 
 #: lib/Basic/Message.php:570
 msgid "_Reply"
-msgstr "_R답장"
+msgstr "회신"
 
 #: lib/Application.php:252
 msgid "_Search"
-msgstr "_S검색"
+msgstr "검색"
 
 #: templates/basic/compose/compose.html.php:21
 #: templates/basic/compose/compose.html.php:222
 msgid "_Send Message"
-msgstr "_S편지 보내기"
+msgstr "메시지 보내기"
 
 #: lib/Basic/Mailbox.php:738
 msgid "_Thread"
-msgstr "_T댓글순"
+msgstr "글타래"
 
 #: lib/Basic/Compose.php:844
 msgid "_To"
-msgstr "_T받는사람"
+msgstr "받는 사람"
 
 #: lib/Basic/Mailbox.php:608
 msgid "_Undelete"
-msgstr "_U복구"
+msgstr "삭제 취소"
 
 #: lib/Basic/Message.php:640
 msgid "_View Thread"
-msgstr "_V댓글보기"
+msgstr "타래글 표시"
 
 #: lib/Basic/Mailbox.php:675 lib/Basic/Message.php:656
 msgid "_Whitelist"
-msgstr "_W수신승인"
+msgstr "수신 허용"
 
 #: lib/Basic/Search.php:491
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:98
 #: lib/Search/Filter.php:43 lib/Search/Query.php:270
 msgid "and"
-msgstr "그리고"
+msgstr ""
 
 #: lib/Compose.php:2990
-#, fuzzy
 msgid "attachment"
-msgstr "파일첨부"
+msgstr "첨부파일"
 
 #: lib/Contents/View.php:53
-#, fuzzy
 msgid "attachments.zip"
-msgstr "파일 첨부"
+msgstr "attachments.zip"
 
 #: templates/basic/compose/compose.html.php:291
 msgid "bytes"
@@ -5284,40 +4883,36 @@ msgstr "일"
 #: lib/Search/Element/Flag.php:66
 #, php-format
 msgid "flagged \"%s\""
-msgstr "\"%s\""
+msgstr "깃발 표시된 flagged \"%s\""
 
 #: templates/contacts/contacts.html.php:15
 #: templates/dynamic/mailbox.html.php:79
 msgid "from"
-msgstr "보낸 사람"
+msgstr "보내는 사람:"
 
 #: templates/basic/folders/import.html.php:14
-#, fuzzy
 msgid "into mailbox"
-msgstr "우편함"
+msgstr "편지함으로"
 
 #: lib/Mbox/Import.php:51
 msgid "mailbox file"
-msgstr "우편함 파일"
+msgstr "편지함 파일"
 
 #: templates/basic/folders/folders_confirm.html.php:21
-#, fuzzy
 msgid "messages"
-msgstr "편지"
+msgstr "메시지"
 
 #: lib/Search/Element/Attachment.php:71
 msgid "messages with attachment(s)"
-msgstr "첨부파일이 있는 메일"
+msgstr "첨부파일이 있는 메시지"
 
 #: lib/Search/Element/Attachment.php:70
-#, fuzzy
 msgid "messages without attachment(s)"
-msgstr "첨부파일 저장안함"
+msgstr "첨부파일이 없는 메시지"
 
 #: lib/Search/Element/Within.php:88
-#, fuzzy
 msgid "months"
-msgstr "월"
+msgstr "개월"
 
 #: lib/Compose.php:977
 msgid "name"
@@ -5327,35 +4922,1164 @@ msgstr "이름"
 #: lib/Search/Element/Header.php:57 lib/Search/Element/Mailinglist.php:52
 #: lib/Search/Element/Personal.php:70 lib/Search/Element/Recipient.php:69
 #: lib/Search/Element/Text.php:62
-#, fuzzy
 msgid "not"
-msgstr "시간 없슴"
+msgstr "다음이 아님"
 
 #: lib/Contents/View.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "part %s"
-msgstr "%s 검색"
+msgstr "일부 %s"
 
 #: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:176
-#, fuzzy
 msgid "replying to ALL"
-msgstr "전체 회신"
+msgstr "모두 회신"
 
 #: lib/Basic/Search.php:506
-#, fuzzy
 msgid "to"
-msgstr "이동"
+msgstr "받는 사람:"
 
 #: lib/Search/Element/Within.php:84
-#, fuzzy
 msgid "years"
 msgstr "년"
 
 #: lib/Filter.php:71
 msgid "your blacklist"
-msgstr "수신거부목록"
+msgstr "수신 차단 목록"
 
 #: lib/Filter.php:93
 msgid "your whitelist"
-msgstr "수신승인목록"
+msgstr "수신 차단 목록"
+
+#~ msgid "\"%s\" mailbox no longer polled for new mail."
+#~ msgstr "\"%s\" 편지함에서 더 이상 새로운 메일을 확인하지 않습니다."
+
+#~ msgid "\"%s\" mailbox now polled for new mail."
+#~ msgstr "\"%s\" 편지함에서 이제부터 새로운 메일을 확인합니다."
+
+#~ msgid "%.0f %s"
+#~ msgstr "%.0f %s"
+
+#~ msgid "%.0f%% of %.0f %s"
+#~ msgstr "%.0f %s 중 %.0f%%"
+
+#~ msgid "%.2fMB"
+#~ msgstr "%.2fMB"
+
+#~ msgid "%d new"
+#~ msgid_plural "%d new"
+#~ msgstr[0] "%d개의 새로운 메시지"
+
+#~ msgid "%s KB"
+#~ msgstr "%s KB"
+
+#~ msgid "%s MB"
+#~ msgstr "%s MB"
+
+#~ msgid "%s has replied to a free/busy request."
+#~ msgstr "%s이(가) 한가함/바쁨 요청에 회신했습니다."
+
+#~ msgid "%s is: %s."
+#~ msgstr "%s : %s"
+
+#~ msgid "%s requests your presence at \"%s\"."
+#~ msgstr "%s이(가) \"%s\"에 출석을 요청합니다."
+
+#~ msgid "%s wants to notify you about changes in \"%s\"."
+#~ msgstr "%s이(가)  \"%s\"의 변경사항에 대해 알리길 원합니다."
+
+#~ msgid "%s wishes to amend \"%s\"."
+#~ msgstr "%s이(가) \"%s\"을(를) 수정하길 원합니다."
+
+#~ msgid "%s: This message may not be from whom it claims to be."
+#~ msgstr "%s: 보내는 사람이 이 메시지가 주장하는 인물이 아닐 수 있습니다."
+
+#~ msgid ""
+#~ "A message you have sent has resulted in a return notification from the "
+#~ "recipient."
+#~ msgstr "보낸 메시지로 인해 받는 사람으로부터 반송 알림이 발생했습니다."
+
+#~ msgid ""
+#~ "A message you were composing when your session expired has been "
+#~ "recovered. You may resume composing your message by going to your Drafts "
+#~ "mailbox."
+#~ msgstr ""
+#~ "세션이 만료되었을 때 작성한 메시지를 복구했습니다. 임시 보관함에서 메시지 "
+#~ "작성을 계속 하셔도 됩니다."
+
+#~ msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
+#~ msgstr "편지함 \"%s\"을 위해  \"%s\"에 대한 ACL 권한을 업데이트했습니다."
+
+#~ msgid "Accept and add to my calendar"
+#~ msgstr "수락 및 내 달력에 저장"
+
+#~ msgid "Accept and update in my calendar"
+#~ msgstr "수락 및 내 달력에서 업데이트"
+
+#~ msgid "Accept request"
+#~ msgstr "요청 수락"
+
+#~ msgid "Accepted"
+#~ msgstr "수락함"
+
+#~ msgid "Accesskey Ctrl-Enter"
+#~ msgstr "접근키 Ctrl-Enter"
+
+#~ msgid "Add a \"Printed By\" header to the top of printed messages?"
+#~ msgstr "인쇄된 메시지에 \"인쇄자:\" 머리글을 추가할까요?"
+
+#~ msgid "Add this to my calendar"
+#~ msgstr "내 달력에 추가"
+
+#~ msgid "Add this to my tasklist"
+#~ msgstr "내 과제목록에 추가"
+
+#~ msgid "Add to my calendar"
+#~ msgstr "내 달력에 추가"
+
+#~ msgid "Adding group lists not currently supported."
+#~ msgstr "현재 그룹 목록 추가를 지원하지 않습니다."
+
+#~ msgid ""
+#~ "All messages in this mailbox will be downloaded into the format that you "
+#~ "choose. Depending on the size of the mailbox, this action may take awhile."
+#~ msgstr ""
+#~ "이 편지함의 모든 메시지를 선택한 형식으로 다운로드합니다. 편지함 크기에 따"
+#~ "라 이 작업은 시간이 오래 걸릴 수 있습니다."
+
+#~ msgid "Allow mailbox creation?"
+#~ msgstr "편지함 생성 허용?"
+
+#~ msgid "Allow remote account access?"
+#~ msgstr "원격 계정 접근 허용?"
+
+#~ msgid "Always showing images in messages sent by %s."
+#~ msgstr "%s이(가) 보낸 메시지의 이미지를 항상 표시합니다."
+
+#~ msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
+#~ msgstr "\"%s\"에 대한 모호한 일치(첫 5개 일치항목이 표시됨):"
+
+#~ msgid "Ambiguous matches for \"%s\":"
+#~ msgstr " \"%s\"에 대한 모호한 일치:"
+
+#~ msgid "Append"
+#~ msgstr "첨부"
+
+#~ msgid ""
+#~ "Are you sure you want to move the message(s)? (Some message information "
+#~ "might get lost, like message headers, text formatting or attachments!)"
+#~ msgstr ""
+#~ "정말로 메시지를 이동하시겠습니까?(메시지 머리글, 내용 서식 또는 첨부파일 "
+#~ "등 일부 메시지 정보가 손실될 수 있습니다!)"
+
+#~ msgid "Attach Personal PGP Public Key"
+#~ msgstr "개인 PGP 공개용 키 첨부"
+
+#~ msgid "Attach a copy of your PGP public key to the message?"
+#~ msgstr "메시지에 PGP 공개용 키 사본을 첨부할까요?"
+
+#~ msgid "Attach your contact information to the message?"
+#~ msgstr "연락처 정보를 메시지에 첨부할까요?"
+
+#~ msgid "Attached is a reply to a calendar request you sent."
+#~ msgstr "첨부된 파일은 보낸 달력 요청에 대한 회신입니다."
+
+#~ msgid "Attachment stripped: Original attachment type"
+#~ msgstr "첨부파일이 분리됨: 원본 첨부파일 유형"
+
+#~ msgid "Audio"
+#~ msgstr "오디오"
+
+#~ msgid ""
+#~ "Automatic configuration of the account failed. Please check your settings "
+#~ "or otherwise use the Advanced Setup to manually enter the remote server "
+#~ "configuration."
+#~ msgstr ""
+#~ "계정 자동 구성에 실패했습니다. 설정을 확인하거나 고급 설정으로 원격 서버 "
+#~ "설정을 수동으로 입력하세요."
+
+#~ msgid "Automatic configuration of the account was successful."
+#~ msgstr "계정 자동 설정을 성공적으로 완료했습니다."
+
+#~ msgid "Awaiting Response"
+#~ msgstr "응답 대기 중"
+
+#~ msgid "Back to Multiple Message View Index"
+#~ msgstr "다중 메시지 화면 인덱스로 돌아가기"
+
+#~ msgid "Backends"
+#~ msgstr "도구"
+
+#~ msgid ""
+#~ "Beware of following any links in it or of providing the sender with any "
+#~ "personal information."
+#~ msgstr ""
+#~ "링크를 방문하거나 보낸 사람에게 개인 정보를 제공하는 행위에 주의하세요."
+
+#~ msgid "Built-in Filters cannot be edited."
+#~ msgstr "내장된 필터를 편집할 수 없습니다."
+
+#~ msgid "Built-in Virtual Folders cannot be edited."
+#~ msgstr "내장된 가상 폴더를 편집할 수 없습니다."
+
+#~ msgid ""
+#~ "Cannot display message - found only %s of %s parts of this message in the "
+#~ "current mailbox."
+#~ msgstr ""
+#~ "메시지를 표시할 수 없습니다 - 현재 편지함에서 총 %s개의 메시지 부분 중 %s"
+#~ "개 밖에 발견하지 못했습니다."
+
+#~ msgid "Cannot display message text."
+#~ msgstr "메시지 내용을 표시할 수 없습니다."
+
+#~ msgid "Cannot move messages to Trash - no Trash mailbox set in preferences."
+#~ msgstr ""
+#~ "메시지를 지운 편지함으로 이동할 수 없습니다 -  설정에서 지운 편지함을 지정"
+#~ "하지 않았습니다."
+
+#~ msgid "Cannot retrieve calendar data from message."
+#~ msgstr "메시지에서 달력 데이터를 가져올 수 없습니다."
+
+#~ msgid "Cannot retrieve public key from message."
+#~ msgstr "메시지에서 공개 키를 가져올 수 없습니다."
+
+#~ msgid ""
+#~ "Cannot save sent-mail message to \"%s\" as that mailbox is read-only."
+#~ msgstr "편지함이 읽음 전용이므로 보낸 메시지를 \"%s\"에 저장할 수 없습니다."
+
+#~ msgid "Cannot strip the MIME part as the mailbox is read-only."
+#~ msgstr "편지함이 읽기 전용이므로 MIME 부분을 제거할 수 없습니다."
+
+#~ msgid "Characters to display in preview:"
+#~ msgstr "미리보기에 표시할 문자 개수:"
+
+#~ msgid "Check for valid recipient PGP public keys while replying?"
+#~ msgstr "회신 시 받는 사람의 유효한 PGP 공개용 키를 확인할까요?"
+
+#~ msgid "Click HERE to verify the data."
+#~ msgstr "데이터를 확인하려면 여기를 클릭하세요."
+
+#~ msgid "Click this box to add the original message as an attachment."
+#~ msgstr "원본 메시지를 첨부파일 형식으로 추가하려면 이 상자를 클릭하세요."
+
+#~ msgid "Click this box to add the original message text to the body."
+#~ msgstr "원본 메시지 내용을 본문에 추가하려면 이 상자를 클릭하세요."
+
+#~ msgid "Click to always show images from this sender."
+#~ msgstr "이 보내는 사람의 이미지를 항상 표시하려면 클릭하세요."
+
+#~ msgid ""
+#~ "Click to view HTML data in new window; it is possible this will allow you "
+#~ "to view the message correctly."
+#~ msgstr ""
+#~ "HTML 데이터를 새 창에서 보려면 클릭하세요. 이 기능은 메시지를 올바르게 표"
+#~ "시할 수도 있습니다."
+
+#~ msgid "Color Picker"
+#~ msgstr "색상 선택자"
+
+#~ msgid "Combine all namespaces"
+#~ msgstr "모든 네임스페이스 결합"
+
+#~ msgid "Compose action completed. You may now safely close this window."
+#~ msgstr "작성 동작을 완료했습니다. 이제 안전하게 이 창을 닫을 수 있습니다."
+
+#~ msgid "Configure PGP encryption support."
+#~ msgstr "PGP 암호화 지원을 구성합니다."
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "클립보드에 복사"
+
+#~ msgid "Could not add %d file(s) to message: only images are supported."
+#~ msgstr ""
+#~ "%d개의 파일을 메시지에 추가할 수 없습니다: 오직 이미지만 지원합니다."
+
+#~ msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
+#~ msgstr "편지함 \"%s\"에 사용자 \"%s\"에 대한 권한을 추가할 수 없습니다."
+
+#~ msgid "Could not auto-determine data type."
+#~ msgstr "데이터 형식을 자동으로 확인할 수 없습니다."
+
+#~ msgid ""
+#~ "Could not move all messages between mailboxes, so the original mailbox "
+#~ "was not removed."
+#~ msgstr ""
+#~ "편지함 간에 모든 메시지를 이동할 수 없어, 원본 편지함을 제거할 수 없습니"
+#~ "다."
+
+#~ msgid ""
+#~ "Could not move message to spam mailbox - no spam mailbox defined in "
+#~ "preferences."
+#~ msgstr ""
+#~ "메시지를 스팸 편지함으로 이동할 수 없습니다 - 설정에서 스팸 편지함을 지정"
+#~ "하지 않았습니다."
+
+#~ msgid "Could not open mailbox."
+#~ msgstr "편지함을 열 수 없습니다."
+
+#~ msgid "Could not parse mailbox data."
+#~ msgstr "편지함 데이터를 분석할 수 없습니다."
+
+#~ msgid "Could not paste image as the clipboard data is invalid."
+#~ msgstr "클립보드 데이터가 잘못되어 이미지를 붙여넣을 수 없습니다."
+
+#~ msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
+#~ msgstr "편지함 \"%s\"에서 사용자 \"%s\"에 대한 권한을 제거할 수 없습니다."
+
+#~ msgid "Could not retrieve public key for %s."
+#~ msgstr "%s에 대한 공개 키를 가져올 수 없습니다."
+
+#~ msgid "Create Subfolders/Rename Mailbox"
+#~ msgstr "하위 폴더 생성/편지함 이름 변경"
+
+#~ msgid "Create subfolders and rename mailbox"
+#~ msgstr "하위 폴더 생성 및 편지함 이름 변경"
+
+#~ msgid "Creating New Flag..."
+#~ msgstr "새로운 깃발을 생성하는 중..."
+
+#~ msgid "Criteria to use when sorting by date:"
+#~ msgstr "날짜 기준으로 정렬할 때 사용할 조건:"
+
+#~ msgid "Date (Arrival)"
+#~ msgstr "날짜(도착)"
+
+#~ msgid "Date (Message)"
+#~ msgstr "날짜(메시지)"
+
+#~ msgid "Date Equals"
+#~ msgstr "날짜가 다음과 일치함"
+
+#~ msgid "Default (US-ASCII)"
+#~ msgstr "기본 (US-ASCII)"
+
+#~ msgid "Delete Personal Certificate"
+#~ msgstr "개인 인증서 삭제"
+
+#~ msgid "Delete Selected Mailboxes"
+#~ msgstr "선택한 편지함 삭제"
+
+#~ msgid "Delete and rename mailbox"
+#~ msgstr "편지함 삭제 및 이름 변경"
+
+#~ msgid "Delete from my calendar"
+#~ msgstr "달력에서 삭제"
+
+#~ msgid "Deny request"
+#~ msgstr "요청 거부"
+
+#~ msgid ""
+#~ "Discard all text formatting information (by converting from HTML to plain "
+#~ "text)? This conversion cannot be reversed."
+#~ msgstr ""
+#~ "모든 텍스트 서식 정보를 (HTML에서 일반 텍스트로 변환하여) 삭제할까요? 이 "
+#~ "작업은 취소할 수 없습니다."
+
+#~ msgid "Doing so will discard this message permanently."
+#~ msgstr "이 작업은 메시지를 영구적으로 삭제합니다."
+
+#~ msgid "Don't Show:"
+#~ msgstr "숨기기:"
+
+#~ msgid "Download into a MBOX file"
+#~ msgstr "MBOX 파일 형식으로 다운로드"
+
+#~ msgid "Download into a MBOX file (ZIP compressed)"
+#~ msgstr "MBOX 파일 형식으로 다운로드(ZIP 압축)"
+
+#~ msgid "Draft automatically saved."
+#~ msgstr "작성 중인 메시지를 자동으로 저장했습니다."
+
+#~ msgid "Drop file here to attach."
+#~ msgstr "여기에 파일을 드롭하여 첨부하세요."
+
+#~ msgid "EXAMPLE LINK"
+#~ msgstr "예시 링크"
+
+#~ msgid "Empty Selected Mailboxes"
+#~ msgstr "선택한 편지함 지우기"
+
+#~ msgid "Enable PGP functionality?"
+#~ msgstr "PGP 기능을 활성화할까요?"
+
+#~ msgid "Enter Passphrase"
+#~ msgstr "암호 입력"
+
+#~ msgid "Enter the passphrase used to encrypt this message."
+#~ msgstr "이 메시지를 암호화하기 위해 사용할 암호를 입력하세요."
+
+#~ msgid "Enter your personal PGP passphrase."
+#~ msgstr "개인 PGP 암호를 입력하세요."
+
+#~ msgid "Enter your personal S/MIME passphrase."
+#~ msgstr "개인 S/MIME 암호를 입력하세요."
+
+#~ msgid "Entire Message (including Headers)"
+#~ msgstr "전체 메시지(머리글 포함)"
+
+#~ msgid "Error displaying message: message does not exist on server."
+#~ msgstr ""
+#~ "메시지를 표시하는 동안 오류가 발생했습니다: 메시지가 서버에 존재하지 않습"
+#~ "니다."
+
+#~ msgid ""
+#~ "Error when importing messages; %u messages successfully imported before "
+#~ "error."
+#~ msgstr ""
+#~ "메시지를 가져오는 동안 오류가 발생했습니다; 오류 발생 직전까지 %u개의 메시"
+#~ "지를 성공적으로 가져왔습니다."
+
+#~ msgid ""
+#~ "Error! This application requires javascript to be available and enabled "
+#~ "in your browser."
+#~ msgstr ""
+#~ "오류! 이 응용 프로그램을 사용하려면 브라우저에서 자바스크립트가 사용 가능"
+#~ "하고 활성화돼야 합니다."
+
+#~ msgid "Flag name must not be empty."
+#~ msgstr "깃발 이름은 비워둘 수 없습니다."
+
+#~ msgid "Flag:"
+#~ msgstr "깃발:"
+
+#~ msgid ""
+#~ "Flags were not changed for at least one message in the mailbox \"%s\" "
+#~ "because the flags were altered by another connection to the mailbox prior "
+#~ "to this request. You may redo the flag action if desired; this warning is "
+#~ "precautionary to ensure you don't overwrite flag changes."
+#~ msgstr ""
+#~ "이 요청 이전에 편지함의 다른 연결로 인해 깃발 표시가 변경되어, 편지함 \"%s"
+#~ "\" 내 최소 1개의 메시지에 대한 깃발 표시가 변경되지 않았습니다. 원할 경"
+#~ "우, 깃발 표시를 다시 실행할 수 있습니다; 이 경고는 깃발 표시에 대한 변경사"
+#~ "항을 덮어쓰지 않기 위한 예방조치입니다."
+
+#~ msgid ""
+#~ "For messages with alternative representations of a text part, which part "
+#~ "should be displayed?"
+#~ msgstr ""
+#~ "본문 부분의 대체 표시가 포함된 메시지에서는 어떤 부분이 표시되어야 할까요?"
+
+#~ msgid ""
+#~ "Forwarded message will be automatically added to your outgoing message."
+#~ msgstr "전달한 메시지를 보낸 메시지에 자동으로 추가합니다."
+
+#~ msgid ""
+#~ "Found the word %s in the message text although there are no files "
+#~ "attached to the message. Did you forget to attach a file? (This check "
+#~ "will not be performed again for this message.)"
+#~ msgstr ""
+#~ "메시지에 첨부된 파일이 없지만 메시지 내용에서 단어 %s을(를) 발견했습니다. "
+#~ "파일을 첨부하는 것을 잊으셨습니까?(다음부터는 이 메시지에 대한 확인 작업"
+#~ "을 다시 수행하지 않습니다.)"
+
+#~ msgid "Free/Busy Request Response"
+#~ msgstr "한가함/바쁨 요청에 대한 응답"
+
+#~ msgid "Gallery"
+#~ msgstr "갤러리"
+
+#~ msgid "HTML part"
+#~ msgstr "HTML 부분"
+
+#~ msgid "How should messages be forwarded by default?"
+#~ msgstr "메시지를 어떻게 기본적으로 전달할까요?"
+
+#~ msgid "How should namespaces be displayed in the folder tree view?"
+#~ msgstr "폴더 구조 화면에서 네임스페이스를 어떻게 표시할까요?"
+
+#~ msgid ""
+#~ "However, no personal private key exists so the message cannot be "
+#~ "decrypted."
+#~ msgstr "허나, 개인 비공개 키가 존재하지 않아 메시지를 해독할 수 없습니다."
+
+#~ msgid "IMAP"
+#~ msgstr "IMAP"
+
+#~ msgid "Image"
+#~ msgstr "이미지"
+
+#~ msgid "Imported mailbox contains more than enforced limit of %u messages."
+#~ msgstr "가져온 편지함에 적용 제한 개수인 %u개의 메시지를 초과했습니다."
+
+#~ msgid "Importing (this may take some time)..."
+#~ msgstr "가져오는 중(이 작업은 다소 시간이 걸릴 수 있습니다)..."
+
+#~ msgid "In Process"
+#~ msgstr "처리 중"
+
+#~ msgid ""
+#~ "Indicate whether attachments exist in a message in the mailbox listing?"
+#~ msgstr "메일함 목록에 표시된 메시지 내 첨부파일의 존재여부를 표시할까요?"
+
+#~ msgid "Information on Personal Private Key"
+#~ msgstr "개인용 비공개 키에 대한 정보"
+
+#~ msgid "Information on Personal Public Certificate"
+#~ msgstr "개인용 공개용 인증서에 대한 정보"
+
+#~ msgid "Insert Certificate Here"
+#~ msgstr "여기에 인증서 삽입"
+
+#~ msgid "Invalid Action selected for this component."
+#~ msgstr "이 구성 요소에 대한 잘못된 동작을 선택했습니다."
+
+#~ msgid "KB"
+#~ msgstr "KB"
+
+#~ msgid ""
+#~ "Key generation may take a long time to complete.  Continue with key "
+#~ "generation?"
+#~ msgstr ""
+#~ "키 생성이 완료하는데 시간이 오래 걸릴 수 있습니다. 키 생성을 계속할까요?"
+
+#~ msgid ""
+#~ "Key import is not available. File upload is not enabled on this server."
+#~ msgstr ""
+#~ "키 가져오기를 사용할 수 없습니다. 이 서버에는 파일 업로드가 활성화되지 않"
+#~ "았습니다."
+
+#~ msgid ""
+#~ "Key import is not available. You have no address book defined to add your "
+#~ "contacts."
+#~ msgstr ""
+#~ "키 가져오기를 사용할 수 없습니다. 연락처를 추가할 주소록이 지정되지 않았습"
+#~ "니다."
+
+#~ msgid "Key successfully sent to the public keyserver."
+#~ msgstr "키를 공개용 키 서버에 성공적으로 보냈습니다."
+
+#~ msgid "Load Styling?"
+#~ msgstr "스타일을 불러올까요?"
+
+#~ msgid "Load message styling..."
+#~ msgstr "메시지 스타일 불러오기..."
+
+#~ msgid "Logging Out..."
+#~ msgstr "로그아웃 하는 중..."
+
+#~ msgid "Mailbox Size"
+#~ msgstr "편지함 크기"
+
+#~ msgid "Mailbox structure on server has changed."
+#~ msgstr "서버 상의 편지함 구조를 변경했습니다."
+
+#~ msgid "Manage Remote Accounts"
+#~ msgstr "원격 계정 관리"
+
+#~ msgid "Mark (Other)"
+#~ msgstr "표시(기타)"
+
+#~ msgid "Mark (Seen)"
+#~ msgstr "표시(읽음)"
+
+#~ msgid "Mark with Seen/Unseen flags"
+#~ msgstr "읽음/읽지 않음 깃발로 표시"
+
+#~ msgid "Mark with other flags (e.g. Important/Answered)"
+#~ msgstr "다른 깃발로 표시(예: 중요/응답함)"
+
+#~ msgid "Maximum Number of Recipients per Time Period"
+#~ msgstr "기간 별 최대 받는 사람의 수"
+
+#~ msgid "Maximum size (bytes) of compose body"
+#~ msgstr "작성 본문의 최대 크기(바이트)"
+
+#~ msgid "Mbox or .eml file:"
+#~ msgstr "Mbox 또는 .eml 파일:"
+
+#~ msgid "Menu"
+#~ msgstr "메뉴"
+
+#~ msgid ""
+#~ "Message styling has been suppressed in this message part since the style "
+#~ "data lives on a remote server."
+#~ msgstr ""
+#~ "메시지 스타일이 스타일 데이터가 원격 서버에 위치하고 있어, 메시지 스타일"
+#~ "을 이 메시지 부분에 적용하지 못했습니다."
+
+#~ msgid "Move to Base Level"
+#~ msgstr "기본 수준으로 이동"
+
+#~ msgid "Multipart"
+#~ msgstr "다중 부분"
+
+#~ msgid "Multiple messages can only be forwarded as attachments."
+#~ msgstr "다중 메시지는 첨부파일 형태로만 전달할 수 있습니다."
+
+#~ msgid "Must enter a non-empty name for the new destination mailbox."
+#~ msgstr "새로운 위치의 편지함에는 이름이 비워둘 수 없습니다."
+
+#~ msgid "Name and/or email cannot be empty"
+#~ msgstr "이름/이메일은 비워둘 수 없습니다."
+
+#~ msgid "Negative Right"
+#~ msgstr "부정적인 권한"
+
+#~ msgid "No PGP public key imported."
+#~ msgstr "PGP 공개용 키를 가져오지 않았습니다."
+
+#~ msgid "No S/MIME public key imported."
+#~ msgstr "S/MIME 공개용 키를 가져오지 않았습니다."
+
+#~ msgid "No Saved Searches Defined."
+#~ msgstr "저장된 검색이 지정되지 않았습니다."
+
+#~ msgid "No email information located in the public key."
+#~ msgstr "공개용 키에 이메일 정보가 없습니다."
+
+#~ msgid "No limit"
+#~ msgstr "제한 없음"
+
+#~ msgid "No passphrase entered."
+#~ msgstr "암호가 입력되지 않았습니다."
+
+#~ msgid ""
+#~ "No personal private key exists so the data is unable to be decrypted."
+#~ msgstr "개인 비공개 키가 존재하지 않아 데이터를 해독할 수 없습니다."
+
+#~ msgid "Non Participant"
+#~ msgstr "비참가자"
+
+#~ msgid "Notification: Linked attachment downloaded"
+#~ msgstr "알림: 링크된 첨부파일을 다운로드함"
+
+#~ msgid "Only display mailboxes with unread messages in them?"
+#~ msgstr "읽지 않은 메시지가 존재하는 편지함만 표시할까요?"
+
+#~ msgid "Optional Participant"
+#~ msgstr "선택적 참가자"
+
+#~ msgid "PGP"
+#~ msgstr "PGP"
+
+#~ msgid "PGP Encrypt Message with passphrase"
+#~ msgstr "암호를 포함하여 메시지 PGP 암호화하기"
+
+#~ msgid "PGP Personal Key support requires a secure web connection."
+#~ msgstr "PGP 개인 키 지원은 보안 웹 접속이 필요합니다."
+
+#~ msgid "PGP Sign/Encrypt Message with passphrase"
+#~ msgstr "암호가 포함된 PGP 서명/암호화 메시지"
+
+#~ msgid ""
+#~ "PGP encryption cannot be used by default as public keys cannot be found "
+#~ "for all recipients."
+#~ msgstr ""
+#~ "모든 받는 사람이 공개 키를 보유하고 있지 않아 PGP 암호화를 기본으로 사용"
+#~ "할 수 없습니다."
+
+#~ msgid "PGP passhprase stored in session."
+#~ msgstr "PGP 암호를 세션에 저장했습니다."
+
+#~ msgid ""
+#~ "PGP support requires popup windows to be used.  If your browser is "
+#~ "currently set to disable popup windows, you must change this setting or "
+#~ "else the PGP features will not work correctly."
+#~ msgstr ""
+#~ "PGP 지원은 팝업 창을 사용합니다. 현재 브라우저가 팝업 창을 차단할 경우, "
+#~ "이 설정을 변경하지 않으면 PGP 기능이 제대로 작동하지 않습니다."
+
+#~ msgid "PGP: Need passphrase for personal private key."
+#~ msgstr "PGP: 개인용 비공개 키에 대한 암호가 필요합니다."
+
+#~ msgid "PGP: Need passphrase to encrypt your message with."
+#~ msgstr "PGP: 메시지를 암호화하기 위한 암호가 필요합니다."
+
+#~ msgid "POP3"
+#~ msgstr "POP3"
+
+#~ msgid "Passphrase"
+#~ msgstr "암호"
+
+#~ msgid "Passphrase (Again)"
+#~ msgstr "암호(재입력)"
+
+#~ msgid "Passphrases cannot be empty"
+#~ msgstr "암호는 비워둘 수 없음"
+
+#~ msgid ""
+#~ "Paste PGP public keys into the textarea, upload a file containing PGP "
+#~ "public keys, or combine both methods. Multiple keys are supported."
+#~ msgstr ""
+#~ "PGP 공개용 키를 텍스트 영역에 붙여넣거나, PGP 공개용 키를 포함하고 있는 파"
+#~ "일을 업로드 하거나, 두 방법을 동시에 사용하세요. 다중 키를 지원합니다."
+
+#~ msgid ""
+#~ "Paste your PGP private key into the textarea or upload a file containing "
+#~ "your key."
+#~ msgstr ""
+#~ "PGP 비공개 키를 텍스트 영역에 붙여넣거나, 키를 포함한 파일을 업로드하세요."
+
+#~ msgid "Personal PGP key not imported."
+#~ msgstr "개인 PGP를 가져오지 못했습니다."
+
+#~ msgid "Personal S/MIME certificates NOT imported."
+#~ msgstr "개인 S/MIME 인증서를 가져오지 못했습니다."
+
+#~ msgid "Personal S/MIME certificates NOT imported: "
+#~ msgstr "개인 S/MIME 인증서를 가져오지 못했습니다:"
+
+#~ msgid "Plaintext part"
+#~ msgstr "일반 텍스트 부분"
+
+#~ msgid "Please wait..."
+#~ msgstr "잠시만 기다려주세요..."
+
+#~ msgid "Poll all mailboxes for new mail?"
+#~ msgstr "모든 편지함에서 새로운 메일을 확인할까요?"
+
+#~ msgid "Portal"
+#~ msgstr "포털"
+
+#~ msgid "Possible Conflicts"
+#~ msgstr "발생할 수 있는 충돌"
+
+#~ msgid "Post to this mailbox (not enforced by IMAP)"
+#~ msgstr "이 편지함에 게시(IMAP에 의해 적용되지 않음"
+
+#~ msgid ""
+#~ "Prompt to send read receipt (a/k/a message disposition notification) when "
+#~ "requested by the sender?"
+#~ msgstr ""
+#~ "보내는 사람이 읽음 확인(메시지 확인 알림이라고도 불림)을 요청할 경우 물어"
+#~ "볼까요?"
+
+#~ msgid "Purge"
+#~ msgstr "비우기"
+
+#~ msgid "Rebuild Folder Tree"
+#~ msgstr "폴더 구조 재생성"
+
+#~ msgid "Recipient address does not match the currently selected identity."
+#~ msgstr "받는 사람 주소가 현재 선택한 신원과 일치하지 않습니다."
+
+#~ msgid "Recipients (To/Cc/Bcc) for '%s'"
+#~ msgstr "'%s'에 대한 받는 사람(To/Cc/Bcc)"
+
+#~ msgid "Reply text will be automatically appended to your outgoing message."
+#~ msgstr "회신 내용은 보내는 메시지에 자동으로 추가됩니다."
+
+#~ msgid "Reply with free/busy for next 2 months."
+#~ msgstr "다음 2개월 동안 한가함/바쁨으로 회신합니다."
+
+#~ msgid "Respondent Status Updated."
+#~ msgstr "응답자 상태가 업데이트됐습니다."
+
+#~ msgid "S/MIME"
+#~ msgstr "S/MIME"
+
+#~ msgid "S/MIME Error: Need passphrase for personal private key."
+#~ msgstr "S/MIME 오류: 개인용 비공개 키에 대한 암호가 필요합니다."
+
+#~ msgid ""
+#~ "S/MIME Personal Certificate support requires a secure web connection."
+#~ msgstr "S/MIME 개인용 인증서 지원은 보안 웹 연결이 필요합니다."
+
+#~ msgid "S/MIME passphrase stored in session."
+#~ msgstr "S/MIME 암호를 세션에 저장했습니다."
+
+#~ msgid ""
+#~ "S/MIME support is not currently enabled so the data is unable to be "
+#~ "decrypted."
+#~ msgstr "현재 S/MIME 지원이 활성화되지 않아 데이터를 해독할 수 없습니다."
+
+#~ msgid ""
+#~ "S/MIME support is not enabled so the digital signature is unable to be "
+#~ "verified."
+#~ msgstr "S/MIME 지원이 활성화되지 않아 디지털 서명을 확인할 수 없습니다."
+
+#~ msgid "Save Image in Gallery"
+#~ msgstr "갤러리에 이미지 저장"
+
+#~ msgid "Saving the template failed: could not create the templates mailbox."
+#~ msgstr "서식을 저장하는데 실패했습니다: 서식 보관함을 생성할 수 없습니다."
+
+#~ msgid "Saving the template failed: no template mailbox exists."
+#~ msgstr "서식을 저장하는데 실패했습니다: 서식 보관함이 없습니다."
+
+#~ msgid "Search for \"%s\" failed: no address found."
+#~ msgstr "\"%s\"에 대한 검색을 실패했습니다: 주소를 발견하지 못했습니다."
+
+#~ msgid "Send Key to Public Keyserver"
+#~ msgstr "키를 공개용 키서버로 보내기"
+
+#~ msgid "Send message without a Subject?"
+#~ msgstr "제목 없이 메시지를 보낼까요?"
+
+#~ msgid "Send message without a subject?"
+#~ msgstr "제목 없이 메시지를 보낼까요?"
+
+#~ msgid "Set a priority header when composing messages?"
+#~ msgstr "메시지 작성 시 우선 순위 머리글을 설정할까요?"
+
+#~ msgid "Share your mailboxes with other users."
+#~ msgstr "편지함을 다른 사용자와 공유하세요."
+
+#~ msgid "Should PGP signed messages be automatically verified when viewed?"
+#~ msgstr "PGP 서명 메시지를 표시할 때 자동으로 확인할까요?"
+
+#~ msgid ""
+#~ "Should your PGP public key to be attached to your messages by default?"
+#~ msgstr "PGP 공개 키를 메시지에 기본으로 첨부할까요?"
+
+#~ msgid "Show Advanced Setup"
+#~ msgstr "고급 설정 표시"
+
+#~ msgid "Show Images?"
+#~ msgstr "이미지를 표시할까요?"
+
+#~ msgid "Show all flags (including flags set by other mail programs)?"
+#~ msgstr "모든 플래그 표시(타 메일 프로그램에서 설정한 플래그 포함)"
+
+#~ msgid "Show images..."
+#~ msgstr "이미지 표시..."
+
+#~ msgid "Show non-private mailboxes in separate folders"
+#~ msgstr "비공개 편지함을 별도의 폴더에서 표시"
+
+#~ msgid "Show previews for unread messages only?"
+#~ msgstr "읽지 않은 메시지만 미리 보기를 표시할까요?"
+
+#~ msgid "Show previews in tooltips?"
+#~ msgstr "도구 팁에서 미리 보기를 표시할까요?"
+
+#~ msgid "Size - Less Than (KB)"
+#~ msgstr "크기 - 다음보다 작음(KB)"
+
+#~ msgid "Strip linebreaks in preview?"
+#~ msgstr "미리 보기에서 줄 바꿈을 제거할까요?"
+
+#~ msgid "Strip the sender's signature from plaintext replies?"
+#~ msgstr "일반 텍스트 회신 시 보내는 사람의 서명을 제거할까요?"
+
+#~ msgid "Technical details can be viewed %s."
+#~ msgstr "%s 기술적 세부사항을 볼 수 있습니다."
+
+#~ msgid "Technical error details can be viewed %s."
+#~ msgstr "%s 오류에 대한 기술적 세부사항을 볼 수 있습니다."
+
+#~ msgid "Templates"
+#~ msgstr "서식"
+
+#~ msgid "Tentatively Accept request"
+#~ msgstr "잠정적 수락 요청"
+
+#~ msgid "Tentatively Accepted"
+#~ msgstr "잠정적으로 수락함"
+
+#~ msgid "The Macintosh resource fork"
+#~ msgstr "매킨토시 리소스 포크"
+
+#~ msgid "The Macintosh resource fork can be downloaded %s."
+#~ msgstr "%s 매킨토시 리소스 포크를 다운로드할 수 있습니다."
+
+#~ msgid ""
+#~ "The data in this part does not appear to be a valid PGP encrypted "
+#~ "message. Error: "
+#~ msgstr ""
+#~ "이 부분의 데이터가 올바른 PGP 암호화 메시지가 아닌 것으로 보여집니다.\v오"
+#~ "류:"
+
+#~ msgid "The data in this part has been compressed via PGP."
+#~ msgstr "이 부분의 데이터를 PGP로 압축했습니다."
+
+#~ msgid "The data in this part has been digitally signed via PGP."
+#~ msgstr "이 부분의 데이터를 PGP로 디지털 서명했습니다."
+
+#~ msgid ""
+#~ "The data in this part has been encrypted via PGP, however, PGP support is "
+#~ "disabled so the message cannot be decrypted."
+#~ msgstr ""
+#~ "이 부분의 데이터를 PGP로 암호화했으나, PGP 지원이 비활성화되어 메시지를 해"
+#~ "독할 수 없습니다."
+
+#~ msgid "The default font family to use in the HTML editor."
+#~ msgstr "HTML 편집기에서 사용될 기본 글꼴군입니다."
+
+#~ msgid "The default font size to use in the HTML editor (in pixels)."
+#~ msgstr "HTML 편집기에서 사용될 기본 글꼴 크기입니다(픽셀 단위)."
+
+#~ msgid "The e-mail field cannot be empty."
+#~ msgstr "이메일 필드를 비워둘 수 없습니다."
+
+#~ msgid "The event was added to your calendar."
+#~ msgstr "일정을 달력에 추가했습니다."
+
+#~ msgid "The event was updated in your calendar."
+#~ msgstr "일정을 달력에 업데이트했습니다."
+
+#~ msgid "The folder view is not enabled."
+#~ msgstr "폴더 화면이 활성화되지 않았습니다."
+
+#~ msgid "The initial portion of this text part is displayed below."
+#~ msgstr "이 텍스트 부분의 시작 일부를 아래에 표시했습니다."
+
+#~ msgid ""
+#~ "The linked attachment does not exist. It may have been deleted by the "
+#~ "original sender or it may have expired."
+#~ msgstr ""
+#~ "링크된 첨부파일이 존재하지 않습니다. 기존 보내는 사람이 삭제했거나 만료 되"
+#~ "었을 수 있습니다."
+
+#~ msgid "The links that caused this warning have this background color:"
+#~ msgstr "이 경고의 원인이 되는 링크의 배경 색상은 다음과 같습니다:"
+
+#~ msgid "The mail server is not currently avaliable."
+#~ msgstr "현재 메일 서버를 사용할 수 없습니다."
+
+#~ msgid ""
+#~ "The message part may contain incorrect character set information "
+#~ "preventing correct display."
+#~ msgstr ""
+#~ "메시지 부분에 포함된 문자 조합 정보가 잘못되에 제대로 표시되지 않을 수 있"
+#~ "습니다."
+
+#~ msgid "The password field cannot be empty."
+#~ msgstr "암호 필드를 비워둘 수 없습니다."
+
+#~ msgid ""
+#~ "The recipient has indicated that they prefer replies in these languages"
+#~ msgstr "받는 사람이 다음 언어로 회신하는 것을 선호하는 것으로 나타났습니다"
+
+#~ msgid ""
+#~ "The recipient has indicated that they prefer replies in these languages:"
+#~ msgstr "받는 사람이 다음 언어로 회신하는 것을 선호하는 것으로 나타났습니다:"
+
+#~ msgid ""
+#~ "The sender of this message is requesting a notification from you when you "
+#~ "have read this message."
+#~ msgstr ""
+#~ "이 메시지를 보내는 사람이 이 메시지를 읽을 때 알림을 요청하고 있습니다."
+
+#~ msgid ""
+#~ "The sender of this message is requesting notification from you when you "
+#~ "have read this message."
+#~ msgstr ""
+#~ "이 메시지를 보내는 사람이 이 메시지를 읽을 때 알림을 요청하고 있습니다."
+
+#~ msgid ""
+#~ "The total size of your HTML signature image data has exceeded the maximum "
+#~ "allowed."
+#~ msgstr ""
+#~ "HTML 서명 이미지 데이터의 전체 크기가 최대 허용 크기를 초과했습니다."
+
+#~ msgid "There are no alternative parts that can be displayed inline."
+#~ msgstr "본문에 표시할 수 있는 대체 부분이 없습니다."
+
+#~ msgid "There are no parts that can be shown inline."
+#~ msgstr "본문에 표시할 수 있는 부분이 없습니다."
+
+#~ msgid "There is no text that can be displayed inline."
+#~ msgstr "본문에 표시될 내용이 없습니다."
+
+#~ msgid "This audio file is reported to be %s in length."
+#~ msgstr "이 오디오 파일의 재생시간은 %s인 것으로 보고됩니다."
+
+#~ msgid "This digitally signed message is broken."
+#~ msgstr "디지털 서명된 메시지가 깨졌습니다."
+
+#~ msgid "This is a thumbnail of a PDF file attachment."
+#~ msgstr "PDF 첨부파일의 섬네일입니다."
+
+#~ msgid "This is a thumbnail of a video attachment."
+#~ msgstr "비디오 첨부파일의 섬네일입니다."
+
+#~ msgid "This message contains a Macintosh file (named \"%s\")."
+#~ msgstr "이 메시지는 매킨토시 파일을 포함하고 있습니다(파일명: \"%s\")."
+
+#~ msgid ""
+#~ "This message contains corrupt styling data so the message contents may "
+#~ "not appear correctly below."
+#~ msgstr ""
+#~ "이 메시지는 손상된 스타일 데이터를 포함하고 있어 메시지 내용이 제대로 아래"
+#~ "에 표시되지 않을 수도 있습니다."
+
+#~ msgid "This message part cannot be viewed because it is too large."
+#~ msgstr "메시지 부분이 너무 커서 표시할 수 없습니다."
+
+#~ msgid ""
+#~ "This message part contains HTML data, but this data can not be displayed "
+#~ "inline."
+#~ msgstr ""
+#~ "이 메시지 부분이 HTML 데이터를 포함하고 있으나, 이 데이터를 본문에 표시할 "
+#~ "수 없습니다."
+
+#~ msgid ""
+#~ "This part contains an attachment that can not be displayed within this "
+#~ "part:"
+#~ msgstr "이 부분은 다음 부분에 표시될 수 없는 첨부파일을 포함하고 있습니다:"
+
+#~ msgid "This video file is reported to be %s in length."
+#~ msgstr "비디오 파일의 재생시간이 %s인 것으로 보고됩니다."
+
+#~ msgid "To %s"
+#~ msgstr "%s에게 보냄"
+
+#~ msgid "Unable to view message in preview pane."
+#~ msgstr "미리 보기 화면에서 메시지를 표시할 수 없습니다."
+
+#~ msgid "Unhandled component of type: %s"
+#~ msgstr "처리되지 않은 형식의 구성요소 : %s"
+
+#~ msgid "Unload Passphrase"
+#~ msgstr "암호 언로드"
+
+#~ msgid "Update in my calendar"
+#~ msgstr "내 달력에서 업데이트"
+
+#~ msgid "Update respondent status"
+#~ msgstr "응답자 상태 업데이트"
+
+#~ msgid "Update this event on my calendar"
+#~ msgstr "이 일정을 내 달력에서 업데이트"
+
+#~ msgid "Uploading attachments has been disabled on this server."
+#~ msgstr "이 서버는 첨부파일 업로드 기능이 비활성화됐습니다."
+
+#~ msgid "Use Template"
+#~ msgstr "서식 사용"
+
+#~ msgid "Use secure connection?"
+#~ msgstr "보안 연결을 사용할까요?"
+
+#~ msgid "User is not authenticated."
+#~ msgstr "사용자가 인증되지 않았습니다."
+
+#~ msgid "View PDF File"
+#~ msgstr "PDF 파일 표시"
+
+#~ msgid "View Personal Private Key"
+#~ msgstr "개인 비공개 키 표시"
+
+#~ msgid "View Personal Public Certificate"
+#~ msgstr "개인 공개 인증서 표시"
+
+#~ msgid "WARNING"
+#~ msgstr "경고"
+
+#~ msgid ""
+#~ "What language(s) do you prefer replies to your messages to be in? (Hold "
+#~ "down the CTRL key when clicking to add multiple languages)"
+#~ msgstr ""
+#~ "메시지를 회신할 때 어떤 언어를 선호하세요? (CTRL 키를 누른 상태로 클릭하"
+#~ "여 다중 언어를 선택하세요) "
+
+#~ msgid ""
+#~ "When forwarding a message in the body text, should the same format as the "
+#~ "original message be used?"
+#~ msgstr ""
+#~ "본문 내용에서 메시지를 전달할 때 원문 메시지와 동일한 형식을 사용할까요?"
+
+#~ msgid ""
+#~ "You are over your quota, so your messages will be permanently deleted "
+#~ "instead of moved to the Trash mailbox."
+#~ msgstr ""
+#~ "제한용량을 초과하였으므로, 메시지를 지운 편지함으로 이동하지 않고 영구적으"
+#~ "로 삭제합니다."
+
+#~ msgid ""
+#~ "You have activated move to Trash but no Trash mailbox is defined. You "
+#~ "will be unable to delete messages until you set a Trash mailbox in the "
+#~ "preferences."
+#~ msgstr ""
+#~ "지운 편지함으로 이동 기능을 활성화했으나 지운 편지함을 지정하지 않았습니"
+#~ "다. 설정에서 지운 편지함을 설정할 때까지 메시지를 삭제할 수 없습니다."
+
+#~ msgid ""
+#~ "You have edited your signature. Change the identity and lose your changes?"
+#~ msgstr "서명을 편집했습니다. 신원을 변경하고 변경사항을 취소할까요?"
+
+#~ msgid "You may not create child mailboxes in \"%s\"."
+#~ msgstr "\"%s\"에 하위 편지함을 생성할 수 없습니다."
+
+#~ msgid "You may not rename \"%s\"."
+#~ msgstr "\"%s\"의 이름을 변경할 수 없습니다."
+
+#~ msgid ""
+#~ "You must enter the passphrase for your PGP private key to view this "
+#~ "message."
+#~ msgstr "이 메시지를 표시하려면 PGP 비공개 키의 암호를 입력해야 합니다."
+
+#~ msgid ""
+#~ "You must enter the passphrase for your S/MIME private key to view this "
+#~ "data."
+#~ msgstr "이 메시지를 표시하려면 S/MIME 비공개 키의 암호를 입력해야 합니다."
+
+#~ msgid ""
+#~ "You must enter the passphrase used to encrypt this message to view it."
+#~ msgstr ""
+#~ "이 메시지를 표시하려면 이 메시지를 암호화할 때 사용한 암호를 입력해야 합니"
+#~ "다."
+
+#~ msgid "You need to manually use the keyboard instead (Ctrl/Cmd + C)."
+#~ msgstr "키보드를 수동으로 대신 사용해야 합니다(Ctrl/Cmd + C)"
+
+#~ msgid "Your Private Certificate"
+#~ msgstr "비공개 인증서"
+
+#~ msgid ""
+#~ "Your attachment was not uploaded. Most likely, the file exceeded the "
+#~ "maximum size allowed by the server configuration."
+#~ msgstr ""
+#~ "첨부파일이 업로드되지 않았습니다. 대부분 파일 서버 구성에서 허용하는 최대 "
+#~ "크기를 초과했을 경우입니다."
+
+#~ msgid ""
+#~ "Your browser security settings don't permit the editor to copy to the "
+#~ "clipboard."
+#~ msgstr ""
+#~ "브라우저 보안 설정이 편집기에서 클립보드에 복사하는 것을 허용하지 않습니"
+#~ "다."
+
+#~ msgid ""
+#~ "Your identity has been switched to the identity associated with the "
+#~ "current recipient address. Click this box to revert to the original "
+#~ "identity. The identity will not be checked again during this compose "
+#~ "action."
+#~ msgstr ""
+#~ "신원을 현재 받는 사람 주소와 연관된 신원으로 전환했습니다. 이 상자를 클릭"
+#~ "하면 원래 신원으로 돌아갑니다. 메시지를 작성하는 동안에는 신원을 다시 확인"
+#~ "하지 않습니다."
+
+#~ msgid ""
+#~ "Your identity has been switched to the identity associated with the "
+#~ "current recipient address. The identity will not be checked again during "
+#~ "this compose action."
+#~ msgstr ""
+#~ "신원을 현재 받는 사람 주소와 관련된 신원으로 전환했습니다. 메시지를 작성하"
+#~ "는 동안에는 신원을 다시 확인하지 않습니다."
+
+#~ msgid "Your linked attachment has been downloaded by at least one user."
+#~ msgstr "최소 한 명의 사용자가 링크된 첨부파일을 다운로드했습니다."
+
+#~ msgid ""
+#~ "Your message body has exceeded the limit by body size by %d characters."
+#~ msgstr "메시지 본문이 본문 크기 제한을 %d자 초과했습니다."
+
+#~ msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
+#~ msgstr "[첨부파일을 제거했습니다: 원본 첨부파일 유형: %s, 이름: %s)"
+
+#~ msgid "and %d more mailbox"
+#~ msgid_plural "and %d more mailboxes"
+#~ msgstr[0] "및 %d개의 추가 편지함"
+
+#~ msgid "base level of the folder tree"
+#~ msgstr "폴더 구조의 기본 수준"
+
+#~ msgid "key"
+#~ msgstr "키"
+
+#~ msgid "links will expire on %s"
+#~ msgstr "링크가 %s에 만료됩니다"
+
+#~ msgid "maximum total image size is %s"
+#~ msgstr "최대 총 이미지 크기는 %s입니다"
+
+#~ msgid "messages from a personal contact"
+#~ msgstr "개인 연락처가 보낸 메시지"
+
+#~ msgid "messages not from a personal contact"
+#~ msgstr "개인 연락처가 아닌 연락처가 보낸 메시지"
+
+#~ msgid "recipients"
+#~ msgstr "수신자"
