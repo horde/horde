@@ -12,14 +12,26 @@
 /* Ansel object. */
 AnselCore =
 {
+    // The current view name.
     view: '',
+
+    // Stack of loading views.
     viewLoading: [],
+
+    // KeyNavList - for autocompleting tags.
     knl: {},
+
     effectDur: 0.4,
     inScrollHandler: false,
     perPage: 10,
+
+    // The imageview object.
     imageLayout: null,
+
+    // The gallery layout object.
     galleryLayout: null,
+
+    // Layout object for image list.
     imagesLayout: null,
 
     /**
@@ -354,11 +366,13 @@ AnselCore =
         }
     },
 
+    // Show an image.
     loadImageView: function(photo)
     {
         this.imageLayout.showImage(photo);
     },
 
+    // Close image view.
     closeImageView: function()
     {
         if (this.lastLocation) {
