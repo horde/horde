@@ -25,6 +25,7 @@ AnselCore =
     imageLayout: null,
     galleryLayout: null,
     imagesLayout: null,
+    inNavHander: false,
 
 
     /**
@@ -731,6 +732,28 @@ AnselCore =
         // gc.reverseGeocode(o.lonlat, this.onReverseGeocode.bind(this), this.onGeocodeError.bind(this) );
     },
 
+    navigateNext: function(e)
+    {
+        var idx = this.imageLayout.currentImage.idx;
+        if (this.galleryLayout.images.length > idx + 1) {
+            this.loadImageView(this.galleryLayout.images[idx + 1]);
+        } else {
+            this.loadImageView(null);
+        }
+        e.stop();
+    },
+
+    navigatePrevious: function(e)
+    {
+        var idx = this.imageLayout.currentImage.idx;
+        if (!idx == 0) {
+            this.loadImageView(this.galleryLayout.images[idx - 1]);
+        } else {
+            this.loadImageView(null);
+        }
+        e.stop();
+    },
+
     /* Onload function. */
     onDomLoad: function()
     {
@@ -753,7 +776,8 @@ AnselCore =
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
         $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
         $('anselViewImage').observe('AnselImageView:close', function() { this.closeImageView(); }.bind(this));
-
+        $('anselViewImage').observe('AnselImageView:next', this.navigateNext.bindAsEventListener(this));
+        $('anselViewImage').observe('AnselImageView:previous', this.navigatePrevious.bindAsEventListener(this));
         this.initialize(tmp);
     },
 

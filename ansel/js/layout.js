@@ -184,7 +184,7 @@ AnselLayout = Class.create({
         if (imgs.length) {
             // If we don't already have lastWidth, this is the first.
             if (!this.lastWidth) {
-                this.images = this.images.concat(imgs);
+                this.concatImages(imgs);
                 this.resize();
                 return;
             }
@@ -192,14 +192,32 @@ AnselLayout = Class.create({
         }
     },
 
+    /**
+     * Utility method for adding the needed .idx property to make navigation
+     * easier.
+     *
+     * @param array imgs Array of image objects we are adding.
+     */
+    concatImages: function(imgs)
+    {
+        var idx = this.images.length - 1;
+        imgs.each(function(img) {
+            var i = 1;
+            img.idx = idx + i++;
+            this.images = this.images.concat([img]);
+        }.bind(this));
+    },
+
     // Build a single image tile.
-    buildImageTile: function(photo, ratio, w, h)
+    buildImageTile: function(photo, ratio, w, h, n)
     {
         var target, wrap, img, meta;
 
         target = new Element('span', {
             class: 'ansel-tile-target'
         });
+
+        photo.idx = n;
         target.store('photo', photo);
         meta = new Element('div', {
             class: 'ansel-tile-meta'
@@ -277,7 +295,7 @@ AnselLayout = Class.create({
         if (imgs) {
             noResize = true;
             rowNum = rows.length - 1;
-            this.images = this.images.concat(imgs);
+            this.concatImages(imgs);
             imgBaseLine = baseLine = this.lastImage;
         }
         imgs = this.images;
@@ -358,7 +376,7 @@ AnselLayout = Class.create({
                 // Add border, and new image width to accumulated width.
                 totalWidth += newwt;
 
-                tile = this.buildImageTile(photo, ratio, newwt, newht);
+                tile = this.buildImageTile(photo, ratio, newwt, newht, imgBaseLine + imgNumber);
                 d_row.insert(tile);
                 imgNumber++;
                 totalNumber++;
