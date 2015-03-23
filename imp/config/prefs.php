@@ -153,8 +153,8 @@ $_prefs['remotemanagement'] = array(
 
 // Internal remote accounts storage value
 $_prefs['remote'] = array(
-    // 'value' = json_encode(array())
-    'value' => '[]'
+    // 'value' = serialize(array())
+    'value' => 'a:0:{}'
 );
 
 
