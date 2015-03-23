@@ -14,19 +14,13 @@ AnselCore =
 {
     view: '',
     viewLoading: [],
-    redBoxLoading: false,
     knl: {},
-    mapMarker: null,
-    map: null,
-    mapInitialized: false,
     effectDur: 0.4,
     inScrollHandler: false,
     perPage: 10,
     imageLayout: null,
     galleryLayout: null,
     imagesLayout: null,
-    inNavHander: false,
-
 
     /**
      * The location that was open before the current location.
@@ -59,7 +53,6 @@ AnselCore =
         if (!this.loading) {
             $('anselLoading').hide();
         }
-        this.closeRedBox();
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
         parentfunc(r, e);
     },
@@ -121,9 +114,6 @@ AnselCore =
         }
         this.viewLoading.push([ fullloc, data ]);
 
-        // if (loc != 'search') {
-        //     HordeTopbar.searchGhost.reset();
-        // }
         var locCap = loc.capitalize();
         switch (loc) {
         case 'me':
@@ -428,16 +418,6 @@ AnselCore =
         window.location.assign(loc);
     },
 
-    searchSubmit: function(e)
-    {
-        this.go('search:' + this.search + ':' + $F('horde-search-input'));
-    },
-
-    searchReset: function(e)
-    {
-        HordeTopbar.searchGhost.reset();
-    },
-
     /**
      * Event handler for HordeCore:showNotifications events.
      */
@@ -459,24 +439,6 @@ AnselCore =
                 this.go(e.memo.flags.alarm.params.notify.ajax);
             }.bind(this));
         }
-    },
-
-    /* Keydown event handler */
-    keydownHandler: function(e)
-    {
-        if (e.stopped) {
-            return;
-        }
-
-        var kc = e.keyCode || e.charCode,
-            form = e.findElement('FORM'), trigger = e.findElement();
-
-        switch (trigger.id) {
-        }
-    },
-
-    keyupHandler: function(e)
-    {
     },
 
     clickHandler: function(e, dblclick)
@@ -527,211 +489,6 @@ AnselCore =
         Prototype.emptyFunction();
     },
 
-    /**
-     * Closes a RedBox overlay, after saving its content to the body.
-     */
-    closeRedBox: function()
-    {
-        if (!RedBox.getWindow()) {
-            return;
-        }
-        var content = RedBox.getWindowContents();
-        if (content) {
-            document.body.insert(content.hide());
-        }
-        RedBox.close();
-    },
-
-    // By default, no context onShow action
-    contextOnShow: Prototype.emptyFunction,
-
-    // By default, no context onClick action
-    contextOnClick: Prototype.emptyFunction,
-
-    // Map
-    initializeMap: function(ignoreLL)
-    {
-        // if (this.mapInitialized) {
-        //     return;
-        // }
-        // var layers = [];
-        // if (Kronolith.conf.maps.providers) {
-        //     Kronolith.conf.maps.providers.each(function(l) {
-        //         var p = new HordeMap[l]();
-        //         $H(p.getLayers()).values().each(function(e) {layers.push(e);});
-        //     });
-        // }
-
-        // this.map = new HordeMap.Map[Kronolith.conf.maps.driver]({
-        //     elt: 'kronolithEventMap',
-        //     delayed: true,
-        //     layers: layers,
-        //     markerDragEnd: this.onMarkerDragEnd.bind(this),
-        //     mapClick: this.afterClickMap.bind(this)
-        // });
-
-        // if ($('kronolithEventLocationLat').value && !ignoreLL) {
-        //     var ll = { lat:$('kronolithEventLocationLat').value, lon: $('kronolithEventLocationLon').value };
-        //     // Note that we need to cast the value of zoom to an integer here,
-        //     // otherwise the map display breaks.
-        //     this.placeMapMarker(ll, true, $('kronolithEventMapZoom').value - 0);
-        // }
-        // //@TODO: check for Location field - and if present, but no lat/lon value, attempt to
-        // // geocode it.
-        // this.map.display();
-        // this.mapInitialized = true;
-    },
-
-    resetMap: function()
-    {
-        // this.mapInitialized = false;
-        // $('kronolithEventLocationLat').value = null;
-        // $('kronolithEventLocationLon').value = null;
-        // $('kronolithEventMapZoom').value = null;
-        // if (this.mapMarker) {
-        //     this.map.removeMarker(this.mapMarker, {});
-        //     this.mapMarker = null;
-        // }
-        // if (this.map) {
-        //     this.map.destroy();
-        //     this.map = null;
-        // }
-    },
-
-    /**
-     * Callback for handling marker drag end.
-     *
-     * @param object r  An object that implenents a getLonLat() method to obtain
-     *                  the new location of the marker.
-     */
-    onMarkerDragEnd: function(r)
-    {
-        // var ll = r.getLonLat();
-        // $('kronolithEventLocationLon').value = ll.lon;
-        // $('kronolithEventLocationLat').value = ll.lat;
-        // var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
-        // gc.reverseGeocode(ll, this.onReverseGeocode.bind(this), this.onGeocodeError.bind(this) );
-    },
-
-    /**
-     * Callback for handling a reverse geocode request.
-     *
-     * @param array r  An array of objects containing the results. Each object in
-     *                 the array is {lat:, lon:, address}
-     */
-    onReverseGeocode: function(r)
-    {
-        // if (!r.length) {
-        //     return;
-        // }
-        // $('kronolithEventLocation').value = r[0].address;
-    },
-
-    onGeocodeError: function(r)
-    {
-        // $('kronolithEventGeo_loading_img').toggle();
-        // HordeCore.notify(Kronolith.text.geocode_error + ' ' + r, 'horde.error');
-    },
-
-    /**
-     * Callback for geocoding calls.
-     */
-    onGeocode: function(r)
-    {
-        // $('kronolithEventGeo_loading_img').toggle();
-        // r = r.shift();
-        // if (r.precision) {
-        //     zoom = r.precision * 2;
-        // } else {
-        //     zoom = null;
-        // }
-        // this.ensureMap(true);
-        // this.placeMapMarker({ lat: r.lat, lon: r.lon }, true, zoom);
-    },
-
-    geocode: function(a)
-    {
-        // if (!a) {
-        //     return;
-        // }
-        // $('kronolithEventGeo_loading_img').toggle();
-        // var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
-        // gc.geocode(a, this.onGeocode.bind(this), this.onGeocodeError);
-    },
-
-    /**
-     * Place the event marker on the map, at point ll, ensuring it exists.
-     * Optionally center the map on the marker and zoom. Zoom only honored if
-     * center is set, and if center is set, but zoom is null, we zoomToFit().
-     *
-     */
-    placeMapMarker: function(ll, center, zoom)
-    {
-        // if (!this.mapMarker) {
-        //     this.mapMarker = this.map.addMarker(
-        //             ll,
-        //             { draggable: true },
-        //             {
-        //                 context: this,
-        //                 dragend: this.onMarkerDragEnd
-        //             });
-        // } else {
-        //     this.map.moveMarker(this.mapMarker, ll);
-        // }
-
-        // if (center) {
-        //     this.map.setCenter(ll, zoom);
-        //     if (!zoom) {
-        //         this.map.zoomToFit();
-        //     }
-        // }
-        // $('kronolithEventLocationLon').value = ll.lon;
-        // $('kronolithEventLocationLat').value = ll.lat;
-    },
-
-    /**
-     * Remove the event marker from the map. Called after clearing the location
-     * field.
-     */
-    removeMapMarker: function()
-    {
-        // if (this.mapMarker) {
-        //     this.map.removeMarker(this.mapMarker, {});
-        //     $('kronolithEventLocationLon').value = null;
-        //     $('kronolithEventLocationLat').value = null;
-        // }
-
-        // this.mapMarker = false;
-    },
-
-    /**
-     * Ensures the map tab is visible and sets UI elements accordingly.
-     */
-    ensureMap: function(ignoreLL)
-    {
-        // if (!this.mapInitialized) {
-        //     this.initializeMap(ignoreLL);
-        // }
-        // var dialog = $('kronolithEventForm');
-        // dialog.select('.kronolithTabsOption').invoke('hide');
-        // dialog.select('.tabset li').invoke('removeClassName', 'horde-active');
-        // $('kronolithEventTabMap').show();
-        // $('kronolithEventLinkMap').up().addClassName('horde-active');
-    },
-
-    /**
-     * Callback that gets called after a new marker has been placed on the map
-     * due to a single click on the map.
-     *
-     * @return object o  { lonlat: }
-     */
-    afterClickMap: function(o)
-    {
-        // this.placeMapMarker(o.lonlat, false);
-        // var gc = new HordeMap.Geocoder[Kronolith.conf.maps.geocoder](this.map.map, 'kronolithEventMap');
-        // gc.reverseGeocode(o.lonlat, this.onReverseGeocode.bind(this), this.onGeocodeError.bind(this) );
-    },
-
     navigateNext: function(e)
     {
         var idx = this.imageLayout.currentImage.idx;
@@ -763,15 +520,7 @@ AnselCore =
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
         }
 
-        RedBox.onDisplay = function() {
-            this.redBoxLoading = false;
-        }.bind(this);
-        RedBox.duration = this.effectDur;
-        RedBox.opacity = 1;
-
         // Event handlers
-        document.observe('keydown', AnselCore.keydownHandler.bindAsEventListener(AnselCore));
-        document.observe('keyup', AnselCore.keyupHandler.bindAsEventListener(AnselCore));
         document.observe('click', AnselCore.clickHandler.bindAsEventListener(AnselCore));
         document.observe('dblclick', AnselCore.clickHandler.bindAsEventListener(AnselCore, true));
         $('anselViewGalleries').observe('AnselLayout:galleryClick', this.onGalleryClick.bindAsEventListener(this));
@@ -819,9 +568,6 @@ AnselCore =
 
 /* Initialize global event handlers. */
 document.observe('dom:loaded', AnselCore.onDomLoad.bind(AnselCore));
-
-// document.observe('FormGhost:reset', AnselCore.searchReset.bindAsEventListener(AnselCore));
-// document.observe('FormGhost:submit', AnselCore.searchSubmit.bindAsEventListener(AnselCore));
 document.observe('HordeCore:showNotifications', AnselCore.showNotification.bindAsEventListener(AnselCore));
 if (Prototype.Browser.IE) {
     $('anselBody').observe('selectstart', Event.stop);
