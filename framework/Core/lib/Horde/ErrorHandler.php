@@ -118,7 +118,7 @@ HTML;
                     echo '<h4>' . Horde_Core_Translation::t("The full error message is logged in Horde's log file, and is shown below only to administrators. Non-administrative users will not see error details.") . '</h4>';
                     ob_flush();
                     flush();
-                    //echo '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
+                    echo '<div id="details"><pre>' . htmlspecialchars(print_r($error, true)) . '</pre></div>';
                 }
             } else {
                 echo '<h3>' . Horde_Core_Translation::t("Details have been logged for the administrator.") . '</h3>';
