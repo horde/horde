@@ -3845,15 +3845,3 @@ msgstr "분류되지 않음"
 #: lib/Block/Weather.php:35
 msgid "weather"
 msgstr "날씨"
-
-#~ msgid "Cached Heartbeat (seconds)"
-#~ msgstr "캐시된 하트비트(초)"
-
-#~ msgid "Configured Horde Default"
-#~ msgstr "구성된 Horde 기본 값"
-
-#~ msgid "Login to %s"
-#~ msgstr "%s에 로그인"
-
-#~ msgid "Unavailable"
-#~ msgstr "사용할 수 없음"

@@ -899,8 +899,8 @@ msgid ""
 "Really delete the task list \"%s\"? This cannot be undone and all data on "
 "this task list will be permanently removed."
 msgstr ""
-"정말로 과제목록 \"%s\"(을)를 삭제하시겠습니까? 이 작업은 취소할 수 없으며 "
-"이 작업 목록의 모든 데이터가 영구적으로 삭제됩니다."
+"정말로 과제목록 \"%s\"(을)를 삭제하시겠습니까? 이 작업은 취소할 수 없으며 이 "
+"작업 목록의 모든 데이터가 영구적으로 삭제됩니다."
 
 #: templates/view/task.inc:13
 msgid "Really delete this task?"
@@ -1122,8 +1122,8 @@ msgid ""
 "System task lists don't have an owner. Only administrators can change the "
 "task list settings and permissions."
 msgstr ""
-"시스템 과제목록은 소유자가 없습니다. 오직 관리자만 과제목록 설정 및 권한을 "
-"변경할 수 있습니다."
+"시스템 과제목록은 소유자가 없습니다. 오직 관리자만 과제목록 설정 및 권한을 변"
+"경할 수 있습니다."
 
 #: lib/Form/Search.php:44
 msgid "Tagged with:"
@@ -1675,6 +1675,3 @@ msgstr "년마다 그 해의 같은 날짜"
 #: lib/Ui/VarRenderer/Nag.php:329
 msgid "year(s) on the same weekday and month of the year"
 msgstr "년마다 그 해의 같은 달과 같은 요일"
-
-#~ msgid "Tasks not found"
-#~ msgstr "과제를 찾을 수 없음"

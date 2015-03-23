@@ -1931,18 +1931,3 @@ msgstr "vCard"
 #: templates/data/export.inc:16
 msgid "vCard (3.0)"
 msgstr "vCard (3.0)"
-
-#~ msgid "Server error when adding data."
-#~ msgstr "데이터를 추가하는 도중 서버 오류가 발생했습니다."
-
-#~ msgid "Server error when deleting data."
-#~ msgstr "데이터를 삭제하는 도중 서버 오류가 발생했습니다."
-
-#~ msgid "Server error when initializing database connection."
-#~ msgstr "데이터베이스 연결을 초기화하는 도중 서버 오류가 발생했습니다."
-
-#~ msgid "Server error when performing search."
-#~ msgstr "검색을 수행하는 도중 서버 오류가 발생했습니다."
-
-#~ msgid "Server error when saving data."
-#~ msgstr "데이터를 저장하는 도중 서버 오류가 발생했습니다."

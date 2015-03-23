@@ -649,6 +649,3 @@ msgstr "notes.csv"
 #: data.php:22 templates/data/import.inc:11
 msgid "vNote"
 msgstr "vNote"
-
-#~ msgid "Failed retrieving Kolab data for notepad %s: %s"
-#~ msgstr "메모장 %s에 대한 Kolab data를 검색하는데 실패했습니다: %s"
