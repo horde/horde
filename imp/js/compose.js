@@ -110,7 +110,11 @@ var ImpCompose = {
 
     closeQReply: function()
     {
-        this.hash_hdrs = this.hash_msg = this.hash_msgOrig = this.hash_sig = this.hash_sigOrig = '';
+        delete this.hash_hdrs;
+        delete this.hash_msg;
+        delete this.hash_msgOrig;
+        delete this.hash_sig;
+        delete this.hash_sigOrig;
 
         this.attachlist.reset();
         this.getCacheElt().clear();
