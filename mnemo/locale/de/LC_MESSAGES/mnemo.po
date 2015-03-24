@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-01-08 11:22+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: 2015-01-08 11:23+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: memo.php:275
+#: memo.php:276
 #, php-format
 msgid "%s characters"
 msgstr "%s Zeichen"
@@ -26,23 +26,23 @@ msgstr "%s Zeichen"
 msgid "%s file successfully imported"
 msgstr "Die %s-Datei wurde erfolgreich importiert"
 
-#: memo.php:100
+#: memo.php:101
 msgid "Access denied addings notes to this notepad."
 msgstr "Zugriff verweigert beim Hinzufügen von Notizen zu diesem Notizblock."
 
-#: memo.php:250
+#: memo.php:251
 msgid "Access denied deleting note."
 msgstr "Zugriff verweigert beim Löschen der Notiz."
 
-#: memo.php:114
+#: memo.php:115
 msgid "Access denied editing note."
 msgstr "Zugriff verweigert beim Bearbeiten der Notiz."
 
-#: memo.php:187
+#: memo.php:188
 msgid "Access denied moving the note."
 msgstr "Zugriff verweigert beim Verschieben der Notiz."
 
-#: memo.php:156
+#: memo.php:157
 msgid "Access denied saving note to this notepad."
 msgstr "Zugriff verweigert beim Speichern der Notiz in diesem Notizblock."
 
@@ -102,7 +102,7 @@ msgstr "Wählen Sie Ihren Standard-Notizblock aus."
 msgid "Close Search"
 msgstr "Suche beenden"
 
-#: lib/Api.php:347
+#: lib/Api.php:382
 #, php-format
 msgid "Connection failed: %s"
 msgstr "Verbindung fehlgeschlagen: %s"
@@ -191,7 +191,7 @@ msgstr "%s bearbeiten"
 msgid "Edit Note"
 msgstr "Notiz bearbeiten"
 
-#: memo.php:138 memo.php:170
+#: memo.php:139 memo.php:171
 #, php-format
 msgid "Edit: %s"
 msgstr "Bearbeiten: %s"
@@ -242,11 +242,11 @@ msgstr "Notizen Import/Export"
 msgid "In"
 msgstr "In"
 
-#: lib/Api.php:262
+#: lib/Api.php:283
 msgid "Invalid notepad name supplied."
 msgstr "Ungültiges Notizbuch angegeben."
 
-#: lib/Api.php:155 lib/Api.php:160
+#: lib/Api.php:158 lib/Api.php:163
 msgid "Invalid notepad requested."
 msgstr "Ungültiges Notizbuch angefordert."
 
@@ -254,7 +254,7 @@ msgstr "Ungültiges Notizbuch angefordert."
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
-#: memo.php:286
+#: memo.php:287
 msgid "Loading..."
 msgstr "Lade..."
 
@@ -274,7 +274,7 @@ msgstr "Änderungsdatum"
 msgid "More Options..."
 msgstr "Weitere Optionen..."
 
-#: lib/Api.php:734
+#: lib/Api.php:776
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "Mehrere iCalendar-Komponenten gefunden; nur ein vNote wird unterstützt."
@@ -291,7 +291,7 @@ msgstr "Meine Notizen"
 msgid "Name"
 msgstr "Name"
 
-#: lib/Application.php:186 memo.php:109 memo.php:162
+#: lib/Application.php:188 memo.php:110 memo.php:163
 msgid "New Note"
 msgstr "Neue Notiz"
 
@@ -299,7 +299,7 @@ msgstr "Neue Notiz"
 msgid "Next"
 msgstr "Weiter"
 
-#: lib/Api.php:570 lib/Api.php:727
+#: lib/Api.php:612 lib/Api.php:769
 msgid "No iCalendar data was found."
 msgstr "Es wurden keine iCalendar-Daten gefunden."
 
@@ -335,7 +335,7 @@ msgstr "Notiztext"
 msgid "Note _Text"
 msgstr "Notiz_text"
 
-#: memo.php:125 memo.php:167 note/pdf.php:52 view.php:55
+#: memo.php:126 memo.php:168 note/pdf.php:52 view.php:55
 msgid "Note not found."
 msgstr "Notiz nicht gefunden."
 
@@ -351,11 +351,11 @@ msgstr "Notizblock"
 msgid "Notepad and Share Preferences"
 msgstr "Notizblock- und Rechte-Einstellungen"
 
-#: lib/Api.php:337
+#: lib/Api.php:372
 msgid "Notepad does not exist or no permission to delete"
 msgstr "Das Notizbuch existiert nicht oder keine Berechtigung zum Löschen"
 
-#: lib/Api.php:281
+#: lib/Api.php:308
 msgid "Notepad does not exist or no permission to edit"
 msgstr "Das Notizbuch existiert nicht oder keine Berechtigung zum Ändern"
 
@@ -372,7 +372,7 @@ msgstr "Notizen"
 msgid "Notes Summary"
 msgstr "Notizen-Zusammenfassung"
 
-#: lib/Api.php:127
+#: lib/Api.php:128
 #, php-format
 msgid "Notes from %s"
 msgstr "Notizen aus %s"
@@ -408,7 +408,7 @@ msgstr "Speichern"
 msgid "Save as PDF"
 msgstr "Als PDF speichern"
 
-#: lib/Application.php:210 lib/Form/Search.php:22 lib/Form/Search.php:30
+#: lib/Application.php:216 lib/Form/Search.php:22 lib/Form/Search.php:30
 #: list.php:59 search.php:24 templates/list/header.html.php:4
 msgid "Search"
 msgstr "Suche"
@@ -459,7 +459,7 @@ msgstr "Notizblockname anzeigen?"
 msgid "Show this note"
 msgstr "Diese Notiz anzeigen"
 
-#: memo.php:230
+#: memo.php:231
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "\"%s\" wurde erfolgreich gespeichert."
@@ -497,7 +497,7 @@ msgstr ""
 "Klasse Content_Tagger nicht gefunden. Bitte stellen Sie sicher, dass die "
 "\"Content\"-Anwendung installiert ist."
 
-#: memo.php:245
+#: memo.php:246
 msgid "The note was deleted."
 msgstr "Die Notiz wurde gelöscht."
 
@@ -521,7 +521,7 @@ msgstr "Der Notizblock \"%s\" wurde nach \"%s\" umbenannt."
 msgid "The notepad \"%s\" has been saved."
 msgstr "Der Notizblock \"%s\" wurde gespeichert."
 
-#: memo.php:160
+#: memo.php:161
 msgid "The passwords don't match."
 msgstr "Die Passwörter stimmen nicht überein."
 
@@ -536,23 +536,23 @@ msgstr ""
 msgid "There was an error importing the data: %s"
 msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 
-#: lib/Api.php:564 lib/Api.php:721
+#: lib/Api.php:606 lib/Api.php:763
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Application.php:257
+#: lib/Application.php:263
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
 "Beim Löschen der Notizen von %s ist ein Fehler aufgetreten. Details wurden "
 "protokolliert."
 
-#: memo.php:247
+#: memo.php:248
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Beim Löschen der Notiz ist ein Fehler aufgetreten: %s"
 
-#: memo.php:228
+#: memo.php:229
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Beim Speichern der Notiz ist ein Fehler aufgetreten: %s"
@@ -582,7 +582,7 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password."
 msgstr "Diese Notiz wurde verschlüsselt, bitte geben Sie das Passwort ein."
 
-#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:331
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:322
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
@@ -590,7 +590,7 @@ msgstr "Diese Notiz wurde verschlüsselt."
 msgid "Title"
 msgstr "Titel"
 
-#: lib/Api.php:275 lib/Api.php:608 lib/Api.php:660 lib/Api.php:749
+#: lib/Api.php:297 lib/Api.php:650 lib/Api.php:702 lib/Api.php:791
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
@@ -603,7 +603,7 @@ msgstr "Notiz anzeigen"
 msgid "Which Notepad should the notes be added to?"
 msgstr "Zu welchem Notizblock sollen die Notizen hinzugefügt werden?"
 
-#: data.php:34 data.php:87 memo.php:85
+#: data.php:34 data.php:87 memo.php:86
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Sie dürfen nicht mehr als %d Notizen erstellen."
@@ -668,21 +668,21 @@ msgstr "_Wiederholen:"
 msgid "_Search"
 msgstr "_Suche"
 
-#: lib/Driver/Sql.php:366 lib/Driver/Sql.php:375
+#: lib/Driver/Sql.php:357 lib/Driver/Sql.php:366
 #, php-format
 msgid "by %s"
 msgstr "durch %s"
 
-#: lib/Driver/Sql.php:368 lib/Driver/Sql.php:377
+#: lib/Driver/Sql.php:359 lib/Driver/Sql.php:368
 msgid "by me"
 msgstr "durch mich"
 
-#: lib/Application.php:198
+#: lib/Application.php:204
 #, php-format
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:295 templates/data/export.inc:3
+#: lib/Application.php:301 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notizen.csv"
 

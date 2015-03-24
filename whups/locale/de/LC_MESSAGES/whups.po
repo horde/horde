@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-01-08 11:22+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: 2015-01-08 11:27+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -230,7 +230,7 @@ msgstr "Aufsteigend"
 msgid "Assign"
 msgstr "Zuweisen"
 
-#: config/prefs.php:57 lib/Api.php:668 lib/Driver.php:270
+#: config/prefs.php:57 lib/Api.php:679 lib/Driver.php:270
 #: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:866
 msgid "Assigned"
@@ -263,7 +263,7 @@ msgstr "Anlage"
 msgid "Attachment %s deleted."
 msgstr "Anlage %s wurde gelöscht."
 
-#: lib/Driver/Sql.php:1338 lib/Ticket.php:551
+#: lib/Driver/Sql.php:1344 lib/Ticket.php:551
 #, php-format
 msgid "Attachment %s not found."
 msgstr "Anlage %s nicht gefunden."
@@ -461,7 +461,7 @@ msgstr "Ticket erstellen - Schritt 3"
 msgid "Create Ticket - Step 4"
 msgstr "Ticket erstellen - Schritt 4"
 
-#: config/prefs.php:56 lib/Api.php:673 lib/Form/Renderer/Query.php:149
+#: config/prefs.php:56 lib/Api.php:684 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:864
 msgid "Created"
 msgstr "Erstellt"
@@ -647,7 +647,7 @@ msgstr "Herunterladen"
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
-#: lib/Api.php:677 lib/Form/Renderer/Query.php:169
+#: lib/Api.php:688 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:687 lib/Ticket.php:879
 #: lib/Whups.php:867
 msgid "Due"
@@ -1061,19 +1061,19 @@ msgstr "Meine Anfragen"
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
-#: lib/Api.php:640
+#: lib/Api.php:651
 msgid "My tickets by assignment date"
 msgstr "Meine Tickets nach Zuweisungsdatum"
 
-#: lib/Api.php:639
+#: lib/Api.php:650
 msgid "My tickets by creation date"
 msgstr "Meine Tickets nach Erstelldatum"
 
-#: lib/Api.php:641
+#: lib/Api.php:652
 msgid "My tickets by due date"
 msgstr "Meine Tickets nach Fälligkeitsdatum"
 
-#: lib/Api.php:642
+#: lib/Api.php:653
 msgid "My tickets by resolution date"
 msgstr "Meine Tickets nach Erledigungsdatum"
 
@@ -1520,7 +1520,7 @@ msgstr "Anfrager"
 msgid "Required Attribute?"
 msgstr "Notwendiges Attribute?"
 
-#: config/prefs.php:58 lib/Api.php:682 lib/Driver.php:271
+#: config/prefs.php:58 lib/Api.php:693 lib/Driver.php:271
 #: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:868
 msgid "Resolved"
@@ -1801,7 +1801,7 @@ msgstr "Genommen von %s"
 msgid "Text"
 msgstr "Text"
 
-#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1538
+#: lib/Driver/Sql.php:98 lib/Driver/Sql.php:1544
 msgid "That queue slug is already taken. Please select another."
 msgstr "Dieser Kurzname ist bereits vergeben. Bitte wählen Sie einen anderen."
 
@@ -2212,12 +2212,12 @@ msgstr "Das Ticket %d wurde gelöscht."
 msgid "Ticket %d not found."
 msgstr "Ticket %d nicht gefunden."
 
-#: lib/Api.php:608
+#: lib/Api.php:615
 #, php-format
 msgid "Ticket %s - %s"
 msgstr "Ticket %s - %s"
 
-#: lib/Driver/Sql.php:1155
+#: lib/Driver/Sql.php:1161
 #, php-format
 msgid "Ticket %s was not found."
 msgstr "Ticket %s nicht gefunden."
@@ -2252,7 +2252,7 @@ msgstr "Ticket-URL: %s"
 msgid "Ticket Updated"
 msgstr "Ticket aktualisiert"
 
-#: lib/Api.php:627
+#: lib/Api.php:638
 msgid "Tickets"
 msgstr "Tickets"
 
@@ -2428,7 +2428,7 @@ msgstr "Ja"
 msgid "You are not allowed to view ticket %d."
 msgstr "Sie haben keine Berechtigung das Ticket %d anzuzeigen."
 
-#: lib/Driver/Sql.php:1165
+#: lib/Driver/Sql.php:1171
 #, php-format
 msgid "You do not have permission to access this ticket (%s)."
 msgstr "Sie haben nicht genügend Rechte, um dieses Ticket (%s) anzuzeigen."
@@ -2572,7 +2572,7 @@ msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung beachtet)"
 msgid "contains the word"
 msgstr "enthält das Wort"
 
-#: lib/Api.php:614
+#: lib/Api.php:625
 msgid "estimated time"
 msgstr "geschätzte Zeit"
 

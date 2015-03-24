@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Itip\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: 2011-02-02 18:42+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -25,7 +25,7 @@ msgstr "Angenommen"
 msgid "Declined"
 msgstr "Abgelehnt"
 
-#: lib/Horde/Itip/Event/Vevent.php:92
+#: lib/Horde/Itip/Event/Vevent.php:92 lib/Horde/Itip/Event/Vtodo.php:95
 msgid "No summary available"
 msgstr "Keine Zusammenfassung verfügbar"
 

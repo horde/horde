@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-02-10 12:39+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: 2015-02-10 12:42+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:960
+#: lib/Horde.php:964
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Zugriffstaste %s)"
 
-#: lib/Horde/Registry.php:1328 lib/Horde/Registry.php:2052
+#: lib/Horde/Registry.php:1329 lib/Horde/Registry.php:2053
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" ist in der Horde Registry nicht konfiguriert."
@@ -41,7 +41,7 @@ msgid_plural "%d days until your password expires."
 msgstr[0] "In %d Tag wird Ihr Passwort ungültig."
 msgstr[1] "In %d Tagen wird Ihr Passwort ungültig."
 
-#: lib/Horde/Registry.php:1523
+#: lib/Horde/Registry.php:1524
 #, php-format
 msgid "%s is not activated."
 msgstr "%s ist nicht aktiviert."
@@ -359,7 +359,7 @@ msgstr "Nicht löschen"
 msgid "Domestic Address"
 msgstr "Inlandsadresse"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2938
+#: lib/Horde/Core/ActiveSync/Driver.php:2948
 msgid "Drafts"
 msgstr "Entwürfe"
 
@@ -473,7 +473,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2933
+#: lib/Horde/Core/ActiveSync/Driver.php:2943
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -623,7 +623,7 @@ msgid "No children can be added to this permission."
 msgstr ""
 "Unterhalb dieser Ebene können keine weiteren Unterrechte hinzugefügt werden."
 
-#: lib/Horde.php:354
+#: lib/Horde.php:358
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Für %s wurden keine Konfigurationsinformationen angegeben."
@@ -682,7 +682,7 @@ msgstr "Ok"
 msgid "Out Of Office"
 msgstr "Abwesenheit"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2943
+#: lib/Horde/Core/ActiveSync/Driver.php:2953
 msgid "Outbox"
 msgstr "Postausgang"
 
@@ -758,7 +758,7 @@ msgstr "Entfernen"
 msgid "Remove source"
 msgstr "Quelle entfernen"
 
-#: lib/Horde.php:363
+#: lib/Horde.php:367
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "\"%s\" wurde in der Konfiguration für %s nicht angegeben."
@@ -829,7 +829,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2928
+#: lib/Horde/Core/ActiveSync/Driver.php:2938
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -902,22 +902,22 @@ msgstr ""
 "Die E-Mail-Adresse %s wurde zu Ihren Identitäten hinzugefügt. Sie können "
 "dieses Fenster jetzt schließen."
 
-#: lib/Horde.php:275
+#: lib/Horde.php:279
 msgid "The encryption features require a secure web connection."
 msgstr ""
 "Die Verschlüsselungsfunktionen benötigen eine sichere Serververbindung."
 
-#: lib/Horde.php:364
+#: lib/Horde.php:368
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Die Datei %s sollte einen %s Eintrag enthalten."
 
-#: lib/Horde.php:355
+#: lib/Horde.php:359
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Die Datei %s sollte einige %s Einträge enthalten."
 
-#: lib/Horde/Registry.php:2716
+#: lib/Horde/Registry.php:2717
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
@@ -993,7 +993,7 @@ msgstr "Beim Speichern Ihrer Einstellungen sind Fehler aufgetreten."
 msgid "This is the notification log."
 msgstr "Hier werden alte Meldungen angezeigt."
 
-#: lib/Horde/Registry.php:544
+#: lib/Horde/Registry.php:545
 msgid "This system is currently deactivated."
 msgstr "Dieses System ist zur Zeit deaktiviert."
 
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Toggle Alerts Log"
 msgstr "Alte Meldungen ein-/ausblenden"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2923
+#: lib/Horde/Core/ActiveSync/Driver.php:2933
 msgid "Trash"
 msgstr "Papierkorb"
 
@@ -1117,7 +1117,7 @@ msgid_plural "You are not allowed to create more than %d blocks."
 msgstr[0] "Sie dürfen nicht mehr als %d Block erstellen."
 msgstr[1] "Sie dürfen nicht mehr als %d Blöcke erstellen."
 
-#: lib/Horde/Registry.php:2683
+#: lib/Horde/Registry.php:2684
 msgid "You are not allowed to remove user data."
 msgstr "Sie dürfen keine Benutzerdaten löschen."
 

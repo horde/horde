@@ -1,14 +1,14 @@
 # German translations for Trean
 # Copyright 2002-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Trean package.
-# Jan Schneider <jan@horde.org>, 2002-2014.
+# Jan Schneider <jan@horde.org>, 2002-2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-14 12:22+0100\n"
-"PO-Revision-Date: 2014-11-14 12:23+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"PO-Revision-Date: 2015-03-24 11:00+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -316,6 +316,13 @@ msgstr "Beim Löschen des Lesezeichens ist ein Fehler aufgetreten: %s"
 #, php-format
 msgid "There was an error adding the bookmark: %s"
 msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
+
+#: lib/Application.php:142
+#, php-format
+msgid "There was an error removing bookmarks for %s. Details have been logged."
+msgstr ""
+"Beim Löschen der Lesezeichen von %s ist ein Fehler aufgetreten. Details "
+"wurden protokolliert."
 
 #: app/controllers/SaveBookmark.php:25
 #, php-format
