@@ -483,8 +483,10 @@ class Kronolith_Driver
             foreach ($resources as $uid => $resource) {
                 if ($resource['response'] !== Kronolith::RESPONSE_DECLINED &&
                     $resource['response'] !== Kronolith::RESPONSE_NONE) {
-                    $r = $rd->getResource($uid);
-                    $r->removeEvent($event);
+                    try {
+                        $r = $rd->getResource($uid);
+                        $r->removeEvent($event);
+                    } catch (Kronolith_Exception $e) {}
                 }
             }
         }
