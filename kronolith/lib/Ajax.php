@@ -150,6 +150,7 @@ class Kronolith_Ajax
             'no_tasklist_title' => _("The task list title must not be empty."),
             'no_url' => _("You must specify a URL."),
             'prefs' => _("Preferences"),
+            'resources' => _("Resources"),
             'searching' => sprintf(_("Events matching \"%s\""), '#{term}'),
             'shared' => _("Shared"),
             'tasks' => _("Tasks"),

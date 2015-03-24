@@ -3837,6 +3837,11 @@ KronolithCore = {
             if (type == 'remote') {
                 this.loadCalendar(type, id);
             }
+            if (type == 'resource') {
+                if (!$('kronolithEventLinkResources')) {
+                    this.addResourceTabLink();
+                }
+            }
         }
         form.down('.kronolithCalendarSave').enable();
         this.closeRedBox();
@@ -6230,6 +6235,20 @@ KronolithCore = {
                 row.insert(new Element('td', { className: 'kronolithFBUnknown' }));
             }
         }.bind(this));
+    },
+
+    addResourceTabLink: function()
+    {
+        var l = new Element('li').insert(
+            new Element('a',
+            {
+                'href': '#',
+                className: 'kronolithTabLink',
+                id: 'kronolithEventLinkResources'
+            }).update(Kronolith.text.resources)
+        );
+        $('kronolithEventLinkAttendees').up().insert({ after: l });
+        Kronolith.conf.has_resources = true;
     },
 
     addResource: function(resource, id)
