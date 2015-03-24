@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2014-11-14 12:22+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -307,6 +307,11 @@ msgstr ""
 #: add.php:41
 #, php-format
 msgid "There was an error adding the bookmark: %s"
+msgstr ""
+
+#: lib/Application.php:142
+#, php-format
+msgid "There was an error removing bookmarks for %s. Details have been logged."
 msgstr ""
 
 #: app/controllers/SaveBookmark.php:25

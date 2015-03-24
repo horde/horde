@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2015-01-08 11:22+0100\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -477,7 +477,7 @@ msgstr ""
 msgid "Page failed to unlock: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:598 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
+#: lib/Driver/Sql.php:613 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
 msgid "Page name must not be empty"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr ""
 
-#: lib/Driver/Sql.php:666
+#: lib/Driver/Sql.php:681
 #, php-format
 msgid "Renamed page from %s"
 msgstr ""
@@ -572,7 +572,7 @@ msgstr ""
 msgid "Reverted to version %s of \"%s\"."
 msgstr ""
 
-#: lib/Driver/Sql.php:602
+#: lib/Driver/Sql.php:617
 msgid "Robots are not allowed to create pages"
 msgstr ""
 
