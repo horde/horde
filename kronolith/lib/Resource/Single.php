@@ -79,6 +79,8 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
             $this->_copyEvent($event, $resource_event);
             $resource_event->save();
         }
+
+        $this->unlock();
     }
 
     /**

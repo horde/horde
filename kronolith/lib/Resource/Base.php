@@ -36,6 +36,13 @@ abstract class Kronolith_Resource_Base
     protected $_id = '';
 
     /**
+     * Cache the lock of this resource. If not locked, is false.
+     *
+     * @var boolean|integer
+     */
+    protected $_lock;
+
+    /**
      * Const'r
      *
      * @param array $params
@@ -62,6 +69,36 @@ abstract class Kronolith_Resource_Base
             ),
             $params
         );
+    }
+
+    /**
+     * Locks the resource.
+     *
+     * @return boolean  True if lock succeeded, otherwise false.
+     */
+    public function lock()
+    {
+        $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
+        $principle = 'calendar/' . $rcal;
+        $this->_lock = $locks->setLock(
+            $GLOBALS['registry']->getAuth(),
+            'kronolith',
+            $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
+
+        return !empty($this->_lock);
+    }
+
+    /**
+     * Remove a previous lock.
+     *
+     */
+    public function unlock()
+    {
+        if ($this->_lock) {
+            $GLOBALS['injector']->getInstance('Horde_Lock')
+                ->clearLock($this->_lock);
+        }
+        $this->_lock = false;
     }
 
     /**

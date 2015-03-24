@@ -583,73 +583,7 @@ abstract class Kronolith_Event
         }
 
         /* Check for acceptance/denial of this event's resources. */
-        $accepted_resources = array();
-        $locks = $GLOBALS['injector']->getInstance('Horde_Lock');
-        $lock = array();
-        // Don't waste time with resource acceptance if the status is cancelled,
-        // the event will be removed from the resource calendar anyway.
-        if ($this->status != Kronolith::STATUS_CANCELLED) {
-            foreach (array_keys($this->getResources()) as $id) {
-                /* Get the resource and protect against infinite recursion in
-                 * case someone is silly enough to add a resource to it's own
-                 * event.*/
-                $resource = Kronolith::getDriver('Resource')->getResource($id);
-                $rcal = $resource->get('calendar');
-                if ($rcal == $this->calendar) {
-                    continue;
-                }
-                Kronolith::getDriver('Resource')->open($rcal);
-
-                /* Lock the resource and get the response */
-                if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
-                    $principle = 'calendar/' . $rcal;
-                    $lock[$resource->getId()] = $locks->setLock($GLOBALS['registry']->getAuth(), 'kronolith', $principle, 5, Horde_Lock::TYPE_EXCLUSIVE);
-                    $haveLock = true;
-                } else {
-                    $haveLock = false;
-                }
-                if ($haveLock && !$lock[$resource->getId()]) {
-                    // Already locked
-                    // For now, just fail. Not sure how else to capture the
-                    // locked resources and notify the user.
-                    throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
-                } else {
-                    $response = $resource->getResponse($this);
-                }
-
-                /* Remember accepted resources so we can add the event to their
-                 * calendars. Otherwise, clear the lock. */
-                if ($response == Kronolith::RESPONSE_ACCEPTED) {
-                    $accepted_resources[] = $resource;
-                } elseif ($haveLock) {
-                    $locks->clearLock($lock[$resource->getId()]);
-                }
-
-                if ($response == Kronolith::RESPONSE_DECLINED && $this->uid) {
-                    $r_driver = Kronolith::getDriver('Resource');
-                    $r_event = $r_driver->getByUID($this->uid, array($resource->get('calendar')));
-                    $r_driver->deleteEvent($r_event, true, true);
-                }
-
-                /* Add the resource to the event */
-                $this->addResource($resource, $response);
-            }
-        } else {
-            // If event is cancelled, and actually exists, we need to mark it
-            // as cancelled in resource calendar.
-            foreach (array_keys($this->getResources()) as $id) {
-                $resource = Kronolith::getDriver('Resource')->getResource($id);
-                $rcal = $resource->get('calendar');
-                if ($rcal == $this->calendar) {
-                    continue;
-                }
-                try {
-                    Kronolith::getDriver('Resource')->open($rcal);
-                    $resource->addEvent($this);
-                } catch (Exception $e) {
-                }
-            }
-        }
+        $accepted_resources = Kronolith_Resource::checkResources($this);
 
         /* Save */
         $result = $this->getDriver()->saveEvent($this);
@@ -662,9 +596,6 @@ abstract class Kronolith_Event
          * hence no longer refer to the same event. */
         foreach ($accepted_resources as $resource) {
             $resource->addEvent($this);
-            if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
-                $locks->clearLock($lock[$resource->getId()]);
-            }
         }
 
         $hordeAlarm = $GLOBALS['injector']->getInstance('Horde_Alarm');

@@ -41,4 +41,77 @@ class Kronolith_Resource
         return $driver->save($resource);
     }
 
+
+    /**
+     * Handles checking for resource availability or cancellation.
+     *
+     * @param Kronolith_Event $event  The event whose resources we are saving.
+     *
+     * @return array  An array of accepted resource objects.
+     */
+    public static function checkResources($event)
+    {
+        $accepted_resources = array();
+
+        // Don't waste time with resource acceptance if the status is cancelled,
+        // the event will be removed from the resource calendar anyway.
+        if ($event->status != Kronolith::STATUS_CANCELLED) {
+            foreach (array_keys($event->getResources()) as $id) {
+                /* Get the resource and protect against infinite recursion in
+                 * case someone is silly enough to add a resource to it's own
+                 * event.*/
+                $resource = Kronolith::getDriver('Resource')->getResource($id);
+                $rcal = $resource->get('calendar');
+                if ($rcal == $event->calendar) {
+                    continue;
+                }
+                Kronolith::getDriver('Resource')->open($rcal);
+
+                /* Lock the resource and get the response */
+                if ($resource->get('response_type') == Kronolith_Resource::RESPONSETYPE_AUTO) {
+                    $haveLock = $resource->lock();
+                    if (!$haveLock) {
+                        throw new Kronolith_Exception(sprintf(_("The resource \"%s\" was locked. Please try again."), $resource->get('name')));
+                    }
+                } else {
+                    $haveLock = false;
+                }
+                $response = $resource->getResponse($this);
+
+                /* Remember accepted resources so we can add the event to their
+                 * calendars. Otherwise, clear the lock. */
+                if ($response == Kronolith::RESPONSE_ACCEPTED) {
+                    $accepted_resources[] = $resource;
+                } elseif ($haveLock) {
+                    $resource->unlock();
+                }
+
+                if ($response == Kronolith::RESPONSE_DECLINED && $event->uid) {
+                    $r_driver = Kronolith::getDriver('Resource');
+                    $r_event = $r_driver->getByUID($event->uid, array($resource->get('calendar')));
+                    $r_driver->deleteEvent($r_event, true, true);
+                }
+
+                /* Add the resource to the event */
+                $event->addResource($resource, $response);
+            }
+        } else {
+            // If event is cancelled, and actually exists, we need to mark it
+            // as cancelled in resource calendar.
+            foreach (array_keys($event->getResources()) as $id) {
+                $resource = Kronolith::getDriver('Resource')->getResource($id);
+                $rcal = $resource->get('calendar');
+                if ($rcal == $event->calendar) {
+                    continue;
+                }
+                try {
+                    Kronolith::getDriver('Resource')->open($rcal);
+                    $resource->addEvent($this);
+                } catch (Exception $e) {
+                }
+            }
+        }
+
+        return $accepted_resources;
+    }
 }
