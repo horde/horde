@@ -86,7 +86,7 @@ implements Ingo_Rule_System
     protected function _setAddressesException($addr_count, $max)
     {
         return new Ingo_Exception(sprintf(
-            _("Maximum number of blacklisted addresses exceeded (Total addresses: %s, Maximum addresses: %s). Could not add new addresses to blacklist."),
+            _("Maximum number of blacklisted addresses exceeded (Total addresses: %d, Maximum addresses: %d). Could not add new addresses to blacklist."),
             $addr_count,
             $max
         ));
