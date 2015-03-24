@@ -90,11 +90,11 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 if ($registry->hasMethod('calendar/delete')) {
                     $guid = $components[$key]->getAttribute('UID');
                     $recurrenceId = null;
+                    $range = null;
                     try {
                         // This is a cancellation of a recurring event instance.
                         $recurrenceId = $components[$key]->getAttribute('RECURRENCE-ID');
                         $atts = $components[$key]->getAttribute('RECURRENCE-ID', true);
-                        $range = null;
                         foreach ($atts as $att) {
                             if (array_key_exists('RANGE', $att)) {
                                 $range = $att['RANGE'];
