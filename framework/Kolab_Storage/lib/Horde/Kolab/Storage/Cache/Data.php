@@ -458,7 +458,13 @@ class Horde_Kolab_Storage_Cache_Data
             foreach ($delete as $obid => $object_id) {
                 $object = $this->_data[self::OBJECTS][$object_id];
                 if (!empty($object['_attachments'])) {
-                    foreach (array_keys($object['_attachments']) as $id) {
+                    // @todo clean up attachment formatting mess.
+                    if (isset($object['_attachments']['id'])) {
+                        $ids = $object['_attachments']['id'];
+                    } else {
+                        $ids = array_keys($object['_attachments']);
+                    }
+                    foreach ($ids as $id) {
                         $this->_cache->deleteAttachment(
                             $this->getDataId(), $obid, $id
                         );
