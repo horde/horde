@@ -332,11 +332,14 @@
        <file name="pgp_signed2.txt" role="test" />
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
+      <dir name="Pgp">
+       <file name="BinaryTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
+      </dir> <!-- /test/Horde/Crypt/Pgp -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
-      <file name="PgpTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
@@ -537,7 +540,6 @@
    <install as="Horde/Crypt/bootstrap.php" name="test/Horde/Crypt/bootstrap.php" />
    <install as="Horde/Crypt/conf.php.dist" name="test/Horde/Crypt/conf.php.dist" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
-   <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
    <install as="Horde/Crypt/phpunit.xml" name="test/Horde/Crypt/phpunit.xml" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
@@ -550,6 +552,8 @@
    <install as="Horde/Crypt/fixtures/pgp_signed.txt" name="test/Horde/Crypt/fixtures/pgp_signed.txt" />
    <install as="Horde/Crypt/fixtures/pgp_signed2.txt" name="test/Horde/Crypt/fixtures/pgp_signed2.txt" />
    <install as="Horde/Crypt/fixtures/smime_subjectAltName.pem" name="test/Horde/Crypt/fixtures/smime_subjectAltName.pem" />
+   <install as="Horde/Crypt/Pgp/BinaryTest.php" name="test/Horde/Crypt/Pgp/BinaryTest.php" />
+   <install as="Horde/Crypt/Pgp/TestBase.php" name="test/Horde/Crypt/Pgp/TestBase.php" />
   </filelist>
  </phprelease>
  <changelog>
