@@ -235,7 +235,6 @@ Version: GnuPG %s
         );
     }
 
-
     public function testPgpPacketInformation()
     {
         $out = $this->_pgp->pgpPacketInformation($this->_getPublicKey());

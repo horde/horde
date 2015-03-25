@@ -334,6 +334,7 @@
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <dir name="Pgp">
        <file name="BinaryTest.php" role="test" />
+       <file name="PeclTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Crypt/Pgp -->
       <file name="AllTests.php" role="test" />
@@ -553,6 +554,7 @@
    <install as="Horde/Crypt/fixtures/pgp_signed2.txt" name="test/Horde/Crypt/fixtures/pgp_signed2.txt" />
    <install as="Horde/Crypt/fixtures/smime_subjectAltName.pem" name="test/Horde/Crypt/fixtures/smime_subjectAltName.pem" />
    <install as="Horde/Crypt/Pgp/BinaryTest.php" name="test/Horde/Crypt/Pgp/BinaryTest.php" />
+   <install as="Horde/Crypt/Pgp/PeclTest.php" name="test/Horde/Crypt/Pgp/PeclTest.php" />
    <install as="Horde/Crypt/Pgp/TestBase.php" name="test/Horde/Crypt/Pgp/TestBase.php" />
   </filelist>
  </phprelease>
