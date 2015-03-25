@@ -494,7 +494,7 @@ extends Horde_Crypt_Pgp_Backend
         $result = $this->_callGpg(
             $cmdline,
             empty($params['no_passphrase']) ? 'w' : 'r',
-            empty($params['no_passphrase']) ? null : $params['passphrase'],
+            empty($params['no_passphrase']) ? $params['passphrase'] : null,
             true,
             true,
             true
