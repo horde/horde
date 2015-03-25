@@ -895,14 +895,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd->add($tmp);
         }
 
-        try {
-            $this->_temp['id'] = $this->_sendCmd($cmd)->data['id'];
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+        $temp = &$this->_temp;
+
+        /* Add to queue - this doesn't need to be sent immediately. */
+        $cmd->on_error = function() use ($temp) {
             /* Ignore server errors. E.g. Cyrus returns this:
              *   001 NO Only one Id allowed in non-authenticated state
              * even though NO is not allowed in RFC 2971[3.1]. */
-            $this->_temp['id'] = array();
-        }
+            $temp['id'] = array();
+            return true;
+        };
+        $cmd->on_success = function() use ($cmd, $temp) {
+            $temp['id'] = $cmd->pipeline->data['id'];
+        };
+        $this->_cmdQueue[] = $cmd;
     }
 
     /**
@@ -917,17 +923,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         Horde_Imap_Client_Tokenize $data
     )
     {
-        $ids = array();
+        if (!isset($pipeline->data['id'])) {
+            $pipeline->data['id'] = array();
+        }
 
         if (!is_null($data->next())) {
             while (($curr = $data->next()) !== false) {
                 if (!is_null($id = $data->next())) {
-                    $ids[$curr] = $id;
+                    $pipeline->data['id'][$curr] = $id;
                 }
             }
         }
-
-        $pipeline->data['id'] = $ids;
     }
 
     /**
@@ -936,6 +942,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         if (!isset($this->_temp['id'])) {
             $this->sendID();
+            /* ID is queued - force sending the queued command. */
+            $this->_sendCmd($this->_pipeline());
         }
 
         return $this->_temp['id'];
@@ -4172,6 +4180,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $exception = null;
 
         foreach ($chunk as $val) {
+            $val->pipeline = $pipeline;
+
             try {
                 if ($this->_processCmd($pipeline, $val, $val)) {
                     $this->_connection->write('', true);
@@ -4445,6 +4455,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ));
             }
             $this->_responseCode($pipeline, $server);
+
+            if (is_callable($cmd->on_success)) {
+                call_user_func($cmd->on_success);
+            }
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
@@ -4468,10 +4482,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * catch this if able to workaround this issue (RFC 3501
              * [7.1.2]). */
             if ($server instanceof Horde_Imap_Client_Interaction_Server_Tagged) {
-                /* Check for a on_error callback. */
+                /* Check for a on_error callback. If function returns true,
+                 * ignore the error. */
                 if (($cmd = $pipeline->getCmd($server->tag)) &&
-                    is_callable($cmd->on_error)) {
-                    call_user_func($cmd->on_error);
+                    is_callable($cmd->on_error) &&
+                    call_user_func($cmd->on_error)) {
+                    break;
                 }
 
                 throw new Horde_Imap_Client_Exception_ServerResponse(

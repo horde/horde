@@ -11,6 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.28.0
+===================
+
+  - Horde_Imap_Client_Interaction_Command
+
+    Added the $on_success and $pipeline properties.
+
+    If the callback defined in $on_error returns true, the command will be
+    treated as successful.
+
+
 Upgrading to 2.27.0
 ===================
 

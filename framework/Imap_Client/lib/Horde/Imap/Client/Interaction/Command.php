@@ -53,11 +53,31 @@ extends Horde_Imap_Client_Data_Format_List
     /**
      * A callback to run on error.
      *
+     * If callback returns true, the command will be treated as successful.
+     *
      * @since 2.24.0
      *
      * @var callback
      */
     public $on_error = null;
+
+    /**
+     * A callback to run on success.
+     *
+     * @since 2.28.0
+     *
+     * @var callback
+     */
+    public $on_success = null;
+
+    /**
+     * Pipeline object associated with this command.
+     *
+     * @since 2.28.0
+     *
+     * @var Horde_Imap_Client_Interaction_Pipeline
+     */
+    public $pipeline;
 
     /**
      * Server response.
