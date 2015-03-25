@@ -1,17 +1,25 @@
 <?php
 /**
- * The Horde_Crypt:: class provides an API for various cryptographic
- * systems used by Horde applications.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Crypt
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Crypt
+ */
+
+/**
+ * Provides an API for various cryptographic systems used by Horde
+ * applications.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2015 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Crypt
  */
 class Horde_Crypt
 {
@@ -21,13 +29,6 @@ class Horde_Crypt
      * @var array
      */
     protected $_params = array();
-
-    /**
-     * The temporary directory to use.
-     *
-     * @var string
-     */
-    protected $_tempdir;
 
     /**
      * Attempts to return a concrete Horde_Crypt instance based on $driver.
@@ -59,29 +60,19 @@ class Horde_Crypt
             return new $class($params);
         }
 
-        throw new Horde_Crypt_Exception(__CLASS__ . ': Class definition of ' . $driver . ' not found.');
+        throw new Horde_Crypt_Exception(
+            __CLASS__ . ': Class definition of ' . $driver . ' not found.'
+        );
     }
 
     /**
      * Constructor.
      *
      * @param array $params  Configuration parameters:
-     * <pre>
-     * email_charset - (string) The default email charset.
-     *                 DEFAULT: NONE
-     * temp - (string) [REQUIRED] Location of temporary directory.
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     *   - email_charset: (string) The default email charset.
      */
     public function __construct(array $params = array())
     {
-        if (empty($params['temp'])) {
-            throw new InvalidArgumentException('A temporary directory must be provided.');
-        }
-
-        $this->_tempdir = Horde_Util::createTempDir(true, $params['temp']);
-
         $this->_params = array_merge(array(
             'email_charset' => null,
         ), $params);
@@ -114,21 +105,6 @@ class Horde_Crypt
     public function decrypt($data, $params = array())
     {
         return $data;
-    }
-
-    /**
-     * Create a temporary file that will be deleted at the end of this
-     * process.
-     *
-     * @param string  $descrip  Description string to use in filename.
-     * @param boolean $delete   Delete the file automatically?
-     *
-     * @return string  Filename of a temporary file.
-     */
-    protected function _createTempFile($descrip = 'horde-crypt',
-                                       $delete = true)
-    {
-        return Horde_Util::getTempFile($descrip, $delete, $this->_tempdir, true);
     }
 
 }

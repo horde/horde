@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-03-25</date>
  <version>
   <release>2.5.4</release>
   <api>2.5.0</api>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Split gnupg specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
  </notes>
  <contents>
@@ -42,6 +43,10 @@
     <dir name="Horde">
      <dir name="Crypt">
       <dir name="Pgp">
+       <dir name="Backend">
+        <file name="Binary.php" role="php" />
+       </dir> <!-- /lib/Horde/Crypt/Pgp/Backend -->
+       <file name="Backend.php" role="php" />
        <file name="Keyserver.php" role="php" />
        <file name="Parse.php" role="php" />
       </dir> <!-- /lib/Horde/Crypt/Pgp -->
@@ -427,8 +432,10 @@
    <install as="Horde/Crypt/Pgp.php" name="lib/Horde/Crypt/Pgp.php" />
    <install as="Horde/Crypt/Smime.php" name="lib/Horde/Crypt/Smime.php" />
    <install as="Horde/Crypt/Translation.php" name="lib/Horde/Crypt/Translation.php" />
+   <install as="Horde/Crypt/Pgp/Backend.php" name="lib/Horde/Crypt/Pgp/Backend.php" />
    <install as="Horde/Crypt/Pgp/Keyserver.php" name="lib/Horde/Crypt/Pgp/Keyserver.php" />
    <install as="Horde/Crypt/Pgp/Parse.php" name="lib/Horde/Crypt/Pgp/Parse.php" />
+   <install as="Horde/Crypt/Pgp/Backend/Binary.php" name="lib/Horde/Crypt/Pgp/Backend/Binary.php" />
    <install as="locale/Horde_Crypt.pot" name="locale/Horde_Crypt.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.mo" name="locale/ar/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.po" name="locale/ar/LC_MESSAGES/Horde_Crypt.po" />
@@ -1071,9 +1078,10 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-03-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Split gnupg specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
    </notes>
   </release>
