@@ -193,7 +193,7 @@ class IMP_Imap_Config implements Serializable
      */
     public function __get($name)
     {
-        global $injector;
+        global $injector, $registry;
 
         if (in_array($name, $this->_aoptions)) {
             /* Array options. */
@@ -269,6 +269,15 @@ class IMP_Imap_Config implements Serializable
             }
 
             $out = array('backend' => $ob);
+            break;
+
+        case 'id':
+            $out = array_merge(array(
+                'name' => 'IMP',
+                'support-url' => 'http://www.horde.org/imp/',
+                'vendor' => 'Horde',
+                'version' => $registry->getVersion('imp')
+            ), $out);
             break;
 
         case 'import_limit':

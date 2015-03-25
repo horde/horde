@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Send IMP MUA information to IMAP servers that support the ID extension.
 * [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing message.
 * [mms] Sent-mail maillog entries are now linked to a viewable representation of the sent message, if it still exists on the server.
 * [mms] Store message ID of the sent message when saving maillog history.
