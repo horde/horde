@@ -11,9 +11,8 @@
 
 class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
 {
+    protected $_language;
     protected $_pgp;
-    protected $_privkey;
-    protected $_pubkey;
 
     protected function setUp()
     {
@@ -28,9 +27,6 @@ class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
             'program' => '/usr/bin/gpg',
             'temp' => sys_get_temp_dir()
         ));
-
-        $this->_privkey = file_get_contents(__DIR__ . '/fixtures/pgp_private.asc');
-        $this->_pubkey = file_get_contents(__DIR__ . '/fixtures/pgp_public.asc');
     }
 
     protected function tearDown()
@@ -53,7 +49,7 @@ Comment:          [None]
 E-Mail:           rselsky@bu.edu
 Hash-Algorithm:   pgp-sha1
 Key ID:           0xF3C01D42
-Key Fingerprint:  5912 D91D 4C79 C670 1FFF  1486 04A6 7B37 F3C0 1D42
+Key Fingerprint:  5912D91D4C79C6701FFF148604A67B37F3C01D42
 
 ',
             $this->_pgp->pgpPrettyKey($data)
@@ -68,8 +64,8 @@ Key Fingerprint:  5912 D91D 4C79 C670 1FFF  1486 04A6 7B37 F3C0 1D42
 
         $decrypt = $this->_pgp->decrypt($crypt, array(
             'passphrase' => 'Secret',
-            'privkey' => $this->_privkey,
-            'pubkey' => $this->_pubkey,
+            'privkey' => $this->getPrivateKey(),
+            'pubkey' => $this->getPublicKey(),
             'type' => 'message'
         ));
 
@@ -129,7 +125,7 @@ The quick brown fox jumps over the lazy dog.
         $clear = file_get_contents(__DIR__ . '/fixtures/clear.txt');
 
         $out = $this->_pgp->encrypt($clear, array(
-            'recips' => array('me@example.com' => $this->_pubkey),
+            'recips' => array('me@example.com' => $this->getPublicKey()),
             'type' => 'message'
         ));
 
@@ -236,7 +232,7 @@ Version: GnuPG %s
 
     public function testPgpPacketInformation()
     {
-        $out = $this->_pgp->pgpPacketInformation($this->_pubkey);
+        $out = $this->_pgp->pgpPacketInformation($this->getPublicKey());
 
         $this->assertArrayHasKey(
             'public_key',
@@ -259,7 +255,7 @@ Version: GnuPG %s
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketInformation($this->_privkey);
+        $out = $this->_pgp->pgpPacketInformation($this->getPrivateKey());
 
         $this->assertArrayHasKey(
             'secret_key',
@@ -285,21 +281,30 @@ Version: GnuPG %s
 
     public function testPgpPacketSignature()
     {
-        $out = $this->_pgp->pgpPacketSignature($this->_pubkey, 'me@example.com');
+        $out = $this->_pgp->pgpPacketSignature(
+            $this->getPublicKey(),
+            'me@example.com'
+        );
 
         $this->assertEquals(
             '7CA74426BADEABD7',
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignature($this->_privkey, 'me@example.com');
+        $out = $this->_pgp->pgpPacketSignature(
+            $this->getPrivateKey(),
+            'me@example.com'
+        );
 
         $this->assertEquals(
             '7CA74426BADEABD7',
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignature($this->_privkey, 'foo@example.com');
+        $out = $this->_pgp->pgpPacketSignature(
+            $this->getPrivateKey(),
+            'foo@example.com'
+        );
 
         $this->assertArrayNotHasKey(
             'keyid',
@@ -309,21 +314,30 @@ Version: GnuPG %s
 
     public function testPgpPacketSignatureByUidIndex()
     {
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex($this->_pubkey, 'id1');
+        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+            $this->getPublicKey(),
+            'id1'
+        );
 
         $this->assertEquals(
             '7CA74426BADEABD7',
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex($this->_privkey, 'id1');
+        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+            $this->getPrivateKey(),
+            'id1'
+        );
 
         $this->assertEquals(
             '7CA74426BADEABD7',
             $out['keyid']
         );
 
-        $out = $this->_pgp->pgpPacketSignatureByUidIndex($this->_privkey, 'id2');
+        $out = $this->_pgp->pgpPacketSignatureByUidIndex(
+            $this->getPrivateKey(),
+            'id2'
+        );
 
         $this->assertArrayNotHasKey(
             'keyid',
@@ -345,10 +359,10 @@ Comment:          My Comment
 E-Mail:           me@example.com
 Hash-Algorithm:   pgp-sha1
 Key ID:           0xBADEABD7
-Key Fingerprint:  966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7
+Key Fingerprint:  966F4BA9569DE6F65E8253977CA74426BADEABD7
 
 ',
-            $this->_pgp->pgpPrettyKey($this->_pubkey)
+            $this->_pgp->pgpPrettyKey($this->getPublicKey())
         );
 
         $this->assertEquals(
@@ -361,28 +375,45 @@ Comment:          My Comment
 E-Mail:           me@example.com
 Hash-Algorithm:   pgp-sha1
 Key ID:           0xBADEABD7
-Key Fingerprint:  966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7
+Key Fingerprint:  966F4BA9569DE6F65E8253977CA74426BADEABD7
 
 ',
-            $this->_pgp->pgpPrettyKey($this->_privkey)
+            $this->_pgp->pgpPrettyKey($this->getPrivateKey())
         );
     }
 
-    public function testPgpGetFingerprintsFromKey()
+    /**
+     * @dataProvider pgpGetFingerprintsFromKeyProvider
+     */
+    public function testPgpGetFingerprintsFromKey($expected, $key)
     {
         $this->assertEquals(
-            array('0xBADEABD7' => '966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7'),
-            $this->_pgp->getFingerprintsFromKey($this->_pubkey)
+            $expected,
+            $this->_pgp->getFingerprintsFromKey($key)
         );
-        $this->assertEquals(
-            array('0xBADEABD7' => '966F 4BA9 569D E6F6 5E82  5397 7CA7 4426 BADE ABD7'),
-            $this->_pgp->getFingerprintsFromKey($this->_privkey)
+    }
+
+    public function pgpGetFingerprintsFromKeyProvider()
+    {
+        return array(
+            array(
+                array(
+                    '0xBADEABD7' => '966F4BA9569DE6F65E8253977CA74426BADEABD7'
+                ),
+                $this->getPublicKey()
+            ),
+            array(
+                array(
+                    '0xBADEABD7' => '966F4BA9569DE6F65E8253977CA74426BADEABD7'
+                ),
+                $this->getPrivateKey()
+            )
         );
     }
 
     public function pgpPublicKeyMIMEPart()
     {
-        $mime_part = $this->_pgp->publicKeyMIMEPart($this->_pubkey);
+        $mime_part = $this->_pgp->publicKeyMIMEPart($this->getPublicKey());
 
         $this->assertEquals(
             'application/pgp-keys',
@@ -424,8 +455,8 @@ umO5uT5yDcir3zwqUAxzBAkE4ACcCtGfb6usaTKnNXo+ZuLoHiOwIE4=
 
         $out = $this->_pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
-            'privkey' => $this->_privkey,
-            'pubkey' => $this->_pubkey,
+            'privkey' => $this->getPrivateKey(),
+            'pubkey' => $this->getPublicKey(),
             'type' => 'signature'
         ));
 
@@ -442,8 +473,8 @@ Version: GnuPG %s
 
         $out = $this->_pgp->encrypt($clear, array(
             'passphrase' => 'Secret',
-            'privkey' => $this->_privkey,
-            'pubkey' => $this->_pubkey,
+            'privkey' => $this->getPrivateKey(),
+            'pubkey' => $this->getPublicKey(),
             'sigtype' => 'cleartext',
             'type' => 'signature'
         ));
@@ -484,7 +515,7 @@ Version: GnuPG %s
         $out = $this->_pgp->decrypt(
             file_get_contents(__DIR__ . '/fixtures/clear.txt'),
             array(
-                'pubkey' => $this->_pubkey,
+                'pubkey' => $this->getPublicKey(),
                 'signature' => file_get_contents(__DIR__ . '/fixtures/pgp_signature.txt'),
                 'type' => 'detached-signature'
             )
@@ -495,7 +526,7 @@ Version: GnuPG %s
         $out = $this->_pgp->decrypt(
             file_get_contents(__DIR__ . '/fixtures/pgp_signed.txt'),
             array(
-                'pubkey' => $this->_pubkey,
+                'pubkey' => $this->getPublicKey(),
                 'type' => 'signature'
             )
         );
@@ -505,7 +536,7 @@ Version: GnuPG %s
         $out = $this->_pgp->decrypt(
             file_get_contents(__DIR__ . '/fixtures/pgp_signed2.txt'),
             array(
-                'pubkey' => $this->_pubkey,
+                'pubkey' => $this->getPublicKey(),
                 'type' => 'signature'
             )
         );
@@ -516,19 +547,37 @@ Version: GnuPG %s
     public function testVerifyPassphrase()
     {
         $this->assertTrue(
-            $this->_pgp->verifyPassphrase($this->_pubkey, $this->_privkey, 'Secret')
+            $this->_pgp->verifyPassphrase(
+                $this->getPublicKey(),
+                $this->getPrivateKey(),
+                'Secret'
+            )
         );
 
         $this->assertFalse(
-            $this->_pgp->verifyPassphrase($this->_pubkey, $this->_privkey, 'Wrong')
+            $this->_pgp->verifyPassphrase(
+                $this->getPublicKey(),
+                $this->getPrivateKey(),
+                'Wrong'
+            )
         );
     }
 
     public function testGetPublicKeyFromPrivateKey()
     {
         $this->assertNotNull(
-            $this->_pgp->getPublicKeyFromPrivateKey($this->_privkey)
+            $this->_pgp->getPublicKeyFromPrivateKey($this->getPrivateKey())
         );
+    }
+
+    protected function getPrivateKey()
+    {
+        return file_get_contents(__DIR__ . '/fixtures/pgp_private.asc');
+    }
+
+    protected function getPublicKey()
+    {
+        return file_get_contents(__DIR__ . '/fixtures/pgp_public.asc');
     }
 
 }

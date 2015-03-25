@@ -338,7 +338,7 @@ extends Horde_Crypt_Pgp_Backend
             if (preg_match('/pub\s+\w+\/(\w{8})/', $line, $matches)) {
                 $keyid = '0x' . $matches[1];
             } elseif ($keyid && preg_match('/^\s+[\s\w]+=\s*([\w\s]+)$/m', $line, $matches)) {
-                $fingerprints[$keyid] = trim($matches[1]);
+                $fingerprints[$keyid] = str_replace(' ', '', $matches[1]);
                 $keyid = null;
             }
         }
