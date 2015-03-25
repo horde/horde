@@ -9,22 +9,30 @@
  * @subpackage UnitTests
  */
 
-class Horde_Crypt_PgpTest extends PHPUnit_Framework_TestCase
+class Horde_Crypt_PgpTest extends Horde_Test_Case
 {
     protected $_language;
     protected $_pgp;
 
     protected function setUp()
     {
-        if (!is_executable('/usr/bin/gpg')) {
-            $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');
+        $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__);
+        $gnupg = isset($c['gnupg'])
+            ? $c['gnupg']
+            : '/usr/bin/gpg';
+
+        if (!is_executable($gnupg)) {
+            $this->markTestSkipped(sprintf(
+                'GPG binary not found at %s.',
+                $gnupg
+            ));
         }
 
         @date_default_timezone_set('GMT');
         $this->_language = getenv('LANGUAGE');
 
         $this->_pgp = Horde_Crypt::factory('Pgp', array(
-            'program' => '/usr/bin/gpg',
+            'program' => $gnupg,
             'temp' => sys_get_temp_dir()
         ));
     }
