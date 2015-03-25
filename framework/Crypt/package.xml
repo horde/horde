@@ -18,8 +18,8 @@
  </lead>
  <date>2015-03-25</date>
  <version>
-  <release>2.5.4</release>
-  <api>2.5.0</api>
+  <release>2.6.0</release>
+  <api>2.6.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added PGP backend support for the gnupg PECL extension (Request #8093).
 * [mms] Split gnupg specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
  </notes>
@@ -421,6 +422,14 @@
     <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>gnupg</name>
+    <channel>pecl.php.net</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+    <providesextension>gnupg</providesextension>
    </package>
   </optional>
  </dependencies>
@@ -1073,14 +1082,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.5.4</release>
-    <api>2.5.0</api></version>
+    <release>2.6.0</release>
+    <api>2.6.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-03-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added PGP backend support for the gnupg PECL extension (Request #8093).
 * [mms] Split gnupg specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
    </notes>
