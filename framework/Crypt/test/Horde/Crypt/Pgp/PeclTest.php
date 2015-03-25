@@ -15,7 +15,7 @@ extends Horde_Crypt_Pgp_TestBase
 {
     protected function _setUp()
     {
-        if (!Horde_Crypt_Pgp_Backend_Binary::supported()) {
+        if (!Horde_Crypt_Pgp_Backend_Pecl::supported()) {
             $this->markTestSkipped('gnupg PECL extension not available');
         }
 
