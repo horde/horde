@@ -56,11 +56,6 @@ extends Horde_Crypt_Pgp_Backend
     }
 
     /**
-     * Get the fingerprints from a key block.
-     *
-     * @param string $pgpdata  The PGP data block.
-     *
-     * @return array  The fingerprints in $pgpdata indexed by key id.
      */
     public function getFingerprintsFromKey($pgpdata)
     {
