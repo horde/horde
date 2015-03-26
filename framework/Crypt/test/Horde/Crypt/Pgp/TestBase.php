@@ -197,44 +197,6 @@ Version: GnuPG %s
         );
     }
 
-    public function testParsePGPData()
-    {
-        $data = $this->_getFixture('pgp_signed.txt');
-        $this->_testParsePGPData($data);
-
-        $stream = new Horde_Stream_Temp();
-        $stream->add($data, true);
-        $this->_testParsePGPData($stream);
-    }
-
-    protected function _testParsePGPData($data)
-    {
-        $out = $this->_pgp->parsePGPData($data);
-
-        $this->assertEquals(
-            2,
-            count($out)
-        );
-
-        $this->assertEquals(
-            Horde_Crypt_Pgp::ARMOR_SIGNED_MESSAGE,
-            $out[0]['type']
-        );
-        $this->assertEquals(
-            17,
-            count($out[0]['data'])
-        );
-
-        $this->assertEquals(
-            Horde_Crypt_Pgp::ARMOR_SIGNATURE,
-            $out[1]['type']
-        );
-        $this->assertEquals(
-            7,
-            count($out[1]['data'])
-        );
-    }
-
     public function testPgpPacketInformation()
     {
         $out = $this->_pgp->pgpPacketInformation($this->_getPublicKey());
