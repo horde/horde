@@ -97,9 +97,4 @@ extends Horde_Crypt_Pgp_TestBase
         $this->markTestIncomplete();
     }
 
-    public function testGetPublicKeyFromPrivateKey()
-    {
-        $this->markTestIncomplete();
-    }
-
 }

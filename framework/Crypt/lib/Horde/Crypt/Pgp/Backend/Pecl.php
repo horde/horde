@@ -74,4 +74,17 @@ extends Horde_Crypt_Pgp_Backend
         return $out;
     }
 
+    /**
+     */
+    public function getPublicKeyFromPrivateKey($data)
+    {
+        $gpg = new gnupg();
+
+        if (($info = $gpg->import($data)) === false) {
+            throw new RuntimeException();
+        }
+
+        return $gpg->export($info['fingerprint']);
+    }
+
 }
