@@ -82,7 +82,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 // Throws exception on error.
                 return array(
                     $this->_mimepart->getMimeId() => array(
-                        'data' => '<html><body><tt>' . nl2br(str_replace(' ', '&nbsp;', $GLOBALS['injector']->getInstance('IMP_Pgp')->pgpPrettyKey($this->_mimepart->getContents()))) . '</tt></body></html>',
+                        'data' => '<html><body><tt>' . nl2br(str_replace(' ', '&nbsp;', $GLOBALS['injector']->getInstance('IMP_Pgp')->prettyKey($this->_mimepart->getContents()))) . '</tt></body></html>',
                         'type' => 'text/html; charset=' . $this->getConfigParam('charset')
                     )
                 );

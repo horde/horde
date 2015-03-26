@@ -731,6 +731,91 @@ class IMP_Pgp
     }
 
     /**
+     * Returns human readable information on a PGP key.
+     *
+     * @param string $pgpdata  The PGP data block.
+     *
+     * @return string  Tabular information on the PGP key.
+     * @throws Horde_Pgp_Exception
+     */
+    public function prettyKey($pgpdata)
+    {
+        $msg = '';
+        $info = $this->_pgp->pgpPacketInformation($pgpdata);
+
+        if (empty($info['signature'])) {
+            return $msg;
+        }
+
+        $fingerprints = $this->_pgp->getFingerprintsFromKey($pgpdata);
+
+        $getKeyIdString = function($keyid) {
+            /* Get the 8 character key ID string. */
+            if (strpos($keyid, '0x') === 0) {
+                $keyid = substr($keyid, 2);
+            }
+            if (strlen($keyid) > 8) {
+                $keyid = substr($keyid, -8);
+            }
+            return '0x' . $keyid;
+        };
+
+        /* Making the property names the same width for all localizations .*/
+        $leftrow = array(
+            _("Name"),
+            _("Key Type"),
+            _("Key Creation"),
+            _("Expiration Date"),
+            _("Key Length"),
+            _("Comment"),
+            _("E-Mail"),
+            _("Hash-Algorithm"),
+            _("Key ID"),
+            _("Key Fingerprint")
+        );
+
+        array_walk(
+            $leftrow,
+            function (&$s, $k, $m) {
+                $s .= ':' . str_repeat(' ', $m - Horde_String::length($s));
+            },
+            max(array_map('strlen', $leftrow)) + 2
+        );
+
+        foreach ($info['signature'] as $uid_idx => $val) {
+            if ($uid_idx == '_SIGNATURE') {
+                continue;
+            }
+
+            $key = $this->_pgp->pgpPacketSignatureByUidIndex(
+                $pgpdata,
+                $uid_idx
+            );
+
+            $keyid = empty($key['keyid'])
+                ? null
+                : $getKeyIdString($key['keyid']);
+            $fingerprint = isset($fingerprints[$keyid])
+                ? $fingerprints[$keyid]
+                : null;
+            $sig_key = 'sig_' . $key['keyid'];
+
+            $msg .= $leftrow[0] . (isset($key['name']) ? stripcslashes($key['name']) : '') . "\n"
+                . $leftrow[1] . (($key['key_type'] == 'public_key') ? _("Public Key") : _("Private Key")) . "\n"
+                . $leftrow[2] . strftime("%D", $val[$sig_key]['created']) . "\n"
+                . $leftrow[3] . (empty($val[$sig_key]['expires']) ? '[' . _("Never") . ']' : strftime("%D", $val[$sig_key]['expires'])) . "\n"
+                . $leftrow[4] . $key['key_size'] . " Bytes\n"
+                . $leftrow[5] . (empty($key['comment']) ? '[' . _("None") . ']' : $key['comment']) . "\n"
+                . $leftrow[6] . (empty($key['email']) ? '[' . _("None") . ']' : $key['email']) . "\n"
+                . $leftrow[7] . (empty($key['micalg']) ? '[' . _("Unknown") . ']' : $key['micalg']) . "\n"
+                . $leftrow[8] . (empty($keyid) ? '[' . _("Unknown") . ']' : $keyid) . "\n"
+                . $leftrow[9] . (empty($fingerprint) ? '[' . _("Unknown") . ']' : $fingerprint) . "\n\n";
+        }
+
+        return $msg;
+    }
+
+    /**
      * Return list of keyserver objects.
      *
      * @return array  List of Horde_Crypt_Pgp_Keyserver objects.
