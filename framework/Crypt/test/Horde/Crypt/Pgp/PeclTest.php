@@ -34,7 +34,9 @@ extends Horde_Crypt_Pgp_TestBase
 
     public function testPgpDecryptSymmetric()
     {
-        $this->markTestIncomplete();
+        $this->markTestSkipped(
+            'PECL extension does not support symmetric encryption'
+        );
     }
 
     public function testPgpEncrypt()
@@ -44,12 +46,16 @@ extends Horde_Crypt_Pgp_TestBase
 
     public function testPgpEncryptSymmetric()
     {
-        $this->markTestIncomplete();
+        $this->markTestSkipped(
+            'PECL extension does not support symmetric encryption'
+        );
     }
 
     public function testPgpEncryptedSymmetrically()
     {
-        $this->markTestIncomplete();
+        $this->markTestSkipped(
+            'PECL extension does not support symmetric encryption'
+        );
     }
 
     public function testPgpPacketInformation()
