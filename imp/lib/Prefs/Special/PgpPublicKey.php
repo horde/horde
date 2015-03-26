@@ -39,7 +39,7 @@ class IMP_Prefs_Special_PgpPublicKey implements Horde_Core_Prefs_Ui_Special
         $p_css = new Horde_Themes_Element('prefs.css');
         $page_output->addStylesheet($p_css->fs, $p_css->uri);
 
-        $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $imp_pgp = $injector->getInstance('IMP_Pgp');
 
         /* Get list of Public Keys on keyring. */
         try {
@@ -96,7 +96,7 @@ class IMP_Prefs_Special_PgpPublicKey implements Horde_Core_Prefs_Ui_Special
 
         if (isset($ui->vars->delete_pgp_pubkey)) {
             try {
-                $injector->getInstance('IMP_Crypt_Pgp')->deletePublicKey($ui->vars->email);
+                $injector->getInstance('IMP_Pgp')->deletePublicKey($ui->vars->email);
                 $notification->push(sprintf(_("PGP Public Key for \"%s\" was successfully deleted."), $ui->vars->email), 'horde.success');
             } catch (Horde_Exception $e) {
                 $notification->push($e);

@@ -23,7 +23,7 @@
 class IMP_Basic_Pgp extends IMP_Basic_Base
 {
     /**
-     * @var IMP_Crypt_Pgp
+     * @var IMP_Pgp
      */
     protected $_pgp;
 
@@ -33,7 +33,7 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
     {
         global $browser, $injector, $notification;
 
-        $this->_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $this->_pgp = $injector->getInstance('IMP_Pgp');
 
         /* Run through the action handlers */
         switch ($this->vars->actionID) {

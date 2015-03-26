@@ -58,7 +58,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     'token' => true
                 ))->add('send_pgp_key', 1), _("Send Key to Public Keyserver"));
 
-                if ($injector->getInstance('IMP_Crypt_Pgp')->getPassphrase('personal')) {
+                if ($injector->getInstance('IMP_Pgp')->getPassphrase('personal')) {
                     $view->passphrase = Horde::link($ui->selfUrl(array(
                         'special' => true,
                         'token' => true
@@ -113,7 +113,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
     {
         global $conf, $injector, $notification;
 
-        $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+        $imp_pgp = $injector->getInstance('IMP_Pgp');
 
         if (isset($ui->vars->delete_pgp_privkey)) {
             $imp_pgp->deletePersonalKeys();

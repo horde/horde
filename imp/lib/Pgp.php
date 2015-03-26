@@ -12,8 +12,7 @@
  */
 
 /**
- * The IMP_Crypt_Pgp:: class contains all functions related to handling
- * PGP messages within IMP.
+ * Contains code related to handling PGP data within IMP.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -21,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
+class IMP_Pgp
 {
     /* Name of PGP public key field in addressbook. */
     const PUBKEY_FIELD = 'pgpPublicKey';
@@ -34,6 +33,13 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     const SYM_SIGNENC = 'pgp_syn_sign';
 
     /**
+     * Pgp object.
+     *
+     * @var Horde_Crypt_Pgp
+     */
+    protected $_pgp;
+
+    /**
      * Return whether PGP support is current enabled in IMP.
      *
      * @return boolean  True if PGP support is enabled.
@@ -43,6 +49,16 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         global $conf, $prefs;
 
         return (!empty($conf['gnupg']['path']) && $prefs->getValue('use_pgp'));
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Crypt_Pgp $pgp  PGP object.
+     */
+    public function __construct(Horde_Crypt_Pgp $pgp)
+    {
+        $this->_pgp = $pgp;
     }
 
     /**
@@ -86,7 +102,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                                          $comment = '', $keylength = 1024,
                                          $expire = null)
     {
-        $keys = $this->generateKey($name, $email, $passphrase, $comment, $keylength, $expire);
+        $keys = $this->_pgp->generateKey(
+            $name,
+            $email,
+            $passphrase,
+            $comment,
+            $keylength,
+            $expire
+        );
 
         /* Store the keys in the user's preferences. */
         $this->addPersonalPublicKey($keys['public']);
@@ -158,7 +181,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     public function addPublicKey($public_key)
     {
         /* Make sure the key is valid. */
-        $key_info = $this->pgpPacketInformation($public_key);
+        $key_info = $this->_pgp->pgpPacketInformation($public_key);
         if (!isset($key_info['signature'])) {
             throw new Horde_Crypt_Exception(_("Not a valid public key."));
         }
@@ -373,14 +396,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
                                     $charset = null)
     {
         if (!empty($signature)) {
-            $packet_info = $this->pgpPacketInformation($signature);
+            $packet_info = $this->_pgp->pgpPacketInformation($signature);
             if (isset($packet_info['keyid'])) {
                 $keyid = $packet_info['keyid'];
             }
         }
 
         if (!isset($keyid)) {
-            $keyid = $this->getSignersKeyID($text);
+            $keyid = $this->_pgp->getSignersKeyID($text);
         }
 
         /* Get key ID of key. */
@@ -397,7 +420,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             $options['charset'] = $charset;
         }
 
-        return $this->decrypt($text, $options);
+        return $this->_pgp->decrypt($text, $options);
     }
 
     /**
@@ -429,7 +452,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         switch ($type) {
         case 'literal':
-            return $this->decrypt($text, array(
+            return $this->_pgp->decrypt($text, array(
                 'no_passphrase' => true,
                 'pubkey' => $pubkey,
                 'type' => 'message'
@@ -437,7 +460,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             break;
 
         case 'symmetric':
-            return $this->decrypt($text, array(
+            return $this->_pgp->decrypt($text, array(
                 'passphrase' => $opts['passphrase'],
                 'pubkey' => $pubkey,
                 'type' => 'message'
@@ -445,7 +468,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             break;
 
         case 'personal':
-            return $this->decrypt($text, array(
+            return $this->_pgp->decrypt($text, array(
                 'passphrase' => $opts['passphrase'],
                 'privkey' => $this->getPersonalPrivateKey(),
                 'pubkey' => $pubkey,
@@ -491,7 +514,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         global $session;
 
         if ($type == 'personal') {
-            if ($this->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
+            if ($this->_pgp->verifyPassphrase($this->getPersonalPublicKey(), $this->getPersonalPrivateKey(), $passphrase) === false) {
                 return false;
             }
             $id = 'personal';
@@ -595,9 +618,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signMIMEPart().
      * @throws Horde_Crypt_Exception
      */
-    public function impSignMimePart($mime_part)
+    public function signMimePart($mime_part)
     {
-        return $this->signMimePart($mime_part, $this->_signParameters());
+        return $this->_pgp->signMimePart($mime_part, $this->_signParameters());
     }
 
     /**
@@ -614,11 +637,14 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::encryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impEncryptMimePart($mime_part,
-                                       Horde_Mail_Rfc822_List $addresses,
-                                       $symmetric = null)
+    public function encryptMimePart($mime_part,
+                                    Horde_Mail_Rfc822_List $addresses,
+                                    $symmetric = null)
     {
-        return $this->encryptMimePart($mime_part, $this->_encryptParameters($addresses, $symmetric));
+        return $this->_pgp->encryptMimePart(
+            $mime_part,
+            $this->_encryptParameters($addresses, $symmetric)
+        );
     }
 
     /**
@@ -637,11 +663,15 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::signAndencryptMimePart().
      * @throws Horde_Crypt_Exception
      */
-    public function impSignAndEncryptMimePart($mime_part,
-                                              Horde_Mail_Rfc822_List $addresses,
-                                              $symmetric = null)
+    public function signAndEncryptMimePart($mime_part,
+                                           Horde_Mail_Rfc822_List $addresses,
+                                           $symmetric = null)
     {
-        return $this->signAndEncryptMimePart($mime_part, $this->_signParameters(), $this->_encryptParameters($addresses, $symmetric));
+        return $this->_pgp->signAndEncryptMimePart(
+            $mime_part,
+            $this->_signParameters(),
+            $this->_encryptParameters($addresses, $symmetric)
+        );
     }
 
     /**
@@ -650,9 +680,9 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::publicKeyMimePart().
      */
-    public function publicKeyMimePart($key = null)
+    public function publicKeyMimePart()
     {
-        return parent::publicKeyMimePart($this->getPersonalPublicKey());
+        return $this->_pgp->publicKeyMimePart($this->getPersonalPublicKey());
     }
 
     /**
@@ -678,7 +708,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             case Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY:
             case Horde_Crypt_Pgp::ARMOR_PRIVATE_KEY:
                 $key = implode("\n", $val['data']);
-                if ($key_info = $this->pgpPacketInformation($key)) {
+                if ($key_info = $this->_pgp->pgpPacketInformation($key)) {
                     if (($val['type'] == Horde_Crypt_Pgp::ARMOR_PUBLIC_KEY) &&
                         !empty($key_info['public_key'])) {
                         $out['public'][] = $key;
@@ -693,7 +723,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 
         if (!empty($out['private']) &&
             empty($out['public']) &&
-            $res = $this->getPublicKeyFromPrivateKey(reset($out['private']))) {
+            $res = $this->_pgp->getPublicKeyFromPrivateKey(reset($out['private']))) {
             $out['public'][] = $res;
         }
 

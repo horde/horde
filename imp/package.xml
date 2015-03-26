@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-17</date>
+ <date>2015-03-26</date>
  <version>
   <release>7.0.0</release>
   <api>7.0.0</api>
@@ -248,7 +248,6 @@
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
     <dir name="Crypt">
-     <file name="Pgp.php" role="horde" />
      <file name="Smime.php" role="horde" />
     </dir> <!-- /lib/Crypt -->
     <dir name="Dynamic">
@@ -604,6 +603,7 @@
     <file name="Mailbox.php" role="horde" />
     <file name="Maillog.php" role="horde" />
     <file name="Perms.php" role="horde" />
+    <file name="Pgp.php" role="horde" />
     <file name="Quota.php" role="horde" />
     <file name="Remote.php" role="horde" />
     <file name="Search.php" role="horde" />
@@ -1589,6 +1589,7 @@
    <install as="imp/lib/Mailbox.php" name="lib/Mailbox.php" />
    <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
    <install as="imp/lib/Perms.php" name="lib/Perms.php" />
+   <install as="imp/lib/Pgp.php" name="lib/Pgp.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
    <install as="imp/lib/Remote.php" name="lib/Remote.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
@@ -1654,7 +1655,6 @@
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/Message.php" name="lib/Contents/Message.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
-   <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
    <install as="imp/lib/Dynamic/AddressList.php" name="lib/Dynamic/AddressList.php" />
    <install as="imp/lib/Dynamic/Base.php" name="lib/Dynamic/Base.php" />

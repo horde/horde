@@ -73,7 +73,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
             /* Add the public key to the storage system. */
             switch ($vars->type) {
             case 'pgp':
-                $injector->getInstance('IMP_Crypt_Pgp')->addPublicKey($mime_part->getContents());
+                $injector->getInstance('IMP_Pgp')->addPublicKey($mime_part->getContents());
                 $notification->push(_("Successfully added public key from message."), 'horde.success');
                 break;
 
