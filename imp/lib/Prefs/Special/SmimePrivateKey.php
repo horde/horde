@@ -52,7 +52,7 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
             $view->has_key = ($prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
 
             if ($view->has_key) {
-                $smime = $injector->getInstance('IMP_Crypt_Smime');
+                $smime = $injector->getInstance('IMP_Smime');
                 $cert = $smime->parseCert($smime->getPersonalPublicKey());
                 if (!empty($cert['validity']['notafter'])) {
                     $expired = new Horde_Date($cert['validity']['notafter']);
@@ -102,10 +102,10 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
         global $injector, $notification;
 
         if (isset($ui->vars->delete_smime_personal)) {
-            $injector->getInstance('IMP_Crypt_Smime')->deletePersonalKeys();
+            $injector->getInstance('IMP_Smime')->deletePersonalKeys();
             $notification->push(_("Personal S/MIME keys deleted successfully."), 'horde.success');
         } elseif (isset($ui->vars->unset_smime_passphrase)) {
-            $injector->getInstance('IMP_Crypt_Smime')->unsetPassphrase();
+            $injector->getInstance('IMP_Smime')->unsetPassphrase();
             $notification->push(_("S/MIME passphrase successfully unloaded."), 'horde.success');
         }
 

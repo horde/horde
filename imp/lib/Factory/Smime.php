@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector based factory for the IMP_Crypt_Smime object.
+ * A Horde_Injector based factory for the IMP_Smime object.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -23,13 +23,17 @@
 class IMP_Factory_Smime extends Horde_Core_Factory_Injector
 {
     /**
-     * Return the IMP_Crypt_Smime instance.
+     * Return the IMP_Smime instance.
      *
-     * @return IMP_Crypt_Smime  The singleton instance.
+     * @return IMP_Smime  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
-        return $injector->getInstance('Horde_Core_Factory_Crypt')->create('IMP_Crypt_Smime');
+        return new IMP_Smime(
+            $injector->getInstance('Horde_Core_Factory_Crypt')->create(
+                'Horde_Crypt_Smime'
+            )
+        );
     }
 
 }

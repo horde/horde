@@ -57,7 +57,7 @@ class IMP_Ajax_Application_Handler_Passphrase extends Horde_Core_Ajax_Applicatio
                 break;
 
             case 'smimePersonal':
-                $result = $injector->getInstance('IMP_Crypt_Smime')->storePassphrase($this->vars->dialog_input);
+                $result = $injector->getInstance('IMP_Smime')->storePassphrase($this->vars->dialog_input);
                 break;
             }
 

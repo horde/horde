@@ -39,7 +39,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
         $p_css = new Horde_Themes_Element('prefs.css');
         $page_output->addStylesheet($p_css->fs, $p_css->uri);
 
-        $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+        $imp_smime = $injector->getInstance('IMP_Smime');
 
         /* Get list of Public Keys on keyring. */
         try {
@@ -93,7 +93,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
 
         if (isset($ui->vars->delete_smime_pubkey)) {
             try {
-                $injector->getInstance('IMP_Crypt_Smime')->deletePublicKey($ui->vars->email);
+                $injector->getInstance('IMP_Smime')->deletePublicKey($ui->vars->email);
                 $notification->push(sprintf(_("S/MIME Public Key for \"%s\" was successfully deleted."), $ui->vars->email), 'horde.success');
             } catch (Horde_Exception $e) {
                 $notification->push($e);

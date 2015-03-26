@@ -12,8 +12,7 @@
  */
 
 /**
- * The IMP_Crypt_Smime:: class contains all functions related to handling
- * S/MIME messages within IMP.
+ * Contains code related to handling S/MIME messages within IMP.
  *
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @category  Horde
@@ -21,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Crypt_Smime extends Horde_Crypt_Smime
+class IMP_Smime
 {
     /* Name of the S/MIME public key field in addressbook. */
     const PUBKEY_FIELD = 'smimePublicKey';
@@ -30,6 +29,13 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     const ENCRYPT = 'smime_encrypt';
     const SIGN = 'smime_sign';
     const SIGNENC = 'smime_signenc';
+
+    /**
+     * S/MIME object.
+     *
+     * @var Horde_Crypt_Smime
+     */
+    protected $_smime;
 
     /**
      * Return whether PGP support is current enabled in IMP.
@@ -43,6 +49,16 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         return (!empty($conf['openssl']['path']) &&
                 $prefs->getValue('use_smime') &&
                 Horde_Util::extensionExists('openssl'));
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Crypt_Smime $pgp  S/MIME object.
+     */
+    public function __construct(Horde_Crypt_Smime $smime)
+    {
+        $this->_smime = $smime;
     }
 
     /**
@@ -152,7 +168,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function addPublicKey($cert)
     {
-        list($name, $email) = $this->publicKeyInfo($cert);
+        list($name, $email) = $this->_smime->publicKeyInfo($cert);
 
         $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
     }
@@ -174,7 +190,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         }
 
         /* Add key to the user's address book. */
-        $email = $this->getEmailFromKey($cert);
+        $email = $this->_smime->getEmailFromKey($cert);
         if (is_null($email)) {
             throw new Horde_Crypt_Exception(_("No email information located in the public key."));
         }
@@ -316,7 +332,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function verifySignature($text)
     {
-        return $this->verify($text, empty($GLOBALS['conf']['openssl']['cafile']) ? array() : $GLOBALS['conf']['openssl']['cafile']);
+        global $conf;
+
+        return $this->_smime->verify(
+            $text,
+            empty($conf['openssl']['cafile']) ? array() : $conf['openssl']['cafile']
+        );
     }
 
     /**
@@ -329,7 +350,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function decryptMessage($text)
     {
-        return $this->decrypt($text, array(
+        return $this->_smime->decrypt($text, array(
             'type' => 'message',
             'pubkey' => $this->getPersonalPublicKey(),
             'privkey' => $this->getPersonalPrivateKey(),
@@ -359,7 +380,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             $session->set(
                 'imp',
                 'smime_null_passphrase',
-                $this->verifyPassphrase($private_key, null)
+                $this->_smime->verifyPassphrase($private_key, null)
                     ? null
                     : false
             );
@@ -379,7 +400,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
     {
         global $session;
 
-        if ($this->verifyPassphrase($this->getPersonalPrivateKey(), $passphrase) !== false) {
+        if ($this->_smime->verifyPassphrase($this->getPersonalPrivateKey(), $passphrase) !== false) {
             $session->set('imp', 'smime_passphrase', $passphrase, $session::ENCRYPT);
             return true;
         }
@@ -407,10 +428,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return Horde_Mime_Part  See Horde_Crypt_Smime::encryptMIMEPart().
      * @throws Horde_Crypt_Exception
      */
-    public function IMPencryptMIMEPart($mime_part,
-                                       Horde_Mail_Rfc822_List $recip)
+    public function encryptMimePart($mime_part,
+                                    Horde_Mail_Rfc822_List $recip)
     {
-        return $this->encryptMIMEPart(
+        return $this->_smime->encryptMIMEPart(
             $mime_part,
             $this->_encryptParameters($recip)
         );
@@ -424,9 +445,12 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return MIME_Part  See Horde_Crypt_Smime::signMIMEPart().
      * @throws Horde_Crypt_Exception
      */
-    public function IMPsignMIMEPart($mime_part)
+    public function signMimePart($mime_part)
     {
-        return $this->signMIMEPart($mime_part, $this->_signParameters());
+        return $this->_smime->signMIMEPart(
+            $mime_part,
+            $this->_signParameters()
+        );
     }
 
     /**
@@ -439,10 +463,10 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *                          Horde_Crypt_Smime::signAndencryptMIMEPart().
      * @throws Horde_Crypt_Exception
      */
-    public function IMPsignAndEncryptMIMEPart($mime_part,
-                                              Horde_Mail_Rfc822_List $recip)
+    public function signAndEncryptMimePart($mime_part,
+                                           Horde_Mail_Rfc822_List $recip)
     {
-        return $this->signAndEncryptMIMEPart(
+        return $this->_smime->signAndEncryptMIMEPart(
             $mime_part,
             $this->_signParameters(),
             $this->_encryptParameters($recip)
@@ -461,16 +485,18 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      */
     public function addFromPKCS12($pkcs12, $password, $pkpass = null)
     {
-        $sslpath = empty($GLOBALS['conf']['openssl']['path'])
+        global $conf;
+
+        $sslpath = empty($conf['openssl']['path'])
             ? null
-            : $GLOBALS['conf']['openssl']['path'];
+            : $conf['openssl']['path'];
 
         $params = array('sslpath' => $sslpath, 'password' => $password);
         if (!empty($pkpass)) {
             $params['newpassword'] = $pkpass;
         }
 
-        $result = $this->parsePKCS12Data($pkcs12, $params);
+        $result = $this->_smime->parsePKCS12Data($pkcs12, $params);
         $this->addPersonalPrivateKey($result->private);
         $this->addPersonalPublicKey($result->public);
         $this->addAdditionalCert($result->certs);
@@ -484,13 +510,25 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data, $sslpath = null)
+    public function extractSignedContents($data)
     {
-        $sslpath = empty($GLOBALS['conf']['openssl']['path'])
-            ? null
-            : $GLOBALS['conf']['openssl']['path'];
+        global $conf;
 
-        return parent::extractSignedContents($data, $sslpath);
+        $sslpath = empty($conf['openssl']['path'])
+            ? null
+            : $conf['openssl']['path'];
+
+        return $this->_smime->extractSignedContents($data, $sslpath);
+    }
+
+    /**
+     * Check for the presence of the OpenSSL extension to PHP.
+     *
+     * @throws Horde_Crypt_Exception
+     */
+    public function checkForOpenSsl()
+    {
+        $this->_smime->checkForOpenSSL();
     }
 
 }

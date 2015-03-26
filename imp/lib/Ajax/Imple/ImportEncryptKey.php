@@ -83,7 +83,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
                     : $contents->fullMessageText();
                 $raw_text = $mime_part->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
-                $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+                $imp_smime = $injector->getInstance('IMP_Smime');
                 $sig_result = $imp_smime->verifySignature($raw_text);
                 $imp_smime->addPublicKey($sig_result->cert);
                 $notification->push(_("Successfully added certificate from message."), 'horde.success');

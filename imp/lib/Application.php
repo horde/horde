@@ -96,8 +96,6 @@ class IMP_Application extends Horde_Registry_Application
         $factories = array(
             'IMP_AuthImap' => 'IMP_Factory_AuthImap',
             'IMP_Contacts' => 'IMP_Factory_Contacts',
-            'IMP_Pgp' => 'IMP_Factory_Pgp',
-            'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',
             'IMP_Identity' => 'IMP_Factory_Identity',
             'IMP_Ftree' => 'IMP_Factory_Ftree',
@@ -105,10 +103,12 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Mail_Autoconfig' => 'IMP_Factory_MailAutoconfig',
             'IMP_Mailbox_SessionCache' => 'IMP_Factory_MailboxCache',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
+            'IMP_Pgp' => 'IMP_Factory_Pgp',
             'IMP_Prefs_Sort' => 'IMP_Factory_PrefsSort',
             'IMP_Quota' => 'IMP_Factory_Quota',
             'IMP_Search' => 'IMP_Factory_Search',
-            'IMP_Sentmail' => 'IMP_Factory_Sentmail'
+            'IMP_Sentmail' => 'IMP_Factory_Sentmail',
+            'IMP_Smime' => 'IMP_Factory_Smime'
         );
 
         foreach ($factories as $key => $val) {

@@ -247,9 +247,6 @@
      <file name="Message.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Contents -->
-    <dir name="Crypt">
-     <file name="Smime.php" role="horde" />
-    </dir> <!-- /lib/Crypt -->
     <dir name="Dynamic">
      <dir name="Compose">
       <file name="Common.php" role="horde" />
@@ -609,6 +606,7 @@
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
+    <file name="Smime.php" role="horde" />
     <file name="Spam.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
@@ -1595,6 +1593,7 @@
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
    <install as="imp/lib/Smartmobile.php" name="lib/Smartmobile.php" />
+   <install as="imp/lib/Smime.php" name="lib/Smime.php" />
    <install as="imp/lib/Spam.php" name="lib/Spam.php" />
    <install as="imp/lib/Test.php" name="lib/Test.php" />
    <install as="imp/lib/Ajax/Addresses.php" name="lib/Ajax/Addresses.php" />
@@ -1655,7 +1654,6 @@
    <install as="imp/lib/Contacts/Flag/Host.php" name="lib/Contacts/Flag/Host.php" />
    <install as="imp/lib/Contents/Message.php" name="lib/Contents/Message.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
-   <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
    <install as="imp/lib/Dynamic/AddressList.php" name="lib/Dynamic/AddressList.php" />
    <install as="imp/lib/Dynamic/Base.php" name="lib/Dynamic/Base.php" />
    <install as="imp/lib/Dynamic/Compose.php" name="lib/Dynamic/Compose.php" />

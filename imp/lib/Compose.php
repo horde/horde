@@ -720,8 +720,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *            One of:
      *    - IMP_Pgp::ENCRYPT</li>
      *    - IMP_Pgp::SIGNENC</li>
-     *    - IMP_Crypt_Smime::ENCRYPT</li>
-     *    - IMP_Crypt_Smime::SIGNENC</li>
+     *    - IMP_Smime::ENCRYPT</li>
+     *    - IMP_Smime::SIGNENC</li>
      *  - html: (boolean) Whether this is an HTML message.
      *          DEFAULT: false
      *  - pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
@@ -1001,8 +1001,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         case IMP_Pgp::SIGNENC:
         case IMP_Pgp::SYM_ENCRYPT:
         case IMP_Pgp::SYM_SIGNENC:
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGNENC:
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGNENC:
             $recip2 = clone $recip;
             $recip2->add($from);
             break;
@@ -1085,19 +1085,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
             break;
 
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGN:
-        case IMP_Crypt_Smime::SIGNENC:
-            if (!IMP_Crypt_Smime::enabled()) {
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGN:
+        case IMP_Smime::SIGNENC:
+            if (!IMP_Smime::enabled()) {
                 break;
             }
 
-            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+            $imp_smime = $injector->getInstance('IMP_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             switch ($encrypt) {
-            case IMP_Crypt_Smime::SIGN:
-            case IMP_Crypt_Smime::SIGNENC:
+            case IMP_Smime::SIGN:
+            case IMP_Smime::SIGNENC:
                 if (($passphrase = $imp_smime->getPassphrase()) === false) {
                     $e = new IMP_Compose_Exception(
                         _("S/MIME Error: Need passphrase for personal private key.")
@@ -1111,16 +1111,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP_Crypt_Smime::SIGN:
-                    $msg2 = $imp_smime->IMPsignMIMEPart($msg);
+                case IMP_Smime::SIGN:
+                    $msg2 = $imp_smime->signMimePart($msg);
                     $this->_setMetadata('encrypt_sign', true);
                     return $msg2;
 
-                case IMP_Crypt_Smime::ENCRYPT:
-                    return $imp_smime->IMPencryptMIMEPart($msg, $recip2);
+                case IMP_Smime::ENCRYPT:
+                    return $imp_smime->encryptMimePart($msg, $recip2);
 
-                case IMP_Crypt_Smime::SIGNENC:
-                    return $imp_smime->IMPsignAndEncryptMIMEPart($msg, $recip2);
+                case IMP_Smime::SIGNENC:
+                    return $imp_smime->signAndEncryptMimePart($msg, $recip2);
                 }
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(

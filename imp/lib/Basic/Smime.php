@@ -24,7 +24,7 @@
 class IMP_Basic_Smime extends IMP_Basic_Base
 {
     /**
-     * @var IMP_Crypt_Smime
+     * @var IMP_Smime
      */
     protected $_smime;
 
@@ -34,7 +34,7 @@ class IMP_Basic_Smime extends IMP_Basic_Base
     {
         global $injector, $notification;
 
-        $this->_smime = $injector->getInstance('IMP_Crypt_Smime');
+        $this->_smime = $injector->getInstance('IMP_Smime');
 
         /* Run through the action handlers */
         switch ($this->vars->actionID) {
