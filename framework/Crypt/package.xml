@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-25</date>
+ <date>2015-03-26</date>
  <version>
-  <release>2.6.0</release>
-  <api>2.6.0</api>
+  <release>2.5.4</release>
+  <api>2.5.4</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,8 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added PGP backend support for the gnupg PECL extension (Request #8093).
-* [mms] Split gnupg specific code out into a separate PGP backend driver.
+* [mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
  </notes>
  <contents>
@@ -46,7 +45,6 @@
       <dir name="Pgp">
        <dir name="Backend">
         <file name="Binary.php" role="php" />
-        <file name="Pecl.php" role="php" />
        </dir> <!-- /lib/Horde/Crypt/Pgp/Backend -->
        <file name="Backend.php" role="php" />
        <file name="Keyserver.php" role="php" />
@@ -334,13 +332,13 @@
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <dir name="Pgp">
        <file name="BinaryTest.php" role="test" />
-       <file name="PeclTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Crypt/Pgp -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
+      <file name="PgpParseTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
@@ -429,14 +427,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <package>
-    <name>gnupg</name>
-    <channel>pecl.php.net</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
-    <providesextension>gnupg</providesextension>
-   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -451,7 +441,6 @@
    <install as="Horde/Crypt/Pgp/Keyserver.php" name="lib/Horde/Crypt/Pgp/Keyserver.php" />
    <install as="Horde/Crypt/Pgp/Parse.php" name="lib/Horde/Crypt/Pgp/Parse.php" />
    <install as="Horde/Crypt/Pgp/Backend/Binary.php" name="lib/Horde/Crypt/Pgp/Backend/Binary.php" />
-   <install as="Horde/Crypt/Pgp/Backend/Pecl.php" name="lib/Horde/Crypt/Pgp/Backend/Pecl.php" />
    <install as="locale/Horde_Crypt.pot" name="locale/Horde_Crypt.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.mo" name="locale/ar/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Crypt.po" name="locale/ar/LC_MESSAGES/Horde_Crypt.po" />
@@ -541,6 +530,7 @@
    <install as="Horde/Crypt/bootstrap.php" name="test/Horde/Crypt/bootstrap.php" />
    <install as="Horde/Crypt/conf.php.dist" name="test/Horde/Crypt/conf.php.dist" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
+   <install as="Horde/Crypt/PgpParseTest.php" name="test/Horde/Crypt/PgpParseTest.php" />
    <install as="Horde/Crypt/phpunit.xml" name="test/Horde/Crypt/phpunit.xml" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
@@ -554,7 +544,6 @@
    <install as="Horde/Crypt/fixtures/pgp_signed2.txt" name="test/Horde/Crypt/fixtures/pgp_signed2.txt" />
    <install as="Horde/Crypt/fixtures/smime_subjectAltName.pem" name="test/Horde/Crypt/fixtures/smime_subjectAltName.pem" />
    <install as="Horde/Crypt/Pgp/BinaryTest.php" name="test/Horde/Crypt/Pgp/BinaryTest.php" />
-   <install as="Horde/Crypt/Pgp/PeclTest.php" name="test/Horde/Crypt/Pgp/PeclTest.php" />
    <install as="Horde/Crypt/Pgp/TestBase.php" name="test/Horde/Crypt/Pgp/TestBase.php" />
   </filelist>
  </phprelease>
@@ -1092,16 +1081,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.6.0</release>
-    <api>2.6.0</api></version>
+    <release>2.5.4</release>
+    <api>2.5.4</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-25</date>
+   <date>2015-03-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Added PGP backend support for the gnupg PECL extension (Request #8093).
-* [mms] Split gnupg specific code out into a separate PGP backend driver.
+* [mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
    </notes>
   </release>
