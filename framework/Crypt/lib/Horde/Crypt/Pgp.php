@@ -853,7 +853,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                 if (Horde_Crypt_Pgp_Backend_Binary::supported()) {
                     $this->_backends[] = new Horde_Crypt_Pgp_Backend_Binary(
                         $this->_params['program'],
-                        $this->_params['temp']
+                        isset($this->_params['temp']) ? $this->_params['temp'] : null
                     );
                 }
             }

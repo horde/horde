@@ -27,9 +27,7 @@ extends Horde_Crypt_Pgp_TestBase
             ));
         }
 
-        return array(
-            new Horde_Crypt_Pgp_Backend_Binary($gnupg, sys_get_temp_dir())
-        );
+        return array(new Horde_Crypt_Pgp_Backend_Binary($gnupg));
     }
 
 }

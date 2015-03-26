@@ -21,8 +21,7 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
-                'program' => '/usr/bin/gpg',
-                'temp' => sys_get_temp_dir()
+                'program' => '/usr/bin/gpg'
             ))
         );
     }

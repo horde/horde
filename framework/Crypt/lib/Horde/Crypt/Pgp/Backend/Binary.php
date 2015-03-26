@@ -62,9 +62,12 @@ extends Horde_Crypt_Pgp_Backend
      * @param string $gnupg  The path to the GnuPG binary.
      * @param string $temp   Location of temporary directory.
      */
-    public function __construct($gnupg, $temp)
+    public function __construct($gnupg, $temp = null)
     {
-        $this->_tempdir = Horde_Util::createTempDir(true, $temp);
+        $this->_tempdir = Horde_Util::createTempDir(
+            true,
+            is_null($temp) ? sys_get_temp_dir() : $temp
+        );
 
         /* Store the location of GnuPG and set common options. */
         $this->_gnupg = array(
