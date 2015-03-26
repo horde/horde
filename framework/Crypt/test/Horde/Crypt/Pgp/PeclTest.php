@@ -52,11 +52,6 @@ extends Horde_Crypt_Pgp_TestBase
         $this->markTestIncomplete();
     }
 
-    public function testParsePGPData()
-    {
-        $this->markTestIncomplete();
-    }
-
     public function testPgpPacketInformation()
     {
         $this->markTestIncomplete();
