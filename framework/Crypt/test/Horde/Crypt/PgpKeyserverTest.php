@@ -15,13 +15,21 @@ class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 
     protected function setUp()
     {
-        if (!is_executable('/usr/bin/gpg')) {
-            $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');
+        $c = self::getConfig('CRYPTPGP_TEST_CONFIG', __DIR__);
+        $gnupg = isset($c['gnupg'])
+            ? $c['gnupg']
+            : '/usr/bin/gpg';
+
+        if (!is_executable($gnupg)) {
+            $this->markTestSkipped(sprintf(
+                'GPG binary not found at %s.',
+                $gnupg
+            ));
         }
 
         $this->_ks = new Horde_Crypt_Pgp_Keyserver(
             Horde_Crypt::factory('Pgp', array(
-                'program' => '/usr/bin/gpg'
+                'program' => $gnupg
             ))
         );
     }
