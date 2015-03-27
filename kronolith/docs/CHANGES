@@ -20,6 +20,10 @@ v4.3.0-git
 v4.2.6
 ------
 
+[mjr] Fix saving recurring event after a change in resources (Bug #13921).
+[mjr] Fix creating recurrence exceptions from CalDAV clients.
+[jan] Added an index to find base events of recurrence exceptions faster.
+[jan] Fix finding duplicate events by UID.
 [mjr] Fix updating FB data when start date changes.
 [mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
 [jan] Fix duplicate group names in sharing dialog.
