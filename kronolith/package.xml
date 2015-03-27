@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix saving recurring event after a change in resources (Bug #13921).
 * [mjr] Fix creating recurrence exceptions from CalDAV clients.
 * [jan] Added an index to find base events of recurrence exceptions faster.
 * [jan] Fix finding duplicate events by UID.
@@ -2532,6 +2533,7 @@
    <date>2015-03-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix saving recurring event after a change in resources (Bug #13921).
 * [mjr] Fix creating recurrence exceptions from CalDAV clients.
 * [jan] Added an index to find base events of recurrence exceptions faster.
 * [jan] Fix finding duplicate events by UID.
