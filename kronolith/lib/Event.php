@@ -2731,7 +2731,7 @@ abstract class Kronolith_Event
      * Set the entire resource array. Only used when copying an Event.
      *
      * @param array  $resources  The resource array.
-     * @since 4.3.0
+     * @since 4.2.6
      */
     public function setResources(array $resources)
     {
@@ -2781,7 +2781,7 @@ abstract class Kronolith_Event
      *
      * @param  Kronolith_Event|null $existing  If this is an exception event
      *                                         this is taken as the base event.
-     *                                         @since 4.3.0
+     *                                         @since 4.2.6
      *
      */
     public function readForm(Kronolith_Event $existing = null)
@@ -3178,7 +3178,7 @@ abstract class Kronolith_Event
      *
      *
      * @param  Kronolith_Event|null $existing  An existing base event.
-     * @since 4.3.0
+     * @since 4.2.6
      */
     protected function _handleResources(Kronolith_Event $existing = null)
     {
