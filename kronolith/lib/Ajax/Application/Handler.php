@@ -275,7 +275,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 // become corrupt.
                 $newEvent = clone($event);
                 $newEvent->recurrence = new Horde_Date_Recurrence($event->start);
-                $newEvent->readForm();
+                $newEvent->readForm($event);
 
                 // Create an exception event from the new properties.
                 $exception = $this->_copyEvent($event, $newEvent, $attributes);
@@ -1639,6 +1639,7 @@ EOT;
         $nevent->url = $copy->url;
         $nevent->status = $copy->status;
         $nevent->attendees = $copy->attendees;
+        $nevent->setResources($copy->getResources());
         $nevent->start = $rstart;
         $nevent->end = $rend;
         $nevent->initialized = true;
