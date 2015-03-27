@@ -30,21 +30,27 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
                 $notification->push(sprintf(_("Access denied deleting task: %s"), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
+            $task = Nag::getTask($info['old_tasklist'], $info['task_id']);
+            $task->loadChildren();
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
                 $notification->push(_("Access denied deleting task"), 'horde.error');
                 Horde::url('list.php', true)->redirect();
-            }
-            $storage = $this->getInjector()
-                ->getInstance('Nag_Factory_Driver')
-                ->create($info['old_tasklist']);
-            try {
-                $storage->delete($info['task_id']);
-            } catch (Nag_Exception $e) {
-                $notification->push(sprintf(_("Error deleting task: %s"), $e->getMessage()), 'horde.error');
+            } elseif ($task->hasSubTasks()) {
+                $notification->push(_("Sub tasks exist, delete them first"), 'horde.error');
                 Horde::url('list.php', true)->redirect();
+            } else {
+                $storage = $this->getInjector()
+                    ->getInstance('Nag_Factory_Driver')
+                    ->create($info['old_tasklist']);
+                try {
+                    $storage->delete($info['task_id']);
+                    $notification->push(_("Task successfully deleted"), 'horde.success');
+                    Horde::url('list.php', true)->redirect();
+                } catch (Nag_Exception $e) {
+                    $notification->push(sprintf(_("Error deleting task: %s"), $e->getMessage()), 'horde.error');
+                    Horde::url('list.php', true)->redirect();
+                }
             }
-            $notification->push(_("Task successfully deleted"), 'horde.success');
-            Horde::url('list.php', true)->redirect();
         }
 
         if ($prefs->isLocked('default_tasklist') ||
