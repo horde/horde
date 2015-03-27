@@ -2727,6 +2727,17 @@ abstract class Kronolith_Event
         return $this->_resources;
     }
 
+    /**
+     * Set the entire resource array. Only used when copying an Event.
+     *
+     * @param array  $resources  The resource array.
+     * @since 4.3.0
+     */
+    public function setResources(array $resources)
+    {
+        $this->_resources = $resources;
+    }
+
     public function isAllDay()
     {
         return $this->allday ||
@@ -2765,7 +2776,15 @@ abstract class Kronolith_Event
         }
     }
 
-    public function readForm()
+    /**
+     * Reads form/post data and updates this event's properties.
+     *
+     * @param  Kronolith_Event|null $existing  If this is an exception event
+     *                                         this is taken as the base event.
+     *                                         @since 4.3.0
+     *
+     */
+    public function readForm(Kronolith_Event $existing = null)
     {
         global $prefs, $session;
 
@@ -2995,52 +3014,7 @@ abstract class Kronolith_Event
         // Convert to local timezone.
         $this->setTimezone(false);
 
-        // Resources
-        $existingResources = $this->_resources;
-        if (Horde_Util::getFormData('isajax', false)) {
-            $resources = array();
-        } else {
-            $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
-        }
-        $newresources = Horde_Util::getFormData('resources');
-        if (!empty($newresources)) {
-            foreach (explode(',', $newresources) as $id) {
-                try {
-                    $resource = Kronolith::getDriver('Resource')->getResource($id);
-                } catch (Kronolith_Exception $e) {
-                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
-                    continue;
-                }
-                if (!($resource instanceof Kronolith_Resource_Group) ||
-                    $resource->isFree($this)) {
-                    $resources[$resource->getId()] = array(
-                        'attendance' => Kronolith::PART_REQUIRED,
-                        'response'   => Kronolith::RESPONSE_NONE,
-                        'name'       => $resource->get('name')
-                    );
-                } else {
-                    $GLOBALS['notification']->push(_("No resources from this group were available"), 'horde.error');
-                }
-            }
-        }
-        $this->_resources = $resources;
-
-        // Check if we need to remove any resources
-        $merged = $existingResources + $this->_resources;
-        $delete = array_diff(array_keys($existingResources), array_keys($this->_resources));
-        foreach ($delete as $key) {
-            // Resource might be declined, in which case it won't have the event
-            // on it's calendar.
-            if ($merged[$key]['response'] != Kronolith::RESPONSE_DECLINED) {
-                try {
-                    Kronolith::getDriver('Resource')
-                        ->getResource($key)
-                        ->removeEvent($this);
-                } catch (Kronolith_Exception $e) {
-                    $GLOBALS['notification']->push('foo', 'horde.error');
-                }
-            }
-        }
+        $this->_handleResources($existing);
 
         // Tags.
         $this->tags = Horde_Util::getFormData('tags', $this->tags);
@@ -3192,6 +3166,83 @@ abstract class Kronolith_Event
         }
 
         return $recurrence;
+    }
+
+    /**
+     * Handles updating/saving this event's resources. Unless this event recurs,
+     * this will delete this event from any resource calendars that are no
+     * longer needed (as when a resource is removed from an existing event). If
+     * this event is an exception, i.e., contains a baseid, AND $existing is
+     * provided, the resources from the original event are used for purposes
+     * of determining any resources that need to be removed.
+     *
+     *
+     * @param  Kronolith_Event|null $existing  An existing base event.
+     * @since 4.3.0
+     */
+    protected function _handleResources(Kronolith_Event $existing = null)
+    {
+        if (Horde_Util::getFormData('isajax', false)) {
+            $resources = array();
+        } else {
+            $resources = $session->get('kronolith', 'resources', Horde_Session::TYPE_ARRAY);
+        }
+
+        $existingResources = $this->_resources;
+        $newresources = Horde_Util::getFormData('resources');
+        if (!empty($newresources)) {
+            foreach (explode(',', $newresources) as $id) {
+                try {
+                    $resource = Kronolith::getDriver('Resource')->getResource($id);
+                } catch (Kronolith_Exception $e) {
+                    $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+                    continue;
+                }
+                if (!($resource instanceof Kronolith_Resource_Group) ||
+                    $resource->isFree($this)) {
+                    $resources[$resource->getId()] = array(
+                        'attendance' => Kronolith::PART_REQUIRED,
+                        'response'   => Kronolith::RESPONSE_NONE,
+                        'name'       => $resource->get('name')
+                    );
+                } else {
+                    $GLOBALS['notification']->push(_("No resources from this group were available"), 'horde.error');
+                }
+            }
+        }
+        $this->_resources = $resources;
+
+
+        // Have the base event, and this is an exception so we must
+        // match the recurrence in the resource's copy of the base event.
+        if (!empty($existing) && $existing->recurs() && !$this->recurs()) {
+            foreach ($existing->getResources() as $rid => $data) {
+                $resource = Kronolith::getDriver('Resource')->getResource($key);
+                $r_event = Kronolith::getDriver('Resource')->getByUID($existing->uid, $resource->calendar);
+                $r_event->recurrence = $event->recurrence;
+                $r_event->save();
+            }
+        }
+
+        // If we don't recur, check for removal of any resources so we can
+        // update those resources' calendars.
+        if (!$this->recurs()) {
+            $merged = $existingResources + $this->_resources;
+            $delete = array_diff(array_keys($existingResources), array_keys($this->_resources));
+            foreach ($delete as $key) {
+                // Resource might be declined, in which case it won't have the event
+                // on it's calendar.
+                if ($merged[$key]['response'] != Kronolith::RESPONSE_DECLINED) {
+                    try {
+                        Kronolith::getDriver('Resource')
+                            ->getResource($key)
+                            ->removeEvent($this);
+                    } catch (Kronolith_Exception $e) {
+                        $GLOBALS['notification']->push('foo', 'horde.error');
+                    }
+                }
+            }
+        }
     }
 
     public function html($property)
