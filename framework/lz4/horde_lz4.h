@@ -23,4 +23,11 @@ PHP_MINFO_FUNCTION(horde_lz4);
 PHP_FUNCTION(horde_lz4_compress);
 PHP_FUNCTION(horde_lz4_uncompress);
 
+#if PHP_MAJOR_VERSION < 7
+#define HORDE_LZ4_RETSTRL(a,l) RETURN_STRINGL(a,l,1)
+#else
+typedef size_t strsize;
+#define HORDE_LZ4_RETSTRL(a,l) RETURN_STRINGL(a,l)
+#endif
+
 #endif  /* PHP_HORDE_LZ4_H */
