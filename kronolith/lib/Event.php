@@ -3136,6 +3136,8 @@ abstract class Kronolith_Event
      */
     protected function _handleResources(Kronolith_Event $existing = null)
     {
+        global $session;
+
         if (Horde_Util::getFormData('isajax', false)) {
             $resources = array();
         } else {
