@@ -26,8 +26,8 @@ class Hermes
      */
     public static function listClients($name = '')
     {
-        if (isset(self::$_clients['name'])) {
-            return self::$_clients['name'];
+        if (isset(self::$_clients[$name])) {
+            return self::$_clients[$name];
         }
 
         self::$_clients[$name] = array();
