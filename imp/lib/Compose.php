@@ -836,7 +836,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $tmp_recip = array();
             foreach (array('to', 'cc', 'bcc') as $val) {
                 if ($tmp_hdr = $headers[$val]) {
-                    $tmp_recip[$val] = $tmp_hdr->getAddressList();
+                    $tmp_recip[$val] = $tmp_hdr->getAddressList(true);
                 }
             }
             $recip = $this->recipientList($tmp_recip);
