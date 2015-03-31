@@ -26,12 +26,11 @@ class Horde_Prefs_Storage_Sql extends Horde_Prefs_Storage_Base
      * Constructor.
      *
      * @param string $user   The username.
-     * @param array $params  Configuration parameters.
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the prefs table.
-     *           DEFAULT: 'horde_prefs'
-     * </pre>
+     * @param array $params  Configuration parameters:
+     *                       - db: (Horde_Db_Adapter) [REQUIRED] The DB
+     *                         instance.
+     *                       - table: (string) The name of the prefs table.
+     *                         DEFAULT: 'horde_prefs'
      *
      * @throws InvalidArgumentException
      */
