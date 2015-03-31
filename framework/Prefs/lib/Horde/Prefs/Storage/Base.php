@@ -31,7 +31,7 @@ abstract class Horde_Prefs_Storage_Base
     public function __construct($user, array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
-        $this->_params['user'] = $user;
+        $this->_params['user'] = (string)$user;
     }
 
     /**
