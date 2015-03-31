@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* 
+* [jan] Fix PHP 7 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
  </notes>
  <contents>
   <dir name="/">
@@ -215,7 +215,7 @@
    <date>2014-09-16</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
-* 
+* [jan] Fix PHP 7 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
    </notes>
   </release>
  </changelog>
