@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-11-26</date>
+ <date>2015-03-31</date>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
+* [jan] Add indexes to searchable timeslice columns.
 * [mjr] Add ability to delete multiple slices at one time.
 * [mjr] Add confirmation dialog for deleting time slices (Request #10361).
 * [mjr] Implement exclusive timers (Request #12543).
@@ -173,6 +174,7 @@
    <dir name="migration">
     <file name="1_hermes_base_tables.php" role="horde" />
     <file name="2_hermes_autoincrement.php" role="horde" />
+    <file name="3_hermes_search_indexes.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="deliverables">
@@ -454,6 +456,7 @@
    <install as="hermes/locale/zh_TW/LC_MESSAGES/hermes.po" name="locale/zh_TW/LC_MESSAGES/hermes.po" />
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
+   <install as="hermes/migration/3_hermes_search_indexes.php" name="migration/3_hermes_search_indexes.php" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
    <install as="hermes/templates/dynamic/deliverabledetail.inc" name="templates/dynamic/deliverabledetail.inc" />
    <install as="hermes/templates/dynamic/deliverables.inc" name="templates/dynamic/deliverables.inc" />
@@ -509,6 +512,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Add indexes to searchable timeslice columns.
 * [mjr] Add ability to delete multiple slices at one time.
 * [mjr] Add confirmation dialog for deleting time slices (Request #10361).
 * [mjr] Implement exclusive timers (Request #12543).
