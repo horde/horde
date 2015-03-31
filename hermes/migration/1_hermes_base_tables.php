@@ -82,17 +82,13 @@ class HermesBaseTables extends Horde_Db_Migration_Base
     }
 
     /**
-     * Downgrade
-     *
+     * Downgrade.
      */
     public function down()
     {
-        $tableList = $this->tables();
-
         $this->dropTable('hermes_timeslices');
         $this->dropTable('hermes_jobtypes');
         $this->dropTable('hermes_clientjobs');
         $this->dropTable('hermes_deliverables');
     }
-
 }
