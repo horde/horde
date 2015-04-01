@@ -1039,13 +1039,26 @@ class Horde_ActiveSync_Imap_Adapter
         $hdr_charset = $imap_message->getStructure()->getHeaderCharset();
 
         // Fill in other header data
-        $eas_message->from = $imap_message->getFromAddress();
+        try {
+            $eas_message->from = $imap_message->getFromAddress();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
+        try {
+            $eas_message->cc = $imap_message->getCc();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
+        try {
+            $eas_message->reply_to = $imap_message->getReplyTo();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+        }
+
         $eas_message->subject = Horde_ActiveSync_Utils::ensureUtf8($imap_message->getSubject(), $hdr_charset);
         $eas_message->threadtopic = $eas_message->subject;
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
-        $eas_message->cc = $imap_message->getCc();
-        $eas_message->reply_to = $imap_message->getReplyTo();
 
         // Default to IPM.Note - may change below depending on message content.
         $eas_message->messageclass = 'IPM.Note';

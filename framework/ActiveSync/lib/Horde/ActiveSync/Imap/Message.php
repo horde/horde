@@ -578,10 +578,15 @@ class Horde_ActiveSync_Imap_Message
      * Return the CC addresses for this message.
      *
      * @return string  The Cc address string.
+     * @throws Horde_ActiveSync_Exception @since 2.27.0
      */
     public function getCc()
     {
-        $cc = new Horde_Mail_Rfc822_List($this->_envelope->cc->addresses);
+        try {
+            $cc = new Horde_Mail_Rfc822_List($this->_envelope->cc->addresses);
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
         return $cc->writeAddress();
     }
 
@@ -589,11 +594,16 @@ class Horde_ActiveSync_Imap_Message
      * Return the ReplyTo Address
      *
      * @return string
+     * @throws Horde_ActiveSync_Exception @since 2.27.0
      */
     public function getReplyTo()
     {
         $r = $this->_envelope->reply_to->addresses;
-        $a = new Horde_Mail_Rfc822_Address(current($r));
+        try {
+            $a = new Horde_Mail_Rfc822_Address(current($r));
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
 
         return $a->writeAddress(false);
     }
@@ -602,11 +612,16 @@ class Horde_ActiveSync_Imap_Message
      * Return the message's From: address.
      *
      * @return string  The From address of this message.
+     * @throws Horde_ActiveSync_Exception @since 2.27.0
      */
     public function getFromAddress()
     {
         $from = $this->_envelope->from->addresses;
-        $a = new Horde_Mail_Rfc822_Address(current($from));
+        try {
+            $a = new Horde_Mail_Rfc822_Address(current($from));
+        } catch (Horde_ActiveSync_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
 
         return $a->writeAddress(false);
     }
