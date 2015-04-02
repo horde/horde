@@ -432,4 +432,15 @@ EOT;
         );
     }
 
+    public function testHtml2TextNestingLimit()
+    {
+        $html = '<span>Foo</span><div><div><div><div>Bar</div></div></div></div>';
+        $filter = Horde_Text_Filter::filter($html, 'Html2text', array('nestingLimit' => 3));
+        $this->assertEquals('Foo', $filter);
+
+        $filter = Horde_Text_Filter::filter($html, 'Html2text', array('nestingLimit' => 4));
+        $this->assertEquals('FooBar', $filter);
+
+    }
+
 }

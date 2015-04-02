@@ -4,11 +4,13 @@
  *
  * Optional parameters to constructor:
  * <pre>
- * callback - (callback) Callback triggered on every node. Passed the
- *            DOMDocument object and the DOMNode object. If the callback
- *            returns non-null, add this text to the output and skip further
- *            processing of the node.
- * width - (integer) The wrapping width. Set to 0 to not wrap.
+ * callback     - (callback) Callback triggered on every node. Passed the
+ *                DOMDocument object and the DOMNode object. If the callback
+ *                returns non-null, add this text to the output and skip further
+ *                processing of the node.
+ * width        - (integer) The wrapping width. Set to 0 to not wrap.
+ * nestingLimit - (integer) The limit on node nesting. If empty, no limit.
+ *                @since 2.3.0
  * </pre>
  *
  * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
@@ -39,6 +41,13 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     protected $_indent = 0;
 
     /**
+     * Current nesting level.
+     *
+     * @var integer
+     */
+    protected $_nestingLevel = 0;
+
+    /**
      * Filter parameters.
      *
      * @var array
@@ -46,7 +55,8 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     protected $_params = array(
         'callback' => null,
         'charset' => 'UTF-8',
-        'width' => 75
+        'width' => 75,
+        'nestingLimit' => false,
     );
 
     /**
@@ -97,6 +107,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     {
         try {
             $dom = new Horde_Domhtml($text, $this->_params['charset']);
+            // Add two to take into account the <html> and <body> nodes.
+            if (!empty($this->_params['nestingLimit'])) {
+                $this->_params['nestingLimit'] += 2;
+            }
             $text = Horde_String::convertCharset($this->_node($dom->dom, $dom->dom), 'UTF-8', $this->_params['charset']);
             $dom_convert = true;
         } catch (Exception $e) {
@@ -140,6 +154,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
     protected function _node($doc, $node)
     {
         $out = '';
+        if (!empty($this->_params['nestingLimit']) && $this->_nestingLevel > $this->_params['nestingLimit']) {
+            $this->_nestingLevel--;
+            return;
+        }
+        $this->_nestingLevel++;
 
         if ($node->hasChildNodes()) {
             foreach ($node->childNodes as $child) {
@@ -266,6 +285,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         : $child->textContent;
                 }
             }
+        }
+
+        if (!empty($this->_params['nestingLimit'])) {
+            $this->_nestingLevel--;
         }
 
         return $out;
