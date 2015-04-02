@@ -150,7 +150,7 @@ END_OF_REGEX;
 
         $decoded = $orig_href;
         try {
-            if (strlen($host = @parse_url($orig_href, PHP_URL_HOST))) {
+            if (strlen($host = $this->_parseurl($orig_href, PHP_URL_HOST))) {
                 $decoded = substr_replace(
                     $orig_href,
                     Horde_Idna::decode($host),
@@ -193,6 +193,36 @@ END_OF_REGEX;
                 return base64_decode($hex[1]);
             },
             $text);
+    }
+
+    /**
+     * Handle multi-byte data since parse_url is not multibyte safe on all
+     * systems. Adapted from php.net/parse_url comments.
+     *
+     * See https://bugs.php.net/bug.php?id=52923 for description of
+     * parse_url issues.
+     *
+     * @param  string $url  The url to parse.
+     *
+     * @return mixed        The parsed url.
+     */
+    protected function _parseurl($url)
+    {
+       $enc_url = preg_replace_callback(
+            '%[^:/@?&=#]+%usD',
+            function ($matches)
+            {
+                return urlencode($matches[0]);
+            },
+            $url
+        );
+        $parts = @parse_url($enc_url);
+        if ($parts === false) {
+            throw new InvalidArgumentException('Malformed URL: ' . $url);
+        }
+        foreach($parts as $name => $value) {
+            $parts[$name] = urldecode($value);
+        }
     }
 
 }
