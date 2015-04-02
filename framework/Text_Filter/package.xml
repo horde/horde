@@ -24,7 +24,7 @@
  </developer>
  <date>2015-04-02</date>
  <version>
-  <release>2.3.0</release>
+  <release>2.3.1</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -33,10 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix failing tests on MacOS related to mulitbyte data contained in links.
-* [mjr] Added nestingLimit parameter to Html2text filter.
-* [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
-* [jan] Match simple markup spanning a complete line too.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1045,6 +1042,19 @@ Initial release as a PEAR package
 * [mjr] Added nestingLimit parameter to Html2text filter.
 * [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
