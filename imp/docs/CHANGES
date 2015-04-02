@@ -2,6 +2,8 @@
 v6.2.8-git
 ----------
 
+[jan] Update Bcc address when switching identities (João Machado
+      <geral@jpaulo.eu>, Bug #13922).
 [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
       -> HTML compose mode.
 [jan] Fix protocol name in POP3 example backend configuration.
