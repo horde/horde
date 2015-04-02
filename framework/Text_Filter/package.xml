@@ -24,8 +24,8 @@
  </developer>
  <date>2015-01-29</date>
  <version>
-  <release>2.2.3</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Added nestingLimit parameter to Html2text filter.
 * [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
  </notes>
@@ -1031,14 +1032,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.2.3</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Added nestingLimit parameter to Html2text filter.
 * [jan] Add &apos;html&apos; hint to Simplemarkup filter to indicate the input format.
 * [jan] Match simple markup spanning a complete line too.
    </notes>
