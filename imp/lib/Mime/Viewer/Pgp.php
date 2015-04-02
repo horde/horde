@@ -201,7 +201,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         );
 
         /* Is PGP active? */
-        if (IMP_Crypt_Pgp::enabled()) {
+        if (!IMP_Crypt_Pgp::enabled()) {
             $status->addText(
                 _("The data in this part has been encrypted via PGP, however, PGP support is disabled so the message cannot be decrypted.")
             );
