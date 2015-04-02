@@ -446,7 +446,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
         if ($convert_to_plain) {
             $html_plain = Horde_Text_Filter::filter(
-                $html, 'Html2text', array('charset' => $charset));
+                $html, 'Html2text', array('charset' => $charset, 'nestingLimit' => 1000));
 
             // Get the new size, since it probably changed.
             $html_plain_size = strlen($html_plain);
