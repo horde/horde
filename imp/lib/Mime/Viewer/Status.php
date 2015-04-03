@@ -153,11 +153,12 @@ class IMP_Mime_Viewer_Status extends Horde_Mime_Viewer_Base
                         ';',
                         $parse['Final-Recipient']->value_single
                     );
+                    $recip_ob = new Horde_Mail_Rfc822_List($recip);
 
-                    if ($recip) {
+                    if (count($recip_ob)) {
                         $status->addText(sprintf(
                             _("Recipient: %s"),
-                            trim($recip)
+                            $recip_ob[0]
                         ));
                     }
                 }
