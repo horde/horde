@@ -184,7 +184,10 @@ class Horde_Stream_Wrapper_Combine
                     $tmp['p'] += $curr_read;
                 }
             } elseif ($count) {
-                $tmp = &$this->_data[++$this->_datapos];
+                if (!isset($this->_data[++$this->_datapos])) {
+                    return false;
+                }
+                $tmp = &$this->_data[$this->_datapos];
                 rewind($tmp['fp']);
                 $tmp['p'] = 0;
             } else {
