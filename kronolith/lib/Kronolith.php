@@ -62,6 +62,10 @@ class Kronolith
     const ALL_HOLIDAYS              = 'allHolidays';
     const ALL_RESOURCE_CALENDARS    = 'allResource';
 
+    /** Share Types */
+    const SHARE_TYPE_USER          = 1;
+    const SHARE_TYPE_RESOURCE      = 2;
+    const SHARE_TYPE_RESOURCEGROUP = 3;
     /**
      * @var Kronolith_Tagger
      */

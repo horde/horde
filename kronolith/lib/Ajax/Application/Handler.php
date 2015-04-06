@@ -1040,7 +1040,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             break;
 
         case 'resource':
-            foreach (array('name', 'description', 'response_type') as $key) {
+            foreach (array('name', 'desc', 'response_type') as $key) {
                 $info[$key] = $this->vars->$key;
             }
 
@@ -1052,7 +1052,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     $GLOBALS['notification']->push(_("You are not allowed to create new resources."), 'horde.error');
                     return $result;
                 }
-                $resource = Kronolith_Resource::addResource(new Kronolith_Resource_Single($info));
+                $resource = Kronolith_Resource::addResource($info);
             } else {
                 try {
                     $rdriver = Kronolith::getDriver('Resource');
@@ -1061,7 +1061,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                         $GLOBALS['notification']->push(_("You are not allowed to edit this resource."), 'horde.error');
                         return $result;
                     }
-                    foreach (array('name', 'description', 'response_type', 'email') as $key) {
+                    foreach (array('name', 'desc', 'response_type', 'email') as $key) {
                         $resource->set($key, $this->vars->$key);
                     }
                     $resource->save();
@@ -1083,7 +1083,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $resource = Kronolith_Resource::addResource(
                     new Kronolith_Resource_Group(array(
                         'name' => $this->vars->name,
-                        'description' => $this->vars->description,
+                        'desc' => $this->vars->description,
                         'members' => $this->vars->members)
                     )
                 );
@@ -1091,7 +1091,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $driver = Kronolith::getDriver('Resource');
                 $resource = $driver->getResource($calendar_id);
                 $resource->set('name', $this->vars->name);
-                $resource->set('description', $this->vars->description);
+                $resource->set('desc', $this->vars->description);
                 $resource->set('members', $this->vars->members);
                 $resource->save();
             }

@@ -378,7 +378,7 @@ try {
 </div>
 <br class="clear" />
 <div id="kronolithCalendarresourceTabDescription" class="kronolithTabsOption">
-  <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="desc" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 <div id="kronolithCalendarresourceTabExport" class="kronolithTabsOption" style="display:none">
   <p>
@@ -406,7 +406,7 @@ try {
 </div>
 <div>
   <p><label><?php echo _("Description") ?>:<br />
-    <textarea name="description" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+    <textarea name="desc" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
   </label></p>
 </div>
 <div>

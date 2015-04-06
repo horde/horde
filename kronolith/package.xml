@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-18</date>
+ <date>2015-04-06</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -512,6 +512,7 @@
     <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
     <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
+    <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -759,6 +760,8 @@
       <file name="private-fff.png" role="horde" />
       <file name="recur-000.png" role="horde" />
       <file name="recur-fff.png" role="horde" />
+      <file name="refresh-sidebar-000.png" role="horde" />
+      <file name="refresh-sidebar-fff.png" role="horde" />
       <file name="right.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="tasks.png" role="horde" />
@@ -1342,6 +1345,7 @@
    <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
    <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
+   <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1507,6 +1511,8 @@
    <install as="kronolith/themes/default/graphics/private-fff.png" name="themes/default/graphics/private-fff.png" />
    <install as="kronolith/themes/default/graphics/recur-000.png" name="themes/default/graphics/recur-000.png" />
    <install as="kronolith/themes/default/graphics/recur-fff.png" name="themes/default/graphics/recur-fff.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-000.png" name="themes/default/graphics/refresh-sidebar-000.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-fff.png" name="themes/default/graphics/refresh-sidebar-fff.png" />
    <install as="kronolith/themes/default/graphics/right.png" name="themes/default/graphics/right.png" />
    <install as="kronolith/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="kronolith/themes/default/graphics/tasks.png" name="themes/default/graphics/tasks.png" />
@@ -2540,7 +2546,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-03-18</date>
+   <date>2015-04-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Add refresh button to individual calendars and task lists.

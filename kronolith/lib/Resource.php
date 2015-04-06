@@ -27,15 +27,31 @@ class Kronolith_Resource
    /**
     * Adds a new resource to storage
     *
-    * @param Kronolith_Resource_Base $resource
+    * @param array $info  The resource array.
     *
-    * @return unknown_type
+    * @return Kronolith_Resource_Single
     */
-    public static function addResource(Kronolith_Resource_Base $resource)
+    public static function addResource(array $info)
     {
-        // Create a new calendar id.
-        $calendar = uniqid(mt_rand());
-        $resource->set('calendar', $calendar);
+        global $injector, $registry;
+
+        $kronolith_shares = $injector->getInstance('Kronolith_Shares');
+        try {
+            $share = $kronolith_shares->newShare(
+                $registry->getAuth(),
+                strval(new Horde_Support_Randomid()),
+                $info['name']
+            );
+        } catch (Horde_Share_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
+
+        $share->set('desc', $info['desc']);
+        $share->set('email', $info['email']);
+        $share->set('response_type', $info['response_type']);
+        $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
+
+        $resource = new Kronolith_Resource_Single(array('share' => $share));
         $driver = Kronolith::getDriver('Resource');
 
         return $driver->save($resource);
@@ -114,4 +130,11 @@ class Kronolith_Resource
 
         return $accepted_resources;
     }
+
+    public static function getResource($id)
+    {
+        $r_share = $GLOBALS['kronolith_shares']->getShare($id);
+        $resource = new Kronolith_Resource_Single(array('share' => $r_share));
+    }
+
 }

@@ -12,6 +12,8 @@
  */
 class Kronolith_Resource_Group extends Kronolith_Resource_Base
 {
+    protected $_type = 'group';
+
     /**
      *
      * @var Kronolith_Driver_Resource
