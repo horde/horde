@@ -50,6 +50,9 @@ implements IteratorAggregate
     public function __construct($name, $value)
     {
         $this->_name = trim($name);
+        if (strpos($this->_name, ' ') !== false) {
+            throw new InvalidArgumentException('Invalid header name');
+        }
         $this->setValue($value);
     }
 

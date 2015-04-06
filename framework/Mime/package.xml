@@ -17,7 +17,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-10</date>
+ <date>2015-04-06</date>
  <version>
   <release>2.8.1</release>
   <api>2.8.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Ignore broken headers when parsing header text.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -385,6 +385,7 @@
        <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="header_trailing_ws.txt" role="test" />
+       <file name="invalid_hdr.txt" role="test" />
        <file name="mime_part_v1.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
@@ -698,6 +699,7 @@
    <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/header_trailing_ws.txt" name="test/Horde/Mime/fixtures/header_trailing_ws.txt" />
+   <install as="Horde/Mime/fixtures/invalid_hdr.txt" name="test/Horde/Mime/fixtures/invalid_hdr.txt" />
    <install as="Horde/Mime/fixtures/mime_part_v1.txt" name="test/Horde/Mime/fixtures/mime_part_v1.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
@@ -1679,10 +1681,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-09</date>
+   <date>2015-04-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Ignore broken headers when parsing header text.
    </notes>
   </release>
  </changelog>

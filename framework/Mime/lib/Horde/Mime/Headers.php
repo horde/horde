@@ -196,7 +196,13 @@ implements ArrayAccess, IteratorAggregate, Serializable
         }
 
         $classname = $this->_getHeaderClassName($header);
-        $ob = new $classname($header, $value);
+
+        try {
+            $ob = new $classname($header, $value);
+        } catch (InvalidArgumentException $e) {
+            /* Ignore an invalid header. */
+            return;
+        }
 
         switch ($classname) {
         case 'Horde_Mime_Headers_ContentParam_ContentDisposition':

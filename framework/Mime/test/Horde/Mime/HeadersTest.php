@@ -657,6 +657,20 @@ class Horde_Mime_HeadersTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInvalidHeaderParsing()
+    {
+        $data = file_get_contents(__DIR__ . '/fixtures/invalid_hdr.txt');
+
+        $hdrs = Horde_Mime_Headers::parseHeaders($data);
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($hdrs['to'])
+        );
+
+        $this->assertNull($hdrs['From test2@example.com  Sun Apr  5 09']);
+    }
+
     /**
      * @dataProvider addHeaderObProvider
      */
