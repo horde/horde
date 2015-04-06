@@ -310,6 +310,7 @@ span.attachmentImg {
     cursor: pointer;
     margin-top: 6px;
 }
+.actionRedirect,
 .actionSend {
     background-image: url("../graphics/forward.png");
 }

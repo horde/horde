@@ -362,7 +362,7 @@ var ImpCompose = {
 
     uniqueSubmitCallback: function(d)
     {
-        var base;
+        var base, tmp;
 
         if (d.success) {
             switch (d.action) {
@@ -400,7 +400,10 @@ var ImpCompose = {
                     }
                 }
 
-                $('attach_list').childElements().invoke('remove');
+                tmp = $('attach_list');
+                if (tmp) {
+                    tmp.childElements().invoke('remove');
+                }
                 return this.closeCompose();
 
             case 'redirectMessage':

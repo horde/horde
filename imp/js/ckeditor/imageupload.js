@@ -7,7 +7,7 @@
  */
 
 document.observe('dom:loaded', function() {
-    CKEDITOR.on('dialogDefinition', function(ev) {
+    window.CKEDITOR && window.CKEDITOR.on('dialogDefinition', function(ev) {
         var params, rf, upload,
             definition = ev.data.definition;
 
