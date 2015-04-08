@@ -1,20 +1,17 @@
 <?php
 /**
  * The Kronolith_Driver_Resource class implements the Kronolith_Driver API for
- * storing resource calendars in a SQL backend.
+ * storing resource calendars.
  *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Luc Saillard <luc.saillard@fr.alcove.com>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
+class Kronolith_Driver_Resource extends Kronolith_Driver
 {
     /**
      * The main event storage driver.
@@ -24,37 +21,18 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected $_driver;
 
     /**
-     * Column information as Horde_Db_Adapter_Base_Column objects.
-     *
-     * @var array
-     */
-    protected $_columns = array();
-
-    /**
      * The class name of the event object to instantiate.
      *
      * @var string
      */
-    protected $_eventClass = 'Kronolith_Event_Resource_Sql';
+    protected $_eventClass = 'Kronolith_Event_Resource';
 
     /**
-     * Attempts to open a connection to the SQL server.
      *
-     * @throws Kronolith_Exception
      */
     public function initialize()
     {
-        if (empty($this->_params['db'])) {
-            throw new InvalidArgumentException('Missing required Horde_Db_Adapter instance');
-        }
-        try {
-            $this->_db = $this->_params['db'];
-        } catch (Horde_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
-
         $this->_driver = Kronolith::getDriver();
-        $this->_columns = $this->_db->columns('kronolith_resources');
     }
 
     /**
@@ -187,7 +165,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * delete it, we must also make sure to remove it from the event that
      * it is attached to. Not sure if there is a better way to do this...
      *
-     * @param string|Kronolith_Event_Resource_Sql $eventId  The ID of the event
+     * @param string|Kronolith_Event_Resource $eventId  The ID of the event
      *                                                      to delete.
      * @param boolean $silent  Don't send notifications, used when deleting
      *                         events in bulk from maintenance tasks.
@@ -199,7 +177,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false, $keep_bound = false)
     {
-        if ($eventId instanceof Kronolith_Event_Resource_Sql) {
+        if ($eventId instanceof Kronolith_Event_Resource) {
             $delete_event = $eventId;
             $eventId = $delete_event->id;
         } else {
