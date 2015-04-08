@@ -122,10 +122,10 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      * Updates one ore more webdav properties on a principal.
      *
      * @param string $path
-     * @param array $mutations
+     * @param \Sabre\DAV\PropPatch $propPatch
      * @return array|bool
      */
-    public function updatePrincipal($path, $mutations)
+    public function updatePrincipal($path, \Sabre\DAV\PropPatch $propPatch)
     {
         return false;
     }
@@ -136,9 +136,10 @@ class Horde_Dav_Principals extends DAVACL\PrincipalBackend\AbstractBackend
      *
      * @param string $prefixPath
      * @param array $searchProperties
+     * @param string $test
      * @return array
      */
-    public function searchPrincipals($prefixPath, array $searchProperties)
+    function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof')
     {
         return array();
     }
