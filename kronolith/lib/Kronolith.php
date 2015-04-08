@@ -226,7 +226,7 @@ class Kronolith
 
         // Resource calendars
         if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)) &&
-            !empty($GLOBALS['conf']['resource']['driver'])) {
+            !empty($GLOBALS['conf']['resources']['enabled'])) {
 
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $calendar) {
@@ -2859,7 +2859,7 @@ class Kronolith
      */
     public static function getInternalCalendar($target)
     {
-        if ($GLOBALS['conf']['resource']['driver'] && self::getDriver('Resource')->isResourceCalendar($target)) {
+        if ($GLOBALS['conf']['resources']['enabled'] && self::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);

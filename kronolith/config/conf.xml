@@ -51,19 +51,10 @@
   </configswitch>
  </configsection>
 
-  <configsection name="resource">
-   <configheader>Resource Handler Settings</configheader>
-   <configswitch name="driver" desc="What type of resource handler should we use?">sql
-    <case name="sql" desc="SQL">
-     <configsection name="params">
-      <configsql switchname="driverconfig"/>
-      <configboolean name="utc" desc="Store the dates in UTC format? If your
-      calendar driver has this option, you should choose the same value here as
-      well.">true</configboolean>
-       </configsection>
-    </case>
-    <case name="false" desc="No Resource Support" />
-   </configswitch>
+  <configsection name="resources">
+   <configheader>Resource Settings</configheader>
+   <configboolean name="enabled" desc="Should resource scheduling be enabled?">
+   true</configboolean>
   </configsection>
 
  <configsection name="reminder">

@@ -44,7 +44,7 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
 
         case 'resource':
         case 'Resource':
-            $driver = 'Resource_Sql';
+            $driver = 'Resource';
             break;
         }
 
@@ -68,18 +68,10 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
             }
             break;
 
-        case 'Resource_Sql':
+        case 'Resource':
             if (!isset($GLOBALS['conf']['calendar']['driver']) ||
-                $GLOBALS['conf']['resource']['driver'] != 'sql') {
+                !isset($GLOBALS['conf']['resources']['enabled'])) {
                 throw new Kronolith_Exception(_("Resources are disabled"));
-            }
-            $params = array_merge(Horde::getDriverConfig('resource', 'sql'), $params);
-            if ($params['driverconfig'] != 'Horde') {
-                $customParams = $params;
-                unset($customParams['driverconfig'], $customParams['table'], $customParams['utc']);
-                $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('kronolith', $customParams);
-            } else {
-                $params['db'] = $this->_injector->getInstance('Horde_Db_Adapter');
             }
             break;
 

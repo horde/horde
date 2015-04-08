@@ -14,7 +14,7 @@ try {
 
 $file_upload = $GLOBALS['browser']->allowFileUploads();
 
-if (!empty($GLOBALS['conf']['resource']['driver'])) {
+if (!empty($GLOBALS['conf']['resources']['enabled'])) {
     $resources = Kronolith::getDriver('Resource')
         ->listResources(Horde_Perms::READ,
                         array('type' => Kronolith_Resource::TYPE_SINGLE));
@@ -347,7 +347,7 @@ try {
 </form>
 <?php endif ?>
 
-<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
+<?php if (!empty($GLOBALS['conf']['resources']['enabled'])): ?>
 <form id="kronolithCalendarFormresource" action="">
 <input type="hidden" name="type" value="resource" />
 <input id="kronolithCalendarresourceId" type="hidden" name="calendar" />

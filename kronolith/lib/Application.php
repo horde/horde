@@ -251,7 +251,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 $sidebar->addRow($row, 'system');
             }
         }
-        if (!empty($GLOBALS['conf']['resource']['driver']) &&
+        if (!empty($GLOBALS['conf']['resources']['enabled']) &&
             ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management'))) {
 
             $sidebar->containers['groups'] = array(

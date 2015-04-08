@@ -62,7 +62,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         }
 
         // Resources
-        if (!empty($GLOBALS['conf']['resource']['driver'])) {
+        if (!empty($GLOBALS['conf']['resources']['enabled'])) {
             foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
                 if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
                     $rcal = new Kronolith_Calendar_Resource(array(
@@ -1423,7 +1423,7 @@ EOT;
      */
     public function checkResources()
     {
-        if (empty($GLOBALS['conf']['resource']['driver'])) {
+        if (empty($GLOBALS['conf']['resources']['enabled'])) {
             return array();
         }
 

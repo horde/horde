@@ -110,7 +110,7 @@
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkRecur"><?php echo _("Repeat") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkUrl"><?php echo _("URL") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkAttendees"><?php echo _("Attendees") ?></a></li>
-    <?php if (!empty($GLOBALS['conf']['resource']['driver']) && count(Kronolith::getDriver('Resource')->listResources())):?>
+    <?php if (!empty($GLOBALS['conf']['resources']['enabled']) && count(Kronolith::getDriver('Resource')->listResources())):?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkResources"><?php echo _("Resources") ?></a></li>
     <?php endif; ?>
     <li><a href="#" class="kronolithTabLink" id="kronolithEventLinkTags"><?php echo _("Tags") ?></a></li>
