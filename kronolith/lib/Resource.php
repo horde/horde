@@ -27,7 +27,11 @@ class Kronolith_Resource
    /**
     * Adds a new resource to storage
     *
-    * @param array $info  The resource array.
+    * @param array $info           The resource array.
+    *   - name: (string)           The resource name.
+    *   - desc: (string)           The resource description.
+    *   - email: (string)          An email address for the resource, if needed.
+    *   - response_type (integer)  The RESPONSETYPE_* constant.
     *
     * @return Kronolith_Resource_Single
     */
