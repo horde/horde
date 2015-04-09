@@ -189,7 +189,7 @@
           <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]">
             <option value=""><?php echo _("Select a user") ?></option>
-            <?php foreach ($auth->listUsers() as $user): ?>
+            <?php foreach ($auth->listUsers(true) as $user): ?>
             <?php if ($user != $GLOBALS['registry']->getAuth()): ?>
             <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
             <?php endif; ?>
