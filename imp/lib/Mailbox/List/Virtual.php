@@ -53,10 +53,13 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
                 $mbox, $sorted
             );
 
-            $this->_sortedMbox = array_merge(
-                $this->_sortedMbox,
-                array_fill(0, count($sorted), strval($mbox))
-            );
+            /* array_fill() in PHP < 5.6 did not allow 2nd arg to be 0. */
+            if (count($sorted)) {
+                $this->_sortedMbox = array_merge(
+                    $this->_sortedMbox,
+                    array_fill(0, count($sorted), strval($mbox))
+                );
+            }
         }
 
         return $sorted;
