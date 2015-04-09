@@ -139,7 +139,7 @@ class Parser {
 			if ($sPrefix !== null && !is_string($sPrefix)) {
 				throw new \Exception('Wrong namespace prefix '.$sPrefix);
 			}
-			if (!($mUrl instanceof Sabberworm\CSS\Value\String || $mUrl instanceof URL)) {
+			if (!($mUrl instanceof \Sabberworm\CSS\Value\String || $mUrl instanceof URL)) {
 				throw new \Exception('Wrong namespace url of invalid type '.$mUrl);
 			}
 			return new CSSNamespace($mUrl, $sPrefix);
@@ -214,7 +214,7 @@ class Parser {
 			}
 			$this->consume($sQuote);
 		}
-		return new Sabberworm\CSS\Value\String($sResult);
+		return new \Sabberworm\CSS\Value\String($sResult);
 	}
 
 	private function parseCharacter($bIsForIdentifier) {
