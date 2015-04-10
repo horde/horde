@@ -50,7 +50,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
         foreach ($rows as $row) {
             $share = $shares->newShare(
                 null,
-                strval(new Horde_Support_Randomid()),
+                $row['resource_calendar'],
                 $row['resource_name']
             );
             $share->set('desc', $row['resource_description']);
