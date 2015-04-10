@@ -39,14 +39,18 @@ extends Horde_Pgp_Element
     protected $_message;
 
     /**
-     * Convert raw PGP data to a PGP element.
+     * Convert PGP data into a PGP element.
      *
-     * @param string $data  Raw PGP data.
+     * @param mixed $data  Raw (binary) PGP data or an OpenPGP_Message object.
      *
      * @return Horde_Pgp_Element  PGP element object.
      */
-    static public function createFromRawData($data)
+    static public function createFromData($data)
     {
+        if ($data instanceof OpenPGP_Message) {
+            $data = $data->to_bytes();
+        }
+
         return static::create(
             OpenPGP::enarmor($data, static::getArmorHeader())
         );

@@ -153,6 +153,11 @@ class OpenPGP_Crypt_Symmetric {
         if(defined('MCRYPT_CAST_128')) {
           $cipher = new MCryptWrapper(MCRYPT_CAST_128);
         }
+          /* Horde change */
+          else {
+              $cipher = new Horde_Pgp_Crypt_Cast128();
+          }
+          /* End Horde Change */
         break;
       case 7:
         if(class_exists('Crypt_AES')) {

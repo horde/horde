@@ -291,6 +291,7 @@
      </dir> <!-- /bundle/vendor/singpolyma -->
      <file name="autoload.php" role="php" />
     </dir> <!-- /bundle/vendor -->
+    <file name="CHANGED" role="php" />
    </dir> <!-- /bundle -->
    <dir name="doc">
     <dir name="Horde">
@@ -306,6 +307,9 @@
        <file name="Openpgp.php" role="php" />
        <file name="Pecl.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Backend -->
+      <dir name="Crypt">
+       <file name="Cast128.php" role="php" />
+      </dir> <!-- /lib/Horde/Pgp/Crypt -->
       <dir name="Element">
        <file name="Armored.php" role="php" />
        <file name="Key.php" role="php" />
@@ -448,10 +452,14 @@
     <exclude>2.0.0alpha1</exclude>
     <providesextension>gnupg</providesextension>
    </package>
+   <extension>
+    <name>openssl</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="Horde/Pgp/CHANGED" name="bundle/CHANGED" />
    <install as="Horde/Pgp/vendor/autoload.php" name="bundle/vendor/autoload.php" />
    <install as="Horde/Pgp/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
    <install as="Horde/Pgp/vendor/composer/autoload_files.php" name="bundle/vendor/composer/autoload_files.php" />
@@ -660,6 +668,7 @@
    <install as="Horde/Pgp/Translation.php" name="lib/Horde/Pgp/Translation.php" />
    <install as="Horde/Pgp/Backend/Openpgp.php" name="lib/Horde/Pgp/Backend/Openpgp.php" />
    <install as="Horde/Pgp/Backend/Pecl.php" name="lib/Horde/Pgp/Backend/Pecl.php" />
+   <install as="Horde/Pgp/Crypt/Cast128.php" name="lib/Horde/Pgp/Crypt/Cast128.php" />
    <install as="Horde/Pgp/Element/Armored.php" name="lib/Horde/Pgp/Element/Armored.php" />
    <install as="Horde/Pgp/Element/Key.php" name="lib/Horde/Pgp/Element/Key.php" />
    <install as="Horde/Pgp/Element/Message.php" name="lib/Horde/Pgp/Element/Message.php" />

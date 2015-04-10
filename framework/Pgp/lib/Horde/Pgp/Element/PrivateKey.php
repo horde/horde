@@ -48,9 +48,7 @@ extends Horde_Pgp_Element_Key
             }
         }
 
-        return Horde_Pgp_Element_PublicKey::createFromRawData(
-            $pubkey->to_bytes()
-        );
+        return Horde_Pgp_Element_PublicKey::createFromData($pubkey);
     }
 
 }

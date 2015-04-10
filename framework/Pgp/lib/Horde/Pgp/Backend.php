@@ -109,9 +109,15 @@ class Horde_Pgp_Backend
     }
 
     /**
-     * TODO
+     * Decrypts text using a PGP symmetric passphrase.
+     *
+     * @param Horde_Pgp_Element_Message $msg  The message to be decrypted.
+     * @param string $passphrase              The symmetric passphrase used to
+     *                                        encrypt the data.
+     *
+     * @return array $data  {@see Horde_Pgp::decryptSymmetric()}
      */
-    public function decryptSymmetric($text, $passphrase)
+    public function decryptSymmetric($msg, $passphrase)
     {
         throw new BadMethodCallException();
     }

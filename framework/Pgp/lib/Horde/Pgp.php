@@ -240,10 +240,14 @@ class Horde_Pgp
      * @param string $passphrase  The symmetric passphrase used to encrypt
      *                            the data.
      *
-     * @return string $text  The decrypted text.
+     * @return array $data  Array of decrypted data. Outer array indicates a
+     *                      message block. Each entry is an array with two
+     *                      array elements: a list of data packets contained
+     *                      in that message block and a list of signature data
+     *                      associated with that block.
      * @throws Horde_Pgp_Exception
      */
-    public function decryptSymmetric($text, $key, $passphrase = null)
+    public function decryptSymmetric($text, $passphrase)
     {
         return $this->_runInBackend(
             'decryptSymmetric',

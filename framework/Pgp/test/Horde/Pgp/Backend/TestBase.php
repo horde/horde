@@ -42,8 +42,17 @@ extends Horde_Test_Case
     {
     }
 
+    /**
+     * @depends testDecryptSymmetric
+     */
     public function testEncryptSymmetric()
     {
+        $result = $this->_pgp->encryptSymmetric(
+            $this->_getFixture('clear.txt'),
+            'Secret'
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
     }
 
     public function testSign()
@@ -64,6 +73,45 @@ extends Horde_Test_Case
 
     public function testDecryptSymmetric()
     {
+        $encrypted = $this->_getFixture('pgp_encrypted_symmetric.txt');
+
+        /* Invalid passphrase. */
+        $result = $this->_pgp->decryptSymmetric(
+            $encrypted,
+            'Incorrect Secret'
+        );
+
+        $this->assertEmpty($result);
+
+        /* Valid passphrase. */
+        $result = $this->_pgp->decryptSymmetric(
+            $encrypted,
+            'Secret'
+        );
+
+        $this->assertEquals(
+            1,
+            count($result)
+        );
+
+        $text = $result[0][0];
+
+        $this->assertEquals(
+            $this->_getFixture('clear.txt'),
+            $text->data
+        );
+        $this->assertEquals(
+            'clear.txt',
+            $text->filename
+        );
+        $this->assertEquals(
+            1155564523,
+            $text->timestamp
+        );
+        $this->assertEquals(
+            657,
+            $text->size
+        );
     }
 
     public function testVerify()

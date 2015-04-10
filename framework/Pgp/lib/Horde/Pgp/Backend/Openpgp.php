@@ -50,4 +50,34 @@ extends Horde_Pgp_Backend
         self::autoload();
     }
 
+    /**
+     */
+    public function encryptSymmetric($text, $passphrase)
+    {
+        $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
+            $passphrase,
+            new OpenPGP_Message(array(
+                new OpenPGP_LiteralDataPacket($text, array('format' => 'u'))
+            ))
+        );
+
+        return Horde_Pgp_Element_Message::createFromData($encrypted);
+    }
+
+    /**
+     */
+    public function decryptSymmetric($msg, $passphrase)
+    {
+        try {
+            $decrypted = OpenPGP_Crypt_Symmetric::decryptSymmetric(
+                $passphrase,
+                $msg->getMessageOb()
+            );
+        } catch (Exception $e) {
+            throw new BadMethodCallException();
+        }
+
+        return $decrypted->signatures();
+    }
+
 }
