@@ -59,6 +59,12 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
             $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
             $share->set('isgroup', $row['resource_type'] == Kronolith_Resource::TYPE_GROUP);
             $share->set('members', $row['resource_members']);
+
+            /* Perms to match existing behavior */
+            $share->addDefaultPermission(Horde_Perms::SHOW);
+            $share->addDefaultPermission(Horde_Perms::READ);
+            $share->addDefaultPermission(Horde_Perms::EDIT);
+
             $share->save();
         }
     }
