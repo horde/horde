@@ -13,21 +13,6 @@
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
 {
     protected $_type = 'single';
-    protected $_share;
-
-    /**
-     * Const'r
-     *
-     * @param array $params
-     *
-     * @return Kronolith_Resource_Single
-     */
-    public function __construct(array $params = array())
-    {
-        parent::__construct($params);
-        $this->_share = $params['share'];
-        $this->_id = $this->_share->getId();
-    }
 
     /**
      *

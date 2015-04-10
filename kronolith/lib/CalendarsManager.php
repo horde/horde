@@ -573,7 +573,7 @@ class Kronolith_CalendarsManager
     {
         $this->_allResource = array();
         if (!empty($GLOBALS['conf']['resources']['enabled'])) {
-            foreach (Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_SINGLE)) as $resource) {
+            foreach (Kronolith::getDriver('Resource')->listResources(Horde_Perms::READ, array('isgroup' => 0)) as $resource) {
                 $rcal = new Kronolith_Calendar_Resource(array(
                     'resource' => $resource
                 ));

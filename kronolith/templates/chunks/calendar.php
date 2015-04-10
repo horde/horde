@@ -17,7 +17,7 @@ $file_upload = $GLOBALS['browser']->allowFileUploads();
 if (!empty($GLOBALS['conf']['resources']['enabled'])) {
     $resources = Kronolith::getDriver('Resource')
         ->listResources(Horde_Perms::READ,
-                        array('type' => Kronolith_Resource::TYPE_SINGLE));
+                        array('isgroup' => 0));
     $resource_enum = array();
     foreach ($resources as $resource) {
         $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));

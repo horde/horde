@@ -342,10 +342,13 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
     public function listResources($perms = Horde_Perms::READ, array $filter = array(), $orderby = null)
     {
         global $registry;
-
+        $attributes = array_merge(
+            array('type' => Kronolith::SHARE_TYPE_RESOURCE),
+            $filter
+        );
         $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
             $registry->getAuth(),
-            array('perm' => $perms, 'attributes' => array('type' => Kronolith::SHARE_TYPE_RESOURCE)));
+            array('perm' => $perms, 'attributes' => $attributes));
         $return = array();
         foreach ($shares as $share) {
             $class = 'Kronolith_Resource_' . ($share->get('isgroup')
@@ -368,8 +371,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
      */
     public function getGroupMemberships($resource_id)
     {
-        // @todo
-        $groups = $this->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $groups = $this->listResources(Horde_Perms::READ, array('isgroup' => 1));
         $in = array();
         foreach ($groups as $group) {
             $members = $group->get('members');

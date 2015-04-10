@@ -73,6 +73,9 @@ class Kronolith_Factory_Driver extends Horde_Core_Factory_Base
                 !isset($GLOBALS['conf']['resources']['enabled'])) {
                 throw new Kronolith_Exception(_("Resources are disabled"));
             }
+            // Need the 'utc' param here since we no longer extend the sql driver.
+            $sqlparams = array_merge(Horde::getDriverConfig('calendar', 'sql'), $params);
+            $params['utc'] = $sqlparams['utc'];
             break;
 
         case 'Kolab':

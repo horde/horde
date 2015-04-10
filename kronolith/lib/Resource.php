@@ -20,18 +20,16 @@ class Kronolith_Resource
     const RESPONSETYPE_ALWAYS_DECLINE = 3;
     const RESPONSETYPE_MANUAL = 4;
 
-    /* Resource Type constants */
-    const TYPE_SINGLE = 'Single';
-    const TYPE_GROUP = 'Group';
-
    /**
     * Adds a new resource to storage
     *
-    * @param array $info           The resource array.
-    *   - name: (string)           The resource name.
-    *   - desc: (string)           The resource description.
-    *   - email: (string)          An email address for the resource, if needed.
-    *   - response_type (integer)  The RESPONSETYPE_* constant.
+    * @param array $info            The resource array.
+    *   - name: (string)            The resource name.
+    *   - desc: (string)            The resource description.
+    *   - email: (string)           An email address for the resource, if needed.
+    *   - response_type: (integer)  The RESPONSETYPE_* constant.
+    *   - group: (boolean)          Flag resource as a group.
+    *   - members: (array)          An array of resource ids if this is a group.
     *
     * @return Kronolith_Resource_Single
     */
@@ -55,9 +53,15 @@ class Kronolith_Resource
         $share->set('response_type', $info['response_type']);
         $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
 
-        $resource = new Kronolith_Resource_Single(array('share' => $share));
-        $driver = Kronolith::getDriver('Resource');
+        if (!empty($info['group'])) {
+            $share->set('isgroup', true);
+            $share->set('members', serialize($info['members']));
+            $resource = new Kronolith_Resource_Group(array('share' => $share));
+        } else {
+            $resource = new Kronolith_Resource_Single(array('share' => $share));
+        }
 
+        $driver = Kronolith::getDriver('Resource');
         return $driver->save($resource);
     }
 

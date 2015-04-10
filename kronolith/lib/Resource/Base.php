@@ -57,24 +57,8 @@ abstract class Kronolith_Resource_Base
      */
     public function __construct(array $params = array())
     {
-        // if (!empty($params['id'])) {
-        //     // Existing resource
-        //     $this->_id = $params['id'];
-        // }
-
-        // // Names are required.
-        // if (empty($params['name'])) {
-        //     throw new BadMethodCallException('Required \'name\' attribute missing from resource calendar');
-        // }
-        // $this->_params = array_merge(
-        //     array('description' => '',
-        //           'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
-        //           'members' => '',
-        //           'calendar' => '',
-        //           'email' => ''
-        //     ),
-        //     $params
-        // );
+        $this->_share = $params['share'];
+        $this->_id = $this->_share->getId();
     }
 
     /**
@@ -127,6 +111,9 @@ abstract class Kronolith_Resource_Base
      */
     public function set($property, $value)
     {
+        if ($property == 'members') {
+            $value = serialize($value);
+        }
         $this->_share->set($property, $value);
     }
 
@@ -170,8 +157,11 @@ abstract class Kronolith_Resource_Base
         if ($property == 'type' && empty($this->_params['type'])) {
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
+        $value = $this->_share->get($property);
 
-        return $this->_share->get($property);
+        return $property == 'members'
+            ? unserialize($value)
+            : $value;
     }
 
     /**

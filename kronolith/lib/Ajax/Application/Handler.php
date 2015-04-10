@@ -64,16 +64,16 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         // Resources
         if (!empty($GLOBALS['conf']['resources']['enabled'])) {
             foreach (Kronolith::getDriver('Resource')->listResources() as $resource) {
-                if ($resource->get('type') != Kronolith_Resource::TYPE_GROUP) {
-                    $rcal = new Kronolith_Calendar_Resource(array(
-                        'resource' => $resource
-                    ));
-                    $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
-                } else {
+                if ($resource->get('isgroup')) {
                     $rcal = new Kronolith_Calendar_ResourceGroup(array(
                         'resource' => $resource
                     ));
                     $result->calendars['resourcegroup'][$resource->getId()] = $rcal->toHash();
+                } else {
+                    $rcal = new Kronolith_Calendar_Resource(array(
+                        'resource' => $resource
+                    ));
+                    $result->calendars['resource'][$resource->get('calendar')] = $rcal->toHash();
                 }
             }
         }
@@ -240,11 +240,12 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 return $result;
             }
         }
-
         if ($this->vars->as_new) {
             $event = $kronolith_driver->getEvent();
         } else {
             try {
+                // Note that when this is a new event, $this->vars->event will
+                // be empty, so this will create a new event.
                 $event = $kronolith_driver->getEvent($this->vars->event);
             } catch (Horde_Exception_NotFound $e) {
                 $GLOBALS['notification']->push(_("The requested event was not found."), 'horde.error');
@@ -1077,15 +1078,14 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             break;
 
         case 'resourcegroup':
+            $info = array('group' => true);
+            foreach (array('name', 'desc', 'members') as $key) {
+                $info[$key] = $this->vars->$key;
+            }
+
             if (empty($calendar_id)) {
                 // New resource group.
-                $resource = Kronolith_Resource::addResource(
-                    new Kronolith_Resource_Group(array(
-                        'name' => $this->vars->name,
-                        'desc' => $this->vars->description,
-                        'members' => $this->vars->members)
-                    )
-                );
+                $resource = Kronolith_Resource::addResource($info);
             } else {
                 $driver = Kronolith::getDriver('Resource');
                 $resource = $driver->getResource($calendar_id);

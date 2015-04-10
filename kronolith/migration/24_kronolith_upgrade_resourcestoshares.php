@@ -32,21 +32,22 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
         $this->addColumn('kronolith_sharesng', 'attribute_email','text');
         $this->addColumn('kronolith_sharesng', 'attribute_members','text');
         $this->addColumn('kronolith_sharesng', 'attribute_response_type','integer');
-        $this->addColumn('kronolith_sharesng', 'attribute_type', 'integer');
-        $this->addColumn('kronolith_sharesng', 'attribute_isgroup', 'boolean', array('default' => false));
+        $this->addColumn('kronolith_sharesng', 'attribute_type', 'integer', array('default' => Kronolith::SHARE_TYPE_USER));
+        $this->addColumn('kronolith_sharesng', 'attribute_isgroup', 'integer', array('default' => 0));
 
         // legacy shares
         $this->addColumn('kronolith_shares', 'attribute_email','text');
         $this->addColumn('kronolith_shares', 'attribute_members','text');
         $this->addColumn('kronolith_shares', 'attribute_response_type','integer');
-        $this->addColumn('kronolith_shares', 'attribute_type', 'integer');
-        $this->addColumn('kronolith_shares', 'attribute_isgroup', 'boolean', array('default' => false));
+        $this->addColumn('kronolith_shares', 'attribute_type', 'integer', array('default' => Kronolith::SHARE_TYPE_USER));
+        $this->addColumn('kronolith_shares', 'attribute_isgroup', 'integer', array('default' => 0));
 
         /** Migrate existing resources to shares */
         $rows = $this->_connection->selectAll('SELECT * FROM kronolith_resources');
         $shares = $GLOBALS['injector']
              ->getInstance('Horde_Core_Factory_Share')
              ->create('kronolith');
+
         foreach ($rows as $row) {
             $share = $shares->newShare(
                 null,
@@ -57,7 +58,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
             $share->set('email', $row['resource_email']);
             $share->set('response_type', $row['resource_response_type']);
             $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
-            $share->set('isgroup', $row['resource_type'] == Kronolith_Resource::TYPE_GROUP);
+            $share->set('isgroup', $row['resource_type'] == 'Group');
             $share->set('members', $row['resource_members']);
 
             /* Perms to match existing behavior */

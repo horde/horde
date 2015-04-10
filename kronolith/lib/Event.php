@@ -567,6 +567,7 @@ abstract class Kronolith_Event
         } catch (Exception $e) {
             return false;
         }
+
         return $share->hasPermission($user, $permission, $this->creator);
     }
 
