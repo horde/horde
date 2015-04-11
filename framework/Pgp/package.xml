@@ -305,7 +305,6 @@
      <dir name="Pgp">
       <dir name="Backend">
        <file name="Openpgp.php" role="php" />
-       <file name="Pecl.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Backend -->
       <dir name="Crypt">
        <file name="Cast128.php" role="php" />
@@ -338,7 +337,6 @@
      <dir name="Pgp">
       <dir name="Backend">
        <file name="OpenpgpTest.php" role="test" />
-       <file name="PeclTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Pgp/Backend -->
       <dir name="Element">
@@ -443,14 +441,6 @@
     <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>gnupg</name>
-    <channel>pecl.php.net</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
-    <providesextension>gnupg</providesextension>
    </package>
    <extension>
     <name>openssl</name>
@@ -667,7 +657,6 @@
    <install as="Horde/Pgp/Keyserver.php" name="lib/Horde/Pgp/Keyserver.php" />
    <install as="Horde/Pgp/Translation.php" name="lib/Horde/Pgp/Translation.php" />
    <install as="Horde/Pgp/Backend/Openpgp.php" name="lib/Horde/Pgp/Backend/Openpgp.php" />
-   <install as="Horde/Pgp/Backend/Pecl.php" name="lib/Horde/Pgp/Backend/Pecl.php" />
    <install as="Horde/Pgp/Crypt/Cast128.php" name="lib/Horde/Pgp/Crypt/Cast128.php" />
    <install as="Horde/Pgp/Element/Armored.php" name="lib/Horde/Pgp/Element/Armored.php" />
    <install as="Horde/Pgp/Element/Key.php" name="lib/Horde/Pgp/Element/Key.php" />
@@ -685,7 +674,6 @@
    <install as="Horde/Pgp/KeyTest.php" name="test/Horde/Pgp/KeyTest.php" />
    <install as="Horde/Pgp/phpunit.xml" name="test/Horde/Pgp/phpunit.xml" />
    <install as="Horde/Pgp/Backend/OpenpgpTest.php" name="test/Horde/Pgp/Backend/OpenpgpTest.php" />
-   <install as="Horde/Pgp/Backend/PeclTest.php" name="test/Horde/Pgp/Backend/PeclTest.php" />
    <install as="Horde/Pgp/Backend/TestBase.php" name="test/Horde/Pgp/Backend/TestBase.php" />
    <install as="Horde/Pgp/Element/MessageTest.php" name="test/Horde/Pgp/Element/MessageTest.php" />
    <install as="Horde/Pgp/Element/SignatureTest.php" name="test/Horde/Pgp/Element/SignatureTest.php" />

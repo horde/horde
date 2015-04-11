@@ -430,9 +430,6 @@ class Horde_Pgp
             if (isset($this->_params['backends'])) {
                 $this->_backends = $this->_params['backends'];
             } else {
-                if (Horde_Pgp_Backend_Pecl::supported()) {
-                    $this->_backends[] = new Horde_Pgp_Backend_Pecl();
-                }
                 if (Horde_Pgp_Backend_Openpgp::supported()) {
                     $this->_backends[] = new Horde_Pgp_Backend_Openpgp();
                 }
