@@ -85,31 +85,6 @@ class Horde_Pgp
     }
 
     /**
-     * Verify a passphrase for a private key.
-     *
-     * @param string $key         The user's PGP private key.
-     * @param string $passphrase  The user's passphrase.
-     *
-     * @return boolean  Returns true on valid passphrase, false on invalid
-     *                  passphrase.
-     */
-    public function verifyPassphrase($key, $passphrase)
-    {
-        try {
-            $priv_key = Horde_Pgp_Element_PrivateKey::create($key);
-            $this->decrypt(
-                $this->encrypt('Test', $priv_key),
-                $priv_key,
-                $passphrase
-            );
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Encrypts text using PGP public keys.
      *
      * @param string $text  The text to be encrypted.

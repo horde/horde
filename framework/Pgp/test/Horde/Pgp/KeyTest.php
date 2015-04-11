@@ -239,6 +239,49 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         $this->assertNotEmpty($part->getContents());
     }
 
+    /**
+     * @dataProvider unencryptKeyProvider
+     */
+    public function testUnecryptKey($passphrase, $expected)
+    {
+        $key = $this->_getKey('private');
+
+        $this->assertTrue($key->encrypted);
+
+        try {
+            $unencrypted = $key->getUnencryptedKey($passphrase);
+            if (!$expected) {
+                $this->fail('Expected exception');
+            }
+
+            $this->assertInstanceOf(
+                'Horde_Pgp_Element_PrivateKey',
+                $unencrypted
+            );
+
+            $this->assertFalse($key->encrypted);
+        } catch (Horde_Pgp_Exception $e) {
+            if ($expected) {
+                $this->fail('Did not expect exception');
+            }
+            return;
+        }
+    }
+
+    public function unencryptKeyProvider()
+    {
+        return array(
+            array(
+                'Invalid Passphrase',
+                false
+            ),
+            array(
+                'Secret',
+                true
+            )
+        );
+    }
+
     protected function _getKey($key)
     {
         $class = ($key === 'public')
