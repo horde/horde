@@ -28,7 +28,10 @@ class OpenPGP {
     foreach ($headers as $key => $value) {
       $text .= $key . ': ' . (string)$value . "\n";
     }
-    $text .= "\n" . base64_encode($data);
+    /* Horde change */
+    //$text .= "\n" . base64_encode($data);
+    $text .= "\n" . rtrim(chunk_split(base64_encode($data), 64));
+    /* End Horde change */
     $text .= "\n".'=' . base64_encode(substr(pack('N', self::crc24($data)), 1)) . "\n";
     $text .= self::footer($marker) . "\n";
     return $text;

@@ -2,6 +2,10 @@ List of changes from upstream sources:
 
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
 
+  Split output armor text every 76 characters.
+
+- vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
+
   Fixed loading Crypt/RSA.php multiple times.
 
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_symmetric.php
