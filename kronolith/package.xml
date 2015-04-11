@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-08</date>
+ <date>2015-04-11</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -259,6 +259,7 @@
     <file name="FreeBusy.php" role="horde" />
     <file name="Kronolith.php" role="horde" />
     <file name="Resource.php" role="horde" />
+    <file name="Shares.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
@@ -1152,6 +1153,7 @@
    <install as="kronolith/lib/FreeBusy.php" name="lib/FreeBusy.php" />
    <install as="kronolith/lib/Kronolith.php" name="lib/Kronolith.php" />
    <install as="kronolith/lib/Resource.php" name="lib/Resource.php" />
+   <install as="kronolith/lib/Shares.php" name="lib/Shares.php" />
    <install as="kronolith/lib/Storage.php" name="lib/Storage.php" />
    <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
@@ -2543,7 +2545,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-04-08</date>
+   <date>2015-04-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Resource permissions have been implemented (Request #13647).
