@@ -4709,6 +4709,8 @@ KronolithCore = {
             case 'kronolithCinternalPLess':
             case 'kronolithCtasklistsPMore':
             case 'kronolithCtasklistsPLess':
+            case 'kronolithCresourcePMore':
+            case 'kronolithCresourcePLess':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 $('kronolithC' + type + 'PBasic').toggle();
                 $('kronolithC' + type + 'PAdvanced').toggle();
