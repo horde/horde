@@ -112,8 +112,15 @@ class Horde_Mail_Rfc822_Group
             $rfc822 = new Horde_Mail_Rfc822();
             $groupname = $rfc822->encode($groupname, 'personal');
         }
+        if (!empty($opts['comment']) && !empty($this->comment)) {
+            $rfc822 = new Horde_Mail_Rfc822();
+            foreach ($this->comment as $val) {
+                $personal .= ' (' . $rfc822->encode($val, 'comment') . ')';
+            }
+        }
 
-        return $groupname . ':' . (strlen($addr) ? (' ' . $addr) : '') . ';';
+        return ltrim($groupname) . ':' .
+            (strlen($addr) ? (' ' . $addr) : '') . ';';
     }
 
     /**

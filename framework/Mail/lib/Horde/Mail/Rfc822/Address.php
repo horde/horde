@@ -176,9 +176,14 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
                 $personal = $rfc822->encode($personal, 'personal');
             }
         }
+        if (!empty($opts['comment']) && !empty($this->comment)) {
+            foreach ($this->comment as $val) {
+                $personal .= ' (' . $rfc822->encode($val, 'comment') . ')';
+            }
+        }
 
         return (strlen($personal) && ($personal != $address))
-            ? $personal . ' <' . $address . '>'
+            ? ltrim($personal) . ' <' . $address . '>'
             : $address;
     }
 

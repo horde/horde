@@ -16,6 +16,20 @@ Upgrading to 2.5
 
   - Horde_Mail_Rfc822
 
+    - encode()
+
+      Added the 'comment' option to the 'type' parameter.
+
+  - Horde_Mail_Rfc822_Object
+
+    - Added the 'comment' option to the writeAddress() method.
+
+
+Upgrading to 2.5
+================
+
+  - Horde_Mail_Rfc822
+
     - ATEXT
 
       This constant is deprecated.

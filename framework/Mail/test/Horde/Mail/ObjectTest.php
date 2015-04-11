@@ -142,4 +142,73 @@ class Horde_Mail_ObjectTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($ob->valid);
     }
 
+    /**
+     * @dataProvider commentOutputProvider
+     */
+    public function testCommentOutput($expected, $params)
+    {
+        $ob = new Horde_Mail_Rfc822_Address();
+        foreach ($params as $key => $val) {
+            $ob->$key = $val;
+        }
+
+        $this->assertEquals(
+            $expected,
+            $ob->writeAddress(array('comment' => true))
+        );
+    }
+
+    public function commentOutputProvider()
+    {
+        $base_addr = array(
+            'host' => 'example.com',
+            'mailbox' => 'foo',
+            'personal' => 'Foo'
+        );
+
+        return array(
+            array(
+                'Foo (Test Comment) <foo@example.com>',
+                array_merge($base_addr, array(
+                    'comment' => array(
+                        'Test Comment'
+                    )
+                ))
+            ),
+            array(
+                'Foo (Test Comment) (2nd Comment) <foo@example.com>',
+                array_merge($base_addr, array(
+                    'comment' => array(
+                        'Test Comment',
+                        '2nd Comment'
+                    )
+                ))
+            ),
+            array(
+                'Foo ("Test (( Comment") <foo@example.com>',
+                array_merge($base_addr, array(
+                    'comment' => array(
+                        'Test (( Comment'
+                    )
+                ))
+            ),
+            array(
+                'Foo ("Test \"( Comment") <foo@example.com>',
+                array_merge($base_addr, array(
+                    'comment' => array(
+                        'Test "( Comment'
+                    )
+                ))
+            ),
+            array(
+                'Foo (Test "Comment") <foo@example.com>',
+                array_merge($base_addr, array(
+                    'comment' => array(
+                        'Test "Comment"'
+                    )
+                ))
+            )
+        );
+    }
+
 }
