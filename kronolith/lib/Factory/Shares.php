@@ -16,7 +16,7 @@ class Kronolith_Factory_Shares extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        return new Kronolith_Shares($injector->getInstance('Horde_Core_Factory_Share')->create());
+        return new Kronolith_Shares($injector->getInstance('Horde_Core_Factory_Share')->create('kronolith'));
     }
 
 }
