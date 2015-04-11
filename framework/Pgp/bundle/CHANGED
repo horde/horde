@@ -1,5 +1,9 @@
 List of changes from upstream sources:
 
+- vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
+
+  Fixed loading Crypt/RSA.php multiple times.
+
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_symmetric.php
 
   Added support for using the openssl extension to parse CAST128 data.
