@@ -103,7 +103,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function toHash()
     {
-        $owner = $GLOBALS['registry']->isAdmin();
+        $owner = $GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management');
         $hash = parent::toHash();
 
         $hash['id']    = $this->_resource->getId();
