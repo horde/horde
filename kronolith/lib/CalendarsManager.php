@@ -285,9 +285,12 @@ class Kronolith_CalendarsManager
                 'display_cals' => 'displayCalendars',
                 'display_remote_cals' => 'displayRemote',
                 'display_external_cals' => 'displayExternal',
-                'holiday_drivers' => 'displayHolidaysInternal',
-                'display_resource_cals' => 'displayResource'
-            );
+                'holiday_drivers' => 'displayHolidaysInternal');
+
+            if (!empty($GLOBALS['conf']['resource']['driver'])) {
+                $display_prefs['display_resource_cals'] = 'displayResource';
+            }
+
             foreach ($display_prefs as $key => $val) {
                 $pref_val = @unserialize($prefs->getValue($key));
                 $val = '_' . $val;
