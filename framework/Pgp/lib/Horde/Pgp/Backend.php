@@ -43,13 +43,10 @@ class Horde_Pgp_Backend
      * @param array $opts  Configuration:
      *   - comment: (string) The comment to use.
      *   - email: (string) The email to use.
-     *   - expire: (integer) The expiration date (UNIX timestamp). No
-     *             expiration if empty.
+     *   - expire: (integer) Expiration date (UNIX timestamp).
      *   - keylength: (integer) The keylength to use.
-     *   - key_type: (string) Key type.
      *   - name: (string) The name to use.
      *   - passphrase: (string) The passphrase to use.
-     *   - subkey_type: (string) Subkey type.
      *
      * @return Horde_Pgp_Key_Private  The generated private key.
      */

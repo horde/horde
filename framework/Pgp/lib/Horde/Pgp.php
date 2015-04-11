@@ -54,38 +54,33 @@ class Horde_Pgp
      *
      * @param string $name        Full name.
      * @param string $email       E-mail.
-     * @param string $passphrase  Passphrase.
      * @param array $opts         Additional options:
      *   - comment: (string) Comment.
-     *   - expire: (integer) The expiration date (UNIX timestamp).
-     *   - keylength: (integer) Key length (e.g. 1024).
-     *   - key_type: (string) Key type (e.g. 'RSA').
-     *   - subkey_type: (string) Subkey type (e.g. 'RSA').
+     *   - expire: (integer) Expiration date (UNIX timestamp).
+     *   - keylength: (integer) Key length.
+     *   - passphrase: (string) Passphrase.
      *
      * @return Horde_Pgp_Key_Private  The generated private key.
      * @throws Horde_Pgp_Exception
      */
-    public function generateKey($name, $email, $passphrase,
-                                array $opts = array())
+    public function generateKey($name, $email, array $opts = array())
     {
         $this->_initDrivers();
 
         $opts = array_merge(array(
             'comment' => '',
-            'keylength' => 1024,
             'expire' => null,
-            'key_type' => 'RSA',
-            'subkey_type' => 'RSA'
+            'keylength' => 2048,
+            'passphrase' => null
         ), $opts, array(
             'email' => $email,
-            'name' => $name,
-            'passphrase' => $passphrase
+            'name' => $name
         ));
 
         return $this->_runInBackend(
             'generateKey',
             array($opts),
-            Horde_Pgp_Translation::t("Public/Private keypair not generated successfully.")
+            Horde_Pgp_Translation::t("PGP key not generated successfully.")
         );
     }
 

@@ -38,6 +38,26 @@ extends Horde_Test_Case
         ));
     }
 
+    public function testGenerateKey()
+    {
+        $key = $this->_pgp->generateKey(
+            'Foo',
+            'foo@example.com',
+            array(
+                'comment' => 'Sample Comment',
+                'expire' => time() + 60,
+                'keylength' => 512
+            )
+        );
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_PrivateKey',
+            $key
+        );
+
+        $this->assertTrue($key->containsEmail('foo@example.com'));
+    }
+
     public function testEncrypt()
     {
     }

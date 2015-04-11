@@ -52,6 +52,59 @@ extends Horde_Pgp_Backend
 
     /**
      */
+    public function generateKey($opts)
+    {
+        $rsa = new Crypt_RSA();
+        $k = $rsa->createKey($opts['keylength']);
+        $rsa->loadKey($k['privatekey']);
+
+        $nkey = new OpenPGP_SecretKeyPacket(array(
+            'n' => $rsa->modulus->toBytes(),
+            'e' => $rsa->publicExponent->toBytes(),
+            'd' => $rsa->exponent->toBytes(),
+            'p' => $rsa->primes[1]->toBytes(),
+            'q' => $rsa->primes[2]->toBytes(),
+            'u' => $rsa->coefficients[2]->toBytes()
+        ));
+
+        $id = new Horde_Mail_Rfc822_Address($opts['email']);
+        if (strlen($opts['comment'])) {
+            $id->comment[] = $opts['comment'];
+        }
+        if (strlen($opts['name'])) {
+            $id->personal = $opts['name'];
+        }
+
+        $uid = new OpenPGP_UserIDPacket(
+            $id->writeAddress(array('comment' => true))
+        );
+
+        $wkey = new OpenPGP_Crypt_RSA($nkey);
+        $m = $wkey->sign_key_userid(array($nkey, $uid));
+
+        if (isset($opts['expire'])) {
+            foreach ($m as $k => $v) {
+                if ($v instanceof OpenPGP_SignaturePacket) {
+                    /* Need to recalculate hash. No way of adding this packet
+                     * to be factored into the sign_key_userid() call
+                     * above. */
+                    unset($m[$k]);
+                    $sig = new OpenPGP_SignaturePacket($m, 'RSA', 'SHA256');
+                    $sig->signature_type = $v->signature_type;
+                    $sig->hashed_subpackets = $v->hashed_subpackets;
+                    $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyExpirationTimePacket($opts['expire'] - time());
+                    $m[$k] = $sig;
+                    $m = $wkey->sign_key_userid($m);
+                    break;
+                }
+            }
+        }
+
+        return Horde_Pgp_Element_PrivateKey::createFromData($m);
+    }
+
+    /**
+     */
     public function encryptSymmetric($text, $passphrase)
     {
         $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
