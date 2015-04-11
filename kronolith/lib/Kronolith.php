@@ -62,6 +62,10 @@ class Kronolith
     const ALL_HOLIDAYS              = 'allHolidays';
     const ALL_RESOURCE_CALENDARS    = 'allResource';
 
+    /** Share Types */
+    const SHARE_TYPE_USER          = 1;
+    const SHARE_TYPE_RESOURCE      = 2;
+
     /**
      * @var Kronolith_Tagger
      */
@@ -222,7 +226,7 @@ class Kronolith
 
         // Resource calendars
         if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)) &&
-            !empty($GLOBALS['conf']['resource']['driver'])) {
+            !empty($GLOBALS['conf']['resources']['enabled'])) {
 
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $calendar) {
@@ -1399,7 +1403,7 @@ class Kronolith
     /**
      * Reads a submitted permissions form and updates the share permissions.
      *
-     * @param Horde_Share_Object $share  The share to update.
+     * @param Horde_Share_Object|Kronolith_Resource_Base $share  The share to update.
      *
      * @return array  A list of error messages.
      * @throws Kronolith_Exception
@@ -1426,29 +1430,32 @@ class Kronolith
         }
 
         // Process owner and owner permissions.
-        $old_owner = $share->get('owner');
-        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
-        $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
-        if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
-                $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
-            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
-                $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
-            } else {
-                $share->set('owner', $new_owner);
-                $share->save();
-                if ($GLOBALS['conf']['share']['notify']) {
-                    $view->ownerChange = true;
-                    $multipart = self::buildMimeMessage($view, 'notification', $image);
-                    $to = $GLOBALS['injector']
-                        ->getInstance('Horde_Core_Factory_Identity')
-                        ->create($new_owner)
-                        ->getDefaultFromAddress(true);
-                    $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to);
-                    $mail->setBasePart($multipart);
-                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
-                    $view->ownerChange = false;
+        if (!($share instanceof Kronolith_Resource_Base)) {
+            $old_owner = $share->get('owner');
+            $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+            $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
+
+            if ($old_owner !== $new_owner && !empty($new_owner)) {
+                if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
+                    $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
+                } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
+                    $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
+                } else {
+                    $share->set('owner', $new_owner);
+                    $share->save();
+                    if ($GLOBALS['conf']['share']['notify']) {
+                        $view->ownerChange = true;
+                        $multipart = self::buildMimeMessage($view, 'notification', $image);
+                        $to = $GLOBALS['injector']
+                            ->getInstance('Horde_Core_Factory_Identity')
+                            ->create($new_owner)
+                            ->getDefaultFromAddress(true);
+                        $mail->addHeader('Subject', _("Ownership assignment"));
+                        $mail->addHeader('To', $to);
+                        $mail->setBasePart($multipart);
+                        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                        $view->ownerChange = false;
+                    }
                 }
             }
         }
@@ -2855,7 +2862,7 @@ class Kronolith
      */
     public static function getInternalCalendar($target)
     {
-        if ($GLOBALS['conf']['resource']['driver'] && self::getDriver('Resource')->isResourceCalendar($target)) {
+        if ($GLOBALS['conf']['resources']['enabled'] && self::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);

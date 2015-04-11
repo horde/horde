@@ -12,7 +12,7 @@
  *
  * @package Kronolith
  */
-class Kronolith_Event_Resource_Sql extends Kronolith_Event_Sql
+class Kronolith_Event_Resource extends Kronolith_Event_Sql
 {
     /**
      * The type of the calender this event exists on.

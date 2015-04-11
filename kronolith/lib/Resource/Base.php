@@ -29,6 +29,12 @@ abstract class Kronolith_Resource_Base
     protected $_params = array();
 
     /**
+     *
+     * @var Horde_Share_Object
+     */
+    protected $_share;
+
+    /**
      * Resource's internal id
      *
      * @var integer
@@ -51,24 +57,8 @@ abstract class Kronolith_Resource_Base
      */
     public function __construct(array $params = array())
     {
-        if (!empty($params['id'])) {
-            // Existing resource
-            $this->_id = $params['id'];
-        }
-
-        // Names are required.
-        if (empty($params['name'])) {
-            throw new BadMethodCallException('Required \'name\' attribute missing from resource calendar');
-        }
-        $this->_params = array_merge(
-            array('description' => '',
-                  'response_type' => Kronolith_Resource::RESPONSETYPE_MANUAL,
-                  'members' => '',
-                  'calendar' => '',
-                  'email' => ''
-            ),
-            $params
-        );
+        $this->_share = $params['share'];
+        $this->_id = $this->_share->getId();
     }
 
     /**
@@ -121,7 +111,10 @@ abstract class Kronolith_Resource_Base
      */
     public function set($property, $value)
     {
-        $this->_params[$property] = $value;
+        if ($property == 'members') {
+            $value = serialize($value);
+        }
+        $this->_share->set($property, $value);
     }
 
     /**
@@ -135,13 +128,20 @@ abstract class Kronolith_Resource_Base
      */
     public function hasPermission($user, $permission = Horde_Perms::READ, $restrict = null)
     {
-        if (($permission & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
-            !$GLOBALS['registry']->isAdmin() &&
-            !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
-            return false;
+        if ($user === null) {
+            $user = $GLOBALS['registry']->getAuth();
         }
+        return $this->_share->hasPermission($user, $permission);
+    }
 
-        return true;
+    public function getPermission()
+    {
+        return $this->_share->getPermission();
+    }
+
+    public function setPermission($perm)
+    {
+        $this->_share->setPermission($perm);
     }
 
     /**
@@ -157,10 +157,11 @@ abstract class Kronolith_Resource_Base
         if ($property == 'type' && empty($this->_params['type'])) {
             return ($this instanceof Kronolith_Resource_Single) ? 'Single' : 'Group';
         }
-        if (!array_key_exists($property, $this->_params)) {
-            throw new LogicException(sprintf('The property \'%s\' does not exist', $property));
-        }
-        return $this->_params[$property];
+        $value = $this->_share->get($property);
+
+        return $property == 'members'
+            ? unserialize($value)
+            : $value;
     }
 
     /**
@@ -171,6 +172,12 @@ abstract class Kronolith_Resource_Base
     public function save()
     {
         return $this->getDriver()->save($this);
+
+    }
+
+    public function share()
+    {
+        return $this->_share;
     }
 
     /**
@@ -266,15 +273,6 @@ abstract class Kronolith_Resource_Base
      *                                                 the iCalendar text.
      */
     abstract public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false);
-
-    /**
-     * Sets the current resource's id. Must not be an existing resource.
-     *
-     * @param integer $id  The id for this resource
-     *
-     * @throws Kronolith_Exception
-     */
-    abstract public function setId($id);
 
     /**
      * Get ResponseType for this resource.

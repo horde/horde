@@ -68,7 +68,7 @@ class Kronolith_Calendar_ResourceGroup extends Kronolith_Calendar
      */
     public function description()
     {
-        return $this->_resource->get('description');
+        return $this->_resource->get('desc');
     }
 
     /**

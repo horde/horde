@@ -1,20 +1,17 @@
 <?php
 /**
  * The Kronolith_Driver_Resource class implements the Kronolith_Driver API for
- * storing resource calendars in a SQL backend.
+ * storing resource calendars.
  *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Luc Saillard <luc.saillard@fr.alcove.com>
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Jan Schneider <jan@horde.org>
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Kronolith
  */
-class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
+class Kronolith_Driver_Resource extends Kronolith_Driver
 {
     /**
      * The main event storage driver.
@@ -24,37 +21,18 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected $_driver;
 
     /**
-     * Column information as Horde_Db_Adapter_Base_Column objects.
-     *
-     * @var array
-     */
-    protected $_columns = array();
-
-    /**
      * The class name of the event object to instantiate.
      *
      * @var string
      */
-    protected $_eventClass = 'Kronolith_Event_Resource_Sql';
+    protected $_eventClass = 'Kronolith_Event_Resource';
 
     /**
-     * Attempts to open a connection to the SQL server.
      *
-     * @throws Kronolith_Exception
      */
     public function initialize()
     {
-        if (empty($this->_params['db'])) {
-            throw new InvalidArgumentException('Missing required Horde_Db_Adapter instance');
-        }
-        try {
-            $this->_db = $this->_params['db'];
-        } catch (Horde_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
-
         $this->_driver = Kronolith::getDriver();
-        $this->_columns = $this->_db->columns('kronolith_resources');
     }
 
     /**
@@ -187,7 +165,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * delete it, we must also make sure to remove it from the event that
      * it is attached to. Not sure if there is a better way to do this...
      *
-     * @param string|Kronolith_Event_Resource_Sql $eventId  The ID of the event
+     * @param string|Kronolith_Event_Resource $eventId  The ID of the event
      *                                                      to delete.
      * @param boolean $silent  Don't send notifications, used when deleting
      *                         events in bulk from maintenance tasks.
@@ -199,7 +177,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function deleteEvent($eventId, $silent = false, $keep_bound = false)
     {
-        if ($eventId instanceof Kronolith_Event_Resource_Sql) {
+        if ($eventId instanceof Kronolith_Event_Resource) {
             $delete_event = $eventId;
             $eventId = $delete_event->id;
         } else {
@@ -234,50 +212,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function save(Kronolith_Resource_Base $resource)
     {
+        // @todo
         if (!$GLOBALS['registry']->isAdmin() &&
             !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
             throw new Horde_Exception_PermissionDenied();
         }
-        if ($resource->getId()) {
-            $query = 'UPDATE kronolith_resources SET resource_name = ?, '
-                . 'resource_calendar = ? , resource_description = ?, '
-                . 'resource_response_type = ?, resource_type = ?, '
-                . 'resource_members = ?, resource_email = ? WHERE resource_id = ?';
-
-            $values = array($this->convertToDriver($resource->get('name')),
-                            $resource->get('calendar'),
-                            $this->convertToDriver($resource->get('description')),
-                            $resource->get('response_type'),
-                            $resource->get('type'),
-                            serialize($resource->get('members')),
-                            $resource->get('email'),
-                            $resource->getId());
-
-            try {
-                $this->_db->update($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Kronolith_Exception($e);
-            }
-        } else {
-            $query = 'INSERT INTO kronolith_resources'
-                . ' (resource_name, resource_calendar, '
-                .  'resource_description, resource_response_type, '
-                . ' resource_type, resource_members, resource_email)'
-                . ' VALUES (?, ?, ?, ?, ?, ?, ?)';
-            $values = array($this->convertToDriver($resource->get('name')),
-                            $resource->get('calendar'),
-                            $this->convertToDriver($resource->get('description')),
-                            $resource->get('response_type'),
-                            $resource->get('type'),
-                            serialize($resource->get('members')),
-                            $resource->get('email'));
-            try {
-                $id = $this->_db->insert($query, $values);
-            } catch (Horde_Db_Exception $e) {
-                throw new Kronolith_Exception($e);
-            }
-            $resource->setId($id);
-        }
+        $resource->share()->save();
 
         return $resource;
     }
@@ -292,6 +232,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function delete($resource)
     {
+        // @todo
         if (!$GLOBALS['registry']->isAdmin() &&
             !$GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')) {
             throw new Horde_Exception_PermissionDenied();
@@ -312,13 +253,15 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
         }
 
         $this->_deleteResourceCalendar($resource->get('calendar'));
+
         try {
-            $query = 'DELETE FROM kronolith_resources WHERE resource_id = ?';
-            $this->_db->delete($query, array($resource->getId()));
-        } catch (Horde_Db_Exception $e) {
+            $GLOBALS['injector']->getInstance('Kronolith_Shares')
+                ->removeShare($resource->share());
+        } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
     }
+
 
     /**
      * Obtain a Kronolith_Resource by the resource's id
@@ -330,26 +273,18 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function getResource($id)
     {
-        $query = 'SELECT resource_id, resource_name, resource_calendar, '
-            . 'resource_description, resource_response_type, resource_type, '
-            . 'resource_members, resource_email FROM kronolith_resources'
-            . ' WHERE resource_id = ?';
-
         try {
-            $results = $this->_db->selectOne($query, array($id));
-        } catch (Horde_Db_Exception $e) {
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')
+                ->getShareById($id);
+        } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
-        if (!count($results)) {
-            throw new Horde_Exception_NotFound('Resource not found');
-        }
 
-        $class = 'Kronolith_Resource_' . $results['resource_type'];
-        if (!class_exists($class)) {
-            throw new Kronolith_Exception('Could not load the class definition for ' . $class);
-        }
+        $class = 'Kronolith_Resource_' . ($share->get('isgroup')
+            ? 'Group'
+            : 'Single');
 
-        return new $class($this->_fromDriver($results));
+        return new $class(array('share' => $share));
     }
 
     /**
@@ -362,18 +297,14 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function getResourceIdByCalendar($calendar)
     {
-        $query = 'SELECT resource_id FROM kronolith_resources'
-            . ' WHERE resource_calendar = ?';
         try {
-            $result = $this->_db->selectValue($query, array($calendar));
-        } catch (Horde_Db_Exception $e) {
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')
+                ->getShare($calendar);
+        } catch (Horde_Share_Exception $e) {
             throw new Kronolith_Exception($e);
         }
-        if (empty($result)) {
-            throw new Horde_Exception_NotFound('Resource not found');
-        }
 
-        return $result;
+        return $share->getId();
     }
 
     /**
@@ -385,13 +316,14 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function isResourceCalendar($calendar)
     {
-        $query = 'SELECT count(*) FROM kronolith_resources'
-            . ' WHERE resource_calendar = ?';
         try {
-            return $this->_db->selectValue($query, array($calendar)) > 0;
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
+            $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')
+                ->getShare($calendar);
+        } catch (Horde_Share_Exception $e) {
+            return false;
         }
+
+        return $share->get('type') == Kronolith::SHARE_TYPE_RESOURCE;
     }
 
     /**
@@ -409,37 +341,21 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function listResources($perms = Horde_Perms::READ, array $filter = array(), $orderby = null)
     {
-        if (($perms & (Horde_Perms::EDIT | Horde_Perms::DELETE)) &&
-            !$GLOBALS['registry']->isAdmin()) {
-            return array();
-        }
-
-        $query = 'SELECT resource_id, resource_name, resource_calendar,'
-            . ' resource_description, resource_response_type, resource_type,'
-            . ' resource_members, resource_email FROM kronolith_resources';
-        if (count($filter)) {
-            $clause = ' WHERE ';
-            $i = 0;
-            $c = count($filter);
-            foreach (array_keys($filter) as $field) {
-                $clause .= 'resource_' . $field . ' = ?' . (($i++ < ($c - 1)) ? ' AND ' : '');
-            }
-            $query .= $clause;
-        }
-
-        if (!empty($orderby)) {
-            $query .= ' ORDER BY resource_' . $orderby;
-        }
-
-        try {
-            $results = $this->_db->selectAll($query, $filter);
-        } catch (Horde_Db_Exception $e) {
-            throw new Kronolith_Exception($e);
-        }
+        global $registry;
+        $attributes = array_merge(
+            array('type' => Kronolith::SHARE_TYPE_RESOURCE),
+            $filter
+        );
+        $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(
+            $registry->getAuth(),
+            array('perm' => $perms, 'attributes' => $attributes));
         $return = array();
-        foreach ($results as $row) {
-            $class = 'Kronolith_Resource_' . $row['resource_type'];
-            $return[$row['resource_id']] = new $class($this->_fromDriver(array_merge(array('resource_id' => $row['resource_id']), $row)));
+        foreach ($shares as $share) {
+            $class = 'Kronolith_Resource_' . ($share->get('isgroup')
+                ? 'Group'
+                : 'Single');
+
+            $return[$share->getName()] = new $class(array('share' => $share));
         }
 
         return $return;
@@ -455,7 +371,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      */
     public function getGroupMemberships($resource_id)
     {
-        $groups = $this->listResources(Horde_Perms::READ, array('type' => Kronolith_Resource::TYPE_GROUP));
+        $groups = $this->listResources(Horde_Perms::READ, array('isgroup' => 1));
         $in = array();
         foreach ($groups as $group) {
             $members = $group->get('members');
@@ -507,39 +423,6 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
                 $this->deleteEvent($event, true);
             }
         }
-    }
-
-    /**
-     * Convert from driver keys and charset to Kronolith keys and charset.
-     *
-     * @param array $params  The key/values to convert.
-     *
-     * @return array  An array of converted values.
-     */
-    protected function _fromDriver(array $params)
-    {
-        $return = array();
-
-        foreach ($params as $field => $value) {
-            switch ($field) {
-            case 'resource_description':
-                $value = $this->_columns['resource_description']
-                    ->binaryToString($value);
-                // Fall through.
-            case 'resource_name':
-                $value = $this->convertFromDriver($value);
-                break;
-            case 'resource_members':
-                $value = $this->_columns['resource_members']
-                    ->binaryToString($value);
-                $value = @unserialize($value);
-                break;
-            }
-
-            $return[str_replace('resource_', '', $field)] = $value;
-        }
-
-        return $return;
     }
 
     /**

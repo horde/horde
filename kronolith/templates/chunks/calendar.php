@@ -14,10 +14,10 @@ try {
 
 $file_upload = $GLOBALS['browser']->allowFileUploads();
 
-if (!empty($GLOBALS['conf']['resource']['driver'])) {
+if (!empty($GLOBALS['conf']['resources']['enabled'])) {
     $resources = Kronolith::getDriver('Resource')
         ->listResources(Horde_Perms::READ,
-                        array('type' => Kronolith_Resource::TYPE_SINGLE));
+                        array('isgroup' => 0));
     $resource_enum = array();
     foreach ($resources as $resource) {
         $resource_enum[$resource->getId()] = htmlspecialchars($resource->get('name'));
@@ -347,7 +347,7 @@ try {
 </form>
 <?php endif ?>
 
-<?php if (!empty($GLOBALS['conf']['resource']['driver'])): ?>
+<?php if (!empty($GLOBALS['conf']['resources']['enabled'])): ?>
 <form id="kronolithCalendarFormresource" action="">
 <input type="hidden" name="type" value="resource" />
 <input id="kronolithCalendarresourceId" type="hidden" name="calendar" />
@@ -374,11 +374,14 @@ try {
   <ul>
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkExport"><?php echo _("Export") ?></a></li>
+    <?php if ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')): ?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkPerms"><?php echo _("Sharing") ?></a></li>
+    <?php endif; ?>
   </ul>
 </div>
 <br class="clear" />
 <div id="kronolithCalendarresourceTabDescription" class="kronolithTabsOption">
-  <textarea name="description" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+  <textarea name="desc" id="kronolithCalendarresourceDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
 </div>
 <div id="kronolithCalendarresourceTabExport" class="kronolithTabsOption" style="display:none">
   <p>
@@ -386,6 +389,9 @@ try {
     <a id="kronolithCalendarresourceExport"><?php echo _("Calendar ICS file") ?></a>
   </p>
   <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
+</div>
+<div id="kronolithCalendarresourceTabPerms" class="kronolithTabsOption" style="display:none">
+<?php $type = 'resource'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />
@@ -406,7 +412,7 @@ try {
 </div>
 <div>
   <p><label><?php echo _("Description") ?>:<br />
-    <textarea name="description" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
+    <textarea name="desc" id="kronolithCalendarresourcegroupDescription" rows="5" cols="40" class="kronolithLongField"></textarea>
   </label></p>
 </div>
 <div>

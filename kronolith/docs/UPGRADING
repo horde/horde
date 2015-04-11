@@ -52,6 +52,9 @@ Configuration
 The 'table' configuration options have been removed, the database tables have
 fixed names now.
 
+Resources are now share-based and no longer require an explicit driver
+selection. The configuration options have been changed to reflect this.
+
 
 Hooks (hooks.php)
 -----------------
