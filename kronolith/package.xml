@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
@@ -2545,6 +2546,7 @@
    <date>2015-04-08</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
