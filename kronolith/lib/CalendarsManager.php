@@ -136,6 +136,11 @@ class Kronolith_CalendarsManager
         foreach (Kronolith::listInternalCalendars(false, Horde_Perms::SHOW, $user) as $id => $calendar) {
             $this->_allCalendars[$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
         }
+
+        foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
+            $this->_allCalendars[$id] = new Kronolith_Calendar_Internal(array('share' => $calendar));
+        }
+
         $this->_displayCalendars = array_intersect($this->_displayCalendars, array_keys($this->_allCalendars));
 
         // Check that the user owns a calendar if we aren't loading a different
