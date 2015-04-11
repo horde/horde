@@ -35,7 +35,10 @@ extends Horde_Pgp_Backend_TestBase
         return array(new Horde_Pgp_Backend_Pecl());
     }
 
-    public function testGenerateKey()
+    /**
+     * @dataProvider generateKeyProvider
+     */
+    public function testGenerateKey($passphrase)
     {
         $this->markTestSkipped(
             'PECL extension does not support key generation'

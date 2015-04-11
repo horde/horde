@@ -100,6 +100,29 @@ extends Horde_Pgp_Backend
             }
         }
 
+        if (strlen($opts['passphrase'])) {
+            $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
+            $cipher->setKeyLength(128);
+
+            $s2k = new OpenPGP_S2K(crypt_random_string(8), 2);
+            $cipher->setKey($s2k->make_key($opts['passphrase'], 16));
+
+            $iv = crypt_random_string(16);
+            $cipher->setIV($iv);
+
+            $secret = '';
+            foreach ($nkey::$secret_key_fields[$nkey->algorithm] as $f) {
+                $f = $nkey->key[$f];
+                $secret .= pack('n', OpenPGP::bitlength($f)) . $f;
+            }
+            $secret .= hash('sha1', $secret, true);
+
+            $nkey->encrypted_data = $iv . $cipher->encrypt($secret);
+            $nkey->s2k = $s2k;
+            $nkey->s2k_useage = 254;
+            $nkey->symmetric_algorithm = 7;
+        }
+
         return Horde_Pgp_Element_PrivateKey::createFromData($m);
     }
 

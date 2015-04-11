@@ -126,18 +126,18 @@ class Horde_Pgp
     /**
      * Sign data using a PGP private key.
      *
-     * @param string $text        The text to be signed.
-     * @param mixed $key          The private key to use for signing.
-     * @param string $passphrase  The private key passphrase.
+     * @param string $text  The text to be signed.
+     * @param mixed $key    The private key to use for signing (must be
+     *                      decrypted).
      *
      * @return Horde_Pgp_Element_Message  The signed data.
      * @throws Horde_Pgp_Exception
      */
-    public function sign($text, $key, $passphrase = null)
+    public function sign($text, $key)
     {
         return $this->_runInBackend(
             'sign',
-            array($text, $key, $passphrase, 'message'),
+            array($text, $this->_getPrivateKey($key), 'message'),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
         );
     }
@@ -145,18 +145,18 @@ class Horde_Pgp
     /**
      * Sign data using a PGP private key, creating cleartext output.
      *
-     * @param string $text        The text to be signed.
-     * @param mixed $key          The private key to use for signing.
-     * @param string $passphrase  The private key passphrase.
+     * @param string $text  The text to be signed.
+     * @param mixed $key    The private key to use for signing (must be
+     *                      decrypted).
      *
      * @return Horde_Pgp_Element_SignedMessage  The signed data.
      * @throws Horde_Pgp_Exception
      */
-    public function signCleartext($text, $key, $passphrase = null)
+    public function signCleartext($text, $key)
     {
         return $this->_runInBackend(
             'sign',
-            array($text, $key, $passphrase, 'clear'),
+            array($text, $this->_getPrivateKey($key), 'clear'),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
         );
     }
@@ -164,18 +164,18 @@ class Horde_Pgp
     /**
      * Sign data using a PGP private key, returning a detached signature.
      *
-     * @param string $text        The text to be signed.
-     * @param mixed $key          The private key to use for signing.
-     * @param string $passphrase  The private key passphrase.
+     * @param string $text  The text to be signed.
+     * @param mixed $key    The private key to use for signing (must be
+     *                      decrypted).
      *
      * @return Horde_Pgp_Element_Signature  The detached signature.
      * @throws Horde_Pgp_Exception
      */
-    public function signDetached($text, $key, $passphrase = null)
+    public function signDetached($text, $key)
     {
         return $this->_runInBackend(
             'sign',
-            array($text, $key, $passphrase, 'detach'),
+            array($text, $this->_getPrivateKey($key), 'detach'),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
         );
     }
@@ -183,21 +183,20 @@ class Horde_Pgp
     /**
      * Decrypts text using a PGP private key.
      *
-     * @param mixed $text         The text to be decrypted.
-     * @param mixed $key          The private key to use for decryption.
-     * @param string $passphrase  The passphrase for the private key.
+     * @param mixed $text  The text to be decrypted.
+     * @param mixed $key   The private key to use for decryption (must be
+     *                     decrypted).
      *
      * @return string $text  The decrypted text.
      * @throws Horde_Pgp_Exception
      */
-    public function decrypt($text, $key, $passphrase = null)
+    public function decrypt($text, $key)
     {
         return $this->_runInBackend(
             'decrypt',
             array(
                 Horde_Pgp_Element_Message::create($text),
-                $key,
-                $passphrase
+                $key
             ),
             Horde_Pgp_Translation::t("Could not decrypt PGP data.")
         );
@@ -455,6 +454,20 @@ class Horde_Pgp
         }
 
         throw new Horde_Pgp_Exception($error);
+    }
+
+    /**
+     * TODO
+     */
+    protected function _getPrivateKey($key)
+    {
+        $key = Horde_Pgp_Element_PrivateKey::create($key);
+        if ($key->encrypted) {
+            throw new InvalidArgumentException(
+                'Private key must be decrypted.'
+            );
+        }
+        return $key;
     }
 
 }

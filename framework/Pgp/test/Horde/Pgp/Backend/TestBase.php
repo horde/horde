@@ -38,7 +38,10 @@ extends Horde_Test_Case
         ));
     }
 
-    public function testGenerateKey()
+    /**
+     * @dataProvider generateKeyProvider
+     */
+    public function testGenerateKey($passphrase)
     {
         $key = $this->_pgp->generateKey(
             'Foo',
@@ -46,7 +49,8 @@ extends Horde_Test_Case
             array(
                 'comment' => 'Sample Comment',
                 'expire' => time() + 60,
-                'keylength' => 512
+                'keylength' => 512,
+                'passphrase' => $passphrase
             )
         );
 
@@ -56,6 +60,24 @@ extends Horde_Test_Case
         );
 
         $this->assertTrue($key->containsEmail('foo@example.com'));
+
+        if (is_null($passphrase)) {
+            $this->assertFalse($key->encrypted);
+        } else {
+            $this->assertTrue($key->encrypted);
+            $this->assertInstanceof(
+                'Horde_Pgp_Element_PrivateKey',
+                $key->getUnencryptedKey($passphrase)
+            );
+        }
+    }
+
+    public function generateKeyProvider()
+    {
+        return array(
+            array(null),
+            array('Secret')
+        );
     }
 
     public function testEncrypt()
