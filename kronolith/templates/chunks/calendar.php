@@ -374,6 +374,9 @@ try {
   <ul>
     <li class="horde-active"><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkDescription"><?php echo _("Description") ?></a></li>
     <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkExport"><?php echo _("Export") ?></a></li>
+    <?php if ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management')): ?>
+    <li><a href="#" class="kronolithTabLink" id="kronolithCalendarresourceLinkPerms"><?php echo _("Sharing") ?></a></li>
+    <?php endif; ?>
   </ul>
 </div>
 <br class="clear" />
@@ -386,6 +389,9 @@ try {
     <a id="kronolithCalendarresourceExport"><?php echo _("Calendar ICS file") ?></a>
   </p>
   <p class="kronolithDialogInfo"><?php echo _("iCalendar is a computer file format which allows internet users to send meeting requests and tasks to other internet users, via email, or sharing files with an extension of .ics.") ?></p>
+</div>
+<div id="kronolithCalendarresourceTabPerms" class="kronolithTabsOption" style="display:none">
+<?php $type = 'resource'; include __DIR__ . '/permissions.inc'; ?>
 </div>
 <div class="kronolithFormActions">
   <input type="button" value="<?php echo _("Save") ?>" class="kronolithCalendarSave horde-default" />

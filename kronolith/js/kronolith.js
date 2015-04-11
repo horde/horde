@@ -3221,7 +3221,7 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            if (type == 'internal' || type == 'tasklists') {
+            if (type == 'internal' || type == 'tasklists' || type == 'resource') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
                                           ['kronolithC' + type + 'PGNew']]);
                 $('kronolithC' + type + 'PBasic').show();
@@ -3237,17 +3237,19 @@ KronolithCore = {
                 $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
                     return tr.retrieve('remove');
                 }).invoke('remove');
-                $('kronolithCalendar' + type + 'LinkUrls').up().show();
-                form.down('.kronolithColorPicker').show();
-                if (type == 'internal') {
-                    HordeCore.doAction('listTopTags', {}, {
-                        callback: this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag')
-                    });
-                }
-                form.down('.kronolithCalendarSubscribe').hide();
-                form.down('.kronolithCalendarUnsubscribe').hide();
-                if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').show();
+                if (type != 'resource') {
+                    $('kronolithCalendar' + type + 'LinkUrls').up().show();
+                    form.down('.kronolithColorPicker').show();
+                    if (type == 'internal') {
+                        HordeCore.doAction('listTopTags', {}, {
+                            callback: this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag')
+                        });
+                    }
+                    form.down('.kronolithCalendarSubscribe').hide();
+                    form.down('.kronolithCalendarUnsubscribe').hide();
+                    if ($('kronolithCalendar' + type + 'LinkPerms')) {
+                        $('kronolithCalendar' + type + 'LinkPerms').show();
+                    }
                 }
                 if (!Object.isUndefined(info) && info.owner) {
                     this.setPermsFields(type, info.perms);
@@ -4721,18 +4723,24 @@ KronolithCore = {
             case 'kronolithCtasklistsPAll':
             case 'kronolithCtasklistsPG':
             case 'kronolithCtasklistsPU':
+            case 'kronolithCresourcePNone':
+            case 'kronolithCresourcePAll':
+            case 'kronolithCresourcePG':
+            case 'kronolithCresourcePU':
                 var info = id.match(/kronolithC(.*)P(.*)/);
                 this.permsClickHandler(info[1], info[2]);
                 break;
 
             case 'kronolithCinternalPAllShow':
             case 'kronolithCtasklistsPAllShow':
+            case 'kronolithCresourcePAllShow':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 this.permsClickHandler(type, 'All');
                 break;
 
             case 'kronolithCinternalPAdvanced':
             case 'kronolithCtasklistsPAdvanced':
+            case 'kronolithCresourcePAdvanced':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 if (orig.tagName != 'INPUT') {
                     break;
@@ -4747,6 +4755,8 @@ KronolithCore = {
             case 'kronolithCinternalPGAdd':
             case 'kronolithCtasklistsPUAdd':
             case 'kronolithCtasklistsPGAdd':
+            case 'kronolithCresourcePUAdd':
+            case 'kronolithCresourcePGAdd':
                 var info = id.match(/kronolithC(.*)P(.)/);
                 this.insertGroupOrUser(info[1], info[2] == 'U' ? 'user' : 'group');
                 break;

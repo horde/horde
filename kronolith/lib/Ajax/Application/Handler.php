@@ -1053,6 +1053,8 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     return $result;
                 }
                 $resource = Kronolith_Resource::addResource($info);
+                Kronolith::readPermsForm($resource);
+                $resoruce->save();
             } else {
                 try {
                     $rdriver = Kronolith::getDriver('Resource');
@@ -1064,6 +1066,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                     foreach (array('name', 'desc', 'response_type', 'email') as $key) {
                         $resource->set($key, $this->vars->$key);
                     }
+                    Kronolith::readPermsForm($resource);
                     $resource->save();
                 } catch (Kronolith_Exception $e) {
                     $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
