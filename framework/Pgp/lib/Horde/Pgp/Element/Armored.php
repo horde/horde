@@ -52,7 +52,13 @@ extends Horde_Pgp_Element
         }
 
         return static::create(
-            OpenPGP::enarmor($data, static::getArmorHeader())
+            OpenPGP::enarmor(
+                $data,
+                static::getArmorHeader(),
+                array(
+                    'Version' => 'Horde_Pgp Library (http://www.horde.org/)'
+                )
+            )
         );
     }
 
