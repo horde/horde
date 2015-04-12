@@ -54,7 +54,7 @@ abstract class Horde_Pgp_Element
     {
         $class = get_called_class();
         if ($data instanceof $class) {
-            return $class;
+            return $data;
         }
 
         $data = Horde_Pgp_Armor::create($data);
