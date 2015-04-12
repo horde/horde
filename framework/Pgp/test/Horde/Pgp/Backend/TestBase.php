@@ -80,8 +80,25 @@ extends Horde_Test_Case
         );
     }
 
-    public function testEncrypt()
+    /**
+     * @dataProvider encryptProvider
+     */
+    public function testEncrypt($key)
     {
+        $result = $this->_pgp->encrypt(
+            $this->_getFixture('clear.txt'),
+            $key
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+    }
+
+    public function encryptProvider()
+    {
+        return array(
+            array($this->_getFixture('pgp_public.asc')),
+            array($this->_getFixture('pgp_public_rsa.txt'))
+        );
     }
 
     /**
@@ -169,16 +186,6 @@ extends Horde_Test_Case
     protected function _getFixture($file)
     {
         return file_get_contents(dirname(__DIR__) . '/fixtures/' . $file);
-    }
-
-    protected function _getPrivateKey()
-    {
-        return $this->_getFixture('pgp_private.asc');
-    }
-
-    protected function _getPublicKey()
-    {
-        return $this->_getFixture('pgp_public.asc');
     }
 
 }

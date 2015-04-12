@@ -99,7 +99,10 @@ class Horde_Pgp
             'encrypt',
             array(
                 $text,
-                is_array($keys) ? $keys : array($keys)
+                array_map(
+                    array('Horde_Pgp_Element_PublicKey', 'create'),
+                    is_array($keys) ? $keys : array($keys)
+                )
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );

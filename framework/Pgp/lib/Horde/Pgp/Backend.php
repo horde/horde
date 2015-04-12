@@ -59,7 +59,8 @@ class Horde_Pgp_Backend
      * Encrypts text using PGP public keys.
      *
      * @param string $text  The text to be PGP encrypted.
-     * @param array $keys   The list of public keys to encrypt.
+     * @param array $keys   The list of public keys to encrypt
+     *                      (Horde_Pgp_Element_PublicKey objects).
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
      */

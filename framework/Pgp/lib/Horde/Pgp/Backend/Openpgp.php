@@ -128,6 +128,31 @@ extends Horde_Pgp_Backend
 
     /**
      */
+    public function encrypt($text, $keys)
+    {
+        $p = array();
+        foreach ($keys as $val) {
+            foreach ($val->getMessageOb() as $val2) {
+                if ($val2 instanceof OpenPGP_PublicKeyPacket) {
+                    $p[] = $val2;
+                    break;
+                }
+            }
+        }
+
+        /* TODO: Support ElGamal encryption */
+        $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
+            $p,
+            new OpenPGP_Message(array(
+                new OpenPGP_LiteralDataPacket($text, array('format' => 'u'))
+            ))
+        );
+
+        return Horde_Pgp_Element_Message::createFromData($encrypted);
+    }
+
+    /**
+     */
     public function encryptSymmetric($text, $passphrase)
     {
         $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
