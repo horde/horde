@@ -30,7 +30,7 @@ class OpenPGP {
     }
     /* Horde change */
     //$text .= "\n" . base64_encode($data);
-    $text .= "\n" . rtrim(chunk_split(base64_encode($data), 64));
+    $text .= "\n" . rtrim(chunk_split(base64_encode($data), 64, "\n"));
     /* End Horde change */
     $text .= "\n".'=' . base64_encode(substr(pack('N', self::crc24($data)), 1)) . "\n";
     $text .= self::footer($marker) . "\n";
