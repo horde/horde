@@ -531,4 +531,16 @@ class IMP_Smime
         $this->_smime->checkForOpenSSL();
     }
 
+    /**
+     * Extract the contents of a PEM format certificate to an array.
+     *
+     * @param string $cert  PEM format certificate.
+     *
+     * @return array  All extractable information about the certificate.
+     */
+    public function parseCert($cert)
+    {
+        return $this->_smime->parseCert($cert);
+    }
+
 }
