@@ -32,7 +32,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $expected,
-            $this->_getKey($key)->creation
+            $key->creation
         );
     }
 
@@ -41,11 +41,19 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 1155291888,
-                'public'
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
                 1155291888,
-                'private'
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                1428808030,
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                1428808030,
+                $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
     }
@@ -57,7 +65,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $expected,
-            $this->_getKey($key)->id
+            $key->id
         );
     }
 
@@ -66,11 +74,19 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 'BADEABD7',
-                'public'
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
                 'BADEABD7',
-                'private'
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                'F78F30D6',
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                'F78F30D6',
+                $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
     }
@@ -82,7 +98,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $expected,
-            $this->_getKey($key)->fingerprint
+            $key->fingerprint
         );
     }
 
@@ -91,11 +107,19 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 '966F4BA9569DE6F65E8253977CA74426BADEABD7',
-                'public'
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
                 '966F4BA9569DE6F65E8253977CA74426BADEABD7',
-                'private'
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                'C2F1B25DED428057096161322CA37A36F78F30D6',
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                'C2F1B25DED428057096161322CA37A36F78F30D6',
+                $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
     }
@@ -105,7 +129,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
      */
     public function testGetUserIdsProperty($expected, $key)
     {
-        $key_ob = $this->_getKey($key)->getUserIds();
+        $key_ob = $key->getUserIds();
         reset($key_ob);
 
         foreach ($expected as $val) {
@@ -132,7 +156,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
-                'public'
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
                 array(
@@ -141,7 +165,25 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
-                'private'
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                array(
+                    array(
+                        'comment' => 'RSA',
+                        'email' => 'Test User <test@example.com>'
+                    )
+                ),
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                array(
+                    array(
+                        'comment' => 'RSA',
+                        'email' => 'Test User <test@example.com>'
+                    )
+                ),
+                $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
     }
@@ -153,7 +195,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             $expected,
-            $this->_getKey($key)->getFingerprints()
+            $key->getFingerprints()
         );
     }
 
@@ -167,7 +209,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                     /* Subkey */
                     '9EF074A9' => 'F4248B3AC97C1F749555929C24ED29779EF074A9'
                 ),
-                'public'
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
                 array(
@@ -176,7 +218,25 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                     /* Subkey */
                     '9EF074A9' => 'F4248B3AC97C1F749555929C24ED29779EF074A9'
                 ),
-                'private'
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                array(
+                    /* Key */
+                    'F78F30D6' => 'C2F1B25DED428057096161322CA37A36F78F30D6',
+                    /* Subkey */
+                    '5302C294' => '063A32E02D9B279D93E82068E03B24D55302C294'
+                ),
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                array(
+                    /* Key */
+                    'F78F30D6' => 'C2F1B25DED428057096161322CA37A36F78F30D6',
+                    /* Subkey */
+                    '5302C294' => '063A32E02D9B279D93E82068E03B24D55302C294'
+                ),
+                $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
     }
@@ -186,12 +246,10 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
      */
     public function testContainsEmailProvider($email, $key, $expected)
     {
-        $key_ob = $this->_getKey($key);
-
         if ($expected) {
-            $this->assertTrue($key_ob->containsEmail($email));
+            $this->assertTrue($key->containsEmail($email));
         } else {
-            $this->assertFalse($key_ob->containsEmail($email));
+            $this->assertFalse($key->containsEmail($email));
         }
     }
 
@@ -200,22 +258,42 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 'me@example.com',
-                'public',
+                $this->_getKey('pgp_public.asc', 'public'),
                 true
             ),
             array(
                 'foo@example.com',
-                'public',
+                $this->_getKey('pgp_public.asc', 'public'),
                 false
             ),
             array(
                 'me@example.com',
-                'private',
+                $this->_getKey('pgp_private.asc', 'private'),
                 true
             ),
             array(
                 'foo@example.com',
-                'private',
+                $this->_getKey('pgp_private.asc', 'private'),
+                false
+            ),
+            array(
+                'test@example.com',
+                $this->_getKey('pgp_public_rsa.txt', 'public'),
+                true
+            ),
+            array(
+                'foo@example.com',
+                $this->_getKey('pgp_public_rsa.txt', 'public'),
+                false
+            ),
+            array(
+                'test@example.com',
+                $this->_getKey('pgp_private_rsa.txt', 'private'),
+                true
+            ),
+            array(
+                'foo@example.com',
+                $this->_getKey('pgp_private_rsa.txt', 'private'),
                 false
             )
         );
@@ -223,7 +301,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
 
     public function testCreateMimePart()
     {
-        $key_ob = $this->_getKey('public');
+        $key_ob = $this->_getKey('pgp_public_rsa.txt', 'public');
         $part = $key_ob->createMimePart();
 
         $this->assertInstanceOf(
@@ -242,10 +320,8 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider unencryptKeyProvider
      */
-    public function testUnecryptKey($passphrase, $expected)
+    public function testUnecryptKey($key, $passphrase, $expected)
     {
-        $key = $this->_getKey('private');
-
         $this->assertTrue($key->encrypted);
 
         try {
@@ -272,23 +348,35 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
+                $this->_getKey('pgp_private.asc', 'private'),
                 'Invalid Passphrase',
                 false
             ),
             array(
+                $this->_getKey('pgp_private.asc', 'private'),
+                'Secret',
+                true
+            ),
+            array(
+                $this->_getKey('pgp_private_rsa.txt', 'private'),
+                'Invalid Passphrase',
+                false
+            ),
+            array(
+                $this->_getKey('pgp_private_rsa.txt', 'private'),
                 'Secret',
                 true
             )
         );
     }
 
-    protected function _getKey($key)
+    protected function _getKey($key, $type)
     {
-        $class = ($key === 'public')
+        $class = ($type === 'public')
             ? 'Horde_Pgp_Element_PublicKey'
             : 'Horde_Pgp_Element_PrivateKey';
         return $class::create(
-            file_get_contents(__DIR__ . '/fixtures/pgp_' . $key . '.asc')
+            file_get_contents(__DIR__ . '/fixtures/' . $key)
         );
     }
 
