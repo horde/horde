@@ -85,10 +85,12 @@ class Horde_Pgp_Backend
     /**
      * Sign a message using a PGP private key.
      *
-     * @param string $text   The text to be PGP signed.
-     * @param mixed $key     The private key to use for signing.
-     * @param integer $mode  The signing mode. Either 'clear', 'detach', or
-     *                       'message'.
+     * @param string $text                       The text to be PGP signed.
+     * @param Horde_Pgp_Element_PrivateKey $key  The private key to use for
+     *                                           signing.
+     * @param integer $mode                      The signing mode. Either
+     *                                           'clear', 'detach', or
+     *                                           'message'.
      *
      * @return mixed  The signed message.
      */
@@ -98,9 +100,15 @@ class Horde_Pgp_Backend
     }
 
     /**
-     * TODO
+     * Decrypts text using a PGP private key.
+     *
+     * @param Horde_Pgp_Element_Message $msg     The message to be decrypted.
+     * @param Horde_Pgp_Element_PrivateKey $key  The private key to use for
+     *                                           decryption.
+     *
+     * @return string $text  The decrypted text.
      */
-    public function decrypt($text, $key)
+    public function decrypt($msg, $key)
     {
         throw new BadMethodCallException();
     }

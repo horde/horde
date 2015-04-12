@@ -126,8 +126,36 @@ extends Horde_Test_Case
     {
     }
 
-    public function testDecrypt()
+    /**
+     * @dataProvider decryptProvider
+     */
+    public function testDecrypt($encrypted, $key, $pass, $expected)
     {
+        $result = $this->_pgp->decrypt(
+            $encrypted,
+            Horde_Pgp_Element_PrivateKey::create($key)
+                ->getUnencryptedKey($pass)
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+    }
+
+    public function decryptProvider()
+    {
+        return array(
+            array(
+                $this->_getFixture('pgp_encrypted.txt'),
+                $this->_getFixture('pgp_private.asc'),
+                'Secret',
+                $this->_getFixture('clear.txt')
+            ),
+            array(
+                $this->_getFixture('pgp_encrypted_rsa.txt'),
+                $this->_getFixture('pgp_private_rsa.txt'),
+                'Secret',
+                $this->_getFixture('clear.txt')
+            )
+        );
     }
 
     public function testDecryptSymmetric()

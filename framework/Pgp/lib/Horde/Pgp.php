@@ -190,7 +190,7 @@ class Horde_Pgp
      * @param mixed $key   The private key to use for decryption (must be
      *                     decrypted).
      *
-     * @return string $text  The decrypted text.
+     * @return OpenPGP_Message $msg  The decrypted message.
      * @throws Horde_Pgp_Exception
      */
     public function decrypt($text, $key)
@@ -199,7 +199,7 @@ class Horde_Pgp
             'decrypt',
             array(
                 Horde_Pgp_Element_Message::create($text),
-                $key
+                $this->_getPrivateKey($key)
             ),
             Horde_Pgp_Translation::t("Could not decrypt PGP data.")
         );

@@ -167,6 +167,15 @@ extends Horde_Pgp_Backend
 
     /**
      */
+    public function decrypt($msg, $key)
+    {
+        /* TODO: Support ElGamal decryption */
+        $decryptor = new OpenPGP_Crypt_RSA($key->getMessageOb());
+        return $decryptor->decrypt($msg->getMessageOb());
+    }
+
+    /**
+     */
     public function decryptSymmetric($msg, $passphrase)
     {
         try {
