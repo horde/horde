@@ -54,19 +54,6 @@ extends Horde_Pgp_Backend
      */
     public function generateKey($opts)
     {
-        $rsa = new Crypt_RSA();
-        $k = $rsa->createKey($opts['keylength']);
-        $rsa->loadKey($k['privatekey']);
-
-        $nkey = new OpenPGP_SecretKeyPacket(array(
-            'n' => $rsa->modulus->toBytes(),
-            'e' => $rsa->publicExponent->toBytes(),
-            'd' => $rsa->exponent->toBytes(),
-            'p' => $rsa->primes[1]->toBytes(),
-            'q' => $rsa->primes[2]->toBytes(),
-            'u' => $rsa->coefficients[2]->toBytes()
-        ));
-
         $id = new Horde_Mail_Rfc822_Address($opts['email']);
         if (strlen($opts['comment'])) {
             $id->comment[] = $opts['comment'];
@@ -79,8 +66,14 @@ extends Horde_Pgp_Backend
             $id->writeAddress(array('comment' => true))
         );
 
-        $wkey = new OpenPGP_Crypt_RSA($nkey);
-        $m = $wkey->sign_key_userid(array($nkey, $uid));
+        /* Signing key */
+        $skey = $this->_generateSecretKeyPacket(
+            $opts['keylength'],
+            'OpenPGP_SecretKeyPacket'
+        );
+
+        $skey_rsa = new OpenPGP_Crypt_RSA($skey);
+        $m = $skey_rsa->sign_key_userid(array($skey, $uid));
 
         if (isset($opts['expire'])) {
             foreach ($m as $k => $v) {
@@ -94,7 +87,7 @@ extends Horde_Pgp_Backend
                     $sig->hashed_subpackets = $v->hashed_subpackets;
                     $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyExpirationTimePacket($opts['expire'] - time());
                     $m[$k] = $sig;
-                    $m = $wkey->sign_key_userid($m);
+                    $m = $skey_rsa->sign_key_userid($m);
                     break;
                 }
             }
@@ -108,22 +101,101 @@ extends Horde_Pgp_Backend
             $cipher->setKey($s2k->make_key($opts['passphrase'], 16));
 
             $iv = crypt_random_string(16);
-            $cipher->setIV($iv);
 
-            $secret = '';
-            foreach ($nkey::$secret_key_fields[$nkey->algorithm] as $f) {
-                $f = $nkey->key[$f];
-                $secret .= pack('n', OpenPGP::bitlength($f)) . $f;
-            }
-            $secret .= hash('sha1', $secret, true);
-
-            $nkey->encrypted_data = $iv . $cipher->encrypt($secret);
-            $nkey->s2k = $s2k;
-            $nkey->s2k_useage = 254;
-            $nkey->symmetric_algorithm = 7;
+            $this->_encryptPrivateKey($skey, $cipher, $s2k, $iv);
         }
 
+        /* Encryption subkey. See RFC 4880 [5.5.1.2] (by convention, top-level
+         * key is used for signing and subkeys are used for encryption) */
+        $ekey = $this->_generateSecretKeyPacket(
+            $opts['keylength'],
+            'OpenPGP_SecretSubkeyPacket'
+        );
+
+        /* Computing signature: RFC 4880 [5.2.4] */
+        $sig = new OpenPGP_SignaturePacket(
+            implode('', $skey->fingerprint_material()) .
+            implode('', $ekey->fingerprint_material()),
+            'RSA',
+            'SHA256'
+        );
+
+        /* This is a "Subkey Binding Signature". */
+        $sig->signature_type = 0x18;
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyFlagsPacket(
+            array(0x0C)
+        );
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
+            substr($skey_rsa->key()->fingerprint, -16)
+        );
+
+        $priv_key = $skey_rsa->private_key();
+        $priv_key->setHash('sha256');
+        $sig->sign_data(array(
+            'RSA' => array(
+                'SHA256' => function($data) use($priv_key) {
+                    return array($priv_key->sign($data));
+                }
+            )
+        ));
+
+        if (strlen($opts['passphrase'])) {
+            $this->_encryptPrivateKey($ekey, $cipher, $s2k, $iv);
+        }
+
+        $m[] = $ekey;
+        $m[] = $sig;
+
         return new Horde_Pgp_Element_PrivateKey($m);
+    }
+
+    /**
+     * Generate a RSA secret key (sub)packet.
+     *
+     * @param integer $keylength   RSA keylength.
+     * @param string $packet_type  Secret key packet to create.
+     *
+     * @return OpenPGP_SecretKeyPacket  Secret key packet object.
+     */
+    protected function _generateSecretKeyPacket($keylength, $packet_type)
+    {
+        $rsa = new Crypt_RSA();
+        $k = $rsa->createKey($keylength);
+        $rsa->loadKey($k['privatekey']);
+
+        return new $packet_type(array(
+            'n' => $rsa->modulus->toBytes(),
+            'e' => $rsa->publicExponent->toBytes(),
+            'd' => $rsa->exponent->toBytes(),
+            'p' => $rsa->primes[1]->toBytes(),
+            'q' => $rsa->primes[2]->toBytes(),
+            'u' => $rsa->coefficients[2]->toBytes()
+        ));
+    }
+
+    /**
+     * Encrypt a secret key packet.
+     *
+     * @param OpenPGP_SecretKeyPacket $p  Secret key packet.
+     * @param Crypt_RSA $cipher           RSA cipher object.
+     * @param OpenPGP_S2K $s2k            OpenPGP String-to-key object.
+     * @param string $iv                  Initial vector.
+     */
+    protected function _encryptPrivateKey($p, $cipher, $s2k, $iv)
+    {
+        $cipher->setIV($iv);
+
+        $secret = '';
+        foreach ($p::$secret_key_fields[$p->algorithm] as $f) {
+            $f = $p->key[$f];
+            $secret .= pack('n', OpenPGP::bitlength($f)) . $f;
+        }
+        $secret .= hash('sha1', $secret, true);
+
+        $p->encrypted_data = $iv . $cipher->encrypt($secret);
+        $p->s2k = $s2k;
+        $p->s2k_useage = 254;
+        $p->symmetric_algorithm = 7;
     }
 
     /**
