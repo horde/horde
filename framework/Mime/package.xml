@@ -19,7 +19,7 @@
  </lead>
  <date>2015-04-13</date>
  <version>
-  <release>2.8.1</release>
+  <release>2.8.2</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Ignore broken headers when parsing header text.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1685,6 +1685,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Ignore broken headers when parsing header text.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.2</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
