@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-09</date>
+ <date>2015-04-13</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -332,15 +332,15 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="Pgp">
-      <dir name="Armor">
-       <file name="MessageTest.php" role="test" />
-       <file name="SignatureTest.php" role="test" />
-      </dir> <!-- /test/Horde/Pgp/Armor -->
       <dir name="Backend">
        <file name="OpenpgpTest.php" role="test" />
        <file name="PeclTest.php" role="test" />
        <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Pgp/Backend -->
+      <dir name="Element">
+       <file name="MessageTest.php" role="test" />
+       <file name="SignatureTest.php" role="test" />
+      </dir> <!-- /test/Horde/Pgp/Element -->
       <dir name="fixtures">
        <file name="clear.txt" role="test" />
        <file name="pgp_encrypted.txt" role="test" />
@@ -675,11 +675,11 @@
    <install as="Horde/Pgp/KeyserverTest.php" name="test/Horde/Pgp/KeyserverTest.php" />
    <install as="Horde/Pgp/KeyTest.php" name="test/Horde/Pgp/KeyTest.php" />
    <install as="Horde/Pgp/phpunit.xml" name="test/Horde/Pgp/phpunit.xml" />
-   <install as="Horde/Pgp/Armor/MessageTest.php" name="test/Horde/Pgp/Armor/MessageTest.php" />
-   <install as="Horde/Pgp/Armor/SignatureTest.php" name="test/Horde/Pgp/Armor/SignatureTest.php" />
    <install as="Horde/Pgp/Backend/OpenpgpTest.php" name="test/Horde/Pgp/Backend/OpenpgpTest.php" />
    <install as="Horde/Pgp/Backend/PeclTest.php" name="test/Horde/Pgp/Backend/PeclTest.php" />
    <install as="Horde/Pgp/Backend/TestBase.php" name="test/Horde/Pgp/Backend/TestBase.php" />
+   <install as="Horde/Pgp/Element/MessageTest.php" name="test/Horde/Pgp/Element/MessageTest.php" />
+   <install as="Horde/Pgp/Element/SignatureTest.php" name="test/Horde/Pgp/Element/SignatureTest.php" />
    <install as="Horde/Pgp/fixtures/clear.txt" name="test/Horde/Pgp/fixtures/clear.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" />
