@@ -23,6 +23,13 @@
 abstract class Horde_Pgp_Element
 {
     /**
+     * Armor header identifying the current software version.
+     *
+     * @var string
+     */
+    public $armorVersion = 'Horde_Pgp Library (http://www.horde.org/)';
+
+    /**
      * Armor headers.
      *
      * @var array
@@ -99,7 +106,7 @@ abstract class Horde_Pgp_Element
             $bytes,
             'PGP ' . $this->_armor,
             array_merge($this->headers, array(
-                'Version' => 'Horde_Pgp Library (http://www.horde.org/)'
+                'Version' => $this->armorVersion
             ))
         );
     }
