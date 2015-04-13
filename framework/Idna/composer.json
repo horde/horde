@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.0.1",
-    "time": "2015-01-07",
+    "version": "1.0.2",
+    "time": "2015-04-13",
     "repositories": [
         {
             "type": "pear",
@@ -24,8 +24,7 @@
         "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
-        "pear-pear.php.net/Net_IDNA": "<=1.0.0alpha1@stable",
-        "pear-pear.php.net/Net_IDNA2": "<=1.0.0alpha1@stable",
-        "ext-mbstring": "*"
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "ext-intl": "*"
     }
 }
