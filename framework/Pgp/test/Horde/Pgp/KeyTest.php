@@ -318,6 +318,52 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider getKeyListProvider
+     */
+    public function testGetKeyListProvider($key)
+    {
+        $list = $key->getKeyList();
+
+        $this->assertEquals(
+            2,
+            count($list)
+        );
+
+        foreach ($list as $val) {
+            $this->assertInstanceOf(
+                'OpenPGP_PublicKeyPacket',
+                $val->key
+            );
+            $this->assertInstanceOf(
+                'OpenPGP_SignaturePacket',
+                $val->signature
+            );
+            $this->assertInstanceOf(
+                'OpenPGP_UserIDPacket',
+                $val->userid
+            );
+        }
+    }
+
+    public function getKeyListProvider()
+    {
+        return array(
+            array(
+                $this->_getKey('pgp_public.asc', 'public')
+            ),
+            array(
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                $this->_getKey('pgp_private_rsa.txt', 'private')
+            )
+        );
+    }
+
+    /**
      * @dataProvider unencryptKeyProvider
      */
     public function testUnecryptKey($key, $passphrase, $expected)

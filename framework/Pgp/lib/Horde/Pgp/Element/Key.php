@@ -110,6 +110,43 @@ extends Horde_Pgp_Element
     }
 
     /**
+     * Return a list of key/subkey packets contained in this key.
+     *
+     * @return array  List of keys, each represented by an object with these
+     *                properties:
+     *   - key: (OpenPGP_PublicKeyPacket) Key packet object.
+     *   - signature: (OpenPGP_SignaturePacket) Signature packet object.
+     *   - userid: (OpenPGP_UserIDPacket) ID packet object.
+     */
+    public function getKeyList()
+    {
+        $key = $sig = $userid = null;
+        $out = array();
+
+        foreach ($this->message as $val) {
+            if ($val instanceof OpenPGP_PublicKeyPacket) {
+                $key = $val;
+            } elseif ($val instanceof OpenPGP_SignaturePacket) {
+                $sig = $val;
+            } elseif ($val instanceof OpenPGP_UserIDPacket) {
+                $userid = $val;
+            }
+
+            if (!is_null($key) && !is_null($sig)) {
+                $tmp = new stdClass;
+                $tmp->key = $key;
+                $tmp->signature = $sig;
+                $tmp->userid = $userid;
+                $out[] = $tmp;
+
+                $key = $sig = null;
+            }
+        }
+
+        return $out;
+    }
+
+    /**
      * Return the public key.
      *
      * @return Horde_Pgp_Element_PublicKey  Public key.
