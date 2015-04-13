@@ -18,7 +18,7 @@
  </lead>
  <date>2015-04-13</date>
  <version>
-  <release>2.5.1</release>
+  <release>2.5.2</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Update to PHPUnit 4.5.0 and dependencies.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3438,6 +3438,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Update to PHPUnit 4.5.0 and dependencies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.2</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
