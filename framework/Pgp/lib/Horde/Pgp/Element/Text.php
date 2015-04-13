@@ -23,11 +23,4 @@
 class Horde_Pgp_Element_Text
 extends Horde_Pgp_Element
 {
-    /**
-     */
-    public function getData()
-    {
-        return $this->getFullText();
-    }
-
 }

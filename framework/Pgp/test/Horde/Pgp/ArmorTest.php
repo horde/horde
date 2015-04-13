@@ -28,7 +28,7 @@ class Horde_Pgp_ParseTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider parsePgpDataProvider
      */
-    public function testParsePgpData($fixture, $expected, $headers = null)
+    public function testParsePgpData($fixture, $expected, $headers)
     {
         $data = file_get_contents(__DIR__ . '/fixtures/' . $fixture);
 
@@ -54,16 +54,9 @@ class Horde_Pgp_ParseTest extends PHPUnit_Framework_TestCase
                 );
 
                 $this->assertEquals(
-                    $data,
-                    $val->getFullText()
+                    $headers,
+                    $val->headers
                 );
-
-                if (!is_null($headers)) {
-                    $this->assertEquals(
-                        $headers,
-                        $val->getHeaders()
-                    );
-                }
             }
         }
     }
@@ -73,6 +66,7 @@ class Horde_Pgp_ParseTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 'clear.txt',
+                array(),
                 array()
             ),
             array(

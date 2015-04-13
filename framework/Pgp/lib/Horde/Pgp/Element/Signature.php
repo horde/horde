@@ -21,35 +21,11 @@
  * @package   Pgp
  */
 class Horde_Pgp_Element_Signature
-extends Horde_Pgp_Element_Armored
+extends Horde_Pgp_Element
 {
     /**
      */
-    static protected $_header = 'SIGNATURE';
-
-    /**
-     * Return canonical signature element for given PGP data.
-     *
-     * @param mixed $data PGP data.
-     *
-     * @return Horde_Pgp_Element_Signature  Signature part.
-     */
-    static public function findSignature($data)
-    {
-        $armor = Horde_Pgp_Armor::create($data);
-
-        foreach ($armor as $val) {
-            if ($val instanceof Horde_Pgp_Element_Signature) {
-                return $val;
-            }
-
-            if ($val instanceof Horde_Pgp_Element_SignedMessage) {
-                return $val->getSignaturePart();
-            }
-        }
-
-        return null;
-    }
+    protected $_armor = 'SIGNATURE';
 
     /**
      * Return the key ID used for the signature.
@@ -58,7 +34,7 @@ extends Horde_Pgp_Element_Armored
      */
     public function getSignersKeyId()
     {
-        foreach ($this->getMessageOb() as $val) {
+        foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_SignaturePacket) {
                 return substr($val->issuer(), -8);
             }

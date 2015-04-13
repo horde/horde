@@ -27,7 +27,7 @@ extends Horde_Pgp_Element_Key
 {
     /**
      */
-    static protected $_header = 'PRIVATE KEY BLOCK';
+    protected $_armor = 'PRIVATE KEY BLOCK';
 
     /**
      */
@@ -35,8 +35,8 @@ extends Horde_Pgp_Element_Key
     {
         switch ($name) {
         case 'encrypted':
-            $p = $this->_getSecretKeyPacket();
-            return (strlen($p[1]->encrypted_data) > 0);
+            $p = $this->_getSecretKeyPackets();
+            return (strlen(reset($p)->encrypted_data) > 0);
 
         default:
             return parent::__get($name);
@@ -53,38 +53,39 @@ extends Horde_Pgp_Element_Key
      */
     public function getUnencryptedKey($passphrase = null)
     {
-        $p = $this->_getSecretKeyPacket();
+        $out = null;
 
-        if (!strlen($p[1]->encrypted_data)) {
-            return $this;
-        }
+        foreach ($this->_getSecretKeyPackets() as $k => $v) {
+            if (!strlen($v->encrypted_data)) {
+                continue;
+            }
 
-        if (!is_null($passphrase)) {
-            $unencrypted = OpenPGP_Crypt_Symmetric::decryptSecretKey(
+            if (is_null($out)) {
+                $out = clone $this->message;
+            }
+
+            $out[$k] = OpenPGP_Crypt_Symmetric::decryptSecretKey(
                 $passphrase,
-                $p[1]
+                $v
             );
 
-            if (!is_null($unencrypted)) {
-                $out = $this->getMessageOb();
-                $out[$p[0]] = $unencrypted;
-                return Horde_Pgp_Element_PrivateKey::createFromData($out);
+            if (is_null($out[$k])) {
+                throw new Horde_Pgp_Exception(
+                    Horde_Pgp_Translation::t("Could not unencrypt private key.")
+                );
             }
         }
 
-        throw new Horde_Pgp_Exception(
-            Horde_Pgp_Translation::t("Could not unencrypt private key.")
-        );
+        return new Horde_Pgp_Element_PrivateKey($out);
     }
 
     /**
      */
     public function getPublicKey()
     {
-        $parse = $this->getMessageOb();
-        $pubkey = clone $parse;
+        $pubkey = clone $this->message;
 
-        foreach ($parse as $key => $val) {
+        foreach ($pubkey as $key => $val) {
             if ($val instanceof OpenPGP_SecretKeyPacket) {
                 $ob = ($val instanceof OpenPGP_SecretSubkeyPacket)
                     ? new OpenPGP_PublicSubkeyPacket()
@@ -98,21 +99,26 @@ extends Horde_Pgp_Element_Key
             }
         }
 
-        return Horde_Pgp_Element_PublicKey::createFromData($pubkey);
+        return new Horde_Pgp_Element_PublicKey($pubkey);
     }
 
     /**
      * Return the secret key packet.
      *
-     * @return array  Packet ID and OpenPGP_SecretKeyPacket object.
+     * @return array  Packet ID as keys, OpenPGP_SecretKeyPacket objects as
+     *                values.
      */
-    protected function _getSecretKeyPacket()
+    protected function _getSecretKeyPackets()
     {
-        foreach ($this->getMessageOb() as $key => $val) {
+        $out = array();
+
+        foreach ($this->message as $key => $val) {
             if ($val instanceof OpenPGP_SecretKeyPacket) {
-                return array($key, $val);
+                $out[$key] = $val;
             }
         }
+
+        return $out;
     }
 
 }

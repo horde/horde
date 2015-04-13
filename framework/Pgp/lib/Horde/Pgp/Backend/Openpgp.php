@@ -123,7 +123,7 @@ extends Horde_Pgp_Backend
             $nkey->symmetric_algorithm = 7;
         }
 
-        return Horde_Pgp_Element_PrivateKey::createFromData($m);
+        return new Horde_Pgp_Element_PrivateKey($m);
     }
 
     /**
@@ -132,7 +132,8 @@ extends Horde_Pgp_Backend
     {
         $p = array();
         foreach ($keys as $val) {
-            foreach ($val->getMessageOb() as $val2) {
+            /* TODO: Use second packet? */
+            foreach ($val->message as $val2) {
                 if ($val2 instanceof OpenPGP_PublicKeyPacket) {
                     $p[] = $val2;
                     break;
@@ -148,7 +149,7 @@ extends Horde_Pgp_Backend
             ))
         );
 
-        return Horde_Pgp_Element_Message::createFromData($encrypted);
+        return new Horde_Pgp_Element_Message($encrypted);
     }
 
     /**
@@ -162,7 +163,44 @@ extends Horde_Pgp_Backend
             ))
         );
 
-        return Horde_Pgp_Element_Message::createFromData($encrypted);
+        return new Horde_Pgp_Element_Message($encrypted);
+    }
+
+    /**
+     */
+    public function sign($text, $key, $mode)
+    {
+        /* TODO: Support DSA signing. */
+        $rsa = new OpenPGP_Crypt_RSA($key->message);
+        /* TODO: Use SHA256/512 instead? */
+        $result = $rsa->sign($text, 'SHA1');
+
+        switch ($mode) {
+        case 'clear':
+            foreach ($result as $val) {
+                if ($val instanceof OpenPGP_SignaturePacket) {
+                    $sig = $val;
+                } elseif ($val instanceof OpenPGP_LiteralDataPacket) {
+                    $text = $val;
+                }
+            }
+            return new Horde_Pgp_Element_SignedMessage(
+                new OpenPGP_Message(array($text, $sig))
+            );
+
+        case 'detach':
+            foreach ($result as $val) {
+                if ($val instanceof OpenPGP_SignaturePacket) {
+                    return new Horde_Pgp_Element_Signature(
+                        new OpenPGP_Message(array($val))
+                    );
+                }
+            }
+            break;
+
+        case 'message':
+            return new Horde_Pgp_Element_Message($result);
+        }
     }
 
     /**
@@ -170,24 +208,39 @@ extends Horde_Pgp_Backend
     public function decrypt($msg, $key)
     {
         /* TODO: Support ElGamal decryption */
-        $decryptor = new OpenPGP_Crypt_RSA($key->getMessageOb());
-        return $decryptor->decrypt($msg->getMessageOb());
+        $decryptor = new OpenPGP_Crypt_RSA($key->message);
+        return new Horde_Pgp_Element_Message(
+            $decryptor->decrypt($msg->message)
+        );
     }
 
     /**
      */
     public function decryptSymmetric($msg, $passphrase)
     {
-        try {
-            $decrypted = OpenPGP_Crypt_Symmetric::decryptSymmetric(
-                $passphrase,
-                $msg->getMessageOb()
-            );
-        } catch (Exception $e) {
-            throw new BadMethodCallException();
+        $decrypted = OpenPGP_Crypt_Symmetric::decryptSymmetric(
+            $passphrase,
+            $msg->message
+        );
+
+        if (!is_null($decrypted)) {
+            /* It is possible data could be decrypted to junk PGP data
+             * ($decrypted != NULL). Search for valid packets if $decrypted is
+             * returned. */
+            foreach ($decrypted as $val) {
+                switch (get_class($val)) {
+                case 'OpenPGP_Packet':
+                case 'OpenPGP_ExperimentalPacket':
+                    /* Assume that these packets are not valid. */
+                    break;
+
+                default:
+                    return new Horde_Pgp_Element_Message($decrypted);
+                }
+            }
         }
 
-        return $decrypted->signatures();
+        throw new RunTimeException();
     }
 
 }

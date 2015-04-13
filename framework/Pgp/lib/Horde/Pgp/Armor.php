@@ -101,7 +101,6 @@ implements Countable, SeekableIterator
 
         foreach ($this as $key => $val) {
             switch ($val['type']) {
-            //case self::ARMOR_TEXT:
             case 1:
                 $part = new Horde_Mime_Part();
                 $part->setType('text/plain');
@@ -113,7 +112,6 @@ implements Countable, SeekableIterator
                 }
                 break;
 
-            //case self::ARMOR_PUBLIC_KEY:
             case 2:
                 $part = new Horde_Mime_Part();
                 $part->setType('application/pgp-keys');
@@ -123,7 +121,6 @@ implements Countable, SeekableIterator
                 break;
 
             case 3:
-            //case self::ARMOR_MESSAGE:
                 $part = new Horde_Mime_Part();
                 $part->setType('multipart/encrypted');
                 $part->setMetadata(self::ARMOR, true);
@@ -146,7 +143,6 @@ implements Countable, SeekableIterator
                 break;
 
             case 4:
-            //case self::ARMOR_SIGNED_MESSAGE:
                 if (($sig = current($parts)) &&
                     //($sig['type'] == self::ARMOR_SIGNATURE)) {
                     ($sig['type'] == 5)) {
@@ -213,19 +209,20 @@ implements Countable, SeekableIterator
      */
     public function next()
     {
-        $class = $end_armor = $ob_class = $start = null;
-        $line_read = false;
+        $base64 = true;
+        $class = $end = $end_armor = $ob_class = $start = null;
+        $headers = array();
         $stream = $this->_data;
 
         while (!($eof = $stream->eof())) {
             $pos = $stream->pos();
-            $val = rtrim($stream->getToChar("\n"));
+            $val = rtrim($stream->getToChar("\n", !is_null($start)));
 
-            if (is_null($start) &&
+            if (is_null($end_armor) &&
                 (strpos($val, '-----BEGIN PGP ') === 0) &&
                 (substr($val, -5) === '-----')) {
                 $armor = substr($val, 15, strpos($val, '-', 15) - 15);
-                if ($line_read) {
+                if ($start) {
                     $stream->seek($pos, false);
                     break;
                 }
@@ -249,6 +246,7 @@ implements Countable, SeekableIterator
 
                 case 'SIGNED MESSAGE':
                     $armor = 'SIGNATURE';
+                    $base64 = false;
                     $class = 'Horde_Pgp_Element_SignedMessage';
                     break;
 
@@ -258,19 +256,23 @@ implements Countable, SeekableIterator
                 }
 
                 $end_armor = '-----END PGP ' . $armor . '-----';
-                $start = $pos;
-            } elseif (!is_null($end_armor) && ($val === $end_armor)) {
-                $ob_class = $class;
-                break;
-            }
-
-            /* strlen() test ignores empty space before/after armor. */
-            if (strlen($val)) {
-                $line_read = true;
+            } elseif (!is_null($end_armor)) {
+                if (is_null($start)) {
+                    if (strlen($val)) {
+                        list($h, $v) = explode(':', $val, 2);
+                        $headers[trim($h)] = trim($v);
+                    } else {
+                        $start = $stream->pos();
+                    }
+                } elseif ($val === $end_armor) {
+                    $end = $pos;
+                    $ob_class = $class;
+                    break;
+                }
             }
         }
 
-        if ($eof && (is_null($this->_key) || !$line_read)) {
+        if ($eof && (is_null($this->_key) || is_null($start))) {
             $this->_current = $this->_key = null;
             return;
         }
@@ -279,7 +281,28 @@ implements Countable, SeekableIterator
             $ob_class = 'Horde_Pgp_Element_Text';
         }
 
-        $this->_current = new $ob_class($stream, $start, $stream->pos());
+        $pos = $stream->pos();
+        $data = $stream->getString($start, $end - 1);
+        $stream->seek($pos, false);
+
+        if ($base64) {
+            /* Get checksum, if it exists. */
+            if ($pos = strrpos($data, "\n=")) {
+                $checksum = base64_decode(substr($data, $pos + 2, 4));
+                $data = base64_decode(substr($data, 0, $pos));
+
+                Horde_Pgp_Backend_Openpgp::autoload();
+                $data_checksum = substr(pack('N', OpenPGP::crc24($data)), 1);
+                if ($data_checksum !== $checksum) {
+                    // Checksum error!
+                    return $this->next();
+                }
+            } else {
+                $data = base64_decode($data);
+            }
+        }
+
+        $this->_current = new $ob_class($data, $headers);
         $this->_key = is_null($this->_key)
             ? 0
             : $this->_key + 1;

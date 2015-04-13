@@ -25,7 +25,7 @@
  * @property-read string $id  Key ID.
  */
 abstract class Horde_Pgp_Element_Key
-extends Horde_Pgp_Element_Armored
+extends Horde_Pgp_Element
 {
     /**
      */
@@ -41,7 +41,7 @@ extends Horde_Pgp_Element_Armored
         case 'creation':
         case 'fingerprint':
         case 'id':
-            foreach ($this->getMessageOb() as $val) {
+            foreach ($this->message as $val) {
                 if ($val instanceof OpenPGP_PublicKeyPacket) {
                     return $val->{$mapping[$name]};
                 }
@@ -59,7 +59,7 @@ extends Horde_Pgp_Element_Armored
     {
         $out = array();
 
-        foreach ($this->getMessageOb() as $val) {
+        foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
                 $out[$val->key_id] = $val->fingerprint;
 
@@ -80,7 +80,7 @@ extends Horde_Pgp_Element_Armored
     {
         $out = array();
 
-        foreach ($this->getMessageOb() as $val) {
+        foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_UserIDPacket) {
                 $entry = new stdClass;
                 $entry->email = new Horde_Mail_Rfc822_Address($val->email);

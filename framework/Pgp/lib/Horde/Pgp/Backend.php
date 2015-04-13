@@ -106,7 +106,7 @@ class Horde_Pgp_Backend
      * @param Horde_Pgp_Element_PrivateKey $key  The private key to use for
      *                                           decryption.
      *
-     * @return string $text  The decrypted text.
+     * @return Horde_Pgp_Element_Message  The decrypted message.
      */
     public function decrypt($msg, $key)
     {
@@ -120,7 +120,7 @@ class Horde_Pgp_Backend
      * @param string $passphrase              The symmetric passphrase used to
      *                                        encrypt the data.
      *
-     * @return array $data  {@see Horde_Pgp::decryptSymmetric()}
+     * @return Horde_Pgp_Element_Message  The decrypted message.
      */
     public function decryptSymmetric($msg, $passphrase)
     {

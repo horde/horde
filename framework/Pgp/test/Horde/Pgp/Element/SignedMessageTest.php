@@ -13,7 +13,7 @@
  */
 
 /**
- * Tests for the PGP signature element object.
+ * Tests for the PGP signed message element object.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -23,18 +23,33 @@
  * @package    Pgp
  * @subpackage UnitTests
  */
-class Horde_Pgp_Element_SignatureTest extends PHPUnit_Framework_TestCase
+class Horde_Pgp_Element_SignedMessageTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getSignersKeyIdProvider
      */
     public function testGetSignersKeyId($expected, $data)
     {
-        $sig = Horde_Pgp_Element_Signature::findSignature($data);
+        $sig = Horde_Pgp_Element_SignedMessage::create($data);
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_SignedMessage',
+            $sig
+        );
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Signature',
+            $sig->signature
+        );
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Text',
+            $sig->text
+        );
 
         $this->assertEquals(
             $expected,
-            $sig->getSignersKeyId()
+            $sig->signature->getSignersKeyId()
         );
     }
 

@@ -335,7 +335,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 $unencrypted
             );
 
-            $this->assertFalse($key->encrypted);
+            $this->assertFalse($unencrypted->encrypted);
         } catch (Horde_Pgp_Exception $e) {
             if ($expected) {
                 $this->fail('Did not expect exception');

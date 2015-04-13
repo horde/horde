@@ -114,16 +114,62 @@ extends Horde_Test_Case
         $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
     }
 
-    public function testSign()
+    /**
+     * @dataProvider signProvider
+     */
+    public function testSign($text, $key, $pass)
     {
+        $result = $this->_pgp->sign(
+            $text,
+            Horde_Pgp_Element_PrivateKey::create($key)
+                ->getUnencryptedKey($pass)
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
     }
 
-    public function testSignCleartext()
+    /**
+     * @dataProvider signProvider
+     */
+    public function testSignCleartext($text, $key, $pass)
     {
+        $result = $this->_pgp->signCleartext(
+            $text,
+            Horde_Pgp_Element_PrivateKey::create($key)
+                ->getUnencryptedKey($pass)
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_SignedMessage', $result);
     }
 
-    public function testSignDetached()
+    /**
+     * @dataProvider signProvider
+     */
+    public function testSignDetached($text, $key, $pass)
     {
+        $result = $this->_pgp->signDetached(
+            $text,
+            Horde_Pgp_Element_PrivateKey::create($key)
+                ->getUnencryptedKey($pass)
+        );
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Signature', $result);
+    }
+
+    public function signProvider()
+    {
+        return array(
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getFixture('pgp_private.asc'),
+                'Secret'
+            ),
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getFixture('pgp_private_rsa.txt'),
+                'Secret'
+            )
+        );
     }
 
     /**
@@ -163,12 +209,14 @@ extends Horde_Test_Case
         $encrypted = $this->_getFixture('pgp_encrypted_symmetric.txt');
 
         /* Invalid passphrase. */
-        $result = $this->_pgp->decryptSymmetric(
-            $encrypted,
-            'Incorrect Secret'
-        );
+        try {
+            $this->_pgp->decryptSymmetric(
+                $encrypted,
+                'Incorrect Secret'
+            );
 
-        $this->assertEmpty($result);
+            $this->fail('Expecting Exception');
+        } catch (Exception $e) {}
 
         /* Valid passphrase. */
         $result = $this->_pgp->decryptSymmetric(
@@ -176,12 +224,19 @@ extends Horde_Test_Case
             'Secret'
         );
 
-        $this->assertEquals(
-            1,
-            count($result)
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Message',
+            $result
         );
 
-        $text = $result[0][0];
+        $sigs = $result->message->signatures();
+
+        $this->assertEquals(
+            1,
+            count($sigs)
+        );
+
+        $text = $sigs[0][0];
 
         $this->assertEquals(
             $this->_getFixture('clear.txt'),

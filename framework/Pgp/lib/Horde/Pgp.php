@@ -190,7 +190,7 @@ class Horde_Pgp
      * @param mixed $key   The private key to use for decryption (must be
      *                     decrypted).
      *
-     * @return OpenPGP_Message $msg  The decrypted message.
+     * @return Horde_Pgp_Element_Message $msg  The decrypted message.
      * @throws Horde_Pgp_Exception
      */
     public function decrypt($text, $key)

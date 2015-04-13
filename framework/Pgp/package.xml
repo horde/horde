@@ -310,7 +310,6 @@
        <file name="Cast128.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Crypt -->
       <dir name="Element">
-       <file name="Armored.php" role="php" />
        <file name="Key.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="PrivateKey.php" role="php" />
@@ -341,14 +340,17 @@
       </dir> <!-- /test/Horde/Pgp/Backend -->
       <dir name="Element">
        <file name="MessageTest.php" role="test" />
-       <file name="SignatureTest.php" role="test" />
+       <file name="SignedMessageTest.php" role="test" />
       </dir> <!-- /test/Horde/Pgp/Element -->
       <dir name="fixtures">
        <file name="clear.txt" role="test" />
        <file name="pgp_encrypted.txt" role="test" />
+       <file name="pgp_encrypted_rsa.txt" role="test" />
        <file name="pgp_encrypted_symmetric.txt" role="test" />
        <file name="pgp_private.asc" role="test" />
+       <file name="pgp_private_rsa.txt" role="test" />
        <file name="pgp_public.asc" role="test" />
+       <file name="pgp_public_rsa.txt" role="test" />
        <file name="pgp_signature.txt" role="test" />
        <file name="pgp_signed.txt" role="test" />
        <file name="pgp_signed2.txt" role="test" />
@@ -658,7 +660,6 @@
    <install as="Horde/Pgp/Translation.php" name="lib/Horde/Pgp/Translation.php" />
    <install as="Horde/Pgp/Backend/Openpgp.php" name="lib/Horde/Pgp/Backend/Openpgp.php" />
    <install as="Horde/Pgp/Crypt/Cast128.php" name="lib/Horde/Pgp/Crypt/Cast128.php" />
-   <install as="Horde/Pgp/Element/Armored.php" name="lib/Horde/Pgp/Element/Armored.php" />
    <install as="Horde/Pgp/Element/Key.php" name="lib/Horde/Pgp/Element/Key.php" />
    <install as="Horde/Pgp/Element/Message.php" name="lib/Horde/Pgp/Element/Message.php" />
    <install as="Horde/Pgp/Element/PrivateKey.php" name="lib/Horde/Pgp/Element/PrivateKey.php" />
@@ -676,12 +677,15 @@
    <install as="Horde/Pgp/Backend/OpenpgpTest.php" name="test/Horde/Pgp/Backend/OpenpgpTest.php" />
    <install as="Horde/Pgp/Backend/TestBase.php" name="test/Horde/Pgp/Backend/TestBase.php" />
    <install as="Horde/Pgp/Element/MessageTest.php" name="test/Horde/Pgp/Element/MessageTest.php" />
-   <install as="Horde/Pgp/Element/SignatureTest.php" name="test/Horde/Pgp/Element/SignatureTest.php" />
+   <install as="Horde/Pgp/Element/SignedMessageTest.php" name="test/Horde/Pgp/Element/SignedMessageTest.php" />
    <install as="Horde/Pgp/fixtures/clear.txt" name="test/Horde/Pgp/fixtures/clear.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted.txt" />
+   <install as="Horde/Pgp/fixtures/pgp_encrypted_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" />
    <install as="Horde/Pgp/fixtures/pgp_private.asc" name="test/Horde/Pgp/fixtures/pgp_private.asc" />
+   <install as="Horde/Pgp/fixtures/pgp_private_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_private_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_public.asc" name="test/Horde/Pgp/fixtures/pgp_public.asc" />
+   <install as="Horde/Pgp/fixtures/pgp_public_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_public_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signature.txt" name="test/Horde/Pgp/fixtures/pgp_signature.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signed.txt" name="test/Horde/Pgp/fixtures/pgp_signed.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signed2.txt" name="test/Horde/Pgp/fixtures/pgp_signed2.txt" />

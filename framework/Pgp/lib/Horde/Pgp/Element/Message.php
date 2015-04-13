@@ -21,17 +21,17 @@
  * @package   Pgp
  */
 class Horde_Pgp_Element_Message
-extends Horde_Pgp_Element_Armored
+extends Horde_Pgp_Element
 {
     /**
      */
-    static protected $_header = 'MESSAGE';
+    protected $_armor = 'MESSAGE';
 
     /**
      */
     public function isEncryptedSymmetrically()
     {
-        foreach ($this->getMessageOb() as $val) {
+        foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_SymmetricSessionKeyPacket) {
                 return true;
             }

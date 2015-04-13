@@ -25,7 +25,7 @@ extends Horde_Pgp_Element_Key
 {
     /**
      */
-    static protected $_header = 'PUBLIC KEY BLOCK';
+    protected $_armor = 'PUBLIC KEY BLOCK';
 
     /**
      */

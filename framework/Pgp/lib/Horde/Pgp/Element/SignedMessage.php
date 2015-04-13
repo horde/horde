@@ -19,31 +19,64 @@
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
+ *
+ * @property-read Horde_Pgp_Element_Signature $signature  Signature element.
+ * @property-read Horde_Pgp_Element_Text $text  Literal text element.
  */
 class Horde_Pgp_Element_SignedMessage
-extends Horde_Pgp_Element_Armored
+extends Horde_Pgp_Element
 {
     /**
      */
-    static protected $_header = 'SIGNED MESSAGE';
+    protected $_armor = 'SIGNED MESSAGE';
 
     /**
-     * Return the signature data for the signed text.
-     *
-     * @return Horde_Pgp_Element_Signature  Signature part object.
      */
-    public function getSignaturePart()
+    public function __construct($data, array $headers = array())
     {
-        $pos = $this->_data->pos();
-        $armor = new Horde_Pgp_Armor(
-            $this->_data->getString($this->_start + 20)
-        );
-        $this->_resetPos($pos);
+        if (!($data instanceof OpenPGP_Message)) {
+            Horde_Pgp_Backend_Openpgp::autoload();
+            $msg = new OpenPGP_Message();
 
-        foreach ($armor as $val) {
-            if ($val instanceof Horde_Pgp_Element_Signature) {
-                return $val;
-            }
+            $pos = strpos($data, '-----BEGIN PGP SIGNATURE-----');
+            $msg[] = new OpenPGP_LiteralDataPacket(
+                substr($data, 0, $pos),
+                array('format' => 'u')
+            );
+            $msg[] = Horde_Pgp_Element_Signature::create(
+                substr($data, $pos) .  "-----END PGP SIGNATURE-----\n"
+            )->message[0];
+        } else {
+            $msg = $data;
+        }
+
+        parent::__construct($msg, $headers);
+    }
+
+    /**
+     */
+    public function __toString()
+    {
+        $out = parent::__toString();
+
+        /* Remove trailing END SIGNED MESSAGE armor. */
+        return substr($out, 0, strrpos($out, '-----END'));
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'signature':
+            return new Horde_Pgp_Element_Signature(
+                new OpenPGP_Message(array($this->message[1]))
+            );
+
+        case 'text':
+            return new Horde_Pgp_Element_Text(
+                new OpenPGP_Message(array($this->message[0]))
+            );
         }
     }
 

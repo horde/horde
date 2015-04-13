@@ -23,30 +23,31 @@
 abstract class Horde_Pgp_Element
 {
     /**
-     * Armor data.
+     * Armor headers.
      *
-     * @var Horde_Stream
+     * @var array
      */
-    protected $_data;
+    public $headers;
 
     /**
-     * End offset.
+     * Message object.
      *
-     * @var integer
+     * @var OpenPGP_Message
      */
-    protected $_end;
+    public $message;
 
     /**
-     * Start offset.
+     * Armor identifier.
      *
-     * @var integer
+     * @var string
      */
-    protected $_start;
+    protected $_armor = '';
 
     /**
-     * Creates the element from the first found armor part in the input data.
+     * Creates the element from the first found armor part of the class type
+     * in the armored input data.
      *
-     * @param string $data  Armored PGP data.
+     * @param mixed $data  Armored PGP data.
      *
      * @return Horde_Pgp_Element  PGP element object.
      */
@@ -57,8 +58,7 @@ abstract class Horde_Pgp_Element
             return $data;
         }
 
-        $data = Horde_Pgp_Armor::create($data);
-        foreach ($data as $val) {
+        foreach (Horde_Pgp_Armor::create($data) as $val) {
             if ($val instanceof $class) {
                 return $val;
             }
@@ -70,61 +70,38 @@ abstract class Horde_Pgp_Element
     /**
      * Constructor.
      *
-     * @param Horde_Stream $text  Horde_Stream object containing the full
-     *                            armor text.
-     * @param integer $start      Start offset.
-     * @param integer $end        End offset.
+     * @param mixed $data     Data of the part. Either raw PGP data or a
+     *                        OpenPGP_Message object.
+     * @param array $headers  Header array.
      */
-    public function __construct(Horde_Stream $text, $start, $end)
+    public function __construct($data, array $headers = array())
     {
-        $this->_data = $text;
-        $this->_end = $end;
-        $this->_start = $start;
+        if (!($data instanceof OpenPGP_Message)) {
+            Horde_Pgp_Backend_Openpgp::autoload();
+            $data = OpenPGP_Message::parse($data);
+        }
+
+        $this->message = $data;
+        $this->headers = $headers;
     }
 
     /**
      */
     public function __toString()
     {
-        return $this->getFullText();
-    }
+        $bytes = $this->message->to_bytes();
 
-    /**
-     * Returns the full armored text of the element (including headers).
-     *
-     * @return string  Full text.
-     */
-    public function getFullText()
-    {
-        $pos = $this->_data->pos();
-        $out = $this->_data->getString(
-            $this->_start,
-            $this->_end - $this->_start
-        );
-        $this->_resetPos($pos);
-
-        return $out;
-    }
-
-    /**
-     * Return only the data part of the element.
-     *
-     * @return string  Data part.
-     */
-    abstract public function getData();
-
-    /**
-     * Reset the position of the stream.
-     *
-     * @param integer $pos  Initial position.
-     */
-    protected function _resetPos($pos)
-    {
-        if (is_null($pos)) {
-            $this->_data->end();
-        } else {
-            $this->_data->seek($pos, false);
+        if (!strlen($this->_armor)) {
+            return $bytes;
         }
+
+        return OpenPGP::enarmor(
+            $bytes,
+            'PGP ' . $this->_armor,
+            array_merge($this->headers, array(
+                'Version' => 'Horde_Pgp Library (http://www.horde.org/)'
+            ))
+        );
     }
 
 }
