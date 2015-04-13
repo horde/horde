@@ -25,7 +25,7 @@
  </lead>
  <date>2015-04-13</date>
  <version>
-  <release>2.3.0</release>
+  <release>2.3.1</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -34,29 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix transparent rectangles in SVG backend.
-* [jan] Fix setting background color in SVG backend.
-* [jan] Add &apos;ratio&apos; parameter to Horde_Image_Effect_Imagick_LiquidResize.
-* [jan] Fix catching exceptions from imagick extension.
-* [jan] Complete the backends&apos; capabilities properties.
-* [jan] Fix SVG and SWF backends.
-* [jan] Fix setting background color in Horde_Image_Swf constructor.
-* [jan] Send Content-Type header in Horde_Image_Svg#display().
-* [jan] Improve arc rendering with Im backend.
-* [jan] Enable antialiasing in GD backend if available.
-* [jan] Implement Horde_Image_Imagick::arc().
-* [jan] Fix rounded rectangle drawing with GD backend.
-* [jan] Fix transparency issues with GD backend.
-* [jan] Fix autoloading of effect classes.
-* [jan] Fix border effect with GD driver.
-* [jan] Don&apos;t error out in effects if a logger hasn&apos;t been set.
-* [jan] Make getImageAtIndex() always return an image.
-* [jan] Don&apos;t error our when calling unsupported manipulation methods.
-* [jan] Make Horde_Image::arcPoints() work with any angles.
-* [jan] Fix some HTML color name to RGB value mappings.
-* [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
-* [jan] Add Null driver for basics like just displaying the image.
-* [mjr] Fix incorrect color renderings in certain situations.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1128,6 +1106,19 @@ Initial release as a PEAR package
 * [jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
 * [jan] Add Null driver for basics like just displaying the image.
 * [mjr] Fix incorrect color renderings in certain situations.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-13</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
