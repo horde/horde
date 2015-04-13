@@ -128,9 +128,14 @@ class Horde_Pgp_Backend
     }
 
     /**
-     * TODO
+     * Verifies data using a PGP public key.
+     *
+     * @param Horde_Pgp_Element $msg            The text to be verified.
+     * @param Horde_Pgp_Element_PublicKey $key  Public key used for signing.
+     *
+     * @return array  {@see Horde_Pgp#verify()}.
      */
-    public function verify($text, $key, $sig)
+    public function verify($msg, $key)
     {
         throw new BadMethodCallException();
     }

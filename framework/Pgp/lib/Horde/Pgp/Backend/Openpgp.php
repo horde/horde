@@ -341,4 +341,12 @@ extends Horde_Pgp_Backend
         throw new RunTimeException();
     }
 
+    /**
+     */
+    public function verify($msg, $key)
+    {
+        $verify = new OpenPGP_Crypt_RSA($key->message);
+        return $verify->verify($msg->message);
+    }
+
 }

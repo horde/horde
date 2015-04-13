@@ -257,10 +257,33 @@ class Horde_Pgp
      */
     public function verifyDetached($text, $sig, $key)
     {
+        if (is_null($sig)) {
+            if ($text instanceof Horde_Pgp_Element) {
+                $data = $text;
+            } else {
+                $armor = new Horde_Pgp_Armor($text);
+                foreach ($armor as $val) {
+                    if (($val instanceof Horde_Pgp_Element_Message) ||
+                        ($val instanceof Horde_Pgp_Element_SignedMessage)) {
+                        $data = $val;
+                        break;
+                    }
+                }
+            }
+        } else {
+            $sig = Horde_Pgp_Element_Signature::create($sig);
+            $data = new Horde_Pgp_Element_SignedMessage(
+                new OpenPGP_Message(array(
+                    new OpenPGP_LiteralDataPacket($text),
+                    $sig->message[0]
+                ))
+            );
+        }
+
         return $this->_runInBackend(
             'verify',
-            array($text, $key, $sig),
-            Horde_Pgp_Translation::t("Could not decrypt PGP data.")
+            array($data, Horde_Pgp_Element_PublicKey::create($key)),
+            Horde_Pgp_Translation::t("Could not verify PGP data.")
         );
     }
 

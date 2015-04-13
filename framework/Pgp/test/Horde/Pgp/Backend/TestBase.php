@@ -256,12 +256,84 @@ extends Horde_Test_Case
         );
     }
 
-    public function testVerify()
+    /**
+     * @dataProvider verifyProvider
+     */
+    public function testVerify($data, $key)
     {
+        $out = $this->_pgp->verify($data, $key);
+
+        $this->assertEquals(
+            1,
+            count($out)
+        );
+
+        $this->assertInstanceOf(
+            'OpenPGP_LiteralDataPacket',
+            $out[0][0]
+        );
+
+        $this->assertInstanceOf(
+            'OpenPGP_SignaturePacket',
+            $out[0][1][0]
+        );
     }
 
-    public function testVerifyDetached()
+    public function verifyProvider()
     {
+        return array(
+            // DSA signature
+            array(
+                $this->_getFixture('pgp_signed.txt'),
+                $this->_getFixture('pgp_public.asc')
+            ),
+            // RSA signature
+            array(
+                $this->_getFixture('pgp_signed2.txt'),
+                $this->_getFixture('pgp_public_rsa.txt')
+            )
+        );
+    }
+
+    /**
+     * @dataProvider verifyDetachedProvider
+     */
+    public function testVerifyDetached($data, $sig, $key)
+    {
+        $out = $this->_pgp->verifyDetached($data, $sig, $key);
+
+        $this->assertEquals(
+            1,
+            count($out)
+        );
+
+        $this->assertInstanceOf(
+            'OpenPGP_LiteralDataPacket',
+            $out[0][0]
+        );
+
+        $this->assertInstanceOf(
+            'OpenPGP_SignaturePacket',
+            $out[0][1][0]
+        );
+    }
+
+    public function verifyDetachedProvider()
+    {
+        return array(
+            // DSA signature
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getFixture('pgp_signature.txt'),
+                $this->_getFixture('pgp_public.asc')
+            ),
+            // RSA signature
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getFixture('pgp_signature2.txt'),
+                $this->_getFixture('pgp_public_rsa.txt')
+            )
+        );
     }
 
     /* Helper methods. */

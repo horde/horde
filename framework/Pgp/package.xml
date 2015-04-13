@@ -352,6 +352,7 @@
        <file name="pgp_public.asc" role="test" />
        <file name="pgp_public_rsa.txt" role="test" />
        <file name="pgp_signature.txt" role="test" />
+       <file name="pgp_signature2.txt" role="test" />
        <file name="pgp_signed.txt" role="test" />
        <file name="pgp_signed2.txt" role="test" />
       </dir> <!-- /test/Horde/Pgp/fixtures -->
@@ -687,9 +688,10 @@
    <install as="Horde/Pgp/fixtures/pgp_public.asc" name="test/Horde/Pgp/fixtures/pgp_public.asc" />
    <install as="Horde/Pgp/fixtures/pgp_public_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_public_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signature.txt" name="test/Horde/Pgp/fixtures/pgp_signature.txt" />
+   <install as="Horde/Pgp/fixtures/pgp_signature2.txt" name="test/Horde/Pgp/fixtures/pgp_signature2.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signed.txt" name="test/Horde/Pgp/fixtures/pgp_signed.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signed2.txt" name="test/Horde/Pgp/fixtures/pgp_signed2.txt" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
  </changelog>
