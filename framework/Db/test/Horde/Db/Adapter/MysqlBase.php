@@ -336,7 +336,7 @@ abstract class Horde_Db_Adapter_MysqlBase extends Horde_Db_Adapter_TestBase
 
             $afterChange = $this->_getColumn('testings', 'foo');
             $this->assertTrue($afterChange->isUnsigned());
-    
+
             $row = (object)$this->_conn->selectOne('SELECT * FROM testings');
             $this->assertEquals(0, $row->foo);
         } catch (Horde_Db_Exception $e) {
