@@ -203,14 +203,40 @@ extends Horde_Pgp_Backend
     public function encrypt($text, $keys)
     {
         $p = array();
+
         foreach ($keys as $val) {
-            /* TODO: Use second packet? */
-            foreach ($val->message as $val2) {
-                if ($val2 instanceof OpenPGP_PublicKeyPacket) {
-                    $p[] = $val2;
-                    break;
+            /* Search for the key flag indicating that a key may be used to
+             * encrypt communications (RFC 4880 [5.2.3.21]). In the absence
+             * of finding this flag, use the first subkey and, in the absence
+             * of that, use the main key. */
+            $current = null;
+            $sub = false;
+
+            foreach ($val->getKeyList() as $val2) {
+                foreach (array('hashed', 'unhashed') as $k) {
+                    foreach ($val2->signature->{$k . '_subpackets'} as $val3) {
+                        if ($val3 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
+                            foreach ($val3->flags as $val4) {
+                                if ($val4 & 0x04) {
+                                    $current = $val2->key;
+                                    break 4;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (is_null($current)) {
+                    $current = $val2->key;
+                } elseif (!$sub &&
+                          ($val2->key instanceof OpenPGP_PublicSubkeyPacket) ||
+                          ($val2->key instanceof OpenPGP_SecretSubkeyPacket)) {
+                    $current = $val2->key;
+                    $sub = true;
                 }
             }
+
+            $p[] = $current;
         }
 
         /* TODO: Support ElGamal encryption */
