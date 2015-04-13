@@ -38,10 +38,16 @@ extends Horde_Pgp_Element
             Horde_Pgp_Backend_Openpgp::autoload();
             $msg = new OpenPGP_Message();
 
+            /* Trailing (CR)LF is not part of signed data. */
+            /* TODO: Dash-escaped text. */
             $pos = strpos($data, '-----BEGIN PGP SIGNATURE-----');
+            if ($data[--$pos] === "\r") {
+                --$pos;
+            }
+
             $msg[] = new OpenPGP_LiteralDataPacket(
                 substr($data, 0, $pos),
-                array('format' => 'u')
+                array('format' => 't')
             );
             $msg[] = Horde_Pgp_Element_Signature::create(
                 substr($data, $pos) .  "-----END PGP SIGNATURE-----\n"
