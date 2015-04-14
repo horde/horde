@@ -271,8 +271,6 @@ extends Horde_Pgp_Backend
         $rsa = new OpenPGP_Crypt_RSA($key->message);
         $pkey = $rsa->key();
 
-        /* TODO: Use SHA256 instead? */
-
         $text = new OpenPGP_LiteralDataPacket($text, array('format' => 'u'));
 
         switch ($pkey->algorithm) {
@@ -280,23 +278,23 @@ extends Horde_Pgp_Backend
         case 2:
         case 3:
             // RSA
-            $result = $rsa->sign($text, 'SHA1');
+            $result = $rsa->sign($text, 'SHA256');
             break;
 
         case 17:
             // DSA
-            $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA1');
+            $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA256');
             $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
                 substr($pkey->fingerprint, -16)
             );
 
             $sig->sign_data(array(
                 'DSA' => array(
-                    'SHA1' => function ($data) use ($pkey) {
+                    'SHA256' => function ($data) use ($pkey) {
                         $dsa = new Horde_Pgp_Crypt_DSA();
                         return $dsa->sign(
                             $data,
-                            'SHA1',
+                            'SHA256',
                             new Math_BigInteger($pkey->key['p'], 256),
                             new Math_BigInteger($pkey->key['q'], 256),
                             new Math_BigInteger($pkey->key['g'], 256),
@@ -315,7 +313,7 @@ extends Horde_Pgp_Backend
             $sm = new Horde_Pgp_Element_SignedMessage(
                 new OpenPGP_Message(array($result[1], $result[0]))
             );
-            $sm->headers['Hash'] = 'SHA1';
+            $sm->headers['Hash'] = 'SHA256';
             return $sm;
 
         case 'detach':
