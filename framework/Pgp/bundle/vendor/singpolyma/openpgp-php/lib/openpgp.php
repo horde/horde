@@ -421,18 +421,16 @@ class OpenPGP_Packet {
     $packet = NULL;
     if (strlen($input) > 0) {
       $parser = ord($input[0]) & 64 ? 'parse_new_format' : 'parse_old_format';
-      list($tag, $head_length, $data_length) = self::$parser($input);
-      $input = substr($input, $head_length);
+      list($tag, $data) = self::$parser($input);
       if ($tag && ($class = self::class_for($tag))) {
         $packet = new $class();
         $packet->tag    = $tag;
-        $packet->input  = substr($input, 0, $data_length);
-        $packet->length = $data_length;
+        $packet->input  = $data;
+        $packet->length = strlen($data);
         $packet->read();
         unset($packet->input);
         unset($packet->length);
       }
-      $input = substr($input, $data_length);
     }
     return $packet;
   }
@@ -442,20 +440,40 @@ class OpenPGP_Packet {
    *
    * @see http://tools.ietf.org/html/rfc4880#section-4.2.2
    */
-  static function parse_new_format($input) {
+  static function parse_new_format(&$input) {
     $tag = ord($input[0]) & 63;
-    $len = ord($input[1]);
-    if($len < 192) { // One octet length
-      return array($tag, 2, $len);
+    $input = substr($input, 1);
+    return array($tag, self::_parse_new_format($input));
+  }
+
+  /**
+   */
+  static function _parse_new_format(&$input) {
+    $len = ord($input[0]);
+    $recurse = false;
+
+    if ($len < 192) { // One octet length
+        $offset = 1;
+        $len = $len;
+    } elseif ($len > 191 && $len < 224) { // Two octet length
+        $offset = 2;
+        $len = (($len - 192) << 8) + ord($input[1]) + 192;
+    } elseif (($len > 223) & ($len < 255)) { // Partial body lengths
+        $offset = 1;
+        $len = 1 << ($len & 0x1F);
+        $recurse = true;
+    } elseif ($len == 255) { // Five octet length
+        $offset = 5;
+        $len = unpack('N', substr($input, 1, 4));
+        $len = reset($len);
     }
-    if($len > 191 && $len < 224) { // Two octet length
-      return array($tag, 3, (($len - 192) << 8) + ord($input[2]) + 192);
-    }
-    if($len == 255) { // Five octet length
-      $unpacked = unpack('N', substr($input, 2, 4));
-      return array($tag, 6, reset($unpacked));
-    }
-    // TODO: Partial body lengths. 1 << ($len & 0x1F)
+
+    $out = substr($input, $offset, $len);
+    $input = substr($input, $offset + $len);
+
+    return $recurse
+        ? $out . self::_parse_new_format($input)
+        : $out;
   }
 
   /**
@@ -463,7 +481,7 @@ class OpenPGP_Packet {
    *
    * @see http://tools.ietf.org/html/rfc4880#section-4.2.1
    */
-  static function parse_old_format($input) {
+  static function parse_old_format(&$input) {
     $len = ($tag = ord($input[0])) & 3;
     $tag = ($tag >> 2) & 15;
     switch ($len) {
@@ -486,7 +504,10 @@ class OpenPGP_Packet {
         $data_length = strlen($input) - $head_length;
         break;
     }
-    return array($tag, $head_length, $data_length);
+
+    $out = substr($input, $head_length, $data_length);
+    $input = substr($input, $head_length + $data_length);
+    return array($tag, $out);
   }
 
   function __construct($data=NULL) {
