@@ -273,6 +273,8 @@ extends Horde_Pgp_Backend
 
         /* TODO: Use SHA256 instead? */
 
+        $text = new OpenPGP_LiteralDataPacket($text, array('format' => 'u'));
+
         switch ($pkey->algorithm) {
         case 1:
         case 2:
@@ -283,7 +285,6 @@ extends Horde_Pgp_Backend
 
         case 17:
             // DSA
-            $text = new OpenPGP_LiteralDataPacket($text);
             $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA1');
             $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
                 substr($pkey->fingerprint, -16)
