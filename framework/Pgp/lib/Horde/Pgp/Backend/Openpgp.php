@@ -268,23 +268,54 @@ extends Horde_Pgp_Backend
      */
     public function sign($text, $key, $mode)
     {
-        /* TODO: Support DSA signing. */
         $rsa = new OpenPGP_Crypt_RSA($key->message);
-        /* TODO: Use SHA256/512 instead? */
-        $result = $rsa->sign($text, 'SHA1');
+        $pkey = $rsa->key();
+
+        /* TODO: Use SHA256 instead? */
+
+        switch ($pkey->algorithm) {
+        case 1:
+        case 2:
+        case 3:
+            // RSA
+            $result = $rsa->sign($text, 'SHA1');
+            break;
+
+        case 17:
+            // DSA
+            $text = new OpenPGP_LiteralDataPacket($text);
+            $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA1');
+            $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
+                substr($pkey->fingerprint, -16)
+            );
+
+            $sig->sign_data(array(
+                'DSA' => array(
+                    'SHA1' => function ($data) use ($pkey) {
+                        $dsa = new Horde_Pgp_Crypt_DSA();
+                        return $dsa->sign(
+                            $data,
+                            'SHA1',
+                            new Math_BigInteger($pkey->key['p'], 256),
+                            new Math_BigInteger($pkey->key['q'], 256),
+                            new Math_BigInteger($pkey->key['g'], 256),
+                            new Math_BigInteger($pkey->key['x'], 256)
+                        );
+                    }
+                )
+            ));
+
+            $result = new OpenPGP_Message(array($sig, $text));
+            break;
+        }
 
         switch ($mode) {
         case 'clear':
-            foreach ($result as $val) {
-                if ($val instanceof OpenPGP_SignaturePacket) {
-                    $sig = $val;
-                } elseif ($val instanceof OpenPGP_LiteralDataPacket) {
-                    $text = $val;
-                }
-            }
-            return new Horde_Pgp_Element_SignedMessage(
-                new OpenPGP_Message(array($text, $sig))
+            $sm = new Horde_Pgp_Element_SignedMessage(
+                new OpenPGP_Message(array($result[1], $result[0]))
             );
+            $sm->headers['Hash'] = 'SHA1';
+            return $sm;
 
         case 'detach':
             foreach ($result as $val) {
@@ -338,7 +369,7 @@ extends Horde_Pgp_Backend
             }
         }
 
-        throw new RunTimeException();
+        throw new RuntimeException();
     }
 
     /**
@@ -346,7 +377,52 @@ extends Horde_Pgp_Backend
     public function verify($msg, $key)
     {
         $verify = new OpenPGP_Crypt_RSA($key->message);
-        return $verify->verify($msg->message);
+        $pkey = $verify->key();
+
+        switch ($pkey->algorithm) {
+        case 1:
+        case 2:
+        case 3:
+            // RSA
+            return $verify->verify($msg->message);
+
+        case 17:
+            // DSA
+            $p = new Math_BigInteger($pkey->key['p'], 256);
+            $q = new Math_BigInteger($pkey->key['q'], 256);
+            $g = new Math_BigInteger($pkey->key['g'], 256);
+            $y = new Math_BigInteger($pkey->key['y'], 256);
+
+            $verifier = function ($m, $s) use ($p, $q, $g, $y) {
+                $dsa = new Horde_Pgp_Crypt_DSA();
+                return $dsa->verify(
+                    $m,
+                    strtolower($s->hash_algorithm_name()),
+                    new Math_BigInteger($s->data[0], 256),
+                    new Math_BigInteger($s->data[1], 256),
+                    $p,
+                    $q,
+                    $g,
+                    $y
+                );
+            };
+
+            $a = $msg->message->verified_signatures(array(
+                'DSA' => array(
+                    'MD5'    => $verifier,
+                    'SHA1'   => $verifier,
+                    'SHA224' => $verifier,
+                    'SHA256' => $verifier,
+                    'SHA384' => $verifier,
+                    'SHA512' => $verifier
+                )
+            ));
+            return $a;
+
+        default:
+            // Unknown signing
+            throw new RuntimeException();
+        }
     }
 
 }
