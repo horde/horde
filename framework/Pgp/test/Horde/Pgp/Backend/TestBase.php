@@ -96,9 +96,14 @@ extends Horde_Test_Case
     public function encryptProvider()
     {
         return array(
-            // TODO: Requires Elgamal encryption
-            // array($this->_getFixture('pgp_public.asc')),
-            array($this->_getFixture('pgp_public_rsa.txt'))
+            array($this->_getFixture('pgp_public.asc')),
+            array($this->_getFixture('pgp_public_rsa.txt')),
+            array(
+                array(
+                    $this->_getFixture('pgp_public.asc'),
+                    $this->_getFixture('pgp_public_rsa.txt')
+                )
+            )
         );
     }
 
@@ -190,14 +195,12 @@ extends Horde_Test_Case
     public function decryptProvider()
     {
         return array(
-            /* TODO: Requires Elgamal encryption.
             array(
                 $this->_getFixture('pgp_encrypted.txt'),
                 $this->_getFixture('pgp_private.asc'),
                 'Secret',
                 $this->_getFixture('clear.txt')
             ),
-             */
             array(
                 $this->_getFixture('pgp_encrypted_rsa.txt'),
                 $this->_getFixture('pgp_private_rsa.txt'),

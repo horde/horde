@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-13</date>
+ <date>2015-04-14</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -308,6 +308,8 @@
       </dir> <!-- /lib/Horde/Pgp/Backend -->
       <dir name="Crypt">
        <file name="Cast128.php" role="php" />
+       <file name="DSA.php" role="php" />
+       <file name="Elgamal.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Crypt -->
       <dir name="Element">
        <file name="Key.php" role="php" />
@@ -661,6 +663,8 @@
    <install as="Horde/Pgp/Translation.php" name="lib/Horde/Pgp/Translation.php" />
    <install as="Horde/Pgp/Backend/Openpgp.php" name="lib/Horde/Pgp/Backend/Openpgp.php" />
    <install as="Horde/Pgp/Crypt/Cast128.php" name="lib/Horde/Pgp/Crypt/Cast128.php" />
+   <install as="Horde/Pgp/Crypt/DSA.php" name="lib/Horde/Pgp/Crypt/DSA.php" />
+   <install as="Horde/Pgp/Crypt/Elgamal.php" name="lib/Horde/Pgp/Crypt/Elgamal.php" />
    <install as="Horde/Pgp/Element/Key.php" name="lib/Horde/Pgp/Element/Key.php" />
    <install as="Horde/Pgp/Element/Message.php" name="lib/Horde/Pgp/Element/Message.php" />
    <install as="Horde/Pgp/Element/PrivateKey.php" name="lib/Horde/Pgp/Element/PrivateKey.php" />

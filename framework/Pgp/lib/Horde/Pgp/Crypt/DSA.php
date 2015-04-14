@@ -59,23 +59,13 @@
 class Horde_Pgp_Crypt_DSA
 {
     /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        Horde_Pgp_Backend_Openpgp::autoload();
-    }
-
-    /**
-     * Generate modulated number.
+     * Generate a number that lies between 0 and q-1.
      *
-     * Generates a number that lies between 0 and q-1.
-     *
-     * @param Math_BigInteger $q  Modulation.
+     * @param Math_BigInteger $q  Max number.
      *
      * @return Math_BigInteger  Generated number.
      */
-    private function _randomNumberMod($q)
+    static public function randomNumber($q)
     {
         $bytes = strlen($q->toBytes()) + 8;
         $ints = ($bytes + 1) >> 2;
@@ -97,6 +87,14 @@ class Horde_Pgp_Crypt_DSA
     }
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        Horde_Pgp_Backend_Openpgp::autoload();
+    }
+
+    /**
      * DSA keypair creation.
      *
      * @param Math_BigInteger $p  p
@@ -107,7 +105,7 @@ class Horde_Pgp_Crypt_DSA
      */
     public function generate($p, $q, $g)
     {
-        $x = $this->_randomNumberMod($q);
+        $x = self::randomNumber($q);
         $y = $g->modPow($x, $p);
 
         return array('x' => $x, 'y' => $y);
@@ -131,7 +129,7 @@ class Horde_Pgp_Crypt_DSA
         $zero = new Math_BigInteger();
 
         while (true) {
-            $k = $this->_randomNumberMod($q);
+            $k = self::randomNumber($q);
             $r_base = $g->modPow($k, $p)->divide($q);
             $r = $r_base[1];
 

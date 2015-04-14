@@ -202,6 +202,7 @@ extends Horde_Pgp_Backend
      */
     public function encrypt($text, $keys)
     {
+        $elgamal = false;
         $p = array();
 
         foreach ($keys as $val) {
@@ -237,31 +238,103 @@ extends Horde_Pgp_Backend
             }
 
             $p[] = $current;
+            $elgamal = ($elgamal || ($current->algorithm === 16));
         }
 
-        /* TODO: Support ElGamal encryption */
-        $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
-            $p,
-            new OpenPGP_Message(array(
-                new OpenPGP_LiteralDataPacket($text, array('format' => 'u'))
-            ))
-        );
-
-        return new Horde_Pgp_Element_Message($encrypted);
+        return $this->_encrypt($p, $text, $elgamal);
     }
 
     /**
      */
     public function encryptSymmetric($text, $passphrase)
     {
-        $encrypted = OpenPGP_Crypt_Symmetric::encrypt(
-            $passphrase,
-            new OpenPGP_Message(array(
-                new OpenPGP_LiteralDataPacket($text, array('format' => 'u'))
-            ))
-        );
+        return $this->_encrypt($passphrase, $text, false);
+    }
 
-        return new Horde_Pgp_Element_Message($encrypted);
+    /**
+     * Encrypt data.
+     *
+     * @param string $text      The text to be PGP encrypted.
+     * @param mixed $keys       The list of public keys to encrypt or a
+     *                          passphrase.
+     * @param boolean $elgamal  Does at least 1 key require Elgamal
+     *                          encryption?
+     *
+     * @param Horde_Pgp_Element_Message  Encrypted message.
+     */
+    protected function _encrypt($key, $text, $elgamal)
+    {
+        $msg = new OpenPGP_Message(array(
+            new OpenPGP_LiteralDataPacket(
+                $text,
+                array('format' => 'u')
+            )
+        ));
+
+        if ($elgamal) {
+            /* Elgamal w/ TripleDES (3DES is a MUST implement, so assume that
+             * someone still using Elgamal keys will more likely have support
+             * for 3DES than AES).
+             * 2 = "3DES symmetric algorithm"
+             * This code adapted from OpenPGP_Crypt_Symmetric::encrypt(). */
+            list($cipher, $key_bytes, $block_bytes) = OpenPGP_Crypt_Symmetric::getCipher(2);
+            $prefix = crypt_random_string($block_bytes);
+            $prefix .= substr($prefix, -2);
+
+            $to_encrypt = $prefix . $msg->to_bytes();
+
+            $mdc = new OpenPGP_ModificationDetectionCodePacket(
+                hash('sha1', $to_encrypt . "\xD3\x14", true)
+            );
+
+            $ckey = crypt_random_string($key_bytes);
+            $cipher->setKey($ckey);
+            $encrypted = array(
+                new OpenPGP_IntegrityProtectedDataPacket(
+                    $cipher->encrypt($to_encrypt . $mdc->to_bytes())
+                )
+            );
+
+            foreach ($key as $k) {
+                switch ($k->algorithm) {
+                case 1:
+                case 2:
+                case 3:
+                    $rsa = new OpenPGP_Crypt_RSA($k);
+                    $pk = $rsa->public_key();
+                    $pk->setEncryptionMode(CRYPT_RSA_ENCRYPTION_PKCS1);
+                    break;
+
+                case 16:
+                    $pk = new Horde_Pgp_Crypt_Elgamal($k);
+                    break;
+                }
+
+                $pk_encrypt = $pk->encrypt(
+                    chr(2) .
+                    $ckey .
+                    pack('n', OpenPGP_Crypt_Symmetric::checksum($ckey))
+                );
+
+                $esk = array();
+                foreach ((is_array($pk_encrypt) ? $pk_encrypt : array($pk_encrypt)) as $val) {
+                    $esk[] = pack('n', OpenPGP::bitlength($val)) . $val;
+                }
+
+                $encrypted[] = new OpenPGP_AsymmetricSessionKeyPacket(
+                    $k->algorithm,
+                    $k->fingerprint(),
+                    implode('', $esk)
+                );
+            }
+
+            $pgp_ob = new OpenPGP_Message(array_reverse($encrypted));
+        } else {
+            /* RSA w/ AES-256 */
+            $pgp_ob = OpenPGP_Crypt_Symmetric::encrypt($key, $msg);
+        }
+
+        return new Horde_Pgp_Element_Message($pgp_ob);
     }
 
     /**
@@ -335,17 +408,72 @@ extends Horde_Pgp_Backend
      */
     public function decrypt($msg, $key)
     {
-        /* TODO: Support ElGamal decryption */
         $decryptor = new OpenPGP_Crypt_RSA($key->message);
-        return new Horde_Pgp_Element_Message(
-            $decryptor->decrypt($msg->message)
-        );
+        $elgamal = null;
+
+        foreach ($msg->message as $val) {
+            if ($val instanceof OpenPGP_AsymmetricSessionKeyPacket) {
+                $pkey = $decryptor->key($val->keyid);
+                if (!($pkey instanceof OpenPGP_PublicKeyPacket)) {
+                    continue;
+                }
+
+                switch ($pkey->algorithm) {
+                case 1:
+                case 2:
+                    return new Horde_Pgp_Element_Message(
+                        $decryptor->decrypt($msg->message)
+                    );
+
+                case 16:
+                    $elgamal = new Horde_Pgp_Crypt_Elgamal($pkey);
+
+                    /* Put encrypted data into a packet object to take
+                     * advantage of built-in MPI read methods. */
+                    $edata = new OpenPGP_Packet();
+                    $edata->input = $val->encrypted_data;
+                    $sk_data = $elgamal->decrypt(
+                        $edata->read_mpi() . $edata->read_mpi()
+                    );
+
+                    $sk = substr($sk_data, 1, strlen($sk_data) - 3);
+                    /* Last 2 bytes are checksum */
+                    $chk = unpack('n', substr($sk_data, -2));
+                    $chk = reset($chk);
+
+                    $sk_chk = 0;
+                    for ($i = 0, $j = strlen($sk); $i < $j; ++$i) {
+                        $sk_chk = ($sk_chk + ord($sk[$i])) % 65536;
+                    }
+
+                    if ($sk_chk != $chk) {
+                        throw new RuntimeException();
+                    }
+
+                    return new Horde_Pgp_Element_Message(
+                        OpenPGP_Crypt_Symmetric::decryptPacket(
+                            OpenPGP_Crypt_Symmetric::getEncryptedData(
+                                $msg->message
+                            ),
+                            /* Symmetric algorithm identifer */
+                            ord($sk_data[0]),
+                            /* Session secret key */
+                            $sk
+                        )
+                    );
+                }
+            }
+        }
+
+        throw new RuntimeException();
     }
 
     /**
      */
     public function decryptSymmetric($msg, $passphrase)
     {
+        /* TODO: Elgamal symmetric */
+
         $decrypted = OpenPGP_Crypt_Symmetric::decryptSymmetric(
             $passphrase,
             $msg->message
