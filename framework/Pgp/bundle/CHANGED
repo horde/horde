@@ -8,6 +8,7 @@ List of changes from upstream sources:
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
 
   Fixed loading Crypt/RSA.php multiple times.
+  Fixed typo of 'encrypted_data' property (OpenPGP_Crypt_RSA#decrypt()).
 
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_symmetric.php
 

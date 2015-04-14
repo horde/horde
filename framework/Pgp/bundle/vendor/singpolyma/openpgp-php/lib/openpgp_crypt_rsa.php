@@ -184,10 +184,10 @@ class OpenPGP_Crypt_RSA {
     foreach($message as $p) {
       if($p instanceof OpenPGP_AsymmetricSessionKeyPacket) {
         if($keys instanceof Crypt_RSA) {
-          $sk = self::try_decrypt_session($keys, substr($p->encyrpted_data, 2));
+          $sk = self::try_decrypt_session($keys, substr($p->encrypted_data, 2));
         } else if(strlen(str_replace('0', '', $p->keyid)) < 1) {
           foreach($keys->key as $k) {
-            $sk = self::try_decrypt_session(self::convert_private_key($k), substr($p->encyrpted_data, 2));
+            $sk = self::try_decrypt_session(self::convert_private_key($k), substr($p->encrypted_data, 2));
             if($sk) break;
           }
         } else {
