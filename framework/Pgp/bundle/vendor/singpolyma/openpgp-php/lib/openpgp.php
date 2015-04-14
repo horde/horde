@@ -692,6 +692,10 @@ class OpenPGP_SignaturePacket extends OpenPGP_Packet {
         while(strlen($this->input) > 0) {
           $this->data[] = $this->read_mpi();
         }
+        /* Horde change */
+        /* v3 Siganture trailer (RFC 4880 [5.2.4]) */
+        $this->trailer = chr($this->signature_type) . pack('N', $creation_time);
+        /* End horde change. */
         break;
       case 4:
         $this->signature_type = ord($this->read_byte());
