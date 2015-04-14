@@ -47,7 +47,7 @@ extends Horde_Pgp_Element
 
             $msg[] = new OpenPGP_LiteralDataPacket(
                 substr($data, 0, $pos),
-                array('format' => 't')
+                array('format' => 'u')
             );
             $msg[] = Horde_Pgp_Element_Signature::create(
                 substr($data, $pos) .  "-----END PGP SIGNATURE-----\n"
@@ -63,10 +63,13 @@ extends Horde_Pgp_Element
      */
     public function __toString()
     {
-        $out = parent::__toString();
+        $out = "-----BEGIN PGP SIGNED MESSAGE-----\n";
+        foreach (array_intersect_key($this->headers, array('Hash' => true)) as $key => $val) {
+            $out .= $key . ': ' . $val . "\n";
+        }
 
-        /* Remove trailing END SIGNED MESSAGE armor. */
-        return substr($out, 0, strrpos($out, '-----END'));
+        return $out . "\n" . str_replace("\r\n", "\n", strval($this->text)) .
+            "\n" . strval($this->signature);
     }
 
     /**

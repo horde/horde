@@ -23,4 +23,11 @@
 class Horde_Pgp_Element_Text
 extends Horde_Pgp_Element
 {
+    /**
+     */
+    public function __toString()
+    {
+        return $this->message[0]->data;
+    }
+
 }
