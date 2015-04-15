@@ -60,12 +60,12 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
                 $row['resource_calendar'],
                 $row['resource_name']
             );
-            $share->set('desc', $columns['resource_description']->getValue($row['resource_description']));
+            $share->set('desc', $columns['resource_description']->binaryToString($row['resource_description']));
             $share->set('email', $row['resource_email']);
             $share->set('response_type', $row['resource_response_type']);
             $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
             $share->set('isgroup', $row['resource_type'] == 'Group');
-            $share->set('members', $columns['resource_members']->getValue($row['resource_members']));
+            $share->set('members', $columns['resource_members']->binaryToString($row['resource_members']));
 
             /* Perms to match existing behavior */
             $share->addDefaultPermission(Horde_Perms::SHOW);
