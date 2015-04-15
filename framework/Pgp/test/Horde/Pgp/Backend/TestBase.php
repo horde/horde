@@ -81,115 +81,20 @@ extends Horde_Test_Case
     }
 
     /**
-     * @dataProvider encryptProvider
-     */
-    public function testEncrypt($key)
-    {
-        $result = $this->_pgp->encrypt(
-            $this->_getFixture('clear.txt'),
-            $key
-        );
-
-        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
-    }
-
-    public function encryptProvider()
-    {
-        return array(
-            array($this->_getFixture('pgp_public.asc')),
-            array($this->_getFixture('pgp_public_rsa.txt')),
-            array(
-                array(
-                    $this->_getFixture('pgp_public.asc'),
-                    $this->_getFixture('pgp_public_rsa.txt')
-                )
-            )
-        );
-    }
-
-    /**
-     * @depends testDecryptSymmetric
-     */
-    public function testEncryptSymmetric()
-    {
-        $result = $this->_pgp->encryptSymmetric(
-            $this->_getFixture('clear.txt'),
-            'Secret'
-        );
-
-        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
-    }
-
-    /**
-     * @dataProvider signProvider
-     */
-    public function testSign($text, $key, $pass)
-    {
-        $result = $this->_pgp->sign(
-            $text,
-            Horde_Pgp_Element_PrivateKey::create($key)
-                ->getUnencryptedKey($pass)
-        );
-
-        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
-    }
-
-    /**
-     * @dataProvider signProvider
-     */
-    public function testSignCleartext($text, $key, $pass)
-    {
-        $result = $this->_pgp->signCleartext(
-            $text,
-            Horde_Pgp_Element_PrivateKey::create($key)
-                ->getUnencryptedKey($pass)
-        );
-
-        $this->assertInstanceOf('Horde_Pgp_Element_SignedMessage', $result);
-    }
-
-    /**
-     * @dataProvider signProvider
-     */
-    public function testSignDetached($text, $key, $pass)
-    {
-        $result = $this->_pgp->signDetached(
-            $text,
-            Horde_Pgp_Element_PrivateKey::create($key)
-                ->getUnencryptedKey($pass)
-        );
-
-        $this->assertInstanceOf('Horde_Pgp_Element_Signature', $result);
-    }
-
-    public function signProvider()
-    {
-        return array(
-            array(
-                $this->_getFixture('clear.txt'),
-                $this->_getFixture('pgp_private.asc'),
-                'Secret'
-            ),
-            array(
-                $this->_getFixture('clear.txt'),
-                $this->_getFixture('pgp_private_rsa.txt'),
-                'Secret'
-            )
-        );
-    }
-
-    /**
      * @dataProvider decryptProvider
      */
-    public function testDecrypt($encrypted, $key, $pass, $expected)
+    public function testDecrypt($encrypted, $privkey, $expected)
     {
-        $result = $this->_pgp->decrypt(
-            $encrypted,
-            Horde_Pgp_Element_PrivateKey::create($key)
-                ->getUnencryptedKey($pass)
-        );
+        $result = $this->_pgp->decrypt($encrypted, $privkey);
 
         $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+
+        $out = $result->message->signatures();
+
+        $this->assertEquals(
+            $expected,
+            $out[0][0]->data
+        );
     }
 
     public function decryptProvider()
@@ -197,14 +102,13 @@ extends Horde_Test_Case
         return array(
             array(
                 $this->_getFixture('pgp_encrypted.txt'),
-                $this->_getFixture('pgp_private.asc'),
-                'Secret',
-                $this->_getFixture('clear.txt')
+                $this->_getPrivateKey('pgp_private.asc', 'Secret'),
+                /* This was encrypted with an extra EOL.*/
+                $this->_getFixture('clear.txt') . "\n"
             ),
             array(
                 $this->_getFixture('pgp_encrypted_rsa.txt'),
-                $this->_getFixture('pgp_private_rsa.txt'),
-                'Secret',
+                $this->_getPrivateKey('pgp_private_rsa.txt', 'Secret'),
                 $this->_getFixture('clear.txt')
             )
         );
@@ -342,11 +246,176 @@ extends Horde_Test_Case
         );
     }
 
+    /**
+     * @dataProvider encryptProvider
+     * @depends testDecrypt
+     */
+    public function testEncrypt($pubkey, $privkeys)
+    {
+        $cleartext = $this->_getFixture('clear.txt');
+
+        $result = $this->_pgp->encrypt($cleartext, $pubkey);
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+
+        $this->assertEquals(
+            1 + count($privkeys),
+            count($result->message->packets)
+        );
+
+        foreach ($privkeys as $val) {
+            $this->testDecrypt(strval($result), $val, $cleartext);
+        }
+    }
+
+    public function encryptProvider()
+    {
+        return array(
+            array(
+                $this->_getFixture('pgp_public.asc'),
+                array(
+                    $this->_getPrivateKey('pgp_private.asc', 'Secret')
+                ),
+            ),
+            array(
+                $this->_getFixture('pgp_public_rsa.txt'),
+                array(
+                    $this->_getPrivateKey('pgp_private_rsa.txt', 'Secret')
+                )
+            ),
+            array(
+                array(
+                    $this->_getFixture('pgp_public.asc'),
+                    $this->_getFixture('pgp_public_rsa.txt')
+                ),
+                array(
+                    $this->_getPrivateKey('pgp_private.asc', 'Secret'),
+                    $this->_getPrivateKey('pgp_private_rsa.txt', 'Secret')
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider encryptSymmetricProvider
+     * @depends testDecryptSymmetric
+     */
+    public function testEncryptSymmetric($data, $pass)
+    {
+        $result = $this->_pgp->encryptSymmetric($data, $pass);
+
+        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+
+        $this->assertEquals(
+            2,
+            count($result->message->packets)
+        );
+
+        $result2 = $this->_pgp->decryptSymmetric(strval($result), $pass);
+
+        $this->assertEquals(
+            $data,
+            $result2->message[0]->data
+        );
+    }
+
+    public function encryptSymmetricProvider()
+    {
+        return array(
+            array(
+                $this->_getFixture('clear.txt'),
+                'Secret'
+            )
+        );
+    }
+
+    /**
+     * @dataProvider signProvider
+     * @depends testVerify
+     */
+    public function testSign($text, $privkey)
+    {
+        $result = $this->_pgp->sign($text, $privkey);
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Message',
+            $result
+        );
+
+        $this->assertInstanceOf(
+            'OpenPGP_SignaturePacket',
+            $result->message[0]
+        );
+
+        $this->testVerify(strval($result), $privkey->getPublicKey());
+    }
+
+    /**
+     * @dataProvider signProvider
+     * @depends testVerify
+     */
+    public function testSignCleartext($text, $privkey)
+    {
+        $result = $this->_pgp->signCleartext($text, $privkey);
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_SignedMessage',
+            $result
+        );
+
+        $this->testVerify(strval($result), $privkey->getPublicKey());
+    }
+
+    /**
+     * @dataProvider signProvider
+     * @depends testVerifyDetached
+     */
+    public function testSignDetached($text, $privkey)
+    {
+        $result = $this->_pgp->signDetached($text, $privkey);
+
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Signature',
+            $result
+        );
+
+        $this->testVerifyDetached(
+            $text,
+            strval($result),
+            $privkey->getPublicKey()
+        );
+    }
+
+    public function signProvider()
+    {
+        return array(
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getPrivateKey('pgp_private.asc', 'Secret')
+            ),
+            array(
+                $this->_getFixture('clear.txt'),
+                $this->_getPrivateKey('pgp_private_rsa.txt', 'Secret')
+            )
+        );
+    }
+
     /* Helper methods. */
 
     protected function _getFixture($file)
     {
         return file_get_contents(dirname(__DIR__) . '/fixtures/' . $file);
+    }
+
+    protected function _getPrivateKey($file, $pass = null)
+    {
+        $pkey = Horde_Pgp_Element_PrivateKey::create(
+            $this->_getFixture($file)
+        );
+
+        return is_null($pass)
+            ? $pkey
+            : $pkey->getUnencryptedKey($pass);
     }
 
 }
