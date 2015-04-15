@@ -1273,7 +1273,7 @@ class OpenPGP_SignaturePacket_EmbeddedSignaturePacket extends OpenPGP_SignatureP
 class OpenPGP_SymmetricSessionKeyPacket extends OpenPGP_Packet {
   public $version, $symmetric_algorithm, $s2k, $encrypted_data;
 
-  function __construct($s2k=NULL, $encrypted_data='', $symmetric_algorithm=9, $version=3) {
+  function __construct($s2k=NULL, $encrypted_data='', $symmetric_algorithm=9, $version=4) {
     parent::__construct();
     $this->version = $version;
     $this->symmetric_algorithm = $symmetric_algorithm;
