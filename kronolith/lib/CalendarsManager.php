@@ -483,13 +483,21 @@ class Kronolith_CalendarsManager
                 }
 
                 foreach ($categories as $name => $description) {
-                    $this->_allExternal[$api . '/' . $name] = new Kronolith_Calendar_External(array('api' => $api, 'name' => $description['title'], 'id' => $name, 'type' => $description['type']));
+                    if (empty($description['background'])) {
+                        $description['background'] = '#dddddd';
+                    }
+                    $this->_allExternal[$api . '/' . $name] = new Kronolith_Calendar_External(array(
+                        'api' => $api,
+                        'name' => $description['title'],
+                        'id' => $name,
+                        'type' => $description['type'],
+                        'background' => $description['background']));
                     $ext_cals[] = array(
                         'a' => $api,
                         'n' => $name,
                         'd' => $description['title'],
                         't' => $description['type'],
-                        'b' => empty($description['background']) ? '#dddddd' : $description['background']
+                        'b' => $description['background']
                     );
                 }
             }
