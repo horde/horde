@@ -43,6 +43,12 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
         $this->addColumn('kronolith_shares', 'attribute_isgroup', 'integer', array('default' => 0));
 
         /** Migrate existing resources to shares */
+        $columns = $this->_connection->columns('kronolith_resources');
+
+        /** Try to get existing data charset **/
+        $config = Horde::getDriverConfig($backend, 'sql');
+        $charset = empty($config['charset']) ? 'utf-8' : $config['charset'];
+
         $rows = $this->_connection->selectAll('SELECT * FROM kronolith_resources');
         $shares = $GLOBALS['injector']
              ->getInstance('Horde_Core_Factory_Share')
@@ -54,12 +60,12 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
                 $row['resource_calendar'],
                 $row['resource_name']
             );
-            $share->set('desc', $row['resource_description']);
+            $share->set('desc', $columns['resource_description']->getValue($row['resource_description']));
             $share->set('email', $row['resource_email']);
             $share->set('response_type', $row['resource_response_type']);
             $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
             $share->set('isgroup', $row['resource_type'] == 'Group');
-            $share->set('members', $row['resource_members']);
+            $share->set('members', $columns['resource_members']->getValue($row['resource_members']));
 
             /* Perms to match existing behavior */
             $share->addDefaultPermission(Horde_Perms::SHOW);
