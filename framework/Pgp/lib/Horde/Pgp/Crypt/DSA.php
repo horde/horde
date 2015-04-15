@@ -59,6 +59,13 @@
 class Horde_Pgp_Crypt_DSA
 {
     /**
+     * Public/private key packet.
+     *
+     * @var OpenPGP_PublicKeyPacket
+     */
+    private $_key;
+
+    /**
      * Generate a number that lies between 0 and q-1.
      *
      * @param Math_BigInteger $q  Max number.
@@ -88,10 +95,14 @@ class Horde_Pgp_Crypt_DSA
 
     /**
      * Constructor.
+     *
+     * @param OpenPGP_PublicKeyPacket $key  Key data.
      */
-    public function __construct()
+    public function __construct(OpenPGP_PublicKeyPacket $key)
     {
         Horde_Pgp_Backend_Openpgp::autoload();
+
+        $this->_key = $key;
     }
 
     /**
@@ -101,7 +112,9 @@ class Horde_Pgp_Crypt_DSA
      * @param Math_BigInteger $q  q
      * @param Math_BigInteger $g  g
      *
-     * @return array  x = private key, y = public key.
+     * @return array  Keys:
+     *   - x: (Math_BigInteger) Private key.
+     *   - y: (Math_BigInteger) Public key.
      */
     public function generate($p, $q, $g)
     {
@@ -112,21 +125,24 @@ class Horde_Pgp_Crypt_DSA
     }
 
     /**
-     * DSA sign
+     * DSA sign.
      *
-     * @param string $message     Message.
-     * @param string $hash_alg    Hash algorithm.
-     * @param Math_BigInteger $p  p
-     * @param Math_BigInteger $q  q
-     * @param Math_BigInteger $g  g
-     * @param Math_BigInteger $x  Private key.
+     * @param string $message   Message.
+     * @param string $hash_alg  Hash algorithm.
      *
      * @return array  r,s key
      */
-    public function sign($message, $hash_alg, $p, $q, $g, $x)
+    public function sign($message, $hash_alg)
     {
         $hash = new Crypt_Hash($hash_alg);
         $zero = new Math_BigInteger();
+
+        $g = new Math_BigInteger($this->_key->key['g'], 256);
+        $p = new Math_BigInteger($this->_key->key['p'], 256);
+        $q = new Math_BigInteger($this->_key->key['q'], 256);
+        $x = new Math_BigInteger($this->_key->key['x'], 256);
+
+        $bigint_hash = new Math_BigInteger($hash->hash($message), 256);
 
         while (true) {
             $k = self::randomNumber($q);
@@ -137,12 +153,11 @@ class Horde_Pgp_Crypt_DSA
                 continue;
             }
 
-            $bigint_hash = new Math_BigInteger($hash->hash($message), 256);
-
             // compute H(m) + (x*r)
             $x_mul_r_base = $x->multiply($r)->divide($q);
             $x_mul_r = $x_mul_r_base[1];
-            $message_dep_base = $bigint_hash->add($x_mul_r)->divide($q);
+            $bh = clone $bigint_hash;
+            $message_dep_base = $bh->add($x_mul_r)->divide($q);
             $message_dep = $message_dep_base[1];
 
             // compute s
@@ -161,23 +176,24 @@ class Horde_Pgp_Crypt_DSA
     }
 
     /**
-     * DSA verify
+     * DSA verify.
      *
-     * @param string $message     Message
-     * @param string $hash_alg    Hash algorithm
-     * @param Math_BigInteger $r  r
-     * @param Math_BigInteger $s  s
-     * @param Math_BigInteger $p  p
-     * @param Math_BigInteger $q  q
-     * @param Math_BigInteger $g  g
-     * @param Math_BigInteger $y  Public key.
+     * @param string $message     Message.
+     * @param string $hash_alg    Hash algorithm.
+     * @param Math_BigInteger $r  r.
+     * @param Math_BigInteger $s  s.
      *
      * @return bool  True if verified.
      */
-    public function verify($message, $hash_alg, $r, $s, $p, $q, $g, $y)
+    public function verify($message, $hash_alg, $r, $s)
     {
         $hash = new Crypt_Hash($hash_alg);
         $hash_m = new Math_BigInteger($hash->hash($message), 256);
+
+        $g = new Math_BigInteger($this->_key->key['g'], 256);
+        $p = new Math_BigInteger($this->_key->key['p'], 256);
+        $q = new Math_BigInteger($this->_key->key['q'], 256);
+        $y = new Math_BigInteger($this->_key->key['y'], 256);
 
         $w = $s->modInverse($q);
 
@@ -200,4 +216,5 @@ class Horde_Pgp_Crypt_DSA
 
         return ($v->compare($r) == 0);
     }
+
 }

@@ -361,18 +361,12 @@ extends Horde_Pgp_Backend
                 substr($pkey->fingerprint, -16)
             );
 
+            $dsa = new Horde_Pgp_Crypt_DSA($pkey);
+
             $sig->sign_data(array(
                 'DSA' => array(
-                    'SHA256' => function ($data) use ($pkey) {
-                        $dsa = new Horde_Pgp_Crypt_DSA();
-                        return $dsa->sign(
-                            $data,
-                            'SHA256',
-                            new Math_BigInteger($pkey->key['p'], 256),
-                            new Math_BigInteger($pkey->key['q'], 256),
-                            new Math_BigInteger($pkey->key['g'], 256),
-                            new Math_BigInteger($pkey->key['x'], 256)
-                        );
+                    'SHA256' => function ($data) use ($dsa) {
+                        return $dsa->sign($data, 'SHA256');
                     }
                 )
             ));
@@ -515,26 +509,17 @@ extends Horde_Pgp_Backend
 
         case 17:
             // DSA
-            $p = new Math_BigInteger($pkey->key['p'], 256);
-            $q = new Math_BigInteger($pkey->key['q'], 256);
-            $g = new Math_BigInteger($pkey->key['g'], 256);
-            $y = new Math_BigInteger($pkey->key['y'], 256);
-
-            $verifier = function ($m, $s) use ($p, $q, $g, $y) {
-                $dsa = new Horde_Pgp_Crypt_DSA();
+            $dsa = new Horde_Pgp_Crypt_DSA($pkey);
+            $verifier = function ($m, $s) use ($dsa) {
                 return $dsa->verify(
                     $m,
                     strtolower($s->hash_algorithm_name()),
                     new Math_BigInteger($s->data[0], 256),
-                    new Math_BigInteger($s->data[1], 256),
-                    $p,
-                    $q,
-                    $g,
-                    $y
+                    new Math_BigInteger($s->data[1], 256)
                 );
             };
 
-            $a = $msg->message->verified_signatures(array(
+            return $msg->message->verified_signatures(array(
                 'DSA' => array(
                     'MD5'    => $verifier,
                     'SHA1'   => $verifier,
@@ -544,12 +529,9 @@ extends Horde_Pgp_Backend
                     'SHA512' => $verifier
                 )
             ));
-            return $a;
-
-        default:
-            // Unknown signing
-            throw new RuntimeException();
         }
+
+        throw new RuntimeException();
     }
 
 }
