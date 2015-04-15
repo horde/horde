@@ -61,10 +61,12 @@ class Horde_Pgp_Backend
      * @param string $text  The text to be PGP encrypted.
      * @param array $keys   The list of public keys to encrypt
      *                      (Horde_Pgp_Element_PublicKey objects).
+     * @param array $opts   Additional options:
+     *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
      */
-    public function encrypt($text, $keys)
+    public function encrypt($text, $keys, $opts)
     {
         throw new BadMethodCallException();
     }
@@ -74,10 +76,12 @@ class Horde_Pgp_Backend
      *
      * @param string $text        The text to be PGP encrypted.
      * @param string $passphrase  The symmetric passphrase.
+     * @param array $opts   Additional options:
+     *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
      */
-    public function encryptSymmetric($text, $passphrase)
+    public function encryptSymmetric($text, $passphrase, $opts)
     {
         throw new BadMethodCallException();
     }
@@ -91,10 +95,13 @@ class Horde_Pgp_Backend
      * @param integer $mode                      The signing mode. Either
      *                                           'clear', 'detach', or
      *                                           'message'.
+     * @param array $opts                        Additional options:
+     *   - nocompress: (boolean) If true, don't compress signed data.
+     *
      *
      * @return mixed  The signed message.
      */
-    public function sign($text, $key, $mode)
+    public function sign($text, $key, $mode, $opts = array())
     {
         throw new BadMethodCallException();
     }

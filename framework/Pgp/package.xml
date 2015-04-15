@@ -450,6 +450,9 @@
    <extension>
     <name>openssl</name>
    </extension>
+   <extension>
+    <name>zlib</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>

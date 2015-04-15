@@ -200,7 +200,7 @@ extends Horde_Pgp_Backend
 
     /**
      */
-    public function encrypt($text, $keys)
+    public function encrypt($text, $keys, $opts)
     {
         $elgamal = false;
         $p = array();
@@ -241,14 +241,14 @@ extends Horde_Pgp_Backend
             $elgamal = ($elgamal || ($current->algorithm === 16));
         }
 
-        return $this->_encrypt($p, $text, $elgamal);
+        return $this->_encrypt($p, $text, $opts, $elgamal);
     }
 
     /**
      */
-    public function encryptSymmetric($text, $passphrase)
+    public function encryptSymmetric($text, $passphrase, $opts)
     {
-        return $this->_encrypt($passphrase, $text, false);
+        return $this->_encrypt($passphrase, $text, $opts, false);
     }
 
     /**
@@ -257,23 +257,18 @@ extends Horde_Pgp_Backend
      * @param string $text      The text to be PGP encrypted.
      * @param mixed $keys       The list of public keys to encrypt or a
      *                          passphrase.
+     * @param array $opts       {@see Horde_Pgp_Backend#encrypt()}
      * @param boolean $elgamal  Does at least 1 key require Elgamal
      *                          encryption?
      *
      * @param Horde_Pgp_Element_Message  Encrypted message.
      */
-    protected function _encrypt($key, $text, $elgamal)
+    protected function _encrypt($key, $text, $opts, $elgamal)
     {
-        $data_packet = new OpenPGP_LiteralDataPacket(
+        $data_packet = $this->_createLiteralPacket(
             $text,
-            array('format' => 'u')
+            empty($opts['nocompress'])
         );
-
-        if (Horde_Util::extensionExists('zlib')) {
-            $data_packet = new OpenPGP_CompressedDataPacket($data_packet);
-            $data_packet->algorithm = 2; // ZLIB
-        }
-
         $msg = new OpenPGP_Message(array($data_packet));
 
         if ($elgamal) {
@@ -343,13 +338,55 @@ extends Horde_Pgp_Backend
     }
 
     /**
+     * Create a literal data packet (possibly wrapped in compressed packet).
+     *
+     * @param mixed $data          Data.
+     * @param boolean $nocompress  If true, will not compress data.
+     *
+     * @return OpenPGP_Packet  Literal data packet.
      */
-    public function sign($text, $key, $mode)
+    protected function _createLiteralPacket($data, $nocompress)
+    {
+        if (!($data instanceof OpenPGP_Packet)) {
+            $data = new OpenPGP_LiteralDataPacket(
+                $data,
+                array('format' => 'u')
+            );
+        }
+
+        return $nocompress
+            ? $data
+            : $this->_compressPacket($data);
+    }
+
+    /**
+     * Compress a packet/message, if compression is available.
+     *
+     * @param mixed $in  Packet or message.
+     *
+     * @return OpenPGP_Packet  (Possibly compressed) packet.
+     */
+    protected function _compressPacket($in)
+    {
+        if (Horde_Util::extensionExists('zlib')) {
+            if ($in instanceof OpenPGP_Packet) {
+                $in = new OpenPGP_Message(array($in));
+            }
+            $in = new OpenPGP_CompressedDataPacket($in);
+            $in->algorithm = 1; // ZIP (DEFLATE) Compression
+        }
+
+        return $in;
+    }
+
+    /**
+     */
+    public function sign($text, $key, $mode, $opts = array())
     {
         $rsa = new OpenPGP_Crypt_RSA($key->message);
         $pkey = $rsa->key();
 
-        $text = new OpenPGP_LiteralDataPacket($text, array('format' => 'u'));
+        $text = $this->_createLiteralPacket($text, true);
 
         switch ($pkey->algorithm) {
         case 1:
@@ -400,6 +437,11 @@ extends Horde_Pgp_Backend
             break;
 
         case 'message':
+            if (empty($opts['nocompress'])) {
+                $result = new OpenPGP_Message(array(
+                    $this->_compressPacket($result)
+                ));
+            }
             return new Horde_Pgp_Element_Message($result);
         }
     }

@@ -89,11 +89,13 @@ class Horde_Pgp
      *
      * @param string $text  The text to be encrypted.
      * @param mixed $keys   The list of public keys to encrypt.
+     * @param array $opts   Additional options:
+     *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
      * @throws Horde_Pgp_Exception
      */
-    public function encrypt($text, $keys)
+    public function encrypt($text, $keys, array $opts = array())
     {
         return $this->_runInBackend(
             'encrypt',
@@ -102,7 +104,10 @@ class Horde_Pgp
                 array_map(
                     array('Horde_Pgp_Element_PublicKey', 'create'),
                     is_array($keys) ? $keys : array($keys)
-                )
+                ),
+                array_merge(array(
+                    'nocompress' => false
+                ), $opts)
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
@@ -113,15 +118,23 @@ class Horde_Pgp
      *
      * @param string $text        The text to be encrypted.
      * @param string $passphrase  The symmetric passphrase.
+     * @param array $opts   Additional options:
+     *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
      * @throws Horde_Pgp_Exception
      */
-    public function encryptSymmetric($text, $passphrase)
+    public function encryptSymmetric($text, $passphrase, array $opts = array())
     {
         return $this->_runInBackend(
             'encryptSymmetric',
-            array($text, $passphrase),
+            array(
+                $text,
+                $passphrase,
+                array_merge(array(
+                    'nocompress' => false
+                ), $opts)
+            ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
     }
@@ -129,18 +142,30 @@ class Horde_Pgp
     /**
      * Sign data using a PGP private key.
      *
+     * Returns message object that contains both the signed data and the
+     * signature packet.
+     *
      * @param string $text  The text to be signed.
      * @param mixed $key    The private key to use for signing (must be
      *                      decrypted).
+     * @param array $opts   Additional options:
+     *   - nocompress: (boolean) If true, don't compress signed data.
      *
      * @return Horde_Pgp_Element_Message  The signed data.
      * @throws Horde_Pgp_Exception
      */
-    public function sign($text, $key)
+    public function sign($text, $key, array $opts = array())
     {
         return $this->_runInBackend(
             'sign',
-            array($text, $this->_getPrivateKey($key), 'message'),
+            array(
+                $text,
+                $this->_getPrivateKey($key),
+                'message',
+                array_merge(array(
+                    'nocompress' => false
+                ), $opts)
+            ),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
         );
     }
@@ -237,7 +262,9 @@ class Horde_Pgp
      * @param mixed $text  The text to be verified
      * @param mixed $key   The public key used for signing.
      *
-     * @return TODO
+     * @return array  List of verified packets. Each sub array contains two
+     *                values: the list of packets verfied by signing and
+     *                the list of signature packets used to verify.
      * @throws Horde_Pgp_Exception
      */
     public function verify($text, $key)
@@ -252,7 +279,7 @@ class Horde_Pgp
      * @param mixed $sig   The detached signature.
      * @param mixed $key   The public key used for signing.
      *
-     * @return TODO
+     * @return  {@see detach()}
      * @throws Horde_Pgp_Exception
      */
     public function verifyDetached($text, $sig, $key)

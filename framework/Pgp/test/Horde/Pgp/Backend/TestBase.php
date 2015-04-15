@@ -179,11 +179,6 @@ extends Horde_Test_Case
         );
 
         $this->assertInstanceOf(
-            'OpenPGP_LiteralDataPacket',
-            $out[0][0]
-        );
-
-        $this->assertInstanceOf(
             'OpenPGP_SignaturePacket',
             $out[0][1][0]
         );
@@ -254,17 +249,32 @@ extends Horde_Test_Case
     {
         $cleartext = $this->_getFixture('clear.txt');
 
-        $result = $this->_pgp->encrypt($cleartext, $pubkey);
+        foreach (array(true, false) as $val) {
+            $result = $this->_pgp->encrypt(
+                $cleartext,
+                $pubkey,
+                array(
+                    'nocompress' => $val
+                )
+            );
 
-        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+            $this->assertInstanceOf(
+                'Horde_Pgp_Element_Message',
+                $result
+            );
 
-        $this->assertEquals(
-            1 + count($privkeys),
-            count($result->message->packets)
-        );
+            $this->assertEquals(
+                1 + count($privkeys),
+                count($result->message->packets)
+            );
 
-        foreach ($privkeys as $val) {
-            $this->testDecrypt(strval($result), $val, $cleartext);
+            foreach ($privkeys as $val2) {
+                $this->testDecrypt(
+                    strval($result),
+                    $val2,
+                    $cleartext
+                );
+            }
         }
     }
 
@@ -302,22 +312,33 @@ extends Horde_Test_Case
      */
     public function testEncryptSymmetric($data, $pass)
     {
-        $result = $this->_pgp->encryptSymmetric($data, $pass);
+        foreach (array(true, false) as $val) {
+            $result = $this->_pgp->encryptSymmetric(
+                $data,
+                $pass,
+                array(
+                    'nocompress' => $val
+                )
+            );
 
-        $this->assertInstanceOf('Horde_Pgp_Element_Message', $result);
+            $this->assertInstanceOf(
+                'Horde_Pgp_Element_Message',
+                $result
+            );
 
-        $this->assertEquals(
-            2,
-            count($result->message->packets)
-        );
+            $this->assertEquals(
+                2,
+                count($result->message->packets)
+            );
 
-        $result2 = $this->_pgp->decryptSymmetric(strval($result), $pass);
-        $result2_sigs = $result2->message->signatures();
+            $result2 = $this->_pgp->decryptSymmetric(strval($result), $pass);
+            $result2_sigs = $result2->message->signatures();
 
-        $this->assertEquals(
-            $data,
-            $result2_sigs[0][0]->data
-        );
+            $this->assertEquals(
+                $data,
+                $result2_sigs[0][0]->data
+            );
+        }
     }
 
     public function encryptSymmetricProvider()
@@ -336,19 +357,29 @@ extends Horde_Test_Case
      */
     public function testSign($text, $privkey)
     {
-        $result = $this->_pgp->sign($text, $privkey);
+        foreach (array(true, false) as $val) {
+            $result = $this->_pgp->sign(
+                $text,
+                $privkey,
+                array(
+                    'nocompress' => $val
+                )
+            );
 
-        $this->assertInstanceOf(
-            'Horde_Pgp_Element_Message',
-            $result
-        );
+            $this->assertInstanceOf(
+                'Horde_Pgp_Element_Message',
+                $result
+            );
 
-        $this->assertInstanceOf(
-            'OpenPGP_SignaturePacket',
-            $result->message[0]
-        );
+            $this->assertInstanceOf(
+                ($val)
+                    ? 'OpenPGP_SignaturePacket'
+                    : 'OpenPGP_CompressedDataPacket',
+                $result->message[0]
+            );
 
-        $this->testVerify(strval($result), $privkey->getPublicKey());
+            $this->testVerify(strval($result), $privkey->getPublicKey());
+        }
     }
 
     /**
