@@ -85,13 +85,11 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
              ->getInstance('Horde_Core_Factory_Share')
              ->create('kronolith');
 
-        $resources = $shares->listShares(
-            null,
-            array('attributes' => array('type' => Kronolith::SHARE_TYPE_RESOURCE))
-        );
-
+        $resources = $shares->listAllShares();
         foreach ($resources as $resource) {
-            $shares->removeShare($resource);
+            if ($resource->get('type') == Kronolith::SHARE_TYPE_RESOURCE) {
+                $shares->removeShare($resource);
+            }
         }
 
         $this->removeColumn('kronolith_sharesng', 'attribute_email');
