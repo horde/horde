@@ -360,8 +360,9 @@ extends Horde_Pgp_Backend
             break;
 
         case 17:
-            // DSA
-            $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA256');
+            // DSA; use SHA1 since that is what it was designed for (at least
+            // with DSS profile)
+            $sig = new OpenPGP_SignaturePacket($text, 'DSA', 'SHA1');
             $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
                 substr($pkey->fingerprint, -16)
             );
@@ -370,8 +371,8 @@ extends Horde_Pgp_Backend
 
             $sig->sign_data(array(
                 'DSA' => array(
-                    'SHA256' => function ($data) use ($dsa) {
-                        return $dsa->sign($data, 'SHA256');
+                    'SHA1' => function ($data) use ($dsa) {
+                        return $dsa->sign($data, 'SHA1');
                     }
                 )
             ));
@@ -385,7 +386,7 @@ extends Horde_Pgp_Backend
             $sm = new Horde_Pgp_Element_SignedMessage(
                 new OpenPGP_Message(array($result[1], $result[0]))
             );
-            $sm->headers['Hash'] = 'SHA256';
+            $sm->headers['Hash'] = 'SHA1';
             return $sm;
 
         case 'detach':
