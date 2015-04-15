@@ -514,8 +514,6 @@ extends Horde_Pgp_Backend
      */
     public function decryptSymmetric($msg, $passphrase)
     {
-        /* TODO: Elgamal symmetric */
-
         $decrypted = OpenPGP_Crypt_Symmetric::decryptSymmetric(
             $passphrase,
             $msg->message
