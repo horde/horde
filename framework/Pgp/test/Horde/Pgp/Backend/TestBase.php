@@ -312,10 +312,11 @@ extends Horde_Test_Case
         );
 
         $result2 = $this->_pgp->decryptSymmetric(strval($result), $pass);
+        $result2_sigs = $result2->message->signatures();
 
         $this->assertEquals(
             $data,
-            $result2->message[0]->data
+            $result2_sigs[0][0]->data
         );
     }
 

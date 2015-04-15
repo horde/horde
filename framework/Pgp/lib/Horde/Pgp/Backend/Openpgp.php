@@ -264,12 +264,17 @@ extends Horde_Pgp_Backend
      */
     protected function _encrypt($key, $text, $elgamal)
     {
-        $msg = new OpenPGP_Message(array(
-            new OpenPGP_LiteralDataPacket(
-                $text,
-                array('format' => 'u')
-            )
-        ));
+        $data_packet = new OpenPGP_LiteralDataPacket(
+            $text,
+            array('format' => 'u')
+        );
+
+        if (Horde_Util::extensionExists('zlib')) {
+            $data_packet = new OpenPGP_CompressedDataPacket($data_packet);
+            $data_packet->algorithm = 2; // ZLIB
+        }
+
+        $msg = new OpenPGP_Message(array($data_packet));
 
         if ($elgamal) {
             /* Elgamal w/ TripleDES (3DES is a MUST implement, so assume that
