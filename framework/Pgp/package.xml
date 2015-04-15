@@ -325,6 +325,7 @@
       <file name="Element.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Keyserver.php" role="php" />
+      <file name="Mime.php" role="php" />
       <file name="Translation.php" role="php" />
      </dir> <!-- /lib/Horde/Pgp -->
      <file name="Pgp.php" role="php" />
@@ -365,6 +366,7 @@
       <file name="bootstrap.php" role="test" />
       <file name="KeyserverTest.php" role="test" />
       <file name="KeyTest.php" role="test" />
+      <file name="MimeTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Pgp -->
     </dir> <!-- /test/Horde -->
@@ -665,6 +667,7 @@
    <install as="Horde/Pgp/Element.php" name="lib/Horde/Pgp/Element.php" />
    <install as="Horde/Pgp/Exception.php" name="lib/Horde/Pgp/Exception.php" />
    <install as="Horde/Pgp/Keyserver.php" name="lib/Horde/Pgp/Keyserver.php" />
+   <install as="Horde/Pgp/Mime.php" name="lib/Horde/Pgp/Mime.php" />
    <install as="Horde/Pgp/Translation.php" name="lib/Horde/Pgp/Translation.php" />
    <install as="Horde/Pgp/Backend/Openpgp.php" name="lib/Horde/Pgp/Backend/Openpgp.php" />
    <install as="Horde/Pgp/Crypt/Cast128.php" name="lib/Horde/Pgp/Crypt/Cast128.php" />
@@ -683,6 +686,7 @@
    <install as="Horde/Pgp/bootstrap.php" name="test/Horde/Pgp/bootstrap.php" />
    <install as="Horde/Pgp/KeyserverTest.php" name="test/Horde/Pgp/KeyserverTest.php" />
    <install as="Horde/Pgp/KeyTest.php" name="test/Horde/Pgp/KeyTest.php" />
+   <install as="Horde/Pgp/MimeTest.php" name="test/Horde/Pgp/MimeTest.php" />
    <install as="Horde/Pgp/phpunit.xml" name="test/Horde/Pgp/phpunit.xml" />
    <install as="Horde/Pgp/Backend/OpenpgpTest.php" name="test/Horde/Pgp/Backend/OpenpgpTest.php" />
    <install as="Horde/Pgp/Backend/TestBase.php" name="test/Horde/Pgp/Backend/TestBase.php" />

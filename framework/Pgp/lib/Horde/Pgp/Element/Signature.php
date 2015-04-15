@@ -28,19 +28,30 @@ extends Horde_Pgp_Element
     protected $_armor = 'SIGNATURE';
 
     /**
+     * Return the signature packet object.
+     *
+     * @return OpenPGP_SignaturePacket  Signature packet object.
+     */
+    public function getSignaturePacket()
+    {
+        foreach ($this->message as $val) {
+            if ($val instanceof OpenPGP_SignaturePacket) {
+                return $val;
+            }
+        }
+
+        /* Should never reach here. */
+        throw new RuntimeException();
+    }
+
+    /**
      * Return the key ID used for the signature.
      *
      * @return string  Key ID.
      */
     public function getSignersKeyId()
     {
-        foreach ($this->message as $val) {
-            if ($val instanceof OpenPGP_SignaturePacket) {
-                return substr($val->issuer(), -8);
-            }
-        }
-
-        return null;
+        return substr($this->getSignaturePacket()->issuer(), -8);
     }
 
 }
