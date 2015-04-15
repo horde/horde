@@ -58,7 +58,7 @@ class Horde_Crypt_Pgp_Keyserver
      *   - port: (integer) The public PGP keyserver port.
      * </pre>
      */
-    public function __construct(Horde_Crypt_Pgp $pgp, array $params = array())
+    public function __construct($pgp, array $params = array())
     {
         $this->_pgp = $pgp;
         $this->_http = (isset($params['http']) && ($params['http'] instanceof Horde_Http_Client))
