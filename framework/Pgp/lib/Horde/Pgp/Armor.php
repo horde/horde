@@ -60,7 +60,7 @@ implements Countable, SeekableIterator
      */
     static public function create($data)
     {
-        return ($data instanceof Horde_Crypt_Pgp)
+        return ($data instanceof Horde_Pgp_Armor)
             ? $data
             : new self($data);
     }
