@@ -380,12 +380,11 @@ extends Horde_Test_Case
             $result
         );
 
-        /* TODO: DSA signing is not working properly
         $this->testVerifyDetached(
             $text,
             strval($result),
             $privkey->getPublicKey()
-        ); */
+        );
     }
 
     public function signProvider()

@@ -274,7 +274,12 @@ class Horde_Pgp
             $sig = Horde_Pgp_Element_Signature::create($sig);
             $data = new Horde_Pgp_Element_SignedMessage(
                 new OpenPGP_Message(array(
-                    new OpenPGP_LiteralDataPacket($text),
+                    new OpenPGP_LiteralDataPacket(
+                        $text,
+                        array(
+                            'format' => ($sig->message[0]->signature_type === 0x00) ? 'b' : 't'
+                        )
+                    ),
                     $sig->message[0]
                 ))
             );
