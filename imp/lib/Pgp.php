@@ -749,16 +749,6 @@ class IMP_Pgp
 
         $fingerprints = $this->_pgp->getFingerprintsFromKey($pgpdata);
 
-        $getKeyIdString = function($keyid) {
-            /* Get the 8 character key ID string. */
-            if (strpos($keyid, '0x') === 0) {
-                $keyid = substr($keyid, 2);
-            }
-            if (strlen($keyid) > 8) {
-                $keyid = substr($keyid, -8);
-            }
-            return '0x' . $keyid;
-        };
 
         /* Making the property names the same width for all localizations .*/
         $leftrow = array(
@@ -794,7 +784,7 @@ class IMP_Pgp
 
             $keyid = empty($key['keyid'])
                 ? null
-                : $getKeyIdString($key['keyid']);
+                : $this->getKeyIdString($key['keyid']);
             $fingerprint = isset($fingerprints[$keyid])
                 ? $fingerprints[$keyid]
                 : null;
@@ -813,6 +803,18 @@ class IMP_Pgp
         }
 
         return $msg;
+    }
+
+    public function getKeyIdString($keyid)
+    {
+        /* Get the 8 character key ID string. */
+        if (strpos($keyid, '0x') === 0) {
+            $keyid = substr($keyid, 2);
+        }
+        if (strlen($keyid) > 8) {
+            $keyid = substr($keyid, -8);
+        }
+        return '0x' . $keyid;
     }
 
     /**
