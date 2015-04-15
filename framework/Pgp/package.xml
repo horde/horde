@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-14</date>
+ <date>2015-04-15</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -346,6 +346,8 @@
       </dir> <!-- /test/Horde/Pgp/Element -->
       <dir name="fixtures">
        <file name="clear.txt" role="test" />
+       <file name="dash_escape.txt" role="test" />
+       <file name="dash_escape_escaped.txt" role="test" />
        <file name="pgp_encrypted.txt" role="test" />
        <file name="pgp_encrypted_rsa.txt" role="test" />
        <file name="pgp_encrypted_symmetric.txt" role="test" />
@@ -687,6 +689,8 @@
    <install as="Horde/Pgp/Element/MessageTest.php" name="test/Horde/Pgp/Element/MessageTest.php" />
    <install as="Horde/Pgp/Element/SignedMessageTest.php" name="test/Horde/Pgp/Element/SignedMessageTest.php" />
    <install as="Horde/Pgp/fixtures/clear.txt" name="test/Horde/Pgp/fixtures/clear.txt" />
+   <install as="Horde/Pgp/fixtures/dash_escape.txt" name="test/Horde/Pgp/fixtures/dash_escape.txt" />
+   <install as="Horde/Pgp/fixtures/dash_escape_escaped.txt" name="test/Horde/Pgp/fixtures/dash_escape_escaped.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" name="test/Horde/Pgp/fixtures/pgp_encrypted_symmetric.txt" />

@@ -58,9 +58,34 @@ class Horde_Pgp_Element_SignedMessageTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 'BADEABD7',
-                file_get_contents(__DIR__ . '/../fixtures/pgp_signed.txt')
+                $this->_getFixture('pgp_signed.txt')
             )
         );
+    }
+
+    public function testDashUnescapeOutput()
+    {
+        $this->assertEquals(
+            $this->_getFixture('dash_escape.txt'),
+            Horde_Pgp_Element_SignedMessage::dashUnescapeText(
+                $this->_getFixture('dash_escape_escaped.txt')
+            )
+        );
+    }
+
+    public function testDashEscapeOutput()
+    {
+        $this->assertEquals(
+            $this->_getFixture('dash_escape_escaped.txt'),
+            Horde_Pgp_Element_SignedMessage::dashEscapeText(
+                $this->_getFixture('dash_escape.txt')
+            )
+        );
+    }
+
+    protected function _getFixture($file)
+    {
+        return file_get_contents(__DIR__ . '/../fixtures/' . $file);
     }
 
 }

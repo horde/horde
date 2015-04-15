@@ -31,6 +31,41 @@ extends Horde_Pgp_Element
     protected $_armor = 'SIGNED MESSAGE';
 
     /**
+     * Returns text after reversing any dash-escaping (RFC 4880 [7.1])
+     * previously done on it.
+     *
+     * @param string $text  Escaped text.
+     *
+     * @return string  Unescaped text.
+     */
+    static public function dashUnescapeText($text)
+    {
+        return str_replace(
+            array("\r\n", "\n- -", "\n- From "),
+            array("\n", "\n-", "\nFrom "),
+            $text
+        );
+    }
+
+    /**
+     * Returns the normalized & dash-escaped text (RFC 4880 [7.1]) of the
+     * cleartext signed message.
+     *
+     * @param string $text  Unescaped text.
+     *
+     * @return string  Escaped text.
+     */
+    static public function dashEscapeText($text)
+    {
+        /* Normalize EOLs and dash escape text output (RFC 4880 [7.1]) */
+        return str_replace(
+            array("\r\n", "\n-", "\nFrom "),
+            array("\n", "\n- -", "\n- From "),
+            $text
+        );
+    }
+
+    /**
      */
     public function __construct($data, array $headers = array())
     {
@@ -39,14 +74,13 @@ extends Horde_Pgp_Element
             $msg = new OpenPGP_Message();
 
             /* Trailing (CR)LF is not part of signed data. */
-            /* TODO: Dash-escaped text. */
             $pos = strpos($data, '-----BEGIN PGP SIGNATURE-----');
             if ($data[--$pos] === "\r") {
                 --$pos;
             }
 
             $msg[] = new OpenPGP_LiteralDataPacket(
-                substr($data, 0, $pos),
+                self::dashUnescapeText(substr($data, 0, $pos)),
                 array('format' => 'u')
             );
             $msg[] = Horde_Pgp_Element_Signature::create(
@@ -68,8 +102,9 @@ extends Horde_Pgp_Element
             $out .= $key . ': ' . $val . "\n";
         }
 
-        return $out . "\n" . str_replace("\r\n", "\n", strval($this->text)) .
-            "\n" . strval($this->signature);
+        return $out . "\n" .
+            self::dashEscapeText($this->text) . "\n" .
+            strval($this->signature);
     }
 
     /**
