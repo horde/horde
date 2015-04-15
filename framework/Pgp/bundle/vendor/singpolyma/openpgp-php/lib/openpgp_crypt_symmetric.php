@@ -36,7 +36,7 @@ class OpenPGP_Crypt_Symmetric {
         $esk = pack('n', OpenPGP::bitlength($esk)) . $esk;
         array_unshift($encrypted, new OpenPGP_AsymmetricSessionKeyPacket($pass->algorithm, $pass->fingerprint(), $esk));
       } else if(is_string($pass)) {
-        $s2k = new OpenPGP_S2K(crypt_random_string(10));
+        $s2k = new OpenPGP_S2K(crypt_random_string(8));
         $cipher->setKey($s2k->make_key($pass, $key_bytes));
         $esk = $cipher->encrypt(chr($symmetric_algorithm) . $key);
         array_unshift($encrypted, new OpenPGP_SymmetricSessionKeyPacket($s2k, $esk, $symmetric_algorithm));
