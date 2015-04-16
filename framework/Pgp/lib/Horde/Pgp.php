@@ -56,6 +56,7 @@ class Horde_Pgp
      * @param string $email       E-mail.
      * @param array $opts         Additional options:
      *   - comment: (string) Comment.
+     *   - hash: (string) Hash function (DEFAULT: SHA256).
      *   - expire: (integer) Expiration date (UNIX timestamp).
      *   - keylength: (integer) Key length.
      *   - passphrase: (string) Passphrase.
@@ -70,6 +71,7 @@ class Horde_Pgp
         $opts = array_merge(array(
             'comment' => '',
             'expire' => null,
+            'hash' => 'SHA256',
             'keylength' => 2048,
             'passphrase' => null
         ), $opts, array(

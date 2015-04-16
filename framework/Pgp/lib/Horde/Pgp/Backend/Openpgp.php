@@ -82,7 +82,11 @@ extends Horde_Pgp_Backend
                      * to be factored into the sign_key_userid() call
                      * above. */
                     unset($m[$k]);
-                    $sig = new OpenPGP_SignaturePacket($m, 'RSA', 'SHA256');
+                    $sig = new OpenPGP_SignaturePacket(
+                        $m,
+                        'RSA',
+                        $opts['hash']
+                    );
                     $sig->signature_type = $v->signature_type;
                     $sig->hashed_subpackets = $v->hashed_subpackets;
                     $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyExpirationTimePacket($opts['expire'] - time());
@@ -117,7 +121,7 @@ extends Horde_Pgp_Backend
             implode('', $skey->fingerprint_material()) .
             implode('', $ekey->fingerprint_material()),
             'RSA',
-            'SHA256'
+            $opts['hash']
         );
 
         /* This is a "Subkey Binding Signature". */
@@ -130,10 +134,10 @@ extends Horde_Pgp_Backend
         );
 
         $priv_key = $skey_rsa->private_key();
-        $priv_key->setHash('sha256');
+        $priv_key->setHash(strtolower($opts['hash']));
         $sig->sign_data(array(
             'RSA' => array(
-                'SHA256' => function($data) use($priv_key) {
+                $opts['hash'] => function($data) use($priv_key) {
                     return array($priv_key->sign($data));
                 }
             )

@@ -44,6 +44,7 @@ class Horde_Pgp_Backend
      *   - comment: (string) The comment to use.
      *   - email: (string) The email to use.
      *   - expire: (integer) Expiration date (UNIX timestamp).
+     *   - hash: (string) Hash function (DEFAULT: SHA256).
      *   - keylength: (integer) The keylength to use.
      *   - name: (string) The name to use.
      *   - passphrase: (string) The passphrase to use.
