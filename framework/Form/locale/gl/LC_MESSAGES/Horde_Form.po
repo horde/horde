@@ -8,13 +8,12 @@ msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"PO-Revision-Date: 2015-04-16 12:37+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: Form/Type.php:2520
 #, php-format
@@ -521,15 +520,6 @@ msgstr ""
 #: Form/Type.php:3673
 msgid "The text you entered did not match the text on the screen."
 msgstr ""
-
-#: Form/Type.php:644
-#, php-format
-msgid ""
-"There are too many characters in this field. You have entered %d character; "
-msgid_plural ""
-"There are too many characters in this field. You have entered %d characters; "
-msgstr[0] ""
-msgstr[1] ""
 
 #: Form/Type.php:3504
 #, fuzzy
