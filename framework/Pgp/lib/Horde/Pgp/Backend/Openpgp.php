@@ -254,7 +254,7 @@ extends Horde_Pgp_Backend
     /**
      * Encrypt data.
      *
-     * @param string $text      The text to be PGP encrypted.
+     * @param mixed $data       The data to be PGP encrypted.
      * @param mixed $keys       The list of public keys to encrypt or a
      *                          passphrase.
      * @param array $opts       {@see Horde_Pgp_Backend#encrypt()}
@@ -263,13 +263,12 @@ extends Horde_Pgp_Backend
      *
      * @param Horde_Pgp_Element_Message  Encrypted message.
      */
-    protected function _encrypt($key, $text, $opts, $elgamal)
+    protected function _encrypt($key, $data, $opts, $elgamal)
     {
-        $data_packet = $this->_createLiteralPacket(
-            $text,
-            empty($opts['nocompress'])
-        );
-        $msg = new OpenPGP_Message(array($data_packet));
+        $msg = $this->_getMessageOb($data);
+        if (empty($opts['nocompress'])) {
+            $msg = $this->_compressMessageOb($msg);
+        }
 
         if ($elgamal) {
             /* Elgamal w/ TripleDES (3DES is a MUST implement, so assume that
@@ -338,45 +337,44 @@ extends Horde_Pgp_Backend
     }
 
     /**
-     * Create a literal data packet (possibly wrapped in compressed packet).
+     * Create a OpenPGP message object, inserting text data into a literal
+     * data packet.
      *
-     * @param mixed $data          Data.
-     * @param boolean $nocompress  If true, will not compress data.
+     * @param mixed $data  Data.
      *
-     * @return OpenPGP_Packet  Literal data packet.
+     * @return OpenPGP_Message  Message object.
      */
-    protected function _createLiteralPacket($data, $nocompress)
+    protected function _getMessageOb($data)
     {
-        if (!($data instanceof OpenPGP_Packet)) {
-            $data = new OpenPGP_LiteralDataPacket(
-                $data,
-                array('format' => 'u')
-            );
+        if (!($data instanceof OpenPGP_Message)) {
+            if (!($data instanceof OpenPGP_Packet)) {
+                $data = new OpenPGP_LiteralDataPacket(
+                    $data,
+                    array('format' => 'u')
+                );
+            }
+            $data = new OpenPGP_Message(array($data));
         }
 
-        return $nocompress
-            ? $data
-            : $this->_compressPacket($data);
+        return $data;
     }
 
     /**
-     * Compress a packet/message, if compression is available.
+     * Compress PGP data, if compression is available.
      *
-     * @param mixed $in  Packet or message.
+     * @param OpenPGP_Message $msg  PGP message.
      *
-     * @return OpenPGP_Packet  (Possibly compressed) packet.
+     * @return OpenPGP_Message  (Possibly compressed) message.
      */
-    protected function _compressPacket($in)
+    protected function _compressMessageOb($msg)
     {
         if (Horde_Util::extensionExists('zlib')) {
-            if ($in instanceof OpenPGP_Packet) {
-                $in = new OpenPGP_Message(array($in));
-            }
-            $in = new OpenPGP_CompressedDataPacket($in);
-            $in->algorithm = 1; // ZIP (DEFLATE) Compression
+            $zip = new OpenPGP_CompressedDataPacket($msg);
+            $zip->algorithm = 1; // ZIP (DEFLATE) Compression
+            $msg = new OpenPGP_Message(array($zip));
         }
 
-        return $in;
+        return $msg;
     }
 
     /**
@@ -386,7 +384,7 @@ extends Horde_Pgp_Backend
         $rsa = new OpenPGP_Crypt_RSA($key->message);
         $pkey = $rsa->key();
 
-        $text = $this->_createLiteralPacket($text, true);
+        $text = $this->_getMessageOb($text)->packets[0];
 
         switch ($pkey->algorithm) {
         case 1:
@@ -438,9 +436,7 @@ extends Horde_Pgp_Backend
 
         case 'message':
             if (empty($opts['nocompress'])) {
-                $result = new OpenPGP_Message(array(
-                    $this->_compressPacket($result)
-                ));
+                $result = $this->_compressMessageOb($result);
             }
             return new Horde_Pgp_Element_Message($result);
         }
