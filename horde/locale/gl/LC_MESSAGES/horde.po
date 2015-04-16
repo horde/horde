@@ -10,7 +10,7 @@
 #
 # Revisada por:
 #
-# Servizo de normalizaciÛn linguÌstica <snlusc@usc.es>
+# Servizo de normalizaci√≥n lingu√≠stica <snlusc@usc.es>
 # Universidade de Santiago de Compostela
 #
 #
@@ -19,19 +19,19 @@ msgstr ""
 "Project-Id-Version: horde\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-09-12 10:19+0200\n"
-"PO-Revision-Date: 2010-01-18 14:15:50+0100\n"
+"PO-Revision-Date: 2015-04-16 12:32+0200\n"
 "Last-Translator: Xusto <snlxusto@lugo.usc.es>\n"
 "Language-Team: Unidade de Sistemas ATIC <atic.sistemas@usc.es>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
 #: framework/Form/Form.php:3122
 #, php-format
 msgid " (%s days ago)"
-msgstr "(hai %s dÌas)"
+msgstr "(hai %s d√≠as)"
 
 #: framework/Horde/Horde.php:1622
 #, php-format
@@ -41,7 +41,7 @@ msgstr " (Accedendo a %s)"
 #: framework/Form/Form.php:3130
 #, php-format
 msgid " (in %s days)"
-msgstr " (en %s dÌas)"
+msgstr " (en %s d√≠as)"
 
 #: framework/Form/Form.php:3126
 msgid " (today)"
@@ -49,7 +49,7 @@ msgstr " (hoxe)"
 
 #: framework/Form/Form.php:3128
 msgid " (tomorrow)"
-msgstr " (maÒ·)"
+msgstr " (ma√±√°)"
 
 #: framework/Form/Form.php:3124
 msgid " (yesterday)"
@@ -68,17 +68,17 @@ msgstr "Xa existe %s."
 #: framework/VFS/lib/VFS/smb.php:267
 #, php-format
 msgid "\"%s\" is not a directory."
-msgstr "\"%s\" non È un directorio."
+msgstr "\"%s\" non √© un directorio."
 
 #: framework/CLI/CLI.php:350
 #, php-format
 msgid "\"%s\" is not a valid choice."
-msgstr "\"%s\" non È unha elecciÛn v·lida."
+msgstr "\"%s\" non √© unha elecci√≥n v√°lida."
 
 #: framework/Form/Form.php:2251
 #, fuzzy, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "Non introduciu un enderezo v·lido de correo electrÛnico."
+msgstr "Non introduciu un enderezo v√°lido de correo electr√≥nico."
 
 #: framework/Horde/Horde/Registry.php:751
 #: framework/Horde/Horde/Registry.php:1115
@@ -89,12 +89,12 @@ msgstr "Non se configurou '%s' no rexistro de Horde."
 #: framework/Share/Share.php:119
 #, fuzzy, php-format
 msgid "\"%s\" share driver not found."
-msgstr "Non se atopou o renderizador de ·rbores de '%s'."
+msgstr "Non se atopou o renderizador de √°rbores de '%s'."
 
 #: framework/Tree/Tree.php:171
 #, php-format
 msgid "\"%s\" tree renderer not found."
-msgstr "Non se atopou o renderizador de ·rbores de '%s'."
+msgstr "Non se atopou o renderizador de √°rbores de '%s'."
 
 #: admin/groups.php:62
 #, php-format
@@ -125,20 +125,20 @@ msgstr "%d %s e %s"
 #, fuzzy, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
-msgstr[0] "Engadiuse correctamente o contacto · s˙a axenda de enderezos."
-msgstr[1] "Engadiuse correctamente o contacto · s˙a axenda de enderezos."
+msgstr[0] "Engadiuse correctamente o contacto √° s√∫a axenda de enderezos."
+msgstr[1] "Engadiuse correctamente o contacto √° s√∫a axenda de enderezos."
 
 #: framework/Auth/Auth/ldap.php:320
 #, fuzzy, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
-msgstr[0] "Quedan %d dÌas ata que caduque o seu contrasinal."
-msgstr[1] "Quedan %d dÌas ata que caduque o seu contrasinal."
+msgstr[0] "Quedan %d d√≠as ata que caduque o seu contrasinal."
+msgstr[1] "Quedan %d d√≠as ata que caduque o seu contrasinal."
 
 #: lib/Block/account.php:711 lib/Block/account.php:723
 #, php-format
 msgid "%d days until your password expires."
-msgstr "Quedan %d dÌas ata que caduque o seu contrasinal."
+msgstr "Quedan %d d√≠as ata que caduque o seu contrasinal."
 
 #: lib/Block/metar.php:298
 #, fuzzy, php-format
@@ -153,7 +153,7 @@ msgstr "%s ao %s de %s"
 #: lib/Block/weatherdotcom.php:291
 #, php-format
 msgid "%d-day forecast"
-msgstr "%d prognÛsticos diarios"
+msgstr "%d progn√≥sticos diarios"
 
 #: services/maintenance.php:69
 #, php-format
@@ -163,7 +163,7 @@ msgstr "%s - Aviso"
 #: framework/Crypt/Crypt/smime.php:708
 #, php-format
 msgid "%s Fingerprint"
-msgstr "ImpresiÛns dixitais de %s"
+msgstr "Impresi√≥ns dixitais de %s"
 
 #: framework/MIME/MIME/Contents.php:1001 framework/MIME/MIME/Contents.php:1007
 #, php-format
@@ -178,7 +178,7 @@ msgstr "%s KB"
 #: services/maintenance.php:50
 #, php-format
 msgid "%s Maintenance Operations - Confirmation"
-msgstr "OperaciÛns de mantemento %s - ConfirmaciÛn"
+msgstr "Operaci√≥ns de mantemento %s - Confirmaci√≥n"
 
 #: admin/setup/config.php:31 admin/setup/index.php:279
 #, php-format
@@ -206,12 +206,12 @@ msgstr "Xa existe %s."
 #: lib/Block/metar.php:357 lib/Block/metar.php:363
 #, php-format
 msgid "%s at %s %s"
-msgstr "%s ·s %s %s"
+msgstr "%s √°s %s %s"
 
 #: framework/Prefs/Prefs/Credentials.php:111
 #, fuzzy, php-format
 msgid "%s authentication credentials"
-msgstr "A autenticaciÛn PAM non est· dispoÒible."
+msgstr "A autenticaci√≥n PAM non est√° dispo√±ible."
 
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:983
 #, php-format
@@ -256,7 +256,7 @@ msgstr "Non se creou '%s': %s."
 #: framework/Horde/Horde/Registry.php:815
 #, fuzzy, php-format
 msgid "%s is not authorised for %s."
-msgstr "O usuario %s non est· autorizado para %s."
+msgstr "O usuario %s non est√° autorizado para %s."
 
 #: services/maintenance.php:49
 #, php-format
@@ -264,8 +264,8 @@ msgid ""
 "%s is ready to perform the maintenance operations checked below. Check the "
 "box for any operation(s) you want to perform at this time."
 msgstr ""
-"%s est· preparado para realizar as operaciÛns de mantemento seleccionadas. "
-"Active os recadros das operaciÛns que queira executar agora."
+"%s est√° preparado para realizar as operaci√≥ns de mantemento seleccionadas. "
+"Active os recadros das operaci√≥ns que queira executar agora."
 
 #: framework/Form/Form.php:3077
 #, php-format
@@ -301,7 +301,7 @@ msgid ""
 "any links in it or of providing the sender with any personal information."
 msgstr ""
 "%s: Pode que esta mensaxe non proceda de quen parece ser. Evite seguir "
-"calquera ligazÛn que incl˙a ou subministrarlle informaciÛn persoal ao "
+"calquera ligaz√≥n que incl√∫a ou subministrarlle informaci√≥n persoal ao "
 "remitente."
 
 #: framework/Kolab_Filter/lib/Horde/Kolab/Filter/Content.php:404
@@ -391,7 +391,7 @@ msgstr "Anterior"
 #: services/keyboard.php:48
 #, fuzzy
 msgid "A characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: lib/Block/metar.php:134
 msgid "A database backend is required for this block."
@@ -423,35 +423,35 @@ msgstr ""
 #: framework/Crypt/Crypt/pgp.php:1338
 #, fuzzy
 msgid "A passphrase is required to decrypt a message."
-msgstr "Fai falta unha clave PGP p˙blica para cifrar unha mensaxe."
+msgstr "Fai falta unha clave PGP p√∫blica para cifrar unha mensaxe."
 
 #: framework/Crypt/Crypt/pgp.php:1162
 msgid "A public PGP key is required to encrypt a message."
-msgstr "Fai falta unha clave PGP p˙blica para cifrar unha mensaxe."
+msgstr "Fai falta unha clave PGP p√∫blica para cifrar unha mensaxe."
 
 #: framework/Crypt/Crypt/pgp.php:1416
 msgid "A public PGP key is required to verify a signed message."
-msgstr "Fai falta unha clave PGP p˙blica para comprobar unha mensaxe asinada."
+msgstr "Fai falta unha clave PGP p√∫blica para comprobar unha mensaxe asinada."
 
 #: framework/Crypt/Crypt/pgp.php:1257
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
 msgstr ""
-"Fan falta unha clave PGP p˙blica, unha clave PGP privada e unha frase clave "
+"Fan falta unha clave PGP p√∫blica, unha clave PGP privada e unha frase clave "
 "para asinar unha mensaxe."
 
 #: framework/Crypt/Crypt/smime.php:367
 #, fuzzy
 msgid "A public S/MIME key is required to encrypt a message."
-msgstr "Fai falta unha clave SMIME p˙blica para cifrar unha mensaxe."
+msgstr "Fai falta unha clave SMIME p√∫blica para cifrar unha mensaxe."
 
 #: framework/Crypt/Crypt/smime.php:509
 msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to "
 "decrypt a message."
 msgstr ""
-"Fan falta unha clave S/MIME p˙blica, unha clave S/MIME privada e unha frase "
+"Fan falta unha clave S/MIME p√∫blica, unha clave S/MIME privada e unha frase "
 "clave para descifrar unha mensaxe."
 
 #: framework/Crypt/Crypt/smime.php:434
@@ -459,7 +459,7 @@ msgid ""
 "A public S/MIME key, private S/MIME key, and passphrase are required to sign "
 "a message."
 msgstr ""
-"Fan falta unha clave S/MIME p˙blica, unha clave S/MIME privada e unha frase "
+"Fan falta unha clave S/MIME p√∫blica, unha clave S/MIME privada e unha frase "
 "clave para asinar unha mensaxe."
 
 #: framework/Form/Form.php:1629 framework/Form/Form.php:1675
@@ -479,7 +479,7 @@ msgstr "Orballo"
 #: lib/Block/weatherdotcom_strings.php:11
 #, fuzzy
 msgid "AM Fog"
-msgstr "NÈboa"
+msgstr "N√©boa"
 
 #: lib/Block/weatherdotcom_strings.php:12
 msgid "AM Light Rain"
@@ -561,7 +561,7 @@ msgstr "Identidade bloqueada."
 #: framework/Auth/Auth/Signup.php:173
 #, fuzzy, php-format
 msgid "Account signup request for \"%s\""
-msgstr "Esta seguro de que desexa eliminar a solicitude de inscriciÛn de %s?"
+msgstr "Esta seguro de que desexa eliminar a solicitude de inscrici√≥n de %s?"
 
 #: config/registry.php.dist:330
 msgid "Accounting"
@@ -582,7 +582,7 @@ msgstr ""
 
 #: templates/portal/add.inc:5
 msgid "Add Here:"
-msgstr "Engade aquÌ:"
+msgstr "Engade aqu√≠:"
 
 #: templates/admin/groups/edit.inc:49
 #, fuzzy
@@ -601,12 +601,12 @@ msgstr "Engade un permiso"
 #: admin/groups.php:240 templates/admin/groups/addchild.inc:7
 #, php-format
 msgid "Add a child group to \"%s\""
-msgstr "Eng·delle a '%s' un grupo descendente"
+msgstr "Eng√°delle a '%s' un grupo descendente"
 
 #: framework/Perms/Perms/UI.php:194
 #, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Eng·delle a '%s' un permiso descendente"
+msgstr "Eng√°delle a '%s' un permiso descendente"
 
 #: admin/groups.php:233
 #, fuzzy
@@ -629,15 +629,15 @@ msgstr "Engade un par"
 #: config/prefs.php.dist:425
 #, php-format
 msgid "Add the %s Menu as a Mozilla Sidebar"
-msgstr "Engade o men˙ %s como panel lateral de Mozilla"
+msgstr "Engade o men√∫ %s como panel lateral de Mozilla"
 
 #: framework/MIME/MIME/Viewer/vcard.php:330
 msgid "Add to address book:"
-msgstr "Engade · axenda de enderezos"
+msgstr "Engade √° axenda de enderezos"
 
 #: framework/MIME/MIME/Viewer/vcard.php:345
 msgid "Add to my address book"
-msgstr "Engade · axenda de enderezos"
+msgstr "Engade √° axenda de enderezos"
 
 #: admin/user.php:32
 msgid "Add user"
@@ -649,17 +649,17 @@ msgid ""
 "Added \"%s\" to the system, but could not add additional signup information: "
 "%s."
 msgstr ""
-"Engadiuse '%s' ao sistema, pero non se pode incluÌr a informaciÛn adicional "
-"de inscriciÛn: %s."
+"Engadiuse '%s' ao sistema, pero non se pode inclu√≠r a informaci√≥n adicional "
+"de inscrici√≥n: %s."
 
 #: signup.php:47
 #, php-format
 msgid "Added \"%s\" to the system. You can log in now."
-msgstr "Engadiuse '%s' ao sistema. Xa pode iniciar a sesiÛn."
+msgstr "Engadiuse '%s' ao sistema. Xa pode iniciar a sesi√≥n."
 
 #: templates/admin/user/noadd.inc:2
 msgid "Adding users is disabled."
-msgstr "A adiciÛn de usuarios est· deshabilitada."
+msgstr "A adici√≥n de usuarios est√° deshabilitada."
 
 #: framework/MIME/MIME/Viewer/vcard.php:158
 #: framework/MIME/MIME/Viewer/vcard.php:216 framework/Form/Form.php:1556
@@ -680,7 +680,7 @@ msgstr "Axenda de enderezos"
 #: framework/IMAP/IMAP/ACL/rfc2086.php:106
 #, fuzzy
 msgid "Administer"
-msgstr "AdministraciÛn"
+msgstr "Administraci√≥n"
 
 #: framework/IMAP/IMAP/ACL/rfc4314.php:56
 #: framework/IMAP/IMAP/ACL/rfc2086.php:94
@@ -689,7 +689,7 @@ msgstr "Administrador - define permisos doutros usuarios"
 
 #: services/portal/sidebar.php:118
 msgid "Administration"
-msgstr "AdministraciÛn"
+msgstr "Administraci√≥n"
 
 #: config/registry.php.dist:338
 msgid "Ads"
@@ -698,12 +698,12 @@ msgstr "Anuncios"
 #: framework/NLS/NLS/tld.php:18 framework/NLS/NLS/countries.php:11
 #: framework/NLS/NLS/GeoIP.php:56
 msgid "Afghanistan"
-msgstr "Afganist·n"
+msgstr "Afganist√°n"
 
 #: framework/NLS/NLS/tld.php:31
 #, fuzzy
 msgid "Aland Islands"
-msgstr "Illas Caim·n"
+msgstr "Illas Caim√°n"
 
 #: framework/Notification/Notification/Listener/status.php:31
 #, fuzzy
@@ -736,7 +736,7 @@ msgstr "Texto do inductor"
 #: admin/alarms.php:33
 #, fuzzy
 msgid "Alarm title"
-msgstr "TÌtulos das columnas"
+msgstr "T√≠tulos das columnas"
 
 #: admin/alarms.php:123
 #, fuzzy
@@ -785,7 +785,7 @@ msgstr "Permite varios enderezos"
 #: config/prefs.php.dist:569
 #, fuzzy
 msgid "Allow setting of ordered list type"
-msgstr "Quere permitir a configuraciÛn de tipo de listas ordenadas?"
+msgstr "Quere permitir a configuraci√≥n de tipo de listas ordenadas?"
 
 #: config/prefs.php.dist:146
 msgid "Alternate IMSP Login"
@@ -801,7 +801,7 @@ msgstr "Nome de usuario IMPS alternativo"
 
 #: services/resetpassword.php:38
 msgid "Alternate email address"
-msgstr "Enderezo de correo electrÛnico alternativo"
+msgstr "Enderezo de correo electr√≥nico alternativo"
 
 #: framework/NLS/NLS/tld.php:27 framework/NLS/NLS/countries.php:14
 #: framework/NLS/NLS/GeoIP.php:58
@@ -810,16 +810,16 @@ msgstr "Samoa Americana"
 
 #: framework/Prefs/Prefs/UI.php:95 framework/Prefs/Prefs/UI.php:115
 msgid "An illegal value was specified."
-msgstr "O valor que especificou non È v·lido"
+msgstr "O valor que especificou non √© v√°lido"
 
 #: lib/Block/weatherdotcom.php:173
 msgid "An unknown error has occured."
-msgstr "Produciuse un erro descoÒecido."
+msgstr "Produciuse un erro desco√±ecido."
 
 #: framework/iCalendar/iCalendar/vevent.php:112
 #, fuzzy
 msgid "An unknown person"
-msgstr "Produciuse un erro descoÒecido."
+msgstr "Produciuse un erro desco√±ecido."
 
 #: framework/NLS/NLS/tld.php:16 framework/NLS/NLS/countries.php:15
 #: framework/NLS/NLS/GeoIP.php:55
@@ -838,7 +838,7 @@ msgstr "Anguilla"
 
 #: framework/NLS/NLS/GeoIP.php:119
 msgid "Anonymous Proxy"
-msgstr "Servidor mandatario (proxy) anÛnimo"
+msgstr "Servidor mandatario (proxy) an√≥nimo"
 
 #: services/resetpassword.php:53
 msgid "Answer"
@@ -847,7 +847,7 @@ msgstr "Resposta"
 #: framework/NLS/NLS/tld.php:25 framework/NLS/NLS/countries.php:18
 #: framework/NLS/NLS/GeoIP.php:58
 msgid "Antarctica"
-msgstr "Ant·rtida"
+msgstr "Ant√°rtida"
 
 #: framework/NLS/NLS/tld.php:19 framework/NLS/NLS/countries.php:19
 #: framework/NLS/NLS/GeoIP.php:56
@@ -857,25 +857,25 @@ msgstr "Antigua e Barbuda"
 #: framework/Block/Block/UI.php:58 templates/data/csvmap.inc:112
 #: templates/admin/setup/index.html:11
 msgid "Application"
-msgstr "AplicaciÛn"
+msgstr "Aplicaci√≥n"
 
 #: admin/phpshell.php:47
 #, fuzzy
 msgid "Application Context: "
-msgstr "Lista de aplicaciÛns"
+msgstr "Lista de aplicaci√≥ns"
 
 #: util/icon_browser.php:44
 msgid "Application List"
-msgstr "Lista de aplicaciÛns"
+msgstr "Lista de aplicaci√≥ns"
 
 #: admin/setup/index.php:205
 msgid "Application is ready."
-msgstr "A aplicaciÛn est· lista."
+msgstr "A aplicaci√≥n est√° lista."
 
 #: admin/setup/index.php:137 admin/setup/index.php:172
 #, fuzzy
 msgid "Application is up-to-date."
-msgstr "A aplicaciÛn est· lista."
+msgstr "A aplicaci√≥n est√° lista."
 
 #: templates/admin/user/approve.inc:27
 msgid "Approve"
@@ -893,12 +893,12 @@ msgstr "Abril"
 
 #: config/nls.php.dist:222
 msgid "Arabic (Windows-1256)"
-msgstr "¡rabe (Windows-1256)"
+msgstr "√Årabe (Windows-1256)"
 
 #: framework/MIME/MIME/Viewer/rar.php:57 framework/MIME/MIME/Viewer/zip.php:77
 #: framework/MIME/MIME/Viewer/tgz.php:84
 msgid "Archive File Size"
-msgstr "TamaÒo do ficheiro"
+msgstr "Tama√±o do ficheiro"
 
 #: framework/MIME/MIME/Viewer/rar.php:56 framework/MIME/MIME/Viewer/zip.php:76
 #: framework/MIME/MIME/Viewer/tgz.php:83
@@ -908,17 +908,17 @@ msgstr "Nome do ficheiro"
 #: admin/alarms.php:135
 #, fuzzy, php-format
 msgid "Are you sure you want to delete '%s'?"
-msgstr "Est· seguro de que desexa eliminar '%s' e calquera outro subgrupo?"
+msgstr "Est√° seguro de que desexa eliminar '%s' e calquera outro subgrupo?"
 
 #: templates/admin/user/removequeued.inc:10
 #, fuzzy, php-format
 msgid "Are you sure you want to remove the signup request for \"%s\"?"
-msgstr "Esta seguro de que desexa eliminar a solicitude de inscriciÛn de %s?"
+msgstr "Esta seguro de que desexa eliminar a solicitude de inscrici√≥n de %s?"
 
 #: templates/admin/groups/delete.inc:7
 #, php-format
 msgid "Are you sure you wish to delete \"%s\" and any sub-groups?"
-msgstr "Est· seguro de que desexa eliminar '%s' e calquera outro subgrupo?"
+msgstr "Est√° seguro de que desexa eliminar '%s' e calquera outro subgrupo?"
 
 #: framework/NLS/NLS/tld.php:26 framework/NLS/NLS/countries.php:20
 #: framework/NLS/NLS/GeoIP.php:58
@@ -936,7 +936,7 @@ msgstr "Armenio (ARMSCII-8)"
 
 #: lib/Block/fortune.php:37
 msgid "Art"
-msgstr "DeseÒos"
+msgstr "Dese√±os"
 
 #: framework/NLS/NLS/tld.php:30 framework/NLS/NLS/countries.php:22
 #: framework/NLS/NLS/GeoIP.php:59
@@ -945,23 +945,23 @@ msgstr "Aruba"
 
 #: framework/NLS/NLS/tld.php:15
 msgid "Ascension Island"
-msgstr "Illa da AscensiÛn"
+msgstr "Illa da Ascensi√≥n"
 
 #: lib/Block/fortune.php:38
 msgid "Ascii Art"
-msgstr "DeseÒos Ascii"
+msgstr "Dese√±os Ascii"
 
 #: framework/NLS/NLS/GeoIP.php:55
 msgid "Asia/Pacific Region"
-msgstr "RexiÛn de Asia/PacÌfico"
+msgstr "Rexi√≥n de Asia/Pac√≠fico"
 
 #: config/prefs.php.dist:483
 msgid "Ask for confirmation before doing maintenance operations?"
-msgstr "øSolicitarase confirmaciÛn antes de facer operaciÛns de mantemento?"
+msgstr "¬øSolicitarase confirmaci√≥n antes de facer operaci√≥ns de mantemento?"
 
 #: framework/Form/Form.php:4080
 msgid "Assignment columns"
-msgstr "Columnas de asignaciÛn"
+msgstr "Columnas de asignaci√≥n"
 
 #: templates/problem/problem.inc:43
 msgid "Attachment"
@@ -1011,7 +1011,7 @@ msgstr "Austria"
 
 #: framework/Auth/Auth/cyrsql.php:489
 msgid "Auth_cyrsql: Required imap extension not found."
-msgstr "Auth_cyrsql: Non se atopou a extensiÛn imap necesaria."
+msgstr "Auth_cyrsql: Non se atopou a extensi√≥n imap necesaria."
 
 #: framework/Auth/Auth/cyrus.php:131
 msgid "Auth_cyrus: Backend does not have required capabilites."
@@ -1019,36 +1019,36 @@ msgstr "Auth_cyrus: O sistema traseiro carece das capacidades necesarias."
 
 #: framework/Auth/Auth/cyrus.php:234
 msgid "Auth_cyrus: Required imap extension not found."
-msgstr "Auth_cyrus: Non se atopou a extensiÛn imap necesaria."
+msgstr "Auth_cyrus: Non se atopou a extensi√≥n imap necesaria."
 
 #: framework/Auth/Auth/ftp.php:55
 msgid ""
 "Auth_ftp: Required FTP extension not found. Compile PHP with the --enable-"
 "ftp switch."
 msgstr ""
-"Auth_ftp: Non se atopou a extensiÛn FTP necesaria. Compile PHP con a opciÛn "
+"Auth_ftp: Non se atopou a extensi√≥n FTP necesaria. Compile PHP con a opci√≥n "
 "--enable-ftp."
 
 #: framework/Auth/Auth/imap.php:111
 msgid "Auth_imap: Required IMAP extension not found."
-msgstr "Auth_imap: Non se atopou a extensiÛn IMAP necesaria."
+msgstr "Auth_imap: Non se atopou a extensi√≥n IMAP necesaria."
 
 #: framework/Auth/Auth/krb5.php:73
 msgid "Auth_krb5: Required krb5 extension not found."
-msgstr "Auth_krb5: Non se atopou a extensiÛn krb5 necesaria."
+msgstr "Auth_krb5: Non se atopou a extensi√≥n krb5 necesaria."
 
 #: framework/Auth/Auth/ldap.php:352
 msgid "Auth_ldap: Adding users is not supported for Active Directory"
-msgstr "Auth_ldap: Non se soporta a adiciÛn de usuarios de Active Directory"
+msgstr "Auth_ldap: Non se soporta a adici√≥n de usuarios de Active Directory"
 
 #: framework/Auth/Auth/ldap.php:411
 msgid "Auth_ldap: Removing users is not supported for Active Directory"
 msgstr ""
-"Auth_ldap: Non se soporta a eliminaciÛn de usuarios de Active Directory"
+"Auth_ldap: Non se soporta a eliminaci√≥n de usuarios de Active Directory"
 
 #: framework/Auth/Auth/ldap.php:92 framework/Auth/Auth/msad.php:300
 msgid "Auth_ldap: Required LDAP extension not found."
-msgstr "Auth_ldap: Non se atopou a extensiÛn LDAP necesaria."
+msgstr "Auth_ldap: Non se atopou a extensi√≥n LDAP necesaria."
 
 #: framework/Auth/Auth/ldap.php:393
 #, fuzzy, php-format
@@ -1070,7 +1070,7 @@ msgstr "Auth_ldap: Non se pode actualizar o usuario %s"
 #: framework/Auth/Auth/ldap.php:458
 msgid "Auth_ldap: Updating users is not supported for Active Directory."
 msgstr ""
-"Auth_ldap: Non se soporta a actualizaciÛn de usuarios de Active Directory"
+"Auth_ldap: Non se soporta a actualizaci√≥n de usuarios de Active Directory"
 
 #: framework/Auth/Auth/msad.php:151
 #, fuzzy, php-format
@@ -1091,47 +1091,47 @@ msgstr "Auth_ldap: Non se pode actualizar o usuario %s"
 
 #: framework/Auth/Auth/smb.php:84
 msgid "Auth_smbauth: Required smbauth extension not found."
-msgstr "Auth_smbauth: Non se atopou a extensiÛn smbauth necesaria."
+msgstr "Auth_smbauth: Non se atopou a extensi√≥n smbauth necesaria."
 
 #: config/prefs.php.dist:89
 #, fuzzy
 msgid "Authentication Credentials"
-msgstr "Fallou a autenticaciÛn"
+msgstr "Fallou a autenticaci√≥n"
 
 #: framework/IMAP/IMAP/Admin.php:103
 msgid "Authentication at IMAP server failed."
-msgstr "Fallou a autenticaciÛn co servidor IMAP."
+msgstr "Fallou a autenticaci√≥n co servidor IMAP."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:298
 msgid "Authentication failed"
-msgstr "Fallou a autenticaciÛn"
+msgstr "Fallou a autenticaci√≥n"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:76
 #: framework/Net_SMS/SMS/clickatell_http.php:85
 #, php-format
 msgid "Authentication failed. %s"
-msgstr "Fallou a autenticaciÛn. %s"
+msgstr "Fallou a autenticaci√≥n. %s"
 
 #: framework/Auth/Auth/radius.php:182
 msgid "Authentication rejected by RADIUS server."
-msgstr "O servidor RADIUS rexeitou a autenticaciÛn."
+msgstr "O servidor RADIUS rexeitou a autenticaci√≥n."
 
 #: framework/VFS/lib/VFS/ftp.php:946
 msgid "Authentication to FTP server failed."
-msgstr "Fallou a autenticaciÛn co servidor FTP."
+msgstr "Fallou a autenticaci√≥n co servidor FTP."
 
 #: framework/VFS/lib/VFS/ssh2.php:943
 #, fuzzy
 msgid "Authentication to SSH2 server failed."
-msgstr "Fallou a autenticaciÛn co servidor FTP."
+msgstr "Fallou a autenticaci√≥n co servidor FTP."
 
 #: framework/VFS/lib/VFS/smb.php:70
 msgid "Authentication to the SMB server failed."
-msgstr "Fallou a autenticaciÛn co servidor SMB."
+msgstr "Fallou a autenticaci√≥n co servidor SMB."
 
 #: templates/data/csvmap.inc:70
 msgid "Available fields:"
-msgstr "Campos dispoÒibles:"
+msgstr "Campos dispo√±ibles:"
 
 #: framework/NLS/NLS/tld.php:32 framework/NLS/NLS/countries.php:25
 #: framework/NLS/NLS/GeoIP.php:59
@@ -1166,7 +1166,7 @@ msgstr "Bahrayn"
 
 #: config/nls.php.dist:224
 msgid "Baltic (ISO-8859-13)"
-msgstr "B·ltico (ISO-8859-13)"
+msgstr "B√°ltico (ISO-8859-13)"
 
 #: framework/NLS/NLS/tld.php:35 framework/NLS/NLS/countries.php:28
 #: framework/NLS/NLS/GeoIP.php:60
@@ -1200,7 +1200,7 @@ msgstr "Belorrusia"
 #: framework/NLS/NLS/tld.php:36 framework/NLS/NLS/countries.php:31
 #: framework/NLS/NLS/GeoIP.php:60
 msgid "Belgium"
-msgstr "BÈlxica"
+msgstr "B√©lxica"
 
 #: framework/NLS/NLS/tld.php:51 framework/NLS/NLS/countries.php:32
 #: framework/NLS/NLS/GeoIP.php:63
@@ -1229,11 +1229,11 @@ msgstr "Aniversario"
 #: framework/Block/Block/Collection.php:367
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
-msgstr "Non se atopou o bloque \"%s\" da aplicaciÛn \"%s\"."
+msgstr "Non se atopou o bloque \"%s\" da aplicaci√≥n \"%s\"."
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
-msgstr "OpciÛns de bloque"
+msgstr "Opci√≥ns de bloque"
 
 #: templates/portal/layout.inc:72
 msgid "Block Type"
@@ -1242,7 +1242,7 @@ msgstr "Tipo de bloque"
 #: themes/bluemoon/info.php:6
 #, fuzzy
 msgid "Blue Moon"
-msgstr "L˙a nova"
+msgstr "L√∫a nova"
 
 #: themes/bluewhite/info.php:6
 #, fuzzy
@@ -1285,7 +1285,7 @@ msgstr "Brasil"
 #: framework/NLS/NLS/tld.php:120 framework/NLS/NLS/countries.php:41
 #: framework/NLS/NLS/GeoIP.php:81
 msgid "British Indian Ocean Territory"
-msgstr "Territorio Brit·nico do OcÈano Õndico"
+msgstr "Territorio Brit√°nico do Oc√©ano √çndico"
 
 #: themes/brown/info.php:6
 #, fuzzy
@@ -1327,7 +1327,7 @@ msgstr "CRC"
 
 #: framework/Crypt/Crypt/smime.php:601
 msgid "CRL Distribution Points"
-msgstr "Puntos de distribuciÛn CRL"
+msgstr "Puntos de distribuci√≥n CRL"
 
 #: lib/Block/weatherdotcom.php:169
 msgid "Cache init was not completed."
@@ -1350,7 +1350,7 @@ msgstr "Cambodja"
 #: framework/NLS/NLS/tld.php:61 framework/NLS/NLS/countries.php:47
 #: framework/NLS/NLS/GeoIP.php:67
 msgid "Cameroon"
-msgstr "Camer˙n"
+msgstr "Camer√∫n"
 
 #: themes/camouflage/info.php:6
 msgid "Camouflage"
@@ -1368,7 +1368,7 @@ msgstr "Non se pode conectar co servidor IMAP: %s"
 #: framework/NLS/NLS/tld.php:52 framework/NLS/NLS/countries.php:48
 #: framework/NLS/NLS/GeoIP.php:64
 msgid "Canada"
-msgstr "Canad·"
+msgstr "Canad√°"
 
 #: admin/user.php:117 admin/user.php:136 templates/admin/groups/delete.inc:11
 #: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
@@ -1382,7 +1382,7 @@ msgstr "Cancela o informe de problemas"
 #: admin/sessions.php:23
 #, fuzzy
 msgid "Cannot administer external session handlers."
-msgstr "Non se poden administrar manexadores de sesiÛn externos."
+msgstr "Non se poden administrar manexadores de sesi√≥n externos."
 
 #: framework/Auth/Auth/cyrus.php:241
 #, fuzzy, php-format
@@ -1421,7 +1421,7 @@ msgstr "Non se pode localizar un directorio temporal."
 #, fuzzy
 msgid "Cannot move file(s) - destination is within source."
 msgstr ""
-"Non se pode(n) mover o(s) ficheiro(s) - o destino est· dentro da orixe:"
+"Non se pode(n) mover o(s) ficheiro(s) - o destino est√° dentro da orixe:"
 
 #: framework/File_CSV/CSV.php:519
 #, fuzzy, php-format
@@ -1430,7 +1430,7 @@ msgstr "Non se pode abrir o ficheiro \"%s\"."
 
 #: framework/VFS_ISOWriter/ISOWriter.php:91
 msgid "Cannot proceed without 'targetFile' parameter."
-msgstr "Non se pode continuar sen o par·metro 'targetFile'."
+msgstr "Non se pode continuar sen o par√°metro 'targetFile'."
 
 #: framework/VFS/lib/VFS/ftp.php:363 framework/VFS/lib/VFS/ssh2.php:348
 #, php-format
@@ -1454,19 +1454,19 @@ msgid ""
 "Cannot reorder, number of entries supplied for reorder does not match number "
 "stored."
 msgstr ""
-"Non se pode reordenar: o n˙mero de entradas que se indicaron para ordenar "
+"Non se pode reordenar: o n√∫mero de entradas que se indicaron para ordenar "
 "non coincide co das almacenadas."
 
 #: services/resetpassword.php:23
 #, fuzzy
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
-"Non se pode restablecer o contrasinal automaticamente; pÛÒase en contacto co "
+"Non se pode restablecer o contrasinal automaticamente; p√≥√±ase en contacto co "
 "administrador do sistema."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:317
 msgid "Cannot route message to specified number."
-msgstr "Non se pode dirixir a mensaxe ao n˙mero especificado."
+msgstr "Non se pode dirixir a mensaxe ao n√∫mero especificado."
 
 #: framework/File_CSV/CSV.php:418
 #, fuzzy, php-format
@@ -1484,17 +1484,17 @@ msgstr "Provedor"
 
 #: config/prefs.php.dist:113
 msgid "Categories and Labels"
-msgstr "CategorÌas e etiquetas"
+msgstr "Categor√≠as e etiquetas"
 
 #: framework/Form/Form.php:4356
 #, fuzzy
 msgid "Category"
-msgstr "Nova categorÌa"
+msgstr "Nova categor√≠a"
 
 #: framework/NLS/NLS/tld.php:138 framework/NLS/NLS/countries.php:50
 #: framework/NLS/NLS/GeoIP.php:86
 msgid "Cayman Islands"
-msgstr "Illas Caim·n"
+msgstr "Illas Caim√°n"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:78
 msgid "Cc"
@@ -1502,16 +1502,16 @@ msgstr ""
 
 #: framework/MIME/MIME/Viewer/vcard.php:242
 msgid "Cell Phone"
-msgstr "TelÈfono mÛbil"
+msgstr "Tel√©fono m√≥bil"
 
 #: config/nls.php.dist:225
 msgid "Celtic (ISO-8859-14)"
-msgstr "CÈltico (ISO-8859-14)"
+msgstr "C√©ltico (ISO-8859-14)"
 
 #: framework/NLS/NLS/tld.php:55 framework/NLS/NLS/countries.php:51
 #: framework/NLS/NLS/GeoIP.php:65
 msgid "Central African Republic"
-msgstr "Rep˙blica Centroafricana"
+msgstr "Rep√∫blica Centroafricana"
 
 #: config/nls.php.dist:226
 msgid "Central European (ISO-8859-2)"
@@ -1527,7 +1527,7 @@ msgstr "Propietario do certificado"
 
 #: framework/Crypt/Crypt/smime.php:600
 msgid "Certificate Policies"
-msgstr "PolÌticas do certificado"
+msgstr "Pol√≠ticas do certificado"
 
 #: framework/NLS/NLS/tld.php:227 framework/NLS/NLS/countries.php:52
 #: framework/NLS/NLS/GeoIP.php:108
@@ -1547,7 +1547,7 @@ msgid ""
 "Change the name and address that people see when they read and reply to your "
 "emails."
 msgstr ""
-"Cambia o nome e o enderezo electrÛnico visibles ao ler ou responder as s˙as "
+"Cambia o nome e o enderezo electr√≥nico visibles ao ler ou responder as s√∫as "
 "mensaxes."
 
 #: services/changepassword.php:26
@@ -1555,7 +1555,7 @@ msgid ""
 "Changing your password is not supported with the current configuration.  "
 "Contact your administrator."
 msgstr ""
-"A configuraciÛn actual non soporta o cambio de contrasinais. PÛÒase en "
+"A configuraci√≥n actual non soporta o cambio de contrasinais. P√≥√±ase en "
 "contacto co administrador do sistema."
 
 #: framework/Form/Form.php:2451
@@ -1575,7 +1575,7 @@ msgstr ""
 #: lib/Block/vatid.php:47
 #, fuzzy
 msgid "Checking"
-msgstr "Verifica a ligazÛn..."
+msgstr "Verifica a ligaz√≥n..."
 
 #: templates/admin/groups/addchild.inc:10
 #, fuzzy
@@ -1594,11 +1594,11 @@ msgstr "China"
 
 #: config/nls.php.dist:227
 msgid "Chinese Simplified (GB2312)"
-msgstr "ChinÈs simplificado (GB2312)"
+msgstr "Chin√©s simplificado (GB2312)"
 
 #: config/nls.php.dist:228
 msgid "Chinese Traditional (Big5)"
-msgstr "ChinÈs tradicional (Big5)"
+msgstr "Chin√©s tradicional (Big5)"
 
 #: services/obrowser/index.php:98
 #, fuzzy, php-format
@@ -1607,7 +1607,7 @@ msgstr "Cursos"
 
 #: templates/prefs/app.inc:7
 msgid "Choose Application:"
-msgstr "Elixa a aplicaciÛn:"
+msgstr "Elixa a aplicaci√≥n:"
 
 #: framework/Auth/Auth/Signup.php:278 framework/Auth/Auth/Signup.php:292
 msgid "Choose a password"
@@ -1629,7 +1629,7 @@ msgstr "Illa Christmas"
 #: framework/Net_SMS/SMS.php:294 framework/VFS/lib/VFS.php:1067
 #, php-format
 msgid "Class definition of %s not found."
-msgstr "Non se atopou a definiciÛn de clase de %s."
+msgstr "Non se atopou a definici√≥n de clase de %s."
 
 #: lib/Block/weatherdotcom_strings.php:21
 msgid "Clear"
@@ -1723,15 +1723,15 @@ msgstr "Selector de cor"
 
 #: framework/Form/Form.php:3766
 msgid "Colour selection"
-msgstr "SelecciÛn de cor"
+msgstr "Selecci√≥n de cor"
 
 #: framework/Form/Form.php:2670
 msgid "Column titles"
-msgstr "TÌtulos das columnas"
+msgstr "T√≠tulos das columnas"
 
 #: config/registry.php.dist:284
 msgid "Comics"
-msgstr "CÛmics"
+msgstr "C√≥mics"
 
 #: admin/cmdshell.php:26 admin/cmdshell.php:48
 msgid "Command"
@@ -1739,7 +1739,7 @@ msgstr "Comando"
 
 #: admin/cmdshell.php:20
 msgid "Command Shell"
-msgstr "IntÈrpr. comandos"
+msgstr "Int√©rpr. comandos"
 
 #: framework/Crypt/Crypt/pgp.php:449
 msgid "Comment"
@@ -1747,7 +1747,7 @@ msgstr "Comentario"
 
 #: framework/Crypt/Crypt/smime.php:570
 msgid "Common Name"
-msgstr "Nome com˙n"
+msgstr "Nome com√∫n"
 
 #: framework/NLS/NLS/tld.php:133 framework/NLS/NLS/countries.php:58
 #: framework/NLS/NLS/GeoIP.php:84
@@ -1764,28 +1764,28 @@ msgstr "Ordenadores"
 
 #: lib/Block/weatherdotcom.php:303
 msgid "Condition"
-msgstr "CondiciÛn"
+msgstr "Condici√≥n"
 
 #: lib/Block/metar.php:261
 msgid "Conditions"
-msgstr "CondiciÛns"
+msgstr "Condici√≥ns"
 
 #: templates/admin/setup/config.html:9
 #, fuzzy
 msgid "Configuration"
-msgstr "Restaura a configuraciÛn"
+msgstr "Restaura a configuraci√≥n"
 
 #: admin/setup/diff.php:93
 msgid "Configuration Differences"
-msgstr "Diferencias da configuraciÛn"
+msgstr "Diferencias da configuraci√≥n"
 
 #: config/prefs.php.dist:163
 msgid "Configuration for syncing with PDAs, Smartphones and Outlook."
-msgstr "ConfiguraciÛn para sincronizar con PDA, mÛbiles con axenda e Outlook."
+msgstr "Configuraci√≥n para sincronizar con PDA, m√≥biles con axenda e Outlook."
 
 #: admin/setup/index.php:200
 msgid "Configuration is out of date."
-msgstr "A configuraciÛn est· obsoleta"
+msgstr "A configuraci√≥n est√° obsoleta"
 
 #: admin/setup/index.php:153
 #, php-format
@@ -1799,7 +1799,7 @@ msgstr "Confirme o contrasinal."
 #: framework/Prefs/Identity.php:424
 #, fuzzy
 msgid "Confirm new email address"
-msgstr "Enderezo de correo electrÛnico alternativo"
+msgstr "Enderezo de correo electr√≥nico alternativo"
 
 #: framework/NLS/NLS/countries.php:59 framework/NLS/NLS/GeoIP.php:66
 msgid "Congo"
@@ -1813,37 +1813,37 @@ msgstr "Moldavia"
 #: framework/NLS/NLS/tld.php:54 framework/NLS/NLS/countries.php:60
 #: framework/NLS/NLS/GeoIP.php:65
 msgid "Congo, The Democratic Republic of the"
-msgstr "Congo, Rep˙blica Democr·tica do"
+msgstr "Congo, Rep√∫blica Democr√°tica do"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:217
 #: framework/IMAP/IMAP/ACL/rfc2086.php:371
 #: framework/IMAP/IMAP/ACL/rfc2086.php:521
 msgid "Connection failed."
-msgstr "Houbo un fallo na conexiÛn."
+msgstr "Houbo un fallo na conexi√≥n."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:217
 #: framework/IMAP/IMAP/ACL/rfc2086.php:371
 #: framework/IMAP/IMAP/ACL/rfc2086.php:521
 msgid "Connection failed: "
-msgstr "Houbo un fallo na conexiÛn: "
+msgstr "Houbo un fallo na conexi√≥n: "
 
 #: framework/Crypt/Crypt/pgp.php:994
 msgid "Connection refused to the public keyserver."
-msgstr "Rexeitouse a conexiÛn ao servidor de claves p˙blico."
+msgstr "Rexeitouse a conexi√≥n ao servidor de claves p√∫blico."
 
 #: framework/Crypt/Crypt/pgp.php:996
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
-msgstr "Rexeitouse a conexiÛn ao servidor de claves p˙blico. Motivo: %s (%s)"
+msgstr "Rexeitouse a conexi√≥n ao servidor de claves p√∫blico. Motivo: %s (%s)"
 
 #: framework/VFS/lib/VFS/ftp.php:939
 msgid "Connection to FTP server failed."
-msgstr "Houbo un fallo na conexiÛn ao servidor FTP."
+msgstr "Houbo un fallo na conexi√≥n ao servidor FTP."
 
 #: framework/VFS/lib/VFS/ssh2.php:937
 #, fuzzy
 msgid "Connection to SSH2 server failed."
-msgstr "Houbo un fallo na conexiÛn ao servidor FTP."
+msgstr "Houbo un fallo na conexi√≥n ao servidor FTP."
 
 #: framework/Share/Share/kolab.php:443 framework/Kolab/Kolab.php:755
 msgid "Contacts"
@@ -1862,7 +1862,7 @@ msgstr "Contidos de '%s'"
 
 #: services/resetpassword.php:32 services/changepassword.php:35
 msgid "Continue"
-msgstr "Contin˙a"
+msgstr "Contin√∫a"
 
 #: framework/NLS/NLS/tld.php:59 framework/NLS/NLS/countries.php:61
 #: framework/NLS/NLS/GeoIP.php:66
@@ -1871,7 +1871,7 @@ msgstr "Illas Cook"
 
 #: lib/Block/fortune.php:41
 msgid "Cookie"
-msgstr "TestemuÒo ('cookie')"
+msgstr "Testemu√±o ('cookie')"
 
 #: framework/VFS/lib/VFS/smb.php:544
 #, php-format
@@ -1956,7 +1956,7 @@ msgstr "Non se pode conectar ao servidor '%s' mediante FTP: %s"
 #: framework/Net_SMS/SMS/sms2email_http.php:331
 #, php-format
 msgid "Could not create distribution list. %s"
-msgstr "Non se pode crear a lista de distribuciÛn. %s"
+msgstr "Non se pode crear a lista de distribuci√≥n. %s"
 
 #: framework/Crypt/Crypt/pgp.php:1376
 msgid "Could not decrypt PGP data: "
@@ -1974,19 +1974,19 @@ msgstr "Non se pode eliminar o contacto. %s"
 #: framework/Net_SMS/SMS/sms2email_http.php:365
 #, php-format
 msgid "Could not delete distribution list. %s"
-msgstr "Non se pode eliminar a lista de distribuciÛn. %s"
+msgstr "Non se pode eliminar a lista de distribuci√≥n. %s"
 
 #: admin/setup/scripts.php:39
 #, php-format
 msgid "Could not delete setup upgrade script \"%s\"."
 msgstr ""
-"Non se pode eliminar a secuencia de comandos de actualizaciÛn da "
-"configuraciÛn '%s'."
+"Non se pode eliminar a secuencia de comandos de actualizaci√≥n da "
+"configuraci√≥n '%s'."
 
 #: framework/Crypt/Crypt/smime.php:384 framework/Crypt/Crypt/pgp.php:1180
 msgid "Could not determine the recipient's e-mail address."
 msgstr ""
-"Non se pode determinar o enderezo de correo electrÛnico do destinatario."
+"Non se pode determinar o enderezo de correo electr√≥nico do destinatario."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:292
 msgid "Could not fetch complete address book."
@@ -1994,11 +1994,11 @@ msgstr "Non se pode traer a axenda de enderezos completa."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:502
 msgid "Could not fetch complete distribution list."
-msgstr "Non se pode traer a lista de distribuciÛn completa."
+msgstr "Non se pode traer a lista de distribuci√≥n completa."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:455
 msgid "Could not fetch the complete list of distribution lists."
-msgstr "Non se pode traer a listaxe total de listas de distribuciÛn."
+msgstr "Non se pode traer a listaxe total de listas de distribuci√≥n."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealOutputStrategy.php:68
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy.php:84
@@ -2014,7 +2014,7 @@ msgstr "Non se pode crear o directorio '%s'."
 
 #: framework/Crypt/Crypt/pgp.php:802 framework/Crypt/Crypt/pgp.php:898
 msgid "Could not obtain public key from the keyserver."
-msgstr "Non se pode obter a clave p˙blica do servidor de claves."
+msgstr "Non se pode obter a clave p√∫blica do servidor de claves."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:139
 #, php-format
@@ -2031,7 +2031,7 @@ msgstr "Non se pode abrir %s."
 #: framework/Maintenance/Maintenance.php:432
 #, php-format
 msgid "Could not open Maintenance_Task module %s"
-msgstr "Non se pode abrir o mÛdulo de Tarefas de mantemento %s"
+msgstr "Non se pode abrir o m√≥dulo de Tarefas de mantemento %s"
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:70
 #, php-format
@@ -2070,8 +2070,8 @@ msgid ""
 "further help."
 msgstr ""
 "Non se pode restablecer o contrasinal para o usuario solicitado. Parte dos "
-"detalles ou todos, son incorrectos. TÈnteo outra vez ou pÛÒase en contacto "
-"co administrador do sistema se precisa m·is informaciÛn."
+"detalles ou todos, son incorrectos. T√©nteo outra vez ou p√≥√±ase en contacto "
+"co administrador do sistema se precisa m√°is informaci√≥n."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:332
 #: framework/IMAP/IMAP/ACL/rfc2086.php:370
@@ -2096,12 +2096,12 @@ msgstr "Non se pode recuperar a axenda de enderezos. %s"
 #: framework/Net_SMS/SMS/sms2email_http.php:493
 #, php-format
 msgid "Could not retrieve distribution list. %s"
-msgstr "Non se pode recuperar a lista de distribuciÛn. %s"
+msgstr "Non se pode recuperar a lista de distribuci√≥n. %s"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:446
 #, php-format
 msgid "Could not retrieve distribution lists. %s"
-msgstr "Non se poden recuperar as listas de distribuciÛn. %s"
+msgstr "Non se poden recuperar as listas de distribuci√≥n. %s"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:217
 #: framework/IMAP/IMAP/ACL/rfc2086.php:222
@@ -2111,7 +2111,7 @@ msgstr "Non se poden recuperar as capacidades do servidor"
 
 #: admin/setup/config.php:54
 msgid "Could not revert configuration."
-msgstr "Non se pode restaurar a configuraciÛn."
+msgstr "Non se pode restaurar a configuraci√≥n."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:94
 #, php-format
@@ -2121,29 +2121,29 @@ msgstr "Non se pode eliminar o directorio '%s'."
 #: admin/setup/scripts.php:74
 #, php-format
 msgid "Could not save %s configuration."
-msgstr "Non se pode gardar a configuraciÛn de %s."
+msgstr "Non se pode gardar a configuraci√≥n de %s."
 
 #: admin/setup/index.php:61 admin/setup/scripts.php:60
 msgid "Could not save a backup configuation."
-msgstr "Non se pode gardar unha copia de seguranza da configuraciÛn."
+msgstr "Non se pode gardar unha copia de seguranza da configuraci√≥n."
 
 #: admin/setup/index.php:59
 #, php-format
 msgid "Could not save a backup configuation: %s"
-msgstr "Non se pode gardar unha copia de seguranza da configuraciÛn: %s"
+msgstr "Non se pode gardar unha copia de seguranza da configuraci√≥n: %s"
 
 #: admin/setup/scripts.php:102
 #, php-format
 msgid "Could not save setup upgrade script to: \"%s\"."
 msgstr ""
-"Non se pode gardar a secuencia de comandos de actualizaciÛn da configuraciÛn "
+"Non se pode gardar a secuencia de comandos de actualizaci√≥n da configuraci√≥n "
 "en: '%s'."
 
 #: admin/setup/config.php:64
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr ""
-"Non se pode gardar a copia de seguranza do ficheiro de configuraciÛn %s."
+"Non se pode gardar a copia de seguranza do ficheiro de configuraci√≥n %s."
 
 #: admin/setup/config.php:77
 #, php-format
@@ -2151,8 +2151,8 @@ msgid ""
 "Could not save the configuration file %s. You can either use one of the "
 "options to save the code back on %s or copy manually the code below to %s."
 msgstr ""
-"Non se pode gardar o ficheiro %s de configuraciÛn. Pode utilizar unha das "
-"opciÛns para restaurar o cÛdigo de %s ou copiar manualmente a %s o cÛdigo "
+"Non se pode gardar o ficheiro %s de configuraci√≥n. Pode utilizar unha das "
+"opci√≥ns para restaurar o c√≥digo de %s ou copiar manualmente a %s o c√≥digo "
 "seguinte."
 
 #: framework/Auth/Auth/ldap.php:175
@@ -2177,12 +2177,12 @@ msgstr "Non se pode actualizar o contacto. %s"
 #: framework/Net_SMS/SMS/sms2email_http.php:405
 #, php-format
 msgid "Could not update distribution list. %s"
-msgstr "Non se pode actualizar a lista de distribuciÛn. %s"
+msgstr "Non se pode actualizar a lista de distribuci√≥n. %s"
 
 #: admin/setup/index.php:68
 #, php-format
 msgid "Could not write configuration for \"%s\": %s"
-msgstr "Non se pode escribir a configuraciÛn de '%s': %s"
+msgstr "Non se pode escribir a configuraci√≥n de '%s': %s"
 
 #: config/prefs.php.dist:424
 msgid "Couldn't find the Mozilla Sidebar. Make sure the sidebar is open."
@@ -2203,7 +2203,7 @@ msgstr "Texto contado"
 
 #: framework/Crypt/Crypt/smime.php:573 lib/Block/vatid.php:92
 msgid "Country"
-msgstr "PaÌs"
+msgstr "Pa√≠s"
 
 #: framework/Form/Form.php:1702
 #, fuzzy
@@ -2240,7 +2240,7 @@ msgstr "Permisos de creador"
 
 #: framework/Form/Form.php:4195
 msgid "Credit card number"
-msgstr "N˙mero de tarxeta de crÈdito"
+msgstr "N√∫mero de tarxeta de cr√©dito"
 
 #: framework/NLS/NLS/countries.php:64 framework/NLS/NLS/GeoIP.php:79
 msgid "Croatia"
@@ -2267,7 +2267,7 @@ msgstr "Usuarios actuais"
 
 #: admin/sessions.php:40
 msgid "Current Sessions"
-msgstr "SesiÛns actuais"
+msgstr "Sesi√≥ns actuais"
 
 #: lib/Block/time.php:3 lib/Block/time.php:38
 msgid "Current Time"
@@ -2279,12 +2279,12 @@ msgstr "Tempo actual"
 
 #: lib/Block/weatherdotcom.php:282
 msgid "Current condition: "
-msgstr "CondiciÛn actual: "
+msgstr "Condici√≥n actual: "
 
 #: config/prefs.php.dist:131
 #, php-format
 msgid "Customize tasks to run upon logon to %s."
-msgstr "Personaliza as tarefas que executar ao inicio da sesiÛn en %s."
+msgstr "Personaliza as tarefas que executar ao inicio da sesi√≥n en %s."
 
 #: framework/NLS/NLS/tld.php:68 framework/NLS/NLS/countries.php:66
 #: framework/NLS/NLS/GeoIP.php:68
@@ -2293,20 +2293,20 @@ msgstr "Chipre"
 
 #: config/nls.php.dist:229
 msgid "Cyrillic (KOI8-R)"
-msgstr "CirÌlico (KOI8-R)"
+msgstr "Cir√≠lico (KOI8-R)"
 
 #: config/nls.php.dist:230
 msgid "Cyrillic (Windows-1251)"
-msgstr "CirÌlico (Windows-1251)"
+msgstr "Cir√≠lico (Windows-1251)"
 
 #: config/nls.php.dist:231
 msgid "Cyrillic/Ukrainian (KOI8-U)"
-msgstr "CirÌlico/UcraÌno (KOI8-Ou)"
+msgstr "Cir√≠lico/Ucra√≠no (KOI8-Ou)"
 
 #: framework/NLS/NLS/tld.php:69 framework/NLS/NLS/countries.php:67
 #: framework/NLS/NLS/GeoIP.php:69
 msgid "Czech Republic"
-msgstr "Rep˙blica Checa"
+msgstr "Rep√∫blica Checa"
 
 #: framework/UI/UI/VarRenderer/html.php:490 templates/data/date.inc:47
 #: templates/data/date.inc:48 templates/data/date.inc:49
@@ -2320,7 +2320,7 @@ msgstr "DD"
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
-"DSN (vÈxase http://pear.php.net/manual/es/package.database.db.intro-dsn.php)"
+"DSN (v√©xase http://pear.php.net/manual/es/package.database.db.intro-dsn.php)"
 
 #: framework/Maintenance/Maintenance.php:64
 #: framework/Date/Date/Recurrence.php:199
@@ -2341,11 +2341,11 @@ msgstr ""
 #: admin/datatree.php:68
 #, fuzzy
 msgid "DataTree"
-msgstr "¡rbore de datos"
+msgstr "√Årbore de datos"
 
 #: admin/datatree.php:65
 msgid "DataTree Browser"
-msgstr "Navegador da ·rbore de datos"
+msgstr "Navegador da √°rbore de datos"
 
 #: templates/syncml/syncml.inc:10
 #, fuzzy
@@ -2369,11 +2369,11 @@ msgstr "Recibiuse a data"
 #: framework/Form/Form.php:3726
 #, fuzzy
 msgid "Date and time selection"
-msgstr "SelecciÛn de data"
+msgstr "Selecci√≥n de data"
 
 #: framework/Form/Form.php:3560
 msgid "Date selection"
-msgstr "SelecciÛn de data"
+msgstr "Selecci√≥n de data"
 
 #: templates/data/datetime.inc:70 templates/data/datetime.inc:71
 #, php-format
@@ -2382,7 +2382,7 @@ msgstr ""
 
 #: lib/Block/weatherdotcom.php:298 lib/Block/weatherdotcom.php:327
 msgid "Day"
-msgstr "DÌa"
+msgstr "D√≠a"
 
 #: framework/UI/UI/VarRenderer/html.php:451
 #: framework/UI/UI/VarRenderer/html.php:489
@@ -2414,7 +2414,7 @@ msgstr "Shell predefinida"
 
 #: lib/Block/fortune.php:42
 msgid "Definitions"
-msgstr "DefiniciÛns"
+msgstr "Definici√≥ns"
 
 #: admin/groups.php:77 framework/Perms/Perms.php:403
 #: framework/Perms/Perms/UI.php:480 framework/Perms/Perms/UI.php:497
@@ -2488,7 +2488,7 @@ msgstr "Elimina"
 #, php-format
 msgid "Deleted setup upgrade script \"%s\"."
 msgstr ""
-"Eliminouse a secuencia de comandos de actualizaciÛn da configuraciÛn '%s'."
+"Eliminouse a secuencia de comandos de actualizaci√≥n da configuraci√≥n '%s'."
 
 #: services/portal/syncml.php:33
 #, php-format
@@ -2519,15 +2519,15 @@ msgstr "Desenvolvemento"
 
 #: templates/problem/problem.inc:27
 msgid "Describe the Problem"
-msgstr "DescriciÛn do problema"
+msgstr "Descrici√≥n do problema"
 
 #: framework/Form/Form.php:939
 msgid "Description"
-msgstr "DescriciÛn"
+msgstr "Descrici√≥n"
 
 #: framework/Horde/Horde.php:242
 msgid "Details have been logged for the administrator."
-msgstr "Rexistr·ronse os detalles para o administrador."
+msgstr "Rexistr√°ronse os detalles para o administrador."
 
 #: framework/Horde/Horde.php:233
 #, fuzzy
@@ -2541,19 +2541,19 @@ msgstr "Desenvolvemento"
 #: templates/syncml/syncml.inc:9
 #, fuzzy
 msgid "Device"
-msgstr "PrevisualizaciÛn"
+msgstr "Previsualizaci√≥n"
 
 #: lib/Block/metar.php:229
 msgid "Dew Point"
-msgstr "Punto de condensaciÛn"
+msgstr "Punto de condensaci√≥n"
 
 #: lib/Block/metar.php:306
 msgid "Dew Point for last hour: "
-msgstr "Punto de condensaciÛn da ˙ltima hora: "
+msgstr "Punto de condensaci√≥n da √∫ltima hora: "
 
 #: lib/Block/weatherdotcom.php:234
 msgid "Dew point: "
-msgstr "Punto de condensaciÛn: "
+msgstr "Punto de condensaci√≥n: "
 
 #: framework/UI/UI/VarRenderer/html.php:1170
 #, php-format
@@ -2575,23 +2575,23 @@ msgstr "Quere mostrar en formato de 24-horas?"
 
 #: config/prefs.php.dist:120
 msgid "Display Options"
-msgstr "OpciÛns de visualizaciÛn"
+msgstr "Opci√≥ns de visualizaci√≥n"
 
 #: lib/Block/weatherdotcom.php:89
 msgid "Display detailed forecast"
-msgstr "Mostra o prognÛstico detallado"
+msgstr "Mostra o progn√≥stico detallado"
 
 #: lib/Block/metar.php:100
 msgid "Display forecast (TAF)"
-msgstr "Mostra o prognÛstico (TAF)"
+msgstr "Mostra o progn√≥stico (TAF)"
 
 #: framework/Form/Form.php:3570 framework/Form/Form.php:3736
 msgid "Display format"
-msgstr "Formato de visualizaciÛn"
+msgstr "Formato de visualizaci√≥n"
 
 #: framework/MIME/MIME/MDN.php:180
 msgid "Disposition Notification"
-msgstr "NotificaciÛn de consulta"
+msgstr "Notificaci√≥n de consulta"
 
 #: framework/NLS/NLS/tld.php:71 framework/NLS/NLS/countries.php:69
 #: framework/NLS/NLS/GeoIP.php:69
@@ -2609,7 +2609,7 @@ msgstr "Non acceda directamente a \"maintenance.php\""
 #: templates/data/tsvinfo.inc:12 templates/data/csvinfo.inc:12
 msgid "Does the first row contain the field names? If yes, check this box:"
 msgstr ""
-"øContÈn a primeira fila os nomes dos campos? Se È asÌ, seleccione este "
+"¬øCont√©n a primeira fila os nomes dos campos? Se √© as√≠, seleccione este "
 "recadro:"
 
 #: framework/MIME/MIME/Viewer/vcard.php:141
@@ -2626,11 +2626,11 @@ msgstr "Dominica"
 #: framework/NLS/NLS/tld.php:74 framework/NLS/NLS/countries.php:71
 #: framework/NLS/NLS/GeoIP.php:70
 msgid "Dominican Republic"
-msgstr "Rep˙blica Dominicana"
+msgstr "Rep√∫blica Dominicana"
 
 #: templates/login/login.inc:83
 msgid "Don't have an account? Sign up."
-msgstr "Non dispÛn de conta? Solicite unha."
+msgstr "Non disp√≥n de conta? Solicite unha."
 
 #: admin/setup/index.php:134 admin/setup/index.php:169
 #: framework/MIME/MIME/Contents.php:1017
@@ -2640,7 +2640,7 @@ msgstr "Descarga %s"
 
 #: admin/setup/index.php:227
 msgid "Download generated configuration as PHP script."
-msgstr "Descarga a configuraciÛn xerada como unha secuencia de comandos PHP."
+msgstr "Descarga a configuraci√≥n xerada como unha secuencia de comandos PHP."
 
 #: lib/Block/weatherdotcom_strings.php:27
 #, fuzzy
@@ -2662,11 +2662,11 @@ msgstr ""
 #: services/keyboard.php:66
 #, fuzzy
 msgid "E characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: framework/Crypt/Crypt/pgp.php:449
 msgid "E-Mail"
-msgstr "Correo electrÛnico"
+msgstr "Correo electr√≥nico"
 
 #: framework/Notification/Notification/Listener/mobile.php:34
 msgid "ERR"
@@ -2716,7 +2716,7 @@ msgstr "Modifica un permiso"
 
 #: templates/prefs/app.inc:5
 msgid "Edit options for:"
-msgstr "Modifica opciÛns de:"
+msgstr "Modifica opci√≥ns de:"
 
 #: services/shares/edit.php:250
 #, fuzzy
@@ -2731,7 +2731,7 @@ msgstr "Modifica permisos de \"%s\""
 
 #: lib/Block/fortune.php:44
 msgid "Education"
-msgstr "EducaciÛn"
+msgstr "Educaci√≥n"
 
 #: framework/NLS/NLS/tld.php:78 framework/NLS/NLS/countries.php:73
 #: framework/NLS/NLS/GeoIP.php:70
@@ -2745,35 +2745,35 @@ msgstr "El Salvador"
 
 #: framework/MIME/MIME/Viewer/vcard.php:279 framework/Form/Form.php:2436
 msgid "Email"
-msgstr "Correo electrÛnico"
+msgstr "Correo electr√≥nico"
 
 #: framework/Crypt/Crypt/smime.php:569 templates/admin/groups/edit.inc:11
 #: templates/admin/user/update.inc:69
 msgid "Email Address"
-msgstr "Enderezo de correo electrÛnico"
+msgstr "Enderezo de correo electr√≥nico"
 
 #: framework/Alarm/Alarm.php:460
 #, fuzzy
 msgid "Email Notification"
-msgstr "Correo electrÛnico con confirmaciÛn"
+msgstr "Correo electr√≥nico con confirmaci√≥n"
 
 #: framework/Alarm/Alarm.php:462
 #, fuzzy
 msgid "Email address (optional)"
-msgstr "Enderezo de correo electrÛnico"
+msgstr "Enderezo de correo electr√≥nico"
 
 #: framework/Form/Form.php:2686
 msgid "Email addresses must match."
-msgstr "Os enderezos de correo electrÛnico teÒen que coincidir."
+msgstr "Os enderezos de correo electr√≥nico te√±en que coincidir."
 
 #: framework/Prefs/Identity.php:467
 #, fuzzy
 msgid "Email addresses to confirm not found."
-msgstr "Os enderezos de correo electrÛnico teÒen que coincidir."
+msgstr "Os enderezos de correo electr√≥nico te√±en que coincidir."
 
 #: framework/Form/Form.php:2714
 msgid "Email with confirmation"
-msgstr "Correo electrÛnico con confirmaciÛn"
+msgstr "Correo electr√≥nico con confirmaci√≥n"
 
 #: framework/Net_SMS/SMS/generic_smtp.php:91
 msgid "Email-to-SMS Gateway"
@@ -2781,7 +2781,7 @@ msgstr "Pasarela Correo-a-SMS"
 
 #: framework/UI/UI/VarRenderer/html.php:316
 msgid "Emoticons"
-msgstr "CariÒas (emoticonas)"
+msgstr "Cari√±as (emoticonas)"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:310
 msgid "Empty message."
@@ -2800,15 +2800,15 @@ msgstr "Sen resultado."
 #: framework/Form/Form.php:3348 framework/Form/Form.php:3564
 #: framework/Form/Form.php:3730
 msgid "End year"
-msgstr "Ano de terminaciÛn"
+msgstr "Ano de terminaci√≥n"
 
 #: config/prefs.php.dist:265
 msgid ""
 "Enter a security question which you will be asked if you need to reset your "
 "password, e.g. 'what is the name of your pet?':"
 msgstr ""
-"Introduza unha pregunta de seguridade que se lle formular· se precisa "
-"restablecer o contrasinal, por ex. 'Como se chama a s˙a mascota?':"
+"Introduza unha pregunta de seguridade que se lle formular√° se precisa "
+"restablecer o contrasinal, por ex. 'Como se chama a s√∫a mascota?':"
 
 #: framework/UI/UI/VarRenderer/html.php:970
 #: framework/UI/UI/VarRenderer/html.php:982
@@ -2858,12 +2858,12 @@ msgstr ""
 #: services/portal/syncml.php:29
 #, fuzzy
 msgid "Error deleting synchronization session:"
-msgstr "Houbo un erro ao eliminar a ·ncora de sincronizaciÛn: %s"
+msgstr "Houbo un erro ao eliminar a √°ncora de sincronizaci√≥n: %s"
 
 #: services/portal/syncml.php:42
 #, fuzzy
 msgid "Error deleting synchronization sessions:"
-msgstr "Houbo un erro ao eliminar a ·ncora de sincronizaciÛn: %s"
+msgstr "Houbo un erro ao eliminar a √°ncora de sincronizaci√≥n: %s"
 
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:682
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:688
@@ -2892,7 +2892,7 @@ msgstr "Houbo un erro ao actualizar o contrasinal: %s"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:313
 msgid "Error with email message."
-msgstr "Houbo un erro coa mensaxe de correo electrÛnico."
+msgstr "Houbo un erro coa mensaxe de correo electr√≥nico."
 
 #: framework/VFS_ISOWriter/ISOWriter/RealInputStrategy/copy.php:142
 #, php-format
@@ -2912,11 +2912,11 @@ msgstr "Estonia"
 #: framework/NLS/NLS/tld.php:82 framework/NLS/NLS/countries.php:78
 #: framework/NLS/NLS/GeoIP.php:71
 msgid "Ethiopia"
-msgstr "EtiopÌa"
+msgstr "Etiop√≠a"
 
 #: lib/Block/fortune.php:45
 msgid "Ethnic"
-msgstr "…tnico"
+msgstr "√âtnico"
 
 #: framework/NLS/NLS/GeoIP.php:55
 msgid "Europe"
@@ -2947,7 +2947,7 @@ msgstr "Cada 5 minutos"
 
 #: framework/Maintenance/Maintenance.php:65
 msgid "Every Login"
-msgstr "Cada inicio de sesiÛn"
+msgstr "Cada inicio de sesi√≥n"
 
 #: templates/portal/layout.inc:102 config/prefs.php.dist:398
 msgid "Every half hour"
@@ -2981,7 +2981,7 @@ msgstr "Data de caducidade"
 
 #: framework/Crypt/Crypt/smime.php:680
 msgid "Exponent"
-msgstr "ExpoÒente"
+msgstr "Expo√±ente"
 
 #: lib/Block/iframe.php:27
 msgid "Extra Large"
@@ -2989,7 +2989,7 @@ msgstr ""
 
 #: templates/admin/setup/index.html:74
 msgid "FTP upload of setup"
-msgstr "Carga a configuraciÛn por FTP"
+msgstr "Carga a configuraci√≥n por FTP"
 
 #: themes/fadetogreen/info.php:9
 msgid "Fade to Green"
@@ -3056,7 +3056,7 @@ msgstr "Houbo un fallo ao copiar a \"%s\"."
 
 #: framework/Auth/Auth/peclsasl.php:89
 msgid "Failed to create new SASL connection."
-msgstr "Houbo un fallo ao crear unha conexiÛn SASL"
+msgstr "Houbo un fallo ao crear unha conexi√≥n SASL"
 
 #: framework/Kolab_Format/lib/Horde/Kolab/Format.php:52
 #, fuzzy, php-format
@@ -3124,15 +3124,15 @@ msgstr ""
 #: lib/Block/feed.php:22
 #, fuzzy
 msgid "Feed Address"
-msgstr "Enderezo da r˙a"
+msgstr "Enderezo da r√∫a"
 
 #: lib/Block/metar.php:232
 msgid "Feels Like"
-msgstr "SÈntese como"
+msgstr "S√©ntese como"
 
 #: lib/Block/weatherdotcom.php:238
 msgid "Feels like: "
-msgstr "SÈntese como: "
+msgstr "S√©ntese como: "
 
 #: lib/Block/weatherdotcom_strings.php:29
 msgid "Few Showers"
@@ -3164,8 +3164,8 @@ msgstr "Fiji"
 #, fuzzy, php-format
 msgid "File Count: %d file"
 msgid_plural "File Count: %d files"
-msgstr[0] "CÛmputo de ficheiros: %s ficheiro(s)"
-msgstr[1] "CÛmputo de ficheiros: %s ficheiro(s)"
+msgstr[0] "C√≥mputo de ficheiros: %s ficheiro(s)"
+msgstr[1] "C√≥mputo de ficheiros: %s ficheiro(s)"
 
 #: config/registry.php.dist:386
 msgid "File Manager"
@@ -3178,7 +3178,7 @@ msgstr "Nome do ficheiro"
 
 #: framework/Form/Form.php:3954
 msgid "File selection"
-msgstr "SelecciÛn de ficheiro"
+msgstr "Selecci√≥n de ficheiro"
 
 #: framework/Form/Form.php:1744
 msgid "File upload"
@@ -3207,7 +3207,7 @@ msgstr "Cuarto crecente"
 
 #: framework/UI/UI/VarRenderer/html.php:270
 msgid "Fix ratio"
-msgstr "ProporciÛn fixa"
+msgstr "Proporci√≥n fixa"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:576
 #: framework/Net_SMS/SMS/clickatell_http.php:233
@@ -3221,7 +3221,7 @@ msgstr "Voltear"
 
 #: lib/Block/weatherdotcom_strings.php:31
 msgid "Fog"
-msgstr "NÈboa"
+msgstr "N√©boa"
 
 #: lib/Block/weatherdotcom_strings.php:32
 #, fuzzy
@@ -3231,12 +3231,12 @@ msgstr "Nubes matutinas"
 #: lib/Block/weatherdotcom_strings.php:33
 #, fuzzy
 msgid "Fog Late"
-msgstr "DisposiciÛn"
+msgstr "Disposici√≥n"
 
 #: lib/Block/weatherdotcom_strings.php:34
 #, fuzzy
 msgid "Foggy"
-msgstr "NÈboa"
+msgstr "N√©boa"
 
 #: framework/VFS/lib/VFS/sql.php:289 framework/VFS/lib/VFS/musql.php:106
 #, fuzzy, php-format
@@ -3256,7 +3256,7 @@ msgstr "O cartafol %s non existe."
 #: framework/Form/Form.php:4327
 #, fuzzy
 msgid "Font"
-msgstr "DisposiciÛn"
+msgstr "Disposici√≥n"
 
 #: lib/Block/fortune.php:46
 msgid "Food"
@@ -3264,15 +3264,15 @@ msgstr "Comida"
 
 #: lib/Block/metar.php:346
 msgid "Forecast (TAF)"
-msgstr "PrognÛstico (TAF)"
+msgstr "Progn√≥stico (TAF)"
 
 #: lib/Block/weatherdotcom.php:77
 msgid ""
 "Forecast Days (note that the returned forecast returns both day and night; a "
 "large number here could result in a wide block)"
 msgstr ""
-"DÌas do prognÛstico (teÒa en conta que o prognÛstico facilitado incl˙e tanto "
-"o dÌa coma a noite; un n˙mero grande traducirase nun bloque moi ancho)"
+"D√≠as do progn√≥stico (te√±a en conta que o progn√≥stico facilitado incl√∫e tanto "
+"o d√≠a coma a noite; un n√∫mero grande traducirase nun bloque moi ancho)"
 
 #: templates/login/login.inc:89
 msgid "Forgot your password?"
@@ -3284,19 +3284,19 @@ msgstr "Formularios"
 
 #: lib/Block/fortune.php:30
 msgid "Fortune"
-msgstr "CitaciÛn"
+msgstr "Citaci√≥n"
 
 #: lib/Block/fortune.php:108
 msgid "Fortune type"
-msgstr "Tipo de citaciÛn"
+msgstr "Tipo de citaci√≥n"
 
 #: lib/Block/fortune.php:47
 msgid "Fortunes"
-msgstr "CitaciÛns"
+msgstr "Citaci√≥ns"
 
 #: lib/Block/fortune.php:48
 msgid "Fortunes 2"
-msgstr "CitaciÛns 2"
+msgstr "Citaci√≥ns 2"
 
 #: config/registry.php.dist:423
 msgid "Forums"
@@ -3304,7 +3304,7 @@ msgstr "Foros"
 
 #: config/registry.php.dist:102
 msgid "Forwards"
-msgstr "ReenvÌos"
+msgstr "Reenv√≠os"
 
 #: framework/Kolab_Server/lib/Horde/Kolab/Server/ldap.php:455
 #: framework/Kolab_Server/lib/Horde/Kolab/Server/ldap.php:508
@@ -3357,12 +3357,12 @@ msgstr "Do "
 #: templates/problem/problem.inc:48
 msgid "Full Description"
 msgstr ""
-"DescriciÛn completa. Por favor engada o seu telÈfono ou extension para "
-"axilizar a tramitaciÛn:"
+"Descrici√≥n completa. Por favor engada o seu tel√©fono ou extension para "
+"axilizar a tramitaci√≥n:"
 
 #: lib/Block/moon.php:81 lib/Block/moon.php:176
 msgid "Full Moon"
-msgstr "L˙a chea"
+msgstr "L√∫a chea"
 
 #: lib/Block/account.php:70 templates/admin/user/update.inc:61
 msgid "Full Name"
@@ -3371,7 +3371,7 @@ msgstr "Nome completo:"
 #: framework/NLS/NLS/tld.php:90 framework/NLS/NLS/countries.php:87
 #: framework/NLS/NLS/GeoIP.php:73
 msgid "Gabon"
-msgstr "GabÛn"
+msgstr "Gab√≥n"
 
 #: framework/NLS/NLS/tld.php:99 framework/NLS/NLS/countries.php:88
 #: framework/NLS/NLS/GeoIP.php:75
@@ -3381,11 +3381,11 @@ msgstr "Gambia"
 #: admin/setup/config.php:42
 #, php-format
 msgid "Generate %s Configuration"
-msgstr "Xera a configuraciÛn de %s"
+msgstr "Xera a configuraci√≥n de %s"
 
 #: templates/admin/setup/config.html:6
 msgid "Generated Code"
-msgstr "CÛdigo xerado"
+msgstr "C√≥digo xerado"
 
 #: framework/NLS/NLS/tld.php:93 framework/NLS/NLS/countries.php:89
 #: framework/NLS/NLS/GeoIP.php:74
@@ -3395,7 +3395,7 @@ msgstr "Xeorxia"
 #: framework/NLS/NLS/tld.php:70 framework/NLS/NLS/countries.php:90
 #: framework/NLS/NLS/GeoIP.php:69
 msgid "Germany"
-msgstr "AlemaÒa"
+msgstr "Alema√±a"
 
 #: framework/NLS/NLS/tld.php:96 framework/NLS/NLS/countries.php:91
 #: framework/NLS/NLS/GeoIP.php:75
@@ -3414,7 +3414,7 @@ msgstr "Nome indicado"
 #: services/portal/sidebar.php:165 templates/prefs/app.inc:10
 #: templates/prefs/app.inc:19
 msgid "Global Options"
-msgstr "OpciÛns globais"
+msgstr "Opci√≥ns globais"
 
 #: templates/prefs/app.inc:17
 msgid "Go"
@@ -3471,7 +3471,7 @@ msgstr "Guernsey"
 
 #: admin/groups.php:191
 msgid "Group Administration"
-msgstr "AdministraciÛn de grupos"
+msgstr "Administraci√≥n de grupos"
 
 #: framework/Group/Group.php:151 framework/Group/Group/ldap.php:185
 #: framework/Group/Group/sql.php:94
@@ -3558,12 +3558,12 @@ msgstr ""
 
 #: framework/Auth/Auth/http.php:153
 msgid "HTTP Authentication not found."
-msgstr "Non se atopou a autenticaciÛn HTTP."
+msgstr "Non se atopou a autenticaci√≥n HTTP."
 
 #: framework/NLS/NLS/tld.php:113 framework/NLS/NLS/countries.php:102
 #: framework/NLS/NLS/GeoIP.php:80
 msgid "Haiti"
-msgstr "HaitÌ"
+msgstr "Hait√≠"
 
 #: framework/Crypt/Crypt/pgp.php:449
 msgid "Hash-Algorithm"
@@ -3628,7 +3628,7 @@ msgstr "Hemisferio"
 
 #: templates/data/tsvinfo.inc:10 templates/data/csvinfo.inc:10
 msgid "Here is the beginning of the file:"
-msgstr "Este È o comezo do ficheiro:"
+msgstr "Este √© o comezo do ficheiro:"
 
 #: themes/hi-contrast/info.php:3
 #, fuzzy
@@ -3660,7 +3660,7 @@ msgstr "Directorio persoal"
 
 #: framework/MIME/MIME/Viewer/vcard.php:236
 msgid "Home Phone"
-msgstr "TelÈfono particular"
+msgstr "Tel√©fono particular"
 
 #: framework/NLS/NLS/tld.php:111 framework/NLS/NLS/countries.php:105
 #: framework/NLS/NLS/GeoIP.php:79
@@ -3683,7 +3683,7 @@ msgstr ""
 #: framework/Kolab_Storage/lib/Horde/Kolab/Deprecated.php:562
 #, php-format
 msgid "Horde/Kolab: No object of type %s found in message %s"
-msgstr "Horde/Kolab: Non se atopou ning˙n obxecto de tipo %s na mensaxe %s"
+msgstr "Horde/Kolab: Non se atopou ning√∫n obxecto de tipo %s na mensaxe %s"
 
 #: framework/Kolab_Storage/lib/Horde/Kolab/Deprecated.php:604
 #, php-format
@@ -3726,12 +3726,12 @@ msgstr "Humoristas"
 #: framework/NLS/NLS/tld.php:114 framework/NLS/NLS/countries.php:107
 #: framework/NLS/NLS/GeoIP.php:80
 msgid "Hungary"
-msgstr "HungrÌa"
+msgstr "Hungr√≠a"
 
 #: services/keyboard.php:80
 #, fuzzy
 msgid "I characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: framework/Kolab_Server/lib/Horde/Kolab/IMAP/cclient.php:159
 #: framework/Kolab_Server/lib/Horde/Kolab/IMAP/cclient.php:200
@@ -3787,11 +3787,11 @@ msgstr ""
 
 #: framework/Auth/Auth/ipbasic.php:74
 msgid "IP Address not available."
-msgstr "O enderezo IP non est· dispoÒible."
+msgstr "O enderezo IP non est√° dispo√±ible."
 
 #: framework/Auth/Auth/ipbasic.php:85
 msgid "IP Address not within allowed CIDR block."
-msgstr "O enderezo IP non est· entre bloques CIDR permitidos."
+msgstr "O enderezo IP non est√° entre bloques CIDR permitidos."
 
 #: framework/Form/Form.php:1341
 #, fuzzy
@@ -3800,7 +3800,7 @@ msgstr "Enderezo IP"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:303
 msgid "IP lockdown violation."
-msgstr "ViolaciÛn lockdown IP."
+msgstr "Violaci√≥n lockdown IP."
 
 #: framework/NLS/NLS/tld.php:123 framework/NLS/NLS/countries.php:108
 #: framework/NLS/NLS/GeoIP.php:82
@@ -3809,7 +3809,7 @@ msgstr "Islandia"
 
 #: config/prefs.php.dist:434
 msgid "Icons Only"
-msgstr "SÛ iconas"
+msgstr "S√≥ iconas"
 
 #: util/icon_browser.php:51
 #, php-format
@@ -3864,7 +3864,7 @@ msgstr "Carga da imaxe"
 #: templates/data/csvmap.inc:54 templates/data/csvinfo.inc:7
 #, php-format
 msgid "Import, Step %d"
-msgstr "ImportaciÛn, paso %d"
+msgstr "Importaci√≥n, paso %d"
 
 #: templates/data/datemap.inc:15
 #, php-format
@@ -3885,7 +3885,7 @@ msgstr ""
 
 #: framework/Compress/Compress/zip.php:135
 msgid "Incorrect action code given."
-msgstr "Indicouse un cÛdigo de acciÛn incorrecto."
+msgstr "Indicouse un c√≥digo de acci√≥n incorrecto."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:641
 msgid "Incorrect username and/or password."
@@ -3896,8 +3896,8 @@ msgid ""
 "Incorrect username or alternate address. Try again or contact your "
 "administrator if you need further help."
 msgstr ""
-"O nome de usuario ou o enderezo alternativo son incorrectos. TÈnteo outra "
-"vez ou pÛÒase en contacto co administrador de sistemas para m·is informaciÛn."
+"O nome de usuario ou o enderezo alternativo son incorrectos. T√©nteo outra "
+"vez ou p√≥√±ase en contacto co administrador de sistemas para m√°is informaci√≥n."
 
 #: framework/NLS/NLS/tld.php:119 framework/NLS/NLS/countries.php:109
 #: framework/NLS/NLS/GeoIP.php:81
@@ -3915,11 +3915,11 @@ msgstr "Indonesia"
 
 #: config/registry.php.dist:277
 msgid "Information"
-msgstr "InformaciÛn"
+msgstr "Informaci√≥n"
 
 #: lib/Block/weatherdotcom.php:335
 msgid "Information no longer available."
-msgstr "A infomaciÛn xa non est· dispoÒible"
+msgstr "A infomaci√≥n xa non est√° dispo√±ible"
 
 #: templates/admin/groups/edit.inc:36
 msgid "Inherited Members"
@@ -3928,7 +3928,7 @@ msgstr ""
 #: framework/Alarm/Alarm.php:453
 #, fuzzy
 msgid "Inline Notification"
-msgstr "NotificaciÛn de consulta"
+msgstr "Notificaci√≥n de consulta"
 
 #: framework/IMAP/IMAP/ACL/rfc4314.php:64
 #: framework/IMAP/IMAP/ACL/rfc2086.php:102
@@ -3938,7 +3938,7 @@ msgstr "Resposta"
 
 #: config/prefs.php.dist:283
 msgid "Insert an email address to which you can receive the new password:"
-msgstr "Insira un enderezo de correo electrÛnico no que recibir o contrasinal:"
+msgstr "Insira un enderezo de correo electr√≥nico no que recibir o contrasinal:"
 
 #: framework/IMAP/IMAP/ACL/rfc4314.php:50
 #: framework/IMAP/IMAP/ACL/rfc2086.php:90
@@ -3952,11 +3952,11 @@ msgstr "Insire a resposta requirida para a pregunta de seguridade:"
 #: config/prefs.php.dist:571
 #, fuzzy
 msgid "Insertion of images from Photo Galleries in text"
-msgstr "Quere permitir a inserciÛn de imaxes das GalerÌas de fotos?"
+msgstr "Quere permitir a inserci√≥n de imaxes das Galer√≠as de fotos?"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:652
 msgid "Insufficient credit to send to the distribution list."
-msgstr "Saldo insuficiente para remitir · lista de distribuciÛn."
+msgstr "Saldo insuficiente para remitir √° lista de distribuci√≥n."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:644
 msgid "Insufficient credit."
@@ -3964,11 +3964,11 @@ msgstr "Saldo insuficiente."
 
 #: framework/Form/Form.php:1070
 msgid "Integer"
-msgstr "N˙mero enteiro"
+msgstr "N√∫mero enteiro"
 
 #: framework/Form/Form.php:1124
 msgid "Integer list"
-msgstr "Lista de n˙meros enteiros"
+msgstr "Lista de n√∫meros enteiros"
 
 #: framework/Group/Group/ldap.php:490
 #, php-format
@@ -3981,7 +3981,7 @@ msgstr ""
 #: framework/Prefs/Prefs/ldap.php:242 framework/Prefs/Prefs/ldap.php:271
 #, fuzzy
 msgid "Internal LDAP error.  Details have been logged for the administrator."
-msgstr "Rexistr·ronse os detalles para o administrador."
+msgstr "Rexistr√°ronse os detalles para o administrador."
 
 #: framework/Lock/Lock/sql.php:120 framework/Lock/Lock/sql.php:167
 #: framework/Lock/Lock/sql.php:223 framework/Lock/Lock/sql.php:291
@@ -3989,13 +3989,13 @@ msgstr "Rexistr·ronse os detalles para o administrador."
 #, fuzzy
 msgid ""
 "Internal database error.  Details have been logged for the administrator."
-msgstr "Rexistr·ronse os detalles para o administrador."
+msgstr "Rexistr√°ronse os detalles para o administrador."
 
 #: framework/MIME/MIME/Viewer/vcard.php:144
 #: framework/MIME/MIME/Viewer/vcard.php:202
 #, fuzzy
 msgid "International Address"
-msgstr "Enderezo de correo electrÛnico alternativo"
+msgstr "Enderezo de correo electr√≥nico alternativo"
 
 #: framework/Kolab_Server/lib/Horde/Kolab/Server.php:240
 #: framework/Kolab_Server/lib/Horde/Kolab/Server.php:262
@@ -4003,36 +4003,36 @@ msgstr "Enderezo de correo electrÛnico alternativo"
 #: framework/Kolab_Server/lib/Horde/Kolab/Server.php:618
 #, fuzzy, php-format
 msgid "Invalid Kolab object type \"%s\"."
-msgstr "O destinatario non È v·lido: \"%s\""
+msgstr "O destinatario non √© v√°lido: \"%s\""
 
 #: framework/Net_SMS/SMS/clickatell_http.php:305
 msgid "Invalid UDH. (User Data Header)."
-msgstr "A UDH (Cabeceira de Datos de Usuario) non È v·lida."
+msgstr "A UDH (Cabeceira de Datos de Usuario) non √© v√°lida."
 
 #: lib/Block/vatid.php:52
 #, fuzzy
 msgid "Invalid VAT identification number format."
-msgstr "O formato de ficheiro non È v·lido"
+msgstr "O formato de ficheiro non √© v√°lido"
 
 #: framework/Compress/Compress/zip.php:168
 #: framework/Compress/Compress/zip.php:195
 #: framework/Compress/Compress/zip.php:213
 msgid "Invalid ZIP data"
-msgstr "Os datos ZIP non son v·lidos"
+msgstr "Os datos ZIP non son v√°lidos"
 
 #: admin/signup_confirm.php:48
 #, fuzzy, php-format
 msgid "Invalid action %s"
-msgstr "A aplicaciÛn non È v·lida."
+msgstr "A aplicaci√≥n non √© v√°lida."
 
 #: admin/setup/config.php:34
 msgid "Invalid application."
-msgstr "A aplicaciÛn non È v·lida."
+msgstr "A aplicaci√≥n non √© v√°lida."
 
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Access.php:230
 #, fuzzy, php-format
 msgid "Invalid authentication for user %s!"
-msgstr "O enderezo de correo non È v·lido."
+msgstr "O enderezo de correo non √© v√°lido."
 
 #: framework/Group/Group/ldap.php:724
 msgid "Invalid basedn configured"
@@ -4040,28 +4040,28 @@ msgstr ""
 
 #: framework/Net_SMS/SMS/clickatell_http.php:320
 msgid "Invalid batch ID."
-msgstr "O IDE de lote non È v·lido."
+msgstr "O IDE de lote non √© v√°lido."
 
 #: framework/MIME/MIME/Mail.php:386
 #, fuzzy, php-format
 msgid "Invalid character in e-mail address: %s."
-msgstr "O enderezo de correo non È v·lido."
+msgstr "O enderezo de correo non √© v√°lido."
 
 #: framework/Form/Form.php:2807 framework/Form/Form.php:2885
 #: framework/Form/Form.php:2958 framework/Form/Form.php:3037
 #: framework/Form/Form/Type/tableset.php:37
 msgid "Invalid data submitted."
-msgstr "Envi·ronse datos non-v·lidos."
+msgstr "Envi√°ronse datos non-v√°lidos."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:308
 msgid "Invalid destination address."
-msgstr "O enderezo de correo non È v·lido."
+msgstr "O enderezo de correo non √© v√°lido."
 
 #: framework/Compress/Compress/dbx.php:109
 #: framework/Compress/Compress/dbx.php:139
 #: framework/Compress/Compress/dbx.php:241
 msgid "Invalid file format"
-msgstr "O formato de ficheiro non È v·lido"
+msgstr "O formato de ficheiro non √© v√°lido"
 
 #: framework/Group/Group/ldap.php:409 framework/Group/Group/ldap.php:528
 #: framework/Group/Group/ldap.php:555 framework/Group/Group/ldap.php:729
@@ -4071,49 +4071,49 @@ msgstr ""
 #: admin/signup_confirm.php:35
 #, fuzzy
 msgid "Invalid hash."
-msgstr "O IDE de lote non È v·lido."
+msgstr "O IDE de lote non √© v√°lido."
 
 #: lib/Block/weatherdotcom.php:183
 msgid "Invalid license key."
-msgstr "A clave da licenza non È v·lida"
+msgstr "A clave da licenza non √© v√°lida"
 
 #: lib/Block/weatherdotcom.php:177
 msgid "Invalid location provided."
-msgstr "Proporcionouse unha localizaciÛn non-v·lida"
+msgstr "Proporcionouse unha localizaci√≥n non-v√°lida"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:315
 msgid "Invalid msg_type."
-msgstr "msg_type non-v·lido."
+msgstr "msg_type non-v√°lido."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:311
 msgid "Invalid or missing api_id."
-msgstr "api_ide non-v·lido ou inexistente."
+msgstr "api_ide non-v√°lido ou inexistente."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:304
 msgid "Invalid or missing parameters."
-msgstr "Par·metros non-v·lidos ou inexistentes."
+msgstr "Par√°metros non-v√°lidos ou inexistentes."
 
 #: admin/perms/addchild.php:28
 msgid "Invalid parent permission."
-msgstr "O permiso paterno non È v·lido."
+msgstr "O permiso paterno non √© v√°lido."
 
 #: lib/Block/weatherdotcom.php:179
 msgid "Invalid partner id."
-msgstr "A identificaciÛn de socio non È v·lida"
+msgstr "A identificaci√≥n de socio non √© v√°lida"
 
 #: lib/Block/weatherdotcom.php:181
 msgid "Invalid product code."
-msgstr "O cÛdigo de produto non È v·lido. "
+msgstr "O c√≥digo de produto non √© v√°lido. "
 
 #: framework/Net_SMS/SMS/clickatell_http.php:314
 msgid "Invalid protocol."
-msgstr "O protocolo non È v·lido."
+msgstr "O protocolo non √© v√°lido."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:102
 #: framework/Net_SMS/SMS/win_http.php:80 framework/Net_SMS/SMS/win_http.php:89
 #, php-format
 msgid "Invalid recipient: \"%s\""
-msgstr "O destinatario non È v·lido: \"%s\""
+msgstr "O destinatario non √© v√°lido: \"%s\""
 
 #: admin/setup/index.php:93
 #, fuzzy
@@ -4122,11 +4122,11 @@ msgstr "Resposta inesperada do servidor a: "
 
 #: framework/Net_SMS/SMS/clickatell_http.php:309
 msgid "Invalid source address."
-msgstr "O enderezo do remitente non È v·lido"
+msgstr "O enderezo do remitente non √© v√°lido"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:319
 msgid "Invalid unicode data."
-msgstr "Os datos unicode non son v·lidos."
+msgstr "Os datos unicode non son v√°lidos."
 
 #: config/registry.php.dist:346
 msgid "Inventory"
@@ -4135,12 +4135,12 @@ msgstr "Inventario"
 #: framework/UI/UI/VarRenderer/html.php:758
 #: framework/UI/UI/VarRenderer/tableset_html.php:25
 msgid "Invert selection"
-msgstr "Inverte a selecciÛn"
+msgstr "Inverte a selecci√≥n"
 
 #: framework/NLS/NLS/tld.php:122 framework/NLS/NLS/countries.php:111
 #: framework/NLS/NLS/GeoIP.php:82
 msgid "Iran, Islamic Republic of"
-msgstr "Ir·n, Rep˙blica Isl·mica de"
+msgstr "Ir√°n, Rep√∫blica Isl√°mica de"
 
 #: framework/NLS/NLS/tld.php:121 framework/NLS/NLS/countries.php:112
 #: framework/NLS/NLS/GeoIP.php:81
@@ -4188,11 +4188,11 @@ msgstr "Xaneiro"
 #: framework/NLS/NLS/tld.php:128 framework/NLS/NLS/countries.php:117
 #: framework/NLS/NLS/GeoIP.php:83
 msgid "Japan"
-msgstr "XapÛn"
+msgstr "Xap√≥n"
 
 #: config/nls.php.dist:234
 msgid "Japanese (ISO-2022-JP)"
-msgstr "XaponÈs (ISO-2022-JP)"
+msgstr "Xapon√©s (ISO-2022-JP)"
 
 #: framework/NLS/NLS/tld.php:125
 msgid "Jersey"
@@ -4213,7 +4213,7 @@ msgstr "Xullo"
 #: framework/UI/UI/VarRenderer/html.php:483
 #: templates/javascript/open_calendar.js:65
 msgid "June"
-msgstr "XuÒo"
+msgstr "Xu√±o"
 
 #: framework/NLS/NLS/tld.php:139 framework/NLS/NLS/countries.php:119
 #: framework/NLS/NLS/GeoIP.php:86
@@ -4231,7 +4231,7 @@ msgstr "Kenya"
 
 #: framework/Auth/Auth/krb5.php:86
 msgid "Kerberos server rejected authentication."
-msgstr "O servidor Kerberos rexeitou a autenticaciÛn."
+msgstr "O servidor Kerberos rexeitou a autenticaci√≥n."
 
 #: lib/Block/fortune.php:51
 msgid "Kernel Newbies"
@@ -4239,11 +4239,11 @@ msgstr "Novatos do Kernel"
 
 #: framework/Crypt/Crypt/pgp.php:447
 msgid "Key Creation"
-msgstr "CreaciÛn de clave"
+msgstr "Creaci√≥n de clave"
 
 #: framework/Crypt/Crypt/pgp.php:450
 msgid "Key Fingerprint"
-msgstr "ImpresiÛns dixitais da clave"
+msgstr "Impresi√≥ns dixitais da clave"
 
 #: framework/Crypt/Crypt/pgp.php:450
 msgid "Key ID"
@@ -4251,7 +4251,7 @@ msgstr ""
 
 #: framework/Crypt/Crypt/pgp.php:448
 msgid "Key Length"
-msgstr "TamaÒo da clave"
+msgstr "Tama√±o da clave"
 
 #: framework/Crypt/Crypt/pgp.php:447
 msgid "Key Type"
@@ -4263,7 +4263,7 @@ msgstr "Uso da clave:"
 
 #: framework/Crypt/Crypt/pgp.php:823
 msgid "Key already exists on the public keyserver."
-msgstr "A clave xa existe no servidor de claves p˙blico."
+msgstr "A clave xa existe no servidor de claves p√∫blico."
 
 #: services/help/index.php:156
 msgid "Keyword"
@@ -4351,7 +4351,7 @@ msgstr "Cuarto minguante"
 
 #: lib/Block/account.php:93
 msgid "Last Password Change"
-msgstr "⁄ltimo cambio de contrasinal"
+msgstr "√öltimo cambio de contrasinal"
 
 #: lib/Block/moon.php:86 lib/Block/moon.php:88
 msgid "Last Quarter"
@@ -4359,21 +4359,21 @@ msgstr "Cuarto minguante"
 
 #: lib/Block/metar.php:163
 msgid "Last Updated:"
-msgstr "⁄ltima actualizaciÛn:"
+msgstr "√öltima actualizaci√≥n:"
 
 #: framework/Auth/Auth.php:729
 #, php-format
 msgid "Last login: %s"
-msgstr "⁄ltima sesiÛn: %s"
+msgstr "√öltima sesi√≥n: %s"
 
 #: framework/Auth/Auth.php:731
 #, php-format
 msgid "Last login: %s from %s"
-msgstr "⁄ltima sesiÛn: %s desde %s"
+msgstr "√öltima sesi√≥n: %s desde %s"
 
 #: framework/Auth/Auth.php:726
 msgid "Last login: Never"
-msgstr "⁄ltima sesiÛn: Nunca"
+msgstr "√öltima sesi√≥n: Nunca"
 
 #: framework/NLS/NLS/tld.php:149 framework/NLS/NLS/countries.php:127
 #: framework/NLS/NLS/GeoIP.php:89
@@ -4392,7 +4392,7 @@ msgstr "Leis"
 #: framework/NLS/NLS/tld.php:141 framework/NLS/NLS/countries.php:128
 #: framework/NLS/NLS/GeoIP.php:87
 msgid "Lebanon"
-msgstr "LÌbano"
+msgstr "L√≠bano"
 
 #: framework/Form/Form.php:4086
 msgid "Left header"
@@ -4475,12 +4475,12 @@ msgstr "Copla"
 
 #: framework/Form/Form.php:2143
 msgid "Link"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: framework/Form/Form.php:2146
 #, fuzzy
 msgid "Link URL"
-msgstr "LigazÛn"
+msgstr "Ligaz√≥n"
 
 #: framework/Form/Form.php:2161
 #, fuzzy
@@ -4490,7 +4490,7 @@ msgstr " (Accedendo a %s)"
 #: framework/Form/Form.php:3960
 #, fuzzy
 msgid "Link style"
-msgstr "LigazÛns"
+msgstr "Ligaz√≥ns"
 
 #: framework/Form/Form.php:2152
 #, fuzzy
@@ -4506,7 +4506,7 @@ msgstr "Texto completo"
 #, fuzzy
 msgid "Link the email address to the compose page when displaying?"
 msgstr ""
-"Vincula o enderezo de correo electrÛnico · p·xina de redacciÛn ao mostrar"
+"Vincula o enderezo de correo electr√≥nico √° p√°xina de redacci√≥n ao mostrar"
 
 #: framework/Form/Form.php:2158
 msgid "Link title attribute"
@@ -4515,11 +4515,11 @@ msgstr ""
 #: framework/Text_Filter/Filter/html2text.php:193
 #: framework/Text_Filter/Filter/html2text.php:194
 msgid "Links"
-msgstr "LigazÛns"
+msgstr "Ligaz√≥ns"
 
 #: lib/Block/fortune.php:55
 msgid "Linux Cookie"
-msgstr "TestemuÒo ('cookie') de Linux"
+msgstr "Testemu√±o ('cookie') de Linux"
 
 #: framework/IMAP/IMAP/ACL/rfc4314.php:60
 #: framework/IMAP/IMAP/ACL/rfc2086.php:98
@@ -4538,7 +4538,7 @@ msgstr "Lista as bases de datos"
 
 #: admin/sqlshell.php:138
 msgid "List Tables"
-msgstr "Lista as t·boas"
+msgstr "Lista as t√°boas"
 
 #: framework/MIME/MIME/Headers.php:528
 msgid "List-Archive"
@@ -4576,15 +4576,15 @@ msgstr "Houbo un fallo ao listar os usuarios: %s"
 #: admin/sessions.php:42
 #, php-format
 msgid "Listing sessions failed: %s"
-msgstr "Houbo un fallo ao listar as sesiÛns: %s"
+msgstr "Houbo un fallo ao listar as sesi√≥ns: %s"
 
 #: templates/admin/user/nolist.inc:2
 msgid "Listing users is disabled."
-msgstr "A listaxe de usuarios est· deshabilitada."
+msgstr "A listaxe de usuarios est√° deshabilitada."
 
 #: lib/Block/fortune.php:56
 msgid "Literature"
-msgstr "BibliografÌa"
+msgstr "Bibliograf√≠a"
 
 #: framework/NLS/NLS/tld.php:147 framework/NLS/NLS/countries.php:133
 #: framework/NLS/NLS/GeoIP.php:89
@@ -4606,34 +4606,34 @@ msgstr "Idioma e hora"
 #: framework/Crypt/Crypt/smime.php:575 lib/Block/weatherdotcom.php:62
 #: lib/Block/sunrise.php:22 lib/Block/metar.php:80
 msgid "Location"
-msgstr "LocalizaciÛn"
+msgstr "Localizaci√≥n"
 
 #: login.php:237 services/portal/sidebar.php:190 templates/login/mobile.inc:3
 #: templates/login/mobile.inc:15 templates/login/login.inc:77
 msgid "Log in"
-msgstr "Inicio de sesiÛn"
+msgstr "Inicio de sesi√≥n"
 
 #: services/portal/sidebar.php:184
 msgid "Log out"
-msgstr "Peche de sesiÛn"
+msgstr "Peche de sesi√≥n"
 
 #: lib/Block/account.php:66
 msgid "Login"
-msgstr "Inicio de sesiÛn"
+msgstr "Inicio de sesi√≥n"
 
 #: config/prefs.php.dist:130
 msgid "Login Tasks"
-msgstr "Tarefas de inicio de sesiÛn"
+msgstr "Tarefas de inicio de sesi√≥n"
 
 #: framework/Auth/Auth.php:1023
 msgid "Login failed because your username or password was entered incorrectly."
 msgstr ""
-"Fallou o inicio de sesiÛn porque introduciu incorrectamente o seu nome de "
+"Fallou o inicio de sesi√≥n porque introduciu incorrectamente o seu nome de "
 "usuario ou o contrasinal."
 
 #: framework/Auth/Auth.php:1019
 msgid "Login failed."
-msgstr "Fallou o inicio de sesiÛn."
+msgstr "Fallou o inicio de sesi√≥n."
 
 #: framework/Form/Form.php:1394
 msgid "Long text"
@@ -4675,7 +4675,7 @@ msgstr "MOTD"
 
 #: framework/MIME/MIME/Viewer/tnef.php:34
 msgid "MS-TNEF Attachment contained no data."
-msgstr "O anexo MS-TNEF non contiÒa datos."
+msgstr "O anexo MS-TNEF non conti√±a datos."
 
 #: framework/Notification/Notification/Listener/mobile.php:37
 msgid "MSG"
@@ -4738,8 +4738,8 @@ msgid ""
 "Manage the list of categories you have to label items with, and colors "
 "associated with those categories."
 msgstr ""
-"Xestiona a lista de categorÌas coa que etiquetar elementos e as cores "
-"asociadas a esas categorÌas."
+"Xestiona a lista de categor√≠as coa que etiquetar elementos e as cores "
+"asociadas a esas categor√≠as."
 
 #: framework/UI/UI/VarRenderer/html.php:1241
 #: framework/UI/UI/VarRenderer/html.php:1290
@@ -4800,33 +4800,33 @@ msgstr "Mauricio"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:323
 msgid "Max allowed credit."
-msgstr "Saldo m·ximo permitido."
+msgstr "Saldo m√°ximo permitido."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:316
 msgid "Max message parts exceeded."
-msgstr "Excedeuse o n˙mero m·ximo de partes da mensaxe."
+msgstr "Excedeuse o n√∫mero m√°ximo de partes da mensaxe."
 
 #: lib/Block/metar.php:318
 msgid "Max temp last 24 hours: "
-msgstr "Temp. m·x. das ˙ltimas 24 horas: "
+msgstr "Temp. m√°x. das √∫ltimas 24 horas: "
 
 #: lib/Block/metar.php:310
 msgid "Max temp last 6 hours: "
-msgstr "Temp. m·x. das ˙ltimas 6 horas: "
+msgstr "Temp. m√°x. das √∫ltimas 6 horas: "
 
 #: lib/api.php:180
 msgid "Maximum Number of Portal Blocks"
-msgstr "N˙mero m·ximo de bloques do portal"
+msgstr "N√∫mero m√°ximo de bloques do portal"
 
 #: framework/Form/Form.php:2089
 #, fuzzy
 msgid "Maximum file size in bytes"
-msgstr "Lonxitude m·xima"
+msgstr "Lonxitude m√°xima"
 
 #: framework/Form/Form.php:1207 framework/Form/Form.php:1227
 #: framework/Form/Form.php:1256
 msgid "Maximum length"
-msgstr "Lonxitude m·xima"
+msgstr "Lonxitude m√°xima"
 
 #: framework/UI/UI/VarRenderer/html.php:444
 #: framework/UI/UI/VarRenderer/html.php:482
@@ -4846,7 +4846,7 @@ msgstr "Medicina"
 #: lib/Block/iframe.php:25
 #, fuzzy
 msgid "Medium"
-msgstr "BÈlxica"
+msgstr "B√©lxica"
 
 #: templates/admin/groups/edit.inc:17
 msgid "Members"
@@ -4858,7 +4858,7 @@ msgstr ""
 
 #: config/prefs.php.dist:436
 msgid "Menu mode:"
-msgstr "Formato do men˙:"
+msgstr "Formato do men√∫:"
 
 #: framework/Notification/Notification/Listener/status.php:30
 msgid "Message"
@@ -4869,7 +4869,7 @@ msgid ""
 "Message Verified Successfully but the signer's certificate could not be "
 "verified."
 msgstr ""
-"A mensaxe verificouse con Èxito, pero non se pode verificar o certificado do "
+"A mensaxe verificouse con √©xito, pero non se pode verificar o certificado do "
 "asinante."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:318
@@ -4889,38 +4889,38 @@ msgstr "Tempo de Metar"
 
 #: lib/Block/metar.php:45
 msgid "Metar block not available."
-msgstr "O bloque Metar non est· dispoÒible."
+msgstr "O bloque Metar non est√° dispo√±ible."
 
 #: lib/Block/metar.php:127
 msgid ""
 "Metar block not available. Details have been logged for the administrator."
 msgstr ""
-"O bloque Metar non est· dispoÒible. Rexistr·ronse os detalles para o "
+"O bloque Metar non est√° dispo√±ible. Rexistr√°ronse os detalles para o "
 "administrador."
 
 #: lib/Block/weatherdotcom.php:171
 msgid "MetarDB is not connected."
-msgstr "MetarDB non est· conectada"
+msgstr "MetarDB non est√° conectada"
 
 #: framework/MIME/MIME/Viewer/rar.php:65 framework/MIME/MIME/Viewer/zip.php:88
 msgid "Method"
-msgstr "MÈtodo"
+msgstr "M√©todo"
 
 #: framework/RPC/RPC/PhpSoap.php:199 framework/RPC/RPC/PhpSoap.php:207
 #: framework/RPC/RPC/phpgw.php:80 framework/RPC/RPC/phpgw.php:81
 #: framework/RPC/RPC/soap.php:162 framework/RPC/RPC/soap.php:170
 #, php-format
 msgid "Method \"%s\" is not defined"
-msgstr "O mÈtodo '%s' non est· definido"
+msgstr "O m√©todo '%s' non est√° definido"
 
 #: lib/Block/weatherdotcom.php:72 lib/Block/metar.php:90
 msgid "Metric"
-msgstr "MÈtrica"
+msgstr "M√©trica"
 
 #: framework/NLS/NLS/tld.php:170 framework/NLS/NLS/countries.php:148
 #: framework/NLS/NLS/GeoIP.php:95
 msgid "Mexico"
-msgstr "MÈxico"
+msgstr "M√©xico"
 
 #: framework/NLS/NLS/tld.php:87 framework/NLS/NLS/countries.php:149
 #: framework/NLS/NLS/GeoIP.php:72
@@ -4933,15 +4933,15 @@ msgstr "Tipo Mime"
 
 #: lib/Block/metar.php:322
 msgid "Min temp last 24 hours: "
-msgstr "Temp. mÌn. as ˙ltimas 24 horas: "
+msgstr "Temp. m√≠n. as √∫ltimas 24 horas: "
 
 #: lib/Block/metar.php:314
 msgid "Min temp last 6 hours: "
-msgstr "Temp. mÌn. as ˙ltimas 6 horas: "
+msgstr "Temp. m√≠n. as √∫ltimas 6 horas: "
 
 #: framework/Auth/Auth/ldap.php:493
 msgid "Minimum password age has not yet expired"
-msgstr "AÌnda non caducou a antig¸idade mÌnima do contrasinal"
+msgstr "A√≠nda non caducou a antig√ºidade m√≠nima do contrasinal"
 
 #: framework/UI/UI/VarRenderer/html.php:248
 msgid "Mirror"
@@ -4949,15 +4949,15 @@ msgstr "Reflectir"
 
 #: lib/Block/fortune.php:60
 msgid "Miscellaneous"
-msgstr "Miscel·nea"
+msgstr "Miscel√°nea"
 
 #: admin/setup/index.php:180
 #, fuzzy
 msgid ""
 "Missing configuration. You must generate it before using this application."
 msgstr ""
-"Falta a configuraciÛn. Ten que xerala agora se desexa utilizar esta "
-"aplicaciÛn."
+"Falta a configuraci√≥n. Ten que xerala agora se desexa utilizar esta "
+"aplicaci√≥n."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:312
 msgid "Missing message ID."
@@ -4965,7 +4965,7 @@ msgstr "Falta a IDE de mensaxe."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:302
 msgid "Missing session ID."
-msgstr "Falta a IDE de sesiÛn."
+msgstr "Falta a IDE de sesi√≥n."
 
 #: lib/Block/weatherdotcom_strings.php:50
 msgid "Mist"
@@ -4977,12 +4977,12 @@ msgstr "Lu"
 
 #: config/registry.php.dist:59
 msgid "Mobile Mail"
-msgstr "Correo mÛbil"
+msgstr "Correo m√≥bil"
 
 #: framework/Form/Form.php:1300
 #, fuzzy
 msgid "Mobile phone number"
-msgstr "N˙mero de telÈfono"
+msgstr "N√∫mero de tel√©fono"
 
 #: lib/Block/weatherdotcom_strings.php:101
 msgid "Moderate"
@@ -4995,7 +4995,7 @@ msgstr "Modificouse a data"
 
 #: framework/Crypt/Crypt/smime.php:677
 msgid "Modulus"
-msgstr "MÛdulo"
+msgstr "M√≥dulo"
 
 #: framework/NLS/NLS/tld.php:153 framework/NLS/NLS/countries.php:150
 #: framework/NLS/NLS/GeoIP.php:90
@@ -5005,7 +5005,7 @@ msgstr "Moldavia"
 #: framework/NLS/NLS/tld.php:152 framework/NLS/NLS/countries.php:151
 #: framework/NLS/NLS/GeoIP.php:90
 msgid "Monaco"
-msgstr "MÛnaco"
+msgstr "M√≥naco"
 
 #: config/prefs.php.dist:355
 #, fuzzy
@@ -5038,12 +5038,12 @@ msgstr "Montserrat"
 
 #: lib/Block/moon.php:3 lib/Block/moon.php:16
 msgid "Moon Phases"
-msgstr "Fases da l˙a"
+msgstr "Fases da l√∫a"
 
 #: framework/File_CSV/CSV.php:215 framework/File_CSV/CSV.php:347
 #, php-format
 msgid "More fields found in line %d than the expected %d."
-msgstr "Atop·ronse m·is campos na liÒa %d que os %d esperados."
+msgstr "Atop√°ronse m√°is campos na li√±a %d que os %d esperados."
 
 #: framework/NLS/NLS/tld.php:151 framework/NLS/NLS/countries.php:154
 #: framework/NLS/NLS/GeoIP.php:90
@@ -5072,11 +5072,11 @@ msgstr "Desprazar cara a abaixo"
 
 #: framework/Block/Block/Layout/Manager.php:601
 msgid "Move Left"
-msgstr "Desprazar · esquerda"
+msgstr "Desprazar √° esquerda"
 
 #: framework/Block/Block/Layout/Manager.php:605
 msgid "Move Right"
-msgstr "Desprazar · dereita"
+msgstr "Desprazar √° dereita"
 
 #: framework/Block/Block/Layout/Manager.php:593
 msgid "Move Up"
@@ -5110,7 +5110,7 @@ msgstr "Mapa Multimap do Reino Unido"
 
 #: framework/Form/Form.php:2968
 msgid "Multiple selection"
-msgstr "SelecciÛn m˙ltiple"
+msgstr "Selecci√≥n m√∫ltiple"
 
 #: framework/Lock/Lock/sql.php:343
 msgid "Must supply a valid lock ID."
@@ -5122,7 +5122,7 @@ msgstr "Identidade"
 
 #: lib/Block/account.php:29
 msgid "My Account Information"
-msgstr "A miÒa identidade"
+msgstr "A mi√±a identidade"
 
 #: services/portal/index.php:73
 msgid "My Portal"
@@ -5130,7 +5130,7 @@ msgstr "O meu portal"
 
 #: services/portal/edit.php:44
 msgid "My Portal Layout"
-msgstr "DeseÒo do meu portal"
+msgstr "Dese√±o do meu portal"
 
 #: framework/NLS/NLS/tld.php:159 framework/NLS/NLS/countries.php:156
 #: framework/NLS/NLS/GeoIP.php:92
@@ -5168,7 +5168,7 @@ msgstr "Nepal"
 #: framework/NLS/NLS/tld.php:179 framework/NLS/NLS/countries.php:160
 #: framework/NLS/NLS/GeoIP.php:97
 msgid "Netherlands"
-msgstr "PaÌses Baixos"
+msgstr "Pa√≠ses Baixos"
 
 #: framework/NLS/NLS/tld.php:23 framework/NLS/NLS/countries.php:161
 #: framework/NLS/NLS/GeoIP.php:57
@@ -5181,19 +5181,19 @@ msgstr "URL base de Netscape"
 
 #: framework/Crypt/Crypt/smime.php:587
 msgid "Netscape CA Revocation URL"
-msgstr "URL de revogaciÛn de CA de Netscape"
+msgstr "URL de revogaci√≥n de CA de Netscape"
 
 #: framework/Crypt/Crypt/smime.php:589
 msgid "Netscape CA policy URL"
-msgstr "URL de polÌticas de CA de Netscape"
+msgstr "URL de pol√≠ticas de CA de Netscape"
 
 #: framework/Crypt/Crypt/smime.php:588
 msgid "Netscape Renewal URL"
-msgstr "URL de renovaciÛn de Netscape"
+msgstr "URL de renovaci√≥n de Netscape"
 
 #: framework/Crypt/Crypt/smime.php:586
 msgid "Netscape Revocation URL"
-msgstr "URL de revogaciÛn de Netscape"
+msgstr "URL de revogaci√≥n de Netscape"
 
 #: framework/Crypt/Crypt/smime.php:590
 msgid "Netscape SSL server name"
@@ -5225,7 +5225,7 @@ msgstr "Nova Caledonia"
 #: framework/Prefs/Prefs/CategoryManager.php:54
 #: templates/prefs/categorymanagement.inc:50
 msgid "New Category"
-msgstr "Nova categorÌa"
+msgstr "Nova categor√≠a"
 
 #: framework/Text_Filter/Filter/emails.php:148
 #: framework/Text_Filter/Filter/emails.php:157
@@ -5235,7 +5235,7 @@ msgstr "Tipo de mensaxe"
 
 #: lib/Block/moon.php:46 lib/Block/moon.php:68 lib/Block/moon.php:174
 msgid "New Moon"
-msgstr "L˙a nova"
+msgstr "L√∫a nova"
 
 #: templates/admin/user/update.inc:36
 msgid "New Username (optional)"
@@ -5253,11 +5253,11 @@ msgstr "Novo contrasinal"
 #: framework/Auth/Auth/sql.php:249
 #, fuzzy, php-format
 msgid "New password will expire on %s."
-msgstr "O novo contrasinal caducar· o %x."
+msgstr "O novo contrasinal caducar√° o %x."
 
 #: services/changepassword.php:54
 msgid "New passwords don't match."
-msgstr "Os contrasinais teÒen que coincidir."
+msgstr "Os contrasinais te√±en que coincidir."
 
 #: lib/Block/fortune.php:61 config/registry.php.dist:301
 msgid "News"
@@ -5270,11 +5270,11 @@ msgstr "Seguinte"
 
 #: lib/Block/moon.php:27
 msgid "Next 4 Phases"
-msgstr "PrÛximas 4 fases"
+msgstr "Pr√≥ximas 4 fases"
 
 #: framework/Prefs/Prefs/UI.php:394
 msgid "Next options"
-msgstr "OpciÛns seguintes"
+msgstr "Opci√≥ns seguintes"
 
 #: framework/UI/UI/Pager.php:122
 msgid "Next>"
@@ -5288,7 +5288,7 @@ msgstr "Nicaragua"
 #: framework/NLS/NLS/tld.php:175 framework/NLS/NLS/countries.php:165
 #: framework/NLS/NLS/GeoIP.php:96
 msgid "Niger"
-msgstr "NÌxer"
+msgstr "N√≠xer"
 
 #: framework/NLS/NLS/tld.php:177 framework/NLS/NLS/countries.php:166
 #: framework/NLS/NLS/GeoIP.php:96
@@ -5321,21 +5321,21 @@ msgstr "Non se atoparon iconas."
 #: templates/admin/setup/diff.html:9
 msgid "No available configuration data to show differences for."
 msgstr ""
-"Non se dispÛn de datos de configuraciÛn para os que mostrar diferenzas."
+"Non se disp√≥n de datos de configuraci√≥n para os que mostrar diferenzas."
 
 #: framework/VFS_ISOWriter/ISOWriter.php:106
 msgid "No available strategy for making ISO images."
-msgstr "Non se dispÛn de estratexia de elaboraciÛn de imaxes ISO."
+msgstr "Non se disp√≥n de estratexia de elaboraci√≥n de imaxes ISO."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:321
 msgid "No batch template."
-msgstr "Non hai patrÛn de lotes"
+msgstr "Non hai patr√≥n de lotes"
 
 #: framework/Block/Block/Layout/Manager.php:102
 #: framework/Block/Block/Layout/Manager.php:394
 #: framework/Block/Block/Layout/Manager.php:416
 msgid "No block exists at the requested position"
-msgstr "Non hai bloques na posiciÛn indicada"
+msgstr "Non hai bloques na posici√≥n indicada"
 
 #: admin/setup/diff.php:51
 msgid "No change."
@@ -5349,25 +5349,25 @@ msgstr "Non se poden engadir descendentes a este permiso."
 #: framework/Util/Util.php:793
 #, php-format
 msgid "No configuration information specified for %s."
-msgstr "Non se especificou informaciÛn de configuraciÛn para %s."
+msgstr "Non se especificou informaci√≥n de configuraci√≥n para %s."
 
 #: framework/VFS/lib/VFS/ftp.php:918
 msgid "No configuration information specified for FTP VFS."
-msgstr "Non se especificou informaciÛn de configuraciÛn para VFS por FTP."
+msgstr "Non se especificou informaci√≥n de configuraci√≥n para VFS por FTP."
 
 #: framework/VFS/lib/VFS/sql.php:762
 msgid "No configuration information specified for SQL VFS."
-msgstr "Non se especificou informaciÛn de configuraciÛn para VFS por SQL."
+msgstr "Non se especificou informaci√≥n de configuraci√≥n para VFS por SQL."
 
 #: framework/VFS/lib/VFS/sql_file.php:742
 msgid "No configuration information specified for SQL-File VFS."
 msgstr ""
-"Non se especificou informaciÛn de configuraciÛn para VFS por ficheiro SQL."
+"Non se especificou informaci√≥n de configuraci√≥n para VFS por ficheiro SQL."
 
 #: framework/VFS/lib/VFS/ssh2.php:920
 #, fuzzy
 msgid "No configuration information specified for SSH2 VFS."
-msgstr "Non se especificou informaciÛn de configuraciÛn para VFS por SQL."
+msgstr "Non se especificou informaci√≥n de configuraci√≥n para VFS por SQL."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:322
 msgid "No credit left."
@@ -5379,7 +5379,7 @@ msgstr "Non se introduciu o destino."
 
 #: framework/Browser/Browser.php:1069
 msgid "No file uploaded"
-msgstr "Non se cargou ning˙n ficheiro"
+msgstr "Non se cargou ning√∫n ficheiro"
 
 #: util/icon_browser.php:73
 msgid "No icons found."
@@ -5388,11 +5388,11 @@ msgstr "Non se atoparon iconas."
 #: lib/Block/weatherdotcom.php:134 lib/Block/sunrise.php:40
 #: lib/Block/metar.php:138
 msgid "No location is set."
-msgstr "Non se definiu a localizaciÛn."
+msgstr "Non se definiu a localizaci√≥n."
 
 #: lib/Block/weatherdotcom.php:175
 msgid "No location provided."
-msgstr "Non se proporcionou a localizaciÛn."
+msgstr "Non se proporcionou a localizaci√≥n."
 
 #: framework/Lock/Lock.php:59 framework/Lock/Lock.php:80
 #: framework/Lock/Lock.php:94 framework/Lock/Lock.php:133
@@ -5411,11 +5411,11 @@ msgstr "Non se introduciu ningunha mensaxe."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:645
 msgid "No name specified."
-msgstr "Non se especificou ning˙n nome."
+msgstr "Non se especificou ning√∫n nome."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:646
 msgid "No number specified."
-msgstr "Non se especificou ning˙n n˙mero."
+msgstr "Non se especificou ning√∫n n√∫mero."
 
 #: lib/Block/fortune.php:103
 msgid "No offensive fortunes"
@@ -5435,7 +5435,7 @@ msgstr ""
 
 #: templates/admin/user/approve.inc:9
 msgid "No pending signups."
-msgstr "Non hai inscriciÛns pendentes."
+msgstr "Non hai inscrici√≥ns pendentes."
 
 #: framework/admintools/horde-remove-pref.php:72
 #: framework/admintools/horde-remove-pref.php:81
@@ -5453,7 +5453,7 @@ msgstr ""
 
 #: framework/File_CSV/CSV.php:555
 msgid "No separator specified."
-msgstr "Non se especificou ning˙n separador."
+msgstr "Non se especificou ning√∫n separador."
 
 #: admin/setup/index.php:131 admin/setup/index.php:166
 msgid "No stable version exists yet."
@@ -5476,11 +5476,11 @@ msgstr "Non existe o ficheiro"
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:921
 #, fuzzy
 msgid "No summary available"
-msgstr "servizo non dispoÒible"
+msgstr "servizo non dispo√±ible"
 
 #: lib/Block/weatherdotcom.php:144
 msgid "No temporary directory available for cache."
-msgstr "Non se dispÛn de ning˙n directorio de almacenamiento temporal."
+msgstr "Non se disp√≥n de ning√∫n directorio de almacenamiento temporal."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:640
 #: framework/Net_SMS/SMS/win_http.php:230
@@ -5490,11 +5490,11 @@ msgstr "Non se enviou o nome de usuario e/ou o contrasinal."
 #: admin/signup_confirm.php:62
 #, fuzzy
 msgid "No username specified."
-msgstr "Non se especificou ning˙n nome."
+msgstr "Non se especificou ning√∫n nome."
 
 #: framework/RPC/RPC/phpgw.php:170
 msgid "No valid XML data returned"
-msgstr "Non se devolveron datos XML v·lidos"
+msgstr "Non se devolveron datos XML v√°lidos"
 
 #: framework/UI/UI/VarRenderer/html.php:1086
 #: framework/UI/UI/VarRenderer/html.php:1096
@@ -5506,14 +5506,14 @@ msgstr "Sen valores"
 #: admin/setup/index.php:185
 msgid "No version found in original configuration. Regenerate configuration."
 msgstr ""
-"Non se atopou a versiÛn na configuraciÛn orixinal. CÛmpre rexenerar a "
-"configuraciÛn."
+"Non se atopou a versi√≥n na configuraci√≥n orixinal. C√≥mpre rexenerar a "
+"configuraci√≥n."
 
 #: admin/setup/index.php:193
 msgid "No version found in your configuration. Regenerate configuration."
 msgstr ""
-"Non se atopou a versiÛn na s˙a configuraciÛn. CÛmpre rexenerar a "
-"configuraciÛn."
+"Non se atopou a versi√≥n na s√∫a configuraci√≥n. C√≥mpre rexenerar a "
+"configuraci√≥n."
 
 #: framework/Crypt/Crypt/pgp.php:474 framework/Crypt/Crypt/pgp.php:475
 #: templates/syncml/syncml.inc:5 templates/prefs/identityselect.inc:93
@@ -5522,7 +5522,7 @@ msgstr "Ningunha"
 
 #: config/nls.php.dist:236
 msgid "Nordic (ISO-8859-10)"
-msgstr "NÛrdico (ISO-8859-10)"
+msgstr "N√≥rdico (ISO-8859-10)"
 
 #: framework/NLS/NLS/tld.php:176 framework/NLS/NLS/countries.php:168
 #: framework/NLS/NLS/GeoIP.php:96
@@ -5553,7 +5553,7 @@ msgstr "Non antes"
 
 #: framework/VFS/lib/VFS/file.php:477
 msgid "Not a directory"
-msgstr "Non È un directorio"
+msgstr "Non √© un directorio"
 
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/View.php:216
 #, fuzzy
@@ -5590,7 +5590,7 @@ msgstr "Sen desenvolver."
 #: framework/VFS/lib/VFS/horde.php:189 framework/VFS/lib/VFS/horde.php:207
 #: framework/VFS/lib/VFS/horde.php:227 framework/VFS/lib/VFS/horde.php:330
 msgid "Not supported."
-msgstr "Non est· soportado."
+msgstr "Non est√° soportado."
 
 #: framework/Share/Share/kolab.php:445 framework/Kolab/Kolab.php:732
 #: framework/MIME/MIME/Viewer/vcard.php:302 config/registry.php.dist:194
@@ -5609,37 +5609,37 @@ msgstr "Novembro"
 
 #: framework/Form/Form.php:1043
 msgid "Number"
-msgstr "N˙mero"
+msgstr "N√∫mero"
 
 #: lib/Block/feed.php:23
 #, fuzzy
 msgid "Number of articles to display"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: framework/Form/Form.php:1451
 msgid "Number of characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: framework/Form/Form.php:1398 framework/Form/Form.php:1449
 #: framework/Form/Form.php:1560 framework/Form/Form.php:1633
 #: framework/Form/Form.php:1679
 msgid "Number of columns"
-msgstr "N˙mero de columnas"
+msgstr "N√∫mero de columnas"
 
 #: framework/Form/Form.php:1396 framework/Form/Form.php:1447
 #: framework/Form/Form.php:1558 framework/Form/Form.php:1631
 #: framework/Form/Form.php:1677
 msgid "Number of rows"
-msgstr "N˙mero de filas"
+msgstr "N√∫mero de filas"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:653
 msgid "Numbers not specified for updating in distribution list."
-msgstr "Non se especificaron n˙meros para actualizar na lista de distribuciÛn."
+msgstr "Non se especificaron n√∫meros para actualizar na lista de distribuci√≥n."
 
 #: services/keyboard.php:94
 #, fuzzy
 msgid "O characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: framework/UI/UI/VarRenderer/html.php:951
 msgid "Object"
@@ -5697,41 +5697,41 @@ msgstr "Contrasinal antigo"
 
 #: services/changepassword.php:48
 msgid "Old password is not correct."
-msgstr "O contrasinal antigo È incorrecto."
+msgstr "O contrasinal antigo √© incorrecto."
 
 #: framework/NLS/NLS/tld.php:185 framework/NLS/NLS/countries.php:171
 #: framework/NLS/NLS/GeoIP.php:98
 msgid "Oman"
-msgstr "Om·n"
+msgstr "Om√°n"
 
 #: framework/Form/Form.php:2155
 #, fuzzy
 msgid "Onclick event"
-msgstr "prema aquÌ"
+msgstr "prema aqu√≠"
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:73
 msgid "Only IMAP servers support shared folders."
-msgstr "SÛ os servidores IMAP soportan os cartafoles compartidos."
+msgstr "S√≥ os servidores IMAP soportan os cartafoles compartidos."
 
 #: lib/Block/fortune.php:104
 msgid "Only offensive fortunes"
-msgstr "SÛ ofensivas"
+msgstr "S√≥ ofensivas"
 
 #: framework/Form/Form.php:2697
 msgid "Only one email address allowed."
-msgstr "SÛ se permite un enderezo electrÛnico."
+msgstr "S√≥ se permite un enderezo electr√≥nico."
 
 #: framework/Form/Form.php:2240
 #, fuzzy
 msgid "Only one email address is allowed."
-msgstr "SÛ se permite un enderezo electrÛnico."
+msgstr "S√≥ se permite un enderezo electr√≥nico."
 
 #: services/shares/edit.php:77
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
 msgstr ""
-"SÛ o propietario ou o administrador de sistema poden cambiar a propiedade ou "
+"S√≥ o propietario ou o administrador de sistema poden cambiar a propiedade ou "
 "os permisos de propietario dun recurso compartido"
 
 #: lib/Block/iframe.php:41
@@ -5749,12 +5749,12 @@ msgstr "Sistema Operativo"
 #: framework/Argv/lib/Horde/Argv/Parser.php:625
 #: services/portal/sidebar.php:141
 msgid "Options"
-msgstr "OpciÛns"
+msgstr "Opci√≥ns"
 
 #: services/prefs.php:36 templates/prefs/app.inc:19
 #, php-format
 msgid "Options for %s"
-msgstr "OpciÛns de %s"
+msgstr "Opci√≥ns de %s"
 
 #: templates/shares/edit.inc:49 templates/shares/edit.inc:241
 #, fuzzy
@@ -5763,7 +5763,7 @@ msgstr "Elixa un nome de usuario"
 
 #: framework/Crypt/Crypt/smime.php:571
 msgid "Organisation"
-msgstr "OrganizaciÛn"
+msgstr "Organizaci√≥n"
 
 #: framework/Crypt/Crypt/smime.php:572
 msgid "Organisational Unit"
@@ -5771,7 +5771,7 @@ msgstr "Unidade organizativa"
 
 #: config/registry.php.dist:125
 msgid "Organizing"
-msgstr "OrganizaciÛn"
+msgstr "Organizaci√≥n"
 
 #: framework/NLS/NLS/GeoIP.php:119 services/keyboard.php:126
 msgid "Other"
@@ -5781,12 +5781,12 @@ msgstr "Outro"
 #: config/prefs.php.dist:136 config/prefs.php.dist:145
 #: config/prefs.php.dist:154 config/prefs.php.dist:161
 msgid "Other Information"
-msgstr "Outra informaciÛn"
+msgstr "Outra informaci√≥n"
 
 #: services/keyboard.php:124
 #, fuzzy
 msgid "Other characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: templates/shares/edit.inc:32
 #, fuzzy
@@ -5805,7 +5805,7 @@ msgstr "List-Owner"
 
 #: framework/Auth/Auth/pam.php:81
 msgid "PAM authentication is not available."
-msgstr "A autenticaciÛn PAM non est· dispoÒible."
+msgstr "A autenticaci√≥n PAM non est√° dispo√±ible."
 
 #: framework/Net_SMS/SMS/generic_smtp.php:105
 msgid "PEAR::Mail backend"
@@ -5822,11 +5822,11 @@ msgstr "Datos cifrados con PGP"
 #: framework/Form/Form.php:1625
 #, fuzzy
 msgid "PGP Key"
-msgstr "Clave PGP p˙blica"
+msgstr "Clave PGP p√∫blica"
 
 #: framework/Crypt/Crypt/pgp.php:1626
 msgid "PGP Public Key"
-msgstr "Clave PGP p˙blica"
+msgstr "Clave PGP p√∫blica"
 
 #: framework/Crypt/Crypt/pgp.php:1607
 msgid "PGP Signed/Encrypted Data"
@@ -5838,11 +5838,11 @@ msgstr ""
 
 #: admin/phpshell.php:82
 msgid "PHP Code"
-msgstr "CÛdigo PHP"
+msgstr "C√≥digo PHP"
 
 #: admin/phpshell.php:20 admin/phpshell.php:45
 msgid "PHP Shell"
-msgstr "IntÈrprete PHP"
+msgstr "Int√©rprete PHP"
 
 #: framework/Kolab_Server/lib/Horde/Kolab/IMAP/cclient.php:569
 #, php-format
@@ -5862,7 +5862,7 @@ msgstr "Orballo"
 #: lib/Block/weatherdotcom_strings.php:58
 #, fuzzy
 msgid "PM Fog"
-msgstr "NÈboa"
+msgstr "N√©boa"
 
 #: lib/Block/weatherdotcom_strings.php:59
 msgid "PM Light Rain"
@@ -5904,16 +5904,16 @@ msgstr "Tormentas vespertinas"
 
 #: lib/Block/account.php:289
 msgid "POSIX extension is missing"
-msgstr "Non se atopa a extensiÛn POSIX"
+msgstr "Non se atopa a extensi√≥n POSIX"
 
 #: lib/api.php:221
 msgid "P_HP Shell"
-msgstr "IntÈrpr. P_HP"
+msgstr "Int√©rpr. P_HP"
 
 #: framework/NLS/NLS/tld.php:191 framework/NLS/NLS/countries.php:172
 #: framework/NLS/NLS/GeoIP.php:99
 msgid "Pakistan"
-msgstr "Paquist·n"
+msgstr "Paquist√°n"
 
 #: framework/NLS/NLS/tld.php:198 framework/NLS/NLS/countries.php:173
 #: framework/NLS/NLS/GeoIP.php:101
@@ -5928,12 +5928,12 @@ msgstr "Palestina"
 #: framework/NLS/NLS/tld.php:186 framework/NLS/NLS/countries.php:175
 #: framework/NLS/NLS/GeoIP.php:98
 msgid "Panama"
-msgstr "Panam·"
+msgstr "Panam√°"
 
 #: framework/NLS/NLS/tld.php:189 framework/NLS/NLS/countries.php:176
 #: framework/NLS/NLS/GeoIP.php:99
 msgid "Papua New Guinea"
-msgstr "Pap˙a-Nova Guinea"
+msgstr "Pap√∫a-Nova Guinea"
 
 #: framework/NLS/NLS/tld.php:199 framework/NLS/NLS/countries.php:177
 #: framework/NLS/NLS/GeoIP.php:102
@@ -5965,15 +5965,15 @@ msgstr "O contrasinal cambiouse correctamente."
 
 #: framework/Crypt/Crypt/smime.php:1345
 msgid "Password incorrect"
-msgstr "O contrasinal È incorrecto"
+msgstr "O contrasinal √© incorrecto"
 
 #: framework/Auth/Auth/radius.php:157
 msgid "Password required for RADIUS authentication."
-msgstr "CÛmpre un contrasinal para a autenticaciÛn RADIUS."
+msgstr "C√≥mpre un contrasinal para a autenticaci√≥n RADIUS."
 
 #: framework/Form/Form.php:2774
 msgid "Password with confirmation"
-msgstr "Contrasinal con confirmaciÛn"
+msgstr "Contrasinal con confirmaci√≥n"
 
 #: templates/rpcsum/rpcsum.inc:81
 msgid "Password:"
@@ -5986,7 +5986,7 @@ msgstr "Contrasinal: "
 #: admin/user.php:167 framework/Form/Form.php:2756
 #: templates/admin/user/update.inc:15
 msgid "Passwords must match."
-msgstr "Os contrasinais teÒen que coincidir."
+msgstr "Os contrasinais te√±en que coincidir."
 
 #: admin/sqlshell.php:124
 msgid "Paste"
@@ -5998,7 +5998,7 @@ msgstr ""
 
 #: templates/admin/user/approve.inc:2 templates/admin/user/removequeued.inc:7
 msgid "Pending Signups:"
-msgstr "InscriciÛns pendentes:"
+msgstr "Inscrici√≥ns pendentes:"
 
 #: lib/Block/fortune.php:63
 msgid "People"
@@ -6006,11 +6006,11 @@ msgstr "Xente"
 
 #: templates/maintenance/maintenance.html:49
 msgid "Perform Maintenance Operations"
-msgstr "Realiza as operaciÛns de mantemento"
+msgstr "Realiza as operaci√≥ns de mantemento"
 
 #: config/prefs.php.dist:464
 msgid "Perform maintenance operations on login?"
-msgstr "Quere realizar as operaciÛns de mantemento ao inicio de sesiÛn?"
+msgstr "Quere realizar as operaci√≥ns de mantemento ao inicio de sesi√≥n?"
 
 #: framework/Perms/Perms/UI.php:203
 msgid "Permission"
@@ -6032,16 +6032,16 @@ msgstr "Permisos"
 #: admin/perms/edit.php:110 admin/perms/addchild.php:61
 #: admin/perms/index.php:23 admin/perms/delete.php:59
 msgid "Permissions Administration"
-msgstr "AdministraciÛn de permisos"
+msgstr "Administraci√≥n de permisos"
 
 #: config/prefs.php.dist:81
 msgid "Personal Information"
-msgstr "InformaciÛn persoal"
+msgstr "Informaci√≥n persoal"
 
 #: framework/NLS/NLS/tld.php:187 framework/NLS/NLS/countries.php:178
 #: framework/NLS/NLS/GeoIP.php:98
 msgid "Peru"
-msgstr "Per˙"
+msgstr "Per√∫"
 
 #: lib/Block/fortune.php:64
 msgid "Pets"
@@ -6054,22 +6054,22 @@ msgstr "Filipinas"
 
 #: framework/MIME/MIME/Viewer/vcard.php:245
 msgid "Phone"
-msgstr "TelÈfono"
+msgstr "Tel√©fono"
 
 #: framework/Form/Form.php:1288
 #, fuzzy
 msgid "Phone number"
-msgstr "N˙mero de telÈfono"
+msgstr "N√∫mero de tel√©fono"
 
 #: framework/MIME/MIME/Viewer/vcard.php:108
 #: framework/MIME/MIME/Viewer/vcard.php:116
 #, fuzzy
 msgid "Photo"
-msgstr "FotografÌas"
+msgstr "Fotograf√≠as"
 
 #: config/registry.php.dist:448
 msgid "Photos"
-msgstr "FotografÌas"
+msgstr "Fotograf√≠as"
 
 #: framework/NLS/NLS/countries.php:180 framework/NLS/NLS/GeoIP.php:100
 msgid "Pitcairn"
@@ -6086,7 +6086,7 @@ msgstr ""
 
 #: lib/Block/fortune.php:65
 msgid "Platitudes"
-msgstr "TÛpicos"
+msgstr "T√≥picos"
 
 #: framework/Alarm/Alarm.php:455
 msgid "Play a sound?"
@@ -6095,7 +6095,7 @@ msgstr ""
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Access.php:226
 #, fuzzy
 msgid "Please authenticate!"
-msgstr "Non est· autenticado."
+msgstr "Non est√° autenticado."
 
 #: framework/Form/Form.php:3798
 msgid "Please choose a sound."
@@ -6107,19 +6107,19 @@ msgstr "Introduza un mes e un ano."
 
 #: templates/prefs/categorymanagement.inc:25
 msgid "Please enter a name for the new category:"
-msgstr "Introduza o nome da nova categorÌa:"
+msgstr "Introduza o nome da nova categor√≠a:"
 
 #: framework/Form/Form.php:1326
 msgid "Please enter a valid IP address."
-msgstr "Introduza un enderezo IP v·lido."
+msgstr "Introduza un enderezo IP v√°lido."
 
 #: framework/Form/Form.php:3402
 msgid "Please enter a valid date, check the number of days in the month."
-msgstr "Introduza unha data v·lida, comprobe o n˙mero de dÌas do mes."
+msgstr "Introduza unha data v√°lida, comprobe o n√∫mero de d√≠as do mes."
 
 #: framework/Form/Form.php:3200
 msgid "Please enter a valid time."
-msgstr "Introduza unha hora v·lida."
+msgstr "Introduza unha hora v√°lida."
 
 #: templates/problem/problem.inc:7
 msgid "Please provide a summary of the problem."
@@ -6134,11 +6134,11 @@ msgid ""
 "Please read the following text. You MUST agree with the terms to use the "
 "system."
 msgstr ""
-"Lea o texto seguinte. DEBE aceptar as condiciÛns se quere usar o sistema."
+"Lea o texto seguinte. DEBE aceptar as condici√≥ns se quere usar o sistema."
 
 #: framework/Prefs/Prefs/CategoryManager.php:78
 msgid "Please type the new category name:"
-msgstr "Introduza o novo nome de categorÌa:"
+msgstr "Introduza o novo nome de categor√≠a:"
 
 #: framework/NLS/NLS/tld.php:192 framework/NLS/NLS/countries.php:181
 #: framework/NLS/NLS/GeoIP.php:99
@@ -6147,7 +6147,7 @@ msgstr "Polonia"
 
 #: lib/Block/fortune.php:66
 msgid "Politics"
-msgstr "PolÌtica"
+msgstr "Pol√≠tica"
 
 #: config/registry.php.dist:457
 msgid "Polls"
@@ -6156,7 +6156,7 @@ msgstr "Enquisas"
 #: framework/Alarm/Alarm.php:458
 #, fuzzy
 msgid "Popup Notification"
-msgstr "NotificaciÛn de consulta"
+msgstr "Notificaci√≥n de consulta"
 
 #: framework/Net_SMS/SMS/generic_smpp.php:102
 #, fuzzy
@@ -6188,23 +6188,23 @@ msgstr "Enderezo IP"
 #: themes/postnuke/info.php:6
 #, fuzzy
 msgid "Postnuke"
-msgstr "Contin˙a"
+msgstr "Contin√∫a"
 
 #: lib/Block/metar.php:278 lib/Block/metar.php:283
 #, fuzzy, php-format
 msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
-msgstr[0] "PrecipitaciÛns da(s) ˙ltima(s) %s hora(s): "
-msgstr[1] "PrecipitaciÛns da(s) ˙ltima(s) %s hora(s): "
+msgstr[0] "Precipitaci√≥ns da(s) √∫ltima(s) %s hora(s): "
+msgstr[1] "Precipitaci√≥ns da(s) √∫ltima(s) %s hora(s): "
 
 #: lib/Block/weatherdotcom.php:304
 msgid "Precipitation<br />chance"
-msgstr "Probabilidade de<br />precipitaciÛns"
+msgstr "Probabilidade de<br />precipitaci√≥ns"
 
 #: framework/Prefs/Prefs/file.php:66
 #, fuzzy
 msgid "Preference storage directory is not available."
-msgstr "A autenticaciÛn PAM non est· dispoÒible."
+msgstr "A autenticaci√≥n PAM non est√° dispo√±ible."
 
 #: framework/Share/Share/kolab.php:453 framework/Kolab/Kolab.php:777
 msgid "Preferences"
@@ -6219,32 +6219,32 @@ msgstr ""
 #: framework/MIME/MIME/Viewer/vcard.php:211
 #, fuzzy
 msgid "Preferred Address"
-msgstr "Enderezo da r˙a"
+msgstr "Enderezo da r√∫a"
 
 #: framework/Prefs/Prefs/ldap.php:139
 msgid "Prefs_ldap: Required LDAP extension not found."
-msgstr "Prefs_ldap: non se atopou a extensiÛn LDAP requirida."
+msgstr "Prefs_ldap: non se atopou a extensi√≥n LDAP requirida."
 
 #: lib/Block/metar.php:237
 msgid "Pressure"
-msgstr "PresiÛn"
+msgstr "Presi√≥n"
 
 #: lib/Block/metar.php:271
 msgid "Pressure at sea level: "
-msgstr "PresiÛn ao nivel do mar: "
+msgstr "Presi√≥n ao nivel do mar: "
 
 #: lib/Block/weatherdotcom.php:242
 msgid "Pressure: "
-msgstr "PresiÛn: "
+msgstr "Presi√≥n: "
 
 #: framework/UI/UI/VarRenderer/html.php:216
 #: framework/UI/UI/VarRenderer/html.php:1518
 msgid "Preview"
-msgstr "PrevisualizaciÛn"
+msgstr "Previsualizaci√≥n"
 
 #: framework/Prefs/Prefs/UI.php:391
 msgid "Previous options"
-msgstr "OpciÛns anteriores"
+msgstr "Opci√≥ns anteriores"
 
 #: framework/Crypt/Crypt/pgp.php:470
 msgid "Private Key"
@@ -6256,7 +6256,7 @@ msgstr "Problema"
 
 #: services/problem.php:155
 msgid "Problem Description"
-msgstr "DescriciÛn do problema"
+msgstr "Descrici√≥n do problema"
 
 #: framework/Form/Form.php:1704 framework/Form/Form.php:2839
 #: framework/Form/Form.php:2915 framework/Form/Form.php:4255
@@ -6269,19 +6269,19 @@ msgstr ""
 
 #: framework/Crypt/Crypt/pgp.php:470
 msgid "Public Key"
-msgstr "Clave p˙blica"
+msgstr "Clave p√∫blica"
 
 #: framework/Crypt/Crypt/smime.php:649
 msgid "Public Key Algorithm"
-msgstr "Algoritmo de clave p˙blica"
+msgstr "Algoritmo de clave p√∫blica"
 
 #: framework/Crypt/Crypt/smime.php:648
 msgid "Public Key Info"
-msgstr "InformaciÛn da clave p˙blica"
+msgstr "Informaci√≥n da clave p√∫blica"
 
 #: framework/Crypt/Crypt/pgp.php:241
 msgid "Public/Private keypair not generated successfully."
-msgstr "Non se xeraron correctamente as claves P˙blica/Privada."
+msgstr "Non se xeraron correctamente as claves P√∫blica/Privada."
 
 #: framework/NLS/NLS/tld.php:195 framework/NLS/NLS/countries.php:183
 #: framework/NLS/NLS/GeoIP.php:100
@@ -6291,7 +6291,7 @@ msgstr "Porto Rico"
 #: framework/IMAP/IMAP/ACL/rfc4314.php:69
 #, fuzzy
 msgid "Purge"
-msgstr "PresiÛn"
+msgstr "Presi√≥n"
 
 #: framework/IMAP/IMAP/ACL/rfc4314.php:55
 msgid "Purge messages"
@@ -6317,11 +6317,11 @@ msgstr "Cuota"
 #: framework/Crypt/Crypt/smime.php:667
 #, php-format
 msgid "RSA Public Key (%d bit)"
-msgstr "Clave RSA p˙blica (%d bit)"
+msgstr "Clave RSA p√∫blica (%d bit)"
 
 #: framework/Form/Form.php:3003
 msgid "Radio selection"
-msgstr "SelecciÛn de radio"
+msgstr "Selecci√≥n de radio"
 
 #: lib/Block/weatherdotcom_strings.php:68
 msgid "Rain"
@@ -6353,7 +6353,7 @@ msgstr "Roda da fortuna"
 
 #: framework/MIME/MIME/Viewer/rar.php:66 framework/MIME/MIME/Viewer/zip.php:90
 msgid "Ratio"
-msgstr "ProporciÛn"
+msgstr "Proporci√≥n"
 
 #: framework/Perms/Perms.php:401 framework/IMAP/IMAP/ACL/rfc4314.php:61
 #: framework/IMAP/IMAP/ACL/rfc2086.php:99 templates/shares/edit.inc:67
@@ -6374,7 +6374,7 @@ msgstr "Lectura das mensaxes"
 #: templates/admin/user/remove.inc:8
 #, fuzzy, php-format
 msgid "Really delete \"%s\"? This operation cannot be undone."
-msgstr "Quere eliminar realmente %s? Esta operaciÛn non se pode desfacer."
+msgstr "Quere eliminar realmente %s? Esta operaci√≥n non se pode desfacer."
 
 #: framework/Block/Block/Layout.php:116
 msgid "Really delete this block?"
@@ -6385,7 +6385,7 @@ msgstr ""
 msgid ""
 "Really remove user data for user \"%s\"? This operation cannot be undone."
 msgstr ""
-"Quere eliminar realmente os datos do usuario %s? Esta operaciÛn non se pode "
+"Quere eliminar realmente os datos do usuario %s? Esta operaci√≥n non se pode "
 "desfacer."
 
 #: admin/sessions.php:61
@@ -6395,7 +6395,7 @@ msgstr "Calma"
 
 #: config/prefs.php.dist:449
 msgid "Refresh Dynamic Menu Elements:"
-msgstr "Actualiza os elementos de men˙ din·mico:"
+msgstr "Actualiza os elementos de men√∫ din√°mico:"
 
 #: config/prefs.php.dist:399
 msgid "Refresh Portal View:"
@@ -6414,11 +6414,11 @@ msgstr "Regex"
 #: framework/Form/Form.php:4212
 #, fuzzy
 msgid "Relationship browser"
-msgstr "Navegador de relaciÛns"
+msgstr "Navegador de relaci√≥ns"
 
 #: lib/Block/metar.php:338
 msgid "Remarks"
-msgstr "ObservaciÛns"
+msgstr "Observaci√≥ns"
 
 #: admin/sessions.php:62 admin/sessions.php:72
 #, fuzzy
@@ -6464,7 +6464,7 @@ msgstr ""
 
 #: framework/RPC/RPC/phpgw.php:168
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "Non se pode responder · solicitude. CÛdigo de erro que se devolveu: "
+msgstr "Non se pode responder √° solicitude. C√≥digo de erro que se devolveu: "
 
 #: lib/Block/weatherdotcom.php:163
 msgid "Requested service could not be found."
@@ -6473,19 +6473,19 @@ msgstr "Non se atopou o servizo solicitado"
 #: framework/Horde/Horde.php:212 framework/Horde/Horde.php:717
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
-msgstr "Non se especificou o '%s' requirido na configuraciÛn de %s."
+msgstr "Non se especificou o '%s' requirido na configuraci√≥n de %s."
 
 #: framework/VFS/lib/VFS/sql.php:768 framework/VFS/lib/VFS/ftp.php:924
 #: framework/VFS/lib/VFS/ssh2.php:926 framework/VFS/lib/VFS/horde.php:41
 #: framework/VFS/lib/VFS/sql_file.php:748
 #, php-format
 msgid "Required \"%s\" not specified in VFS configuration."
-msgstr "Non se especificou o '%s' requirido na configuraciÛn VFS."
+msgstr "Non se especificou o '%s' requirido na configuraci√≥n VFS."
 
 #: framework/Util/Util.php:801
 #, php-format
 msgid "Required \"%s\" not specified in configuration."
-msgstr "Non se especificou o '%s' requirido na configuraciÛn."
+msgstr "Non se especificou o '%s' requirido na configuraci√≥n."
 
 #: framework/Form/Form/Renderer.php:333
 msgid "Required Field"
@@ -6512,7 +6512,7 @@ msgstr "Limpe o contrasinal"
 
 #: admin/sqlshell.php:136
 msgid "Restore Last Query"
-msgstr "Restaura a ˙ltima consulta"
+msgstr "Restaura a √∫ltima consulta"
 
 #: admin/phpshell.php:86 admin/cmdshell.php:29 admin/sqlshell.php:70
 msgid "Results"
@@ -6536,7 +6536,7 @@ msgstr ""
 #: templates/syncml/syncml.inc:39 templates/rpcsum/rpcsum.inc:92
 #: templates/prefs/end.inc:4
 msgid "Return to Options"
-msgstr "Regresa a OpciÛns"
+msgstr "Regresa a Opci√≥ns"
 
 #: framework/Crypt/Crypt/pgp.php:243
 #, fuzzy
@@ -6549,34 +6549,34 @@ msgstr "Reescriba un novo contrasinal"
 
 #: framework/NLS/NLS/countries.php:185 framework/NLS/NLS/GeoIP.php:102
 msgid "Reunion"
-msgstr "ReuniÛn"
+msgstr "Reuni√≥n"
 
 #: framework/NLS/NLS/tld.php:201
 #, fuzzy
 msgid "Reunion Island"
-msgstr "Illa da AscensiÛn"
+msgstr "Illa da Ascensi√≥n"
 
 #: admin/setup/config.php:44 admin/setup/config.php:48
 msgid "Revert Configuration"
-msgstr "Restaura a configuraciÛn"
+msgstr "Restaura a configuraci√≥n"
 
 #: framework/Crypt/Crypt/pgp.php:1750
 #, fuzzy
 msgid "Revocation key not generated successfully."
-msgstr "Non se xeraron correctamente as claves P˙blica/Privada."
+msgstr "Non se xeraron correctamente as claves P√∫blica/Privada."
 
 #: config/prefs.php.dist:155
 msgid "Rich Text Editor Options"
-msgstr "OpciÛns do Editor de texto enriquecido"
+msgstr "Opci√≥ns do Editor de texto enriquecido"
 
 #: lib/Block/fortune.php:67
 msgid "Riddles"
-msgstr "AdiviÒas"
+msgstr "Adivi√±as"
 
 #: config/prefs.php.dist:567
 #, fuzzy
 msgid "Right click context menu"
-msgstr "Quere permitir o men˙ de contexto no botÛn dereito do rato?"
+msgstr "Quere permitir o men√∫ de contexto no bot√≥n dereito do rato?"
 
 #: framework/Form/Form.php:4088
 msgid "Right header"
@@ -6588,24 +6588,24 @@ msgstr "Valores da dereita"
 
 #: framework/MIME/MIME/Viewer/vcard.php:289
 msgid "Role"
-msgstr "FunciÛn"
+msgstr "Funci√≥n"
 
 #: framework/NLS/NLS/tld.php:202 framework/NLS/NLS/countries.php:186
 #: framework/NLS/NLS/GeoIP.php:102
 msgid "Romania"
-msgstr "RomanÌa"
+msgstr "Roman√≠a"
 
 #: framework/UI/UI/VarRenderer/html.php:239
 msgid "Rotate 180"
-msgstr "Xira 180∫"
+msgstr "Xira 180¬∫"
 
 #: framework/UI/UI/VarRenderer/html.php:236
 msgid "Rotate Left"
-msgstr "Xira · esquerda"
+msgstr "Xira √° esquerda"
 
 #: framework/UI/UI/VarRenderer/html.php:242
 msgid "Rotate Right"
-msgstr "Xira · dereita"
+msgstr "Xira √° dereita"
 
 #: admin/sqlshell.php:125
 msgid "Run"
@@ -6623,7 +6623,7 @@ msgstr "Ruanda"
 
 #: framework/Crypt/Crypt/smime.php:284
 msgid "S/MIME Cryptographic Signature"
-msgstr "Sinatura criptogr·fica S/MIME"
+msgstr "Sinatura criptogr√°fica S/MIME"
 
 #: framework/Crypt/Crypt/smime.php:326
 msgid "S/MIME Encrypted Message"
@@ -6635,7 +6635,7 @@ msgstr ""
 
 #: framework/Auth/Auth/peclsasl.php:82
 msgid "SASL authentication is not available."
-msgstr "Non est· dispoÒible a autenticaciÛn SASL."
+msgstr "Non est√° dispo√±ible a autenticaci√≥n SASL."
 
 #: framework/Net_SMS/SMS/generic_smpp.php:86
 #, fuzzy
@@ -6644,11 +6644,11 @@ msgstr "Pasarela Correo-a-SMS"
 
 #: admin/sqlshell.php:21 admin/sqlshell.php:28
 msgid "SQL Shell"
-msgstr "IntÈrprete SQL"
+msgstr "Int√©rprete SQL"
 
 #: framework/Form/Form.php:4253
 msgid "SQL statement for value lookups"
-msgstr "InstruciÛn SQL para buscas de valores"
+msgstr "Instruci√≥n SQL para buscas de valores"
 
 #: config/registry.php.dist:410
 msgid "SSH"
@@ -6656,11 +6656,11 @@ msgstr "SSH"
 
 #: framework/Notification/Notification/Listener/mobile.php:35
 msgid "SUCCESS"
-msgstr "…XITO"
+msgstr "√âXITO"
 
 #: lib/api.php:225
 msgid "S_QL Shell"
-msgstr "IntÈrprete S_QL"
+msgstr "Int√©rprete S_QL"
 
 #: templates/javascript/open_calendar.js:53
 msgid "Sa"
@@ -6679,7 +6679,7 @@ msgstr "Saint Kitts e Nevis"
 #: framework/NLS/NLS/tld.php:142 framework/NLS/NLS/countries.php:191
 #: framework/NLS/NLS/GeoIP.php:87
 msgid "Saint Lucia"
-msgstr "Santa LucÌa"
+msgstr "Santa Luc√≠a"
 
 #: framework/NLS/NLS/tld.php:193 framework/NLS/NLS/countries.php:192
 #: framework/NLS/NLS/GeoIP.php:100
@@ -6704,11 +6704,11 @@ msgstr "San Marino"
 #: framework/NLS/NLS/tld.php:221 framework/NLS/NLS/countries.php:196
 #: framework/NLS/NLS/GeoIP.php:107
 msgid "Sao Tome and Principe"
-msgstr "S„o TomÈ e PrÌncipe"
+msgstr "S√£o Tom√© e Pr√≠ncipe"
 
 #: framework/NLS/NLS/GeoIP.php:119
 msgid "Satellite Provider"
-msgstr "Provedor de satÈlite"
+msgstr "Provedor de sat√©lite"
 
 #: framework/NLS/NLS/tld.php:206 framework/NLS/NLS/countries.php:197
 #: framework/NLS/NLS/GeoIP.php:103
@@ -6726,31 +6726,31 @@ msgstr "Garda \"%s\""
 
 #: templates/prefs/end.inc:2
 msgid "Save Options"
-msgstr "Garda as opciÛns"
+msgstr "Garda as opci√≥ns"
 
 #: templates/shares/edit.inc:336
 #, fuzzy
 msgid "Save and Finish"
-msgstr "S„o TomÈ e PrÌncipe"
+msgstr "S√£o Tom√© e Pr√≠ncipe"
 
 #: admin/setup/index.php:232
 msgid ""
 "Save generated configuration as a PHP script to your server's temporary "
 "directory."
 msgstr ""
-"Garda a configuraciÛn xerada como unha secuencia de comandos PHP no "
+"Garda a configuraci√≥n xerada como unha secuencia de comandos PHP no "
 "directorio temporal do seu servidor."
 
 #: admin/setup/scripts.php:72
 #, php-format
 msgid "Saved %s configuration."
-msgstr "Gardouse a configuraciÛn de %s."
+msgstr "Gardouse a configuraci√≥n de %s."
 
 #: admin/setup/scripts.php:100
 #, php-format
 msgid "Saved setup upgrade script to: \"%s\"."
 msgstr ""
-"Gardouse a secuencia de comandos de actualizaciÛn da configuraciÛn en: '%s'."
+"Gardouse a secuencia de comandos de actualizaci√≥n da configuraci√≥n en: '%s'."
 
 #: lib/Block/weatherdotcom_strings.php:74
 #, fuzzy
@@ -6826,7 +6826,7 @@ msgstr "Seleccione todo"
 
 #: framework/Form/Form.php:3405
 msgid "Select all date components."
-msgstr "Seleccione todos os compoÒentes da data."
+msgstr "Seleccione todos os compo√±entes da data."
 
 #: services/editor/xinha/plugins/AnselImage/insert_image.php:130
 #, fuzzy
@@ -6845,15 +6845,15 @@ msgstr "Seleccione ficheiros"
 #: framework/UI/UI/VarRenderer/html.php:757
 #: framework/UI/UI/VarRenderer/tableset_html.php:24
 msgid "Select none"
-msgstr "Non seleccionar ning˙n"
+msgstr "Non seleccionar ning√∫n"
 
 #: services/keyboard.php:40
 msgid ""
 "Select the characters you need from the boxes below. You can then copy and "
 "paste them from the text area."
 msgstr ""
-"Seleccione os caracteres que necesite das cuadrÌculas de m·is abaixo. Pode "
-"copialos e pegalos dende a ·rea de texto."
+"Seleccione os caracteres que necesite das cuadr√≠culas de m√°is abaixo. Pode "
+"copialos e pegalos dende a √°rea de texto."
 
 #: templates/data/datetime.inc:57
 #, fuzzy
@@ -6887,7 +6887,7 @@ msgstr "Seleccione o formato de hora:"
 
 #: config/prefs.php.dist:364
 msgid "Select your color scheme."
-msgstr "Seleccione a s˙a combinaciÛn de cores."
+msgstr "Seleccione a s√∫a combinaci√≥n de cores."
 
 #: config/prefs.php.dist:293
 msgid "Select your preferred language:"
@@ -6899,11 +6899,11 @@ msgstr ""
 
 #: templates/problem/problem.inc:57
 msgid "Send Problem Report"
-msgstr "EnvÌa o informe de problemas"
+msgstr "Env√≠a o informe de problemas"
 
 #: framework/UI/UI/VarRenderer/html.php:1186
 msgid "Send SMS"
-msgstr "EnvÌa un SMS"
+msgstr "Env√≠a un SMS"
 
 #: framework/Net_SMS/SMS/generic_smpp.php:147
 #, fuzzy, php-format
@@ -6936,7 +6936,7 @@ msgstr "Serbia e Montenegro"
 
 #: framework/Crypt/Crypt/smime.php:705
 msgid "Serial Number"
-msgstr "N˙mero de serie"
+msgstr "N√∫mero de serie"
 
 #: templates/syncml/syncml.inc:11
 #, fuzzy
@@ -6945,24 +6945,24 @@ msgstr "Hora de entrega:"
 
 #: lib/Block/weatherdotcom.php:167
 msgid "Server data wrong or not available."
-msgstr "Os datos do servidor son incorrectos ou non est·n dispoÒibles"
+msgstr "Os datos do servidor son incorrectos ou non est√°n dispo√±ibles"
 
 #: admin/sessions.php:28
 msgid "Session Admin"
-msgstr "AdministraciÛn de sesiÛn"
+msgstr "Administraci√≥n de sesi√≥n"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:300
 msgid "Session ID expired."
-msgstr "Caducou o IDE de sesiÛn."
+msgstr "Caducou o IDE de sesi√≥n."
 
 #: admin/sessions.php:59
 #, fuzzy
 msgid "Session Timestamp:"
-msgstr "SesiÛns"
+msgstr "Sesi√≥ns"
 
 #: lib/api.php:217
 msgid "Sessions"
-msgstr "SesiÛns"
+msgstr "Sesi√≥ns"
 
 #: framework/Form/Form.php:3052
 msgid "Set"
@@ -6977,7 +6977,7 @@ msgstr ""
 #: config/prefs.php.dist:99
 msgid "Set options to allow you to reset your password if you ever forget it."
 msgstr ""
-"Establece opciÛns que lle permiten reaxustar o seu contrasinal se chegase a "
+"Establece opci√≥ns que lle permiten reaxustar o seu contrasinal se chegase a "
 "esquecelo."
 
 #: config/prefs.php.dist:138
@@ -6986,28 +6986,28 @@ msgstr "Configura servidores remotos aos que desexe acceder desde o portal."
 
 #: config/prefs.php.dist:107
 msgid "Set your preferred language, timezone and date options."
-msgstr "Establece as opciÛns preferidas de idioma, zona horaria e datas."
+msgstr "Establece as opci√≥ns preferidas de idioma, zona horaria e datas."
 
 #: config/prefs.php.dist:121
 msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display options."
 msgstr ""
-"Establece a aplicaciÛn de inicio, a combinaciÛn de cores, a actualizaciÛn de "
-"p·xina e outras opciÛns de visualizaciÛn."
+"Establece a aplicaci√≥n de inicio, a combinaci√≥n de cores, a actualizaci√≥n de "
+"p√°xina e outras opci√≥ns de visualizaci√≥n."
 
 #: admin/setup/config.php:77
 msgid "Setup"
-msgstr "ConfiguraciÛn"
+msgstr "Configuraci√≥n"
 
 #: templates/admin/setup/index.html:61
 msgid "Setup upgrade scripts available"
 msgstr ""
-"Est·n dispoÒibles as secuencias de comandos de actualizaciÛn da configuraciÛn"
+"Est√°n dispo√±ibles as secuencias de comandos de actualizaci√≥n da configuraci√≥n"
 
 #: lib/Block/weatherdotcom.php:193
 msgid "Several locations possible with the parameter: "
-msgstr "Existen varias localizaciÛns dispoÒibles co par·metro: "
+msgstr "Existen varias localizaci√≥ns dispo√±ibles co par√°metro: "
 
 #: framework/NLS/NLS/tld.php:208 framework/NLS/NLS/countries.php:200
 #: framework/NLS/NLS/GeoIP.php:104
@@ -7031,7 +7031,7 @@ msgstr ""
 #: framework/Auth/Auth/shibboleth.php:65
 #, fuzzy
 msgid "Shibboleth authentication not available."
-msgstr "Non est· dispoÒible a autenticaciÛn SASL."
+msgstr "Non est√° dispo√±ible a autenticaci√≥n SASL."
 
 #: config/registry.php.dist:466
 msgid "Shopping"
@@ -7043,7 +7043,7 @@ msgstr "Resumo breve"
 
 #: config/prefs.php.dist:504
 msgid "Should access keys be defined for most links?"
-msgstr "Quere definir claves de acceso para a maiorÌa das ligazÛns?"
+msgstr "Quere definir claves de acceso para a maior√≠a das ligaz√≥ns?"
 
 #: framework/Perms/Perms.php:400 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:77 templates/shares/edit.inc:101
@@ -7059,7 +7059,7 @@ msgstr "Mostra"
 msgid ""
 "Show differences between currently saved and the newly generated "
 "configuration."
-msgstr "Mostra as diferenzas entre a nova configuraciÛn e a almacenada"
+msgstr "Mostra as diferenzas entre a nova configuraci√≥n e a almacenada"
 
 #: lib/Block/feed.php:29
 msgid "Show extra detail?"
@@ -7072,12 +7072,12 @@ msgstr "Mostra o selector"
 
 #: config/prefs.php.dist:539
 msgid "Show last login time when logging in?"
-msgstr "Quere mostrar a hora da ˙ltima sesiÛn ao iniciar?"
+msgstr "Quere mostrar a hora da √∫ltima sesi√≥n ao iniciar?"
 
 #: framework/Form/Form.php:2087
 #, fuzzy
 msgid "Show option to keep original?"
-msgstr "Mostra a opciÛn de conservar o orixinal"
+msgstr "Mostra a opci√≥n de conservar o orixinal"
 
 #: framework/Form/Form.php:3566 framework/Form/Form.php:3732
 #, fuzzy
@@ -7092,7 +7092,7 @@ msgstr "Chuvascos"
 #: config/prefs.php.dist:407
 #, php-format
 msgid "Show the %s Menu on the left?"
-msgstr "Quere mostrar o men˙ %s · esquerda?"
+msgstr "Quere mostrar o men√∫ %s √° esquerda?"
 
 #: framework/Form/Form.php:2085
 #, fuzzy
@@ -7128,7 +7128,7 @@ msgstr "Reduce"
 #: framework/Block/Block/Layout/Manager.php:1212
 #: framework/Block/Block/Layout/Manager.php:1245
 msgid "Shrink or move neighbouring block(s) out of the way first"
-msgstr "Primeiro reduza ou quite do medio o(s) bloque(s) prÛximo(s)"
+msgstr "Primeiro reduza ou quite do medio o(s) bloque(s) pr√≥ximo(s)"
 
 #: framework/NLS/NLS/tld.php:216 framework/NLS/NLS/countries.php:201
 #: framework/NLS/NLS/GeoIP.php:105
@@ -7162,7 +7162,7 @@ msgstr "Singapur"
 #: framework/Form/Form.php:2972 framework/Form/Form.php:3890
 #: framework/Form/Form.php:4090
 msgid "Size"
-msgstr "TamaÒo"
+msgstr "Tama√±o"
 
 #: templates/maintenance/maintenance.html:52
 msgid "Skip Maintenance"
@@ -7228,7 +7228,7 @@ msgstr "Equivalente da neve en auga: "
 #: framework/NLS/NLS/tld.php:207 framework/NLS/NLS/countries.php:205
 #: framework/NLS/NLS/GeoIP.php:103
 msgid "Solomon Islands"
-msgstr "Illas SalomÛn"
+msgstr "Illas Salom√≥n"
 
 #: framework/NLS/NLS/tld.php:219 framework/NLS/NLS/countries.php:206
 #: framework/NLS/NLS/GeoIP.php:106
@@ -7237,16 +7237,16 @@ msgstr "Somalia"
 
 #: lib/Block/fortune.php:69
 msgid "Songs & Poems"
-msgstr "CanciÛns e Poemas"
+msgstr "Canci√≥ns e Poemas"
 
 #: framework/Form/Form.php:3886
 msgid "Sort order selection"
-msgstr "SelecciÛn da orde da clasificaciÛn"
+msgstr "Selecci√≥n da orde da clasificaci√≥n"
 
 #: framework/Form/Form.php:3807
 #, fuzzy
 msgid "Sound selection"
-msgstr "Corta a selecciÛn"
+msgstr "Corta a selecci√≥n"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:568
 #: framework/Net_SMS/SMS/sms2email_http.php:598
@@ -7260,7 +7260,7 @@ msgstr "Remitente"
 #: framework/NLS/NLS/tld.php:262 framework/NLS/NLS/countries.php:207
 #: framework/NLS/NLS/GeoIP.php:118
 msgid "South Africa"
-msgstr "Sud·frica"
+msgstr "Sud√°frica"
 
 #: config/nls.php.dist:237
 msgid "South European (ISO-8859-3)"
@@ -7278,7 +7278,7 @@ msgstr "Hemisferio sur"
 #: framework/NLS/NLS/tld.php:222
 #, fuzzy
 msgid "Soviet Union"
-msgstr "Non seleccionar ning˙n"
+msgstr "Non seleccionar ning√∫n"
 
 #: framework/Form/Form.php:905
 msgid "Spacer"
@@ -7287,7 +7287,7 @@ msgstr "Espazador"
 #: framework/NLS/NLS/tld.php:81 framework/NLS/NLS/countries.php:209
 #: framework/NLS/NLS/GeoIP.php:71
 msgid "Spain"
-msgstr "EspaÒa"
+msgstr "Espa√±a"
 
 #: config/registry.php.dist:91
 msgid "Spam"
@@ -7319,7 +7319,7 @@ msgstr "Sri Lanka"
 #: framework/Net_SMS/SMS/clickatell_http.php:233
 #: lib/Block/weatherdotcom.php:71 lib/Block/metar.php:89
 msgid "Standard"
-msgstr "Est·ndar"
+msgstr "Est√°ndar"
 
 #: lib/Block/fortune.php:71
 msgid "Star Trek"
@@ -7348,7 +7348,7 @@ msgstr "Formato de almacenamiento"
 
 #: framework/Crypt/Crypt/smime.php:576
 msgid "Street Address"
-msgstr "Enderezo da r˙a"
+msgstr "Enderezo da r√∫a"
 
 #: framework/Form/Form.php:1221
 msgid "String list"
@@ -7373,7 +7373,7 @@ msgstr "Asunto"
 
 #: framework/Form/Form.php:346 framework/Form/Form/Renderer.php:315
 msgid "Submit"
-msgstr "EnvÌa"
+msgstr "Env√≠a"
 
 #: signup.php:53
 #, php-format
@@ -7381,8 +7381,8 @@ msgid ""
 "Submitted request to add \"%s\" to the system. You cannot log in until your "
 "request has been approved."
 msgstr ""
-"Enviouse unha solicitude para engadir \"%s\" ao sistema. Non poder· iniciar "
-"a sesiÛn ata que se aprobe a solicitude."
+"Enviouse unha solicitude para engadir \"%s\" ao sistema. Non poder√° iniciar "
+"a sesi√≥n ata que se aprobe a solicitude."
 
 #: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder.php:526
 #, php-format
@@ -7402,7 +7402,7 @@ msgstr "Engadiuse correctamente '%s' ao sistema."
 #: admin/user.php:140
 #, php-format
 msgid "Successfully cleared data for user \"%s\" from the system."
-msgstr "Elimin·ronse correctamente do sistema os datos do usuario '%s'."
+msgstr "Elimin√°ronse correctamente do sistema os datos do usuario '%s'."
 
 #: admin/groups.php:86 admin/perms/delete.php:47
 #, php-format
@@ -7426,17 +7426,17 @@ msgstr "Eliminouse correctamente '%s' do sistema."
 #: admin/setup/config.php:51
 msgid "Successfully reverted configuration. Reload to see changes."
 msgstr ""
-"Restaurouse correctamente a configuraciÛn. Recargue para ver os cambios."
+"Restaurouse correctamente a configuraci√≥n. Recargue para ver os cambios."
 
 #: admin/setup/index.php:57 admin/setup/scripts.php:58
 msgid "Successfully saved backup configuration."
-msgstr "Gardouse correctamente a copia de seguranza da configuraciÛn."
+msgstr "Gardouse correctamente a copia de seguranza da configuraci√≥n."
 
 #: admin/setup/config.php:62
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr ""
-"Gardouse correctamente o ficheiro de copia de seguranza da configuraciÛn %s."
+"Gardouse correctamente o ficheiro de copia de seguranza da configuraci√≥n %s."
 
 #: admin/user.php:185
 #, php-format
@@ -7451,7 +7451,7 @@ msgstr "Escribiuse correctamente '%s'"
 #: framework/NLS/NLS/tld.php:209 framework/NLS/NLS/countries.php:211
 #: framework/NLS/NLS/GeoIP.php:104
 msgid "Sudan"
-msgstr "Sud·n"
+msgstr "Sud√°n"
 
 #: lib/Block/sunrise.php:65
 msgid "Sun Rise"
@@ -7464,7 +7464,7 @@ msgstr "Solpor"
 #: config/prefs.php.dist:354
 #, fuzzy
 msgid "Sunday"
-msgstr "Sud·n"
+msgstr "Sud√°n"
 
 #: lib/Block/weatherdotcom_strings.php:87
 msgid "Sunny"
@@ -7521,7 +7521,7 @@ msgstr "Suecia"
 #: framework/NLS/NLS/tld.php:57 framework/NLS/NLS/countries.php:216
 #: framework/NLS/NLS/GeoIP.php:66
 msgid "Switzerland"
-msgstr "SuÌza"
+msgstr "Su√≠za"
 
 #: config/prefs.php.dist:162
 msgid "SyncML"
@@ -7578,12 +7578,12 @@ msgstr "Ficheiro TSV"
 
 #: framework/Form/Form/Type/tableset.php:57
 msgid "Table Set"
-msgstr "T·boa"
+msgstr "T√°boa"
 
 #: config/prefs.php.dist:568
 #, fuzzy
 msgid "Table operations menu bar"
-msgstr "Quere mostrar a barra de men˙ de operaciÛns de t·boa?"
+msgstr "Quere mostrar a barra de men√∫ de operaci√≥ns de t√°boa?"
 
 #: lib/Block/cloud.php:3 lib/Block/cloud.php:42
 #, fuzzy
@@ -7592,11 +7592,11 @@ msgstr "Nubes matinais"
 
 #: framework/NLS/NLS/tld.php:241 framework/NLS/NLS/GeoIP.php:111
 msgid "Taiwan"
-msgstr "Taiw·n"
+msgstr "Taiw√°n"
 
 #: framework/NLS/NLS/countries.php:218
 msgid "Taiwan, Province of China"
-msgstr "Taiw·n"
+msgstr "Taiw√°n"
 
 #: framework/NLS/NLS/tld.php:231 framework/NLS/NLS/countries.php:219
 #: framework/NLS/NLS/GeoIP.php:109
@@ -7624,11 +7624,11 @@ msgstr "Nepal"
 
 #: framework/Crypt/Crypt/smime.php:577
 msgid "Telephone Number"
-msgstr "N˙mero de telÈfono"
+msgstr "N√∫mero de tel√©fono"
 
 #: lib/Block/metar.php:302
 msgid "Temp for last hour: "
-msgstr "Temperatura durante a ˙ltima hora: "
+msgstr "Temperatura durante a √∫ltima hora: "
 
 #: lib/Block/metar.php:226
 msgid "Temperature"
@@ -7641,12 +7641,12 @@ msgstr "Temperatura: "
 #: lib/Block/weatherdotcom.php:299
 #, php-format
 msgid "Temperature<br />(%sHi%s/%sLo%s) &deg;%s"
-msgstr "Temperatura<br />(%sM·x%s/%sMin%s) &grados;%s"
+msgstr "Temperatura<br />(%sM√°x%s/%sMin%s) &grados;%s"
 
 #: framework/Template/Template.php:560
 #, php-format
 msgid "Template \"%s\" not found."
-msgstr "Non se atopou o patrÛn '%s'."
+msgstr "Non se atopou o patr√≥n '%s'."
 
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:994
 msgid "Tentative: "
@@ -7660,11 +7660,11 @@ msgstr "Texto"
 #: services/keyboard.php:150
 #, fuzzy
 msgid "Text Area"
-msgstr "AliÒamento de texto"
+msgstr "Ali√±amento de texto"
 
 #: config/prefs.php.dist:433
 msgid "Text Only"
-msgstr "SÛ texto"
+msgstr "S√≥ texto"
 
 #: templates/javascript/open_calendar.js:51
 msgid "Th"
@@ -7681,16 +7681,16 @@ msgstr "Tailandia"
 
 #: framework/VFS/lib/VFS/ftp.php:914
 msgid "The FTP extension is not available."
-msgstr "Non est· dispoÒible a extensiÛn FTP."
+msgstr "Non est√° dispo√±ible a extensi√≥n FTP."
 
 #: framework/History/History.php:65
 msgid "The History system is disabled."
-msgstr "O HistÛrico est· deshabilitado."
+msgstr "O Hist√≥rico est√° deshabilitado."
 
 #: framework/Kolab/Kolab.php:782
 #, php-format
 msgid "The Horde/Kolab integration engine does not support \"%s\""
-msgstr "O motor de integraciÛn Horde/Kolab non soporta \"%s\""
+msgstr "O motor de integraci√≥n Horde/Kolab non soporta \"%s\""
 
 #: framework/Net_IMSP/IMSP/Book.php:1298
 msgid "The IMSP log could not be initialized."
@@ -7711,7 +7711,7 @@ msgstr "Non se cargou correctamente a clase Maintenance::"
 #: framework/VFS/lib/VFS/ssh2.php:916
 #, fuzzy
 msgid "The SSH2 PECL extension is not available."
-msgstr "Non est· dispoÒible a extensiÛn FTP."
+msgstr "Non est√° dispo√±ible a extensi√≥n FTP."
 
 #: framework/Kolab_Server/lib/Horde/Kolab/Server/Object/group.php:197
 #, php-format
@@ -7737,12 +7737,12 @@ msgstr ""
 #: framework/Alarm/Alarm.php:62
 #, fuzzy
 msgid "The alarm backend is not currently available."
-msgstr "O bloque weather.com non est· dispoÒible"
+msgstr "O bloque weather.com non est√° dispo√±ible"
 
 #: framework/Alarm/Alarm.php:523
 #, fuzzy, php-format
 msgid "The alarm backend is not currently available: %s"
-msgstr "O bloque weather.com non est· dispoÒible"
+msgstr "O bloque weather.com non est√° dispo√±ible"
 
 #: admin/alarms.php:96
 #, fuzzy
@@ -7766,19 +7766,19 @@ msgstr ""
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
-"Para comprobar a mensaxe asinada cÛmpre o bloque de sinatura PGP separado."
+"Para comprobar a mensaxe asinada c√≥mpre o bloque de sinatura PGP separado."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:650
 msgid ""
 "The distribution list ID was either not specified, left blank or not found "
 "in the database."
 msgstr ""
-"O IDE da lista de distribuciÛn non se especificou, deixouse en branco ou non "
+"O IDE da lista de distribuci√≥n non se especificou, deixouse en branco ou non "
 "se atopou na base de datos."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:651
 msgid "The distribution list was not specified."
-msgstr "Non se especificou a lista de distribuciÛn."
+msgstr "Non se especificou a lista de distribuci√≥n."
 
 #: framework/Prefs/Identity.php:480
 #, php-format
@@ -7789,21 +7789,21 @@ msgstr ""
 
 #: framework/Crypt/Crypt.php:135
 msgid "The encryption features require a secure web connection."
-msgstr "As caracterÌsticas de cifrado necesitan unha conexiÛn web segura."
+msgstr "As caracter√≠sticas de cifrado necesitan unha conexi√≥n web segura."
 
 #: framework/Horde/Horde.php:213 framework/Horde/Horde.php:718
 #, php-format
 msgid "The file %s should contain a %s setting."
-msgstr "O ficheiro %s deberÌa conter unha opciÛn %s."
+msgstr "O ficheiro %s deber√≠a conter unha opci√≥n %s."
 
 #: framework/Horde/Horde.php:206 framework/Horde/Horde.php:708
 #, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "O ficheiro %s deberÌa conter algunhas opciÛns %s."
+msgstr "O ficheiro %s deber√≠a conter algunhas opci√≥ns %s."
 
 #: framework/Data/Data.php:329
 msgid "The file contained no data."
-msgstr "O ficheiro non contÈn ning˙n dato."
+msgstr "O ficheiro non cont√©n ning√∫n dato."
 
 #: framework/Auth/Auth.php:453
 #, php-format
@@ -7840,7 +7840,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr ""
-"Xurdiu un problema coa carga do ficheiro. O %s era maior ca o tamaÒo m·ximo "
+"Xurdiu un problema coa carga do ficheiro. O %s era maior ca o tama√±o m√°ximo "
 "permitido (%d bytes)."
 
 #: framework/MIME/MIME/Viewer/html.php:136
@@ -7854,7 +7854,7 @@ msgstr ""
 msgid ""
 "The location of the GnuPG binary must be given to the Crypt_pgp:: class."
 msgstr ""
-"Hay que indicarlle · clase Crypt_pgp:: a localizaciÛn dos binarios GnuPG."
+"Hay que indicarlle √° clase Crypt_pgp:: a localizaci√≥n dos binarios GnuPG."
 
 #: lib/Block/vatid.php:77
 msgid ""
@@ -7888,7 +7888,7 @@ msgstr ""
 
 #: framework/Form/Form.php:2448
 msgid "The name to use when linking to the compose page"
-msgstr "Nome utilizado ao ligar · p·xina de composiciÛn"
+msgstr "Nome utilizado ao ligar √° p√°xina de composici√≥n"
 
 #: services/prefs.php:113
 msgid "The new from address can't be verified, try again later: "
@@ -7896,11 +7896,11 @@ msgstr ""
 
 #: framework/File_CSV/CSV.php:547
 msgid "The number of fields must be numeric."
-msgstr "O n˙mero de campos ten que ser numÈrico."
+msgstr "O n√∫mero de campos ten que ser num√©rico."
 
 #: framework/Crypt/Crypt/smime.php:1235
 msgid "The openssl module is required for the Horde_Crypt_smime:: class."
-msgstr "CÛmpre o mÛdulo openssl para a clase Horde_Crypt_smime::."
+msgstr "C√≥mpre o m√≥dulo openssl para a clase Horde_Crypt_smime::."
 
 #: framework/Prefs/Prefs.php:288
 #, php-format
@@ -7909,7 +7909,7 @@ msgid ""
 "maximum allowable size"
 msgstr ""
 "Non se pode gardar a preferencia \"%s\" porque os seus datos exceden o "
-"tamaÒo m·ximo permitido"
+"tama√±o m√°ximo permitido"
 
 #: framework/Prefs/Prefs/ldap.php:346 framework/Prefs/Prefs/file.php:80
 #: framework/Prefs/Prefs/sql.php:135 framework/Prefs/Prefs/kolab_imap.php:108
@@ -7940,7 +7940,7 @@ msgstr ""
 
 #: framework/File_CSV/CSV.php:560
 msgid "The quote character must be one single character."
-msgstr "O car·cter de cita debe ser sÛ un."
+msgstr "O car√°cter de cita debe ser s√≥ un."
 
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/View.php:214
 #, fuzzy, php-format
@@ -7950,7 +7950,7 @@ msgstr ""
 
 #: framework/File_CSV/CSV.php:552
 msgid "The separator must be one single character."
-msgstr "O separador debe ser sÛ un car·cter."
+msgstr "O separador debe ser s√≥ un car√°cter."
 
 #: services/portal/rpcsum.php:80
 #, php-format
@@ -7978,12 +7978,12 @@ msgstr "Xa se procesou este formulario."
 #: admin/user.php:215
 #, fuzzy, php-format
 msgid "The signup request for \"%s\" has been removed."
-msgstr "Eliminouse a solicitude de inscriciÛn de %s."
+msgstr "Eliminouse a solicitude de inscrici√≥n de %s."
 
 #: admin/signup_confirm.php:44
 #, fuzzy, php-format
 msgid "The signup request for user \"%s\" has been removed."
-msgstr "Eliminouse a solicitude de inscriciÛn de %s."
+msgstr "Eliminouse a solicitude de inscrici√≥n de %s."
 
 #: framework/Block/Block/Layout/Manager.php:479
 #, php-format
@@ -7996,7 +7996,7 @@ msgstr "O texto introducido non coincide co da pantalla."
 
 #: framework/Data/Data.php:385
 msgid "The uploaded data was lost since the previous step."
-msgstr "Os datos cargados perdÈronse dende o paso anterior."
+msgstr "Os datos cargados perd√©ronse dende o paso anterior."
 
 #: framework/Data/Data/csv.php:221 framework/Data/Data/tsv.php:195
 msgid "The uploaded file could not be saved."
@@ -8014,7 +8014,7 @@ msgstr "O ficheiro temporal \"%s\" non existe"
 
 #: lib/Block/weatherdotcom.php:54 lib/Block/weatherdotcom.php:110
 msgid "The weather.com block is not available."
-msgstr "O bloque weather.com non est· dispoÒible"
+msgstr "O bloque weather.com non est√° dispo√±ible"
 
 #: util/icon_browser.php:27
 #, php-format
@@ -8027,11 +8027,11 @@ msgstr ""
 
 #: framework/Prefs/Prefs/UI.php:210 framework/Prefs/Prefs/UI.php:234
 msgid "There are no options available."
-msgstr "Non hai opciÛns dispoÒibles."
+msgstr "Non hai opci√≥ns dispo√±ibles."
 
 #: framework/MIME/MIME/Contents.php:366
 msgid "There are no parts that can be displayed inline."
-msgstr "Non hai partes que se poidan mostrar en liÒa."
+msgstr "Non hai partes que se poidan mostrar en li√±a."
 
 #: framework/Form/Form.php:1427
 #, fuzzy, php-format
@@ -8077,7 +8077,7 @@ msgid ""
 "There was a problem with the file upload: The %s was larger than the maximum "
 "allowed size (%d bytes)."
 msgstr ""
-"Xurdiu un problema coa carga do ficheiro. O %s era maior ca o tamaÒo m·ximo "
+"Xurdiu un problema coa carga do ficheiro. O %s era maior ca o tama√±o m√°ximo "
 "permitido (%d bytes)."
 
 #: framework/Browser/Browser.php:1083
@@ -8085,7 +8085,7 @@ msgstr ""
 msgid ""
 "There was a problem with the file upload: The %s was only partially uploaded."
 msgstr ""
-"Xurdiu un problema coa carga do ficheiro. SÛ se cargou parcialmente o %s."
+"Xurdiu un problema coa carga do ficheiro. S√≥ se cargou parcialmente o %s."
 
 #: framework/MIME/MIME/Viewer/rfc822.php:30
 #: framework/MIME/MIME/Viewer/rfc822.php:39
@@ -8106,7 +8106,7 @@ msgid ""
 "There was an error in the configuration form. Perhaps you left out a "
 "required field."
 msgstr ""
-"Produciuse un erro no formulario de configuraciÛn. Quiz·s esqueceu encher un "
+"Produciuse un erro no formulario de configuraci√≥n. Quiz√°s esqueceu encher un "
 "campo requerido"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:647
@@ -8114,8 +8114,8 @@ msgid ""
 "There was an error performing the specified address book function. Please "
 "try again later."
 msgstr ""
-"Produciuse un erro ao executar a funciÛn especificada da axenda de "
-"enderezos. TÈnteo outra vez m·is adiante."
+"Produciuse un erro ao executar a funci√≥n especificada da axenda de "
+"enderezos. T√©nteo outra vez m√°is adiante."
 
 #: framework/MIME/MIME/Viewer/vcard.php:40
 #, fuzzy
@@ -8132,16 +8132,16 @@ msgstr ""
 msgid ""
 "There was an error updating the contact details. Please try again later."
 msgstr ""
-"Produciuse un erro ao actualizar os detalles do contacto. TÈnteo outra vez "
-"m·is adiante."
+"Produciuse un erro ao actualizar os detalles do contacto. T√©nteo outra vez "
+"m√°is adiante."
 
 #: framework/Net_SMS/SMS/sms2email_http.php:654
 #: framework/Net_SMS/SMS/win_http.php:231
 msgid ""
 "There was an error updating the distribution list. Please try again later."
 msgstr ""
-"Produciuse un erro ao actualizar a lista de distribuciÛn. TÈnteo outra vez "
-"m·is adiante."
+"Produciuse un erro ao actualizar a lista de distribuci√≥n. T√©nteo outra vez "
+"m√°is adiante."
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:163
 #: framework/IMAP/IMAP/ACL/rfc2086.php:326
@@ -8162,21 +8162,21 @@ msgstr ""
 
 #: framework/MIME/MIME/Viewer/rar.php:46
 msgid "This does not appear to be a valid rar archive."
-msgstr "Non parece ser un ficheiro .rar v·lido."
+msgstr "Non parece ser un ficheiro .rar v√°lido."
 
 #: framework/MIME/MIME/Viewer/zip.php:50
 msgid "This does not appear to be a valid zip file."
-msgstr "Non parece ser un ficheiro zip v·lido."
+msgstr "Non parece ser un ficheiro zip v√°lido."
 
 #: framework/Form/Form.php:4111
 msgid "This does not seem to be a valid card number."
-msgstr "Non parece ser un n˙mero de tarxeta v·lido."
+msgstr "Non parece ser un n√∫mero de tarxeta v√°lido."
 
 #: framework/Net_SMS/SMS/generic_smpp.php:87
 #, fuzzy
 msgid "This driver allows sending of messages through an SMPP gateway."
 msgstr ""
-"Este controlador permite enviar mensaxes a travÈs da pasarela WIN (http://"
+"Este controlador permite enviar mensaxes a trav√©s da pasarela WIN (http://"
 "winplc.com), mediante a API HTTP"
 
 #: framework/Net_SMS/SMS/generic_smtp.php:92
@@ -8193,7 +8193,7 @@ msgid ""
 "This driver allows sending of messages through the Clickatell (http://"
 "clickatell.com) gateway, using the HTTP API"
 msgstr ""
-"Este controlador permite enviar mensaxes a travÈs da pasarela Clickatell "
+"Este controlador permite enviar mensaxes a trav√©s da pasarela Clickatell "
 "(http://clickatell.com), mediante a API HTTP"
 
 #: framework/Net_SMS/SMS/win_http.php:144
@@ -8201,7 +8201,7 @@ msgid ""
 "This driver allows sending of messages through the WIN (http://winplc.com) "
 "gateway, using the HTTP API"
 msgstr ""
-"Este controlador permite enviar mensaxes a travÈs da pasarela WIN (http://"
+"Este controlador permite enviar mensaxes a trav√©s da pasarela WIN (http://"
 "winplc.com), mediante a API HTTP"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:525
@@ -8209,7 +8209,7 @@ msgid ""
 "This driver allows sending of messages through the sms2email (http://"
 "sms2email.com) gateway, using the HTTP API"
 msgstr ""
-"Este controlador permite enviar mensaxes a travÈs da pasarela sms2email "
+"Este controlador permite enviar mensaxes a trav√©s da pasarela sms2email "
 "(http://sms2email.com), mediante a API HTTP"
 
 #: framework/Net_SMS/SMS/vodafoneitaly_smtp.php:83
@@ -8218,8 +8218,8 @@ msgid ""
 "gateway, only to Vodafone numbers. It requires an email account with "
 "Vodafone Italy (http://www.190.it)."
 msgstr ""
-"Este controlador permite enviar mensaxes vÌa SMTP a travÈs da pasarela de "
-"Vodafone Italia, sÛ a n˙meros Vodafone. Para iso cÛmpre unha conta de correo "
+"Este controlador permite enviar mensaxes v√≠a SMTP a trav√©s da pasarela de "
+"Vodafone Italia, s√≥ a n√∫meros Vodafone. Para iso c√≥mpre unha conta de correo "
 "de Vodafone Italia (http://www.190.it)."
 
 #: framework/Form/Form.php:976 framework/Form/Form.php:1053
@@ -8236,19 +8236,19 @@ msgstr ""
 #: framework/Form/Form.php:4362 framework/Form/Form.php:4839
 #: framework/Form/Form.php:4847
 msgid "This field is required."
-msgstr "… preciso este campo."
+msgstr "√â preciso este campo."
 
 #: framework/Form/Form.php:1061
 msgid "This field may only contain integers."
-msgstr "Este campo sÛ pode conter enteiros."
+msgstr "Este campo s√≥ pode conter enteiros."
 
 #: framework/Form/Form.php:3169
 msgid "This field may only contain numbers and the colon."
-msgstr "Este campo sÛ pode conter n˙meros e os dous puntos."
+msgstr "Este campo s√≥ pode conter n√∫meros e os dous puntos."
 
 #: framework/Form/Form.php:1088
 msgid "This field may only contain octal values."
-msgstr "Este campo sÛ pode conter valores octais."
+msgstr "Este campo s√≥ pode conter valores octais."
 
 #: framework/Form/Form.php:1115
 msgid "This field must be a comma or space separated list of integers"
@@ -8258,14 +8258,14 @@ msgstr ""
 
 #: framework/Form/Form.php:987
 msgid "This field must be a valid number."
-msgstr "Este campo ten que conter un n˙mero v·lido."
+msgstr "Este campo ten que conter un n√∫mero v√°lido."
 
 #: framework/Form/Form.php:3757
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr ""
-"Este campo ten que conter un cÛdigo de cor en formato RGB Hexadecimal, por "
+"Este campo ten que conter un c√≥digo de cor en formato RGB Hexadecimal, por "
 "exemplo '#1234af'."
 
 #: framework/Form/Form.php:625
@@ -8280,7 +8280,7 @@ msgid ""
 "client that understands the Kolab Groupware format. For a list of such email "
 "clients please visit %s"
 msgstr ""
-"Isto È un obxecto de Kolab Groupware. Para velo necesita un cliente de "
+"Isto √© un obxecto de Kolab Groupware. Para velo necesita un cliente de "
 "correo que entenda o formato Kolab Groupware. Para ver unha lista deses "
 "clientes visite %s"
 
@@ -8291,7 +8291,7 @@ msgstr "Esta mensaxe escribiuse cun xogo de caracteres (%s) distinto ao seu."
 
 #: framework/Prefs/Prefs/UI.php:126
 msgid "This number must be at least one."
-msgstr "O n˙mero debe ser polo menos un 1."
+msgstr "O n√∫mero debe ser polo menos un 1."
 
 #: framework/Horde/Horde.php:340
 #, php-format
@@ -8306,11 +8306,11 @@ msgstr "O servidor non pode descomprimir ficheiros zip e gzip."
 
 #: framework/Horde/Horde/Registry.php:228
 msgid "This system is currently deactivated."
-msgstr "O sistema est· desactivado actualmente."
+msgstr "O sistema est√° desactivado actualmente."
 
 #: framework/Prefs/Prefs/UI.php:124
 msgid "This value must be a number."
-msgstr "O valor debe ser un n˙mero."
+msgstr "O valor debe ser un n√∫mero."
 
 #: lib/Block/weatherdotcom_strings.php:96
 msgid "Thunder"
@@ -8334,12 +8334,12 @@ msgstr "Formato horario"
 
 #: framework/Form/Form.php:3288
 msgid "Time selection"
-msgstr "SelecciÛn de hora"
+msgstr "Selecci√≥n de hora"
 
 #: templates/data/datetime.inc:60 templates/data/datetime.inc:69
 #, fuzzy
 msgid "Timestamp or unknown"
-msgstr "non se coÒece o nome do servidor hospedador"
+msgstr "non se co√±ece o nome do servidor hospedador"
 
 #: templates/syncml/syncml.inc:2
 msgid "Timestamps of successful synchronization sessions"
@@ -8352,7 +8352,7 @@ msgstr "Timor-Leste"
 
 #: framework/MIME/MIME/Viewer/vcard.php:284 lib/Block/iframe.php:20
 msgid "Title"
-msgstr "TÌtulo"
+msgstr "T√≠tulo"
 
 #: framework/MIME/MIME/Viewer/rfc822.php:77
 msgid "To"
@@ -8369,7 +8369,7 @@ msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
 msgstr ""
-"Para seleccionar varios campos, manteÒa pulsada a tecla Control (PC) ou "
+"Para seleccionar varios campos, mante√±a pulsada a tecla Control (PC) ou "
 "Comando (Mac) ao premer."
 
 #: lib/Block/weatherdotcom.php:316
@@ -8388,7 +8388,7 @@ msgstr "Tokelau"
 
 #: lib/Block/weatherdotcom.php:318
 msgid "Tomorrow"
-msgstr "MaÒ·"
+msgstr "Ma√±√°"
 
 #: framework/NLS/NLS/tld.php:236 framework/NLS/NLS/countries.php:225
 #: framework/NLS/NLS/GeoIP.php:110
@@ -8397,11 +8397,11 @@ msgstr "Tonga"
 
 #: framework/Auth/Auth/kolab.php:124
 msgid "Too many invalid logins during the last minutes."
-msgstr "Houbo demasiados intentos de acceso durante os ˙ltimos minutos."
+msgstr "Houbo demasiados intentos de acceso durante os √∫ltimos minutos."
 
 #: lib/Block/fortune.php:72
 msgid "Translations"
-msgstr "TraduciÛns"
+msgstr "Traduci√≥ns"
 
 #: framework/NLS/NLS/tld.php:239 framework/NLS/NLS/countries.php:226
 #: framework/NLS/NLS/GeoIP.php:111
@@ -8424,7 +8424,7 @@ msgstr "Tunisia"
 #: framework/NLS/NLS/tld.php:238 framework/NLS/NLS/countries.php:228
 #: framework/NLS/NLS/GeoIP.php:111
 msgid "Turkey"
-msgstr "TurquÌa"
+msgstr "Turqu√≠a"
 
 #: config/nls.php.dist:239
 msgid "Turkish (ISO-8859-9)"
@@ -8447,16 +8447,16 @@ msgstr "Tuvalu"
 
 #: framework/CLI/CLI.php:339
 msgid "Type your choice: "
-msgstr "Escriba a s˙a elecciÛn: "
+msgstr "Escriba a s√∫a elecci√≥n: "
 
 #: services/keyboard.php:110
 #, fuzzy
 msgid "U characters"
-msgstr "N˙mero de caracteres"
+msgstr "N√∫mero de caracteres"
 
 #: lib/Block/weatherdotcom.php:276
 msgid "U.V. index: "
-msgstr "Õndice UV: "
+msgstr "√çndice UV: "
 
 #: framework/Kolab_Format/lib/Horde/Kolab/Format/XML.php:467
 msgid "UID not found in Kolab XML object"
@@ -8468,7 +8468,7 @@ msgstr "URL"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:550
 msgid "URL for your script delivery status report"
-msgstr "URL do informe sobre o estado de envÌo da secuencia de comandos"
+msgstr "URL do informe sobre o estado de env√≠o da secuencia de comandos"
 
 #: framework/NLS/NLS/tld.php:244 framework/NLS/NLS/countries.php:232
 #: framework/NLS/NLS/GeoIP.php:112
@@ -8478,7 +8478,7 @@ msgstr "Uganda"
 #: framework/NLS/NLS/tld.php:243 framework/NLS/NLS/countries.php:233
 #: framework/NLS/NLS/GeoIP.php:112
 msgid "Ukraine"
-msgstr "UcraÌna"
+msgstr "Ucra√≠na"
 
 #: framework/Kolab_Filter/lib/Horde/Kolab/Resource.php:681
 #, fuzzy, php-format
@@ -8517,12 +8517,12 @@ msgstr "Non foi posible cambiar a %s."
 #: framework/VFS/lib/VFS/ftp.php:106 framework/VFS/lib/VFS/ssh2.php:100
 #, php-format
 msgid "Unable to check file size of \"%s\"."
-msgstr "Non foi posible comprobar o tamaÒo de \"%s\"."
+msgstr "Non foi posible comprobar o tama√±o de \"%s\"."
 
 #: framework/VFS/lib/VFS/file.php:65 framework/VFS/lib/VFS/sql.php:116
 #, php-format
 msgid "Unable to check file size of \"%s/%s\"."
-msgstr "Non foi posible comprobar o tamaÒo de \"%s/%s\"."
+msgstr "Non foi posible comprobar o tama√±o de \"%s/%s\"."
 
 #: framework/VFS/lib/VFS/ftp.php:933
 msgid "Unable to connect with SSL."
@@ -8579,7 +8579,7 @@ msgstr "Non foi posible descomprimir os datos."
 #: framework/VFS/lib/VFS/ssh2.php:333
 #, php-format
 msgid "Unable to delete \"%s\", the directory is not empty."
-msgstr "Non foi posible eliminar \"%s\", o directorio non est· baleiro"
+msgstr "Non foi posible eliminar \"%s\", o directorio non est√° baleiro"
 
 #: admin/groups.php:84 admin/perms/delete.php:45
 #, php-format
@@ -8591,7 +8591,7 @@ msgstr "Non foi posible eliminar '%s': %s."
 #: framework/VFS/lib/VFS/sql_file.php:358
 #, php-format
 msgid "Unable to delete %s, the directory is not empty"
-msgstr "Non foi posible eliminar %s; o directorio non est· baleiro"
+msgstr "Non foi posible eliminar %s; o directorio non est√° baleiro"
 
 #: framework/VFS/lib/VFS/sql_file.php:372
 #: framework/VFS/lib/VFS/sql_file.php:376
@@ -8639,7 +8639,7 @@ msgstr "Non foi posible determinar o directorio actual."
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Access.php:391
 #, fuzzy
 msgid "Unable to determine owner of the free/busy data!"
-msgstr "Non foi posible actualizar a dispoÒibilidade de %s"
+msgstr "Non foi posible actualizar a dispo√±ibilidade de %s"
 
 #: framework/Auth/Auth/smbclient.php:88
 #, fuzzy
@@ -8654,7 +8654,7 @@ msgstr "Non foi posible extraer os detalles do certificado."
 #: framework/Alarm/Alarm.php:528
 #, php-format
 msgid "Unable to load the definition of %s."
-msgstr "Non foi posible cargar a definiciÛn de %s."
+msgstr "Non foi posible cargar a definici√≥n de %s."
 
 #: framework/VFS/lib/VFS/file.php:247 framework/VFS/lib/VFS/file.php:252
 #: framework/VFS/lib/VFS/sql_file.php:156
@@ -8699,7 +8699,7 @@ msgstr "Non foi posible ler o ficheiro VFS (fallou filesize())."
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/Access.php:205
 #, fuzzy, php-format
 msgid "Unable to read free/busy information from %s"
-msgstr "Non foi posible actualizar a dispoÒibilidade de %s"
+msgstr "Non foi posible actualizar a dispo√±ibilidade de %s"
 
 #: framework/VFS/lib/VFS/file.php:759
 msgid "Unable to read the vfsroot directory."
@@ -8768,7 +8768,7 @@ msgstr "Non foi posible traducir este documento de Word"
 #: framework/Kolab_Storage/lib/Horde/Kolab/Storage/Folder.php:1272
 #, fuzzy, php-format
 msgid "Unable to trigger URL %s. Response: %s"
-msgstr "Non foi posible actualizar a dispoÒibilidade de %s"
+msgstr "Non foi posible actualizar a dispo√±ibilidade de %s"
 
 #: framework/VFS/lib/VFS/ftp.php:223 framework/VFS/lib/VFS/ftp.php:226
 #: framework/VFS/lib/VFS/ssh2.php:212 framework/VFS/lib/VFS/ssh2.php:215
@@ -8788,7 +8788,7 @@ msgstr "Non foi posible escribir os datos do ficheiro VFS."
 
 #: framework/VFS/lib/VFS.php:988
 msgid "Unable to write VFS file, quota will be exceeded."
-msgstr "Non foi posible escribir un ficheiro VFS,superarÌase a cuota."
+msgstr "Non foi posible escribir un ficheiro VFS,superar√≠ase a cuota."
 
 #: framework/VFS/lib/VFS.php:306
 #, fuzzy
@@ -8807,7 +8807,7 @@ msgstr "Desfai os cambios"
 #: framework/IMAP/IMAP/ACL/rfc2086.php:377
 #: framework/IMAP/IMAP/ACL/rfc2086.php:527
 msgid "Unexpected response from server on connection: "
-msgstr "Resposta inesperada do servidor na conexiÛn: "
+msgstr "Resposta inesperada do servidor na conexi√≥n: "
 
 #: framework/IMAP/IMAP/ACL/rfc2086.php:229
 #: framework/IMAP/IMAP/ACL/rfc2086.php:405
@@ -8827,7 +8827,7 @@ msgstr "Resposta inesperada do servidor a: "
 #: framework/Prefs/Prefs/CategoryManager.php:63
 #: templates/prefs/categorymanagement.inc:69
 msgid "Unfiled"
-msgstr "Sen categorÌa"
+msgstr "Sen categor√≠a"
 
 #: config/nls.php.dist:240
 msgid "Unicode (UTF-8)"
@@ -8836,7 +8836,7 @@ msgstr "Unicode (UTF-8)"
 #: framework/NLS/NLS/tld.php:17 framework/NLS/NLS/countries.php:234
 #: framework/NLS/NLS/GeoIP.php:56
 msgid "United Arab Emirates"
-msgstr "Emiratos ¡rabes Unidos"
+msgstr "Emiratos √Årabes Unidos"
 
 #: framework/NLS/NLS/tld.php:91 framework/NLS/NLS/tld.php:245
 #: framework/NLS/NLS/countries.php:235 framework/NLS/NLS/GeoIP.php:74
@@ -8851,7 +8851,7 @@ msgstr "Estados Unidos"
 #: framework/NLS/NLS/tld.php:246 framework/NLS/NLS/countries.php:237
 #: framework/NLS/NLS/GeoIP.php:113
 msgid "United States Minor Outlying Islands"
-msgstr "Illas PerifÈricas Menores dos Estados Unidos"
+msgstr "Illas Perif√©ricas Menores dos Estados Unidos"
 
 #: lib/Block/weatherdotcom.php:67 lib/Block/metar.php:86
 msgid "Units"
@@ -8860,23 +8860,23 @@ msgstr "Unidades"
 #: framework/Crypt/Crypt/pgp.php:476 framework/Crypt/Crypt/pgp.php:477
 #: framework/Crypt/Crypt/pgp.php:478 framework/MIME/MIME/Viewer/tgz.php:68
 msgid "Unknown"
-msgstr "DescoÒecido"
+msgstr "Desco√±ecido"
 
 #: framework/Net_SMS/SMS/clickatell_http.php:306
 msgid "Unknown apimsgid (API Message ID)."
-msgstr "apimsgid descoÒecido (IDE de mensaxe da API)."
+msgstr "apimsgid desco√±ecido (IDE de mensaxe da API)."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:307
 msgid "Unknown climsgid (Client Message ID)."
-msgstr "climsgid descoÒecido (IDE de mensaxe do cliente)."
+msgstr "climsgid desco√±ecido (IDE de mensaxe do cliente)."
 
 #: lib/Block/weatherdotcom.php:165
 msgid "Unknown location provided."
-msgstr "Proporcionouse unha localizaciÛn descoÒecida."
+msgstr "Proporcionouse unha localizaci√≥n desco√±ecida."
 
 #: framework/Net_SMS/SMS/clickatell_http.php:299
 msgid "Unknown username or password."
-msgstr "Nome de usuario ou contrasinal descoÒecidos."
+msgstr "Nome de usuario ou contrasinal desco√±ecidos."
 
 #: framework/Kolab_Server/lib/Horde/Kolab/Server/ldap.php:588
 #, php-format
@@ -8896,12 +8896,12 @@ msgstr "Sen nome"
 #: framework/Group/Group/kolab.php:406
 #, fuzzy
 msgid "Unsupported"
-msgstr "Non est· soportado."
+msgstr "Non est√° soportado."
 
 #: framework/Crypt/Crypt/smime.php:690 framework/Crypt/Crypt/smime.php:930
 #: framework/Crypt/Crypt/smime.php:936
 msgid "Unsupported Extension"
-msgstr "Non se soporta a extensiÛn."
+msgstr "Non se soporta a extensi√≥n."
 
 #: framework/Perms/Perms/UI.php:244 templates/admin/user/list.inc:33
 msgid "Update"
@@ -8923,7 +8923,7 @@ msgstr "Actualizouse \"%s\"."
 
 #: admin/setup/scripts.php:90
 msgid "Upgrade script deleted."
-msgstr "Eliminouse a secuencia de comandos de actualizaciÛn."
+msgstr "Eliminouse a secuencia de comandos de actualizaci√≥n."
 
 #: admin/setup/index.php:242 framework/UI/UI/VarRenderer/html.php:211
 msgid "Upload"
@@ -8932,7 +8932,7 @@ msgstr "Carga"
 #: admin/setup/index.php:250
 msgid "Uploaded all application setup files to the server."
 msgstr ""
-"Carg·ronse no servidor todos os ficheiros de configuraciÛn de aplicaciÛns."
+"Carg√°ronse no servidor todos os ficheiros de configuraci√≥n de aplicaci√≥ns."
 
 #: framework/NLS/NLS/tld.php:248 framework/NLS/NLS/countries.php:238
 #: framework/NLS/NLS/GeoIP.php:113
@@ -8960,7 +8960,7 @@ msgstr "Usa SSL"
 
 #: config/prefs.php.dist:147
 msgid "Use if name/password is different for IMSP server."
-msgstr "⁄sase se o usuario/contrasinal son distintos no servidor IMSP."
+msgstr "√ösase se o usuario/contrasinal son distintos no servidor IMSP."
 
 #: templates/admin/groups/edit.inc:22 templates/admin/groups/edit.inc:60
 msgid "User"
@@ -8973,11 +8973,11 @@ msgstr "O cartafol %s non existe."
 
 #: admin/user.php:220
 msgid "User Administration"
-msgstr "AdministraciÛn de usuarios"
+msgstr "Administraci√≥n de usuarios"
 
 #: framework/Prefs/Prefs/UI.php:284
 msgid "User Options"
-msgstr "OpciÛns do usuario"
+msgstr "Opci√≥ns do usuario"
 
 #: signup.php:69
 msgid "User Registration"
@@ -9048,7 +9048,7 @@ msgstr ""
 #: lib/Block/vatid.php:94
 #, fuzzy
 msgid "VAT number"
-msgstr "N˙mero"
+msgstr "N√∫mero"
 
 #: framework/VFS/lib/VFS/file.php:197 framework/VFS/lib/VFS/file.php:318
 msgid "VFS directory does not exist."
@@ -9070,7 +9070,7 @@ msgstr "Valor en minutos a partir de agora."
 #: framework/Form/Form.php:1167
 #, fuzzy, php-format
 msgid "Value is over the maximum length of %d."
-msgstr "O valor sobrepasa a lonxitude m·xima de %s."
+msgstr "O valor sobrepasa a lonxitude m√°xima de %s."
 
 #: framework/Form/Form.php:2970 framework/Form/Form.php:3005
 #: framework/Form/Form.php:3054 framework/Form/Form.php:3888
@@ -9099,19 +9099,19 @@ msgstr "Venezuela"
 #: framework/Crypt/Crypt/smime.php:217
 #, fuzzy
 msgid "Verification failed - an unknown error has occurred."
-msgstr "Produciuse un erro descoÒecido."
+msgstr "Produciuse un erro desco√±ecido."
 
 #: framework/Crypt/Crypt/smime.php:219
 msgid "Verification failed - this message may have been tampered with."
-msgstr "Fallou a comprobaciÛn - Pode que esta mensaxe fose alterada."
+msgstr "Fallou a comprobaci√≥n - Pode que esta mensaxe fose alterada."
 
 #: framework/Crypt/Crypt/smime.php:704
 msgid "Version"
-msgstr "VersiÛn"
+msgstr "Versi√≥n"
 
 #: config/registry.php.dist:240
 msgid "Version Control"
-msgstr "Control de versiÛns"
+msgstr "Control de versi√≥ns"
 
 #: lib/Block/weatherdotcom_strings.php:103
 msgid "Very High"
@@ -9138,12 +9138,12 @@ msgstr "Vista como %s"
 
 #: lib/Block/iframe.php:3
 msgid "View an external web page"
-msgstr "Vista dunha p·xina web externa"
+msgstr "Vista dunha p√°xina web externa"
 
 #: framework/NLS/NLS/tld.php:253 framework/NLS/NLS/countries.php:243
 #: framework/NLS/NLS/GeoIP.php:116
 msgid "Virgin Islands, British"
-msgstr "Illas Virxes Brit·nicas"
+msgstr "Illas Virxes Brit√°nicas"
 
 #: framework/NLS/NLS/tld.php:254 framework/NLS/NLS/countries.php:244
 #: framework/NLS/NLS/GeoIP.php:116
@@ -9202,7 +9202,7 @@ msgstr ""
 
 #: lib/Block/weatherdotcom.php:34
 msgid "Weather Forecast"
-msgstr "PrevisiÛn meteorolÛxica"
+msgstr "Previsi√≥n meteorol√≥xica"
 
 #: lib/Block/weatherdotcom.php:432
 msgid "Weather data provided by"
@@ -9248,15 +9248,15 @@ msgstr "Sahara Occidental"
 #: config/prefs.php.dist:495
 #, php-format
 msgid "What application should %s display after login?"
-msgstr "Que aplicaciÛn deberÌa mostrar %s ao iniciar a sesiÛn?"
+msgstr "Que aplicaci√≥n deber√≠a mostrar %s ao iniciar a sesi√≥n?"
 
 #: templates/data/csvinfo.inc:14
 msgid "What is the delimiter character?"
-msgstr "Cal È o car·cter delimitador?"
+msgstr "Cal √© o car√°cter delimitador?"
 
 #: templates/data/csvinfo.inc:17
 msgid "What is the quote character?"
-msgstr "Cal È o car·cter de cuota?"
+msgstr "Cal √© o car√°cter de cuota?"
 
 #: framework/admintools/horde-create-sequence.php:57
 msgid "What sequence do you want to create (_seq will be added automatically)?"
@@ -9264,7 +9264,7 @@ msgstr ""
 
 #: framework/UI/UI/VarRenderer/html.php:1217
 msgid "Whereis Australia map"
-msgstr "Mapa de localizaciÛn de Australia"
+msgstr "Mapa de localizaci√≥n de Australia"
 
 #: config/prefs.php.dist:353
 msgid "Which day would you like to be displayed as the first day of the week?"
@@ -9285,7 +9285,7 @@ msgstr "Largura en unidades CSS"
 #: config/prefs.php.dist:415
 #, fuzzy, php-format
 msgid "Width of the %s menu on the left:"
-msgstr "Quere mostrar o men˙ %s · esquerda?"
+msgstr "Quere mostrar o men√∫ %s √° esquerda?"
 
 #: config/registry.php.dist:475
 msgid "Wiki"
@@ -9323,7 +9323,7 @@ msgstr "Vento"
 
 #: lib/Block/fortune.php:73
 msgid "Wisdom"
-msgstr "SabedorÌa"
+msgstr "Sabedor√≠a"
 
 #: config/registry.php.dist:210
 msgid "Wishlist"
@@ -9340,7 +9340,7 @@ msgstr "Enderezo do traballo"
 
 #: framework/MIME/MIME/Viewer/vcard.php:239
 msgid "Work Phone"
-msgstr "TelÈfono do traballo"
+msgstr "Tel√©fono do traballo"
 
 #: framework/Prefs/Prefs/file.php:256
 #, php-format
@@ -9350,17 +9350,17 @@ msgstr ""
 #: framework/File_CSV/CSV.php:212 framework/File_CSV/CSV.php:357
 #, php-format
 msgid "Wrong number of fields in line %d. Expected %d, found %d."
-msgstr "Hai un n˙mero errÛneo de campos na liÒa %d. Esper·banse %d e hai %d."
+msgstr "Hai un n√∫mero err√≥neo de campos na li√±a %d. Esper√°banse %d e hai %d."
 
 #: framework/File_CSV/CSV.php:400
 #, php-format
 msgid "Wrong number of fields. Expected %d, found %d."
-msgstr "Hai un n˙mero errÛneo de campos. Esper·banse %d e hai %d."
+msgstr "Hai un n√∫mero err√≥neo de campos. Esper√°banse %d e hai %d."
 
 #: framework/VFS/lib/VFS/file.php:148
 #, php-format
 msgid "Wrong offset %d while reading a VFS file."
-msgstr "Hai un offset %d errÛneo ao ler un ficheiro VFS."
+msgstr "Hai un offset %d err√≥neo ao ler un ficheiro VFS."
 
 #: framework/Prefs/Prefs/file.php:120
 #, php-format
@@ -9373,7 +9373,7 @@ msgstr "X-Ref"
 
 #: framework/Crypt/Crypt/smime.php:597
 msgid "X509v3 Basic Constraints"
-msgstr "LimitaciÛns b·sicas X509v3"
+msgstr "Limitaci√≥ns b√°sicas X509v3"
 
 #: framework/Crypt/Crypt/smime.php:596
 msgid "X509v3 Extended Key Usage"
@@ -9389,7 +9389,7 @@ msgstr "Identificador de clave de asunto X509v3"
 
 #: framework/Crypt/Crypt/smime.php:686
 msgid "X509v3 extensions"
-msgstr "ExtensiÛns X509v3"
+msgstr "Extensi√≥ns X509v3"
 
 #: templates/data/date.inc:47 templates/data/date.inc:48
 #: templates/data/date.inc:49 templates/data/date.inc:50
@@ -9436,91 +9436,91 @@ msgstr ""
 #: lib/api.php:466
 #, fuzzy
 msgid "You are not allowed to add groups."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:663
 #, fuzzy
 msgid "You are not allowed to add shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:521 lib/api.php:547 lib/api.php:577 lib/api.php:603
 #, fuzzy
 msgid "You are not allowed to change groups."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:749 lib/api.php:787 lib/api.php:828 lib/api.php:856
 #, fuzzy
 msgid "You are not allowed to change shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: framework/Block/Block/Layout/Manager.php:238
 #, fuzzy, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
-msgstr[0] "Non ten permiso para crear m·is de %d bloques."
-msgstr[1] "Non ten permiso para crear m·is de %d bloques."
+msgstr[0] "Non ten permiso para crear m√°is de %d bloques."
+msgstr[1] "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:495
 #, fuzzy
 msgid "You are not allowed to delete groups."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:692
 #, fuzzy
 msgid "You are not allowed to delete shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:1009
 #, fuzzy
 msgid "You are not allowed to list groups of shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:891 lib/api.php:933
 #, fuzzy
 msgid "You are not allowed to list share permissions."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:721
 #, fuzzy
 msgid "You are not allowed to list shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:636
 #, fuzzy
 msgid "You are not allowed to list users of groups."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:975
 #, fuzzy
 msgid "You are not allowed to list users of shares."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: lib/api.php:377 lib/api.php:422
 #, fuzzy
 msgid "You are not allowed to remove user data."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: framework/Horde/Horde.php:1660
 msgid "You are not authenticated."
-msgstr "Non est· autenticado."
+msgstr "Non est√° autenticado."
 
 #: framework/Kolab_FreeBusy/lib/Horde/Kolab/FreeBusy/View.php:238
 #, fuzzy
 msgid "You are not authorized to access the requested URL."
-msgstr "Non ten permiso para crear m·is de %d bloques."
+msgstr "Non ten permiso para crear m√°is de %d bloques."
 
 #: framework/Prefs/Identity.php:336
 msgid "You cannot have the '\\' character in your full name."
-msgstr "Non pode incluÌr o car·cter '\\' no nome completo."
+msgstr "Non pode inclu√≠r o car√°cter '\\' no nome completo."
 
 #: framework/RPC/RPC/phpgw.php:109
 #, fuzzy
 msgid "You did not authenticate."
-msgstr "Non est· autenticado."
+msgstr "Non est√° autenticado."
 
 #: framework/Form/Form.php:2701
 msgid "You did not enter a valid email address."
-msgstr "Non introduciu un enderezo v·lido de correo electrÛnico."
+msgstr "Non introduciu un enderezo v√°lido de correo electr√≥nico."
 
 #: framework/Data/Data.php:339
 #, php-format
@@ -9528,12 +9528,12 @@ msgid ""
 "You didn't map any fields from the imported file to the corresponding fields "
 "in %s."
 msgstr ""
-"Non asignou ning˙n dos campos do ficheiro importado aos campos "
+"Non asignou ning√∫n dos campos do ficheiro importado aos campos "
 "correspondentes de %s."
 
 #: framework/Auth/Auth.php:1015
 msgid "You have been logged out."
-msgstr "Pechou a sesiÛn."
+msgstr "Pechou a sesi√≥n."
 
 #: framework/Prefs/Identity.php:410
 #, php-format
@@ -9559,7 +9559,7 @@ msgstr "Ten que configurar un sistema traseiro VFS"
 
 #: framework/Auth/Auth/Signup/datatree.php:35
 msgid "You must configure a DataTree backend to use Signups."
-msgstr "Para usar InscriciÛns ten que configurar un sistema traseiro DataTree."
+msgstr "Para usar Inscrici√≥ns ten que configurar un sistema traseiro DataTree."
 
 #: framework/Horde/Horde.php:641
 msgid "You must configure a VFS backend."
@@ -9568,7 +9568,7 @@ msgstr "Ten que configurar un sistema traseiro VFS"
 #: framework/Auth/Auth/Signup.php:60
 #, fuzzy
 msgid "You must configure a backend to use Signups."
-msgstr "Para usar InscriciÛns ten que configurar un sistema traseiro DataTree."
+msgstr "Para usar Inscrici√≥ns ten que configurar un sistema traseiro DataTree."
 
 #: templates/problem/problem.inc:11
 msgid "You must describe the problem before you can send the problem report."
@@ -9580,28 +9580,28 @@ msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
 msgstr ""
-"Ten que introducir un n˙mero de telÈfono mÛbil v·lido -sÛ dÌxitos con un '+' "
+"Ten que introducir un n√∫mero de tel√©fono m√≥bil v√°lido -s√≥ d√≠xitos con un '+' "
 "opcional para o prefixo de chamada internacional."
 
 #: framework/Form/Form.php:1178
 #, fuzzy
 msgid "You must enter a valid value."
-msgstr "Ten que introducir un valor v·lido."
+msgstr "Ten que introducir un valor v√°lido."
 
 #: framework/Form/Form.php:2261
 #, fuzzy
 msgid "You must enter an email address."
-msgstr "Non introduciu un enderezo v·lido de correo electrÛnico."
+msgstr "Non introduciu un enderezo v√°lido de correo electr√≥nico."
 
 #: framework/Form/Form.php:2259
 #, fuzzy
 msgid "You must enter at least one email address."
-msgstr "Non introduciu un enderezo v·lido de correo electrÛnico."
+msgstr "Non introduciu un enderezo v√°lido de correo electr√≥nico."
 
 #: framework/Prefs/Prefs/UI.php:149
 #, fuzzy, php-format
 msgid "You must provide a setting for \"%s\"."
-msgstr "Introduza un novo nome de categorÌa."
+msgstr "Introduza un novo nome de categor√≠a."
 
 #: services/portal/rpcsum.php:82
 msgid "You must select an server to be deleted."
@@ -9625,24 +9625,24 @@ msgstr "Especifique o nome de usuario para actualizar."
 
 #: framework/Compress/Compress/zip.php:139
 msgid "You must specify what action to perform."
-msgstr "Especifique quÈ acciÛn se realizar·."
+msgstr "Especifique qu√© acci√≥n se realizar√°."
 
 #: framework/Prefs/Prefs/CategoryManager.php:79
 msgid "You must type a new category name."
-msgstr "Introduza un novo nome de categorÌa."
+msgstr "Introduza un novo nome de categor√≠a."
 
 #: framework/Net_SMS/SMS/vodafoneitaly_smtp.php:70
 msgid "You need to provide an Italian phone number"
-msgstr "Debe proporcionar un n˙mero de telÈfono italiano"
+msgstr "Debe proporcionar un n√∫mero de tel√©fono italiano"
 
 #: framework/Auth/Auth.php:1003
 #, php-format
 msgid "Your %s session has expired. Please login again."
-msgstr "A s˙a sesiÛn en %s caducou. Inicie unha nova."
+msgstr "A s√∫a sesi√≥n en %s caducou. Inicie unha nova."
 
 #: templates/problem/problem.inc:34
 msgid "Your Email Address"
-msgstr "O seu enderezo de correo electrÛnico"
+msgstr "O seu enderezo de correo electr√≥nico"
 
 #: config/prefs.php.dist:240
 msgid "Your From: address:"
@@ -9651,7 +9651,7 @@ msgstr "O seu enderezo De:"
 #: config/prefs.php.dist:80 config/prefs.php.dist:88 config/prefs.php.dist:97
 #: config/prefs.php.dist:105 config/prefs.php.dist:112
 msgid "Your Information"
-msgstr "A s˙a informaciÛn"
+msgstr "A s√∫a informaci√≥n"
 
 #: framework/Auth/Auth.php:1007
 #, php-format
@@ -9659,8 +9659,8 @@ msgid ""
 "Your Internet Address has changed since the beginning of your %s session. To "
 "protect your security, you must login again."
 msgstr ""
-"O seu enderezo de Internet cambiou desde o comezo da s˙a sesiÛn %s. Por "
-"razÛns de seguridade, ten que iniciar sesiÛn outra vez."
+"O seu enderezo de Internet cambiou desde o comezo da s√∫a sesi√≥n %s. Por "
+"raz√≥ns de seguridade, ten que iniciar sesi√≥n outra vez."
 
 #: templates/problem/problem.inc:30
 msgid "Your Name"
@@ -9672,17 +9672,17 @@ msgid ""
 "use Horde to administer user accounts, you must use a different "
 "authentication backend."
 msgstr ""
-"O seu sistema traseiro de autenticaciÛn non permite engadir usuarios. Se "
+"O seu sistema traseiro de autenticaci√≥n non permite engadir usuarios. Se "
 "quere usar Horde para administrar contas de usuario, ten que usar outro "
-"sistema traseiro de autenticaciÛn."
+"sistema traseiro de autenticaci√≥n."
 
 #: templates/admin/user/nolist.inc:5
 msgid ""
 "Your authentication backend does not support listing users, or the feature "
 "has been disabled for some other reason."
 msgstr ""
-"O seu sistema traseiro de autenticaciÛn non permite listar usuarios, ou esa "
-"caracterÌstica foi deshabilitada por alg˙n motivo."
+"O seu sistema traseiro de autenticaci√≥n non permite listar usuarios, ou esa "
+"caracter√≠stica foi deshabilitada por alg√∫n motivo."
 
 #: framework/Auth/Auth.php:1011
 #, php-format
@@ -9690,19 +9690,19 @@ msgid ""
 "Your browser appears to have changed since the beginning of your %s session. "
 "To protect your security, you must login again."
 msgstr ""
-"Parece que o seu navegador cambiou dende o comezo da s˙a sesiÛn %s. Por "
-"razÛns de seguridade, ten que iniciar sesiÛn outra vez."
+"Parece que o seu navegador cambiou dende o comezo da s√∫a sesi√≥n %s. Por "
+"raz√≥ns de seguridade, ten que iniciar sesi√≥n outra vez."
 
 #: lib/Block/iframe.php:55
 msgid "Your browser does not support this feature."
-msgstr "O seu navegador non admite esta caracterÌstica."
+msgstr "O seu navegador non admite esta caracter√≠stica."
 
 #: templates/javascript/print.js:34
 msgid ""
 "Your browser does not support this print option. Press Control/Command + P "
 "to print."
 msgstr ""
-"O seu navegador non admite esta opciÛn de impresiÛn. Presione Control/"
+"O seu navegador non admite esta opci√≥n de impresi√≥n. Presione Control/"
 "Command + P para imprimir."
 
 #: config/prefs.php.dist:302
@@ -9711,7 +9711,7 @@ msgstr "Zona horaria actual:"
 
 #: services/prefs.php:140
 msgid "Your default identity has been changed."
-msgstr "A s˙a identidade predefinida cambiou."
+msgstr "A s√∫a identidade predefinida cambiou."
 
 #: config/prefs.php.dist:178
 msgid "Your default identity:"
@@ -9723,20 +9723,20 @@ msgstr "Nome completo:"
 
 #: framework/Auth/Auth.php:1027
 msgid "Your login has expired."
-msgstr "A s˙a conexiÛn caducou."
+msgstr "A s√∫a conexi√≥n caducou."
 
 #: services/resetpassword.php:76
 #, php-format
 msgid "Your new password for %s is: %s"
-msgstr "O seu novo contrasinal para %s È: %s"
+msgstr "O seu novo contrasinal para %s √©: %s"
 
 #: framework/Prefs/Prefs/UI.php:184
 msgid "Your options have been updated for the duration of this session."
-msgstr "Actualiz·ronse as s˙as opciÛns para o que dure esta sesiÛn."
+msgstr "Actualiz√°ronse as s√∫as opci√≥ns para o que dure esta sesi√≥n."
 
 #: framework/Prefs/Prefs/UI.php:186
 msgid "Your options have been updated."
-msgstr "Actualiz·ronse as s˙as opciÛns."
+msgstr "Actualiz√°ronse as s√∫as opci√≥ns."
 
 #: services/resetpassword.php:75
 msgid "Your password has been reset"
@@ -9748,7 +9748,7 @@ msgid ""
 "Your password has been reset, but couldn't be sent to you. Please contact "
 "the administrator."
 msgstr ""
-"Reaxustouse o seu contrasinal; comprobe o seu correo e inicie sesiÛn co "
+"Reaxustouse o seu contrasinal; comprobe o seu correo e inicie sesi√≥n co "
 "contrasinal novo."
 
 #: services/resetpassword.php:85
@@ -9756,7 +9756,7 @@ msgid ""
 "Your password has been reset, check your email and log in with your new "
 "password."
 msgstr ""
-"Reaxustouse o seu contrasinal; comprobe o seu correo e inicie sesiÛn co "
+"Reaxustouse o seu contrasinal; comprobe o seu correo e inicie sesi√≥n co "
 "contrasinal novo."
 
 #: lib/Block/account.php:692 lib/Block/account.php:707
@@ -9796,7 +9796,7 @@ msgstr "Zippy"
 
 #: framework/Text_Filter/Filter/highlightquotes.php:208
 msgid "[Hide Quoted Text]"
-msgstr "[Oculta o texto entre comiÒas]"
+msgstr "[Oculta o texto entre comi√±as]"
 
 #: admin/sessions.php:61
 #, fuzzy
@@ -9810,22 +9810,22 @@ msgstr "[Informe do problema]"
 #: framework/Text_Filter/Filter/highlightquotes.php:207
 #, fuzzy, php-format
 msgid "[Show Quoted Text - %d lines]"
-msgstr "[Mostra o texto entre comiÒas - %s liÒas]"
+msgstr "[Mostra o texto entre comi√±as - %s li√±as]"
 
 #: admin/sessions.php:62
 #, fuzzy
 msgid "[Unknown]"
-msgstr "DescoÒecido"
+msgstr "Desco√±ecido"
 
 #: framework/Horde/Horde.php:231
 #, fuzzy, php-format
 msgid "[line %d of %s]"
-msgstr "[liÒa %s de %s]"
+msgstr "[li√±a %s de %s]"
 
 #: framework/Argv/lib/Horde/Argv/Parser.php:172
 #, fuzzy
 msgid "[options]"
-msgstr "OpciÛns"
+msgstr "Opci√≥ns"
 
 #: lib/api.php:209
 #, fuzzy
@@ -9838,7 +9838,7 @@ msgstr "CLI"
 
 #: lib/api.php:213
 msgid "_DataTree"
-msgstr "¡rbore de datos"
+msgstr "√Årbore de datos"
 
 #: lib/api.php:201
 msgid "_Groups"
@@ -9851,15 +9851,15 @@ msgstr "Inicio"
 
 #: framework/Horde/Horde/Menu.php:193
 msgid "_Log in"
-msgstr "Inicio de sesiÛn"
+msgstr "Inicio de sesi√≥n"
 
 #: framework/Horde/Horde/Menu.php:189
 msgid "_Log out"
-msgstr "Peche de sesiÛn"
+msgstr "Peche de sesi√≥n"
 
 #: framework/Horde/Horde/Menu.php:163
 msgid "_Options"
-msgstr "OpciÛns"
+msgstr "Opci√≥ns"
 
 #: lib/api.php:205
 msgid "_Permissions"
@@ -9867,7 +9867,7 @@ msgstr "Permisos"
 
 #: lib/api.php:193
 msgid "_Setup"
-msgstr "ConfiguraciÛn"
+msgstr "Configuraci√≥n"
 
 #: lib/api.php:197
 msgid "_Users"
@@ -9875,7 +9875,7 @@ msgstr "Usuarios"
 
 #: framework/MIME/MIME/Message.php:132
 msgid "addressee unknown"
-msgstr "destinatario descoÒecido"
+msgstr "destinatario desco√±ecido"
 
 #: framework/Argv/lib/Horde/Argv/AmbiguousOptionException.php:21
 #, php-format
@@ -9901,15 +9901,15 @@ msgstr "non se pode abrir a orixe"
 
 #: framework/MIME/MIME/Contents.php:625
 msgid "click here"
-msgstr "prema aquÌ"
+msgstr "prema aqu√≠"
 
 #: framework/MIME/MIME/Message.php:120
 msgid "command line usage error"
-msgstr "erro de liÒa de comando"
+msgstr "erro de li√±a de comando"
 
 #: framework/MIME/MIME/Message.php:176
 msgid "configuration error"
-msgstr "erro de configuraciÛn"
+msgstr "erro de configuraci√≥n"
 
 #: framework/MIME/MIME/Message.php:152
 msgid "critical system file missing"
@@ -9934,7 +9934,7 @@ msgstr "ficheiro"
 #: lib/Block/metar.php:186 lib/Block/metar.php:372 lib/Block/metar.php:398
 #, php-format
 msgid "from the %s (%s) at %s %s"
-msgstr "do %s (%s) ·s %s %s"
+msgstr "do %s (%s) √°s %s %s"
 
 #: lib/Block/weatherdotcom.php:257
 msgid "gusting"
@@ -9950,7 +9950,7 @@ msgstr "hh"
 
 #: framework/MIME/MIME/Message.php:136
 msgid "host name unknown"
-msgstr "non se coÒece o nome do servidor hospedador"
+msgstr "non se co√±ece o nome do servidor hospedador"
 
 #: framework/Net_SMS/SMS/sms2email_http.php:574
 #: framework/Net_SMS/SMS/clickatell_http.php:231
@@ -9959,11 +9959,11 @@ msgstr "inmediatamente"
 
 #: admin/setup/diff.php:64 admin/setup/diff.php:76
 msgid "inline"
-msgstr "en liÒa"
+msgstr "en li√±a"
 
 #: framework/MIME/MIME/Message.php:160
 msgid "input/output error"
-msgstr "erro de entrada/saÌda"
+msgstr "erro de entrada/sa√≠da"
 
 #: framework/MIME/MIME/Message.php:144
 msgid "internal software error"
@@ -9972,7 +9972,7 @@ msgstr "erro de software interno"
 #: framework/VFS_ISOWriter/ISOWriter/mkisofs.php:53
 #, php-format
 msgid "mkisofs error code %d while making ISO."
-msgstr "cÛdigo de erro mkisofs %d ao realizar ISO."
+msgstr "c√≥digo de erro mkisofs %d ao realizar ISO."
 
 #: framework/UI/UI/VarRenderer/html.php:407
 msgid "mm"
@@ -9985,12 +9985,12 @@ msgstr ""
 
 #: framework/Crypt/Crypt/smime.php:1223
 msgid "not yet implemented"
-msgstr "aÌnda sen desenvolver"
+msgstr "a√≠nda sen desenvolver"
 
 #: framework/Argv/lib/Horde/Argv/OptionException.php:23
 #, fuzzy, php-format
 msgid "option %s: %s"
-msgstr "OpciÛns de %s"
+msgstr "Opci√≥ns de %s"
 
 #: framework/Argv/lib/Horde/Argv/Option.php:122
 #, php-format
@@ -10026,7 +10026,7 @@ msgstr "en ascenso"
 
 #: framework/MIME/MIME/Message.php:140
 msgid "service unavailable"
-msgstr "servizo non dispoÒible"
+msgstr "servizo non dispo√±ible"
 
 #: admin/setup/config.php:101
 msgid "show differences"
@@ -10063,7 +10063,7 @@ msgstr "fallo temporal"
 #: admin/user.php:44 admin/user.php:55 framework/Auth/Auth/Signup.php:278
 #: framework/Auth/Auth/Signup.php:292
 msgid "type the password twice to confirm"
-msgstr "escriba o contrasinal d˙as veces para confirmalo"
+msgstr "escriba o contrasinal d√∫as veces para confirmalo"
 
 #: admin/setup/diff.php:64 admin/setup/diff.php:76
 msgid "unified"
@@ -10072,7 +10072,7 @@ msgstr "unificado"
 #: framework/VFS/lib/VFS/horde.php:279
 #, fuzzy
 msgid "unknown error"
-msgstr "Produciuse un erro descoÒecido."
+msgstr "Produciuse un erro desco√±ecido."
 
 #: framework/MIME/MIME/Part.php:27
 msgid "unnamed"

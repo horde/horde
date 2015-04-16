@@ -10,7 +10,7 @@
 #
 # Revisada por:
 #
-# Servizo de normalizaciÛn linguÌstica <snlusc@usc.es>
+# Servizo de normalizaci√≥n lingu√≠stica <snlusc@usc.es>
 # Universidade de Santiago de Compostela
 #
 #
@@ -19,12 +19,12 @@ msgstr ""
 "Project-Id-Version: passwd\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2009-03-19 10:37+0100\n"
-"PO-Revision-Date: 2010-01-18 14:15:50+0100\n"
+"PO-Revision-Date: 2015-04-16 12:32+0200\n"
 "Last-Translator: Xusto <snlxusto@lugo.usc.es>\n"
 "Language-Team: Unidade de Sistemas ATIC <atic.sistemas@usc.es>\n"
 "Language: gl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
@@ -106,11 +106,11 @@ msgstr "Non se pode conectar ao servidor ldap"
 #: lib/Driver/expectpecl.php:98
 #, fuzzy
 msgid "Could not login to system (no password prompt)"
-msgstr "Non se pode abrir unha canalizaciÛn a smbpasswd."
+msgstr "Non se pode abrir unha canalizaci√≥n a smbpasswd."
 
 #: lib/Driver/smbpasswd.php:57
 msgid "Could not open pipe to smbpasswd."
-msgstr "Non se pode abrir unha canalizaciÛn a smbpasswd."
+msgstr "Non se pode abrir unha canalizaci√≥n a smbpasswd."
 
 #: lib/Driver/ldap.php:86
 #, fuzzy
@@ -149,7 +149,7 @@ msgstr ""
 #: lib/Driver/poppassd.php:120
 #, fuzzy
 msgid "Incorrect old password."
-msgstr "O contrasinal È incorrecto"
+msgstr "O contrasinal √© incorrecto"
 
 #: lib/Driver/ldap.php:190
 msgid "Minimum password age has not yet expired"
@@ -178,7 +178,7 @@ msgstr "Contrasinal antigo:"
 
 #: lib/Driver/smbpasswd.php:47
 msgid "Passwd is not properly configured."
-msgstr "Passwd non est· ben configurado."
+msgstr "Passwd non est√° ben configurado."
 
 #: main.php:214
 #, php-format
@@ -193,25 +193,25 @@ msgstr ""
 #: lib/Driver/pspasswd.php:75
 #, fuzzy
 msgid "Password module can't find the supplied bin."
-msgstr "O mÛdulo do contrasinal non est· ben configurado."
+msgstr "O m√≥dulo do contrasinal non est√° ben configurado."
 
 #: lib/Driver/pspasswd.php:73
 #, fuzzy
 msgid "Password module is missing required parameters."
-msgstr "O mÛdulo do contrasinal non est· ben configurado."
+msgstr "O m√≥dulo do contrasinal non est√° ben configurado."
 
 #: lib/Driver/adsi.php:51
 #, fuzzy
 msgid "Password module is missing target parameter."
-msgstr "O mÛdulo do contrasinal non est· ben configurado."
+msgstr "O m√≥dulo do contrasinal non est√° ben configurado."
 
 #: main.php:188 lib/Driver/servuftp.php:71
 msgid "Password module is not properly configured"
-msgstr "O mÛdulo do contrasinal non est· ben configurado"
+msgstr "O m√≥dulo do contrasinal non est√° ben configurado"
 
 #: lib/Driver/servuftp.php:98
 msgid "Password module is not properly configured."
-msgstr "O mÛdulo do contrasinal non est· ben configurado."
+msgstr "O m√≥dulo do contrasinal non est√° ben configurado."
 
 #: templates/main/main.inc:11
 #, fuzzy
@@ -231,17 +231,17 @@ msgstr "Ten que comprobar o novo contrasinal"
 #: lib/Driver/composite.php:41
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
-"Os controladores requiridos est·n desconfigurados na configuraciÛn de "
-"RedacciÛn."
+"Os controladores requiridos est√°n desconfigurados na configuraci√≥n de "
+"Redacci√≥n."
 
 #: lib/Driver/sql.php:46
 msgid "Required 'phptype' not specified in Passwd SQL configuration."
 msgstr ""
-"O 'phptype' requirido non se especificou na configuraciÛn de Passwd SQL."
+"O 'phptype' requirido non se especificou na configuraci√≥n de Passwd SQL."
 
 #: lib/Driver/vpopmail.php:49
 msgid "Required 'phptype' not specified in SQL configuration."
-msgstr "O 'phptype' requirido non se especificou na configuraciÛn de SQL."
+msgstr "O 'phptype' requirido non se especificou na configuraci√≥n de SQL."
 
 #: templates/main/main.inc:142
 msgid "Reset"
@@ -304,15 +304,15 @@ msgstr "Ten que comprobar o novo contrasinal"
 msgid ""
 "Your new password is too long; passwords may not be more than %d characters "
 "long!"
-msgstr "O novo contrasinal È longo de m·is; non pode ter m·is de %d caracteres"
+msgstr "O novo contrasinal √© longo de m√°is; non pode ter m√°is de %d caracteres"
 
 #: main.php:177
 msgid "Your new password is too simple to guess!  Not changed!"
-msgstr "O novo contrasinal È demasiado doado de adiviÒar! Non se cambiou!"
+msgstr "O novo contrasinal √© demasiado doado de adivi√±ar! Non se cambiou!"
 
 #: main.php:168
 msgid "Your new password is too simple to guess. Not changed!"
-msgstr "O novo contrasinal È demasiado doado de adiviÒar! Non se cambiou!"
+msgstr "O novo contrasinal √© demasiado doado de adivi√±ar! Non se cambiou!"
 
 #: main.php:88
 #, php-format
@@ -329,9 +329,9 @@ msgid "Your new password must contain at least %d alphabetic character."
 msgid_plural ""
 "Your new password must contain at least %d alphabetic characters."
 msgstr[0] ""
-"O novo contrasinal ten que ter polo menos %d caracteres alfabÈticos."
+"O novo contrasinal ten que ter polo menos %d caracteres alfab√©ticos."
 msgstr[1] ""
-"O novo contrasinal ten que ter polo menos %d caracteres alfabÈticos."
+"O novo contrasinal ten que ter polo menos %d caracteres alfab√©ticos."
 
 #: main.php:138
 #, fuzzy, php-format
@@ -339,9 +339,9 @@ msgid "Your new password must contain at least %d alphanumeric character."
 msgid_plural ""
 "Your new password must contain at least %d alphanumeric characters."
 msgstr[0] ""
-"O novo contrasinal ten que ter polo menos %d caracteres alfanumÈricos."
+"O novo contrasinal ten que ter polo menos %d caracteres alfanum√©ricos."
 msgstr[1] ""
-"O novo contrasinal ten que ter polo menos %d caracteres alfanumÈricos."
+"O novo contrasinal ten que ter polo menos %d caracteres alfanum√©ricos."
 
 #: main.php:143
 #, php-format
@@ -350,39 +350,39 @@ msgid ""
 "The types are: lower, upper, numeric, and symbols."
 msgstr ""
 "O novo contrasinal ten que ter polo menos %d tipos distintos de caracteres. "
-"Os tipos son: min˙sculas, mai˙sculas, n˙meros e sÌmbolos."
+"Os tipos son: min√∫sculas, mai√∫sculas, n√∫meros e s√≠mbolos."
 
 #: main.php:123
 #, fuzzy, php-format
 msgid "Your new password must contain at least %d lowercase character."
 msgid_plural "Your new password must contain at least %d lowercase characters."
 msgstr[0] ""
-"O novo contrasinal ten que ter polo menos %d caracteres en min˙sculas."
+"O novo contrasinal ten que ter polo menos %d caracteres en min√∫sculas."
 msgstr[1] ""
-"O novo contrasinal ten que ter polo menos %d caracteres en min˙sculas."
+"O novo contrasinal ten que ter polo menos %d caracteres en min√∫sculas."
 
 #: main.php:128
 #, fuzzy, php-format
 msgid "Your new password must contain at least %d numeric character."
 msgid_plural "Your new password must contain at least %d numeric characters."
-msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres numÈricos."
-msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres numÈricos."
+msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres num√©ricos."
+msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres num√©ricos."
 
 #: main.php:157
 #, fuzzy, php-format
 msgid "Your new password must contain at least %d symbol character."
 msgid_plural "Your new password must contain at least %d symbol characters."
-msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres numÈricos."
-msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres numÈricos."
+msgstr[0] "O novo contrasinal ten que ter polo menos %d caracteres num√©ricos."
+msgstr[1] "O novo contrasinal ten que ter polo menos %d caracteres num√©ricos."
 
 #: main.php:118
 #, fuzzy, php-format
 msgid "Your new password must contain at least %d uppercase character."
 msgid_plural "Your new password must contain at least %d uppercase characters."
 msgstr[0] ""
-"O novo contrasinal ten que ter polo menos %d caracteres en mai˙sculas."
+"O novo contrasinal ten que ter polo menos %d caracteres en mai√∫sculas."
 msgstr[1] ""
-"O novo contrasinal ten que ter polo menos %d caracteres en mai˙sculas."
+"O novo contrasinal ten que ter polo menos %d caracteres en mai√∫sculas."
 
 #: main.php:149
 #, php-format
@@ -400,7 +400,7 @@ msgstr "Os novos contrasinais son diferentes"
 #: lib/Driver/http.php:76
 #, fuzzy
 msgid "Your password could not be changed."
-msgstr "O novo contrasinal È demasiado doado de adiviÒar! Non se cambiou!"
+msgstr "O novo contrasinal √© demasiado doado de adivi√±ar! Non se cambiou!"
 
 #: templates/main/main.inc:19
 #, fuzzy
