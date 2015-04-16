@@ -96,6 +96,7 @@ class Horde_ActiveSync_SyncCache
      * @param Horde_ActiveSync_State_Base $state  The state driver
      * @param string $devid                       The device id
      * @param string $user                        The username
+     * @param Horde_Log_Logger $logger            The logger object
      *
      * @return Horde_ActiveSync_SyncCache
      */
@@ -103,7 +104,7 @@ class Horde_ActiveSync_SyncCache
         Horde_ActiveSync_State_Base $state,
         $devid,
         $user,
-        $logger = null)
+        Horde_Log_Logger $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;
