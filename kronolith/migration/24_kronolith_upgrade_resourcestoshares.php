@@ -45,10 +45,6 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
         /** Migrate existing resources to shares */
         $columns = $this->_connection->columns('kronolith_resources');
 
-        /** Try to get existing data charset **/
-        $config = Horde::getDriverConfig($backend, 'sql');
-        $charset = empty($config['charset']) ? 'utf-8' : $config['charset'];
-
         $rows = $this->_connection->selectAll('SELECT * FROM kronolith_resources');
         $shares = $GLOBALS['injector']
              ->getInstance('Horde_Core_Factory_Share')
