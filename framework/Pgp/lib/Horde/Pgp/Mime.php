@@ -104,93 +104,119 @@ extends Horde_Pgp
     /**
      * Encrypts a MIME part using PGP.
      *
-     * @param Horde_Mime_Part $mime_part  The object to encrypt.
-     * @param array $params               The parameters required for
-     *                                    encryption
-     *                                    ({@see _encryptMessage()}).
+     * @param Horde_Mime_Part $part  The object to encrypt.
+     * @param mixed $keys            The public key(s) to use for encryption.
+     * @param array $opts            Additional options:
+     *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
-     * @return mixed  A Horde_Mime_Part object that is encrypted according to
-     *                RFC 3156.
+     * @return Horde_Mime_Part  An encrypted object.
      * @throws Horde_Pgp_Exception
      */
-    public function encryptMIMEPart($mime_part, $params = array())
+    public function encryptPart(
+        Horde_Mime_Part $part, $keys, array $opts = array()
+    )
     {
-        $params = array_merge($params, array('type' => 'message'));
-
-        $signenc_body = $mime_part->toString(array(
-            'canonical' => true,
-            'headers' => true
-        ));
-        $message_encrypt = $this->encrypt($signenc_body, $params);
-
-        /* Set up MIME Structure according to RFC 3156. */
-        $part = new Horde_Mime_Part();
-        $part->setType('multipart/encrypted');
-        $part->setHeaderCharset('UTF-8');
-        $part->setContentTypeParameter(
-            'protocol',
-            'application/pgp-encrypted'
+        $encrypted = $this->encrypt(
+            $part->toString(array(
+                'canonical' => true,
+                'headers' => true
+            )),
+            $keys,
+            $opts
         );
-        $part->setDescription(
+
+        $base = $this->_encryptPart($encrypted);
+        $base->setHeaderCharset('UTF-8');
+        $base->setDescription(
             Horde_Pgp_Translation::t("PGP Encrypted Data")
         );
-        $part->setContents(
+        $base->setContents(
             "This message is in MIME format and has been PGP encrypted.\n"
+        );
+
+        return $base;
+    }
+
+    /**
+     * Create the base MIME part used for encryption (RFC 3156 [4]).
+     *
+     * @param Horde_Pgp_Element_Message $encrypted  Encrypted data.
+     *
+     * @return Horde_Mime_Part  Base encrypted MIME part.
+     */
+    protected function _encryptPart($encrypted)
+    {
+        $base = new Horde_Mime_Part();
+        $base->setType('multipart/encrypted');
+        $base->setHeaderCharset('UTF-8');
+        $base->setContentTypeParameter(
+            'protocol',
+            'application/pgp-encrypted'
         );
 
         $part1 = new Horde_Mime_Part();
         $part1->setType('application/pgp-encrypted');
         $part1->setCharset(null);
         $part1->setContents("Version: 1\n", array('encoding' => '7bit'));
-        $part->addPart($part1);
+        $base->addPart($part1);
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
         $part2->setCharset(null);
-        $part2->setContents($message_encrypt, array('encoding' => '7bit'));
+        $part2->setContents(strval($encrypted), array('encoding' => '7bit'));
         $part2->setDisposition('inline');
-        $part->addPart($part2);
+        $base->addPart($part2);
 
-        return $part;
+        return $base;
     }
 
     /**
      * Signs and encrypts a MIME part using PGP.
      *
-     * @param Horde_Mime_Part $mime_part   The object to sign and encrypt.
-     * @param array $sign_params           The parameters required for
-     *                                     signing
-     *                                     ({@see _encryptSignature()}).
-     * @param array $encrypt_params        The parameters required for
-     *                                     encryption
-     *                                     ({@see _encryptMessage()}).
+     * @param Horde_Mime_Part $part  The part to sign and encrypt.
+     * @param mixed $privkey         The private key to use for signing (must
+     *                               be decrypted).
+     * @param mixed $pubkeys         The public keys to use for encryption.
+     * @param array $opts            Additional options:
+     *   - nocompress: (boolean) If true, don't compress signed/encrypted
+     *                 data.
      *
-     * @return mixed  A Horde_Mime_Part object that is signed and encrypted
-     *                according to RFC 3156.
+     * @return Horde_Mime_Part  A signed and encrypted part.
      * @throws Horde_Pgp_Exception
      */
-    public function signAndEncryptMIMEPart($mime_part, $sign_params = array(),
-                                           $encrypt_params = array())
+    public function signAndEncryptPart(
+        Horde_Mime_Part $part, $privkey, $pubkeys, array $opts = array()
+    )
     {
-        /* RFC 3156 requires that the entire signed message be encrypted.  We
-         * need to explicitly call using Horde_Pgp_Pgp:: because we don't
-         * know whether a subclass has extended these methods. */
-        $part = $this->signMIMEPart($mime_part, $sign_params);
-        $part = $this->encryptMIMEPart($part, $encrypt_params);
-        $part->setContents(
+        /* We use the combined method of sign & encryption in a single
+         * OpenPGP packet (RFC 3156 [6.2]). */
+        $signed = $this->sign(
+            $part->toString(array(
+                'canonical' => true,
+                'headers' => true
+            )),
+            $privkey,
+            $opts
+        );
+
+        $encrypted = $this->encrypt(
+            $signed->message,
+            $pubkeys,
+            array_merge($opts, array(
+                'nocompress' => true
+            ))
+        );
+
+        $base = $this->_encryptPart($encrypted);
+        $base->setHeaderCharset('UTF-8');
+        $base->setDescription(
+            Horde_Pgp_Translation::t("PGP Signed/Encrypted Data")
+        );
+        $base->setContents(
             "This message is in MIME format and has been PGP signed and encrypted.\n"
         );
 
-        $part->setCharset($this->_params['email_charset']);
-        $part->setDescription(
-            Horde_String::convertCharset(
-                Horde_Pgp_Translation::t("PGP Signed/Encrypted Data"),
-                'UTF-8',
-                $this->_params['email_charset']
-            )
-        );
-
-        return $part;
+        return $base;
     }
 
 }
