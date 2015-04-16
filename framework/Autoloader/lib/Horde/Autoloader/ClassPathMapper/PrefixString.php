@@ -54,7 +54,7 @@ implements Horde_Autoloader_ClassPathMapper
      */
     public function mapToPath($className)
     {
-        if (stripos($className, $this->_prefix) === 0) {
+        if ($this->_ipos($className, $this->_prefix) === 0) {
             $len = strlen($this->_prefix);
             if ($len === strlen($className)) {
                 return $this->_includePath . '/' . $className . '.php';
@@ -66,6 +66,23 @@ implements Horde_Autoloader_ClassPathMapper
         }
 
         return false;
+    }
+
+    /**
+     * Locale independant stripos() implementation.
+     *
+     * @param string $haystack  The string to search through.
+     * @param string $needle    The string to search for.
+     *
+     * @return integer  The position of first case-insensitive occurrence.
+     */
+    protected function _ipos($haystack, $needle)
+    {
+        $language = setlocale(LC_CTYPE, 0);
+        setlocale(LC_CTYPE, 'C');
+        $pos = stripos($haystack, $needle);
+        setlocale(LC_CTYPE, $language);
+        return $pos;
     }
 
 }

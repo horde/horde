@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix autoloading using certain locales like Turkish (Bug #13855).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -285,7 +285,7 @@
    <date>2014-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix autoloading using certain locales like Turkish (Bug #13855).
    </notes>
   </release>
  </changelog>
