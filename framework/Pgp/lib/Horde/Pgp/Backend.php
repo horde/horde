@@ -98,9 +98,7 @@ class Horde_Pgp_Backend
      *                                           'message'.
      * @param array $opts                        Additional options:
      *   - nocompress: (boolean) If true, don't compress signed data.
-     *   - sign_hash: (string) The hash method to use. (DEFAULT: SHA256)
-     *   - sign_hash_dsa: (string) The hash method to use with DSA. (DEFAULT:
-     *                    SHA1)
+     *   - sign_hash: (string) The hash method to use.
      *
      * @return mixed  The signed message.
      */

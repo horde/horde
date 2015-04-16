@@ -152,9 +152,7 @@ class Horde_Pgp
      *                      decrypted).
      * @param array $opts   Additional options:
      *   - nocompress: (boolean) If true, don't compress signed data.
-     *   - sign_hash: (string) The hash method to use. (DEFAULT: SHA256)
-     *   - sign_hash_dsa: (string) The hash method to use with DSA. (DEFAULT:
-     *                    SHA1)
+     *   - sign_hash: (string) The hash method to use.
      *
      * @return Horde_Pgp_Element_Message  The signed data.
      * @throws Horde_Pgp_Exception
@@ -169,8 +167,7 @@ class Horde_Pgp
                 'message',
                 array_merge(array(
                     'nocompress' => false,
-                    'sign_hash' => 'SHA256',
-                    'sign_hash_dsa' => 'SHA1'
+                    'sign_hash' => null
                 ), $opts)
             ),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
@@ -184,9 +181,7 @@ class Horde_Pgp
      * @param mixed $key    The private key to use for signing (must be
      *                      decrypted).
      * @param array $opts   Additional options:
-     *   - sign_hash: (string) The hash method to use. (DEFAULT: SHA256)
-     *   - sign_hash_dsa: (string) The hash method to use with DSA. (DEFAULT:
-     *                    SHA1)
+     *   - sign_hash: (string) The hash method to use.
      *
      * @return Horde_Pgp_Element_SignedMessage  The signed data.
      * @throws Horde_Pgp_Exception
@@ -200,8 +195,7 @@ class Horde_Pgp
                 $this->_getPrivateKey($key),
                 'clear',
                 array_merge(array(
-                    'sign_hash' => 'SHA256',
-                    'sign_hash_dsa' => 'SHA1'
+                    'sign_hash' => null
                 ), $opts)
             ),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
@@ -215,9 +209,7 @@ class Horde_Pgp
      * @param mixed $key    The private key to use for signing (must be
      *                      decrypted).
      * @param array $opts   Additional options:
-     *   - sign_hash: (string) The hash method to use. (DEFAULT: SHA256)
-     *   - sign_hash_dsa: (string) The hash method to use with DSA. (DEFAULT:
-     *                    SHA1)
+     *   - sign_hash: (string) The hash method to use.
      *
      * @return Horde_Pgp_Element_Signature  The detached signature.
      * @throws Horde_Pgp_Exception
@@ -231,8 +223,7 @@ class Horde_Pgp
                 $this->_getPrivateKey($key),
                 'detach',
                 array_merge(array(
-                    'sign_hash' => 'SHA256',
-                    'sign_hash_dsa' => 'SHA1'
+                    'sign_hash' => null
                 ), $opts)
             ),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
