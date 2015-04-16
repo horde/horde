@@ -112,6 +112,15 @@ class Horde_ActiveSync_SyncCache
         $this->_logger = $logger;
         $this->loadCacheFromStorage();
         $this->_procid = getmypid();
+
+        $this->_logger = empty($logger)
+            ? new Horde_Support_Stub()
+            : $logger;
+
+        $this->_logger->info(sprintf(
+            '[%s] Creating new Horde_ActiveSync_SyncCache.',
+            $this->_procid)
+        );
     }
 
     public function __get($property)
