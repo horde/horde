@@ -159,6 +159,12 @@ class OpenPGP_Crypt_Symmetric {
           }
           /* End Horde Change */
         break;
+      /* Horde change */
+      case 4:
+        $cipher = new Crypt_Blowfish(CRYPT_BLOWFISH_MODE_CFB);
+        $key_bytes = 16;
+        break;
+      /* End Horde Change */
       case 7:
         if(class_exists('Crypt_AES')) {
           $cipher = new Crypt_AES(CRYPT_AES_MODE_CFB);
@@ -177,6 +183,12 @@ class OpenPGP_Crypt_Symmetric {
           $cipher->setKeyLength(256);
         }
         break;
+      /* Horde change */
+      case 10:
+        $cipher = new Crypt_Twofish(CRYPT_TWOFISH_MODE_CFB);
+        $key_bytes = 32;
+        break;
+      /* End Horde Change */
     }
     if(!$cipher) return array(NULL, NULL, NULL); // Unsupported cipher
     if(!isset($key_bytes)) $key_bytes = $cipher->key_size;

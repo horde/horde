@@ -17,5 +17,7 @@ List of changes from upstream sources:
 
   Added support for using the openssl extension to parse CAST128 data
   (OpenPGP_Crypt_Symmetric::getCipher()).
+  Added support for the Blowfish and Twofish ciphers
+  (OpenPGP_Crypt_Symmetric::getCipher()).
   Fix setting salt size in S2K object when symmetrically encrypting
   (OpenPGP_Crypt_Symmetric::encrypt()).
