@@ -49,7 +49,6 @@ class Horde_Pgp_Keyserver
      * <pre>
      *   - http: (Horde_Http_Client) The HTTP client object to use.
      *   - keyserver: (string) The public PGP keyserver to use.
-     *   - port: (integer) The public PGP keyserver port.
      * </pre>
      */
     public function __construct(array $params = array())
@@ -60,7 +59,6 @@ class Horde_Pgp_Keyserver
         $this->_keyserver = isset($params['keyserver'])
             ? $params['keyserver']
             : self::DEFAULT_KEYSERVER;
-        $this->_keyserver .= ':' . (isset($params['port']) ? $params['port'] : '11371');
     }
 
     /**
