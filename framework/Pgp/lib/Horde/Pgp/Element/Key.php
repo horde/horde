@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
  *
- * @property-read integer $created  Creation date (UNIX timestamp).
+ * @property-read integer $creation  Creation date (UNIX timestamp).
  * @property-read string $fingerprint  Key fingerprint.
  * @property-read string $id  Key ID.
  */
