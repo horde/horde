@@ -209,7 +209,7 @@ class Horde_Kolab_Storage_Factory
      */
     public function createNamespace($type, $user, array $params = array())
     {
-        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . ucfirst($type);
+        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . Horde_String::ucfirst($type);
         if (!class_exists($class)) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(

@@ -164,7 +164,7 @@ extends PHPUnit_Framework_TestCase
             return $element;
         } else {
             $elements = explode('_', $this->getTypeClass());
-            $element = strtolower(array_pop($elements));
+            $element = Horde_String::lower(array_pop($elements));
             return $element;
         }
     }

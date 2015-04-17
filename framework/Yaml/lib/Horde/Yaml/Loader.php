@@ -332,7 +332,7 @@ class Horde_Yaml_Loader
         }
 
         // Used in a lot of cases.
-        $lower_value = strtolower($value);
+        $lower_value = Horde_String::lower($value);
 
         if (preg_match('/^("(.*)"|\'(.*)\')/', $value, $matches)) {
             $value = (string)str_replace(array('\'\'', '\\\''), "'", end($matches));

@@ -197,7 +197,7 @@ implements Horde_Kolab_Cli_Module
             break;
         case 'create':
             $data = $world['storage']->getData($folder_name, $arguments[3]);
-            switch (strtolower($arguments[4])) {
+            switch (Horde_String::lower($arguments[4])) {
             case 'yaml':
                 if (class_exists('Horde_Yaml')) {
                     $object = Horde_Yaml::loadFile($arguments[5]);

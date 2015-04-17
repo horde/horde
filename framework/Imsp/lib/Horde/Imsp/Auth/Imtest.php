@@ -33,7 +33,7 @@ class Horde_Imsp_Auth_Imtest extends Horde_Imsp_Auth_Base
     {
         $command = '';
         $error_return = '';
-        if (strtolower($this->_params['auth_mechanism']) == 'gssapi' &&
+        if (Horde_String::lower($this->_params['auth_mechanism']) == 'gssapi' &&
             isset($_SERVER['KRB5CCNAME'])) {
                 $command .= 'KRB5CCNAME=' . $_SERVER['KRB5CCNAME'];
         }

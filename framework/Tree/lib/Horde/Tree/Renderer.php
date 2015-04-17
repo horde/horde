@@ -58,7 +58,7 @@ class Horde_Tree_Renderer
         $ob = null;
 
         /* Base drivers (in Tree/ directory). */
-        $class = __CLASS__ . '_' . ucfirst($renderer);
+        $class = __CLASS__ . '_' . Horde_String::ucfirst($renderer);
         if (class_exists($class)) {
             $ob = new $class($tree, $params);
         } else {

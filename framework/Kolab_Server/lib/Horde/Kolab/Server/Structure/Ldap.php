@@ -87,7 +87,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
         $ocs = array_reverse($ocs);
         foreach ($ocs as $oc) {
             try {
-                $class_name = 'Horde_Kolab_Server_Object_' . ucfirst(strtolower($oc));
+                $class_name = 'Horde_Kolab_Server_Object_' . Horde_String::ucfirst(Horde_String::lower($oc));
                 Horde_Kolab_Server_Object_Factory::loadClass($class_name);
                 return $class_name;
             } catch (Horde_Kolab_Server_Exception $e)  {
@@ -141,7 +141,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
             );
         }
         $result = array_map(
-            'strtolower',
+            'Horde_String::lower',
             $object['objectClass']
         );
         return $result;
@@ -151,7 +151,7 @@ class Horde_Kolab_Server_Structure_Ldap extends Horde_Kolab_Server_Structure_Bas
         $name,
         Horde_Kolab_Server_Object_Interface $object
     ) {
-        $class = ucfirst(strtolower($name));
+        $class = Horde_String::ucfirst(Horde_String::lower($name));
         $object_attribute_class = 'Horde_Kolab_Server_Object_Attribute_'
             . $class;
         $structure_attribute_class = 'Horde_Kolab_Server_Structure_Attribute_'

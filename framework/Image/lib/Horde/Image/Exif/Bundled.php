@@ -774,7 +774,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
             }
             // Format certain kinds of strings nicely (Camera make etc.)
             if ($tag == '010f') {
-                $data = ucwords(strtolower(trim($data)));
+                $data = Horde_String::ucwords(Horde_String::lower(trim($data)));
             }
             break;
 

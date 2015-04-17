@@ -83,7 +83,7 @@ class Horde_ListHeaders extends Horde_Mail_Rfc822
         $this->_datalen = strlen($this->_data);
         $this->_params['validate'] = true;
 
-        switch (strtolower($id)) {
+        switch (Horde_String::lower($id)) {
         case 'list-archive':
         case 'list-help':
         case 'list-owner':

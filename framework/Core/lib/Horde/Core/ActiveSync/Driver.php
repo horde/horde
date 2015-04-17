@@ -1873,7 +1873,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSearchResults($type, array $query)
     {
-        switch (strtolower($type)) {
+        switch (Horde_String::lower($type)) {
         case 'gal':
             return $this->_searchGal($query);
         case 'mailbox':

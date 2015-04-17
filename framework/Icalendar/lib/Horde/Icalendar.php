@@ -378,7 +378,7 @@ class Horde_Icalendar
         $r = array();
 
         foreach ($this->_components as $c) {
-            $cn = strtolower(get_class($c));
+            $cn = Horde_String::lower(get_class($c));
             if (empty($r[$cn])) {
                 $r[$cn] = 1;
             } else {

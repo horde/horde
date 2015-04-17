@@ -90,7 +90,7 @@ class Horde_Kolab_Cli
                     $timer = false;
                 }
                 $modular->getProvider()
-                    ->getModule(ucfirst($arguments[0]))
+                    ->getModule(Horde_String::ucfirst($arguments[0]))
                     ->run($cli, $options, $arguments, $world);
                 if (!empty($options['timed'])) {
                     if ($timer) {

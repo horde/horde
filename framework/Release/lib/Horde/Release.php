@@ -307,7 +307,7 @@ class Horde_Release
     public function updateVersionFile($directory, $version_string)
     {
         $module = $this->_options['module'];
-        $all_caps_module = strtoupper($module);
+        $all_caps_module = Horde_String::upper($module);
         print "Updating version file for $module\n";
 
         // construct the filenames
@@ -595,7 +595,7 @@ class Horde_Release
 
         // Building and sending message
         try {
-            $class = 'Horde_Mail_Transport_' . ucfirst($this->_options['mailer']['type']);
+            $class = 'Horde_Mail_Transport_' . Horde_String::ucfirst($this->_options['mailer']['type']);
             $mailer->getMail()->send(new $class($this->_options['mailer']['params']));
         } catch (Horde_Mime_Exception $e) {
             print $e->getMessage() . "\n";
@@ -724,7 +724,7 @@ class Horde_Release
         }
 
         // set the string to use as the tag name in CVS
-        $this->_tagVersionString = strtoupper($this->_options['module'] . '_' . preg_replace('/\W/', '_', implode('_', $ver)));
+        $this->_tagVersionString = Horde_String::upper($this->_options['module'] . '_' . preg_replace('/\W/', '_', implode('_', $ver)));
         if (isset($plus)) {
             $this->_tagVersionString .= '_' . $plus;
         }
@@ -750,7 +750,7 @@ class Horde_Release
         if (!empty($this->_hordeVersionString)) {
             $this->_directoryName .= $this->_hordeVersionString . '-';
         }
-        $this->_directoryName = strtolower($this->_directoryName . $this->_sourceVersionString);
+        $this->_directoryName = Horde_String::lower($this->_directoryName . $this->_sourceVersionString);
 
         if (!empty($this->_hordeVersionString)) {
             $this->_sourceVersionString = $this->_hordeVersionString . ' (' . $this->_sourceVersionString . ')';
@@ -761,16 +761,16 @@ class Horde_Release
             if (isset($oldplus)) {
                 $this->_oldSourceVersionString .= '-' . $oldplus;
             }
-            $this->_oldTagVersionString = strtoupper($this->_options['module'] . '_' . implode('_', $oldver));
+            $this->_oldTagVersionString = Horde_String::upper($this->_options['module'] . '_' . implode('_', $oldver));
             if (isset($oldplus)) {
                 $this->_oldTagVersionString .= '_' . $oldplus;
             }
-            $this->_oldDirectoryName = strtolower($this->_options['module'] . '-' . $this->_oldHordeVersionString . $this->_oldSourceVersionString);
+            $this->_oldDirectoryName = Horde_String::lower($this->_options['module'] . '-' . $this->_oldHordeVersionString . $this->_oldSourceVersionString);
             $this->_oldDirectoryName = $this->_options['module'] . '-';
             if (!empty($this->_oldHordeVersionString)) {
                 $this->_oldDirectoryName .= $this->_oldHordeVersionString . '-';
             }
-            $this->_oldDirectoryName = strtolower($this->_oldDirectoryName . $this->_oldSourceVersionString);
+            $this->_oldDirectoryName = Horde_String::lower($this->_oldDirectoryName . $this->_oldSourceVersionString);
 
             if (!empty($this->_oldHordeVersionString)) {
                 $this->_oldSourceVersionString = $this->_oldHordeVersionString . ' (' . $this->_oldSourceVersionString . ')';
@@ -801,7 +801,7 @@ class Horde_Release
                   preg_match('/^RC(\d+)/', $plus, $matches)) {
             $this->_ticketVersionDesc .= ' Release Candidate ' . $matches[1];
 
-        } elseif (!empty($plus) && strtolower($plus) == 'alpha') {
+        } elseif (!empty($plus) && Horde_String::lower($plus) == 'alpha') {
             $this->_ticketVersionDesc .= ' Alpha';
         }
 

@@ -210,7 +210,7 @@ class Horde_Service_Twitter
         }
 
         // If not, assume it's a method/action class...
-        $class = 'Horde_Service_Twitter_' . ucfirst($value);
+        $class = 'Horde_Service_Twitter_' . Horde_String::ucfirst($value);
         if (!empty($this->_objCache[$class])) {
             return $this->_objCache[$class];
         }

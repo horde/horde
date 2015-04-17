@@ -97,11 +97,11 @@ class Horde_Kolab_Filter_Configuration
     {
         $values = $this->_cli->getOptions();
 
-        $this->_sender = strtolower($values['sender']);
-        $this->_recipients = array_map('strtolower', $values['recipient']);
+        $this->_sender = Horde_String::lower($values['sender']);
+        $this->_recipients = array_map('Horde_String::lower', $values['recipient']);
         $this->_client_address = $values['client'];
-        $this->_fqhostname = strtolower($values['host']);
-        $this->_sasl_username = strtolower($values['user']);
+        $this->_fqhostname = Horde_String::lower($values['host']);
+        $this->_sasl_username = Horde_String::lower($values['user']);
 
         global $conf;
 

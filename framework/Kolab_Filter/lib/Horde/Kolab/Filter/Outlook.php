@@ -56,7 +56,7 @@ class Kolab_Filter_Outlook
      */
     function _copyHeader($name, &$msg_headers, &$headerarray)
     {
-        $lname = strtolower($name);
+        $lname = Horde_String::lower($name);
         if (array_key_exists($lname, $headerarray)) {
             if (is_array($headerarray[$lname])) {
                 foreach ($headerarray[$lname] as $h) {

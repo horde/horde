@@ -31,7 +31,7 @@ class Horde_Text_Filter
     public static function factory($driver, $params = array())
     {
         /* Base drivers (in Filter/ directory). */
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+        $class = __CLASS__ . '_' . Horde_String::ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }

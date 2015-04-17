@@ -343,7 +343,7 @@ class Horde_Image_Exif_Parser_Canon extends Horde_Image_Exif_Parser_Base
                 $place += 4;//31
                 $anotherFocusMode = hexdec(Horde_Image_Exif::intel2Moto(substr($data, $place, 4)));
                 $place += 4;//32
-                if (strpos(strtoupper($exif['IFD0']['Model']), 'G1') !== false) {
+                if (strpos(Horde_String::upper($exif['IFD0']['Model']), 'G1') !== false) {
                     switch($anotherFocusMode) {
                     case 0: $result['FocusMode'] = Horde_Image_Translation::t("Single"); break;
                     case 1: $result['FocusMode'] = Horde_Image_Translation::t("Continuous"); break;

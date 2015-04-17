@@ -527,7 +527,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $extension = trim($this->_toUpper($extension));
+        $extension = trim(Horde_String::upper($extension));
         if (is_array($this->_capability['extensions'])) {
             foreach ($this->_capability['extensions'] as $ext) {
                 if ($ext == $extension) {
@@ -563,7 +563,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $method = trim($this->_toUpper($method));
+        $method = trim(Horde_String::upper($method));
         if (is_array($this->_capability['sasl'])) {
             foreach ($this->_capability['sasl'] as $sasl) {
                 if ($sasl == $method) {
@@ -705,7 +705,7 @@ class ManageSieve
 
         $this->_sendStringResponse(base64_encode($response));
         $this->_doCmd('', true);
-        if ($this->_toUpper(substr($result, 0, 2)) == 'OK') {
+        if (Horde_String::upper(substr($result, 0, 2)) == 'OK') {
             return;
         }
 
@@ -872,7 +872,7 @@ class ManageSieve
 
         $data = preg_split(
             '/\r?\n/',
-            $this->_toUpper($data),
+            Horde_String::upper($data),
             -1,
             PREG_SPLIT_NO_EMPTY
         );
@@ -993,7 +993,7 @@ class ManageSieve
                             );
                     }
 
-                    if ('OK' == $this->_toUpper($tag[1])) {
+                    if ('OK' == Horde_String::upper($tag[1])) {
                         $response .= $line;
                         return rtrim($response);
                     }
@@ -1133,22 +1133,6 @@ class ManageSieve
         if (self::STATE_AUTHENTICATED != $this->_state) {
             throw new NotAuthenticated();
         }
-    }
-
-    /**
-     * Locale independant strtoupper() implementation.
-     *
-     * @param string $string The string to convert to lowercase.
-     *
-     * @return string  The lowercased string, based on ASCII encoding.
-     */
-    protected function _toUpper($string)
-    {
-        $language = setlocale(LC_CTYPE, 0);
-        setlocale(LC_CTYPE, 'C');
-        $string = strtoupper($string);
-        setlocale(LC_CTYPE, $language);
-        return $string;
     }
 
     /**

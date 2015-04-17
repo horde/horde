@@ -20,7 +20,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(0, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPOD, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPOD, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         $fixture = array(
@@ -30,7 +30,7 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(6, $device->getMajorVersion());
         $this->assertEquals(1, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, strtolower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_IPHONE, Horde_String::lower($device->deviceType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_NOTES, $device->multiplex);
 
         // Old Android.
@@ -40,8 +40,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(0, $device->getMajorVersion());
         $this->assertEquals(3, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                     Horde_ActiveSync_Device::MULTIPLEX_CALENDAR |
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
@@ -54,8 +54,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(7, $device->getMajorVersion());
         $this->assertEquals(1, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_TOUCHDOWN, Horde_String::lower($device->clientType));
         $this->assertEquals(0, $device->multiplex);
 
         // Not-so-old-but-still-old Android.
@@ -65,8 +65,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(2, $device->getMajorVersion());
         $this->assertEquals(1707, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
 
 
@@ -79,8 +79,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(4, $device->getMajorVersion());
         $this->assertEquals(4, $device->getMinorVersion());
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(13, $device->multiplex);
 
         // Devices like this (from a Note 3) we simply can't sniff multiplex for
@@ -95,8 +95,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         // These are useless values, but still tests the reliability of the code
         $this->assertEquals(101, $device->getMajorVersion());
         $this->assertEquals(403, $device->getMinorVersion());
-        $this->assertEquals('samsungsmn900v', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals('samsungsmn900v', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
 
         // Nine (From Note 3 running 4.4.2).
@@ -109,8 +109,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device->id = '6E696E656331393035333833303331';
 
         $this->assertEquals(4, $device->getMajorVersion());
-        $this->assertEquals('android', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_NINE, strtolower($device->clientType));
+        $this->assertEquals('android', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_NINE, Horde_String::lower($device->clientType));
         $this->assertEquals(0, $device->multiplex);
 
         // HTCOneMini2
@@ -122,8 +122,8 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $device = new Horde_ActiveSync_Device($state, $fixture);
         $this->assertEquals(4, $device->getMajorVersion());
         $this->assertEquals(4, $device->getMinorVersion());
-        $this->assertEquals('htconemini2', strtolower($device->deviceType));
-        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, strtolower($device->clientType));
+        $this->assertEquals('htconemini2', Horde_String::lower($device->deviceType));
+        $this->assertEquals(Horde_ActiveSync_Device::TYPE_ANDROID, Horde_String::lower($device->clientType));
         $this->assertEquals(15, $device->multiplex);
     }
 

@@ -203,7 +203,7 @@ class Horde_Support_Inflector
         }
 
         $camelized = $word;
-        if (strtolower($camelized) != $camelized &&
+        if (Horde_String::lower($camelized) != $camelized &&
             strpos($camelized, '_') !== false) {
             $camelized = str_replace('_', '/', $camelized);
         }
@@ -214,12 +214,12 @@ class Horde_Support_Inflector
             $camelized = strtr($camelized, '_', ' ');
         }
 
-        $camelized = str_replace(' ', '', ucwords($camelized));
+        $camelized = str_replace(' ', '', Horde_String::ucwords($camelized));
 
         if ($firstLetter == 'lower') {
             $parts = array();
             foreach (explode('/', $camelized) as $part) {
-                $part[0] = strtolower($part[0]);
+                $part[0] = Horde_String::lower($part[0]);
                 $parts[] = $part;
             }
             $camelized = implode('/', $parts);
@@ -262,7 +262,7 @@ class Horde_Support_Inflector
         if ($result = $this->getCache($word, 'underscore')) {
             return $result;
         }
-        $result = strtolower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $word));
+        $result = Horde_String::lower(preg_replace('/([a-z])([A-Z])/', "\${1}_\${2}", $word));
         return $this->setCache($word, 'underscore', $result);
     }
 

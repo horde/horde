@@ -145,7 +145,7 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         $msgFlags = array();
         $flags = unserialize($registry->horde->getPreference($registry->hasInterface('mail'), 'msgflags'));
         foreach ($flags as $flag) {
-            $msgFlags[strtolower($flag->imapflag)] = $flag->label;
+            $msgFlags[Horde_String::lower($flag->imapflag)] = $flag->label;
         }
 
         return $msgFlags;

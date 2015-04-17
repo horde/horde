@@ -129,7 +129,7 @@ class Horde_Log_Logger implements Serializable
      */
     public function __call($method, $params)
     {
-        $levelName = strtoupper($method);
+        $levelName = Horde_String::upper($method);
         if (($level = array_search($levelName, $this->_levels)) !== false) {
             $this->log(array_shift($params), $level);
         } else {
@@ -216,7 +216,7 @@ class Horde_Log_Logger implements Serializable
     public function addLevel($name, $level)
     {
         // Log level names must be uppercase for predictability.
-        $name = strtoupper($name);
+        $name = Horde_String::upper($name);
 
         if (isset($this->_levels[$level]) || $this->hasLevel($name)) {
             throw new Horde_Log_Exception('Existing log levels cannot be overwritten');

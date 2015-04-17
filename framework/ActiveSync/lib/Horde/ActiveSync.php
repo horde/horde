@@ -677,9 +677,9 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = !empty($get['DeviceId']) ? strtoupper($get['DeviceId']) : null;
+            $devId = !empty($get['DeviceId']) ? Horde_String::upper($get['DeviceId']) : null;
         } else {
-            $devId = strtoupper($devId);
+            $devId = Horde_String::upper($devId);
         }
         $this->_setLogger($get);
 
@@ -712,7 +712,7 @@ class Horde_ActiveSync
         self::$_logger->info(sprintf(
             '[%s] %s request received for user %s',
             $this->_procid,
-            strtoupper($cmd),
+            Horde_String::upper($cmd),
             $this->_driver->getUser())
         );
 

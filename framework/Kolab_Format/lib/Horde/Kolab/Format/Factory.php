@@ -67,10 +67,10 @@ class Horde_Kolab_Format_Factory
             $type_class = 'Envelope';
             break;
         default:
-            $type_class = ucfirst(strtolower(str_replace('-', '', $type)));
+            $type_class = Horde_String::ucfirst(Horde_String::lower(str_replace('-', '', $type)));
             break;
         }
-        $parser = ucfirst(strtolower($format));
+        $parser = Horde_String::ucfirst(Horde_String::lower($format));
         $class = basename('Horde_Kolab_Format_' . $parser . '_' . $type_class);
 
         $params = array_merge($this->_params, $params);

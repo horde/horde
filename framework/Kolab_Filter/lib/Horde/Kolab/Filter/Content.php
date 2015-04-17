@@ -397,13 +397,13 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
             $fromdom = $adr->host;
 
             if ($sasluser) {
-                if (!in_array(strtolower($from), $allowed_addrs)) {
+                if (!in_array(Horde_String::lower($from), $allowed_addrs)) {
                     Horde::log(sprintf("%s is not an allowed From address for %s", $from, $sasluser), 'DEBUG');
                     return false;
                 }
             } else {
                 foreach ($domains as $domain) {
-                    if (strtolower($fromdom) == $domain
+                    if (Horde_String::lower($fromdom) == $domain
                         || ($verify_subdomains
                             && substr($fromdom, -strlen($domain)-1) == ".$domain")) {
                         if ($reject_forged_from_header) {

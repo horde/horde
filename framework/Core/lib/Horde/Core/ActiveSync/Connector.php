@@ -801,7 +801,7 @@ class Horde_Core_ActiveSync_Connector
      */
     protected function _getInterfaceFromCollectionId($collection)
     {
-        return strtolower(str_replace('@', '', $collection));
+        return Horde_String::lower(str_replace('@', '', $collection));
     }
 
     /**

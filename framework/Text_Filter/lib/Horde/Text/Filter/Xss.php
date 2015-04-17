@@ -99,7 +99,7 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
                 ? array('style')
                 : array();
 
-            switch (strtolower($node->tagName)) {
+            switch (Horde_String::lower($node->tagName)) {
             case 'a':
                 /* Strip out data URLs living in an A HREF element
                  * (Bug #8715). */

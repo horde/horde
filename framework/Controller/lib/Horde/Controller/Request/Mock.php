@@ -38,7 +38,7 @@ class Horde_Controller_Request_Mock extends Horde_Controller_Request_Http
     public function setVars($vars)
     {
         foreach ($vars as $key => $sub) {
-            $this->_vars[strtoupper($key)] = $sub;
+            $this->_vars[Horde_String::upper($key)] = $sub;
         }
     }
 

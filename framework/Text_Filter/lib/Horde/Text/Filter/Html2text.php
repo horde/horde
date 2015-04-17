@@ -174,7 +174,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                     case 'h2':
                     case 'h3':
                         $out .= "\n\n" .
-                            Horde_String::upper($this->_node($doc, $child)) .
+                            strtoupper($this->_node($doc, $child)) .
                             "\n\n";
                         break;
 
@@ -188,7 +188,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'b':
                     case 'strong':
-                        $out .= Horde_String::upper($this->_node($doc, $child));
+                        $out .= strtoupper($this->_node($doc, $child));
                         break;
 
                     case 'u':
@@ -235,7 +235,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'th':
-                        $out .= Horde_String::upper($this->_node($doc, $child)) . " \t";
+                        $out .= strtoupper($this->_node($doc, $child)) . " \t";
                         break;
 
                     case 'td':

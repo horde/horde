@@ -69,7 +69,7 @@ class Horde_View_Helper_Form_InstanceTag_Form extends Horde_View_Helper_Form_Ins
         $prettyTagValue = strval($tagValue);
         $prettyTagValue = preg_replace('/\s/', '_', $prettyTagValue);
         $prettyTagValue = preg_replace('/\W/', '', $prettyTagValue);
-        $prettyTagValue = strtolower($prettyTagValue);
+        $prettyTagValue = Horde_String::lower($prettyTagValue);
 
         if (! isset($options['id'])) {
             if (isset($this->autoIndex)) {

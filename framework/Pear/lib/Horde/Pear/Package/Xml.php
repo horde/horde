@@ -133,7 +133,7 @@ class Horde_Pear_Package_Xml
         }
         if (!is_object($type)) {
             if ($type == 'horde' || !class_exists($type)) {
-                $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
+                $type = 'Horde_Pear_Package_Type_' . Horde_String::ucfirst($type);
             }
             $type = new $type(dirname($this->_path));
         }

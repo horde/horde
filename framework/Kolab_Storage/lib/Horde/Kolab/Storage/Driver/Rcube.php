@@ -875,7 +875,7 @@ extends Horde_Kolab_Storage_Driver_Base
 
         if (is_array($data)) {
             for ($i = 0, $cnt = count($data); $i < $cnt; ++$i) {
-                $params[strtolower($data[$i])] = $data[++$i];
+                $params[Horde_String::lower($data[$i])] = $data[++$i];
             }
         }
 

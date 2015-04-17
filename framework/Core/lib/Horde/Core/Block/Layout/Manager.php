@@ -523,7 +523,7 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
     public function getControl($type, $row, $col)
     {
         $type = explode('/', $type);
-        $action = $type[0] . ucfirst($type[1]);
+        $action = $type[0] . Horde_String::ucfirst($type[1]);
         $url = $this->getActionUrl($action, $row, $col);
 
         switch ($type[0]) {

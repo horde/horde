@@ -85,7 +85,7 @@ class Horde_Service_Gravatar
         if (!is_string($mail)) {
             throw new InvalidArgumentException('The mail address must be a string!');
         }
-        return md5(strtolower(trim($mail)));
+        return md5(Horde_String::lower(trim($mail)));
     }
 
     /**

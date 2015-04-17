@@ -208,7 +208,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_S
         foreach($itemoperations as $value) {
             switch($value['type']) {
             case 'fetch' :
-                switch(strtolower($value['store'])) {
+                switch(Horde_String::lower($value['store'])) {
                 case 'mailbox' :
                     $this->_encoder->startTag(self::ITEMOPERATIONS_FETCH);
                     if (isset($value['airsyncbasefilereference'])) {

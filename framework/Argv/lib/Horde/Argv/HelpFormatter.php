@@ -238,7 +238,7 @@ abstract class Horde_Argv_HelpFormatter
     public function formatOptionStrings($option)
     {
         if ($option->takesValue()) {
-            $metavar = $option->metavar ? $option->metavar : strtoupper($option->dest);
+            $metavar = $option->metavar ? $option->metavar : Horde_String::upper($option->dest);
             $short_opts = array();
             foreach ($option->shortOpts as $sopt) {
                 $short_opts[] = sprintf($this->_short_opt_fmt, $sopt, $metavar);

@@ -70,8 +70,6 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-  </required>
-  <optional>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
@@ -79,6 +77,8 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+  </required>
+  <optional>
    <extension>
     <name>intl</name>
    </extension>

@@ -52,7 +52,7 @@ class Horde_Core_Ui_VarRenderer
             $driver = $driver[1];
         }
 
-        $driver = ucfirst(basename($driver));
+        $driver = Horde_String::ucfirst(basename($driver));
         if (!empty($app)) {
             include_once $GLOBALS['registry']->get('fileroot', $app) . '/lib/Ui/VarRenderer/' . $driver . '.php';
         }

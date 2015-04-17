@@ -246,7 +246,7 @@ abstract class Horde_Data_Base
                 return $date;
             }
             if ($params['format'][$key] == 'ampm') {
-                if (strpos(strtolower($dates[count($dates)-1]), 'pm') !== false) {
+                if (strpos(Horde_String::lower($dates[count($dates)-1]), 'pm') !== false) {
                     if ($dates[0] !== '12') {
                         $dates[0] += 12;
                     }

@@ -100,7 +100,7 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
     public function radioButtonTag($name, $value, $checked = false, $options = array())
     {
         $prettyTagValue = preg_replace('/\s/', '_', $value);
-        $prettyTagValue = strtolower(preg_replace('/(?!-)\W/', '', $prettyTagValue));
+        $prettyTagValue = Horde_String::lower(preg_replace('/(?!-)\W/', '', $prettyTagValue));
 
         $htmlOptions = array_merge(array('type'  => 'radio',
                                          'name'  => $name,
@@ -142,7 +142,7 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
 
     private function extraTagsForForm($htmlOptions)
     {
-        $method = isset($htmlOptions['method']) ? strtolower($htmlOptions['method']) : '';
+        $method = isset($htmlOptions['method']) ? Horde_String::lower($htmlOptions['method']) : '';
         if ($method == 'get') {
             $htmlOptions['method'] = 'get';
             return array('', $htmlOptions);

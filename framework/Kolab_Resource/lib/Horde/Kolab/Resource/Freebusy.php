@@ -72,7 +72,7 @@ class Horde_Kolab_Resource_Freebusy
      */
     public static function factory($driver, $params = array())
     {
-        $driver = ucfirst(basename($driver));
+        $driver = Horde_String::ucfirst(basename($driver));
         $class  = ($driver == 'None')
             ? 'Horde_Kolab_Resource_Freebusy'
             : 'Horde_Kolab_Resource_Freebusy_' . $driver;

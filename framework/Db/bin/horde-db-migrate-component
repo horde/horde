@@ -60,7 +60,7 @@ if (!empty($args[2])) {
 }
 
 // Build Horde_Db adapter.
-$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', ucwords(str_replace('_', ' ', basename($params['adapter']))));
+$class = 'Horde_Db_Adapter_' . str_replace(' ', '_', Horde_String::ucwords(str_replace('_', ' ', basename($params['adapter']))));
 if (!class_exists($class)) {
     die($params['adapter'] . " is not a valid adapter name.\n");
 }

@@ -222,7 +222,7 @@ class Horde_Push_Factory_Recipients
         $params = isset($conf['mailer']['params'])
             ? $conf['mailer']['params']
             : array();
-        $class = 'Horde_Mail_Transport_' . ucfirst($transport);
+        $class = 'Horde_Mail_Transport_' . Horde_String::ucfirst($transport);
         if (class_exists($class)) {
             return new $class($params);
         }

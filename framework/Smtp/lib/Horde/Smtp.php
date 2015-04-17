@@ -339,7 +339,7 @@ class Horde_Smtp implements Serializable
             return false;
         }
 
-        $ext = strtoupper($ext);
+        $ext = Horde_String::upper($ext);
 
         return isset($this->_extensions[$ext])
             ? $this->_extensions[$ext]
@@ -915,7 +915,7 @@ class Horde_Smtp implements Serializable
 
             $this->_debug->active = false;
             $this->_connection->write(
-                base64_encode($user . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(reset($resp)), $pass, false))
+                base64_encode($user . ' ' . hash_hmac(Horde_String::lower(substr($method, 5)), base64_decode(reset($resp)), $pass, false))
             );
             $this->_debug->active = true;
 

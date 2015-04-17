@@ -304,7 +304,7 @@ implements ArrayAccess, Horde_Mime_Headers_Extension_Mime, Serializable
             if ((($pos = strrpos($name, '*')) !== false) &&
                 is_numeric($order = substr($name, $pos + 1))) {
                 $name = substr($name, 0, $pos);
-                $to_add[strtolower($name)][$order] = $val;
+                $to_add[Horde_String::lower($name)][$order] = $val;
             } else {
                 $to_add[$name] = array($val);
             }

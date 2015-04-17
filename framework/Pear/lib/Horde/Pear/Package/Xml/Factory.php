@@ -69,7 +69,7 @@ class Horde_Pear_Package_Xml_Factory
      */
     public function createTask($type, $arguments)
     {
-        $class = 'Horde_Pear_Package_Task_' . ucfirst($type);
+        $class = 'Horde_Pear_Package_Task_' . Horde_String::ucfirst($type);
         if (class_exists($class)) {
             $reflectionObj = new ReflectionClass($class);
             return $reflectionObj->newInstanceArgs($arguments);

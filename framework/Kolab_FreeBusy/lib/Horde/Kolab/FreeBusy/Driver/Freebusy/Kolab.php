@@ -82,7 +82,7 @@ class Horde_Kolab_FreeBusy_Driver_Freebusy_Kolab extends Horde_Kolab_FreeBusy_Dr
             return PEAR::raiseError(sprintf(Horde_Kolab_FreeBusy_Translation::t("No such folder %s"), $req_folder));
         }
 
-        $folder[0] = strtolower($folder[0]);
+        $folder[0] = Horde_String::lower($folder[0]);
         $req_folder = implode('/', $folder);
         $this->owner = $folder[0];
         unset($folder[0]);

@@ -33,7 +33,7 @@ class Horde_Core_Factory_JavascriptCache extends Horde_Core_Factory_Injector
 
         $driver = empty($conf['cachejs'])
             ? 'none'
-            : strtolower($conf['cachejsparams']['driver']);
+            : Horde_String::lower($conf['cachejsparams']['driver']);
 
         switch ($driver) {
         case 'filesystem':

@@ -193,10 +193,10 @@ implements Horde_Kolab_FreeBusy_Factory
             'Horde_Kolab_FreeBusy_Controller_MatchDict'
         )->getMatchDict();
         if (empty($match['controller']) ||
-            !class_exists($prefix . ucfirst($match['controller']))) {
+            !class_exists($prefix . Horde_String::ucfirst($match['controller']))) {
             $controller = 'Horde_Kolab_FreeBusy_Controller_NotFound';
         } else {
-            $controller = $prefix . ucfirst($match['controller']);
+            $controller = $prefix . Horde_String::ucfirst($match['controller']);
         }
 
         $conf = new Horde_Kolab_FreeBusy_Controller_RequestConfiguration();

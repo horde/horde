@@ -74,7 +74,7 @@ class Horde_Core_Factory_MimeViewer extends Horde_Core_Factory_Base
     {
         $config = $this->_getDriver($type, $app);
 
-        $config['driver'] = ucfirst($config['driver']);
+        $config['driver'] = Horde_String::ucfirst($config['driver']);
         $driver = ($config['app'] == 'horde')
             ? $config['driver']
             : $config['app'] . '_Mime_Viewer_' . $config['driver'];

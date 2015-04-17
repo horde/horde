@@ -136,7 +136,7 @@ extends Horde_Pgp_Backend
         );
 
         $priv_key = $skey_rsa->private_key();
-        $priv_key->setHash(strtolower($opts['hash']));
+        $priv_key->setHash(Horde_String::lower($opts['hash']));
         $sig->sign_data(array(
             'RSA' => array(
                 $opts['hash'] => function($data) use($priv_key) {
@@ -590,7 +590,7 @@ extends Horde_Pgp_Backend
             $verifier = function ($m, $s) use ($dsa) {
                 return $dsa->verify(
                     $m,
-                    strtolower($s->hash_algorithm_name()),
+                    Horde_String::lower($s->hash_algorithm_name()),
                     new Math_BigInteger($s->data[0], 256),
                     new Math_BigInteger($s->data[1], 256)
                 );

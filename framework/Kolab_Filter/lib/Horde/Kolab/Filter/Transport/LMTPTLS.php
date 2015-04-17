@@ -61,7 +61,7 @@ class Net_LMTP_TLS extends Net_LMTP {
                 return $method;
             }
         } else {
-            $method = strtoupper($method);
+            $method = Horde_String::upper($method);
         }
 
         switch ($method) {

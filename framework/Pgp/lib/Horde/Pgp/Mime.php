@@ -106,7 +106,7 @@ extends Horde_Pgp
         $p = $detach_sig->getSignaturePacket();
         $base->setContentTypeParameter(
             'micalg',
-            'pgp-' . strtolower($p::$hash_algorithms[$p->hash_algorithm])
+            'pgp-' . Horde_String::lower($p::$hash_algorithms[$p->hash_algorithm])
         );
 
         return $base;

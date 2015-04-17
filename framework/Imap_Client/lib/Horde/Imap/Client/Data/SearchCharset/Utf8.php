@@ -39,7 +39,7 @@ extends Horde_Imap_Client_Data_SearchCharset
      */
     public function query($charset, $cached = false)
     {
-        return isset($this->_charsets[strtoupper($charset)]);
+        return isset($this->_charsets[Horde_String::upper($charset)]);
     }
 
     /**

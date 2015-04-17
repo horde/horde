@@ -831,7 +831,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $ob = new Horde_Mime_Part();
 
-        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? strtolower($data->subtype) : Horde_Mime_Part::UNKNOWN));
+        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? Horde_String::lower($data->subtype) : Horde_Mime_Part::UNKNOWN));
 
         // Optional for multipart-parts, required for all others
         if ($data->ifparameters) {

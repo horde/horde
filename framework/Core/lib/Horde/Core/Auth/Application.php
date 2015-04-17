@@ -413,13 +413,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
         // The follow capabilities are not determined by the Application,
         // but by 'Horde'.
-        if (in_array(strtolower($capability), array('badlogincount', 'lock'))) {
+        if (in_array(Horde_String::lower($capability), array('badlogincount', 'lock'))) {
             return parent::hasCapability($capability);
         } elseif (!isset($this->_appCapabilities)) {
             $this->_appCapabilities = $GLOBALS['registry']->getApiInstance($this->_app, 'application')->auth;
         }
 
-        return in_array(strtolower($capability), $this->_appCapabilities);
+        return in_array(Horde_String::lower($capability), $this->_appCapabilities);
     }
 
     /**

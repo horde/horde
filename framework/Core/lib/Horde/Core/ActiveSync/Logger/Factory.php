@@ -49,7 +49,7 @@ class Horde_Core_ActiveSync_Logger_Factory implements Horde_ActiveSync_Interface
             }
         } elseif ($conf['activesync']['logging']['type'] == 'perdevice') {
             if (!empty($properties['DeviceId'])) {
-                $stream = fopen($conf['activesync']['logging']['path'] . '/' . strtoupper($properties['DeviceId']) . '.txt', 'a');
+                $stream = fopen($conf['activesync']['logging']['path'] . '/' . Horde_String::upper($properties['DeviceId']) . '.txt', 'a');
                 if ($stream) {
                     $logger = new Horde_Log_Logger(new Horde_Log_Handler_Stream($stream));
                 }

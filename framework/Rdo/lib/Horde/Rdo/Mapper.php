@@ -269,7 +269,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     public function tableToMapper($table)
     {
-        if (class_exists(($class = ucwords($table) . 'Mapper'))) {
+        if (class_exists(($class = Horde_String::ucwords($table) . 'Mapper'))) {
             return new $class;
         }
         return null;
@@ -282,7 +282,7 @@ abstract class Horde_Rdo_Mapper implements Countable
      */
     public function mapperToTable()
     {
-        return $this->inflector->pluralize(strtolower(str_replace('Mapper', '', get_class($this))));
+        return $this->inflector->pluralize(Horde_String::lower(str_replace('Mapper', '', get_class($this))));
     }
 
     /**

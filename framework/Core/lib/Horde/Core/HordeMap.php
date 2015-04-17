@@ -74,7 +74,7 @@ class Horde_Core_HordeMap
                  * client's IP address presented as an internal address. */
                 $params['conf']['apikeys']['mytopo'] = array(
                     'id' => $conf['api']['mytopo_partnerID'],
-                    'hash' => strtoupper(md5($conf['api']['mytopo'] . $browser->getIpAddress()))
+                    'hash' => Horde_String::upper(md5($conf['api']['mytopo'] . $browser->getIpAddress()))
                 );
                 break;
             }

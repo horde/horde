@@ -129,7 +129,7 @@ extends Horde_Kolab_Server_Search_Operation_Base
             }
         }
 
-        $addrs = array_map('strtolower', $addrs);
+        $addrs = array_map('Horde_String::lower', $addrs);
 
         return $addrs;
     }

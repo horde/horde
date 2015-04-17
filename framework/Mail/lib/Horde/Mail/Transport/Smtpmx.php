@@ -349,7 +349,7 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
             $replace = $search = array();
 
             foreach ($info as $key => $value) {
-                $search[] = '{' . strtoupper($key) . '}';
+                $search[] = '{' . Horde_String::upper($key) . '}';
                 $replace[] = $value;
             }
 

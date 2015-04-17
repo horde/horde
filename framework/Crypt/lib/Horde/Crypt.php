@@ -49,7 +49,7 @@ class Horde_Crypt
         }
 
         /* Base drivers (in Crypt/ directory). */
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+        $class = __CLASS__ . '_' . Horde_String::ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }

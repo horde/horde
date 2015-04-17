@@ -167,7 +167,7 @@ class Horde_Core_Factory_Db extends Horde_Core_Factory_Base
                     break;
 
                 default:
-                    $class = 'Horde_Db_Adapter_Pdo_' . ucfirst($config['phptype']);
+                    $class = 'Horde_Db_Adapter_Pdo_' . Horde_String::ucfirst($config['phptype']);
                     break;
                 }
             }

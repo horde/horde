@@ -251,7 +251,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
 
                     // Start analyzing.We are interested mostly in control words
                     $toText = '';
-                    switch (strtolower($word)) {
+                    switch (Horde_String::lower($word)) {
                     // If the control word is "u", then its parameter is
                     // the decimal notation of the Unicode character that
                     // should be added to the output stream. We need to
@@ -314,7 +314,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                         $toText .= html_entity_decode('&raquo;');
                         break;
                     default:
-                        $stack[$j][strtolower($word)] = empty($param) ? true : $param;
+                        $stack[$j][Horde_String::lower($word)] = empty($param) ? true : $param;
                         break;
                     }
                     // Add data to the output stream if required.
