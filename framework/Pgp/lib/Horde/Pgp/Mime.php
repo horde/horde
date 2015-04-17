@@ -23,6 +23,9 @@
 class Horde_Pgp_Mime
 extends Horde_Pgp
 {
+    const PGP_ARMOR = 'pgp_armor';
+    const PGP_CHARSET = 'pgp_charset';
+
     /**
      * Signs a MIME part using PGP.
      *
@@ -64,6 +67,20 @@ extends Horde_Pgp
             $opts
         );
 
+        return $this->_signPart($part, $detach_sig);
+    }
+
+    /**
+     */
+    protected function _signPart($part, $detach_sig)
+    {
+        /* Setup the multipart part. */
+        $base = new Horde_Mime_Part();
+        $base->setType('multipart/signed');
+        $base->setContents(
+            "This message is in MIME format and has been PGP signed.\n"
+        );
+
         /* Add the PGP signature. */
         $sign = new Horde_Mime_Part();
         $sign->setType('application/pgp-signature');
@@ -77,14 +94,8 @@ extends Horde_Pgp
             array('encoding' => '7bit')
         );
 
-        /* Setup the multipart part. */
-        $base = new Horde_Mime_Part();
-        $base->setType('multipart/signed');
-        $base->setContents(
-            "This message is in MIME format and has been PGP signed.\n"
-        );
-        $base->addPart($part);
-        $base->addPart($sign);
+        $base[] = $part;
+        $base[] = $sign;
 
         /* Add Content-Type paremeter info. (RFC 3156 [5]) */
         $base->setContentTypeParameter(
@@ -158,14 +169,14 @@ extends Horde_Pgp
         $part1->setType('application/pgp-encrypted');
         $part1->setCharset(null);
         $part1->setContents("Version: 1\n", array('encoding' => '7bit'));
-        $base->addPart($part1);
+        $base[] = $part1;
 
         $part2 = new Horde_Mime_Part();
         $part2->setType('application/octet-stream');
         $part2->setCharset(null);
         $part2->setContents(strval($encrypted), array('encoding' => '7bit'));
         $part2->setDisposition('inline');
-        $base->addPart($part2);
+        $base[] = $part2;
 
         return $base;
     }
@@ -238,6 +249,70 @@ extends Horde_Pgp
         $part->setContents(strval($key), array('encoding' => '7bit'));
 
         return $part;
+    }
+
+    /**
+     * Converts armored input into a Horde_Mime_Part object.
+     *
+     * @param mixed $input  Armored input.
+     * @param array $opts   Additional options:
+     *   - charset: (string) Charset of the armored input.
+     *
+     * @return mixed  Either null if no PGP data was found, or a
+     *                Horde_Mime_Part object.
+     */
+    public function armorToPart($input, array $opts = array())
+    {
+        $opts = array_merge(array(
+            'charset' => 'UTF-8'
+        ), $opts);
+
+        $armor = Horde_Pgp_Armor::create($input);
+
+        $new_part = new Horde_Mime_Part();
+        $new_part->setType('multipart/mixed');
+
+        foreach ($armor as $val) {
+            switch (get_class($val)) {
+            case 'Horde_Pgp_Element_Text':
+                $part = new Horde_Mime_Part();
+                $part->setType('text/plain');
+                $part->setCharset($opts['charset']);
+                $part->setContents($val->message[0]->data);
+                $new_part[] = $part;
+                break;
+
+            case 'Horde_Pgp_Element_PrivateKey':
+            case 'Horde_Pgp_Element_PublicKey':
+                $part = new Horde_Mime_Part();
+                $part->setType('application/pgp-keys');
+                $part->setContents(strval($val));
+                $new_part[] = $part;
+                break;
+
+            case 'Horde_Pgp_Element_Message':
+                // TODO: Message can also be text or signature
+                $part = $this->_encryptPart($val);
+                $part->setMetadata(self::PGP_ARMOR, true);
+                $part['2']->setMetadata(
+                    self::PGP_CHARSET,
+                    isset($val->headers['Charset'])
+                        ? $val->headers['Charset']
+                        : 'UTF-8'
+                );
+                $new_part[] = $part;
+                break;
+
+            case 'Horde_Pgp_Element_SignedMessage':
+                $part = $this->_signPart($val->text, $val->signature);
+                $new_part[] = $part;
+                break;
+            }
+        }
+
+        return count($new_part->getParts())
+            ? $new_part
+            : null;
     }
 
 }

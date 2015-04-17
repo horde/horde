@@ -24,13 +24,6 @@ class Horde_Pgp_Armor
 implements Countable, SeekableIterator
 {
     /**
-     * Horde_Mime_Part metadata keys.
-     */
-    const ARMOR = 'pgp_armor';
-    const SIG_CHARSET = 'pgp_sig_charset';
-    const SIG_RAW = 'pgp_sig_raw';
-
-    /**
      * Current element for iterator.
      *
      * @var Horde_Pgp_Element
@@ -78,106 +71,6 @@ implements Countable, SeekableIterator
             $this->_data = new Horde_Stream_Temp();
             $this->_data->add($data, true);
         }
-    }
-
-    /**
-     * Parses an armored message into a Horde_Mime_Part object.
-     *
-     * @param string $charset  Charset of the embedded text.
-     *
-     * @return mixed  Either null if no PGP data was found, or a
-     *                Horde_Mime_Part object. For detached signature data:
-     *                the full contents of the armored text (data + sig) is
-     *                contained in the SIG_RAW metadata, and the charset is
-     *                contained in the SIG_CHARSET metadata, within the
-     *                application/pgp-signature part.
-     */
-    public function parseToPart($charset = 'UTF-8')
-    {
-        $new_part = new Horde_Mime_Part();
-        $new_part->setType('multipart/mixed');
-
-        $pgp_data = false;
-
-        foreach ($this as $key => $val) {
-            switch ($val['type']) {
-            case 1:
-                $part = new Horde_Mime_Part();
-                $part->setType('text/plain');
-                $part->setCharset($charset);
-                $part->setContents(implode("\n", $val['data']));
-                $new_part->addPart($part);
-                if ($key) {
-                    $pgp_data = true;
-                }
-                break;
-
-            case 2:
-                $part = new Horde_Mime_Part();
-                $part->setType('application/pgp-keys');
-                $part->setContents(implode("\n", $val['data']));
-                $new_part->addPart($part);
-                $pgp_data = true;
-                break;
-
-            case 3:
-                $part = new Horde_Mime_Part();
-                $part->setType('multipart/encrypted');
-                $part->setMetadata(self::ARMOR, true);
-                $part->setContentTypeParameter('protocol', 'application/pgp-encrypted');
-
-                $part1 = new Horde_Mime_Part();
-                $part1->setType('application/pgp-encrypted');
-                $part1->setContents("Version: 1\n");
-
-                $part2 = new Horde_Mime_Part();
-                $part2->setType('application/octet-stream');
-                $part2->setContents(implode("\n", $val['data']));
-                $part2->setDisposition('inline');
-
-                $part->addPart($part1);
-                $part->addPart($part2);
-
-                $new_part->addPart($part);
-                $pgp_data = true;
-                break;
-
-            case 4:
-                if (($sig = current($parts)) &&
-                    //($sig['type'] == self::ARMOR_SIGNATURE)) {
-                    ($sig['type'] == 5)) {
-                    $part = new Horde_Mime_Part();
-                    $part->setType('multipart/signed');
-                    // TODO: add micalg parameter
-                    $part->setContentTypeParameter('protocol', 'application/pgp-signature');
-
-                    $part1 = new Horde_Mime_Part();
-                    $part1->setType('text/plain');
-                    $part1->setCharset($charset);
-
-                    $part1_data = implode("\n", $val['data']);
-                    $part1->setContents(substr($part1_data, strpos($part1_data, "\n\n") + 2));
-
-                    $part2 = new Horde_Mime_Part();
-
-                    $part2->setType('application/pgp-signature');
-                    $part2->setContents(implode("\n", $sig['data']));
-
-                    $part2->setMetadata(self::SIG_CHARSET, $charset);
-                    $part2->setMetadata(self::SIG_RAW, implode("\n", $val['data']) . "\n" . implode("\n", $sig['data']));
-
-                    $part->addPart($part1);
-                    $part->addPart($part2);
-                    $new_part->addPart($part);
-
-                    next($parts);
-                }
-                $pgp_data = true;
-                break;
-            }
-        }
-
-        return $pgp_data ? null : $new_part;
     }
 
     /* Countable methods. */

@@ -31,19 +31,13 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->part = new Horde_Mime_Part();
-        $this->part->setType('text/plain');
-        $this->part->setContents('Foo Bar.');
-
-        $this->key = Horde_Pgp_Element_PrivateKey::create(
-            file_get_contents(__DIR__ . '/fixtures/pgp_private_rsa.txt')
-        )->getUnencryptedKey('Secret');
-
         $this->pgp_mime = new Horde_Pgp_Mime();
     }
 
     public function testSignPart()
     {
+        $this->_initData();
+
         $signed = $this->pgp_mime->signPart($this->part, $this->key);
 
         $this->assertEquals(
@@ -97,6 +91,8 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
 
     public function testEncryptPart()
     {
+        $this->_initData();
+
         $encrypted = $this->pgp_mime->encryptPart(
             $this->part,
             $this->key->getPublicKey()
@@ -162,6 +158,8 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
 
     public function testSignAndEncryptPart()
     {
+        $this->_initData();
+
         $result = $this->pgp_mime->signAndEncryptPart(
             $this->part,
             $this->key,
@@ -169,6 +167,68 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
         );
 
         $this->_testEncryptPart($result);
+    }
+
+    /**
+     * @dataProvider armorToPartProvider
+     */
+    public function testArmorToPart($file, $expected)
+    {
+        $part = $this->pgp_mime->armorToPart(
+            file_get_contents(__DIR__ . '/fixtures/' . $file)
+        );
+
+        if (is_null($expected)) {
+            $this->assertNull($part);
+        } else {
+            $i = 0;
+            foreach ($part->getParts() as $val) {
+                $this->assertEquals(
+                    $expected[$i++],
+                    $val->getType()
+                );
+
+            }
+        }
+    }
+
+    public function armorToPartProvider()
+    {
+        return array(
+            array(
+                'clear.txt',
+                null
+            ),
+            array(
+                'pgp_encrypted_rsa.txt',
+                array(
+                    'multipart/encrypted'
+                )
+            ),
+            array(
+                'pgp_public.asc',
+                array(
+                    'application/pgp-keys'
+                )
+            ),
+            array(
+                'pgp_signed2.txt',
+                array(
+                    'multipart/signed'
+                )
+            ),
+        );
+    }
+
+    protected function _initData()
+    {
+        $this->part = new Horde_Mime_Part();
+        $this->part->setType('text/plain');
+        $this->part->setContents('Foo Bar.');
+
+        $this->key = Horde_Pgp_Element_PrivateKey::create(
+            file_get_contents(__DIR__ . '/fixtures/pgp_private_rsa.txt')
+        )->getUnencryptedKey('Secret');
     }
 
 }
