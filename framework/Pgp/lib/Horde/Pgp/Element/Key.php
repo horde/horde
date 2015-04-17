@@ -62,7 +62,6 @@ extends Horde_Pgp_Element
         foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
                 $out[$val->key_id] = $val->fingerprint;
-
             }
         }
 
