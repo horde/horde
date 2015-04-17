@@ -99,39 +99,37 @@ class Horde_Pgp_Keyserver
     /**
      * Sends a PGP public key to a public keyserver.
      *
-     * @param string $pubkey  The PGP public key.
+     * @param mixed $key  The PGP public key.
      *
      * @throws Horde_Pgp_Exception
      */
-    public function put($pubkey)
+    public function put($key)
     {
-        /* Get the key ID of the public key. */
-        $key = Horde_Pgp_Element_PublicKey::create($pubkey);
+        $key = Horde_Pgp_Element_PublicKey::create($key);
 
         /* See if the public key already exists on the keyserver. */
         try {
             $this->get($key->id);
-        } catch (Horde_Pgp_Exception $e) {
-            $pubkey = 'keytext=' . urlencode(rtrim($key->getPublicKey()));
-            try {
-                $this->_http->post(
-                    $this->_createUrl('/pks/add'),
-                    $pubkey,
-                    array(
-                        'User-Agent: Horde Application Framework',
-                        'Content-Type: application/x-www-form-urlencoded',
-                        'Content-Length: ' . strlen($pubkey),
-                        'Connection: close'
-                    )
-                );
-            } catch (Horde_Http_Exception $e) {
-                throw new Horde_Pgp_Exception($e);
-            }
-        }
+            throw new Horde_Pgp_Exception(Horde_Pgp_Translation::t(
+                "Key already exists on the public keyserver."
+            ));
+        } catch (Horde_Pgp_Exception $e) {}
 
-        throw new Horde_Pgp_Exception(Horde_Pgp_Translation::t(
-            "Key already exists on the public keyserver."
-        ));
+        $pubkey = 'keytext=' . urlencode(trim(strval($key)));
+        try {
+            $this->_http->post(
+                $this->_createUrl('/pks/add'),
+                $pubkey,
+                array(
+                    'User-Agent: Horde Application Framework',
+                    'Content-Type: application/x-www-form-urlencoded',
+                    'Content-Length: ' . strlen($pubkey),
+                    'Connection: close'
+                )
+            );
+        } catch (Horde_Http_Exception $e) {
+            throw new Horde_Pgp_Exception($e);
+        }
     }
 
     /**
@@ -140,13 +138,11 @@ class Horde_Pgp_Keyserver
      *
      * @param string $address  The email address to search for.
      *
-     * @return string  The PGP key ID.
+     * @return Horde_Pgp_Element_PublicKey  The PGP public key.
      * @throws Horde_Pgp_Exception
      */
     public function getKeyByEmail($address)
     {
-        $pubkey = null;
-
         /* Connect to the public keyserver. */
         $url = $this->_createUrl('/pks/lookup', array(
             'op' => 'index',
@@ -155,7 +151,7 @@ class Horde_Pgp_Keyserver
         ));
 
         try {
-            $output = $this->_http->get($url)->getBody();
+            $output = ltrim($this->_http->get($url)->getBody());
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Pgp_Exception($e);
         }
