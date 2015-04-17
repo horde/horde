@@ -95,7 +95,9 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
 
         $encrypted = $this->pgp_mime->encryptPart(
             $this->part,
-            $this->key->getPublicKey()
+            array(
+                'pubkeys' => $this->key->getPublicKey()
+            )
         );
 
         $this->_testEncryptPart($encrypted);
@@ -163,7 +165,9 @@ class Horde_Pgp_MimeTest extends PHPUnit_Framework_TestCase
         $result = $this->pgp_mime->signAndEncryptPart(
             $this->part,
             $this->key,
-            $this->key->getPublicKey()
+            array(
+                'pubkeys' => $this->key->getPublicKey()
+            )
         );
 
         $this->_testEncryptPart($result);

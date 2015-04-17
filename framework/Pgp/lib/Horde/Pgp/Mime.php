@@ -116,28 +116,23 @@ extends Horde_Pgp
      * Encrypts a MIME part using PGP.
      *
      * @param Horde_Mime_Part $part  The object to encrypt.
-     * @param mixed $keys            The public key(s) to use for encryption.
      * @param array $opts            Additional options:
      *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - pubkeys: (mixed) The public key(s) to use for encryption.
+     *   - symmetric: (string) If set, use as symmetric key.
      *
      * @return Horde_Mime_Part  An encrypted object.
      * @throws Horde_Pgp_Exception
      */
-    public function encryptPart(
-        Horde_Mime_Part $part, $keys, array $opts = array()
-    )
+    public function encryptPart(Horde_Mime_Part $part, array $opts = array())
     {
-        $encrypted = $this->encrypt(
+        $base = $this->_encryptPart(
             $part->toString(array(
                 'canonical' => true,
                 'headers' => true
             )),
-            $keys,
             $opts
         );
-
-        $base = $this->_encryptPart($encrypted);
-        $base->setHeaderCharset('UTF-8');
         $base->setDescription(
             Horde_Pgp_Translation::t("PGP Encrypted Data")
         );
@@ -155,7 +150,36 @@ extends Horde_Pgp
      *
      * @return Horde_Mime_Part  Base encrypted MIME part.
      */
-    protected function _encryptPart($encrypted)
+    protected function _encryptPart($data, $opts)
+    {
+        if (isset($opts['symmetric'])) {
+            $encrypted = $this->encryptSymmetric(
+                $data,
+                $opts['symmetric'],
+                $opts
+            );
+        } elseif (isset($opts['pubkeys'])) {
+            $encrypted = $this->encrypt($data, $opts['pubkeys'], $opts);
+        } else {
+            throw new InvalidArgumentException(
+                'Must specify one public keys or symmetric passphrase.'
+            );
+        }
+
+        $base = $this->_encryptBase($encrypted);
+        $base->setHeaderCharset('UTF-8');
+
+        return $base;
+    }
+
+    /**
+     * Create the base MIME part used for encryption (RFC 3156 [4]).
+     *
+     * @param Horde_Pgp_Element_Message $encrypted  Encrypted data.
+     *
+     * @return Horde_Mime_Part  Base encrypted MIME part.
+     */
+    protected function _encryptBase($encrypted)
     {
         $base = new Horde_Mime_Part();
         $base->setType('multipart/encrypted');
@@ -187,16 +211,17 @@ extends Horde_Pgp
      * @param Horde_Mime_Part $part  The part to sign and encrypt.
      * @param mixed $privkey         The private key to use for signing (must
      *                               be decrypted).
-     * @param mixed $pubkeys         The public keys to use for encryption.
      * @param array $opts            Additional options:
      *   - nocompress: (boolean) If true, don't compress signed/encrypted
      *                 data.
+     *   - pubkeys: (mixed) The public key(s) to use for encryption.
+     *   - symmetric: (string) If set, use as symmetric key.
      *
      * @return Horde_Mime_Part  A signed and encrypted part.
      * @throws Horde_Pgp_Exception
      */
     public function signAndEncryptPart(
-        Horde_Mime_Part $part, $privkey, $pubkeys, array $opts = array()
+        Horde_Mime_Part $part, $privkey, array $opts = array()
     )
     {
         /* We use the combined method of sign & encryption in a single
@@ -210,16 +235,12 @@ extends Horde_Pgp
             $opts
         );
 
-        $encrypted = $this->encrypt(
+        $base = $this->_encryptPart(
             $signed->message,
-            $pubkeys,
             array_merge($opts, array(
                 'nocompress' => true
             ))
         );
-
-        $base = $this->_encryptPart($encrypted);
-        $base->setHeaderCharset('UTF-8');
         $base->setDescription(
             Horde_Pgp_Translation::t("PGP Signed/Encrypted Data")
         );
@@ -292,7 +313,7 @@ extends Horde_Pgp
 
             case 'Horde_Pgp_Element_Message':
                 // TODO: Message can also be text or signature
-                $part = $this->_encryptPart($val);
+                $part = $this->_encryptBase($val);
                 $part->setMetadata(self::PGP_ARMOR, true);
                 $part['2']->setMetadata(
                     self::PGP_CHARSET,
