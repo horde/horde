@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix indexing MIME part when base is a multipart object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1697,7 +1697,7 @@
    <date>2015-04-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix indexing MIME part when base is a multipart object.
    </notes>
   </release>
  </changelog>

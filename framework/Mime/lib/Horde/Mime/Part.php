@@ -2184,7 +2184,11 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
     {
         if ($this->_status & self::STATUS_REINDEX) {
             $id = $this->getMimeId();
-            $this->buildMimeIds(is_null($id) ? '1' : $id);
+            $this->buildMimeIds(
+                is_null($id)
+                    ? (($this->getPrimaryType() === 'multipart') ? '0' : '1')
+                    : $id
+            );
         }
 
         $this->_parts = array_values($this->_parts);
