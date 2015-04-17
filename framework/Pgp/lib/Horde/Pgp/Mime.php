@@ -219,4 +219,25 @@ extends Horde_Pgp
         return $base;
     }
 
+    /**
+     * Generate a Horde_Mime_Part object that contains a public key (RFC
+     * 3156 [7]).
+     *
+     * @param mixed $key  The public key.
+     *
+     * @return Horde_Mime_Part  An object that contains the public key.
+     */
+    public function publicKeyPart($key)
+    {
+        $key = Horde_Pgp_Element_PublicKey::create($key);
+
+        $part = new Horde_Mime_Part();
+        $part->setType('application/pgp-keys');
+        $part->setHeaderCharset('UTF-8');
+        $part->setDescription(Horde_Crypt_Translation::t("PGP Public Key"));
+        $part->setContents(strval($key), array('encoding' => '7bit'));
+
+        return $part;
+    }
+
 }
