@@ -40,7 +40,7 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
         try {
             $this->_checkKey($this->_ks->get($id), $id);
         } catch (Horde_Pgp_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
@@ -63,7 +63,7 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
         try {
             $this->_checkKey($this->_ks->getKeyByEmail($email), $id);
         } catch (Horde_Pgp_Exception $e) {
-            if (strpos($e->getMessage(), 'Operation timed out') === 0) {
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
                 $this->markTestSkipped($e->getMessage());
             } else {
                 throw $e;
