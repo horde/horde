@@ -249,32 +249,20 @@ extends Horde_Test_Case
     {
         $cleartext = $this->_getFixture('clear.txt');
 
-        foreach (array(true, false) as $val) {
-            $result = $this->_pgp->encrypt(
-                $cleartext,
-                $pubkey,
-                array(
-                    'nocompress' => $val
-                )
-            );
+        $result = $this->_pgp->encrypt($cleartext, $pubkey);
 
-            $this->assertInstanceOf(
-                'Horde_Pgp_Element_Message',
-                $result
-            );
+        $this->assertInstanceOf(
+            'Horde_Pgp_Element_Message',
+            $result
+        );
 
-            $this->assertEquals(
-                 1 + count($privkeys),
-                count($result->message->packets)
-            );
+        $this->assertEquals(
+            1 + count($privkeys),
+            count($result->message->packets)
+        );
 
-            foreach ($privkeys as $val2) {
-                $this->testDecrypt(
-                    strval($result),
-                    $val2,
-                    $cleartext
-                );
-            }
+        foreach ($privkeys as $val) {
+            $this->testDecrypt(strval($result), $val, $cleartext);
         }
     }
 
@@ -315,15 +303,18 @@ extends Horde_Test_Case
         $ciphers = array(
             '3DES', 'CAST5', 'AES128', 'AES192', 'AES256', 'Twofish'
         );
+        $compress = array(
+            'NONE', 'ZIP', 'ZLIB'
+        );
 
-        foreach (array(true, false) as $val) {
-            foreach ($ciphers as $c) {
+        foreach ($compress as $c1) {
+            foreach ($ciphers as $c2) {
                 $result = $this->_pgp->encryptSymmetric(
                     $data,
                     $pass,
                     array(
-                        'cipher' => $c,
-                        'nocompress' => $val
+                        'cipher' => $c2,
+                        'compress' => $c1
                     )
                 );
 
@@ -378,12 +369,16 @@ extends Horde_Test_Case
      */
     public function testSign($text, $privkey)
     {
-        foreach (array(true, false) as $val) {
+        $compress = array(
+            'NONE', 'ZIP', 'ZLIB'
+        );
+
+        foreach ($compress as $c) {
             $result = $this->_pgp->sign(
                 $text,
                 $privkey,
                 array(
-                    'nocompress' => $val
+                    'compress' => $c
                 )
             );
 
@@ -393,7 +388,7 @@ extends Horde_Test_Case
             );
 
             $this->assertInstanceOf(
-                ($val)
+                ($c === 'NONE')
                     ? 'OpenPGP_SignaturePacket'
                     : 'OpenPGP_CompressedDataPacket',
                 $result->message[0]

@@ -234,7 +234,6 @@ extends Horde_Pgp_Backend
      */
     public function encrypt($text, $keys, $opts)
     {
-        $cipher_algo = null;
         $p = array();
 
         foreach ($keys as $val) {
@@ -274,29 +273,19 @@ extends Horde_Pgp_Backend
             /* Use 3DES with ElGamal; 3DES is a MUST implement, so assume that
              * someone requiring ElGamal encryption will more likely have
              * support for 3DES than AES. */
-            if (!$cipher_algo && ($current->algorithm === 16)) {
-                $cipher_algo = 2;
+            if ($current->algorithm === 16) {
+                $opts['cipher'] = 2;
             }
         }
 
-        return $this->_encrypt(
-            $p,
-            $text,
-            empty($opts['nocompress']),
-            is_null($cipher_algo) ? $opts['cipher'] : $cipher_algo
-        );
+        return $this->_encrypt($p, $text, $opts);
     }
 
     /**
      */
     public function encryptSymmetric($text, $passphrase, $opts)
     {
-        return $this->_encrypt(
-            $passphrase,
-            $text,
-            empty($opts['nocompress']),
-            $opts['cipher']
-        );
+        return $this->_encrypt($passphrase, $text, $opts);
     }
 
     /**
@@ -305,22 +294,23 @@ extends Horde_Pgp_Backend
      * @param mixed $key         The list of public keys used to encrypt or a
      *                           list of passphrases.
      * @param mixed $data        The data to be PGP encrypted.
-     * @param boolean $compress  If true, compress data.
-     * @param interer $c_algo    The cipher algorithm to use.
+     * @param array $opts  Additional options:
+     *   - cipher: (integer) Cipher algorithm.
+     *   - compress: (integer) Compression algorithm.
      *
      * @param Horde_Pgp_Element_Message  Encrypted message.
      */
-    protected function _encrypt($key, $data, $compress, $c_algo)
+    protected function _encrypt($key, $data, $opts)
     {
-        $msg = $this->_getMessageOb($data);
-        if ($compress) {
-            $msg = $this->_compressMessageOb($msg);
-        }
+        $msg = $this->_compressMessageOb(
+            $this->_getMessageOb($data),
+            $opts['compress']
+        );
 
         /* Following code adapted from OpenPGP_Crypt_Symmetric::encrypt(). */
 
         list($cipher, $key_bytes, $block_bytes) =
-            OpenPGP_Crypt_Symmetric::getCipher($c_algo);
+            OpenPGP_Crypt_Symmetric::getCipher($opts['cipher']);
         $prefix = crypt_random_string($block_bytes);
         $prefix .= substr($prefix, -2);
 
@@ -351,8 +341,8 @@ extends Horde_Pgp_Backend
 
                 $encrypted[] = new OpenPGP_SymmetricSessionKeyPacket(
                     $s2k,
-                    $cipher->encrypt(chr($c_algo) . $ckey),
-                    $c_algo
+                    $cipher->encrypt(chr($opts['cipher']) . $ckey),
+                    $opts['cipher']
                 );
                 continue;
             }
@@ -373,7 +363,7 @@ extends Horde_Pgp_Backend
             }
 
             $pk_encrypt = $pk->encrypt(
-                chr($c_algo) .
+                chr($opts['cipher']) .
                 $ckey .
                 pack('n', OpenPGP_Crypt_Symmetric::checksum($ckey))
             );
@@ -422,14 +412,15 @@ extends Horde_Pgp_Backend
      * Compress PGP data, if compression is available.
      *
      * @param OpenPGP_Message $msg  PGP message.
+     * @param integer $algo         Compression algorithm.
      *
      * @return OpenPGP_Message  (Possibly compressed) message.
      */
-    protected function _compressMessageOb($msg)
+    protected function _compressMessageOb($msg, $algo)
     {
-        if (Horde_Util::extensionExists('zlib')) {
+        if ($algo && Horde_Util::extensionExists('zlib')) {
             $zip = new OpenPGP_CompressedDataPacket($msg);
-            $zip->algorithm = 1; // ZIP (DEFLATE) Compression
+            $zip->algorithm = $algo;
             $msg = new OpenPGP_Message(array($zip));
         }
 
@@ -496,10 +487,9 @@ extends Horde_Pgp_Backend
             break;
 
         case 'message':
-            if (empty($opts['nocompress'])) {
-                $result = $this->_compressMessageOb($result);
-            }
-            return new Horde_Pgp_Element_Message($result);
+            return new Horde_Pgp_Element_Message(
+                $this->_compressMessageOb($result, $opts['compress'])
+            );
         }
     }
 

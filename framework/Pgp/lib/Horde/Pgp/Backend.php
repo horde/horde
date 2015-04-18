@@ -64,7 +64,7 @@ class Horde_Pgp_Backend
      *                      (Horde_Pgp_Element_PublicKey objects).
      * @param array $opts   Additional options:
      *   - cipher: (integer) Symmetric cipher algorithm.
-     *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - compress: (boolean) Compression algorithm.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
      */
@@ -80,7 +80,7 @@ class Horde_Pgp_Backend
      * @param array $passphrase   The symmetric passphrase(s).
      * @param array $opts         Additional options:
      *   - cipher: (integer) Symmetric cipher algorithm.
-     *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - compress: (boolean) Compression algorithm.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
      */
@@ -99,7 +99,7 @@ class Horde_Pgp_Backend
      *                                           'clear', 'detach', or
      *                                           'message'.
      * @param array $opts                        Additional options:
-     *   - nocompress: (boolean) If true, don't compress signed data.
+     *   - compress: (boolean) Compression algorithm.
      *   - sign_hash: (string) The hash method to use.
      *
      * @return mixed  The signed message.

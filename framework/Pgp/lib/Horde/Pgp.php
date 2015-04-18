@@ -94,7 +94,8 @@ class Horde_Pgp
      * @param array $opts   Additional options:
      *   - cipher: (string) Default symmetric cipher algorithm to use. One of:
      *             3DES, CAST5, AES128, AES192, AES256, Twofish.
-     *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - compress: (string) Default compression to use. One of:
+     *               NONE, ZIP, ZLIB
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
      * @throws Horde_Pgp_Exception
@@ -109,9 +110,11 @@ class Horde_Pgp
                     array('Horde_Pgp_Element_PublicKey', 'create'),
                     is_array($keys) ? $keys : array($keys)
                 ),
-                array_merge(array(
-                    'nocompress' => false
-                ), $this->_getCipher($opts, 'AES128'))
+                array_merge(
+                    $opts,
+                    $this->_getCompression($opts, 'ZIP'),
+                    $this->_getCipher($opts, 'AES128')
+                )
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
@@ -125,7 +128,8 @@ class Horde_Pgp
      * @param array $opts         Additional options:
      *   - cipher: (string) Default symmetric cipher algorithm to use. One of:
      *             3DES, CAST5, AES128, AES192, AES256, Twofish.
-     *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - compress: (string) Default compression to use. One of:
+     *               NONE, ZIP, ZLIB
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
      * @throws Horde_Pgp_Exception
@@ -141,9 +145,11 @@ class Horde_Pgp
             array(
                 $text,
                 is_array($passphrase) ? $passphrase : array($passphrase),
-                array_merge(array(
-                    'nocompress' => false
-                ), $this->_getCipher($opts, '3DES'))
+                array_merge(
+                    $opts,
+                    $this->_getCompression($opts, 'ZIP'),
+                    $this->_getCipher($opts, '3DES')
+                )
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
@@ -159,7 +165,8 @@ class Horde_Pgp
      * @param mixed $key    The private key to use for signing (must be
      *                      decrypted).
      * @param array $opts   Additional options:
-     *   - nocompress: (boolean) If true, don't compress signed data.
+     *   - compress: (string) Default compression to use. One of:
+     *               NONE, ZIP, ZLIB
      *   - sign_hash: (string) The hash method to use.
      *
      * @return Horde_Pgp_Element_Message  The signed data.
@@ -173,10 +180,11 @@ class Horde_Pgp
                 $text,
                 $this->_getPrivateKey($key),
                 'message',
-                array_merge(array(
-                    'nocompress' => false,
-                    'sign_hash' => null
-                ), $opts)
+                array_merge(
+                    array('sign_hash' => null),
+                    $opts,
+                    $this->_getCompression($opts, 'ZIP')
+                )
             ),
             Horde_Pgp_Translation::t("Could not PGP sign data.")
         );
@@ -400,26 +408,45 @@ class Horde_Pgp
      */
     protected function _getCipher($opts, $default)
     {
-        $cipher = isset($opts['cipher'])
-            ? $opts['cipher']
+        /* RFC 4880 [9.2] */
+        return $this->_getOption($opts, $default, 'cipher', array(
+            '3DES' => 2,
+            'CAST5' => 3,
+            'AES128' => 7,
+            'AES192' => 8,
+            'AES256' => 9,
+            'Twofish' => 10
+        ));
+    }
+
+    /**
+     * TODO
+     */
+    protected function _getCompression($opts, $default)
+    {
+        /* RFC 4880 [9.3] */
+        return $this->_getOption($opts, $default, 'compress', array(
+            'NONE' => 0,
+            'ZIP' => 1,
+            'ZLIB' => 2
+        ));
+    }
+
+    /**
+     * TODO
+     */
+    protected function _getOption($opts, $default, $name, $map)
+    {
+        $val = isset($opts[$name])
+            ? $opts[$name]
             : $default;
 
-        if (is_string($cipher)) {
-            /* RFC 4880 [9.2] */
-            $cipher_map = array(
-                '3DES' => 2,
-                'CAST5' => 3,
-                'AES128' => 7,
-                'AES192' => 8,
-                'AES256' => 9,
-                'Twofish' => 10
-            );
-            $cipher = $cipher_map[$cipher];
+        if (is_string($val)) {
+            $val = $map[$val];
         }
 
-        $opts['cipher'] = $cipher;
-
-        return $opts;
+        return array($name => $val);
     }
+
 
 }

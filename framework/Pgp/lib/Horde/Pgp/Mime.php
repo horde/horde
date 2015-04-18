@@ -33,7 +33,7 @@ extends Horde_Pgp
      * @param mixed $key             The private key to use for signing (must
      *                               be decrypted).
      * @param array $opts            Additional options:
-     *   - nocompress: (boolean) If true, don't compress signed data.
+     *   - compress: (string) Default compression algorithm.
      *
      * @return Horde_Mime_Part  A signed object.
      * @throws Horde_Pgp_Exception
@@ -118,7 +118,7 @@ extends Horde_Pgp
      * @param Horde_Mime_Part $part  The object to encrypt.
      * @param array $opts            Additional options:
      *   - cipher: (string) Default symmetric cipher algorithm to use.
-     *   - nocompress: (boolean) If true, don't compress encrypted data.
+     *   - compress: (string) Default compression algorithm.
      *   - pubkeys: (mixed) The public key(s) to use for encryption.
      *   - symmetric: (string) If set, use as symmetric key.
      *
@@ -214,8 +214,7 @@ extends Horde_Pgp
      *                               be decrypted).
      * @param array $opts            Additional options:
      *   - cipher: (string) Default symmetric cipher algorithm to use.
-     *   - nocompress: (boolean) If true, don't compress signed/encrypted
-     *                 data.
+     *   - compress: (string) Default compression algorithm.
      *   - pubkeys: (mixed) The public key(s) to use for encryption.
      *   - symmetric: (string) If set, use as symmetric key.
      *
@@ -240,7 +239,7 @@ extends Horde_Pgp
         $base = $this->_encryptPart(
             $signed->message,
             array_merge($opts, array(
-                'nocompress' => true
+                'compress' => 'NONE'
             ))
         );
         $base->setDescription(
