@@ -54,6 +54,11 @@ extends Horde_Pgp_Backend
      */
     public function generateKey($opts)
     {
+        $skey = $this->_generateSecretKeyPacket(
+            $opts['keylength'],
+            'OpenPGP_SecretKeyPacket'
+        );
+
         $id = new Horde_Mail_Rfc822_Address($opts['email']);
         if (strlen($opts['comment'])) {
             $id->comment[] = $opts['comment'];
@@ -62,40 +67,71 @@ extends Horde_Pgp_Backend
             $id->personal = $opts['name'];
         }
 
-        $uid = new OpenPGP_UserIDPacket(
-            $id->writeAddress(array('comment' => true))
-        );
+        /* This is the private key we are creating. */
+        $key = new OpenPGP_Message(array(
+            $skey,
+            new OpenPGP_UserIDPacket(
+                $id->writeAddress(array('comment' => true))
+            )
+        ));
 
-        /* Signing key */
-        $skey = $this->_generateSecretKeyPacket(
-            $opts['keylength'],
-            'OpenPGP_SecretKeyPacket'
-        );
-
-        $skey_rsa = new OpenPGP_Crypt_RSA($skey);
-        $m = $skey_rsa->sign_key_userid(array($skey, $uid));
-
-        if (isset($opts['expire'])) {
-            foreach ($m as $k => $v) {
-                if ($v instanceof OpenPGP_SignaturePacket) {
-                    /* Need to recalculate hash. No way of adding this packet
-                     * to be factored into the sign_key_userid() call
-                     * above. */
-                    unset($m[$k]);
-                    $sig = new OpenPGP_SignaturePacket(
-                        $m,
-                        'RSA',
-                        $opts['hash']
-                    );
-                    $sig->signature_type = $v->signature_type;
-                    $sig->hashed_subpackets = $v->hashed_subpackets;
-                    $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyExpirationTimePacket($opts['expire'] - time());
-                    $m[$k] = $sig;
-                    $m = $skey_rsa->sign_key_userid($m);
-                    break;
+        $rsa = OpenPGP_Crypt_RSA::convert_private_key($skey);
+        $rsa->setHash(Horde_String::lower($opts['hash']));
+        $rsa_sign_func = array(
+            'RSA' => array(
+                $opts['hash'] => function($data) use($rsa) {
+                    return array($rsa->sign($data));
                 }
-            }
+            )
+        );
+
+        /* Create signature packet. */
+        $sig = new OpenPGP_SignaturePacket($key, 'RSA', $opts['hash']);
+        /* "Generic certification of a User ID and Public-Key packet." */
+        $sig->signature_type = 0x10;
+
+        /* Add subpacket information. */
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyFlagsPacket(
+            array(0x03)
+        );
+
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_PreferredSymmetricAlgorithmsPacket(
+            // AES-256, AES-192, AES-128, 3DES
+            array(0x09, 0x08, 0x07, 0x02)
+        );
+
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_PreferredHashAlgorithmsPacket(
+            // SHA256, SHA384, SHA512, SHA224, SHA-1
+            array(0x08, 0x09, 0x0a, 0x0b, 0x02)
+        );
+
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_PreferredCompressionAlgorithmsPacket(
+            // ZLIB, ZIP
+            array(0x02, 0x01)
+        );
+
+        $ks_prefs = new OpenPGP_SignaturePacket_KeyServerPreferencesPacket();
+        $ks_prefs->no_modify = true;
+        $sig->hashed_subpackets[] = $ks_prefs;
+
+        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_FeaturesPacket(
+            // 1 = Supports modification detection (packets 18 and 19)
+            array(0x01)
+        );
+        if (isset($opts['expire'])) {
+            $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyExpirationTimePacket(
+                $opts['expire'] - time()
+            );
         }
+
+        $sig->unhashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
+            substr($skey->fingerprint, -16)
+        );
+
+        $key[] = $sig;
+
+        /* Create self-signature. */
+        $sig->sign_data($rsa_sign_func);
 
         /* OpenPGP currently (as of April 2015) encrypts passphrases w/
          * AES-128 & SHA-1, so use this strategy. */
@@ -131,28 +167,18 @@ extends Horde_Pgp_Backend
         $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_KeyFlagsPacket(
             array(0x0C)
         );
-        $sig->hashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
-            substr($skey_rsa->key()->fingerprint, -16)
+        $sig->unhashed_subpackets[] = new OpenPGP_SignaturePacket_IssuerPacket(
+            substr($skey->fingerprint, -16)
         );
-
-        $priv_key = $skey_rsa->private_key();
-        $priv_key->setHash(Horde_String::lower($opts['hash']));
-        $sig->sign_data(array(
-            'RSA' => array(
-                $opts['hash'] => function($data) use($priv_key) {
-                    return array($priv_key->sign($data));
-                }
-            )
-        ));
-
+        $sig->sign_data($rsa_sign_func);
         if (strlen($opts['passphrase'])) {
             $this->_encryptPrivateKey($ekey, $cipher, $s2k, $iv);
         }
 
-        $m[] = $ekey;
-        $m[] = $sig;
+        $key[] = $ekey;
+        $key[] = $sig;
 
-        return new Horde_Pgp_Element_PrivateKey($m);
+        return new Horde_Pgp_Element_PrivateKey($key);
     }
 
     /**
