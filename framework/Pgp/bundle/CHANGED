@@ -7,6 +7,8 @@ List of changes from upstream sources:
   Add support for partial packet body lengths (OpenPGP_Packet::parse()).
   Fix setting version in symmetric-key encrypted session key packet
   (OpenPGP_SymmetricSessionKeyPacket#__construct()).
+  Fix determining message structure when attempting to verify User ID
+  signatures (OpenPGP_Message#signatures()).
 
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
 

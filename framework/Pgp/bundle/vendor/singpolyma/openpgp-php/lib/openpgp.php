@@ -307,7 +307,10 @@ class OpenPGP_Message implements IteratorAggregate, ArrayAccess {
         if($userid) {
           array_push($final_sigs, array($key, $userid, $sigs));
           $userid = NULL;
-        } else if($key) {
+        /* Horde change */
+        //} else if($key) {
+        } else if($key && !empty($sigs)) {
+        /* End Horde change */
           array_push($final_sigs, array($key, $sigs));
         }
         $sigs = array();
