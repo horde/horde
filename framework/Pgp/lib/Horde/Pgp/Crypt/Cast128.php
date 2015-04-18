@@ -38,7 +38,7 @@ class Horde_Pgp_Crypt_Cast128
 
     /**
      */
-    private $_iv;
+    private $_iv = "\0\0\0\0\0\0\0\0";
 
     /**
      * Constructor.
