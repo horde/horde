@@ -74,19 +74,70 @@ extends Horde_Pgp_Element
      * @return array  An array of objects, with these keys:
      *   - comment: (string) Comment.
      *   - email: (Horde_Mail_Rfc822_Address) E-mail address.
+     *   - key: (OpenPGP_PublicKeyPacket) Key packet.
+     *   - sig: (OpenPGP_SignaturePacket) Signature packet.
      */
     public function getUserIds()
     {
         $out = array();
+        $topkey = $userid = $userid_p = null;
+
+        /* Internal function used to verify sigs. */
+        $pgp = new Horde_Pgp_Backend_Openpgp();
+        $self = $this;
+        $verify = function ($topkey, $userid, $sig) use ($pgp, $self) {
+            if (!$topkey || !$userid) {
+                return false;
+            }
+            $v = $pgp->verify(
+                new Horde_Pgp_Element_Message(
+                    new OpenPGP_Message(array($topkey, $userid, $sig))
+                ),
+                $self
+            );
+            return isset($v[0][2][0]);
+        };
 
         foreach ($this->message as $val) {
-            if ($val instanceof OpenPGP_UserIDPacket) {
-                $entry = new stdClass;
-                $entry->email = new Horde_Mail_Rfc822_Address($val->email);
-                $entry->email->personal = $val->name;
-                $entry->comment = $val->comment;
-                $out[] = $entry;
+            if ($val instanceof OpenPGP_PublicKeyPacket) {
+                $topkey = $val;
+            } elseif ($val instanceof OpenPGP_UserIDPacket) {
+                if ($userid && isset($userid->key)) {
+                    $out[] = $userid;
+                }
+
+                $userid = new stdClass;
+                $userid->email = new Horde_Mail_Rfc822_Address($val->email);
+                $userid->email->personal = $val->name;
+                $userid->comment = $val->comment;
+
+                $userid_p = $val;
+            } elseif ($val instanceof OpenPGP_SignaturePacket) {
+                /* Signature types: RFC 4880 [5.2.1] */
+                switch ($val->signature_type) {
+                case 0x10:
+                case 0x11:
+                case 0x12:
+                case 0x13:
+                    /* Certification of User ID. */
+                    if ($verify($topkey, $userid_p, $val)) {
+                        $userid->key = $topkey;
+                        $userid->sig = $val;
+                    }
+                    break;
+
+                case 0x30:
+                    /* Revocation of User ID. */
+                    if ($verify($topkey, $userid_p, $val)) {
+                        $userid = $userid_p = null;
+                    }
+                    break;
+                }
             }
+        }
+
+        if ($userid && isset($userid->key)) {
+            $out[] = $userid;
         }
 
         return $out;
