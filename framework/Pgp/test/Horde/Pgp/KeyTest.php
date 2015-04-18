@@ -318,47 +318,36 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getKeyListProvider
+     * @dataProvider getEncryptPacketsProvider
      */
-    public function testGetKeyListProvider($key)
+    public function testGetEncryptPackets($key, $expected)
     {
-        $list = $key->getKeyList();
+        $list = $key->getEncryptPackets();
 
         $this->assertEquals(
-            2,
+            $expected,
             count($list)
         );
-
-        foreach ($list as $val) {
-            $this->assertInstanceOf(
-                'OpenPGP_PublicKeyPacket',
-                $val->key
-            );
-            $this->assertInstanceOf(
-                'OpenPGP_SignaturePacket',
-                $val->signature
-            );
-            $this->assertInstanceOf(
-                'OpenPGP_UserIDPacket',
-                $val->userid
-            );
-        }
     }
 
-    public function getKeyListProvider()
+    public function getEncryptPacketsProvider()
     {
         return array(
             array(
-                $this->_getKey('pgp_public.asc', 'public')
+                $this->_getKey('pgp_public.asc', 'public'),
+                1
             ),
             array(
-                $this->_getKey('pgp_private.asc', 'private')
+                $this->_getKey('pgp_private.asc', 'private'),
+                1
             ),
             array(
-                $this->_getKey('pgp_public_rsa.txt', 'public')
+                $this->_getKey('pgp_public_rsa.txt', 'public'),
+                1
             ),
             array(
-                $this->_getKey('pgp_private_rsa.txt', 'private')
+                $this->_getKey('pgp_private_rsa.txt', 'private'),
+                1
             )
         );
     }

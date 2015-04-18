@@ -20,6 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
  *
+ * @property-read OpenPGP_PublicKeyPacket $base  Base key packet.
  * @property-read integer $creation  Creation date (UNIX timestamp).
  * @property-read string $fingerprint  Key fingerprint.
  * @property-read string $id  Key ID.
@@ -28,25 +29,34 @@ abstract class Horde_Pgp_Element_Key
 extends Horde_Pgp_Element
 {
     /**
+     * Cached data.
+     *
+     * @var array
+     */
+    protected $_cache = array();
+
+    /**
      */
     public function __get($name)
     {
-        $mapping = array(
-            'creation' => 'timestamp',
-            'fingerprint' => 'fingerprint',
-            'id' => 'key_id'
-        );
-
         switch ($name) {
-        case 'creation':
-        case 'fingerprint':
-        case 'id':
+        case 'base':
             foreach ($this->message as $val) {
                 if ($val instanceof OpenPGP_PublicKeyPacket) {
-                    return $val->{$mapping[$name]};
+                    return $val;
                 }
             }
             break;
+
+        case 'creation':
+        case 'fingerprint':
+        case 'id':
+            $mapping = array(
+                'creation' => 'timestamp',
+                'fingerprint' => 'fingerprint',
+                'id' => 'key_id'
+            );
+            return $this->base->{$mapping[$name]};
         }
     }
 
@@ -79,24 +89,12 @@ extends Horde_Pgp_Element
      */
     public function getUserIds()
     {
+        if (isset($this->_cache['getUserIds'])) {
+            return $this->_cache['getUserIds'];
+        }
+
         $out = array();
         $topkey = $userid = $userid_p = null;
-
-        /* Internal function used to verify sigs. */
-        $pgp = new Horde_Pgp_Backend_Openpgp();
-        $self = $this;
-        $verify = function ($topkey, $userid, $sig) use ($pgp, $self) {
-            if (!$topkey || !$userid) {
-                return false;
-            }
-            $v = $pgp->verify(
-                new Horde_Pgp_Element_Message(
-                    new OpenPGP_Message(array($topkey, $userid, $sig))
-                ),
-                $self
-            );
-            return isset($v[0][2][0]);
-        };
 
         foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
@@ -120,7 +118,7 @@ extends Horde_Pgp_Element
                 case 0x12:
                 case 0x13:
                     /* Certification of User ID. */
-                    if ($verify($topkey, $userid_p, $val)) {
+                    if ($this->_verifyKeyData($topkey, $userid_p, $val)) {
                         $userid->key = $topkey;
                         $userid->sig = $val;
                     }
@@ -128,7 +126,7 @@ extends Horde_Pgp_Element
 
                 case 0x30:
                     /* Revocation of User ID. */
-                    if ($verify($topkey, $userid_p, $val)) {
+                    if ($this->_verifyKeyData($topkey, $userid_p, $val)) {
                         $userid = $userid_p = null;
                     }
                     break;
@@ -140,11 +138,13 @@ extends Horde_Pgp_Element
             $out[] = $userid;
         }
 
+        $this->_cache['getUserIds'] = $out;
+
         return $out;
     }
 
     /**
-     * Does this key contain the e-mail address?
+     * Does this key contain an e-mail address?
      *
      * @return boolean  True if the key contains the e-mail address.
      */
@@ -160,38 +160,86 @@ extends Horde_Pgp_Element
     }
 
     /**
-     * Return a list of key/subkey packets contained in this key.
+     * Return the list of verified encryption packets in this key.
      *
-     * @return array  List of keys, each represented by an object with these
-     *                properties:
-     *   - key: (OpenPGP_PublicKeyPacket) Key packet object.
-     *   - signature: (OpenPGP_SignaturePacket) Signature packet object.
-     *   - userid: (OpenPGP_UserIDPacket) ID packet object.
+     * @return array  Array of OpenPGP_PublicKeyPacket objects.
      */
-    public function getKeyList()
+    public function getEncryptPackets()
     {
-        $key = $sig = $userid = null;
-        $out = array();
+        if (isset($this->_cache['getEncryptPackets'])) {
+            return $this->_cache['getEncryptPackets'];
+        }
 
+        $fallback = $topkey = null;
+        $out = array();
+        $sub = false;
+
+        $create_out = function ($p, $s) {
+            $out = new stdClass;
+            $out->key = $p;
+            $out->sig = $s;
+            return $out;
+        };
+
+        /* Search for the key flag indicating that a key may be used to
+         * encrypt communications (RFC 4880 [5.2.3.21]). In the absence
+         * of finding this flag (i.e. v3 packets), use the first subkey and,
+         * in the absence of that, use the main key. */
         foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
-                $key = $val;
+                if (is_null($topkey)) {
+                    $topkey = $val;
+                }
+                $p = $val;
             } elseif ($val instanceof OpenPGP_SignaturePacket) {
-                $sig = $val;
-            } elseif ($val instanceof OpenPGP_UserIDPacket) {
-                $userid = $val;
-            }
+                switch ($val->signature_type) {
+                case 0x10:
+                case 0x11:
+                case 0x12:
+                case 0x18:
+                    /* Verify first. */
+                    if (($topkey !== $p) &&
+                        !$this->_verifyKeyData($topkey, $p, $val)) {
+                        continue;
+                    }
 
-            if (!is_null($key) && !is_null($sig)) {
-                $tmp = new stdClass;
-                $tmp->key = $key;
-                $tmp->signature = $sig;
-                $tmp->userid = $userid;
-                $out[] = $tmp;
+                    /* Check for explicit key flag subpacket. Require
+                     * this information to be in hashed subpackets. */
+                    if ($val->version === 4) {
+                        foreach ($val->hashed_subpackets as $val2) {
+                            if ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
+                                foreach ($val2->flags as $val3) {
+                                    if ($val3 & 0x04) {
+                                        $out[] = $create_out($p, $val);
+                                        continue 3;
+                                    }
+                                }
 
-                $key = $sig = null;
+                                /* If the flag wasn't set, we know explicitly
+                                 * that this is not an encrypting key. */
+                                continue 2;
+                            }
+                        }
+                    }
+
+                    if (is_null($fallback)) {
+                        $fallback = $create_out($p, $val);
+                    } elseif (!$sub &&
+                              ($p instanceof OpenPGP_PublicSubkeyPacket) ||
+                              ($p instanceof OpenPGP_SecretSubkeyPacket)) {
+                        $fallback = $create_out($p, $val);
+                        $sub = true;
+                    }
+                    break;
+                }
             }
         }
+
+        $out = (empty($out) && $fallback)
+            ? array($fallback)
+            : $out;
+
+        $this->_cache['getEncryptPackets'] = $out;
 
         return $out;
     }
@@ -202,5 +250,31 @@ extends Horde_Pgp_Element
      * @return Horde_Pgp_Element_PublicKey  Public key.
      */
     abstract public function getPublicKey();
+
+    /**
+     * Verify key data.
+     *
+     * @param OpenPGP_PublicKeyPacket $topkey  Top key packet.
+     * @param OpenPGP_Packet                   Data to verify.
+     * @param OpenPGP_SignaturePacket          Signature data.
+     *
+     * @return boolean  True if verified.
+     */
+    protected function _verifyKeyData($topkey, $data, $sig)
+    {
+        if (!$topkey || !$data) {
+            return false;
+        }
+
+        $pgp = new Horde_Pgp_Backend_Openpgp();
+        $v = $pgp->verify(
+            new Horde_Pgp_Element_Message(
+                new OpenPGP_Message(array($topkey, $data, $sig))
+            ),
+            $this
+        );
+
+        return isset($v[0][2][0]);
+    }
 
 }

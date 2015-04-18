@@ -234,51 +234,38 @@ extends Horde_Pgp_Backend
      */
     public function encrypt($text, $keys, $opts)
     {
-        $p = array();
+        $k = array();
 
         foreach ($keys as $val) {
-            /* Search for the key flag indicating that a key may be used to
-             * encrypt communications (RFC 4880 [5.2.3.21]). In the absence
-             * of finding this flag, use the first subkey and, in the absence
-             * of that, use the main key. */
-            $current = null;
-            $sub = false;
+            $kp = null;
 
-            foreach ($val->getKeyList() as $val2) {
-                foreach (array('hashed', 'unhashed') as $k) {
-                    foreach ($val2->signature->{$k . '_subpackets'} as $val3) {
-                        if ($val3 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
-                            foreach ($val3->flags as $val4) {
-                                if ($val4 & 0x04) {
-                                    $current = $val2->key;
-                                    break 4;
-                                }
-                            }
-                        }
-                    }
-                }
+            foreach ($val->getEncryptPackets() as $val2) {
+                switch ($val2->key->algorithm) {
+                case 1:
+                case 2:
+                    // RSA: Preferred
+                    $kp = $val2->key;
+                    break 2;
 
-                if (is_null($current)) {
-                    $current = $val2->key;
-                } elseif (!$sub &&
-                          ($val2->key instanceof OpenPGP_PublicSubkeyPacket) ||
-                          ($val2->key instanceof OpenPGP_SecretSubkeyPacket)) {
-                    $current = $val2->key;
-                    $sub = true;
+                case 16:
+                    $kp = $val2->key;
+                    break;
                 }
             }
 
-            $p[] = $current;
+            if ($kp) {
+                /* Use 3DES with ElGamal; 3DES is a MUST implement, so assume
+                 * that someone requiring ElGamal encryption will more likely
+                 * have support for 3DES than AES. */
+                if ($kp->algorithm === 16) {
+                    $opts['cipher'] = 2;
+                }
 
-            /* Use 3DES with ElGamal; 3DES is a MUST implement, so assume that
-             * someone requiring ElGamal encryption will more likely have
-             * support for 3DES than AES. */
-            if ($current->algorithm === 16) {
-                $opts['cipher'] = 2;
+                $k[] = $kp;
             }
         }
 
-        return $this->_encrypt($p, $text, $opts);
+        return $this->_encrypt($k, $text, $opts);
     }
 
     /**
@@ -291,9 +278,9 @@ extends Horde_Pgp_Backend
     /**
      * Encrypt data.
      *
-     * @param mixed $key         The list of public keys used to encrypt or a
-     *                           list of passphrases.
-     * @param mixed $data        The data to be PGP encrypted.
+     * @param mixed $key   The list of public keys used to encrypt or a list
+     *                     of passphrases.
+     * @param mixed $data  The data to be PGP encrypted.
      * @param array $opts  Additional options:
      *   - cipher: (integer) Cipher algorithm.
      *   - compress: (integer) Compression algorithm.
