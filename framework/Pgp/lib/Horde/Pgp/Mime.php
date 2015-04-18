@@ -117,6 +117,7 @@ extends Horde_Pgp
      *
      * @param Horde_Mime_Part $part  The object to encrypt.
      * @param array $opts            Additional options:
+     *   - cipher: (string) Default symmetric cipher algorithm to use.
      *   - nocompress: (boolean) If true, don't compress encrypted data.
      *   - pubkeys: (mixed) The public key(s) to use for encryption.
      *   - symmetric: (string) If set, use as symmetric key.
@@ -212,6 +213,7 @@ extends Horde_Pgp
      * @param mixed $privkey         The private key to use for signing (must
      *                               be decrypted).
      * @param array $opts            Additional options:
+     *   - cipher: (string) Default symmetric cipher algorithm to use.
      *   - nocompress: (boolean) If true, don't compress signed/encrypted
      *                 data.
      *   - pubkeys: (mixed) The public key(s) to use for encryption.

@@ -327,17 +327,22 @@ extends Horde_Test_Case
             );
 
             $this->assertEquals(
-                2,
+                1 + count($pass),
                 count($result->message->packets)
             );
 
-            $result2 = $this->_pgp->decryptSymmetric(strval($result), $pass);
-            $result2_sigs = $result2->message->signatures();
+            foreach ($pass as $val) {
+                $result2 = $this->_pgp->decryptSymmetric(
+                    $result,
+                    $val
+                );
+                $result2_sigs = $result2->message->signatures();
 
-            $this->assertEquals(
-                $data,
-                $result2_sigs[0][0]->data
-            );
+                $this->assertEquals(
+                    $data,
+                    $result2_sigs[0][0]->data
+                );
+            }
         }
     }
 
@@ -346,7 +351,16 @@ extends Horde_Test_Case
         return array(
             array(
                 $this->_getFixture('clear.txt'),
-                'Secret'
+                array(
+                    'Secret'
+                )
+            ),
+            array(
+                $this->_getFixture('clear.txt'),
+                array(
+                    'Secret',
+                    'Second Secret'
+                )
             )
         );
     }

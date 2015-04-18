@@ -63,6 +63,7 @@ class Horde_Pgp_Backend
      * @param array $keys   The list of public keys to encrypt
      *                      (Horde_Pgp_Element_PublicKey objects).
      * @param array $opts   Additional options:
+     *   - cipher: (integer) Symmetric cipher algorithm.
      *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.
@@ -76,8 +77,9 @@ class Horde_Pgp_Backend
      * Encrypts text using a PGP symmetric passphrase.
      *
      * @param string $text        The text to be PGP encrypted.
-     * @param string $passphrase  The symmetric passphrase.
-     * @param array $opts   Additional options:
+     * @param array $passphrase   The symmetric passphrase(s).
+     * @param array $opts         Additional options:
+     *   - cipher: (integer) Symmetric cipher algorithm.
      *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted message.

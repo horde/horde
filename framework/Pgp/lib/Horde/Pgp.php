@@ -92,6 +92,8 @@ class Horde_Pgp
      * @param string $text  The text to be encrypted.
      * @param mixed $keys   The list of public keys to encrypt.
      * @param array $opts   Additional options:
+     *   - cipher: (string) Default symmetric cipher algorithm to use. One of:
+     *             3DES, CAST5, AES128, AES192, AES256, Twofish.
      *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
@@ -109,7 +111,7 @@ class Horde_Pgp
                 ),
                 array_merge(array(
                     'nocompress' => false
-                ), $opts)
+                ), $this->_getCipher($opts, 'AES128'))
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
@@ -119,8 +121,10 @@ class Horde_Pgp
      * Encrypts text using a PGP symmetric passphrase.
      *
      * @param string $text        The text to be encrypted.
-     * @param string $passphrase  The symmetric passphrase.
-     * @param array $opts   Additional options:
+     * @param mixed $passphrase   The symmetric passphrase(s).
+     * @param array $opts         Additional options:
+     *   - cipher: (string) Default symmetric cipher algorithm to use. One of:
+     *             3DES, CAST5, AES128, AES192, AES256, Twofish.
      *   - nocompress: (boolean) If true, don't compress encrypted data.
      *
      * @return Horde_Pgp_Element_Message  The encrypted data.
@@ -128,14 +132,18 @@ class Horde_Pgp
      */
     public function encryptSymmetric($text, $passphrase, array $opts = array())
     {
+        /* For maximum interoperability, use 3DES to encode symmetric data
+         * since, without public key information. we don't know what the
+         * foreign recipient will support; 3DES is the only MUST implement
+         * symmetric algorithm in RFC 4880. */
         return $this->_runInBackend(
             'encryptSymmetric',
             array(
                 $text,
-                $passphrase,
+                is_array($passphrase) ? $passphrase : array($passphrase),
                 array_merge(array(
                     'nocompress' => false
-                ), $opts)
+                ), $this->_getCipher($opts, '3DES'))
             ),
             Horde_Pgp_Translation::t("Could not PGP encrypt data.")
         );
@@ -385,6 +393,33 @@ class Horde_Pgp
             );
         }
         return $key;
+    }
+
+    /**
+     * TODO
+     */
+    protected function _getCipher($opts, $default)
+    {
+        $cipher = isset($opts['cipher'])
+            ? $opts['cipher']
+            : $default;
+
+        if (is_string($cipher)) {
+            /* RFC 4880 [9.2] */
+            $cipher_map = array(
+                '3DES' => 2,
+                'CAST5' => 3,
+                'AES128' => 7,
+                'AES192' => 8,
+                'AES256' => 9,
+                'Twofish' => 10
+            );
+            $cipher = $cipher_map[$cipher];
+        }
+
+        $opts['cipher'] = $cipher;
+
+        return $opts;
     }
 
 }
