@@ -247,33 +247,39 @@ extends Horde_Test_Case
      */
     public function testEncrypt($pubkey, $privkeys)
     {
+        $ciphers = array(
+            '3DES', 'CAST5', 'AES128', 'AES192', 'AES256', 'Twofish'
+        );
         $cleartext = $this->_getFixture('clear.txt');
 
         foreach (array(true, false) as $val) {
-            $result = $this->_pgp->encrypt(
-                $cleartext,
-                $pubkey,
-                array(
-                    'nocompress' => $val
-                )
-            );
-
-            $this->assertInstanceOf(
-                'Horde_Pgp_Element_Message',
-                $result
-            );
-
-            $this->assertEquals(
-                1 + count($privkeys),
-                count($result->message->packets)
-            );
-
-            foreach ($privkeys as $val2) {
-                $this->testDecrypt(
-                    strval($result),
-                    $val2,
-                    $cleartext
+            foreach ($ciphers as $c) {
+                $result = $this->_pgp->encrypt(
+                    $cleartext,
+                    $pubkey,
+                    array(
+                        'cipher' => $c,
+                        'nocompress' => $val
+                    )
                 );
+
+                $this->assertInstanceOf(
+                    'Horde_Pgp_Element_Message',
+                    $result
+                );
+
+                $this->assertEquals(
+                     1 + count($privkeys),
+                    count($result->message->packets)
+                );
+
+                foreach ($privkeys as $val2) {
+                    $this->testDecrypt(
+                        strval($result),
+                        $val2,
+                        $cleartext
+                    );
+                }
             }
         }
     }
