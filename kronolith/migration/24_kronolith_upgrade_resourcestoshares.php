@@ -54,7 +54,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
             $share = $shares->newShare(
                 null,
                 $row['resource_calendar'],
-                $row['resource_name']
+                Horde_String::convertCharset($row['resource_name'], $charset, 'utf-8')
             );
             $share->set('desc', $columns['resource_description']->binaryToString($row['resource_description']));
             $share->set('email', $row['resource_email']);
