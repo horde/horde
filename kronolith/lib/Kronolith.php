@@ -2061,7 +2061,7 @@ class Kronolith
      */
     public static function sendNotification($event, $action)
     {
-        global $injector, $registry;
+        global $injector, $prefs, $registry;
 
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             throw new Kronolith_Exception('Unknown event action: ' . $action);
@@ -2120,6 +2120,7 @@ class Kronolith
             if (strpos($email, '@') === false) {
                 continue;
             }
+
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
@@ -2133,44 +2134,46 @@ class Kronolith
             return;
         }
 
+        $image = self::getImagePart('big_new.png');
+        $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/update'));
+        $view->event = $event;
+        $view->calendar = Kronolith::getLabel($share);
+        $view->imageId = $image->getContentId();
+        if (!$prefs->isLocked('event_notification')) {
+            $view->prefsUrl = Horde::url($registry->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+        }
+        new Horde_View_Helper_Text($view);
+
         foreach ($addresses as $lang => $twentyFour) {
             $registry->setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':
                 $subject = _("Event added:");
-                $notification_message = _("You requested to be notified when events are added to your calendars.") . "\n\n" . _("The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'edit':
                 $subject = _("Event edited:");
-                $notification_message = _("You requested to be notified when events are edited in your calendars.") . "\n\n" . _("The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'delete':
                 $subject = _("Event deleted:");
-                $notification_message = _("You requested to be notified when events are deleted from your calendars.") . "\n\n" . _("The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %s.");
                 break;
             }
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
-                    $message = "\n"
-                        . sprintf($notification_message,
-                                  $event->title,
-                                  Kronolith::getLabel($share),
-                                  $event->start->strftime($df),
-                                  $event->start->strftime($tf ? '%R' : '%I:%M%p'))
-                        . "\n\n" . $event->description;
-
-                    $mime_mail = new Horde_Mime_Mail(array(
-                        'Subject' => $subject . ' ' . $event->title,
+                    $view->header = $subject . ' ' . $event->title;
+                    $mail = new Horde_Mime_Mail(array(
+                        'Subject' => $view->header,
                         'To' => implode(',', $df_recipients),
                         'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $registry->getVersion(),
-                        'body' => $message));
+                    ));
+                    $multipart = self::buildMimeMessage($view, 'notification', $image);
+                    $mail->setBasePart($multipart);
                     Horde::log(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($injector->getInstance('Horde_Mail'));
+                    $mail->send($injector->getInstance('Horde_Mail'));
                 }
             }
         }

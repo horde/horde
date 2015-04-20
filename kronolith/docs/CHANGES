@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Send event update notifications with HTML part.
 [mjr] Resource permissions have been implemented (Request #13647).
 [jan] Add refresh button to individual calendars and task lists.
 [mjr] Enforce case on attendee user part, but add attendee to event if only

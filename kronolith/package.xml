@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-11</date>
+ <date>2015-04-20</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
@@ -624,6 +625,10 @@
      <file name="month.html.php" role="horde" />
      <file name="summary.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
+    <dir name="update">
+     <file name="notification.html.php" role="horde" />
+     <file name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/update -->
     <dir name="view">
      <file name="view.inc" role="horde" />
     </dir> <!-- /templates/view -->
@@ -720,6 +725,7 @@
       <file name="big_agenda.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
       <file name="big_invitation.png" role="horde" />
+      <file name="big_new.png" role="horde" />
       <file name="big_share.png" role="horde" />
       <file name="calendars.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
@@ -1415,6 +1421,8 @@
    <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
    <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
+   <install as="kronolith/templates/update/notification.html.php" name="templates/update/notification.html.php" />
+   <install as="kronolith/templates/update/notification.plain.php" name="templates/update/notification.plain.php" />
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
@@ -1472,6 +1480,7 @@
    <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
    <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
+   <install as="kronolith/themes/default/graphics/big_new.png" name="themes/default/graphics/big_new.png" />
    <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
    <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
    <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
@@ -2547,9 +2556,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-04-11</date>
+   <date>2015-04-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
