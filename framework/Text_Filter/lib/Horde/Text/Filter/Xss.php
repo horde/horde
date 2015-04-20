@@ -1,5 +1,18 @@
 <?php
 /**
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Text_Filter
+ */
+
+/**
  * This filter attempts to make HTML safe for viewing. IT IS NOT PERFECT. If
  * you enable HTML viewing, you are opening a security hole.
  *
@@ -22,11 +35,6 @@
  *                             DEFAULT: true
  *
  * @todo http://blog.astrumfutura.com/archives/430-html-Sanitisation-Benchmarking-With-Wibble-ZF-Proposal.html
- *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>

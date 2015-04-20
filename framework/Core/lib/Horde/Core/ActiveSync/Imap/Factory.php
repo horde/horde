@@ -1,20 +1,5 @@
 <?php
 /**
- * Horde_Core_ActiveSync_Imap_Factory
- *
- * PHP Version 5
- *
- * @license   http://www.horde.org/licenses/gpl GPLv2
- * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
- * @author    Michael J Rubinsky <mrubinsk@horde.org>
- * @link      http://pear.horde.org/index.php?package=Core
- * @package   Core
- */
-/**
- * Horde_Core_ActiveSync_Imap_Factory:: Implements a factory/builder for
- * providing a Horde_ActiveSync_Imap_Adapter object as well as building
- * a tree of available mailboxes.
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
@@ -22,6 +7,17 @@
  * @package   Core
  */
 
+/**
+ * Horde_Core_ActiveSync_Imap_Factory implements a factory/builder for
+ * providing a Horde_ActiveSync_Imap_Adapter object as well as building a tree
+ * of available mailboxes.
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @link      http://pear.horde.org/index.php?package=Core
+ * @package   Core
+ */
 class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_ImapFactory
 {
     protected $_adapter;

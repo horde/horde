@@ -1,9 +1,16 @@
 <?php
 /**
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @license  http://www.horde.org/licenses/bsd BSD
+ * @category Horde
+ * @package Service_Twitter
+ */
+
+/**
  * Horde_Service_Twitter class abstracts communication with Twitter's
  * rest interface.
- *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
  * @property-read Horde_Service_Twitter_Account $account
  *                The twitter account object for calling account methods.

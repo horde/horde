@@ -1,14 +1,22 @@
 <?php
 /**
- * This provides capability information for the current web client.
- *
- * Browser identification is performed by examining the HTTP_USER_AGENT
- * environment variable provided by the web server.
- *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Browser
+ */
+
+/**
+ * This provides capability information for the current web client.
+ *
+ * Browser identification is performed by examining the HTTP_USER_AGENT
+ * environment variable provided by the web server.
  *
  * @todo     http://ajaxian.com/archives/parse-user-agent
  * @author   Chuck Hagenbuch <chuck@horde.org>

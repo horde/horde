@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -11,9 +9,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync:: The Horde ActiveSync server. Entry point for performing
- * all ActiveSync operations.
+ * The Horde ActiveSync server. Entry point for performing all ActiveSync
+ * operations.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),

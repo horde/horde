@@ -1,12 +1,19 @@
 <?php
 /**
- * The Horde_Tree_Renderer class contains constants and a factory for
- * the tree renderers.
- *
  * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Tree
+ */
+
+/**
+ * The Horde_Tree_Renderer class contains constants and a factory for
+ * the tree renderers.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde

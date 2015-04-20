@@ -1,15 +1,16 @@
 <?php
 /**
- * Registry connector for Horde backend.
- *
  * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
  */
+
 /**
- * Registry connector for Horde backend. Provides the communication between
- * the Horde Registry on the local machine and the ActiveSync Horde driver.
+ * Registry connector for Horde backend.
+ *
+ * Provides the communication between the Horde Registry on the local machine
+ * and the ActiveSync Horde driver.
  *
  * @copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL

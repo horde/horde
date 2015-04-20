@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2005-2007      Liam Hoekenga <liamr@umich.edu>
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Liam Hoekenga <liamr@umich.edu>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Horde_Imsp
+ */
+
+/**
  * IMSP authentication class for authentication through imtest.
  *
  * Required parameters:<pre>
@@ -10,12 +22,6 @@
  *   'socket'          The named socket to use for connection
  *   'command'         Path to the imtest command on localhost
  *   'auth_mechanism'  Authentication method to use with imtest</pre>
- *
- * Copyright 2005-2007      Liam Hoekenga <liamr@umich.edu>
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Liam Hoekenga <liamr@umich.edu>
  * @author  Michael J Rubinsky <mrubinsk@horde.org>

@@ -1,8 +1,10 @@
 <?php
 /**
- * Factory methods for basic objects required by the export.
+ * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_FreeBusy
@@ -13,12 +15,6 @@
 
 /**
  * Factory methods for basic objects required by the export.
- *
- * Copyright 2009-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_FreeBusy

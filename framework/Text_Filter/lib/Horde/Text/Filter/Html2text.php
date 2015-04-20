@@ -1,5 +1,18 @@
 <?php
 /**
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Text_Filter
+ */
+
+/**
  * Takes HTML and converts it to formatted, plain text.
  *
  * Optional parameters to constructor:
@@ -12,11 +25,6 @@
  * nestingLimit - (integer) The limit on node nesting. If empty, no limit.
  *                @since 2.3.0
  * </pre>
- *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>

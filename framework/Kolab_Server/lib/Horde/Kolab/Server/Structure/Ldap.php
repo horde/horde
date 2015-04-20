@@ -1,8 +1,9 @@
 <?php
 /**
- * A structural handler for the tree of objects stored in LDAP.
+ * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -13,11 +14,6 @@
 
 /**
  * This class provides methods to deal with the LDAP tree structure.
- *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Server

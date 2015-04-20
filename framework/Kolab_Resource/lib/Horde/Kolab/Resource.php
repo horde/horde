@@ -1,8 +1,9 @@
 <?php
 /**
- * Resource management for the Kolab server.
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -41,12 +42,7 @@ define('RM_ITIP_ACCEPT',                    2);
 define('RM_ITIP_TENTATIVE',                 3);
 
 /**
- * Provides Kolab resource handling
- *
- * Copyright 2004-2010 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Provides Kolab resource handling.
  *
  * @package Kolab_Filter
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>

@@ -1,8 +1,10 @@
 <?php
 /**
- * The configuration of the Kolab_Filter package.
+ * Copyright 2008 Klarälvdalens Datakonsult AB
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -13,12 +15,6 @@
 
 /**
  * The configuration of the Kolab_Filter package.
- *
- * Copyright 2008 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter

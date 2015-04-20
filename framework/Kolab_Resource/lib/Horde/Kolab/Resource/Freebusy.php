@@ -1,11 +1,10 @@
 <?php
 /**
- * Provides methods to retrieve free/busy data for resources.
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
- * PHP version 5
- *
- * @todo Merge this class with Kolab_FreeBusy and Kronolith_FreeBusy into a
- *       single Horde_Freebusy handler.
+ * See the enclosed file COPYING for license information (LGPL>=2.1). If you
+ * did not receive this file,
+ * see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -17,11 +16,8 @@
 /**
  * Retrieves free/busy data for an email address.
  *
- * Copyright 2004-2010 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL>=2.1). If you
- * did not receive this file,
- * see http://www.horde.org/licenses/lgpl21.
+ * @todo Merge this class with Kolab_FreeBusy and Kronolith_FreeBusy into a
+ *       single Horde_Freebusy handler.
  *
  * @category Kolab
  * @package  Kolab_Filter

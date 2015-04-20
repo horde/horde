@@ -1,9 +1,9 @@
 <?php
 /**
- * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to configure the available
- * IMAP namespaces on the Kolab server.
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -13,13 +13,8 @@
  */
 
 /**
- * The Horde_Kolab_Storage_Folder_Namespace_Config:: allows to configure the available
- * IMAP namespaces on the Kolab server.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * The Horde_Kolab_Storage_Folder_Namespace_Config class allows to configure
+ * the available IMAP namespaces on the Kolab server.
  *
  * @category Kolab
  * @package  Kolab_Storage

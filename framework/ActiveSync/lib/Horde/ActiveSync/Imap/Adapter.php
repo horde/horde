@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync_Imap_Adapter::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -11,8 +9,9 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync_Imap_Adapter:: Contains methods for communicating with
+ * Horde_ActiveSync_Imap_Adapter contains methods for communicating with
  * Horde's Horde_Imap_Client library.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2

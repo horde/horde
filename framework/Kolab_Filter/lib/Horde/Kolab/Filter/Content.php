@@ -1,5 +1,12 @@
 <?php
 /**
+ * Copyright 2004-2008 Klarälvdalens Datakonsult AB
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Filter
  */
 
@@ -17,11 +24,6 @@ define('RM_STATE_READING_BODY',   5 );
 
 /**
  * A Kolab Server filter for outgoing mails.
- *
- * Copyright 2004-2008 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author  Gunnar Wrobel <wrobel@pardus.de>

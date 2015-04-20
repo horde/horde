@@ -1,23 +1,5 @@
 <?php
 /**
- * REST access to a PEAR server.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Pear
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
- * @link     http://pear.php.net/manual/en/core.rest.php
- */
-
-/**
- * REST access to a PEAR server.
- *
- * This implements a subset of the REST methods detailed in
- * http://pear.php.net/manual/en/core.rest.php
- *
  * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -27,7 +9,18 @@
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
+ */
+
+/**
+ * REST access to a PEAR server.
+ *
+ * This implements a subset of the REST methods detailed in
+ * http://pear.php.net/manual/en/core.rest.php
+ *
+ * @category Horde
+ * @package  Pear
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.php.net/manual/en/core.rest.php
  */
 class Horde_Pear_Rest

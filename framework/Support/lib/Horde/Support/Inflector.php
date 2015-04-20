@@ -1,8 +1,14 @@
 <?php
 /**
- * Horde Inflector class.
- *
  * Copyright 2007-2015 Horde LLC (http://www.horde.org/)
+ *
+ * @category   Horde
+ * @package    Support
+ * @license    http://www.horde.org/licenses/bsd
+ */
+
+/**
+ * Horde Inflector class.
  *
  * @todo Add the locale-bubbling pattern from
  *       Horde_Date_Parser/Horde_Support_Numerizer
@@ -190,6 +196,8 @@ class Horde_Support_Inflector
     /**
      * Camel-cases a word.
      *
+     * @todo Do we want locale-specific or locale-independent camel casing?
+     *
      * @param string $word         The word to camel-case.
      * @param string $firstLetter  Whether to upper or lower case the first.
      *                             letter of each slash-separated section.
@@ -255,6 +263,8 @@ class Horde_Support_Inflector
      * Examples:
      * 1. underscore("ActiveRecord")        => "active_record"
      * 2. underscore("ActiveRecord_Errors") => "active_record_errors"
+     *
+     * @todo Do we want locale-specific or locale-independent lowercasing?
      */
     public function underscore($camelCasedWord)
     {

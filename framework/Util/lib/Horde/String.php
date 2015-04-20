@@ -475,7 +475,7 @@ class Horde_String
      * @param string $needle    The string to search for.
      * @param integer $offset   Character in $haystack to start searching at.
      * @param string $charset   Charset of $needle.
-     * @param string $func   Function to use.
+     * @param string $func      Function to use.
      *
      * @return integer  The position of occurrence.
      *

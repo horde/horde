@@ -1,9 +1,15 @@
 <?php
 /**
- * Horde backend. Provides the communication between horde data and
- * ActiveSync server.
- *
  * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Core
+ */
+
+/**
+ * Horde backend.
+ *
+ * Provides the communication between horde data and ActiveSync server.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Core

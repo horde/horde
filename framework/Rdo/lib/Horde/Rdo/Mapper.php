@@ -1,14 +1,14 @@
 <?php
 /**
- * Rdo Mapper base class.
- *
  * @category Horde
  * @package  Rdo
  */
 
 /**
- * Rdo Mapper class. Controls mapping of entity obects (instances of
- * Horde_Rdo_Base) from and to Horde_Db_Adapters.
+ * Rdo Mapper class.
+ *
+ * Controls mapping of entity obects (instances of Horde_Rdo_Base) from and to
+ * Horde_Db_Adapters.
  *
  * Public properties:
  *   $adapter - Horde_Db_Adapter that stores this Mapper's objects.

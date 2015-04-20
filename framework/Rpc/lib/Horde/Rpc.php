@@ -1,7 +1,17 @@
 <?php
 /**
- * The Horde_Rpc:: class provides a set of server and client methods for
- * RPC communication.
+ * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Rpc
+ */
+
+/**
+ * The Horde_Rpc class provides a set of server and client methods for RPC
+ * communication.
  *
  * TODO:
  * - Introspection documentation and method signatures.
@@ -15,11 +25,6 @@
  *                                array(array('jan'), array('localsql'),
  *                                      array('name', 'email')));
  * </code>
- *
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Rpc

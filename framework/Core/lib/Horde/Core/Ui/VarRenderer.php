@@ -1,12 +1,19 @@
 <?php
 /**
- * The Horde_Core_Ui_VarRenderer:: class provides base functionality for
- * other Horde UI elements.
- *
  * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Core
+ */
+
+/**
+ * The Horde_Core_Ui_VarRenderer:: class provides base functionality for other
+ * Horde UI elements.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @category Horde

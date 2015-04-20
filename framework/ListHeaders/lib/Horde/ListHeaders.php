@@ -1,7 +1,5 @@
 <?php
 /**
- * Class to parse List Header fields (RFC 2369/2919).
- *
  * Copyright 2012-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
