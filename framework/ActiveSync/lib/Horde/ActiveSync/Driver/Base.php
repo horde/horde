@@ -128,7 +128,7 @@ abstract class Horde_ActiveSync_Driver_Base
             $this->_logger = $params['logger'];
             unset($params['logger']);
         } else {
-            $this->_logger = new Horde_Support_Stub;
+            $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         $this->_state = $params['state'];

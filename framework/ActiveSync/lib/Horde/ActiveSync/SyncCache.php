@@ -104,7 +104,7 @@ class Horde_ActiveSync_SyncCache
         Horde_ActiveSync_State_Base $state,
         $devid,
         $user,
-        Horde_Log_Logger $logger = null)
+        $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;
@@ -114,7 +114,7 @@ class Horde_ActiveSync_SyncCache
         $this->_procid = getmypid();
 
         $this->_logger = empty($logger)
-            ? new Horde_Support_Stub()
+            ? new Horde_Log_Logger(new Horde_Log_Handler_Null())
             : $logger;
 
         $this->_logger->info(sprintf(

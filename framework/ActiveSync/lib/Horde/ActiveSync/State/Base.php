@@ -135,7 +135,7 @@ abstract class Horde_ActiveSync_State_Base
     {
         $this->_params = $params;
         if (empty($params['logger'])) {
-            $this->_logger = new Horde_Support_Stub();
+            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
         } else {
             $this->_logger = $params['logger'];
         }
