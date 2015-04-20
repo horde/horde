@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix issues with certain locales like Turkish.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2695,7 +2695,7 @@
    <date>2015-04-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix issues with certain locales like Turkish.
    </notes>
   </release>
  </changelog>

@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [mms] Pipeline ID command with other commands, if possible.
  </notes>
  <contents>
@@ -2858,6 +2859,7 @@
    <date>2015-03-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [mms] Pipeline ID command with other commands, if possible.
    </notes>
   </release>

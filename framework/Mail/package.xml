@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [mms] Add support for outputting comment information when writing an address.
  </notes>
  <contents>
@@ -696,6 +697,7 @@
    <date>2015-01-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [mms] Add support for outputting comment information when writing an address.
    </notes>
   </release>

@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Upgrade prototype.js to version 1.7.2.
 * [jan] Fix editing existing LDAP timeout configuration (Bug #13949).
 * [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).
@@ -3872,6 +3873,7 @@
    <date>2015-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Upgrade prototype.js to version 1.7.2.
 * [jan] Fix editing existing LDAP timeout configuration (Bug #13949).
 * [mms] Fix regression in removing CBC cipher mode when encrypting data within a session (Bug #13869).

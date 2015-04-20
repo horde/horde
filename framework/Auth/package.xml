@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix issues with certain locales like Turkish.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1018,7 +1018,7 @@
    <date>2015-04-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix issues with certain locales like Turkish.
    </notes>
   </release>
  </changelog>

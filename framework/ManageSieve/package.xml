@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD</license>
  <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * Initial release.
  </notes>
  <contents>
@@ -125,6 +126,7 @@
    <date>2015-01-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * Initial release.
    </notes>
   </release>
