@@ -170,7 +170,7 @@ extends Horde_Pgp_Element
             return $this->_cache['getEncryptPackets'];
         }
 
-        $fallback = $topkey = null;
+        $fallback = $p = $topkey = null;
         $out = array();
         $sub = false;
 
@@ -231,6 +231,14 @@ extends Horde_Pgp_Element
                         $sub = true;
                     }
                     break;
+
+                case 0x20:
+                    if ($this->_verifyKeyData($topkey, false, $val)) {
+                        $out = array();
+                        $fallback = null;
+                        break 2;
+                    }
+                    break;
                 }
             }
         }
@@ -262,19 +270,23 @@ extends Horde_Pgp_Element
      */
     protected function _verifyKeyData($topkey, $data, $sig)
     {
-        if (!$topkey || !$data) {
+        if (is_null($topkey) || is_null($data)) {
             return false;
         }
 
         $pgp = new Horde_Pgp_Backend_Openpgp();
         $v = $pgp->verify(
             new Horde_Pgp_Element_Message(
-                new OpenPGP_Message(array($topkey, $data, $sig))
+                new OpenPGP_Message(
+                    ($data === false)
+                        ? array($topkey, $sig)
+                        : array($topkey, $data, $sig)
+                )
             ),
             $this
         );
 
-        return isset($v[0][2][0]);
+        return isset($v[0][($data === false) ? 1 : 2][0]);
     }
 
 }
