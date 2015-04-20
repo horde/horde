@@ -352,6 +352,10 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
             array(
                 $this->_getKey('pgp_public_revoked.txt', 'public'),
                 0
+            ),
+            array(
+                $this->_getKey('pgp_public_revokedsub.txt', 'public'),
+                0
             )
         );
     }

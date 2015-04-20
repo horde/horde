@@ -198,7 +198,8 @@ extends Horde_Pgp_Element
                 case 0x12:
                 case 0x18:
                     /* Verify first. */
-                    if (($topkey !== $p) &&
+                    if (!$p ||
+                        ($topkey !== $p) &&
                         !$this->_verifyKeyData($topkey, $p, $val)) {
                         continue;
                     }
@@ -233,10 +234,18 @@ extends Horde_Pgp_Element
                     break;
 
                 case 0x20:
+                    /* Key revocation. */
                     if ($this->_verifyKeyData($topkey, false, $val)) {
                         $out = array();
                         $fallback = null;
                         break 2;
+                    }
+                    break;
+
+                case 0x28:
+                    /* Subkey revocation. */
+                    if ($this->_verifyKeyData($topkey, $p, $val)) {
+                        $p = null;
                     }
                     break;
                 }
