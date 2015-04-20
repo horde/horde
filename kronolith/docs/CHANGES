@@ -2,6 +2,7 @@
 v4.2.6-git
 ----------
 
+[jan] Fix building recipient list for event update notifications.
 [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
 [jan] Always sort users in advanced sharing dialog (Bug #13938).
 [mjr] Fix saving recurring event after a change in resources (Bug #13921).

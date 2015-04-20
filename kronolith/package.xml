@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix building recipient list for event update notifications.
 * [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
 * [jan] Always sort users in advanced sharing dialog (Bug #13938).
 * [mjr] Fix saving recurring event after a change in resources (Bug #13921).
@@ -2535,6 +2536,7 @@
    <date>2015-03-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix building recipient list for event update notifications.
 * [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
 * [jan] Always sort users in advanced sharing dialog (Bug #13938).
 * [mjr] Fix saving recurring event after a change in resources (Bug #13921).
