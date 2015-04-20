@@ -68,7 +68,7 @@ class Kronolith_CalendarsManager
      *
      * @var array
      */
-    protected $_displayResource;
+    protected $_displayResource = array();
 
     /**
      * Lazy loaded list of all resource calendars.
