@@ -59,7 +59,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
     const MAX_HEARTBEAT      = 3540;
 
     /**
-     * Collection of all collection arrays for the current SYNC request.
+     * Collections manager.
      *
      * @var Horde_ActiveSync_Collections
      */
