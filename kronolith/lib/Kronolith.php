@@ -2090,7 +2090,7 @@ class Kronolith
             ->create($event->creator ?: $owner);
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
-            if (!isset($recipients[$user])) {
+            if (empty($recipients[$user])) {
                 $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
             }
         }
@@ -2104,7 +2104,7 @@ class Kronolith
             }
 
             foreach ($group_users as $user) {
-                if (!isset($recipients[$user])) {
+                if (empty($recipients[$user])) {
                     $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
                 }
             }
