@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Prevent malformed urls from leaking exceptions (Bug #13965).
 * [jan] Fix issues with certain locales like Turkish.
  </notes>
  <contents>
@@ -1054,6 +1055,7 @@ Initial release as a PEAR package
    <date>2015-04-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Prevent malformed urls from leaking exceptions (Bug #13965).
 * [jan] Fix issues with certain locales like Turkish.
    </notes>
   </release>
