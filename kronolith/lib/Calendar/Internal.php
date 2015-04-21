@@ -138,7 +138,8 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
      */
     public function isSystem()
     {
-        return empty($this->owner()) && ($this->_share->get('type') == Kronolith::SHARE_TYPE_USER);
+        $owner = $this->owner();
+        return empty($owner) && ($this->_share->get('type') == Kronolith::SHARE_TYPE_USER);
     }
 
     /**
