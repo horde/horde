@@ -33,7 +33,7 @@ extends Horde_Pgp_Element
      *
      * @var array
      */
-    protected $_cache = array();
+    protected $_cache;
 
     /**
      */
@@ -41,12 +41,10 @@ extends Horde_Pgp_Element
     {
         switch ($name) {
         case 'base':
-            foreach ($this->message as $val) {
-                if ($val instanceof OpenPGP_PublicKeyPacket) {
-                    return $val;
-                }
-            }
-            break;
+            $this->_parse();
+            return isset($this->_cache['topkey'])
+                ? $this->_cache['topkey']
+                : null;
 
         case 'creation':
         case 'fingerprint':
@@ -56,7 +54,9 @@ extends Horde_Pgp_Element
                 'fingerprint' => 'fingerprint',
                 'id' => 'key_id'
             );
-            return $this->base->{$mapping[$name]};
+            return ($base = $this->base)
+                ? $base->{$mapping[$name]}
+                : null;
         }
     }
 
@@ -69,10 +69,13 @@ extends Horde_Pgp_Element
     {
         $out = array();
 
-        foreach ($this->message as $val) {
-            if ($val instanceof OpenPGP_PublicKeyPacket) {
-                $out[$val->key_id] = $val->fingerprint;
-            }
+        $e = array_filter(array($this->base));
+        foreach ($this->getEncryptPackets() as $val) {
+            $e[] = $val->key;
+        }
+
+        foreach ($e as $val) {
+            $out[$val->key_id] = $val->fingerprint;
         }
 
         return $out;
@@ -89,58 +92,9 @@ extends Horde_Pgp_Element
      */
     public function getUserIds()
     {
-        if (isset($this->_cache['getUserIds'])) {
-            return $this->_cache['getUserIds'];
-        }
+        $this->_parse();
 
-        $out = array();
-        $topkey = $userid = $userid_p = null;
-
-        foreach ($this->message as $val) {
-            if ($val instanceof OpenPGP_PublicKeyPacket) {
-                $topkey = $val;
-            } elseif ($val instanceof OpenPGP_UserIDPacket) {
-                if ($userid && isset($userid->key)) {
-                    $out[] = $userid;
-                }
-
-                $userid = new stdClass;
-                $userid->email = new Horde_Mail_Rfc822_Address($val->email);
-                $userid->email->personal = $val->name;
-                $userid->comment = $val->comment;
-
-                $userid_p = $val;
-            } elseif ($val instanceof OpenPGP_SignaturePacket) {
-                /* Signature types: RFC 4880 [5.2.1] */
-                switch ($val->signature_type) {
-                case 0x10:
-                case 0x11:
-                case 0x12:
-                case 0x13:
-                    /* Certification of User ID. */
-                    if ($this->_verifyKeyData($topkey, $userid_p, $val)) {
-                        $userid->key = $topkey;
-                        $userid->sig = $val;
-                    }
-                    break;
-
-                case 0x30:
-                    /* Revocation of User ID. */
-                    if ($this->_verifyKeyData($topkey, $userid_p, $val)) {
-                        $userid = $userid_p = null;
-                    }
-                    break;
-                }
-            }
-        }
-
-        if ($userid && isset($userid->key)) {
-            $out[] = $userid;
-        }
-
-        $this->_cache['getUserIds'] = $out;
-
-        return $out;
+        return $this->_cache['userid'];
     }
 
     /**
@@ -166,12 +120,35 @@ extends Horde_Pgp_Element
      */
     public function getEncryptPackets()
     {
-        if (isset($this->_cache['getEncryptPackets'])) {
-            return $this->_cache['getEncryptPackets'];
+        $this->_parse();
+
+        return $this->_cache['encrypt'];
+    }
+
+    /**
+     * Return the public key.
+     *
+     * @return Horde_Pgp_Element_PublicKey  Public key.
+     */
+    abstract public function getPublicKey();
+
+    /**
+     * Parse the message data, verifying the key contents.
+     */
+    protected function _parse()
+    {
+        if (isset($this->_cache)) {
+            return;
         }
 
-        $fallback = $p = $topkey = null;
-        $out = array();
+        $this->_cache = array(
+            'encrypt' => array(),
+            'userid' => array()
+        );
+
+        $fallback = $p = $topkey = $userid = $userid_p = null;
+        $pgp = new Horde_Pgp_Backend_Openpgp();
+        $self = $this;
         $sub = false;
 
         $create_out = function ($p, $s) {
@@ -181,26 +158,68 @@ extends Horde_Pgp_Element
             return $out;
         };
 
+        $verify_func = function ($topkey, $data, $sig) use ($pgp, $self) {
+            if (is_null($topkey) || is_null($data)) {
+                return false;
+            }
+
+            $v = $pgp->verify(
+                new Horde_Pgp_Element_Message(
+                    new OpenPGP_Message(
+                        ($data === false)
+                            ? array($topkey, $sig)
+                            : array($topkey, $data, $sig)
+                    )
+                ),
+                $this
+            );
+
+            return isset($v[0][($data === false) ? 1 : 2][0]);
+        };
+
         /* Search for the key flag indicating that a key may be used to
          * encrypt communications (RFC 4880 [5.2.3.21]). In the absence
          * of finding this flag (i.e. v3 packets), use the first subkey and,
          * in the absence of that, use the main key. */
+
         foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
                 if (is_null($topkey)) {
                     $topkey = $val;
                 }
                 $p = $val;
+            } elseif ($val instanceof OpenPGP_UserIDPacket) {
+                if ($userid && isset($userid->key)) {
+                    $this->_cache['userid'][] = $userid;
+                }
+
+                $userid = new stdClass;
+                $userid->email = new Horde_Mail_Rfc822_Address($val->email);
+                $userid->email->personal = $val->name;
+                $userid->comment = $val->comment;
+
+                $userid_p = $val;
             } elseif ($val instanceof OpenPGP_SignaturePacket) {
+                /* Signature types: RFC 4880 [5.2.1] */
                 switch ($val->signature_type) {
                 case 0x10:
                 case 0x11:
                 case 0x12:
+                case 0x13:
+                    /* Certification of User ID. */
+                    if ($topkey &&
+                        $userid_p &&
+                        $verify_func($topkey, $userid_p, $val)) {
+                        $userid->key = $topkey;
+                        $userid->sig = $val;
+                    }
+                    break;
+
                 case 0x18:
                     /* Verify first. */
                     if (!$p ||
-                        ($topkey !== $p) &&
-                        !$this->_verifyKeyData($topkey, $p, $val)) {
+                        (($topkey !== $p) &&
+                         !$verify_func($topkey, $p, $val))) {
                         continue;
                     }
 
@@ -211,7 +230,7 @@ extends Horde_Pgp_Element
                             if ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
                                 foreach ($val2->flags as $val3) {
                                     if ($val3 & 0x04) {
-                                        $out[] = $create_out($p, $val);
+                                        $this->_cache['encrypt'][] = $create_out($p, $val);
                                         continue 3;
                                     }
                                 }
@@ -235,67 +254,41 @@ extends Horde_Pgp_Element
 
                 case 0x20:
                     /* Key revocation. */
-                    if ($this->_verifyKeyData($topkey, false, $val)) {
-                        $out = array();
-                        $fallback = null;
-                        break 2;
+                    if ($verify_func($topkey, false, $val)) {
+                        $this->_cache = array(
+                            'encrypt' => array(),
+                            'userid' => array()
+                        );
+                        return;
                     }
                     break;
 
                 case 0x28:
                     /* Subkey revocation. */
-                    if ($this->_verifyKeyData($topkey, $p, $val)) {
+                    if ($verify_func($topkey, $p, $val)) {
                         $p = null;
+                    }
+                    break;
+
+                case 0x30:
+                    /* Revocation of User ID. */
+                    if ($verify_func($topkey, $userid_p, $val)) {
+                        $userid = $userid_p = null;
                     }
                     break;
                 }
             }
         }
 
-        $out = (empty($out) && $fallback)
-            ? array($fallback)
-            : $out;
-
-        $this->_cache['getEncryptPackets'] = $out;
-
-        return $out;
-    }
-
-    /**
-     * Return the public key.
-     *
-     * @return Horde_Pgp_Element_PublicKey  Public key.
-     */
-    abstract public function getPublicKey();
-
-    /**
-     * Verify key data.
-     *
-     * @param OpenPGP_PublicKeyPacket $topkey  Top key packet.
-     * @param OpenPGP_Packet                   Data to verify.
-     * @param OpenPGP_SignaturePacket          Signature data.
-     *
-     * @return boolean  True if verified.
-     */
-    protected function _verifyKeyData($topkey, $data, $sig)
-    {
-        if (is_null($topkey) || is_null($data)) {
-            return false;
+        if ($userid && isset($userid->key)) {
+            $this->_cache['userid'][] = $userid;
         }
 
-        $pgp = new Horde_Pgp_Backend_Openpgp();
-        $v = $pgp->verify(
-            new Horde_Pgp_Element_Message(
-                new OpenPGP_Message(
-                    ($data === false)
-                        ? array($topkey, $sig)
-                        : array($topkey, $data, $sig)
-                )
-            ),
-            $this
-        );
+        if (empty($this->cache['encrypt']) && $fallback) {
+            $this->_cache['encrypt'][] = $fallback;
+        }
 
-        return isset($v[0][($data === false) ? 1 : 2][0]);
+        $this->_cache['topkey'] = $topkey;
     }
 
 }
