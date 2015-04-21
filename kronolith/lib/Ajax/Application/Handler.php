@@ -1054,7 +1054,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 }
                 $resource = Kronolith_Resource::addResource($info);
                 Kronolith::readPermsForm($resource);
-                $resoruce->save();
+                $resource->save();
             } else {
                 try {
                     $rdriver = Kronolith::getDriver('Resource');
