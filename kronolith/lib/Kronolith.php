@@ -1322,8 +1322,7 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
-        $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-
+        $calendar->set('owner', ($info['system'] == 0) ? $GLOBALS['registry']->getAuth() : null);
         try {
             $calendar->save();
         } catch (Horde_Share_Exception $e) {

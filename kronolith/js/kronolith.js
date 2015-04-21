@@ -944,6 +944,12 @@ KronolithCore = {
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
+
+        // System calendars are still internal for purposes of the backend.
+        if (type == 'system') {
+            type = 'internal';
+        }
+
         noItems = div.previous();
         if (noItems &&
             noItems.tagName == 'DIV' &&
@@ -1005,7 +1011,7 @@ KronolithCore = {
             extContainer = $('kronolithExternalCalendars');
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
-            this.insertCalendarInList('internal', cal.key, cal.value);
+            this.insertCalendarInList(cal.value.system ? 'system' : 'internal', cal.key, cal.value);
         }, this);
 
         if (Kronolith.conf.tasks) {
@@ -1073,6 +1079,8 @@ KronolithCore = {
     getCalendarList: function(type, personal)
     {
         switch (type) {
+        case 'system':
+            return $('kronolithSystemCalendars');
         case 'internal':
             return personal
                 ? $('kronolithMyCalendars')
@@ -3223,10 +3231,12 @@ KronolithCore = {
         if (newCalendar || info.owner) {
             if (info.system) {
                 $('kronolithPOwnerInput').hide();
+                $('kronolithCalendarSystem').setValue(1);
                 $('kronolithSystemOwner').show();
             } else {
                 $('kronolithPOwnerInput').show();
                 $('kronolithSystemOwner').hide();
+                $('kronolithCalendarSystem').setValue(0);
             }
             if (type == 'internal' || type == 'tasklists' || type == 'resource') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
@@ -3744,8 +3754,15 @@ KronolithCore = {
         if (this.colorPicker) {
             this.colorPicker.hide();
         }
+
         var data = form.serialize({ hash: true });
 
+        // Ensure we keep null owner for system calendars. Do this here instead
+        // of in the editCalendarCallback so we don't wipe out the default
+        // value for other calendars.
+        if (data.system == 1) {
+            data.owner_input = null;
+        }
         if (data.type == 'holiday') {
             this.insertCalendarInList('holiday', data.driver, Kronolith.conf.calendars.holiday[data.driver]);
             this.toggleCalendar('holiday', data.driver);

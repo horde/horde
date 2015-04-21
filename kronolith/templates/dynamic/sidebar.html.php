@@ -54,6 +54,18 @@
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
+          <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("System Calendars") ?></span>
+        </h3>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithSystemCalendars" class="horde-resources"></div>
+        </div>
+      </div>
+
+      <div class="horde-sidebar-split"></div>
+      <div>
+        <h3>
           <!-- to be added when searching for shared calendars is implemented <a href="#" id="kronolithAddinternalshared" class="horde-add">+</a>-->
           <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("Shared Calendars") ?></span>
         </h3>
