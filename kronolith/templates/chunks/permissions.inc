@@ -54,21 +54,21 @@
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
-          <th colspan="2"><?php echo $type == 'internal' ? _("Calendar owner") : ($type == 'tasklists' ? _("Task list owner") : '') ?></th>
+          <th colspan="2"><?php echo $type == 'internal' ? _("Calendar owner") . '<span style="display:none" id="kronolithSystemOwner"> ' . _("System Owned") . '</div>' : ($type == 'tasklists' ? _("Task list owner") : '') ?></th>
         </tr>
       </thead>
       <tbody>
         <tr>
          <td>
 <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
-          <select name="owner_select">
+          <select id="kronolithPOwnerInput" name="owner_select">
            <option value=""><?php echo _("Select a new owner:") ?></option>
 <?php foreach ($auth->listUsers(true) as $user): ?>
            <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
 <?php endforeach; ?>
           </select>
 <?php else: ?>
-          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars($GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) ?>" class="kronolithLongField" />
+          <input type="text" id="kronolithPOwnerInput" name="owner_input" size="50" value="<?php echo htmlspecialchars($GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) ?>" class="kronolithLongField" />
 <?php endif; ?>
           </td>
         </tr>

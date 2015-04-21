@@ -141,13 +141,15 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         global $calendar_manager, $conf, $injector, $registry;
 
         $id = $this->_share->getName();
+        $is_system = empty($this->owner()) && $this->_share->get('type') == Kronolith::SHARE_TYPE_USER;
         $owner = $registry->getAuth() &&
             ($this->owner() == $registry->getAuth() ||
-             empty($this->owner) && $registry->isAdmin() && $this->_share->get('type') == Kronolith::SHARE_TYPE_USER);
+             $is_system && $registry->isAdmin());
 
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
+        $hash['system'] = $is_system;
         $hash['users'] = Kronolith::listShareUsers($this->_share);
         $hash['show']  = in_array(
             $id,
