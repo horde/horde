@@ -137,7 +137,7 @@ abstract class Horde_Tree_Renderer_Base
      *
      * @return string  The tree rendering.
      */
-    protected function _buildTree($id)
+    protected function _buildTree($node_id, $special=null)
     {
         return '';
     }
