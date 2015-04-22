@@ -223,6 +223,10 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
+            if ($GLOBALS['registry']->isAdmin() &&
+                empty($calendar->get('owner'))) {
+                continue;
+            }
             $row = array(
                 'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', $id),
@@ -240,6 +244,9 @@ class Kronolith_Application extends Horde_Registry_Application
 
         if ($GLOBALS['registry']->isAdmin()) {
             foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
+                if ($calendar->get('type') != Kronolith::SHARE_TYPE_USER) {
+                    continue;
+                }
                 $row = array(
                     'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
                     'url' => $url->copy()->add('toggle_calendar', $id),
