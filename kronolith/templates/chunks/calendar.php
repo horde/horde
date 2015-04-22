@@ -57,6 +57,7 @@ try {
 <input type="hidden" name="import_step" value="1" />
 <input type="hidden" name="import_format" value="icalendar" />
 <input type="hidden" name="import_ajax" value="1" />
+<input type="hidden" name="system" id="kronolithCalendarSystem" value="0" />
 <?php Horde_Util::pformInput() ?>
 <?php endif; ?>
 

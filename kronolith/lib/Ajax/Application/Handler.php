@@ -889,7 +889,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         switch ($this->vars->type) {
         case 'internal':
             $info = array();
-            foreach (array('name', 'color', 'description', 'tags') as $key) {
+            foreach (array('name', 'color', 'description', 'tags', 'system') as $key) {
                 $info[$key] = $this->vars->$key;
             }
 
@@ -923,7 +923,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $original_owner = $calendar->get('owner');
                 Kronolith::updateShare($calendar, $info);
                 Kronolith::readPermsForm($calendar);
-                if ($calendar->get('owner') != $original_owner) {
+                if (!$info['system'] && $calendar->get('owner') != $original_owner) {
                     $result->deleted = true;
                 }
                 if ($calendar->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
@@ -1054,7 +1054,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 }
                 $resource = Kronolith_Resource::addResource($info);
                 Kronolith::readPermsForm($resource);
-                $resoruce->save();
+                $resource->save();
             } else {
                 try {
                     $rdriver = Kronolith::getDriver('Resource');

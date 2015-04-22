@@ -132,6 +132,17 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
     }
 
     /**
+     * Returns if this is a system calendar.
+     *
+     * @return boolean  True if system calendar, otherwise false.
+     */
+    public function isSystem()
+    {
+        $owner = $this->owner();
+        return empty($owner) && ($this->_share->get('type') == Kronolith::SHARE_TYPE_USER);
+    }
+
+    /**
      * Returns a hash representing this calendar.
      *
      * @return array  A simple hash.
@@ -142,11 +153,13 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
 
         $id = $this->_share->getName();
         $owner = $registry->getAuth() &&
-            $this->owner() == $registry->getAuth();
+            ($this->owner() == $registry->getAuth() ||
+             $this->isSystem() && $registry->isAdmin());
 
         $hash = parent::toHash();
         $hash['name']  = $this->name();
         $hash['owner'] = $owner;
+        $hash['system'] = $this->isSystem();
         $hash['users'] = Kronolith::listShareUsers($this->_share);
         $hash['show']  = in_array(
             $id,

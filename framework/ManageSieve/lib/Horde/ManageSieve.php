@@ -527,7 +527,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $extension = trim(Horde_String::upper($extension));
+        $extension = trim(\Horde_String::upper($extension));
         if (is_array($this->_capability['extensions'])) {
             foreach ($this->_capability['extensions'] as $ext) {
                 if ($ext == $extension) {
@@ -563,7 +563,7 @@ class ManageSieve
     {
         $this->_checkConnected();
 
-        $method = trim(Horde_String::upper($method));
+        $method = trim(\Horde_String::upper($method));
         if (is_array($this->_capability['sasl'])) {
             foreach ($this->_capability['sasl'] as $sasl) {
                 if ($sasl == $method) {
@@ -705,7 +705,7 @@ class ManageSieve
 
         $this->_sendStringResponse(base64_encode($response));
         $this->_doCmd('', true);
-        if (Horde_String::upper(substr($result, 0, 2)) == 'OK') {
+        if (\Horde_String::upper(substr($result, 0, 2)) == 'OK') {
             return;
         }
 
@@ -872,7 +872,7 @@ class ManageSieve
 
         $data = preg_split(
             '/\r?\n/',
-            Horde_String::upper($data),
+            \Horde_String::upper($data),
             -1,
             PREG_SPLIT_NO_EMPTY
         );
@@ -993,7 +993,7 @@ class ManageSieve
                             );
                     }
 
-                    if ('OK' == Horde_String::upper($tag[1])) {
+                    if ('OK' == \Horde_String::upper($tag[1])) {
                         $response .= $line;
                         return rtrim($response);
                     }

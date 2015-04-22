@@ -158,7 +158,8 @@ END_OF_REGEX;
                     strlen($host)
                 );
             }
-        } catch (Horde_Idna_Exception $e) {}
+        } catch (Horde_Idna_Exception $e) {
+        } catch (InvalidArgumentException $e) {}
 
         $replacement = '<a href="' . $href . '"' .
             ($this->_params['nofollow'] ? ' rel="nofollow"' : '') .
@@ -205,6 +206,7 @@ END_OF_REGEX;
      * @param  string $url  The url to parse.
      *
      * @return mixed        The parsed url.
+     * @throws InvalidArgumentException
      */
     protected function _parseurl($url)
     {
