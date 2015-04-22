@@ -1011,12 +1011,18 @@ class Kronolith
         $kronolith_shares = $GLOBALS['injector']->getInstance('Kronolith_Shares');
 
         if ($owneronly || empty($GLOBALS['conf']['share']['hidden'])) {
+            $attributes = array('type' => Kronolith::SHARE_TYPE_USER);
+            if ($owneronly) {
+                $attributes['owner'] = $user;
+            }
             try {
                 $calendars = $kronolith_shares->listShares(
                     $user,
                     array('perm' => $permission,
-                          'attributes' => $owneronly ? $user : null,
-                          'sort_by' => 'name'));
+                          'attributes' => $attributes,
+                          'sort_by' => 'name'
+                    )
+                );
             } catch (Horde_Share_Exception $e) {
                 Horde::log($e);
                 return array();
@@ -1026,7 +1032,10 @@ class Kronolith
                 $calendars = $kronolith_shares->listShares(
                     $GLOBALS['registry']->getAuth(),
                     array('perm' => $permission,
-                          'attributes' => $user,
+                          'attributes' => array(
+                              'owner' => $user,
+                              'type' => Kronolith::SHARE_TYPE_USER
+                          ),
                           'sort_by' => 'name'));
             } catch (Horde_Share_Exception $e) {
                 Horde::log($e);
