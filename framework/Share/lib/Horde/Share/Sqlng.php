@@ -140,6 +140,31 @@ class Horde_Share_Sqlng extends Horde_Share_Sql
     }
 
     /**
+     * Returns an array of all system shares.
+     *
+     * @return array  All system shares.
+     * @throws Horde_Share_Exception
+     */
+    public function listSystemShares()
+    {
+        $query = 'SELECT * FROM ' . $this->_table . ' WHERE share_owner IS NULL';
+        try {
+            $rows = $this->_db->selectAll($query);
+        } catch (Horde_Db_Exception $e) {
+            throw new Horde_Share_Exception($e->getMessage());
+        }
+
+        $sharelist = array();
+        foreach ($rows as $share) {
+            $data = $this->_fromDriverCharset($share);
+            $this->_loadPermissions($data);
+            $sharelist[$data['share_name']] = $this->_createObject($data);
+        }
+
+        return $sharelist;
+    }
+
+    /**
      * Returns the count of all shares that $userid has access to.
      *
      * @param string  $userid      The userid of the user to check access for.

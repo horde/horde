@@ -34,7 +34,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix returning user and group permissions for system shares using the SQLNG driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1001,7 +1001,7 @@ Initial release as a PEAR package
    <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix returning user and group permissions for system shares using the SQLNG driver.
    </notes>
   </release>
  </changelog>
