@@ -20,23 +20,94 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Tree_Jquerymobile extends Horde_Tree_Renderer_Jquerymobile
+class IMP_Tree_Jquerymobile extends Horde_Tree_Renderer_Base
 {
     /**
+     * Special mailbox flag.
+     *
+     * @var boolean
      */
-    protected function _buildTree($node_id, $special)
+    protected $_isSpecial = false;
+
+    /**
+     */
+    public function getTree($static = false)
     {
-        $node = &$this->_nodes[$node_id];
+        $this->_nodes = $this->_tree->getNodes();
+
+        $tree = '';
+        foreach (array(true, false) as $special) {
+            $this->_isSpecial = $special;
+            foreach ($this->_tree->getRootNodes() as $node_id) {
+                $tree .= $this->_buildTree($node_id);
+            }
+        }
+
+        return $tree;
+    }
+
+    /**
+     */
+    protected function _buildTree($node_id)
+    {
+        $node = $this->_nodes[$node_id];
         $output = '';
 
-        if (empty($node['container'])) {
-            $output = parent::_buildTree($node_id, $special);
-        } elseif (!empty($node['children'])) {
+        if (empty($node['container']) &&
+            ($node['special'] == $this->_isSpecial)) {
+            $output = $this->_buildTreeNode($node);
+        }
+
+        if (!empty($node['children'])) {
             foreach ($node['children'] as $val) {
-                $output .= $this->_buildTree($val, $special);
+                $output .= $this->_buildTree($val);
             }
         }
 
         return $output;
     }
+
+    /**
+     */
+    protected function _buildTreeNode($node)
+    {
+        $output = '<li' .
+            (isset($node['class']) ? (' class="' . $node['class'] . '"') : '') .
+            '>';
+
+        if (isset($this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_LEFT])) {
+            $output .= implode(
+                ' ',
+                $this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_LEFT]
+            );
+        }
+
+        if (!empty($node['url'])) {
+            $output .= '<a href="' . strval($node['url']) . '"';
+            if (isset($node['urlattributes'])) {
+                foreach ($node['urlattributes'] as $key => $val) {
+                    $output .= ' ' . $key . '="' . htmlspecialchars($val) . '"';
+                }
+            }
+            $output .= '>';
+        }
+
+        if (!empty($node['icon'])) {
+            $output .= '<img src="' . $node['icon'] . '" class="ui-li-icon" />';
+        }
+
+        $output .= $node['label'];
+        if (!empty($node['url'])) {
+            $output .= '</a>';
+        }
+
+        if (isset($this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_RIGHT])) {
+            $output .= '<span class="ui-li-count">' .
+                implode(' ', $this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_RIGHT]) .
+                '</span>';
+        }
+
+        return $output . '</li>';
+    }
+
 }
