@@ -87,10 +87,10 @@ $hide_img = Horde::img('minus.png', _("Hide"), 'style="display:none"');
                    htmlspecialchars($delegate_id), $sel, $cal_name) . "\n";
         }
     }
-    if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
+    if (count($resources = $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS))) {
         // We are editing/viewing resource calendars
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $cal) {
-            $rd = Kronolith::getDriver('Resource');
+        $rd = Kronolith::getDriver('Resource');
+        foreach ($resources as $cal) {
             try {
                 $rc = $rd->getResource($rd->getResourceIdByCalendar($cal));
                 printf('<option value="%s">%s (%s)</option>',
