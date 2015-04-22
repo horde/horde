@@ -223,8 +223,8 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
-            if ($GLOBALS['registry']->isAdmin() &&
-                empty($calendar->get('owner'))) {
+            $owner = $calendar->get('owner');
+            if ($GLOBALS['registry']->isAdmin() && empty($owner)) {
                 continue;
             }
             $row = array(
