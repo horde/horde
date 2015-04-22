@@ -1080,7 +1080,9 @@ KronolithCore = {
     {
         switch (type) {
         case 'system':
-            return $('kronolithSystemCalendars');
+            return $('kronolithSystemCalendars')
+                ? $('kronolithSystemCalendars')
+                : $('kronolithSharedCalendars');
         case 'internal':
             return personal
                 ? $('kronolithMyCalendars')

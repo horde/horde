@@ -51,6 +51,7 @@
       </div>
       <?php endif; ?>
 
+      <?php if ($this->admin): ?>
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>
@@ -62,6 +63,7 @@
           <div id="kronolithSystemCalendars" class="horde-resources"></div>
         </div>
       </div>
+      <?php endif ?>
 
       <div class="horde-sidebar-split"></div>
       <div>
