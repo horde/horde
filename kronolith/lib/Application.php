@@ -158,14 +158,18 @@ class Kronolith_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-        $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+        global $calendar_manager, $conf, $injector, $prefs, $registry, $session;
+
+        $admin = $registry->isAdmin();
+        $perms = $injector->getInstance('Horde_Core_Perms');
+
         if (Kronolith::getDefaultCalendar(Horde_Perms::EDIT) &&
             ($perms->hasAppPermission('max_events') === true ||
              $perms->hasAppPermission('max_events') > Kronolith::countEvents())) {
             $sidebar->addNewButton(_("_New Event"), Horde::url('new.php')->add('url', Horde::selfUrl(true, false, true)));
         }
 
-        if (strlen($GLOBALS['session']->get('kronolith', 'display_cal'))) {
+        if (strlen($session->get('kronolith', 'display_cal'))) {
             $calendars = Kronolith::displayedCalendars();
             $sidebar->containers['calendars'] = array(
                 'header' => array(
@@ -185,7 +189,7 @@ class Kronolith_Application extends Horde_Registry_Application
             return;
         }
 
-        $user = $GLOBALS['registry']->getAuth();
+        $user = $registry->getAuth();
         $url = Horde::selfUrl();
         $edit = Horde::url('calendars/edit.php');
 
@@ -196,13 +200,13 @@ class Kronolith_Application extends Horde_Registry_Application
                 'collapsed' => false,
             ),
         );
-        if (!$GLOBALS['prefs']->isLocked('default_share')) {
+        if (!$prefs->isLocked('default_share')) {
             $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('calendars/create.php'),
                 'label' => _("Create a new Local Calendar"),
             );
         }
-        if ($GLOBALS['registry']->isAdmin()) {
+        if ($admin) {
             $sidebar->containers['system'] = array(
                 'header' => array(
                     'id' => 'kronolith-toggle-system',
@@ -224,11 +228,11 @@ class Kronolith_Application extends Horde_Registry_Application
         );
         foreach (Kronolith::listInternalCalendars() as $id => $calendar) {
             $owner = $calendar->get('owner');
-            if ($GLOBALS['registry']->isAdmin() && empty($owner)) {
+            if ($admin && empty($owner)) {
                 continue;
             }
             $row = array(
-                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
+                'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', $id),
                 'label' => Kronolith::getLabel($calendar),
                 'color' => Kronolith::backgroundColor($calendar),
@@ -242,10 +246,10 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         }
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            foreach ($GLOBALS['injector']->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
+        if ($admin) {
+            foreach ($injector->getInstance('Kronolith_Shares')->listSystemShares() as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_CALENDARS)),
+                    'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)),
                     'url' => $url->copy()->add('toggle_calendar', $id),
                     'label' => $calendar->get('name'),
                     'color' => Kronolith::backgroundColor($calendar),
@@ -255,8 +259,8 @@ class Kronolith_Application extends Horde_Registry_Application
                 $sidebar->addRow($row, 'system');
             }
         }
-        if (!empty($GLOBALS['conf']['resources']['enabled']) &&
-            ($GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management'))) {
+        if (!empty($conf['resources']['enabled']) &&
+            ($admin || $perms->hasAppPermission('resource_management'))) {
 
             $sidebar->containers['groups'] = array(
                 'header' => array(
@@ -296,7 +300,7 @@ class Kronolith_Application extends Horde_Registry_Application
                         'resource' => $resource
                     ));
                     $row = array(
-                        'selected' => in_array($resource->get('calendar'), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
+                        'selected' => in_array($resource->get('calendar'), $calendar_manager->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)),
                         'url' => $url->copy()->add('toggle_calendar', 'resource_' . $resource->get('calendar')),
                         'label' => $calendar->name(),
                         'color' => $calendar->background(),
@@ -308,13 +312,13 @@ class Kronolith_Application extends Horde_Registry_Application
             }
         }
 
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
+        foreach ($calendar_manager->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if (!$calendar->display()) {
                 continue;
             }
-            $app = $GLOBALS['registry']->get(
+            $app = $registry->get(
                 'name',
-                $GLOBALS['registry']->hasInterface($calendar->api()));
+                $registry->hasInterface($calendar->api()));
             if (!strlen($app)) {
                 $app = _("Other events");
             }
@@ -329,7 +333,7 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
             }
             $row = array(
-                'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
+                'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_EXTERNAL_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'external_' . $id),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -350,9 +354,9 @@ class Kronolith_Application extends Horde_Registry_Application
             ),
         );
         $edit = Horde::url('calendars/remote_edit.php');
-        foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_REMOTE_CALENDARS) as $calendar) {
+        foreach ($calendar_manager->get(Kronolith::ALL_REMOTE_CALENDARS) as $calendar) {
             $row = array(
-                'selected' => in_array($calendar->url(), $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
+                'selected' => in_array($calendar->url(), $calendar_manager->get(Kronolith::DISPLAY_REMOTE_CALENDARS)),
                 'url' => $url->copy()->add('toggle_calendar', 'remote_' . $calendar->url()),
                 'label' => $calendar->name(),
                 'color' => $calendar->background(),
@@ -362,7 +366,7 @@ class Kronolith_Application extends Horde_Registry_Application
             $sidebar->addRow($row, 'remote');
         }
 
-        if (!empty($GLOBALS['conf']['holidays']['enable'])) {
+        if (!empty($conf['holidays']['enable'])) {
             $sidebar->containers['holidays'] = array(
                 'header' => array(
                     'id' => 'kronolith-toggle-holidays',
@@ -370,9 +374,9 @@ class Kronolith_Application extends Horde_Registry_Application
                     'collapsed' => true,
                 ),
             );
-            foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
+            foreach ($calendar_manager->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
                 $row = array(
-                    'selected' => in_array($id, $GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_HOLIDAYS)),
+                    'selected' => in_array($id, $calendar_manager->get(Kronolith::DISPLAY_HOLIDAYS)),
                     'url' => $url->copy()->add('toggle_calendar', 'holiday_' . $id),
                     'label' => $calendar->name(),
                     'color' => $calendar->background(),
