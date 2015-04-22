@@ -76,6 +76,23 @@ class Kronolith_Shares
     }
 
     /**
+     * Returns an array of all system shares.
+     *
+     * @return array  All system shares.
+     * @throws Horde_Share_Exception
+     */
+    public function listSystemShares()
+    {
+        $shares = array();
+        foreach ($this->_shares->listSystemShares() as $id => $calendar) {
+            if ($calendar->get('type') == Kronolith::SHARE_TYPE_USER) {
+                $shares[$id] = $calendar;
+            }
+        }
+        return $shares;
+    }
+
+    /**
      * Returns a new share object.
      *
      * By default, creates a new user calendar share and not a resource
