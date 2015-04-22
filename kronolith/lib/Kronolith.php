@@ -1065,26 +1065,21 @@ class Kronolith
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
-     *                             Defaults to false.
+     * @param integer $permission  The permission to filter calendars by.
      * @param boolean $display     Only return calendars that are supposed to
      *                             be displayed per configuration and user
      *                             preference.
-     * @param integer $permission  The permission to filter calendars by.
      *
      * @return array  The calendar list.
      */
     public static function listCalendars($permission = Horde_Perms::SHOW,
-                                         $display = false,
-                                         $flat = true)
+                                         $display = false)
     {
         $calendars = array();
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['internal_' . $id] = $calendar;
-                }
+                $calendars['internal_' . $id] = $calendar;
             }
         }
 
@@ -1092,9 +1087,7 @@ class Kronolith
             try {
                 if ($calendar->hasPermission($permission) &&
                     (!$display || $calendar->display())) {
-                    if ($flat) {
-                        $calendars['remote_' . $id] = $calendar;
-                    }
+                    $calendars['remote_' . $id] = $calendar;
                 }
             } catch (Kronolith_Exception $e) {
                 $GLOBALS['notification']->push(sprintf(_("The calendar %s returned the error: %s"), $calendar->name(), $e->getMessage()), 'horde.error');
@@ -1104,18 +1097,14 @@ class Kronolith
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['external_' . $id] = $calendar;
-                }
+                $calendars['external_' . $id] = $calendar;
             }
         }
 
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['holiday_' . $id] = $calendar;
-                }
+                $calendars['holiday_' . $id] = $calendar;
             }
         }
 
