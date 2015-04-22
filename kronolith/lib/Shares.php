@@ -1,22 +1,25 @@
 <?php
 /**
- * Share wrapper to simplify listing shares.
+ * Copyright 2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @copyright 2015 Horde LLC (http://www.horde.org/)
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Kronolith
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Kronolith
  */
+
 /**
- * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * Share wrapper to simplify listing shares.
+ *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @copyright 2015 Horde LLC (http://www.horde.org/)
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  Kronolith
+ * @category  Horde
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Kronolith
  */
 class Kronolith_Shares
 {
@@ -38,23 +41,22 @@ class Kronolith_Shares
     }
 
     /**
-     * Returns an array of all shares that $userid has access to. By default
-     * returns only normal calendar shares, and not resource shares. Set
-     * $params['attributes']['type'] = Kronolith::SHARE_TYPE_RESOURCE to return
-     * resources shares.
+     * Returns an array of all shares that $userid has access to.
+     *
+     * By default returns only normal calendar shares, and not resource
+     * shares. Set $params['attributes']['type'] =
+     * Kronolith::SHARE_TYPE_RESOURCE to return resource shares.
      *
      * @param string $userid  The userid of the user to check access for. An
      *                        empty value for the userid will only return shares
      *                        with guest access.
-     * @param array $params   Additional parameters for the search.
-     *<pre>
-     *  'perm'        Require this level of permissions. Horde_Perms constant.
-     *  'attributes'  Restrict shares to these attributes. A hash or username.
-     *  'from'        Offset. Start at this share
-     *  'count'       Limit.  Only return this many.
-     *  'sort_by'     Sort by attribute.
-     *  'direction'   Sort by direction.
-     *</pre>
+     * @param array $params   Additional parameters for the search:
+     *   - perm:       Require this level of permissions. Horde_Perms constant.
+     *   - attributes: Restrict shares to these attributes. A hash or username.
+     *   - from:       Offset. Start at this share
+     *   - count:      Limit.  Only return this many.
+     *   - sort_by:    Sort by attribute.
+     *   - direction:  Sort by direction.
      *
      * @return array  The shares the user has access to.
      */
@@ -74,10 +76,11 @@ class Kronolith_Shares
     }
 
     /**
-     * Returns a new share object. By default, creates a new user calendar share
-     * and not a resource share. To create a resource share, calling code must
-     * explicitly set the 'type' share attribute to
-     * Kronolith::SHARE_TYPE_RESOURCE
+     * Returns a new share object.
+     *
+     * By default, creates a new user calendar share and not a resource
+     * share. To create a resource share, calling code must explicitly set the
+     * 'type' share attribute to Kronolith::SHARE_TYPE_RESOURCE
      *
      * @param string $owner           The share owner name.
      * @param string $share_name      The share's name.
