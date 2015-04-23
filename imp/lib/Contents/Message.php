@@ -567,7 +567,7 @@ class IMP_Contents_Message
         foreach ($this->contents->getMIMEMessage()->partIterator() as $val) {
             $mime_id = $val->getMimeId();
             $i[] = $mime_id;
-            $p_list[] = $val;
+            $p_list[$mime_id] = $val;
         }
 
         foreach ($p_list as $mime_id => $part) {
