@@ -752,28 +752,21 @@ var ImpMobile = {
      */
     messageLoaded: function(r)
     {
-        // TODO: Error handling.
-        if (r.error ||
-            !ImpMobile.message ||
-            (r.view != ImpMobile.mailbox)) {
-            return;
-        }
+        var tmp,
+            cache = ImpMobile.cache[ImpMobile.mailbox],
+            data = ImpMobile.message;
 
-        var cache = ImpMobile.cache[ImpMobile.mailbox],
-            data = ImpMobile.message,
-            tmp;
+        /* Mailbox has changed. */
+        if (r.view != ImpMobile.mailbox) {
+        }
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
+        cache = ImpMobile.cache[ImpMobile.mailbox];
         if (!cache) {
             window.setTimeout(function() { ImpMobile.messageLoaded(r); }, 0);
             return;
         }
-
-        ImpMobile.buid = r.buid;
-
-        document.title = data.title || data.subject;
-        $('#message .smartmobile-title').text(data.title || data.subject);
 
         tmp = (ImpMobile.mailbox == IMP.conf.qsearchid);
         $('#message .smartmobile-back').attr(
@@ -785,6 +778,19 @@ var ImpMobile = {
         ).find('.ui-btn-text').text(
             tmp ? IMP.text.searchresults : cache.label
         );
+
+        if (r.error || !data || data.error) {
+            HordeMobile.showNotifications([ {
+                message: IMP.text.msg_error,
+                type: 'horde.warning'
+            } ]);
+            return;
+        }
+
+        ImpMobile.buid = r.buid;
+
+        document.title = data.title || data.subject;
+        $('#message .smartmobile-title').text(data.title || data.subject);
 
         $('#imp-message-from').text(
             data.from
