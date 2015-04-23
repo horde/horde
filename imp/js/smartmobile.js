@@ -645,6 +645,10 @@ var ImpMobile = {
                 from.push(v2.p || v2.g || v2.b);
             });
 
+            if (!from.length) {
+                from.push('[' + IMP.text.nofrom + ']');
+            }
+
             list.append(
                 c.append(
                     $('<a href="' + url + '"></a>').text(val.data.subject)
