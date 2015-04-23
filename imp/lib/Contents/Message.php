@@ -565,7 +565,7 @@ class IMP_Contents_Message
          * methods may break iteration when they iterate through subparts. */
         $p_list = array();
         foreach ($this->contents->getMIMEMessage()->partIterator() as $val) {
-            $mime_id = $part->getMimeId();
+            $mime_id = $val->getMimeId();
             $i[] = $mime_id;
             $p_list[] = $val;
         }
