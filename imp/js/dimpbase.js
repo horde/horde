@@ -4370,10 +4370,6 @@ var IMP_Flist_Mbox = Class.create({
     {
         var elt;
 
-        if (e) {
-            this.data.load = true;
-        }
-
         if (this.data.fake) {
             return this.data.fake.expand(e);
         } else if (!Object.isUndefined(e)) {
