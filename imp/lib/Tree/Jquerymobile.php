@@ -55,7 +55,7 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Renderer_Base
 
         if (empty($node['container']) &&
             ($node['special'] == $this->_isSpecial)) {
-            $output = $this->_buildTreeNode($node);
+            $output = $this->_buildTreeNode($node, $node_id);
         }
 
         if (!empty($node['children'])) {
@@ -69,16 +69,16 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Renderer_Base
 
     /**
      */
-    protected function _buildTreeNode($node)
+    protected function _buildTreeNode($node, $id)
     {
         $output = '<li' .
             (isset($node['class']) ? (' class="' . $node['class'] . '"') : '') .
             '>';
 
-        if (isset($this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_LEFT])) {
+        if (isset($this->_extra[$id][Horde_Tree_Renderer::EXTRA_LEFT])) {
             $output .= implode(
                 ' ',
-                $this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_LEFT]
+                $this->_extra[$id][Horde_Tree_Renderer::EXTRA_LEFT]
             );
         }
 
@@ -101,9 +101,9 @@ class IMP_Tree_Jquerymobile extends Horde_Tree_Renderer_Base
             $output .= '</a>';
         }
 
-        if (isset($this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_RIGHT])) {
+        if (isset($this->_extra[$id][Horde_Tree_Renderer::EXTRA_RIGHT])) {
             $output .= '<span class="ui-li-count">' .
-                implode(' ', $this->_extra[$node['id']][Horde_Tree_Renderer::EXTRA_RIGHT]) .
+                implode(' ', $this->_extra[$id][Horde_Tree_Renderer::EXTRA_RIGHT]) .
                 '</span>';
         }
 
