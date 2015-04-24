@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-13</date>
+ <date>2015-04-24</date>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -242,11 +242,6 @@
       <file name="Horde_Mime_Viewer.po" role="data" />
      </dir> <!-- /locale/fr/LC_MESSAGES -->
     </dir> <!-- /locale/fr -->
-    <dir name="gl">
-     <dir name="LC_MESSAGES">
-      <file name="Horde_Mime_Viewer.po" role="data" />
-     </dir> <!-- /locale/gl/LC_MESSAGES -->
-    </dir> <!-- /locale/gl -->
     <dir name="he">
      <dir name="LC_MESSAGES">
       <file name="Horde_Mime_Viewer.mo" role="data" />
@@ -619,7 +614,6 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/fi/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/fr/LC_MESSAGES/Horde_Mime_Viewer.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/fr/LC_MESSAGES/Horde_Mime_Viewer.po" />
-   <install as="locale/gl/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/gl/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/he/LC_MESSAGES/Horde_Mime_Viewer.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/he/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/hr/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/hr/LC_MESSAGES/Horde_Mime_Viewer.mo" />
@@ -1045,7 +1039,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-13</date>
+   <date>2015-04-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
