@@ -1230,6 +1230,9 @@ class Kronolith
         try {
             $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                if ($share->get('owner') == null && $GLOBALS['registry']->isAdmin()) {
+                    return true;
+                }
                 throw new Horde_Exception_NotFound();
             }
         } catch (Horde_Exception_NotFound $e) {
