@@ -35,6 +35,7 @@ class IMP_Mime_Attachment
         switch ($type) {
         case 'application/ms-tnef':
         case 'application/pgp-keys':
+        case 'application/vnd.ms-tnef':
             return false;
         }
 
