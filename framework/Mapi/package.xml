@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix Horde_Mapi if bcmath isn&apos;t installed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -180,7 +180,7 @@
    <date>2015-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix Horde_Mapi if bcmath isn&apos;t installed.
    </notes>
   </release>
  </changelog>

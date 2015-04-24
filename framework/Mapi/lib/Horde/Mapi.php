@@ -141,8 +141,12 @@ class Horde_Mapi
         $dtval = substr($ft, 0, 16);        // clip overlength string
         $dtval = str_pad($dtval, 16, '0');  // pad underlength string
         $quad = self::_flipEndian($dtval);
-        $win64_datetime = self::_hexToBcint($quad);
-        return self::_win64ToUnix($win64_datetime);
+        try {
+            $win64_datetime = self::_hexToBcint($quad);
+            return self::_win64ToUnix($win64_datetime);
+        } catch (Horde_Mapi_Exception $e) {
+            return -1;
+        }
     }
 
     // swap little-endian to big-endian
