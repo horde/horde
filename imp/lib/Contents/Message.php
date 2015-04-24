@@ -561,16 +561,10 @@ class IMP_Contents_Message
             : null;
         $show_parts = $prefs->getValue('parts_display');
 
-        /* Need to iterate through entire part list first, since render
-         * methods may break iteration when they iterate through subparts. */
-        $p_list = array();
-        foreach ($this->contents->getMIMEMessage()->partIterator() as $val) {
-            $mime_id = $val->getMimeId();
+        foreach ($this->contents->getMIMEMessage()->partIterator() as $part) {
+            $mime_id = $part->getMimeId();
             $i[] = $mime_id;
-            $p_list[$mime_id] = $val;
-        }
 
-        foreach ($p_list as $mime_id => $part) {
             if (isset($display_ids[$mime_id]) ||
                 isset($atc_parts[$mime_id])) {
                 continue;
