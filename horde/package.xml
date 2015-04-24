@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] SECURITY: Fix XSS vulnerability in group administration.
 * [mjr] Fix display of Facebook block by removing no longer allowed notification data.
  </notes>
  <contents>
@@ -4014,6 +4015,7 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] SECURITY: Fix XSS vulnerability in group administration.
 * [mjr] Fix display of Facebook block by removing no longer allowed notification data.
    </notes>
   </release>
