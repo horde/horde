@@ -568,6 +568,9 @@ abstract class Kronolith_Event
             return false;
         }
 
+        if ($share->get('owner') == null && $GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
         return $share->hasPermission($user, $permission, $this->creator);
     }
 

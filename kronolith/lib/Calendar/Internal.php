@@ -96,6 +96,9 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
         if ($user === null) {
             $user = $GLOBALS['registry']->getAuth();
         }
+        if ($this->_share->get('user') == null && $GLOBALS['registry']->isAdmin()) {
+            return true;
+        }
         return $this->_share->hasPermission($user, $permission, $creator);
     }
 
