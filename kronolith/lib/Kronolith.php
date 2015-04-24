@@ -1993,7 +1993,7 @@ class Kronolith
             $ics->setType('text/calendar');
             $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
-            $ics->setContentTypeParameter('METHOD', $method);
+            $ics->setContentTypeParameter('method', $method);
             $ics->setCharset('UTF-8');
             $ics->setEOL("\r\n");
 
