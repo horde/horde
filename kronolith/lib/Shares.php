@@ -72,7 +72,15 @@ class Kronolith_Shares
         $attributes = array_merge($attributes, $params['attributes']);
         $params['attributes'] = $attributes;
 
-        return $this->_shares->listShares($userid, $params);
+        $shares = $this->_shares->listShares($userid, $params);
+
+        // Must explicitly include system shares if the user is an admin since
+        // there may be some shares that do not have perms set.
+        if ($GLOBALS['registry']->isAdmin()) {
+            $shares = array_merge($shares, $this->listSystemShares());
+        }
+
+        return $shares;
     }
 
     /**
