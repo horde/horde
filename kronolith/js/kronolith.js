@@ -3033,7 +3033,7 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
-        if (!$w('internal tasklists remote holiday resource resourcegroup').include(type)) {
+        if (!$w('internal tasklists remote holiday resource resourcegroup system').include(type)) {
             return;
         }
 
@@ -3107,7 +3107,12 @@ KronolithCore = {
     {
         calendar = calendar.split('|');
         var type = calendar[0];
+        var system = false;
         calendar = calendar.length == 1 ? null : calendar[1];
+        if (type == 'system') {
+            type = 'internal';
+            system = true;
+        }
 
         var form = $('kronolithCalendarForm' + type),
             firstTab = form.down('.tabset a.kronolithTabLink'),
@@ -3231,7 +3236,7 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            if (info.system) {
+            if (system || (info && info.system)) {
                 $('kronolithPOwnerInput').hide();
                 $('kronolithCalendarSystem').setValue(1);
                 $('kronolithSystemOwner').show();
