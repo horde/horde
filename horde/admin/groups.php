@@ -211,7 +211,7 @@ foreach ($nodes as $id => $node) {
     $tree->addNode(array(
         'id' => $id,
         'parent' => null,
-        'label' => $node,
+        'label' => htmlspecialchars($node),
         'expanded' => false,
         'params' => $group_node + $node_params,
         'right' => array($spacer, $delete_link)
