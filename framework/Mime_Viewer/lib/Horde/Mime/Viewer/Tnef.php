@@ -99,6 +99,11 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
                 );
             }
 
+            /* Set text parts to be displayed inline. */
+            if ($temp_part->getPrimaryType() === 'text') {
+                $temp_part->setDisposition('inline');
+            }
+
             $mixed->addPart($temp_part);
         }
 
