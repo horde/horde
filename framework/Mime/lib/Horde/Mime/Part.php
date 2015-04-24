@@ -1574,7 +1574,6 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
     /**
      * Returns the recursive iterator needed to iterate through this part.
-     * The first entry will be this part itself.
      *
      * @since 2.8.0
      *
@@ -1584,21 +1583,46 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function partIterator($current = true)
     {
-        $ri = new RecursiveIteratorIterator(
-            $this,
-            RecursiveIteratorIterator::SELF_FIRST
-        );
+        $this->_reindex(true);
+        return new Horde_Mime_Part_Iterator($this, $current);
+    }
 
-        if ($current) {
-            $i = new AppendIterator();
-            $i->append(new ArrayIterator(array($this)));
-            $i->append($ri);
-        } else {
-            $i = $ri;
+    /**
+     * Returns a subpart by index.
+     *
+     * @return Horde_Mime_Part  Part, or null if not found.
+     */
+    public function getPartByIndex($index)
+    {
+        if (!isset($this->_parts[$index])) {
+            return null;
         }
 
-        return $i;
+        $part = $this->_parts[$index];
+        $part->parent = $this;
+
+        return $part;
     }
+
+    /**
+     * Reindexes the MIME IDs, if necessary.
+     *
+     * @param boolean $force  Reindex if the current part doesn't have an ID.
+     */
+    protected function _reindex($force = false)
+    {
+        $id = $this->getMimeId();
+
+        if (($this->_status & self::STATUS_REINDEX) ||
+            ($force && is_null($id))) {
+            $this->buildMimeIds(
+                is_null($id)
+                    ? (($this->getPrimaryType() === 'multipart') ? '0' : '1')
+                    : $id
+            );
+        }
+    }
+
 
     /**
      * Write data to a stream.
@@ -2085,9 +2109,21 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function offsetGet($offset)
     {
-        foreach ($this->partIterator() as $val) {
+        $this->_reindex();
+
+        if (strcmp($offset, $this->getMimeId()) === 0) {
+            $this->parent = null;
+            return $this;
+        }
+
+        foreach ($this->_parts as $val) {
             if (strcmp($offset, $val->getMimeId()) === 0) {
+                $val->parent = $this;
                 return $val;
+            }
+
+            if ($found = $val[$offset]) {
+                return $found;
             }
         }
 
@@ -2121,6 +2157,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
             if ($part->parent === $this) {
                 if (($k = array_search($part, $this->_parts, true)) !== false) {
                     unset($this->_parts[$k]);
+                    $this->_parts = array_values($this->_parts);
                 }
             } else {
                 unset($part->parent[$offset]);
@@ -2149,14 +2186,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function current()
     {
-        if (($key = $this->key()) === null) {
-            return null;
-        }
-
-        $part = $this->_parts[$key];
-        $part->parent = $this;
-
-        return $part;
+        return (($key = $this->key()) === null)
+            ? null
+            : $this->getPartByIndex($key);
     }
 
     /**
@@ -2182,16 +2214,7 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      */
     public function rewind()
     {
-        if ($this->_status & self::STATUS_REINDEX) {
-            $id = $this->getMimeId();
-            $this->buildMimeIds(
-                is_null($id)
-                    ? (($this->getPrimaryType() === 'multipart') ? '0' : '1')
-                    : $id
-            );
-        }
-
-        $this->_parts = array_values($this->_parts);
+        $this->_reindex();
         reset($this->_parts);
         $this->_temp['iterate'] = key($this->_parts);
     }

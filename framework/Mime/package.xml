@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-13</date>
+ <date>2015-04-25</date>
  <version>
-  <release>2.8.2</release>
-  <api>2.8.0</api>
+  <release>2.9.0</release>
+  <api>2.9.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix rare errors when multiple iterations are occurring on the same set of MIME parts.
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Fix indexing MIME part when base is a multipart object.
  </notes>
@@ -93,6 +94,7 @@
        <dir name="Upgrade">
         <file name="V1.php" role="php" />
        </dir> <!-- /lib/Horde/Mime/Part/Upgrade -->
+       <file name="Iterator.php" role="php" />
       </dir> <!-- /lib/Horde/Mime/Part -->
       <file name="Exception.php" role="php" />
       <file name="Headers.php" role="php" />
@@ -590,6 +592,7 @@
    <install as="Horde/Mime/Headers/Element/Multiple.php" name="lib/Horde/Mime/Headers/Element/Multiple.php" />
    <install as="Horde/Mime/Headers/Element/Single.php" name="lib/Horde/Mime/Headers/Element/Single.php" />
    <install as="Horde/Mime/Headers/Extension/Mime.php" name="lib/Horde/Mime/Headers/Extension/Mime.php" />
+   <install as="Horde/Mime/Part/Iterator.php" name="lib/Horde/Mime/Part/Iterator.php" />
    <install as="Horde/Mime/Part/Upgrade/V1.php" name="lib/Horde/Mime/Part/Upgrade/V1.php" />
    <install as="locale/Horde_Mime.pot" name="locale/Horde_Mime.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime.mo" name="locale/ar/LC_MESSAGES/Horde_Mime.mo" />
@@ -1690,14 +1693,15 @@
   </release>
   <release>
    <version>
-    <release>2.8.2</release>
-    <api>2.8.0</api></version>
+    <release>2.9.0</release>
+    <api>2.9.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-13</date>
+   <date>2015-04-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix rare errors when multiple iterations are occurring on the same set of MIME parts.
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Fix indexing MIME part when base is a multipart object.
    </notes>
