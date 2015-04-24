@@ -89,14 +89,15 @@ class Horde_Mime_Viewer_Tnef extends Horde_Mime_Viewer_Base
             $temp_part->setName($data['name']);
             $temp_part->setDescription($data['name']);
             $temp_part->setContents($data['stream']);
+            $temp_part->setType($data['type'] . '/' . $data['subtype']);
 
             /* Short-circuit MIME-type guessing for winmail.dat parts;
              * we're showing enough entries for them already. */
-            $type = $data['type'] . '/' . $data['subtype'];
-            if (in_array($type, array('application/octet-stream', 'application/base64'))) {
-                $type = Horde_Mime_Magic::filenameToMIME($data['name']);
+            if (in_array($temp_part->getType(), array('application/octet-stream', 'application/base64'))) {
+                $temp_part->setType(
+                    Horde_Mime_Magic::filenameToMIME($data['name'])
+                );
             }
-            $temp_part->setType($type);
 
             $mixed->addPart($temp_part);
         }
