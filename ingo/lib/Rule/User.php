@@ -40,6 +40,7 @@ extends Ingo_Rule
 
     const TYPE_TEXT = 1;
     const TYPE_MAILBOX = 2;
+    const TYPE_EMPTY = 3;
 
     public $flags = 0;
     public $label = '';
