@@ -98,9 +98,9 @@ implements Countable, Iterator
         $out = $this->_state->current->getPartByIndex($this->_state->index++);
 
         if ($out) {
-            array_push(
-                $this->_state->recurse,
-                array($this->_state->current, $this->_state->index)
+            $this->_state->recurse[] = array(
+                $this->_state->current,
+                $this->_state->index
             );
             $this->_state->current = $out;
             $this->_state->index = 0;
