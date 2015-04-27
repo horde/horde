@@ -1670,9 +1670,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseStatus(Horde_Imap_Client_Tokenize $data)
     {
-        // Mailbox name is in UTF7-IMAP
         $mbox_ob = $this->_mailboxOb(
-            Horde_Imap_Client_Mailbox::get($data->next(), true)
+            $data->next()
         );
 
         $data->next();
