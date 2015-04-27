@@ -28,6 +28,8 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
      * Variables used:
      *   - password: (string) Remote server password.
      *   - password_base64: (boolean) If true, password is base64 encoded.
+     *   - password_save: (boolean) If true, password is saved (encrypted)
+     *                    to config data.
      *   - remoteid: (string) Remote server ID (base64url encoded).
      *   - unsub: (boolean) If true, show unsubscribed mailboxes.
      *
@@ -57,10 +59,27 @@ class IMP_Ajax_Application_Handler_Remote extends Horde_Core_Ajax_Application_Ha
         $remote_ob = $remote[$remoteid];
 
         try {
-            $remote_ob->createImapObject($password);
-            $remote_ob->imp_imap->login();
+            switch ($remote_ob->login($password, $this->vars->password_save)) {
+            case $remote_ob::LOGIN_BAD_CHANGED:
+                $remote[$remoteid] = $remote_ob;
+                // Fall-through
+
+            case $remote_ob::LOGIN_BAD:
+                throw new Exception();
+
+            case $remote_ob::LOGIN_OK_CHANGED:
+                $remote[$remoteid] = $remote_ob;
+                break;
+            }
+
             $res->success = true;
-            $notification->push(sprintf(_("Successfully authenticated to %s."), $remote_ob->label), 'horde.success');
+            $notification->push(
+                sprintf(
+                    _("Successfully authenticated to %s."),
+                    $remote_ob->label
+                ),
+                'horde.success'
+            );
 
             $ftree = $injector->getInstance('IMP_Ftree');
 

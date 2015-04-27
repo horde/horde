@@ -3102,6 +3102,7 @@ var ImpBase = {
                             // event of some sort of data dump.
                             password: Base64.encode($F(h.down('INPUT[name="remote_password"]'))),
                             password_base64: true,
+                            password_save: $F(h.down('INPUT[name="remote_password_save"]')),
                             remoteid: $F(h.down('INPUT[name="remote_id"]')),
                             unsub: this.showUnsub()
                         }, {

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Allow remote account passwords to be saved encrypted in user&apos;s preferences (Request #13168).
 * [mms] Send IMP MUA information to IMAP servers that support the ID extension.
 * [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing message.
 * [mms] Sent-mail maillog entries are now linked to a viewable representation of the sent message, if it still exists on the server.
@@ -1253,6 +1254,13 @@
     <min>2.6.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Crypt_Blowfish</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Css_Parser</name>

@@ -42,12 +42,25 @@ class IMP_Ftree_Account_Remote extends IMP_Ftree_Account_Imap
     {
         global $injector;
 
+        $init = false;
         $out = array();
-
-        $init = $this->imp_imap->init;
 
         $remote = $injector->getInstance('IMP_Remote');
         $raccount = $remote[strval($this)];
+
+        switch ($raccount->login()) {
+        case $raccount::LOGIN_BAD_CHANGED:
+            $remote[strval($this)] = $raccount;
+            break;
+
+        case $raccount::LOGIN_OK_CHANGED:
+            $remote[strval($this)] = $raccount;
+            // Fall-through
+
+        case $raccount::LOGIN_OK:
+            $init = true;
+            break;
+        }
 
         $query = array_filter(
             array_map(array($remote, 'getMailboxById'), $query)
