@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2015-04-27</date>
  <version>
-  <release>1.0.4</release>
-  <api>1.0.0</api>
+  <release>1.1.0</release>
+  <api>1.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Crypt_Blowfish_Pbkdf2.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -48,6 +48,7 @@
        <file name="Exception.php" role="php" />
        <file name="Mcrypt.php" role="php" />
        <file name="Openssl.php" role="php" />
+       <file name="Pbkdf2.php" role="php" />
        <file name="Php.php" role="php" />
       </dir> <!-- /lib/Horde/Crypt/Blowfish -->
       <file name="Blowfish.php" role="php" />
@@ -66,6 +67,7 @@
        <file name="bootstrap.php" role="test" />
        <file name="CbcTest.php" role="test" />
        <file name="EcbTest.php" role="test" />
+       <file name="Pbkdf2Test.php" role="test" />
        <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Crypt/Blowfish -->
      </dir> <!-- /test/Horde/Crypt -->
@@ -123,6 +125,7 @@
    <install as="Horde/Crypt/Blowfish/Exception.php" name="lib/Horde/Crypt/Blowfish/Exception.php" />
    <install as="Horde/Crypt/Blowfish/Mcrypt.php" name="lib/Horde/Crypt/Blowfish/Mcrypt.php" />
    <install as="Horde/Crypt/Blowfish/Openssl.php" name="lib/Horde/Crypt/Blowfish/Openssl.php" />
+   <install as="Horde/Crypt/Blowfish/Pbkdf2.php" name="lib/Horde/Crypt/Blowfish/Pbkdf2.php" />
    <install as="Horde/Crypt/Blowfish/Php.php" name="lib/Horde/Crypt/Blowfish/Php.php" />
    <install as="Horde/Crypt/Blowfish/Php/Base.php" name="lib/Horde/Crypt/Blowfish/Php/Base.php" />
    <install as="Horde/Crypt/Blowfish/Php/Cbc.php" name="lib/Horde/Crypt/Blowfish/Php/Cbc.php" />
@@ -131,6 +134,7 @@
    <install as="Horde/Crypt/Blowfish/bootstrap.php" name="test/Horde/Crypt/Blowfish/bootstrap.php" />
    <install as="Horde/Crypt/Blowfish/CbcTest.php" name="test/Horde/Crypt/Blowfish/CbcTest.php" />
    <install as="Horde/Crypt/Blowfish/EcbTest.php" name="test/Horde/Crypt/Blowfish/EcbTest.php" />
+   <install as="Horde/Crypt/Blowfish/Pbkdf2Test.php" name="test/Horde/Crypt/Blowfish/Pbkdf2Test.php" />
    <install as="Horde/Crypt/Blowfish/phpunit.xml" name="test/Horde/Crypt/Blowfish/phpunit.xml" />
    <install as="Horde/Crypt/Blowfish/fixtures/vectors.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors.txt" />
    <install as="Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" />
@@ -194,15 +198,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.4</release>
-    <api>1.0.0</api></version>
+    <release>1.1.0</release>
+    <api>1.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Crypt_Blowfish_Pbkdf2.
    </notes>
   </release>
  </changelog>
