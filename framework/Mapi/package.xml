@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-04-27</date>
  <version>
   <release>1.0.5</release>
   <api>1.0.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix Horde_Mapi if bcmath isn&apos;t installed.
+* [mjr] Remove bcmath extension requirement and add PEAR Math_BigInteger package in it&apos;s place.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -81,12 +81,14 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Math_BigInteger</name>
+    <channel>pear.php.net</channel>
+    <min>1.0.2</min>
+    <max>2.0.0</max>
+    <exclude>2.0.0</exclude>
+   </package>
   </required>
-  <optional>
-   <extension>
-    <name>bcmath</name>
-   </extension>
-  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -177,10 +179,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix Horde_Mapi if bcmath isn&apos;t installed.
+* [mjr] Remove bcmath extension requirement and add PEAR Math_BigInteger package in it&apos;s place.
    </notes>
   </release>
  </changelog>
