@@ -898,14 +898,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $temp = &$this->_temp;
 
         /* Add to queue - this doesn't need to be sent immediately. */
-        $cmd->on_error = function() use ($temp) {
+        $cmd->on_error = function() use (&$temp) {
             /* Ignore server errors. E.g. Cyrus returns this:
              *   001 NO Only one Id allowed in non-authenticated state
              * even though NO is not allowed in RFC 2971[3.1]. */
             $temp['id'] = array();
             return true;
         };
-        $cmd->on_success = function() use ($cmd, $temp) {
+        $cmd->on_success = function() use ($cmd, &$temp) {
             $temp['id'] = $cmd->pipeline->data['id'];
         };
         $this->_cmdQueue[] = $cmd;
