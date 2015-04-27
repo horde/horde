@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix parsing mailbox name from STATUS response on servers that have the UTF8 extension enabled.
 * [jan] Fix searching with non-ASCII strings in AND/OR-combined searches.
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Pipeline ID command with other commands, if possible.
@@ -2860,6 +2861,7 @@
    <date>2015-03-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix parsing mailbox name from STATUS response on servers that have the UTF8 extension enabled.
 * [jan] Fix searching with non-ASCII strings in AND/OR-combined searches.
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Pipeline ID command with other commands, if possible.
