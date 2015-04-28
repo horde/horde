@@ -17,20 +17,13 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-Thanks to the cPanel Security Team and João Machado for reporting the XSS
-vulnerabilities.
+Thanks to the cPanel Security Team for reporting the XSS vulnerability.
 
 The major changes compared to the Horde Groupware version 5.2.5 are:
 
 General changes:
     * Fixed an XSS vulnerability in the groups administration.
     * Small bugfixes and improvements.
-
-Mail changes:
-    * Fixed an XSS vulnerability in the HTML editor.
-
-Filter changes:
-    * Added Galician translation.
 
 Address book changes:
     * Fixed adding tags to new contacts.
