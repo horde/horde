@@ -56,7 +56,7 @@ class Horde_Pgp
      * @param string $email       E-mail.
      * @param array $opts         Additional options:
      *   - comment: (string) Comment.
-     *   - hash: (string) Hash function (DEFAULT: SHA256).
+     *   - hash: (string) Hash function.
      *   - expire: (integer) Expiration date (UNIX timestamp).
      *   - keylength: (integer) Key length.
      *   - passphrase: (string) Passphrase.
