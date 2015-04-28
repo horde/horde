@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = false;
+$notes['security'] = true;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde
-Application Framework version 5.2.4.
+Application Framework version 5.2.5.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
 application framework written in PHP. It provides an extensive array of
@@ -20,8 +20,11 @@ http://www.horde.org/apps/horde/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.2.3 are:
-    * Small bugfixes and improvements.
+Thanks to the cPanel Security Team for reporting the XSS vulnerability.
+
+The major changes compared to the Horde version 5.2.4 are:
+    * Fixed an XSS vulnerability in the groups administration.
+    * Small bugfix.
 ML;
 
 $notes['name'] = 'Horde';

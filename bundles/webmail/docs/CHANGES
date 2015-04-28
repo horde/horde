@@ -2,6 +2,234 @@
 v5.2.6-git
 ----------
 
+Horde Changes
+-------------
+[jan] SECURITY: Fix XSS vulnerability in group administration.
+[mjr] Fix display of Facebook block by removing no longer allowed notification
+      data.
+
+Mail Changes
+------------
+[mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
+      -> HTML compose mode.
+[jan] Update Bcc address when switching identities (João Machado
+      <geral@jpaulo.eu>, Bug #13922).
+[jan] Fix protocol name in POP3 example backend configuration.
+[mms] Don't honor linked attachment limit configuration options if linked
+      attachments are disabled (Bug #13665).
+
+Filters Changes
+---------------
+[jan] Add Galician translation.
+[mms] Enforce selection of a target folder for the spam filter in the UI (Bug
+      #13917).
+[jan] Fix Sieve error if days of vacation is unset (Bug #13890).
+
+Address Book Changes
+--------------------
+[jan] Don't try to load Content application if tags are disabled.
+[mjr] Fix adding tags to new contacts (Bug #13884).
+[jan] Fix waiting for replication on LDAP backend.
+
+Calendar Changes
+----------------
+[jan] Fix building recipient list for event update notifications.
+[mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
+[jan] Always sort users in advanced sharing dialog (Bug #13938).
+[mjr] Fix saving recurring event after a change in resources (Bug #13921).
+[mjr] Fix creating recurrence exceptions from CalDAV clients.
+[jan] Added an index to find base events of recurrence exceptions faster.
+[jan] Fix finding duplicate events by UID.
+[mjr] Fix updating FB data when start date changes.
+[mjr] Fix detecting attendees when email address is not lowercase (Bug #13905).
+[jan] Fix duplicate group names in sharing dialog.
+[jan] Fix JavaScript error when saving an unselected calendar.
+[mjr] Fix using custom SQL configuration parameters.
+
+Notes Changes
+-------------
+[mjr] Fix using custom SQL configuration parameters.
+
+Library Changes
+---------------
+[jan] Fix issues with certain locales like Turkish.
+
+ActiveSync
+[mjr] Fix issue where badly formed emails could cause out of memory error.
+[mjr] Fix issue that could break sync if a badly formed email address could not
+      be parsed.
+[mjr] Fix PARTIAL SYNC handling when no COLLECTIONS are provided (Bug #13912).
+[mjr] Detect stock Android 5.0 multiplex settings.
+[mjr] Fix broken sync due to clients that send badly formatted date strings.
+[mjr] Fix fatal error when dealing with iTip replies from vTodo requests.
+[mjr] Return email search results in descending order by arrival date.
+[mjr] Add HTCOne Mini to device detection and set multiplex ability
+      accordingly.
+[mjr] Fix handling of PARTIAL and EMPTY sync requests in certain cases (Bug
+      #13863).
+
+Auth
+[jan] Improve salt generation for Blowfish hashes.
+
+Compress
+[jan] Fix fatal error due to incorrect class name case (Ralph Becker
+      <rb@stylite.de>)
+[mms] Fix leaking Horde_Date exceptions.
+[mjr] Improve detection of ORGANIZER when decoding MAPI encoded vTODOs.
+[mms] Fix decoding of Unicode Strings in TNEF MAPI attributes.
+[mjr] Fix possible fatal error when parsing certain types of Vtodo files.
+[mjr] Add support for generating vTodo from TNEF embedded MAPI TASK objects.
+[mjr] Add option to inject a logger object.
+[mjr] Improve support for decompressing TNEF data.
+
+Core
+[jan] Upgrade prototype.js to version 1.7.2.
+[jan] Fix editing existing LDAP timeout configuration (Bug #13949).
+[mms] Fix regression in removing CBC cipher mode when encrypting data within a
+      session (Bug #13869).
+[mjr] Fix combination X509 and http plain authentication with ActiveSync.
+[jan] Revert to using ECB mode for encryption, to not break existing
+      credentials (Bug #13869).
+[mjr] Fix replying to email from search results in some broken ActiveSync
+      clients (Bug #13878).
+[jan] Fix propagating the LDAP hostspec configuration field (Bug #13872).
+
+Group
+[jan] Add schema definition for LDAP groups.
+[jan] Don't throw exception from listUsers() if group not found in LDAP
+      directory (Bug #13879).
+
+HashTable
+[jan] Fix setting key prefixes.
+
+History
+[jan] Make cached entries available to garbage collection.
+
+Http
+[jan] Allow to pass Horde_Url objects as URI (Bug #13897).
+[jan] Make Horde_Http_Base_Response::headers array keys lowercase again (Bug
+      #13843).
+[jan] Fix return code from multi-request actions in Peclhttp2 driver.
+
+Idna
+[mms] Use intl extension, if installed, and fallback to a locally-patched
+      version of the true/php-punycode package.
+
+Image
+[jan] Fix transparent rectangles in SVG backend.
+[jan] Fix setting background color in SVG backend.
+[jan] Add 'ratio' parameter to Horde_Image_Effect_Imagick_LiquidResize.
+[jan] Fix catching exceptions from imagick extension.
+[jan] Complete the backends' capabilities properties.
+[jan] Fix SVG and SWF backends.
+[jan] Fix setting background color in Horde_Image_Swf constructor.
+[jan] Send Content-Type header in Horde_Image_Svg#display().
+[jan] Improve arc rendering with Im backend.
+[jan] Enable antialiasing in GD backend if available.
+[jan] Implement Horde_Image_Imagick::arc().
+[jan] Fix rounded rectangle drawing with GD backend.
+[jan] Fix transparency issues with GD backend.
+[jan] Fix autoloading of effect classes.
+[jan] Fix border effect with GD driver.
+[jan] Don't error out in effects if a logger hasn't been set.
+[jan] Make getImageAtIndex() always return an image.
+[jan] Don't error our when calling unsupported manipulation methods.
+[jan] Make Horde_Image::arcPoints() work with any angles.
+[jan] Fix some HTML color name to RGB value mappings.
+[jan] Add Horde_Image_Rgb class and remove $horde_image_rgb_colors global.
+[jan] Add Null driver for basics like just displaying the image.
+[mjr] Fix incorrect color renderings in certain situations.
+
+Imap_Client
+[mms] Fix parsing mailbox name from STATUS response on servers that have the
+      UTF8 extension enabled.
+[jan] Fix searching with non-ASCII strings in AND/OR-combined searches.
+[jan] Fix issues with certain locales like Turkish.
+[mms] Pipeline ID command with other commands, if possible.
+[jan] Add parameter for stream context settings (Request #13730).
+
+Itip
+[mjr] Add support for iTip responses to vTodo requests.
+
+Kolab_Storage
+[jan] Fix deleting object attachments from cache (Bug #13268).
+
+Ldap
+[jan] Fix connection if using ldaps:// scheme (Bug #13858).
+
+Mail
+[mms] Add support for outputting comment information when writing an address.
+
+Mapi
+[mjr] Remove bcmath extension requirement and add PEAR Math_BigInteger package
+      in it's place.
+
+Mime
+[mms] Fix rare errors when multiple iterations are occurring on the same set of
+      MIME parts.
+[mms] Fix indexing MIME part when base is a multipart object.
+[mms] Ignore broken headers when parsing header text.
+[mms] Subpart manipulation should now be done via array access.
+[mms] Add recurisve iteration to the Horde_Mime_Part object.
+[mms] Work around broken line-oriented data when transfer encoding (Bug #13835).
+[mms] Fix regression in using the deprecated Horde_Mime::generateMessageId()
+      method (Bug #13846).
+[mms] Add Horde_Mime_Headers_ContentId class.
+[mms] Add Horde_Mime_Headers_ContentTransferEncoding class.
+[mms] Added Horde_Mime_Headers_Element#isDefault().
+[mms] Add interface to differentiate between MIME and non-MIME headers.
+[mms] Content-Type and Content-Disposition related data is now handled
+      internally in Horde_Mime_Part object by using Horde_Mime_Headers.
+[mms] Added the Horde_Mime_Headers_ContentLanguage class.
+[mms] Fix cloning of the Content-Type and Content-Disposition header objects.
+[mms] Ensure that null bytes are filtered from MIME data that is contained in
+      the headers.
+[mms] Fix cloning of the Content-Type and Content-Disposition header objects.
+
+Mime_Viewer
+[mms] Add optional support to determine if link text is a hostname when doing
+      phishing analysis for the HTML driver.
+
+Rpc
+[mjr] Fix fatal error when using pecl_http2.
+[mjr] Fix possible PHP error when returning HTTP 500 response.
+
+Service_Twitter
+[mjr] Fix fatal error when using pecl_http2.
+
+Service_Weather
+[mjr] Fix fatal error when using pecl_http (Bug #13897).
+
+Socket_Client
+[jan] Add parameter for stream context settings (Request #13730).
+[jan] Allow to pass hostname with protocol scheme prefix.
+[jan] Add getStatus(), gets(), read(), and write().
+
+Smtp
+[mms] Fix sending BODY keyword when debugging and SMTP server does not support
+      8BITMIME extension.
+[jan] Add parameter for stream context settings (Request #13730).
+[jan] Fix notice if server doesn't support ENHANCEDSTATUSCODES.
+[mms] Add 'localhost' parameter to Horde_Smtp (Request #13832).
+
+Test
+[mms] Update to PHPUnit 4.5.0 and dependencies.
+
+Text_Filter
+[mjr] Prevent malformed urls from leaking exceptions (Bug #13965).
+[mjr] Fix failing tests on MacOS related to mulitbyte data contained in links.
+[mjr] Add nestingLimit parameter to Html2text filter.
+[jan] Add 'html' hint to Simplemarkup filter to indicate the input format.
+[jan] Match simple markup spanning a complete line too.
+
+Util
+[mms] Fix handling broken text input with all multibyte drivers.
+[mms] Fix error detection when using Horde_String::substr() with mb_substr().
+
+Extensions
+----------
+horde_lz4
+[jan] Fix PHP 7 compatibility (Remi Collet <fedora@famillecollet.com>).
 
 
 ------
