@@ -30,7 +30,7 @@
  </lead>
  <date>2015-04-28</date>
  <version>
-  <release>4.2.6</release>
+  <release>4.2.7</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Don&apos;t try to load Content application if tags are disabled.
-* [mjr] Fix adding tags to new contacts (Bug #13884).
-* [jan] Fix waiting for replication on LDAP backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1984,6 +1982,19 @@
 * [jan] Don&apos;t try to load Content application if tags are disabled.
 * [mjr] Fix adding tags to new contacts (Bug #13884).
 * [jan] Fix waiting for replication on LDAP backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.7</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
