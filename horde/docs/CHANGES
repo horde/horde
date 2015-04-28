@@ -1,6 +1,6 @@
-----------
-v5.2.5-git
-----------
+------
+v5.2.5
+------
 
 [jan] SECURITY: Fix XSS vulnerability in group administration.
 [mjr] Fix display of Facebook block by removing no longer allowed notification
