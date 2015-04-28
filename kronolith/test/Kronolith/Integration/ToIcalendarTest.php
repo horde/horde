@@ -91,7 +91,7 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
     private function _getEvent()
     {
         $GLOBALS['registry']->admin = true;
-        $event = new Kronolith_Event_Sql(new Kronolith_Stub_Driver(''));
+        $event = new Kronolith_Event_Mock(new Kronolith_Stub_Driver(''));
         $event->start = new Horde_Date('2007-03-15 13:10:20');
         $event->end = new Horde_Date('2007-03-15 14:20:00');
         $event->uid = '20070315143732.4wlenqz3edq8@horde.org';
