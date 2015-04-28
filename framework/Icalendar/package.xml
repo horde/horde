@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2014-11-25</date>
+ <date>2015-04-28</date>
  <version>
   <release>2.0.11</release>
   <api>1.1.0</api>
@@ -1148,7 +1148,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-25</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix issues with certain locales like Turkish.
