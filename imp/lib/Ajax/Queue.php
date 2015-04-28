@@ -515,17 +515,24 @@ class IMP_Ajax_Queue
             if ($indices instanceof IMP_Indices_Mailbox) {
                 $indices = $indices->buids;
             }
+        } catch (Exception $e) {
+            Horde::log($e, 'DEBUG');
+        }
 
-            foreach ($indices as $val) {
-                foreach ($val->uids as $val2) {
-                    $ob = new stdClass;
-                    $ob->buid = $val2;
+        foreach ($indices as $val) {
+            foreach ($val->uids as $val2) {
+                $ob = new stdClass;
+                $ob->buid = $val2;
+                if (isset($msg)) {
                     $ob->data = $msg;
-                    $ob->mbox = $val->mbox->form_to;
-                    $this->_messages[] = $ob;
+                } else {
+                    $e = new IMP_Ajax_Application_Viewport_Error($val->mbox);
+                    $ob->data = $e->toObject();
                 }
+                $ob->mbox = $val->mbox->form_to;
+                $this->_messages[] = $ob;
             }
-        } catch (Exception $e) {}
+        }
     }
 
     /**

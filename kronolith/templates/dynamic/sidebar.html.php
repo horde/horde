@@ -51,6 +51,21 @@
       </div>
       <?php endif; ?>
 
+      <?php if ($this->admin): ?>
+      <div class="horde-sidebar-split"></div>
+      <div>
+        <h3>
+          <a href="#" id="kronolithAddsystem" class="horde-add" title="<?php echo _("Add System Calendar") ?>">+</a>
+          <span class="horde-expand" title="<?php echo _("Expand") ?>"><?php echo _("System Calendars") ?></span>
+        </h3>
+
+        <div style="display:none">
+          <div class="horde-info"><?php echo _("No items to display") ?></div>
+          <div id="kronolithSystemCalendars" class="horde-resources"></div>
+        </div>
+      </div>
+      <?php endif ?>
+
       <div class="horde-sidebar-split"></div>
       <div>
         <h3>

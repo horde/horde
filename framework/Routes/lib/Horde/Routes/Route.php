@@ -720,7 +720,7 @@ class Horde_Routes_Route
 
         if ($meth) {
             if ($this->conditions && isset($this->conditions['method']) &&
-                (!in_array(strtoupper($meth), $this->conditions['method']))) {
+                (!in_array(Horde_String::upper($meth), $this->conditions['method']))) {
 
                 return null;
             }

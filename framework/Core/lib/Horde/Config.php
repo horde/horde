@@ -799,7 +799,7 @@ class Horde_Config
                 'required' => false,
                 'desc' => 'Connection timeout',
                 'default' => $this->_default(
-                    $ctx . '|port',
+                    $ctx . '|timeout',
                     $node ? ($xpath->evaluate('string(configinteger[@name="timeout"])', $node) ?: 5) : 5
                 )
             ),

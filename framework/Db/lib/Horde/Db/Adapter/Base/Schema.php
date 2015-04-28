@@ -180,7 +180,7 @@ abstract class Horde_Db_Adapter_Base_Schema
     public function __get($key)
     {
         if ($key == '_cache' || $key == '_logger') {
-            $getter = 'get' . ucfirst(substr($key, 1));
+            $getter = 'get' . Horde_String::ucfirst(substr($key, 1));
             return $this->_adapter->$getter();
         }
     }

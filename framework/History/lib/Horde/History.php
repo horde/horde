@@ -169,7 +169,7 @@ abstract class Horde_History
 
         $history = $this->_getHistory($guid);
         if ($this->_cache) {
-            $this->_cache->set('horde:history:' . $guid, serialize($history), 0);
+            $this->_cache->set('horde:history:' . $guid, serialize($history));
         }
 
         return $history;

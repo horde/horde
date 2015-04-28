@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync_Imap_Message::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -11,6 +9,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
  * This class provides all functionality related to parsing and working with
  * a single IMAP email message when using Horde_Imap_Client.

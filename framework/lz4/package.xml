@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-09-16</date>
+ <date>2015-04-13</date>
  <version>
-  <release>1.0.8</release>
+  <release>1.0.9</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
  <notes>
-* [jan] Fix PHP 7 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
+* 
  </notes>
  <contents>
   <dir name="/">
@@ -212,10 +212,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-16</date>
+   <date>2015-04-13</date>
    <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
    <notes>
 * [jan] Fix PHP 7 compatibility (Remi Collet &lt;fedora@famillecollet.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.9</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-13</date>
+   <license uri="http://opensource.org/licenses/MIT">MIT (Expat)</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

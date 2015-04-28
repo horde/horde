@@ -43,7 +43,7 @@ class Horde_Perms_Permission_Kolab_AclIterator implements IteratorAggregate
                     $rights, substr($user, 6)
                 );
             } elseif ($user == 'anyone' || $user == 'anonymous'){
-                $class = 'Horde_Perms_Permission_Kolab_Acl_' . ucfirst($user);
+                $class = 'Horde_Perms_Permission_Kolab_Acl_' . Horde_String::ucfirst($user);
                 $this->_acl[] = new $class(
                     $rights
                 );

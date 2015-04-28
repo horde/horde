@@ -12,6 +12,8 @@
  */
 class Kronolith_Resource_Group extends Kronolith_Resource_Base
 {
+    protected $_type = 'group';
+
     /**
      *
      * @var Kronolith_Driver_Resource
@@ -181,7 +183,7 @@ class Kronolith_Resource_Group extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false)
     {
-        throw new BadMethodCallException('Unsupported');
+        throw new Kronolith_Exception('Unsupported');
     }
 
     /**

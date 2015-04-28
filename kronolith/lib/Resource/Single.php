@@ -12,6 +12,26 @@
  */
 class Kronolith_Resource_Single extends Kronolith_Resource_Base
 {
+    protected $_type = 'single';
+
+    /**
+     *
+     *
+     * @param string $property  The property to get
+     *
+     * @return mixed  The value of $property
+     */
+    public function get($property)
+    {
+        $property = str_replace('resource_', '', $property);
+
+        if ($property == 'calendar') {
+            return $this->_share->getName();
+        }
+
+        return parent::get($property);
+    }
+
     /**
      * Determine if the resource is free during the time period for the
      * supplied event.

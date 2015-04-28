@@ -49,15 +49,15 @@ class IMP_Ajax_Application_Handler_Passphrase extends Horde_Core_Ajax_Applicatio
 
             switch ($this->vars->type) {
             case 'pgpPersonal':
-                $result = $injector->getInstance('IMP_Crypt_Pgp')->storePassphrase('personal', $this->vars->dialog_input);
+                $result = $injector->getInstance('IMP_Pgp')->storePassphrase('personal', $this->vars->dialog_input);
                 break;
 
             case 'pgpSymmetric':
-                $result = $injector->getInstance('IMP_Crypt_Pgp')->storePassphrase('symmetric', $this->vars->dialog_input, $this->vars->symmetricid);
+                $result = $injector->getInstance('IMP_Pgp')->storePassphrase('symmetric', $this->vars->dialog_input, $this->vars->symmetricid);
                 break;
 
             case 'smimePersonal':
-                $result = $injector->getInstance('IMP_Crypt_Smime')->storePassphrase($this->vars->dialog_input);
+                $result = $injector->getInstance('IMP_Smime')->storePassphrase($this->vars->dialog_input);
                 break;
             }
 

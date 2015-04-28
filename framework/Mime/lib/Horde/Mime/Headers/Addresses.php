@@ -65,12 +65,19 @@ implements Horde_Mime_Headers_Element_Address
     }
 
     /**
+     *
+     * @throws Horde_Mime_Exception
      */
     protected function _setValue($value)
     {
         /* @todo Implement with traits */
         $rfc822 = new Horde_Mail_Rfc822();
-        $addr_list = $rfc822->parseAddressList($value);
+
+        try {
+            $addr_list = $rfc822->parseAddressList($value);
+        } catch (Horde_Mail_Exception $e) {
+            throw new Horde_Mime_Exception($e);
+        }
 
         foreach ($addr_list as $ob) {
             if ($ob instanceof Horde_Mail_Rfc822_Group) {

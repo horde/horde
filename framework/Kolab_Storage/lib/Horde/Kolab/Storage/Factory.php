@@ -1,8 +1,9 @@
 <?php
 /**
- * A generic factory for the various Kolab_Storage classes.
+ * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -13,11 +14,6 @@
 
 /**
  * A generic factory for the various Kolab_Storage classes.
- *
- * Copyright 2004-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -209,7 +205,7 @@ class Horde_Kolab_Storage_Factory
      */
     public function createNamespace($type, $user, array $params = array())
     {
-        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . ucfirst($type);
+        $class = 'Horde_Kolab_Storage_Folder_Namespace_' . Horde_String::ucfirst($type);
         if (!class_exists($class)) {
             throw new Horde_Kolab_Storage_Exception(
                 sprintf(

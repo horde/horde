@@ -321,7 +321,7 @@ class Horde_Imap_Client_Data_Fetch
     public function setFlags(array $flags)
     {
         $this->_data[Horde_Imap_Client::FETCH_FLAGS] = array_map(
-            'strtolower',
+            'Horde_String::lower',
             array_map('trim', $flags)
         );
     }

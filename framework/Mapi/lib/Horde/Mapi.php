@@ -162,10 +162,6 @@ class Horde_Mapi
     // convert hex string to BC-int
     protected static function _hexToBcint($str)
     {
-        if (!extension_loaded('bcmath')) {
-            throw new Horde_Mapi_Exception('bcmath extension not loaded.');
-        }
-
         $hex = array(
             '0'=>'0',   '1'=>'1',   '2'=>'2',   '3'=>'3',   '4'=>'4',
             '5'=>'5',   '6'=>'6',   '7'=>'7',   '8'=>'8',   '9'=>'9',
@@ -173,28 +169,31 @@ class Horde_Mapi
             'A'=>'10',  'B'=>'11',  'C'=>'12',  'D'=>'13',  'E'=>'14',  'F'=>'15'
         );
 
-        $bci = '0';
+        $bci = new Math_BigInteger('0');
         $len = strlen($str);
         for ($i = 0; $i < $len; ++$i) {
-            $bci = bcmul($bci, '16');
+            $bci = $bci->multiply(new Math_BigInteger('16'));
             $ch = $str[$i];
-            if (isset($hex[$ch]))
-                $bci = bcadd($bci, $hex[$ch]);
+            if (isset($hex[$ch])) {
+                $bci = $bci->add(new Math_BigInteger($hex[$ch]));
+            }
         }
 
         return $bci;
     }
 
+    /**
+     *
+     * @param  Math_BigInteger $bci
+     * @return string
+     */
     protected static function _win64ToUnix($bci)
     {
-        if (!extension_loaded('bcmath')) {
-            throw new Horde_Mapi_Exception('bcmath extension not loaded.');
-        }
-
         // Unix epoch as a Windows file date-time value
-        $magicnum = '116444735995904000';
-        $t = bcsub($bci, $magicnum);    // Cast to Unix epoch
-        return bcdiv($t, '10000000', 0);  // Convert from ticks to seconds
+        $t = $bci->subtract(new Math_BigInteger('116444735995904000'));    // Cast to Unix epoch
+        list($quotient, $remainder) = $t->divide(new Math_BigInteger('10000000'));
+
+        return (string)$quotient;
     }
 
 

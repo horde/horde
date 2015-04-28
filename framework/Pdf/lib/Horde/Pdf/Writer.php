@@ -506,7 +506,7 @@ class Horde_Pdf_Writer
         }
         /* Page format. */
         if (is_string($params['format'])) {
-            $params['format'] = strtolower($params['format']);
+            $params['format'] = Horde_String::lower($params['format']);
             if ($params['format'] == 'a3') {
                 $params['format'] = array(841.89, 1190.55);
             } elseif ($params['format'] == 'a4') {
@@ -530,7 +530,7 @@ class Horde_Pdf_Writer
         $this->fh = $this->fhPt / $this->_scale;
 
         /* Page orientation. */
-        $params['orientation'] = strtolower($params['orientation']);
+        $params['orientation'] = Horde_String::lower($params['orientation']);
         if ($params['orientation'] == 'p' || $params['orientation'] == 'portrait') {
             $this->_default_orientation = 'P';
             $this->wPt = $this->fwPt;
@@ -700,7 +700,7 @@ class Horde_Pdf_Writer
      */
     public function setDisplayMode($zoom, $layout = 'continuous')
     {
-        $zoom = strtolower($zoom);
+        $zoom = Horde_String::lower($zoom);
         if ($zoom == 'fullpage' || $zoom == 'fullwidth' || $zoom == 'real'
             || $zoom == 'default' || !is_string($zoom)) {
             $this->_zoom_mode = $zoom;
@@ -710,7 +710,7 @@ class Horde_Pdf_Writer
             throw new Horde_Pdf_Exception(sprintf('Incorrect zoom display mode: %s', $zoom));
         }
 
-        $layout = strtolower($layout);
+        $layout = Horde_String::lower($layout);
         if ($layout == 'single' || $layout == 'continuous' || $layout == 'two'
             || $layout == 'default') {
             $this->_layout_mode = $layout;
@@ -1039,7 +1039,7 @@ class Horde_Pdf_Writer
      */
     public function setFillColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
     {
-        $cs = strtolower($cs);
+        $cs = Horde_String::lower($cs);
 
         // convert hex to rgb
         if ($cs == 'hex') {
@@ -1097,7 +1097,7 @@ class Horde_Pdf_Writer
      */
     public function setTextColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
     {
-        $cs = strtolower($cs);
+        $cs = Horde_String::lower($cs);
 
         // convert hex to rgb
         if ($cs == 'hex') {
@@ -1153,7 +1153,7 @@ class Horde_Pdf_Writer
      */
     public function setDrawColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
     {
-        $cs = strtolower($cs);
+        $cs = Horde_String::lower($cs);
 
         // convert hex to rgb
         if ($cs == 'hex') {
@@ -1328,7 +1328,7 @@ class Horde_Pdf_Writer
             $y += $this->h;
         }
 
-        $style = strtoupper($style);
+        $style = Horde_String::upper($style);
         if ($style == 'F') {
             $op = 'f';
         } elseif ($style == 'FD' || $style == 'DF') {
@@ -1369,7 +1369,7 @@ class Horde_Pdf_Writer
             $y += $this->h;
         }
 
-        $style = strtolower($style);
+        $style = Horde_String::lower($style);
         if ($style == 'f') {
             $op = 'f';      // Style is fill only.
         } elseif ($style == 'fd' || $style == 'df') {
@@ -1457,12 +1457,12 @@ class Horde_Pdf_Writer
      */
     public function addFont($family, $style = '', $file = '')
     {
-        $family = strtolower($family);
+        $family = Horde_String::lower($family);
         if ($family == 'arial') {
             $family = 'helvetica';
         }
 
-        $style = strtoupper($style);
+        $style = Horde_String::upper($style);
         if ($style == 'IB') {
             $style = 'BI';
         }
@@ -1470,7 +1470,7 @@ class Horde_Pdf_Writer
             throw new Horde_Pdf_Exception(sprintf('Font already added: %s %s', $family, $style));
         }
         if ($file == '') {
-            $file = str_replace(' ', '', $family) . strtolower($style) . '.php';
+            $file = str_replace(' ', '', $family) . Horde_String::lower($style) . '.php';
         }
         include($file);
         if (!isset($name)) {
@@ -1552,7 +1552,7 @@ class Horde_Pdf_Writer
      */
     public function setFont($family, $style = '', $size = null, $force = false)
     {
-        $family = strtolower($family);
+        $family = Horde_String::lower($family);
         if (empty($family)) {
             $family = $this->_font_family;
         }
@@ -1564,7 +1564,7 @@ class Horde_Pdf_Writer
             $style = '';
         }
 
-        $style = strtoupper($style);
+        $style = Horde_String::upper($style);
 
         /* Underline is handled separately, if specified in the style var
          * remove it from the style and set the underline flag. */
@@ -2316,7 +2316,7 @@ class Horde_Pdf_Writer
             $mqr = get_magic_quotes_runtime();
             if ($mqr) { set_magic_quotes_runtime(0); }
 
-            $type = strtolower($type);
+            $type = Horde_String::lower($type);
             if ($type == 'jpg' || $type == 'jpeg') {
                 $info = $this->_parseJPG($file);
             } elseif ($type == 'png') {
@@ -2574,7 +2574,7 @@ class Horde_Pdf_Writer
     protected static function _getFontFile($fontkey)
     {
         if (!isset(self::$_font_widths[$fontkey])) {
-            $fontClass = 'Horde_Pdf_Font_' . ucfirst(strtolower($fontkey));
+            $fontClass = 'Horde_Pdf_Font_' . Horde_String::ucfirst(Horde_String::lower($fontkey));
             if (!class_exists($fontClass)) {
                 throw new Horde_Pdf_Exception(sprintf('Could not include font metric class: %s', $fontClass));
             }
@@ -3000,7 +3000,7 @@ class Horde_Pdf_Writer
         if (!$orientation) {
             $orientation = $this->_default_orientation;
         } else {
-            $orientation = strtoupper($orientation[0]);
+            $orientation = Horde_String::upper($orientation[0]);
             if ($orientation != $this->_default_orientation) {
                 $this->_orientation_changes[$this->_page] = true;
             }

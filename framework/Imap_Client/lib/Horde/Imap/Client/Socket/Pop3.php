@@ -354,7 +354,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($username . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
+            $response = base64_encode($username . ' ' . hash_hmac(Horde_String::lower(substr($method, 5)), base64_decode(substr($challenge['resp'], 2)), $password, true));
             $this->_sendLine($response, array(
                 'debug' => sprintf('[AUTH Response (username: %s)]', $username)
             ));
@@ -1482,9 +1482,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $pos = strpos($text, ' ', 2);
             $end_pos = strpos($text, ']', 2);
             if ($pos > $end_pos) {
-                $ret->code = strtoupper(substr($text, 1, $end_pos - 1));
+                $ret->code = Horde_String::upper(substr($text, 1, $end_pos - 1));
             } else {
-                $ret->code = strtoupper(substr($text, 1, $pos - 1));
+                $ret->code = Horde_String::upper(substr($text, 1, $pos - 1));
                 $ret->data = substr($text, $pos + 1, $end_pos - $pos - 1);
             }
             $ret->text = trim(substr($text, $end_pos + 1));

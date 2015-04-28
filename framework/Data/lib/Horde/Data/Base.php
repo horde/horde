@@ -1,11 +1,18 @@
 <?php
 /**
- * Abstract class that Data drivers extend.
- *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @package  Data
+ */
+
+/**
+ * Abstract class that Data drivers extend.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -246,7 +253,7 @@ abstract class Horde_Data_Base
                 return $date;
             }
             if ($params['format'][$key] == 'ampm') {
-                if (strpos(strtolower($dates[count($dates)-1]), 'pm') !== false) {
+                if (strpos(Horde_String::lower($dates[count($dates)-1]), 'pm') !== false) {
                     if ($dates[0] !== '12') {
                         $dates[0] += 12;
                     }

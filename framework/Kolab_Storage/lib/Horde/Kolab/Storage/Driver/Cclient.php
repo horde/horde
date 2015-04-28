@@ -1,8 +1,9 @@
 <?php
 /**
- * An cclient based Kolab storage driver.
+ * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -13,11 +14,6 @@
 
 /**
  * An cclient based Kolab storage driver.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
@@ -831,7 +827,7 @@ extends Horde_Kolab_Storage_Driver_Base
     {
         $ob = new Horde_Mime_Part();
 
-        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? strtolower($data->subtype) : Horde_Mime_Part::UNKNOWN));
+        $ob->setType($this->_mimeTypes[$data->type] . '/' . ($data->ifsubtype ? Horde_String::lower($data->subtype) : Horde_Mime_Part::UNKNOWN));
 
         // Optional for multipart-parts, required for all others
         if ($data->ifparameters) {

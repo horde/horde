@@ -77,7 +77,7 @@ implements Serializable, SplSubject
      */
     public function query($charset, $cached = false)
     {
-        $charset = strtoupper($charset);
+        $charset = Horde_String::upper($charset);
 
         if (isset($this->_charsets[$charset])) {
             return $this->_charsets[$charset];
@@ -119,7 +119,7 @@ implements Serializable, SplSubject
      */
     public function setValid($charset, $valid = true)
     {
-        $charset = strtoupper($charset);
+        $charset = Horde_String::upper($charset);
         $valid = (bool)$valid;
 
         if (!isset($this->_charsets[$charset]) ||

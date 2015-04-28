@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-03-18</date>
+ <date>2015-04-20</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Send event update notifications with HTML part.
+* [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.
@@ -143,24 +145,20 @@
      <file name="Kolab.php" role="horde" />
     </dir> <!-- /lib/Calendars -->
     <dir name="Driver">
-     <dir name="Resource">
-      <file name="Sql.php" role="horde" />
-     </dir> <!-- /lib/Driver/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Mock.php" role="horde" />
+     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Driver -->
     <dir name="Event">
-     <dir name="Resource">
-      <file name="Sql.php" role="horde" />
-     </dir> <!-- /lib/Event/Resource -->
      <file name="Holidays.php" role="horde" />
      <file name="Horde.php" role="horde" />
      <file name="Ical.php" role="horde" />
      <file name="Kolab.php" role="horde" />
+     <file name="Resource.php" role="horde" />
      <file name="Sql.php" role="horde" />
     </dir> <!-- /lib/Event -->
     <dir name="Factory">
@@ -262,6 +260,7 @@
     <file name="FreeBusy.php" role="horde" />
     <file name="Kronolith.php" role="horde" />
     <file name="Resource.php" role="horde" />
+    <file name="Shares.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
@@ -512,6 +511,7 @@
     <file name="21_kronolith_upgrade_exceptionutc.php" role="horde" />
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
     <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
+    <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -625,6 +625,10 @@
      <file name="month.html.php" role="horde" />
      <file name="summary.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
+    <dir name="update">
+     <file name="notification.html.php" role="horde" />
+     <file name="notification.plain.php" role="horde" />
+    </dir> <!-- /templates/update -->
     <dir name="view">
      <file name="view.inc" role="horde" />
     </dir> <!-- /templates/view -->
@@ -721,6 +725,7 @@
       <file name="big_agenda.png" role="horde" />
       <file name="big_alarm.png" role="horde" />
       <file name="big_invitation.png" role="horde" />
+      <file name="big_new.png" role="horde" />
       <file name="big_share.png" role="horde" />
       <file name="calendars.png" role="horde" />
       <file name="checkbox_off.png" role="horde" />
@@ -759,6 +764,8 @@
       <file name="private-fff.png" role="horde" />
       <file name="recur-000.png" role="horde" />
       <file name="recur-fff.png" role="horde" />
+      <file name="refresh-sidebar-000.png" role="horde" />
+      <file name="refresh-sidebar-fff.png" role="horde" />
       <file name="right.png" role="horde" />
       <file name="search.png" role="horde" />
       <file name="tasks.png" role="horde" />
@@ -1152,6 +1159,7 @@
    <install as="kronolith/lib/FreeBusy.php" name="lib/FreeBusy.php" />
    <install as="kronolith/lib/Kronolith.php" name="lib/Kronolith.php" />
    <install as="kronolith/lib/Resource.php" name="lib/Resource.php" />
+   <install as="kronolith/lib/Shares.php" name="lib/Shares.php" />
    <install as="kronolith/lib/Storage.php" name="lib/Storage.php" />
    <install as="kronolith/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="kronolith/lib/Test.php" name="lib/Test.php" />
@@ -1179,14 +1187,14 @@
    <install as="kronolith/lib/Driver/Ical.php" name="lib/Driver/Ical.php" />
    <install as="kronolith/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="kronolith/lib/Driver/Mock.php" name="lib/Driver/Mock.php" />
+   <install as="kronolith/lib/Driver/Resource.php" name="lib/Driver/Resource.php" />
    <install as="kronolith/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
-   <install as="kronolith/lib/Driver/Resource/Sql.php" name="lib/Driver/Resource/Sql.php" />
    <install as="kronolith/lib/Event/Holidays.php" name="lib/Event/Holidays.php" />
    <install as="kronolith/lib/Event/Horde.php" name="lib/Event/Horde.php" />
    <install as="kronolith/lib/Event/Ical.php" name="lib/Event/Ical.php" />
    <install as="kronolith/lib/Event/Kolab.php" name="lib/Event/Kolab.php" />
+   <install as="kronolith/lib/Event/Resource.php" name="lib/Event/Resource.php" />
    <install as="kronolith/lib/Event/Sql.php" name="lib/Event/Sql.php" />
-   <install as="kronolith/lib/Event/Resource/Sql.php" name="lib/Event/Resource/Sql.php" />
    <install as="kronolith/lib/Factory/Calendars.php" name="lib/Factory/Calendars.php" />
    <install as="kronolith/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="kronolith/lib/Factory/Geo.php" name="lib/Factory/Geo.php" />
@@ -1342,6 +1350,7 @@
    <install as="kronolith/migration/21_kronolith_upgrade_exceptionutc.php" name="migration/21_kronolith_upgrade_exceptionutc.php" />
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
    <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
+   <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -1412,6 +1421,8 @@
    <install as="kronolith/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
    <install as="kronolith/templates/smartmobile/month.html.php" name="templates/smartmobile/month.html.php" />
    <install as="kronolith/templates/smartmobile/summary.html.php" name="templates/smartmobile/summary.html.php" />
+   <install as="kronolith/templates/update/notification.html.php" name="templates/update/notification.html.php" />
+   <install as="kronolith/templates/update/notification.plain.php" name="templates/update/notification.plain.php" />
    <install as="kronolith/templates/view/view.inc" name="templates/view/view.inc" />
    <install as="kronolith/templates/week/head.inc" name="templates/week/head.inc" />
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
@@ -1469,6 +1480,7 @@
    <install as="kronolith/themes/default/graphics/big_agenda.png" name="themes/default/graphics/big_agenda.png" />
    <install as="kronolith/themes/default/graphics/big_alarm.png" name="themes/default/graphics/big_alarm.png" />
    <install as="kronolith/themes/default/graphics/big_invitation.png" name="themes/default/graphics/big_invitation.png" />
+   <install as="kronolith/themes/default/graphics/big_new.png" name="themes/default/graphics/big_new.png" />
    <install as="kronolith/themes/default/graphics/big_share.png" name="themes/default/graphics/big_share.png" />
    <install as="kronolith/themes/default/graphics/calendars.png" name="themes/default/graphics/calendars.png" />
    <install as="kronolith/themes/default/graphics/checkbox_off.png" name="themes/default/graphics/checkbox_off.png" />
@@ -1507,6 +1519,8 @@
    <install as="kronolith/themes/default/graphics/private-fff.png" name="themes/default/graphics/private-fff.png" />
    <install as="kronolith/themes/default/graphics/recur-000.png" name="themes/default/graphics/recur-000.png" />
    <install as="kronolith/themes/default/graphics/recur-fff.png" name="themes/default/graphics/recur-fff.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-000.png" name="themes/default/graphics/refresh-sidebar-000.png" />
+   <install as="kronolith/themes/default/graphics/refresh-sidebar-fff.png" name="themes/default/graphics/refresh-sidebar-fff.png" />
    <install as="kronolith/themes/default/graphics/right.png" name="themes/default/graphics/right.png" />
    <install as="kronolith/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="kronolith/themes/default/graphics/tasks.png" name="themes/default/graphics/tasks.png" />
@@ -2522,6 +2536,8 @@
    <date>2015-01-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
+* [jan] Always sort users in advanced sharing dialog (Bug #13938).
 * [mjr] Fix saving recurring event after a change in resources (Bug #13921).
 * [mjr] Fix creating recurrence exceptions from CalDAV clients.
 * [jan] Added an index to find base events of recurrence exceptions faster.
@@ -2540,9 +2556,11 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-03-18</date>
+   <date>2015-04-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Send event update notifications with HTML part.
+* [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
 * [mjr] Enforce case on attendee user part, but add attendee to event if only only the case differs (Bug #13905).
 * [jan] Keep original file names when PUTing events via WebDAV.

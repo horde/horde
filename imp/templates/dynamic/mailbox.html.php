@@ -241,6 +241,10 @@
  <div>
   <input name="remote_password" type="password"></input>
   <input name="remote_id" type="hidden"></input>
+  <div>
+   <?php echo _("Save password?") ?>
+   <input name="remote_password_save" type="checkbox"></input>
+  </div>
  </div>
 </div>
 

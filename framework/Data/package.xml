@@ -22,9 +22,9 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-01-08</date>
+ <date>2015-04-28</date>
  <version>
-  <release>2.1.2</release>
+  <release>2.1.3</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -974,7 +974,20 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

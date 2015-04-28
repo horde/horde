@@ -89,7 +89,7 @@ class Kronolith_Ajax
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => intval($has_tasks),
-            'has_resources' => intval(!empty($conf['resource']['driver'])),
+            'has_resources' => intval(!empty($conf['resources']['enabled'])),
             'login_view' => ($prefs->getValue('defaultview') == 'workweek') ? 'week' : $prefs->getValue('defaultview'),
             'default_calendar' => 'internal|' . Kronolith::getDefaultCalendar(Horde_Perms::EDIT),
             'max_events' => intval($prefs->getValue('max_events')),

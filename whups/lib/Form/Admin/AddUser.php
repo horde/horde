@@ -41,7 +41,7 @@ class Whups_Form_Admin_AddUser extends Horde_Form
             } catch (Horde_Auth_Exception $e) {
                 $this->addVariable(
                     _("User"), 'user', 'invalid', true, false, null,
-                    array(sprintf(_("There was an error listing users: %s; %s"), $list->getMessage(), $list->getUserInfo())));
+                    array(sprintf(_("There was an error listing users: %s"), $e->getMessage())));
             }
         } else {
             $this->addVariable(_("User"), 'user', 'text', true);

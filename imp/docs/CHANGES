@@ -2,6 +2,8 @@
 v7.0.0-git
 ----------
 
+[mms] Allow remote account passwords to be saved encrypted in user's
+      preferences (Request #13168).
 [mms] Send IMP MUA information to IMAP servers that support the ID extension.
 [mms] Send S/MIME encrypted data to multiple recipients in a single outgoing
       message.

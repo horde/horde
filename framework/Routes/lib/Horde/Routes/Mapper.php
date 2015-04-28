@@ -1022,7 +1022,7 @@ class Horde_Routes_Mapper
     protected function _requirementsFor($meth, $options)
     {
         if ($meth != 'any') {
-            $options['conditions'] = array('method' => array(strtoupper($meth)));
+            $options['conditions'] = array('method' => array(Horde_String::upper($meth)));
         }
         return $options;
     }
@@ -1039,7 +1039,7 @@ class Horde_Routes_Mapper
     protected function _swap($dct, $newdct)
     {
         foreach ($dct as $key => $val) {
-            $newkey = strtoupper($val);
+            $newkey = Horde_String::upper($val);
             if (!isset($newdct[$newkey])) {
                 $newdct[$newkey] = array();
             }

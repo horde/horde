@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "1.9.0",
-    "time": "2015-03-10",
+    "version": "1.9.1",
+    "time": "2015-04-28",
     "repositories": [
         {
             "type": "pear",
@@ -25,7 +25,8 @@
         "pear-pear.horde.org/Horde_Mail": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Socket_Client": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Support": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable"
+        "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Imap_Client": ">=2.0.0@stable,<=3.0.0alpha1@stable",

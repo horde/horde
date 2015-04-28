@@ -1,9 +1,15 @@
 <?php
 /**
- * Horde backend. Provides the communication between horde data and
- * ActiveSync server.
- *
  * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ *
+ * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Core
+ */
+
+/**
+ * Horde backend.
+ *
+ * Provides the communication between horde data and ActiveSync server.
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -1873,7 +1879,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSearchResults($type, array $query)
     {
-        switch (strtolower($type)) {
+        switch (Horde_String::lower($type)) {
         case 'gal':
             return $this->_searchGal($query);
         case 'mailbox':

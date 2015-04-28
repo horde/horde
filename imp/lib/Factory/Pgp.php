@@ -12,7 +12,7 @@
  */
 
 /**
- * A Horde_Injector based factory for the IMP_Crypt_Pgp object.
+ * A Horde_Injector based factory for the IMP_Pgp object.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -23,9 +23,9 @@
 class IMP_Factory_Pgp extends Horde_Core_Factory_Injector
 {
     /**
-     * Return the IMP_Crypt_Pgp instance.
+     * Return the IMP_Pgp instance.
      *
-     * @return IMP_Crypt_Pgp  The singleton instance.
+     * @return IMP_Pgp  The singleton instance.
      */
     public function create(Horde_Injector $injector)
     {
@@ -42,8 +42,12 @@ class IMP_Factory_Pgp extends Horde_Core_Factory_Injector
             }
         }
 
-        return $injector->getInstance('Horde_Core_Factory_Crypt')
-            ->create('IMP_Crypt_Pgp', $params);
+        return new IMP_Pgp(
+            $injector->getInstance('Horde_Core_Factory_Crypt')->create(
+                'Horde_Crypt_Pgp',
+                $params
+            )
+        );
     }
 
 }

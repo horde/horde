@@ -149,7 +149,7 @@ class Horde_Service_Facebook
         }
 
         // If not, assume it's a method/action class...
-        $class = 'Horde_Service_Facebook_' . ucfirst($value);
+        $class = 'Horde_Service_Facebook_' . Horde_String::ucfirst($value);
         if (!class_exists($class)) {
             throw new Horde_Service_Facebook_Exception(sprintf("%s class not found", $class));
         }

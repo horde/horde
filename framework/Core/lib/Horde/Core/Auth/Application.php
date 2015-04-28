@@ -1,12 +1,20 @@
 <?php
 /**
- * The Horde_Core_Auth_Application class provides application-specific
- * authentication built on top of the horde/Auth API.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL
+ * @package  Core
+ */
+
+/**
+ * The Horde_Core_Auth_Application class provides application-specific
+ * authentication built on top of the horde/Auth API.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -413,13 +421,13 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
         // The follow capabilities are not determined by the Application,
         // but by 'Horde'.
-        if (in_array(strtolower($capability), array('badlogincount', 'lock'))) {
+        if (in_array(Horde_String::lower($capability), array('badlogincount', 'lock'))) {
             return parent::hasCapability($capability);
         } elseif (!isset($this->_appCapabilities)) {
             $this->_appCapabilities = $GLOBALS['registry']->getApiInstance($this->_app, 'application')->auth;
         }
 
-        return in_array(strtolower($capability), $this->_appCapabilities);
+        return in_array(Horde_String::lower($capability), $this->_appCapabilities);
     }
 
     /**

@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -11,9 +9,10 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync:: The Horde ActiveSync server. Entry point for performing
- * all ActiveSync operations.
+ * The Horde ActiveSync server. Entry point for performing all ActiveSync
+ * operations.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -677,9 +676,9 @@ class Horde_ActiveSync
             $cmd = $get['Cmd'];
         }
         if (empty($devId)) {
-            $devId = !empty($get['DeviceId']) ? strtoupper($get['DeviceId']) : null;
+            $devId = !empty($get['DeviceId']) ? Horde_String::upper($get['DeviceId']) : null;
         } else {
-            $devId = strtoupper($devId);
+            $devId = Horde_String::upper($devId);
         }
         $this->_setLogger($get);
 
@@ -712,7 +711,7 @@ class Horde_ActiveSync
         self::$_logger->info(sprintf(
             '[%s] %s request received for user %s',
             $this->_procid,
-            strtoupper($cmd),
+            Horde_String::upper($cmd),
             $this->_driver->getUser())
         );
 

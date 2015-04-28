@@ -70,7 +70,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     public function __get($field)
     {
         // Honor any explicit getters.
-        $fieldMethod = 'get' . ucfirst($field);
+        $fieldMethod = 'get' . Horde_String::ucfirst($field);
         // If an Rdo_Base subclass has a __call() method, is_callable
         // returns true on every method name, so use method_exists
         // instead.
@@ -173,7 +173,7 @@ abstract class Horde_Rdo_Base implements IteratorAggregate, ArrayAccess
     public function __set($field, $value)
     {
         // Honor any explicit setters.
-        $fieldMethod = 'set' . ucfirst($field);
+        $fieldMethod = 'set' . Horde_String::ucfirst($field);
         // If an Rdo_Base subclass has a __call() method, is_callable
         // returns true on every method name, so use method_exists
         // instead.

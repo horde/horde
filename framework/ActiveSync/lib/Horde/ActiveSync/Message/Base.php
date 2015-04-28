@@ -126,7 +126,7 @@ class Horde_ActiveSync_Message_Base
         if (!empty($options['logger'])) {
             $this->_logger = $options['logger'];
         } else {
-            $this->_logger = new Horde_Support_Stub();
+            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }
         if (!empty($options['protocolversion'])) {
             $this->_version = $options['protocolversion'];

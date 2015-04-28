@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.0.8",
-    "time": "2014-11-18",
+    "version": "2.1.0",
+    "time": "2015-04-13",
     "repositories": [
         {
             "type": "pear",
@@ -30,5 +30,8 @@
         "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Translation": ">=2.2.0@stable,<=3.0.0alpha1@stable",
         "ext-xml": "*"
+    },
+    "suggest": {
+        "pear-pear.php.net/Net_DNS2": "*"
     }
 }

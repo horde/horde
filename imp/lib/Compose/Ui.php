@@ -43,12 +43,12 @@ class IMP_Compose_Ui
         $enc_opts = array();
         $output = '';
 
-        if (IMP_Crypt_Pgp::enabled()) {
-            $enc_opts += $injector->getInstance('IMP_Crypt_Pgp')->encryptList();
+        if (IMP_Pgp::enabled()) {
+            $enc_opts += $injector->getInstance('IMP_Pgp')->encryptList();
         }
 
-        if (IMP_Crypt_Smime::enabled()) {
-            $enc_opts += $injector->getInstance('IMP_Crypt_Smime')->encryptList();
+        if (IMP_Smime::enabled()) {
+            $enc_opts += $injector->getInstance('IMP_Smime')->encryptList();
         }
 
         if (!empty($enc_opts)) {

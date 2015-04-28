@@ -1,0 +1,26 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+0123456789012345678901234567890123456789
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+The quick brown fox jumps over the lazy dog.
+0123456789012345678901234567890123456789
+!"$§%&()=?^´°`+#-.,*'_:;<>|~\{[]}
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iJwEAQEIAAYFAlUsHAIACgkQLKN6NvePMNb6ZwP+OXVnQkFtJx2g6NyWpRD89+cX
+zywqROF4omWZuyuPumywLZtb0HOCQqfJr+brUaFLsvtfkXWAmx6ab26jnGAXQQdh
+oXyzdBpC8G10zYde5yAim3UnySnG7ryhbzEkzhGiENazLtW7HzHc4q/YqN6a6yvH
+fpuaD/X92NdikC5CRiI=
+=vzMe
+-----END PGP SIGNATURE-----

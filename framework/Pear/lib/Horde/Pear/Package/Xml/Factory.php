@@ -1,8 +1,9 @@
 <?php
 /**
- * Generates instances required for package.xml manipulations.
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -13,11 +14,6 @@
 
 /**
  * Generates instances required for package.xml manipulations.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -69,7 +65,7 @@ class Horde_Pear_Package_Xml_Factory
      */
     public function createTask($type, $arguments)
     {
-        $class = 'Horde_Pear_Package_Task_' . ucfirst($type);
+        $class = 'Horde_Pear_Package_Task_' . Horde_String::ucfirst($type);
         if (class_exists($class)) {
             $reflectionObj = new ReflectionClass($class);
             return $reflectionObj->newInstanceArgs($arguments);

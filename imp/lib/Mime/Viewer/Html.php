@@ -391,8 +391,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                         $this->_imptmp['imgbroken'] = true;
                     }
                 } else {
-                    $node->removeAttribute('src');
-                    $node->setAttribute('data-src', $val);
+                    if (empty($this->_imptmp['inline'])) {
+                        $node->setAttribute('src', $val);
+                    } else {
+                        $node->removeAttribute('src');
+                        $node->setAttribute('data-src', $val);
+                    }
                 }
             }
 

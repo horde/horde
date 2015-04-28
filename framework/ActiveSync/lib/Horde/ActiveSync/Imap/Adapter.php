@@ -1,7 +1,5 @@
 <?php
 /**
- * Horde_ActiveSync_Imap_Adapter::
- *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
  *            Version 2, the distribution of the Horde_ActiveSync module in or
@@ -11,8 +9,9 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
+
 /**
- * Horde_ActiveSync_Imap_Adapter:: Contains methods for communicating with
+ * Horde_ActiveSync_Imap_Adapter contains methods for communicating with
  * Horde's Horde_Imap_Client library.
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
@@ -61,7 +60,7 @@ class Horde_ActiveSync_Imap_Adapter
         Horde_Mime_Part::$defaultCharset = 'UTF-8';
         Horde_Mime_Headers::$defaultCharset = 'UTF-8';
         $this->_procid = getmypid();
-        $this->_logger = new Horde_Support_Stub();
+        $this->_logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
     }
 
     /**
@@ -600,8 +599,8 @@ class Horde_ActiveSync_Imap_Adapter
                 if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
                     $categories[$uid] = array();
                     foreach ($data->getFlags() as $flag) {
-                        if (!empty($msgFlags[strtolower($flag)])) {
-                            $categories[$uid][] = $msgFlags[strtolower($flag)];
+                        if (!empty($msgFlags[Horde_String::lower($flag)])) {
+                            $categories[$uid][] = $msgFlags[Horde_String::lower($flag)];
                         }
                     }
                 }
@@ -912,7 +911,7 @@ class Horde_ActiveSync_Imap_Adapter
         foreach ($categories as $category) {
             // Do our best to make sure the imap flag is a RFC 3501 compliant.
             $atom = new Horde_Imap_Client_Data_Format_Atom(strtr(Horde_String_Transliterate::toAscii($category), ' ', '_'));
-            $imapflag = strtolower($atom->stripNonAtomCharacters());
+            $imapflag = Horde_String::lower($atom->stripNonAtomCharacters());
             if (!empty($msgFlags[$imapflag])) {
                 $options['add'][] = $imapflag;
                 unset($msgFlags[$imapflag]);
@@ -1221,8 +1220,8 @@ class Horde_ActiveSync_Imap_Adapter
                 $flags = array();
                 $msgFlags = $this->_getMsgFlags();
                 foreach ($imap_message->getFlags() as $flag) {
-                    if (!empty($msgFlags[strtolower($flag)])) {
-                        $flags[] = $msgFlags[strtolower($flag)];
+                    if (!empty($msgFlags[Horde_String::lower($flag)])) {
+                        $flags[] = $msgFlags[Horde_String::lower($flag)];
                     }
                 }
                 $eas_message->categories = $flags;
@@ -1569,7 +1568,7 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _getEASImportance($importance)
     {
-        switch (strtolower($importance)) {
+        switch (Horde_String::lower($importance)) {
         case '1':
         case 'high':
             return 2;

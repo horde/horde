@@ -375,7 +375,7 @@ class Horde_ActiveSync_Device
      */
     public function getMajorVersion()
     {
-        switch (strtolower($this->clientType)) {
+        switch (Horde_String::lower($this->clientType)) {
             case self::TYPE_BLACKBERRY:
                 if (preg_match('/(.+)\/(.+)/', $this->userAgent, $matches)) {
                     return $matches[2];
@@ -425,7 +425,7 @@ class Horde_ActiveSync_Device
      */
     public function getMinorVersion()
     {
-        switch (strtolower($this->clientType)) {
+        switch (Horde_String::lower($this->clientType)) {
             case self::TYPE_BLACKBERRY:
                 if (preg_match('/(.+)\/(.+)/', $this->userAgent, $matches)) {
                     return $matches[2];
@@ -535,7 +535,7 @@ class Horde_ActiveSync_Device
      */
     public function normalizePoomContactsDates($date, $toEas = false)
     {
-        switch (strtolower($this->clientType)) {
+        switch (Horde_String::lower($this->clientType)) {
         case self::TYPE_WP:
         case 'wp8': // Legacy. Remove in H6.
         case 'wp':  // Legacy. Remove in H6.
@@ -622,7 +622,7 @@ class Horde_ActiveSync_Device
         // Differentiate between the deviceType and the client app.
         if ((!empty($this->properties[self::OS]) &&
              stripos($this->properties[self::OS], 'Android') !== false) ||
-             strtolower($this->deviceType) == self::TYPE_ANDROID) {
+             Horde_String::lower($this->deviceType) == self::TYPE_ANDROID) {
 
             // We can detect native Android, TouchDown, and Nine.
             // Moxier does not distinguish itself, so we can't sniff it.
@@ -663,7 +663,7 @@ class Horde_ActiveSync_Device
      */
     protected function _sniffMultiplex()
     {
-        $clientType = strtolower($this->clientType);
+        $clientType = Horde_String::lower($this->clientType);
         if (strpos($this->userAgent, 'iOS') === 0 || in_array($clientType, array(self::TYPE_IPAD, self::TYPE_IPOD, self::TYPE_IPHONE))) {
             // iOS seems to support multiple collections for everything except Notes.
             $this->_properties['properties'][self::MULTIPLEX] = Horde_ActiveSync_Device::MULTIPLEX_NOTES;

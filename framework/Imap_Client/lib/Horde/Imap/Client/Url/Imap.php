@@ -222,7 +222,7 @@ class Horde_Imap_Client_Url_Imap extends Horde_Imap_Client_Url_Base
        if (count($parts)) {
             foreach ($parts as $val) {
                 list($k, $v) = explode('=', $val);
-                $this->{strtolower($k)} = $v;
+                $this->{Horde_String::lower($k)} = $v;
             }
         }
     }

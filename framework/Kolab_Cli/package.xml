@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
  </notes>
  <contents>
@@ -188,6 +189,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Util</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
   </required>
   <optional>
    <package>
@@ -201,13 +209,6 @@
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Util</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -313,6 +314,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix issues with certain locales like Turkish.
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
    </notes>
   </release>

@@ -1,8 +1,9 @@
 <?php
 /**
- * Handles package.xml files.
+ * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -13,11 +14,6 @@
 
 /**
  * Handles package.xml files.
- *
- * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Pear
@@ -133,7 +129,7 @@ class Horde_Pear_Package_Xml
         }
         if (!is_object($type)) {
             if ($type == 'horde' || !class_exists($type)) {
-                $type = 'Horde_Pear_Package_Type_' . ucfirst($type);
+                $type = 'Horde_Pear_Package_Type_' . Horde_String::ucfirst($type);
             }
             $type = new $type(dirname($this->_path));
         }

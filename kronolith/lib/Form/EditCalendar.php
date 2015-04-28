@@ -79,6 +79,11 @@ class Kronolith_Form_EditCalendar extends Horde_Form
             Kronolith::ALL_CALENDARS,
             $calendar->getName()
         );
+
+        if (!$calendarObject) {
+            throw new Horde_Exception_NotFound();
+        }
+
         $url = $registry->get('webroot', 'horde');
         if (isset($conf['urls']['pretty']) &&
             $conf['urls']['pretty'] == 'rewrite') {

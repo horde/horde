@@ -1,8 +1,10 @@
 <?php
 /**
- * The configuration of the Kolab_Filter package.
+ * Copyright 2008 Klarälvdalens Datakonsult AB
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did not
+ * receive this file, see
+ * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -13,12 +15,6 @@
 
 /**
  * The configuration of the Kolab_Filter package.
- *
- * Copyright 2008 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -97,11 +93,11 @@ class Horde_Kolab_Filter_Configuration
     {
         $values = $this->_cli->getOptions();
 
-        $this->_sender = strtolower($values['sender']);
-        $this->_recipients = array_map('strtolower', $values['recipient']);
+        $this->_sender = Horde_String::lower($values['sender']);
+        $this->_recipients = array_map('Horde_String::lower', $values['recipient']);
         $this->_client_address = $values['client'];
-        $this->_fqhostname = strtolower($values['host']);
-        $this->_sasl_username = strtolower($values['user']);
+        $this->_fqhostname = Horde_String::lower($values['host']);
+        $this->_sasl_username = Horde_String::lower($values['user']);
 
         global $conf;
 

@@ -1,15 +1,17 @@
 <?php
 /**
- * @package Kolab_Filter
- */
-
-/**
- * Provides Mail rewriting for malformed Outlook messages
- *
  * Copyright 2004-2008 Klarälvdalens Datakonsult AB
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author  Gunnar Wrobel <wrobel@pardus.de>
+ * @package Kolab_Filter
+ */
+
+/**
+ * Provides mail rewriting for malformed Outlook messages.
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
@@ -56,7 +58,7 @@ class Kolab_Filter_Outlook
      */
     function _copyHeader($name, &$msg_headers, &$headerarray)
     {
-        $lname = strtolower($name);
+        $lname = Horde_String::lower($name);
         if (array_key_exists($lname, $headerarray)) {
             if (is_array($headerarray[$lname])) {
                 foreach ($headerarray[$lname] as $h) {

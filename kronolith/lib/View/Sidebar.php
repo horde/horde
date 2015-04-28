@@ -58,8 +58,9 @@ class Kronolith_View_Sidebar extends Horde_View_Sidebar
         /* Calendars. */
         $sidebar->newShares = $registry->getAuth() &&
             !$prefs->isLocked('default_share');
+        $sidebar->admin = $registry->isAdmin();
         $sidebar->resourceAdmin = $registry->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management');
-        $sidebar->resources = $GLOBALS['conf']['resource']['driver'] == 'sql';
+        $sidebar->resources = $GLOBALS['conf']['resources']['enabled'];
 
         $this->content = $sidebar->render('dynamic/sidebar');
     }

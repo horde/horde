@@ -35,6 +35,12 @@ class IMP_Remote_Account implements Serializable
     const IMAP = 1;
     const POP3 = 2;
 
+    /* Return values for login(). */
+    const LOGIN_BAD = 0;
+    const LOGIN_BAD_CHANGED = 1;
+    const LOGIN_OK = 2;
+    const LOGIN_OK_CHANGED = 3;
+
     /**
      * Configuration.
      *
@@ -114,14 +120,56 @@ class IMP_Remote_Account implements Serializable
     }
 
     /**
-     * Create the IMAP object in the session.
+     * Attempt to login to remote account.
      *
-     * @param string $password  Password.
+     * @param string $password   The password to use. If null, attempts to use
+     *                           the encrypted password stored in the config.
+     * @param boolean $save      If true, save the password (encrypted) to the
+     *                           config.
      *
-     * @throws IMP_Imap_Exception
+     * @return integer  One of the LOGIN_* constants.
      */
-    public function createImapObject($password)
+    public function login($password = null, $save = false)
     {
+        global $injector, $registry;
+
+        if ($this->imp_imap->init) {
+            return self::LOGIN_OK;
+        }
+
+        $blowfish_params = array(
+            'cipher' => 'cbc',
+            /* PBKDF2 is already using a salt, so no need to use yet another
+             * salt (IV) also. */
+            'iv' => str_repeat("\0", Horde_Crypt_Blowfish::IV_LENGTH)
+        );
+
+        if (is_null($password)) {
+            if (!isset($this->_config['password_save'])) {
+                return self::LOGIN_BAD;
+            }
+
+            /* Use the user's current password as the key, after using
+             * PBKDF2 for key lengthening. This means that stored passwords
+             * will be invalidated anytime the "master" password is
+             * changed, but that is ok (not really another option). */
+            list($salt, $pass) = explode(
+                "\0",
+                base64_decode($this->_config['password_save']),
+                2
+            );
+            $blowfish = new Horde_Crypt_Blowfish(
+                strval(new Horde_Crypt_Blowfish_Pbkdf2(
+                    $registry->getAuthCredential('password'),
+                    24,
+                    array('salt' => $salt)
+                )),
+                $blowfish_params
+            );
+
+            $password = $blowfish->decrypt($pass);
+        }
+
         $this->imp_imap->createImapObject(array(
             'hostspec' => $this->hostspec,
             'password' => new IMP_Imap_Password($password),
@@ -129,6 +177,41 @@ class IMP_Remote_Account implements Serializable
             'secure' => $this->secure,
             'username' => $this->username,
         ), $this->type == self::IMAP, strval($this));
+
+        try {
+            $this->imp_imap->login();
+        } catch (IMP_Imap_Exception $e) {
+            $injector->getInstance('IMP_Factory_Imap')->destroy(strval($this));
+            if (!isset($this->_config['password_save'])) {
+                return self::LOGIN_BAD;
+            }
+            unset($this->_config['password_save']);
+            return self::LOGIN_BAD_CHANGED;
+        }
+
+        if (!$save || isset($this->_config['password_save'])) {
+            return self::LOGIN_OK;
+        }
+
+        $pbkdf2 = new Horde_Crypt_Blowfish_Pbkdf2(
+            $registry->getAuthCredential('password'),
+            24
+        );
+        $blowfish = new Horde_Crypt_Blowfish(
+            strval($pbkdf2),
+            $blowfish_params
+        );
+
+        /* Storage details (password_save):
+         *   - PBKDF2 Salt
+         *   - "\0"
+         *   - Encrypted data (Remote account password) */
+        $this->_config['password_save'] = base64_encode(implode(
+            "\0",
+            array($pbkdf2->salt, $blowfish->encrypt($password))
+        ));
+
+        return self::LOGIN_OK_CHANGED;
     }
 
     /**

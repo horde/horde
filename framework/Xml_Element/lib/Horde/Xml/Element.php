@@ -506,7 +506,7 @@ class Horde_Xml_Element implements ArrayAccess
         // Honor any explicit getters. Because Horde_Xml_Element has a __call()
         // method, is_callable returns true on every method name. Use
         // method_exists instead.
-        $varMethod = 'get' . ucfirst($var);
+        $varMethod = 'get' . Horde_String::ucfirst($var);
         if (method_exists($this, $varMethod)) {
             $children = call_user_func(array($this, $varMethod));
             if (is_null($children)) {

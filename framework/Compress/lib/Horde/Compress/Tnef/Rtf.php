@@ -1,7 +1,5 @@
 <?php
 /**
- * Object to parse RTF data encapsulated in a TNEF file.
- *
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -12,11 +10,9 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
  */
+
 /**
- * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Object to parse RTF data encapsulated in a TNEF file.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
@@ -251,7 +247,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
 
                     // Start analyzing.We are interested mostly in control words
                     $toText = '';
-                    switch (strtolower($word)) {
+                    switch (Horde_String::lower($word)) {
                     // If the control word is "u", then its parameter is
                     // the decimal notation of the Unicode character that
                     // should be added to the output stream. We need to
@@ -314,7 +310,7 @@ class Horde_Compress_Tnef_Rtf extends Horde_Compress_Tnef_Object
                         $toText .= html_entity_decode('&raquo;');
                         break;
                     default:
-                        $stack[$j][strtolower($word)] = empty($param) ? true : $param;
+                        $stack[$j][Horde_String::lower($word)] = empty($param) ? true : $param;
                         break;
                     }
                     // Add data to the output stream if required.

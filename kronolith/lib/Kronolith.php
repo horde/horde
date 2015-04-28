@@ -62,6 +62,10 @@ class Kronolith
     const ALL_HOLIDAYS              = 'allHolidays';
     const ALL_RESOURCE_CALENDARS    = 'allResource';
 
+    /** Share Types */
+    const SHARE_TYPE_USER          = 1;
+    const SHARE_TYPE_RESOURCE      = 2;
+
     /**
      * @var Kronolith_Tagger
      */
@@ -222,7 +226,7 @@ class Kronolith
 
         // Resource calendars
         if (count($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS)) &&
-            !empty($GLOBALS['conf']['resource']['driver'])) {
+            !empty($GLOBALS['conf']['resources']['enabled'])) {
 
             $driver = self::getDriver('Resource');
             foreach ($GLOBALS['calendar_manager']->get(Kronolith::DISPLAY_RESOURCE_CALENDARS) as $calendar) {
@@ -1061,26 +1065,21 @@ class Kronolith
      * Returns all calendars a user has access to, according to several
      * parameters/permission levels.
      *
-     * @param boolean $owneronly   Only return calenders that this user owns?
-     *                             Defaults to false.
+     * @param integer $permission  The permission to filter calendars by.
      * @param boolean $display     Only return calendars that are supposed to
      *                             be displayed per configuration and user
      *                             preference.
-     * @param integer $permission  The permission to filter calendars by.
      *
      * @return array  The calendar list.
      */
     public static function listCalendars($permission = Horde_Perms::SHOW,
-                                         $display = false,
-                                         $flat = true)
+                                         $display = false)
     {
         $calendars = array();
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['internal_' . $id] = $calendar;
-                }
+                $calendars['internal_' . $id] = $calendar;
             }
         }
 
@@ -1088,9 +1087,7 @@ class Kronolith
             try {
                 if ($calendar->hasPermission($permission) &&
                     (!$display || $calendar->display())) {
-                    if ($flat) {
-                        $calendars['remote_' . $id] = $calendar;
-                    }
+                    $calendars['remote_' . $id] = $calendar;
                 }
             } catch (Kronolith_Exception $e) {
                 $GLOBALS['notification']->push(sprintf(_("The calendar %s returned the error: %s"), $calendar->name(), $e->getMessage()), 'horde.error');
@@ -1100,18 +1097,14 @@ class Kronolith
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_EXTERNAL_CALENDARS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['external_' . $id] = $calendar;
-                }
+                $calendars['external_' . $id] = $calendar;
             }
         }
 
         foreach ($GLOBALS['calendar_manager']->get(Kronolith::ALL_HOLIDAYS) as $id => $calendar) {
             if ($calendar->hasPermission($permission) &&
                 (!$display || $calendar->display())) {
-                if ($flat) {
-                    $calendars['holiday_' . $id] = $calendar;
-                }
+                $calendars['holiday_' . $id] = $calendar;
             }
         }
 
@@ -1237,6 +1230,9 @@ class Kronolith
         try {
             $share = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($calendar);
             if (!$share->hasPermission($GLOBALS['registry']->getAuth(), $perm)) {
+                if ($share->get('owner') == null && $GLOBALS['registry']->isAdmin()) {
+                    return true;
+                }
                 throw new Horde_Exception_NotFound();
             }
         } catch (Horde_Exception_NotFound $e) {
@@ -1318,8 +1314,7 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
-        $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
-
+        $calendar->set('owner', ($info['system'] == 0) ? $GLOBALS['registry']->getAuth() : null);
         try {
             $calendar->save();
         } catch (Horde_Share_Exception $e) {
@@ -1399,7 +1394,7 @@ class Kronolith
     /**
      * Reads a submitted permissions form and updates the share permissions.
      *
-     * @param Horde_Share_Object $share  The share to update.
+     * @param Horde_Share_Object|Kronolith_Resource_Base $share  The share to update.
      *
      * @return array  A list of error messages.
      * @throws Kronolith_Exception
@@ -1426,29 +1421,32 @@ class Kronolith
         }
 
         // Process owner and owner permissions.
-        $old_owner = $share->get('owner');
-        $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
-        $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
-        if ($old_owner !== $new_owner && !empty($new_owner)) {
-            if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
-                $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
-            } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
-                $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
-            } else {
-                $share->set('owner', $new_owner);
-                $share->save();
-                if ($GLOBALS['conf']['share']['notify']) {
-                    $view->ownerChange = true;
-                    $multipart = self::buildMimeMessage($view, 'notification', $image);
-                    $to = $GLOBALS['injector']
-                        ->getInstance('Horde_Core_Factory_Identity')
-                        ->create($new_owner)
-                        ->getDefaultFromAddress(true);
-                    $mail->addHeader('Subject', _("Ownership assignment"));
-                    $mail->addHeader('To', $to);
-                    $mail->setBasePart($multipart);
-                    $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
-                    $view->ownerChange = false;
+        if (!($share instanceof Kronolith_Resource_Base)) {
+            $old_owner = $share->get('owner');
+            $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
+            $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
+
+            if ($old_owner !== $new_owner && !empty($new_owner)) {
+                if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
+                    $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
+                } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {
+                    $errors[] = sprintf(_("The user \"%s\" does not exist."), $new_owner_backend);
+                } else {
+                    $share->set('owner', $new_owner);
+                    $share->save();
+                    if ($GLOBALS['conf']['share']['notify']) {
+                        $view->ownerChange = true;
+                        $multipart = self::buildMimeMessage($view, 'notification', $image);
+                        $to = $GLOBALS['injector']
+                            ->getInstance('Horde_Core_Factory_Identity')
+                            ->create($new_owner)
+                            ->getDefaultFromAddress(true);
+                        $mail->addHeader('Subject', _("Ownership assignment"));
+                        $mail->addHeader('To', $to);
+                        $mail->setBasePart($multipart);
+                        $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+                        $view->ownerChange = false;
+                    }
                 }
             }
         }
@@ -1998,7 +1996,7 @@ class Kronolith
             $ics->setType('text/calendar');
             $ics->setContents($iCal->exportvCalendar());
             $ics->setName($filename);
-            $ics->setContentTypeParameter('METHOD', $method);
+            $ics->setContentTypeParameter('method', $method);
             $ics->setCharset('UTF-8');
             $ics->setEOL("\r\n");
 
@@ -2054,7 +2052,7 @@ class Kronolith
      */
     public static function sendNotification($event, $action)
     {
-        global $injector, $registry;
+        global $injector, $prefs, $registry;
 
         if (!in_array($action, array('add', 'edit', 'delete'))) {
             throw new Kronolith_Exception('Unknown event action: ' . $action);
@@ -2083,7 +2081,7 @@ class Kronolith
             ->create($event->creator ?: $owner);
 
         foreach ($share->listUsers(Horde_Perms::READ) as $user) {
-            if (!isset($recipients[$user])) {
+            if (empty($recipients[$user])) {
                 $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
             }
         }
@@ -2097,7 +2095,7 @@ class Kronolith
             }
 
             foreach ($group_users as $user) {
-                if (!isset($recipients[$user])) {
+                if (empty($recipients[$user])) {
                     $recipients[$user] = self::_notificationPref($user, 'read', $calendar);
                 }
             }
@@ -2113,6 +2111,7 @@ class Kronolith
             if (strpos($email, '@') === false) {
                 continue;
             }
+
             if (!isset($addresses[$vals['lang']][$vals['tf']][$vals['df']])) {
                 $addresses[$vals['lang']][$vals['tf']][$vals['df']] = array();
             }
@@ -2126,44 +2125,46 @@ class Kronolith
             return;
         }
 
+        $image = self::getImagePart('big_new.png');
+        $view = new Horde_View(array('templatePath' => KRONOLITH_TEMPLATES . '/update'));
+        $view->event = $event;
+        $view->calendar = Kronolith::getLabel($share);
+        $view->imageId = $image->getContentId();
+        if (!$prefs->isLocked('event_notification')) {
+            $view->prefsUrl = Horde::url($registry->getServiceLink('prefs', 'kronolith'), true)->remove(session_name());
+        }
+        new Horde_View_Helper_Text($view);
+
         foreach ($addresses as $lang => $twentyFour) {
             $registry->setLanguageEnvironment($lang);
 
             switch ($action) {
             case 'add':
                 $subject = _("Event added:");
-                $notification_message = _("You requested to be notified when events are added to your calendars.") . "\n\n" . _("The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'edit':
                 $subject = _("Event edited:");
-                $notification_message = _("You requested to be notified when events are edited in your calendars.") . "\n\n" . _("The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s.");
                 break;
 
             case 'delete':
                 $subject = _("Event deleted:");
-                $notification_message = _("You requested to be notified when events are deleted from your calendars.") . "\n\n" . _("The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at %s.");
                 break;
             }
 
             foreach ($twentyFour as $tf => $dateFormat) {
                 foreach ($dateFormat as $df => $df_recipients) {
-                    $message = "\n"
-                        . sprintf($notification_message,
-                                  $event->title,
-                                  Kronolith::getLabel($share),
-                                  $event->start->strftime($df),
-                                  $event->start->strftime($tf ? '%R' : '%I:%M%p'))
-                        . "\n\n" . $event->description;
-
-                    $mime_mail = new Horde_Mime_Mail(array(
-                        'Subject' => $subject . ' ' . $event->title,
+                    $view->header = $subject . ' ' . $event->title;
+                    $mail = new Horde_Mime_Mail(array(
+                        'Subject' => $view->header,
                         'To' => implode(',', $df_recipients),
                         'From' => $senderIdentity->getDefaultFromAddress(true),
                         'User-Agent' => 'Kronolith ' . $registry->getVersion(),
-                        'body' => $message));
+                    ));
+                    $multipart = self::buildMimeMessage($view, 'notification', $image);
+                    $mail->setBasePart($multipart);
                     Horde::log(sprintf('Sending event notifications for %s to %s', $event->title, implode(', ', $df_recipients)), 'DEBUG');
-                    $mime_mail->send($injector->getInstance('Horde_Mail'));
+                    $mail->send($injector->getInstance('Horde_Mail'));
                 }
             }
         }
@@ -2855,7 +2856,7 @@ class Kronolith
      */
     public static function getInternalCalendar($target)
     {
-        if ($GLOBALS['conf']['resource']['driver'] && self::getDriver('Resource')->isResourceCalendar($target)) {
+        if ($GLOBALS['conf']['resources']['enabled'] && self::getDriver('Resource')->isResourceCalendar($target)) {
             $driver = self::getDriver('Resource');
             $id = $driver->getResourceIdByCalendar($target);
             return $driver->getResource($id);

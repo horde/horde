@@ -67,7 +67,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function description()
     {
-        return $this->_resource->get('description');
+        return $this->_resource->get('desc');
     }
 
     /**
@@ -103,7 +103,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
      */
     public function toHash()
     {
-        $owner = $GLOBALS['registry']->isAdmin();
+        $owner = $GLOBALS['registry']->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management');
         $hash = parent::toHash();
 
         $hash['id']    = $this->_resource->getId();
@@ -116,11 +116,7 @@ class Kronolith_Calendar_Resource extends Kronolith_Calendar
         $hash['embed'] = null;
         $hash['response_type'] = $this->_resource->get('response_type');
         if ($owner) {
-            $hash['perms'] = array(
-                'type' => 'matrix',
-                'default' => 0,
-                'guest' => 0,
-                'creator' => 0);
+            $hash['perms'] = Kronolith::permissionToJson($this->_resource->getPermission());
         }
         return $hash;
     }

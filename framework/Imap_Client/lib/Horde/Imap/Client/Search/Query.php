@@ -81,7 +81,15 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function charset($charset, $convert = true)
     {
         $oldcharset = $this->_charset;
-        $this->_charset = strtoupper($charset);
+        $this->_charset = Horde_String::upper($charset);
+
+        foreach (array('and', 'or') as $item) {
+            if (isset($this->_search[$item])) {
+                foreach ($this->_search[$item] as &$val) {
+                    $val->charset($charset, $convert);
+                }
+            }
+        }
 
         if (!$convert || ($oldcharset == $this->_charset)) {
             return;
@@ -432,7 +440,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
      */
     public function flag($name, $set = true, array $opts = array())
     {
-        $name = strtoupper(ltrim($name, '\\'));
+        $name = Horde_String::upper(ltrim($name, '\\'));
         if (!isset($this->_search['flag'])) {
             $this->_search['flag'] = array();
         }
@@ -498,7 +506,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
         }
         $this->_search['header'][] = array_filter(array(
             'fuzzy' => !empty($opts['fuzzy']),
-            'header' => strtoupper($header),
+            'header' => Horde_String::upper($header),
             'text' => $text,
             'not' => $not
         ));
@@ -704,7 +712,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                            array $opts = array())
     {
         if (!is_null($type)) {
-            $type = strtolower($type);
+            $type = Horde_String::lower($type);
             if (!in_array($type, array('shared', 'priv', 'all'))) {
                 $type = 'all';
             }

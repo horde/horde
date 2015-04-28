@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -126,7 +126,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
             $store_status = self::STORE_STATUS_PROTERR;
         }
         $search_query = array();
-        switch (strtolower($search_name)) {
+        switch (Horde_String::lower($search_name)) {
         case 'documentlibrary':
             $search_query['query'] = $this->_parseQuery();
             break;
@@ -241,7 +241,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         }
 
         $search_query['range'] = empty($search_query['range']) ? '0-99' : $search_query['range'];
-        switch(strtolower($search_name)) {
+        switch(Horde_String::lower($search_name)) {
         case 'mailbox':
             $search_query['rebuildresults'] = !empty($search_query['rebuildresults']);
             $search_query['deeptraversal'] =  !empty($search_query['deeptraversal']);
@@ -277,7 +277,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
             $count = 0;
             foreach ($search_result['rows'] as $u) {
                 $count++;
-                switch (strtolower($search_name)) {
+                switch (Horde_String::lower($search_name)) {
                 case 'documentlibrary':
                     $this->_encoder->startTag(self::SEARCH_RESULT);
 

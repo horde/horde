@@ -1,16 +1,18 @@
 <?php
 /**
+ * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Icalendar
  */
 
 /**
  * Class representing iCalendar files.
- *
- * Copyright 2003-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @category Horde
@@ -378,7 +380,7 @@ class Horde_Icalendar
         $r = array();
 
         foreach ($this->_components as $c) {
-            $cn = strtolower(get_class($c));
+            $cn = Horde_String::lower(get_class($c));
             if (empty($r[$cn])) {
                 $r[$cn] = 1;
             } else {

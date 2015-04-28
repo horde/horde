@@ -202,6 +202,8 @@ implements ArrayAccess, IteratorAggregate, Serializable
         } catch (InvalidArgumentException $e) {
             /* Ignore an invalid header. */
             return;
+        } catch (Horde_Mime_Exception $e) {
+            return;
         }
 
         switch ($classname) {

@@ -1,23 +1,5 @@
 <?php
 /**
- * REST access to a PEAR server.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Pear
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
- * @link     http://pear.php.net/manual/en/core.rest.php
- */
-
-/**
- * REST access to a PEAR server.
- *
- * This implements a subset of the REST methods detailed in
- * http://pear.php.net/manual/en/core.rest.php
- *
  * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -27,7 +9,18 @@
  * @package  Pear
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Pear
+ */
+
+/**
+ * REST access to a PEAR server.
+ *
+ * This implements a subset of the REST methods detailed in
+ * http://pear.php.net/manual/en/core.rest.php
+ *
+ * @category Horde
+ * @package  Pear
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.php.net/manual/en/core.rest.php
  */
 class Horde_Pear_Rest
@@ -98,7 +91,7 @@ class Horde_Pear_Rest
     public function fetchPackageInformation($package)
     {
         return $this->_get(
-            $this->_url . '/rest/p/' . strtolower($package) . '/info.xml'
+            $this->_url . '/rest/p/' . Horde_String::lower($package) . '/info.xml'
         );
     }
 
@@ -113,7 +106,7 @@ class Horde_Pear_Rest
     public function fetchPackageReleases($package)
     {
         return $this->_get(
-            $this->_url . '/rest/r/' . strtolower($package) . '/allreleases.xml'
+            $this->_url . '/rest/r/' . Horde_String::lower($package) . '/allreleases.xml'
         );
     }
 
@@ -128,7 +121,7 @@ class Horde_Pear_Rest
     public function fetchLatestPackageReleases($package)
     {
         if (!isset($this->_package_states[$package])) {
-            $base = $this->_url . '/rest/r/' . strtolower($package);
+            $base = $this->_url . '/rest/r/' . Horde_String::lower($package);
             $this->_package_states[$package] = array(
                 'stable' => $this->_read($base . '/stable.txt'),
                 'alpha'  => $this->_read($base . '/alpha.txt'),
@@ -149,7 +142,7 @@ class Horde_Pear_Rest
      */
     public function fetchLatestRelease($package)
     {
-        return $this->_read($this->_url . '/rest/r/' . strtolower($package) . '/latest.txt');
+        return $this->_read($this->_url . '/rest/r/' . Horde_String::lower($package) . '/latest.txt');
     }
 
     /**
@@ -164,7 +157,7 @@ class Horde_Pear_Rest
     public function fetchReleaseInformation($package, $version)
     {
         return $this->_get(
-            $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
+            $this->_url . '/rest/r/' . Horde_String::lower($package) . '/' . $version . '.xml'
         );
     }
 
@@ -179,7 +172,7 @@ class Horde_Pear_Rest
     public function releaseExists($package, $version)
     {
         $response = $this->_client->get(
-            $this->_url . '/rest/r/' . strtolower($package) . '/' . $version . '.xml'
+            $this->_url . '/rest/r/' . Horde_String::lower($package) . '/' . $version . '.xml'
         );
         if ($response->code === 200) {
             return true;
@@ -199,7 +192,7 @@ class Horde_Pear_Rest
     public function fetchReleasePackageXml($package, $version)
     {
         return $this->_get(
-            $this->_url . '/rest/r/' . strtolower($package) . '/package.' . $version . '.xml'
+            $this->_url . '/rest/r/' . Horde_String::lower($package) . '/package.' . $version . '.xml'
         );
     }
 
@@ -215,7 +208,7 @@ class Horde_Pear_Rest
     public function fetchPackageDependencies($package, $version)
     {
         return $this->_read(
-            $this->_url . '/rest/r/' . strtolower($package) . '/deps.' . $version . '.txt'
+            $this->_url . '/rest/r/' . Horde_String::lower($package) . '/deps.' . $version . '.txt'
         );
     }
 

@@ -204,7 +204,7 @@ class Horde_Idna_Punycode
         $inputLength = strlen($input);
 
         /* Punycode lookup is case-insensitive. */
-        $input = strtolower($input);
+        $input = Horde_String::lower($input);
 
         while ($pos < $inputLength) {
             $oldi = $i;

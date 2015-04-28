@@ -1,9 +1,9 @@
 <?php
 /**
- * Return the mail addresses of the KolabInetOrgPersons with the given uid or
- * mail address and include all alias and delegate addresses.
+ * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Server
@@ -16,11 +16,6 @@
  * Return the mail addresses of the KolabInetOrgPersons with the given uid or
  * mail address and include all alias and delegate addresses.
  *
- * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @category Kolab
  * @package  Kolab_Server
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -30,7 +25,6 @@
 class Horde_Kolab_Server_Search_Operation_Addressesforuidormail
 extends Horde_Kolab_Server_Search_Operation_Base
 {
-
     /**
      * The basic attribute search.
      *
@@ -129,7 +123,7 @@ extends Horde_Kolab_Server_Search_Operation_Base
             }
         }
 
-        $addrs = array_map('strtolower', $addrs);
+        $addrs = array_map('Horde_String::lower', $addrs);
 
         return $addrs;
     }

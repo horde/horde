@@ -1,21 +1,5 @@
 <?php
 /**
- * Horde_Service_Gravatar abstracts communication with Services supporting the
- * Gravatar API (http://www.gravatar.com/site/implement/).
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Service_Gravatar
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Service_Gravatar
- */
-
-/**
- * Horde_Service_Gravatar abstracts communication with Services supporting the
- * Gravatar API (http://www.gravatar.com/site/implement/).
- *
  * Copyright 2011-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -25,7 +9,17 @@
  * @package  Service_Gravatar
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Service_Gravatar
+ */
+
+/**
+ * Horde_Service_Gravatar abstracts communication with Services supporting the
+ * Gravatar API.
+ *
+ * @category Horde
+ * @package  Service_Gravatar
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://www.gravatar.com/site/implement/
  */
 class Horde_Service_Gravatar
 {
@@ -85,7 +79,7 @@ class Horde_Service_Gravatar
         if (!is_string($mail)) {
             throw new InvalidArgumentException('The mail address must be a string!');
         }
-        return md5(strtolower(trim($mail)));
+        return md5(Horde_String::lower(trim($mail)));
     }
 
     /**

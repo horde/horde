@@ -718,10 +718,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                                      following keys:
      *  - encrypt: (integer) A flag whether to encrypt or sign the message.
      *            One of:
-     *    - IMP_Crypt_Pgp::ENCRYPT</li>
-     *    - IMP_Crypt_Pgp::SIGNENC</li>
-     *    - IMP_Crypt_Smime::ENCRYPT</li>
-     *    - IMP_Crypt_Smime::SIGNENC</li>
+     *    - IMP_Pgp::ENCRYPT</li>
+     *    - IMP_Pgp::SIGNENC</li>
+     *    - IMP_Smime::ENCRYPT</li>
+     *    - IMP_Smime::SIGNENC</li>
      *  - html: (boolean) Whether this is an HTML message.
      *          DEFAULT: false
      *  - pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
@@ -997,33 +997,33 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add personal address to encrypted message. */
         switch ($encrypt) {
-        case IMP_Crypt_Pgp::ENCRYPT:
-        case IMP_Crypt_Pgp::SIGNENC:
-        case IMP_Crypt_Pgp::SYM_ENCRYPT:
-        case IMP_Crypt_Pgp::SYM_SIGNENC:
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGNENC:
+        case IMP_Pgp::ENCRYPT:
+        case IMP_Pgp::SIGNENC:
+        case IMP_Pgp::SYM_ENCRYPT:
+        case IMP_Pgp::SYM_SIGNENC:
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGNENC:
             $recip2 = clone $recip;
             $recip2->add($from);
             break;
         }
 
         switch ($encrypt) {
-        case IMP_Crypt_Pgp::ENCRYPT:
-        case IMP_Crypt_Pgp::SIGN:
-        case IMP_Crypt_Pgp::SIGNENC:
-        case IMP_Crypt_Pgp::SYM_ENCRYPT:
-        case IMP_Crypt_Pgp::SYM_SIGNENC:
-            if (!IMP_Crypt_Pgp::enabled()) {
+        case IMP_Pgp::ENCRYPT:
+        case IMP_Pgp::SIGN:
+        case IMP_Pgp::SIGNENC:
+        case IMP_Pgp::SYM_ENCRYPT:
+        case IMP_Pgp::SYM_SIGNENC:
+            if (IMP_Pgp::enabled()) {
                 break;
             }
 
-            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
+            $imp_pgp = $injector->getInstance('IMP_Pgp');
 
             switch ($encrypt) {
-            case IMP_Crypt_Pgp::SIGN:
-            case IMP_Crypt_Pgp::SIGNENC:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
+            case IMP_Pgp::SIGN:
+            case IMP_Pgp::SIGNENC:
+            case IMP_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's passphrase yet. */
                 $passphrase = $imp_pgp->getPassphrase('personal');
                 if (empty($passphrase)) {
@@ -1035,8 +1035,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 }
                 break;
 
-            case IMP_Crypt_Pgp::SYM_ENCRYPT:
-            case IMP_Crypt_Pgp::SYM_SIGNENC:
+            case IMP_Pgp::SYM_ENCRYPT:
+            case IMP_Pgp::SYM_SIGNENC:
                 /* Check to see if we have the user's symmetric passphrase
                  * yet. */
                 $symmetric_passphrase = $imp_pgp->getPassphrase(
@@ -1056,25 +1056,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP_Crypt_Pgp::SIGN:
-                    $msg2 = $imp_pgp->impSignMimePart($msg);
+                case IMP_Pgp::SIGN:
+                    $msg2 = $imp_pgp->signMimePart($msg);
                     $this->_setMetadata('encrypt_sign', true);
                     return $msg2;
 
-                case IMP_Crypt_Pgp::ENCRYPT:
-                case IMP_Crypt_Pgp::SYM_ENCRYPT:
-                    return $imp_pgp->IMPencryptMIMEPart(
+                case IMP_Pgp::ENCRYPT:
+                case IMP_Pgp::SYM_ENCRYPT:
+                    return $imp_pgp->encryptMimePart(
                         $msg,
                         $recip2,
-                        ($encrypt == IMP_Crypt_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null
+                        ($encrypt == IMP_Pgp::SYM_ENCRYPT) ? $symmetric_passphrase : null
                     );
 
-                case IMP_Crypt_Pgp::SIGNENC:
-                case IMP_Crypt_Pgp::SYM_SIGNENC:
-                    return $imp_pgp->IMPsignAndEncryptMIMEPart(
+                case IMP_Pgp::SIGNENC:
+                case IMP_Pgp::SYM_SIGNENC:
+                    return $imp_pgp->signAndEncryptMimePart(
                         $msg,
                         $recip2,
-                        ($encrypt == IMP_Crypt_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null
+                        ($encrypt == IMP_Pgp::SYM_SIGNENC) ? $symmetric_passphrase : null
                     );
                     break;
                 }
@@ -1085,19 +1085,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
             break;
 
-        case IMP_Crypt_Smime::ENCRYPT:
-        case IMP_Crypt_Smime::SIGN:
-        case IMP_Crypt_Smime::SIGNENC:
-            if (!IMP_Crypt_Smime::enabled()) {
+        case IMP_Smime::ENCRYPT:
+        case IMP_Smime::SIGN:
+        case IMP_Smime::SIGNENC:
+            if (!IMP_Smime::enabled()) {
                 break;
             }
 
-            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
+            $imp_smime = $injector->getInstance('IMP_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             switch ($encrypt) {
-            case IMP_Crypt_Smime::SIGN:
-            case IMP_Crypt_Smime::SIGNENC:
+            case IMP_Smime::SIGN:
+            case IMP_Smime::SIGNENC:
                 if (($passphrase = $imp_smime->getPassphrase()) === false) {
                     $e = new IMP_Compose_Exception(
                         _("S/MIME Error: Need passphrase for personal private key.")
@@ -1111,16 +1111,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Do the encryption/signing requested. */
             try {
                 switch ($encrypt) {
-                case IMP_Crypt_Smime::SIGN:
-                    $msg2 = $imp_smime->IMPsignMIMEPart($msg);
+                case IMP_Smime::SIGN:
+                    $msg2 = $imp_smime->signMimePart($msg);
                     $this->_setMetadata('encrypt_sign', true);
                     return $msg2;
 
-                case IMP_Crypt_Smime::ENCRYPT:
-                    return $imp_smime->IMPencryptMIMEPart($msg, $recip2);
+                case IMP_Smime::ENCRYPT:
+                    return $imp_smime->encryptMimePart($msg, $recip2);
 
-                case IMP_Crypt_Smime::SIGNENC:
-                    return $imp_smime->IMPsignAndEncryptMIMEPart($msg, $recip2);
+                case IMP_Smime::SIGNENC:
+                    return $imp_smime->signAndEncryptMimePart($msg, $recip2);
                 }
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(

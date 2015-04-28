@@ -27,8 +27,8 @@
                      '<label for="kronolithC' . $type . 'PG">', '</label>',
                      '<label for="kronolithC' . $type . 'PGPerms">', '</label>',
                      '<select id="kronolithC' . $type . 'PGPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'G\')">
-                        <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
-                        <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
+                        <option value="read">' . ($type != 'tasklists' ? _("read the events") : _("read the tasks")) . '</option>
+                        <option value="edit">' . ($type != 'tasklists' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
                      </select>')
         ?>
         <br />
@@ -40,8 +40,8 @@
                  '<textarea id="kronolithC' . $type . 'PUList" cols="25" rows="3" class="kronolithLongField" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')"></textarea><p>',
                  '<label for="kronolithC' . $type . 'PUPerms">', '</label>',
                  '<select id="kronolithC' . $type . 'PUPerms" onchange="KronolithCore.permsClickHandler(\'' . $type . '\', \'U\')">
-                    <option value="read">' . ($type == 'internal' ? _("read the events") : _("read the tasks")) . '</option>
-                    <option value="edit">' . ($type == 'internal' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
+                    <option value="read">' . ($type != 'tasklists' ? _("read the events") : _("read the tasks")) . '</option>
+                    <option value="edit">' . ($type != 'tasklists' ? _("read and edit the events") : _("read and edit the tasks")) . '</option>
                  </select></p>')
     ?>
   </div>
@@ -54,21 +54,21 @@
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <thead>
         <tr valign="middle">
-          <th colspan="2"><?php echo $type == 'internal' ? _("Calendar owner") : _("Task list owner") ?></th>
+          <th colspan="2"><?php echo $type == 'internal' ? _("Calendar owner") . '<span style="display:none" id="kronolithSystemOwner"> ' . _("System Owned") . '</div>' : ($type == 'tasklists' ? _("Task list owner") : '') ?></th>
         </tr>
       </thead>
       <tbody>
         <tr>
          <td>
 <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
-          <select name="owner_select">
+          <select id="kronolithPOwnerInput" name="owner_select">
            <option value=""><?php echo _("Select a new owner:") ?></option>
 <?php foreach ($auth->listUsers(true) as $user): ?>
            <option value="<?php echo htmlspecialchars($user) ?>"<?php if ($user == $GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) echo ' selected="selected"' ?>><?php echo htmlspecialchars($user) ?></option>
 <?php endforeach; ?>
           </select>
 <?php else: ?>
-          <input type="text" name="owner_input" size="50" value="<?php echo htmlspecialchars($GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) ?>" class="kronolithLongField" />
+          <input type="text" id="kronolithPOwnerInput" name="owner_input" size="50" value="<?php echo htmlspecialchars($GLOBALS['registry']->convertUsername($GLOBALS['registry']->getAuth(), false)) ?>" class="kronolithLongField" />
 <?php endif; ?>
           </td>
         </tr>
@@ -187,7 +187,7 @@
           <?php if ($auth->hasCapability('list') && ($GLOBALS['conf']['auth']['list_users'] == 'list' || $GLOBALS['conf']['auth']['list_users'] == 'both')): ?>
           <select id="kronolithC<?php echo $type ?>PUNew" name="u_names[||new]">
             <option value=""><?php echo _("Select a user") ?></option>
-            <?php foreach ($auth->listUsers() as $user): ?>
+            <?php foreach ($auth->listUsers(true) as $user): ?>
             <?php if ($user != $GLOBALS['registry']->getAuth()): ?>
             <option value="<?php echo htmlspecialchars($user) ?>"><?php echo htmlspecialchars($user) ?></option>
             <?php endif; ?>

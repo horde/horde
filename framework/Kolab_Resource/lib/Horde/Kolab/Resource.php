@@ -1,8 +1,9 @@
 <?php
 /**
- * Resource management for the Kolab server.
+ * Copyright 2004-2010 Klarälvdalens Datakonsult AB
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Filter
@@ -41,12 +42,7 @@ define('RM_ITIP_ACCEPT',                    2);
 define('RM_ITIP_TENTATIVE',                 3);
 
 /**
- * Provides Kolab resource handling
- *
- * Copyright 2004-2010 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * Provides Kolab resource handling.
  *
  * @package Kolab_Filter
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
@@ -92,7 +88,7 @@ class Kolab_Resource
         if (is_a($hs, 'PEAR_Error')) {
             return $hs;
         }
-        $hs      = strtolower($hs);
+        $hs      = Horde_String::lower($hs);
         $actions = $user->get(Horde_Kolab_Server_Object_Kolab_User::ATTRIBUTE_IPOLICY, false);
         if (is_a($actions, 'PEAR_Error')) {
             $actions->code = OUT_LOG | EX_UNAVAILABLE;
@@ -106,7 +102,7 @@ class Kolab_Resource
         $defaultpolicy = false;
         foreach ($actions as $action) {
             if (preg_match('/(.*):(.*)/', $action, $regs)) {
-                $policies[strtolower($regs[1])] = $regs[2];
+                $policies[Horde_String::lower($regs[1])] = $regs[2];
             } else {
                 $defaultpolicy = $action;
             }
@@ -276,7 +272,7 @@ class Kolab_Resource
 
         // What is the request's method? i.e. should we create a new event/cancel an
         // existing event, etc.
-        $method = strtoupper(
+        $method = Horde_String::upper(
             $iCalendar->getAttributeDefault(
                 'METHOD',
                 $itip->getMethod()

@@ -174,7 +174,7 @@ class Horde_Oauth_Request
      */
     protected function _getNormalizedHttpMethod()
     {
-        return strtoupper($this->_method);
+        return Horde_String::upper($this->_method);
     }
 
     /**

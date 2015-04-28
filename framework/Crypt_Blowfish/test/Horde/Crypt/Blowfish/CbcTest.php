@@ -12,65 +12,81 @@
  */
 class Horde_Crypt_Blowfish_CbcTest extends Horde_Test_Case
 {
-    private $vectors = array();
-
-    public function setUp()
-    {
-        foreach (file(dirname(__FILE__) . '/fixtures/vectors_cbc.txt') as $val) {
-            list($key, $iv, $plain) = explode(' ', trim($val));
-            $this->vectors[] = array(
-                'key' => pack("H*", $key),
-                'iv' => pack("H*", $iv),
-                'plain' => pack("H*", $plain)
-            );
-        }
-    }
-
-    public function testOpensslDriver()
+    /**
+     * @dataProvider vectorProvider
+     */
+    public function testOpensslDriver($vector)
     {
         if (!Horde_Crypt_Blowfish_Openssl::supported()) {
             $this->markTestSkipped();
-        } else {
-            $this->_doTest(0);
         }
+
+        $this->_doTest($vector, 0);
     }
 
-    public function testMcryptDriver()
+    /**
+     * @dataProvider vectorProvider
+     */
+    public function testMcryptDriver($vector)
     {
         if (!Horde_Crypt_Blowfish_Mcrypt::supported()) {
             $this->markTestSkipped();
-        } else {
-            $this->_doTest(Horde_Crypt_Blowfish::IGNORE_OPENSSL);
         }
+
+        $this->_doTest($vector, Horde_Crypt_Blowfish::IGNORE_OPENSSL);
     }
 
-    public function testPhpDriver()
+    /**
+     * @dataProvider vectorProvider
+     */
+    public function testPhpDriver($vector)
     {
-        $this->_doTest(Horde_Crypt_Blowfish::IGNORE_OPENSSL | Horde_Crypt_Blowfish::IGNORE_MCRYPT);
+        $this->_doTest(
+            $vector,
+            Horde_Crypt_Blowfish::IGNORE_OPENSSL |
+            Horde_Crypt_Blowfish::IGNORE_MCRYPT
+        );
     }
 
-    protected function _doTest($ignore)
+    public function vectorProvider()
     {
-        foreach ($this->vectors as $val) {
-            $ob = new Horde_Crypt_Blowfish($val['key'], array(
-                'cipher' => 'cbc',
-                'ignore' => $ignore,
-                'iv' => $val['iv']
-            ));
+        $data = file(dirname(__FILE__) . '/fixtures/vectors_cbc.txt');
+        $vectors = array();
 
-            $encrypt = $ob->encrypt($val['plain']);
-
-            // Let's verify some sort of obfuscation occurred.
-            $this->assertNotEquals(
-                $val['plain'],
-                $encrypt
-            );
-
-            $this->assertEquals(
-                $val['plain'],
-                $ob->decrypt($encrypt)
+        foreach ($data as $val) {
+            list($key, $iv, $plain) = explode(' ', trim($val));
+            $vectors[] = array(
+                array(
+                    'key' => pack("H*", $key),
+                    'iv' => pack("H*", $iv),
+                    'plain' => pack("H*", $plain)
+                )
             );
         }
+
+        return $vectors;
+    }
+
+    protected function _doTest($v, $ignore)
+    {
+        $ob = new Horde_Crypt_Blowfish($v['key'], array(
+            'cipher' => 'cbc',
+            'ignore' => $ignore,
+            'iv' => $v['iv']
+        ));
+
+        $encrypt = $ob->encrypt($v['plain']);
+
+        // Let's verify some sort of obfuscation occurred.
+        $this->assertNotEquals(
+            $v['plain'],
+            $encrypt
+        );
+
+        $this->assertEquals(
+            $v['plain'],
+            $ob->decrypt($encrypt)
+        );
     }
 
 }

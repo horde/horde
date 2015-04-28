@@ -223,7 +223,7 @@ class Horde_Imap_Client_Url implements Serializable
         $data = parse_url(trim($url));
 
         if (isset($data['scheme'])) {
-            $protocol = strtolower($data['scheme']);
+            $protocol = Horde_String::lower($data['scheme']);
             if (!in_array($protocol, array('imap', 'pop'))) {
                 return;
             }
@@ -276,7 +276,7 @@ class Horde_Imap_Client_Url implements Serializable
             if (count($parts)) {
                 foreach ($parts as $val) {
                     list($k, $v) = explode('=', $val);
-                    $property = strtolower($k);
+                    $property = Horde_String::lower($k);
                     $this->$property = $v;
                 }
             }

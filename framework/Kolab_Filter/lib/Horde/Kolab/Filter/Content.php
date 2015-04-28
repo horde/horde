@@ -1,5 +1,12 @@
 <?php
 /**
+ * Copyright 2004-2008 Klarälvdalens Datakonsult AB
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
+ * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Kolab_Filter
  */
 
@@ -17,11 +24,6 @@ define('RM_STATE_READING_BODY',   5 );
 
 /**
  * A Kolab Server filter for outgoing mails.
- *
- * Copyright 2004-2008 Klarälvdalens Datakonsult AB
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author  Steffen Hansen <steffen@klaralvdalens-datakonsult.se>
  * @author  Gunnar Wrobel <wrobel@pardus.de>
@@ -397,13 +399,13 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
             $fromdom = $adr->host;
 
             if ($sasluser) {
-                if (!in_array(strtolower($from), $allowed_addrs)) {
+                if (!in_array(Horde_String::lower($from), $allowed_addrs)) {
                     Horde::log(sprintf("%s is not an allowed From address for %s", $from, $sasluser), 'DEBUG');
                     return false;
                 }
             } else {
                 foreach ($domains as $domain) {
-                    if (strtolower($fromdom) == $domain
+                    if (Horde_String::lower($fromdom) == $domain
                         || ($verify_subdomains
                             && substr($fromdom, -strlen($domain)-1) == ".$domain")) {
                         if ($reject_forged_from_header) {

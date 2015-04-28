@@ -323,6 +323,16 @@ class Horde_Imap_Client_Live_Imap extends Horde_Imap_Client_Live_Base
             Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_FLAGS | Horde_Imap_Client::STATUS_PERMFLAGS | Horde_Imap_Client::STATUS_HIGHESTMODSEQ | Horde_Imap_Client::STATUS_UIDNOTSTICKY
         );
         $this->assertInternalType('array', $s);
+
+        // Github Issue #134 (UTF8 mailbox)
+        $s = self::$live->status(
+            self::$test_mbox_utf8,
+            Horde_Imap_Client::STATUS_MESSAGES
+        );
+        $this->assertEquals(
+            0,
+            $s['messages']
+        );
     }
 
     /**

@@ -30,7 +30,7 @@ extends Ingo_Rule_User
         parent::__construct();
 
         $this->label = _("Delete message");
-        $this->type = self::TYPE_TEXT;
+        $this->type = self::TYPE_EMPTY;
     }
 
 }

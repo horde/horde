@@ -62,7 +62,7 @@ foreach (array('app' => '', 'lib' => 'framework/') as $key => $val) {
         }
 
         $package_path = $val . $package;
-        $tag_prefix = strtr(($val ? 'horde_' : '') . strtolower($package), '-', '_') . '-';
+        $tag_prefix = strtr(($val ? 'horde_' : '') . Horde_String::lower($package), '-', '_') . '-';
         break;
     }
 }

@@ -135,7 +135,7 @@ abstract class Horde_ActiveSync_State_Base
     {
         $this->_params = $params;
         if (empty($params['logger'])) {
-            $this->_logger = new Horde_Support_Stub();
+            $this->_logger =  new Horde_Log_Logger(new Horde_Log_Handler_Null());
         } else {
             $this->_logger = $params['logger'];
         }
@@ -460,8 +460,9 @@ abstract class Horde_ActiveSync_State_Base
                         Horde_ActiveSync::CHANGE_TYPE_DELETE => 'deletion',
                         Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
                     );
-                    foreach ($changes as $change) {
-                        if (!empty($mailmap[$change['id']][$change['type']])) {
+                    $cnt = count($changes);
+                    for ($i = 0; $i <= $cnt; $i++) {
+                        if (!empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
                             // @todo For 3.0, create a Changes and
                             // ChangeFilter classes to abstract out a bunch of
                             // this stuff. (Needs BC breaking changes in
@@ -471,46 +472,47 @@ abstract class Horde_ActiveSync_State_Base
                             // email during MOVEITEMS requests (instead it
                             // reassigns the existing email the new UID). Don't
                             // send the ADD command for these changes.
-                            if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
-                                $change['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
+                            if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_CHANGE &&
+                                $changes[$i]['flags'] == Horde_ActiveSync::FLAG_NEWMESSAGE &&
                                 $this->_deviceInfo->deviceType != 'WindowsOutlook15') {
-                                $this->_changes[] = $change;
+                                $this->_changes[] = $changes[$i];
                                 continue;
                             }
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring client initiated %s for %s',
                                 $this->_procid,
-                                $flag_map[$change['type']],
-                                $change['id']));
-                            $change['ignore'] = true;
+                                $flag_map[$changes[$i]['type']],
+                                $changes[$i]['id']));
+                            $changes[$i]['ignore'] = true;
                         }
-                        $this->_changes[] = $change;
+                        $this->_changes[] = $changes[$i];
                     }
                     break;
 
                 default:
                     $client_timestamps = $this->_getPIMChangeTS($changes);
-                    foreach ($changes as $change) {
-                        if (empty($client_timestamps[$change['id']])) {
-                            $this->_changes[] = $change;
+                    $cnt = count($changes);
+                    for ($i = 0; $i <= $cnt; $i++) {
+                        if (empty($client_timestamps[$changes[$i]['id']])) {
+                            $this->_changes[] = $changes[$i];
                             continue;
                         }
-                        if ($change['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
+                        if ($changes[$i]['type'] == Horde_ActiveSync::CHANGE_TYPE_DELETE) {
                             // If we have a delete, don't bother stating the message,
                             // the entry should already be deleted on the client.
                             $stat['mod'] = 0;
                         } else {
                             // stat only returns MODIFY times, not deletion times,
                             // so will return (int)0 for ADD or DELETE.
-                            $stat = $this->_backend->statMessage($this->_folder->serverid(), $change['id']);
+                            $stat = $this->_backend->statMessage($this->_folder->serverid(), $changes[$i]['id']);
                         }
-                        if ($client_timestamps[$change['id']] >= $stat['mod']) {
+                        if ($client_timestamps[$changes[$i]['id']] >= $stat['mod']) {
                             $this->_logger->info(sprintf(
                                 '[%s] Ignoring client initiated change for %s (client TS: %s Stat TS: %s)',
                                 $this->_procid,
-                                $change['id'], $client_timestamps[$change['id']], $stat['mod']));
+                                $changes[$i]['id'], $client_timestamps[$changes[$i]['id']], $stat['mod']));
                         } else {
-                            $this->_changes[] = $change;
+                            $this->_changes[] = $changes[$i];
                         }
                     }
                 }

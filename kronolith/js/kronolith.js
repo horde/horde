@@ -944,6 +944,12 @@ KronolithCore = {
         if (!div) {
             div = this.getCalendarList(type, cal.owner);
         }
+
+        // System calendars are still internal for purposes of the backend.
+        if (type == 'system') {
+            type = 'internal';
+        }
+
         noItems = div.previous();
         if (noItems &&
             noItems.tagName == 'DIV' &&
@@ -1005,7 +1011,7 @@ KronolithCore = {
             extContainer = $('kronolithExternalCalendars');
 
         $H(Kronolith.conf.calendars.internal).each(function(cal) {
-            this.insertCalendarInList('internal', cal.key, cal.value);
+            this.insertCalendarInList(cal.value.system ? 'system' : 'internal', cal.key, cal.value);
         }, this);
 
         if (Kronolith.conf.tasks) {
@@ -1073,6 +1079,10 @@ KronolithCore = {
     getCalendarList: function(type, personal)
     {
         switch (type) {
+        case 'system':
+            return $('kronolithSystemCalendars')
+                ? $('kronolithSystemCalendars')
+                : $('kronolithSharedCalendars');
         case 'internal':
             return personal
                 ? $('kronolithMyCalendars')
@@ -3023,7 +3033,7 @@ KronolithCore = {
         this.quickClose();
 
         var type = calendar.split('|')[0], cal = calendar.split('|')[1];
-        if (!$w('internal tasklists remote holiday resource resourcegroup').include(type)) {
+        if (!$w('internal tasklists remote holiday resource resourcegroup system').include(type)) {
             return;
         }
 
@@ -3097,7 +3107,12 @@ KronolithCore = {
     {
         calendar = calendar.split('|');
         var type = calendar[0];
+        var system = false;
         calendar = calendar.length == 1 ? null : calendar[1];
+        if (type == 'system') {
+            type = 'internal';
+            system = true;
+        }
 
         var form = $('kronolithCalendarForm' + type),
             firstTab = form.down('.tabset a.kronolithTabLink'),
@@ -3221,7 +3236,16 @@ KronolithCore = {
         }
 
         if (newCalendar || info.owner) {
-            if (type == 'internal' || type == 'tasklists') {
+            if (system || (info && info.system)) {
+                $('kronolithPOwnerInput').hide();
+                $('kronolithCalendarSystem').setValue(1);
+                $('kronolithSystemOwner').show();
+            } else {
+                $('kronolithPOwnerInput').show();
+                $('kronolithSystemOwner').hide();
+                $('kronolithCalendarSystem').setValue(0);
+            }
+            if (type == 'internal' || type == 'tasklists' || type == 'resource') {
                 this.updateGroupDropDown([['kronolithC' + type + 'PGList', this.updateGroupPerms.bind(this, type)],
                                           ['kronolithC' + type + 'PGNew']]);
                 $('kronolithC' + type + 'PBasic').show();
@@ -3237,17 +3261,19 @@ KronolithCore = {
                 $('kronolithC' + type + 'PAdvanced').select('tr').findAll(function(tr) {
                     return tr.retrieve('remove');
                 }).invoke('remove');
-                $('kronolithCalendar' + type + 'LinkUrls').up().show();
-                form.down('.kronolithColorPicker').show();
-                if (type == 'internal') {
-                    HordeCore.doAction('listTopTags', {}, {
-                        callback: this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag')
-                    });
-                }
-                form.down('.kronolithCalendarSubscribe').hide();
-                form.down('.kronolithCalendarUnsubscribe').hide();
-                if ($('kronolithCalendar' + type + 'LinkPerms')) {
-                    $('kronolithCalendar' + type + 'LinkPerms').show();
+                if (type != 'resource') {
+                    $('kronolithCalendar' + type + 'LinkUrls').up().show();
+                    form.down('.kronolithColorPicker').show();
+                    if (type == 'internal') {
+                        HordeCore.doAction('listTopTags', {}, {
+                            callback: this.topTagsCallback.curry('kronolithCalendarinternalTopTags', 'kronolithCalendarTag')
+                        });
+                    }
+                    form.down('.kronolithCalendarSubscribe').hide();
+                    form.down('.kronolithCalendarUnsubscribe').hide();
+                    if ($('kronolithCalendar' + type + 'LinkPerms')) {
+                        $('kronolithCalendar' + type + 'LinkPerms').show();
+                    }
                 }
                 if (!Object.isUndefined(info) && info.owner) {
                     this.setPermsFields(type, info.perms);
@@ -3735,8 +3761,15 @@ KronolithCore = {
         if (this.colorPicker) {
             this.colorPicker.hide();
         }
+
         var data = form.serialize({ hash: true });
 
+        // Ensure we keep null owner for system calendars. Do this here instead
+        // of in the editCalendarCallback so we don't wipe out the default
+        // value for other calendars.
+        if (data.system == 1) {
+            data.owner_input = null;
+        }
         if (data.type == 'holiday') {
             this.insertCalendarInList('holiday', data.driver, Kronolith.conf.calendars.holiday[data.driver]);
             this.toggleCalendar('holiday', data.driver);
@@ -4707,6 +4740,8 @@ KronolithCore = {
             case 'kronolithCinternalPLess':
             case 'kronolithCtasklistsPMore':
             case 'kronolithCtasklistsPLess':
+            case 'kronolithCresourcePMore':
+            case 'kronolithCresourcePLess':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 $('kronolithC' + type + 'PBasic').toggle();
                 $('kronolithC' + type + 'PAdvanced').toggle();
@@ -4721,18 +4756,24 @@ KronolithCore = {
             case 'kronolithCtasklistsPAll':
             case 'kronolithCtasklistsPG':
             case 'kronolithCtasklistsPU':
+            case 'kronolithCresourcePNone':
+            case 'kronolithCresourcePAll':
+            case 'kronolithCresourcePG':
+            case 'kronolithCresourcePU':
                 var info = id.match(/kronolithC(.*)P(.*)/);
                 this.permsClickHandler(info[1], info[2]);
                 break;
 
             case 'kronolithCinternalPAllShow':
             case 'kronolithCtasklistsPAllShow':
+            case 'kronolithCresourcePAllShow':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 this.permsClickHandler(type, 'All');
                 break;
 
             case 'kronolithCinternalPAdvanced':
             case 'kronolithCtasklistsPAdvanced':
+            case 'kronolithCresourcePAdvanced':
                 var type = id.match(/kronolithC(.*)P/)[1];
                 if (orig.tagName != 'INPUT') {
                     break;
@@ -4747,6 +4788,8 @@ KronolithCore = {
             case 'kronolithCinternalPGAdd':
             case 'kronolithCtasklistsPUAdd':
             case 'kronolithCtasklistsPGAdd':
+            case 'kronolithCresourcePUAdd':
+            case 'kronolithCresourcePGAdd':
                 var info = id.match(/kronolithC(.*)P(.)/);
                 this.insertGroupOrUser(info[1], info[2] == 'U' ? 'user' : 'group');
                 break;

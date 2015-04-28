@@ -1,0 +1,12 @@
+{
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/singpolyma/openpgp-php.git"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "singpolyma/openpgp-php": "*"
+    }
+}

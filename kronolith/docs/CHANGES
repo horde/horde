@@ -2,6 +2,8 @@
 v4.3.0-git
 ----------
 
+[jan] Send event update notifications with HTML part.
+[mjr] Resource permissions have been implemented (Request #13647).
 [jan] Add refresh button to individual calendars and task lists.
 [mjr] Enforce case on attendee user part, but add attendee to event if only
       only the case differs (Bug #13905).
@@ -20,6 +22,9 @@ v4.3.0-git
 v4.2.6
 ------
 
+=======
+[mjr] Honor background color for listTimeObjects API calendars (Bug #13951).
+[jan] Always sort users in advanced sharing dialog (Bug #13938).
 [mjr] Fix saving recurring event after a change in resources (Bug #13921).
 [mjr] Fix creating recurrence exceptions from CalDAV clients.
 [jan] Added an index to find base events of recurrence exceptions faster.

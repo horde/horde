@@ -1,11 +1,19 @@
 <?php
 /**
- * Provides the base functionality shared by all Horde applications.
- *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @package  Core
+ */
+
+/**
+ * Provides the base functionality shared by all Horde applications.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>

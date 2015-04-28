@@ -68,7 +68,7 @@ implements Horde_Kolab_FreeBusy_Params_Owner,
                 );
             }
 
-            $folder[0] = strtolower($folder[0]);
+            $folder[0] = Horde_String::lower($folder[0]);
             $this->_owner = $folder[0];
             unset($folder[0]);
             $this->_folder = join('/', $folder);

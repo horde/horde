@@ -1,11 +1,19 @@
 <?php
 /**
- * Horde_Text_Filter:: is a parent class for defining stackable text filters.
- *
  * Copyright 1999-2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Text_Filter
+ */
+
+/**
+ * Horde_Text_Filter is a parent class for defining stackable text filters.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
@@ -31,7 +39,7 @@ class Horde_Text_Filter
     public static function factory($driver, $params = array())
     {
         /* Base drivers (in Filter/ directory). */
-        $class = __CLASS__ . '_' . ucfirst(basename($driver));
+        $class = __CLASS__ . '_' . Horde_String::ucfirst(basename($driver));
         if (class_exists($class)) {
             return new $class($params);
         }
