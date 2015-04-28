@@ -435,8 +435,10 @@ class Horde_Db_Adapter_Oracle_Schema extends Horde_Db_Adapter_Base_Schema
         $columnOptions = array(
             'limit' => $column->getLimit(),
             'default' => $column->getDefault(),
-            'null' => $column->isNull()
         );
+        if (!$column->isNull()) {
+            $columnOptions['null'] = false;
+        }
         $old = $this->addColumnOptions(
             $this->typeToSql(
                 $column->getType(),

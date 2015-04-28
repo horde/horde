@@ -109,6 +109,8 @@ class Horde_Crypt_Blowfish_Pbkdf2
                 $last = hash_hmac($this->hashAlgo, $last, $pass, true);
                 if ($j) {
                     $xorsum ^= $last;
+                } else {
+                    $xorsum = $last;
                 }
             }
             $hash .= $xorsum;
