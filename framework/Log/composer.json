@@ -16,8 +16,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.1.1",
-    "time": "2015-01-09",
+    "version": "2.1.2",
+    "time": "2015-04-28",
     "repositories": [
         {
             "type": "pear",
@@ -27,7 +27,8 @@
     "require": {
         "php": ">=5.3.0,<=6.0.0alpha1",
         "pear-pear.horde.org/Horde_Constraint": ">=2.0.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable"
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0@stable,<=3.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0@stable,<=3.0.0alpha1@stable"
     },
     "suggest": {
         "pear-pear.horde.org/Horde_Cli": ">=2.0.0@stable,<=3.0.0alpha1@stable",
