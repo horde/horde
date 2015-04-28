@@ -1,6 +1,6 @@
-----------
-v6.2.8-git
-----------
+------
+v6.2.8
+------
 
 [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext
       -> HTML compose mode.

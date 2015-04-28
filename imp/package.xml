@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-04-28</date>
  <version>
   <release>6.2.8</release>
   <api>6.2.0</api>
@@ -3828,7 +3828,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext -&gt; HTML compose mode.
