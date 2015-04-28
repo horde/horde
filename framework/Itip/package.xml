@@ -809,7 +809,7 @@
    <date>2015-04-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Add support for iTip resonses to vTodo requests.
+* [mjr] Add support for iTip responses to vTodo requests.
    </notes>
   </release>
   <release>
