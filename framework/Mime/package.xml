@@ -19,7 +19,7 @@
  </lead>
  <date>2015-04-28</date>
  <version>
-  <release>2.9.0</release>
+  <release>2.9.1</release>
   <api>2.9.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix rare errors when multiple iterations are occurring on the same set of MIME parts.
-* [jan] Fix issues with certain locales like Turkish.
-* [mms] Fix indexing MIME part when base is a multipart object.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1704,6 +1702,19 @@
 * [mms] Fix rare errors when multiple iterations are occurring on the same set of MIME parts.
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Fix indexing MIME part when base is a multipart object.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.9.1</release>
+    <api>2.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
