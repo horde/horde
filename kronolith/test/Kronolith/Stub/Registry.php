@@ -8,4 +8,9 @@ class Kronolith_Stub_Registry extends Horde_Test_Stub_Registry
     {
         return $this->admin;
     }
+
+    public function pushApp($app)
+    {
+        return false;
+    }
 }
