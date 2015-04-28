@@ -12,7 +12,7 @@
  </lead>
  <date>2015-04-28</date>
  <version>
-  <release>2.3.4</release>
+  <release>2.3.5</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Make cached entries available to garbage collection.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -539,6 +539,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Make cached entries available to garbage collection.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.5</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
