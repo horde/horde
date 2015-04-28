@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-02</date>
+ <date>2015-04-28</date>
  <version>
   <release>2.27.1</release>
   <api>2.27.0</api>
@@ -2692,7 +2692,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-02</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix issues with certain locales like Turkish.
