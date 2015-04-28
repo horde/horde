@@ -153,6 +153,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'comment' => 'My Comment',
+                        'created' => new DateTime('@1155291888'),
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
@@ -162,6 +163,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'comment' => 'My Comment',
+                        'created' => new DateTime('@1155291888'),
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
@@ -171,6 +173,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'comment' => 'RSA',
+                        'created' => new DateTime('@1428808030'),
                         'email' => 'Test User <test@example.com>'
                     )
                 ),
@@ -180,6 +183,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 array(
                     array(
                         'comment' => 'RSA',
+                        'created' => new DateTime('@1428808030'),
                         'email' => 'Test User <test@example.com>'
                     )
                 ),

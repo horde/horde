@@ -86,6 +86,7 @@ extends Horde_Pgp_Element
      *
      * @return array  An array of objects, with these keys:
      *   - comment: (string) Comment.
+     *   - created: (DateTime) Creation time.
      *   - email: (Horde_Mail_Rfc822_Address) E-mail address.
      *   - key: (OpenPGP_PublicKeyPacket) Key packet.
      *   - sig: (OpenPGP_SignaturePacket) Signature packet.
@@ -210,6 +211,14 @@ extends Horde_Pgp_Element
                     if ($topkey &&
                         $userid_p &&
                         $verify_func($topkey, $userid_p, $val)) {
+                        /* Creation time is a MUST hashed subpacket (RFC
+                         * 4880 [5.2.3.4]). */
+                        foreach ($val->hashed_subpackets as $val2) {
+                            if ($val2 instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
+                                $userid->created = new DateTime('@' . $val2->data);
+                                break;
+                            }
+                        }
                         $userid->key = $topkey;
                         $userid->sig = $val;
                     }
