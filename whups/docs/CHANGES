@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [mjr] Fix error reporting if listing of users failed (Bug #13944).
 [jan] Don't make attribute description a required field.
