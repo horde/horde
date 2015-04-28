@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-12-03</date>
+ <date>2015-04-28</date>
  <version>
   <release>1.1.3</release>
   <api>1.1.0</api>
@@ -310,6 +310,7 @@
         <file name="PromiseAlreadyResolvedException.php" role="php" /> 
         <file name="Version.php" role="php" /> 
        </dir> <!-- /bundle/vendor/sabre/event/lib -->
+       <file name="LICENSE" role="php" />
       </dir> <!-- /bundle/vendor/sabre/event -->
       <dir name="http">
        <dir name="lib">
@@ -337,6 +338,7 @@
         <file name="Util.php" role="php" /> 
         <file name="Version.php" role="php" /> 
        </dir> <!-- /bundle/vendor/sabre/http/lib -->
+       <file name="LICENSE" role="php" />
       </dir> <!-- /bundle/vendor/sabre/http -->
       <dir name="vobject">
        <dir name="lib">
@@ -764,6 +766,7 @@
    <install as="Sabre/DAVACL/Property/CurrentUserPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/CurrentUserPrivilegeSet.php" />
    <install as="Sabre/DAVACL/Property/Principal.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/Principal.php" />
    <install as="Sabre/DAVACL/Property/SupportedPrivilegeSet.php" name="bundle/vendor/sabre/dav/lib/DAVACL/Property/SupportedPrivilegeSet.php" />
+   <install as="Horde/Dav/vendor/sabre/event/LICENSE" name="bundle/vendor/sabre/event/LICENSE" />
    <install as="Sabre/Event/EventEmitter.php" name="bundle/vendor/sabre/event/lib/EventEmitter.php" />
    <install as="Sabre/Event/EventEmitterInterface.php" name="bundle/vendor/sabre/event/lib/EventEmitterInterface.php" />
    <install as="Sabre/Event/EventEmitterTrait.php" name="bundle/vendor/sabre/event/lib/EventEmitterTrait.php" />
@@ -772,6 +775,7 @@
    <install as="Sabre/HTTP/Auth/AbstractAuth.php" name="bundle/vendor/sabre/http/lib/Auth/AbstractAuth.php" />
    <install as="Sabre/HTTP/Auth/Basic.php" name="bundle/vendor/sabre/http/lib/Auth/Basic.php" />
    <install as="Sabre/HTTP/Auth/Digest.php" name="bundle/vendor/sabre/http/lib/Auth/Digest.php" />
+   <install as="Horde/Dav/vendor/sabre/http/LICENSE" name="bundle/vendor/sabre/http/LICENSE" />
    <install as="Sabre/HTTP/Client.php" name="bundle/vendor/sabre/http/lib/Client.php" />
    <install as="Sabre/HTTP/ClientException.php" name="bundle/vendor/sabre/http/lib/ClientException.php" />
    <install as="Sabre/HTTP/ClientHttpException.php" name="bundle/vendor/sabre/http/lib/ClientHttpException.php" />
@@ -1051,7 +1055,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
