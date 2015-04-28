@@ -30,7 +30,7 @@
  </lead>
  <date>2015-04-28</date>
  <version>
-  <release>5.2.5</release>
+  <release>5.2.6</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] SECURITY: Fix XSS vulnerability in group administration.
-* [mjr] Fix display of Facebook block by removing no longer allowed notification data.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4017,6 +4016,19 @@
    <notes>
 * [jan] SECURITY: Fix XSS vulnerability in group administration.
 * [mjr] Fix display of Facebook block by removing no longer allowed notification data.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.6</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
