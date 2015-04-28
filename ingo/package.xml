@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-04-28</date>
  <version>
   <release>3.2.5</release>
   <api>3.2.0</api>
@@ -300,6 +300,12 @@
      </dir> <!-- /locale/fr/LC_MESSAGES -->
      <file name="help.xml" role="horde" />
     </dir> <!-- /locale/fr -->
+    <dir name="gl">
+     <dir name="LC_MESSAGES">
+      <file name="ingo.mo" role="horde" />
+      <file name="ingo.po" role="horde" />
+     </dir> <!-- /locale/gl/LC_MESSAGES -->
+    </dir> <!-- /locale/gl -->
     <dir name="hr">
      <dir name="LC_MESSAGES">
       <file name="ingo.mo" role="horde" />
@@ -807,6 +813,8 @@
    <install as="ingo/locale/fr/help.xml" name="locale/fr/help.xml" />
    <install as="ingo/locale/fr/LC_MESSAGES/ingo.mo" name="locale/fr/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/fr/LC_MESSAGES/ingo.po" name="locale/fr/LC_MESSAGES/ingo.po" />
+   <install as="ingo/locale/gl/LC_MESSAGES/ingo.mo" name="locale/gl/LC_MESSAGES/ingo.mo" />
+   <install as="ingo/locale/gl/LC_MESSAGES/ingo.po" name="locale/gl/LC_MESSAGES/ingo.po" />
    <install as="ingo/locale/hr/help.xml" name="locale/hr/help.xml" />
    <install as="ingo/locale/hr/LC_MESSAGES/ingo.mo" name="locale/hr/LC_MESSAGES/ingo.mo" />
    <install as="ingo/locale/hr/LC_MESSAGES/ingo.po" name="locale/hr/LC_MESSAGES/ingo.po" />
@@ -1549,7 +1557,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add Galician translation.
