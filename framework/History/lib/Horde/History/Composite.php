@@ -115,7 +115,7 @@ class Horde_History_Composite extends Horde_History
             $history = new Horde_History_Log($guid, $data);
 
             if ($this->_cache) {
-                $this->_cache->set($cid, serialize($history), 0);
+                $this->_cache->set($cid, serialize($history));
             }
         }
 
