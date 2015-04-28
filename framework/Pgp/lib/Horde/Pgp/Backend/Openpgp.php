@@ -240,15 +240,15 @@ extends Horde_Pgp_Backend
             $kp = null;
 
             foreach ($val->getEncryptPackets() as $val2) {
-                switch ($val2->key->algorithm) {
+                switch ($val2->key->key->algorithm) {
                 case 1:
                 case 2:
                     // RSA: Preferred
-                    $kp = $val2->key;
+                    $kp = $val2->key->key;
                     break 2;
 
                 case 16:
-                    $kp = $val2->key;
+                    $kp = $val2->key->key;
                     break;
                 }
             }

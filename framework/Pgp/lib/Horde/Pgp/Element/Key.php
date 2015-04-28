@@ -71,7 +71,7 @@ extends Horde_Pgp_Element
 
         $e = array_filter(array($this->base));
         foreach ($this->getEncryptPackets() as $val) {
-            $e[] = $val->key;
+            $e[] = $val->key->key;
         }
 
         foreach ($e as $val) {
@@ -117,7 +117,9 @@ extends Horde_Pgp_Element
     /**
      * Return the list of verified encryption packets in this key.
      *
-     * @return array  Array of OpenPGP_PublicKeyPacket objects.
+     * @return array  An array of objects, with these keys:
+     *   - created: (DateTime) Creation time.
+     *   - key: (OpenPGP_PublicKeyPacket) Key packet.
      */
     public function getEncryptPackets()
     {
@@ -211,10 +213,10 @@ extends Horde_Pgp_Element
                     if ($topkey &&
                         $userid_p &&
                         $verify_func($topkey, $userid_p, $val)) {
-                        /* Creation time is a MUST hashed subpacket (RFC
-                         * 4880 [5.2.3.4]). */
                         foreach ($val->hashed_subpackets as $val2) {
                             if ($val2 instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
+                                /* Creation time is a MUST hashed subpacket
+                                 * (RFC 4880 [5.2.3.4]). */
                                 $userid->created = new DateTime('@' . $val2->data);
                                 break;
                             }
@@ -232,15 +234,21 @@ extends Horde_Pgp_Element
                         continue;
                     }
 
+                    $encrypt = new stdClass;
+
                     /* Check for explicit key flag subpacket. Require
                      * this information to be in hashed subpackets. */
                     if ($val->version === 4) {
                         foreach ($val->hashed_subpackets as $val2) {
-                            if ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
+                            if ($val2 instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
+                                /* Creation time is a MUST hashed subpacket
+                                 * (RFC 4880 [5.2.3.4]). */
+                                $encrypt->created = new DateTime('@' . $val2->data);
+                            } elseif ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
                                 foreach ($val2->flags as $val3) {
                                     if ($val3 & 0x04) {
-                                        $this->_cache['encrypt'][] = $create_out($p, $val);
-                                        continue 3;
+                                        $encrypt->key = $create_out($p, $val);
+                                        continue 2;
                                     }
                                 }
 
@@ -251,12 +259,16 @@ extends Horde_Pgp_Element
                         }
                     }
 
-                    if (is_null($fallback)) {
-                        $fallback = $create_out($p, $val);
+                    if (isset($encrypt->key)) {
+                        $this->_cache['encrypt'][] = $encrypt;
+                    } elseif (is_null($fallback)) {
+                        $encrypt->key = $create_out($p, $val);
+                        $fallback = $encrypt;
                     } elseif (!$sub &&
                               ($p instanceof OpenPGP_PublicSubkeyPacket) ||
                               ($p instanceof OpenPGP_SecretSubkeyPacket)) {
-                        $fallback = $create_out($p, $val);
+                        $encrypt->key = $create_out($p, $val);
+                        $fallback = $encrypt;
                         $sub = true;
                     }
                     break;

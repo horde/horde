@@ -329,9 +329,16 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         $list = $key->getEncryptPackets();
 
         $this->assertEquals(
-            $expected,
+            count($expected),
             count($list)
         );
+
+        for ($i = 0; $i < count($expected); ++$i) {
+            $this->assertEquals(
+                $expected[$i],
+                $list[$i]->created
+            );
+        }
     }
 
     public function getEncryptPacketsProvider()
@@ -339,27 +346,35 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         return array(
             array(
                 $this->_getKey('pgp_public.asc', 'public'),
-                1
+                array(
+                    new DateTime('@1155291888')
+                )
             ),
             array(
                 $this->_getKey('pgp_private.asc', 'private'),
-                1
+                array(
+                    new DateTime('@1155291888')
+                )
             ),
             array(
                 $this->_getKey('pgp_public_rsa.txt', 'public'),
-                1
+                array(
+                    new DateTime('@1428808030')
+                )
             ),
             array(
                 $this->_getKey('pgp_private_rsa.txt', 'private'),
-                1
+                array(
+                    new DateTime('@1428808030')
+                )
             ),
             array(
                 $this->_getKey('pgp_public_revoked.txt', 'public'),
-                0
+                array()
             ),
             array(
                 $this->_getKey('pgp_public_revokedsub.txt', 'public'),
-                0
+                array()
             )
         );
     }
