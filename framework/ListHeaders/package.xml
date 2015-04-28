@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-04-28</date>
  <version>
   <release>1.2.2</release>
   <api>1.2.0</api>
@@ -334,7 +334,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix issues with certain locales like Turkish.
