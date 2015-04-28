@@ -432,6 +432,9 @@ implements ArrayAccess, Countable, IteratorAggregate, Serializable
                 /* Set as unsubscribed, add to unsubscribed list, and remove
                  * from subscribed list. */
                 $this->setAttribute('subscribed', $elt, false);
+
+                /* Remove from polled list. */
+                $this->poll->removePollList($elt);
             }
         }
     }

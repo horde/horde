@@ -2,6 +2,7 @@
 v7.0.0-git
 ----------
 
+[mms] Remove mailbox from polled list when unsubscribing from it.
 [mms] Allow remote account passwords to be saved encrypted in user's
       preferences (Request #13168).
 [mms] Send IMP MUA information to IMAP servers that support the ID extension.
