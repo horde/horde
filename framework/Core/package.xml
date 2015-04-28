@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-03-06</date>
+ <date>2015-04-28</date>
  <version>
   <release>2.20.0</release>
   <api>2.20.0</api>
@@ -806,6 +806,7 @@
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Core.mo" role="data" />
       <file name="Horde_Core.po" role="data" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
@@ -2017,6 +2018,7 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Core.po" name="locale/fi/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Core.mo" name="locale/fr/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Core.po" name="locale/fr/LC_MESSAGES/Horde_Core.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Core.mo" name="locale/gl/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/gl/LC_MESSAGES/Horde_Core.po" name="locale/gl/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Core.mo" name="locale/he/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Core.po" name="locale/he/LC_MESSAGES/Horde_Core.po" />
@@ -3870,7 +3872,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-06</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix issues with certain locales like Turkish.
