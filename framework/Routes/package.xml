@@ -19,7 +19,7 @@
  </lead>
  <date>2015-04-28</date>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Fix issues with certain locales like Turkish.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -341,6 +341,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix issues with certain locales like Turkish.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
