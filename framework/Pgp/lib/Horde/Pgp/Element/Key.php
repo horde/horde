@@ -218,7 +218,9 @@ extends Horde_Pgp_Element
                     }
 
                     $encrypt = new stdClass;
-                    if (!is_null($p_revoke)) {
+                    if (isset($topkey->revoke)) {
+                        $encrypt->revoke = $topkey->revoke;
+                    } elseif (!is_null($p_revoke)) {
                         $encrypt->revoke = $p_revoke;
                     }
 
@@ -260,12 +262,8 @@ extends Horde_Pgp_Element
 
                 case 0x20:
                     /* Key revocation. */
-                    if ($this->_parseVerify($topkey->key, false, $val)) {
-                        $this->_cache = array(
-                            'encrypt' => array(),
-                            'userid' => array()
-                        );
-                        return;
+                    if ($this->_parseVerify($p, false, $val)) {
+                        $topkey->revoke = $this->_parseRevokePacket($val);
                     }
                     break;
 

@@ -102,7 +102,24 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 ),
                 array(),
                 $this->_getKey('pgp_private_rsa.txt', 'private')
-            )
+            ),
+            array(
+                array(
+                    array(
+                        'created' => new DateTime('@1429507010'),
+                        'fingerprint' => 'DA355005A28A8EA3A854FAFB9164CFA4CCA699C0',
+                        'id' => 'CCA699C0'
+                    )
+                ),
+                array(
+                    array(
+                        'created' => new DateTime('@1429507152'),
+                        'info' => 'Revocation of entire key',
+                        'reason' => Horde_Pgp_Element_Key::REVOKE_RETIRED
+                    )
+                ),
+                $this->_getKey('pgp_public_revoked.txt', 'public')
+            ),
         );
     }
 
@@ -419,8 +436,20 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 $this->_getKey('pgp_private_rsa.txt', 'private')
             ),
             array(
-                array(),
-                array(),
+                array(
+                    array(
+                        'created' => new DateTime('@1429507010'),
+                        'fingerprint' => '2434ACB027C2F7126D2B8F438668D5A0B68E9C8A',
+                        'id' => 'B68E9C8A'
+                    )
+                ),
+                array(
+                    array(
+                        'created' => new DateTime('@1429507152'),
+                        'info' => 'Revocation of entire key',
+                        'reason' => Horde_Pgp_Element_Key::REVOKE_RETIRED
+                    )
+                ),
                 $this->_getKey('pgp_public_revoked.txt', 'public')
             ),
             array(
