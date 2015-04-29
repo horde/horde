@@ -9,6 +9,7 @@ List of changes from upstream sources:
   (OpenPGP_SymmetricSessionKeyPacket#__construct()).
   Fix determining message structure when attempting to verify User ID
   signatures (OpenPGP_Message#signatures()).
+  Fix ignoring a 0x30 byte (OpenPGP_Packet#read_byte()).
 
 - vendor/singpolyma/openpgp-php/lib/openpgp_crypt_rsa.php
 

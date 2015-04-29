@@ -562,7 +562,10 @@ class OpenPGP_Packet {
   }
 
   function read_byte() {
-    return ($bytes = $this->read_bytes()) ? $bytes[0] : NULL;
+    /* Begin Horde change */
+    //return ($bytes = $this->read_bytes()) ? $bytes[0] : NULL;
+    return (($bytes = $this->read_bytes()) !== false) ? $bytes[0] : NULL;
+    /* End Horde change */
   }
 
   function read_bytes($count = 1) {
