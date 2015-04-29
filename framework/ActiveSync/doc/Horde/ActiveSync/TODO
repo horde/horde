@@ -117,3 +117,9 @@ BC BREAKING (i.e., Horde 6).
 - Move non server-ish methods out of Horde_ActiveSync(_Server). E.g.,
   getMimeTrucSize() etc...
 
+- Implment a "changes" object that uses either an array/spl array, or a
+  temporary php stream (for the larger initial email syncs) to store the actual
+  change data structure. Needed to avoid hitting PHP memory limit for very large
+  mailboxes when synchronizing to clients that pull the entire mailbox down
+  (like Outlook).
+
