@@ -127,22 +127,35 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getUserIdsProvider
      */
-    public function testGetUserIdsProperty($expected, $key)
+    public function testGetUserIdsProperty($expected, $revoked, $key)
     {
-        $key_ob = $key->getUserIds();
-        reset($key_ob);
+        $key_ob = array_values($key->getUserIds());
 
-        foreach ($expected as $val) {
-            $curr = current($key_ob);
+        $this->assertEquals(
+            count($expected),
+            count($key_ob)
+        );
 
-            foreach ($val as $key2 => $val2) {
+        for ($i = 0; $i < count($expected); ++$i) {
+            $curr = $key_ob[$i];
+
+            foreach ($expected[$i] as $key => $val) {
                 $this->assertEquals(
-                    $val2,
-                    $curr->$key2
+                    $val,
+                    $curr->$key
                 );
             }
 
-            next($key_ob);
+            if (!empty($revoked[$i])) {
+                $this->assertTrue(isset($curr->revoke));
+
+                foreach ($revoked[$i] as $key => $val) {
+                    $this->assertEquals(
+                        $val,
+                        $curr->revoke->$key
+                    );
+                }
+            }
         }
     }
 
@@ -157,6 +170,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
+                array(),
                 $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
@@ -167,6 +181,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'My Name <me@example.com>'
                     )
                 ),
+                array(),
                 $this->_getKey('pgp_private.asc', 'private')
             ),
             array(
@@ -177,6 +192,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'Test User <test@example.com>'
                     )
                 ),
+                array(),
                 $this->_getKey('pgp_public_rsa.txt', 'public')
             ),
             array(
@@ -187,7 +203,28 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'email' => 'Test User <test@example.com>'
                     )
                 ),
+                array(),
                 $this->_getKey('pgp_private_rsa.txt', 'private')
+            ),
+            array(
+                array(
+                    array(
+                        'created' => new DateTime('@1430266814'),
+                        'email' => 'Test User <test@example.com>'
+                    ),
+                    array(
+                        'created' => new DateTime('@1430266886'),
+                        'email' => 'Test User 2 <test2@example.com>'
+                    )
+                ),
+                array(
+                    null,
+                    array(
+                        'created' => new DateTime('@1430266952'),
+                        'reason' => Horde_Pgp_Element_Key::REVOKE_NOTUSED
+                    )
+                ),
+                $this->_getKey('pgp_public_revokeduid.txt', 'public')
             )
         );
     }
@@ -324,7 +361,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getEncryptPacketsProvider
      */
-    public function testGetEncryptPackets($key, $expected)
+    public function testGetEncryptPackets($key, $expected, $revocation)
     {
         $list = $key->getEncryptPackets();
 
@@ -338,6 +375,15 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 $expected[$i],
                 $list[$i]->created
             );
+
+            if (!empty($revocation[$i])) {
+                foreach ($revocation[$i] as $key => $val) {
+                    $this->assertEquals(
+                        $val,
+                        $list[$i]->revoke->$key
+                    );
+                }
+            }
         }
     }
 
@@ -348,33 +394,47 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                 $this->_getKey('pgp_public.asc', 'public'),
                 array(
                     new DateTime('@1155291888')
-                )
+                ),
+                array()
             ),
             array(
                 $this->_getKey('pgp_private.asc', 'private'),
                 array(
                     new DateTime('@1155291888')
-                )
+                ),
+                array()
             ),
             array(
                 $this->_getKey('pgp_public_rsa.txt', 'public'),
                 array(
                     new DateTime('@1428808030')
-                )
+                ),
+                array()
             ),
             array(
                 $this->_getKey('pgp_private_rsa.txt', 'private'),
                 array(
                     new DateTime('@1428808030')
-                )
+                ),
+                array()
             ),
             array(
                 $this->_getKey('pgp_public_revoked.txt', 'public'),
+                array(),
                 array()
             ),
             array(
                 $this->_getKey('pgp_public_revokedsub.txt', 'public'),
-                array()
+                array(
+                    new DateTime('@1429508578')
+                ),
+                array(
+                    array(
+                        'created' => new DateTime('@1429508659'),
+                        'info' => 'Revocation of subkey',
+                        'reason' => Horde_Pgp_Element_Key::REVOKE_RETIRED
+                    )
+                )
             )
         );
     }

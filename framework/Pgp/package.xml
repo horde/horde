@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-15</date>
+ <date>2015-04-29</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -314,6 +314,9 @@
        <file name="Elgamal.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Crypt -->
       <dir name="Element">
+       <dir name="PublicKey">
+        <file name="Userid.php" role="php" />
+       </dir> <!-- /lib/Horde/Pgp/Element/PublicKey -->
        <file name="Key.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="PrivateKey.php" role="php" />
@@ -357,6 +360,9 @@
        <file name="pgp_private.asc" role="test" />
        <file name="pgp_private_rsa.txt" role="test" />
        <file name="pgp_public.asc" role="test" />
+       <file name="pgp_public_revoked.txt" role="test" />
+       <file name="pgp_public_revokedsub.txt" role="test" />
+       <file name="pgp_public_revokeduid.txt" role="test" />
        <file name="pgp_public_rsa.txt" role="test" />
        <file name="pgp_signature.txt" role="test" />
        <file name="pgp_signature2.txt" role="test" />
@@ -675,6 +681,7 @@
    <install as="Horde/Pgp/Element/Signature.php" name="lib/Horde/Pgp/Element/Signature.php" />
    <install as="Horde/Pgp/Element/SignedMessage.php" name="lib/Horde/Pgp/Element/SignedMessage.php" />
    <install as="Horde/Pgp/Element/Text.php" name="lib/Horde/Pgp/Element/Text.php" />
+   <install as="Horde/Pgp/Element/PublicKey/Userid.php" name="lib/Horde/Pgp/Element/PublicKey/Userid.php" />
    <install as="locale/Horde_Pgp.pot" name="locale/Horde_Pgp.pot" />
    <install as="Horde/Pgp/AllTests.php" name="test/Horde/Pgp/AllTests.php" />
    <install as="Horde/Pgp/ArmorTest.php" name="test/Horde/Pgp/ArmorTest.php" />
@@ -696,6 +703,9 @@
    <install as="Horde/Pgp/fixtures/pgp_private.asc" name="test/Horde/Pgp/fixtures/pgp_private.asc" />
    <install as="Horde/Pgp/fixtures/pgp_private_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_private_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_public.asc" name="test/Horde/Pgp/fixtures/pgp_public.asc" />
+   <install as="Horde/Pgp/fixtures/pgp_public_revoked.txt" name="test/Horde/Pgp/fixtures/pgp_public_revoked.txt" />
+   <install as="Horde/Pgp/fixtures/pgp_public_revokedsub.txt" name="test/Horde/Pgp/fixtures/pgp_public_revokedsub.txt" />
+   <install as="Horde/Pgp/fixtures/pgp_public_revokeduid.txt" name="test/Horde/Pgp/fixtures/pgp_public_revokeduid.txt" />
    <install as="Horde/Pgp/fixtures/pgp_public_rsa.txt" name="test/Horde/Pgp/fixtures/pgp_public_rsa.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signature.txt" name="test/Horde/Pgp/fixtures/pgp_signature.txt" />
    <install as="Horde/Pgp/fixtures/pgp_signature2.txt" name="test/Horde/Pgp/fixtures/pgp_signature2.txt" />

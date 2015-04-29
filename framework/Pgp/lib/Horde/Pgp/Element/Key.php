@@ -28,6 +28,13 @@
 abstract class Horde_Pgp_Element_Key
 extends Horde_Pgp_Element
 {
+    /** Revocation reasons. */
+    const REVOKE_UNKNOWN = 0;
+    const REVOKE_SUPERSEDED = 1;
+    const REVOKE_COMPROMISED = 2;
+    const REVOKE_RETIRED = 3;
+    const REVOKE_NOTUSED = 4;
+
     /**
      * Cached data.
      *
@@ -89,6 +96,10 @@ extends Horde_Pgp_Element
      *   - created: (DateTime) Creation time.
      *   - email: (Horde_Mail_Rfc822_Address) E-mail address.
      *   - key: (OpenPGP_PublicKeyPacket) Key packet.
+     *   - revoke: (object) Revocation information. Elements:
+     *     - created: (DateTime) Creation time.
+     *     - info: (string) Human readable reason string.
+     *     - reason: (integer) Revocation reason.
      *   - sig: (OpenPGP_SignaturePacket) Signature packet.
      */
     public function getUserIds()
@@ -120,6 +131,10 @@ extends Horde_Pgp_Element
      * @return array  An array of objects, with these keys:
      *   - created: (DateTime) Creation time.
      *   - key: (OpenPGP_PublicKeyPacket) Key packet.
+     *   - revoke: (object) Revocation information. Elements:
+     *     - created: (DateTime) Creation time.
+     *     - info: (string) Human readable reason string.
+     *     - reason: (integer) Revocation reason.
      */
     public function getEncryptPackets()
     {
@@ -150,8 +165,6 @@ extends Horde_Pgp_Element
         );
 
         $fallback = $p = $topkey = $userid = $userid_p = null;
-        $pgp = new Horde_Pgp_Backend_Openpgp();
-        $self = $this;
         $sub = false;
 
         $create_out = function ($p, $s) {
@@ -159,25 +172,6 @@ extends Horde_Pgp_Element
             $out->key = $p;
             $out->sig = $s;
             return $out;
-        };
-
-        $verify_func = function ($topkey, $data, $sig) use ($pgp, $self) {
-            if (is_null($topkey) || is_null($data)) {
-                return false;
-            }
-
-            $v = $pgp->verify(
-                new Horde_Pgp_Element_Message(
-                    new OpenPGP_Message(
-                        ($data === false)
-                            ? array($topkey, $sig)
-                            : array($topkey, $data, $sig)
-                    )
-                ),
-                $this
-            );
-
-            return isset($v[0][($data === false) ? 1 : 2][0]);
         };
 
         /* Search for the key flag indicating that a key may be used to
@@ -191,6 +185,7 @@ extends Horde_Pgp_Element
                     $topkey = $val;
                 }
                 $p = $val;
+                $p_revoke = null;
             } elseif ($val instanceof OpenPGP_UserIDPacket) {
                 if ($userid && isset($userid->key)) {
                     $this->_cache['userid'][] = $userid;
@@ -212,17 +207,12 @@ extends Horde_Pgp_Element
                     /* Certification of User ID. */
                     if ($topkey &&
                         $userid_p &&
-                        $verify_func($topkey, $userid_p, $val)) {
-                        foreach ($val->hashed_subpackets as $val2) {
-                            if ($val2 instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
-                                /* Creation time is a MUST hashed subpacket
-                                 * (RFC 4880 [5.2.3.4]). */
-                                $userid->created = new DateTime('@' . $val2->data);
-                                break;
-                            }
-                        }
+                        $this->_parseVerify($topkey, $userid_p, $val)) {
                         $userid->key = $topkey;
+                        $userid->created = $this->_parseCreation($val);
                         $userid->sig = $val;
+                    } else {
+                        $userid_p = null;
                     }
                     break;
 
@@ -230,25 +220,27 @@ extends Horde_Pgp_Element
                     /* Verify first. */
                     if (!$p ||
                         (($topkey !== $p) &&
-                         !$verify_func($topkey, $p, $val))) {
+                         !$this->_parseVerify($topkey, $p, $val))) {
                         continue;
                     }
 
                     $encrypt = new stdClass;
+                    if (!is_null($p_revoke)) {
+                        $encrypt->revoke = $p_revoke;
+                    }
 
                     /* Check for explicit key flag subpacket. Require
                      * this information to be in hashed subpackets. */
                     if ($val->version === 4) {
+                        $encrypt->created = $this->_parseCreation($val);
+
                         foreach ($val->hashed_subpackets as $val2) {
-                            if ($val2 instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
-                                /* Creation time is a MUST hashed subpacket
-                                 * (RFC 4880 [5.2.3.4]). */
-                                $encrypt->created = new DateTime('@' . $val2->data);
-                            } elseif ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
+                            if ($val2 instanceof OpenPGP_SignaturePacket_KeyFlagsPacket) {
                                 foreach ($val2->flags as $val3) {
                                     if ($val3 & 0x04) {
                                         $encrypt->key = $create_out($p, $val);
-                                        continue 2;
+                                        $this->_cache['encrypt'][] = $encrypt;
+                                        continue 3;
                                     }
                                 }
 
@@ -259,9 +251,7 @@ extends Horde_Pgp_Element
                         }
                     }
 
-                    if (isset($encrypt->key)) {
-                        $this->_cache['encrypt'][] = $encrypt;
-                    } elseif (is_null($fallback)) {
+                    if (is_null($fallback)) {
                         $encrypt->key = $create_out($p, $val);
                         $fallback = $encrypt;
                     } elseif (!$sub &&
@@ -275,7 +265,7 @@ extends Horde_Pgp_Element
 
                 case 0x20:
                     /* Key revocation. */
-                    if ($verify_func($topkey, false, $val)) {
+                    if ($this->_parseVerify($topkey, false, $val)) {
                         $this->_cache = array(
                             'encrypt' => array(),
                             'userid' => array()
@@ -286,15 +276,15 @@ extends Horde_Pgp_Element
 
                 case 0x28:
                     /* Subkey revocation. */
-                    if ($verify_func($topkey, $p, $val)) {
-                        $p = null;
+                    if ($this->_parseVerify($topkey, $p, $val)) {
+                        $p_revoke = $this->_parseRevokePacket($val);
                     }
                     break;
 
                 case 0x30:
                     /* Revocation of User ID. */
-                    if ($verify_func($topkey, $userid_p, $val)) {
-                        $userid = $userid_p = null;
+                    if ($this->_parseVerify($topkey, $userid_p, $val)) {
+                        $userid->revoke = $this->_parseRevokePacket($val);
                     }
                     break;
                 }
@@ -310,6 +300,82 @@ extends Horde_Pgp_Element
         }
 
         $this->_cache['topkey'] = $topkey;
+    }
+
+    /**
+     */
+    protected function _parseVerify($topkey, $data, $sig)
+    {
+        if (is_null($topkey) || is_null($data)) {
+            return false;
+        }
+
+        $pgp = new Horde_Pgp_Backend_Openpgp();
+        $v = $pgp->verify(
+            new Horde_Pgp_Element_Message(
+                new OpenPGP_Message(
+                    ($data === false)
+                        ? array($topkey, $sig)
+                        : array($topkey, $data, $sig)
+                )
+            ),
+            $this
+        );
+
+        return isset($v[0][($data === false) ? 1 : 2][0]);
+    }
+
+    /**
+     */
+    protected function _parseCreation($p)
+    {
+        /* Creation time is a MUST hashed subpacket (RFC 4880 [5.2.3.4]). */
+        foreach ($p->hashed_subpackets as $val) {
+            if ($val instanceof OpenPGP_SignaturePacket_SignatureCreationTimePacket) {
+                return new DateTime('@' . $val->data);
+            }
+        }
+
+        return new DateTime('@0');
+    }
+
+    /**
+     */
+    protected function _parseRevokePacket($p)
+    {
+        $revoke = new stdClass;
+        $revoke->created = $this->_parseCreation($p);
+        $revoke->reason = self::REVOKE_UNKNOWN;
+
+        foreach ($p->hashed_subpackets as $val) {
+            if ($val instanceof OpenPGP_SignaturePacket_ReasonForRevocationPacket) {
+                switch ($val->code) {
+                case 0x00:
+                    $revoke->reason = self::REVOKE_UNKNOWN;
+                    break;
+
+                case 0x01:
+                    $revoke->reason = self::REVOKE_SUPERSEDED;
+                    break;
+
+                case 0x02:
+                    $revoke->reason = self::REVOKE_COMPROMISED;
+                    break;
+
+                case 0x03:
+                    $revoke->reason = self::REVOKE_RETIRED;
+                    break;
+
+                case 0x20:
+                    $revoke->reason = self::REVOKE_NOTUSED;
+                    break;
+                }
+
+                $revoke->info = $val->data;
+            }
+        }
+
+        return $revoke;
     }
 
 }
