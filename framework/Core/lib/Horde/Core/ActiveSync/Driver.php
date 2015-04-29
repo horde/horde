@@ -1263,7 +1263,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             try {
                 $message = $this->_connector->contacts_export($id, array(
                     'protocolversion' => $this->_version,
-                    'truncation' => $collection['truncation'],
+                    'truncation' => empty($collection['truncation']) ? Horde_ActiveSync::TRUNCATION_9 : $collection['truncation'],
                     'bodyprefs' => $collection['bodyprefs'],
                     'mimesupport' => $collection['mimesupport'],
                     'device' => $this->_device));
