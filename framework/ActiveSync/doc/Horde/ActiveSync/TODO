@@ -63,7 +63,9 @@ BC BREAKING (i.e., Horde 6).
 - Look at extracting something like Request_Parser and Request_Handler classes
   to separate the reading of the request from the handling of it. The parser
   should return some standard request object that can be passed to the handler
-  that contains the pertinent information.
+  that contains the pertinent information. Use temporary streams to hold any
+  incoming message data to preserve the low memory footprint from dealing with
+  changes as we read them.
 
 - Maintain the serverid -> backendid map in a single place and stop storing
   backend ids (i.e., IMAP folder names) in collection/state/folder cache etc...
