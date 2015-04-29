@@ -73,7 +73,7 @@ BC BREAKING (i.e., Horde 6).
 
 - Extract a basic Horde_ActiveSync_Storage class? At the very least we need to
   rename the current Horde_ActiveSync_State_* classes to Horde_ActiveSync_Storage
-  since they now deal with more that device state.
+  since they now deal with more than device state.
 
 - Implmement Horde_ActiveSync_HttpRequest object and remove dependency on
   Horde_Controller. We only use the Horde_Controller_Request_Http object from
