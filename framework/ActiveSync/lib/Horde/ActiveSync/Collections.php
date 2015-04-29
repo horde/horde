@@ -1302,10 +1302,11 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
     }
 
     /**
-     * Return the any changes for the current collection, and cache them if
-     * we are not PINGing.
+     * Return any changes for the current collection.
      *
      * @param boolean $ping  True if this is a PING request, false otherwise.
+     *                       If true, we only detect that a change has occured,
+     *                       not the data on all of the changes.
      * @param array $ensure  An array of UIDs that should be sent in the
      *                       current response if possible, and not put off
      *                       because of a MOREAVAILABLE situation.
