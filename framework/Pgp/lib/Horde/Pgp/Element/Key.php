@@ -130,6 +130,8 @@ extends Horde_Pgp_Element
      *
      * @return array  An array of objects, with these keys:
      *   - created: (DateTime) Creation time.
+     *   - fingerprint: (string) Key fingerprint.
+     *   - id: (string) Key ID.
      *   - key: (OpenPGP_PublicKeyPacket) Key packet.
      *   - revoke: (object) Revocation information. Elements:
      *     - created: (DateTime) Creation time.
@@ -239,6 +241,8 @@ extends Horde_Pgp_Element
                                 foreach ($val2->flags as $val3) {
                                     if ($val3 & 0x04) {
                                         $encrypt->key = $create_out($p, $val);
+                                        $encrypt->fingerprint = $p->fingerprint;
+                                        $encrypt->id = $p->key_id;
                                         $this->_cache['encrypt'][] = $encrypt;
                                         continue 3;
                                     }
@@ -295,7 +299,9 @@ extends Horde_Pgp_Element
             $this->_cache['userid'][] = $userid;
         }
 
-        if (empty($this->cache['encrypt']) && $fallback) {
+        if ($fallback && empty($this->_cache['encrypt'])) {
+            $fallback->fingerprint = $fallback->key->fingerprint;
+            $fallback->id = $fallback->key->key_id;
             $this->_cache['encrypt'][] = $fallback;
         }
 

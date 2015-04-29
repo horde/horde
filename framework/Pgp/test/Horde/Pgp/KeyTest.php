@@ -361,7 +361,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getEncryptKeysProvider
      */
-    public function testGetEncryptKeys($key, $expected, $revocation)
+    public function testGetEncryptKeys($expected, $revocation, $key)
     {
         $list = $key->getEncryptKeys();
 
@@ -371,10 +371,12 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         );
 
         for ($i = 0; $i < count($expected); ++$i) {
-            $this->assertEquals(
-                $expected[$i],
-                $list[$i]->created
-            );
+            foreach ($expected[$i] as $key => $val) {
+                $this->assertEquals(
+                    $val,
+                    $list[$i]->$key
+                );
+            }
 
             if (!empty($revocation[$i])) {
                 foreach ($revocation[$i] as $key => $val) {
@@ -391,42 +393,61 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                $this->_getKey('pgp_public.asc', 'public'),
                 array(
-                    new DateTime('@1155291888')
+                    array(
+                        'created' => new DateTime('@1155291888'),
+                        'fingerprint' => 'F4248B3AC97C1F749555929C24ED29779EF074A9',
+                        'id' => '9EF074A9'
+                    )
                 ),
-                array()
-            ),
-            array(
-                $this->_getKey('pgp_private.asc', 'private'),
-                array(
-                    new DateTime('@1155291888')
-                ),
-                array()
-            ),
-            array(
-                $this->_getKey('pgp_public_rsa.txt', 'public'),
-                array(
-                    new DateTime('@1428808030')
-                ),
-                array()
-            ),
-            array(
-                $this->_getKey('pgp_private_rsa.txt', 'private'),
-                array(
-                    new DateTime('@1428808030')
-                ),
-                array()
-            ),
-            array(
-                $this->_getKey('pgp_public_revoked.txt', 'public'),
                 array(),
-                array()
+                $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
-                $this->_getKey('pgp_public_revokedsub.txt', 'public'),
                 array(
-                    new DateTime('@1429508578')
+                    array(
+                        'created' => new DateTime('@1155291888'),
+                        'fingerprint' => 'F4248B3AC97C1F749555929C24ED29779EF074A9',
+                        'id' => '9EF074A9'
+                    )
+                ),
+                array(),
+                $this->_getKey('pgp_private.asc', 'private')
+            ),
+            array(
+                array(
+                    array(
+                        'created' => new DateTime('@1428808030'),
+                        'fingerprint' => '063A32E02D9B279D93E82068E03B24D55302C294',
+                        'id' => '5302C294'
+                    )
+                ),
+                array(),
+                $this->_getKey('pgp_public_rsa.txt', 'public')
+            ),
+            array(
+                array(
+                    array(
+                        'created' => new DateTime('@1428808030'),
+                        'fingerprint' => '063A32E02D9B279D93E82068E03B24D55302C294',
+                        'id' => '5302C294'
+                    )
+                ),
+                array(),
+                $this->_getKey('pgp_private_rsa.txt', 'private')
+            ),
+            array(
+                array(),
+                array(),
+                $this->_getKey('pgp_public_revoked.txt', 'public')
+            ),
+            array(
+                array(
+                    array(
+                        'created' => new DateTime('@1429508578'),
+                        'fingerprint' => '1C45DD1BDD24858740430E6354C42551FF701578',
+                        'id' => 'FF701578'
+                    )
                 ),
                 array(
                     array(
@@ -434,7 +455,8 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
                         'info' => 'Revocation of subkey',
                         'reason' => Horde_Pgp_Element_Key::REVOKE_RETIRED
                     )
-                )
+                ),
+                $this->_getKey('pgp_public_revokedsub.txt', 'public')
             )
         );
     }
