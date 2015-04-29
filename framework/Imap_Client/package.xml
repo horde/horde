@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2874,7 +2874,7 @@
    <date>2015-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).
    </notes>
   </release>
  </changelog>
