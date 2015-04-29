@@ -634,6 +634,34 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @dataProvider inconsistentCharsetsInAndOrSearchesProvider
+     * @expectedException InvalidArgumentException
+     */
+    public function testInconsistentCharsetsInAndOrSearches($query)
+    {
+        $query->build(null);
+    }
+
+    public function inconsistentCharsetsInAndOrSearchesProvider()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->text('foo');
+        $ob->charset('UTF-8', false);
+
+        $ob2 = new Horde_Imap_Client_Search_Query();
+        $ob2->text('foo2');
+        $ob2->charset('ISO-8859-1', false);
+        $ob2->andSearch($ob);
+
+        $ob3 = new Horde_Imap_Client_Search_Query();
+        $ob3->text('foo2');
+        $ob3->charset('ISO-8859-1', false);
+        $ob3->orSearch($ob);
+
+        return array(array($ob2), array($ob3));
+    }
+
     private function _fuzzy($ob, array $exts = array())
     {
         $capability = new Horde_Imap_Client_Data_Capability_Imap();
