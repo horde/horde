@@ -19,6 +19,9 @@
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
+ *
+ * @property-read string $fingerprint  Fingerprint of the base key.
+ * @property-read string $id  ID of the base key.
  */
 abstract class Horde_Pgp_Element_Key
 extends Horde_Pgp_Element
@@ -36,6 +39,18 @@ extends Horde_Pgp_Element
      * @var array
      */
     protected $_cache;
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'fingerprint':
+        case 'id':
+            $base = $this->getSignKeys();
+            return $base[0]->$name;
+        }
+    }
 
     /**
      * Return the list of key fingerprints.
