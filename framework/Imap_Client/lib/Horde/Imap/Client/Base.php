@@ -2139,10 +2139,28 @@ implements Serializable, SplObserver
             }
         }
 
+        /* Default search results. */
+        $default_ret = array(
+            'count' => 0,
+            'match' => $this->getIdsOb(),
+            'max' => null,
+            'min' => null,
+            'relevancy' => array()
+        );
+
+        /* Build search query. */
+        $squery = $query->build($this);
+
+        /* Check for query contents. If empty, this means that the query
+         * object has identified that this query can NEVER return any results.
+         * Immediately return now. */
+        if (empty($squery['query'])) {
+            return $default_ret;
+        }
+
         // Check for supported charset.
-        $options['_query'] = $query->build($this);
-        if (!is_null($options['_query']['charset']) &&
-            ($this->search_charset->query($options['_query']['charset'], true) === false)) {
+        if (!is_null($squery['charset']) &&
+            ($this->search_charset->query($squery['charset'], true) === false)) {
             foreach ($this->search_charset->charsets as $val) {
                 try {
                     $new_query = clone $query;
@@ -2158,13 +2176,16 @@ implements Serializable, SplObserver
             }
 
             $query = $new_query;
-            $options['_query'] = $query->build($this);
+            $squery = $query->build($this);
         }
+
+        // Store query in $options array to pass to child method.
+        $options['_query'] = $squery;
 
         /* RFC 6203: MUST NOT request relevancy results if we are not using
          * FUZZY searching. */
         if (in_array(Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY, $options['results']) &&
-            !in_array('SEARCH=FUZZY', $options['_query']['exts_used'])) {
+            !in_array('SEARCH=FUZZY', $squery['exts_used'])) {
             throw new InvalidArgumentException('Cannot specify RELEVANCY results if not doing a FUZZY search.');
         }
 
@@ -2188,7 +2209,7 @@ implements Serializable, SplObserver
          * between here and the status() call. */
         if ((count($options['results']) === 1) &&
             (reset($options['results']) == Horde_Imap_Client::SEARCH_RESULTS_COUNT)) {
-            switch ($options['_query']['query']) {
+            switch ($squery['query']) {
             case 'ALL':
                 $ret = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 return array('count' => $ret['messages']);
@@ -2205,8 +2226,7 @@ implements Serializable, SplObserver
          * we can cache all queries and invalidate the cache when the MODSEQ
          * changes. If CONDSTORE not available, we can only store queries
          * that don't involve flags. We store results by hashing the options
-         * array - the generated query is already added to '_query' key
-         * above. */
+         * array. */
         $cache = null;
         if (empty($options['nocache']) &&
             $this->_initCache(true) &&
@@ -2227,7 +2247,7 @@ implements Serializable, SplObserver
             in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) {
             /* RFC 7162 [3.1.2.2] - trying to do a MODSEQ SEARCH on a mailbox
              * that doesn't support it will return BAD. */
-            if (in_array('CONDSTORE', $options['_query']['exts']) &&
+            if (in_array('CONDSTORE', $squery['exts']) &&
                 !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::r("Mailbox does not support mod-sequences."),
@@ -2237,13 +2257,7 @@ implements Serializable, SplObserver
 
             $ret = $this->_search($query, $options);
         } else {
-            $ret = array(
-                'count' => 0,
-                'match' => $this->getIdsOb(),
-                'max' => null,
-                'min' => null,
-                'relevancy' => array()
-            );
+            $ret = $default_ret;
             if (isset($status_res['highestmodseq'])) {
                 $ret['modseq'] = $status_res['highestmodseq'];
             }

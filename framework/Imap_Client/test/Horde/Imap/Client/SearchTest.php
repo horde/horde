@@ -584,8 +584,53 @@ class Horde_Imap_Client_SearchTest extends PHPUnit_Framework_TestCase
         $ob->charset('US-ASCII', false);
 
         $this->assertEquals(
-            'BODY foo NOT UID 1:3',
+            'NOT UID 1:3 BODY foo',
             strval(unserialize(serialize($ob)))
+        );
+    }
+
+    public function testBug13971()
+    {
+        $ob = new Horde_Imap_Client_Search_Query();
+        $ob->ids(new Horde_Imap_Client_Ids(array()));
+        $ob->text('foo');
+
+        $this->assertEquals(
+            '',
+            strval($ob)
+        );
+
+        $ob2 = new Horde_Imap_Client_Search_Query();
+        $ob2->text('foo2');
+        $ob2->andSearch($ob);
+
+        $this->assertEquals(
+            '',
+            strval($ob2)
+        );
+
+        $ob3 = new Horde_Imap_Client_Search_Query();
+        $ob3->text('foo3');
+        $ob3->orSearch($ob);
+
+        $this->assertEquals(
+            'BODY foo3',
+            strval($ob3)
+        );
+
+        $ob2->orSearch($ob3);
+
+        $this->assertEquals(
+            'BODY foo3',
+            strval($ob2)
+        );
+
+        /* A NOT qualifier on an empty ID list should ignore the list. */
+        $ob->ids(new Horde_Imap_Client_Ids(array()), true);
+
+        $this->assertEquals(
+            'BODY foo',
+            strval($ob)
         );
     }
 
