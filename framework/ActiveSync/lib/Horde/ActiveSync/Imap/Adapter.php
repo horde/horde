@@ -354,7 +354,7 @@ class Horde_ActiveSync_Imap_Adapter
 
             // Check for mail outside of the time restriction if the filtertype
             // changed.
-            if ($options['softdelete']) {
+            if (!empty($options['softdelete'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for additional messages within the new FilterType parameters.',
                     $this->_procid));
