@@ -1080,10 +1080,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // SOFTDELETE
                 if (!$soft = $refreshFilter) {
                     $sd = $folder->getSoftDeleteTimes();
-                    if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
-                        $soft = true;
+                    if (empty($sd[0]) && empty($sd[1]) && !empty($cutoffdate)) {
+                        // No SOFTDELETE performed, and this is likely(?) the
+                        // first sync so we must prime the SOFTDELETE values.
+                        $folder->setSoftDeleteTimes((int)$cutoffdate, time());
                     } else {
-                        $soft = false;
+                        if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
+                            $soft = true;
+                        } else {
+                            $soft = false;
+                        }
                     }
                 }
 
