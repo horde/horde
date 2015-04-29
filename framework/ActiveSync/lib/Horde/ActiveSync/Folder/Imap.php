@@ -102,6 +102,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     protected $_categories = array();
 
+    protected $_primed = false;
+
     /**
      * Set message changes.
      *
@@ -162,6 +164,25 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 $this->_categories[$uid] = $data;
             }
         }
+    }
+
+    /**
+     * Sets initial message collection for servers that support MODSEQ. Much
+     * more effecient than using setChanges() when we know this is the initial
+     * folder "priming".
+     *
+     * @param array $messages  Array of message UIDs for the initial message
+     *                         set for this folder.
+     */
+    public function primeFolder($messages)
+    {
+        $modseq = $this->modseq();
+        if (empty($modseq)) {
+            throw new Horde_ActiveSync_Exception('Horde_ActiveSync_Folder_Imap::primeFolder requires a MODSEQ capable IMAP server');
+        }
+
+        $this->_added = $messages;
+        $this->_primed = true;
     }
 
     /**
@@ -256,10 +277,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             }
             $this->_messages = $this->_flags + array_flip($this->_messages);
         } else {
-            foreach ($this->_added as $add) {
-                $this->_messages[] = $add;
+            if ($this->_primed) {
+                $this->_messages = $this->_added;
+                $this->_primed = false;
+            } else {
+                foreach ($this->_added as $add) {
+                    $this->_messages[] = $add;
+                }
+                $this->_messages = array_diff($this->_messages, $this->_removed);
             }
-            $this->_messages = array_diff($this->_messages, $this->_removed);
         }
 
         // Clean up

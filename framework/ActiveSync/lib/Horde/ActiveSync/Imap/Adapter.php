@@ -415,7 +415,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
             if ($modseq && $folder->modseq() > 0 && $search_ret['count']) {
-                $folder->setChanges($search_ret['match']->ids, array());
+                $folder->primeFolder($search_ret['match']->ids);
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
