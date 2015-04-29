@@ -127,7 +127,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getUserIdsProvider
      */
-    public function testGetUserIdsProperty($expected, $revoked, $key)
+    public function testGetUserIds($expected, $revoked, $key)
     {
         $key_ob = array_values($key->getUserIds());
 
