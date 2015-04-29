@@ -19,11 +19,6 @@
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Pgp
- *
- * @property-read OpenPGP_PublicKeyPacket $base  Base key packet.
- * @property-read integer $creation  Creation date (UNIX timestamp).
- * @property-read string $fingerprint  Key fingerprint.
- * @property-read string $id  Key ID.
  */
 abstract class Horde_Pgp_Element_Key
 extends Horde_Pgp_Element
@@ -43,49 +38,40 @@ extends Horde_Pgp_Element
     protected $_cache;
 
     /**
-     */
-    public function __get($name)
-    {
-        switch ($name) {
-        case 'base':
-            $this->_parse();
-            return isset($this->_cache['topkey'])
-                ? $this->_cache['topkey']
-                : null;
-
-        case 'creation':
-        case 'fingerprint':
-        case 'id':
-            $mapping = array(
-                'creation' => 'timestamp',
-                'fingerprint' => 'fingerprint',
-                'id' => 'key_id'
-            );
-            return ($base = $this->base)
-                ? $base->{$mapping[$name]}
-                : null;
-        }
-    }
-
-    /**
      * Return the list of key fingerprints.
      *
      * @return array  Keys are key IDs; values are fingerprints.
      */
     public function getFingerprints()
     {
+        $keys = array_merge($this->getSignKeys(), $this->getEncryptKeys());
         $out = array();
 
-        $e = array_filter(array($this->base));
-        foreach ($this->getEncryptKeys() as $val) {
-            $e[] = $val->key->key;
-        }
-
-        foreach ($e as $val) {
-            $out[$val->key_id] = $val->fingerprint;
+        foreach ($keys as $val) {
+            $out[$val->id] = $val->fingerprint;
         }
 
         return $out;
+    }
+
+    /**
+     * Returns the list of signing subkeys within this key.
+     *
+     * @return array  An array of objects, with these keys:
+     *   - created: (DateTime) Creation time.
+     *   - fingerprint: (string) Key fingerprint.
+     *   - id: (string) Key ID.
+     *   - key: (OpenPGP_PublicKeyPacket) Key packet.
+     *   - revoke: (object) Revocation information. Elements:
+     *     - created: (DateTime) Creation time.
+     *     - info: (string) Human readable reason string.
+     *     - reason: (integer) Revocation reason.
+     */
+    public function getSignKeys()
+    {
+        $this->_parse();
+
+        return $this->_cache['sign'];
     }
 
     /**
@@ -184,7 +170,12 @@ extends Horde_Pgp_Element
         foreach ($this->message as $val) {
             if ($val instanceof OpenPGP_PublicKeyPacket) {
                 if (is_null($topkey)) {
-                    $topkey = $val;
+                    $topkey = new stdClass;
+                    $topkey->created = new DateTime('@' . $val->timestamp);
+                    $topkey->fingerprint = $val->fingerprint;
+                    $topkey->id = $val->key_id;
+                    $topkey->key = $val;
+                    $this->_cache['sign'][] = $topkey;
                 }
                 $p = $val;
                 $p_revoke = null;
@@ -209,8 +200,8 @@ extends Horde_Pgp_Element
                     /* Certification of User ID. */
                     if ($topkey &&
                         $userid_p &&
-                        $this->_parseVerify($topkey, $userid_p, $val)) {
-                        $userid->key = $topkey;
+                        $this->_parseVerify($topkey->key, $userid_p, $val)) {
+                        $userid->key = $topkey->key;
                         $userid->created = $this->_parseCreation($val);
                         $userid->sig = $val;
                     } else {
@@ -221,8 +212,8 @@ extends Horde_Pgp_Element
                 case 0x18:
                     /* Verify first. */
                     if (!$p ||
-                        (($topkey !== $p) &&
-                         !$this->_parseVerify($topkey, $p, $val))) {
+                        (($topkey->key !== $p) &&
+                         !$this->_parseVerify($topkey->key, $p, $val))) {
                         continue;
                     }
 
@@ -269,7 +260,7 @@ extends Horde_Pgp_Element
 
                 case 0x20:
                     /* Key revocation. */
-                    if ($this->_parseVerify($topkey, false, $val)) {
+                    if ($this->_parseVerify($topkey->key, false, $val)) {
                         $this->_cache = array(
                             'encrypt' => array(),
                             'userid' => array()
@@ -280,14 +271,14 @@ extends Horde_Pgp_Element
 
                 case 0x28:
                     /* Subkey revocation. */
-                    if ($this->_parseVerify($topkey, $p, $val)) {
+                    if ($this->_parseVerify($topkey->key, $p, $val)) {
                         $p_revoke = $this->_parseRevokePacket($val);
                     }
                     break;
 
                 case 0x30:
                     /* Revocation of User ID. */
-                    if ($this->_parseVerify($topkey, $userid_p, $val)) {
+                    if ($this->_parseVerify($topkey->key, $userid_p, $val)) {
                         $userid->revoke = $this->_parseRevokePacket($val);
                     }
                     break;
@@ -304,15 +295,13 @@ extends Horde_Pgp_Element
             $fallback->id = $fallback->key->key_id;
             $this->_cache['encrypt'][] = $fallback;
         }
-
-        $this->_cache['topkey'] = $topkey;
     }
 
     /**
      */
-    protected function _parseVerify($topkey, $data, $sig)
+    protected function _parseVerify($key, $data, $sig)
     {
-        if (is_null($topkey) || is_null($data)) {
+        if (is_null($key) || is_null($data)) {
             return false;
         }
 
@@ -321,8 +310,8 @@ extends Horde_Pgp_Element
             new Horde_Pgp_Element_Message(
                 new OpenPGP_Message(
                     ($data === false)
-                        ? array($topkey, $sig)
-                        : array($topkey, $data, $sig)
+                        ? array($key, $sig)
+                        : array($key, $data, $sig)
                 )
             ),
             $this

@@ -26,99 +26,81 @@
 class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider getCreationPropertyProvider
+     * @dataProvider getSignKeysProvider
      */
-    public function testGetCreationProperty($expected, $key)
+    public function testGetSignKeys($expected, $revocation, $key)
     {
+        $list = $key->getSignKeys();
+
         $this->assertEquals(
-            $expected,
-            $key->creation
+            count($expected),
+            count($list)
         );
+
+        for ($i = 0; $i < count($expected); ++$i) {
+            foreach ($expected[$i] as $key => $val) {
+                $this->assertEquals(
+                    $val,
+                    $list[$i]->$key
+                );
+            }
+
+            if (!empty($revocation[$i])) {
+                foreach ($revocation[$i] as $key => $val) {
+                    $this->assertEquals(
+                        $val,
+                        $list[$i]->revoke->$key
+                    );
+                }
+            }
+        }
     }
 
-    public function getCreationPropertyProvider()
+    public function getSignKeysProvider()
     {
         return array(
             array(
-                1155291888,
+                array(
+                    array(
+                        'created' => new DateTime('@1155291888'),
+                        'fingerprint' => '966F4BA9569DE6F65E8253977CA74426BADEABD7',
+                        'id' => 'BADEABD7'
+                    )
+                ),
+                array(),
                 $this->_getKey('pgp_public.asc', 'public')
             ),
             array(
-                1155291888,
+                array(
+                    array(
+                        'created' => new DateTime('@1155291888'),
+                        'fingerprint' => '966F4BA9569DE6F65E8253977CA74426BADEABD7',
+                        'id' => 'BADEABD7'
+                    )
+                ),
+                array(),
                 $this->_getKey('pgp_private.asc', 'private')
             ),
             array(
-                1428808030,
+                array(
+                    array(
+                        'created' => new DateTime('@1428808030'),
+                        'fingerprint' => 'C2F1B25DED428057096161322CA37A36F78F30D6',
+                        'id' => 'F78F30D6'
+                    )
+                ),
+                array(),
                 $this->_getKey('pgp_public_rsa.txt', 'public')
             ),
             array(
-                1428808030,
-                $this->_getKey('pgp_private_rsa.txt', 'private')
-            )
-        );
-    }
-
-    /**
-     * @dataProvider getIdPropertyProvider
-     */
-    public function testGetIdProperty($expected, $key)
-    {
-        $this->assertEquals(
-            $expected,
-            $key->id
-        );
-    }
-
-    public function getIdPropertyProvider()
-    {
-        return array(
-            array(
-                'BADEABD7',
-                $this->_getKey('pgp_public.asc', 'public')
-            ),
-            array(
-                'BADEABD7',
-                $this->_getKey('pgp_private.asc', 'private')
-            ),
-            array(
-                'F78F30D6',
-                $this->_getKey('pgp_public_rsa.txt', 'public')
-            ),
-            array(
-                'F78F30D6',
-                $this->_getKey('pgp_private_rsa.txt', 'private')
-            )
-        );
-    }
-
-    /**
-     * @dataProvider getFingerprintPropertyProvider
-     */
-    public function testGetFingerprintProperty($expected, $key)
-    {
-        $this->assertEquals(
-            $expected,
-            $key->fingerprint
-        );
-    }
-
-    public function getFingerprintPropertyProvider()
-    {
-        return array(
-            array(
-                '966F4BA9569DE6F65E8253977CA74426BADEABD7',
-                $this->_getKey('pgp_public.asc', 'public')
-            ),
-            array(
-                '966F4BA9569DE6F65E8253977CA74426BADEABD7',
-                $this->_getKey('pgp_private.asc', 'private')
-            ),
-            array(
-                'C2F1B25DED428057096161322CA37A36F78F30D6',
-                $this->_getKey('pgp_public_rsa.txt', 'public')
-            ),
-            array(
-                'C2F1B25DED428057096161322CA37A36F78F30D6',
+                array(
+                    array(
+                        'created' => new DateTime('@1428808030'),
+                        'fingerprint' => 'C2F1B25DED428057096161322CA37A36F78F30D6',
+                        'id' => 'F78F30D6'
+                    )
+                ),
+                array(),
                 $this->_getKey('pgp_private_rsa.txt', 'private')
             )
         );
