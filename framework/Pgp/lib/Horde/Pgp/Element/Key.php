@@ -77,7 +77,7 @@ extends Horde_Pgp_Element
         $out = array();
 
         $e = array_filter(array($this->base));
-        foreach ($this->getEncryptPackets() as $val) {
+        foreach ($this->getEncryptKeys() as $val) {
             $e[] = $val->key->key;
         }
 
@@ -126,7 +126,7 @@ extends Horde_Pgp_Element
     }
 
     /**
-     * Return the list of verified encryption packets in this key.
+     * Return the list of verified encryption subkeys in this key.
      *
      * @return array  An array of objects, with these keys:
      *   - created: (DateTime) Creation time.
@@ -136,7 +136,7 @@ extends Horde_Pgp_Element
      *     - info: (string) Human readable reason string.
      *     - reason: (integer) Revocation reason.
      */
-    public function getEncryptPackets()
+    public function getEncryptKeys()
     {
         $this->_parse();
 

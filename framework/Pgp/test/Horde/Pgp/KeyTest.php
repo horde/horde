@@ -359,11 +359,11 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getEncryptPacketsProvider
+     * @dataProvider getEncryptKeysProvider
      */
-    public function testGetEncryptPackets($key, $expected, $revocation)
+    public function testGetEncryptKeys($key, $expected, $revocation)
     {
-        $list = $key->getEncryptPackets();
+        $list = $key->getEncryptKeys();
 
         $this->assertEquals(
             count($expected),
@@ -387,7 +387,7 @@ class Horde_Pgp_KeyTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    public function getEncryptPacketsProvider()
+    public function getEncryptKeysProvider()
     {
         return array(
             array(
