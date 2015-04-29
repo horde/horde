@@ -123,5 +123,6 @@ BC BREAKING (i.e., Horde 6).
   temporary php stream (for the larger initial email syncs) to store the actual
   change data structure. Needed to avoid hitting PHP memory limit for very large
   mailboxes when synchronizing to clients that pull the entire mailbox down
-  (like Outlook).
+  (like Outlook). Also, standardize the data format instead of having to
+  (re)build a flat array from a multidimensional array of 'changes', 'add' etc..
 
