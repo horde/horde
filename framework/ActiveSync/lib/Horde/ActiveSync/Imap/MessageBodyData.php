@@ -403,9 +403,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
     /**
      * Build the data needed for the html part.
      *
-     * @param  Horde_Imap_Client_Data_Fetch $data             FETCH results.
-     * @param  Horde_Mime_Part  $html_mime        text/html part.
-     * @param  string           $html_id          MIME id.
+     * @param  Horde_Imap_Client_Data_Fetch $data  FETCH results.
+     * @param  Horde_Mime_Part  $html_mime         The text/html MIME part.
+     * @param  string           $html_id           MIME id.
      * @param  boolean          $convert_to_plain Convert text to plain text
      *                          also? If true, will also return a 'plain' array.
      *
