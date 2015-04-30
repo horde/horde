@@ -250,12 +250,12 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
         if (!empty($html_id) && $want_html_text) {
             $results = $this->_getHtmlPart($data, $html_body_part, $html_id, $want_html_as_plain);
-            if (!empty($results['html'])) {
-                $this->_html = $results['html'];
-            }
-            if (!empty($results['plain'])) {
-                $this->_plain = $results['plain'];
-            }
+            $this->_html = !empty($results['html'])
+                ? $results['html']
+                : null;
+            $this->_plain = !empty($results['plain'])
+                ? $results['plain']
+                : null;
         }
 
         if (!empty($this->_options['bodypartprefs'])) {
