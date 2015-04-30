@@ -242,10 +242,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
         // Fetch the data from the IMAP client.
         $data = $this->_fetchData(array('html_id' => $html_id, 'text_id' => $text_id));
-
-        // @todo can we get the text_id from the body part?
         if (!empty($text_id) && $want_plain_text) {
-            $this->_plain = $this->_getPlainPart($data, $text_body_part, $text_id);
+            $this->_plain = $this->_getPlainPart($data, $text_body_part);
         }
 
         if (!empty($html_id) && $want_html_text) {
@@ -357,8 +355,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $text_mime          The plaintext MIME part.
-     * @param  string $text_id                     The MIME id for this part on
-     *                                             the IMAP server.
+     *
      * @return array  The plain part data.
      *     - charset:  (string)   The charset of the text.
      *     - body: (string)       The body text.
@@ -366,8 +363,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getPlainPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $text_mime, $text_id)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $text_mime)
     {
+        $text_id = $text_mime->getMimeId();
         $text = $data->getBodyPart($text_id);
         if (!$data->getBodyPartDecode($text_id)) {
             $text_mime->setContents($text);
