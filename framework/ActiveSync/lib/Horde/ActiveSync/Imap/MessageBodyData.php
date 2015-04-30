@@ -247,7 +247,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
         }
 
         if (!empty($html_id) && $want_html_text) {
-            $results = $this->_getHtmlPart($data, $html_body_part, $html_id, $want_html_as_plain);
+            $results = $this->_getHtmlPart($data, $html_body_part, $want_html_as_plain);
             $this->_html = !empty($results['html'])
                 ? $results['html']
                 : null;
@@ -403,7 +403,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @param  Horde_Imap_Client_Data_Fetch $data  FETCH results.
      * @param  Horde_Mime_Part  $html_mime         The text/html MIME part.
-     * @param  string           $html_id           MIME id.
      * @param  boolean          $convert_to_plain Convert text to plain text
      *                          also? If true, will also return a 'plain' array.
      *
@@ -412,7 +411,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *                structure of each entry.
      */
     protected function _getHtmlPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $html_id, $convert_to_plain)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $html_mime, $convert_to_plain)
     {
         // @todo The length stuff in this method should really be done after
         // we validate the text since it might change if there was an incorrect
@@ -422,6 +421,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
         // charset MAY cause an email to be reported as truncated when it's not,
         // causing an additional reload on the client when viewing.
         $results = array();
+        $html_id = $html_mime->getMimeId();
         $html = $data->getBodyPart($html_id);
         if (!$data->getBodyPartDecode($html_id)) {
             $html_mime->setContents($html);
