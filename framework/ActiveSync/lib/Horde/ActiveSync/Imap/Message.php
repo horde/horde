@@ -24,6 +24,12 @@
  * @copyright 2012-2015 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property-read Horde_Imap_Client_Data_Envelope $envelope
+ *     The message envelope.
+ * @property-read array $flags                     The message flags.
+ * @property-read integer $uid                     The message uid.
+ * @property-read Horde_ActiveSync_Mime $basePart  The base message part.
  */
 class Horde_ActiveSync_Imap_Message
 {
@@ -47,13 +53,6 @@ class Horde_ActiveSync_Imap_Message
      * @var Horde_Imap_Client_Base
      */
     protected $_imap;
-
-    /**
-     * The envelope data.
-     *
-     * @var Horde_Imap_Client_Data_Envelope
-     */
-    protected $_envelope;
 
     /**
      * Cache if the last body part was encoded or not.
@@ -84,12 +83,34 @@ class Horde_ActiveSync_Imap_Message
         Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
-        $this->_basePart = new Horde_ActiveSync_Mime($data->getStructure());
-        $this->_uid = $data->getUid();
-        $this->_flags = $data->getFlags();
         $this->_mbox = $mbox;
         $this->_data = $data;
-        $this->_envelope = $data->getEnvelope();
+    }
+
+    /**
+     * Accessor
+     *
+     * @param  string $property The property.
+     *
+     * @return mixed
+     */
+    public &function __get($property)
+    {
+        switch ($property) {
+        case 'envelope':
+            return $this->_data->getEnvelope();
+        case 'flags':
+            return $this->_data->getFlags();
+        case 'uid':
+            return $this->_data->getUid();
+        case 'basePart':
+            if (empty($this->_basePart)) {
+                $this->_basePart = new Horde_ActiveSync_Mime($this->_data->getStructure());
+            }
+            return $this->_basePart;
+        }
+
+        throw new InvalidArgumentException(sprintf('The property %s of Horde_ActiveSync_Imap_Message does not exist', $property));
     }
 
     /**
@@ -165,12 +186,12 @@ class Horde_ActiveSync_Imap_Message
                 $fetch_ret = $this->_imap->fetch(
                     $this->_mbox,
                     $query,
-                    array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+                    array('ids' => new Horde_Imap_Client_Ids(array($this->uid)))
                 );
             } catch (Horde_Imap_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
-            $data = $fetch_ret[$this->_uid];
+            $data = $fetch_ret[$this->uid];
             $full = $data->getFullMsg($stream);
         }
 
@@ -184,7 +205,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getStructure()
     {
-        return $this->_basePart->base;
+        return $this->basePart->base;
     }
 
     /**
@@ -236,8 +257,8 @@ class Horde_ActiveSync_Imap_Message
             array(
                 'imap' => $this->_imap,
                 'mbox' => $this->_mbox,
-                'uid' => $this->_uid,
-                'mime' => $this->_basePart),
+                'uid' => $this->uid,
+                'mime' => $this->basePart),
             $options
         );
 
@@ -255,7 +276,7 @@ class Horde_ActiveSync_Imap_Message
     public function getAttachments($version)
     {
         $ret = array();
-        $map = $this->_basePart->contentTypeMap();
+        $map = $this->basePart->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 if ($type != 'application/ms-tnef' || (!$mime_part = $this->_decodeTnefData($id))) {
@@ -289,10 +310,10 @@ class Horde_ActiveSync_Imap_Message
             $atc->attoid = $mime_part->getContentId();
         }
         $atc->attsize = intval($mime_part->getBytes(true));
-        $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
+        $atc->attname = $this->_mbox . ':' . $this->uid . ':' . $id;
         $atc->displayname = Horde_String::convertCharset(
             $this->getPartName($mime_part, true),
-            $this->_basePart->getHeaderCharset(),
+            $this->basePart->getHeaderCharset(),
             'UTF-8',
             true);
         $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
@@ -358,7 +379,7 @@ class Horde_ActiveSync_Imap_Message
     public function getAttachmentsMimeParts()
     {
         $mime_parts = array();
-        $map = $this->_basePart->contentTypeMap();
+        $map = $this->basePart->contentTypeMap();
         foreach ($map as $id => $type) {
             if ($this->isAttachment($id, $type)) {
                 $mpart = $this->getMimePart($id);
@@ -398,7 +419,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMimePart($id, array $options = array())
     {
-        $part = $this->_basePart->getPart($id);
+        $part = $this->basePart->getPart($id);
         if ($part &&
             (strcasecmp($part->getCharset(), 'ISO-8859-1') === 0)) {
             $part->setCharset('windows-1252');
@@ -536,19 +557,19 @@ class Horde_ActiveSync_Imap_Message
         $fetch_res = $this->_imap->fetch(
             $this->_mbox,
             $query,
-            array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
+            array('ids' => new Horde_Imap_Client_Ids(array($this->uid)))
         );
 
         if (empty($options['mimeheaders'])) {
-            $this->_lastBodyPartDecode = $fetch_res[$this->_uid]->getBodyPartDecode($id);
-            return $fetch_res[$this->_uid]->getBodyPart($id, $options['stream']);
+            $this->_lastBodyPartDecode = $fetch_res[$this->uid]->getBodyPartDecode($id);
+            return $fetch_res[$this->uid]->getBodyPart($id, $options['stream']);
         } elseif (empty($options['stream'])) {
-            return $fetch_res[$this->_uid]->getMimeHeader($id) . $fetch_res[$this->_uid]->getBodyPart($id);
+            return $fetch_res[$this->uid]->getMimeHeader($id) . $fetch_res[$this->uid]->getBodyPart($id);
         } else {
             $swrapper = new Horde_Support_CombineSream(
                 array(
-                    $fetch_res[$this->_uid]->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
-                    $fetch_res[$this->_uid]->getBodyPart($id, true))
+                    $fetch_res[$this->uid]->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
+                    $fetch_res[$this->uid]->getBodyPart($id, true))
             );
 
             return $swrapper->fopen();
@@ -563,7 +584,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getToAddresses()
     {
-        $to = $this->_envelope->to;
+        $to = $this->envelope->to;
         $dtos = $tos = array();
         foreach ($to->raw_addresses as $e) {
             $tos[] = $e->bare_address;
@@ -582,7 +603,7 @@ class Horde_ActiveSync_Imap_Message
     public function getCc()
     {
         try {
-            $cc = new Horde_Mail_Rfc822_List($this->_envelope->cc->addresses);
+            $cc = new Horde_Mail_Rfc822_List($this->envelope->cc->addresses);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -597,7 +618,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getReplyTo()
     {
-        $r = $this->_envelope->reply_to->addresses;
+        $r = $this->envelope->reply_to->addresses;
         try {
             $a = new Horde_Mail_Rfc822_Address(current($r));
         } catch (Horde_Mail_Exception $e) {
@@ -615,7 +636,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getFromAddress()
     {
-        $from = $this->_envelope->from->addresses;
+        $from = $this->envelope->from->addresses;
         try {
             $a = new Horde_Mail_Rfc822_Address(current($from));
         } catch (Horde_ActiveSync_Exception $e) {
@@ -632,7 +653,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getSubject()
     {
-        return $this->_envelope->subject;
+        return $this->envelope->subject;
     }
 
     /**
@@ -642,7 +663,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getDate()
     {
-        return new Horde_Date((string)$this->_envelope->date);
+        return new Horde_Date((string)$this->envelope->date);
     }
 
     /**
@@ -654,7 +675,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getFlag($flag)
     {
-        return (array_search($flag, $this->_flags) !== false)
+        return (array_search($flag, $this->flags) !== false)
             ? 1
             : 0;
     }
@@ -667,7 +688,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getFlags()
     {
-        return $this->_flags;
+        return $this->flags;
     }
 
     /**
@@ -678,7 +699,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function contentTypeMap()
     {
-        return $this->_basePart->contentTypeMap();
+        return $this->basePart->contentTypeMap();
     }
 
     /**
@@ -695,7 +716,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function isAttachment($id, $mime_type)
     {
-        return $this->_basePart->isAttachment($id, $mime_type);
+        return $this->basePart->isAttachment($id, $mime_type);
     }
 
     /**
@@ -705,9 +726,9 @@ class Horde_ActiveSync_Imap_Message
      */
     public function hasiCalendar()
     {
-        if ($id = $this->_basePart->hasiCalendar()) {
+        if ($id = $this->basePart->hasiCalendar()) {
             // May already have downloaded the part.
-            $part = $this->_basePart->base->getPart($id);
+            $part = $this->basePart->base->getPart($id);
             if (!$part->getContents()) {
                 return $this->getMimePart($id);
             }
@@ -724,7 +745,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function hasAttachments()
     {
-        return $this->_basePart->hasAttachments();
+        return $this->basePart->hasAttachments();
     }
 
     /**
@@ -742,7 +763,7 @@ class Horde_ActiveSync_Imap_Message
             return $message->isSigned();
         }
 
-        return $this->_basePart->isSigned();
+        return $this->basePart->isSigned();
     }
 
     /**
@@ -761,7 +782,7 @@ class Horde_ActiveSync_Imap_Message
             return $message->isEncrypted();
         }
 
-        return $this->_basePart->isEncrypted();
+        return $this->basePart->isEncrypted();
     }
 
 }
