@@ -59,8 +59,10 @@ EOT;
             array('<IMG SRC="jav&#x0A;ascript:alert(\'XSS\');">', '<img/>'),
             array('<IMG SRC="jav&#x0D;ascript:alert(\'XSS\');">', '<img/>'),
             array("<IMG\nSRC\n=\nj\na\nv\na\ns\nc\nr\ni\np\nt\n:\na\nl\ne\nr\nt\n(\n'\nX\nS\nS\n'\n)\n\"\n>", '<img src="j" a="" v="" s="" c="" r="" i="" p="" t="" :="" l="" e="" x=""/>'),
-            array("<IMG SRC=java\0script:alert(\"XSS\")>", '<img src="java"/>'),
-            array("<SCR\0IPT>alert(\"XSS\")</SCR\0IPT>", '<scr/>'),
+            /* Disable these. Handling broke/change as of PHP 5.6.8, 5.5.24,
+             * and 5.4.40 (https://bugs.php.net/bug.php?id=69353). */
+            //array("<IMG SRC=java\0script:alert(\"XSS\")>", '<img src="java"/>'),
+            //array("<SCR\0IPT>alert(\"XSS\")</SCR\0IPT>", '<scr/>'),
             array('<IMG SRC=" &#14;  javascript:alert(\'XSS\');">', '<img src=" "/>'),
             array('<SCRIPT/XSS SRC="http://ha.ckers.org/xss.js"></SCRIPT>', ''),
             array('<BODY onload!#$%&()*~+-_.,:;?@[/|\]^`=alert("XSS")>', ''),
