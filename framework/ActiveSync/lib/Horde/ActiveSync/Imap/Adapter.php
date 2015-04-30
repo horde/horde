@@ -1670,9 +1670,12 @@ class Horde_ActiveSync_Imap_Adapter
         if (!empty($options['headers'])) {
             $query->headerText(array('peek' => true));
         }
-        $ids = new Horde_Imap_Client_Ids($uids);
         try {
-            return $this->_getImapOb()->fetch($mbox, $query, array('ids' => $ids, 'exists' => true));
+            return $this->_getImapOb()->fetch(
+                $mbox,
+                $query,
+                array('ids' => new Horde_Imap_Client_Ids($uids), 'exists' => true)
+            );
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
                 '[%s] Unable to fetch message: %s',
