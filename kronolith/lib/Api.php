@@ -743,7 +743,7 @@ class Kronolith_Api extends Horde_Registry_Api
                 $iCal->addComponent($content);
             }
 
-            $ical_importer = new Kronolith_Icalendar_Handler_Base($ical, $kronolith_driver);
+            $ical_importer = new Kronolith_Icalendar_Handler_Base($iCal, $kronolith_driver);
             return $ical_importer->process();
 
             case 'activesync':
