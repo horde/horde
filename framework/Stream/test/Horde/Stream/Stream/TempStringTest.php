@@ -40,4 +40,17 @@ class Horde_Stream_Stream_TempStringTest extends Horde_Stream_Stream_TestBase
         $this->assertFalse($ob->use_stream);
     }
 
+    public function testMaxMemory()
+    {
+        $ob = new Horde_Stream_TempString(array('max_memory' => 1));
+        $ob->add('abcdefg');
+        $this->assertTrue($ob->use_stream);
+        $this->assertEquals('abcdefg', $ob->__toString());
+
+        $ob = new Horde_Stream_TempString(array('max_memory' => 10));
+        $ob->add('abcd');
+        $this->assertFalse($ob->use_stream);
+        $this->assertEquals('abcd', $ob->__toString());
+    }
+
 }
