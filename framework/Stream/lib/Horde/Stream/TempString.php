@@ -16,6 +16,10 @@
  * until a certain size is reached, at which point it converts storage to a
  * PHP temporary stream.
  *
+ * NOTE: Do NOT use this class if it's possible that a stream_filter will need
+ * to be added to the stream by some client code. If the size of the data
+ * does not exceed max_memory there will be no stream to attach to.
+ *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2014-2015 Horde LLC
