@@ -73,7 +73,7 @@ class Passwd_Driver_Kolab extends Passwd_Driver
         $userdn = ldap_get_dn($ds, $entry);
 
         // Connect as the user.
-        $result = @ldap_bind($ds, $userdn, $old_password);
+        $result = @ldap_bind($ds, $userdn, $oldpass);
         if (!$result) {
             throw new Passwd_Exception(_("Incorrect old password."));
         }
