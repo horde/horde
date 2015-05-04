@@ -258,7 +258,9 @@ class Horde_Core_ActiveSync_Mail
         if (!empty($this->_mailer)) {
             return $this->_mailer->getRaw();
         }
-        return $this->_headers->toString(array('charset' => 'UTF-8')) . $this->_raw->getMessage();
+        $stream = new Horde_Stream_Temp(array('max_memory' => 262144));
+        $stream->add($this->_headers->toString(array('charset' => 'UTF-8')) . $this->_raw->getMessage(), true);
+        return $stream;
     }
 
     /**
