@@ -99,7 +99,7 @@ class Horde_Core_ActiveSync_Mail
      * Internal cache of the mailer used when sending SMART[REPLY|FORWARD].
      * Used to fetch the raw message used to save to sent mail folder.
      *
-     * @var Horde_Mail
+     * @var Horde_Mime_Mail
      */
     protected $_mailer;
 
