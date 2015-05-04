@@ -514,6 +514,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         }
                     }
                     unset($this->_changes[$key]);
+                    //$this->_changes = array_values($this->_changes);
                     break;
                 }
             }
