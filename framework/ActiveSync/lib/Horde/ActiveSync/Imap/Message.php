@@ -94,7 +94,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return mixed
      */
-    public &function __get($property)
+    public function &__get($property)
     {
         switch ($property) {
         case 'envelope':
