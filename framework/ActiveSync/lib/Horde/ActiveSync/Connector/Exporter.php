@@ -199,7 +199,7 @@ class Horde_ActiveSync_Connector_Exporter
                             $this->_currentCollection['serverid'],
                             $change['id'],
                             $this->_currentCollection);
-                        $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
+                        $message->flags = (isset($change['flags'])) ? $change['flags'] : false;
                         $this->messageChange($change['id'], $message);
                     } catch (Horde_Exception_NotFound $e) {
                         $this->_logger->err(sprintf(
