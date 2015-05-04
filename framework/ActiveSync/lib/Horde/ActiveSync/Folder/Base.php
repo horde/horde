@@ -52,7 +52,7 @@ abstract class Horde_ActiveSync_Folder_Base
      *
      * @var boolean
      */
-    public $haveInitialSync = true;
+    public $haveInitialSync = false;
 
     /**
      * Timestamp for the last sincedate used for SOFTDELETE.

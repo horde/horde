@@ -29,13 +29,6 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base im
     const VERSION = 1;
 
     /**
-     * Flag for indicating we have an initial sync for this collection.
-     *
-     * @var boolean
-     */
-    public $haveInitialSync = false;
-
-    /**
      * Updates the internal UID cache, and clears the internal
      * update/deleted/changed cache.
      */

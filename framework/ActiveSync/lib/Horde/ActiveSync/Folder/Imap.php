@@ -294,6 +294,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_changed = array();
         $this->_flags = array();
         $this->_softDeleted = array();
+        $this->haveInitialSync = true;
     }
 
     /**
@@ -474,6 +475,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_class = $d_data['c'];
         $this->_lastSinceDate = $d_data['lsd'];
         $this->_softDelete = $d_data['sd'];
+        $this->haveInitialSync = !empty($this->_messages);
 
         if (!empty($this->_status[self::HIGHESTMODSEQ]) && is_string($this->_messages)) {
             $this->_messages = $this->_fromSequenceString($this->_messages);
