@@ -882,7 +882,7 @@ class Horde_ActiveSync
             self::$_logger->info(sprintf(
                 '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
                 $this->_procid,
-                memory_get_peak_usage())
+                memory_get_peak_usage(true))
             );
 
             return $result;
