@@ -324,6 +324,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             return true;
         }
 
+        $this->_logger->info(sprintf(
+            '[%s] Completed parsing incoming request. Peak memory usage: %d.',
+            $this->_procid, memory_get_peak_usage(true)));
+
         // Start output to client
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
@@ -493,6 +497,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
 
+                            $this->_logger->info(sprintf(
+                                '[%s] Peak memory usage after message: %d',
+                                $this->_procid, memory_get_peak_usage(true)));
                             if ($progress === true) {
                                 ++$cnt_collection;
                                 ++$cnt_global;
@@ -641,6 +648,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 }
             }
             $this->_encoder->endTag();
+            $this->_logger->info(sprintf(
+                '[%s] Collection output peak memory usage: %d',
+                $this->_procid, memory_get_peak_usage(true)));
         }
 
         $this->_encoder->endTag();
