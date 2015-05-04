@@ -382,10 +382,8 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $folder->setRemoved($deleted->ids);
 
-            // Check for SOFTDELETE messages. Shouldn't really have to check for
-            // $folder->messages() here, but Horde_Imap_Client seems to
-            // return the full result set when filtered by an empty ids object.
-            if (!empty($options['softdelete']) && !empty($options['sincedate']) && count($folder->messages())) {
+            // Check for SOFTDELETE messages.
+            if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Polling for SOFTDELETE in %s before %d',
                     $this->_procid, $folder->serverid(), $options['sincedate']));
