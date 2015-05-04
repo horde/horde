@@ -137,6 +137,7 @@ class Horde_ActiveSync_Rfc822
      * Return the raw message data.
      *
      * @return stream resource
+     * @todo Rename to make it clear this returns a stream.
      */
     public function getString()
     {
