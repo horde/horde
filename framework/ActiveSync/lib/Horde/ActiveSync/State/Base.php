@@ -454,6 +454,15 @@ abstract class Horde_ActiveSync_State_Base
 
                 switch ($this->_collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
+                    // @todo Fix me with a changes object that transparently
+                    // deals with different data structure for initial sync.
+                    // ...or come up with better solution for dealing with
+                    // memory usage.
+                    if (!empty($changes) && !is_array($changes[0])) {
+                        $this->_changes = $changes;
+                        break;
+                    }
+
                     $mailmap = $this->_getMailMapChanges($changes);
                     $flag_map = array(
                         Horde_ActiveSync::CHANGE_TYPE_FLAGS =>  'flag change',
