@@ -157,6 +157,21 @@ class Horde_ActiveSync_Connector_Exporter
         }
     }
 
+    protected function _getNextChange()
+    {
+        $change = $this->_changes[$this->_step];
+        if (!is_array($change)) {
+            // This is an initial sync, so we know it's a CHANGE_TYPE_CHANGE
+            // with no flag changes etc...
+            $change = array(
+                'id' => $change,
+                'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+            );
+        }
+
+        return $change;
+    }
+
     /**
      * Sends the next message change to the client.
      *
@@ -165,14 +180,13 @@ class Horde_ActiveSync_Connector_Exporter
     protected function _sendNextChange()
     {
        if ($this->_step < count($this->_changes)) {
-            $change = $this->_changes[$this->_step];
-
+            $change = $this->_getNextChange();
             // Ignore this change, no UID value, keep trying until we get a
             // good entry or we run out of entries.
             while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
                 $this->_logger->err('Missing UID value for an entry in: ' . $this->_currentCollection['id']);
                 $this->_step++;
-                $change = $this->_changes[$this->_step];
+                $change = $this->_getNextChange();
             }
 
             // Actually export the change by calling the appropriate
