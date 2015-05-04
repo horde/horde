@@ -1126,11 +1126,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         $results = array();
-        foreach ($changes['add'] as $add) {
-            $results[] = array(
-                'id' => $add,
-                'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
-                'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
+        if (!$folder->haveInitialSync) {
+            $this->_logger->info(sprintf(
+                '[%s] Initial sync, only sending UID.',
+                $this->_pid));
+            $this->_endBuffer();
+            $add = $changes['add'];
+            $changes = null;
+            return $add;
+        } else {
+            foreach ($changes['add'] as $add) {
+                $results[] = array(
+                    'id' => $add,
+                    'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                    'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE);
+            }
         }
 
         // For CLASS_EMAIL, all changes are a change in flags, categories or

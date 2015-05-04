@@ -487,8 +487,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             // changes so we need to track which ones are sent since not all
             // may be sent. We need to store the leftovers for sending next
             // request.
+            // @todo FIX BC HACK for differing data structures when sending
+            // initial change set.
             foreach ($this->_changes as $key => $value) {
-                if ($value['id'] == $change['id']) {
+                if ((is_array($value) && $value['id'] == $change['id']) || $value == $change['id']) {
                     if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                         foreach ($this->_folder as $fi => $state) {
                             if ($state['id'] == $value['id']) {
