@@ -253,7 +253,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMessageBodyDataObject(array $options = array())
     {
-        $mbd = new Horde_ActiveSync_Imap_MessageBodyData(
+        return new Horde_ActiveSync_Imap_MessageBodyData(
             array(
                 'imap' => $this->_imap,
                 'mbox' => $this->_mbox,
@@ -261,8 +261,6 @@ class Horde_ActiveSync_Imap_Message
                 'mime' => $this->basePart),
             $options
         );
-
-        return $mbd;
     }
 
     /**
