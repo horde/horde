@@ -1339,7 +1339,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw new Horde_Exception_NotFound();
             }
-            $msg = current($messages);
+            $msg = array_pop($messages);
 
             // Check for verb status from the Maillog.
             if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
