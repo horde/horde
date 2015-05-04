@@ -176,11 +176,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function primeFolder($messages)
     {
-        $modseq = $this->modseq();
-        if (empty($modseq)) {
-            throw new Horde_ActiveSync_Exception('Horde_ActiveSync_Folder_Imap::primeFolder requires a MODSEQ capable IMAP server');
-        }
-
         $this->_added = $messages;
         $this->_primed = true;
     }
