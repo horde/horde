@@ -109,8 +109,7 @@ class Horde_ActiveSync_Message_Base
      */
     protected $_device;
 
-    protected $_filter_eol = false;
-    protected $_filter_null = false;
+    protected $_streamFilters = array();
 
     /**
      * Const'r
@@ -141,11 +140,8 @@ class Horde_ActiveSync_Message_Base
 
     public function __destruct()
     {
-        if (!empty($this->_filter_eol)) {
-            stream_filter_remove($this->_filter_eol);
-        }
-        if (!empty($this->_filter_null)) {
-            stream_filter_remove($this->_filter_null);
+        foreach ($this->_streamFilters as $filter) {
+            stream_filter_remove($filter);
         }
     }
 
@@ -512,8 +508,8 @@ class Horde_ActiveSync_Message_Base
         if (is_resource($data)) {
             stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
             stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-            $this->_filter_null = stream_filter_prepend($data, 'horde_null', STREAM_FILTER_READ);
-            $this->_filter_eol = stream_filter_prepend($data, 'horde_eol', STREAM_FILTER_READ);
+            $this->_streamFilters[] = stream_filter_prepend($data, 'horde_null', STREAM_FILTER_READ);
+            $this->_streamFilters[] = stream_filter_prepend($data, 'horde_eol', STREAM_FILTER_READ);
 
         }
         return $data;

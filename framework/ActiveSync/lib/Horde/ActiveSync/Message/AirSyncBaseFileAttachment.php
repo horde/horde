@@ -41,8 +41,6 @@
  */
 class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSync_Message_Base
 {
-    protected $_streamfilter = false;
-
     /**
      * Property map
      *
@@ -66,14 +64,6 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
         'contenttype' => false,
         'data' => false,
     );
-
-    protected function __destruct()
-    {
-        parent::__destruct();
-        if (!empty($this->_streamfilter)) {
-            stream_filter_remove($this->_streamfilter);
-        }
-    }
 
     /**
      * Return the message type.
@@ -99,7 +89,7 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
     {
         if ($tag == Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA) {
             if (is_resource($data)) {
-                $this->_streamfilter = stream_filter_append($data, 'convert.base64-encode', STREAM_FILTER_READ);
+                $this->_streamFilters[] = stream_filter_append($data, 'convert.base64-encode', STREAM_FILTER_READ);
             } else {
                 $data = base64_encode($data);
             }
