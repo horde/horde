@@ -260,7 +260,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
             $this->_bodyPart = $this->_getBodyPart(
                 $data,
                 !empty($html_id) ? $html_body_part : $text_body_part,
-                !empty($html_id) ? $html_id : $text_id,
                 empty($html_id)
             );
         }
@@ -483,8 +482,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @param  Horde_Imap_Client_Data_Fetch $data  The FETCH results.
      * @param  Horde_Mime_Part $mime  The plaintext MIME part.
-     * @param  string $id             The MIME id for this part on the IMAP
-     *                                server.
      * @param boolean $to_html        If true, $id is assumed to be a text/plain
      *                                part and is converted to html.
      *
@@ -495,8 +492,9 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *     - size: (integer)      The original part size, in bytes.
      */
     protected function _getBodyPart(
-        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $mime, $id, $to_html)
+        Horde_Imap_Client_Data_Fetch $data, Horde_Mime_Part $mime, $to_html)
     {
+        $id = $mime->getMimeId();
         $text = $data->getBodyPart($id);
         if (!$data->getBodyPartDecode($id)) {
             $mime->setContents($text);
