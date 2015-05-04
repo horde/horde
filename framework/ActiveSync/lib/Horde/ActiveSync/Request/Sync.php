@@ -341,10 +341,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_encoder);
 
         $cnt_global = 0;
+        $over_window = false;
         foreach ($this->_collections as $id => $collection) {
             $statusCode = self::STATUS_SUCCESS;
             $changecount = 0;
-            $cnt_collection = 0;
+
+            if ($over_window || $cnt_global > $this->_collections->getDefaultWindowSize()) {
+                $this->_sendOverWindowResponse($collection);
+                continue;
+            }
+
             try {
                 $this->_collections->initCollectionState($collection);
             } catch (Horde_ActiveSync_Exception_StateGone $e) {
@@ -482,11 +488,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                     if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
                         ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
-
                         $this->_logger->info(sprintf(
                             '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
                             $this->_procid, $changecount, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
+                        $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
 
                     if (!empty($changecount)) {
@@ -671,6 +677,39 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
         }
 
         return true;
+    }
+
+
+    protected function _sendOverWindowResponse($collection)
+    {
+        $this->_logger->info(sprintf(
+            '[%s] Over window maximum, skip polling for this request.',
+            $this->_procid));
+
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);
+
+        // Not sent in > 12.0
+        if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
+            $this->_encoder->content($collection['class']);
+            $this->_encoder->endTag();
+        }
+
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCKEY);
+        $this->_encoder->content($collection['synckey']);
+        $this->_encoder->endTag();
+
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERID);
+        $this->_encoder->content($collection['id']);
+        $this->_encoder->endTag();
+
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+        $this->_encoder->content(self::STATUS_SUCCESS); //??
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
+
+        $this->_encoder->endTag();
+        return;
     }
 
     /**
