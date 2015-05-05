@@ -414,7 +414,10 @@ class Horde_ActiveSync_Imap_Adapter
                 $mbox,
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            if ($modseq && $folder->modseq() > 0 && $search_ret['count']) {
+            if ($modseq && !$folder->haveInitialSync) {
+                $this->_logger->info(sprintf(
+                    '[%s] Priming IMAP folder object.',
+                    $this->_procid));
                 $folder->primeFolder($search_ret['match']->ids);
             } elseif (count($search_ret['match']->ids)) {
                 $query = new Horde_Imap_Client_Fetch_Query();
