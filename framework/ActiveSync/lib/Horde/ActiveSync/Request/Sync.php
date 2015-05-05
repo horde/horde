@@ -272,13 +272,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 $this->_procid));
         }
 
+        $pingSettings = $this->_driver->getHeartbeatConfig();
+
         // If this is >= 12.1, see if we want a looping SYNC.
         if ($this->_collections->canDoLoopingSync() &&
             $this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS) {
 
             // Calculate the heartbeat
-            $pingSettings = $this->_driver->getHeartbeatConfig();
             if (!$heartbeat = $this->_collections->getHeartbeat()) {
                 $heartbeat = !empty($pingSettings['heartbeatdefault'])
                     ? $pingSettings['heartbeatdefault']
@@ -486,11 +487,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     (!empty($collection['getchanges']) ||
                      (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
-                    if ((!empty($changecount) && $changecount > $collection['windowsize']) ||
+                    $max_windowsize = !empty($pingSettings['maximumwindowsize'])
+                        ? max($collection['windowsize'], $pingSettings['maximumwindowsize'])
+                        : $collection['windowsize'];
+
+                    if ((!empty($changecount) && $changecount > $max_windowsize) ||
                         ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize())) {
                         $this->_logger->info(sprintf(
-                            '[%s] Sending MOREAVAILABLE. $changecount = %d, $cnt_global = %d',
-                            $this->_procid, $changecount, $cnt_global));
+                            '[%s] Sending MOREAVAILABLE. WINDOWSIZE = %d, $changecount = %d, $cnt_global = %d',
+                            $this->_procid, $max_windowsize, $changecount, $cnt_global));
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
                         $over_window = ($cnt_global + $changecount > $this->_collections->getDefaultWindowSize());
                     }
@@ -499,7 +504,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
-                        while ($cnt_collection < $collection['windowsize'] &&
+                        while ($cnt_collection < $max_windowsize &&
                                $cnt_global < $this->_collections->getDefaultWindowSize() &&
                                $progress = $exporter->sendNextChange()) {
 
@@ -511,7 +516,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                                 ++$cnt_global;
                             }
                         }
-
                         $this->_encoder->endTag();
                     }
                 }
