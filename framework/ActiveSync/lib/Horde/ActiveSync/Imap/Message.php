@@ -523,6 +523,7 @@ class Horde_ActiveSync_Imap_Message
      *
      * @return mixed  The text of the part or a stream resource if 'stream'
      *                is true.
+     * @todo Simplify by removing 'mimeheaders' parameter (not used).
      */
     public function getBodyPart($id, $options)
     {
