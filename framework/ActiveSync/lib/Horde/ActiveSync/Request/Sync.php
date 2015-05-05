@@ -488,7 +488,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                      (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
                     $max_windowsize = !empty($pingSettings['maximumwindowsize'])
-                        ? max($collection['windowsize'], $pingSettings['maximumwindowsize'])
+                        ? min($collection['windowsize'], $pingSettings['maximumwindowsize'])
                         : $collection['windowsize'];
 
                     if ((!empty($changecount) && $changecount > $max_windowsize) ||
