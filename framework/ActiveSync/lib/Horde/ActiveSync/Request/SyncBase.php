@@ -26,7 +26,6 @@
  */
 abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Request_Base
 {
-
     /**
      * Parse incoming BODYPARTPREFERENCE options.
      *
