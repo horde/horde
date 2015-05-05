@@ -29,6 +29,18 @@
  */
 class Horde_Imap_Client_Tokenize implements Iterator
 {
+    /** Minimum length to save a literal as a stream instead of a string.
+     *  This ensures things like literal representations of mailbox names
+     *  are not converted to stream when this is not needed. */
+    const MIN_LITERAL_STREAM = 256;
+
+    /**
+     * Allow Horde_Stream object to be returned for literal tokens.
+     *
+     * @var boolean
+     */
+    public $literalStream = false;
+
     /**
      * Current data.
      *
@@ -204,7 +216,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
     /**
      * @return mixed  Either a string, boolean (true for open paren, false for
-     *                close paren/EOS), or null.
+     *                close paren/EOS), Horde_Stream object, or null.
      */
     public function next()
     {
@@ -265,10 +277,21 @@ class Horde_Imap_Client_Tokenize implements Iterator
                         break;
 
                     case '{':
-                        $text = $this->_stream->substring(
-                            0,
-                            intval($this->_stream->getToChar('}'))
-                        );
+                        $literal_len = intval($this->_stream->getToChar('}'));
+                        if ($this->literalStream &&
+                            ($literal_len > self::MIN_LITERAL_STREAM)) {
+                            $text = new Horde_Stream_Temp();
+                            while (($literal_len > 0) && !feof($stream)) {
+                                $part = $this->_stream->substring(
+                                    0,
+                                    min($literal_len, 8192)
+                                );
+                                $text->add($part);
+                                $literal_len -= strlen($part);
+                            }
+                        } else {
+                            $text = $this->_stream->substring(0, $literal_len);
+                        }
                         $check_len = false;
                         break 3;
 
@@ -319,6 +342,29 @@ class Horde_Imap_Client_Tokenize implements Iterator
         $this->_current = $text;
 
         return $text;
+    }
+
+    /**
+     * Force return of literal data as stream, if next token.
+     *
+     * @see next()
+     */
+    public function nextStream()
+    {
+        if ($this->literalStream) {
+            $changed = false;
+        } else {
+            $this->literalStream = true;
+            $changed = true;
+        }
+
+        $out = $this->next();
+
+        if ($changed) {
+            $this->literalStream = false;
+        }
+
+        return $out;
     }
 
     /**

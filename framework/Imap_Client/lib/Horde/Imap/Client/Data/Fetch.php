@@ -126,12 +126,13 @@ class Horde_Imap_Client_Data_Fetch
     /**
      * Set a header text entry.
      *
-     * @param string $id    The MIME ID.
-     * @param string $text  The header text.
+     * @param string $id   The MIME ID.
+     * @param mixed $text  The header text, as either a string or stream
+     *                     resource.
      */
     public function setHeaderText($id, $text)
     {
-        $this->_data[Horde_Imap_Client::FETCH_HEADERTEXT][$id] = $text;
+        $this->_data[Horde_Imap_Client::FETCH_HEADERTEXT][$id] = $this->_setMixed($text);
     }
 
     /**
@@ -157,12 +158,13 @@ class Horde_Imap_Client_Data_Fetch
     /**
      * Set a MIME header entry.
      *
-     * @param string $id    The MIME ID.
-     * @param string $text  The header text.
+     * @param string $id   The MIME ID.
+     * @param mixed $text  The header text, as either a string or stream
+     *                     resource.
      */
     public function setMimeHeader($id, $text)
     {
-        $this->_data[Horde_Imap_Client::FETCH_MIMEHEADER][$id] = $text;
+        $this->_data[Horde_Imap_Client::FETCH_MIMEHEADER][$id] = $this->_setMixed($text);
     }
 
     /**
@@ -580,7 +582,15 @@ class Horde_Imap_Client_Data_Fetch
             if (!isset($this->_data[$key][$id])) {
                 $data = null;
             } elseif (is_object($this->_data[$key][$id])) {
-                $data = $this->_getHeaders($id, 0, $key);
+                switch ($key) {
+                case Horde_Imap_Client::FETCH_HEADERS:
+                    $data = $this->_getHeaders($id, 0, $key);
+                    break;
+
+                case Horde_Imap_Client::FETCH_HEADERTEXT:
+                case Horde_Imap_Client::FETCH_MIMEHEADER:
+                    return $this->_data[$key][$id]->stream;
+                }
             } else {
                 $data = $this->_data[$key][$id];
             }
@@ -591,27 +601,47 @@ class Horde_Imap_Client_Data_Fetch
             if (!isset($this->_data[$key][$id])) {
                 return new Horde_Mime_Headers();
             } elseif (is_object($this->_data[$key][$id])) {
-                return clone $this->_data[$key][$id];
+                switch ($key) {
+                case Horde_Imap_Client::FETCH_HEADERS:
+                    return clone $this->_data[$key][$id];
+
+                case Horde_Imap_Client::FETCH_HEADERTEXT:
+                case Horde_Imap_Client::FETCH_MIMEHEADER:
+                    $hdrs = $this->_data[$key][$id];
+                    break;
+                }
+            } else {
+                $hdrs = $this->_getHeaders($id, self::HEADER_STREAM, $key);
             }
-            return Horde_Mime_Headers::parseHeaders(
-                $this->_getHeaders($id, self::HEADER_STREAM, $key)
-            );
+
+            return Horde_Mime_Headers::parseHeaders($hdrs);
         }
 
         if (!isset($this->_data[$key][$id])) {
             return '';
         }
 
-        return is_object($this->_data[$key][$id])
-            ? $this->_data[$key][$id]->toString(array('nowrap' => true))
-            : $this->_msgText(false, $this->_data[$key][$id]);
+        if (is_object($this->_data[$key][$id])) {
+            switch ($key) {
+            case Horde_Imap_Client::FETCH_HEADERS:
+                return $this->_data[$key][$id]->toString(
+                    array('nowrap' => true)
+                );
+
+            case Horde_Imap_Client::FETCH_HEADERTEXT:
+            case Horde_Imap_Client::FETCH_MIMEHEADER:
+                return strval($this->_data[$key][$id]);
+            }
+        }
+
+        return $this->_msgText(false, $this->_data[$key][$id]);
     }
 
     /**
      * Converts mixed input (string or resource) to the correct internal
      * representation.
      *
-     * @param mixed $data  Mixed data.
+     * @param mixed $data  Mixed data (string, resource, Horde_Stream object).
      *
      * @return mixed  The internal representation of that data.
      */

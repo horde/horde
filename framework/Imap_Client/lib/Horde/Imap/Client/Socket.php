@@ -3119,12 +3119,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         if (!strlen($tag)) {
                             // BODY[] request
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 $ob->setFullMsg($tmp);
                             }
                         } elseif (is_numeric(substr($tag, -1))) {
                             // BODY[MIMEID] request
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 $ob->setBodyPart($tag, $tmp);
                             }
                         } else {
@@ -3136,7 +3136,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $tag = substr($tag, $last_dot + 1);
                             }
 
-                            if (!is_null($tmp = $data->next())) {
+                            if (!is_null($tmp = $data->nextStream())) {
                                 switch ($tag) {
                                 case 'HEADER':
                                     $ob->setHeaderText($mime_id, $tmp);
@@ -3158,7 +3158,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     // Remove the beginning 'BINARY[' and the trailing bracket
                     // and octet start info
                     $tag = substr($tag, 7, strrpos($tag, ']') - 7);
-                    $body = $data->next();
+                    $body = $data->nextStream();
 
                     if (is_null($body)) {
                         /* Dovecot bug (as of 2.2.12): binary fetch of body
