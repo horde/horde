@@ -2301,7 +2301,7 @@
        </configswitch>
      </configsection>
      <configsection name="ping">
-      <configheader>Ping Settings</configheader>
+      <configheader>Heartbeat and Server Limitation Settings</configheader>
       <configdescription>The Heartbeat Interval specifies the length of time, in
       seconds, that the server SHOULD wait before notifying the client of
       changes in a folder on the server.  These settings allow you to indicate
@@ -2336,6 +2336,23 @@
       essentially reducing the number of checks done during each heartbeat.
       Lowering this value will increase the number of checks that are down
       during each heartbeat.">15</configinteger>
+      <configheader>Maximum Collection Window Size</configheader>
+      <configdescription>The Maximum Collection Window Size specifies the
+      maximum number of messages that can be sent to the client in a single
+      request before a MOREAVAILABLE flag is sent indicating the remaining
+      messages should be fetched in the next request. This is normally
+      automatically handled by the client but it may be helpful to explicitly
+      limit this if the server is hitting against PHP's memory limit. This is
+      especially true when synchronizing with Outlook, which has an
+      extremely high default window size. If you need to set this, start with
+      a value such as 100 and increase/decrease as necessary after testing. A
+      value of 0 indicates that the client's value will be honored. Setting this
+      to lower values will also make it appear that the client is performing the
+      initial sync quicker, at the expense of needing more server requests.
+      </configdescription>
+      <configinteger name="maximumwindowsize" desc="The Maximum Window Size to
+      use, overriding the client sent value. Set to 0 to use the client value.">
+      0</configinteger>
      </configsection>
     </case>
    </configswitch>
