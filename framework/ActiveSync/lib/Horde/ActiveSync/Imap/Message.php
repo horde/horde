@@ -564,7 +564,7 @@ class Horde_ActiveSync_Imap_Message
         } elseif (empty($options['stream'])) {
             return $fetch_res[$this->uid]->getMimeHeader($id) . $fetch_res[$this->uid]->getBodyPart($id);
         } else {
-            $swrapper = new Horde_Support_CombineSream(
+            $swrapper = new Horde_Support_CombineStream(
                 array(
                     $fetch_res[$this->uid]->getMimeHeader($id, Horde_Imap_Client_Data_Fetch::HEADER_STREAM),
                     $fetch_res[$this->uid]->getBodyPart($id, true))
