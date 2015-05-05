@@ -539,7 +539,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function plainBody()
     {
         if (!empty($this->_plain) && empty($this->_validatedPlain)) {
-            $this->_validatedPlain = $this->_validateBodyData($this->_plain);
+            $this->_validateBodyData($this->_plain);
+            $this->_validatedPlain = $this->_plain;
         }
         if ($this->_validatedPlain) {
             return $this->_validatedPlain;
@@ -560,7 +561,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function htmlBody()
     {
         if (!empty($this->_html) && empty($this->_validatedHtml)) {
-            $this->_validatedHtml = $this->_validateBodyData($this->_html);
+            $this->_validateBodyData($this->_html);
+            $this->_validatedHtml = $this->_html;
         }
         if ($this->_validatedHtml) {
             return $this->_validatedHtml;
@@ -581,7 +583,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
     public function bodyPartBody()
     {
         if (!empty($this->_bodyPart)) {
-            return $this->_validateBodyData($this->_bodyPart);
+            $this->_validateBodyData($this->_bodyPart);
+            return $this->_bodyPart;
         }
 
         return false;
@@ -596,7 +599,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      *
      * @return array  The validated body data array. @see self::_bodyPartText()
      */
-    protected function _validateBodyData($data)
+    protected function _validateBodyData(&$data)
     {
         $stream = new Horde_Stream_Temp(array('max_memory' => 1048576));
         $filter_h = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
@@ -604,8 +607,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
         stream_filter_remove($filter_h);
 
         $data['body'] = $stream;
-
-        return $data;
     }
 
     /**
