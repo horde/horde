@@ -179,7 +179,7 @@ class Horde_ActiveSync_Imap_Message
     public function getFullMsg($stream = false)
     {
         // First see if we already have it.
-        if (!$full = $this->_data->getFullMsg()) {
+        if (!$full = $this->_data->getFullMsg($stream)) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText(array('peek' => true));
             try {
@@ -385,7 +385,9 @@ class Horde_ActiveSync_Imap_Message
                 if ($mpart->getPrimaryType() == 'text') {
                     $mpart->setContents(
                         $mpart->replaceEOL(
-                            $mpart->getContents(array('stream' => true)), Horde_Mime_Part::RFC_EOL, true)
+                            $mpart->getContents(array('stream' => true)), Horde_Mime_Part::RFC_EOL, true
+                        ),
+                        array('usestream' => true)
                     );
                 }
                 if ($mpart->getType() == 'text/calendar') {
