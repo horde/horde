@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Nag 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2015-02-25 18:47+0100\n"
+"PO-Revision-Date: 2015-05-06 16:04+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -233,12 +233,11 @@ msgstr "CSV"
 
 #: lib/Form/EditTaskList.php:98
 msgid "CalDAV Account URL"
-msgstr ""
+msgstr "CalDAV URL účtu"
 
 #: lib/Form/EditTaskList.php:89
-#, fuzzy
 msgid "CalDAV Subscription URL"
-msgstr "Popis Kalendáře"
+msgstr "CalDAV URL seznamu úkolů"
 
 #: lib/Ui/VarRenderer/Nag.php:121 lib/Ui/VarRenderer/Nag.php:421
 msgid "Calendar"
@@ -410,15 +409,15 @@ msgstr "Spojení selhalo: %s"
 
 #: lib/Form/EditTaskList.php:102
 msgid "Copy this URL to a CalDAV client to subscribe to all your task lists"
-msgstr ""
+msgstr "Umožňuje synchronizaci všech seznamů úkolů do externího programu."
 
 #: lib/Form/EditTaskList.php:93
 msgid "Copy this URL to a CalDAV client to subscribe to this task list"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto seznamu úkolů do externího programu."
 
 #: lib/Form/EditTaskList.php:114
 msgid "Copy this URL to a WebDAV or ICS client to subscribe to this task list"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto seznamu úkolů do externího programu."
 
 #: lib/Form/CreateTaskList.php:33 templates/quick.inc:8
 msgid "Create"
@@ -528,7 +527,7 @@ msgstr "Nastavení zobrazení"
 
 #: lib/Form/EditTaskList.php:75
 msgid "Display URL"
-msgstr "Odkaz"
+msgstr "Webové URL"
 
 #: config/prefs.php:124
 msgid "Do you want to confirm deleting entries?"
@@ -1437,7 +1436,7 @@ msgstr ""
 
 #: lib/Form/EditTaskList.php:110
 msgid "WebDAV/ICS Subscription URL"
-msgstr ""
+msgstr "WebDAV/ICS URL"
 
 #: lib/Nag.php:877 lib/Ui/VarRenderer/Nag.php:43
 msgid "Week(s)"

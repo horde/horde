@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.0.5\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2015-02-25 18:47+0100\n"
+"PO-Revision-Date: 2015-05-06 16:04+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -242,14 +242,12 @@ msgid "Car Phone"
 msgstr "Telefon do auta"
 
 #: lib/Form/EditAddressBook.php:91
-#, fuzzy
 msgid "CardDAV Account URL"
-msgstr "Popis Kalendáře"
+msgstr "CardDAV URL účtu"
 
 #: lib/Form/EditAddressBook.php:81
-#, fuzzy
 msgid "CardDAV Subscription URL"
-msgstr "Popis Kalendáře"
+msgstr "CardDAV URL adresáře"
 
 #: config/attributes.php:498
 msgid "Category"
@@ -411,16 +409,16 @@ msgstr "Kopírovat"
 
 #: lib/Form/EditAddressBook.php:85
 msgid "Copy this URL to a CardDAV client to subscribe to this address book"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto adresáře do externího programu."
 
 #: lib/Form/EditAddressBook.php:95
 msgid ""
 "Copy this URL to a CarddAV client to subscribe to all your address books"
-msgstr ""
+msgstr "Umožňuje synchronizaci všech Vašich adresářů do externího programu."
 
 #: lib/Form/EditAddressBook.php:111
 msgid "Copy this URL to a WebDAV client to browse this address book"
-msgstr ""
+msgstr "Umožňuje synchronizaci tohoto adresáře do externího programu."
 
 #: templates/search/duplicate/list.html.php:16
 msgid "Count"

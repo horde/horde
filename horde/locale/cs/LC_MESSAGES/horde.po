@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.0.9\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2015-02-25 18:47+0100\n"
+"PO-Revision-Date: 2015-05-06 16:03+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <i18n@lists.horde.org>\n"
 "Language: cs\n"
@@ -519,9 +519,8 @@ msgid "Basic"
 msgstr "Základní"
 
 #: templates/activesync/device_table.html.php:43
-#, fuzzy
 msgid "Block"
-msgstr "Odemknout"
+msgstr "Zablokovat"
 
 #: templates/portal/layout.inc:90
 msgid "Block Settings"
@@ -1039,17 +1038,14 @@ msgid "Device Type"
 msgstr "Typ zařízení"
 
 #: lib/Application.php:325
-#, fuzzy
 msgid "Device encryption"
-msgstr "Šifrování:"
+msgstr "Šifrování zařízení"
 
 #: templates/activesync/device_table.html.php:16
-#, fuzzy
 msgid "Device is Blocked."
-msgstr "Zařízení vymazáno"
+msgstr "Zařízení je blokováno"
 
 #: templates/prefs/activesync.html.php:43
-#, fuzzy
 msgid "Device is Wiped"
 msgstr "Zařízení vymazáno"
 
@@ -1170,9 +1166,8 @@ msgid "Email Address"
 msgstr "Emailová adresa"
 
 #: lib/Application.php:227
-#, fuzzy
 msgid "Enable"
-msgstr "Aktivováno"
+msgstr "Povolit"
 
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
