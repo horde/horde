@@ -26,7 +26,7 @@
 class Horde_Pgp_Keyserver
 {
     /** Default keyserver. */
-    const DEFAULT_KEYSERVER = 'pool.sks-keyservers.net';
+    const DEFAULT_KEYSERVER = 'http://pool.sks-keyservers.net:11371';
 
     /**
      * HTTP object.
