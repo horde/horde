@@ -182,9 +182,10 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function getLiteralLength()
     {
-        $this->_stream->end(-1);
-        if ($this->_stream->peek() === '}') {
-            $literal_data = $this->_stream->getString($this->_stream->search('{', true) - 1);
+        if ($this->_stream->substring(-1, 1) === '}') {
+            $literal_data = $this->_stream->getString(
+                $this->_stream->search('{', true) - 1
+            );
             $literal_len = substr($literal_data, 2, -1);
 
             if (is_numeric($literal_len)) {
