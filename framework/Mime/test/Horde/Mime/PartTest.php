@@ -955,6 +955,42 @@ C
         $this->assertFalse(current($ids));
     }
 
+    public function testMultipartDigest()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('multipart/digest');
+        $part->isBasePart(true);
+
+        $part2 = new Horde_Mime_Part();
+        $part2->setType('message/rfc822');
+        $part2->setContents(
+            file_get_contents(__DIR__ . '/fixtures/sample_msg4.txt')
+        );
+        $part[] = $part2;
+
+        $this->assertStringMatchesFormat(
+            "Content-Type: multipart/digest; boundary=\"=_%s\"
+MIME-Version: 1.0
+
+This message is in MIME format.
+
+--=_%s
+
+Message-ID: <asdl8ahwhoadsadl@example.com>
+Date: Tue, 07 Jul 2013 10:21:48 -0600
+From: \"Test Q. User\" <test@example.com>
+To: foo@example.com
+Subject: Test
+MIME-Version: 1.0
+
+
+Test.
+
+--=_%s--",
+            $part->toString(array('headers' => true))
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

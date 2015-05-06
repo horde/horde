@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Correctly output MIME headers when generating multipart/digest parts (RFC 2047 [5.1.5]).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1714,7 +1714,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Correctly output MIME headers when generating multipart/digest parts (RFC 2047 [5.1.5]).
    </notes>
   </release>
  </changelog>

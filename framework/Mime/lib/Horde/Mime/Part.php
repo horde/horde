@@ -1033,6 +1033,13 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
 
                     $boundary = trim($this->getContentTypeParameter('boundary'), '"');
 
+                    /* If base part is multipart/digest, children should not
+                     * have content-type (automatically treated as
+                     * message/rfc822; RFC 2046 [5.1.5]). */
+                    if ($this->getSubType() === 'digest') {
+                        $options['is_digest'] = true;
+                    }
+
                     foreach ($this as $part) {
                         $parts[] = $eol . '--' . $boundary . $eol;
                         $tmp = $part->toString($options);
@@ -1055,6 +1062,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
                     'encode' => $options['encode'],
                     'headers' => ($headers === true) ? null : $headers
                 ));
+                if (!$isbase && !empty($options['is_digest'])) {
+                    unset($hdr_ob['content-type']);
+                }
                 if (!empty($this->_temp['toString'])) {
                     $hdr_ob->addHeader(
                         'Content-Transfer-Encoding',
