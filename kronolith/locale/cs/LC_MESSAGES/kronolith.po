@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kronolith 2.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2014-10-14 14:39+0200\n"
-"PO-Revision-Date: 2015-02-25 18:47+0100\n"
+"PO-Revision-Date: 2015-05-06 16:03+0100\n"
 "Last-Translator: Michael Grafnetter <michael.grafnetter@outlook.com>\n"
 "Language-Team: Czech <dev@lists.horde.org>\n"
 "Language: cs\n"
@@ -1168,7 +1168,7 @@ msgstr "HTML kód"
 
 #: templates/chunks/calendar.php:130
 msgid "Embed calendar on external website"
-msgstr "Umožňuje vložit kalendář do externí webové stránky"
+msgstr "Umožňuje vložit kalendář do externí webové stránky."
 
 #: lib/Form/EditCalendar.php:144
 msgid "Embed code"
@@ -2753,7 +2753,7 @@ msgstr "Podepsat"
 
 #: templates/chunks/calendar.php:125
 msgid "Subscribe from a feed reader"
-msgstr "Umožňuje odebírat tento kalendář pomocí RSS čtečky"
+msgstr "Umožňuje odebírat tento kalendář pomocí RSS čtečky."
 
 #: lib/Application.php:344 lib/Form/SubscribeRemoteCalendar.php:22
 msgid "Subscribe to a Remote Calendar"
@@ -2761,15 +2761,15 @@ msgstr "Odebírat vzdálený kalendář"
 
 #: templates/chunks/calendar.php:115 templates/chunks/calendar.php:228
 msgid "Subscribe to all your calendars from another calendar program"
-msgstr "Umožňuje synchronizaci všech Vašich kalendářů do externího programu"
+msgstr "Umožňuje synchronizaci všech Vašich kalendářů do externího programu."
 
 #: templates/chunks/calendar.php:110 templates/chunks/calendar.php:120
 msgid "Subscribe to this calendar from another calendar program"
-msgstr "Umožňuje synchronizaci tohoto kalendáře do externího programu"
+msgstr "Umožňuje synchronizaci tohoto kalendáře do externího programu."
 
 #: templates/chunks/calendar.php:223 templates/chunks/calendar.php:233
 msgid "Subscribe to this task list from another calendar program"
-msgstr "Umožňuje synchronizaci tohoto seznamu úkolů do externího programu"
+msgstr "Umožňuje synchronizaci tohoto seznamu úkolů do externího programu."
 
 #: templates/chunks/calendar.php:83 templates/chunks/calendar.php:207
 msgid "Subscription"
