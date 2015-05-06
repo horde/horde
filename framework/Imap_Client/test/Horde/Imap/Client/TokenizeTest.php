@@ -466,6 +466,55 @@ EOT;
         );
     }
 
+    public function testLiteralStream()
+    {
+        $token = new Horde_Imap_Client_Tokenize();
+        $token->add('FOO {10}');
+        $token->addLiteralStream('1234567890');
+        $token->add(' BAR');
+
+        $token->rewind();
+
+        $this->assertEquals(
+            'FOO',
+            $token->next()
+        );
+
+        /* Internal stream is converted to string. */
+        $this->assertEquals(
+            '1234567890',
+            $token->next()
+        );
+
+        $this->assertEquals(
+            'BAR',
+            $token->next()
+        );
+
+        $this->assertTrue($token->eos);
+
+        /* Check to see stream is returned if nextStream() is called and
+         * a literal is encountered. */
+        $token->rewind();
+
+        $this->assertEquals(
+            'FOO',
+            $token->nextStream()
+        );
+
+        $stream = $token->nextStream();
+        $this->assertInstanceOf('Horde_Stream_Temp', $stream);
+        $this->assertEquals(
+            '1234567890',
+            strval($stream)
+        );
+
+        $this->assertEquals(
+            'BAR',
+            $token->nextStream()
+        );
+    }
+
     /**
      * @expectedException LogicException
      */
