@@ -74,17 +74,17 @@ class IMP_Mime_Viewer_Video extends Horde_Mime_Viewer_Default
             'stream' => true
         ))->data);
 
-        if (!($duration = $headers['Content-Duration'])) {
+        if ($duration = $headers['Content-Duration']) {
             $text = array();
 
-            if ($minutes = floor($duration / 60)) {
+            if ($minutes = floor($duration->value / 60)) {
                 $text[] = sprintf(
                     ngettext(_("%d minute"), _("%d minutes"), $minutes),
                     $minutes
                 );
             }
 
-            if ($seconds = ($duration % 60)) {
+            if ($seconds = ($duration->value % 60)) {
                 $text[] = sprintf(
                     ngettext(_("%d second"), _("%d seconds"), $seconds),
                     $seconds
