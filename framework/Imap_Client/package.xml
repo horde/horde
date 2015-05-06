@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Directly store literal data in a separate stream when parsing IMAP tokens, so we don&apos;t have to duplicate the stream later when processing it.
 * [mms] Don&apos;t load literal IMAP data into a string variable when tokenizing IMAP input.
 * [mms] Fix search queries where ID list given is explicitly empty, indicating that a match can never be successful (Bug #13971).
 * [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).
@@ -2876,6 +2877,7 @@
    <date>2015-04-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Directly store literal data in a separate stream when parsing IMAP tokens, so we don&apos;t have to duplicate the stream later when processing it.
 * [mms] Don&apos;t load literal IMAP data into a string variable when tokenizing IMAP input.
 * [mms] Fix search queries where ID list given is explicitly empty, indicating that a match can never be successful (Bug #13971).
 * [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).

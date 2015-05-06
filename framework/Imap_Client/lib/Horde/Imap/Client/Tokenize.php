@@ -63,6 +63,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
     protected $_level = false;
 
     /**
+     * Array of literal stream objects.
+     *
+     * @var array
+     */
+    protected $_literals = array();
+
+    /**
      * next() modifiers.
      *
      * @var array
@@ -134,6 +141,21 @@ class Horde_Imap_Client_Tokenize implements Iterator
     public function add($data)
     {
         $this->_stream->add($data);
+    }
+
+    /**
+     * Add data to literal stream at the current position.
+     *
+     * @param mixed $data  Data to add (string, resource, or Horde_Stream
+     *                     object).
+     */
+    public function addLiteralStream($data)
+    {
+        $pos = $this->_stream->pos();
+        if (!isset($this->_literals[$pos])) {
+            $this->_literals[$pos] = new Horde_Stream_Temp();
+        }
+        $this->_literals[$pos]->add($data);
     }
 
     /**
@@ -279,18 +301,26 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                     case '{':
                         $literal_len = intval($this->_stream->getToChar('}'));
-                        if ($this->literalStream &&
-                            ($literal_len > self::MIN_LITERAL_STREAM)) {
-                            $text = new Horde_Stream_Temp();
-                            while (($literal_len > 0) && !feof($stream)) {
-                                $part = $this->_stream->substring(
-                                    0,
-                                    min($literal_len, 8192)
-                                );
-                                $text->add($part);
-                                $literal_len -= strlen($part);
+                        if ($this->literalStream) {
+                            $pos = $this->_stream->pos();
+                            if (isset($this->_literals[$pos])) {
+                                $text = $this->_literals[$pos];
+                            } elseif ($literal_len > self::MIN_LITERAL_STREAM) {
+                                $text = new Horde_Stream_Temp();
+                                while (($literal_len > 0) && !feof($stream)) {
+                                    $part = $this->_stream->substring(
+                                        0,
+                                        min($literal_len, 8192)
+                                    );
+                                    $text->add($part);
+                                    $literal_len -= strlen($part);
+                                }
+                            } else {
+                                $text = false;
                             }
-                        } else {
+                        }
+
+                        if ($text === false) {
                             $text = $this->_stream->substring(0, $literal_len);
                         }
                         $check_len = false;

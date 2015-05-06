@@ -185,7 +185,7 @@ extends Horde_Imap_Client_Socket_Connection_Base
 
             while (($literal_len > 0) && !feof($this->_stream)) {
                 $in = fread($this->_stream, min($literal_len, 8192));
-                $token->add($in);
+                $token->addLiteralStream($in);
                 if (!empty($this->_params['debugliteral'])) {
                     $this->_params['debug']->raw($in);
                 }
