@@ -70,6 +70,7 @@ class IMP_Spam
             return 0;
         }
 
+        $contents = array();
         $imp_contents = $injector->getInstance('IMP_Factory_Contents');
         $report_count = 0;
 
@@ -82,23 +83,15 @@ class IMP_Spam
 
             foreach ($ob->uids as $idx) {
                 try {
-                    $contents = $imp_contents->create($ob->mbox->getIndicesOb($idx));
-                } catch (IMP_Exception $e) {
-                    continue;
-                }
-
-                $report_flag = false;
-
-                foreach ($this->_drivers as $val) {
-                    if ($val->report($contents, $this->_action)) {
-                        $report_flag = true;
-                    }
-                }
-
-                if ($report_flag) {
-                    ++$report_count;
-                }
+                    $contents[] = $imp_contents->create(
+                        $ob->mbox->getIndicesOb($idx)
+                    );
+                } catch (IMP_Exception $e) {}
             }
+        }
+
+        foreach ($this->_drivers as $val) {
+            $report_count += $val->report($contents, $this->_action);
         }
 
         if (!$report_count) {
@@ -107,7 +100,7 @@ class IMP_Spam
 
         /* Report what we've done. */
         if ($report_count == 1) {
-            $hdrs = $contents->getHeader();
+            $hdrs = $contents[0]->getHeader();
             if ($subject = $hdrs['Subject']) {
                 $subject = Horde_String::truncate($subject, 30);
             } elseif ($from = $hdrs['From']) {

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Report multiple spam/innocent messages in a single digest.
 * [mms] Remove mailbox from polled list when unsubscribing from it.
 * [mms] Allow remote account passwords to be saved encrypted in user&apos;s preferences (Request #13168).
 * [mms] Send IMP MUA information to IMAP servers that support the ID extension.

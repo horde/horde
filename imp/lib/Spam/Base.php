@@ -30,12 +30,11 @@ interface IMP_Spam_Base
     /**
      * Reports a list of messages as innocent/spam.
      *
-     * @param IMP_Contents $contents  A contents object.
-     * @param integer $action         Either IMP_Spam::SPAM or
-     *                                IMP_Spam::INNOCENT.
+     * @param array $msgs      List of IMP_Contents objects.
+     * @param integer $action  Either IMP_Spam::SPAM or IMP_Spam::INNOCENT.
      *
-     * @return boolean  True on success.
+     * @return integer  True on success.
      */
-    public function report(IMP_Contents $contents, $action);
+    public function report(array $msgs, $action);
 
 }

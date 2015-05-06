@@ -50,28 +50,33 @@ class IMP_Spam_Email implements IMP_Spam_Base
 
     /**
      */
-    public function report(IMP_Contents $contents, $action)
+    public function report(array $msgs, $action)
     {
         global $injector, $registry;
 
-        $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
+        $ret = 0;
 
         switch ($this->_format) {
         case 'redirect':
             /* Send the message. */
-            try {
-                $imp_compose->redirectMessage($contents->getIndicesOb());
-                $imp_compose->sendRedirectMessage($this->_email, false);
-                return true;
-            } catch (IMP_Compose_Exception $e) {
-                $e->log();
+            foreach ($msgs as $val) {
+                try {
+                    $imp_compose = $injector->getInstance('IMP_Factory_Compose')
+                        ->create();
+                    $imp_compose->redirectMessage($val->getIndicesOb());
+                    $imp_compose->sendRedirectMessage($this->_email, false);
+                    ++$ret;
+                } catch (IMP_Compose_Exception $e) {
+                    $e->log();
+                }
             }
             break;
 
         case 'digest':
         default:
             try {
-                $from_line = $injector->getInstance('IMP_Identity')->getFromLine();
+                $from_line = $injector->getInstance('IMP_Identity')
+                    ->getFromLine();
             } catch (Horde_Exception $e) {
                 $from_line = null;
             }
@@ -80,13 +85,14 @@ class IMP_Spam_Email implements IMP_Spam_Base
             $mime = new Horde_Mime_Part();
             $mime->setType('multipart/digest');
 
-            $rfc822 = new Horde_Mime_Part();
-            $rfc822->setType('message/rfc822');
-            $rfc822->setContents($contents->fullMessageText(array(
-                'stream' => true
-            )));
-
-            $mime[] = $rfc822;
+            foreach ($msgs as $val) {
+                $rfc822 = new Horde_Mime_Part();
+                $rfc822->setType('message/rfc822');
+                $rfc822->setContents($val->fullMessageText(array(
+                    'stream' => true
+                )));
+                $mime[] = $rfc822;
+            }
 
             $spam_headers = new Horde_Mime_Headers();
             $spam_headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
@@ -95,24 +101,36 @@ class IMP_Spam_Email implements IMP_Spam_Base
             if (!is_null($from_line)) {
                 $spam_headers->addHeader('From', $from_line);
             }
-            $spam_headers->addHeader('Subject', sprintf(_("%s report from %s"), $action == IMP_Spam::SPAM ? 'spam' : 'innocent', $registry->getAuth()));
+            $spam_headers->addHeader(
+                'Subject',
+                sprintf(
+                    _("%s report from %s"),
+                    ($action === IMP_Spam::SPAM) ? 'spam' : 'innocent',
+                    $registry->getAuth()
+                )
+            );
 
             /* Send the message. */
             try {
+                $imp_compose = $injector->getInstance('IMP_Factory_Compose')
+                    ->create();
                 $recip_list = $imp_compose->recipientList(array(
                     'to' => $this->_email
                 ));
-                $imp_compose->sendMessage($recip_list['list'], $spam_headers, $mime, 'UTF-8');
-                $rfc822->clearContents();
-                return true;
+                $imp_compose->sendMessage(
+                    $recip_list['list'],
+                    $spam_headers,
+                    $mime,
+                    'UTF-8'
+                );
+                $ret = count($msgs);
             } catch (IMP_Compose_Exception $e) {
                 $e->log();
-                $rfc822->clearContents();
             }
             break;
         }
 
-        return false;
+        return $ret;
     }
 
 }

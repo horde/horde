@@ -41,9 +41,11 @@ class IMP_Spam_Null implements IMP_Spam_Base
 
     /**
      */
-    public function report(IMP_Contents $contents, $action)
+    public function report(array $msgs, $action)
     {
-        return $this->_success;
+        return $this->_success
+            ? count($msgs)
+            : 0;
     }
 
 }
