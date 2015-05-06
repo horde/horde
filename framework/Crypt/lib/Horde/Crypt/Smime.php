@@ -829,7 +829,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      */
     protected function _createTempFile($descrip = 'horde-crypt', $delete = true)
     {
-       return Horde_Util::getTempFile($descrip, $delete, '', true);
+       return Horde_Util::getTempFile($descrip, $delete, $this->_params['temp'], true);
     }
 
 }
