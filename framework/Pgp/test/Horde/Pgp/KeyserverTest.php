@@ -38,16 +38,13 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
     public function testKeyserverRetrieve($id)
     {
         try {
-            $key = $this->_ks->get($id);
-            if (is_null($key)) {
-                $this->markTestSkipped('Error retrieving key from keyserver');
-            } else {
-                $this->_checkKey($this->_ks->get($id), $id);
-            }
+            $this->_checkKey($this->_ks->get($id), $id);
         } catch (Horde_Pgp_Exception $e) {
-            /* Ignore all exceptions. Keyserver retrieval is not 100%
-             * reliable. */
-            $this->markTestSkipped($e->getMessage());
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
         }
     }
 
@@ -66,9 +63,11 @@ class Horde_Pgp_KeyserverTest extends Horde_Test_Case
         try {
             $this->_checkKey($this->_ks->getKeyByEmail($email), $id);
         } catch (Horde_Pgp_Exception $e) {
-            /* Ignore all exceptions. Keyserver retrieval is not 100%
-             * reliable. */
-            $this->markTestSkipped($e->getMessage());
+            if ($e->getPrevious() instanceof Horde_Http_Exception) {
+                $this->markTestSkipped($e->getMessage());
+            } else {
+                throw $e;
+            }
         }
     }
 
