@@ -12,6 +12,9 @@ class UnexpectedTokenException extends \Exception {
 	private $sMatchType;
 
 	public function __construct($sExpected, $sFound, $sMatchType = 'literal') {
+        if (preg_match('/[^[:ascii:]]/', $sFound)) {
+            $sFound = bin2hex($sFound);
+        }
 		$this->sExpected = $sExpected;
 		$this->sFound = $sFound;
 		$this->sMatchType = $sMatchType;
