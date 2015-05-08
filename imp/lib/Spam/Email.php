@@ -95,7 +95,7 @@ class IMP_Spam_Email implements IMP_Spam_Base
             $self = $this;
 
             $reportDigest = function($m) use($action, $from_line, $self) {
-                global $registry;
+                global $injector, $registry;
 
                 if (empty($m)) {
                     return 0;
@@ -171,7 +171,8 @@ class IMP_Spam_Email implements IMP_Spam_Base
                     $process = true;
                 }
 
-                if (!is_null($slimit) && (($slimit -= $val->getBytes()) < 0)) {
+                if (!is_null($slimit) &&
+                    (($slimit -= $val->getMIMEMessage()->getBytes()) < 0)) {
                     $process = true;
                     /* If we have exceeded size limits with this single
                      * message, it exceeds the maximum limit and we can't
@@ -190,8 +191,8 @@ class IMP_Spam_Email implements IMP_Spam_Base
                 if ($process) {
                     $ret += $reportDigest($todo);
                     $todo = array();
-                    $msgs = $orig_msgs;
-                    $size = $orig_size;
+                    $msgs = $orig_mlimit;
+                    $size = $orig_slimit;
                 }
             }
 
