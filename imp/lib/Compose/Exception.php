@@ -71,6 +71,12 @@ class IMP_Compose_Exception extends IMP_Exception
         }
 
         Horde::log($this, $level);
+
+        if (($previous = $this->getPrevious()) &&
+            isset($previous->details)) {
+            Horde::log($previous->details, $level);
+        }
+
         $this->logged = true;
 
         return true;
