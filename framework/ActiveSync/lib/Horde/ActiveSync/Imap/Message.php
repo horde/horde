@@ -234,9 +234,7 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getMessageBodyData(array $options = array())
     {
-        $mbd = $this->getMessageBodyDataObject($options);
-
-        return $mbd->toArray();
+        return $this->getMessageBodyDataObject($options)->toArray();
     }
 
     /**
