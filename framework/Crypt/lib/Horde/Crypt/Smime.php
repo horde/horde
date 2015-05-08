@@ -822,14 +822,14 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Create a temporary file that will be deleted at the end of this
      * process.
      *
-     * @param string $descrip Description string to use in filename.
-     * @param boolean $delete Delete the file automatically?
+     * @param string $descrip  Description string to use in filename.
+     * @param boolean $delete  Delete the file automatically?
      *
      * @return string Filename of a temporary file.
      */
     protected function _createTempFile($descrip = 'horde-crypt', $delete = true)
     {
-       return Horde_Util::getTempFile($descrip, $delete, $this->_tempdir, true);
+       return Horde_Util::getTempFile($descrip, $delete, '', true);
     }
 
 }
