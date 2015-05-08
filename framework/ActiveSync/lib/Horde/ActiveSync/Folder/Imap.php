@@ -102,6 +102,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     protected $_categories = array();
 
+    /**
+     * Internal flag to indicate initial first sync/prime.
+     *
+     * @var boolean
+     */
     protected $_primed = false;
 
     /**
