@@ -83,16 +83,16 @@ class Horde_Imap_Client_Search_Query implements Serializable
         $oldcharset = $this->_charset;
         $this->_charset = Horde_String::upper($charset);
 
+        if (!$convert || ($oldcharset == $this->_charset)) {
+            return;
+        }
+
         foreach (array('and', 'or') as $item) {
             if (isset($this->_search[$item])) {
                 foreach ($this->_search[$item] as &$val) {
                     $val->charset($charset, $convert);
                 }
             }
-        }
-
-        if (!$convert || ($oldcharset == $this->_charset)) {
-            return;
         }
 
         foreach (array('header', 'text') as $item) {
