@@ -455,11 +455,12 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
                         rewind($stream);
                         stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-                        stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
+                        $filter = stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
                             'eol' => Horde_Mime_Part::RFC_EOL
                         ));
 
                         $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream), $this->_getSender()->bare_address, $sig_part->getContents());
+                        stream_filter_remove($filter);
                     }
 
                     $status2->action(IMP_Mime_Status::SUCCESS);
