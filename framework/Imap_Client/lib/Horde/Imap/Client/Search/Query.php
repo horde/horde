@@ -444,8 +444,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
 
             $results = true;
 
-            if ($ret['charset'] != 'US-ASCII') {
-                if (($charset != 'US-ASCII') &&
+            if (!is_null($ret['charset']) && ($ret['charset'] != 'US-ASCII')) {
+                if (!is_null($charset) &&
+                    ($charset != 'US-ASCII') &&
                     ($charset != $ret['charset'])) {
                     throw new InvalidArgumentException(
                         'AND/OR queries must all have the same charset.'
