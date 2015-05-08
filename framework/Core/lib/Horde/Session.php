@@ -238,9 +238,11 @@ class Horde_Session
     {
         /* Load old encrypted data. */
         $encrypted = array();
-        foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
-            foreach (array_keys($val) as $val2) {
-                $encrypted[$app][$val2] = $this->get($app, $val2);
+        if (!empty($this->_data[self::ENCRYPTED])) {
+            foreach ($this->_data[self::ENCRYPTED] as $app => $val) {
+                foreach (array_keys($val) as $val2) {
+                    $encrypted[$app][$val2] = $this->get($app, $val2);
+                }
             }
         }
 
