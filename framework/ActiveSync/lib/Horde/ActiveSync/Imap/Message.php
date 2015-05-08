@@ -737,7 +737,7 @@ class Horde_ActiveSync_Imap_Message
         if ($id = $this->basePart->hasiCalendar()) {
             // May already have downloaded the part.
             $part = $this->basePart->base->getPart($id);
-            if (!$part->getContents()) {
+            if (!$part->getContents(array('stream' => true))) {
                 return $this->getMimePart($id);
             }
             return $part;
