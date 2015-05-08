@@ -63,7 +63,11 @@ class IMP_Factory_Spam extends Horde_Core_Factory_Base
             if (!empty($config['email'])) {
                 $drivers[] = new IMP_Spam_Email(
                     $this->_expand($config['email']),
-                    empty($config['email_format']) ? 'digest' : $config['email_format']
+                    $config['email_format'],
+                    array(
+                        'digest_limit_msgs' => $config['digest_limit_msgs'],
+                        'digest_limit_size' => $config['digest_limit_size']
+                    )
                 );
             }
 

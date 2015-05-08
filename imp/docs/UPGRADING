@@ -105,6 +105,9 @@ Server Options (backends.php)
 
 The 'atc_structure' option has been added.
 
+The 'digest_limit_msgs' and 'digest_limit_size' options have been added for
+use with the 'digest' spam/innocent reporting format.
+
 
 Permissions
 -----------

@@ -195,6 +195,24 @@
  *                   messages reported by the user in their marking action and
  *                   sends to the reporting e-mail address in a single
  *                   multipart/digest message.
+ *
+ *                   If this option is selected, two additional, optional
+ *                   config options are available:
+ *
+ *                   - digest_limit_msgs: (integer) The maximum number of
+ *                                        messages that will be sent in a
+ *                                        multpart/digest message. If the
+ *                                        number of messages to report exceeds
+ *                                        this value, multiple digest messages
+ *                                        will be sent. If 0 (the default),
+ *                                        there is no limit.
+ *                   - digest_limit_size: (integer) The maximum size (in
+ *                                        bytes) of a single digest message.
+ *                                        If the size of messages to report
+ *                                        exceeds this value, multiple digest
+ *                                        messages will be sent. The default
+ *                                        is 10 MB. If 0, there is no limit.
+ *
  *         - redirect: Redirects the message to the reporting e-mail address
  *                     Note that this alters the original message's headers
  *                     and may break embedded spam reporting signature

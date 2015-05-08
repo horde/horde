@@ -37,22 +37,34 @@ class IMP_Spam_Email implements IMP_Spam_Base
     protected $_format;
 
     /**
+     * Additional options.
+     *
+     * @var array
+     */
+    protected $_opts;
+
+    /**
      * Constructor.
      *
      * @param string $email   Reporting e-mail.
      * @param string $format  E-mail format.
+     * @param array $opts     Additional options:
+     *   - digest_limit_msgs: (integer) Maximum number of messages allowed in
+     *                        a digest.
+     *   - digest_limit_size: (integer) Maximum size of a digest.
      */
-    public function __construct($email, $format)
+    public function __construct($email, $format, array $opts = array())
     {
         $this->_email = $email;
         $this->_format = $format;
+        $this->_opts = $opts;
     }
 
     /**
      */
     public function report(array $msgs, $action)
     {
-        global $injector, $registry;
+        global $injector;
 
         $ret = 0;
 
@@ -80,53 +92,110 @@ class IMP_Spam_Email implements IMP_Spam_Base
             } catch (Horde_Exception $e) {
                 $from_line = null;
             }
+            $self = $this;
 
-            /* Build the MIME structure. */
-            $mime = new Horde_Mime_Part();
-            $mime->setType('multipart/digest');
+            $reportDigest = function($m) use($action, $from_line, $self) {
+                global $registry;
+
+                if (empty($m)) {
+                    return 0;
+                }
+
+                /* Build the MIME structure. */
+                $mime = new Horde_Mime_Part();
+                $mime->setType('multipart/digest');
+
+                foreach ($m as $val) {
+                    $rfc822 = new Horde_Mime_Part();
+                    $rfc822->setType('message/rfc822');
+                    $rfc822->setContents($val->fullMessageText(array(
+                        'stream' => true
+                    )));
+                    $mime[] = $rfc822;
+                }
+
+                $spam_headers = new Horde_Mime_Headers();
+                $spam_headers->addHeaderOb(
+                    Horde_Mime_Headers_MessageId::create()
+                );
+                $spam_headers->addHeaderOb(
+                    Horde_Mime_Headers_Date::create()
+                );
+                $spam_headers->addHeader('To', $this->_email);
+                if (!is_null($from_line)) {
+                    $spam_headers->addHeader('From', $from_line);
+                }
+                $spam_headers->addHeader(
+                    'Subject',
+                    sprintf(
+                        _("%s report from %s"),
+                        ($action === IMP_Spam::SPAM) ? 'spam' : 'innocent',
+                        $registry->getAuth()
+                    )
+                );
+
+                /* Send the message. */
+                try {
+                    $imp_compose = $injector->getInstance('IMP_Factory_Compose')
+                        ->create();
+                    $recip_list = $imp_compose->recipientList(array(
+                        'to' => $this->_email
+                    ));
+                    $imp_compose->sendMessage(
+                        $recip_list['list'],
+                        $spam_headers,
+                        $mime,
+                        'UTF-8'
+                    );
+                    return count($m);
+                } catch (IMP_Compose_Exception $e) {
+                    $e->log();
+                    return 0;
+                }
+            };
+
+            $mlimit = $orig_mlimit = empty($this->_opts['digest_limit_msgs'])
+                ? null
+                : $this->_opts['digest_limit_msgs'];
+            $slimit = $orig_slimit = empty($this->_opts['digest_limit_size'])
+                ? null
+                : $this->_opts['digest_limit_size'];
+
+            $todo = array();
 
             foreach ($msgs as $val) {
-                $rfc822 = new Horde_Mime_Part();
-                $rfc822->setType('message/rfc822');
-                $rfc822->setContents($val->fullMessageText(array(
-                    'stream' => true
-                )));
-                $mime[] = $rfc822;
+                $process = false;
+                $todo[] = $val;
+
+                if (!is_null($mlimit) && !(--$mlimit)) {
+                    $process = true;
+                }
+
+                if (!is_null($slimit) && (($slimit -= $val->getBytes()) < 0)) {
+                    $process = true;
+                    /* If we have exceeded size limits with this single
+                     * message, it exceeds the maximum limit and we can't
+                     * send it at all. Don't confuse the user and instead
+                     * report is as a "success" for UI purposes. */
+                    if (count($todo) === 1) {
+                        ++$ret;
+                        $todo = array();
+                        Horde::log(
+                            'Could not send spam/innocent reporting message because original message was too large.',
+                            'NOTICE'
+                        );
+                    }
+                }
+
+                if ($process) {
+                    $ret += $reportDigest($todo);
+                    $todo = array();
+                    $msgs = $orig_msgs;
+                    $size = $orig_size;
+                }
             }
 
-            $spam_headers = new Horde_Mime_Headers();
-            $spam_headers->addHeaderOb(Horde_Mime_Headers_MessageId::create());
-            $spam_headers->addHeaderOb(Horde_Mime_Headers_Date::create());
-            $spam_headers->addHeader('To', $this->_email);
-            if (!is_null($from_line)) {
-                $spam_headers->addHeader('From', $from_line);
-            }
-            $spam_headers->addHeader(
-                'Subject',
-                sprintf(
-                    _("%s report from %s"),
-                    ($action === IMP_Spam::SPAM) ? 'spam' : 'innocent',
-                    $registry->getAuth()
-                )
-            );
-
-            /* Send the message. */
-            try {
-                $imp_compose = $injector->getInstance('IMP_Factory_Compose')
-                    ->create();
-                $recip_list = $imp_compose->recipientList(array(
-                    'to' => $this->_email
-                ));
-                $imp_compose->sendMessage(
-                    $recip_list['list'],
-                    $spam_headers,
-                    $mime,
-                    'UTF-8'
-                );
-                $ret = count($msgs);
-            } catch (IMP_Compose_Exception $e) {
-                $e->log();
-            }
+            $ret += $reportDigest($todo);
             break;
         }
 
