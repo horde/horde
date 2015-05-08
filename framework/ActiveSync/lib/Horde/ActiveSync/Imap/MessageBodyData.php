@@ -263,6 +263,8 @@ class Horde_ActiveSync_Imap_MessageBodyData
                 empty($html_id)
             );
         }
+        $text_body_part = null;
+        $html_body_part = null;
 
     }
 

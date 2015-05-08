@@ -1131,6 +1131,8 @@ class Horde_ActiveSync_Imap_Adapter
                         $mime->addPart($plain_mime);
                         $mime->addPart($html_mime);
                     }
+                    $html_mime = null;
+                    $plain_mime = null;
 
                     // If we have attachments, create a multipart/mixed wrapper.
                     if ($imap_message->hasAttachments()) {
@@ -1145,6 +1147,7 @@ class Horde_ActiveSync_Imap_Adapter
                     } else {
                         $base = $mime;
                     }
+                    $mime = null;
 
                     // Populate the EAS body structure with the MIME data, but
                     // remove the Content-Type and Content-Transfer-Encoding
@@ -1237,6 +1240,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->airsyncbasebody->preview =
                 $mbd->plain['body']->substring(0, $options['bodyprefs']['preview']);
         }
+        $mbd = null;
 
         // Check for special message types.
         if ($imap_message->isEncrypted()) {
@@ -1282,6 +1286,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
             }
         }
+        $part = null;
 
         // Check for meeting requests and POOMMAIL_FLAG data
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
@@ -1345,6 +1350,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->forwarded = $imap_message->getFlag(Horde_Imap_Client::FLAG_FORWARDED);
             $eas_message->answered  = $imap_message->getFlag(Horde_Imap_Client::FLAG_ANSWERED);
         }
+        $imap_message = null;
 
         return $eas_message;
     }

@@ -52,6 +52,11 @@ class Horde_ActiveSync_Mime
         $this->_base = $mime;
     }
 
+    public function __destruct()
+    {
+        $this->_base = null;
+    }
+
     /**
      * Accessor
      *

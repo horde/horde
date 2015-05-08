@@ -85,6 +85,11 @@ class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_
         }
     }
 
+    public function __destruct()
+    {
+        $this->_properties['data'] = null;
+    }
+
     /**
      * Return the message type.
      *

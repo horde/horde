@@ -87,6 +87,12 @@ class Horde_ActiveSync_Imap_Message
         $this->_data = $data;
     }
 
+    public function __destruct()
+    {
+        $this->_data = null;
+        $this->_basePart = null;
+    }
+
     /**
      * Accessor
      *
@@ -281,6 +287,7 @@ class Horde_ActiveSync_Imap_Message
                     $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 }
                 $ret[] = $this->_buildEasAttachmentFromMime($id, $mime_part, $version);
+                $mime_part = null;
             }
         }
 
@@ -398,6 +405,8 @@ class Horde_ActiveSync_Imap_Message
                     $part = $mpart;
                 }
                 $mime_parts[] = $part;
+                $mpart = null;
+                $part = null;
             }
         }
 
