@@ -16,6 +16,17 @@
 class Horde_Crypt_Smime extends Horde_Crypt
 {
     /**
+     * Constructor.
+     *
+     * @param array $params  Configuration parameters:
+     *   - temp: (string) Location of temporary directory.
+     */
+    public function __construct($params = array())
+    {
+        parent::__construct($params);
+    }
+
+    /**
      * Verify a passphrase for a given private key.
      *
      * @param string $private_key  The user's private key.
@@ -829,7 +840,7 @@ class Horde_Crypt_Smime extends Horde_Crypt
      */
     protected function _createTempFile($descrip = 'horde-crypt', $delete = true)
     {
-       return Horde_Util::getTempFile($descrip, $delete, $this->_params['temp'], true);
+        return Horde_Util::getTempFile($descrip, $delete, $this->_params['temp'], true);
     }
 
 }
