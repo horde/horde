@@ -80,33 +80,33 @@ class Horde_ActiveSync_Imap_MessageBodyData
 
     /**
      *
-     * @var string
+     * @var arary
      */
     protected $_plain;
 
     /**
      *
-     * @var string
+     * @var array
      */
     protected $_html;
 
     /**
      *
-     * @var string
+     * @var array
      */
     protected $_bodyPart;
 
     /**
-     * Cached validated text/plain data.
+     * Flag to indicate self::$_Plain is validated.
      *
-     * @var array
+     * @var boolean
      */
     protected $_validatedPlain;
 
     /**
-     * Cached validated text/html data
+     * Flag to indicate self::$_html is validated.
      *
-     * @var array
+     * @var boolean
      */
     protected $_validatedHtml;
 
@@ -136,6 +136,18 @@ class Horde_ActiveSync_Imap_MessageBodyData
             $options['protocolversion'];
 
         $this->_getParts();
+    }
+
+    public function __destruct()
+    {
+        $this->_basePart = null;
+        $this->_imap = null;
+        if (!empty($this->_plain) && ($this->_plain['body'] instanceof Horde_Stream)) {
+            $this->_plain['body'] = null;
+        }
+        if (!empty($this->_html) && ($this->_html['body'] instanceof Horde_Stream)) {
+            $this->_html['body'] = null;
+        }
     }
 
     public function &__get($property)
@@ -542,10 +554,10 @@ class Horde_ActiveSync_Imap_MessageBodyData
     {
         if (!empty($this->_plain) && empty($this->_validatedPlain)) {
             $this->_validateBodyData($this->_plain);
-            $this->_validatedPlain = $this->_plain;
+            $this->_validatedPlain = true;
         }
-        if ($this->_validatedPlain) {
-            return $this->_validatedPlain;
+        if ($this->_plain['body'] instanceof Horde_Stream) {
+            return $this->_plain;
         }
 
         return false;
@@ -564,10 +576,10 @@ class Horde_ActiveSync_Imap_MessageBodyData
     {
         if (!empty($this->_html) && empty($this->_validatedHtml)) {
             $this->_validateBodyData($this->_html);
-            $this->_validatedHtml = $this->_html;
+            $this->_validatedHtml = true;
         }
-        if ($this->_validatedHtml) {
-            return $this->_validatedHtml;
+        if ($this->_html['body'] instanceof Horde_Stream) {
+            return $this->_html;
         }
 
         return false;
