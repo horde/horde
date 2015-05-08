@@ -818,6 +818,73 @@ class IMP_Pgp
     }
 
     /**
+     * Returns whether a text has been encrypted symmetrically.
+     *
+     * @todo Return null, instead of exception, if tools are not available to
+     *       determine whether data was encrypted symmetrically.
+     *
+     * @param string $text  The PGP encrypted text.
+     *
+     * @return boolean  True if the text is symmetrically encrypted.
+     * @throws Horde_Crypt_Exception
+     */
+    public function encryptedSymmetrically($text)
+    {
+        return $this->_pgp->encryptedSymmetrically($text);
+    }
+
+    /**
+     * Returns information on a PGP data block.
+     *
+     * @param string $pgpdata  The PGP data block.
+     *
+     * @return array  An array with information on the PGP data block. If an
+     *                element is not present in the data block, it will
+     *                likewise not be set in the array.
+     * <pre>
+     * Array Format:
+     * -------------
+     * [public_key]/[secret_key] => Array
+     *   (
+     *     [created] => Key creation - UNIX timestamp
+     *     [expires] => Key expiration - UNIX timestamp (0 = never expires)
+     *     [size]    => Size of the key in bits
+     *   )
+     *
+     * [keyid] => Key ID of the PGP data (if available)
+     *            16-bit hex value
+     *
+     * [signature] => Array (
+     *     [id{n}/'_SIGNATURE'] => Array (
+     *         [name]        => Full Name
+     *         [comment]     => Comment
+     *         [email]       => E-mail Address
+     *         [keyid]       => 16-bit hex value
+     *         [created]     => Signature creation - UNIX timestamp
+     *         [expires]     => Signature expiration - UNIX timestamp
+     *         [micalg]      => The hash used to create the signature
+     *         [sig_{hex}]   => Array [details of a sig verifying the ID] (
+     *             [created]     => Signature creation - UNIX timestamp
+     *             [expires]     => Signature expiration - UNIX timestamp
+     *             [keyid]       => 16-bit hex value
+     *             [micalg]      => The hash used to create the signature
+     *         )
+     *     )
+     * )
+     * </pre>
+     *
+     * Each user ID will be stored in the array 'signature' and have data
+     * associated with it, including an array for information on each
+     * signature that has signed that UID. Signatures not associated with a
+     * UID (e.g. revocation signatures and sub keys) will be stored under the
+     * special keyword '_SIGNATURE'.
+     */
+    public function pgpPacketInformation($pgpdata)
+    {
+        return $this->_pgp->pgpPacketInformation($pgpdata);
+    }
+
+    /**
      * Return list of keyserver objects.
      *
      * @return array  List of Horde_Crypt_Pgp_Keyserver objects.
