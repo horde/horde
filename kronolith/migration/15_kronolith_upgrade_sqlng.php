@@ -28,6 +28,10 @@ class KronolithUpgradeSqlng extends Horde_Db_Migration_Base
      */
     public function up()
     {
+        if (in_array('kronolith_sharesng', $this->tables())) {
+            return;
+        }
+
         $t = $this->createTable('kronolith_sharesng', array('autoincrementKey' => 'share_id'));
         $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('share_owner', 'string', array('limit' => 255));
