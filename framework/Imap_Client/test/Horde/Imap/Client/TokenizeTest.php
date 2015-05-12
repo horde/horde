@@ -513,6 +513,21 @@ EOT;
             'BAR',
             $token->nextStream()
         );
+
+        $token = new Horde_Imap_Client_Tokenize();
+        $token->add('{200}' . str_repeat('Z', 200));
+        $token->rewind();
+
+        $this->assertEquals(
+            str_repeat('Z', 200),
+            $token->next()
+        );
+
+        $token->rewind();
+
+        $stream = $token->nextStream();
+        $this->assertInstanceOf('Horde_Stream_Temp', $stream);
+        $this->assertEquals(str_repeat('Z', 200), strval($stream));
     }
 
     /**

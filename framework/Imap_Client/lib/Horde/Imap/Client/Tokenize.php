@@ -29,18 +29,6 @@
  */
 class Horde_Imap_Client_Tokenize implements Iterator
 {
-    /** Minimum length to save a literal as a stream instead of a string.
-     *  This ensures things like literal representations of mailbox names
-     *  are not converted to stream when this is not needed. */
-    const MIN_LITERAL_STREAM = 256;
-
-    /**
-     * Allow Horde_Stream object to be returned for literal tokens.
-     *
-     * @var boolean
-     */
-    public $literalStream = false;
-
     /**
      * Current data.
      *
@@ -68,6 +56,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
      * @var array
      */
     protected $_literals = array();
+
+    /**
+     * Return Horde_Stream object for literal tokens?
+     *
+     * @var boolean
+     */
+    protected $_literalStream = false;
 
     /**
      * next() modifiers.
@@ -304,11 +299,10 @@ class Horde_Imap_Client_Tokenize implements Iterator
                         $pos = $this->_stream->pos();
                         if (isset($this->_literals[$pos])) {
                             $text = $this->_literals[$pos];
-                            if (!$this->literalStream) {
+                            if (!$this->_literalStream) {
                                 $text = strval($text);
                             }
-                        } elseif ($this->literalStream &&
-                                  ($literal_len > self::MIN_LITERAL_STREAM)) {
+                        } elseif ($this->_literalStream) {
                             $text = new Horde_Stream_Temp();
                             while (($literal_len > 0) && !feof($stream)) {
                                 $part = $this->_stream->substring(
@@ -380,17 +374,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function nextStream()
     {
-        if ($this->literalStream) {
-            $changed = false;
-        } else {
-            $this->literalStream = true;
-            $changed = true;
-        }
+        $changed = $this->_literalStream;
+        $this->_literalStream = true;
 
         $out = $this->next();
 
         if ($changed) {
-            $this->literalStream = false;
+            $this->_literalStream = false;
         }
 
         return $out;
