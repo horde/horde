@@ -19,6 +19,10 @@ class TurbaUpgradeSqlng extends Horde_Db_Migration_Base
      */
     public function up()
     {
+        if (in_array('turba_sharesng', $this->tables())) {
+            return;
+        }
+
         $t = $this->createTable('turba_sharesng', array('autoincrementKey' => 'share_id'));
         $t->column('share_name', 'string', array('limit' => 255, 'null' => false));
         $t->column('share_owner', 'string', array('limit' => 255));
