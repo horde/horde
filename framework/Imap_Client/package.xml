@@ -12,7 +12,7 @@
  </lead>
  <date>2015-05-12</date>
  <version>
-  <release>2.28.1</release>
+  <release>2.28.2</release>
   <api>2.28.0</api>
  </version>
  <stability>
@@ -21,10 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Directly store literal data in a separate stream when parsing IMAP tokens, so we don&apos;t have to duplicate the stream later when processing it.
-* [mms] Don&apos;t load literal IMAP data into a string variable when tokenizing IMAP input.
-* [mms] Fix search queries where ID list given is explicitly empty, indicating that a match can never be successful (Bug #13971).
-* [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2881,6 +2878,19 @@
 * [mms] Don&apos;t load literal IMAP data into a string variable when tokenizing IMAP input.
 * [mms] Fix search queries where ID list given is explicitly empty, indicating that a match can never be successful (Bug #13971).
 * [mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970; Robin McCorkell &lt;rmccorkell@karoshi.org.uk&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.28.2</release>
+    <api>2.28.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
