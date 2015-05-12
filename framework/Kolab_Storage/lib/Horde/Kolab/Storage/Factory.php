@@ -49,7 +49,8 @@ class Horde_Kolab_Storage_Factory
      *             "horde", "horde-socket", and "roundcube".
      *  - params : Backend specific connection parameters.
      *  - logger : An optional log handler.
-     *  - timelog : An optional time keeping log handler.
+     *  - log :    An array of log decorators. Possible values include: 'debug',
+     *             'driver_time', 'driver'.
      *  - format : Array
      *     - factory: Name of the format parser factory class.
      * </pre>
@@ -199,7 +200,7 @@ class Horde_Kolab_Storage_Factory
      *
      * @param string $type   The namespace type.
      * @param string $user   The current user.
-     * @param array  $params The parameters for the namespace. 
+     * @param array  $params The parameters for the namespace.
      *
      * @return Horde_Kolab_Storage_Folder_Namespace The namespace handler.
      */
