@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-27</date>
+ <date>2015-05-12</date>
  <version>
   <release>2.28.1</release>
   <api>2.28.0</api>
@@ -2874,7 +2874,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-27</date>
+   <date>2015-05-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Directly store literal data in a separate stream when parsing IMAP tokens, so we don&apos;t have to duplicate the stream later when processing it.
