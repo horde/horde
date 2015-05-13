@@ -395,7 +395,9 @@ class Ansel_Storage
             try {
                 $gallery->removeImage($image, true);
             } catch (Horde_Exception_NotFound $e) {
-                throw new Ansel_Exception($e);
+                // Don't worry about missing images since we are deleting them
+                // anyway.
+                Horde::log($e->getMessage(), 'ERR');
             }
         }
         $gallery->set('images', 0, true);
