@@ -365,8 +365,13 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             throw new Ansel_Exception(sprintf("Class definition for %s not found.", $class));
         }
 
+        $params = array();
+        foreach ($this->vars as $key => $value) {
+            $params[$key] = $value;
+        }
+
         try {
-            $view = new $class($this->vars);
+            $view = new $class($params);
             return new Horde_Core_Ajax_Response_Raw($view->html(), 'text/javascript');
         } catch (Exception $e) {}
     }
