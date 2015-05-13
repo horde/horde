@@ -696,6 +696,8 @@ class Horde_Image_Imagick extends Horde_Image_Base
     {
         // Need to jump through these hoops in order to preserve any
         // transparency.
+        // @TODO Imagick::clone is deprecated as of 3.1.0. For H6 use the clone
+        // keyword instead.
         try {
             $border = $image->clone();
             $border->borderImage(new ImagickPixel($color), $width, $height);
