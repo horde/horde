@@ -19,6 +19,9 @@ try {
 } catch (Ansel_Exception $e) {
     Horde::log($e->getMessage(), 'ERR');
     exit;
+} catch (Horde_Exception_NotFound $e) {
+    Horde::log($e->getMessage(), 'ERR');
+    exit;
 }
 if ($gal->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::SHOW) &&
     !$gal->hasPasswd() &&
