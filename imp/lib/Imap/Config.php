@@ -289,7 +289,7 @@ class IMP_Imap_Config implements Serializable
         case 'innocent_params':
             $p = $this->spam;
             $out = array_merge(array(
-                'digest_limit_msgs' => 0,
+                'digest_limit_msgs' => 1,
                 'digest_limit_size' => 10485760, // Default is 10 MB
                 'email_format' => 'digest'
             ), isset($p['innocent']) ? $p['innocent'] : array());
@@ -334,7 +334,7 @@ class IMP_Imap_Config implements Serializable
         case 'spam_params':
             $p = $this->spam;
             $out = array_merge(array(
-                'digest_limit_msgs' => 0,
+                'digest_limit_msgs' => 1,
                 'digest_limit_size' => 10485760, // Default is 10 MB
                 'email_format' => 'digest'
             ), isset($p['spam']) ? $p['spam'] : array());

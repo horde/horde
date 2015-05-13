@@ -193,19 +193,20 @@
  *       - email_format: (string) Either 'digest' or 'redirect'.
  *         - digest: [DEFAULT; RECOMMENDED] Packages the raw data of all
  *                   messages reported by the user in their marking action and
- *                   sends to the reporting e-mail address in a single
- *                   multipart/digest message.
+ *                   sends to the reporting e-mail address in a
+ *                   multipart/digest message(s).
  *
- *                   If this option is selected, two additional, optional
- *                   config options are available:
+ *                   If this option is selected, two additional config options
+ *                   are available:
  *
  *                   - digest_limit_msgs: (integer) The maximum number of
  *                                        messages that will be sent in a
  *                                        multpart/digest message. If the
  *                                        number of messages to report exceeds
  *                                        this value, multiple digest messages
- *                                        will be sent. If 0 (the default),
- *                                        there is no limit.
+ *                                        will be sent. The default is to send
+ *                                        a single message. If 0, there is no
+ *                                        limit.
  *                   - digest_limit_size: (integer) The maximum size (in
  *                                        bytes) of a single digest message.
  *                                        If the size of messages to report
