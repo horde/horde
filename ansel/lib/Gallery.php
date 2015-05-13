@@ -410,7 +410,7 @@ class Ansel_Gallery implements Serializable
                     $this->removeImage($imageId, true);
                 }
             } catch (Horde_Exception_NotFound $e) {
-                throw new Ansel_Exception($e);
+                Horde::log($e, 'ERR');
             }
         }
 
