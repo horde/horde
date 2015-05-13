@@ -191,8 +191,8 @@ class IMP_Spam_Email implements IMP_Spam_Base
                 if ($process) {
                     $ret += $reportDigest($todo);
                     $todo = array();
-                    $msgs = $orig_mlimit;
-                    $size = $orig_slimit;
+                    $mlimit = $orig_mlimit;
+                    $slimit = $orig_slimit;
                 }
             }
 
