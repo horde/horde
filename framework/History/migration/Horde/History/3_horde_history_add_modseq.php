@@ -13,12 +13,14 @@ class HordeHistoryAddModSeq extends Horde_Db_Migration_Base
         $seq = 1;
 
         $this->beginDbTransaction();
+        $empty = true;
         foreach ($rows as $row) {
+            $empty = false;
             $this->update(
                 'UPDATE horde_histories SET history_modseq = ? WHERE history_id = ?',
                 array($seq++, $row['history_id']));
         }
-        if (!empty($rows)) {
+        if (!$empty) {
             $this->insert('INSERT INTO horde_histories_modseq (history_modseq) VALUES(?)', array($seq - 1));
         }
         $this->commitDbTransaction();
