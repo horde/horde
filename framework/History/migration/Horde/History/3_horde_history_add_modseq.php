@@ -9,7 +9,7 @@ class HordeHistoryAddModSeq extends Horde_Db_Migration_Base
         $t->end();
         $this->addColumn('horde_histories', 'history_modseq', 'integer', array('default' => 0, 'null' => false));
 
-        $rows = $this->select('SELECT history_id FROM horde_histories ORDER BY history_ts ASC');
+        $rows = $this->selectAll('SELECT history_id FROM horde_histories ORDER BY history_ts ASC');
         $seq = 1;
 
         $this->beginDbTransaction();
