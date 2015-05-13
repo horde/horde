@@ -110,6 +110,13 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
             'cache' => $this->_injector->getInstance('Horde_Cache'),
         );
 
+        // Check if the history system is enabled
+        try {
+            $history = $this->_injector->getInstance('Horde_History');
+            $params['history'] = $history;
+        } catch(Horde_Exception $e) {
+        }
+
         $factory = new Horde_Kolab_Storage_Factory($params);
         return $factory->create();
     }
