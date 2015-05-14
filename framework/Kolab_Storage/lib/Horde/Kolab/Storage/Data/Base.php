@@ -31,42 +31,42 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @var Horde_Kolab_Storage_Folder
      */
-    private $_folder;
+    protected $_folder;
 
     /**
      * The driver for accessing the Kolab storage system.
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_driver;
+    protected $_driver;
 
     /**
      * The factory for generating additional resources.
      *
      * @var Horde_Kolab_Storage_Factory
      */
-    private $_factory;
+    protected $_factory;
 
     /**
      * The folder type.
      *
      * @var string
      */
-    private $_type;
+    protected $_type;
 
     /**
      * The version of the data.
      *
      * @var int
      */
-    private $_version;
+    protected $_version;
 
     /**
      * The list of registered queries.
      *
      * @var array
      */
-    private $_queries = array();
+    protected $_queries = array();
 
     /**
      * Logger instance, or stub.
@@ -366,6 +366,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *                      the parsed data.
      *
      * @return array An array of objects.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function fetch($uids, $raw = false)
     {
@@ -404,6 +405,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string $object_uid The object ID.
      *
      * @return string The backend ID for the object.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function getBackendId($object_id)
     {
@@ -438,6 +440,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string $object_id The object id.
      *
      * @return array The object data as an array.
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function getObject($object_id)
     {
@@ -578,8 +581,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @param string $object_id  ID of the message to be moved.
      * @param string $new_folder Target folder.
-     *
-     * @return NULL
      */
     public function move($object_id, $new_folder)
     {
@@ -607,8 +608,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Delete the specified objects from this data set.
      *
      * @param array|string $object_ids Id(s) of the object to be deleted.
-     *
-     * @return NULL
      */
     public function delete($object_ids)
     {
@@ -639,8 +638,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Delete all objects from this data set.
-     *
-     * @return NULL
      */
     public function deleteAll()
     {
@@ -651,8 +648,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Delete the specified messages from this folder.
      *
      * @param array|string $uids Backend id(s) of the message to be deleted.
-     *
-     * @return NULL
      */
     public function deleteBackendIds($uids)
     {
@@ -669,7 +664,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
      *
-     * @return NULL
+     * @throws new Horde_Kolab_Storage_Exception
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
@@ -685,8 +680,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * Synchronize the data information with the information from the backend.
      *
      * @param array $params Additional parameters.
-     *
-     * @return NULL
      */
     public function synchronize($params = array())
     {

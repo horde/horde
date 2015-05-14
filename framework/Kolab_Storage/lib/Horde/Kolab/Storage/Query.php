@@ -35,8 +35,6 @@ interface Horde_Kolab_Storage_Query
      *   - last_sync:    (integer) Timestamp containing the time of last sync.
      *   - changes:      (array)   An array of arrays keyed by backend id
      *                             containing information about each change.
-     *
-     * @return NULL
      */
     public function synchronize($params = array());
 }

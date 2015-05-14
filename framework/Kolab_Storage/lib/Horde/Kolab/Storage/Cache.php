@@ -40,21 +40,14 @@ class Horde_Kolab_Storage_Cache
      *
      * @var Horde_Cache
      */
-    protected $horde_cache;
-
-    /**
-     * List cache instances.
-     *
-     * @var array
-     */
-    private $_list_caches;
+    protected $_horde_cache;
 
     /**
      * Data cache instances.
      *
      * @var array
      */
-    private $_data_caches;
+    protected $_data_caches;
 
     /**
      * Constructor.
@@ -63,7 +56,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function __construct($cache)
     {
-        $this->horde_cache = $cache;
+        $this->_horde_cache = $cache;
     }
 
     /**
@@ -89,26 +82,24 @@ class Horde_Kolab_Storage_Cache
     /**
      * Retrieve data set.
      *
-     * @param string $data_id ID of the data set.
+     * @param string $data_id  ID of the data set.
      *
      * @return string The cached data set.
      */
     public function loadData($data_id)
     {
-        return $this->horde_cache->get($data_id, 0);
+        return $this->_horde_cache->get($data_id, 0);
     }
 
     /**
      * Cache data set.
      *
-     * @param string $data_id ID of the data set.
-     * @param string $data    The data to be cached.
-     *
-     * @return NULL
+     * @param string $data_id  ID of the data set.
+     * @param string $data     The data to be cached.
      */
     public function storeData($data_id, $data)
     {
-        $this->horde_cache->set($data_id, $data, 0);
+        $this->_horde_cache->set($data_id, $data, 0);
     }
 
     /**
@@ -122,7 +113,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function loadAttachment($data_id, $obid, $attachment_id)
     {
-        $data = $this->horde_cache->get(
+        $data = $this->_horde_cache->get(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
             0
         );
@@ -134,16 +125,14 @@ class Horde_Kolab_Storage_Cache
     /**
      * Store an attachment.
      *
-     * @param string   $data_id       ID of the data set.
-     * @param string   $obid          Object backend id.
-     * @param string   $attachment_id Attachment ID.
-     * @param resource $data          A stream opened to the attachment data.
-     *
-     * @return NULL
+     * @param string   $data_id        ID of the data set.
+     * @param string   $obid           Object backend id.
+     * @param string   $attachment_id  Attachment ID.
+     * @param resource $data           A stream opened to the attachment data.
      */
     public function storeAttachment($data_id, $obid, $attachment_id, $data)
     {
-        $this->horde_cache->set(
+        $this->_horde_cache->set(
             $this->_getAttachmentId($data_id, $obid, $attachment_id),
             (string)new Horde_Stream_Existing(array('stream' => $data)),
             0
@@ -156,12 +145,10 @@ class Horde_Kolab_Storage_Cache
      * @param string $data_id       ID of the data set.
      * @param string $obid          Object backend id.
      * @param string $attachment_id Attachment ID.
-     *
-     * @return NULL
      */
     public function deleteAttachment($data_id, $obid, $attachment_id)
     {
-        return $this->horde_cache->expire(
+        return $this->_horde_cache->expire(
             $this->_getAttachmentId($data_id, $obid, $attachment_id)
         );
     }
@@ -175,7 +162,7 @@ class Horde_Kolab_Storage_Cache
      */
     public function loadList($list_id)
     {
-        return $this->horde_cache->get($list_id, 0);
+        return $this->_horde_cache->get($list_id, 0);
     }
 
     /**
@@ -183,12 +170,10 @@ class Horde_Kolab_Storage_Cache
      *
      * @param string $list_id ID of the connection matching the list.
      * @param string $data          The data to be cached.
-     *
-     * @return NULL
      */
     public function storeList($list_id, $data)
     {
-        $this->horde_cache->set($list_id, $data, 0);
+        $this->_horde_cache->set($list_id, $data, 0);
     }
 
     /**
@@ -211,9 +196,9 @@ class Horde_Kolab_Storage_Cache
     /**
      * Compose the attachment key.
      *
-     * @param string $data_id       ID of the data set.
-     * @param string $obid          Object backend id.
-     * @param string $attachment_id Attachment ID.
+     * @param string $data_id        ID of the data set.
+     * @param string $obid           Object backend id.
+     * @param string $attachment_id  Attachment ID.
      *
      * @return string The attachment cache ID.
      */
@@ -226,8 +211,6 @@ class Horde_Kolab_Storage_Cache
 
     /**
      * Determine if a necessary parameter is set.
-     *
-     * @return NULL
      *
      * @throws Horde_Kolab_Storage_Exception In case the parameter is missing.
      */
