@@ -44,7 +44,7 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
      */
     public function synchronize($params = array())
     {
-        $timestamp_key = 'Kolab_History_Sync:'.$this->data->getId();
+        $timestamp_key = 'Kolab_History_Sync:'.$this->_data->getId();
 
         /**
          * Check if we need to do a full synchronization. If our stored 'last_sync'
@@ -57,14 +57,14 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
          */
         if (isset($params['last_sync']) &&
             ($params['last_sync'] === false ||
-             $params['last_sync'] > $this->history->getActionTimestamp($timestamp_key, 'sync')))
+             $params['last_sync'] > $this->_history->getActionTimestamp($timestamp_key, 'sync')))
         {
-            $folder_id = $this->data->getIdParameters();
+            $folder_id = $this->_data->getIdParameters();
             unset($folder_id['type']);
 
             Horde::log(sprintf('Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
                            $params['last_sync'],
-                           $this->history->getActionTimestamp($timestamp_key, 'sync'),
+                           $this->_history->getActionTimestamp($timestamp_key, 'sync'),
                            print_r($folder_id, true)), 'WARN');
 
             unset($params['changes']);
@@ -72,7 +72,7 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
         // Sync. Base class takes care of UIDVALIDITY changes.
         parent::synchronize($params);
         if (isset($params['current_sync'])) {
-            $this->history->log(
+            $this->_history->log(
                 $timestamp_key,
                 array('action' => 'sync', 'ts' => $params['current_sync']), true
             );
