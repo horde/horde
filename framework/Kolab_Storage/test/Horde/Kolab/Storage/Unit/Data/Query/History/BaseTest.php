@@ -307,18 +307,18 @@ extends Horde_Kolab_Storage_TestCase
         $this->assertEquals(true, $found_add);
     }
 
-    private function _getData()
+    protected function _getData()
     {
         return $this->_getFolder()->getData('INBOX/History');
     }
 
-    private function _getDataQuery()
+    protected function _getDataQuery()
     {
         return $this->_getData()
             ->getQuery(Horde_Kolab_Storage_Data::QUERY_HISTORY);
     }
 
-    private function _getFolder()
+    protected function _getFolder()
     {
         return $this->_getFolderBase(
             array(
@@ -336,7 +336,7 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
-    private function _getFolderBase($additional_folders)
+    protected function _getFolderBase($additional_folders)
     {
         $this->history = new Horde_History_Mock('test');
         return $this->getDataStorage(

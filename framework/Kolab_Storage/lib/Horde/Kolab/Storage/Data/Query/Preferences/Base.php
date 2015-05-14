@@ -33,14 +33,14 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
      *
      * @var Horde_Kolab_Storage_Data
      */
-    private $_data;
+    protected $_data;
 
     /**
      * The cached preference mapping.
      *
      * @var array
      */
-    private $_mapping;
+    protected $_mapping;
 
     /**
      * Constructor.

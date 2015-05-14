@@ -51,7 +51,7 @@ implements Horde_Kolab_Storage_Data_Query_History
      *
      * @var string Cached history prefix string
      */
-    private $_prefix;
+    protected $_prefix;
 
     /**
      * Constructor.
