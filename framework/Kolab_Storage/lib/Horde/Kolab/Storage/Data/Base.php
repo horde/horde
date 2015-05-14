@@ -218,6 +218,9 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $storage_object = new Horde_Kolab_Storage_Object();
         $storage_object->setDriver($this->_driver);
         $storage_object->setData($object);
+        if (empty($object['uid'])) {
+            $object['uid'] = $storage_object->getUid();
+        }
         $result = $storage_object->create($this->_folder, $writer, $this->getType());
 
         if ($result === true) {
