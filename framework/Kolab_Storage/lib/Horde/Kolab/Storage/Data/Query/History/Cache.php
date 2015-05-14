@@ -62,10 +62,12 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
             $folder_id = $this->_data->getIdParameters();
             unset($folder_id['type']);
 
-            Horde::log(sprintf('Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
-                           $params['last_sync'],
-                           $this->_history->getActionTimestamp($timestamp_key, 'sync'),
-                           print_r($folder_id, true)), 'WARN');
+            $this->_logger->debug(sprintf(
+                'Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
+                $params['last_sync'],
+                $this->_history->getActionTimestamp($timestamp_key, 'sync'),
+                print_r($folder_id, true))
+            );
 
             unset($params['changes']);
         }

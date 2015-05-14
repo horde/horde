@@ -54,6 +54,13 @@ implements Horde_Kolab_Storage_Data_Query_History
     protected $_prefix;
 
     /**
+     * The logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Data $data   The queriable data.
@@ -65,6 +72,17 @@ implements Horde_Kolab_Storage_Data_Query_History
     {
         $this->_data = $data;
         $this->_history = $params['factory']->createHistory($data->getAuth());
+        $this->_logger = new Horde_Support_Stub();
+    }
+
+    /**
+     * Set the logger
+     *
+     * @param Horde_Log_Logger $logger  The logger instance.
+     */
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**
@@ -95,7 +113,10 @@ implements Horde_Kolab_Storage_Data_Query_History
                     return;
                 }
 
-                Horde::log(sprintf('History: Incremental update for user: %s, folder: %s, prefix: %s', $user, $folder, $prefix), 'NOTICE');
+                $this->_logger->debug(sprintf(
+                    'History: Incremental update for user: %s, folder: %s, prefix: %s',
+                    $user, $folder, $prefix)
+                );
             }
 
             foreach ($added as $bid => $object) {
@@ -106,11 +127,16 @@ implements Horde_Kolab_Storage_Data_Query_History
                 // Otherwise we just deleted a duplicated object or updated the original one.
                 // (An update results in an ADDED + DELETED folder action)
                 if ($this->_data->objectIdExists($object_uid) == true) {
-                    Horde::log(sprintf('History: Object still existing: object: %s, vanished IMAP uid: %d. Skipping delete.', $object_uid, $bid), 'NOTICE');
+                    $this->_logger->debug(sprintf(
+                        'History: Object still existing: object: %s, vanished IMAP uid: %d. Skipping delete.',
+                        $object_uid, $bid)
+                    );
                     continue;
                 }
-
-                Horde::log(sprintf('History: Object deleted: uid: %d -> %s', $bid, $object_uid), 'NOTICE');
+                $this->_logger->debug(
+                    sprintf('History: Object deleted: uid: %d -> %s',
+                    $bid, $object_uid)
+                );
                 $this->_history->log(
                     $prefix.$object_uid, array('action' => 'delete', 'bid' => $bid), true
                 );
@@ -121,7 +147,10 @@ implements Horde_Kolab_Storage_Data_Query_History
                 return;
             }
 
-            Horde::log(sprintf('History: Full history sync for user: %s, folder: %s, is_reset: %d, prefix: %s', $user, $folder, $is_reset, $prefix), 'NOTICE');
+            $this->_logger->debug(sprintf(
+                'History: Full history sync for user: %s, folder: %s, is_reset: %d, prefix: %s',
+                $user, $folder, $is_reset, $prefix)
+            );
 
             // Full sync. Either our timestamp is too old
             // or the IMAP uidvalidity changed
@@ -160,7 +189,9 @@ implements Horde_Kolab_Storage_Data_Query_History
 
             $last = $this->_history->getLatestEntry($full_id);
             if ($last === false || $last['action'] != 'delete') {
-                Horde::log(sprintf('History: Cleaning up already removed object: %s', $full_id), 'NOTICE');
+                $this->_logger->debug(sprintf(
+                    'History: Cleaning up already removed object: %s', $full_id)
+                );
                 $this->_history->log(
                     $full_id, array('action' => 'delete'), true
                 );
@@ -184,7 +215,10 @@ implements Horde_Kolab_Storage_Data_Query_History
 
         $app = $this->_type2app($this->_data->getType());
         if (empty($app)) {
-            Horde::log('Unsupported app type: ' . $this->_data->getType(), 'WARN');
+            $this->_logger->warn(sprintf(
+                'Unsupported app type: %s',
+                $this->_data->getType())
+            );
             return '';
         }
 
@@ -206,7 +240,10 @@ implements Horde_Kolab_Storage_Data_Query_History
 
         // bail out if we are unable to determine the share id
         if (empty($share_id)) {
-            Horde::log(sprintf("share_id not found. Can't compute history prefix for user: %s, folder: %s", $user, $folder), 'ERR');
+            $this->_logger->err(sprintf(
+                'HISTORY: share_id not found. Can\'t compute history prefix for user: %s, folder: %s',
+                $user, $folder)
+            );
             return '';
         }
 
@@ -252,7 +289,10 @@ implements Horde_Kolab_Storage_Data_Query_History
         $last = $this->_history->getLatestEntry($object);
         if ($last === false) {
             // New, unknown object
-            Horde::log(sprintf('History: New object: %s, uid: %d', $object, $bid), 'NOTICE');
+            $this->_logger->debug(sprintf(
+                'History: New object: %s, uid: %d',
+                $object, $bid)
+            );
             $this->_history->log(
                 $object, array('action' => 'add', 'bid' => $bid), true
             );
@@ -261,14 +301,20 @@ implements Horde_Kolab_Storage_Data_Query_History
             // Objects can vanish and re-appear using the same object uid.
             // (a foreign client is sending an update over a slow link)
             if ($last['action'] == 'delete') {
-                Horde::log(sprintf('History: Re-adding previously deleted object: %s, uid: %d', $object, $bid), 'NOTICE');
+                $this->_logger->debug(sprintf(
+                    'History: Re-adding previously deleted object: %s, uid: %d',
+                    $object, $bid)
+                );
                 $this->_history->log(
                     $object, array('action' => 'add', 'bid' => $bid), true
                 );
             }
 
             if (!isset($last['bid']) || $last['bid'] != $bid || $force) {
-                Horde::log(sprintf('History: Modifying object: %s, uid: %d, force: %d', $object, $bid, $force), 'NOTICE');
+                $this->_logger->debug(sprintf(
+                    'History: Modifying object: %s, uid: %d, force: %d',
+                    $object, $bid, $force)
+                );
                 $this->_history->log(
                     $object, array('action' => 'modify', 'bid' => $bid), true
                 );
