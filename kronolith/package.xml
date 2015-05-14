@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-05-14</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -513,6 +513,7 @@
     <file name="22_kronolith_upgrade_parents.php" role="horde" />
     <file name="23_kronolith_upgrade_baseidindex.php" role="horde" />
     <file name="24_kronolith_upgrade_resourcestoshares.php" role="horde" />
+    <file name="25_kronolith_upgrade_typetocalendartype.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="resources">
     <dir name="groups">
@@ -1353,6 +1354,7 @@
    <install as="kronolith/migration/22_kronolith_upgrade_parents.php" name="migration/22_kronolith_upgrade_parents.php" />
    <install as="kronolith/migration/23_kronolith_upgrade_baseidindex.php" name="migration/23_kronolith_upgrade_baseidindex.php" />
    <install as="kronolith/migration/24_kronolith_upgrade_resourcestoshares.php" name="migration/24_kronolith_upgrade_resourcestoshares.php" />
+   <install as="kronolith/migration/25_kronolith_upgrade_typetocalendartype.php" name="migration/25_kronolith_upgrade_typetocalendartype.php" />
    <install as="kronolith/resources/create.php" name="resources/create.php" />
    <install as="kronolith/resources/delete.php" name="resources/delete.php" />
    <install as="kronolith/resources/edit.php" name="resources/edit.php" />
@@ -2558,7 +2560,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-04-20</date>
+   <date>2015-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Send event update notifications with HTML part.
