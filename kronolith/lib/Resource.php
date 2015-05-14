@@ -51,7 +51,7 @@ class Kronolith_Resource
         $share->set('desc', $info['desc']);
         $share->set('email', $info['email']);
         $share->set('response_type', $info['response_type']);
-        $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
+        $share->set('calendar_type', Kronolith::SHARE_TYPE_RESOURCE);
 
         if (!empty($info['group'])) {
             $share->set('isgroup', true);

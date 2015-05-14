@@ -59,6 +59,7 @@ abstract class Kronolith_Calendars_Base
         );
         $share->set('color', Kronolith::randomColor());
         $this->_prepareDefaultShare($share);
+        $share->set('calendar_type', Kronolith::SHARE_TYPE_USER);
         $this->_shares->addShare($share);
         return $share;
     }

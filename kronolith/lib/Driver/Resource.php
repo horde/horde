@@ -323,7 +323,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
             return false;
         }
 
-        return $share->get('type') == Kronolith::SHARE_TYPE_RESOURCE;
+        return $share->get('calendar_type') == Kronolith::SHARE_TYPE_RESOURCE;
     }
 
     /**
@@ -343,7 +343,7 @@ class Kronolith_Driver_Resource extends Kronolith_Driver
     {
         global $registry;
         $attributes = array_merge(
-            array('type' => Kronolith::SHARE_TYPE_RESOURCE),
+            array('calendar_type' => Kronolith::SHARE_TYPE_RESOURCE),
             $filter
         );
         $shares = $GLOBALS['injector']->getInstance('Kronolith_Shares')->listShares(

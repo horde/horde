@@ -44,7 +44,7 @@ class Kronolith_Shares
      * Returns an array of all shares that $userid has access to.
      *
      * By default returns only normal calendar shares, and not resource
-     * shares. Set $params['attributes']['type'] =
+     * shares. Set $params['attributes']['calendar_type'] =
      * Kronolith::SHARE_TYPE_RESOURCE to return resource shares.
      *
      * @param string $userid  The userid of the user to check access for. An
@@ -62,7 +62,7 @@ class Kronolith_Shares
      */
     public function listShares($userid, array $params = array())
     {
-        $attributes = array('type' => Kronolith::SHARE_TYPE_USER);
+        $attributes = array('calendar_type' => Kronolith::SHARE_TYPE_USER);
         if (!empty($params['attributes']) && !is_array($params['attributes'])) {
                 $attributes['owner'] = $params['attributes'];
                 $params['attributes'] = array();
@@ -93,7 +93,7 @@ class Kronolith_Shares
     {
         $shares = array();
         foreach ($this->_shares->listSystemShares() as $id => $calendar) {
-            if ($calendar->get('type') == Kronolith::SHARE_TYPE_USER) {
+            if ($calendar->get('calendar_type') == Kronolith::SHARE_TYPE_USER) {
                 $shares[$id] = $calendar;
             }
         }
@@ -105,7 +105,7 @@ class Kronolith_Shares
      *
      * By default, creates a new user calendar share and not a resource
      * share. To create a resource share, calling code must explicitly set the
-     * 'type' share attribute to Kronolith::SHARE_TYPE_RESOURCE
+     * 'calendar_type' share attribute to Kronolith::SHARE_TYPE_RESOURCE
      *
      * @param string $owner           The share owner name.
      * @param string $share_name      The share's name.
@@ -117,7 +117,7 @@ class Kronolith_Shares
     public function newShare($owner, $share_name = '', $name_attribute = '')
     {
         $share = $this->_shares->newShare($owner, $share_name, $name_attribute);
-        $share->set('type', Kronolith::SHARE_TYPE_USER);
+        $share->set('calendar_type', Kronolith::SHARE_TYPE_USER);
 
         return $share;
     }

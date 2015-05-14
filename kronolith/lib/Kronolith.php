@@ -1270,6 +1270,7 @@ class Kronolith
         if (!empty($info['system'])) {
             $calendar->set('owner', null);
         }
+        $calendar->set('calendar_type', Kronolith::SHARE_TYPE_USER);
         $tagger = self::getTagger();
         $tagger->tag(
             $calendar->getName(),

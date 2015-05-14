@@ -63,7 +63,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
             $share->set('desc', $columns['resource_description']->binaryToString($row['resource_description']));
             $share->set('email', $row['resource_email']);
             $share->set('response_type', $row['resource_response_type']);
-            $share->set('type', Kronolith::SHARE_TYPE_RESOURCE);
+            $share->set('calendar_type', Kronolith::SHARE_TYPE_RESOURCE);
             $share->set('isgroup', $row['resource_type'] == 'Group');
             $share->set('members', $columns['resource_members']->binaryToString($row['resource_members']));
 
@@ -87,7 +87,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
 
         $resources = $shares->listAllShares();
         foreach ($resources as $resource) {
-            if ($resource->get('type') == Kronolith::SHARE_TYPE_RESOURCE) {
+            if ($resource->get('calendar_type') == Kronolith::SHARE_TYPE_RESOURCE) {
                 $shares->removeShare($resource);
             }
         }
