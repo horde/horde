@@ -408,6 +408,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
      * @param Horde_Mime_Part $structure The MIME message structure of the object.
      *
      * @return boolean|string The return value of the append operation.
+     * @throws Horde_Kolab_Storage_Object_Exception
      */
     public function save(Horde_Kolab_Storage_Object_Writer $data)
     {

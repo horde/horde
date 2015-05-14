@@ -32,8 +32,6 @@ interface Horde_Kolab_Storage_Queriable
      *
      * @param string                    $name  The query name.
      * @param Horde_Kolab_Storage_Query $query The query to register.
-     *
-     * @return NULL
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query);
 

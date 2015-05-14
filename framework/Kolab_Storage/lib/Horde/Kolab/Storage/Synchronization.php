@@ -32,7 +32,7 @@ class Horde_Kolab_Storage_Synchronization
      *
      * @var Horde_Kolab_Storage_Synchronization
      */
-    private $_strategy;
+    protected $_strategy;
 
     /**
      * Constructor.

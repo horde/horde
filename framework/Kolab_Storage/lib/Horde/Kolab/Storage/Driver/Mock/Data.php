@@ -423,4 +423,5 @@ implements ArrayAccess
             unset($this->_selected['mails'][$uid]);
         }
     }
+
 }
