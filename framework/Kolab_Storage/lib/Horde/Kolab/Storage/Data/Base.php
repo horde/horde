@@ -69,6 +69,13 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     private $_queries = array();
 
     /**
+     * Logger instance, or stub.
+     *
+     * @var Horde_Log_Logger | Horde_Support_Stub
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Folder  $folder  The folder to retrieve the
@@ -91,6 +98,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $this->_factory = $factory;
         $this->_type    = $type;
         $this->_version = $version;
+    }
+
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        $this->_logger = $logger;
     }
 
     /**

@@ -55,6 +55,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     {
         $this->_data = $data;
         $this->_logger = $logger;
+        $this->_data->setLogger($logger);
     }
 
     public function __call($method, $args)

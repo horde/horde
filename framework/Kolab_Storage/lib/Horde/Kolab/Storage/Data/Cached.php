@@ -43,13 +43,6 @@ extends Horde_Kolab_Storage_Data_Base
     private $_init = false;
 
     /**
-     * Logger instance, or stub.
-     *
-     * @var Horde_Log_Logger | Horde_Support_Stub
-     */
-    protected $_logger;
-
-    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Folder  $folder   The folder to retrieve the
@@ -234,8 +227,8 @@ extends Horde_Kolab_Storage_Data_Base
      */
     public function synchronize($params = array())
     {
-        $this->_logger = !empty($params['logger'])
-            ? $params['logger']
+        $this->_logger = !empty($this->_logger)
+            ? $this->_logger
             : new Horde_Support_Stub();
 
         // For logging
