@@ -66,13 +66,20 @@ extends Horde_Kolab_Storage_Base
                                    $object_type = null,
                                    $data_version = 1)
     {
-        return new Horde_Kolab_Storage_Data_Base(
+        $data = new Horde_Kolab_Storage_Data_Base(
             $folder,
             $master,
             $factory,
             $object_type,
             $data_version
         );
+
+        if (!empty($this->_logger)) {
+            return new Horde_Kolab_Storage_Data_Decorator_Log(
+                $data, $this->_logger);
+        }
+
+        return $data;
     }
 
 }

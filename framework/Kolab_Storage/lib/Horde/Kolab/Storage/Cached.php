@@ -51,7 +51,7 @@ extends Horde_Kolab_Storage_Base
                                    $object_type = null,
                                    $data_version = 1)
     {
-        return new Horde_Kolab_Storage_Data_Cached(
+        $data = new Horde_Kolab_Storage_Data_Cached(
             $folder,
             $master,
             $factory,
@@ -59,5 +59,12 @@ extends Horde_Kolab_Storage_Base
             $object_type,
             $data_version
         );
+
+        if (!empty($this->_logger)) {
+            return new Horde_Kolab_Storage_Data_Decorator_Log(
+                $data, $this->_logger);
+        }
+
+        return $data;
     }
 }

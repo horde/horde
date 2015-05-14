@@ -40,7 +40,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      *
      * @var mixed
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Constructor.

@@ -43,6 +43,13 @@ extends Horde_Kolab_Storage_Data_Base
     private $_init = false;
 
     /**
+     * Logger instance, or stub.
+     *
+     * @var Horde_Log_Logger | Horde_Support_Stub
+     */
+    protected $_logger;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Folder  $folder   The folder to retrieve the

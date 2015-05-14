@@ -61,14 +61,14 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Additional parameters.
      *
      * @var array
      */
-    private $_params;
+    protected $_params;
 
     /**
      * List instances.
@@ -92,7 +92,7 @@ implements Horde_Kolab_Storage
      * @param Horde_Kolab_Storage_QuerySet $query_set  The query handler.
      * @param Horde_Kolab_Storage_Factory  $factory    The factory.
      * @param Horde_Kolab_Storage_Cache    $cache      The cache.
-     * @param Horde_Log_Logger             $logger  A logger.
+     * @param Horde_Log_Logger             $logger     A logger.
      * @param array                        $params     Additional parameters.
      */
     public function __construct(Horde_Kolab_Storage_Driver $master,
