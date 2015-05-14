@@ -240,7 +240,7 @@ extends Horde_Kolab_Storage_Data_Base
         $current = $this->getStamp();
 
         if (!$this->_data_cache->isInitialized()) {
-            $this->_logger->notice(sprintf(
+            $this->_logger->debug(sprintf(
                 'Initial folder sync: user: %s, folder: %s',
                 $user,
                 $folder_path)
@@ -252,12 +252,9 @@ extends Horde_Kolab_Storage_Data_Base
         $previous = unserialize($this->_data_cache->getStamp());
 
         // check if UIDVALIDITY changed
-        $is_reset = false;
-        if ($previous !== false)
-            $is_reset = $previous->isReset($current);
-
-        if ($previous === false || $is_reset) {
-            $this->_completeSynchronization($current, array('is_reset' => $is_reset));
+        if ($previous === false || $previous->isReset($current)) {
+            $this->_logger->debug(sprintf("Complete folder sync: user: %s, folder: %s, is_reset: %d", $user, $folder_path, $is_reset));
+            $this->_completeSynchronization($current);
             return;
         }
 
@@ -289,7 +286,7 @@ extends Horde_Kolab_Storage_Data_Base
                 foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $uid => $object_uid) {
                     $changes_to_log['del'][$uid] = $object_uid;
                 }
-                $this->_logger->notice(sprintf(
+                $this->_logger->debug(sprintf(
                     'Incremental folder sync: user: %s, folder: %s, last_sync: %d, current_sync: %d, changes: %s',
                     $user,
                     $folder_path,
@@ -324,7 +321,7 @@ extends Horde_Kolab_Storage_Data_Base
 
         // logging
         $uids_to_log = array_keys($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED]);
-        $this->_logger->notice(sprintf(
+        $this->_logger->debug(sprintf(
             'Full folder sync details: user: %s, folder: %s, uids: %s',
             $this->getAuth(),
             $this->getPath(),
