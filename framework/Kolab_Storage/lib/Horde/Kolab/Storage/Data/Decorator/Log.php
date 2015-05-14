@@ -57,6 +57,16 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         $this->_logger = $logger;
     }
 
+    public function __call($method, $args)
+    {
+        if (!is_callable(array($this->_data, $method))) {
+            throw new InvalidArgumentException(sprintf(
+                'Invalid method call: %s in Horde_Kolab_Storage_Data_Decorator_Log.',
+                $method));
+        }
+        return call_user_func_array(array($this->_data, $method), $args);
+    }
+
     /**
      * Return the folder path for this data handler.
      *
