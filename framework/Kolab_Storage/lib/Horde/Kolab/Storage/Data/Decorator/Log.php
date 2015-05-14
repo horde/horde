@@ -163,6 +163,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             sprintf('Creating new data object in %s.', $this->_data->getPath())
         );
         $result = $this->_data->create($object, $raw);
+
         $this->_logger->debug(
             sprintf(
                 'Created data object %s in %s [backend: %s].',
@@ -188,13 +189,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function modify($object, $raw = false)
     {
-        $this->_logger->debug(
-            sprintf(
-                'Modifying data object %s in %s.',
-                $object['uid'],
-                $this->_data->getPath()
-            )
-        );
         $this->_data->modify($object, $raw);
         $this->_logger->debug(
             sprintf(
