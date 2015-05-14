@@ -224,22 +224,43 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Synchronize the query data with the information from the backend.
      *
-     * @param array $params Additional parameters.
+     * @see  Horde_Kolab_Storage_Query
+     *
+     * In addition to the parameters of the base class(es), the following may
+     * be passed as well:
+     *   - logger: (Horde_Log_Logger)  A logger instance.
      *
      * @return NULL
      */
     public function synchronize($params = array())
     {
+        $this->_logger = !empty($params['logger'])
+            ? $params['logger']
+            : new Horde_Support_Stub();
+
+        // For logging
+        $user = $this->getAuth();
+        $folder_path = $this->getPath();
+
         $current = $this->getStamp();
+
         if (!$this->_data_cache->isInitialized()) {
+            $this->_logger->notice(sprintf(
+                'Initial folder sync: user: %s, folder: %s',
+                $user,
+                $folder_path)
+            );
             $this->_completeSynchronization($current);
             return;
         }
+
         $previous = unserialize($this->_data_cache->getStamp());
         if ($previous === false || $previous->isReset($current)) {
+            $this->_logger->notice(sprintf("Complete folder sync: user: %s, folder: %s, is_reset: %d", $user, $folder_path, $is_reset));
             $this->_completeSynchronization($current);
             return;
         }
+
         if (!isset($params['changes'])) {
             $changes = $previous->getChanges($current);
             $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = $this->fetch(
@@ -258,6 +279,27 @@ extends Horde_Kolab_Storage_Data_Base
                 $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED]
             );
             $params['current_sync'] = $this->_data_cache->getLastSync();
+
+            if (!empty($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED]) ||
+                !empty($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED])) {
+                $changes_to_log = array('add' => array(), 'del' => array());
+                foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $uid => $object) {
+                    $changes_to_log['add'][$uid] = $object['uid'];
+                }
+                foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $uid => $object_uid) {
+                    $changes_to_log['del'][$uid] = $object_uid;
+                }
+                $this->_logger->notice(sprintf(
+                    'Incremental folder sync: user: %s, folder: %s, last_sync: %d, current_sync: %d, changes: %s',
+                    $user,
+                    $folder_path,
+                    $params['last_sync'],
+                    $params['current_sync'],
+                    print_r($changes_to_log, true))
+                );
+            }
+
+
             parent::synchronize($params);
             $this->_data_cache->save();
         }
@@ -279,6 +321,16 @@ extends Horde_Kolab_Storage_Data_Base
         $ids = $stamp->ids();
         $params['last_sync'] = false;
         $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] = empty($ids) ? array() : $this->fetch($ids);
+
+        // logging
+        $uids_to_log = array_keys($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED]);
+        $this->_logger->notice(sprintf(
+            'Full folder sync details: user: %s, folder: %s, uids: %s',
+            $this->getAuth(),
+            $this->getPath(),
+            implode(', ', $uids_to_log))
+        );
+
         $this->_data_cache->store(
             $params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED],
             $stamp,

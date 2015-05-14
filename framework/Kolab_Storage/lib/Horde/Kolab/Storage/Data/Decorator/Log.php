@@ -517,12 +517,17 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Synchronize the list information with the information from the backend.
      *
-     * @param array $params Additional parameters.
+     * @see  Horde_Kolab_Storage_Query
      *
      * @return NULL
      */
     public function synchronize($params = array())
     {
+        $params = array_merge(
+            array('logger' => $this->_logger),
+            $params
+        );
+
         $this->_data->synchronize($params);
         $this->_logger->debug(
             sprintf(

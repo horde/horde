@@ -61,7 +61,9 @@ implements Horde_Kolab_Storage_Data_Query_History
      * Synchronize the preferences information with the information from the
      * backend.
      *
-     * @param array $params Additional parameters.
+     * @param array $params Additional parameters:
+     *   - changes: (array)  An array of arrays keyed by backend id containing
+     *                       information about each change.
      *
      * @return NULL
      */
