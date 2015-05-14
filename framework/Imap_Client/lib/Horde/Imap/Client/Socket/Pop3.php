@@ -64,6 +64,7 @@
  *   - RFC 3206: AUTH/SYS response codes
  *   - RFC 4616: AUTH=PLAIN
  *   - RFC 5034: POP3 SASL
+ *   - RFC 5802: AUTH=SCRAM-SHA-1
  *   - RFC 6856: UTF8, LANG
  * </pre>
  *
@@ -466,6 +467,50 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $this->_sendLine('PASS ' . $password, array(
                 'debug' => 'PASS [Password]'
             ));
+            break;
+
+        case 'SCRAM-SHA-1':
+            $scram = new Horde_Imap_Client_Auth_Scram(
+                $username,
+                $password,
+                'SHA1'
+            );
+
+            $c1 = $this->_sendLine(
+                'AUTH ' . $method . ' ' . base64_encode($scram->getClientFirstMessage())
+            );
+
+            $sr1 = base64_decode(substr($c1['resp'], 2));
+            if (!$scram->parseServerFirstMessage($sr1)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+            }
+
+            $c2 = $this->_sendLine(
+                base64_encode($scram->getClientFinalMessage())
+            );
+
+            $sr2 = base64_decode(substr($c2['resp'], 2));
+            if (!$scram->parseServerFirstMessage($sr)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Authentication failed."),
+                    Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED
+                );
+
+                /* This means authentication passed, according to the server,
+                 * but the server signature is incorrect. This indicates that
+                 * server verification has failed. Immediately disconnect from
+                 * the server, since this is a possible security issue. */
+                $this->logout();
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::r("Server failed verification check."),
+                    Horde_Imap_Client_Exception::LOGIN_SERVER_VERIFICATION_FAILED
+                );
+            }
+
+            $this->_sendLine('');
             break;
 
         default:

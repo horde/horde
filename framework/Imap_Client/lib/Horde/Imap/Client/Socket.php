@@ -55,6 +55,7 @@
  *   - RFC 5267: ESORT; PARTIAL search return option
  *   - RFC 5464: METADATA
  *   - RFC 5530: IMAP Response Codes
+ *   - RFC 5802: AUTH=SCRAM-SHA-1
  *   - RFC 5819: LIST-STATUS
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
@@ -438,7 +439,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['XOAUTH2']);
 
-            /* 'PLAIN' authentication always exists if under TLS (RFC
+            /* 'AUTH=PLAIN' authentication always exists if under TLS (RFC
              *  3501 [7.2.1]; RFC 2595). Use it over all other authentication
              *  methods, although we need to do sanity checking since broken
              *  IMAP servers may not support as required - fallback to
@@ -452,6 +453,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
 
+            // Check for supported SCRAM AUTH mechanisms. Preferred because it
+            // provides verificaion of server authenticity.
+            foreach (array_keys($auth) as $key) {
+                switch ($key) {
+                case 'SCRAM-SHA-1':
+                    $auth_mech[] = $key;
+                    unset($auth[$key]);
+                    break;
+                }
+            }
+
+            // Check for supported CRAM AUTH mechanisms.
+            foreach (array_keys($auth) as $key) {
+                switch ($key) {
+                case 'CRAM-SHA1':
+                case 'CRAM-SHA256':
+                    $auth_mech[] = $key;
+                    unset($auth[$key]);
+                    break;
+                }
+            }
+
             // Prefer CRAM-MD5 over DIGEST-MD5, as the latter has been
             // obsoleted (RFC 6331).
             if (isset($auth['CRAM-MD5'])) {
@@ -461,8 +484,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
             unset($auth['CRAM-MD5'], $auth['DIGEST-MD5']);
 
-            // Fall back to 'LOGIN' if available.
+            // Add other auth mechanisms.
             $auth_mech = array_merge($auth_mech, array_keys($auth));
+
+            // Fall back to 'LOGIN' if available.
             if (!$secure && !$this->_capability('LOGINDISABLED')) {
                 $auth_mech[] = 'LOGIN';
             }
@@ -640,8 +665,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $username = $this->getParam('username');
         $password = $this->getParam('password');
 
-        $authenticate_cmd = false;
-
         switch ($method) {
         case 'CRAM-MD5':
         case 'CRAM-SHA1':
@@ -649,8 +672,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // RFC 2195: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
 
-            // Need $args because PHP 5.3 doesn't allow access to $this in
-            // anonymous functions.
             $args = array(
                 $username,
                 Horde_String::lower(substr($method, 5)),
@@ -738,18 +759,78 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 2595/4616 - PLAIN SASL mechanism
-            $auth = base64_encode(implode("\0", array(
+            $cmd = $this->_authInitialResponse(
+                $method,
+                base64_encode(implode("\0", array(
+                    $username,
+                    $username,
+                    $password
+                ))),
+                $username
+            );
+            break;
+
+        case 'SCRAM-SHA-1':
+            $scram = new Horde_Imap_Client_Auth_Scram(
                 $username,
-                $username,
-                $password
-            )));
-            $authenticate_cmd = true;
+                $password,
+                'SHA1'
+            );
+
+            $cmd = $this->_authInitialResponse(
+                $method,
+                base64_encode($scram->getClientFirstMessage())
+            );
+
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($scram) {
+                    $sr1 = base64_decode($ob->token->current());
+                    return new Horde_Imap_Client_Data_Format_List(
+                        $scram->parseServerFirstMessage($sr1)
+                            ? base64_encode($scram->getClientFinalMessage())
+                            : '*'
+                    );
+                })
+            );
+
+            $self = $this;
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($scram, $self) {
+                    $sr2 = base64_decode($ob->token->current());
+                    if (!$scram->parseServerFinalMessage($sr2)) {
+                        /* This means authentication passed, according to the
+                         * server, but the server signature is incorrect.
+                         * This indicates that server verification has failed.
+                         * Immediately disconnect from the server, since this
+                         * is a possible security issue. */
+                        $self->logout();
+                        throw new Horde_Imap_Client_Exception(
+                            Horde_Imap_Client_Translation::r("Server failed verification check."),
+                            Horde_Imap_Client_Exception::LOGIN_SERVER_VERIFICATION_FAILED
+                        );
+                    }
+
+                    return new Horde_Imap_Client_Data_Format_List();
+                })
+            );
             break;
 
         case 'XOAUTH2':
             // Google XOAUTH2
-            $auth = $this->getParam('xoauth2_token');
-            $authenticate_cmd = true;
+            $cmd = $this->_authInitialResponse(
+                $method,
+                $this->getParam('xoauth2_token')
+            );
+
+            /* This is an optional command continuation. XOAUTH2 will return
+             * error information in continuation response. */
+            $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(
+                function($ob) {
+                    return new Horde_Imap_Client_Data_Format_List();
+                }
+            );
+            $error_continuation->optional = true;
+            $cmd->add($error_continuation);
             break;
 
         default:
@@ -761,35 +842,46 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        if ($authenticate_cmd) {
-            $cmd = $this->_command('AUTHENTICATE')->add($method);
+        return $this->_sendCmd($this->_pipeline($cmd));
+    }
 
-            if ($this->_capability('SASL-IR')) {
-                // IMAP Extension for SASL Initial Client Response (RFC 4959)
-                $cmd->add($auth);
+    /**
+     * Create the AUTHENTICATE command for the initial client response.
+     *
+     * @param string $method    AUTHENTICATE SASL method.
+     * @param string $ir        Initial client response.
+     * @param string $username  If set, log a username message in debug log
+     *                          instead of raw data.
+     *
+     * @return Horde_Imap_Client_Interaction_Command  A command object.
+     */
+    protected function _authInitialResponse($method, $ir, $username = null)
+    {
+        $cmd = $this->_command('AUTHENTICATE')->add($method);
+
+        if ($this->_capability('SASL-IR')) {
+            // IMAP Extension for SASL Initial Client Response (RFC 4959)
+            $cmd->add($ir);
+            if ($username) {
                 $cmd->debug = array(
                     sprintf('AUTHENTICATE %s [INITIAL CLIENT RESPONSE (username: %s)]', $method, $username)
                 );
-            } else {
-                $cmd->add(new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($auth) {
-                    return new Horde_Imap_Client_Data_Format_List($auth);
-                }));
+            }
+        } else {
+            $cmd->add(
+                new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) use ($ir) {
+                    return new Horde_Imap_Client_Data_Format_List($ir);
+                })
+            );
+            if ($username) {
                 $cmd->debug = array(
                     null,
                     sprintf('[INITIAL CLIENT RESPONSE (username: %s)]', $username)
                 );
             }
-
-            /* This is an optional command continuation. E.g. XOAUTH2 will
-             * return error information in continuation response. */
-            $error_continuation = new Horde_Imap_Client_Interaction_Command_Continuation(function($ob) {
-                return new Horde_Imap_Client_Data_Format_List();
-            });
-            $error_continuation->optional = true;
-            $cmd->add($error_continuation);
         }
 
-        return $this->_sendCmd($this->_pipeline($cmd));
+        return $cmd;
     }
 
     /**

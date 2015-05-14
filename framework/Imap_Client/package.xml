@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-05-12</date>
+ <date>2015-05-15</date>
  <version>
-  <release>2.28.2</release>
-  <api>2.28.0</api>
+  <release>2.29.0</release>
+  <api>2.29.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add support for SCRAM-SHA-1 authentication (RFC 5802) for both IMAP and POP3 drivers.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,6 +45,7 @@
       <dir name="Client">
        <dir name="Auth">
         <file name="DigestMD5.php" role="php" />
+        <file name="Scram.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
         <file name="Alerts.php" role="php" />
@@ -364,6 +365,7 @@
        <dir name="Stub">
         <file name="ClientSort.php" role="test" />
         <file name="DigestMD5.php" role="test" />
+        <file name="Scram.php" role="test" />
         <file name="Socket.php" role="test" />
         <file name="Utf7imap.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Stub -->
@@ -493,6 +495,13 @@
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Crypt_Blowfish</name>
+    <channel>pear.horde.org</channel>
+    <min>1.1.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -568,6 +577,7 @@
    <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Auth/Scram.php" name="lib/Horde/Imap/Client/Auth/Scram.php" />
    <install as="Horde/Imap/Client/Base/Alerts.php" name="lib/Horde/Imap/Client/Base/Alerts.php" />
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
@@ -738,6 +748,7 @@
    <install as="Horde/Imap/Client/Socket/ClientSortTest.php" name="test/Horde/Imap/Client/Socket/ClientSortTest.php" />
    <install as="Horde/Imap/Client/Stub/ClientSort.php" name="test/Horde/Imap/Client/Stub/ClientSort.php" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Stub/Scram.php" name="test/Horde/Imap/Client/Stub/Scram.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/Utf7imap.php" name="test/Horde/Imap/Client/Stub/Utf7imap.php" />
    <install as="Horde/Imap/Client/Url/BaseTest.php" name="test/Horde/Imap/Client/Url/BaseTest.php" />
@@ -2882,15 +2893,15 @@
   </release>
   <release>
    <version>
-    <release>2.28.2</release>
-    <api>2.28.0</api></version>
+    <release>2.29.0</release>
+    <api>2.29.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-05-11</date>
+   <date>2015-05-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add support for SCRAM-SHA-1 authentication (RFC 5802) for both IMAP and POP3 drivers.
    </notes>
   </release>
  </changelog>

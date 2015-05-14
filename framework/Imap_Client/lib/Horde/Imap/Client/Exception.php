@@ -199,6 +199,11 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
      */
     const LOGIN_PRIVACYREQUIRED = 106;
 
+    /**
+     * Server verification failed (SCRAM authentication).
+     */
+    const LOGIN_SERVER_VERIFICATION_FAILED = 107;
+
 
     // Mailbox access failures
 

@@ -11,6 +11,16 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.29.0
+===================
+
+SCRAM-SHA-1 authentication is now supported by both the IMAP and POP3 drivers.
+
+  - Horde_Imap_Client_Auth_Scram
+
+    This class has been added.
+
+
 Upgrading to 2.28.0
 ===================
 
