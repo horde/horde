@@ -179,11 +179,8 @@ class Horde_Kolab_Storage_Factory
             $driver = new Horde_Kolab_Storage_Driver_Decorator_Log(
                 $driver, $params['logger']
             );
-            //$parser->setLogger($params['logger']);
         }
-        /* if (!empty($params['ignore_parse_errors'])) { */
-        /*     $parser->setLogger(false); */
-        /* } */
+
         if (isset($this->_params['log'])
             && (in_array('debug', $this->_params['log'])
                 || in_array('driver_time', $this->_params['log']))) {
