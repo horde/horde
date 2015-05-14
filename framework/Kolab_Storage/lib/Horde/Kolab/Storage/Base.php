@@ -33,21 +33,21 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_master;
+    protected $_master;
 
     /**
      * The query handler.
      *
      * @var Horde_Kolab_Storage_QuerySet
      */
-    private $_query_set;
+    protected $_query_set;
 
     /**
      * The factory for generating additional resources.
      *
      * @var Horde_Kolab_Storage_Factory
      */
-    private $_factory;
+    protected $_factory;
 
     /**
      * The cache.
@@ -75,14 +75,14 @@ implements Horde_Kolab_Storage
      *
      * @var array
      */
-    private $_lists;
+    protected $_lists;
 
     /**
      * Data instances.
      *
      * @var array
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Constructor.
