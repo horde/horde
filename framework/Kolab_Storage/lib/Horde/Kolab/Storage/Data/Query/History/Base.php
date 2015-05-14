@@ -58,11 +58,13 @@ implements Horde_Kolab_Storage_Data_Query_History
      *
      * @param Horde_Kolab_Storage_Data $data   The queriable data.
      * @param array                    $params Additional parameters.
+     *   - factory:  (Horde_Kolab_Storage_Factory)  The factory object.
+     *
      */
     public function __construct(Horde_Kolab_Storage_Data $data, $params)
     {
         $this->_data = $data;
-        $this->_history = $this->factory->createHistory($data->getAuth());
+        $this->_history = $params['factory']->createHistory($data->getAuth());
     }
 
     /**
