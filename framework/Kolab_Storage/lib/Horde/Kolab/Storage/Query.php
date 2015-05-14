@@ -30,7 +30,11 @@ interface Horde_Kolab_Storage_Query
     /**
      * Synchronize the query data with the information from the backend.
      *
-     * @param array $params Additional parameters.
+     * @param array $params Additional parameters may contain:
+     *   - current_sync: (integer) Timestamp of the current sync.
+     *   - last_sync:    (integer) Timestamp containing the time of last sync.
+     *   - changes:      (array)   An array of arrays keyed by backend id
+     *                             containing information about each change.
      *
      * @return NULL
      */
