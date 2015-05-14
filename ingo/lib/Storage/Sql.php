@@ -261,10 +261,12 @@ class Ingo_Storage_Sql extends Ingo_Storage
         case self::STORE_ADD:
             try {
                 $query = sprintf(
-                    'SELECT MAX(rule_order) FROM %s',
+                    'SELECT MAX(rule_order) FROM %s WHERE rule_owner = ?',
                     $this->_params['table_rules']
                 );
-                $max = $this->_params['db']->selectValue($query);
+                $values = array(Ingo::getUser());
+
+                $max = $this->_params['db']->selectValue($query, $values);
             } catch (Horde_Db_Exception $e) {
                 throw new Ingo_Exception($e);
             }
