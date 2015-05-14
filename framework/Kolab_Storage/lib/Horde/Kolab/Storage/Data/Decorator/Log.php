@@ -68,6 +68,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         return call_user_func_array(array($this->_data, $method), $args);
     }
 
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+        // noop. Needed to satisfy the interface.
+    }
+
     /**
      * Return the folder path for this data handler.
      *

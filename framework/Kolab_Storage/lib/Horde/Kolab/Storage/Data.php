@@ -253,4 +253,11 @@ extends Horde_Kolab_Storage_Queriable
      * @return NULL
      */
     public function deleteBackendIds($uids);
+
+    /**
+     * Set a logger.
+     *
+     * @param Horde_Log_Logger $logger  The logger instance.
+     */
+    public function setLogger(Horde_Log_Logger $logger);
 }
