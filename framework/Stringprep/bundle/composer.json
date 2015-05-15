@@ -8,5 +8,10 @@
     "minimum-stability": "dev",
     "require-dev": {
         "znerol/php-stringprep": "*"
+    },
+    "autoload": {
+        "classmap": [
+            "vendor/znerol/php-stringprep/Znerol/Component/Stringprep/RFC3454"
+        ]
     }
 }
