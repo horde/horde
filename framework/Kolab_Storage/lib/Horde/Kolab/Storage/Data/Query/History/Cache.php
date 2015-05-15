@@ -39,8 +39,6 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
      *   - last_sync:    (integer) Timestamp containing the time of last sync.
      *   - changes:      (array)   An array of arrays keyed by backend id
      *                             containing information about each change.
-     *
-     * @return NULL
      */
     public function synchronize($params = array())
     {
@@ -80,4 +78,5 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
             );
         }
     }
+
 }

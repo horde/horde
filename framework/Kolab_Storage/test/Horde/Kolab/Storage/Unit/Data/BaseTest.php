@@ -384,7 +384,7 @@ extends Horde_Kolab_Storage_TestCase
         $object = $data->getObject('UID');
         $this->assertEquals('modified', $object['summary']);
     }
-     
+
     public function testDuplicatesAddedObjects()
     {
         $data = $this->getMessageStorage()->getData('INBOX/Notes');
