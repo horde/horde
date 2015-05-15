@@ -114,4 +114,10 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
     public function synchronize($params = array())
     {
     }
+
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+
+    }
+
 }

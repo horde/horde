@@ -133,4 +133,10 @@ implements Horde_Kolab_Storage_Data_Query_Preferences
         }
         $this->_data_cache->setQuery(self::PREFS, $this->_mapping);
     }
+
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+
+    }
+
 }

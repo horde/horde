@@ -15,4 +15,9 @@ implements Horde_Kolab_Storage_Data_Query
     {
         $this->synchronized = true;
     }
+
+    public function setLogger(Horde_Log_Logger $logger)
+    {
+
+    }
 }

@@ -28,5 +28,6 @@
 interface Horde_Kolab_Storage_Data_Query
 extends Horde_Kolab_Storage_Query
 {
+    public function setLogger(Horde_Log_Logger $logger);
 }
 
