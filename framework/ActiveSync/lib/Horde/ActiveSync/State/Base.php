@@ -422,7 +422,7 @@ abstract class Horde_ActiveSync_State_Base
                 !empty($options['ping']),
                 $this->_folder->haveInitialSync,
                 !empty($options['maxitems']) ? $options['maxitems'] : 100,
-                !empty($this->_collection['soft'])
+                !empty($this->_collection['forcerefresh'])
             );
 
             // Only update the folderstate if we are not PINGing.

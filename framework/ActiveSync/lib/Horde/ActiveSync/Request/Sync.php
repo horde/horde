@@ -858,7 +858,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 $this->_logger->info(sprintf(
                     '[%s] Found updated filtertype, will force a SOFTDELETE.', $this->_procid));
-                $collection['soft'] = true;
+                $collection['forcerefresh'] = true;
             }
 
             try {
