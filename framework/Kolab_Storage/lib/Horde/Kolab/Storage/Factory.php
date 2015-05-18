@@ -28,7 +28,7 @@ class Horde_Kolab_Storage_Factory
      *
      * @var array
      */
-    private $_params;
+    protected $_params;
 
     /**
      * Stores the driver once created.
@@ -38,7 +38,7 @@ class Horde_Kolab_Storage_Factory
      *
      * @var Horde_Kolab_Storage_Driver
      */
-    private $_driver;
+    protected $_driver;
 
     /**
      * Constructor.
@@ -256,6 +256,25 @@ class Horde_Kolab_Storage_Factory
             return $this->_params['history'];
         }
         return new Horde_History_Mock($user);
+    }
+
+    /**
+     * Create a prefix factory.
+     *
+     * @todo This should probably be implemented by decorating/wrapping the
+     *       Horde_History object but that can't be done in a clean BC way
+     *       until Horde 6. So, until then implement a
+     *       Horde_Kolab_Storage_History_Prefix interface.
+     *
+     * @return Horde_Kolab_Storage_HistoryPrefix|Horde_Support_Stub
+     */
+    public function getHistoryPrefixGenerator()
+    {
+        if (isset($this->_params['history_prefix_generator'])) {
+            return $this->_params['history_prefix_generator'];
+        }
+
+        return new Horde_Support_Stub();
     }
 
     public function getDriver()

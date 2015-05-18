@@ -47,18 +47,18 @@ implements Horde_Kolab_Storage_Data_Query_History
     protected $_history;
 
     /**
-     * The precomputed history prefix
-     *
-     * @var string Cached history prefix string
-     */
-    protected $_prefix;
-
-    /**
      * The logger
      *
      * @var Horde_Log_Logger
      */
     protected $_logger;
+
+    /**
+     * The Kolab factory.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    protected $_factory;
 
     /**
      * Constructor.
@@ -73,6 +73,7 @@ implements Horde_Kolab_Storage_Data_Query_History
         $this->_data = $data;
         $this->_history = $params['factory']->createHistory($data->getAuth());
         $this->_logger = new Horde_Support_Stub();
+        $this->_factory = $params['factory'];
     }
 
     /**
@@ -107,10 +108,8 @@ implements Horde_Kolab_Storage_Data_Query_History
             $deleted = $params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED];
 
             if (!empty($added) || !empty($deleted)) {
-                $prefix = $this->_constructHistoryPrefix();
-                // Abort history update if we can't determine the prefix.
-                // Otherwise we pollute the database with useless entries.
-                if (empty($prefix)) {
+                if (!$prefix = $this->_factory->getHistoryPrefixGenerator()->getPrefix($this->_data)) {
+                    // Abort history update if we can't determine the prefix.
                     return;
                 }
                 $this->_logger->debug(sprintf(
@@ -120,7 +119,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             }
 
             foreach ($added as $bid => $object) {
-                $this->_updateLog($prefix.$object['uid'], $bid);
+                $this->_updateLog($prefix . $object['uid'], $bid);
             }
 
             foreach ($deleted as $bid => $object_uid) {
@@ -145,8 +144,7 @@ implements Horde_Kolab_Storage_Data_Query_History
         } else {
             // Full sync. Either our timestamp is too old or the IMAP
             // uidvalidity changed.
-            $prefix = $this->_constructHistoryPrefix();
-            if (empty($prefix)) {
+            if (!$prefix = $this->_factory->getHistoryPrefixGenerator()->getPrefix($this->_data)) {
                 return;
             }
             $this->_logger->debug(sprintf(
@@ -194,81 +192,6 @@ implements Horde_Kolab_Storage_Data_Query_History
                 );
             }
         }
-    }
-
-    /**
-     * Construct prefix needed for Horde_History entries.
-     *
-     * Horde history entries are prefixed and filtered
-     * by application name and base64 encoded folder name.
-     *
-     * @return string Constructed prefix. Can be empty.
-     */
-    private function _constructHistoryPrefix()
-    {
-        // Check if we already know the full prefix
-        if (!empty($this->_prefix))
-            return $this->_prefix;
-
-        $app = $this->_type2app($this->_data->getType());
-        if (empty($app)) {
-            $this->_logger->warn(sprintf(
-                'Unsupported app type: %s',
-                $this->_data->getType())
-            );
-            return '';
-        }
-
-        // Determine share id
-        $user = $this->_data->getAuth();
-        $folder = $this->_data->getPath();
-        $share_id = '';
-
-        // Create a share instance. The performance impact is minimal
-        // since the "real" app will create a share instance anyway.
-        $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($app);
-        $all_shares = $shares->listAllShares();
-        foreach($all_shares as $id => $share) {
-            if ($share->get('folder') == $folder) {
-                $share_id = $id;
-                break;
-            }
-        }
-
-        // bail out if we are unable to determine the share id
-        if (empty($share_id)) {
-            $this->_logger->err(sprintf(
-                'HISTORY: share_id not found. Can\'t compute history prefix for user: %s, folder: %s',
-                $user, $folder)
-            );
-            return '';
-        }
-
-        $this->_prefix = $app . ':' . $share_id . ':';
-
-        return $this->_prefix;
-    }
-
-    /**
-     * Map Kolab object type to horde application name.
-     *
-     * @param string $type  Kolab object type
-     *
-     * @return string The horde application name. Empty string if unknown
-     */
-    private function _type2app($type)
-    {
-        $mapping = array(
-            'contact' => 'turba',
-            'event' => 'kronolith',
-            'note' => 'mnemo',
-            'task' => 'nag',
-        );
-
-        if (isset($mapping[$type]))
-            return $mapping[$type];
-
-        return '';
     }
 
     /**

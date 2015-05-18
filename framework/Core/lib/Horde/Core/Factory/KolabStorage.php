@@ -114,6 +114,7 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         try {
             $history = $this->_injector->getInstance('Horde_History');
             $params['history'] = $history;
+            $params['history_prefix_generator'] = new Horde_Core_Kolab_Storage_HistoryPrefix();
         } catch(Horde_Exception $e) {
         }
 
