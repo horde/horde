@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix issue that could cause sending the same email to the client multiple times (Bug #13985).
 * [mjr] Performance and memory improvements, especially during initial sync to Outlook clients.
  </notes>
  <contents>
@@ -2708,6 +2709,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix issue that could cause sending the same email to the client multiple times (Bug #13985).
 * [mjr] Performance and memory improvements, especially during initial sync to Outlook clients.
    </notes>
   </release>
