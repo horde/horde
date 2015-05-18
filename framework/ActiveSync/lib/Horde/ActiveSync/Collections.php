@@ -1310,6 +1310,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
      * @param array $ensure  An array of UIDs that should be sent in the
      *                       current response if possible, and not put off
      *                       because of a MOREAVAILABLE situation.
+     *                       @deprecated and no longer used.
      *
      * @return array  The changes array.
      */
@@ -1319,27 +1320,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             $this->_changes = $this->_as->state->getChanges(array('ping' => $ping));
         }
 
-        if (!empty($ensure)) {
-            $this->_changes = $this->_reorderChanges($ensure);
-        }
-
         return $this->_changes;
-    }
-
-    protected function _reorderChanges(array $ensure)
-    {
-        $changes = array();
-        foreach ($this->_changes as $change) {
-            if (array_search($change['id'], $ensure) !== false) {
-                $this->_logger->info(sprintf(
-                    'Placing %s at beginning of changes array.', $change['id']));
-                array_unshift($changes, $change);
-            } else {
-                $changes[] = $change;
-            }
-        }
-
-        return $changes;
     }
 
     /**

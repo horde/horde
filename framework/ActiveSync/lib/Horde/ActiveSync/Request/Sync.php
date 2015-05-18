@@ -478,7 +478,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $this->_encoder->content($statusCode);
             $this->_encoder->endTag();
 
-            $ensure_sent = array();
             if ($statusCode == self::STATUS_SUCCESS) {
 
                 // Send server changes to client
@@ -501,7 +500,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     }
 
                     if (!empty($changecount)) {
-                        $exporter->setChanges($this->_collections->getCollectionChanges(false, $ensure_sent), $collection);
+                        $exporter->setChanges($this->_collections->getCollectionChanges(false), $collection);
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_COMMANDS);
                         $cnt_collection = 0;
                         while ($cnt_collection < $max_windowsize &&
@@ -543,12 +542,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                             $this->_encoder->endTag();
 
                             $this->_encoder->endTag();
-                            // If we have a conflict, ensure we send the new server
-                            // data in the response, if possible. Some android
-                            // clients require this, or never accept the response.
-                            if ($reason == self::STATUS_CONFLICT) {
-                                $ensure_sent[] = $id;
-                            }
                         }
                     }
 
