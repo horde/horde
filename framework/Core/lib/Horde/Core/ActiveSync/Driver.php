@@ -1041,6 +1041,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
+
         case 'RI':
             $folder->setChanges($this->_connector->getRecipientCache($maxitems));
             $changes = array(
@@ -1049,13 +1050,18 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 'modify' => array(),
                 'soft' => array());
             break;
+
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
                 $this->_endBuffer();
                 return array();
             }
             $this->_logger->info(sprintf(
-                '[%s] %s IMAP MODSEQ: %d', $this->_pid, $folder->serverid(), $folder->modseq()));
+                '[%s] %s IMAP MODSEQ: %d',
+                $this->_pid,
+                $folder->serverid(),
+                $folder->modseq())
+            );
             if ($ping) {
                 try {
                     $ping_res = $this->_imap->ping($folder);
@@ -1077,12 +1083,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     return array();
                 }
             } else {
-                // SOFTDELETE
-                if (!$soft = $refreshFilter) {
+                // SOFTDELETE, but only if we aren't refreshing FILTERTYPE.
+                $soft = false;
+                if (!$refreshFilter) {
                     $sd = $folder->getSoftDeleteTimes();
                     if (empty($sd[0]) && empty($sd[1]) && !empty($cutoffdate)) {
-                        // No SOFTDELETE performed, and this is likely(?) the
-                        // first sync so we must prime the SOFTDELETE values.
+                        // No SOFTDELETE performed, this is likely the first
+                        // sync so we must prime the SOFTDELETE values.
                         $folder->setSoftDeleteTimes((int)$cutoffdate, time());
                     } else {
                         if ($sd[1] + 82800 + mt_rand(0, 3600) < time()) {
@@ -1099,7 +1106,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         array(
                             'sincedate' => (int)$cutoffdate,
                             'protocolversion' => $this->_version,
-                            'softdelete' => $soft));
+                            'softdelete' => $soft,
+                            'refreshfilter' => $refreshfilter)
+                    );
                     // Poll the maillog for reply/forward state changes.
                     if (empty($GLOBALS['conf']['activesync']['no_maillogsync'])) {
                         $folder = $this->_getMaillogChanges($folder, $from_ts);

@@ -287,14 +287,15 @@ class Horde_ActiveSync_Imap_Adapter
      *
      * @param Horde_ActiveSync_Folder_Imap $folder  The folder object.
      * @param array $options                        Additional options:
-     *  - sincedate: (integer)  Timestamp of earliest message to retrieve.
-     *               DEFAULT: 0 (Don't filter).
-     *  - protocolversion: (float)  EAS protocol version to support.
-     *                     DEFAULT: none REQUIRED
-     *  - softdelete: (boolean)  If true, calculate SOFTDELETE data.
-     *                           @since 2.8.0 @todo Rename this to something
-     *                           more appropriate now that it's not just for
-     *                           triggering SOFTDELETE.
+     *  - sincedate: (integer)       Timestamp of earliest message to retrieve.
+     *                               DEFAULT: 0 (Don't filter).
+     *  - protocolversion: (float)   EAS protocol version to support.
+     *                               DEFAULT: none REQUIRED
+     *  - softdelete: (boolean)      If true, calculate SOFTDELETE data.
+     *                               @since 2.8.0
+     *  - refreshfilter: (boolean)   If true, force refresh the query to reflect
+     *                               changes in FILTERTYPE (using the sincedate)
+     *                               @since 2.28.0
      *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
@@ -352,9 +353,8 @@ class Horde_ActiveSync_Imap_Adapter
             // "Normal" changes.
             $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
 
-            // Check for mail outside of the time restriction if the filtertype
-            // changed.
-            if (!empty($options['softdelete'])) {
+            // Check for mail outside of FILTERTYPE if it has changed.
+            if (!empty($options['refreshfilter'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for additional messages within the new FilterType parameters.',
                     $this->_procid));
