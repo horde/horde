@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -503,6 +503,11 @@
         </dir> <!-- /lib/Horde/Core/Itip/Response/Options -->
        </dir> <!-- /lib/Horde/Core/Itip/Response -->
       </dir> <!-- /lib/Horde/Core/Itip -->
+      <dir name="Kolab">
+       <dir name="Storage">
+        <file name="HistoryPrefix.php" role="php" />
+       </dir> <!-- /lib/Horde/Core/Kolab/Storage -->
+      </dir> <!-- /lib/Horde/Core/Kolab -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
        <file name="Object.php" role="php" />
@@ -1894,6 +1899,7 @@
    <install as="Horde/Core/HashTable/Wrapper.php" name="lib/Horde/Core/HashTable/Wrapper.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Itip/Response/Options/Horde.php" name="lib/Horde/Core/Itip/Response/Options/Horde.php" />
+   <install as="Horde/Core/Kolab/Storage/HistoryPrefix.php" name="lib/Horde/Core/Kolab/Storage/HistoryPrefix.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
    <install as="Horde/Core/Log/Object.php" name="lib/Horde/Core/Log/Object.php" />
    <install as="Horde/Core/Log/Wrapper.php" name="lib/Horde/Core/Log/Wrapper.php" />
@@ -3941,7 +3947,7 @@
    <date>2015-06-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+*
    </notes>
   </release>
  </changelog>
