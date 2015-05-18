@@ -571,6 +571,11 @@ class Horde_ActiveSync_Imap_Adapter
         // Get custom flags to use as categories.
         $msgFlags = $this->_getMsgFlags();
 
+        // Filter out any changes that we already know about.
+        $fetch_ret = array_diff_key(
+            $fetch_ret, array_flip($changes)
+        );
+
         foreach ($fetch_ret as $uid => $data) {
             if ($options['sincedate']) {
                 $since = new Horde_Date($options['sincedate']);
