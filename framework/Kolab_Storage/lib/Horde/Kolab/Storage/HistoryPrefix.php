@@ -1,27 +1,25 @@
 <?php
 /**
- * Marks a queriable class.
+ * Interface for a History system prefix generator.
  *
  * PHP version 5
  *
  * @category Kolab
  * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 
 /**
- * Marks a queriable class.
- *
- * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
+ * Copyright 2015 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Kolab
  * @package  Kolab_Storage
- * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */

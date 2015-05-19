@@ -448,10 +448,9 @@ class Horde_Kolab_Storage_Cache_Data
      * @param array $delete                            Backend IDs that were
      *                                                 removed.
      */
-    public function store(array $objects,
-                          Horde_Kolab_Storage_Folder_Stamp $stamp,
-                          $version,
-                          array $delete = array())
+    public function store(
+        array $objects, Horde_Kolab_Storage_Folder_Stamp $stamp, $version,
+        array $delete = array())
     {
         $this->_load();
         if (!empty($delete)) {
@@ -520,4 +519,5 @@ class Horde_Kolab_Storage_Cache_Data
     {
         $this->_data = array();
     }
+
 }

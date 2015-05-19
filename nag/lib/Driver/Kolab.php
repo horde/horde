@@ -245,7 +245,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _add(array $task)
     {
         $object = $this->_getObject($task);
-        $object['uid'] = $this->_getData()->generateUid(); 
+        $object['uid'] = $this->_getData()->generateUid();
         try {
             $this->_getData()->create($object);
             $this->_addTags($task);

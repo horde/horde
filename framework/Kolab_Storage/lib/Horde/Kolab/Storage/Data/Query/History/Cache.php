@@ -42,7 +42,7 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
      */
     public function synchronize($params = array())
     {
-        $timestamp_key = 'Kolab_History_Sync:'.$this->_data->getId();
+        $timestamp_key = 'Kolab_History_Sync:' . $this->_data->getId();
 
         /**
          * Check if we need to do a full synchronization. If our stored 'last_sync'

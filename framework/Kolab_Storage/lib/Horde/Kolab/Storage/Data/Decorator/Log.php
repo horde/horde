@@ -68,6 +68,11 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         return call_user_func_array(array($this->_data, $method), $args);
     }
 
+    /**
+     * Set the logger for this object.
+     *
+     * @param Horde_Log_Logger $logger  The logger.
+     */
     public function setLogger(Horde_Log_Logger $logger)
     {
         // noop. Needed to satisfy the interface.
@@ -181,8 +186,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      * @param array   $object The array that holds the updated object data.
      * @param boolean $raw    True if the data to be stored has been provided in
      *                        raw format.
-     *
-     * @return NULL
      *
      * @throws Horde_Kolab_Storage_Exception In case an error occured while
      *                                       saving the data.
@@ -578,4 +581,5 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
         return $query;
     }
+
 }

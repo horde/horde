@@ -8,6 +8,7 @@
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -24,6 +25,7 @@
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
+ * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -35,14 +37,14 @@ extends Horde_Kolab_Storage_Data_Base
      *
      * @var Horde_Kolab_Storage_Cache_Data
      */
-    private $_data_cache;
+    protected $_data_cache;
 
     /**
      * Has the cache already been loaded and validated?
      *
      * @var boolean
      */
-    private $_init = false;
+    protected $_init = false;
 
     /**
      * Constructor.
@@ -81,10 +83,8 @@ extends Horde_Kolab_Storage_Data_Base
 
     /**
      * Check if the cache has been initialized at all and synchronize it if not.
-     *
-     * @return NULL
      */
-    private function _init()
+    protected function _init()
     {
         if (!$this->_isInitialized()) {
             $this->synchronize();
@@ -337,4 +337,5 @@ extends Horde_Kolab_Storage_Data_Base
         parent::synchronize($params);
         $this->_data_cache->save();
     }
+
 }

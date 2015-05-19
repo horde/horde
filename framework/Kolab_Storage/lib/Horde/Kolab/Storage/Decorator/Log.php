@@ -35,14 +35,14 @@ implements Horde_Kolab_Storage
      *
      * @var Horde_Kolab_Storage
      */
-    private $_storage;
+    protected $_storage;
 
     /**
      * A log handler.
      *
-     * @var mixed
+     * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Constructor.
