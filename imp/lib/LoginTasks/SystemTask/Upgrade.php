@@ -533,7 +533,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $old_pref = strval(IMP_Mailbox::getPref($val));
                 if (!Horde_Mime::is8bit($old_pref, 'UTF-8')) {
                     $mbox = IMP_Mailbox::get(Horde_String::convertCharset($old_pref, 'UTF7-IMAP', 'UTF-8'));
-                    $prefs->setValue($val, $old_pref->$mbox->pref_to);
+                    $prefs->setValue($val, $mbox->pref_to);
                 }
             }
         }
