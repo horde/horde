@@ -185,7 +185,17 @@ class Horde_ActiveSync_Imap_Message
     public function getFullMsg($stream = false)
     {
         // First see if we already have it.
-        if (!$full = $this->_data->getFullMsg($stream)) {
+        if ($stream) {
+            $full = new Horde_Stream_Existing(array('stream' => $this->_data->getFullMsg($stream)));
+            $length = $full->length();
+            if (!$length) {
+                $full->close();
+            }
+        } else {
+            $full = $this->_data->getFullMsg(false);
+            $length = strlen($full);
+        }
+        if (!$length) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText(array('peek' => true));
             try {
