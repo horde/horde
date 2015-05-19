@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression that could cause loss of mailbox sync.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2722,7 +2722,7 @@
    <date>2015-05-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression that could cause loss of mailbox sync.
    </notes>
   </release>
  </changelog>
