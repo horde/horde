@@ -676,6 +676,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                 'The provided query is no data query.'
             );
         }
+        $query->setLogger($this->_logger);
         $this->_queries[$name] = $query;
     }
 

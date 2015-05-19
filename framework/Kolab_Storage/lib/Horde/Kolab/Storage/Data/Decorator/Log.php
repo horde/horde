@@ -557,6 +557,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
+        $query->setLogger($this->_logger);
         $this->_data->registerQuery($name, $query);
     }
 
