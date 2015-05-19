@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-05-18</date>
+ <date>2015-05-19</date>
  <version>
   <release>2.28.1</release>
   <api>2.28.0</api>
@@ -2719,7 +2719,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-05-18</date>
+   <date>2015-05-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix regression that could cause loss of mailbox sync.
