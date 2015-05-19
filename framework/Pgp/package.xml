@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-29</date>
+ <date>2015-05-19</date>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -314,9 +314,6 @@
        <file name="Elgamal.php" role="php" />
       </dir> <!-- /lib/Horde/Pgp/Crypt -->
       <dir name="Element">
-       <dir name="PublicKey">
-        <file name="Userid.php" role="php" />
-       </dir> <!-- /lib/Horde/Pgp/Element/PublicKey -->
        <file name="Key.php" role="php" />
        <file name="Message.php" role="php" />
        <file name="PrivateKey.php" role="php" />
@@ -681,7 +678,6 @@
    <install as="Horde/Pgp/Element/Signature.php" name="lib/Horde/Pgp/Element/Signature.php" />
    <install as="Horde/Pgp/Element/SignedMessage.php" name="lib/Horde/Pgp/Element/SignedMessage.php" />
    <install as="Horde/Pgp/Element/Text.php" name="lib/Horde/Pgp/Element/Text.php" />
-   <install as="Horde/Pgp/Element/PublicKey/Userid.php" name="lib/Horde/Pgp/Element/PublicKey/Userid.php" />
    <install as="locale/Horde_Pgp.pot" name="locale/Horde_Pgp.pot" />
    <install as="Horde/Pgp/AllTests.php" name="test/Horde/Pgp/AllTests.php" />
    <install as="Horde/Pgp/ArmorTest.php" name="test/Horde/Pgp/ArmorTest.php" />
