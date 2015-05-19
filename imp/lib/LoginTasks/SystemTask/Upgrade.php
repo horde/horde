@@ -535,7 +535,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                     $mbox = IMP_Mailbox::get(
                         new Horde_Imap_Client_Mailbox($old_pref, true)
                     );
-                    $prefs->setValue($val, $old_pref->$mbox->pref_to);
+                    $prefs->setValue($val, $mbox->pref_to);
                 }
             }
         }
