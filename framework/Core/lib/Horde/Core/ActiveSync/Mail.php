@@ -19,7 +19,7 @@
  * @package Core
  *
  * @property-read Horde_ActiveSync_Imap_Adapter $imapAdapter  The imap adapter.
- * @property-read boolean $replacemime  Flag to indicate we are to replace the MIME contents of a SMART request.
+ * @property      boolean $replacemime  Flag to indicate we are to replace the MIME contents of a SMART request.
  * @property-read integer $id  The UID of the source email for any SMARTREPLY or SMARTFORWARD requests.
  * @property-read boolean $reply  Flag indicating a SMARTREPLY request.
  * @property-read boolean $forward  Flag indicating a SMARTFORWARD request.
@@ -79,7 +79,7 @@ class Horde_Core_ActiveSync_Mail
      *
      * @var boolean
      */
-    protected $_replaceMime = false;
+    protected $_replacemime = false;
 
     /**
      * The current EAS user.
@@ -152,6 +152,14 @@ class Horde_Core_ActiveSync_Mail
         }
     }
 
+    public function __set($property, $value)
+    {
+        if ($property == 'replacemime') {
+            $this->_replacemime = $value;
+        }
+    }
+
+
     /**
      * Set the raw message content received from the EAS client to send.
      *
@@ -221,7 +229,7 @@ class Horde_Core_ActiveSync_Mail
             throw new Horde_ActiveSync_Exception('No data set or received from EAS client.');
         }
         $this->_callPreSendHook();
-        if (!$this->_parentFolder || ($this->_parentFolder && $this->_replaceMime)) {
+        if (!$this->_parentFolder || ($this->_parentFolder && $this->_replacemime)) {
             $this->_sendRaw();
         } else {
             $this->_sendSmart();
@@ -289,7 +297,7 @@ class Horde_Core_ActiveSync_Mail
 
         // Replace MIME? Don't have original body, but still need headers.
         // @TODO: Get JUST the headers?
-        if ($this->_replaceMime) {
+        if ($this->_replacemime) {
             try {
                 $this->_getImapMessage();
             } catch (Horde_Exception_NotFound $e) {
