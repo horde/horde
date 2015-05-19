@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-11-18</date>
+ <date>2015-05-19</date>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -29,6 +29,7 @@
     <dir name="vendor">
      <dir name="composer">
       <file name="autoload_classmap.php" role="php" />
+      <file name="autoload_files.php" role="php" />
       <file name="autoload_namespaces.php" role="php" />
       <file name="autoload_psr4.php" role="php" />
       <file name="autoload_real.php" role="php" />
@@ -128,6 +129,7 @@
   <filelist>
    <install as="Horde/Stringprep/vendor/autoload.php" name="bundle/vendor/autoload.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_classmap.php" name="bundle/vendor/composer/autoload_classmap.php" />
+   <install as="Horde/Stringprep/vendor/composer/autoload_files.php" name="bundle/vendor/composer/autoload_files.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_namespaces.php" name="bundle/vendor/composer/autoload_namespaces.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_psr4.php" name="bundle/vendor/composer/autoload_psr4.php" />
    <install as="Horde/Stringprep/vendor/composer/autoload_real.php" name="bundle/vendor/composer/autoload_real.php" />
@@ -207,7 +209,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-11-18</date>
+   <date>2015-05-19</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 
