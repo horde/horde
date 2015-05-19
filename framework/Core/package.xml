@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-05-18</date>
+ <date>2015-05-19</date>
  <version>
   <release>2.20.2</release>
   <api>2.20.0</api>
@@ -3899,7 +3899,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-05-18</date>
+   <date>2015-05-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix duplicate attachments in certain messages that were forwarded by ActiveSync clients.
