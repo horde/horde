@@ -2616,7 +2616,7 @@ var DimpBase = {
                 pp = $('previewPane');
                 pp.scrollTop = prev
                     ? Math.max(pp.scrollTop - 10, 0)
-                    : Math.min(pp.scrollTop + 10, pp.getHeight());
+                    : Math.min(pp.scrollTop + 10, pp.scrollHeight - pp.getHeight() + 1);
             } else if (e.shiftKey && tmp) {
                 row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
