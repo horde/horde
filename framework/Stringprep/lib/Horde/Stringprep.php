@@ -35,7 +35,7 @@ class Horde_Stringprep
     public static function autoload()
     {
         if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-            require_once __DIR__ . '/vendor/autoload.php';
+            require_once __DIR__ . '/Stringprep/vendor/autoload.php';
         } else {
             require_once __DIR__ . '/../../bundle/vendor/autoload.php';
         }
