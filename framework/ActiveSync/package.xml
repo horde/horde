@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix sending SMIME signed/encrypted mail when using streams.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2735,7 +2735,7 @@
    <date>2015-05-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix sending SMIME signed/encrypted mail when using streams.
    </notes>
   </release>
  </changelog>
