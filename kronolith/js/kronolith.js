@@ -7132,6 +7132,9 @@ KronolithCore = {
             this.updateView(this.date, Kronolith.conf.login_view);
             $('kronolithView' + Kronolith.conf.login_view.capitalize()).show();
         }
+
+        this.updateMinical(this.date);
+
         HordeCore.doAction('listCalendars', {}, { callback: this.initialize.bind(this, tmp) });
 
         RedBox.onDisplay = function() {
@@ -7181,8 +7184,6 @@ KronolithCore = {
         $('kronolithFBDateNext').observe('click', this.nextFreebusy.bind(this));
         $('kronolithResourceFBDatePrev').observe('click', this.prevFreebusy.bind(this));
         $('kronolithResourceFBDateNext').observe('click', this.nextFreebusy.bind(this));
-
-        this.updateMinical(this.date);
     },
 
     initialize: function(location, r)
