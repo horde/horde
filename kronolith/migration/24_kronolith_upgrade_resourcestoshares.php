@@ -46,7 +46,7 @@ class KronolithUpgradeResourcesToShares extends Horde_Db_Migration_Base
         $columns = $this->_connection->columns('kronolith_resources');
 
         /** Try to get existing data charset **/
-        $config = Horde::getDriverConfig($backend, 'sql');
+        $config = Horde::getDriverConfig('resource', 'sql');
         $charset = empty($config['charset']) ? 'utf-8' : $config['charset'];
 
         $rows = $this->_connection->selectAll('SELECT * FROM kronolith_resources');
