@@ -162,7 +162,7 @@ KronolithCore = {
 
                 if (this.view != 'agenda' &&
                     this.view == loc &&
-                    date.getYear() == this.date.getYear() &&
+                    date.getFullYear() == this.date.getFullYear() &&
                     ((loc == 'year') ||
                      (loc == 'month' && date.getMonth() == this.date.getMonth()) ||
                      ((loc == 'week' || loc == 'workweek') && date.getRealWeek() == this.date.getRealWeek()) ||
@@ -920,7 +920,7 @@ KronolithCore = {
             // Highlight today.
             if (day.equals(today) &&
                 (Object.isUndefined(year) ||
-                 (day.getYear() + 1900 == year &&
+                 (day.getFullYear() == year &&
                   date.getMonth() == day.getMonth()))) {
                 td.addClassName('kronolith-today');
             }

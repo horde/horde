@@ -10,7 +10,7 @@ var ImpPgp = {
 
     replaceDate: function(d)
     {
-        $('generate_expire_date').setValue(d.getTime()).next('SPAN').update(this.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getYear() + 1900));
+        $('generate_expire_date').setValue(d.getTime()).next('SPAN').update(this.months[d.getMonth()] + ' ' + d.getDate() + ', ' + (d.getFullYear()));
     },
 
     clickHandler: function(e)
