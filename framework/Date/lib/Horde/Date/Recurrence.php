@@ -42,6 +42,13 @@ class Horde_Date_Recurrence
     /** Recurs monthly on the same week day. */
     const RECUR_MONTHLY_WEEKDAY = 4;
 
+    /**
+     * Recurs monthly on the same last week day.
+     *
+     * @since Horde_Date 2.1.0
+     */
+    const RECUR_MONTHLY_LAST_WEEKDAY = 8;
+
     /** Recurs yearly on the same date. */
     const RECUR_YEARLY_DATE = 5;
 
@@ -547,11 +554,16 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
+        case self::RECUR_MONTHLY_LAST_WEEKDAY:
             // Start with the start date of the event.
             $estart = clone $this->start;
 
             // What day of the week, and week of the month, do we recur on?
-            $nth = ceil($this->start->mday / 7);
+            if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
+                $nth = -1;
+            } else {
+                $nth = ceil($this->start->mday / 7);
+            }
             $weekday = $estart->dayOfWeek();
 
             // Adjust $estart to be the first candidate.
@@ -559,6 +571,7 @@ class Horde_Date_Recurrence
             $offset = floor(($offset + $this->recurInterval - 1) / $this->recurInterval) * $this->recurInterval;
 
             // Adjust our working date until it's after $after.
+            $estart->mday = 1;
             $estart->month += $offset - $this->recurInterval;
 
             $count = $offset / $this->recurInterval;
@@ -905,6 +918,7 @@ class Horde_Date_Recurrence
 
         case 'W':
             $this->setRecurType(self::RECUR_WEEKLY);
+            $mask = 0;
             if (!empty($remainder)) {
                 $maskdays = array(
                     'SU' => Horde_Date::MASK_SUNDAY,
@@ -915,14 +929,14 @@ class Horde_Date_Recurrence
                     'FR' => Horde_Date::MASK_FRIDAY,
                     'SA' => Horde_Date::MASK_SATURDAY,
                 );
-                $mask = 0;
-                while (preg_match('/^ ?[A-Z]{2} ?/', $remainder, $matches)) {
+                while (preg_match('/^ ?(' . implode('|', array_keys($maskdays)) . ') ?/', $remainder, $matches)) {
                     $day = trim($matches[0]);
                     $remainder = substr($remainder, strlen($matches[0]));
                     $mask |= $maskdays[$day];
                 }
                 $this->setRecurOnDay($mask);
-            } else {
+            }
+            if (!$mask) {
                 // Recur on the day of the week of the original recurrence.
                 $maskdays = array(
                     Horde_Date::DATE_SUNDAY => Horde_Date::MASK_SUNDAY,
@@ -939,6 +953,10 @@ class Horde_Date_Recurrence
 
         case 'MP':
             $this->setRecurType(self::RECUR_MONTHLY_WEEKDAY);
+            if (preg_match('/^ \d([+-])/', $remainder, $matches) &&
+                $matches[1] == '-') {
+                $this->setRecurType(self::RECUR_MONTHLY_LAST_WEEKDAY);
+            }
             break;
 
         case 'MD':
@@ -954,10 +972,11 @@ class Horde_Date_Recurrence
             break;
         }
 
-        // We don't support modifiers at the moment, strip them.
+        // Strip further modifiers.
         while ($remainder && !preg_match('/^(#\d+|\d{8})($| |T\d{6})/', $remainder)) {
-               $remainder = substr($remainder, 1);
+            $remainder = substr($remainder, 1);
         }
+
         if (!empty($remainder)) {
             if (strpos($remainder, '#') === 0) {
                 $this->setRecurCount(substr($remainder, 1));
@@ -1011,13 +1030,19 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
-            $nth_weekday = (int)($this->start->mday / 7);
-            if (($this->start->mday % 7) > 0) {
-                $nth_weekday++;
+        case self::RECUR_MONTHLY_LAST_WEEKDAY:
+            if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
+                $nth_weekday = '1-';
+            } else {
+                $nth_weekday = (int)($this->start->mday / 7);
+                if (($this->start->mday % 7) > 0) {
+                    $nth_weekday++;
+                }
+                $nth_weekday .= '+';
             }
 
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
-            $rrule = 'MP' . $this->recurInterval . ' ' . $nth_weekday . '+ ' . $vcaldays[$this->start->dayOfWeek()];
+            $rrule = 'MP' . $this->recurInterval . ' ' . $nth_weekday . ' ' . $vcaldays[$this->start->dayOfWeek()];
 
             break;
 
@@ -1044,9 +1069,8 @@ class Horde_Date_Recurrence
     /**
      * Parses an iCalendar 2.0 recurrence rule.
      *
-     * @link http://rfc.net/rfc2445.html#s4.3.10
-     * @link http://rfc.net/rfc2445.html#s4.8.5
-     * @link http://www.shuchow.com/vCalAddendum.html
+     * @link http://tools.ietf.org/html/rfc5545#section-3.3.10
+     * @link http://tools.ietf.org/html/rfc5545#section-3.8.5
      *
      * @param string $rrule  An iCalendar 2.0 conform RRULE value.
      */
@@ -1106,7 +1130,11 @@ class Horde_Date_Recurrence
 
             case 'MONTHLY':
                 if (isset($rdata['BYDAY'])) {
-                    $this->setRecurType(self::RECUR_MONTHLY_WEEKDAY);
+                    if (strpos($rdata['BYDAY'], '-') === false) {
+                        $this->setRecurType(self::RECUR_MONTHLY_WEEKDAY);
+                    } else {
+                        $this->setRecurType(self::RECUR_MONTHLY_LAST_WEEKDAY);
+                    }
                 } else {
                     $this->setRecurType(self::RECUR_MONTHLY_DATE);
                 }
@@ -1193,9 +1221,14 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
-            $nth_weekday = (int)($this->start->mday / 7);
-            if (($this->start->mday % 7) > 0) {
-                $nth_weekday++;
+        case self::RECUR_MONTHLY_LAST_WEEKDAY:
+            if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
+                $nth_weekday = -1;
+            } else {
+                $nth_weekday = (int)($this->start->mday / 7);
+                if (($this->start->mday % 7) > 0) {
+                    $nth_weekday++;
+                }
             }
             $vcaldays = array('SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA');
             $rrule = 'FREQ=MONTHLY;INTERVAL=' . $this->recurInterval
@@ -1286,6 +1319,10 @@ class Horde_Date_Recurrence
             case 'weekday':
                 $this->setRecurType(self::RECUR_MONTHLY_WEEKDAY);
                 $nth_weekday = (int)$hash['daynumber'];
+                if ($nth_weekday < 0) {
+                    // This is not officially part of the Kolab 2.0 specs.
+                    $this->setRecurType(self::RECUR_MONTHLY_LAST_WEEKDAY);
+                }
                 $hash['daynumber'] = 1;
                 $parse_day = true;
                 $update_daynumber = true;
@@ -1522,10 +1559,16 @@ class Horde_Date_Recurrence
             break;
 
         case self::RECUR_MONTHLY_WEEKDAY:
+        case self::RECUR_MONTHLY_LAST_WEEKDAY:
             $hash['cycle'] = 'monthly';
             $hash['type'] = 'weekday';
-            $hash['daynumber'] = $start->weekOfMonth();
-            $hash['day'] = array ($day2number[$start->dayOfWeek()]);
+            if ($this->recurType == self::RECUR_MONTHLY_LAST_WEEKDAY) {
+                // This is not officially part of the Kolab 2.0 specs.
+                $hash['daynumber'] = '-1';
+            } else {
+                $hash['daynumber'] = $start->weekOfMonth();
+            }
+            $hash['day'] = array($day2number[$start->dayOfWeek()]);
             break;
 
         case self::RECUR_YEARLY_DATE:
@@ -1636,6 +1679,8 @@ class Horde_Date_Recurrence
             $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date");
         } elseif ($this->hasRecurType(self::RECUR_MONTHLY_WEEKDAY)) {
             $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same weekday");
+        } elseif ($this->hasRecurType(self::RECUR_MONTHLY_LASTWEEKDAY)) {
+            $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same last weekday");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DATE)) {
             $string =  _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same date");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DAY)) {

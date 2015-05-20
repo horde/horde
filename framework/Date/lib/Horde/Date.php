@@ -756,6 +756,8 @@ class Horde_Date
      *
      * @param integer $weekday  The day of the week (0 = Sunday, etc).
      * @param integer $nth      The $nth $weekday to set to (defaults to 1).
+     *                          Negative values count from end of the month
+     *                          (@since Horde_Date 2.1.0).
      */
     public function setNthWeekday($weekday, $nth = 1)
     {
@@ -763,16 +765,28 @@ class Horde_Date
             return;
         }
 
-        $this->_mday = 1;
-        $first = $this->dayOfWeek();
-        if ($weekday < $first) {
-            $this->_mday = 8 + $weekday - $first;
-        } else {
+        if ($nth >= 0) {
+            $this->_mday = 1;
+            $first = $this->dayOfWeek();
             $this->_mday = $weekday - $first + 1;
+            if ($weekday < $first) {
+                $this->_mday += 7;
+            }
+            $diff = 7 * $nth - 7;
+            $this->_mday += $diff;
+            $this->_correct(self::MASK_DAY, false);
+        } else {
+            $this->_mday = Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
+            $last = $this->dayOfWeek();
+            $this->_mday -= $last - $weekday;
+            if ($last < $weekday) {
+                $this->_mday -= 7;
+            }
+            $diff = -7 * $nth - 7;
+            $this->_mday -= $diff;
+            $this->_correct(self::MASK_DAY, true);
+            $this->_formatCache = array();
         }
-        $diff = 7 * $nth - 7;
-        $this->_mday += $diff;
-        $this->_correct(self::MASK_DAY, $diff < 0);
     }
 
     /**

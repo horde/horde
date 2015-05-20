@@ -16,10 +16,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2015-05-20</date>
  <version>
-  <release>2.0.14</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,7 +27,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Support monthly recurrence by last weekday.
+* [jan] Support negative occurrences in Horde_Date#setNthWeekday().
+* [jan] Add Galician translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -154,6 +156,7 @@
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Date.mo" role="data" />
       <file name="Horde_Date.po" role="data" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
@@ -448,6 +451,7 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Date.po" name="locale/fi/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Date.mo" name="locale/fr/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Date.po" name="locale/fr/LC_MESSAGES/Horde_Date.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Date.mo" name="locale/gl/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/gl/LC_MESSAGES/Horde_Date.po" name="locale/gl/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Date.mo" name="locale/he/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Date.po" name="locale/he/LC_MESSAGES/Horde_Date.po" />
@@ -1022,15 +1026,17 @@
   </release>
   <release>
    <version>
-    <release>2.0.14</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-05-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Support monthly recurrence by last weekday.
+* [jan] Support negative occurrences in Horde_Date#setNthWeekday().
+* [jan] Add Galician translation.
    </notes>
   </release>
  </changelog>
