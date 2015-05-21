@@ -18,7 +18,7 @@
  </lead>
  <date>2015-05-21</date>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -27,9 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Support monthly recurrence by last weekday (Request #1922).
-* [jan] Support negative occurrences in Horde_Date#setNthWeekday().
-* [jan] Add Galician translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1037,6 +1035,19 @@
 * [jan] Support monthly recurrence by last weekday (Request #1922).
 * [jan] Support negative occurrences in Horde_Date#setNthWeekday().
 * [jan] Add Galician translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
