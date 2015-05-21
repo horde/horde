@@ -15,6 +15,7 @@
  * Horde_OpenXchange_Base is the base class for HTTP API requests to an
  * Open-Xchange server.
  *
+ * @link      http://oxpedia.org/wiki/index.php?title=HTTP_API
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2014-2015 Horde LLC
