@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-05-14</date>
+ <date>2015-05-21</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add support for monthly recurrence on last weekday.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
@@ -2561,10 +2561,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-05-14</date>
+   <date>2015-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Add support for monthly recurrence on last weekday.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.

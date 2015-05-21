@@ -2,7 +2,7 @@
 v4.3.0-git
 ----------
 
-[jan] Add support for monthly recurrence on last weekday.
+[jan] Add support for monthly recurrence on last weekday (Request #1922).
 [jan] Keep original file names when PUTing tasks via WebDAV.
 [mjr] Add an "actual" field for tracking actual time spent.
 [mjr] Add support for task organizer and iTip functionality.

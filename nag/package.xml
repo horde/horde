@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-02-27</date>
+ <date>2015-05-21</date>
  <version>
   <release>4.3.0</release>
   <api>4.2.0</api>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Add support for monthly recurrence on last weekday.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.
@@ -1648,10 +1648,10 @@
    <stability>
     <release>beta</release>
     <api>alpha</api></stability>
-   <date>2015-02-27</date>
+   <date>2015-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [jan] Add support for monthly recurrence on last weekday.
+* [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Keep original file names when PUTing tasks via WebDAV.
 * [mjr] Add an "actual" field for tracking actual time spent.
 * [mjr] Add support for task organizer and iTip functionality.
