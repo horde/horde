@@ -112,6 +112,8 @@ if ($this->event->initialized && $this->event->alarm > 0):
    <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY)): ?>
    <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same weekday") ?>
+<?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY)): ?>
+   <?php echo _("Monthly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same last weekday") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)): ?>
    <?php echo _("Yearly: Recurs every") . ' ' . $this->event->recurrence->getRecurInterval() . ' ' . _("year(s) on the same date") ?>
 <?php elseif ($this->event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DAY)): ?>

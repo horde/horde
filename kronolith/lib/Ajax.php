@@ -113,6 +113,7 @@ class Kronolith_Ajax
                 Horde_Date_Recurrence::RECUR_WEEKLY => 'Weekly',
                 Horde_Date_Recurrence::RECUR_MONTHLY_DATE => 'Monthly',
                 Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => 'Monthly',
+                Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY => 'Monthly',
                 Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                 Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                 Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'

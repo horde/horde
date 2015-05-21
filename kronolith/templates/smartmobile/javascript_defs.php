@@ -33,6 +33,7 @@ $code['conf'] = array(
                      Horde_Date_Recurrence::RECUR_WEEKLY => 'Weekly',
                      Horde_Date_Recurrence::RECUR_MONTHLY_DATE => 'Monthly',
                      Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => 'Monthly',
+                     Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY => 'Monthly',
                      Horde_Date_Recurrence::RECUR_YEARLY_DATE => 'Yearly',
                      Horde_Date_Recurrence::RECUR_YEARLY_DAY => 'Yearly',
                      Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY => 'Yearly'),
@@ -165,6 +166,9 @@ $code['text']['recur']['desc'] = array(
     Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY => array(
         _("Recurs every month on the same weekday"),
         sprintf(_("Recurs every %s months on the same weekday"), "#{interval}")),
+    Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY => array(
+        _("Recurs every month on the same last weekday"),
+        sprintf(_("Recurs every %s months on the same last weekday"), "#{interval}")),
     Horde_Date_Recurrence::RECUR_YEARLY_DATE => array(
         sprintf(_("Recurs once a year, on %s"), '#{date}'),
         sprintf(_("Recurs every %s years on %s"), '#{interval}', '#{date}')),

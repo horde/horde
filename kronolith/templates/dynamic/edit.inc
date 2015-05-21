@@ -179,12 +179,14 @@
     <label><input type="checkbox" name="weekly[]" value="' . Horde_Date::MASK_SUNDAY . '" /> ' . Horde_String::substr(_("Sunday"), 0, 3) . '</label>') ?>
   </p>
   <p id="kronolithEventRepeatMonthly" style="display:none">
-    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s"),
+    <?php printf(_("Repeat %s every month %s or %s every %s months, %s on the same %s date %s or %s weekday %s %s or %s last weekday %s"),
     '<label><input type="radio" name="recur_monthly" value="1" checked="checked" />', '</label>',
     '<label><input type="radio" name="recur_monthly" value="0" />', '</label>
     <label><input type="text" size="3" name="recur_monthly_interval" value="" class="kronolithEventValue" />', '</label>',
     '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_DATE . '" />', '</label>',
-    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>') ?>
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY . '" />', '</label>',
+    '<span id="kronolithEventRepeatMonthlyLastWD">',
+    '<label><input type="radio" name="recur_monthly_scheme" value="' . Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY . '" />', '</label></span>') ?>
   </p>
   <p id="kronolithEventRepeatYearly" style="display:none">
     <?php printf(_("Repeat %s every year %s or %s every %s years %s on the same %s date %s day of the year %s month and weekday %s"),

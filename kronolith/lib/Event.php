@@ -647,6 +647,7 @@ abstract class Kronolith_Event
             case Horde_Date_Recurrence::RECUR_WEEKLY:
             case Horde_Date_Recurrence::RECUR_YEARLY_WEEKDAY:
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+            case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
                 if (!$this->timezone) {
                     $this->timezone = date_default_timezone_get();
                 }
@@ -3069,7 +3070,8 @@ abstract class Kronolith_Event
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
             switch (Horde_Util::getFormData('recur_monthly_scheme')) {
             case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
-                $recurrence->setRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY);
+            case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+                $recurrence->setRecurType(Horde_Util::getFormData('recur_monthly_scheme'));
             case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
                 $recurrence->setRecurInterval(
                     Horde_Util::getFormData('recur_monthly')
@@ -3085,6 +3087,10 @@ abstract class Kronolith_Event
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
             $recurrence->setRecurInterval(Horde_Util::getFormData('recur_week_of_month_interval', 1));
+            break;
+
+        case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
+            $recurrence->setRecurInterval(Horde_Util::getFormData('recur_last_week_of_month_interval', 1));
             break;
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:

@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add support for monthly recurrence on last weekday.
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.
@@ -866,7 +867,7 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.8</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2563,6 +2564,7 @@
    <date>2015-05-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add support for monthly recurrence on last weekday.
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
 * [jan] Add refresh button to individual calendars and task lists.

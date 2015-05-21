@@ -146,6 +146,11 @@ var KronolithEdit =
             this.setInterval('recurmonthweek', 'recur_week_of_month_interval');
             break;
 
+        case 'recurmonthlastweek':
+        case 'recurmonthlastweek_label':
+            this.setInterval('recurmonthlastweek', 'recur_last_week_of_month_interval');
+            break;
+
         case 'recurnone':
             this.clearFields(0);
             break;
@@ -210,6 +215,10 @@ var KronolithEdit =
 
         case 'recur_week_of_month_interval':
             this.setRecur(4);
+            break;
+
+        case 'recur_last_week_of_month_interval':
+            this.setRecur(8);
             break;
 
         case 'recur_yearly_interval':
@@ -366,6 +375,10 @@ var KronolithEdit =
             this.setRecur(4);
             break;
 
+        case 'recur_last_week_of_month_interval':
+            this.setRecur(8);
+            break;
+
         case 'recur_yearly_interval':
             this.setRecur(5);
             break;
@@ -479,6 +492,10 @@ var KronolithEdit =
             KronolithEdit.clearFields(4);
             break;
 
+        case 'recur_last_week_of_month_interval':
+            KronolithEdit.clearFields(8);
+            break;
+
         case 'recur_yearly_interval':
             KronolithEdit.clearFields(5);
             break;
@@ -505,6 +522,9 @@ var KronolithEdit =
         }
         if (index != 4) {
             $('recur_week_of_month_interval').setValue('');
+        }
+        if (index != 8) {
+            $('recur_last_week_of_month_interval').setValue('');
         }
         if (index != 5) {
             $('recur_yearly_interval').setValue('');

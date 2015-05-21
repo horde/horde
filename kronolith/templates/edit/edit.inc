@@ -331,6 +331,12 @@ if ($event->alarm) {
    </tr>
    <tr>
     <td class="nowrap">
+     <input id="recurmonthlastweek" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY)) echo ' checked="checked"' ?> /><label id="recurmonthlastweek_label" for="recurmonthlastweek"> <?php echo _("Monthly: Recurs every") ?>&nbsp;</label>
+     <input type="text" id="recur_last_week_of_month_interval" name="recur_last_week_of_month_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_last_week_of_month_interval', _("month(s)") . ' ' . _("on the same last weekday")) ?>
+    </td>
+   </tr>
+   <tr>
+    <td class="nowrap">
      <input id="recuryear" type="radio" class="checkbox" name="recur" value="<?php echo Horde_Date_Recurrence::RECUR_YEARLY_DATE ?>"<?php if ($event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE)) echo ' checked="checked"' ?> /><label id="recuryear_label" for="recuryear"> <?php echo _("Yearly: Recurs every") ?>&nbsp;</label>
      <input type="text" id="recur_yearly_interval" name="recur_yearly_interval" size="2" value="<?php echo $event->recurs() && $event->recurrence->hasRecurType(Horde_Date_Recurrence::RECUR_YEARLY_DATE) ? $event->recurrence->getRecurInterval() : '' ?>" />&nbsp;<?php echo Horde::label('recur_yearly_interval', _("year(s) on the same date")) ?>
     </td>

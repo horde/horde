@@ -6624,9 +6624,11 @@ KronolithCore = {
                 $(prefix + 'RepeatType').show();
             }
             switch (recur) {
+            case 'Monthly':
+                this.updateRecurrenceVisibility(event);
+                // Fall through
             case 'Daily':
             case 'Weekly':
-            case 'Monthly':
             case 'Yearly':
                 var recurLower = recur.toLowerCase();
                 if (div.down('input[name=recur_' + recurLower + '][value=1]').checked) {
@@ -6698,21 +6700,49 @@ KronolithCore = {
     },
 
     /**
+     * Toggles the visibility of recurrence form elements dependent from other
+     * form elements or values.
+     */
+    updateRecurrenceVisibility: function(event) {
+        var start, span;
+        if (event) {
+            start = this.getDate('start');
+            span = $('kronolithEventRepeatMonthlyLastWD');
+        } else {
+            start = this.getDate('due');
+            span = $('kronolithTaskRepeatMonthlyLastWD');
+        }
+        if (start &&
+            start.getDate() > Date.getDaysInMonth(start.getFullYear(), start.getMonth()) - 7) {
+            span.show();
+        } else {
+            span.hide();
+        }
+    },
+
+    /**
      * Returns the Date object representing the date and time specified in the
      * event form's start or end fields.
      *
-     * @param string what  Which fields to parse, either 'start' or 'end'.
+     * @param string what  Which fields to parse, either 'start', 'end', or
+     *                     'due'.
      *
      * @return Date  The date object or null if the fields can't be parsed.
      */
     getDate: function(what) {
         var dateElm, timeElm, date, time;
-        if (what == 'start') {
+        switch (what) {
+        case 'start':
             dateElm = 'kronolithEventStartDate';
             timeElm = 'kronolithEventStartTime';
-        } else {
+            break;
+        case 'end':
             dateElm = 'kronolithEventEndDate';
             timeElm = 'kronolithEventEndTime';
+            break;
+        case 'due':
+            dateElm = 'kronolithTaskDueDate';
+            timeElm = 'kronolithTaskDueTime';
         }
         date = Date.parseExact($F(dateElm), Kronolith.conf.date_format)
             || Date.parse($F(dateElm));
@@ -6807,12 +6837,14 @@ KronolithCore = {
         if (start.isAfter(end)) {
             $('kronolithEventStartDate').setValue(date.toString(Kronolith.conf.date_format));
             $('kronolithEventStartTime').setValue($F('kronolithEventEndTime'));
+            this.updateRecurrenceVisibility(true);
         }
         this.duration = Math.abs(date.getTime() - start.getTime()) / 60000;
     },
 
     /**
-     * Updates the end time in the event form after changing the start time.
+     * Updates the end time (and more) in the event form after changing the
+     * start time.
      */
     updateEndTime: function() {
         var date = this.getDate('start');
@@ -6822,6 +6854,7 @@ KronolithCore = {
         date.add(this.duration).minutes();
         $('kronolithEventEndDate').setValue(date.toString(Kronolith.conf.date_format));
         $('kronolithEventEndTime').setValue(date.toString(Kronolith.conf.time_format));
+        this.updateRecurrenceVisibility(true);
     },
 
     /**
@@ -6843,6 +6876,9 @@ KronolithCore = {
             break;
         case 'kronolithEventEndDate':
             this.updateStartTime(date);
+            break;
+        case 'kronolithTaskDueDate':
+            this.updateRecurrenceVisibility(false);
             break;
         }
     },
@@ -6903,6 +6939,7 @@ KronolithCore = {
         switch (field) {
         case 'kronolithEventStartDate':
             this.fbStartDateHandler(Date.parseExact($F(field), Kronolith.conf.date_format));
+            // Fall through.
         case 'kronolithEventStartTime':
             this.updateEndTime();
             break;
@@ -6910,6 +6947,9 @@ KronolithCore = {
         case 'kronolithEventEndTime':
             this.updateStartTime();
             this.fbStartDateHandler(Date.parseExact($F('kronolithEventStartDate'), Kronolith.conf.date_format));
+            break;
+        case 'kronolithTaskDueDate':
+            this.updateRecurrenceVisibility();
             break;
         }
     },
@@ -7154,6 +7194,7 @@ KronolithCore = {
 
         if (Kronolith.conf.has_tasks) {
             $('kronolithTaskDueDate', 'kronolithTaskDueTime').compact().invoke('observe', 'focus', this.setDefaultDue.bind(this));
+            $('kronolithTaskDueDate').observe('change', this.updateRecurrenceVisibility.bind(this, false));
             $('kronolithTaskList').observe('change', function() {
                 this.updateTaskParentDropDown($F('kronolithTaskList'));
                 this.updateTaskAssigneeDropDown($F('kronolithTaskList'));

@@ -822,6 +822,7 @@ class Kronolith
 
         case Horde_Date_Recurrence::RECUR_MONTHLY_DATE:
         case Horde_Date_Recurrence::RECUR_MONTHLY_WEEKDAY:
+        case Horde_Date_Recurrence::RECUR_MONTHLY_LAST_WEEKDAY:
             return _("Recurs monthly");
 
         case Horde_Date_Recurrence::RECUR_YEARLY_DATE:
