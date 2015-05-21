@@ -223,6 +223,7 @@ class Horde_Date_Recurrence
             return Horde_Date_Translation::t("Weekly");
         case self::RECUR_MONTHLY_DATE:
         case self::RECUR_MONTHLY_WEEKDAY:
+        case self::RECUR_MONTHLY_LAST_WEEKDAY:
             return Horde_Date_Translation::t("Monthly");
         case self::RECUR_YEARLY_DATE:
         case self::RECUR_YEARLY_DAY:
@@ -1679,7 +1680,7 @@ class Horde_Date_Recurrence
             $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same date");
         } elseif ($this->hasRecurType(self::RECUR_MONTHLY_WEEKDAY)) {
             $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same weekday");
-        } elseif ($this->hasRecurType(self::RECUR_MONTHLY_LASTWEEKDAY)) {
+        } elseif ($this->hasRecurType(self::RECUR_MONTHLY_LAST_WEEKDAY)) {
             $string = _("Monthly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("month(s)") . ' ' . _("on the same last weekday");
         } elseif ($this->hasRecurType(self::RECUR_YEARLY_DATE)) {
             $string =  _("Yearly: Recurs every") . ' ' . $this->getRecurInterval() . ' ' . _("year(s) on the same date");
