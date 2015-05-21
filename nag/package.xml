@@ -424,6 +424,7 @@
     <file name="13_nag_upgrade_parents.php" role="horde" />
     <file name="14_nag_upgrade_search.php" role="horde" />
     <file name="15_nag_upgrade_addorganizer.php" role="horde" />
+    <file name="16_nag_upgrade_addactual.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="task">
     <file name="complete.php" role="horde" />
@@ -961,6 +962,7 @@
    <install as="nag/migration/13_nag_upgrade_parents.php" name="migration/13_nag_upgrade_parents.php" />
    <install as="nag/migration/14_nag_upgrade_search.php" name="migration/14_nag_upgrade_search.php" />
    <install as="nag/migration/15_nag_upgrade_addorganizer.php" name="migration/15_nag_upgrade_addorganizer.php" />
+   <install as="nag/migration/16_nag_upgrade_addactual.php" name="migration/16_nag_upgrade_addactual.php" />
    <install as="nag/task/complete.php" name="task/complete.php" />
    <install as="nag/task/save.php" name="task/save.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
