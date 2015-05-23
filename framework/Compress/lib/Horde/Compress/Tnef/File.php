@@ -11,6 +11,8 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Compress
+ *
+ * @todo  Use Streams for content.
  */
 /**
  * Copyright 2002-2015 Horde LLC (http://www.horde.org/)
