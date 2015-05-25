@@ -70,7 +70,7 @@ implements Horde_Kolab_Storage_HistoryPrefix
      *
      * @return string The horde application name of false if not known.
      */
-    protected function _type2app($type)
+    protected static function _type2app($type)
     {
         global $registry;
 
