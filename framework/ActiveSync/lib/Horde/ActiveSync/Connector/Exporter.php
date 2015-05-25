@@ -162,10 +162,11 @@ class Horde_ActiveSync_Connector_Exporter
         $change = $this->_changes[$this->_step];
         if (!is_array($change)) {
             // This is an initial sync, so we know it's a CHANGE_TYPE_CHANGE
-            // with no flag changes etc...
+            // and a new message with no flag changes etc...
             $change = array(
                 'id' => $change,
                 'type' => Horde_ActiveSync::CHANGE_TYPE_CHANGE,
+                'flags' => Horde_ActiveSync::FLAG_NEWMESSAGE
             );
         }
 
@@ -354,7 +355,7 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_seenObjects[] = $id;
 
         // Specify if this is an ADD or a MODIFY change?
-        if ($message->flags === false || $message->flags === Horde_ActiveSync::FLAG_NEWMESSAGE) {
+        if ($message->flags === Horde_ActiveSync::FLAG_NEWMESSAGE) {
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
         } else {
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
