@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix regression causing useless backend query.
+* [mjr] Fix bug causing changes to be sent as new messages, thus causing them to be ignored by most clients.
 * [mjr] Fix sending SMIME signed/encrypted mail when using streams.
  </notes>
  <contents>
@@ -2735,6 +2737,8 @@
    <date>2015-05-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix regression causing useless backend query.
+* [mjr] Fix bug causing changes to be sent as new messages, thus causing them to be ignored by most clients.
 * [mjr] Fix sending SMIME signed/encrypted mail when using streams.
    </notes>
   </release>
