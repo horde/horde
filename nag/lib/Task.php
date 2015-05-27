@@ -1524,9 +1524,11 @@ class Nag_Task
             foreach ($relations as $id => $relation) {
                 if (empty($params[$id]['RELTYPE']) ||
                     Horde_String::upper($params[$id]['RELTYPE']) == 'PARENT') {
-
-                    $parent = $this->_storage->getByUID($relation, $this->tasklist);
-                    $this->parent_id = $parent->id;
+                    try {
+                        $parent = $this->_storage->getByUID($relation, $this->tasklist);
+                        $this->parent_id = $parent->id;
+                    } catch (Horde_Exception_NotFound $e) {
+                    }
                     break;
                 }
             }
