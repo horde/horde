@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix off by one error that could cause some errors in downstream client code.
+* [mjr] Fix detecting changes in email message "Flag" sent from certain clients.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2750,7 +2751,8 @@
    <date>2015-05-24</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix off by one error that could cause some errors in downstream client code.
+* [mjr] Fix detecting changes in email message "Flag" sent from certain clients.
    </notes>
   </release>
  </changelog>
