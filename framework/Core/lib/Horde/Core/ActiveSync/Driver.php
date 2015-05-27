@@ -1856,7 +1856,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($message->read !== '') {
                     $this->setReadFlag($folderid, $id, $message->read);
                     $stat['flags'] = array_merge($stat['flags'], array('read' => $message->read));
-                } elseif ($message->propertyExists('flag')) {
+                }
+                if ($message->propertyExists('flag')) {
                     if (!$message->flag) {
                         $message->flag = Horde_ActiveSync::messageFactory('Flag');
                     }
