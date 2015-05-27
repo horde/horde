@@ -462,7 +462,7 @@ abstract class Horde_ActiveSync_State_Base
                         Horde_ActiveSync::CHANGE_TYPE_CHANGE => 'move'
                     );
                     $cnt = count($changes);
-                    for ($i = 0; $i <= $cnt; $i++) {
+                    for ($i = 0; $i < $cnt; $i++) {
                         if (!empty($mailmap[$changes[$i]['id']][$changes[$i]['type']])) {
                             // @todo For 3.0, create a Changes and
                             // ChangeFilter classes to abstract out a bunch of
