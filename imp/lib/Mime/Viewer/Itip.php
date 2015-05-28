@@ -220,9 +220,18 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         try {
             $end = $vfb->getAttribute('DTEND');
-            $view->end = is_array($end)
-                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+            if (is_array($end)) {
+                $view->end = strftime(
+                    $prefs->getValue('date_format'),
+                    mktime(0, 0, 0, $end['month'], $end['mday'], $end['year'])
+                );
+            } elseif (is_int($end)) {
+                $view->end = strftime($prefs->getValue('date_format'), $end) .
+                    ' ' .
+                    date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+            } else {
+                $view->end = '';
+            }
         } catch (Horde_Icalendar_Exception $e) {}
 
         $options = array();
