@@ -2,6 +2,7 @@
 /**
  * History system prefix generator for use with Kolab_Storage.
  *
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -9,6 +10,7 @@
  */
 
 /**
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
