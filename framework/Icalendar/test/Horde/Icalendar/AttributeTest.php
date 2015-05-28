@@ -59,4 +59,22 @@ class Horde_Icalendar_AttributeTest extends Horde_Test_Case
             $ical->getComponent(0)->getAttribute('GEO')
         );
     }
+
+    public function testIgnoringMultipleAttributeValues()
+    {
+        $ical = new Horde_Icalendar();
+        $ical->parsevCalendar(
+            file_get_contents(__DIR__ . '/fixtures/multiple-summary.ics')
+        );
+
+        $result = $ical->getComponent(0)->getAttribute('SUMMARY');
+
+        $this->assertInternalType('string', $result);
+
+        $this->assertEquals(
+            'Summary 1',
+            $result
+        );
+    }
+
 }

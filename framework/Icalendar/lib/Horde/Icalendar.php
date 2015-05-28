@@ -233,7 +233,7 @@ class Horde_Icalendar
 
         if (!count($result)) {
             throw new Horde_Icalendar_Exception('Attribute "' . $name . '" Not Found');
-        } elseif (count($result) == 1 && !$params) {
+        } elseif (count($result) && !$params) {
             return $result[0];
         }
 

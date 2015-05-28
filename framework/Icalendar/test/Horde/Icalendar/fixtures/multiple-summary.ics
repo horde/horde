@@ -1,0 +1,8 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VEVENT
+SUMMARY:Summary 1
+SUMMARY:Summary 2
+END:VEVENT
+END:VCALENDAR
