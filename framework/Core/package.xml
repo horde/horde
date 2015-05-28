@@ -30,7 +30,7 @@
  </developer>
  <date>2015-05-28</date>
  <version>
-  <release>2.20.3</release>
+  <release>2.20.4</release>
   <api>2.20.0</api>
  </version>
  <stability>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix issue causing message text from email forwarded from ActiveSync clients to be missing (Bug #14000).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3916,6 +3916,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue causing message text from email forwarded from ActiveSync clients to be missing (Bug #14000).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.20.4</release>
+    <api>2.20.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-05-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
