@@ -119,6 +119,13 @@ class Horde_Core_ActiveSync_Mail
     protected $_imap;
 
     /**
+     * EAS version in use.
+     *
+     * @var string
+     */
+    protected $_version;
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Imap_Adapter $imap  The IMAP adapter.
