@@ -182,7 +182,7 @@ class Horde_ActiveSync_Imap_MessageBodyData
      * Return the BODYTYPE to return to the client. Takes BODYPREF and available
      * parts into account.
      *
-     * @param  boolean $save_bandwith  IF true, saves bandwidth usage by
+     * @param  boolean $save_bandwith  If true, saves bandwidth usage by
      *                                 favoring HTML over MIME BODYTYPE if able.
      *
      * @return integer  A Horde_ActiveSync::BODYPREF_TYPE_* constant.
