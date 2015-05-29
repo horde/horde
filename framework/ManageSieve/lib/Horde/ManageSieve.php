@@ -157,7 +157,7 @@ class ManageSieve
      *   - user: Login username (optional).
      *   - password: Login password (optional).
      *   - authmethod: Type of login to perform (see $supportedAuthMethods)
-                       (DEFAULT: AUTH_AUTOMATIC).
+     *                 (DEFAULT: AUTH_AUTOMATIC).
      *   - euser: Effective user. If authenticating as an administrator, login
      *            as this user.
      *   - bypassauth: Skip the authentication phase. Useful if passing an
