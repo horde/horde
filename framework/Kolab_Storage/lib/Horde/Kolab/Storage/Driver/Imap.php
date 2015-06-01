@@ -522,6 +522,13 @@ extends Horde_Kolab_Storage_Driver_Base
                 $query,
                 array('ids' => new Horde_Imap_Client_Ids($uid))
             );
+
+            // Already decoded?
+            if ($ret[$uid]->getBodyPartDecode($id)) {
+                return $ret[$uid]->getBodyPart($id, true);
+            }
+
+            // Not already decoded, let Horde_Mime do it.
             $part = $ret[$uid]->getStructure()->getPart($id);
             $part->setContents(
                 $ret[$uid]->getBodyPart($id, true),
