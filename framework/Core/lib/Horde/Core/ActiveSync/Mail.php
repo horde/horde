@@ -300,6 +300,14 @@ class Horde_Core_ActiveSync_Mail
                 ->send($recipients, $h_array, $this->_raw->getMessage()->stream);
         } catch (Horde_Mail_Exception $e) {
             throw new Horde_ActiveSync_Exception($e->getMessage());
+        } catch (InvalidArgumentException $e) {
+            // Some clients (HTC One devices, for one) generate HTML signatures
+            // that contain line lengths too long for servers without BINARYMIME
+            // to send. If we are here, see if that's the reason why by trying
+            // to wrap any text/html parts.
+            if (!$this->_tryWithoutBinary($recipients, $h_array)) {
+                throw new Horde_ActiveSync_Exception($e->getMessage());
+            }
         }
 
         // Replace MIME? Don't have original body, but still need headers.
@@ -311,6 +319,31 @@ class Horde_Core_ActiveSync_Mail
                 throw new Horde_ActiveSync_Exception($e->getMessage());
             }
         }
+    }
+
+    /**
+     * Some clients (HTC One devices, for one) generate HTML signatures
+     * that contain line lengths too long for servers without BINARYMIME to
+     * send. If we are here, see if that's the reason by checking content
+     * encoding and trying again.
+     *
+     * @return boolean
+     */
+    protected function _tryWithoutBinary($recipients, array $headers)
+    {
+        // All we need to do is re-assign the mime object. This will cause the
+        // content transfer encoding to be re-evaulated and set to an approriate
+        // value if needed.
+        $mime = $this->_raw->getMimeObject();
+        $this->_raw->replaceMime($mime);
+        try {
+            $GLOBALS['injector']->getInstance('Horde_Mail')
+                ->send($recipients, $headers, $this->_raw->getMessage()->stream);
+        } catch (Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
