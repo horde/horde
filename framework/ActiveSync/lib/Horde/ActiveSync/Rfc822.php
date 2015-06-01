@@ -111,7 +111,8 @@ class Horde_ActiveSync_Rfc822
     }
 
     /**
-     * Replace the MIME part of the message sent from the client.
+     * Replace the MIME part of the message sent from the client. Headers from
+     * the original message are always used.
      *
      * @param  Horde_Mime_Part $part  The new MIME part.
      * @since 2.19.0
