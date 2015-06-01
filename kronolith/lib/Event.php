@@ -3156,12 +3156,19 @@ abstract class Kronolith_Event
             break;
         }
 
-        if ($exceptions = Horde_Util::getFormData('exceptions')) {
-            foreach ($exceptions as $exception) {
-                $recurrence->addException(
-                    (int)substr($exception, 0, 4),
-                    (int)substr($exception, 4, 2),
-                    (int)substr($exception, 6, 2));
+        foreach (array('exceptions', 'completions') as $what) {
+            if ($data = Horde_Util::getFormData($what)) {
+                if (!is_array($data)) {
+                    $data = explode(',', $data);
+                }
+                foreach ($data as $date) {
+                    list($year, $month, $mday) = sscanf($date, '%04d%02d%02d');
+                    if ($what == 'exceptions') {
+                        $recurrence->addException($year, $month, $mday);
+                    } else {
+                        $recurrence->addCompletion($year, $month, $mday);
+                    }
+                }
             }
         }
 

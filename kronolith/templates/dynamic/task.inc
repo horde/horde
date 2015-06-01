@@ -96,6 +96,8 @@
 </div>
 
 <div id="kronolithTaskTabRecur" class="kronolithTabsOption" style="display:none">
+  <input type="hidden" id="kronolithTaskExceptions" name="exceptions" />
+  <input type="hidden" id="kronolithTaskCompletions" name="completions" />
   <div id="kronolithTaskRepeatType" style="display:none">
     <?php printf(_("%s Don't repeat %s or repeat %s daily, %s weekly, %s monthly %s or %s yearly %s"),
     '<label for="kronolithTaskLinkNone"><input type="radio" name="recur" value="' . Horde_Date_Recurrence::RECUR_NONE . '" checked="checked" id="kronolithTaskLinkNone" />', '</label>',

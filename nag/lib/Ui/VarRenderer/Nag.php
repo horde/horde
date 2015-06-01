@@ -368,6 +368,22 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
             Horde::label('recur_count', _("recurrences"))
         );
 
+        /* Exceptions and completions. */
+        if ($recur) {
+            foreach ($recur->getExceptions() as $exception) {
+                $html .= sprintf(
+                    '<input type="hidden" name="exceptions[]" value="%s" />',
+                    $exception
+                );
+            }
+            foreach ($recur->getCompletions() as $completion) {
+                $html .= sprintf(
+                    '<input type="hidden" name="completions[]" value="%s" />',
+                    $completion
+                );
+            }
+        }
+
         return $html;
     }
 
