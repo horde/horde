@@ -429,16 +429,7 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
             );
         }
 
-        // Replace Kolab part.
-        $original = $body->getPart($mime_id);
-        $original->setContents(
-            $this->_getDriver()->fetchBodypart(
-                $this->_getFolder(),
-                $this->getBackendId(),
-                $mime_id
-            )
-        );
-        $this->_content = $original->getContents(array('stream' => true));
+        $this->_content = $body->getPart($mime_id)->getContents(array('stream' => true));
         $body->alterPart($mime_id, $this->createFreshKolabPart($data->save($this)));
         $body->buildMimeIds();
 
