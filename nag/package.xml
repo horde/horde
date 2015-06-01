@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Don&apos;t delete existing completions when editing a recurring task.
+* [jan] Only delete the last completion when toggling a recurring task to incomplete.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1640,7 +1641,8 @@
    <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Don&apos;t delete existing completions when editing a recurring task.
+* [jan] Only delete the last completion when toggling a recurring task to incomplete.
    </notes>
   </release>
  </changelog>
