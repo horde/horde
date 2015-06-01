@@ -750,6 +750,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 
                 case Horde_ActiveSync::SYNC_FOLDERID:
                     $collection['id'] = $this->_decoder->getElementContent();
+                    if ($collection['id'] === false) {
+                        // Log this case explicitly since we can't send back
+                        // a protocol error status (the response requires a
+                        // collection id and we obviously don't have one).
+                        $this->_logger->err(sprintf(
+                            '[%s] PROTOCOL ERROR. Client sent an empty SYNC_FOLDERID value.',
+                            $this->_procid));
+                        throw new Horde_ActiveSync_Exception('Protocol error');
+                    }
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
