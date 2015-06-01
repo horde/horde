@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge cases (Bug: 13901).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2764,7 +2764,7 @@
    <date>2015-05-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge cases (Bug: 13901).
    </notes>
   </release>
  </changelog>
