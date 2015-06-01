@@ -599,14 +599,14 @@ class Nag_Task
             $this->completed_date = null;
             $this->completed = false;
             if ($this->recurs()) {
-                /* What do we want do delete here? All completions?  The latest
-                 * completion? Any completion in the future? */
-                foreach ($this->recurrence->getCompletions() as $completion) {
-                    $this->recurrence->deleteCompletion(
-                        substr($completion, 0, 4),
-                        substr($completion, 4, 2),
-                        substr($completion, 6, 2));
-                }
+                /* Only delete the latest completion. */
+                $completions = $this->recurrence->getCompletions();
+                sort($completions);
+                list($year, $month, $mday) = sscanf(
+                    end($completions),
+                    '%04d%02d%02d'
+                );
+                $this->recurrence->deleteCompletion($year, $month, $mday);
             }
             return;
         }
@@ -1571,7 +1571,7 @@ class Nag_Task
                 if (is_array($exdates)) {
                     foreach ($exdates as $exdate) {
                         if (is_array($exdate)) {
-                            $this->recurrence->addException(
+                            $this->recurrence->addCompletion(
                                 (int)$exdate['year'],
                                 (int)$exdate['month'],
                                 (int)$exdate['mday']);

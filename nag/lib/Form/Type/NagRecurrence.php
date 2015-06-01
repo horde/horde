@@ -112,12 +112,16 @@ class Nag_Form_Type_NagRecurrence extends Horde_Form_Type
             break;
         }
 
-        if ($vars->exceptions) {
-            foreach ($vars->exceptions as $exception) {
-                $recurrence->addException(
-                    (int)substr($exception, 0, 4),
-                    (int)substr($exception, 4, 2),
-                    (int)substr($exception, 6, 2));
+        foreach (array('exceptions', 'completions') as $what) {
+            if ($vars->$what) {
+                foreach ($vars->$what as $date) {
+                    list($year, $month, $mday) = sscanf($date, '%04d%02d%02d');
+                    if ($what == 'exceptions') {
+                        $recurrence->addException($year, $month, $mday);
+                    } else {
+                        $recurrence->addCompletion($year, $month, $mday);
+                    }
+                }
             }
         }
 

@@ -6696,6 +6696,10 @@ KronolithCore = {
         } else {
             $(prefix + 'RepeatLength').down('input[name=recur_end_type][value=none]').setValue(true);
         }
+        $(prefix + 'Exceptions').setValue(recur.ex || '');
+        if ($(prefix + 'Completions')) {
+            $(prefix + 'Completions').setValue(recur.co || '');
+        }
         this.toggleRecurrence(event, scheme);
     },
 
