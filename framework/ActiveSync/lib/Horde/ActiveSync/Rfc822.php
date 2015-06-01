@@ -122,15 +122,13 @@ class Horde_ActiveSync_Rfc822
             'stream' => true,
             'headers' => false)
         );
+        $mime_stream = new Horde_Stream_Existing(array('stream' => $mime_stream));
 
-        if (!empty($this->_header_text)) {
-            $hdr = $this->_header_text;
-        } else {
-            $this->_stream->rewind();
-            $hdr = $this->_stream->substring(0, $this->_hdr_pos);
-        }
-        $new_stream = Horde_Stream_Wrapper_Combine::getStream(array($hdr, $mime_stream));
-        $this->_parseStream(new Horde_Stream_Existing(array('stream' => $new_stream)));
+        // Since we are still using the headers sent from the device, we can
+        // simply zero out the position members etc...
+        $this->_hdr_pos = 0;
+        $this->_stream = $mime_stream;
+        $mime_stream->rewind();
     }
 
     /**
