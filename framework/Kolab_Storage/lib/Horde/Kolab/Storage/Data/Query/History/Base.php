@@ -74,7 +74,8 @@ implements Horde_Kolab_Storage_Data_Query_History
     {
         $this->_data = $data;
         $this->_history = $params['factory']->createHistory($data->getAuth());
-        $this->_logger = new Horde_Support_Stub();
+        $this->_logger = new Horde_Log_Logger();
+        $this->_logger->addHandler(new Horde_Log_Handler_Mock());
         $this->_factory = $params['factory'];
     }
 
@@ -83,9 +84,11 @@ implements Horde_Kolab_Storage_Data_Query_History
      *
      * @param Horde_Log_Logger $logger  The logger instance.
      */
-    public function setLogger(Horde_Log_Logger $logger)
+    public function setLogger(Horde_Log_Logger $logger = null)
     {
-        $this->_logger = $logger;
+        if (!is_null($logger)) {
+            $this->_logger = $logger;
+        }
     }
 
     /**
