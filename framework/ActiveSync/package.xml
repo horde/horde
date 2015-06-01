@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-05-27</date>
+ <date>2015-06-01</date>
  <version>
   <release>2.28.4</release>
   <api>2.28.0</api>
@@ -2761,7 +2761,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-05-27</date>
+   <date>2015-06-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge cases (Bug: 13901).
