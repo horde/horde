@@ -496,6 +496,7 @@ class Horde_Smtp implements Serializable
      *
      * @throws Horde_Smtp_Exception
      * @throws Horde_Smtp_Exception_Recipients
+     * @throws InvalidArgumentException
      */
     public function send($from, $to, $data, array $opts = array())
     {
