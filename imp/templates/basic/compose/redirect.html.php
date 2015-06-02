@@ -50,7 +50,7 @@
 <?php if ($this->allow_compose): ?>
     <input name="btn_redirect" type="submit" class="horde-default" value="<?php echo _("Redirect") ?>" />
 <?php endif; ?>
-    <input name="btn_cancel_compose" type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
+    <input name="btn_cancel_compose" type="submit" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
    </td>
   </tr>
  </table>

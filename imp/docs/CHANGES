@@ -2,6 +2,7 @@
 v6.2.9-git
 ----------
 
+[jan] Fix cancelling redirection window in basic mode (Bug #14002).
 
 
 ------
