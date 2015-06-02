@@ -1,0 +1,1018 @@
+# Ukrainian translations for Agora package.
+# Copyright (C) 2015 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the Agora package.
+# Automatically generated, 2015.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Agora 1.0\n"
+"Report-Msgid-Bugs-To: dev@lists.horde.org\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
+"PO-Revision-Date: 2014-03-25 18:08+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: i18n@lists.horde.org\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: moderate.php:32
+#, php-format
+msgid "%d messages was approved."
+msgstr "%d дописів затверджено."
+
+#: moderate.php:38
+#, php-format
+msgid "%d messages was deleted."
+msgstr "%d дописів витерто."
+
+#: scripts/phorum2agora.php:183
+msgid "-a, --agora_id[=aid]         Agora forum id to save message to"
+msgstr ""
+
+#: scripts/phorum2agora.php:186
+msgid "-c, --count[=messages]       Number of messages to move at once"
+msgstr ""
+
+#: scripts/phorum2agora.php:185
+msgid ""
+"-f, --from[=offset]          Offset from where to start to read messages"
+msgstr ""
+
+#: scripts/phorum2agora.php:181
+msgid "-h, --help                   Show this help"
+msgstr ""
+
+#: scripts/phorum2agora.php:182
+msgid "-p, --phorum_id[=pid]        Phorum forum id to read message from"
+msgstr ""
+
+#: scripts/phorum2agora.php:184
+msgid "-t, --phorum_table[=table]   Phorum messages tablename"
+msgstr ""
+
+#: lib/Api.php:683
+msgid "Add a comment"
+msgstr "Додати коментар"
+
+#: lib/Application.php:49
+msgid "Admin"
+msgstr "Адмін"
+
+#: messages/merge.php:60
+msgid "After Message: "
+msgstr "Після допису:"
+
+#: forums.php:77
+msgid "All Forums"
+msgstr "Всі Форуми"
+
+#: lib/Form/Forum.php:39
+msgid "Allow attachments in this forum?"
+msgstr "Дозволити додатки в цьому форумі?"
+
+#: messages/lock.php:44
+msgid "Allow replies in this thread"
+msgstr ""
+
+#: moderate.php:29 moderate.php:63
+msgid "Approve"
+msgstr "Затвердити"
+
+#: config/prefs.php:113 config/prefs.php:152 config/prefs.php:195
+#: config/prefs.php:279 lib/Comments.php:71
+msgid "Ascending"
+msgstr "По зростанню"
+
+#: lib/Driver.php:1558
+msgid "Attachment"
+msgstr "Додаток"
+
+#: lib/Comments.php:66 lib/Form/Search.php:53
+msgid "Author"
+msgstr "Автор"
+
+#: config/prefs.php:13
+msgid "Avatar"
+msgstr "Аватар"
+
+#: config/prefs.php:74
+#, php-format
+msgid ""
+"Avatars must be smaller than %s by %s pixels and less than %sKb in size."
+msgstr ""
+"Аватарки мають бути менше, ніж %s на %s пікселів, і менше %sКб за об'ємом."
+
+#: ban.php:52 lib/Driver.php:1504
+msgid "Ban"
+msgstr ""
+
+#: templates/ban.html.php:9
+msgid "Banned"
+msgstr ""
+
+#: moderate.php:56
+msgid "Body"
+msgstr "Тіло"
+
+#: deleteforum.php:40 lib/Api.php:601 messages/abuse.php:41
+#: messages/abuse.php:49 messages/delete.php:42 messages/merge.php:40
+#: messages/move.php:40 messages/split.php:42
+msgid "Cancel"
+msgstr "Відмінити"
+
+#: lib/Driver.php:1935
+msgid "Cannot create a forum with an empty name."
+msgstr "Не можу створити форум з пустою назвою."
+
+#: lib/Api.php:312 lib/Comments.php:52
+msgid "Comments"
+msgstr "Коментарі"
+
+#: rss/threads.php:57
+#, php-format
+msgid "Comments on %s"
+msgstr "Коментарі до %s"
+
+#: config/prefs.php:57
+msgid "Comments view"
+msgstr "Огляд Коментарів"
+
+#: editforum.php:50
+#, php-format
+msgid "Could not create the forum. %s"
+msgstr "Не можу створити форум. %s"
+
+#: deleteforum.php:64
+#, php-format
+msgid "Could not delete the forum. %s"
+msgstr "Не можу витерти форум. %s"
+
+#: lib/Api.php:584 lib/Api.php:595 lib/Api.php:609 messages/delete.php:56
+#, php-format
+msgid "Could not delete the message. %s"
+msgstr "Не можу видалити допис. %s"
+
+#: threads.php:26
+#, php-format
+msgid "Could not list threads. %s"
+msgstr "Не можу показати рубрики. %s"
+
+#: messages/lock.php:53
+#, php-format
+msgid "Could not lock the thread. %s"
+msgstr "Не можу замкнути рубрику. %s"
+
+#: messages/abuse.php:25 messages/delete.php:27 messages/index.php:27
+#: messages/index.php:48 messages/lock.php:27 messages/merge.php:25
+#: messages/move.php:25 messages/split.php:25
+#, php-format
+msgid "Could not open the message. %s"
+msgstr "Не можу відкрити допис. %s"
+
+#: lib/Api.php:447 lib/Api.php:500 messages/edit.php:29 messages/edit.php:79
+msgid "Could not post the message: "
+msgstr "Не можу відіслати допис:"
+
+#: scripts/phorum2agora.php:29
+msgid "Couldn't read command-line options."
+msgstr ""
+
+#: lib/Form/Forum.php:29
+msgid "Create"
+msgstr "Створити"
+
+#: lib/Driver.php:1554
+msgid "Current attachment"
+msgstr "Поточний додаток"
+
+#: config/prefs.php:104 config/prefs.php:142 config/prefs.php:186
+#: config/prefs.php:270 forums.php:52 lib/Api.php:301 lib/Block/Forums.php:91
+#: lib/Block/Thread.php:78 lib/Block/Threads.php:119 lib/Comments.php:65
+#: lib/Comments.php:86 messages/index.php:139 moderate.php:56 owner.php:55
+msgid "Date"
+msgstr "Дата"
+
+#: config/prefs.php:272
+msgid "Default comments view sort:"
+msgstr "Типове сортування огляду коментарів:"
+
+#: config/prefs.php:106
+msgid "Default forums view sort:"
+msgstr "Типове сортування огляду форумів:"
+
+#: config/prefs.php:116 config/prefs.php:155 config/prefs.php:198
+#: config/prefs.php:282
+msgid "Default sorting direction:"
+msgstr "Типовий напрям сортування:"
+
+#: config/prefs.php:188
+msgid "Default thread view sort:"
+msgstr "Типове сортування огляду рубрики:"
+
+#: config/prefs.php:145
+msgid "Default threads view sort:"
+msgstr "Типове сортування огляду рубрик:"
+
+#: ban.php:49 deleteforum.php:40 deleteforum.php:58 lib/Api.php:601
+#: lib/Api.php:606 lib/Driver.php:911 lib/Driver.php:1834
+#: messages/delete.php:42 messages/delete.php:47 messages/index.php:116
+#: moderate.php:35 moderate.php:63 moderators.php:59
+msgid "Delete"
+msgstr "Витерти"
+
+#: lib/Api.php:600 messages/delete.php:41
+#, php-format
+msgid "Delete \"%s\" and all replies?"
+msgstr "Витерти \"%s\" і всі відповіді?"
+
+#: deleteforum.php:37 lib/Driver.php:1502
+msgid "Delete Forum"
+msgstr "Витерти форум"
+
+#: lib/Driver.php:1834
+msgid "Delete forum"
+msgstr "Витерти форум"
+
+#: lib/Driver.php:911
+msgid "Delete message"
+msgstr "Витерти допис"
+
+#: lib/Driver.php:1553
+msgid "Delete the existing attachment?"
+msgstr "Витерти існуючий додаток?"
+
+#: config/prefs.php:114 config/prefs.php:153 config/prefs.php:196
+#: config/prefs.php:280 lib/Comments.php:72
+msgid "Descending"
+msgstr "По спаданню"
+
+#: forums.php:52
+msgid "Description"
+msgstr "Опис"
+
+#: config/prefs.php:22 config/prefs.php:29 config/prefs.php:39
+#: config/prefs.php:49 config/prefs.php:56
+msgid "Display Preferences"
+msgstr "Опції відображення"
+
+#: config/prefs.php:261
+msgid "Display full message bodies in the comments view?"
+msgstr "Показувати повний текст допису при огляді коментарів?"
+
+#: config/prefs.php:209
+msgid "Display full message bodies in the thread list view?"
+msgstr "Показувати повний текст допису при огляді рубрик?"
+
+#: config/prefs.php:232
+msgid "Display graphical emoticons?"
+msgstr "Показувати графічні смайлики?"
+
+#: lib/Driver.php:907 lib/Driver.php:1827 messages/index.php:113
+msgid "Edit"
+msgstr "Редагувати"
+
+#: editforum.php:34 lib/Driver.php:1499
+msgid "Edit Forum"
+msgstr "Редагувати форум"
+
+#: lib/Api.php:475
+msgid "Edit Message"
+msgstr "Редагувати допис"
+
+#: messages/edit.php:66
+#, php-format
+msgid "Edit Message in \"%s\""
+msgstr "Редагувати допис в \"%s\""
+
+#: lib/Api.php:681
+msgid "Edit a comment"
+msgstr "Редагувати коментар"
+
+#: lib/Driver.php:1827
+msgid "Edit forum"
+msgstr "Редагувати форум"
+
+#: lib/Driver.php:907
+msgid "Edit message"
+msgstr "Редагувати допис"
+
+#: lib/Form/Forum.php:35
+msgid "Enter a brief description of this forum"
+msgstr "Вкажіть короткий опис цього форуму"
+
+#: config/prefs.php:258 lib/Comments.php:58 messages/index.php:160
+msgid "Flat"
+msgstr ""
+
+#: config/prefs.php:100 forums.php:52 lib/Block/Forums.php:91
+#: lib/Block/Threads.php:48 messages/move.php:45 moderate.php:56
+#: moderators.php:71 moderators.php:74 templates/moderators.html.php:7
+msgid "Forum"
+msgstr "Форум"
+
+#: lib/Api.php:578 lib/Driver.php:1726
+#, php-format
+msgid "Forum %s does not exist."
+msgstr "Форуму %s не існує."
+
+#: editforum.php:53
+msgid "Forum Modified"
+msgstr "Форум змінено"
+
+#: editforum.php:53
+msgid "Forum created."
+msgstr "Форум створено."
+
+#: deleteforum.php:62
+msgid "Forum deleted."
+msgstr "Форум витерто."
+
+#: deleteforum.php:44 lib/Form/Forum.php:32 templates/moderators.html.php:8
+msgid "Forum name"
+msgstr "Назва форуму"
+
+#: deleteforum.php:67
+msgid "Forum not deleted."
+msgstr "Форум не витерто."
+
+#: forums.php:74 lib/Application.php:52 lib/Block/Forums.php:21
+#: templates/forums.html.php:8
+msgid "Forums"
+msgstr "Форуми"
+
+#: config/prefs.php:23
+msgid "Forums View"
+msgstr "Огляд форумів"
+
+#: rss/index.php:23
+#, php-format
+msgid "Forums in %s"
+msgstr "Форуми в %s"
+
+#: lib/Driver.php:1535
+msgid "From"
+msgstr "Від"
+
+#: templates/threads.html.php:45
+msgid "Goto page:"
+msgstr "Перейти на сторінку:"
+
+#: messages/index.php:150 messages/index.php:159
+msgid "Hide bodies"
+msgstr "Сховати тіло текстів"
+
+#: lib/Driver.php:825
+msgid "Hot thread"
+msgstr "Гаряча рубрика"
+
+#: lib/Form/Forum.php:39
+msgid "If selected users will be able to attach files to their messages."
+msgstr "Якщо вибране, користувачі зможуть причіпляти файли до своїх дописів."
+
+#: messages/edit.php:112
+msgid ""
+"Invalid parent message, you will be posting this message as a new thread."
+msgstr "Неправильний батьківський допис, Ви будете слати листа як нову тему."
+
+#: lib/Form/Forum.php:36
+msgid "Is this a moderated forum?"
+msgstr "Це модерований форум?"
+
+#: lib/Form/Search.php:41
+msgid "Keywords"
+msgstr "Ключові слова"
+
+#: config/prefs.php:102
+msgid "Last Message"
+msgstr "Останній допис"
+
+#: forums.php:52 lib/Block/Forums.php:91
+msgid "Last Post"
+msgstr "Останній пост"
+
+#: config/prefs.php:143 threads.php:54
+msgid "Last post"
+msgstr "Останній пост"
+
+#: owner.php:27
+#, php-format
+msgid "Last posts in forums owned by %s"
+msgstr "Останні пости в форуми, що належать %s"
+
+#: lib/Driver.php:915
+msgid "Lock"
+msgstr "Замкнути"
+
+#: messages/index.php:119
+msgid "Lock thread"
+msgstr "Замкнути тему"
+
+#: messages/lock.php:41
+#, php-format
+msgid "Locking thread \"%s\""
+msgstr "Замикаю тему \"%s\""
+
+#: lib/Agora.php:309
+msgid "Malformed avatar."
+msgstr "Неправильний аватар."
+
+#: lib/Agora.php:332
+msgid "Malformed database entry."
+msgstr "Неправильний запит до бази даних."
+
+#: scripts/phorum2agora.php:179
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too."
+msgstr ""
+
+#: lib/Driver.php:926 messages/merge.php:40 messages/merge.php:67
+msgid "Merge"
+msgstr "З'єднати"
+
+#: messages/merge.php:39
+#, php-format
+msgid "Merge \"%s\" with another thread"
+msgstr "З'єднати \"%s\" з іншою темою"
+
+#: lib/Driver.php:1548
+msgid "Message"
+msgstr "Допис"
+
+#: messages/abuse.php:71
+#, php-format
+msgid "Message %s reported as abuse"
+msgstr "Допис %s повідомлений як шкідливий"
+
+#: lib/Driver.php:470
+#, php-format
+msgid "Message ID \"%d\" not found"
+msgstr ""
+
+#: config/prefs.php:50
+msgid "Message View"
+msgstr "Огляд допису"
+
+#: lib/Api.php:611 messages/delete.php:58
+msgid "Message deleted."
+msgstr "Допис витерто."
+
+#: lib/Api.php:616 messages/delete.php:48
+msgid "Message not deleted."
+msgstr "Допис не витерто."
+
+#: lib/Api.php:502 messages/edit.php:84
+msgid "Message posted."
+msgstr "Допис відіслано."
+
+#: config/prefs.php:101 templates/messages/index.html.php:1
+msgid "Messages"
+msgstr "Дописи"
+
+#: moderate.php:81 templates/moderate.html.php:8
+msgid "Messages Awaiting Moderation"
+msgstr "Дописи в очікуванні модерації"
+
+#: lib/Driver.php:1848
+msgid "Moderate"
+msgstr "Модерувати"
+
+#: lib/Tree/Flat.php:36 moderators.php:69 templates/messages/flat.html.php:11
+#: templates/messages/flat_thread.html.php:10
+#: templates/messages/message.html.php:20
+msgid "Moderator"
+msgstr "Модератор"
+
+#: moderators.php:63 templates/forums.html.php:38
+#: templates/moderators.html.php:3 templates/moderators.html.php:9
+msgid "Moderators"
+msgstr "Модератори"
+
+#: lib/Driver.php:922 messages/move.php:40 messages/move.php:52
+msgid "Move"
+msgstr "Перенести"
+
+#: messages/move.php:39
+#, php-format
+msgid "Move \"%s\" to another forum"
+msgstr "Перенести \"%s\" до іншого форуму"
+
+#: config/prefs.php:12
+msgid "My Information"
+msgstr "Моя Інформація"
+
+#: editforum.php:34
+msgid "New Forum"
+msgstr "Новий форум"
+
+#: lib/Driver.php:1822
+msgid "New Post"
+msgstr "Новий пост"
+
+#: lib/Application.php:91
+msgid "New Thread"
+msgstr "Нова тема"
+
+#: lib/Driver.php:826
+msgid "New posts"
+msgstr "Нові пости"
+
+#: config/prefs.php:205
+msgid "No"
+msgstr "Ні"
+
+#: lib/Block/Threads.php:115
+msgid "No available threads."
+msgstr "Нема доступних тем."
+
+#: lib/Block/Threads.php:94
+msgid "No forum selected"
+msgstr "Не вибрано жодного форуму"
+
+#: templates/forums.html.php:59
+msgid "No forums have been created."
+msgstr "Не створено жодного форуму."
+
+#: config/prefs.php:229
+msgid "No graphical emoticons"
+msgstr "Без графічних смайликів"
+
+#: moderate.php:49
+msgid "No messages are waiting for moderation."
+msgstr "Нема дописів в очікуванні модерування."
+
+#: messages/abuse.php:32
+msgid "No moderators are associated with this forum."
+msgstr "Жоден модератор не асоційований з цим форумом."
+
+#: templates/moderators.html.php:26
+msgid "No moderators have been created."
+msgstr "Не створено жодного модератора."
+
+#: owner.php:40 templates/block/threads.html.php:32
+msgid "No threads"
+msgstr "Нема тем"
+
+#: messages/lock.php:44
+msgid "No, do not allow replies"
+msgstr "Ні, не дозволяти відповіді"
+
+#: config/prefs.php:129
+msgid "Number of forums to display on each page"
+msgstr "Кількість форумів, які відображати на одній сторінці"
+
+#: config/prefs.php:222
+msgid "Number of message to display on each page"
+msgstr "Кількість дописів, які відображати на одній сторінці"
+
+#: config/prefs.php:174 config/prefs.php:295
+msgid "Number of messages to display on each page"
+msgstr "Кількість дописів, які відображати на одній сторінці"
+
+#: config/prefs.php:161
+msgid "Number of views in 24hrs to trigger a 'hot-thread':"
+msgstr "Кількість переглядів за добу, щоб увімкнути 'гаряча тема':"
+
+#: lib/Block/Forums.php:38
+msgid "Only display this many forums (0 to display all forums)"
+msgstr ""
+
+#: lib/Block/Threads.php:55
+msgid "Only display this many threads (0 to display all threads)"
+msgstr ""
+
+#: lib/Form/Forum.php:37
+msgid "Optional email address to recieve a copy of each posted message"
+msgstr ""
+
+#: templates/forums.html.php:33
+msgid "Options"
+msgstr "Опції"
+
+#: lib/Driver.php:873
+#, php-format
+msgid "Page %d"
+msgstr "Сторінка %d"
+
+#: lib/Form/Forum.php:34
+msgid "Parent forum"
+msgstr "Батьківський форум"
+
+#: lib/Driver.php:1517
+msgid "Post"
+msgstr "Пост"
+
+#: lib/Api.php:475
+msgid "Post a New Message"
+msgstr "Надіслати Новий допис"
+
+#: messages/edit.php:67
+#, php-format
+msgid "Post a New Message to \"%s\""
+msgstr "Надіслати Новий допис до \"%s\""
+
+#: messages/edit.php:65 messages/index.php:208
+#, php-format
+msgid "Post a Reply to \"%s\""
+msgstr "Надіслати відповідь до \"%s\""
+
+#: lib/Driver.php:1493 lib/Driver.php:1822
+msgid "Post message"
+msgstr "Надіслати допис"
+
+#: config/prefs.php:103 config/prefs.php:140 config/prefs.php:185
+#: config/prefs.php:269 forums.php:52 lib/Api.php:299 lib/Block/Forums.php:91
+#: lib/Block/Thread.php:78 lib/Block/Threads.php:119 lib/Comments.php:84
+#: lib/Tree/Flat.php:31 messages/index.php:139 moderate.php:56 owner.php:55
+#: templates/messages/flat_thread.html.php:7
+msgid "Posted by"
+msgstr "Надіслано"
+
+#: lib/Driver.php:511 messages/index.php:84
+#: templates/messages/flat.html.php:9
+#, php-format
+msgid "Posted by %s on %s"
+msgstr "Надіслано %s в %s"
+
+#: config/prefs.php:141 forums.php:52 lib/Block/Forums.php:91 threads.php:54
+msgid "Posts"
+msgstr "Пости"
+
+#: lib/Driver.php:1540
+msgid "Quote"
+msgstr ""
+
+#: lib/Driver.php:895 messages/index.php:107
+msgid "Reply"
+msgstr "Відповісти"
+
+#: lib/Driver.php:895
+msgid "Reply to message"
+msgstr "Відповісти на допис"
+
+#: lib/Driver.php:901 messages/abuse.php:40 messages/abuse.php:41
+msgid "Report as abuse"
+msgstr "Повідомити як шкідливе"
+
+#: lib/Form/Search.php:42
+msgid "Require all keywords?"
+msgstr ""
+
+#: lib/Driver.php:1517
+msgid "Save"
+msgstr "Зберегти"
+
+#: lib/Form/Search.php:55
+msgid "Search"
+msgstr "Пошук"
+
+#: lib/Form/Search.php:31 search.php:71
+msgid "Search Forums"
+msgstr ""
+
+#: templates/search.html.php:4
+msgid "Search Results"
+msgstr "Результати пошуку"
+
+#: lib/Form/Search.php:50
+msgid "Search in message contents?"
+msgstr "Шукати в тексті дописів?"
+
+#: lib/Form/Search.php:46
+msgid "Search in subjects?"
+msgstr "Шукати в темах?"
+
+#: lib/Form/Search.php:35
+msgid "Search in these forums"
+msgstr "Шукати в цих форумах"
+
+#: config/prefs.php:14
+msgid "Set the avatar image that is shown with your posts."
+msgstr "Оберіть аватарку, яка буде показана поруч з Вашими постами."
+
+#: lib/Form/Forum.php:36
+msgid ""
+"Set this if you want all messages to be checked by a moderator before they "
+"are posted."
+msgstr ""
+"Позначте, якщо бажаєте щоб всі дописи були перевірені модератором перед "
+"опублікуванням."
+
+#: config/prefs.php:24
+msgid "Set your preferences for the forums view."
+msgstr "Налаштуйте Ваші уподобання для огляду форумів."
+
+#: config/prefs.php:51
+msgid "Set your preferences for the message view."
+msgstr "Налаштуйте Ваші уподобання для перегляду допису."
+
+#: config/prefs.php:41 config/prefs.php:58
+msgid "Set your preferences for the single thread view."
+msgstr "Налаштуйте Ваші уподобання перегляду одною темою."
+
+#: config/prefs.php:31
+msgid "Set your preferences for the threads view."
+msgstr "Налаштуйте Ваші уподобання для перегляду темами."
+
+#: config/prefs.php:230
+msgid "Show graphical emoticons"
+msgstr "Показувати графічні смайлики"
+
+#: lib/Block/Thread.php:21
+msgid "Single Thread"
+msgstr ""
+
+#: config/prefs.php:40
+msgid "Single Thread View"
+msgstr ""
+
+#: lib/Agora.php:195
+msgid "Sort Ascending"
+msgstr "Сортувати По зростанню"
+
+#: lib/Agora.php:195
+msgid "Sort Descending"
+msgstr "Сортувати По спаданню"
+
+#: lib/Comments.php:63
+msgid "Sort by"
+msgstr "Сортувати за"
+
+#: lib/Agora.php:203 lib/Agora.php:210
+#, php-format
+msgid "Sort by %s"
+msgstr "Сортувати за %s"
+
+#: lib/Comments.php:69
+msgid "Sort direction"
+msgstr "Напрям сортування"
+
+#: lib/Driver.php:1562 lib/Form/Message.php:22
+msgid "Spam protection"
+msgstr "Захист від спаму"
+
+#: lib/Driver.php:931 messages/split.php:42 messages/split.php:50
+msgid "Split"
+msgstr "Розділити"
+
+#: messages/split.php:39
+#, php-format
+msgid "Split \"%s\""
+msgstr "Розділити \"%s\""
+
+#: threads.php:54
+msgid "Started"
+msgstr "Почато"
+
+#: deleteforum.php:52
+msgid "Subforums"
+msgstr "Підфоруми"
+
+#: config/prefs.php:139 config/prefs.php:184 config/prefs.php:268
+#: lib/Api.php:297 lib/Block/Thread.php:78 lib/Block/Threads.php:119
+#: lib/Comments.php:67 lib/Comments.php:82 lib/Driver.php:1542
+#: lib/Driver.php:1545 messages/index.php:139 moderate.php:56 owner.php:55
+#: threads.php:54
+msgid "Subject"
+msgstr "Тема"
+
+#: lib/Agora.php:232
+msgid "The VFS backend needs to be configured to enable attachment uploads."
+msgstr ""
+"VFS буфер мусить бути сконфігурований, щоб дозволити закачування додатків."
+
+#: config/prefs.php:70
+msgid "The location of your avatar image."
+msgstr "Розташування зображення Вашої аватарки."
+
+#: lib/Block/Forums.php:82 lib/Driver/SplitSql.php:130 lib/Driver/Sql.php:124
+msgid "There are no forums."
+msgstr "Нема форумів."
+
+#: templates/threads.html.php:70
+msgid "There are no threads in this forum."
+msgstr "В цьому форумі нема тем."
+
+#: lib/Driver.php:117
+msgid "This thread has been locked."
+msgstr "Цю тему було замкнено."
+
+#: deleteforum.php:43
+msgid "This will delete the forum, any subforums and all relative messages."
+msgstr "Це витере форум, всі підфоруми і пов"
+
+#: config/prefs.php:138 config/prefs.php:183 config/prefs.php:259
+#: lib/Block/Thread.php:32 lib/Block/Thread.php:78 lib/Comments.php:59
+#: messages/index.php:139 messages/index.php:151
+msgid "Thread"
+msgstr "Рубрика"
+
+#: messages/merge.php:72
+#, php-format
+msgid "Thread %s merged with thread %s after message %s."
+msgstr "Тему %s приєднано до теми %s після допису %s."
+
+#: messages/move.php:57
+#, php-format
+msgid "Thread %s moved to from forum %s to %s."
+msgstr "Тему %s перенесено з форуму %s до %s."
+
+#: lib/Block/Thread.php:85 templates/messages/index.html.php:9
+msgid "Thread List"
+msgstr "Список рубрик"
+
+#: templates/messages/message.html.php:33
+msgid "Thread Summary"
+msgstr "Короткий зміст теми"
+
+#: messages/delete.php:63
+msgid "Thread deleted."
+msgstr "Тему витерто."
+
+#: messages/index.php:200 messages/lock.php:56
+msgid "Thread locked."
+msgstr "Тему замкнено."
+
+#: messages/split.php:55
+#, php-format
+msgid "Thread splitted by message %s."
+msgstr "Тему розділено дописом %s."
+
+#: messages/lock.php:58
+msgid "Thread unlocked."
+msgstr "Тему відімкнено"
+
+#: forums.php:52 lib/Block/Threads.php:29 lib/Comments.php:75
+#: templates/threads.html.php:1
+msgid "Threads"
+msgstr "Рубрики"
+
+#: config/prefs.php:30
+msgid "Threads View"
+msgstr "Огляд рубрик"
+
+#: lib/Block/Threads.php:79
+#, php-format
+msgid "Threads in \"%s\""
+msgstr "Теми в \"%s\""
+
+#: rss/threads.php:51 threads.php:61 threads.php:78
+#, php-format
+msgid "Threads in %s"
+msgstr "Теми в %s"
+
+#: lib/Block/Thread.php:66
+msgid "Unable to fetch selected thread."
+msgstr "Не можу отримати квоту"
+
+#: lib/Block/Threads.php:100
+msgid "Unable to fetch threads for selected forum."
+msgstr "Не можу отримати теми з обраного форуму."
+
+#: lib/Driver.php:915
+msgid "Unlock"
+msgstr "Відімкнути"
+
+#: messages/index.php:119
+msgid "Unlock thread"
+msgstr "Відімкнути тему"
+
+#: lib/Form/Forum.php:29 messages/lock.php:42
+msgid "Update"
+msgstr "Оновити"
+
+#: scripts/phorum2agora.php:177
+#, php-format
+msgid "Usage: %s [OPTIONS]..."
+msgstr ""
+
+#: ban.php:59
+msgid "User"
+msgstr "Користувач"
+
+#: lib/Comments.php:57
+msgid "View"
+msgstr "Огляд"
+
+#: messages/index.php:179
+msgid "View bodies"
+msgstr ""
+
+#: threads.php:54
+msgid "Views"
+msgstr "Огляди"
+
+#: messages/merge.php:50
+msgid "With Thread: "
+msgstr "З темою:"
+
+#: config/prefs.php:206
+msgid "Yes"
+msgstr "Так"
+
+#: messages/lock.php:44
+msgid "Yes, allow replies"
+msgstr "Так, дозволити відповіді"
+
+#: config/prefs.php:207
+msgid "Yes, and don't thread them"
+msgstr "Так, і не рубрикувати їх"
+
+#: lib/Driver.php:1708
+#, php-format
+msgid "You don't have permission to access messages in forum %s."
+msgstr "У Вас нема права доступу до дописів у форумі %s."
+
+#: lib/Api.php:589 lib/Driver.php:535 lib/Driver.php:722
+#: messages/delete.php:33 messages/lock.php:33 messages/merge.php:31
+#: messages/move.php:31 messages/split.php:31
+#, php-format
+msgid "You don't have permission to delete messages in forum %s."
+msgstr "Ви не маєте права витирати дописи у форумі %s."
+
+#: lib/Api.php:457 lib/Driver.php:122 messages/edit.php:35
+#: messages/index.php:198
+#, php-format
+msgid "You don't have permission to post messages in forum %s."
+msgstr "Ви не маєте права слати дописи у форум %s."
+
+#: lib/Driver.php:797
+#, php-format
+msgid "You don't have permission to read messages in forum %s."
+msgstr "Ви не маєте права читати дописи у форумі %s."
+
+#: ban.php:24
+#, php-format
+msgid "You don't have permissions to ban users from forum %s."
+msgstr "Ви не маєте прав банити користувачів з форуму %s."
+
+#: editforum.php:42
+#, php-format
+msgid "You don't have permissions to create a new forum in %s"
+msgstr "Ви не маєте прав створювати новий форум в %s"
+
+#: deleteforum.php:23
+#, php-format
+msgid "You don't have permissions to delete forums in %s"
+msgstr "Ви не маєте прав витирати форуми в %s"
+
+#: editforum.php:38
+#, php-format
+msgid "You don't have permissions to edit forum %s"
+msgstr "Ви не маєте прав редагувати форум \"%s\""
+
+#: messages/edit.php:82
+msgid ""
+"Your message has been enqueued and is awaiting moderation.  It will become "
+"visible after moderator approval."
+msgstr ""
+"Ваше повідомлення поставлено в чергу очікування перевірки. Воно стане "
+"видимим після затвердження модератором."
+
+#: lib/Application.php:84
+msgid "_Forums"
+msgstr "Форуми"
+
+#: lib/Application.php:102
+msgid "_Moderate"
+msgstr "Модерувати"
+
+#: lib/Application.php:106
+msgid "_Moderators"
+msgstr "Модератори"
+
+#: lib/Application.php:97
+msgid "_New Forum"
+msgstr "Новий форум"
+
+#: lib/Application.php:110
+msgid "_Search"
+msgstr "Пошук"
+
+#: lib/Application.php:89
+msgid "_Threads"
+msgstr "Рубрики"
+
+#: templates/forums.html.php:50 templates/threads.html.php:61
+msgid "by"
+msgstr ""
+
+#: lib/Driver.php:1651
+msgid "download"
+msgstr "cкачати"
+
+#: lib/Tree/Flat.php:32 templates/messages/flat_thread.html.php:8
+msgid "on: "
+msgstr "в:"
+
+#: lib/Driver.php:1652
+#, php-format
+msgid "size: %s"
+msgstr "об'єм: %s"
+
+#: lib/Driver.php:1652
+#, php-format
+msgid "type: %s"
+msgstr "тип: %s"
