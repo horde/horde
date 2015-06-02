@@ -1043,8 +1043,8 @@ var ImpMobile = {
         $('#compose .smartmobile-title').html(IMP.text.new_message);
 
         if (purl.params.to || purl.params.cc) {
-            ImpMobile.addAddress('to', purl.params.to);
-            ImpMobile.addAddress('cc', purl.params.cc);
+            ImpMobile.addAddress('compose-to', purl.params.to);
+            ImpMobile.addAddress('compose-cc', purl.params.cc);
         }
 
         $('#imp-compose-form').show();
@@ -1123,10 +1123,10 @@ var ImpMobile = {
 
             if (r.addr) {
                 $.each(r.addr.to, function(k, v) {
-                    ImpMobile.addAddress('to', v.v);
+                    ImpMobile.addAddress('compose-to', v.v);
                 });
                 $.each(r.addr.cc, function(k, v) {
-                    ImpMobile.addAddress('cc', v.v);
+                    ImpMobile.addAddress('compose-cc', v.v);
                 });
             }
 
@@ -1181,9 +1181,9 @@ var ImpMobile = {
     addAddress: function(f, addr)
     {
         if (addr) {
-            $('#imp-compose-' + f + '-addr').prepend(
+            $('#imp-' + f + '-addr').prepend(
                 $('<input></input>')
-                    .attr('name', f + '[]')
+                    .attr('name', (f == 'redirect-to' ? 'redirect_to' : f.substr(8)) + '[]')
                     .attr('type', 'hidden')
                     .val(addr)
             ).prepend(
@@ -1223,7 +1223,7 @@ var ImpMobile = {
                     if (!pos) {
                         val = val.substr(1);
                     } else if (val.charAt(pos - 1) != '\\') {
-                        ImpMobile.addAddress($(this).attr('id') == 'imp-compose-to' ? 'to' : 'cc', $.trim(val.substr(0, chr == ';' ? pos + 1 : pos)));
+                        ImpMobile.addAddress($(this).attr('id').substr(4), $.trim(val.substr(0, chr == ';' ? pos + 1 : pos)));
                         val = val.substr(pos + 2);
                         pos = 0;
                     }
@@ -1657,17 +1657,17 @@ var ImpMobile = {
                 });
             });
 
-            $.each([ 'to', 'cc' ], function(undefined, v) {
-                $('#imp-compose-' + v)
+            $.each([ 'compose-to', 'compose-cc', 'redirect-to' ], function(undefined, v) {
+                $('#imp-' + v)
                     .autocomplete({
                         callback: function(e) {
                             ImpMobile.addAddress(v, $.trim($(e.currentTarget).text()));
-                            $('#imp-compose-' + v).val('');
+                            $('#imp-' + v).val('');
                         },
                         link: '#',
                         minLength: 3,
                         source: 'smartmobileAutocomplete',
-                        target: $('#imp-compose-' + v + '-suggestions')
+                        target: $('#imp-' + v + '-suggestions')
                     })
                     // textchange plugin requires bind()
                     .bind('textchange', ImpMobile.processComposeAddress);

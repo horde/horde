@@ -5,7 +5,11 @@
   <form id="imp-redirect-form" style="display:none">
    <input type="hidden" id="imp-redirect-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
    <label for="imp-redirect-to"><?php echo _("To:") ?></label>
-   <input type="text" id="imp-redirect-to" name="redirect_to" />
+   <div class="imp-compose-addr-div">
+    <input type="text" id="imp-redirect-to" name="redirect_to[]" />
+    <ul id="imp-redirect-to-suggestions" data-role="listview" data-inset="true"></ul>
+    <div id="imp-redirect-to-addr"></div>
+   </div>
   </form>
 
   <form id="imp-compose-form">
