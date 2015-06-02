@@ -392,16 +392,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             $this->title = $fwd_msg['title'];
             break;
 
-        case 'redirect_compose':
-            try {
-                $imp_compose->redirectMessage($this->indices);
-                $redirect = true;
-                $this->title = ngettext("Redirect", "Redirect Messages", count($this->indices));
-            } catch (IMP_Compose_Exception $e) {
-                $notification->push($e, 'horde.error');
-            }
-            break;
-
         case 'redirect_send':
             try {
                 $num_msgs = $imp_compose->sendRedirectMessage($this->vars->to);
@@ -421,6 +411,16 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             } catch (Horde_Exception $e) {
                 $notification->push($e);
                 $this->vars->actionID = 'redirect_compose';
+            }
+            // Fall through.
+
+        case 'redirect_compose':
+            try {
+                $imp_compose->redirectMessage($this->indices);
+                $redirect = true;
+                $this->title = ngettext("Redirect", "Redirect Messages", count($this->indices));
+            } catch (IMP_Compose_Exception $e) {
+                $notification->push($e, 'horde.error');
             }
             break;
 
