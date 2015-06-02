@@ -20,6 +20,13 @@ v4.3.0-git
 
 
 ------
+v4.2.7
+------
+
+[jan] Fix importing iCalendar events via the API (Bug #13975).
+
+
+------
 v4.2.6
 ------
 
