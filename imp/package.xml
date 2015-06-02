@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
 * [jan] Don&apos;t switch to regular compose view after an error in the redirection view in basic mode.
 * [jan] Fix cancelling redirection window in basic mode (Bug #14002).
  </notes>
@@ -3845,6 +3846,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
 * [jan] Don&apos;t switch to regular compose view after an error in the redirection view in basic mode.
 * [jan] Fix cancelling redirection window in basic mode (Bug #14002).
    </notes>

@@ -97,12 +97,6 @@ var ImpCompose = {
 
         switch (actionID) {
         case 'redirect':
-            if ($F('to').empty()) {
-                alert(this.text.recipient);
-                ImpComposeBase.focus('to');
-                return;
-            }
-
             form = $('redirect');
             break;
 

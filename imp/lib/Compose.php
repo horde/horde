@@ -2383,6 +2383,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $injector, $registry;
 
         $recip = $this->recipientList(array('to' => $to));
+        if (!count($recip['list'])) {
+            if ($recip['has_input']) {
+                throw new IMP_Compose_Exception(_("Invalid e-mail address."));
+            }
+            throw new IMP_Compose_Exception(_("Need at least one message recipient."));
+        }
 
         $identity = $injector->getInstance('IMP_Identity');
         $from_addr = $identity->getFromAddress();
