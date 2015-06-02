@@ -2,13 +2,13 @@
 # Copyright 2008-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Wicked package.
 # Automatically generated, 2008.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Wicked (1.0.1-git)\n"
+"Project-Id-Version: Wicked (2.0.2-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-06-11 16:43+0200\n"
-"PO-Revision-Date: 2011-06-03 12:00+0200\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"PO-Revision-Date: 2015-05-29 12:00+0200\n"
 "Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "Language: uk\n"
@@ -24,8 +24,9 @@ msgid ""
 "\"%s\" does not exist, but maybe you were looking for one of the following "
 "pages?"
 msgstr ""
+"\"%s\" не існує, але можливо, Ви шукали за однією з наступних сторінок?"
 
-#: lib/Page/StandardPage.php:471
+#: lib/Page/StandardPage.php:475
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -42,7 +43,7 @@ msgstr ""
 "%s не існує. Клацніть \"Створити\" для створення цієї сторінки зараз і "
 "почати редагування."
 
-#: lib/Page/Search.php:103
+#: lib/Page/Search.php:106
 #, php-format
 msgid "%s does not exist. You can create it now."
 msgstr "%s не існує. Ви можете створити її зараз."
@@ -53,7 +54,7 @@ msgstr "(Жоден)"
 
 #: templates/display/AttachedFiles.html.php:129
 msgid "-- select --"
-msgstr ""
+msgstr "-- вибір --"
 
 #: lib/Page/AddPage.php:105
 #, php-format
@@ -65,7 +66,6 @@ msgid "Add the text from this page"
 msgstr "Додати текст з цієї сторінки"
 
 #: lib/Page/AllPages.php:76
-#, fuzzy
 msgid "All Pages"
 msgstr "Всі сторінки"
 
@@ -83,9 +83,9 @@ msgid "Are you sure you want to delete version %s of this page?"
 msgstr "Впевнені, що хочете витерти версію %s цієї сторінки?"
 
 #: lib/Page/RevertPage.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Are you sure you want to revert to version %s of this page?"
-msgstr "Впевнені, що хочете витерти версію %s цієї сторінки?"
+msgstr "Впевнені, що хочете повернути версію %s цієї сторінки?"
 
 #: templates/display/AttachedFiles.html.php:92
 msgid "Attach File"
@@ -104,7 +104,7 @@ msgstr "Прикріплено файли: %s"
 msgid "Attachment Name"
 msgstr "Назва додатку"
 
-#: lib/Page/StandardPage.php:243 templates/display/standard.html.php:47
+#: lib/Page/StandardPage.php:251 templates/display/standard.html.php:49
 msgid "Attachments"
 msgstr "Додатки"
 
@@ -118,14 +118,14 @@ msgstr "Додатки з пробілами не можуть бути вста
 msgid "Author"
 msgstr "Автор"
 
-#: lib/Page/StandardPage.php:271
+#: lib/Page/StandardPage.php:278
 msgid "Ba_ck to"
 msgstr "Назад до"
 
 #: lib/Page/BackLinks.php:84
 #, php-format
 msgid "Backlinks: %s"
-msgstr ""
+msgstr "Зворотні лінки: %s"
 
 #: lib/Page/AttachedFiles.php:221
 msgid "Can't read uploaded file."
@@ -134,7 +134,7 @@ msgstr "Не можу прочитати завантажений файл."
 #: lib/Page/RevertPage.php:124
 #, php-format
 msgid "Can't revert to an unknown version."
-msgstr ""
+msgstr "Не можу повернутися до невідомої версії."
 
 #: lib/Page/AttachedFiles.php:261
 #, php-format
@@ -166,10 +166,10 @@ msgstr "Запис в журналі змін"
 msgid "Change references to this page from:"
 msgstr ""
 
-#: lib/Page/MergeOrRename.php:250
+#: lib/Page/MergeOrRename.php:235
 #, php-format
 msgid "Changed references from %s to %s"
-msgstr ""
+msgstr "Змінено посилання з %s на %s"
 
 #: lib/Page/EditPage.php:136
 msgid "Changelog is required"
@@ -187,7 +187,12 @@ msgstr ""
 msgid "Create"
 msgstr "Створити"
 
-#: lib/Page/NewPage.php:133
+#: lib/Page/Search.php:104
+#, php-format
+msgid "Create %s"
+msgstr "Створити %s"
+
+#: lib/Page/NewPage.php:148
 #, php-format
 msgid "Create Failed: %s"
 msgstr "Створення невдале: %s"
@@ -200,10 +205,9 @@ msgstr "Створено"
 msgid "Creation Date"
 msgstr "Дата створення"
 
-#: lib/Page/Search.php:142
-#, fuzzy
+#: lib/Page/Search.php:145
 msgid "Current Version"
-msgstr "Витерти версію"
+msgstr "Поточна версія"
 
 #: templates/display/AttachedFiles.html.php:13
 msgid "Date"
@@ -217,19 +221,19 @@ msgstr "Витерти"
 msgid "Delete Page"
 msgstr "Витерти сторінку"
 
-#: lib/Page/StandardPage.php:353
+#: lib/Page/StandardPage.php:357
 msgid "Delete Version"
 msgstr "Витерти версію"
 
-#: lib/Page/StandardPage.php:388
+#: lib/Page/StandardPage.php:392
 #, php-format
 msgid "Delete Version %s"
 msgstr "Витерти версію %s"
 
 #: lib/Page/DeletePage.php:139
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted version %s of \"%s\"."
-msgstr "Відновлено до версії %s з \"%s\"."
+msgstr "Витерто версію %s з \"%s\"."
 
 #: templates/history/header.html.php:28
 msgid "Diff From"
@@ -242,26 +246,25 @@ msgstr ""
 #: diff.php:55 templates/diff/diff.html.php:2
 #, php-format
 msgid "Diff for %s between %s and %s"
-msgstr ""
+msgstr "Відмінності для %s між %s і %s"
 
-#: lib/Page.php:593
+#: lib/Page.php:590
 #, php-format
 msgid "Display %s"
 msgstr "Показати %s"
 
-#: lib/Page.php:599 lib/Page/StandardPage.php:384
+#: lib/Page.php:596 lib/Page/StandardPage.php:388
 #, php-format
 msgid "Display Version %s"
 msgstr "Показати версію %s"
 
-#: templates/display/standard.html.php:57
+#: templates/display/standard.html.php:67
 msgid "Download this page as:"
 msgstr "Скачати цю сторінку як:"
 
 #: templates/display/AttachedFiles.html.php:15
-#, fuzzy
 msgid "Downloads"
-msgstr "Скачати"
+msgstr "Завантаження"
 
 #: preview.php:24
 #, php-format
@@ -272,16 +275,16 @@ msgstr "Редагувати %s"
 msgid "Edit Page"
 msgstr "Редагувати сторінку"
 
-#: lib/Page/StandardPage.php:357
+#: lib/Page/StandardPage.php:361
 msgid "Edit Version"
 msgstr "Редагувати версію"
 
-#: lib/Page/StandardPage.php:397
+#: lib/Page/StandardPage.php:401
 #, php-format
 msgid "Edit Version %s"
 msgstr "Редагувати версію %s"
 
-#: lib/Page/MergeOrRename.php:244
+#: lib/Page/MergeOrRename.php:268
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Помилка отримання %s: %s"
@@ -291,35 +294,32 @@ msgstr "Помилка отримання %s: %s"
 msgid "Error retrieving attachments: %s"
 msgstr "Помилка отримання додатків: %s"
 
-#: lib/Page/Search.php:152
+#: lib/Page/Search.php:155
 msgid "Exact Match"
 msgstr ""
 
 #: templates/display/AttachedFiles.html.php:61
 #: templates/display/AttachedFiles.html.php:116
-#, fuzzy
 msgid "File to attach"
-msgstr "Виберіть файл, який прикріпити:"
+msgstr "Файл, який прикріпити"
 
 #: templates/display/AttachedFiles.html.php:125
-#, fuzzy
 msgid "File to update"
-msgstr "Виберіть файл, який оновити"
+msgstr "Файл, який оновити"
 
 #: lib/Page.php:267
 msgid "Guest"
 msgstr "Гість"
 
-#: lib/Page/StandardPage.php:318
+#: lib/Page/StandardPage.php:322
 msgid "HTML"
 msgstr "HTML"
 
-#: lib/Page/StandardPage.php:248
+#: lib/Page/StandardPage.php:256
 msgid "Hi_story"
 msgstr "Історія"
 
 #: templates/history/header.html.php:7
-#, fuzzy
 msgid "History"
 msgstr "Історія"
 
@@ -333,44 +333,40 @@ msgid "History: %s"
 msgstr "Історія: %s"
 
 #: templates/display/MergeOrRename.html.php:27
-#, fuzzy
 msgid "If a page with the new name already exists"
-msgstr "Якщо сторінка з новою назвою вже існує, то"
+msgstr "Якщо сторінка з новою назвою вже існує"
 
 #: templates/display/AttachedFiles.html.php:74
-#, fuzzy
 msgid "If blank, will use the file's current name"
-msgstr ""
-"Введіть назву цього файла (якщо порожня, буде використана поточна назва)"
+msgstr "Якщо порожня, буде використана поточна назва файла"
 
 #: display.php:18 history.php:17
 msgid "Internal error viewing requested page"
-msgstr ""
+msgstr "Внутрішня помилка перегляду вказаної сторінки"
 
 #: diff.php:37
 #, php-format
 msgid "Internal error viewing requested page: %s"
-msgstr ""
+msgstr "Внутрішня помилка перегляду вказаної сторінки: %s"
 
 #: lib/Api.php:258
 msgid "Invalid page requested."
-msgstr ""
+msgstr "Вказано неправильну сторінку"
 
-#: lib/Page/Search.php:143
-#, fuzzy
+#: lib/Page/Search.php:146
 msgid "Last Author"
-msgstr "Автор"
+msgstr "Останній Автор"
 
-#: lib/Page.php:359 lib/Page/EditPage.php:113
+#: lib/Page.php:361 lib/Page/EditPage.php:113
 #, php-format
 msgid "Last Modified %s by %s"
 msgstr "Востаннє оновлено %s %s"
 
-#: lib/Page/Search.php:144
+#: lib/Page/Search.php:147
 msgid "Last Update"
-msgstr ""
+msgstr "Останнє оновлення"
 
-#: lib/Page/StandardPage.php:322
+#: lib/Page/StandardPage.php:326
 msgid "Latex"
 msgstr "Latex"
 
@@ -378,15 +374,15 @@ msgstr "Latex"
 msgid "Least Popular"
 msgstr "Непопулярні"
 
-#: lib/Page.php:378 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
+#: lib/Page.php:375 lib/Page/DeletePage.php:95 lib/Page/EditPage.php:127
 #: lib/Page/RevertPage.php:86
 msgid "Locked"
 msgstr "Замкнена"
 
 #: lib/Page/MergeOrRename.php:148
-#, fuzzy, php-format
+#, php-format
 msgid "Merge/Rename: %s"
-msgstr "Приєднано з %s"
+msgstr "Приєднати/Перейменувати: %s"
 
 #: lib/Page/MergeOrRename.php:209
 #, php-format
@@ -409,7 +405,7 @@ msgstr "Найпопулярніші"
 
 #: templates/display/AttachedFiles.html.php:70
 msgid "Name for this file"
-msgstr ""
+msgstr "Назва цього файлу"
 
 #: lib/Block/Page.php:54
 msgid "Name of wiki page to display"
@@ -419,7 +415,7 @@ msgstr "Назва wiki-сторінки, яку показати"
 msgid "Never"
 msgstr "Ніколи"
 
-#: lib/Page/NewPage.php:108
+#: lib/Page/NewPage.php:116
 msgid "New Page"
 msgstr "Нова сторінка"
 
@@ -445,7 +441,7 @@ msgstr "Нова назва така ж, я і стара."
 msgid "No changes made"
 msgstr "Жодних змін не зроблено"
 
-#: lib/Page/Search.php:141 templates/edit/create.html.php:17
+#: lib/Page/Search.php:144 templates/edit/create.html.php:17
 #: templates/pagelist/header.html.php:5
 msgid "Page"
 msgstr "Сторінка"
@@ -455,7 +451,7 @@ msgstr "Сторінка"
 msgid "Page \"%s\" already exists."
 msgstr "Сторінка \"%s\" вже існує."
 
-#: lib/Page/NewPage.php:131
+#: lib/Page/NewPage.php:146
 msgid "Page Created"
 msgstr "Сторінку створено"
 
@@ -467,32 +463,29 @@ msgstr "Сторінку збережено"
 msgid "Page Template:"
 msgstr "Шаблон сторінки:"
 
-#: lib/Page/Search.php:170
-#, fuzzy
+#: lib/Page/Search.php:173
 msgid "Page Text Matches"
-msgstr "Шаблон сторінки:"
+msgstr "Текст сторінки містить"
 
-#: lib/Page/Search.php:161
-#, fuzzy
+#: lib/Page/Search.php:164
 msgid "Page Title Matches"
-msgstr "Шаблон сторінки:"
+msgstr "Назва сторінки містить"
 
 #: templates/pagelist/header.html.php:10
-#, fuzzy
 msgid "Page Views"
-msgstr "Сторінки"
+msgstr "Перегляди сторінки"
 
 #: display.php:33 lib/Page/EditPage.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Page failed to lock: %s"
-msgstr "Створення невдале: %s"
+msgstr "Не вдалося замкнути сторінку: %s"
 
 #: display.php:48
 #, php-format
 msgid "Page failed to unlock: %s"
-msgstr ""
+msgstr "Не вдалося відімкнути сторінку: %s"
 
-#: lib/Driver/Sql.php:598 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
+#: lib/Driver/Sql.php:613 lib/Page/AddPage.php:61 lib/Page/NewPage.php:72
 msgid "Page name must not be empty"
 msgstr "Назва сторінки не може бути порожньою"
 
@@ -504,11 +497,11 @@ msgstr "Сторінку відімкнено"
 msgid "Pages"
 msgstr "Сторінки"
 
-#: lib/Page/NewPage.php:125
+#: lib/Page/NewPage.php:140
 msgid "Pages cannot be empty."
 msgstr "Сторінки не можуть бути пустими."
 
-#: lib/Page/StandardPage.php:263
+#: lib/Page/StandardPage.php:271
 msgid "Permissio_ns"
 msgstr "Права"
 
@@ -516,41 +509,39 @@ msgstr "Права"
 msgid "Permission denied."
 msgstr "Доступ заборонений."
 
-#: lib/Page/StandardPage.php:314
+#: lib/Page/StandardPage.php:318
 msgid "Plain Text"
 msgstr "Простий текст"
 
-#: templates/edit/new.html.php:17 templates/edit/standard.html.php:30
+#: templates/edit/new.html.php:25 templates/edit/standard.html.php:30
 msgid "Preview"
 msgstr "Огляд"
 
-#: lib/Page/EditPage.php:199
+#: lib/Page/EditPage.php:199 lib/Page/NewPage.php:134
 msgid "Random string did not match."
-msgstr ""
+msgstr "Випадковий текст не співпадає."
 
-#: lib/Page/RecentChanges.php:120
+#: lib/Page/RecentChanges.php:121
 msgid "Recent Changes"
 msgstr "Останні зміни"
 
 #: lib/Page/AttachedFiles.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Referrer \"%s\" does not exist."
-msgstr "сторінки \"%s\" не існує."
+msgstr "Сторінки з направленням \"%s\" не існує."
+
+#: templates/display/standard.html.php:60
+msgid "Related Sub Pages"
+msgstr "Споріднені підсторінки"
 
 #: lib/Page/AttachedFiles.php:129
 #, php-format
 msgid "Reload \"%s\""
-msgstr ""
+msgstr "Перезавантажити \"%s\""
 
-#: lib/Page/StandardPage.php:351
-#, fuzzy
+#: lib/Page/StandardPage.php:355
 msgid "Reload History"
-msgstr "Історія"
-
-#: lib/Page.php:375 lib/Page.php:376
-#, fuzzy
-msgid "Reload Page"
-msgstr "Витерти сторінку"
+msgstr "Перезавантажити Історію"
 
 #: lib/Page/MergeOrRename.php:218
 #, php-format
@@ -562,25 +553,24 @@ msgstr "Перейменовано \"%s\" на \"%s\"."
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "Перейменовано \"%s\" на \"%s\". Нова сторінка: %s\n"
 
-#: lib/Driver/Sql.php:666
+#: lib/Driver/Sql.php:681
 #, php-format
 msgid "Renamed page from %s"
 msgstr "Перейменована сторінка з %s"
 
-#: lib/Page/StandardPage.php:358
+#: lib/Page/StandardPage.php:362
 msgid "Restore Version"
 msgstr "Відновити версію"
 
 #: lib/Page/RevertPage.php:92
-#, fuzzy
 msgid "Revert"
-msgstr "Ніколи"
+msgstr "Відновити"
 
 #: lib/Page/RevertPage.php:86 lib/Page/RevertPage.php:108
 msgid "Revert Page"
 msgstr "Відновити сторінку"
 
-#: lib/Page/StandardPage.php:403
+#: lib/Page/StandardPage.php:407
 #, php-format
 msgid "Revert to version %s"
 msgstr "Відновити до версії %s"
@@ -590,19 +580,19 @@ msgstr "Відновити до версії %s"
 msgid "Reverted to version %s of \"%s\"."
 msgstr "Відновлено до версії %s з \"%s\"."
 
-#: lib/Driver/Sql.php:602
+#: lib/Driver/Sql.php:617
 msgid "Robots are not allowed to create pages"
 msgstr "Роботам не дозволено створювати сторінки"
 
-#: lib/Page/StandardPage.php:238
+#: lib/Page/StandardPage.php:246
 msgid "S_imilar Pages"
 msgstr "Подібні сторінки"
 
-#: templates/edit/new.html.php:16 templates/edit/standard.html.php:29
+#: templates/edit/new.html.php:24 templates/edit/standard.html.php:29
 msgid "Save"
 msgstr "Зберегти"
 
-#: lib/Page/Search.php:201
+#: lib/Page/Search.php:204
 msgid "Search"
 msgstr "Пошук"
 
@@ -610,12 +600,12 @@ msgstr "Пошук"
 msgid "Search Results"
 msgstr "Результати пошуку"
 
-#: lib/Page.php:357 lib/Page/RecentChanges.php:68
+#: lib/Page.php:359 lib/Page/RecentChanges.php:69
 #, php-format
 msgid "Show changes for %s"
 msgstr "Показати зміни для %s"
 
-#: lib/Page/RecentChanges.php:75
+#: lib/Page/RecentChanges.php:76
 #, php-format
 msgid "Show version %s"
 msgstr "Показати версію %s"
@@ -625,10 +615,9 @@ msgstr "Показати версію %s"
 msgid "Similar Pages: %s"
 msgstr "Подібні сторінки :%s"
 
-#: templates/edit/standard.html.php:22
-#, fuzzy
+#: templates/edit/new.html.php:17 templates/edit/standard.html.php:22
 msgid "Spam Protection - Enter the following letters below:"
-msgstr "Захист від спаму - Введіть літери, показані нижче:"
+msgstr "Захист від спаму - Введіть показані нижче літери:"
 
 #: templates/display/MergeOrRename.html.php:34
 msgid "Stop and don't do anything"
@@ -648,11 +637,11 @@ msgstr "Успішно витерто \"%s\"."
 msgid "Successfully deleted version %s of \"%s\" from \"%s\""
 msgstr "Успішно витерто версію %s для \"%s\" з \"%s\""
 
-#: lib/Page.php:521
+#: lib/Page.php:520
 msgid "Table of Contents"
 msgstr "Зміст"
 
-#: lib/Page/StandardPage.php:439
+#: lib/Page/StandardPage.php:443
 msgid "The page is already locked."
 msgstr "Сторінка вже замкнена."
 
@@ -675,13 +664,13 @@ msgid "This page is locked by %s for %d Minutes."
 msgstr "Цю сторінку замкнув %s на %d хвилин."
 
 #: lib/Page/MergeOrRename.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "This page is referenced from %d other page(s)."
-msgstr "Цю сторінку замкнув %s на %d хвилин."
+msgstr "На цю сторінку посилаються з %d інших сторінок."
 
-#: lib/Page/StandardPage.php:198
+#: lib/Page/StandardPage.php:206
 msgid "Un_lock"
-msgstr ""
+msgstr "Відімкнути"
 
 #: lib/Page/StandardPage.php:83
 #, php-format
@@ -690,14 +679,14 @@ msgstr "Не можу створити %s"
 
 #: lib/Page/StandardPage.php:93
 msgid "Unable to create Wiki/Home. The wiki is not configured."
-msgstr ""
+msgstr "Не можу створити Wiki/Home. Ця wiki не сконфігурована."
 
-#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:413
-#: lib/Page.php:421 lib/Page.php:429 lib/Page.php:437 lib/Page.php:573
-#: lib/Page.php:612 lib/Page.php:617 lib/Page.php:622 lib/Page.php:627
-#: lib/Page.php:667
+#: lib/Page.php:248 lib/Page.php:281 lib/Page.php:286 lib/Page.php:410
+#: lib/Page.php:418 lib/Page.php:426 lib/Page.php:436 lib/Page.php:570
+#: lib/Page.php:609 lib/Page.php:614 lib/Page.php:619 lib/Page.php:624
+#: lib/Page.php:664
 msgid "Unsupported"
-msgstr ""
+msgstr "Не підтримується"
 
 #: templates/display/AttachedFiles.html.php:151
 msgid "Update File"
@@ -719,9 +708,8 @@ msgid "Version"
 msgstr "Версія"
 
 #: lib/Page/AttachedFiles.php:298
-#, fuzzy
 msgid "View page: "
-msgstr "Нова сторінка: %s"
+msgstr "Перегляд сторінки: "
 
 #: lib/Api.php:213
 msgid "Wiki Templates"
@@ -749,7 +737,7 @@ msgstr "Ви не маєте права витирати додатки з ці�
 msgid "You do not have permission to edit \"%s\""
 msgstr "Ви не маєте права редагувати \"%s\""
 
-#: lib/Page/NewPage.php:121
+#: lib/Page/NewPage.php:129
 #, php-format
 msgid "You don't have permission to create \"%s\"."
 msgstr "Ви не маєте права створювати \"%s\"."
@@ -780,15 +768,15 @@ msgstr "Ви повинні заповнити журнал змін."
 msgid "_All Pages"
 msgstr "Всі сторінки"
 
-#: lib/Page/StandardPage.php:233
+#: lib/Page/StandardPage.php:241
 msgid "_Backlinks"
-msgstr ""
+msgstr "Зворотні лінки"
 
-#: lib/Page/StandardPage.php:218
+#: lib/Page/StandardPage.php:226
 msgid "_Delete"
 msgstr "Витерти"
 
-#: lib/Page/StandardPage.php:190
+#: lib/Page/StandardPage.php:198
 msgid "_Edit"
 msgstr "Редагувати"
 
@@ -796,14 +784,13 @@ msgstr "Редагувати"
 msgid "_Home"
 msgstr "Додому"
 
-#: lib/Page/StandardPage.php:206
-#, fuzzy
+#: lib/Page/StandardPage.php:214
 msgid "_Lock"
-msgstr "Замкнена"
+msgstr "Замкнути"
 
-#: lib/Page/StandardPage.php:227
+#: lib/Page/StandardPage.php:235
 msgid "_Merge/Rename"
-msgstr ""
+msgstr "Приєднати/Перейменувати"
 
 #: lib/Application.php:72
 msgid "_Recent Changes"
@@ -811,9 +798,9 @@ msgstr "Останні зміни"
 
 #: lib/Application.php:71
 msgid "_Usage"
-msgstr ""
+msgstr "Користування"
 
-#: lib/Page/StandardPage.php:465
+#: lib/Page/StandardPage.php:469
 msgid "a guest"
 msgstr "гість"
 
@@ -821,94 +808,6 @@ msgstr "гість"
 msgid "attachment"
 msgstr "додаток"
 
-#: lib/Page/StandardPage.php:326
+#: lib/Page/StandardPage.php:330
 msgid "reStructuredText"
 msgstr ""
-
-#~ msgid "Actions"
-#~ msgstr "Дії"
-
-#~ msgid "Back to"
-#~ msgstr "Назад до"
-
-#~ msgid "Delete %s"
-#~ msgstr "Витерти %s"
-
-#~ msgid "Display"
-#~ msgstr "Показати"
-
-#~ msgid "Downloaded from remote server"
-#~ msgstr "Скачано з віддаленого сервера"
-
-#~ msgid "Driver"
-#~ msgstr "Драйвер"
-
-#~ msgid "Edit"
-#~ msgstr "Редагувати"
-
-#~ msgid "History of %s"
-#~ msgstr "Історія %s"
-
-#~ msgid "Is this a minor update?"
-#~ msgstr "Це незначна зміна?"
-
-#~ msgid "Local"
-#~ msgstr "Локальний"
-
-#~ msgid "Location"
-#~ msgstr "Місце перебування"
-
-#~ msgid "Lock %s"
-#~ msgstr "Замкнути %s"
-
-#~ msgid "Logged in successfully as \"%s\"."
-#~ msgstr "Успішно ввійшли як \"%s\"."
-
-#~ msgid "Login is incorrect."
-#~ msgstr "Логін невдалий."
-
-#~ msgid "Minor Change"
-#~ msgstr "Незначна зміна"
-
-#~ msgid "New pages on remote server"
-#~ msgstr "Нові сторінки на віддаленому сервері"
-
-#~ msgid "No pages found"
-#~ msgstr "Жодної сторінки не знайдено"
-
-#~ msgid "Page \"%s\" was sucessfully uploaded from local to remote wiki."
-#~ msgstr ""
-#~ "Сторінку \"%s\" успішно завантажено з локального на віддалений wiki."
-
-#~ msgid "Password"
-#~ msgstr "Пароль"
-
-#~ msgid "Prefix"
-#~ msgstr "Префікс"
-
-#~ msgid "Remote"
-#~ msgstr "Віддалений"
-
-#~ msgid "Reset"
-#~ msgstr "Очистити"
-
-#~ msgid "Set permissions for %s"
-#~ msgstr "Встановити права для %s"
-
-#~ msgid "Show changes"
-#~ msgstr "Показати зміни"
-
-#~ msgid "Similar Pages"
-#~ msgstr "Подібні сторінки"
-
-#~ msgid "Synchronization is disabled"
-#~ msgstr "Синхронізацію заборонено"
-
-#~ msgid "Upload"
-#~ msgstr "Закачати"
-
-#~ msgid "Uploaded from remote server"
-#~ msgstr "Завантажено з віддаленого сервера"
-
-#~ msgid "User"
-#~ msgstr "Користувач"

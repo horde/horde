@@ -2,79 +2,185 @@
 # Copyright 2010-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Date module.
 # Automatically generated, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2015-05-28 17:03+0300\n"
+"PO-Revision-Date: 2015-06-01 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Date/Utils.php:106
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:105
+#, php-format
 msgid "%d days ago"
-msgstr " (%s днів тому)"
+msgstr "%d днів тому"
 
-#: lib/Horde/Date/Utils.php:96
+#: lib/Horde/Date/Utils.php:95
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d годину тому"
+msgstr[1] "%d години тому"
+msgstr[2] "%d годин тому"
 
-#: lib/Horde/Date/Utils.php:91
-#, fuzzy, php-format
+#: lib/Horde/Date/Utils.php:90
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] "%d хвилин"
-msgstr[1] "%d хвилин"
-msgstr[2] "%d хвилин"
+msgstr[0] "%d хвилину тому"
+msgstr[1] "%d хвилини тому"
+msgstr[2] "%d хвилин тому"
 
-#: lib/Horde/Date/Utils.php:87
+#: lib/Horde/Date/Utils.php:85
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d секунду тому"
+msgstr[1] "%d секунди тому"
+msgstr[2] "%d секунд тому"
 
-#: lib/Horde/Date/Utils.php:111
+#: lib/Horde/Date/Recurrence.php:1693
+#, php-format
+msgid "%d times"
+msgstr "%d разів"
+
+#: lib/Horde/Date/Utils.php:110
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%d тиждень тому"
+msgstr[1] "%d тижні тому"
+msgstr[2] "%d тижнів тому"
 
-#: lib/Horde/Date/Recurrence.php:216
+#: lib/Horde/Date/Recurrence.php:221
 msgid "Daily"
 msgstr "Щодня"
 
-#: lib/Horde/Date/Recurrence.php:219
+#: lib/Horde/Date/Recurrence.php:1668
+msgid "Daily: Recurs every"
+msgstr ""
+
+#: lib/Horde/Date/Recurrence.php:1693
+msgid "Ends after"
+msgstr "закінчується після"
+
+#: lib/Horde/Date/Recurrence.php:1695
+msgid "Exceptions on"
+msgstr ""
+
+#: lib/Horde/Date.php:369 lib/Horde/Date.php:375
+#, php-format
+msgid "Failed to parse time string (%s)"
+msgstr "Не вдалось розібрати запис часу (%s)"
+
+#: lib/Horde/Date/Recurrence.php:1675
+msgid "Friday"
+msgstr "П'ятниця"
+
+#: lib/Horde/Date/Recurrence.php:1671
+msgid "Monday"
+msgstr "Понеділок"
+
+#: lib/Horde/Date/Recurrence.php:227
 msgid "Monthly"
 msgstr "Щомісяця"
 
-#: lib/Horde/Date/Recurrence.php:215
-msgid "No recurrence"
+#: lib/Horde/Date/Recurrence.php:1680 lib/Horde/Date/Recurrence.php:1682
+#: lib/Horde/Date/Recurrence.php:1684
+msgid "Monthly: Recurs every"
 msgstr ""
 
-#: lib/Horde/Date/Recurrence.php:217
+#: lib/Horde/Date/Recurrence.php:1693
+msgid "No end date"
+msgstr "Без дати кінця"
+
+#: lib/Horde/Date/Recurrence.php:219
+msgid "No recurrence"
+msgstr "Без повторень"
+
+#: lib/Horde/Date/Recurrence.php:1676
+msgid "Saturday"
+msgstr "Субота"
+
+#: lib/Horde/Date/Recurrence.php:1677
+msgid "Sunday"
+msgstr "Неділя"
+
+#: lib/Horde/Date/Recurrence.php:1674
+msgid "Thursday"
+msgstr "Четвер"
+
+#: lib/Horde/Date/Recurrence.php:1672
+msgid "Tuesday"
+msgstr "Вівторок"
+
+#: lib/Horde/Date/Recurrence.php:1673
+msgid "Wednesday"
+msgstr "Середа"
+
+#: lib/Horde/Date/Recurrence.php:223
 msgid "Weekly"
 msgstr "Щотижня"
 
-#: lib/Horde/Date/Recurrence.php:222
+#: lib/Horde/Date/Recurrence.php:1678
+msgid "Weekly: Recurs every"
+msgstr ""
+
+#: lib/Horde/Date/Recurrence.php:231
 msgid "Yearly"
 msgstr "Щорічно"
 
-#: lib/Horde/Date/Utils.php:101
-#, fuzzy, php-format
+#: lib/Horde/Date/Recurrence.php:1686 lib/Horde/Date/Recurrence.php:1688
+#: lib/Horde/Date/Recurrence.php:1690
+msgid "Yearly: Recurs every"
+msgstr ""
+
+#: lib/Horde/Date/Recurrence.php:1668
+msgid "day(s)"
+msgstr "день(і)"
+
+#: lib/Horde/Date/Recurrence.php:1680 lib/Horde/Date/Recurrence.php:1682
+#: lib/Horde/Date/Recurrence.php:1684
+msgid "month(s)"
+msgstr "місяць(і)"
+
+#: lib/Horde/Date/Recurrence.php:1680
+msgid "on the same date"
+msgstr "в ту саму дату"
+
+#: lib/Horde/Date/Recurrence.php:1684
+msgid "on the same last weekday"
+msgstr "в той самий останній день тижня"
+
+#: lib/Horde/Date/Recurrence.php:1682
+msgid "on the same weekday"
+msgstr "в той самий день тижня"
+
+#: lib/Horde/Date/Recurrence.php:1678
+msgid "week(s) on:"
+msgstr "тиждень(ів) в:"
+
+#: lib/Horde/Date/Recurrence.php:1686
+msgid "year(s) on the same date"
+msgstr "рік(ів) в ту саму дату"
+
+#: lib/Horde/Date/Recurrence.php:1688
+msgid "year(s) on the same day of the year"
+msgstr "рік(ів) в той самий день року"
+
+#: lib/Horde/Date/Recurrence.php:1690
+msgid "year(s) on the same weekday and month of the year"
+msgstr "рік(ів) в той самий день тижня і місяць"
+
+#: lib/Horde/Date/Utils.php:100
+#, php-format
 msgid "yesterday at %s"
-msgstr " (вчора)"
+msgstr "вчора в %s"

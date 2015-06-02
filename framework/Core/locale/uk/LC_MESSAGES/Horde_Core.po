@@ -1,13 +1,13 @@
 # Ukrainian translations for Horde_Core module.
 # Copyright 2013-2015-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core module.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-04-19 11:50+0200\n"
-"PO-Revision-Date: 2013-04-19 14:00+0200\n"
+"POT-Creation-Date: 2015-05-28 17:03+0300\n"
+"PO-Revision-Date: 2015-06-01 14:00+0200\n"
 "Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -17,17 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde.php:1073
+#: lib/Horde.php:972
 #, php-format
 msgid " (Accesskey %s)"
 msgstr " (Гаряча клавіша %s)"
 
-#: lib/Horde/Registry.php:1275 lib/Horde/Registry.php:1966
+#: lib/Horde/Registry.php:1329 lib/Horde/Registry.php:2053
 #, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
 msgstr "\"%s\" не сконфігуровано в реєстрі Horde."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:118
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:122
 #, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
@@ -35,7 +35,7 @@ msgstr[0] "%d контакт успішно доданий до Вашого а�
 msgstr[1] "%d контакти успішно додано до Вашого адресника."
 msgstr[2] "%d контактів успішно додано до Вашого адресника."
 
-#: lib/Horde/Core/Auth/Application.php:650
+#: lib/Horde/Core/Auth/Application.php:666
 #, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
@@ -43,33 +43,38 @@ msgstr[0] "ще %d день ваш пароль є дійсним."
 msgstr[1] "ще %d дні ваш пароль є дійсним."
 msgstr[2] "ще %d днів ваш пароль є дійсним."
 
+#: lib/Horde/Registry.php:1524
+#, php-format
+msgid "%s is not activated."
+msgstr "%s не активовано."
+
 #: lib/Horde/Core/Perms/Ui.php:352 lib/Horde/Core/Perms/Ui.php:412
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:827
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:845
 msgid "-- select --"
 msgstr "-- вибір --"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:749
+#: lib/Horde/PageOutput.php:663
 msgid "1 day"
 msgstr "1 день"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:747
+#: lib/Horde/PageOutput.php:661
 msgid "1 hour"
 msgstr "1 година"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:746
+#: lib/Horde/PageOutput.php:660
 msgid "15 minutes"
 msgstr "15 хвилин"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:745
+#: lib/Horde/PageOutput.php:659
 msgid "5 minutes"
 msgstr "5 хвилин"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:748
+#: lib/Horde/PageOutput.php:662
 msgid "6 hours"
 msgstr "6 годин"
 
@@ -77,11 +82,11 @@ msgstr "6 годин"
 msgid "<Previous"
 msgstr "<Попередня"
 
-#: lib/Horde/ErrorHandler.php:81
+#: lib/Horde/ErrorHandler.php:101
 msgid "A fatal error has occurred"
 msgstr "Трапилась серйозна помилка"
 
-#: lib/Horde/Core/Prefs/Identity.php:63
+#: lib/Horde/Core/Prefs/Identity.php:89
 #, php-format
 msgid ""
 "A message has been sent to \"%s\" to verify that this is really your "
@@ -91,23 +96,25 @@ msgstr ""
 "Надіслано лист до \"%s\" для перевірки дійсності Вашої адреси. Нова адреса "
 "буде активована після підтвердження Вами цього листа."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:83
+#: lib/Horde/Core/Auth/Signup/Base.php:103
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
 msgstr ""
+"Замовлено новий обліковий запис для користувача \"%s\" через форму "
+"реєстрації."
 
 #: lib/Horde/Core/Script/Package/Popup.php:25
 msgid ""
 "A popup window could not be opened. Your browser may be blocking popups."
 msgstr "Не вдалося відкрити виринаюче вікно. Ймовірно, Ваш браузер блокує їх."
 
-#: lib/Horde/Core/Auth/Signup/Base.php:91
+#: lib/Horde/Core/Auth/Signup/Base.php:111
 #, php-format
 msgid "Account signup request for \"%s\""
 msgstr "Запит створення аккаунта для \"%s\""
 
-#: lib/Horde/Core/Perms/Ui.php:201 lib/Horde/Core/Ui/VarRenderer/Html.php:627
+#: lib/Horde/Core/Perms/Ui.php:201 lib/Horde/Core/Ui/VarRenderer/Html.php:645
 msgid "Add"
 msgstr "Додати"
 
@@ -132,29 +139,31 @@ msgstr "Додати дочірні права для \"%s\""
 msgid "Add source"
 msgstr "Додати джерело"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:401
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:407
 msgid "Add to address book:"
 msgstr "Додати до адресника:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:416
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:423
 msgid "Add to my address book"
 msgstr "Додати до мого адресника"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:224
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:288
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:228
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:292
 msgid "Address"
 msgstr "Адреса"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:403
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:409
 msgid "Address Book"
 msgstr "Адресник"
 
-#: lib/Horde/Registry.php:301
+#: lib/Horde/Registry.php:358
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
+"Запитана автентикація адміністратора, однак адміністратор не визначений в "
+"конфігурації."
 
-#: lib/Horde/Core/Topbar.php:104
+#: lib/Horde/Core/Topbar.php:123
 msgid "Administration"
 msgstr "Адміністрування"
 
@@ -162,7 +171,7 @@ msgstr "Адміністрування"
 msgid "Alarm"
 msgstr "Дзвоник"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:148
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:152
 msgid "Alias"
 msgstr "Псевдонім"
 
@@ -174,7 +183,7 @@ msgstr "Всі аутентифіковані користувачі"
 msgid "All Permissions"
 msgstr "Всі Права"
 
-#: lib/Horde/Core/Prefs/Ui.php:310 lib/Horde/Core/Prefs/Ui.php:323
+#: lib/Horde/Core/Prefs/Ui.php:325 lib/Horde/Core/Prefs/Ui.php:338
 msgid "An illegal value was specified."
 msgstr "Вказане некоректне значення."
 
@@ -182,19 +191,19 @@ msgstr "Вказане некоректне значення."
 msgid "Applications"
 msgstr "Модулі"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:85
+#: lib/Horde/Core/Auth/Signup/Base.php:105
 msgid "Approve the account:"
-msgstr ""
+msgstr "Затвердити обліковий запис:"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:438
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:488
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:451
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:507
 msgid "April"
 msgstr "Квітень"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:135
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:442
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:492
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:455
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:511
 msgid "August"
 msgstr "Серпень"
 
@@ -202,21 +211,21 @@ msgstr "Серпень"
 msgid "Available address books:"
 msgstr "Доступні адресники:"
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:680
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:591
 msgid "Back"
 msgstr "Назад"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:155
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:159
 msgid "Birthday"
 msgstr "День народження"
 
-#: lib/Horde/Core/Block/Collection.php:392
+#: lib/Horde/Core/Block/Collection.php:398
 #, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
 msgstr "Блок \"%s\" модуля \"%s\" не знайдено."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:133
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
+#: lib/Horde/Core/ActiveSync/Driver.php:159
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Calendar"
 msgstr "Календар"
 
@@ -225,50 +234,54 @@ msgstr "Календар"
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:314
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:318
 msgid "Cell Phone"
 msgstr "Мобільний телефон"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
+#: lib/Horde/Core/Auth/Signup/Form.php:46
+#: lib/Horde/Core/Auth/Signup/Form.php:60
 msgid "Choose a password"
 msgstr "Виберіть пароль"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:42
-#: lib/Horde/Core/Auth/Signup/Form.php:58
+#: lib/Horde/Core/Auth/Signup/Form.php:43
+#: lib/Horde/Core/Auth/Signup/Form.php:59
 msgid "Choose a username"
 msgstr "Оберіть назву користувача"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:196
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr ""
+msgstr "Виберіть черговість адресників для пошуку при розкритті адрес."
+
+#: lib/Horde/PageOutput.php:669
+msgid "Clear All"
+msgstr "Очистити все"
 
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:57
 msgid "Click to add caption..."
-msgstr "Клацніть, щоб додати підпис..."
+msgstr "Клацніть, щоб додати ремарку..."
 
-#: lib/Horde/PageOutput.php:681
+#: lib/Horde/PageOutput.php:592
 msgid "Close"
 msgstr "Закрити"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:577
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:579
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:595
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:597
 msgid "Color Picker"
 msgstr "Піпетка кольору"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:365
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:369
 msgid "Company"
 msgstr "Компанія"
 
-#: lib/Horde/Core/Prefs/Identity.php:54
+#: lib/Horde/Core/Prefs/Identity.php:74
 msgid "Confirm new email address"
 msgstr "Підтвердження нової адреси е-пошти"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:134
+#: lib/Horde/Core/ActiveSync/Driver.php:160
 msgid "Contacts"
 msgstr "Контакти"
 
-#: lib/Horde/Config.php:293
+#: lib/Horde/Config.php:296
 #, php-format
 msgid "Could not save the backup configuration file %s."
 msgstr "Не можу зберегти файл резервної конфігурації %s."
@@ -277,13 +290,13 @@ msgstr "Не можу зберегти файл резервної конфіг�
 msgid "Creator Permissions"
 msgstr "Права творця"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:499
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:518
 msgid "DD"
 msgstr "DD"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:139
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:446
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:496
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:459
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:515
 msgid "December"
 msgstr "Грудень"
 
@@ -305,23 +318,27 @@ msgstr "Витерти права для \"%s\""
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
 msgstr "Витерти права для \"%s\" і всі під-права?"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:87
+#: lib/Horde/Core/Auth/Signup/Base.php:107
 msgid "Deny the account:"
-msgstr ""
+msgstr "Заборонити обліковий запис:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:367
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:371
 msgid "Department"
 msgstr "Відділ"
 
-#: lib/Horde/ErrorHandler.php:98
+#: lib/Horde/Core/Alarm/Handler/Desktop.php:94
+msgid "Desktop notification (with certain browsers)"
+msgstr "Сповіщення на Робоочому столі (з певними браузерами)"
+
+#: lib/Horde/ErrorHandler.php:117
 msgid "Details"
 msgstr "Деталі"
 
-#: lib/Horde/ErrorHandler.php:107
+#: lib/Horde/ErrorHandler.php:124
 msgid "Details have been logged for the administrator."
 msgstr "Деталі збережені для адміністратора."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1164
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1186
 #, php-format
 msgid "Dial %s"
 msgstr ""
@@ -334,10 +351,14 @@ msgstr "Скасувати"
 msgid "Do not delete"
 msgstr "Не витирати"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:203
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:267
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:207
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:271
 msgid "Domestic Address"
 msgstr "Домашня адреса"
+
+#: lib/Horde/Core/ActiveSync/Driver.php:2980
+msgid "Drafts"
+msgstr "Чернетки"
 
 #: lib/Horde/Core/Block/Layout.php:107 lib/Horde/Core/Block/Layout.php:108
 msgid "Edit"
@@ -352,66 +373,57 @@ msgstr "Редагувати Права"
 msgid "Edit permissions for \"%s\""
 msgstr "Редагувати права для \"%s\""
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:350
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:354
 msgid "Email"
 msgstr "Е-пошта"
 
-#: lib/Horde/Core/Prefs/Identity.php:87
-msgid "Email addresses to confirm not found."
+#: lib/Horde/Core/Prefs/Identity.php:109
+msgid "Email address to confirm not found."
 msgstr "Адресу е-пошти для підтвердження не знайдено."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:316
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:329
 msgid "Emoticons"
 msgstr "Смайлики"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1475
-msgid "End forwarded message"
-msgstr "Кiнець пересланого лист"
-
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:974
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:981
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:992
 msgid "Enter the letters below:"
-msgstr ""
+msgstr "Введіть літери нижче:"
 
-#: lib/Horde/Core/Block/Layout/View.php:124
+#: lib/Horde/Core/Block/Layout/View.php:123
 #: lib/Horde/Core/Notification/Event/Status.php:94
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/Horde/PageOutput.php:739
+#: lib/Horde/PageOutput.php:653
 msgid "Error when communicating with the server."
 msgstr "Помилка комунікації з сервером."
 
-#: lib/Horde/Core/Block/Layout/Manager.php:531
+#: lib/Horde/Core/Block/Layout/Manager.php:536
 msgid "Expand"
 msgstr "Розкрити"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:305
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:309
 msgid "Fax"
 msgstr "Факс"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:129
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:436
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:486
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:449
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:505
 msgid "February"
 msgstr "Лютий"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:256
+#: lib/Horde/PageOutput.php:593
+msgid "Filter items..."
+msgstr ""
+
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:268
 msgid "Fix ratio"
 msgstr "Фіксоване співвідношення"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:243
 msgid "Flip"
 msgstr "Перевернути"
-
-#: lib/Horde/Core/ActiveSync/Driver.php:1473
-msgid "Forwarded message"
-msgstr "Пересланий лист"
-
-#: lib/Horde/Core/ActiveSync/Driver.php:1473
-#, php-format
-msgid "Forwarded message from %s"
-msgstr "Пересланий лист від %s"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:97
 msgid "Fr"
@@ -421,15 +433,15 @@ msgstr "Пт"
 msgid "Friday"
 msgstr "П'ятниця"
 
-#: lib/Horde/Core/Prefs/Ui.php:667 lib/Horde/Core/Topbar.php:135
+#: lib/Horde/Core/Prefs/Ui.php:682 lib/Horde/Core/Topbar.php:154
 msgid "Global Preferences"
 msgstr "Глобальні опції"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1307
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1329
 msgid "Google Maps"
 msgstr "Карта Google"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
 msgid "Grayscale"
 msgstr "Чорно-білий"
 
@@ -441,7 +453,8 @@ msgstr "Групи"
 msgid "Guest Permissions"
 msgstr "Права гостя"
 
-#: lib/Horde/Core/Topbar.php:181 lib/Horde/Help.php:253 lib/Horde/Help.php:254
+#: lib/Horde/Core/Topbar.php:200 lib/Horde/Help.php:253
+#: lib/Horde/Help.php:254
 msgid "Help"
 msgstr "Довідка"
 
@@ -449,16 +462,16 @@ msgstr "Довідка"
 msgid "Help file not found."
 msgstr "Файл допомоги не знайдено."
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:195
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:259
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:199
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:263
 msgid "Home Address"
 msgstr "Домашня адреса"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:308
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:312
 msgid "Home Phone"
 msgstr "Домашній телефон"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2266
+#: lib/Horde/Core/ActiveSync/Driver.php:2975
 msgid "Inbox"
 msgstr "Inbox"
 
@@ -466,39 +479,39 @@ msgstr "Inbox"
 msgid "Individual Users"
 msgstr "Індивідуальні користувачі"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:54
+#: lib/Horde/Core/Alarm/Handler/Notify.php:69
 msgid "Inline"
 msgstr "Вбудовано"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:207
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:271
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:211
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:275
 msgid "International Address"
 msgstr "Міжнародна адреса"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:752
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:770
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
 msgid "Invert selection"
 msgstr "Інвертувати вибір"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:128
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:435
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:485
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:448
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:504
 msgid "January"
 msgstr "Січень"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:134
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:441
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:491
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:454
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:510
 msgid "July"
 msgstr "Липень"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:133
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:440
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:490
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:453
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:509
 msgid "June"
 msgstr "Червень"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:264
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:276
 msgid "Keep original?"
 msgstr "Берегти оригінал?"
 
@@ -506,25 +519,25 @@ msgstr "Берегти оригінал?"
 msgid "Log out"
 msgstr "Вийти"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:434
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:484
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
 msgid "MM"
 msgstr "ММ"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1233
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1282
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1255
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1304
 msgid "MapQuest map"
 msgstr "Карта MapQuest"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:130
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:437
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:487
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:450
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:506
 msgid "March"
 msgstr "Березень"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:132
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:439
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:489
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:452
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:508
 msgid "May"
 msgstr "Травень"
 
@@ -532,9 +545,9 @@ msgstr "Травень"
 msgid "Message"
 msgstr "Лист"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:246
 msgid "Mirror"
-msgstr ""
+msgstr "Зеркально"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:93
 msgid "Mo"
@@ -544,38 +557,38 @@ msgstr "Пн"
 msgid "Monday"
 msgstr "Понеділок"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:565
+#: lib/Horde/Core/Block/Layout/Manager.php:570
 msgid "Move Down"
 msgstr "Посунути донизу"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:569
+#: lib/Horde/Core/Block/Layout/Manager.php:574
 msgid "Move Left"
 msgstr "Посунути вліво"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:573
+#: lib/Horde/Core/Block/Layout/Manager.php:578
 msgid "Move Right"
 msgstr "Посунути вправо"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:561
+#: lib/Horde/Core/Block/Layout/Manager.php:566
 msgid "Move Up"
 msgstr "Посунути догори"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:101
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 msgid "Move down"
 msgstr "Донизу"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:100
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:604
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:605
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:622
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:623
 msgid "Move up"
 msgstr "Догори"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1224
 msgid "Multimap UK map"
 msgstr "Багаторівнева Карта UK"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:144
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:148
 msgid "Name"
 msgstr "Ім'я"
 
@@ -583,11 +596,11 @@ msgstr "Ім'я"
 msgid "Next>"
 msgstr "Наступний>"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "No"
 msgstr "Ні"
 
-#: lib/Horde/PageOutput.php:755
+#: lib/Horde/PageOutput.php:671
 msgid "No Alerts"
 msgstr ""
 
@@ -595,7 +608,7 @@ msgstr ""
 msgid "No OAuth Key or Secret found for the Twitter API"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:548
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:566
 msgid "No Sound"
 msgstr "Без звуку"
 
@@ -607,39 +620,39 @@ msgstr "Не вибрано жодного адресника."
 msgid "No children can be added to this permission."
 msgstr "Діти не можуть бути додані до цих прав."
 
-#: lib/Horde.php:489
+#: lib/Horde.php:366
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "Не вказана конфігурація для %s."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1503
+#: lib/Horde/Core/ActiveSync/Mail.php:522
 msgid "No message body text"
 msgstr "Тіло листа відсутнє"
 
-#: lib/Horde/Core/Ajax/Application/Handler/Email.php:41
+#: lib/Horde/Core/Ajax/Application/Handler/Email.php:40
 msgid "No valid email address found"
 msgstr "Не знайдено коректної адреси e-пошти"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1060
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1070
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1081
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1098
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1115
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1082
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1092
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1103
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1120
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1137
 msgid "No values"
 msgstr "Без величин"
 
-#: lib/Horde/Registry.php:260
+#: lib/Horde/Registry.php:302
 msgid "Not an admin"
-msgstr ""
+msgstr "Не адмін"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:136
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:373
+#: lib/Horde/Core/ActiveSync/Driver.php:162
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:377
 msgid "Notes"
 msgstr "Нотатки"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:138
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:445
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:495
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:458
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:514
 msgid "November"
 msgstr "Листопад"
 
@@ -647,13 +660,13 @@ msgstr "Листопад"
 msgid "OK"
 msgstr "ОК"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Object"
 msgstr "Об'єкт"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:137
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:444
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:494
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:457
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:513
 msgid "October"
 msgstr "Жовтень"
 
@@ -661,12 +674,17 @@ msgstr "Жовтень"
 msgid "Ok"
 msgstr "Гаразд"
 
-#: lib/Horde/Core/ActiveSync/Connector.php:651
+#: lib/Horde/Core/ActiveSync/Connector.php:872
+#: lib/Horde/Core/ActiveSync/Connector.php:879
 msgid "Out Of Office"
 msgstr "Поза межами офісу"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:215
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:279
+#: lib/Horde/Core/ActiveSync/Driver.php:2985
+msgid "Outbox"
+msgstr ""
+
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:219
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:283
 msgid "Parcel Address"
 msgstr "Адреса для посилок"
 
@@ -674,7 +692,7 @@ msgstr "Адреса для посилок"
 msgid "Permission"
 msgstr "Права"
 
-#: lib/Horde/Registry.php:312
+#: lib/Horde/Registry.php:369
 msgid "Permission denied."
 msgstr "Доступ заборонений."
 
@@ -682,63 +700,54 @@ msgstr "Доступ заборонений."
 msgid "Permissions"
 msgstr "Права"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:317
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:321
 msgid "Phone"
 msgstr "Телефон"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:163
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:171
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:167
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:175
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:179
 msgid "Photo"
 msgstr "Фото"
 
-#: lib/Horde/Core/Alarm/Handler/Notify.php:74
+#: lib/Horde/Core/Alarm/Handler/Notify.php:89
 msgid "Play a sound?"
 msgstr "Грати мелодію?"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:211
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:275
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:215
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:279
 msgid "Postal Address"
 msgstr "Поштова Адреса"
 
-#: lib/Horde/Core/Topbar.php:123
+#: lib/Horde/Core/Topbar.php:142
 msgid "Preferences"
 msgstr "Опції"
 
-#: lib/Horde/Core/Prefs/Ui.php:670
+#: lib/Horde/Core/Prefs/Ui.php:685
 #, php-format
 msgid "Preferences for %s"
 msgstr "Налаштування для %s"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:219
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:283
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:223
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:287
 msgid "Preferred Address"
 msgstr "Пріоритетна адреса"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1531
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1554
 msgid "Preview"
 msgstr "Огляд"
 
-#: lib/Horde/Core/Topbar.php:169
+#: lib/Horde/Core/Topbar.php:188
 msgid "Problem"
 msgstr "Проблема"
-
-#: lib/Horde/Core/ActiveSync/Driver.php:1496
-msgid "Quoted"
-msgstr "Цитований"
-
-#: lib/Horde/Core/ActiveSync/Driver.php:1496
-#, php-format
-msgid "Quoting %s"
-msgstr "Цитую %s"
 
 #: lib/Horde/Core/Block/Layout.php:117
 msgid "Really delete this block?"
 msgstr "Справді витерти цей блок?"
 
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:201
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:630
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:212
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:648
 msgid "Remove"
 msgstr "Видалити"
 
@@ -746,28 +755,28 @@ msgstr "Видалити"
 msgid "Remove source"
 msgstr "Видалити джерело"
 
-#: lib/Horde.php:498
+#: lib/Horde.php:375
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "Необхідний \"%s\" не вказаний в %s конфігурації."
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:219
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:231
 msgid "Reset"
 msgstr "Очистити"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:360
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:364
 msgid "Role"
 msgstr "Роль"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:225
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:237
 msgid "Rotate 180"
 msgstr "Повернути на 180"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:222
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:234
 msgid "Rotate Left"
 msgstr "Повернути Вліво"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:228
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:240
 msgid "Rotate Right"
 msgstr "Повернути Вправо"
 
@@ -779,33 +788,33 @@ msgstr "Сб"
 msgid "Saturday"
 msgstr "Субота"
 
-#: lib/Horde/Registry.php:212
+#: lib/Horde/Registry.php:245
 msgid "Script must be run from the command line"
 msgstr ""
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:531
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:549
 msgid "Select a date"
 msgstr "Виберіть дату"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:750
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:768
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
 msgid "Select all"
 msgstr "Вибрати всі"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:945
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 msgid "Select an object"
 msgstr "Виберіть об'єкт"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:751
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:769
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
 msgid "Select none"
 msgstr "Не вибрати жодного"
 
-#: lib/Horde/Core/Prefs/Ui.php:840
+#: lib/Horde/Core/Prefs/Ui.php:867
 msgid "Select the identity you want to change:"
 msgstr "Вкажіть, яку іпостась змінити:"
 
-#: lib/Horde/PageOutput.php:744
+#: lib/Horde/PageOutput.php:658
 msgid "Select..."
 msgstr "Виберіть..."
 
@@ -813,21 +822,21 @@ msgstr "Виберіть..."
 msgid "Selected address books:"
 msgstr "Вибрані адресники:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1180
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
 msgid "Send SMS"
 msgstr "Надіслати SMS"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2261
+#: lib/Horde/Core/ActiveSync/Driver.php:2970
 msgid "Sent"
-msgstr ""
+msgstr "Відіслані"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:136
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:443
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:493
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:456
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:512
 msgid "September"
 msgstr "Вересень"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:536
+#: lib/Horde/Core/Block/Layout/Manager.php:541
 msgid "Shrink"
 msgstr "Згорнути"
 
@@ -851,12 +860,12 @@ msgstr "Нд"
 msgid "Success"
 msgstr "Успішно"
 
-#: lib/Horde/Config.php:291
+#: lib/Horde/Config.php:294
 #, php-format
 msgid "Successfully saved the backup configuration file %s."
 msgstr "Успішно збережений файл конфігурації %s."
 
-#: lib/Horde/Config.php:301
+#: lib/Horde/Config.php:304
 #, php-format
 msgid "Successfully wrote %s"
 msgstr "Успішно записано %s"
@@ -865,7 +874,7 @@ msgstr "Успішно записано %s"
 msgid "Sunday"
 msgstr "Неділя"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:135
+#: lib/Horde/Core/ActiveSync/Driver.php:161
 msgid "Tasks"
 msgstr "Завдання"
 
@@ -873,109 +882,105 @@ msgstr "Завдання"
 msgid "Th"
 msgstr "Чт"
 
-#: lib/Horde/Core/Factory/History.php:12
-msgid "The History system is disabled."
-msgstr "Система Історії заборонена."
+#: lib/Horde/PageOutput.php:665
+msgid "The alarm was dismissed."
+msgstr "Дзвоник скасовано."
 
-#: lib/Horde/PageOutput.php:740
+#: lib/Horde/PageOutput.php:654
 msgid "The connection to the server has been restored."
 msgstr "З'єднання з сервером відновлено."
 
-#: lib/Horde/Core/Prefs/Identity.php:112
+#: lib/Horde/Core/Prefs/Identity.php:145
 #, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
 msgstr "Адреса %s додана до Ваших іпостасей. Можна закрити це вікно."
 
-#: lib/Horde.php:272
+#: lib/Horde.php:287
 msgid "The encryption features require a secure web connection."
 msgstr "Функції криптування вимагають захищеного веб зв'язку."
 
-#: lib/Horde.php:499
+#: lib/Horde.php:376
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "Файл %s мав би містити %s значення."
 
-#: lib/Horde.php:490
+#: lib/Horde.php:367
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "Файл %s мав би містити деякі %s значення."
 
-#: lib/Horde/Registry.php:2611
+#: lib/Horde/Registry.php:2717
 #, php-format
 msgid "The following applications encountered errors removing user data: %s"
 msgstr ""
 "Наступні модулі повідомили про помилки при витиранні даних користувача: %s"
 
-#: lib/Horde/ErrorHandler.php:99
+#: lib/Horde/ErrorHandler.php:118
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Ui.php:927
+#: lib/Horde/Core/Prefs/Ui.php:954
 #, php-format
 msgid "The identity \"%s\" has been deleted."
 msgstr "Іпостась \"%s\" витерто."
 
-#: lib/Horde/Core/Prefs/Ui.php:975
+#: lib/Horde/Core/Prefs/Ui.php:1003
 msgid "The new from address can't be verified, try again later: "
 msgstr "Нова зворотня адреса не може бути перевірена, спробуймо пізніше:"
 
-#: lib/Horde/Core/Factory/Prefs.php:202
+#: lib/Horde/Core/Factory/Prefs.php:277
 #, php-format
 msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
 "maximum allowable size"
 msgstr ""
 
-#: lib/Horde/Core/Factory/Prefs.php:174
+#: lib/Horde/Core/Factory/Prefs.php:205
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
-msgid "There are no email addresses to confirm."
-msgstr "Нема жодної адреси е-пошти для підтвердження."
-
-#: lib/Horde/Core/Prefs/Ui.php:458
+#: lib/Horde/Core/Prefs/Ui.php:473
 msgid "There are no preferences available for this application."
 msgstr "Нема доступних опцій для цього модуля."
 
-#: lib/Horde/PageOutput.php:741
+#: lib/Horde/PageOutput.php:655
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
 "session. You will not see any updates until the connection is restored."
 msgstr ""
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:113
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:117
 msgid "There was an error importing the contact data:"
 msgstr "Трапилась помилка імпорту контактних даних:"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:99
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:103
 msgid "There was an error reading the contact data."
 msgstr "Трапилась помилка читання контактних даних."
 
-#: lib/Horde/Core/Prefs/Ui.php:372
+#: lib/Horde/Core/Prefs/Ui.php:387
 msgid "There were errors encountered while updating your preferences."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:754
+#: lib/Horde/PageOutput.php:670
 msgid "This is the notification log."
-msgstr "Це журнал оповіщень."
+msgstr "Вахтовий журнал"
 
-#: lib/Horde/Registry.php:493
+#: lib/Horde/Registry.php:545
 msgid "This system is currently deactivated."
 msgstr "Система тимчасово неактивна."
 
-#: lib/Horde/Core/Prefs/Ui.php:335
+#: lib/Horde/Core/Prefs/Ui.php:350
 msgid "This value must be a number."
 msgstr "Це значення має бути числом."
 
-#: lib/Horde/Core/Prefs/Ui.php:337
+#: lib/Horde/Core/Prefs/Ui.php:352
 msgid "This value must be non-zero."
 msgstr "Це значення не може бути порожнім."
 
@@ -983,11 +988,11 @@ msgstr "Це значення не може бути порожнім."
 msgid "Thursday"
 msgstr "Четвер"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:355
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:359
 msgid "Title"
 msgstr "Назва"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:723
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:741
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -995,11 +1000,11 @@ msgstr ""
 "Для вибору кількох полів тримайте натиснутою клавішу Control (PC) або "
 "Command  (Mac)."
 
-#: lib/Horde/Core/Topbar.php:158
+#: lib/Horde/Core/Topbar.php:177
 msgid "Toggle Alerts Log"
-msgstr "Журнал оповіщень"
+msgstr "Вахтовий журнал"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:2256
+#: lib/Horde/Core/ActiveSync/Driver.php:2965
 msgid "Trash"
 msgstr "Trash"
 
@@ -1011,12 +1016,12 @@ msgstr "Вт"
 msgid "Tuesday"
 msgstr "Вівторок"
 
-#: lib/Horde/Core/Auth/Signup/Form.php:45
-#: lib/Horde/Core/Auth/Signup/Form.php:59
+#: lib/Horde/Core/Auth/Signup/Form.php:46
+#: lib/Horde/Core/Auth/Signup/Form.php:60
 msgid "Type your password twice to confirm"
 msgstr "Двічі введіть пароль для підтвердження"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:379
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:383
 msgid "URL"
 msgstr "URL"
 
@@ -1024,20 +1029,20 @@ msgstr "URL"
 msgid "Update"
 msgstr "Оновлення"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:193
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:204
 msgid "Upload"
 msgstr "Закачати"
 
-#: lib/Horde/Core/Auth/Signup/Sql.php:95
+#: lib/Horde/Core/Auth/Signup/Sql.php:99
 #, php-format
 msgid "User \"%s\" does not exist."
 msgstr "Користувача \"%s\" не існує."
 
-#: lib/Horde/Core/Prefs/Ui.php:642
+#: lib/Horde/Core/Prefs/Ui.php:657
 msgid "User Preferences"
 msgstr "Налаштування користувача"
 
-#: lib/Horde/Core/Auth/Signup/Base.php:116
+#: lib/Horde/Core/Auth/Signup/Base.php:143
 #, php-format
 msgid "Username \"%s\" already exists."
 msgstr "Користувач \"%s\" вже існує."
@@ -1058,33 +1063,33 @@ msgstr "Підтримка погоди не налаштована."
 msgid "Wednesday"
 msgstr "Середа"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1209
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1231
 msgid "Whereis Australia map"
 msgstr "Whereis Australia map"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:199
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:263
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:203
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:267
 msgid "Work Address"
 msgstr "Робоча адреса"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:311
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:315
 msgid "Work Phone"
 msgstr "Робочий телефон"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:447
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:503
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:460
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:522
 msgid "YYYY"
 msgstr "РРРР"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1253
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1275
 msgid "Yahoo! map"
 msgstr "карта Yahoo!"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1074
 msgid "Yes"
 msgstr "Так"
 
-#: lib/Horde/Core/Block/Layout/Manager.php:220
+#: lib/Horde/Core/Block/Layout/Manager.php:225
 #, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
@@ -1092,23 +1097,23 @@ msgstr[0] "Вам не дозволено створювати більше, н�
 msgstr[1] "Вам не дозволено створювати більше, ніж %d блоки."
 msgstr[2] "Вам не дозволено створювати більше, ніж %d блоків."
 
-#: lib/Horde/Registry.php:2578
+#: lib/Horde/Registry.php:2684
 msgid "You are not allowed to remove user data."
 msgstr "Вам не дозволено витирати дані користувача."
 
-#: lib/Horde/Core/Auth/Application.php:728
+#: lib/Horde/Core/Auth/Application.php:751
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You need at "
 "least Internet Explorer 8. If you already run IE8 or higher, disable the "
 "Compatibility View. Minimal view will be used until you upgrade your browser."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:742
+#: lib/Horde/PageOutput.php:656
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr ""
 
-#: lib/Horde/Core/Prefs/Identity.php:44
+#: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
 msgid ""
 "You have requested to add the email address \"%s\" to the list of your "
@@ -1120,7 +1125,7 @@ msgid ""
 "If you don't know what this message means, you can delete it."
 msgstr ""
 
-#: lib/Horde/Core/Factory/Vfs.php:72
+#: lib/Horde/Core/Factory/Vfs.php:74
 msgid "You must configure a VFS backend."
 msgstr "Вам слід сконфігурувати вихідний буфер VFS"
 
@@ -1129,37 +1134,37 @@ msgstr "Вам слід сконфігурувати вихідний буфер
 msgid "You must provide a setting for \"%s\"."
 msgstr "Вам слід вказати значення для \"%s\"."
 
-#: lib/Horde/Core/Auth/Application.php:695
+#: lib/Horde/Core/Auth/Application.php:718
 msgid "Your browser does not support javascript. Using minimal view instead."
 msgstr "Ваш броузер не підтримує javascript. Використовую мінімальний режим."
 
-#: lib/Horde/Core/Auth/Application.php:703
+#: lib/Horde/Core/Auth/Application.php:726
 msgid ""
 "Your browser does not support the dynamic view. Using basic view instead."
 msgstr ""
 "Ваш браузер не підтримує Динамічного режиму. Використовуємо базовий режим."
 
-#: lib/Horde/Core/Auth/Application.php:706
-#: lib/Horde/Core/Auth/Application.php:714
+#: lib/Horde/Core/Auth/Application.php:729
+#: lib/Horde/Core/Auth/Application.php:737
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
 "Ваш браузер не підтримує Динамічного режиму. Використовуємо мінімальний "
 "режим."
 
-#: lib/Horde/Core/Prefs/Ui.php:943
+#: lib/Horde/Core/Prefs/Ui.php:970
 msgid "Your default identity has been changed."
 msgstr "Основна іпостась змінилась."
 
-#: lib/Horde/Core/Prefs/Ui.php:839
+#: lib/Horde/Core/Prefs/Ui.php:866
 msgid "Your default identity:"
 msgstr "Основна іпостась:"
 
-#: lib/Horde/Core/Prefs/Ui.php:382
+#: lib/Horde/Core/Prefs/Ui.php:397
 msgid "Your preferences have been updated for the duration of this session."
 msgstr "Ваші налаштування оновлено за час тривалості цієї сесії."
 
-#: lib/Horde/Core/Prefs/Ui.php:384
+#: lib/Horde/Core/Prefs/Ui.php:399
 msgid "Your preferences have been updated."
 msgstr "Ваші налаштування оновлено."
 
@@ -1167,39 +1172,39 @@ msgstr "Ваші налаштування оновлено."
 msgid "[Hide Quoted Text]"
 msgstr "[Сховати цитування]"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:138
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:142
 msgid "[No Label]"
 msgstr "[Без мітки]"
 
 #: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
 #, php-format
 msgid "[Show Quoted Text - %d lines]"
-msgstr ""
+msgstr "[Показати цитований текст - %d рядків]"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:249
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:261
 msgid "h:"
 msgstr "г:"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:391
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:404
 msgid "hh"
 msgstr "гг:"
 
-#: lib/Horde/PageOutput.php:682
+#: lib/Horde/PageOutput.php:594
 msgid "loading"
 msgstr "завантажую"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:402
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:415
 msgid "mm"
 msgstr "хх"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:419
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:432
 msgid "ss"
 msgstr "сс"
 
-#: lib/Horde/Core/Mime/Viewer/Vcard.php:95
+#: lib/Horde/Core/Mime/Viewer/Vcard.php:99
 msgid "vCard"
 msgstr "vCard"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:241
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:253
 msgid "w:"
 msgstr "w:"

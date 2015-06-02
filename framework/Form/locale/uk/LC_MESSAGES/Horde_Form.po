@@ -6,514 +6,535 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2013-10-29 10:13+0100\n"
 "PO-Revision-Date: 2013-04-13 01:27+0200\n"
 "Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
+"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: Form/Type.php:2520
+#: lib/Horde/Form/Type.php:2601
 #, php-format
 msgid " (%s days ago)"
 msgstr " (%s днів тому)"
 
-#: Form/Type.php:2528
+#: lib/Horde/Form/Type.php:2609
 #, php-format
 msgid " (in %s days)"
 msgstr " (за %s днів)"
 
-#: Form/Type.php:2524
+#: lib/Horde/Form/Type.php:2605
 msgid " (today)"
 msgstr " (сьогодні)"
 
-#: Form/Type.php:2526
+#: lib/Horde/Form/Type.php:2607
 msgid " (tomorrow)"
 msgstr " (завтра)"
 
-#: Form/Type.php:2522
+#: lib/Horde/Form/Type.php:2603
 msgid " (yesterday)"
 msgstr " (вчора)"
 
-#: Form/Type.php:1460
+#: lib/Horde/Form/Type.php:1518
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" не є коректною адресою e-пошти."
 
-#: Form/Type.php:2475
+#: lib/Horde/Form/Type.php:2570
 #, php-format
 msgid "%s is required"
 msgstr "%s необхідний"
 
-#: Form/Type.php:2190 Form/Type.php:2253
+#: lib/Horde/Form/Type.php:2266 lib/Horde/Form/Type.php:2329
 msgid "-- select --"
 msgstr "-- вибір --"
 
-#: Form/Type.php:843 Form/Type.php:886
+#: lib/Horde/Form/Type.php:855 lib/Horde/Form/Type.php:898
 msgid "A temporary directory"
 msgstr "Тимчасова папка"
 
-#: Form/Type.php:773
+#: lib/Horde/Form/Type.php:785
 msgid "Address"
 msgstr "Адреса"
 
-#: Form/Type.php:795
+#: lib/Horde/Form/Type.php:807
 msgid "Address Link"
 msgstr ""
 
-#: Form/Type.php:1620
+#: lib/Horde/Form/Type.php:1688
 msgid "Allow multiple addresses?"
 msgstr "Дозволити багато адрес?"
 
-#: Form/Type.php:3473
+#: lib/Horde/Form/Type.php:3550
 msgid "Assignment columns"
 msgstr ""
 
-#: Form/Type.php:3745
+#: lib/Horde/Form/Type.php:3810
 msgid "Category"
 msgstr "Категорія"
 
-#: Form/Type.php:1632
+#: lib/Horde/Form/Type.php:1700
 msgid "Character to split multiple addresses with"
 msgstr "Символ для розмежування кількох адрес"
 
-#: Form/Type.php:3161
+#: lib/Horde/Form/Type.php:3238
 msgid "Colour selection"
 msgstr "Вибір кольору"
 
-#: Form/Type.php:2072
+#: lib/Horde/Form/Type.php:2143
 msgid "Column titles"
 msgstr "Заголовки колонок"
 
-#: Form/Type.php:662
+#: lib/Horde/Form/Type.php:674
 msgid "Counted text"
 msgstr "Підрахований текст"
 
-#: Form/Type.php:909
+#: lib/Horde/Form/Type.php:921
 msgid "Country drop down list"
 msgstr "Спадний список країн"
 
-#: Form/Type.php:3588
+#: lib/Horde/Form/Type.php:3665
 msgid "Credit card number"
 msgstr "Номер кредитки"
 
-#: Form/Type.php:3643
+#: lib/Horde/Form/Type.php:3708
 msgid ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 msgstr ""
 "DSN (see http://pear.php.net/manual/en/package.database.db.intro-dsn.php)"
 
-#: Form/Type.php:3641
+#: lib/Horde/Form/Type.php:3706
 msgid "Database lookup"
 msgstr "Пошук в базі даних"
 
-#: Form/Type.php:2549
+#: lib/Horde/Form/Type.php:2630
 msgid "Date"
 msgstr "Дата"
 
-#: Form/Type.php:3121
+#: lib/Horde/Form/Type.php:3198
 msgid "Date and time selection"
 msgstr "Вибір часу і дати"
 
-#: Form/Type.php:2958
+#: lib/Horde/Form/Type.php:3035
 msgid "Date selection"
 msgstr "Вибір дати"
 
-#: Form/Type.php:132
+#: lib/Horde/Form/Type.php:112
 msgid "Description"
 msgstr "Опис"
 
-#: Form/Type.php:2968 Form/Type.php:3131
+#: lib/Horde/Form/Type.php:3045 lib/Horde/Form/Type.php:3208
 msgid "Display format"
 msgstr "Формат відображення"
 
-#: Form/Type.php:2233
+#: lib/Horde/Form/Type.php:2309
 msgid "Drop down list"
 msgstr "Спадний список"
 
-#: Form/Type.php:1617
+#: lib/Horde/Form/Type.php:1685
 msgid "Email"
 msgstr "Е-пошта"
 
-#: Form/Type.php:2088
+#: lib/Horde/Form/Type.php:2159
 msgid "Email addresses must match."
 msgstr "Адреси е-пошти мусять співпадати."
 
-#: Form/Type.php:2115
+#: lib/Horde/Form/Type.php:2184
 msgid "Email with confirmation"
 msgstr "Е-пошта з підтвердженням"
 
-#: Form/Type.php:2746 Form/Type.php:2962 Form/Type.php:3125
+#: lib/Horde/Form/Type.php:2825 lib/Horde/Form/Type.php:3039
+#: lib/Horde/Form/Type.php:3202
 msgid "End year"
 msgstr "Кінець року"
 
-#: Form/Type.php:2070
+#: lib/Horde/Form/Type.php:2141
 msgid "Field matrix"
 msgstr ""
 
-#: Form/Type.php:3696
+#: lib/Horde/Form/Type.php:3761
 msgid "Figlet CAPTCHA"
 msgstr ""
 
-#: Form/Type.php:3700
+#: lib/Horde/Form/Type.php:3765
 msgid "Figlet font"
 msgstr ""
 
-#: Form/Type.php:3347
+#: lib/Horde/Form/Type.php:3424
 msgid "File selection"
 msgstr "Вибір файлу"
 
-#: Form/Type.php:952
+#: lib/Horde/Form/Type.php:964
 msgid "File upload"
 msgstr "Закачування файлу"
 
-#: Form/Type.php:3719
+#: lib/Horde/Form/Type.php:3784
 msgid "Font"
 msgstr "Шрифт"
 
-#: Form/Type.php:152
+#: lib/Horde/Form/Type.php:132
 msgid "HTML"
 msgstr "HTML"
 
-#: Form/Type.php:115 Form/Type.php:3285
+#: lib/Horde/Form/Type.php:95 lib/Horde/Form/Type.php:3362
 msgid "Header"
 msgstr "Заголовок"
 
-#: Form/Type/tableset.php:58
+#: lib/Horde/Form/Type/tableset.php:55
 msgid "Headers"
 msgstr "Заголовки"
 
-#: Form/Type.php:617
+#: lib/Horde/Form/Type.php:629
 msgid "Helpers"
 msgstr "Помічники"
 
-#: Form/Type.php:528
+#: lib/Horde/Form/Type.php:540
 msgid "IP address"
 msgstr "IP адреса"
 
-#: Form/Type.php:558
+#: lib/Horde/Form/Type.php:570
 msgid "IPv6 address"
 msgstr "IPv6 адреса"
 
-#: Form/Type.php:3349
+#: lib/Horde/Form/Type.php:3426
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
-#: Form/Type.php:3715
+#: lib/Horde/Form/Type.php:3780
 msgid "Image CAPTCHA"
 msgstr ""
 
-#: Form/Type.php:1292
+#: lib/Horde/Form/Type.php:1336
 msgid "Image upload"
 msgstr "Закачування зображення"
 
-#: Form/Type.php:263
+#: lib/Horde/Form/Type.php:246
 msgid "Integer"
 msgstr "Ціле"
 
-#: Form/Type.php:317
+#: lib/Horde/Form/Type.php:300
 msgid "Integer list"
 msgstr "Список цілих"
 
-#: Form/Type.php:2208 Form/Type.php:2283 Form/Type.php:2356 Form/Type.php:2435
-#: Form/Type/tableset.php:34
+#: lib/Horde/Form/Type.php:2284 lib/Horde/Form/Type.php:2359
+#: lib/Horde/Form/Type.php:2442 lib/Horde/Form/Type.php:2530
+#: lib/Horde/Form/Type/tableset.php:31
 msgid "Invalid data submitted."
 msgstr "Подані неправильні дані."
 
-#: Form/Type.php:3479
+#: lib/Horde/Form/Type.php:3556
 msgid "Left header"
 msgstr "Лівий заголовок"
 
-#: Form/Type.php:3475
+#: lib/Horde/Form/Type.php:3552
 msgid "Left values"
 msgstr "Значення зліва"
 
-#: Form/Type.php:1352
+#: lib/Horde/Form/Type.php:1396
 msgid "Link"
 msgstr ""
 
-#: Form/Type.php:1355
+#: lib/Horde/Form/Type.php:1417
+msgid "Link CSS class"
+msgstr ""
+
+#: lib/Horde/Form/Type.php:1399
 msgid "Link URL"
 msgstr ""
 
-#: Form/Type.php:1370
+#: lib/Horde/Form/Type.php:1414
 msgid "Link access key"
 msgstr "Гаряча клавіша посилання"
 
-#: Form/Type.php:3353
+#: lib/Horde/Form/Type.php:3430
 msgid "Link style"
 msgstr ""
 
-#: Form/Type.php:1361
+#: lib/Horde/Form/Type.php:1405
 msgid "Link target"
 msgstr ""
 
-#: Form/Type.php:1358 Form/Type.php:3351
+#: lib/Horde/Form/Type.php:1402 lib/Horde/Form/Type.php:3428
 msgid "Link text"
 msgstr "Текст посилання"
 
-#: Form/Type.php:1626
+#: lib/Horde/Form/Type.php:1694
 msgid "Link the email address to the compose page when displaying?"
 msgstr "Підв'язувати адресу е-пошти до вікна створення при відображенні?"
 
-#: Form/Type.php:1367
+#: lib/Horde/Form/Type.php:1411
 msgid "Link title attribute"
 msgstr ""
 
-#: Form/Type.php:611
+#: lib/Horde/Form/Type.php:623
 msgid "Long text"
 msgstr "Довгий текст"
 
-#: Form/Type.php:1298
+#: lib/Horde/Form/Type.php:1342
 msgid "Maximum file size in bytes"
 msgstr "Максимальний розмір файлу в байтах"
 
-#: Form/Type.php:400 Form/Type.php:420 Form/Type.php:446
+#: lib/Horde/Form/Type.php:386 lib/Horde/Form/Type.php:406
+#: lib/Horde/Form/Type.php:432
 msgid "Maximum length"
 msgstr "Максимальна довжина"
 
-#: Form/Type.php:487
+#: lib/Horde/Form/Type.php:499
 msgid "Mobile phone number"
 msgstr "Номер мобільного телефону"
 
-#: Form/Type.php:2742
+#: lib/Horde/Form/Type.php:2821
 msgid "Month and year"
 msgstr "Місяць і рік"
 
-#: Form/Type.php:2309
+#: lib/Horde/Form/Type.php:2385
 msgid "Multi-level drop down lists"
 msgstr "Багаторівневі спадаючі списки"
 
-#: Form/Type.php:2366
+#: lib/Horde/Form/Type.php:2452
 msgid "Multiple selection"
 msgstr "Множинний Вибір"
 
-#: Form/Type.php:236
+#: lib/Horde/Form/Type.php:2480
+#, fuzzy
+msgid "Multiple selection, preserving keys"
+msgstr "Множинний Вибір"
+
+#: lib/Horde/Form/Type.php:216
 msgid "Number"
 msgstr "Номер"
 
-#: Form/Type.php:668
+#: lib/Horde/Form/Type.php:680
 msgid "Number of characters"
 msgstr "Кількість символів"
 
-#: Form/Type.php:615 Form/Type.php:666 Form/Type.php:777 Form/Type.php:847
-#: Form/Type.php:890
+#: lib/Horde/Form/Type.php:627 lib/Horde/Form/Type.php:678
+#: lib/Horde/Form/Type.php:789 lib/Horde/Form/Type.php:859
+#: lib/Horde/Form/Type.php:902
 msgid "Number of columns"
 msgstr "Кількість колонок"
 
-#: Form/Type.php:613 Form/Type.php:664 Form/Type.php:775 Form/Type.php:845
-#: Form/Type.php:888
+#: lib/Horde/Form/Type.php:625 lib/Horde/Form/Type.php:676
+#: lib/Horde/Form/Type.php:787 lib/Horde/Form/Type.php:857
+#: lib/Horde/Form/Type.php:900
 msgid "Number of rows"
 msgstr "Кількість рядків"
 
-#: Form/Type.php:290
+#: lib/Horde/Form/Type.php:273
 msgid "Octal"
-msgstr ""
+msgstr "Octal"
 
-#: Form/Type.php:1364
+#: lib/Horde/Form/Type.php:1408
 msgid "Onclick event"
 msgstr "Подія при натисканні"
 
-#: Form/Type.php:2098
+#: lib/Horde/Form/Type.php:2174
 msgid "Only one email address allowed."
 msgstr "Дозволено тільки 1 поштову адресу."
 
-#: Form/Type.php:1449
+#: lib/Horde/Form/Type.php:1507
 msgid "Only one email address is allowed."
 msgstr "Дозволена тільки одна поштова адреса."
 
-#: Form/Type.php:839
+#: lib/Horde/Form/Type.php:851
 msgid "PGP Key"
 msgstr "Ключ PGP"
 
-#: Form/Type.php:2142
+#: lib/Horde/Form/Type.php:2211
 msgid "Password"
 msgstr "Пароль"
 
-#: Form/Type.php:2175
+#: lib/Horde/Form/Type.php:2244
 msgid "Password with confirmation"
 msgstr "Пароль з підтвердженням"
 
-#: Form/Type.php:2157
+#: lib/Horde/Form/Type.php:2226
 msgid "Passwords must match."
 msgstr "Пароль має співпадати."
 
-#: Form/Type.php:841
+#: lib/Horde/Form/Type.php:853
 msgid "Path to the GnuPG binary"
 msgstr ""
 
-#: Form/Type.php:475
+#: lib/Horde/Form/Type.php:482
 msgid "Phone number"
 msgstr "Номер телефону"
 
-#: Form/Type.php:3191
+#: lib/Horde/Form/Type.php:3268
 msgid "Please choose a sound."
 msgstr ""
 
-#: Form/Type.php:2720
+#: lib/Horde/Form/Type.php:2799
 msgid "Please enter a month and a year."
 msgstr "Прошу ввести місяць і рік."
 
-#: Form/Type.php:513 Form/Type.php:543
+#: lib/Horde/Form/Type.php:525 lib/Horde/Form/Type.php:555
 msgid "Please enter a valid IP address."
 msgstr "Будь-ласка, введіть дійсну IP-адресу."
 
-#: Form/Type.php:2800
+#: lib/Horde/Form/Type.php:2879
 msgid "Please enter a valid date, check the number of days in the month."
 msgstr "Будь-ласка, введіть дійсну дату, перевірте кількість днів в місяці."
 
-#: Form/Type.php:2598
+#: lib/Horde/Form/Type.php:2679
 msgid "Please enter a valid time."
 msgstr "Введіть дійсний час."
 
-#: Form/Type.php:911 Form/Type.php:2237 Form/Type.php:2313 Form/Type.php:3647
+#: lib/Horde/Form/Type.php:923 lib/Horde/Form/Type.php:2313
+#: lib/Horde/Form/Type.php:2389 lib/Horde/Form/Type.php:3712
 msgid "Prompt text"
 msgstr "Текст підказки"
 
-#: Form/Type.php:1623
+#: lib/Horde/Form/Type.php:1691
 msgid "Protect address from spammers?"
 msgstr "Захистити адресу від спамерів?"
 
-#: Form/Type.php:2401
+#: lib/Horde/Form/Type.php:2496
 msgid "Radio selection"
 msgstr ""
 
-#: Form/Type.php:396 Form/Type.php:416 Form/Type.php:442
+#: lib/Horde/Form/Type.php:382 lib/Horde/Form/Type.php:402
+#: lib/Horde/Form/Type.php:428
 msgid "Regex"
 msgstr "Regex"
 
-#: Form/Type.php:3605
+#: lib/Horde/Form/Type.php:3682
 msgid "Relationship browser"
 msgstr "Оглядач зв'язків"
 
-#: Form/Renderer.php:344
+#: lib/Horde/Form/Renderer.php:327
 msgid "Required Field"
 msgstr "Необхідне поле"
 
-#: Form.php:632
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
 
-#: Form.php:368 Form/Renderer.php:329
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr "Очистити"
 
-#: Form/Type.php:3481
+#: lib/Horde/Form/Type.php:3558
 msgid "Right header"
 msgstr "Правий заголовок"
 
-#: Form/Type.php:3477
+#: lib/Horde/Form/Type.php:3554
 msgid "Right values"
 msgstr "Значення справа"
 
-#: Form/Type.php:884
+#: lib/Horde/Form/Type.php:896
 msgid "S/MIME Key"
 msgstr "Ключ S/MIME"
 
-#: Form/Type.php:3645
+#: lib/Horde/Form/Type.php:3710
 msgid "SQL statement for value lookups"
 msgstr ""
 
-#: Form/Type.php:3326
+#: lib/Horde/Form/Type.php:3403
 msgid "Select Files"
 msgstr "Вибрати файли"
 
-#: Form/Type.php:2803
+#: lib/Horde/Form/Type.php:2882
 msgid "Select all date components."
 msgstr "Виберіть всі елементи дати."
 
-#: Form/Type.php:2450
+#: lib/Horde/Form/Type.php:2545
 msgid "Set"
 msgstr "Встановити"
 
-#: Form/Type.php:3355
+#: lib/Horde/Form/Type.php:3432
 msgid "Show icon?"
 msgstr "Показати іконку?"
 
-#: Form/Type.php:1296
+#: lib/Horde/Form/Type.php:1340
 msgid "Show option to keep original?"
 msgstr "Показати опцію для збереження оригіналу?"
 
-#: Form/Type.php:2964 Form/Type.php:3127
+#: lib/Horde/Form/Type.php:3041 lib/Horde/Form/Type.php:3204
 msgid "Show picker?"
 msgstr "Показати піпетку?"
 
-#: Form/Type.php:2688 Form/Type.php:3133
+#: lib/Horde/Form/Type.php:2767 lib/Horde/Form/Type.php:3210
 msgid "Show seconds?"
 msgstr "Показати секунди?"
 
-#: Form/Type.php:1294
+#: lib/Horde/Form/Type.php:1338
 msgid "Show upload?"
 msgstr "Показати підвантаження?"
 
-#: Form/Type.php:398 Form/Type.php:418 Form/Type.php:444 Form/Type.php:2370
-#: Form/Type.php:3283 Form/Type.php:3483
+#: lib/Horde/Form/Type.php:384 lib/Horde/Form/Type.php:404
+#: lib/Horde/Form/Type.php:430 lib/Horde/Form/Type.php:484
+#: lib/Horde/Form/Type.php:1703 lib/Horde/Form/Type.php:2456
+#: lib/Horde/Form/Type.php:3360 lib/Horde/Form/Type.php:3560
 msgid "Size"
 msgstr "Об'єм"
 
-#: Form/Type.php:3279
+#: lib/Horde/Form/Type.php:3356
 msgid "Sort order selection"
 msgstr "Вибір напрямку сортування"
 
-#: Form/Type.php:3200
+#: lib/Horde/Form/Type.php:3277
 msgid "Sound selection"
 msgstr "Вибір звуку"
 
-#: Form/Type.php:98
+#: lib/Horde/Form/Type.php:78
 msgid "Spacer"
 msgstr "Розділювач"
 
-#: Form/Type.php:2744 Form/Type.php:2960 Form/Type.php:3123
+#: lib/Horde/Form/Type.php:2823 lib/Horde/Form/Type.php:3037
+#: lib/Horde/Form/Type.php:3200
 msgid "Start year"
 msgstr "Рік початку"
 
-#: Form/Type.php:2966 Form/Type.php:3129
+#: lib/Horde/Form/Type.php:3043 lib/Horde/Form/Type.php:3206
 msgid "Storage format"
 msgstr "Формат сховища"
 
-#: Form/Type.php:414
+#: lib/Horde/Form/Type.php:400
 msgid "String list"
 msgstr ""
 
-#: Form/Type.php:440
+#: lib/Horde/Form/Type.php:426
 msgid "String list returning an array"
 msgstr ""
 
-#: Form.php:361 Form/Renderer.php:326
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr "Відіслати"
 
-#: Form/Type/tableset.php:54
+#: lib/Horde/Form/Type/tableset.php:51
 msgid "Table Set"
 msgstr ""
 
-#: Form/Type.php:394 Form/Type.php:3698 Form/Type.php:3717
+#: lib/Horde/Form/Type.php:380 lib/Horde/Form/Type.php:3763
+#: lib/Horde/Form/Type.php:3782
 msgid "Text"
 msgstr "Текст"
 
-#: Form/Type.php:1056
+#: lib/Horde/Form/Type.php:1086
 msgid ""
 "The image file size could not be determined or it was 0 bytes. The upload "
 "may have been interrupted."
 msgstr ""
 
-#: Form/Type.php:1060
+#: lib/Horde/Form/Type.php:1090
 #, php-format
 msgid "The image file was larger than the maximum allowed size (%d bytes)."
 msgstr "Зображення перевищує максимально дозволений розмір (%d байт)."
 
-#: Form/Type.php:1629
+#: lib/Horde/Form/Type.php:1697
 msgid "The name to use when linking to the compose page"
 msgstr "Назва для використанння при посиланні на сторінку створення."
 
-#: Form/Type.php:3673
+#: lib/Horde/Form/Type.php:3738
 msgid "The text you entered did not match the text on the screen."
 msgstr "Текст, який Ви ввели, не співпадає з текстом на екрані."
 
-#: Form/Type.php:644
+#: lib/Horde/Form/Type.php:656
 #, php-format
 msgid ""
 "There are too many characters in this field. You have entered %d character; "
@@ -523,94 +544,101 @@ msgstr[0] "Забагато символів в цьому полі. Ви вве
 msgstr[1] "Забагато символів в цьому полі. Ви ввели %d символи; "
 msgstr[2] "Забагато символів в цьому полі. Ви ввели %d символів; "
 
-#: Form/Type.php:3504
+#: lib/Horde/Form/Type.php:3581
 msgid "This does not seem to be a valid card number."
 msgstr "Це не схоже на коректний номер картки."
 
-#: Form/Type.php:169 Form/Type.php:246 Form/Type.php:273 Form/Type.php:300
-#: Form/Type.php:365 Form/Type.php:459 Form/Type.php:517 Form/Type.php:547
-#: Form/Type.php:641 Form/Type.php:1041 Form/Type.php:2083 Form/Type.php:2130
-#: Form/Type.php:2152 Form/Type.php:2199 Form/Type.php:2274 Form/Type.php:2345
-#: Form/Type.php:2559 Form/Type.php:2601 Form/Type.php:2795 Form/Type.php:3144
-#: Form/Type.php:3183 Form/Type.php:3496 Form/Type.php:3668 Form/Type.php:3751
-#: Form/Variable.php:471 Form/Variable.php:479
+#: lib/Horde/Form/Type.php:149 lib/Horde/Form/Type.php:229
+#: lib/Horde/Form/Type.php:256 lib/Horde/Form/Type.php:283
+#: lib/Horde/Form/Type.php:351 lib/Horde/Form/Type.php:460
+#: lib/Horde/Form/Type.php:529 lib/Horde/Form/Type.php:559
+#: lib/Horde/Form/Type.php:653 lib/Horde/Form/Type.php:1071
+#: lib/Horde/Form/Type.php:2154 lib/Horde/Form/Type.php:2199
+#: lib/Horde/Form/Type.php:2221 lib/Horde/Form/Type.php:2275
+#: lib/Horde/Form/Type.php:2350 lib/Horde/Form/Type.php:2431
+#: lib/Horde/Form/Type.php:2640 lib/Horde/Form/Type.php:2682
+#: lib/Horde/Form/Type.php:2874 lib/Horde/Form/Type.php:3221
+#: lib/Horde/Form/Type.php:3260 lib/Horde/Form/Type.php:3573
+#: lib/Horde/Form/Type.php:3733 lib/Horde/Form/Type.php:3816
+#: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
 msgid "This field is required."
 msgstr "Це поле обов'язкове."
 
-#: Form/Type.php:254
+#: lib/Horde/Form/Type.php:237
 msgid "This field may only contain integers."
 msgstr "Це поле може містити тільки цілі."
 
-#: Form/Type.php:2567
+#: lib/Horde/Form/Type.php:2648
 msgid "This field may only contain numbers and the colon."
 msgstr "Це поле може містити тільки номери та двокрапку"
 
-#: Form/Type.php:281
+#: lib/Horde/Form/Type.php:264
 msgid "This field may only contain octal values."
 msgstr "Це поле може містити тільки вісімкові величини."
 
-#: Form/Type.php:308
+#: lib/Horde/Form/Type.php:291
 msgid "This field must be a comma or space separated list of integers"
 msgstr "Це поле має бути списком цілих, розділених комою або пробілом"
 
-#: Form/Type.php:180
+#: lib/Horde/Form/Type.php:160
 msgid "This field must be a valid number."
 msgstr "Це поле має мати дійсний номер."
 
-#: Form/Type.php:3152
+#: lib/Horde/Form/Type.php:3229
 msgid ""
 "This field must contain a color code in the RGB Hex format, for example "
 "'#1234af'."
 msgstr ""
 "Це поле має містити код кольору в форматі  HEX RGB, наприклад '#1234af'."
 
-#: Form.php:629
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
 msgstr "Ця форма вже оброблена."
 
-#: Form/Type.php:2576
+#: lib/Horde/Form/Type.php:2657
 msgid "Time"
 msgstr "Час"
 
-#: Form/Type.php:2686
+#: lib/Horde/Form/Type.php:2765
 msgid "Time selection"
 msgstr "Вибір часу"
 
-#: Form/Type.php:1321
+#: lib/Horde/Form/Type.php:1365
 msgid "True or false"
 msgstr "Істинно чи хибно"
 
-#: Form/Type.php:360
+#: lib/Horde/Form/Type.php:346
 #, php-format
 msgid "Value is over the maximum length of %d."
 msgstr "Значення перевищує максимальну довжину %d."
 
-#: Form/Type.php:2368 Form/Type.php:2403 Form/Type.php:2452 Form/Type.php:3281
-#: Form/Type/tableset.php:56
+#: lib/Horde/Form/Type.php:2454 lib/Horde/Form/Type.php:2498
+#: lib/Horde/Form/Type.php:2547 lib/Horde/Form/Type.php:3358
+#: lib/Horde/Form/Type/tableset.php:53
 msgid "Values"
 msgstr "Величини"
 
-#: Form/Type.php:2235 Form/Type.php:2311
+#: lib/Horde/Form/Type.php:2311 lib/Horde/Form/Type.php:2387
 msgid "Values to select from"
 msgstr "Величини для вибору з"
 
-#: Form/Type.php:3485
+#: lib/Horde/Form/Type.php:3562
 msgid "Width in CSS units"
 msgstr "Ширина в одиницях CSS"
 
-#: Form/Type.php:2102
+#: lib/Horde/Form/Type.php:2167
 msgid "You did not enter a valid email address."
 msgstr "Ви не ввели коректну адресу e-пошти."
 
-#: Form/Type.php:3028
+#: lib/Horde/Form/Type.php:3105
 msgid "You must choose a date."
 msgstr "Ви повинні вказати дату."
 
-#: Form/Type.php:3026
+#: lib/Horde/Form/Type.php:3103
 msgid "You must choose a time."
 msgstr "Ви повинні вказати час."
 
-#: Form/Type.php:463
+#: lib/Horde/Form/Type.php:464
 msgid ""
 "You must enter a valid phone number, digits only with an optional '+' for "
 "the international dialing prefix."
@@ -618,19 +646,19 @@ msgstr ""
 "Вам треба ввести дійсний номер телефону, тільки цифри і опціонально '+' для "
 "міжнародного набору."
 
-#: Form/Type.php:371
+#: lib/Horde/Form/Type.php:357
 msgid "You must enter a valid value."
 msgstr "Ви повинні ввести коректне значення."
 
-#: Form/Type.php:1470
+#: lib/Horde/Form/Type.php:1528
 msgid "You must enter an email address."
 msgstr "Ви повинні ввести адресу e-пошти."
 
-#: Form/Type.php:1468
+#: lib/Horde/Form/Type.php:1526
 msgid "You must enter at least one email address."
 msgstr "Ви повинні ввести хоча б одну адресу е-пошти."
 
-#: Form/Type.php:645
+#: lib/Horde/Form/Type.php:657
 #, php-format
 msgid "you must enter less than %d."
 msgstr "вам слід ввести менше ніж %d."

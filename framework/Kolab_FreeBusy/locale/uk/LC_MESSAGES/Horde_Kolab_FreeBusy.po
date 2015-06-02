@@ -2,116 +2,101 @@
 # Copyright 2010-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Kolab_FreeBusy module.
 # Automatically generated, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
+"POT-Creation-Date: 2014-03-25 18:08+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
+"Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "401 Unauthorized"
-msgstr ""
+msgstr "401 Не авторизовано"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:220
-#, fuzzy
+#: lib/Horde/Kolab/FreeBusy/View.php:208
 msgid "404 Not Found"
-msgstr "Без звуку"
+msgstr "404 Не знайдено"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "500 Server Error"
-msgstr ""
+msgstr "500 Помилка сервера"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:258
+#: lib/Horde/Kolab/FreeBusy/View.php:246
 msgid "Error"
 msgstr "Помилка"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:66
-#, fuzzy
+#: lib/Horde/Kolab/FreeBusy/Report.php:53
 msgid "Errors:"
-msgstr "Помилка"
-
-#: lib/Horde/Kolab/FreeBusy/Report.php:58
-#, php-format
-msgid "Failed regenerating calendar %s: %s"
-msgstr ""
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:141
-#, fuzzy, php-format
-msgid "Folder %s does not exist!"
-msgstr "Папки \"%s\" не існує"
-
-#: lib/Horde/Kolab/FreeBusy/Imap.php:148
-#, fuzzy, php-format
-msgid "Folder %s has type \"%s\" not \"event\"!"
-msgstr "Папки \"%s\" не існує"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:196
-#, fuzzy, php-format
-msgid "Invalid authentication for user %s!"
-msgstr "Неправильна адреса призначення."
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:218
-#, fuzzy, php-format
-msgid "No such account %s!"
-msgstr "нема такої опції: %s"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
-#, fuzzy, php-format
-msgid "No such folder %s"
-msgstr "Нема такого файлу"
-
-#: lib/Horde/Kolab/FreeBusy/View.php:220
-#, fuzzy
-msgid "Not found"
-msgstr "Без звуку"
-
-#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:192
-#, fuzzy
-msgid "Please authenticate!"
-msgstr "Ви не пройшли аутентикацію."
+msgstr "Помилки:"
 
 #: lib/Horde/Kolab/FreeBusy/Report.php:45
+#, php-format
+msgid "Failed regenerating calendar %s: %s"
+msgstr "Не вдалося перестворити календар %s: %s"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
+#, php-format
+msgid "Invalid authentication for user %s!"
+msgstr "Невдала автентикація для користувача %s!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:315
+#, php-format
+msgid "No such account %s!"
+msgstr "Не існує аккаунту %s!"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
+#, php-format
+msgid "No such folder %s"
+msgstr "Нема такої папки %s"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:208
+msgid "Not found"
+msgstr "Не знайдено"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
+msgid "Please authenticate!"
+msgstr "Будь-ласка, пройдіть автентикацію!"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:32
 msgid "Starting to regenerate the free/busy cache..."
-msgstr ""
+msgstr "Починаю перестворювати кеш вільний/зайнятий..."
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:74
+#: lib/Horde/Kolab/FreeBusy/Report.php:61
 msgid "Successfully regenerated all calendar caches!"
-msgstr ""
+msgstr "Успішно перестворено весь кеш календара!"
 
-#: lib/Horde/Kolab/FreeBusy/Report.php:51
-#, fuzzy, php-format
+#: lib/Horde/Kolab/FreeBusy/Report.php:38
+#, php-format
 msgid "Successfully regenerated calendar \"%s\"!"
-msgstr "Успішно витерто \"%s\"."
+msgstr "Успішно перестворено календар \"%s\"!"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:218
-#, fuzzy, php-format
+#: lib/Horde/Kolab/FreeBusy/View.php:206
+#, php-format
 msgid "The requested URL %s was not found on this server."
-msgstr "Програма для перегляду цього типу даних (%s) не знайдена в системі."
+msgstr "Запитаний URL %s не знайдено на сервері."
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
-#, fuzzy
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:193
 msgid "Unable to determine owner of the free/busy data!"
-msgstr "Не можу визначити поточну директорію."
+msgstr "Не можу визначити даних вільний/зайнятий!"
 
-#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:295
-#, fuzzy, php-format
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:390
+#, php-format
 msgid "Unable to read free/busy information from %s"
-msgstr "Не можу завантажити визначення %s."
+msgstr "Не можу прочитати дані вільний/зайнятий від %s"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:241
+#: lib/Horde/Kolab/FreeBusy/View.php:229
 msgid "Unauthorized"
-msgstr ""
+msgstr "Неавторизовано"
 
-#: lib/Horde/Kolab/FreeBusy/View.php:242
-#, fuzzy
+#: lib/Horde/Kolab/FreeBusy/View.php:230
 msgid "You are not authorized to access the requested URL."
-msgstr "Вам не можна змінювати групи."
+msgstr "Ви не авторизовані для доступу до запитаної URL."

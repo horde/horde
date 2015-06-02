@@ -1,13 +1,13 @@
 # Ukrainian translations for Horde_Data module.
 # Copyright 2010-2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Data module.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2013-04-19 01:27+0200\n"
+"POT-Creation-Date: 2015-05-28 17:03+0300\n"
+"PO-Revision-Date: 2015-06-01 01:27+0200\n"
 "Last-Translator: Andriy Kopystyansky <anri@polynet.lviv.ua>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -21,7 +21,7 @@ msgstr ""
 msgid "Cannot open file."
 msgstr "Не можу відкрити файл."
 
-#: lib/Horde/Data/Csv.php:227
+#: lib/Horde/Data/Csv.php:226
 msgid "Incorrect charset given for the data."
 msgstr "Вказане некоректне кодування для даних."
 
@@ -29,15 +29,15 @@ msgstr "Вказане некоректне кодування для даних
 msgid "TSV file"
 msgstr "TSV файл"
 
-#: lib/Horde/Data/Base.php:282
+#: lib/Horde/Data/Base.php:324
 msgid "The file contained no data."
 msgstr "Файл не містить даних."
 
-#: lib/Horde/Data/Base.php:343
+#: lib/Horde/Data/Base.php:385
 msgid "The uploaded data was lost since the previous step."
 msgstr "Завантажені дані були втрачені з часу попереднього кроку."
 
-#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:223
 msgid "The uploaded file could not be saved."
 msgstr "Завантажений файл не може бути збережений."
 
@@ -45,7 +45,12 @@ msgstr "Завантажений файл не може бути збереже�
 msgid "There was an error importing the iCalendar data."
 msgstr "Трапилась помилка імпорту даних з iCalendar."
 
-#: lib/Horde/Data/Base.php:289
+#: lib/Horde/Data/Base.php:144
+#, php-format
+msgid "URL %s not found"
+msgstr "URL %s не знайдено"
+
+#: lib/Horde/Data/Base.php:331
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."

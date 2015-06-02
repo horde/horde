@@ -1,13 +1,13 @@
 # Ukrainian translations for Mnemo H5 package.
-# Copyright (C) 2013 Horde LLC (http://www.horde.org/)
+# Copyright (C) 2015 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Mnemo package.
-#
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H5 (4.1.0-git)\n"
+"Project-Id-Version: Mnemo (4.3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-04-19 11:50+0300\n"
-"PO-Revision-Date: 2013-04-19 12:00+0300\n"
+"POT-Creation-Date: 2015-03-24 10:40+0100\n"
+"PO-Revision-Date: 2015-05-30 12:00+0300\n"
 "Last-Translator: Andriy Kopystyansky <webmaster@polynet.lviv.ua>\n"
 "Language-Team: Ukrainian <anri@polynet.lviv.ua>\n"
 "Language: uk\n"
@@ -17,31 +17,43 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: templates/memo/memo.inc:51
+#: memo.php:276
 #, php-format
 msgid "%s characters"
 msgstr "%s символів"
 
-#: data.php:159
+#: data.php:149
 #, php-format
 msgid "%s file successfully imported"
 msgstr "Файл %s успішно імпортовано"
 
-#: memo.php:95
+#: memo.php:101
 msgid "Access denied addings notes to this notepad."
 msgstr "Заборонено внесення нотаток до цього блокнота."
 
-#: memo.php:260
+#: memo.php:251
 msgid "Access denied deleting note."
 msgstr "Заборонено видалення нотатки."
 
-#: memo.php:196 memo.php:199
+#: memo.php:115
+msgid "Access denied editing note."
+msgstr "Заборонено редагувати нотатку."
+
+#: memo.php:188
 msgid "Access denied moving the note."
 msgstr "Заборонено перенесення нотатки."
 
-#: memo.php:147
+#: memo.php:157
 msgid "Access denied saving note to this notepad."
 msgstr "Заборонено збереження нотатки в цей блокнот."
+
+#: config/prefs.php:149
+msgid ""
+"All state removed for your ActiveSync devices. They will resynchronize next "
+"time they connect to the server."
+msgstr ""
+"Всі області видалені з вашого ActiveSync пристрою. Вони будуть "
+"синхронізованіпри наступному підключенні."
 
 #: lib/Block/Note.php:91
 #, php-format
@@ -52,9 +64,13 @@ msgstr "Трапилась помилка відображення %s"
 msgid "An error occurred displaying the note"
 msgstr "Трапилась помилка відображення нотатки"
 
-#: config/prefs.php:58
+#: config/prefs.php:64
 msgid "Ascending"
 msgstr "По зростанню"
+
+#: lib/Form/Search.php:27
+msgid "Body"
+msgstr "Тіло"
 
 #: data.php:21 templates/data/import.inc:10
 msgid "CSV"
@@ -65,10 +81,6 @@ msgstr "CSV"
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: data.php:43 templates/view/memo.inc:24
-msgid "Category"
-msgstr "Категорія"
-
 #: lib/Form/EditNotepad.php:64
 msgid "Change Permissions"
 msgstr "Змінити Права"
@@ -77,13 +89,22 @@ msgstr "Змінити Права"
 msgid "Change your note sorting and display preferences."
 msgstr "Налаштуйте опції відображення і сортування нотаток."
 
+#: config/prefs.php:28
+msgid "Choose the Notepads to use for synchronization with external devices."
+msgstr "Виберіть Блокноти для синхронізації з зовнішніми пристроями."
+
 #: config/prefs.php:21
 msgid "Choose your default Notepad."
 msgstr "Виберіть Ваш основний Блокнот."
 
-#: templates/list/header.inc:7
+#: templates/list/header.html.php:8
 msgid "Close Search"
 msgstr "Закрити пошук"
+
+#: lib/Api.php:382
+#, php-format
+msgid "Connection failed: %s"
+msgstr "Збій зв'язку: %s"
 
 #: lib/Form/CreateNotepad.php:25
 msgid "Create"
@@ -93,19 +114,19 @@ msgstr "Створити"
 msgid "Create Notepad"
 msgstr "Створити Блокнот"
 
-#: lib/Application.php:115
+#: lib/Application.php:127
 msgid "Create a new Notepad"
 msgstr "Створити новий Блокнот"
 
-#: templates/view/memo.inc:30
+#: templates/view/view.html.php:30
 msgid "Created"
 msgstr "Створено"
 
-#: templates/list/memo_headers.inc:24
+#: list.php:107
 msgid "Date"
 msgstr "Дата"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:62
+#: templates/memo/memo.html.php:13 templates/view/view.html.php:58
 msgid "Decrypt"
 msgstr "Декриптувати"
 
@@ -113,16 +134,16 @@ msgstr "Декриптувати"
 msgid "Default Notepad"
 msgstr "Основний Блокнот"
 
-#: config/prefs.php:50
+#: config/prefs.php:56
 msgid "Default sorting criteria:"
 msgstr "Типовий критерій сортування:"
 
-#: config/prefs.php:61
+#: config/prefs.php:67
 msgid "Default sorting direction:"
 msgstr "Типовий напрям сортування:"
 
 #: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.html.php:33
 msgid "Delete"
 msgstr "Витерти"
 
@@ -131,15 +152,15 @@ msgstr "Витерти"
 msgid "Delete %s"
 msgstr "Витерти %s"
 
-#: config/prefs.php:27
+#: config/prefs.php:34
 msgid "Delete Confirmation"
 msgstr "Підтвердження витирання"
 
-#: config/prefs.php:28
+#: config/prefs.php:35
 msgid "Delete button behaviour"
 msgstr "Поведінка кнопки Витерти"
 
-#: config/prefs.php:59
+#: config/prefs.php:65
 msgid "Descending"
 msgstr "По спаданню"
 
@@ -151,11 +172,11 @@ msgstr "Опис"
 msgid "Display Preferences"
 msgstr "Опції відображення"
 
-#: config/prefs.php:104
+#: config/prefs.php:174
 msgid "Do you want to confirm deleting entries?"
 msgstr "Підтверджувати витирання записів?"
 
-#: templates/list/memo_summaries.inc:5
+#: list.php:122
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Редагувати \"%s\""
@@ -165,25 +186,20 @@ msgstr "Редагувати \"%s\""
 msgid "Edit %s"
 msgstr "Редагувати %s"
 
-#: lib/Block/Summary.php:88 lib/Block/Summary.php:89
-#: templates/list/memo_headers.inc:14
+#: lib/Block/Summary.php:67 lib/Block/Summary.php:68 list.php:78
 msgid "Edit Note"
 msgstr "Редагувати нотатку"
 
-#: templates/list/memo_headers.inc:32
-msgid "Edit categories and colors"
-msgstr "Редагувати категорії і кольори"
-
-#: memo.php:126 memo.php:159
+#: memo.php:139 memo.php:171
 #, php-format
 msgid "Edit: %s"
 msgstr "Редагування: %s"
 
-#: lib/Block/Summary.php:106 templates/list/memo_summaries.inc:15
+#: lib/Block/Summary.php:85 list.php:141
 msgid "Empty Note"
-msgstr ""
+msgstr "Пуста нотатки"
 
-#: lib/Driver.php:307
+#: lib/Driver.php:315
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -198,7 +214,16 @@ msgstr "Експорт"
 msgid "Export Notes"
 msgstr "Експорт нотаток"
 
-#: config/prefs.php:12 config/prefs.php:19 config/prefs.php:26
+#: lib/Driver/Kolab.php:293
+#, php-format
+msgid "Failed retrieving Kolab data for notepad %s: %s"
+msgstr "Помилка отримання даних Kolab для блокнота %s: %s"
+
+#: lib/Form/Search.php:24
+msgid "For"
+msgstr "Для"
+
+#: config/prefs.php:12 config/prefs.php:33
 msgid "General Preferences"
 msgstr "Загальні опції"
 
@@ -207,39 +232,51 @@ msgstr "Загальні опції"
 msgid "Import Notes, Step %d"
 msgstr "Імпорт нотаток, Крок %d"
 
-#: data.php:166
+#: data.php:156
 msgid "Import/Export Notes"
 msgstr "Імпорт/Експорт нотаток"
 
-#: templates/search/search.inc:17
-msgid "In: "
-msgstr "В: "
+#: lib/Form/Search.php:26
+msgid "In"
+msgstr "В"
 
-#: templates/view/memo.inc:42
+#: lib/Api.php:283
+msgid "Invalid notepad name supplied."
+msgstr "Вказана некоректна назва блокнота."
+
+#: lib/Api.php:158 lib/Api.php:163
+msgid "Invalid notepad requested."
+msgstr "Запитано некоректний блокнот."
+
+#: templates/view/view.html.php:40
 msgid "Last Modified"
 msgstr "Востаннє оновлено"
 
-#: lib/Application.php:62
+#: memo.php:287
+msgid "Loading..."
+msgstr "Завантажую..."
+
+#: lib/Application.php:74
 msgid "Maximum Number of Notes"
 msgstr "Максимальна кількість нотаток"
 
 #: data.php:42
 msgid "Memo Text"
-msgstr ""
+msgstr "Мемо-текст"
 
-#: config/prefs.php:48
+#: config/prefs.php:54
 msgid "Modification Date"
 msgstr "Дата зміни"
 
-#: templates/list/header.inc:8
+#: templates/list/header.html.php:9
 msgid "More Options..."
 msgstr "Більше опцій..."
 
-#: lib/Api.php:378
+#: lib/Api.php:776
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Знайдено кілька компонентів iCalendar; підтримується тільки vNote."
 
-#: lib/Application.php:108
+#: lib/Application.php:120
 msgid "My Notepads"
 msgstr "Мої Блокноти"
 
@@ -251,7 +288,7 @@ msgstr "Мої нотатки"
 msgid "Name"
 msgstr "Ім'я"
 
-#: lib/Application.php:168 memo.php:103 memo.php:151
+#: lib/Application.php:188 memo.php:110 memo.php:163
 msgid "New Note"
 msgstr "Нова нотатка"
 
@@ -259,7 +296,7 @@ msgstr "Нова нотатка"
 msgid "Next"
 msgstr "Наступний"
 
-#: lib/Api.php:209 lib/Api.php:371
+#: lib/Api.php:612 lib/Api.php:769
 msgid "No iCalendar data was found."
 msgstr "Даних в iCalendar не знайдено."
 
@@ -267,53 +304,57 @@ msgstr "Даних в iCalendar не знайдено."
 msgid "No note loaded"
 msgstr "Жодної нотатки не завантажено"
 
-#: templates/list/memo_footers.inc:4
+#: templates/list/memo_footers.html.php:4
 msgid "No notes match"
 msgstr "Жодної відповідної нотатки"
 
-#: templates/list/empty.inc:1
+#: templates/list/empty.html.php:1
 msgid "No notes match the current criteria."
 msgstr "Жодна нотатка не відповідає поточному критерію."
 
-#: lib/Block/Summary.php:114
+#: lib/Block/Summary.php:94
 msgid "No notes to display"
 msgstr "Немає нотаток для показу"
 
-#: templates/list/memo_headers.inc:21
+#: list.php:97
 msgid "No_te"
 msgstr "Нотатка"
 
-#: lib/Driver/Sql.php:103
-msgid "Not Found"
-msgstr "Не знайдено"
-
-#: config/prefs.php:46
-msgid "Note Category"
-msgstr "Категорія нотатки"
-
-#: view.php:89
+#: view.php:155
 msgid "Note Details"
 msgstr "Деталі нотатки"
 
-#: config/prefs.php:45
+#: config/prefs.php:52
 msgid "Note Text"
 msgstr "Текст нотатки"
 
-#: templates/memo/memo.inc:51
+#: templates/memo/memo.html.php:26
 msgid "Note _Text"
 msgstr "Текст Нотатки"
 
-#: memo.php:114 memo.php:156 note/pdf.php:52 view.php:52
+#: memo.php:126 memo.php:168 note/pdf.php:52 view.php:55
 msgid "Note not found."
 msgstr "Нотатку не знайдено."
 
-#: templates/memo/memo.inc:64
+#: templates/memo/memo.html.php:39
 msgid "Note_pad:"
 msgstr "Блокнот:"
 
-#: config/prefs.php:47 templates/list/memo_headers.inc:17
+#: config/prefs.php:53 list.php:87
 msgid "Notepad"
 msgstr "Блокнот"
+
+#: config/prefs.php:19 config/prefs.php:26
+msgid "Notepad and Share Preferences"
+msgstr "Налаштування Блокнота і Пісочниць"
+
+#: lib/Api.php:372
+msgid "Notepad does not exist or no permission to delete"
+msgstr "Блокнота не існує або нема прав на видалення"
+
+#: lib/Api.php:308
+msgid "Notepad does not exist or no permission to edit"
+msgstr "Блокнота не існує або нема прав на редагування"
 
 #: lib/Notepads/Default.php:64
 #, php-format
@@ -327,6 +368,11 @@ msgstr "Нотатки"
 #: lib/Block/Summary.php:12
 msgid "Notes Summary"
 msgstr "Зміст нотатки"
+
+#: lib/Api.php:128
+#, php-format
+msgid "Notes from %s"
+msgstr "Нотатки від %s"
 
 #: lib/Form/EditNotepad.php:42
 msgid "Owner"
@@ -345,21 +391,21 @@ msgstr ""
 "Справді витерти блокнот \"%s\"? Це незворотня операція і всі дані з цього "
 "блокнота будуть назавжди витерті."
 
-#: templates/view/memo.inc:15
+#: view.php:152
 msgid "Really delete this note?"
 msgstr "Справді витерти цю нотатку?"
 
 #: lib/Form/EditNotepad.php:76 lib/Form/EditNotepad.php:85
-#: templates/memo/memo.inc:56
+#: templates/memo/memo.html.php:31
 msgid "Save"
 msgstr "Зберегти"
 
-#: templates/view/memo.inc:10
+#: templates/view/view.html.php:4
 msgid "Save as PDF"
 msgstr "Зберегти як PDF"
 
-#: lib/Application.php:192 search.php:19 templates/list/header.inc:3
-#: templates/search/search.inc:4 templates/search/search.inc:27
+#: lib/Application.php:216 lib/Form/Search.php:22 lib/Form/Search.php:30
+#: list.php:59 search.php:24 templates/list/header.html.php:4
 msgid "Search"
 msgstr "Пошук"
 
@@ -379,45 +425,71 @@ msgstr "Вкажіть файл для імпорту:"
 msgid "Select the format of the source file:"
 msgstr "Виберіть формат вхідного файлу:"
 
-#: lib/Application.php:121
+#: config/prefs.php:109
+msgid ""
+"Select the notepads that, in addition to the default, should be used for "
+"synchronization with external devices:"
+msgstr ""
+"Вкажіть блокноти, які, на додачу до типового, будуть використані для "
+"синхронізації з зовнішніми пристроями:"
+
+#: lib/Application.php:133
 msgid "Shared Notepads"
 msgstr "Спільні Блокноти"
 
-#: config/prefs.php:37
+#: config/prefs.php:44
 msgid "Should the Notepad be shown in its own column in the List view?"
 msgstr "Чи показувати Блокнот у власній колонці при перегляді Списку?"
 
-#: lib/Block/Summary.php:42
+#: lib/Block/Summary.php:36
 msgid "Show action buttons?"
 msgstr "Показувати кнопки дій?"
 
-#: lib/Block/Summary.php:47
+#: lib/Block/Summary.php:41
 msgid "Show notepad name?"
 msgstr "Показувати назву блокнота?"
-
-#: lib/Block/Summary.php:52
-msgid "Show notes from these categories"
-msgstr "Показати нотатки з цих категорій"
 
 #: lib/Block/Note.php:40
 msgid "Show this note"
 msgstr "Показати цю нотатку"
 
-#: memo.php:233
+#: memo.php:231
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "Успішно збережено \"%s\""
+
+#: config/prefs.php:161
+msgid "Support separate notepads?"
+msgstr "Підтримувати окремі блокноти?"
+
+#: config/prefs.php:27
+msgid "Synchronization Preferences"
+msgstr "Опції синхронізації"
 
 #: lib/Form/EditNotepad.php:50
 msgid "System"
 msgstr "Системний"
 
-#: data.php:154
+#: templates/memo/memo.html.php:50
+msgid "T_ags:"
+msgstr "Ярлики:"
+
+#: data.php:43 templates/view/view.html.php:23
+msgid "Tags"
+msgstr "Ярлики"
+
+#: data.php:144
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "Файл %s не містить жодних нотаток."
 
-#: memo.php:255
+#: lib/Application.php:62
+msgid ""
+"The Content_Tagger class could not be found. Make sure the Content "
+"application is installed."
+msgstr ""
+
+#: memo.php:246
 msgid "The note was deleted."
 msgstr "Нотатку витерто."
 
@@ -441,35 +513,40 @@ msgstr "Блокнот \"%s\" перейменовано на \"%s\"."
 msgid "The notepad \"%s\" has been saved."
 msgstr "Блокнот \"%s\" збережено."
 
-#: memo.php:149
+#: memo.php:161
 msgid "The passwords don't match."
 msgstr "Пароль не співпадає."
 
-#: data.php:157
+#: config/prefs.php:151
+#, php-format
+msgid "There was an error communicating with the ActiveSync server: %s"
+msgstr "Трапилась помилка контактування з сервером ActiveSync: %s"
+
+#: data.php:147
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Трапилась помилка при імпортуванні даних: %s."
 
-#: lib/Api.php:203 lib/Api.php:365
+#: lib/Api.php:606 lib/Api.php:763
 msgid "There was an error importing the iCalendar data."
 msgstr "Трапилась помилка імпорту даних з iCalendar"
 
-#: lib/Application.php:239
+#: lib/Application.php:263
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "Трапилась помилка при витиранні нотаток для %s. Деталі збережено."
 
-#: memo.php:257
+#: memo.php:248
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Трапилась помилка при витиранні нотатки: %s"
 
-#: memo.php:231
+#: memo.php:229
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Трапилась помилка при збереженні події: %s"
 
-#: note/pdf.php:42 view.php:42
+#: memo.php:60 note/pdf.php:42 view.php:45
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Трапилась помилка відображення цього блокнота: %s"
@@ -478,31 +555,30 @@ msgstr "Трапилась помилка відображення цього б
 msgid "This file format is not supported."
 msgstr "Цей формат файлу не підтримується."
 
-#: memo.php:38 view.php:74
+#: memo.php:39 view.php:77
 msgid "This note cannot be decrypted:"
 msgstr "Цю нотатку неможливо декриптувати."
 
-#: memo.php:31 memo.php:41 view.php:69 view.php:77
+#: memo.php:32 memo.php:42 view.php:72 view.php:80
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
 msgstr ""
 "Ця нотатка закриптована і для декриптування вимагає захищеного веб зв'язку."
 
-#: memo.php:28 view.php:66
-msgid "This note has been encrypted, please provide the password below"
-msgstr "Ця нотатка закриптована, будь-ласка, введіть пароль нижче"
+#: memo.php:29 view.php:69
+msgid "This note has been encrypted, please provide the password."
+msgstr "Ця нотатка закриптована, будь-ласка, введіть пароль."
 
-#: lib/Api.php:276 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
+#: lib/Driver/Kolab.php:321 lib/Driver/Sql.php:322
 msgid "This note has been encrypted."
 msgstr "Ця нотатка закриптована."
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
-#: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
-msgid "Unfiled"
-msgstr "Незаповнений"
+#: lib/Form/Search.php:27
+msgid "Title"
+msgstr "Назва"
 
-#: lib/Api.php:242 lib/Api.php:304 lib/Api.php:394
+#: lib/Api.php:297 lib/Api.php:650 lib/Api.php:702 lib/Api.php:791
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Content-Type не підтримується: %s"
@@ -515,7 +591,7 @@ msgstr "Огляд нотатки"
 msgid "Which Notepad should the notes be added to?"
 msgstr "До котрого блокнота додавати нотатки?"
 
-#: data.php:34 data.php:91 memo.php:75
+#: data.php:34 data.php:87 memo.php:86
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Вам не дозволено створювати більше, ніж %d нотаток."
@@ -532,89 +608,69 @@ msgstr "Вам не можна переглядати цей блокнот."
 msgid "You do not have permission to edit this note."
 msgstr "У Вас немає права редагувати цю нотатку."
 
-#: note/pdf.php:46 view.php:46
+#: note/pdf.php:46 view.php:49
 msgid "You do not have permission to view this notepad."
 msgstr "У Вас немає прав для перегляду цього блокнота."
 
-#: config/prefs.php:80
+#: config/prefs.php:76
 msgid "Your default notepad:"
 msgstr "Ваш основний блокнот:"
 
-#: templates/search/search.inc:21
-msgid "_Body"
-msgstr "Тіло"
-
-#: templates/list/memo_headers.inc:28
-msgid "_Category"
-msgstr "Категорія"
-
-#: templates/memo/memo.inc:79
-msgid "_Category:"
-msgstr "Категорія:"
-
-#: templates/view/memo.inc:15
+#: view.php:122
 msgid "_Delete"
 msgstr "Витерти"
 
-#: templates/view/memo.inc:12
+#: view.php:129
 msgid "_Edit"
 msgstr "Редагувати"
 
-#: templates/memo/memo.inc:85
+#: templates/memo/memo.html.php:59
 msgid "_Encrypt?"
 msgstr "Криптувати?"
 
-#: templates/search/search.inc:9
-msgid "_For: "
-msgstr ""
-
-#: lib/Application.php:81
+#: lib/Application.php:93
 msgid "_Import/Export"
 msgstr "Імпорт/Експорт"
 
-#: lib/Application.php:74
+#: lib/Application.php:86
 msgid "_List Notes"
 msgstr "Список нотаток"
 
-#: lib/Application.php:97
+#: lib/Application.php:109
 msgid "_New Note"
 msgstr "Нова нотатка"
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:60
+#: templates/memo/memo.html.php:11 templates/view/view.html.php:56
 msgid "_Password"
 msgstr "Пароль"
 
-#: templates/memo/memo.inc:90
+#: templates/memo/memo.html.php:64
 msgid "_Password:"
 msgstr "Пароль:"
 
-#: templates/memo/memo.inc:94
+#: templates/memo/memo.html.php:68
 msgid "_Repeat:"
 msgstr "Повторити:"
 
-#: lib/Application.php:77
+#: lib/Application.php:89
 msgid "_Search"
 msgstr "Пошук"
 
-#: templates/search/search.inc:20
-msgid "_Title"
-msgstr "Назва"
-
-#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
+#: lib/Driver/Sql.php:357 lib/Driver/Sql.php:366
 #, php-format
 msgid "by %s"
 msgstr "по %s"
 
-#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
+#: lib/Driver/Sql.php:359 lib/Driver/Sql.php:368
 msgid "by me"
 msgstr "мною"
 
-#: lib/Application.php:180
+#: lib/Application.php:204
 #, php-format
 msgid "in %s"
 msgstr "в %s"
 
-#: lib/Application.php:276 templates/data/export.inc:3
+#: lib/Application.php:301 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 
