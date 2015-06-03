@@ -233,11 +233,32 @@ class Horde_Icalendar
 
         if (!count($result)) {
             throw new Horde_Icalendar_Exception('Attribute "' . $name . '" Not Found');
-        } elseif (count($result) && !$params) {
+        } elseif (count($result) == 1 && !$params) {
             return $result[0];
         }
 
         return $result;
+    }
+
+    /**
+     * Get a single value of an attribute.
+     *
+     * If multiple values, is auto-determined by library which is preferred
+     * value to return.
+     *
+     * @since 2.1.0
+     *
+     * @param string $name  The name of the attribute.
+     *
+     * @return string  The value of the attribute.
+     * @throws Horde_Icalendar_Exception
+     */
+    public function getAttributeSingle($name)
+    {
+        $out = $this->getAttribute($name, false);
+        return is_array($out)
+            ? reset($out)
+            : $out;
     }
 
     /**
@@ -279,7 +300,7 @@ class Horde_Icalendar
      * @param mixed $default  What to return if the attribute specified by
      *                        $name does not exist.
      *
-     * @return mixed (string) The value of $name.
+     * @return mixed (mixed)  The value of $name.
      *               (mixed)  $default if $name does not exist.
      */
     public function getAttributeDefault($name, $default = '')

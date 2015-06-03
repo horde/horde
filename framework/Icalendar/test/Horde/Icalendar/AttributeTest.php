@@ -67,7 +67,7 @@ class Horde_Icalendar_AttributeTest extends Horde_Test_Case
             file_get_contents(__DIR__ . '/fixtures/multiple-summary.ics')
         );
 
-        $result = $ical->getComponent(0)->getAttribute('SUMMARY');
+        $result = $ical->getComponent(0)->getAttributeSingle('SUMMARY');
 
         $this->assertInternalType('string', $result);
 
