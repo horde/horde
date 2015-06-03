@@ -91,7 +91,7 @@ var ImpMobile = {
 
         switch (view) {
         case 'compose':
-            $('#imp-compose-to-addr,#imp-compose-cc-addr').empty();
+            $('#imp-compose-to-addr,#imp-compose-cc-addr,#imp-redirect-to-addr').empty();
             if (!IMP.conf.disable_compose) {
                 $('#imp-compose-cache,#imp-compose-hmac').val('');
                 ImpMobile.compose(data);
@@ -1262,8 +1262,10 @@ var ImpMobile = {
 
     closeCompose: function()
     {
-        $('#imp-compose-form')[0].reset();
-        $.each($('#imp-compose-to,#imp-compose-cc'), function(undefined, v) {
+        $.each($('#imp-compose-form,#imp-redirect-form'), function(k, form) {
+            form.reset();
+        });
+        $.each($('#imp-compose-to,#imp-compose-cc,#imp-redirect-to'), function(undefined, v) {
             $(v).autocomplete('clear');
         });
         window.history.back();
