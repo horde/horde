@@ -269,13 +269,19 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsProductId()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertRegExp('/-\/\/The Horde Project\/\/Horde Application Framework [1-9]+\/\/EN/', $this->_getIcalendar()->getAttribute('PRODID'));
+        $this->assertRegExp(
+            '/-\/\/The Horde Project\/\/Horde Application Framework [1-9]+\/\/EN/',
+            $this->_getIcalendar()->getAttributeSingle('PRODID')
+        );
     }
 
     public function testResultMessageIndicatesMethodReply()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('REPLY', $this->_getIcalendar()->getAttribute('METHOD'));
+        $this->assertEquals(
+            'REPLY',
+            $this->_getIcalendar()->getAttributeSingle('METHOD')
+        );
     }
 
     public function testResultMessageContainsVevent()
@@ -287,7 +293,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedUid()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1001', $this->_getVevent()->getAttribute('UID'));
+        $this->assertEquals(
+            '1001',
+            $this->_getVevent()->getAttributeSingle('UID')
+        );
     }
 
     /**
@@ -305,31 +314,46 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedSummary()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('Test Invitation', $this->_getVevent()->getAttribute('SUMMARY'));
+        $this->assertEquals(
+            'Test Invitation',
+            $this->_getVevent()->getAttributeSingle('SUMMARY')
+        );
     }
 
     public function testResultMessageContainsEmptySummaryIfNotAvailable()
     {
         $this->_doImple('accept', $this->_getMinimalInvitation()->exportvCalendar());
-        $this->assertEquals('', $this->_getVevent()->getAttribute('SUMMARY'));
+        $this->assertEquals(
+            '',
+            $this->_getVevent()->getAttributeSingle('SUMMARY')
+        );
     }
 
     public function testResultMessageContainsCopiedDescription()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('You are invited', $this->_getVevent()->getAttribute('DESCRIPTION'));
+        $this->assertEquals(
+            'You are invited',
+            $this->_getVevent()->getAttributeSingle('DESCRIPTION')
+        );
     }
 
     public function testResultMessageContainsEmptyDescriptionIfNotAvailable()
     {
         $this->_doImple('accept', $this->_getMinimalInvitation()->exportvCalendar());
-        $this->assertEquals('Default', $this->_getVevent()->getAttributeDefault('DESCRIPTION', 'Default'));
+        $this->assertEquals(
+            'Default',
+            $this->_getVevent()->getAttributeDefault('DESCRIPTION', 'Default')
+        );
     }
 
     public function testResultMessageContainsCopiedStartDate()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1222426800', $this->_getVevent()->getAttribute('DTSTART'));
+        $this->assertEquals(
+            '1222426800',
+            $this->_getVevent()->getAttributeSingle('DTSTART')
+        );
     }
 
     public function testResultMessageContainsCopiedStartDateParameters()
@@ -342,7 +366,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedEndDate()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('1222430400', $this->_getVevent()->getAttribute('DTEND'));
+        $this->assertEquals(
+            '1222430400',
+            $this->_getVevent()->getAttributeSingle('DTEND')
+        );
     }
 
     public function testResultMessageContainsCopiedEndDateParameters()
@@ -364,7 +391,10 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('DURATION', '3600', array('TEST' => 'duration'));
 
         $this->_doImple('accept', $inv->exportvCalendar());
-        $this->assertEquals('3600', $this->_getVevent()->getAttribute('DURATION'));
+        $this->assertEquals(
+            '3600',
+            $this->_getVevent()->getAttributeSingle('DURATION')
+        );
     }
 
     public function testResultMessageContainsCopiedDurationParametersIfEndDateIsMissing()
@@ -390,7 +420,10 @@ extends PHPUnit_Framework_TestCase
         $inv->setAttribute('SEQUENCE', '10');
 
         $this->_doImple('accept', $inv->exportvCalendar());
-        $this->assertEquals('10', $this->_getVevent()->getAttribute('SEQUENCE'));
+        $this->assertEquals(
+            '10',
+            $this->_getVevent()->getAttributeSingle('SEQUENCE')
+        );
     }
 
     public function testResultMessageContainsNoSequenceIfNotAvailable()
@@ -402,7 +435,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsCopiedOrganizer()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('mailto:orga@example.org', $this->_getVevent()->getAttribute('ORGANIZER'));
+        $this->assertEquals(
+            'mailto:orga@example.org',
+            $this->_getVevent()->getAttributeSingle('ORGANIZER')
+        );
     }
 
     public function testResultMessageContainsCopiedOrganizerParameters()
@@ -415,7 +451,10 @@ extends PHPUnit_Framework_TestCase
     public function testResultMessageContainsAttendeeEmail()
     {
         $this->_doImple('accept', $this->_getInvitation()->exportvCalendar());
-        $this->assertEquals('mailto:test@example.org', $this->_getVevent()->getAttribute('ATTENDEE'));
+        $this->assertEquals(
+            'mailto:test@example.org',
+            $this->_getVevent()->getAttributeSingle('ATTENDEE')
+        );
     }
 
     public function testResultMessageContainsAttendeeName()

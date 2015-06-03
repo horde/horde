@@ -88,12 +88,12 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
             case 'delete':
                 // vEvent cancellation.
                 if ($registry->hasMethod('calendar/delete')) {
-                    $guid = $components[$key]->getAttribute('UID');
+                    $guid = $components[$key]->getAttributeSingle('UID');
                     $recurrenceId = null;
                     $range = null;
                     try {
                         // This is a cancellation of a recurring event instance.
-                        $recurrenceId = $components[$key]->getAttribute('RECURRENCE-ID');
+                        $recurrenceId = $components[$key]->getAttributeSingle('RECURRENCE-ID');
                         $atts = $components[$key]->getAttribute('RECURRENCE-ID', true);
                         foreach ($atts as $att) {
                             if (array_key_exists('RANGE', $att)) {
@@ -172,8 +172,8 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                     foreach ($components as $k => $component) {
                         try {
                             if ($component->getType() == 'vEvent' && $component->getAttribute('RECURRENCE-ID')) {
-                                $uid = $component->getAttribute('UID');
-                                if ($uid == $components[$key]->getAttribute('UID')) {
+                                $uid = $component->getAttributeSingle('UID');
+                                if ($uid == $components[$key]->getAttributeSingle('UID')) {
                                     $this->_handlevEvent($k, $components, $mime_part);
                                 }
                             }
@@ -301,14 +301,14 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
 
                     // Get the organizer details.
                     try {
-                        $organizer = parse_url($vFb->getAttribute('ORGANIZER'));
+                        $organizer = parse_url($vFb->getAttributeSingle('ORGANIZER'));
                     } catch (Horde_Icalendar_Exception $e) {
                         break;
                     }
 
                     $organizerEmail = $organizer['path'];
 
-                    $organizer = $vFb->getAttribute('ORGANIZER', true);
+                    $organizer = $vFb->getAttributeSingle('ORGANIZER', true);
                     $organizerFullEmail = new Horde_Mail_Rfc822_Address($organizerEmail);
                     if (isset($organizer['cn'])) {
                         $organizerFullEmail->personal = $organizer['cn'];
@@ -319,18 +319,18 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         $endStamp = $startStamp + (60 * 24 * 3600);
                     } else {
                         try {
-                            $startStamp = $vFb->getAttribute('DTSTART');
+                            $startStamp = $vFb->getAttributeSingle('DTSTART');
                         } catch (Horde_Icalendar_Exception $e) {
                             $startStamp = time();
                         }
 
                         try {
-                            $endStamp = $vFb->getAttribute('DTEND');
+                            $endStamp = $vFb->getAttributeSingle('DTEND');
                         } catch (Horde_Icalendar_Exception $e) {}
 
                         if (!$endStamp) {
                             try {
-                                $duration = $vFb->getAttribute('DURATION');
+                                $duration = $vFb->getAttributeSingle('DURATION');
                                 $endStamp = $startStamp + $duration;
                             } catch (Horde_Icalendar_Exception $e) {
                                 $endStamp = $startStamp + (60 * 24 * 3600);
@@ -419,7 +419,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
         global $notification, $registry;
 
         try {
-            $guid = $components[$key]->getAttribute('UID');
+            $guid = $components[$key]->getAttributeSingle('UID');
         } catch (Horde_Icalendar_Exception $e) {
             /* If required UID parameter doesn't exist, make one
              * up so the user can at least add the event to the

@@ -306,7 +306,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             // Check if this is an update.
             try {
                 $calendars = $registry->calendar->listCalendars(true);
-                $registry->call('calendar/export', array($vevent->getAttribute('UID'), 'text/calendar', array(), $calendars));
+                $registry->call('calendar/export', array($vevent->getAttributeSingle('UID'), 'text/calendar', array(), $calendars));
                 $desc = _("%s wants to notify you about changes in \"%s\".");
                 $is_update = true;
             } catch (Horde_Exception $e) {
@@ -377,7 +377,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         case 'CANCEL':
             try {
-                $vevent->getAttribute('RECURRENCE-ID');
+                $vevent->getAttributeSingle('RECURRENCE-ID');
                 $params = $vevent->getAttribute('RECURRENCE-ID', true);
                 foreach ($params as $param) {
                     if (array_key_exists('RANGE', $param)) {
@@ -421,7 +421,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         }
 
         try {
-            $summary = $vevent->getAttribute('SUMMARY');
+            $summary = $vevent->getAttributeSingle('SUMMARY');
             $view->summary = $summary;
         } catch (Horde_Icalendar_Exception $e) {
             $summary = _("Unknown Meeting");
@@ -431,11 +431,11 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         $view->desc = sprintf($desc, $sender, $summary);
 
         try {
-            $view->desc2 = $vevent->getAttribute('DESCRIPTION');
+            $view->desc2 = $vevent->getAttributeSingle('DESCRIPTION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
-            $view->loc = $vevent->getAttribute('LOCATION');
+            $view->loc = $vevent->getAttributeSingle('LOCATION');
         } catch (Horde_Icalendar_Exception $e) {}
 
         try {
@@ -470,7 +470,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $view->exceptions = array();
             foreach ($components as $key => $component) {
                 try {
-                    if ($component->getAttribute('RECURRENCE-ID') && $component->getAttribute('UID') == $vevent->getAttribute('UID')) {
+                    if ($component->getAttribute('RECURRENCE-ID') && $component->getAttributeSingle('UID') == $vevent->getAttributeSingle('UID')) {
                         if ($ex = $this->_vEventException($component, $key, $method)) {
                             $view->exceptions[] = $ex;
                         }
