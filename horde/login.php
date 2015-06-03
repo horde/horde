@@ -375,6 +375,12 @@ if ($browser->isMobile() &&
     $view->loginurl = $loginurl;
     $view->title = $title;
     $view->url = $vars->url;
+    try {
+        $view->motd = $registry
+            ->loadConfigFile('motd.php', 'motd', 'horde')
+            ->config['motd'];
+    } catch (Horde_Exception $e) {
+    }
 
     if ($browser->hasFeature('ajax')) {
         $page_output->addScriptFile('smartmobile-login.js', 'horde');
