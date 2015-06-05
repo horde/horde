@@ -411,6 +411,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 $context['ctx_mbox']['search']
             );
         }
+        if ($prefs->isLocked('acl')) {
+            unset(
+                $context['ctx_mbox']['_sub2']
+            );
+        }
 
         /* Other Actions context menu. */
         $context['ctx_oa'] = array(

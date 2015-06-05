@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
 * [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
 * [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
@@ -3848,6 +3849,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
 * [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
 * [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
