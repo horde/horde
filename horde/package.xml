@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Display MOTD on mobile login screen.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4028,7 +4028,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Display MOTD on mobile login screen.
    </notes>
   </release>
  </changelog>
