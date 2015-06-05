@@ -538,6 +538,7 @@ extends PHPUnit_Framework_TestCase
                     'driver' => 'mock',
                     'params' => $data,
                     'logger' => $this->getMock('Horde_Log_Logger'),
+                    'history_prefix_generator' =>  new Horde_Kolab_Storage_Stub_HistoryPrefix()
                 ),
                 $params
             )
