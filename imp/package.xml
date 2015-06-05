@@ -3795,5 +3795,23 @@
 * [mms] Don&apos;t honor linked attachment limit configuration options if linked attachments are disabled (Bug #13665).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>6.2.9</release>
+    <api>6.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-04-28</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
+* [jan] Fix redirecting in smartmobile mode (Bug #14002).
+* [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
+* [jan] Fix setting single recipients in redirection window in basic mode (Bug #14002).
+* [jan] Don&apos;t switch to regular compose view after an error in the redirection view in basic mode.
+* [jan] Fix cancelling redirection window in basic mode (Bug #14002).
+   </notes>
+  </release>
  </changelog>
 </package>
