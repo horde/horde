@@ -252,7 +252,12 @@ extends Horde_Kolab_Storage_Data_Base
         $previous = unserialize($this->_data_cache->getStamp());
 
         // check if UIDVALIDITY changed
-        if ($previous === false || $previous->isReset($current)) {
+        $is_reset = false;
+        if ($previous !== false) {
+            $is_reset = $previous->isReset($current);
+        }
+
+        if ($previous === false || $is_reset) {
             $this->_logger->debug(sprintf("Complete folder sync: user: %s, folder: %s, is_reset: %d", $user, $folder_path, $is_reset));
             $this->_completeSynchronization($current);
             return;
