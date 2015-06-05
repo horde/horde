@@ -45,15 +45,18 @@ class Horde_Kolab_Storage_Factory
      *
      * @param array $params A set of parameters.
      * <pre>
-     *  - driver : The type of backend driver. One of "mock", "php", "pear",
-     *             "horde", "horde-socket", and "roundcube".
-     *  - params : Backend specific connection parameters.
-     *  - logger : An optional log handler.
-     *  - log :    An array of log decorators. Possible values include: 'debug',
-     *             'driver_time', 'driver'.
-     *  - format : Array
+     *  - driver: (string) The type of backend driver. One of "mock", "php",
+     *       "pear", "horde", "horde-socket", and "roundcube".
+     *  - params: (array) Backend specific connection parameters.
+     *  - logger: (Horde_Log_Logger) An optional log handler.
+     *  - log: (array) An array of log decorators. Possible values include:
+     *       'debug', 'driver_time', 'driver'.
+     *  - format : (array)
      *     - factory: Name of the format parser factory class.
-     * </pre>
+     *  - history_prefix_generator: (Horde_Kolab_Storage_HistoryPrefix) An
+     *        object that can provide prefix/collection mapping of the
+     *        History system.
+     *  </pre>
      */
     public function __construct($params = array())
     {
