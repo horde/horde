@@ -40,7 +40,9 @@ implements Horde_Kolab_Storage_HistoryPrefix
      */
     public static function getPrefix(Horde_Kolab_Storage_Data $data)
     {
-        $app = self::$_map[$data->getType()];
+        $app = empty(self::$_map[$data->getType()])
+            ? false
+            : self::$_map[$data->getType()];
 
         return empty($app)
             ? false
