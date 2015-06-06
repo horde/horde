@@ -26,6 +26,11 @@
 class Horde_ActiveSync_Imap_Adapter
 {
     /**
+     * Maximum number of of messages to fetch from the IMAP server in one go.
+     */
+    const MAX_FETCH = 2000;
+
+    /**
      * @var Horde_ActiveSync_Interface_ImapFactory
      */
     protected $_imap;
@@ -420,15 +425,22 @@ class Horde_ActiveSync_Imap_Adapter
                     $this->_procid));
                 $folder->primeFolder($search_ret['match']->ids);
             } elseif (count($search_ret['match']->ids)) {
+                // No modseq.
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
-                $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
-                foreach ($fetch_ret as $uid => $data) {
-                    $flags[$uid] = array(
-                        'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                $cnt = ($search_ret['count'] / self::MAX_FETCH) + 1;
+                for ($i = 0; $i <= $cnt; $i++) {
+                    $ids = new Horde_Imap_Client_Ids(
+                        array_slice($search_ret['match']->ids, $i * self::MAX_FETCH, self::MAX_FETCH)
                     );
-                    if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $ids));
+                    foreach ($fetch_ret as $uid => $data) {
+                        $flags[$uid] = array(
+                            'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                        );
+                        if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                            $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                        }
                     }
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags);
