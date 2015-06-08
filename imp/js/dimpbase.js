@@ -3490,7 +3490,7 @@ var DimpBase = {
             return;
         }
 
-        if (mode == 'tog' || mode == 'expall') {
+        if (!opts.noexpand && (mode == 'tog' || mode == 'expall')) {
             subs.invoke('previous').each(function(s) {
                 var s2 = this.flist.getMbox(s);
                 if (!s2.loaded()) {
