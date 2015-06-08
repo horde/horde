@@ -995,6 +995,9 @@ class Horde_Core_Prefs_Ui
 
         $new_from = $identity->getValue('from_addr');
         if (!empty($conf['user']['verify_from_addr']) &&
+            empty($new_from)) {
+            $notification->push(Horde_Core_Translation::t("The e-mail field cannot be empty."), 'horde.error');
+        } elseif (!empty($conf['user']['verify_from_addr']) &&
             ($current_from != $new_from) &&
             !in_array($new_from, $from_addresses)) {
             try {
