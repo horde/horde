@@ -313,6 +313,7 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
+        $flags = array();
 
         // Note: non-CONDSTORE servers will return a highestmodseq of 0
         $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
@@ -352,7 +353,6 @@ class Horde_ActiveSync_Imap_Adapter
             }
 
             $changes = array();
-            $flags = array();
             $categories = array();
 
             // "Normal" changes.
@@ -466,12 +466,15 @@ class Horde_ActiveSync_Imap_Adapter
                 throw new Horde_ActiveSync_Exception($e);
             }
 
-            if (count($search_ret['match']->ids)) {
-                // Update flags.
+            $cnt = ($search_ret['count'] / self::MAX_FETCH) + 1;
+            for ($i = 0; $i <= $cnt; $i++) {
+                $ids = new Horde_Imap_Client_Ids(
+                    array_slice($search_ret['match']->ids, $i * self::MAX_FETCH, self::MAX_FETCH)
+                );
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
                 try {
-                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $search_ret['match']));
+                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $ids));
                 } catch (Horde_Imap_Client_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     throw new Horde_ActiveSync_Exception($e);
@@ -484,6 +487,8 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
+            }
+            if (!empty($flags)) {
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
