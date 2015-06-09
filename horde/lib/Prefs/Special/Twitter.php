@@ -83,7 +83,6 @@ class Horde_Prefs_Special_Twitter implements Horde_Core_Prefs_Ui_Special
 
         switch ($ui->vars->twitteractionID) {
         case 'revokeInfinite':
-            $twitter->account->endSession();
             $prefs->setValue('twitter', 'a:0:{}');
             echo '<script type="text/javascript">location.href="' . Horde::url('services/prefs.php', true)->add(array('group' => 'twitter', 'app'  => 'horde')) . '";</script>';
             exit;
