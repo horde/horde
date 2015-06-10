@@ -2,6 +2,7 @@
 v4.2.5-git
 ----------
 
+[jan] Fix positioning of dialog windows.
 [jan] Don't delete existing completions when editing a recurring task.
 [jan] Only delete the last completion when toggling a recurring task to
       incomplete.
