@@ -2,6 +2,7 @@
 v6.2.9-git
 ----------
 
+[jan] Protect against infinite request loop if expanding all mailboxes.
 [jan] Fix redirecting in smartmobile mode (Bug #14002).
 [jan] Fix address autocompletion in redirection window of smartmobile mode
       (Bug #14002).

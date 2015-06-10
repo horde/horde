@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-06-10</date>
  <version>
   <release>6.2.9</release>
   <api>6.2.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
 * [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
@@ -3846,9 +3847,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
 * [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
