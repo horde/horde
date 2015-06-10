@@ -3620,7 +3620,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2014-06-04</date>
+   <date>2014-06-17</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix saving attachments to sent-mail message in smartmobile view (Bug #13257).
@@ -3685,7 +3685,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-    <date>2014-09-05</date>
+   <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Ensure that search/POP3 mailbox listings are saved even if there is an issue with the underlying cache backend.
@@ -3708,7 +3708,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-09-05</date>
+   <date>2014-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix handling authentication errors when they take place during an attempt to determine a mailbox&apos;s namespace.
@@ -3725,7 +3725,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-10-29</date>
+   <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Don&apos;t persist dynamic filter views across page reloads.
@@ -3741,7 +3741,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-12-03</date>
+   <date>2015-01-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix advanced search (Bug #13773).
@@ -3758,7 +3758,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-14</date>
+   <date>2015-01-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix adding addresses from address book popup (Bug #13806).
@@ -3774,9 +3774,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-20</date>
+   <date>2015-02-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix regression with not being able to list users (Bug #13808).
 * [mms] Fix rebuilding the folder tree translations when the language is changed in a session (Bug #13821).
    </notes>
   </release>
@@ -3787,10 +3788,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability when manually switching between plaintext -&gt; HTML compose mode.
+* [jan] Update Bcc address when switching identities (João Machado &lt;geral@jpaulo.eu&gt;, Bug #13922).
 * [jan] Fix protocol name in POP3 example backend configuration.
 * [mms] Don&apos;t honor linked attachment limit configuration options if linked attachments are disabled (Bug #13665).
    </notes>
@@ -3802,9 +3804,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
 * [jan] Fix address autocompletion in redirection window of smartmobile mode (Bug #14002).
