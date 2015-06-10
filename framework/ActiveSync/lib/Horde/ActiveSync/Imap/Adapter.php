@@ -314,6 +314,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
         $flags = array();
+        $search_uids = array();
 
         // Note: non-CONDSTORE servers will return a highestmodseq of 0
         $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
@@ -334,48 +335,72 @@ class Horde_ActiveSync_Imap_Adapter
             serialize($status))
         );
 
-        $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
-        if ($modseq && $folder->modseq() > 0 && ($folder->modseq() < $modseq || !empty($options['softdelete']))) {
+        $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
+        if ($current_modseq && $folder->modseq() > 0 && ($folder->modseq() < $current_modseq || !empty($options['softdelete']))) {
             $this->_logger->info(sprintf(
                 '[%s] CONDSTORE and CHANGES', $this->_procid));
             $folder->checkValidity($status);
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->modseq();
-            $query->flags();
-            $query->headerText(array('peek' => true));
-            try {
-                $fetch_ret = $imap->fetch($mbox, $query, array(
-                    'changedsince' => $folder->modseq()
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
+
+            // Catch all *changes* since the provided MODSEQ value.
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->modseq($folder->modseq());
+            if (!empty($options['sincedate'])) {
+                $query->dateSearch(
+                    new Horde_Date($options['sincedate']),
+                    Horde_Imap_Client_Search_Query::DATE_SINCE);
             }
+            $search_ret = $imap->search(
+                $mbox,
+                $query,
+                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
+            $search_uids = $search_ret['match']->ids);
 
-            $changes = array();
-            $categories = array();
-
-            // "Normal" changes.
-            $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
-
-            // Check for mail outside of FILTERTYPE if it has changed.
+            // Catch changes to FILTERTYPE.
             if (!empty($options['refreshfilter'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for additional messages within the new FilterType parameters.',
                     $this->_procid));
-                if ($fetch_ret = $this->_refreshFilterQuery($folder, $options, $mbox, false)) {
-                    $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $modseq);
+                $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, $is_delete);
+                if ($search_ret['count']) {
+                    $this->_logger->info(sprintf(
+                        '[%s] Found %d messages that are now outside FilterType.',
+                        $this->_procid, $search_ret['count'])
+                    );
+                    $search_uids = array_merge($search_uids, $search_ret['match']->ids);
                 } else {
                     $this->_logger->info(sprintf(
                         '[%s] Found NO additional messages.',
-                        $this->_procid));
+                        $this->_procid)
+                    );
                 }
+            }
+
+            // Protect against very large change sets like might occur if
+            // the FILTERTYPE is changed from some short interval like one week
+            // to no filter at all.
+            $cnt = (count($search_uids) / self::MAX_FETCH) + 1;
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->modseq();
+            $query->flags();
+            $changes = array();
+            $categories = array();
+            for ($i = 0; $i <= $cnt; $i++) {
+                $ids = new Horde_Imap_Client_Ids(
+                    array_slice($search_uids, $i * self::MAX_FETCH, self::MAX_FETCH)
+                );
+                try {
+                    $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $ids));
+                } catch (Horde_Imap_Client_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
+                $this->_buildModSeqChanges($changes, $flags, $categories, $fetch_ret, $options, $current_modseq);
             }
 
             // Set the changes in the folder object.
             $folder->setChanges($changes, $flags, $categories, !empty($options['softdelete']));
 
-            // Check for deleted.
+            // Check for deleted messages.
             try {
                 $deleted = $imap->vanished(
                     $mbox,
@@ -419,7 +444,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $mbox,
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            if ($modseq && !$folder->haveInitialSync) {
+            if ($current_modseq && !$folder->haveInitialSync) {
                 $this->_logger->info(sprintf(
                     '[%s] Priming IMAP folder object.',
                     $this->_procid));
@@ -445,7 +470,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
-        } elseif ($modseq == 0) {
+        } elseif ($current_modseq == 0) {
             $this->_logger->info(sprintf(
                 '[%s] NO CONDSTORE or per mailbox MODSEQ. minuid: %s, total_messages: %s',
                 $this->_procid, $folder->minuid(), $status['messages']));
@@ -467,12 +492,12 @@ class Horde_ActiveSync_Imap_Adapter
             }
 
             $cnt = ($search_ret['count'] / self::MAX_FETCH) + 1;
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->flags();
             for ($i = 0; $i <= $cnt; $i++) {
                 $ids = new Horde_Imap_Client_Ids(
                     array_slice($search_ret['match']->ids, $i * self::MAX_FETCH, self::MAX_FETCH)
                 );
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->flags();
                 try {
                     $fetch_ret = $imap->fetch($mbox, $query, array('ids' => $ids));
                 } catch (Horde_Imap_Client_Exception $e) {
@@ -492,51 +517,12 @@ class Horde_ActiveSync_Imap_Adapter
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
-        } elseif ($modseq > 0 && $folder->modseq() == 0) {
+        } elseif ($current_modseq > 0 && $folder->modseq() == 0) {
                 throw new Horde_ActiveSync_Exception_StaleState('Transition to MODSEQ enabled server');
         }
         $folder->setStatus($status);
 
         return $folder;
-    }
-
-    /**
-     * Return messages that are now either within or outside of the current
-     * FILTERTYPE value.
-     *
-     * @param  Horde_ActiveSync_Folder_Imap $folder    The IMAP folder object.
-     * @param  array                        $options   Options array.
-     * @param  Horde_Imap_Client_Mailbox    $mbox      The current mailbox.
-     * @param  boolean                      $is_delete If true, return messages
-     *                                                 to SOFTDELETE.
-     *
-     * @return mixed Horde_Imap_Client_Fetch_Results | false if no message found.
-     */
-    protected function _refreshFilterQuery(
-        Horde_ActiveSync_Folder_Imap $folder, array $options, Horde_Imap_Client_Mailbox $mbox, $is_delete)
-    {
-        $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, $is_delete);
-        if ($search_ret['count']) {
-            $this->_logger->info(sprintf(
-                '[%s] Found %d messages that are now outside FilterType.',
-                $this->_procid, count($search_ret['match']->ids)));
-            $query = new Horde_Imap_Client_Fetch_Query();
-            $query->modseq();
-            $query->flags();
-            $query->headerText(array('peek' => true));
-            try {
-                $fetch_ret = $this->_getImapOb()->fetch($mbox, $query, array(
-                    'ids' => $search_ret['match']
-                ));
-            } catch (Horde_Imap_Client_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                throw new Horde_ActiveSync_Exception($e);
-            }
-
-            return $fetch_ret;
-        }
-
-        return false;
     }
 
     /**
@@ -593,25 +579,8 @@ class Horde_ActiveSync_Imap_Adapter
         $result_set = array_diff($fetch_keys, $changes);
         foreach ($result_set as $uid) {
             $data = $fetch_ret[$uid];
-            if ($options['sincedate']) {
-                $since = new Horde_Date($options['sincedate']);
-                $headers = Horde_Mime_Headers::parseHeaders($data->getHeaderText());
-                try {
-                    $date = new Horde_Date($headers->getValue('Date'));
-                    if ($date->compareDate($since) <= -1) {
-                        // Ignore, it's out of the FILTERTYPE range.
-                        $this->_logger->info(sprintf(
-                            '[%s] Ignoring UID %s since it is outside of the FILTERTYPE (%s)',
-                            $this->_procid,
-                            $uid,
-                            $headers->getValue('Date')));
-                        continue;
-                    }
-                } catch (Horde_Date_Exception $e) {}
-            }
-
-            // Ensure no changes after $modseq sneak in
-            // (they will be caught on the next PING or SYNC).
+            // Ensure no changes after the current modseq as reported by the
+            // server status have been returned.
             if ($data->getModSeq() <= $modseq) {
                 $changes[] = $uid;
                 $flags[$uid] = array(
