@@ -423,6 +423,10 @@ class Horde_ActiveSync_Imap_Adapter
                 throw new Horde_ActiveSync_Exception($e);
             }
             $folder->setRemoved($deleted->ids);
+            $this->_logger->info(sprintf(
+                '[%s] Found %d deleted messages.',
+                $this->_procid, $deleted->count())
+            );
 
             // Check for SOFTDELETE messages.
             if ((!empty($options['softdelete']) || !empty($options['refreshfilter'])) &&
