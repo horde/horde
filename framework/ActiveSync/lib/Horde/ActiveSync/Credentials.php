@@ -55,13 +55,19 @@ class Horde_ActiveSync_Credentials
         $this->_credentials = $this->_getCredentials();
     }
 
+    /**
+     * Accessor
+     *
+     * @return string|boolean  The value of the requested property, or false
+     *                         if it does not exist.
+     */
     public function __get($property)
     {
         switch ($property) {
         case 'username':
-            return $this->_credentials[0];
+            return !empty($this->_credentials[0]) ? $this->_credentials[0] : false;
         case 'password':
-            return $this->_credentials[1];
+            return !empty($this->_credentials[1]) ? $this->_credentials[1] : false;
         }
     }
 
