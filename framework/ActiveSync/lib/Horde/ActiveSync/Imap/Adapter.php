@@ -336,7 +336,11 @@ class Horde_ActiveSync_Imap_Adapter
         );
 
         $current_modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
-        if ($current_modseq && $folder->modseq() > 0 && ($folder->modseq() < $current_modseq || !empty($options['softdelete']))) {
+
+        if (($current_modseq && $folder->modseq() > 0) &&
+            (($folder->modseq() < $current_modseq) ||
+             !empty($options['softdelete']) || !empty($options['refreshfilter']) )) {
+
             $this->_logger->info(sprintf(
                 '[%s] CONDSTORE and CHANGES', $this->_procid));
             $folder->checkValidity($status);
@@ -352,15 +356,18 @@ class Horde_ActiveSync_Imap_Adapter
             $search_ret = $imap->search(
                 $mbox,
                 $query,
-                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
-            $search_uids = $search_ret['match']->ids);
+                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH))
+            );
+            $search_uids = $search_ret['count'] ?
+                $search_ret['match']->ids :
+                array();
 
             // Catch changes to FILTERTYPE.
             if (!empty($options['refreshfilter'])) {
                 $this->_logger->info(sprintf(
                     '[%s] Checking for additional messages within the new FilterType parameters.',
                     $this->_procid));
-                $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, $is_delete);
+                $search_ret = $this->_buildSearchQuery($folder, $options, $mbox, false);
                 if ($search_ret['count']) {
                     $this->_logger->info(sprintf(
                         '[%s] Found %d messages that are now outside FilterType.',
@@ -398,7 +405,12 @@ class Horde_ActiveSync_Imap_Adapter
             }
 
             // Set the changes in the folder object.
-            $folder->setChanges($changes, $flags, $categories, !empty($options['softdelete']));
+            $folder->setChanges(
+                $changes,
+                $flags,
+                $categories,
+                !empty($options['softdelete']) || !empty($options['refreshfilter'])
+            );
 
             // Check for deleted messages.
             try {
@@ -413,7 +425,9 @@ class Horde_ActiveSync_Imap_Adapter
             $folder->setRemoved($deleted->ids);
 
             // Check for SOFTDELETE messages.
-            if (!empty($options['softdelete']) && !empty($options['sincedate'])) {
+            if ((!empty($options['softdelete']) || !empty($options['refreshfilter'])) &&
+                !empty($options['sincedate'])) {
+
                 $this->_logger->info(sprintf(
                     '[%s] Polling for SOFTDELETE in %s before %d',
                     $this->_procid, $folder->serverid(), $options['sincedate']));
