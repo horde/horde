@@ -51,6 +51,9 @@ class Horde_ActiveSync_Factory_TestServer extends Horde_Test_Case
         $this->request->expects($this->any())
             ->method('getHeader')
             ->will($this->returnValue('14.1'));
+        $this->request->expects($this->any())
+            ->method('getServerVars')
+            ->will($this->returnValue(array('PHP_AUTH_USER' => 'mike', 'PHP_AUTH_PW' => 'password')));
         $this->server = new Horde_ActiveSync($this->driver, $decoder, $encoder, $state, $this->request);
     }
 

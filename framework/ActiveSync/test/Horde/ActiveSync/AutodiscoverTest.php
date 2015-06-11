@@ -40,7 +40,7 @@ EOT;
         // Mock authenticate to return true only if mike is passed as username.
         $factory->driver->expects($this->any())
             ->method('authenticate')
-            ->will($this->returnValueMap(array(array('mike', '', null, true))));
+            ->will($this->returnValueMap(array(array('mike', 'password', null, true))));
 
         // Setup is called once, and must return true.
         $factory->driver->expects($this->once())
