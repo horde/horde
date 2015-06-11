@@ -831,6 +831,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                  if $from_ts is 0. Needed to avoid race
      *                                  conditions when we don't have any history
      *                                  data. @since 2.6.0
+     *                                  @todo If we can pass the synckey (
+     *                                  perhaps as part of $folder), we can
+     *                                  just look for synckey 0 to know when
+     *                                  we CAN trigger an initial sync without
+     *                                  this flag.
      * @param integer $maxitems         Maximum number of recipients for a RI
      *                                  collection. @since 2.12.0
      * @param boolean $refreshFilter    Force a SOFTDELETE operation and check
@@ -841,8 +846,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @return array  An array of hashes that contain the ids of items that have
      *                changed in the specified collection along with a 'type'
      *                flag that indicates the type of change.
-     * @todo H6 - clean up method parameters, update parent class etc...
-     *            return a new ids object.
+     * @todo H6 - Clean up method parameters, update parent class etc...
+     *          - Return a new ids object.
+     *          - Refactor to use a Repository pattern for each supported
+     *            collection and move the bulk of the logic in the switch
+     *            structure below to the various classes - and refactor out most
+     *            of the stuff in the registry connector since the Repositories
+     *            will handle the basic CRUD operations and change detection on
+     *            each collection.
      */
     public function getServerChanges(
         $folder, $from_ts, $to_ts, $cutoffdate, $ping, $ignoreFirstSync = false, $maxitems = 100, $refreshFilter = false)
