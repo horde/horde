@@ -39,6 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix typo that was causing ActiveSync FILTERTYPE changes to go undetected.
+* [mjr] Support for Horde_History in Horde_Kolab_Storage. Requires Horde_Kolab_Storage 2.2.0+.
 * [jan] Don&apos;t allow empty From: addresses if verifying identities.
 * [mjr] Fix fatal error when disconnecting a user Twitter account.
  </notes>
@@ -3948,6 +3950,8 @@
    <date>2015-06-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix typo that was causing ActiveSync FILTERTYPE changes to go undetected.
+* [mjr] Improved Horde_History support for Horde_Kolab_Storage (requires Horde_Kolab_Storage 2.2.0+).
 * [jan] Don&apos;t allow empty From: addresses if verifying identities.
 * [mjr] Fix fatal error when disconnecting a user Twitter account.
    </notes>
