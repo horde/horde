@@ -1118,7 +1118,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                             'sincedate' => (int)$cutoffdate,
                             'protocolversion' => $this->_version,
                             'softdelete' => $soft,
-                            'refreshfilter' => $refreshfilter)
+                            'refreshfilter' => $refreshFilter)
                     );
                     // Poll the maillog for reply/forward state changes.
                     if (empty($GLOBALS['conf']['activesync']['no_maillogsync'])) {
