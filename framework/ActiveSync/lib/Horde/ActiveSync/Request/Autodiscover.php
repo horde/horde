@@ -53,7 +53,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             throw new Horde_Exception_AuthenticationFailure('No username provided.');
         } else {
             // Override the username; AUTODISCOVER MUST use email address.
-            $credentials->usename = $values[2]['value'];
+            $credentials->username = $values[2]['value'];
         }
 
         if (!$this->_activeSync->authenticate($credentials)) {
