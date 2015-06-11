@@ -21,7 +21,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Reduce memory usage during IMAP FETCH with very large mailboxes.
+* [mjr] Workaround broken CGI behavior of sending incorrect authentication headers.
+* [mjr] Fix issues with detecting changes in FILTERTYPE.
+* [mjr] Performance improvements during IMAP server change detection for CONDSTORE servers, especially during FILTERTYPE changes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2777,7 +2780,10 @@
    <date>2015-06-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Reduce memory usage during IMAP FETCH with very large mailboxes.
+* [mjr] Workaround broken CGI behavior of sending incorrect authentication headers.
+* [mjr] Fix issues with detecting changes in FILTERTYPE.
+* [mjr] Performance improvements during IMAP server change detection for CONDSTORE servers, especially during FILTERTYPE changes.
    </notes>
   </release>
  </changelog>
