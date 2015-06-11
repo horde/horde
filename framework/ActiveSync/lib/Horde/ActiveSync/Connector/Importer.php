@@ -190,7 +190,7 @@ class Horde_ActiveSync_Connector_Importer
         // differentiate between different flag changes. Note that categories
         // only exists for email changes so for non email this will still
         // work as before.
-        if (!array_key_exists('categories', $stat) || $stat['categories'] === false) {
+        if (empty($stat['categories'])) {
             $this->_state->updateState(
                 ($message instanceof Horde_ActiveSync_Message_Mail
                     ? Horde_ActiveSync::CHANGE_TYPE_FLAGS
