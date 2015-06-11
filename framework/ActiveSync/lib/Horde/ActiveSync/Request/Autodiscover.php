@@ -42,25 +42,19 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         // Get $_SERVER
         $server = $request->getServerVars();
 
-        // Some broken clients *cough* android *cough* don't send the actual
-        // XML data structure at all, but instead use the email address as
-        // the username in the HTTP_AUTHENTICATION data. There are so many things
-        // wrong with this, but try to work around it if we can.
-        if (empty($values) && !empty($server['HTTP_AUTHORIZATION'])) {
-            $hash = base64_decode(str_replace('Basic ', '', $server['HTTP_AUTHORIZATION']));
-            if (strpos($hash, ':') !== false) {
-                list($email, $pass) = explode(':', $hash, 2);
-            }
-        } elseif (empty($values)) {
+        // Obtain the credentials sent by the client.
+        // NOTE: Some broken clients *cough* android *cough* don't send the
+        // actual XML data structure at all, but instead use the email address
+        // as the username in the HTTP_AUTHENTICATION data. There are so many
+        // things wrong with this, but try to work around it if we can.
+        $credentials = new Horde_ActiveSync_Credentials($this->_activeSync);
+        $username = $credentials->username;
+        if (empty($values) && empty($username)) {
             throw new Horde_Exception_AuthenticationFailure('No username provided.');
         } else {
-            $email = $values[2]['value'];
+            // Override the username; AUTODISCOVER MUST use email address.
+            $credentials->usename = $values[2]['value'];
         }
-
-        // Need to override the username since AUTODISCOVER always uses email
-        // address.
-        $credentials = new Horde_ActiveSync_Credentials($this->_activeSync);
-        $credentials->username = $email;
 
         if (!$this->_activeSync->authenticate($credentials)) {
             throw new Horde_Exception_AuthenticationFailure();
