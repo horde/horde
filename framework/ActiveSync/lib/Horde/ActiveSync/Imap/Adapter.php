@@ -347,7 +347,10 @@ class Horde_ActiveSync_Imap_Adapter
 
             // Catch all *changes* since the provided MODSEQ value.
             $query = new Horde_Imap_Client_Search_Query();
-            $query->modseq($folder->modseq());
+            // $imap->search uses a >= comparison for MODSEQ, so we must
+            // increment by one so we don't continuously receive the same change
+            // set.
+            $query->modseq($folder->modseq() + 1);
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
                     new Horde_Date($options['sincedate']),
