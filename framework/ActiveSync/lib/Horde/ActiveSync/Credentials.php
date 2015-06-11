@@ -86,13 +86,17 @@ class Horde_ActiveSync_Credentials
         $user = $pass = '';
         $serverVars = $this->_server->request->getServerVars();
         if (!empty($serverVars['PHP_AUTH_PW'])) {
+            // Standard case, PHP was passed the needed authentication info.
             $user = $serverVars['PHP_AUTH_USER'];
             $pass = $serverVars['PHP_AUTH_PW'];
-        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) || !empty($serverVars['Authorization'])) {
-            // Some clients use the non-standard 'Authorization' header.
+        } elseif (!empty($serverVars['HTTP_AUTHORIZATION']) ||
+                  !empty($serverVars['REDIRECT_HTTP_AUTHORIZATION']) ||
+                  !empty($serverVars['Authorization'])) {
             $authorization = !empty($serverVars['HTTP_AUTHORIZATION'])
                 ? $serverVars['HTTP_AUTHORIZATION']
-                : $serverVars['Authorization'];
+                : (!empty($serverVars['REDIRECT_HTTP_AUTHORIZATION'])
+                     ? $serverVars['REDIRECT_HTTP_AUTHORIZATION']
+                     : $serverVars['Authorization']);
             $hash = base64_decode(str_replace('Basic ', '', $authorization));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
