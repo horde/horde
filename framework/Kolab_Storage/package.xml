@@ -11,7 +11,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2015-06-05</date>
+ <date>2015-06-12</date>
  <version>
   <release>2.1.5</release>
   <api>2.1.0</api>
@@ -120,9 +120,6 @@
         <file name="Type.php" role="php" />
         <file name="Types.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/Folder -->
-       <dir name="HistoryPrefix">
-        <file name="Mock.php" role="php" />
-       </dir> <!-- /lib/Horde/Kolab/Storage/HistoryPrefix -->
        <dir name="List">
         <dir name="Manipulation">
          <dir name="Decorator">
@@ -796,7 +793,6 @@
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/Shared.php" />
    <install as="Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" name="lib/Horde/Kolab/Storage/Folder/Namespace/Element/SharedWithPrefix.php" />
    <install as="Horde/Kolab/Storage/Folder/Stamp/Uids.php" name="lib/Horde/Kolab/Storage/Folder/Stamp/Uids.php" />
-   <install as="Horde/Kolab/Storage/HistoryPrefix/Mock.php" name="lib/Horde/Kolab/Storage/HistoryPrefix/Mock.php" />
    <install as="Horde/Kolab/Storage/List/Cache.php" name="lib/Horde/Kolab/Storage/List/Cache.php" />
    <install as="Horde/Kolab/Storage/List/Exception.php" name="lib/Horde/Kolab/Storage/List/Exception.php" />
    <install as="Horde/Kolab/Storage/List/Manipulation.php" name="lib/Horde/Kolab/Storage/List/Manipulation.php" />
@@ -1400,7 +1396,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-05</date>
+   <date>2015-06-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
