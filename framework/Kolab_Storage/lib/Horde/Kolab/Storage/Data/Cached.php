@@ -231,7 +231,9 @@ extends Horde_Kolab_Storage_Data_Base
     {
         $this->_logger = !empty($this->_logger)
             ? $this->_logger
-            : new Horde_Support_Stub();
+            : (!empty($params['logger'])
+                ? $params['logger']
+                : new Horde_Support_Stub());
 
         // For logging
         $user = $this->getAuth();
