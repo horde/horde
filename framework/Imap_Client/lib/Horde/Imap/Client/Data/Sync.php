@@ -46,7 +46,7 @@ class Horde_Imap_Client_Data_Sync
     /**
      * Are there messages that have had flag changes?
      *
-     * @var Horde_Imap_Client_Ids
+     * @var boolean
      */
     public $flags = null;
 
