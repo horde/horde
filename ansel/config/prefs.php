@@ -90,9 +90,11 @@ $_prefs['tilesperpage'] = array(
 
 $_prefs['facesperpage'] = array(
     'value' => '20',
-    'locked' => !$GLOBALS['conf']['faces']['driver'],
     'type' => 'number',
-    'desc' => _("Number of faces per page")
+    'desc' => _("Number of faces per page"),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['faces']['driver']);
+    }
 );
 
 $_prefs['groupsperpage'] = array(
