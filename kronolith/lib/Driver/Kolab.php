@@ -90,9 +90,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $this->_synchronized = false;
     }
 
-    // We delay initial synchronization to the first use
-    // so multiple calendars don't add to the total latency.
-    // This function must be called before all internal driver functions
+    /**
+     * Synchronize kolab storage backend.
+     *
+     * We delay initial synchronization to the first use so multiple calendars
+     * don't add to the total latency. This function must be called before all
+     * internal driver functions.
+     *
+     * @param boolean $force  If true, forces synchronization, even if we have
+     *                        already done so.
+     */
     public function synchronize($force = false)
     {
         if ($this->_synchronized && !$force) {
@@ -102,7 +109,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         // Connect to the Kolab backend
         try {
             $this->_data = $this->_kolab->getData(
-                $GLOBALS['calendar_manager']->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)->share()->get('folder'),
+                $GLOBALS['calendar_manager']
+                    ->getEntry(Kronolith::ALL_CALENDARS, $this->calendar)
+                    ->share()->get('folder'),
                 'event'
             );
         } catch (Kolab_Storage_Exception $e) {
