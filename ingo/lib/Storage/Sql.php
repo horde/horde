@@ -552,13 +552,11 @@ class Ingo_Storage_Sql extends Ingo_Storage
                   ))
                 : null,
             'flags' => $user_rule ? $rule->flags : null,
-            'name' => $user_rule
-                ? Horde_String::convertCharset(
-                    $rule->name,
-                    'UTF-8',
-                    $this->_params['charset']
-                  )
-                : null,
+            'name' => Horde_String::convertCharset(
+                $rule->name,
+                'UTF-8',
+                $this->_params['charset']
+            ),
             'stop' => $user_rule ? intval($rule->stop) : null,
             'value' => is_null($value)
                 ? null
@@ -566,7 +564,7 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     $value,
                     'UTF-8',
                     $this->_params['charset']
-                  )
+                )
         );
     }
 
