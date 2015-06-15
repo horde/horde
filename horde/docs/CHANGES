@@ -2,6 +2,7 @@
 v5.2.6-git
 ----------
 
+[jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
 [jan] Display MOTD on mobile login screen.
 
 
