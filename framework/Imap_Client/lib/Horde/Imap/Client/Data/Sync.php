@@ -237,7 +237,7 @@ class Horde_Imap_Client_Data_Sync
             if ($this->highestmodseq &&
                 ($this->highestmodseq == $status_sync['syncmodseq'])) {
                 $vanished = is_null($ids)
-                    ? $status_sync['syncvanisheduids']
+                    ? $status_sync['syncvanished']
                     : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncvanished']->ids));
             } else {
                 $vanished = $base_ob->vanished($mailbox, $this->highestmodseq ? $this->highestmodseq : 1, array(
