@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Use Horde_Ldap in example preference hooks.
 * [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
 * [jan] Display MOTD on mobile login screen.
  </notes>
@@ -4029,6 +4030,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Use Horde_Ldap in example preference hooks.
 * [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
 * [jan] Display MOTD on mobile login screen.
    </notes>
