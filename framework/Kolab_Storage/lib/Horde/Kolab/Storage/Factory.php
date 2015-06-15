@@ -45,6 +45,10 @@ class Horde_Kolab_Storage_Factory
      *
      * @param array $params A set of parameters.
      * <pre>
+     *  - storage:
+     *  - cache:
+     *  - queries:
+     *  - queryset:
      *  - driver: (string) The type of backend driver. One of "mock", "php",
      *       "pear", "horde", "horde-socket", and "roundcube".
      *  - params: (array) Backend specific connection parameters.
