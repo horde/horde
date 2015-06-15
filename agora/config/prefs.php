@@ -70,7 +70,7 @@ $_prefs['avatar_path'] = array(
     'desc' => _("The location of your avatar image.")
 );
 if ($GLOBALS['conf']['avatar']['allow_avatars'] &&
-   $GLOBALS['conf']['avatar']['enable_image_tests']) {
+    $GLOBALS['conf']['avatar']['enable_image_tests']) {
     $_prefs['avatar_path']['desc'] .= ' ' . sprintf(_("Avatars must be smaller than %s by %s pixels and less than %sKb in size."),
                     $GLOBALS['conf']['avatar']['max_width'],
                     $GLOBALS['conf']['avatar']['max_height'],
