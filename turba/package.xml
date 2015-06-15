@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix error when removing user data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1994,7 +1994,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix error when removing user data.
    </notes>
   </release>
  </changelog>
