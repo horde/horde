@@ -307,72 +307,29 @@ class Horde_Hooks
 //    {
 //        switch ($pref) {
 //        case 'from_addr':
-//            // Example from_addr init. THIS FUNCTION ASSUMES THAT YOU ARE
-//            // USING A LDAP SERVER and that your /etc/ldap.conf is correctly
-//            // set to a valid host.
-//            //
-//            // You are responsible for bringing in to the local scope any
-//            // information you need. You can "global" anything else you
-//            // need.
-//            //
-//            // Returns an address: either just the user@ side or a full
-//            // address.
+//            // Example from_addr init hook. This function assumes that you are
+//            // using an LDAP server and have it configured in the Horde
+//            // configuration.
 //
-//            // Example #1
 //            if (is_null($username)) {
 //                return $value;
 //            }
 //
-//            $base_context = 'o=myorg';
-//            $scope = 'sub';
-//
-//            // You will probably need to replace cd= with uid=; this
-//            // syntax is for Netware 5.1 nldap.
-//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context .
-//                ' -s ' . $scope . ' cn=' .
-//                escapeshellcmd($username) .
-//                ' | /bin/grep mail | /usr/bin/awk \'{print $2}\'';
-//            $mails = `$cmd`;
-//            $mail_array = explode("\n", $mails);
-//
-//            // Send back the first email found, not the whole list.
-//            $mail = $mail_array[0];
-//
-//            // If no email address is found, then the login name will
-//            // be used.
-//            return empty($mail)
-//                ? ''
-//                : $mail;
-//
-//
-//            // Example #2
-//            if (is_null($username)) {
-//                return $value;
+//            $ldap = $GLOBALS['injector']->getInstance('Horde_Ldap');
+//            try {
+//                $result = $ldap->search(
+//                    $GLOBALS['conf']['ldap']['user']['basedn'],
+//                    Horde_Ldap_Filter::create('uid', 'equals', $username),
+//                    array('attributes' => array('mail'))
+//                );
+//                if ($result->count()) {
+//                    $entry = $result->shiftEntry();
+//                    return $entry->getValue('mail', 'single');
+//                }
+//            } catch (Horde_Ldap_Exception $e) {
 //            }
 //
-//            $ldapServer = '172.31.0.236';
-//            $ldapPort = '389';
-//            $searchBase = 'o=myorg';
-//
-//            $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//            // You will probably need to replace cn= with uid=; this syntax
-//            // is for Netware 5.1 nldap.
-//            $searchResult = @ldap_search($ds, $searchBase, 'cn=' . $username);
-//            $information = @ldap_get_entries($ds, $searchResult);
-//            if (($information === false) || ($information['count'] == 0)) {
-//               $user = '';
-//            } else {
-//                $user = ($information[0]['mail'][0] != '')
-//                    ? $information[0]['mail'][0]
-//                    : $information[0]['cn'][0];
-//            }
-//
-//            ldap_close($ds);
-//
-//            return empty($user)
-//                ? $username
-//                : $user;
+//            return $value;
 //
 //
 //        case 'fullname':
@@ -393,34 +350,27 @@ class Horde_Hooks
 //                : $gecos_array[0];
 //
 //
-//            // Example #2: Set the fullname from LDAP information. In this
-//            // example we look if a Spanish name exists and return this or
-//            // the standard 'cn' entry if not.
+//            // Example #2: Set the fullname from LDAP information.
 //            if (is_null($username)) {
 //                return $value;
 //            }
 //
-//            $ldapServer = 'ldap.example.com';
-//            $ldapPort = '389';
-//            $searchBase = 'ou=people,o=example.com';
-//
-//            $ds = @ldap_connect($ldapServer, $ldapPort);
-//
-//            $searchResult = @ldap_search($ds, $searchBase, 'uid=' . $username);
-//            $information = @ldap_get_entries($ds, $searchResult);
-//            if (($information === false) || ($information['count'] == 0)) {
-//                $name = '';
-//            } else {
-//                $name = ($information[0]['cn;lang-es'][0] != '')
-//                    ? $information[0]['cn;lang-es'][0]
-//                    : $information[0]['cn'][0];
+//            $ldap = $GLOBALS['injector']->getInstance('Horde_Ldap');
+//            try {
+//                $result = $ldap->search(
+//                    $GLOBALS['conf']['ldap']['user']['basedn'],
+//                    Horde_Ldap_Filter::create('uid', 'equals', $username),
+//                    array('attributes' => array('cn', 'cn;lang-es'))
+//                );
+//                if ($result->count()) {
+//                    $entry = $result->shiftEntry();
+//                    return $entry->getValue('cn;lang-es', 'single')
+//                        ?: $entry->getValue('cn', 'single');
+//                }
+//            } catch (Horde_Ldap_Exception $e) {
 //            }
 //
-//            ldap_close($ds);
-//
-//            return empty($name)
-//                ? $username
-//                : $name;
+//            return $username;
 //        }
 //    }
 
