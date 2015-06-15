@@ -182,7 +182,7 @@ class Horde_Imap_Client_Data_Sync
                     : ($this->uidnext . ':' . $curr['U']);
 
                 $squery = new Horde_Imap_Client_Search_Query();
-                $squery->ids($new_ids);
+                $squery->ids(new Horde_Imap_Client_Ids($new_ids));
                 $sres = $base_ob->search($mailbox, $squery);
 
                 $this->_newmsgsuids = $sres['match'];
