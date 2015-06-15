@@ -28,7 +28,8 @@ class Horde_Core_Ajax_Application_Handler_Groups extends Horde_Core_Ajax_Applica
         try {
             $groups = $GLOBALS['injector']
                 ->getInstance('Horde_Group')
-                ->listAll(empty($GLOBALS['conf']['share']['any_group'])
+                ->listAll(empty($GLOBALS['conf']['share']['any_group']) &&
+                          !$GLOBALS['registry']->isAdmin()
                           ? $GLOBALS['registry']->getAuth()
                           : null);
             if ($groups) {
