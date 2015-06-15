@@ -628,11 +628,11 @@ class Turba
     /**
      * Retrieve a new source config entry based on a Turba share.
      *
-     * @param Horde_Share object  The share to base config on.
+     * @param Horde_Share_Object object  The share to base config on.
      *
      * @return array  The $cfgSource entry for this share source.
      */
-    public static function getSourceFromShare(Horde_Share $share)
+    public static function getSourceFromShare(Horde_Share_Object $share)
     {
         // Require a fresh config file.
         $cfgSources = self::availableSources();
