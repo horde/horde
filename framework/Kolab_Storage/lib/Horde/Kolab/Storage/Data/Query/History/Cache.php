@@ -61,7 +61,7 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
             unset($folder_id['type']);
 
             $this->_logger->debug(sprintf(
-                'Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
+                '[KOLAB_STORAGE] Resyncing Horde_History for Kolab: last_sync: %d, logged sync: %d, folder. %s',
                 $params['last_sync'],
                 $this->_history->getActionTimestamp($timestamp_key, 'sync'),
                 print_r($folder_id, true))

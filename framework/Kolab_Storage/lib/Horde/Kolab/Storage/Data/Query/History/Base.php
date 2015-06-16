@@ -118,7 +118,7 @@ implements Horde_Kolab_Storage_Data_Query_History
                     return;
                 }
                 $this->_logger->debug(sprintf(
-                    'History: Incremental update for user: %s, folder: %s, prefix: %s',
+                    '[KOLAB_STORAGE] Incremental Horde_History update for user: %s, folder: %s, prefix: %s',
                     $user, $folder, $prefix)
                 );
             }
@@ -133,13 +133,13 @@ implements Horde_Kolab_Storage_Data_Query_History
                 // (An update results in an ADDED + DELETED folder action)
                 if ($this->_data->objectIdExists($object_uid) == true) {
                     $this->_logger->debug(sprintf(
-                        'History: Object still existing: object: %s, vanished IMAP uid: %d. Skipping delete.',
+                        '[KOLAB_STORAGE] Object still existing: object: %s, vanished IMAP uid: %d. Skipping delete from Horde_History.',
                         $object_uid, $bid)
                     );
                     continue;
                 }
                 $this->_logger->debug(
-                    sprintf('History: Object deleted: uid: %d -> %s',
+                    sprintf('[KOLAB_STORAGE] Object deleted: uid: %d -> %s, logging in Horde_History.',
                     $bid, $object_uid)
                 );
                 $this->_history->log(
@@ -153,7 +153,7 @@ implements Horde_Kolab_Storage_Data_Query_History
                 return;
             }
             $this->_logger->debug(sprintf(
-                'History: Full history sync for user: %s, folder: %s, is_reset: %d, prefix: %s',
+                '[KOLAB_STORAGE] Full Horde_History sync for user: %s, folder: %s, is_reset: %d, prefix: %s',
                 $user, $folder, $is_reset, $prefix)
             );
             $this->_completeSynchronization($prefix, $is_reset);
@@ -190,7 +190,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             $last = $this->_history->getLatestEntry($full_id);
             if ($last === false || $last['action'] != 'delete') {
                 $this->_logger->debug(sprintf(
-                    'History: Cleaning up already removed object: %s', $full_id)
+                    '[KOLAB_STORAGE] Cleaning up already removed object from Horde_History: %s', $full_id)
                 );
                 $this->_history->log(
                     $full_id, array('action' => 'delete'), true
@@ -212,7 +212,7 @@ implements Horde_Kolab_Storage_Data_Query_History
         if ($last === false) {
             // New, unknown object
             $this->_logger->debug(sprintf(
-                'History: New object: %s, uid: %d',
+                '[KOLAB_STORAGE] New object to log in Horde_History: %s, uid: %d',
                 $object, $bid)
             );
             $this->_history->log(
@@ -224,7 +224,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             // (a foreign client is sending an update over a slow link)
             if ($last['action'] == 'delete') {
                 $this->_logger->debug(sprintf(
-                    'History: Re-adding previously deleted object: %s, uid: %d',
+                    '[KOLAB_STORAGE] Re-adding previously deleted object in Horde_History: %s, uid: %d',
                     $object, $bid)
                 );
                 $this->_history->log(
@@ -234,7 +234,7 @@ implements Horde_Kolab_Storage_Data_Query_History
 
             if (!isset($last['bid']) || $last['bid'] != $bid || $force) {
                 $this->_logger->debug(sprintf(
-                    'History: Modifying object: %s, uid: %d, force: %d',
+                    '[KOLAB_STORAGE] Modifying object in Horde_History: %s, uid: %d, force: %d',
                     $object, $bid, $force)
                 );
                 $this->_history->log(
