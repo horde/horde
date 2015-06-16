@@ -231,7 +231,7 @@ class Turba_Application extends Horde_Registry_Application
         );
         if ($GLOBALS['registry']->getAuth() &&
             $GLOBALS['session']->get('turba', 'has_share') &&
-            !empty($conf['shares']['source'])) {
+            !empty($GLOBALS['conf']['shares']['source'])) {
             $create = true;
             $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('addressbooks/create.php'),
