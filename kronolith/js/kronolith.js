@@ -3861,7 +3861,7 @@ KronolithCore = {
                     Kronolith.conf.calendars[type] = [];
                 }
                 Kronolith.conf.calendars[type][id] = cal;
-                this.insertCalendarInList(type, id, cal);
+                this.insertCalendarInList(cal.system ? 'system' : type, id, cal);
                 this.storeCache($H(), [type, id], this.viewDates(this.date, this.view), true);
                 if (type == 'tasklists') {
                     this.storeTasksCache($H(), this.tasktype, id.replace(/^tasks\//, ''), true);
@@ -3889,7 +3889,12 @@ KronolithCore = {
      */
     deleteCalendar: function(type, calendar)
     {
-        var container = this.getCalendarList(type, Kronolith.conf.calendars[type][calendar].owner),
+        var container = this.getCalendarList(
+                Kronolith.conf.calendars[type][calendar].system
+                    ? 'system'
+                    : type,
+                Kronolith.conf.calendars[type][calendar].owner
+            ),
             noItems = container.previous(),
             div = container.select('div').find(function(element) {
                 return element.retrieve('calendar') == calendar;

@@ -1316,7 +1316,7 @@ class Kronolith
         $calendar->set('name', $info['name']);
         $calendar->set('color', $info['color']);
         $calendar->set('desc', $info['description']);
-        $calendar->set('owner', ($info['system'] == 0) ? $GLOBALS['registry']->getAuth() : null);
+        $calendar->set('owner', empty($info['system']) ? $GLOBALS['registry']->getAuth() : null);
         try {
             $calendar->save();
         } catch (Horde_Share_Exception $e) {
@@ -1428,7 +1428,11 @@ class Kronolith
             $new_owner_backend = Horde_Util::getFormData('owner_select', Horde_Util::getFormData('owner_input', $old_owner));
             $new_owner = $GLOBALS['registry']->convertUsername($new_owner_backend, true);
 
-            if ($old_owner !== $new_owner && !empty($new_owner)) {
+            // Only set new owner if this isn't a system calendar, and the
+            // owner actually changed and the new owner is set at all.
+            if (!is_null($old_owner) &&
+                $old_owner !== $new_owner &&
+                !empty($new_owner)) {
                 if ($old_owner != $GLOBALS['registry']->getAuth() && !$GLOBALS['registry']->isAdmin()) {
                     $errors[] = _("Only the owner or system administrator may change ownership or owner permissions for a share");
                 } elseif ($auth->hasCapability('list') && !$auth->exists($new_owner_backend)) {

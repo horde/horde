@@ -2,6 +2,7 @@
 v4.3.0-git
 ----------
 
+[jan] Allow to edit system calendars in dynamic view.
 [jan] Add support for monthly recurrence on last weekday (Request #1922).
 [jan] Send event update notifications with HTML part.
 [mjr] Resource permissions have been implemented (Request #13647).

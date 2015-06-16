@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Allow to edit system calendars in dynamic view.
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
@@ -2564,6 +2565,7 @@
    <date>2015-05-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Allow to edit system calendars in dynamic view.
 * [jan] Add support for monthly recurrence on last weekday (Request #1922).
 * [jan] Send event update notifications with HTML part.
 * [mjr] Resource permissions have been implemented (Request #13647).
