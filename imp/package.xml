@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t focus body field when composing message with HTML editor.
 * [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
@@ -3850,6 +3851,7 @@
    <date>2015-06-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t focus body field when composing message with HTML editor.
 * [jan] Protect against infinite request loop if expanding all mailboxes.
 * [jan] Don&apos;t show ACL context menu if ACL preferences are locked.
 * [jan] Fix redirecting in smartmobile mode (Bug #14002).
