@@ -325,6 +325,23 @@ implements Horde_Kolab_Storage_Driver
     }
 
     /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data. This method, as opposed to
+     * self::getStamp(), uses the IMAP client's token to calculate the changes.
+     *
+     * @param string $folder Return the stamp for this folder.
+     * @param string $token  A sync token provided by the IMAP server.
+     * @param array $ids     An array of UIDs that we know about.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStampFromToken($folder, $token, array $ids)
+    {
+        return $this->_driver->getStampFromToken($folder, $token, $ids);
+    }
+
+    /**
      * Returns the status of the current folder.
      *
      * @param string $folder Check the status of this folder.

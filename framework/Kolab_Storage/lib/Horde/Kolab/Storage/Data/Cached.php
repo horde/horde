@@ -239,19 +239,17 @@ extends Horde_Kolab_Storage_Data_Base
         $user = $this->getAuth();
         $folder_path = $this->getPath();
 
-        $current = $this->getStamp();
-
         if (!$this->_data_cache->isInitialized()) {
             $this->_logger->debug(sprintf(
                 'Initial folder sync: user: %s, folder: %s',
                 $user,
                 $folder_path)
             );
-            $this->_completeSynchronization($current);
+            $this->_completeSynchronization($this->getStamp());
             return;
         }
-
         $previous = unserialize($this->_data_cache->getStamp());
+        $current = $this->getStamp($previous);
 
         // check if UIDVALIDITY changed
         $is_reset = false;

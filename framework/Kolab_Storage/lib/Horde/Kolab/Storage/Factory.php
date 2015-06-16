@@ -60,6 +60,11 @@ class Horde_Kolab_Storage_Factory
      *  - history_prefix_generator: (Horde_Kolab_Storage_HistoryPrefix) An
      *        object that can provide prefix/collection mapping of the
      *        History system.
+     * - sync_strategy: (Horde_Kolab_Storage_Synchronization) The strategy
+     *         object to use for determining when we should synchronize
+     *         with the Kolab backend. If omitted,
+     *         Horde_Kolab_Storage_Synchronization_OncePerSession strategy is
+     *         used.
      *  </pre>
      */
     public function __construct($params = array())
@@ -108,9 +113,15 @@ class Horde_Kolab_Storage_Factory
                 $sparams
             );
         }
+        if (empty($this->_params['sync_strategy'])) {
+            $strategy = new Horde_Kolab_Storage_Synchronization_OncePerSession();
+        } else {
+            $strategy = $this->_params['sync_strategy'];
+        }
         $storage = new Horde_Kolab_Storage_Decorator_Synchronization(
-            $storage, new Horde_Kolab_Storage_Synchronization()
+            $storage, new Horde_Kolab_Storage_Synchronization($strategy)
         );
+
         return $storage;
     }
 

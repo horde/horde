@@ -36,19 +36,22 @@ implements Horde_Kolab_Storage_Folder_Stamp
     /** The next UID status */
     const UIDNEXT = 'uidnext';
 
+    /** The sync token  */
+    const TOKEN = 'token';
+
     /**
      * The folder status.
      *
      * @var array
      */
-    private $_status;
+    protected $_status;
 
     /**
      * The list of backend object IDs.
      *
      * @var array
      */
-    private $_ids;
+    protected $_ids;
 
     /**
      * Constructor.
@@ -90,6 +93,19 @@ implements Horde_Kolab_Storage_Folder_Stamp
     public function ids()
     {
         return $this->_ids;
+    }
+
+    /**
+     * Return the sync token.
+     *
+     * @return string|boolen The token provided by the IMAP client, or false
+     *                       if unavailable.
+     */
+    public function getToken()
+    {
+        return !empty($this->_status[self::TOKEN])
+            ? $this->_status[self::TOKEN]
+            : false;
     }
 
     /**
@@ -163,10 +179,11 @@ implements Horde_Kolab_Storage_Folder_Stamp
     public function __toString()
     {
         return sprintf(
-            "uidvalidity: %s\nuidnext: %s\nuids: %s",
+            "uidvalidity: %s\nuidnext: %s\nuids: %s\ntoken: %s",
             $this->uidvalidity(),
             $this->uidnext(),
-            join(', ', $this->ids())
+            join(', ', $this->ids()),
+            $this->_status[self::TOKEN]
         );
     }
 }

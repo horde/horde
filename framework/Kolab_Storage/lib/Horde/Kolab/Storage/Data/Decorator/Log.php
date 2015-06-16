@@ -141,12 +141,15 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Report the status of this folder.
      *
+     * @param Horde_Kolab_Storage_Folder_Stamp $previous  The previous stamp,
+     *                                                    if available.
+     *
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
      *                                          detecting folder changes.
      */
-    public function getStamp()
+    public function getStamp(Horde_Kolab_Storage_Folder_Stamp $previous = null)
     {
-        return $this->_data->getStamp();
+        return $this->_data->getStamp($previous);
     }
 
     /**

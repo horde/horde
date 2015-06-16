@@ -306,7 +306,8 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array  An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array  An array that contains 'uidvalidity', 'uidnext', and
+     *                'token'.
      */
     public function status($folder)
     {
@@ -315,7 +316,8 @@ extends Horde_Kolab_Storage_Driver_Base
         );
         return array(
             'uidvalidity' => $result['UIDVALIDITY'],
-            'uidnext' => $result['UIDNEXT']
+            'uidnext' => $result['UIDNEXT'],
+            'token' => false
         );
     }
 

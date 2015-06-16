@@ -62,4 +62,12 @@ extends Serializable
      *                       elements (added IDs, deleted IDs) otherwise.
      */
     public function getChanges(Horde_Kolab_Storage_Folder_Stamp $stamp);
+
+    /**
+     * Return the sync token.
+     *
+     * @return string|boolen The token provided by the IMAP client, or false
+     *                       if unavailable.
+     */
+    public function getToken();
 }

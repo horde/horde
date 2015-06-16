@@ -184,12 +184,31 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Report the status of this folder.
      *
+     * @param Horde_Kolab_Storage_Folder_Stamp $previous  The previous stamp,
+     *                                                    if available.
+     *
      * @return Horde_Kolab_Storage_Folder_Stamp The stamp that can be used for
      *                                          detecting folder changes.
      */
-    public function getStamp()
+    public function getStamp(Horde_Kolab_Storage_Folder_Stamp $previous = null)
     {
-        return $this->_driver->getStamp($this->_folder->getPath());
+        if (empty($previous) || $previous->getToken() === false) {
+            $this->_logger->debug('[KOLAB_STORAGE] Fetching stamp without token.');
+            return $this->_driver->getStamp($this->_folder->getPath());
+        }
+
+        try {
+            $this->_logger->debug('[KOLAB_STORAGE] Fetching stamp WITH token.');
+            return $this->_driver->getStampFromToken(
+                $this->_folder->getPath(),
+                $previous->getToken(),
+                $previous->ids()
+            );
+        } catch (Horde_Kolab_Storage_Exception $e) {
+            // Possibly not supported with the current IMAP driver.
+            $this->_logger->debug('[KOLAB_STORAGE] Attempted to fetch stamp with token, but backend did not support.');
+            return $this->_driver->getStamp($this->_folder->getPath());
+        }
     }
 
     /**

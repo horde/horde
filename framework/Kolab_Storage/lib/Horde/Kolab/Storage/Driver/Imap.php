@@ -351,23 +351,94 @@ extends Horde_Kolab_Storage_Driver_Base
      *
      * @param string $folder Check the status of this folder.
      *
-     * @return array An array that contains 'uidvalidity' and 'uidnext'.
+     * @return array An array that contains 'uidvalidity', 'uidnext', and
+     *               'token'.
      */
     public function status($folder)
     {
-        // @todo: Condstore
         try {
-            return $this->getBackend()->status(
+            $status = $this->getBackend()->status(
                 $folder,
                 Horde_Imap_Client::STATUS_UIDNEXT |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_FORCE_REFRESH
             );
+            $status['token'] = $this->getBackend()->getSyncToken($folder);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             throw new Horde_Kolab_Storage_Exception($e->details);
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_Kolab_Storage_Exception($e);
         }
+
+        return $status;
+    }
+
+    /**
+     * Synchrozine using a token provided by the IMAP client.
+     *
+     * @param string $folder  The folder to synchronize.
+     * @param string $token   The sync token provided by the IMAP client.
+     * @param array  $ids     The list of IMAP message UIDs we currently know
+     *                        about. If omitted, the server will return
+     *                        VANISHED data only if it supports QRESYNC.
+     *
+     * @return array  An array containing the following keys and values:
+     *   Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED - Contains the UIDs that
+     *       have VANISHED from the IMAP server.
+     *   Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED   - Contains the UIDs that
+     *       have been added to the IMAP server since the last sync.
+     */
+    public function sync($folder, $token, array $ids = array())
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($folder);
+        $options = array('ids' => new Horde_Imap_Client_Ids($ids));
+        $sync_data = $this->getBackend()->sync($mbox, $token, $options);
+        if ($sync_data->flags) {
+            // Flag changes, we must check for /deleted since some Kolab clients
+            // like e.g., Kontact only flag as /deleted and do not automatially
+            // expunge.
+            $query = new Horde_Imap_Client_Search_Query();
+            $query->flag(Horde_Imap_Client::FLAG_DELETED);
+            $query->ids($sync_data->flagsuids);
+            $search_ret = $this->getBackend()->search($mbox, $query);
+            $deleted = array_merge($sync_data->vanisheduids->ids, $search_ret['match']->ids);
+        } else {
+            $deleted = $sync_data->vanisheduids->ids;
+        }
+
+        return array(
+            Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED => $deleted,
+            Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED => $sync_data->newmsgsuids->ids
+        );
+    }
+
+    /**
+     * Returns a stamp for the current folder status. This stamp can be used to
+     * identify changes in the folder data. This method, as opposed to
+     * self::getStamp(), uses the IMAP client's token to calculate the changes.
+     *
+     * @param string $folder Return the stamp for this folder.
+     * @param string $token  A sync token provided by the IMAP server.
+     * @param array $ids     An array of UIDs that we know about.
+     *
+     * @return Horde_Kolab_Storage_Folder_Stamp A stamp indicating the current
+     *                                          folder status.
+     */
+    public function getStampFromToken($folder, $token, array $ids)
+    {
+        $sync = $this->sync($folder, $token, $ids);
+        $ids = array_diff(
+            $ids,
+            $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED]
+        );
+        $ids = array_merge(
+            $ids,
+            $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED]
+        );
+        return new Horde_Kolab_Storage_Folder_Stamp_Uids(
+            $this->status($folder),
+            $ids
+        );
     }
 
     /**
