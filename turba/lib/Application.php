@@ -235,19 +235,14 @@ class Turba_Application extends Horde_Registry_Application
         if ($GLOBALS['registry']->getAuth() &&
             $GLOBALS['session']->get('turba', 'has_share') &&
             !empty($conf['shares']['source'])) {
+            $create = true;
             $sidebar->containers['my']['header']['add'] = array(
                 'url' => Horde::url('addressbooks/create.php'),
                 'label' => _("Create a new Address Book"),
             );
         }
-        $sidebar->containers['shared'] = array(
-            'header' => array(
-                'id' => 'turba-toggle-shared',
-                'label' => _("Shared Address Books"),
-                'collapsed' => true,
-            ),
-        );
         $shares = array();
+        $shared = array();
         foreach (Turba::listShares(false, Horde_Perms::SHOW) as $id => $abook) {
             $row = array(
                 'selected' => $id == Turba::$source,
@@ -265,12 +260,25 @@ class Turba_Application extends Horde_Registry_Application
                 if ($abook->get('owner')) {
                     $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($abook->get('owner'), false) . ']';
                 }
+                $shared[] = $row;
+            }
+            $shares[$id] = true;
+        }
+
+        if (!empty($create) || count($shared)) {
+            $sidebar->containers['shared'] = array(
+                'header' => array(
+                    'id' => 'turba-toggle-shared',
+                    'label' => _("Shared Address Books"),
+                    'collapsed' => true,
+                ),
+            );
+            foreach ($shared as $row) {
                 $sidebar->addRow($row, 'shared');
                 if ($row['selected']) {
                     $sidebar->containers['shared']['header']['collapsed'] = false;
                 }
             }
-            $shares[$id] = true;
         }
 
         $sidebar->containers['other'] = array(
