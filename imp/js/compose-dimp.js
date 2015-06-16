@@ -1555,7 +1555,6 @@ document.observe('IMP_Editor:ready', function(e) {
 document.observe('IMP_Editor:dataReady', function(e) {
     if (e.memo.name == 'composeMessage') {
         this.RTELoading(false);
-        e.memo.focus();
         this.resizeMsgArea();
     }
 }.bindAsEventListener(DimpCompose));
