@@ -241,7 +241,7 @@ extends Horde_Kolab_Storage_Data_Base
 
         if (!$this->_data_cache->isInitialized()) {
             $this->_logger->debug(sprintf(
-                'Initial folder sync: user: %s, folder: %s',
+                '[KOLAB_STORAGE]: Initial folder sync: user: %s, folder: %s',
                 $user,
                 $folder_path)
             );
@@ -258,7 +258,10 @@ extends Horde_Kolab_Storage_Data_Base
         }
 
         if ($previous === false || $is_reset) {
-            $this->_logger->debug(sprintf("Complete folder sync: user: %s, folder: %s, is_reset: %d", $user, $folder_path, $is_reset));
+            $this->_logger->debug(sprintf(
+                '[KOLAB_STORAGE] Complete folder sync: user: %s, folder: %s, is_reset: %d',
+                $user, $folder_path, $is_reset)
+            );
             $this->_completeSynchronization($current);
             return;
         }
@@ -292,7 +295,7 @@ extends Horde_Kolab_Storage_Data_Base
                     $changes_to_log['del'][$uid] = $object_uid;
                 }
                 $this->_logger->debug(sprintf(
-                    'Incremental folder sync: user: %s, folder: %s, last_sync: %d, current_sync: %d, changes: %s',
+                    '[KOLAB_STORAGE] Incremental folder sync: user: %s, folder: %s, last_sync: %d, current_sync: %d, changes: %s',
                     $user,
                     $folder_path,
                     $params['last_sync'],
@@ -300,7 +303,6 @@ extends Horde_Kolab_Storage_Data_Base
                     print_r($changes_to_log, true))
                 );
             }
-
 
             parent::synchronize($params);
             $this->_data_cache->save();
@@ -327,7 +329,7 @@ extends Horde_Kolab_Storage_Data_Base
         // logging
         $uids_to_log = array_keys($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED]);
         $this->_logger->debug(sprintf(
-            'Full folder sync details: user: %s, folder: %s, uids: %s',
+            '[KOLAB_STORAGE] Full folder sync details: user: %s, folder: %s, uids: %s',
             $this->getAuth(),
             $this->getPath(),
             implode(', ', $uids_to_log))

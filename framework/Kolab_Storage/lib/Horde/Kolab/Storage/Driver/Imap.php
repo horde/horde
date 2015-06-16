@@ -460,6 +460,7 @@ extends Horde_Kolab_Storage_Driver_Base
             throw new Horde_Kolab_Storage_Exception($e);
         }
         $uids = $uidsearch['match'];
+
         return $uids->ids;
     }
 
