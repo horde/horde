@@ -33,7 +33,7 @@ extends Horde_Kolab_Storage_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->status = array('uidvalidity' => '99', 'uidnext' => '5');
+        $this->status = array('uidvalidity' => '99', 'uidnext' => '5', 'token' => 'somestamp');
         $this->uids = array(1, 2, 4);
     }
 
@@ -85,7 +85,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testSerialize2()
     {
         $this->assertEquals(
-            'C:37:"Horde_Kolab_Storage_Folder_Stamp_Uids":100:{a:2:{i:0;a:2:{s:11:"uidvalidity";s:2:"99";s:7:"uidnext";s:1:"5";}i:1;a:3:{i:0;i:1;i:1;i:2;i:2;i:4;}}}',
+            'C:37:"Horde_Kolab_Storage_Folder_Stamp_Uids":128:{a:2:{i:0;a:3:{s:11:"uidvalidity";s:2:"99";s:7:"uidnext";s:1:"5";s:5:"token";s:9:"somestamp";}i:1;a:3:{i:0;i:1;i:1;i:2;i:2;i:4;}}}',
             serialize($this->_getStamp())
         );
     }
@@ -170,7 +170,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testToString()
     {
         $this->assertEquals(
-            "uidvalidity: 99\nuidnext: 5\nuids: 1, 2, 4",
+            "uidvalidity: 99\nuidnext: 5\nuids: 1, 2, 4\ntoken: somestamp",
             (string) $this->_getStamp()
         );
     }

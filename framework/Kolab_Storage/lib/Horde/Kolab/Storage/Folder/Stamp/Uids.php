@@ -183,7 +183,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
             $this->uidvalidity(),
             $this->uidnext(),
             join(', ', $this->ids()),
-            $this->_status[self::TOKEN]
+            !empty($this->_status[self::TOKEN]) ? $this->_status[self::TOKEN] : '--'
         );
     }
 }
