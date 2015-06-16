@@ -1941,8 +1941,15 @@
      </configenum>
      <configstring name="maildomain" desc="Default
      maildomain">example.com</configstring>
+     <configheader>Caching</configheader>
      <configboolean name="cache_folders" desc="Cache IMAP folders?"
       required="true">true</configboolean>
+     <configenum name="cache" desc="The caching backend for the IMAP cache.">Mock
+       <values>
+        <value desc="None">Mock</value>
+        <value desc="Horde_Cache (Requires a properly configured Horde_Cache backend.">Horde</value>
+      </values>
+     </configenum>
      <configenum name="strategy" desc="The synchronization strategy to use. This
       determines how often the local cache is synchronized against the IMAP
       server. If you have a CONDSTORE and QRESYNC capable IMAP server you should

@@ -79,6 +79,21 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
     {
         $configuration = $this->_injector->getInstance('Horde_Kolab_Storage_Configuration');
 
+        // Cache configuration
+        $cache = !empty($configuration['cache'])
+            ? $configuration['cache']
+            : 'Mock';
+        switch ($cache) {
+        case 'Horde':
+            $cacheob = $this->_injector->getInstance('Horde_Cache');
+            break;
+        case 'Mock':
+        default:
+            $cacheob = new Horde_Cache(
+                new Horde_Cache_Storage_Mock(), array('compress' => true)
+            );
+        }
+
         $params = array(
             'driver' => 'horde',
             'params' => array(
@@ -87,12 +102,14 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
                 'password' => $GLOBALS['registry']->getAuthCredential('password'),
                 'port'     => $configuration['port'],
                 'secure'   => $configuration['secure'],
-                'debug'    => isset($configuration['debug']) ? $configuration['debug'] : null,
-                'cache' =>  array('backend' => new Horde_Imap_Client_Cache_Backend_Cache(array(
-                    'cacheob' => new Horde_Cache(new Horde_Cache_Storage_Mock(), array(
-                        'compress' => true
-                    ))
-                )))
+                'debug'    => isset($configuration['debug'])
+                    ? $configuration['debug']
+                    : null,
+                'cache' =>  array(
+                    'backend' => new Horde_Imap_Client_Cache_Backend_Cache(
+                        array('cacheob' => $cacheob)
+                    )
+                )
             ),
             'queries' => array(
                 'list' => array(
