@@ -1943,6 +1943,16 @@
      maildomain">example.com</configstring>
      <configboolean name="cache_folders" desc="Cache IMAP folders?"
       required="true">true</configboolean>
+     <configenum name="strategy" desc="The synchronization strategy to use. This
+      determines how often the local cache is synchronized against the IMAP
+      server. If you have a CONDSTORE and QRESYNC capable IMAP server you should
+      choose 'Token'.">Token
+      <values>
+         <value>Token</value>
+         <value>OncePerSession</value>
+         <value>TimeBased</value>
+      </values>
+    </configenum>
     </case>
    </configswitch>
   </configsection>
