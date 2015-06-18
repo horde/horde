@@ -1,11 +1,11 @@
 <?php
 /* Security release? */
-$notes['security'] = true;
+$notes['security'] = false;
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.2.6.
+Webmail Edition version 5.2.7.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with four
@@ -19,24 +19,22 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-Thanks to the cPanel Security Team and João Machado for reporting the XSS
-vulnerabilities.
-
-The major changes compared to the Horde Groupware Webmail Edition version 5.2.5
+The major changes compared to the Horde Groupware Webmail Edition version 5.2.6
 are:
 
 General changes:
-    * Fixed an XSS vulnerability in the groups administration.
+    * Display Message Of The Day on mobile login screen.
+    * Performance and memory improvements during ActiveSync synchronization.
     * Small bugfixes and improvements.
 
 Mail changes:
-    * Fixed XSS vulnerability in the HTML editor.
+    * Don't focus body field when composing message with HTML editor.
+    * Several bugfixes when redirecting messages.
 
-Filter changes:
-    * Added Galician translation.
-
-Address book changes:
-    * Fixed adding tags to new contacts.
+Calendar/tasks changes:
+    * Fixed importing iCalendar events.
+    * Don't delete existing exceptions and completions when editing recurring
+      events or tasks.
 ML;
 
 $notes['name'] = 'Horde Groupware Webmail Edition';

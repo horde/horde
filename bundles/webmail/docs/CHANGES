@@ -2,6 +2,119 @@
 v5.2.7-git
 ----------
 
+Horde Changes
+-------------
+[jan] Use Horde_Ldap in example preference hooks.
+[jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
+[jan] Display MOTD on mobile login screen.
+
+Mail Changes
+------------
+[jan] Don't focus body field when composing message with HTML editor.
+[jan] Protect against infinite request loop if expanding all mailboxes.
+[jan] Fix redirecting in smartmobile mode (Bug #14002).
+[jan] Fix address autocompletion in redirection window of smartmobile mode
+      (Bug #14002).
+[jan] Fix setting single recipients in redirection window in basic mode (Bug
+      #14002).
+[jan] Don't switch to regular compose view after an error in the redirection
+      view in basic mode.
+[jan] Fix cancelling redirection window in basic mode (Bug #14002).
+
+Address Book Changes
+--------------------
+[jan] Fix error when removing user data.
+
+Calendar Changes
+----------------
+[jan] Don't delete existing exceptions and completions when editing recurring
+      events or tasks.
+[jan] Fix importing iCalendar events via the API (Bug #13975).
+
+Tasks Changes
+-------------
+[jan] Fix positioning of dialog windows.
+[jan] Don't delete existing completions when editing a recurring task.
+[jan] Only delete the last completion when toggling a recurring task to
+      incomplete.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Reduce memory usage during IMAP FETCH with very large mailboxes.
+[mjr] Workaround broken CGI behavior of sending incorrect authentication
+      headers.
+[mjr] Fix issues with detecting changes in FILTERTYPE.
+[mjr] Performance improvements during IMAP server change detection for
+      CONDSTORE servers, especially during FILTERTYPE changes.
+[mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge
+      cases (Bug #13901).
+[mjr] Fix off by one error that could cause some errors in downstream client
+      code.
+[mjr] Fix detecting changes in email message "Flag" sent from certain clients.
+[mjr] Fix regression causing useless backend query.
+[mjr] Fix bug causing changes to be sent as new messages, thus causing them to
+      be ignored by most clients.
+[mjr] Fix sending SMIME signed/encrypted mail when using streams.
+[mjr] Fix regression that could cause loss of mailbox sync.
+[mjr] Fix issue that could cause sending the same email to the client multiple
+      times (Bug #13985).
+[mjr] Performance and memory improvements, especially during initial sync to
+      Outlook clients.
+
+Core
+[mjr] Fix typo that was causing ActiveSync FILTERTYPE changes to go undetected.
+[mjr] Support for Horde_History in Horde_Kolab_Storage. Requires
+      Horde_Kolab_Storage 2.2.0+.
+[jan] Don't allow empty From: addresses if verifying identities.
+[mjr] Fix fatal error when disconnecting a user Twitter account.
+[mjr] Work around broken ActiveSync clients that send incorrect line lengths
+      for text/html parts (Bug #13901).
+[mjr] Fix issue causing message text from email forwarded from ActiveSync
+      clients to be missing (Bug #14000).
+[mjr] Fix duplicate attachments in certain messages that were forwarded by
+      ActiveSync clients.
+[mjr] Fix issue that could cause sending the same email to an ActiveSync client
+      multiple times (Bug #13985).
+[mjr] Performance and memory improvements to ActiveSync.
+
+Crypt_Blowfish
+[mms] Add Horde_Crypt_Blowfish_Pbkdf2.
+
+Date
+[jan] Support monthly recurrence by last weekday (Request #1922).
+[jan] Support negative occurrences in Horde_Date#setNthWeekday().
+[jan] Add Galician translation.
+
+Icalendar
+[mms] Add Horde_Icalendar#getAttributeSingle().
+
+Imap_Client
+[mjr] Fix detecting changes when using tokens.
+[mms] Add support for SCRAM-SHA-1 authentication (RFC 5802) for both IMAP and
+      POP3 drivers.
+[mms] Directly store literal data in a separate stream when parsing IMAP
+      tokens, so we don't have to duplicate the stream later when processing it.
+[mms] Don't load literal IMAP data into a string variable when tokenizing IMAP
+      input.
+[mms] Fix search queries where ID list given is explicitly empty, indicating
+      that a match can never be successful (Bug #13971).
+[mms] Fix expunging in certain cases when UIDPLUS is not available (Bug #13970;
+      Robin McCorkell <rmccorkell@karoshi.org.uk>).
+
+Mime
+[mms] Correctly output MIME headers when generating multipart/digest parts (RFC
+      2047 [5.1.5]).
+
+Service_Twitter
+[mjr] Remove obsolete end_session endpoint.
+
+Share
+[jan] Fix returning user and group permissions for system shares using the
+      SQLNG driver.
+
+Stringprep
+[mms] Fix some autoloading issues.
 
 
 ------
