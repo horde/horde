@@ -30,7 +30,7 @@
  </lead>
  <date>2015-06-18</date>
  <version>
-  <release>5.2.6</release>
+  <release>5.2.7</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] Use Horde_Ldap in example preference hooks.
-* [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
-* [jan] Display MOTD on mobile login screen.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4033,6 +4031,19 @@
 * [jan] Use Horde_Ldap in example preference hooks.
 * [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
 * [jan] Display MOTD on mobile login screen.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.7</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
