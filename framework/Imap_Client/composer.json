@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "2.28.1",
-    "time": "2015-05-12",
+    "version": "2.29.0",
+    "time": "2015-06-18",
     "repositories": [
         {
             "type": "pear",
@@ -36,6 +36,7 @@
     "suggest": {
         "pear-pear.horde.org/Horde_Cache": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Compress_Fast": ">=1.0.0@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/Horde_Crypt_Blowfish": ">=1.1.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Db": ">=2.0.0@stable,<=3.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_HashTable": ">=1.0.0@stable,<=2.0.0alpha1@stable",
         "pear-pear.horde.org/Horde_Mongo": ">=1.0.0@stable,<=2.0.0alpha1@stable",
