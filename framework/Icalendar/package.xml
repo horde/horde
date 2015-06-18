@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-04-28</date>
+ <date>2015-06-18</date>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -391,6 +391,7 @@
        <file name="line-folding-4.ics" role="test" />
        <file name="line-folding-5.ics" role="test" />
        <file name="line-folding-6.ics" role="test" />
+       <file name="multiple-summary.ics" role="test" />
        <file name="org.vcf" role="test" />
        <file name="quoted-params.ics" role="test" />
        <file name="vcal20.ics" role="test" />
@@ -606,6 +607,7 @@
    <install as="Horde/Icalendar/fixtures/line-folding-4.ics" name="test/Horde/Icalendar/fixtures/line-folding-4.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-5.ics" name="test/Horde/Icalendar/fixtures/line-folding-5.ics" />
    <install as="Horde/Icalendar/fixtures/line-folding-6.ics" name="test/Horde/Icalendar/fixtures/line-folding-6.ics" />
+   <install as="Horde/Icalendar/fixtures/multiple-summary.ics" name="test/Horde/Icalendar/fixtures/multiple-summary.ics" />
    <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
    <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
    <install as="Horde/Icalendar/fixtures/vcal20.ics" name="test/Horde/Icalendar/fixtures/vcal20.ics" />
@@ -1161,7 +1163,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Icalendar#getAttributeSingle().
