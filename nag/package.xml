@@ -24,7 +24,7 @@
  </lead>
  <date>2015-06-18</date>
  <version>
-  <release>4.2.5</release>
+  <release>4.2.6</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix positioning of dialog windows.
-* [jan] Don&apos;t delete existing completions when editing a recurring task.
-* [jan] Only delete the last completion when toggling a recurring task to incomplete.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1645,6 +1643,19 @@
 * [jan] Fix positioning of dialog windows.
 * [jan] Don&apos;t delete existing completions when editing a recurring task.
 * [jan] Only delete the last completion when toggling a recurring task to incomplete.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.6</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
