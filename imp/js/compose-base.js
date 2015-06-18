@@ -131,7 +131,7 @@ var ImpComposeBase = {
                         val = val.substr(1);
                     } else if (!in_group && !in_quote) {
                         ob.addNewItem(val.substr(0, orig_pos));
-                        val = val.substr(orig_pos + 2);
+                        val = val.substr(orig_pos + 1).strip();
                         pos = 0;
                     }
                     break;
