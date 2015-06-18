@@ -3934,7 +3934,7 @@
    <date>2015-06-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mjr] Work around broken ActiveSync clients that send incorrect line lengths for text/html parts (Bug: 13901).
+* [mjr] Work around broken ActiveSync clients that send incorrect line lengths for text/html parts (Bug #13901).
    </notes>
   </release>
   <release>
