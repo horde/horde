@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-06-18</date>
  <version>
   <release>5.2.7</release>
   <api>5.2.0</api>
@@ -571,10 +571,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, Turba, Kronolith, and Nag.
    </notes>
   </release>
  </changelog>
