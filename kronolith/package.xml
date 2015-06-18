@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-05-18</date>
+ <date>2015-06-18</date>
  <version>
   <release>4.2.8</release>
   <api>4.2.0</api>
@@ -2561,7 +2561,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-05-18</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t delete existing exceptions and completions when editing recurring events or tasks.
