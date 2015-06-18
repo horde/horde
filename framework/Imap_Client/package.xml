@@ -12,7 +12,7 @@
  </lead>
  <date>2015-06-18</date>
  <version>
-  <release>2.29.0</release>
+  <release>2.29.1</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix detecting changes when using tokens.
-* [mms] Add support for SCRAM-SHA-1 authentication (RFC 5802) for both IMAP and POP3 drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2904,6 +2903,19 @@
    <notes>
 * [mjr] Fix detecting changes when using tokens.
 * [mms] Add support for SCRAM-SHA-1 authentication (RFC 5802) for both IMAP and POP3 drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.1</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
