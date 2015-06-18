@@ -1,4 +1,4 @@
-<?php
+  <?php
 /**
  * This is a view of Kronolith's sidebar.
  *
@@ -60,7 +60,8 @@ class Kronolith_View_Sidebar extends Horde_View_Sidebar
             !$prefs->isLocked('default_share');
         $sidebar->resourceAdmin = $registry->isAdmin() || $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission('resource_management');
         $sidebar->resources = $GLOBALS['conf']['resource']['driver'] == 'sql';
-
+        $sidebar->addRemote = !$prefs->isLocked('remote_cals');
+        $sidebar->showRemote = !($prefs->isLocked('remote_cals') && empty(unserialize($prefs->getValue('remote_cals'))));
         $this->content = $sidebar->render('dynamic/sidebar');
     }
 }
