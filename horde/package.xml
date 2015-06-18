@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-06-18</date>
  <version>
   <release>5.2.6</release>
   <api>5.2.0</api>
@@ -4027,7 +4027,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Use Horde_Ldap in example preference hooks.

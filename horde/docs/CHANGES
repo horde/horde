@@ -1,6 +1,6 @@
-----------
-v5.2.6-git
-----------
+------
+v5.2.6
+------
 
 [jan] Use Horde_Ldap in example preference hooks.
 [jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
