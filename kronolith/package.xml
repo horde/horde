@@ -24,7 +24,7 @@
  </lead>
  <date>2015-06-18</date>
  <version>
-  <release>4.2.8</release>
+  <release>4.2.9</release>
   <api>4.2.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Don&apos;t delete existing exceptions and completions when editing recurring events or tasks.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2565,6 +2565,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t delete existing exceptions and completions when editing recurring events or tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.2.9</release>
+    <api>4.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-06-18</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
