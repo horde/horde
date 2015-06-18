@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>false</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-06-18</date>
  <version>
   <release>4.2.5</release>
   <api>4.2.0</api>
@@ -1639,7 +1639,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-02-10</date>
+   <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix positioning of dialog windows.
