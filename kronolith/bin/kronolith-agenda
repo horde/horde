@@ -184,7 +184,7 @@ function send_agendas()
     }
 }
 
-function sort_events ($a, $b)
+function sort_events($a, $b)
 {
     if ($a->allday && $b->allday) {
         return 0;
