@@ -24,6 +24,7 @@ v4.3.0-git
 v4.2.9
 ------
 
+[mjr] Honor locking the remote_cals preference.
 [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
 
 
