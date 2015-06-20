@@ -148,7 +148,9 @@ class Kronolith_Driver
      * @param object $query  An object with the criteria to search for.
      * @param boolean $json  Store the results of the events' toJson() method?
      *
-     * @return mixed  An array of Kronolith_Events.
+     * @return array An array of search results keyed by date, with each date
+     *               containing an array of Kronolith_Events occuring on that
+     *               date.
      * @throws Kronolith_Exception
      */
     public function search($query, $json = false)
