@@ -173,11 +173,24 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             );
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        try {
+            $columns = $this->_db->columns($this->_syncStateTable);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err(sprintf(
+                '[%s] %s',
+                $this->_procid,
+                $e->getMessage())
+            );
+            throw new Horde_ActiveSync_Exception($e);
+        }
+
+
         $update = 'UPDATE ' . $this->_syncStateTable . ' SET sync_data = ? WHERE '
             . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
 
         foreach ($results as $folder) {
-            $folder = unserialize($folder);
+            $folder = unserialize($columns['sync_data']->binaryToString($folder));
             $folder->setServerId($serverid);
             $folder = serialize($folder);
             try {
