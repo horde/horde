@@ -780,8 +780,8 @@ class Kronolith_Api extends Horde_Registry_Api
 
         $result = $driver->search($event);
         // Check if the match really is an exact match:
-        if (is_array($result) && count($result) > 0) {
-            foreach ($result as $match) {
+        foreach ($result as $days) {
+            foreach ($days as $match) {
                 if ($match->start == $event->start &&
                     $match->end == $event->end &&
                     $match->title == $event->title &&
