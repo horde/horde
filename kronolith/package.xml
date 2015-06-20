@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2577,7 +2577,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
    </notes>
   </release>
  </changelog>
