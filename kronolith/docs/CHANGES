@@ -21,6 +21,21 @@ v4.3.0-git
 
 
 ------
+v4.2.9
+------
+
+[mjr] Fix detecting duplicate events during import via the API (Bug #14018).
+
+
+------
+v4.2.8
+------
+
+[jan] Don't delete existing exceptions and completions when editing recurring
+      events or tasks.
+
+
+------
 v4.2.7
 ------
 
