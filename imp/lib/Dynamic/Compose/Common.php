@@ -49,9 +49,7 @@ class IMP_Dynamic_Compose_Common
 
         $page_output->addScriptPackage('Horde_Core_Script_Package_Keynavlist');
         $page_output->addScriptPackage('IMP_Script_Package_Compose');
-        if ($registry->hasMethod('contacts/search')) {
-            $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
-        }
+        $page_output->addScriptPackage('IMP_Script_Package_Autocomplete');
 
         $page_output->addThemeStylesheet('compose.css');
 
