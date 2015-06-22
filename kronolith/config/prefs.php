@@ -275,7 +275,7 @@ $_prefs['sync_calendars'] = array(
         $enum = array();
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         if (empty($sync)) {
-            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar())));
+            $GLOBALS['prefs']->setValue('sync_calendars', serialize(array(Kronolith::getDefaultCalendar(Horde_Perms::EDIT, !$GLOBALS['prefs']->getValue('activesync_no_multiplex')))));
         }
         foreach (Kronolith::listInternalCalendars(!$GLOBALS['prefs']->getValue('activesync_no_multiplex'), Horde_Perms::EDIT) as $key => $cal) {
             if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
