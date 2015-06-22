@@ -628,12 +628,16 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         $ipoption = isset($this->_params['ipaddress'])
             ? (' -I ' . $this->_params['ipaddress'])
             : null;
+        $domain = isset($this->_params['domain'])
+            ? (' -W ' . $this->_params['domain'])
+            : null;
         $fullcmd = $this->_params['smbclient'] .
             ' "//' . $this->_params['hostspec'] . '/' . $share . '"' .
             ' "-p' . $this->_params['port'] . '"' .
             ' "-U' . $this->_params['username'] . '"' .
             ' -D "' . $path . '" ' .
             $ipoption .
+            $domain .
             ' -c "';
         foreach ($cmd as $c) {
             $fullcmd .= $c . ";";
