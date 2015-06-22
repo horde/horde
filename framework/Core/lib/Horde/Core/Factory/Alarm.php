@@ -62,7 +62,14 @@ class Horde_Core_Factory_Alarm extends Horde_Core_Factory_Base
 
         switch (Horde_String::lower($driver)) {
         case 'sql':
-            $params['db'] = $this->_injector->getInstance('Horde_Core_Factory_Db')->create('horde', 'alarms');
+            try {
+                $params['db'] = $this->_injector
+                    ->getInstance('Horde_Core_Factory_Db')
+                    ->create('horde', 'alarms');
+            } catch (Horde_Exception $e) {
+                $driver = 'null';
+                $params = Horde::getDriverConfig('alarms', $driver);
+            }
             break;
         }
 
