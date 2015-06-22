@@ -532,6 +532,18 @@ class IMP_Smime
     }
 
     /**
+     * Convert a PEM format certificate to readable HTML version.
+     *
+     * @param string $cert   PEM format certificate.
+     *
+     * @return string  HTML detailing the certificate.
+     */
+    public function certToHTML($cert)
+    {
+        return $this->_smime->certToHTML($cert);
+    }
+
+    /**
      * Extract the contents of a PEM format certificate to an array.
      *
      * @param string $cert  PEM format certificate.
