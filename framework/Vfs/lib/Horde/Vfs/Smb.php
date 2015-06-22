@@ -1,26 +1,5 @@
 <?php
 /**
- * Stateless VFS implementation for a SMB server, based on smbclient.
- *
- * Required values for $params:
- * <pre>
- * username - (string)The username with which to connect to the SMB server.
- * password - (string) The password with which to connect to the SMB server.
- * hostspec - (string) The SMB server to connect to.
- * port' - (integer) The SMB port number to connect to.
- * share - (string) The share to access on the SMB server.
- * smbclient - (string) The path to the 'smbclient' executable.
- * </pre>
- *
- * Optional values for $params:
- * <pre>
- * ipaddress - (string) The address of the server to connect to.
- * </pre>
- *
- * Functions not implemented:
- * - changePermissions(): The SMB permission style does not fit with the
- *                        module.
- *
  * Codebase copyright 2002 Paul Gareau <paul@xhawk.net>.  Adapted with
  * permission by Patrice Levesque <wayne@ptaff.ca> from phpsmb-0.8 code, and
  * converted to the LGPL.  Please do not taunt original author, contact
@@ -28,6 +7,35 @@
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author  Paul Gareau <paul@xhawk.net>
+ * @author  Patrice Levesque <wayne@ptaff.ca>
+ * @package Vfs
+ */
+
+/**
+ * Stateless VFS implementation for a SMB server, based on smbclient.
+ *
+ * Required values for $params:
+ *  - username:  (string) The username with which to connect to the SMB server.
+ *  - password:  (string) The password with which to connect to the SMB server.
+ *  - hostspec:  (string) The SMB server to connect to.
+ *  - port:      (integer) The SMB port number to connect to.
+ *  - share:     (string) The share to access on the SMB server. Any trailing
+ *               paths will removed from the share and prepended to each path
+ *               in further requests. Example: a share of 'myshare/basedir' and
+ *               a request to 'dir/subdir' will result in a request to
+ *               'basedir/dir/subdir' on myshare.
+ *  - smbclient: (string) The path to the 'smbclient' executable.
+ *
+ * Optional values for $params:
+ *  - ipaddress: (string) The address of the server to connect to.
+ *
+ * Functions not implemented:
+ *  - changePermissions(): The SMB permission style does not fit with the
+ *                         module.
+ *
+ * All paths need to use forward slashes!
  *
  * @author  Paul Gareau <paul@xhawk.net>
  * @author  Patrice Levesque <wayne@ptaff.ca>
