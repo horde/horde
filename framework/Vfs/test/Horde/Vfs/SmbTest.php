@@ -202,6 +202,20 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
         $this->_listFolder();
     }
 
+    public function testHostspecWithPath()
+    {
+        self::$vfs->createFolder('', 'hostspectest');
+        self::$vfs->createFolder('hostspectest', 'directory');
+        self::$vfs->createFolder('hostspectest/directory', 'subdir');
+        $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
+        $config['vfs']['smb']['share'] .= '/hostspectest';
+        $vfs = Horde_Vfs::factory('Smb', $config['vfs']['smb']);
+        $this->assertEquals(
+            array('subdir'),
+            array_keys($vfs->listFolder('directory'))
+        );
+    }
+
     public function testParseListing()
     {
         $vfs = new Horde_Vfs_Smb();

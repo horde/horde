@@ -618,9 +618,16 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
      */
     protected function _command($path, $cmd)
     {
-        list($share) = $this->_escapeShellCommand($this->_params['share']);
+        $share_parts = explode('/', $this->_params['share']);
+        list($share) = $this->_escapeShellCommand(array_shift($share_parts));
+        if ($share_parts) {
+            $path = implode('/', $share_parts) . '/' . $path;
+        }
+
         putenv('PASSWD=' . $this->_params['password']);
-        $ipoption = (isset($this->_params['ipaddress'])) ? (' -I ' . $this->_params['ipaddress']) : null;
+        $ipoption = isset($this->_params['ipaddress'])
+            ? (' -I ' . $this->_params['ipaddress'])
+            : null;
         $fullcmd = $this->_params['smbclient'] .
             ' "//' . $this->_params['hostspec'] . '/' . $share . '"' .
             ' "-p' . $this->_params['port'] . '"' .
