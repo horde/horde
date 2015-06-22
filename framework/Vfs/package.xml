@@ -38,6 +38,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Make &apos;port&apos; parameter of Smb driver optional.
 * [jan] Add &apos;domain&apos; parameter to Smb driver.
 * [jan] Allow to specify a fixed leading directory in Smb driver.
  </notes>
@@ -1234,6 +1235,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2015-06-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Make &apos;port&apos; parameter of Smb driver optional.
 * [jan] Add &apos;domain&apos; parameter to Smb driver.
 * [jan] Allow to specify a fixed leading directory in Smb driver.
    </notes>

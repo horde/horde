@@ -20,7 +20,6 @@
  *  - username:  (string) The username with which to connect to the SMB server.
  *  - password:  (string) The password with which to connect to the SMB server.
  *  - hostspec:  (string) The SMB server to connect to.
- *  - port:      (integer) The SMB port number to connect to.
  *  - share:     (string) The share to access on the SMB server. Any trailing
  *               paths will removed from the share and prepended to each path
  *               in further requests. Example: a share of 'myshare/basedir' and
@@ -29,6 +28,7 @@
  *  - smbclient: (string) The path to the 'smbclient' executable.
  *
  * Optional values for $params:
+ *  - port:      (integer) The SMB port number to connect to.
  *  - ipaddress: (string) The address of the server to connect to.
  *
  * Functions not implemented:
@@ -625,15 +625,18 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
         }
 
         putenv('PASSWD=' . $this->_params['password']);
+        $port = isset($this->_params['port'])
+            ? (' "-p' . $this->_params['port'] . '"')
+            : '';
         $ipoption = isset($this->_params['ipaddress'])
             ? (' -I ' . $this->_params['ipaddress'])
-            : null;
+            : '';
         $domain = isset($this->_params['domain'])
             ? (' -W ' . $this->_params['domain'])
-            : null;
+            : '';
         $fullcmd = $this->_params['smbclient'] .
             ' "//' . $this->_params['hostspec'] . '/' . $share . '"' .
-            ' "-p' . $this->_params['port'] . '"' .
+            $port .
             ' "-U' . $this->_params['username'] . '"' .
             ' -D "' . $path . '" ' .
             $ipoption .
