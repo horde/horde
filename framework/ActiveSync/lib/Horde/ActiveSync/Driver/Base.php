@@ -582,6 +582,17 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @return array A list of messge uids that have chnaged in the specified
      *               time period.
+     *
+     * @todo Horde 6
+     * - Change return structure to (optionally) include the actual $to_ts value
+     *   that was used. This is needed because if using something like
+     *   Kolab/IMAP storage backend in Horde, then we must synchronize
+     *   Horde <-> Kolab to get any changes from external Kolab clients and this
+     *   may cause new/changed entries that would change the current MODSEQ.
+     *   Not critical, since without this it only results in having to wait
+     *   until the next SYNC cycle. By returning the actual $to_ts value we can
+     *   update the state with THIS value instead of the one we were originally
+     *   sent.
      */
     abstract public function getServerChanges(
         $folderId, $from_ts, $to_ts, $cutoffdate, $ping);
