@@ -181,13 +181,13 @@ class Horde_Perms_Permission
 
                     if ($type == 'matrix') {
                         foreach ($perm_types as $val => $label) {
-                            if ($name_values[$val] === '0' || !empty($name_values[$val])) {
+                            if (strlen($name_values[$val])) {
                                 $this->setPerm($permId, $val, false);
                             } else {
                                 $this->unsetPerm($permId, $val, false);
                             }
                         }
-                    } elseif ($name_values === '0' || !empty($name_values)) {
+                    } elseif (strlen($name_values)) {
                         $this->setPerm($permId, $name_values, false);
                     } else {
                         $this->unsetPerm($permId, null, false);
