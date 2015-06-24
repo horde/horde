@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix issues when a value of 0 is a valid value for the permission (Bug #14025).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -968,7 +968,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix issues when a value of 0 is a valid value for the permission (Bug #14025).
    </notes>
   </release>
  </changelog>
