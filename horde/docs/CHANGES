@@ -2,6 +2,8 @@
 v5.2.7-git
 ----------
 
+[mjr] Fix some issues with the permission interface when a value of 0 is a
+      valid permission value (Bug #14025).
 
 
 ------
