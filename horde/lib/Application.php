@@ -242,10 +242,10 @@ class Horde_Application extends Horde_Registry_Application
             'title' => _("Password Complexity"),
             'type' => 'enum',
             'params' => array(array(
-                false => '',
-                0 => _("Allow only numeric"),
-                1 => _("Allow alphanumeric"),
-                2 => _("Allow any"))
+                '' => '',
+                '0' => _("Allow only numeric"),
+                '1' => _("Allow alphanumeric"),
+                '2' => _("Allow any"))
             )
         );
 
@@ -331,13 +331,13 @@ class Horde_Application extends Horde_Registry_Application
                 'title' => _("Maximum Email age"),
                 'type' => 'enum',
                 'params' => array(array(
-                    false => '',
-                    0 => _("Sync all"),
-                    1 => _("1 Day"),
-                    2 => _("3 Days"),
-                    3 => _("1 Week"),
-                    4 => _("2 Weeks"),
-                    5 => _("1 Month"))
+                    '' => '',
+                    '0' => _("Sync all"),
+                    '1' => _("1 Day"),
+                    '2' => _("3 Days"),
+                    '3' => _("1 Week"),
+                    '4' => _("2 Weeks"),
+                    '5' => _("1 Month"))
                 )
             );
             $permissions[$prefix . Horde_ActiveSync_Policies::POLICY_ROAMING_NOPUSH] = array(
