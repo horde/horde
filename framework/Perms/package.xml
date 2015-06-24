@@ -17,7 +17,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-06-24</date>
  <version>
   <release>2.1.5</release>
   <api>2.1.0</api>
@@ -965,7 +965,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issues when a value of 0 is a valid value for the permission (Bug #14025).
