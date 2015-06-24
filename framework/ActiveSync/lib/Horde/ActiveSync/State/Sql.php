@@ -159,11 +159,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_procid,
             $serverid,
             $uid));
-        $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable . ' WHERE '
+        $sql = 'SELECT sync_key, sync_data FROM ' . $this->_syncStateTable . ' WHERE '
             . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
 
         try {
-            $results = $this->_db->selectValues($sql,
+            $results = $this->_db->selectAll($sql,
                 array($this->_deviceInfo->id, $this->_deviceInfo->user, $uid));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err(sprintf(
@@ -187,15 +187,22 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
 
         $update = 'UPDATE ' . $this->_syncStateTable . ' SET sync_data = ? WHERE '
-            . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ?';
+            . 'sync_devid = ? AND sync_user = ? AND sync_folderid = ? AND sync_key = ?';
 
-        foreach ($results as $folder) {
-            $folder = unserialize($columns['sync_data']->binaryToString($folder));
+        foreach ($results as $result) {
+            $folder = unserialize($columns['sync_data']->binaryToString($result['sync_data']));
             $folder->setServerId($serverid);
             $folder = serialize($folder);
             try {
                 $this->_db->update($update,
-                    array($folder, $this->_deviceInfo->id, $this->_deviceInfo->user, $uid));
+                    array(
+                        new Horde_Db_Value_Binary($folder),
+                        $this->_deviceInfo->id,
+                        $this->_deviceInfo->user,
+                        $uid,
+                        $result['sync_key']
+                    )
+                );
             } catch (Horde_Db_Exception $e) {
                 $this->_logger->err(sprintf(
                     '[%s] %s',
