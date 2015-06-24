@@ -847,8 +847,8 @@ class Kronolith_Api extends Horde_Registry_Api
         // Check if the match really is an exact match:
         foreach ($result as $days) {
             foreach ($days as $match) {
-                if ($match->start == $event->start &&
-                    $match->end == $event->end &&
+                if ($match->start->compareDateTime($event->start) == 0 &&
+                    $match->end->compareDateTime($event->end) == 0 &&
                     $match->title == $event->title &&
                     $match->location == $event->location &&
                     $match->hasPermission(Horde_Perms::EDIT)) {
