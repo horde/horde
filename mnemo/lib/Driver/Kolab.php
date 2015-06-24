@@ -180,6 +180,9 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _buildObject($noteId, $desc, $body, $tags)
     {
+        // Not really needed but it's nice to update the view
+        $this->synchronize();
+
         $uid = Horde_Url::uriB64Decode($noteId);
         $object = array(
             'uid' => $uid,
@@ -205,6 +208,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _move($noteId, $newNotepad)
     {
+        $this->synchronize();
         $uid = Horde_Url::uriB64Decode($noteId);
         try {
             $this->_getData()->move(
@@ -215,6 +219,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
+
         return $uid;
     }
 
@@ -228,12 +233,14 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _delete($noteId)
     {
+        $this->synchronize();
         $uid = Horde_Url::uriB64Decode($noteId);
         try {
             $this->_getData()->delete($uid);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
+
         return $uid;
     }
 
@@ -245,6 +252,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _deleteAll()
     {
+        $this->synchronize();
         try {
             $uids = $this->_getData()->getObjectIds();
             $this->_getData()->deleteAll();
@@ -258,16 +266,18 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     /**
      * Return the Kolab data handler for the current notepad.
      *
+     * @param boolean $force  Force returning a new handler.
+     *
      * @return Horde_Kolab_Storage_Data The data handler.
      */
-    protected function _getData()
+    protected function _getData($force = false)
     {
         if (empty($this->_notepad)) {
             throw new LogicException(
                 'The notepad has been left undefined but is required!'
             );
         }
-        if ($this->_data === null) {
+        if ($this->_data === null  || $force) {
             $this->_data = $this->_getDataForNotepad($this->_notepad);
         }
         return $this->_data;
@@ -295,6 +305,22 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                     $e->getMessage()
                 )
             );
+        }
+    }
+
+    /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $data = $this->_getData(true);
+        $last_token = $GLOBALS['session']->get('mnemo', 'kolab/token');
+        if (empty($token) || (empty($last_token) || $last_token != $token)) {
+            $GLOBALS['session']->set('mnemo', 'kolab/token', $token);
+            $data->synchronize();
         }
     }
 

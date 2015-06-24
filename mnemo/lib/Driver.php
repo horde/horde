@@ -514,6 +514,17 @@ abstract class Mnemo_Driver
     }
 
     /**
+     * Perform any synchronization with backend data handlers that may be
+     * necessary for the driver.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+    }
+
+    /**
      * Generates a local note ID.
      *
      * @return string  A new note ID.
