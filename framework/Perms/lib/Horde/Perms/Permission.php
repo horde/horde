@@ -175,18 +175,19 @@ class Horde_Perms_Permission
                 }
 
                 /* Loop through the names and update permissions for each. */
+                // @todo for Horde 6 - allow integer 0 values?
                 foreach ($perm_values as $name => $name_values) {
                     $permId['name'] = $name;
 
                     if ($type == 'matrix') {
                         foreach ($perm_types as $val => $label) {
-                            if (!empty($name_values[$val])) {
+                            if ($name_values[$val] === '0' || !empty($name_values[$val])) {
                                 $this->setPerm($permId, $val, false);
                             } else {
                                 $this->unsetPerm($permId, $val, false);
                             }
                         }
-                    } elseif (!empty($name_values)) {
+                    } elseif ($name_values === '0' || !empty($name_values)) {
                         $this->setPerm($permId, $name_values, false);
                     } else {
                         $this->unsetPerm($permId, null, false);
