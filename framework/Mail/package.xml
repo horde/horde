@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-06-24</date>
  <version>
   <release>2.6.1</release>
   <api>2.6.0</api>
@@ -707,7 +707,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-06-24</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix sending mail via PHP&apos;s mail function (Steffen Lindner &lt;mail@steffen-lindner.de&gt;).
