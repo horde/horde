@@ -13,6 +13,23 @@ v5.3.0-git
 
 
 ------
+v5.2.7
+------
+
+[mjr] Fix some issues with the permission interface when a value of 0 is a
+      valid permission value (Bug #14025).
+
+
+------
+v5.2.6
+------
+
+[jan] Use Horde_Ldap in example preference hooks.
+[jan] Convert REDIRECT_HTTP_AUTHORIZATION to HTTP authentication headers too.
+[jan] Display MOTD on mobile login screen.
+
+
+------
 v5.2.5
 ------
 
