@@ -211,26 +211,6 @@ class Horde_Ldap_Search implements Iterator
      */
     public function sortedAsArray(array $attrs = array('cn'), $order = SORT_ASC)
     {
-        /* Old Code, suitable and fast for single valued sorting. This code
-         * should be used if we know that single valued sorting is desired, but
-         * we need some method to get that knowledge... */
-        /*
-        $attrs = array_reverse($attrs);
-        foreach ($attrs as $attribute) {
-            if (!ldap_sort($this->_link, $this->_search, $attribute)) {
-                throw new Horde_Ldap_Exception('Sorting failed for attribute ' . $attribute);
-            }
-        }
-
-        $results = ldap_get_entries($this->_link, $this->_search);
-
-        unset($results['count']);
-        if ($order) {
-            return array_reverse($results);
-        }
-        return $results;
-        */
-
         /* New code: complete "client side" sorting */
         // First some parameterchecks.
         if ($order != SORT_ASC && $order != SORT_DESC) {
