@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1361,7 +1361,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
    </notes>
   </release>
  </changelog>

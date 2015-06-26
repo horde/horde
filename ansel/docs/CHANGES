@@ -2,6 +2,8 @@
 v3.0.3-git
 ----------
 
+[mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile
+      view (Bug #14028).
 
 
 ------
