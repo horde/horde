@@ -383,7 +383,7 @@ class Horde_Pgp
         foreach ($this->_backends as $val) {
             try {
                 return call_user_func_array(array($val, $cmd), $args);
-            } catch (Exceptio $e) {}
+            } catch (Exception $e) {}
         }
 
         throw new Horde_Pgp_Exception($error);
