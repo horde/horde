@@ -317,4 +317,42 @@ END:VCALENDAR
             $ical->exportVCalendar()
         );
     }
+
+    public function testDuration0()
+    {
+		$ical = new Horde_Icalendar;
+		$vevent = Horde_Icalendar::newComponent('VEVENT', $ical);
+		$vevent->setAttribute('SUMMARY', 'Testevent');
+		$vevent->setAttribute('UID', 'XXX');
+		$vevent->setAttribute('DTSTART', new DateTime('20150701T120000Z'));
+		$vevent->setAttribute('DTSTAMP', new DateTime('20150701T120000Z'));
+		$vevent->setAttribute('DURATION', 0);
+		$ical->addComponent($vevent);
+		$valarm = Horde_Icalendar::newComponent('VALARM', $vevent);
+		$valarm->setAttribute('TRIGGER', 0, array(
+			'VALUE' => 'DURATION',
+			'RELATED' => 'START',
+		));
+		$valarm->setAttribute('DESCRIPTION', 'Alarm at event-start');
+		$vevent->addComponent($valarm);
+		$this->assertEquals(
+			'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+BEGIN:VEVENT
+SUMMARY:Testevent
+UID:XXX
+DTSTART:20150701T120000Z
+DTSTAMP:20150701T120000Z
+DURATION:PT0S
+BEGIN:VALARM
+TRIGGER;VALUE=DURATION;RELATED=START:PT0S
+DESCRIPTION:Alarm at event-start
+END:VALARM
+END:VEVENT
+END:VCALENDAR
+',
+            $ical->exportVCalendar()
+        );
+	}
 }
