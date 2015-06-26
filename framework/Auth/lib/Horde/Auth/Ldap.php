@@ -481,6 +481,8 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             'scope' => $this->_params['scope']
         );
 
+        // Be sure we bind as the configured user.
+        $this->_ldap->bind();
         try {
             $uidfilter = Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $userId);
             $classfilter = Horde_Ldap_Filter::build(array('filter' => $this->_params['filter']));
