@@ -915,7 +915,7 @@ class Ansel_Image Implements Iterator
             // Check full photo permissions
             $gallery = $GLOBALS['injector']
                 ->getInstance('Ansel_Storage')
-                ->getGallery($this->gallery);
+                ->getGallery(abs($this->gallery));
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
                     _("Access denied downloading photos from this gallery."));
