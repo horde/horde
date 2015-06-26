@@ -208,7 +208,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         /* Attempt to bind to the LDAP server as the user. */
         try {
             $this->_ldap->bind($dn, $credentials['password']);
+            // Be sure we rebind as the configured user.
+            $this->_ldap->bind();
         } catch (Horde_Ldap_Exception $e) {
+            // Be sure we rebind as the configured user.
+            $this->_ldap->bind();
             if (Horde_Ldap::errorName($e->getCode() == 'LDAP_INVALID_CREDENTIALS')) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
             }
@@ -481,8 +485,6 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
             'scope' => $this->_params['scope']
         );
 
-        // Be sure we bind as the configured user.
-        $this->_ldap->bind();
         try {
             $uidfilter = Horde_Ldap_Filter::create($this->_params['uid'], 'equals', $userId);
             $classfilter = Horde_Ldap_Filter::build(array('filter' => $this->_params['filter']));
