@@ -92,8 +92,8 @@ class Ansel_ImageGenerator
     public function create()
     {
         if (!empty($this->_image)) {
-            // Use Horde_Image since we don't know at this point which
-            // view we have loaded.
+            // Make sure to load the image.
+            $this->_image->load('full');
             $img = $this->_image->getHordeImage();
             $this->_dimensions = $img->getDimensions();
         }
