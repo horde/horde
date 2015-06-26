@@ -61,34 +61,31 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
      *                                'action-value' (only used if the
      *                                'action' requires it)
      * @param array $scriptparams  Array of parameters passed to
-     *                             Ingo_Script_Procmail::.
+     *                             Ingo_Script_Procmail.
      */
     public function __construct($params = array(), $scriptparams = array())
     {
         $this->_disable = !empty($params['disable']);
         $this->_params = array_merge($this->_params, $scriptparams);
 
+        $delivery = '| ';
+        if (isset($this->_params['delivery_agent'])) {
+            $delivery .= $this->_params['delivery_agent'] . ' ';
+        }
+        if (isset($this->_params['delivery_mailbox_prefix'])) {
+            $delivery .= ' ' . $this->_params['delivery_mailbox_prefix'];
+        }
+
         switch ($params['action']) {
         case Ingo_Storage::ACTION_KEEP:
             // Note: you may have to set the DEFAULT variable in your
             // backend configuration.
-            if (isset($this->_params['delivery_agent']) && isset($this->_params['delivery_mailbox_prefix'])) {
-                $this->_action[] = '| ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . '$DEFAULT';
-            } elseif (isset($this->_params['delivery_agent'])) {
-                $this->_action[] = '| ' . $this->_params['delivery_agent'] . ' $DEFAULT';
-            } else {
-                $this->_action[] = '$DEFAULT';
-            }
+            $this->_action[] = $delivery .= '$DEFAULT';
             break;
 
         case Ingo_Storage::ACTION_MOVE:
-            if (isset($this->_params['delivery_agent']) && isset($this->_params['delivery_mailbox_prefix'])) {
-                $this->_action[] = '| ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . $this->procmailPath($params['action-value']);
-            } elseif (isset($this->_params['delivery_agent'])) {
-                $this->_action[] = '| ' . $this->_params['delivery_agent'] . ' ' . $this->procmailPath($params['action-value']);
-            } else {
-                $this->_action[] = $this->procmailPath($params['action-value']);
-            }
+            $this->_action[] = $delivery
+                .= $this->procmailPath($params['action-value']);
             break;
 
         case Ingo_Storage::ACTION_DISCARD:
@@ -104,14 +101,9 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '  :0 c';
             $this->_action[] = '  ! ' . $params['action-value'];
             $this->_action[] = '';
-            $this->_action[] = '  :0' . (isset($this->_params['delivery_agent']) ? ' w' : '');
-            if (isset($this->_params['delivery_agent']) && isset($this->_params['delivery_mailbox_prefix'])) {
-                $this->_action[] = '  | ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . '$DEFAULT';
-            } elseif (isset($this->_params['delivery_agent'])) {
-                $this->_action[] = '  | ' . $this->_params['delivery_agent'] . ' $DEFAULT';
-            } else {
-                $this->_action[] = '  $DEFAULT';
-            }
+            $this->_action[] = '  :0'
+                . (isset($this->_params['delivery_agent']) ? ' w' : '');
+            $this->_action[] = '  ' . $delivery . '$DEFAULT';
             $this->_action[] = '}';
             break;
 
@@ -137,7 +129,8 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $this->_action[] = '    -i"Subject: Re: $SUBJECT" ; \\';
             }
             $reason = addcslashes($reason, "\\\n\r\t\"`");
-            $this->_action[] = '    ' . $this->_params['echo'] . ' -e "' . $reason . '" \\';
+            $this->_action[] = '    ' . $this->_params['echo']
+                . ' -e "' . $reason . '" \\';
             $this->_action[] = '  ) | $SENDMAIL -oi -t';
             $this->_action[] = '}';
             break;
@@ -148,68 +141,94 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 !empty($params['action-value']['end']);
             $this->_action[] = '{';
             foreach ($params['action-value']['addresses'] as $address) {
-                if (!empty($address)) {
-                    $this->_action[] = '  :0';
-                    $this->_action[] = '  * ^TO_' . $address;
-                    $this->_action[] = '  {';
-                    $this->_action[] = '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.' . $address . '\' && '
-                        . $this->_params['ls'] . ' -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.' . $address . '\' | '
-                        . 'awk \'{ print $6 + (' . $days * 86400 . ') }\'`';
-                    $this->_action[] = '    DATE=`' . $this->_params['date'] . ' +%s`';
-                    $this->_action[] = '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.' . $address . '\' && '
-                        . 'test $FILEDATE -le $DATE && '
-                        . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
-                    if ($timed) {
-                        $this->_action[] = '    START=' . $params['action-value']['start'];
-                        $this->_action[] = '    END=' . $params['action-value']['end'];
-                    }
-                    $this->_action[] = '';
-                    $this->_action[] = '    :0 h';
-                    $this->_action[] = '    SUBJECT=| formail -xSubject:';
-                    $this->_action[] = '';
-                    $this->_action[] = '    :0 Whc: ${VACATION_DIR:-.}/vacation.lock';
-                    if ($timed) {
-                        $this->_action[] = '    * ? test $DATE -gt $START && test $END -gt $DATE';
-                    }
-                    $this->_action[] = '    {';
-                    $this->_action[] = '      :0 Wh';
-                    $this->_action[] = '      * ^TO_' . $address;
-                    $this->_action[] = '      * !^X-Loop: ' . $address;
-                    $this->_action[] = '      * !^X-Spam-Flag: YES';
-                    if (count($params['action-value']['excludes']) > 0) {
-                        foreach ($params['action-value']['excludes'] as $exclude) {
-                            if (!empty($exclude)) {
-                                $this->_action[] = '      * !^From.*' . $exclude;
-                            }
+                if (empty($address)) {
+                    continue;
+                }
+                $this->_action[] = '  :0';
+                $this->_action[] = '  * ^TO_' . $address;
+                $this->_action[] = '  {';
+                $this->_action[] =
+                    '    FILEDATE=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                    . $address . '\' && '
+                    . $this->_params['ls']
+                    . ' -lcn --time-style=+%s ${VACATION_DIR:-.}/\'.vacation.'
+                    . $address . '\' | '
+                    . 'awk \'{ print $6 + (' . $days * 86400 . ') }\'`';
+                $this->_action[] = '    DATE=`' . $this->_params['date']
+                    . ' +%s`';
+                $this->_action[] =
+                    '    DUMMY=`test -f ${VACATION_DIR:-.}/\'.vacation.'
+                    . $address . '\' && '
+                    . 'test $FILEDATE -le $DATE && '
+                    . 'rm ${VACATION_DIR:-.}/\'.vacation.' . $address . '\'`';
+                if ($timed) {
+                    $this->_action[] = '    START='
+                        . $params['action-value']['start'];
+                    $this->_action[] = '    END='
+                        . $params['action-value']['end'];
+                }
+                $this->_action[] = '';
+                $this->_action[] = '    :0 h';
+                $this->_action[] = '    SUBJECT=| formail -xSubject:';
+                $this->_action[] = '';
+                $this->_action[] =
+                    '    :0 Whc: ${VACATION_DIR:-.}/vacation.lock';
+                if ($timed) {
+                    $this->_action[] =
+                        '    * ? test $DATE -gt $START && test $END -gt $DATE';
+                }
+                $this->_action[] = '    {';
+                $this->_action[] = '      :0 Wh';
+                $this->_action[] = '      * ^TO_' . $address;
+                $this->_action[] = '      * !^X-Loop: ' . $address;
+                $this->_action[] = '      * !^X-Spam-Flag: YES';
+                if (count($params['action-value']['excludes']) > 0) {
+                    foreach ($params['action-value']['excludes'] as $exclude) {
+                        if (!empty($exclude)) {
+                            $this->_action[] = '      * !^From.*' . $exclude;
                         }
                     }
-                    if ($params['action-value']['ignorelist']) {
-                        $this->_action[] = '      * !^FROM_DAEMON';
-                    }
-                    $this->_action[] = '      | formail -rD 8192 ${VACATION_DIR:-.}/.vacation.' . $address;
-                    $this->_action[] = '      :0 eh';
-                    $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
-                    $this->_action[] = '       -a"From: <' . $address . '>" \\';
-                    $this->_action[] = '       -A"X-Loop: ' . $address . '" \\';
-                    $reason = Ingo_Script_Util::vacationReason(
-                        $params['action-value']['reason'],
-                        $params['action-value']['start'],
-                        $params['action-value']['end']
-                    );
-                    if (Horde_Mime::is8bit($reason)) {
-                        $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" \\';
-                        $this->_action[] = '       -i"Content-Transfer-Encoding: quoted-printable" \\';
-                        $this->_action[] = '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
-                        $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
-                    } else {
-                        $this->_action[] = '       -i"Subject: ' . Horde_Mime::encode($params['action-value']['subject'] . ' (Re: $SUBJECT)') . '" ; \\';
-                    }
-                    $reason = addcslashes($reason, "\\\n\r\t\"`");
-                    $this->_action[] = '       ' . $this->_params['echo'] . ' -e "' . $reason . '" \\';
-                    $this->_action[] = '      ) | $SENDMAIL -f' . $address . ' -oi -t';
-                    $this->_action[] = '    }';
-                    $this->_action[] = '  }';
                 }
+                if ($params['action-value']['ignorelist']) {
+                    $this->_action[] = '      * !^FROM_DAEMON';
+                }
+                $this->_action[] =
+                    '      | formail -rD 8192 ${VACATION_DIR:-.}/.vacation.'
+                    . $address;
+                $this->_action[] = '      :0 eh';
+                $this->_action[] = '      | (formail -rI"Precedence: junk" \\';
+                $this->_action[] = '       -a"From: <' . $address . '>" \\';
+                $this->_action[] = '       -A"X-Loop: ' . $address . '" \\';
+                $reason = Ingo_Script_Util::vacationReason(
+                    $params['action-value']['reason'],
+                    $params['action-value']['start'],
+                    $params['action-value']['end']
+                );
+                if (Horde_Mime::is8bit($reason)) {
+                    $this->_action[] = '       -i"Subject: '
+                        . Horde_Mime::encode(
+                            $params['action-value']['subject'] . ' (Re: $SUBJECT)'
+                        )
+                        . '" \\';
+                    $this->_action[] =
+                        '       -i"Content-Transfer-Encoding: quoted-printable" \\';
+                    $this->_action[] =
+                        '       -i"Content-Type: text/plain; charset=UTF-8" ; \\';
+                    $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
+                } else {
+                    $this->_action[] = '       -i"Subject: '
+                        . Horde_Mime::encode(
+                            $params['action-value']['subject'] . ' (Re: $SUBJECT)'
+                        )
+                        . '" ; \\';
+                }
+                $reason = addcslashes($reason, "\\\n\r\t\"`");
+                $this->_action[] = '       ' . $this->_params['echo']
+                    . ' -e "' . $reason . '" \\';
+                $this->_action[] = '      ) | $SENDMAIL -f' . $address
+                    . ' -oi -t';
+                $this->_action[] = '    }';
+                $this->_action[] = '  }';
             }
             $this->_action[] = '}';
             break;
@@ -256,7 +275,8 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                     $this->_action[] = '  :0 c';
                     $this->_action[] = '  * !^FROM_MAILER';
                     $this->_action[] = '  * !^X-Loop: to-' . $address;
-                    $this->_action[] = '  | formail -A"X-Loop: to-' . $address . '" | $SENDMAIL -oi -f $OUTPUT ' . $address;
+                    $this->_action[] = '  | formail -A"X-Loop: to-' . $address
+                        . '" | $SENDMAIL -oi -f $OUTPUT ' . $address;
                 }
             }
 
@@ -266,14 +286,9 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
              * The next two lines are redundant (and create an extra copy of
              * the message) if "Keep a copy of messages in this account" is
              * checked. */
-            $this->_action[] = '  :0 E' . (isset($this->_params['delivery_agent']) ? 'w' : '');
-            if (isset($this->_params['delivery_agent'])) {
-                $this->_action[] = isset($this->_params['delivery_mailbox_prefix']) ?
-                    ' | ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . '$DEFAULT' :
-                    ' | ' . $this->_params['delivery_agent'] . ' $DEFAULT';
-            } else {
-                $this->_action[] = '  $DEFAULT';
-            }
+            $this->_action[] = '  :0 E'
+                . (isset($this->_params['delivery_agent']) ? 'w' : '');
+            $this->_action[] = '  ' . $delivery . '$DEFAULT';
             $this->_action[] = '  :0 ';
             $this->_action[] = '  /dev/null';
             $this->_action[] = '}';
