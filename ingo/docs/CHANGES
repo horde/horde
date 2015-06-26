@@ -2,6 +2,8 @@
 v3.2.6-git
 ----------
 
+[jan] Fix duplicate messages when using the redirect-and-keep rule with
+      Procmail backends.
 
 
 ------

@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1573,7 +1573,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
    </notes>
   </release>
  </changelog>
