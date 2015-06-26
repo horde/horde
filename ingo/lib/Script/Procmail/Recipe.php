@@ -100,10 +100,12 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
             $this->_action[] = '{';
             $this->_action[] = '  :0 c';
             $this->_action[] = '  ! ' . $params['action-value'];
-            $this->_action[] = '';
-            $this->_action[] = '  :0'
-                . (isset($this->_params['delivery_agent']) ? ' w' : '');
-            $this->_action[] = '  ' . $delivery . '$DEFAULT';
+            if (strpos($this->_flags, 'c') === false) {
+                $this->_action[] = '';
+                $this->_action[] = '  :0'
+                    . (isset($this->_params['delivery_agent']) ? ' w' : '');
+                $this->_action[] = '  ' . $delivery . '$DEFAULT';
+            }
             $this->_action[] = '}';
             break;
 
