@@ -767,6 +767,9 @@ class Ansel_Gallery implements Serializable
             $default = $this->getKeyImage(Ansel::getStyleDefinition('ansel_default'));
             $params = array('gallery' => $this, 'style' => $style, 'image' => $storage->getImage($default));
             try {
+                if (!$params['image'] = $this->getImage($this->_getDefaultImageId())) {
+                    return false;
+                }
                 $iview = Ansel_ImageGenerator::factory($style->keyimage_type, $params);
                 $img = $iview->create();
 
@@ -798,37 +801,45 @@ class Ansel_Gallery implements Serializable
             }
         } else {
             // We are just using an image thumbnail.
-            if ($this->countImages()) {
-                if ($default = $this->get('default')) {
-                    return $default;
-                }
-                $keys = $this->listImages();
-                $this->set('default', $keys[count($keys) - 1]);
-                $this->set('default_type', 'auto');
-                $this->save();
-                return $keys[count($keys) - 1];
-            }
-
-            if ($this->hasSubGalleries()) {
-                // Fall through to a key image of a sub gallery.
-                try {
-                    $galleries = $storage->listGalleries(array(
-                        'parent' => $this->id,
-                        'all_levels' => false)
-                    );
-                    foreach ($galleries as $gallery) {
-                        if ($default_img = $gallery->getKeyImage($style)) {
-                            return $default_img;
-                        }
-                    }
-                } catch (Ansel_Exception $e) {
-                    return false;
-                }
-            }
+            return $this->_getDefaultImageId();
         }
 
         // Could not find a key image
         return false;
+    }
+
+    /**
+     * Returns the id for the key image of this gallery.
+     *
+     * @return integer|boolean  The image id or false if none found.
+     */
+    protected function _getDefaultImageId()
+    {
+        if ($this->countImages()) {
+            if ($default = $this->get('default')) {
+                return $default;
+            }
+            $keys = $this->listImages();
+            $this->set('default', $keys[count($keys) - 1]);
+            $this->set('default_type', 'auto');
+            $this->save();
+            return $keys[count($keys) - 1];
+        }
+        if ($this->hasSubGalleries()) {
+            try {
+                $galleries = $GLOBALS['injector']
+                    ->getInstance('Ansel_Storage')
+                    ->listGalleries(array('parent' => $this->id, 'all_levels' => false));
+
+                foreach ($galleries as $gallery) {
+                    if ($default_img = $gallery->getKeyImage($style)) {
+                        return $default_img;
+                    }
+                }
+            } catch (Ansel_Exception $e) {
+                return false;
+            }
+        }
     }
 
     /**

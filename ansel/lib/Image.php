@@ -903,7 +903,7 @@ class Ansel_Image Implements Iterator
     {
         if ($view == 'full' && !$this->_dirty) {
             // Check full photo permissions
-            $gallery = $GLOBALS['storage']->getGallery($this->gallery);
+            $gallery = $GLOBALS['storage']->getGallery(abs($this->gallery));
             if (!$gallery->canDownload()) {
                 throw Horde_Exception_PermissionDenied(
                     _("Access denied downloading photos from this gallery."));
