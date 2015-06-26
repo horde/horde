@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-06-18</date>
+ <date>2015-06-26</date>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -394,6 +394,10 @@
        <file name="multiple-summary.ics" role="test" />
        <file name="org.vcf" role="test" />
        <file name="quoted-params.ics" role="test" />
+       <file name="timezone1.ics" role="test" />
+       <file name="timezone2.ics" role="test" />
+       <file name="timezone3.ics" role="test" />
+       <file name="timezone4.ics" role="test" />
        <file name="vcal20.ics" role="test" />
        <file name="vfreebusy1.ics" role="test" />
        <file name="vfreebusy2.ics" role="test" />
@@ -610,6 +614,10 @@
    <install as="Horde/Icalendar/fixtures/multiple-summary.ics" name="test/Horde/Icalendar/fixtures/multiple-summary.ics" />
    <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
    <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone1.ics" name="test/Horde/Icalendar/fixtures/timezone1.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone2.ics" name="test/Horde/Icalendar/fixtures/timezone2.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone3.ics" name="test/Horde/Icalendar/fixtures/timezone3.ics" />
+   <install as="Horde/Icalendar/fixtures/timezone4.ics" name="test/Horde/Icalendar/fixtures/timezone4.ics" />
    <install as="Horde/Icalendar/fixtures/vcal20.ics" name="test/Horde/Icalendar/fixtures/vcal20.ics" />
    <install as="Horde/Icalendar/fixtures/vfreebusy1.ics" name="test/Horde/Icalendar/fixtures/vfreebusy1.ics" />
    <install as="Horde/Icalendar/fixtures/vfreebusy2.ics" name="test/Horde/Icalendar/fixtures/vfreebusy2.ics" />
@@ -1176,7 +1184,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-18</date>
+   <date>2015-06-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
