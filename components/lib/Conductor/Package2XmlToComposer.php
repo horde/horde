@@ -579,9 +579,9 @@ EOF;
                     $j .= $tab . $tab . $tab . "\"role\": \"$atype\"\n";
                     $j .= $tab . $tab . "},\n";
                 }
-                $j = rtrim($j, ",\n") . "\n";
             }
         }
+        $j = rtrim($j, ",\n") . "\n";
         $j .= $tab . "],\n";
 
         if (isset($this->data['version']['release']) && $this->write_version_to_composer) {
