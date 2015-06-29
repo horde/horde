@@ -14,14 +14,14 @@
             "name": "Jan Schneider",
             "email": "jan@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.5.5",
+    "version": "2.5.6",
     "time": "2015-04-13",
     "repositories": [
         {

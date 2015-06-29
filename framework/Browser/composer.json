@@ -9,14 +9,14 @@
             "name": "Chuck Hagenbuch",
             "email": "chuck@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.0.9",
+    "version": "2.0.10",
     "time": "2015-04-28",
     "repositories": [
         {

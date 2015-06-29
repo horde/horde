@@ -14,14 +14,14 @@
             "name": "Chuck Hagenbuch",
             "email": "chuck@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael J Rubinsky",
             "email": "mrubinsk@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.1.4",
+    "version": "2.1.5",
     "time": "2015-04-13",
     "repositories": [
         {

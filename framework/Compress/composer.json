@@ -19,14 +19,14 @@
             "name": "Michael Slusarz",
             "email": "slusarz@horde.org",
             "role": "lead"
-        }
+        },
         {
             "name": "Michael J Rubinsky",
             "email": "mrubinsk@horde.org",
             "role": "developer"
         }
     ],
-    "version": "2.1.2",
+    "version": "2.1.3",
     "time": "2015-04-28",
     "repositories": [
         {
