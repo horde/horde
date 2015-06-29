@@ -220,7 +220,6 @@ class Turba_Application extends Horde_Registry_Application
         }
 
         $user = $GLOBALS['registry']->getAuth();
-        $url = Horde::url('');
         $edit = Horde::url('addressbooks/edit.php');
 
         $sidebar->containers['my'] = array(
@@ -242,6 +241,7 @@ class Turba_Application extends Horde_Registry_Application
         $shares = array();
         $shared = array();
         foreach (Turba::listShares(false, Horde_Perms::SHOW) as $id => $abook) {
+            $url = Horde::url('');
             $row = array(
                 'selected' => $id == Turba::$source,
                 'url' => $url->add('source', $id),
@@ -287,6 +287,7 @@ class Turba_Application extends Horde_Registry_Application
             ),
         );
         foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $abook) {
+            $url = Horde::url('');
             if (isset($shares[$id])) {
                 continue;
             }
