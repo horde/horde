@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix issue where sidebar links point to incorrect address book.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2007,7 +2007,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix issue where sidebar links point to incorrect address book.
    </notes>
   </release>
  </changelog>
