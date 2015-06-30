@@ -427,7 +427,7 @@ class Kronolith_View_Day extends Kronolith_Day
         return 'Day';
     }
 
-    public function prefHourFormat($hour, $min)
+    public static function prefHourFormat($hour, $min)
     {
         $hour = ($hour % 24) . ':' . sprintf('%02d', $min);
         if ($GLOBALS['prefs']->getValue('twentyFour')) {
