@@ -3304,6 +3304,7 @@ KronolithCore = {
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
                     if (info.edit) {
                         $('kronolithCalendarinternalImport').enable();
+                        $('kronolithCalendarinternalImportUrl').enable();
                         if (info.delete) {
                             $('kronolithCalendarinternalImportOver').enable();
                         }
