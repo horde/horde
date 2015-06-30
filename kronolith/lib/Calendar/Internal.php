@@ -169,6 +169,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
             $calendar_manager->get(Kronolith::DISPLAY_CALENDARS)
         );
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);
+        $hash['delete']  = $this->hasPermission(Horde_Perms::DELETE);
         $hash['caldav'] = $this->caldavUrl();
         $hash['sub'] = Horde::url(
             $registry->get('webroot', 'horde')

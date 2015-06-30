@@ -3304,6 +3304,9 @@ KronolithCore = {
                     $('kronolithCalendar' + type + 'EmbedUrl').enable();
                     if (info.edit) {
                         $('kronolithCalendarinternalImport').enable();
+                        if (info.delete) {
+                            $('kronolithCalendarinternalImportOver').enable();
+                        }
                     }
                 }
                 HordeImple.AutoCompleter.kronolithCalendarinternalTags.disable();
