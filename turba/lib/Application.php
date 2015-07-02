@@ -223,6 +223,7 @@ class Turba_Application extends Horde_Registry_Application
 
         $user = $GLOBALS['registry']->getAuth();
         $edit = Horde::url('addressbooks/edit.php');
+        $url = Horde::url('');
 
         $sidebar->containers['my'] = array(
             'header' => array(
@@ -243,12 +244,11 @@ class Turba_Application extends Horde_Registry_Application
         $shares = array();
         $shared = array();
         foreach (Turba::listShares(false, Horde_Perms::SHOW) as $id => $abook) {
-            $url = Horde::url('');
             $row = array(
                 'selected' => $id == Turba::$source,
-                'url' => $url->add('source', $id),
+                'url' => $url->copy()->add('source', $id),
                 'label' => $abook->get('name'),
-                'edit' => $edit->add('a', $abook->getName()),
+                'edit' => $edit->copy()->add('a', $abook->getName()),
                 'type' => 'radiobox',
             );
             if ($abook->get('owner') && $abook->get('owner') == $user) {
@@ -289,13 +289,12 @@ class Turba_Application extends Horde_Registry_Application
             ),
         );
         foreach (Turba::getAddressBooks(Horde_Perms::SHOW) as $id => $abook) {
-            $url = Horde::url('');
             if (isset($shares[$id])) {
                 continue;
             }
             $row = array(
                 'selected' => $id == Turba::$source,
-                'url' => $url->add('source', $id),
+                'url' => $url->copy()->add('source', $id),
                 'label' => $abook['title'],
                 'type' => 'radiobox',
             );
