@@ -633,6 +633,10 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function delete($object_ids)
     {
+        // Short circuit empty collections.
+        if (empty($object_ids)) {
+            return;
+        }
         if (!is_array($object_ids)) {
             $object_ids = array($object_ids);
         }
