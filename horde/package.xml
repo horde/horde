@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Mark PHP 5.6 as officially supported.
 * [mjr] Fix some issues with the permission interface when a value of 0 is a valid permission value (Bug #14025).
  </notes>
  <contents>
@@ -4043,6 +4044,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Mark PHP 5.6 as officially supported.
 * [mjr] Fix some issues with the permission interface when a value of 0 is a valid permission value (Bug #14025).
    </notes>
   </release>
