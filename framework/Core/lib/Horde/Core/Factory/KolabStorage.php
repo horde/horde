@@ -143,7 +143,7 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         if (!empty($configuration['strategy'])) {
             $classname = 'Horde_Kolab_Storage_Synchronization_' . basename($configuration['strategy']);
             if (!class_exists($classname)) {
-                throw new Horde_Excecption(sprintf('Class %s not found.', $classname));
+                throw new Horde_Exception(sprintf('Class %s not found.', $classname));
             }
             $params['sync_strategy'] = new $classname();
         }
