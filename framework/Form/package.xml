@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-08</date>
+ <date>2015-07-06</date>
  <version>
   <release>2.0.10</release>
   <api>1.1.0</api>
@@ -146,6 +146,7 @@
     </dir> <!-- /locale/fr -->
     <dir name="gl">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Form.mo" role="data" />
       <file name="Horde_Form.po" role="data" />
      </dir> <!-- /locale/gl/LC_MESSAGES -->
     </dir> <!-- /locale/gl -->
@@ -432,6 +433,7 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Form.po" name="locale/fi/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/fr/LC_MESSAGES/Horde_Form.mo" name="locale/fr/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/fr/LC_MESSAGES/Horde_Form.po" name="locale/fr/LC_MESSAGES/Horde_Form.po" />
+   <install as="locale/gl/LC_MESSAGES/Horde_Form.mo" name="locale/gl/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/gl/LC_MESSAGES/Horde_Form.po" name="locale/gl/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/he/LC_MESSAGES/Horde_Form.mo" name="locale/he/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/he/LC_MESSAGES/Horde_Form.po" name="locale/he/LC_MESSAGES/Horde_Form.po" />
@@ -904,7 +906,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-08</date>
+   <date>2015-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fixed XSS in form renderer.
