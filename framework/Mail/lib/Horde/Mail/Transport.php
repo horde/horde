@@ -134,7 +134,7 @@ abstract class Horde_Mail_Transport
             if (strcasecmp($key, 'From') === 0) {
                 $parser = new Horde_Mail_Rfc822();
                 $addresses = $parser->parseAddressList($value, array(
-                    'validate' => true
+                    'validate' => $this->eai ? 'eai' : true
                 ));
                 $from = $addresses[0]->bare_address;
 
@@ -190,7 +190,7 @@ abstract class Horde_Mail_Transport
         // should already be in the headers.
         $rfc822 = new Horde_Mail_Rfc822();
         return $rfc822->parseAddressList($recipients, array(
-            'validate' => true
+            'validate' => $this->eai ? 'eai' : true
         ))->bare_addresses_idn;
     }
 
