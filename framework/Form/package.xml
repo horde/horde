@@ -18,7 +18,7 @@
  </lead>
  <date>2015-07-06</date>
  <version>
-  <release>2.0.10</release>
+  <release>2.0.11</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] SECURITY: Fixed XSS in form renderer.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -910,6 +910,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] SECURITY: Fixed XSS in form renderer.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.11</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
