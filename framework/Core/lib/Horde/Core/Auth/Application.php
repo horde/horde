@@ -124,6 +124,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      */
     public function authenticate($userId, $credentials, $login = true)
     {
+        if (!strlen($credentials['password'])) {
+            return false;
+        }
+
         try {
             list($userId, $credentials) = $this->runHook(trim($userId), $credentials, 'preauthenticate', 'authenticate');
          } catch (Horde_Auth_Exception $e) {
