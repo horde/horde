@@ -195,6 +195,10 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
      */
     protected function _authenticate($userId, $credentials)
     {
+        if (!strlen($credentials['password'])) {
+            throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
+        }
+
         /* Search for the user's full DN. */
         $this->_ldap->bind();
         try {
