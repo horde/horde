@@ -23,7 +23,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-06-26</date>
+ <date>2015-07-06</date>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -380,6 +380,7 @@
        <file name="charset2.ics" role="test" />
        <file name="charset3.ics" role="test" />
        <file name="date.ics" role="test" />
+       <file name="duration0.ics" role="test" />
        <file name="empty.ics" role="test" />
        <file name="escapes1.ics" role="test" />
        <file name="escapes2.ics" role="test" />
@@ -600,6 +601,7 @@
    <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
    <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
    <install as="Horde/Icalendar/fixtures/date.ics" name="test/Horde/Icalendar/fixtures/date.ics" />
+   <install as="Horde/Icalendar/fixtures/duration0.ics" name="test/Horde/Icalendar/fixtures/duration0.ics" />
    <install as="Horde/Icalendar/fixtures/empty.ics" name="test/Horde/Icalendar/fixtures/empty.ics" />
    <install as="Horde/Icalendar/fixtures/escapes1.ics" name="test/Horde/Icalendar/fixtures/escapes1.ics" />
    <install as="Horde/Icalendar/fixtures/escapes2.ics" name="test/Horde/Icalendar/fixtures/escapes2.ics" />
@@ -1184,10 +1186,10 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-26</date>
+   <date>2015-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix generated VALARM TRIGGER attributes with empty duration (Ralf Becker &lt;RalfBecker@outdoor-training.de&gt;).
    </notes>
   </release>
  </changelog>
