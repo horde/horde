@@ -1426,7 +1426,7 @@ class IMP_Mailbox
         global $injector;
 
         $cache = $injector->getInstance('IMP_Mailbox_SessionCache');
-        $mbox_str = strval($mbox);
+        $mbox_str = $ret = strval($mbox);
 
         if (($pref_to = $cache->getPrefTo($mbox_str)) !== false) {
             return $pref_to;
