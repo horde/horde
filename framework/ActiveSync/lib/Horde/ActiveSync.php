@@ -397,6 +397,13 @@ class Horde_ActiveSync
     protected $_procid;
 
     /**
+     * Flag to  indicate we need to update the device version.
+     *
+     * @var boolean
+     */
+    protected $_needMsRp = false;
+
+    /**
      * Supported EAS versions.
      *
      * @var array
@@ -734,6 +741,98 @@ class Horde_ActiveSync
         // EAS Version
         $version = $this->getProtocolVersion();
 
+        // Device. Even though versions of EAS > 12.1 are supposed to send
+        // EAS status codes back to indicate various errors in allowing a client
+        // to connect, we just throw an exception (thus causing a HTTP error
+        // code to be sent as in versions 12.1 and below). Until we refactor for
+        // Horde 6, we don't know the response type to wrap the status code in
+        // until we load the request handler, which requires we start to parse
+        // the WBXML stream and device information etc... This saves resources
+        // as well as keeps things cleaner until we refactor.
+        $device_result = $this->_handleDevice($devId);
+
+        // Don't bother with everything else if all we want are Options
+        if ($cmd == 'Options') {
+            $this->_doOptionsRequest();
+            $this->_driver->clearAuthentication();
+            return true;
+        }
+
+        // Set provisioning support now that we are authenticated.
+        $this->setProvisioning($this->_driver->getProvisioning(self::$_device));
+
+        // Read the initial Wbxml header
+        $this->_decoder->readWbxmlHeader();
+
+        // Support Multipart response for ITEMOPERATIONS requests?
+        $headers = $this->_request->getHeaders();
+        if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
+            !empty($get['AcceptMultiPart'])) {
+            $this->_multipart = true;
+            self::$_logger->info(sprintf(
+                '[%s] Requesting multipart data.',
+                $this->_procid)
+            );
+        }
+
+        // Load the request handler to handle the request
+        // We must send the EAS header here, since some requests may start
+        // output and be large enough to flush the buffer (e.g., GetAttachment)
+        // See Bug: 12486
+        $this->activeSyncHeader();
+        if ($cmd != 'GetAttachment') {
+            $this->contentTypeHeader();
+        }
+
+        // Should we announce a new version is available to the client?
+        if (!empty($this->_needMsRp)) {
+            self::$_logger->info(sprintf(
+                '[%s] Announcing X-MS-RP to client.',
+                $this->_procid)
+            );
+            header("X-MS-RP: ". $this->getSupportedVersions());
+        }
+
+        // @TODO: Look at getting rid of having to set the version in the driver
+        //        and get it from the device object for H6.
+        $this->_driver->setDevice(self::$_device);
+        $class = 'Horde_ActiveSync_Request_' . basename($cmd);
+        if (class_exists($class)) {
+            $request = new $class($this);
+            $request->setLogger(self::$_logger);
+            $result = $request->handle();
+            self::$_logger->info(sprintf(
+                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
+                $this->_procid,
+                memory_get_peak_usage(true))
+            );
+
+            return $result;
+        }
+
+        $this->_driver->clearAuthentication();
+        throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
+    }
+
+    /**
+     * Handle device checks. Takes into account permissions and restrictions
+     * via various callback methods.
+     *
+     * @param  string $devId  The client provided device id.
+     *
+     * @return boolean  If EAS version is > 12.1 returns false on any type of
+     *                  failure in allowing the device to connect. Sets
+     *                  appropriate internal variables to indicate the type of
+     *                  error to return to the client. Failure on EAS version
+     *                  < 12.1 results in throwing exceptions. Otherwise, return
+     *                  true.
+     * @throws Horde_ActiveSync_Exception, Horde_Exception_AuthenticationFailure
+     */
+    protected function _handleDevice($devId)
+    {
+        $get = $this->getGetVars();
+        $version = $this->getProtocolVersion();
+
         // Does device exist AND does the user have an account on the device?
         if (!$this->_state->deviceExists($devId, $this->_driver->getUser())) {
             // Device might exist, but with a new (additional) user account
@@ -761,11 +860,9 @@ class Horde_ActiveSync
                         self::$_device->id,
                         self::$_device->user);
                     self::$_logger->err($msg);
-                    if ($version > self::VERSION_TWELVEONE) {
-                        $this->_globalError = $callback_ret;
-                    } else {
-                        throw new Horde_ActiveSync_Exception($msg);
-                    }
+                    // Always throw exception in place of status code since we
+                    // won't have a version number before the device is created.
+                    throw new Horde_Exception_AuthenticationFailure($msg, $callback_ret);
                 } else {
                     // Give the driver a chance to modify device properties.
                     if (is_callable(array($this->_driver, 'modifyDeviceCallback'))) {
@@ -790,7 +887,7 @@ class Horde_ActiveSync
             }
             if (self::$_device->version < $this->_maxVersion &&
                 self::$_device->needsVersionUpdate($this->getSupportedVersions())) {
-                $needMsRp = true;
+                $this->_needMsRp = true;
             }
 
             // Give the driver a chance to modify device properties.
@@ -799,6 +896,8 @@ class Horde_ActiveSync
             }
         }
 
+        // Save the device now that we know it is at least allowed to connect,
+        // or it has connected successfully at least once in the past.
         self::$_device->save();
         if (is_callable(array($this->_driver, 'deviceCallback'))) {
             $callback_ret = $this->_driver->deviceCallback(self::$_device);
@@ -809,9 +908,12 @@ class Horde_ActiveSync
                     self::$_device->user);
                 self::$_logger->err($msg);
                 if ($version > self::VERSION_TWELVEONE) {
+                    // Use a status code here, since the device has already
+                    // connected.
                     $this->_globalError = $callback_ret;
+                    return false;
                 } else {
-                    throw new Horde_ActiveSync_Exception($msg);
+                    throw new Horde_Exception_AuthenticationFailure($msg, $callback_ret);
                 }
             }
         }
@@ -824,72 +926,13 @@ class Horde_ActiveSync
             self::$_logger->err($msg);
             if ($version > self::VERSION_TWELVEONE) {
                 $this->_globalError = Horde_ActiveSync_Status::DEVICE_BLOCKED_FOR_USER;
+                return false;
             } else {
                 throw new Horde_ActiveSync_Exception($msg);
             }
         }
 
-        // Don't bother with everything else if all we want are Options
-        if ($cmd == 'Options') {
-            $this->_doOptionsRequest();
-            $this->_driver->clearAuthentication();
-            return true;
-        }
-
-        // Set provisioning support now that we are authenticated.
-        $this->setProvisioning($this->_driver->getProvisioning(self::$_device));
-
-        // Read the initial Wbxml header
-        $this->_decoder->readWbxmlHeader();
-
-        // Support Multipart response for ITEMOPERATIONS requests?
-        $headers = $this->_request->getHeaders();
-        if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
-            !empty($get['AcceptMultiPart'])) {
-            $this->_multipart = true;
-            self::$_logger->info(sprintf(
-                '[%s] Requesting multipart data.',
-                $this->_procid)
-            );
-        }
-
-        // Load the request handler to handle the request
-        // We must send the eas header here, since some requests may start
-        // output and be large enough to flush the buffer (e.g., GetAttachment)
-        // See Bug: 12486
-        $this->activeSyncHeader();
-        if ($cmd != 'GetAttachment') {
-            $this->contentTypeHeader();
-        }
-
-        // Should we announce a new version is available to the client?
-        if (!empty($needMsRp)) {
-            self::$_logger->info(sprintf(
-                '[%s] Announcing X-MS-RP to client.',
-                $this->_procid)
-            );
-            header("X-MS-RP: ". $this->getSupportedVersions());
-        }
-
-        // @TODO: Look at getting rid of having to set the version in the driver
-        //        and get it from the device object for H6.
-        $this->_driver->setDevice(self::$_device);
-        $class = 'Horde_ActiveSync_Request_' . basename($cmd);
-        if (class_exists($class)) {
-            $request = new $class($this);
-            $request->setLogger(self::$_logger);
-            $result = $request->handle();
-            self::$_logger->info(sprintf(
-                '[%s] Maximum memory usage for ActiveSync request: %d bytes.',
-                $this->_procid,
-                memory_get_peak_usage(true))
-            );
-
-            return $result;
-        }
-
-        $this->_driver->clearAuthentication();
-        throw new Horde_ActiveSync_Exception_InvalidRequest(basename($cmd) . ' not supported.');
+        return true;
     }
 
     /**
