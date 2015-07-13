@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1303,7 +1303,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
    </notes>
   </release>
  </changelog>
