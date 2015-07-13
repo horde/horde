@@ -5,7 +5,9 @@
     <th class="smallheader"><?php echo _("Last Sync Time") ?></th>
     <th class="smallheader"><?php echo _("Status") ?></th>
     <th class="smallheader"><?php echo _("Device Information") ?></th>
+    <?php if ($this->isAdmin):?>
     <th class ="smallheader"><?php echo _("Cached Collections") ?></th>
+    <?php endif;?>
     <th class="smallheader"><?php echo _("Actions")?></th>
    </tr>
   <?php foreach ($this->devices as $d_id => $d): ?>
@@ -31,6 +33,7 @@
         <?php endforeach; ?>
         <b><?php echo _("Cached Heartbeat (seconds)")?></b>: <?php echo $d->hbinterval ?><br />
       </td>
+      <?php if ($this->isAdmin): ?>
       <td>
         <?php foreach ($this->collections[$d_id] as $cc): ?>
           <?php foreach ($cc as $key => $value): ?>
@@ -39,6 +42,7 @@
           <br />
         <?php endforeach; ?>
       </td>
+      <?php endif; ?>
       <td>
         <?php if ($d->policykey): ?>
           <input class="horde-delete" type="button" value="<?php echo _("Wipe") ?>" id="wipe_<?php echo $d->id . ':' . $d->user ?>" />
