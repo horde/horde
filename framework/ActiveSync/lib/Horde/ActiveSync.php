@@ -894,7 +894,6 @@ class Horde_ActiveSync
 
     /**
      * Send the MS_Server-ActiveSync header.
-     *
      */
     public function activeSyncHeader()
     {
@@ -922,7 +921,6 @@ class Horde_ActiveSync
 
     /**
      * Send the protocol versions header.
-     *
      */
     public function versionHeader()
     {
@@ -942,7 +940,6 @@ class Horde_ActiveSync
 
     /**
      * Send protocol commands header.
-     *
      */
     public function commandsHeader()
     {
@@ -971,7 +968,6 @@ class Horde_ActiveSync
 
     /**
      * Send provision header
-     *
      */
     public function provisionHeader()
     {
@@ -1092,7 +1088,6 @@ class Horde_ActiveSync
 
     /**
      * Send the OPTIONS request response headers.
-     *
      */
     protected function _doOptionsRequest()
     {
