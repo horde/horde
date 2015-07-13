@@ -2154,7 +2154,7 @@ implements Serializable, SplObserver
         /* Check for query contents. If empty, this means that the query
          * object has identified that this query can NEVER return any results.
          * Immediately return now. */
-        if (empty($squery['query'])) {
+        if (!count($squery['query'])) {
             return $default_ret;
         }
 
