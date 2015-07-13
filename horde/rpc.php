@@ -43,6 +43,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS', 'REPORT'))) {
     $serverType = 'Webdav';
+    $session_control = 'none';
 } elseif (!empty($_SERVER['CONTENT_TYPE'])) {
     if (strpos($_SERVER['CONTENT_TYPE'], 'application/vnd.syncml+xml') !== false) {
         $serverType = 'Syncml';
@@ -68,6 +69,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $serverType = 'Phpgw';
 } else {
     $serverType = 'Webdav';
+    $session_control = 'none';
 }
 
 /* Initialize Horde environment. */
