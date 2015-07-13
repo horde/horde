@@ -222,8 +222,34 @@ class Horde_ActiveSync_Imap_MessageBodyData
         // we need, while ensuring we have something to return. So, e.g., if we
         // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
         // can't find plain text but we have a html body, fetch that anyway.
-        $text_id = $this->_basePart->findBody('plain');
-        $html_id = $this->_basePart->findBody('html');
+        //
+        // If this is any type of Report (like a NDR) we can't use findBody
+        // since some MTAs generate MDRs with no explicit mime type in the
+        // human readable portion (the first part). We assume the MDR contains
+        // three parts as specified in the RFC: (1) A human readable part, (2)
+        // A machine parsable body Machine parsable body part
+        // [message/disposition-notification] and (3) The (optional) original
+        // message [message/rfc822]
+        switch ($this->_basePart->getType()) {
+        case 'message/disposition-notification':
+            // OL may send this without an appropriate multipart/report wrapper.
+            // Not sure what to do about this yet. Probably parse the machine
+            // part and write out some basic text?
+            break;
+        case 'multipart/report':
+            $iterator = $this->_basePart->partIterator(false);
+            $iterator->rewind();
+            if (!$curr = $iterator->current()) {
+                break;
+            }
+            $text_id = $curr->getMimeId();
+            $html_id = null;
+            break;
+        default:
+            $text_id = $this->_basePart->findBody('plain');
+            $html_id = $this->_basePart->findBody('html');
+        }
+
 
         // Deduce which part(s) we need to request.
         $want_html_text = $this->_wantHtml();
