@@ -446,7 +446,7 @@ class Mnemo_Api extends Horde_Registry_Api
             break;
 
         case 'activesync':
-            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $content->categories);
+            $storage->modify($memo['memo_id'], Horde_String::substr($content->subject, 0, 255), $content->body->data, $content->categories);
             break;
 
         default:
