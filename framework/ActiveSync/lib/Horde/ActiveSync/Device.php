@@ -698,10 +698,14 @@ class Horde_ActiveSync_Device
                     Horde_ActiveSync_Device::MULTIPLEX_NOTES |
                     Horde_ActiveSync_Device::MULTIPLEX_TASKS;
             }
+        } else if (strpos($this->userAgent, 'MSFT-WP/8.10') !== false) {
+            // Windows Phone 8.10 supports multiple calendars and tasks, but
+            // no contacts.
+            $this->_properties['properties'][self::MULTIPLEX] =
+                Horde_ActiveSync_Device::MULTIPLEX_CONTACTS;
         } else if (strpos($this->userAgent, 'MSFT-WP/8.0') !== false || $this->deviceType == 'WP8') {
-            // Windows Phone. For the devices I've tested, it seems that
-            // only multiple tasklists are accepted. The rest must be
-            // multiplexed.
+            // Windows Phone 8.0 seems that only multiple tasklists are
+            // supported. The rest must be multiplexed.
             $this->_properties['properties'][self::MULTIPLEX] =
                 Horde_ActiveSync_Device::MULTIPLEX_CONTACTS |
                 Horde_ActiveSync_Device::MULTIPLEX_CALENDAR;
