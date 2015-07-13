@@ -51,6 +51,7 @@ class Horde_ActiveSync_Status
     const SYNC_NOT_ALLOWED                       = 126;
     const DEVICE_BLOCKED_FOR_USER                = 129;
     const DENIED                                 = 130;
+    const DISABLED                               = 131;
     const STATEFILE_NOT_FOUND                    = 132;  // was 500 in 12.0
     const STATEVERSION_INVALID                   = 136;
     const DEVICE_NOT_FULLY_PROVISIONABLE         = 139;  // Device uses version that doesn't support policies defined on server.
