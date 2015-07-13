@@ -457,7 +457,7 @@ class Mnemo_Api extends Horde_Registry_Api
         $notepad = Mnemo::getDefaultNotepad();
         $injector->getInstance('Mnemo_Factory_Driver')
             ->create($notepad)
-            ->syncronize($end);
+            ->synchronize($end);
 
         return array('add' => $this->listBy('add', $start, $notepads, $end, $isModSeq),
                      'modify' => $this->listBy('modify', $start, $notepads, $end, $isModSeq),
