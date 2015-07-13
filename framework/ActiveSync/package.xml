@@ -21,6 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix display of certain Multipart/Report messages, on certain clients.
+* [mjr] Improve handling of authentication/policy errors.
 * [mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
  </notes>
  <contents>
@@ -2793,6 +2795,8 @@
    <date>2015-06-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix display of certain Multipart/Report messages, on certain clients.
+* [mjr] Improve handling of authentication/policy errors.
 * [mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
    </notes>
   </release>
