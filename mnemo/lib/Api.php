@@ -791,7 +791,13 @@ class Mnemo_Api extends Horde_Registry_Api
             break;
 
         case 'activesync':
-            $storage->modify($memo['memo_id'], Horde_String::substr($content->subject, 0, 255), $content->body->data, $content->categories);
+            // We only support plaintext
+            if ($content->body->type == Horde_ActiveSync::BODYPREF_TYPE_HTML) {
+                $body = Horde_Text_Filter::filter($content->body->data, 'Html2text');
+            } else {
+                $body = $content->body->data;
+            }
+            $storage->modify($memo['memo_id'], Horde_String::substr($content->subject, 0, 255), $body, $content->categories);
             break;
 
         default:
