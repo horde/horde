@@ -27,6 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients (Bug #14045).
 * [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
  </notes>
  <contents>
@@ -1303,6 +1304,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients (Bug #14045).
 * [mjr] Allow more reasonable length of description field to interop better with synchronized clients (Bug #14041).
    </notes>
   </release>
