@@ -72,7 +72,7 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
             }
 
             // Get user info. FB recommends using the FB photo and styling.
-            $fql = 'SELECT first_name, last_name, status, pic_with_logo, current_location FROM user WHERE uid IN (' . $uid . ')';
+            $fql = 'SELECT first_name, last_name, pic_with_logo, current_location FROM user WHERE uid IN (' . $uid . ')';
             try {
                 $user_info = $facebook->fql->run($fql);
             } catch (Horde_Service_Facebook_Exception $e) {
