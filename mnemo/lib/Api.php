@@ -650,7 +650,7 @@ class Mnemo_Api extends Horde_Registry_Api
             } else {
                 $body = $content->body->data;
             }
-            $noteId = $storage->add($content->subject, $body, $content->categories);
+            $noteId = $storage->add(Horde_String::substr($content->subject, 0, 255), $body, $content->categories);
             break;
 
         default:
