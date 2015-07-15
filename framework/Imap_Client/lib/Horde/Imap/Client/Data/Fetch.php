@@ -589,7 +589,8 @@ class Horde_Imap_Client_Data_Fetch
 
                 case Horde_Imap_Client::FETCH_HEADERTEXT:
                 case Horde_Imap_Client::FETCH_MIMEHEADER:
-                    return $this->_data[$key][$id]->stream;
+                    $data = $this->_data[$key][$id];
+                    break;
                 }
             } else {
                 $data = $this->_data[$key][$id];

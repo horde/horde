@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
 * [mjr] Fix detecting empty ID queries (Bug #14044).
  </notes>
  <contents>
@@ -2915,6 +2916,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
 * [mjr] Fix detecting empty ID queries (Bug #14044).
    </notes>
   </release>
