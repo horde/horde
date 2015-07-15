@@ -12,7 +12,7 @@
  </lead>
  <date>2015-07-15</date>
  <version>
-  <release>2.29.1</release>
+  <release>2.29.2</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,8 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
-* [mjr] Fix detecting empty ID queries (Bug #14044).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2918,6 +2917,19 @@
    <notes>
 * [mms] Ensure FETCH stream data is rewound before returning (Bug #14013).
 * [mjr] Fix detecting empty ID queries (Bug #14044).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.2</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
