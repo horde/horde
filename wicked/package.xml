@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1068,7 +1068,7 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
    </notes>
   </release>
  </changelog>

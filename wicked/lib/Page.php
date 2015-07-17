@@ -636,6 +636,11 @@ class Wicked_Page
         return null;
     }
 
+    public function changeLog()
+    {
+        return null;
+    }
+
     public function pageUrl($linkpage = null, $actionId = null)
     {
         $params = array('page' => $this->pageName());

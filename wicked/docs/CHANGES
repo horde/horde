@@ -2,6 +2,8 @@
 v2.0.4-git
 ----------
 
+[mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous
+      include.
 
 
 ------
