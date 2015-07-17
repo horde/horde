@@ -74,8 +74,6 @@ class Wicked_Api extends Horde_Registry_Api
      */
     public function getMultiplePageInfo($pagenames = array())
     {
-        require_once __DIR__ . '/base.php';
-
         if (empty($pagenames)) {
             $pagenames = $GLOBALS['wicked']->getPages(false);
         }
