@@ -3,6 +3,22 @@ v2.0.3-git
 ----------
 
 [jan] Add navigation between pages from the same hierarchy.
+
+
+----------
+v2.0.4
+----------
+
+[mjr] Fix fatal error in API due to incorrect access of protected member.
+[mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous
+      include.
+
+
+------
+v2.0.3
+------
+
+[jan] Fix updating annotated links when renaming pages.
 [jan] Add ReST rendering rule for horizontal rulers.
 
 
