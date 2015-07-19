@@ -2100,7 +2100,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $type  The self::SPECIAL_* constant.
      *
-     * @return string  The folder's server id.
+     * @return string|boolean  The folder's server id or false on failure.
      */
     public function getSpecialFolderNameByType($type)
     {

@@ -902,7 +902,11 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMaillog($mid)
     {
         if ($this->_registry->hasMethod('getMaillog', $this->_registry->hasInterface('mail'))) {
-            return $this->_registry->mail->getMaillog($mid);
+            try {
+                return $this->_registry->mail->getMaillog($mid);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
 
         return false;
@@ -922,14 +926,22 @@ class Horde_Core_ActiveSync_Connector
             $recipients = array('recipients' => $recipients);
         }
         if ($this->_registry->hasMethod('logMaillog', $this->_registry->hasInterface('mail'))) {
-            $this->_registry->mail->logMaillog($action, $mid, $recipients);
+            try {
+                $this->_registry->mail->logMaillog($action, $mid, $recipients);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
     }
 
     public function mail_logRecipient($action, $recipients, $message_id)
     {
         if ($this->_registry->hasMethod('logRecipient', $this->_registry->hasInterface('mail'))) {
-            $this->_registry->mail->logRecipient($action, $recipients, $message_id);
+            try {
+                $this->_registry->mail->logRecipient($action, $recipients, $message_id);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
         }
     }
 
@@ -943,7 +955,11 @@ class Horde_Core_ActiveSync_Connector
     public function mail_getMaillogChanges($ts)
     {
         if ($this->_registry->hasMethod('getMaillogChanges', $this->_registry->hasInterface('mail'))) {
-            return $this->_registry->mail->getMaillogChanges($ts);
+            try {
+                return $this->_registry->mail->getMaillogChanges($ts);
+            } catch (Horde_Exception $e) {
+                return array();
+            }
         }
     }
 
