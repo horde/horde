@@ -2,6 +2,8 @@
 v4.2.9-git
 ----------
 
+[mjr] Fix Permission Denied error after removing a currently displayed
+      timeObject (Bug #14022).
 [jan] Enable purge calendar checkbox if user has delete permissions.
 [mjr] Honor locking the remote_cals preference.
 [mjr] Fix detecting duplicate events during import via the API (Bug #14018).
