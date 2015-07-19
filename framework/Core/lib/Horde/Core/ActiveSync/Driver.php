@@ -2104,7 +2104,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getSpecialFolderNameByType($type)
     {
-        $folders = $this->_imap->getSpecialMailboxes();
+        try {
+            $folders = $this->_imap->getSpecialMailboxes();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            return false;
+        }
         $folder = $folders[$type];
         if (!is_null($folder)) {
             return $folder->value;
