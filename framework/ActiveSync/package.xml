@@ -12,7 +12,7 @@
  </lead>
  <date>2015-07-22</date>
  <version>
-  <release>2.28.6</release>
+  <release>2.28.7</release>
   <api>2.28.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix display of certain Multipart/Report messages, on certain clients.
-* [mjr] Improve handling of authentication/policy errors.
-* [mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2798,6 +2796,19 @@
 * [mjr] Fix display of certain Multipart/Report messages, on certain clients.
 * [mjr] Improve handling of authentication/policy errors.
 * [mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.28.7</release>
+    <api>2.28.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
