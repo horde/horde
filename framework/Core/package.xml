@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3977,7 +3977,7 @@
    <date>2015-07-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
    </notes>
   </release>
  </changelog>
