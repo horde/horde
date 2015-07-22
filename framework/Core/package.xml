@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-06</date>
+ <date>2015-07-22</date>
  <version>
   <release>2.20.7</release>
   <api>2.20.0</api>
@@ -3974,7 +3974,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-06</date>
+   <date>2015-07-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Prevent various broken behaviors on ActiveSync clients due to errors copying an email to sent mail folder or updating the maillog (Bug #14058).
