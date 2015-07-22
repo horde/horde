@@ -26,7 +26,7 @@ class MnemoFixDescSize extends Horde_Db_Migration_Base
      */
     public function up()
     {
-        $t->column('memo_desc', 'string', array('limit' => 255, 'null' => false));
+        $this->changeColumn('mnemo_memos', 'memo_desc', 'string', array('limit' => 255, 'null' => false));
     }
 
     /**
@@ -34,6 +34,6 @@ class MnemoFixDescSize extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $t->column('memo_desc', 'string', array('limit' => 64, 'null' => false));
+        $this->changeColumn('mnemo_memos', 'memo_desc', 'string', array('limit' => 64, 'null' => false));
     }
 }
