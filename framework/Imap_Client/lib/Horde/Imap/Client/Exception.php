@@ -260,7 +260,9 @@ class Horde_Imap_Client_Exception extends Horde_Exception_Wrapped
         parent::__construct($message, $code);
 
         $this->raw_msg = $this->message;
-        $this->message = Horde_Imap_Client_Translation::t($this->message);
+        try {
+            $this->message = Horde_Imap_Client_Translation::t($this->message);
+        } catch (Horde_Translation_Exception $e) {}
     }
 
     /**
