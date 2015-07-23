@@ -79,6 +79,7 @@ implements Horde_Kolab_Storage_HistoryPrefix
         if (!isset(self::$_mapping)) {
             self::$_mapping = array(
                 'contact' => $registry->hasInterface('contacts'),
+                'distribution-list' => $registry->hasInterface('contacts'),
                 'event' => $registry->hasInterface('calendar'),
                 'note' => $registry->hasInterface('notes'),
                 'task' => $registry->hasInterface('tasks')
