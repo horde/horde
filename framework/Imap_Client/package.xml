@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2929,7 +2929,7 @@
    <date>2015-07-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
    </notes>
   </release>
  </changelog>
