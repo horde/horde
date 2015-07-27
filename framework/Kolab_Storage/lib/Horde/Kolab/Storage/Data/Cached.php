@@ -76,7 +76,7 @@ extends Horde_Kolab_Storage_Data_Base
      *
      * @return NULL
      */
-    private function _isInitialized()
+    protected function _isInitialized()
     {
         return ($this->_init || $this->_data_cache->isInitialized());
     }
