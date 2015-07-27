@@ -27,11 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-<<<<<<< HEAD
 * [jan] Add navigation between pages from the same hierarchy.
-=======
-* [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
->>>>>>> b9a776b... Fix fatal error due to attempted access to protected member.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1077,11 +1073,7 @@
    <date>2014-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-<<<<<<< HEAD
 * [jan] Add navigation between pages from the same hierarchy.
-=======
-* [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
->>>>>>> b9a776b... Fix fatal error due to attempted access to protected member.
    </notes>
   </release>
  </changelog>
