@@ -57,6 +57,7 @@ class Horde_Kolab_Storage_Factory
      *       'debug', 'driver_time', 'driver'.
      *  - format : (array)
      *     - factory: Name of the format parser factory class.
+     *  - history: (Horde_History) A Horde_History driver.
      *  - history_prefix_generator: (Horde_Kolab_Storage_HistoryPrefix) An
      *        object that can provide prefix/collection mapping of the
      *        History system.
