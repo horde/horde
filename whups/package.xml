@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Fix validation of email field failing for valide RFC822 email lists (Bug #14063).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1164,7 +1164,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Fix validation of email field failing for valide RFC822 email lists (Bug #14063).
    </notes>
   </release>
  </changelog>

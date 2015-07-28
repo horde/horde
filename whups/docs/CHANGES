@@ -2,6 +2,8 @@
 v3.0.4-git
 ----------
 
+[mjr] Fix validation of email field failing for valide RFC822 email lists (Bug
+      #14063).
 
 
 ------
