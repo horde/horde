@@ -282,4 +282,72 @@ class Ingo_Api extends Horde_Registry_Api
         $injector->getInstance('Ingo_Factory_Script')->activateAll();
     }
 
+    /**
+     * Retrieves a list of available time objects categories.
+     *
+     * @return array  An array of all configured time object categories.
+     */
+    public function listTimeObjectCategories()
+    {
+        // @todo check if available
+        return array(
+            'vacation' => array(
+                'title' => _("Vacations"),
+                'type' => 'single'
+            )
+        );
+    }
+
+    /**
+     * Lists vacation rules as timeobject.
+     *
+     * @param array $time_categories  The time categories (from
+     *                                listTimeObjectCategories) to list.
+     * @param mixed $start            The start date of the period.
+     * @param mixed $end              The end date of the period.
+     *
+     * @return array  An array of timeObject results.
+     * @throws Turba_Exception
+     */
+    public function listTimeObjects(array $time_categories, $start, $end)
+    {
+        global $injector;
+
+        if (in_array('vacation', $categories)) {
+            return array();
+        }
+
+        $vacation = $injector->getInstance('Ingo_Factory_Storage')
+            ->create()
+            ->getSystemRule('Ingo_Rule_System_Vacation');
+
+        // Don't return any inactive rules.
+        if ($vacation->disable) {
+            return array();
+        }
+
+        // Ensure these are Horde_Dates
+        $start = new Horde_Date($start);
+        $end = new Horde_Date($end);
+
+        // Use the vacation dates if possible otherwise use the full range
+        // asked for.
+        $vac_start = $vacation->start ? $vacation->start : $start->timestamp();
+        $vac_end = $vacation->end ? $vacation->end : $end->timestamp();
+
+        if ($vac_start <= $end->timestamp() && $vac_end >= $start->timestamp()) {
+            return array(
+                $vacation->uid => array(
+                    'id' => $vacation->uid,
+                    'title' => $vacation->subject,
+                    'start' => $vacation->start,
+                    'end' => $vacation->end,
+                    'link' => Ingo_Basic_Vacation::url()
+                )
+            );
+        }
+
+        return array();
+    }
+
 }
