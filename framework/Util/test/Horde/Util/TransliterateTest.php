@@ -79,9 +79,9 @@ class Horde_Util_TransliterateTest extends PHPUnit_Framework_TestCase
             // No normalization
             array('ABC123abc', 'ABC123abc'),
             // Non-ascii can all be transliterated
-            array('AÀBÞEÉSß', 'AAB?EESss'),
+            array('AÀBEÉSß', 'AABEESss'),
             // Some non-ascii cannot be transliterated
-            array('AÀ黾BÞ', 'AA?B?')
+            array('AÀ黾B', 'AA?B')
         );
     }
 
