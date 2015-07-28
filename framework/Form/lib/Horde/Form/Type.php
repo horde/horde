@@ -1544,6 +1544,9 @@ class Horde_Form_Type_email extends Horde_Form_Type {
      */
     function splitEmailAddresses($string)
     {
+        // Trim off any trailing delimiters
+        $string = trim($string, $this->_delimiters . ' ');
+
         $quotes = array('"', "'");
         $emails = array();
         $pos = 0;
