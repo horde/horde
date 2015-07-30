@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
 * [mjr] Honor workweek view as the login_view (Bug #14042).
 * [mjr] Fix Permission Denied error after removing a currently displayed timeObject (Bug #14022).
 * [jan] Enable purge calendar checkbox if user has delete permissions.
@@ -2581,6 +2582,7 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
 * [mjr] Honor workweek view as the login_view (Bug #14042).
 * [mjr] Fix Permission Denied error after removing a currently displayed timeObject (Bug #14022).
 * [jan] Enable purge calendar checkbox if user has delete permissions.
