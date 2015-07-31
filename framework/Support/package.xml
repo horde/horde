@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-04-28</date>
+ <date>2015-07-31</date>
  <version>
   <release>2.1.4</release>
   <api>2.1.0</api>
@@ -487,7 +487,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Fix Composer file.
