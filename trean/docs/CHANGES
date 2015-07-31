@@ -2,6 +2,13 @@
 v1.1.2-git
 ----------
 
+[jan] Update Italian translation.
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+[mjr] Fix shebang (after install) for trean scripts (Remi Collet
+      <fedora@famillecollet.com>).
+[mjr] Use the favicon when returning tag search results via the API if
+      possible.
 
 
 ------

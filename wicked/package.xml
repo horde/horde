@@ -27,6 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Italian translation.
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
 * [mjr] Fix fatal error in API due to incorrect access of protected member.
 * [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
  </notes>
@@ -1069,6 +1071,8 @@
    <date>2014-12-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Italian translation.
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
 * [mjr] Fix fatal error in API due to incorrect access of protected member.
 * [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
    </notes>

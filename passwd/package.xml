@@ -27,7 +27,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Update Italian translation.
+* [jan] Update Galician translation.
+* [jan] Update Catalan translation.
+* [jan] Update German translation.
+* [jan] Update Czech translation.
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -723,7 +728,12 @@
    <date>2014-09-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Italian translation.
+* [jan] Update Galician translation.
+* [jan] Update Catalan translation.
+* [jan] Update German translation.
+* [jan] Update Czech translation.
+* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
    </notes>
   </release>
  </changelog>

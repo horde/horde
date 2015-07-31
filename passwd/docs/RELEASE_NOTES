@@ -1,10 +1,10 @@
 <?php
-$notes['fm']['project'] = 'skeleton';
+$notes['fm']['project'] = 'passwd';
 
 /* Mailing list release notes. */
 $notes['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Passwd Horde
-password changing application version H5 (5.0.2).
+password changing application version H5 (5.0.3).
 
 Passwd provides support for changing passwords via the Horde authentication
 system or various password backends.
@@ -15,9 +15,13 @@ http://www.horde.org/apps/nag/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/nag/docs/INSTALL
 
-The major changes compared to Passwd version H5 (5.0.1) are:
-    * Re-added "userdn" hook.
-    * Small bugfixes.
+The major changes compared to Passwd version H5 (5.0.2) are:
+    * Update Italian translation.
+    * Update Galician translation.
+    * Update Catalan translation.
+    * Update German translation.
+    * Update Czech translation.
+    * Update Brazilian Portuguese translation.
 ML;
 
 

@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Update Czech translation.
+* [jan] Update Italian translation.
 * [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
 * [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
  </notes>
@@ -1574,6 +1576,8 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update Czech translation.
+* [jan] Update Italian translation.
 * [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
 * [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
    </notes>

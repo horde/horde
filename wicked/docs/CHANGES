@@ -2,6 +2,9 @@
 v2.0.4-git
 ----------
 
+[jan] Update Italian translation.
+[jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao
+      <duli@easylifeproject.org>).
 [mjr] Fix fatal error in API due to incorrect access of protected member.
 [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous
       include.

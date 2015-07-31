@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix PUTing images.
+* [jan] Fix DAV URLs when using authusername hooks.
 * [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
  </notes>
  <contents>
@@ -1361,6 +1363,8 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix PUTing images.
+* [jan] Fix DAV URLs when using authusername hooks.
 * [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
    </notes>
   </release>
