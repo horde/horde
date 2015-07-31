@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Prevent segfault due to non-ascii characters on some systems.
+* [jan] Fix PHP7 error because of reserved "String".
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -372,7 +373,8 @@
    <date>2015-01-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Prevent segfault due to non-ascii characters on some systems.
+* [jan] Fix PHP7 error because of reserved "String".
    </notes>
   </release>
  </changelog>

@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Updated UK translation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -787,7 +787,7 @@
    <date>2015-01-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Updated UK translation.
    </notes>
   </release>
  </changelog>
