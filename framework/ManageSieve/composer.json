@@ -1,0 +1,31 @@
+{
+    "name": "horde/horde-managesieve",
+    "description": "Client library for ManageSieve",
+    "type": "library",
+    "homepage": "http://pear.horde.org",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Jan Schneider",
+            "email": "jan@horde.org",
+            "role": "lead"
+        }
+    ],
+    "version": "1.0.0alpha1",
+    "time": "2015-07-31",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.horde.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "pear-pear.horde.org/Horde_Exception": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Socket_Client": ">=2.0.0,<=3.0.0alpha1",
+        "pear-pear.horde.org/Horde_Util": ">=2.0.0,<=3.0.0alpha1"
+    },
+    "suggest": {
+        "pear-pear.php.net/Auth_SASL": ">=1.0"
+    }
+}
