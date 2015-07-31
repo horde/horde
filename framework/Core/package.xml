@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-22</date>
+ <date>2015-07-31</date>
  <version>
   <release>2.20.8</release>
   <api>2.20.0</api>
@@ -3987,7 +3987,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-21</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Map Kolab distribution-list items to the contacts API (Bug #14038).
