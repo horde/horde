@@ -39,7 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Updated UK translation.
+* [jan] Fix Composer file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -986,7 +987,8 @@ Initial release as a PEAR package
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Updated UK translation.
+* [jan] Fix Composer file.
    </notes>
   </release>
  </changelog>
