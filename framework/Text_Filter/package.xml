@@ -22,7 +22,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-04-28</date>
+ <date>2015-07-31</date>
  <version>
   <release>2.3.2</release>
   <api>2.3.0</api>
@@ -1065,7 +1065,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix Composer file.
