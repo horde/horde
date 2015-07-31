@@ -18,7 +18,7 @@
  </lead>
  <date>2015-07-31</date>
  <version>
-  <release>2.0.11</release>
+  <release>2.0.12</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -923,6 +923,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.12</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
