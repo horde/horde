@@ -27,7 +27,7 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-06-22</date>
+ <date>2015-07-31</date>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -1232,7 +1232,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-22</date>
+   <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Make &apos;port&apos; parameter of Smb driver optional.
