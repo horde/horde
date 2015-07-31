@@ -18,7 +18,7 @@
  </lead>
  <date>2015-07-31</date>
  <version>
-  <release>2.6.0</release>
+  <release>2.6.1</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -27,10 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Updated UK translation.
-* [jan] Fix issues with certain locales like Turkish.
-* [mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
-* [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1095,6 +1092,19 @@ Initial release as a PEAR package
 * [jan] Fix issues with certain locales like Turkish.
 * [mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
 * [mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
