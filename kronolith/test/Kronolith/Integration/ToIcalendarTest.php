@@ -31,6 +31,8 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
 {
     public function setUp()
     {
+        $this->_timezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
         $GLOBALS['registry'] = new Kronolith_Stub_Registry('test', 'kronolith');
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $GLOBALS['conf']['prefs']['driver'] = 'Null';
@@ -46,6 +48,7 @@ class Kronolith_Integration_ToIcalendarTest extends Kronolith_TestCase
         unset($GLOBALS['registry']);
         unset($GLOBALS['injector']);
         unset($GLOBALS['conf']);
+        date_default_timezone_set($this->_timezone);
     }
 
     public function testBasicVersion1()
