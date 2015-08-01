@@ -24,7 +24,7 @@
  </lead>
  <date>2015-08-01</date>
  <version>
-  <release>3.0.3</release>
+  <release>3.0.4</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,9 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix PUTing images.
-* [jan] Fix DAV URLs when using authusername hooks.
-* [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1366,6 +1364,19 @@
 * [jan] Fix PUTing images.
 * [jan] Fix DAV URLs when using authusername hooks.
 * [mjr] Fix fatal error due to failed generation of KeyImage thumbnails in mobile view (Bug #14028).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
