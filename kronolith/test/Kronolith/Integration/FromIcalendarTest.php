@@ -29,6 +29,17 @@
  */
 class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
 {
+    public function setUp()
+    {
+        $this->_timezone = date_default_timezone_get();
+        date_default_timezone_set('Europe/Berlin');
+    }
+
+    public function tearDown()
+    {
+        date_default_timezone_set($this->_timezone);
+    }
+
     public function testStart()
     {
         $event = $this->_getFixture('fromicalendar.ics');
