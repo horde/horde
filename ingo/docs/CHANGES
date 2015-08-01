@@ -2,6 +2,7 @@
 v3.2.6-git
 ----------
 
+[mjr] Fix using transport parameters in Procmail driver.
 [jan] Update Czech translation.
 [jan] Update Italian translation.
 [mjr] Fix selecting incorrect rule when performing any action after reordering

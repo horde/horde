@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix using transport parameters in Procmail driver.
 * [jan] Update Czech translation.
 * [jan] Update Italian translation.
 * [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
@@ -1576,6 +1577,7 @@
    <date>2015-04-28</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix using transport parameters in Procmail driver.
 * [jan] Update Czech translation.
 * [jan] Update Italian translation.
 * [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
