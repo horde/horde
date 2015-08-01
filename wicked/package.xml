@@ -18,7 +18,7 @@
  </lead>
  <date>2015-08-01</date>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -27,10 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Italian translation.
-* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
-* [mjr] Fix fatal error in API due to incorrect access of protected member.
-* [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1075,6 +1072,19 @@
 * [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
 * [mjr] Fix fatal error in API due to incorrect access of protected member.
 * [mjr] Fix fatal error in Whups_Api::getMultiplePageInfo due to erroneous include.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
