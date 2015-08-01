@@ -99,8 +99,8 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
     public function testRecurrence()
     {
         $this->_add($this->_getRecurringEvent());
-        $start = new Horde_Date(259200);
-        $end   = new Horde_Date(345600);
+        $start = new Horde_Date('1970-01-02');
+        $end   = new Horde_Date('1970-01-04');
         $this->assertEquals(
             1,
             count(self::$driver->listEvents($start, $end, array('show_recurrence' => true)))
@@ -110,8 +110,8 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
     public function testRecurrenceException()
     {
         $this->_add($this->_getRecurringEvent());
-        $start = new Horde_Date(86400);
-        $end   = new Horde_Date(172800);
+        $start = new Horde_Date('1970-01-02');
+        $end   = new Horde_Date('1970-01-03');
         $this->assertEquals(
             array(),
             self::$driver->listEvents($start, $end, array('show_recurrence' => true))
@@ -123,8 +123,8 @@ class Kronolith_Integration_Driver_Base extends Kronolith_TestCase
         $class = 'Kronolith_Event_' . self::$type;
         $event = new $class(self::$driver);
         $event->title = 'test';
-        $event->start = new Horde_Date(0);
-        $event->end = new Horde_Date(14400);
+        $event->start = new Horde_Date('1970-01-01 00:00:00');
+        $event->end = new Horde_Date('1970-01-01 04:00:00');
         $event->recurrence = new Horde_Date_Recurrence($event->start);
         $event->recurrence->setRecurType(Horde_Date_Recurrence::RECUR_DAILY);
         $event->recurrence->setRecurInterval(1);
