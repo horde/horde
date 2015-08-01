@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-06-18</date>
+ <date>2015-08-01</date>
  <version>
   <release>5.2.7</release>
   <api>5.2.0</api>
@@ -4042,7 +4042,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-18</date>
+   <date>2015-08-01</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Don&apos;t create a session for Webdav requests (Bug #14040).

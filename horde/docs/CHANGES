@@ -1,6 +1,6 @@
-----------
-v5.2.7-git
-----------
+------
+v5.2.7
+------
 
 [mjr] Don't create a session for Webdav requests (Bug #14040).
 [jan] Mark PHP 5.6 as officially supported.
