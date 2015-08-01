@@ -1,6 +1,6 @@
-----------
-v4.2.9-git
-----------
+------
+v4.2.9
+------
 
 [mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
 [mjr] Honor workweek view as the login_view (Bug #14042).
