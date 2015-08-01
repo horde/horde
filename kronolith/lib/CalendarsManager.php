@@ -531,7 +531,7 @@ class Kronolith_CalendarsManager
         }
         $prefs->setValue('display_external_cals', serialize($this->_displayExternal));
 
-        return $this->displayExternal;
+        return $this->_displayExternal;
     }
 
     /**
