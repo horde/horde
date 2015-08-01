@@ -70,11 +70,11 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
         $this->_params = array_merge($this->_params, $scriptparams);
 
         $delivery = '';
-        if (isset($this->_params['delivery_agent'])) {
-            $delivery = '| ' . $this->_params['delivery_agent'] . ' ';
+        if (isset($this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_agent'])) {
+            $delivery = '| ' .  $this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_agent'] . ' ';
         }
-        if (isset($this->_params['delivery_mailbox_prefix'])) {
-            $delivery .= ' ' . $this->_params['delivery_mailbox_prefix'];
+        if (isset($this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_mailbox_prefix'])) {
+            $delivery .= ' ' . $this->_params['transport'][Ingo::RULE_ALL]['params']['delivery_mailbox_prefix'];
         }
 
         switch ($params['action']) {
