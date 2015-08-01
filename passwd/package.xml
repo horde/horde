@@ -18,7 +18,7 @@
  </lead>
  <date>2015-08-01</date>
  <version>
-  <release>5.0.3</release>
+  <release>5.0.4</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -27,12 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Italian translation.
-* [jan] Update Galician translation.
-* [jan] Update Catalan translation.
-* [jan] Update German translation.
-* [jan] Update Czech translation.
-* [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -734,6 +729,19 @@
 * [jan] Update German translation.
 * [jan] Update Czech translation.
 * [jan] Update Brazilian Portuguese translation (Luis Felipe Marzagao &lt;duli@easylifeproject.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
