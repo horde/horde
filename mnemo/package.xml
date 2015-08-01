@@ -16,7 +16,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-04-28</date>
+ <date>2015-08-01</date>
  <version>
   <release>4.2.7</release>
   <api>4.0.0</api>
@@ -323,6 +323,7 @@
     <file name="5_mnemo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_mnemo_upgrade_categoriestotags.php" role="horde" />
     <file name="7_mnemo_upgrade_parents.php" role="horde" />
+    <file name="8_mnemo_fix_desc_size.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="note">
     <file name="index.php" role="horde" />
@@ -722,6 +723,7 @@
    <install as="mnemo/migration/5_mnemo_upgrade_sqlnghierarchical.php" name="migration/5_mnemo_upgrade_sqlnghierarchical.php" />
    <install as="mnemo/migration/6_mnemo_upgrade_categoriestotags.php" name="migration/6_mnemo_upgrade_categoriestotags.php" />
    <install as="mnemo/migration/7_mnemo_upgrade_parents.php" name="migration/7_mnemo_upgrade_parents.php" />
+   <install as="mnemo/migration/8_mnemo_fix_desc_size.php" name="migration/8_mnemo_fix_desc_size.php" />
    <install as="mnemo/note/index.php" name="note/index.php" />
    <install as="mnemo/note/pdf.php" name="note/pdf.php" />
    <install as="mnemo/notepads/create.php" name="notepads/create.php" />
@@ -1303,7 +1305,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-04-28</date>
+   <date>2015-08-01</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update Italian translation.
