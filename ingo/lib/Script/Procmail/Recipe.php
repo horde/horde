@@ -68,9 +68,9 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
         $this->_disable = !empty($params['disable']);
         $this->_params = array_merge($this->_params, $scriptparams);
 
-        $delivery = '| ';
+        $delivery = '';
         if (isset($this->_params['delivery_agent'])) {
-            $delivery .= $this->_params['delivery_agent'] . ' ';
+            $delivery = '| ' . $this->_params['delivery_agent'] . ' ';
         }
         if (isset($this->_params['delivery_mailbox_prefix'])) {
             $delivery .= ' ' . $this->_params['delivery_mailbox_prefix'];
