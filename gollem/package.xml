@@ -24,7 +24,7 @@
  </lead>
  <date>2015-08-01</date>
  <version>
-  <release>3.0.4</release>
+  <release>3.0.5</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,11 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Italian translation.
-* [jan] Update Catalan translation.
-* [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).
-* [jan] Update German translation.
-* [jan] Update Hungarian translation.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -836,6 +832,19 @@
 * [jan] Update Czech translation (Michael Grafnetter &lt;michael.grafnetter@outlook.com&gt;).
 * [jan] Update German translation.
 * [jan] Update Hungarian translation.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.5</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-07-31</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
