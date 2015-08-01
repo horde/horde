@@ -1,6 +1,6 @@
-----------
-v3.0.3-git
-----------
+------
+v3.0.3
+------
 
 [jan] Fix PUTing images.
 [jan] Fix DAV URLs when using authusername hooks.

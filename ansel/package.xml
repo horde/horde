@@ -22,7 +22,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-02-10</date>
+ <date>2015-08-01</date>
  <version>
   <release>3.0.3</release>
   <api>3.0.0</api>
@@ -1352,7 +1352,7 @@
    </notes>
   </release>
   <release>
-   <date>2015-02-10</date>
+   <date>2015-08-01</date>
    <version>
     <release>3.0.3</release>
     <api>3.0.0</api>
