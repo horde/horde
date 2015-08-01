@@ -24,7 +24,7 @@
  </lead>
  <date>2015-08-01</date>
  <version>
-  <release>3.2.6</release>
+  <release>3.2.7</release>
   <api>3.2.0</api>
  </version>
  <stability>
@@ -33,11 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [mjr] Fix using transport parameters in Procmail driver.
-* [jan] Update Czech translation.
-* [jan] Update Italian translation.
-* [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
-* [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1582,6 +1578,19 @@
 * [jan] Update Italian translation.
 * [mjr] Fix selecting incorrect rule when performing any action after reordering (Bug #14064 and Bug #13643).
 * [jan] Fix duplicate messages when using the redirect-and-keep rule with Procmail backends.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.2.7</release>
+    <api>3.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-01</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
