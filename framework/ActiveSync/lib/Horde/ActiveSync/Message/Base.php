@@ -597,7 +597,7 @@ class Horde_ActiveSync_Message_Base
     {
         $len = strlen($data);
         $newdata = '';
-        for($i = 0;$i < $len;$i += 2)
+        for($i = 0; $i < $len; $i += 2)
         {
             $newdata .= pack('C', hexdec(substr($data, $i, 2)));
         }
