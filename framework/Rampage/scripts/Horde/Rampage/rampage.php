@@ -248,7 +248,7 @@ function enhance_info()
         case 'longtext':
             $info[$i]['search'] = 1;
             break;
-        default :
+        default:
             $info[$i]['search'] = 0;
         }
 
@@ -891,7 +891,7 @@ function render_field($field)
     case 'year':
         return "\$zitem['$n']";
 
-    default :
+    default:
         die("Unknown field type: ".$field['type']."! Sorry, no implementation yet\n");
     }
 }
@@ -1254,7 +1254,7 @@ function field_get_quoted($field)
     case 'year':
         return "\$this->_db->quote(date('Y',\$zitem['$n']))";
 
-    default :
+    default:
         die("Unknown field type: " . $field['type'] . "! Sorry, no implementation yet\n");
     }
 }

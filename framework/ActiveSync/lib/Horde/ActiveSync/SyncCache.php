@@ -141,7 +141,7 @@ class Horde_ActiveSync_SyncCache
         $this->_dirty[$property] = true;
     }
 
-    public function  __isset($property)
+    public function __isset($property)
     {
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');

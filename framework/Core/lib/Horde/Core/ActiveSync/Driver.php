@@ -659,7 +659,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         switch ($type) {
-        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::CLASS_EMAIL:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
             if (!$old_name) {
                 try {
@@ -757,7 +757,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         }
 
         switch ($folder_class) {
-        case Horde_ActiveSync::CLASS_EMAIL;
+        case Horde_ActiveSync::CLASS_EMAIL:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
             try {
                 $this->_logger->info($folder_id);
