@@ -10,7 +10,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-06-18</date>
+ <date>2015-08-02</date>
  <version>
   <release>5.2.8</release>
   <api>5.2.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [mjr] Update Horde, IMP, Turba, Trean, Kronolith, Gollem, and Mnemo.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -638,10 +638,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-06-18</date>
+   <date>2015-08-02</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [mjr] Update Horde, IMP, Turba, Trean, Kronolith, Gollem, and Mnemo.
    </notes>
   </release>
  </changelog>

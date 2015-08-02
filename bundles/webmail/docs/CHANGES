@@ -2,6 +2,111 @@
 v5.2.8-git
 ----------
 
+Horde Changes
+-------------
+[mjr] Don't create a session for Webdav requests (Bug #14040).
+[jan] Mark PHP 5.6 as officially supported.
+[mjr] Fix some issues with the permission interface when a value of 0 is a
+      valid permission value (Bug #14025).
+
+Address Book Changes
+--------------------
+[mjr] Fix issue where sidebar links point to incorrect address book.
+
+Bookmarks Changes
+-----------------
+[jan] Update Italian translation.
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+[mjr] Fix shebang (after install) for trean scripts (Remi Collet
+      <fedora@famillecollet.com>).
+[mjr] Use the favicon when returning tag search results via the API if
+      possible.
+
+Calendar Changes
+----------------
+[mjr] Fix enabling deletion of resources for non-admin users (Bug #14069).
+[mjr] Honor workweek view as the login_view (Bug #14042).
+[mjr] Fix Permission Denied error after removing a currently displayed
+      timeObject (Bug #14022).
+[jan] Enable purge calendar checkbox if user has delete permissions.
+[mjr] Honor locking the remote_cals preference.
+[mjr] Fix detecting duplicate events during import via the API (Bug #14018).
+
+Files Changes
+-------------
+[jan] Update Italian translation.
+[jan] Update Catalan translation.
+[jan] Update Czech translation (Michael Grafnetter
+      <michael.grafnetter@outlook.com>).
+[jan] Update German translation.
+[jan] Update Hungarian translation.
+
+Mail Changes
+------------
+[mms] Ensure mailbox name is a valid string (Bug #14049).
+
+
+Notes Changes
+-------------
+[jan] Update Italian translation.
+[jan] Update Czech translation.
+[mjr] Fix inconsistent handling of incoming HTML notes from ActiveSync clients
+      (Bug #14045).
+[mjr] Allow more reasonable length of description field to interop better with
+      synchronized clients (Bug #14041).
+
+Library Changes
+---------------
+[jan] Updated DE translation.
+[jan] Updated UK translation.
+[jan] Fix Composer files.
+
+ActiveSync
+[mjr] Fix regression that could cause loss of mailbox sync.
+[mjr] Fix regression causing useless backend query.
+[mjr] Fix bug causing changes to be sent as new messages, thus causing them to be ignored by most clients.
+[mjr] Fix sending SMIME signed/encrypted mail when using streams.
+[mjr] Fix off by one error that could cause some errors in downstream client code.
+[mjr] Fix detecting changes in email message "Flag" sent from certain clients.
+[mjr] Fix issue when using REPLACEMIME feature of SENDMAIL and some other edge cases (Bug #13901).
+[mjr] Reduce memory usage during IMAP FETCH with very large mailboxes.
+[mjr] Workaround broken CGI behavior of sending incorrect authentication headers.
+[mjr] Fix issues with detecting changes in FILTERTYPE.
+[mjr] Performance improvements during IMAP server change detection for CONDSTORE servers, especially during FILTERTYPE changes.
+[mjr] Fix display of certain Multipart/Report messages, on certain clients.
+[mjr] Improve handling of authentication/policy errors.
+[mjr] Fix renaming email folder when using PostgreSQL state storage (Bug #14019, horde@albasoft.com).
+
+Crypt
+[jan] Fix issues with certain locales like Turkish.
+[mms] Split gnupg command-line binary specific code out into a separate PGP backend driver.
+[mms] S/MIME encryption is now done only with AES (if using PHP 5.4+) or 3DES.
+
+Css_Parser
+[jan] Prevent segfault due to non-ascii characters on some systems.
+[jan] Fix PHP7 error because of reserved "String".
+
+Form
+[jan] SECURITY: Fixed XSS in form renderer.
+[mjr] Prevent empty email addresses from being detected as a valid "multiple" email (Bug #14063).
+
+History
+[jan] Improve performance of database migration.
+
+Mail
+[mms] Fix validating sent messages if the driver supports EAI addresses.
+
+Rpc
+[mjr] Send more appropriate HTTP status codes on ActiveSync authentication failure.
+
+Util
+[jan] Fix test that could fail due to changes in glibc.
+
+Vfs
+[jan] Make 'port' parameter of Smb driver optional.
+[jan] Add 'domain' parameter to Smb driver.
+[jan] Allow to specify a fixed leading directory in Smb driver.
 
 
 ------
