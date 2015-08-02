@@ -8,6 +8,7 @@ v6.2.11-git
 v6.2.10
 -------
 
+[mms] Ensure mailbox name is a valid string (Bug #14049).
 
 
 ------
