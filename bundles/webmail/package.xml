@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* Release to fix version numbers in package file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -654,7 +654,7 @@
    <date>2015-08-02</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* Release to fix version numbers in package file.
    </notes>
   </release>
  </changelog>
