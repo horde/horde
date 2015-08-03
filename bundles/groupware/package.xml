@@ -83,28 +83,28 @@
    <package>
     <name>gollem</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.3</min>
+    <min>3.0.4</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.2.6</min>
+    <min>5.2.7</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.8</min>
+    <min>4.2.9</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.6</min>
+    <min>4.2.7</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -125,14 +125,14 @@
    <package>
     <name>trean</name>
     <channel>pear.horde.org</channel>
-    <min>1.1.1</min>
+    <min>1.1.2</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.2.7</min>
+    <min>4.2.8</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
