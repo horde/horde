@@ -12,7 +12,7 @@
  </lead>
  <date>2015-08-03</date>
  <version>
-  <release>5.2.9</release>
+  <release>5.2.10</release>
   <api>5.2.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* Release to fix version numbers in package file.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -655,6 +655,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * Release to fix version numbers in package file.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.2.10</release>
+    <api>5.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-02</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
