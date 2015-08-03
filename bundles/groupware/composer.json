@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.8",
-    "time": "2015-08-02",
+    "version": "5.2.9",
+    "time": "2015-08-03",
     "repositories": [
         {
             "type": "pear",
@@ -23,13 +23,13 @@
         "php": ">=5.3.0",
         "pear-pear.horde.org/webmail": "*",
         "pear-pear.horde.org/content": ">=2.0.4@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/gollem": ">=3.0.3@stable,<=4.0.0alpha1@stable",
-        "pear-pear.horde.org/horde": ">=5.2.6@stable,<=6.0.0alpha1@stable",
-        "pear-pear.horde.org/kronolith": ">=4.2.8@stable,<=5.0.0alpha1@stable",
-        "pear-pear.horde.org/mnemo": ">=4.2.6@stable,<=5.0.0alpha1@stable",
+        "pear-pear.horde.org/gollem": ">=3.0.4@stable,<=4.0.0alpha1@stable",
+        "pear-pear.horde.org/horde": ">=5.2.7@stable,<=6.0.0alpha1@stable",
+        "pear-pear.horde.org/kronolith": ">=4.2.9@stable,<=5.0.0alpha1@stable",
+        "pear-pear.horde.org/mnemo": ">=4.2.7@stable,<=5.0.0alpha1@stable",
         "pear-pear.horde.org/nag": ">=4.2.5@stable,<=5.0.0alpha1@stable",
         "pear-pear.horde.org/timeobjects": ">=2.1.0@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/trean": ">=1.1.1@stable,<=2.0.0alpha1@stable",
-        "pear-pear.horde.org/turba": ">=4.2.7@stable,<=5.0.0alpha1@stable"
+        "pear-pear.horde.org/trean": ">=1.1.2@stable,<=2.0.0alpha1@stable",
+        "pear-pear.horde.org/turba": ">=4.2.8@stable,<=5.0.0alpha1@stable"
     }
 }
