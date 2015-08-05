@@ -163,7 +163,7 @@ class Horde_Kolab_Filter_Content extends Horde_Kolab_Filter_Base
 
         if (!$senderok) {
             if ($ical && $allow_outlook_ical_forward ) {
-                require_once(__DIR__ . '/Outlook.php');
+                require_once __DIR__ . '/Outlook.php';
                 $rc = Kolab_Filter_Outlook::embedICal($this->_fqhostname,
                                                       $this->_sender,
                                                       $this->_recipients,

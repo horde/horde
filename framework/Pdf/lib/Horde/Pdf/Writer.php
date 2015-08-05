@@ -1472,7 +1472,7 @@ class Horde_Pdf_Writer
         if ($file == '') {
             $file = str_replace(' ', '', $family) . Horde_String::lower($style) . '.php';
         }
-        include($file);
+        include $file;
         if (!isset($name)) {
             throw new Horde_Pdf_Exception('Could not include font definition file');
         }
