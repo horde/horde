@@ -1,10 +1,10 @@
 <?php
 
 
-include_once('MDB2.php');
-include_once('utf2entities.php');
+include_once 'MDB2.php';
+include_once 'utf2entities.php';
 
-include_once('magpierss/rss_fetch.inc');
+include_once 'magpierss/rss_fetch.inc';
 
 class aggregator {
 
