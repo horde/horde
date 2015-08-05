@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-07-15</date>
+ <date>2015-08-05</date>
  <version>
   <release>2.29.2</release>
   <api>2.29.0</api>
@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Improved performance of Horde_Imap_Client_Data_Thread object when containing large number of messages (Request #14075).
 * [mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
  </notes>
  <contents>
@@ -325,6 +326,7 @@
         <file name="SearchCharsetTest.php" role="test" />
         <file name="SearchCharsetUtf8Test.php" role="test" />
         <file name="SubjectParseTest.php" role="test" />
+        <file name="ThreadTest.php" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/Data -->
        <dir name="Fetch">
         <dir name="Results">
@@ -703,6 +705,7 @@
    <install as="Horde/Imap/Client/Data/SearchCharsetTest.php" name="test/Horde/Imap/Client/Data/SearchCharsetTest.php" />
    <install as="Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" name="test/Horde/Imap/Client/Data/SearchCharsetUtf8Test.php" />
    <install as="Horde/Imap/Client/Data/SubjectParseTest.php" name="test/Horde/Imap/Client/Data/SubjectParseTest.php" />
+   <install as="Horde/Imap/Client/Data/ThreadTest.php" name="test/Horde/Imap/Client/Data/ThreadTest.php" />
    <install as="Horde/Imap/Client/Data/Capability/ImapTest.php" name="test/Horde/Imap/Client/Data/Capability/ImapTest.php" />
    <install as="Horde/Imap/Client/Data/Fetch/FetchPop3Test.php" name="test/Horde/Imap/Client/Data/Fetch/FetchPop3Test.php" />
    <install as="Horde/Imap/Client/Data/Fetch/FetchTest.php" name="test/Horde/Imap/Client/Data/Fetch/FetchTest.php" />
@@ -2926,9 +2929,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-15</date>
+   <date>2015-08-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Improved performance of Horde_Imap_Client_Data_Thread object when containing large number of messages (Request #14075).
 * [mms] Catch translation errors when creating Exceptions (PR #143; baso10dev@gmail.com).
    </notes>
   </release>

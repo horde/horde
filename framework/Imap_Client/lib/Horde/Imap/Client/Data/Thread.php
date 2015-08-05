@@ -158,12 +158,11 @@ class Horde_Imap_Client_Data_Thread implements Countable, Serializable
     {
         $out = array();
 
-        reset($this->_thread);
-        while (list(,$v) = each($this->_thread)) {
-            $out = array_merge($out, array_keys($v));
+        foreach ($this->_thread as $val) {
+            $out += $val;
         }
 
-        return $out;
+        return array_keys($out);
     }
 
 }
