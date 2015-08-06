@@ -8,19 +8,22 @@
  * @category  Horde
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Mime
+ * @package   ActiveSync
  */
 
 /**
  * Recursive iterator for Horde_Mime_Part objects. This iterator is
- * self-contained and independent of all other iterators.
+ * self-contained and independent of all other iterators. Adapted from
+ * Horde_Mime package. Changed to allow what EAS would consider attachments
+ * to be ignored during iteration and to always include the base part.
  *
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2015 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package   Mime
- * @since     2.9.0
+ * @package   ActiveSync
+ * @since     2.29.0
  */
 class Horde_ActiveSync_Mime_Iterator
 implements Countable, Iterator
