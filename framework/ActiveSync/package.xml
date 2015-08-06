@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-07-22</date>
+ <date>2015-08-06</date>
  <version>
   <release>2.28.7</release>
   <api>2.28.0</api>
@@ -98,6 +98,9 @@
        <file name="Task.php" role="php" />
        <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
+      <dir name="Mime">
+       <file name="Iterator.php" role="php" />
+      </dir> <!-- /lib/Horde/ActiveSync/Mime -->
       <dir name="Request">
        <file name="Autodiscover.php" role="php" />
        <file name="Base.php" role="php" />
@@ -489,6 +492,7 @@
    <install as="Horde/ActiveSync/Message/SendMailSource.php" name="lib/Horde/ActiveSync/Message/SendMailSource.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
+   <install as="Horde/ActiveSync/Mime/Iterator.php" name="lib/Horde/ActiveSync/Mime/Iterator.php" />
    <install as="Horde/ActiveSync/Request/Autodiscover.php" name="lib/Horde/ActiveSync/Request/Autodiscover.php" />
    <install as="Horde/ActiveSync/Request/Base.php" name="lib/Horde/ActiveSync/Request/Base.php" />
    <install as="Horde/ActiveSync/Request/FolderCreate.php" name="lib/Horde/ActiveSync/Request/FolderCreate.php" />
@@ -2805,7 +2809,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-21</date>
+   <date>2015-08-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

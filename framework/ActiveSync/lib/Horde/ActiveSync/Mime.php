@@ -238,4 +238,33 @@ class Horde_ActiveSync_Mime
         }
     }
 
+    /**
+     * Finds the main "body" text part (if any) in a message. "Body" data is the
+     * first text part under this part. Considers only body data that should
+     * be displayed as the main body on an EAS client. I.e., this ignores any
+     * text parts contained withing "attachment" parts such as messages/rfc822
+     * attachments.
+     *
+     * @param string $subtype  Specifically search for this subtype.
+     *
+     * @return mixed  The MIME ID of the main body part, or null if a body
+     *                part is not found.
+     */
+    public function findBody($subtype = null)
+    {
+        $this->buildMimeIds();
+        $iterator = new Horde_ActiveSync_Mime_Iterator($this->_base, true);
+        foreach ($iterator as $val) {
+            $id = $val->getMimeId();
+            if (($val->getPrimaryType() == 'text') &&
+                ((intval($id) === 1) || !$this->getMimeId()) &&
+                (is_null($subtype) || ($val->getSubType() == $subtype)) &&
+                !$this->isAttachment($id, $val->getType())) {
+                return $id;
+            }
+        }
+
+        return null;
+    }
+
 }
