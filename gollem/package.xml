@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-08-01</date>
+ <date>2015-08-06</date>
  <version>
   <release>3.0.5</release>
   <api>3.0.0</api>
@@ -841,7 +841,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-31</date>
+   <date>2015-08-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
