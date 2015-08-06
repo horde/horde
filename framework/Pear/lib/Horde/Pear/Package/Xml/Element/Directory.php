@@ -73,7 +73,7 @@ class Horde_Pear_Package_Xml_Element_Directory
     public function __construct($name, $parent = null)
     {
         $this->_name = $name;
-        if ($parent instanceOf Horde_Pear_Package_Xml_Element_Directory) {
+        if ($parent instanceof Horde_Pear_Package_Xml_Element_Directory) {
             $this->_xml = $parent->getDocument();
             $this->_path = $parent->getPath() . '/' . $name;
             $this->_level = $parent->getLevel() + 1;

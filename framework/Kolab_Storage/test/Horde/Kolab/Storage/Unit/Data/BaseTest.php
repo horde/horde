@@ -109,7 +109,7 @@ extends Horde_Kolab_Storage_TestCase
     {
         $data = $this->getMessageStorage()
             ->getData('INBOX/Calendar');
-        $this->assertTrue($data instanceOf Horde_Kolab_Storage_Queriable);
+        $this->assertTrue($data instanceof Horde_Kolab_Storage_Queriable);
     }
 
     public function testQuerySynchronization()

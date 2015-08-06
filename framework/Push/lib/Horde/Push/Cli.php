@@ -139,7 +139,7 @@ class Horde_Push_Cli
 
             $cli = Horde_Cli::init();
             foreach ($results as $result) {
-                if ($result instanceOf Exception) {
+                if ($result instanceof Exception) {
                     $cli->message($result->getMessage(), 'cli.error');
                     $fail = true;
                 } else {

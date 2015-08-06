@@ -273,7 +273,7 @@ implements Horde_Kolab_Cli_Module
         foreach ($output as $name => $element) {
             if (is_array($element)) {
                 $result[$name] = $this->_convertDates($element);
-            } else if ($element instanceOf DateTime) {
+            } else if ($element instanceof DateTime) {
                 $result[$name] = $element->format('c');
             } else {
                 $result[$name] = $element;

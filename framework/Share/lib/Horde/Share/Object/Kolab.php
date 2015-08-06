@@ -389,7 +389,7 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function setPermission($perms, $update = true)
     {
-        if (!$perms instanceOf Horde_Perms_Permission_Kolab) {
+        if (!$perms instanceof Horde_Perms_Permission_Kolab) {
             $this->getPermission()->setData($perms->getData());
         } else {
             $this->_permission = $perms;

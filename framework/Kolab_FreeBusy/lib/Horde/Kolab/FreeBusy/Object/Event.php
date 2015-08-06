@@ -105,13 +105,13 @@ class Horde_Kolab_FreeBusy_Object_Event {
             $this->_event_id = $event['uid'];
         }
 
-        if (!($event['start-date'] instanceOf Horde_Date)) {
+        if (!($event['start-date'] instanceof Horde_Date)) {
             $this->_start = new Horde_Date($event['start-date']);
         } else {
             $this->_start = $event['start-date'];
         }
 
-        if (!($event['end-date'] instanceOf Horde_Date)) {
+        if (!($event['end-date'] instanceof Horde_Date)) {
             $this->_end = new Horde_Date($event['end-date']);
         } else {
             $this->_end = $event['end-date'];

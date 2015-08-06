@@ -165,7 +165,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
                 $this->fail('Did not receive a result!');
             }
             foreach ($world['result'] as $result) {
-                if ($result instanceOf Horde_Kolab_Server_Exception) {
+                if ($result instanceof Horde_Kolab_Server_Exception) {
                     $this->assertEquals($arguments[0], $result->getMessage());
                 } else {
                     $this->assertEquals($arguments[0], 'Action succeeded without an error.');
@@ -173,21 +173,21 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
             }
             break;
         case 'the list has a number of entries equal to':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
+            if ($world['list'] instanceof Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $this->assertEquals($arguments[0], count($world['list']));
             }
             break;
         case 'the list is an empty array':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
+            if ($world['list'] instanceof Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $this->assertEquals(array(array()), $world['list']);
             }
             break;
         case 'the provided list and the result list match with regard to these attributes':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
+            if ($world['list'] instanceof Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $provided_vals = array();
@@ -217,7 +217,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
             }
             break;
         case 'each element in the result list has an attribute':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
+            if ($world['list'] instanceof Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
@@ -233,7 +233,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
             }
             break;
         case 'each element in the result list has an attribute set to a given value':
-            if ($world['list'] instanceOf Horde_Kolab_Server_Exception) {
+            if ($world['list'] instanceof Horde_Kolab_Server_Exception) {
                 $this->assertEquals('', $world['list']->getMessage());
             } else {
                 $result_vals = array();
@@ -889,9 +889,9 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
             foreach ($var as $element) {
                 $this->assertNoError($element);
             }
-        } elseif ($var instanceOf Exception) {
+        } elseif ($var instanceof Exception) {
             $this->assertEquals('', $var->getMessage());
-        } else if ($var instanceOf PEAR_Error) {
+        } else if ($var instanceof PEAR_Error) {
             $this->assertEquals('', $var->getMessage());
         }
     }
@@ -908,7 +908,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
      */
     public function assertError($var, $msg = null)
     {
-        if (!$var instanceOf PEAR_Error) {
+        if (!$var instanceof PEAR_Error) {
             $this->assertInstanceOf('Horde_Kolab_Server_Exception', $var);
             if (isset($msg)) {
                 $this->assertEquals($msg, $var->getMessage());
@@ -1041,7 +1041,7 @@ class Horde_Kolab_Server_Integration_Scenario extends PHPUnit_Extensions_Story_T
                 $this->assertRecursiveType($result, $type);
             }
         } else {
-            if ($results instanceOf Exception) {
+            if ($results instanceof Exception) {
                 $this->assertEquals('', $results->getMessage());
             } else {
                 $this->assertInstanceOf($type, $results);

@@ -8,7 +8,7 @@
  * @package    Whups
  * @subpackage UnitTests
  */
-class Whups_TestBase Extends PHPUnit_Framework_TestCase {
+class Whups_TestBase extends PHPUnit_Framework_TestCase {
 
     function setUp()
     {

@@ -638,7 +638,7 @@ extends PHPUnit_Framework_TestCase
             $headers = Horde_Mime_Headers::parseHeaders(
                 $GLOBALS['injector']->getInstance('IMP_Mail')->sentMessages[0]['header_text']
             );
-            if (!$headers instanceOf Horde_Mime_Headers) {
+            if (!$headers instanceof Horde_Mime_Headers) {
                 $this->fail('Failed parsing message headers!');
                 return new Horde_Mime_Headers();
             }

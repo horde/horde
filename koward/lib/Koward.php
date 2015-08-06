@@ -102,7 +102,7 @@ class Koward {
 
     public function getType($mixed = null)
     {
-        if ($mixed instanceOf Horde_Kolab_Server_Object) {
+        if ($mixed instanceof Horde_Kolab_Server_Object) {
             $class_name = get_class($mixed);
         } else if (!empty($mixed)) {
             $class_name = $mixed;

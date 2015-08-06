@@ -11,7 +11,7 @@
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
-class Ansel_Image Implements Iterator
+class Ansel_Image implements Iterator
 {
     /**
      * The gallery id of this image's parent gallery

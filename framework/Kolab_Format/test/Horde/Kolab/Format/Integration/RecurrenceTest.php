@@ -39,7 +39,7 @@ extends Horde_Kolab_Format_TestCase
             $xml->load($recur);
             $this->assertTrue(false);
         } catch (Exception $e) {
-            $this->assertTrue($e instanceOf Horde_Kolab_Format_Exception);
+            $this->assertTrue($e instanceof Horde_Kolab_Format_Exception);
         }
     }
 

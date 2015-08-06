@@ -87,7 +87,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
             //@todo: This should be made easier by the group object
 
             $domain_group = $this->server->fetch($domain_uid, 'Horde_Kolab_Server_Object_Kolabgroupofnames');
-            if ($domain_group instanceOf PEAR_Error) {
+            if ($domain_group instanceof PEAR_Error) {
                 return $domain_group;
             }
             if (!$domain_group->exists()) {
@@ -96,7 +96,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
                                           Horde_Kolab_Server_Object_Kolabgroupofnames::ATTRIBUTE_MEMBER => $members));
             } else {
                 $result = $domain_group->isMember($this->uid);
-                if ($result instanceOf PEAR_Error) {
+                if ($result instanceof PEAR_Error) {
                     return $result;
                 }
                 if ($result === false) {

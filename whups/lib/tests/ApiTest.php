@@ -11,7 +11,7 @@ require_once __DIR__ . '/TestBase.php';
  * @package    Whups
  * @subpackage UnitTests
  */
-class Whups_ApiTest Extends Whups_TestBase {
+class Whups_ApiTest extends Whups_TestBase {
     function setUp()
     {
         parent::setUp();

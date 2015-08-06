@@ -21,7 +21,7 @@ class Koward_Controller_Application extends Horde_Controller_Base
 
         $this->koward = Koward::singleton();
 
-        if ($this->koward->objects instanceOf PEAR_Error) {
+        if ($this->koward->objects instanceof PEAR_Error) {
             return;
         }
 
