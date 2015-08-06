@@ -2,6 +2,10 @@
 v5.2.10-git
 -----------
 
+Files Changes
+-------------
+[mjr] SECURITY: Fix XSS vulnerability when viewing directory contents
+      (Discovered by http://www.beyondsecurity.com/ssd.html).
 
 
 ------
