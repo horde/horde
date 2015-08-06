@@ -1,6 +1,6 @@
-----------
-v3.0.5-git
-----------
+------
+v3.0.5
+------
 
 [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents
       (Discovered by http://www.beyondsecurity.com/ssd.html).
