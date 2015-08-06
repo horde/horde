@@ -11,8 +11,8 @@
             "role": "lead"
         }
     ],
-    "version": "5.2.9",
-    "time": "2015-08-03",
+    "version": "5.2.10",
+    "time": "2015-08-06",
     "repositories": [
         {
             "type": "pear",
@@ -23,7 +23,7 @@
         "php": ">=5.3.0",
         "pear-pear.horde.org/groupware": "*",
         "pear-pear.horde.org/content": ">=2.0.4@stable,<=3.0.0alpha1@stable",
-        "pear-pear.horde.org/gollem": ">=3.0.4@stable,<=4.0.0alpha1@stable",
+        "pear-pear.horde.org/gollem": ">=3.0.5@stable,<=4.0.0alpha1@stable",
         "pear-pear.horde.org/horde": ">=5.2.7@stable,<=6.0.0alpha1@stable",
         "pear-pear.horde.org/imp": ">=6.2.10@stable,<=7.0.0alpha1@stable",
         "pear-pear.horde.org/ingo": ">=3.2.6@stable,<=4.0.0alpha1@stable",
