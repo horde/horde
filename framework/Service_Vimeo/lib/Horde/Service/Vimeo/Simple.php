@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Serivce_VimeoSimple:: wrapper around Vimeo's (http://www.vimeo.com)
+ * Horde_Serivce_Vimeo_Simple:: wrapper around Vimeo's (http://www.vimeo.com)
  * Simple API.
  *
  * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
