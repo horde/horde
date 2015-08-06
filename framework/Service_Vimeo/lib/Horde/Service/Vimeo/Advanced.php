@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_Serivce_Vimeo_Advnaced:: wrapper around Vimeo's (http://www.vimeo.com)
+ * Horde_Serivce_Vimeo_Advanced:: wrapper around Vimeo's (http://www.vimeo.com)
  * Advanced API.
  *
  * Copyright 2008-2015 Horde LLC (http://www.horde.org/)
@@ -11,7 +11,7 @@
  * @package Service_Vimeo
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  */
-class Horde_Service_Vimeo_Simple extends Horde_Service_Vimeo {
+class Horde_Service_Vimeo_Advanced extends Horde_Service_Vimeo {
 
     protected $_api_endpoint = '';
     protected $_oembed_endpoint = 'http://www.vimeo.com/api/oembed.json';
