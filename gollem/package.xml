@@ -24,7 +24,7 @@
  </lead>
  <date>2015-08-06</date>
  <version>
-  <release>3.0.5</release>
+  <release>3.0.6</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -845,6 +845,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.6</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-08-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
