@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Copyright 2010-2015 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2010 Gerd Schaufelberger

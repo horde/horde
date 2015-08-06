@@ -68,7 +68,7 @@ $form->add('a_checkboxgroup', 'set', _("Checkbox Group"), '', false, false, arra
 <head>
 <title>Incubator Horde_Form Test</title>
 <link rel="stylesheet" type="text/css" href="themes/form.css" />
-<script type="text/javascript" src="<?=$registry->get('jsuri', 'horde')?>/form_helpers.js"></script>
+<script type="text/javascript" src="<?php echo $registry->get('jsuri', 'horde')?>/form_helpers.js"></script>
 </head>
 <body>
 <?php
