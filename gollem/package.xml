@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -844,7 +844,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] SECURITY: Fix XSS vulnerability when viewing directory contents (Discovered by http://www.beyondsecurity.com/ssd.html).
    </notes>
   </release>
  </changelog>
