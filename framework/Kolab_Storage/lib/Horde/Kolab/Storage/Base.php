@@ -189,7 +189,7 @@ implements Horde_Kolab_Storage
      */
     public function getData($folder, $object_type = null, $data_version = 1)
     {
-        if ($folder instanceOf Horde_Kolab_Storage_Folder) {
+        if ($folder instanceof Horde_Kolab_Storage_Folder) {
             $folder_key = $folder->getPath();
         } else {
             $folder_key = $folder;
@@ -204,7 +204,7 @@ implements Horde_Kolab_Storage
             )
         );
         if (!isset($this->_data[$key])) {
-            if (!$folder instanceOf Horde_Kolab_Storage_Folder) {
+            if (!$folder instanceof Horde_Kolab_Storage_Folder) {
                 $folder = $this->getFolder($folder);
             }
             $this->_data[$key] = $this->_createData(

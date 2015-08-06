@@ -443,7 +443,7 @@ class Horde_Share_Kolab extends Horde_Share_Base
             if (isset($params['parent'])) {
                 foreach ($shares as $share) {
                     $object = $this->getShareById($share);
-                    if ($params['parent'] instanceOf Horde_Share_Object) {
+                    if ($params['parent'] instanceof Horde_Share_Object) {
                         $parent = $params['parent'];
                     } else {
                         $parent = $this->getShare($params['parent']);

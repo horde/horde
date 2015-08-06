@@ -124,7 +124,7 @@ This is a list of available actions (use "help ACTION" to get additional informa
     private static function _prepareDependencies($parameters)
     {
         if (isset($parameters['dependencies'])
-            && $parameters['dependencies'] instanceOf Components_Dependencies) {
+            && $parameters['dependencies'] instanceof Components_Dependencies) {
             return $parameters['dependencies'];
         } else {
             return new Components_Dependencies_Injector();

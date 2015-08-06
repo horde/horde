@@ -79,7 +79,7 @@ extends Horde_Kolab_Storage_TestCase
     public function testDataQueriable()
     {
         $data = $this->_getDataCache();
-        $this->assertTrue($data instanceOf Horde_Kolab_Storage_Queriable);
+        $this->assertTrue($data instanceof Horde_Kolab_Storage_Queriable);
     }
 
     public function testGetObjects()

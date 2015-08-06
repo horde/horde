@@ -84,7 +84,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         $old_node = false
     )
     {
-        if (!isset($value) || !$value instanceOf DateTime) {
+        if (!isset($value) || !$value instanceof DateTime) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf(
                     'Missing or invalid date for the "%s" entry!',

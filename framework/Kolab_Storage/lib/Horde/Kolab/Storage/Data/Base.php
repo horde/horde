@@ -323,7 +323,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
         }
         $object['_attachments'] = $attachments;
 
-        if (!$object instanceOf Horde_Kolab_Storage_Object) {
+        if (!$object instanceof Horde_Kolab_Storage_Object) {
             $object_array = $object;
             $object = $oldObject;
             $object->setData($object_array);
@@ -694,7 +694,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
      */
     public function registerQuery($name, Horde_Kolab_Storage_Query $query)
     {
-        if (!$query instanceOf Horde_Kolab_Storage_Data_Query) {
+        if (!$query instanceof Horde_Kolab_Storage_Data_Query) {
             throw new Horde_Kolab_Storage_Exception(
                 'The provided query is no data query.'
             );

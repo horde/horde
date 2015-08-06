@@ -161,7 +161,7 @@ class Horde_Imsp_Book
 
         // Get the response.
         $server_response = $this->_imsp->receive();
-        $abookNames = Array();
+        $abookNames = array();
 
         while (preg_match("/^\* SEARCHADDRESS/", $server_response)) {
             $chopped_response = preg_replace("/^\* SEARCHADDRESS/", '', $server_response);

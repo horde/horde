@@ -248,7 +248,7 @@ class Horde_Kolab_Storage_Factory
         } else {
             $params = array();
         }
-        if ($params instanceOf Horde_Cache) {
+        if ($params instanceof Horde_Cache) {
             return new Horde_Kolab_Storage_Cache($params);
         } else {
             $cache = new Horde_Cache(
@@ -271,7 +271,7 @@ class Horde_Kolab_Storage_Factory
     public function createHistory($user)
     {
         if (isset($this->_params['history']) &&
-            $this->_params['history'] instanceOf Horde_History) {
+            $this->_params['history'] instanceof Horde_History) {
             return $this->_params['history'];
         }
         return new Horde_History_Mock($user);

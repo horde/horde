@@ -75,7 +75,7 @@ class Horde_Exception_Pear extends Horde_Exception
      */
     public static function catchError($result)
     {
-        if ($result instanceOf PEAR_Error) {
+        if ($result instanceof PEAR_Error) {
             throw new self::$_class($result);
         }
         return $result;

@@ -62,13 +62,13 @@ class Kolab_Resource
     {
         require_once 'Horde/Kolab/Server.php';
         $db = Horde_Kolab_Server::singleton();
-        if ($db instanceOf PEAR_Error) {
+        if ($db instanceof PEAR_Error) {
             $db->code = OUT_LOG | EX_SOFTWARE;
             return $db;
         }
 
         $dn = $db->uidForMail($resource, Horde_Kolab_Server_Object::RESULT_MANY);
-        if ($dn instanceOf PEAR_Error) {
+        if ($dn instanceof PEAR_Error) {
             $dn->code = OUT_LOG | EX_NOUSER;
             return $dn;
         }

@@ -118,7 +118,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
      */
     public function isReset(Horde_Kolab_Storage_Folder_Stamp $stamp)
     {
-        if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
+        if (!$stamp instanceof Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
         if ($this->uidvalidity() != $stamp->uidvalidity()) {
@@ -138,7 +138,7 @@ implements Horde_Kolab_Storage_Folder_Stamp
      */
     public function getChanges(Horde_Kolab_Storage_Folder_Stamp $stamp)
     {
-        if (!$stamp instanceOf Horde_Kolab_Storage_Folder_Stamp_Uids) {
+        if (!$stamp instanceof Horde_Kolab_Storage_Folder_Stamp_Uids) {
             throw new Horde_Kolab_Storage_Exception('This stamp can only be compared against stamps of its own type.');
         }
         return array(

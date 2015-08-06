@@ -88,7 +88,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         if (empty($value)) {
             $type = 'none';
             $value = '';
-        } else if ($value instanceOf DateTime) {
+        } else if ($value instanceof DateTime) {
             $type = 'date';
             $value = Horde_Kolab_Format_Date::writeDate($value);
         } else {

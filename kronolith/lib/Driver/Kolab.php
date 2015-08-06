@@ -250,10 +250,10 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             $endDate = new Horde_Date(
                 array('mday' => 31, 'month' => 12, 'year' => 9999));
         }
-        if (!($startDate instanceOf Horde_Date)) {
+        if (!($startDate instanceof Horde_Date)) {
             $startDate = new Horde_Date($startDate);
         }
-        if (!($endDate instanceOf Horde_Date)) {
+        if (!($endDate instanceof Horde_Date)) {
             $endDate = new Horde_Date($endDate);
         }
 

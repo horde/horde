@@ -4,8 +4,8 @@ class Horde_Kolab_Server_Constraint_Searchuid extends PHPUnit_Framework_Constrai
 {
     public function evaluate($other, $description = '', $returnResult = FALSE)
     {
-        if ($other instanceOf Horde_Kolab_Server_Query_Element_Interface) {
-            if ($other instanceOf Horde_Kolab_Server_Query_Element_Group) {
+        if ($other instanceof Horde_Kolab_Server_Query_Element_Interface) {
+            if ($other instanceof Horde_Kolab_Server_Query_Element_Group) {
                 $elements = $other->getElements();
                 foreach ($elements as $element) {
                     if ($this->evaluate($element)) {

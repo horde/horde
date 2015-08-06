@@ -121,7 +121,7 @@ class Horde_Pear_Package_Xml_Directory
      */
     private function _getRoot()
     {
-        if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+        if ($this->_parent instanceof Horde_Pear_Package_Xml_Directory) {
             return $this->_parent->_getRoot();
         } else {
             return $this->_parent;
@@ -235,7 +235,7 @@ class Horde_Pear_Package_Xml_Directory
     {
         if (empty($this->_files) && empty($this->_subdirectories)) {
             $this->_element->delete();
-            if ($this->_parent instanceOf Horde_Pear_Package_Xml_Directory) {
+            if ($this->_parent instanceof Horde_Pear_Package_Xml_Directory) {
                 $this->_parent->_deleteSubdirectory($this->_element->getName());
             }
         }

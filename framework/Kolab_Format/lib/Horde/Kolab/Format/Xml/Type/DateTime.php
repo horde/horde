@@ -97,7 +97,7 @@ extends Horde_Kolab_Format_Xml_Type_String
         if ($value instanceof DateTime) {
             $value = array('date' => $value);
         }
-        if (!isset($value['date']) || !$value['date'] instanceOf DateTime) {
+        if (!isset($value['date']) || !$value['date'] instanceof DateTime) {
             throw new Horde_Kolab_Format_Exception(
                 sprintf(
                     'Missing or invalid data in the "date" element of the "%s" entry!',

@@ -124,10 +124,10 @@ class Components_Helper_Installer
                 if ($dependency->isRequired() ||
                     !empty($c_options['include'])) {
                     $dep = $dependency->getComponent($c_options);
-                    if (!($dep instanceOf Components_Component_Archive) &&
+                    if (!($dep instanceof Components_Component_Archive) &&
                         !empty($options['build_distribution'])) {
                         if (empty($options['allow_remote']) &&
-                            !($component instanceOf Components_Component_Source)) {
+                            !($component instanceof Components_Component_Source)) {
                             throw new Components_Exception(
                                 sprintf(
                                     'Cannot add component "%s". Remote access has been disabled (activate with --allow-remote)!',
@@ -141,7 +141,7 @@ class Components_Helper_Installer
                             if (!file_exists($source)) {
                                 @mkdir(dirname($source), 0777, true);
                             }
-                            if ($dep instanceOf Components_Component_Source) {
+                            if ($dep instanceof Components_Component_Source) {
                                 $environment->provideChannel(
                                     $dep->getChannel(),
                                     $options,
@@ -149,7 +149,7 @@ class Components_Helper_Installer
                                 );
                             }
                             $dep->placeArchive($source);
-                            if ($dep instanceOf Components_Component_Remote) {
+                            if ($dep instanceof Components_Component_Remote) {
                                 $this->_output->warn(
                                     sprintf(
                                         'Downloaded component %s via network to %s.',

@@ -157,7 +157,7 @@ class Horde_Cli_Modular
             return new Horde_Cli_Modular_Modules(
                 $this->_parameters['modules']
             );
-        } elseif ($this->_parameters['modules'] instanceOf Horde_Cli_Modular_Modules) {
+        } elseif ($this->_parameters['modules'] instanceof Horde_Cli_Modular_Modules) {
             return $this->_parameters['modules'];
         } elseif (is_string($this->_parameters['modules'])) {
             return new $this->_parameters['modules']();
@@ -196,7 +196,7 @@ class Horde_Cli_Modular
             return new Horde_Cli_Modular_ModuleProvider(
                 $this->_parameters['provider']
             );
-        } elseif ($this->_parameters['provider'] instanceOf Horde_Cli_Modular_ModuleProvider) {
+        } elseif ($this->_parameters['provider'] instanceof Horde_Cli_Modular_ModuleProvider) {
             return $this->_parameters['provider'];
         } elseif (is_string($this->_parameters['provider'])) {
             return new $this->_parameters['provider']();
