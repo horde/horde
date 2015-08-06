@@ -122,9 +122,14 @@ class Horde_ActiveSync_Mime
      * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
+     * @todo Pass a single mime part as parameter.
      */
     public function isAttachment($id, $mime_type)
     {
+        if ($this->_base->getPart($id)->getDisposition() == 'attachment') {
+            return true;
+        }
+
         switch ($mime_type) {
         case 'text/plain':
             if (!($this->_base->findBody('plain') == $id)) {

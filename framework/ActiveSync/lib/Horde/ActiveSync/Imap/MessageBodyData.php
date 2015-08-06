@@ -250,7 +250,6 @@ class Horde_ActiveSync_Imap_MessageBodyData
             $html_id = $this->_basePart->findBody('html');
         }
 
-
         // Deduce which part(s) we need to request.
         $want_html_text = $this->_wantHtml();
         $want_plain_text = $this->_wantPlainText($html_id, $want_html_text);
