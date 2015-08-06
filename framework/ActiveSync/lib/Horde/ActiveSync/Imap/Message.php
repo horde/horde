@@ -104,11 +104,14 @@ class Horde_ActiveSync_Imap_Message
     {
         switch ($property) {
         case 'envelope':
-            return $this->_data->getEnvelope();
+            $e = $this->_data->getEnvelope();
+            return $e;
         case 'flags':
-            return $this->_data->getFlags();
+            $f = $this->_data->getFlags();
+            return $f;
         case 'uid':
-            return $this->_data->getUid();
+            $u = $this->_data->getUid();
+            return $u;
         case 'basePart':
             if (empty($this->_basePart)) {
                 $this->_basePart = new Horde_ActiveSync_Mime($this->_data->getStructure());
