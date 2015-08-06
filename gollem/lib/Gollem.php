@@ -694,7 +694,7 @@ class Gollem
                     if ($i == $parts_count) {
                         $label[] = $parts[($i - 1)];
                     } else {
-                        $label[] = Horde::link($url->add('dir', $dir), sprintf(_("Up to %s"), $dir)) . $parts[($i - 1)] . '</a>';
+                        $label[] = Horde::link($url->add('dir', $dir), sprintf(_("Up to %s"), $dir)) . htmlspecialchars($parts[($i - 1)]) . '</a>';
                     }
                 }
             }
