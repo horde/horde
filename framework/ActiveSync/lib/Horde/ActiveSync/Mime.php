@@ -126,10 +126,6 @@ class Horde_ActiveSync_Mime
      */
     public function isAttachment($id, $mime_type)
     {
-        if ($this->_base->getPart($id)->getDisposition() == 'attachment') {
-            return true;
-        }
-
         switch ($mime_type) {
         case 'text/plain':
             if (!($this->_base->findBody('plain') == $id)) {
@@ -144,6 +140,10 @@ class Horde_ActiveSync_Mime
         case 'application/pkcs7-signature':
         case 'application/x-pkcs7-signature':
             return false;
+        }
+
+        if ($this->_base->getPart($id)->getDisposition() == 'attachment') {
+            return true;
         }
 
         list($ptype,) = explode('/', $mime_type, 2);
