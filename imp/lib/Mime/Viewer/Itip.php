@@ -407,6 +407,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $view->start = is_array($start)
                 ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $start['month'], $start['mday'], $start['year']))
                 : strftime($prefs->getValue('date_format'), $start) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $start);
+            $start_date = new Horde_Date($start);
         } catch (Horde_Icalendar_Exception $e) {
             $start = null;
         }
@@ -444,7 +445,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             $rrule = array();
         }
         if (!is_array($rrule)) {
-            $recurrence = new Horde_Date_Recurrence(new Horde_Date($view->start));
+            $recurrence = new Horde_Date_Recurrence($start_date);
             if (strpos($rrule, '=') !== false) {
                 $recurrence->fromRRule20($rrule);
             } else {
