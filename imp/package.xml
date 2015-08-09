@@ -33,7 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3877,7 +3877,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
    </notes>
   </release>
  </changelog>

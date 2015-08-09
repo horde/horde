@@ -2,6 +2,8 @@
 v6.2.11-git
 -----------
 
+[mjr] Fix displaying iTips with certain locale/date_format preference
+      combinations (Bug #14076).
 
 
 -------
