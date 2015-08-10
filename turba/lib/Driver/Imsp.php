@@ -72,7 +72,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($name = '', $params)
+    public function __construct($name = '', $params = array())
     {
         parent::__construct($name, $params);
 
@@ -102,7 +102,7 @@ class Turba_Driver_Imsp extends Turba_Driver
      *
      * @return array  Hash containing the search results.
      */
-    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only)
+    protected function _search(array $criteria, array $fields, array $blobFields = array(), $count_only = false)
     {
         $query = $results = array();
 
