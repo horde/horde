@@ -313,7 +313,7 @@ class Ingo_Api extends Horde_Registry_Api
     {
         global $injector;
 
-        if (in_array('vacation', $categories)) {
+        if (in_array('vacation', $time_categories)) {
             return array();
         }
 
