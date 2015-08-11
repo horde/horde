@@ -69,10 +69,11 @@ class Turba_Driver_Imsp extends Turba_Driver
     /**
      * Constructs a new Turba imsp driver object.
      *
+     * @param string $name   Source name
      * @param array $params  Hash containing additional configuration
      *                       parameters.
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
         parent::__construct($name, $params);
 

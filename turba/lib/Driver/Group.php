@@ -18,11 +18,12 @@ class Turba_Driver_Group extends Turba_Driver
     /**
      * Constructor function.
      *
-     * @param array $params  Array of parameters for this driver.
-     *                       Basically, just passes the group id.
+     * @param string $name   Source name
+     * @param array $params  Hash containing additional configuration
+     *                       parameters.
      *
      */
-    public function __construct($name = '', $params = array())
+    public function __construct($name = '', array $params = array())
     {
          $this->_gid = $params['gid'];
     }
