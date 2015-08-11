@@ -1037,7 +1037,7 @@ class Horde_Pdf_Writer
      * @see cell()
      * @see multiCell()
      */
-    public function setFillColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
+    public function setFillColor($cs = 'rgb', $c1 = 0, $c2 = 0, $c3 = 0, $c4 = 0)
     {
         $cs = Horde_String::lower($cs);
 
@@ -1095,7 +1095,7 @@ class Horde_Pdf_Writer
      * @see cell()
      * @see multiCell()
      */
-    public function setTextColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
+    public function setTextColor($cs = 'rgb', $c1 = 0, $c2 = 0, $c3 = 0, $c4 = 0)
     {
         $cs = Horde_String::lower($cs);
 
@@ -1151,7 +1151,7 @@ class Horde_Pdf_Writer
      * @see cell()
      * @see multiCell()
      */
-    public function setDrawColor($cs = 'rgb', $c1, $c2 = 0, $c3 = 0, $c4 = 0)
+    public function setDrawColor($cs = 'rgb', $c1 = 0, $c2 = 0, $c3 = 0, $c4 = 0)
     {
         $cs = Horde_String::lower($cs);
 
