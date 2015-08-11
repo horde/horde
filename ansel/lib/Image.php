@@ -975,7 +975,7 @@ class Ansel_Image implements Iterator
      * @param string $view    The view (size) to work with.
      * @param integer $angle  What angle to rotate the image by.
      */
-    public function rotate($view = 'full', $angle)
+    public function rotate($view = 'full', $angle = 90)
     {
         $this->load($view);
         $this->_dirty = true;
