@@ -974,6 +974,9 @@ class Ansel_Image implements Iterator
      *
      * @param string $view    The view (size) to work with.
      * @param integer $angle  What angle to rotate the image by.
+     * @todo Ansel 4: reverse order of parameters so we can make $angle required
+     *       but $view optional. In fact, view can be taken out entirely as
+     *       we only ever need to rotate the full image anyway.
      */
     public function rotate($view = 'full', $angle = 90)
     {
