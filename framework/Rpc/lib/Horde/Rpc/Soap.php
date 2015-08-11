@@ -128,7 +128,7 @@ class Horde_Rpc_Soap extends Horde_Rpc
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
      */
-    public static function request($url, $method, $params = null, $soap)
+    public static function request($url, $method, $params, $soap)
     {
         try {
             return $soap->__soapCall($method, $params);
