@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2020,7 +2020,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
    </notes>
   </release>
  </changelog>
