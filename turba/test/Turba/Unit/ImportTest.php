@@ -556,8 +556,7 @@ London W1 1AA',
                 'commonCity' => 'London',
                 'commonPostalCode' => 'W1 1AA',
                 'birthday' => '2008-10-08',
-                'phototype' => 'JPEG',
-                'email' => 'test@example.org',
+                'phototype' => 'JPEG'
             ),
             $hash
         );
@@ -573,4 +572,23 @@ London W1 1AA',
         $ical->parsevCalendar($vcard);
         return $driver->toHash($ical->getComponent(0));
     }
+
+    public function  testBug14046()
+    {
+        $vard = 'BEGIN:VCARD
+VERSION:3.0
+UID:20110107095409.cA7RPZcRtLVNJykRD60mE0A@h4.theupstairsroom.com
+FN:Michael Joseph Rubinsky
+NICKNAME:Mike
+X-EPOCSECONDNAME:Mike
+TZ;VALUE=text:America/New_York
+EMAIL;TYPE=WORK:mrubinsk@horde.org
+N:Rubinsky;Michael;Joseph;;
+END:VCARD';
+
+    $hash = $this->toHash($vcard);
+    $this->assertEquals($hash['workEmail'] = 'mrubinsk@horde.org');
+    $this->assertEmpty($hash['email']);
+    }
+
 }
