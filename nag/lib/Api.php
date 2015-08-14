@@ -852,7 +852,7 @@ class Nag_Api extends Horde_Registry_Api
      *
      * @param string  $action     The action to check for - add, modify, or delete.
      * @param integer $timestamp  The time to start the search.
-     * @param mixed   $tasklists  The tasklists to be used. If 'null', the
+     * @param string  $tasklist   The tasklist to be used. If 'null', the
      *                            user's default tasklist will be used.
      * @param integer $end        The optional ending timestamp.
      * @param boolean $isModSeq   If true, $timestamp and $end are modification
@@ -897,37 +897,36 @@ class Nag_Api extends Horde_Registry_Api
      * a wrapper around listBy(), but returns an array containing all adds,
      * edits and deletions.
      *
-     * @param integer $start             The starting timestamp
-     * @param integer $end               The ending timestamp.
-     * @param boolean $isModSeq          If true, $timestamp and $end are
-     *                                   modification sequences and not
-     *                                   timestamps. @since 4.1.1
-     * @param string|array $tasklists    The sources to check. @since 4.2.0
+     * @param integer $start     The starting timestamp
+     * @param integer $end       The ending timestamp.
+     * @param boolean $isModSeq  If true, $timestamp and $end are modification
+     *                           sequences and not timestamps. @since 4.1.1
+     * @param string $tasklist   The sources to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false, $tasklists = null)
+    public function getChanges($start, $end, $isModSeq = false, $tasklist = null)
     {
         return array(
-            'add' => $this->listBy('add', $start, $tasklists, $end, $isModSeq),
-            'modify' => $this->listBy('modify', $start, $tasklists, $end, $isModSeq),
-            'delete' => $this->listBy('delete', $start, $tasklists, $end, $isModSeq));
+            'add' => $this->listBy('add', $start, $tasklist, $end, $isModSeq),
+            'modify' => $this->listBy('modify', $start, $tasklist, $end, $isModSeq),
+            'delete' => $this->listBy('delete', $start, $tasklist, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start             The starting modseq.
-     * @param integer $end               The ending modseq.
-     * @param string|array $tasklists    The sources to check. @since 4.2.0
+     * @param integer $start    The starting modseq.
+     * @param integer $end      The ending modseq.
+     * @param string $tasklist  The sources to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end, $tasklists = null)
+    public function getChangesByModSeq($start, $end, $tasklist = null)
     {
-        return $this->getChanges($start, $end, true, $tasklists);
+        return $this->getChanges($start, $end, true, $tasklist);
     }
 
     /**
