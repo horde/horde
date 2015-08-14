@@ -59,6 +59,15 @@ class Turba_Object
     protected $_vfs;
 
     /**
+     * Local cache of available email addresses. Needed to ensure we
+     * populate the email field correctly. See See Bug: 12955 and Bug: 14046.
+     * A hash with turba attribute names as key.
+     *
+     * @var array
+     */
+    protected $_emailFields = array();
+
+    /**
      * Constructs a new Turba_Object object.
      *
      * @param Turba_Driver $driver  The source that this object came from.
@@ -166,7 +175,7 @@ class Turba_Object
      */
     public function setValue($attribute, $value)
     {
-        global $injector;
+        global $injector, $attributes;
 
         $hooks = $injector->getInstance('Horde_Core_Hooks');
 
@@ -188,6 +197,14 @@ class Turba_Object
         if (isset($this->driver->map[$attribute]) &&
             is_array($this->driver->map[$attribute]) &&
             !isset($this->driver->map[$attribute]['attribute'])) {
+
+            // If we don't know the attribute, and it's an email field, save it
+            // in case we need to populate an email field on save.
+            if (isset($attributes[$attribute]) &&
+                $attributes[$attribute]['type'] == 'email') {
+                $this->_emailFields[$attribute] = $value;
+            }
+
             return;
         }
 
@@ -548,6 +565,7 @@ class Turba_Object
      */
     public function store()
     {
+        $this->_ensureEmail();
         return $this->setValue('__key', $this->driver->save($this));
     }
 
@@ -568,6 +586,38 @@ class Turba_Object
         }
 
         return $this->_vfs;
+    }
+
+    /**
+     * Ensure we have an email address set, if available. Needed to cover the
+     * case where a contact might have been imported via vCard with email TYPEs
+     * that do not match the configured attributes for this source. E.g., the
+     * vCard contains a TYPE=HOME but we only have the generic 'email' field
+     * available.
+     *
+     * @return [type] [description]
+     */
+    protected  function _ensureEmail()
+    {
+        global $attributes;
+
+        foreach ($this->attributes as $attribute => $value) {
+            if ($attributes[$attribute]['type'] = 'email') {
+                // We have an email defined, no need to check.
+                return;
+            }
+        }
+
+        // No email defined yet, see if we have any available:
+        foreach ($this->_emailFields as $attribute => $email) {
+            if (!empty($this->driver->map[$attribute])) {
+                $this->attributes[$attribute] = $email;
+                break;
+            } elseif (!empty($this->driver->map['email'])) {
+                $this->attribute['email'] = $email;
+                break;
+            }
+        }
     }
 
 }
