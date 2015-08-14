@@ -317,9 +317,9 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     public function synchronize($token = false)
     {
         $data = $this->_getData(true);
-        $last_token = $GLOBALS['session']->get('mnemo', 'kolab/token');
+        $last_token = $GLOBALS['session']->get('mnemo', 'kolab/token/' . $this->_notepad);
         if (empty($token) || empty($last_token) || $last_token != $token) {
-            $GLOBALS['session']->set('mnemo', 'kolab/token', $token);
+            $GLOBALS['session']->set('mnemo', 'kolab/token/' . $this->_notepad, $token);
             $data->synchronize();
         }
     }
