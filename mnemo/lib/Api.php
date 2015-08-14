@@ -441,16 +441,15 @@ class Mnemo_Api extends Horde_Registry_Api
      * a wrapper around listBy(), but returns an array containing all adds,
      * edits and deletions.
      *
-     * @param integer $start             The starting timestamp
-     * @param integer $end               The ending timestamp.
-     * @param boolean $isModSeq          If true, $timestamp and $end are
-     *                                   modification sequences and not
-     *                                   timestamps. @since 4.1.1
-     * @param string|array $notepads     The sources to check. @since 4.2.0
+     * @param integer $start     The starting timestamp
+     * @param integer $end       The ending timestamp.
+     * @param boolean $isModSeq  If true, $timestamp and $end are modification
+     *                           sequences and not timestamps. @since 4.1.1
+     * @param string $notepad    The source to check. @since 4.2.0
      *
      * @return array  An hash with 'add', 'modify' and 'delete' arrays.
      */
-    public function getChanges($start, $end, $isModSeq = false, $notepads = null)
+    public function getChanges($start, $end, $isModSeq = false, $notepad = null)
     {
         global $injector;
 
@@ -459,25 +458,25 @@ class Mnemo_Api extends Horde_Registry_Api
             ->create($notepad)
             ->synchronize($end);
 
-        return array('add' => $this->listBy('add', $start, $notepads, $end, $isModSeq),
-                     'modify' => $this->listBy('modify', $start, $notepads, $end, $isModSeq),
-                     'delete' => $this->listBy('delete', $start, $notepads, $end, $isModSeq));
+        return array('add' => $this->listBy('add', $start, $notepad, $end, $isModSeq),
+                     'modify' => $this->listBy('modify', $start, $notepad, $end, $isModSeq),
+                     'delete' => $this->listBy('delete', $start, $notepad, $end, $isModSeq));
     }
 
     /**
      * Return all changes occuring between the specified modification
      * sequences.
      *
-     * @param integer $start          The starting modseq.
-     * @param integer $end            The ending modseq.
-     * @param string|array $notepads  The sources to check. @since 4.2.0
+     * @param integer $start    The starting modseq.
+     * @param integer $end      The ending modseq.
+     * @param string  $notepad  The source to check. @since 4.2.0
      *
      * @return array  The changes @see getChanges()
      * @since 4.1.1
      */
-    public function getChangesByModSeq($start, $end, $notepads = null)
+    public function getChangesByModSeq($start, $end, $notepad = null)
     {
-        return $this->getChanges($start, $end, true, $notepads);
+        return $this->getChanges($start, $end, true, $notepad);
     }
 
     /**
