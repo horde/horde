@@ -453,7 +453,10 @@ class Mnemo_Api extends Horde_Registry_Api
     {
         global $injector;
 
-        $notepad = Mnemo::getDefaultNotepad();
+        if (!$notepad) {
+            $notepad = Mnemo::getDefaultNotepad();
+        }
+
         $injector->getInstance('Mnemo_Factory_Driver')
             ->create($notepad)
             ->synchronize($end);
