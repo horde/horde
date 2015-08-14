@@ -389,6 +389,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _move($taskId, $newTasklist)
     {
+        $this->synchronize();
         $this->_getData()->move(
             Horde_Url::uriB64Decode($taskId),
             $GLOBALS['nag_shares']->getShare($newTasklist)->get('folder')
@@ -403,6 +404,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _delete($taskId)
     {
+        $this->synchronize();
         $this->_getData()->delete(Horde_Url::uriB64Decode($taskId));
     }
 
@@ -413,6 +415,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _deleteAll()
     {
+        $this->synchronize();
         $this->retrieve();
         $this->tasks->reset();
         $ids = array();
@@ -587,4 +590,21 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         return $tasks;
     }
+
+    /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $data = $this->_getData(true);
+        $last_token = $GLOBALS['session']->get('nag', 'kolab/token');
+        if (empty($token) || empty($last_token) || $last_token != $token) {
+            $GLOBALS['session']->set('nag', 'kolab/token', $token);
+            $data->synchronize();
+        }
+    }
+
 }

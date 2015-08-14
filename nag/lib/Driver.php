@@ -514,6 +514,16 @@ abstract class Nag_Driver
     }
 
     /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+    }
+
+    /**
      * Helper function to update an existing event's tags to tagger storage.
      *
      * @param array $task  The task to update
