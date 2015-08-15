@@ -158,19 +158,19 @@ class Nag_Driver_Kolab extends Nag_Driver
 
 
     /**
-     * Retrieves one or multiple tasks from the database by UID.
+     * Retrieves one task from the database by UID.
      *
-     * @param string|array $uid  The UID(s) of the task to retrieve.
-     * @param array $tasklists   An optional array of tasklists to search.
-     * @param boolean $getall    If true, return all instances of the task,
-     *                           otherwise only one. Attempts to find the
-     *                           instance owned by the current user.
+     * @param string $uid       The UID of the task to retrieve.
+     * @param array $tasklists  An optional array of tasklists to search.
+     * @param boolean $getall   If true, return all instances of the task,
+     *                          otherwise only one. Attempts to find the
+     *                          instance owned by the current user.
      *
      * @return Nag_Task  A Nag_Task object.
      * @throws Horde_Exception_NotFound
      * @throws Nag_Exception
      */
-    public function getByUID($uids, array $tasklists = null, $getall = true)
+    public function getByUID($uid, array $tasklists = null, $getall = true)
     {
         if (!is_array($tasklists)) {
             $tasklists = array_keys(Nag::listTasklists(false, Horde_Perms::READ, false));
