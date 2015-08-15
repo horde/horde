@@ -1305,15 +1305,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
 
         case Horde_ActiveSync::CLASS_TASKS:
-            $folder_id = is_array($folder_split) ? $folder_split[self::FOLDER_PART_ID] : null;
             try {
-                $message = $this->_connector->tasks_export($id,
-                    array(
-                        'protocolversion' => $this->_version,
-                        'truncation' => $collection['truncation'],
-                        'bodyprefs' => $collection['bodyprefs'],
-                        'mimesupport' => $collection['mimesupport']),
-                    $folder_id);
+                $message = $this->_connector->tasks_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $collection['bodyprefs'],
+                    'mimesupport' => $collection['mimesupport']));
             } catch (Horde_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 $this->_endBuffer();
