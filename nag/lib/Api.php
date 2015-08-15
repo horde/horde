@@ -1170,14 +1170,15 @@ class Nag_Api extends Horde_Registry_Api
      * - activesync:       Horde_ActiveSync_Message_Task.
      * - raw:              Nag_Task.
      * @param array $options      Any additional options for the exporter.
+     * @param string $tasklist    The tasklist to look in. @since  4.3.0
      *
      * @return string  The requested data.
      */
-    public function export($uid, $contentType, array $options = array())
+    public function export($uid, $contentType, array $options = array(), $tasklist = null)
     {
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create('')
+            ->create($tasklist)
             ->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
