@@ -581,9 +581,9 @@ class Horde_Core_ActiveSync_Connector
      *
      * @return Horde_ActiveSync_Message_Task  The task message object
      */
-    public function tasks_export($uid, array $options = array())
+    public function tasks_export($uid, array $options = array(), $folder_id = null)
     {
-        return $this->_registry->tasks->export($uid, 'activesync', $options);
+        return $this->_registry->tasks->export($uid, 'activesync', $options, $folder_id);
     }
 
     /**
