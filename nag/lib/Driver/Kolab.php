@@ -620,9 +620,9 @@ class Nag_Driver_Kolab extends Nag_Driver
     public function synchronize($token = false)
     {
         $data = $this->_getData(true);
-        $last_token = $GLOBALS['session']->get('nag', 'kolab/token');
+        $last_token = $GLOBALS['session']->get('nag', 'kolab/token/' . $this->_tasklist);
         if (empty($token) || empty($last_token) || $last_token != $token) {
-            $GLOBALS['session']->set('nag', 'kolab/token', $token);
+            $GLOBALS['session']->set('nag', 'kolab/token/' . $this->_tasklist, $token);
             $data->synchronize();
         }
     }
