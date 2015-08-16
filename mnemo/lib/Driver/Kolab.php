@@ -111,7 +111,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         if (empty($this->_notepad)) {
             $notepads = Mnemo::listNotepads(false, Horde_Perms::READ);
         } else {
-            $notepads = array($this->_notepad);
+            $notepads = array($this->_notepad => true);
         }
         foreach (array_keys($notepads) as $notepad) {
             if ($notepad != $this->_notepad) {
