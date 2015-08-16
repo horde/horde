@@ -113,7 +113,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         } else {
             $notepads = array($this->_notepad);
         }
-        foreach ($notepads as $notepad) {
+        foreach (array_keys($notepads) as $notepad) {
             if ($notepad != $this->_notepad) {
                 $this->_data = null;
             }
