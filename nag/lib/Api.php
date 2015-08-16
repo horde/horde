@@ -1178,7 +1178,7 @@ class Nag_Api extends Horde_Registry_Api
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create('')
-            ->getByUID($uid);
+            ->getByUID($uid, null, false);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
         }
