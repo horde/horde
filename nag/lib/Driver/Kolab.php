@@ -43,16 +43,18 @@ class Nag_Driver_Kolab extends Nag_Driver
     /**
      * Return the Kolab data handler for the current tasklist.
      *
+     * @param boolean $force  Force returning a new handler
+     *
      * @return Horde_Kolab_Storage_Data The data handler.
      */
-    protected function _getData()
+    protected function _getData($force = false)
     {
         if (empty($this->_tasklist)) {
             throw new Nag_Exception(
                 'The tasklist has been left undefined but is required!'
             );
         }
-        if ($this->_data === null) {
+        if ($this->_data === null || $force) {
             $this->_data = $this->_getDataForTasklist($this->_tasklist);
         }
         return $this->_data;
