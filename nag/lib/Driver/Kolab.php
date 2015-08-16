@@ -180,7 +180,12 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         $results = array();
         foreach ($tasklists as $tasklist) {
+            // Must clear the data if the tasklist changed.
+            if ($tasklist != $this->_tasklist) {
+                $this->_data = null;
+            }
             $this->_tasklist = $tasklist;
+
             try {
                 $results[] = $this->get(Horde_Url::uriB64Encode($uid));
             } catch (Horde_Exception_NotFound $e) {
@@ -217,6 +222,19 @@ class Nag_Driver_Kolab extends Nag_Driver
         }
 
         return $task;
+    }
+
+    /**
+     * Sets the currently open tasklist.
+     *
+     * @param  string $tasklist  The tasklist.
+     */
+    public function open($tasklist)
+    {
+        if ($this->_tasklist != $tasklist) {
+            $this->_data = null;
+        }
+        parent::open($tasklist);
     }
 
     /**
