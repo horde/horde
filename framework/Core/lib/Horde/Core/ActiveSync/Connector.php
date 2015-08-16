@@ -587,7 +587,7 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * Importa a single task into the backend.
+     * Import a single task into the backend.
      *
      * @param Horde_ActiveSync_Message_Task $message  The task message object
      * @param string $tasklist  The tasklist id. @since 2.12.0
