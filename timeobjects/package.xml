@@ -16,7 +16,7 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-05-05</date>
+ <date>2015-08-17</date>
  <version>
   <release>2.1.1</release>
   <api>2.0.0</api>
@@ -27,7 +27,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add Italian translation (Massimo Balestrieri &lt;nag@hidaba.com&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -102,6 +102,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/hu/LC_MESSAGES -->
     </dir> <!-- /locale/hu -->
+    <dir name="it">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/it/LC_MESSAGES -->
+    </dir> <!-- /locale/it -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -235,6 +241,8 @@
    <install as="timeobjects/locale/fr/LC_MESSAGES/timeobjects.po" name="locale/fr/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/hu/LC_MESSAGES/timeobjects.mo" name="locale/hu/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/hu/LC_MESSAGES/timeobjects.po" name="locale/hu/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/it/LC_MESSAGES/timeobjects.mo" name="locale/it/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/it/LC_MESSAGES/timeobjects.po" name="locale/it/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.mo" name="locale/ja/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/ja/LC_MESSAGES/timeobjects.po" name="locale/ja/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/lv/LC_MESSAGES/timeobjects.mo" name="locale/lv/LC_MESSAGES/timeobjects.mo" />
@@ -524,10 +532,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-05-05</date>
+   <date>2015-08-17</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add Italian translation (Massimo Balestrieri &lt;nag@hidaba.com&gt;).
    </notes>
   </release>
  </changelog>
