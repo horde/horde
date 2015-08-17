@@ -1900,6 +1900,10 @@ msgstr "Amore"
 msgid "MM"
 msgstr "MM"
 
+#: themes/magdata/info.php:2
+msgid "Magdata"
+msgstr "Magdata"
+
 #: lib/Block/Fortune.php:56
 msgid "Magic"
 msgstr "Magia"
