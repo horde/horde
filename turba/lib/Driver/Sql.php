@@ -419,15 +419,20 @@ class Turba_Driver_Sql extends Turba_Driver
      *
      * @throws Turba_Exception
      */
-    protected function _add(array $attributes, array $blob_fields = array(), array $date_fields = array())
+    protected function _add(array $attributes, array $blob_fields = array(),
+                            array $date_fields = array())
     {
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
-        $query  = 'INSERT INTO ' . $this->_params['table']
-            . ' (' . implode(', ', $fields) . ')'
-            . ' VALUES (' . str_repeat('?, ', count($values) - 1) . '?)';
+        list($fields, $values) = $this->_prepareWrite(
+            $attributes,
+            $blob_fields,
+            $date_fields
+        );
 
         try {
-            $this->_db->insert($query, $values);
+            $this->_db->insertBlob(
+                $this->_params['table'],
+                array_combine($fields, $values)
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when adding data."));
         }
@@ -530,22 +535,25 @@ class Turba_Driver_Sql extends Turba_Driver
      */
     protected function _save(Turba_Object $object)
     {
-        list($object_key, $object_id) = each($this->toDriverKeys(array('__key' => $object->getValue('__key'))));
+        list($object_key, $object_id) = each(
+            $this->toDriverKeys(array('__key' => $object->getValue('__key')))
+        );
         $attributes = $this->toDriverKeys($object->getAttributes());
         $blob_fields = $this->toDriverKeys($this->getBlobs());
         $date_fields = $this->toDriverKeys($this->getDateFields());
-
-        $where = $object_key . ' = ?';
         unset($attributes[$object_key]);
-
-        list($fields, $values) = $this->_prepareWrite($attributes, $blob_fields, $date_fields);
-
-        $values[] = $object_id;
-
-        $query = 'UPDATE ' . $this->_params['table'] . ' SET ' . implode(' = ?, ', $fields) . ' = ? WHERE ' . $where;
+        list($fields, $values) = $this->_prepareWrite(
+            $attributes,
+            $blob_fields,
+            $date_fields
+        );
 
         try {
-            $this->_db->update($query, $values);
+            $this->_db->updateBlob(
+                $this->_params['table'],
+                array_combine($fields, $values),
+                array($object_key . ' = ?', array($object_id))
+            );
         } catch (Horde_Db_Exception $e) {
             throw new Turba_Exception(_("Server error when saving data."));
         }
