@@ -299,7 +299,9 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 }
                 $cmds->add(array(
                     $key,
-                    new Horde_Imap_Client_Data_Format_Number($val['size'])
+                    new Horde_Imap_Client_Data_Format_Number(
+                        empty($val['size']) ? 0 : $val['size']
+                    )
                 ));
             }
         }
