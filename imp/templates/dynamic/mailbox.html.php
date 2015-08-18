@@ -65,7 +65,9 @@
     </div>
 
     <div id="viewport_error" style="display:none">
+     <span class="iconImg closeImg" id="search_error_close" title="<?php echo _("Clear Search") ?>"></span>
      <span class="iconImg actionRefresh" id="viewport_error_refresh" title="<?php echo _("Retry") ?>"></span>
+     <span class="iconImg actionEditsearch" id="search_error_edit" title="<?php echo _("Edit Search Query") ?>"></span>
      <div><?php echo _("Error loading message list.") ?></div>
     </div>
    </div>

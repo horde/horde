@@ -454,7 +454,9 @@ div.vpRow div.msgSubject span.flagUser {
     padding: 8px 10px;
 }
 #search_close,
+#search_error_close,
 #search_edit,
+#search_error_edit,
 #search_refresh,
 #viewport_error_refresh {
     cursor: pointer;

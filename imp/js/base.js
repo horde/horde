@@ -2902,6 +2902,7 @@ var ImpBase = {
             break;
 
         case 'search_edit':
+        case 'search_error_edit':
             this.go('search', {
                 edit_query: 1,
                 mailbox: this.view
@@ -3029,7 +3030,13 @@ var ImpBase = {
             break;
 
         case 'search_close':
-            this.quicksearchClear();
+        case 'search_error_close':
+            if (this.isSearch()) {
+                this.quicksearchClear();
+            } else {
+                // If search fails, send to INBOX
+                this.go('mbox', this.INBOX);
+            }
             e.memo.stop();
             break;
 
