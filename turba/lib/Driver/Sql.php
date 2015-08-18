@@ -503,9 +503,14 @@ class Turba_Driver_Sql extends Turba_Driver
             ? array($GLOBALS['registry']->getAuth())
             : array($sourceName);
 
+        if (empty($this->_params['map']['__owner'])) {
+            throw new Turba_Exception(_("Unable to find __owner field. Cannot delete."));
+        }
+        $owner_field = $this->_params['map']['__owner'];
+
         /* Need a list of UIDs so we can notify History */
-        $query = 'SELECT '. $this->map['__uid'] . ' FROM '
-            . $this->_params['table'] . ' WHERE owner_id = ?';
+        $query = sprintf('SELECT %s FROM %s WHERE %s = ?',
+            $this->map['__uid'], $this->_params['table'], $owner_field);
 
         try {
             $ids = $this->_db->selectValues($query, $values);
@@ -514,8 +519,7 @@ class Turba_Driver_Sql extends Turba_Driver
         }
 
         /* Do the deletion */
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE owner_id = ?';
-
+        $query = sprintf('DELETE FROM %s WHERE %s = ?', $this->_params['table'], $owner_field);
         try {
             $this->_db->delete($query, $values);
         } catch (Horde_Db_Exception $e) {
