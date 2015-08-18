@@ -757,6 +757,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _delete($object_key, $object_id)
     {
         $this->connect();
+        $this->syncronize();
 
         if ($object_key == 'uid') {
             $object_id = Horde_Url::uriB64Encode($object_id);
@@ -792,6 +793,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _deleteAll($sourceName = null)
     {
         $this->connect();
+        $this->synchronize();
         $uids = array_map(array('Horde_Url', 'uriB64Decode'), array_keys($this->_contacts_cache));
 
         /* Delete contacts */
@@ -1012,4 +1014,21 @@ class Turba_Driver_Kolab extends Turba_Driver
                }
            }
     }
+
+    /**
+     * Synchronize with the Kolab backend.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $data = $this->_getData(true);
+        $last_token = $GLOBALS['session']->get('turba', 'kolab/token/' . $this->_name);
+        if (empty($token) || empty($last_token) || $last_token != $token) {
+            $GLOBALS['session']->set('turba', 'kolab/token/' . $this->_name, $token);
+            $data->synchronize();
+        }
+    }
+
 }

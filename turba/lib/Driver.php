@@ -3153,4 +3153,15 @@ class Turba_Driver implements Countable
         }
     }
 
+    /**
+     * Synchronize, if needed.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        // noop
+    }
+
 }

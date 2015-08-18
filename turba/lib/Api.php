@@ -565,6 +565,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
+        $sources = $this->_getSources($sources, true);
         return array(
             'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
             'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),
@@ -2236,7 +2237,7 @@ class Turba_Api extends Horde_Registry_Api
 
     /**
      */
-    private function _modified($uid, $sources)
+    protected function _modified($uid, $sources)
     {
         $modified = $this->getActionTimestamp($uid, 'modify', $sources);
         if (empty($modified)) {
@@ -2248,7 +2249,7 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * @throws Turba_Exception
      */
-    private function _getSources($sources)
+    protected function _getSources($sources, $synchronize = false)
     {
         /* Get default address book from user preferences. */
         if (empty($sources)) {
@@ -2267,6 +2268,12 @@ class Turba_Api extends Horde_Registry_Api
         foreach ($sources as $val) {
             if (!strlen($val) || !isset($GLOBALS['cfgSources'][$val])) {
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $val));
+            }
+            if ($synchronize) {
+                $driver = $GLOBALS['injector']
+                    ->getInstance('Turba_Factory_Driver')
+                    ->create($val)
+                    ->synchronize($end);
             }
         }
 
