@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Fix removing all contacts owned by a specific user.
 * [jan] Fix inserting and updating photos with Oracle backends.
 * [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
  </notes>
@@ -2021,6 +2022,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Fix removing all contacts owned by a specific user.
 * [jan] Fix inserting and updating photos with Oracle backends.
 * [mjr] Fix incorrectly populating email field when importing vCard (Bug #14046).
    </notes>
