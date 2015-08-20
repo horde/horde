@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding base64-encode stream filters (Bug #14086).
 * [mjr] Fix issue where incorrect text/html part is choosen as the main body part.
  </notes>
  <contents>
@@ -2812,6 +2813,7 @@
    <date>2015-08-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding base64-encode stream filters (Bug #14086).
 * [mjr] Fix issue where incorrect text/html part is choosen as the main body part.
    </notes>
   </release>
