@@ -88,10 +88,22 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
     protected function _checkEncoding($data, $tag)
     {
         if ($tag == Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA) {
+            // See Bug: 14086. Use a STREAM_FILTER_WRITE and perform the
+            // filtering here instead of using the currently broken behavior of
+            // PHP when using base64-encode as STREAM_FILTER_READ. feof() is
+            // apparently not safe to use when using STREAM_FILTER_READ.
             if (is_resource($data)) {
-                $this->_streamFilters[] = stream_filter_append($data, 'convert.base64-encode', STREAM_FILTER_READ);
+                 $temp = fopen('php://temp/', 'r+');
+                 $filter = stream_filter_prepend($temp, 'convert.base64-encode', STREAM_FILTER_WRITE);
+                 rewind($data);
+                 while (!feof($data)) {
+                     fwrite($temp, fread($data, 8192));
+                 }
+                 stream_filter_remove($filter);
+                 rewind($temp);
+                return $temp;
             } else {
-                $data = base64_encode($data);
+                return base64_encode($data);
             }
         }
 
