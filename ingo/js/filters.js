@@ -57,6 +57,7 @@ var IngoFilters = {
                 tag: 'div'
             });
         }
+
     },
 
     // Adapted from http://stackoverflow.com/questions/1090948/change-url-parameters
