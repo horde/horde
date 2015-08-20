@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-08-06</date>
+ <date>2015-08-20</date>
  <version>
   <release>2.29.0</release>
   <api>2.29.0</api>
@@ -2810,7 +2810,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-08-06</date>
+   <date>2015-08-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Work around bug in various versions of PHP 5.5 and 5.6 regarding base64-encode stream filters (Bug #14086).
