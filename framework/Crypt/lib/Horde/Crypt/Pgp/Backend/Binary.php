@@ -615,8 +615,12 @@ extends Horde_Crypt_Pgp_Backend
      *
      * @return stdClass  Class with members output, stderr, and stdout.
      * @throws Horde_Crypt_Exception
+     * @todo This method should be protected, but due to closures not having
+     *       proper access to $this without assigning it to another variable
+     *       which does not give it access to non-puplic members, we must
+     *       make this public until H6 when we can require at least PHP 5.4.
      */
-    protected function _callGpg($options, $mode, $input = array(),
+    public function _callGpg($options, $mode, $input = array(),
                                 $output = false, $stderr = false,
                                 $parseable = false, $verbose = false)
     {
