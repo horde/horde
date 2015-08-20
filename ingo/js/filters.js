@@ -38,7 +38,7 @@ var IngoFilters = {
                                 /* Need to re-label the IDs to reflect new
                                  * sort order. */
                                 var i = 0,
-                                    rows = $('filterslist').select('DIV.filtersRow');
+                                    rows = $('filterslist').childElements();
                                 rows.invoke('writeAttribute', 'id', null);
                                 rows.each(function(r) {
                                     var a = r.select('a');
