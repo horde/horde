@@ -408,8 +408,10 @@ class Ingo_Storage_Sql extends Ingo_Storage
                     }
                 } catch (Horde_Db_Exception $e) {
                     Horde::log($e, 'ERR');
+                    $this->_params['db']->rollbackDbTransaction();
                     throw new Ingo_Exception($e);
                 }
+                $this->_params['db']->commitDbTransaction();
                 break;
 
             case 'Ingo_Rule_System_Forward':
