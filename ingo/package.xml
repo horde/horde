@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-08-01</date>
+ <date>2015-08-25</date>
  <version>
   <release>3.2.7</release>
   <api>3.2.0</api>
@@ -442,6 +442,7 @@
     <file name="4_ingo_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_ingo_upgrade_parents.php" role="horde" />
+    <file name="7_ingo_fix_rule_order.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -863,6 +864,7 @@
    <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
    <install as="ingo/migration/6_ingo_upgrade_parents.php" name="migration/6_ingo_upgrade_parents.php" />
+   <install as="ingo/migration/7_ingo_fix_rule_order.php" name="migration/7_ingo_fix_rule_order.php" />
    <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
    <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
    <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
@@ -1587,7 +1589,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-08-01</date>
+   <date>2015-08-25</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * 
