@@ -28,7 +28,7 @@ class IngoFixRuleOrder extends Horde_Db_Migration_Base
         $sql = 'SELECT rule_id, rule_owner, rule_order FROM ingo_rules ORDER BY rule_owner, rule_order';
         $update = 'UPDATE ingo_rules SET rule_order = ? WHERE rule_owner = ? AND rule_id = ?';
 
-        $results = $this->_connection->selectAll($sql);
+        $results = $this->select($sql);
         $owner = '';
         foreach ($results as $row) {
             if ($owner != $row['rule_owner']) {
@@ -36,7 +36,7 @@ class IngoFixRuleOrder extends Horde_Db_Migration_Base
                 $order = 0;
             }
             if ($row['rule_order'] != $order++) {
-                $this->_connection->update($update, array($order - 1, $owner, $row['rule_id']));
+                $this->update($update, array($order - 1, $owner, $row['rule_id']));
             }
         }
     }
