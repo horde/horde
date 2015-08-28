@@ -920,7 +920,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             $collection['class'] = $this->_collections->getCollectionClass($collection['id']);
         }
         if (empty($collection['serverid'])) {
-            $collection['serverid'] = $this->_collections->getBackendIdForFolderUid($collection['id']);
+            try {
+                $collection['serverid'] = $this->_collections->getBackendIdForFolderUid($collection['id']);
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                $this->_handleError($colleciton);
+                return false;
+            }
         }
 
         try {
