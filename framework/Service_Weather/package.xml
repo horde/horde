@@ -68,7 +68,6 @@
        <file name="WeatherUnderground.php" role="php" />
        <file name="WeatherUnderground_Strings.php" role="php" />
        <file name="Wwo.php" role="php" />
-       <file name="Wwov2.php" role="php" />
        <file name="Wwo_Strings.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
@@ -140,12 +139,14 @@
         <file name="boston_location_wwo.json" role="test" />
         <file name="boston_wunderground.json" role="test" />
         <file name="boston_wwo.json" role="test" />
+        <file name="wwov2.json" role="test" />
        </dir> <!-- /test/Horde/Service/Weather/fixtures -->
        <file name="AllTests.php" role="test" />
        <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="WundergroundTest.php" role="test" />
        <file name="WwoTest.php" role="test" />
+       <file name="Wwov2Test.php" role="test" />
       </dir> <!-- /test/Horde/Service/Weather -->
      </dir> <!-- /test/Horde/Service -->
     </dir> <!-- /test/Horde -->
@@ -336,7 +337,6 @@
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
    <install as="Horde/Service/Weather/Wwo.php" name="lib/Horde/Service/Weather/Wwo.php" />
-   <install as="Horde/Service/Weather/Wwov2.php" name="lib/Horde/Service/Weather/Wwov2.php" />
    <install as="Horde/Service/Weather/Wwo_Strings.php" name="lib/Horde/Service/Weather/Wwo_Strings.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
@@ -374,9 +374,11 @@
    <install as="Horde/Service/Weather/phpunit.xml" name="test/Horde/Service/Weather/phpunit.xml" />
    <install as="Horde/Service/Weather/WundergroundTest.php" name="test/Horde/Service/Weather/WundergroundTest.php" />
    <install as="Horde/Service/Weather/WwoTest.php" name="test/Horde/Service/Weather/WwoTest.php" />
+   <install as="Horde/Service/Weather/Wwov2Test.php" name="test/Horde/Service/Weather/Wwov2Test.php" />
    <install as="Horde/Service/Weather/fixtures/boston_location_wwo.json" name="test/Horde/Service/Weather/fixtures/boston_location_wwo.json" />
    <install as="Horde/Service/Weather/fixtures/boston_wunderground.json" name="test/Horde/Service/Weather/fixtures/boston_wunderground.json" />
    <install as="Horde/Service/Weather/fixtures/boston_wwo.json" name="test/Horde/Service/Weather/fixtures/boston_wwo.json" />
+   <install as="Horde/Service/Weather/fixtures/wwov2.json" name="test/Horde/Service/Weather/fixtures/wwov2.json" />
    <install as="themes/default/graphics/weather/wundergroundlogo.png" name="themes/default/graphics/weather/wundergroundlogo.png" />
    <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
    <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
