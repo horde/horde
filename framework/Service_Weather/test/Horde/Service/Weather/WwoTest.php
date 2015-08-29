@@ -134,7 +134,7 @@ class Horde_Service_Weather_WwoTest extends Horde_Test_Case
     public function mockHttpCallback($url)
     {
         switch ((string)$url) {
-        case 'http://api.worldweatheronline.com/free/v1/weather.ashx?q=boston%2Cma&num_of_days=5&includeLocation=yes&timezone=yes&extra=localObsTime&format=json&key=xxx':
+        case 'http://api.worldweatheronline.com/free/v1/weather.ashx?q=boston%2Cma&num_of_days=5&includeLocation=yes&extra=localObsTime&timezone=yes&format=json&key=xxx':
             $stream = fopen(__DIR__ . '/fixtures/boston_wwo.json', 'r');
             break;
 
