@@ -470,9 +470,16 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
             ));
 
         case 'quoted-printable':
+            // PHP Bug 65776 - Must normalize the EOL characters.
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
             $stream = new Horde_Stream_Existing(array(
                 'stream' => $fp
             ));
+            $stream->stream = $this->_writeStream($stream->stream, array(
+                'filter' => array(
+                    'horde_eol' => array('eol' => $stream->getEOL()
+                )
+            )));
 
             /* Quoted-Printable Encoding: See RFC 2045, section 6.7 */
             return $this->_writeStream($fp, array(
