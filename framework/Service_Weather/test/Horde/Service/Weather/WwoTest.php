@@ -142,7 +142,7 @@ class Horde_Service_Weather_WwoTest extends Horde_Test_Case
             $stream = fopen(__DIR__ . '/fixtures/boston_location_wwo.json', 'r');
             break;
         default:
-            throw Exception('Invalid Url');
+            throw new Exception('Invalid Url');
         }
         $response = new Horde_Http_Response_Mock($url, $stream);
         $response->code = 200;
