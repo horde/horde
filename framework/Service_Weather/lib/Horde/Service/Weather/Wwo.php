@@ -20,8 +20,8 @@
  */
 class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 {
-    const API_URL    = 'http://api.worldweatheronline.com/free/v2/weather.ashx';
-    const SEARCH_URL = 'http://api.worldweatheronline.com/free/v2/search.ashx';
+    const API_URL    = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
+    const SEARCH_URL = 'http://api.worldweatheronline.com/free/v1/search.ashx';
 
     const API_URL_v2 = 'https://api.worldweatheronline.com/free/v2/weather.ashx';
     const SEARCH_URL_v2 = 'https://api.worldweatheronline.com/free/v2/search.ashx';
