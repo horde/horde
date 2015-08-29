@@ -39,6 +39,7 @@ class Horde_Service_Weather
     const FORECAST_FIELD_WIND = 'wind';
     const FORECAST_FIELD_PRECIPITATION = 'pop';
     const FORECAST_FIELD_HUMIDITY = 'humidity';
+    const FORECAST_FIELD_ACCUMULATION = 'accum';
 
     /** Unit constants **/
     const UNITS_STANDARD = 1;
