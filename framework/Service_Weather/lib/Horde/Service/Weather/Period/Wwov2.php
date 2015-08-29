@@ -46,7 +46,13 @@ class Horde_Service_Weather_Period_Wwov2 extends Horde_Service_Weather_Period_Ba
             return $this->_properties->humidity;
 
         case 'precipitation_percent':
-            return $this->_properties->chanceofrain;
+            // There is no "precipitation" field, so if we don't have
+            // rain, check for snow, and return 0 if we have neither.
+            return !empty($this->_properties->chanceofrain)
+                ? $this->_properties->chanceofrain
+                : (!empty($this->_properties->chanceofsnow)
+                    ? $this->_properties->chanceofsnow
+                    : 0);
 
         case 'wind_gust':
             if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
