@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4058,7 +4058,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
    </notes>
   </release>
  </changelog>
