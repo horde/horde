@@ -108,7 +108,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (empty($params['apikey'])) {
             throw new InvalidArgumentException('Missing required API Key parameter.');
         }
-        $this->_version = empty($params['apiVersion']) ? 2 : $params['apiVersion'];
+        $this->_version = empty($params['apiVersion']) ? 1 : $params['apiVersion'];
         $this->_key = $params['apikey'];
         unset($params['apikey']);
         parent::__construct($params);
