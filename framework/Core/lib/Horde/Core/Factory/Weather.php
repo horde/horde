@@ -29,6 +29,9 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
         case 'WeatherUnderground':
         case 'Wwo':
             $params['apikey'] = $conf['weather']['params']['key'];
+            if (!empty($conf['weather']['params']['apiversion'])) {
+                $params['apiVersion'] = $conf['weather']['params']['apiversion'];
+            }
             break;
 
         case 'Google':
