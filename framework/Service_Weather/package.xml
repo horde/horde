@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-03-04</date>
+ <date>2015-08-29</date>
  <version>
   <release>2.1.7</release>
   <api>1.2.0</api>
@@ -51,11 +51,13 @@
         <file name="Base.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
         <file name="Wwo.php" role="php" />
+        <file name="Wwov2.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Forecast -->
        <dir name="Period">
         <file name="Base.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
         <file name="Wwo.php" role="php" />
+        <file name="Wwov2.php" role="php" />
        </dir> <!-- /lib/Horde/Service/Weather/Period -->
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
@@ -66,6 +68,7 @@
        <file name="WeatherUnderground.php" role="php" />
        <file name="WeatherUnderground_Strings.php" role="php" />
        <file name="Wwo.php" role="php" />
+       <file name="Wwov2.php" role="php" />
        <file name="Wwo_Strings.php" role="php" />
       </dir> <!-- /lib/Horde/Service/Weather -->
       <file name="Weather.php" role="php" />
@@ -333,6 +336,7 @@
    <install as="Horde/Service/Weather/WeatherUnderground.php" name="lib/Horde/Service/Weather/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
    <install as="Horde/Service/Weather/Wwo.php" name="lib/Horde/Service/Weather/Wwo.php" />
+   <install as="Horde/Service/Weather/Wwov2.php" name="lib/Horde/Service/Weather/Wwov2.php" />
    <install as="Horde/Service/Weather/Wwo_Strings.php" name="lib/Horde/Service/Weather/Wwo_Strings.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
@@ -341,9 +345,11 @@
    <install as="Horde/Service/Weather/Forecast/Base.php" name="lib/Horde/Service/Weather/Forecast/Base.php" />
    <install as="Horde/Service/Weather/Forecast/WeatherUnderground.php" name="lib/Horde/Service/Weather/Forecast/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Forecast/Wwo.php" name="lib/Horde/Service/Weather/Forecast/Wwo.php" />
+   <install as="Horde/Service/Weather/Forecast/Wwov2.php" name="lib/Horde/Service/Weather/Forecast/Wwov2.php" />
    <install as="Horde/Service/Weather/Period/Base.php" name="lib/Horde/Service/Weather/Period/Base.php" />
    <install as="Horde/Service/Weather/Period/WeatherUnderground.php" name="lib/Horde/Service/Weather/Period/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Period/Wwo.php" name="lib/Horde/Service/Weather/Period/Wwo.php" />
+   <install as="Horde/Service/Weather/Period/Wwov2.php" name="lib/Horde/Service/Weather/Period/Wwov2.php" />
    <install as="locale/Horde_Service_Weather.pot" name="locale/Horde_Service_Weather.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/de/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Service_Weather.po" name="locale/de/LC_MESSAGES/Horde_Service_Weather.po" />
@@ -822,7 +828,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-03-04</date>
+   <date>2015-08-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

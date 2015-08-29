@@ -20,8 +20,11 @@
  */
 class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
 {
-    const API_URL    = 'http://api.worldweatheronline.com/free/v1/weather.ashx';
-    const SEARCH_URL = 'http://api.worldweatheronline.com/free/v1/search.ashx';
+    const API_URL    = 'http://api.worldweatheronline.com/free/v2/weather.ashx';
+    const SEARCH_URL = 'http://api.worldweatheronline.com/free/v2/search.ashx';
+
+    const API_URL_v2 = 'https://api.worldweatheronline.com/free/v2/weather.ashx';
+    const SEARCH_URL_v2 = 'https://api.worldweatheronline.com/free/v2/search.ashx';
 
     /**
      * @see Horde_Service_Weather_Base::$title
@@ -80,6 +83,13 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
     protected $_key;
 
     /**
+     * API Version
+     *
+     * @var integer
+     */
+    protected $_version;
+
+    /**
      * Constructor.
      *
      * @param array $params  Parameters:
@@ -87,6 +97,8 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      *     - cache_lifetime: (integer)        Lifetime of cached data, if caching.
      *     - http_client: (Horde_Http_Client) Required http client object.
      *     - apikey: (string)                 Require api key for Wwo.
+     *     - apiVersion: (integer)            Version of the API to use.
+     *                                        Defaults to v1 for BC reasons.
      *
      * @return Horde_Service_Weather_Wwo
      */
@@ -96,6 +108,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if (empty($params['apikey'])) {
             throw new InvalidArgumentException('Missing required API Key parameter.');
         }
+        $this->_version = empty($params['apiVersion']) ? 2 : $params['apiVersion'];
         $this->_key = $params['apikey'];
         unset($params['apikey']);
         parent::__construct($params);
@@ -149,7 +162,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     public function autocompleteLocation($search)
     {
-        $url = new Horde_Url(self::SEARCH_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::SEARCH_URL : self::SEARCH_URL_v2);
         $url->add(array(
             'q' => $search,
             'format' => 'json',
@@ -191,14 +204,29 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $this->_lastLength = $length;
         $this->_lastLocation = $location;
 
-        $url = new Horde_Url(self::API_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::API_URL : self::API_URL_v2);
         // Not sure why, but Wwo chokes if we urlencode the location?
         $url->add(array(
             'q' => $location,
             'num_of_days' => $length,
             'includeLocation' => 'yes',
-            'timezone' => 'yes',
-            'extra' => 'localObsTime'));
+            'extra' => 'localObsTime')
+        );
+
+        if ($this->_version == 1) {
+            $url->add(array(
+                'timezone' => 'yes')
+            );
+        }
+
+        // V2 of the API only returns hourly data, so ask for 24 hour avg.
+        // @todo Revisit when we support hourly forecast data.
+        if ($this->_version == 2) {
+            $url->add(array(
+                'tp' => 24,
+                'showlocaltime' => 'yes')
+            );
+        }
 
         $results = $this->_makeRequest($url);
 
@@ -215,6 +243,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         $this->_current = $this->_parseCurrent($results->data->current_condition);
 
         // Sunrise/Sunset
+        // @todo - this is now available in the forecast section in v2
         $date = $this->_current->time;
         $station->sunset = new Horde_Date(
             date_sunset(
@@ -274,7 +303,9 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     protected function _parseForecast($forecast)
     {
-        $forecast = new Horde_Service_Weather_Forecast_Wwo($forecast, $this);
+        $forecast = $this->_version == 1
+            ? new Horde_Service_Weather_Forecast_Wwo($forecast, $this)
+            : new Horde_Service_Weather_Forecast_Wwov2($forecast, $this);
         return $forecast;
     }
 
@@ -318,7 +349,7 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
      */
     protected function _searchLocations($location)
     {
-        $url = new Horde_Url(self::SEARCH_URL);
+        $url = new Horde_Url($this->_version == 1 ? self::SEARCH_URL : self::SEARCH_URL_v2);
         $url = $url->add(array(
             'timezone' => 'yes',
             'q' => $location,
