@@ -62,7 +62,10 @@ class Horde_Service_Weather_Period_Wwov2 extends Horde_Service_Weather_Period_Ba
 
         case 'snow_total':
         case 'rain_total':
-            return false;
+            if ($this->_forecast->weather->units == Horde_Service_Weather::UNITS_STANDARD) {
+                return $this->_properties->precipInches;
+            }
+            return $this->_properties->precipMM;
 
         case 'conditions':
             return Horde_Service_Weather_Translation::t($this->_properties->weatherDesc[0]->value);
