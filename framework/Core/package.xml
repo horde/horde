@@ -28,7 +28,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-07-31</date>
+ <date>2015-08-29</date>
  <version>
   <release>2.20.9</release>
   <api>2.20.0</api>
@@ -4000,7 +4000,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-30</date>
+   <date>2015-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Support configuration for version 2 of WorldWeatherOnline&apos;s API.
