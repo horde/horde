@@ -1899,6 +1899,13 @@
         <configstring name="key" desc="API Key. For information on registration
         and obtaining an API key for this driver, see
         http://worldweatheronline.com"></configstring>
+        <configmultienum name="apiversion" desc="Select the API version to use.
+        See your WWO registration details if you are not sure which to choose.">1
+          <values>
+            <value>1</value>
+            <value>2</value>
+          </values>
+        </configmultienum>
        <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
        </configinteger>
       </configsection>
