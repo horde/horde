@@ -51,7 +51,6 @@
                 $data->{$k} = $v;
             }
             $period = new Horde_Service_Weather_Period_Wwov2($data, $this);
-            Horde::debug($period);
             $this->_periods[] = $period;
         }
     }
