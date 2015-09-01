@@ -33,7 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Add database migration for fixing corrupt rule ordering.
+* [mjr] Fix corruption of rule order when reordering rules in certain cases.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1592,7 +1593,8 @@
    <date>2015-08-25</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Add database migration for fixing corrupt rule ordering.
+* [mjr] Fix corruption of rule order when reordering rules in certain cases.
    </notes>
   </release>
  </changelog>
