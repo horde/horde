@@ -21,7 +21,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Explicitly request a FOLDERSYNC when backend id is not found.
+* [mjr] Fix corruption of base64 encoded text parts in certain cases (Bug #14092).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2826,7 +2827,8 @@
    <date>2015-08-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Explicitly request a FOLDERSYNC when backend id is not found.
+* [mjr] Fix corruption of base64 encoded text parts in certain cases (Bug #14092).
    </notes>
   </release>
  </changelog>
