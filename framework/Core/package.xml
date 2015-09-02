@@ -30,8 +30,8 @@
  </developer>
  <date>2015-08-29</date>
  <version>
-  <release>2.20.10</release>
-  <api>2.20.0</api>
+  <release>2.21.0</release>
+  <api>2.21.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -39,7 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Add beforeUpdate callback to prettyautocompleter.js.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4008,15 +4008,15 @@
   </release>
   <release>
    <version>
-    <release>2.20.10</release>
-    <api>2.20.0</api></version>
+    <release>2.21.0</release>
+    <api>2.21.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Add beforeUpdate callback to prettyautocompleter.js.
    </notes>
   </release>
  </changelog>
