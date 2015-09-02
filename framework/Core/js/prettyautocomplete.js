@@ -45,7 +45,8 @@ var PrettyAutocompleter = Class.create({
             onAdd: Prototype.K,
             onRemove: Prototype.K,
             requireSelection: false,
-            existing: []
+            existing: [],
+            beforeUpdate: function(i) { return [i]; },
         }, params || {});
 
         // The original input element is transformed into the hidden input
@@ -176,9 +177,13 @@ var PrettyAutocompleter = Class.create({
     // Used as the updateElement callback.
     updateElement: function(item)
     {
-        if (this.addNewItemNode(item)) {
-            this.p.onAdd(item);
-        }
+        var items = this.p.beforeUpdate(item);
+
+        items.each(function(i) {
+            if (this.addNewItemNode(i)) {
+                this.p.onAdd(i);
+            }
+        }.bind(this));
     },
 
     /**

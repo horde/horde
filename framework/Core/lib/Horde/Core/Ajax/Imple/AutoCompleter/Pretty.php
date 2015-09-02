@@ -45,7 +45,8 @@ class Horde_Core_Ajax_Imple_AutoCompleter_Pretty extends Horde_Core_Ajax_Imple_A
             'displayFilter',
             'filterCallback',
             'onAdd',
-            'onRemove'
+            'onRemove',
+            'beforeUpdate'
         ));
 
         $GLOBALS['page_output']->addScriptFile('prettyautocomplete.js', 'horde');
