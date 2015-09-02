@@ -112,10 +112,11 @@ $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ContactAutoCompleter', array(
     'box' => 'kronolithAttendeesACBox',
     'id' => 'kronolithEventAttendees',
-    'onAdd' => 'function(attendee) { KronolithCore.addAttendee(attendee); KronolithCore.checkOrganizerAsAttendee(); }',
+    'onAdd' => 'function(a) { KronolithCore.addAttendee(a); KronolithCore.checkOrganizerAsAttendee(); }',
     'onRemove' => 'KronolithCore.removeAttendee.bind(KronolithCore)',
     'pretty' => true,
-    'triggerContainer' => 'kronolithAttendeesACTriggerContainer'
+    'triggerContainer' => 'kronolithAttendeesACTriggerContainer',
+    'beforeUpdate' => 'function(a) { return KronolithCore.normalizeAttendee(a); }'
 ));
 
 $injector->getInstance('Horde_Core_Factory_Imple')->create('Kronolith_Ajax_Imple_ResourceAutoCompleter', array(

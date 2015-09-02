@@ -6295,6 +6295,16 @@ KronolithCore = {
         row.remove();
     },
 
+    normalizeAttendee: function(attendee)
+    {
+        var pattern = /:(.*);/;
+        var match = pattern.exec(attendee);
+        if (match) {
+           return match[1].split(',');
+        }
+        return [attendee];
+    },
+
     checkOrganizerAsAttendee: function()
     {
         if (HordeImple.AutoCompleter.kronolithEventAttendees.selectedItems.length == 1 &&
