@@ -282,7 +282,13 @@ class Kronolith_FreeBusy
         if (empty($b)) {
             $b = new StdClass();
         }
-        $json->b = $b;
+        $new = new StdClass();
+        foreach ($b as $from => $to) {
+            $from = new Horde_Date($from);
+            $to = new Horde_Date($to);
+            $new->{$from->toJson()} = $to->toJson();
+        }
+        $json->b = $new;
         return $json;
     }
 
