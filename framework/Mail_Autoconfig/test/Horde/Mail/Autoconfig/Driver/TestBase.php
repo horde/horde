@@ -45,6 +45,7 @@ extends Horde_Test_Case
      */
     public function testGetMsaConfig($domains)
     {
+        $this->markTestSkipped();
         if (!$domains) {
             $this->markTestSkipped();
         }
@@ -65,6 +66,7 @@ extends Horde_Test_Case
      */
     public function testGetMailConfig($domains)
     {
+        $this->markTestSkipped();
         if (!$domains) {
             $this->markTestSkipped();
         }
