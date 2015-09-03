@@ -6392,7 +6392,7 @@ KronolithCore = {
 
     normalizeAttendee: function(attendee)
     {
-        var pattern = /:(.*);/;
+        var pattern = /:(.*?);/;
         var match = pattern.exec(attendee);
         if (match) {
            return match[1].split(',');
