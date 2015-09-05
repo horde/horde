@@ -72,3 +72,22 @@ table.horde-block-weather td {
     z-index: 9000;
     background-color: #000000;
 }
+
+/* Weather Block Related CSS */
+.hordeWeatherAlert, .hordeWeatherAdvisory {
+    background-color: #ffdf4d;
+    border: 1px solid #e1c444;
+}
+.hordeWeatherStatement {
+    background-color: #689fb4;
+    border: 1px solid #5c8c9f;
+}
+.hordeWeatherWatch {
+    background-color: #ffdf4d;
+    border: 1px solid #e1c444;
+}
+.hordeWeatherWarning {
+    background-color: #f03232;
+    border: 1px solid #cb2a2a;
+    color: #fff;
+}

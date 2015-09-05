@@ -159,6 +159,7 @@ class Horde_Block_Weather extends Horde_Core_Block
             $forecast = $this->_weather->getForecast($location->code, $this->_params['days']);
             $station = $this->_weather->getStation();
             $current = $this->_weather->getCurrentConditions($location->code);
+            $alerts = $this->_weather->getAlerts($location->code);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
@@ -175,6 +176,18 @@ class Horde_Block_Weather extends Horde_Core_Block
         $html .= '</div>';
 
         $html .= '<div class="horde-content">';
+
+        // Warnings/alerts
+        if (!empty($alerts)) {
+            foreach ($alerts as $alert) {
+                $sig = $alert['significance_text'];
+                $html .= '<div class="hordeWeather' . (!empty($sig) ? $sig : 'Alert') . '" title="' . htmlspecialchars($alert['body']) . '">'
+                    . '<div style="font-weight:bold;">' . htmlspecialchars($alert['desc']) . '</div>'
+                    . '<strong>' . _("From") . ':</strong> ' . $alert['date_text'] . '<br /><strong>' . _("To") . '</strong>: ' . $alert['expires_text']
+                    . '</div>';
+            }
+        }
+
         // Sunrise/sunset.
         if ($station->sunrise) {
             $html .= '<strong>' . _("Sunrise") . ': </strong>'
