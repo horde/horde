@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-08-29</date>
+ <date>2015-09-05</date>
  <version>
   <release>2.2.1</release>
   <api>1.3.0</api>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mjr] Add support for weather alerts.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -39,6 +39,10 @@
     <dir name="Horde">
      <dir name="Service">
       <dir name="Weather">
+       <dir name="Alerts">
+        <file name="Base.php" role="php" />
+        <file name="WeatherUnderground.php" role="php" />
+       </dir> <!-- /lib/Horde/Service/Weather/Alerts -->
        <dir name="Current">
         <file name="Base.php" role="php" />
         <file name="WeatherUnderground.php" role="php" />
@@ -338,6 +342,8 @@
    <install as="Horde/Service/Weather/WeatherUnderground_Strings.php" name="lib/Horde/Service/Weather/WeatherUnderground_Strings.php" />
    <install as="Horde/Service/Weather/Wwo.php" name="lib/Horde/Service/Weather/Wwo.php" />
    <install as="Horde/Service/Weather/Wwo_Strings.php" name="lib/Horde/Service/Weather/Wwo_Strings.php" />
+   <install as="Horde/Service/Weather/Alerts/Base.php" name="lib/Horde/Service/Weather/Alerts/Base.php" />
+   <install as="Horde/Service/Weather/Alerts/WeatherUnderground.php" name="lib/Horde/Service/Weather/Alerts/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Current/Base.php" name="lib/Horde/Service/Weather/Current/Base.php" />
    <install as="Horde/Service/Weather/Current/WeatherUnderground.php" name="lib/Horde/Service/Weather/Current/WeatherUnderground.php" />
    <install as="Horde/Service/Weather/Current/Wwo.php" name="lib/Horde/Service/Weather/Current/Wwo.php" />
@@ -843,10 +849,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-08-29</date>
+   <date>2015-09-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mjr] Add support for weather alerts.
    </notes>
   </release>
  </changelog>

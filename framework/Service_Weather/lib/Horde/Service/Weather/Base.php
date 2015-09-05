@@ -118,6 +118,8 @@ abstract class Horde_Service_Weather_Base
      */
     protected $_lastLength;
 
+    protected $_alerts = array();
+
     /**
      * Constructor.
      *
@@ -191,6 +193,16 @@ abstract class Horde_Service_Weather_Base
      * @return array The array of supported lengths.
      */
      abstract public function getSupportedForecastLengths();
+
+     /**
+      * Return array of weather alerts, if available.
+      *
+      * @return array
+      */
+     public function getAlerts($location)
+     {
+        return $this->_alerts;
+     }
 
     /**
      * Searches for locations that begin with the text in $search.

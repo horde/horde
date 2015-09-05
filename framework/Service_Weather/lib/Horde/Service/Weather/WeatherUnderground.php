@@ -129,6 +129,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         return $this->_forecast;
     }
 
+    public function getAlerts($location)
+    {
+        $this->_getCommonElements((rawurlencode($location)));
+        return $this->_alerts;
+    }
+
     /**
      * Search for a valid location code.
      *
@@ -242,10 +248,14 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             break;
         }
         $url = self::API_URL . '/api/' . $this->_apiKey
-            . '/geolookup/conditions/' . $l . '/astronomy/q/' . $location . '.json';
+            . '/geolookup/conditions/satellite/alerts/' . $l . '/astronomy/q/' . $location . '.json';
         $results = $this->_makeRequest($url, $this->_cache_lifetime);
+
         $station = $this->_parseStation($results->location);
         $this->_current = $this->_parseCurrent($results->current_observation);
+        if (!empty($results->alerts)) {
+            $this->_alerts = $this->_parseAlerts($results->alerts);
+        }
         $astronomy = $results->moon_phase;
         $date = clone $this->_current->time;
         $date->hour = $astronomy->sunrise->hour;
@@ -361,6 +371,12 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         }
 
         return $return;
+    }
+
+    protected function _parseAlerts($alerts)
+    {
+        $alerts_ob = new Horde_Service_Weather_Alerts_WeatherUnderground($alerts, $this);
+        return $alerts_ob->getAlerts();
     }
 
     protected function _makeRequest($url, $lifetime = 86400)
