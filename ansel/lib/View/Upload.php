@@ -365,7 +365,7 @@ EOT;
                     exit;
                 }
 
-                // // Don't know type. Try to deduce it.
+                // Don't know type. Try to deduce it.
                 if (!($type = Horde_Mime_Magic::analyzeFile($temp, isset($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null))) {
                     $type = Horde_Mime_Magic::filenameToMime($filename);
                 }
