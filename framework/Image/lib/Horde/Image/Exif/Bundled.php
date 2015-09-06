@@ -270,7 +270,7 @@ class Horde_Image_Exif_Bundled extends Horde_Image_Exif_Base
         }
 
         // seek to SubIFD (Value of ExifOffset tag) above.
-        $ExitOffset = $result['IFD0']['ExifOffset'];
+        $ExifOffset = $result['IFD0']['ExifOffset'];
         if (!$in->seek($globalOffset + $ExifOffset, false)) {
             $result['Errors'] = $result['Errors'] + 1;
             $result['Error'][$result['Errors']] = Horde_Image_Translation::t("Couldnt Find SubIFD");
