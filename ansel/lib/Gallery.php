@@ -824,7 +824,7 @@ class Ansel_Gallery implements Serializable
                     ->listGalleries(array('parent' => $this->id, 'all_levels' => false));
 
                 foreach ($galleries as $gallery) {
-                    if ($default_img = $gallery->getKeyImage($style)) {
+                    if ($default_img = $gallery->getKeyImage()) {
                         return $default_img;
                     }
                 }
