@@ -2273,7 +2273,7 @@ class Turba_Api extends Horde_Registry_Api
                 $driver = $GLOBALS['injector']
                     ->getInstance('Turba_Factory_Driver')
                     ->create($val)
-                    ->synchronize($end);
+                    ->synchronize();
             }
         }
 
