@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-09-01</date>
+ <date>2015-09-07</date>
  <version>
   <release>2.29.3</release>
   <api>2.29.0</api>
@@ -2942,7 +2942,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-01</date>
+   <date>2015-09-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Avoid PHP warning when listing mailboxes without LIST-STATUS (Bug #14097).
