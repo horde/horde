@@ -133,11 +133,14 @@ class Horde_Core_Factory_KolabStorage extends Horde_Core_Factory_Base
         );
 
         // Check if the history system is enabled
-        try {
-            $history = $this->_injector->getInstance('Horde_History');
-            $params['history'] = $history;
-            $params['history_prefix_generator'] = new Horde_Core_Kolab_Storage_HistoryPrefix();
-        } catch(Horde_Exception $e) {
+        // @todo remove interface_exists check in H6.
+        if (interface_exists('Horde_Kolab_Storage_HistoryPrefix')) {
+            try {
+                $history = $this->_injector->getInstance('Horde_History');
+                $params['history'] = $history;
+                $params['history_prefix_generator'] = new Horde_Core_Kolab_Storage_HistoryPrefix();
+            } catch(Horde_Exception $e) {
+            }
         }
 
         if (!empty($configuration['strategy'])) {
