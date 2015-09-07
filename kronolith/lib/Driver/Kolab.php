@@ -100,10 +100,21 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @param boolean $force  If true, forces synchronization, even if we have
      *                        already done so.
      */
-    public function synchronize($force = false)
+    public function synchronize($force = false, $token = false)
     {
+        // Only sync once unless $force.
         if ($this->_synchronized && !$force) {
             return;
+        }
+
+        // If we are synching and have a token, only synch if it is different.
+        $last_token = $GLOBALS['session']->get('kronolith', 'kolab/token/' . $this->calendar);
+        if (!empty($token) && $last_token == $token) {
+            return;
+        }
+
+        if (!empty($token)) {
+            $GLOBALS['session']->set('kronolith', 'kolab/token/' . $this->calendar, $token);
         }
 
         // Connect to the Kolab backend

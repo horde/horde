@@ -634,4 +634,17 @@ class Kronolith_Driver
             $tagger->tag($event->uid, $event->tags, $cal->get('owner'), 'event');
         }
     }
+
+    /**
+     * Synchronize if driver needs to.
+     *
+     * @param boolean $force  If true, forces synchronization, even if we have
+     *                        already done so.
+     *
+     * @param string $token  A synchroniziation token, if available.
+     */
+    public function synchronize($force = false, $token = false)
+    {
+        // noop
+    }
 }
