@@ -668,7 +668,7 @@ class Kronolith_Api extends Horde_Registry_Api
         foreach ($cs as $c) {
              // New events
             $driver = Kronolith::getDriver(null, $c);
-            $driver->synchronize(true, $end);
+            $driver->synchronize(true);
             $uids = $this->listBy('add', $start, $c, $end, $isModSeq);
             if ($ignoreExceptions) {
                 foreach ($uids as $uid) {

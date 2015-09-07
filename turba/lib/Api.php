@@ -565,7 +565,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
-        $sources = $this->_getSources($sources, true, $end);
+        $sources = $this->_getSources($sources, true);
         return array(
             'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
             'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),

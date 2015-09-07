@@ -912,7 +912,7 @@ class Nag_Api extends Horde_Registry_Api
         }
         $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
             ->create($tasklist)
-            ->synchronize($end);
+            ->synchronize();
 
         return array(
             'add' => $this->listBy('add', $start, $tasklist, $end, $isModSeq),
