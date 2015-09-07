@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [cjh] Fix EXIF data not being returned in Bundled driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1144,7 +1144,7 @@ Initial release as a PEAR package
    <date>2015-07-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [cjh] Fix EXIF data not being returned in Bundled driver.
    </notes>
   </release>
  </changelog>
