@@ -2270,7 +2270,7 @@ class Turba_Api extends Horde_Registry_Api
                 throw new Turba_Exception(sprintf(_("Invalid address book: %s"), $val));
             }
             if ($synchronize) {
-                $driver = $GLOBALS['injector']
+                $GLOBALS['injector']
                     ->getInstance('Turba_Factory_Driver')
                     ->create($val)
                     ->synchronize($end);
