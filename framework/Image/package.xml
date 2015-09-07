@@ -23,7 +23,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-07-31</date>
+ <date>2015-09-07</date>
  <version>
   <release>2.3.3</release>
   <api>2.3.0</api>
@@ -1141,7 +1141,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-07-30</date>
+   <date>2015-09-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [cjh] Fix EXIF data not being returned in Bundled driver.
