@@ -12,7 +12,7 @@
  </lead>
  <date>2015-09-07</date>
  <version>
-  <release>2.29.3</release>
+  <release>2.29.4</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Avoid PHP warning when listing mailboxes without LIST-STATUS (Bug #14097).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2946,6 +2946,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Avoid PHP warning when listing mailboxes without LIST-STATUS (Bug #14097).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.4</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
