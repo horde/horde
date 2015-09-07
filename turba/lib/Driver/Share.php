@@ -50,6 +50,17 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Synchronize, if needed.
+     *
+     * @param mixed  $token  A value indicating the last synchronization point,
+     *                       if available.
+     */
+    public function synchronize($token = false)
+    {
+        $this->_driver->synchronize($token);
+    }
+
+    /**
      * Proxy to decorated base driver.
      *
      * @param string $method  Method name.
