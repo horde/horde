@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix interface (Bug #14099).
 * [mjr] Add beforeUpdate callback to prettyautocompleter.js.
  </notes>
  <contents>
@@ -4016,6 +4017,7 @@
    <date>2015-08-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix dependency on possibly missing Horde_Kolab_Storage_HistoryPrefix interface (Bug #14099).
 * [mjr] Add beforeUpdate callback to prettyautocompleter.js.
    </notes>
   </release>
