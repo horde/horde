@@ -565,7 +565,7 @@ class Turba_Api extends Horde_Registry_Api
      */
     public function getChanges($start, $end, $isModSeq = false, $sources = null)
     {
-        $sources = $this->_getSources($sources, true);
+        $sources = $this->_getSources($sources, true, $end);
         return array(
             'add' => $this->listBy('add', $start, $sources, $end, $isModSeq),
             'modify' => $this->listBy('modify', $start, $sources, $end, $isModSeq),
@@ -2249,7 +2249,7 @@ class Turba_Api extends Horde_Registry_Api
     /**
      * @throws Turba_Exception
      */
-    protected function _getSources($sources, $synchronize = false)
+    protected function _getSources($sources, $synchronize = false, $end = false)
     {
         /* Get default address book from user preferences. */
         if (empty($sources)) {
