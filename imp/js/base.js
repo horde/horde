@@ -2256,6 +2256,9 @@ var ImpBase = {
             if (this.search.query != $F(q)) {
                 this.viewswitch = true;
                 this.search.query = $F(q);
+                /* Remove any existing filter/flag search. */
+                delete this.search.filter;
+                delete this.search.flag;
             }
             this.resetSelected();
             this.viewport.reload();
