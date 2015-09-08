@@ -196,10 +196,10 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                     break;
                 }
             }
+            // SETTINGS_OOF || SETTINGS_DEVICEPW || SETTINGS_DEVICEINFORMATION || SETTINGS_USERINFORMATION
+            $this->_decoder->getElementEndTag();
         }
 
-        // SETTINGS_OOF || SETTINGS_DEVICEPW || SETTINGS_DEVICEINFORMATION || SETTINGS_USERINFORMATION
-        $this->_decoder->getElementEndTag();
         $this->_decoder->getElementEndTag(); // SETTINGS
 
 
