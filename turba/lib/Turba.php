@@ -708,4 +708,24 @@ class Turba
             'TurbaBrowse.submit' => _("Are you sure that you want to delete the selected contacts?")
         ));
     }
+
+    /**
+     * Return an array of all available attributes of type 'email'.
+     *
+     * @return array  An array of email fields.
+     */
+    public static function getAvailableEmailFields()
+    {
+        global $attributes;
+
+        $emailFields = array();
+        foreach ($attributes as $field => $data) {
+            if ($data['type'] == 'email') {
+                $emailFields[] = $field;
+            }
+        }
+
+        return $emailFields;
+    }
+
 }
