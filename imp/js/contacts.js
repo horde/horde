@@ -20,7 +20,7 @@ var ImpContacts = {
             sel = $F(sr);
 
         if (!sel.size()) {
-            alert(this.text.select);
+            HordeCore.notify(this.text.select, 'horde.warning');
             return;
         }
 
