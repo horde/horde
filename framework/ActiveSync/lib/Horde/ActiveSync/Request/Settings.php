@@ -135,7 +135,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         break;
                     }
                     break;
-                    // $this->_decoder->getElementEndTag(); // SETTINGS_GET
+
                 case self::SETTINGS_SET:
                     switch ($reqtype) {
                     case self::SETTINGS_OOF:
