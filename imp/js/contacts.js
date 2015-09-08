@@ -12,10 +12,15 @@ var ImpContacts = {
     // searchGhost,
     // text,
 
+    selectedAddresses: function()
+    {
+        return $('selected_addresses').select('[value]');
+    },
+
     addAddress: function(f)
     {
         var df = document.createDocumentFragment(),
-            sa = $('selected_addresses').select('[value]'),
+            sa = this.selectedAddresses(),
             sr = $('search_results'),
             sel = $F(sr);
 
@@ -45,7 +50,8 @@ var ImpContacts = {
 
     updateMessage: function()
     {
-        var addr = {};
+        var addr = {},
+            sa = this.selectedAddresses();
 
         if (!parent.opener) {
             alert(this.text.closed);
@@ -53,7 +59,12 @@ var ImpContacts = {
             return;
         }
 
-        $('selected_addresses').select('[value]').each(function(s) {
+        if (!sa.size()) {
+            HordeCore.notify(this.text.no_contacts_selected, 'horde.warning');
+            return;
+        }
+
+        this.selectedAddresses().each(function(s) {
             var field = s.retrieve('header');
 
             if (Object.isUndefined(addr[field])) {
