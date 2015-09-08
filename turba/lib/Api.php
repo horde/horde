@@ -1787,7 +1787,7 @@ class Turba_Api extends Horde_Registry_Api
     public function getField($address = '', $field = '', $sources = array(),
                              $strict = false, $multiple = false)
     {
-        global $cfgSources;
+        global $cfgSources, $attributes;
 
         if (empty($address)) {
             throw new Turba_Exception(_("Invalid email"));
@@ -1808,19 +1808,17 @@ class Turba_Api extends Horde_Registry_Api
             if (!isset($cfgSources[$source])) {
                 continue;
             }
-
+            $criterium = array();
             $sdriver = $driver->create($source);
-            $criterium = array('email' => $address);
-            if (!isset($sdriver->map['email'])) {
-                if (isset($sdriver->map['emails'])) {
-                    $criterium = array('emails' => $address);
-                } else {
-                    continue;
+            foreach (Turba::getAvailableEmailFields() as $cfgField) {
+                if (in_array($cfgField, array_keys($sdriver->map)) &&
+                    in_array($cfgField, $cfgSources[$source]['search'])) {
+                    $criterium[$cfgField] = $address;
                 }
             }
 
             try {
-                $list = $sdriver->search($criterium, null, 'AND', array(), $strict ? array('email') : array());
+                $list = $sdriver->search($criterium, null, 'OR', array(), $strict ? array_keys($criterium) : array());
             } catch (Turba_Exception $e) {
                 Horde::log($e, 'ERR');
             }
