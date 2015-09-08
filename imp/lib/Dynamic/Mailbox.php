@@ -544,6 +544,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'moveto' => _("Move %s to %s"),
             'newflag_name' => _("Flag Name:"),
             'newflag_wait' => _("Creating New Flag..."),
+            'no_folder_name' => _("Must enter a folder name"),
             'onlogout' => _("Logging Out..."),
             'portal' => _("Portal"),
             'prefs' => _("User Options"),

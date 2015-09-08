@@ -1071,15 +1071,20 @@ var ImpBase = {
                     var params,
                         val = $F(h.down('INPUT'));
 
-                    if (val) {
-                        params = { mbox: val };
-                        val = h.down('INPUT[name=poll]');
-                        if (val && $F(val)) {
-                            params.create_poll = 1;
-                        }
-                        ImpCore.doAction('createMailbox', params);
+                    if (val.empty()) {
+                        HordeCore.notify(
+                            ImpCore.text.no_folder_name,
+                            'horde.warning'
+                        );
+                        return;
                     }
 
+                    params = { mbox: val };
+                    val = h.down('INPUT[name=poll]');
+                    if (val && $F(val)) {
+                        params.create_poll = 1;
+                    }
+                    ImpCore.doAction('createMailbox', params);
                     HordeDialog.close();
                 },
                 text: ImpCore.text.create_prompt
@@ -3195,15 +3200,20 @@ var ImpBase = {
                         var params,
                             val = $F(h.down('INPUT'));
 
-                        if (val) {
-                            params = { mbox: val, parent: elt.value() };
-                            val = h.down('INPUT[name=poll]');
-                            if (val && $F(val)) {
-                                params.create_poll = 1;
-                            }
-                            ImpCore.doAction('createMailbox', params);
+                        if (val.empty()) {
+                            HordeCore.notify(
+                                ImpCore.text.no_folder_name,
+                                'horde.warning'
+                            );
+                            return;
                         }
 
+                        params = { mbox: val, parent: elt.value() };
+                        val = h.down('INPUT[name=poll]');
+                        if (val && $F(val)) {
+                            params.create_poll = 1;
+                        }
+                        ImpCore.doAction('createMailbox', params);
                         HordeDialog.close();
                     },
                     text: ImpCore.text.createsub_prompt.sub('%s', elt.fullMboxDisplay())
@@ -3253,7 +3263,13 @@ var ImpBase = {
                     input_val: elt.label().unescapeHTML(),
                     onSuccess: function(h) {
                         var val = $F(h.down('INPUT'));
-                        if (val && elt.label() != val) {
+                        if (val.empty()) {
+                            HordeCore.notify(
+                                ImpCore.text.no_folder_name,
+                                'horde.warning'
+                            );
+                            return;
+                        } else if (elt.label() != val) {
                             ImpCore.doAction('renameMailbox', {
                                 old_name: elt.value(),
                                 new_name: val
