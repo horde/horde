@@ -120,6 +120,8 @@ abstract class Horde_Service_Weather_Base
 
     protected $_alerts = array();
 
+    protected $_radar;
+
     /**
      * Constructor.
      *
@@ -202,6 +204,31 @@ abstract class Horde_Service_Weather_Base
      public function getAlerts($location)
      {
         return $this->_alerts;
+     }
+
+     /**
+      * Return the URL to a (possibly animated) radar image.
+      *
+      * @param  string $location  The location
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getRadarImageUrl($location)
+     {
+        return false;
+     }
+
+     /**
+      * Return the URL a OpenLayers suitable tile server.
+      *
+      * @param string $location  The location.
+      * @param string $type      The optional layer type.
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getTileServerUrl($location, $type = null)
+     {
+        return false;
      }
 
     /**

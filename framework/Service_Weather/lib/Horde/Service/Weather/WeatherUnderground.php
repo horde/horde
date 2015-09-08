@@ -131,9 +131,22 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     public function getAlerts($location)
     {
-        $this->_getCommonElements((rawurlencode($location)));
+        $this->_getCommonElements(rawurlencode($location));
         return $this->_alerts;
     }
+
+     /**
+      * Return the URL to a (possibly animated) radar image.
+      *
+      * @param  string $location  The location
+      *
+      * @return string|boolean The Url, or false if not available.
+      */
+     public function getRadarImageUrl($location)
+     {
+        $this->_getCommonElements(rawurlencode($location));
+        return $this->_radar;
+     }
 
     /**
      * Search for a valid location code.
@@ -248,7 +261,8 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             break;
         }
         $url = self::API_URL . '/api/' . $this->_apiKey
-            . '/geolookup/conditions/satellite/alerts/' . $l . '/astronomy/q/' . $location . '.json';
+            . '/geolookup/conditions/animatedradar/alerts/'
+            . $l . '/astronomy/q/' . $location . '.json';
         $results = $this->_makeRequest($url, $this->_cache_lifetime);
 
         $station = $this->_parseStation($results->location);
@@ -274,6 +288,11 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $this->_forecast->limitLength($length);
         $this->link = $results->current_observation->image->link;
         $this->title = $results->current_observation->image->title;
+
+        // Radar
+        if ($results->radar) {
+            $this->_radar = $results->radar->image_url;
+        }
     }
 
     /**

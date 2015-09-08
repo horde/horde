@@ -150,6 +150,7 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->station = $this->_weather->getStation();
             $view->current = $this->_weather->getCurrentConditions($view->location->code);
             $view->alerts = $this->_weather->getAlerts($view->location->code);
+            $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
         }
