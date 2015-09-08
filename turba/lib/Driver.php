@@ -501,7 +501,7 @@ class Turba_Driver implements Countable
             );
         } elseif (count($strict_search)) {
             return array(
-                'AND' => $strict_search
+                $search_type => $strict_search
             );
         } elseif (count($search)) {
             return array(
