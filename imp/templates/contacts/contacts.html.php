@@ -40,7 +40,7 @@
    <td>
     <label for="selected_addresses" class="hidden"><?php echo _("Selected Addresses") ?></label>
     <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
-     <option disabled="disabled">* <?php echo _("Add these by clicking OK") ?> *</option>
+     <option disabled="disabled">* <?php echo _("Add these addresses by clicking OK") ?> *</option>
     </select>
    </td>
   </tr>
