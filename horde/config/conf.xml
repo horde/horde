@@ -1946,6 +1946,8 @@
        <value>ssl</value>
       </values>
      </configenum>
+     <configstring name="debug" desc="A path to a IMAP protocol debug file.
+     Leave empty for no protocol level debug logging."></configstring>
      <configstring name="maildomain" desc="Default
      maildomain">example.com</configstring>
      <configheader>Caching</configheader>
