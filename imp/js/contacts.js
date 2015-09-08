@@ -64,7 +64,7 @@ var ImpContacts = {
             return;
         }
 
-        this.selectedAddresses().each(function(s) {
+        sa.each(function(s) {
             var field = s.retrieve('header');
 
             if (Object.isUndefined(addr[field])) {
