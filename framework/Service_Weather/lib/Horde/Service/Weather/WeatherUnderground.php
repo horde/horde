@@ -19,7 +19,7 @@
  * @package  Service_Weather
  */
 class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Base
- {
+{
 
     const API_URL = 'http://api.wunderground.com';
 
@@ -290,7 +290,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
         $this->title = $results->current_observation->image->title;
 
         // Radar
-        if ($results->radar) {
+        if (!empty($results->radar)) {
             $this->_radar = $results->radar->image_url;
         }
     }
