@@ -21,6 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix handling of meeting requests that contain no DTEND attribute.
 * [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
  </notes>
  <contents>
@@ -2840,6 +2841,7 @@
    <date>2015-09-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix handling of meeting requests that contain no DTEND attribute.
 * [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
    </notes>
   </release>
