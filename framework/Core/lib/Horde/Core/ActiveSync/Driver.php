@@ -324,9 +324,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolders()
     {
-        $multiplex = $this->_device->multiplex;
         if (empty($this->_folders)) {
             ob_start();
+            $multiplex = $this->_device->multiplex;
             try {
                 $supported = $this->_connector->horde_listApis();
             } catch (Exception $e) {
