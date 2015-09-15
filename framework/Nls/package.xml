@@ -17,10 +17,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-01-09</date>
+ <date>2015-09-15</date>
  <version>
-  <release>2.0.6</release>
-  <api>1.1.0</api>
+  <release>2.1.0</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add ALPHA-3 country codes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +42,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Nls">
+      <file name="Alpha3.php" role="php" />
       <file name="Carsigns.php" role="php" />
       <file name="Coordinates.php" role="php" />
       <file name="Countries.php" role="php" />
@@ -353,6 +354,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Nls/COPYING" />
    <install as="Horde/Nls.php" name="lib/Horde/Nls.php" />
+   <install as="Horde/Nls/Alpha3.php" name="lib/Horde/Nls/Alpha3.php" />
    <install as="Horde/Nls/Carsigns.php" name="lib/Horde/Nls/Carsigns.php" />
    <install as="Horde/Nls/Coordinates.php" name="lib/Horde/Nls/Coordinates.php" />
    <install as="Horde/Nls/Countries.php" name="lib/Horde/Nls/Countries.php" />
@@ -822,15 +824,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-01-09</date>
+   <date>2015-09-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add ALPHA-3 country codes.
    </notes>
   </release>
  </changelog>
