@@ -455,7 +455,7 @@ class Ansel_View_GalleryProperties
         $dir = ANSEL_BASE . '/lib/View/GalleryRenderer';
         $files = scandir($dir);
         $views = array();
-        $galleryView = new Ansel_View_Gallery();
+        $galleryView = new Ansel_View_Gallery(array('gallery_id' => $this->_params['gallery']));
         foreach ($files as $file) {
             if ($file != 'Base.php' && strpos($file, '.') !== 0) {
                 $class = 'Ansel_View_GalleryRenderer_' . substr($file, 0, -4);
