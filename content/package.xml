@@ -16,7 +16,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2014-06-04</date>
+ <date>2015-09-16</date>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -79,7 +79,6 @@
     <dir name="Objects">
      <file name="Manager.php" role="horde" />
      <file name="Object.php" role="horde" />
-     <file name="ObjectMapper.php" role="horde" />
     </dir> <!-- /lib/Objects -->
     <dir name="Relationships">
      <file name="Relationship.php" role="horde" />
@@ -98,6 +97,7 @@
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Indexer.php" role="horde" />
+    <file name="ObjectMapper.php" role="horde" />
     <file name="Tagger.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="migration">
@@ -242,12 +242,12 @@
    <install as="content/lib/Application.php" name="lib/Application.php" />
    <install as="content/lib/Exception.php" name="lib/Exception.php" />
    <install as="content/lib/Indexer.php" name="lib/Indexer.php" />
+   <install as="content/lib/ObjectMapper.php" name="lib/ObjectMapper.php" />
    <install as="content/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="content/lib/Linkbacks/Linkback.php" name="lib/Linkbacks/Linkback.php" />
    <install as="content/lib/Linkbacks/LinkbackMapper.php" name="lib/Linkbacks/LinkbackMapper.php" />
    <install as="content/lib/Objects/Manager.php" name="lib/Objects/Manager.php" />
    <install as="content/lib/Objects/Object.php" name="lib/Objects/Object.php" />
-   <install as="content/lib/Objects/ObjectMapper.php" name="lib/Objects/ObjectMapper.php" />
    <install as="content/lib/Relationships/Relationship.php" name="lib/Relationships/Relationship.php" />
    <install as="content/lib/Relationships/RelationshipMapper.php" name="lib/Relationships/RelationshipMapper.php" />
    <install as="content/lib/Tags/Tag.php" name="lib/Tags/Tag.php" />
@@ -497,7 +497,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2014-06-04</date>
+   <date>2015-09-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add unit tests for Oracle.

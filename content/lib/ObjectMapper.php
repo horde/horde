@@ -13,6 +13,8 @@
  * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Horde_Content
+ *
+ * @todo  Change name to Content_Objects_Mapper
  */
 class Content_ObjectMapper extends Horde_Rdo_Mapper
 {
