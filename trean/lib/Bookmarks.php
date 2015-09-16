@@ -207,6 +207,8 @@ class Trean_Bookmarks
         /* Untag */
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tagger->replaceTags((string)$bookmark->id, array(), $GLOBALS['registry']->getAuth(), 'bookmark');
+        $GLOBALS['injector']->getInstance('Content_Objects_Mapper')
+            ->delete($bookmark->id, 'bookmark');
 
         /* @TODO delete from content index? */
         //$indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
