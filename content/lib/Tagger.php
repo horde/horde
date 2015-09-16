@@ -117,16 +117,16 @@ class Content_Tagger
                 } catch (Horde_Db_Exception $e) {
                     throw new Content_Exception($e);
                 }
-            }
 
-            // increment tag stats
-            if (!$this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count + 1 WHERE tag_id = ' . (int)$tagId)) {
-                $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)', null, null, 'tag_id', $tagId);
-            }
+                // increment tag stats
+                if (!$this->_db->update('UPDATE ' . $this->_t('tag_stats') . ' SET count = count + 1 WHERE tag_id = ' . (int)$tagId)) {
+                    $this->_db->insert('INSERT INTO ' . $this->_t('tag_stats') . ' (tag_id, count) VALUES (' . (int)$tagId . ', 1)', null, null, 'tag_id', $tagId);
+                }
 
-            // increment user-tag stats
-            if (!$this->_db->update('UPDATE ' . $this->_t('user_tag_stats') . ' SET count = count + 1 WHERE user_id = ' . (int)$userId . ' AND tag_id = ' . (int)$tagId)) {
-                $this->_db->insert('INSERT INTO ' . $this->_t('user_tag_stats') . ' (user_id, tag_id, count) VALUES (' . (int)$userId . ', ' . (int)$tagId . ', 1)');
+                // increment user-tag stats
+                if (!$this->_db->update('UPDATE ' . $this->_t('user_tag_stats') . ' SET count = count + 1 WHERE user_id = ' . (int)$userId . ' AND tag_id = ' . (int)$tagId)) {
+                    $this->_db->insert('INSERT INTO ' . $this->_t('user_tag_stats') . ' (user_id, tag_id, count) VALUES (' . (int)$userId . ', ' . (int)$tagId . ', 1)');
+                }
             }
         }
     }
