@@ -18,8 +18,8 @@
  </lead>
  <date>2015-09-16</date>
  <version>
-  <release>2.0.5</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -27,6 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mjr] Fix bug that was causing tag stats to be incorrectly incremented (Bug #14112).
+* [mjr] Add Content_Objects_Manager::delete().
 * [jan] Add unit tests for Oracle.
  </notes>
  <contents>
@@ -492,14 +494,16 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2015-09-16</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mjr] Fix bug that was causing tag stats to be incorrectly incremented (Bug #14112).
+* [mjr] Add Content_Objects_Manager::delete().
 * [jan] Add unit tests for Oracle.
    </notes>
   </release>
