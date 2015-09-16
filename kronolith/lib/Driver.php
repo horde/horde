@@ -498,6 +498,10 @@ class Kronolith_Driver
         $tagger = Kronolith::getTagger();
         $tagger->replaceTags($event->uid, array(), $event->creator, Kronolith_Tagger::TYPE_EVENT);
 
+        /* Tell content we removed the object */
+        $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+            ->delete(array($event->uid), Kronolith_Tagger::TYPE_EVENT);
+
         /* Remove any geolocation data. */
         try {
             $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
