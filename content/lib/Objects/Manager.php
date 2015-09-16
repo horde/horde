@@ -103,6 +103,41 @@ class Content_Objects_Manager
     }
 
     /**
+     * Remove the object.
+     * NOTE: This does not ensure any references to this object were removed.
+     * E.g., does not remove any tags etc... That is client code's
+     * responsibility.
+     *
+     * @param  array $objects  An array of object identifiers to delete.
+     * @param  string $type    The type of the objects. All objects must be of
+     *                         the same type.
+     *
+     * @throws Content_Exception
+     */
+    public function delete(array $objects, $type)
+    {
+        $type = current($this->_typeManager->ensureTypes($type));
+
+        // Ensure we take the object as a string indentifier.
+        foreach ($objects as &$object) {
+            $object = strval($object);
+        }
+        $params = $objects;
+        $params[] = $type;
+
+        try {
+            $this->_db->delete(
+                'DELETE FROM ' . $this->_t('objects') . ' WHERE object_name IN ('
+                    . str_repeat('?,', count($objects) - 1) . '?)'
+                    . ' AND type_id = ?',
+                $params
+            );
+        } catch (Horde_Db_Exception $e) {
+            throw new Content_Exception($e);
+        }
+    }
+
+    /**
      * Ensure that an array of objects exist in storage. Create any that don't,
      * return object_ids for all. All objects in the $objects array must be
      * of the same content type.
