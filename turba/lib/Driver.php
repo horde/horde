@@ -1069,6 +1069,10 @@ class Turba_Driver implements Countable
         /* Remove tags */
         $GLOBALS['injector']->getInstance('Turba_Tagger')
             ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
+
+        /* Tell content we removed the object */
+       $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+            ->delete(array($object->getValue('__uid')), 'contact');
     }
 
     /**
@@ -1092,17 +1096,21 @@ class Turba_Driver implements Countable
         // Update Horde_History and Tagger
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            foreach ($ids as $id) {
+            foreach ($ids as $uid) {
                 // This is slightly hackish, but it saves us from having to
                 // create and save an array of Turba_Objects before we delete
                 // them, just to be able to calculate this using
                 // Turba_Object#getGuid
-                $guid = 'turba:' . $this->getName() . ':' . $id;
+                $guid = 'turba:' . $this->getName() . ':' . $uid;
                 $history->log($guid, array('action' => 'delete'), true);
 
                 // Remove tags.
                 $GLOBALS['injector']->getInstance('Turba_Tagger')
-                    ->replaceTags($id, array(), $this->getContactOwner(), 'contact');
+                    ->replaceTags($uid, array(), $this->getContactOwner(), 'contact');
+
+                /* Tell content we removed the object */
+               $GLOBALS['injector']->getInstance('Content_Objects_Manager')
+                    ->delete(array($uid), 'contact');
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
