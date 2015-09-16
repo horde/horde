@@ -380,6 +380,10 @@ abstract class Nag_Driver
         $task = $this->get($taskId);
         $delete = $this->_delete($taskId);
 
+        /* Remove tags */
+        $task->tags = array();
+        $this->_updateTags($task);
+
         /* Log the deletion of this item in the history log. */
         if (!empty($task->uid)) {
             try {
@@ -424,7 +428,7 @@ abstract class Nag_Driver
     {
         $ids = $this->_deleteAll();
 
-        // Update History.
+        // Update History and Tagger
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
             foreach ($ids as $id) {
@@ -432,6 +436,9 @@ abstract class Nag_Driver
                     'nag:' . $this->_tasklist . ':' . $id,
                     array('action' => 'delete'),
                     true);
+
+                $GLOBALS['injector']->getInstance('Nag_Tagger')
+                    ->replaceTags($id, array(), $GLOBALS['registry']->getAuth(), 'task');
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');

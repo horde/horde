@@ -261,7 +261,12 @@ abstract class Mnemo_Driver
                           array('action' => 'delete'), true);
             } catch (Horde_Exception $e) {
             }
+
+            // Remove tags
+            $GLOBALS['injector']->getInstance('Mnemo_Tagger')
+                ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note')
         }
+
     }
 
     /**
@@ -291,6 +296,8 @@ abstract class Mnemo_Driver
                     'mnemo:' . $this->_notepad . ':' . $uid,
                     array('action' => 'delete'),
                     true);
+                $injector->getInstance('Mnemo_Tagger')
+                    ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note');
             }
         } catch (Horde_Exception $e) {
         }

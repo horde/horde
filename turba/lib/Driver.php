@@ -1029,6 +1029,10 @@ class Turba_Driver implements Countable
             }
         } catch (Horde_Exception $e) {
         }
+
+        /* Remove tags */
+        $GLOBALS['injector']->getInstance('Turba_Tagger')
+            ->replaceTags($object->getValue('__uid'), array(), $this->getContactOwner(), 'contact');
     }
 
     /**
@@ -1049,7 +1053,7 @@ class Turba_Driver implements Countable
 
         $ids = $this->_deleteAll($sourceName);
 
-        // Update Horde_History
+        // Update Horde_History and Tagger
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
             foreach ($ids as $id) {
@@ -1059,6 +1063,10 @@ class Turba_Driver implements Countable
                 // Turba_Object#getGuid
                 $guid = 'turba:' . $this->getName() . ':' . $id;
                 $history->log($guid, array('action' => 'delete'), true);
+
+                // Remove tags.
+                $GLOBALS['injector']->getInstance('Turba_Tagger')
+                    ->replaceTags($id, array(), $this->getContactOwner(), 'contact');
             }
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
