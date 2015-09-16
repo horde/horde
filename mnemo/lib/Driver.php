@@ -264,7 +264,7 @@ abstract class Mnemo_Driver
 
             // Remove tags
             $GLOBALS['injector']->getInstance('Mnemo_Tagger')
-                ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note')
+                ->replaceTags($uid, array(), $GLOBALS['registry']->getAuth(), 'note');
         }
 
     }
