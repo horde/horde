@@ -89,6 +89,9 @@
     <!-- Forecast -->
     <?php if ($this->params['days'] > 0):?>
       <div class="control"><strong><?php echo sprintf(_("%d-day forecast"), $this->params['days'])?></strong></div>
+      <?php if ($this->radar): ?>
+        <table class="horde-block-weather"><tr><td>
+      <?php endif;?>
       <?php $futureDays = 0; ?>
       <table class="horde-block-weather">
          <tr>
@@ -136,6 +139,10 @@
            <?php $futureDays++;?>
          <?php endforeach;?>
       </table>
+      <?php if ($this->radar):?>
+        </td><td>
+        <?php echo $this->tag('img', array('src' => $this->radar));?></td></tr></table>
+      <?php endif;?>
     <?php endif; ?>
 
     <!-- Logo -->

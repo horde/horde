@@ -224,7 +224,8 @@ class Horde_Service_Weather_Wwo extends Horde_Service_Weather_Base
         if ($this->_version == 2) {
             $url->add(array(
                 'tp' => 24,
-                'showlocaltime' => 'yes')
+                'showlocaltime' => 'yes',
+                'showmap' => 'yes')
             );
         }
 
