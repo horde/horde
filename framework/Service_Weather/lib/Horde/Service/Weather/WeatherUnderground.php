@@ -235,7 +235,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_10DAY)
     {
-        if (!empty($this->_current) && $location == $this->_lastLocation
+        if (!empty($this->_forecast) && $location == $this->_lastLocation
             && $this->_lastLength >= $length) {
 
             if ($this->_lastLength > $length) {
