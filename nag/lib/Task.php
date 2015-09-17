@@ -1046,14 +1046,26 @@ class Nag_Task
                 $json->r = $this->recurrence->toJson();
             }
 
-            try {
-                $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
-            } catch (Horde_Share_Exception $e) {
-                Horde::log($e->getMessage(), 'ERR');
-                throw new Nag_Exception($e);
+            if ($this->tasklist == '**EXTERNAL**') {
+                $json->vl = (string)$this->view_link;
+                $json->cl = (string)$this->complete_link;
+                $json->pe = $json->pd = false;
+            } else {
+                try {
+                    $share = $GLOBALS['nag_shares']->getShare($this->tasklist);
+                } catch (Horde_Share_Exception $e) {
+                    Horde::log($e->getMessage(), 'ERR');
+                    throw new Nag_Exception($e);
+                }
+                $json->pe = $share->hasPermission(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::EDIT
+                );
+                $json->pd = $share->hasPermission(
+                    $GLOBALS['registry']->getAuth(),
+                    Horde_Perms::DELETE
+                );
             }
-            $json->pe = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
-            $json->pd = $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE);
         }
 
         return $json;
