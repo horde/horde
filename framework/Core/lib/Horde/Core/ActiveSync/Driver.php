@@ -550,7 +550,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             );
         }
 
-        // Either an email folder or a non-mulitiplexed non-email folder.
+        // Either an email folder or a non-multiplexed non-email folder.
         // Check for a valid class.
         if (empty($params['class'])) {
             // Must be a mail folder
