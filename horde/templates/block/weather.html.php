@@ -29,7 +29,7 @@
         foreach ($this->alerts as $alert): ?>
           <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert')?>" title="<?php echo $this->h($alert['body'])?>">
             <div style="font-weight:bold;"><?php echo $this->h($alert['desc'])?></div>
-            <strong><?php echo _("From")?>:</strong> <?php $this->h($alert['date_text'])?><br /><strong><?php echo _("To")?></strong>: <?php echo $alert['expires_text']?>
+            <?php if (!empty($alert['date_text'])):?><strong><?php echo _("Starts: ")?>:</strong> <?php echo $this->h($alert['date_text'])?><br /><?php endif; ?><strong><?php echo _("Expires: ")?></strong>: <?php echo $alert['expires_text']?>
           </div>
         <?php endforeach;?>
       <?php endif;?>
