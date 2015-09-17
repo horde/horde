@@ -107,6 +107,20 @@ implements Countable, Iterator
         }
     }
 
+    /**
+     * Return whether or not to allow recursion into a mime part when iterating
+     * all of the parts. So far, only disallows this for message/rfc822 parts
+     * to prevent each mime part of the rfc822 part to display as an attachment.
+     *
+     * @param Horde_Mime_Part $part  The part to check.
+     *
+     * @return boolean  True is we can descend into the part. False otherwise.
+     */
+    protected function _allowRecursion($part)
+    {
+        return !in_array($part->getType(), array('message/rfc822'));
+    }
+
     /* RecursiveIterator methods. */
 
     /**
@@ -137,13 +151,15 @@ implements Countable, Iterator
 
         $out = $this->_state->current->getPartByIndex($this->_state->index++);
         if ($out) {
-            if ($this->_ignoreAttachments && $this->_isAttachment($out)) {
+            if (($this->_ignoreAttachments && $this->_isAttachment($out)) ||
+                !$this->_allowRecursion($this->_state->current)) {
                 return $this->next();
             }
             $this->_state->recurse[] = array(
                 $this->_state->current,
                 $this->_state->index
             );
+
             $this->_state->current = $out;
             $this->_state->index = 0;
         } elseif ($tmp = array_pop($this->_state->recurse)) {

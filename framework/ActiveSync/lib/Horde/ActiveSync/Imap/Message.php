@@ -291,8 +291,10 @@ class Horde_ActiveSync_Imap_Message
     public function getAttachments($version)
     {
         $ret = array();
-        $map = $this->basePart->contentTypeMap();
-        foreach ($map as $id => $type) {
+        $iterator = new Horde_ActiveSync_Mime_Iterator($this->_basePart->base);
+        foreach ($iterator as $part) {
+            $type = $part->getType();
+            $id = $part->getMimeId();
             if ($this->isAttachment($id, $type)) {
                 if ($type != 'application/ms-tnef' || (!$mime_part = $this->_decodeTnefData($id))) {
                     $mime_part = $this->getMimePart($id, array('nocontents' => true));
