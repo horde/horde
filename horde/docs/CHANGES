@@ -2,6 +2,8 @@
 v5.2.8-git
 ----------
 
+[jan] Don't apply access keys to checkbox and radiobox rows in the sidebar
+      (Bug #14103).
 [jan] Send correct MIME type for non-statically cached javascript files.
 [mjr] Added configuration support for version 2 of WorldWeatherOnline's API.
 
