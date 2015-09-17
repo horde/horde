@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Send correct MIME type for non-statically cached javascript files.
 * [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
  </notes>
  <contents>
@@ -4058,6 +4059,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [jan] Send correct MIME type for non-statically cached javascript files.
 * [mjr] Added configuration support for version 2 of WorldWeatherOnline&apos;s API.
    </notes>
   </release>
