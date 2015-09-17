@@ -149,6 +149,7 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->forecast = $this->_weather->getForecast($view->location->code, $this->_params['days']);
             $view->station = $this->_weather->getStation();
             $view->current = $this->_weather->getCurrentConditions($view->location->code);
+            // @todo: Add link to put alert text in redbox.
             $view->alerts = $this->_weather->getAlerts($view->location->code);
             $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
