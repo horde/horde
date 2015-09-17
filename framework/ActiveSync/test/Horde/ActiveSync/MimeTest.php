@@ -78,6 +78,14 @@ class Horde_ActiveSync_MimeTest extends Horde_Test_Case
         $this->assertEquals('An attachment named foxtrotjobs.png was removed by Horde_ActiveSync_Test', $mime->getPart('3')->getContents());
     }
 
+    public function testRfc822MessageWithMultipartDoesNotIterate()
+    {
+        $fixture = file_get_contents(__DIR__ . '/fixtures/rfc822_multipart.eml');
+        $mime = new Horde_ActiveSync_Mime(Horde_Mime_Part::parseMessage($fixture));
+        $iterator = new Horde_ActiveSync_Mime_Iterator($mime->base);
+        $this->assertEquals(5, $iterator->count());
+    }
+
    public function testHasiCalendar()
    {
         $fixture = file_get_contents(__DIR__ . '/fixtures/invitation_one.eml');
