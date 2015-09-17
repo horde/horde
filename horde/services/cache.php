@@ -75,7 +75,11 @@ case 'js':
     }
 
     $data = $cache->get($args['cid'], 0);
-    $type = 'text/' . $type;
+    if ($type == 'css') {
+        $type = 'text/css';
+    } else {
+        $type = 'application/javascript';
+    }
     break;
 
 default:
