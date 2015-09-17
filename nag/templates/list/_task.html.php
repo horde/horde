@@ -50,7 +50,7 @@
         ? htmlspecialchars($task->name)
         : _("[none]");
     if ($have_read) {
-        $params = array('have_search' => $this->haveSearch, 'tab_name' => $this->tab_name, 'url' => Horde::selfUrl(true));
+        $params = array('have_search' => (int)$this->haveSearch, 'tab_name' => $this->tab_name, 'url' => Horde::selfUrl(true));
         if ($this->smartShare) {
           $params['list'] = $this->smartShare->getName();
         }
