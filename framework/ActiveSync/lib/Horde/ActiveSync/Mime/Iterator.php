@@ -29,7 +29,7 @@ class Horde_ActiveSync_Mime_Iterator
 implements Countable, Iterator
 {
     /**
-     * Ignore this type and all sub-parts of this type when iterating
+     * Flag to ignore parts that EAS considers attachments.
      *
      * @var boolean
      */
