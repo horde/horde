@@ -39,6 +39,13 @@ class Horde_Imap_Client_Base_Debug
     public $debug = true;
 
     /**
+     * Prefix log lines with pid?
+     *
+     * @var boolean
+     */
+    protected $_prefix_pid = false;
+
+    /**
      * The debug stream.
      *
      * @var resource
@@ -55,14 +62,17 @@ class Horde_Imap_Client_Base_Debug
     /**
      * Constructor.
      *
-     * @param mixed $debug  The debug target.
+     * @param mixed $debug       The debug target.
+     * @param mixed $prefix_pid  Prefix log lines with pid.
      */
-    public function __construct($debug)
+    public function __construct($debug, $prefix_pid = false)
     {
         $this->_stream = is_resource($debug)
             ? $debug
             : @fopen($debug, 'a');
         register_shutdown_function(array($this, 'shutdown'));
+
+        $this->_prefix_pid = $prefix_pid;
     }
 
     /**
@@ -127,6 +137,9 @@ class Horde_Imap_Client_Base_Debug
         if (!$this->debug || !$this->_stream) {
             return;
         }
+
+        if ($this->_prefix_pid)
+            fwrite($this->_stream, "[pid ".getmypid()."] ");
 
         if (!is_null($pre)) {
             $new_time = microtime(true);
