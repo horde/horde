@@ -315,7 +315,7 @@ class Ingo_Basic_Filters extends Ingo_Basic_Base
 
         if ($edit_allowed && is_null($mbox_search)) {
             if ($factory->hasFeature('on_demand')) {
-                $view->settings = true;
+                $view->settings = $factory->hasFeature('additional_settings');
                 $view->flags = $prefs->getValue('filter_seen');
                 $view->show_filter_msg = $prefs->getValue('show_filter_msg');
             }
