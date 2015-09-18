@@ -29,7 +29,7 @@
         foreach ($this->alerts as $alert): ?>
           <div class="hordeWeather<?php echo (!empty($this->sig) ? $this->sig : 'Alert')?>" title="<?php echo $this->h($alert['body'])?>">
             <div style="font-weight:bold;"><?php echo $this->h($alert['desc'])?></div>
-            <strong><?php echo _("From")?>:</strong> <?php $this->h($alert['date_text'])?><br /><strong><?php echo _("To")?></strong>: <?php echo $alert['expires_text']?>
+            <?php if (!empty($alert['date_text'])):?><strong><?php echo _("Starts: ")?>:</strong> <?php echo $this->h($alert['date_text'])?><br /><?php endif; ?><strong><?php echo _("Expires: ")?></strong>: <?php echo $alert['expires_text']?>
           </div>
         <?php endforeach;?>
       <?php endif;?>
@@ -89,6 +89,9 @@
     <!-- Forecast -->
     <?php if ($this->params['days'] > 0):?>
       <div class="control"><strong><?php echo sprintf(_("%d-day forecast"), $this->params['days'])?></strong></div>
+      <?php if ($this->radar): ?>
+        <table class="horde-block-weather"><tr><td>
+      <?php endif;?>
       <?php $futureDays = 0; ?>
       <table class="horde-block-weather">
          <tr>
@@ -136,6 +139,10 @@
            <?php $futureDays++;?>
          <?php endforeach;?>
       </table>
+      <?php if ($this->radar):?>
+        </td><td>
+        <?php echo $this->tag('img', array('src' => $this->radar));?></td></tr></table>
+      <?php endif;?>
     <?php endif; ?>
 
     <!-- Logo -->

@@ -426,7 +426,10 @@ extends Horde_Kolab_Storage_Driver_Base
      */
     public function getStampFromToken($folder, $token, array $ids)
     {
+        // always get folder status first, then sync()
+        $status = $this->status($folder);
         $sync = $this->sync($folder, $token, $ids);
+
         $ids = array_diff(
             $ids,
             $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::DELETED]
@@ -436,7 +439,7 @@ extends Horde_Kolab_Storage_Driver_Base
             $sync[Horde_Kolab_Storage_Folder_Stamp_Uids::ADDED]
         );
         return new Horde_Kolab_Storage_Folder_Stamp_Uids(
-            $this->status($folder),
+            $status,
             $ids
         );
     }

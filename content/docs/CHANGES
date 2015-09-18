@@ -2,6 +2,9 @@
 v2.0.5-git
 ----------
 
+[mjr] Fix bug that was causing tag stats to be incorrectly incremented (Bug
+      #14112).
+[mjr] Add Content_Objects_Manager::delete().
 [jan] Add unit tests for Oracle.
 
 

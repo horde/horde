@@ -52,7 +52,7 @@ class Kronolith_Hooks
      *         putenv('REALM=' . basename($m[2]));
      *     }
      * }
-     * 
+     *
      * public function preauthenticate($userId, $credentials)
      * {
      *     $result = array($userId, $credentials);

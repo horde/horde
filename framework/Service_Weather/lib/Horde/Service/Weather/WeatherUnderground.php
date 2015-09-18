@@ -109,7 +109,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     public function getCurrentConditions($location)
     {
-        $this->_getCommonElements(rawurlencode($location));
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
         return $this->_current;
     }
 
@@ -131,7 +131,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
 
     public function getAlerts($location)
     {
-        $this->_getCommonElements(rawurlencode($location));
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
         return $this->_alerts;
     }
 
@@ -144,7 +144,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
       */
      public function getRadarImageUrl($location)
      {
-        $this->_getCommonElements(rawurlencode($location));
+        $this->_getCommonElements(rawurlencode($location), !empty($this->_lastLength) ? $this->_lastLength : null);
         return $this->_radar;
      }
 
@@ -235,7 +235,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      */
     protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_10DAY)
     {
-        if (!empty($this->_current) && $location == $this->_lastLocation
+        if (!empty($this->_forecast) && $location == $this->_lastLocation
             && $this->_lastLength >= $length) {
 
             if ($this->_lastLength > $length) {

@@ -93,9 +93,9 @@ abstract class Horde_Service_Weather_Base
     /**
      * Local cache of forecast
      *
-     * @var array
+     * @var  Horde_Service_Weather_Forecast_Base
      */
-    protected $_forecast = array();
+    protected $_forecast;
 
     /**
      * Local cache of station data

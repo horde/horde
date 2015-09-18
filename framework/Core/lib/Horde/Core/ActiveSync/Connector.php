@@ -1184,6 +1184,8 @@ class Horde_Core_ActiveSync_Connector
                     $results[$id] = array('display' => $folder, 'primary' => ($id == $default));
                 }
                 $this->_folderCache[$collection] = $results;
+            } elseif (is_array($folders)) {
+                $this->_folderCache[$collection] = false;
             }
         }
 

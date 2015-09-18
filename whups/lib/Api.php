@@ -400,7 +400,6 @@ class Whups_Api extends Horde_Registry_Api
                     'name'              => '[' . _("Ticket") . ' #' . $ticket['id'] . '] ' . $ticket['summary'],
                     'desc'              => null,
                     'due'               => null,
-                    'category'          => null,
                     'view_link'         => $view_link,
                     'delete_link'       => $delete_link,
                     'edit_link'         => $view_link,

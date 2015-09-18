@@ -101,29 +101,11 @@ class Horde_Rpc_Soap extends Horde_Rpc
      *
      * This statically called method is actually the SOAP client.
      *
-     * @param string|Horde_Url $url  The path to the SOAP server on the called
-     *                               host.
+     * @param string|Horde_Url $url  Ignored.
      * @param string $method         The method to call.
      * @param array $params          A hash containing any necessary parameters
      *                               for the method call.
-     * @param $options  Optional associative array of parameters which can be:
-     *                  - user:              Basic Auth username
-     *                  - pass:              Basic Auth password
-     *                  - proxy_host:        Proxy server host
-     *                  - proxy_port:        Proxy server port
-     *                  - proxy_user:        Proxy auth username
-     *                  - proxy_pass:        Proxy auth password
-     *                  - timeout:           Connection timeout in seconds.
-     *                  - allowRedirects:    Whether to follow redirects or not
-     *                  - maxRedirects:      Max number of redirects to follow
-     *                  - namespace:
-     *                  - soapaction:
-     *                  - from:              SMTP, from address
-     *                  - transfer-encoding: SMTP, sets the
-     *                                       Content-Transfer-Encoding header
-     *                  - subject:           SMTP, subject header
-     *                  - headers:           SMTP, array-hash of extra smtp
-     *                                       headers
+     * @param SoapClient $soap       A configured SoapClient object.
      *
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
