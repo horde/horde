@@ -255,7 +255,7 @@ class Horde_Deprecated
      */
     public static function initMap(array $params = array())
     {
-        Horde_Core_HordeMap::init();
+        Horde_Core_HordeMap::init($params);
     }
 
 }
