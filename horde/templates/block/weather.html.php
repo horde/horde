@@ -89,7 +89,7 @@
     <!-- Forecast -->
     <?php if ($this->params['days'] > 0):?>
       <div class="control"><strong><?php echo sprintf(_("%d-day forecast"), $this->params['days'])?></strong></div>
-      <?php if ($this->radar): ?>
+      <?php if ($this->radar || $this->map): ?>
         <table class="horde-block-weather"><tr><td>
       <?php endif;?>
       <?php $futureDays = 0; ?>
@@ -139,12 +139,14 @@
            <?php $futureDays++;?>
          <?php endforeach;?>
       </table>
-      <?php if ($this->radar):?>
+      <?php if ($this->radar || $this->map):?>
         </td><td>
+        <div style="display:none;width:500px;height:300px;" id="weathermaplayer_<?php echo $this->instance?>">&nbsp;</div>
         <?php echo $this->tag('img', array('src' => $this->radar));?></td></tr></table>
+
       <?php endif;?>
     <?php endif; ?>
-
+    <div style="display:none;width:500px;height:300px;" id="weathermaplayer_<?php echo $this->instance?>">&nbsp;</div>
     <!-- Logo -->
     <?php if ($this->logo):?>
       <div class="rightAlign"><?php echo _("Weather data provided by") . ' ' . Horde::link(Horde::externalUrl($this->link), $this->title, '', '_blank', '', $this->title) . Horde_Themes_Image::tag($this->logo)?></a></div>

@@ -95,15 +95,19 @@ class Horde_Block_Weather extends Horde_Core_Block
             ),
             'days' => array(
                 'type' => 'enum',
-                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block)"),
+                'name' => _("Forecast Days (note that the returned forecast returns both day and night; a large number here could result in a wide block.)"),
                 'default' => 3,
                 'values' => $lengths
             ),
             'detailedForecast' => array(
                 'type' => 'checkbox',
-                'name' => _("Display detailed forecast"),
+                'name' => _("Display detailed forecast?"),
                 'default' => 0
-            )
+            ),
+            'showMap' => array(
+                'type' => 'checkbox',
+                'name' => _("Display the OpenWeatherMap map?"),
+                'default' => 0)
         );
     }
 
@@ -154,6 +158,15 @@ class Horde_Block_Weather extends Horde_Core_Block
             $view->radar = $this->_weather->getRadarImageUrl($location);
         } catch (Horde_Service_Weather_Exception $e) {
             return $e->getMessage();
+        }
+
+        if ($this->_params['showMap']) {
+            $view->map = true;
+            $GLOBALS['page_output']->addScriptFile('weatherblockmap.js', 'horde');
+            Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));
+            $GLOBALS['page_output']->addInlineScript(array(
+                'WeatherBlockMap.initializeMap("' . $view->instance . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->instance . '").show();'
+            ), true);
         }
 
         return $view->render('block/weather');

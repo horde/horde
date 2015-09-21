@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-09-08</date>
+ <date>2015-09-21</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -253,6 +253,7 @@
     <file name="twitterclient.js" role="horde" />
     <file name="userupdate.js" role="horde" />
     <file name="vatid.js" role="horde" />
+    <file name="weatherblockmap.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -2079,6 +2080,7 @@
    <install as="js/twitterclient.js" name="js/twitterclient.js" />
    <install as="js/userupdate.js" name="js/userupdate.js" />
    <install as="js/vatid.js" name="js/vatid.js" />
+   <install as="Horde/js/weatherblockmap.js" name="js/weatherblockmap.js" />
    <install as="js/plupload/plupload.browserplus.js" name="js/plupload/plupload.browserplus.js" />
    <install as="js/plupload/plupload.flash.js" name="js/plupload/plupload.flash.js" />
    <install as="js/plupload/plupload.flash.swf" name="js/plupload/plupload.flash.swf" />
@@ -4129,7 +4131,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-09-08</date>
+   <date>2015-09-21</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Add configuration switch for disabling maillog synchronization with EAS clients (Bug #13747).
