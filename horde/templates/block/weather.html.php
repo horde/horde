@@ -58,7 +58,7 @@
             <?php if (empty($this->current->pressure_trend)):
               echo sprintf('%d %s', round($this->current->pressure), $this->units['pres']);
             else:
-                sprintf(_("%d %s and %s"), round($this->current->pressure), $this->units['pres'], _($this->current->pressure_trend));
+              echo sprintf(_("%d %s and %s"), round($this->current->pressure), $this->units['pres'], _($this->current->pressure_trend));
             endif;
        endif;?>
 
