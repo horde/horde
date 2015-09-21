@@ -62,11 +62,9 @@ class Horde_Service_Weather_Wwov2Test extends Horde_Test_Case
     public function testGetStation()
     {
         $weather = $this->_getStub();
-        $weather->getCurrentConditions('clayton,nj');
+        $weather->getCurrentConditions('boston,ma');
         $station = $weather->getStation();
 
-        //$this->assertEquals('2015-08-28 06:05:48', (string)$station->sunrise);
-        //$this->assertEquals('2015-08-28 19:24:47', (string)$station->sunset);
         $this->assertEquals('Boston, Massachusetts', $station->name);
         $this->assertEquals('-04:00', $station->getOffset());
     }
@@ -122,14 +120,17 @@ class Horde_Service_Weather_Wwov2Test extends Horde_Test_Case
     public function mockHttpCallback($url)
     {
         switch ((string)$url) {
-        case 'https://api.worldweatheronline.com/free/v2/weather.ashx?q=clayton%2Cnj&num_of_days=5&includeLocation=yes&extra=localObsTime&tp=24&showlocaltime=yes&format=json&key=xxx':
+        case 'https://api.worldweatheronline.com/free/v2/weather.ashx?q=clayton%2Cnj&num_of_days=5&includeLocation=yes&extra=localObsTime&tp=24&showlocaltime=yes&showmap=yes&format=json&key=xxx':
             $stream = fopen(__DIR__ . '/fixtures/wwov2.json', 'r');
             break;
         case 'https://api.worldweatheronline.com/free/v2/search.ashx?timezone=yes&q=39.660%2C-75.093&num_of_results=10&format=json&key=xxx':
             $stream = fopen(__DIR__ . '/fixtures/boston_location_wwo.json', 'r');
             break;
+        case 'https://api.worldweatheronline.com/free/v2/weather.ashx?q=boston%2Cma&num_of_days=5&includeLocation=yes&extra=localObsTime&tp=24&showlocaltime=yes&showmap=yes&format=json&key=xxx':
+            $stream = fopen(__DIR__ . '/fixtures/wwov2.json', 'r');
+            break;
         default:
-            throw new Exception('Invalid Url');
+            throw new Exception(sprintf('Invalid Url: %s', (string)$url));
         }
         $response = new Horde_Http_Response_Mock($url, $stream);
         $response->code = 200;
