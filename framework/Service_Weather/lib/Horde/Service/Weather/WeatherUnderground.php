@@ -261,6 +261,7 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
             $l = 'forecast10day';
             break;
         }
+
         $url = self::API_URL . '/api/' . $this->_apiKey
             . '/geolookup/conditions/animatedradar/alerts/'
             . $l . '/astronomy/q/' . $location . '.json';
