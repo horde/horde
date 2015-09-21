@@ -233,8 +233,9 @@ class Horde_Service_Weather_WeatherUnderground extends Horde_Service_Weather_Bas
      * a bit of request time/traffic for a smaller number of requests to obtain
      * information for e.g., a typical weather portal display.
      */
-    protected function _getCommonElements($location, $length = Horde_Service_Weather::FORECAST_10DAY)
+    protected function _getCommonElements($location, $length = null)
     {
+        $length = empty($length) ? Horde_Service_Weather::FORECAST_10DAY : $length;
         if (!empty($this->_forecast) && $location == $this->_lastLocation
             && $this->_lastLength >= $length) {
 
