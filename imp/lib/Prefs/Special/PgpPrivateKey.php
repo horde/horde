@@ -90,6 +90,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
 
                 if (!empty($conf['pgp']['keylength'])) {
+                    $view->create_pgp_keypair = true;
                     $page_output->addInlineScript(array(
                         '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . json_encode(_("Key generation may take a long time to complete.  Continue with key generation?")) . ')) { e.stop(); } })'
                     ), true);
