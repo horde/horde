@@ -28,13 +28,13 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
         switch ($driver) {
         case 'WeatherUnderground':
         case 'Wwo':
+        case 'Owm':
             $params['apikey'] = $conf['weather']['params']['key'];
             if (!empty($conf['weather']['params']['apiversion'])) {
                 $params['apiVersion'] = $conf['weather']['params']['apiversion'];
             }
             break;
         }
-
         $class = $this->_getDriverName($driver, 'Horde_Service_Weather');
 
         try {
