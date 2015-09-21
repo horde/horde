@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
 * [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
  </notes>
  <contents>
@@ -3877,6 +3878,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
 * [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
    </notes>
   </release>
