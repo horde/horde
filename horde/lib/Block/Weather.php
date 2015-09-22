@@ -161,11 +161,11 @@ class Horde_Block_Weather extends Horde_Core_Block
         }
 
         if ($this->_params['showMap']) {
-            $view->map = true;
+            $view->map = hash('md5', mt_rand());
             $GLOBALS['page_output']->addScriptFile('weatherblockmap.js', 'horde');
             Horde_Core_HordeMap::init(array('providers' => array('owm', 'osm')));
             $GLOBALS['page_output']->addInlineScript(array(
-                'WeatherBlockMap.initializeMap("' . $view->instance . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->instance . '").show();'
+                'WeatherBlockMap.initializeMap("' . $view->map . '", { lat: "' . $view->location->lat . '", lon: "' . $view->location->lon . '"});$("weathermaplayer_' . $view->map . '").show();'
             ), true);
         }
 

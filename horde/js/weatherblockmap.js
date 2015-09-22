@@ -6,8 +6,8 @@ var WeatherBlockMap = {
         if (this.mapInitialized) {
             return;
         }
-        var layers = [];
-        var p = new HordeMap.Owm();
+        var layers = [], p = new HordeMap.Owm(), map, dimensions;
+
         $H(p.getLayers()).values().each(function(e) {
             if (e.name == 'OpenWeatherMap Wind Map') {
                 e.visibility = false;
@@ -20,12 +20,17 @@ var WeatherBlockMap = {
             layers.push(e);
         });
 
-        var map = new HordeMap.Map['Horde']({
+        map = new HordeMap.Map['Horde']({
             elt: 'weathermaplayer_' + instance,
-            layers: layers
+            layers: layers,
+            panzoom: false
         });
 
-        map.display();
+
+        dimensions = $('weathermaplayer_' + instance).up().up().getDimensions();
+        $('weathermaplayer_' + instance).setStyle({ top: 0, width: ((dimensions.width / 2) + 10) + 'px', height: dimensions.height + 'px' });
+        map.updateMapSize();
         map.setCenter(point, 7);
+        map.display();
     }
 }

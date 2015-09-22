@@ -139,19 +139,21 @@
            <?php $futureDays++;?>
          <?php endforeach;?>
       </table>
+      <!-- Logo -->
+      <?php if ($this->logo):?>
+        <div class="rightAlign"><?php echo _("Weather data provided by") . ' ' . Horde::link(Horde::externalUrl($this->link), $this->title, '', '_blank', '', $this->title) . Horde_Themes_Image::tag($this->logo)?></a></div>
+      <?php else:?>
+        <div class="rightAlign"><?php echo _("Weather data provided by") . ' ' . Horde::link(Horde::externalUrl($this->link), $this->title, '', '_blank', '', $this->title) . '<em>' . $this->title?></em></a></div>
+      <?php endif;?>
       <?php if ($this->radar || $this->map):?>
         </td><td>
-        <div style="display:none;width:500px;height:300px;" id="weathermaplayer_<?php echo $this->instance?>">&nbsp;</div>
+        <?php if ($this->map): ?>
+          <div style="display:none;width:100%;height:500px;" class="horde-block-weathermap" id="weathermaplayer_<?php echo $this->map?>">&nbsp;</div>
+        <?php else: ?>
         <?php echo $this->tag('img', array('src' => $this->radar));?></td></tr></table>
+      <?php endif; ?>
 
       <?php endif;?>
     <?php endif; ?>
-    <div style="display:none;width:500px;height:300px;" id="weathermaplayer_<?php echo $this->instance?>">&nbsp;</div>
-    <!-- Logo -->
-    <?php if ($this->logo):?>
-      <div class="rightAlign"><?php echo _("Weather data provided by") . ' ' . Horde::link(Horde::externalUrl($this->link), $this->title, '', '_blank', '', $this->title) . Horde_Themes_Image::tag($this->logo)?></a></div>
-    <?php else:?>
-      <div class="rightAlign"><?php echo _("Weather data provided by") . ' ' . Horde::link(Horde::externalUrl($this->link), $this->title, '', '_blank', '', $this->title) . '<em>' . $this->title?></em></a></div>
-    <?php endif;?>
  <?php endif;?>
 </div>
