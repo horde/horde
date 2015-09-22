@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2015-09-21</date>
+ <date>2015-09-22</date>
  <version>
-  <release>2.21.1</release>
-  <api>2.21.0</api>
+  <release>2.22.0</release>
+  <api>2.22.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -4024,12 +4024,12 @@
   </release>
   <release>
    <version>
-    <release>2.21.1</release>
-    <api>2.21.0</api></version>
+    <release>2.22.0</release>
+    <api>2.22.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-21</date>
+   <date>2015-09-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
