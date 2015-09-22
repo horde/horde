@@ -12,7 +12,6 @@ var WeatherBlockMap = {
             if (e.name == 'OpenWeatherMap Wind Map') {
                 e.visibility = false;
             }
-            console.log(e);
             layers.push(e);
         });
         p = new HordeMap.Osm();
