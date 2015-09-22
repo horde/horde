@@ -10,7 +10,7 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2015-09-01</date>
+ <date>2015-09-22</date>
  <version>
   <release>2.29.2</release>
   <api>2.29.0</api>
@@ -254,6 +254,7 @@
        <file name="meeting_request_one.wbxml" role="test" />
        <file name="mime_encoding.eml" role="test" />
        <file name="recurrence.wbxml" role="test" />
+       <file name="rfc822_multipart.eml" role="test" />
        <file name="signed_attachment.eml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
@@ -591,6 +592,7 @@
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/mime_encoding.eml" name="test/Horde/ActiveSync/fixtures/mime_encoding.eml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
+   <install as="Horde/ActiveSync/fixtures/rfc822_multipart.eml" name="test/Horde/ActiveSync/fixtures/rfc822_multipart.eml" />
    <install as="Horde/ActiveSync/fixtures/signed_attachment.eml" name="test/Horde/ActiveSync/fixtures/signed_attachment.eml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
    <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
@@ -2839,7 +2841,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2015-09-01</date>
+   <date>2015-09-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
