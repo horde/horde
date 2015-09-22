@@ -1124,10 +1124,11 @@ class Horde_Core_ActiveSync_Connector
      *                       the following format:
      *                       'uid' => array('display' => "Display Name", 'primary' => boolean)
      * @since 2.12.0
+     * @todo H6 remove the hasMethod checks.
      */
     public function getFolders($collection, $multiplex)
     {
-        // @TODO: H6 remove the hasMethod checks.
+        $folders = false;
         if (empty($this->_folderCache[$collection])) {
             switch ($collection) {
             case Horde_ActiveSync::CLASS_CALENDAR:
