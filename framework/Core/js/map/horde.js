@@ -388,6 +388,12 @@ HordeMap.Map.Horde = Class.create({
         return this.map;
     },
 
+    updateMapSize: function()
+    {
+        this.map.updateSize();
+        this.map.calculateBounds();
+    },
+
     getMapNodeId: function()
     {
         return this.opts.elt;
