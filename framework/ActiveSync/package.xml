@@ -12,7 +12,7 @@
  </lead>
  <date>2015-09-22</date>
  <version>
-  <release>2.29.2</release>
+  <release>2.29.3</release>
   <api>2.29.0</api>
  </version>
  <stability>
@@ -21,9 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
-* [mjr] Fix handling of meeting requests that contain no DTEND attribute.
-* [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2847,6 +2845,19 @@
 * [mjr] Don&apos;t take sub-parts of rfc822/message parts as attachments.
 * [mjr] Fix handling of meeting requests that contain no DTEND attribute.
 * [mjr] Fix parsing of SETTINGS request that was causing a harmless WBXML parsing error.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.29.3</release>
+    <api>2.29.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-22</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
