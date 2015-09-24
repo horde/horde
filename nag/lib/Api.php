@@ -908,7 +908,7 @@ class Nag_Api extends Horde_Registry_Api
     public function getChanges($start, $end, $isModSeq = false, $tasklist = null)
     {
         if (empty($tasklist)) {
-            Nag::getDefaultTasklist();
+            $tasklist = Nag::getDefaultTasklist();
         }
         $GLOBALS['injector']->getInstance('Nag_Factory_Driver')
             ->create($tasklist)
