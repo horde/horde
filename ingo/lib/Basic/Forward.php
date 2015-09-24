@@ -34,13 +34,20 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
+        
+        $ingo_script_factory = $injector->getInstance('Ingo_Factory_Script');
 
         /* Get the forward object and rule. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $forward = $ingo_storage->getSystemRule('Ingo_Rule_System_Forward');
 
         /* Build form. */
-        $form = new Ingo_Form_Forward($this->vars);
+        $form = new Ingo_Form_Forward(
+            $this->vars,
+            '',
+            null,
+            $ingo_script_factory->create(Ingo::RULE_FORWARD)->availableCategoryFeatures('Ingo_Rule_System_Forward')
+        );
 
         /* Perform requested actions. Ingo_Form_Forward does token checking
          * for us. */
@@ -62,7 +69,7 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
                 $ingo_storage->updateRule($forward);
                 $notification->push($notify, 'horde.success');
 
-                $injector->getInstance('Ingo_Factory_Script')->activateAll();
+                $ingo_script_factory->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }

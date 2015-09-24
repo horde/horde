@@ -35,13 +35,20 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
         if ($this->vars->submitbutton == _("Return to Rules List")) {
             Ingo_Basic_Filters::url()->redirect();
         }
+        
+        $ingo_script_factory = $injector->getInstance('Ingo_Factory_Script');
 
         /* Get the spam object and rule. */
         $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
         $spam = $ingo_storage->getSystemRule('Ingo_Rule_System_Spam');
 
         /* Build form. */
-        $form = new Ingo_Form_Spam($this->vars);
+        $form = new Ingo_Form_Spam(
+            $this->vars,
+            '',
+            null,
+            $ingo_script_factory->create(Ingo::RULE_SPAM)->availableCategoryFeatures('Ingo_Rule_System_Spam')
+        );
         $renderer = new Horde_Form_Renderer(array(
             'encode_title' => false,
             'varrenderer_driver' => array('ingo', 'ingo')
@@ -74,7 +81,7 @@ class Ingo_Basic_Spam extends Ingo_Basic_Base
                 $ingo_storage->updateRule($spam);
                 $notification->push($notify, 'horde.success');
 
-                $injector->getInstance('Ingo_Factory_Script')->activateAll();
+                $ingo_script_factory->activateAll();
             } catch (Ingo_Exception $e) {
                 $notification->push($e);
             }
