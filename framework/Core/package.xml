@@ -30,7 +30,7 @@
  </developer>
  <date>2015-09-25</date>
  <version>
-  <release>2.22.0</release>
+  <release>2.22.1</release>
   <api>2.22.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] ActiveSync logging improvements.
-* [mjr] Add support for OpenWeatherMap layers in Horde_Map.
-* [mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -4037,6 +4035,19 @@
 * [mjr] ActiveSync logging improvements.
 * [mjr] Add support for OpenWeatherMap layers in Horde_Map.
 * [mjr] Fix edge-case issue with ActiveSync folder list generation when installed application contains no user writable sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.22.1</release>
+    <api>2.22.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2015-09-25</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
