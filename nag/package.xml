@@ -33,6 +33,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 * [jan] Fix linking to external tasks from smartmobile view.
  </notes>
  <contents>
@@ -1655,6 +1657,8 @@
    <date>2015-06-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 * [jan] Fix linking to external tasks from smartmobile view.
    </notes>
   </release>

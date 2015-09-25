@@ -27,7 +27,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1321,7 +1322,8 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
+* [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
    </notes>
   </release>
  </changelog>

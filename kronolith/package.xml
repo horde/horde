@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
 * [mjr] Fix handling of email groups as attendees (Bug #14093).
 * [mjr] Fix importing text/calendar data via API (Bug #14089).
@@ -2597,6 +2598,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
 * [mjr] Fix handling of email groups as attendees (Bug #14093).
 * [mjr] Fix importing text/calendar data via API (Bug #14089).

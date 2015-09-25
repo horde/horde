@@ -2,6 +2,7 @@
 v1.1.3-git
 ----------
 
+[mjr] Remove object reference from Content when object is deleted (Bug #14112).
 
 
 ------
