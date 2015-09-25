@@ -325,8 +325,8 @@ div.hermesTimeSliceOptions {
 /* Job and Deliverables pages */
 div.hermesJobTypeListName, div.hermesJobTypeListBillable, div.hermesJobTypeListEnabled,
 div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesName,
-div.hermesDeliverablesActive, div.hermesDeliverablesEstimate, div.hermesDeliverablesDesc,
-div.hermesDeliverablesOptions {
+div.hermesDeliverablesActive, div.hermesDeliverablesEstimate, div.hermesDeliverablesActual,
+div.hermesDeliverablesDesc, div.hermesDeliverablesOptions {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -347,7 +347,7 @@ div.hermesJobTypeListRate, div.hermesJobTypeListOptions, div.hermesDeliverablesO
 div.hermesDeliverablesName {
   width: 20%;
 }
-div.hermesDeliverablesEstimate {
+div.hermesDeliverablesEstimate, div.hermesDeliverablesActual {
   width: 10%;
 }
 div.hermesDeliverablesActive {
