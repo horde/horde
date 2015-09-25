@@ -224,6 +224,14 @@ class Ingo_Basic_Rule extends Ingo_Basic_Base
         $view->addHelper('Tag');
         $view->addHelper('Text');
 
+        $features = new Ingo_Form_Base(
+            null,
+            '',
+            null,
+            $ingo_script->availableCategoryFeatures(Ingo_Storage::ACTION_FILTERS)
+        );
+        $view->combine = $features->hasFeature('combine');
+
         $view->avail_types = $ingo_script->availableTypes();
         $view->edit = $this->vars->edit;
         $view->fields = $ingo_fields;

@@ -27,15 +27,23 @@
   <?php echo $this->hordeHelp('ingo', 'rule-match') ?>
  </div>
 
+<?php if ($this->combine) : ?>
  <div class="ruleCondition">
   <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ALL, $this->rule['combine'] == Ingo_Storage::COMBINE_ALL, array('id' => 'all')) ?>
   <?php echo $this->hordeLabel('all', _("ALL of the following")) ?>
   <?php echo $this->radioButtonTag('combine', Ingo_Storage::COMBINE_ANY, $this->rule['combine'] == Ingo_Storage::COMBINE_ANY, array('id' => 'any')) ?>
   <?php echo $this->hordeLabel('any', _("ANY of the following")) ?>
  </div>
+<?php else : ?>
+<?php echo $this->hiddenFieldTag('combine', Ingo_Storage::COMBINE_ALL, array('id' => 'all')) ?>
+<?php echo $this->hiddenFieldTag('combine', Ingo_Storage::COMBINE_ANY, array('id' => 'any')) ?>
+<?php endif; ?>
 
  <div class="ruleMatch">
 <?php foreach ($this->filter as $f): ?>
+<?php if (!$this->combine && $f['cond_num'] > 0): ?>
+<?php break; ?>
+<?php endif; ?>
   <div class="ruleMatchRow">
    <div class="ruleMatchCondition">
 <?php if ($f['cond_num'] > 0): ?>

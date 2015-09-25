@@ -36,6 +36,8 @@ class Ingo_Script_Customsql extends Ingo_Script_Base
         'stop_script' => false,
         /* Can this driver perform on demand filtering? */
         'on_demand' => false,
+        /* Does the driver support aditional settings? */
+        'additional_settings' => false,
         /* Does the driver require a script file to be generated? */
         'script_file' => true,
     );

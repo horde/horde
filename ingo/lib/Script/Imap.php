@@ -37,6 +37,8 @@ class Ingo_Script_Imap extends Ingo_Script_Base
         'stop_script' => true,
         /* Can this driver perform on demand filtering? */
         'on_demand' => true,
+        /* Does the driver support aditional settings? */
+        'additional_settings' => true,
         /* Does the driver require a script file to be generated? */
         'script_file' => false,
     );

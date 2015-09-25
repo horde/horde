@@ -44,7 +44,12 @@ class Ingo_Basic_Forward extends Ingo_Basic_Base
         $fwd_rule = $filters->getRule($fwd_id);
 
         /* Build form. */
-        $form = new Ingo_Form_Forward($this->vars);
+        $form = new Ingo_Form_Forward(
+            $this->vars,
+            '',
+            null,
+            $injector->getInstance('Ingo_Factory_Script')->create(Ingo::RULE_FORWARD)->availableCategoryFeatures(Ingo_Storage::ACTION_FORWARD)
+        );
 
         /* Perform requested actions. Ingo_Form_Forward does token checking
          * for us. */
