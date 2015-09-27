@@ -28,7 +28,7 @@
   <email>chuck@horde.org</email>
   <active>no</active>
  </lead>
- <date>2015-09-21</date>
+ <date>2015-09-27</date>
  <version>
   <release>5.3.0</release>
   <api>5.2.0</api>
@@ -738,6 +738,7 @@
      <file name="twitter-layout.html.php" role="horde" />
      <file name="twitter_tweet.html.php" role="horde" />
      <file name="weather.html.php" role="horde" />
+     <file name="weather_content.html.php" role="horde" />
     </dir> <!-- /templates/block -->
     <dir name="common">
      <file name="footer.html.php" role="horde" />
@@ -2341,6 +2342,7 @@
    <install as="templates/block/twitter-layout.html.php" name="templates/block/twitter-layout.html.php" />
    <install as="templates/block/twitter_tweet.html.php" name="templates/block/twitter_tweet.html.php" />
    <install as="templates/block/weather.html.php" name="templates/block/weather.html.php" />
+   <install as="templates/block/weather_content.html.php" name="templates/block/weather_content.html.php" />
    <install as="templates/common/footer.html.php" name="templates/common/footer.html.php" />
    <install as="templates/common/header.html.php" name="templates/common/header.html.php" />
    <install as="templates/data/csvinfo.inc" name="templates/data/csvinfo.inc" />
@@ -4132,7 +4134,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2015-09-21</date>
+   <date>2015-09-27</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Add option to display OpenWeatherMap&apos;s weather map to the weather block.

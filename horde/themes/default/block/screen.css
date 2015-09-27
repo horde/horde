@@ -65,15 +65,19 @@
 }
 
 /* Weather Block Related CSS */
-table.horde-block-weather {
+table.hordeBlockWeather, table.hordeBlockWeatherForecast {
     border: 1px solid transparent;
     border-collapse: collapse;
     width: 100%;
 }
-table.horde-block-weather td {
+table.hordeBlockWeather td, table.hordeBlockWeatherForecast td {
     border: 1px solid #ddd;
+}
+table.hordeBlockWeatherForecast td {
     text-align: center;
 }
+
+
 .horde-block-weathermap .olMapViewport {
     top: -15px;
 }
