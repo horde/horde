@@ -261,6 +261,7 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             return $result;
         }
 
+        $removed_attendees = $old_attendees = array();
         if ($this->vars->recur_edit && $this->vars->recur_edit != 'all') {
             switch ($this->vars->recur_edit) {
             case 'current':
@@ -269,11 +270,11 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
                 $attributes->rend = $this->vars->rend;
                 $this->_addException($event, $attributes);
 
-                // Create a copy of the original event so we can read in the new
-                // form values for the exception. We also MUST reset the recurrence
-                // property even though we won't be using it, since clone() does not
-                // do a deep copy. Otherwise, the original event's recurrence will
-                // become corrupt.
+                // Create a copy of the original event so we can read in the
+                // new form values for the exception. We also MUST reset the
+                // recurrence property even though we won't be using it, since
+                // clone() does not do a deep copy. Otherwise, the original
+                // event's recurrence will become corrupt.
                 $newEvent = clone($event);
                 $newEvent->recurrence = new Horde_Date_Recurrence($event->start);
                 $newEvent->readForm($event);
@@ -312,7 +313,10 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             try {
                 $old_attendees = $event->attendees;
                 $event->readForm();
-                $removed_attendees = array_diff(array_keys($old_attendees), array_keys($event->attendees));
+                $removed_attendees = array_diff(
+                    array_keys($old_attendees),
+                    array_keys($event->attendees)
+                );
                 $result = $this->_saveEvent($event);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e);
@@ -321,15 +325,18 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         }
 
         if (($result !== true) && $this->vars->sendupdates) {
-            $type = $event->status == Kronolith::STATUS_CANCELLED ? Kronolith::ITIP_CANCEL : Kronolith::ITIP_REQUEST;
+            $type = $event->status == Kronolith::STATUS_CANCELLED
+                ? Kronolith::ITIP_CANCEL
+                : Kronolith::ITIP_REQUEST;
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], $type);
         }
         if (!empty($removed_attendees)) {
             foreach ($removed_attendees as $email) {
                 $to_cancel[$email] = $old_attendees[$email];
             }
-            $event->attendees = $to_cancel;
-            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
+            $cancelEvent = clone $event;
+            $cancelEvent->attendees = $to_cancel;
+            Kronolith::sendITipNotifications($cancelEvent, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
         }
         Kronolith::notifyOfResourceRejection($event);
 
