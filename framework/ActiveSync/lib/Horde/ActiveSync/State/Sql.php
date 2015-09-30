@@ -632,17 +632,22 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_db->insert($query, $values);
             } else {
                 $this->_logger->info((sprintf(
-                    '[%s] Device entry exists for %s, updating userAgent and version.',
+                    '[%s] Device entry exists for %s, updating userAgent, version, and supported.',
                     $this->_procid,
                     $data->id)));
+                // device_supported is immutable, and only sent during the initial
+                // sync request, so only set it if it's non-empty.
                 $query = 'UPDATE ' . $this->_syncDeviceTable
-                    . ' SET device_agent = ?, device_properties = ?'
+                    . ' SET device_agent = ?, device_properties = ?' . (!empty($data->supported) ? ', device_supported = ?' : '')
                     . ' WHERE device_id = ?';
                 $values = array(
                     (!empty($data->userAgent) ? $data->userAgent : ''),
-                    serialize($data->properties),
-                    $data->id
+                    serialize($data->properties)
                 );
+                if (!empty($data->supported)) {
+                    $values[] = serialize($data->supported);
+                }
+                $values[] = $data->id;
                 $this->_db->update($query, $values);
             }
         } catch(Horde_Db_Exception $e) {
