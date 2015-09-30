@@ -214,4 +214,18 @@ class Horde_ActiveSync_DeviceTest extends Horde_Test_Case
         $this->assertEquals('Samsung', $device->clientType);
     }
 
+    public function testSupported()
+    {
+        $fixture = array(
+            'deviceType' => 'SAMSUNGSMN900V',
+            'userAgent' => 'SAMSUNG-SM-N900V/101.403',
+            'properties' => array(Horde_ActiveSync_Device::OS => 'Android')
+        );
+        $device = new Horde_ActiveSync_Device($this->getMockSkipConstructor('Horde_ActiveSync_State_Base'), $fixture);
+        $this->assertEmpty($device->supported);
+        $device->supported = array();
+        $device->supported['contacts'] = array('one', 'two');
+        $this->assertEquals($device->supported, array('contacts' => array('one', 'two')));
+    }
+
 }
