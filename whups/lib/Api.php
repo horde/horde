@@ -177,10 +177,7 @@ class Whups_Api extends Horde_Registry_Api
 
         // More checks if we're assigning the ticket at create-time.
         if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
-        }
-        if ($GLOBALS['registry']->getAuth() && $whups_driver->isCategory('assigned', $vars->get('state'))) {
-            $form4 = new Whups_Form_Ticket_CreateStep4Form($vars);
+            $form4 = new Whups_Form_Ticket_CreateStepFour($vars);
             $form4->useToken(false);
             if (!$form4->validate($vars, true)) {
                 throw new Whups_Exception('Invalid arguments (' . var_export($form4->getErrors(), true) . ')');
