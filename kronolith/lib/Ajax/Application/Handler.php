@@ -310,7 +310,9 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
             }
         } else {
             try {
+                $old_attendees = $event->attendees;
                 $event->readForm();
+                $removed_attendees = array_diff(array_keys($old_attendees), array_keys($event->attendees));
                 $result = $this->_saveEvent($event);
             } catch (Exception $e) {
                 $GLOBALS['notification']->push($e);
@@ -321,6 +323,13 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
         if (($result !== true) && $this->vars->sendupdates) {
             $type = $event->status == Kronolith::STATUS_CANCELLED ? Kronolith::ITIP_CANCEL : Kronolith::ITIP_REQUEST;
             Kronolith::sendITipNotifications($event, $GLOBALS['notification'], $type);
+        }
+        if (!empty($removed_attendees)) {
+            foreach ($removed_attendees as $email) {
+                $to_cancel[$email] = $old_attendees[$email];
+            }
+            $event->attendees = $to_cancel;
+            Kronolith::sendITipNotifications($event, $GLOBALS['notification'], Kronolith::ITIP_CANCEL);
         }
         Kronolith::notifyOfResourceRejection($event);
 

@@ -128,8 +128,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
         $search_query = array();
         switch (Horde_String::lower($search_name)) {
         case 'documentlibrary':
-            $search_query['query'] = $this->_parseQuery();
-            break;
         case 'mailbox':
             $search_query['query'] = $this->_parseQuery();
             break;

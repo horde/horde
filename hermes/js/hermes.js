@@ -1260,6 +1260,7 @@ HermesCore = {
         cell = row.down().update(jt.name);
         cell = cell.next().update((jt.active == 1) ? 'Y' : 'N');
         cell = cell.next().update(jt.estimate);
+        cell = cell.next().update(jt.hours);
         cell = cell.next().update(jt.description);
         if (!Hermes.conf.has_deliverableadmin) {
             // No delverabile admin perms

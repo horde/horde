@@ -38,7 +38,14 @@ class Horde_Core_Ajax_Imple_WeatherLocationAutoCompleter extends Horde_Core_Ajax
                         $("' . $indicator . '").toggle();
                         HordeCore.doAction("blockRefresh",
                             { blockid: "Horde_Block_Weather", location: v },
-                            { callback: function(r) { $("weathercontent' . $this->_params['instance'] . '").update(r); $("' . $indicator . '").toggle(); } }
+                            { callback: function(r) {
+                                var point = v.split(",");
+                                var p = { lat: point[0], lon: point[1] };
+                                $("weathercontent' . $this->_params['instance'] . '").update(r);
+                                $("' . $indicator . '").toggle();
+                                WeatherBlockMap.maps["' . $this->_params['instance'] . '"].setCenter(p, 7);
+                                }
+                            }
                         );
                         this.value = false;
                     }

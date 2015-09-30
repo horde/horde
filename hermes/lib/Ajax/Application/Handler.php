@@ -225,6 +225,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                 ->listDeliverables(array('client_id' => $client_id)));
             foreach ($objs as &$obj) {
                 $obj['id'] = 'hermes:' . $obj['id'];
+                $obj['hours'] = 0;
+                foreach($injector->getInstance('Hermes_Driver')->getHours(array('costobject' => $obj['id'])) as $slice) {
+                    $obj['hours'] += $slice['hours'];
+                }
             }
 
             return $objs;
@@ -234,6 +238,10 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         foreach (Hermes::getCostObjects($client_id, true) as $category) {
             Horde_Array::arraySort($category['objects'], 'name');
             foreach ($category['objects'] as $object) {
+                $hours = 0;
+                foreach($injector->getInstance('Hermes_Driver')->getHours(array('costobject' => $object['id'])) as $slice) {
+                    $hours += $slice['hours'];
+                }
                 $elts[] = array(
                     'id' => $object['id'],
                     'client_id' => false,
@@ -241,7 +249,8 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                     'parent' => empty($object['parent']) ? 0 : $object['parent'],
                     'estimate' => empty($object['estimate']) ? 0 : $object['estimate'],
                     'active' => true,
-                    'is_external' => true
+                    'is_external' => true,
+                    'hours' => $hours
                 );
             }
         }
