@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mjr] Better prevention of importing duplicate contacts with same email addresses via the API (Bug #14119).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 * [mjr] Allow API to search all email type fields when calling getField().
@@ -2025,6 +2026,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mjr] Better prevention of importing duplicate contacts with same email addresses via the API (Bug #14119).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 * [mjr] Allow API to search all email type fields when calling getField().

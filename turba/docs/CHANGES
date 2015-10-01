@@ -2,6 +2,8 @@
 v4.2.9-git
 ----------
 
+[mjr] Better prevention of importing duplicate contacts with same email
+      addresses via the API (Bug #14119).
 [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 [mjr] Remove tags from Content when tagged object is deleted (Bug #14112).
 [mjr] Allow API to search all email type fields when calling getField().
