@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Request that the contacts API only consider email fields when detecting duplicates during automatic saving of attendees to the address book (Bug #14119).
 * [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
 * [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
  </notes>
@@ -3878,6 +3879,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Request that the contacts API only consider email fields when detecting duplicates during automatic saving of attendees to the address book (Bug #14119).
 * [jan] Don&apos;t show "Create Keys" button if creating PGP keys is disabled (steffen.hau@rz.uni-mannheim.de, Request #14096).
 * [mjr] Fix displaying iTips with certain locale/date_format preference combinations (Bug #14076).
    </notes>
