@@ -215,7 +215,7 @@ class Whups_Api extends Horde_Registry_Api
 
         // Populate $vars with existing ticket details.
         $vars = new Horde_Variables();
-        $ticket->setDetails($vars);
+        $ticket->setDetails($vars, true);
 
         // Copy new ticket details in.
         foreach ($ticket_info as $detail => $newval) {

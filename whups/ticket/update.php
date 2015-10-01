@@ -22,22 +22,8 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
 Whups::addTopbarSearch();
 
 $vars = Horde_Variables::getDefaultVariables();
-$vars->set('id', $id = $ticket->getId());
-foreach ($ticket->getDetails() as $varname => $value) {
-    if ($varname == 'owners') {
-        $owners = $gowners = array();
-        foreach ($value as $owner) {
-            if (strpos($owner, 'user:') !== false) {
-                $owners[] = $owner;
-            } else {
-                $gowners[] = $owner;
-            }
-        }
-        $vars->add('owners', $owners);
-        $vars->add('group_owners', $gowners);
-    }
-    $vars->add($varname, $value);
-}
+$ticket->setDetails($vars, true);
+$id = $vars->id;
 if ($tid = $vars->get('transaction')) {
     $history = Whups::permissionsFilter($whups_driver->getHistory($ticket->getId()),
                                         'comment', Horde_Perms::READ);
