@@ -661,6 +661,7 @@ class Turba_Api extends Horde_Registry_Api
      *                                  if ANY email field matches. Useful for
      *                                  automatically adding contacts from an
      *                                  email application, such as IMP.
+     *                                  @since 4.2.9
      *
      * @return string  The new UID.
      *
