@@ -168,7 +168,7 @@ class IMP_Smime
      */
     public function addPublicKey($cert)
     {
-        list($name, $email) = $this->_smime->publicKeyInfo($cert);
+        list($name, $email) = $this->publicKeyInfo($cert);
 
         $GLOBALS['registry']->call('contacts/addField', array($email, $name, self::PUBKEY_FIELD, $cert, $GLOBALS['prefs']->getValue('add_source')));
     }
