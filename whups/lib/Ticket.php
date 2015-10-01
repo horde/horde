@@ -646,12 +646,27 @@ class Whups_Ticket
      * TicketDetailsForm.
      *
      * @param Horde_Variables $vars  The form variables object to set info in.
+     * @param bool $split_owners     This has to be set if you want to use the
+     *                               $vars var for saving later or otherwise
+     *                               $form->validate() will fail
      */
-    public function setDetails(Horde_Variables $vars)
+    public function setDetails(Horde_Variables $vars, $split_owners = false)
     {
         $vars->set('id', $this->getId());
         foreach ($this->getDetails() as $varname => $value) {
-            $vars->set($varname, $value);
+            if ($varname == 'owners') {
+                $owners = $gowners = array();
+                foreach ($value as $owner) {
+                    if (strpos($owner, 'user:') !== false) {
+                        $owners[] = $owner;
+                    } else {
+                        $gowners[] = $owner;
+                    }
+                }
+                $vars->add('owners', $owners);
+                $vars->add('group_owners', $gowners);
+            }
+            $vars->add($varname, $value);
         }
 
         /* User formatting. */
