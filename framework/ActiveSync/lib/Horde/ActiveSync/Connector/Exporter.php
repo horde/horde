@@ -192,7 +192,7 @@ class Horde_ActiveSync_Connector_Exporter
                 'Missing UID value for an entry in: %s. Details: %s.',
                 $this->_currentCollection['id'],
                 print_r($change, true)
-            );
+            ));
             $this->_step++;
             $change = $this->_getNextChange();
         }

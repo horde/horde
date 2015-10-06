@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2857,7 +2857,7 @@
    <date>2015-09-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Change some ERR log level entries to WARN and some other small logging tweaks.
    </notes>
   </release>
  </changelog>
