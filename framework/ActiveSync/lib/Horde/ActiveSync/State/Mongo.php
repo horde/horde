@@ -286,7 +286,7 @@ class Horde_ActiveSync_State_Mongo extends Horde_ActiveSync_State_Base implement
         }
 
         if (empty($results)) {
-            $this->_logger->err(sprintf(
+            $this->_logger->warn(sprintf(
                 '[%s] Could not find state for synckey %s.',
                 $this->_procid,
                 $this->_syncKey));

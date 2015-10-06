@@ -188,7 +188,11 @@ class Horde_ActiveSync_Connector_Exporter
         // Ignore this change, no UID value, keep trying until we get a
         // good entry or we run out of entries.
         while (empty($change['id']) && $this->_step < count($this->_changes) - 1) {
-            $this->_logger->err('Missing UID value for an entry in: ' . $this->_currentCollection['id']);
+            $this->_logger->notice(sprintf(
+                'Missing UID value for an entry in: %s. Details: %s.',
+                $this->_currentCollection['id'],
+                print_r($change, true)
+            );
             $this->_step++;
             $change = $this->_getNextChange();
         }
@@ -206,7 +210,7 @@ class Horde_ActiveSync_Connector_Exporter
                     $message->flags = (isset($change['flags'])) ? $change['flags'] : false;
                     $this->messageChange($change['id'], $message);
                 } catch (Horde_Exception_NotFound $e) {
-                    $this->_logger->err(sprintf(
+                    $this->_logger->notice(sprintf(
                         '[%s] Message gone or error reading message from server: %s',
                         $this->_procid, $e->getMessage()));
                     $this->_as->state->updateState($change['type'], $change);
