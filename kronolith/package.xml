@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug #14128).
 * [mjr] Send CACNEL iTip when attendee is removed from a meeting (Request #14118).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
@@ -2599,6 +2600,7 @@
    <date>2015-07-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix exporting events from Horde_Perms::SHOW calendars over DAV (Bug #14128).
 * [mjr] Send CACNEL iTip when attendee is removed from a meeting (Request #14118).
 * [mjr] Remove object reference from Content when object is deleted (Bug #14112).
 * [mjr] Fix incorrect offset of freebusy times in certain cases (Bug #14084).
