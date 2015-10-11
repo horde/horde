@@ -657,7 +657,7 @@ class Horde_ActiveSync_Device
     {
         switch ($quirk) {
             case self::QUIRK_NEEDS_SUPPORTED_PICTURE_TAG:
-                if ($this->isIos() && $this->getMajorVersion() == 4) {
+                if ($this->_isIos() && $this->getMajorVersion() == 4) {
                     return true;
                 }
                 return false;
