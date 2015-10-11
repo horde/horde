@@ -720,7 +720,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
@@ -761,7 +761,7 @@ class Kronolith_Application extends Horde_Registry_Application
             ->getInstance('Horde_Dav_Storage');
 
         $internal = $dav->getInternalCollectionId($collection, 'calendar') ?: $collection;
-        if (!Kronolith::hasPermission($internal, Horde_Perms::READ)) {
+        if (!Kronolith::hasPermission($internal, Horde_Perms::SHOW)) {
             throw new Kronolith_Exception(_("Calendar does not exist or no permission to edit"));
         }
 
