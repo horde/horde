@@ -752,7 +752,7 @@ class Horde_Test
                                 if (preg_match("/<?php\s+/", $contents)) {
                                     $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> is outputting a non-empty string when parsed. Configuration files should not output anything. Output string:' . "\n<pre>" . htmlspecialchars($parse_contents) . '</pre>';
                                 } else {
-                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'<?php\' opening tag.';
+                                    $entry[] = 'The file <code>' . htmlspecialchars($key) . '</code> appears to be missing the \'&lt;?php\' opening tag.';
                                 }
                             } else {
                                 $entry[] = $this->_status(true);
